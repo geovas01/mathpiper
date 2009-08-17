@@ -72,9 +72,9 @@
 
     -->
     <target name="buildscripts3" depends="init">
-        <mkdir dir="${build.classes.dir}/org/mathpiper/scripts"/>
-        <mkdir dir="${build.classes.dir}/org/mathpiper/scripts/initialization.rep"/>
+        <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts"/>
+        <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts/initialization.rep"/>
         <taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"/>
-        <buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts3/" outputScriptsDirectory="${basedir}/build/classes/org/mathpiper/scripts/" outputDocsDirectory="${basedir}/build/classes/org/mathpiper/ui/gui/help/data/" baseDirectory="${basedir}/"/>
+        <buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts3/" outputScriptsDirectory="${basedir}/build/classes/org/mathpiper/assembledscripts/" outputDocsDirectory="${basedir}/build/classes/org/mathpiper/ui/gui/help/data/" baseDirectory="${basedir}/"/>
     </target>
 </project>
