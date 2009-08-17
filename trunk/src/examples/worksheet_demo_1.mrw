@@ -242,7 +242,7 @@ a, b, and c to change the sin wave.
 Drag the points to change the parameters of this area under a curve
 demonstration.
 */
-%geogebra_xml,name="area_under_curve",input="xml",clear="true",collapse="true"
+%geogebra_xml,name="area under curve",input="xml",clear="true",collapse="true"
 <?xml version="1.0" encoding="utf-8"?>
 <geogebra format="2.7">
 <gui>
