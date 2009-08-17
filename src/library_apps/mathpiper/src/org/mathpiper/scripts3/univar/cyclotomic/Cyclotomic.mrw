@@ -6,7 +6,7 @@
 //  roots of the unit).
 //  Autor: Pablo De Napoli
 
-Use("org/mathpiper/scripts/univar.rep/code.mpi");
+Use("org/mathpiper/assembledscripts/univar.rep/code.mpi");
 
 // Auxiliar function for Cyclotomic: returns the internal representation of
 // x^q+a as an univarate polinomial (like MakeUni(x^q+a) but more efficient)

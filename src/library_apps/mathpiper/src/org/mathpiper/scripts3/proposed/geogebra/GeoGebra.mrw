@@ -34,7 +34,7 @@ GeoGebra(list) := (options := list);
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-Use("org/mathpiper/scripts/proposed.rep/geogebra.mpi");
+Use("org/mathpiper/assembledscripts/proposed.rep/geogebra.mpi");
 
 %/mathpiper
 

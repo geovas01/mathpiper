@@ -143,11 +143,11 @@ class SynchronousInterpreter implements Interpreter {
             }
             } else
             {
-            System.out.println("Cannot find org/mathpiper/scripts/initialization.rep/mathpiperinit.mpi.");
+            System.out.println("Cannot find org/mathpiper/assembledscripts/initialization.rep/mathpiperinit.mpi.");
             }*/
 
 
-            EvaluationResponse evaluationResponse = evaluate("Load(\"org/mathpiper/scripts/initialization.rep/mathpiperinit.mpi\");");
+            EvaluationResponse evaluationResponse = evaluate("Load(\"org/mathpiper/assembledscripts/initialization.rep/mathpiperinit.mpi\");");
 
             if (evaluationResponse.isExceptionThrown()) {
                 System.out.println(evaluationResponse.getExceptionMessage() + "   Source file name: " + evaluationResponse.getSourceFileName() + "   Near line number: " + evaluationResponse.getLineNumber());

@@ -58,12 +58,12 @@
 
    	<target name="buildscripts3" >
 		<mkdir dir="${build.classes.dir}/org/mathpiper/ui/gui/help/data" />
-	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts" />
-	       <mkdir dir="${build.classes.dir}/org/mathpiper/scripts/initialization.rep" />
+	       <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts" />
+	       <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts/initialization.rep" />
 		<taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"  />
 
 		<buildscripts sourceScriptsDirectory="${src.dir}/org/mathpiper/scripts3/"
-                 outputScriptsDirectory="${build.classes.dir}/org/mathpiper/scripts/"
+                 outputScriptsDirectory="${build.classes.dir}/org/mathpiper/assembledscripts/"
 		 outputDocsDirectory="${build.classes.dir}/org/mathpiper/ui/gui/help/data/"
 		 baseDirectory="${basedir}/"/>
       
