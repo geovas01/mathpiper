@@ -1,6 +1,6 @@
 %mathpiper
 
-Use("org/mathpiper/scripts/proposed.rep/equations.mpi");
+Use("org/mathpiper/assembledscripts/proposed.rep/equations.mpi");
 
 Retract("IsEquation",*);
 

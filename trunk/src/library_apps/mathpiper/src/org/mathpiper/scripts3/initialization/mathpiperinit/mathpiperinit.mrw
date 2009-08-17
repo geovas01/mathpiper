@@ -7,14 +7,14 @@
  */
 
 /* Set up drivers, configurable in the .mpiperrc
- *   Set(MultiNomialDriver,"org/mathpiper/scripts/multivar.rep/sparsenomial.mpi");
+ *   Set(MultiNomialDriver,"org/mathpiper/assembledscripts/multivar.rep/sparsenomial.mpi");
  *     or
- *   Set(MultiNomialDriver,"org/mathpiper/scripts/multivar.rep/partialdensenomial.mpi");
+ *   Set(MultiNomialDriver,"org/mathpiper/assembledscripts/multivar.rep/partialdensenomial.mpi");
  */
 
 /* The truly required files (MathPiper NEEDS to load). */
 // syntax must be loaded first
-Use("org/mathpiper/scripts/initialization.rep/stdopers.mpi");
+Use("org/mathpiper/assembledscripts/initialization.rep/stdopers.mpi");
 
 /* Set of functions to define very simple functions. There are scripts that can
    be compiled to plugins. So MathPiper either loads the plugin, or loads the
@@ -33,18 +33,18 @@ Rule("Defun",3,0,True)
   `Rule(@fn, @nrargs, 0,True)(@bd);
 ];
 
-//TODO remove? Use("org/mathpiper/scripts/base.rep/math.mpi");
+//TODO remove? Use("org/mathpiper/assembledscripts/base.rep/math.mpi");
 
-Use("org/mathpiper/scripts/patterns.rep/code.mpi");
+Use("org/mathpiper/assembledscripts/patterns.rep/code.mpi");
 // at this point <-- can be used
 
-Use("org/mathpiper/scripts/deffunc.rep/code.mpi");
+Use("org/mathpiper/assembledscripts/deffunc.rep/code.mpi");
 
 // at this point := and Function() can be used
 
-Use("org/mathpiper/scripts/constants.rep/code.mpi");
-Use("org/mathpiper/scripts/initialization.rep/standard.mpi");
-Use("org/mathpiper/scripts/initialization.rep/stdarith.mpi");
+Use("org/mathpiper/assembledscripts/constants.rep/code.mpi");
+Use("org/mathpiper/assembledscripts/initialization.rep/standard.mpi");
+Use("org/mathpiper/assembledscripts/initialization.rep/stdarith.mpi");
 
 // at this point arithmetic can be used
 
@@ -64,7 +64,7 @@ Rule(LoadPackages, 1, 1, True)
 	]);
 ];
 
-Use("org/mathpiper/scripts/initialization.rep/packages.mpi");
+Use("org/mathpiper/assembledscripts/initialization.rep/packages.mpi");
 LoadPackages(DefFileList());
 
 
