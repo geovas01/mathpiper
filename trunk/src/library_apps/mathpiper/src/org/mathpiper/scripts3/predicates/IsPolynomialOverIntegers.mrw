@@ -31,7 +31,7 @@ Retract("IsPolynomialOverIntegers",*);
 
 %mathpiper_docs,name="IsPolynomialOverIntegers",categories="User Functions;Predicates"
 
-*CMD IsPolynomialOverIntegers --- Check if {expr} is a polynomial in variable {var}, all of whose coefficients are integers
+*CMD IsPolynomialOverIntegers --- Check if {expr} is a polynomial in variable {var} all of whose coefficients are integers
 
 *STD
 *CALL
