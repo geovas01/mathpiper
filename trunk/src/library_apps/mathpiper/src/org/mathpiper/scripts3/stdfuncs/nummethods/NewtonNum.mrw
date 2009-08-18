@@ -144,7 +144,7 @@ achieved exact digits should roughly form a geometric progression.
 
 *E.G.
 
-	In> Builtin'Precision'Set(20)
+	In> BuiltinPrecisionSet(20)
 	Out> True;
 	In> NewtonNum({{x}, x+Sin(x)}, 3, 5, 3)
 	Out> 3.14159265358979323846;

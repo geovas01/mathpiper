@@ -358,5 +358,5 @@ After this, evaluating an expression such as {1/2+gamma} will call the function 
 	Out> {{"Ln2",20,0.69314718055994530942}};
 
 
-*SEE N, Builtin'Precision'Set, Pi, GoldenRatio, Catalan, gamma
+*SEE N, BuiltinPrecisionSet, Pi, GoldenRatio, Catalan, gamma
 %/mathpiper_docs

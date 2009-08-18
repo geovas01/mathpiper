@@ -215,7 +215,7 @@ advance to achieve the desired accuracy.
 To compute 20 digits of $Exp(1)$ using the Taylor series, one needs 21
 digits of working precision and 21 terms of the series. 
 
-	In> Builtin'Precision'Set(21)
+	In> BuiltinPrecisionSet(21)
 	Out> True;
 	In> SumTaylorNum(1, {{k},1/k!}, 21)
 	Out> 2.718281828459045235351;
