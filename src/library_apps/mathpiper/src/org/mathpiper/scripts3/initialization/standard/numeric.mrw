@@ -212,5 +212,5 @@ be evaluated after the numeric mode has been set appropriately.
 	In> N(NonN(InNumericMode()))
 	Out> False
 
-*SEE N, Builtin'Precision'Set, Builtin'Precision'Get, Pi, CachedConstant
+*SEE N, BuiltinPrecisionSet, BuiltinPrecisionGet, Pi, CachedConstant
 %/mathpiper_docs

@@ -93,7 +93,7 @@ $$ S = T / (B*Q) $$.
 
 Compute the series for $e=Exp(1)$ using binary splitting.
 (We start from $n=1$ to simplify the coefficient functions.)
-	In> Builtin'Precision'Set(21)
+	In> BuiltinPrecisionSet(21)
 	Out> True;
 	In>  BinSplitNum(1,21, {{k},1},
 	  {{k},1},{{k},1},{{k},k})
