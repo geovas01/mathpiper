@@ -37,7 +37,7 @@ respect to the variables "basis". The curl is defined in the usual way,
 	}
 Both "vector" and "basis" should be lists of length 3.
 
-*EG
+*E.G.
 
 	In> Curl({x*y,x*y,x*y},{x,y,z})
 	Out> {x,-y,y-x};

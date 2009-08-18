@@ -30,7 +30,7 @@ with respect to the variables "basis". The divergence is defined as
 where {n} is the length of the lists "vector" and
 "basis". These lists should have equal length.
 
-*EG
+*E.G.
 
 	In> Diverge({x*y,x*y,x*y},{x,y,z})
 	Out> y+x;

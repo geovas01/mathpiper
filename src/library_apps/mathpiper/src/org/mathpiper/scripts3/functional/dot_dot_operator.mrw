@@ -35,7 +35,7 @@ parser happy, if "n" is a number. So one should write "{1 .. 4}" instead of "{1.
 
 This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
 
-*EG
+*E.G.
 
 	In> 1 .. 4
 	Out> {1,2,3,4};

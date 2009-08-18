@@ -44,7 +44,7 @@ positive {n} it evaluates dot products of {mat} with itself. For negative
 {n} the nth power of the inverse of {mat} is returned. For {n}=0 the identity
 matrix is returned.
 
-*EG
+*E.G.
 	In> A:={{1,2},{3,4}}
 	Out> {{1,2},{3,4}};
 	In> MatrixPower(A,0)

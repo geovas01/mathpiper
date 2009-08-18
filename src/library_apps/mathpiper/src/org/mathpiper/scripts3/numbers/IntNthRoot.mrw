@@ -96,7 +96,7 @@ IntNthRoot1(_n, s_IsInteger) <--
 
 This function is used to test numbers for prime powers.
 
-*EG
+*E.G.
 	In> IntNthRoot(65537^111, 37)
 	Out> 281487861809153;
 

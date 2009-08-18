@@ -31,7 +31,7 @@ where $n$ is an odd number (this generates the sequence 5, 7, 11, 13, 17,
 19, ...) and {IsPrime()} to test whether the next candidate number is in
 fact prime.
 
-*EG
+*E.G.
 	In> NextPrime(5)
 	Out> 7;
 

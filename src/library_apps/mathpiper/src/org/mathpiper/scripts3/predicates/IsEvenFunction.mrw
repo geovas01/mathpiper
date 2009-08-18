@@ -41,7 +41,7 @@ and
 
 $$ f_odd(x) = (f(x)-f(-x))/2 $$
 
-*EG
+*E.G.
 
 	In> IsEvenFunction(Cos(b*x),x)
 	Out> True

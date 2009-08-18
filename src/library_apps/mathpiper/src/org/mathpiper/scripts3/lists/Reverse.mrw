@@ -24,7 +24,7 @@ original list. It is similar to {DestructiveReverse}, but safer
 and slower.
 
 
-*EG
+*E.G.
 
 	In> lst:={a,b,c,13,19}
 	Out> {a,b,c,13,19};
