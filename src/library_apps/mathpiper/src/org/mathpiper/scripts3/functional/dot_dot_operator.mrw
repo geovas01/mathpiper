@@ -19,8 +19,6 @@
 
 *CALL
 	n .. m
-Precedence:
-*EVAL OpPrecedence("..")
 
 *PARMS
 
