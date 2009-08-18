@@ -729,7 +729,7 @@ If a MathPiper symbol does not have a mapping defined by {OMDef}, it is translat
 to and from OpenMath as the OpenMath symbol in the CD "mathpiper" with the same
 name as it has in MathPiper.
 
-*EG notest
+*E.G. notest
 
 	In> str:=ToString()OMForm(2+Sin(a*3))
 	Out> "<OMOBJ>

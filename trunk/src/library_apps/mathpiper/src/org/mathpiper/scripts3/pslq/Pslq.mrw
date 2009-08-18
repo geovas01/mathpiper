@@ -356,7 +356,7 @@ The list of integer coefficients is returned.
 The numbers in "xlist" must evaluate to floating point numbers if
 the {N} operator is applied on them.
 
-*EG
+*E.G.
 
 	In> Pslq({ 2*Pi+3*Exp(1), Pi, Exp(1) },20)
 	Out> {1,-2,-3};

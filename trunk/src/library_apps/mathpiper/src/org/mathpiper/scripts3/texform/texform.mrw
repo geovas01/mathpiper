@@ -374,7 +374,7 @@ Function ("TeXFormPrintMatrix", {M})
 
 {TeXForm} returns a string containing a $LaTeX$ representation of the MathPiper expression {expr}. Currently the exporter handles most expression types but not all.
 
-*EG
+*E.G.
 
 	In> TeXForm(Sin(a1)+2*Cos(b1))
 	Out> "$\sin a_{1} + 2 \cos b_{1}$";

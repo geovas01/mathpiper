@@ -242,7 +242,7 @@ CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 
 {CForm} returns a string containing C++ code that attempts to implement the MathPiper expression {expr}. Currently the exporter handles most expression types but not all.
 
-*EG
+*E.G.
 
 	In> CForm(Sin(a1)+2*Cos(b1));
 	Out> "sin(a1) + 2 * cos(b1)";

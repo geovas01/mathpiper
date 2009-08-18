@@ -337,7 +337,7 @@ The built-in function {Time} is used for timing.
 The result is the "user time" as reported by the OS, not the real ("wall clock") time.
 Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {EchoTime}.
 
-*EG notest
+*E.G. notest
 	In> EchoTime() N(MathLog(1000),40)
 	0.34 seconds taken
 	Out> 6.9077552789821370520539743640530926228033;

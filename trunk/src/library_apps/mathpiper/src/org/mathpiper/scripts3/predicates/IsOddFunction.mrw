@@ -40,7 +40,7 @@ and
 
 $$ f_odd(x) = (f(x)-f(-x))/2 $$
 
-*EG
+*E.G.
 
 	In> IsOddFunction(Cos(b*x),x)
 	Out> False

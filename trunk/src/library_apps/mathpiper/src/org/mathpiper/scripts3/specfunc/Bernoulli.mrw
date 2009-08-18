@@ -56,7 +56,7 @@ Bernoulli(n_IsInteger, _x) <-- [
 
 {Bernoulli(n)} evaluates the $n$-th Bernoulli number. {Bernoulli(n, x)} returns the $n$-th Bernoulli polynomial in the variable $x$. The polynomial is returned in the Horner form.
 
-*EG
+*E.G.
 
 	In> Bernoulli(20);
 	Out> -174611/330;

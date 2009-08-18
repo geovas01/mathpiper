@@ -284,7 +284,7 @@ The following steps are taken to simplify:
 The function {Simplify} is used to determine if the relevant expressions $n-m$
 are integers.
 
-*EG
+*E.G.
 
 	In> FactorialSimplify( (n-k+1)! / (n-k)! )
 	Out> n+1-k

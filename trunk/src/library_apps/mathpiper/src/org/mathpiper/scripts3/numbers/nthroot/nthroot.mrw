@@ -165,7 +165,7 @@ For large {m} and small {n}
 {NthRoot} with the same values {m}, {n} will be executed quite
 fast.
 
-*EG
+*E.G.
 	In> NthRoot(12,2)
 	Out> {2,3};
 	In> NthRoot(81,3)

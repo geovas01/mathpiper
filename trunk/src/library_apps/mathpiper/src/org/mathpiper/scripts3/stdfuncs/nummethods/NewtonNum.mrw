@@ -142,7 +142,7 @@ silently incorrect. It is safe to use {order}=2.)
 The verbose option {V} can be used to monitor the convergence. The
 achieved exact digits should roughly form a geometric progression.
 
-*EG
+*E.G.
 
 	In> Builtin'Precision'Set(20)
 	Out> True;

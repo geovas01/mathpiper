@@ -34,7 +34,7 @@ If the logarithm of an integer is discovered, it is factorised using {Factors}
 and expanded as though {LnExpand} had been given the factorised form.  So 
 $Ln(18)$ goes to $Ln(x)+2*Ln(3)$.
 
-*EG
+*E.G.
 	In> LnExpand(Ln(a*b^n))
 	Out> Ln(a)+Ln(b)*n
 	In> LnExpand(Ln(a^m/b^n))

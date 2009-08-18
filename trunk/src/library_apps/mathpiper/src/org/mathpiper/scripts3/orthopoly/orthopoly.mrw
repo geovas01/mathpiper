@@ -503,7 +503,7 @@ OrthoPolyCoeffs("Tscheb2", n_IsInteger, {}) <-- ChebUCoeffs(n);
 This function evaluates a polynomial given as a list of its coefficients, using
 the Horner scheme. The list of coefficients starts with the $0$-th power.
 
-*EG
+*E.G.
 
 	In> EvaluateHornerScheme({a,b,c,d},x)
 	Out> a+x*(b+x*(c+x*d));

@@ -344,7 +344,7 @@ In other words, the code in {N()} does the equivalent of
 
 After this, evaluating an expression such as {1/2+gamma} will call the function {Internal'gamma()} but not the function {Internal'Pi()}.
 
-*EG notest
+*E.G. notest
 
 	In> CachedConstant( my'cache, Ln2, Internal'LnNum(2) )
 	Out> True;

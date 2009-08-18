@@ -88,7 +88,7 @@ LnCombine(_a) <-- DoLnCombine(CanonicalAdd(a));
 {LnCombine} finds {Ln} terms in the expression it is given, and combines them
 using logarithm rules.  It is intended to be the exact converse of {LnExpand}.
 
-*EG
+*E.G.
 	In> LnCombine(Ln(a)+Ln(b)*n)
 	Out> Ln(a*b^n)
 	In> LnCombine(2*Ln(2)+Ln(3)-Ln(5))
