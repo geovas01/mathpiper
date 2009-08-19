@@ -18,7 +18,7 @@ Retract("FactorsMultivariateSpecialCases",*);
 
 20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  
 [
-    Local(x,coeffs,factorsList,result);
+    Local(x,coeffs,factorsList,result,notInt,rat);
     x := VarList(p)[1];
     /*  p is the polynomial, x is its (only) variable */
     
@@ -37,6 +37,15 @@ Retract("FactorsMultivariateSpecialCases",*);
         ],
         [
             // No -- at least one non-integer coefficient
+            // Check for FLOAT or RATIONAL coefficients
+            //Echo(coeffs);
+            notInt := Select(Lambda({i},Not IsInteger(i)),coeffs);
+            //Echo(notInt);
+            rat := Rationalize(coeffs);
+            //Echo(rat);
+            //NOT IMPLEMENTED YET
+            
+            
             // Let's just stay with the default monic factors.
             result := factorsList;
         ]
@@ -56,13 +65,28 @@ Retract("FactorsMultivariateSpecialCases",*);
 ];
 
 
+40 # Factors(_p) <--
+[
+    /*
+     * This may may be a polynomial with non-integer exponents.  Let's check.
+     */
+     //Echo(40,p);
+     //  NOT IMPLEMENTED YET
+     {{p,1}};
+     
+];
+
 //------------------------------------------------------------------------
 //                    S P E C I A L     C A S E S
 //------------------------------------------------------------------------
 
-10 # FactorsMultivariateSpecialCases(n_IsNumber*_x + n_IsNumber*_y) <-- {{n,1},{x+y,1}};
+10 # FactorsMultivariateSpecialCases(x_IsAtom + y_IsAtom) <-- {{x+y,1}};
 
-10 # FactorsMultivariateSpecialCases(n_IsNumber*_x - n_IsNumber*_y) <-- {{n,1},{x-y,1}};
+10 # FactorsMultivariateSpecialCases(x_IsAtom - y_IsAtom) <-- {{x-y,1}};
+
+10 # FactorsMultivariateSpecialCases(_n*_x + _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x+y);
+
+10 # FactorsMultivariateSpecialCases(_n*_x - _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x-y);
 
 10 # FactorsMultivariateSpecialCases(_x^2-_y^2) <-- {{x+y,1},{x-y,1}};
 
@@ -81,6 +105,7 @@ Retract("FactorsMultivariateSpecialCases",*);
     %output,preserve="false"
       Result: True
 .   %/output
+
 
 
 
