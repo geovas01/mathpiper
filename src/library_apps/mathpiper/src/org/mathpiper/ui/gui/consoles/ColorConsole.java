@@ -701,7 +701,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
 
         public void insert(Color c, String str, int pos) {
 
-                    Font font = getFont();
+        Font font = getFont();
 
         MutableAttributeSet attrs = getInputAttributes();
 
@@ -825,21 +825,22 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
             if (end < start) {
                 throw new IllegalArgumentException("end before start");
             }
-            Document doc = getDocument();
-            if (doc != null) {
-                try {
-                    if (doc instanceof AbstractDocument) {
-                        ((AbstractDocument) doc).replace(start, end - start, str,
-                                null);
-                    } else {
-                        doc.remove(start, end - start);
-                        doc.insertString(start, str, null);
-                    }
-                } catch (BadLocationException e) {
-                    throw new IllegalArgumentException(e.getMessage());
-                }
-            }
-        }
+
+
+        Font font = getFont();
+
+        MutableAttributeSet attrs = getInputAttributes();
+
+
+        StyleConstants.setFontFamily(attrs, font.getFamily());
+        StyleConstants.setFontSize(attrs, fontSize);
+
+
+         setCharacterAttributes(attrs, false);
+         this.select(start, end);
+         replaceSelection(str);
+
+        }//end method.
 
 
     }//end class
