@@ -20,6 +20,7 @@ package org.mathpiper.ui.gui.help;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -123,6 +124,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             editorPane.setEditable(false);
             editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
             editorPane.addHyperlinkListener(this);
+            //editorPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
 
             //JdocsScrollPane editorScrollPane = new JScrollPane(editorPane);
             docsScrollPane = new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -796,6 +798,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         private JButton backButton;
         private JButton forwardButton;
         private JButton homeButton;
+        private JButton fontSizeIncreaseButton;
+        private JButton fontSizeDecreaseButton;
         private JCheckBox showPrivateFunctionsCheckBox;
         private boolean isShowPrivateFunctions = false;
 
@@ -843,6 +847,32 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
             add(Box.createGlue());
+
+            //fontSize increase button.
+            fontSizeIncreaseButton = new javax.swing.JButton("Font+");
+            fontSizeIncreaseButton.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent evt) {
+
+                    Font font = editorPane.getFont();
+
+                    int fontSize = font.getSize();
+                    fontSize = fontSize += 2;
+
+                    editorPane.setFont(font.deriveFont(fontSize));
+
+                    System.out.println("Increasing font size.");
+
+
+                    //editorPane.
+
+                }//end method.
+
+
+            });
+            fontSizeIncreaseButton.setEnabled(true);
+            //add(fontSizeIncreaseButton);
+
 
 
             //back button.
