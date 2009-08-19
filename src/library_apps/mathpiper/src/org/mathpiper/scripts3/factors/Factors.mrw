@@ -60,6 +60,10 @@ Retract("FactorsMultivariateSpecialCases",*);
 //                    S P E C I A L     C A S E S
 //------------------------------------------------------------------------
 
+10 # FactorsMultivariateSpecialCases(n_IsNumber*_x + n_IsNumber*_y) <-- {{n,1},{x+y,1}};
+
+10 # FactorsMultivariateSpecialCases(n_IsNumber*_x - n_IsNumber*_y) <-- {{n,1},{x-y,1}};
+
 10 # FactorsMultivariateSpecialCases(_x^2-_y^2) <-- {{x+y,1},{x-y,1}};
 
 10 # FactorsMultivariateSpecialCases(_x^3-_y^3) <-- {{x-y,1},{x^2+y*x+y^2,1}};
@@ -73,6 +77,10 @@ Retract("FactorsMultivariateSpecialCases",*);
 //------------------------------------------------------------------------
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
