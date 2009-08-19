@@ -1,12 +1,81 @@
 %mathpiper,def="Factors"
 
-/* New factorization : split between integers and polynomials. */
-10 # Factors(p_IsInteger) <-- FactorizeInt(p);
-10 # Factors(p_IsRational)_(Denominator(p) != 1) <-- {{Factor(Numerator(p)) /Factor(Denominator(p)) , 1}}; //Added to handle rational numbers with denominators that are not 1.
-20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  BinaryFactors(p);
-30 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+Retract("Factors",*);
+Retract("FactorsMultivariateSpecialCases",*);
+
+/*
+ * This is the fundamental factorization algorithm.
+ * It works for integers, rational numbers, Gaussian integers, and polynomials
+ * When the argument is an integer, FactorizeInt() does the heavy lifting.
+ * When the argument is a polynomial, BinaryFactors() is the workhorse.
+ */
+10 # Factors(p_IsInteger) <--  FactorizeInt(p);
+
+12 # Factors(p_IsRational)_(Denominator(p) != 1) <-- {{Factor(Numerator(p)) /Factor(Denominator(p)) , 1}}; 
+     //Added to handle rational numbers with denominators that are not 1
+
+14 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+
+20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  
+[
+    Local(x,coeffs,factorsList,result);
+    x := VarList(p)[1];
+    /*  p is the polynomial, x is its (only) variable */
+    
+    factorsList := BinaryFactors(p);
+         // BinaryFactors is the internal MathPiper function that
+         // creates a double list of factors and their multiplicities
+    /*
+     *  Now we check whether the input polynomial is "over the 
+     *  integers", by examining all its coefficients
+     */
+    coeffs := Coef(p,x,0 .. Degree(p,x));
+    If( AllSatisfy("IsInteger",coeffs),
+        [
+            // Yes -- all integer coefficients
+            result := FactorsPolynomialOverIntegers(p,x);
+        ],
+        [
+            // No -- at least one non-integer coefficient
+            // Let's just stay with the default monic factors.
+            result := factorsList;
+        ]
+      );
+];
+
+
+30 # Factors(p_CanBeUni) <--  
+[
+    /* 
+     * This is a multi-variate polynomial.
+     * Original YMP Factors() did not attempt to factor such.
+     * Here, we will hang one or more special cases which we can
+     * relatively easily factor.
+     */
+    FactorsMultivariateSpecialCases(p);
+];
+
+
+//------------------------------------------------------------------------
+//                    S P E C I A L     C A S E S
+//------------------------------------------------------------------------
+
+10 # FactorsMultivariateSpecialCases(_x^2-_y^2) <-- {{x+y,1},{x-y,1}};
+
+10 # FactorsMultivariateSpecialCases(_x^3-_y^3) <-- {{x-y,1},{x^2+y*x+y^2,1}};
+
+10 # FactorsMultivariateSpecialCases(_x^3+_y^3) <-- {{x+y,1},{x^2-y*x+y^2,1}};
+
+10 # FactorsMultivariateSpecialCases(_x^4-_y^4) <-- {{x+y,1},{x-y,1},{x^2+y^2,1}};
+
+10 # FactorsMultivariateSpecialCases(_x^6-_y^6) <-- {{x+y,1},{x-y,1},{x^2+x*y+y^2,1},{x^2-x*y+y^2,1}};
+
+//------------------------------------------------------------------------
 
 %/mathpiper
+
+
+
 
 
 
@@ -23,8 +92,11 @@
 *DESC
 
 This function decomposes the integer number {x} into a product of
-numbers. Alternatively, if {x} is a univariate polynomial, it is
-decomposed in irreducible polynomials.
+numbers. 
+Alternatively, if {x} is a univariate polynomial, it is
+decomposed into irreducible polynomials.  If {x} is a polynomial
+"over the integers", the irreducible polynomial factors will also
+be returned in the (unique) form with integer coefficients.
 
 The factorization is returned as a list of pairs. The first member of
 each pair is the factor, while the second member denotes the power to
@@ -32,12 +104,19 @@ which this factor should be raised. So the factorization
 $x = p1^n1 * ... * p9^n9$
 is returned as {{{p1,n1}, ..., {p9,n9}}}.
 
-*E.G.
+Programmer: Yacas Team + Sherm Ostrowsky
 
-	In> Factors(24);
-	Out> {{2,3},{3,1}};
-	In> Factors(2*x^3 + 3*x^2 - 1);
-	Out> {{2,1},{x+1,2},{x-1/2,1}};
+*E.G.
+    In> Factors(24)
+    Result: {{2,3},{3,1}}
+    
+    In> Factors(32*x^3+32*x^2-70*x-75)
+    Result: {{4*x+5,2},{2*x-3,1}}
 
 *SEE Factor, IsPrime, GaussianFactors
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+

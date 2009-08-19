@@ -1,6 +1,9 @@
 %mathpiper,def="FactorsPolynomialOverIntegers",scope="private"
 
 Retract("FactorsPolynomialOverIntegers",*);
+Retract("TryToReduceSpecialPolynomial",*);
+
+//---------------------------------------------------------------------------
 
 10 # FactorsPolynomialOverIntegers(_expr)_IsPolynomialOverIntegers(expr) <--
 [
@@ -15,12 +18,14 @@ Retract("FactorsPolynomialOverIntegers",*);
 
 10 # FactorsPolynomialOverIntegers(_expr,_var)_(IsPolynomialOverIntegers(expr,var)) <--
 [
+    Local(factorsList,factListTransp,factrs,multiplicities,factrsUnMonic);
+    Local(polyFactors,normalizations,normDivisor,polyFactors,factList);
+    Local(n,result,newResult,gtotal,r,rr,d,g);
     factorsList := BinaryFactors(expr);
     /*  
      *  BinaryFactors is the internal MathPiper function that
      *  creates a double list of factors and their multiplicities
      */
-    If(InVerboseMode(), [Tell(1,{expr,var});  Tell(2,factorsList);]);
     
     // By transposing factorsList (which has the form of a list of 
     // lists, hence a matrix), we convert it into a form which has 
@@ -30,7 +35,6 @@ Retract("FactorsPolynomialOverIntegers",*);
     factListTransp := Transpose(factorsList);
     factrs := factListTransp[1];
     multiplicities := factListTransp[2];
-    If(InVerboseMode(),[Tell(3,factListTransp);Tell(4,factrs);Tell(5,multiplicities);]);
         
     // Now, these factors are probably all in "monic" form, with the 
     // coefficient of the highest power of x in each factor being 
@@ -50,7 +54,6 @@ Retract("FactorsPolynomialOverIntegers",*);
     // into another.
     
     {polyFactors,normalizations}:=Transpose(MapSingle("GetNumerDenom",factrsUnMonic));
-    If(InVerboseMode(),[Tell(6,factrsUnMonic);Tell(7,polyFactors);Tell(8,normalizations);]);
         
     // The next step is to make sure that each of the normalizing 
     // numbers is raised to the power of its corresponding 
@@ -76,34 +79,60 @@ Retract("FactorsPolynomialOverIntegers",*);
     
     factListTransp[1] := polyFactors;
     factList := Transpose(factListTransp);
-    If(InVerboseMode(),[Tell(9,normDivisor);Tell(10,polyFactors);
-                        Tell(11,factListTransp);Tell(12,factList);]);
     
-    // If one of the factors is 1, it is redundent, and can be removed.
-    
-    n := Find(factList,{1,1});
-    If( n > 0,DestructiveDelete(factList,n));
-    If(InVerboseMode(),Tell(13,factList));
     
     // .... and that is (supposedly) the answer.
     result := factList;
     
     // However, let's find out if any of the factors needs more treatment.
-    tr := Transpose(result);
-    degrees := {};
-    ForEach(r,tr[1]) [ 
-        Local(d);
-        d := Degree(r,var);
-        degrees := d:degrees; 
-        If(d > 2,Echo("  Factor ",r," can be reduced further"));
-    ];
-    
-    result;
+    Local(newResult,gtotal,d,g,rr);
+    newResult := {};
+    gtotal    := 1;
+    ForEach(r,result) [
+        d := Degree(r[1],var);
+        g := Gcd(Coef(r[1],var,0 .. d));
+        If( g > 1,   //  need to remove common numerical factor
+               [ gtotal:=g*gtotal; 
+                 r[1]:=Simplify(r[1]/g);
+               ]
+          );
+        If(d > 2,
+            [
+                //  polynomial is NOT irreducible, but can we reduce it?
+                rr := TryToReduceSpecialPolynomial(r[1]);
+                If( IsList(rr),newResult := Concat(newResult,rr) );
+            ],
+                If( r != {1,1}, newResult := r:newResult )
+          );
+    ];  
+    If(gtotal>1,newResult:={gtotal,1}:newResult);    
+    newResult;
 ];
 
-15 # FactorsPolynomialOverIntegers(_expr,_var) <-- expr;
+
+//---------------------------------------------------------------------------
+//                      S P E C I A L    C A S E S
+//---------------------------------------------------------------------------
+/*
+ * Given an unreduced polynomial over the integers, of degree > 2, 
+ * which was found as one of the "factors" of a polynomial over 
+ * the integers, we know that it is factorable into irreducible 
+ * quadratics.  This function tries to find such quadratic factors.
+ *     Lacking a good general attack on this problem, we will turn
+ * to special cases which we happen to be able to solve.
+ */
+ 
+10 # TryToReduceSpecialPolynomial(_x^4+_x^2+1) <-- {{x^2+x+1,1},{x^2-x+1,1}};
+
+10 # TryToReduceSpecialPolynomial(_x^6-1) <-- {{x+1,1},{x-1,1},{x^2+x+1,1},{x^2-x+1,1}};
+
+
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
@@ -152,6 +181,8 @@ form    $poly = p1^n1 * ... * p9^n9$,
 just apply the function FW() to the result returned by the present
 function.
 
+Programmer:  Sherm Ostrowsky
+
 *E.G.
 
 In> u:=Expand((2*x-3)^2*(3*x+5)^3)
@@ -166,13 +197,8 @@ Result: (2*x-3)^2*(3*x+5)^3
 In> FactorsPolynomialOverIntegers(y^2-4)
 Result: {{y+2,1},{y-2,1}}
 
-In> FactorsPolynomialOverIntegers(u)
-Result: {{x^4+x^2+1,1}}
-Side Effects:
-Factor x^4+x^2+1  can be reduced further
-        NOTE:  This quartic polynomial over the integers MUST be reducible to
-        a product of irreducible quadratics.  The present function recognizes
-        this fact, but is not yet prepared to proceed further.
+In> FactorsPolynomialOverIntegers(x^4+x^2+1)
+Result: {{x^2+x+1,1},{x^2-x+1,1}}
         
 *SEE Factor, Factors, FW
 %/mathpiper_docs

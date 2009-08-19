@@ -1,5 +1,7 @@
 %mathpiper,def="FactorizeInt",scope="private"
 
+//  numbers
+
 /// Middle level function: returns a list of prime factors and their powers.
 /// E.g. FactorizeInt(50) returns {{2, 1}, {5, 2}}.
 1# FactorizeInt(0) <-- {};
