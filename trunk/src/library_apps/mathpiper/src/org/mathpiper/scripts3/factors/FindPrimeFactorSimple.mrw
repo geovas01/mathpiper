@@ -1,5 +1,7 @@
 %mathpiper,def="FindPrimeFactorSimple"
 
+// numbers
+
 /* simpler method but slower on worstcase such as p^n or n! */
 FindPrimeFactorSimple(n, prime) :=
 [

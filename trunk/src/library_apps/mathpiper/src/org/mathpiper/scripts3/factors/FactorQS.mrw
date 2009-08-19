@@ -1,5 +1,7 @@
 %mathpiper,def="FactorQS"
 
+//  numbers
+
 // The bud of an Quadratic Seive algorithm
 // congruence solving code must be written first
 Function("FactorQS",{n})[
