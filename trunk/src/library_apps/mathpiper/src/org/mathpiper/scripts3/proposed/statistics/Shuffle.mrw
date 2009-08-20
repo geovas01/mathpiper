@@ -1,4 +1,4 @@
-%mathpiper
+%mathpiper,scope="private"
 
 Retract("Shuffle",*);
 

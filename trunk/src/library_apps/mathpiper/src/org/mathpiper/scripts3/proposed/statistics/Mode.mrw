@@ -1,4 +1,4 @@
-%mathpiper,title="Mode"
+%mathpiper,title="Mode",scope="private"
 Mode(list) :=
 [
     
