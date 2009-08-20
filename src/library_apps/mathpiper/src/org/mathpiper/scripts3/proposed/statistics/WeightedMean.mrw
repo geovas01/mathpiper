@@ -1,4 +1,4 @@
-%mathpiper,def="WeightedMean"
+%mathpiper,def="WeightedMean",scope="private"
 
 Retract("WeightedMean", *);
 

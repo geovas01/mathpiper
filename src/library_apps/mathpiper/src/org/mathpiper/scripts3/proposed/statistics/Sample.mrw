@@ -1,4 +1,4 @@
-%mathpiper,title="Sample"
+%mathpiper,title="Sample",scope="private"
 
 Retract("Sample",*);
 

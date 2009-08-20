@@ -1,4 +1,4 @@
-%mathpiper,def="StringToList"
+%mathpiper,def="StringToList",scope="private"
 
 Retract("StringToList", *);
 

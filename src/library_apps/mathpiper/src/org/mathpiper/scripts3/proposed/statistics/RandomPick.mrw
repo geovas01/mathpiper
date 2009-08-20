@@ -1,4 +1,4 @@
-%mathpiper,title="RandomPick"
+%mathpiper,title="RandomPick",scope="private"
 
 Retract("RandomPick",*);
 
