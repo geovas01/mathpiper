@@ -10,9 +10,14 @@ HoldArg(":=",aRightAssign);
 // assign a variable
 Rule(":=",2,0,IsAtom(aLeftAssign))
 [
+  Check( Not IsNumber(aLeftAssign), "Only a variable can be placed on the left side of an := operator." );
+
   MacroSet(aLeftAssign,Eval(aRightAssign));
+
   Eval(aLeftAssign);
 ];
+
+
 
 // assign lists
 Rule(":=",2,0,IsList(aLeftAssign))
@@ -67,8 +72,10 @@ Rule(":=",2,10,IsFunction(aLeftAssign) And (First(Listify(aLeftAssign)) = Nth))
 ];
 
 // f(x):=... defines a new function
-Rule(":=",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom(":="))))
+Rule(":=",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom(":="))) )
 [
+  Check( Not Equals(aLeftAssign[0], Atom("/")), "Only a variable can be placed on the left side of an := operator." );
+
   Local(oper,args,arity);
   Set(oper,String(aLeftAssign[0]));
   Set(args,Rest(Listify(aLeftAssign)));
