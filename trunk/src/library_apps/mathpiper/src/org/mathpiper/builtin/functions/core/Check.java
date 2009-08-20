@@ -18,6 +18,7 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -39,7 +40,7 @@ public class Check extends BuiltinFunction
             ConsPointer evaluated = new ConsPointer();
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 2));
             LispError.checkIsString(aEnvironment, aStackTop, evaluated, 2);
-            throw new Exception( (String) evaluated.car());
+            throw new EvaluationException( Utility.stripEndQuotes((String) evaluated.car()), -1);
         }
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(pred.getCons());
     }
