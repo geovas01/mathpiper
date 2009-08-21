@@ -304,6 +304,19 @@ public class BigNumber {
         return (javaBigInteger != null && javaBigDecimal == null);
     }
 
+
+
+    /**
+     * Determines if this BigNumber is a decimal.
+     *
+     * @return
+     */
+    public boolean isDecimal() {
+        return (javaBigDecimal != null && javaBigInteger == null);
+    }
+
+
+
     /**
      * Determines if this BigNumber is less than 65535.  (Floating point not implemented yet).
      *

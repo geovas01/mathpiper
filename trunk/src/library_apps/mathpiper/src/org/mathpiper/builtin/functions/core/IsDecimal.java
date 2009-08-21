@@ -18,6 +18,7 @@
 
 package org.mathpiper.builtin.functions.core;
 
+import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -25,27 +26,42 @@ import org.mathpiper.lisp.Utility;
 
 /**
  *
- *  
+ *
  */
-public class IsNumber extends BuiltinFunction
+public class IsDecimal extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), result.getCons().getNumber(aEnvironment.getPrecision()) != null);
+
+        Object cons = result.getCons().getNumber(aEnvironment.getPrecision());
+
+        BigNumber bigNumber;
+        if(cons instanceof BigNumber)
+        {
+            bigNumber = (BigNumber) cons;
+
+            Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),  bigNumber.isDecimal());
+        }
+        else
+        {
+            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        }
+
+
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="IsNumber",categories="User Functions;Predicates;Built In"
-*CMD IsNumber --- test for a number
+%mathpiper_docs,name="IsDecimal",categories="User Functions;Predicates;Built In"
+*CMD IsDecimal --- test to see if a number is a decimal
 *CORE
 *CALL
-	IsNumber(expr)
+	IsDecimal(expr)
 
 *PARMS
 
@@ -53,22 +69,22 @@ public class IsNumber extends BuiltinFunction
 
 *DESC
 
-This function tests whether "expr" is a number. There are two kinds
-of numbers, integers (e.g. 6) and reals (e.g. -2.75 or 6.0). Note that a
-complex number is represented by the {Complex}
-function, so {IsNumber} will return {False}.
-
+This function tests whether "expr" is a decimal number. There are two kinds
+of numbers, integers (e.g. 6) and decimals (e.g. -2.75 or 6.0).
 *E.G.
 
-	In> IsNumber(6);
-	Out> True;
-	In> IsNumber(3.25);
-	Out> True;
-	In> IsNumber(I);
-	Out> False;
-	In> IsNumber("duh");
-	Out> False;
+In> IsNumber(3.25);
+Out> True;
 
-*SEE IsAtom, IsString, IsInteger, IsDecimal, IsPositiveNumber, IsNegativeNumber, Complex
+In> IsDecimal(6);
+Out> False;
+
+In> IsDecimal(1/2);
+Out> False;
+
+In> IsDecimal(3.2/10);
+Out> False;
+
+*SEE IsString, IsInteger, IsPositiveNumber, IsNegativeNumber, IsNumber
 %/mathpiper_docs
 */

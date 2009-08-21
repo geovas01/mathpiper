@@ -162,6 +162,7 @@ import org.mathpiper.builtin.functions.core.Prog;
 import org.mathpiper.builtin.functions.core.Hold;
 import org.mathpiper.builtin.functions.core.Read;
 import org.mathpiper.builtin.functions.core.AskUser;
+import org.mathpiper.builtin.functions.core.IsDecimal;
 import org.mathpiper.builtin.functions.core.LispRead;
 import org.mathpiper.builtin.functions.core.LispReadListed;
 import org.mathpiper.builtin.functions.core.ReadToken;
@@ -578,6 +579,9 @@ public abstract class BuiltinFunction {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new IsNumber(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "IsNumber");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new IsDecimal(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "IsDecimal");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new IsInteger(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "IsInteger");
