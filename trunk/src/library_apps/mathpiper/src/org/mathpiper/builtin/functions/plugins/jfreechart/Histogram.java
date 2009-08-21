@@ -118,7 +118,7 @@ public class Histogram extends BuiltinFunction {
             Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
             return;
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(new JavaObject(new ChartPanel(chart))));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment,new JavaObject(new ChartPanel(chart))));
             return;
         }//end if/else.
 

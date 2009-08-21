@@ -113,25 +113,12 @@ Write(rooms, Nl());
 
 Test() :=
 [
-    Break();
-    True;
+    ExtraInfoSet(3,"Hello");
 ];
 
 
 
 
-x := 0;
+a := Test();
 
-While(x <= 10)
-[
-    x++;
-
-    If(x = 5, Test());
-
-    Echo(x);
-
-];
-
-
-
-//[x := 0;While(x <= 10)[x++;If(x = 5, Continue());Echo(x);];];];
+Echo(ExtraInfoGet(a));

@@ -48,6 +48,6 @@ public class Factorial extends BuiltinFunction
             m.multiply(fac, m, 0);
             fac = m;
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(fac));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(aEnvironment, fac));
     }
 }

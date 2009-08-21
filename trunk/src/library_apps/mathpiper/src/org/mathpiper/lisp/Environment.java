@@ -74,6 +74,7 @@ public class Environment {
     public Cons iCommaAtom;
     public Cons iListAtom;
     public Cons iProgAtom;
+    public Cons iEmptyAtom;
     public OperatorMap iPrefixOperators = new OperatorMap();
     public OperatorMap iInfixOperators = new OperatorMap();
     public OperatorMap iPostfixOperators = new OperatorMap();
@@ -124,6 +125,8 @@ public class Environment {
         iCommaAtom = AtomCons.getInstance(this, ",");
         iListAtom = AtomCons.getInstance(this, "List");
         iProgAtom = AtomCons.getInstance(this, "Prog");
+
+        iEmptyAtom = AtomCons.getInstance(this, "Empty");
 
         iArgumentStack = new ArgumentStack(50000 /*TODO FIXME*/);
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();

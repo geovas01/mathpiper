@@ -17,6 +17,9 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.cons;
 
+import org.mathpiper.lisp.Environment;
+
+
 /**
  * Class Cons is the base object class that can be put in
  *  linked lists. It either has a pointer to a string
@@ -27,6 +30,17 @@ package org.mathpiper.lisp.cons;
  */
 public abstract class Cons //Note:tk:was MathPiperObject.
 {
+
+    protected Cons extraInfo;
+
+
+
+    public Cons(Environment aEnvironment) throws Exception
+    {
+        extraInfo = aEnvironment.iEmptyAtom;
+    }//end constructor.
+
+
 
     public abstract ConsPointer cdr();
 
@@ -43,17 +57,27 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         return null;
     }
 
-    public abstract Cons copy(boolean aRecursed) throws Exception;
+    public abstract Cons copy( Environment aEnvironment, boolean aRecursed) throws Exception;
+
+
 
     /**
      *  Return a pointer to extra info. This allows for annotating
      *  an object. Returns NULL by default.
      */
-    public ConsPointer getExtraInfoPointer() {
-        return null;
-    }
+    public ConsPointer getExtraInfoPointer()
+    {
+        return new ConsPointer(extraInfo);
+    }//end method.
 
-    public abstract Cons setExtraInfo(ConsPointer aData);
+
+
+    public void setExtraInfoPointer(ConsPointer aData)
+    {
+        this.extraInfo = aData.getCons();
+    }//end method.
+
+
 
     public boolean isEqual(Cons aOther) throws Exception {
         // iCdr line handles the fact that either one is a string
@@ -83,5 +107,8 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         }
         return false;
     }//end method.
+
+
+
     
 }//end class.

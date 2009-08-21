@@ -246,7 +246,7 @@ class SynchronousInterpreter implements Interpreter {
                 StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
 
                 Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, environment, environment.iPrefixOperators, environment.iInfixOperators, environment.iPostfixOperators, environment.iBodiedOperators);
-                infixParser.parse(inputExpressionPointer);
+                infixParser.parse(environment, inputExpressionPointer);
             }
 
             ConsPointer result = new ConsPointer();

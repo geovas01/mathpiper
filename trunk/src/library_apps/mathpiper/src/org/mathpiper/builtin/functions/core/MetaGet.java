@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class ExtraInfoGet extends BuiltinFunction
+public class MetaGet extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

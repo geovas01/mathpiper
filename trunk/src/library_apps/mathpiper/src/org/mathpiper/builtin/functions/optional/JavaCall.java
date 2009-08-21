@@ -119,7 +119,7 @@ public class JavaCall extends BuiltinFunction {
                     Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                     return;
                     }*/
-                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(response));
+                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, response));
 
                     return;
 

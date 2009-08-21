@@ -86,7 +86,7 @@ public class JavaNew extends BuiltinFunction {
                     Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                     return;
                 } else {
-                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(response));
+                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, response));
                     return;
                 }//end if/else.
 

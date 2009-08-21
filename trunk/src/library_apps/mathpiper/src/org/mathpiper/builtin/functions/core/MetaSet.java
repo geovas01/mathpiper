@@ -26,7 +26,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class ExtraInfoSet extends BuiltinFunction
+public class MetaSet extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -37,19 +37,21 @@ public class ExtraInfoSet extends BuiltinFunction
         ConsPointer info = new ConsPointer();
         info.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(object.getCons().setExtraInfo(info));
+        object.getCons().setExtraInfoPointer(info);
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(object.getCons());
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="ExtraInfoSet;ExtraInfoGet",categories="Programmer Functions;Programming"
+%mathpiper_docs,name="MetaSet;ExtraInfoGet",categories="Programmer Functions;Programming"
 *A object properties
 *CMD ExtraInfoGet/Set --- annotate objects with additional information
 *CORE
 *CALL
-	ExtraInfoSet(expr,tag)
+	MetaSet(expr,tag)
 	ExtraInfoGet(expr)
 
 *PARMS
@@ -62,9 +64,9 @@ public class ExtraInfoSet extends BuiltinFunction
 
 Sometimes it is useful to be able to add extra tag information to "annotate"
 objects or to label them as having certain "properties". The functions
-{ExtraInfoSet} and {ExtraInfoGet} enable this.
+{MetaSet} and {ExtraInfoGet} enable this.
 
-The function {ExtraInfoSet} returns the tagged expression, leaving
+The function {MetaSet} returns the tagged expression, leaving
 the original expression alone. This means there is a common pitfall:
 be sure to assign the returned value to a variable, or the tagged
 expression is lost when the temporary object is destroyed.
@@ -97,7 +99,7 @@ examples).
 
 	In> a:=2*b
 	Out> 2*b;
-	In> a:=ExtraInfoSet(a,{{"type","integer"}})
+	In> a:=MetaSet(a,{{"type","integer"}})
 	Out> 2*b;
 	In> a
 	Out> 2*b;
