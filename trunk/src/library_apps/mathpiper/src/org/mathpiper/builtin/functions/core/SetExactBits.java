@@ -38,7 +38,7 @@ public class SetExactBits extends BuiltinFunction
         z.setTo(x);
 
         // do nothing for integers
-        if (!(z.isInt()))
+        if (!(z.isInteger()))
         {
             z.setPrecision((int) (Utility.bitsToDigits((long) (y.toDouble()), 10)));
         }

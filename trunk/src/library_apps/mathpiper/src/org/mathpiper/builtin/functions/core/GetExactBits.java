@@ -35,7 +35,7 @@ public class GetExactBits extends BuiltinFunction
         BigNumber numberToCheck = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         BigNumber numberToReturn = new BigNumber(aEnvironment.getPrecision());
         numberToReturn.setTo(
-                (numberToCheck.isInt())
+                (numberToCheck.isInteger())
                 ? numberToCheck.bitCount() // for integers, return the bit count
                 : Utility.digitsToBits((long) (numberToCheck.getPrecision()), 10) // for floats, return the getPrecision
                 );
