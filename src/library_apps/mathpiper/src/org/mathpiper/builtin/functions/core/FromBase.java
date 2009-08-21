@@ -62,7 +62,7 @@ public class FromBase extends BuiltinFunction
 
         // convert using correct base
         BigNumber z = new BigNumber(str2, aEnvironment.getPrecision(), base);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(aEnvironment, z));
     }
 }
 
