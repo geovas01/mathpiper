@@ -37,7 +37,7 @@ public class BitsToDigits extends BuiltinFunction
         BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
         long result = 0;  // initialize just in case
 
-        if (x.isInt() && x.isSmall() && y.isInt() && y.isSmall())
+        if (x.isInteger() && x.isSmall() && y.isInteger() && y.isSmall())
         {
             // bits_to_digits uses unsigned long, see numbers.h
             int base = (int) y.toDouble();

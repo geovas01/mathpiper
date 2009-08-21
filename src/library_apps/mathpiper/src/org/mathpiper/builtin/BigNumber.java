@@ -300,7 +300,7 @@ public class BigNumber {
      *
      * @return
      */
-    public boolean isInt() {
+    public boolean isInteger() {
         return (javaBigInteger != null && javaBigDecimal == null);
     }
 
@@ -323,7 +323,7 @@ public class BigNumber {
      * @return
      */
     public boolean isSmall() {
-        if (isInt()) {
+        if (isInteger()) {
             BigInteger i = javaBigInteger.abs();
             return (i.compareTo(new BigInteger("65535")) < 0); //TODO: Should this be 65536?
         } else // a function to test smallness of a float is not present in ANumber, need to code a workaround to determine whether a number fits into double.

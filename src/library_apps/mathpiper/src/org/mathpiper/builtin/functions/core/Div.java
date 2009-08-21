@@ -33,7 +33,7 @@ public class Div extends BuiltinFunction
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
-        if (x.isInt() && y.isInt())
+        if (x.isInteger() && y.isInteger())
         {  // both integer, perform integer division
 
             BigNumber z = new BigNumber(aEnvironment.getPrecision());
