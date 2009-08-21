@@ -1,4 +1,4 @@
-%mathpiper,def=""
+%mathpiper,def="",scope="private"
 
 
 %/mathpiper
@@ -6,7 +6,7 @@
 
 
 %mathpiper_docs,name="CombinationsList",categories="User Functions;Combinatorics"
-*CMD CombinationsList --- get all permutations of a list
+*CMD CombinationsList --- get all combinations of a list
 *STD
 *CALL
 	CombinationsList(list)
@@ -17,9 +17,9 @@
 
 *DESC
 
-CombinationsList returns a list with all the permutations of
+CombinationsList returns a list with all the combinations of
 the original list.
 
 
-*SEE Permutations, Combinations, CombinationsList, LeviCivita
+*SEE Permutations, Combinations, PermutationsList, LeviCivita
 %/mathpiper_docs
