@@ -73,7 +73,7 @@ This function tests whether "expr" is a decimal number. There are two kinds
 of numbers, integers (e.g. 6) and decimals (e.g. -2.75 or 6.0).
 *E.G.
 
-In> IsNumber(3.25);
+In> IsDecimal(3.25);
 Out> True;
 
 In> IsDecimal(6);
