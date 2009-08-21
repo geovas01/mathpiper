@@ -58,6 +58,8 @@ Numer -> Numerator
 Denom -> Denominator
 Time -> EchoTime
 GetTime -> Time
+ExtraInfoSet -> MetaSet
+ExtraInfoGet -> MetaGet
 
 
 
