@@ -113,7 +113,7 @@ LocalSymbols(numericMode)
 
 
 %mathpiper_docs,name="N",categories="User Functions;Numbers (Operations)"
-*CMD N --- try determine numerical approximation of expression
+*CMD N --- try to determine an numerical approximation of expression
 
 *STD
 *CALL
