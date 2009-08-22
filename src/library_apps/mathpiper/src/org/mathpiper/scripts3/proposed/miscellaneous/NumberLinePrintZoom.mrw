@@ -7,14 +7,14 @@ Retract("ZoomInOnce", *);
 LocalSymbols(ZoomInOnce)
 [
 
-    10 # NumberLinePrintZoom(_lowValue, _highValue, divisions_IsPositiveInteger, times_IsPositiveInteger)_(lowValue < highValue) <-- 
+    10 # NumberLinePrintZoom(_lowValue, _highValue, divisions_IsPositiveInteger, depth_IsPositiveInteger)_(lowValue < highValue) <-- 
     [
     
         Local(numbers, stepAmount, zoomIndexes, nextZoomIndex, outputWidth, numbersString, output, randomStep, randomZoomNumber, iteration);
         
         iteration := 1;
         
-        While(iteration <= times)
+        While(iteration <= depth)
         [
             {numbers, stepAmount} := ZoomInOnce(lowValue, highValue, divisions);
             
@@ -46,7 +46,7 @@ LocalSymbols(ZoomInOnce)
             
             Echo(numbersString);
             
-            If(iteration != times,[Space(nextZoomIndex);Echo("|");]);
+            If(iteration != depth,[Space(nextZoomIndex);Echo("|");]);
             
             lowValue := numbers[randomStep];
             
