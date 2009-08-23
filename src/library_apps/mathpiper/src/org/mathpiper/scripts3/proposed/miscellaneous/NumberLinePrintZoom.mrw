@@ -65,7 +65,7 @@ LocalSymbols(ZoomInOnce)
     [
         Local(stepAmount, x, numbers);
         
-        stepAmount := If(InNumericMode(), N((highValue-lowValue)/divisions), (highValue-lowValue)/divisions);
+        stepAmount := If(IsDecimal(lowValue) Or IsDecimal(highValue), N((highValue-lowValue)/divisions), (highValue-lowValue)/divisions);
         
         x := lowValue;
         
