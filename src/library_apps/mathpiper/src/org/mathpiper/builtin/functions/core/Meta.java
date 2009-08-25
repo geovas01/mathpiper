@@ -164,7 +164,7 @@ In> Meta(a)["SET"] != Empty
 Result: True
 
 //Check to see if a given tag is present.
-In> Contains(AssocIndices(Meta(a)), SET)
+In> Contains(AssocIndices(Meta(a)), "SET")
 Result: True
 
 
