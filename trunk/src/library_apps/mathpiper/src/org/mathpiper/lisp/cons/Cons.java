@@ -37,7 +37,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     public Cons(Environment aEnvironment) throws Exception
     {
-        extraInfo = aEnvironment.iEmptyAtom;
+        extraInfo = null; //aEnvironment.iEmptyAtom;
     }//end constructor.
 
 

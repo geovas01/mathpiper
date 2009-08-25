@@ -42,10 +42,10 @@ public class Clear extends BuiltinFunction
             int nr = 1;
             while (consTraverser.getCons() != null)
             {
-                String str;
-                str =  (String) consTraverser.car();
-                LispError.checkArgument(aEnvironment, aStackTop, str != null, nr);
-                aEnvironment.unsetLocalVariable(str);
+                String variableName;
+                variableName =  (String) consTraverser.car();
+                LispError.checkArgument(aEnvironment, aStackTop, variableName != null, nr);
+                aEnvironment.unbindVariable(variableName);
                 consTraverser.goNext();
                 nr++;
             }

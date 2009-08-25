@@ -74,8 +74,7 @@ import org.mathpiper.builtin.functions.core.Eval;
 import org.mathpiper.builtin.functions.core.Exit;
 import org.mathpiper.builtin.functions.core.ExitRequested;
 import org.mathpiper.builtin.functions.core.XmlExplodeTag;
-import org.mathpiper.builtin.functions.core.MetaGet;
-import org.mathpiper.builtin.functions.core.MetaSet;
+import org.mathpiper.builtin.functions.core.Meta;
 import org.mathpiper.builtin.functions.core.Factorial;
 import org.mathpiper.builtin.functions.core.FastArcSin;
 import org.mathpiper.builtin.functions.core.FastIsPrime;
@@ -850,11 +849,8 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new PatchString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "PatchString");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MetaSet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MetaSet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MetaGet(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MetaGet");
+                new BuiltinFunctionEvaluator(new Meta(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                "Meta");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new DefaultTokenizer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "DefaultTokenizer");
