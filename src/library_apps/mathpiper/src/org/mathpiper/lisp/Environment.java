@@ -25,7 +25,6 @@ import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
@@ -35,6 +34,8 @@ import org.mathpiper.io.InputStatus;
 
 import org.mathpiper.io.InputDirectories;
 
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
@@ -74,7 +75,6 @@ public class Environment {
     public Cons iCommaAtom;
     public Cons iListAtom;
     public Cons iProgAtom;
-    public Cons iEmptyAtom;
     public OperatorMap iPrefixOperators = new OperatorMap();
     public OperatorMap iInfixOperators = new OperatorMap();
     public OperatorMap iPostfixOperators = new OperatorMap();
@@ -102,6 +102,7 @@ public class Environment {
     public InputDirectories iInputDirectories = new InputDirectories();
     public String iPrettyReader = null;
     public String iPrettyPrinter = null;
+    private Map iUnboundVariableMetadata = new Map();
 
     public Environment(MathPiperOutputStream aCurrentOutput/*TODO FIXME*/) throws Exception {
         iCurrentTokenizer = iDefaultTokenizer;
@@ -125,8 +126,6 @@ public class Environment {
         iCommaAtom = AtomCons.getInstance(this, ",");
         iListAtom = AtomCons.getInstance(this, "List");
         iProgAtom = AtomCons.getInstance(this, "Prog");
-
-        iEmptyAtom = AtomCons.getInstance(this, "Empty");
 
         iArgumentStack = new ArgumentStack(50000 /*TODO FIXME*/);
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();
@@ -246,13 +245,15 @@ public class Environment {
 
     }//end method.
 
-    public void unsetLocalVariable(String aString) throws Exception {
-        ConsPointer localVariable = findLocalVariable(aString);
+    public void unbindVariable(String aVariableName) throws Exception {
+        ConsPointer localVariable = findLocalVariable(aVariableName);
         if (localVariable != null) {
             localVariable.setCons(null);
             return;
         }
-        iGlobalState.release(aString);
+        iGlobalState.release(aVariableName);
+
+        this.clearUnboundVariableMetadata(aVariableName);
     }
 
     public void newLocalVariable(String aVariable, Cons aValue) throws Exception {
@@ -402,5 +403,32 @@ public class Environment {
     public void write(String aString) throws Exception {
         iCurrentOutput.write(aString);
     }
-}
+
+
+
+    public Cons getUnboundVariableMetadata(String variableName) throws Exception
+    {
+        Cons metadataList = (Cons) this.iUnboundVariableMetadata.lookUp(variableName);
+
+        if(metadataList == null)
+        {
+            metadataList = SublistCons.getInstance(this, AtomCons.getInstance(this, "List"));
+            
+            this.iUnboundVariableMetadata.setAssociation(metadataList, variableName);
+        }//end if.
+
+        return metadataList;
+
+    }//end method.
+
+
+    public void clearUnboundVariableMetadata(String variableName) throws Exception
+    {
+        this.iUnboundVariableMetadata.release(variableName);
+
+    }//end method.
+
+
+
+}//end class.
 
