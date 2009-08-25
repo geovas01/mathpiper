@@ -31,13 +31,13 @@ import org.mathpiper.lisp.Environment;
 public abstract class Cons //Note:tk:was MathPiperObject.
 {
 
-    protected Cons extraInfo;
+    protected Cons metadata;
 
 
 
     public Cons(Environment aEnvironment) throws Exception
     {
-        extraInfo = null; //aEnvironment.iEmptyAtom;
+        metadata = null; //aEnvironment.iEmptyAtom;
     }//end constructor.
 
 
@@ -61,22 +61,22 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
+
     /**
      *  Return a pointer to extra info. This allows for annotating
      *  an object. Returns NULL by default.
      */
-    public ConsPointer getExtraInfoPointer()
+    public ConsPointer getMetadataPointer()
     {
-        return new ConsPointer(extraInfo);
+        return new ConsPointer(metadata);
     }//end method.
 
 
 
-    public void setExtraInfoPointer(ConsPointer aData)
+    public void setMetadataPointer(ConsPointer aData)
     {
-        this.extraInfo = aData.getCons();
+        this.metadata = aData.getCons();
     }//end method.
-
 
 
     public boolean isEqual(Cons aOther) throws Exception {

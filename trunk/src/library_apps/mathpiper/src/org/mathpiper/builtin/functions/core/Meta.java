@@ -62,7 +62,7 @@ public class Meta extends BuiltinFunction {
 
 
 
-        ConsPointer result = variablePointer.getCons().getExtraInfoPointer();
+        ConsPointer result = variablePointer.getCons().getMetadataPointer();
 
         if (result.getCons() == null) {
             //Create new meta data list.
@@ -71,7 +71,7 @@ public class Meta extends BuiltinFunction {
 
             ConsPointer listConsPointer = new ConsPointer(listCons);
 
-            variablePointer.getCons().setExtraInfoPointer(listConsPointer);
+            variablePointer.getCons().setMetadataPointer(listConsPointer);
 
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(listCons);
 
@@ -97,8 +97,71 @@ public class Meta extends BuiltinFunction {
         ConsPointer info = new ConsPointer();
         info.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        object.getCons().setExtraInfoPointer(info);
+        object.getCons().setMetadataPointer(info);
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(object.getCons());
     }
+*/
+
+
+
+/*
+%mathpiper_docs,name="Meta",categories="User Functions;Built In"
+*CMD Meta --- access the metadata for a value or an unbound variable
+*CORE
+*CALL
+	Meta(value)
+	Meta(unbound_variable)
+
+*PARMS
+
+{value} -- a value such as a string, symbolic atom, or list
+
+{unbound_variable} -- an unbound variable
+
+*DESC
+
+Enables metadata to be added to values and unbound variables.  The metadata is
+held in an associative list.
+
+*E.G.
+//Bind a list to the variable 'a'.
+In> a := {1,2,3}
+Result: {1,2,3}
+
+//Add a list of tags to the list's metadata.
+In> Meta(a)["Tags"] := {SET, TAG2, TAG3}
+Result: True
+
+In> Meta(a)["Tags"]
+Result: {SET,TAG2,TAG3}
+
+//Add a tag to the list.
+In> DestructiveAppend(Meta(a)["Tags"], TAG4)
+Result: {SET,TAG2,TAG3,TAG4}
+
+In> Meta(a)["Tags"]
+Result: {SET,TAG2,TAG3,TAG4}
+
+//Check to see if the list has a SET tag.
+In> If(Meta(a)["Tags"] = Empty, False, Contains(Meta(a)["Tags"],SET))
+Result: True
+
+
+
+//Adding metadata to an unbound variable.
+In> Clear(b)
+Result: True
+
+In> Meta(b)["Assume"] := Hold( b > 0)
+Result: True
+
+In> Meta(b)["Assume"]
+Result: b>0
+
+In> IsBound(b)
+Result: False
+
+*SEE Clear()
+%/mathpiper_docs
 */
