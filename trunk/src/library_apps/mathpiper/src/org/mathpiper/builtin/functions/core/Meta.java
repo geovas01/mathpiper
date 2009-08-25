@@ -125,7 +125,7 @@ Enables metadata to be added to values and unbound variables.  The metadata is
 held in an associative list.
 
 *E.G.
-//Bind a list to the variable 'a'.
+//One way to add tags to a list.
 In> a := {1,2,3}
 Result: {1,2,3}
 
@@ -147,6 +147,25 @@ Result: {SET,TAG2,TAG3,TAG4}
 In> If(Meta(a)["Tags"] = Empty, False, Contains(Meta(a)["Tags"],SET))
 Result: True
 
+
+
+//Another way to add tags to a list.
+In> a := {1,2,3}
+Result: {1,2,3}
+
+In> Meta(a)["SET"] := TAG
+Result: True
+
+In> Meta(a)["TAG1"] := TAG
+Result: True
+
+//Check to see if a given tag is present.
+In> Meta(a)["SET"] != Empty
+Result: True
+
+//Check to see if a given tag is present.
+In> Contains(AssocIndices(Meta(a)), SET)
+Result: True
 
 
 //Adding metadata to an unbound variable.
