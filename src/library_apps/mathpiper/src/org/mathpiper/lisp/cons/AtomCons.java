@@ -66,7 +66,7 @@ public class AtomCons extends Cons
     {
         Cons atomCons = new AtomCons(aEnvironment, iCar);
 
-        atomCons.setExtraInfoPointer(this.getExtraInfoPointer());
+        atomCons.setMetadataPointer(this.getMetadataPointer());
         
         return atomCons;
     }

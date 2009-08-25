@@ -79,7 +79,7 @@ public class NumberCons extends Cons {
 
         NumberCons numberCons = new NumberCons(aEnvironment, iCarBigNumber, iCarStringNumber);
 
-        numberCons.setExtraInfoPointer(this.getExtraInfoPointer());
+        numberCons.setMetadataPointer(this.getMetadataPointer());
         
         return numberCons;
     }

@@ -71,7 +71,8 @@ public class Clear extends BuiltinFunction
 
 All assignments made to the variables listed as arguments are
 undone. From now on, all these variables remain unevaluated (until a
-subsequent assignment is made). The result of the expression is
+subsequent assignment is made). Also clears any metadata that may have
+been set in an unbound variable.  The result of the expression is
 True.
 
 *E.G.
