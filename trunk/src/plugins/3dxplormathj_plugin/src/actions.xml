@@ -1,0 +1,28 @@
+<!-- Action definition file for 3DXplorMathJ plugin -->
+
+
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+
+<ACTIONS>
+	<ACTION NAME="3dxplormathj.choose-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.NAME).chooseFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="3dxplormathj.save-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.NAME).saveFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="3dxplormathj.copy-to-buffer">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.NAME).copyToBuffer();
+		</CODE>
+	</ACTION>
+</ACTIONS>
+
