@@ -1,0 +1,81 @@
+# Properties file for 3DXplorMathJ plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.activate=startup
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.name=3DXplorMathJ
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.docs=index.html
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin..longdescription=description.html
+#}}}
+
+
+
+
+3dxplormathj.shell.msg.info=\n3DXplorMathJ Shell \n\
+
+
+3dxplormathj.shell.msg.usage=3DXplorMathJ, a computer algebra system for beginners.
+
+
+
+# plugin menu
+plugin.org.mathrider.3dxplormathjplugin.3DXplorMathJPlugin.menu=3dxplormathj
+#	- \
+#	piper.choose-file \
+#	piper.save-file \
+#	piper.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+3dxplormathj.label=3dxplormathj
+
+# action labels for actions supplied by actions.xml
+3dxplormathj.choose-file.label=Choose notepad file
+3dxplormathj.save-file.label=Save notepad file
+3dxplormathj.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.3dxplormathj.option-pane=3dxplormathj
+
+# Option pane activation BeanShell snippet
+options.3dxplormathj.code=new org.mathrider.3dxplormathjplugin.3DXplorMathJOptionPane();
+
+# Option pane labels
+options.3dxplormathj.label=3dxplormathj
+options.3dxplormathj.file=File:
+options.3dxplormathj.choose-file=Choose
+options.3dxplormathj.choose-file.title=Choose a notepad file
+options.3dxplormathj.choose-font=Font:
+options.3dxplormathj.show-filepath.title=Display notepad file path
+
+# window title
+3dxplormathj.title=3DXplorMathJ
+
+# window toolbar buttons
+3dxplormathj.choose-file.icon=Open.png
+3dxplormathj.save-file.icon=Save.png
+3dxplormathj.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.3dxplormathj.show-filepath=true
+options.3dxplormathj.font=Monospaced
+options.3dxplormathj.fontstyle=0
+options.3dxplormathj.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.3dxplormathj.filepath=
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
