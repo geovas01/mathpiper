@@ -1,0 +1,81 @@
+# Properties file for ThreeDXplorMathJ plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.activate=startup
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.name=ThreeDXplorMathJ
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.version=4.3
+
+# online help
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.docs=index.html
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.depend.1=jdk 1.5
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin..longdescription=description.html
+#}}}
+
+
+
+
+threedxplormathj.shell.msg.info=\nThreeDXplorMathJ Shell \n\
+
+
+threedxplormathj.shell.msg.usage=ThreeDXplorMathJ, a computer algebra system for beginners.
+
+
+
+# plugin menu
+plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.menu=threedxplormathj
+#	- \
+#	piper.choose-file \
+#	piper.save-file \
+#	piper.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+threedxplormathj.label=threedxplormathj
+
+# action labels for actions supplied by actions.xml
+threedxplormathj.choose-file.label=Choose notepad file
+threedxplormathj.save-file.label=Save notepad file
+threedxplormathj.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.threedxplormathj.option-pane=threedxplormathj
+
+# Option pane activation BeanShell snippet
+options.threedxplormathj.code=new org.mathrider.threedxplormathjplugin.ThreeDXplorMathJOptionPane();
+
+# Option pane labels
+options.threedxplormathj.label=threedxplormathj
+options.threedxplormathj.file=File:
+options.threedxplormathj.choose-file=Choose
+options.threedxplormathj.choose-file.title=Choose a notepad file
+options.threedxplormathj.choose-font=Font:
+options.threedxplormathj.show-filepath.title=Display notepad file path
+
+# window title
+threedxplormathj.title=ThreeDXplorMathJ
+
+# window toolbar buttons
+threedxplormathj.choose-file.icon=Open.png
+threedxplormathj.save-file.icon=Save.png
+threedxplormathj.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.threedxplormathj.show-filepath=true
+options.threedxplormathj.font=Monospaced
+options.threedxplormathj.fontstyle=0
+options.threedxplormathj.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.threedxplormathj.filepath=
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

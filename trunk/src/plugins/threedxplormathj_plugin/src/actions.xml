@@ -1,0 +1,28 @@
+<!-- Action definition file for ThreeDXplorMathJ plugin -->
+
+
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+
+<ACTIONS>
+	<ACTION NAME="threedxplormathj.choose-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.NAME).chooseFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="threedxplormathj.save-file">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.NAME).saveFile();
+		</CODE>
+	</ACTION>
+
+	<ACTION NAME="threedxplormathj.copy-to-buffer">
+		<CODE>
+			wm.addDockableWindow(org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.NAME);
+			wm.getDockableWindow(org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.NAME).copyToBuffer();
+		</CODE>
+	</ACTION>
+</ACTIONS>
+
