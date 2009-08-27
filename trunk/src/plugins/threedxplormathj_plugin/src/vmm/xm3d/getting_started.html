@@ -1,0 +1,170 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head><title>Getting Started with 3D-XplorMath-J</title></head>
+<body>
+
+<hr>
+<h2 align=center>Getting Started with 3D-XplorMath-J</h2>
+<h3 align=center>Think of 3D-XplorMath-J as a museum -- a Virtual Math Museum</h3>
+<hr>  
+  
+<h3>Galleries and Exhibits</h3>
+<p>As with a bricks-and-mortar museum, the objects of this museum are arranged 
+into Galleries of related Exhibits; to choose a Gallery you wish to visit, 
+just select its name from the "Gallery" menu, and it will become the current 
+Gallery. This means its name becomes the name of the Exhibit menu -- the one just 
+to the right of the Gallery menu -- and the names of the Exhibits that it contains will
+be listed in the Exhibit menu or in one of its sub-menus. (When the program starts up 
+you will find yourself in the <i>Surface Gallery</i>.)</p>
+<br>
+
+
+<h3>Viewing Exhibits</h3>
+<p>When an Exhibit is selected by name from the Exhibit menu, the program immediately
+displays a default representation of that Exhibit.  In many cases, an animation 
+will play that shows the "creation" of the object.  This illustrates a basic feature
+of the program: wherever possible, the program assigns carefully chosen default 
+values to various parameters and options needed to display an Exhibit; it creates 
+the view of the Exhibit corresponding to these default choices; and it then allows 
+the user to alter one or more of these defaults by making various menu choices, by
+entering values in dialogs, or by clicking buttons in control panels. The program 
+will then display the new representation of the same Exhibit appropriate for 
+these user choices. We next explain in more detail some of the more important 
+methods of modifying an Exhibit in this way.</p>
+<br>
+
+<h3>Using the Mouse</h3>
+<p>3D-XplorMath-J is designed to be a highly interactive program, and the mouse is an 
+important tool for telling the program what you want. The first thing you should learn 
+is that clicking the mouse during a drawn out action will usually abort it, possibly
+after a short delay. (On the other
+hand if you just want to pause an animation, tap the space bar; then tap it again to continue 
+the animation.)</p>
+<p>In two-dimensional Galleries, you can generally move the image around on the screen by 
+clicking-and-dragging with the mouse.  If you click-and-drag with the right-mouse button (or, 
+on Mac OS, while holding down the Command key), you can select a rectangular portion of the
+image to be magnified.  If you hold down the Shift key while dragging, or if you
+drag with the middle mouse button, you can zoom in and out on the image by dragging
+the mouse up and down.</p>
+<p>In three-dimensional Galleries, clicking-and-dragging with the mouse will generally
+rotate the object in three dimensions, and if you release the mouse button while you are 
+in mid-drag, the object will continue to  rotate.  To move the object around, drag
+it with the right mouse button (or while holding down the Command key on Mac OS).
+And, just as in two dimensions, holding down the Shift key and dragging up and down will 
+expand or contract the object on the screen.</p>
+<p>There are some exceptions to these general rules about using the mouse.  In some
+cases, the exception will be noted in the status line at the bottom of the window.</p>
+<br>
+
+<h3>The Action Menu</h3>
+<p>While most menus of the program change little if at all when the current Exhibit is
+changed to another in the same Gallery, or even when the Gallery changes, the "Action" 
+menu changes substantially when the Gallery changes, and certain individual
+Exhibits within a Gallery often have associated to them special Action menu items
+that help explain some unusual detail of that Exhibit. As a result, after selecting 
+an Exhibit for the first time, it is a good idea to check and see if the "Action" menu 
+has any such special items.  The top item of the "Action" menu does not vary; it is 
+always "Create."  Selecting "Create" will generally show the same animation that is
+played when the Exhibit is first selected, but incorporating any changes that you
+have made to the properties of the Exhibit.</p>
+<p>What sort of things are in the "Action" menu? Here are some typical examples. For 
+<i>Plane Curves</i> there is an item "Show Osculating Circles". For <i>Conformal Maps</i> you can 
+choose to draw a circle or a line and see how it gets mapped. And for <i>Polyhedra</i> you 
+can choose among seeing a normal, truncated or stellated view.</p>
+<br>
+
+<h3>The View Menu</h3>
+<p>One should keep in mind that mathematical objects are abstract concepts, so that 
+the possibilities for representing them visually admit considerable flexibility and 
+choice. There are simple options, such as whether to show an object on a white, black, 
+or colored background, and in three dimensions there are important additional options,
+such as whether to use orthographic or perspective projection and whether to use 
+mono- or stereo vision. These choices and more are controlled from the "View" menu.</p>
+<p>The stereo views require some explanation. These views enable you to view true
+three-dimensional representations of an object.  "Anaglyph Stereo Vision" is meant
+to be viewed using red/blue or red/green stereo glasses (with the red lens over the
+left eye); it gives a clear and easy-to-see three-dimensional effect, but the object
+appears in shades of yellow rather than in color.  "Cross-eyed Stereo Vision" shows
+two copies of the object side-by-side, showing the object from the perspective of
+the left and right eyes.  To get the three-dimensional effect, you have to cross
+your eyes to merge the two images.  "Parallel Stereo Vision" is similar, but you
+must merge the two images by gazing as if at a point that lies a foot or so behind the screen.
+It takes some practice to learn how to merge the images, but the result should be
+a clear, full-color three-dimensional image.</p>
+<br>
+
+<h3>The Animate Menu: Parameters and Morphing</h3>
+<p>Most Exhibits are not unique, single mathematical objects. Rather, Exhibits come 
+in parameterized families. For example, the Ellipsoid Exhibit has three parameters, 
+corresponding to the lengths of its three axes, and similarly a torus is described 
+by two radii. When an object is selected from the Exhibit menu, the program displays 
+it with special (but typical) default choices of these parameters that, as will be 
+explained below, can then be altered with the "Set Parameters..." command in
+the "Settings" menu. But something more interesting can also be done to get a clear 
+idea of how the appearance of an object changes as one or more of its parameters 
+vary, and this is called <i>morphing</i>. Many Exhibit parameters are "morphable," meaning 
+that one can choose "initial" and "final" values for these parameters. Then, when the
+"Morph" command is chosen from the "Animate" menu, the program creates an animation by rapidly
+drawing a sequence of images of the object, starting from the initial values of the 
+parameters and ending with their final values, giving the illusion that the object 
+is smoothly morphing from its initial to its final shape. In some cases (particularly 
+in the Plane Curves, Polyhedra, and Ordinary Differential Equation Galleries) the 
+program is able to render individual images fast enough that the morph can be 
+created on the fly, but in most cases, to get a sufficiently smooth morph, the 
+individual images must be saved in memory as they are created and then played back 
+in rapid succession as a a flip-book animation.  (In general, it is best to vary 
+just one parameter at a time, making the initial and final values of the others equal.)</p>
+<br>
+
+<h3>The Settings Menu</h3>
+<p>The "Settings" menu is the center for changing the various parameters and options
+that define the current appearance of an Exhibit. Selecting an item from this menu, 
+will in most cases bring up a dialog box where the new values can be entered. For example, as 
+mentioned above, selecting "Set Parameters..." will bring up a dialog allowing you 
+to change any of the parameters that are associated with the current Exhibit, while
+"Set Morphing..." will let you to set the initial and final values for these parameters 
+during a morphing animation. "Set Number of Frames..." allows changing the number of 
+frames in a morphing animation -- increasing this will make the animation take longer 
+but it will be smoother.  "Set Visible Ranges..." lets you adjust the size and the
+placement of the Exhibit by setting the horizontal and vertical edges of the rectangular region
+that is displayed in the window.  In three dimensions, "Set Viewpoint and Up Direction..." allows you to set the 
+location and orientation in space of the virtual camera that is used to image a 
+three-dimensional Exhibit on its focal plane.  And for surfaces, "Light Settings..." will 
+bring up a dialog in which you can set the colors of the lights shining on the surface
+and the directions in which the lights point.</p>
+<br>
+
+<h3>The File Menu: Settings Files, Snapshots, and Multiple Windows</h3>
+<p>Using the "File" menu, it is possible to save a snapshot of the current visualization 
+of an Exhibit, either as a JPEG or PNG file. It is also possible to save the identity 
+of the current Exhibit together with all its parameters and options in a so-called 
+settings file, by selecting "Save Exhibit to File..." in the "File" menu.  If you later 
+open this settings file, using the "File" menu command "Open Settings File...", the 
+program will return to the state it had when the file was created. (And you can share
+your work by sending the settings file as an email attachment to a friend.) 
+Saving an Exhibit to a file also works with user-defined Exhibits (see below), and is 
+particularly useful in this case since it in effect allows you to create and distribute 
+entirely new Exhibits that are not in the 3D-XPlorMath-J repertory.</p> 
+<br>
+
+<h3>User Defined Exhibits</h3>
+<p>When we began this introduction to 3D-XplorMath-J, we said that you should think of it  
+as a museum. But now we want to explain in what sense you can also think of it as a 
+mathematical laboratory, using so called user-defined Exhibits.</p>
+<p>Most (but not all) Galleries contain at least one User Defined Exhibit. These at first 
+glance seem similar to other Exhibits of the Gallery. However when you first select a
+User Defined Exhibit, you will see a dialog box, much like a "Set Parameters..." dialog,
+except that in addition to the usual boxes to reset the values of various parameters, 
+there will also be text boxes where you can enter mathematical formulas that describe an 
+Exhibit of the Gallery. As usual, these will have default values, and you can just click 
+OK and see the Exhibit these defaults describe. But of course it is more interesting to 
+replace these default formulas by formulas of your own. For example, if in the Plane Curves
+Gallery, you select User Plane Curve (parametric), the default equations are 
+<i>x(t) = a * cos(t)</i> and <i>y(t) = b * sin(2*t)</i> (where <i>a</i> 
+has the value 3 and <i>b</i> the value 1.5).
+If you accept these values by clicking OK you will get a "figure eight", but if you replace 
+<i>sin(2*t)</i> by <i>sin(t)</i> you will get an ellipse.</p>
+<p>By the way, once you have created a user-defined exhibit, it you want to edit your formulas and 
+parameters, do not re-select the User Defined Exhibit from the Exhibit menu -- this will give 
+back the original defaults.  Instead, select "Change User Data..." from the Settings menu.</p>
+
