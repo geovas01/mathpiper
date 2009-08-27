@@ -1,0 +1,272 @@
+<galleries>
+  <gallery name="3dxm.gallery.PlaneCurves">
+    <exhibit class="vmm.planecurve.parametric.Circle"/>
+    <exhibit class="vmm.planecurve.parametric.Ellipse"/>
+    <exhibit class="vmm.planecurve.parametric.Parabola"/>
+    <exhibit class="vmm.planecurve.parametric.Hyperbola"/>
+     <separator/>
+     <exhibit class="vmm.planecurve.parametric.Zykloide"/> 
+     <exhibit class="vmm.planecurve.parametric.Deltoid"/>
+     <exhibit class="vmm.planecurve.parametric.Astroid"/>
+     <exhibit class="vmm.planecurve.parametric.Limacon"/>
+     <exhibit class="vmm.planecurve.parametric.Nephroid"/>
+ 	 <exhibit class="vmm.planecurve.parametric.Epizykloide"/>
+ 	 <separator/>
+     <exhibit class="vmm.planecurve.parametric.Tractrix"/> 
+ 	 <exhibit class="vmm.planecurve.parametric.Lemniskate"/> 
+ 	 <exhibit class="vmm.planecurve.parametric.Cissoid"/> 
+     <exhibit class="vmm.planecurve.parametric.Conchoid"/>
+     <separator/>
+     <exhibit class="vmm.planecurve.parametric.Convex"/> 
+    <exhibit class="vmm.planecurve.parametric.Logarithmicspiral"/>
+    <exhibit class="vmm.planecurve.parametric.ArchimedeanSpiral"/>
+    <exhibit class="vmm.planecurve.parametric.Lissajous"/>
+    <exhibit class="vmm.planecurve.parametric.Folium"/>
+    <exhibit class="vmm.planecurve.parametric.NephroidOfFreeth"/>
+    <separator/>
+     <exhibit class="vmm.planecurve.parametric.Catenary"/>
+    <exhibit class="vmm.planecurve.parametric.SineCurve"/>
+    <separator/>
+    <exhibit class="vmm.planecurve.parametric.UserPlaneCurveParametric"/>
+    <exhibit class="vmm.planecurve.parametric.UserPlaneCurveParametricPolar"/>
+    <exhibit class="vmm.planecurve.parametric.UserPlaneCurveParametricKappa"/>
+  </gallery>
+	
+  <gallery name="3dxm.gallery.SpaceCurves">
+    <exhibit class="vmm.spacecurve.parametric.Helix"/>
+    <exhibit class="vmm.spacecurve.parametric.TorusKnot"/>
+    <exhibit class="vmm.spacecurve.parametric.CinquefoilKnot"/>
+    <exhibit class="vmm.spacecurve.parametric.GrannyKnot"/>
+    <exhibit class="vmm.spacecurve.parametric.SquareKnot"/>
+    <exhibit class="vmm.spacecurve.parametric.Figure8Knot"/>
+  	<separator/>
+    <exhibit class="vmm.spacecurve.parametric.Loxodrome"/>
+    <exhibit class="vmm.spacecurve.parametric.Viviani"/>
+    <exhibit class="vmm.spacecurve.parametric.SphericalCycloid"/>
+    <exhibit class="vmm.spacecurve.parametric.SphericalEllipse"/>
+  	<separator/>
+    <exhibit class="vmm.spacecurve.parametric.ConstantCurvature"/>
+    <exhibit class="vmm.spacecurve.parametric.ConstantTorsion"/>
+    <separator/>
+    <exhibit class="vmm.spacecurve.parametric.UserSpaceCurveParametric"/>
+    <exhibit class="vmm.spacecurve.parametric.UserSpaceCurveKappaTau"/>
+  </gallery>
+  <gallery_group name="3dxm.gallery.Surfaces">
+  <gallery name="3dxm.gallery.ParametricSurfaces" default="yes">
+  	<exhibit class="vmm.surface.parametric.Paraboloid"/>
+  	<xml_exhibit file="vmm/surface/parametric/Ellipsoid.xml" name="vmm.surface.parametric.Ellipsoid"/>
+  	<exhibit class="vmm.surface.parametric.Hyperboloid1"/>
+  	<exhibit class="vmm.surface.parametric.Hyperboloid2"/>
+  	<exhibit class="vmm.surface.parametric.HyperbolicParaboloid"/>
+  	<separator/>
+  	<exhibit class="vmm.surface.parametric.LissajousSurface"/>  	
+  	<exhibit class="vmm.surface.parametric.MonkeySaddle"/>
+  	<exhibit class="vmm.surface.parametric.WhitneyUmbrella"/>
+  	<exhibit class="vmm.surface.parametric.RightConoid"/>
+  	<exhibit class="vmm.surface.parametric.Conoid"/>
+  	<exhibit class="vmm.surface.parametric.Astroidale"/>
+  	<exhibit class="vmm.surface.parametric.SnailShell"/>
+  	<exhibit class="vmm.surface.parametric.DiracBelt"/>
+  	
+  	<separator/>
+  	<exhibit class="vmm.surface.parametric.Torus"/>  	
+  	<exhibit class="vmm.surface.parametric.Cyclide"/>
+  	<exhibit class="vmm.surface.parametric.DoublyHopfFiberedTori"/>
+  	<exhibit class="vmm.surface.parametric.BianchiPinkall"/>
+  	<separator/>
+    <exhibit class="vmm.surface.parametric.UserSurfaceParametric"/>
+    
+  </gallery>
+
+	<gallery name="3dxm.gallery.K1_Surfaces">
+  			<exhibit class="vmm.surface.parametric.ConstCurvFamilyOfRevolution"/>
+  			<exhibit class="vmm.surface.parametric.ConstCurvOneHelicoids"/>
+  			<exhibit class="vmm.surface.parametric.SievertEnneper"/>
+  	 </gallery>
+  	<gallery name="3dxm.gallery.MinimalSurfaces">
+  	           <exhibit class="vmm.surface.parametric.Enneper_Cartesian"/>
+  	           <exhibit class="vmm.surface.parametric.Enneper_Polar"/>
+               <exhibit class="vmm.surface.parametric.Scherk"/>
+               <exhibit class="vmm.surface.parametric.Henneberg"/>
+               <exhibit class="vmm.surface.parametric.Catalan"/>
+               <exhibit class="vmm.surface.parametric.Catenoid_Helicoid"/>
+               <exhibit class="vmm.surface.parametric.InvertedBoys"/>
+               <exhibit class="vmm.surface.parametric.Kusner_Dihedral_Symmetric"/>
+               <separator/>
+  	           <exhibit class="vmm.surface.parametric.Helicoid_Weierstrass"/>
+  	           <exhibit class="vmm.surface.parametric.WavyEnneper_Weierstrass"/>
+               <exhibit class="vmm.surface.parametric.CatenoidEnneper"/>
+               <exhibit class="vmm.surface.parametric.PlanarEnneper"/>
+               <exhibit class="vmm.surface.parametric.DoubleEnneper"/>
+               <exhibit class="vmm.surface.parametric.Scherk_Weierstrass"/>
+               <exhibit class="vmm.surface.parametric.Skew_K_noid"/>
+               <exhibit class="vmm.surface.parametric.Symmetric_K_Noid"/>
+               <exhibit class="vmm.surface.parametric.LopezRosNoGo"/>
+               <exhibit class="vmm.surface.parametric.Riemann"/>
+               <exhibit class="vmm.surface.parametric.DoublyPeriodicJD"/>
+               <exhibit class="vmm.surface.parametric.DoublyPeriodicJE"/>
+               <exhibit class="vmm.surface.parametric.CatenoidFence"/>
+               <exhibit class="vmm.surface.parametric.CostaHoffmanMeeks"/>
+               <exhibit class="vmm.surface.parametric.ChenGackstatter"/>
+               <exhibit class="vmm.surface.parametric.SchwarzPDsurface"/>
+               <exhibit class="vmm.surface.parametric.SchoenCLPsurface"/>
+               <exhibit class="vmm.surface.parametric.SchoenGyroid"/>
+               <exhibit class="vmm.surface.parametric.SchwarzHsurface"/>
+               <exhibit class="vmm.surface.parametric.LidinoidHfamily"/>
+               <exhibit class="vmm.surface.parametric.OtherTriangCatenoid"/>
+    </gallery>
+    <gallery name="3dxm.gallery.PseudoSphericalSurfaces">
+  	           <exhibit class="vmm.surface.parametric.DiniSurface"/>
+  	           <exhibit class="vmm.surface.parametric.KuenSurface"/>
+               <exhibit class="vmm.surface.parametric.ParametricBreather"/>  	
+               <separator/>
+               <exhibit class="vmm.pseudospherical.OneSoliton"/>
+               <exhibit class="vmm.pseudospherical.TwoSoliton"/>
+               <exhibit class="vmm.pseudospherical.ThreeSoliton"/>
+               <exhibit class="vmm.pseudospherical.Breather"/>
+               <exhibit class="vmm.pseudospherical.BreatherPlusSoliton"/>
+    </gallery>
+     <gallery name="3dxm.gallery.NonOrientableSurfaces">
+  	           <exhibit class="vmm.surface.parametric.MoebiusStrip"/>
+  	           <exhibit class="vmm.surface.parametric.KleinBottle"/>
+               <exhibit class="vmm.surface.parametric.SteinerSurface"/>
+               <exhibit class="vmm.surface.parametric.CrossCap"/>
+               <exhibit class="vmm.surface.parametric.BoyBryantKusner"/>
+    </gallery>
+ 
+    <gallery name="3dxm.gallery.ImplicitSurface">
+     <exhibit class="vmm.surface.implicit.ImplicitEllipsoid"/>
+     <exhibit class="vmm.surface.implicit.ImplicitParaboloid"/>
+     <exhibit class="vmm.surface.implicit.ImplicitHyperboloid1Sheet"/>
+     <exhibit class="vmm.surface.implicit.ImplicitHyperboloid2Sheet"/>
+     <exhibit class="vmm.surface.implicit.ImplicitCone"/>
+     <exhibit class="vmm.surface.implicit.Torus"/>
+     <exhibit class="vmm.surface.implicit.DupinCyclides"/>
+     <exhibit class="vmm.surface.implicit.CrossCap"/>
+     <exhibit class="vmm.surface.implicit.BoysSurface"/>
+     <exhibit class="vmm.surface.implicit.SteinerRoman"/>
+     <exhibit class="vmm.surface.implicit.WhitneyUmbrella"/>
+     <exhibit class="vmm.surface.implicit.CayleyCubic"/>
+     <exhibit class="vmm.surface.implicit.ClebschCubic"/>
+     <exhibit class="vmm.surface.implicit.KummerQuartic"/>
+     <exhibit class="vmm.surface.implicit.BarthSextic"/>
+     <exhibit class="vmm.surface.implicit.Pretzel"/>
+     <exhibit class="vmm.surface.implicit.Genus2"/>
+     <exhibit class="vmm.surface.implicit.Genus5"/> 
+     <exhibit class="vmm.surface.implicit.OrthoCircles"/> 
+     <exhibit class="vmm.surface.implicit.Pilz"/>
+     <exhibit class="vmm.surface.implicit.DecoCube"/>
+     <exhibit class="vmm.surface.implicit.CubeOktaeder"/>  
+     <exhibit class="vmm.surface.implicit.Join2Tori"/>  
+	<separator/>
+     <exhibit class="vmm.surface.implicit.UserSurfaceImplicit"/>
+    </gallery>
+  
+ </gallery_group>
+  
+  <gallery name="3dxm.gallery.ConformalMaps">
+     <exhibit class="vmm.conformalmap.Squaring"/>
+     <exhibit class="vmm.conformalmap.Inverse"/>
+     <exhibit class="vmm.conformalmap.Sine"/>
+     <exhibit class="vmm.conformalmap.NonConformal"/>
+     <exhibit class="vmm.conformalmap.ZedPlus1OverZed"/>
+     <exhibit class="vmm.conformalmap.HyperbolicIsometry"/>
+     <exhibit class="vmm.conformalmap.CubicPolynomial"/>
+     <exhibit class="vmm.conformalmap.Exponentialfct"/>
+     <exhibit class="vmm.conformalmap.Weierstrass_p"/>
+	  <separator/>
+	  <exhibit class="vmm.conformalmap.UserConformalMap"/>
+  </gallery>
+  <gallery name="3dxm.gallery.Polyhedra">
+	  <exhibit class="vmm.polyhedron.Tetrahedron"/>
+	  <exhibit class="vmm.polyhedron.Cube"/>
+	  <exhibit class="vmm.polyhedron.Octahedron"/>
+	  <exhibit class="vmm.polyhedron.Dodecahedron"/>
+	  <exhibit class="vmm.polyhedron.Icosahedron"/>
+	  <separator/>
+	  <exhibit class="vmm.polyhedron.Rhombohedron"/>
+	  <exhibit class="vmm.polyhedron.RhombicDodecahedron"/>
+  </gallery>
+  
+  <gallery name="3dxm.gallery.Fractals">
+  	<exhibit class="vmm.fractals.Mandelbrot"/>
+  	<exhibit class="vmm.fractals.Koch"/>
+  	<exhibit class="vmm.fractals.KochEscher"/>
+  	<exhibit class="vmm.fractals.Dragon"/>
+  	<exhibit class="vmm.fractals.Hilbert"/>
+  	<exhibit class="vmm.fractals.Sierpinski"/> 	
+  
+  </gallery>
+ 
+  <gallery_group name="3dxm.gallery.ode">
+      <gallery name="3dxm.gallery.ode.FirstOrder1D">
+	      <exhibit class="vmm.ode.firstorder1D.Logistic"/>
+		  <exhibit class="vmm.ode.firstorder1D.MassAction"/>
+		  <exhibit class="vmm.ode.firstorder1D.UserODEFirstOrder1D"/>
+	  </gallery>
+	  <gallery name="3dxm.gallery.ode.SecondOrder1D">
+	      <exhibit class="vmm.ode.secondorder1D.HarmonicOscillator"/>
+		  <exhibit class="vmm.ode.secondorder1D.Pendulum"/>
+		  <exhibit class="vmm.ode.secondorder1D.UserODESecondOrder1D"/>
+	  </gallery>
+	  <gallery name="3dxm.gallery.ode.FirstOrder2D">
+	      <exhibit class="vmm.ode.firstorder2D.Linear"/>
+		  <exhibit class="vmm.ode.firstorder2D.Pendulum"/>
+		  <exhibit class="vmm.ode.firstorder2D.HarmonicOscillator"/>
+		  <exhibit class="vmm.ode.firstorder2D.Volterra_Lotka"/>
+		  <exhibit class="vmm.ode.firstorder2D.VanderPol"/>
+		  <separator/>
+		  <exhibit class="vmm.ode.firstorder2D.UserODEFirstOrder2D"/>
+		  <exhibit class="vmm.ode.firstorder2D.UserODEFirstOrder2DNonAutonomous"/>
+	  </gallery>
+	  <gallery name="3dxm.gallery.ode.SecondOrder2D">
+		  <exhibit class="vmm.ode.secondorder2D.CoupledOscillators"/>
+		  <exhibit class="vmm.ode.secondorder2D.ForcedOscillators"/>
+		  <exhibit class="vmm.ode.secondorder2D.FoucaultPendulum"/>
+		  <separator/>
+		  <exhibit class="vmm.ode.secondorder2D.UserODEF2ndOrder2D"/>
+		  <exhibit class="vmm.ode.secondorder2D.UserODEF2ndOrder2DNonAutonomous"/>
+	  </gallery>
+	  <gallery name="3dxm.gallery.ode.FirstOrder3D">
+		  <exhibit class="vmm.ode.firstorder3D.Linear"/>
+		  <exhibit class="vmm.ode.firstorder3D.Lorenz"/>
+		  <exhibit class="vmm.ode.firstorder3D.Rossler"/>
+		  <exhibit class="vmm.ode.firstorder3D.Rikitake"/>
+		  <separator/>
+		  <exhibit class="vmm.ode.firstorder3D.UserODE1stOrder3D"/>
+		  <exhibit class="vmm.ode.firstorder3D.UserODE1stOrder3DNonAutonomous"/>
+	  </gallery>
+	  <gallery name="3dxm.gallery.ode.SecondOrder3D">
+		  <exhibit class="vmm.ode.secondorder3D.CoupledOscillators"/>
+		  <exhibit class="vmm.ode.secondorder3D.ForcedOscillators"/>
+		  <separator/>
+		  <exhibit class="vmm.ode.secondorder3D.UserODEF2ndOrder3D"/>
+		  <exhibit class="vmm.ode.secondorder3D.UserODE2ndOrder3DNonAutonomous"/>
+	  </gallery>
+	  <gallery name="3dxm.gallery.ode.CentralForce">
+		  <exhibit class="vmm.ode.secondorder2D.Coulomb"/>
+		  <exhibit class="vmm.ode.secondorder2D.PowerLaw"/>
+		  <exhibit class="vmm.ode.secondorder2D.Yukawa"/>
+		  <exhibit class="vmm.ode.secondorder2D.HookesLaw"/>
+		  <exhibit class="vmm.ode.secondorder2D.Higgs"/>
+		  <separator/>
+		  <exhibit class="vmm.ode.secondorder2D.UserCentralForce"/>
+	  </gallery>
+	  <gallery name="3dxm.gallery.ode.ChargedParticles">
+		  <exhibit class="vmm.ode.secondorder3D.ConstantMagneticField"/>
+		  <exhibit class="vmm.ode.secondorder3D.CurrentInStraightWire"/>
+		  <exhibit class="vmm.ode.secondorder3D.ToroidalMagneticField"/>
+		  <exhibit class="vmm.ode.secondorder3D.MagneticDipole"/>
+		  <separator/>
+		  <exhibit class="vmm.ode.secondorder3D.UserMagneticField"/>
+	  </gallery>
+  </gallery_group>
+
+<!--	
+  <gallery name="3dxm.gallery.LatticeModels">
+	  <exhibit class="vmm.latticemodel.FermiPastaUlam"/>
+	  <exhibit class="vmm.latticemodel.Toda"/>
+  </gallery>
+-->
+
+</galleries>
