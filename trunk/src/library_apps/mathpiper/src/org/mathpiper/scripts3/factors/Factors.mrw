@@ -1,7 +1,9 @@
 %mathpiper,def="Factors"
 
 Retract("Factors",*);
-Retract("FactorsMultivariateSpecialCases",*);
+
+Retract("FactorsMultivariateSpecialCases",*);   // helper function
+Retract("FactorsSomethingElse",*);              // helper function
 
 /*
  * This is the fundamental factorization algorithm.
@@ -18,7 +20,7 @@ Retract("FactorsMultivariateSpecialCases",*);
 
 20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  
 [
-    Local(x,coeffs,factorsList,result,notInt,rat);
+    Local(x,coeffs,factorsList,result);
     x := VarList(p)[1];
     /*  p is the polynomial, x is its (only) variable */
     
@@ -38,16 +40,27 @@ Retract("FactorsMultivariateSpecialCases",*);
         [
             // No -- at least one non-integer coefficient
             // Check for FLOAT or RATIONAL coefficients
-            //Echo(coeffs);
+            Local(notInt,rat,dd,lcm,newCoeffs,NewPoly,facs);
             notInt := Select(Lambda({i},Not IsInteger(i)),coeffs);
-            //Echo(notInt);
-            rat := Rationalize(coeffs);
-            //Echo(rat);
-            //NOT IMPLEMENTED YET
-            
-            
-            // Let's just stay with the default monic factors.
-            result := factorsList;
+            rat := Rationalize(coeffs);            
+            dd  := MapSingle("Denominator",rat);
+            lcm := Lcm(dd);
+            newCoeffs := lcm * rat;
+            newPoly := NormalForm(UniVariate(x,0,newCoeffs));
+            facs := FactorsPolynomialOverIntegers(newPoly);
+            If( InVerboseMode(), [
+                  Echo("coeffs ",coeffs);
+                  Echo("notInt ",notInt);
+                  Echo("rat ",rat);
+                  Echo("dd  ",dd);
+                  Echo("lcm ",lcm);
+                  Echo("newCoeffs ",newCoeffs);
+                  Echo("newPoly ",newPoly);
+                  Echo("facs ",facs);
+                ]
+              );
+            result := {(1/lcm),1}:facs;
+            // TODO:  NEEDS MORE POLISHING
         ]
       );
 ];
@@ -56,22 +69,33 @@ Retract("FactorsMultivariateSpecialCases",*);
 30 # Factors(p_CanBeUni) <--  
 [
     /* 
-     * This is a multi-variate polynomial.
-     * Original YMP Factors() did not attempt to factor such.
-     * Here, we will hang one or more special cases which we can
-     * relatively easily factor.
+     * This may be a multi-variate polynomial, or it may be something else.
+     * Original YY function Factors() did not attempt to factor such.
+     *    If it is a multivariate polynomial, we will try certain
+     * Special cases which we can relatively easily factor.
+     *    If it is "something else", we will have to check, on a
+     * case-by-case basis.
      */
-    FactorsMultivariateSpecialCases(p);
+    Local(nvars);
+    nvars := Length(VarList(p));
+    If (nvars > 1, 
+         [
+            Echo("special ",p);
+            Echo(Coef(p,x,0 .. 8));
+            FactorsMultivariateSpecialCases(p);
+         ], 
+            FactorsSomethingElse(p) 
+       );
 ];
 
 
 40 # Factors(_p) <--
 [
     /*
-     * This may may be a polynomial with non-integer exponents.  Let's check.
+     * This may may be a polynomial with non-integer exponents.
      */
      //Echo(40,p);
-     //  NOT IMPLEMENTED YET
+     //  TODO:  NOT IMPLEMENTED YET
      {{p,1}};
      
 ];
@@ -98,13 +122,11 @@ Retract("FactorsMultivariateSpecialCases",*);
 
 10 # FactorsMultivariateSpecialCases(_x^6-_y^6) <-- {{x+y,1},{x-y,1},{x^2+x*y+y^2,1},{x^2-x*y+y^2,1}};
 
+20 # FactorsSomethingElse(_p) <-- p;
+
 //------------------------------------------------------------------------
 
 %/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -147,9 +169,7 @@ Programmer: Yacas Team + Sherm Ostrowsky
     Result: {{4*x+5,2},{2*x-3,1}}
 
 *SEE Factor, IsPrime, GaussianFactors
+
 %/mathpiper_docs
 
-    %output,preserve="false"
-      
-.   %/output
 
