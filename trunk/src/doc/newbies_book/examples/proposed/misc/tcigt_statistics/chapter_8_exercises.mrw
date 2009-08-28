@@ -1,0 +1,120 @@
+%mathpiper,title="1"
+
+3*8*4*3;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 288
+.   %/output
+
+
+
+%mathpiper,title="2"
+
+numberOfWaysToAnswerExam := 4^10;
+
+probabilityOfAllCorrect := N(1/numberOfWaysToAnswerExam);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.0000009536743164
+.   %/output
+
+
+
+%mathpiper,title="3"
+
+Permutations(13);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 6227020800
+.   %/output
+
+
+
+%mathpiper,title="4"
+
+Permutations(8,3);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 336
+.   %/output
+
+
+%mathpiper,title="5"
+
+Permutations(10,2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 90
+.   %/output
+
+
+
+%mathpiper,title="6"
+
+Permutations(40,3);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 59280
+.   %/output
+
+
+
+
+%mathpiper,title="7"
+
+Combinations(12,3);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 220
+.   %/output
+
+
+
+%mathpiper,title="8"
+
+Combinations(50,12);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 121399651100
+.   %/output
+
+
+
+%mathpiper,title=""
+
+survey := Concat( FillList(0,137), FillList(1,160), FillList(2,112), FillList(3,31), FillList(4,10));
+
+Echo("Mean: ", N( Mean(survey) ));
+
+Echo("Variance: ", N( UnbiasedVariance(survey) ));
+
+Echo("StandardDeviation: ", N( StandardDeviation(survey) ));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Mean: 1.148888889 
+      Variance: 1.008963122 
+      StandardDeviation: 1.0044715636
+.   %/output
+
+
