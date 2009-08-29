@@ -30,6 +30,15 @@ import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 
+import vmm.core.Exhibit;
+import vmm.core.I18n;
+import vmm.core.Util;
+import vmm.xm3d.Menus;
+import vmm.xm3d.WindowXM;
+import vmm.xm3d.EmbeddedApplet;
+//import vmm.core.View;
+
+
 
 // }}}
 
@@ -72,9 +81,40 @@ public class ThreeDXplorMathJ extends JPanel
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 		
 		
-		vmm.xm3d.DisplayXM display3d = new vmm.xm3d.DisplayXM();
 		
-		this.add(display3d);
+		//I18n.addFile("vmm.xm3d.stringsXM");
+		
+		
+		//int options = 0;
+		//menus = new Menus(this, null, options);
+
+
+		
+		
+		//vmm.xm3d.DisplayXM display3d = new vmm.xm3d.DisplayXM();
+		
+		//this.add(display3d);
+		
+		
+		vmm.xm3d.ThreeDXplorMathJApplet geoGebraApplet = new vmm.xm3d.ThreeDXplorMathJApplet();
+		
+		//vmm.xm3d.EmbeddedApplet geoGebraApplet = new vmm.xm3d.EmbeddedApplet();
+
+
+		// Now try to get an applet stub for this class.
+
+
+		String homeDir = org.gjt.sp.jedit.jEdit.getJEditHome();
+		if(homeDir.indexOf(":") != -1){
+			homeDir = homeDir.split(":")[1];
+		}
+		ThreeDXplorMathJAppletStub stub = new ThreeDXplorMathJAppletStub(this, geoGebraApplet, "geogebra.applet.", homeDir);// + java.io.File.separator +"jars" + java.io.File.separator + "scripts" + java.io.File.separator + "init.ggb");
+
+		geoGebraApplet.setStub(stub);
+
+		add(BorderLayout.CENTER, geoGebraApplet);
+		
+		geoGebraApplet.init();
 
 
 

@@ -1,16 +1,11 @@
-%mathpiper,def="ShuffledCardDeck",scope="private"
+%mathpiper,def="ShuffledDeckNoSuits",scope="private"
 
 Retract("ShuffledDeckNoSuits",*);
 
 
 ShuffledDeckNoSuits() := 
 [
-    Local(deck);
-    
-    deck := Concat(1 .. 13, 1 .. 13, 1 .. 13, 1 .. 13);
-    
-    deck := Shuffle(deck);
-
+   Shuffle(Concat(1 .. 13, 1 .. 13, 1 .. 13, 1 .. 13));
 ];
 
 %/mathpiper

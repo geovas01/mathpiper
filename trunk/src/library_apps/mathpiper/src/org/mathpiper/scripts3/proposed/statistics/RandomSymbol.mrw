@@ -1,4 +1,4 @@
-%mathpiper,title="RandomSymbol",scope="private"
+%mathpiper,def="RandomSymbol",scope="private"
 
 Retract("RandomSymbol",*);
 
