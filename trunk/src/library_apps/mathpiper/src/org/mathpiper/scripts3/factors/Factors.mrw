@@ -40,7 +40,7 @@ Retract("FactorsSomethingElse",*);              // helper function
         [
             // No -- at least one non-integer coefficient
             // Check for FLOAT or RATIONAL coefficients
-            Local(notInt,rat,dd,lcm,newCoeffs,NewPoly,facs);
+            Local(notInt,rat,dd,lcm,newCoeffs,newPoly,facs);
             notInt := Select(Lambda({i},Not IsInteger(i)),coeffs);
             rat := Rationalize(coeffs);            
             dd  := MapSingle("Denominator",rat);
