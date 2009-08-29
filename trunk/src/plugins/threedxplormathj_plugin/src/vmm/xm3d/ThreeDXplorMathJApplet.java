@@ -35,7 +35,8 @@ public class ThreeDXplorMathJApplet extends JApplet {
 		holder.setBorder(BorderFactory.createLineBorder(Color.GRAY,2));
 		if ("no".equalsIgnoreCase(getParameter("StatusBar")))
 			display.setShowStatusBar(false);
-		String exhibitName = getParameter("Exhibit");
+		//String exhibitName = getParameter("Exhibit");
+		String exhibitName = "vmm.surface.parametric.MonkeySaddle";
 		Exhibit exhibit = null;
 		View view = null;
 		if (exhibitName != null) {
