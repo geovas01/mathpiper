@@ -1,4 +1,4 @@
-%mathpiper
+%mathpiper,def="IsSubset",scope="private"
 
 Retract("IsSubset",*);
 

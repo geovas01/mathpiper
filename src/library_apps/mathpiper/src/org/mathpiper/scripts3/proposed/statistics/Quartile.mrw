@@ -1,4 +1,4 @@
-%mathpiper,title="Quartile",scope="private"
+%mathpiper,def="Quartile",scope="private"
 
 Retract("Quartile",*);
 

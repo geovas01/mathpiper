@@ -65,11 +65,11 @@
 		<copy todir="${build.dir}/classes">
 			<fileset dir="./src" >
 				<include name="**/*.props"/>
+				<include name="**/*.properties"/>
 				<include name="**/*.html"/>
 				<include name="**/*.gif"/>
-				<include name="actions.xml"/>
-				<include name="dockables.xml"/>
-				<include name="services.xml"/>
+				<include name="**/*.jpg"/>
+				<include name="**/*.xml"/>
 			</fileset>
 		</copy>
 		
@@ -77,11 +77,11 @@
 			<fileset dir="${build.classes.dir}">
 				<include name="**/*.class"/>
 				<include name="**/*.props"/>
+				<include name="**/*.properties"/>
 				<include name="**/*.html"/>
 				<include name="**/*.gif"/>
-				<include name="actions.xml"/>
-				<include name="dockables.xml"/>
-				<include name="services.xml"/>
+				<include name="**/*.jpg"/>
+				<include name="**/*.xml"/>
 			</fileset>
 			<manifest> 
 				<section name="threedxplormathj_plugin" >
