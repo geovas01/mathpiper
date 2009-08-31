@@ -46,7 +46,7 @@ public class BuiltinObjectCons extends Cons {
 
         Cons copied = new BuiltinObjectCons(aEnvironment, iCarBuiltin);
 
-        copied.setMetadataPointer(this.getMetadataPointer());
+        copied.setMetadataMap(this.getMetadataMap());
 
         return copied;
         

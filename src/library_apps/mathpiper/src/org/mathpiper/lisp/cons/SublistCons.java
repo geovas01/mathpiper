@@ -49,7 +49,7 @@ public class SublistCons extends Cons {
 
         Cons copied = new SublistCons(aEnvironment, iCar.getCons());
 
-        copied.setMetadataPointer(this.getMetadataPointer());
+        copied.setMetadataMap(this.getMetadataMap());
         
         return copied;
     }

@@ -5,30 +5,53 @@
 package org.mathpiper.builtin.functions.core;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.AtomCons;
-import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.SublistCons;
 
 
 public class MetaSet extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer object = new ConsPointer();
-        object.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        ConsPointer objectPointer = new ConsPointer();
+        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 
-        ConsPointer key = new ConsPointer();
-        object.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        ConsPointer keyPointer = new ConsPointer();
+        keyPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        LispError.checkIsString(aEnvironment, aStackTop, keyPointer, 2);
 
 
         ConsPointer value = new ConsPointer();
-        object.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
+        value.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
 
 
+        
+
+        Map metadataMap = objectPointer.getCons().getMetadataMap();
+
+        if(metadataMap == null)
+        {
+            metadataMap = new HashMap();
+
+            objectPointer.getCons().setMetadataMap(metadataMap);
+        }//end if.
+
+
+
+        String keyString =(String) keyPointer.getCons().car();;
+
+        metadataMap.put(keyString, value.getCons());
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(objectPointer.getCons());
+
+        return;
+
+/*
         //Local variable check.
         ConsPointer variablePointer = aEnvironment.getLocalVariable((String) object.car());
 
@@ -38,7 +61,7 @@ public class MetaSet extends BuiltinFunction {
 
 
             //Check to see if the value already has metadata associated with it.
-            ConsPointer metadataPointer = variablePointer.getCons().getMetadataPointer();
+            ConsPointer metadataPointer = variablePointer.getCons().getMetadataMap();
             if (metadataPointer.getCons() == null) {
                 //Create new meta data list.
 
@@ -46,9 +69,9 @@ public class MetaSet extends BuiltinFunction {
 
                 ConsPointer listConsPointer = new ConsPointer(listCons);
 
-                variablePointer.getCons().setMetadataPointer(listConsPointer);
+                variablePointer.getCons().setMetadataMap(listConsPointer);
 
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(variablePointer.getCons().getMetadataPointer().getCons());
+                getTopOfStackPointer(aEnvironment, aStackTop).setCons(variablePointer.getCons().getMetadataMap().getCons());
 
                 return;
 
@@ -75,7 +98,7 @@ public class MetaSet extends BuiltinFunction {
 
 
             //Check to see if the value already has metadata associated with it.
-            ConsPointer metadataPointer = variablePointer.getCons().getMetadataPointer();
+            ConsPointer metadataPointer = variablePointer.getCons().getMetadataMap();
             if (metadataPointer.getCons() == null) {
                 //Create new meta data list.
 
@@ -83,9 +106,9 @@ public class MetaSet extends BuiltinFunction {
 
                 ConsPointer listConsPointer = new ConsPointer(listCons);
 
-                variablePointer.getCons().setMetadataPointer(listConsPointer);
+                variablePointer.getCons().setMetadataMap(listConsPointer);
 
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(variablePointer.getCons().getMetadataPointer().getCons());
+                getTopOfStackPointer(aEnvironment, aStackTop).setCons(variablePointer.getCons().getMetadataMap().getCons());
 
                 return;
 
@@ -103,7 +126,7 @@ public class MetaSet extends BuiltinFunction {
 
 
         //If this point has been reached then we are dealing with an unbound variable.
-        ConsPointer metaDataPointer = object.getCons().getMetadataPointer();
+        ConsPointer metaDataPointer = object.getCons().getMetadataMap();
 
         if (metaDataPointer.getCons() == null) {
             //Create new meta data list.
@@ -112,7 +135,7 @@ public class MetaSet extends BuiltinFunction {
 
             ConsPointer listConsPointer = new ConsPointer(listCons);
 
-            object.getCons().setMetadataPointer(listConsPointer);
+            object.getCons().setMetadataMap(listConsPointer);
 
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(listCons);
 
@@ -123,9 +146,40 @@ public class MetaSet extends BuiltinFunction {
 
             return;
         }//end if/else.
+ *
+ * */
 
     }//end method.
 
 
 }//end class.
 
+
+/*
+%mathpiper_docs,name="MetaSet",categories="User Functions;Built In"
+ *CMD MetaSet --- set the metadata for a value or an unbound variable
+ *CORE
+ *CALL
+Meta(value_or_unbound_variable, key_string, value)
+
+ *PARMS
+
+
+
+{value_or_unbound_variable} -- a value or an unbound variable
+
+{key_string} -- a string which will be the key for the given value
+
+{value} -- a value such as a string, symbolic atom, or list
+
+ *DESC
+
+Adds metadata to values and unbound variables.  The metadata is
+held in an associative list.  MetaSet returns the given value or unbound variable
+as a result after it has had metadata added to it.
+
+
+
+ *SEE MetaSet, Clear
+%/mathpiper_docs
+ */

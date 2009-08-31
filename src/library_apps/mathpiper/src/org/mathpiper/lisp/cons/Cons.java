@@ -17,6 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.cons;
 
+import java.util.Map;
 import org.mathpiper.lisp.Environment;
 
 
@@ -31,13 +32,13 @@ import org.mathpiper.lisp.Environment;
 public abstract class Cons //Note:tk:was MathPiperObject.
 {
 
-    protected Cons metadata;
+    protected Map metadataMap;
 
 
 
     public Cons(Environment aEnvironment) throws Exception
     {
-        metadata = null; //aEnvironment.iEmptyAtom;
+        metadataMap = null; //aEnvironment.iEmptyAtom;
     }//end constructor.
 
 
@@ -62,21 +63,23 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
+
     /**
      *  Return a pointer to extra info. This allows for annotating
      *  an object. Returns NULL by default.
      */
-    public ConsPointer getMetadataPointer()
+    public Map getMetadataMap()
     {
-        return new ConsPointer(metadata);
+        return metadataMap;
     }//end method.
 
 
 
-    public void setMetadataPointer(ConsPointer aData)
+    public void setMetadataMap(Map metaDataMap)
     {
-        this.metadata = aData.getCons();
+        this.metadataMap = metaDataMap;
     }//end method.
+
 
 
     public boolean isEqual(Cons aOther) throws Exception {
