@@ -111,14 +111,6 @@ Write(rooms, Nl());
 */
 
 
-Test() :=
-[
-    ExtraInfoSet(3,"Hello");
-];
+10 # SetTag(_x,_tag) <-- [ Meta(x)["Tags"] := tag; ];
 
-
-
-
-a := Test();
-
-Echo(ExtraInfoGet(a));
+SetTag(y,3);

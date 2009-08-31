@@ -849,8 +849,11 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new PatchString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "PatchString");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Meta(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "Meta");
+                new BuiltinFunctionEvaluator(new Meta(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "MetaSet");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new Meta(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "MetaGet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new DefaultTokenizer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "DefaultTokenizer");
