@@ -102,7 +102,6 @@ public class Environment {
     public InputDirectories iInputDirectories = new InputDirectories();
     public String iPrettyReader = null;
     public String iPrettyPrinter = null;
-    private Map iUnboundVariableMetadata = new Map();
 
     public Environment(MathPiperOutputStream aCurrentOutput/*TODO FIXME*/) throws Exception {
         iCurrentTokenizer = iDefaultTokenizer;
@@ -253,7 +252,6 @@ public class Environment {
         }
         iGlobalState.release(aVariableName);
 
-        //this.clearUnboundVariableMetadata(aVariableName);
     }
 
     public void newLocalVariable(String aVariable, Cons aValue) throws Exception {
@@ -405,28 +403,6 @@ public class Environment {
     }
 
 
-
-    public Cons getUnboundVariableMetadata(String variableName) throws Exception
-    {
-        Cons metadataList = (Cons) this.iUnboundVariableMetadata.lookUp(variableName);
-
-        if(metadataList == null)
-        {
-            metadataList = SublistCons.getInstance(this, AtomCons.getInstance(this, "List"));
-            
-            this.iUnboundVariableMetadata.setAssociation(metadataList, variableName);
-        }//end if.
-
-        return metadataList;
-
-    }//end method.
-
-
-    public void clearUnboundVariableMetadata(String variableName) throws Exception
-    {
-        this.iUnboundVariableMetadata.release(variableName);
-
-    }//end method.
 
 
 
