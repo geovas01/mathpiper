@@ -164,7 +164,7 @@ public class Environment {
     }
 
     public void setGlobalVariable(String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception {
-        ConsPointer localVariable = findLocalVariable(aVariable);
+        ConsPointer localVariable = getLocalVariable(aVariable);
         if (localVariable != null) {
             localVariable.setCons(aValue.getCons());
             return;
@@ -178,7 +178,7 @@ public class Environment {
 
     public void getGlobalVariable(String aVariable, ConsPointer aResult) throws Exception {
         aResult.setCons(null);
-        ConsPointer localVariable = findLocalVariable(aVariable);
+        ConsPointer localVariable = getLocalVariable(aVariable);
         if (localVariable != null) {
             aResult.setCons(localVariable.getCons());
             return;
@@ -197,7 +197,8 @@ public class Environment {
         }
     }
 
-    public ConsPointer findLocalVariable(String aVariable) throws Exception {
+
+    public ConsPointer getLocalVariable(String aVariable) throws Exception {
         LispError.check(iLocalVariablesFrame != null, LispError.INVALID_STACK);
         //    check(iLocalsList.iFirst != null,INVALID_STACK);
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
@@ -210,7 +211,6 @@ public class Environment {
         }
         return null;
     }//end method.
-
     public String getLocalVariables() throws Exception {
         LispError.check(iLocalVariablesFrame != null, LispError.INVALID_STACK);
         //    check(iLocalsList.iFirst != null,INVALID_STACK);
@@ -246,14 +246,14 @@ public class Environment {
     }//end method.
 
     public void unbindVariable(String aVariableName) throws Exception {
-        ConsPointer localVariable = findLocalVariable(aVariableName);
+        ConsPointer localVariable = getLocalVariable(aVariableName);
         if (localVariable != null) {
             localVariable.setCons(null);
             return;
         }
         iGlobalState.release(aVariableName);
 
-        this.clearUnboundVariableMetadata(aVariableName);
+        //this.clearUnboundVariableMetadata(aVariableName);
     }
 
     public void newLocalVariable(String aVariable, Cons aValue) throws Exception {
