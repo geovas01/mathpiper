@@ -74,7 +74,6 @@ import org.mathpiper.builtin.functions.core.Eval;
 import org.mathpiper.builtin.functions.core.Exit;
 import org.mathpiper.builtin.functions.core.ExitRequested;
 import org.mathpiper.builtin.functions.core.XmlExplodeTag;
-import org.mathpiper.builtin.functions.core.Meta;
 import org.mathpiper.builtin.functions.core.Factorial;
 import org.mathpiper.builtin.functions.core.FastArcSin;
 import org.mathpiper.builtin.functions.core.FastIsPrime;
@@ -164,6 +163,8 @@ import org.mathpiper.builtin.functions.core.AskUser;
 import org.mathpiper.builtin.functions.core.IsDecimal;
 import org.mathpiper.builtin.functions.core.LispRead;
 import org.mathpiper.builtin.functions.core.LispReadListed;
+import org.mathpiper.builtin.functions.core.MetaGet;
+import org.mathpiper.builtin.functions.core.MetaSet;
 import org.mathpiper.builtin.functions.core.ReadToken;
 import org.mathpiper.builtin.functions.core.Replace;
 import org.mathpiper.builtin.functions.core.Retract;
@@ -849,10 +850,10 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new PatchString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "PatchString");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Meta(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new MetaSet(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "MetaSet");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Meta(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new MetaGet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "MetaGet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new DefaultTokenizer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),

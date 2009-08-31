@@ -2,123 +2,81 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.mathpiper.builtin.functions.core;
 
+
+import java.util.Map;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.SublistCons;
-
 
 
 public class MetaGet extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer object = new ConsPointer();
-
-        object.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-
-        //Local variable check.
-        ConsPointer variablePointer = aEnvironment.getLocalVariable((String) object.car());
+        ConsPointer objectPointer = new ConsPointer();
+        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 
-        if (variablePointer != null) {
-            //Is an unbound local variable.
+        ConsPointer keyPointer = new ConsPointer();
+        keyPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        LispError.checkIsString(aEnvironment, aStackTop, keyPointer, 2);
 
 
-            //Check to see if the value already has metadata associated with it.
-            ConsPointer metadataPointer = variablePointer.getCons().getMetadataPointer();
-            if (metadataPointer.getCons() == null) {
-                //Create new meta data list.
+        Map metadataMap = objectPointer.getCons().getMetadataMap();
 
-                Cons listCons = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, "List"));
-
-                ConsPointer listConsPointer = new ConsPointer(listCons);
-
-                variablePointer.getCons().setMetadataPointer(listConsPointer);
-
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(variablePointer.getCons().getMetadataPointer().getCons());
-
-                return;
-
-            } else {
-
-                //Return existing meta
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(metadataPointer.getCons());
-
-                return;
-            }//end if/else.
-
-
-        }//end if.
-
-
-
-
-
-        //Check for global variable.
-        variablePointer = new ConsPointer();
-        aEnvironment.getGlobalVariable((String) object.car(), variablePointer);
-
-        if (variablePointer.getCons() != null) {
-
-
-            //Check to see if the value already has metadata associated with it.
-            ConsPointer metadataPointer = variablePointer.getCons().getMetadataPointer();
-            if (metadataPointer.getCons() == null) {
-                //Create new meta data list.
-
-                Cons listCons = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, "List"));
-
-                ConsPointer listConsPointer = new ConsPointer(listCons);
-
-                variablePointer.getCons().setMetadataPointer(listConsPointer);
-
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(variablePointer.getCons().getMetadataPointer().getCons());
-
-                return;
-
-            } else {
-
-                //Return existing meta
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(metadataPointer.getCons());
-
-                return;
-            }//end if/else.
-
-        }//end if.
-
-
-
-
-        //If this point has been reached then we are dealing with an unbound variable.
-        ConsPointer metaDataPointer = object.getCons().getMetadataPointer();
-
-        if (metaDataPointer.getCons() == null) {
-            //Create new meta data list.
-
-            Cons listCons = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, "List"));
-
-            ConsPointer listConsPointer = new ConsPointer(listCons);
-
-            object.getCons().setMetadataPointer(listConsPointer);
-
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(listCons);
-
-        } else {
-
-            //Return existing meta
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(metaDataPointer.getCons());
+        if (metadataMap == null) {
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "Empty"));
 
             return;
-        }//end if/else.
+        }//end if.
+
+
+        Cons valueCons = (Cons) metadataMap.get((String) keyPointer.getCons().car());
+
+
+        if (valueCons == null) {
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "Empty"));
+        } else {
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(valueCons);
+        }
+
+
 
     }//end method.
 
 
 }//end class.
 
+
+
+/*
+%mathpiper_docs,name="MetaSet",categories="User Functions;Built In"
+ *CMD MetaGet --- returns the metadata for a value or an unbound variable
+ *CORE
+ *CALL
+MetaGet(value_or_unbound_variable, key_string)
+
+ *PARMS
+
+
+
+{value_or_unbound_variable} -- a value or an unbound variable
+
+{key_string} -- a string which is the key for the given value
+
+
+ *DESC
+
+Returns the metadata a value or an unbound variables.  The metadata is
+held in an associative list.
+
+
+
+ *SEE MetaGet, Clear
+%/mathpiper_docs
+ */
