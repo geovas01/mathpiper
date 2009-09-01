@@ -1,0 +1,11 @@
+%mathpiper,def="BinomialProbability",scope="private"
+
+BinomialProbability(r, n, p) := (n! / ((n - r)! * r!)) * p^r * (1-p)^(n-r);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
