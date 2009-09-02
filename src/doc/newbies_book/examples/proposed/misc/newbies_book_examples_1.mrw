@@ -1,4 +1,4 @@
-/*  v 1.00.
+/*  v 1.01.
   This is a MathRider worksheet file and it consists of folds which contain source
   code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
   a fold and then executed by placing the cursor anywhere inside the code and
@@ -14,7 +14,7 @@
 */
 
 
-%mathpiper,description="Fold 1. Add two numbers together."
+%mathpiper,title="Fold 1. Add two numbers together."
 2 + 3;
 
 %/mathpiper
@@ -24,7 +24,7 @@
 
 
 
-%mathpiper,description="Fold 2. Add seven numbers together."
+%mathpiper,title="Fold 2. Add seven numbers together."
 1 + 2 + 3 + 4 + 5 + 6 + 7;
 
 %/mathpiper
@@ -34,7 +34,7 @@
 
 
 
-%mathpiper,description="Fold 3. Caclulate two to the third power."
+%mathpiper,title="Fold 3. Caclulate two to the third power."
 2^3;
 
 %/mathpiper
@@ -44,7 +44,7 @@
 
 
 
-%mathpiper,description="Fold 4. Calcuate a numeric value."
+%mathpiper,title="Fold 4. Calcuate a numeric value."
 N(9.5/3.2);
 
 %/mathpiper
@@ -54,7 +54,7 @@ N(9.5/3.2);
 
 
 
-%mathpiper,description="Fold 5. Add three rational numbers together."
+%mathpiper,title="Fold 5. Add three rational numbers together."
 1/2 + 1/3 + 1/8;
 
 %/mathpiper
@@ -64,7 +64,7 @@ N(9.5/3.2);
 
 
 
-%mathpiper,description="Fold 6. Calculate the numerator of a rational number."
+%mathpiper,title="Fold 6. Calculate the numerator of a rational number."
 a := 1/2 + 1/3;
 Numer(a);
 
@@ -75,7 +75,7 @@ Numer(a);
 
 
 
-%mathpiper,description="Fold 7. Factor a number."
+%mathpiper,title="Fold 7. Factor a number."
 Factor(8);
 
 %/mathpiper
@@ -85,7 +85,7 @@ Factor(8);
 
 
 
-%mathpiper,description="Fold 8. Factor a symbolic expression."
+%mathpiper,title="Fold 8. Factor a symbolic expression."
 Factor(x^2 + 24*x + 80);
 
 %/mathpiper
@@ -105,7 +105,7 @@ Factor(x^2 + 24*x + 80);
     them again.
 */
 
-%mathpiper,description="Fold 9. Missing semicolon error."
+%mathpiper,title="Fold 9. Missing semicolon error."
 2 + 3
 
 %/mathpiper
@@ -115,7 +115,7 @@ Factor(x^2 + 24*x + 80);
 
 
 
-%mathpiper,description="Fold 10. Unknown operator error. Should be a forward slash for division."
+%mathpiper,title="Fold 10. Unknown operator error. Should be a forward slash for division."
 3 \ 5;
 
 %/mathpiper
@@ -131,7 +131,7 @@ Factor(x^2 + 24*x + 80);
     a popup menu which can be used to automatically insert folds at the cursor.
 */
 
-%mathpiper,description="Fold 11. Place your code inside this fold.
+%mathpiper,title="Fold 11. Place your code inside this fold."
 
 
 
