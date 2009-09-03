@@ -87,6 +87,7 @@ LocalSymbols(x)
 
 10 # Solve'Reduce(_expr, _var) <--
 [
+  ClearError("Solve'Fails"); // ..in case one was left over from prior failure
   Local(context, expr2, var2, res, sol, sol2, i);
   context := Solve'Context(expr, var);
   If(context = False,
