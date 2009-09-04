@@ -1,0 +1,130 @@
+%mathpiper,title="pp.6"
+/*
+for p:3 step 2 thru 3601 do
+if primep(p) and (remainder(2**(p-1), p**2) =1)
+then display(p);
+
+p = 1093
+p = 3511
+(d9) done
+*/
+
+ForEach(p,Table(x,x,3,3601,2))
+[
+    If(IsPrime(p) And 2^(p-1) % p^2 = 1,Echo(p));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      1093 
+      3511
+.   %/output
+
+
+
+%mathpiper,title="pp.6"
+/*
+(c10) for n:2 thru 100 do
+for p:1 thru (n-1) do
+(q: n-p,
+if (gcd(p,q)=1 and integerp((4*p**3+27*q**2)**(1/2)))
+then display(p,q)
+);
+p = 1
+q = 10
+p = 13
+q = 34
+p = 33
+q = 32
+p = 69
+q = 22
+(d10) done
+*/
+
+//Note:raising to (1/2) power used numerical calculation instead of Sqrt function.
+ForEach(n,2 .. 100)
+[
+    ForEach(p,1 .. n-1)
+    [
+        q := n-p;
+        If(Gcd(p,q) = 1 And IsInteger(Sqrt(4*p^3+27*q^2)), Echo(p,q));
+    ];
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      1 10 
+      13 34 
+      33 32 
+      69 22
+.   %/output
+
+
+
+%mathpiper,title="pp.8"
+
+Sum(i,1, 200,1/i^2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 1.639946548
+.   %/output
+
+
+
+%mathpiper,title="pp.11"
+Clear(a,b,x,y,z);
+p1:= (a*x^2-y^3*z)*(y+b*z^2)*(x-y-2*z);
+
+Echo(p1);
+Echo(ExpandBrackets(p1));
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      (a*x^2-y^3*z)*(y+b*z^2)*(x-y-2*z) 
+      a*x^3*y+a*x^3*z^2*b-(2*a*x^2*z^3*b+2*a*x^2*y*z+a*x^2*y*z^2*b+a*x^2*y^2)+y^5*z+y^4*z^3*b+2*y^4*z^2+2*y^3*z^4*b-(x*y^3*z^3*b+x*y^4*z)
+.   %/output
+
+
+
+
+%mathpiper,title="pp.22"
+Clear(a,b,c);
+p3:= {{a, b, c}, {c, a, b}, {b, c, a}};
+Echo("p3 ",,,p3);
+
+d1 := Determinant(p3);
+
+Echo("d1 ",,,d1);
+
+Echo("simplify ",,,Simplify(d1));
+
+//Note: can't factor multivariate polynomials.
+Factor(d1);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: FWatom(a^3-a*b*c+c^3-b*c*a+b^3-c*a*b)
+      
+      Side Effects:
+      p3 , {{a,b,c},{c,a,b},{b,c,a}} 
+      d1 , a^3-a*b*c+c^3-b*c*a+b^3-c*a*b 
+      simplify , a^3-3*a*b*c+b^3+c^3
+.   %/output
+
+
+
+
+
