@@ -64,7 +64,7 @@ public class Time extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Time",categories="Programmer Functions;Built In"
+%mathpiper_docs,name="Time",categories="User Functions;Built In;Input/Output"
 *CMD Time --- measure the time taken by an evaluation
 *CORE
 *CALL
@@ -79,11 +79,11 @@ The value of the expression {expr} is lost.
 The result is the "user time" as reported by the OS, not the real ("wall clock") time.
 Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {Time}.
 
-*EG
+*E.G.
 	In> Time() Simplify((a*b)/(b*a))
 	Out> 0.09;
 
-*SEE EchoTime
+*SEE EchoTime, SystemTimer
 
 %/mathpiper_docs
 */

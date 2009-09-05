@@ -321,7 +321,7 @@ probably more useful  for all but very simple expressions.
 
 
 
-%mathpiper_docs,name="EchoTime",categories="User Functions;Control Flow"
+%mathpiper_docs,name="EchoTime",categories="User Functions;Input/Output"
 *CMD EchoTime --- measure the time taken by a function and echos it
 *STD
 *CALL
@@ -342,5 +342,5 @@ Therefore, any CPU-intensive processes running alongside MathPiper will not sign
 	0.34 seconds taken
 	Out> 6.9077552789821370520539743640530926228033;
 
-*SEE Time
+*SEE Time, SystemTimer
 %/mathpiper_docs
