@@ -76,7 +76,7 @@ numberOfRoles := 1000;
 
 dieRolesList := RandomIntegerVector(numberOfRoles,1,6);
 
-Histogram(dieRolesList, binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6, title -> "Single Die Rolls", xAxisLabel -> "Number Rolled", yAxisLabel -> "Roll Count", seriesTitle -> String(numberOfRoles) : " Roles");
+Histogram(dieRolesList, binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6, title -> "Single Die Rolls", xAxisLabel -> "Number Rolled", yAxisLabel -> "Frequency", seriesTitle -> String(numberOfRoles) : " Roles");
 
 %/mathpiper
 
