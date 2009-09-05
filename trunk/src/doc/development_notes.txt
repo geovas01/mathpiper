@@ -3,6 +3,9 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ This code should return y.
+In> Integrate()D(y)y
+Result: Integrate()1
 + N(1/1048576) would be a good example to show significant digits with leading zeros.
 + This looks like a bug with Write() and or Nl() (Update: its not a bug, Nl() is only meant to be used with WriteString());
 + Good article about Clojure which may have ideas on how LocalSymbols etc. in MathPiper might evolve in to: http://blog.thinkrelevance.com/2009/8/12/rifle-oriented-programming-with-clojure-2
