@@ -21,13 +21,12 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
  *
  */
-public class CurrentTime extends BuiltinFunction
+public class SystemTimer extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -35,5 +34,27 @@ public class CurrentTime extends BuiltinFunction
         long currentTime = System.nanoTime();
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + currentTime));
-    }
-}
+    }//end method.
+
+}//end class.
+
+
+
+/*
+%mathpiper_docs,name="SystemTimer",categories="User Functions;Built In;Input/Output"
+*CMD SystemTimer --- return the current time in nanoseconds
+*CORE
+*CALL
+	SystemTimer()
+
+*DESC
+This function returns the current value of the system timer in nanoseconds.
+
+*E.G.
+In> SystemTimer()
+Result: 1624308347733;
+
+*SEE Time, EchoTime
+
+%/mathpiper_docs
+*/
