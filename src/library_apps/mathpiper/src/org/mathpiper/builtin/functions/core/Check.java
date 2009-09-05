@@ -69,7 +69,7 @@ against critical internal errors).
 
 A "soft" error reporting facility that does not stop the execution is provided by the function {Assert}.
 
-*EG
+**E.G.
 
 	In> [Check(1=0,"bad value"); Echo(OK);]
 	In function "Check" :
