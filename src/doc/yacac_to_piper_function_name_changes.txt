@@ -60,6 +60,7 @@ Time -> EchoTime
 GetTime -> Time
 ExtraInfoSet -> MetaSet
 ExtraInfoGet -> MetaGet
+CurrentTime -> SystemTimer
 
 
 
