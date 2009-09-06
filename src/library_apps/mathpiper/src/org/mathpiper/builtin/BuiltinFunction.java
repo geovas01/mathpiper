@@ -163,8 +163,11 @@ import org.mathpiper.builtin.functions.core.AskUser;
 import org.mathpiper.builtin.functions.core.IsDecimal;
 import org.mathpiper.builtin.functions.core.LispRead;
 import org.mathpiper.builtin.functions.core.LispReadListed;
+import org.mathpiper.builtin.functions.core.MetaEntries;
 import org.mathpiper.builtin.functions.core.MetaGet;
+import org.mathpiper.builtin.functions.core.MetaKeys;
 import org.mathpiper.builtin.functions.core.MetaSet;
+import org.mathpiper.builtin.functions.core.MetaValues;
 import org.mathpiper.builtin.functions.core.ReadToken;
 import org.mathpiper.builtin.functions.core.Replace;
 import org.mathpiper.builtin.functions.core.Retract;
@@ -855,6 +858,15 @@ public abstract class BuiltinFunction {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new MetaGet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "MetaGet");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new MetaKeys(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "MetaKeys");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new MetaValues(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "MetaValues");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new MetaEntries(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "MetaEntries");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new DefaultTokenizer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "DefaultTokenizer");
