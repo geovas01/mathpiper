@@ -56,27 +56,25 @@ public class MetaGet extends BuiltinFunction {
 
 /*
 %mathpiper_docs,name="MetaSet",categories="User Functions;Built In"
- *CMD MetaGet --- returns the metadata for a value or an unbound variable
- *CORE
- *CALL
+*CMD MetaGet --- returns the metadata for a value or an unbound variable
+*CORE
+*CALL
 MetaGet(value_or_unbound_variable, key_string)
 
- *PARMS
-
-
+*PARMS
 
 {value_or_unbound_variable} -- a value or an unbound variable
 
 {key_string} -- a string which is the key for the given value
 
 
- *DESC
+*DESC
 
-Returns the metadata a value or an unbound variables.  The metadata is
+Returns the metadata for a value or an unbound variables.  The metadata is
 held in an associative list.
 
 
 
- *SEE MetaGet, Clear
+*SEE MetaSet, MetaKeys, MetaValues, Clear
 %/mathpiper_docs
  */

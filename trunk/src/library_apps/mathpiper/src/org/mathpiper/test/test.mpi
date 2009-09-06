@@ -111,6 +111,11 @@ Write(rooms, Nl());
 */
 
 
-10 # SetTag(_x,_tag) <-- [ Meta(x)["Tags"] := tag; ];
+//10 # SetTag(_x,_tag) <-- [ Meta(x)["Tags"] := tag; ];
 
-SetTag(y,3);
+//SetTag(y,3);
+
+
+a := MetaSet(3,"x",42);
+a := MetaSet(a,"y",43);
+MetaEntries(a);
