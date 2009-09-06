@@ -1,8 +1,8 @@
 
 %mathpiper
 
-Use("org/mathpiper/scripts/proposed.rep/statistics.mpi");
-Use("org/mathpiper/scripts/proposed.rep/geogebra.mpi");
+Use("org/mathpiper/assembledscripts/proposed.rep/statistics.mpi");
+Use("org/mathpiper/assembledscripts/proposed.rep/geogebra.mpi");
 
 %/mathpiper
 
