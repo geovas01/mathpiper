@@ -1,0 +1,77 @@
+%mathpiper,def="CheckSolution"
+
+Retract("CheckSolution",*);
+
+10 # CheckSolution( _expr, _var, solution_IsList )_(Not IsFreeOf(var,expr)) <--
+  [
+      Local(expr0,result,s,r);
+      If( IsEquation(expr),
+          Set(expr0,EquationLeft(expr)-EquationRight(expr)),
+          Set(expr0,expr)
+      );
+      result := {};
+      ForEach(s,solution) 
+        [
+            r := ( expr0 Where s );
+            If(r=0,Push(result,s));
+        ];
+        Reverse(result);
+  ];
+  
+  
+20 # CheckSolution( _expr, _var, _solution ) <-- False;
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="CheckSolution",categories="User Functions;Solve"
+
+*CMD CheckSolution --- Check the validity of solutions returned by the {Solve} function.
+*STD
+*CALL
+	CheckSolution(expr,var,solution)
+
+*PARMS
+
+{expr}     -- a mathematical expression
+{var}      -- a varible identifier
+{solution} -- a List containing solutions to the equation.
+
+
+*DESC
+
+The function {Solve} will attempt to find solutions to the equation
+{expr}, if {expr} is an actual equatio), or to the equivalent equation
+represented by {expr==0} if {expr} is NOT an equation.
+
+Solutions returned by {Solve} will be in the form of a List, such as
+{{var==something,var==something_else}}.
+
+For certain types of expressions or equation, {Solve} might return
+invalid solutions as well as valid ones in the output List.  To check
+the list of solutions, call the function CheckSolutions().  This function
+will return a list containing only the valid solutions from among those
+in the list (if any).  If none of the "solutions" is valid, this 
+function will return the empty list.
+
+*E.G.
+
+In> ss1 := Solve(x^2==4,x)
+
+Result: {x==2,x==(-2)}
+
+In> CheckSolution(x^2==4,x,ss1)
+
+Result: {x==2,x==(-2)}
+
+In> CheckSolution(x^2==4,x,{x==2,x==3})   // Deliberately incorrect
+
+Result: {x==2}
+
+%/mathpiper_docs
+
+
+
