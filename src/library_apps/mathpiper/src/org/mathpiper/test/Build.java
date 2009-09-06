@@ -13,9 +13,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  *
  * @author tkosan
@@ -53,13 +54,16 @@ public class Build {
     private java.io.FileWriter functionCategoriesFile;
     private List<CategoryEntry> functionCategoriesList = new ArrayList<CategoryEntry>();
 
+
     public Build() {
     }//end constructor.
+
 
     public Build(String sourceScriptsDirectory, String outputScriptsDirectory) {
         this.sourceScriptsDirectory = sourceScriptsDirectory;
         this.outputScriptsDirectory = outputScriptsDirectory;
     }//end constructor.
+
 
     public Build(String sourceScriptsDirectory, String outputScriptsDirectory, String outputDocsDirectory) {
         this(sourceScriptsDirectory, outputScriptsDirectory);
@@ -77,13 +81,16 @@ public class Build {
 
     }
 
+
     public void setSourceScriptsDirectory(String scriptsDirectory) {
         this.sourceScriptsDirectory = scriptsDirectory;
     }//end method.
 
+
     public void setOutputScriptsDirectory(String outputDirectory) {
         this.outputScriptsDirectory = outputDirectory;
     }//end method.
+
 
     public void setOutputDocsDirectory(String outputDocsDirectory) {
         this.outputDocsDirectory = outputDocsDirectory;
@@ -98,11 +105,13 @@ public class Build {
         }
     }//end method.
 
+
     public void setBaseDirectory(String baseDirectory) {
         this.sourceDirectory = baseDirectory + "src/";
     }//end method.
 
-    public void compileScripts() {
+
+    public void compileScripts() throws Exception {
 
         StringBuilder mainScriptsClassBuffer = new StringBuilder();
 
@@ -128,6 +137,8 @@ public class Build {
                             return (true);
                         }
                     }
+
+
                 });
 
                 Arrays.sort(packagesDirectory);
@@ -174,6 +185,8 @@ public class Build {
                                     return (true);
                                 }
                             }
+
+
                         });
 
                         Arrays.sort(packageDirectoryContentsArray);
@@ -203,6 +216,8 @@ public class Build {
                                             return (true);
                                         }
                                     }
+
+
                                 });
 
                                 Arrays.sort(packageSubDirectoryContentsArray);
@@ -227,7 +242,7 @@ public class Build {
 
                                     processMRWFile(scriptFile2, mpiSubDirectoyDefFileOut, mpiSubDirectoyFileOut);
 
-                                //mpi file.
+                                    //mpi file.
 
 
                                 }//end subpackage for.
@@ -286,7 +301,8 @@ public class Build {
 
     }//end method.
 
-    List scanSourceFile(File sourceFile) {
+
+    List scanSourceFile(File sourceFile) throws Exception {
         List<Fold> folds = new ArrayList();
         StringBuilder foldContents = new StringBuilder();
         String foldHeader = "";
@@ -319,16 +335,20 @@ public class Build {
                 }
             }//end while.
 
+            if (inFold == true) {
+                throw new Exception("Opening or closing fold tag missing.");
+            }
 
             //Close the input stream
             in.close();
 
-        } catch (Exception e) {//Catch exception if any
-            System.err.println("Error: " + e.getMessage());
+        } catch (IOException ioe) {//Catch exception if any
+            System.err.println("Error: " + ioe.getMessage());
         }
         return folds;
 
     }//end.
+
 
     class Fold {
 
@@ -336,11 +356,13 @@ public class Build {
         private String contents;
         private Map<String, String> attributes = new HashMap();
 
+
         public Fold(String header, String contents) {
             scanHeader(header);
 
             this.contents = contents;
         }//end inner class.
+
 
         private void scanHeader(String header) {
             String[] headerParts = header.trim().split(",");
@@ -357,20 +379,27 @@ public class Build {
 
         }//end method.
 
+
         public Map getAttributes() {
             return attributes;
         }
+
 
         public String getContents() {
             return contents;
         }
 
+
         public String getType() {
             return type;
         }
+
+
     }//end inner class.
 
-    private void processMRWFile(File mrwFile, Writer mpiDefFileOut, Writer mpiFileOut) throws IOException {
+
+    private void processMRWFile(File mrwFile, Writer mpiDefFileOut, Writer mpiFileOut) throws Exception {
+
         List<Fold> folds = scanSourceFile(mrwFile);
 
         boolean hasDocs = false;
@@ -384,7 +413,7 @@ public class Build {
 
             if (foldType.equalsIgnoreCase("%mathpiper")) {
 
-                
+
                 if (fold.getAttributes().containsKey("scope")) {
                     scopeAttribute = (String) fold.getAttributes().get("scope");
                 }
@@ -420,11 +449,11 @@ public class Build {
 
         }//end subpackage for.
 
-        if(!hasDocs)
-        {
-             System.out.println("        ^^^^ Does not contain docs ^^^^");
+        if (!hasDocs) {
+            System.out.println("        ^^^^ Does not contain docs ^^^^");
         }
     }//end method.
+
 
     private void processMathPiperDocsFold(Fold fold, String scope) throws IOException {
         if (documentationFile != null) {
@@ -433,23 +462,23 @@ public class Build {
             if (fold.getAttributes().containsKey("name")) {
                 functionNamesString = (String) fold.getAttributes().get("name");
 
-                /*
-                if(functionNamesString.equals("OdeTest"))
+                //Uncomment to debug the documentation for a given function..
+                /*if(functionNamesString.equals("Factors"))
                 {
-                    int xxx = 1;
-                }
-                 */
+                int xxx = 1;
+                }*/
+
 
                 String[] functionNames = functionNamesString.split(";");
 
                 for (String functionName : functionNames) {
-                //DataOutputStream individualDocumentationFile = null;
+                    //DataOutputStream individualDocumentationFile = null;
                     /*
                     try{
-             individualDocumentationFile =  new DataOutputStream(new java.io.FileOutputStream(outputDocsDirectory + functionName));
+                    individualDocumentationFile =  new DataOutputStream(new java.io.FileOutputStream(outputDocsDirectory + functionName));
                     }catch(Exception ex)
                     {
-                        ex.printStackTrace();
+                    ex.printStackTrace();
                     }*/
 
                     documentationIndexFile.write(functionName + ",");
@@ -458,8 +487,8 @@ public class Build {
                     String contents = fold.getContents();
                     byte[] contentsBytes = contents.getBytes();
                     documentationFile.write(contentsBytes, 0, contentsBytes.length);
-            //individualDocumentationFile.write(contentsBytes, 0, contentsBytes.length);
-            //individualDocumentationFile.close();
+                    //individualDocumentationFile.write(contentsBytes, 0, contentsBytes.length);
+                    //individualDocumentationFile.close();
 
                     documentationOffset = documentationOffset + contents.length();
                     documentationIndexFile.write(documentationOffset + "\n");
@@ -503,7 +532,7 @@ public class Build {
 
                         if (!categories.equalsIgnoreCase("")) {
                             categories = categories.substring(0, categories.length() - 1);
-                        //functionCategoriesFile.write("," + categories);
+                            //functionCategoriesFile.write("," + categories);
 
                         }
                         //functionCategoriesFile.write("\n");
@@ -524,13 +553,15 @@ public class Build {
         }//end if.
     }//end method
 
-    public void execute() {
+
+    public void execute() throws Exception {
         //execute() method is needed by ant to run this class.
         System.out.println("****************** Compiling scripts *******");
         System.out.println("Source directory: " + this.sourceScriptsDirectory);
         System.out.println("Destination directory: " + this.outputScriptsDirectory);
         compileScripts();
     }//end method.
+
 
     private class CategoryEntry implements Comparable {
 
@@ -540,6 +571,7 @@ public class Build {
         private String description;
         private String categories;
 
+
         public CategoryEntry(String categoryName, String functionName, String scope, String description, String categories) {
             this.categoryName = categoryName;
             this.functionName = functionName;
@@ -548,31 +580,35 @@ public class Build {
             this.categories = categories;
         }
 
+
         public int compareTo(Object o) {
             CategoryEntry categoryEntry = (CategoryEntry) o;
             return this.functionName.compareToIgnoreCase(categoryEntry.getFunctionName());
         }//end method.
 
+
         public String getFunctionName() {
             return this.functionName;
         }//end method.
 
+
         public String toString() {
             return categoryName + "," + functionName + "," + scope + "," + description + "," + categories;
         }//end method.
+
+
     }//end class.
 
 
-
-
-    private void processBuiltinDocs() {
+    private void processBuiltinDocs() throws Exception {
         // try {
-	System.out.println("***** Processing built in docs...");
-	
+        System.out.println("***** Processing built in docs...");
+
         File builtinFunctionsSourceDir = new java.io.File(sourceDirectory + "org/mathpiper/builtin/functions/core");
-	
+
         if (builtinFunctionsSourceDir.exists()) {
             java.io.File[] javaFilesDirectory = builtinFunctionsSourceDir.listFiles(new java.io.FilenameFilter() {
+
                 public boolean accept(java.io.File file, String name) {
                     if (name.endsWith(".java")) {
                         return true;
@@ -580,6 +616,8 @@ public class Build {
                         return false;
                     }
                 }
+
+
             });
 
             Arrays.sort(javaFilesDirectory);
@@ -599,7 +637,7 @@ public class Build {
 
                     String foldType = fold.getType();
                     if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
-                       // System.out.println("        **** Contains docs *****  " + javaFileName);
+                        // System.out.println("        **** Contains docs *****  " + javaFileName);
                         hasDocs = true;
 
                         try {
@@ -611,8 +649,7 @@ public class Build {
 
                 }//end for
 
-                 if(!hasDocs)
-                {
+                if (!hasDocs) {
                     System.out.println("    ^^^^ Does not contain docs ^^^^  ");// + javaFileName);
                 }
 
@@ -623,12 +660,13 @@ public class Build {
 
         }//end if.
 
-    /*               } catch (java.io.IOException e) {
-    e.printStackTrace();
-    }*/
+        /*               } catch (java.io.IOException e) {
+        e.printStackTrace();
+        }*/
 
 
     }//end method.
+
 
     public static void main(String[] args) {
 
@@ -657,10 +695,12 @@ public class Build {
         Build scripts = new Build(sourceScriptsDirectory, outputScriptsDirectory, outputDocsDirectory.getPath() + "/");
 
         scripts.setBaseDirectory("/home/tkosan/NetBeansProjects/mathpiper/");
-        scripts.compileScripts();
 
-        Map functionDocs = new HashMap();
         try {
+            scripts.compileScripts();
+
+            Map functionDocs = new HashMap();
+
             BufferedReader documentationIndex = new BufferedReader(new FileReader(outputDocsDirectory.getPath() + "/documentation_index.txt"));
 
             String line;
@@ -680,10 +720,11 @@ public class Build {
 
             documentationIndex.close();
 
-        } catch (java.io.IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
     }//end main
 }//end class.
+
