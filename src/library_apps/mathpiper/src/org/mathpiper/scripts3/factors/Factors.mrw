@@ -1,9 +1,8 @@
 %mathpiper,def="Factors"
 
 Retract("Factors",*);
-
-Retract("FactorsMultivariateSpecialCases",*);   // helper function
-Retract("FactorsSomethingElse",*);              // helper function
+Retract("FactorsMultivariateSpecialCases",*);
+Retract("FactorsSomethingElse",*);
 
 /*
  * This is the fundamental factorization algorithm.
@@ -11,7 +10,8 @@ Retract("FactorsSomethingElse",*);              // helper function
  * When the argument is an integer, FactorizeInt() does the heavy lifting.
  * When the argument is a polynomial, BinaryFactors() is the workhorse.
  */
-10 # Factors(p_IsInteger) <--  FactorizeInt(p);
+
+10 # Factors(p_IsPositiveInteger) <--  FactorizeInt(p);
 
 12 # Factors(p_IsRational)_(Denominator(p) != 1) <-- {{Factor(Numerator(p)) /Factor(Denominator(p)) , 1}}; 
      //Added to handle rational numbers with denominators that are not 1
@@ -40,7 +40,7 @@ Retract("FactorsSomethingElse",*);              // helper function
         [
             // No -- at least one non-integer coefficient
             // Check for FLOAT or RATIONAL coefficients
-            Local(notInt,rat,dd,lcm,newCoeffs,newPoly,facs);
+            Local(notInt,rat,dd,lcm,newCoeffs,NewPoly,facs);
             notInt := Select(Lambda({i},Not IsInteger(i)),coeffs);
             rat := Rationalize(coeffs);            
             dd  := MapSingle("Denominator",rat);
@@ -60,7 +60,7 @@ Retract("FactorsSomethingElse",*);              // helper function
                 ]
               );
             result := {(1/lcm),1}:facs;
-            // TODO:  NEEDS MORE POLISHING
+            //NOT FINISHED YET
         ]
       );
 ];
@@ -92,10 +92,10 @@ Retract("FactorsSomethingElse",*);              // helper function
 40 # Factors(_p) <--
 [
     /*
-     * This may may be a polynomial with non-integer exponents.
+     * This may may be a polynomial with non-integer exponents.  Let's check.
      */
      //Echo(40,p);
-     //  TODO:  NOT IMPLEMENTED YET
+     //  NOT IMPLEMENTED YET
      {{p,1}};
      
 ];
@@ -107,6 +107,10 @@ Retract("FactorsSomethingElse",*);              // helper function
 10 # FactorsMultivariateSpecialCases(x_IsAtom + y_IsAtom) <-- {{x+y,1}};
 
 10 # FactorsMultivariateSpecialCases(x_IsAtom - y_IsAtom) <-- {{x-y,1}};
+
+10 # FactorsMultivariateSpecialCases(n_IsInteger*_x + m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
+
+10 # FactorsMultivariateSpecialCases(n_IsInteger*_x - m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x-m*y)/Gcd(n,m))),1}};
 
 10 # FactorsMultivariateSpecialCases(_n*_x + _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x+y);
 
@@ -125,9 +129,6 @@ Retract("FactorsSomethingElse",*);              // helper function
 20 # FactorsSomethingElse(_p) <-- p;
 
 //------------------------------------------------------------------------
-
-%/mathpiper
-
 
 
 
@@ -169,7 +170,9 @@ Programmer: Yacas Team + Sherm Ostrowsky
     Result: {{4*x+5,2},{2*x-3,1}}
 
 *SEE Factor, IsPrime, GaussianFactors
-
 %/mathpiper_docs
 
+    %output,preserve="false"
+      
+.   %/output
 
