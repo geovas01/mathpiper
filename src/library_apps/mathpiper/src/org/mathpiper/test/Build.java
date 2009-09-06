@@ -301,9 +301,10 @@ public class Build {
         String fileName = sourceFile.getName();
 
         //Uncomment for debugging.
+        /*
         if (fileName.equals("Factors.mrw")) {
             int xxx = 1;
-        }//end if.
+        }//end if.*/
 
         List<Fold> folds = new ArrayList();
         StringBuilder foldContents = new StringBuilder();
@@ -322,6 +323,11 @@ public class Build {
             //System.out.println(line);
 
             if (line.startsWith("%/")) {
+
+                if (inFold == false) {
+                    throw new Exception("Opening fold tag missing in " + fileName + ".");
+                }
+
                 Fold fold = new Fold(foldHeader, foldContents.toString());
                 foldContents.delete(0, foldContents.length());
                 folds.add(fold);
