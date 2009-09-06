@@ -1,0 +1,42 @@
+%mathpiper,def="IsEquation"
+
+Retract("IsEquation",*);
+
+10 # IsEquation(expr_IsAtom) <-- False;
+
+12 # IsEquation(_expr) <-- Listify(expr)[1] = == ; 
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="IsEquation",categories="User Functions;Predicates"
+
+*CMD IsEquation --- Return true if {expr} is an Equation, False otherwise
+
+*STD
+*CALL
+	IsEquation(expr)
+
+*PARMS
+
+{expr} -- mathematical expression
+
+*DESC
+
+This function returns {True} if MathPiper can determine that the expression is an equation.  
+Otherwise, {False}.
+Equations are defined by the property that they are of the form {a==b}.
+
+*E.G.
+
+In> IsEquation(x^2==4)
+
+Result: True
+
+In> IsEquation(x^2-4)
+
+Result: False
+
+%/mathpiper_docs
