@@ -46,6 +46,16 @@ N(twoBoys/ Length(boysOnly));
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: 0.2564102564
+      
+      Side Effects:
+      Trials :{{1,1},{0,1},{1,1},{0,1},{0,1},{0,1},{0,1},{1,1},{1,1},{1,1},{0,1},{1,1},{0,1},{0,1},{1,0},{1,1},{1,1},{1,0},{0,1},{0,1},{1,0},{1,0},{1,0},{1,0},{0,1},{0,1},{1,1},{1,1},{1,0},{1,0},{1,1},{1,0},{1,1},{1,0},{0,1},{0,1},{1,0},{0,1},{1,0},{0,1},{0,1},{1,0},{1,1},{0,1},{0,1},{1,0},{0,1},{0,1},{1,1},{0,1},{1,0},{0,1},{0,1},{1,0},{1,0},{0,1},{0,1},{1,0},{0,1},{0,1},{0,1},{1,0},{1,1},{1,0},{1,0},{1,0},{0,1},{1,0},{1,1},{1,0},{1,1},{0,1},{1,0},{0,1},{1,1},{1,1},{1,1},{1,0}} 
+      One boy: 58 
+      Two boys: 20 
+      At least one boy: 78 0.78
+.   %/output
+
 
 
 
@@ -121,8 +131,8 @@ Echo("Second Pick: ", Count(secondPickScore,prize));
       Result: True
       
       Side Effects:
-      First Pick: 247 
-      Second Pick: 753
+      First Pick: 263 
+      Second Pick: 737
 .   %/output
 
 
@@ -301,6 +311,13 @@ Repeat(trials)
 Echo(successes,,,trials);
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      27 , 100
+.   %/output
 
 
 
