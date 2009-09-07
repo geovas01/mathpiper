@@ -7,7 +7,7 @@ RandomSymbol(list) :=
 
     Local(element);
     
-    fractions := 0;
+    probabilities := 0;
     
     symbols := {};
     
@@ -15,21 +15,21 @@ RandomSymbol(list) :=
     
     ForEach(element,list)
     [        
-        fraction := element[2];
+        probability := element[2];
 
-        fractions := fractions + fraction;
+        probabilities := probabilities + probability;
     ];
     
-    If(fractions != 1, 
+    If(probabilities != 1, 
         [
-            Echo("Error: The fractions must sum to 1."); False;
+            Echo("Error: The probabilities must sum to 1."); False;
         ],
         [
             ForEach(element,list)
             [
-                fraction := element[2];
+                probability := element[2];
                 symbol := element[1];
-                symbols := Append(symbols, {symbol, {lastWeight, lastWeight := lastWeight + N(fraction)}} );
+                symbols := Append(symbols, {symbol, {lastWeight, lastWeight := lastWeight + N(probability)}} );
             ];
              
             randomNumber := Random();
