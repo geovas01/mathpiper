@@ -3,6 +3,7 @@
 Retract("Factors",*);
 Retract("FactorsMultivariateSpecialCases",*);
 Retract("FactorsSomethingElse",*);
+Retract("CombineNumericalFactors",*);
 
 /*
  * This is the fundamental factorization algorithm.
@@ -10,6 +11,7 @@ Retract("FactorsSomethingElse",*);
  * When the argument is an integer, FactorizeInt() does the heavy lifting.
  * When the argument is a polynomial, BinaryFactors() is the workhorse.
  */
+ 
 
 10 # Factors(p_IsPositiveInteger) <--  FactorizeInt(p);
 
@@ -63,6 +65,7 @@ Retract("FactorsSomethingElse",*);
             //NOT FINISHED YET
         ]
       );
+      CombineNumericalFactors( result );
 ];
 
 
@@ -76,16 +79,21 @@ Retract("FactorsSomethingElse",*);
      *    If it is "something else", we will have to check, on a
      * case-by-case basis.
      */
-    Local(nvars);
+    Local(nvars,result);
     nvars := Length(VarList(p));
     If (nvars > 1, 
          [
-            Echo("special ",p);
-            Echo(Coef(p,x,0 .. 8));
-            FactorsMultivariateSpecialCases(p);
+            If( InVerboseMode(),
+                [
+                    Echo("special ",p);
+                    Echo(Coef(p,x,0 .. 8));
+                ]
+            );
+            result := FactorsMultivariateSpecialCases(p);
          ], 
-            FactorsSomethingElse(p) 
+            result := FactorsSomethingElse(p) 
        );
+       CombineNumericalFactors( result );
 ];
 
 
@@ -94,15 +102,20 @@ Retract("FactorsSomethingElse",*);
     /*
      * This may may be a polynomial with non-integer exponents.  Let's check.
      */
+     If( InVerboseMode(), Echo("Possibly trying to factor polynomial with non-integral exponents") );
+     Local( result);
      //Echo(40,p);
      //  NOT IMPLEMENTED YET
-     {{p,1}};
+     result := {{p,1}};
+     CombineNumericalFactors( result );
      
 ];
 
 //------------------------------------------------------------------------
 //                    S P E C I A L     C A S E S
 //------------------------------------------------------------------------
+
+10 # FactorsMultivariateSpecialCases(-_expr) <-- {-1,1}:FactorsMultivariateSpecialCases(expr);
 
 10 # FactorsMultivariateSpecialCases(x_IsAtom + y_IsAtom) <-- {{x+y,1}};
 
@@ -126,12 +139,56 @@ Retract("FactorsSomethingElse",*);
 
 10 # FactorsMultivariateSpecialCases(_x^6-_y^6) <-- {{x+y,1},{x-y,1},{x^2+x*y+y^2,1},{x^2-x*y+y^2,1}};
 
-20 # FactorsSomethingElse(_p) <-- p;
+20 # FactorsSomethingElse(_p) <-- 
+  [
+      If( InVerboseMode(),
+          [
+              ECHO("   *** FactorsSomethingElse: NOT IMPLEMENTED YET ***");
+          ]
+      );
+      p;
+  ];
 
 //------------------------------------------------------------------------
 
 
-%/mathpiper
+10 # CombineNumericalFactors( factrs_IsList ) <--
+  [
+      If( InVerboseMode(), Tell("Combine",factrs) );
+      Local(q,a,b,t,f,err);
+      err := False;
+      t   := 1;
+      f   := {};
+      ForEach(q,factrs)
+      [
+          If( InVerboseMode(), Tell(1,q) );
+          If( IsList(q) And Length(q)=2,
+              [
+                  {a,b} := q;
+                  If( InVerboseMode(), Echo("     ",{a,b}) );
+                  If( IsNumericList( {a,b} ),
+                      t := t * a^b,
+                      f := {a,b}:f
+                  );
+              ],
+              err := True
+          );
+      ];
+      If( InVerboseMode(),
+        [
+            Echo("      t = ",t);
+            Echo("      f = ",f);
+            Echo("    err = ",err);
+        ]
+      );
+      If(Not err And t != 1, {t,1}:Reverse(f), factrs);
+  ];
+
+//---------------------------------------------------------------------
+
+
+
+
 
 
 
