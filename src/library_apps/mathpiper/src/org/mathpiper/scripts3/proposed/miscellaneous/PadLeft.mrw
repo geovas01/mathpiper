@@ -1,0 +1,19 @@
+%mathpiper,def="PadLeft",scope="private"
+
+Retract("PadLeft", *);
+
+10 # PadLeft(number_IsInteger, totalDigits_IsInteger) <--
+[
+    Local(integerString, padAmount, resultString);
+    
+    integerString := String(number);
+    
+    padAmount := totalDigits - Length(integerString);
+    
+    If(padAmount > 0,
+        resultString := ListToString(FillList(0, padAmount)) : integerString,
+        resultString := integerString );
+];
+
+%/mathpiper
+
