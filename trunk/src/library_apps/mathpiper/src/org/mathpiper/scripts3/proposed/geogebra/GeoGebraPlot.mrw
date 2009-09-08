@@ -93,6 +93,10 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
 
 
