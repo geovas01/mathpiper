@@ -3,8 +3,8 @@
 package org.mathrider.geogebraplugin;
 
 /*
- * Geogebra.java
- * part of the Geogebra plugin for the jEdit text editor
+ * GeoGebra.java
+ * part of the GeoGebra plugin for the jEdit text editor
  * Copyright (C) 2008 Ted Kosan
 
  *
@@ -22,7 +22,7 @@ package org.mathrider.geogebraplugin;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id: Geogebra.java 9481 2007-05-02 00:34:44Z k_satoda $
+ * $Id: GeoGebra.java 9481 2007-05-02 00:34:44Z k_satoda $
  */
 
 // {{{ imports
@@ -55,14 +55,14 @@ import org.gjt.sp.util.StandardUtilities;
 import geogebra.GeoGebraApplet;
 // }}}
 
-// {{{ Geogebra class
+// {{{ GeoGebra class
 /**
  * 
- * Geogebra - a dockable JPanel, a demonstration of a jEdit plugin.
+ * GeoGebra - a dockable JPanel, a demonstration of a jEdit plugin.
  *
  */
-public class Geogebra extends JPanel
-	implements EBComponent, GeogebraActions, DefaultFocusComponent {
+public class GeoGebra extends JPanel
+	implements EBComponent, GeoGebraActions, DefaultFocusComponent {
 
 	// {{{ Instance Variables
 	//private static final long serialVersionUID = 6412255692894321789L;
@@ -75,9 +75,9 @@ public class Geogebra extends JPanel
 
 	private boolean floating;
 
-	//private GeogebraTextArea textArea;
+	//private GeoGebraTextArea textArea;
 
-	private GeogebraToolPanel toolPanel;
+	private GeoGebraToolPanel toolPanel;
 
 	private static GeoGebraApplet geoGebraApplet;
 	// }}}
@@ -90,14 +90,17 @@ public class Geogebra extends JPanel
 	 * 	which can be DockableWindowManager.FLOATING, TOP, BOTTOM, LEFT, RIGHT, etc.
 	 * 	see @ref DockableWindowManager for possible values.
 	 */
-	public Geogebra(View view, String position) {
+	public GeoGebra(View view, String position) {
+		
 		super(new BorderLayout());
+		
+				System.out.println("XXXXXXXXXXXXXXXXXXX GeoGebra.java initialized.");
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 
 
 
-		this.toolPanel = new GeogebraToolPanel(this);
+		this.toolPanel = new GeoGebraToolPanel(this);
 		add(BorderLayout.NORTH, this.toolPanel);
 
 		if (floating)
@@ -187,6 +190,8 @@ public class Geogebra extends JPanel
 			
 			geoGebraApplet.registerAddListener("GeoGebraAddListener");
 			geoGebraApplet.registerUpdateListener("GeoGebraUpdateListener");
+			
+			System.out.println("HHHHHHHHHHHHHHHHHHH GeoGebra listeners regertered.");
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -264,7 +269,7 @@ public class Geogebra extends JPanel
 	// {{{ propertiesChanged
 	private void propertiesChanged() {
 		/*String propertyFilename = jEdit
-				.getProperty(GeogebraPlugin.OPTION_PREFIX + "filepath");
+				.getProperty(GeoGebraPlugin.OPTION_PREFIX + "filepath");
 		if (!StandardUtilities.objectsEqual(defaultFilename, propertyFilename)) {
 			saveFile();
 			toolPanel.propertiesChanged();
@@ -272,7 +277,7 @@ public class Geogebra extends JPanel
 			filename = defaultFilename;
 			readFile();
 	}
-		Font newFont = GeogebraOptionPane.makeFont();
+		Font newFont = GeoGebraOptionPane.makeFont();
 		if (!newFont.equals(textArea.getFont())) {
 			textArea.setFont(newFont);
 	}*/
@@ -299,7 +304,7 @@ public class Geogebra extends JPanel
 	}
 	// }}}
 
-	// GeogebraActions implementation
+	// GeoGebraActions implementation
 
 	// {{{
 	public void reset() {

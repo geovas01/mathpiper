@@ -12,6 +12,7 @@ public class JSObject{
 
 	private JSObject(GeoGebraApplet applet)
 	{
+		System.out.println("XXXXXXXXXXXXXXXXXXX JSObject.java initialized.");
 		this.applet = applet;
 		synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 		xmlParser = new org.mathrider.GeoGebraXMLParse();
@@ -43,12 +44,12 @@ public class JSObject{
 
 	public Object call(String methodName,Object args[]){
 
-		//System.out.println("AAAAAA: " + methodName + ",  " + args.length + ", " + args[0]);
+	System.out.println("AAAAAA: " + methodName + ",  " + args.length + ", " + args[0]);
 		String objectName = (String) args[0];
 		
 		EvaluationResponse evaluationResponse = synchronousInterpreter.evaluate("GeoGebra()[\"updateObjects\"];");
 		String result = evaluationResponse.getResult();
-		//System.out.println("BBBBB: " + result);
+	System.out.println("BBBBB: " + result);
 		result = result.replace("\"","");
 		String[] geogebraObjects = result.split(",");
 		
@@ -68,8 +69,8 @@ public class JSObject{
 		{
 			String independentXML = applet.getXML(objectName);
 			String dependentXML = applet.getAlgorithmXML(objectName);
-			//System.out.println("BBBBBBindependentXML: " + independentXML);
-			//System.out.println("BBBBBBdependentXML: " + dependentXML);
+			//System.out.println("CCCCCCCindependentXML: " + independentXML);
+			//System.out.println("DDDDDDDDdependentXML: " + dependentXML);
 			String expression = null;
 
 			if(independentXML.startsWith("<expression") || dependentXML.startsWith("<expression"))
@@ -80,8 +81,8 @@ public class JSObject{
 				{
 					expressionXML = independentXML.substring(0, independentXML.indexOf("\n"));
 					independentXML = independentXML.substring(independentXML.indexOf("\n"), independentXML.length());
-					//System.out.println("CCCCC " + expressionXML);
-					//System.out.println("DDDDD " + independentXML);
+					//System.out.println("EEEEE " + expressionXML);
+					//System.out.println("FFFFF " + independentXML);
 				}
 				else
 				{

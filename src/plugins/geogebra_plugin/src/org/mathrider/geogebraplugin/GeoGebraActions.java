@@ -3,9 +3,10 @@
 package org.mathrider.geogebraplugin;
 
 /*
- * GeogebraPlugin.java
- * part of the Geogebra plugin for the jEdit text editor
- * Copyright (C) 2008 Ted Kosan.
+ * GeoGebraActions.java
+ * part of the GeoGebra plugin for the jEdit text editor
+ * Copyright (C) 2008 Ted Kosan
+
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,20 +22,16 @@ package org.mathrider.geogebraplugin;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id: GeogebraPlugin.java 5275 2005-09-10 19:40:17Z ezust $
+ * $Id: GeoGebraActions.java 5275 2005-09-10 19:40:17Z ezust $
  */
 
-import org.gjt.sp.jedit.EditPlugin;
+interface GeoGebraActions {
+	void reset();
 
-/**
- * The Geogebra plugin
- * 
- * @author Ted Kosan
- */
-public class GeogebraPlugin extends EditPlugin {
-	public static final String NAME = "geogebra";
-	public static final String OPTION_PREFIX = "options.geogebra.";
-}//end class.
+	//void saveFile();
+
+	//void copyToBuffer();
+}//end interface.
 
 /* {{{ License.
  * This program is free software; you can redistribute it and/or

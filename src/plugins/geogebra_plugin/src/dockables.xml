@@ -10,6 +10,6 @@
 
 <DOCKABLES>
 	<DOCKABLE NAME="geogebra">
-		new org.mathrider.geogebraplugin.Geogebra(view, position);
+		new org.mathrider.geogebraplugin.GeoGebra(view, position);
 	</DOCKABLE>
 </DOCKABLES>
