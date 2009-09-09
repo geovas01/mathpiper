@@ -41,7 +41,7 @@ import org.gjt.sp.jedit.GUIUtilities;
 import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.gui.FontSelector;
 
-public class GeogebraOptionPane extends AbstractOptionPane implements
+public class GeoGebraOptionPane extends AbstractOptionPane implements
 		ActionListener {
 	private JCheckBox showPath;
 
@@ -49,47 +49,47 @@ public class GeogebraOptionPane extends AbstractOptionPane implements
 
 	private FontSelector font;
 
-	public GeogebraOptionPane() {
-		super(GeogebraPlugin.NAME);
+	public GeoGebraOptionPane() {
+		super(GeoGebraPlugin.NAME);
 	}
 
 	public void _init() {
 		showPath = new JCheckBox(jEdit
-				.getProperty(GeogebraPlugin.OPTION_PREFIX
+				.getProperty(GeoGebraPlugin.OPTION_PREFIX
 						+ "show-filepath.title"), jEdit.getProperty(
-				GeogebraPlugin.OPTION_PREFIX + "show-filepath").equals(
+				GeoGebraPlugin.OPTION_PREFIX + "show-filepath").equals(
 				"true"));
 		addComponent(showPath);
 
 		pathName = new JTextField(jEdit
-				.getProperty(GeogebraPlugin.OPTION_PREFIX + "filepath"));
+				.getProperty(GeoGebraPlugin.OPTION_PREFIX + "filepath"));
 		JButton pickPath = new JButton(jEdit
-				.getProperty(GeogebraPlugin.OPTION_PREFIX + "choose-file"));
+				.getProperty(GeoGebraPlugin.OPTION_PREFIX + "choose-file"));
 		pickPath.addActionListener(this);
 
 		JPanel pathPanel = new JPanel(new BorderLayout(0, 0));
 		pathPanel.add(pathName, BorderLayout.CENTER);
 		pathPanel.add(pickPath, BorderLayout.EAST);
 
-		addComponent(jEdit.getProperty(GeogebraPlugin.OPTION_PREFIX
+		addComponent(jEdit.getProperty(GeoGebraPlugin.OPTION_PREFIX
 				+ "file"), pathPanel);
 
 		font = new FontSelector(makeFont());
-		addComponent(jEdit.getProperty(GeogebraPlugin.OPTION_PREFIX
+		addComponent(jEdit.getProperty(GeoGebraPlugin.OPTION_PREFIX
 				+ "choose-font"), font);
 	}
 
 	public void _save() {
-		jEdit.setProperty(GeogebraPlugin.OPTION_PREFIX + "filepath",
+		jEdit.setProperty(GeoGebraPlugin.OPTION_PREFIX + "filepath",
 				pathName.getText());
 		Font _font = font.getFont();
-		jEdit.setProperty(GeogebraPlugin.OPTION_PREFIX + "font", _font
+		jEdit.setProperty(GeoGebraPlugin.OPTION_PREFIX + "font", _font
 				.getFamily());
-		jEdit.setProperty(GeogebraPlugin.OPTION_PREFIX + "fontsize", String
+		jEdit.setProperty(GeoGebraPlugin.OPTION_PREFIX + "fontsize", String
 				.valueOf(_font.getSize()));
-		jEdit.setProperty(GeogebraPlugin.OPTION_PREFIX + "fontstyle",
+		jEdit.setProperty(GeoGebraPlugin.OPTION_PREFIX + "fontstyle",
 				String.valueOf(_font.getStyle()));
-		jEdit.setProperty(GeogebraPlugin.OPTION_PREFIX + "show-filepath",
+		jEdit.setProperty(GeoGebraPlugin.OPTION_PREFIX + "show-filepath",
 				String.valueOf(showPath.isSelected()));
 	}
 
@@ -107,12 +107,12 @@ public class GeogebraOptionPane extends AbstractOptionPane implements
 	// helper method to get Font from plugin properties
 	static public Font makeFont() {
 		int style, size;
-		String family = jEdit.getProperty(GeogebraPlugin.OPTION_PREFIX
+		String family = jEdit.getProperty(GeoGebraPlugin.OPTION_PREFIX
 				+ "font");
 		try {
 			size = Integer
 					.parseInt(jEdit
-							.getProperty(GeogebraPlugin.OPTION_PREFIX
+							.getProperty(GeoGebraPlugin.OPTION_PREFIX
 									+ "fontsize"));
 		} catch (NumberFormatException nf) {
 			size = 14;
@@ -120,7 +120,7 @@ public class GeogebraOptionPane extends AbstractOptionPane implements
 		try {
 			style = Integer
 					.parseInt(jEdit
-							.getProperty(GeogebraPlugin.OPTION_PREFIX
+							.getProperty(GeoGebraPlugin.OPTION_PREFIX
 									+ "fontstyle"));
 		} catch (NumberFormatException nf) {
 			style = Font.PLAIN;

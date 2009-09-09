@@ -4,7 +4,7 @@
 
 <project name="geogebra_plugin" default="dist" basedir=".">
 	<description>
-		Build file for the Geogebra plugin.
+		Build file for the GeoGebra plugin.
 	</description>
 	
 	<property name="version" value=".51" />
