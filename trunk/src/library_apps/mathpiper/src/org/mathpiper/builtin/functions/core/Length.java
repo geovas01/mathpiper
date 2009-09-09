@@ -68,11 +68,7 @@ public class Length extends BuiltinFunction
             int num = string.length() - 2;
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
-        }
-        else
-        {
-            LispError.raiseError(LispError.errorString(LispError.INVALID_ARGUMENT));
-        }//end if/else.
+        }//end if.
         
 
     }//end method..
