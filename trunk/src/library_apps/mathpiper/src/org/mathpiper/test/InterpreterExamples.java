@@ -79,6 +79,7 @@ public class InterpreterExamples {
         response = interpreter.evaluate("Simplify(((2*a+b)/(7*a*b))*3*b^2/(4*a+2*b));");
         System.out.println("Result: " + response.getResult() + "    Side Effects: " + response.getSideEffects() + "    Errors: " + response.getExceptionMessage() + "\n");
 
+        
         //This is the same as the previous example, except the result is returned in TeX form.
         response = interpreter.evaluate("TeXForm(Simplify(((2*a+b)/(7*a*b))*3*b^2/(4*a+2*b)));");
         System.out.println("Result: " + response.getResult() + "    Side Effects: " + response.getSideEffects() + "    Errors: " + response.getExceptionMessage() + "\n");
