@@ -404,6 +404,12 @@ public class Environment {
 
 
 
+    public void resetArgumentStack() throws Exception
+    {
+        this.iArgumentStack.reset();
+    }//end method.
+
+
 
 
 }//end class.
