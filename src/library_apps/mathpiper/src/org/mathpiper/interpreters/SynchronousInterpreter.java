@@ -201,7 +201,7 @@ class SynchronousInterpreter implements Interpreter {
         String resultString = "";
         try {
             environment.iEvalDepth = 0;
-            environment.iLispExpressionEvaluator.resetStack();
+            environment.resetArgumentStack();
 
 
             //iError = null;
