@@ -6,17 +6,19 @@ Retract("FactorsSomethingElse",*);
 Retract("CombineNumericalFactors",*);
 
 /*
- * This is the fundamental factorization algorithm.
+ * Factors() is the fundamental factorization algorithm.
  * It works for integers, rational numbers, Gaussian integers, and polynomials
  * When the argument is an integer, FactorizeInt() does the heavy lifting.
  * When the argument is a polynomial, BinaryFactors() is the workhorse.
  */
- 
 
 10 # Factors(p_IsPositiveInteger) <--  FactorizeInt(p);
 
+11 # Factors(p_IsInteger) <-- FactorizeInt(p);
+     // Added because otherwise negative integers (and 0) get processed as Gaussian Integers 
+
 12 # Factors(p_IsRational)_(Denominator(p) != 1) <-- {{Factor(Numerator(p)) /Factor(Denominator(p)) , 1}}; 
-     //Added to handle rational numbers with denominators that are not 1
+     // Added to handle rational numbers with denominators that are not 1
 
 14 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
 
