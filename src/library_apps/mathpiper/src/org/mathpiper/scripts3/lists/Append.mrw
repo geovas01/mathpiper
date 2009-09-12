@@ -2,8 +2,11 @@
 
 Function("Append",{list,element})
 [
+  Check(IsList(list), "The first argument must be a list.");
+
   Insert(list,Length(list)+1,element);
 ];
+
 
 %/mathpiper
 
