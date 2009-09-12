@@ -36,7 +36,6 @@ by factoring its norm
 20 # GaussianFactors(z_IsGaussianInteger) <--
 [
  Local(n,nfactors,gfactors,p);
- Show(11,z);
   gfactors :={};
   n := GaussianNorm(z);
   nfactors := Factors(n);
