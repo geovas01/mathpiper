@@ -1,5 +1,5 @@
 
-***** Mon Aug 31 00:37:07 EDT 2009 *****
+***** Sat Sep 12 01:10:44 EDT 2009 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .76i *****
 
@@ -855,16 +855,7 @@ simplify.mpt:
 Result: True
 
 Side Effects:
-Test suite for Simplify : 
-******************
-tests/scripts/simplify.mpt: 10 
-Simplify((xx+II)^4) evaluates to 
-xx^4+4*xx^3*II+6*xx^2*II^2+4*xx*II^3+II^4
- which differs from 
-xx^4+4*xx^3*II-6*xx^2-4*xx*II+1
- by 
-6*xx^2*II^2+6*xx^2+4*xx*II^3+4*xx*II+II^4-1
-******************
+Test suite for Simplify :
 Exception:
 ===========================
 solve.mpt: 
