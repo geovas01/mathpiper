@@ -645,13 +645,13 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		{
 			ggbWraper()
 			{
-				if(org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet() == null)
+				if(org.mathrider.geogebraplugin.GeoGebra.getGeoGebraApplet() == null)
 				{
 					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "geogebra" );
 				}
 				evalCommand(command)
 				{
-					org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet().evalCommand(command);
+					org.mathrider.geogebraplugin.GeoGebra.getGeoGebraApplet().evalCommand(command);
 				}
 				return this;
 			}
@@ -661,7 +661,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			if(scope.equalsIgnoreCase("global"))
 			{
 				bshInterpreter = bsi;
-				ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
+				ggb = org.mathrider.geogebraplugin.GeoGebra.getGeoGebraApplet();
 				bshInterpreter.set("ggb",ggbWraper());
 				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
 				bshInterpreter.set("returnError","none");
@@ -672,7 +672,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				import bsh.Interpreter;
 				bshInterpreter = new Interpreter();
 				bshInterpreter.eval("import geogebra.GeoGebraApplet;");
-				ggb = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
+				ggb = org.mathrider.geogebraplugin.GeoGebra.getGeoGebraApplet();
 				bshInterpreter.set("ggb",ggbWraper());
 				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
 				bshInterpreter.set("returnError","none");
@@ -783,7 +783,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 			
 			import geogebra.GeoGebraApplet;
-			geogebra = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
+			geogebra = org.mathrider.geogebraplugin.GeoGebra.getGeoGebraApplet();
 			
 		
 			if(foldProperties.get("clear").equalsIgnoreCase("true") )
@@ -880,7 +880,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 			
 			//import geogebra.GeoGebraApplet;
-			//geogebra = org.mathrider.geogebraplugin.Geogebra.getGeoGebraApplet();
+			//geogebra = org.mathrider.geogebraplugin.GeoGebra.getGeoGebraApplet();
 			
 
 			if(foldProperties.get("input").equalsIgnoreCase("facebook") )
