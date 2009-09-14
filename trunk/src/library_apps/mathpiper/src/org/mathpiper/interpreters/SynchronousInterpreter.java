@@ -201,7 +201,9 @@ class SynchronousInterpreter implements Interpreter {
         String resultString = "";
         try {
             environment.iEvalDepth = 0;
-            environment.resetArgumentStack();
+	    
+	    //todo:tk:this was causing problems with GeoGebraPoint() on Windows.
+            //environment.resetArgumentStack();
 
 
             //iError = null;
