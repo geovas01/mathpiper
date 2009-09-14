@@ -24,23 +24,30 @@ RandomPickVector(list, count) :=
 
 
 %mathpiper_docs,name="RandomPickVector",categories="User Functions;Statistics & Probability"
-*CMD RandomPickVector --- randomly pick an element from a list using a given weight
+*CMD RandomPickVector --- returns a given number of randomly picked elements from a given list
 *STD
 *CALL
-	RandomPickVector(list)
+	RandomPickVector(list,count)
 
 *PARMS
 
-{list} -- a list which contains elements and their respective weights
+{list} -- a list which contains elements
+
+{count} -- an integer which indicates how many elements to return
 
 *DESC
-Randomly picks an element from the given list with a probability which is determined by the element's weight. 
+Randomly picks {count} elements from the given list.
 
 *E.G.
+In> RandomPickVector({ONE,TWO,THREE},7);
+Result: {THREE,ONE,THREE,THREE,ONE,TWO,TWO}
 
-
-*SEE RandomPick, RandomPickVector
+*SEE RandomPick, RandomPickWeighted
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
 
 
 
@@ -51,6 +58,12 @@ Randomly picks an element from the given list with a probability which is determ
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-RandomPickVector({{HEADS,1/2},{TAILS,1/2}});
+RandomPickVector({ONE,TWO,THREE},7);
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: {TWO,THREE,ONE,THREE,THREE,TWO,THREE}
+.   %/output
+
+

@@ -96,7 +96,7 @@ Result: TURTLE
 In> RandomPickWeighted({{23,5/32},{56,10/32},{87,8/32},{92,6/32},{15,3/32}})
 Result: 15
 
-*SEE RandomPick, RandomPickWeightedVector
+*SEE RandomPick, RandomPickVector
 %/mathpiper_docs
 
 
