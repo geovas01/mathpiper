@@ -1,7 +1,56 @@
-%mathpiper,def="RamdomSymbolVector",scope="private"
-RandomSymbolVector(list, count) :=
+%mathpiper,def="RandomPickVector",scope="private"
+
+Retract("RandomPickVector", *);
+
+RandomPickVector(list, count) :=
 [
-    If(IsList(list)= True, Table(RandomSymbol(list),x,1,count,1), False );
+    Check(IsList(list), "Argument 1 must be a list.");
+    
+    Check(IsInteger(count), "Argument 2 must be an integer.");
+    
+    Table(RandomPick(list),x,1,count,1);
 ];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+%mathpiper_docs,name="RandomPickVector",categories="User Functions;Statistics & Probability"
+*CMD RandomPickVector --- randomly pick an element from a list using a given weight
+*STD
+*CALL
+	RandomPickVector(list)
+
+*PARMS
+
+{list} -- a list which contains elements and their respective weights
+
+*DESC
+Randomly picks an element from the given list with a probability which is determined by the element's weight. 
+
+*E.G.
+
+
+*SEE RandomPick, RandomPickVector
+%/mathpiper_docs
+
+
+
+
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+RandomPickVector({{HEADS,1/2},{TAILS,1/2}});
 
 %/mathpiper
