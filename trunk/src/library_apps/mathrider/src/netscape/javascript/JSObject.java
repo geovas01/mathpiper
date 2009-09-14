@@ -44,12 +44,12 @@ public class JSObject{
 
 	public Object call(String methodName,Object args[]){
 
-	System.out.println("AAAAAA: " + methodName + ",  " + args.length + ", " + args[0]);
+	//System.out.println("AAAAAA: " + methodName + ",  " + args.length + ", " + args[0]);
 		String objectName = (String) args[0];
 		
 		EvaluationResponse evaluationResponse = synchronousInterpreter.evaluate("GeoGebra()[\"updateObjects\"];");
 		String result = evaluationResponse.getResult();
-	System.out.println("BBBBB: " + result);
+	//System.out.println("BBBBB: " + result);
 		result = result.replace("\"","");
 		String[] geogebraObjects = result.split(",");
 		

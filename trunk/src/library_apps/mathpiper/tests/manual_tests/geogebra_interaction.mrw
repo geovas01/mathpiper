@@ -43,12 +43,9 @@ cy := C["coords"]["y"];
 
 %/mathpiper
 
-    %error,preserve="false"
-      Result: In function "Builtin'Assoc" : 
-      bad argument number 2(counting from 1) : 
-      
-      The offending argument list evaluated to A Error near line 37
-.   %/error
+    %hoteqn,preserve="false"
+      Result: 1.0
+.   %/hoteqn
 
 
 
