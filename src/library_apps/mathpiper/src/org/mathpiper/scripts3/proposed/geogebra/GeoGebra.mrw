@@ -1,4 +1,4 @@
-%mathpiper,def="GeoGebra"
+%mathpiper,def="GeoGebra",scope="private"
 
 Retract("GeoGebra",*);
 

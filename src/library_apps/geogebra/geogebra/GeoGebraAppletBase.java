@@ -1157,7 +1157,9 @@ public abstract class GeoGebraAppletBase extends JApplet {
 			
 			try {							
 				browserWindow = JSObject.getWindow(this);
-			} catch (Exception e) {							
+			} catch (Exception e) {		
+				
+				e.printStackTrace();
 				System.err.println("Exception: could not initialize JSObject.getWindow() for GeoGebraApplet");
 			}    			
 		}
