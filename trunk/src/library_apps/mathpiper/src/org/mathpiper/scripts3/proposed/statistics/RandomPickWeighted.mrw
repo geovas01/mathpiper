@@ -1,20 +1,23 @@
-%mathpiper,def="RandomSymbol",scope="private"
+%mathpiper,def="RandomPickWeighted",scope="private"
 
-Retract("RandomSymbol",*);
+Retract("RandomPickWeighted",*);
 
-RandomSymbol(list) :=
+RandomPickWeighted(list) :=
 [
 
     Check(IsList(list), "Argument must be a list.");
     
-    Local(element, probabilities, symbols, lastWeight, randomNumber, result);
+    Local(element, probabilities, items, lastWeight, randomNumber, result);
     
     probabilities := 0;
     
-    symbols := {};
+    items := {};
     
     lastWeight := 0;
     
+    
+    
+    //Make sure that the probabilities sum to 1.
     ForEach(element,list)
     [        
         probability := element[2];
@@ -22,21 +25,31 @@ RandomSymbol(list) :=
         probabilities := probabilities + probability;
     ];
     
-    Check(probabilities == 1, "The probabilities must sum to 1.");
-        
+    Check(probabilities = 1, "The probabilities must sum to 1.");
+    
+    
+    
+    //Place items in a list and associate it with a subrange in the range between 0 and 1.
     ForEach(element,list)
     [
         probability := element[2];
-        symbol := element[1];
-        symbols := Append(symbols, {symbol, {lastWeight, lastWeight := lastWeight + N(probability)}} );
+        
+        item := element[1];
+        
+        items := Append(items, {item, {lastWeight, lastWeight := lastWeight + N(probability)}} );
     ];
-     
+    
+    
+    
+    //Pick the item which is in the randomly determined range.
     randomNumber := Random();
     
-    ForEach(symbolData,symbols)
+    ForEach(itemData,items)
     [
-        If(randomNumber >= symbolData[2][1] And randomNumber <= symbolData[2][2], result := symbolData[1] );
+        If(randomNumber >= itemData[2][1] And randomNumber <= itemData[2][2], result := itemData[1] );
     ];
+    
+    
     
     result;
 
@@ -50,33 +63,40 @@ RandomSymbol(list) :=
 
 
 
-%mathpiper_docs,name="RandomPick",categories="User Functions;Statistics & Probability"
-*CMD RandomPick --- randomly pick an element from a list
+
+%mathpiper_docs,name="RandomPickWeighted",categories="User Functions;Statistics & Probability"
+*CMD RandomPickWeighted --- randomly pick an element from a list using a given weight
 *STD
 *CALL
-	RandomPick(list)
+	RandomPickWeighted(list)
 
 *PARMS
 
-{list} -- a list which contains
+{list} -- a list which contains elements and their respective weights
 
 *DESC
-Randomly picks an element from the given list.  
+Randomly picks an element from the given list with a probability which is determined by the element's weight. 
 
 *E.G.
-In> RandomPick({HEADS, TAILS})
+In> RandomPickWeighted({{HEADS,1/2},{TAILS,1/2}});
 Result: HEADS
 
-In> RandomPick({DOOR1, DOOR2, DOOR3})
-Result: DOOR2
+In> RandomPickWeighted({{HEADS,1/2},{TAILS,1/2}});
+Result: HEADS
 
-In> RandomPick({DOG, CAT, BIRD, MOUSE, TURTLE})
-Result: BIRD
+In> RandomPickWeighted({{HEADS,.5},{TAILS,.5}});
+Result: TAILS
 
-In> RandomPick({23,56,87,92,15})
-Result: 56
+In> RandomPickWeighted({{DOOR1,2/8}, {DOOR2,1/8}, {DOOR3,5/8}})
+Result: DOOR1
 
-*SEE RandomSymbol, RandomSymbolVector
+In> RandomPickWeighted({{DOG,.2}, {CAT,.3}, {BIRD,.1}, {MOUSE,.15}, {TURTLE,.25}})
+Result: TURTLE
+
+In> RandomPickWeighted({{23,5/32},{56,10/32},{87,8/32},{92,6/32},{15,3/32}})
+Result: 15
+
+*SEE RandomPick, RandomPickWeightedVector
 %/mathpiper_docs
 
 
@@ -88,12 +108,9 @@ Result: 56
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-RandomSymbol({{HEADS,1/2},{TAILS,1/2}});
+RandomPickWeighted({{HEADS,1/2},{TAILS,1/2}});
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: TAILS
-.   %/output
 
 
