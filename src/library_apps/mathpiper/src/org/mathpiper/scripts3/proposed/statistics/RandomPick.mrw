@@ -3,11 +3,68 @@
 Retract("RandomPick",*);
 
 
-10 # RandomPick(list_IsList) <--
+RandomPick(list) :=
 [
+    Check(IsList(list), "Argument must be a list.");
+    
+    Check(Length(list) > 0, "The number of elements in the list must be greater than 0.");
+    
+    Local(pickPosition);
+    
     pickPosition := RandomInteger(Length(list));
 
     list[pickPosition];
 ];
 
 %/mathpiper
+
+
+
+
+
+
+
+%mathpiper_docs,name="RandomPick",categories="User Functions;Statistics & Probability"
+*CMD RandomPick --- randomly pick an element from a list
+*STD
+*CALL
+	RandomPick(list)
+
+*PARMS
+
+{list} -- a list which contains
+
+*DESC
+Randomly picks an element from the given list.  
+
+*E.G.
+In> RandomPick({HEADS, TAILS})
+Result: HEADS
+
+In> RandomPick({DOOR1, DOOR2, DOOR3})
+Result: DOOR2
+
+In> RandomPick({DOG, CAT, BIRD, MOUSE, TURTLE})
+Result: BIRD
+
+In> RandomPick({23,56,87,92,15})
+Result: 56
+
+*SEE RandomSymbol, RandomSymbolVector
+%/mathpiper_docs
+
+
+
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+RandomPick({A,B,C});
+
+%/mathpiper
+
+
+
+

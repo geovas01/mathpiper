@@ -1,17 +1,26 @@
-%mathpiper,def="Permutations"
+%mathpiper,def="Permutations",scope="private"
+
+Retract("Permutations", *);
 
 Permutations(n) :=
 [
+    Check(IsInteger(n), "Argument must be an integer");    
+
     n!;
 ];
 
 
 Permutations(n, r) :=
 [
+    Check(IsInteger(n), "Argument 1 must be an integer"); 
+    
+    Check(IsInteger(r), "Argument 2 must be an integer"); 
+    
     n! /(n-r)!;
 ];
 
 %/mathpiper
+
 
 
 
@@ -21,7 +30,7 @@ Permutations(n, r) :=
 *STD
 *CALL
 	Permutations(n)
-        Permutations(n, r)
+    Permutations(n, r)
 
 *PARMS
 
@@ -45,3 +54,16 @@ Result> 720
 
 *SEE PermutationsAll, Combinations, CombinationaAll, LeviCivita
 %/mathpiper_docs
+
+
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+Permutations(4);
+
+%/mathpiper
+
+

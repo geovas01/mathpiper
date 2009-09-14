@@ -5,7 +5,9 @@ Retract("RandomSymbol",*);
 RandomSymbol(list) :=
 [
 
-    Local(element);
+    Check(IsList(list), "Argument must be a list.");
+    
+    Local(element, probabilities, symbols, lastWeight, randomNumber, result);
     
     probabilities := 0;
     
@@ -20,31 +22,78 @@ RandomSymbol(list) :=
         probabilities := probabilities + probability;
     ];
     
-    If(probabilities != 1, 
-        [
-            Echo("Error: The probabilities must sum to 1."); False;
-        ],
-        [
-            ForEach(element,list)
-            [
-                probability := element[2];
-                symbol := element[1];
-                symbols := Append(symbols, {symbol, {lastWeight, lastWeight := lastWeight + N(probability)}} );
-            ];
-             
-            randomNumber := Random();
-            
-            ForEach(symbolData,symbols)
-            [
-                If(randomNumber >= symbolData[2][1] And randomNumber <= symbolData[2][2], result := symbolData[1] );
-            ];
-            
-            result;
-        ]
+    Check(probabilities == 1, "The probabilities must sum to 1.");
         
-    );
-        
+    ForEach(element,list)
+    [
+        probability := element[2];
+        symbol := element[1];
+        symbols := Append(symbols, {symbol, {lastWeight, lastWeight := lastWeight + N(probability)}} );
+    ];
+     
+    randomNumber := Random();
+    
+    ForEach(symbolData,symbols)
+    [
+        If(randomNumber >= symbolData[2][1] And randomNumber <= symbolData[2][2], result := symbolData[1] );
+    ];
+    
+    result;
 
 ];
 
 %/mathpiper
+
+
+
+
+
+
+
+%mathpiper_docs,name="RandomPick",categories="User Functions;Statistics & Probability"
+*CMD RandomPick --- randomly pick an element from a list
+*STD
+*CALL
+	RandomPick(list)
+
+*PARMS
+
+{list} -- a list which contains
+
+*DESC
+Randomly picks an element from the given list.  
+
+*E.G.
+In> RandomPick({HEADS, TAILS})
+Result: HEADS
+
+In> RandomPick({DOOR1, DOOR2, DOOR3})
+Result: DOOR2
+
+In> RandomPick({DOG, CAT, BIRD, MOUSE, TURTLE})
+Result: BIRD
+
+In> RandomPick({23,56,87,92,15})
+Result: 56
+
+*SEE RandomSymbol, RandomSymbolVector
+%/mathpiper_docs
+
+
+
+
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+RandomSymbol({{HEADS,1/2},{TAILS,1/2}});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: TAILS
+.   %/output
+
+
