@@ -58,6 +58,8 @@ public class BarChart extends BuiltinFunction {
         defaultOptions.put("orientation", PlotOrientation.VERTICAL);
         defaultOptions.put("legend", true);
         defaultOptions.put("toolTips", true);
+        defaultOptions.put("domainCrosshair", true);
+        defaultOptions.put("rangeCrosshair", true);
 
     }//end method.
 
@@ -96,9 +98,9 @@ public class BarChart extends BuiltinFunction {
                 false);//urls.
 
         XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setDomainCrosshairVisible(true);
+        plot.setDomainCrosshairVisible(((Boolean) userOptions.get("domainCrosshair")).booleanValue());
         plot.setDomainCrosshairLockedOnData(true);
-        plot.setRangeCrosshairVisible(true);
+        plot.setRangeCrosshairVisible(((Boolean) userOptions.get("rangeCrosshair")).booleanValue());
         plot.setRangeCrosshairLockedOnData(true);
         plot.setDomainZeroBaselineVisible(true);
         plot.setRangeZeroBaselineVisible(true);

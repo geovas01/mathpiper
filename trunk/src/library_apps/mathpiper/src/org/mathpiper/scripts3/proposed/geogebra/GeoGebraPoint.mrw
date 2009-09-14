@@ -1,4 +1,4 @@
-%mathpiper,def="GeoGebraPoint"
+%mathpiper,def="GeoGebraPoint",scope="private"
 Retract("GeoGebraPoint",*);
 
 10 # GeoGebraPoint(name_IsString, x_IsNumber, y_IsNumber)  <--

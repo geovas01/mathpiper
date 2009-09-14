@@ -1,4 +1,4 @@
-%mathpiper,title=""
+%mathpiper,def="OptionListToAssociativeList",scope="private"
 OptionListToAssociativeList(optionList) :=
 [
     Local(associativeList, key, value);
