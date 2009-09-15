@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ OdeSolve should be able to solve this: OdeSolve(y'(t) == a*y(t)-b) -> y(t) = b/a + c_1*e^(a*t)  .
 + Tests need to be created for OMForm and PrettyForm.
 + OMForm appears to be partially broken.
 + This code should return y.
