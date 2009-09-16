@@ -48,7 +48,7 @@ public class Continue extends BuiltinFunction
 
 *DESC
 
-If Break is executed inside of a While, Until, For, or ForEach loop, all the code between
+If Continue is executed inside of a While, Until, For, or ForEach loop, all the code between
 the continue command and the end of the loop will be skipped and the next loop iteration
 will be started.
 
