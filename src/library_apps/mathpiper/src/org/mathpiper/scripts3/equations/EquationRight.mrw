@@ -31,10 +31,10 @@ function returns the right side of a symbolic equation.
 
 *E.G.
 
-	In> e := y^2 == 4*p*x
+	In> equ := y^2 == 4*p*x
 	Result> y^2==4*p*x
 
-	In> EquationRight(e)
+	In> EquationRight(equ)
 	Result> 4*p*x
 
 *SEE ==, EquationLeft
