@@ -55,7 +55,7 @@ public class MetaGet extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="MetaSet",categories="User Functions;Built In"
+%mathpiper_docs,name="MetaGet",categories="User Functions;Built In"
 *CMD MetaGet --- returns the metadata for a value or an unbound variable
 *CORE
 *CALL
