@@ -106,7 +106,7 @@ public class MetaEntries extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="MetaValues",categories="User Functions;Built In"
+%mathpiper_docs,name="MetaEntries",categories="User Functions;Built In"
 *CMD MetaValues --- returns the metadata values for a value or an unbound variable
 *CORE
 *CALL
@@ -119,6 +119,8 @@ MetaValues(value_or_unbound_variable)
 
 
 *DESC
+
+todo:tk: not functional yet.
 
 Returns the metadata values for a value or an unbound variables.  The metadata is
 held in an associative list.

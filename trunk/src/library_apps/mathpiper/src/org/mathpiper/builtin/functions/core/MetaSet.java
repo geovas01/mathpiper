@@ -190,8 +190,55 @@ Adds metadata to values and unbound variables.  The metadata is
 held in an associative list.  MetaSet returns the given value or unbound variable
 as a result after it has had metadata added to it.
 
+*E.G.
+In> a := MetaSet(b,"TAG",DATA)
+Result: b
+
+In> a
+Result: b
+
+In> MetaKeys(a)
+Result: {"TAG"}
+
+In> MetaValues(a)
+Result: {DATA}
+
+In> MetaGet(a,"TAG")
+Result: DATA
 
 
- *SEE MetaGet, MetaKeys, MetaValues, Clear
+In> a := MetaSet(3,"TAG",DATA)
+Result: 3
+
+In> a
+Result: 3
+
+In> MetaKeys(a)
+Result: {"TAG"}
+
+In> MetaValues(a)
+Result: {DATA}
+
+In> MetaGet(a,"TAG")
+Result: DATA
+
+
+In>  f(x) := MetaSet(x^2,"TAG",DATA)
+Result: True
+
+In> f(x)
+Result: x^2
+
+In> MetaKeys(f(x))
+Result: {"TAG"}
+
+In> MetaValues(f(x))
+Result: {DATA}
+
+In> MetaGet(f(x),"TAG")
+Result: DATA
+
+
+*SEE MetaGet, MetaKeys, MetaValues, Clear
 %/mathpiper_docs
  */
