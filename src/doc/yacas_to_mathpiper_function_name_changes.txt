@@ -32,12 +32,21 @@ UnList -> ListToFunction
 FindRealRoots -> RealRootsFind
 NumRealRoots -> RealRootsNum
 Clear -> Unbind (or perhaps IsAssigned and Unassign?)
-String -> AtomToString
+String -> ToString
 Atom -> StringToAtom
 Equals -> IsEqual
 LessThan -> IsLessThan
 GreaterThan -> IsGreaterThan
 MM -> InternalForm
+Div -> Divide
+Mod -> Modulus.
+Min -> Minimum.
+Max -> Maximum
+RandomIntegerVector -> RandomIntegerList.
+
+
+====== Proposed argument changes.
+Select -> Should the list be the first argument to match the ordering of most other MathPiper functions?
 
 
 ============================= Changes that have already been done.
@@ -60,6 +69,7 @@ Time -> EchoTime
 GetTime -> Time
 ExtraInfoSet -> MetaSet
 ExtraInfoGet -> MetaGet
+CurrentTime -> SystemTimer
 
 
 
