@@ -35,17 +35,17 @@ In>  Lambda({x,y}, x-y^2) @ {Cos(a), Sin(a)}
 Out> Cos(a)-Sin(a)^2
 
 
-\%mathpiper
+/%mathpiper
 
 list := {1,-3,2,-6,-4,3};
 
 Select(Lambda({i}, i > 0 ),list);
 
-\%/mathpiper
+/%/mathpiper
 
-    \%output,preserve="false"
+    /%output,preserve="false"
       Result: {1,2,3}
-.   \%/output
+.   /%/output
 
 *SEE Apply, @, Select
 %/mathpiper_docs
