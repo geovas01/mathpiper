@@ -1,0 +1,528 @@
+%mathpiper,def="xSolve",scope="private"
+
+Retract("xSolve",*);
+Retract("xSolve'Simple",*);
+Retract("xSolve'Divide",*);
+
+
+/*
+ * Strategy for Solve(expr, x):
+ *
+ * 10.  Call xSolve'System for systems of equations.
+ * 20.  Check arguments.
+ * 30.  Get rid of "==" in 'expr'.
+ * 40.  Special cases.
+ * 50.  If 'expr' is a polynomial in 'x', try to use PSolve.
+ * 60.  If 'expr' is a product, solve for either factor.
+ * 70.  If 'expr' is a quotient, solve for the denominator.
+ * 80.  If 'expr' is a sum and one of the terms is free of 'x',
+ *      try to use xSolve'Simple.
+ * 90.  If every occurance of 'x' is in the same context, use this to reduce
+ *      the equation. For example, in 'Cos(x) + Cos(x)^2 == 1', the variable
+ *      'x' always occurs in the context 'Cos(x)', and hence we can attack
+ *      the equation by first solving 'y + y^2 == 1', and then 'Cos(x) == y'.
+ *      This does not work for 'Exp(x) + Cos(x) == 2'.
+ * 100. Apply Simplify to 'expr', and try again.
+ * 110. Give up.
+ */
+
+LocalSymbols(res)
+[
+  10  # xSolve(expr_IsList, var_IsList) <-- 
+    [
+        Tell(1,{expr,var});
+        xSolve'System(expr, var);
+    ];
+  
+  20  # xSolve(_expr, _var)_(Not IsAtom(var) Or IsNumber(var) Or IsString(var)) <--
+    [ 
+        Tell(2,{expr,var});
+        Assert("xSolve'TypeError", "Second argument, ":(ToString() Write(var)):", is not the name of a variable") False; {}; 
+    ];
+    
+  30  # xSolve(_lhs == _rhs, _var) <-- 
+    [
+        Tell(3,{lhs,rhs,var});
+        If(IsRationalFunction(lhs,var),
+            Tell("  3r IsRationalFunction",lhs),
+            Tell("  3r NotRationalFunction",lhs)
+        );
+        If(IsRationalFunction(rhs,var),
+            Tell("  3r IsRationalFunction",rhs),
+            Tell("  3r NotRationalFunction",rhs)
+        );
+        Local(simpexpression);
+        simpexpression  := Simplify(lhs-rhs);
+        If(IsRationalFunction(simpexpression,var),
+            [
+                xSolve'Rational(simpexpression, var);
+            ],
+            [
+                xSolve(simpexpression, var);  //  new hso 090923
+            ]
+        );
+    ];
+    
+  40  # xSolve(0, _var) <--
+    [
+        Tell(4,{0,var});
+        {var == var};
+    ];
+  
+  41  # xSolve(a_IsConstant, _var) <-- 
+    [
+        Tell(5,{a,var});
+        {};
+    ];
+  
+  42  # xSolve(_expr, _var)_(Not HasExpr(expr,var)) <--
+    [ 
+        Tell(6,{expr,var});
+        Assert("xSolve", "expression ":(ToString() Write(expr)):" does not depend on ":ToString() Write(var)) False; {}; 
+    ];
+    
+  44 # xSolve(Sqrt(_expr1) - _expr2,_var) <-- [Tell(441,{expr1,expr2,var});xSolve'Sqrts(expr1,expr2,var);];
+
+  44 # xSolve(Sqrt(_expr1) + _expr2,_var) <-- [Tell(442,{expr1,expr2,var});xSolve'Sqrts(expr1,-expr2,var);];
+
+  44 # xSolve(_expr2 - Sqrt(_expr1),_var) <-- [Tell(443,{expr2,expr1,var});xSolve'Sqrts(expr1,expr2,var);];
+
+  44 # xSolve(-_expr2 - Sqrt(_expr1),_var) <-- [Tell(444,{expr2,expr1,var});xSolve'Sqrts(expr1,-expr2,var);];
+  
+    
+  45 # xSolve(Sqrt(_expr1)-Sqrt(_expr2),_var) <--
+    [
+        Tell("2Sqrts-",{expr1,expr2});
+        Local(solution);
+        solution := xSolve(expr1-expr2,var);
+        CheckSolution(Sqrt(expr1)-Sqrt(expr2),var,solution);
+    ];    
+    
+  45 # xSolve(Sqrt(_expr1)+Sqrt(_expr2),_var) <--
+    [
+        Tell("2Sqrts+",{expr1,expr2});
+        Local(solution);
+        solution := xSolve(expr1-expr2,var);
+        CheckSolution(Sqrt(expr1)+Sqrt(expr2),var,solution);
+    ];    
+        
+  50  # xSolve(_expr, _var)_((res := xSolve'Poly(expr, var)) != Failed) <-- 
+    [
+        Tell("7Poly",{expr,var,res});
+        res;
+    ];
+  
+  60  # xSolve(_e1 * _e2, _var) <-- 
+    [
+        Tell(8,{e1,e2,var});
+        Union(xSolve(e1,var), xSolve(e2,var));
+    ];
+  
+  70  # xSolve(_e1 / _e2, _var) <-- 
+    [
+        Tell(9,{e1,e2,var});
+        xSolve(e1, var);
+    ];
+  
+  80  # xSolve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And (res := xSolve'Simple(e1,-e2,var)) != Failed) <-- 
+    [
+        Tell(10,{e1,e2,var,res});
+        res;
+    ];
+  
+  80  # xSolve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And (res := xSolve'Simple(e2,-e1,var)) != Failed) <-- 
+    [
+        Tell(11,{e1,e2,var,res});
+        res;
+    ];
+  
+  80  # xSolve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And (res := xSolve'Simple(e1,e2,var)) != Failed) <-- 
+    [
+        Tell(12,{e1,e2,var,res});
+        res;
+    ];
+  
+  80  # xSolve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And (res := xSolve'Simple(e2,e1,var)) != Failed) <-- 
+    [
+        Tell(13,{e1,e2,var,res});
+        res;
+    ];
+  
+  85  # xSolve(_expr, _var)_((res := xSolve'Simple(expr, 0, var)) != Failed) <-- 
+    [
+        Tell("14Simple_succeeded",{expr,var,res});
+        res;
+    ];
+  
+  90  # xSolve(_expr, _var)_((res := xSolve'Reduce(expr, var)) != Failed) <-- 
+    [
+        Tell("15Reduce_succeeded",{expr,var,res});
+        res;
+    ];
+  
+  95  # xSolve(_expr, _var)_((res := xSolve'Divide(expr, var)) != Failed) <-- 
+    [
+        Tell("16Divide_succeeded",{expr,var,res});
+        res;
+    ];
+  
+  100 # xSolve(_expr, _var)_((res := Simplify(expr)) != expr) <-- 
+    [
+        Tell("17Simplified",{expr,var,res});
+        xSolve(res, var);
+    ];
+  
+  110 # xSolve(_expr, _var) <--
+    [ 
+        Tell("18Fails",{expr,var});
+        Assert("xSolve'Fails", "cannot solve equation ":(ToString() Write(expr)):" for ":ToString() Write(var)) False; {}; 
+    ];
+];    // LocalSymbols
+
+/******************** xSolve'Simple ********************/
+
+/* Simple solver of equations
+ *
+ * Returns (possibly empty) list of solutions,
+ * or Failed if it cannot handle the equation
+ *
+ * Calling format: xSolve'Simple(lhs, rhs, var)
+ *                 to solve 'lhs == rhs'.
+ *
+ * Note: 'rhs' should not contain 'var'.
+ */
+
+20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
+  [
+      Tell("51aSimple",{e1,e2,rhs,var});
+      { var == rhs-e2 };
+  ];
+  
+20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
+  [
+      Tell("51bSimple",{e1,e2,rhs,var});
+      { var == rhs-e1 };
+  ];
+
+20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
+  [
+      Tell("52aSimple",{e1,e2,rhs,var});
+      { var == rhs+e2 };
+  ];
+
+20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
+  [
+      Tell("52bSimple",{e1,e2,rhs,var});
+      { var == e1-rhs };
+  ];
+
+20 # xSolve'Simple(-(_e1), _rhs, _var)_(e1 = var) <-- 
+  [
+      Tell("53Simple",{e1,rhs,var});
+      { var == -rhs };
+  ];
+
+20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
+  [
+      Tell("54aSimple",{e1,e2,rhs,var});
+      { var == rhs/e2 };
+  ];
+
+20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
+  [
+      Tell("54bSimple",{e1,e2,rhs,var});
+      { var == rhs/e1 };
+  ];
+
+20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
+  [
+      Tell("55aSimple",{e1,e2,rhs,var});
+      { var == rhs*e2 };
+  ];
+
+10 # xSolve'Simple(_e1 / _e2, 0,    _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
+  [
+      Tell("55bSimple",{e1,e2,var});
+      { };
+  ];
+
+20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
+  [
+      Tell("55cSimple",{e1,e2,rhs,var});
+      { var == e1/rhs };
+  ];
+
+LocalSymbols(x)
+[
+  20 # xSolve'Simple(_e1 ^ _n, _rhs, _var)_(e1 = var And IsPositiveInteger(n)) <--
+     [
+         Tell("56aSimple",{e1,n,rhs,var});
+         MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. n)/n));
+     ];
+       
+  20 # xSolve'Simple(_e1 ^ _n, _rhs, _var)_(e1 = var And IsNegativeInteger(n)) <--
+     [
+         Tell("56bSimple",{e1,n,rhs,var});
+         MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. (-n))/(-n)));
+     ];
+       
+];
+
+20 # xSolve'Simple(_e1 ^ _e2, _rhs, _var)
+     _ (IsPositiveReal(e1) And e1 != 0 And e2 = var And IsPositiveReal(rhs) And rhs != 0)
+     <-- [
+             Tell("57Simple",{e1,e2,rhs,var});
+             { var == Ln(rhs)/Ln(e1) };
+         ];
+
+/* Note: These rules do not take the periodicity of the trig. functions into account */
+
+10 # xSolve'Simple(Sin(_e1), 1,    _var)_(e1 = var) <-- 
+  [
+      Tell("61aSimple",{e1,var});
+      { var == 1/2*Pi };
+  ];
+  
+10 # xSolve'Simple(Sin(_e1), _rhs, _var)_(e1 = var And rhs = -1) <-- 
+  [
+      Tell("61bSimple",{e1,rhs,var});
+      { var == 3/2*Pi };
+  ];
+  
+20 # xSolve'Simple(Sin(_e1), _rhs, _var)_(e1 = var) <-- 
+  [
+      Tell("61cSimple",{e1,rhs,var});
+      { var == ArcSin(rhs), var == Pi-ArcSin(rhs) };
+  ];
+  
+10 # xSolve'Simple(Cos(_e1), 1,    _var)_(e1 = var) <-- 
+  [
+      Tell("62aSimple",{e1,var});
+      { var == 0 };
+  ];
+
+10 # xSolve'Simple(Cos(_e1), _rhs, _var)_(e1 = var And rhs = -1) <-- 
+  [
+      Tell("62bSimple",{e1,rhs,var});
+      { var == Pi };
+  ];
+
+20 # xSolve'Simple(Cos(_e1), _rhs, _var)_(e1 = var) <-- 
+  [
+      Tell("62cSimple",{e1,rhs,var});
+      { var == ArcCos(rhs), var ==  -ArcCos(rhs) };
+  ];
+
+20 # xSolve'Simple(Tan(_e1), _rhs, _var)_(e1 = var) <-- 
+  [
+      Tell("63aSimple",{e1,rhs,var});
+      { var == ArcTan(rhs) };
+  ];
+
+20 # xSolve'Simple(ArcSin(_e1), _rhs, _var)_(e1 = var) <-- 
+  [
+      Tell("63bSimple",{e1,rhs,var});
+      { var == Sin(rhs) };
+  ];
+
+20 # xSolve'Simple(ArcCos(_e1), _rhs, _var)_(e1 = var) <-- 
+  [
+      Tell("63cSimple",{e1,rhs,var});
+      { var == Cos(rhs) };
+  ];
+
+20 # xSolve'Simple(ArcTan(_e1), _rhs, _var)_(e1 = var) <-- 
+  [
+      Tell("63dSimple",{e1,rhs,var});
+      { var == Tan(rhs) };
+  ];
+
+/* Note: Second rule neglects (2*I*Pi)-periodicity of Exp() */
+
+10 # xSolve'Simple(Exp(_e1), 0,    _var)_(e1 = var) <-- 
+  [
+      Tell("64aSimple",{e1,var});
+      { };
+  ];
+
+20 # xSolve'Simple(Exp(_e1), _rhs, _var)_(e1 = var) <-- 
+  [
+      Tell("64bSimple",{e1,rhs,var});
+      { var == Ln(rhs) };
+  ];
+
+20 # xSolve'Simple(Ln(_e1),  _rhs, _var)_(e1 = var) <-- 
+  [
+      Tell("64cSimple",{e1,rhs,var});
+      { var == Exp(rhs) };
+  ];
+
+/* The range of Sqrt is the set of (complex) numbers with either
+ * positive real part, together with the pure imaginary numbers with
+ * nonnegative real part. */
+ 
+20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And IsPositiveReal(Re(rhs)) And Re(rhs) != 0) <-- 
+  [
+      Tell("65aSimple",{e1,rhs,var});
+      { var == rhs^2 };
+  ];
+
+20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And Re(rhs)=0 And IsPositiveReal(Im(rhs))) <-- 
+  [
+      Tell("65bSimple",{e1,rhs,var});
+      { var == rhs^2 };
+  ];
+
+20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And Re(rhs)=0 And IsNegativeReal(Im(rhs)) And Im(rhs) != 0) <-- 
+  [
+      Tell("65cSimple",{e1,rhs,var});
+      { };
+  ];
+
+20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And IsNegativeReal(Re(rhs)) And Re(rhs) != 0) <-- 
+  [
+      Tell("65dSimple",{e1,rhs,var});
+      { };
+  ];
+
+30 # xSolve'Simple(_lhs, _rhs, _var) <-- 
+  [
+      Tell("66Simple_failed",{lhs,rhs,var});
+      Failed;
+  ];
+
+
+/******************** xSolve'Divide ********************/
+
+/* For some classes of equations, it may be easier to solve them if we
+ * divide through by their first term.  A simple example of this is the
+ * equation  Sin(x)+Cos(x)==0
+ * One problem with this is that we may lose roots if the thing we
+ * are dividing by shares roots with the whole equation.
+ * The final HasExprs are an attempt to prevent infinite recursion caused by
+ * the final Simplify step in xSolve undoing what we do here.  It's conceivable
+ * though that this won't always work if the recurring loop is more than two
+ * steps long.  I can't think of any ways this can happen though :)
+ */
+
+10 # xSolve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And HasExpr(e2, var)
+		And Not (HasExpr(Simplify(1 + (e2/e1)), e1)
+		      Or HasExpr(Simplify(1 + (e2/e1)), e2))) <--
+     [
+         Tell("71aDivide",{e1,e2,var});
+         xSolve(1 + (e2/e1), var);
+     ];
+                                           
+10 # xSolve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And HasExpr(e2, var)
+		And Not (HasExpr(Simplify(1 - (e2/e1)), e1)
+		      Or HasExpr(Simplify(1 - (e2/e1)), e2))) <--
+     [
+         Tell("71bDivide",{e1,e2,var});
+         xSolve(1 - (e2/e1), var);
+     ];
+
+20 # xSolve'Divide(_e, _var) <-- 
+  [
+      Tell("72Divide_failed",{e,var});
+      Failed;
+  ];
+
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="xSolve",categories="User Functions (Proposed);Solvers (Symbolic)"
+*CMD Solve --- solve an equation
+*STD
+*CALL
+	Solve(eq, var)
+
+*PARMS
+
+{eq} -- equation to solve
+
+{var} -- variable to solve for
+
+*DESC
+
+This command tries to solve an equation. If {eq} does not contain the
+{==} operator, it is assumed that the user wants to solve $eq ==
+0$. The result is a list of equations of the form {var == value}, each
+representing a solution of the given equation. The {Where} operator
+can be used to substitute this solution in another expression. If the
+given equation {eq} does not have any solutions, or if {Solve} is
+unable to find any, then an empty list is returned.
+
+The current implementation is far from perfect. In particular, the
+user should keep the following points in mind:
+*	{Solve} cannot solve all equations. If it is given a equation
+it can not solve, it raises an error via {Check}. Unfortunately, this
+is not displayed by the inline pretty-printer; call {PrettyPrinter'Set} to
+change this. If an equation cannot be solved analytically, you may
+want to call {Newton} to get a numerical solution.
+*	Systems of equations are not handled yet. For linear systems,
+{MatrixSolve} can be used. The old version of {Solve}, with the name
+{OldSolve} might be able to solve nonlinear systems of equations.
+*	The periodicity of the trigonometric functions {Sin}, {Cos},
+and {Tan} is not taken into account. The same goes for the (imaginary)
+periodicity of {Exp}. This causes {Solve} to miss solutions.
+*	It is assumed that all denominators are nonzero. Hence, a
+solution reported by {Solve} may in fact fail to be a solution because
+a denominator vanishes.
+*	In general, it is wise not to have blind trust in the results
+returned by {Solve}. A good strategy is to substitute the solutions
+back in the equation.
+
+*E.G. notest
+
+First a simple example, where everything works as it should. The
+quadratic equation $x^2 + x == 0$ is solved. Then the result is
+checked by substituting it back in the quadratic.
+
+	In> quadratic := x^2+x;
+	Out> x^2+x;
+	In> xSolve(quadratic, x);
+	Out> {x==0,x==(-1)};
+	In> quadratic Where %;
+	Out> {0,0};
+
+If one tries to solve the equation $Exp(x) == Sin(x)$, one finds that
+{Solve} can not do this.
+
+	In> PrettyPrinter'Set("DefaultPrint");
+	Out> True;
+	In> xSolve(Exp(x) == Sin(x), x);
+	Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
+	Out> {};
+
+The equation $Cos(x) == 1/2$ has an infinite number of solutions,
+namely $x == (2*k + 1/3) * Pi$ and $x == (2*k - 1/3) * Pi$ for any
+integer $k$. However, {Solve} only reports the solutions with $k == 0$.
+
+	In> xSolve(Cos(x) == 1/2, x);
+	Out> {x==Pi/3,x== -Pi/3};
+
+For the equation $x/Sin(x) == 0$, a spurious solution at $x == 0$ is
+returned. However, the fraction is undefined at that point.
+
+	In> xSolve(x / Sin(x) == 0, x);
+	Out> {x==0};
+
+At first sight, the equation $Sqrt(x) == a$ seems to have the solution
+$x == a^2$. However, this is not true for eg. $a == -1$.
+
+	In> PrettyPrinter'Set("DefaultPrint");
+	Out> True;
+	In> xSolve(Sqrt(x) == a, x);
+	Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
+	Out> {};
+	In> xSolve(Sqrt(x) == 2, x);
+	Out> {x==4};
+	In> xSolve(Sqrt(x) == -1, x);
+	Out> {};
+
+*SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinter'Set, PSolve, Where, ==
+%/mathpiper_docs

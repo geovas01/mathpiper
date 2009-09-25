@@ -1,0 +1,22 @@
+%mathpiper,def="xSolve'Rational",scope="private"
+
+Retract("xSolve'Rational",*);
+
+/************************* xSolve'Rational *************************/
+/*
+ *    This expression is a rational function of its variable.
+ * Try to solve it with the help of that information.
+ *
+ *    At present, this is only a stub.
+ */
+
+ 
+10 # xSolve'Rational( _expr, _var )_(IsRationalFunction(expr,var)) <--
+[
+    Tell(" Rational",expr==0);
+    //xSolve(expr,var);
+];
+
+
+%/mathpiper
+

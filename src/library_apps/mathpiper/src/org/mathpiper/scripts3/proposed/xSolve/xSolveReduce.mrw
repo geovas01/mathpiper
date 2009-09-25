@@ -1,0 +1,120 @@
+%mathpiper,def="xSolveReduce",scope="private"
+
+Retract("xSolve'Reduce",*);
+Retract("xSolve'Context",*);
+
+/***************************** xSolve'Reduce *****************************/
+
+/*
+ *      Tries to solve by reduction strategy, calling xSolve'Context(); 
+ * Returns Failed if this doesn't work, and the solution otherwise 
+*/
+
+10 # xSolve'Reduce(_expr, _var) <--
+  [
+      Tell("xSolveReduce",{expr,var});
+      ClearError("Solve'Fails");  // in case left-over from previous failure!
+      Local(context, expr2, var2, res, sol, sol2, i);
+      context := xSolve'Context(expr, var);
+      Tell(" xSolveReduce",context);
+      If(context = False,
+         [
+             Tell(" 31bReduce",expr);
+             res := Failed;
+         ],
+         [
+             expr2 := Eval(Subst(context, var2) expr);
+             Tell(" 31cReduce",expr2);
+             If(CanBeUni(var2, expr2) And (Degree(expr2, var2) = 0 Or (Degree(expr2, var2) = 1 And Coef(expr2, var2, 1) = 1)),
+                 [
+                     Tell(" 31dReduce",expr2);
+                     Tell(" 31eReduce -- Quitting to avoid infinite recursion",Degree(expr2,var2));
+                     res := Failed; // to prevent infinite recursion 
+                 ],
+                 [
+                     //Tell(" 31XReduce",GetErrorTableau());
+    	             sol2 := Solve(expr2, var2);
+                     Tell(" 31fReduce",sol2);
+                     If(IsError("Solve'Fails"),
+	                     [
+                             Tell(" 31gReduce_error");
+	                         ClearError("Solve'Fails");
+		                     res := Failed;
+                         ],
+    	                 [
+                             Tell(" 31hReduce",sol2);
+    		                 res := {};
+    		                 i := 1;
+    		                 While(i <= Length(sol2) And res != Failed) 
+                             [
+    		                     sol := Solve(context == (var2 Where sol2[i]), var);
+                                 Tell(" 31iReduce",{i,sol});
+	                             If(IsError("Solve'Fails"),
+		                             [
+		                                  ClearError("Solve'Fails");
+		                                  res := Failed;
+                                     ],
+    		                         res := Union(res, sol)
+                                 );
+    		                     i++;
+    		                 ];
+                             Tell(" 31jReduce",{sol1,sol2,res});
+    	                 ]
+                     );
+      	         ]
+            ); 
+        ]
+      );
+      res;
+  ];
+
+
+
+/******************** xSolve'Context ********************/
+
+/*
+ *      Returns the unique context of 'var' in 'expr', 
+ * or {} if 'var' does not occur in 'expr',       
+ * or False if the context is not unique.         
+ */
+
+10 # xSolve'Context(expr_IsAtom, _var) <-- 
+  [
+      Tell("41Context",{expr,var});
+      If(expr=var, var, {});
+  ];
+
+20 # xSolve'Context(_expr, _var) <--
+  [
+      Tell("42Context",{expr,var});
+      Local(lst, foundVarP, context, i, res);
+      lst := Listify(expr);
+      Tell(" 42aContext",lst);
+      foundVarP := False;
+      i := 2;
+      While(i <= Length(lst) And Not foundVarP) [
+          foundVarP := (lst[i] = var);
+          i++;
+      ];
+      Tell(" 42bContext",{foundVarP,expr});
+      If(foundVarP,
+          [
+              context := expr;
+              Tell("  42cContext_found",{foundVarP,context});
+          ],
+          [
+              context := {};
+              i := 2;
+              While(i <= Length(lst) And context != False) [
+                  res := xSolve'Context(lst[i], var);
+	              If(res != {} And context != {} And res != context, [context := False;Tell("  42caContext",res);]);
+	              If(res != {} And context = {}, [context := res;Tell("  42cbContext",context);]);
+	              i++;
+              ];
+              Tell("  42dContext_solved",{i,context});
+          ]
+      );
+      context;
+  ];  
+
+%/mathpiper
