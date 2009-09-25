@@ -1,0 +1,78 @@
+%mathpiper,def="xTerms",scope="private"
+
+Retract("xTerms",*);
+Retract("xTerms2",*);
+
+xTerms(_expr) <--
+[
+    Local(L,n,h,s,t,f,stack,qs,topLevelPM,nTerms,firstH);
+    If( InVerboseMode(),[ Echo("in xTerms()"); Echo("  input expression: ",expr); ]);    
+    If( Not IsList( stack ), stack := {} );
+    topLevelPM := 0;
+    firstH     := 0;
+    qs         := 1;
+    f          := expr;      
+    
+    While( IsFunction(f) )
+        [
+            L  := Listify(f);
+            n  := Length(L);
+            h  := Head( L );
+            If(h=Atom("+") Or h=Atom("-"),[If(firstH=0,firstH=1);topLevelPM++;]);
+            If(InVerboseMode(),Echo("  f=",f,"  n=",n,"  L=",L,"   h=",h,"   firstH=",firstH,"  tlpm=",topLevelPM));
+            If (n=3, 
+                [
+                    If( h=Atom("-"), s:=-1, s:=1 );
+                    t := s * L[3];
+                    If(InVerboseMode(),Echo("                     t= ",t));
+                    If( (h=Atom("*") Or h=Atom("/") Or h=Atom("^")), Push(stack,f), Push(stack,t) );
+                    f := L[2];   
+                    If(InVerboseMode(), [
+                        Echo("         new f=",f);
+                        Echo("                                     stack=",stack); ]
+                    );
+                ],
+                [
+                    If( h=Atom("-"),[f:=L[2];qs:=-1;],
+                        [
+                            Push(stack,UnList(L));
+                            If( InVerboseMode(), [
+                                Echo("          n=",n,"      L=",L,"     h=",h);
+                                Echo("DONE");
+                                Echo("|---> ",stack," <---|"); ]
+                            );
+                            f:="STOP";
+                        ]
+                    );
+                ]
+            );    
+        ];
+    If( (Not IsFunction(f)) And (Length(stack)=0), stack := {f});
+    stack := qs * stack;
+    If(qs>0,nTerms:=topLevelPM+1,nTerms:=topLevelPM);
+    If(InVerboseMode(),Echo("==========================  stack = ",stack));
+    If( nTerms > Length(stack), Echo("  >>>> RESULT should be one term longer"));
+    //If(firstH != Atom("+") And  firstH != Atom("-") And tlpm >0,Echo("  >>>> RESULT should be one term shorter"));
+    stack;
+];
+
+UnFence( "xTerms", 1 );
+
+xTerms2(_expr) <--
+[
+    Local(L,stack,result,lenL);
+    If(InVerboseMode(),[ Tell("in xTerms2()"); Tell("   input expression: ",expr); ]);    
+    If( Not IsList( stack ), stack := {} );
+    If( IsAtom(expr), L:={expr}, L:=Listify(expr) );
+    lenL := Length(L);
+    If(InVerboseMode(), Tell("   0",{L,lenL}) );  
+    If( lenL = 1, [ stack := L:stack; Tell("   1",stack); ] );
+    If( lenL = 2, [ stack := L[1]:L[2]:stack; Tell("   2",stack); ] );
+    If( lenL = 3, [ stack := L[1]:L[2]:L[3]:stack; Tell("   3",stack); ] );
+    
+    result := stack;
+];
+
+UnFence( "xTerms2", 1 );
+
+%/mathpiper

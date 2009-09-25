@@ -1,0 +1,43 @@
+%mathpiper,def="xSolvePoly",scope="private"
+
+Retract("xSolve'Poly",*);
+
+/******************** xSolve'Poly ********************/
+
+/* Tries to solve by calling PSolve */
+/* Returns Failed if this doesn't work, and the solution otherwise */
+
+/* CanBeUni is not documented, but defined in org/mathpiper/assembledscripts/univar.rep/code.mpi */
+/* It returns True iff 'expr' is or can be considered to be a univariate polynomial in 'var' */
+
+10 # xSolve'Poly(_expr, _var)_(Not CanBeUni(var, expr)) <-- 
+  [
+      Tell("xSolvePoly_NoUni",{expr,var});
+      Failed;
+  ];
+
+/* 
+ * The call to PSolve (below) can have three kind of results
+ *   1) PSolve returns a single root
+ *   2) PSolve returns a list of roots
+ *   3) PSolve remains unevaluated
+ */
+
+20 # xSolve'Poly(_expr, _var) <--
+  LocalSymbols(x)
+  [
+      Tell("xSolvePoly_Uni",{expr,var});
+      Local(roots);
+      roots := PSolve(expr, var);
+      If(Type(roots) = "PSolve",
+         Failed,                               /* Case 3 */
+         If(Type(roots) = "List",
+             MapSingle({{x},var==x}, roots),   /* Case 2 */
+             {var == roots})                   /* Case 1 */
+      );
+  ];
+
+%/mathpiper
+
+
+
