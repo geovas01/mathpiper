@@ -1,0 +1,479 @@
+%mathpiper
+
+Use("org/mathpiper/assembledscripts/proposed.rep/xSolve.mpi");
+
+%/mathpiper
+
+
+
+%mathpiper,title="Testing"
+
+//########################################################################
+//       T E S T I N G     T E S T I N G     T E S T I N G
+//########################################################################
+
+// a bunch of expressions for testing
+expressions := {};
+Push( expressions, {a,{}} );
+Push( expressions, {0,{{x==x}}} );
+Push( expressions, {x-5,{{x==5}}} );
+Push( expressions, {x-a,{{x==a}}} );
+Push( expressions, {12*x+5==29,{{x==2}}} );
+Push( expressions, {5*x-15==5*(x-3),{x==x}} );
+Push( expressions, {5*x-15==5*(x-4),{}} );
+
+Push( expressions, {x^2-4,{x==2,x==(-2)}} );
+Push( expressions, {x^2-a^2,{x==a,x==(-a)}} );
+Push( expressions, {2*x^2+9*x==18,{x==3/2,x==(-6)}} );
+Push( expressions, {5*x^2==25*x, {x==0,x==5}} );
+
+Push( expressions, {2*x/5-x/3==2,{x==30}});
+Push( expressions, {2/x-3/2==7/(2*x),{x==(-1)}});
+Push( expressions, {2/(x-3)-3/(x+3)==12/(x^2-9),{}});
+Push( expressions, {3/(x^2+x-2)-1/(x^2-1)==7/(2*(x^2+3*x+2)),{x==3}});
+Push( expressions, {1+1/x==6/x^2,{x==2,x==(-3)}});
+
+Push( expressions, {Sqrt(x)-3,{x==9}});
+Push( expressions, {Sqrt(x-3),{x==3}});
+Push( expressions, {Sqrt(x-3)==2, {x==7}});
+Push( expressions, {Sqrt(2*x)==Sqrt(x+1), {x==1}});
+Push( expressions, {Sqrt(x)==x, {x==1,x==0}});
+Push( expressions, {Exp(x)==4, {x==Ln(4)}});
+Push( expressions, {Exp(x)==Abs(a), {x==Ln(Abs(a))}});
+Push( expressions, {Ln(x)==4, {x==Exp(4)}});
+Push( expressions, {Ln(x)==a, {x==Exp(a)}});
+
+Push( expressions, {(x+6)/2-(3*x+36)/4==4, {x==-40} } );
+Push( expressions, {(x-3)*(x-4)==x^2-2, {x==2} } );
+Push( expressions, {a*x-2*b*c==d,{x==(2*b*c+d)/a} } );
+Push( expressions, {(36-4*x)/(x^2-9)-(2+3*x)/(3-x)==(3*x-2)/(x+3),{x==-2} } );
+Push( expressions, {Sqrt(x+2)-2*x==1,{x==1/4} } );
+Push( expressions, {Sqrt(x+2)+2*x==1,{x==(5 - Sqrt(41))/8} } );
+Push( expressions, {Sqrt(9*x^2+4)-3*x==1,{x==1/2} } );
+Push( expressions, {Sqrt(x+1)-Sqrt(x)==-2,{} } );
+Push( expressions, {Sqrt(3*x-5)-Sqrt(2*x+3)==-1,{x==3} } );
+Push( expressions, {(x^2-1)^(1/3)==2,{x==3,x==(-3)} } );
+//Push( expressions, {,{{},{},{},{}}} );
+
+NewLine(2);  Tell("TEST xSolve()");
+expressions := Reverse(expressions);
+Local(i);   i := 0;
+ForEach(q,expressions)
+[
+    i := i + 1;     
+    Check(i<50, ">>>>> FORCED STOP <<<<<");
+    f := q[1];
+    If( f = blank, 
+        [
+            i := i - 1;
+            NewLine();
+        ],
+        [
+            g := q[2];
+            Tell("-------------------------------------------------------------------");
+            Tell(i);
+            Tell(">>> Test xSolve() on the expression: ",f);
+            stk := {};
+            r   := xSolve(f,x);
+            SysOut("             xSolve(f,x) ==> ",r);
+            rmg := Simplify(Expand(UnFlatten(r-g,"+",0)));
+            If( IsZero(rmg) Or IsZeroVector(rmg), 
+               SysOut("             Answer is CORRECT"),
+               SysOut("             Answer is WRONG:  it should be ",g)
+            );
+        ]
+    );     
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      << TEST xSolve()>> 
+      << ------------------------------------------------------------------->> 
+      << 1 >> 
+      << >>> Test xSolve() on the expression: >> f : a 
+      << 6 >> {expr,var} : {a,x} 
+                   xSolve(f,x) ==> {}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 2 >> 
+      << >>> Test xSolve() on the expression: >> f : 0 
+      << 4 >> {0,var} : {0,x} 
+                   xSolve(f,x) ==> {x==x}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 3 >> 
+      << >>> Test xSolve() on the expression: >> f : x-5 
+      << xSolvePoly_Uni>> {expr,var} : {x-5,x} 
+      << 7Poly>> {expr,var,$res12} : {x-5,x,{x==5}} 
+                   xSolve(f,x) ==> {x==5}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 4 >> 
+      << >>> Test xSolve() on the expression: >> f : x-a 
+      << xSolvePoly_Uni>> {expr,var} : {x-a,x} 
+      << 7Poly>> {expr,var,$res12} : {x-a,x,{x==a}} 
+                   xSolve(f,x) ==> {x==a}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 5 >> 
+      << >>> Test xSolve() on the expression: >> f : 12*x+5==29 
+      << 3 >> {lhs,rhs,var} : {12*x+5,29,x} 
+      <<   3r NotRationalFunction>> lhs : 12*x+5 
+      <<   3r NotRationalFunction>> rhs : 29 
+      << xSolvePoly_Uni>> {expr,var} : {12*(x-2),x} 
+      << 7Poly>> {expr,var,$res12} : {12*(x-2),x,{x==2}} 
+                   xSolve(f,x) ==> {x==2}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 6 >> 
+      << >>> Test xSolve() on the expression: >> f : 5*x-15==5*(x-3) 
+      << 3 >> {lhs,rhs,var} : {5*x-15,5*(x-3),x} 
+      <<   3r NotRationalFunction>> lhs : 5*x-15 
+      <<   3r NotRationalFunction>> rhs : 5*(x-3) 
+      << 4 >> {0,var} : {0,x} 
+                   xSolve(f,x) ==> {x==x}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 7 >> 
+      << >>> Test xSolve() on the expression: >> f : 5*x-15==5*(x-4) 
+      << 3 >> {lhs,rhs,var} : {5*x-15,5*(x-4),x} 
+      <<   3r NotRationalFunction>> lhs : 5*x-15 
+      <<   3r NotRationalFunction>> rhs : 5*(x-4) 
+      << 5 >> {a,var} : {5,x} 
+                   xSolve(f,x) ==> {}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 8 >> 
+      << >>> Test xSolve() on the expression: >> f : x^2-4 
+      << xSolvePoly_Uni>> {expr,var} : {x^2-4,x} 
+      << 7Poly>> {expr,var,$res12} : {x^2-4,x,{x==2,x==(-2)}} 
+                   xSolve(f,x) ==> {x==2,x==(-2)}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 9 >> 
+      << >>> Test xSolve() on the expression: >> f : x^2-a^2 
+      << xSolvePoly_Uni>> {expr,var} : {x^2-a^2,x} 
+      << 7Poly>> {expr,var,$res12} : {x^2-a^2,x,{x==Sqrt(4*a^2)/2,x==(-Sqrt(4*a^2))/2}} 
+                   xSolve(f,x) ==> {x==Sqrt(4*a^2)/2,x==(-Sqrt(4*a^2))/2}
+                   Answer is WRONG:  it should be {x==a,x==-a}
+      << ------------------------------------------------------------------->> 
+      << 10 >> 
+      << >>> Test xSolve() on the expression: >> f : 2*x^2+9*x==18 
+      << 3 >> {lhs,rhs,var} : {2*x^2+9*x,18,x} 
+      <<   3r NotRationalFunction>> lhs : 2*x^2+9*x 
+      <<   3r NotRationalFunction>> rhs : 18 
+      << xSolvePoly_Uni>> {expr,var} : {2*x^2+9*x-18,x} 
+      << 7Poly>> {expr,var,$res12} : {2*x^2+9*x-18,x,{x==3/2,x==(-6)}} 
+                   xSolve(f,x) ==> {x==3/2,x==(-6)}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 11 >> 
+      << >>> Test xSolve() on the expression: >> f : 5*x^2==25*x 
+      << 3 >> {lhs,rhs,var} : {5*x^2,25*x,x} 
+      <<   3r NotRationalFunction>> lhs : 5*x^2 
+      <<   3r NotRationalFunction>> rhs : 25*x 
+      << xSolvePoly_Uni>> {expr,var} : {5*(x^2-5*x),x} 
+      << 7Poly>> {expr,var,$res12} : {5*(x^2-5*x),x,{x==5,x==0}} 
+                   xSolve(f,x) ==> {x==5,x==0}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 12 >> 
+      << >>> Test xSolve() on the expression: >> f : (2*x)/5-x/3==2 
+      << 3 >> {lhs,rhs,var} : {(2*x)/5-x/3,2,x} 
+      <<   3r NotRationalFunction>> lhs : (2*x)/5-x/3 
+      <<   3r NotRationalFunction>> rhs : 2 
+      <<  Rational>> expr==0 : (x-30)/15==0 
+                   xSolve(f,x) ==> True
+                   Answer is WRONG:  it should be {x==30}
+      << ------------------------------------------------------------------->> 
+      << 13 >> 
+      << >>> Test xSolve() on the expression: >> f : 2/x-3/2==7/(2*x) 
+      << 3 >> {lhs,rhs,var} : {2/x-3/2,7/(2*x),x} 
+      <<   3r NotRationalFunction>> lhs : 2/x-3/2 
+      <<   3r IsRationalFunction>> rhs : 7/(2*x) 
+      <<  Rational>> expr==0 : (-3*(x+x^2))/(2*x^2)==0 
+                   xSolve(f,x) ==> True
+                   Answer is WRONG:  it should be {x==(-1)}
+      << ------------------------------------------------------------------->> 
+      << 14 >> 
+      << >>> Test xSolve() on the expression: >> f : 2/(x-3)-3/(x+3)==12/(x^2-9) 
+      << 3 >> {lhs,rhs,var} : {2/(x-3)-3/(x+3),12/(x^2-9),x} 
+      <<   3r NotRationalFunction>> lhs : 2/(x-3)-3/(x+3) 
+      <<   3r IsRationalFunction>> rhs : 12/(x^2-9) 
+      <<  Rational>> expr==0 : (3*x^2-x^3+9*x-27)/(x^4-18*x^2+81)==0 
+                   xSolve(f,x) ==> True
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 15 >> 
+      << >>> Test xSolve() on the expression: >> f : 3/(x^2+x-2)-1/(x^2-1)==7/(2*(x^2+3*x+2)) 
+      << 3 >> {lhs,rhs,var} : {3/(x^2+x-2)-1/(x^2-1),7/(2*(x^2+3*x+2)),x} 
+      <<   3r NotRationalFunction>> lhs : 3/(x^2+x-2)-1/(x^2-1) 
+      <<   3r IsRationalFunction>> rhs : 7/(2*(x^2+3*x+2)) 
+      <<  Rational>> expr==0 : (3*(x^3-x^4+7*x^2-x-6))/(2*(x^6+4*x^5+2*x^4-8*x^3-7*x^2+4*x+4))==0 
+                   xSolve(f,x) ==> True
+                   Answer is WRONG:  it should be {x==3}
+      << ------------------------------------------------------------------->> 
+      << 16 >> 
+      << >>> Test xSolve() on the expression: >> f : 1/x+1==6/x^2 
+      << 3 >> {lhs,rhs,var} : {1/x+1,6/x^2,x} 
+      <<   3r NotRationalFunction>> lhs : 1/x+1 
+      <<   3r IsRationalFunction>> rhs : 6/x^2 
+      <<  Rational>> expr==0 : (x^3+x^2-6*x)/x^3==0 
+                   xSolve(f,x) ==> True
+                   Answer is WRONG:  it should be {x==2,x==(-3)}
+      << ------------------------------------------------------------------->> 
+      << 17 >> 
+      << >>> Test xSolve() on the expression: >> f : Sqrt(x)-3 
+      << 441 >> {expr1,expr2,var} : {x,3,x} 
+      << xSolve'Sqrts - no var>> {expr1,expr2,var} : {x,3,x} 
+      <<    1>> vars2 : {} 
+      << xSolvePoly_Uni>> {expr,var} : {x-9,x} 
+      << 7Poly>> {expr,var,$res12} : {x-9,x,{x==9}} 
+      <<    2>> result : {x==9} 
+                   xSolve(f,x) ==> {x==9}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 18 >> 
+      << >>> Test xSolve() on the expression: >> f : Sqrt(x-3) 
+      << xSolvePoly_NoUni>> {expr,var} : {Sqrt(x-3),x} 
+      << 66Simple_failed>> {lhs,rhs,var} : {Sqrt(x-3),0,x} 
+      << xSolveReduce>> {expr,var} : {Sqrt(x-3),x} 
+      << 42Context>> {expr,var} : {Sqrt(x-3),x} 
+      <<  42aContext>> lst : {Sqrt,x-3} 
+      <<  42bContext>> {foundVarP,expr} : {False,Sqrt(x-3)} 
+      << 42Context>> {expr,var} : {x-3,x} 
+      <<  42aContext>> lst : {-,x,3} 
+      <<  42bContext>> {foundVarP,expr} : {True,x-3} 
+      <<   42cContext_found>> {foundVarP,context} : {True,x-3} 
+      <<   42cbContext>> context : x-3 
+      <<   42dContext_solved>> {i,context} : {3,x-3} 
+      <<  xSolveReduce>> context : x-3 
+      <<  31cReduce>> expr2 : Sqrt(var2) 
+      <<  31fReduce>> sol2 : {var2==0} 
+      <<  31hReduce>> sol2 : {var2==0} 
+      <<  31iReduce>> {i,sol} : {1,{x==3}} 
+      <<  31jReduce>> {sol1,sol2,res} : {sol1,{var2==0},{x==3}} 
+      << 15Reduce_succeeded>> {expr,var,$res12} : {Sqrt(x-3),x,{x==3}} 
+                   xSolve(f,x) ==> {x==3}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 19 >> 
+      << >>> Test xSolve() on the expression: >> f : Sqrt(x-3)==2 
+      << 3 >> {lhs,rhs,var} : {Sqrt(x-3),2,x} 
+      <<   3r NotRationalFunction>> lhs : Sqrt(x-3) 
+      <<   3r NotRationalFunction>> rhs : 2 
+      << 441 >> {expr1,expr2,var} : {x-3,2,x} 
+      << xSolve'Sqrts - no var>> {expr1,expr2,var} : {x-3,2,x} 
+      <<    1>> vars2 : {} 
+      << xSolvePoly_Uni>> {expr,var} : {x-3-4,x} 
+      << 7Poly>> {expr,var,$res12} : {x-3-4,x,{x==7}} 
+      <<    2>> result : {x==7} 
+                   xSolve(f,x) ==> {x==7}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 20 >> 
+      << >>> Test xSolve() on the expression: >> f : Sqrt(2*x)==Sqrt(x+1) 
+      << 3 >> {lhs,rhs,var} : {Sqrt(2*x),Sqrt(x+1),x} 
+      <<   3r NotRationalFunction>> lhs : Sqrt(2*x) 
+      <<   3r NotRationalFunction>> rhs : Sqrt(x+1) 
+      << 443 >> {expr2,expr1,var} : {Sqrt(2*x),x+1,x} 
+                   xSolve(f,x) ==> xSolve'Sqrts(x+1,Sqrt(2*x),x)
+                   Answer is WRONG:  it should be {x==1}
+      << ------------------------------------------------------------------->> 
+      << 21 >> 
+      << >>> Test xSolve() on the expression: >> f : Sqrt(x)==x 
+      << 3 >> {lhs,rhs,var} : {Sqrt(x),x,x} 
+      <<   3r NotRationalFunction>> lhs : Sqrt(x) 
+      <<   3r NotRationalFunction>> rhs : x 
+      << 441 >> {expr1,expr2,var} : {x,x,x} 
+      << xSolve'Sqrts - var>> {expr1,const,var} : {x,const,x} 
+      <<    1>> rhs : x 
+      << xSolvePoly_Uni>> {expr,var} : {x-x^2,x} 
+      << 7Poly>> {expr,var,$res12} : {x-x^2,x,{x==0,x==1}} 
+      <<    2>> result : {x==0,x==1} 
+                   xSolve(f,x) ==> {x==0,x==1}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 22 >> 
+      << >>> Test xSolve() on the expression: >> f : Exp(x)==4 
+      << 3 >> {lhs,rhs,var} : {Exp(x),4,x} 
+      <<   3r NotRationalFunction>> lhs : Exp(x) 
+      <<   3r NotRationalFunction>> rhs : 4 
+      << xSolvePoly_NoUni>> {expr,var} : {Exp(x)-4,x} 
+      << 64bSimple>> {e1,rhs,var} : {x,4,x} 
+      << 12 >> {e1,e2,var,$res12} : {Exp(x),4,x,{x==Ln(4)}} 
+                   xSolve(f,x) ==> {x==Ln(4)}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 23 >> 
+      << >>> Test xSolve() on the expression: >> f : Exp(x)==Abs(a) 
+      << 3 >> {lhs,rhs,var} : {Exp(x),Abs(a),x} 
+      <<   3r NotRationalFunction>> lhs : Exp(x) 
+      <<   3r NotRationalFunction>> rhs : Abs(a) 
+      << xSolvePoly_NoUni>> {expr,var} : {Exp(x)-Abs(a),x} 
+      << 64bSimple>> {e1,rhs,var} : {x,Abs(a),x} 
+      << 12 >> {e1,e2,var,$res12} : {Exp(x),Abs(a),x,{x==Ln(Abs(a))}} 
+                   xSolve(f,x) ==> {x==Ln(Abs(a))}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 24 >> 
+      << >>> Test xSolve() on the expression: >> f : Ln(x)==4 
+      << 3 >> {lhs,rhs,var} : {Ln(x),4,x} 
+      <<   3r NotRationalFunction>> lhs : Ln(x) 
+      <<   3r NotRationalFunction>> rhs : 4 
+      << xSolvePoly_NoUni>> {expr,var} : {Ln(x)-4,x} 
+      << 64cSimple>> {e1,rhs,var} : {x,4,x} 
+      << 12 >> {e1,e2,var,$res12} : {Ln(x),4,x,{x==Exp(4)}} 
+                   xSolve(f,x) ==> {x==Exp(4)}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 25 >> 
+      << >>> Test xSolve() on the expression: >> f : Ln(x)==a 
+      << 3 >> {lhs,rhs,var} : {Ln(x),a,x} 
+      <<   3r NotRationalFunction>> lhs : Ln(x) 
+      <<   3r NotRationalFunction>> rhs : a 
+      << xSolvePoly_NoUni>> {expr,var} : {Ln(x)-a,x} 
+      << 64cSimple>> {e1,rhs,var} : {x,a,x} 
+      << 12 >> {e1,e2,var,$res12} : {Ln(x),a,x,{x==Exp(a)}} 
+                   xSolve(f,x) ==> {x==Exp(a)}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 26 >> 
+      << >>> Test xSolve() on the expression: >> f : (x+6)/2-(3*x+36)/4==4 
+      << 3 >> {lhs,rhs,var} : {(x+6)/2-(3*x+36)/4,4,x} 
+      <<   3r NotRationalFunction>> lhs : (x+6)/2-(3*x+36)/4 
+      <<   3r NotRationalFunction>> rhs : 4 
+      <<  Rational>> expr==0 : (-(x+40))/4==0 
+                   xSolve(f,x) ==> True
+                   Answer is WRONG:  it should be {x==(-40)}
+      << ------------------------------------------------------------------->> 
+      << 27 >> 
+      << >>> Test xSolve() on the expression: >> f : (x-3)*(x-4)==x^2-2 
+      << 3 >> {lhs,rhs,var} : {(x-3)*(x-4),x^2-2,x} 
+      <<   3r NotRationalFunction>> lhs : (x-3)*(x-4) 
+      <<   3r NotRationalFunction>> rhs : x^2-2 
+      << xSolvePoly_Uni>> {expr,var} : {14-7*x,x} 
+      << 7Poly>> {expr,var,$res12} : {14-7*x,x,{x==2}} 
+                   xSolve(f,x) ==> {x==2}
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 28 >> 
+      << >>> Test xSolve() on the expression: >> f : a*x-2*b*c==d 
+      << 3 >> {lhs,rhs,var} : {a*x-2*b*c,d,x} 
+      <<   3r NotRationalFunction>> lhs : a*x-2*b*c 
+      <<   3r NotRationalFunction>> rhs : d 
+      << xSolvePoly_Uni>> {expr,var} : {a*x-(d+2*b*c),x} 
+      << 7Poly>> {expr,var,$res12} : {a*x-(d+2*b*c),x,{x==(d+2*b*c)/a}} 
+                   xSolve(f,x) ==> {x==(d+2*b*c)/a}
+                   Answer is WRONG:  it should be {x==(2*b*c+d)/a}
+      << ------------------------------------------------------------------->> 
+      << 29 >> 
+      << >>> Test xSolve() on the expression: >> f : (36-4*x)/(x^2-9)-(3*x+2)/(3-x)==(3*x-2)/(x+3) 
+      << 3 >> {lhs,rhs,var} : {(36-4*x)/(x^2-9)-(3*x+2)/(3-x),(3*x-2)/(x+3),x} 
+      <<   3r NotRationalFunction>> lhs : (36-4*x)/(x^2-9)-(3*x+2)/(3-x) 
+      <<   3r IsRationalFunction>> rhs : (3*x-2)/(x+3) 
+      <<  Rational>> expr==0 : (162*x-(36*x^2+18*x^3)+324)/(18*x^2-x^4-81)==0 
+                   xSolve(f,x) ==> True
+                   Answer is WRONG:  it should be {x==(-2)}
+      << ------------------------------------------------------------------->> 
+      << 30 >> 
+      << >>> Test xSolve() on the expression: >> f : Sqrt(x+2)-2*x==1 
+      << 3 >> {lhs,rhs,var} : {Sqrt(x+2)-2*x,1,x} 
+      <<   3r NotRationalFunction>> lhs : Sqrt(x+2)-2*x 
+      <<   3r NotRationalFunction>> rhs : 1 
+      << 441 >> {expr1,expr2,var} : {x+2,2*x+1,x} 
+                   xSolve(f,x) ==> xSolve'Sqrts(x+2,2*x+1,x)
+                   Answer is WRONG:  it should be {x==1/4}
+      << ------------------------------------------------------------------->> 
+      << 31 >> 
+      << >>> Test xSolve() on the expression: >> f : Sqrt(x+2)+2*x==1 
+      << 3 >> {lhs,rhs,var} : {Sqrt(x+2)+2*x,1,x} 
+      <<   3r NotRationalFunction>> lhs : Sqrt(x+2)+2*x 
+      <<   3r NotRationalFunction>> rhs : 1 
+      << 442 >> {expr1,expr2,var} : {x+2,2*x-1,x} 
+                   xSolve(f,x) ==> xSolve'Sqrts(x+2,1-2*x,x)
+                   Answer is WRONG:  it should be {x==(5-Sqrt(41))/8}
+      << ------------------------------------------------------------------->> 
+      << 32 >> 
+      << >>> Test xSolve() on the expression: >> f : Sqrt(9*x^2+4)-3*x==1 
+      << 3 >> {lhs,rhs,var} : {Sqrt(9*x^2+4)-3*x,1,x} 
+      <<   3r NotRationalFunction>> lhs : Sqrt(9*x^2+4)-3*x 
+      <<   3r NotRationalFunction>> rhs : 1 
+      << 441 >> {expr1,expr2,var} : {9*x^2+4,3*x+1,x} 
+                   xSolve(f,x) ==> xSolve'Sqrts(9*x^2+4,3*x+1,x)
+                   Answer is WRONG:  it should be {x==1/2}
+      << ------------------------------------------------------------------->> 
+      << 33 >> 
+      << >>> Test xSolve() on the expression: >> f : Sqrt(x+1)-Sqrt(x)==(-2) 
+      << 3 >> {lhs,rhs,var} : {Sqrt(x+1)-Sqrt(x),-2,x} 
+      <<   3r NotRationalFunction>> lhs : Sqrt(x+1)-Sqrt(x) 
+      <<   3r NotRationalFunction>> rhs : -2 
+      << 442 >> {expr1,expr2,var} : {x+1,2-Sqrt(x),x} 
+                   xSolve(f,x) ==> xSolve'Sqrts(x+1,Sqrt(x)-2,x)
+                   Answer is CORRECT
+      << ------------------------------------------------------------------->> 
+      << 34 >> 
+      << >>> Test xSolve() on the expression: >> f : Sqrt(3*x-5)-Sqrt(2*x+3)==(-1) 
+      << 3 >> {lhs,rhs,var} : {Sqrt(3*x-5)-Sqrt(2*x+3),-1,x} 
+      <<   3r NotRationalFunction>> lhs : Sqrt(3*x-5)-Sqrt(2*x+3) 
+      <<   3r NotRationalFunction>> rhs : -1 
+      << 442 >> {expr1,expr2,var} : {3*x-5,1-Sqrt(2*x+3),x} 
+                   xSolve(f,x) ==> xSolve'Sqrts(3*x-5,Sqrt(2*x+3)-1,x)
+                   Answer is WRONG:  it should be {x==3}
+      << ------------------------------------------------------------------->> 
+      << 35 >> 
+      << >>> Test xSolve() on the expression: >> f : (x^2-1)^(1/3)==2 
+      << 3 >> {lhs,rhs,var} : {(x^2-1)^(1/3),2,x} 
+      <<   3r NotRationalFunction>> lhs : (x^2-1)^(1/3) 
+      <<   3r NotRationalFunction>> rhs : 2 
+      << xSolvePoly_NoUni>> {expr,var} : {(x^2-1)^(1/3)-2,x} 
+      << 66Simple_failed>> {lhs,rhs,var} : {(x^2-1)^(1/3),2,x} 
+      << 66Simple_failed>> {lhs,rhs,var} : {(x^2-1)^(1/3)-2,0,x} 
+      << xSolveReduce>> {expr,var} : {(x^2-1)^(1/3)-2,x} 
+      << 42Context>> {expr,var} : {(x^2-1)^(1/3)-2,x} 
+      <<  42aContext>> lst : {-,(x^2-1)^(1/3),2} 
+      <<  42bContext>> {foundVarP,expr} : {False,(x^2-1)^(1/3)-2} 
+      << 42Context>> {expr,var} : {(x^2-1)^(1/3),x} 
+      <<  42aContext>> lst : {^,x^2-1,1/3} 
+      <<  42bContext>> {foundVarP,expr} : {False,(x^2-1)^(1/3)} 
+      << 42Context>> {expr,var} : {x^2-1,x} 
+      <<  42aContext>> lst : {-,x^2,1} 
+      <<  42bContext>> {foundVarP,expr} : {False,x^2-1} 
+      << 42Context>> {expr,var} : {x^2,x} 
+      <<  42aContext>> lst : {^,x,2} 
+      <<  42bContext>> {foundVarP,expr} : {True,x^2} 
+      <<   42cContext_found>> {foundVarP,context} : {True,x^2} 
+      <<   42cbContext>> context : x^2 
+      << 41Context>> {expr,var} : {1,x} 
+      <<   42dContext_solved>> {i,context} : {4,x^2} 
+      <<   42cbContext>> context : x^2 
+      << 42Context>> {expr,var} : {1/3,x} 
+      <<  42aContext>> lst : {/,1,3} 
+      <<  42bContext>> {foundVarP,expr} : {False,1/3} 
+      << 41Context>> {expr,var} : {1,x} 
+      << 41Context>> {expr,var} : {3,x} 
+      <<   42dContext_solved>> {i,context} : {4,{}} 
+      <<   42dContext_solved>> {i,context} : {4,x^2} 
+      <<   42cbContext>> context : x^2 
+      << 41Context>> {expr,var} : {2,x} 
+      <<   42dContext_solved>> {i,context} : {4,x^2} 
+      <<  xSolveReduce>> context : x^2 
+      <<  31cReduce>> expr2 : (var2-1)^(1/3)-2 
+      <<  31fReduce>> sol2 : {} 
+      <<  31gReduce_error>> 
+      << 72Divide_failed>> {e,var} : {(x^2-1)^(1/3)-2,x} 
+      << 18Fails>> {expr,var} : {(x^2-1)^(1/3)-2,x} 
+                   xSolve(f,x) ==> {}
+                   Answer is WRONG:  it should be {x==3,x==(-3)}
+.   %/output
+
+
+
+
+
+
+

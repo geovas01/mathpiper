@@ -1,0 +1,45 @@
+%mathpiper
+
+Use("org/mathpiper/assembledscripts/proposed.rep/xSolve.mpi");
+
+%/mathpiper
+
+
+
+%mathpiper,scope="private"
+
+// a bunch of expressions for testing
+expressions := {};
+Push( expressions, 4 );
+Push( expressions, -4 );
+Push( expressions, 3*y^2 - Sin(Pi*y) );
+Push( expressions, a*x+b*x^2 );
+Push( expressions, -a*x+b*x^2 );
+Push( expressions, -a*x-b*x^2 );
+Push( expressions, +a*x+b*x^2 );
+Push( expressions, a*x + b*x^2-c/x+d/x^2 );
+Push( expressions, a1/(b1+c1*x^2) );
+Push( expressions, x+Sin(x) );
+Push( expressions, x-Sin(x) );
+Push( expressions, a*x+Sin(x) );
+Push( expressions, Sin(x)-x );
+Push( expressions, Sqrt(x) );
+Push( expressions, Sqrt(1/x) );
+Push( expressions, Sqrt(1/(x^2+1)) );
+Push( expressions, Sqrt((1-x)/(1+x)) );
+Push( expressions, 1/x+1/x^2 );
+Push( expressions, a/(x+1)+b/(x-1) );
+Push( expressions, (1-x)^(3/2) );
+Push( expressions, a*(x+y) );
+Push( expressions, (x+y)/c );
+
+nn := Length( expressions );
+For( i:=1, i<=nn, i++ )
+[
+    f := PopBack( expressions );
+    Echo("-------------------------------------------------------------------");
+    Echo(">>> new expression: ",f);
+    r:=V(xTerms2(f));
+    Echo({r});
+];
+%/mathpiper
