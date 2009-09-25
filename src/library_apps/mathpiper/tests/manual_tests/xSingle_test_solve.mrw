@@ -1,0 +1,81 @@
+%mathpiper
+
+Use("org/mathpiper/assembledscripts/proposed.rep/xSolve.mpi");
+
+%/mathpiper
+
+
+
+%mathpiper,def="xSingle_test_solve",scope="private"
+
+//########################################################################
+//       T E S T I N G     T E S T I N G     T E S T I N G
+//########################################################################
+
+// a bunch of expressions for testing
+expressions := {};
+
+Push( expressions, {3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2))==0,{x==3}});
+Push( expressions, {3/(x^2+x-2)-1/(x^2-1)==7/(2*(x^2+3*x+2)),{x==3}});
+
+
+NewLine(2);  Tell("TEST xSolve()");
+expressions := Reverse(expressions);
+Local(i);   i := 0;
+ForEach(q,expressions)
+[
+    i := i + 1;     
+    Check(i<50, ">>>>> FORCED STOP <<<<<");
+    f := q[1];
+    If( f = blank, 
+        [
+            i := i - 1;
+            NewLine();
+        ],
+        [
+            g := q[2];
+            Tell("-------------------------------------------------------------------");
+            Tell(i);
+            Tell(">>> Test xSolve() on the expression: ",f);
+            stk := {};
+            r   := xSolve(f,x);
+            SysOut("             xSolve(f,x) ==> ",r);
+            rmg := Simplify(Expand(UnFlatten(r-g,"+",0)));
+            If( IsZero(rmg) Or IsZeroVector(rmg), 
+               SysOut("             Answer is CORRECT"),
+               SysOut("             Answer is WRONG:  it should be ",g)
+            );
+        ]
+    );     
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      << TEST xSolve()>> 
+      << ------------------------------------------------------------------->> 
+      << 1 >> 
+      << >>> Test xSolve() on the expression: >> f : 3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2))==0 
+      << 3 >> {lhs,rhs,var} : {3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2)),0,x} 
+      <<   3r IsRationalFunction>> lhs : 3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2)) 
+      <<   3r NotRationalFunction>> rhs : 0 
+      <<  Rational>> expr==0 : 3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2))==0 
+                   xSolve(f,x) ==> True
+                   Answer is WRONG:  it should be {x==3}
+      << ------------------------------------------------------------------->> 
+      << 2 >> 
+      << >>> Test xSolve() on the expression: >> f : 3/(x^2+x-2)-1/(x^2-1)==7/(2*(x^2+3*x+2)) 
+      << 3 >> {lhs,rhs,var} : {3/(x^2+x-2)-1/(x^2-1),7/(2*(x^2+3*x+2)),x} 
+      <<   3r IsRationalFunction>> lhs : 3/(x^2+x-2)-1/(x^2-1) 
+      <<   3r IsRationalFunction>> rhs : 7/(2*(x^2+3*x+2)) 
+      <<  Rational>> expr==0 : 3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2))==0 
+                   xSolve(f,x) ==> True
+                   Answer is WRONG:  it should be {x==3}
+.   %/output
+
+
+
+
