@@ -1,4 +1,4 @@
-%mathpiper,def="xSolvePoly",scope="private"
+%mathpiper,title="xSolvePoly"
 
 Retract("xSolve'Poly",*);
 
@@ -12,10 +12,32 @@ Retract("xSolve'Poly",*);
 
 10 # xSolve'Poly(_expr, _var)_(Not CanBeUni(var, expr)) <-- 
   [
-      Tell("xSolvePoly_NoUni",{expr,var});
+      If(iDebug=True,Tell("xSolvePoly_NoUni",{expr,var}));
       Failed;
   ];
 
+  
+20 # xSolve'Poly(_expr, _var) <--
+  LocalSymbols(x)
+  [
+      If(iDebug=True,Tell("xSolvePoly_Uni_F",{expr,var}));
+      Local(factors,nfactors,roots);
+      factors  := Factors(expr);
+      nfactors := Length(factors);
+      If(iDebug=True,Tell("  1",{nfactors,factors}));
+      roots := {};
+      ForEach(factor,factors) 
+          If(Contains(VarList(factor[1]),var),
+              Push(roots,PSolve(factor[1],var))
+          );
+      If(iDebug=True,Tell("  4",roots));
+      If(Type(roots) = "List",
+          MapSingle({{x},var==x}, roots),  
+          {var == roots}
+       );                 
+  ];
+  
+  
 /* 
  * The call to PSolve (below) can have three kind of results
  *   1) PSolve returns a single root
@@ -23,10 +45,10 @@ Retract("xSolve'Poly",*);
  *   3) PSolve remains unevaluated
  */
 
-20 # xSolve'Poly(_expr, _var) <--
+30 # xSolve'Poly(_expr, _var) <--
   LocalSymbols(x)
   [
-      Tell("xSolvePoly_Uni",{expr,var});
+      If(iDebug=True,Tell("xSolvePoly_Uni_P",{expr,var}));
       Local(roots);
       roots := PSolve(expr, var);
       If(Type(roots) = "PSolve",
@@ -37,7 +59,12 @@ Retract("xSolve'Poly",*);
       );
   ];
 
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
