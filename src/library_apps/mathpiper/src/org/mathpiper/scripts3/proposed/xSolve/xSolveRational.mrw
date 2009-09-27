@@ -1,4 +1,4 @@
-%mathpiper,def="xSolve'Rational",scope="private"
+%mathpiper,title="xSolve'Rational"
 
 Retract("xSolve'Rational",*);
 
@@ -6,17 +6,43 @@ Retract("xSolve'Rational",*);
 /*
  *    This expression is a rational function of its variable.
  * Try to solve it with the help of that information.
- *
- *    At present, this is only a stub.
  */
 
  
 10 # xSolve'Rational( _expr, _var )_(IsRationalFunction(expr,var)) <--
 [
-    Tell(" Rational",expr==0);
-    //xSolve(expr,var);
+    If(iDebug=True,Tell(" Rational",expr==0));
+    Local(n,d,fn,fd,factor,rootsn,rootsd,root,result);
+    n := Numerator(expr);
+    d := Denominator(expr);
+    If(iDebug=True,Tell("  1",{n,d}));
+    fn := Factors(n);
+    fd := Factors(d);
+    If(iDebug=True,Tell("  2",{fn,fd}));
+    rootsn := {};
+    rootsd := {};
+    result := {};
+    ForEach(factor,fn) 
+        If(Contains(VarList(factor[1]),var), Push(rootsn,PSolve(factor[1],var)));  
+    ForEach(factor,fd) 
+        If(Contains(VarList(factor[1]),var), Push(rootsd,PSolve(factor[1],var)));    
+    If(iDebug=True,Tell("  3",{rootsn,rootsd}));
+    
+    ForEach(root,rootsn) 
+      [
+            If(iDebug=True,Tell("     4",root));
+            If(Not Contains(rootsd,root),Push(result,root));
+            If(iDebug=True,Tell("     5",result));
+      ];
+    If(iDebug=True,Tell("  6",result));
+    If( Length(result)=0,result:={},MapSingle({{t},var==t}, result)); 
 ];
 
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
