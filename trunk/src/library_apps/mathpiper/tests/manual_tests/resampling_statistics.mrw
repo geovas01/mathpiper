@@ -263,6 +263,13 @@ Repeat(trials)
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      31 , 50
+.   %/output
+
 
 
 
@@ -289,6 +296,13 @@ Repeat(trials)
     Echo(birthdayMatchCounter,,,trials,,,N(birthdayMatchCounter/trials));
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      81 , 1000 , 0.081
+.   %/output
 
 
 
