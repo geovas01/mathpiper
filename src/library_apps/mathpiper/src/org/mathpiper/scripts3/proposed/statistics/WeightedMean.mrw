@@ -29,7 +29,7 @@ Retract("WeightedMean", *);
 {weights} -- list, the respective weights to associate with the values.
 
 *DESC 
-This function allows more weight to be associated to certain values and
+This function allows more weight to be associated with certain values and
 less weight to others when calculating their mean.
 
 *E.G.
