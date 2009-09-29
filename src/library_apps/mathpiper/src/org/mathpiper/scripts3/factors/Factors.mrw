@@ -52,7 +52,7 @@ Retract("CombineNumericalFactors",*);
             newCoeffs := lcm * rat;
             newPoly := NormalForm(UniVariate(x,0,newCoeffs));
             facs := FactorsPolynomialOverIntegers(newPoly);
-            If( InVerboseMode(), [
+            If( iDebugF=True, [
                   Echo("coeffs ",coeffs);
                   Echo("notInt ",notInt);
                   Echo("rat ",rat);
@@ -85,7 +85,7 @@ Retract("CombineNumericalFactors",*);
     nvars := Length(VarList(p));
     If (nvars > 1, 
          [
-            If( InVerboseMode(),
+            If( iDebugF=True,
                 [
                     Echo("special ",p);
                     Echo(Coef(p,x,0 .. 8));
@@ -104,7 +104,7 @@ Retract("CombineNumericalFactors",*);
     /*
      * This may may be a polynomial with non-integer exponents.  Let's check.
      */
-     If( InVerboseMode(), Echo("Possibly trying to factor polynomial with non-integral exponents") );
+     If( iDebugF=True, Echo("Possibly trying to factor polynomial with non-integral exponents") );
      Local( result);
      //Echo(40,p);
      //  NOT IMPLEMENTED YET
@@ -143,7 +143,7 @@ Retract("CombineNumericalFactors",*);
 
 20 # FactorsSomethingElse(_p) <-- 
   [
-      If( InVerboseMode(),
+      If( iDebugF=True,
           [
               ECHO("   *** FactorsSomethingElse: NOT IMPLEMENTED YET ***");
           ]
@@ -156,18 +156,18 @@ Retract("CombineNumericalFactors",*);
 
 10 # CombineNumericalFactors( factrs_IsList ) <--
   [
-      If( InVerboseMode(), Tell("Combine",factrs) );
+      If( iDebugF=True, Tell("Combine",factrs) );
       Local(q,a,b,t,f,err);
       err := False;
       t   := 1;
       f   := {};
       ForEach(q,factrs)
       [
-          If( InVerboseMode(), Tell(1,q) );
+          If( iDebugF=True, Tell(1,q) );
           If( IsList(q) And Length(q)=2,
               [
                   {a,b} := q;
-                  If( InVerboseMode(), Echo("     ",{a,b}) );
+                  If( iDebugF=True, Echo("     ",{a,b}) );
                   If( IsNumericList( {a,b} ),
                       t := t * a^b,
                       f := {a,b}:f
@@ -176,7 +176,7 @@ Retract("CombineNumericalFactors",*);
               err := True
           );
       ];
-      If( InVerboseMode(),
+      If( iDebugF=True,
         [
             Echo("      t = ",t);
             Echo("      f = ",f);
