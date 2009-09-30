@@ -1,0 +1,48 @@
+%mathpiper,title=""
+
+data := {.306,.255,.158,.257,.264,.113,.272,.221,.106,.291,.258,.119,.260,.341,.182,.273,.257,.143,.268,.222,.143,.251,.269,.192,.242,.241,.261};
+
+class1Frequency := 0;
+class2Frequency := 0;
+class3Frequency := 0;
+class4Frequency := 0;
+class5Frequency := 0;
+class6Frequency := 0;
+class7Frequency := 0;
+
+
+ForEach(datum,data)
+[
+    If(.000 <= datum And datum <= .049, class1Frequency++);
+    If(.050 <= datum And datum <= .099, class2Frequency++);
+    If(.100 <= datum And datum <= .149, class3Frequency++);
+    If(.150 <= datum And datum <= .199, class4Frequency++);
+    If(.200 <= datum And datum <= .249, class5Frequency++);
+    If(.250 <= datum And datum <= .299, class6Frequency++);
+    If(.300 <= datum And datum <= .349, class7Frequency++);
+];
+
+Echo(".000 to .049 - ", class1Frequency);
+Echo(".000 to .049 - ", class2Frequency);
+Echo(".000 to .049 - ", class3Frequency);
+Echo(".000 to .049 - ", class4Frequency);
+Echo(".000 to .049 - ", class5Frequency);
+Echo(".000 to .049 - ", class6Frequency);
+Echo(".000 to .049 - ", class7Frequency);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      .000 to .049 - 0 
+      .000 to .049 - 0 
+      .000 to .049 - 5 
+      .000 to .049 - 3 
+      .000 to .049 - 4 
+      .000 to .049 - 13 
+      .000 to .049 - 2
+.   %/output
+
+
