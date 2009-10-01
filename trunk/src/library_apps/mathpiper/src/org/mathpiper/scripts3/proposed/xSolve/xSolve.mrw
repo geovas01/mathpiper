@@ -1,4 +1,4 @@
-%mathpiper,def="xSolve",scope="private"
+%mathpiper,def="xSolve"
 
 Retract("xSolve",*);
 Retract("xSolve'Simple",*);
@@ -30,26 +30,30 @@ LocalSymbols(res)
 [
   10  # xSolve(expr_IsList, var_IsList) <-- 
     [
-        Tell(1,{expr,var});
+        If(iDebug=True,Tell("xSolve1",{expr,var}));
         xSolve'System(expr, var);
     ];
   
   20  # xSolve(_expr, _var)_(Not IsAtom(var) Or IsNumber(var) Or IsString(var)) <--
     [ 
-        Tell(2,{expr,var});
+        If(iDebug=True,Tell("xSolve2",{expr,var}));
         Assert("xSolve'TypeError", "Second argument, ":(ToString() Write(var)):", is not the name of a variable") False; {}; 
     ];
     
   30  # xSolve(_lhs == _rhs, _var) <-- 
     [
-        Tell(3,{lhs,rhs,var});
-        If(IsRationalFunction(lhs,var),
-            Tell("  3r IsRationalFunction",lhs),
-            Tell("  3r NotRationalFunction",lhs)
-        );
-        If(IsRationalFunction(rhs,var),
-            Tell("  3r IsRationalFunction",rhs),
-            Tell("  3r NotRationalFunction",rhs)
+        If(iDebug=True,
+           [
+              Tell("xSolve3",{lhs,rhs,var});
+              If(IsRationalFunction(lhs,var),
+                 Tell("  3r IsRationalFunction",lhs),
+                 Tell("  3r NotRationalFunction",lhs)
+              );
+              If(IsRationalFunction(rhs,var),
+                 Tell("  3r IsRationalFunction",rhs),
+                 Tell("  3r NotRationalFunction",rhs)
+              );
+           ]
         );
         Local(simpexpression);
         simpexpression  := Simplify(lhs-rhs);
@@ -65,34 +69,38 @@ LocalSymbols(res)
     
   40  # xSolve(0, _var) <--
     [
-        Tell(4,{0,var});
+        If(iDebug=True,Tell("xSolve4",{0,var}));
         {var == var};
     ];
   
   41  # xSolve(a_IsConstant, _var) <-- 
     [
-        Tell(5,{a,var});
+        If(iDebug=True,Tell("xSolve5",{a,var}));
         {};
     ];
   
   42  # xSolve(_expr, _var)_(Not HasExpr(expr,var)) <--
     [ 
-        Tell(6,{expr,var});
+        If(iDebug=True,Tell("xSolve6",{expr,var}));
         Assert("xSolve", "expression ":(ToString() Write(expr)):" does not depend on ":ToString() Write(var)) False; {}; 
     ];
     
-  44 # xSolve(Sqrt(_expr1) - _expr2,_var) <-- [Tell(441,{expr1,expr2,var});xSolve'Sqrts(expr1,expr2,var);];
+  44 # xSolve(Sqrt(_expr1) - _expr2,_var) <-- 
+           [If(iDebug=Trfue,Tell("xSolve441",{expr1,expr2,var}));xSolve'Sqrts(expr1,expr2,var);];
 
-  44 # xSolve(Sqrt(_expr1) + _expr2,_var) <-- [Tell(442,{expr1,expr2,var});xSolve'Sqrts(expr1,-expr2,var);];
+  44 # xSolve(Sqrt(_expr1) + _expr2,_var) <-- 
+           [If(iDebug=True,Tell("xSolve442",{expr1,expr2,var}));xSolve'Sqrts(expr1,-expr2,var);];
 
-  44 # xSolve(_expr2 - Sqrt(_expr1),_var) <-- [Tell(443,{expr2,expr1,var});xSolve'Sqrts(expr1,expr2,var);];
+  44 # xSolve(_expr2 - Sqrt(_expr1),_var) <-- 
+           [If(iDebug=True,Tell("xSolve443",{expr2,expr1,var}));xSolve'Sqrts(expr1,expr2,var);];
 
-  44 # xSolve(-_expr2 - Sqrt(_expr1),_var) <-- [Tell(444,{expr2,expr1,var});xSolve'Sqrts(expr1,-expr2,var);];
+  44 # xSolve(-_expr2 - Sqrt(_expr1),_var) <-- 
+           [If(iDebug=True,Tell("xSolve444",{expr2,expr1,var}));xSolve'Sqrts(expr1,-expr2,var);];
   
     
   45 # xSolve(Sqrt(_expr1)-Sqrt(_expr2),_var) <--
     [
-        Tell("2Sqrts-",{expr1,expr2});
+        If(iDebug=True,Tell("xSolve2Sqrts-",{expr1,expr2}));
         Local(solution);
         solution := xSolve(expr1-expr2,var);
         CheckSolution(Sqrt(expr1)-Sqrt(expr2),var,solution);
@@ -100,7 +108,7 @@ LocalSymbols(res)
     
   45 # xSolve(Sqrt(_expr1)+Sqrt(_expr2),_var) <--
     [
-        Tell("2Sqrts+",{expr1,expr2});
+        If(iDebug=True,Tell("xSolve2Sqrts+",{expr1,expr2}));
         Local(solution);
         solution := xSolve(expr1-expr2,var);
         CheckSolution(Sqrt(expr1)+Sqrt(expr2),var,solution);
@@ -108,73 +116,73 @@ LocalSymbols(res)
         
   50  # xSolve(_expr, _var)_((res := xSolve'Poly(expr, var)) != Failed) <-- 
     [
-        Tell("7Poly",{expr,var,res});
+        If(iDebug=True,Tell("xSolve7Poly",{expr,var,res}));
         res;
     ];
   
   60  # xSolve(_e1 * _e2, _var) <-- 
     [
-        Tell(8,{e1,e2,var});
+        If(iDebug=True,Tell(8,{e1,e2,var}));
         Union(xSolve(e1,var), xSolve(e2,var));
     ];
   
   70  # xSolve(_e1 / _e2, _var) <-- 
     [
-        Tell(9,{e1,e2,var});
+        If(iDebug=True,Tell(9,{e1,e2,var}));
         xSolve(e1, var);
     ];
   
   80  # xSolve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And (res := xSolve'Simple(e1,-e2,var)) != Failed) <-- 
     [
-        Tell(10,{e1,e2,var,res});
+        If(iDebug=True,Tell(10,{e1,e2,var,res}));
         res;
     ];
   
   80  # xSolve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And (res := xSolve'Simple(e2,-e1,var)) != Failed) <-- 
     [
-        Tell(11,{e1,e2,var,res});
+        If(iDebug=True,Tell(11,{e1,e2,var,res}));
         res;
     ];
   
   80  # xSolve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And (res := xSolve'Simple(e1,e2,var)) != Failed) <-- 
     [
-        Tell(12,{e1,e2,var,res});
+        If(iDebug=True,Tell(12,{e1,e2,var,res}));
         res;
     ];
   
   80  # xSolve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And (res := xSolve'Simple(e2,e1,var)) != Failed) <-- 
     [
-        Tell(13,{e1,e2,var,res});
+        If(iDebug=True,Tell(13,{e1,e2,var,res}));
         res;
     ];
   
   85  # xSolve(_expr, _var)_((res := xSolve'Simple(expr, 0, var)) != Failed) <-- 
     [
-        Tell("14Simple_succeeded",{expr,var,res});
+        If(iDebug=True,Tell("xSolve14Simple_succeeded",{expr,var,res}));
         res;
     ];
   
   90  # xSolve(_expr, _var)_((res := xSolve'Reduce(expr, var)) != Failed) <-- 
     [
-        Tell("15Reduce_succeeded",{expr,var,res});
+        If(iDebug=True,Tell("xSolve15Reduce_succeeded",{expr,var,res}));
         res;
     ];
   
   95  # xSolve(_expr, _var)_((res := xSolve'Divide(expr, var)) != Failed) <-- 
     [
-        Tell("16Divide_succeeded",{expr,var,res});
+        If(iDebug=True,Tell("xSolve16Divide_succeeded",{expr,var,res}));
         res;
     ];
   
   100 # xSolve(_expr, _var)_((res := Simplify(expr)) != expr) <-- 
     [
-        Tell("17Simplified",{expr,var,res});
+        If(iDebug=True,Tell("xSolve17Simplified",{expr,var,res}));
         xSolve(res, var);
     ];
   
   110 # xSolve(_expr, _var) <--
     [ 
-        Tell("18Fails",{expr,var});
+        If(iDebug,Tell("xSolve18Fails",{expr,var}));
         Assert("xSolve'Fails", "cannot solve equation ":(ToString() Write(expr)):" for ":ToString() Write(var)) False; {}; 
     ];
 ];    // LocalSymbols
@@ -194,61 +202,61 @@ LocalSymbols(res)
 
 20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
   [
-      Tell("51aSimple",{e1,e2,rhs,var});
+      If(iDebug=True,Tell("xSolve51aSimple",{e1,e2,rhs,var}));
       { var == rhs-e2 };
   ];
   
 20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
   [
-      Tell("51bSimple",{e1,e2,rhs,var});
+      If(iDebug=True,Tell("xSolve51bSimple",{e1,e2,rhs,var}));
       { var == rhs-e1 };
   ];
 
 20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
   [
-      Tell("52aSimple",{e1,e2,rhs,var});
+      If(iDebug=True,Tell("xSolve52aSimple",{e1,e2,rhs,var}));
       { var == rhs+e2 };
   ];
 
 20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
   [
-      Tell("52bSimple",{e1,e2,rhs,var});
+      If(iDebug=True,Tell("xSolve52bSimple",{e1,e2,rhs,var}));
       { var == e1-rhs };
   ];
 
 20 # xSolve'Simple(-(_e1), _rhs, _var)_(e1 = var) <-- 
   [
-      Tell("53Simple",{e1,rhs,var});
+      If(iDebug=True,Tell("xSolve53Simple",{e1,rhs,var}));
       { var == -rhs };
   ];
 
 20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
   [
-      Tell("54aSimple",{e1,e2,rhs,var});
+      If(iDebug=True,Tell("xSolve54aSimple",{e1,e2,rhs,var}));
       { var == rhs/e2 };
   ];
 
 20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
   [
-      Tell("54bSimple",{e1,e2,rhs,var});
+      If(iDebug=True,Tell("xSolve54bSimple",{e1,e2,rhs,var}));
       { var == rhs/e1 };
   ];
 
 20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
   [
-      Tell("55aSimple",{e1,e2,rhs,var});
+      If(iDebug,Tell("xSolve55aSimple",{e1,e2,rhs,var}));
       { var == rhs*e2 };
   ];
 
 10 # xSolve'Simple(_e1 / _e2, 0,    _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
   [
-      Tell("55bSimple",{e1,e2,var});
+      If(iDebug,Tell("xSolve55bSimple",{e1,e2,var}));
       { };
   ];
 
 20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
   [
-      Tell("55cSimple",{e1,e2,rhs,var});
+      If(iDebug,Tell("xSolve55cSimple",{e1,e2,rhs,var}));
       { var == e1/rhs };
   ];
 
@@ -256,13 +264,13 @@ LocalSymbols(x)
 [
   20 # xSolve'Simple(_e1 ^ _n, _rhs, _var)_(e1 = var And IsPositiveInteger(n)) <--
      [
-         Tell("56aSimple",{e1,n,rhs,var});
+         If(iDebug,Tell("xSolve56aSimple",{e1,n,rhs,var}));
          MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. n)/n));
      ];
        
   20 # xSolve'Simple(_e1 ^ _n, _rhs, _var)_(e1 = var And IsNegativeInteger(n)) <--
      [
-         Tell("56bSimple",{e1,n,rhs,var});
+         If(iDebug,Tell("xSolve56bSimple",{e1,n,rhs,var}));
          MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. (-n))/(-n)));
      ];
        
@@ -271,7 +279,7 @@ LocalSymbols(x)
 20 # xSolve'Simple(_e1 ^ _e2, _rhs, _var)
      _ (IsPositiveReal(e1) And e1 != 0 And e2 = var And IsPositiveReal(rhs) And rhs != 0)
      <-- [
-             Tell("57Simple",{e1,e2,rhs,var});
+             If(iDebug,Tell("xSolve57Simple",{e1,e2,rhs,var}));
              { var == Ln(rhs)/Ln(e1) };
          ];
 
@@ -279,61 +287,61 @@ LocalSymbols(x)
 
 10 # xSolve'Simple(Sin(_e1), 1,    _var)_(e1 = var) <-- 
   [
-      Tell("61aSimple",{e1,var});
+      If(iDebug=True,Tell("xSolve61aSimple",{e1,var}));
       { var == 1/2*Pi };
   ];
   
 10 # xSolve'Simple(Sin(_e1), _rhs, _var)_(e1 = var And rhs = -1) <-- 
   [
-      Tell("61bSimple",{e1,rhs,var});
+      If(iDebug=True,Tell("xSolve61bSimple",{e1,rhs,var}));
       { var == 3/2*Pi };
   ];
   
 20 # xSolve'Simple(Sin(_e1), _rhs, _var)_(e1 = var) <-- 
   [
-      Tell("61cSimple",{e1,rhs,var});
+      If(iDebug=True,Tell("xSolve61cSimple",{e1,rhs,var}));
       { var == ArcSin(rhs), var == Pi-ArcSin(rhs) };
   ];
   
 10 # xSolve'Simple(Cos(_e1), 1,    _var)_(e1 = var) <-- 
   [
-      Tell("62aSimple",{e1,var});
+      If(iDebug=True,Tell("xSolve62aSimple",{e1,var}));
       { var == 0 };
   ];
 
 10 # xSolve'Simple(Cos(_e1), _rhs, _var)_(e1 = var And rhs = -1) <-- 
   [
-      Tell("62bSimple",{e1,rhs,var});
+      If(iDebug,Tell("xSolve62bSimple",{e1,rhs,var}));
       { var == Pi };
   ];
 
 20 # xSolve'Simple(Cos(_e1), _rhs, _var)_(e1 = var) <-- 
   [
-      Tell("62cSimple",{e1,rhs,var});
+      If(iDebug,Tell("xSolve62cSimple",{e1,rhs,var}));
       { var == ArcCos(rhs), var ==  -ArcCos(rhs) };
   ];
 
 20 # xSolve'Simple(Tan(_e1), _rhs, _var)_(e1 = var) <-- 
   [
-      Tell("63aSimple",{e1,rhs,var});
+      If(iDebug,Tell("xSolve63aSimple",{e1,rhs,var}));
       { var == ArcTan(rhs) };
   ];
 
 20 # xSolve'Simple(ArcSin(_e1), _rhs, _var)_(e1 = var) <-- 
   [
-      Tell("63bSimple",{e1,rhs,var});
+      If(iDebug,Tell("xSolve63bSimple",{e1,rhs,var}));
       { var == Sin(rhs) };
   ];
 
 20 # xSolve'Simple(ArcCos(_e1), _rhs, _var)_(e1 = var) <-- 
   [
-      Tell("63cSimple",{e1,rhs,var});
+      If(iDebug,Tell("xSolve63cSimple",{e1,rhs,var}));
       { var == Cos(rhs) };
   ];
 
 20 # xSolve'Simple(ArcTan(_e1), _rhs, _var)_(e1 = var) <-- 
   [
-      Tell("63dSimple",{e1,rhs,var});
+      If(iDebug,Tell("xSolve63dSimple",{e1,rhs,var}));
       { var == Tan(rhs) };
   ];
 
@@ -341,19 +349,19 @@ LocalSymbols(x)
 
 10 # xSolve'Simple(Exp(_e1), 0,    _var)_(e1 = var) <-- 
   [
-      Tell("64aSimple",{e1,var});
+      If(iDebug=True,Tell("xSolve64aSimple",{e1,var}));
       { };
   ];
 
 20 # xSolve'Simple(Exp(_e1), _rhs, _var)_(e1 = var) <-- 
   [
-      Tell("64bSimple",{e1,rhs,var});
+      If(iDebug=True,Tell("xSolve64bSimple",{e1,rhs,var}));
       { var == Ln(rhs) };
   ];
 
 20 # xSolve'Simple(Ln(_e1),  _rhs, _var)_(e1 = var) <-- 
   [
-      Tell("64cSimple",{e1,rhs,var});
+      If(iDebug=True,Tell("xSolve64cSimple",{e1,rhs,var}));
       { var == Exp(rhs) };
   ];
 
@@ -363,31 +371,31 @@ LocalSymbols(x)
  
 20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And IsPositiveReal(Re(rhs)) And Re(rhs) != 0) <-- 
   [
-      Tell("65aSimple",{e1,rhs,var});
+      If(iDebug,Tell("xSolve65aSimple",{e1,rhs,var}));
       { var == rhs^2 };
   ];
 
 20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And Re(rhs)=0 And IsPositiveReal(Im(rhs))) <-- 
   [
-      Tell("65bSimple",{e1,rhs,var});
+      If(iDebug,Tell("xSolve65bSimple",{e1,rhs,var}));
       { var == rhs^2 };
   ];
 
 20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And Re(rhs)=0 And IsNegativeReal(Im(rhs)) And Im(rhs) != 0) <-- 
   [
-      Tell("65cSimple",{e1,rhs,var});
+      If(iDebug,Tell("xSolve65cSimple",{e1,rhs,var}));
       { };
   ];
 
 20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And IsNegativeReal(Re(rhs)) And Re(rhs) != 0) <-- 
   [
-      Tell("65dSimple",{e1,rhs,var});
+      If(iDebug,Tell("xSolve65dSimple",{e1,rhs,var}));
       { };
   ];
 
 30 # xSolve'Simple(_lhs, _rhs, _var) <-- 
   [
-      Tell("66Simple_failed",{lhs,rhs,var});
+      If(iDebug,Tell("xSolve66Simple_failed",{lhs,rhs,var}));
       Failed;
   ];
 
@@ -409,7 +417,7 @@ LocalSymbols(x)
 		And Not (HasExpr(Simplify(1 + (e2/e1)), e1)
 		      Or HasExpr(Simplify(1 + (e2/e1)), e2))) <--
      [
-         Tell("71aDivide",{e1,e2,var});
+         If(iDebug,Tell("xSolve71aDivide",{e1,e2,var}));
          xSolve(1 + (e2/e1), var);
      ];
                                            
@@ -417,24 +425,27 @@ LocalSymbols(x)
 		And Not (HasExpr(Simplify(1 - (e2/e1)), e1)
 		      Or HasExpr(Simplify(1 - (e2/e1)), e2))) <--
      [
-         Tell("71bDivide",{e1,e2,var});
+         If(iDebug,Tell("xSolve71bDivide",{e1,e2,var}));
          xSolve(1 - (e2/e1), var);
      ];
 
 20 # xSolve'Divide(_e, _var) <-- 
   [
-      Tell("72Divide_failed",{e,var});
+      If(iDebug,Tell("xSolve72Divide_failed",{e,var}));
       Failed;
   ];
 
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
 
-%mathpiper_docs,name="xSolve",categories="User Functions (Proposed);Solvers (Symbolic)"
+%mathpiper_docs,name="Solve",categories="User Functions;Solvers (Symbolic)"
 *CMD Solve --- solve an equation
 *STD
 *CALL
@@ -484,7 +495,7 @@ checked by substituting it back in the quadratic.
 
 	In> quadratic := x^2+x;
 	Out> x^2+x;
-	In> xSolve(quadratic, x);
+	In> Solve(quadratic, x);
 	Out> {x==0,x==(-1)};
 	In> quadratic Where %;
 	Out> {0,0};
@@ -494,7 +505,7 @@ If one tries to solve the equation $Exp(x) == Sin(x)$, one finds that
 
 	In> PrettyPrinter'Set("DefaultPrint");
 	Out> True;
-	In> xSolve(Exp(x) == Sin(x), x);
+	In> Solve(Exp(x) == Sin(x), x);
 	Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
 	Out> {};
 
@@ -502,13 +513,13 @@ The equation $Cos(x) == 1/2$ has an infinite number of solutions,
 namely $x == (2*k + 1/3) * Pi$ and $x == (2*k - 1/3) * Pi$ for any
 integer $k$. However, {Solve} only reports the solutions with $k == 0$.
 
-	In> xSolve(Cos(x) == 1/2, x);
+	In> Solve(Cos(x) == 1/2, x);
 	Out> {x==Pi/3,x== -Pi/3};
 
 For the equation $x/Sin(x) == 0$, a spurious solution at $x == 0$ is
 returned. However, the fraction is undefined at that point.
 
-	In> xSolve(x / Sin(x) == 0, x);
+	In> Solve(x / Sin(x) == 0, x);
 	Out> {x==0};
 
 At first sight, the equation $Sqrt(x) == a$ seems to have the solution
@@ -516,13 +527,18 @@ $x == a^2$. However, this is not true for eg. $a == -1$.
 
 	In> PrettyPrinter'Set("DefaultPrint");
 	Out> True;
-	In> xSolve(Sqrt(x) == a, x);
+	In> Solve(Sqrt(x) == a, x);
 	Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
 	Out> {};
-	In> xSolve(Sqrt(x) == 2, x);
+	In> Solve(Sqrt(x) == 2, x);
 	Out> {x==4};
-	In> xSolve(Sqrt(x) == -1, x);
+	In> Solve(Sqrt(x) == -1, x);
 	Out> {};
 
 *SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinter'Set, PSolve, Where, ==
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
