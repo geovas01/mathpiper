@@ -24,17 +24,39 @@ Retract("xSolve'Poly",*);
       Local(factors,nfactors,roots);
       factors  := Factors(expr);
       nfactors := Length(factors);
-      If(iDebug=True,Tell("  1",{nfactors,factors}));
+      If(iDebug=True,Tell("  sp1",{nfactors,factors}));
       roots := {};
       ForEach(factor,factors) 
           If(Contains(VarList(factor[1]),var),
-              Push(roots,PSolve(factor[1],var))
+              [
+                  Local(rs,r);
+                  rs := PSolve(factor[1],var);
+                  If(iDebug=True,Tell("    sp2",rs));
+                  If( Type(rs)="List",
+                      ForEach(r,rs) Push(roots,r),
+                      Push(roots,rs)
+                  );
+              ]
           );
-      If(iDebug=True,Tell("  4",roots));
+      If(iDebug=True,Tell("  sp3",roots));
+      Local(result);
       If(Type(roots) = "List",
-          MapSingle({{x},var==x}, roots),  
-          {var == roots}
-       );                 
+          [
+              If(iDebug=True,Tell("   sp4_is_list",Length(roots)));
+              If(Length(roots) > 1, 
+                  result := MapSingle({{t},var==t}, roots),
+                  If( Type(roots[1]) = "List",
+                      result := MapSingle({{t},var==t}, roots[1]),
+                      result := {var == roots[1]}
+                  )
+              );
+          ],  
+          [
+              If(iDebug=True,Tell("   sp4_not_list"));
+              result := {var == roots};
+          ]
+       );  
+       result;
   ];
   
   
