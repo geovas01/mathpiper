@@ -23,16 +23,18 @@ UnFence(":",2);
 
 
 %mathpiper_docs,name=":",categories="Operators"
-*CMD : --- prepend item to a list or concatenate strings
+*CMD : --- append one item to a list or prepend one or more items to a list or concatenate strings
 *STD
 *CALL
+    list : item
 	item : list
+    item : item : list
 	string1 : string2
-Precedence:
-*EVAL OpPrecedence(":")
+    
+Precedence = 70
 
 *PARMS
-{item} -- an item to be prepended to a list
+{item} -- an item to append or prepend to a list
 
 {list} -- a list
 
@@ -42,18 +44,35 @@ Precedence:
 
 *DESC
 
-The first form prepends "item" as the first entry to the list
-"list". The second form concatenates the strings "string1" and
+The first form appends a single "item" to "list".  The second form 
+prepends one or more "items" to "list"
+The third form concatenates the strings "string1" and
 "string2".
 
 This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
 
 *E.G.
 
-	In> a:b:c:{}
-	Out> {a,b,c};
-	In> "This":"Is":"A":"String"
-	Out> "ThisIsAString";
+In> {}:a
+Result: {a}
+
+In> {a,b}:c
+Result: {a,b,c}
+
+In> a:b:c:{}
+Result: {a,b,c};
+
+In> a:b:{c}:d
+Result: {a,b,c,d}
+
+In> "This":"Is":"A":"String"
+Result: "ThisIsAString";
 
 *SEE Concat, ConcatStrings
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
