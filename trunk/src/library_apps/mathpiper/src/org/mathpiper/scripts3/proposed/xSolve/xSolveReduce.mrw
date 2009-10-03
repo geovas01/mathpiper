@@ -123,8 +123,4 @@ Retract("xSolve'Context",*);
   
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
-
 
