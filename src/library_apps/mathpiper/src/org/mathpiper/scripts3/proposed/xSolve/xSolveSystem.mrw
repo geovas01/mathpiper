@@ -1,0 +1,86 @@
+%mathpiper,title="xSolveSystem"
+
+Retract("xSolve'System",*);
+Retract("xSolveLinearSystemViaMatrix",*);
+
+
+10 # xSolve'System( eqns_IsList, vars_IsList ) <--
+[
+    If(iDebug=True,Tell("xSolve'System",{eqns,vars}));
+    Local(zeros,expr,const,newEquations);
+    zeros        := FillList(0,Length(vars));
+    newEquations := {};
+    ForEach(eqn,eqns)
+    [
+        expr  := EquationLeft(eqn) - EquationRight(eqn);
+        //If(iDebug,Tell("  1",expr));
+        const := WithValue(vars,zeros,expr);
+        //Echo("      eqn: ",eqn," ,     const term: ",const);
+        Push(newEquations,Simplify(expr - const)==-const);
+        ForEach(var,vars)
+        [
+            deg := Degree(expr,var);
+            //Echo("      var =   ",var," :  degree: ",deg););
+        ];
+    ];
+    newEquations := Reverse(newEquations);    
+    xSolveLinearSystemViaMatrix(newEquations,vars);
+];
+        
+10 # xSolve'System( eqns_IsList ) <--
+[
+    Local(vars);
+    If(iDebug=True,Tell("xSolve'System",eqns));
+    vars := VarList(eqns);
+    xSolve'System(eqns,vars);
+];
+
+
+10 # xSolveLinearSystemViaMatrix( eqns_IsList, vars_IsList ) <--
+[
+    Local(LE,LV,E,LHS,X,M,RHS,LL,eqn,row,ans,Det);
+    If(iDebug=True,Tell(xSolveLinearSystemViaMatrix,{eqns,vars}));
+    LE := Length(eqns);
+    LV := Length(vars);
+    E  := Assert() LE=LV;
+    Check(E,"Number of equations != Number of variables");
+    
+    LHS := {};
+    RHS := {};
+    X   := vars;
+    M   := FillList(1,LE);
+    ForEach(eqn,eqns) 
+    [
+        //If(iDebug,[Echo(EquationLeft(eqn)); Echo(EquationRight(eqn));]);
+        E   := Listify(eqn);
+        LL  := E[2];
+        RHS := E[3]:RHS;
+        row := Map("Coef",{FillList(LL,LE),X,M});
+        LHS := row:LHS;   
+    ];
+    LHS := DestructiveReverse(LHS);
+    RHS := DestructiveReverse(RHS);
+    Det := Determinant(LHS);
+    /*
+    If(iDebug=True,
+        [      
+            Tell(" LHS",LHS);
+            Tell(" RHS",RHS);
+            Tell(" det",Det);
+        ]
+    );   
+    */
+    ans := MatrixSolve(LHS,RHS);
+    //If(iDebug=True,Tell("ans ",ans));
+    ans := Map("==",{vars,ans});
+];
+
+12 # xSolveLinearSystemViaMatrix( _eqns, _vars ) <-- False;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
