@@ -1,6 +1,6 @@
-%mathpiper,def="CheckSolution"
+%mathpiper,title="xCheckSolution"
 
-Retract("CheckSolution",*);
+Retract("xCheckSolution",*);
 Retract("CloseEnough",*);
 
 10 # CloseEnough(_expr1,_expr2,_prec) <--
@@ -24,9 +24,9 @@ Retract("CloseEnough",*);
   ];
   
 
-10 # CheckSolution( exprs_IsList, _var, solutions_IsList ) <--
+10 # xCheckSolution( exprs_IsList, _var, solutions_IsList ) <--
   [
-      If(iDebug=True,Tell("CheckSolutionL",{exprs,var,solutions}));
+      If(iDebug=True,Tell("xCheckSolutionL",{exprs,var,solutions}));
       Local(tests);
       
       tests := Subst(==,Atom("-")) (exprs Where solutions);
@@ -35,9 +35,9 @@ Retract("CloseEnough",*);
   ];
 
   
-12 # CheckSolution( _expr, _var, solution_IsList ) <--
+12 # xCheckSolution( _expr, _var, solution_IsList ) <--
   [
-      If(iDebug=True,Tell("CheckSolution1",{expr,var,solution}));
+      If(iDebug=True,Tell("xCheckSolution1",{expr,var,solution}));
       Local(expr0,result,s,r);
       If( IsEquation(expr),
           Set(expr0,EquationLeft(expr)-EquationRight(expr)),
@@ -56,59 +56,54 @@ Retract("CloseEnough",*);
   ];
   
   
-20 # CheckSolution( _expr, _var, _solution ) <-- False;
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
+20 # xCheckSolution( _expr, _var, _solution ) <-- False;
 
 
 
 
+%mathpiper_docs,name="xCheckSolution",categories="User Functions;Solve"
 
-%mathpiper_docs,name="CheckSolution",categories="User Functions;Solve"
-
-*CMD CheckSolution --- Check the validity of solutions returned by the {Solve} function.
+*CMD xCheckSolution --- Check the validity of solutions returned by the {xSolve} function.
 *STD
 *CALL
-	CheckSolution(expr,var,solution)
+	xCheckSolution(expr,var,solution)
 
 *PARMS
 
-{expr}     -- a mathematical expression
-{var}      -- a varible identifier
-{solution} -- a List containing solutions to the equation.
+{expr}     -- a mathematical expression, or List of simultaneous equations
+{var}      -- a varible identifier, or List of variables
+{solution} -- a List containing solutions to the equation(s).
 
 
 *DESC
 
-The function {Solve} will attempt to find solutions to the equation
+The function {xSolve} will attempt to find solutions to the equation
 {expr}, if {expr} is an actual equatio), or to the equivalent equation
-represented by {expr==0} if {expr} is NOT an equation.
+represented by {expr==0} if {expr} is NOT an equation.  
+If expr is a List of simultaneous linear equations, {xSolve} will
+attempt to solve the system.
 
-Solutions returned by {Solve} will be in the form of a List, such as
+Solutions returned by {xSolve} will be in the form of a List, such as
 {{var==something,var==something_else}}.
 
-For certain types of expressions or equation, {Solve} might return
+For certain types of expressions or equation, {xSolve} might return
 invalid solutions as well as valid ones in the output List.  To check
-the list of solutions, call the function CheckSolutions().  This function
+the list of solutions, call the function xCheckSolutions().  This function
 will return a list containing only the valid solutions from among those
 in the list (if any).  If none of the "solutions" is valid, this 
 function will return the empty list.
 
 *E.G.
 
-In> ss1 := Solve(x^2==4,x)
+In> ss1 := xSolve(x^2==4,x)
 
 Result: {x==2,x==(-2)}
 
-In> CheckSolution(x^2==4,x,ss1)
+In> xCheckSolution(x^2==4,x,ss1)
 
 Result: {x==2,x==(-2)}
 
-In> CheckSolution(x^2==4,x,{x==2,x==3})   // Deliberately incorrect
+In> xCheckSolution(x^2==4,x,{x==2,x==3})   // Deliberately incorrect
 
 Result: {x==2}
 

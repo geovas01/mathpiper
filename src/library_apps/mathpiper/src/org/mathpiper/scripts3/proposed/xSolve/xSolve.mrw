@@ -1,4 +1,4 @@
-%mathpiper,def="xSolve"
+%mathpiper,title="xSolve"
 
 Retract("xSolve",*);
 Retract("xSolve'Simple",*);
@@ -103,7 +103,7 @@ LocalSymbols(res)
         If(iDebug=True,Tell("xSolve2Sqrts-",{expr1,expr2}));
         Local(solution);
         solution := xSolve(expr1-expr2,var);
-        CheckSolution(Sqrt(expr1)-Sqrt(expr2),var,solution);
+        xCheckSolution(Sqrt(expr1)-Sqrt(expr2),var,solution);
     ];    
     
   45 # xSolve(Sqrt(_expr1)+Sqrt(_expr2),_var) <--
@@ -111,7 +111,7 @@ LocalSymbols(res)
         If(iDebug=True,Tell("xSolve2Sqrts+",{expr1,expr2}));
         Local(solution);
         solution := xSolve(expr1-expr2,var);
-        CheckSolution(Sqrt(expr1)+Sqrt(expr2),var,solution);
+        xCheckSolution(Sqrt(expr1)+Sqrt(expr2),var,solution);
     ];    
         
   50  # xSolve(_expr, _var)_((res := xSolve'Poly(expr, var)) != Failed) <-- 
@@ -445,46 +445,49 @@ LocalSymbols(x)
 
 
 
-%mathpiper_docs,name="Solve",categories="User Functions;Solvers (Symbolic)"
-*CMD Solve --- solve an equation
+%mathpiper_docs,name="xSolve",categories="User Functions;Solvers (Symbolic)"
+*CMD Solve --- solve an equation or set of linear equations
 *STD
 *CALL
-	Solve(eq, var)
+	xSolve(eq, var)
 
 *PARMS
 
-{eq} -- equation to solve
+{eq} -- equation to solve, or List of equations
 
-{var} -- variable to solve for
+{var} -- variable (or List of variables) to solve for
 
 *DESC
 
-This command tries to solve an equation. If {eq} does not contain the
-{==} operator, it is assumed that the user wants to solve $eq ==
-0$. The result is a list of equations of the form {var == value}, each
-representing a solution of the given equation. The {Where} operator
-can be used to substitute this solution in another expression. If the
-given equation {eq} does not have any solutions, or if {Solve} is
-unable to find any, then an empty list is returned.
+This command tries to solve an equation or system of linear equations. 
+If {eq} does not contain the {==} operator, it is assumed that the user 
+wants to solve $eq == 0$. The result is a list of equations of the form 
+{var == value}, each representing a solution of the given equation or
+system. The {Where} operator can be used to substitute this solution 
+in another expression. If the given equation or system {eq} does not 
+have any solutions, or if {xSolve} is unable to find any, then an 
+empty List is returned.
 
 The current implementation is far from perfect. In particular, the
 user should keep the following points in mind:
-*	{Solve} cannot solve all equations. If it is given a equation
+*	{xSolve} cannot solve all equations. If it is given a equation
 it can not solve, it raises an error via {Check}. Unfortunately, this
 is not displayed by the inline pretty-printer; call {PrettyPrinter'Set} to
 change this. If an equation cannot be solved analytically, you may
 want to call {Newton} to get a numerical solution.
-*	Systems of equations are not handled yet. For linear systems,
-{MatrixSolve} can be used. The old version of {Solve}, with the name
-{OldSolve} might be able to solve nonlinear systems of equations.
+*	Systems of linear equations are handled, but the methods have not
+yet been thoroughly checked-out.  Systems with one or more non-linear
+equations are not handled yet. The old version of {Solve}, with the name
+{OldSolve} might be able to solve some nonlinear systems of equations.
 *	The periodicity of the trigonometric functions {Sin}, {Cos},
 and {Tan} is not taken into account. The same goes for the (imaginary)
-periodicity of {Exp}. This causes {Solve} to miss solutions.
+periodicity of {Exp}. This causes {xSolve} to miss solutions.
 *	It is assumed that all denominators are nonzero. Hence, a
-solution reported by {Solve} may in fact fail to be a solution because
-a denominator vanishes.
+solution reported by {xSolve} may in fact fail to be a solution because
+a denominator vanishes.  The function {xCheckSolution} should be
+able to eliminate these false "solutions".
 *	In general, it is wise not to have blind trust in the results
-returned by {Solve}. A good strategy is to substitute the solutions
+returned by {xSolve}. A good strategy is to substitute the solutions
 back in the equation.
 
 *E.G. notest
@@ -495,31 +498,32 @@ checked by substituting it back in the quadratic.
 
 	In> quadratic := x^2+x;
 	Out> x^2+x;
-	In> Solve(quadratic, x);
+	In> xSolve(quadratic, x);
 	Out> {x==0,x==(-1)};
 	In> quadratic Where %;
 	Out> {0,0};
 
 If one tries to solve the equation $Exp(x) == Sin(x)$, one finds that
-{Solve} can not do this.
+{xSolve} can not do this.
 
 	In> PrettyPrinter'Set("DefaultPrint");
 	Out> True;
-	In> Solve(Exp(x) == Sin(x), x);
+	In> xSolve(Exp(x) == Sin(x), x);
 	Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
 	Out> {};
 
 The equation $Cos(x) == 1/2$ has an infinite number of solutions,
 namely $x == (2*k + 1/3) * Pi$ and $x == (2*k - 1/3) * Pi$ for any
-integer $k$. However, {Solve} only reports the solutions with $k == 0$.
+integer $k$. However, {xSolve} only reports the solutions with 
+$k == 0$.
 
-	In> Solve(Cos(x) == 1/2, x);
+	In> xSolve(Cos(x) == 1/2, x);
 	Out> {x==Pi/3,x== -Pi/3};
 
 For the equation $x/Sin(x) == 0$, a spurious solution at $x == 0$ is
 returned. However, the fraction is undefined at that point.
 
-	In> Solve(x / Sin(x) == 0, x);
+	In> xSolve(x / Sin(x) == 0, x);
 	Out> {x==0};
 
 At first sight, the equation $Sqrt(x) == a$ seems to have the solution
@@ -527,15 +531,15 @@ $x == a^2$. However, this is not true for eg. $a == -1$.
 
 	In> PrettyPrinter'Set("DefaultPrint");
 	Out> True;
-	In> Solve(Sqrt(x) == a, x);
+	In> xSolve(Sqrt(x) == a, x);
 	Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
 	Out> {};
-	In> Solve(Sqrt(x) == 2, x);
+	In> xSolve(Sqrt(x) == 2, x);
 	Out> {x==4};
-	In> Solve(Sqrt(x) == -1, x);
+	In> xSolve(Sqrt(x) == -1, x);
 	Out> {};
 
-*SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinter'Set, PSolve, Where, ==
+*SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinter'Set, PSolve, xCheckSolution, Where, ==
 %/mathpiper_docs
 
     %output,preserve="false"
