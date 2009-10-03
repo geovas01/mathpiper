@@ -21,6 +21,7 @@ Retract("xSolve'Sqrts",*);
     If(iDebug=True,Tell("   1",vars2));
     result := xSolve(expr1-expr2^2,var);
     If(iDebug=True,Tell("   2",result));
+    Echo("HERE -- calling CheckSolution with   Sqrt(",expr1,")-",expr2,"   and  ",var,"   and   ",result);
     CheckSolution(Sqrt(expr1)-expr2,var,result);
  ];
  
@@ -29,9 +30,9 @@ Retract("xSolve'Sqrts",*);
     If(iDebug=True,Tell("xSolve'Sqrts - c*var",{expr1,const,var}));
     Local(rhs,result);
     rhs := const*var;
-    If(iDebug=True,Tell("   1",rhs));
+    If(iDebug=True,Tell("   3",rhs));
     result := xSolve(expr1-rhs^2,var);
-    If(iDebug=True,Tell("   2",result));
+    If(iDebug=True,Tell("   4",result));
     CheckSolution(Sqrt(expr1)-rhs,var,result);
  ];
  
@@ -40,9 +41,9 @@ Retract("xSolve'Sqrts",*);
     If(iDebug=True,Tell("xSolve'Sqrts + c*var",{expr1,const,var}));
     Local(rhs,result);
     rhs := -const*var;
-    If(iDebug=True,Tell("   1",rhs));
+    If(iDebug=True,Tell("   5",rhs));
     result := xSolve(expr1-rhs^2,var);
-    If(iDebug=True,Tell("   2",result));
+    If(iDebug=True,Tell("   6",result));
     CheckSolution(Sqrt(expr1)-rhs,var,result);
  ];
  
@@ -51,9 +52,9 @@ Retract("xSolve'Sqrts",*);
     If(iDebug=True,Tell("xSolve'Sqrts - var",{expr1,const,var}));
     Local(rhs,result);
     rhs := var;
-    If(iDebug=True,Tell("   1",rhs));
+    If(iDebug=True,Tell("   7",rhs));
     result := xSolve(expr1-rhs^2,var);
-    If(iDebug=True,Tell("   2",result));
+    If(iDebug=True,Tell("   8",result));
     CheckSolution(Sqrt(expr1)-rhs,var,result);
  ];
  
@@ -62,9 +63,9 @@ Retract("xSolve'Sqrts",*);
     If(iDebug=True,Tell("xSolve'Sqrts + var",{expr1,const,var}));
     Local(rhs,result);
     rhs := -var;
-    If(iDebug=True,Tell("   1",rhs));
+    If(iDebug=True,Tell("   9",rhs));
     result := xSolve(expr1-rhs^2,var);
-    If(iDebug=True,Tell("   2",result));
+    If(iDebug=True,Tell("   10",result));
     CheckSolution(Sqrt(expr1)-rhs,var,result);
  ];
  
@@ -73,9 +74,9 @@ Retract("xSolve'Sqrts",*);
     If(iDebug=True,Tell("xSolve'Sqrts -expr1",{expr1,var}));
     Local(rhs,result);
     rhs := expr1;
-    If(iDebug=True,Tell("   1",rhs));
+    If(iDebug=True,Tell("   11",rhs));
     result := xSolve(Simplify(expr1-rhs^2),var);
-    If(iDebug=True,Tell("   2",result));
+    If(iDebug=True,Tell("   12",result));
     CheckSolution(Sqrt(expr1)-rhs,var,result);
  ];
  
@@ -84,9 +85,9 @@ Retract("xSolve'Sqrts",*);
     If(iDebug=True,Tell("xSolve'Sqrts +expr1",{expr1,var}));
     Local(rhs,result);
     rhs := expr1;
-    If(iDebug=True,Tell("   1",rhs));
+    If(iDebug=True,Tell("   13",rhs));
     result := xSolve(Simplify(expr1-rhs^2),var);
-    If(iDebug=True,Tell("   2",result));
+    If(iDebug=True,Tell("   14",result));
     CheckSolution(Sqrt(expr1)-rhs,var,result);
  ];
 
@@ -95,9 +96,9 @@ Retract("xSolve'Sqrts",*);
     If(iDebug=True,Tell("xSolve'Sqrts xx",{expr1,expr2,var}));
     Local(rhs,result);
     rhs := expr2;
-    If(iDebug=True,Tell("   1",rhs));
+    If(iDebug=True,Tell("   15",rhs));
     result := xSolve(Simplify(expr1-rhs^2),var);
-    If(iDebug=True,Tell("   2",result));
+    If(iDebug=True,Tell("   16",result));
     CheckSolution(Sqrt(expr1)-rhs,var,result);
  ];
 
@@ -105,6 +106,10 @@ Retract("xSolve'Sqrts",*);
 
     %output,preserve="false"
       Result: True
+.   %/output
+
+    %output,preserve="false"
+      Processing...
 .   %/output
 
 
