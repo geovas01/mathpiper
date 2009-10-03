@@ -2,6 +2,7 @@
 
 Mode(list) :=
 [
+    Check(IsList(list), "Argument must be a list.");
     
     Local(mostFrequent, highestFrequency, currentElementCount);
     
@@ -19,4 +20,33 @@ Mode(list) :=
 ];
 
 %/mathpiper
+
+
+
+%mathpiper_docs,name="Mode",categories="User Functions;Statistics & Probability"
+*CMD Mode --- calculates the mode of a list of values
+*STD
+*CALL
+	Mode(list)
+
+*PARMS
+
+{list} -- list of values
+
+*DESC
+
+This function calculates the mode of a list of values.  The mode is the value
+that occurs most frequently.
+
+*E.G.
+In> Mode({73,94,80,37,57,94,40,21,94,26})
+Result: 94
+
+*SEE WeightedMean, Median, Mode
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
 
