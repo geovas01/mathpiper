@@ -42,7 +42,7 @@ that occurs most frequently.
 In> Mode({73,94,80,37,57,94,40,21,94,26})
 Result: 94
 
-*SEE WeightedMean, Median, Mode
+*SEE Mean, WeightedMean, Median, Mode, GeometricMean
 %/mathpiper_docs
 
     %output,preserve="false"
