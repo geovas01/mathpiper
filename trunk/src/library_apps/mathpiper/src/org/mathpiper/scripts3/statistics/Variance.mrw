@@ -1,5 +1,43 @@
 %mathpiper,def="Variance"
 
-Variance(x) := Add((x-Mean(x))^2)/Length(x);
+Variance(list) := 
+[
+    Check(IsList(list), "Argument must be a list.");
+
+    Sum((list - Mean(list))^2)/Length(list);
+];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper_docs,name="Variance",categories="User Functions;Statistics & Probability"
+*CMD Variance --- calculates the variance of a list of values
+*STD
+*CALL
+	Variance(list)
+
+*PARMS
+
+{list} -- list of values
+
+*DESC
+
+This function calculates the variance of a list of values.
+
+*E.G.
+In> Variance({73,94,80,37,57,94,40,21,7,26})
+Result: 88009/100
+
+In> N(Variance({73,94,80,37,57,94,40,21,7,26}))
+Result: 880.09
+
+*SEE 
+%/mathpiper_docs

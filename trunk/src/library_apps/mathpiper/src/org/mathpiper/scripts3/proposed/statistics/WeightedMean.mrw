@@ -1,11 +1,30 @@
 %mathpiper,def="WeightedMean",scope="private"
 
-Retract("WeightedMean", *);
 
-10 # WeightedMean(values_IsList, weights_IsList)_(Length(values) = Length(weights)) <--
+WeightedMean(list) :=
 [
 
-    N(Sum(values * weights)/Sum(weights));
+    Check(IsList(list), "Argument must be a list.");
+    
+    Local( values, lastWeight, weights );
+    
+    values := {};
+    
+    weights := {};
+    
+    
+    ForEach(element,list)
+    [        
+        Check(IsList(element), "Values and their associated weights must be in a list.");
+        
+        Check(Length(element) = 2, "Each value and its associated weight must be in a two element list.");
+        
+        values := values : element[1];
+
+        weights := weights : element[2];
+    ];
+    
+    Sum(values * weights)/Sum(weights);
 
 ];
 
@@ -21,22 +40,26 @@ Retract("WeightedMean", *);
 *CMD WeightedMean --- weighted mean
 *STD
 *CALL 
-	WeightedMean(values, weights)
+	WeightedMean({{value, weight},...})
 
 *PARMS
 
-{values} -- list, the values.
-{weights} -- list, the respective weights to associate with the values.
+{value} -- a value.
+
+{weight} -- the weight to associate with the value.
 
 *DESC 
 This function allows more weight to be associated with certain values and
 less weight to others when calculating their mean.
 
 *E.G.
-In> WeightedMean({92, 87, 76}, {50, 40, 10})
+In>  WeightedMean({{92,50}, {87,40}, {76,10}})
+Result: 442/5
+
+In>  N(WeightedMean({{92,50}, {87,40}, {76,10}}))
 Result: 88.4
 
-*SEE Mean, Mode, GeometricMean
+*SEE Mean, Median, Mode, GeometricMean
 %/mathpiper_docs
 
     %output,preserve="false"
