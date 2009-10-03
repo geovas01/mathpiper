@@ -33,5 +33,5 @@ Result: 263/5
 In> N(Mean({73,94,80,37,56,94,40,21,7,24}))
 Result: 52.6
 
-*SEE WeightedMean, Median, Mode
+*SEE Mean, WeightedMean, Median, Mode
 %/mathpiper_docs

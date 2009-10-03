@@ -44,6 +44,6 @@ Result: 97/2
 In> N(Median({73,94,80,37,57,94,40,21,7,26}))
 Result: 48.5
 
-*SEE WeightedMean, Mean, Mode
+*SEE WeightedMean, Mean, Mode, GeometricMean
 %/mathpiper_docs
 
