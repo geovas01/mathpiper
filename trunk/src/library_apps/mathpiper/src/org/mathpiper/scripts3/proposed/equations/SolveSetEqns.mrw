@@ -1,6 +1,6 @@
 %mathpiper
 
-Use("org/mathpiper/assembledscripts/proposed.rep/equations.mpi");
+Use("proposed.rep/equations.mpi");
 
 Retract("SolveLinearSysViaMatrix",*);
 

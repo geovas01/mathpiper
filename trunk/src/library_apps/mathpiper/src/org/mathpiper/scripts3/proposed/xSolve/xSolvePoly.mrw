@@ -7,7 +7,7 @@ Retract("xSolve'Poly",*);
 /* Tries to solve by calling PSolve */
 /* Returns Failed if this doesn't work, and the solution otherwise */
 
-/* CanBeUni is not documented, but defined in org/mathpiper/assembledscripts/univar.rep/code.mpi */
+/* CanBeUni is not documented, but defined in univar.rep/code.mpi */
 /* It returns True iff 'expr' is or can be considered to be a univariate polynomial in 'var' */
 
 10 # xSolve'Poly(_expr, _var)_(Not CanBeUni(var, expr)) <-- 

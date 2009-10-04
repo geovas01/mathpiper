@@ -44,7 +44,7 @@ public class DigitsToBits extends BuiltinFunction
             result = Utility.digitsToBits((long) (x.toDouble()), base);
         } else
         {
-            throw new EvaluationException("BitsToDigits: error: arguments (" + x.toDouble() + ", " + y.toDouble() + ") must be small integers",-1);
+            throw new EvaluationException("BitsToDigits: error: arguments (" + x.toDouble() + ", " + y.toDouble() + ") must be small integers",aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
         }
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.setTo((long) result);

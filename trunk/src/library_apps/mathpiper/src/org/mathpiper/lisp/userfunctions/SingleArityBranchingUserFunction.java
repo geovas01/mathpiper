@@ -70,7 +70,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 LispError.check(parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION);
             }catch(EvaluationException ex)
             {
-                throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ",-1) ;
+                throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ", "none", -1) ;
             }//end catch.
 
             FunctionParameter parameter = new FunctionParameter( (String) parameterTraverser.car(), false);

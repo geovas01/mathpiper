@@ -4,14 +4,14 @@
 RuleBase("MultiNomial",{vars,terms});
 
 // using the sparse tree driver for multivariate polynomials
-//Use("org/mathpiper/assembledscripts/multivar.rep/sparsenomial.mpi");
-//Use("org/mathpiper/assembledscripts/multivar.rep/partialdensenomial.mpi");
+//Use("multivar.rep/sparsenomial.mpi");
+//Use("multivar.rep/partialdensenomial.mpi");
 
 If(IsBound(MultiNomialDriver),
   `Use(@MultiNomialDriver),
-  Use("org/mathpiper/assembledscripts/multivar.rep/sparsenomial.mpi"));
+  Use("multivar.rep/sparsenomial.mpi"));
 
 // Code that can build the internal representation of a multivariate polynomial
-Use("org/mathpiper/assembledscripts/multivar.rep/makemulti.mpi");
+Use("multivar.rep/makemulti.mpi");
 
 %/mathpiper
