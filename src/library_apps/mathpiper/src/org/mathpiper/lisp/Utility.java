@@ -24,6 +24,8 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -96,6 +98,8 @@ public class Utility {
         5.
     };
     public static java.util.zip.ZipFile zipFile = null;
+
+    public static String scriptsPath = null;
 
 
     public static boolean isNumber(String ptr, boolean aAllowFloat) {
@@ -657,7 +661,7 @@ public class Utility {
 
 
         } catch (Exception e) {
-            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iCurrentInput.iStatus.lineNumber());
+            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
             throw ee;
         } finally {
             aEnvironment.iCurrentInput = previous;
@@ -688,12 +692,27 @@ public class Utility {
         doInternalLoad(aEnvironment, newInput);
         } else {*/
 //System.out.println("Loading: " + oper);
-        java.net.URL fileURL = java.lang.ClassLoader.getSystemResource(oper);
-        if (fileURL != null) //File is on the classpath.
+        Enumeration paths  = java.lang.ClassLoader.getSystemResources(Utility.scriptsPath + oper);
+
+
+        URL fileURL = null;
+        if(paths.hasMoreElements()) //File is on the classpath.
         {
+            while(paths.hasMoreElements())
+            {
+                fileURL = (URL) paths.nextElement();
+                if(fileURL.getPath().indexOf(Utility.scriptsPath) != -1)
+                {
+                    break;
+                }
+            }//end while.
+
+            LispError.check(fileURL != null, LispError.FILE_NOT_FOUND);
+
             newInput = new StandardFileInputStream(new InputStreamReader(fileURL.openStream()), aEnvironment.iInputStatus);
             LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
             doInternalLoad(aEnvironment, newInput);
+            
         } else { //File may be in the filesystem.
             try {
                 // Open file
@@ -746,6 +765,7 @@ public class Utility {
 
 
     public static MathPiperInputStream openInputFile(String aFileName, InputStatus aInputStatus) throws Exception {//Note:tk:primary method for file opening.
+
         try {
             if (zipFile != null) {
                 java.util.zip.ZipEntry e = zipFile.getEntry(aFileName);
@@ -826,7 +846,7 @@ public class Utility {
                     String str = token;
                     MultipleArityUserFunction multiUser = aEnvironment.getMultipleArityUserFunction(str, true);
                     if (multiUser.iFileToOpen != null) {
-                        throw new EvaluationException("[" + str + "]" + "] : def file already chosen: " + multiUser.iFileToOpen.iFileName, -1);
+                        throw new EvaluationException("[" + str + "]" + "] : def file already chosen: " + multiUser.iFileToOpen.iFileName, aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
                     }
                     multiUser.iFileToOpen = def;
                     multiUser.iFileLocation = def.fileName();
@@ -863,9 +883,23 @@ public class Utility {
         doLoadDefFile(aEnvironment, newInput, def);
         } else {*/
 //System.out.println("Loading: " + flatfile);
-        java.net.URL fileURL = java.lang.ClassLoader.getSystemResource(flatfile);
-        if (fileURL != null) //File is on the classpath.
+        Enumeration paths  = java.lang.ClassLoader.getSystemResources(Utility.scriptsPath + flatfile);
+
+
+        URL fileURL = null;
+        if(paths.hasMoreElements()) //File is on the classpath.
         {
+            while(paths.hasMoreElements())
+            {
+                fileURL = (URL) paths.nextElement();
+                if(fileURL.getPath().indexOf(Utility.scriptsPath) != -1)
+                {
+                    break;
+                }
+            }
+
+            LispError.check(fileURL != null, LispError.FILE_NOT_FOUND);
+
             newInput = new StandardFileInputStream(new InputStreamReader(fileURL.openStream()), aEnvironment.iInputStatus);
             LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
             doLoadDefFile(aEnvironment, newInput, def);
@@ -897,7 +931,7 @@ public class Utility {
         if (n <= log2_table_size && n >= 2) {
             return log2_table[n - 1];
         } else {
-            throw new EvaluationException("log2_table_lookup: error: invalid argument " + n, -1);
+            throw new EvaluationException("log2_table_lookup: error: invalid argument " + n,"none", -1);
         }
     }
 

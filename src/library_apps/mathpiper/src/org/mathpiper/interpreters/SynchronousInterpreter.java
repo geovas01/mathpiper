@@ -113,6 +113,10 @@ class SynchronousInterpreter implements Interpreter {
                 }
 
             }
+            else
+            {
+                Utility.scriptsPath = "org/mathpiper/assembledscripts/";
+            }
 
 
             /*  java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("initialization.rep/mathpiperinit.mpi");
@@ -150,7 +154,7 @@ class SynchronousInterpreter implements Interpreter {
             }*/
 
 
-            EvaluationResponse evaluationResponse = evaluate("Load(\"org/mathpiper/assembledscripts/initialization.rep/mathpiperinit.mpi\");");
+            EvaluationResponse evaluationResponse = evaluate("Load(\"initialization.rep/mathpiperinit.mpi\");");
 
             if (evaluationResponse.isExceptionThrown()) {
                 System.out.println(evaluationResponse.getExceptionMessage() + "   Source file name: " + evaluationResponse.getSourceFileName() + "   Near line number: " + evaluationResponse.getLineNumber());
@@ -301,10 +305,16 @@ class SynchronousInterpreter implements Interpreter {
                     if (errorLineNumber == -1) {
                         errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
                     }
+                    evaluationResponse.setLineNumber(errorLineNumber);
+                    evaluationResponse.setSourceFileName(environment.iInputStatus.fileName());
+                }
+                else
+                {
+                    evaluationResponse.setLineNumber(mpe.getLineNumber());
+                    evaluationResponse.setSourceFileName(mpe.getFileName());
                 }
 
-                evaluationResponse.setLineNumber(errorLineNumber);
-                evaluationResponse.setSourceFileName(environment.iInputStatus.fileName());
+
             } else {
                 int errorLineNumber = environment.iInputStatus.lineNumber();
                 if (errorLineNumber == -1) {

@@ -160,7 +160,7 @@ public class Build {
                 newMPIFile.createNewFile();
                 mpiFileOut = new BufferedWriter(new FileWriter(newMPIFile));
 
-                packagesFile.write("\"org/mathpiper/assembledscripts/" + newPackageName + "/code.mpi\",\n");
+                packagesFile.write("\"" + newPackageName + "/code.mpi\",\n");
 
                 //mpi.def file
                 BufferedWriter mpiDefFileOut = null;
@@ -222,7 +222,7 @@ public class Build {
                             newMPISubDirectoyFile.createNewFile();
                             mpiSubDirectoyFileOut = new BufferedWriter(new FileWriter(newMPISubDirectoyFile));
 
-                            packagesFile.write("\"org/mathpiper/assembledscripts/" + newPackageName + "/" + scriptFileOrSubdirectoy.getName() + ".mpi" + "\",\n");
+                            packagesFile.write("\"" + newPackageName + "/" + scriptFileOrSubdirectoy.getName() + ".mpi" + "\",\n");
 
                             //mpi.def file
                             BufferedWriter mpiSubDirectoyDefFileOut = null;
