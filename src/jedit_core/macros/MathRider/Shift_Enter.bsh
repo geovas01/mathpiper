@@ -197,8 +197,8 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			properties.put("type",foldType);
 			properties.put("preserve","true");
 			properties.put("input","");
-			properties.put("width","400");
-			properties.put("height","400");
+			properties.put("width","600");
+			properties.put("height","500");
 			properties.put("name","");
 			properties.put("output","output");
 			properties.put("collapse","false");
