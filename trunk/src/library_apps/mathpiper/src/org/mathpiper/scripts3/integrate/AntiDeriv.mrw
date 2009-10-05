@@ -211,7 +211,11 @@ IntFunc(x,Ln(_x)*(_x)^n_IsNumber,(1/(n+1))*x^(n+1)*Ln(x) - (1/(n+1)^2)*x^(n+1) )
 IntFunc(x,Ln(A_IsNumber*_x)*(_x)^n_IsNumber,(1/(n+1))*x^(n+1)*Ln(A*x) - (1/(n+1)^2)*x^(n+1) );
 
 IntFunc(x,Sin(Ln(_x)),x*Sin(Ln(x))/2 - x*Cos(Ln(x))/2 );
-IntFunc(x,Cos(Ln(_x)),x*Sin(Ln(x))/2 - x*Cos(Ln(x))/2 );
+
+
+//This is a bug fix which was posted on the Yacas list by Alberto González Palomo on 10/5/2009.
+//IntFunc(x,Cos(Ln(_x)),x*Sin(Ln(x))/2 - x*Cos(Ln(x))/2 );
+IntFunc(x,Cos(Ln(_x)),x*Sin(Ln(x))/2 + x*Cos(Ln(x))/2 );
 
 IntFunc(x,1/((_x)*Ln(_x)),Ln(Ln(x)));
 
