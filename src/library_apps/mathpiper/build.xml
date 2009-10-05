@@ -122,7 +122,7 @@
 	cvs -z3 -d:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra co -P geogebra
 	export CVSROOT=:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra
 	cvs commit -m "The code is now compatible with Java 1.4."
-	cvs import -m "This is a stripped-down version of MathPiper.  An example of how to use MathPiper can be found in the org/mathpiper/HowToUse.java file." geogebra/org/mathpiper/scripts MATHPIPER V0_63
+	cvs import -m "This is a stripped-down version of MathPiper.  An example of how to use MathPiper can be found in the org/mathpiper/HowToUse.java file." geogebra/org/mathpiper/geogebrascripts MATHPIPER V0_63
 	
 	Edit BuiltinFunctionInitialize to remove functions at the bottom of the file.
 	Edit Interpreters to remove references to AsynchronousInterpreter.
@@ -142,7 +142,7 @@
 
 		<mkdir dir="${build.dir}/geogebra_dist" />
 		<mkdir dir="${build.dir}/geogebra_dist/src" />
-		<mkdir dir="${build.dir}/geogebra_dist/src/org/mathpiper/scripts" />
+		<mkdir dir="${build.dir}/geogebra_dist/src/org/mathpiper/geogebrascripts" />
 		
 
 		
@@ -171,8 +171,8 @@
 
 
 		
-		<copy todir="${build.dir}/geogebra_dist/src/org/mathpiper/scripts">
-			<fileset dir="${build.dir}/classes/org/mathpiper/scripts" includes="*.rep/**/*" />
+		<copy todir="${build.dir}/geogebra_dist/src/org/mathpiper/geogebrascripts">
+			<fileset dir="${build.dir}/classes/org/mathpiper/assembledscripts" includes="*.rep/**/*" />
 			<filterchain>
 				<filterreader classname="org.apache.tools.ant.filters.StripJavaComments">
 				<!--<param name="foo" value="bar"/>-->
@@ -187,7 +187,10 @@
 		
 
 
-		
+		  <replaceregexp file="${build.dir}/geogebra_dist/src/org/mathpiper/interpreters/SynchronousInterpreter.java"
+                         match="assembledscripts"
+                         replace="geogebrascripts"/>
+
 		
 	<!--	<mkdir dir="${build.dir}/geogebra_dist/classes" />
 		
@@ -216,6 +219,10 @@
 		</jar> -->
 
 	</target>
+	
+	
+	
+	
 	
 	<target id="geogebra_compile" name="geogebra_compile" depends="geogebra_dist" >
 	
@@ -246,9 +253,9 @@
 		
 		
 		<!-- Copy MathPiper scripts -->
-		<mkdir dir="${build.dir}/geogebra_dist/build/org/mathpiper/scripts" />
-		<copy todir="${build.dir}/geogebra_dist/build/org/mathpiper/scripts">
-			<fileset dir="${build.dir}/geogebra_dist/src/org/mathpiper/scripts" >
+		<mkdir dir="${build.dir}/geogebra_dist/build/org/mathpiper/geogebrascripts" />
+		<copy todir="${build.dir}/geogebra_dist/build/org/mathpiper/geogebrascripts">
+			<fileset dir="${build.dir}/geogebra_dist/src/org/mathpiper/geogebrascripts" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
