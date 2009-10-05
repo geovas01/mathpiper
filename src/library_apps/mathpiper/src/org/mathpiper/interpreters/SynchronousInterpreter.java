@@ -110,13 +110,12 @@ class SynchronousInterpreter implements Interpreter {
                     //eg docBase = "jar:http://www.geogebra.org/webstart/alpha/geogebra_cas.jar!/";
                     evaluate("DefaultDirectory(\"" + docBase + "\");");
 
-                }
+                }//end if.
 
-            }
-            else
-            {
-                Utility.scriptsPath = "org/mathpiper/assembledscripts/";
-            }
+            }//end if.
+            
+
+            Utility.scriptsPath = "org/mathpiper/assembledscripts/";
 
 
             /*  java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("initialization.rep/mathpiperinit.mpi");
