@@ -27,8 +27,34 @@ Retract("ListToString", *);
 
 %/mathpiper
 
+
+
+
+
+%mathpiper_docs,name="GeometricMean",categories="User Functions;Lists (Operations)"
+*CMD ListToString --- converts a list into a string
+*STD
+*CALL
+	ListToString(list)
+
+*PARMS
+
+{list} -- a list to be converted into a string
+
+*DESC
+
+This function converts each of the elementes in a list into a string and then concatenates these
+strings into one string.
+
+*E.G.
+In> ListToString({a,b,c,d})
+Result: "abcd"
+
+*SEE StringToList
+%/mathpiper_docs
+
     %output,preserve="false"
-      Result: True
+      
 .   %/output
 
 
