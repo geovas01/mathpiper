@@ -393,7 +393,7 @@
 		</copy>
 		
 		
-		<!-- Set MathRider version number in the documentation. -->
+		<!-- Set MathRider version number in the documentation. --> 
 		<delete file="${master.build.dir}/mathrider/doc/welcome.html" />
 		<copy file="${master.src.dir}/jedit_core/doc/welcome.html" todir="${master.build.dir}/mathrider/doc">
 			<filterset>
