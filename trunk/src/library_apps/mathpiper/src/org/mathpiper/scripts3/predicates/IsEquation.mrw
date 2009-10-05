@@ -13,7 +13,7 @@ Retract("IsEquation",*);
 
 %mathpiper_docs,name="IsEquation",categories="User Functions;Predicates"
 
-*CMD IsEquation --- Return true if {expr} is an Equation, False otherwise
+*CMD IsEquation --- Return true if {expr} is an Equation False otherwise
 
 *STD
 *CALL
