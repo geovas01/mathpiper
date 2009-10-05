@@ -1,6 +1,6 @@
 %mathpiper,title="xTestSolve"
 
-Use("org/mathpiper/assembledscripts/proposed.rep/xSolve.mpi");
+Use("proposed.rep/xSolve.mpi");
 
 //########################################################################
 //       T E S T I N G     T E S T I N G     T E S T I N G
@@ -81,7 +81,7 @@ ForEach(q,expressions)
             NewLine();
         ],
         [
-            //If(i=23 Or i=26,iDebug:=True,iDebug:=False);
+            //If(i=23 Or i=26 Or i=40,iDebug:=True,iDebug:=False);
             
             Local(vars);
             g := q[2];
@@ -137,4 +137,3 @@ t2 := SystemTimer();
 Echo("Time taken:  ",N((t2-t1)/10^9)," sec");
 
 %/mathpiper
-

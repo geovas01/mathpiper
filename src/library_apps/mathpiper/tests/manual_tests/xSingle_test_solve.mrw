@@ -1,6 +1,6 @@
 %mathpiper
 
-Use("org/mathpiper/assembledscripts/proposed.rep/xSolve.mpi");
+Use("proposed.rep/xSolve.mpi");
 
 %/mathpiper
 
@@ -50,32 +50,3 @@ ForEach(q,expressions)
 ];
 
 %/mathpiper
-
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      << TEST xSolve()>> 
-      << ------------------------------------------------------------------->> 
-      << 1 >> 
-      << >>> Test xSolve() on the expression: >> f : 3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2))==0 
-      << 3 >> {lhs,rhs,var} : {3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2)),0,x} 
-      <<   3r IsRationalFunction>> lhs : 3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2)) 
-      <<   3r NotRationalFunction>> rhs : 0 
-      <<  Rational>> expr==0 : 3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2))==0 
-                   xSolve(f,x) ==> True
-                   Answer is WRONG:  it should be {x==3}
-      << ------------------------------------------------------------------->> 
-      << 2 >> 
-      << >>> Test xSolve() on the expression: >> f : 3/(x^2+x-2)-1/(x^2-1)==7/(2*(x^2+3*x+2)) 
-      << 3 >> {lhs,rhs,var} : {3/(x^2+x-2)-1/(x^2-1),7/(2*(x^2+3*x+2)),x} 
-      <<   3r IsRationalFunction>> lhs : 3/(x^2+x-2)-1/(x^2-1) 
-      <<   3r IsRationalFunction>> rhs : 7/(2*(x^2+3*x+2)) 
-      <<  Rational>> expr==0 : 3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2))==0 
-                   xSolve(f,x) ==> True
-                   Answer is WRONG:  it should be {x==3}
-.   %/output
-
-
-
-
