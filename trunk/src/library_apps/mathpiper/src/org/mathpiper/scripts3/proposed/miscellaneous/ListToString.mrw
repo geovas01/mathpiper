@@ -31,7 +31,7 @@ Retract("ListToString", *);
 
 
 
-%mathpiper_docs,name="GeometricMean",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="ListToString",categories="User Functions;Lists (Operations)"
 *CMD ListToString --- converts a list into a string
 *STD
 *CALL
@@ -53,8 +53,5 @@ Result: "abcd"
 *SEE StringToList
 %/mathpiper_docs
 
-    %output,preserve="false"
-      
-.   %/output
 
 

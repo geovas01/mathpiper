@@ -1,4 +1,4 @@
-%mathpiper,def=""
+%mathpiper,def="Slope",scope="private"
 
 10 # Slope(PointA_IsPoint,PointB_IsPoint) <--
 [

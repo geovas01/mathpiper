@@ -108,7 +108,7 @@ N(NumberLineZoom(0,1,8,5), 50);
 
 
 
-%mathpiper_docs,name="For",categories="User Functions;Visualization"
+%mathpiper_docs,name="NumberLinePrintZoom",categories="User Functions;Visualization"
 *CMD NumberLinePrintZoom --- zooms into the number line
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,def=""
+%mathpiper,def="Distance",scope="private"
 
 Distance(PointA_IsPoint,PointB_IsPoint) <--
 [
