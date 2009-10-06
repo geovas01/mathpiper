@@ -42,9 +42,8 @@ Retract("ListToString", *);
 {list} -- a list to be converted into a string
 
 *DESC
-
 This function converts each of the elementes in a list into a string and then concatenates these
-strings into one string.
+strings into a single string.
 
 *E.G.
 In> ListToString({a,b,c,d})
