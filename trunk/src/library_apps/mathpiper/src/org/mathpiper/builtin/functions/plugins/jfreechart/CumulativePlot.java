@@ -126,5 +126,63 @@ public class CumulativePlot extends BuiltinFunction {
 
 
     }//end method.
+    
 }//end class.
+
+
+
+
+
+
+
+/*
+%mathpiper_docs,name="CumulativePlot",categories="User Functions;Visualization"
+*CMD CumulativePlot --- displays a graphic cumulative plot
+*CORE
+*CALL
+	CumulativePlot(list, option, option, option...)
+
+*PARMS
+
+{list} -- a list which contains the values
+
+{numberOfBins} -- the number of bins in the histogram
+
+{title} -- the title of the histogram
+
+{xAxisLabel} -- the label for the x axis
+
+{yAxisLabel} -- the label for the y axis
+
+{seriesTitle} -- the title for a single data series
+
+
+*DESC
+
+Creates a cumulative plot. Options are entered using the -> operator.
+For example, here is how to set the {title} option: {title -> "Example Title"}.
+
+*E.G.
+/%mathpiper,title=""
+
+samples := {
+438,413,444,468,445,472,474,454,455,449,
+450,450,450,459,466,470,457,441,450,445,
+487,430,446,450,456,433,455,459,423,455,
+451,437,444,453,434,454,448,435,432,441,
+452,465,466,473,471,464,478,446,459,464,
+441,444,458,454,437,443,465,435,444,457,
+444,471,471,458,459,449,462,460,445,437,
+461,453,452,438,445,435,454,428,454,434,
+432,431,455,447,454,435,425,449,449,452,
+471,458,445,463,423,451,440,442,441,439
+};
+
+CumulativePlot(samples,numberOfBins -> 10, title -> "Cumulative Plot", xAxisLabel -> "X Axis", yAxisLabel -> "Y Axis", seriesTitle -> "Series Title");
+
+/%/mathpiper
+
+
+%/mathpiper_docs
+*/
 

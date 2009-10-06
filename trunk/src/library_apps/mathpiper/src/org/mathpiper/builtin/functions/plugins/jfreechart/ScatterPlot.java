@@ -117,5 +117,62 @@ public class ScatterPlot extends BuiltinFunction {
 
 
     }//end method.
+    
 }//end class.
+
+
+
+
+
+/*
+%mathpiper_docs,name="ScatterPlot",categories="User Functions;Visualization"
+*CMD ScatterPlot --- displays a graphic scatter plot
+*CORE
+*CALL
+	ScatterPlot({domain_list, range_list}, option, option, option...)
+    ScatterPlot({domain_list_1, range_list_1, domain_list_2, range_list_2,...}, option, option, option...)
+
+*PARMS
+
+{domain_list} -- a list which contains the domain values
+
+{range_list} -- a list which contains the range values that go with the domain_list values
+
+{title} -- the title of the scatter plot
+
+{xAxisLabel} -- the label for the x axis
+
+{yAxisLabel} -- the label for the y axis
+
+{seriesTitle} -- the title for a single data series
+
+{series<x>Title} -- the title for more than one series. <x> can be 1, 2, 3, etc.
+
+*DESC
+
+Creates either a single scatter plot or multiple scatter plots on the same plot. Options are entered using the -> operator.
+For example, here is how to set the {title} option: {title -> "Example Title"}.
+
+*E.G.
+/%mathpiper,title=""
+
+claim := 1 .. 40;
+days := {48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17};
+ScatterPlot({claim, days}, title -> "Scatter Plot", series1Title -> "Series 1", xAxisLabel -> "Claim", yAxisLabel -> "Days");
+
+/%/mathpiper
+
+
+/%mathpiper,title=""
+
+claim := 1 .. 40;
+days1 := {48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17};
+days2 := RandomIntegerVector(Length(claim), 20, 50);
+ScatterPlot({claim, days1, claim, days2}, title -> "Scatter Plot", series1Title -> "Series 1", series2Title -> "Series 2", xAxisLabel -> "Claim", yAxisLabel -> "Days");
+
+/%/mathpiper
+
+
+%/mathpiper_docs
+*/
 
