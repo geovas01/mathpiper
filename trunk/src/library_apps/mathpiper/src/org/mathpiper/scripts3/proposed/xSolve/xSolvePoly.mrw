@@ -1,4 +1,4 @@
-%mathpiper,title="xSolvePoly"
+%mathpiper,title="xSolvePoly",scope="private"
 
 Retract("xSolve'Poly",*);
 

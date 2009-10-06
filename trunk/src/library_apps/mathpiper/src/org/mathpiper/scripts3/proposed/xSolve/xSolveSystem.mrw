@@ -1,4 +1,4 @@
-%mathpiper,title="xSolveSystem"
+%mathpiper,title="xSolveSystem",scope="private"
 
 Retract("xSolve'System",*);
 Retract("xSolveLinearSystemViaMatrix",*);

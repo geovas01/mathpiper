@@ -1,4 +1,4 @@
-%mathpiper,title="xSolveReduce"
+%mathpiper,title="xSolveReduce",scope="private"
 
 Retract("xSolve'Reduce",*);
 Retract("xSolve'Context",*);
