@@ -140,7 +140,7 @@ Retract("TryToReduceSpecialPolynomial",*);
 
 
 
-%mathpiper_docs,name="FactorsPolynomialOverIntegers",categories="User Functions;Factors"
+%mathpiper_docs,name="FactorsPolynomialOverIntegers",categories="User Functions;Number Theory"
 *CMD Factors --- factorization of univariate polynomials over the integers 
 *STD
 *CALL
