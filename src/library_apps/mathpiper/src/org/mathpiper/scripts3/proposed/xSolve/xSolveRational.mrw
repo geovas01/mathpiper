@@ -1,4 +1,4 @@
-%mathpiper,title="xSolve'Rational"
+%mathpiper,title="xSolve'Rational",scope="private"
 
 Retract("xSolve'Rational",*);
 

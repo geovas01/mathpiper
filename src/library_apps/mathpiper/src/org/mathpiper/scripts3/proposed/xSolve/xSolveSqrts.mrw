@@ -1,4 +1,4 @@
-%mathpiper,title="xSolveSqrts"
+%mathpiper,title="xSolveSqrts",scope="private"
 
 Retract("xSolve'Sqrts",*);
 
