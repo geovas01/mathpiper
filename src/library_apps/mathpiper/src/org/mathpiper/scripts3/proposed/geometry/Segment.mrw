@@ -1,4 +1,4 @@
-%mathpiper,def=""
+%mathpiper,def="Segment",scope="private"
 
 Segment(PointA_IsPoint,PointB_IsPoint) <--
 [

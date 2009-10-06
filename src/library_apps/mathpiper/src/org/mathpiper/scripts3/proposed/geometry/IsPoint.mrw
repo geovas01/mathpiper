@@ -1,4 +1,4 @@
-%mathpiper,def=""
+%mathpiper,def="IsPoint",scope="private"
 
 IsPoint(p) := If(IsList(p) And (Length(p) = 2 Or Length(p) = 3),True,False);
 

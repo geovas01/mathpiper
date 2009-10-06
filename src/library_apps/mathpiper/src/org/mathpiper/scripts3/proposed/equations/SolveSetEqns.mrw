@@ -1,4 +1,4 @@
-%mathpiper
+%mathpiper,scope="private"
 
 Use("proposed.rep/equations.mpi");
 

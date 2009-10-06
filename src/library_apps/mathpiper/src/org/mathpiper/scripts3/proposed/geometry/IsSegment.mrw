@@ -1,4 +1,4 @@
-%mathpiper,def=""
+%mathpiper,def="IsSegment",scope="private"
 
 IsSegment(list_IsList) <--
 [

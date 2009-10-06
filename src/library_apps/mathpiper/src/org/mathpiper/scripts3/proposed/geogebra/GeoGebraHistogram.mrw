@@ -1,4 +1,4 @@
-%mathpiper
+%mathpiper,def="GeoGebraHistogram",scope="private"
 
 GeoGebraHistogram(classBoundaries, data) := 
 [

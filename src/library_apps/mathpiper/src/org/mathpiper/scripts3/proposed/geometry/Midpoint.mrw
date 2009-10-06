@@ -1,4 +1,4 @@
-%mathpiper,def=""
+%mathpiper,def="Midpoint",scope="private"
 
 Midpoint(PointA_IsPoint,PointB_IsPoint) <-- 
 [

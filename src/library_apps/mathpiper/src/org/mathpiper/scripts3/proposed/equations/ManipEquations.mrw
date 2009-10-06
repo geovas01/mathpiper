@@ -1,6 +1,4 @@
-%mathpiper
-
-Use("proposed.rep/equations.mpi");
+%mathpiper,scope="private"
 
 Retract("IsEquation",*);
 

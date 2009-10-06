@@ -1,4 +1,4 @@
-%mathpiper,def=""
+%mathpiper,def="Point",scope="private"
 
 Point(x,y) := List(x,y);
 

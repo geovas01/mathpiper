@@ -1,4 +1,4 @@
-%mathpiper,title=""
+%mathpiper,title="",scope="private"
 
 ProbabilityMassFunction(sampleSize, numberOfSuccesses, probabilityOfSuccess) :=
 [
