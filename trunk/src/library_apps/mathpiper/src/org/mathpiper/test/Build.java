@@ -266,7 +266,15 @@ public class Build {
             }//end for.
 
             if (documentationFile != null) {
-                processBuiltinDocs();
+            	    
+            	File builtinFunctionsSourceDir = new java.io.File(sourceDirectory + "org/mathpiper/builtin/functions/core");
+                processBuiltinDocs(builtinFunctionsSourceDir);
+                
+            	builtinFunctionsSourceDir = new java.io.File(sourceDirectory + "org/mathpiper/builtin/functions/optional");
+                processBuiltinDocs(builtinFunctionsSourceDir);
+                
+            	builtinFunctionsSourceDir = new java.io.File(sourceDirectory + "org/mathpiper/builtin/functions/plugins/jfreechart");
+                processBuiltinDocs(builtinFunctionsSourceDir);
             }
 
             Collections.sort(functionCategoriesList);
@@ -611,11 +619,9 @@ public class Build {
     }//end class.
 
 
-    private void processBuiltinDocs() throws Exception {
+    private void processBuiltinDocs(File builtinFunctionsSourceDir) throws Exception {
         // try {
         System.out.println("***** Processing built in docs...");
-
-        File builtinFunctionsSourceDir = new java.io.File(sourceDirectory + "org/mathpiper/builtin/functions/core");
 
         if (builtinFunctionsSourceDir.exists()) {
             java.io.File[] javaFilesDirectory = builtinFunctionsSourceDir.listFiles(new java.io.FilenameFilter() {
