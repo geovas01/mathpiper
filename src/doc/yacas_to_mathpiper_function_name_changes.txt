@@ -43,6 +43,12 @@ Mod -> Modulus.
 Min -> Minimum.
 Max -> Maximum
 RandomIntegerVector -> RandomIntegerList.
+OpPrecedence -> GetOperatorPrecedence
+OpLeftPrecedence -> GetOperatorLeftPrecedence
+OpRightPrecedence -> GetOperatorRightPrecedence
+LeftPrecedence -> SetLeftPrecedence
+RightPrecedence - SetRightPrecedence
+RightAssociative -> SetRightAssociative
 
 
 ====== Proposed argument changes.
