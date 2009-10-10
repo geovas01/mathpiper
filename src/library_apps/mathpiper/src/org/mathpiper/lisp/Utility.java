@@ -1007,7 +1007,7 @@ public class Utility {
     }
 
 
-    public static InfixOperator operatorInfo(Environment aEnvironment, int aStackTop, OperatorMap aOperators) throws Exception {
+    public static Operator operatorInfo(Environment aEnvironment, int aStackTop, OperatorMap aOperators) throws Exception {
         // Get operator
         LispError.checkArgument(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
 
@@ -1017,7 +1017,7 @@ public class Utility {
         String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
         //
-        InfixOperator op = (InfixOperator) aOperators.lookUp(Utility.getSymbolName(aEnvironment, orig));
+        Operator op = (Operator) aOperators.lookUp(Utility.getSymbolName(aEnvironment, orig));
         return op;
     }
 
