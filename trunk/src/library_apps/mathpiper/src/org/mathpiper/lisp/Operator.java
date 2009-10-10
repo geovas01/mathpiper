@@ -19,14 +19,14 @@
 package org.mathpiper.lisp;
 
 
-public class InfixOperator
+public class Operator
 {
 	public int iPrecedence;
 	public int iLeftPrecedence;
 	public int iRightPrecedence;
 	public int iRightAssociative;
 
-	public InfixOperator(int aPrecedence)
+	public Operator(int aPrecedence)
 	{
 		iPrecedence = aPrecedence;
 		iLeftPrecedence = aPrecedence;
