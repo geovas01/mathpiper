@@ -27,6 +27,7 @@ RightPrecedence("-",40);
 Infix("/",30);
 Infix("*",40);
 Infix("^",20);
+LeftPrecedence("^",19); //Added to make expressions like x^n^2 unambiguous.
 RightAssociative("^");
 Prefix("+",50);
 Prefix("-",50);
