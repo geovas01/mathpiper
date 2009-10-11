@@ -54,7 +54,7 @@ public class GeoGebraToolPanel extends JPanel {
 				GeoGebraPlugin.OPTION_PREFIX + "show-filepath").equals(
 				"true"));
 
-		labelBox.add(label);
+		//labelBox.add(label);
 		labelBox.add(Box.createGlue());
 
 		add(labelBox);
