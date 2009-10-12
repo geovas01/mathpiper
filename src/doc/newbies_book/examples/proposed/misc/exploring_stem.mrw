@@ -1,0 +1,1841 @@
+%mathpiper,title=""
+
+runTime := Time()
+[
+    permutations := PermutationsList({a,b,c,d,e,f,g,h});
+    
+    permutationCount := 1;
+    
+    ForEach(permutation, permutations)
+    [
+        permutationCount++;
+    ];
+
+];
+
+Echo("Number of patterns:,", permutationCount);
+
+Echo("Run time:", runTime);
+
+%/mathpiper
+
+
+
+
+
+
+
+
+%mathpiper,title=""
+patternCounts := {};
+
+ForEach(x, 1 .. 8)
+[
+    patternCounts := Append(patternCounts, Permutations(x,x));
+];
+
+patternCounts;
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper,title=""
+
+patternGenerationTime := Time() patterns := PermutationsList({a,b,c,d,e,f,g,h});
+
+numberOfPatterns := 0;
+
+countingTime := Time() ForEach(pattern, patterns)
+[
+    numberOfPatterns++;
+];
+
+NewLine(2);
+
+Echo("Number of patterns: ", numberOfPatterns);
+
+Echo("Pattern generation time: ", patternGenerationTime, "seconds.");
+
+Echo("Counting time: ", countingTime, "seconds.");
+
+Echo("Total Time: ", patternGenerationTime + countingTime, "seconds.");
+
+%/mathpiper
+
+
+
+
+%mathpiper,title=""
+
+patternGenerationTime := Time() patterns := PermutationsList({a,b,c,d,e,f,g,h});
+
+countingTime := Time() Length(patterns);
+
+Echo("Number of patterns: ", numberOfPatterns);
+
+Echo("Pattern generation time: ", patternGenerationTime, "seconds.");
+
+Echo("Counting time: ", countingTime, "seconds.");
+
+Echo("Total Time: ", patternGenerationTime + countingTime, "seconds.");
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper,title=""
+
+sumNumbers(highestNumber) := 
+[
+    Local(sum, count);
+    
+    sum := 0;
+    
+    count := 1;
+    
+    While(count <= highestNumber)
+    [
+        sum := sum + count;
+        
+        count++;
+    ];
+    
+    sum;
+
+];
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title=""
+
+ForEach(highNumber, {100,1000,10000,100000,1000000})
+[
+    runTime := Time() sum := sumNumbers(highNumber);
+    
+    Echo("High number: ", highNumber);
+    
+    Echo("Sum: ", sum);
+    
+    Echo("Run time: ", runTime, "seconds.");
+    
+    NewLine();
+];
+
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper,title=""
+
+fastSumNumbers(n) := (n*(n + 1))/2;
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper,title=""
+
+ForEach(highNumber, {100,1000,10000,100000,1000000,10000000,100000000,1000000000})
+[
+    runTime := Time() sum := fastSumNumbers(highNumber);
+    
+    Echo("High number: ", highNumber);
+    
+    Echo("Sum: ", sum);
+    
+    Echo("Run time: ", runTime, "seconds.");
+    
+    NewLine();
+];
+
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper,title=""
+
+numberOfRoles := 1000;
+
+dieRolesList := RandomIntegerVector(numberOfRoles,1,6);
+
+Histogram(dieRolesList, binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6, title -> "Single Die Rolls", xAxisLabel -> "Number Rolled", yAxisLabel -> "Roll Count", seriesTitle -> String(numberOfRoles) : " Roles");
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper,title="Histogram No Title"
+
+Histogram({1,2,3,4,5,6});
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title="Histogram With Title"
+
+Histogram({1,2,3,4,5,6}, title -> "Plain Histogram With Title");
+
+%/mathpiper
+
+
+
+
+%mathpiper,title="Histogram With Configured Bins"
+
+Histogram({1,2,3,4,5,6}, title -> "Histogram With Configured Bins", binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6,);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title="Histogram With Two 1's"
+
+Histogram({1,1,2,3,4,5,6}, title -> "Histogram With Two 1's", binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6,);
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper,title="Histogram With Two 5's"
+
+Histogram({1,1,2,3,4,5,5,5,6}, title -> "Histogram With Three 5's", binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6,);
+
+%/mathpiper
+
+
+
+
+
+
+
+
+%mathpiper,title="Histogram With Axes Labels And Data Series Title"
+
+Histogram({1,1,2,3,4,5,5,5,6}, title -> "Histogram With Axes Labels And Data Series Title", binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6, xAxisLabel -> "Number", yAxisLabel -> "Frequency", seriesTitle ->"Data");
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title="Rolls Of A Single Die"
+
+numberOfRoles := 1000;
+
+dieRolesList := RandomIntegerVector(numberOfRoles,1,6);
+
+Histogram(dieRolesList, binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6, title -> "Single Die Rolls", xAxisLabel -> "Number Rolled", yAxisLabel -> "Frequency", seriesTitle -> String(numberOfRoles) : " Roles");
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title="Rolls Two Dice"
+
+numberOfRolls := 1000;
+
+dieRollsList := {};
+
+Repeat(numberOfRoles)
+[
+   die1 := RandomInteger(6);
+   
+   die2 := RandomInteger(6);
+   
+   die3 := RandomInteger(6);
+   
+   
+   dieRollsList := Append(dieRollsList, die1 + die2 + die3);
+];
+
+Histogram(dieRollsList, 
+          binMinimum -> 1.5, 
+          binMaximum -> 18.5, 
+          numberOfBins -> 17, 
+          title -> "Rolling Two Dice", 
+          xAxisLabel -> "Sum Rolled", 
+          yAxisLabel -> "Frequency", 
+          seriesTitle -> String(numberOfRolls) : " Rolls"
+          );
+
+%/mathpiper
+
+
+
+
+
+===========================================================
+
+
+
+%mathpiper,title="Three doors simulation."
+
+numberOfTrials := 1000;
+
+firstPickList := {};
+
+secondPickList := {};
+
+Repeat(numberOfTrials)
+[
+    doorsList := Shuffle({EMPTY, PRIZE, EMPTY});
+    
+    //The contestant always picks door 1 as their first pick.
+    firstPick := doorsList[1];
+    
+    /*
+      If door 2 is empty, the second pick is the 3rd door else 
+      the second pick is the 2nd door.  In a real game the contestant 
+      may or may not make a second pick, but in this simulation
+      we always make the second pick in order to see what it is.
+    */
+    If(doorsList[2] = EMPTY, 
+        secondPick := doorsList[3], 
+        secondPick := doorsList[2]);
+    
+    
+    //Save all of the first pick results in a list.
+    firstPickList := Append(firstPickList, firstPick);
+    
+    //Save all of the second pick results in a list.
+    secondPickList := Append(secondPickList, secondPick);
+];
+
+firstPickWins := Count(firstPickList,PRIZE);
+
+secondPickWins := Count(secondPickList,PRIZE);
+
+Echo("The number of trials is: ", numberOfTrials);
+NewLine();
+
+Echo("The number of times the first door picked contained a prize: ", 
+    firstPickWins, "/ ", numberOfTrials);
+Echo("The probability of winning for always staying with the first pick: ", 
+    N(firstPickWins/numberOfTrials) );
+NewLine();
+
+Echo("The number of times the second door picked contained a prize: ", 
+    secondPickWins, "/ ", numberOfTrials);
+Echo("The probability of winning for always changing the pick: ", 
+    N(secondPickWins/numberOfTrials) );
+
+
+%/mathpiper
+
+
+
+
+
+
+
+
+
+
+
+%mathpiper,title="Same birthday simulation."
+
+birthdayMatchCounter := 0;
+
+numberOfPeople := 20;
+
+numberOfTrials := 40;
+
+Repeat(numberOfTrials)
+[
+    //Create a random birthday for each simulated person in the room.
+    birthdaysList := RandomIntegerVector(numberOfPeople, 1, 365);
+    
+    //Print the birthdays for this room of simulated people (comment
+    //this line out for a large number of trials).
+    Write(birthdaysList);
+    
+    /*
+     Index through all of the days in a year and for each day scan
+     the birthdays list to see if two people in the list have this
+     day as their birthday.  If there is a match, increment
+     birthdayMathCounter.
+    */
+    ForEach(day, 1 .. 365)
+    [
+        If(Count(birthdaysList,day) >= 2, 
+            [
+                birthdayMatchCounter++; 
+                WriteString(" - Match on "); 
+                Write(day); Break();
+            ]);
+    ];
+    
+    NewLine();
+
+];
+    
+    NewLine();
+    Echo("The number of trials is: ", numberOfTrials);
+    Echo("The number of people in the room is: ", numberOfPeople);
+    Echo("The number of matches is: ", 
+        birthdayMatchCounter, "/ ", numberOfTrials);
+    Echo("The probability of having a birthday match: ", 
+        N(birthdayMatchCounter/numberOfTrials) );
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper,title="Birthday the same as August 1st"
+
+birthdayMatchCounter := 0;
+
+trials := 1000;
+
+Repeat(trials)
+[
+    targetPersonBirthday := 213;
+    
+    birthdays := RandomIntegerVector(25,1,365);
+
+    If( Contains(birthdays, targetPersonBirthday), birthdayMatchCounter++);
+
+];
+    
+    
+    Echo(birthdayMatchCounter,,,trials,,,N(birthdayMatchCounter/trials));
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,title="Three boys simulation"
+
+numberOfTrials := 40;
+
+numberOfChildren := 4;
+
+numberOfBoys := 3;
+
+threeBoysCounter := 0;
+
+girlProbability := 49/100;
+
+boyProbability := 51/100;
+
+Repeat(numberOfTrials)
+[
+    //Create a random list of simulated children.
+    childrenList := RandomSymbolVector( 
+        {{GIRL,girlProbability}, {BOY,boyProbability}}, 
+        numberOfChildren);
+    
+    //Print the list of simulated children (comment
+    //this line out for a large number of trials).
+    Write(childrenList);
+    
+    /*
+      If the list contains 3 boys, increment the three
+      boys counter.
+    */
+    If(Count(childrenList, BOY) = numberOfBoys, 
+        [
+            threeBoysCounter++;
+            WriteString(" - ");
+            Write(numberOfBoys);
+            WriteString(" boys."); 
+        ]);
+    
+    NewLine();
+];
+
+NewLine();
+Echo("The number of trials is: ", numberOfTrials);
+Echo("The number of children is: ", numberOfChildren);
+Echo("The number of trials which have 3 boys: ", 
+    threeBoysCounter, "/ ", numberOfTrials);
+Echo("The probability of having 3 boys: ", 
+    N(threeBoysCounter/numberOfTrials) );
+
+%/mathpiper
+
+
+
+
+
+
+
+
+
+
+%mathpiper,title="5 basketball free throws."
+
+numberOfTrials := 40;
+
+//A success is defined as 3 or more hits.
+successesCounter := 0;
+
+numberOfThrows := 5;
+
+hitProbability := .30;
+
+missProbability := .70;
+
+Repeat(numberOfTrials)
+[
+    sampleList := RandomSymbolVector(
+        {{HIT,hitProbability}, {MISS,missProbability}}, 
+        numberOfThrows);
+    
+    //Print the list of simulated throws (comment
+    //this line out for a large number of trials).
+    Write(sampleList);
+    
+    /*
+      If the list contains 3 or more hits, increment the
+      success counter.
+    */
+    If(Count(sampleList,HIT) >= 3,
+        [
+            successesCounter++;
+            WriteString(" - ");
+            WriteString(" success."); 
+        ]);
+    
+    NewLine();
+];
+
+NewLine();
+Echo("The number of trials is: ", numberOfTrials);
+Echo("The number of throws is: ", numberOfThrows);
+Echo("The number of trials which have 3 or more hits: ", 
+    successesCounter, "/ ", numberOfTrials);
+Echo("The probability of having 3 or more hits: ", 
+    N(successesCounter/numberOfTrials) );
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      {MISS,MISS,MISS,HIT,HIT}
+      {MISS,MISS,MISS,MISS,HIT}
+      {HIT,MISS,MISS,MISS,MISS}
+      {MISS,HIT,MISS,MISS,MISS}
+      {HIT,MISS,MISS,MISS,HIT}
+      {MISS,MISS,MISS,MISS,HIT}
+      {MISS,HIT,MISS,MISS,HIT}
+      {MISS,HIT,HIT,HIT,MISS} -  success.
+      {HIT,HIT,MISS,MISS,HIT} -  success.
+      {MISS,HIT,MISS,MISS,HIT}
+      {MISS,MISS,HIT,MISS,HIT}
+      {HIT,MISS,HIT,MISS,MISS}
+      {MISS,HIT,MISS,MISS,MISS}
+      {MISS,MISS,MISS,HIT,MISS}
+      {MISS,MISS,MISS,MISS,MISS}
+      {MISS,MISS,HIT,HIT,MISS}
+      {HIT,MISS,MISS,MISS,HIT}
+      {MISS,HIT,MISS,MISS,MISS}
+      {MISS,MISS,HIT,MISS,MISS}
+      {HIT,MISS,HIT,MISS,HIT} -  success.
+      {HIT,MISS,MISS,MISS,MISS}
+      {HIT,MISS,MISS,MISS,HIT}
+      {MISS,MISS,MISS,HIT,HIT}
+      {HIT,MISS,MISS,MISS,MISS}
+      {HIT,MISS,MISS,MISS,HIT}
+      {HIT,MISS,MISS,HIT,MISS}
+      {MISS,HIT,MISS,MISS,MISS}
+      {HIT,MISS,HIT,MISS,MISS}
+      {HIT,MISS,MISS,HIT,HIT} -  success.
+      {MISS,MISS,MISS,MISS,MISS}
+      {HIT,MISS,MISS,MISS,HIT}
+      {HIT,HIT,MISS,MISS,MISS}
+      {MISS,MISS,HIT,MISS,HIT}
+      {MISS,HIT,MISS,MISS,MISS}
+      {MISS,HIT,HIT,MISS,MISS}
+      {MISS,MISS,MISS,HIT,MISS}
+      {MISS,MISS,HIT,MISS,MISS}
+      {MISS,HIT,MISS,HIT,MISS}
+      {HIT,HIT,MISS,MISS,MISS}
+      {MISS,MISS,MISS,MISS,HIT}
+      
+      The number of trials is: 40 
+      The number of throws is: 5 
+      The number of trials which have 3 or more hits: 4 / 40 
+      The probability of having 3 or more hits: 0.1
+.   %/output
+
+
+
+
+
+
+
+
+
+
+%mathpiper,title="Archery example pp.104 chapter 7."
+
+trials := 100;
+
+successes := 0;
+
+Repeat(trials)
+[
+    sample := RandomSymbolVector({{black,10/100}, {white,60/100}, {miss,30/100}},3);
+    
+    If(Count(sample,black)= 1 And Count(sample,white) = 2, successes := successes + 1);
+    
+];
+
+Echo(successes,,,trials);
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper,title="Shooting at a target."
+
+numberOfTrials := 40;
+
+numberOfShots := 5;
+
+successCounter := 0;
+
+Repeat(numberOfTrials)
+[
+    sampleList := RandomSymbolVector(
+        {{BLACK,15/100}, {WHITE,55/100}, {MISS,30/100}}, 
+        numberOfShots);
+    
+    //Print the list of simulated throws (comment
+    //this line out for a large number of trials).
+    Write(sampleList);
+    
+    
+    /*
+      If the list contains 1 hit in the black and 3 hits
+      in the white, increment the successCounter.
+    */
+    If(Count(sampleList,BLACK)= 1 And Count(sampleList,WHITE) = 3,
+        [
+            successCounter++;
+            WriteString(" - ");
+            WriteString(" success."); 
+        ]);
+    
+    NewLine();
+    
+];
+
+NewLine();
+Echo("The number of trials is: ", numberOfTrials);
+Echo("The number of shots per trial is: ", numberOfShots);
+Echo("The number of trials which have 1 black hit and 3 white hits: ", 
+    successCounter, "/ ", numberOfTrials);
+Echo("The probability of having 1 black hit and 3 white hits: ", 
+    N(successCounter/numberOfTrials) );
+
+%/mathpiper
+
+
+
+
+
+
+
+
+
+
+
+%mathpiper,title="Two stacks of pennies."
+
+numberOfTrials := 20;
+
+emptyStackCounter := 0;
+
+Repeat(numberOfTrials)
+[
+    //Create two stacks of 10 pennies.
+    stack1 := 10; stack2 := 10;
+    
+    maxFlips := 50;
+    
+    emptyMessage := "";
+    
+    /*
+     Flip a coin (lets say it a quarter) up to maxFlips times.  If
+     it comes up heads remove a penny from stack 2 and places it on
+     stack 1.  If it comes up tails, remove a penny from stack 1 and
+     place it on stack 2.  If either stack reaches 0 before maxFlips
+     have been flipped, break out of the loop.
+    */
+    numberOfFlips := Repeat(maxFlips)
+    [
+        flip := RandomSymbol({{HEAD,1/2},{TAIL,1/2}});
+        
+        If(flip = HEAD, [stack1++; stack2--;], 
+            [stack1--; stack2++;] );
+        
+        If(stack1 = 0 Or stack2 = 0, 
+            [emptyStackCounter++; emptyMessage := " - Empty"; Break();] );
+    ];
+    
+    //Print the state of the stacks after each flip (comment
+    //this line out for a large number of trials).
+    Echo("Stack 1: ", PadLeft(stack1,2), 
+        "    Stack 2: ", PadLeft(stack2,2), 
+        "    Number of flips: ", PadLeft(numberOfFlips,3), emptyMessage);
+];
+
+NewLine();
+Echo("The number of trials is: ", numberOfTrials);
+Echo("The maximum flips per trial: ", maxFlips);
+Echo("The number of trials which resulted in an empty stack: ", 
+    emptyStackCounter, "/ ", numberOfTrials);
+Echo("The probability of having an empty stack: ", 
+    N(emptyStackCounter/numberOfTrials) );
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper,title="Pop vending machine."
+
+daysToEmptyList := {};
+
+numberOfTrials := 10;
+
+daysBetweenRestocking := 3;
+
+machineCansCapacity := 50;
+
+Repeat(numberOfTrials)
+[
+    //Fill the machine to capicity before starting the trial.
+    cansInMachine := machineCansCapacity;
+    
+    daysToEmptyCounter := 0;
+    
+    Echo("New Trial");
+    
+    //Run the simulation in an infinite loop until the machine is empty.
+    Repeat()
+    [
+        //Simulate a 24 hour period.
+        Repeat(24)
+        [
+            //Determine the number of cans which were perchased during this hour.
+            numberOfCansPurchasedThisHour := RandomSymbol({
+                {0,60/100},
+                {1,20/100},
+                {2,15/100},
+                {3,05/100}});
+            
+            cansInMachine := cansInMachine - numberOfCansPurchasedThisHour;
+            
+            //If the machine has become empty, end the 24 hour simulation.
+            If(cansInMachine <= 0, [cansInMachine := 0; Break();]);
+        ];
+        
+        
+        Echo("Day: " , 
+            PadLeft(daysToEmptyCounter,2), 
+            "   Cans in machine: ", 
+            PadLeft(cansInMachine,2));
+        
+        
+        //If the machine has become empty, end this trial.
+        If(cansInMachine = 0, Break());
+        
+        /*
+         Uncomment the following line to enable restocking.
+        */
+        /*
+         If(Mod(daysToEmptyCounter,daysBetweenRestocking) = 0, 
+            cansInMachine := machineCansCapacity);
+        */
+        
+        daysToEmptyCounter++;
+    
+    ];
+    
+    NewLine();
+    
+    //Save the days to empty data in a list for later analysis.
+    daysToEmptyList := Append(daysToEmptyList, daysToEmptyCounter);
+    
+];
+
+Echo("Days to empty data: ", daysToEmptyList);
+
+Echo("Mean days to empty: ", N(Mean(daysToEmptyList)));
+Echo("Standard deviation: ", N(StandardDeviation(daysToEmptyList)));
+
+
+%/mathpiper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==========Cards
+
+%mathpiper,title="Cards: Two of a kind."
+
+pairsCount := 0;
+
+numberOfTrials := 40;
+
+Repeat(numberOfTrials)
+[
+    deck := ShuffledDeckNoSuits();
+    
+    hand := Take(deck,5);
+    
+    Echo(hand);
+    
+    handPairCount := 0;
+    
+    ForEach(card, 1 .. 13)
+    [
+        If(Count(hand,card) = 2, handPairCount++);
+    ];
+    
+    If(handPairCount = 1, handPairCount++);
+];
+
+NewLine();
+Echo("Number of trials: ", numberOfTrials);
+Echo("Probability of receiving a single pair: ", 
+    N(pairsCount/numberOfTrials) );
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      1 11 1 9 3 
+      11 8 13 12 7 
+      9 3 7 10 1 
+      9 11 4 11 4 
+      6 7 9 11 7 
+      4 1 8 3 12 
+      13 6 8 9 4 
+      6 3 13 11 7 
+      3 9 5 3 13 
+      9 11 9 3 6 
+      9 11 3 3 9 
+      1 12 4 2 1 
+      10 4 2 12 5 
+      8 12 5 12 10 
+      2 1 7 3 6 
+      10 11 13 6 9 
+      10 13 10 13 4 
+      8 1 7 6 1 
+      3 6 7 9 1 
+      9 1 3 3 8 
+      13 8 7 1 8 
+      8 9 10 6 10 
+      10 13 3 6 4 
+      6 1 2 12 6 
+      6 5 1 8 4 
+      1 13 8 3 7 
+      1 2 10 8 1 
+      10 8 3 5 13 
+      12 5 2 11 9 
+      7 8 3 7 11 
+      1 1 7 8 2 
+      3 1 2 13 8 
+      1 8 1 2 2 
+      1 10 8 10 8 
+      11 8 11 10 9 
+      10 1 9 1 13 
+      13 10 8 4 8 
+      12 4 8 3 11 
+      1 7 9 8 10 
+      11 10 6 4 11 
+      
+      Number of trials: 40 
+      Probability of receiving a single pair: 0
+.   %/output
+
+
+
+
+
+
+
+
+
+%mathpiper,title="Cards: two pairs vs. three of a kind."
+
+pairsCount := 0;
+
+threeOfAKindCount := 0;
+
+numberOfTrials := 1000;
+
+Repeat(numberOfTrials)
+[
+    deck := ShuffledDeckNoSuits();
+
+    hand := Take(deck, 5);
+    
+    //Echo(hand);
+    
+    handPairCount := 0;
+    
+    handThreeOfAKindCount := 0;
+    
+    ForEach(card, 1 .. 13)
+    [
+        If(Count(hand, card) = 2, handPairCount++);
+        
+        If(Count(hand, card) = 3, handThreeOfAKindCount++);
+    ];
+    
+    If(handPairCount = 2, pairsCount++);
+    
+    If(handThreeOfAKindCount = 1, threeOfAKindCount++);
+];
+
+Echo("Probability of two pairs: ", N(pairsCount/numberOfTrials) );
+Echo("Probability of three of a kind: ", 
+    N(threeOfAKindCount/numberOfTrials) );
+
+%/mathpiper
+
+    %error,preserve="false"
+      Result: User halted calculation. Error near line 915
+.   %/error
+
+
+
+
+
+
+======
+
+
+
+
+
+%mathpiper,title="Random walk."
+
+targetPosition := {2,1};
+
+successCount := 0;
+
+numberOfTrials := 40;
+
+numberOfSteps := 12;
+
+Repeat(numberOfTrials)
+[
+    currentPosition := {0,0};
+    
+    walkPath := {};
+    
+    Repeat(numberOfSteps)
+    [
+        step:= RandomSymbol({
+            { {1,0}, 1/4},
+            { {-1,0}, 1/4},
+            { {0,1}, 1/4},
+            { {0,-1}, 1/4}});
+        
+        currentPosition := currentPosition + step;
+        
+        walkPath := Append(walkPath, currentPosition);
+    ];
+    
+    Write(walkPath);
+    
+    If(Contains(walkPath, targetPosition), 
+        [successCount++; WriteString(" - Success");]);
+        
+    NewLine();
+];
+
+NewLine();
+Echo("Number of trials: ", numberOfTrials);
+Echo("The last walk path: ", walkPath);
+Echo("Number of successes: ", successCount);
+Echo("Probability of a success: ", N(successCount/numberOfTrials));
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      {{0,1},{0,0},{0,-1},{-1,-1},{-1,0},{-1,-1},{-2,-1},{-1,-1},{0,-1},{1,-1},{2,-1},{3,-1}}
+      {{0,-1},{0,-2},{-1,-2},{-1,-1},{-1,-2},{-1,-1},{-1,0},{-1,1},{-1,0},{-1,1},{-2,1},{-2,0}}
+      {{1,0},{0,0},{-1,0},{-2,0},{-2,-1},{-3,-1},{-3,0},{-2,0},{-2,-1},{-3,-1},{-2,-1},{-3,-1}}
+      {{1,0},{1,1},{1,0},{0,0},{0,1},{0,2},{-1,2},{-1,1},{0,1},{-1,1},{0,1},{0,0}}
+      {{0,-1},{0,-2},{0,-1},{1,-1},{0,-1},{1,-1},{2,-1},{3,-1},{3,0},{3,1},{2,1},{2,2}} - Success
+      {{1,0},{1,1},{1,0},{2,0},{2,1},{3,1},{4,1},{4,0},{4,-1},{4,-2},{4,-3},{4,-4}} - Success
+      {{0,1},{0,2},{-1,2},{-1,3},{-1,4},{-1,3},{0,3},{1,3},{1,4},{0,4},{0,3},{-1,3}}
+      {{1,0},{2,0},{1,0},{2,0},{2,1},{1,1},{0,1},{0,2},{1,2},{1,1},{0,1},{-1,1}} - Success
+      {{1,0},{2,0},{2,1},{2,2},{1,2},{1,1},{2,1},{3,1},{2,1},{2,2},{2,3},{1,3}} - Success
+      {{-1,0},{-2,0},{-2,-1},{-1,-1},{-2,-1},{-1,-1},{-2,-1},{-1,-1},{-1,0},{-1,1},{-1,0},{-2,0}}
+      {{0,-1},{0,-2},{-1,-2},{-1,-1},{-1,-2},{-1,-3},{-1,-4},{-1,-5},{-1,-4},{-1,-5},{-1,-4},{0,-4}}
+      {{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,1},{-1,2},{-1,3},{-1,2},{-1,1},{-2,1},{-2,0}}
+      {{0,-1},{0,-2},{-1,-2},{-1,-3},{-1,-2},{0,-2},{-1,-2},{-1,-1},{-2,-1},{-2,0},{-2,1},{-3,1}}
+      {{1,0},{1,1},{1,0},{1,-1},{2,-1},{3,-1},{3,0},{3,1},{3,0},{3,1},{2,1},{3,1}} - Success
+      {{1,0},{1,1},{0,1},{0,0},{0,1},{0,0},{0,1},{0,0},{1,0},{0,0},{-1,0},{-2,0}}
+      {{0,1},{-1,1},{0,1},{0,2},{1,2},{1,3},{2,3},{2,4},{2,3},{2,2},{1,2},{2,2}}
+      {{-1,0},{-1,-1},{-1,-2},{-2,-2},{-2,-1},{-2,-2},{-2,-3},{-3,-3},{-3,-2},{-2,-2},{-3,-2},{-4,-2}}
+      {{0,1},{0,2},{-1,2},{-1,3},{-2,3},{-1,3},{0,3},{1,3},{1,2},{1,3},{2,3},{2,4}}
+      {{1,0},{2,0},{2,1},{1,1},{2,1},{2,0},{2,-1},{2,0},{1,0},{2,0},{2,1},{2,0}} - Success
+      {{0,1},{0,2},{-1,2},{-1,1},{0,1},{-1,1},{-2,1},{-2,0},{-2,1},{-1,1},{0,1},{-1,1}}
+      {{1,0},{1,1},{2,1},{3,1},{2,1},{2,2},{2,1},{3,1},{4,1},{5,1},{4,1},{5,1}} - Success
+      {{0,1},{0,0},{0,-1},{-1,-1},{-2,-1},{-2,0},{-2,-1},{-2,-2},{-2,-3},{-1,-3},{-2,-3},{-2,-4}}
+      {{0,1},{0,2},{0,1},{0,0},{0,-1},{0,-2},{0,-3},{0,-2},{1,-2},{2,-2},{2,-1},{2,-2}}
+      {{0,-1},{-1,-1},{-1,0},{-1,-1},{0,-1},{-1,-1},{-1,-2},{-2,-2},{-3,-2},{-3,-1},{-3,-2},{-4,-2}}
+      {{0,1},{0,2},{-1,2},{0,2},{-1,2},{-1,3},{-1,2},{-2,2},{-2,3},{-3,3},{-3,4},{-3,3}}
+      {{0,1},{0,2},{0,3},{1,3},{1,2},{1,1},{2,1},{2,2},{3,2},{3,1},{2,1},{3,1}} - Success
+      {{0,-1},{0,-2},{1,-2},{1,-3},{2,-3},{2,-2},{2,-1},{2,0},{2,1},{3,1},{3,2},{3,1}} - Success
+      {{-1,0},{-2,0},{-3,0},{-3,1},{-3,2},{-4,2},{-4,3},{-4,2},{-3,2},{-3,3},{-4,3},{-5,3}}
+      {{0,1},{-1,1},{0,1},{-1,1},{-1,2},{-1,3},{0,3},{0,2},{1,2},{0,2},{0,1},{1,1}}
+      {{-1,0},{0,0},{-1,0},{-2,0},{-2,1},{-2,2},{-3,2},{-2,2},{-1,2},{0,2},{1,2},{1,3}}
+      {{0,1},{0,0},{-1,0},{-2,0},{-3,0},{-4,0},{-4,-1},{-5,-1},{-6,-1},{-6,-2},{-5,-2},{-4,-2}}
+      {{0,-1},{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,2},{0,2},{0,3},{0,4},{-1,4},{0,4}}
+      {{0,-1},{0,0},{-1,0},{-1,-1},{0,-1},{1,-1},{0,-1},{0,-2},{1,-2},{1,-1},{0,-1},{1,-1}}
+      {{-1,0},{-1,1},{-1,0},{-1,1},{0,1},{1,1},{2,1},{2,2},{2,3},{2,2},{2,3},{1,3}} - Success
+      {{-1,0},{-1,-1},{-1,-2},{0,-2},{1,-2},{2,-2},{1,-2},{2,-2},{2,-3},{3,-3},{4,-3},{5,-3}}
+      {{0,-1},{1,-1},{2,-1},{1,-1},{1,0},{2,0},{2,1},{1,1},{1,0},{2,0},{3,0},{3,-1}} - Success
+      {{0,1},{0,2},{-1,2},{-2,2},{-2,1},{-1,1},{0,1},{0,0},{0,1},{1,1},{1,2},{0,2}}
+      {{0,1},{0,2},{0,3},{-1,3},{-1,4},{0,4},{1,4},{2,4},{3,4},{4,4},{4,3},{4,2}}
+      {{1,0},{0,0},{0,-1},{0,-2},{0,-3},{0,-2},{0,-3},{-1,-3},{0,-3},{0,-4},{1,-4},{1,-3}}
+      {{0,1},{0,2},{0,3},{0,2},{0,3},{1,3},{1,4},{2,4},{1,4},{0,4},{-1,4},{-1,5}}
+      
+      Number of trials: 40 
+      The last walk path: {{0,1},{0,2},{0,3},{0,2},{0,3},{1,3},{1,4},{2,4},{1,4},{0,4},{-1,4},{-1,5}} 
+      Number of successes: 11 
+      Probability of a success: 0.275
+.   %/output
+
+
+====
+
+
+
+Factors that can affect the graduation rate:
+
+- Math skills.
+- Time spent reading each day.
+- Time spent on entertainment each day.
+- A bad faculty member in the program.
+
+
+Ideas for things to try:
+
+- Krista's 1/3,1/3,1/3 model.
+- Place teaching assistants in all freshman classes.
+
+
+%mathpiper,title="Graduation simulation."
+
+simulateDegree(numberOfIncomingFreshman, semesterRetentionProbabilities) :=
+[
+    Local(graduationProbability, numberOfGraduates, graduationRate, retentionProfile,
+        classSize, summaryText, semesterCounter);
+    
+    graduationProbability := N(Product(semesterRetentionProbabilities), 2);
+    
+    numberOfGraduates := numberOfIncomingFreshman * graduationProbability;
+    
+    graduationRate := N(numberOfGraduates/numberOfIncomingFreshman);
+    
+    
+    //
+    retentionProfile := {};
+    classSize := numberOfIncomingFreshman;
+    retentionProfile := Append(retentionProfile, classSize);
+    ForEach(semesterRetentionProbability, semesterRetentionProbabilities)
+    [
+        classSize := N(semesterRetentionProbability * classSize);
+        retentionProfile := Append(retentionProfile, classSize);
+    ];
+    
+    
+    
+    summaryText := ToString()
+    [
+    Echo("Number of incoming freshman: ", numberOfIncomingFreshman, Nl());
+    Echo("Estimated probability of retention for each semester:",);
+    semesterCounter := 1;
+    ForEach(semesterRetentionProbability, semesterRetentionProbabilities)
+    [
+        Echo("   Semester " : String(semesterCounter) : " retention probability: ", N(semesterRetentionProbability * 100,2), "%");
+        
+        semesterCounter++;
+    ];
+    
+    Echo(Nl(), "Graduation probability: ", graduationProbability, Nl());
+    Echo("Number of graduates: ", N(graduationProbability * numberOfIncomingFreshman));
+    ];
+    
+    
+    result := {};
+    
+    result["numberOfIncomingFreshman"] := numberOfIncomingFreshman;
+    
+    result["graduationProbability"] := graduationProbability;
+    
+    result["numberOfGraduates"] := numberOfGraduates;
+    
+    result["graduationRate"] := graduationRate;
+    
+    result["retentionProfile"] := retentionProfile;
+    
+    result["summaryText"] := summaryText;
+    
+    result;
+
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Typical retention profile."
+data := simulateDegree(25, {.5,.5,.8,.95,.95,.95,.95,.95});
+
+Echo(data["summaryText"]);
+
+BarChart({0 .. 8, data["retentionProfile"]}, 
+    title -> "CET Typical Retention Profile: 25 Incoming Freshman", 
+    xAxisLabel -> "Semester", 
+    yAxisLabel -> "Number of students retained", 
+    series1Title -> "Number of incoming freshman: " : String(data["numberOfIncomingFreshman"]),
+    domainCrosshair -> False,
+    rangeCrosshair -> False
+    );
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+      
+      Side Effects:
+      Number of incoming freshman: 25 
+      
+      Estimated probability of retention for each semester:
+         Semester 1 retention probability: 50 %
+         Semester 2 retention probability: 50 %
+         Semester 3 retention probability: 80 %
+         Semester 4 retention probability: 95 %
+         Semester 5 retention probability: 95 %
+         Semester 6 retention probability: 95 %
+         Semester 7 retention probability: 95 %
+         Semester 8 retention probability: 95 %
+      
+      Graduation probability: 0.15 
+      
+      Number of graduates: 3.75
+.   %/output
+
+
+
+
+
+
+
+
+
+
+%mathpiper,title="Increase incoming class to 50."
+
+
+
+data25 := simulateDegree(25, {.5,.5,.8,.95,.95,.95,.95,.95});
+
+data50 := simulateDegree(50, {.5,.5,.8,.95,.95,.95,.95,.95});
+
+Echo(data50["summaryText"]);
+                                                          
+BarChart({0 .. 8, data25["retentionProfile"], 0 .. 8, data50["retentionProfile"]}, 
+    title -> "Doubling The Number Of Incoming Freshman", 
+    xAxisLabel -> "Semester", 
+    yAxisLabel -> "Number of students retained", 
+    series1Title -> "Number of incoming freshman: " : String(data25["numberOfIncomingFreshman"]),
+    series2Title -> "Number of incoming freshman: " : String(data50["numberOfIncomingFreshman"]),
+    domainCrosshair -> False,
+    rangeCrosshair -> False
+    );
+
+
+%/mathpiper    
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+      
+      Side Effects:
+      Number of incoming freshman: 50 
+      
+      Estimated probability of retention for each semester:
+         Semester 1 retention probability: 50 %
+         Semester 2 retention probability: 50 %
+         Semester 3 retention probability: 80 %
+         Semester 4 retention probability: 95 %
+         Semester 5 retention probability: 95 %
+         Semester 6 retention probability: 95 %
+         Semester 7 retention probability: 95 %
+         Semester 8 retention probability: 95 %
+      
+      Graduation probability: 0.15 
+      
+      Number of graduates: 7.50
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Increase probability of retention in first 2 semesters."
+
+
+
+data25 := simulateDegree(25, {.5,.5,.8,.95,.95,.95,.95,.95});
+
+data50 := simulateDegree(25, {.7,.7,.8,.95,.95,.95,.95,.95});
+
+Echo(data50["summaryText"]);
+                                                          
+BarChart({0 .. 8, data25["retentionProfile"], 0 .. 8, data50["retentionProfile"]}, 
+    title -> "Increasing The Probability Of Retention" : Nl() : "Only In The First Two Semesters", 
+    xAxisLabel -> "Semester", 
+    yAxisLabel -> "Number of students retained", 
+    series1Title -> "Typical retention profile",
+    series2Title -> "Increase retention probability from .5 to .7 in semesters 1 & 2",
+    domainCrosshair -> False,
+    rangeCrosshair -> False
+    );
+
+
+%/mathpiper    
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+      
+      Side Effects:
+      Number of incoming freshman: 25 
+      
+      Estimated probability of retention for each semester:
+         Semester 1 retention probability: 70 %
+         Semester 2 retention probability: 70 %
+         Semester 3 retention probability: 80 %
+         Semester 4 retention probability: 95 %
+         Semester 5 retention probability: 95 %
+         Semester 6 retention probability: 95 %
+         Semester 7 retention probability: 95 %
+         Semester 8 retention probability: 95 %
+      
+      Graduation probability: 0.29 
+      
+      Number of graduates: 7.25
+.   %/output
+
+
+
+=========================================================================================
+
+
+%mathpiper,title=""
+
+v := 55.0; //Miles per hour.
+
+t := 1.0; //Hour.
+
+d := v*t;
+
+Echo("The speed of the car is ", v, "miles per hour.");
+Echo("The amount of time the car has been traveling at this speed is ",
+    t, "hour.");
+Echo("Therefore, the distance traveled is ", d, "miles.");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      The speed of the car is 55.0 miles per hour.
+      The amount of time the car has been traveling at this speed is 1.0 hour.
+      Therefore, the distance traveled is 55.00 miles.
+.   %/output
+
+
+
+
+%mathpiper,title=""
+
+f(t) := 55 * t;
+
+domainList := 0 .. 10;
+
+rangeList := {};
+
+ForEach(domainValue, domainList)
+[
+    rangeList := Append(rangeList, f(domainValue));
+];
+
+Echo("The function f(t) = ", f(t));
+Echo("The function's domain is: ", domainList);
+Echo("The function's range is: ", rangeList);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      The function f(t) = 55*t 
+      The function's domain is: {0,1,2,3,4,5,6,7,8,9,10} 
+      The function's range is: {0,55,110,165,220,275,330,385,440,495,550}
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title=""
+
+f(t) := 55 * t;
+
+rangeList := Table(f(t),t,1,10,1);
+
+Echo("The function f(t) = ", f(t));
+Echo("The function's domain is: ", domainList);
+Echo("The function's range is: ", rangeList);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      The function f(t) = 55*t 
+      The function's domain is: {1,2,3,4,5,6,7,8,9,10} 
+      The function's range is: {55,110,165,220,275,330,385,440,495,550}
+.   %/output
+
+
+
+
+
+
+
+
+
+%mathpiper,title=""
+
+f(t) := 55 * t;
+
+domainList := 0 .. 10;
+
+rangeList := {};
+
+ForEach(domainValue, domainList)
+[
+    rangeList := Append(rangeList, f(domainValue));
+];
+
+Echo("The function f(t) = ", f(t));
+Echo("The function's domain is: ", domainList);
+Echo("The function's range is: ", rangeList);
+
+ScatterPlot({domainList, rangeList}, 
+    title -> "Plot Of Function f(t) = 55*t", 
+    xAxisLabel -> "Domain: Hours", 
+    yAxisLabel -> "Range: Miles Traveled", 
+    series1Title -> String(Length(domainList)):" plotted points");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+      
+      Side Effects:
+      The function f(t) = 55*t 
+      The function's domain is: {0,1,2,3,4,5,6,7,8,9,10} 
+      The function's range is: {0,55,110,165,220,275,330,385,440,495,550}
+.   %/output
+
+
+
+
+
+
+
+
+
+%mathpiper,title=""
+
+f(t) := 55 * t;
+
+beginValue := 0;
+
+endValue := 10;
+
+stepAmount := 1;
+
+domainList := Table(x,x,beginValue,endValue,stepAmount);
+
+rangeList := Table(f(t),t,beginValue,endValue,stepAmount);
+
+Echo("The function f(t) = ", f(t));
+Echo("The function's domain is: ", domainList);
+Echo("The function's range is: ", rangeList);
+
+ScatterPlot({domainList,rangeList}, 
+    title -> "Plot Of Function f(t) = 55*t", 
+    xAxisLabel -> "Domain: Hours", 
+    yAxisLabel -> "Range: Miles Traveled", 
+    series1Title -> String(Length(domainList)):" plotted points");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+      
+      Side Effects:
+      The function f(t) = 55*t 
+      The function's domain is: {0,1,2,3,4,5,6,7,8,9,10} 
+      The function's range is: {0,55,110,165,220,275,330,385,440,495,550}
+.   %/output
+
+
+
+
+
+%mathpiper,title=""
+
+f(t) := 55 * t;
+g(t) := 65 * t;
+h(t) := 75 * t;
+i(t) := 85 * t;
+j(t) := 300 * t;
+
+
+Plot2D({f(t),g(t),h(t),i(t),j(t)},0:10);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+.   %/output
+
+
+%mathpiper,title=""
+
+f(t) := 55 * t;
+
+Plot2D(f(t),0:10,
+    title -> "Plot Of Function f(t) = 55*t", 
+    xAxisLabel -> "Domain: Hours", 
+    yAxisLabel -> "Range: Miles Traveled", 
+    series1Title -> "Enough plotted points to display a solid line");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+.   %/output
+
+
+
+
+%mathpiper,title=""
+
+f(t) := 55 * t;
+
+Plot2D(f(t),0:10,output -> data);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {{{0,0},{0.4166666668,22.91666667},{0.8333333335,45.83333334},{1.250000001,68.75000006},{1.666666667,91.66666669},{2.083333334,114.5833334},{2.500000001,137.5000001},{2.916666668,160.4166667},{3.333333334,183.3333334},{3.750000001,206.2500001},{4.166666668,229.1666667},{4.583333335,252.0833334},{5.000000001,275.0000001},{5.41666667,297.9166669},{5.833333335,320.8333334},{6.25000000,343.7500000},{6.666666668,366.6666667},{7.083333335,389.5833334},{7.500000002,412.5000001},{7.91666667,435.4166669},{8.333333335,458.3333334},{8.75000000,481.2500000},{9.166666669,504.1666668},{9.583333335,527.0833334},{10.00000000,550.0000000}}}
+.   %/output
+
+
+
+
+=========
+%mathpiper,title=""
+
+f(t) := 55*t;
+
+beginValue := 0;
+
+endValue := 10;
+
+stepAmount := 1;
+
+//Create the points list and print it.
+pointsList := Table({t,f(t)},t,beginValue,endValue,stepAmount);
+Echo("The ",String(Length(pointsList))," points in the plot:");
+TableForm(pointsList);
+
+NewLine();
+
+/*
+ In this loop 8 unique pairs of points are randomly selected from 
+ pointsList and eachof these pairs is used to calculate the slope 
+ of the line they are on.
+*/
+Repeat(8)
+[
+
+    //Randomly select two unique points from pointsList.
+    randomIndex1 := 0;
+    
+    randomIndex2 := 0;
+    
+    While(randomIndex1 = randomIndex2)
+    [
+        randomIndex1 := RandomInteger(Length(pointsList));
+        
+        randomIndex2 := RandomInteger(Length(pointsList));
+    ];
+
+    point1 := pointsList[randomIndex1];
+ 
+    point2 := pointsList[randomIndex2];
+    
+    
+    
+    //Make sure that the point with the smallest domain value is placed in point1.
+    If(point1[1] > point2[1], [tmp := point1; point1 := point2; point2 := tmp;]);
+
+    
+    Echo("Point1: ", point1);
+    Echo("Point2: ", point2);
+    
+    rise := point2[2] - point1[2];
+    
+    run := point2[1] - point1[1];
+    
+    Echo("Rise = Point2y - Point1y = " : 
+        String(point2[2]):" - ":
+        String(point1[2]) :" = ", rise);
+    Echo("Run = Point2x - Point1x = " : 
+        String(point2[1]):" - ":
+        String(point1[1]) :" = ", run);
+    Echo("Rise over run = rise/run = ": 
+        String(rise) :"/":
+            String(run): " = ***":
+                String(rise/run):"***");
+    
+    NewLine();
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 8
+      
+      Side Effects:
+      The 11 points in the plot:
+      {0,0}
+      {1,55}
+      {2,110}
+      {3,165}
+      {4,220}
+      {5,275}
+      {6,330}
+      {7,385}
+      {8,440}
+      {9,495}
+      {10,550}
+      
+      Point1: {5,275} 
+      Point2: {7,385} 
+      Rise = Point2y - Point1y = 385 - 275 = 110 
+      Run = Point2x - Point1x = 7 - 5 = 2 
+      Rise over run = rise/run = 110/2 = ***55***
+      
+      Point1: {6,330} 
+      Point2: {9,495} 
+      Rise = Point2y - Point1y = 495 - 330 = 165 
+      Run = Point2x - Point1x = 9 - 6 = 3 
+      Rise over run = rise/run = 165/3 = ***55***
+      
+      Point1: {4,220} 
+      Point2: {9,495} 
+      Rise = Point2y - Point1y = 495 - 220 = 275 
+      Run = Point2x - Point1x = 9 - 4 = 5 
+      Rise over run = rise/run = 275/5 = ***55***
+      
+      Point1: {1,55} 
+      Point2: {2,110} 
+      Rise = Point2y - Point1y = 110 - 55 = 55 
+      Run = Point2x - Point1x = 2 - 1 = 1 
+      Rise over run = rise/run = 55/1 = ***55***
+      
+      Point1: {3,165} 
+      Point2: {4,220} 
+      Rise = Point2y - Point1y = 220 - 165 = 55 
+      Run = Point2x - Point1x = 4 - 3 = 1 
+      Rise over run = rise/run = 55/1 = ***55***
+      
+      Point1: {4,220} 
+      Point2: {10,550} 
+      Rise = Point2y - Point1y = 550 - 220 = 330 
+      Run = Point2x - Point1x = 10 - 4 = 6 
+      Rise over run = rise/run = 330/6 = ***55***
+      
+      Point1: {0,0} 
+      Point2: {5,275} 
+      Rise = Point2y - Point1y = 275 - 0 = 275 
+      Run = Point2x - Point1x = 5 - 0 = 5 
+      Rise over run = rise/run = 275/5 = ***55***
+      
+      Point1: {4,220} 
+      Point2: {10,550} 
+      Rise = Point2y - Point1y = 550 - 220 = 330 
+      Run = Point2x - Point1x = 10 - 4 = 6 
+      Rise over run = rise/run = 330/6 = ***55***
+.   %/output
+
+
+
+
+
+
+
+
+%mathpiper,title="Table() based program."
+
+f(t) := 55*t;
+
+beginValue := 4;
+
+endValue := 7;
+
+stepAmount := 1;
+
+domainList := Table(x,x,beginValue,endValue,stepAmount);
+
+rangeList := Table(f(t),t,beginValue,endValue,stepAmount);
+
+Echo("The function f(t) = ", f(t));
+Echo("The function's domain is: ", domainList);
+Echo("The function's range is: ", rangeList);
+
+ScatterPlot({domainList,rangeList}, 
+    title -> "Plot Of Function f(t) = 55*t", 
+    xAxisLabel -> "Domain: Hours", 
+    yAxisLabel -> "Range: Miles Traveled", 
+    series1Title -> String(Length(domainList)):" plotted points");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+      
+      Side Effects:
+      The function f(t) = 55*t 
+      The function's domain is: {4,5,6,7} 
+      The function's range is: {220,275,330,385}
+.   %/output
+
+
+
+
+
+
+
+
+
+%geogebra_xml,name="area under curve",input="xml",clear="true",collapse="false"
+
+<?xml version="1.0" encoding="utf-8"?>
+<geogebra format="3.2">
+<gui>
+	<show algebraView="true" spreadsheetView="false" auxiliaryObjects="false" algebraInput="true" cmdList="true"/>
+	<font  size="12"/>
+</gui>
+<euclidianView>
+	<size  width="504" height="288"/>
+	<coordSystem xZero="34.14099550214394" yZero="241.51447307466287" scale="67.92328109429553" yscale="1.295704487546635"/>
+	<evSettings axes="true" grid="true" gridIsBold="false" pointCapturing="3" pointStyle="0" rightAngleStyle="1" checkboxSize="13" gridType="0"/>
+	<bgColor r="255" g="255" b="255"/>
+	<axesColor r="0" g="0" b="0"/>
+	<gridColor r="192" g="192" b="192"/>
+	<lineStyle axes="1" grid="10"/>
+	<axis id="0" show="true" label="Domain: Hours" unitLabel="" tickStyle="1" showNumbers="true"/>
+	<axis id="1" show="true" label="Range: Distance" unitLabel="" tickStyle="1" showNumbers="true"/>
+	<grid distX="0.5" distY="25.0"/>
+</euclidianView>
+<kernel>
+	<continuous val="false"/>
+	<decimals val="2"/>
+	<angleUnit val="degree"/>
+	<coordStyle val="0"/>
+</kernel>
+<construction title="" author="" date="">
+<element type="numeric" label="speed">
+	<value val="55.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.1"/>
+	<layer val="0"/>
+	<labelMode val="1"/>
+	<slider min="0.0" max="100.0" width="4.0" x="0.27584695446181806" y="-28.50688314387915" fixed="false" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.01" speed="4.0" type="0" playing="false"/>
+</element>
+<expression label="f" exp="f(x) = speed * x" />
+<element type="function" label="f">
+	<lineStyle thickness="2" type="0"/>
+	<show object="false" label="true"/>
+	<layer val="0"/>
+	<lineStyle thickness="2" type="0"/>
+</element>
+<command name="Point">
+	<input a0="f"/>
+	<output a0="A"/>
+</command>
+<element type="point" label="A">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<animation step="0.1" speed="1.0" type="0" playing="false"/>
+	<coords x="0.0" y="0.0" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<command name="Point">
+	<input a0="f"/>
+	<output a0="B"/>
+</command>
+<element type="point" label="B">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<animation step="0.1" speed="1.0" type="0" playing="false"/>
+	<coords x="3.98" y="218.9" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<command name="Line">
+	<input a0="A" a1="B"/>
+	<output a0="a"/>
+</command>
+<element type="line" label="a">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="-218.9" y="3.98" z="0.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="implicit"/>
+</element>
+<command name="Slope">
+	<input a0="a"/>
+	<output a0="m"/>
+</command>
+<element type="numeric" label="m">
+	<value val="55.0"/>
+	<show object="true" label="true"/>
+	<objColor r="153" g="51" b="0" alpha="0.1"/>
+	<layer val="0"/>
+	<labelOffset x="15" y="1"/>
+	<labelMode val="2"/>
+	<lineStyle thickness="2" type="0"/>
+	<slopeTriangleSize val="3"/>
+	<caption val="slope"/>
+</element>
+</construction>
+</geogebra>
+
+%/geogebra_xml
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
