@@ -82,6 +82,147 @@ df;
 
 
 
+/* 
+Press <shift><enter> on this fold to generate an interactive plot of
+a ball being thrown vertically.  Drag the point on the "time" slider
+left and right to dynamically change the plot.
+*/
+%geogebra_xml,name="vertical ball throw",collapse="true",clear="true"
+<?xml version="1.0" encoding="utf-8"?>
+<geogebra format="3.2">
+<gui>
+	<show algebraView="true" spreadsheetView="false" auxiliaryObjects="false" algebraInput="true" cmdList="true"/>
+	<splitDivider loc="250" locVertical="400" loc2="200" locVertical2="300" horizontal="true"/>
+	<font  size="12"/>
+</gui>
+<euclidianView>
+	<size  width="868" height="711"/>
+	<coordSystem xZero="33.0" yZero="323.0" scale="295.11263916098335" yscale="22.299379173797778"/>
+	<evSettings axes="true" grid="false" gridIsBold="false" pointCapturing="3" pointStyle="0" rightAngleStyle="1" checkboxSize="13" gridType="0"/>
+	<bgColor r="255" g="255" b="255"/>
+	<axesColor r="0" g="0" b="0"/>
+	<gridColor r="192" g="192" b="192"/>
+	<lineStyle axes="1" grid="10"/>
+	<axis id="0" show="true" label="" unitLabel="" tickStyle="1" showNumbers="true"/>
+	<axis id="1" show="true" label="" unitLabel="" tickStyle="1" showNumbers="true"/>
+	<grid distX="0.1" distY="1.0"/>
+</euclidianView>
+<kernel>
+	<continuous val="false"/>
+	<decimals val="2"/>
+	<angleUnit val="degree"/>
+	<coordStyle val="0"/>
+</kernel>
+<construction title="" author="" date="">
+<element type="numeric" label="time">
+	<value val="0.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.1"/>
+	<layer val="0"/>
+	<labelMode val="1"/>
+	<slider min="0.0" max="2.04" absoluteScreenLocation="true" width="200.0" x="94.0" y="381.0" fixed="false" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.01" speed="1.0" type="0" playing="false"/>
+</element>
+<expression label ="distance" exp="distance(x) = 10.0 * x - 9.8 * x^(2.0) / 2.0"/>
+<element type="function" label="distance">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<animation step="0.1" speed="1.0" type="0" playing="false"/>
+	<lineStyle thickness="2" type="0"/>
+</element>
+<command name="Derivative">
+	<input a0="distance(x)"/>
+	<output a0="speed"/>
+</command>
+<element type="function" label="speed">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<layer val="0"/>
+	<lineStyle thickness="2" type="0"/>
+</element>
+<expression label="A" exp="(time, distance(time))" type="point" />
+<element type="point" label="A">
+	<show object="true" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="0.0" y="0.0" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<command name="Tangent">
+	<input a0="A" a1="distance"/>
+	<output a0="tangent"/>
+</command>
+<element type="line" label="tangent">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<objColor r="153" g="0" b="153" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="-10.0" y="1.0" z="0.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="explicit"/>
+</element>
+<command name="Slope">
+	<input a0="tangent"/>
+	<output a0="m"/>
+</command>
+<element type="numeric" label="m">
+	<value val="10.0"/>
+	<show object="true" label="true"/>
+	<objColor r="153" g="51" b="0" alpha="0.1"/>
+	<layer val="0"/>
+	<labelMode val="1"/>
+	<lineStyle thickness="2" type="0"/>
+</element>
+<command name="OrthogonalLine">
+	<input a0="A" a1="xAxis"/>
+	<output a0="xx"/>
+</command>
+<element type="line" label="xx">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="204" b="0" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="-1.0" y="0.0" z="0.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="implicit"/>
+</element>
+<command name="Intersect">
+	<input a0="speed" a1="xx"/>
+	<output a0="B"/>
+</command>
+<element type="point" label="B">
+	<show object="true" label="true"/>
+	<objColor r="64" g="64" b="64" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="0.0" y="10.0" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<command name="OrthogonalLine">
+	<input a0="B" a1="yAxis"/>
+	<output a0="yy"/>
+</command>
+<element type="line" label="yy">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="204" b="0" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="0.0" y="1.0" z="-10.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="implicit"/>
+</element>
+</construction>
+</geogebra>
+%/geogebra_xml
+
+
+
+
+
+
 %geogebra,clear="true"
 //Plot a function in GeoGebra.
 
@@ -107,13 +248,15 @@ t1 = Tangent[p1, f]
 
 
 
-/* The previous plot of 2 * Sin(x) was okay, but it was not interactive
+
+/* 
+The previous plot of 2 * Sin(x) was okay, but it was not interactive
 Press <shift><enter> on this fold to generate an interactive plot of
 Sin(x) with a dynamic tangent line.  Drag the point at the intersection
 of the tangent line and the sin wage to move it.  Drag the points
 a, b, and c to change the sin wave.
 */
-%geogebra_xml,name="slope",collapse="true",clear="true"
+%geogebra_xml,name="sine slope",collapse="true",clear="true"
 <?xml version="1.0" encoding="utf-8"?>
 <geogebra format="2.7">
 <gui>
@@ -445,7 +588,6 @@ demonstration.
 //Execute this fold to render the LaTeX expression it contains.
 %hoteqn
     2\sum_{i=1}^n a_i \;\int_a^b f_i(x)g_i(x)\,dx
-
 %/hoteqn
 
 
@@ -453,7 +595,8 @@ demonstration.
 
 
 %mathpiper,output="latex"
-/*Execute this Piper code and then press <shift><enter> in its output fold
+/*
+Execute this Piper code and then press <shift><enter> in its output fold
 to render the LaTeX expression it generates.
 */
 Clear(x);
@@ -481,7 +624,8 @@ Solve(a,x);
 
 
 
-/*HTML demo.  Execute this code by pressing <shift><enter> inside the fold.  
+/*
+HTML demo.  Execute this code by pressing <shift><enter> inside the fold.  
 */
 %html
 
@@ -633,7 +777,8 @@ Solve(a,x);
 
 
 %beanshell
-/*This code demonstrates that any GUI interfaces can be created for use
+/*
+This code demonstrates that any GUI interfaces can be created for use
 in a notebook.
 */
 import javax.swing.*;
