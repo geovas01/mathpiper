@@ -3,6 +3,16 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Simplify needs to be able to fully reduce expressions like the following:
+
+In> a := 50 * ft/sec * 2*sec - 32/2 * ft/sec^2 *(2*sec)^2
+Result: (sec*100*ft)/sec-((2*sec)^2*16*ft)/sec^2
+
+In> Simplify(a)
+Result: (36*sec^3*ft)/sec^3
+
+The desired result is 36 ft.
+
 + The word "command" needs to be changed to "function" in all of the MathPiper function documentation.
 + This code has an error in it due to RandomIntegerVector not having the proper number of arguments, but it seems to report the wrong line number for the error:
 %mathpiper
