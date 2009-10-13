@@ -130,3 +130,45 @@ N(sum);
 .   %/output
 
 
+
+
+
+
+%mathpiper,title="Exercise 2.8"
+k := 1;
+
+t := 0;
+dt := .01;
+
+x := 1;
+
+v := 0;
+
+vList := {};
+
+xList := {};
+
+Repeat(800)
+[
+    v := v-k*x*dt;
+    x := x + v*dt;
+    t := t + dt;
+    
+    vList := vList:v;
+    
+    xList := xList:x;
+    
+    //Write(v,,);
+];
+
+domain := 1 .. Length(vList);
+
+LineChart({domain,vList,domain,xList}, xAxisLabel -> "Time", series1Title -> "v", series2Title -> "x");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+.   %/output
+
+
