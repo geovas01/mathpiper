@@ -1,0 +1,34 @@
+%mathpiper,title="FactorsBinomials"
+
+Retract("FactorsBinomials",*);
+
+10 # FactorsBinomials(_x^m_IsOdd + _y) <--
+[
+    If(InVerboseMode(),Tell("FactorsBinomialssum",{x,m,y}));
+    Local(nn,qq);
+    nn := (m-1)/2;
+    qq := (y^(1/m));
+    If(InVerboseMode(),Tell("  FBinsum1",{nn,qq}));
+    r := {{x+qq,1},{Sum(k,0,m-1,(-1)^k*qq^k*x^(m-1-k)),1}};
+];
+
+
+10 # FactorsBinomials(_x^m_IsInteger - _y) <--
+[
+    If(InVerboseMode(),Tell("FactorsBinomialsdif",{x,m,y}));
+    Local(pp,qq,r);
+    pp := m-1;
+    qq := (y^(1/m));
+    If(InVerboseMode(),Tell("  FBindif.1",{pp,qq}));
+    if      (m = 2)
+        [r := {{x+qq,1},{x-qq,1}};]
+    else if (m = 4)
+        [r := {{x+qq,1},{x-qq,1},{x^2+qq^2,1}};]
+    else if (m = 6)
+        [r := {{x+qq,1},{x-qq,1},{x^2+x*qq+qq^2,1},{x^2-x*qq+qq^2,1}};]
+    else
+        [r := {{x-qq,1},{Sum(k,0,pp,qq^k*x^(pp-k)),1}};];
+    r;
+];
+
+%/mathpiper
