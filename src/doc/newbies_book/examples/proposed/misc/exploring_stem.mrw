@@ -1839,3 +1839,34 @@ ScatterPlot({domainList,rangeList},
 
 
 
+
+%mathpiper,title=""
+
+Repeat(10)
+[
+    probability := N(Random(),2);
+    
+    percent := N(Rationalize(probability * 100));
+    
+    WriteString(String(probability) : " = " : String(percent) : "%" : Nl());
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 10
+      
+      Side Effects:
+      0.88 = 88%
+      0.98 = 98%
+      0.39 = 39%
+      0.74 = 74%
+      0.79 = 79%
+      0.77 = 77%
+      0.27 = 27%
+      0.75 = 75%
+      0.21 = 21%
+      0.50 = 50%
+.   %/output
+
+
