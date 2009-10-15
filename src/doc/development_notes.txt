@@ -3,6 +3,27 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ This program has one more close bracket than it should, but it does not generate an error:
+%mathpiper
+list :={};
+    ForEach(sum, 2 .. 12)
+    [
+        waysCount := 0;
+        ForEach(die1, 1 .. 6)
+        [
+          ForEach( die2, 1 .. 6)
+          [
+            If(die1 + die2 = sum, waysCount++);
+           
+            ];
+        ];
+      ];
+    list := Append(list, {sum, waysCount});
+  ];
+ list;
+ %/mathpiper 
+ 
+ 
 + Simplify needs to be able to fully reduce expressions like the following:
 
 In> a := 50 * ft/sec * 2*sec - 32/2 * ft/sec^2 *(2*sec)^2
