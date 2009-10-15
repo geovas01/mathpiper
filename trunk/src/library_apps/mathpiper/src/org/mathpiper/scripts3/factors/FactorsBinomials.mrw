@@ -2,7 +2,7 @@
 
 Retract("FactorsBinomials",*);
 
-10 # FactorsBinomials(_x^m_IsOdd + _y) <--
+10 # FactorsBinomials( _x^m_IsOdd + _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialssum",{x,m,y}));
     Local(nn,qq);
@@ -13,7 +13,21 @@ Retract("FactorsBinomials",*);
 ];
 
 
-10 # FactorsBinomials(_x^m_IsInteger - _y) <--
+12 # FactorsBinomials( c_IsConstant * _x^m_IsOdd + _y ) <--
+[
+    If(InVerboseMode(),Tell("FactorsBinomialssum",{c,x,m,y}));
+    Local(nn,qq);
+    nn := (m-1)/2;
+    qq := ((y/c)^(1/m));
+    If(InVerboseMode(),Tell("  FBinsum.1b",{nn,qq}));
+    If( c=1,
+          r := {{x+qq,1},{Sum(k,0,m-1,(-1)^k*qq^k*x^(m-1-k)),1}},
+          r := {{c,1},{x+qq,1},{Sum(k,0,m-1,(-1)^k*qq^k*x^(m-1-k)),1}}
+    );  
+];
+
+
+10 # FactorsBinomials( _x^m_IsInteger - _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialsdif",{x,m,y}));
     Local(pp,qq,r);
@@ -31,4 +45,17 @@ Retract("FactorsBinomials",*);
     r;
 ];
 
+
+12 # xFactorsBinomials( c_IsConstant * _x^m_IsInteger - _y ) <--
+[
+    If(InVerboseMode(),Tell("FactorsBinomialsdif",{c,x,m,y}));
+    Local(aa,bb,c0,r);
+    aa := c^(1/m);
+    bb := ((y)^(1/m));
+    If(InVerboseMode(),Tell("  FBindif.1b",{aa,bb}));
+    r  := FactorsBinomials( (aa*x)^m - bb^m );
+];
+
 %/mathpiper
+
+
