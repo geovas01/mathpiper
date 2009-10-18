@@ -41,7 +41,7 @@ Tan(xlist_IsList) <-- MapSingle("Tan",xlist);
 
 
 
-%mathpiper_docs,name="Tan",categories="User Functions;Calculus Related (Symbolic)"
+%mathpiper_docs,name="Tan",categories="User Functions;Trigonometry (Symbolic)"
 *CMD Tan --- trigonometric tangent function
 *STD
 *CALL
