@@ -30,12 +30,17 @@ Retract("FactorsBinomials",*);
 10 # FactorsBinomials( _x^m_IsInteger - _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialsdif",{x,m,y}));
-    Local(pp,qq,r);
+    Local(pp,qq,r,L);
     pp := m-1;
     qq := (y^(1/m));
     If(InVerboseMode(),Tell("  FBindif.1",{pp,qq}));
+    
     if      (m = 2)
-        [r := {{x+qq,1},{x-qq,1}};]
+        [
+            L := Listify(y);
+            If(And(L[1]=Atom("^"),L[3]=2),qq:=L[2]);
+            r := {{x+qq,1},{x-qq,1}};
+        ]
     else if (m = 4)
         [r := {{x+qq,1},{x-qq,1},{x^2+qq^2,1}};]
     else if (m = 6)
@@ -57,5 +62,9 @@ Retract("FactorsBinomials",*);
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
