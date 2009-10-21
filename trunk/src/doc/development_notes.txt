@@ -3,6 +3,16 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++This looks like a bug:
+%mathpiper,output="trace"
+
+TraceSome("Apply,ApplyPure"){{x},Count({2,3,4,3,2,2,3,2},x)} /@ {1,2,3,4};
+
+%/mathpiper
+
+    %mathpiper_trace,preserve="false"
+      Result: {0,0,0,0}
+
 + This program has one more close bracket than it should, but it does not generate an error:
 %mathpiper
 list :={};
