@@ -29,7 +29,7 @@ Permutations(n, r) :=
 *CMD Permutations --- number of permutations
 *STD
 *CALL
-	Permutations(n)
+    Permutations(n)
     Permutations(n, r)
 
 *PARMS
@@ -52,7 +52,7 @@ Result> 120
 In> Permutations(10,3)
 Result> 720
 
-*SEE PermutationsAll, Combinations, CombinationaAll, LeviCivita
+*SEE PermutationsList, Combinations, LeviCivita
 %/mathpiper_docs
 
 
