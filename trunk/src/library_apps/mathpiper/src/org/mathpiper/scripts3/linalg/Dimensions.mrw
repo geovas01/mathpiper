@@ -12,17 +12,14 @@ LocalSymbols(x,i,n,m,aux,dim,result)
     [
       Local(i,n,m,aux,dim,result);
       result:=List(Length(x));
-      Tell(1,result);
       If(Length(x)>0 And Length(Select(IsList,x))=Length(x),
         [
           n:=Length(x);
 	      dim:=MapSingle(Dimensions,x);
 	      m:=Min(MapSingle(Length,dim));
-          Tell(2,{n,dim,m});
 	      For(i:=1,i<=m,i++)
 	      [
 	        aux:=Table(dim[j][i],j,1,n,1);
-            Tell("  ",{i,aux});
 	        If(Min(aux)=Max(aux),
 	           result:=DestructiveAppend(result,dim[1][i]),
 	           i:=m+1
