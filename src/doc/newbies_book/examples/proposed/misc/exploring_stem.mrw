@@ -2476,3 +2476,37 @@ waysList;
 .   %/output
 
 
+
+
+%mathpiper,title="Growth that doubles"
+
+pop := {1};
+
+
+Repeat(4)
+[
+
+    children := {};
+    
+    ForEach(num, pop)
+    [
+        children := Append(children,num+1);
+    
+    ];
+    
+    Write(pop, children);
+    
+    pop := Concat(pop,children);
+    
+    Echo("  ",pop);
+    
+];
+
+
+pop;
+
+
+//Sort the elements, place them into a histogram, and also place them into Jung.
+
+%/mathpiper
+
