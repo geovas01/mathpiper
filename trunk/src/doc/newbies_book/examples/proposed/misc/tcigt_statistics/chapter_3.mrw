@@ -46,3 +46,128 @@ Echo(".000 to .049 - ", class7Frequency);
 .   %/output
 
 
+
+
+%mathpiper,title=""
+
+data := {3,3,6,2,3,1,1,9,4,5,0,8,2,1,9,5,1,6,1,4,13,2,2,9,1,2,15,7,7,4};
+
+Histogram(data, numberOfBins -> 6);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+.   %/output
+
+
+
+
+%mathpiper,title=""
+
+data := {375,514,834,603,882,468};
+
+BarChart( {1 .. 6, data});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+.   %/output
+
+
+
+
+%mathpiper,title=""
+
+samples := {
+438,413,444,468,445,472,474,454,455,449,
+450,450,450,459,466,470,457,441,450,445,
+487,430,446,450,456,433,455,459,423,455,
+451,437,444,453,434,454,448,435,432,441,
+452,465,466,473,471,464,478,446,459,464,
+441,444,458,454,437,443,465,435,444,457,
+444,471,471,458,459,449,462,460,445,437,
+461,453,452,438,445,435,454,428,454,434,
+432,431,455,447,454,435,425,449,449,452,
+471,458,445,463,423,451,440,442,441,439
+};
+
+sum := Sum(samples);
+
+mean := N(sum/Length(samples));
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 450.01
+.   %/output
+
+
+
+%mathpiper,title=""
+
+data := {3,4,4,4,5,6,7,7,9};
+
+data := Shuffle(data);
+
+data := HeapSort(data,"<");
+
+Echo(data);
+
+length := Length(data);
+
+middleIndex := Round(length/2);
+
+Echo(data[middleIndex]);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      3 4 4 4 5 6 7 7 9 
+      5
+.   %/output
+
+
+
+
+%mathpiper,title=""
+
+data := {3,4,4,4,5,6,7,7,9};
+
+unique := RemoveDuplicates(data);
+
+Echo("Unique list: ", unique);
+
+countsList := {};
+ForEach(value, unique)
+[
+    countsList := Append(countsList,Count(data, value));
+];
+
+Echo("Counts list: ", countsList);
+greatestList := HeapSort(FlatCopy(countsList),">");
+
+greatest := greatestList[1];
+
+largestIndex := Find(countsList, greatest);
+
+unique[largestIndex];
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 4
+      
+      Side Effects:
+      Unique list: {3,4,5,6,7,9} 
+      Counts list: {1,3,1,1,2,1}
+.   %/output
+
+
+
+
+

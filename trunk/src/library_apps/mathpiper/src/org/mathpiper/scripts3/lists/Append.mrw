@@ -41,3 +41,8 @@ constant.
 
 *SEE Concat, :, DestructiveAppend
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
