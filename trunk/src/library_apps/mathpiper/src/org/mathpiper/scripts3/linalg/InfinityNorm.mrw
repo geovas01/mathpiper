@@ -22,7 +22,7 @@ Retract("InfinityNorm",*);
 
 
 
-%mathpiper_docs,name="InfinityNorm",categories="User Functions;Matrices"
+%mathpiper_docs,name="InfinityNorm",categories="User Functions;Linear Algebra"
 *CMD InfinityNorm --- Compute the "Infinity Norm" of a Vector or Matrix
 *STD
 *CALL
