@@ -42,7 +42,7 @@ LocalSymbols(x,i,n,m,aux,dim,result)
 
 
 %mathpiper_docs,name="Dimensions",categories="User Functions;Linear Algebra"
-*CMD Dimensions --- dimensions (number of rows, columns, ...) of input Matrix
+*CMD Dimensions --- dimensions (number of rows and columns etc) of input Matrix
 *STD
 *CALL
 	Dimensions(Matrix)
