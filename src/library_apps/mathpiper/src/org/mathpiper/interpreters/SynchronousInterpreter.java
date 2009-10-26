@@ -115,7 +115,7 @@ class SynchronousInterpreter implements Interpreter {
             }//end if.
             
 
-            Utility.scriptsPath = "org/mathpiper/assembledscripts/";
+            Utility.scriptsPath = "/org/mathpiper/assembledscripts/";
 
 
             /*  java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("initialization.rep/mathpiperinit.mpi");
