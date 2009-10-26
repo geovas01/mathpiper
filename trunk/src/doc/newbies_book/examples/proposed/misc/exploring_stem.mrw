@@ -2547,7 +2547,8 @@ Repeat()
     
     integerValue := Atom(inputValue);
     
-    If(Not IsInteger(integerValue), [TellUser("You must enter an integer."); Continue();]);
+    If(Not IsInteger(integerValue), 
+        [TellUser("You must enter an integer."); Continue();]);
     
     TellUser("The integer you entered is " : String(integerValue) : "." : Nl() :
     "It took you " : String(RoundTo(time,3)) : " seconds to enter the number." );
