@@ -2510,3 +2510,54 @@ pop;
 
 %/mathpiper
 
+
+
+======================== Plotting section
+
+
+
+%mathpiper,title=""
+
+f(d) := N(d/55);
+
+Plot2D(f(d),0:500);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+.   %/output
+
+
+
+
+
+
+
+
+
+
+%mathpiper,title=""
+
+Repeat()
+[
+    time := Time() inputValue := AskUser("Enter an integer (or q to quit).");
+
+    If(inputValue = "q" Or inputValue = "Q", Break() );
+    
+    integerValue := Atom(inputValue);
+    
+    If(Not IsInteger(integerValue), [TellUser("You must enter an integer."); Continue();]);
+    
+    TellUser("The integer you entered is " : String(integerValue) : "." : Nl() :
+    "It took you " : String(RoundTo(time,3)) : " seconds to enter the number." );
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 3
+.   %/output
+
+
+
