@@ -43,7 +43,7 @@ public class RunTestSuite {
             int exceptionCount = 0;
 
 
-            BufferedReader scriptNames = new BufferedReader(new InputStreamReader(java.lang.ClassLoader.getSystemResource("tests/scripts/test_index.txt").openStream()));
+            BufferedReader scriptNames = new BufferedReader(new InputStreamReader(RunTestSuite.class.getClassLoader().getSystemResource("tests/scripts/test_index.txt").openStream()));
             if (scriptNames != null) //File is on the classpath.
             {
                 String output;
