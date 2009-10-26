@@ -692,7 +692,8 @@ public class Utility {
         doInternalLoad(aEnvironment, newInput);
         } else {*/
 //System.out.println("Loading: " + oper);
-        Enumeration paths  = java.lang.ClassLoader.getSystemResources(Utility.scriptsPath + oper);
+        //Enumeration paths  = java.lang.ClassLoader.getSystemResources(Utility.scriptsPath + oper);
+        Enumeration paths  = Utility.class.getClassLoader().getSystemResources(Utility.scriptsPath + oper);
 
 
         URL fileURL = null;
@@ -883,7 +884,8 @@ public class Utility {
         doLoadDefFile(aEnvironment, newInput, def);
         } else {*/
 //System.out.println("Loading: " + flatfile);
-        Enumeration paths  = java.lang.ClassLoader.getSystemResources(Utility.scriptsPath + flatfile);
+        //Enumeration paths  = java.lang.ClassLoader.getSystemResources(Utility.scriptsPath + flatfile);
+        Enumeration paths  = Utility.class.getClassLoader().getSystemResources(Utility.scriptsPath + flatfile);
 
 
         URL fileURL = null;
