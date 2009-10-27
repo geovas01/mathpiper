@@ -4,7 +4,7 @@
 
 2. Perform tests:
 
->test.sh
+>integrationtest.sh
 
 3. Call Piper:
 
