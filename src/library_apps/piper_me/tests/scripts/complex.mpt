@@ -14,7 +14,7 @@ Verify(I^(-I), Exp(Pi/2));
 Verify((1+I)^33, 65536+I*65536);
 Verify((1+I)^(-33), (1-I)/131072);
 Verify(Exp(I*Pi), -1);
-TestYacas((a+b*I)*(c+d*I), (a*c-b*d)+I*(a*d+b*c));
+TestMathPiper((a+b*I)*(c+d*I), (a*c-b*d)+I*(a*d+b*c));
 Verify(Ln(-1), I*Pi);
 Verify(Ln(3+4*I), Ln(5)+I*ArcTan(4/3));
 
