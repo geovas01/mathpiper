@@ -43,6 +43,8 @@ public class PiperInterpreter {
         if (detectURL == null) return false;
  
         String detect = detectURL.getPath(); // file:/home/av/src/lib/piper.yar!/piperinit.pi
+        if (detect.lastIndexOf('!') == -1)
+          return true;
         String archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/piper.jar
  
         java.util.zip.ZipFile z;

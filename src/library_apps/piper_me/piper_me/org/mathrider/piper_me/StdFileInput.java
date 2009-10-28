@@ -6,7 +6,7 @@ import java.io.*;
 
 public class StdFileInput extends StringInput
 {
-  public static FileLocator locator = null;
+  public static FileLocator locator = new DefaultFileLocator();
   
   public StdFileInput(String aFileName, InputStatus aStatus) throws Exception
   {
