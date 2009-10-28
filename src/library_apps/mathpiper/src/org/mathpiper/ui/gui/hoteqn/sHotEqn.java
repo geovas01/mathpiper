@@ -254,15 +254,12 @@ package org.mathpiper.ui.gui.hoteqn;
 
 // package bHotEqn;  // for Bean-compilation to avoid double filenames
 
-import org.mathpiper.ui.gui.hoteqn.*;
 import java.util.*;
 //changed 13.10.2002 //import java.awt.*; 
 import java.awt.image.*; 
 import java.awt.event.*;
 //changed 13.10.2002 //import java.applet.Applet; // wenn Component von Applet aufgerufen wird.
 import java.net.URL;       // for image loading in beans
-import java.io.InputStream;  //
-import java.io.IOException;
 import java.io.*;
 import java.util.StringTokenizer;
 
@@ -589,6 +586,7 @@ public void processMouseMotionEvent(MouseEvent ev) {
   }
 } // end processMouseMotionEvent 
 
+    @Override
 public Dimension getPreferredSize() {
   if (width==0 & height==0) {
     Graphics g = this.getGraphics();
@@ -613,15 +611,15 @@ public Dimension getPreferredSize() {
 }
 
 public Dimension getSizeof(String equation) {
-	int border;
+	int borderVal;
 	Image genImage=createImage(200,200);
 	Graphics g = genImage.getGraphics();
 	g.setFont(f1);
 	eqScan.setEquation(equation);
 	BoxC area = eqn(0,150, false, g, 1);
 	g.dispose();
-	if (borderB) border=5;	else border = 0;
-  return new Dimension(1+area.dx+2*border,1+area.dy_pos+area.dy_neg+2*border);
+	if (borderB) borderVal=5;	else borderVal = 0;
+  return new Dimension(1+area.dx+2*borderVal,1+area.dy_pos+area.dy_neg+2*borderVal);
 }
 
 public Dimension getMinimumSize() { return getPreferredSize();}
@@ -2562,13 +2560,13 @@ private BoxC VEC(int x, int y, boolean disp, Graphics g, int rec) {
          g.drawLine(xdx2, ddy-dd ,ddx , ddy);
       }
       else if (arg.equals("widetilde")) { 
-         int y1 = 0;
+         int y1Val = 0;
          int y2 = 0;
          for (int i=1; i<dxh ; i++) {
-         y1 = y2;
+         y1Val = y2;
          y2 = (int) ( quad8 * Math.sin(1.3*Math.PI*i/dxh) );
-         g.drawLine(xdx2+i-1,ddy+y1,xdx2+i,ddy+y2);
-         g.drawLine(xdx2-i+1,ddy-y1,xdx2-i,ddy-y2);         }
+         g.drawLine(xdx2+i-1,ddy+y1Val,xdx2+i,ddy+y2);
+         g.drawLine(xdx2-i+1,ddy-y1Val,xdx2-i,ddy-y2);         }
       }
 
    } // end disp
