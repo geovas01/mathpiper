@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Look into this: Solve(t == x^2,x)
 + One would think that the extra closing parentheses in the following code would cause an error:
 In> carC := RandomPickWeighted({{BROKEN,15/100},{RUNNING,85/100}}););
 Result: )
