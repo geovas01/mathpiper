@@ -487,6 +487,14 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         line = line.replaceAll("\\}", "</tt></b>");
         return line;
     }//end method.
+    
+    
+    
+    private static String applyPre(String line) {
+        line = line.replaceAll("\\[", "<pre>");
+        line = line.replaceAll("\\]", "</pre>");
+        return line;
+    }//end method.
 
 
     public static String textToHtml(String scriptCode) {
@@ -594,6 +602,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     }
 
                     line = applyBold(line);
+                    line = applyPre(line);
                     //foldOutput = foldOutput + line;
 
 
