@@ -1,0 +1,147 @@
+%mathpiper,title="pp.149"
+
+/*
+The probability that 64.3 ounces or less of spray
+will be used.
+*/
+N(CumulativeDistributionFunction(NormalDistribution(60,5),64.3));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.8051055222
+.   %/output
+
+
+
+%mathpiper,title="pp.152"
+
+/*
+The probability that more than 62.5 ounces of spray will be used.
+*/
+N(1-CumulativeDistributionFunction(NormalDistribution(60,5),62.5));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.3085375374
+.   %/output
+
+
+
+
+%mathpiper,title="pp.153"
+
+/*
+The probability that more than 54 ounces of spray will be used
+*/
+N(1-CumulativeDistributionFunction(NormalDistribution(60,5),54));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.8849302650
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="pp.155"
+
+/*
+The probability that between 54 and 62.5 ounces of spray will be used.
+
+*/
+
+high := N(CumulativeDistributionFunction(NormalDistribution(60,5),62.5));
+
+low := N(CumulativeDistributionFunction(NormalDistribution(60,5),54));
+
+high - low;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.5763927276
+.   %/output
+
+
+
+%mathpiper,title="pp.155"
+
+/*
+The empirical rule for 1 standard deviation.
+
+*/
+
+high := N(CumulativeDistributionFunction(NormalDistribution(0,1),1));
+
+low := N(CumulativeDistributionFunction(NormalDistribution(0,1),-1));
+
+high - low;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.6826894720
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 1 pp.161"
+
+Echo("a) ", N(1-CumulativeDistributionFunction(NormalDistribution(62.6,3.7),65.5)));
+
+Echo("b) ", N(1-CumulativeDistributionFunction(NormalDistribution(62.6,3.7),58.1)));
+
+high := N(CumulativeDistributionFunction(NormalDistribution(62.6,3.7),70));
+
+low := N(CumulativeDistributionFunction(NormalDistribution(62.6,3.7),61));
+
+between := high - low;
+
+Echo("c) ", between);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a) 0.2165834318 
+      b) 0.8880486496 
+      c) 0.6445363277
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 2 pp.161"
+
+Echo("a) ", N(CumulativeDistributionFunction(NormalDistribution(176000,22300),190000)));
+
+Echo("b) ", N(CumulativeDistributionFunction(NormalDistribution(176000,22300),158000)));
+
+high := N(CumulativeDistributionFunction(NormalDistribution(176000,22300),168000));
+
+low := N(CumulativeDistributionFunction(NormalDistribution(176000,22300),150000));
+
+between := high - low;
+
+Echo("c) ", between);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a) 0.7349334554 
+      b) 0.2097828076 
+      c) 0.2380696197
+.   %/output
+
+
