@@ -41,7 +41,7 @@ Retract("ProbabilityDensityFunction", *);
 
 10 # ProbabilityDensityFunction(ExponentialDistribution(_l), _x) <-- If(x<0,0,l*Exp(-l*x));
 
-10 # ProbabilityDensityFunction(NormalDistribution(_m,_s),_x) <-- Exp(-(x-m)^2/(2*s))/Sqrt(2*Pi*s);
+10 # ProbabilityDensityFunction(NormalDistribution(_m,_s),_x) <-- Exp(-(x-m)^2/(2*s^2))/Sqrt(2*Pi*s^2); //See http://en.wikipedia.org/wiki/Normal_distribution.
 
 10 # ProbabilityDensityFunction(ContinuousUniformDistribution(_a,_b),x)_(a<b) <-- If(x<a Or x>b,0,1/(b-a));
 
@@ -82,6 +82,9 @@ If {dist} is a discrete distribution, then {ProbabilityDensityFunction} returns 
 probability for a random variable with distribution {dist} to take a
 value of {x}. If {dist} is a continuous distribution, then {ProbabilityDensityFunction}
 returns the density function at point $x$.
+
+The probability density function (PDF) of a continuous distribution is defined as the 
+derivative of the (cumulative) distribution function.
 
 *SEE CumulativeDistributionFunction, Expectation
 %/mathpiper_docs
