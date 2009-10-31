@@ -4,7 +4,7 @@ Development notes.
 
 {{{====To Do:
 +
-> Interestingly, I have managed to eliminate this problem (in Gcd()?) without actually
+> Interestingly, I (Sherm) have managed to eliminate this problem (in Gcd()?) without actually
 > finding out what CAUSED it.  I thought perhaps I had some variables not
 > declared Local, but there weren't any.  My guess is that some or all of the
 > stuff needs to be enclosed in  LocalVariables brackets, but I really don't
