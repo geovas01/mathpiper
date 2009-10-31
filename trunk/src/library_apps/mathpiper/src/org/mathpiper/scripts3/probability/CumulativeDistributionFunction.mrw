@@ -43,7 +43,7 @@ Retract("CumulativeDistributionFunction", *);
 10 # CumulativeDistributionFunction(PoissonDistribution(_l), x_IsNumber)_(x<=0) <-- 0;
 10 # CumulativeDistributionFunction(PoissonDistribution(_l), _x) <-- Sum @ {i,0,x-1,ProbabilityDensityFunction(PoissonDistribution(l),i)};
 
-10 # CumulativeDistributionFunction(ChiSquareDistribution(_m), _x) <-- IncompleteGamma(x/2,m/2)/Gamma(x/2);
+10 # CumulativeDistributionFunction(ChiSquareDistribution(_m), _x) <-- IncompleteGamma(m/2,x/2)/Gamma(x/2);
 10 # CumulativeDistributionFunction(DiscreteDistribution( dom_IsList, prob_IsList), _x)   <--
       [
 	 Local(i,cdf,y);
@@ -79,6 +79,12 @@ Retract("CumulativeDistributionFunction", *);
 {dist} -- a distribution type
 
 {x} -- a value of random variable
+
+*DESC
+The cumulative distribution function (CDF) (or just distribution function) describes the 
+probability distribution of a real-valued random variable X. For every real number x, 
+the CDF of X represents the probability that the random variable X takes on a value less 
+than or equal to x.
 
 
 *SEE ProbabilityDensityFunction, Expectation
