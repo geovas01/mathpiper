@@ -72,8 +72,8 @@ is the probability that the error of a single measurement lies between -a and +a
 for positive a. http://en.wikipedia.org/wiki/Error_function.
 
 *E.G.
-In> ZScoreToProbability(1.08)
-Result: 0.8599289100
+In> ErrorFunction(1)
+Result: 0.8427006898
 
 *SEE NormalDistribution
 %/mathpiper_docs
