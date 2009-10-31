@@ -3,6 +3,15 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++
+> Interestingly, I have managed to eliminate this problem (in Gcd()?) without actually
+> finding out what CAUSED it.  I thought perhaps I had some variables not
+> declared Local, but there weren't any.  My guess is that some or all of the
+> stuff needs to be enclosed in  LocalVariables brackets, but I really don't
+> know why.  I refer to the YT implementation of BinaryFactor as an example of
+> doing just that, and I don't know why THEY did it either.  I am tempted to
+> leave well-enough alone at this point, since my new version seems to work
+> ok.
 + In> AskUser("Solve: " : 3);
 Result: 
 Exception: org.mathpiper.lisp.cons.ConsPointer cannot be cast to java.lang.String
