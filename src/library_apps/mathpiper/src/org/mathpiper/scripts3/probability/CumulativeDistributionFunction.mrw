@@ -60,6 +60,8 @@ Retract("CumulativeDistributionFunction", *);
     Sum @ {i,0,x,ProbabilityDensityFunction(HypergeometricDistribution(N, M, n),i)};
 ];
 
+10 # CumulativeDistributionFunction(NormalDistribution(_m,_s), _x) <-- 1/2 + 1/2 * ErrorFunction((x - m)/(s*Sqrt(2))); //See http://en.wikipedia.org/wiki/Normal_distribution.
+
 %/mathpiper
 
     %output,preserve="false"
