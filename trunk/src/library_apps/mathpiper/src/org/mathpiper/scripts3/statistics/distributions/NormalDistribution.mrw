@@ -11,7 +11,7 @@ NormalDistribution( _m , s2_IsRationalOrNumber)_(s2<=0) <-- Undefined;
 
 
 %mathpiper_docs,name="NormalDistribution",categories="User Functions;Statistics & Probability"
-*CMD ContinuousUniformDistribution --- Discrete uniform distribution
+*CMD NormalDistribution --- The normal distribution.
 *STD
 *CALL
 	NormalDistribution(mean, sigma)
@@ -21,6 +21,12 @@ NormalDistribution( _m , s2_IsRationalOrNumber)_(s2<=0) <-- Undefined;
 {mean} -- Number, the mean of the distribution
 {sigma} -- Number, the standard deviation of the distribution
 
+*DESC
+The normal distribution.
+
+*E.G.
+In> N(CumulativeDistributionFunction(NormalDistribution(60,5),64.3))
+Result: 0.8051055222
 
 *SEE BinomialDistribution, BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ContinuousUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
 %/mathpiper_docs
