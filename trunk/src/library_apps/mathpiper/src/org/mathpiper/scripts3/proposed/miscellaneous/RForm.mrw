@@ -2,7 +2,10 @@
 
 /* RForm: convert MathPiper objects to R code. */
 
-
+Retract("RForm",*);
+Retract("RIndent",*);
+Retract("RUndent",*);
+Retract("RNlIndented",*); 
 
 RuleBase("RForm",{expression});
 RuleBase("RForm",{expression, precedence});
@@ -28,6 +31,7 @@ RFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is equa
 /* Variables are left as is, except some special ones */
 190 # RForm(False, _p) <-- "false";
 190 # RForm(True, _p) <-- "true";
+190 # RForm(Pi, _p) <-- "pi";
 200 # RForm(x_IsAtom, _p) <-- String(x);
 
 /* Strings must be quoted but not bracketed */
@@ -40,20 +44,78 @@ RFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is equa
 /* addition, subtraction, multiplication, all comparison and logical operations are "regular" */
 
 
-LocalSymbols(RFormRegularOps) [
-  RFormRegularOps := { {"+"," + "}, {"-"," - "}, {"*"," * "},
-                       {"/"," / "}, {":="," = "}, {"=="," == "},
-                       {"="," == "}, {"!="," != "}, {"<="," <= "},
-                       {">="," >= "}, {"<"," < "}, {">"," > "},
-                       {"And"," && "}, {"Or"," || "}, {">>", " >> "},
-                       { "<<", " << " }, { "&", " & " }, { "|", " | " },
-                       { "%", " % " }, { "^", " ^ " },
-                     };
+LocalSymbols(rFormRegularOps) [
+  rFormRegularOps := 
+  { 
+    {"+","+"},
+    {"-","-"},
+    {"*","*"},
+    {"/","/"},
+    {"/","/"},
+    {"^","^"},
+    {"=","=="},
+    {">=",">="},
+    {">",">"},
+    {"<=","<="},
+    {"<","<"},
+    {"!=","!="},
+    {"..",":"},
+    {"Not","!"},
+    {":=","<-"},
+    {"sequence",":"},
+    {"True","TRUE"},
+    {"Mod","%%"},
+    {"Div","%/%"},
+  };
 
-  RFormRegularOps() := RFormRegularOps;
-]; // LocalSymbols(RFormRegularOps)
+  RFormRegularOps() := rFormRegularOps;
+]; // LocalSymbols(rFormRegularOps)
 
-	/* This is the template for "regular" binary infix operators:
+
+
+
+LocalSymbols(rFormMathFunctions) [
+  rFormMathFunctions :=
+  {
+    {"NthRoot","root"},
+    {"Infinite","Inf"},
+    {"Undefined","NaN"},
+    {"Sin","sin"},
+    {"Cos","cos"},
+    {"Tan","tan"},
+    {"ArcSin","asin"},
+    {"ArcCos","acos"},
+    {"ArcTan","atan"},
+    {"ArcSinh","asinh"},
+    {"ArcCosh","acosh"},
+    {"ArcTanh","atanh"},
+    {"ArcCsc","acsc"},
+    {"ArcCsch","acsch"},
+    {"ArcSec","asec"},
+    {"ArcSech","asech"},
+    {"ArcCot","acot"},
+    {"ArcCoth","acoth"},
+    {"Exp","exp"},
+    {"Ln","log"},
+    {"Sqrt","sqrt"},
+    {"Bin","choose"},
+    {"Gamma","gamma"},
+    {"!","factorial"},
+    {"Limit","limit"},
+    {"Deriv","deriv"},
+    {"Integrate","integrate"},
+    {"Taylor","?"},
+    {"List","list"},
+  };
+
+  RFormMathFunctions() := rFormMathFunctions;
+
+]; // LocalSymbols(RFormMathFunctions)
+
+
+
+
+/* This is the template for "regular" binary infix operators:
 100 # RForm(_x + _y, _p) <-- RFormBracketIf(p<OpPrecedence("+"), ConcatStrings(RForm(x, OpLeftPrecedence("+")), " + ", RForm(y, OpRightPrecedence("+")) ) );
 	*/
 
@@ -68,37 +130,6 @@ LocalSymbols(RFormRegularOps) [
 
 100 # RForm(if(_pred)_body, _p) <-- "if (":RForm(pred,60000):") ":RForm(body);
 100 # RForm(_left else _right, _p) <-- RForm(left):" else ":RForm(right);
-
-
-LocalSymbols(RFormMathFunctions) [
-  RFormMathFunctions :=
-    {
-      {"Sqrt","sqrt"},
-      {"Cos","cos"},
-      {"Sin","sin"},
-      {"Tan","tan"},
-      {"Cosh","cosh"},
-      {"Sinh","sinh"},
-      {"Tanh","tanh"},
-      {"Exp","exp"},
-      {"Ln","log"},
-      {"ArcCos","acos"},
-      {"ArcSin","asin"},
-      {"ArcTan","atan"},
-      {"ArcCosh","acosh"},
-      {"ArcSinh","asinh"},
-      {"ArcTanh","atanh"},
-      {"Max","max"},
-      {"Min","min"},
-      {"Abs","fabs"},
-      {"Floor","floor"},
-      {"Ceil","ceil"},
-    {"!","factorial"}
-    };
-
-  RFormMathFunctions() := RFormMathFunctions;
-
-]; // LocalSymbols(RFormMathFunctions)
 
 /* Precedence of 120 because we'd like to process some special functions like pow() first */
 
@@ -153,10 +184,10 @@ RFormArgs(list_IsList) <--
 //100 # RForm(_x [ _i ], _p) <-- ConcatStrings(RForm(x, RFormMaxPrec()), "[", RForm(i, RFormMaxPrec()), "]");
 100 # RForm(Nth(_x, _i), _p) <-- ConcatStrings(RForm(x, RFormMaxPrec()), "[", RForm(i, RFormMaxPrec()), "]");
 
-LocalSymbols(cindent) [
-  cindent:=1;
+LocalSymbols(RIndent) [
+  RIndent:=1;
 
-  NlIndented():=
+  RNlIndented():=
   [
     Local(result);
 // carriage return, so needs to start at the beginning of the line
@@ -164,35 +195,35 @@ LocalSymbols(cindent) [
 "
 ";
     Local(i);
-    For(i:=1,i<cindent,i++)
+    For(i:=1,i<RIndent,i++)
     [
       result:=result:"  ";
     ];
     result;
   ];
-  CIndent() :=
+  RIndent() :=
   [
-  (cindent++);
+  (RIndent++);
   "";
   ];
-  CUndent() :=
+  RUndent() :=
   [
-  (cindent--);
+  (RIndent--);
   "";
   ];
-]; // LocalSymbols(cindent)
+]; // LocalSymbols(RIndent)
 
-RFormStatement(_x) <-- RForm(x) : ";" : NlIndented();
+RFormStatement(_x) <-- RForm(x) : ";" : RNlIndented();
 
 120 # RForm(_x,_p)_(Type(x) = "Prog") <--
 [
   Local(result);
-  result:=CIndent():"{":NlIndented();
+  result:=RIndent():"{":RNlIndented();
   ForEach(item,Rest(Listify(x)))
   [
     result:=result:RFormStatement(item);
   ];
-  result:=result:"}":CUndent():NlIndented();
+  result:=result:"}":RUndent():RNlIndented();
   result;
 ];
 
@@ -200,15 +231,19 @@ RFormStatement(_x) <-- RForm(x) : ";" : NlIndented();
   "for(" : RForm(from,RFormMaxPrec()) : ";"
 	: RForm(to,RFormMaxPrec()) : ";"
 	: RForm(step,RFormMaxPrec()) : ")"
-	: CIndent() : NlIndented()
-	: RFormStatement(body) : CUndent();
+	: RIndent() : RNlIndented()
+	: RFormStatement(body) : RUndent();
 
 120 # RForm(While(_pred)_body, _p) <--
 	"while(" : RForm(pred,RFormMaxPrec()) : ")"
-	: CIndent() : NlIndented()
-	: RFormStatement(body) : CUndent();
+	: RIndent() : RNlIndented()
+	: RFormStatement(body) : RUndent();
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
@@ -234,3 +269,136 @@ Currently the exporter handles most expression types but not all.
 
 *SEE PrettyForm, TeXForm, CForm
 %/mathpiper_docs
+
+
+
+
+
+
+
+
+http://code.google.com/p/ryacas/source/browse/trunk/R/OpenMath2R.R
+OpenMath2R <- function(x) {
+ out <- c()
+ recurse <- function( x ) {
+	if ("name" %in% names(xmlAttrs(x))) {
+		out <<- c(out, trans(xmlAttrs(x)[["name"]], from="OM", to="R"), " ")
+	}
+	if (xmlName(x) == "text") out <<- c(out, xmlValue(x), " ")
+	if (xmlName(x) == "OMF") out <<- c(out, xmlAttrs(x)[["dec"]], " ")
+	if (xmlName(x) == "OMS") {
+	if (xmlAttrs(x)[["cd"]] == "logic1" && "name" %in% names(xmlAttrs(x))
+		&& xmlAttrs(x)[["name"]] %in% c("true", "false")) {}
+	   else if ((xmlAttrs(x)[["cd"]] != "nums1") ||
+				(xmlAttrs(x)[["name"]] == "rational")) 
+			out <<- c(out, xmlValue(x), "(")
+	}
+	# if (xmlName(x) == "OMS") out <<- c(out, "(")
+	if (xmlName(x) == "OMSTR") {
+	# out <<- c(out, sQuote(gsub("'", "\\\\'", xmlValue(x))))
+	out <<- c(out, paste("'", gsub("'", "\\\\'", xmlValue(x)), "'", sep=""))
+	} else if ( length( xmlChildren(x) ) > 0 )
+		for( i in seq( along = xmlChildren(x) ) ) {
+			Recall( x[[i]] )
+			if (i > 1 && i < length(xmlChildren(x))) 
+				out <<- c(out, ",")
+		}
+	if (xmlName(x) == "OMA" || xmlName(x) == "OMBIND") out <<- c(out, xmlValue(x), ")")
+ }
+ x <- paste(x, "\n", collapse = "")
+ x <- xmlTreeParse(x, asText = TRUE)
+ x <- xmlRoot(x)
+ recurse(x)
+ paste(out, collapse = "")
+}
+
+trans <- function(x, ttab=transtab, from, to) {
+   idx <- match(x, ttab[,from], nomatch = 0)
+   res <- if (idx > 0) ttab[idx,to] else x
+   if (tolower(substr(res, 1, 1)) %in% letters) res
+   else paste('"', res, '"', sep="")
+}
+
+transtab <- matrix( c(
+	#R			OM			yacas
+	"pi",		"pi",		"Pi",
+	
+	"+",		"plus",		"+",
+	"-",		"minus",	"-",
+	"*",		"times",	"*",
+	"/",		"divide",	"/",
+	"/",		"rational",	"/",
+	"^",		"power",	"^",
+	"%%",		"mod",		"Mod",
+	"%/%",		"div",		"Div",
+	"root",		"root",		"NthRoot",
+	"Inf",		"infinity",	"Infinite",
+	"NaN",		"undefined","Undefined",
+	
+	"sin",		"Sin",		"Sin",
+	"cos",		"Cos",		"Cos",
+	"tan",		"Tan",		"Tan",
+	
+	"asin",		"arcsin",	"ArcSin",
+	"acos",		"arccos",	"ArcCos",
+	"atan", 	"arctan", 	"ArcTan",
+	"asinh", 	"arcsinh", 	"ArcSinh", 
+	"acosh", 	"arccosh", 	"ArcCosh", 
+	"atanh", 	"arctanh", 	"ArcTanh",
+	
+	"acsc",		"arccsc",	"ArcCsc",
+	"acsch",	"arccsch",	"ArcCsch",
+	
+	"asec",		"arcsec",	"ArcSec",
+	"asech",	"arcsech",	"ArcSech",
+	
+	"acot",		"arccot",	"ArcCot",
+	"acoth",	"arccoth",	"ArcCoth",
+	
+	"exp", 		"exp", 		"Exp",
+	"log", 		"ln", 		"Ln",
+	"sqrt", 	"sqrt", 	"Sqrt",
+	"choose", 	"bin", 		"Bin",
+	"gamma", 	"gamma", 	"Gamma",
+	
+	"!",		"not",		"Not",
+	"==",		"eq",		"=",
+	"==",		"equivalent","=",
+	">=",		"geq",		">=",
+	">", 		"gt",		">",
+	"<=", 		"leq",		"<=",
+	"<", 		"lt",		"<",
+	"!=", 		"neq",		"!=",
+	":", 		"seq",		"sequence",
+	":", 		"seq",		"..",
+	
+	"factorial","factorial","factorial",
+	"factorial","factorial","!",
+	"limit", 	"lim", 		"Limit",
+	"deriv", 	"deriv", 	"Deriv",
+	"integrate","integrate","Integrate",
+	"?",		"taylor",	"Taylor",
+
+	"list",		"List", 	"List",
+	"TRUE",		"true", 	"True",
+	"<-",		"?",		":=",
+	"Expr",		"?",		"",
+	"Exprq", 	"?",		"",
+	"expression", 	"?", 		""
+	
+), byrow = TRUE, ncol = 3)
+colnames(transtab) <- c("R", "OM", "yacas")
+
+# Used for expressions not handled by R
+
+root <- function(x, y) {
+	(x)^(1/(y))
+}
+
+
+
+
+
+
+
+
