@@ -127,9 +127,7 @@ TestFunction() :=
 [
     Echo("1");
 
-    3;
-
-    Return();
+    If(True, ReturnFromBlock(3));
 
     Echo("2");
 ];
