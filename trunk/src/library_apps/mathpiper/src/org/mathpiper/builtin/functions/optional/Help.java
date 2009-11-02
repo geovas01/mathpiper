@@ -57,7 +57,7 @@ public class Help extends BuiltinFunction
 *CORE
 *CALL
 
-    Break()
+    Help()
 
 *DESC
 
