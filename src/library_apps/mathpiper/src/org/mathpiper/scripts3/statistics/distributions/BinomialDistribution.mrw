@@ -49,7 +49,7 @@ ProbabilityDensityFunction(BinomialDistribution(.1,15),0);
 
 /%mathpiper,title=""
 
-//The argument 2 here means < 2.
+//The argument 2 here means <= 2.
 CumulativeDistributionFunction(BinomialDistribution(.1,15),2);
 
 /%/mathpiper

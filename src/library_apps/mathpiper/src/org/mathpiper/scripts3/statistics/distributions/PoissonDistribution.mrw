@@ -24,7 +24,7 @@ PoissonDistribution(l_IsRationalOrNumber)_(l<=0) <-- Undefined;
 The poisson distribution.
 
 *E.G.
-In> N(ProbabilityDensityFunction(PoissonDistribution(5), 7))
+In> N(ProbabilityMassFunction(PoissonDistribution(5), 7))
 Result: 0.1044448631
 
 In> N(CumulativeDistributionFunction(PoissonDistribution(5), 3))
