@@ -69,6 +69,7 @@ high - low;
 
 
 
+
 %mathpiper,title="pp.155"
 
 /*
@@ -84,8 +85,24 @@ high - low;
 
 %/mathpiper
 
+
+
+
+
+%mathpiper,title="Approximating the binomial distribution example pp.157"
+CumulativeDistributionFunction(BinomialDistribution(.1,15),2);
+
+
+high := N(CumulativeDistributionFunction(BinomialDistribution(.6,15),16));
+
+low := N(CumulativeDistributionFunction(BinomialDistribution(.6,15),8));
+
+high - low;
+
+%/mathpiper
+
     %output,preserve="false"
-      Result: 0.6826894720
+      Result: 0.6098131556
 .   %/output
 
 
@@ -142,6 +159,32 @@ Echo("c) ", between);
       a) 0.7349334554 
       b) 0.2097828076 
       c) 0.2380696197
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 6 pp.161"
+
+high := N(CumulativeDistributionFunction(NormalDistribution(4580,550),5000));
+
+low := N(CumulativeDistributionFunction(NormalDistribution(4580,550),4000));
+
+between := high - low;
+
+Echo("a) ", between);
+
+
+Echo("b) ", N(CumulativeDistributionFunction(NormalDistribution(4580,550),4200)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a) 0.6316414189 
+      b) 0.2448112676
 .   %/output
 
 
