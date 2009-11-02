@@ -30,6 +30,8 @@
 
 ZScoreToProbability(zScore) :=
 [
+    zScore := N(zScore);
+    
     Local( y, x, w, ZMAX, result);
     
     ZMAX := 6; // Maximum ±z value
