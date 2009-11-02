@@ -4,8 +4,10 @@ Retract("IsPolynomialOverIntegers",*);
 
 10 # IsPolynomialOverIntegers(expr_IsFunction) <-- 
 [
-    Local(x);
-    x := VarList(expr)[1];
+    Local(x,vars);
+    vars := VarList(expr);
+    If(Length(vars)>1,vars:=HeapSort(vars,"GreaterThan"));    
+    x := vars[1];
     IsPolynomialOverIntegers(expr,x);
 ];
 
