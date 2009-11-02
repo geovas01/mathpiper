@@ -38,7 +38,7 @@ of {n} must be a positive integer.
 *E.G.
 /%mathpiper,title=""
 
-ProbabilityDensityFunction(BinomialDistribution(.1,15),0);
+ProbabilityMassFunction(BinomialDistribution(.1,15),0);
 
 /%/mathpiper
 
@@ -49,7 +49,7 @@ ProbabilityDensityFunction(BinomialDistribution(.1,15),0);
 
 /%mathpiper,title=""
 
-//The argument 2 here means <= 2.
+//The argument 2 here means <= 2 successes.
 CumulativeDistributionFunction(BinomialDistribution(.1,15),2);
 
 /%/mathpiper
