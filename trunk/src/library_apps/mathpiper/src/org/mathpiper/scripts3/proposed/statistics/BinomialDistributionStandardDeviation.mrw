@@ -10,7 +10,7 @@ BinomialDistributionStandardDeviation(probability,numberOfTrials) :=
     
     Check(IsInteger(numberOfTrials) And numberOfTrials >= 0, "The second argument must be an integer which is greater than 0.");
     
-    numberOfTrials * probability * (1 - probability);
+    SqrtN(numberOfTrials * probability * (1 - probability));
 ];
 	
 
