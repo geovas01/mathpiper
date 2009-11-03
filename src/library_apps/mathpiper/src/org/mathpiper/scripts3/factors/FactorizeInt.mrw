@@ -22,7 +22,7 @@
   If(n=1, Rest(small'powers),
   // if n!=1, need to factorize the remainder with Pollard Rho algorithm
 	  [
-	  	If(InVerboseMode(), Echo({"FactorizeInt: Info: remaining number ", n}));
+	  	//If(InVerboseMode(), Echo({"FactorizeInt: Info: remaining number ", n}));
 		SortFactorList(
 	  	  PollardCombineLists(Rest(small'powers), PollardRhoFactorize(n))
 		);
