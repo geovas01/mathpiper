@@ -3,6 +3,11 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ BarChart and ScatterPlot need to be able to take nominal data for the x axis.
++ Incrementing a list member doesn't work, but perhaps it should:
+In> {0,0,0}[1]++
+Result: 
+Exception: Expecting ; end of statement in program block, but got ] instead.
 + If a symbol in a LocalSymbols block is the same name as a function in the block, the function will not be defined:
 LocalSymbols(RFormRegularOps) [
   RFormRegularOps := { {"+"," + "}, {"-"," - "}, {"*"," * "},
