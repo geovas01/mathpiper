@@ -269,13 +269,13 @@ Histogram(dieRolesList, binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6, 
 
 
 
-%mathpiper,title="Rolls Two Dice"
+%mathpiper,title="Roll Three Dice"
 
-numberOfRolls := 1000;
+numberOfRolls := 50000;
 
 dieRollsList := {};
 
-Repeat(numberOfRoles)
+Repeat(numberOfRolls)
 [
    die1 := RandomInteger(6);
    
@@ -298,6 +298,10 @@ Histogram(dieRollsList,
           );
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+.   %/output
 
 
 
