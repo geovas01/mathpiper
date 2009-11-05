@@ -16,7 +16,7 @@ Retract("FactorsSmallInteger",*);
 		prime := NextPseudoPrime(prime);	// faster than NextPrime and we don't need real primes here
 	];
 	// Add the last prime (with multiplicity 1) to end of list 
-	DestructiveAppend(result, {n,1});
+	If( n > 1, DestructiveAppend(result, {n,1}) );
 ];
 
 %/mathpiper
