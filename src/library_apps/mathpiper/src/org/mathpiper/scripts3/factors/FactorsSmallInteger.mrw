@@ -6,7 +6,7 @@ Retract("FactorsSmallInteger",*);
 [
 	Local(n, power, prime, result, limit);
     n      := Abs(N);         // make sure its positive
-    limit  := Ceil(Sqrt(n));  // upper bound for largest possible factor 
+    limit  := Ceil(SqrtN(n)); // upper bound for largest possible factor 
 	prime  := 2;	          // first prime
     result := {};
 	While( prime <= limit And n > 1 And prime*prime <= n )
