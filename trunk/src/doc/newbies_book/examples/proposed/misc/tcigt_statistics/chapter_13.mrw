@@ -1,0 +1,123 @@
+%mathpiper,title="Exercise 1"
+
+Echo("a)",N(StandardErrorOfTheMean(10,15)));
+
+Echo("b)",N(StandardErrorOfTheMean(4.7,12)));
+
+Echo("c)",N(StandardErrorOfTheMean(7,20)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a)2.581988898 
+      b)1.356773133 
+      c)1.565247584
+.   %/output
+
+
+
+%mathpiper,title="Exercise 2"
+
+mean := 16;
+standardDeviation := 7.5;
+sampleSize := 9;
+standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
+
+Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean),17)));
+
+Echo("b)", N(1 - CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean),18)));
+
+Echo("c)", 
+N(CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean),16.5)) -
+N(CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean),14.5))
+
+);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a)0.6554216918 
+      b)0.2118553384 
+      c)0.3050066153
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 3"
+
+Echo("a)",N(StandardErrorOfTheProportion(.25,200)));
+
+Echo("b)",N(StandardErrorOfTheProportion(.42,100)));
+
+Echo("c)",N(StandardErrorOfTheProportion(.06,175)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a)0.030618621785 
+      b)0.049355850717 
+      c)0.017952317799
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 4"
+
+estimatedProportion := .32;
+sampleSize := 160;
+standardErrorOfTheProportion := N(StandardErrorOfTheProportion(estimatedProportion,sampleSize));
+
+Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.30)));
+
+Echo("b)", N(1 - CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.36)));
+
+Echo("c)", 
+N(CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.37)) -
+N(CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.29))
+
+);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a)0.2937969009 
+      b)0.1390378831 
+      c)0.7044522206
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 5"
+
+sampleSize := 60;
+estimatedProportion := 24/sampleSize;
+
+standardErrorOfTheProportion := N(StandardErrorOfTheProportion(estimatedProportion,sampleSize));
+
+Echo(N(1 - CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),30/sampleSize)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      0.0569231543
+.   %/output
+
+
