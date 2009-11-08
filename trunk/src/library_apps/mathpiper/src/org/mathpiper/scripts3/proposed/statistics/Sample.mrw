@@ -8,11 +8,9 @@ Sample(list, sampleSize) :=
     
     Check(IsInteger(sampleSize) And sampleSize > 0, "The second argument must be an integer which is greater than 0.");
     
-    Local(result);
-    
     list := Shuffle(list);
 
-    result := Take(list, sampleSize);
+    Take(list, sampleSize);
 ];
 
 %/mathpiper
@@ -25,11 +23,11 @@ Sample(list, sampleSize) :=
 *CMD Sample --- takes a random sample of elements from a list
 *STD
 *CALL
-	Sample(list,n)
+	Sample(list,sampleSize)
 
 *PARMS
 {list} -- a list of elements
-{n} -- the size of the sample to take from the list
+{sampleSize} -- the size of the sample to take from the list
 
 *DESC
 This function takes a random sample of items from a list and returns
