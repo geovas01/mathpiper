@@ -2,16 +2,21 @@
 
 Retract("Sample",*);
 
-
-10 # Sample(list_IsList, amount_IsInteger) <--
+Sample(list, sampleSize) :=
 [
+    Check(IsList(list), "The first argument must be a list.");
+    
+    Check(IsInteger(sampleSize) And sampleSize > 0, "The second argument must be greater than 0.");
+    
     Local(result);
+    
     list := Shuffle(list);
 
-    result := Take(list, amount);
+    result := Take(list, sampleSize);
 ];
 
 %/mathpiper
+
 
 
 
