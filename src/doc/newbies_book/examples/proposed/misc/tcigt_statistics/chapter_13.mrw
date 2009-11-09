@@ -1,3 +1,47 @@
+
+%mathpiper,title="Ping pong ball example pp. 189."
+
+mean := 3.0;
+standardDeviation := SqrtN(2.08);
+sampleSize := 20;
+standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
+
+Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean),3.5)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a)0.9394813156
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Exercise 4"
+
+estimatedProportion := .164;
+sampleSize := 150;
+standardErrorOfTheProportion := N(StandardErrorOfTheProportion(estimatedProportion,sampleSize));
+
+Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.20)));
+);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: )
+      
+      Side Effects:
+      a)0.8831253987
+.   %/output
+
+
+
 %mathpiper,title="Exercise 1"
 
 Echo("a)",N(StandardErrorOfTheMean(10,15)));
