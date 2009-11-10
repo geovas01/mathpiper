@@ -1,4 +1,4 @@
-%geogebra_xml,title=""
+%geogebra_xml,title="",clear="true"
 
 <?xml version="1.0" encoding="utf-8"?>
 <geogebra format="3.2">
@@ -98,8 +98,5 @@
 
 %/geogebra_xml
 
-    %output,preserve="false"
-      GeoGebra updated.
-.   %/output
 
 
