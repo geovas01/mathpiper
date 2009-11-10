@@ -1,0 +1,105 @@
+%geogebra_xml,title=""
+
+<?xml version="1.0" encoding="utf-8"?>
+<geogebra format="3.2">
+<gui>
+	<show algebraView="true" spreadsheetView="false" auxiliaryObjects="false" algebraInput="true" cmdList="true"/>
+	<font  size="12"/>
+</gui>
+<euclidianView>
+	<size  width="784" height="941"/>
+	<coordSystem xZero="99.14099550214394" yZero="441.5144730746629" scale="67.92328109429553" yscale="1.295704487546635"/>
+	<evSettings axes="true" grid="true" gridIsBold="false" pointCapturing="3" pointStyle="0" rightAngleStyle="1" checkboxSize="13" gridType="0"/>
+	<bgColor r="255" g="255" b="255"/>
+	<axesColor r="0" g="0" b="0"/>
+	<gridColor r="192" g="192" b="192"/>
+	<lineStyle axes="1" grid="10"/>
+	<axis id="0" show="true" label="Domain: Hours" unitLabel="" tickStyle="1" showNumbers="true"/>
+	<axis id="1" show="true" label="Range: Distance" unitLabel="" tickStyle="1" showNumbers="true"/>
+</euclidianView>
+<kernel>
+	<continuous val="false"/>
+	<decimals val="2"/>
+	<angleUnit val="degree"/>
+	<coordStyle val="0"/>
+</kernel>
+<construction title="" author="" date="">
+<element type="numeric" label="speed">
+	<value val="55.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.1"/>
+	<layer val="0"/>
+	<labelMode val="1"/>
+	<slider min="0.0" max="100.0" width="4.0" x="0.4664914290699551" y="-49.57626872861655" fixed="false" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.01" speed="4.0" type="0" playing="false"/>
+</element>
+<expression label="f" exp="f(x) = speed * x" />
+<element type="function" label="f">
+	<lineStyle thickness="2" type="0"/>
+	<show object="false" label="true"/>
+	<layer val="0"/>
+	<lineStyle thickness="2" type="0"/>
+</element>
+<command name="Point">
+	<input a0="f"/>
+	<output a0="A"/>
+</command>
+<element type="point" label="A">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<animation step="0.1" speed="1.0" type="0" playing="false"/>
+	<coords x="0.0" y="0.0" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<command name="Point">
+	<input a0="f"/>
+	<output a0="B"/>
+</command>
+<element type="point" label="B">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<animation step="0.1" speed="1.0" type="0" playing="false"/>
+	<coords x="3.98" y="218.9" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<command name="Line">
+	<input a0="A" a1="B"/>
+	<output a0="a"/>
+</command>
+<element type="line" label="a">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<coords x="-218.9" y="3.98" z="0.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="implicit"/>
+</element>
+<command name="Slope">
+	<input a0="a"/>
+	<output a0="m"/>
+</command>
+<element type="numeric" label="m">
+	<value val="55.0"/>
+	<show object="true" label="true"/>
+	<objColor r="153" g="51" b="0" alpha="0.1"/>
+	<layer val="0"/>
+	<labelOffset x="15" y="1"/>
+	<labelMode val="2"/>
+	<lineStyle thickness="2" type="0"/>
+	<slopeTriangleSize val="4"/>
+	<caption val="slope"/>
+</element>
+</construction>
+</geogebra>
+
+%/geogebra_xml
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
