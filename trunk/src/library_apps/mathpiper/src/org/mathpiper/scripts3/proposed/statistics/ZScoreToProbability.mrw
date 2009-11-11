@@ -107,7 +107,7 @@ This function calculates the probability of a given z-score.
 In> ZScoreToProbability(1.08)
 Result: 0.8599289100
 
-*SEE NormalDistribution,ProbabilityToZScore,ProbabilityToConfidenceLevel
+*SEE NormalDistribution,ProbabilityToZScore,ConfidenceLevelToZScore
 %/mathpiper_docs
 
     %output,preserve="false"
