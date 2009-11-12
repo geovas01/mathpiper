@@ -2514,6 +2514,16 @@ pop;
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: {1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5}
+      
+      Side Effects:
+      {1}{2}  {1,2} 
+      {1,2}{2,3}  {1,2,2,3} 
+      {1,2,2,3}{2,3,3,4}  {1,2,2,3,2,3,3,4} 
+      {1,2,2,3,2,3,3,4}{2,3,3,4,3,4,4,5}  {1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5}
+.   %/output
+
 
 
 ======================== Plotting section
@@ -2564,5 +2574,271 @@ Repeat()
       Result: 3
 .   %/output
 
+
+
+
+
+%mathpiper,title="Falling point"
+
+y := 5;
+
+While( y >= 0)
+[
+    GeoGebraPoint("BALL",2,y);
+    
+    time := SystemTimer();
+    
+    time := time + 50010000;
+    
+    While( time > SystemTimer() ) NOP;
+    
+    y := y - .1;
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Random walk with a point."
+
+currentPosition := {0,0};
+
+Repeat(75)
+[
+    step:= RandomPickWeighted({
+        { {.1,0}, 25/100},
+        { {-.1,0}, 25/100},
+        { {0,.1}, 25/100},
+        { {0,-.1}, 25/100}});
+    
+    currentPosition := currentPosition + step;
+    
+    GeoGebraPoint("A",currentPosition[1],currentPosition[2]);
+    
+    time := SystemTimer();
+    
+    time := time + 100000000;
+    
+    While( time > SystemTimer() ) NOP;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 75
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Random points 1"
+
+points := {};
+
+Repeat(30)
+[
+    x := RandomInteger(10);
+    y := RandomInteger(10);
+    
+    points := Append(points,{x,y});
+
+];
+
+points;
+
+GeoGebraPlot(points);
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper,title=""
+
+index := 1;
+
+While(index <= 5)
+[
+    x := RandomInteger(8);
+    
+    y := RandomInteger(8);
+    
+    GeoGebraPoint("A":String(index), x, y);
+    
+    index++;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Plotting random polynomials."
+
+Repeat(10)
+[
+
+    polynomial := RandomPoly(x,2,-10,10);
+    
+    Echo(polynomial);
+    
+    GeoGebraPlot(polynomial);
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 10
+      
+      Side Effects:
+      x-7*x^2+5 
+      3*x^2-6*x-8 
+      4*x^2+9*x+2 
+      10*x^2-2*x-1 
+      5-(9*x+7*x^2) 
+      -(4*x+10*x^2+6) 
+      6-(6*x+9*x^2) 
+      6*x-9*x^2-9 
+      4*x^2-2*x-8 
+      3*x-3*x^2-9
+.   %/output
+
+
+
+
+
+
+
+
+%geogebra,title=""
+
+(2,3)
+(1,4)
+(1.5,2)
+
+2 x
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
+
+
+%geogebra,clear="true"
+
+(2,3)
+(1,4)
+(1.5,2)
+
+2 x
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
+
+
+%geogebra,clear="true"
+
+speed = 1
+
+f(x) = speed*x
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Example program 2.1"
+
+y0 := 10;
+v0 := 0;
+t := 0;
+dt := 0.01;
+y := y0;
+v := v0;
+g := 9.8;
+
+Repeat()
+[
+    GeoGebraPoint("A",2,y);
+    
+    y := y + v * dt;
+    
+    If(y < 0, Break());
+    
+    v := v - g * dt;
+    
+    t := t + dt;
+    
+    time := SystemTimer();
+    
+    time := time + 10000000;
+    
+    While( time > SystemTimer() ) NOP;    
+];
+
+
+
+
+
+Echo("Results:");
+Echo("final time = ", t);
+Echo("y = ", y, "  v = ", v);
+
+yAnalytic := y0 + v0 - 0.5*g*t*t;
+vAnalytic := v0 - g*t;
+Echo("analytic y = ", yAnalytic, " v =", vAnalytic);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Results:
+      final time = 1.43 
+      y = -0.09008   v = -14.014 
+      analytic y = -0.020010  v =-14.014
+.   %/output
 
 
