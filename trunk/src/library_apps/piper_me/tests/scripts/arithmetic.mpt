@@ -16,8 +16,8 @@ Verify(IsRational(2/5),True);
 Verify(IsRational(-2/5),True);
 Verify(IsRational(2.0/5),False);
 Verify(IsRational(Pi/2),False);
-Verify(Numerator(2/5),2);
-Verify(Denominator(2/5),5);
+Verify(Numer(2/5),2);
+Verify(Denom(2/5),5);
 
 VerifyArithmetic(10,5,8);
 VerifyArithmetic(10000000000,5,8);
@@ -25,7 +25,7 @@ VerifyArithmetic(10,50,80);
 VerifyArithmetic(10000,50,88);
 
 Verify(4!,24);
-Verify(BinomialCoefficient(2,1),2);
+Verify(Bin(2,1),2);
 
 NextTest("Testing math stuff");
 Verify(1*a,a);
