@@ -28,6 +28,8 @@ ProbabilityToZScore(probability) :=
     
     probability := N(probability);
     
+    Check(probability >= 0.0 And probability <= 1.0, "The argument must be between 0 and 1.");
+    
     ZMAX := 6; // Maximum ±z value.
     
     ZEPSILON := 0.000001; /* Accuracy of z approximation */
@@ -37,28 +39,21 @@ ProbabilityToZScore(probability) :=
     maximumZ := ZMAX;
     
     zValue := 0.0;
-    
-    if (probability < 0.0 Or probability > 1.0) 
+
+    While ((maximumZ - minimumZ) > ZEPSILON) 
     [
-        zValue := -1;
-    ]
-    else
-    [
-        While ((maximumZ - minimumZ) > ZEPSILON) 
+        probabilityValue := ZScoreToProbability(zValue);
+        
+        if (probabilityValue > probability) 
         [
-            probabilityValue := ZScoreToProbability(zValue);
-            
-            if (probabilityValue > probability) 
-            [
-                maximumZ := zValue;
-            ] 
-            else 
-            [
-                minimumZ := zValue;
-            ];
-            
-            zValue := (maximumZ + minimumZ) * 0.5;
+            maximumZ := zValue;
+        ] 
+        else 
+        [
+            minimumZ := zValue;
         ];
+        
+        zValue := (maximumZ + minimumZ) * 0.5;
     ];
     
     zValue;
