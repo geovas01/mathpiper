@@ -945,6 +945,9 @@ public abstract class BuiltinFunction {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.ReturnFromBlock(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "ReturnFromBlock");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.ViewConsole(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "ViewConsole");
 
 
     }//end method.
