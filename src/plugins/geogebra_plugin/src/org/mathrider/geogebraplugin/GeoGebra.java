@@ -94,7 +94,7 @@ public class GeoGebra extends JPanel
 		
 		super(new BorderLayout());
 		
-				System.out.println("XXXXXXXXXXXXXXXXXXX GeoGebra.java initialized.");
+				//System.out.println("XXXXXXXXXXXXXXXXXXX GeoGebra.java initialized.");
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 
@@ -153,8 +153,6 @@ public class GeoGebra extends JPanel
 				                        }
 
 
-
-
 				                        geoGebraApplet.start();
 
 			                        }
@@ -191,7 +189,7 @@ public class GeoGebra extends JPanel
 			geoGebraApplet.registerAddListener("GeoGebraAddListener");
 			geoGebraApplet.registerUpdateListener("GeoGebraUpdateListener");
 			
-			System.out.println("HHHHHHHHHHHHHHHHHHH GeoGebra listeners regertered.");
+			//System.out.println("HHHHHHHHHHHHHHHHHHH GeoGebra listeners registered.");
 		}catch(Exception e)
 		{
 			e.printStackTrace();
