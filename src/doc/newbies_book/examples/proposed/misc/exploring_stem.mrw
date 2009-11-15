@@ -299,9 +299,6 @@ Histogram(dieRollsList,
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: org.jfree.chart.ChartPanel
-.   %/output
 
 
 
@@ -559,56 +556,6 @@ Echo("The probability of having 3 or more hits: ",
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      {MISS,MISS,MISS,HIT,HIT}
-      {MISS,MISS,MISS,MISS,HIT}
-      {HIT,MISS,MISS,MISS,MISS}
-      {MISS,HIT,MISS,MISS,MISS}
-      {HIT,MISS,MISS,MISS,HIT}
-      {MISS,MISS,MISS,MISS,HIT}
-      {MISS,HIT,MISS,MISS,HIT}
-      {MISS,HIT,HIT,HIT,MISS} -  success.
-      {HIT,HIT,MISS,MISS,HIT} -  success.
-      {MISS,HIT,MISS,MISS,HIT}
-      {MISS,MISS,HIT,MISS,HIT}
-      {HIT,MISS,HIT,MISS,MISS}
-      {MISS,HIT,MISS,MISS,MISS}
-      {MISS,MISS,MISS,HIT,MISS}
-      {MISS,MISS,MISS,MISS,MISS}
-      {MISS,MISS,HIT,HIT,MISS}
-      {HIT,MISS,MISS,MISS,HIT}
-      {MISS,HIT,MISS,MISS,MISS}
-      {MISS,MISS,HIT,MISS,MISS}
-      {HIT,MISS,HIT,MISS,HIT} -  success.
-      {HIT,MISS,MISS,MISS,MISS}
-      {HIT,MISS,MISS,MISS,HIT}
-      {MISS,MISS,MISS,HIT,HIT}
-      {HIT,MISS,MISS,MISS,MISS}
-      {HIT,MISS,MISS,MISS,HIT}
-      {HIT,MISS,MISS,HIT,MISS}
-      {MISS,HIT,MISS,MISS,MISS}
-      {HIT,MISS,HIT,MISS,MISS}
-      {HIT,MISS,MISS,HIT,HIT} -  success.
-      {MISS,MISS,MISS,MISS,MISS}
-      {HIT,MISS,MISS,MISS,HIT}
-      {HIT,HIT,MISS,MISS,MISS}
-      {MISS,MISS,HIT,MISS,HIT}
-      {MISS,HIT,MISS,MISS,MISS}
-      {MISS,HIT,HIT,MISS,MISS}
-      {MISS,MISS,MISS,HIT,MISS}
-      {MISS,MISS,HIT,MISS,MISS}
-      {MISS,HIT,MISS,HIT,MISS}
-      {HIT,HIT,MISS,MISS,MISS}
-      {MISS,MISS,MISS,MISS,HIT}
-      
-      The number of trials is: 40 
-      The number of throws is: 5 
-      The number of trials which have 3 or more hits: 4 / 40 
-      The probability of having 3 or more hits: 0.1
-.   %/output
 
 
 
@@ -880,54 +827,6 @@ Echo("Probability of receiving a single pair: ",
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      1 11 1 9 3 
-      11 8 13 12 7 
-      9 3 7 10 1 
-      9 11 4 11 4 
-      6 7 9 11 7 
-      4 1 8 3 12 
-      13 6 8 9 4 
-      6 3 13 11 7 
-      3 9 5 3 13 
-      9 11 9 3 6 
-      9 11 3 3 9 
-      1 12 4 2 1 
-      10 4 2 12 5 
-      8 12 5 12 10 
-      2 1 7 3 6 
-      10 11 13 6 9 
-      10 13 10 13 4 
-      8 1 7 6 1 
-      3 6 7 9 1 
-      9 1 3 3 8 
-      13 8 7 1 8 
-      8 9 10 6 10 
-      10 13 3 6 4 
-      6 1 2 12 6 
-      6 5 1 8 4 
-      1 13 8 3 7 
-      1 2 10 8 1 
-      10 8 3 5 13 
-      12 5 2 11 9 
-      7 8 3 7 11 
-      1 1 7 8 2 
-      3 1 2 13 8 
-      1 8 1 2 2 
-      1 10 8 10 8 
-      11 8 11 10 9 
-      10 1 9 1 13 
-      13 10 8 4 8 
-      12 4 8 3 11 
-      1 7 9 8 10 
-      11 10 6 4 11 
-      
-      Number of trials: 40 
-      Probability of receiving a single pair: 0
-.   %/output
 
 
 
@@ -975,9 +874,6 @@ Echo("Probability of three of a kind: ",
 
 %/mathpiper
 
-    %error,preserve="false"
-      Result: User halted calculation. Error near line 915
-.   %/error
 
 
 
@@ -1036,56 +932,6 @@ Echo("Probability of a success: ", N(successCount/numberOfTrials));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      {{0,1},{0,0},{0,-1},{-1,-1},{-1,0},{-1,-1},{-2,-1},{-1,-1},{0,-1},{1,-1},{2,-1},{3,-1}}
-      {{0,-1},{0,-2},{-1,-2},{-1,-1},{-1,-2},{-1,-1},{-1,0},{-1,1},{-1,0},{-1,1},{-2,1},{-2,0}}
-      {{1,0},{0,0},{-1,0},{-2,0},{-2,-1},{-3,-1},{-3,0},{-2,0},{-2,-1},{-3,-1},{-2,-1},{-3,-1}}
-      {{1,0},{1,1},{1,0},{0,0},{0,1},{0,2},{-1,2},{-1,1},{0,1},{-1,1},{0,1},{0,0}}
-      {{0,-1},{0,-2},{0,-1},{1,-1},{0,-1},{1,-1},{2,-1},{3,-1},{3,0},{3,1},{2,1},{2,2}} - Success
-      {{1,0},{1,1},{1,0},{2,0},{2,1},{3,1},{4,1},{4,0},{4,-1},{4,-2},{4,-3},{4,-4}} - Success
-      {{0,1},{0,2},{-1,2},{-1,3},{-1,4},{-1,3},{0,3},{1,3},{1,4},{0,4},{0,3},{-1,3}}
-      {{1,0},{2,0},{1,0},{2,0},{2,1},{1,1},{0,1},{0,2},{1,2},{1,1},{0,1},{-1,1}} - Success
-      {{1,0},{2,0},{2,1},{2,2},{1,2},{1,1},{2,1},{3,1},{2,1},{2,2},{2,3},{1,3}} - Success
-      {{-1,0},{-2,0},{-2,-1},{-1,-1},{-2,-1},{-1,-1},{-2,-1},{-1,-1},{-1,0},{-1,1},{-1,0},{-2,0}}
-      {{0,-1},{0,-2},{-1,-2},{-1,-1},{-1,-2},{-1,-3},{-1,-4},{-1,-5},{-1,-4},{-1,-5},{-1,-4},{0,-4}}
-      {{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,1},{-1,2},{-1,3},{-1,2},{-1,1},{-2,1},{-2,0}}
-      {{0,-1},{0,-2},{-1,-2},{-1,-3},{-1,-2},{0,-2},{-1,-2},{-1,-1},{-2,-1},{-2,0},{-2,1},{-3,1}}
-      {{1,0},{1,1},{1,0},{1,-1},{2,-1},{3,-1},{3,0},{3,1},{3,0},{3,1},{2,1},{3,1}} - Success
-      {{1,0},{1,1},{0,1},{0,0},{0,1},{0,0},{0,1},{0,0},{1,0},{0,0},{-1,0},{-2,0}}
-      {{0,1},{-1,1},{0,1},{0,2},{1,2},{1,3},{2,3},{2,4},{2,3},{2,2},{1,2},{2,2}}
-      {{-1,0},{-1,-1},{-1,-2},{-2,-2},{-2,-1},{-2,-2},{-2,-3},{-3,-3},{-3,-2},{-2,-2},{-3,-2},{-4,-2}}
-      {{0,1},{0,2},{-1,2},{-1,3},{-2,3},{-1,3},{0,3},{1,3},{1,2},{1,3},{2,3},{2,4}}
-      {{1,0},{2,0},{2,1},{1,1},{2,1},{2,0},{2,-1},{2,0},{1,0},{2,0},{2,1},{2,0}} - Success
-      {{0,1},{0,2},{-1,2},{-1,1},{0,1},{-1,1},{-2,1},{-2,0},{-2,1},{-1,1},{0,1},{-1,1}}
-      {{1,0},{1,1},{2,1},{3,1},{2,1},{2,2},{2,1},{3,1},{4,1},{5,1},{4,1},{5,1}} - Success
-      {{0,1},{0,0},{0,-1},{-1,-1},{-2,-1},{-2,0},{-2,-1},{-2,-2},{-2,-3},{-1,-3},{-2,-3},{-2,-4}}
-      {{0,1},{0,2},{0,1},{0,0},{0,-1},{0,-2},{0,-3},{0,-2},{1,-2},{2,-2},{2,-1},{2,-2}}
-      {{0,-1},{-1,-1},{-1,0},{-1,-1},{0,-1},{-1,-1},{-1,-2},{-2,-2},{-3,-2},{-3,-1},{-3,-2},{-4,-2}}
-      {{0,1},{0,2},{-1,2},{0,2},{-1,2},{-1,3},{-1,2},{-2,2},{-2,3},{-3,3},{-3,4},{-3,3}}
-      {{0,1},{0,2},{0,3},{1,3},{1,2},{1,1},{2,1},{2,2},{3,2},{3,1},{2,1},{3,1}} - Success
-      {{0,-1},{0,-2},{1,-2},{1,-3},{2,-3},{2,-2},{2,-1},{2,0},{2,1},{3,1},{3,2},{3,1}} - Success
-      {{-1,0},{-2,0},{-3,0},{-3,1},{-3,2},{-4,2},{-4,3},{-4,2},{-3,2},{-3,3},{-4,3},{-5,3}}
-      {{0,1},{-1,1},{0,1},{-1,1},{-1,2},{-1,3},{0,3},{0,2},{1,2},{0,2},{0,1},{1,1}}
-      {{-1,0},{0,0},{-1,0},{-2,0},{-2,1},{-2,2},{-3,2},{-2,2},{-1,2},{0,2},{1,2},{1,3}}
-      {{0,1},{0,0},{-1,0},{-2,0},{-3,0},{-4,0},{-4,-1},{-5,-1},{-6,-1},{-6,-2},{-5,-2},{-4,-2}}
-      {{0,-1},{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,2},{0,2},{0,3},{0,4},{-1,4},{0,4}}
-      {{0,-1},{0,0},{-1,0},{-1,-1},{0,-1},{1,-1},{0,-1},{0,-2},{1,-2},{1,-1},{0,-1},{1,-1}}
-      {{-1,0},{-1,1},{-1,0},{-1,1},{0,1},{1,1},{2,1},{2,2},{2,3},{2,2},{2,3},{1,3}} - Success
-      {{-1,0},{-1,-1},{-1,-2},{0,-2},{1,-2},{2,-2},{1,-2},{2,-2},{2,-3},{3,-3},{4,-3},{5,-3}}
-      {{0,-1},{1,-1},{2,-1},{1,-1},{1,0},{2,0},{2,1},{1,1},{1,0},{2,0},{3,0},{3,-1}} - Success
-      {{0,1},{0,2},{-1,2},{-2,2},{-2,1},{-1,1},{0,1},{0,0},{0,1},{1,1},{1,2},{0,2}}
-      {{0,1},{0,2},{0,3},{-1,3},{-1,4},{0,4},{1,4},{2,4},{3,4},{4,4},{4,3},{4,2}}
-      {{1,0},{0,0},{0,-1},{0,-2},{0,-3},{0,-2},{0,-3},{-1,-3},{0,-3},{0,-4},{1,-4},{1,-3}}
-      {{0,1},{0,2},{0,3},{0,2},{0,3},{1,3},{1,4},{2,4},{1,4},{0,4},{-1,4},{-1,5}}
-      
-      Number of trials: 40 
-      The last walk path: {{0,1},{0,2},{0,3},{0,2},{0,3},{1,3},{1,4},{2,4},{1,4},{0,4},{-1,4},{-1,5}} 
-      Number of successes: 11 
-      Probability of a success: 0.275
-.   %/output
 
 
 ====
@@ -1170,9 +1016,6 @@ simulateDegree(numberOfIncomingFreshman, semesterRetentionProbabilities) :=
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -1197,26 +1040,6 @@ BarChart({0 .. 8, data["retentionProfile"]},
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: org.jfree.chart.ChartPanel
-      
-      Side Effects:
-      Number of incoming freshman: 25 
-      
-      Estimated probability of retention for each semester:
-         Semester 1 retention probability: 50 %
-         Semester 2 retention probability: 50 %
-         Semester 3 retention probability: 80 %
-         Semester 4 retention probability: 95 %
-         Semester 5 retention probability: 95 %
-         Semester 6 retention probability: 95 %
-         Semester 7 retention probability: 95 %
-         Semester 8 retention probability: 95 %
-      
-      Graduation probability: 0.15 
-      
-      Number of graduates: 3.75
-.   %/output
 
 
 
@@ -1250,26 +1073,6 @@ BarChart({0 .. 8, data25["retentionProfile"], 0 .. 8, data50["retentionProfile"]
 
 %/mathpiper    
 
-    %output,preserve="false"
-      Result: org.jfree.chart.ChartPanel
-      
-      Side Effects:
-      Number of incoming freshman: 50 
-      
-      Estimated probability of retention for each semester:
-         Semester 1 retention probability: 50 %
-         Semester 2 retention probability: 50 %
-         Semester 3 retention probability: 80 %
-         Semester 4 retention probability: 95 %
-         Semester 5 retention probability: 95 %
-         Semester 6 retention probability: 95 %
-         Semester 7 retention probability: 95 %
-         Semester 8 retention probability: 95 %
-      
-      Graduation probability: 0.15 
-      
-      Number of graduates: 7.50
-.   %/output
 
 
 
@@ -1299,26 +1102,6 @@ BarChart({0 .. 8, data25["retentionProfile"], 0 .. 8, data50["retentionProfile"]
 
 %/mathpiper    
 
-    %output,preserve="false"
-      Result: org.jfree.chart.ChartPanel
-      
-      Side Effects:
-      Number of incoming freshman: 25 
-      
-      Estimated probability of retention for each semester:
-         Semester 1 retention probability: 70 %
-         Semester 2 retention probability: 70 %
-         Semester 3 retention probability: 80 %
-         Semester 4 retention probability: 95 %
-         Semester 5 retention probability: 95 %
-         Semester 6 retention probability: 95 %
-         Semester 7 retention probability: 95 %
-         Semester 8 retention probability: 95 %
-      
-      Graduation probability: 0.29 
-      
-      Number of graduates: 7.25
-.   %/output
 
 
 
@@ -1340,14 +1123,6 @@ Echo("Therefore, the distance traveled is ", d, "miles.");
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      The speed of the car is 55.0 miles per hour.
-      The amount of time the car has been traveling at this speed is 1.0 hour.
-      Therefore, the distance traveled is 55.00 miles.
-.   %/output
 
 
 
@@ -1371,14 +1146,6 @@ Echo("The function's range is: ", rangeList);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      The function f(t) = 55*t 
-      The function's domain is: {0,1,2,3,4,5,6,7,8,9,10} 
-      The function's range is: {0,55,110,165,220,275,330,385,440,495,550}
-.   %/output
 
 
 
@@ -1398,14 +1165,6 @@ Echo("The function's range is: ", rangeList);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      The function f(t) = 55*t 
-      The function's domain is: {1,2,3,4,5,6,7,8,9,10} 
-      The function's range is: {55,110,165,220,275,330,385,440,495,550}
-.   %/output
 
 
 
@@ -1440,14 +1199,6 @@ ScatterPlot({domainList, rangeList},
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: org.jfree.chart.ChartPanel
-      
-      Side Effects:
-      The function f(t) = 55*t 
-      The function's domain is: {0,1,2,3,4,5,6,7,8,9,10} 
-      The function's range is: {0,55,110,165,220,275,330,385,440,495,550}
-.   %/output
 
 
 
@@ -1483,14 +1234,6 @@ ScatterPlot({domainList,rangeList},
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: org.jfree.chart.ChartPanel
-      
-      Side Effects:
-      The function f(t) = 55*t 
-      The function's domain is: {0,1,2,3,4,5,6,7,8,9,10} 
-      The function's range is: {0,55,110,165,220,275,330,385,440,495,550}
-.   %/output
 
 
 
@@ -1509,9 +1252,6 @@ Plot2D({f(t),g(t),h(t),i(t),j(t)},0:10);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: org.jfree.chart.ChartPanel
-.   %/output
 
 
 %mathpiper,title=""
@@ -1526,9 +1266,6 @@ Plot2D(f(t),0:10,
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: org.jfree.chart.ChartPanel
-.   %/output
 
 
 
@@ -1541,9 +1278,6 @@ Plot2D(f(t),0:10,output -> data);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {{{0,0},{0.4166666668,22.91666667},{0.8333333335,45.83333334},{1.250000001,68.75000006},{1.666666667,91.66666669},{2.083333334,114.5833334},{2.500000001,137.5000001},{2.916666668,160.4166667},{3.333333334,183.3333334},{3.750000001,206.2500001},{4.166666668,229.1666667},{4.583333335,252.0833334},{5.000000001,275.0000001},{5.41666667,297.9166669},{5.833333335,320.8333334},{6.25000000,343.7500000},{6.666666668,366.6666667},{7.083333335,389.5833334},{7.500000002,412.5000001},{7.91666667,435.4166669},{8.333333335,458.3333334},{8.75000000,481.2500000},{9.166666669,504.1666668},{9.583333335,527.0833334},{10.00000000,550.0000000}}}
-.   %/output
 
 
 
@@ -1620,71 +1354,6 @@ Repeat(8)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 8
-      
-      Side Effects:
-      The 11 points in the plot:
-      {0,0}
-      {1,55}
-      {2,110}
-      {3,165}
-      {4,220}
-      {5,275}
-      {6,330}
-      {7,385}
-      {8,440}
-      {9,495}
-      {10,550}
-      
-      Point1: {5,275} 
-      Point2: {7,385} 
-      Rise = Point2y - Point1y = 385 - 275 = 110 
-      Run = Point2x - Point1x = 7 - 5 = 2 
-      Rise over run = rise/run = 110/2 = ***55***
-      
-      Point1: {6,330} 
-      Point2: {9,495} 
-      Rise = Point2y - Point1y = 495 - 330 = 165 
-      Run = Point2x - Point1x = 9 - 6 = 3 
-      Rise over run = rise/run = 165/3 = ***55***
-      
-      Point1: {4,220} 
-      Point2: {9,495} 
-      Rise = Point2y - Point1y = 495 - 220 = 275 
-      Run = Point2x - Point1x = 9 - 4 = 5 
-      Rise over run = rise/run = 275/5 = ***55***
-      
-      Point1: {1,55} 
-      Point2: {2,110} 
-      Rise = Point2y - Point1y = 110 - 55 = 55 
-      Run = Point2x - Point1x = 2 - 1 = 1 
-      Rise over run = rise/run = 55/1 = ***55***
-      
-      Point1: {3,165} 
-      Point2: {4,220} 
-      Rise = Point2y - Point1y = 220 - 165 = 55 
-      Run = Point2x - Point1x = 4 - 3 = 1 
-      Rise over run = rise/run = 55/1 = ***55***
-      
-      Point1: {4,220} 
-      Point2: {10,550} 
-      Rise = Point2y - Point1y = 550 - 220 = 330 
-      Run = Point2x - Point1x = 10 - 4 = 6 
-      Rise over run = rise/run = 330/6 = ***55***
-      
-      Point1: {0,0} 
-      Point2: {5,275} 
-      Rise = Point2y - Point1y = 275 - 0 = 275 
-      Run = Point2x - Point1x = 5 - 0 = 5 
-      Rise over run = rise/run = 275/5 = ***55***
-      
-      Point1: {4,220} 
-      Point2: {10,550} 
-      Rise = Point2y - Point1y = 550 - 220 = 330 
-      Run = Point2x - Point1x = 10 - 4 = 6 
-      Rise over run = rise/run = 330/6 = ***55***
-.   %/output
 
 
 
@@ -1719,14 +1388,6 @@ ScatterPlot({domainList,rangeList},
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: org.jfree.chart.ChartPanel
-      
-      Side Effects:
-      The function f(t) = 55*t 
-      The function's domain is: {4,5,6,7} 
-      The function's range is: {220,275,330,385}
-.   %/output
 
 
 
@@ -1837,9 +1498,6 @@ ScatterPlot({domainList,rangeList},
 
 %/geogebra_xml
 
-    %output,preserve="false"
-      GeoGebra updated.
-.   %/output
 
 
 
@@ -1857,21 +1515,6 @@ Repeat(10)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 10
-      
-      Side Effects:
-      0.88 = 88%
-      0.98 = 98%
-      0.39 = 39%
-      0.74 = 74%
-      0.79 = 79%
-      0.77 = 77%
-      0.27 = 27%
-      0.75 = 75%
-      0.21 = 21%
-      0.50 = 50%
-.   %/output
 
 
 %mathpiper,title=""
@@ -1885,9 +1528,6 @@ Function("Count",{list,element})
 ];
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -1900,12 +1540,6 @@ Function("Count",{list,element})
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {0,0,0,0,0,0,0,0,0,0,0}
-      
-      Side Effects:
-      HELLO, {2,3,4,5,6,7,3,4,5,6,7,8,4,5,6,7,8,9,5,6,7,8,9,10,6,7,8,9,10,11,7,8,9,10,11,12} , x
-.   %/output
 
 
 %mathpiper,title=""
@@ -1914,18 +1548,6 @@ FullForm(Hold({{x}, x } /@ (2 .. 12)));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {{x},x}/@2..12
-      
-      Side Effects:
-      (/@ 
-          
-          (List 
-            
-            (List x )x )
-          
-          (.. 2 12 ))
-.   %/output
 
 
 
@@ -1935,9 +1557,6 @@ FullForm(Hold({{x}, x } /@ (2 .. 12)));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {0,0,0,0,0,0,0,0,0,0,0}
-.   %/output
 
 
 
@@ -1948,9 +1567,6 @@ FullForm(Hold({{x}, x } /@ (2 .. 12)));
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {6,8,10}
-.   %/output
 
 
 
@@ -1987,407 +1603,6 @@ ForEach(sum, 2 .. 12)
 waysList;
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {{2,1},{3,2},{4,3},{5,4},{6,5},{7,6},{8,5},{9,4},{10,3},{11,2},{12,1}}
-      
-      Side Effects:
-      Sum: 2   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 2   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 2   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 2   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 2   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 2   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 2   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 2   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 2   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 2   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 2   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 2   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 2   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 2   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 2   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 2   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 2   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 2   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 2   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 2   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 2   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 2   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 2   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 2   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 2   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 2   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 2   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 2   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 2   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 2   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 2   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 2   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 2   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 2   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 2   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 2   die1: 6   die2: 6   die1+die2: 12 
-      Sum: 3   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 3   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 3   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 3   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 3   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 3   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 3   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 3   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 3   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 3   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 3   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 3   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 3   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 3   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 3   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 3   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 3   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 3   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 3   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 3   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 3   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 3   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 3   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 3   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 3   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 3   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 3   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 3   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 3   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 3   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 3   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 3   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 3   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 3   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 3   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 3   die1: 6   die2: 6   die1+die2: 12 
-      Sum: 4   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 4   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 4   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 4   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 4   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 4   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 4   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 4   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 4   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 4   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 4   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 4   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 4   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 4   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 4   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 4   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 4   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 4   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 4   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 4   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 4   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 4   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 4   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 4   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 4   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 4   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 4   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 4   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 4   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 4   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 4   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 4   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 4   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 4   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 4   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 4   die1: 6   die2: 6   die1+die2: 12 
-      Sum: 5   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 5   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 5   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 5   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 5   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 5   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 5   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 5   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 5   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 5   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 5   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 5   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 5   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 5   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 5   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 5   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 5   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 5   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 5   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 5   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 5   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 5   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 5   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 5   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 5   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 5   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 5   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 5   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 5   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 5   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 5   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 5   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 5   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 5   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 5   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 5   die1: 6   die2: 6   die1+die2: 12 
-      Sum: 6   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 6   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 6   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 6   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 6   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 6   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 6   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 6   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 6   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 6   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 6   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 6   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 6   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 6   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 6   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 6   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 6   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 6   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 6   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 6   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 6   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 6   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 6   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 6   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 6   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 6   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 6   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 6   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 6   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 6   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 6   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 6   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 6   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 6   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 6   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 6   die1: 6   die2: 6   die1+die2: 12 
-      Sum: 7   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 7   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 7   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 7   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 7   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 7   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 7   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 7   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 7   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 7   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 7   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 7   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 7   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 7   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 7   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 7   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 7   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 7   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 7   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 7   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 7   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 7   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 7   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 7   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 7   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 7   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 7   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 7   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 7   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 7   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 7   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 7   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 7   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 7   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 7   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 7   die1: 6   die2: 6   die1+die2: 12 
-      Sum: 8   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 8   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 8   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 8   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 8   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 8   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 8   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 8   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 8   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 8   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 8   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 8   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 8   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 8   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 8   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 8   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 8   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 8   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 8   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 8   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 8   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 8   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 8   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 8   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 8   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 8   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 8   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 8   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 8   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 8   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 8   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 8   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 8   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 8   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 8   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 8   die1: 6   die2: 6   die1+die2: 12 
-      Sum: 9   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 9   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 9   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 9   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 9   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 9   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 9   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 9   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 9   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 9   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 9   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 9   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 9   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 9   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 9   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 9   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 9   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 9   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 9   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 9   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 9   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 9   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 9   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 9   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 9   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 9   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 9   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 9   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 9   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 9   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 9   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 9   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 9   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 9   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 9   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 9   die1: 6   die2: 6   die1+die2: 12 
-      Sum: 10   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 10   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 10   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 10   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 10   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 10   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 10   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 10   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 10   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 10   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 10   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 10   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 10   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 10   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 10   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 10   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 10   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 10   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 10   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 10   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 10   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 10   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 10   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 10   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 10   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 10   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 10   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 10   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 10   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 10   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 10   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 10   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 10   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 10   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 10   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 10   die1: 6   die2: 6   die1+die2: 12 
-      Sum: 11   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 11   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 11   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 11   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 11   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 11   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 11   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 11   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 11   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 11   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 11   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 11   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 11   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 11   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 11   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 11   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 11   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 11   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 11   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 11   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 11   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 11   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 11   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 11   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 11   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 11   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 11   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 11   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 11   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 11   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 11   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 11   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 11   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 11   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 11   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 11   die1: 6   die2: 6   die1+die2: 12 
-      Sum: 12   die1: 1   die2: 1   die1+die2: 2 
-      Sum: 12   die1: 1   die2: 2   die1+die2: 3 
-      Sum: 12   die1: 1   die2: 3   die1+die2: 4 
-      Sum: 12   die1: 1   die2: 4   die1+die2: 5 
-      Sum: 12   die1: 1   die2: 5   die1+die2: 6 
-      Sum: 12   die1: 1   die2: 6   die1+die2: 7 
-      Sum: 12   die1: 2   die2: 1   die1+die2: 3 
-      Sum: 12   die1: 2   die2: 2   die1+die2: 4 
-      Sum: 12   die1: 2   die2: 3   die1+die2: 5 
-      Sum: 12   die1: 2   die2: 4   die1+die2: 6 
-      Sum: 12   die1: 2   die2: 5   die1+die2: 7 
-      Sum: 12   die1: 2   die2: 6   die1+die2: 8 
-      Sum: 12   die1: 3   die2: 1   die1+die2: 4 
-      Sum: 12   die1: 3   die2: 2   die1+die2: 5 
-      Sum: 12   die1: 3   die2: 3   die1+die2: 6 
-      Sum: 12   die1: 3   die2: 4   die1+die2: 7 
-      Sum: 12   die1: 3   die2: 5   die1+die2: 8 
-      Sum: 12   die1: 3   die2: 6   die1+die2: 9 
-      Sum: 12   die1: 4   die2: 1   die1+die2: 5 
-      Sum: 12   die1: 4   die2: 2   die1+die2: 6 
-      Sum: 12   die1: 4   die2: 3   die1+die2: 7 
-      Sum: 12   die1: 4   die2: 4   die1+die2: 8 
-      Sum: 12   die1: 4   die2: 5   die1+die2: 9 
-      Sum: 12   die1: 4   die2: 6   die1+die2: 10 
-      Sum: 12   die1: 5   die2: 1   die1+die2: 6 
-      Sum: 12   die1: 5   die2: 2   die1+die2: 7 
-      Sum: 12   die1: 5   die2: 3   die1+die2: 8 
-      Sum: 12   die1: 5   die2: 4   die1+die2: 9 
-      Sum: 12   die1: 5   die2: 5   die1+die2: 10 
-      Sum: 12   die1: 5   die2: 6   die1+die2: 11 
-      Sum: 12   die1: 6   die2: 1   die1+die2: 7 
-      Sum: 12   die1: 6   die2: 2   die1+die2: 8 
-      Sum: 12   die1: 6   die2: 3   die1+die2: 9 
-      Sum: 12   die1: 6   die2: 4   die1+die2: 10 
-      Sum: 12   die1: 6   die2: 5   die1+die2: 11 
-      Sum: 12   die1: 6   die2: 6   die1+die2: 12
-.   %/output
 
 
 
@@ -2431,9 +1646,6 @@ ForEach(sum, 3 .. 18)
 waysList;
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {{3,1},{4,3},{5,6},{6,10},{7,15},{8,21},{9,25},{10,27},{11,27},{12,25},{13,21},{14,15},{15,10},{16,6},{17,3},{18,1}}
-.   %/output
 
 
 
@@ -2475,9 +1687,6 @@ ForEach(sum, 3 .. 38)
 waysList;
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {{3,1},{4,3},{5,6},{6,10},{7,15},{8,21},{9,27},{10,33},{11,39},{12,45},{13,51},{14,57},{15,62},{16,66},{17,69},{18,71},{19,72},{20,72},{21,72},{22,72},{23,71},{24,69},{25,66},{26,62},{27,57},{28,51},{29,45},{30,39},{31,33},{32,27},{33,21},{34,15},{35,10},{36,6},{37,3},{38,1}}
-.   %/output
 
 
 
@@ -2514,15 +1723,6 @@ pop;
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: {1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5}
-      
-      Side Effects:
-      {1}{2}  {1,2} 
-      {1,2}{2,3}  {1,2,2,3} 
-      {1,2,2,3}{2,3,3,4}  {1,2,2,3,2,3,3,4} 
-      {1,2,2,3,2,3,3,4}{2,3,3,4,3,4,4,5}  {1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5}
-.   %/output
 
 
 
@@ -2538,9 +1738,6 @@ Plot2D(f(d),0:500);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: org.jfree.chart.ChartPanel
-.   %/output
 
 
 
@@ -2570,30 +1767,38 @@ Repeat()
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 3
-.   %/output
 
 
+-------------
 
 
+%mathpiper,title=""
 
-%mathpiper,title="Falling point"
-
-y := 5;
+y := 4;
 
 While( y >= 0)
 [
     GeoGebraPoint("BALL",2,y);
     
-    time := SystemTimer();
-    
-    time := time + 50010000;
-    
-    While( time > SystemTimer() ) NOP;
-    
     y := y - .1;
-
+    
+    
+    /*
+      The following code creates a delay which waits a
+      specified number of nanoseconds before continuing.
+    */
+    
+    //Obtain the current value of the system timer.  The time
+    //units are in nanoseconds.
+    currentTime := SystemTimer();
+    
+    //Set the variable futureTime to a time which is a specified
+    //number of nanoseconds into the future.
+    futureTime := currentTime + 50010000;
+    
+    //Wait in a loop until the system timer catches up to the
+    //value in futureTime.  NOP stands for No Operation.
+    While( futureTime > SystemTimer() ) NOP;
 ];
 
 %/mathpiper
@@ -2601,6 +1806,7 @@ While( y >= 0)
     %output,preserve="false"
       Result: True
 .   %/output
+
 
 
 
@@ -2624,18 +1830,14 @@ Repeat(75)
     
     GeoGebraPoint("A",currentPosition[1],currentPosition[2]);
     
+    //Time delay.
     time := SystemTimer();
-    
     time := time + 100000000;
-    
     While( time > SystemTimer() ) NOP;
 ];
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 75
-.   %/output
 
 
 
@@ -2662,9 +1864,6 @@ GeoGebraPlot(points);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -2687,9 +1886,6 @@ While(index <= 5)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
@@ -2711,21 +1907,6 @@ Repeat(10)
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: 10
-      
-      Side Effects:
-      x-7*x^2+5 
-      3*x^2-6*x-8 
-      4*x^2+9*x+2 
-      10*x^2-2*x-1 
-      5-(9*x+7*x^2) 
-      -(4*x+10*x^2+6) 
-      6-(6*x+9*x^2) 
-      6*x-9*x^2-9 
-      4*x^2-2*x-8 
-      3*x-3*x^2-9
-.   %/output
 
 
 
@@ -2744,9 +1925,6 @@ Repeat(10)
 
 %/geogebra
 
-    %output,preserve="false"
-      GeoGebra updated.
-.   %/output
 
 
 
@@ -2762,9 +1940,6 @@ Repeat(10)
 
 %/geogebra
 
-    %output,preserve="false"
-      GeoGebra updated.
-.   %/output
 
 
 
@@ -2778,6 +1953,84 @@ f(x) = speed*x
 
 %/geogebra
 
+
+
+
+
+
+
+
+%mathpiper,title="Dropping a ball with gravity."
+
+simulatedTime := 0; //Simulated time.
+
+dt := 0.01; //Delta t in seconds: the amount time changes in each loop iteration.
+
+y := 10; //Set the y position of the ball to 10 meters above the ground.
+
+v := 0; //Set the initial velocity of the ball to 0 meters/second.
+
+g := 9.8; //Set gravity to 9.8 meters per second.
+
+Repeat()
+[
+    GeoGebraPoint("Ball",2,y); //Plot the ball.
+    
+    y := y + v * dt; //Calculate the new y position of the ball.
+    
+    If(y < 0, Break()); //If the ball hit the ground, end the program.
+    
+    v := v - g * dt; //Calculate the new velocity of the ball.
+    
+    simulatedTime := simulatedTime + dt; //Move simulated time ahead .01 seconds.
+    
+    //Time delay.
+    currentTime := SystemTimer();
+    futureTime := currentTime + 10000000; //10000000 nanoseconds = .01 second.
+    While( futureTime > SystemTimer() ) NOP;   
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 143
+.   %/output
+
+
+
+
+
+
+
+
+%mathpiper,title="Update objects"
+
+GeoGebra() ["updateObjects"] := "G";
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%geogebra,clear="true"
+
+//Creat the corners of the rectangle.
+C1 = (55,0)
+C2 = (55,50)
+C3 = (0,50)
+
+//Create top and left sides of the rectangle.
+Segment[C1,C2]
+Segment[C2,C3]
+
+%/geogebra
+
     %output,preserve="false"
       GeoGebra updated.
 .   %/output
@@ -2785,60 +2038,183 @@ f(x) = speed*x
 
 
 
+%mathpiper,title="Bouncing ball."
 
+x := 23;
 
+y := 9;
 
-%mathpiper,title="Example program 2.1"
+xDirection := .5;
 
-y0 := 10;
-v0 := 0;
-t := 0;
-dt := 0.01;
-y := y0;
-v := v0;
-g := 9.8;
+yDirection := .5;
 
 Repeat()
 [
-    GeoGebraPoint("A",2,y);
+    GeoGebraPoint("A",x,y);
     
-    y := y + v * dt;
+    x := x + xDirection;
     
-    If(y < 0, Break());
+    y := y + yDirection;
     
-    v := v - g * dt;
+    If(x = 55 Or x = 0, xDirection := xDirection * -1);
     
-    t := t + dt;
+    If(y = 50 Or y = 0, yDirection := yDirection * -1);
     
+    //Time delay.
     time := SystemTimer();
-    
-    time := time + 10000000;
-    
-    While( time > SystemTimer() ) NOP;    
+    time := time + 10010000;
+    While( time > SystemTimer() ) NOP;
 ];
 
+%/mathpiper
+
+    %error,preserve="false"
+      Result: User halted calculation. Error near line 2067
+.   %/error
 
 
 
 
-Echo("Results:");
-Echo("final time = ", t);
-Echo("y = ", y, "  v = ", v);
 
-yAnalytic := y0 + v0 - 0.5*g*t*t;
-vAnalytic := v0 - g*t;
-Echo("analytic y = ", yAnalytic, " v =", vAnalytic);
+
+
+
+
+%mathpiper,title="Random circles.",clear="true"
+
+h := 1;
+k := 1;
+r := 1;
+
+GeoGebraPlot((x-h)^2+(y-k)^2== r^2);
 
 %/mathpiper
 
     %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      Results:
-      final time = 1.43 
-      y = -0.09008   v = -14.014 
-      analytic y = -0.020010  v =-14.014
+      Result: java.lang.Boolean
 .   %/output
+
+
+
+
+%mathpiper,title="Random circles.",clear="true"
+
+
+Repeat(10)
+[
+    h := RandomInteger(5);
+    k := RandomInteger(5);
+    r := RandomInteger(3);
+    
+    GeoGebraPlot((x-h)^2+(y-k)^2== r^2);
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 10
+.   %/output
+
+
+
+-----------
+
+
+
+
+
+
+============
+
+
+
+%geogebra_xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<geogebra format="3.2">
+<gui>
+	<show algebraView="false" spreadsheetView="false" auxiliaryObjects="false" algebraInput="true" cmdList="true"/>
+	<font  size="12"/>
+</gui>
+<euclidianView>
+	<size  width="978" height="516"/>
+	<coordSystem xZero="215.0" yZero="315.0" scale="50.0" yscale="50.0"/>
+	<evSettings axes="true" grid="true" gridIsBold="false" pointCapturing="3" pointStyle="0" rightAngleStyle="1" checkboxSize="13" gridType="0"/>
+	<bgColor r="255" g="255" b="255"/>
+	<axesColor r="0" g="0" b="0"/>
+	<gridColor r="192" g="192" b="192"/>
+	<lineStyle axes="1" grid="10"/>
+	<axis id="0" show="true" label="" unitLabel="" tickStyle="1" showNumbers="true"/>
+	<axis id="1" show="true" label="" unitLabel="" tickStyle="1" showNumbers="true"/>
+</euclidianView>
+<kernel>
+	<continuous val="false"/>
+	<decimals val="2"/>
+	<angleUnit val="degree"/>
+	<coordStyle val="0"/>
+</kernel>
+<construction title="Distance Formula" author="" date="">
+<element type="point" label="A">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<labelOffset x="-31" y="28"/>
+	<labelMode val="1"/>
+	<animation step="0.1" speed="1.0" type="0" playing="false"/>
+	<coords x="1.0" y="1.0" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<element type="point" label="B">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<labelMode val="1"/>
+	<animation step="0.1" speed="1.0" type="0" playing="false"/>
+	<coords x="5.0" y="4.0" z="1.0"/>
+	<pointSize val="3"/>
+</element>
+<command name="Segment">
+	<input a0="A" a1="B"/>
+	<output a0="a"/>
+</command>
+<element type="segment" label="a">
+	<lineStyle thickness="2" type="0"/>
+	<show object="true" label="false"/>
+	<objColor r="0" g="0" b="0" alpha="0.0"/>
+	<layer val="0"/>
+	<labelMode val="0"/>
+	<coords x="-3.0" y="4.0" z="-1.0"/>
+	<lineStyle thickness="2" type="0"/>
+	<eqnStyle style="implicit"/>
+	<outlyingIntersections val="false"/>
+	<keepTypeOnTransform val="true"/>
+</element>
+<expression label="text2" exp="&quot;{ d  =  \sqrt{(X_2-X_1)^2 + (Y_2-Y_1)^2}&quot;"/>
+<element type="text" label="text2">
+	<show object="true" label="true"/>
+	<objColor r="255" g="0" b="0" alpha="0.0"/>
+	<layer val="0"/>
+	<labelMode val="0"/>
+	<fixed val="true"/>
+	<isLaTeX val="true"/>
+	<font serif="false" size="4" style="1"/>
+	<absoluteScreenLocation  x="19" y="9"/>
+</element>
+<expression label="text1" exp="&quot;{ d  =  \sqrt{(&quot; + (x(B)) + &quot;  -  &quot; + (x(A)) + &quot;)^2 + (&quot; + (y(B)) + &quot;  -  &quot; + (y(A)) + &quot;)^2}  =  &quot; + (Distance[A, B])" />
+<element type="text" label="text1">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.0"/>
+	<layer val="0"/>
+	<labelMode val="0"/>
+	<isLaTeX val="true"/>
+	<font serif="false" size="2" style="0"/>
+	<absoluteScreenLocation  x="236" y="16"/>
+</element>
+</construction>
+</geogebra>
+
+%/geogebra_xml
+
+
 
 
