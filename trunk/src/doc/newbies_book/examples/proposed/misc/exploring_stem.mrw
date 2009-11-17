@@ -1778,7 +1778,7 @@ y := 4;
 
 While( y >= 0)
 [
-    GeoGebraPoint("BALL",2,y);
+    GeoGebraPoint("BALL",1,y);
     
     y := y - .1;
     
@@ -1837,6 +1837,10 @@ Repeat(75)
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: 75
+.   %/output
 
 
 
@@ -2018,11 +2022,11 @@ GeoGebra() ["updateObjects"] := "G";
 
 
 
-%geogebra,clear="true"
+%geogebra
 
 //Creat the corners of the rectangle.
-C1 = (55,0)
-C2 = (55,50)
+C1 = (85,0)
+C2 = (85,50)
 C3 = (0,50)
 
 //Create top and left sides of the rectangle.
@@ -2040,7 +2044,7 @@ Segment[C2,C3]
 
 %mathpiper,title="Bouncing ball."
 
-x := 23;
+x := 27;
 
 y := 9;
 
@@ -2056,7 +2060,7 @@ Repeat()
     
     y := y + yDirection;
     
-    If(x = 55 Or x = 0, xDirection := xDirection * -1);
+    If(x = 85 Or x = 0, xDirection := xDirection * -1);
     
     If(y = 50 Or y = 0, yDirection := yDirection * -1);
     
@@ -2069,7 +2073,7 @@ Repeat()
 %/mathpiper
 
     %error,preserve="false"
-      Result: User halted calculation. Error near line 2067
+      Result: User halted calculation. Error near line 2071
 .   %/error
 
 
@@ -2081,6 +2085,8 @@ Repeat()
 
 
 %mathpiper,title="Random circles.",clear="true"
+
+Clear(x,y);
 
 h := 1;
 k := 1;
@@ -2099,6 +2105,7 @@ GeoGebraPlot((x-h)^2+(y-k)^2== r^2);
 
 %mathpiper,title="Random circles.",clear="true"
 
+Clear(x,y);
 
 Repeat(10)
 [
