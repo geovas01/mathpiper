@@ -2129,6 +2129,31 @@ Repeat(10)
 
 
 
+%mathpiper,title=""
+
+x := 1;
+
+slope := .4;
+
+While(x <= 6)
+[
+    y := slope * x + .5;
+    
+    x := x + .1;
+    
+    GeoGebraPoint("BALL",x,y);
+    
+    currentTime := SystemTimer();
+    futureTime := currentTime + 30000000;
+    While( futureTime > SystemTimer() ) NOP;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
 
 ============
@@ -2221,6 +2246,10 @@ Repeat(10)
 </geogebra>
 
 %/geogebra_xml
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
 
 
 
