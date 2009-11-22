@@ -49,5 +49,5 @@
 {n} -- number of trials
 
 
-*SEE CumulativeDistributionFunction, ProbabilityDensityFunction
+*SEE CDF, PDF
 %/mathpiper_docs

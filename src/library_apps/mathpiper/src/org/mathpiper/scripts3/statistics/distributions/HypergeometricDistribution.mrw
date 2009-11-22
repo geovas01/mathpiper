@@ -34,7 +34,7 @@ from a lot of N items, M of which are nonconforming or defective.
 
 /%mathpiper,title=""
 
-ProbabilityDensityFunction(HypergeometricDistribution(100,5,10),0);
+PDF(HypergeometricDistribution(100,5,10),0);
 
 /%/mathpiper
 
@@ -46,7 +46,7 @@ ProbabilityDensityFunction(HypergeometricDistribution(100,5,10),0);
 
 /%mathpiper,title=""
 
-CumulativeDistributionFunction(HypergeometricDistribution(100,5,10),1);
+CDF(HypergeometricDistribution(100,5,10),1);
 
 /%/mathpiper
 
