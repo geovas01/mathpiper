@@ -1,8 +1,8 @@
-%mathpiper,def="ConfidenceInterval",scope="private"
+%mathpiper,def="ConfidenceIntervalOfTheMean",scope="private"
 
-Retract("ConfidenceInterval",*);
+Retract("ConfidenceIntervalOfTheMean",*);
 
-ConfidenceInterval(mean,standardDeviation,sampleSize,confidenceLevel) :=
+ConfidenceIntervalOfTheMean(mean,standardDeviation,sampleSize,confidenceLevel) :=
 [
     Local(criticalZScore,standardErrorOfTheMean,upperLimit,lowerLimit);
     
@@ -28,11 +28,11 @@ ConfidenceInterval(mean,standardDeviation,sampleSize,confidenceLevel) :=
 
 
 
-%mathpiper_docs,name="ConfidenceInterval",categories="User Functions;Statistics & Probability"
-*CMD ConfidenceInterval --- calculates a confidence interval
+%mathpiper_docs,name="ConfidenceIntervalOfTheMean",categories="User Functions;Statistics & Probability"
+*CMD ConfidenceIntervalOfTheMean --- calculates a confidence interval
 *STD
 *CALL
-	ConfidenceInterval(mean,standardDeviation,sampleSize,confidenceLevel)
+	ConfidenceIntervalOfTheMean(mean,standardDeviation,sampleSize,confidenceLevel)
 *PARMS
 {mean} -- the mean of the sample
 {standardDeviation} -- the standard deviation of the sample
@@ -46,7 +46,7 @@ contains the lower limit as its first element and the upper limit as
 its second element.
 
 *E.G.
-In> ConfidenceInterval(78.25,37.50,32,.90)
+In> ConfidenceIntervalOfTheMean(78.25,37.50,32,.90)
 Result: {89.15394422,67.34605578}
 %/mathpiper_docs
 
