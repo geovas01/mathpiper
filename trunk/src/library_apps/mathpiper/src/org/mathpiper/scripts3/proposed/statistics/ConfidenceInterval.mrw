@@ -1,0 +1,57 @@
+%mathpiper,def="ConfidenceInterval",scope="private"
+
+Retract("ConfidenceInterval",*);
+
+ConfidenceInterval(mean,standardDeviation,sampleSize,confidenceLevel) :=
+[
+    Local(criticalZScore,standardErrorOfTheMean,upperLimit,lowerLimit);
+    
+    criticalZScore := ConfidenceLevelToZScore(confidenceLevel);
+    
+    standardErrorOfTheMean := StandardErrorOfTheMean(standardDeviation,sampleSize);
+    
+    upperLimit := N(mean + criticalZScore * standardErrorOfTheMean);
+    
+    lowerLimit := N(mean - criticalZScore * standardErrorOfTheMean);
+    
+    {lowerLimit,upperLimit};
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="ConfidenceInterval",categories="User Functions;Statistics & Probability"
+*CMD ConfidenceInterval --- calculates a confidence interval
+*STD
+*CALL
+	ConfidenceInterval(mean,standardDeviation,sampleSize,confidenceLevel)
+*PARMS
+{mean} -- the mean of the sample
+{standardDeviation} -- the standard deviation of the sample
+{sampleSize} -- the size of the sample
+{confidenceLevel} -- the desired confidence level
+
+*DESC
+
+This function calculates a confidence interval.  It returns a list which
+contains the lower limit as its first element and the upper limit as
+its second element.
+
+*E.G.
+In> ConfidenceInterval(78.25,37.50,32,.90)
+Result: {89.15394422,67.34605578}
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
