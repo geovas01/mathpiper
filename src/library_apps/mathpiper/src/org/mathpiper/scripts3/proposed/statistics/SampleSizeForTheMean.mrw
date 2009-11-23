@@ -37,8 +37,8 @@ This function calculates the minimum sample size for the mean to provide
 a specific margin of error for a given confidence level.
 
 *E.G.
-In> SampleSizeForTheMean(1.96,37.50,8)
-Result: 84.41015625
+In> SampleSizeForTheMean(37.50,.95,8)
+Result: 84.40706911
 %/mathpiper_docs
 
     %output,preserve="false"
