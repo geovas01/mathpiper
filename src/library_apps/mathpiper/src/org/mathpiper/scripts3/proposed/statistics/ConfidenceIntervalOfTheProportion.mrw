@@ -1,0 +1,62 @@
+%mathpiper,def="ConfidenceIntervalOfTheProportion",scope="private"
+
+Retract("ConfidenceIntervalOfTheProportion",*);
+
+ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) :=
+[
+    Check(IsInteger(numberOfSuccesses) And numberOfSuccesses >= 0, "The first argument must be an integer which is >=0");
+    
+    Check(IsInteger(sampleSize) And sampleSize >= 0, "The second argument must be an integer which is >=0");
+    
+    Local(criticalZScore,approximateStandardErrorOfTheProportion,upperLimit,lowerLimit);
+    
+    criticalZScore := ConfidenceLevelToZScore(confidenceLevel);
+    
+    sampleProportion := N(numberOfSuccesses/sampleSize);
+    
+    approximateStandardErrorOfTheProportion := Sqrt((sampleProportion*(1 - sampleProportion))/sampleSize);
+    
+    upperLimit := N(sampleProportion + criticalZScore * approximateStandardErrorOfTheProportion);
+    
+    lowerLimit := N(sampleProportion - criticalZScore * approximateStandardErrorOfTheProportion);
+    
+    {lowerLimit,upperLimit};
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="ConfidenceIntervalOfTheProportion",categories="User Functions;Statistics & Probability"
+*CMD ConfidenceIntervalOfTheProportion --- calculates a confidence interval for a proportion
+*STD
+*CALL
+	ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel)
+*PARMS
+{numberOfSuccesses} -- the number of successes in the sample
+{sampleSize} -- the size of the sample
+{confidenceLevel} -- the desired confidence level
+
+*DESC
+
+This function calculates a confidence interval for a proportion.  It returns a list which
+contains the lower limit as its first element and the upper limit as
+its second element.
+
+*E.G.
+In> ConfidenceIntervalOfTheProportion(110,175,.90)
+Result: {0.5684923463,0.6886505109}
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
