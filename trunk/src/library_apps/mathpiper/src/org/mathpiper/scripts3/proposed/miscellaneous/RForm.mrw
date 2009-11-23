@@ -126,7 +126,7 @@ LocalSymbols(rFormMathFunctions) [
 100 # RForm(- _y, _p) <-- RFormBracketIf(p<OpPrecedence("-"), ConcatStrings(" - ", RForm(y, OpRightPrecedence("-")) ) );
 
 	/* power's argument is never bracketed but it must be put in braces. */
-100 # RForm(_x ^ _y, _p) <-- RFormBracketIf(p<=OpPrecedence("^"), ConcatStrings("pow(", RForm(x, RFormMaxPrec()), ", ", RForm(y, RFormMaxPrec()), ")" ) );
+100 # RForm(_x ^ _y, _p) <-- RFormBracketIf(p <= OpPrecedence("^"), ConcatStrings(RForm(x, RFormMaxPrec()), "^", RForm(y, RFormMaxPrec())) );
 
 100 # RForm(if(_pred)_body, _p) <-- "if (":RForm(pred,60000):") ":RForm(body);
 100 # RForm(_left else _right, _p) <-- RForm(left):" else ":RForm(right);
