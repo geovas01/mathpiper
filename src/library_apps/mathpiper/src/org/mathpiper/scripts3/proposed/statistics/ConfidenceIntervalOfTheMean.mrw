@@ -20,7 +20,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
         
         If(InVerboseMode(),
             [
-                Echo("Using normal distribution.");
+                Echo("Using the normal distribution.");
                 
                 Echo("Critical Z-Score: ", criticalZScore);
                 
@@ -38,7 +38,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
         
         If(InVerboseMode(),
             [
-                Echo("Using normal t-distribution.");
+                Echo("Using the t-distribution.");
                 
                 Echo("t-value: ", tValue);
                 
