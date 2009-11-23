@@ -82,12 +82,17 @@ standardDeviation := StandardDeviation(sampleList);
 
 size := Length(sampleList);
 
-ConfidenceIntervalOfTheMean(sampleMean,12.7,True,size,.94);
+V(ConfidenceIntervalOfTheMean(sampleMean,12.7,True,size,.94));
 
 %/mathpiper
 
     %output,preserve="false"
       Result: {40.02134847,53.81198487}
+      
+      Side Effects:
+      Using the normal distribution.
+      Critical Z-Score: 1.880793930 
+      Standard error of the mean: 3.666174209
 .   %/output
 
 
@@ -103,12 +108,17 @@ standardDeviation := StandardDeviation(sampleList);
 
 size := Length(sampleList);
 
-ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,False,size,.98);
+V(ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,False,size,.98));
 
 %/mathpiper
 
     %output,preserve="false"
       Result: {110.2286704,129.0440569}
+      
+      Side Effects:
+      Using the t-distribution.
+      t-value: 2.763769555 
+      Standard error of the mean: Sqrt(1402/121)
 .   %/output
 
 
