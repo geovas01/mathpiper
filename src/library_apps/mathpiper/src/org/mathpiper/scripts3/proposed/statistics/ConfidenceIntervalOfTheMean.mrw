@@ -10,15 +10,24 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
     
     If(sampleSize >= 30 Or standardDeviationIsKnown = True,
     [
-        criticalZScore := ConfidenceLevelToZScore(confidenceLevel);
-        
-        standardErrorOfTheMean := StandardErrorOfTheMean(standardDeviation,sampleSize);
+        criticalZScore := N(ConfidenceLevelToZScore(confidenceLevel));
+
+        standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
         
         upperLimit := N(sampleMean + criticalZScore * standardErrorOfTheMean);
         
         lowerLimit := N(sampleMean - criticalZScore * standardErrorOfTheMean);
+        
+        If(InVerboseMode(),
+            [
+                Echo("Using normal distribution.");
+                
+                Echo("Critical Z-Score: ", criticalZScore);
+                
+                Echo("Standard error of the mean: ", standardErrorOfTheMean);
+            ]);
     ],
-    [
+    [   
         tValue := OneTailAlphaToTValue(sampleSize - 1, N((1 - confidenceLevel)/2));
         
         standardErrorOfTheMean := StandardErrorOfTheMean(standardDeviation,sampleSize);
@@ -26,6 +35,15 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
         upperLimit := N(sampleMean + tValue * standardErrorOfTheMean);
         
         lowerLimit := N(sampleMean - tValue * standardErrorOfTheMean);
+        
+        If(InVerboseMode(),
+            [
+                Echo("Using normal t-distribution.");
+                
+                Echo("t-value: ", tValue);
+                
+                Echo("Standard error of the mean: ", standardErrorOfTheMean);
+            ]);
     
     ]);
     
