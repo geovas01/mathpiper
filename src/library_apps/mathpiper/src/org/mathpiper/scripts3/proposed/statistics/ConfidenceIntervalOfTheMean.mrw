@@ -56,7 +56,6 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
 {confidenceLevel} -- the desired confidence level
 
 *DESC
-
 This function calculates a confidence interval for a mean.  It returns a list which
 contains the lower limit as its first element and the upper limit as
 its second element.  If the sample size is <30 or {standardDeviationIsKnown} is False, then
