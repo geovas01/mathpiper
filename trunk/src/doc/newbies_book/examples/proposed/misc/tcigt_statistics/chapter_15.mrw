@@ -19,9 +19,14 @@ confidenceLevel := 1 - twoTailAlpha;
 
 V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
 
+lowerLimit := confidenceIntervalOfTheMean[1];
+
 upperLimit := confidenceIntervalOfTheMean[2];
 
+Echo("Lower limit: ", lowerLimit);
+
 Echo("Sample mean: ", sampleMean);
+
 Echo("Upper limit: ", upperLimit);
 
 If(sampleMean > upperLimit, 
@@ -37,6 +42,7 @@ If(sampleMean > upperLimit,
       Using normal distribution.
       Critical Z-Score: 1.644853952 
       Standard error of the mean: 0.08451542547 
+      Lower limit: 1.560984468 
       Sample mean: 1.95 
       Upper limit: 1.839015532 
       Reject H0, concluding that the population mean is not 1.7 cups per day
@@ -72,7 +78,7 @@ Echo("Sample mean: ", sampleMean);
 Echo("Lower limit: ", lowerLimit);
 
 If(sampleMean < lowerLimit, 
-    Echo("Reject H0, concluding that the population mean is not 1.7 cups per day"),
+    Echo("Reject H0."),
     Echo("Do not reject H0."));
 
 %/mathpiper
@@ -86,6 +92,156 @@ If(sampleMean < lowerLimit,
       Standard error of the mean: 1.767766953 
       Sample mean: 38.7 
       Lower limit: 37.09228154 
+      Do not reject H0.
+.   %/output
+
+
+
+
+
+%mathpiper,title="Exercise 3"
+//H0: mean <= 1000
+
+//H1: mean > 1000;
+
+testMean := 1000;
+
+sampleMean := 1190;
+
+sampleSize := 32;
+
+sampleStandardDeviation := 325;
+
+standardDeviationIsKnown := True;
+
+oneTailAlpha := .02;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+upperLimit := confidenceIntervalOfTheMean[2];
+
+Echo("Sample mean: ", sampleMean);
+Echo("Upper limit: ", upperLimit);
+
+If(sampleMean > upperLimit, 
+    Echo("Reject H0, concluding that the average lightbulb life exceeds 1000 hours."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using normal distribution.
+      Critical Z-Score: 2.053749206 
+      Standard error of the mean: 57.45242597 
+      Sample mean: 1190 
+      Upper limit: 1117.992874 
+      Reject H0, concluding that the average lightbulb life exceeds 1000 hours.
+.   %/output
+
+
+
+
+
+%mathpiper,title="Exercise 4"
+//H0: mean >= 30
+
+//H1: mean < 30;
+
+testMean := 30;
+
+sampleMean := 26.9;
+
+sampleSize := 42;
+
+sampleStandardDeviation := 8;
+
+standardDeviationIsKnown := True;
+
+oneTailAlpha := .01;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean[1];
+
+Echo("Sample mean: ", sampleMean);
+Echo("Lower limit: ", lowerLimit);
+
+If(sampleMean < lowerLimit, 
+    Echo("Reject H0, concluding that the average delivery time is less than 30 minutes."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using normal distribution.
+      Critical Z-Score: 2.326348187 
+      Standard error of the mean: 1.234426800 
+      Sample mean: 26.9 
+      Lower limit: 27.12829345 
+      Reject H0, concluding that the average delivery time is less than 30 minutes.
+.   %/output
+
+
+
+
+
+%mathpiper,title="Exercise 1"
+//H0: mean = 2700
+
+//H1: mean != 2700
+
+testMean := 2700;
+
+sampleMean := 2450;
+
+sampleSize := 40;
+
+sampleStandardDeviation := 950;
+
+standardDeviationIsKnown := True;
+
+twoTailAlpha := .05;
+
+confidenceLevel := 1 - twoTailAlpha;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean[1];
+
+upperLimit := confidenceIntervalOfTheMean[2];
+
+Echo("Lower limit: ", lowerLimit);
+
+Echo("Sample mean: ", sampleMean);
+
+Echo("Upper limit: ", upperLimit);
+
+If(sampleMean > upperLimit, 
+    Echo("Reject H0, concluding that the population mean is not 1.7 cups per day"),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using normal distribution.
+      Critical Z-Score: 1.959964158 
+      Standard error of the mean: 150.2081889 
+      Lower limit: 2405.597334 
+      Sample mean: 2450 
+      Upper limit: 2994.402667 
       Do not reject H0.
 .   %/output
 
