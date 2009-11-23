@@ -1,0 +1,92 @@
+%mathpiper,title="Exercise 1"
+//H0: mean = 1.7
+
+//H1: mean != 1.7
+
+testMean := 1.7;
+
+sampleMean := 1.95;
+
+sampleSize := 35;
+
+sampleStandardDeviation := .5;
+
+standardDeviationIsKnown := True;
+
+twoTailAlpha := .10;
+
+confidenceLevel := 1 - twoTailAlpha;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+upperLimit := confidenceIntervalOfTheMean[2];
+
+Echo("Sample mean: ", sampleMean);
+Echo("Upper limit: ", upperLimit);
+
+If(sampleMean > upperLimit, 
+    Echo("Reject H0, concluding that the population mean is not 1.7 cups per day"),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using normal distribution.
+      Critical Z-Score: 1.644853952 
+      Standard error of the mean: 0.08451542547 
+      Sample mean: 1.95 
+      Upper limit: 1.839015532 
+      Reject H0, concluding that the population mean is not 1.7 cups per day
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 2"
+//H0: mean >= 40
+
+//H1: mean < 40;
+
+testMean := 40;
+
+sampleMean := 38.7;
+
+sampleSize := 50;
+
+sampleStandardDeviation := 12.5;
+
+standardDeviationIsKnown := True;
+
+oneTailAlpha := .05;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean[1];
+
+Echo("Sample mean: ", sampleMean);
+Echo("Lower limit: ", lowerLimit);
+
+If(sampleMean < lowerLimit, 
+    Echo("Reject H0, concluding that the population mean is not 1.7 cups per day"),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using normal distribution.
+      Critical Z-Score: 1.644853952 
+      Standard error of the mean: 1.767766953 
+      Sample mean: 38.7 
+      Lower limit: 37.09228154 
+      Do not reject H0.
+.   %/output
+
+
