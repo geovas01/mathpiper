@@ -2,17 +2,32 @@
 
 Retract("ConfidenceIntervalOfTheMean",*);
 
-ConfidenceIntervalOfTheMean(mean,standardDeviation,sampleSize,confidenceLevel) :=
+ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel) :=
 [
-    Local(criticalZScore,standardErrorOfTheMean,upperLimit,lowerLimit);
+    Check(IsBoolean(standardDeviationIsKnown),"The third argument must be True or False.");
     
-    criticalZScore := ConfidenceLevelToZScore(confidenceLevel);
+    Local(criticalZScore,tValue,standardErrorOfTheMean,upperLimit,lowerLimit);
     
-    standardErrorOfTheMean := StandardErrorOfTheMean(standardDeviation,sampleSize);
+    If(sampleSize >= 30 Or standardDeviationIsKnown = True,
+    [
+        criticalZScore := ConfidenceLevelToZScore(confidenceLevel);
+        
+        standardErrorOfTheMean := StandardErrorOfTheMean(standardDeviation,sampleSize);
+        
+        upperLimit := N(sampleMean + criticalZScore * standardErrorOfTheMean);
+        
+        lowerLimit := N(sampleMean - criticalZScore * standardErrorOfTheMean);
+    ],
+    [
+        tValue := OneTailAlphaToTValue(sampleSize - 1, N((1 - confidenceLevel)/2));
+        
+        standardErrorOfTheMean := StandardErrorOfTheMean(standardDeviation,sampleSize);
+        
+        upperLimit := N(sampleMean + tValue * standardErrorOfTheMean);
+        
+        lowerLimit := N(sampleMean - tValue * standardErrorOfTheMean);
     
-    upperLimit := N(mean + criticalZScore * standardErrorOfTheMean);
-    
-    lowerLimit := N(mean - criticalZScore * standardErrorOfTheMean);
+    ]);
     
     {lowerLimit,upperLimit};
 ];
@@ -32,10 +47,11 @@ ConfidenceIntervalOfTheMean(mean,standardDeviation,sampleSize,confidenceLevel) :
 *CMD ConfidenceIntervalOfTheMean --- calculates a confidence interval
 *STD
 *CALL
-	ConfidenceIntervalOfTheMean(mean,standardDeviation,sampleSize,confidenceLevel)
+	ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel)
 *PARMS
-{mean} -- the mean of the sample
+{sampleMean} -- the mean of the sample
 {standardDeviation} -- the standard deviation of the sample
+{standardDeviationIsKnown} -- True or False
 {sampleSize} -- the size of the sample
 {confidenceLevel} -- the desired confidence level
 
@@ -43,11 +59,12 @@ ConfidenceIntervalOfTheMean(mean,standardDeviation,sampleSize,confidenceLevel) :
 
 This function calculates a confidence interval for a mean.  It returns a list which
 contains the lower limit as its first element and the upper limit as
-its second element.
+its second element.  If the sample size is <30 or {standardDeviationIsKnown} is False, then
+Student's t-distribution is used during the calculation.
 
 *E.G.
-In> ConfidenceIntervalOfTheMean(78.25,37.50,32,.90)
-Result: {89.15394422,67.34605578}
+In> ConfidenceIntervalOfTheMean(78.25,37.50,True,32,.90)
+Result: {67.34605578,89.15394422}
 %/mathpiper_docs
 
     %output,preserve="false"
