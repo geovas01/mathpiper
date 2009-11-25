@@ -20,7 +20,7 @@ Rule("NormalForm",1,1000,True) expression;
 
 *DESC
 
-This functions returns an expression in normal form.
+This function returns an expression in normal form.
 
 
 %/mathpiper_docs
