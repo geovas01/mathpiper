@@ -111,7 +111,7 @@ public class EvaluationResponse {
      */
     public void setSideEffects(String sideEffects)
     {
-        this.sideEffects = sideEffects.trim();
+        this.sideEffects = sideEffects;
     }
 
     /**
