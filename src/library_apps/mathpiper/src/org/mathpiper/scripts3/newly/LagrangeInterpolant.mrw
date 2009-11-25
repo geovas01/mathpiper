@@ -66,7 +66,7 @@ polynomial.
 	In> Eval(Subst(x,2) f);
 	Out> 1;
 	
-	In> PrettyPrinter'Set("PrettyForm");
+	In> PrettyPrinterSet("PrettyForm");
 	
 	True
 	
