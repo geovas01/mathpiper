@@ -36,7 +36,7 @@ public class PrettyPrinterSet extends BuiltinFunction
         int nrArguments = Utility.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
-            aEnvironment.iPrettyPrinter = null;
+            aEnvironment.iPrettyPrinterName = null;
         } else
         {
             LispError.check(aEnvironment, aStackTop, nrArguments == 2, LispError.WRONG_NUMBER_OF_ARGUMENTS);
@@ -44,7 +44,7 @@ public class PrettyPrinterSet extends BuiltinFunction
             oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons());
             oper.goNext();
             LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
-            aEnvironment.iPrettyPrinter = (String) oper.car();
+            aEnvironment.iPrettyPrinterName = (String) oper.car();
         }
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
