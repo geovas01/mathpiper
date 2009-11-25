@@ -474,7 +474,7 @@ complex than a simple number.
 	
 	Out> True;
 
-*SEE EvalFormula, PrettyPrinter'Set
+*SEE EvalFormula, PrettyPrinterSet
 %/mathpiper_docs
 
 
@@ -491,7 +491,7 @@ complex than a simple number.
 
 *DESC
 
-Show an evaluation in a nice way, using {PrettyPrinter'Set}
+Show an evaluation in a nice way, using {PrettyPrinterSet}
 to show 'input = output'.
 
 *E.G.

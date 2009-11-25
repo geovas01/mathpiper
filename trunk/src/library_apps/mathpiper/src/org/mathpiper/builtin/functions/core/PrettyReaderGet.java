@@ -61,7 +61,7 @@ an empty string if the default pretty printer is used.
 
 *E.G.
 
-	In> PrettyReader'Get()
+	In> PrettyReaderGet()
 	Result> ""
 
 *SEE Read, LispRead, OMRead, PrettyPrinterSet, PrettyPrinterGet, PrettyReaderSet

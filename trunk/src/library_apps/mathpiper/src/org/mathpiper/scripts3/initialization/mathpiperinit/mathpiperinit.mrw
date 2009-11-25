@@ -77,8 +77,8 @@ Rule("REP",0,1,True)
   While(Not(IsExitRequested()))
   [
     Set(errorString, "");
-    If(And(IsString(PrettyReader'Get()),Not(PrettyReader'Get() = "")),
-      TrapError(Set(input, FromString(ReadCmdLineString("In> "))ApplyPure(PrettyReader'Get(),{})),Set(errorString,GetCoreError())),
+    If(And(IsString(PrettyReaderGet()),Not(PrettyReaderGet() = "")),
+      TrapError(Set(input, FromString(ReadCmdLineString("In> "))ApplyPure(PrettyReaderGet(),{})),Set(errorString,GetCoreError())),
       TrapError(Set(input, FromString(ConcatStrings(ReadCmdLineString("In> "),";"))Read()),Set(errorString,GetCoreError())));
     If(Not(errorString = ""), WriteString(errorString));
     If (Not(IsExitRequested()) And errorString="",
@@ -89,12 +89,12 @@ Rule("REP",0,1,True)
       If(Not(stringOut = ""), WriteString(stringOut));
       If(Not(errorString = ""), WriteString(errorString));
       SetGlobalLazyVariable(%,result);
-      If(PrettyPrinter'Get()="",
+      If(PrettyPrinterGet()="",
       [
         Write(Atom("Out> "),result);
         NewLine();
       ],
-      Apply(PrettyPrinter'Get(),{result}));
+      Apply(PrettyPrinterGet(),{result}));
     ]);
   ];
 ];

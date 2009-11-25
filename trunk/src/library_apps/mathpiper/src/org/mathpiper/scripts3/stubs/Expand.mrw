@@ -46,7 +46,7 @@ so on.
 
 *E.G.
 
-	In> PrettyPrinter'Set("PrettyForm");
+	In> PrettyPrinterSet("PrettyForm");
 	
 	True
 

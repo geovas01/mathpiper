@@ -486,7 +486,7 @@ integrated easily.
 
 *E.G.
 
-	In> PrettyPrinter'Set("PrettyForm");
+	In> PrettyPrinterSet("PrettyForm");
 	
 	True
 	

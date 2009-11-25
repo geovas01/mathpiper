@@ -587,7 +587,7 @@ Most of the work is performed by the internal function {OrthoPoly}.
 
 *E.G.
 
-	In> PrettyPrinter'Set("PrettyForm");
+	In> PrettyPrinterSet("PrettyForm");
 	
 	True
 	

@@ -30,11 +30,11 @@ Rule("OMREP",1,1,True)
       If(Not(errorObject = ""), errorObject);
       If(Not(stringOut = ""), WriteString(stringOut));
       SetGlobalLazyVariable(%,result);
-      If(PrettyPrinter'Get()="",
+      If(PrettyPrinterGet()="",
       [
         Apply("OMForm",{result});
       ],
-      Apply(PrettyPrinter'Get(),{result}));
+      Apply(PrettyPrinterGet(),{result}));
       If(count > 0 And (count:=count-1) = 0, Exit());
     ]);
   ];

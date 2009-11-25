@@ -39,7 +39,7 @@ up to order "order". It uses the function {ReversePoly} to perform the task.
 
 *E.G.
 
-	In> PrettyPrinter'Set("PrettyForm")
+	In> PrettyPrinterSet("PrettyForm")
 	
 	True
 	
