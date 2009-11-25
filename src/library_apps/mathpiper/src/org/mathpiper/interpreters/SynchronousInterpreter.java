@@ -38,6 +38,9 @@ import java.util.ArrayList;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Evaluator;
+import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.SublistCons;
 
 
 /**
@@ -113,7 +116,7 @@ class SynchronousInterpreter implements Interpreter {
                 }//end if.
 
             }//end if.
-            
+
 
             Utility.scriptsPath = "/org/mathpiper/assembledscripts/";
 
@@ -222,7 +225,7 @@ class SynchronousInterpreter implements Interpreter {
             //iError = null;
 
             ConsPointer inputExpressionPointer = new ConsPointer();
-            if (environment.iPrettyReader != null) {
+            if (environment.iPrettyReaderName != null) {
                 InputStatus someStatus = new InputStatus();
                 StringBuffer inp = new StringBuffer();
                 inp.append(inputExpression);
@@ -235,7 +238,7 @@ class SynchronousInterpreter implements Interpreter {
                 try {
                     ConsPointer args = new ConsPointer();
                     Utility.applyString(environment, inputExpressionPointer,
-                            environment.iPrettyReader,
+                            environment.iPrettyReaderName,
                             args);
                 } catch (Exception exception) {
                     if (exception instanceof EvaluationException) {
@@ -264,28 +267,52 @@ class SynchronousInterpreter implements Interpreter {
                 infixParser.parse(environment, inputExpressionPointer);
             }
 
-            ConsPointer result = new ConsPointer();
-            environment.iLispExpressionEvaluator.evaluate(environment, result, inputExpressionPointer); //*** The main valuation happens here.
+            ConsPointer resultPointer = new ConsPointer();
+            environment.iLispExpressionEvaluator.evaluate(environment, resultPointer, inputExpressionPointer); //*** The main valuation happens here.
 
-            if (result.type() == Utility.OBJECT) {
-                JavaObject javaObject = (JavaObject) result.car();
+            if (resultPointer.type() == Utility.OBJECT) {
+                JavaObject javaObject = (JavaObject) resultPointer.car();
                 evaluationResponse.setObject(javaObject.getObject());
             }//end if.
 
+            //Set the % symbol to the result of the current evaluation.
             String percent = (String) environment.getTokenHash().lookUp("%");
-            environment.setGlobalVariable(percent, result, true);
+            environment.setGlobalVariable(percent, resultPointer, true);
 
-            StringBuffer string_out = new StringBuffer();
-            MathPiperOutputStream output = new StringOutputStream(string_out);
+            StringBuffer outputBuffer = new StringBuffer();
+            MathPiperOutputStream outputStream = new StringOutputStream(outputBuffer);
 
-            if (environment.iPrettyPrinter != null) {
-                ConsPointer nonresult = new ConsPointer();
-                Utility.applyString(environment, nonresult, environment.iPrettyPrinter, result);
-                resultString = string_out.toString();
-            } else {
+            if (environment.iPrettyPrinterName != null) {
+                //Pretty printer.
+
+                ConsPointer applyResultPointer = new ConsPointer();
+
+                if(environment.iPrettyPrinterName.equals("\"RForm\""))
+                {
+                    Cons holdAtom = AtomCons.getInstance(environment, "Hold");
+
+                    holdAtom.cdr().setCons(resultPointer.getCons());
+
+                    Cons subListCons = SublistCons.getInstance(environment, holdAtom);
+
+                    ConsPointer resultPointerWithHold = new ConsPointer(subListCons);
+
+                    Utility.applyString(environment, applyResultPointer, environment.iPrettyPrinterName, resultPointerWithHold);
+                }
+                else
+                {
+                    Utility.applyString(environment, applyResultPointer, environment.iPrettyPrinterName, resultPointer);
+                }
+
                 printer.rememberLastChar(' ');
-                printer.print(result, output, environment);
-                resultString = string_out.toString();
+                printer.print(applyResultPointer, outputStream, environment);
+                resultString = outputBuffer.toString();
+
+            } else {
+                //Default printer.
+                printer.rememberLastChar(' ');
+                printer.print(resultPointer, outputStream, environment);
+                resultString = outputBuffer.toString();
             }
         } catch (Exception exception) {
             //Uncomment this for debugging();
@@ -306,9 +333,7 @@ class SynchronousInterpreter implements Interpreter {
                     }
                     evaluationResponse.setLineNumber(errorLineNumber);
                     evaluationResponse.setSourceFileName(environment.iInputStatus.fileName());
-                }
-                else
-                {
+                } else {
                     evaluationResponse.setLineNumber(mpe.getLineNumber());
                     evaluationResponse.setSourceFileName(mpe.getFileName());
                 }

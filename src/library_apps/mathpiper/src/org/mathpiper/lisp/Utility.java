@@ -218,12 +218,11 @@ public class Utility {
     }
 
 
-    public static void applyString(Environment aEnvironment, ConsPointer aResult,
-            String aOperator, ConsPointer aArgs) throws Exception {
+    //Evaluate a function which is in string form.
+    public static void applyString(Environment aEnvironment, ConsPointer aResult, String aOperator, ConsPointer aArgs) throws Exception {
         LispError.check(isString(aOperator), LispError.NOT_A_STRING);
 
-        Cons head =
-                AtomCons.getInstance(aEnvironment, getSymbolName(aEnvironment, aOperator));
+        Cons head = AtomCons.getInstance(aEnvironment, getSymbolName(aEnvironment, aOperator));
         head.cdr().setCons(aArgs.getCons());
         ConsPointer body = new ConsPointer();
         body.setCons(SublistCons.getInstance(aEnvironment, head));

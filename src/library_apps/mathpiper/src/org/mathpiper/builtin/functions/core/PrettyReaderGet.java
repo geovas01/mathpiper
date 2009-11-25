@@ -31,12 +31,12 @@ public class PrettyReaderGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if (aEnvironment.iPrettyReader == null)
+        if (aEnvironment.iPrettyReaderName == null)
         {
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
         } else
         {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.iPrettyReader));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.iPrettyReaderName));
         }
     }
 }

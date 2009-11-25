@@ -31,12 +31,12 @@ public class PrettyPrinterGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if (aEnvironment.iPrettyPrinter == null)
+        if (aEnvironment.iPrettyPrinterName == null)
         {
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
         } else
         {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.iPrettyPrinter));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.iPrettyPrinterName));
         }
     }
 }

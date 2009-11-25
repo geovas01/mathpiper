@@ -100,8 +100,8 @@ public class Environment {
     public String iError = null;
     public DefFileMap iDefFiles = new DefFileMap();
     public InputDirectories iInputDirectories = new InputDirectories();
-    public String iPrettyReader = null;
-    public String iPrettyPrinter = null;
+    public String iPrettyReaderName = null;
+    public String iPrettyPrinterName = null;
 
     public Environment(MathPiperOutputStream aCurrentOutput/*TODO FIXME*/) throws Exception {
         iCurrentTokenizer = iDefaultTokenizer;
