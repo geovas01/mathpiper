@@ -1,0 +1,31 @@
+%mathpiper,title="Exercise 2"
+//H0: mean >= 40
+
+//H1: mean < 40;
+
+testMean := 40;
+
+sampleMean := 38.7;
+
+sampleSize := 50;
+
+sampleStandardDeviation := 12.5;
+
+standardDeviationIsKnown := True;
+
+oneTailAlpha := .05;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean[1];
+
+Echo("Sample mean: ", sampleMean);
+Echo("Lower limit: ", lowerLimit);
+
+If(sampleMean < lowerLimit, 
+    Echo("Reject H0."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
