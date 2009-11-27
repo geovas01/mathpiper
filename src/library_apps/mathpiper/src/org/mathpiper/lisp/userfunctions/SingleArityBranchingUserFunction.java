@@ -13,9 +13,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.userfunctions;
+
 
 import org.mathpiper.lisp.stacks.UserStackInformation;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -25,6 +25,7 @@ import org.mathpiper.lisp.cons.SublistCons;
 import java.util.*;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Evaluator;
+
 
 /**
  * A function (usually mathematical) which is defined by one or more rules.
@@ -36,10 +37,8 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     /// List of arguments, with corresponding \c iHold property.
 
     protected List<FunctionParameter> iParameters = new ArrayList(); //CArrayGrower<FunctionParameter>
-
     /// List of rules, sorted on precedence.
     protected List<Branch> iBranchRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
-
     /// List of arguments
     ConsPointer iParameterList = new ConsPointer();
 /// Abstract class providing the basic user function API.
@@ -50,6 +49,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     boolean showFlag = false;
     protected String functionType = "**** user rulebase";
     protected String functionName;
+
 
     /**
      * Constructor.
@@ -66,18 +66,18 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
         while (parameterTraverser.getCons() != null) {
 
-            try{
+            try {
                 LispError.check(parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION);
-            }catch(EvaluationException ex)
-            {
-                throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ", "none", -1) ;
+            } catch (EvaluationException ex) {
+                throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ", "none", -1);
             }//end catch.
 
-            FunctionParameter parameter = new FunctionParameter( (String) parameterTraverser.car(), false);
+            FunctionParameter parameter = new FunctionParameter((String) parameterTraverser.car(), false);
             iParameters.add(parameter);
             parameterTraverser.goNext();
         }
     }
+
 
     /**
      * Evaluate the function with the given arguments.
@@ -133,7 +133,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     /* Rule dump trace code. */
                     if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer = new ConsPointer();
-                        argumentsPointer.setCons(SublistCons.getInstance(aEnvironment,aArgumentsPointer.getCons()));
+                        argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(thisRule, aEnvironment, this);
                         Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
                     }
@@ -145,7 +145,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     /*Leave trace code */
                     if (isTraced() && showFlag) {
                         ConsPointer argumentsPointer2 = new ConsPointer();
-                        argumentsPointer2.setCons(SublistCons.getInstance(aEnvironment,aArgumentsPointer.getCons()));
+                        argumentsPointer2.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                         String localVariables = aEnvironment.getLocalVariables();
                         Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2, functionType, localVariables);
                         argumentsPointer2.setCons(null);
@@ -164,7 +164,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             // No predicate was true: return a new expression with the evaluated
             // arguments.
             ConsPointer full = new ConsPointer();
-            full.setCons(aArgumentsPointer.getCons().copy( aEnvironment, false));
+            full.setCons(aArgumentsPointer.getCons().copy(aEnvironment, false));
             if (arity == 0) {
                 full.cdr().setCons(null);
             } else {
@@ -173,24 +173,25 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                     argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
                 }
             }
-            aResult.setCons(SublistCons.getInstance(aEnvironment,full.getCons()));
+            aResult.setCons(SublistCons.getInstance(aEnvironment, full.getCons()));
 
 
             /* Trace code */
             if (isTraced() && showFlag) {
                 ConsPointer argumentsPointer3 = new ConsPointer();
-                argumentsPointer3.setCons(SublistCons.getInstance(aEnvironment,aArgumentsPointer.getCons()));
+                argumentsPointer3.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                 String localVariables = aEnvironment.getLocalVariables();
                 Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3, functionType, localVariables);
                 argumentsPointer3.setCons(null);
             }
 
-        } catch (Exception e) {
-            throw e;
+        } catch (EvaluationException e) {
+            throw new EvaluationException(e.getMessage() + " Function: " + this.functionName + "  ", "none", -1);
         } finally {
             aEnvironment.popLocalFrame();
         }
     }
+
 
     protected ConsPointer[] evaluateArguments(Environment aEnvironment, ConsPointer aArgumentsPointer) throws Exception {
         int arity = arity();
@@ -199,7 +200,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         /*Enter trace code*/
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
-            argumentsPointer.setCons(SublistCons.getInstance(aEnvironment,aArgumentsPointer.getCons()));
+            argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
             String functionName = "";
             if (argumentsPointer.car() instanceof ConsPointer) {
                 ConsPointer sub = (ConsPointer) argumentsPointer.car();
@@ -239,7 +240,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
             if (((FunctionParameter) iParameters.get(parameterIndex)).iHold) {
                 //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
-                argumentsResultPointerArray[parameterIndex].setCons(argumentsTraverser.getCons().copy( aEnvironment, false));
+                argumentsResultPointerArray[parameterIndex].setCons(argumentsTraverser.getCons().copy(aEnvironment, false));
             } else {
                 //If the parameter is not on hold:
 
@@ -253,7 +254,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         }//end for.
 
         /*Argument trace code */
-        if (isTraced() && argumentsResultPointerArray != null && showFlag)  {
+        if (isTraced() && argumentsResultPointerArray != null && showFlag) {
             //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
             //ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
@@ -272,6 +273,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
     }//end method.
 
+
     /**
      * Put an argument on hold.
      * The \c iHold flag of the corresponding argument is setCons. This
@@ -289,6 +291,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         }
     }
 
+
     /**
      * Return true if the arity of the function equals \a aArity.
      * 
@@ -299,6 +302,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         return (arity() == aArity);
     }
 
+
     /**
      * Return the arity (number of arguments) of the function.
      *
@@ -307,6 +311,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     public int arity() {
         return iParameters.size();
     }
+
 
     /**
      *  Add a RuleBranch to the list of rules.
@@ -325,6 +330,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         insertRule(aPrecedence, newRule);
     }
 
+
     /**
      * Add a TruePredicateRuleBranch to the list of rules.
      * See: insertRule()
@@ -340,6 +346,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
         insertRule(aPrecedence, newRule);
     }
+
 
     /**
      *  Add a PatternBranch to the list of rules.
@@ -357,6 +364,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
         insertRule(aPrecedence, newRule);
     }
+
 
     /**
      * Insert any Branch object in the list of rules.
@@ -413,6 +421,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         }
     }
 
+
     /**
      * Return the argument list, stored in #iParameterList.
      * 
@@ -422,20 +431,26 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         return iParameterList;
     }
 
+
     public Iterator getRules() {
         return iBranchRules.iterator();
     }
+
 
     public Iterator getParameters() {
         return iParameters.iterator();
     }
 
+
     public void unFence() {
         iFenced = false;
     }
 
+
     public boolean fenced() {
         return iFenced;
     }
+
+
 }//end class.
 
