@@ -15,10 +15,7 @@ ConfidenceIntervalOfTheMean(sampleMean,sampleStandardDeviation,standardDeviation
 %/mathpiper
 
     %output,preserve="false"
-      Result: {28.69227702,33.90772298}
-      
-      Side Effects:
-      28.69227702 33.90772298
+      Result: {{"lowerLimit",28.69227702},{"upperLimit",33.90772298},{"criticalZScore",2.170090558}}
 .   %/output
 
 
@@ -67,7 +64,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,True,size,.90);
 %/mathpiper
 
     %output,preserve="false"
-      Result: {12.0855117,15.7144883}
+      Result: {{"lowerLimit",12.0855117},{"upperLimit",15.7144883},{"criticalZScore",1.644853952}}
 .   %/output
 
 
@@ -87,12 +84,13 @@ V(ConfidenceIntervalOfTheMean(sampleMean,12.7,True,size,.94));
 %/mathpiper
 
     %output,preserve="false"
-      Result: {40.02134847,53.81198487}
+      Result: {{"lowerLimit",40.02134847},{"upperLimit",53.81198487},{"criticalZScore",1.880793930}}
       
       Side Effects:
       Using the normal distribution.
       Critical Z-Score: 1.880793930 
-      Standard error of the mean: 3.666174209
+      Standard error of the mean: 3.666174209 
+      
 .   %/output
 
 
@@ -113,12 +111,13 @@ V(ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,False,size,.98));
 %/mathpiper
 
     %output,preserve="false"
-      Result: {110.2286704,129.0440569}
+      Result: {{"lowerLimit",110.2286704},{"upperLimit",129.0440569},{"tValue",2.763769555}}
       
       Side Effects:
       Using the t-distribution.
       t-value: 2.763769555 
-      Standard error of the mean: Sqrt(1402/121)
+      Standard error of the mean: Sqrt(1402/121) 
+      
 .   %/output
 
 
@@ -145,7 +144,7 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel);
 %/mathpiper
 
     %output,preserve="false"
-      Result: {0.02340412546,0.08659587454}
+      Result: {{"lowerLimit",0.02340412546},{"upperLimit",0.08659587454},{"criticalZScore",1.959964158}}
 .   %/output
 
 

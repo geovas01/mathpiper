@@ -1,15 +1,15 @@
-%mathpiper,title="Exercise 2"
+%mathpiper,title="Diet example on page 228.  When sigma is known."
 //H0: mean >= 40
 
 //H1: mean < 40;
 
 testMean := 40;
 
-sampleMean := 38.7;
+sampleMean := 35.7;
 
-sampleSize := 50;
+sampleSize := 60;
 
-sampleStandardDeviation := 12.5;
+sampleStandardDeviation := 16;
 
 standardDeviationIsKnown := True;
 
@@ -19,13 +19,241 @@ confidenceLevel := 1 - oneTailAlpha*2;
 
 V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
 
-lowerLimit := confidenceIntervalOfTheMean[1];
+lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
 
 Echo("Sample mean: ", sampleMean);
 Echo("Lower limit: ", lowerLimit);
+Echo("Critical Z score: ", -confidenceIntervalOfTheMean["criticalZScore"]);
+Echo("Z score of the sample mean: ", N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(sampleStandardDeviation,sampleSize))));
 
 If(sampleMean < lowerLimit, 
     Echo("Reject H0."),
     Echo("Do not reject H0."));
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using the normal distribution.
+      Critical Z-Score: 1.644853952 
+      Standard error of the mean: 2.065591118 
+      Sample mean: 35.7 
+      Lower limit: 36.60240429 
+      Critical Z score: -1.644853952 
+      Z score of the sample mean: -2.081728549 
+      Reject H0.
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title="Phone minutes example on page 230.  When sigma is not known."
+
+sampleList :={
+6.2,3.8,1.3,5.4,4.7,4.4,4.6,5.0,6.6,8.3,
+3.2,2.7,4.0,7.3,3.6,4.9,0.5,2.9,2.5,5.6,
+5.5,4.7,6.5,7.1,4.4,5.2,6.1,7.4,4.8,2.9
+};
+
+
+//H0: mean >= 5
+
+//H1: mean < 5;
+
+testMean := 5;
+
+sampleMean := N(Mean(sampleList));
+
+sampleSize := Length(sampleList);
+
+sampleStandardDeviation := N(StandardDeviation(sampleList));
+
+standardDeviationIsKnown := False;
+
+oneTailAlpha := .02;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
+
+Echo("Sample mean: ", sampleMean);
+Echo("Sample standard deviation: ", sampleStandardDeviation);
+Echo("Lower limit: ", lowerLimit);
+Echo("Critical Z score: ", -confidenceIntervalOfTheMean["criticalZScore"]);
+Echo("Z score of the sample mean: ", N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(sampleStandardDeviation,sampleSize))));
+
+If(sampleMean < lowerLimit, 
+    Echo("Reject H0."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using the normal distribution.
+      Critical Z-Score: 2.053749206 
+      Standard error of the mean: 0.3314712357 
+      Sample mean: 4.736666667 
+      Sample standard deviation: 1.8155427293 
+      Lower limit: 4.319241213 
+      Critical Z score: -2.053749206 
+      Z score of the sample mean: -0.7944379621 
+      Do not reject H0.
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title="One tail p-value calculation on page 233."
+
+//H0: mean <= 87
+
+//H1: mean > 87
+
+testMean := 87;
+
+sampleMean := 90.6;
+
+sampleSize := 32;
+
+standardDeviation := 12;
+
+standardDeviationIsKnown := True;
+
+zScore := N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(standardDeviation,sampleSize)));
+
+Echo("Value Z score: ", zScore);
+
+Echo("One tail p-value: ", 1 - N(ZScoreToProbability(zScore)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Value Z score: 1.697056275 
+      One tail p-value: 0.0448430110 
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Two tail p-value calculation on page 234."
+
+//H0: mean = 11500
+
+//H1: mean <> 11500
+
+testMean := 11500;
+
+sampleMean := 11900;
+
+sampleSize := 80;
+
+standardDeviation := 3000;
+
+standardDeviationIsKnown := True;
+
+valueZScore := N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(standardDeviation,sampleSize)));
+
+Echo("Value Z score: ", valueZScore);
+
+Echo("One tail p-value: ", 2*(1 - N(ZScoreToProbability(valueZScore))));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Value Z score: 1.192569588 
+      One tail p-value: 0.2330379820 
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title="When sigma is known page 236."
+//H0: mean = 92
+
+//H1: mean != 92
+
+testMean := 92;
+
+sampleMean := 107;
+
+sampleSize := 18;
+
+standardDeviation := 22.5;
+
+standardDeviationIsKnown := True;
+
+twoTailAlpha := .02;
+
+confidenceLevel := 1 - twoTailAlpha;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
+
+upperLimit := confidenceIntervalOfTheMean["upperLimit"];
+
+criticalZScore := confidenceIntervalOfTheMean["criticalZScore"];
+
+valueZScore := N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(standardDeviation,sampleSize)));
+
+
+Echo("Lower limit: ", lowerLimit);
+
+Echo("Sample mean: ", sampleMean);
+
+Echo("Upper limit: ", upperLimit);
+
+Echo("Lower critical z-score: ", -criticalZScore);
+
+Echo("Value z-score: ", valueZScore);
+
+Echo("Upper critical z-score: ", criticalZScore);
+
+
+
+If(sampleMean > upperLimit, 
+    Echo("Reject H0."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using the normal distribution.
+      Critical Z-Score: 2.326348187 
+      Standard error of the mean: 5.303300859 
+      Lower limit: 79.66267566 
+      Sample mean: 107 
+      Upper limit: 104.3373243 
+      Lower critical z-score: -2.326348187 
+      Value z-score: 2.828427125 
+      Upper critical z-score: 2.326348187 
+      Reject H0.
+      
+.   %/output
+
+
