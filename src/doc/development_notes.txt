@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ The [] and := links do not work in the Assoc() function's documentation.
 + V() should be changed to a bodied function to make it easy to apply to a function and remove when finished testing.
 + The BuiltinFunction class needs to have its classpath scanning code changed to getResourceAsStream.
 + A number of the built in functions to not have *PARAM sections.
