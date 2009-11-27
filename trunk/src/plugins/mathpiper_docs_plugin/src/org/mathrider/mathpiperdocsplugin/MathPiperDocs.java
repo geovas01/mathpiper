@@ -119,15 +119,22 @@ public class MathPiperDocs extends JPanel
 		
 		//JdocsScrollPane editorScrollPane = new JScrollPane(editorPane);
 		
-		ClassLoader classLoader = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader();
+		//ClassLoader classLoader = jEdit.getPlugin("org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin").getPluginJAR().getClassLoader();
 		
-		helpPanel = new org.mathpiper.ui.gui.help.FunctionTreePanel(classLoader);
+		try{
+			helpPanel = new org.mathpiper.ui.gui.help.FunctionTreePanel();
 		
-		add(BorderLayout.CENTER,helpPanel);
+			add(BorderLayout.CENTER,helpPanel);
 		
 		
 		
-		add(BorderLayout.NORTH, helpPanel.getToolPanel());
+			add(BorderLayout.NORTH, helpPanel.getToolPanel());
+		}
+		catch(FileNotFoundException fnfe)
+		{
+			fnfe.printStackTrace();
+		}
+		
 		
 		//docsScrollPane = new JScrollPane(editorPane,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		//JPanel spacerPanel = new JPanel();

@@ -1911,6 +1911,16 @@ Repeat(10)
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: 10
+      
+      Side Effects:
+      
+      True
+      
+      
+.   %/output
+
 
 
 
