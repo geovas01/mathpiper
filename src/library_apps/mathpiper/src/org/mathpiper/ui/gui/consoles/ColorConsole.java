@@ -67,6 +67,7 @@ import org.mathpiper.lisp.Environment;
 
 public class ColorConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
+    private boolean suppressOutput = false;
     private final Color green = new Color(0, 130, 0);
     private final Color purple = new Color(153, 0, 153);
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
@@ -106,6 +107,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
             "Use <ctrl><up arrow> and <ctrl><down arrow> to navigate through the command line history.\n\n" +
             "The console window is an editable text area, so you can add text to it and remove text from \n" +
             "it as needed.\n\n" +
+            "Placing ;; after the last line of input will suppress the output.\n\n" +
             "The Raw Output checkbox sends all side effects output to the raw output text area.";
 
 
@@ -396,11 +398,20 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
                     clearPreviousResponse();
 
 
-                    String code = inputLines.toString().replaceAll(";;", ";").trim();
+                    String code = inputLines.toString().trim();
+
+                    // System.out.println("1: " + code);
+
+                    if (code.endsWith(";;")) {
+                        this.suppressOutput = true;
+                    }
+
+                    code = code.replaceAll(";;;", ";");
+                    code = code.replaceAll(";;", ";");
 
                     code = code.replaceAll("\\\\", "");
 
-                    //System.out.println(code);
+                    //System.out.println("2: " + code);
 
                     history.push(code.substring(0, code.length() - 1));
                     this.historyIndex = -1;
@@ -502,7 +513,14 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
         }//end if.*/
 
         final int responseOffset = offsetIndex;
-        String result = "Result: " + response.getResult().trim();
+        String result;
+        if (this.suppressOutput == false) {
+            result = "Result: " + response.getResult().trim();
+        } else {
+            result = "Result: " + "OUTPUT SUPPRESSED";
+
+            this.suppressOutput = false;
+        }
 
 
         String sideEffects = null;
@@ -661,7 +679,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
                     lineNumber++;
                     lineStartOffset = textPane.getLineStartOffset(lineNumber);
                     lineEndOffset = textPane.getLineEndOffset(lineNumber);
-                    line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+                    line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset).trim();
                     if (line.startsWith("In>")) {
                         String eol = new String(line);
                         inputLines.append(line.substring(3, line.length()).trim());
@@ -871,7 +889,6 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
     }//end method.
 
 
-
     public static class PopupTriggerMouseListener extends MouseAdapter {
 
         private JPopupMenu popup;
@@ -894,7 +911,6 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
         //according to the javadocs on isPopupTrigger, checking for popup trigger on mousePressed and mouseReleased
         //should be all  that is required
         //public void mouseClicked(MouseEvent e)
-
 
         public void mousePressed(MouseEvent e) {
             showMenuIfPopupTrigger(e);
@@ -928,11 +944,13 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
         selectAllItem.setText("Select All");
 
         final JMenuItem insertPrompt = new JMenuItem("Insert In>");
-        insertPrompt.addActionListener(new ActionListener(){
-        public void actionPerformed(ActionEvent e)
-        {
-            textPane.insert(Color.BLACK, "In> ", textPane.getCaretPosition());
-        }
+        insertPrompt.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                textPane.insert(Color.BLACK, "In> ", textPane.getCaretPosition());
+            }
+
+
         });
         insertPrompt.setText("Insert In>");
 
@@ -958,7 +976,7 @@ public class ColorConsole extends javax.swing.JPanel implements ActionListener, 
         contentPane.add(console, BorderLayout.CENTER);
         //frame.setAlwaysOnTop(true);
         frame.setSize(new Dimension(700, 600));
-        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
         //frame.setResizable(false);
         frame.setPreferredSize(new Dimension(700, 600));
         frame.setLocationRelativeTo(null); // added
