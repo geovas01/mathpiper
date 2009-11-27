@@ -42,7 +42,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                 LispError.check(parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION);
             }catch(EvaluationException ex)
             {
-                throw new EvaluationException(ex.getMessage() + " Function: " + this.functionName + "  ", "none", -1) ;
+                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1) ;
             }//end catch.
 
 
@@ -113,8 +113,8 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                     parameterIndex--;
                 }
             }
-        } catch (Exception e) {
-            throw e;
+        } catch (EvaluationException e) {
+            throw new EvaluationException(e.getMessage() + " In function: " + this.functionName + ",  ", "none", -1);
         } finally {
             aEnvironment.popLocalFrame();
         }
