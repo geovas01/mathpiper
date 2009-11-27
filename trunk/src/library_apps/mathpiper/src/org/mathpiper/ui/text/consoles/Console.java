@@ -13,7 +13,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.text.consoles;
 
@@ -25,12 +24,15 @@ import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 
+
 /**
  * Provides a command line console which can be used to interact with a mathpiper instance.
  */
 public class Console {
 
-    Interpreter interpreter;
+    private Interpreter interpreter;
+    private boolean suppressOutput = false;
+
 
     public Console() {
         //MathPiper needs an output stream to send "side effect" output to.
@@ -38,9 +40,11 @@ public class Console {
         interpreter = Interpreters.getSynchronousInterpreter();
     }
 
+
     void addDirectory(String directory) {
         interpreter.addScriptsDirectory(directory);
     }
+
 
     String readLine(InputStreamReader aStream) {
         StringBuffer line = new StringBuffer();
@@ -56,10 +60,19 @@ public class Console {
         return line.toString();
     }
 
+
     String evaluate(String input) {
         //return (String) interpreter.evaluate(input);
         EvaluationResponse response = interpreter.evaluate(input, true);
-        String responseString = "Result> " + response.getResult() + "\n";
+
+        String responseString = "";
+
+        if (suppressOutput == false) {
+            responseString = "Result> " + response.getResult() + "\n";
+        } else {
+            responseString = "Result> " + "OUTPUT SUPPRESSED\n";
+            this.suppressOutput = false;
+        }
 
 
         if (!response.getSideEffects().equalsIgnoreCase("")) {
@@ -67,13 +80,12 @@ public class Console {
         }
 
         if (!response.getExceptionMessage().equalsIgnoreCase("")) {
-            responseString = responseString + response.getExceptionMessage() +  " Source file name: " + response.getSourceFileName() + " Near line number: " + response.getLineNumber() + "\n";
+            responseString = responseString + response.getExceptionMessage() + " Source file name: " + response.getSourceFileName() + " Near line number: " + response.getLineNumber() + "\n";
         }
 
 
         return responseString;
     }//end evaluate.
-
 
 
     /**
@@ -103,17 +115,19 @@ public class Console {
             input = readLine(new InputStreamReader(inputStream));
             input = input.trim();
 
-            if(input.endsWith("\\"))
-            {
-                oneOrMoreLineInput += input.substring(0,input.length()-1);
+            if (input.endsWith("\\")) {
+                oneOrMoreLineInput += input.substring(0, input.length() - 1);
                 continue;
-            }
-            else
-            {
+            } else {
                 oneOrMoreLineInput += input;
             }
 
+            oneOrMoreLineInput = oneOrMoreLineInput.trim();
 
+            if(oneOrMoreLineInput.endsWith(";;"))
+            {
+                this.suppressOutput = true;
+            }
             String responseString = evaluate(oneOrMoreLineInput);
 
             oneOrMoreLineInput = "";
@@ -126,6 +140,7 @@ public class Console {
             }
         }
     }//end repl.
+
 
     /**
      * The normal entry point for running mathpiper from a command line.  It processes command line arguments,
