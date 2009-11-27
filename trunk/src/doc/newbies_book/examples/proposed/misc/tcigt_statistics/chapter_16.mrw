@@ -257,3 +257,130 @@ If(sampleMean > upperLimit,
 .   %/output
 
 
+
+
+
+%mathpiper,title="Golf score example on page 237.  When sigma is unknown."
+
+sampleList := {86,87,85,90,86,84,84,91,87,83};
+//H0: mean >= 88
+
+//H1: mean < 88;
+
+testMean := 88;
+
+sampleMean := N(Mean(sampleList));
+
+sampleSize := Length(sampleList);
+
+sampleStandardDeviation := N(StandardDeviation(sampleList));
+
+standardDeviationIsKnown := False;
+
+oneTailAlpha := .05;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
+
+Echo("Sample mean: ", sampleMean);
+Echo("Sample standard deviation: ", sampleStandardDeviation);
+Echo("Lower limit: ", lowerLimit);
+Echo("Critical t-score: ", -confidenceIntervalOfTheMean["criticalTScore"]);
+Echo("t-score of the sample mean: ", N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(sampleStandardDeviation,sampleSize))));
+
+If(sampleMean < lowerLimit, 
+    Echo("Reject H0."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using the t-distribution.
+      Critical t-score: 1.833113119 
+      Standard error of the mean: 0.8171767116 
+      Sample mean: 86.3 
+      Sample standard deviation: 2.5841396595 
+      Lower limit: 86.50202265 
+      Critical t-score: -1.833113119 
+      t-score of the sample mean: -2.080333392 
+      Reject H0.
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Average speed of cars example page 239 (sigma is not known)."
+
+sampleList := {62,74,65,68,71,64,68};
+
+//H0: mean = 65
+
+//H1: mean != 65
+
+testMean := 65;
+
+sampleMean := N(Mean(sampleList));
+
+sampleSize := Length(sampleList);
+
+sampleStandardDeviation := N(StandardDeviation(sampleList));
+
+standardDeviationIsKnown := False;
+
+twoTailAlpha := .05;
+
+confidenceLevel := 1 - twoTailAlpha;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
+
+upperLimit := confidenceIntervalOfTheMean["upperLimit"];
+
+Echo("Lower limit: ", lowerLimit);
+
+Echo("Sample mean: ", sampleMean);
+
+Echo("Upper limit: ", upperLimit);
+
+Echo("Lower critical t-score: ", -confidenceIntervalOfTheMean["criticalTScore"]);
+
+Echo("t-score of the sample mean: ", N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(sampleStandardDeviation,sampleSize))));
+
+Echo("Lower critical t-score: ", confidenceIntervalOfTheMean["criticalTScore"]);
+
+
+
+If(sampleMean > upperLimit, 
+    Echo("Reject H0."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using the t-distribution.
+      Critical t-score: 2.446911852 
+      Standard error of the mean: 1.571428572 
+      Lower limit: 61.15485280 
+      Sample mean: 67.42857143 
+      Upper limit: 68.84514720 
+      Lower critical t-score: -2.446911852 
+      t-score of the sample mean: 1.545454546 
+      Lower critical t-score: 2.446911852 
+      Do not reject H0.
+      
+.   %/output
+
+
