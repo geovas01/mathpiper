@@ -1,0 +1,386 @@
+%mathpiper,def="xFactors"
+
+/******
+ * TODO: 
+ *      1. Fix CommonMonomialFactors for cases where some lists are empty
+ *
+ ******/
+
+Retract("Factors",*);
+Retract("FactorsMultivariateSpecialCases",*);
+Retract("FactorsSomethingElse",*);
+Retract("CombineNumericalFactors",*);
+Retract("CommonMonomialFactors",*);
+Retract("MakeUniPoly",*);
+Retract("HeuristicUniPoly",*);
+
+
+/*
+ * This is the fundamental factorization algorithm.
+ * It works for integers, rational numbers, Gaussian integers, and polynomials
+ * When the argument is an integer, FactorizeInt() does the heavy lifting.
+ * When the argument is a polynomial, BinaryFactors() is the workhorse.
+ */
+ 
+
+10 # Factors(p_IsPositiveInteger) <--  
+[
+    If( p < 1600, FactorsSmallInteger(p), FactorizeInt(p) );
+];
+
+11 # Factors(p_IsInteger) <-- 
+[
+    If( (-p) < 1600, FactorsSmallInteger(-p), FactorizeInt(-p) );
+];
+
+12 # Factors(p_IsRational)_(Denominator(p) != 1) <-- {{Factor(Numerator(p)) /Factor(Denominator(p)) , 1}}; 
+     //Added to handle rational numbers with denominators that are not 1
+
+     
+14 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+
+
+20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  
+[
+    If(InVerboseMode(),Tell("Factors__uni",p));
+    Local(x,d,comMonFacs,coeffs,nterms,factorsList,result);
+    x := VarList(p)[1];
+    d := Degree(p,x);
+    /*  p is the polynomial, x is its (only) variable.  It IS Univariate */
+    
+    /* First, remove any common monomial factors                         */
+    comMonFacs := CommonMonomialFactors(p,x);
+    Tell("  com mon facs",comMonFacs);
+    monFacList := {};
+    If( comMonFacs != {},
+      [
+          Tell("  here");
+          p := Simplify( p / comMonFacs );
+          Tell("  new_p",p);
+          monFacList := comMonFacs;
+          Tell("   ",comMonFacs);
+      ]
+    );
+    
+    /*  Let's find out how many terms this polynomial has.               */
+    coeffs := Coef(p,x,0 .. d);
+    nterms := Length(Select("IsNotZero",coeffs));
+    Tell("   ",nterms);
+    /*  If nterms = 2, it is a binomial, and might be most easily
+     *  factored by some special-purpose algorithms                      */
+    If( nterms = 2 And d > 2, 
+      [  result := xFactorsBinomials(p);  ],    
+      [  // nterms != 2, so try other techniques
+        factorsList := BinaryFactors(p);
+           // BinaryFactors is the internal MathPiper function that
+           // creates a double list of factors and their multiplicities
+        /*
+         *  Now we check whether the input polynomial is "over the 
+         *  integers", by examining all its coefficients
+         */
+        If( AllSatisfy("IsInteger",coeffs),
+          [
+              // Yes -- all integer coefficients
+              result := FactorsPolynomialOverIntegers(p,x);
+          ],
+          [
+              // No -- at least one non-integer coefficient
+              // Check for FLOAT or RATIONAL coefficients
+              Local(notInt,rat,dd,lcm,newCoeffs,NewPoly,facs);
+              notInt := Select(Lambda({i},Not IsInteger(i)),coeffs);
+              rat := Rationalize(coeffs);            
+              dd  := MapSingle("Denominator",rat);
+              lcm := Lcm(dd);
+              newCoeffs := lcm * rat;
+              newPoly := NormalForm(UniVariate(x,0,newCoeffs));
+              facs := FactorsPolynomialOverIntegers(newPoly);
+              If( InVerboseMode(), [
+                  Echo("coeffs ",coeffs);
+                  Echo("notInt ",notInt);
+                  Echo("rat ",rat);
+                  Echo("dd  ",dd);
+                  Echo("lcm ",lcm);
+                  Echo("newCoeffs ",newCoeffs);
+                  Echo("newPoly ",newPoly);
+                  Echo("facs ",facs);
+                 ]
+              );
+              result := {(1/lcm),1}:facs;
+              //NOT FINISHED YET
+        ]
+      );
+    ]
+   );
+      CombineNumericalFactors( result );
+];
+
+
+30 # Factors(p_CanBeUni) <--  
+[
+    /* 
+     * This may be a multi-variate polynomial, or it may be something else.
+     * Original YT function Factors() did not attempt to factor such.
+     *    If it is a multivariate polynomial, we will try certain
+     * Special cases which we can relatively easily factor.
+     *    If it is "something else", we will have to check, on a
+     * case-by-case basis.
+     */
+    Local(vl,nvars,coeffs,result);
+    If(InVerboseMode(),Tell("Factors__maybeMulti",p));
+    // First, remove any common monomial factors
+    comMonFacs := V(CommonMonomialFactors(p));
+    Tell("  com mon facs",comMonFacs);
+    monFacList := {};
+    If( comMonFacs != {},
+      [
+          Tell("  here");
+          p := Simplify( p / comMonFacs );
+          Tell("  new_p",p);
+          monFacList := comMonFacs;
+          Tell("   ",comMonFacs);
+      ]
+    );
+
+    vl     := VarList(p);
+    nvars  := Length(vl);
+    coeffs := Coef(p,x,0 .. 8);
+    If(InVerboseMode(),Tell("CBU",{vl,nvars,coeffs}));
+    If (nvars > 1, 
+         [
+            If( InVerboseMode(), Echo(" special ",p));
+            result := FactorsMultivariateSpecialCases(p);
+         ], 
+            //result := FactorsSomethingElse(p) 
+            result := Factors(p) 
+       );
+       CombineNumericalFactors( result );
+];
+
+
+40 # Factors(_p) <--
+[
+    /*
+     * This may may be a polynomial with non-integer exponents.  Let's check.
+     */
+     If( InVerboseMode(), Echo("Possibly trying to factor polynomial with non-integral exponents") );
+     Local( result);
+     //Echo(40,p);
+     //  NOT IMPLEMENTED YET
+     result := {{p,1}};
+     CombineNumericalFactors( result );
+     
+];
+
+//------------------------------------------------------------------------
+//                    S P E C I A L     C A S E S
+//------------------------------------------------------------------------
+
+10 # FactorsMultivariateSpecialCases(-_expr) <-- {-1,1}:FactorsMultivariateSpecialCases(expr);
+
+10 # FactorsMultivariateSpecialCases(x_IsAtom + y_IsAtom) <-- [If(InVerboseMode(),Tell(1));{{x+y,1}};];
+
+10 # FactorsMultivariateSpecialCases(x_IsAtom - y_IsAtom) <-- [If(InVerboseMode(),Tell(2));{{x-y,1}};];
+
+10 # FactorsMultivariateSpecialCases(_n*_x^p_IsInteger + _n*_y) <-- [If(InVerboseMode(),Tell(3));{n,1}:FactorsMultivariateSpecialCases(x+y);];
+
+10 # FactorsMultivariateSpecialCases(_n*_x^p_IsInteger - _n*_y) <-- [If(InVerboseMode(),Tell(4));{n,1}:FactorsMultivariateSpecialCases(x-y);];
+
+10 # FactorsMultivariateSpecialCases(n_IsInteger*_x + m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
+
+10 # FactorsMultivariateSpecialCases(n_IsInteger*_x - m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x-m*y)/Gcd(n,m))),1}};
+
+10 # FactorsMultivariateSpecialCases(_n*_x + _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x+y);
+
+10 # FactorsMultivariateSpecialCases(_n*_x - _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x-y);
+
+10 # FactorsMultivariateSpecialCases(_x^n_IsInteger - _y) <-- xFactorsBinomials(x^n - y); 
+
+10 # FactorsMultivariateSpecialCases(_x^n_IsInteger + _y) <-- xFactorsBinomials(x^n + y); 
+
+20 # FactorsSomethingElse(_p) <-- 
+  [
+      If( InVerboseMode(),
+          [
+              ECHO("   *** FactorsSomethingElse: NOT IMPLEMENTED YET ***");
+          ]
+      );
+      p;
+  ];
+
+//------------------------------------------------------------------------
+
+
+10 # CombineNumericalFactors( factrs_IsList ) <--
+  [
+      If( InVerboseMode(), Tell("Combine",factrs) );
+      Local(q,a,b,t,f,err);
+      err := False;
+      t   := 1;
+      f   := {};
+      ForEach(q,factrs)
+      [
+          If( InVerboseMode(), Tell(1,q) );
+          If( IsList(q) And Length(q)=2,
+              [
+                  {a,b} := q;
+                  If( InVerboseMode(), Echo("     ",{a,b}) );
+                  If( IsNumericList( {a,b} ),
+                      t := t * a^b,
+                      f := {a,b}:f
+                  );
+              ],
+              err := True
+          );
+      ];
+      If( InVerboseMode(),
+        [
+            Echo("      t = ",t);
+            Echo("      f = ",f);
+            Echo("    err = ",err);
+        ]
+      );
+      If(Not err And t != 1, {t,1}:Reverse(f), factrs);
+  ];
+  
+
+//------------------------------------------------------------------------
+
+
+10 # CommonMonomialFactors( _expr )_(IsUniVar(expr)) <--
+[
+    If(InVerboseMode(),Tell("CommonMonomialFactors",expr));
+    Local(coeffs,ii,cf,rr);
+    coeffs := Remove( expr[3], 0 );
+    If(InVerboseMode(),Tell("  ",coeffs));
+    ForEach(ii,1 .. Length(coeffs))
+    [
+        c := coeffs[ii];
+        If( Type(c)="-", coeffs[ii] := -c );
+    ];
+    cf:=MapSingle(Lambda({s},Flatten(s,"*")),coeffs);  
+    If(InVerboseMode(),Tell("  ",cf));
+    facs3 := {};
+    If( AllSatisfy( "IsInteger", coeffs ),
+      [
+         Tell("      all remaining coefficients are numbers");
+      ],
+      [
+         Tell("      some coefficients are compound");
+         ForEach(c,cf)
+         [
+            facs := {};
+            Tell("   ",Length(c));
+            ForEach(t,c)
+            [
+                If(IsInteger(t),
+                    DestructiveAppend(facs,FactorsSmallInteger(t)),
+                    DestructiveAppend(facs,{t,1})
+                 );
+            ];
+            Tell("     ",facs);
+            ffacs := Flatten(facs,"List");
+            Tell("     ",ffacs);        
+            facs2 := {};
+            For(ii:=1,ii<=Length(ffacs),ii:=ii+2)
+            [
+                Tell("          ",{ffacs[ii],ffacs[ii+1]});
+                DestructiveAppend(facs2,FillList(ffacs[ii],ffacs[ii+1]));
+            ];
+            facs2 := Flatten(facs2,"List");
+            Tell("      ",facs2);
+            If(facs2!={},DestructiveAppend(facs3,facs2));
+            rr := Intersection(facs3);
+            If(InVerboseMode(),Tell("  ",rr));
+            UnFlatten(rr,"*",1);
+          ];
+      ]
+    );
+];
+
+11 # CommonMonomialFactors( expr_CanBeUni, _var) <--
+[
+    If(InVerboseMode(),Tell("CommonMonomialFactors_2",expr));
+    Local(uniPoly,coeffs,vars,gcd);
+    uniPoly := MakeUniPoly(expr,var);
+    rr := CommonMonomialFactors(uniPoly);
+];
+
+12 # CommonMonomialFactors( expr_CanBeUni) <--
+[
+    If(InVerboseMode(),Tell("CommonMonomialFactors_3",expr));
+    Local(uniPoly,coeffs,vars,gcd);
+    uniPoly := HeuristicUniPoly(expr);
+    rr := CommonMonomialFactors(uniPoly);
+];
+
+
+
+10 # MakeUniPoly( _expr, _var )_CanBeUni(expr,var) <-- 
+[
+    If(InVerboseMode(),Tell("MakeUniPoly_given_var",{expr,var}));
+    Local(uniPolynomial);
+    uniPolynomial := MakeUni(expr,var);
+];
+
+10 # HeuristicUniPoly( _expr ) <-- 
+[
+    If(InVerboseMode(),Tell("HeuristicUniPoly_infer_var",expr));
+    Local(uniPolynomial,vars,var);
+    vars := VarList(expr);
+    If(Length(vars)>1,vars:=HeapSort(vars,"GreaterThan"));    
+    var := vars[1];
+    If(InVerboseMode(),Tell("  ",{vars,var}));
+    uniPolynomial := MakeUniPoly(expr,var);
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="Factors",categories="User Functions;Number Theory"
+*CMD Factors --- factorization
+*STD
+*CALL
+	Factors(x)
+
+*PARMS
+
+{x} -- integer or univariate polynomial
+
+*DESC
+
+This function decomposes the integer number {x} into a product of
+numbers. 
+Alternatively, if {x} is a univariate polynomial, it is
+decomposed into irreducible polynomials.  If {x} is a polynomial
+"over the integers", the irreducible polynomial factors will also
+be returned in the (unique) form with integer coefficients.
+
+The factorization is returned as a list of pairs. The first member of
+each pair is the factor, while the second member denotes the power to
+which this factor should be raised. So the factorization
+$x = p1^n1 * ... * p9^n9$
+is returned as {{{p1,n1}, ..., {p9,n9}}}.
+
+Programmer: Yacas Team + Sherm Ostrowsky
+
+*E.G.
+    In> Factors(24)
+    Result: {{2,3},{3,1}}
+    
+    In> Factors(32*x^3+32*x^2-70*x-75)
+    Result: {{4*x+5,2},{2*x-3,1}}
+
+*SEE Factor, IsPrime, GaussianFactors
+%/mathpiper_docs
+
+
+
+
+
