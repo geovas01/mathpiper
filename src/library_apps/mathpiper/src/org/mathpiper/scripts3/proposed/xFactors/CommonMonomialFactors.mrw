@@ -1,0 +1,501 @@
+%mathpiper,def="CommonMonomialFactors"
+
+Retract("CommonMonomialFactors",*);
+
+Retract("MakeUniPoly",*);
+Retract("HeuristicUniPoly",*);
+
+
+10 # CommonMonomialFactors( _expr )_(IsUniVar(expr)) <--
+[
+    /*------------------------------------------------------------
+     *  Finds and returns, in 'Factors()' form (i.e., as a list),
+     * the common monomial factors for a polynomial input in "Uni"
+     * form.  Also returns the "remainder" polynomial, after 
+     * dividing out the monomial factor(s).  
+     *  Return is therefore a list of two items.
+     *------------------------------------------------------------*/
+     
+    If(InVerboseMode(),Tell("CommonMonomialFactors",expr));
+    Local(coeffs,var,isMonomial,lowest,varPower,ii,c,cf,rr,r,result,remainder);
+    isMonomial := False;
+    var    := expr[1];
+    lowest := expr[2];
+    coeffs := Remove( expr[3], 0 );
+    If(InVerboseMode(),Tell("  ",{coeffs,var,lowest}));
+    If(Length(coeffs)=1,[isMonomial:=True;Tell("     is monomial");]);
+    If(isMonomial, 
+      [
+        result    := 1;
+        remainder := NormalForm(expr);
+        Tell("  --  --",{result,remainder});
+      ],
+      [
+        varPower := {var,lowest};
+        If(InVerboseMode(),Tell("  ",varPower));
+        Local(facs,facs2,facs3,ffacs);
+        ForEach(ii,1 .. Length(coeffs))
+        [
+            c := coeffs[ii]; 
+            If( IsNegativeInteger(c), coeffs[ii] := -c );
+            If( Type(c)="-", coeffs[ii] := -c );
+        ];
+        cf:=MapSingle(Lambda({s},Flatten(s,"*")),coeffs);  
+        If(InVerboseMode(),Tell("  ",cf));
+        facs3 := {};
+        If( AllSatisfy( "IsInteger", coeffs ),
+          [
+             Tell("      all remaining coefficients are numbers",cf);
+             rr := Intersection(cf);
+             Tell("      after Intersection",rr);
+          ],
+          [
+             Tell("      some coefficients are compound",cf);
+             ForEach(c,cf)
+             [
+                facs := {};
+                //Tell("   ",Length(c));
+                ForEach(t,c)
+                [
+                    Tell("       ",t);
+                    If(IsInteger(t),
+                        DestructiveAppend(facs,FactorsSmallInteger(t)),
+                        DestructiveAppend(facs,{t,1})
+                    );
+                ];
+                Tell("     ",facs);
+                ffacs := Flatten(facs,"List");
+                Tell("     ",ffacs);        
+                facs2 := {};
+                For(ii:=1,ii<=Length(ffacs),ii:=ii+2)
+                [
+                    //Tell("          ",{ffacs[ii],ffacs[ii+1]});
+                    DestructiveAppend(facs2,FillList(ffacs[ii],ffacs[ii+1]));
+                ];
+                facs2 := Flatten(facs2,"List");
+                Tell("      ",facs2);
+                If(facs2!={},DestructiveAppend(facs3,facs2));
+                rr := Intersection(facs3);
+                If(InVerboseMode(),Tell("  ",rr));
+                UnFlatten(rr,"*",1);
+             ];
+          ]
+        );
+        result := {};
+        ForEach(r,rr)
+        [
+            //Tell("          ",r);
+            If(IsInteger(r),
+                DestructiveAppend(result,{r,1}),
+                DestructiveAppend(result,BinaryFactors(r)[1])
+            );
+        ];
+        If(lowest > 0, DestructiveAppend(result,varPower) );
+        If(InVerboseMode(),Tell("   result = ",result));
+        If(InVerboseMode(),Tell("   resultFW = ",FW(result)));
+        remainder := Simplify( NormalForm( expr ) / FW(result) );
+      ]
+    );
+    {result,remainder};
+];
+
+
+11 # CommonMonomialFactors( expr_CanBeUni, _var) <--
+[
+    /*------------------------------------------------------------
+     *  Finds and returns, in 'Factors()' form (i.e., as a list),
+     * the common monomial factors for a polynomial input in
+     * standard (i.e., "normal") form, with variable also specified.
+/     *  Also returns, as second item in list, the Remainder poly.
+     *------------------------------------------------------------*/
+     
+    If(InVerboseMode(),Tell("CommonMonomialFactors_2",expr));
+    Local(uniPoly,coeffs,vars,gcd);
+    uniPoly := MakeUniPoly(expr,var);
+    rr := CommonMonomialFactors(uniPoly);
+];
+
+12 # CommonMonomialFactors( expr_CanBeUni) <--
+[
+    /*------------------------------------------------------------
+     *  Finds and returns, in 'Factors()' form (i.e., as a list),
+     * the common monomial factors for a polynomial input in
+     * standard (i.e., "normal") form, witout its variable being
+     * specified.  In this case, a heuristic algorithm is used to
+     * guess an "appropriate" variable.
+     *  Also returns, as second item in list, the Remainder poly.
+     *------------------------------------------------------------*/
+     
+    If(InVerboseMode(),Tell("CommonMonomialFactors_3",expr));
+    Local(uniPoly,coeffs,vars,gcd);
+    uniPoly := HeuristicUniPoly(expr);
+    rr := CommonMonomialFactors(uniPoly);
+];
+
+
+//------------------------------------------------------------------------
+
+
+10 # MakeUniPoly( _expr, _var )_CanBeUni(expr,var) <-- 
+[
+    /*---------------------------------------------------------------
+     *  Given a polynomial in standard (i.e., "normal") form, 
+     * together with a specified variable name, this function
+     * converts it to internal ("Uni") representational form.
+     *---------------------------------------------------------------*/
+     
+    If(InVerboseMode(),Tell("MakeUniPoly_given_var",{expr,var}));
+    Local(uniPolynomial);
+    uniPolynomial := MakeUni(expr,var);
+];
+
+//------------------------------------------------------------------------
+
+
+10 # HeuristicUniPoly( _expr ) <-- 
+[
+    /*---------------------------------------------------------------
+     *  Given a polynomial in standard (i.e., "normal") form, 
+     * but without its variable being specified, this function
+     * converts it to internal ("Uni") representational form.
+     * It employs a heuristic algorithm to guess an "appropriate" 
+     * variable.
+     *---------------------------------------------------------------*/
+     
+    If(InVerboseMode(),Tell("HeuristicUniPoly_infer_var",expr));
+    Local(uniPolynomial,vars,var);
+    If( IsAtom(expr),
+        [
+          var := z;
+          If(InVerboseMode(),Tell("  ",var));
+        ],
+        [
+          vars := VarList(expr);
+          //Tell("    ",vars);
+          If(Length(vars)>1, vars := HeapSort(vars,"GreaterThan") );
+          var := vars[1];
+          If(InVerboseMode(),Tell("  ",{vars,var}));
+        ]
+    );
+    uniPolynomial := MakeUniPoly(expr,var);
+];
+
+
+
+
+Time()
+[
+
+ps := {};
+Push(ps,2);
+Push(ps,2*a);
+Push(ps,2*x);
+Push(ps,2*a*x);
+Push(ps,2*x^2-2);
+Push(ps,2*a*x^2-2*a);
+Push(ps,2*a*x^2-2*a*x);
+
+Push(ps,2*a^2*x);
+Push(ps,2*a^2*x^2-4*a^2*x+2*a^2);
+Push(ps,4*a^2*x^2-4*a^2);
+Push(ps,8*a^2*x^2-16*a^2*x+8*a^2);
+Push(ps,32*p^4-24*p^3+40*p^5);
+Push(ps,9*x^2+12*x^3);
+Push(ps,24*m^3*n^2-18*m^2*n+6*m^4*n^3);
+//Push(ps,);
+
+
+ForEach(pq,Reverse(ps))
+[
+    Tell("Polynomial:",pq);
+    r := V(CommonMonomialFactors(pq));
+    Tell(result,r);
+    NewLine();
+];
+
+
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 3.820311281
+      
+      Side Effects:
+      << Polynomial:>> pq : 2 
+      << CommonMonomialFactors_3>> expr : 2 
+      << HeuristicUniPoly_infer_var>> expr : 2 
+      <<   >> var : z 
+      << MakeUniPoly_given_var>> {expr,var} : {2,z} 
+      << CommonMonomialFactors>> expr : UniVariate(z,0,{2}) 
+      <<   >> {coeffs,var,lowest} : {{2},z,0} 
+      <<      is monomial>> 
+      <<   --  -->> {result,remainder} : {1,2} 
+      << result >> r : {1,2} 
+      
+      << Polynomial:>> pq : 2*a 
+      << CommonMonomialFactors_3>> expr : 2*a 
+      << HeuristicUniPoly_infer_var>> expr : 2*a 
+      <<   >> {vars,var} : {{a},a} 
+      << MakeUniPoly_given_var>> {expr,var} : {2*a,a} 
+      << CommonMonomialFactors>> expr : UniVariate(a,1,{2}) 
+      <<   >> {coeffs,var,lowest} : {{2},a,1} 
+      <<      is monomial>> 
+      <<   --  -->> {result,remainder} : {1,2*a} 
+      << result >> r : {1,2*a} 
+      
+      << Polynomial:>> pq : 2*x 
+      << CommonMonomialFactors_3>> expr : 2*x 
+      << HeuristicUniPoly_infer_var>> expr : 2*x 
+      <<   >> {vars,var} : {{x},x} 
+      << MakeUniPoly_given_var>> {expr,var} : {2*x,x} 
+      << CommonMonomialFactors>> expr : UniVariate(x,1,{2}) 
+      <<   >> {coeffs,var,lowest} : {{2},x,1} 
+      <<      is monomial>> 
+      <<   --  -->> {result,remainder} : {1,2*x} 
+      << result >> r : {1,2*x} 
+      
+      << Polynomial:>> pq : 2*a*x 
+      << CommonMonomialFactors_3>> expr : 2*a*x 
+      << HeuristicUniPoly_infer_var>> expr : 2*a*x 
+      <<   >> {vars,var} : {{x,a},x} 
+      << MakeUniPoly_given_var>> {expr,var} : {2*a*x,x} 
+      << CommonMonomialFactors>> expr : UniVariate(x,1,{2*a}) 
+      <<   >> {coeffs,var,lowest} : {{2*a},x,1} 
+      <<      is monomial>> 
+      <<   --  -->> {result,remainder} : {1,2*a*x} 
+      << result >> r : {1,2*a*x} 
+      
+      << Polynomial:>> pq : 2*x^2-2 
+      << CommonMonomialFactors_3>> expr : 2*x^2-2 
+      << HeuristicUniPoly_infer_var>> expr : 2*x^2-2 
+      <<   >> {vars,var} : {{x},x} 
+      << MakeUniPoly_given_var>> {expr,var} : {2*x^2-2,x} 
+      << CommonMonomialFactors>> expr : UniVariate(x,0,{-2,0,2}) 
+      <<   >> {coeffs,var,lowest} : {{-2,2},x,0} 
+      <<   >> varPower : {x,0} 
+      <<   >> cf : {{2},{2}} 
+      <<       all remaining coefficients are numbers>> cf : {{2},{2}} 
+      <<       after Intersection>> rr : {2} 
+      <<    result = >> result : {{2,1}} 
+      <<    resultFW = >> FW(result) : 2 
+      << result >> r : {{{2,1}},x^2-1} 
+      
+      << Polynomial:>> pq : 2*a*x^2-2*a 
+      << CommonMonomialFactors_3>> expr : 2*a*x^2-2*a 
+      << HeuristicUniPoly_infer_var>> expr : 2*a*x^2-2*a 
+      <<   >> {vars,var} : {{x,a},x} 
+      << MakeUniPoly_given_var>> {expr,var} : {2*a*x^2-2*a,x} 
+      << CommonMonomialFactors>> expr : UniVariate(x,0,{-2*a,0,2*a}) 
+      <<   >> {coeffs,var,lowest} : {{-2*a,2*a},x,0} 
+      <<   >> varPower : {x,0} 
+      <<   >> cf : {{2,a},{2,a}} 
+      <<       some coefficients are compound>> cf : {{2,a},{2,a}} 
+      <<        >> t : 2 
+      <<        >> t : a 
+      <<      >> facs : {{{2,1}},{a,1}} 
+      <<      >> ffacs : {2,1,a,1} 
+      <<       >> facs2 : {2,a} 
+      <<   >> rr : {2,a} 
+      <<        >> t : 2 
+      <<        >> t : a 
+      <<      >> facs : {{{2,1}},{a,1}} 
+      <<      >> ffacs : {2,1,a,1} 
+      <<       >> facs2 : {2,a} 
+      <<   >> rr : {2,a} 
+      <<    result = >> result : {{2,1},{a,1}} 
+      <<    resultFW = >> FW(result) : 2*a 
+      << result >> r : {{{2,1},{a,1}},x^2-1} 
+      
+      << Polynomial:>> pq : 2*a*x^2-2*a*x 
+      << CommonMonomialFactors_3>> expr : 2*a*x^2-2*a*x 
+      << HeuristicUniPoly_infer_var>> expr : 2*a*x^2-2*a*x 
+      <<   >> {vars,var} : {{x,a},x} 
+      << MakeUniPoly_given_var>> {expr,var} : {2*a*x^2-2*a*x,x} 
+      << CommonMonomialFactors>> expr : UniVariate(x,1,{-2*a,2*a}) 
+      <<   >> {coeffs,var,lowest} : {{-2*a,2*a},x,1} 
+      <<   >> varPower : {x,1} 
+      <<   >> cf : {{2,a},{2,a}} 
+      <<       some coefficients are compound>> cf : {{2,a},{2,a}} 
+      <<        >> t : 2 
+      <<        >> t : a 
+      <<      >> facs : {{{2,1}},{a,1}} 
+      <<      >> ffacs : {2,1,a,1} 
+      <<       >> facs2 : {2,a} 
+      <<   >> rr : {2,a} 
+      <<        >> t : 2 
+      <<        >> t : a 
+      <<      >> facs : {{{2,1}},{a,1}} 
+      <<      >> ffacs : {2,1,a,1} 
+      <<       >> facs2 : {2,a} 
+      <<   >> rr : {2,a} 
+      <<    result = >> result : {{2,1},{a,1},{x,1}} 
+      <<    resultFW = >> FW(result) : 2*a*x 
+      << result >> r : {{{2,1},{a,1},{x,1}},x-1} 
+      
+      << Polynomial:>> pq : 2*a^2*x 
+      << CommonMonomialFactors_3>> expr : 2*a^2*x 
+      << HeuristicUniPoly_infer_var>> expr : 2*a^2*x 
+      <<   >> {vars,var} : {{x,a},x} 
+      << MakeUniPoly_given_var>> {expr,var} : {2*a^2*x,x} 
+      << CommonMonomialFactors>> expr : UniVariate(x,1,{2*a^2}) 
+      <<   >> {coeffs,var,lowest} : {{2*a^2},x,1} 
+      <<      is monomial>> 
+      <<   --  -->> {result,remainder} : {1,2*a^2*x} 
+      << result >> r : {1,2*a^2*x} 
+      
+      << Polynomial:>> pq : 2*a^2*x^2-4*a^2*x+2*a^2 
+      << CommonMonomialFactors_3>> expr : 2*a^2*x^2-4*a^2*x+2*a^2 
+      << HeuristicUniPoly_infer_var>> expr : 2*a^2*x^2-4*a^2*x+2*a^2 
+      <<   >> {vars,var} : {{x,a},x} 
+      << MakeUniPoly_given_var>> {expr,var} : {2*a^2*x^2-4*a^2*x+2*a^2,x} 
+      << CommonMonomialFactors>> expr : UniVariate(x,0,{2*a^2,-4*a^2,2*a^2}) 
+      <<   >> {coeffs,var,lowest} : {{2*a^2,-4*a^2,2*a^2},x,0} 
+      <<   >> varPower : {x,0} 
+      <<   >> cf : {{2,a^2},{4,a^2},{2,a^2}} 
+      <<       some coefficients are compound>> cf : {{2,a^2},{4,a^2},{2,a^2}} 
+      <<        >> t : 2 
+      <<        >> t : a^2 
+      <<      >> facs : {{{2,1}},{a^2,1}} 
+      <<      >> ffacs : {2,1,a^2,1} 
+      <<       >> facs2 : {2,a^2} 
+      <<   >> rr : {2,a^2} 
+      <<        >> t : 4 
+      <<        >> t : a^2 
+      <<      >> facs : {{{2,2}},{a^2,1}} 
+      <<      >> ffacs : {2,2,a^2,1} 
+      <<       >> facs2 : {2,2,a^2} 
+      <<   >> rr : {2,a^2} 
+      <<        >> t : 2 
+      <<        >> t : a^2 
+      <<      >> facs : {{{2,1}},{a^2,1}} 
+      <<      >> ffacs : {2,1,a^2,1} 
+      <<       >> facs2 : {2,a^2} 
+      <<   >> rr : {2,a^2} 
+      <<    result = >> result : {{2,1},{a,2}} 
+      <<    resultFW = >> FW(result) : 2*a^2 
+      << result >> r : {{{2,1},{a,2}},x^2-2*x+1} 
+      
+      << Polynomial:>> pq : 4*a^2*x^2-4*a^2 
+      << CommonMonomialFactors_3>> expr : 4*a^2*x^2-4*a^2 
+      << HeuristicUniPoly_infer_var>> expr : 4*a^2*x^2-4*a^2 
+      <<   >> {vars,var} : {{x,a},x} 
+      << MakeUniPoly_given_var>> {expr,var} : {4*a^2*x^2-4*a^2,x} 
+      << CommonMonomialFactors>> expr : UniVariate(x,0,{-4*a^2,0,4*a^2}) 
+      <<   >> {coeffs,var,lowest} : {{-4*a^2,4*a^2},x,0} 
+      <<   >> varPower : {x,0} 
+      <<   >> cf : {{4,a^2},{4,a^2}} 
+      <<       some coefficients are compound>> cf : {{4,a^2},{4,a^2}} 
+      <<        >> t : 4 
+      <<        >> t : a^2 
+      <<      >> facs : {{{2,2}},{a^2,1}} 
+      <<      >> ffacs : {2,2,a^2,1} 
+      <<       >> facs2 : {2,2,a^2} 
+      <<   >> rr : {2,2,a^2} 
+      <<        >> t : 4 
+      <<        >> t : a^2 
+      <<      >> facs : {{{2,2}},{a^2,1}} 
+      <<      >> ffacs : {2,2,a^2,1} 
+      <<       >> facs2 : {2,2,a^2} 
+      <<   >> rr : {2,2,a^2} 
+      <<    result = >> result : {{2,1},{2,1},{a,2}} 
+      <<    resultFW = >> FW(result) : 4*a^2 
+      << result >> r : {{{2,1},{2,1},{a,2}},x^2-1} 
+      
+      << Polynomial:>> pq : 8*a^2*x^2-16*a^2*x+8*a^2 
+      << CommonMonomialFactors_3>> expr : 8*a^2*x^2-16*a^2*x+8*a^2 
+      << HeuristicUniPoly_infer_var>> expr : 8*a^2*x^2-16*a^2*x+8*a^2 
+      <<   >> {vars,var} : {{x,a},x} 
+      << MakeUniPoly_given_var>> {expr,var} : {8*a^2*x^2-16*a^2*x+8*a^2,x} 
+      << CommonMonomialFactors>> expr : UniVariate(x,0,{8*a^2,-16*a^2,8*a^2}) 
+      <<   >> {coeffs,var,lowest} : {{8*a^2,-16*a^2,8*a^2},x,0} 
+      <<   >> varPower : {x,0} 
+      <<   >> cf : {{8,a^2},{16,a^2},{8,a^2}} 
+      <<       some coefficients are compound>> cf : {{8,a^2},{16,a^2},{8,a^2}} 
+      <<        >> t : 8 
+      <<        >> t : a^2 
+      <<      >> facs : {{{2,3}},{a^2,1}} 
+      <<      >> ffacs : {2,3,a^2,1} 
+      <<       >> facs2 : {2,2,2,a^2} 
+      <<   >> rr : {2,2,2,a^2} 
+      <<        >> t : 16 
+      <<        >> t : a^2 
+      <<      >> facs : {{{2,4}},{a^2,1}} 
+      <<      >> ffacs : {2,4,a^2,1} 
+      <<       >> facs2 : {2,2,2,2,a^2} 
+      <<   >> rr : {2,2,2,a^2} 
+      <<        >> t : 8 
+      <<        >> t : a^2 
+      <<      >> facs : {{{2,3}},{a^2,1}} 
+      <<      >> ffacs : {2,3,a^2,1} 
+      <<       >> facs2 : {2,2,2,a^2} 
+      <<   >> rr : {2,2,2,a^2} 
+      <<    result = >> result : {{2,1},{2,1},{2,1},{a,2}} 
+      <<    resultFW = >> FW(result) : 8*a^2 
+      << result >> r : {{{2,1},{2,1},{2,1},{a,2}},x^2-2*x+1} 
+      
+      << Polynomial:>> pq : 32*p^4-24*p^3+40*p^5 
+      << CommonMonomialFactors_3>> expr : 32*p^4-24*p^3+40*p^5 
+      << HeuristicUniPoly_infer_var>> expr : 32*p^4-24*p^3+40*p^5 
+      <<   >> {vars,var} : {{p},p} 
+      << MakeUniPoly_given_var>> {expr,var} : {32*p^4-24*p^3+40*p^5,p} 
+      << CommonMonomialFactors>> expr : UniVariate(p,3,{-24,32,40}) 
+      <<   >> {coeffs,var,lowest} : {{-24,32,40},p,3} 
+      <<   >> varPower : {p,3} 
+      <<   >> cf : {{24},{32},{40}} 
+      <<       all remaining coefficients are numbers>> cf : {{24},{32},{40}} 
+      <<       after Intersection>> rr : {} 
+      <<    result = >> result : {{p,3}} 
+      <<    resultFW = >> FW(result) : p^3 
+      << result >> r : {{{p,3}},8*(5*p^2+4*p-3)} 
+      
+      << Polynomial:>> pq : 9*x^2+12*x^3 
+      << CommonMonomialFactors_3>> expr : 9*x^2+12*x^3 
+      << HeuristicUniPoly_infer_var>> expr : 9*x^2+12*x^3 
+      <<   >> {vars,var} : {{x},x} 
+      << MakeUniPoly_given_var>> {expr,var} : {9*x^2+12*x^3,x} 
+      << CommonMonomialFactors>> expr : UniVariate(x,2,{9,12}) 
+      <<   >> {coeffs,var,lowest} : {{9,12},x,2} 
+      <<   >> varPower : {x,2} 
+      <<   >> cf : {{9},{12}} 
+      <<       all remaining coefficients are numbers>> cf : {{9},{12}} 
+      <<       after Intersection>> rr : {} 
+      <<    result = >> result : {{x,2}} 
+      <<    resultFW = >> FW(result) : x^2 
+      << result >> r : {{{x,2}},3*(4*x+3)} 
+      
+      << Polynomial:>> pq : 24*m^3*n^2-18*m^2*n+6*m^4*n^3 
+      << CommonMonomialFactors_3>> expr : 24*m^3*n^2-18*m^2*n+6*m^4*n^3 
+      << HeuristicUniPoly_infer_var>> expr : 24*m^3*n^2-18*m^2*n+6*m^4*n^3 
+      <<   >> {vars,var} : {{n,m},n} 
+      << MakeUniPoly_given_var>> {expr,var} : {24*m^3*n^2-18*m^2*n+6*m^4*n^3,n} 
+      << CommonMonomialFactors>> expr : UniVariate(n,1,{-18*m^2,24*m^3,6*m^4}) 
+      <<   >> {coeffs,var,lowest} : {{-18*m^2,24*m^3,6*m^4},n,1} 
+      <<   >> varPower : {n,1} 
+      <<   >> cf : {{18,m^2},{24,m^3},{6,m^4}} 
+      <<       some coefficients are compound>> cf : {{18,m^2},{24,m^3},{6,m^4}} 
+      <<        >> t : 18 
+      <<        >> t : m^2 
+      <<      >> facs : {{{2,1},{3,2}},{m^2,1}} 
+      <<      >> ffacs : {2,1,3,2,m^2,1} 
+      <<       >> facs2 : {2,3,3,m^2} 
+      <<   >> rr : {2,3,3,m^2} 
+      <<        >> t : 24 
+      <<        >> t : m^3 
+      <<      >> facs : {{{2,3},{3,1}},{m^3,1}} 
+      <<      >> ffacs : {2,3,3,1,m^3,1} 
+      <<       >> facs2 : {2,2,2,3,m^3} 
+      <<   >> rr : {2,3} 
+      <<        >> t : 6 
+      <<        >> t : m^4 
+      <<      >> facs : {{{2,1},{3,1}},{m^4,1}} 
+      <<      >> ffacs : {2,1,3,1,m^4,1} 
+      <<       >> facs2 : {2,3,m^4} 
+      <<   >> rr : {2,3} 
+      <<    result = >> result : {{2,1},{3,1},{n,1}} 
+      <<    resultFW = >> FW(result) : 6*n 
+      << result >> r : {{{2,1},{3,1},{n,1}},m^2*(m^2*n^2+4*m*n-3)}
+.   %/output
+
+
