@@ -274,7 +274,7 @@ RandomSeed(seed) := RngSeed(GlobalRNG, seed);
 
 LocalSymbols(RandSeed) [
   // initial seed should be nonzero
-  RandSeed:=76544321;
+  RandSeed := SystemTimer(); //Was 76544321.
 
   /// assign random seed
   Function("RandomSeed", {seed}) Set(RandSeed, seed);
