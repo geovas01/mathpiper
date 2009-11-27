@@ -37,7 +37,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
         
         resultList["tValue"] := tValue;
         
-        standardErrorOfTheMean := StandardErrorOfTheMean(standardDeviation,sampleSize);
+        standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
         
         lowerLimitValue := N(sampleMean - tValue * standardErrorOfTheMean);
         
