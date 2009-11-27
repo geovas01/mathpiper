@@ -8,9 +8,13 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
     
     Check(IsInteger(sampleSize) And sampleSize >= 0, "The second argument must be an integer which is >=0");
     
-    Local(criticalZScore,approximateStandardErrorOfTheProportion,upperLimit,lowerLimit);
+    Local(criticalZScore,approximateStandardErrorOfTheProportion,upperLimit,lowerLimit,resultList);
+    
+    resultList := {};
     
     criticalZScore := ConfidenceLevelToZScore(confidenceLevel);
+    
+    resultList["criticalZScore"] := criticalZScore;
     
     sampleProportion := N(numberOfSuccesses/sampleSize);
     
@@ -20,7 +24,11 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
     
     lowerLimit := N(sampleProportion - criticalZScore * approximateStandardErrorOfTheProportion);
     
-    {lowerLimit,upperLimit};
+    resultList["upperLimit"] := upperLimit;
+    
+    resultList["lowerLimit"] := lowerLimit;
+    
+    resultList;
 ];
 
 
@@ -46,13 +54,14 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
 
 *DESC
 
-This function calculates a confidence interval for a proportion.  It returns a list which
-contains the lower limit as its first element and the upper limit as
-its second element.
+This function calculates a confidence interval for a proportion.  It returns an association list
+which contains the lower limit, the upper limit, and the critical Z score.
 
 *E.G.
 In> ConfidenceIntervalOfTheProportion(110,175,.90)
-Result: {0.5684923463,0.6886505109}
+Result: {{"lowerLimit",0.5684923463},{"upperLimit",0.6886505109},{"criticalZScore",1.644853952}}
+
+*SEE ConfidenceIntervalOfTheMean, V, Assoc
 %/mathpiper_docs
 
     %output,preserve="false"
