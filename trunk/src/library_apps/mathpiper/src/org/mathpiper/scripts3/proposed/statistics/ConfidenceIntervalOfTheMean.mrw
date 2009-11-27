@@ -6,7 +6,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
 [
     Check(IsBoolean(standardDeviationIsKnown),"The third argument must be True or False.");
     
-    Local(criticalZScore,tValue,standardErrorOfTheMean,upperLimitValue,lowerLimitValue,resultList);
+    Local(criticalZScore,criticalTScore,standardErrorOfTheMean,upperLimitValue,lowerLimitValue,resultList);
     
     resultList := {};
     
@@ -27,28 +27,28 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
             [
                 Echo("Using the normal distribution.");
                 
-                Echo("Critical Z-Score: ", criticalZScore);
+                Echo("Critical z-score: ", criticalZScore);
                 
                 Echo("Standard error of the mean: ", standardErrorOfTheMean);
             ]);
     ],
     [   
-        tValue := OneTailAlphaToTValue(sampleSize - 1, N((1 - confidenceLevel)/2));
+        criticalTScore := OneTailAlphaToTValue(sampleSize - 1, N((1 - confidenceLevel)/2));
         
-        resultList["tValue"] := tValue;
+        resultList["criticalTScore"] := criticalTScore;
         
         standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
         
-        lowerLimitValue := N(sampleMean - tValue * standardErrorOfTheMean);
+        lowerLimitValue := N(sampleMean - criticalTScore * standardErrorOfTheMean);
         
-        upperLimitValue := N(sampleMean + tValue * standardErrorOfTheMean);
+        upperLimitValue := N(sampleMean + criticalTScore * standardErrorOfTheMean);
         
         
         If(InVerboseMode(),
             [
                 Echo("Using the t-distribution.");
                 
-                Echo("t-value: ", tValue);
+                Echo("Critical t-score: ", criticalTScore);
                 
                 Echo("Standard error of the mean: ", standardErrorOfTheMean);
             ]);
@@ -101,9 +101,9 @@ In> result["upperLimit"]
 Result: 89.15394422
 
 In> result := ConfidenceIntervalOfTheMean(78.25,37.50,False,25,.90)
-Result: {{"lowerLimit",65.41838440},{"upperLimit",91.08161560},{"tValue",1.710882080}}
+Result: {{"lowerLimit",65.41838440},{"upperLimit",91.08161560},{"criticalTScore",1.710882080}}
 
-In> result["tValue"]
+In> result["criticalTScore"]
 Result: 1.710882080
 
 In> result := V(ConfidenceIntervalOfTheMean(78.25,37.50,True,32,.90))
