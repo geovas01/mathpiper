@@ -27,7 +27,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.net.URL;
@@ -74,10 +76,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private FunctionInfoTree functionsTree;
     private Map documentationIndex;
     private RandomAccessFile documentFile;
-    private URL documentationURL;
     private JEditorPane editorPane;
     private static StringBuilder seeFunctionsBuilder = new StringBuilder();
-    private ClassLoader classLoader;
     private List pageList;
     private ToolPanel toolPanel = null;
     private String selectedFunctionName = "";
@@ -87,69 +87,71 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private JPanel treePanel;
 
 
-    public FunctionTreePanel(ClassLoader classLoader) {
-        this.classLoader = classLoader;
+    public FunctionTreePanel() throws FileNotFoundException {
 
         this.setLayout(new BorderLayout());
 
         pageList = new ArrayList();
         pageList.add("HomePage");
 
-        URL fileURL = classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/function_categories.txt");
-        if (fileURL != null) //File is on the classpath.
-        {
-            //System.out.println("Found categories file.");
-            loadCategories(fileURL);
-            loadDocumentationIndex(classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation_index.txt"));
+        InputStream functionCategoriesStream = FunctionTreePanel.class.getResourceAsStream("/org/mathpiper/ui/gui/help/data/function_categories.txt");
 
-            documentationURL = classLoader.getSystemResource("org/mathpiper/ui/gui/help/data/documentation.txt");
-//System.out.println(documentationURL);
+        if (functionCategoriesStream == null) {
+            throw new FileNotFoundException("The file function_categories.txt was not found.");
+        }
 
-            createTree();
+        loadCategories(functionCategoriesStream);
 
-            ToolTipManager.sharedInstance().registerComponent(functionsTree);
+        InputStream documentationIndexStream = FunctionTreePanel.class.getResourceAsStream("/org/mathpiper/ui/gui/help/data/documentation_index.txt");
 
-//tree.setRootVisible(false);
+        if (documentationIndexStream == null) {
+            throw new FileNotFoundException("The file documentation_index.txt was not found.");
+        }
 
-            treePanel = new JPanel();
-            treePanel.setLayout(new BorderLayout());
-            treePanel.add(functionsTree);
-            treeViewScrollPane = new JScrollPane(treePanel);
-            treeViewScrollPane.getVerticalScrollBar().setUnitIncrement(60);
-            treeViewScrollPane.getVerticalScrollBar().setBlockIncrement(180);
+        loadDocumentationIndex(documentationIndexStream);
+
+        createTree();
+
+        ToolTipManager.sharedInstance().registerComponent(functionsTree);
+
+        treePanel = new JPanel();
+        treePanel.setLayout(new BorderLayout());
+        treePanel.add(functionsTree);
+        treeViewScrollPane = new JScrollPane(treePanel);
+        treeViewScrollPane.getVerticalScrollBar().setUnitIncrement(60);
+        treeViewScrollPane.getVerticalScrollBar().setBlockIncrement(180);
 
 
 
-            editorPane = new JEditorPane();
-            editorPane.setEditable(false);
-            editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
-            editorPane.addHyperlinkListener(this);
-            //editorPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+        editorPane = new JEditorPane();
+        editorPane.setEditable(false);
+        editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+        editorPane.addHyperlinkListener(this);
+        //editorPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
 
-            //JdocsScrollPane editorScrollPane = new JScrollPane(editorPane);
-            docsScrollPane = new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        //JdocsScrollPane editorScrollPane = new JScrollPane(editorPane);
+        docsScrollPane = new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-            splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeViewScrollPane, docsScrollPane);
-            splitPane.setOneTouchExpandable(true);
-            //tree.getPreferredScrollableViewportSize().width;
-            splitPane.setDividerLocation(290);
-            this.add(splitPane);
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeViewScrollPane, docsScrollPane);
+        splitPane.setOneTouchExpandable(true);
+        //tree.getPreferredScrollableViewportSize().width;
+        splitPane.setDividerLocation(290);
+        this.add(splitPane);
 
-            toolPanel = new ToolPanel();
-            home();
+        toolPanel = new ToolPanel();
+        home();
 
-        }//end if.
     }//end constructor.
 
 
-    private void loadCategories(URL url) {
+    private void loadCategories(InputStream inputStream) {
         BufferedReader categoriesFile = null;
         List userFunctions = new ArrayList();
         List programmerFunctions = new ArrayList();
         List operators = new ArrayList();
 
         try {
-            categoriesFile = new BufferedReader(new InputStreamReader(url.openStream()));
+            categoriesFile = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
             while ((line = categoriesFile.readLine()) != null) {
@@ -388,10 +390,10 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     }//end method.
 
 
-    private void loadDocumentationIndex(URL url) {
+    private void loadDocumentationIndex(InputStream inputStream) {
         documentationIndex = new HashMap();
         try {
-            BufferedReader documentationIndexReader = new BufferedReader(new InputStreamReader(url.openStream()));
+            BufferedReader documentationIndexReader = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
             while ((line = documentationIndexReader.readLine()) != null) {
@@ -438,7 +440,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     public boolean viewFunction(String functionName, boolean save) {
 
         if (this.documentationIndex.containsKey(functionName)) {
-            
+
             String functionIndexesString = (String) this.documentationIndex.get(functionName);
             String[] functionIndexes = functionIndexesString.split(",");
             int startIndex = Integer.parseInt(functionIndexes[0]);
@@ -449,14 +451,17 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             //System.out.println("yyyy " + functionName + "  " + startIndex + " " + endIndex + " " + length);
             try {
 
-                //documentFile.seek(startIndex);
-                //documentFile.read(documentationData, 0, length);
+                BufferedInputStream documentationStream = new BufferedInputStream(FunctionTreePanel.class.getResourceAsStream("/org/mathpiper/ui/gui/help/data/documentation.txt"));
 
-                // System.out.print("docsurl: " + documentationURL);
-                BufferedInputStream docsStream = new BufferedInputStream(documentationURL.openStream());
-                docsStream.skip(startIndex);
-                docsStream.read(documentationData, 0, length);
-                docsStream.close();
+                if (documentationStream == null) {
+                    throw new FileNotFoundException("The file documentation.txt was not found.");
+                }
+                
+                documentationStream.skip(startIndex);
+                documentationStream.read(documentationData, 0, length);
+                //docsStream.close();
+
+
 
 
                 String documentationDataString = new String(documentationData);
@@ -487,9 +492,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         line = line.replaceAll("\\}", "</tt></b>");
         return line;
     }//end method.
-    
-    
-    
+
+
     private static String applyPre(String line) {
         line = line.replaceAll("\\[", "<pre>");
         line = line.replaceAll("\\]", "</pre>");
@@ -979,21 +983,31 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         JFrame frame = new javax.swing.JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        FunctionTreePanel helpPanel = new FunctionTreePanel(FunctionTreePanel.class.getClassLoader());
+        FunctionTreePanel helpPanel = null;
 
+        try {
 
-        Container contentPane = frame.getContentPane();
-        contentPane.add(helpPanel.getToolPanel(), BorderLayout.NORTH);
-        contentPane.add(helpPanel, BorderLayout.CENTER);
+            helpPanel = new FunctionTreePanel();
 
-        frame.pack();
+            Container contentPane = frame.getContentPane();
+            contentPane.add(helpPanel.getToolPanel(), BorderLayout.NORTH);
+            contentPane.add(helpPanel, BorderLayout.CENTER);
+
+            frame.pack();
 //frame.setAlwaysOnTop(true);
-        frame.setTitle("MathPiper Help");
-        frame.setSize(new Dimension(700, 700));
-        //frame.setResizable(false);
-        frame.setPreferredSize(new Dimension(700, 700));
-        frame.setLocationRelativeTo(null); // added
+            frame.setTitle("MathPiper Help");
+            frame.setSize(new Dimension(700, 700));
+            //frame.setResizable(false);
+            frame.setPreferredSize(new Dimension(700, 700));
+            frame.setLocationRelativeTo(null); // added
 
-        frame.setVisible(true);
+            frame.setVisible(true);
+
+        } catch (FileNotFoundException fnfe) {
+            System.out.println(fnfe.getMessage());
+        }
+
+
+
     }//end main.
 }
