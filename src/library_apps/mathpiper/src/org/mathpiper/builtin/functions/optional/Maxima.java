@@ -77,13 +77,15 @@ public class Maxima extends BuiltinFunction {
             t.printStackTrace();
         }
         maximaInstalled = true;
-        System.out.println("M+");
+
+        
+        //System.out.println("M+");
         }
         else
         {
-            System.out.println("M-");
+            //System.out.println("M-");
         }
-
+        
 
 
 
