@@ -1,4 +1,4 @@
-%mathpiper,title="xSimpleRandomPolynomial"
+%mathpiper,def="xSimpleRandomPolynomial"
 
 Retract("xSimpleRandomPolynomial",*);
 Retract("NewRandomPoly",*);
