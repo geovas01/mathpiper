@@ -10,13 +10,13 @@ import org.mathpiper.lisp.Environment;
 
 
 
-public class OneTailAlphaToTValue extends BuiltinFunction{
+public class OneTailAlphaToTScore extends BuiltinFunction{
 
     public void plugIn(Environment aEnvironment)
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "OneTailAlphaToTValue");
+                "OneTailAlphaToTScore");
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -27,11 +27,11 @@ public class OneTailAlphaToTValue extends BuiltinFunction{
 
         double cdf = Probability.studentTInverse(alpha.toDouble()*2, (int) degreesOfFreedom.toLong());
 
-        BigNumber tValue = new BigNumber(aEnvironment.getPrecision());
+        BigNumber tScore = new BigNumber(aEnvironment.getPrecision());
 
-        tValue.setTo(cdf);
+        tScore.setTo(cdf);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(aEnvironment, tValue));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(aEnvironment, tScore));
 
     }//end method.
 
@@ -41,12 +41,12 @@ public class OneTailAlphaToTValue extends BuiltinFunction{
 
 
 /*
-%mathpiper_docs,name="OneTailAlphaToTValue",categories="User Functions;Statistics & Probability"
-*CMD OneTailAlphaToTValue --- show the function help window
+%mathpiper_docs,name="OneTailAlphaToTScore",categories="User Functions;Statistics & Probability"
+*CMD OneTailAlphaToTScore --- show the function help window
 
 *CALL
 
-    OneTailAlphaToTValue(degreesOfFreedom, alpha)
+    OneTailAlphaToTScore(degreesOfFreedom, alpha)
 
 *PARMS
 
@@ -59,7 +59,7 @@ public class OneTailAlphaToTValue extends BuiltinFunction{
 Calculates the t value for the given one tail alpha value and degrees of freedom.
 
 *E.G.
-In> OneTailAlphaToTValue(9,.025)
+In> OneTailAlphaToTScore(9,.025)
 Result> 2.262157163
 
 
