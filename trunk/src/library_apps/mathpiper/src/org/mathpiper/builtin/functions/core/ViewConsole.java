@@ -31,7 +31,7 @@ public class ViewConsole extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         org.mathpiper.ui.gui.consoles.ColorConsole.main(null);
+         org.mathpiper.ui.gui.consoles.Console.main(null);
 
          Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
