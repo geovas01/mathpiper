@@ -6,9 +6,9 @@
  *
  ******/
 
-Retract("Factors",*);
-Retract("FactorsMultivariateSpecialCases",*);
-Retract("FactorsSomethingElse",*);
+Retract("xFactors",*);
+Retract("xFactorsMultivariateSpecialCases",*);
+Retract("xFactorsSomethingElse",*);
 Retract("CombineNumericalFactors",*);
 Retract("CommonMonomialFactors",*);
 Retract("MakeUniPoly",*);
@@ -23,26 +23,26 @@ Retract("HeuristicUniPoly",*);
  */
  
 
-10 # Factors(p_IsPositiveInteger) <--  
+10 # xFactors(p_IsPositiveInteger) <--  
 [
     If( p < 1600, FactorsSmallInteger(p), FactorizeInt(p) );
 ];
 
-11 # Factors(p_IsInteger) <-- 
+11 # xFactors(p_IsInteger) <-- 
 [
     If( (-p) < 1600, FactorsSmallInteger(-p), FactorizeInt(-p) );
 ];
 
-12 # Factors(p_IsRational)_(Denominator(p) != 1) <-- {{Factor(Numerator(p)) /Factor(Denominator(p)) , 1}}; 
+12 # xFactors(p_IsRational)_(Denominator(p) != 1) <-- {{Factor(Numerator(p)) /Factor(Denominator(p)) , 1}}; 
      //Added to handle rational numbers with denominators that are not 1
 
      
-14 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+14 # xFactors(p_IsGaussianInteger)	<-- GaussianFactors(p);
 
 
-20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  
+20 # xFactors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  
 [
-    If(InVerboseMode(),Tell("Factors__uni",p));
+    If(InVerboseMode(),Tell("xFactors__uni",p));
     Local(x,d,comMonFacs,coeffs,nterms,factorsList,result);
     x := VarList(p)[1];
     d := Degree(p,x);
@@ -115,7 +115,7 @@ Retract("HeuristicUniPoly",*);
 ];
 
 
-30 # Factors(p_CanBeUni) <--  
+30 # xFactors(p_CanBeUni) <--  
 [
     /* 
      * This may be a multi-variate polynomial, or it may be something else.
@@ -126,7 +126,7 @@ Retract("HeuristicUniPoly",*);
      * case-by-case basis.
      */
     Local(vl,nvars,coeffs,result);
-    If(InVerboseMode(),Tell("Factors__maybeMulti",p));
+    If(InVerboseMode(),Tell("xFactors__maybeMulti",p));
     // First, remove any common monomial factors
     comMonFacs := V(CommonMonomialFactors(p));
     Tell("  com mon facs",comMonFacs);
@@ -148,16 +148,16 @@ Retract("HeuristicUniPoly",*);
     If (nvars > 1, 
          [
             If( InVerboseMode(), Echo(" special ",p));
-            result := FactorsMultivariateSpecialCases(p);
+            result := xFactorsMultivariateSpecialCases(p);
          ], 
-            //result := FactorsSomethingElse(p) 
-            result := Factors(p) 
+            //result := xFactorsSomethingElse(p) 
+            result := xFactors(p) 
        );
        CombineNumericalFactors( result );
 ];
 
 
-40 # Factors(_p) <--
+40 # xFactors(_p) <--
 [
     /*
      * This may may be a polynomial with non-integer exponents.  Let's check.
@@ -175,33 +175,33 @@ Retract("HeuristicUniPoly",*);
 //                    S P E C I A L     C A S E S
 //------------------------------------------------------------------------
 
-10 # FactorsMultivariateSpecialCases(-_expr) <-- {-1,1}:FactorsMultivariateSpecialCases(expr);
+10 # xFactorsMultivariateSpecialCases(-_expr) <-- {-1,1}:xFactorsMultivariateSpecialCases(expr);
 
-10 # FactorsMultivariateSpecialCases(x_IsAtom + y_IsAtom) <-- [If(InVerboseMode(),Tell(1));{{x+y,1}};];
+10 # xFactorsMultivariateSpecialCases(x_IsAtom + y_IsAtom) <-- [If(InVerboseMode(),Tell(1));{{x+y,1}};];
 
-10 # FactorsMultivariateSpecialCases(x_IsAtom - y_IsAtom) <-- [If(InVerboseMode(),Tell(2));{{x-y,1}};];
+10 # xFactorsMultivariateSpecialCases(x_IsAtom - y_IsAtom) <-- [If(InVerboseMode(),Tell(2));{{x-y,1}};];
 
-10 # FactorsMultivariateSpecialCases(_n*_x^p_IsInteger + _n*_y) <-- [If(InVerboseMode(),Tell(3));{n,1}:FactorsMultivariateSpecialCases(x+y);];
+10 # xFactorsMultivariateSpecialCases(_n*_x^p_IsInteger + _n*_y) <-- [If(InVerboseMode(),Tell(3));{n,1}:xFactorsMultivariateSpecialCases(x+y);];
 
-10 # FactorsMultivariateSpecialCases(_n*_x^p_IsInteger - _n*_y) <-- [If(InVerboseMode(),Tell(4));{n,1}:FactorsMultivariateSpecialCases(x-y);];
+10 # xFactorsMultivariateSpecialCases(_n*_x^p_IsInteger - _n*_y) <-- [If(InVerboseMode(),Tell(4));{n,1}:xFactorsMultivariateSpecialCases(x-y);];
 
-10 # FactorsMultivariateSpecialCases(n_IsInteger*_x + m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
+10 # xFactorsMultivariateSpecialCases(n_IsInteger*_x + m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
 
-10 # FactorsMultivariateSpecialCases(n_IsInteger*_x - m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x-m*y)/Gcd(n,m))),1}};
+10 # xFactorsMultivariateSpecialCases(n_IsInteger*_x - m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x-m*y)/Gcd(n,m))),1}};
 
-10 # FactorsMultivariateSpecialCases(_n*_x + _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x+y);
+10 # xFactorsMultivariateSpecialCases(_n*_x + _n*_y) <-- {n,1}:xFactorsMultivariateSpecialCases(x+y);
 
-10 # FactorsMultivariateSpecialCases(_n*_x - _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x-y);
+10 # xFactorsMultivariateSpecialCases(_n*_x - _n*_y) <-- {n,1}:xFactorsMultivariateSpecialCases(x-y);
 
-10 # FactorsMultivariateSpecialCases(_x^n_IsInteger - _y) <-- xFactorsBinomials(x^n - y); 
+10 # xFactorsMultivariateSpecialCases(_x^n_IsInteger - _y) <-- xFactorsBinomials(x^n - y); 
 
 10 # FactorsMultivariateSpecialCases(_x^n_IsInteger + _y) <-- xFactorsBinomials(x^n + y); 
 
-20 # FactorsSomethingElse(_p) <-- 
+20 # xFactorsSomethingElse(_p) <-- 
   [
       If( InVerboseMode(),
           [
-              ECHO("   *** FactorsSomethingElse: NOT IMPLEMENTED YET ***");
+              ECHO("   *** xFactorsSomethingElse: NOT IMPLEMENTED YET ***");
           ]
       );
       p;
@@ -335,19 +335,15 @@ Retract("HeuristicUniPoly",*);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
 
-
-%mathpiper_docs,name="Factors",categories="User Functions;Number Theory"
-*CMD Factors --- factorization
+%mathpiper_docs,name="xFactors",categories="User Functions;Number Theory"
+*CMD xFactors --- factorization
 *STD
 *CALL
-	Factors(x)
+	xFactors(x)
 
 *PARMS
 
@@ -371,10 +367,10 @@ is returned as {{{p1,n1}, ..., {p9,n9}}}.
 Programmer: Yacas Team + Sherm Ostrowsky
 
 *E.G.
-    In> Factors(24)
+    In> xFactors(24)
     Result: {{2,3},{3,1}}
     
-    In> Factors(32*x^3+32*x^2-70*x-75)
+    In> xFactors(32*x^3+32*x^2-70*x-75)
     Result: {{4*x+5,2},{2*x-3,1}}
 
 *SEE Factor, IsPrime, GaussianFactors
