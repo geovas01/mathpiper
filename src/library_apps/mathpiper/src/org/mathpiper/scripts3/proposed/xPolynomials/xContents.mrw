@@ -1,0 +1,181 @@
+%mathpiper,title="xContents"
+
+/*-----------------------------------------------------------------
+ *  Given a Polynomial (in any number of variables), this
+ * function extracts its "Content", as defined by algebraic
+ * theory.  
+ *  The extended definition used here is as follows: the
+ * Content consists of the product of up to 3 factors:
+ * (1) the greatest common NUMERICAL factor, if any,
+ * (2) the greatest common monomial factor involving variables
+ *     other than the polynomial's primary variable, if any,
+ * (3) the greatest power of the primary variable common to
+ *     all terms of the polynomial.
+ *-----------------------------------------------------------------
+ *   NOTE: The remainder when the polynomial is divided by its
+ * Content is called its PrimitivePart.
+ *   NOTE: The functions included here are xContent() and xContents().
+ * The latter returns the Content in the form of a list pairs of
+ * {factor,multiplicity}, similar to MathPiper's Factors() function.
+ *-----------------------------------------------------------------*/
+
+Retract("xContent",*);
+Retract("xContents",*);
+
+10 # xContent( poly_CanBeUni ) <--
+[
+    Local(Cs);
+    Cs := xContents(poly);
+    FW(Cs);
+];
+
+
+10 # xContents( uPoly_IsUniVar )_(IsUniVar(uPoly[3][1])) <--
+[
+    //Tell("xContents_peeling_uni",uPoly);
+    Local(var,pow,coeffs);
+    var    := uPoly[1];
+    pow    := uPoly[2];
+    coeffs := uPoly[3];
+    If( pow > 0, 
+      [
+        //Tell("   pushing",{var,pow});
+        DestructiveAppend(results,{var,pow});
+      ]
+    );
+    Push(coeffSave,coeffs);
+    xContents(coeffs[1]);
+    results;
+];
+
+
+12 # xContents( uPoly_IsUniVar ) <--
+[
+    //Tell("xContents_peeled_uni",uPoly);
+    Local(var,pow,coeffs,gcd);
+    var    := uPoly[1];
+    pow    := uPoly[2];
+    If( pow > 0, 
+      [
+        //Tell("   pushing",{var,pow});
+        DestructiveAppend(results,{var,pow});
+      ]
+    );
+    If( Length(coeffSave) > 0,
+      [
+        coeffs := Pop(coeffSave,1);
+        //Tell("    ",coeffs);
+        cs := {};
+        ForEach(term,coeffs)
+        [
+          //Tell("      ",term);
+          cs := Concat(cs,(term[3]));
+        ];
+        //Tell("      ",cs);
+        ngcd := Gcd(cs);
+        //Tell("       numeric gcd",{ngcd,1});
+        Push(results,{ngcd,1});
+      ],
+      [
+        //Tell("   ",uPoly[3]);
+        gcd := Gcd(uPoly[3]);
+        If( gcd != 1,
+          [
+            //Tell("   pushing",{gcd,1});
+            Push(results,{gcd,1});
+          ]
+        );
+      ]
+    );
+    results;
+];
+
+UnFence("xContents",1);
+
+
+14 # xContents( poly_CanBeUni ) <--
+[
+    //Tell("xContents",poly);
+    Local(results,coeffSave,uPoly,C);
+    results   := {};
+    coeffSave := {};
+    uPoly     := MakeUni(poly);
+    //Tell("  ",uPoly);
+    xContents(uPoly);
+];
+
+/*
+//========================   TESTING    =============================
+
+p   := 2;
+T := Time()( out := xContents(p) ); 
+Tell("  ",p);
+Tell(" ",T);
+Tell(" ",out);
+NewLine(2);
+
+p   := 2*x;
+T := Time()( out := xContents(p) ); 
+Tell("  ",p);
+Tell(" ",T);
+Tell(" ",out);
+NewLine(2);
+
+p   := 2*x-1;
+T := Time()( out := xContents(p) ); 
+Tell("  ",p);
+Tell(" ",T);
+Tell(" ",out);
+NewLine(2);
+
+p   := 2*x-4;
+T := Time()( out := xContents(p) ); 
+Tell("  ",p);
+Tell(" ",T);
+Tell(" ",out);
+NewLine(2);
+
+p   := 2*a*x-4*a;
+T := Time()( out := xContents(p) ); 
+Tell("  ",p);
+Tell(" ",T);
+Tell(" ",out);
+NewLine(2);
+
+p   := 2*a*x^2-4*a;
+T := Time()( out := xContents(p) ); 
+Tell("  ",p);
+Tell(" ",T);
+Tell(" ",out);
+NewLine(2);
+
+p   := 2*a*x^2-4*a*x+4*a;
+T := Time()( out := xContents(p) ); 
+Tell("  ",p);
+Tell(" ",T);
+Tell(" ",out);
+NewLine(2);
+
+p   := 2*a*x^2-4*x+4*a;
+T := Time()( out := xContents(p) ); 
+Tell("  ",p);
+Tell(" ",T);
+Tell(" ",out);
+NewLine(2);
+
+p   := 3*a*x^3-6*a*x^2+3*a*x;
+T := Time()( out := xContents(p) ); 
+Tell("  ",p);
+Tell(" ",T);
+Tell(" ",out);
+NewLine(2);
+
+p   := 6*a*n^4*m^3+24*a*n^3*m^2-18*a*n^2*m ;
+T := Time()( out := xContents(p) ); 
+Tell("  ",p);
+Tell(" ",T);
+Tell(" ",out);
+NewLine(2);
+*/
+
+%/mathpiper
