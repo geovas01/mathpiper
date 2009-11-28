@@ -69,7 +69,11 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             try {
                 LispError.check(parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION);
             } catch (EvaluationException ex) {
-                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1);
+                if (ex.getFunctionName() == null) {
+                    throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, this.functionName);
+                } else {
+                    throw ex;
+                }
             }//end catch.
 
             FunctionParameter parameter = new FunctionParameter((String) parameterTraverser.car(), false);
@@ -185,8 +189,12 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 argumentsPointer3.setCons(null);
             }
 
-        } catch (EvaluationException e) {
-            throw new EvaluationException(e.getMessage() + " In function: " + this.functionName + ",  ", "none", -1);
+        } catch (EvaluationException ex) {
+            if (ex.getFunctionName() == null) {
+                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, this.functionName);
+            } else {
+                throw ex;
+            }
         } finally {
             aEnvironment.popLocalFrame();
         }
