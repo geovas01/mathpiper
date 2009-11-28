@@ -30,7 +30,7 @@ import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 import org.mathrider.mathpiperplugin.MathPiperInterpreter;
-import org.mathpiper.ui.gui.consoles.ColorConsole;
+import org.mathpiper.ui.gui.consoles.Console;
 
 // }}}
 
@@ -60,7 +60,7 @@ public class MathPiper extends JPanel
 	
 	private JButton haltCurrentExecutionButton;
 	
-	private ColorConsole console;
+	private Console console;
 
     // }}}
 
@@ -121,7 +121,7 @@ public class MathPiper extends JPanel
 		
 		//add(BorderLayout.CENTER, new org.mathpiper.ui.gui.calculator.CalculatorPanel() );
 		
-		console = new org.mathpiper.ui.gui.consoles.ColorConsole();
+		console = new org.mathpiper.ui.gui.consoles.Console();
 		
 		add(BorderLayout.CENTER, console );
 		
