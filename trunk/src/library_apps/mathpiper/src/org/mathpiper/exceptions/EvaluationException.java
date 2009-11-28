@@ -13,32 +13,44 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.exceptions;
+
 
 public class EvaluationException extends Exception //Note:tk: made this class public so that clients can use this exception.
 {
-        private int lineNumber = -1;
-        private String fileName = null;
+
+    private int lineNumber = -1;
+    private String fileName = null;
+    private String functionName = null;
 
 
-	public EvaluationException(String message, String fileName, int lineNumber)
-	{
-		super(message);
-                this.fileName = fileName;
-                this.lineNumber = lineNumber;
-	}
-        
-    public int getLineNumber()
-    {
+    public EvaluationException(String message, String fileName, int lineNumber, String functionName) {
+        super(message);
+        this.fileName = fileName;
+        this.lineNumber = lineNumber;
+        this.functionName = functionName;
+    }
+
+
+    public EvaluationException(String message, String fileName, int lineNumber) {
+        this( message,  fileName,  lineNumber,null);
+    }
+
+
+    public int getLineNumber() {
         return lineNumber;
     }
 
-    public String getFileName()
-    {
+
+    public String getFileName() {
         return fileName;
     }
- 
+
+
+    public String getFunctionName() {
+        return functionName;
+    }
+
+
 }
