@@ -29,7 +29,7 @@ Echo("Sample mean: ", sampleMean);
 
 Echo("Upper limit: ", upperLimit);
 
-If(sampleMean > upperLimit, 
+If(sampleMean > upperLimit Or sampleMean < lowerLimit, 
     Echo("Reject H0, concluding that the population mean is not 1.7 cups per day"),
     Echo("Do not reject H0."));
 
@@ -231,7 +231,7 @@ Echo("Sample mean: ", sampleMean);
 
 Echo("Upper limit: ", upperLimit);
 
-If(sampleMean > upperLimit, 
+If(sampleMean > upperLimit Or sampleMean < lowerLimit, 
     Echo("Reject H0, concluding that the population mean is not 1.7 cups per day"),
     Echo("Do not reject H0."));
 
@@ -242,7 +242,7 @@ If(sampleMean > upperLimit,
       
       Side Effects:
       Using the normal distribution.
-      Critical Z-Score: 1.959964158 
+      Critical z-score: 1.959964158 
       Standard error of the mean: 150.2081889 
       Lower limit: 2405.597334 
       Sample mean: 2450 
