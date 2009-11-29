@@ -8,7 +8,7 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
     
     Check(IsInteger(sampleSize) And sampleSize >= 0, "The second argument must be an integer which is >=0");
     
-    Local(criticalZScore,approximateStandardErrorOfTheProportion,upperLimit,lowerLimit,resultList);
+    Local(criticalZScore,approximateStandardErrorOfTheProportion,upperLimit,lowerLimit,resultList,sampleProportion);
     
     resultList := {};
     
@@ -23,6 +23,15 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
     upperLimit := N(sampleProportion + criticalZScore * approximateStandardErrorOfTheProportion);
     
     lowerLimit := N(sampleProportion - criticalZScore * approximateStandardErrorOfTheProportion);
+    
+    If(InVerboseMode(),
+        [
+            Echo("Critical z-score: ", criticalZScore);
+            
+            Echo("Sample proportion: ", sampleProportion);
+            
+            Echo("Standard error of the proportion: ", N(approximateStandardErrorOfTheProportion));
+        ]);
     
     resultList["upperLimit"] := upperLimit;
     
