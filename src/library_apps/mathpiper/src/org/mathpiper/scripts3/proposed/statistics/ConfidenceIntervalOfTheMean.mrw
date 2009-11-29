@@ -33,7 +33,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
             ]);
     ],
     [   
-        criticalTScore := OneTailAlphaToTValue(sampleSize - 1, N((1 - confidenceLevel)/2));
+        criticalTScore := OneTailAlphaToTScore(sampleSize - 1, N((1 - confidenceLevel)/2));
         
         resultList["criticalTScore"] := criticalTScore;
         
