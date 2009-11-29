@@ -208,7 +208,7 @@ twoTailAlpha := .02;
 
 confidenceLevel := 1 - twoTailAlpha;
 
-V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
 
 lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
 
@@ -244,7 +244,7 @@ If(sampleMean > upperLimit,
       
       Side Effects:
       Using the normal distribution.
-      Critical Z-Score: 2.326348187 
+      Critical z-score: 2.326348187 
       Standard error of the mean: 5.303300859 
       Lower limit: 79.66267566 
       Sample mean: 107 
@@ -380,6 +380,124 @@ If(sampleMean > upperLimit,
       t-score of the sample mean: 1.545454546 
       Lower critical t-score: 2.446911852 
       Do not reject H0.
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title="Hypotheses testing with proportions (one-tail test page 243)."
+
+//H0: proportion = .30
+
+//H1: mean != .30
+
+testProportion := .30;
+
+sampleProportion := .38;
+
+calculatedNumberOfSuccesses := Div(testProportion*150,1);
+
+sampleSize := 150;
+
+oneTailAlpha := .05;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+confidenceIntervalOfTheProportion := V(ConfidenceIntervalOfTheProportion(calculatedNumberOfSuccesses,sampleSize,confidenceLevel));
+
+NewLine();
+
+upperLimit := confidenceIntervalOfTheProportion["upperLimit"];
+
+Echo("Upper limit: ", upperLimit);
+
+valueZScore := N(ValueToZScore(sampleProportion,testProportion,StandardErrorOfTheProportion(testProportion,sampleSize)));
+
+Echo("Value z-score: ",valueZScore);
+
+criticalZScore := confidenceIntervalOfTheProportion["criticalZScore"];
+
+Echo("Upper critical z-score: ", criticalZScore);
+
+Echo("One tail p-value: ", 1 - N(ZScoreToProbability(valueZScore)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Critical z-score: 1.644853952 
+      Proportion: 0.3 
+      Standard error of the proportion: 0.037416573868 
+      
+      Upper limit: 0.3615447994 
+      Value z-score: 2.138089935 
+      Upper critical z-score: 1.644853952 
+      One tail p-value: 0.0162547230 
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Hypotheses testing with proportions (two-tail test page 245)."
+
+//H0: proportion = .50
+
+//H1: mean != .50
+
+testProportion := .50;
+
+sampleProportion := .47;
+
+calculatedNumberOfSuccesses := Div(testProportion*150,1);
+
+sampleSize := 256;
+
+twoTailAlpha := .05;
+
+confidenceLevel := 1 - twoTailAlpha;
+
+confidenceIntervalOfTheProportion := V(ConfidenceIntervalOfTheProportion(calculatedNumberOfSuccesses,sampleSize,confidenceLevel));
+
+NewLine();
+
+upperLimit := confidenceIntervalOfTheProportion["upperLimit"];
+
+Echo("Upper limit: ", upperLimit);
+
+criticalZScore := confidenceIntervalOfTheProportion["criticalZScore"];
+
+Echo("Lower critical z-score: ", -criticalZScore);
+
+valueZScore := N(ValueToZScore(sampleProportion,testProportion,StandardErrorOfTheProportion(testProportion,sampleSize)));
+
+Echo("Value z-score: ",valueZScore);
+
+Echo("Upper critical z-score: ", criticalZScore);
+
+Echo("Two tail p-value: ", N(ZScoreToProbability(valueZScore))*2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Critical z-score: 1.959964158 
+      Proportion: 0.29296875 
+      Standard error of the proportion: 0.028445264153 
+      
+      Upper limit: 0.3487204482 
+      Lower critical z-score: -1.959964158 
+      Value z-score: -0.96 
+      Upper critical z-score: 1.959964158 
+      Two tail p-value: 0.3370552148 
       
 .   %/output
 
