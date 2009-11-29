@@ -21,6 +21,11 @@ V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,standardDe
 
 lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
 
+criticalZScore := -confidenceIntervalOfTheMean["criticalZScore"];
+
+valueZScore := N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(standardDeviation,sampleSize)));
+
+NewLine();
 Echo("H0: mean >= ",testMean);
 Echo("H1: mean < ", testMean);
 Echo("Sample mean: ", sampleMean);
@@ -29,8 +34,8 @@ Echo("Standard deviation: ", standardDeviation);
 Echo("One tail alpha: ", oneTailAlpha);
 Echo("Sample mean: ", sampleMean);
 Echo("Lower limit: ", lowerLimit);
-Echo("Critical Z score: ", -confidenceIntervalOfTheMean["criticalZScore"]);
-Echo("Z score of the sample mean: ", N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(standardDeviation,sampleSize))));
+Echo("Critical Z score: ", criticalZScore);
+Echo("Z score of the sample mean: ", valueZScore);
 
 If(sampleMean < lowerLimit, 
     Echo("Reject H0."),
@@ -45,6 +50,7 @@ If(sampleMean < lowerLimit,
       Using the normal distribution.
       Critical z-score: 1.644853952 
       Standard error of the mean: 2.065591118 
+      
       H0: mean >= 40 
       H1: mean < 40 
       Sample mean: 35.7 
@@ -94,6 +100,7 @@ V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,standardDe
 
 lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
 
+NewLine();
 Echo("H0: mean >= ",testMean);
 Echo("H1: mean < ", testMean);
 Echo("Sample mean: ", sampleMean);
@@ -119,6 +126,7 @@ If(sampleMean < lowerLimit,
       Using the normal distribution.
       Critical z-score: 2.053749206 
       Standard error of the mean: 0.3314712357 
+      
       H0: mean >= 5 
       H1: mean < 5 
       Sample mean: 4.736666667 
@@ -436,25 +444,19 @@ If(sampleMean > upperLimit Or sampleMean < lowerLimit,
 
 %mathpiper,title="Hypotheses testing with proportions (one-tail test page 243)."
 
-//H0: proportion = .30
-
-//H1: mean != .30
-
 testProportion := .30;
 
 sampleProportion := .38;
 
-calculatedNumberOfSuccesses := Div(testProportion*150,1);
-
 sampleSize := 150;
+
+calculatedNumberOfSuccesses := Div(testProportion*sampleSize,1);
 
 oneTailAlpha := .05;
 
 confidenceLevel := 1 - oneTailAlpha*2;
 
 confidenceIntervalOfTheProportion := V(ConfidenceIntervalOfTheProportion(calculatedNumberOfSuccesses,sampleSize,confidenceLevel));
-
-NewLine();
 
 upperLimit := confidenceIntervalOfTheProportion["upperLimit"];
 
@@ -503,17 +505,13 @@ Echo("One tail p-value: ", 1 - N(ZScoreToProbability(valueZScore)));
 
 %mathpiper,title="Hypotheses testing with proportions (two-tail test page 245)."
 
-//H0: proportion = .50
-
-//H1: mean != .50
-
 testProportion := .50;
 
 sampleProportion := .47;
 
-calculatedNumberOfSuccesses := Div(testProportion*150,1);
-
 sampleSize := 256;
+
+calculatedNumberOfSuccesses := Div(testProportion*sampleSize,1);
 
 twoTailAlpha := .05;
 
@@ -546,15 +544,15 @@ Echo("Two tail p-value: ", N(ZScoreToProbability(valueZScore))*2);
       
       Side Effects:
       Critical z-score: 1.959964158 
-      Sample proportion: 0.29296875 
-      Standard error of the proportion: 0.028445264153 
+      Sample proportion: 0.5 
+      Standard error of the proportion: 0.03125 
       
-      H0: mean = .50 
-      H1: mean != .50 
+      H0: proportion = .50 
+      H1: proportion != .50 
       Sample proportion: .47 
       Sample size: 256 
       Two tail alpha: .05 
-      Upper limit: 0.3487204482 
+      Upper limit: 0.5612488799 
       Lower critical z-score: -1.959964158 
       Value z-score: -0.96 
       Upper critical z-score: 1.959964158 
@@ -610,7 +608,7 @@ Echo("Upper limit: ", upperLimit);
 Echo("Lower critical z-score: ", -criticalZScore);
 Echo("Value z-score: ", valueZScore);
 Echo("Upper critical z-score: ", criticalZScore);
-Echo("Two tail p-value: ",  N(ZScoreToProbability(valueZScore)*2));
+Echo("Two tail p-value: ",  N(ZScoreToProbability(-Abs(valueZScore))*2));
 
 
 If(sampleMean > upperLimit Or sampleMean < lowerLimit, 
@@ -713,6 +711,281 @@ If(sampleMean > upperLimit Or sampleMean < lowerLimit,
       t-score of the sample mean: 1.360538066 
       Lower critical t-score: 2.821438031 
       Do not reject H0.
+      
+.   %/output
+
+
+
+
+
+
+
+
+%mathpiper,title="Example 3."
+
+sampleList :={
+9,6,4,12,4,3,18,10,4,5,
+3,8,4,11,3,5,8,4,12,10,
+9,5,15,17,6,13,7,8,14,9
+};
+
+
+testMean := 7;
+
+sampleMean := N(Mean(sampleList));
+
+sampleSize := Length(sampleList);
+
+standardDeviation := N(StandardDeviation(sampleList));
+
+standardDeviationIsKnown := False;
+
+oneTailAlpha := .05;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+upperLimit := confidenceIntervalOfTheMean["upperLimit"];
+
+valueZScore := N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(standardDeviation,sampleSize)));
+
+NewLine();
+Echo("H0: mean >= ",testMean);
+Echo("H1: mean < ", testMean);
+Echo("Sample mean: ", sampleMean);
+Echo("Sample size: ", sampleSize);
+Echo("Standard deviation: ", standardDeviation);
+Echo("One tail alpha: ", oneTailAlpha);
+Echo("Sample mean: ", sampleMean);
+Echo("Sample standard deviation: ", standardDeviation);
+Echo("Upper limit: ", upperLimit);
+Echo("Critical Z score: ", confidenceIntervalOfTheMean["criticalZScore"]);
+Echo("Z score of the sample mean: ", valueZScore);
+Echo("One tail p-value: ", 1 - N(ZScoreToProbability(valueZScore)));
+
+If(sampleMean > upperLimit, 
+    Echo("Reject H0."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using the normal distribution.
+      Critical z-score: 1.644853952 
+      Standard error of the mean: 0.7825687146 
+      
+      H0: mean >= 7 
+      H1: mean < 7 
+      Sample mean: 8.2 
+      Sample size: 30 
+      Standard deviation: 4.2863053778 
+      One tail alpha: .05 
+      Sample mean: 8.2 
+      Sample standard deviation: 4.2863053778 
+      Upper limit: 8.287211243 
+      Critical Z score: 1.644853952 
+      Z score of the sample mean: 1.533411671 
+      One tail p-value: 0.0625872275 
+      Do not reject H0.
+      
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Exercise 4."
+
+testProportion := .40;
+
+sampleProportion := .30;
+
+sampleSize := 175;
+
+calculatedNumberOfSuccesses := Div(testProportion*sampleSize,1);
+
+oneTailAlpha := .01;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+confidenceIntervalOfTheProportion := V(ConfidenceIntervalOfTheProportion(calculatedNumberOfSuccesses,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheProportion["lowerLimit"];
+
+valueZScore := N(ValueToZScore(sampleProportion,testProportion,StandardErrorOfTheProportion(testProportion,sampleSize)));
+
+criticalZScore := confidenceIntervalOfTheProportion["criticalZScore"];
+
+NewLine();
+Echo("H0: proportion = ",testProportion);
+Echo("H1: proportion != ", testProportion);
+Echo("Sample proportion: ", sampleProportion);
+Echo("Sample size: ", sampleSize);
+Echo("One tail alpha: ", oneTailAlpha);
+Echo("Lower limit: ", lowerLimit);
+Echo("Value z-score: ",valueZScore);
+Echo("Lower critical z-score: ", -criticalZScore);
+Echo("One tail p-value: ", N(ZScoreToProbability(valueZScore)));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Critical z-score: 2.326348187 
+      Sample proportion: 0.4 
+      Standard error of the proportion: 0.037032803989 
+      
+      H0: proportion = .40 
+      H1: proportion != .40 
+      Sample proportion: .30 
+      Sample size: 175 
+      One tail alpha: .01 
+      Lower limit: 0.3138488036 
+      Value z-score: -2.700308624 
+      Lower critical z-score: -2.326348187 
+      One tail p-value: 0.00346375970 
+      
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Hypotheses testing with proportions (two-tail test page 245)."
+
+testProportion := .65;
+
+sampleProportion := .69;
+
+sampleSize := 225;
+
+calculatedNumberOfSuccesses := Div(testProportion*sampleSize,1);
+
+twoTailAlpha := .05;
+
+confidenceLevel := 1 - twoTailAlpha;
+
+confidenceIntervalOfTheProportion := V(ConfidenceIntervalOfTheProportion(calculatedNumberOfSuccesses,sampleSize,confidenceLevel));
+
+upperLimit := confidenceIntervalOfTheProportion["upperLimit"];
+
+criticalZScore := confidenceIntervalOfTheProportion["criticalZScore"];
+
+valueZScore := N(ValueToZScore(sampleProportion,testProportion,StandardErrorOfTheProportion(testProportion,sampleSize)));
+
+NewLine();
+Echo("H0: proportion = ",testProportion);
+Echo("H1: proportion != ", testProportion);
+Echo("Sample proportion: ", sampleProportion);
+Echo("Sample size: ", sampleSize);
+Echo("Two tail alpha: ", twoTailAlpha);
+Echo("Upper limit: ", upperLimit);
+Echo("Lower critical z-score: ", -criticalZScore);
+Echo("Value z-score: ",valueZScore);
+Echo("Upper critical z-score: ", criticalZScore);
+Echo("Two tail p-value: ", N(ZScoreToProbability(-Abs(valueZScore)))*2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Critical z-score: 1.959964158 
+      Sample proportion: 0.6488888889 
+      Standard error of the proportion: 0.031821173870 
+      
+      H0: proportion = .65 
+      H1: proportion != .65 
+      Sample proportion: .69 
+      Sample size: 225 
+      Two tail alpha: .05 
+      Upper limit: 0.7112572491 
+      Lower critical z-score: -1.959964158 
+      Value z-score: 1.257941804 
+      Upper critical z-score: 1.959964158 
+      Two tail p-value: 0.2084128040 
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Exercise 6."
+
+testMean := 15;
+
+sampleMean := 13.5;
+
+sampleSize := 60;
+
+standardDeviation := 5;
+
+standardDeviationIsKnown := True;
+
+oneTailAlpha := .10;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
+
+criticalZScore := -confidenceIntervalOfTheMean["criticalZScore"];
+
+valueZScore := N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(standardDeviation,sampleSize)));
+
+NewLine();
+Echo("H0: mean >= ",testMean);
+Echo("H1: mean < ", testMean);
+Echo("Sample mean: ", sampleMean);
+Echo("Sample size: ", sampleSize);
+Echo("Standard deviation: ", standardDeviation);
+Echo("One tail alpha: ", oneTailAlpha);
+Echo("Sample mean: ", sampleMean);
+Echo("Lower limit: ", lowerLimit);
+Echo("Critical Z score: ", criticalZScore);
+Echo("Z score of the sample mean: ", valueZScore);
+Echo("One tail p-value: ", N(1-ZScoreToProbability(Abs(valueZScore))));
+
+If(sampleMean < lowerLimit, 
+    Echo("Reject H0."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using the normal distribution.
+      Critical z-score: 1.281551244 
+      Standard error of the mean: 0.6454972244 
+      
+      H0: mean >= 15 
+      H1: mean < 15 
+      Sample mean: 13.5 
+      Sample size: 60 
+      Standard deviation: 5 
+      One tail alpha: .10 
+      Sample mean: 13.5 
+      Lower limit: 14.17276223 
+      Critical Z score: -1.281551244 
+      Z score of the sample mean: -2.323790008 
+      One tail p-value: 0.0100683755 
+      Reject H0.
       
 .   %/output
 
