@@ -350,6 +350,13 @@ If(sampleMean < lowerLimit,
       Using the t-distribution.
       Critical t-score: 1.833113119 
       Standard error of the mean: 0.8171767116 
+      
+      H0: mean >= 88 
+      H1: mean < 88 
+      Sample mean: 86.3 
+      Sample size: 10 
+      Standard deviation: 2.5841396595 
+      One tail alpha: .05 
       Sample mean: 86.3 
       Sample standard deviation: 2.5841396595 
       Lower limit: 86.50202265 
@@ -404,7 +411,7 @@ Echo("Sample mean: ", sampleMean);
 Echo("Upper limit: ", upperLimit);
 Echo("Lower critical t-score: ", -confidenceIntervalOfTheMean["criticalTScore"]);
 Echo("t-score of the sample mean: ", N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(standardDeviation,sampleSize))));
-Echo("Lower critical t-score: ", confidenceIntervalOfTheMean["criticalTScore"]);
+Echo("Upper critical t-score: ", confidenceIntervalOfTheMean["criticalTScore"]);
 
 
 
@@ -433,7 +440,7 @@ If(sampleMean > upperLimit Or sampleMean < lowerLimit,
       Upper limit: 68.84514720 
       Lower critical t-score: -2.446911852 
       t-score of the sample mean: 1.545454546 
-      Lower critical t-score: 2.446911852 
+      Upper critical t-score: 2.446911852 
       Do not reject H0.
       
 .   %/output
@@ -482,9 +489,8 @@ Echo("One tail p-value: ", 1 - N(ZScoreToProbability(valueZScore)));
       
       Side Effects:
       Critical z-score: 1.644853952 
-      Sample proportion: 0.3 
+      Proportion: 0.3 
       Standard error of the proportion: 0.037416573868 
-      
       
       H0: proportion = .30 
       H1: proportion != .30 
