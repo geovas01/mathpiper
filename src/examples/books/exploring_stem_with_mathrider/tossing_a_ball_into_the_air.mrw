@@ -32,7 +32,7 @@
 	<labelMode val="1"/>
 	<slider min="0.0" max="4.08" absoluteScreenLocation="true" width="200.0" x="134.0" y="353.0" fixed="false" horizontal="true"/>
 	<lineStyle thickness="2" type="0"/>
-	<animation step="0.01" speed="1.0" type="0" playing="false"/>
+	<animation step="0.01" velocity="1.0" type="0" playing="false"/>
 </element>
 <expression label ="distance" exp="distance(x) = 20.0 * x - 9.8 * x^(2.0) / 2.0"/>
 <element type="function" label="distance">
@@ -41,17 +41,17 @@
 	<condition showObject="e"/>
 	<objColor r="0" g="0" b="255" alpha="0.0"/>
 	<layer val="0"/>
-	<animation step="0.1" speed="1.0" type="0" playing="false"/>
+	<animation step="0.1" velocity="1.0" type="0" playing="false"/>
 	<lineStyle thickness="2" type="0"/>
 </element>
 <command name="Derivative">
 	<input a0="distance(x)"/>
-	<output a0="speed_1"/>
+	<output a0="velocity_1"/>
 </command>
-<element type="function" label="speed_1">
+<element type="function" label="velocity_1">
 	<lineStyle thickness="2" type="0"/>
 	<show object="true" label="true"/>
-	<condition showObject="speed"/>
+	<condition showObject="velocity"/>
 	<objColor r="255" g="0" b="51" alpha="0.0"/>
 	<layer val="0"/>
 	<lineStyle thickness="2" type="0"/>
@@ -107,7 +107,7 @@
 	<eqnStyle style="implicit"/>
 </element>
 <command name="Intersect">
-	<input a0="speed_1" a1="Time"/>
+	<input a0="velocity_1" a1="Time"/>
 	<output a0="B"/>
 </command>
 <element type="point" label="B">
@@ -131,12 +131,12 @@
 	<lineStyle thickness="2" type="0"/>
 	<eqnStyle style="implicit"/>
 </element>
-<element type="boolean" label="speed">
+<element type="boolean" label="velocity">
 	<value val="false"/>
 	<show object="true" label="true"/>
 	<layer val="0"/>
 	<labelOffset x="143" y="531"/>
-	<caption val="Velocity plot"/>
+	<caption val="Time vs. velocity function"/>
 </element>
 <element type="boolean" label="a">
 	<value val="false"/>
@@ -163,7 +163,7 @@
 	<lineStyle thickness="2" type="0"/>
 	<show object="false" label="true"/>
 	<layer val="0"/>
-	<animation step="0.1" speed="1.0" type="0" playing="false"/>
+	<animation step="0.1" velocity="1.0" type="0" playing="false"/>
 	<auxiliary val="true"/>
 	<coords x="1.0" y="0.0" z="0.2"/>
 	<lineStyle thickness="2" type="0"/>
@@ -183,9 +183,9 @@
 </element>
 <command name="Intersect">
 	<input a0="Time" a1="Velocity"/>
-	<output a0="D"/>
+	<output a0="B"/>
 </command>
-<element type="point" label="D">
+<element type="point" label="B">
 	<show object="false" label="true"/>
 	<condition showObject="j"/>
 	<objColor r="255" g="0" b="51" alpha="0.0"/>
