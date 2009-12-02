@@ -136,7 +136,7 @@
 	<show object="true" label="true"/>
 	<layer val="0"/>
 	<labelOffset x="143" y="531"/>
-	<caption val="Time vs. velocity function"/>
+	<caption val="Velocity vs. time function"/>
 </element>
 <element type="boolean" label="a">
 	<value val="false"/>
@@ -207,7 +207,7 @@
 	<show object="true" label="true"/>
 	<layer val="0"/>
 	<labelOffset x="143" y="391"/>
-	<caption val="Time vs. distance function"/>
+	<caption val="Distance vs. time function"/>
 </element>
 <element type="boolean" label="h">
 	<value val="false"/>
