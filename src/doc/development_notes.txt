@@ -3,6 +3,9 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ The following is a bug from the Yacas list: I believe that Yacas may be incorrectly evaluating the integral of the
+square root of x, as the derivative of of the integral square root of
+x dose not return the the square root of x.
 + Labels in GeoGebraPoint() cannot have spaces in them.
 + The [] and := links do not work in the Assoc() function's documentation.
 + V() should be changed to a bodied function to make it easy to apply to a function and remove when finished testing.
