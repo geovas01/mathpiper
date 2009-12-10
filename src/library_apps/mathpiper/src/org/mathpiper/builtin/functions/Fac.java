@@ -23,6 +23,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.NumberCons;
 
 /**
  *
@@ -37,7 +38,8 @@ public class Fac extends BuiltinFunction
         ConsPointer arg = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still
-        int nr = (int) arg.getCons().getNumber(0).toLong();
+//        LispError.check(arg.type().equals("Number"), LispError.KLispErrInvalidArg);
+        int nr = (int) ((BigNumber) arg.getCons().getNumber(0)).toLong();
         LispError.check(nr >= 0, LispError.KLispErrInvalidArg);
         BigNumber fac = new BigNumber("1", 10, 10);
         int i;

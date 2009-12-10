@@ -18,8 +18,10 @@
 
 package org.mathpiper.lisp.parametermatchers;
 
+import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.NumberCons;
 
 
 /// Class for matching an expression to a given atom.
@@ -39,7 +41,7 @@ public class Atom extends PatternParameter
 		// If it is a floating point, don't even bother comparing
 		if (aExpression.getCons() != null)
 			if (aExpression.getCons().getNumber(0) != null)
-				if (!aExpression.getCons().getNumber(0).isInt())
+				if (! ((BigNumber) ((NumberCons) aExpression.getCons()).getNumber(0)).isInt())
 					return false;
 
 		return (iString == aExpression.car());

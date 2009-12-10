@@ -24,6 +24,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.cons.NumberCons;
 
 /**
  *
@@ -39,7 +40,8 @@ public class FromBase extends BuiltinFunction
         ConsPointer oper = new ConsPointer();
         oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
-        BigNumber num = oper.getCons().getNumber(aEnvironment.getPrecision());
+//        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
+        BigNumber num = (BigNumber)  oper.getCons().getNumber(aEnvironment.getPrecision());
         LispError.checkArgument(aEnvironment, aStackTop, num != null, 1);
         // check that the base is an integer between 2 and 32
         LispError.checkArgument(aEnvironment, aStackTop, num.isInt(), 1);

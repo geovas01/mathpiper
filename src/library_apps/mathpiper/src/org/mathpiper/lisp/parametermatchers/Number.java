@@ -22,6 +22,7 @@ import org.mathpiper.builtin.BigNumber;
 
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
 
 
 /// Class for matching an expression to a given number.
@@ -38,7 +39,8 @@ public class Number extends PatternParameter
 	                               ConsPointer  aExpression,
 	                               ConsPointer[]  arguments) throws Exception
 	{
-        BigNumber bigNumber = aExpression.getCons().getNumber(aEnvironment.getPrecision());
+//        LispError.check(aExpression.type().equals("Number"), LispError.KLispErrInvalidArg);
+        BigNumber bigNumber = (BigNumber) aExpression.getCons().getNumber(aEnvironment.getPrecision());
 		if (bigNumber != null)
 			return iNumber.equals(bigNumber);
 		return false;
