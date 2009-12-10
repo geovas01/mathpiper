@@ -32,10 +32,10 @@ public class NumberCons extends Cons {
      */
 
     /// number object; NULL if not yet converted from string
-    BigNumber iCarBigNumber;
+    private BigNumber iCarBigNumber;
     /// string representation in decimal; NULL if not yet converted from BigNumber
-    String iCarStringNumber;
-    ConsPointer iCdr = new ConsPointer();
+    private String iCarStringNumber;
+    private ConsPointer iCdr = new ConsPointer();
 
     /**
      * Construct a number from either a BigNumber or a String.
@@ -120,7 +120,7 @@ public class NumberCons extends Cons {
      * @return
      * @throws java.lang.Exception
      */
-    public BigNumber getNumber(int aPrecision) throws Exception {
+    public Object getNumber(int aPrecision) throws Exception {
         /// If necessary, will create a BigNumber object out of the stored string, at given precision (in decimal?)
         if (iCarBigNumber == null) {  // create and store a BigNumber out of the string representation.
             LispError.lispAssert(iCarStringNumber != null);

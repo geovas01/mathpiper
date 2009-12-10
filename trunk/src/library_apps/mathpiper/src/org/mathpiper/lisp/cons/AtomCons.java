@@ -24,10 +24,11 @@ import org.mathpiper.lisp.cons.Cons;
 public class AtomCons extends Cons
 {
 
-    String iCar;
+    private String iCar;
+
     ConsPointer iCdr = new ConsPointer();
 
-    AtomCons(String aString)
+    private AtomCons(String aString)
     {
         iCar = aString;
     }
@@ -36,7 +37,6 @@ public class AtomCons extends Cons
     {
         Cons self = null;
         if (UtilityFunctions.isNumber(aString, true))  // check if aString is a number (int or float)
-
         {
             /// construct a number from a decimal string representation (also create a number object)
             self = new NumberCons(aString, aEnvironment.getPrecision());

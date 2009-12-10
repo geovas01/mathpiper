@@ -43,8 +43,10 @@ abstract public class LexCompare2
         result1.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         result2.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         boolean cmp;
-        BigNumber n1 = result1.getCons().getNumber(aEnvironment.getPrecision());
-        BigNumber n2 = result2.getCons().getNumber(aEnvironment.getPrecision());
+//        LispError.check(result1.type().equals("Number"), LispError.KLispErrInvalidArg);
+//        LispError.check(result2.type().equals("Number"), LispError.KLispErrInvalidArg);
+        BigNumber n1 = (BigNumber) result1.getCons().getNumber(aEnvironment.getPrecision());
+        BigNumber n2 = (BigNumber) result2.getCons().getNumber(aEnvironment.getPrecision());
         if (n1 != null && n2 != null)
         {
             cmp = numfunc(n1, n2);

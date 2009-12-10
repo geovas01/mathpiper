@@ -387,9 +387,10 @@ public class UtilityFunctions {
         if (aExpression1.getCons() == aExpression2.getCons()) {
             return true;
         }
-
-        BigNumber n1 = aExpression1.getCons().getNumber(aEnvironment.getPrecision());
-        BigNumber n2 = aExpression2.getCons().getNumber(aEnvironment.getPrecision());
+        //LispError.check(aExpression1.type().equals("Number"), LispError.KLispErrInvalidArg);
+        //LispError.check(aExpression2.type().equals("Number"), LispError.KLispErrInvalidArg);
+        BigNumber n1 = (BigNumber) aExpression1.getCons().getNumber(aEnvironment.getPrecision());
+        BigNumber n2 = (BigNumber) aExpression2.getCons().getNumber(aEnvironment.getPrecision());
         if (!(n1 == null && n2 == null)) {
             if (n1 == n2) {
                 return true;
@@ -781,7 +782,8 @@ public class UtilityFunctions {
      * @throws java.lang.Exception
      */
     public static BigNumber getNumber(Environment aEnvironment, int aStackTop, int aArgNr) throws Exception {
-        BigNumber x = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, aArgNr).getCons().getNumber(aEnvironment.getPrecision());
+        //LispError.check(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, aArgNr).type().equals("Number"), LispError.KLispErrInvalidArg);
+        BigNumber x =(BigNumber) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, aArgNr).getCons().getNumber(aEnvironment.getPrecision());
         LispError.checkArgument(aEnvironment, aStackTop, x != null, aArgNr);
         return x;
     }

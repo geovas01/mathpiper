@@ -26,6 +26,7 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 //import org.mathpiper.lisp.SubListCons;
 import java.util.*;
+import org.mathpiper.builtin.BigNumber;
 
 /**
  *Pattern matching code.
@@ -210,8 +211,9 @@ public class Pattern {
         if (aPattern == null) {
             return null;
         }
+        //LispError.check(aPattern.type().equals("Number"), LispError.KLispErrInvalidArg);
         if (aPattern.getNumber(aEnvironment.getPrecision()) != null) {
-            return new Number(aPattern.getNumber(aEnvironment.getPrecision()));
+            return new Number((BigNumber) aPattern.getNumber(aEnvironment.getPrecision()));
         }
         // Deal with atoms
         if (aPattern.car() instanceof String) {

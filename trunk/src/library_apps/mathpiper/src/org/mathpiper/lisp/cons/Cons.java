@@ -43,7 +43,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
     /**
      * If this is a number, return a BigNumber representation of it.
      */
-    public BigNumber getNumber(int aPrecision) throws Exception {
+    public Object getNumber(int aPrecision) throws Exception {
         return null;
     }
 

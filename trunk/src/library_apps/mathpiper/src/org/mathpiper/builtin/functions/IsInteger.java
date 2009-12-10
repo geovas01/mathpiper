@@ -21,8 +21,10 @@ package org.mathpiper.builtin.functions;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.UtilityFunctions;
+import org.mathpiper.lisp.cons.NumberCons;
 
 /**
  *
@@ -36,7 +38,8 @@ public class IsInteger extends BuiltinFunction
         ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        BigNumber num = result.getCons().getNumber(aEnvironment.getPrecision());
+//        LispError.check(result.type().equals("Number"), LispError.KLispErrInvalidArg);
+        BigNumber num = (BigNumber) result.getCons().getNumber(aEnvironment.getPrecision());
         if (num == null)
         {
             UtilityFunctions.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
