@@ -474,7 +474,7 @@ public class Build {
     }//end method.
 
 
-    private void processMathPiperDocsFold(Fold fold, String scope) throws IOException {
+    private void processMathPiperDocsFold(Fold fold, String scope) throws Exception {
         if (documentationFile != null) {
 
             String functionNamesString = "";
@@ -521,6 +521,10 @@ public class Build {
 
 
                         int commandIndex = contents.indexOf("*CMD");
+                        if(commandIndex == -1)
+                        {
+                            throw new Exception("Missing *CMD tag.");
+                        }
                         String descriptionLine = contents.substring(commandIndex, contents.indexOf("\n", commandIndex));
                         String description = descriptionLine.substring(descriptionLine.lastIndexOf("--") + 2);
                         description = description.trim();
