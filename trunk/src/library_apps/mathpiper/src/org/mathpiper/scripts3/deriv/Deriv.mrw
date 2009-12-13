@@ -49,9 +49,14 @@
 
 3 # (Deriv(_var)(_x ^ _n)) <-- (x^n)*Deriv(var)(n*Ln(x));
 
-2 # (Deriv(_var)ArcSin(_x)) <-- (Deriv(var) x )/Sqrt(1 -(x ^ 2));
-2 # (Deriv(_var)ArcCos(_x)) <-- -(Deriv(var)x)/Sqrt(1 -(x^2));
+2 # (Deriv(_var)ArcSin(_x)) <-- (Deriv(var) x)/Sqrt(1 - (x^2));
+2 # (Deriv(_var)ArcCos(_x)) <-- -(Deriv(var)x)/Sqrt(1 - (x^2));
 2 # (Deriv(_var)ArcTan(_x)) <-- (Deriv(var) x)/(1 + x^2);
+
+2 # (Deriv(_var)ArcSinh(_x)) <-- (Deriv(var) x)/Sqrt((x^2) + 1);
+2 # (Deriv(_var)ArcCosh(_x)) <-- (Deriv(var) x)/Sqrt((x^2) - 1);
+2 # (Deriv(_var)ArcTanh(_x)) <-- (Deriv(var) x)/(1 - x^2);
+
 2 # (Deriv(_var)Sqrt(_x)) <-- ((Deriv(var)x)/(2*Sqrt(x)));
 2 # (Deriv(_var)Complex(_r,_i)) <-- Complex(Deriv(var)r,Deriv(var)i);
 
