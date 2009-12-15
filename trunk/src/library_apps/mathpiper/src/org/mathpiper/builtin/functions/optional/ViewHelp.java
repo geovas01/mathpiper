@@ -28,14 +28,14 @@ import org.mathpiper.ui.gui.help.FunctionTreePanel;
  *
  *
  */
-public class Help extends BuiltinFunction
+public class ViewHelp extends BuiltinFunction
 {
 
     public void plugIn(Environment aEnvironment)
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Help");
+                "ViewHelp");
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -52,12 +52,12 @@ public class Help extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Help",categories="User Functions;Built In"
-*CMD Help --- show the function help window
+%mathpiper_docs,name="ViewHelp",categories="User Functions;Built In"
+*CMD ViewHelp --- show the function help window
 *CORE
 *CALL
 
-    Help()
+    ViewHelp()
 
 *DESC
 
