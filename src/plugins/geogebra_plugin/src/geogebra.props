@@ -20,7 +20,7 @@ plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.depend.1=jdk 1.5
 plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.2=plugin console.ConsolePlugin 4.3.5
 plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.jars=geogebra.jar geogebra_cas.jar geogebra_export.jar geogebra_gui.jar geogebra_main.jar geogebra_properties.jar
 plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin..longdescription=description.html
+plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.longdescription=description.html
 #}}}
 
 
