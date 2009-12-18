@@ -261,6 +261,21 @@ public class BigNumber {
         }
     }
 
+
+    /**
+     * Return a representation of this BigNumber as a Java int.
+     * @return
+     */
+    public int toInt() {
+        if (javaBigInteger != null) {
+            return javaBigInteger.intValue();
+        } else {
+            return javaBigDecimal.intValue();
+        }
+    }
+
+
+
     /**
      * Determines if the specified BigNumber is equal in value to this one.
      *

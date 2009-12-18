@@ -1,7 +1,7 @@
 
-***** Wed Dec 16 14:42:49 EST 2009 *****
+***** Thu Dec 17 18:35:55 EST 2009 *****
 ***** Using a new interpreter instance for each test file. *****
-***** MathPiper version: .76v *****
+***** MathPiper version: .76w *****
 
 ===========================
 arithmetic.mpt: 
@@ -539,11 +539,38 @@ RoundTo(RoundTo(N(Internal'GammaNum(10.5)),13)-1133278.3889487855673,13)
 0
 ******************
 ******************
+tests/scripts/numerics.mpt: 188 
+
+RoundTo(RoundTo(N(Internal'GammaNum(-11.5)),20)-0.00000002295758104824,20)
+ evaluates to 
+-0.00000005376844611667
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 189 
+
+RoundTo(RoundTo(N(Internal'GammaNum(-12.5)),20)-(-0.00000000183660648386),20)
+ evaluates to 
+-0.00000000062826272161
+ which differs from 
+0
+******************
+******************
 tests/scripts/numerics.mpt: 192 
 
 RoundTo(RoundTo(N(Gamma(10.5)),13)-1133278.3889487855673,13)
  evaluates to 
 0.0000002144327
+ which differs from 
+0
+******************
+******************
+tests/scripts/numerics.mpt: 199 
+
+RoundTo(RoundTo(N(Zeta(-11.5)),18)-0.020396978715942792,18)
+ evaluates to 
+-0.046731508865215728
  which differs from 
 0
 ******************
@@ -961,7 +988,7 @@ Side Effects:
 ******************
 tests/scripts/sums.mpt: 339 
 
-$pp2092
+$pp2094
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 
