@@ -46,9 +46,10 @@ RandomIntegerVector -> RandomIntegerList.
 OpPrecedence -> GetOperatorPrecedence
 OpLeftPrecedence -> GetOperatorLeftPrecedence
 OpRightPrecedence -> GetOperatorRightPrecedence
-LeftPrecedence -> SetLeftPrecedence
-RightPrecedence - SetRightPrecedence
-RightAssociative -> SetRightAssociative
+LeftPrecedence -> LeftPrecedenceSet
+RightPrecedence - RightPrecedenceSet
+RightAssociative -> RightAssociativeSet
+FullForm -> InternalForm
 
 
 ====== Proposed argument changes.
