@@ -24,7 +24,14 @@
 	
 	<target id="noop" name="noop" description="Do nothing." />
 	
-	<target name="init">
+	<target id="clean" name="clean" 
+		description="Deletes the MathPiper build directory" >
+		
+		<echo message="Removing the build directory...." />
+		<delete dir="${build.dir}" />
+	</target>
+	
+	<target name="init" depends="clean">
 		<tstamp>
 			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
 		</tstamp>
@@ -127,7 +134,7 @@
 	
 	
 	
-	<target id="geogebra_dist" name="geogebra_dist" depends="init,buildscripts3" >
+	<target id="geogebra_dist" name="geogebra_dist" depends="buildscripts3" >
 	
 	<!--  
 	cvs -z3 -d:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra co -P geogebra
