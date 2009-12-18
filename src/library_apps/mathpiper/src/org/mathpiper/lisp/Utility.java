@@ -1377,5 +1377,32 @@ public class Utility {
     }//end method.
 
 
+
+    /**
+     * Returns the type of a.
+     * @param aEnvironment
+     * @param expressionPointer
+     * @throws java.lang.Exception
+     */
+    public static String functionType(ConsPointer expressionPointer) throws Exception
+    {
+        if (!( expressionPointer.car() instanceof ConsPointer))
+        {
+            return "";
+        }
+
+        ConsPointer subList = (ConsPointer) expressionPointer.car();
+        Cons head = null;
+        head = subList.getCons();
+        if (!( head.car() instanceof String))
+        {
+            return "";
+        }//end if.
+
+        return (String) head.car();
+
+    }//end method.
+
+
 }//end class.
 

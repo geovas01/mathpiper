@@ -13,46 +13,40 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.core;
+
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
-import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
+
 
 /**
  *
  *  
  */
-public class Type extends BuiltinFunction
-{
+public class Type extends BuiltinFunction {
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
-    {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+
         ConsPointer evaluated = new ConsPointer();
+
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        
-        if (!( evaluated.car() instanceof ConsPointer))
-        {
+
+        String functionType = Utility.functionType(evaluated);
+
+        if (functionType.equals("")) {
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
-            return;
+        } else {
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(functionType)));
         }
-        ConsPointer subList = (ConsPointer) evaluated.car();
-        Cons head = null;
-        head = subList.getCons();
-        if (!( head.car() instanceof String))
-        {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
-            return;
-        }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify((String) head.car())));
-        return;
-    }
-}
+    }//end method.
+
+
+}//end class.
 
 
 
