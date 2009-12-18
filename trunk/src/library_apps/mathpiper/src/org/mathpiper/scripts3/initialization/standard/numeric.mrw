@@ -11,9 +11,11 @@
 
 
 
-
-
 /* Implementation of numeric mode */
+
+Retract("N",*);
+
+
 LocalSymbols(numericMode)
 [
 
@@ -22,7 +24,7 @@ LocalSymbols(numericMode)
 
   // N function: evaluate numerically with given precision.
   LocalSymbols(previousNumericMode, previousPrecision, numericResult) Macro("N",{expression, precision})
-  [ 
+  [
     // we were in non-numeric mode
 
     Local(previousNumericMode, previousPrecision, numericResult, errorString);
@@ -40,6 +42,8 @@ LocalSymbols(numericMode)
     Set(errorString,"");
 
     TrapError(Set(numericResult, Eval(@expression)),Set(errorString,GetCoreError()));
+
+    If(IsDecimal(numericResult), numericResult := RoundToN(numericResult, @precision));
 
     Set(numericMode,previousNumericMode);
 
@@ -107,6 +111,10 @@ LocalSymbols(numericMode)
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
 
 
@@ -139,7 +147,7 @@ the value of $Pi$ calculated at the current precision.
 (This value is a "cached constant", so it is not recalculated each time {N} is used, unless the precision is increased.)
 
 
-{N} is a macro. Its argument {expr} will only 
+{N} is a macro. Its argument {expr} will only
 be evaluated after switching to numeric mode.
 
 *E.G.
@@ -188,7 +196,7 @@ return {False}. {MathPiper} is in numeric mode when evaluating an expression
 with the function {N}. Thus when calling {N(expr)}, {InNumericMode()} will
 return {True} while {expr} is being evaluated.
 
-{InNumericMode()} would typically be used to define a transformation rule 
+{InNumericMode()} would typically be used to define a transformation rule
 that defines how to get a numeric approximation of some expression. One
 could define a transformation rule
 
@@ -200,7 +208,7 @@ predicate are usually left alone.
 When in numeric mode, {NonN} can be called to switch back to non-numeric
 mode temporarily.
 
-{NonN} is a macro. Its argument {expr} will only 
+{NonN} is a macro. Its argument {expr} will only
 be evaluated after the numeric mode has been set appropriately.
 
 *E.G.
