@@ -17,8 +17,6 @@
 package org.mathpiper.lisp.printers;
 
 
-import java.util.ArrayList;
-import java.util.List;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Utility;
@@ -29,7 +27,6 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.Operator;
 import org.mathpiper.lisp.collections.OperatorMap;
-import org.mathpiper.lisp.cons.Cons;
 
 
 public class MathPiperPrinter extends LispPrinter {
@@ -86,6 +83,7 @@ public class MathPiperPrinter extends LispPrinter {
             if (iPrecedence < KMaxPrecedence &&
                     string.charAt(0) == '-' &&
                     (MathPiperTokenizer.isDigit(string.charAt(1)) || string.charAt(1) == '.')) {
+                //Code for (-1)/2 .
                 bracket = true;
             }
             if (bracket) {
@@ -156,13 +154,39 @@ public class MathPiperPrinter extends LispPrinter {
                 }
 
                 if (left != null) {
+
+                    if(string.equals("/") && Utility.functionType(left).equals("/"))
+                    {
+                        //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
+                        WriteToken(aOutput, "(");
+                    }//end if.
+
                     Print(left, aOutput, operator.iLeftPrecedence);
+
+                    if(string.equals("/") && Utility.functionType(left).equals("/"))
+                    {
+                        //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
+                        WriteToken(aOutput, ")");
+                    }//end if.
                 }
 
                 WriteToken(aOutput, string);
 
                 if (right != null) {
+
+                    if(string.equals("/") && Utility.functionType(right).equals("/"))
+                    {
+                        //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
+                        WriteToken(aOutput, "(");
+                    }//end if.
+
                     Print(right, aOutput, operator.iRightPrecedence);
+
+                    if(string.equals("/") && Utility.functionType(right).equals("/"))
+                    {
+                        //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
+                        WriteToken(aOutput, ")");
+                    }//end if.
                 }
 
                 if (iPrecedence < operator.iPrecedence) {
