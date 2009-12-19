@@ -4,7 +4,7 @@
 Retract("xFactors",*);
 Retract("xFactorsMultivariateSpecialCases",*);
 Retract("xFactorsSomethingElse",*);
-//Retract("CombineNumericalFactors",*);
+Retract("CombineNumericalFactors",*);
 //Retract("CommonMonomialFactors",*);
 //Retract("MakeUniPoly",*);
 //Retract("HeuristicUniPoly",*);
@@ -20,19 +20,19 @@ Retract("xFactorsSomethingElse",*);
 
 10 # xFactors(p_IsPositiveInteger) <--  
 [
-    If( p < 1600, xFactorsSmallInteger(p), FactorizeInt(p) );
+    If( p < 1600, FactorsSmallInteger(p), FactorizeInt(p) );
 ];
 
 11 # xFactors(p_IsInteger) <-- 
 [
-    If( (-p) < 1600, xFactorsSmallInteger(-p), FactorizeInt(-p) );
+    If( (-p) < 1600, FactorsSmallInteger(-p), FactorizeInt(-p) );
 ];
 
 12 # xFactors(p_IsRational)_(Denominator(p) != 1) <-- {{Factor(Numerator(p)) /Factor(Denominator(p)) , 1}}; 
      //Added to handle rational numbers with denominators that are not 1
 
      
-14 # xFactors(p_IsGaussianInteger)	<-- GaussianxFactors(p);
+14 # xFactors(p_IsGaussianInteger)	<-- GaussianFactors(p);
 
 
 16 # xFactors( _x^n_IsPositiveInteger ) <-- {x,n};
@@ -82,7 +82,6 @@ Retract("xFactorsSomethingElse",*);
              f := NormalForm(f);
              Tell("      ",f);   
         ];
-        Tell(HERE);
         /*
          *  Now we check whether the input polynomial is "over the 
          *  integers", by examining all its coefficients
@@ -90,7 +89,7 @@ Retract("xFactorsSomethingElse",*);
         If( AllSatisfy("IsInteger",coeffs),
           [
               // Yes -- all integer coefficients
-              result := xFactorsPolynomialOverIntegers(p,x);
+              result := FactorsPolynomialOverIntegers(p,x);
               If(InVerboseMode(),Tell("   Over Integers ",result));
           ],
           [
@@ -103,7 +102,7 @@ Retract("xFactorsSomethingElse",*);
               lcm := Lcm(dd);
               newCoeffs := lcm * rat;
               newPoly := NormalForm(UniVariate(x,0,newCoeffs));
-              facs := xFactorsPolynomialOverIntegers(newPoly);
+              facs := FactorsPolynomialOverIntegers(newPoly);
               If( InVerboseMode(), [
                   Echo("coeffs ",coeffs);
                   Echo("notInt ",notInt);
@@ -211,9 +210,9 @@ Retract("xFactorsSomethingElse",*);
 
 10 # xFactorsMultivariateSpecialCases(_n*_x - _n*_y) <-- {n,1}:xFactorsMultivariateSpecialCases(x-y);
 
-10 # xFactorsMultivariateSpecialCases(_x^n_IsInteger - _y) <-- xFactorsBinomials(x^n - y); 
+10 # xFactorsMultivariateSpecialCases(_x^n_IsInteger - _y) <-- FactorsBinomials(x^n - y); 
 
-10 # xFactorsMultivariateSpecialCases(_x^n_IsInteger + _y) <-- xFactorsBinomials(x^n + y); 
+10 # xFactorsMultivariateSpecialCases(_x^n_IsInteger + _y) <-- FactorsBinomials(x^n + y); 
 
 10 # xFactorsMultivariateSpecialCases(_x^2+2*_x*_y+_y^2) <-- {{x+y,2}};
 
@@ -231,11 +230,11 @@ Retract("xFactorsSomethingElse",*);
 
 //------------------------------------------------------------------------
 
-/*
+
 10 # CombineNumericalFactors( factrs_IsList ) <--
   [
       If( InVerboseMode(), Tell("Combine",factrs) );
-      Local(q,a,b,t,f,err);
+      Local(q,a,b,t,f,ff,err);
       err := False;
       t   := 1;
       f   := {};
@@ -243,14 +242,14 @@ Retract("xFactorsSomethingElse",*);
       [
           If( InVerboseMode(), Tell(1,q) );
           If( IsList(q) And Length(q)=2,
-              [
-                  {a,b} := q;
-                  If( InVerboseMode(), Echo("     ",{a,b}) );
-                  If( IsNumericList( {a,b} ),
-                      t := t * a^b,
-                      f := {a,b}:f
-                  );
-              ],
+            [
+                {a,b} := q;
+                If( InVerboseMode(), Echo("     ",{a,b}) );
+                If( IsNumericList( {a,b} ),
+                    t := t * a^b,
+                    f := {a,b}:f
+                );
+            ],
               err := True
           );
       ];
@@ -261,9 +260,10 @@ Retract("xFactorsSomethingElse",*);
             Echo("    err = ",err);
         ]
       );
-      If(Not err And t != 1, {t,1}:Reverse(f), factrs);
+      ff := If(Not err And t != 1, {t,1}:Reverse(f), factrs);
+      Select(Lambda({x},x!={1,1}),ff);
   ];
-  */
+  
 
 //------------------------------------------------------------------------
 
