@@ -33,6 +33,7 @@ Retract("FactorsBinomials",*);
     Local(pp,qq,r,L);
     pp := m-1;
     qq := (y^(1/m));
+    If(IsNumber(y),qq:=GuessRational(N(qq)));
     If(InVerboseMode(),Tell("  FBindif.1",{pp,qq}));
     
     if      (m = 2)
@@ -57,6 +58,7 @@ Retract("FactorsBinomials",*);
     Local(aa,bb,c0,r);
     aa := c^(1/m);
     bb := ((y)^(1/m));
+    If(IsNumber(y),bb:=GuessRational(N(bb)));
     If(InVerboseMode(),Tell("  FBindif.1b",{aa,bb}));
     r  := FactorsBinomials( (aa*x)^m - bb^m );
 ];
