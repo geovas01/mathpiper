@@ -2,6 +2,14 @@
 
 Retract("FactorsBinomials",*);
 
+10 # FactorsBinomials( _x + y_IsFreeOf(x) ) <-- {x+y,1};
+
+10 # FactorsBinomials( _x - y_IsFreeOf(x) ) <-- {x-y,1};
+
+10 # FactorsBinomials( c_IsConstant * _x + y_IsFreeOf(x) ) <-- {c*x+y,1};
+
+10 # FactorsBinomials( c_IsConstant * _x - y_IsFreeOf(x) ) <-- {c*x-y,1};
+
 10 # FactorsBinomials( _x^m_IsOdd + _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialssum",{x,m,y}));
