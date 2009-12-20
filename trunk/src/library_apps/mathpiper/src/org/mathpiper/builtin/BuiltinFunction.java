@@ -17,13 +17,11 @@
 package org.mathpiper.builtin;
 
 import java.io.File;
-import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
 import org.mathpiper.builtin.functions.core.Abs;
 import org.mathpiper.builtin.functions.core.Add;
 import org.mathpiper.builtin.functions.core.ApplyPure;
@@ -219,50 +217,15 @@ public abstract class BuiltinFunction {
         //System.out.println("MATHPIPER: " + System.getProperty("java.class.path"));
         List failList = new ArrayList();
 
-        for (String s : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
 
-            //System.out.println("MATHPIPER: " + s);
-            if (s.endsWith("mathpiper.jar")) {
-                try {
-                    java.util.zip.ZipFile zip = new java.util.zip.ZipFile(new File(s));
-                    Enumeration fileEnteries = zip.entries();
+        URL directoryURL = BuiltinFunction.class.getResource(functionsPath);
 
-                    while (fileEnteries.hasMoreElements()) {
-                        ZipEntry ze = (ZipEntry) fileEnteries.nextElement();
-                        String fileName = ze.getName();
-                        if (fileName.contains(functionsPath)) {
-                            fileName = fileName.replace("/", ".");
-                            if (fileName.endsWith(".class")) {
-                                fileName = fileName.substring(0, fileName.length() - 6);
-                                //System.out.println(fileName);
-                                try {
-                                    Class functionClass = Class.forName(fileName);
-                                    
-                                    Object functionObject = functionClass.newInstance();
-                                    if (functionObject instanceof BuiltinFunction) {
-                                        BuiltinFunction function = (BuiltinFunction) functionObject;
-                                        function.plugIn(aEnvironment);
-                                    }//end if.
-                                } catch (ClassNotFoundException cnfe) {
-                                    System.out.println("Class not found: " + fileName);
-                                } catch (InstantiationException ie) {
-                                    System.out.println("Can not instantiate class: " + fileName);
-                                } catch (IllegalAccessException iae) {
-                                    System.out.println("Illegal access of class: " + fileName);
-                                }
-                            }
-                        }
-                    }//end for.
-                } catch (ZipException ze) {
-                    System.out.println("Error opening " + s);
-                } catch (IOException ioe) {
-                    System.out.println("Error opening " + s);
-                }
+        if (directoryURL != null) {
 
+            try {
 
-                break;
-            } else if (!s.endsWith(".jar")) {
-                File packageDirectoryFile = new File(s + "/" + functionsPath.substring(0, functionsPath.length() - 1));
+                File packageDirectoryFile = new File(directoryURL.toURI());
+
                 if (packageDirectoryFile.exists()) {
 
                     //System.out.println("package directory found");
@@ -280,13 +243,15 @@ public abstract class BuiltinFunction {
                     Arrays.sort(packageDirectoryContentsArray);
 
                     for (File file : packageDirectoryContentsArray) {
-                        String fileName = file.getPath();
-                        fileName = fileName.substring(s.length() + 1, fileName.length());
-                        fileName = fileName.replace("/", ".");
-                        fileName = fileName.substring(0, fileName.length() - 6);
+                        String fileName = file.getName();
                         //System.out.println(fileName);
+
+                        fileName = fileName.substring(0, fileName.length() - 6);
+                        fileName = functionsPath.substring(1) + fileName;
+                        fileName = fileName.replace("/", ".");
+                        //
                         try {
-                            Class functionClass = Class.forName(fileName);
+                            Class functionClass = Class.forName(fileName, true, BuiltinFunction.class.getClassLoader());
 
                             Object functionObject = functionClass.newInstance();
                             if (functionObject instanceof BuiltinFunction) {
@@ -305,11 +270,15 @@ public abstract class BuiltinFunction {
                         }
 
                     }//end for.
-                    break;
-                }//end if
 
-            }//end if/else
-        }//end for.
+                }//end if.
+
+
+            } catch (URISyntaxException use) {
+                use.printStackTrace();
+            }
+
+        }//end if.
 
         return failList;
     }//end method.
@@ -544,21 +513,21 @@ public abstract class BuiltinFunction {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Retract(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Retract");
-       /* aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Not(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "NotN");*/
+        /* aEnvironment.getBuiltinFunctions().setAssociation(
+        new BuiltinFunctionEvaluator(new Not(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+        "NotN");*/
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Not(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Not"); //Alias.
         /*aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new And(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "AndN");*/
+        new BuiltinFunctionEvaluator(new And(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+        "AndN");*/
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new And(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "And"); //Alias.
         /*aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Or(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "OrN");*/
+        new BuiltinFunctionEvaluator(new Or(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+        "OrN");*/
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Or(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
                 "Or"); //Alias.
