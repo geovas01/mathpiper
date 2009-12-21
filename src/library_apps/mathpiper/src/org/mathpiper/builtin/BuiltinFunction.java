@@ -17,14 +17,25 @@
 package org.mathpiper.builtin;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import org.mathpiper.builtin.functions.core.Abs;
 import org.mathpiper.builtin.functions.core.Add;
+import org.mathpiper.builtin.functions.core.And;
 import org.mathpiper.builtin.functions.core.ApplyPure;
+import org.mathpiper.builtin.functions.core.ArrayCreate;
+import org.mathpiper.builtin.functions.core.ArrayGet;
+import org.mathpiper.builtin.functions.core.ArraySet;
+import org.mathpiper.builtin.functions.core.ArraySize;
+import org.mathpiper.builtin.functions.core.AskUser;
 import org.mathpiper.builtin.functions.core.Atom;
 import org.mathpiper.builtin.functions.core.BackQuote;
 import org.mathpiper.builtin.functions.core.BitAnd;
@@ -71,7 +82,7 @@ import org.mathpiper.builtin.functions.core.Equals;
 import org.mathpiper.builtin.functions.core.Eval;
 import org.mathpiper.builtin.functions.core.Exit;
 import org.mathpiper.builtin.functions.core.ExitRequested;
-import org.mathpiper.builtin.functions.core.XmlExplodeTag;
+import org.mathpiper.builtin.functions.core.ExpressionToString;
 import org.mathpiper.builtin.functions.core.Factorial;
 import org.mathpiper.builtin.functions.core.FastArcSin;
 import org.mathpiper.builtin.functions.core.FastIsPrime;
@@ -80,6 +91,7 @@ import org.mathpiper.builtin.functions.core.FastPower;
 import org.mathpiper.builtin.functions.core.FileSize;
 import org.mathpiper.builtin.functions.core.FindFile;
 import org.mathpiper.builtin.functions.core.FindFunction;
+import org.mathpiper.builtin.functions.core.First;
 import org.mathpiper.builtin.functions.core.FlatCopy;
 import org.mathpiper.builtin.functions.core.Floor;
 import org.mathpiper.builtin.functions.core.FromBase;
@@ -88,21 +100,12 @@ import org.mathpiper.builtin.functions.core.FromString;
 import org.mathpiper.builtin.functions.core.FullForm;
 import org.mathpiper.builtin.functions.core.GarbageCollect;
 import org.mathpiper.builtin.functions.core.Gcd;
-import org.mathpiper.builtin.functions.core.ArrayCreate;
-import org.mathpiper.builtin.functions.core.ArrayGet;
-import org.mathpiper.builtin.functions.core.ArraySet;
-import org.mathpiper.builtin.functions.core.ArraySize;
-import org.mathpiper.builtin.functions.core.PatternCreate;
-import org.mathpiper.builtin.functions.core.PatternMatches;
 import org.mathpiper.builtin.functions.core.GenericTypeName;
 import org.mathpiper.builtin.functions.core.GetCoreError;
 import org.mathpiper.builtin.functions.core.GetExactBits;
-import org.mathpiper.builtin.functions.core.OpLeftPrecedence;
-import org.mathpiper.builtin.functions.core.OpPrecedence;
-import org.mathpiper.builtin.functions.core.OpRightPrecedence;
 import org.mathpiper.builtin.functions.core.GreaterThan;
-import org.mathpiper.builtin.functions.core.First;
 import org.mathpiper.builtin.functions.core.HistorySize;
+import org.mathpiper.builtin.functions.core.Hold;
 import org.mathpiper.builtin.functions.core.HoldArg;
 import org.mathpiper.builtin.functions.core.If;
 import org.mathpiper.builtin.functions.core.InDebugMode;
@@ -111,6 +114,7 @@ import org.mathpiper.builtin.functions.core.Insert;
 import org.mathpiper.builtin.functions.core.IsAtom;
 import org.mathpiper.builtin.functions.core.IsBodied;
 import org.mathpiper.builtin.functions.core.IsBound;
+import org.mathpiper.builtin.functions.core.IsDecimal;
 import org.mathpiper.builtin.functions.core.IsFunction;
 import org.mathpiper.builtin.functions.core.IsGeneric;
 import org.mathpiper.builtin.functions.core.IsInfix;
@@ -121,17 +125,17 @@ import org.mathpiper.builtin.functions.core.IsPostfix;
 import org.mathpiper.builtin.functions.core.IsPrefix;
 import org.mathpiper.builtin.functions.core.IsPromptShown;
 import org.mathpiper.builtin.functions.core.IsString;
-import org.mathpiper.builtin.functions.core.And;
-import org.mathpiper.builtin.functions.core.ExpressionToString;
-import org.mathpiper.builtin.functions.core.Or;
 import org.mathpiper.builtin.functions.core.LeftPrecedence;
 import org.mathpiper.builtin.functions.core.Length;
 import org.mathpiper.builtin.functions.core.LessThan;
+import org.mathpiper.builtin.functions.core.LispRead;
+import org.mathpiper.builtin.functions.core.LispReadListed;
 import org.mathpiper.builtin.functions.core.Listify;
 import org.mathpiper.builtin.functions.core.Load;
+import org.mathpiper.builtin.functions.core.Local;
 import org.mathpiper.builtin.functions.core.LocalSymbols;
-import org.mathpiper.builtin.functions.core.MacroRule;
 import org.mathpiper.builtin.functions.core.MacroNewRulePattern;
+import org.mathpiper.builtin.functions.core.MacroRule;
 import org.mathpiper.builtin.functions.core.MacroRulebase;
 import org.mathpiper.builtin.functions.core.MacroRulebaseListed;
 import org.mathpiper.builtin.functions.core.MacroSet;
@@ -139,15 +143,24 @@ import org.mathpiper.builtin.functions.core.MathIsSmall;
 import org.mathpiper.builtin.functions.core.MathNegate;
 import org.mathpiper.builtin.functions.core.MathSign;
 import org.mathpiper.builtin.functions.core.MaxEvalDepth;
+import org.mathpiper.builtin.functions.core.MetaEntries;
+import org.mathpiper.builtin.functions.core.MetaGet;
+import org.mathpiper.builtin.functions.core.MetaKeys;
+import org.mathpiper.builtin.functions.core.MetaSet;
+import org.mathpiper.builtin.functions.core.MetaValues;
 import org.mathpiper.builtin.functions.core.Mod;
 import org.mathpiper.builtin.functions.core.Multiply;
-import org.mathpiper.builtin.functions.core.Local;
-import org.mathpiper.builtin.functions.core.Rule;
 import org.mathpiper.builtin.functions.core.NewRulePattern;
 import org.mathpiper.builtin.functions.core.Not;
 import org.mathpiper.builtin.functions.core.Nth;
+import org.mathpiper.builtin.functions.core.OpLeftPrecedence;
+import org.mathpiper.builtin.functions.core.OpPrecedence;
+import org.mathpiper.builtin.functions.core.OpRightPrecedence;
+import org.mathpiper.builtin.functions.core.Or;
 import org.mathpiper.builtin.functions.core.PatchLoad;
 import org.mathpiper.builtin.functions.core.PatchString;
+import org.mathpiper.builtin.functions.core.PatternCreate;
+import org.mathpiper.builtin.functions.core.PatternMatches;
 import org.mathpiper.builtin.functions.core.Postfix;
 import org.mathpiper.builtin.functions.core.Prefix;
 import org.mathpiper.builtin.functions.core.PrettyPrinterGet;
@@ -155,30 +168,23 @@ import org.mathpiper.builtin.functions.core.PrettyPrinterSet;
 import org.mathpiper.builtin.functions.core.PrettyReaderGet;
 import org.mathpiper.builtin.functions.core.PrettyReaderSet;
 import org.mathpiper.builtin.functions.core.Prog;
-import org.mathpiper.builtin.functions.core.Hold;
 import org.mathpiper.builtin.functions.core.Read;
-import org.mathpiper.builtin.functions.core.AskUser;
-import org.mathpiper.builtin.functions.core.IsDecimal;
-import org.mathpiper.builtin.functions.core.LispRead;
-import org.mathpiper.builtin.functions.core.LispReadListed;
-import org.mathpiper.builtin.functions.core.MetaEntries;
-import org.mathpiper.builtin.functions.core.MetaGet;
-import org.mathpiper.builtin.functions.core.MetaKeys;
-import org.mathpiper.builtin.functions.core.MetaSet;
-import org.mathpiper.builtin.functions.core.MetaValues;
 import org.mathpiper.builtin.functions.core.ReadToken;
 import org.mathpiper.builtin.functions.core.Replace;
+import org.mathpiper.builtin.functions.core.Rest;
 import org.mathpiper.builtin.functions.core.Retract;
 import org.mathpiper.builtin.functions.core.RightAssociative;
 import org.mathpiper.builtin.functions.core.RightPrecedence;
+import org.mathpiper.builtin.functions.core.RoundToN;
+import org.mathpiper.builtin.functions.core.Rule;
 import org.mathpiper.builtin.functions.core.Rulebase;
 import org.mathpiper.builtin.functions.core.RulebaseArgList;
 import org.mathpiper.builtin.functions.core.RulebaseDefined;
 import org.mathpiper.builtin.functions.core.RulebaseListed;
 import org.mathpiper.builtin.functions.core.Secure;
+import org.mathpiper.builtin.functions.core.Set;
 import org.mathpiper.builtin.functions.core.SetExactBits;
 import org.mathpiper.builtin.functions.core.SetGlobalLazyVariable;
-import org.mathpiper.builtin.functions.core.Set;
 import org.mathpiper.builtin.functions.core.ShiftLeft;
 import org.mathpiper.builtin.functions.core.ShiftRight;
 import org.mathpiper.builtin.functions.core.StackSize;
@@ -188,8 +194,6 @@ import org.mathpiper.builtin.functions.core.Stringify;
 import org.mathpiper.builtin.functions.core.Subst;
 import org.mathpiper.builtin.functions.core.Subtract;
 import org.mathpiper.builtin.functions.core.SystemCall;
-import org.mathpiper.builtin.functions.core.Rest;
-import org.mathpiper.builtin.functions.core.RoundToN;
 import org.mathpiper.builtin.functions.core.TellUser;
 import org.mathpiper.builtin.functions.core.ToBase;
 import org.mathpiper.builtin.functions.core.ToFile;
@@ -204,81 +208,69 @@ import org.mathpiper.builtin.functions.core.Use;
 import org.mathpiper.builtin.functions.core.While;
 import org.mathpiper.builtin.functions.core.Write;
 import org.mathpiper.builtin.functions.core.WriteString;
+import org.mathpiper.builtin.functions.core.XmlExplodeTag;
 import org.mathpiper.builtin.functions.core.XmlTokenizer;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 public abstract class BuiltinFunction {
 
     public static synchronized List addOptionalFunctions(Environment aEnvironment, String functionsPath) {
 
-        //System.out.println("MATHPIPER: " + System.getProperty("java.class.path"));
         List failList = new ArrayList();
 
+        try {
+            String[] listing = getResourceListing(BuiltinFunction.class, functionsPath);
+            for (int x = 0; x < listing.length; x++) {
 
-        URL directoryURL = BuiltinFunction.class.getResource(functionsPath);
+                String fileName = listing[x];
 
-        if (directoryURL != null) {
-
-            try {
-
-                File packageDirectoryFile = new File(directoryURL.toURI());
-
-                if (packageDirectoryFile.exists()) {
-
-                    //System.out.println("package directory found");
-                    java.io.File[] packageDirectoryContentsArray = packageDirectoryFile.listFiles(new java.io.FilenameFilter() {
-
-                        public boolean accept(java.io.File file, String name) {
-                            if (name.startsWith(".")) {
-                                return (false);
-                            } else {
-                                return (true);
-                            }
-                        }
-                    });
-
-                    Arrays.sort(packageDirectoryContentsArray);
-
-                    for (File file : packageDirectoryContentsArray) {
-                        String fileName = file.getName();
-                        //System.out.println(fileName);
-
-                        fileName = fileName.substring(0, fileName.length() - 6);
-                        fileName = functionsPath.substring(1) + fileName;
-                        fileName = fileName.replace("/", ".");
-                        //
-                        try {
-                            Class functionClass = Class.forName(fileName, true, BuiltinFunction.class.getClassLoader());
-
-                            Object functionObject = functionClass.newInstance();
-                            if (functionObject instanceof BuiltinFunction) {
-                                BuiltinFunction function = (BuiltinFunction) functionObject;
-                                function.plugIn(aEnvironment);
-                            }//end if.
-                        } catch (ClassNotFoundException cnfe) {
-                            System.out.println("Class not found: " + fileName);
-                        } catch (InstantiationException ie) {
-                            System.out.println("Can not instantiate class: " + fileName);
-                        } catch (IllegalAccessException iae) {
-                            System.out.println("Illegal access of class: " + fileName);
-                        } catch (NoClassDefFoundError ncdfe) {
-                            //System.out.println("Class not found: " + fileName);
-                            failList.add(fileName);
-                        }
-
-                    }//end for.
-
-                }//end if.
+                if (!fileName.toLowerCase().endsWith(".class")) {
+                    continue;
+                }
 
 
-            } catch (URISyntaxException use) {
-                use.printStackTrace();
-            }
+                fileName = fileName.substring(0, fileName.length() - 6);
+                fileName = functionsPath + fileName;
+                fileName = fileName.replace("/", ".");
 
-        }//end if.
+                //System.out.println(fileName);
+
+                try {
+                    Class functionClass = Class.forName(fileName, true, BuiltinFunction.class.getClassLoader());
+
+                    //System.out.println("CLASS :" + functionClass.toString());
+
+                    Object functionObject = functionClass.newInstance();
+                    if (functionObject instanceof BuiltinFunction) {
+                        BuiltinFunction function = (BuiltinFunction) functionObject;
+                        function.plugIn(aEnvironment);
+                    }//end if.
+                } catch (ClassNotFoundException cnfe) {
+                    System.out.println("Class not found: " + fileName);
+                } catch (InstantiationException ie) {
+                    System.out.println("Can not instantiate class: " + fileName);
+                } catch (IllegalAccessException iae) {
+                    System.out.println("Illegal access of class: " + fileName);
+                } catch (NoClassDefFoundError ncdfe) {
+                    //System.out.println("Class not found: " + fileName);
+                    failList.add(fileName);
+                }
+
+
+
+            }//end for.
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
 
         return failList;
     }//end method.
@@ -924,5 +916,51 @@ public abstract class BuiltinFunction {
 
 
     }//end method.
+
+
+
+
+    public static String[] getResourceListing(Class loadedClass, String path) throws URISyntaxException, IOException {
+        URL dirURL = loadedClass.getClassLoader().getResource(path);
+        if (dirURL != null && dirURL.getProtocol().equals("file")) {
+           
+            return new File(dirURL.toURI()).list();
+        }
+
+        if (dirURL == null) {
+
+            String loadedClassName = loadedClass.getName().replace(".", "/") + ".class";
+            dirURL = loadedClass.getClassLoader().getResource(loadedClassName);
+        }
+
+        if (dirURL.getProtocol().equals("jar")) {
+
+            String jarPath = dirURL.getPath().substring(5, dirURL.getPath().indexOf("!"));
+
+            JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
+
+            Enumeration<JarEntry> entries = jar.entries();
+
+            java.util.Set<String> result = new HashSet<String>();
+
+            while (entries.hasMoreElements()) {
+                String name = entries.nextElement().getName();
+                if (name.startsWith(path)) { 
+                    String entry = name.substring(path.length());
+                    int checkSubdirectory = entry.indexOf("/");
+                    if (checkSubdirectory >= 0) {
+                        
+                        entry = entry.substring(0, checkSubdirectory);
+                    }
+                    result.add(entry);
+                }
+            }
+            return result.toArray(new String[result.size()]);
+        }
+
+        throw new UnsupportedOperationException("Cannot list files for URL " + dirURL);
+    }//end method.
+
+
 }//end class.
 
