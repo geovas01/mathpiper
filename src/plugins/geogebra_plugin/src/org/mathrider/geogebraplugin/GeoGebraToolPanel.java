@@ -49,12 +49,17 @@ public class GeoGebraToolPanel extends JPanel {
 		Box labelBox = new Box(BoxLayout.Y_AXIS);
 		labelBox.add(Box.createGlue());
 
-		label = new JLabel("test");
+		label = new JLabel("THIS IS AN EXPERIMENTAL VERSION OF GEOGEBRA. PLEASE DO NOT DISTRIBUTE IT OUTSIDE OF MATHRIDER.");
+		//JLabel title = new JLabel("Want a Raise?", JLabel.CENTER);
+		//title.setFont(new Font("Serif", Font.BOLD, 48));
+
+		label.setForeground(java.awt.Color.BLUE);
+		
 		label.setVisible(jEdit.getProperty(
 				GeoGebraPlugin.OPTION_PREFIX + "show-filepath").equals(
 				"true"));
 
-		//labelBox.add(label);
+		labelBox.add(label);
 		labelBox.add(Box.createGlue());
 
 		add(labelBox);

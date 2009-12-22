@@ -52,7 +52,8 @@ import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 
-import geogebra.GeoGebraApplet;
+import geogebra.GeoGebraPanel;
+import geogebra.plugin.GgbAPI;
 // }}}
 
 // {{{ GeoGebra class
@@ -79,7 +80,7 @@ public class GeoGebra extends JPanel
 
 	private GeoGebraToolPanel toolPanel;
 
-	private static GeoGebraApplet geoGebraApplet;
+	private static GeoGebraPanel ggbPanel;
 	// }}}
 
 	// {{{ Constructor
@@ -106,7 +107,7 @@ public class GeoGebra extends JPanel
 		if (floating)
 			this.setPreferredSize(new Dimension(500, 250));
 
-		geoGebraApplet = new GeoGebraApplet();
+		/*geoGebraApplet = new GeoGebraApplet();
 
 
 		// Now try to get an applet stub for this class.
@@ -178,16 +179,39 @@ public class GeoGebra extends JPanel
 		//javax.swing.JSplitPane splitPane = (javax.swing.JSplitPane) geoGebraApplet.getContentPane();
 		//splitPane.setDividerLocation(40);
 		//geoGebraApplet.refreshViews();
+		*/
 
 
+		
+
+		
+		
+		    	// create empty GeoGebraPanel
+    	ggbPanel = new GeoGebraPanel();
+    	
+    	// hide input bar
+    	ggbPanel.setShowAlgebraInput(false);
+    	// use smaller icons in toolbar
+    	ggbPanel.setMaxIconSize(24); 
+    	
+    	// show menu bar and toolbar
+    	ggbPanel.setShowMenubar(true);
+    	ggbPanel.setShowToolbar(true);
+    	
+    	// build the user interface of the GeoGebraPanel
+    	ggbPanel.buildGUI();
+    	
+    	this.add(ggbPanel);
+    	
+    	
 		try{
 			org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 			org.mathpiper.lisp.Environment environment = synchronousInterpreter.getEnvironment();
-			org.mathpiper.builtin.JavaObject javaObject = new org.mathpiper.builtin.JavaObject(geoGebraApplet);
+			org.mathpiper.builtin.JavaObject javaObject = new org.mathpiper.builtin.JavaObject(ggbPanel.getGeoGebraAPI());
 			environment.setGlobalVariable("geogebra", new org.mathpiper.lisp.cons.ConsPointer(org.mathpiper.lisp.cons.BuiltinObjectCons.getInstance(environment, javaObject)), false);
 			
-			geoGebraApplet.registerAddListener("GeoGebraAddListener");
-			geoGebraApplet.registerUpdateListener("GeoGebraUpdateListener");
+			//geoGebraApplet.registerAddListener("GeoGebraAddListener");
+			//geoGebraApplet.registerUpdateListener("GeoGebraUpdateListener");
 			
 			//System.out.println("HHHHHHHHHHHHHHHHHHH GeoGebra listeners registered.");
 		}catch(Exception e)
@@ -236,9 +260,9 @@ public class GeoGebra extends JPanel
 
 
 	// {{{ getGeoGebraApplet
-	public static geogebra.GeoGebraApplet getGeoGebraApplet()
+	public static geogebra.plugin.GgbAPI getGeoGebraAPI()
 	{
-		return geoGebraApplet;
+		return ggbPanel.getGeoGebraAPI();
 	}//end method
 	// }}}
 
@@ -306,7 +330,7 @@ public class GeoGebra extends JPanel
 
 	// {{{
 	public void reset() {
-		geoGebraApplet.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
+		//geoGebraApplet.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
 	}
 	// }}}
 
