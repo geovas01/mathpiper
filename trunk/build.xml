@@ -12,7 +12,7 @@
 	<property name="master.compile.target" value="1.5" />
 	<property name="master.compile.debug" value="false" />
 	<property environment="env" />
-	<property name="version" value=".77M" />
+	<property name="version" value=".77N" />
 	
 	
 	<!-- Set top directories -->
@@ -510,7 +510,7 @@
 	<target name="dist_windows" depends=""
 		description="zips the application for distribution." >
 
-		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**" excludes="**/unix_run.sh,**/win_run.bat.with_jre"
+		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**" excludes="**/unix_run.sh"
 		 whenmanifestonly="skip" >
 			<manifest> 
 				<section name="MathRider" >
@@ -520,19 +520,22 @@
 		</jar>
 		
 		<!-- Make jre version. -->
-		<antcall target="copy_jres">
-		</antcall>
-			
-		<copy file="${master.src.dir}/jedit_core/win_run.bat.with_jre" tofile="${master.build.dir}/mathrider/win_run.bat" overwrite="true" />
 		
-		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_with_java_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**" excludes="**/unix_run.sh,**/win_run.bat.with_jre"
+		<!--
+		<antcall target="copy_jres">
+		</antcall> -->
+			
+		<!--<copy file="${master.src.dir}/jedit_core/win_run.bat.with_jre" tofile="${master.build.dir}/mathrider/win_run.bat" overwrite="true" />-->
+		
+		<!--
+		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_with_java_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**" excludes="**/unix_run.sh"
 		 whenmanifestonly="skip" >
 			<manifest> 
 				<section name="MathRider" >
 					<attribute name="Build-Date" value="${build.time}"/>
 				</section>
 			</manifest>
-		</jar>
+		</jar> -->
 
 	</target>	
 	
@@ -544,7 +547,6 @@
 		 <arg value="--use-compress-prog=bzip2"/>
 		 <arg value="--exclude=windows"/>
 		 <arg value="--exclude=win_run.bat"/>
-		 <arg value="--exclude=win_run.bat.with_jre"/>
 		    <arg value="-cf"/>
 		    <arg value="${dist.build.dir}/mathrider_unix_mac_dist_v${version}_beta.tar.bz2"/>
 		   <arg value="-C"/>
@@ -568,10 +570,6 @@
 		<exec executable="md5sum" output ="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip.md5" >
 			 <arg value="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip"/>
 		 </exec>
-		 
-		 <exec executable="md5sum" output ="${dist.build.dir}/mathrider_windows_dist_with_java_v${version}_beta.zip.md5" >
-		 	<arg value="${dist.build.dir}/mathrider_windows_dist_with_java_v${version}_beta.zip"/>
-		</exec>
 		
 	</target>	
 	
