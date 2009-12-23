@@ -86,10 +86,6 @@ UnFence("GetContent",2);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
-
 
 
 
@@ -140,92 +136,4 @@ Result: 2*a*x^2+4*a*x
 
 *SEE Content, PrimitivePart, Gcd, xPrimitivePart
 %/mathpiper_docs
-
-    %output,preserve="false"
-      
-.   %/output
-
-
-
-
-%mathpiper
-//========================   TESTING    =============================
-
-pqs := {};
-Push(pqs,2);
-Push(pqs,2*x);
-Push(pqs,2*x-1);
-Push(pqs,2*x-4);
-Push(pqs,2*a*x-4*a);
-Push(pqs,2*a*x^2-4*a);
-Push(pqs,2*a*x^2-4*a*x+4*a);
-Push(pqs,2*a*x^2-4*x+4*a);
-Push(pqs,2*a*x^2-4*x+4*a+4);
-Push(pqs,3*a*x^3-6*a*x^2+3*a*x);
-Push(pqs,6*a*n^4*m^3+24*a*n^3*m^2-18*a*n^2*m);
-
-pqs := Reverse(pqs);
-
-ForEach(pq,pqs)
-[
-    T := Time() ( content := (xContent(pq)) );
-    Tell("  ",T);
-    Tell("  ",pq);
-    Tell("  ",content);
-    NewLine();
-];
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-      
-      Side Effects:
-      <<   >> T : 0.236864970 
-      <<   >> pq : 2 
-      <<   >> content : 2 
-      
-      <<   >> T : 0.028398693 
-      <<   >> pq : 2*x 
-      <<   >> content : 2*x 
-      
-      <<   >> T : 0.085265647 
-      <<   >> pq : 2*x-1 
-      <<   >> content : 1 
-      
-      <<   >> T : 0.070969786 
-      <<   >> pq : 2*x-4 
-      <<   >> content : 2 
-      
-      <<   >> T : 0.252829008 
-      <<   >> pq : 2*a*x-4*a 
-      <<   >> content : 2*a 
-      
-      <<   >> T : 0.269286884 
-      <<   >> pq : 2*a*x^2-4*a 
-      <<   >> content : 2*a 
-      
-      <<   >> T : 0.446782389 
-      <<   >> pq : 2*a*x^2-4*a*x+4*a 
-      <<   >> content : 2*a 
-      
-      <<   >> T : 0.355171789 
-      <<   >> pq : 2*a*x^2-4*x+4*a 
-      <<   >> content : 2 
-      
-      <<   >> T : 0.365234253 
-      <<   >> pq : 2*a*x^2-4*x+4*a+4 
-      <<   >> content : 2 
-      
-      <<   >> T : 0.440929806 
-      <<   >> pq : 3*a*x^3-6*a*x^2+3*a*x 
-      <<   >> content : 3*a*x 
-      
-      <<   >> T : 0.779863203 
-      <<   >> pq : 6*a*n^4*m^3+24*a*n^3*m^2-18*a*n^2*m 
-      <<   >> content : 6*a*n^2*m 
-      
-      
-.   %/output
-
 
