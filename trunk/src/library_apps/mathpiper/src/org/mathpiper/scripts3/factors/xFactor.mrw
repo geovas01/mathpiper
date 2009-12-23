@@ -1,0 +1,28 @@
+%mathpiper,def="xFactor"
+
+Retract("xFactor",*);
+
+
+10 # xFactor( L_IsList ) <-- 
+[
+    Local (result,x,f);
+    result := {};
+    ForEach(x,L)
+    [
+        f := xFactors(x);
+        If( f = {}, f := 0, f := FW(f) );
+        DestructiveAppend(result,f);
+    ];
+    result;
+];
+
+
+15 # xFactor( _expr ) <-- FW(xFactors(expr));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
