@@ -5,7 +5,7 @@ Note:tk:I am publishing this function as a def because
 but it seems like it was meant to be a published function.
 */
 
-// SparceUniVariate(variable,termlist) implements an internal representation
+// SparseUniVariate(variable,termlist) implements an internal representation
 // for univariate polynomials
 // termlist is the list of terms in the form {exponent,coeficient}
 
