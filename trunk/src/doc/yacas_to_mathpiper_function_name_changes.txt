@@ -3,7 +3,7 @@
 
 //Misc.
 D -> Derive //Because syntax highlighting just "D" is too general.
-Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operators to make function calls uniform.  For example, Integrate is bodied but WithValue is not.
+Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operators to make function calls uniform and to reduce confusion.
 Listify -> FunctionToList
 UnList -> ListToFunction
 Clear -> Unbind
@@ -19,12 +19,12 @@ ModN -> ModulusN
 Min -> Minimum
 Max -> Maximum
 RandomIntegerVector -> RandomIntegerList.
-OpPrecedence -> GetOperatorPrecedence
-OpLeftPrecedence -> GetOperatorLeftPrecedence
-OpRightPrecedence -> GetOperatorRightPrecedence
-LeftPrecedence -> SetLeftPrecedence
-RightPrecedence -> SetRightPrecedence
-RightAssociative -> SetRightAssociative
+OpPrecedence -> OperatorPrecedenceGet
+OpLeftPrecedence -> OperatorLeftPrecedenceGet
+OpRightPrecedence -> OperatorRightPrecedenceGet
+LeftPrecedence -> LeftPrecedenceSet
+RightPrecedence -> RightPrecedenceSet
+RightAssociative -> RightAssociativeSet
 FullForm -> LispForm
 Use -> UseScript
 Load -> LoadScript
