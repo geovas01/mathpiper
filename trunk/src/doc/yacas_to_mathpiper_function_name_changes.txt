@@ -12,9 +12,10 @@ Atom -> StringToAtom
 Equals -> IsEqual
 LessThan -> IsLessThan
 GreaterThan -> IsGreaterThan
-MM -> InternalForm
+MM -> MultinomialForm
 Div -> Divide
-Mod -> Modulus.
+Mod -> Modulus
+ModN -> ModulusN
 Min -> Minimum
 Max -> Maximum
 RandomIntegerVector -> RandomIntegerList.
@@ -27,6 +28,8 @@ RightAssociative -> SetRightAssociative
 FullForm -> LispForm
 Use -> UseScript
 Load -> LoadScript
+Normalize -> NormalizeVector
+NumRealRoots -> NumberOfRealRoots
 
 
 //Make RuleBase names read more like the name Database does because they are suppose to sound like "database" and operate like a database.
@@ -38,10 +41,11 @@ MacroRuleBaseListed  -> MacroRulebaseListed
 
 //In general, spell function names out completely.
 RulebaseArgs -> RulebaseArguments
+NrArgs -> NumberOfArguments
 
 
 ====== Proposed argument changes.
-Select -> Should the list be the first argument (to match the ordering of most other MathPiper functions)?
+Select -> Should the list be the first argument (to match the ordering of most other MathPiper functions that operate on lists)?
 
 
 
