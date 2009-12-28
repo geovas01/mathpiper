@@ -1,37 +1,12 @@
 //Proposed function name changes: 
 
-//Make RuleBase names read more like the name Database does.
-RuleBase -> Rulebase
-MacroRuleBase -> MacroRulebase
-RuleBaseArgList -> RulebaseArgs
-MacroRuleBase  -> MacroRulebase
-MacroRuleBaseListed  -> MacroRulebaseListed
-
-//In general, make function names read like Object.method. For example,
-FindFile -> FileFind
-FindFunction -> FunctionFind
-ConcatStrings -> StringsConcat
-Use -> ScriptUse
-Load -> ScriptLoad
-etc.
-
-
-//In general, spell function names out completely.
-RulebaseArgs -> RulebaseArguments
-
-etc.
-
 
 //Misc.
-Echo -> Print
-== -> =, = -> ==  //This is to make == uniform with !=, >=, <=, etc.  This change also makes interoperating with geogebra and maxima easier.
 D -> Derive //Because syntax highlighting just "D" is too general.
-Change a number of bodied operators like D and Integrate to non-bodied operators to make function calls uniform.  For example, Integrate is bodied but WithValue is not.
+Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operators to make function calls uniform.  For example, Integrate is bodied but WithValue is not.
 Listify -> FunctionToList
 UnList -> ListToFunction
-FindRealRoots -> RealRootsFind
-NumRealRoots -> RealRootsNum
-Clear -> Unbind (or perhaps IsAssigned and Unassign?)
+Clear -> Unbind
 String -> ToString
 Atom -> StringToAtom
 Equals -> IsEqual
@@ -40,20 +15,35 @@ GreaterThan -> IsGreaterThan
 MM -> InternalForm
 Div -> Divide
 Mod -> Modulus.
-Min -> Minimum.
+Min -> Minimum
 Max -> Maximum
 RandomIntegerVector -> RandomIntegerList.
 OpPrecedence -> GetOperatorPrecedence
 OpLeftPrecedence -> GetOperatorLeftPrecedence
 OpRightPrecedence -> GetOperatorRightPrecedence
-LeftPrecedence -> LeftPrecedenceSet
-RightPrecedence - RightPrecedenceSet
-RightAssociative -> RightAssociativeSet
-FullForm -> InternalForm
+LeftPrecedence -> SetLeftPrecedence
+RightPrecedence -> SetRightPrecedence
+RightAssociative -> SetRightAssociative
+FullForm -> LispForm
+Use -> UseScript
+Load -> LoadScript
+
+
+//Make RuleBase names read more like the name Database does because they are suppose to sound like "database" and operate like a database.
+RuleBase -> Rulebase
+MacroRuleBase -> MacroRulebase
+RuleBaseArgList -> RulebaseArgs
+MacroRuleBase  -> MacroRulebase
+MacroRuleBaseListed  -> MacroRulebaseListed
+
+//In general, spell function names out completely.
+RulebaseArgs -> RulebaseArguments
 
 
 ====== Proposed argument changes.
-Select -> Should the list be the first argument to match the ordering of most other MathPiper functions?
+Select -> Should the list be the first argument (to match the ordering of most other MathPiper functions)?
+
+
 
 
 ============================= Changes that have already been done.
@@ -66,8 +56,6 @@ Factorize -> Product
 Add -> Sum
 Tail -> Rest
 Head -> First
-PDF -> ProbabilityDensityFunction
-CDF -> CumulativeDistributionFunction
 Bin -> BinomialCoefficient and the synonym Combinations has been added for BinomialCoefficient.
 Permutations -> PermutationsList.
 Numer -> Numerator
