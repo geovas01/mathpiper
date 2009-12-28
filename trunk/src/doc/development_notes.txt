@@ -147,7 +147,7 @@ lst;
 %/mathpiper
 - Repeat() provides a good example of Retract("xxx",*) not working properly.
 + Tabs don't seem to be copied from source .mrw files to the destination mpi file during the build process.
-+ The *mathrider task does not pick up MathPiper version changes for some reason.
++ The *mathpiperide task does not pick up MathPiper version changes for some reason.
 + The expression printer does not place spaces on either side of logical operators:
 In> p Or q
 Result> pOrq
@@ -271,7 +271,7 @@ Björn Terelius
 +The While and For functions need a way to break and continue.
 +Functions need a return statement.
 +Use /// and /** **/ for commenting student's .mrw files.  Add special syntax highlighting for these comments.
-+Add a workspace window to MathRider which is similar to Matlab's workspace window.
++Add a workspace window to MathPiperIDE which is similar to Matlab's workspace window.
 +HasFunc bug:
 %mathpiper
 //HasFunc bug.  If the variable that is passed to HasFunc is a MacroLocal, it will not be evaluated.
@@ -374,7 +374,7 @@ Solve(equ,y);
 +If there are spaces after commas in dbt directives that create tables, this causes an error.
 +IsVariable link in VarList is broken.
 +Functions need to be created which obtain the base and exponent of an expression.
-+Monospaced font works fine on windows but not on linux.  So, we need to use the monospaced font we are already using for UASM65 for the text area of MathRider.
++Monospaced font works fine on windows but not on linux.  So, we need to use the monospaced font we are already using for UASM65 for the text area of MathPiperIDE.
 +MathPiper should indicate these two expressions to be equal, but it doesn't:
 e1: (o-h)^2+(p-k)^2-((x-h)^2+(y-k)^2)
 e2: (h-o)^2+(k-p)^2-((x-h)^2+(y-k)^2)
@@ -403,7 +403,7 @@ Body:
     Echo(s);
 ]
 
-+Need to add monospaced font that is already being included for the u6502 plugin to MathRider as a whole.
++Need to add monospaced font that is already being included for the u6502 plugin to MathPiperIDE as a whole.
 +HotEqn doesn't render exponent if there is a space between them and parentheses:
     %hoteqn,preserve="false"
       \left( Ay - \frac{Ay + Cy}{2} \right)  ^{2}
@@ -447,7 +447,7 @@ I deployed the application to GlassFish (Sun Java System Application Server), be
 + BranchingUserFunction uses Vectors.  Perhaps switch to ArrayLists to improve speed.
 + Change name of Printer to LispPrinter.  Move all printers into a single package.  Change name of FullForm to LispForm.  Create
 MathPiperForm() function.
-+ Log the version of mathrider and the version of mathpiper into the activity log.  The subversion version number should also be logged.
++ Log the version of mathpiperide and the version of mathpiper into the activity log.  The subversion version number should also be logged.
 + Internal'xxx functions are created for the cached constants.
 CachedConstant(CacheOfConstantsN, gamma, GammaConstNum());
 CachedConstant(CacheOfConstantsN, GoldenRatio, N( (1+Sqrt(5))/2 ) );
@@ -496,7 +496,7 @@ Result> (y+3)*x+2*y+6
 + yd^2 := ft^2/9;A'room := 18*ft*24*ft; causes an exception which crashes MathPiper.
 + It would be nice if MathPiper can be placed into numeric mode like NOn() and NOff().
 + Functions like ToDeg() and ToRad() are needed.
--  Enable the display of exceptions in the MathRider MathPiper console and perhaps also in the MathPiper text console.
+-  Enable the display of exceptions in the MathPiperIDE MathPiper console and perhaps also in the MathPiper text console.
 + MathPiper has if/else structure!: if( IsZero(Re(x)) )[
                         ( Abs(Im(x)) % 4 = 3 And IsPrime(Abs(Im(x))) );
                 ] else if ( IsZero(Im(x)) ) [
@@ -552,8 +552,8 @@ doesn't clear the output fold and display "Processing..." when data is already i
 + Prog , [] , UnFence  links in Local do not work in MathPiper_Docs.
 + ReturnsCoreError, ReturnsError, ReturnsErrorTableau, and ReturnsTime function links don't work in MathPiper_Docs function tree.
 + GetTime link does not work in Time documentation.
-- Fix bug:10:59:25 PM [error] AWT-EventQueue-0: // Error: Exception in runnable:Method Invocation textArea.setSelection : at Line: 1353 : in file: /home/tkosan/checkouts/mathrider/build/mathrider/macros/MathRider/Shift_Enter.bsh : textArea .setSelection ( rangeSelection ) 
-10:59:25 PM [error] AWT-EventQueue-0: Called from method: displayResult : at Line: 1413 : in file: /home/tkosan/checkouts/mathrider/build/mathrider/macros/MathRider/Shift_Enter.bsh : displayResult ( ) 
+- Fix bug:10:59:25 PM [error] AWT-EventQueue-0: // Error: Exception in runnable:Method Invocation textArea.setSelection : at Line: 1353 : in file: /home/tkosan/checkouts/mathpiperide/build/mathpiperide/macros/MathPiperIDE/Shift_Enter.bsh : textArea .setSelection ( rangeSelection ) 
+10:59:25 PM [error] AWT-EventQueue-0: Called from method: displayResult : at Line: 1413 : in file: /home/tkosan/checkouts/mathpiperide/build/mathpiperide/macros/MathPiperIDE/Shift_Enter.bsh : displayResult ( ) 
 10:59:25 PM [error] AWT-EventQueue-0: Target exception: java.lang.ArrayIndexOutOfBoundsException: Array index out of range: 18394
 Happens when there is just 1 line underneath fold at the bottom of a .mrw buffer.  0 lines underneath do not cause a problem and 2+ lines do not cause a problem.
 + ExtraInfo'Get, ExtraInfo'Set, and ExtraInfo'Returns do not have any documentation pages in MathPiperDocs.
@@ -566,11 +566,11 @@ Happens when there is just 1 line underneath fold at the bottom of a .mrw buffer
 - Place all IsXXX predicate functions in the predicate node in PiperDocs.
 + Again, figure out a way for piper folds to always return the result of the
 last evaluation without needing to use Write;
-+ Provide a way to reset piper without relaunching MathRider.
++ Provide a way to reset piper without relaunching MathPiperIDE.
 + Place sliding window divider between function tree window and documentation window in PiperDocs.
 - Place cursor inside of description double quotes after inserting a fold.
 + Add fit function to GeoGebra so that plots can be autozoomed to fit the display area.
-+ Add Clojure to MathRider.
++ Add Clojure to MathPiperIDE.
 + Develop an Application Specific Language for GeoGebra.
 + The %geogebra fold syntax hilights the letter D.
 - If %piper is the last fold and there is less than 2 spaces below it, the output fold will not be shown.
@@ -591,7 +591,7 @@ last evaluation without needing to use Write;
 + Add scope="shell" to beanshell fold.
 + Add IsInteger to PiperDocs (There are a number of links to it, but no target).
 + Give option for Piper functions to be grouped bye type.  For example, predicates(refchap10), numeric functions(like MathSin), etc. Perhaps use a tree. 
-+ Why is the MathRider startup script in the settings directory and in the MathRider directory?
++ Why is the MathPiperIDE startup script in the settings directory and in the MathPiperIDE directory?
 + If fold is not found then part of .mws file is deleted.
 + Place proper exception types in folds (like maxima and lisp);
 - Enable menubar in geogebra plugin.
@@ -605,7 +605,7 @@ last evaluation without needing to use Write;
 + Allow properties to not use quotes around the value.
 + Change Geogebra to GeoGebra globally.
 + Note:tk: must set output and console another way for when user executes maxima fold before using the shell.
-- Change file format from .mrn to .mathrider (maybe leave .mrn to make tabs shorter.) (Actually, perhaps .mr or .mar would be better.).
+- Change file format from .mrn to .mathpiperide (maybe leave .mrn to make tabs shorter.) (Actually, perhaps .mr or .mar would be better.).
 + Check if Piper remembers variable values between sessions.
 + Check to make sure that at least Sun's Java 5 is installed.
 + Do better syntax checking on fold properties.
@@ -618,7 +618,7 @@ last evaluation without needing to use Write;
 + Why doesn't =, :=, etc. highlight?
 + Macro which brings up checkbox for all properties for a % fold command when it is shift clicked.
 + Macro: right click menu which allows inserting of fold template.
-+ Place MathRider variables in standard jEdit beanshell environment.
++ Place MathPiperIDE variables in standard jEdit beanshell environment.
 + Use the ContextMenu plugin to create a special popup menu for .mws files.
 + Add dock sidekick plugin to the right side of the screen and have it show outline of .mws files.
 + "If none of the predicates are true, the function is returned with its arguments evaluated." Should "evaluated" be "unevaluated" here? (section 1.5 of the programmer's manual.
@@ -661,7 +661,7 @@ last evaluation without needing to use Write;
 - Add forward and back browser capabilities to Piper docs.
 + Deselect item in function list when "home" is selected in PiperDocs.
 + In PiperDocs, allow functions to be listed either alphabetically or in groups.
-+ Change "jEdit Home Directory" to "MathRider Home Directory".
++ Change "jEdit Home Directory" to "MathPiperIDE Home Directory".
 + RuleBaseListed link in Echo documentation is broken.
 + If GeoGebra has not been executed yet, then the ggb BeanShell variable will contain a null reference.
 + Add multiple fold properties capability like this: %piper,output="latex,autoexecute".
@@ -698,7 +698,7 @@ last evaluation without needing to use Write;
 - Tag folds by type, for example %piper, %latex, %uasm65, %equation.
 
 Initial release:
-+ Documentation: Main mathrider, all plugins.
++ Documentation: Main mathpiperide, all plugins.
 + Add GPL statement to all source code files.
 + Check GPL statements on plugins.
 + Add license for fire icon http://commons.wikimedia.org/wiki/Image:Exquisite-k3b.png.
@@ -999,7 +999,7 @@ GenArrayCreate, GenArrayGet, GenArraySet, GenArraySize, GenPatternCreate, GenPat
 MacroNewRule, MacroNewRulePattern, MacroSetVar, MathIsSmall, MathNegate, MathSign, MathEvalDepth, NewLocal, NewRule, NewRulePattern, PrettyPrinterGet, PrettyPrinterSet, PrettyReaderGet, PrettyReaderSet, ProgBody, Quote, ReadLisp, ReadLispListed, RuleBaseDefined,
 SetExactBits, SetVar, StackSize, Stringify, Subtract, Version, ' (the quote operator).
 + Base functions should be able to pad zeros on the left. (Also perhaps a more generalized Base function).
-- Change org.mathrider.piper.Piper.Evaluate to evaluate.
+- Change org.mathpiper.ide.piper.Piper.Evaluate to evaluate.
 + Change Numer to Numerator and Denom to Denominator because it is hard to remember how many letters of Numer and Denom are used in the shorter names.
 + Change "generic" (as in Generic object) to "native".
 + Change Nl to NL.
@@ -1138,7 +1138,7 @@ if (piper.iError != null)
 
 {{{===="Notebook" thoughts.
 
-+ One could create a html-based notebook like the Sage notebook but perhaps it would be better to create a 100% Applet-based notebook which would use a layout manager to lay components out in a vertical fasion.  The mathrider application can generate online notebooks which is similar to the way that GeoGebra generates online viewers.
++ One could create a html-based notebook like the Sage notebook but perhaps it would be better to create a 100% Applet-based notebook which would use a layout manager to lay components out in a vertical fasion.  The mathpiperide application can generate online notebooks which is similar to the way that GeoGebra generates online viewers.
 
 + Perhaps it would be useful to put together text documents in a mrw file so that macros can be developed in the same document as the text ?
 }}}

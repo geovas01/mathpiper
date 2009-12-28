@@ -2,6 +2,6 @@
 
 <SERVICES>
 	<SERVICE CLASS="console.Shell" NAME="Clojure">
-                new org.mathrider.clojureplugin.ClojureShell();
+                new org.mathpiper.ide.clojureplugin.ClojureShell();
         </SERVICE>
 </SERVICES>

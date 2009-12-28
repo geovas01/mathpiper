@@ -1,7 +1,7 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 import org.eninom.collection.mutable.ExtendibleArray;
-import org.mathrider.piper_me.arithmetic.BigNumber;
+import org.mathpiper.ide.piper_me.arithmetic.BigNumber;
 
 public class LispStandard
 {

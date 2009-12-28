@@ -2,6 +2,6 @@
 
 <SERVICES>
 	<SERVICE CLASS="console.Shell" NAME="ABCL">
-                new org.mathrider.abclplugin.ABCLShell();
+                new org.mathpiper.ide.abclplugin.ABCLShell();
         </SERVICE>
 </SERVICES>

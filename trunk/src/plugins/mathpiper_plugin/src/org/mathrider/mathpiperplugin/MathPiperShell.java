@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.mathpiperplugin;
+package org.mathpiper.ide.mathpiperplugin;
 
 import java.awt.Color;
 //import java.io.File;
@@ -19,9 +19,9 @@ import console.ConsolePane;
 import console.Output;
 import console.Shell;
 import org.mathpiper.interpreters.EvaluationResponse;
-//import org.mathrider.mathpiperplugin.MathPiperInterpreter;
+//import org.mathpiper.ide.mathpiperplugin.MathPiperInterpreter;
 import java.util.Map;
-//import org.mathrider.piper.LispOutput;
+//import org.mathpiper.ide.piper.LispOutput;
 
 public class MathPiperShell extends Shell
 {

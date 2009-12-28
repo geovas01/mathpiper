@@ -1,5 +1,5 @@
 /*  v 1.02.
-  This is a MathRider worksheet file and it consists of folds which contain source
+  This is a MathPiperIDE worksheet file and it consists of folds which contain source
   code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
   a fold and then executed by placing the cursor anywhere inside the code and
   pressing <shift><enter>.  The result of the execution will be
@@ -9,8 +9,8 @@
   which is on the left side of the text area.  There are additional fold operations
   in the Folding menu at the top of the window.
   
-  This worksheet contains examples which go with the "MathRider Worksheet Files" chapter
-  of the "MathRider for Newbies" book.
+  This worksheet contains examples which go with the "MathPiperIDE Worksheet Files" chapter
+  of the "MathPiperIDE for Newbies" book.
 */
 
 

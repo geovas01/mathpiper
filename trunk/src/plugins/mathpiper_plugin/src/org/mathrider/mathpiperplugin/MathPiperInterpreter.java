@@ -1,12 +1,11 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.mathpiperplugin;
+package org.mathpiper.ide.mathpiperplugin;
 
-//import org.mathrider.piper.CPiper;
-//import org.mathrider.piper.Piperexception;
+//import org.mathpiper.ide.piper.CPiper;
+//import org.mathpiper.ide.piper.Piperexception;
 
 import console.Output;
-import org.mathrider.ResponseListener;
 import java.io.*;
 import errorlist.*;
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class MathPiperInterpreter {
 	{
 		if(errorSource == null)
 		{
-			errorSource = new DefaultErrorSource("MathRider");
+			errorSource = new DefaultErrorSource("MathPiperIDE");
 			ErrorSource.registerErrorSource(errorSource);
 		}//end if.
 

@@ -24,7 +24,7 @@
 			<END>%/s19</END>
 		</SPAN_REGEXP>
         
-        <SPAN_REGEXP  TYPE="MARKUP" DELEGATE="mathrideroutput::MAIN">
+        <SPAN_REGEXP  TYPE="MARKUP" DELEGATE="mathpiperideoutput::MAIN">
 			<BEGIN>%output[0-9a-zA-Z,="._() ]*</BEGIN>
 			<END>%/output</END>
 		</SPAN_REGEXP>

@@ -10,6 +10,6 @@
 
 <DOCKABLES>
 	<DOCKABLE NAME="geogebra">
-		new org.mathrider.geogebraplugin.GeoGebra(view, position);
+		new org.mathpiper.ide.geogebraplugin.GeoGebra(view, position);
 	</DOCKABLE>
 </DOCKABLES>

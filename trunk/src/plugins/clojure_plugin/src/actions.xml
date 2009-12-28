@@ -6,22 +6,22 @@
 <ACTIONS>
 	<ACTION NAME="clojure.choose-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME);
-			wm.getDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME).chooseFile();
+			wm.addDockableWindow(org.mathpiper.ide.clojureplugin.ClojurePlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.clojureplugin.ClojurePlugin.NAME).chooseFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="clojure.save-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME);
-			wm.getDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME).saveFile();
+			wm.addDockableWindow(org.mathpiper.ide.clojureplugin.ClojurePlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.clojureplugin.ClojurePlugin.NAME).saveFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="clojure.copy-to-buffer">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME);
-			wm.getDockableWindow(org.mathrider.clojureplugin.ClojurePlugin.NAME).copyToBuffer();
+			wm.addDockableWindow(org.mathpiper.ide.clojureplugin.ClojurePlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.clojureplugin.ClojurePlugin.NAME).copyToBuffer();
 		</CODE>
 	</ACTION>
 </ACTIONS>

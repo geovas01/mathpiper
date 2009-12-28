@@ -39,7 +39,7 @@ out, along with a list of their currently bound values.
 
 Because {Show} uses SysOut() to print its output, the output will be visible
 both on Standard Output and also on the Shell console (if MathPiper is started
-this way), or on the MathRider Activity Log (if started in MathRider).  
+this way), or on the MathPiperIDE Activity Log (if started in MathPiperIDE).  
 The latter is very useful for debugging programs which hang in a loop or
 otherwise, because standard output may not then be visible, but the alternative
 output will usually be available.

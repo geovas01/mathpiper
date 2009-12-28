@@ -4,23 +4,23 @@
 #{{{ Must be in order.
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.activate=startup
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.activate=startup
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.name=JFreeChart
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.author=Ted Kosan
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.name=JFreeChart
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.version=4.3
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.docs=index.html
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.jars=jfreechart-1.0.13.jar
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.longdescription=description.html
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.docs=index.html
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.jars=jfreechart-1.0.13.jar
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.longdescription=description.html
 #}}}
 
 
@@ -34,7 +34,7 @@ jfreechart.shell.msg.usage=JFreeChart, a computer algebra system for beginners.
 
 
 # plugin menu
-plugin.org.mathrider.jfreechartplugin.JFreeChartPlugin.menu=jfreechart
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.menu=jfreechart
 #	- \
 #	piper.choose-file \
 #	piper.save-file \
@@ -52,7 +52,7 @@ jfreechart.copy-to-buffer.label=Copy notepad to buffer
 plugin.jfreechart.option-pane=jfreechart
 
 # Option pane activation BeanShell snippet
-options.jfreechart.code=new org.mathrider.jfreechartplugin.JFreeChartOptionPane();
+options.jfreechart.code=new org.mathpiper.ide.jfreechartplugin.JFreeChartOptionPane();
 
 # Option pane labels
 options.jfreechart.label=jfreechart

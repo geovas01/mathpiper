@@ -22,7 +22,7 @@ package org.mathpiper.ide.maximaplugin;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.mathrider.ResponseListener;
+import org.mathpiper.ide.ResponseListener;
 import java.io.*;
 //import errorlist.*;
 import org.gjt.sp.jedit.jEdit;
@@ -69,7 +69,7 @@ public class MaximaWrapper implements Runnable
 		startMessage = getResponse();
 
 		//Add temporary files directory to maxima search path.
-		File tempFile = File.createTempFile("mathrider", ".tmp");
+		File tempFile = File.createTempFile("mathpiperide", ".tmp");
 		tempFile.deleteOnExit();
 		String searchDirectory = tempFile.getParent() + File.separator + "###.{mac,mc}";
 		searchDirectory = searchDirectory.replace("\\","/");

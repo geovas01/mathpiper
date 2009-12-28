@@ -4,22 +4,22 @@
 #{{{ Must be in order.
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.activate=startup
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.activate=startup
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.name=MathPiper
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.author=Ted Kosan
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.name=MathPiper
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.version=4.3
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.docs=index.html
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin..longdescription=description.html
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.docs=index.html
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin..longdescription=description.html
 #}}}
 
 
@@ -33,7 +33,7 @@ mathpiper.shell.msg.usage=MathPiper, a computer algebra system for beginners.
 
 
 # plugin menu
-plugin.org.mathrider.mathpiperplugin.MathPiperPlugin.menu=mathpiper
+plugin.org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.menu=mathpiper
 #	- \
 #	mathpiper.choose-file \
 #	mathpiper.save-file \
@@ -51,7 +51,7 @@ mathpiper.copy-to-buffer.label=Copy notepad to buffer
 plugin.mathpiper.option-pane=mathpiper
 
 # Option pane activation BeanShell snippet
-options.mathpiper.code=new org.mathrider.mathpiperplugin.MathPiperOptionPane();
+options.mathpiper.code=new org.mathpiper.ide.mathpiperplugin.MathPiperOptionPane();
 
 # Option pane labels
 options.mathpiper.label=mathpiper

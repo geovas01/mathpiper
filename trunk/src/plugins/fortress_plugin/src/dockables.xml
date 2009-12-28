@@ -10,6 +10,6 @@
 
 <DOCKABLES>
 	<DOCKABLE NAME="fortress">
-		new org.mathrider.fortressplugin.Fortress(view, position);
+		new org.mathpiper.ide.fortressplugin.Fortress(view, position);
 	</DOCKABLE>
 </DOCKABLES>

@@ -31,7 +31,7 @@ import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 
-import org.mathrider.hoteqn.sHotEqn;
+import org.mathpiper.ide.hoteqn.sHotEqn;
 // }}}
 
 // {{{ HotEqn class

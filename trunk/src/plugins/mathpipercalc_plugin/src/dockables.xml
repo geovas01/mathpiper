@@ -10,6 +10,6 @@
 
 <DOCKABLES>
 	<DOCKABLE NAME="mathpipercalc">
-		new org.mathrider.mathpipercalcplugin.MathPiperCalc(view, position);
+		new org.mathpiper.ide.mathpipercalcplugin.MathPiperCalc(view, position);
 	</DOCKABLE>
 </DOCKABLES>

@@ -2,6 +2,6 @@
 
 <SERVICES>
 	<!--<SERVICE CLASS="console.Shell" NAME="Piper">
-                new org.mathrider.geogebra.GeogebraShell();
+                new org.mathpiper.ide.geogebra.GeogebraShell();
         </SERVICE>-->
 </SERVICES>

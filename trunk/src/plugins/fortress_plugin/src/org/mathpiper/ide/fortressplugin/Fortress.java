@@ -29,7 +29,7 @@ import org.gjt.sp.jedit.gui.DockableWindowManager;
 import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
-import plugins.fortress_plugin.src.org.mathpiper.ide.FortressInterpreter;
+import org.mathpiper.ide.FortressInterpreter;
 
 // }}}
 

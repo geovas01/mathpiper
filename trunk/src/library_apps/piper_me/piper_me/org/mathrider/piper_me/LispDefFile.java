@@ -1,4 +1,4 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 /** LispDefFile represents one file that can be loaded just-in-time.
  */

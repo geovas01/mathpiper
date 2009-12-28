@@ -104,7 +104,7 @@ public class ModuleFactory
 	public File getModuleHomeDir()
 	{	
 		URL url = null;
-		//url = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.beansheetplugin.BeanSheetPlugin").getPluginJAR().getClassLoader().getResource("module");
+		//url = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.beansheetplugin.BeanSheetPlugin").getPluginJAR().getClassLoader().getResource("module");
 		//url = this.getClass().getClassLoader().getResource("module");
 	//url = java.lang.ClassLoader.getSystemResource("module");
 //		System.out.println("RRRRRRRR33 " + url + "  path: " + url.getPath() + " protocol: " + url.getProtocol() );
@@ -131,7 +131,7 @@ public class ModuleFactory
 		//===
 		
 //		url = this.getClass().getClassLoader().getResource("zinger/bsheet/constants.properties"); //Note:tk:
-//		//java.net.URL url = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.beansheetplugin.BeanSheetPlugin").getPluginJAR().getClassLoader().getResource("zinger/bsheet/constants.properties");
+//		//java.net.URL url = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.beansheetplugin.BeanSheetPlugin").getPluginJAR().getClassLoader().getResource("zinger/bsheet/constants.properties");
 //		
 
 		if(url == null)

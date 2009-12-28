@@ -10,6 +10,6 @@
 
 <DOCKABLES>
 	<DOCKABLE NAME="maxima">
-		new org.mathrider.maximaplugin.Maxima(view, position);
+		new org.mathpiper.ide.maximaplugin.Maxima(view, position);
 	</DOCKABLE>
 </DOCKABLES>

@@ -6,22 +6,22 @@
 <ACTIONS>
 	<ACTION NAME="maxima.choose-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.maximaplugin.MaximaPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.maximaplugin.MaximaPlugin.NAME).chooseFile();
+			wm.addDockableWindow(org.mathpiper.ide.maximaplugin.MaximaPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.maximaplugin.MaximaPlugin.NAME).chooseFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="maxima.save-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.maximaplugin.MaximaPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.maximaplugin.MaximaPlugin.NAME).saveFile();
+			wm.addDockableWindow(org.mathpiper.ide.maximaplugin.MaximaPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.maximaplugin.MaximaPlugin.NAME).saveFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="maxima.copy-to-buffer">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.maximaplugin.MaximaPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.maximaplugin.MaximaPlugin.NAME).copyToBuffer();
+			wm.addDockableWindow(org.mathpiper.ide.maximaplugin.MaximaPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.maximaplugin.MaximaPlugin.NAME).copyToBuffer();
 		</CODE>
 	</ACTION>
 </ACTIONS>

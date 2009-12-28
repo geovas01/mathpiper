@@ -251,7 +251,7 @@ This file is part of the HotEqn package.
 
 // **** localWidth u. localHeight nur bei getPreferredSize() zurückgeben
 
-package org.mathrider.hoteqn;
+package org.mathpiper.ide.hoteqn;
 
 // package bHotEqn;  // for Bean-compilation to avoid double filenames
 

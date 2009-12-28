@@ -1,5 +1,5 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
-package org.mathrider.mathpiperplugin;
+package org.mathpiper.ide.mathpiperplugin;
 
 import org.gjt.sp.jedit.*;
 import org.gjt.sp.jedit.gui.DockableWindowManager;
@@ -18,7 +18,7 @@ public class MathPiperPlugin extends EditPlugin implements EBComponent{
 	public void start()
 	{
 		
-		//jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
+		//jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
 		//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "mathpiper" );
 		//System.out.println("************************************************MathPiper plugin started...");
 		EditBus.addToBus(this);
@@ -31,7 +31,7 @@ public class MathPiperPlugin extends EditPlugin implements EBComponent{
 		//System.out.println("************************************************MathPiper plugin received editor message... "+ msg);
 		if (msg instanceof org.gjt.sp.jedit.msg.EditorStarted) {
 			//System.out.println("************************************************MathPiper plugin received editor started message...");
-			jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
+			jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
 		}//*/
 
 	}

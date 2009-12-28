@@ -6,9 +6,9 @@ import org.gjt.sp.jedit.bsh.EvalError;
 error = "none";
 
 //Note: tempory test file
-//sourceFile = new File("c:/ted/checkouts/mathrider/src/examples/experimental/test.asm");
+//sourceFile = new File("c:/ted/checkouts/mathpiperide/src/examples/experimental/test.asm");
 try {
-            inputStream = new FileReader("c:/ted/checkouts/mathrider/src/examples/experimental/test.asm");
+            inputStream = new FileReader("c:/ted/checkouts/mathpiperide/src/examples/experimental/test.asm");
 
 //            int c;
 //            while ((c = inputStream.read()) != -1) {
@@ -3118,7 +3118,7 @@ bsh.args = new String[] {"one","two"};
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=custom:collapseFolds=1:
 
      %error 
-      Sourced file: C:\DOCUME~1\Ted\LOCALS~1\Temp\mathrider45696.mws_tmp : TargetError throw new EvalError ( "hello" , null , null ) ;  Line: 169
+      Sourced file: C:\DOCUME~1\Ted\LOCALS~1\Temp\mathpiperide45696.mws_tmp : TargetError throw new EvalError ( "hello" , null , null ) ;  Line: 169
      %end
 
      %end

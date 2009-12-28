@@ -20,7 +20,7 @@ public class JFreeChartPlugin extends EditPlugin implements EBComponent{
 	{
 		chartPanel = new ChartPanel();
 		
-		//jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
+		//jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
 		//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "mathpiper" );
 		//System.out.println("************************************************MathPiper plugin started...");
 		

@@ -1,6 +1,6 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
-import org.mathrider.piper_me.arithmetic.BigNumber;
+import org.mathpiper.ide.piper_me.arithmetic.BigNumber;
 
 class LispNumber extends LispObject
 {

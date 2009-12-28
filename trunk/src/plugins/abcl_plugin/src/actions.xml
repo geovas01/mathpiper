@@ -6,22 +6,22 @@
 <ACTIONS>
 	<ACTION NAME="abcl.choose-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.abclplugin.ABCLPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.abclplugin.ABCLPlugin.NAME).chooseFile();
+			wm.addDockableWindow(org.mathpiper.ide.abclplugin.ABCLPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.abclplugin.ABCLPlugin.NAME).chooseFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="abcl.save-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.abclplugin.ABCLPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.abclplugin.ABCLPlugin.NAME).saveFile();
+			wm.addDockableWindow(org.mathpiper.ide.abclplugin.ABCLPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.abclplugin.ABCLPlugin.NAME).saveFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="abcl.copy-to-buffer">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.abclplugin.ABCLPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.abclplugin.ABCLPlugin.NAME).copyToBuffer();
+			wm.addDockableWindow(org.mathpiper.ide.abclplugin.ABCLPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.abclplugin.ABCLPlugin.NAME).copyToBuffer();
 		</CODE>
 	</ACTION>
 </ACTIONS>

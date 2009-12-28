@@ -20,7 +20,7 @@ public class ThreeDXplorMathJPlugin extends EditPlugin implements EBComponent{
 	{
 		
 		
-		//jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
+		//jEdit.getActiveView().getDockableWindowManager().addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
 		//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "mathpiper" );
 		//System.out.println("************************************************MathPiper plugin started...");
 		

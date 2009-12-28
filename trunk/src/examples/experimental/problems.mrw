@@ -276,7 +276,7 @@ demonstration.
 %beanshell
 import java.io.*;
 //Print the contents of the Piper script zip file.
- instance = org.mathrider.jpiperplugin.JPiperInterpreter.getInstance();
+ instance = org.mathpiper.ide.jpiperplugin.JPiperInterpreter.getInstance();
  scriptZip = instance.getScriptsZip();
  entries = scriptZip.entries();
  
@@ -493,7 +493,7 @@ P2D_GeoGebra(data);
     
 
 %piper,output="latex"
-    /* This is a great example problem to use in MathRider.
+    /* This is a great example problem to use in MathPiperIDE.
     1) Enter expression.
     2) If it is a complicated expression, view it in LaTeX form to make sure it has been entered
     correctly.  In this problem, if parentheses are not placed around the exponents then then the
@@ -1053,7 +1053,7 @@ contentPane.add(guiBox,BorderLayout.NORTH);
 contentPane.add(he);
 frame.pack();
 frame.setAlwaysOnTop(true);
-frame.setTitle("MathRider");
+frame.setTitle("MathPiperIDE");
 frame.setSize(new Dimension(250, 200));
 frame.setResizable(true);
 frame.setPreferredSize(new Dimension(250, 200));

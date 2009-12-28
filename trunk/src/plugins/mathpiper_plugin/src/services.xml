@@ -2,6 +2,6 @@
 
 <SERVICES>
 	<SERVICE CLASS="console.Shell" NAME="MathPiper">
-                new org.mathrider.mathpiperplugin.MathPiperShell();
+                new org.mathpiper.ide.mathpiperplugin.MathPiperShell();
         </SERVICE>
 </SERVICES>

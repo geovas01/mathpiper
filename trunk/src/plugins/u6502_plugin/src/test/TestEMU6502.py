@@ -1,6 +1,6 @@
 import unittest
-import org.mathrider.u6502.EMU6502 as EMU6502
-import org.mathrider.u6502.UASM65 as UASM65
+import org.mathpiper.ide.u6502.EMU6502 as EMU6502
+import org.mathpiper.ide.u6502.UASM65 as UASM65
 import java.lang.System as System
 
 class TestEMU6502(unittest.TestCase): #junit.framework.TestCase, 

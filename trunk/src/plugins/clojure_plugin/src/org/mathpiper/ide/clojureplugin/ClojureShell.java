@@ -46,13 +46,13 @@ import clojure.lang.RT;
 import clojure.lang.Symbol;
 import clojure.lang.Var;
 
-//import org.mathrider.clojureplugin.ClojureInterpreter;
-//import org.mathrider.piper.LispOutput;
+//import org.mathpiper.ide.clojureplugin.ClojureInterpreter;
+//import org.mathpiper.ide.piper.LispOutput;
 
 public class ClojureShell extends Shell
 {
 
-	public ClojureShell() //throws org.mathrider.clojure.Piperexception
+	public ClojureShell() //throws org.mathpiper.ide.clojure.Piperexception
 	{
 		super("Clojure");
 
@@ -70,7 +70,7 @@ public class ClojureShell extends Shell
 		//{
 		//	output.print(null, "Piper_ME version " + interpreter.evaluate("Version();") );
 		//}
-		//catch( org.mathrider.clojure.Piperexception pe )
+		//catch( org.mathpiper.ide.clojure.Piperexception pe )
 		//{
 		//	output.print(java.awt.Color.RED,pe.getMessage() );
 		//}

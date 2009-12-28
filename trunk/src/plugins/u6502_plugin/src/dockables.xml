@@ -10,6 +10,6 @@
 
 <DOCKABLES>
 	<DOCKABLE NAME="u6502">
-		new org.mathrider.u6502plugin.U6502(view, position);
+		new org.mathpiper.ide.u6502plugin.U6502(view, position);
 	</DOCKABLE>
 </DOCKABLES>

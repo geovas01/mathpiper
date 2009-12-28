@@ -6,22 +6,22 @@
 <ACTIONS>
 	<ACTION NAME="piper.choose-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.piperplugin.FortressPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.piperplugin.FortressPlugin.NAME).chooseFile();
+			wm.addDockableWindow(org.mathpiper.ide.piperplugin.FortressPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.piperplugin.FortressPlugin.NAME).chooseFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="piper.save-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.piperplugin.FortressPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.piperplugin.FortressPlugin.NAME).saveFile();
+			wm.addDockableWindow(org.mathpiper.ide.piperplugin.FortressPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.piperplugin.FortressPlugin.NAME).saveFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="piper.copy-to-buffer">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.piperplugin.FortressPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.piperplugin.FortressPlugin.NAME).copyToBuffer();
+			wm.addDockableWindow(org.mathpiper.ide.piperplugin.FortressPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.piperplugin.FortressPlugin.NAME).copyToBuffer();
 		</CODE>
 	</ACTION>
 </ACTIONS>

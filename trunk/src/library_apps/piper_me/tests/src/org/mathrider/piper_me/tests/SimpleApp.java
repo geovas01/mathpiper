@@ -1,8 +1,8 @@
-package org.mathrider.piper_me.tests;
+package org.mathpiper.ide.piper_me.tests;
 
-import org.mathrider.piper_me.DefaultFileLocator;
-import org.mathrider.piper_me.PiperInterpreter;
-import org.mathrider.piper_me.Piperexception;
+import org.mathpiper.ide.piper_me.DefaultFileLocator;
+import org.mathpiper.ide.piper_me.PiperInterpreter;
+import org.mathpiper.ide.piper_me.Piperexception;
 
 public class SimpleApp {
   public static void main(String[] args) {

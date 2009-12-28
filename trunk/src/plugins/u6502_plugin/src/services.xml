@@ -3,7 +3,7 @@
 <SERVICES>
 	<!--
 	<SERVICE CLASS="console.Shell" NAME="U6502">
-                new org.mathrider.u6502plugin.U6502Shell();
+                new org.mathpiper.ide.u6502plugin.U6502Shell();
         </SERVICE>
 	-->
 </SERVICES>

@@ -10,6 +10,6 @@
 
 <DOCKABLES>
 	<DOCKABLE NAME="hoteqn">
-		new org.mathrider.hoteqnplugin.HotEqn(view, position);
+		new org.mathpiper.ide.hoteqnplugin.HotEqn(view, position);
 	</DOCKABLE>
 </DOCKABLES>

@@ -1,7 +1,7 @@
-package org.mathrider.piper_me.tests;
+package org.mathpiper.ide.piper_me.tests;
 
-import org.mathrider.piper_me.DefaultFileLocator;
-import org.mathrider.piper_me.PiperInterpreter;
+import org.mathpiper.ide.piper_me.DefaultFileLocator;
+import org.mathpiper.ide.piper_me.PiperInterpreter;
 
 public class PiperTest  
 {
@@ -64,7 +64,7 @@ public class PiperTest
 		{
 			e.printStackTrace();
 		}
-		catch(org.mathrider.piper_me.Piperexception e)
+		catch(org.mathpiper.ide.piper_me.Piperexception e)
 		{
 			e.printStackTrace();
 		}//end try/catch.
@@ -78,7 +78,7 @@ public class PiperTest
 		  
 		  Execute with a command line similar to the following:
 		  
-		    java -cp .;../dist/piper.jar org.mathrider.piper.tests.PiperTest
+		    java -cp .;../dist/piper.jar org.mathpiper.ide.piper.tests.PiperTest
 		*/
 		
 		String directory;

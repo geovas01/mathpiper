@@ -10,6 +10,6 @@
 
 <DOCKABLES>
 	<DOCKABLE NAME="mathpiperdocs">
-		new org.mathrider.mathpiperdocsplugin.MathPiperDocs(view, position);
+		new org.mathpiper.ide.mathpiperdocsplugin.MathPiperDocs(view, position);
 	</DOCKABLE>
 </DOCKABLES>

@@ -1,4 +1,4 @@
-package org.mathrider.piper_me.arithmetic;
+package org.mathpiper.ide.piper_me.arithmetic;
 
 /*
 (C) Oliver Glier 2008. This file belongs to Piper-ME/XPiper, which
@@ -14,7 +14,7 @@ Piper-ME/XPiper due to its reliance of the original Yacas code.
 */
 
 
-import org.mathrider.piper_me.arithmetic.oldImpl.*;
+import org.mathpiper.ide.piper_me.arithmetic.oldImpl.*;
 
 
 //! Base class for Piper Numbers

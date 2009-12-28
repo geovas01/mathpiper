@@ -1,10 +1,10 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 
 /**
  * Use this class in order to access the Piper interpreter from an external application.
  * Usage:
- * import org.mathrider.piper.PiperInterpreter;
+ * import org.mathpiper.ide.piper.PiperInterpreter;
  * PiperInterpreter interpreter = new PiperInterpreter();
  * String output1 = interpreter.Evaluate("a := 5");
  * String output2 = interpreter.Evaluate("Solve(x*x == a, x)");

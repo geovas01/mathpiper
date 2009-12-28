@@ -3,22 +3,22 @@
 #{{{ 
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.activate=defer
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin.activate=defer
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.name=BeanSheet
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.author=Ted Kosan
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin.name=BeanSheet
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.version=4.3
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.docs=index.html
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin..longdescription=description.html
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin.docs=index.html
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin..longdescription=description.html
 #}}}
 
 
@@ -42,7 +42,7 @@ beansheet.shell.msg.usage=The Ant shell supports the following commands:\n\
 
 
 # plugin menu
-plugin.org.mathrider.beansheetplugin.BeanSheetPlugin.menu=beansheet \
+plugin.org.mathpiper.ide.beansheetplugin.BeanSheetPlugin.menu=beansheet \
 	- \
 	beansheet.clear \
 	beansheet.save-file \
@@ -62,7 +62,7 @@ beansheet.copy-to-buffer.label=Copy notepad to buffer
 plugin.beansheet.option-pane=beansheet
 
 # Option pane activation BeanShell snippet
-options.beansheet.code=new org.mathrider.beansheetplugin.BeanSheetOptionPane();
+options.beansheet.code=new org.mathpiper.ide.beansheetplugin.BeanSheetOptionPane();
 
 # Option pane labels
 options.beansheet.label=beansheet

@@ -19,9 +19,9 @@ import console.ConsolePane;
 import console.Output;
 import console.Shell;
 //import org.fortress.interpreters.EvaluationResponse;
-//import org.mathrider.fortressplugin.FortressInterpreter;
+//import org.mathpiper.ide.fortressplugin.FortressInterpreter;
 import java.util.Map;
-//import org.mathrider.piper.LispOutput;
+//import org.mathpiper.ide.piper.LispOutput;
 
 public class FortressShell extends Shell
 {

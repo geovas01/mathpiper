@@ -64,7 +64,7 @@ This file is part of the HotEqn package.
 *                                                                            *
 *****************************************************************************/
 
-package org.mathrider.hoteqn;
+package org.mathpiper.ide.hoteqn;
 
 //package bHotEqn;
 

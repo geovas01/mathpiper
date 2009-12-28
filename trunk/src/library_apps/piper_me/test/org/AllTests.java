@@ -1,7 +1,7 @@
 package org;
 
 import org.eninom.collection.mutable.HashMapTest;
-import org.mathrider.piper_me.AllPiperMETests;
+import org.mathpiper.ide.piper_me.AllPiperMETests;
 
 import junit.framework.*;
 import junit.textui.*;
