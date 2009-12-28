@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.mathpiperplugin;
+package org.mathpiper.ide.mathpiperplugin;
 
 // {{{ imports
 import java.awt.BorderLayout;
@@ -29,7 +29,7 @@ import org.gjt.sp.jedit.gui.DockableWindowManager;
 import org.gjt.sp.jedit.msg.PropertiesChanged;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
-import org.mathrider.mathpiperplugin.MathPiperInterpreter;
+import org.mathpiper.ide.mathpiperplugin.MathPiperInterpreter;
 import org.mathpiper.ui.gui.consoles.Console;
 
 // }}}

@@ -1,4 +1,4 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 
-public class DefaultFileLocator implements org.mathrider.piper_me.FileLocator, org.mathrider.piper_me.OutputFileLocator  
+public class DefaultFileLocator implements org.mathpiper.ide.piper_me.FileLocator, org.mathpiper.ide.piper_me.OutputFileLocator  
 {
   public InputStream getStream(String name) {
     InputStream is = getClass().getResourceAsStream(name);

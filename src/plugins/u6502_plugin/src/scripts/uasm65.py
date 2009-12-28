@@ -492,7 +492,7 @@ XXX XXX 00 0 0
 #dirpath = os.getcwd()
 
 #source_filename = sys.argv[-1]
-source_filename="/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/test.asm"
+source_filename="/ted/checkouts/mathpiperide/src/plugins/u6502_plugin/src/scripts/test.asm"
 
 #Note: add source filename checking code here.
 

@@ -36,7 +36,7 @@ obligated to do so.  If you do not wish to do so, delete this
 exception statement from your version. */
 
 
-package org.mathrider.piper_me.arithmetic.oldImpl;
+package org.mathpiper.ide.piper_me.arithmetic.oldImpl;
 
 
 /**

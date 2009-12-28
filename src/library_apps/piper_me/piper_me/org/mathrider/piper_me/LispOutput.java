@@ -1,4 +1,4 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 /** \class LispOutput : interface an output object should adhere to.
  */

@@ -248,13 +248,13 @@ This file is part of the HotEqn package.
 *             Thanks to Markus Schlicht                                      * 
 *****************************************************************************/
 
-package org.mathrider.hoteqn;
+package org.mathpiper.ide.hoteqn;
 
 // **** localWidth u. localHeight nur bei getPreferredSize() zurückgeben
 
 // package bHotEqn;  // for Bean-compilation to avoid double filenames
 
-import org.mathrider.hoteqn.*;
+import org.mathpiper.ide.hoteqn.*;
 import java.util.*;
 //changed 13.10.2002 //import java.awt.*; 
 import java.awt.image.*; 

@@ -1,4 +1,4 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 final class StringIntern
 {

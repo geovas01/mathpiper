@@ -1,6 +1,6 @@
 //Copyright (C) 2008 Ted Kosan (license information is at the end of this document.)
 
-package org.mathrider.mathpiperplugin;
+package org.mathpiper.ide.mathpiperplugin;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

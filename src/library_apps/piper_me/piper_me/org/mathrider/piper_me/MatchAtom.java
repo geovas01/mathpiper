@@ -1,4 +1,4 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 
 /// Class for matching an expression to a given atom.

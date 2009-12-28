@@ -47,7 +47,7 @@ public class ABCLShell extends Shell
 	private static ScriptEngine interpreter;
 	//private static Interpreter interpreter;
 
-	public ABCLShell() //throws org.mathrider.abcl.Piperexception
+	public ABCLShell() //throws org.mathpiper.ide.abcl.Piperexception
 	{
 		super("ABCL");
 		getInterpreter();
@@ -80,7 +80,7 @@ public class ABCLShell extends Shell
 		//{
 		//	output.print(null, "Piper_ME version " + interpreter.evaluate("Version();") );
 		//}
-		//catch( org.mathrider.abcl.Piperexception pe )
+		//catch( org.mathpiper.ide.abcl.Piperexception pe )
 		//{
 		//	output.print(java.awt.Color.RED,pe.getMessage() );
 		//}

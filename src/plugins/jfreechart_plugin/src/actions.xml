@@ -6,22 +6,22 @@
 <ACTIONS>
 	<ACTION NAME="jfreechart.choose-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME).chooseFile();
+			wm.addDockableWindow(org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.NAME).chooseFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="jfreechart.save-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME).saveFile();
+			wm.addDockableWindow(org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.NAME).saveFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="jfreechart.copy-to-buffer">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.jfreechartplugin.JFreeChartPlugin.NAME).copyToBuffer();
+			wm.addDockableWindow(org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.NAME).copyToBuffer();
 		</CODE>
 	</ACTION>
 </ACTIONS>

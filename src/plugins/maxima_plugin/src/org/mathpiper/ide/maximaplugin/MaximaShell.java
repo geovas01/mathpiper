@@ -19,9 +19,9 @@ import console.ConsolePane;
 import console.Output;
 import console.Shell;
 
-import plugins.maxima_plugin.src.org.mathpiper.ide.MaximaWrapper;
+import org.mathpiper.ide.MaximaWrapper;
 
-public class MaximaShell extends Shell implements org.mathrider.ResponseListener
+public class MaximaShell extends Shell implements org.mathpiper.ide.ResponseListener
 {
 	private MaximaWrapper maxima;
 	private String maximaStartMessage;

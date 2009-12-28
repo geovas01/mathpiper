@@ -1,3 +1,3 @@
-MathRider README
+MathPiperIDE README
 
 In development.

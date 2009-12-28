@@ -1,4 +1,4 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 
 // new-style evaluator, passing arguments onto the stack in LispEnvironment

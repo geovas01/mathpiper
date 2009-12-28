@@ -251,10 +251,10 @@
 <MODE NAME="mathpipertrace"		FILE="mathpipertrace.xml"
 				FILE_NAME_GLOB="*.{mpr}" />
                 
-<MODE NAME="mathrider"		FILE="mathrider.xml"
+<MODE NAME="mathpiperide"		FILE="mathpiperide.xml"
 				FILE_NAME_GLOB="*.mrw" />
                 
-<MODE NAME="mathrideroutput" FILE="mathrideroutput.xml"
+<MODE NAME="mathpiperideoutput" FILE="mathpiperideoutput.xml"
 				FILE_NAME_GLOB="" />
 
 <MODE NAME="ml"			FILE="ml.xml"

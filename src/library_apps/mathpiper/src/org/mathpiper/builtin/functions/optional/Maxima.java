@@ -90,7 +90,7 @@ public class Maxima extends BuiltinFunction {
 
 
     /*//Add temporary files directory to maxima search path.
-    File tempFile = File.createTempFile("mathrider", ".tmp");
+    File tempFile = File.createTempFile("mathpiperide", ".tmp");
     tempFile.deleteOnExit();
     String searchDirectory = tempFile.getParent() + File.separator + "###.{mac,mc}";
     searchDirectory = searchDirectory.replace("\\","/");

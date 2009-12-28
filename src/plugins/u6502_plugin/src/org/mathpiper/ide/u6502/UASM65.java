@@ -202,8 +202,8 @@ public class UASM65
 
 
 
-		//source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/src/scripts/test.asm");
-		//source_file = new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/uasm_source/umon65/umon65muvium.uasm");
+		//source_file = new File("c:/ted/checkouts/mathpiperide/src/plugins/u6502_plugin/src/scripts/test.asm");
+		//source_file = new File("c:/ted/checkouts/mathpiperide/src/plugins/u6502_plugin/uasm_source/umon65/umon65muvium.uasm");
 
 		initialize();
 
@@ -3861,7 +3861,7 @@ public class UASM65
 		String userDir = System.getProperty("user.dir");
 		String sourceFile = userDir + File.separator + source_file_name;
 		assem.assemble(new File(sourceFile));
-		//assem.assemble(new File("c:/ted/checkouts/mathrider/src/plugins/u6502_plugin/uasm_source/umon65/umon65muvium.uasm") );
+		//assem.assemble(new File("c:/ted/checkouts/mathpiperide/src/plugins/u6502_plugin/uasm_source/umon65/umon65muvium.uasm") );
 
 	}//}}}
 

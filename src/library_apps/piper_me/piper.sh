@@ -1,1 +1,1 @@
-java -cp dist/lib/piper-me.jar:dist/lib/piper-x.jar org.mathrider.piper_me.PiperConsole
+java -cp dist/lib/piper-me.jar:dist/lib/piper-x.jar org.mathpiper.ide.piper_me.PiperConsole

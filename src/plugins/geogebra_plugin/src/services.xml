@@ -3,7 +3,7 @@
 <SERVICES>
 	<!--
 	<SERVICE CLASS="console.Shell" NAME="Piper">
-                new org.mathrider.geogebra.GeoGebraShell();
+                new org.mathpiper.ide.geogebra.GeoGebraShell();
         </SERVICE>
 	-->
 </SERVICES>

@@ -4,22 +4,22 @@
 #{{{ Must be in order.
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.activate=startup
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin.activate=startup
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.name=ThreeDXplorMathJ
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.author=Ted Kosan
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin.name=ThreeDXplorMathJ
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.version=4.3
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.docs=index.html
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin..longdescription=description.html
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin.docs=index.html
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin..longdescription=description.html
 #}}}
 
 
@@ -33,7 +33,7 @@ threedxplormathj.shell.msg.usage=ThreeDXplorMathJ, a computer algebra system for
 
 
 # plugin menu
-plugin.org.mathrider.threedxplormathjplugin.ThreeDXplorMathJPlugin.menu=threedxplormathj
+plugin.org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJPlugin.menu=threedxplormathj
 #	- \
 #	piper.choose-file \
 #	piper.save-file \
@@ -51,7 +51,7 @@ threedxplormathj.copy-to-buffer.label=Copy notepad to buffer
 plugin.threedxplormathj.option-pane=threedxplormathj
 
 # Option pane activation BeanShell snippet
-options.threedxplormathj.code=new org.mathrider.threedxplormathjplugin.ThreeDXplorMathJOptionPane();
+options.threedxplormathj.code=new org.mathpiper.ide.threedxplormathjplugin.ThreeDXplorMathJOptionPane();
 
 # Option pane labels
 options.threedxplormathj.label=threedxplormathj

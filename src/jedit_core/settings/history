@@ -1,8 +1,8 @@
 [vfs.browser.path]
-C:\\ted\\checkouts\\mathrider\\src\\examples
-C:\\ted\\checkouts\\mathrider\\src
-C:\\ted\\checkouts\\mathrider
-C:\\ted\\checkouts\\mathrider\\build\\mathrider_core
+C:\\ted\\checkouts\\mathpiperide\\src\\examples
+C:\\ted\\checkouts\\mathpiperide\\src
+C:\\ted\\checkouts\\mathpiperide
+C:\\ted\\checkouts\\mathpiperide\\build\\mathpiperide_core
 [vfs.browser.filter]
 *\[^~#\]
 [action]
@@ -27,12 +27,12 @@ log-viewer
 console
 error-list-show
 [console.Piper]
-Load(\"/ted/checkouts/mathrider/src/examples/Plot2D.pi\");
-Load(\"/ted/checkouts/mathrider/src/examples/loop.pi\");
-Load(\"/ted/checkouts/mathrider/src/examples/ForEach.pi\");
-Load(\"/ted/checkouts/mathrider/src/examples/compute.pi\");
+Load(\"/ted/checkouts/mathpiperide/src/examples/Plot2D.pi\");
+Load(\"/ted/checkouts/mathpiperide/src/examples/loop.pi\");
+Load(\"/ted/checkouts/mathpiperide/src/examples/ForEach.pi\");
+Load(\"/ted/checkouts/mathpiperide/src/examples/compute.pi\");
 3+5
-Load(\"/ted/checkouts/mathrider/src/examples/test2.pi\");
+Load(\"/ted/checkouts/mathpiperide/src/examples/test2.pi\");
 [clipboard]
 //Press <shift><enter> in this window to run me.
 Plot2D(Sin(x)/x,-10:10)

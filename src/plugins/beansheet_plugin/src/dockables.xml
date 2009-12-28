@@ -10,6 +10,6 @@
 
 <DOCKABLES>
 	<DOCKABLE NAME="beansheet">
-		new org.mathrider.beansheetplugin.BeanSheet(view, position);
+		new org.mathpiper.ide.beansheetplugin.BeanSheet(view, position);
 	</DOCKABLE>
 </DOCKABLES>

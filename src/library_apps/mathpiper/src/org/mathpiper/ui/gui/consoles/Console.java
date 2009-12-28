@@ -141,7 +141,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         textPane.append(Color.BLACK, "\nIn> ");
         textPane.setCaretPosition(textPane.getDocument().getLength());
 
-        //java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
+        //java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 
         //bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
         //bitstreamVera = bitstreamVera.deriveFont(fontSize);

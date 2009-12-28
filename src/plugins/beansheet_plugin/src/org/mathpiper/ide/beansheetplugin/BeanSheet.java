@@ -218,8 +218,8 @@ public class BeanSheet extends JPanel
 //		try
 //		{
 //			//Note: this is in development mode.  Switch comment to other line for distribution.
-//			java.net.URL docsURL = jEdit.getPlugin("org.mathrider.beansheetplugin.BeanSheetPlugin").getPluginJAR().getClassLoader().getResource("scripts/Piper_Docs.bsh");
-//			//java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathrider/src/plugins/bean_sheet_plugin/src/scripts/Piper_Docs.bsh");
+//			java.net.URL docsURL = jEdit.getPlugin("org.mathpiper.ide.beansheetplugin.BeanSheetPlugin").getPluginJAR().getClassLoader().getResource("scripts/Piper_Docs.bsh");
+//			//java.net.URL docsURL =new java.net.URL( "file:///C:/ted/checkouts/mathpiperide/src/plugins/bean_sheet_plugin/src/scripts/Piper_Docs.bsh");
 //
 //			
 //			//System.out.println("YYYYY2: " + helpURL.toString());

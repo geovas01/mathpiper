@@ -1,10 +1,10 @@
-package org.mathrider.piper_me.arithmetic.oldImpl;
+package org.mathpiper.ide.piper_me.arithmetic.oldImpl;
 
 
   import org.eninom.numerics.*;
-  import org.mathrider.piper_me.LispError;
+  import org.mathpiper.ide.piper_me.LispError;
 
-  import org.mathrider.piper_me.arithmetic.*;
+  import org.mathpiper.ide.piper_me.arithmetic.*;
   
   public class YacasBigNumber extends BigNumber
   {

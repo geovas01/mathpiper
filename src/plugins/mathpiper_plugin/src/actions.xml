@@ -6,22 +6,22 @@
 <ACTIONS>
 	<ACTION NAME="piper.choose-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.piperplugin.MathPiperPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.piperplugin.MathPiperPlugin.NAME).chooseFile();
+			wm.addDockableWindow(org.mathpiper.ide.piperplugin.MathPiperPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.piperplugin.MathPiperPlugin.NAME).chooseFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="piper.save-file">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.piperplugin.MathPiperPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.piperplugin.MathPiperPlugin.NAME).saveFile();
+			wm.addDockableWindow(org.mathpiper.ide.piperplugin.MathPiperPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.piperplugin.MathPiperPlugin.NAME).saveFile();
 		</CODE>
 	</ACTION>
 
 	<ACTION NAME="piper.copy-to-buffer">
 		<CODE>
-			wm.addDockableWindow(org.mathrider.piperplugin.MathPiperPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.piperplugin.MathPiperPlugin.NAME).copyToBuffer();
+			wm.addDockableWindow(org.mathpiper.ide.piperplugin.MathPiperPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.piperplugin.MathPiperPlugin.NAME).copyToBuffer();
 		</CODE>
 	</ACTION>
 </ACTIONS>

@@ -1,4 +1,4 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 /** subst behaviour for backquote mechanism as in LISP.
  * When typing `(...) all occurrences of @a will be

@@ -4,22 +4,22 @@
 #{{{ Must be in order.
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.abclplugin.ABCLPlugin.activate=defer
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin.activate=defer
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.abclplugin.ABCLPlugin.name=ABCL
-plugin.org.mathrider.abclplugin.ABCLPlugin.author=Ted Kosan
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin.name=ABCL
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.abclplugin.ABCLPlugin.version=4.3
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.abclplugin.ABCLPlugin.docs=index.html
-plugin.org.mathrider.abclplugin.ABCLPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.abclplugin.ABCLPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.abclplugin.ABCLPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.abclplugin.ABCLPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.abclplugin.ABCLPlugin..longdescription=description.html
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin.docs=index.html
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin..longdescription=description.html
 #}}}
 
 
@@ -33,7 +33,7 @@ abcl.shell.msg.usage=ABCL, a computer algebra system for beginners.
 
 
 # plugin menu
-plugin.org.mathrider.abclplugin.ABCLPlugin.menu=abcl
+plugin.org.mathpiper.ide.abclplugin.ABCLPlugin.menu=abcl
 #	- \
 #	piper.choose-file \
 #	piper.save-file \
@@ -51,7 +51,7 @@ abcl.copy-to-buffer.label=Copy notepad to buffer
 plugin.abcl.option-pane=abcl
 
 # Option pane activation BeanShell snippet
-options.abcl.code=new org.mathrider.abclplugin.ABCLOptionPane();
+options.abcl.code=new org.mathpiper.ide.abclplugin.ABCLOptionPane();
 
 # Option pane labels
 options.abcl.label=abcl

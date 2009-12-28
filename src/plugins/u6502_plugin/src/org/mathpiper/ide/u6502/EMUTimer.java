@@ -43,7 +43,7 @@ public class EMUTimer extends JPanel implements IOChip
 		
 		this.setLayout(new BorderLayout());
 
-		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
+		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 		try
 		{
 			bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);

@@ -1,4 +1,4 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 
 import java.io.*;
@@ -140,7 +140,7 @@ public class PiperConsole extends Thread implements FileLocator, OutputFileLocat
 
     System.out.println("\nPiper version '" + CVersion.version + "'.");
 
-    System.out.println("See http://mathrider.org for more information and documentation on Piper.");
+    System.out.println("See http://mathpiperide.org for more information and documentation on Piper.");
 
     System.out.println("\nTo exit Piper, enter \"Exit()\" or \"exit\" or \"quit\" or Ctrl-c.\n");
 /*TODO fixme

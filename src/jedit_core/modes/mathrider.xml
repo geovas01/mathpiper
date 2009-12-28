@@ -45,7 +45,7 @@
 			<END>%/mathpiper</END>
 		</SPAN_REGEXP>
 
-		<SPAN_REGEXP  TYPE="MARKUP" DELEGATE="mathrideroutput::MAIN">
+		<SPAN_REGEXP  TYPE="MARKUP" DELEGATE="mathpiperideoutput::MAIN">
 			<BEGIN>%output[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
 			<END>%/output</END>
 		</SPAN_REGEXP>

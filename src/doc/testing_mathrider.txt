@@ -1,8 +1,8 @@
-Evaluating MathRider.
+Evaluating MathPiperIDE.
 
 1) Make sure you have a current version of Java (Java 6) installed (http://java.com).
 
-2) Download the mathrider_xxx_dist_.xx.zip file and extract it.
+2) Download the mathpiperide_xxx_dist_.xx.zip file and extract it.
 
 3) Run the application by executing the windows_run.bat script or the run.sh
 script.
@@ -19,8 +19,8 @@ enter expressions and execute them by pressing <enter>.
 the cursor in a window and pressing <shift><enter>.  The output will
 be displayed in the Piper console window.
 
-3) The most interesting files are MathRider worksheet files (which are the
-ones that end with a .mws extension).  MathRider worksheets consist of "folds" 
+3) The most interesting files are MathPiperIDE worksheet files (which are the
+ones that end with a .mws extension).  MathPiperIDE worksheets consist of "folds" 
 which contain different types of code that can be executed by pressing 
 <shift><enter> inside of a fold.  Select the worksheet_demo_1.mws window and 
 follow the instructions which are present within the comments it contains.
@@ -28,7 +28,7 @@ follow the instructions which are present within the comments it contains.
 
 
 For the rest of the testing you are going to need to use your
-imagination and try to envision what MathRider can become as opposed
+imagination and try to envision what MathPiperIDE can become as opposed
 to what it currently is.
 
 Plugins:
@@ -72,10 +72,10 @@ The future (more imagination needed).
 the "Plugin manager" menu.  When it comes up, select the "Install" tab
 and wait for a few moments.  A list of programmer-oriented plugins
 will appear that can be downloaded from the Internet and plugged into
-MathRider.  Click on any plugin's name to read about what it does.
+MathPiperIDE.  Click on any plugin's name to read about what it does.
 Now, imagine that these programmer-oriented plugins were replaced by
 dozens of mathematics-oriented plugins.  This is one part of the
-vision for MathRider.
+vision for MathPiperIDE.
 
 2) Just for fun, select the CharacterMap plugin by checking its
 checkbox and install it by pressing the "Install" button.  After it is
@@ -84,7 +84,7 @@ the CharacterMap plugin in the "Plugins" menu, launch it, and
 experiment with docking it.
 
 Finally, whatever configuration the plugins are in when you close
-MathRider, they will be preserved when it is launched again.
+MathPiperIDE, they will be preserved when it is launched again.
 
 
 

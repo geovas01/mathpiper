@@ -162,7 +162,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		Box guiBox = new Box(BoxLayout.Y_AXIS);
 		typeArea = new JTextArea(30,20);
 
-		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
+		java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 		try
 		{
 			bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
@@ -243,7 +243,7 @@ public class EMU6551 extends javax.swing.JPanel implements IOChip, ActionListene
 		Box guiBox = new Box(BoxLayout.Y_AXIS);
 		typeArea = new JTextArea(30,20);
 
-		//java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathrider.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
+		//java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 
 			//bitstreamVera = Font.createFont (Font.TRUETYPE_FONT, inputStream);
 			//bitstreamVera = bitstreamVera.deriveFont(fontSize);

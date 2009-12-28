@@ -4,22 +4,22 @@
 #{{{ Must be in order.
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.clojureplugin.ClojurePlugin.activate=defer
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin.activate=defer
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.clojureplugin.ClojurePlugin.name=Clojure
-plugin.org.mathrider.clojureplugin.ClojurePlugin.author=Ted Kosan
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin.name=Clojure
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.clojureplugin.ClojurePlugin.version=4.3
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin.version=4.3
 
 # online help
-plugin.org.mathrider.clojureplugin.ClojurePlugin.docs=index.html
-plugin.org.mathrider.clojureplugin.ClojurePlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.clojureplugin.ClojurePlugin.depend.1=jdk 1.5
-plugin.org.mathrider.clojureplugin.ClojurePlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.clojureplugin.ClojurePlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.clojureplugin.ClojurePlugin..longdescription=description.html
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin.docs=index.html
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin..longdescription=description.html
 #}}}
 
 
@@ -33,7 +33,7 @@ clojure.shell.msg.usage=Clojure, a computer algebra system for beginners.
 
 
 # plugin menu
-plugin.org.mathrider.clojureplugin.ClojurePlugin.menu=clojure
+plugin.org.mathpiper.ide.clojureplugin.ClojurePlugin.menu=clojure
 #	- \
 #	piper.choose-file \
 #	piper.save-file \
@@ -51,7 +51,7 @@ clojure.copy-to-buffer.label=Copy notepad to buffer
 plugin.clojure.option-pane=clojure
 
 # Option pane activation BeanShell snippet
-options.clojure.code=new org.mathrider.clojureplugin.ClojureOptionPane();
+options.clojure.code=new org.mathpiper.ide.clojureplugin.ClojureOptionPane();
 
 # Option pane labels
 options.clojure.label=clojure

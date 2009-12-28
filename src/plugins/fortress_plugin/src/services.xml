@@ -2,6 +2,6 @@
 
 <SERVICES>
 	<SERVICE CLASS="console.Shell" NAME="Fortress">
-                new org.mathrider.fortressplugin.FortressShell();
+                new org.mathpiper.ide.fortressplugin.FortressShell();
         </SERVICE>
 </SERVICES>

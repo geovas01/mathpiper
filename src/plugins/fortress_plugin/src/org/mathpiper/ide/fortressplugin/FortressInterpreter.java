@@ -2,11 +2,11 @@
 
 package org.mathpiper.ide.fortressplugin;
 
-//import org.mathrider.piper.CPiper;
-//import org.mathrider.piper.Piperexception;
+//import org.mathpiper.ide.piper.CPiper;
+//import org.mathpiper.ide.piper.Piperexception;
 
 import console.Output;
-import org.mathrider.ResponseListener;
+import org.mathpiper.ide.ResponseListener;
 import java.io.*;
 import errorlist.*;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class FortressInterpreter {
 	{
 		if(errorSource == null)
 		{
-			errorSource = new DefaultErrorSource("MathRider");
+			errorSource = new DefaultErrorSource("MathPiperIDE");
 			ErrorSource.registerErrorSource(errorSource);
 		}//end if.
 

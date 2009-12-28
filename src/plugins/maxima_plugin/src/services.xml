@@ -2,6 +2,6 @@
 
 <SERVICES>
 	<SERVICE CLASS="console.Shell" NAME="Maxima">
-                new org.mathrider.maximaplugin.MaximaShell();
+                new org.mathpiper.ide.maximaplugin.MaximaShell();
         </SERVICE>
 </SERVICES>

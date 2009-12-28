@@ -10,6 +10,6 @@
 
 <DOCKABLES>
 	<DOCKABLE NAME="abcl">
-		new org.mathrider.abclplugin.ABCL(view, position);
+		new org.mathpiper.ide.abclplugin.ABCL(view, position);
 	</DOCKABLE>
 </DOCKABLES>

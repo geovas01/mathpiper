@@ -2,9 +2,9 @@
 
 <!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
 
-<project name="mathrider" default="help" basedir="." >
+<project name="mathpiperide" default="help" basedir="." >
 	<description>
-		Main build file for the MathRider project.
+		Main build file for the MathPiperIDE project.
 	</description> 
 	
 	<!-- Misc properties -->
@@ -24,7 +24,7 @@
 	<property name="master.build.dir" value="${basedir}/build" />
 	<property name="plugins.src.dir" value="${master.src.dir}/plugins" />
 	<property name="plugins.build.dir" value="${master.build.dir}/plugins" />
-	<property name="plugins.jars.dir" value="${master.build.dir}/mathrider/jars" />
+	<property name="plugins.jars.dir" value="${master.build.dir}/mathpiperide/jars" />
 	<property name="library_apps.src.dir" value="${master.src.dir}/library_apps" />
 	<property name="library_apps.build.dir" value="${master.build.dir}/library_apps" />
 	<property name="dist.build.dir" value="${master.build.dir}/dist" />
@@ -56,7 +56,6 @@
 		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/hoteqn.jar" />
 		<pathelement path="${plugins.jars.dir}/jung2.jar" />
-		<pathelement path="${plugins.jars.dir}/mathrider_library.jar" />
 		<pathelement path="${plugins.jars.dir}/jfreechart_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/jfreechart-1.0.13.jar" />
 		<pathelement path="${plugins.jars.dir}/jcommon-1.0.16.jar" />
@@ -69,7 +68,7 @@
 	
 <!-- Targets -->
 
-	<target id="*all" name="*all" description="Builds all of mathrider from scratch." depends="clean,*mathrider,all-plugins-dist">
+	<target id="*all" name="*all" description="Builds all of mathpiperide from scratch." depends="clean,*mathpiperide,all-plugins-dist">
 	</target>
 
 	<target id="clean" name="clean" 
@@ -127,19 +126,6 @@
 	</target>
 	
 	
-	<target id="mathrider_library" name="mathrider_library" depends="init" >
-		<ant dir="${library_apps.src.dir}/mathrider" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/mathrider"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="compile.debug" value="${master.compile.debug}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/mathrider/src"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${library_apps.build.dir}/mathrider/dist/mathrider_library.jar" todir="${plugins.jars.dir}"/>
-	</target>
-	
 
 	<target id="hoteqn_library" name="hoteqn_library" depends="init" >
 		<ant dir="${library_apps.src.dir}/hoteqn" target="${target}" inheritAll="false" inheritRefs="false" >
@@ -184,7 +170,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/clojure_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -197,7 +183,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/abcl_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -266,7 +252,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/jung_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -293,7 +279,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/u6502_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -325,7 +311,7 @@
 		
 		<copy file="${plugins.build.dir}/fortress_plugin/dist/fortress_plugin.jar" todir="${plugins.jars.dir}"/> 
 		
-		<copy file="${plugins.src.dir}/fortress_plugin/fortress_unix_run.sh" todir="${master.build.dir}/mathrider"/>
+		<copy file="${plugins.src.dir}/fortress_plugin/fortress_unix_run.sh" todir="${master.build.dir}/mathpiperide"/>
 		
 	</target>
 	
@@ -335,7 +321,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/jfreechart_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -350,7 +336,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/threedxplormathj_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -365,7 +351,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/mathpipercalc_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathrider/examples"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -381,46 +367,46 @@
 	
 	
 	
-	<target name="*mathrider" depends="init" description="Creates complete mathrider application." >
+	<target name="*mathpiperide" depends="init" description="Creates complete mathpiperide application." >
 		
-		<mkdir dir="${master.build.dir}/mathrider" />
+		<mkdir dir="${master.build.dir}/mathpiperide" />
 	
 		<!-- Copy jedit image to build directory. -->
-		<copy todir="${master.build.dir}/mathrider">
+		<copy todir="${master.build.dir}/mathpiperide">
 			<fileset dir="${master.src.dir}/jedit_core" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
 		
 		
-		<!-- Set MathRider version number in the documentation. --> 
-		<delete file="${master.build.dir}/mathrider/doc/welcome.html" />
-		<copy file="${master.src.dir}/jedit_core/doc/welcome.html" todir="${master.build.dir}/mathrider/doc">
+		<!-- Set MathPiperIDE version number in the documentation. --> 
+		<delete file="${master.build.dir}/mathpiperide/doc/welcome.html" />
+		<copy file="${master.src.dir}/jedit_core/doc/welcome.html" todir="${master.build.dir}/mathpiperide/doc">
 			<filterset>
 		       	   <filter token="VERSION" value="${version}" />
 			 </filterset>
 		</copy>
 		
 		
-		<mkdir dir="${master.build.dir}/mathrider/settings/jars/geogebra_properties" />
+		<mkdir dir="${master.build.dir}/mathpiperide/settings/jars/geogebra_properties" />
 		
 		
 		<!-- Copy examples directory. -->
-		<copy todir="${master.build.dir}/mathrider/examples">
+		<copy todir="${master.build.dir}/mathpiperide/examples">
 			<fileset dir="${master.src.dir}/examples" >
 				<include name="**/*" />
 			</fileset>
 		</copy>			
 		
-		<!-- Copy plugin jars into mathrider directory. -->
-		<copy todir="${master.build.dir}/mathrider/jars">
+		<!-- Copy plugin jars into mathpiperide directory. -->
+		<copy todir="${master.build.dir}/mathpiperide/jars">
 			<fileset dir="${master.lib.dir}/jars" >
 				<include name="**/*.jar" />
 			</fileset>
 		</copy>
 		
-		<!-- Copy jedit.jar into mathrider directory. -->
-		<copy file="${master.lib.dir}/jedit.jar" todir="${master.build.dir}/mathrider"/> 
+		<!-- Copy jedit.jar into mathpiperide directory. -->
+		<copy file="${master.lib.dir}/jedit.jar" todir="${master.build.dir}/mathpiperide"/> 
 		
 		
 		<!-- Copy support scripts to jars directory -->
@@ -447,11 +433,6 @@
 		</antcall>
 		<copy file="${library_apps.build.dir}/hoteqn/dist/hoteqn.jar" todir="${plugins.jars.dir}"/>
 		
-		<antcall target="mathrider_library">
-			<param name="target" value="dist"/>
-		</antcall>
-		<copy file="${library_apps.build.dir}/mathrider/dist/mathrider_library.jar" todir="${plugins.jars.dir}"/>
-		
 		<antcall target="hoteqn_library">
 			<param name="target" value="dist"/>
 		</antcall>
@@ -468,7 +449,7 @@
 		<echo message="Making unix launch script executable."/>
 		<exec executable="chmod">
 				<arg value="+x" />
-				<arg value="${master.build.dir}/mathrider/unix_run.sh" />
+				<arg value="${master.build.dir}/mathpiperide/unix_run.sh" />
 			</exec>
 	</target>
 
@@ -510,10 +491,10 @@
 	<target name="dist_windows" depends=""
 		description="zips the application for distribution." >
 
-		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**" excludes="**/unix_run.sh"
+		<jar jarfile="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh"
 		 whenmanifestonly="skip" >
 			<manifest> 
-				<section name="MathRider" >
+				<section name="MathPiperIDE" >
 					<attribute name="Build-Date" value="${build.time}"/>
 				</section>
 			</manifest>
@@ -525,13 +506,13 @@
 		<antcall target="copy_jres">
 		</antcall> -->
 			
-		<!--<copy file="${master.src.dir}/jedit_core/win_run.bat.with_jre" tofile="${master.build.dir}/mathrider/win_run.bat" overwrite="true" />-->
+		<!--<copy file="${master.src.dir}/jedit_core/win_run.bat.with_jre" tofile="${master.build.dir}/mathpiperide/win_run.bat" overwrite="true" />-->
 		
 		<!--
-		<jar jarfile="${dist.build.dir}/mathrider_windows_dist_with_java_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathrider/**" excludes="**/unix_run.sh"
+		<jar jarfile="${dist.build.dir}/mathpiperide_windows_dist_with_java_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh"
 		 whenmanifestonly="skip" >
 			<manifest> 
-				<section name="MathRider" >
+				<section name="MathPiperIDE" >
 					<attribute name="Build-Date" value="${build.time}"/>
 				</section>
 			</manifest>
@@ -548,10 +529,10 @@
 		 <arg value="--exclude=windows"/>
 		 <arg value="--exclude=win_run.bat"/>
 		    <arg value="-cf"/>
-		    <arg value="${dist.build.dir}/mathrider_unix_mac_dist_v${version}_beta.tar.bz2"/>
+		    <arg value="${dist.build.dir}/mathpiperide_unix_mac_dist_v${version}_beta.tar.bz2"/>
 		   <arg value="-C"/>
 		    <arg value="${master.build.dir}"/>
-		    <arg value="mathrider"/>
+		    <arg value="mathpiperide"/>
 		    
 	    </exec>
 		
@@ -559,77 +540,77 @@
 	
 		
 	
-	<target name="*dist" depends="clean, *mathrider, all-plugins-dist, dist_clean, dist_unix_mac, dist_windows" >
+	<target name="*dist" depends="clean, *mathpiperide, all-plugins-dist, dist_clean, dist_unix_mac, dist_windows" >
 		
 		
-		<exec executable="md5sum"  output ="${dist.build.dir}/mathrider_unix_mac_dist_v${version}_beta.tar.bz2.md5" >
-			 <arg value="${dist.build.dir}/mathrider_unix_mac_dist_v${version}_beta.tar.bz2"/>
+		<exec executable="md5sum"  output ="${dist.build.dir}/mathpiperide_unix_mac_dist_v${version}_beta.tar.bz2.md5" >
+			 <arg value="${dist.build.dir}/mathpiperide_unix_mac_dist_v${version}_beta.tar.bz2"/>
 			
 		</exec>
 		
-		<exec executable="md5sum" output ="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip.md5" >
-			 <arg value="${dist.build.dir}/mathrider_windows_dist_v${version}_beta.zip"/>
+		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip.md5" >
+			 <arg value="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip"/>
 		 </exec>
 		
 	</target>	
 	
 	
 	<!-- 
-	chmod +x -R mathrider.
-	tar cjfp mathrider_unix_mac_dist_v.10.tar.bz2 mathrider/
+	chmod +x -R mathpiperide.
+	tar cjfp mathpiperide_unix_mac_dist_v.10.tar.bz2 mathpiperide/
 	-->
 	
 	
 	<target id="backcopy-property" name="backcopy-property" description="Copies property file from build to source directory." > 
-		<copy file="${master.build.dir}/mathrider/settings/properties" 
+		<copy file="${master.build.dir}/mathpiperide/settings/properties" 
 		todir="${master.src.dir}/jedit_core/settings"/>
 	</target>
 
 	<target id="backcopy-perspective" name="backcopy-perspective" description="Copies perspective file from build to source directory." > 
-		<copy file="${master.build.dir}/mathrider/settings/perspective.xml" 
+		<copy file="${master.build.dir}/mathpiperide/settings/perspective.xml" 
 		todir="${master.src.dir}/jedit_core/settings"/>
 	</target>
 	
 	
 	<target id="backcopy-examples" name="backcopy-examples" description="Copies examples from build to source directory." > 
 		<copy todir="${master.src.dir}/examples">
-			<fileset dir="${master.build.dir}/mathrider/examples" >
+			<fileset dir="${master.build.dir}/mathpiperide/examples" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
 	</target>
 	
 	<target id="backcopy-macros" name="backcopy-macros" description="Copies macros from build to source directory." > 
-				<copy todir="${master.src.dir}/jedit_core/macros/MathRider">
-			<fileset dir="${master.build.dir}/mathrider/macros/MathRider" >
+				<copy todir="${master.src.dir}/jedit_core/macros/MathPiperIDE">
+			<fileset dir="${master.build.dir}/mathpiperide/macros/MathPiperIDE" >
 				<include name="**/*" />
 			</fileset>
 		</copy>	
 	</target>
 	
 	<target id="backcopy-modes" name="backcopy-modes" description="Copies mode file from build to source directory." > 
-		<copy file="${master.build.dir}/mathrider/modes/mathrider.xml" 
+		<copy file="${master.build.dir}/mathpiperide/modes/mathpiperide.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 		
-		<copy file="${master.build.dir}/mathrider/modes/mathrideroutput.xml" 
+		<copy file="${master.build.dir}/mathpiperide/modes/mathpiperideoutput.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 		
-		<copy file="${master.build.dir}/mathrider/modes/mathpiper.xml" 
+		<copy file="${master.build.dir}/mathpiperide/modes/mathpiper.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 		
-		<copy file="${master.build.dir}/mathrider/modes/mathpipertrace.xml" 
+		<copy file="${master.build.dir}/mathpiperide/modes/mathpipertrace.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 		
-		<copy file="${master.build.dir}/mathrider/modes/catalog" 
+		<copy file="${master.build.dir}/mathpiperide/modes/catalog" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 		
-		<copy file="${master.build.dir}/mathrider/modes/clojure.xml" 
+		<copy file="${master.build.dir}/mathpiperide/modes/clojure.xml" 
 		todir="${master.src.dir}/jedit_core/modes"/>
 	</target>
 	
 	<target id="backcopy-support-scripts" name="backcopy-support-scripts" description="Copies support scripts from build to source directory." > 
 		<copy todir="${master.src.dir}/scripts">
-			<fileset dir="${master.build.dir}/mathrider/jars/scripts" >
+			<fileset dir="${master.build.dir}/mathpiperide/jars/scripts" >
 				<include name="**/*" />
 			</fileset>
 		</copy>	
@@ -637,7 +618,7 @@
 	
 	<target id="backcopy-startup-scripts" name="backcopy-startup-scripts" description="Copies startup scripts from build to source directory." > 
 		<copy todir="${master.src.dir}/jedit_core/startup">
-			<fileset dir="${master.build.dir}/mathrider/startup" >
+			<fileset dir="${master.build.dir}/mathpiperide/startup" >
 				<include name="**/*" />
 			</fileset>
 		</copy>	
@@ -647,11 +628,11 @@
 	<target id="latex" name="latex" depends=""
 		description="Compiles newbies book." >
 		
-		<delete file="${master.src.dir}/doc/newbies_book/mathrider_for_newbies.dvi" />
+		<delete file="${master.src.dir}/doc/newbies_book/mathpiperide_for_newbies.dvi" />
 
 		<exec executable="latex">
 			<arg value="-output-directory=${master.src.dir}/doc/newbies_book" />
-			<arg value="${master.src.dir}/doc/newbies_book/mathrider_for_newbies.tex"/>
+			<arg value="${master.src.dir}/doc/newbies_book/mathpiperide_for_newbies.tex"/>
 
 		</exec>
 
@@ -663,7 +644,7 @@
 		<exec executable="pdflatex">
 			    <arg value="-c-style-errors"/>
 			    <arg value="-output-directory=${master.src.dir}/doc/newbies_book" />
-			    <arg value="${master.src.dir}/doc/newbies_book/mathrider_for_newbies.tex"/>
+			    <arg value="${master.src.dir}/doc/newbies_book/mathpiperide_for_newbies.tex"/>
 
 		</exec>
 
@@ -674,7 +655,7 @@
 
 		<exec executable="yap">
 
-			    <arg value="${master.src.dir}/doc/newbies_book/mathrider_for_newbies.dvi"/>
+			    <arg value="${master.src.dir}/doc/newbies_book/mathpiperide_for_newbies.dvi"/>
 
 		</exec>
 		
@@ -685,7 +666,7 @@
 
 		<exec executable="C:/Program Files/Adobe/Reader 8.0/Reader/AcroRd32">
 
-			    <arg value="${master.src.dir}/doc/newbies_book/mathrider_for_newbies.pdf"/>
+			    <arg value="${master.src.dir}/doc/newbies_book/mathpiperide_for_newbies.pdf"/>
 
 		</exec>
 		
@@ -712,8 +693,8 @@
 		</copy> -->
 		
 		<!-- Copy windows jre image to build directory. -->
-		<mkdir dir="${master.build.dir}/mathrider/jre" />
-		<copy todir="${master.build.dir}/mathrider/jre">
+		<mkdir dir="${master.build.dir}/mathpiperide/jre" />
+		<copy todir="${master.build.dir}/mathpiperide/jre">
 			<fileset dir="${master.lib.dir}/jre_copies/windows" >
 				<include name="**/*" />
 			</fileset>

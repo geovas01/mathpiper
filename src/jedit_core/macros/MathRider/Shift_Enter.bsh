@@ -17,9 +17,9 @@
  */ //}}}
 
 
-import org.mathrider.mathpiperplugin.MathPiperInterpreter;
-import org.mathrider.pipermeplugin.PiperMEInterpreter;
-import org.mathrider.maximaplugin.MaximaWrapper;
+import org.mathpiper.ide.mathpiperplugin.MathPiperInterpreter;
+import org.mathpiper.ide.pipermeplugin.PiperMEInterpreter;
+import org.mathpiper.ide.maximaplugin.MaximaWrapper;
 import java.io.File;
 import java.io.BufferedWriter;
 import org.gjt.sp.jedit.textarea.Selection.Range;
@@ -55,7 +55,7 @@ ChangeToForwardSlash(tempFilePath)
 }//end method.
 
 //Note: This code needs to be moved to a Java object.
-//errorSource = new DefaultErrorSource("MathRider");
+//errorSource = new DefaultErrorSource("MathPiperIDE");
 //ErrorSource.registerErrorSource(errorSource);
 
 errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
@@ -93,7 +93,7 @@ else if (path.endsWith(".uasm")|| path.endsWith(".UASM") )
 	
 	if ( asm == void )
 	{
-		asm = new org.mathrider.u6502.UASM65();
+		asm = new org.mathpiper.ide.u6502.UASM65();
 	}
 	
 	asm.assemble(new File(path));
@@ -103,7 +103,7 @@ else if (path.endsWith(".uasm")|| path.endsWith(".UASM") )
 }
 else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 {
-	//buffer.setMode("mathrider");
+	//buffer.setMode("mathpiperide");
 	currentCaretPosition = textArea.getCaretPosition();
 	textArea.selectFold();
 	fold  = textArea.getSelection()[0];
@@ -302,7 +302,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			fileExtension = ".mrw_tmp";
 		}//end if/else.
 		
-        File tempFile = File.createTempFile("mathrider", fileExtension);
+        File tempFile = File.createTempFile("mathpiperide", fileExtension);
     
         // Delete temp file when program exits.
         tempFile.deleteOnExit();
@@ -328,7 +328,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				asynchronousInterpreter = org.mathpiper.interpreters.Interpreters.getAsynchronousInterpreter();
 				synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 			
-				//org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
+				//org.mathpiper.ide.ResponseListener responseListener = new org.mathpiper.ide.ResponseListener() {
 				org.mathpiper.interpreters.ResponseListener responseListener = new org.mathpiper.interpreters.ResponseListener(){
 					
 				response (evaluationResponse)
@@ -344,7 +344,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				}*/
 				
 				System.out.println("<shift><enter> Received response.");
-				wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(false);
+				wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(false);
 					
 				//result = evaluationResponse[2];
 				result = evaluationResponse.getResult();//("load_result");
@@ -437,8 +437,8 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			
 			//System.out.println("XTTXTXTXTT :" + result);
 			
-			//wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
-			//wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(false);
+			//wm.addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
+			//wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(false);
 			
 			
 
@@ -452,7 +452,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				Object object = evaluationResponse.getObject();
 				if(object instanceof org.jfree.chart.ChartPanel)
 				{
-						jFreeChart = org.mathrider.jfreechartplugin.JFreeChart.getJFreeChart();
+						jFreeChart = org.mathpiper.ide.jfreechartplugin.JFreeChart.getJFreeChart();
 						jFreeChart.removeAll();
 						jFreeChart.add(object);
 				}//end if.//
@@ -497,8 +497,8 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				
 			}).start();
 				
-			//wm.addDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME);
-			wm.getDockableWindow(org.mathrider.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(true);
+			//wm.addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(true);
 			
 			output_fold_type = "%output";
 			result = "Processing...";
@@ -540,7 +540,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				
 				
 			//{{{
-			org.mathrider.ResponseListener responseListener = new org.mathrider.ResponseListener() {
+			org.mathpiper.ide.ResponseListener responseListener = new org.mathpiper.ide.ResponseListener() {
 				response(response)
 				{
 					System.out.println("WWWW " + response );
@@ -571,7 +571,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				//System.out.println(
 								
 					
-			}catch(org.mathrider.maxima.MathPiperException ye) 
+			}catch(org.mathpiper.ide.maxima.MathPiperException ye) 
 			{
 				result = ye.getMessage();
 				output_fold_type = "%error ";
@@ -593,7 +593,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			try 
 			{   
 
-				abcl = org.mathrider.abclplugin.ABCLShell.getInterpreter();
+				abcl = org.mathpiper.ide.abclplugin.ABCLShell.getInterpreter();
 				
 				//tempFileName = tempFile.getName();
 				//System.out.println("******* " + tempFileName);
@@ -645,13 +645,13 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		{
 			ggbWraper()
 			{
-				if(org.mathrider.geogebraplugin.GeoGebra.getGeoGebraAPI() == null)
+				if(org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI() == null)
 				{
 					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "geogebra" );
 				}
 				evalCommand(command)
 				{
-					org.mathrider.geogebraplugin.GeoGebra.getGeoGebraAPI().evalCommand(command);
+					org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI().evalCommand(command);
 				}
 				return this;
 			}
@@ -661,7 +661,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			if(scope.equalsIgnoreCase("global"))
 			{
 				bshInterpreter = bsi;
-				ggb = org.mathrider.geogebraplugin.GeoGebra.getGeoGebraAPI();
+				ggb = org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI();
 				bshInterpreter.set("ggb",ggbWraper());
 				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
 				bshInterpreter.set("returnError","none");
@@ -672,7 +672,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				import bsh.Interpreter;
 				bshInterpreter = new Interpreter();
 				bshInterpreter.eval("import geogebra.GeoGebra;");
-				ggb = org.mathrider.geogebraplugin.GeoGebra.getGeoGebraAPI();
+				ggb = org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI();
 				bshInterpreter.set("ggb",ggbWraper());
 				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
 				bshInterpreter.set("returnError","none");
@@ -783,7 +783,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 			
 			import geogebra.GeoGebraApplet;
-			geogebra = org.mathrider.geogebraplugin.GeoGebra.getGeoGebraAPI();
+			geogebra = org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI();
 			
 		
 			if(foldProperties.get("clear").equalsIgnoreCase("true") )
@@ -921,7 +921,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				
 				
 				
-				jung = org.mathrider.jungplugin.Jung.getJung();
+				jung = org.mathpiper.ide.jungplugin.Jung.getJung();
 				jung.setGraph(graph);
 			}
 			else
@@ -935,7 +935,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 				
 				pnr.load(tempFilePath, g);
 				
-				jung = org.mathrider.jungplugin.Jung.getJung();
+				jung = org.mathpiper.ide.jungplugin.Jung.getJung();
 				jung.setGraph(g);
 			
 			}
@@ -960,7 +960,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			
 			errorSource = MathPiperInterpreter.getErrorSource();
 			
-			hotEqn = org.mathrider.hoteqnplugin.HotEqn.getHotEqn();
+			hotEqn = org.mathpiper.ide.hoteqnplugin.HotEqn.getHotEqn();
 			
 		
 			if(foldProperties.get("clear").equalsIgnoreCase("true") )
@@ -1048,7 +1048,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 							java.io.File exportImageFile = new File(fileName);
 							try
 							{
-								org.mathrider.library.ScreenCapture.createImage(editorPane, fileName);
+								org.mathpiper.ide.library.ScreenCapture.createImage(editorPane, fileName);
 							}
 							catch (java.io.IOException ioe)
 							{
@@ -1072,7 +1072,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 
 				frame.pack();
 				frame.setAlwaysOnTop(false);
-				frame.setTitle("MathRider");
+				frame.setTitle("MathPiperIDE");
 				xsize = Integer.parseInt(foldProperties.get("width"));
 				ysize = Integer.parseInt(foldProperties.get("height"));
 				frame.setSize(new Dimension(xsize, ysize));
@@ -1139,7 +1139,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 								java.io.File exportImageFile = new File(fileName);
 								try
 								{
-									org.mathrider.library.ScreenCapture.createImage(editorPane, fileName);
+									org.mathpiper.ide.library.ScreenCapture.createImage(editorPane, fileName);
 								}
 								catch (java.io.IOException ioe)
 								{
@@ -1163,7 +1163,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 	
 					frame.pack();
 					frame.setAlwaysOnTop(false);
-					frame.setTitle("MathRider");
+					frame.setTitle("MathPiperIDE");
 					xsize = Integer.parseInt(foldProperties.get("width"));
 					ysize = Integer.parseInt(foldProperties.get("height"));
 					frame.setSize(new Dimension(xsize, ysize));
@@ -1194,7 +1194,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			
 			if ( asm == void )
 			{
-				asm = new org.mathrider.u6502.UASM65();
+				asm = new org.mathpiper.ide.u6502.UASM65();
 			}
 			
 
@@ -1327,7 +1327,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 			
 			try 
 			{   
-				uart = org.mathrider.u6502.EMU6551.getInstance();
+				uart = org.mathpiper.ide.u6502.EMU6551.getInstance();
 				uart.send("L\n");
 				codeText = codeText.replaceAll(" ", "");
 				codeText = codeText.replaceAll("\t", "");

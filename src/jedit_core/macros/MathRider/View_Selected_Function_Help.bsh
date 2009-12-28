@@ -26,8 +26,8 @@ void processText()
 	    selectedTextStartIndex = selectedTextSelection.getStart();
 	    selectedTextEndIndex = selectedTextSelection.getEnd();
 	    text = textArea.getSelectedText();
-	    wm.addDockableWindow(org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.NAME);
-	    wm.getDockableWindow(org.mathrider.mathpiperdocsplugin.MathPiperDocsPlugin.NAME).viewFunction(text);
+	    wm.addDockableWindow(org.mathpiper.ide.mathpiperdocsplugin.MathPiperDocsPlugin.NAME);
+	    wm.getDockableWindow(org.mathpiper.ide.mathpiperdocsplugin.MathPiperDocsPlugin.NAME).viewFunction(text);
 	}
 
 }

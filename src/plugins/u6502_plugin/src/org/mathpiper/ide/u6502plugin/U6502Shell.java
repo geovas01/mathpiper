@@ -47,7 +47,7 @@ public class U6502Shell extends Shell
 		//{
 			output.print(null, "U6502"); //"Piper version " + interpreter.evaluate("Version();") );
 		//}
-		//catch( org.mathrider.piper.Piperexception pe )
+		//catch( org.mathpiper.ide.piper.Piperexception pe )
 		//{
 		output.print(java.awt.Color.RED,"Note:FIX"); //pe.getMessage() );
 		//}

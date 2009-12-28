@@ -1,4 +1,4 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 
 /// Class for matching against a list of YacasParamMatcherBase objects.

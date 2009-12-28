@@ -1,4 +1,4 @@
-package org.mathrider.piper_me;
+package org.mathpiper.ide.piper_me;
 
 /** class LispPtr. This class is a smart pointer type class to Lisp
  *  objects that can be inserted into linked lists. They do the actual

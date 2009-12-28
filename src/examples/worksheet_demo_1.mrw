@@ -1,5 +1,5 @@
 /*  v 1.09.
-    This is a MathRider worksheet file and it consists of folds which contain source
+    This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
     pressing <shift><enter>.  The result of the execution will be
@@ -750,11 +750,11 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
 
     <html>
         <title>
-            MathRider
+            MathPiperIDE
         </title>
         
         <body>
-            <h1>Welcome to MathRider</h1>
+            <h1>Welcome to MathPiperIDE</h1>
             
             <TABLE>
                 <CAPTION> <h3>Table Data.</h3>  </CAPTION>
@@ -920,7 +920,7 @@ contentPane = frame.getContentPane();
 contentPane.add(guiBox,BorderLayout.NORTH);
 frame.pack();
 frame.setAlwaysOnTop(true);
-frame.setTitle("MathRider");
+frame.setTitle("MathPiperIDE");
 frame.setSize(new Dimension(250, 200));
 frame.setResizable(false);
 frame.setPreferredSize(new Dimension(250, 200));

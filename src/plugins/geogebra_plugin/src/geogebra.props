@@ -4,23 +4,23 @@
 #{{{ 
 # jEdit only needs to load the plugin the first time the user accesses it
 # the presence of this property also tells jEdit the plugin is using the new API
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.activate=defer
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.activate=defer
 # we only have one dependency, jEdit 4.2, since we use the new plugin API
 # These two properties are required for all plugins
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.name=GeoGebra
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.author=Ted Kosan
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.name=GeoGebra
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.author=Ted Kosan
 
 # version number == jEdit version number
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.version=4.3
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.version=4.3
 
 # online help
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.docs=index.html
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.depend.0=jedit 04.02.01.00
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.depend.1=jdk 1.5
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.2=plugin console.ConsolePlugin 4.3.5
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.jars=geogebra.jar geogebra_cas.jar geogebra_export.jar geogebra_gui.jar geogebra_main.jar geogebra_properties.jar
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.longdescription=description.html
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.docs=index.html
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.jars=geogebra.jar geogebra_cas.jar geogebra_export.jar geogebra_gui.jar geogebra_main.jar geogebra_properties.jar
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.longdescription=description.html
 #}}}
 
 
@@ -44,7 +44,7 @@ geogebra.shell.msg.usage=The Ant shell supports the following commands:\n\
 
 
 # plugin menu
-plugin.org.mathrider.geogebraplugin.GeoGebraPlugin.menu=geogebra
+plugin.org.mathpiper.ide.geogebraplugin.GeoGebraPlugin.menu=geogebra
 #	- \
 #	geogebra.clear \
 #	geogebra.save-file \
@@ -62,7 +62,7 @@ geogebra.copy-to-buffer.label=Copy notepad to buffer
 plugin.geogebra.option-pane=geogebra
 
 # Option pane activation BeanShell snippet
-options.geogebra.code=new org.mathrider.geogebraplugin.GeoGebraOptionPane();
+options.geogebra.code=new org.mathpiper.ide.geogebraplugin.GeoGebraOptionPane();
 
 # Option pane labels
 options.geogebra.label=geogebra
