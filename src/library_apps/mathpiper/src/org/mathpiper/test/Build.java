@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -53,6 +52,8 @@ public class Build {
     private long documentationOffset = 0;
     private java.io.FileWriter functionCategoriesFile;
     private List<CategoryEntry> functionCategoriesList = new ArrayList<CategoryEntry>();
+    private int documentedFunctionsCount = 0;
+    private int undocumentedMPWFileCount = 0;
 
 
     public Build() {
@@ -187,21 +188,28 @@ public class Build {
                     Arrays.sort(packageDirectoryContentsArray);
 
 
-                    // }//note:tk:remove.
-                    String classNameUpper = null;
-
                     for (int x2 = 0; x2 < packageDirectoryContentsArray.length; x2++) {
                         //Process each script or subdirectory in a .rep directory.***********************************************************************************
                         File scriptFileOrSubdirectoy = packageDirectoryContentsArray[x2];
-                        System.out.println("    " + scriptFileOrSubdirectoy.getName());
 
-                        if (scriptFileOrSubdirectoy.getName().endsWith(".mpw")) {
+                        if (scriptFileOrSubdirectoy.getName().toLowerCase().endsWith(".mrw")) {
+                            throw new Exception("The .mrw file extension has been deprecated ( " + scriptFileOrSubdirectoy.getName() +" ).");
+                        }
+
+                        if (scriptFileOrSubdirectoy.getName().toLowerCase().endsWith(".mpw")) {
                             //Process a .mpw files that is in a top-level package. ************************************************************************
+                            
+                            System.out.print("    " + scriptFileOrSubdirectoy.getName() +" -> ");
+
+                            documentedFunctionsCount++;
 
                             processMPWFile(scriptFileOrSubdirectoy, mpiDefFileOut, mpiFileOut);
 
                         } else {
                             //Process a subdirectory.***********************************************************************************************
+
+                            System.out.println("    " + scriptFileOrSubdirectoy.getName());
+
                             java.io.File[] packageSubDirectoryContentsArray = scriptFileOrSubdirectoy.listFiles(new java.io.FilenameFilter() {
 
                                 public boolean accept(java.io.File file, String name) {
@@ -233,7 +241,7 @@ public class Build {
                             for (int x3 = 0; x3 < packageSubDirectoryContentsArray.length; x3++) {
                                 //Process each script in a package subdirectlry directory.
                                 File scriptFile2 = packageSubDirectoryContentsArray[x3];
-                                System.out.println("        " + scriptFile2.getName());
+                                System.out.print("        " + scriptFile2.getName() + " -> ");
 
                                 processMPWFile(scriptFile2, mpiSubDirectoyDefFileOut, mpiSubDirectoyFileOut);
 
@@ -251,8 +259,6 @@ public class Build {
                         }//end else.
 
                     }//end package for.
-
-
 
 
                 }//end if.
@@ -298,6 +304,9 @@ public class Build {
         }
 
 
+        System.out.println("\nDocumented functions: " + this.documentedFunctionsCount + "\n");
+
+        System.out.println("Undocumented .mpw files: " + this.undocumentedMPWFileCount + "\n");
 
 
     }//end method.
@@ -469,7 +478,12 @@ public class Build {
         }//end subpackage for.
 
         if (!hasDocs) {
-            System.out.println("        ^^^^ Does not contain docs ^^^^");
+            System.out.println("**** Does not contain docs ****");
+            this.undocumentedMPWFileCount++;
+        }
+        else
+        {
+            System.out.println();
         }
     }//end method.
 
@@ -529,6 +543,8 @@ public class Build {
                         String description = descriptionLine.substring(descriptionLine.lastIndexOf("--") + 2);
                         description = description.trim();
 
+                        System.out.print(functionName + ": " + description + ", ");
+
                         String functionCategories = (String) fold.getAttributes().get("categories");
                         String[] categoryNames = functionCategories.split(";");
                         String categories = "";
@@ -560,13 +576,17 @@ public class Build {
                         }
                         //functionCategoriesFile.write("\n");
                         if (functionCategoryName.equalsIgnoreCase("")) {
-                            functionCategoryName = "Uncategorized";
+                            functionCategoryName = "Uncategorized";  //todo:tk:perhaps we should throw an exception here.
                         }
                         CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, scope, description, categories);
 
                         functionCategoriesList.add(categoryEntry);
 
-                    }//end if.
+                    }
+                    else
+                    {
+                        System.out.print(functionName + ": **** Uncategorized ****, ");
+                    }
                 }//end for.
             }//end if.
 
@@ -625,7 +645,7 @@ public class Build {
 
     private void processBuiltinDocs(File builtinFunctionsSourceDir) throws Exception {
         // try {
-        System.out.println("***** Processing built in docs...");
+        System.out.println("\n***** Processing built in docs *****");
 
         if (builtinFunctionsSourceDir.exists()) {
             java.io.File[] javaFilesDirectory = builtinFunctionsSourceDir.listFiles(new java.io.FilenameFilter() {
@@ -648,7 +668,9 @@ public class Build {
                 String javaFileName = javaFile.getName();
 
 
-                System.out.println(javaFileName);
+                System.out.print(javaFileName + " -> ");
+
+                this.documentedFunctionsCount++;
 
                 List<Fold> folds = scanSourceFile(javaFile);
 
@@ -669,7 +691,12 @@ public class Build {
                 }//end for
 
                 if (!hasDocs) {
-                    System.out.println("    ^^^^ Does not contain docs ^^^^  ");// + javaFileName);
+                    System.out.println("**** Does not contain docs ****");// + javaFileName);
+                    this.undocumentedMPWFileCount++;
+                }
+                else
+                {
+                    System.out.println();
                 }
 
 
