@@ -57,6 +57,12 @@
 			<include name="**/*.java" />
 		</javac>
 		
+		<copy todir="${build.classes.dir}/org/mathpiper/ui/gui/hoteqn">
+			<fileset dir="${src.dir}/org/mathpiper/ui/gui/hoteqn" >
+				<include name="*.gif" />
+			</fileset>
+		</copy>
+		
 	</target>
 	
 	
