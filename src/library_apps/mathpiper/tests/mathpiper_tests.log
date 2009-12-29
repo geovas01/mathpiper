@@ -1,7 +1,7 @@
 
-***** Sun Dec 20 17:29:57 EST 2009 *****
+***** Tue Dec 29 01:43:36 EST 2009 *****
 ***** Using a new interpreter instance for each test file. *****
-***** MathPiper version: .76z *****
+***** MathPiper version: .77b *****
 
 ===========================
 arithmetic.mpt: 
@@ -935,7 +935,25 @@ Known failure: Gcd(10,3.3)!=3.3AndGcd(10,3.3)!=1
 Known failure: (D(z)Conjugate(z))=Undefined 
 Known failure: ArcCos(Cos(beta))!=beta 
 Known failure: (Limit(n,Infinity)n^5/2^n)=0 
+******************
+tests/scripts/regress.mpt: 447 
+
+Assoc(x-1,Factors(x^6-1))[2]
+ evaluates to 
+Empty[2]
+ which differs from 
+1
+******************
 Known failure: RoundTo(RoundTo(N(Cot(2),9),9),N(Cot(2),9),9)=0 
+******************
+tests/scripts/regress.mpt: 561 
+
+Factor(2*x^2)
+ evaluates to 
+FWatom({{x,2}})
+ which differs from 
+x^2
+******************
 
 Exception:
 ===========================
@@ -988,7 +1006,7 @@ Side Effects:
 ******************
 tests/scripts/sums.mpt: 339 
 
-$pp2094
+$pp2090
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 

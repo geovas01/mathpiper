@@ -18,7 +18,7 @@ RuleBase("Repeat",{iterations,body});
 /*
   A Rule function needed to be used here because 10 # xxx <--
   notation did not work if Bodied was executed before the
-  function was defined.  Bodied is evaluated in stdopers.mrw
+  function was defined.  Bodied is evaluated in stdopers.mpw
   because it needs to be evaluated for the parser to parse
   Retract correctly.
 */

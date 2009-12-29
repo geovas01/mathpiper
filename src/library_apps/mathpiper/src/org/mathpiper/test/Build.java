@@ -195,8 +195,8 @@ public class Build {
                         File scriptFileOrSubdirectoy = packageDirectoryContentsArray[x2];
                         System.out.println("    " + scriptFileOrSubdirectoy.getName());
 
-                        if (scriptFileOrSubdirectoy.getName().endsWith(".mrw")) {
-                            //Process a .mrw files that is in a top-level package. ************************************************************************
+                        if (scriptFileOrSubdirectoy.getName().endsWith(".mpw")) {
+                            //Process a .mpw files that is in a top-level package. ************************************************************************
 
                             processMRWFile(scriptFileOrSubdirectoy, mpiDefFileOut, mpiFileOut);
 
@@ -310,7 +310,7 @@ public class Build {
 
         //Uncomment for debugging.
         /*
-        if (fileName.equals("Factors.mrw")) {
+        if (fileName.equals("Factors.mpw")) {
             int xxx = 1;
         }//end if.*/
 
