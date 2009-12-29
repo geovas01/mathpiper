@@ -54,7 +54,6 @@
 		<pathelement path="${master.lib.dir}/jars/geogebra_main.jar" />
 		<pathelement path="${master.lib.dir}/jars/geogebra_properties.jar" />
 		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
-		<pathelement path="${plugins.jars.dir}/hoteqn.jar" />
 		<pathelement path="${plugins.jars.dir}/jung2.jar" />
 		<pathelement path="${plugins.jars.dir}/jfreechart_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/jfreechart-1.0.13.jar" />
@@ -125,17 +124,6 @@
 		</ant>
 	</target>
 	
-	
-
-	<target id="hoteqn_library" name="hoteqn_library" depends="init" >
-		<ant dir="${library_apps.src.dir}/hoteqn" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/hoteqn"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/hoteqn/src"/>
-			<reference refid="build_classpath"/>
-		</ant>
-	</target>
 	
 	<target id="mathpiper_plugin" name="mathpiper_plugin" depends="" >
 		<ant dir="${plugins.src.dir}/mathpiper_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
@@ -232,7 +220,7 @@
 	</target>
 	
 
-	<target id="hoteqn_plugin" name="hoteqn_plugin" depends="hoteqn_library" >
+	<target id="hoteqn_plugin" name="hoteqn_plugin" >
 		<ant dir="${plugins.src.dir}/hoteqn_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${plugins.build.dir}/hoteqn_plugin"/>
 			<property name="compile.source" value="${master.compile.source}"/>
@@ -428,14 +416,7 @@
 		<copy file="${library_apps.build.dir}/piper_me/dist/piper_me.jar" todir="${plugins.jars.dir}"/>
 		-->
 
-		<antcall target="hoteqn_library">
-			<param name="target" value="dist"/>
-		</antcall>
-		<copy file="${library_apps.build.dir}/hoteqn/dist/hoteqn.jar" todir="${plugins.jars.dir}"/>
 		
-		<antcall target="hoteqn_library">
-			<param name="target" value="dist"/>
-		</antcall>
 		<copy file="${library_apps.src.dir}/geogebra/geogebra/init.ggb" todir="${plugins.jars.dir}/scripts"/>
 		
 		
