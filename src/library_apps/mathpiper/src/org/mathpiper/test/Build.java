@@ -198,7 +198,7 @@ public class Build {
                         if (scriptFileOrSubdirectoy.getName().endsWith(".mpw")) {
                             //Process a .mpw files that is in a top-level package. ************************************************************************
 
-                            processMRWFile(scriptFileOrSubdirectoy, mpiDefFileOut, mpiFileOut);
+                            processMPWFile(scriptFileOrSubdirectoy, mpiDefFileOut, mpiFileOut);
 
                         } else {
                             //Process a subdirectory.***********************************************************************************************
@@ -235,7 +235,7 @@ public class Build {
                                 File scriptFile2 = packageSubDirectoryContentsArray[x3];
                                 System.out.println("        " + scriptFile2.getName());
 
-                                processMRWFile(scriptFile2, mpiSubDirectoyDefFileOut, mpiSubDirectoyFileOut);
+                                processMPWFile(scriptFile2, mpiSubDirectoyDefFileOut, mpiSubDirectoyFileOut);
 
                                 //mpi file.
 
@@ -417,9 +417,9 @@ public class Build {
     }//end inner class.
 
 
-    private void processMRWFile(File mrwFile, Writer mpiDefFileOut, Writer mpiFileOut) throws Exception {
+    private void processMPWFile(File mpwFile, Writer mpiDefFileOut, Writer mpiFileOut) throws Exception {
 
-        List<Fold> folds = scanSourceFile(mrwFile);
+        List<Fold> folds = scanSourceFile(mpwFile);
 
         boolean hasDocs = false;
 
