@@ -1,6 +1,6 @@
 %mathpiper,def=":"
 
-/* Operators for functional programming. todo:tk:move some of this documentation into the proper function's .mrw files.
+/* Operators for functional programming. todo:tk:move some of this documentation into the proper function's .mpw files.
  * Examples:
  *  a:b:c:{}       ->  {a,b,c}
  *  "Sin" @ a      ->   Sin(a)
