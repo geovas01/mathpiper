@@ -417,7 +417,7 @@
 		-->
 
 		
-		<copy file="${library_apps.src.dir}/plugins/geogebra_plugin/init.ggb" todir="${plugins.jars.dir}/scripts"/>
+		<copy file="${plugins.src.dir}/geogebra_plugin/init.ggb" todir="${plugins.jars.dir}/scripts"/>
 		
 		
 		<antcall target="chmod-unix-launch-script">
