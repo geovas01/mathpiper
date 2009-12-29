@@ -101,7 +101,7 @@ else if (path.endsWith(".uasm")|| path.endsWith(".UASM") )
 	org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"A .lst and a .s19 file have been successfully created\n in the same directory as the source .uasm file.");
 	
 }
-else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
+else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 {
 	//buffer.setMode("mathpiperide");
 	currentCaretPosition = textArea.getCaretPosition();
@@ -299,7 +299,7 @@ else if (path.endsWith(".mrw") || path.endsWith(".MRW") )
 		}
 		else
 		{
-			fileExtension = ".mrw_tmp";
+			fileExtension = ".mpw_tmp";
 		}//end if/else.
 		
         File tempFile = File.createTempFile("mathpiperide", fileExtension);
