@@ -252,7 +252,7 @@
 				FILE_NAME_GLOB="*.{mpr}" />
                 
 <MODE NAME="mathpiperide"		FILE="mathpiperide.xml"
-				FILE_NAME_GLOB="*.mrw" />
+				FILE_NAME_GLOB="*.mpw" />
                 
 <MODE NAME="mathpiperideoutput" FILE="mathpiperideoutput.xml"
 				FILE_NAME_GLOB="" />
