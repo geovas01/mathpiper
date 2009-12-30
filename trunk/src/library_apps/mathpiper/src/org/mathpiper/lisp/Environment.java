@@ -68,6 +68,7 @@ public class Environment {
     public Cons iProgOpenAtom;
     public Cons iProgCloseAtom;
     public Cons iNthAtom;
+    public Cons iComplexAtom;
     public Cons iBracketOpenAtom;
     public Cons iBracketCloseAtom;
     public Cons iListOpenAtom;
@@ -118,6 +119,7 @@ public class Environment {
         iProgOpenAtom = AtomCons.getInstance(this, "[");
         iProgCloseAtom = AtomCons.getInstance(this, "]");
         iNthAtom = AtomCons.getInstance(this, "Nth");
+        iComplexAtom = AtomCons.getInstance(this, "Complex");
         iBracketOpenAtom = AtomCons.getInstance(this, "(");
         iBracketCloseAtom = AtomCons.getInstance(this, ")");
         iListOpenAtom = AtomCons.getInstance(this, "{");

@@ -1,5 +1,5 @@
 
-***** Tue Dec 29 01:43:36 EST 2009 *****
+***** Wed Dec 30 02:53:51 EST 2009 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .77b *****
 
@@ -21,15 +21,11 @@ Test suite for Testing math stuff :
 --Bases
 --Factorization
 
-Exception:
 ===========================
 binaryfactors.mpt: 
 
 Result: True
 
-Side Effects:
-
-Exception:
 ===========================
 calculus.mpt: 
 
@@ -42,7 +38,6 @@ Side Effects:
 Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=Exp(-phi) 
 --Pslq
 
-Exception:
 ===========================
 canprove.mpt: 
 
@@ -52,7 +47,6 @@ Side Effects:
 
 Test suite for Propositional logic theorem prover : 
 
-Exception:
 ===========================
 comments.mpt: 
 
@@ -62,7 +56,6 @@ Side Effects:
 
 Test suite for Checking comment syntax supported : 
 
-Exception:
 ===========================
 complex.mpt: 
 
@@ -71,7 +64,6 @@ Result: True
 Side Effects:
 Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=0 
 
-Exception:
 ===========================
 c_tex_form.mpt: 
 
@@ -82,7 +74,6 @@ Side Effects:
 Test suite for TeXForm()... : 
 --IsCFormable
 
-Exception:
 ===========================
 cyclotomic.mpt: 
 
@@ -92,15 +83,11 @@ Side Effects:
 
 Test suite for Cyclotomic Polynomials : 
 
-Exception:
 ===========================
 deriv.mpt: 
 
 Result: True
 
-Side Effects:
-
-Exception:
 ===========================
 dimensions.mpt: 
 
@@ -109,7 +96,6 @@ Result: True
 Side Effects:
 ---- Dimensions (Tensor Rank)
 
-Exception:
 ===========================
 dot.mpt: 
 
@@ -118,7 +104,6 @@ Result: True
 Side Effects:
 ---- Dot
 
-Exception:
 ===========================
 GaussianIntegers.mpt: 
 
@@ -128,7 +113,6 @@ Side Effects:
 
 Test suite for Gaussian Integers : 
 
-Exception:
 ===========================
 includetestfiles: is not a MathPiper test file.
 
@@ -148,7 +132,6 @@ Integrate(x)Sin(x)/(2*y+4)
 (-Cos(x))/(2*(y+2))
 ******************
 
-Exception:
 ===========================
 io.mpt: 
 
@@ -157,15 +140,11 @@ Result: True
 Side Effects:
 --Error reporting
 
-Exception:
 ===========================
 journal.mpt: 
 
 Result: True
 
-Side Effects:
-
-Exception:
 ===========================
 linalg.mpt: 
 
@@ -191,7 +170,6 @@ Test suite for Check linear algebra :
 --SolveMatrix
 --Trace
 
-Exception:
 ===========================
 lists.mpt: 
 
@@ -210,7 +188,6 @@ Test suite for VarList :
 --AssocDelete
 ---- Arithmetic Operations
 
-Exception:
 ===========================
 logic_simplify_test.mpt: 
 
@@ -220,15 +197,11 @@ Side Effects:
 
 Test suite for CNF : 
 
-Exception:
 ===========================
 macro.mpt: 
 
 Result: True
 
-Side Effects:
-
-Exception:
 ===========================
 mathpiper_tests.log: is not a MathPiper test file.
 
@@ -240,7 +213,6 @@ Result: True
 Side Effects:
 ---- MatrixPower
 
-Exception:
 ===========================
 multivar.mpt: 
 
@@ -250,7 +222,6 @@ Side Effects:
 
 Test suite for Test arithmetic : 
 
-Exception:
 ===========================
 nthroot.mpt: 
 
@@ -259,7 +230,6 @@ Result: True
 Side Effects:
 ---- NthRoot
 
-Exception:
 ===========================
 numbers.mpt: 
 
@@ -270,7 +240,6 @@ Side Effects:
 --Factorial
 --Random numbers
 
-Exception:
 ===========================
 numerics.mpt: 
 
@@ -325,25 +294,25 @@ RoundTo(N(Sinh(2),10)-3.6268604078,10)
 ******************
 tests/scripts/numerics.mpt: 23 
 
-RoundTo(N(ArcSin(2),9)-Complex(1.570796327,1.316957897),9)
+RoundTo(N(ArcSin(2),9)-1.570796327+1.316957897*I,9)
  evaluates to 
-Complex(0.000000003,-0.000000007)
+0.000000003-0.000000007*I
  which differs from 
 0
 ******************
 ******************
 tests/scripts/numerics.mpt: 24 
 
-RoundTo(N(ArcCos(2),9)-Complex(0,-1.316957897),9)
+RoundTo(N(ArcCos(2),9)-0-1.316957897*I,9)
  evaluates to 
-Complex(0,0.000000007)
+0+0.000000007*I
  which differs from 
 0
 ******************
 ******************
 tests/scripts/numerics.mpt: 25 
 
-RoundTo(N(ArcTan(2*I),12)-N(Complex(1.57079632679,0.54930614433),12),11)
+RoundTo(N(ArcTan(2*I),12)-N(1.57079632679+0.54930614433*I,12),11)
  evaluates to 
 0.00000000001
  which differs from 
@@ -370,18 +339,18 @@ RoundTo(N(ArcCosh(2),9)-1.316957897,9)
 ******************
 tests/scripts/numerics.mpt: 28 
 
-RoundTo(N(ArcCosh(-2),8)-Complex(-1.3169579,3.14159265),8)
+RoundTo(N(ArcCosh(-2),8)--1.3169579+3.14159265*I,8)
  evaluates to 
-Complex(0,0.00000005)
+0+0.00000005*I
  which differs from 
 0
 ******************
 ******************
 tests/scripts/numerics.mpt: 29 
 
-RoundTo(N(ArcTanh(2),9)-Complex(0.549306144,1.570796327),9)
+RoundTo(N(ArcTanh(2),9)-0.549306144+1.570796327*I,9)
  evaluates to 
-Complex(0.000000001,0.000000003)
+0.000000001+0.000000003*I
  which differs from 
 0
 ******************
@@ -669,9 +638,9 @@ tests/scripts/numerics.mpt: 303
 
 RoundTo(N(Erf(50*I+20)/10^910,22),19)
  evaluates to 
-Complex(1.093171190029095858,0.0047546330693181896)
+1.093171190029095858+0.0047546330693181896*I
  which differs from 
-Complex(1.093171190029095854,0.0047546330693181896)
+1.093171190029095854+0.0047546330693181896*I
 ******************
 --Gamma constant
 ******************
@@ -702,23 +671,19 @@ RoundTo(RoundTo(N(1/2+gamma+Pi),19)-4.2188083184913260991,19)
 0
 ******************
 
-Exception:
 ===========================
 nummethods.mpt: 
 
 Result: True
 
-Side Effects:
-
-Exception:
 ===========================
 ode.mpt: 
 
 Result: True
 
 Side Effects:
+**** THE ODE TEST HAS BEEN TEMPORARILY REMOVED BECAUSE IT CAUSED AN INFINITE RECURSION ****
 
-Exception:
 ===========================
 openmath.mpt: 
 
@@ -728,7 +693,6 @@ Side Effects:
 
 Test suite for Converting to and from OpenMath expressions : 
 
-Exception:
 ===========================
 orthopoly.mpt: 
 
@@ -738,7 +702,6 @@ Side Effects:
 
 Test suite for Testing orthogonal polynomials : 
 
-Exception:
 ===========================
 outer.mpt: 
 
@@ -747,7 +710,6 @@ Result: True
 Side Effects:
 ---- Outer
 
-Exception:
 ===========================
 piper_test.bat: is not a MathPiper test file.
 
@@ -812,7 +774,6 @@ RoundTo(RoundTo(f1(3),BuiltinPrecisionGet())-0.6666666667,BuiltinPrecisionGet())
 0
 ******************
 
-Exception:
 ===========================
 poly.mpt: 
 
@@ -822,7 +783,6 @@ Side Effects:
 
 Test suite for Polynomials : 
 
-Exception:
 ===========================
 predicates.mpt: 
 
@@ -870,7 +830,6 @@ False
 ------ IsMatrix(IsInteger)
 ------ IsSquareMatrix
 
-Exception:
 ===========================
 programming.mpt: 
 
@@ -883,7 +842,6 @@ Side Effects:
 --Function definitions
 --LocalVariables
 
-Exception:
 ===========================
 radsimp.mpt: 
 
@@ -893,7 +851,6 @@ Side Effects:
 
 Test suite for Testing simplifying nested radicals : 
 
-Exception:
 ===========================
 regress.mpt: 
 
@@ -955,15 +912,11 @@ FWatom({{x,2}})
 x^2
 ******************
 
-Exception:
 ===========================
 scopestack.mpt: 
 
 Result: True
 
-Side Effects:
-
-Exception:
 ===========================
 simplify.mpt: 
 
@@ -973,7 +926,6 @@ Side Effects:
 
 Test suite for Simplify : 
 
-Exception:
 ===========================
 solve.mpt: 
 
@@ -986,16 +938,13 @@ Side Effects:
 Exception:In function "If" : 
 bad argument number 1(counting from 1) : 
 
-The offending argument NotApply(compare,{left,right}) evaluated to NotComplex(2.00000000000000000000000000001,0.000000000000000...
+The offending argument NotApply(compare,{left,right}) evaluated to Not2.00000000000000000000000000001+0.00000000000000000000000...
  In function: For, Source file: tests/scripts/solve.mpt Line number: 176
 ===========================
 sturm.mpt: 
 
 Result: True
 
-Side Effects:
-
-Exception:
 ===========================
 sums.mpt: 
 
@@ -1013,7 +962,6 @@ Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0}
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))
 ******************
 
-Exception:
 ===========================
 tensors.mpt: 
 
@@ -1023,7 +971,6 @@ Side Effects:
 
 Test suite for Tensors : 
 
-Exception:
 ===========================
 test-yacas-c-version: is not a MathPiper test file.
 
@@ -1035,15 +982,11 @@ Result: True
 Side Effects:
 ---- Trace
 
-Exception:
 ===========================
 transforms.mpt: 
 
 Result: True
 
-Side Effects:
-
-Exception:
 ===========================
 tr.mpt: 
 
@@ -1052,7 +995,6 @@ Result: True
 Side Effects:
 ---- Tr (trace of tensor)
 
-Exception:
 ===========================
 : is not a MathPiper test file.
 
