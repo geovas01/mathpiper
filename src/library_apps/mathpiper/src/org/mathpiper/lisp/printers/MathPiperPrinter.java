@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.printers;
 
-
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Utility;
@@ -27,7 +26,6 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.Operator;
 import org.mathpiper.lisp.collections.OperatorMap;
-
 
 public class MathPiperPrinter extends LispPrinter {
 
@@ -41,8 +39,6 @@ public class MathPiperPrinter extends LispPrinter {
     Environment iCurrentEnvironment;
 
     //private List<Cons> visitedLists = new ArrayList<Cons>();
-
-
     public MathPiperPrinter(OperatorMap aPrefixOperators,
             OperatorMap aInfixOperators,
             OperatorMap aPostfixOperators,
@@ -54,9 +50,6 @@ public class MathPiperPrinter extends LispPrinter {
         iPrevLastChar = 0;
     }
 
-
-
-
     public void print(ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
         iCurrentEnvironment = aEnvironment;
 
@@ -66,30 +59,28 @@ public class MathPiperPrinter extends LispPrinter {
         //visitedLists.clear();
     }
 
-
     public void rememberLastChar(char aChar) {
         iPrevLastChar = aChar;
     }
-
 
     void Print(ConsPointer aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
 
         LispError.lispAssert(aExpression.getCons() != null);
 
-        String string;
+        String functionOrOperatorName;
         if (aExpression.car() instanceof String) {
-            string = (String) aExpression.car();
+            functionOrOperatorName = (String) aExpression.car();
             boolean bracket = false;
             if (iPrecedence < KMaxPrecedence &&
-                    string.charAt(0) == '-' &&
-                    (MathPiperTokenizer.isDigit(string.charAt(1)) || string.charAt(1) == '.')) {
+                    functionOrOperatorName.charAt(0) == '-' &&
+                    (MathPiperTokenizer.isDigit(functionOrOperatorName.charAt(1)) || functionOrOperatorName.charAt(1) == '.')) {
                 //Code for (-1)/2 .
                 bracket = true;
             }
             if (bracket) {
                 WriteToken(aOutput, "(");
             }
-            WriteToken(aOutput, string);
+            WriteToken(aOutput, functionOrOperatorName);
             if (bracket) {
                 WriteToken(aOutput, ")");
             }
@@ -110,11 +101,11 @@ public class MathPiperPrinter extends LispPrinter {
             WriteToken(aOutput, "( )");
         } else {
             int length = Utility.listLength(subList);
-            string = (String) subList.car();
-            Operator prefix = (Operator) iPrefixOperators.lookUp(string);
-            Operator infix = (Operator) iInfixOperators.lookUp(string);
-            Operator postfix = (Operator) iPostfixOperators.lookUp(string);
-            Operator bodied = (Operator) iBodiedOperators.lookUp(string);
+            functionOrOperatorName = (String) subList.car();
+            Operator prefix = (Operator) iPrefixOperators.lookUp(functionOrOperatorName);
+            Operator infix = (Operator) iInfixOperators.lookUp(functionOrOperatorName);
+            Operator postfix = (Operator) iPostfixOperators.lookUp(functionOrOperatorName);
+            Operator bodied = (Operator) iBodiedOperators.lookUp(functionOrOperatorName);
             Operator operator = null;
 
             if (length != 2) {
@@ -155,35 +146,31 @@ public class MathPiperPrinter extends LispPrinter {
 
                 if (left != null) {
 
-                    if(string.equals("/") && Utility.functionType(left).equals("/"))
-                    {
+                    if (functionOrOperatorName.equals("/") && Utility.functionType(left).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
                         WriteToken(aOutput, "(");
                     }//end if.
 
                     Print(left, aOutput, operator.iLeftPrecedence);
 
-                    if(string.equals("/") && Utility.functionType(left).equals("/"))
-                    {
+                    if (functionOrOperatorName.equals("/") && Utility.functionType(left).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
                         WriteToken(aOutput, ")");
                     }//end if.
                 }
 
-                WriteToken(aOutput, string);
+                WriteToken(aOutput, functionOrOperatorName);
 
                 if (right != null) {
 
-                    if(string.equals("/") && Utility.functionType(right).equals("/"))
-                    {
+                    if (functionOrOperatorName.equals("/") && Utility.functionType(right).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
                         WriteToken(aOutput, "(");
                     }//end if.
 
                     Print(right, aOutput, operator.iRightPrecedence);
 
-                    if(string.equals("/") && Utility.functionType(right).equals("/"))
-                    {
+                    if (functionOrOperatorName.equals("/") && Utility.functionType(right).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
                         WriteToken(aOutput, ")");
                     }//end if.
@@ -192,35 +179,51 @@ public class MathPiperPrinter extends LispPrinter {
                 if (iPrecedence < operator.iPrecedence) {
                     WriteToken(aOutput, ")");
                 }
-                
+
             } else {
+
                 ConsTraverser consTraverser = new ConsTraverser(subList.cdr());
-                if (string == iCurrentEnvironment.iListAtom.car()) {
+
+                if (functionOrOperatorName == iCurrentEnvironment.iComplexAtom.car()) {
+
+                    Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
+
+                    consTraverser.goNext(); //Point to second argument.
+
+                    if (!consTraverser.car().toString().startsWith("-")) {
+                        WriteToken(aOutput, "+");
+                    }
+
+                    Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
+
+                    WriteToken(aOutput, "*I");
+
+                } else if (functionOrOperatorName == iCurrentEnvironment.iListAtom.car()) {
 
                     /*
                     Cons atomCons = (Cons) subList.getCons();
                     if (visitedLists.contains(atomCons)) {
-                            WriteToken(aOutput, "{CYCLE_LIST}");
-                            return;
+                    WriteToken(aOutput, "{CYCLE_LIST}");
+                    return;
 
                     } else {
 
-                        visitedLists.add(atomCons);*/
+                    visitedLists.add(atomCons);*/
 
-                        WriteToken(aOutput, "{");
+                    WriteToken(aOutput, "{");
 
-                        while (consTraverser.getCons() != null) {
-                            Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
-                            consTraverser.goNext();
-                            if (consTraverser.getCons() != null) {
-                                WriteToken(aOutput, ",");
-                            }
-                        }//end while.
+                    while (consTraverser.getCons() != null) {
+                        Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
+                        consTraverser.goNext();
+                        if (consTraverser.getCons() != null) {
+                            WriteToken(aOutput, ",");
+                        }
+                    }//end while.
 
-                        WriteToken(aOutput, "}");
+                    WriteToken(aOutput, "}");
 
-                   // }//end else.
-                } else if (string == iCurrentEnvironment.iProgAtom.car()) // Program block brackets.
+                    // }//end else.
+                } else if (functionOrOperatorName == iCurrentEnvironment.iProgAtom.car()) // Program block brackets.
                 {
                     WriteToken(aOutput, "[");
                     aOutput.write("\n");
@@ -237,7 +240,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, "]");
                     aOutput.write("\n");
                     spaces.delete(0, 4);
-                } else if (string == iCurrentEnvironment.iNthAtom.car()) {
+                } else if (functionOrOperatorName == iCurrentEnvironment.iNthAtom.car()) {
                     Print(consTraverser.getPointer(), aOutput, 0);
                     consTraverser.goNext();
                     WriteToken(aOutput, "[");
@@ -254,17 +257,17 @@ public class MathPiperPrinter extends LispPrinter {
                     if (bracket) {
                         WriteToken(aOutput, "(");
                     }
-                    if (string != null) {
-                        WriteToken(aOutput, string);
+                    if (functionOrOperatorName != null) {
+                        WriteToken(aOutput, functionOrOperatorName); //Print function name.
                     } else {
                         Print(subList, aOutput, 0);
                     }
-                    WriteToken(aOutput, "(");
+                    WriteToken(aOutput, "("); //Print the opening parenthese of the function argument list.
 
                     ConsTraverser counter = new ConsTraverser(consTraverser.getPointer());
                     int nr = 0;
 
-                    while (counter.getCons() != null) {
+                    while (counter.getCons() != null) { //Count arguments.
                         counter.goNext();
                         nr++;
                     }
@@ -273,26 +276,28 @@ public class MathPiperPrinter extends LispPrinter {
                         nr--;
                     }
                     while (nr-- != 0) {
-                        Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
+                        Print(consTraverser.getPointer(), aOutput, KMaxPrecedence); //Print argument.
 
                         consTraverser.goNext();
+
                         if (nr != 0) {
-                            WriteToken(aOutput, ",");
+                            WriteToken(aOutput, ","); //Print the comma which is between arguments.
                         }
-                    }
+                    }//end while.
+
                     WriteToken(aOutput, ")");
+
                     if (consTraverser.getCons() != null) {
                         Print(consTraverser.getPointer(), aOutput, bodied.iPrecedence);
                     }
 
                     if (bracket) {
-                        WriteToken(aOutput, ")");
+                        WriteToken(aOutput, ")"); //Print the closing parenthese of the function argument list.
                     }
                 }
             }
         }//end sublist if.
     }
-
 
     void WriteToken(MathPiperOutputStream aOutput, String aString) throws Exception {
         /*if (MathPiperTokenizer.isAlNum(iPrevLastChar) && (MathPiperTokenizer.isAlNum(aString.charAt(0)) || aString.charAt(0)=='_'))
@@ -306,6 +311,4 @@ public class MathPiperPrinter extends LispPrinter {
         aOutput.write(aString);
         rememberLastChar(aString.charAt(aString.length() - 1));
     }
-
-
 }
