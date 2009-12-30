@@ -1,12 +1,13 @@
 %mathpiper,def="Rationalize"
 
-Function("Rationalize",{a'number})
+10 # Rationalize( _aNumber ) <--
+[
     Local(result,n,d);
-    result := Substitute(a'number,{{x},IsNumber(x) And Not(IsInteger(x))},"RationalizeNumber");
-    n := Numerator(result);
-    d := Denominator(result);
+    result:=Substitute(aNumber,{{x},IsNumber(x) And Not(IsInteger(x))},"RationalizeNumber");
+    n:=Numerator(result);
+    d:=Denominator(result);
     n*(1/d);
-
+];
 %/mathpiper
 
 
