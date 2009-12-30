@@ -51,7 +51,7 @@ public class Maxima extends BuiltinFunction {
     /** Creates a new instance of MaximaWrapper */
     public Maxima() {
 
-
+/*
 
         ArrayList command = new ArrayList();
         //command.add("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
@@ -87,7 +87,7 @@ public class Maxima extends BuiltinFunction {
         }
         
 
-
+*/
 
     /*//Add temporary files directory to maxima search path.
     File tempFile = File.createTempFile("mathpiperide", ".tmp");
@@ -173,6 +173,7 @@ public class Maxima extends BuiltinFunction {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Maxima");
+        
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
