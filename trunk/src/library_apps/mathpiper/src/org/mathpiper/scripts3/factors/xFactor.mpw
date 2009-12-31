@@ -17,7 +17,8 @@ Retract("xFactor",*);
 ];
 
 
-15 # xFactor( _expr ) <-- FW(xFactors(expr));
+//15 # xFactor( _expr ) <-- FW(xFactors(expr));
+15 # xFactor( _expr ) <-- expr;
 
 %/mathpiper
 
