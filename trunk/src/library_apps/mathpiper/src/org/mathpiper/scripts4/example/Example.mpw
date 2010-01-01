@@ -9,7 +9,7 @@ Hold(
 "Simple factorial of a number.
 "
   },
-  {D(x)Sin(x),
+  {Differentiate(x)Sin(x),
 "Taking the derivative of a function (the derivative of Sin(x) with
 respect to x in this case).
 "

@@ -39,7 +39,7 @@ Postfix("--",5);
 Bodied("ForEach",60000);
 Infix("<<",10);
 Infix(">>",10);
-Bodied("D",60000);
+Bodied("Differentiate",60000);
 Bodied("Deriv",60000);
 Infix("X",30);
 Infix(".",30);

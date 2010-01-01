@@ -30,6 +30,7 @@ public class RunTestSuite {
     private java.io.File testDirectory;
     private EvaluationResponse evaluationResponse;
     private java.io.FileWriter logFile;
+    private String scriptsDirectory = "scripts";
 
     public RunTestSuite() {
         super();
@@ -43,7 +44,7 @@ public class RunTestSuite {
             int exceptionCount = 0;
 
 
-            BufferedReader scriptNames = new BufferedReader(new InputStreamReader(RunTestSuite.class.getClassLoader().getSystemResource("tests/scripts/test_index.txt").openStream()));
+            BufferedReader scriptNames = new BufferedReader(new InputStreamReader(RunTestSuite.class.getClassLoader().getSystemResource("tests/" + scriptsDirectory + "/test_index.txt").openStream()));
             if (scriptNames != null) //File is on the classpath.
             {
                 String output;
@@ -79,7 +80,7 @@ public class RunTestSuite {
                         System.out.print(output);
                         logFile.write(output);
 
-                        evaluationResponse = mathPiper.evaluate("Load(\"tests/scripts/" + scriptName + "\");");
+                        evaluationResponse = mathPiper.evaluate("Load(\"tests/" + scriptsDirectory + "/" + scriptName + "\");");
                         output = "Result: " + evaluationResponse.getResult() + "\n";
                         
                         if(!evaluationResponse.getSideEffects().equals(""))

@@ -5,7 +5,7 @@ NextTest("TeXForm()...");
 /* it worketh no more...
 Testing("Realistic example");
 f:=Exp(I*lambda*eta)*w(T*(k+k1+lambda));
-g:=Simplify(Subst(lambda,0) f+(k+k1)*(D(lambda)f)+k*k1*D(lambda)D(lambda)f );
+g:=Simplify(Subst(lambda,0) f+(k+k1)*(Differentiate(lambda)f)+k*k1*Differentiate(lambda)Differentiate(lambda)f );
 Verify(TeXForm(g), ...);
 */
 
@@ -30,15 +30,15 @@ TeXForm(3*2^n+Hold(x*10!) + (x/y)^2 + BinomialCoefficient(x,y) + BesselI(n,x) + 
 , "$3\\cdot 2 ^{n} + x\\cdot 10! + \\left( \\frac{x}{y} \\right)  ^{2} + {x \\choose y} + I _{n}\\left( x\\right)  + \\max \\left( a, b\\right)  + H _{n}\\left( x\\right) $"
 );
 
-/* this fails because of a bug that D(x) f(y) does not go to 0 */ /*
+/* this fails because of a bug that Differentiate(x) f(y) does not go to 0 */ /*
 Verify(
-TeXForm(3*D(x)f(x,y,z)*Cos(Omega)*Mod(Sin(a)*4,5/a^b))
+TeXForm(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Mod(Sin(a)*4,5/a^b))
 ,"$3 \\left( \\frac{\\partial}{\\partial x}f\\left( x, y, z\\right) \\right)  \\left( \\cos \\Omega \\right)  \\left( 4 \\left( \\sin a\\right) \\right) \\bmod \\frac{5}{a ^{b}} $"
 );
 */
 
 Verify(
-TeXForm(Hold(D(x)f(x)))
+TeXForm(Hold(Differentiate(x)f(x)))
 ,"$\\frac{d}{d x}f\\left( x\\right) $");
 
 Verify(
@@ -48,7 +48,7 @@ TeXForm(Hold(Not (c<0) And (a+b)*c>= -d^e And (c<=0 Or b+1>0) Or a!=0 And Not (p
 
 
 Verify(
-TeXForm((D(x)f(x,y,z))*Cos(Omega)*Mod(Sin(a)*4,5/a^b))
+TeXForm((Differentiate(x)f(x,y,z))*Cos(Omega)*Mod(Sin(a)*4,5/a^b))
 ,"$\\left( \\frac{\\partial}{\\partial x}f\\left( x, y, z\\right) \\right)  \\cos \\Omega  \\left( 4 \\sin a\\right) \\bmod \\frac{5}{a ^{b}} $"
 );
 

@@ -5,7 +5,7 @@
 SturmSequence(_p) <--
 [
   Local(result,i,deg,nt);
-  result:={p,`D(@x)(@p)};
+  result:={p,`Differentiate(@x)(@p)};
   deg:=Degree(p);
   For(i:=3,i<=deg+1,i++)
   [
