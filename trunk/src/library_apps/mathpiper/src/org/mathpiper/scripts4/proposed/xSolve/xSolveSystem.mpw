@@ -52,7 +52,7 @@ Retract("xSolveLinearSystemViaMatrix",*);
     ForEach(eqn,eqns) 
     [
         //If(iDebug,[Echo(EquationLeft(eqn)); Echo(EquationRight(eqn));]);
-        E   := Listify(eqn);
+        E   := FunctionToList(eqn);
         LL  := E[2];
         RHS := E[3]:RHS;
         row := Map("Coef",{FillList(LL,LE),X,M});

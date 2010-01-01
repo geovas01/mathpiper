@@ -54,7 +54,7 @@ Verify(First({a,b,c}),a);
 Verify(Rest({a,b,c}),{b,c});
 Verify(DestructiveReverse({a,b,c}),{c,b,a});
 Verify(UnList({a,b,c}),a(b,c));
-Verify(Listify(a(b,c)),{a,b,c});
+Verify(FunctionToList(a(b,c)),{a,b,c});
 
 Verify(Delete({a,b,c},2),{a,c});
 Verify(Insert({a,c},2,b),{a,b,c});

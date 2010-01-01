@@ -46,7 +46,7 @@ Retract("FactorsBinomials",*);
     
     if      (m = 2)
         [
-            L := Listify(y);
+            L := FunctionToList(y);
             If(And(L[1]=Atom("^"),L[3]=2),qq:=L[2]);
             r := {{x+qq,1},{x-qq,1}};
         ]

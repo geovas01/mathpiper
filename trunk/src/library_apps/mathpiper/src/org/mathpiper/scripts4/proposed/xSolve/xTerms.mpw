@@ -15,7 +15,7 @@ xTerms(_expr) <--
     
     While( IsFunction(f) )
         [
-            L  := Listify(f);
+            L  := FunctionToList(f);
             n  := Length(L);
             h  := Head( L );
             If(h=Atom("+") Or h=Atom("-"),[If(firstH=0,firstH=1);topLevelPM++;]);
@@ -63,7 +63,7 @@ xTerms2(_expr) <--
     Local(L,stack,result,lenL);
     If(InVerboseMode(),[ Tell("in xTerms2()"); Tell("   input expression: ",expr); ]);    
     If( Not IsList( stack ), stack := {} );
-    If( IsAtom(expr), L:={expr}, L:=Listify(expr) );
+    If( IsAtom(expr), L:={expr}, L:=FunctionToList(expr) );
     lenL := Length(L);
     If(InVerboseMode(), Tell("   0",{L,lenL}) );  
     If( lenL = 1, [ stack := L:stack; Tell("   1",stack); ] );

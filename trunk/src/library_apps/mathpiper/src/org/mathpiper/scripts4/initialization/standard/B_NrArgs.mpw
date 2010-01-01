@@ -1,6 +1,6 @@
 %mathpiper,def="NrArgs"
 
-Function("NrArgs",{aLeft}) Length(Listify(aLeft))-1;
+Function("NrArgs",{aLeft}) Length(FunctionToList(aLeft))-1;
 
 %/mathpiper
 

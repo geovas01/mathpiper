@@ -29,7 +29,7 @@ Retract("CheckEquationSolution",*);
     M   := FillList(1,LE);
     ForEach(eqn,eqns) 
     [
-        E   := Listify(eqn);
+        E   := FunctionToList(eqn);
         LL  := E[2];
         RHS := E[3]:RHS;
         row := Map("Coef",{FillList(LL,LE),X,M});
@@ -65,7 +65,7 @@ Retract("CheckEquationSolution",*);
     s1 := s[1];
     s2 := s[2];
     s3 := s[3];
-    E2 := Listify(s3);
+    E2 := FunctionToList(s3);
     s2 := (s2 Where s3);
     s1 := (s1 Where s2 And s3);
     If( E2[2]=E2[3], ans:=Inconsistent-Set, ans:=List(s1,s2,s3));
@@ -81,10 +81,10 @@ Retract("CheckEquationSolution",*);
 [
     Local(EL,LHS,RHS,L,svar,sval);
     If(InVerboseMode(),Tell(CheckOneEq,{eqn,soln}));
-    EL   := Listify(eqn);
+    EL   := FunctionToList(eqn);
     LHS  := Expand(Simplify( EL[2] ));
     RHS  := Expand(Simplify( EL[3] ));
-    L    := Listify(soln[1]);
+    L    := FunctionToList(soln[1]);
     svar := L[2];
     sval := L[3];
     If( InVerboseMode(), [Tell(2,{LHS,RHS}); Tell(3,{svar,sval});]);

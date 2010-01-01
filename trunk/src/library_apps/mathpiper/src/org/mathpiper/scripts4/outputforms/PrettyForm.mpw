@@ -341,7 +341,7 @@ Rule("BracketOn",3,2,True)
 [
   Local(head,args,all);
   Set(head, Formula(f[0]));
-  Set(all, Rest(Listify(f)));
+  Set(all, Rest(FunctionToList(f)));
 
   Set(args, FormulaBracket(BuildArgs(MapSingle("Formula",Apply("Hold",{all})))));
   AlignBase(head,args);

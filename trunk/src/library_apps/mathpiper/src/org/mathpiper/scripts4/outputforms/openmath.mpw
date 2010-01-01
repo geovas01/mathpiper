@@ -501,7 +501,7 @@ FromString(str:" EndOfFile")
      If(Type(mapping) = "_",
         If(Eval(mapping[2]),
            result := mapping[1],
-           result := Listify(function)
+           result := FunctionToList(function)
           ),
 	result := mapping
        );

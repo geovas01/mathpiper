@@ -9,9 +9,9 @@
 20 # FuncList(expr_IsFunction) <--
 RemoveDuplicates(
 	Concat(
-		{First(Listify(expr))},
+		{First(FunctionToList(expr))},
 		Apply("Concat",
-			MapSingle("FuncList", Rest(Listify(expr)))
+			MapSingle("FuncList", Rest(FunctionToList(expr)))
 		)
 	)
 );
@@ -27,7 +27,7 @@ This is like FuncList except only looks at arguments of a given list of function
 30 # FuncList(expr_IsFunction, look'list_IsList) <--
 RemoveDuplicates(
 	Concat(
-		{First(Listify(expr))},
+		{First(FunctionToList(expr))},
 		[	// gave up trying to do it using Map and MapSingle... so writing a loop now.
 			// obtain a list of functions, considering only functions in look'list
 			Local(item, result);

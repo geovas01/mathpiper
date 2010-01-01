@@ -240,7 +240,7 @@ BinaryFactors(expr):=
 [
   Local(result,uni,coefs);
   uni:=MakeUni(expr,VarList(expr)[1]);
-  uni:=Listify(uni);
+  uni:=FunctionToList(uni);
   coefs:=uni[4];
   coefs:=Concat(ZeroVector(uni[3]),coefs);
   result:=Fct(coefs,uni[2]);

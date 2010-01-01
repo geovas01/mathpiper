@@ -35,7 +35,7 @@ Retract("FinalPeel",*);
 [
     Local(cont2,lst);
     cont2  := MultiSimp(expr);
-    lst    := Listify(cont2);
+    lst    := FunctionToList(cont2);
     result := xPeel(lst);
 
 ];
@@ -47,7 +47,7 @@ UnFence("GetContent",2);
 [
     Local(result);
     result := L[3];
-    result := xPeel(Listify(L[2])) / result;
+    result := xPeel(FunctionToList(L[2])) / result;
 ];
 
 
@@ -55,7 +55,7 @@ UnFence("GetContent",2);
 [
     Local(result);
     result := L[2];
-    result := xPeel(Listify(L[3])) * result;
+    result := xPeel(FunctionToList(L[3])) * result;
     result;
 ];
 

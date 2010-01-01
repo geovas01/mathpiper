@@ -4,7 +4,7 @@
 [
   Local(result);
   result:=0;
-  ForEach(item,Rest(Listify(expression)))
+  ForEach(item,Rest(FunctionToList(expression)))
   [
     Local(newresult);
     newresult:=ExpressionDepth(item);

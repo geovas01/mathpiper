@@ -57,12 +57,12 @@ Rule("AssignArray",3,2,True)
 ];
 
 // a[x] := ... assigns to an array element
-Rule(":=",2,10,IsFunction(aLeftAssign) And (First(Listify(aLeftAssign)) = Nth))
+Rule(":=",2,10,IsFunction(aLeftAssign) And (First(FunctionToList(aLeftAssign)) = Nth))
 [
  Local(frst,scnd);
 
  Local(lst);
- Set(lst,(Listify(aLeftAssign)));
+ Set(lst,(FunctionToList(aLeftAssign)));
  Set(lst,Rest(lst));
  Set(frst, Eval(First(lst)));
  Set(lst,Rest(lst));
@@ -78,7 +78,7 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom(":=")
 
   Local(oper,args,arity);
   Set(oper,String(aLeftAssign[0]));
-  Set(args,Rest(Listify(aLeftAssign)));
+  Set(args,Rest(FunctionToList(aLeftAssign)));
   If(
 	And(GreaterThan(Length(args), 1), Equals( MathNth(args, Length(args)), Atom("...") )),
 	// function with variable number of arguments
