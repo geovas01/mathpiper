@@ -54,7 +54,7 @@ Testing("LocalVariables");
   Verify(IsBound(a),False);
   a:=1;
   Verify(IsBound(a),True);
-  Clear(a);
+  Unbind(a);
   Verify(IsBound(a),False);
 ];
 

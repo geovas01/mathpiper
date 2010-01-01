@@ -43,7 +43,7 @@ Retract("CombineNumericalFactors",*);
     Local(content,pp,vars,nvars,ppFactors,monomialFactors,result);
     
     // First step: get Content and Primitive Part
-    Clear(content);
+    Unbind(content);
     pp := xPrimitivePart( poly, content );
     If(InVerboseMode(),Tell("  ",{content,pp}));
     

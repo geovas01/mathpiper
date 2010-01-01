@@ -229,7 +229,7 @@ Defining a new infix operator:
 	Out> True;
 	In> Sin(a) *&* Cos(a);
 	Out> Tan(1)+Cos(1)/Sin(1);
-	In> Clear(a);
+	In> Unbind(a);
 	Out> True;
 	In> Sin(a) *&* Exp(a);
 	Out> Sin(a)/Exp(a)+Exp(a)/Sin(a);
@@ -274,5 +274,5 @@ expansion is computed only once.
 	-x^23/25852016738884976640000+x^25/
 	15511210043330985984000000;
 
-*SEE Set, Clear, [], Rule, Infix, Eval, Function
+*SEE Set, Unbind, [], Rule, Infix, Eval, Function
 %/mathpiper_docs

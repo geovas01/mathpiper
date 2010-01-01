@@ -113,7 +113,7 @@ Retract("==-",*);
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-Clear(eqns,eq1,eq2,eq3,eq5,eq6,eq7,X,Y,solution);
+Unbind(eqns,eq1,eq2,eq3,eq5,eq6,eq7,X,Y,solution);
 
 /* Wade & Taylor, page 222, Example 2 */
 //  Solve the pair of equations

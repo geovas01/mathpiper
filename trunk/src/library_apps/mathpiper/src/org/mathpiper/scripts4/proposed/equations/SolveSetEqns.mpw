@@ -119,7 +119,7 @@ Retract("CheckEquationSolution",*);
 
 %mathpiper,scope="nobuild",subtype="manual_test"
 
-Clear(eqns1,eqns2,eqns3,eqns4,eqns5,solution);
+Unbind(eqns1,eqns2,eqns3,eqns4,eqns5,solution);
 
 // --- Test the new solver for sets of linear equations ---
 
