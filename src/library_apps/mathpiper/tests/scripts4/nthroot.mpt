@@ -5,10 +5,10 @@
 
 Testing("-- NthRoot");
 
-// you need to use UnList for this one as -1 is actually -(1), eg. a unary function (minus)
-// applied to a positive integer (1). UnList evaluates its arguments, resulting in a negative
+// you need to use ListToFunction for this one as -1 is actually -(1), eg. a unary function (minus)
+// applied to a positive integer (1). ListToFunction evaluates its arguments, resulting in a negative
 // integer (-1).
-Verify(NthRoot(-1,2),UnList({NthRoot,-1,2}));
+Verify(NthRoot(-1,2),ListToFunction({NthRoot,-1,2}));
 
 Verify(NthRoot(2,1),Hold(NthRoot(2,1)));
 Verify(NthRoot(2,2),{1,2});

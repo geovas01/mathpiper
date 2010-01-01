@@ -3,7 +3,7 @@
 TemplateFunction("MapArgs",{expr,oper})
 [
   Set(expr,FunctionToList(expr));
-   UnList(Concat({expr[1]},
+   ListToFunction(Concat({expr[1]},
      Apply("MapSingle",{oper,Rest(expr)})
    ) );
 ];

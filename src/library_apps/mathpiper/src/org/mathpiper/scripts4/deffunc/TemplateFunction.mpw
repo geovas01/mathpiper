@@ -11,7 +11,7 @@ Rule("TemplateFunction",3,2047,True)
   Local(arglist);
   arglist:=FlatCopy(args);
 
-  DestructiveAppend(arglist,{args,UnList({Hold,body})});
+  DestructiveAppend(arglist,{args,ListToFunction({Hold,body})});
   arglist:=ApplyPure("LocalSymbols",arglist);
 
   MacroRuleBase(oper,arglist[1]);

@@ -77,7 +77,7 @@ Rule("CachedConstant", 3, 10, And(IsAtom(C'atom), IsFunction(C'func)))
 		]);
 
 		// calculate C'atom at current precision for the first time
-//		Eval(UnList({C'atom}));	// "C'name"();
+//		Eval(ListToFunction({C'atom}));	// "C'name"();
 		// we do not need this until the constant is used; it will just slow us down
 	  ],
 	  // the constant is defined
@@ -99,7 +99,7 @@ Function("AssignCachedConstantsN", {})
     Set(fname,ConcatStrings("Internal'",var));
     Set(var,Atom(var));
 		// this way the routine Internal'Pi() will be actually called only when the variable 'Pi' is used, etcetera.
-    `SetGlobalLazyVariable((@var), UnList({Atom(fname)}));
+    `SetGlobalLazyVariable((@var), ListToFunction({Atom(fname)}));
 	];
 ];
 UnFence("AssignCachedConstantsN", 0);

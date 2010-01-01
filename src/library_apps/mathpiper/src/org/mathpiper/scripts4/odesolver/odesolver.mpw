@@ -15,7 +15,7 @@ OdeOrder
 10 # OdeLeftHandSideEq(_l == _r) <-- (l-r);
 20 # OdeLeftHandSideEq(_e) <-- e;
 
-10 # OdeNormChange(y(n_IsInteger)) <-- UnList({yyy,n});
+10 # OdeNormChange(y(n_IsInteger)) <-- ListToFunction({yyy,n});
 20 # OdeNormChange(y) <-- yyy(0);
 25 # OdeNormChange(y') <-- yyy(1);
 25 # OdeNormChange(y'') <-- yyy(2);

@@ -150,7 +150,7 @@ Plot2DJFreeChart(values_IsList, _optionsHash) <--
     
     
     //Call the LineChart() function.
-    Eval(UnList(lineChartCallListForm));
+    Eval(ListToFunction(lineChartCallListForm));
     
 
 ];

@@ -128,7 +128,7 @@ Bodied("Taylor3'TaylorCoefs",0);
       (
         [
           Local(result);
-          result:= Deriv(var)UnList({Atom(any),var});
+          result:= Deriv(var)ListToFunction({Atom(any),var});
           Type(result) != "Deriv";
         ]
       )           <--
@@ -138,7 +138,7 @@ Bodied("Taylor3'TaylorCoefs",0);
 210 # Taylor3'CompCoeff(_any, n_IsInteger)
     <--
     [
-      Limit(var,0)(Deriv(var,n)(UnList({Atom(any),var}))/n!);
+      Limit(var,0)(Deriv(var,n)(ListToFunction({Atom(any),var}))/n!);
     ];
 
 
