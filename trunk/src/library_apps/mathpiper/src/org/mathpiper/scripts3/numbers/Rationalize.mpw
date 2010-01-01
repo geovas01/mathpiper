@@ -4,9 +4,14 @@
 [
     Local(result,n,d);
     result:=Substitute(aNumber,{{x},IsNumber(x) And Not(IsInteger(x))},"RationalizeNumber");
-    n:=Numerator(result);
-    d:=Denominator(result);
-    n*(1/d);
+    If(Length(VarList(aNumber))=0,
+      [
+        n:=Numerator(result);
+        d:=Denominator(result);
+        result := n*(1/d);
+      ]
+    );
+    result;
 ];
 %/mathpiper
 
