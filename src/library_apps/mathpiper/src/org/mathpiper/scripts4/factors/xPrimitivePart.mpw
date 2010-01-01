@@ -71,7 +71,7 @@ computes xContent(expr) internally, but returns only the primitive part.
     compute xContent(expr) internally, AND return it in the second argument!
 
 *E.G.
-    In> Clear(a,b,xCont)
+    In> Unbind(a,b,xCont)
     Result: True
     
     In> poly:=2*a*x^2*y-8*a*y
@@ -92,7 +92,7 @@ computes xContent(expr) internally, but returns only the primitive part.
     In> xpp2
     Result: x^2-4
     
-    In> Clear(cont)
+    In> Unbind(cont)
     Result: True
     
     In> Time() xpp3:=xPrimitivePart(poly,cont)
