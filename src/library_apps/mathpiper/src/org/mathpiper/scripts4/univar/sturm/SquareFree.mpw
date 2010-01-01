@@ -4,7 +4,7 @@ SquareFree(_p) <--
 [
   Local(dp,gcd);
 //Echo("1...");
-  dp:=MakeMultiNomial(`(D(x)(@p)),{x});
+  dp:=MakeMultiNomial(`(Differentiate(x)(@p)),{x});
 //  dp:=dp/MultiLeadingCoef(dp);
 
 //Echo("2...",dp);
@@ -15,7 +15,7 @@ SquareFree(_p) <--
 //Echo(NormalForm(gcd));
 //Echo(NormalForm(MultiDivide(p,{gcd})[1][1]));
   NormalForm(MultiDivide(p,{gcd})[1][1]);
-//  Div(p,Gcd(p,Monic(`(D(x)(@p)))));
+//  Div(p,Gcd(p,Monic(`(Differentiate(x)(@p)))));
 ];
 
 %/mathpiper

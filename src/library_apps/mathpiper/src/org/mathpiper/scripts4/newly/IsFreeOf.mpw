@@ -47,13 +47,13 @@ the variables named in the list. The result is {True} if none of the variables a
 	Out> False;
 	In> IsFreeOf(y, Sin(x));
 	Out> True;
-	In> IsFreeOf(x, D(x) a*x+b);
+	In> IsFreeOf(x, Differentiate(x) a*x+b);
 	Out> True;
 	In> IsFreeOf({x,y}, Sin(x));
 	Out> False;
 
 The third command returns {True} because the
-expression {D(x) a*x+b} evaluates to {a}, which does not depend on {x}.
+expression {Differentiate(x) a*x+b} evaluates to {a}, which does not depend on {x}.
 
 *SEE Contains
 %/mathpiper_docs

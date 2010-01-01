@@ -34,7 +34,7 @@ TestPoly(x^3*(x+1)*(x-1),{{x,3},{x+1,1},{x-1,1}});
 TestPoly((y+1)*(y-1),{{y+1,1},{y-1,1}});
 
 // Test from Wester 1994 test
-TestPoly(D(x)(x+1)^20,{{20,1},{x+1,19}});
+TestPoly(Differentiate(x)(x+1)^20,{{20,1},{x+1,19}});
 
 // From regression test, and verify that polys with unfactorizable parts works
 TestPoly((x^6-1),{{x^4+x^2+1,1},{x+1,1},{x-1,1}});

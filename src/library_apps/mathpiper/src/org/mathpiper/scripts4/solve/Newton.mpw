@@ -13,7 +13,7 @@ Function("Newton",{function,variable,initial,accuracy,min,max})
   accuracy:=N((accuracy/10)*10); // Making sure accuracy is rounded correctly
   BuiltinPrecisionSet(requiredPrec+2);
   function:=N(function);
-  adjust:= -function/Apply("D",{variable,function});
+  adjust:= -function/Apply("Differentiate",{variable,function});
   delta:=10000;
   result:=initial;
   While (result > min And result < max

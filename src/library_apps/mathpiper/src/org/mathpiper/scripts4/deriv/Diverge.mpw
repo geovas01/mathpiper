@@ -2,7 +2,7 @@
 
 RuleBase("Diverge", {aFunc, aBasis});
 Rule("Diverge", 2, 1, IsList(aBasis) And IsList(aFunc) And Length(aBasis) = Length(aFunc))
-	Add(Map("D", {aBasis,aFunc}));
+	Add(Map("Differentiate", {aBasis,aFunc}));
 
 %/mathpiper
 
@@ -25,8 +25,8 @@ Rule("Diverge", 2, 1, IsList(aBasis) And IsList(aFunc) And Length(aBasis) = Leng
 This function calculates the divergence of the vector field "vector"
 with respect to the variables "basis". The divergence is defined as
 
-	Diverge(f,x) = D(x[1]) f[1] + ...
-	    + D(x[n]) f[n],
+	Diverge(f,x) = Differentiate(x[1]) f[1] + ...
+	    + Differentiate(x[n]) f[n],
 where {n} is the length of the lists "vector" and
 "basis". These lists should have equal length.
 

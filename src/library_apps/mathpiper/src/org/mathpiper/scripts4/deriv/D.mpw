@@ -1,48 +1,48 @@
-%mathpiper,def="D"
+%mathpiper,def="Differentiate"
 
-RuleBase("D",{aVar,aFunc});
-RuleBase("D",{aVar,aCount,aFunc});
+RuleBase("Differentiate",{aVar,aFunc});
+RuleBase("Differentiate",{aVar,aCount,aFunc});
 
-Rule("D",2,1,IsList(aVar) And Not(IsList(aFunc)))
-	Map("D",{aVar,FillList(aFunc, Length(aVar))});
-Rule("D",2,1,IsList(aVar) And IsList(aFunc))
-	Map("D",{aVar,aFunc});
+Rule("Differentiate",2,1,IsList(aVar) And Not(IsList(aFunc)))
+	Map("Differentiate",{aVar,FillList(aFunc, Length(aVar))});
+Rule("Differentiate",2,1,IsList(aVar) And IsList(aFunc))
+	Map("Differentiate",{aVar,aFunc});
 
-Rule("D",2,3,True)
+Rule("Differentiate",2,3,True)
 [
   MacroLocal(aVar);
   Apply("Deriv",{aVar,1,aFunc});
 ];
 
-Rule("D",3,1,IsList(aVar) And Not(IsList(aFunc)))
-	Map("D",{aVar,
+Rule("Differentiate",3,1,IsList(aVar) And Not(IsList(aFunc)))
+	Map("Differentiate",{aVar,
                  FillList(aCount, Length(aVar)),
                  FillList(aFunc, Length(aVar))});
-Rule("D",3,1,IsList(aVar) And IsList(aFunc))
-	Map("D",{aVar,
+Rule("Differentiate",3,1,IsList(aVar) And IsList(aFunc))
+	Map("Differentiate",{aVar,
                  FillList(aCount, Length(aVar)),
                  aFunc});
-Rule("D",3,3,True)
+Rule("Differentiate",3,3,True)
 [
   MacroLocal(aVar);
   Apply("Deriv",{aVar,aCount,aFunc});
 ];
 
 
-HoldArg("D",aVar);
-HoldArg("D",aFunc);
+HoldArg("Differentiate",aVar);
+HoldArg("Differentiate",aFunc);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="D",categories="User Functions;Calculus Related (Symbolic)"
+%mathpiper_docs,name="Differentiate",categories="User Functions;Calculus Related (Symbolic)"
 *CMD D --- take derivative of expression with respect to variable
 *STD
 *CALL
-	D(variable) expression
-	D(list) expression
-	D(variable,n) expression
+	Differentiate(variable) expression
+	Differentiate(list) expression
+	Differentiate(variable,n) expression
 
 *PARMS
 
@@ -76,13 +76,13 @@ mathematical idiom that simplifies many formulae.
 
 *E.G.
 
-	In> D(x)Sin(x*y)
+	In> Differentiate(x)Sin(x*y)
 	Out> y*Cos(x*y);
-	In> D({x,y,z})Sin(x*y)
+	In> Differentiate({x,y,z})Sin(x*y)
 	Out> {y*Cos(x*y),x*Cos(x*y),0};
-	In> D(x,2)Sin(x*y)
+	In> Differentiate(x,2)Sin(x*y)
 	Out> -Sin(x*y)*y^2;
-	In> D(x){Sin(x),Cos(x)}
+	In> Differentiate(x){Sin(x),Cos(x)}
 	Out> {Cos(x),-Sin(x)};
 
 *SEE Integrate, Taylor, Diverge, Curl
