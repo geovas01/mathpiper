@@ -1,0 +1,40 @@
+%mathpiper,def="NoneSatisfy"
+
+10 # NoneSatisfy(pred_IsString,lst_IsList) <-- Not Apply("Or",(MapSingle(pred,lst)));
+
+20 # NoneSatisfy(_pred,_lst) <-- True;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+%mathpiper_docs,name="NoneSatisfy",categories="User Functions;Predicates"
+
+*CMD NoneSatisfy --- Check if NO element of list {lst} satisfies predicate {pred}
+
+*STD
+*CALL
+	NoneSatisfy(pred,lst)
+
+*PARMS
+
+{pred} -- the name of the predicate (as string, with quotes) to be tested
+
+{lst} -- a list
+
+*DESC
+
+The command {NoneSatisfy} returns {True} if NO element of the list {lst} satisfies the predicate {pred}.
+It returns {False} if at least one element of the list satisfies the predicate.
+It also returns {True} if {lst} is not a list, or if {pred} is not a predicate.
+
+*E.G.
+
+    In> NoneSatisfy("IsNegativeInteger",{1,0,5})
+    Result: True
+    In> NoneSatisfy("IsPositiveInteger",{-1,0,5})
+    Result: False
+    
+%/mathpiper_docs

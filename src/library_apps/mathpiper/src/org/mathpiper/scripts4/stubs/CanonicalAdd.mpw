@@ -1,0 +1,21 @@
+%mathpiper,def="CanonicalAdd",scope="private"
+
+// Canonicalise an expression so its terms are grouped to the right
+// ie a+(b+(c+d))
+// This doesn't preserve order of terms, when doing this would cause more
+// subtractions and nested parentheses than necessary.
+1 # CanonicalAdd((_a+_b)+_c) <-- CanonicalAdd(CanonicalAdd(a)+
+                                              CanonicalAdd(CanonicalAdd(b)+
+                                                           CanonicalAdd(c)));
+1 # CanonicalAdd((_a-_b)+_c) <-- CanonicalAdd(CanonicalAdd(a)+
+                                              CanonicalAdd(CanonicalAdd(c)-
+                                                           CanonicalAdd(b)));
+1 # CanonicalAdd((_a+_b)-_c) <-- CanonicalAdd(CanonicalAdd(a)+
+                                              CanonicalAdd(CanonicalAdd(b)-
+                                                           CanonicalAdd(c)));
+1 # CanonicalAdd((_a-_b)-_c) <-- CanonicalAdd(CanonicalAdd(a)-
+                                              CanonicalAdd(CanonicalAdd(b)+
+                                                           CanonicalAdd(c)));
+2 # CanonicalAdd(_a)         <-- a;
+
+%/mathpiper

@@ -1,0 +1,98 @@
+%mathpiper,def="ProbabilityToZScore",scope="private"
+
+/* 
+    This function was adapted from the Javascript version of function
+    that is located here:
+    
+    http://www.fourmilab.ch/rpkp/experiments/analysis/zCalc.js
+    http://www.fourmilab.ch/rpkp/experiments/analysis/zCalc.html?
+    
+    The following JavaScript functions for calculating normal and
+    chi-square probabilities and critical values were adapted by
+    John Walker from C implementations
+    written by Gary Perlman of Wang Institute, Tyngsboro, MA
+    01879. Both the original C code and this JavaScript edition
+    are in the public domain. 
+*/
+
+
+/* We just do a bisection
+search for a value within CHI_EPSILON,
+relying on the monotonicity of pochisq(). */
+
+Retract("ProbabilityToZScore",*);
+
+ProbabilityToZScore(probability) :=
+[
+    Local(ZMAX,ZEPSILON,minimumZ,maximumZ,zValue,probabilityValue);
+    
+    probability := N(probability);
+    
+    Check(probability >= 0.0 And probability <= 1.0, "The argument must be between 0 and 1.");
+    
+    ZMAX := 6; // Maximum ±z value.
+    
+    ZEPSILON := 0.000001; /* Accuracy of z approximation */
+    
+    minimumZ := -ZMAX;
+    
+    maximumZ := ZMAX;
+    
+    zValue := 0.0;
+
+    While ((maximumZ - minimumZ) > ZEPSILON) 
+    [
+        probabilityValue := ZScoreToProbability(zValue);
+        
+        if (probabilityValue > probability) 
+        [
+            maximumZ := zValue;
+        ] 
+        else 
+        [
+            minimumZ := zValue;
+        ];
+        
+        zValue := (maximumZ + minimumZ) * 0.5;
+    ];
+    
+    zValue;
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="ProbabilityToZScore",categories="User Functions;Statistics & Probability"
+*CMD ProbabilityToZScore --- calculates the z-score for a given probability
+*STD
+*CALL
+	ProbabilityToZScore(probability)
+
+*PARMS
+
+{probability} -- a probability value
+
+*DESC
+
+This function calculates the z-score for a given probability.
+
+*E.G.
+In> ProbabilityToZScore(.90)
+Result: 1.281551244
+
+*SEE NormalDistribution,ZScoreToProbability,ConfidenceLevelToZScore
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

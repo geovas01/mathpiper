@@ -1,0 +1,65 @@
+%mathpiper,def="PadLeft",scope="private"
+
+Retract("PadLeft", *);
+
+10 # PadLeft(number_IsNumber, totalDigits_IsInteger) <--
+[
+    Local(integerString, padAmount, resultString);
+    
+    integerString := String(number);
+    
+    padAmount := totalDigits - Length(integerString);
+    
+    If(padAmount > 0,
+        resultString := ListToString(FillList(0, padAmount)) : integerString,
+        resultString := integerString );
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper_docs,name="GeometricMean",categories="User Functions;Input/Output"
+*CMD PadLeft --- converts a number into a string which has a specified width
+*STD
+*CALL
+	PadLeft(number,string_width)
+
+*PARMS
+
+{number} -- an integer or a decimal number to convert to a string
+
+{string_width} -- the width of the string
+
+*DESC
+
+This function converts a number into a string which has a specified width.  If the number
+would normally be converted into a string with fewer characters than this width, zeros are
+added to the left side of the string to make it the specified width.
+
+*E.G.
+/%mathpiper,title=""
+
+Echo(PadLeft(.1,3));
+Echo(PadLeft(20,3));
+Echo(PadLeft(5,3));
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      0.1
+      020
+      005
+.   /%/output
+%/mathpiper_docs
+
+
+

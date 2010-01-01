@@ -1,0 +1,24 @@
+%mathpiper,def="UniTaylor"
+
+Function("UniTaylor",{taylorfunction,taylorvariable,taylorat,taylororder})
+[
+  Local(n,result,dif,polf);
+  result:={};
+  [
+    MacroLocal(taylorvariable);
+    MacroSet(taylorvariable,taylorat);
+    DestructiveAppend(result,Eval(taylorfunction));
+  ];
+  dif:=taylorfunction;
+  polf:=(taylorvariable-taylorat);
+  For(n:=1,n<=taylororder,n++)
+  [
+    dif:= Deriv(taylorvariable) dif;
+    MacroLocal(taylorvariable);
+    MacroSet(taylorvariable,taylorat);
+    DestructiveAppend(result,(Eval(dif)/n!));
+  ];
+  UniVariate(taylorvariable,0,result);
+];
+
+%/mathpiper

@@ -1,0 +1,34 @@
+%mathpiper,def="if"
+
+RuleBase("if",{predicate,body});
+
+(if(True) _body) <-- Eval(body);
+
+HoldArg("if",body);
+
+UnFence("if",2);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="if",categories="User Functions;Control Flow"
+*CMD if --- branch point
+*STD
+*CALL
+    if(predicate)body
+
+*PARMS
+
+{predicate} -- predicate to test
+
+{body} -- expression to evaluate if the predicate is true
+
+*DESC
+
+(This description is in development.)
+
+
+*SEE If, else
+%/mathpiper_docs

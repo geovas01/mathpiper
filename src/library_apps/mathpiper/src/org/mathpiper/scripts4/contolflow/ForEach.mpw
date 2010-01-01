@@ -1,0 +1,101 @@
+%mathpiper,def="ForEach"
+
+Retract("ForEach" , *);
+
+/*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
+TemplateFunction("ForEach",{item,listOrString,body})
+[
+  If(And(Equals(IsGeneric(listOrString),True),
+         Equals(GenericTypeName(listOrString),"Array")
+         ),
+    `ForEachInArray(@item,listOrString,@body),
+    [
+
+      MacroLocal(item);
+      
+      If(IsString(listOrString),
+      [
+          
+          Local(index, stringLength);
+          
+          stringLength := Length(listOrString);
+          
+          index := 1;
+          While(index <= stringLength )
+          [
+             MacroSet(item,listOrString[index] );
+             
+             Eval(body);
+             
+             index++;
+          ];
+
+      ],
+      [
+          Local(foreachtail);
+          Set(foreachtail,listOrString);
+          While(Not(Equals(foreachtail,{})))
+          [
+            MacroSet(item,First(foreachtail));
+            Eval(body);
+            Set(foreachtail,Rest(foreachtail));
+          ];
+      ]);
+    ]);
+];
+UnFence("ForEach",3);
+HoldArgNr("ForEach",3,1);
+HoldArgNr("ForEach",3,3);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="ForEach",categories="User Functions;Control Flow"
+*CMD ForEach --- loop over all entries in a list or a string
+*STD
+*CALL
+	ForEach(var, list_or_string) body
+
+*PARMS
+
+{var} -- looping variable
+
+{list} -- list of values or string of characters to assign to "var"
+
+{body} -- expression to evaluate with different values of "var"
+
+*DESC
+
+The expression "body" is evaluated multiple times. The first time,
+"var" has the value of the first element of "list" or the first
+character in "string", then it gets
+the value of the second element and so on. {ForEach}
+returns {True}.
+
+*E.G. notest
+
+    In> ForEach(i,{2,3,5,7,11}) Echo({i, i!});
+    2  2
+    3  6
+    5  120
+    7  5040
+    11  39916800
+    Out> True;
+
+
+    In> ForEach(i,"Hello") Echo(i)
+    Result: True
+    Side Effects:
+    H
+    e
+    l
+    l
+    o
+
+*SEE For, While, Until, Break, Continue
+%/mathpiper_docs

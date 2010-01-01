@@ -1,0 +1,54 @@
+%mathpiper,def="IsUpperTriangular"
+
+IsUpperTriangular(A_IsMatrix) <--
+[
+        Local(i,j,m,n,result);
+        m:=Length(A);
+        n:=Length(A[1]);
+        i:=2;
+        result:=(m=n);
+        While(i<=m And result)
+        [
+                j:=1;
+                While(j<=n And result)
+                [
+                        result:= (i<=j Or A[i][j] = 0);
+                        j++;
+                ];
+                i++;
+        ];
+        result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsUpperTriangular",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD IsUpperTriangular --- test for an upper triangular matrix
+*STD
+*CALL
+	IsUpperTriangular(A)
+
+*PARMS
+
+{A} -- a matrix
+
+*DESC
+
+An upper triangular matrix is a square matrix which has all zero entries above the diagonal.
+
+{IsUpperTriangular(A)} returns {True} if {A} is an upper triangular matrix and {False} otherwise.
+
+*E.G.
+	In> IsUpperTriangular(Identity(5))
+	Out> True;
+	In> IsUpperTriangular({{1,2},{0,1}})
+	Out> True;
+
+A non-square matrix cannot be triangular:
+	In> IsUpperTriangular({{1,2,3},{0,1,2}})
+	Out> False;
+
+*SEE IsLowerTriangle, IsDiagonal
+%/mathpiper_docs

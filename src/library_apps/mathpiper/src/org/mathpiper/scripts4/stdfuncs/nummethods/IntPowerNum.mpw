@@ -1,0 +1,79 @@
+%mathpiper,def="IntPowerNum"
+
+/// coded by Serge Winitzki. See essays documentation for algorithms.
+
+//////////////////////////////////////////////////
+/// Numerical method: integer powers by binary reduction
+//////////////////////////////////////////////////
+
+/// generalized integer Power function using the classic binary method.
+5 # IntPowerNum(_x, 0, _func, _unity) <-- unity;
+10 # IntPowerNum(_x, n_IsInteger, _func, _unity) <--
+[
+	// use binary method
+	Local(result);
+	// unity might be of non-scalar type, avoid assignment
+	While(n > 0)
+	[
+		If(
+			(n&1) = 1,
+			If(
+				IsBound(result), // if result is already assigned
+				result := Apply(func, {result,x}),
+				result := x, // avoid multiplication
+			)
+		);
+		x := Apply(func, {x,x});
+		n := n>>1;
+	];
+	result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IntPowerNum"
+*CMD IntPowerNum --- optimized computation of integer powers
+*STD
+*CALL
+	IntPowerNum(x, n, mult, unity)
+
+*PARMS
+
+{x} -- a number or an expression
+
+{n} -- a non-negative integer (power to raise {x} to)
+
+{mult} -- a function that performs one multiplication
+
+{unity} -- value of the unity with respect to that multiplication
+
+*DESC
+
+{IntPowerNum} computes the power $x^n$ using the fast binary algorithm.
+It can compute integer powers with $n>=0$ in any ring where multiplication with unity is defined.
+The multiplication function and the unity element must be specified.
+The number of multiplications is no more than $2*Ln(n)/Ln(2)$.
+
+Mathematically, this function is a generalization of {MathPower} to rings other than that of real numbers.
+
+In the current implementation, the {unity} argument is only used when the given power {n} is zero.
+
+*E.G.
+
+For efficient numerical calculations, the {MathMultiply} function can be passed:
+	In> IntPowerNum(3, 3, MathMultiply,1)
+	Out> 27;
+Otherwise, the usual {*} operator suffices:
+	In> IntPowerNum(3+4*I, 3, *,1)
+	Out> Complex(-117,44);
+	In> IntPowerNum(HilbertMatrix(2), 4, *,
+	  Identity(2))
+	Out> {{289/144,29/27},{29/27,745/1296}};
+Compute $Mod(3^100,7)$:
+	In> IntPowerNum(3,100,{{x,y},Mod(x*y,7)},1)
+	Out> 4;
+
+*SEE MultiplyNum, MathPower, MatrixPower
+%/mathpiper_docs

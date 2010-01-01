@@ -1,0 +1,51 @@
+%mathpiper,def="TableForm"
+
+Function("TableForm",{list})
+[
+  Local(i);
+  ForEach(i,list)
+  [
+    Write(i);
+    NewLine();
+  ];
+  True;
+];
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="TableForm",categories="User Functions;Lists (Operations)"
+*CMD TableForm --- print each entry in a list on a line
+*STD
+*CALL
+	TableForm(list)
+
+*PARMS
+
+{list} -- list to print
+
+*DESC
+
+This functions writes out the list {list} in a better readable form, by
+printing every element in the list on a separate line.
+
+*E.G.
+
+	In> TableForm(Table(i!, i, 1, 10, 1));
+
+	1
+	 2
+	 6
+	 24
+	 120
+	 720
+	 5040
+	 40320
+	 362880
+	 3628800
+	Out> True;
+
+*SEE PrettyForm, Echo, Table
+%/mathpiper_docs

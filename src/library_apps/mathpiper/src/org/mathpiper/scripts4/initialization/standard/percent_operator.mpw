@@ -1,0 +1,31 @@
+%mathpiper,def="%"
+
+a_IsNonNegativeInteger % b_IsPositiveInteger <-- Mod(a,b);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="%_v1",categories="Operators"
+*CMD  % --- modulus operator
+*STD
+*CALL
+    a % b
+
+*PARMS
+
+{a} -- non negative integer
+
+{b} -- non negative integer
+
+*DESC
+
+Divides a by b and returns the remainder of the division.
+
+*E.G.
+In> 8 % 5
+Result: 3
+
+*SEE /
+%/mathpiper_docs

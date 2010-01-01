@@ -1,0 +1,23 @@
+%mathpiper,def="LogicFindWith",scope="private"
+
+/* find the number of the list that contains n in it, a pointer to a list of lists in passed */
+LogicFindWith(_list, _i, _n) <--
+[
+  Local(result, index, j);
+  Set(result, -1); Set(index, -1);
+
+  For(j := i+1, (result<0) And (j <= Length(list)), j++)
+  [
+    Local(k, len); Set(len, Length(list[j]));
+    For(k := 1, (result<0) And (k<=len), k++)
+    [
+      Local(el); Set(el, list[j][k]);
+
+      If(Contradict(n, el),
+        [Set(result, j); Set(index, k);]);
+    ];
+  ];
+  {result, index};
+];
+
+%/mathpiper

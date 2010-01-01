@@ -1,0 +1,53 @@
+%mathpiper,def="xnfinityNorm"
+
+Retract("InfinityNorm",*);
+
+
+10 # InfinityNorm( M_IsMatrix ) <--
+[
+	Local(sumlist,row);
+	sumlist := {};
+    ForEach(row,M)
+        Push(sumlist,Sum(Abs(row)));
+    Max(sumlist);
+];
+
+10 # InfinityNorm( M_IsVector ) <-- Max(Abs(M));
+
+%/mathpiper
+
+   
+
+
+
+
+
+%mathpiper_docs,name="InfinityNorm",categories="User Functions;Linear Algebra"
+*CMD InfinityNorm --- Compute the "Infinity Norm" of a Vector or Matrix
+*STD
+*CALL
+	InfinityNorm(Matrix)
+*PARMS
+
+{Matrix} -- a Matrix or Vector
+
+
+*DESC
+
+The function {InfinityNorm} calculates one of the most valuable types
+of Norm for Matrices.  It can also be applied to Vectors, but is less
+often used that way.
+
+For a Matrix, the so-called "Infinity Norm" is calculated by finding the 
+sum of the absolute values of all the elements in each row, then returning
+the largest of these row sums.   
+
+
+*E.G.
+
+    In> InfinityNorm({{3,5,7},{2,-6,4},{0,2,8}})
+    Result: 15
+
+%/mathpiper_docs
+
+
