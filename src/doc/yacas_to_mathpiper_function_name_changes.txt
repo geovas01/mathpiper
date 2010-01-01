@@ -4,9 +4,10 @@
 //Misc.
 - D -> Derive //Because syntax highlighting just "D" is too general.
 Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operators to make function calls uniform and to reduce confusion.
-b Listify -> FunctionToList
-b UnList -> ListToFunction
-b Clear -> Unbind
+- Listify -> FunctionToList
+- UnList -> ListToFunction
+- Clear -> Unbind
+- MacroClear -> MacroUnbind
 b String -> ToString
 b Atom -> StringToAtom
 b Equals -> IsEqual
