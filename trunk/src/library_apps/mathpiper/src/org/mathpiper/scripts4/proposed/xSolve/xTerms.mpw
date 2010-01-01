@@ -35,7 +35,7 @@ xTerms(_expr) <--
                 [
                     If( h=Atom("-"),[f:=L[2];qs:=-1;],
                         [
-                            Push(stack,UnList(L));
+                            Push(stack,ListToFunction(L));
                             If( InVerboseMode(), [
                                 Echo("          n=",n,"      L=",L,"     h=",h);
                                 Echo("DONE");

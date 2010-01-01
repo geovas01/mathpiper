@@ -13,7 +13,7 @@
   result:=FWatom(First(list));
   ForEach(item,Rest(list))
   [
-   result := UnList({ Atom("*"),result,FWatom(item)});
+   result := ListToFunction({ Atom("*"),result,FWatom(item)});
   ];
   result;
 ];

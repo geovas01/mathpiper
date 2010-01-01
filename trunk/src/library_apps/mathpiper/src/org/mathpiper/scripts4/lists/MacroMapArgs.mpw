@@ -8,7 +8,7 @@ Macro("MacroMapArgs",{expr,oper})
   Set(ex,FunctionToList(@expr));
   Set(tl,Rest(ex));
 
-   UnList(Concat({ex[1]},
+   ListToFunction(Concat({ex[1]},
      `MacroMapSingle(@op,Hold(@tl)))
    );
 ];

@@ -118,7 +118,7 @@ FLog("simpadd",lst);
 
 TrigNegate(f):=
 [
-  UnList({f[0],-(f[1]),f[2]});
+  ListToFunction({f[0],-(f[1]),f[2]});
 ];
 
 

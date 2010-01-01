@@ -9,7 +9,7 @@ LocalSymbols(NFunction'Numberize)
 NFunction(new'name_IsString, old'name_IsString, arg'list_IsList) <-- [
 	MacroRuleBase(new'name, arg'list);
 	MacroRule(new'name, Length(arg'list), 0,	// check whether all args are numeric
-		UnList({IsNumericList, arg'list})
+		ListToFunction({IsNumericList, arg'list})
 	)
 
 		/* this is the rule defined for the new function.
@@ -17,7 +17,7 @@ NFunction(new'name_IsString, old'name_IsString, arg'list_IsList) <-- [
 		// the body looks like this:
 		// NFunction'Numberize(old'name(arg'list))
 		*/
-			NFunction'Numberize(UnList({Atom("@"), old'name, arg'list}));
+			NFunction'Numberize(ListToFunction({Atom("@"), old'name, arg'list}));
 			// cannot use bare '@' b/c get a syntax error
 
 ];

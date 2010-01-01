@@ -20,7 +20,7 @@ SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum) <--
 	     <--
 	     [
 	          Local(sub);
-		  (sub := Eval(UnList({Sum,sumvar'arg,@sumfrom,p-1,sumbody'arg})));
+		  (sub := Eval(ListToFunction({Sum,sumvar'arg,@sumfrom,p-1,sumbody'arg})));
 		  Simplify(Eval(@sum) - sub );
              ]);
 ];
@@ -33,7 +33,7 @@ SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum,_condition) <--
 	     <--
 	     [
 	          Local(sub);
-		  `(sub := Eval(UnList({Sum,sumvar'arg,@sumfrom,p-1,sumbody'arg})));
+		  `(sub := Eval(ListToFunction({Sum,sumvar'arg,@sumfrom,p-1,sumbody'arg})));
 		  Simplify(Eval(@sum) - sub );
              ]);
 ];
@@ -42,16 +42,16 @@ SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum,_condition) <--
 // given in a different order, like x^k/k! vs. (1/k!)*x^k
 // works !
 SumFunc(_k,1,_n,_c + _d,
-  Eval(UnList({Sum,sumvar'arg,1,n,c})) +
-  Eval(UnList({Sum,sumvar'arg,1,n,d}))
+  Eval(ListToFunction({Sum,sumvar'arg,1,n,c})) +
+  Eval(ListToFunction({Sum,sumvar'arg,1,n,d}))
 );
-SumFunc(_k,1,_n,_c*_expr,Eval(c*UnList({Sum,sumvar'arg,1,n,expr})), IsFreeOf(k,c) );
-SumFunc(_k,1,_n,_expr/_c,Eval(UnList({Sum,sumvar'arg,1,n,expr})/c), IsFreeOf(k,c) );
+SumFunc(_k,1,_n,_c*_expr,Eval(c*ListToFunction({Sum,sumvar'arg,1,n,expr})), IsFreeOf(k,c) );
+SumFunc(_k,1,_n,_expr/_c,Eval(ListToFunction({Sum,sumvar'arg,1,n,expr})/c), IsFreeOf(k,c) );
 
 // this only works when the index=1
 // If the limit of the general term is not zero, then the series diverges
 // We need something like IsUndefined(term), because this croaks when limit return Undefined
-//SumFunc(_k,1,Infinity,_expr,Infinity,Eval(Abs(UnList({Limit,sumvar'arg,Infinity,expr})) > 0));
+//SumFunc(_k,1,Infinity,_expr,Infinity,Eval(Abs(ListToFunction({Limit,sumvar'arg,Infinity,expr})) > 0));
 SumFunc(_k,1,Infinity,1/k,Infinity);
 
 SumFunc(_k,1,_n,_c,c*n,IsFreeOf(k,c) );

@@ -193,7 +193,7 @@ LocalSymbols(omindent) [
         //Check(IsList(result), ToString()Echo("Mapping result is not a list: ", result));
         If(IsList(result),
            [
-           result := UnList(Subst($, function[0]) result);
+           result := ListToFunction(Subst($, function[0]) result);
            OMFormExpression(result[0]);
            ForEach(i, result) OMFormExpression(i);
            ],
@@ -297,7 +297,7 @@ OMSignature(function_IsFunction) <--
        );
     DestructiveAppend(makeSig, type);
   ];
-  Secure(Eval(UnList(makeSig)));
+  Secure(Eval(ListToFunction(makeSig)));
 ];
 HoldArgNr("OMSignature", 1, 1);
 
@@ -427,7 +427,7 @@ FromString(str:" EndOfFile")
     DestructiveAppend(result,new);
   ];
   MatchClose(XmlTag("OMA",{},"Close"));
-  OMApplyReverseMapping(UnList(result));
+  OMApplyReverseMapping(ListToFunction(result));
 ];
 
 10 # ReadOMOBJ(XmlTag("OMBIND",{},"Open")) <--
@@ -468,7 +468,7 @@ FromString(str:" EndOfFile")
         [
           result := OMApplyMapping(piperExp, symbolDef[4]);
           result := Subst($, piperExp[0]) result;
-          If(IsList(result), result := UnList(result));
+          If(IsList(result), result := ListToFunction(result));
         ]
        );
      result;

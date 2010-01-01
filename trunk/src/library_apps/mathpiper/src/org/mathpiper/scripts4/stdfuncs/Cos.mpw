@@ -1,6 +1,6 @@
 %mathpiper,def="Cos"
 
-1 # CosMap( _n )_(Not(IsRationalOrNumber(n))) <-- UnList({Atom("Cos"),n*Pi});
+1 # CosMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({Atom("Cos"),n*Pi});
 2 # CosMap( _n )_(n<0) <-- CosMap(-n);
 2 # CosMap( _n )_(n>2) <-- CosMap(Mod(n,2));
 3 # CosMap( _n )_(n>1) <-- CosMap(2-n);
@@ -13,7 +13,7 @@
 5 # CosMap( 1/2 ) <-- 0;
 5 # CosMap( 2/5 ) <-- (Sqrt(5)-1)/4;
 
-10 # CosMap(_n) <-- UnList({Atom("Cos"),n*Pi});
+10 # CosMap(_n) <-- ListToFunction({Atom("Cos"),n*Pi});
 
 
 
@@ -39,7 +39,7 @@
      Local(ll);
      ll:= FloorN(N(Eval(x/Pi)));
      If(IsEven(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
-     UnList({Cos,x});
+     ListToFunction({Cos,x});
      ];
 
 400 # Cos(x_IsRationalOrNumber) <--
@@ -47,7 +47,7 @@
      Local(ll);
      ll:= FloorN(N(Eval(Abs(x)/Pi)));
      If(IsEven(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
-     UnList({Cos,x});
+     ListToFunction({Cos,x});
      ];
 
 100 # Cos(_x)*Tan(_x) <-- Sin(x);

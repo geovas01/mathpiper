@@ -431,7 +431,7 @@ HoldArg("PrettyForm",ff);
 EvalFormula(f):=
 [
   Local(result);
-  result:= UnList({Atom("="),f,Eval(f)});
+  result:= ListToFunction({Atom("="),f,Eval(f)});
   PrettyForm(result);
   True;
 ];
