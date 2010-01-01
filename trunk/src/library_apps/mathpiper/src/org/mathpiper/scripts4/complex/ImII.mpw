@@ -1,0 +1,5 @@
+%mathpiper,def="ImII",scope="private"
+
+ImII(_c) <-- NN(c)[2];
+
+%/mathpiper

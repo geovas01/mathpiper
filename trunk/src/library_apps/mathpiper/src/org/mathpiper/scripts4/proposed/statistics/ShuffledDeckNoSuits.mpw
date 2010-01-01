@@ -1,0 +1,17 @@
+%mathpiper,def="ShuffledDeckNoSuits",scope="private"
+
+Retract("ShuffledDeckNoSuits",*);
+
+
+ShuffledDeckNoSuits() := 
+[
+   Shuffle(Concat(1 .. 13, 1 .. 13, 1 .. 13, 1 .. 13));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+

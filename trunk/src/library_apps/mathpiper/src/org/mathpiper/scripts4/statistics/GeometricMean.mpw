@@ -1,0 +1,37 @@
+%mathpiper,def="GeometricMean"
+
+GeometricMean(list) := 
+[
+    Check(IsList(list), "Argument must be a list.");
+    
+    Product(list)^(1/Length(list));
+];
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="GeometricMean",categories="User Functions;Statistics & Probability"
+*CMD GeometricMean --- calculates the mean of a list of values
+*STD
+*CALL
+	GeometricMean(list)
+
+*PARMS
+
+{list} -- list of values
+
+*DESC
+
+This function calculates the geometric mean of a list of values.
+
+*E.G.
+In> Mean({73,94,80,37,56,94,40,21,7,24})
+Result: 263/5
+
+In> N(Mean({73,94,80,37,56,94,40,21,7,24}))
+Result: 52.6
+
+*SEE Mean, WeightedMean, Median, Mode
+%/mathpiper_docs

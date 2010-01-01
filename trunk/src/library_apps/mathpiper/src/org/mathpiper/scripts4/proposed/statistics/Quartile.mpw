@@ -1,0 +1,81 @@
+%mathpiper,def="Quartile",scope="private"
+
+Retract("Quartile",*);
+
+Quartile(list) :=
+[
+    sortedList := HeapSort(list,"<");
+    
+    secondQuartile := Median(sortedList);
+    
+    If(IsOdd(Length(sortedList)),
+    [   
+        secondQuartileIndex := Find(sortedList, secondQuartile);
+        
+        leftList := Take(sortedList, secondQuartileIndex-1);
+        rightList := Take(sortedList, -(Length(sortedList) - (secondQuartileIndex) ) );
+    ],
+    [
+
+        leftList := Take(sortedList, Length(sortedList)/2);
+        rightList := Take(sortedList, -Length(sortedList)/2);
+    ]
+    );
+    
+    firstQuartile := Median(leftList);
+    
+    thirdQuartile := Median(rightList);
+    
+    interquartileRange := thirdQuartile - firstQuartile;
+    
+    {firstQuartile, secondQuartile, thirdQuartile, interquartileRange};
+
+];
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper_docs,name="Quartile",categories="User Functions;Statistics & Probability"
+*CMD Quartile --- returns all of the quartiles and the interquartile range of a list of values
+*STD
+*CALL
+	Quartile(list)
+
+*PARMS
+
+{list} -- a list which contains values
+
+*DESC
+Returns all of the quartiles and the interquartile range of a list of values.  The first
+value in the returned list is the first quartile, the second value is the second quartile,
+the third value is the third quartile, and the fourth value is the interquartile range.
+
+*E.G.
+/%mathpiper,title=""
+
+samples := {
+438,413,444,468,445,472,474,454,455,449,
+450,450,450,459,466,470,457,441,450,445,
+487,430,446,450,456,433,455,459,423,455,
+451,437,444,453,434,454,448,435,432,441,
+452,465,466,473,471,464,478,446,459,464,
+441,444,458,454,437,443,465,435,444,457,
+444,471,471,458,459,449,462,460,445,437,
+461,453,452,438,445,435,454,428,454,434,
+432,431,455,447,454,435,425,449,449,452,
+471,458,445,463,423,451,440,442,441,439
+};
+
+N(Quartile(samples));
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: {441,450,458.5,17.5}
+.   /%/output
+
+%/mathpiper_docs

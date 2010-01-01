@@ -1,0 +1,16 @@
+%mathpiper,def="ExpandFrac"
+
+//////////////////////////////////////////////////
+/// ExpandFrac --- normalize rational functions (no simplification)
+//////////////////////////////////////////////////
+
+5 # ExpandFrac(expr_IsList) <-- MapSingle("ExpandFrac", expr);
+
+// expression does not contain fractions
+10 # ExpandFrac(_expr)_Not(HasFuncSome(expr, "/", {Atom("+"), Atom("-"), *, /, ^})) <-- expr;
+15 # ExpandFrac(a_IsRationalOrNumber) <-- a;
+20 # ExpandFrac(_expr) <-- ExpandFrac'combine(GetNumerDenom(expr));
+
+ExpandFrac'combine({_a, _b}) <-- a/b;
+
+%/mathpiper

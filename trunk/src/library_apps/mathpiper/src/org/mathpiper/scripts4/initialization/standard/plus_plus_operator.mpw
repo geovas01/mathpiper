@@ -1,0 +1,45 @@
+%mathpiper,def="++"
+
+Function("++",{aVar})
+[
+   MacroSet(aVar,AddN(Eval(aVar),1));
+];
+
+UnFence("++",1);
+
+HoldArg("++",aVar);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="++",categories="Operators"
+*CMD ++ --- increment variable
+*STD
+*CALL
+	var++
+
+*PARMS
+
+{var} -- variable to increment
+
+*DESC
+
+The variable with name "var" is incremented, i.e. the number 1 is
+added to it. The expression {x++} is equivalent to
+the assignment {x := x + 1}, except that the
+assignment returns the new value of {x} while {x++} always returns true. In this respect, MathPiper' {++} differs from the corresponding operator in the
+programming language C.
+
+*E.G.
+
+	In> x := 5;
+	Out> 5;
+	In> x++;
+	Out> True;
+	In> x;
+	Out> 6;
+
+*SEE --, :=
+%/mathpiper_docs

@@ -1,0 +1,41 @@
+%mathpiper,def="StandardErrorOfTheProportion",scope="private"
+
+Retract("StandardErrorOfTheProportion",*);
+
+StandardErrorOfTheProportion(meanOfSampleProportions, sampleSize) :=
+[
+    Check(IsRationalOrNumber(meanOfSampleProportions), "The first argument must be a number.");
+    
+    Check(IsInteger(sampleSize) And sampleSize > 0, "The second argument must be an integer which is greater than 0.");
+    
+    Sqrt((meanOfSampleProportions*(1 - meanOfSampleProportions))/sampleSize);
+];
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper_docs,name="StandardErrorOfTheProportion",categories="User Functions;Statistics & Probability"
+*CMD StandardErrorOfTheProportion --- calculates the standard error of the proportion
+*STD
+*CALL
+	StandardErrorOfTheProportion(meanOfSampleProportions,sampleSize)
+
+*PARMS
+{meanOfSampleProportions} -- the mean of the sample proportions
+{sampleSize} -- the size of the proportion samples
+
+*DESC
+This function calculates the standard error of the proportion.
+
+*E.G.
+In> N(StandardErrorOfTheProportion(.164,150))
+Result: 0.030232873941
+%/mathpiper_docs
+
+
+
+

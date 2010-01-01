@@ -1,0 +1,46 @@
+%mathpiper,def="ValueToZScore",scope="private"
+
+Retract("ValueToZScore",*);
+
+ValueToZScore(value,mean,standardDeviation) :=
+[
+    (value - mean)/standardDeviation;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="ValueToZScore",categories="User Functions;Statistics & Probability"
+*CMD ValueToZScore --- calculates the numerical value for a given z-score
+*STD
+*CALL
+	ValueToZScore(numericalValue,mean,standardDeviation)
+
+*PARMS
+
+{numericalValue} -- a numerical value
+{mean} -- the mean
+{standardDeviation} -- the standard deviation
+
+*DESC
+This function calculates the numerical value for a given z-score.
+
+*E.G.
+In> N(ValueToZScore(4.74,5,.332))
+Result: -0.7831325301
+
+*SEE ZScoreToValue,ZScoreToProbability,ProbabilityToZScore,ConfidenceLevelToZScore
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

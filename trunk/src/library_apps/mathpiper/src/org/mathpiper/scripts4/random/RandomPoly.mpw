@@ -1,0 +1,44 @@
+%mathpiper,def="RandomPoly"
+
+/* Generate a random polynomial */
+
+RandomPoly(_var,_degree,_coefmin,_coefmax) <--
+  NormalForm(UniVariate(var,0,RandomIntegerVector(degree+1,coefmin,coefmax)));
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="RandomPoly",categories="User Functions;Numbers (Random)"
+*CMD RandomPoly --- construct a random polynomial
+*STD
+*CALL
+	RandomPoly(var,deg,coefmin,coefmax)
+
+*PARMS
+
+{var} -- free variable for resulting univariate polynomial
+
+{deg} -- degree of resulting univariate polynomial
+
+{coefmin} -- minimum value for coefficients
+
+{coefmax} -- maximum value for coefficients
+
+*DESC
+
+RandomPoly generates a random polynomial in variable "var", of
+degree "deg", with integer coefficients ranging from "coefmin" to
+"coefmax" (inclusive). The coefficients are uniformly distributed in
+this interval, and are independent of each other.
+
+*E.G.
+
+	In> RandomPoly(x,3,-10,10)
+	Out> 3*x^3+10*x^2-4*x-6;
+	In> RandomPoly(x,3,-10,10)
+	Out> -2*x^3-8*x^2+8;
+
+*SEE Random, RandomInteger, RandomIntegerVector, RandomIntegerMatrix
+%/mathpiper_docs

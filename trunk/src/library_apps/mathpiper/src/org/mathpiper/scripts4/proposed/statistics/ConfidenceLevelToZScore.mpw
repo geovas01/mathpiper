@@ -1,0 +1,48 @@
+%mathpiper,def="ConfidenceLevelToZScore",scope="private"
+
+
+Retract("ConfidenceLevelToZScore",*);
+
+ConfidenceLevelToZScore(probability) :=
+[
+    //Shift the probability higher to turn it into a confidence interval.
+    probability := probability + (1 - probability)/2;
+    
+    ProbabilityToZScore(probability);
+];
+
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper_docs,name="ConfidenceLevelToZScore",categories="User Functions;Statistics & Probability"
+*CMD ConfidenceLevelToZScore --- calculates the z-score for a given confidence level
+*STD
+*CALL
+	ConfidenceLevelToZScore(probability)
+
+*PARMS
+
+{probability} -- a probability value
+
+*DESC
+
+This function calculates the z-score for a given confidence level.
+
+*E.G.
+In> ConfidenceLevelToZScore(.90)
+Result: 1.644853952
+
+*SEE NormalDistribution,ZScoreToProbability,ProbabilityToZScore
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

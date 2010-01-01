@@ -1,0 +1,19 @@
+%mathpiper,def="MatrixColumn"
+
+Function("MatrixColumn",{matrix,col})
+[
+  Local(m);
+  m:=matrix[1];
+
+  Check(col > 0, "MatrixColumn: column index out of range");
+  Check(col <= Length(m), "MatrixColumn: column index out of range");
+
+  Local(i,result);
+  result:={};
+  For(i:=1,i<=Length(matrix),i++)
+    DestructiveAppend(result,matrix[i][col]);
+
+  result;
+];
+
+%/mathpiper

@@ -1,0 +1,86 @@
+%mathpiper,def="PolyLog"
+
+//Jonathan Leto
+
+////// Polylogarithm Function
+/// coded by Jonathan Leto: PolyLog, Dirichlet*, Digamma, Bessel*, Erf*, Fresnel*, Beta,
+///			    CatalanConstNum, Sinc, Beta, DawsonIntegral
+// Note: currently, the numerics are only working for x \in [-1,1]
+
+10 # PolyLog(_n,0)		<-- 0;
+// this is nicer than -Ln(1/2)
+10 # PolyLog(1,1/2)             <-- Ln(2);
+10 # PolyLog(_n,1)		<-- Zeta(n);
+10 # PolyLog(_n,_m)_(m= -1)	<-- DirichletEta(n);
+10 # PolyLog(_n,_x)_(n< 0)	<-- (1/((1-x)^(-n+1)))*Sum(i,0,-n,Eulerian(-n,i)*x^(-n-i) );
+//10 # PolyLog(_n,_x)_(n= -3)	<-- x*(x^2 + 4*x + 1)/(x-1)^4;
+//10 # PolyLog(_n,_x)_(n= -2)	<-- x*(x+1)/(1-x)^3;
+//10 # PolyLog(_n,_x)_(n= -1)	<-- x/(1-x)^2;
+10 # PolyLog(0,_x)		<-- x/(1-x);
+10 # PolyLog(1,_x)		<-- -Ln(1-x);
+// special values
+10 # PolyLog(2,1/2)		<-- (Pi^2 - 6*Ln(2)^2)/12;
+10 # PolyLog(3,1/2)		<-- (4*Ln(2)^3 - 2*Pi^2*Ln(2)+21*Zeta(3))/24;
+10 # PolyLog(2,2)		<-- Pi^2/4 - Pi*I*Ln(2);
+
+20 # PolyLog(_n,_x)_(InNumericMode() And  x < -1 )  <-- [
+	Local(prec,result);
+	prec:=BuiltinPrecisionGet();
+	BuiltinPrecisionSet(prec+5);
+	Echo("Warning: PolyLog is only currently accurate for x in [-1,1]");
+	result:= (-1)^(n-1)*PolyLog(n,1/x) - ((Ln(-x))^n)/n! -
+	Sum(r,1,Round(n/2),
+		2^(2*r-2)*Pi^(2*r)*Abs(Bernoulli(2*r))*Ln(-x)^(n-2*r)/( (2*r)! * (n - 2*r)! ) );
+	BuiltinPrecisionSet(prec);
+	RoundTo(N(result),prec);
+];
+20 # PolyLog(_n,_x)_(InNumericMode() And x>= -1 And x < 0 ) <-- [
+	// this makes the domain [-1,0) into [0,1],
+	// so if the summation representation is used, it is monotone
+        Local(prec,result);
+        prec:=BuiltinPrecisionGet();
+        BuiltinPrecisionSet(prec+5);
+
+	result:=PolyLog(n,x^2)/2^(n-1) - PolyLog(n,-x) ;
+        BuiltinPrecisionSet(prec);
+        RoundTo(N(result),prec);
+
+];
+/* this is very slow at high precision
+20 # PolyLog(_n,_x)_(InNumericMode() And x > 0 And x <= 1) <-- [
+	Local(result,prec,term,k,eps);
+	prec:=BuiltinPrecisionGet();
+  BuiltinPrecisionSet(prec+5);
+	eps:=10^(-prec);
+	result:=0;
+	// Sorry Serge, I was only getting 2 digits of precision with this
+		// so why didn't you ask me? :) -- Serge
+	//terms:=Floor(10 + N(prec*Ln(10)/Ln(prec) - 1));
+	//BuiltinPrecisionSet( prec + Floor(N(Ln(6*terms)/Ln(10))) );
+	//result:=SumTaylorNum(x, {{k}, x^(k+1)/(k+1)^n }, terms );
+	term:=1;
+	For(k:=1,Abs(term)>eps,k++)[
+		term:=N(x^k/k^n);
+		result:=result+term;
+	];
+	BuiltinPrecisionSet(prec);
+	RoundTo(result,prec);
+];
+*/
+
+20 # PolyLog(_n,_x)_(InNumericMode() And x > 0 And x < 1) <--
+[	// use Taylor series x^(k+1)/(k+1)^n, converges for -1<x<1
+	Local(prec, result, terms);
+	prec:=BuiltinPrecisionGet();
+	BuiltinPrecisionSet(15);	// to calculate the number of terms
+	terms := Floor(-prec*Ln(10)/Ln(x));
+	terms := Floor(-(prec*Ln(10)-(n-1)*Ln(terms))/Ln(x));
+//	Echo("used", terms, "terms");
+	If(terms < 4, terms := 4);
+	BuiltinPrecisionSet(prec+2*IntLog(prec,10)+5);
+	result := x*SumTaylorNum(x, {{k}, 1/(k+1)^n}, terms);
+	BuiltinPrecisionSet(prec);
+	RoundTo(result, prec);
+];
+
+%/mathpiper

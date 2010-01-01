@@ -1,0 +1,18 @@
+%mathpiper,def="PNorm"
+
+// p-norm, reduces to euclidean norm when p = 2
+Function("PNorm",{v,p})
+[
+	Local(result,i);
+	Check(p>=1,"PNorm: p must be >= 1");
+
+	result:=0;
+	For(i:=1,i<=Length(v),i++)[
+		result:=result+Abs(v[i])^p;
+	];
+
+	// make it look nicer when p = 2
+	If(p=2,Sqrt(result),(result)^(1/p) );
+];
+
+%/mathpiper

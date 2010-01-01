@@ -1,0 +1,123 @@
+%mathpiper,def="IsRationalFunction",scope="private"
+
+Retract("IsRationalFunction",*);
+
+10 # IsRationalFunction(_expr)_(Length(VarList(expr))=0) <-- False;
+
+15 # IsRationalFunction(_expr) <-- IsRationalFunction(expr,VarList(expr)[1]);
+
+10 # IsRationalFunction(expr_IsRationalOrNumber,_x) <-- False;
+
+15 # IsRationalFunction(_expr,_x)_(Type(expr)="/") <-- 
+[
+    If( Contains(VarList(Numerator(expr)),x) Or Contains(VarList(Denominator(expr)),x),
+        True,
+        False
+      );
+];
+
+60000 # IsRationalFunction(_expr,_x) <-- False;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="IsRationalFunction",categories="Programmer Functions;Predicates"
+
+*CMD IsRationalFunction --- test for a Rational Function
+*STD
+*CALL
+	IsRationalFunction(expr)
+	IsRationalFunction(expr,var)
+
+*PARMS
+
+{expr} -- expression to test
+{var}  -- (optional) variable
+
+*DESC
+
+This function tests whether the expression {expr} is (strictly) a
+Rational Function of the variable {var}.  If {var} is omitted, the
+test is made w.r.t. the first variable (if any) in VarList(expr).
+
+The strict definition of a"rational function" used here requires that
+(a) the {expr} has Type(expr) = "/",   and
+(b) either the numerator or the denominator of {expr} contains {var}.
+
+Note that this definition neither requires nor implies that the
+numerator and denominator be polynomials.
+
+*E.G.
+
+	In> IsRationalFunction(3,x)  
+	Out> False
+	In> IsRationalFunction(3)      
+	Out> False;
+    In> IsRationalFunction(3.5,x)
+    Out>  False
+    In> IsRationalFunction(3.5)
+    Out>  False 
+    In> IsRationalFunction(3/5,x)
+    Out>  False 
+    In> IsRationalFunction(3/5)
+    Out>  False 
+    In> IsRationalFunction(x,y)
+    Out>  False 
+    In> IsRationalFunction(x)
+    Out>  False 
+    In> IsRationalFunction(x/y,x)
+    Out>  True 
+    In> IsRationalFunction(x/y)
+    Out>  True 
+    In> IsRationalFunction(x/5,x)
+    Out>  True 
+    In> IsRationalFunction(x/5)
+    Out>  True 
+    In> IsRationalFunction(5/x,x)
+    Out>  True 
+    In> IsRationalFunction(5/x)
+    Out>  True 
+    In> IsRationalFunction(5/y,x)
+    Out>  False 
+    In> IsRationalFunction(5/y)
+    Out>  True 
+    In> IsRationalFunction(1-1/x,x)
+    Out>  False 
+    In> IsRationalFunction(1-1/x)
+    Out>  False
+
+%/mathpiper_docs
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+Tell(1,IsRationalFunction(3,x));
+Tell(2,IsRationalFunction(3.5,x));
+Tell(3,IsRationalFunction(3/5,x));
+Tell(4,IsRationalFunction(x,y));
+Tell(5,IsRationalFunction(x/y,x));
+Tell(6,IsRationalFunction(x/5,x));
+Tell(7,IsRationalFunction(5/x,x));
+Tell(8,IsRationalFunction(5/y,x));
+Tell(9,IsRationalFunction(1-1/x,x));
+Tell(11,IsRationalFunction(3));
+Tell(12,IsRationalFunction(3.5));
+Tell(13,IsRationalFunction(3/5));
+Tell(14,IsRationalFunction(x));
+Tell(15,IsRationalFunction(x/y));
+Tell(16,IsRationalFunction(x/5));
+Tell(17,IsRationalFunction(5/x));
+Tell(18,IsRationalFunction(5/y));
+Tell(19,IsRationalFunction(1-1/x));
+
+%/mathpiper
+
+
+
+
+

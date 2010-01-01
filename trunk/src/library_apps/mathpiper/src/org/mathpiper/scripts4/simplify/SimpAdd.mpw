@@ -1,0 +1,5 @@
+%mathpiper,def="SimpAdd",scope="private"
+
+RuleBase("SimpAdd",{x,y});
+
+%/mathpiper
