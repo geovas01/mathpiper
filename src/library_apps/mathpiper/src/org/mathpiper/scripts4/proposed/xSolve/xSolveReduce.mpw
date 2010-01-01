@@ -92,7 +92,7 @@ Retract("xSolve'Context",*);
   [
       If(iDebug,Tell("xSolveContext",{expr,var}));
       Local(lst, foundVarP, context, i, res);
-      lst := Listify(expr);
+      lst := FunctionToList(expr);
       If(iDebug,Tell(" 42aContext",lst));
       foundVarP := False;
       i := 2;

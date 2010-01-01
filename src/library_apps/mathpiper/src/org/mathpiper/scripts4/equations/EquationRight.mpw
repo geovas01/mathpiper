@@ -4,7 +4,7 @@ EquationRight(_symbolicEquation)_(Type(symbolicEquation) = "==")  <--
 [
     Local(listForm);
     
-    listForm := Listify(symbolicEquation);
+    listForm := FunctionToList(symbolicEquation);
     
     listForm[3];
 ];

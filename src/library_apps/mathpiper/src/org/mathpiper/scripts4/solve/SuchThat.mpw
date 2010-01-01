@@ -6,7 +6,7 @@
 [
   Local(result,args);
   result:=False;
-  args:=Rest(Listify(body));
+  args:=Rest(FunctionToList(body));
   While(args != {})
   [
     result:=ContainsExpression(First(args),expr);

@@ -66,7 +66,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 
       If(Count(vlist,var[i]) = 1,
          [
-           sub := Listify(eq[j]);
+           sub := FunctionToList(eq[j]);
            sub := sub[2]-sub[3];
 //Echo("using ",sub);
            sub:=SuchThat(sub,var[i]);

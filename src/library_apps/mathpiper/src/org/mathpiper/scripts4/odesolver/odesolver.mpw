@@ -204,7 +204,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 
 	// get the list of coefficients of the derivatives
 	// in decreasing order
-	coefs:=Reverse(Listify(h)[3]);
+	coefs:=Reverse(FunctionToList(h)[3]);
 	While( First(coefs) = 0 )[
 		coefs:=Rest(coefs);
 	];

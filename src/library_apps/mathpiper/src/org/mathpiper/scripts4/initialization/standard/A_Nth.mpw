@@ -5,7 +5,7 @@ RuleBase("Nth",{alist,aindex});
 Rule("Nth",2,10,
     And(Equals(IsFunction(alist),True),
             Equals(IsInteger(aindex),True),
-            Not(Equals(First(Listify(alist)),Nth))
+            Not(Equals(First(FunctionToList(alist)),Nth))
             ))
      MathNth(alist,aindex);
 

@@ -8,7 +8,7 @@ HoldArg("Manipulate",symbolicEquation);
 [
     Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equationIndex, leftOrder, rightOrder);
 
-    listForm := Listify(symbolicEquation);
+    listForm := FunctionToList(symbolicEquation);
     
     operator := listForm[1];
     

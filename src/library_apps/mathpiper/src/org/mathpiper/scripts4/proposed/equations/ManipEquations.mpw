@@ -13,14 +13,14 @@ Retract("==-",*);
 12 # IsEquation(_expr) <-- 
 [
     Local(EL,res);
-    EL  := Listify(expr);
+    EL  := FunctionToList(expr);
     res := (EL[1] = == ); 
 ];
 
 10 # *==(_num,eqn_IsEquation) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
+    EL  := FunctionToList(eqn);
     LHS := Expand(Simplify( num * EL[2] ));
     RHS := Expand(Simplify( num * EL[3] ));
     LHS == RHS;
@@ -29,7 +29,7 @@ Retract("==-",*);
 10 # *==(eqn_IsEquation,_num) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
+    EL  := FunctionToList(eqn);
     LHS := Expand(Simplify( num * EL[2] ));
     RHS := Expand(Simplify( num * EL[3] ));
     LHS == RHS;
@@ -38,7 +38,7 @@ Retract("==-",*);
 10 # /==(eqn_IsEquation,_num) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
+    EL  := FunctionToList(eqn);
     LHS := Expand(Simplify( EL[2] / num ));
     RHS := Expand(Simplify( EL[3] / num ));
     LHS == RHS;
@@ -47,7 +47,7 @@ Retract("==-",*);
 10 # +==(_num,eqn_IsEquation) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
+    EL  := FunctionToList(eqn);
     LHS := Expand(Simplify( EL[2] + num ));
     RHS := Expand(Simplify( EL[3] + num ));
     LHS == RHS;
@@ -56,7 +56,7 @@ Retract("==-",*);
 10 # +==(eqn_IsEquation,_num) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
+    EL  := FunctionToList(eqn);
     LHS := Expand(Simplify( EL[2] + num ));
     RHS := Expand(Simplify( EL[3] + num ));
     LHS == RHS;
@@ -65,7 +65,7 @@ Retract("==-",*);
 10 # -==(eqn_IsEquation,_num) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
+    EL  := FunctionToList(eqn);
     LHS := Expand(Simplify( EL[2] - num ));
     RHS := Expand(Simplify( EL[3] - num ));
     LHS == RHS;
@@ -74,7 +74,7 @@ Retract("==-",*);
 10 # -==(_num,eqn_IsEquation) <-- 
 [
     Local(EL,LHS,RHS);
-    EL  := Listify(eqn);
+    EL  := FunctionToList(eqn);
     LHS := Expand(Simplify( num - EL[2] ));
     RHS := Expand(Simplify( num - EL[3] ));
     LHS == RHS;
@@ -83,8 +83,8 @@ Retract("==-",*);
 12 # ==+(eqn1_IsEquation,eqn2_IsEquation) <-- 
 [
     Local(EL1,LHS,RHS,EL2);
-    EL1 := Listify(eqn1);
-    EL2 := Listify(eqn2);
+    EL1 := FunctionToList(eqn1);
+    EL2 := FunctionToList(eqn2);
     LHS := Expand(Simplify( EL1[2] + EL2[2] ));
     RHS := Expand(Simplify( EL1[3] + EL2[3] ));
     LHS == RHS;
@@ -93,8 +93,8 @@ Retract("==-",*);
 12 # ==-(eqn1_IsEquation,eqn2_IsEquation) <-- 
 [
     Local(EL1,LHS,RHS,EL2);
-    EL1 := Listify(eqn1);
-    EL2 := Listify(eqn2);
+    EL1 := FunctionToList(eqn1);
+    EL2 := FunctionToList(eqn2);
     LHS := Expand(Simplify( EL1[2] - EL2[2] ));
     RHS := Expand(Simplify( EL1[3] - EL2[3] ));
     LHS == RHS;

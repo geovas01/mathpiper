@@ -31,7 +31,7 @@ Retract("FactorsMonomial",*);
           DestructiveAppend(result,{(f),1}),
           If( IsAtom(f),
               DestructiveAppend(result,{f,1}),
-              DestructiveAppend(result,DestructiveDelete(Listify(f),1))
+              DestructiveAppend(result,DestructiveDelete(FunctionToList(f),1))
           )
       );
   ];

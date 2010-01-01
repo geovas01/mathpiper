@@ -120,14 +120,14 @@ LocalSymbols(cformMathFunctions) [
 
 
 120 # CForm(expr_IsFunction, _p)_(NrArgs(expr)=2 And Contains(AssocIndices(CFormRegularOps()), Type(expr)) ) <--
-      CFormBracketIf(p<OpPrecedence(Type(expr)), ConcatStrings(CForm(Listify(expr)[2], OpLeftPrecedence(Type(expr))), CFormRegularOps()[Type(expr)], CForm(Listify(expr)[3], OpRightPrecedence(Type(expr))) ) );
+      CFormBracketIf(p<OpPrecedence(Type(expr)), ConcatStrings(CForm(FunctionToList(expr)[2], OpLeftPrecedence(Type(expr))), CFormRegularOps()[Type(expr)], CForm(FunctionToList(expr)[3], OpRightPrecedence(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
 
 120 # CForm(expr_IsFunction, _p) _
       (NrArgs(expr)=1 And Contains(AssocIndices(CFormMathFunctions()), Type(expr)) ) <--
-      ConcatStrings(CFormMathFunctions()[Type(expr)], "(", CForm( Listify(expr)[2], CFormMaxPrec()),")" );
+      ConcatStrings(CFormMathFunctions()[Type(expr)], "(", CForm( FunctionToList(expr)[2], CFormMaxPrec()),")" );
 
 /* functions */
 
@@ -149,7 +149,7 @@ CFormArgs(list_IsList) <--
 
 200 # CForm(_x, _p)_(IsFunction(x)) <--
 [
-  ConcatStrings(Type(x), "(", CFormArgs(Rest(Listify(x))),")" );
+  ConcatStrings(Type(x), "(", CFormArgs(Rest(FunctionToList(x))),")" );
 ];
 
 /* Complex numbers */
@@ -204,7 +204,7 @@ CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 [
   Local(result);
   result:=CIndent():"{":NlIndented();
-  ForEach(item,Rest(Listify(x)))
+  ForEach(item,Rest(FunctionToList(x)))
   [
     result:=result:CFormStatement(item);
   ];

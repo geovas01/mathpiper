@@ -58,7 +58,7 @@
 20 # Print(_x,_n)_(Type(x) = "Prog") <--
 [
   WriteString("[");
-  PrintArgProg(Rest(Listify(x)));
+  PrintArgProg(Rest(FunctionToList(x)));
   WriteString("]");
 ];
 20 # Print(_x,_n)_(Type(x) = "Nth") <--
@@ -73,7 +73,7 @@
  [
    Write(x[0]);
    WriteString("(");
-   PrintArg(Rest(Listify(x)));
+   PrintArg(Rest(FunctionToList(x)));
    WriteString(")");
  ];
 
