@@ -2,42 +2,42 @@
 
 
 //Misc.
-D -> Derive //Because syntax highlighting just "D" is too general.
+- D -> Derive //Because syntax highlighting just "D" is too general.
 Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operators to make function calls uniform and to reduce confusion.
-Listify -> FunctionToList
-UnList -> ListToFunction
-Clear -> Unbind
-String -> ToString
-Atom -> StringToAtom
-Equals -> IsEqual
-LessThan -> IsLessThan
-GreaterThan -> IsGreaterThan
+b Listify -> FunctionToList
+b UnList -> ListToFunction
+b Clear -> Unbind
+b String -> ToString
+b Atom -> StringToAtom
+b Equals -> IsEqual
+b LessThan -> IsLessThan
+b GreaterThan -> IsGreaterThan
 MM -> MultinomialForm
-Div -> Divide
-Mod -> Modulus
+b Div -> Divide
+b Mod -> Modulus
 ModN -> ModulusN
 Min -> Minimum
 Max -> Maximum
 RandomIntegerVector -> RandomIntegerList.
-OpPrecedence -> OperatorPrecedenceGet
-OpLeftPrecedence -> OperatorLeftPrecedenceGet
-OpRightPrecedence -> OperatorRightPrecedenceGet
-LeftPrecedence -> LeftPrecedenceSet
-RightPrecedence -> RightPrecedenceSet
-RightAssociative -> RightAssociativeSet
-FullForm -> LispForm
-Use -> UseScript
-Load -> LoadScript
+b OpPrecedence -> OperatorPrecedenceGet
+b OpLeftPrecedence -> OperatorLeftPrecedenceGet
+b OpRightPrecedence -> OperatorRightPrecedenceGet
+b LeftPrecedence -> LeftPrecedenceSet
+b RightPrecedence -> RightPrecedenceSet
+b RightAssociative -> RightAssociativeSet
+b FullForm -> LispForm
+b Use -> UseScript
+b Load -> LoadScript
 Normalize -> NormalizeVector
 NumRealRoots -> NumberOfRealRoots
 
 
 //Make RuleBase names read more like the name Database does because they are suppose to sound like "database" and operate like a database.
-RuleBase -> Rulebase
-MacroRuleBase -> MacroRulebase
+b RuleBase -> Rulebase
+b MacroRuleBase -> MacroRulebase
 RuleBaseArgList -> RulebaseArgs
-MacroRuleBase  -> MacroRulebase
-MacroRuleBaseListed  -> MacroRulebaseListed
+b MacroRuleBase  -> MacroRulebase
+b MacroRuleBaseListed  -> MacroRulebaseListed
 
 //In general, spell function names out completely.
 RulebaseArgs -> RulebaseArguments
