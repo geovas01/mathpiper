@@ -25,14 +25,14 @@ RFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is equa
 100 # RForm(_x) <-- RForm(x, RFormMaxPrec());
 
 /* Replace numbers and variables -- never bracketed except explicitly */
-110 # RForm(x_IsInteger, _p) <-- String(x);
+110 # RForm(x_IsInteger, _p) <-- AtomToString(x);
 111 # RForm(x_IsZero, _p) <-- "0.";
-112 # RForm(x_IsNumber, _p) <-- String(x);
+112 # RForm(x_IsNumber, _p) <-- AtomToString(x);
 /* Variables are left as is, except some special ones */
 190 # RForm(False, _p) <-- "false";
 190 # RForm(True, _p) <-- "true";
 190 # RForm(Pi, _p) <-- "pi";
-200 # RForm(x_IsAtom, _p) <-- String(x);
+200 # RForm(x_IsAtom, _p) <-- AtomToString(x);
 
 /* Strings must be quoted but not bracketed */
 100 # RForm(x_IsString, _p) <-- ConcatStrings("\"", x, "\"");

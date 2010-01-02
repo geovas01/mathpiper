@@ -11,9 +11,9 @@ OptionsListToHash(list) :=
 	ForEach(item, list)
 		If(
 			IsFunction(item) And (Type(item) = "->" ) And IsAtom(item[1]),
-			result[String(item[1])] := If(
+			result[AtomToString(item[1])] := If(
 				IsAtom(item[2]) And Not IsNumber(item[2]) And Not IsString(item[2]),
-				String(item[2]),
+				AtomToString(item[2]),
 				item[2]
 			),
 			Echo({"OptionsListToHash: Error: item ", item, " is not of the format a -> b."})

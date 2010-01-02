@@ -34,7 +34,7 @@ HoldArg("CachedConstant", C'cache);	// name of the cache
 Rule("CachedConstant", 3, 10, And(IsAtom(C'atom), IsFunction(C'func)))
 [
  	Local(C'name,C'functionName);
-	Set(C'name, String(C'atom));	// this is for later conveniences
+	Set(C'name, AtomToString(C'atom));	// this is for later conveniences
   Set(C'functionName,ConcatStrings("Internal'",C'name));
 
 	If(	// create the cache it if it does not already exist

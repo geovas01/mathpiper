@@ -66,15 +66,15 @@ TeXFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is eq
 
 /* Replace numbers and variables -- never bracketed except explicitly */
 
-110 # TeXForm(x_IsNumber, _p) <-- String(x);
+110 # TeXForm(x_IsNumber, _p) <-- AtomToString(x);
 /* Variables */
-200 # TeXForm(x_IsAtom, _p) <-- TeXFormTeXify(String(x));
+200 # TeXForm(x_IsAtom, _p) <-- TeXFormTeXify(AtomToString(x));
 
 /* Strings must be quoted but not bracketed */
 100 # TeXForm(x_IsString, _p) <-- ConcatStrings("\\mathrm{", x, "}");
 
 /* FunctionToList(...) can generate lists with atoms that would otherwise result in unparsable expressions. */
-100 # TeXForm(x_IsAtom, _p)_(IsInfix(String(x))) <-- ConcatStrings("\\mathrm{", String(x), "}");
+100 # TeXForm(x_IsAtom, _p)_(IsInfix(AtomToString(x))) <-- ConcatStrings("\\mathrm{", AtomToString(x), "}");
 
 
 /* Lists: make sure to have matrices processed before them. Enveloping precedence is irrelevant because lists are always bracketed. List items are never bracketed. Note that TeXFormFinishList({a,b}) generates ",a,b" */

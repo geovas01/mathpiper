@@ -199,7 +199,7 @@ FormulaBracket(f):=
 /* RuleBase("Formula",{f}); */
 
 1 # Formula(f_IsAtom) <--
-  MakeOper(0,0,Length(String(f)),1,"Atom",String(f),0);
+  MakeOper(0,0,Length(AtomToString(f)),1,"Atom",AtomToString(f),0);
 
 2 # Formula(_xx ^ _yy) <--
 [
