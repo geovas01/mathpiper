@@ -32,7 +32,7 @@ For example, {FuncListSome(a + Sin(b-c))} will see that the expression has a "{-
 
 {FuncListArith} is defined through {FuncListSome} to look only at arithmetic operations {+}, {-}, {*}, {/}.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {Atom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {StringToAtom("+")} to obtain the unevaluated atom "{+}".
 
 *E.G. notest
 

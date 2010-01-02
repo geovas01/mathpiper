@@ -74,7 +74,7 @@ LocalSymbols(omindent) [
      OMEcho("<OMOBJ>");
      OMIndent();
      If(IsAtom(expression),
-        If(expression = Atom("%"),
+        If(expression = StringToAtom("%"),
            Secure(expression := Eval(expression))
            )
         );
@@ -384,7 +384,7 @@ FromString(str:" EndOfFile")
 [
   Local(result);
   OMNextToken();
-  result := Atom(OMToken());
+  result := StringToAtom(OMToken());
   OMNextToken();
   MatchClose(XmlTag("OMI",{},"Close"));
   result;
@@ -393,13 +393,13 @@ FromString(str:" EndOfFile")
 10 # ReadOMOBJ(XmlTag("OMV",{{"NAME",_name}},"OpenClose")) <--
 [
   OMNextToken();
-  Atom(name);
+  StringToAtom(name);
 ];
 
 10 # ReadOMOBJ(XmlTag("OMF",{{"DEC",_dec}},"OpenClose")) <--
 [
   OMNextToken();
-  Atom(dec);
+  StringToAtom(dec);
 ];
 
 10 # ReadOMOBJ(XmlTag("OMSTR",{},"Open")) <--
@@ -557,8 +557,8 @@ HoldArgNr("OMPathSelect", 2, 2);
      // and avoiding the table lookup then, because for some symbols the
      // OM name have to be different from the MathPiper name (e.g. "/@").
      If(piperform = Empty,
-        If(cd = mathpiper, Atom(omname), OMS(omcd, omname)),
-        If(IsString(piperform), Atom(piperform), piperform));
+        If(cd = mathpiper, StringToAtom(omname), OMS(omcd, omname)),
+        If(IsString(piperform), StringToAtom(piperform), piperform));
      ]
     );
 ];

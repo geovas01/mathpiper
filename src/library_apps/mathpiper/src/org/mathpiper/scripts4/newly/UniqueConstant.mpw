@@ -4,7 +4,7 @@ UniqueConstant() <--
 [
   Local(result);
   result := AtomToString(LocalSymbols(C)(C));
-  Atom(StringMidGet(2,Length(result)-1,result));
+  StringToAtom(StringMidGet(2,Length(result)-1,result));
 ];
 
 %/mathpiper

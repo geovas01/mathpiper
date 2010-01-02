@@ -1,6 +1,6 @@
 %mathpiper,def="Tan"
 
-1 # TanMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({Atom("Tan"),n*Pi});
+1 # TanMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({StringToAtom("Tan"),n*Pi});
 2 # TanMap( _n )_(n<0) <-- -TanMap(-n);
 2 # TanMap( _n )_(n>1) <-- TanMap(Mod(n,1));
 4 # TanMap( _n )_(n>1/2) <-- -TanMap(1-n);
@@ -11,7 +11,7 @@
 5 # TanMap( 1/3 ) <-- Sqrt(3);
 5 # TanMap( 1/2 ) <-- Infinity;
 
-10 # TanMap(_n) <-- ListToFunction({Atom("Tan"),n*Pi});
+10 # TanMap(_n) <-- ListToFunction({StringToAtom("Tan"),n*Pi});
 
 
 

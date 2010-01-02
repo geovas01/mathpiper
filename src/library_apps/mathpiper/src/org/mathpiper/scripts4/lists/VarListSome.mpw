@@ -7,7 +7,7 @@
 10 # VarListSome(expr_IsVariable, _look'list) <-- {expr};
 15 # VarListSome(expr_IsAtom, _look'list) <-- {};
 // a function not in the looking list - return it whole
-20 # VarListSome(expr_IsFunction, look'list_IsList)_(Not Contains(look'list, Atom(Type(expr)))) <-- {expr};
+20 # VarListSome(expr_IsFunction, look'list_IsList)_(Not Contains(look'list, StringToAtom(Type(expr)))) <-- {expr};
 // a function in the looking list - traverse its arguments
 30 # VarListSome(expr_IsFunction, look'list_IsList) <--
 RemoveDuplicates(
@@ -53,7 +53,7 @@ arithmetically in the expression {expr}. This is implemented through
 {VarListSome} by restricting to the arithmetic functions {+}, {-}, {*}, {/}.
 Arguments of other functions are not checked.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {Atom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {StringToAtom("+")} to obtain the unevaluated atom "{+}".
 
 *E.G.
 
@@ -61,7 +61,7 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 	Out> {x};
 	In> VarList(x+a*y)
 	Out> {x,a,y};
-	In> VarListSome(x+a*y, {Atom("+")})
+	In> VarListSome(x+a*y, {StringToAtom("+")})
 	Out> {x,a*y};
 	In> VarListArith(x+y*Cos(Ln(x)/x))
 	Out> {x,y,Cos(Ln(x)/x)}

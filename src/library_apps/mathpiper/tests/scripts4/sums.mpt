@@ -78,7 +78,7 @@ TestMathPiper(Taylor2(x,0,7) Cos(Ln(x+1)),
           Taylor2(x,0,7) (Subst(y,Taylor2(x,0,7)Ln(x+1)) Cos(y)));
 
 100 # Taylor'LPS'CompOrder(_x, jn(_x)) <-- 5;
-100 # Taylor'LPS'CompCoeff(_x, jn(_x), _k) <-- Atom("jn":AtomToString(k));
+100 # Taylor'LPS'CompCoeff(_x, jn(_x), _k) <-- StringToAtom("jn":AtomToString(k));
 
 Verify(Taylor2(t,0,8) jn(t), jn5*t^5 + jn6*t^6 + jn7*t^7 + jn8*t^8);
 Verify((Taylor2(x,0,10) Exp(jn(x))),

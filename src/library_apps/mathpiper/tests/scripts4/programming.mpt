@@ -58,7 +58,7 @@ Testing("LocalVariables");
   Verify(IsBound(a),False);
 ];
 
-Verify(Atom("a"),a);
+Verify(StringToAtom("a"),a);
 Verify(AtomToString(a),"a");
 Verify(ConcatStrings("a","b","c"),"abc");
 
