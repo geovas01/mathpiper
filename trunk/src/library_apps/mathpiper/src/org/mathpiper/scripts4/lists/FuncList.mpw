@@ -22,7 +22,7 @@ This is like FuncList except only looks at arguments of a given list of function
 */
 10 # FuncList(expr_IsAtom, look'list_IsList) <-- {};
 // a function not in the looking list - return its type
-20 # FuncList(expr_IsFunction, look'list_IsList)_(Not Contains(look'list, Atom(Type(expr)))) <-- {Atom(Type(expr))};
+20 # FuncList(expr_IsFunction, look'list_IsList)_(Not Contains(look'list, StringToAtom(Type(expr)))) <-- {StringToAtom(Type(expr))};
 // a function in the looking list - traverse its arguments
 30 # FuncList(expr_IsFunction, look'list_IsList) <--
 RemoveDuplicates(
@@ -71,7 +71,7 @@ For example, {FuncListSome(a + Sin(b-c))} will see that the expression has a "{-
 
 {FuncListArith} is defined through {FuncListSome} to look only at arithmetic operations {+}, {-}, {*}, {/}.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {Atom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {StringToAtom("+")} to obtain the unevaluated atom "{+}".
 
 *E.G. notest
 

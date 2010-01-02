@@ -95,11 +95,11 @@ Function("AssignCachedConstantsN", {})
 	Local(var,fname);
 	ForEach(var, AssocIndices(CacheOfConstantsN))
 	[
-		MacroUnbind(Atom(var));
+		MacroUnbind(StringToAtom(var));
     Set(fname,ConcatStrings("Internal'",var));
-    Set(var,Atom(var));
+    Set(var,StringToAtom(var));
 		// this way the routine Internal'Pi() will be actually called only when the variable 'Pi' is used, etcetera.
-    `SetGlobalLazyVariable((@var), ListToFunction({Atom(fname)}));
+    `SetGlobalLazyVariable((@var), ListToFunction({StringToAtom(fname)}));
 	];
 ];
 UnFence("AssignCachedConstantsN", 0);
@@ -110,7 +110,7 @@ Function("ClearCachedConstantsN", {})
 [
 	Local(c'entry);
 	ForEach(c'entry, CacheOfConstantsN)
-		MacroUnbind(Atom(c'entry[1]));
+		MacroUnbind(StringToAtom(c'entry[1]));
 ];
 UnFence("ClearCachedConstantsN", 0);
 

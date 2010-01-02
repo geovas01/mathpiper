@@ -93,7 +93,7 @@ Function() Rng(r);
 
 RngCreate() <-- RngCreate(0);
 
-10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {Atom("seed") -> a'seed});
+10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {StringToAtom("seed") -> a'seed});
 
 // a single option given: convert explicitly to a list
 20 # RngCreate(_key -> _value) <-- (RngCreate @ {{key -> value}});

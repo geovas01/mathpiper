@@ -18,14 +18,14 @@ xTerms(_expr) <--
             L  := FunctionToList(f);
             n  := Length(L);
             h  := Head( L );
-            If(h=Atom("+") Or h=Atom("-"),[If(firstH=0,firstH=1);topLevelPM++;]);
+            If(h=StringToAtom("+") Or h=StringToAtom("-"),[If(firstH=0,firstH=1);topLevelPM++;]);
             If(InVerboseMode(),Echo("  f=",f,"  n=",n,"  L=",L,"   h=",h,"   firstH=",firstH,"  tlpm=",topLevelPM));
             If (n=3, 
                 [
-                    If( h=Atom("-"), s:=-1, s:=1 );
+                    If( h=StringToAtom("-"), s:=-1, s:=1 );
                     t := s * L[3];
                     If(InVerboseMode(),Echo("                     t= ",t));
-                    If( (h=Atom("*") Or h=Atom("/") Or h=Atom("^")), Push(stack,f), Push(stack,t) );
+                    If( (h=StringToAtom("*") Or h=StringToAtom("/") Or h=StringToAtom("^")), Push(stack,f), Push(stack,t) );
                     f := L[2];   
                     If(InVerboseMode(), [
                         Echo("         new f=",f);
@@ -33,7 +33,7 @@ xTerms(_expr) <--
                     );
                 ],
                 [
-                    If( h=Atom("-"),[f:=L[2];qs:=-1;],
+                    If( h=StringToAtom("-"),[f:=L[2];qs:=-1;],
                         [
                             Push(stack,ListToFunction(L));
                             If( InVerboseMode(), [
@@ -52,7 +52,7 @@ xTerms(_expr) <--
     If(qs>0,nTerms:=topLevelPM+1,nTerms:=topLevelPM);
     If(InVerboseMode(),Echo("==========================  stack = ",stack));
     If( nTerms > Length(stack), Echo("  >>>> RESULT should be one term longer"));
-    //If(firstH != Atom("+") And  firstH != Atom("-") And tlpm >0,Echo("  >>>> RESULT should be one term shorter"));
+    //If(firstH != StringToAtom("+") And  firstH != StringToAtom("-") And tlpm >0,Echo("  >>>> RESULT should be one term shorter"));
     stack;
 ];
 

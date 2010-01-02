@@ -5,7 +5,7 @@ Retract("GeoGebraPoint",*);
 [
     Local(command);
     
-    command := PatchString("<?Write(Atom(name))?>=(<?Write(x)?>,<?Write(y)?>)");
+    command := PatchString("<?Write(StringToAtom(name))?>=(<?Write(x)?>,<?Write(y)?>)");
     
     JavaCall(geogebra,"evalCommand",command);
 ];

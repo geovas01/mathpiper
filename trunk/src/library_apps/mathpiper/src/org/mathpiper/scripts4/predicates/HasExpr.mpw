@@ -36,7 +36,7 @@
 
 The command {HasExpr} returns {True} if the expression {expr} contains a literal subexpression {x}. The expression is recursively traversed.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {Atom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {StringToAtom("+")} to obtain the unevaluated atom "{+}".
 
 *E.G.
 
