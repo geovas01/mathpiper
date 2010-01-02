@@ -22,8 +22,8 @@ HoldArg("Manipulate",symbolicEquation);
     If(operandIndex = 3, [ leftOrder := `({left,operand});rightOrder := `({right,operand});],  [leftOrder := `({operand,left}); rightOrder := `({operand,right});]);
     
     
-    leftManipulated := ExpandBrackets(Simplify(Apply(String(operator), leftOrder)));
-    rightManipulated := ExpandBrackets(Simplify(Apply(String(operator), rightOrder)));   
+    leftManipulated := ExpandBrackets(Simplify(Apply(AtomToString(operator), leftOrder)));
+    rightManipulated := ExpandBrackets(Simplify(Apply(AtomToString(operator), rightOrder)));   
     
     leftManipulated == rightManipulated;
 

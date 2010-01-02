@@ -16,7 +16,7 @@ Retract("ListToString", *);
     
     ForEach(element, list)
     [
-        If(IsString(element), character := element, character := String(element));
+        If(IsString(element), character := element, character := AtomToString(element));
         
         resultString := resultString : character;
     ];

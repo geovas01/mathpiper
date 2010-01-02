@@ -84,20 +84,20 @@ LocalSymbols(omindent) [
      ];
 
 10 # OMFormExpression(i_IsString)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
-11 # OMFormExpression(i_IsInteger) <-- OMEcho("<OMI>":String(i):"</OMI>");
-12 # OMFormExpression(i_IsNumber)  <-- OMEcho("<OMF dec=\"":String(i):"\"/>");
-13 # OMFormExpression(i_IsConstant)_(OMSymbol()[ String(i) ] != Empty)
-     <-- OMEcho("<OMS cd=\"":OMSymbol()[ String(i) ][1]
-                :"\" name=\"":OMSymbol()[ String(i) ][2]:"\"/>"
+11 # OMFormExpression(i_IsInteger) <-- OMEcho("<OMI>":AtomToString(i):"</OMI>");
+12 # OMFormExpression(i_IsNumber)  <-- OMEcho("<OMF dec=\"":AtomToString(i):"\"/>");
+13 # OMFormExpression(i_IsConstant)_(OMSymbol()[ AtomToString(i) ] != Empty)
+     <-- OMEcho("<OMS cd=\"":OMSymbol()[ AtomToString(i) ][1]
+                :"\" name=\"":OMSymbol()[ AtomToString(i) ][2]:"\"/>"
                 );
 14 # OMFormExpression(i_IsConstant)// Should we rather evaluate it?
-     <-- OMEcho("<OMV name=\"":String(i):"\"/>");
-15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ String(i) ] != Empty)
-     <-- OMEcho("<OMS cd=\"":OMSymbol()[ String(i) ][1]
-                :"\" name=\"":OMSymbol()[ String(i) ][2]:"\"/>"
+     <-- OMEcho("<OMV name=\"":AtomToString(i):"\"/>");
+15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ AtomToString(i) ] != Empty)
+     <-- OMEcho("<OMS cd=\"":OMSymbol()[ AtomToString(i) ][1]
+                :"\" name=\"":OMSymbol()[ AtomToString(i) ][2]:"\"/>"
                 );
 16 # OMFormExpression(i_IsVariable)
-     <-- OMEcho("<OMV name=\"":String(i):"\"/>");
+     <-- OMEcho("<OMV name=\"":AtomToString(i):"\"/>");
 16 # OMFormExpression(i_IsVariable)_(i = Empty)
      <-- False; // This is useful for void expressions.
 
@@ -235,7 +235,7 @@ OMEcho(expression_IsList) <--
 
 OMEscape(_expression) <--
 [
-  "<![CDATA[":String(expression):"]]>";
+  "<![CDATA[":AtomToString(expression):"]]>";
 ];
 OMEscapeString(_expression_IsString) <--
 [
@@ -313,7 +313,7 @@ HoldArgNr("OMSignature", 1, 1);
 LocalSymbols(omtoken) [
   OMNextToken() :=
   [
-    omtoken := XmlExplodeTag(String(ReadToken()));
+    omtoken := XmlExplodeTag(AtomToString(ReadToken()));
   ];
   OMToken() := omtoken;
 ]; // LocalSymbols(omtoken)

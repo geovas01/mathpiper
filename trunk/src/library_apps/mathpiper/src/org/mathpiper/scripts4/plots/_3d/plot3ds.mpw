@@ -53,7 +53,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 		Type(xrange) = "->",	// variable also specified -- ignore for now, store in options
 		[
 			// store alternative variable name
-			options'hash["xname"] := String(xrange[1]);
+			options'hash["xname"] := AtomToString(xrange[1]);
 			xrange := xrange[2];
 		]
 	);
@@ -61,7 +61,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 		Type(yrange) = "->" ,	// variable also specified -- ignore for now, store in options
 		[
 			// store alternative variable name
-			options'hash["yname"] := String(yrange[1]);
+			options'hash["yname"] := AtomToString(yrange[1]);
 			yrange := yrange[2];
 		]
 	);
@@ -145,11 +145,11 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 		// store variable name if not already done so
 		If(
 			options'hash["xname"] = "",
-			options'hash["xname"] := String(var[1])
+			options'hash["xname"] := AtomToString(var[1])
 		);
 		If(
 			options'hash["yname"] = "",
-			options'hash["yname"] := String(var[2])
+			options'hash["yname"] := AtomToString(var[2])
 		);
 		// store function name in options
 		DestructiveAppend(options'hash["zname"], ToString()Write(func));

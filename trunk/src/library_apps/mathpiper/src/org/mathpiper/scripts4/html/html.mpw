@@ -98,7 +98,7 @@ Bodied("HtmlAnchor",60000);
 
 HtmlTable(cellpadding,width,body):=
 [
-  table["cellpadding"]:=String(cellpadding);
+  table["cellpadding"]:=AtomToString(cellpadding);
   table["width"]:=width;
   HtmlTag(table,body);
 ];
@@ -123,15 +123,15 @@ HtmlForm(action,body):=
 HtmlTextArea(name,width,height,body) :=
 [
   textarea["name"]:=name;
-  textarea["cols"]:=String(width);
-  textarea["rows"]:=String(height);
+  textarea["cols"]:=AtomToString(width);
+  textarea["rows"]:=AtomToString(height);
   HtmlTag(textarea,body);
 ];
 
 HtmlTextField(name,size,value):=
 [
   textfield["name"]:=name;
-  textfield["size"]:=String(size);
+  textfield["size"]:=AtomToString(size);
   textfield["value"]:=value;
   HtmlTag(textfield,"");
 ];

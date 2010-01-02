@@ -77,7 +77,7 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], Atom(":=")
   Check( Not Equals(aLeftAssign[0], Atom("/")), "Only a variable can be placed on the left side of an := operator." );
 
   Local(oper,args,arity);
-  Set(oper,String(aLeftAssign[0]));
+  Set(oper,AtomToString(aLeftAssign[0]));
   Set(args,Rest(FunctionToList(aLeftAssign)));
   If(
 	And(GreaterThan(Length(args), 1), Equals( MathNth(args, Length(args)), Atom("...") )),

@@ -49,13 +49,13 @@ Plot2DJava(values_IsList, _optionsHash) <--
   [
     result := result:ColorForGraphNr(count);
     count++;
-    result:=result:" lines2d ":String(Length(function));
+    result:=result:" lines2d ":AtomToString(Length(function));
 
     function:=Select(Lambda({item},item[2] != Undefined),function);
 
     ForEach(item,function)
     [
-      result := result:" ":String(item[1]):" ":String(item[2]):" ";
+      result := result:" ":AtomToString(item[1]):" ":AtomToString(item[2]):" ";
     ];
   ];
   WriteString(result:"$");
@@ -85,7 +85,7 @@ Plot2DGeogebra(values_IsList, _optionsHash) <--
 
     ForEach(item,function)
     [
-      result := result:"(":String(item[1]):",":String(item[2]):")":Nl();
+      result := result:"(":AtomToString(item[1]):",":AtomToString(item[2]):")":Nl();
     ];
   ];
   WriteString(result);

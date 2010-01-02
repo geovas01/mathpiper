@@ -5,7 +5,7 @@
   JFreeChartHistogram(data) :=
   [
       histogramDataset := JavaNew("org.jfree.data.statistics.HistogramDataset");
-      doubleArray := JavaCall("java.lang.reflect.Array","newInstance","java.lang.Double",String(Length(data)) );
+      doubleArray := JavaCall("java.lang.reflect.Array","newInstance","java.lang.Double",AtomToString(Length(data)) );
       x := 0;
       While(x < Length(data))
       [
