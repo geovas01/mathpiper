@@ -72,6 +72,7 @@
 
     -->
     <target name="buildscripts3" depends="init">
+    	<delete dir="${build.classes.dir}/org/mathpiper/assembledscripts" />
         <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts"/>
         <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts/initialization.rep"/>
         <taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"/>
@@ -81,6 +82,7 @@
     
 
     <target name="buildscripts4" depends="init">
+    	<delete dir="${build.classes.dir}/org/mathpiper/assembledscripts" />
         <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts"/>
         <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts/initialization.rep"/>
         <taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"/>
