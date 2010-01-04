@@ -1,0 +1,207 @@
+pp. 253
+
+%mathpiper,title=""
+
+StandardErrorOfTheDifferenceBetweenTwoMeans(sigma1,n1,sigma2,n2) :=
+[
+    result := N(Sqrt(sigma1^2/n1 + sigma2^2/n2));
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,title=""
+
+standardErrorOfTheDifferenceBetweenTwoMeans := StandardErrorOfTheDifferenceBetweenTwoMeans(.6,50,.8,60);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.1336662511
+.   %/output
+
+
+pp. 254.
+
+
+%mathpiper,title=""
+
+ZScore(sample1Mean, sample2Mean, hypothesedMeanDifference, standardErrorOfTheDifferenceBetweenTwoMeans) :=
+[
+    N(((sample1Mean - sample2Mean) - hypothesedMeanDifference)/standardErrorOfTheDifferenceBetweenTwoMeans);
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,title=""
+
+ZScore(2.4,2.1,0,standardErrorOfTheDifferenceBetweenTwoMeans);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 2.244396005
+.   %/output
+
+
+
+
+Testing a difference other than 0 example on page 255.
+
+%mathpiper,title=""
+
+sigma1 := 8100;
+n1 := 42;
+sampleMean1 := 51500;
+
+sigma2 := 7600;
+n2 := 54;
+sampleMean2 := 45400;
+
+standardErrorOfTheDifferenceBetweenTwoMeans := StandardErrorOfTheDifferenceBetweenTwoMeans(sigma1, n1, sigma2, n2);
+Echo("Standard error of the difference between two means: ", standardErrorOfTheDifferenceBetweenTwoMeans);
+
+zScore := ZScore(sampleMean1,sampleMean2,5000,standardErrorOfTheDifferenceBetweenTwoMeans);
+Echo("z-score: ", zScore);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Standard error of the difference between two means: 1622.273863 
+      z-score: 0.6780606068 
+      
+.   %/output
+
+
+
+
+
+Equal population standard deviations batteries example on page 257.
+
+%mathpiper,title=""
+
+population1List := {51,44,58,36,48,53,57,40,49,44,60,50};
+population2List := {42,29,51,38,39,44,35,40,48,45};
+
+m1 := N(Mean(population1List));
+m2 := N(Mean(population2List));
+
+s1 := N(StandardDeviation(population1List));
+s2 := N(StandardDeviation(population2List));
+
+n1 := Length(population1List);
+n2 := Length(population2List);
+
+Echo(m1,s1,n1);
+Echo(m2,s2,n2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      49.16666667 7.309188903 12 
+      41.1 6.402256547 10 
+      
+.   %/output
+
+
+
+%mathpiper,title=""
+
+PooledEstimateOfTheStandardDeviation(s1,n1,s2,n2) :=
+[
+    N(Sqrt(((n1 - 1)*s1^2 + (n2 - 1)*s2^2)/(n1 + n2 -2)));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title=""
+
+sp := PooledEstimateOfTheStandardDeviation(s1,n1,s2,n2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 6.915803159
+.   %/output
+
+
+
+%mathpiper,title=""
+
+EstimatedStandardErrorOfTheDifferenceBetweenTwoMeans(sp,n1,n2) :=
+[
+    N(sp*Sqrt(1/n1 + 1/n2));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,title=""
+
+sigmaHat := EstimatedStandardErrorOfTheDifferenceBetweenTwoMeans(sp,n1,n2);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 2.961170001
+.   %/output
+
+
+
+
+
+%mathpiper,title=""
+
+TScore(m1,m2,sigmaHat) := N(((m1-m2)-(0))/sigmaHat);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title=""
+
+TScore(m1,m2,sigmaHat);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 2.724148451
+.   %/output
+
+
