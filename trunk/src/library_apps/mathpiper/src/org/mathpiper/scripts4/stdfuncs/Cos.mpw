@@ -1,6 +1,6 @@
 %mathpiper,def="Cos"
 
-1 # CosMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({StringToAtom("Cos"),n*Pi});
+1 # CosMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Cos"),n*Pi});
 2 # CosMap( _n )_(n<0) <-- CosMap(-n);
 2 # CosMap( _n )_(n>2) <-- CosMap(Mod(n,2));
 3 # CosMap( _n )_(n>1) <-- CosMap(2-n);
@@ -13,7 +13,7 @@
 5 # CosMap( 1/2 ) <-- 0;
 5 # CosMap( 2/5 ) <-- (Sqrt(5)-1)/4;
 
-10 # CosMap(_n) <-- ListToFunction({StringToAtom("Cos"),n*Pi});
+10 # CosMap(_n) <-- ListToFunction({ToAtom("Cos"),n*Pi});
 
 
 

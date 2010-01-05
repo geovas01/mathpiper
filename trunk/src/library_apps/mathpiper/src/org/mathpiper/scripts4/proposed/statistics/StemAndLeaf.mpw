@@ -316,16 +316,16 @@ stemandleaf(x) :=
 	            zcount ++;
                 if ( ((indexA = 2) And (zcount >=6)) Or ((indexA = 3) And (zcount >=3)) Or ((indexA = 1) And (zcount >1)) Or ((indexA = 4) And (zcount >1))) 
                  [
-                    stems := Append(stems,"-" : AtomToString(base2));
+                    stems := Append(stems,"-" : ToString(base2));
                  ] 
                  else 
                  [
-                        stems := Append(stems, AtomToString(base2));
+                        stems := Append(stems, ToString(base2));
                  ];
           ] 
           else 
           [
-	            stems := Append(stems, AtomToString(base2));
+	            stems := Append(stems, ToString(base2));
           ];
 	
 	   ];//end While.
@@ -334,7 +334,7 @@ stemandleaf(x) :=
       ];//end if
       
     start := True;
-    leftover := AtomToString(leftover);
+    leftover := ToString(leftover);
     
     if (it>=0) 
       [

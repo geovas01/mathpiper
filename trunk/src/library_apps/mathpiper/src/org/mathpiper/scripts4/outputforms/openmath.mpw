@@ -74,7 +74,7 @@ LocalSymbols(omindent) [
      OMEcho("<OMOBJ>");
      OMIndent();
      If(IsAtom(expression),
-        If(expression = StringToAtom("%"),
+        If(expression = ToAtom("%"),
            Secure(expression := Eval(expression))
            )
         );
@@ -84,20 +84,20 @@ LocalSymbols(omindent) [
      ];
 
 10 # OMFormExpression(i_IsString)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
-11 # OMFormExpression(i_IsInteger) <-- OMEcho("<OMI>":AtomToString(i):"</OMI>");
-12 # OMFormExpression(i_IsNumber)  <-- OMEcho("<OMF dec=\"":AtomToString(i):"\"/>");
-13 # OMFormExpression(i_IsConstant)_(OMSymbol()[ AtomToString(i) ] != Empty)
-     <-- OMEcho("<OMS cd=\"":OMSymbol()[ AtomToString(i) ][1]
-                :"\" name=\"":OMSymbol()[ AtomToString(i) ][2]:"\"/>"
+11 # OMFormExpression(i_IsInteger) <-- OMEcho("<OMI>":ToString(i):"</OMI>");
+12 # OMFormExpression(i_IsNumber)  <-- OMEcho("<OMF dec=\"":ToString(i):"\"/>");
+13 # OMFormExpression(i_IsConstant)_(OMSymbol()[ ToString(i) ] != Empty)
+     <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
+                :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
                 );
 14 # OMFormExpression(i_IsConstant)// Should we rather evaluate it?
-     <-- OMEcho("<OMV name=\"":AtomToString(i):"\"/>");
-15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ AtomToString(i) ] != Empty)
-     <-- OMEcho("<OMS cd=\"":OMSymbol()[ AtomToString(i) ][1]
-                :"\" name=\"":OMSymbol()[ AtomToString(i) ][2]:"\"/>"
+     <-- OMEcho("<OMV name=\"":ToString(i):"\"/>");
+15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ ToString(i) ] != Empty)
+     <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
+                :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
                 );
 16 # OMFormExpression(i_IsVariable)
-     <-- OMEcho("<OMV name=\"":AtomToString(i):"\"/>");
+     <-- OMEcho("<OMV name=\"":ToString(i):"\"/>");
 16 # OMFormExpression(i_IsVariable)_(i = Empty)
      <-- False; // This is useful for void expressions.
 
@@ -235,7 +235,7 @@ OMEcho(expression_IsList) <--
 
 OMEscape(_expression) <--
 [
-  "<![CDATA[":AtomToString(expression):"]]>";
+  "<![CDATA[":ToString(expression):"]]>";
 ];
 OMEscapeString(_expression_IsString) <--
 [
@@ -313,7 +313,7 @@ HoldArgNr("OMSignature", 1, 1);
 LocalSymbols(omtoken) [
   OMNextToken() :=
   [
-    omtoken := XmlExplodeTag(AtomToString(ReadToken()));
+    omtoken := XmlExplodeTag(ToString(ReadToken()));
   ];
   OMToken() := omtoken;
 ]; // LocalSymbols(omtoken)
@@ -384,7 +384,7 @@ PipeFromString(str:" EndOfFile")
 [
   Local(result);
   OMNextToken();
-  result := StringToAtom(OMToken());
+  result := ToAtom(OMToken());
   OMNextToken();
   MatchClose(XmlTag("OMI",{},"Close"));
   result;
@@ -393,13 +393,13 @@ PipeFromString(str:" EndOfFile")
 10 # ReadOMOBJ(XmlTag("OMV",{{"NAME",_name}},"OpenClose")) <--
 [
   OMNextToken();
-  StringToAtom(name);
+  ToAtom(name);
 ];
 
 10 # ReadOMOBJ(XmlTag("OMF",{{"DEC",_dec}},"OpenClose")) <--
 [
   OMNextToken();
-  StringToAtom(dec);
+  ToAtom(dec);
 ];
 
 10 # ReadOMOBJ(XmlTag("OMSTR",{},"Open")) <--
@@ -557,8 +557,8 @@ HoldArgNr("OMPathSelect", 2, 2);
      // and avoiding the table lookup then, because for some symbols the
      // OM name have to be different from the MathPiper name (e.g. "/@").
      If(piperform = Empty,
-        If(cd = mathpiper, StringToAtom(omname), OMS(omcd, omname)),
-        If(IsString(piperform), StringToAtom(piperform), piperform));
+        If(cd = mathpiper, ToAtom(omname), OMS(omcd, omname)),
+        If(IsString(piperform), ToAtom(piperform), piperform));
      ]
     );
 ];

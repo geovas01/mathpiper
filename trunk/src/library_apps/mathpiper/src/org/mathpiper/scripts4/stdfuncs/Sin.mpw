@@ -1,7 +1,7 @@
 %mathpiper,def="Sin"
 
 
-1 # SinMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({StringToAtom("Sin"),n*Pi});
+1 # SinMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Sin"),n*Pi});
 2 # SinMap( _n )_(n<0) <-- -SinMap(-n);
 2 # SinMap( _n )_(n>2) <-- SinMap(Mod(n,2));
 3 # SinMap( _n )_(n>1) <-- SinMap(n-2);
@@ -14,7 +14,7 @@
 5 # SinMap( 1/2 ) <-- 1;
 5 # SinMap( 1/10) <-- (Sqrt(5)-1)/4;
 
-10 # SinMap(_n) <-- ListToFunction({StringToAtom("Sin"),n*Pi});
+10 # SinMap(_n) <-- ListToFunction({ToAtom("Sin"),n*Pi});
 
 
 

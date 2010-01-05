@@ -2,7 +2,7 @@
 
 /// Analyse arithmetic expressions
 
-HasFuncArith(expr, atom) := HasFuncSome(expr, atom, {StringToAtom("+"), StringToAtom("-"), *, /});
+HasFuncArith(expr, atom) := HasFuncSome(expr, atom, {ToAtom("+"), ToAtom("-"), *, /});
 
 %/mathpiper
 
@@ -24,7 +24,7 @@ HasFuncArith(expr, atom) := HasFuncSome(expr, atom, {StringToAtom("+"), StringTo
 
 {HasFuncArith} is defined through {HasFuncSome} to look only at arithmetic operations {+}, {-}, {*}, {/}.
 
-Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {StringToAtom("+")} to obtain the unevaluated atom "{+}".
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
 
 *E.G.
 

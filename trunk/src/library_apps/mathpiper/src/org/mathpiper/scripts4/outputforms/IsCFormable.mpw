@@ -31,7 +31,7 @@ LocalSymbols(CFormAllFunctions) [
   HoldArgNr("IsCFormable", 2, 1);
 
   /// This is a list of all function atoms which CForm can safely handle
-  CFormAllFunctions := MapSingle(StringToAtom, Concat(AssocIndices(CFormMathFunctions()), AssocIndices(CFormRegularOps()),
+  CFormAllFunctions := MapSingle(ToAtom, Concat(AssocIndices(CFormMathFunctions()), AssocIndices(CFormRegularOps()),
   // list of "other" (non-math) functions supported by CForm: needs to be updated when CForm is extended to handle new functions
   {
     "For",

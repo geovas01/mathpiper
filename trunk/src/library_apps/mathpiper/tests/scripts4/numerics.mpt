@@ -308,7 +308,7 @@ Testing("Gamma constant");
 BuiltinPrecisionSet(40);
 NumericEqual(Internal'gamma()+0, 0.5772156649015328606065120900824024310422,BuiltinPrecisionGet());
 BuiltinPrecisionSet(20);
-Verify(gamma,StringToAtom("gamma"));
+Verify(gamma,ToAtom("gamma"));
 NumericEqual(RoundTo(Internal'gamma()+0,19), 0.5772156649015328606,19);
 NumericEqual(RoundTo(N(1/2+gamma+Pi), 19), 4.2188083184913260991,19);
 

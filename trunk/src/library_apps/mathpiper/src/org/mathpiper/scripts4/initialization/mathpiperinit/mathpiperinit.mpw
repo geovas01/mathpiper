@@ -91,7 +91,7 @@ Rule("REP",0,1,True)
       SetGlobalLazyVariable(%,result);
       If(PrettyPrinterGet()="",
       [
-        Write(StringToAtom("Out> "),result);
+        Write(ToAtom("Out> "),result);
         NewLine();
       ],
       Apply(PrettyPrinterGet(),{result}));

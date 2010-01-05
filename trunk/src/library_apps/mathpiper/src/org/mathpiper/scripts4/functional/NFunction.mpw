@@ -17,7 +17,7 @@ NFunction(new'name_IsString, old'name_IsString, arg'list_IsList) <-- [
 		// the body looks like this:
 		// NFunction'Numberize(old'name(arg'list))
 		*/
-			NFunction'Numberize(ListToFunction({StringToAtom("@"), old'name, arg'list}));
+			NFunction'Numberize(ListToFunction({ToAtom("@"), old'name, arg'list}));
 			// cannot use bare '@' b/c get a syntax error
 
 ];
