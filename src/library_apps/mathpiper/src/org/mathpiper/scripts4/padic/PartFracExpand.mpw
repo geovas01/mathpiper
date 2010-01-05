@@ -35,7 +35,7 @@ PartFracExpand(_g,_f) <--
       result:=divlist[1];
       ForEach(item,Rest(divlist))
       [
-        result:=ListToFunction({StringToAtom("+"),result,item});
+        result:=ListToFunction({ToAtom("+"),result,item});
       ];
       result;
     ]);

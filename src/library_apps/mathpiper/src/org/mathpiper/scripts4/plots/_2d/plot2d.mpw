@@ -54,7 +54,7 @@ Function() Plot2D(func, range, options, ...);
 		Type(range) = "->",	// variable also specified -- ignore for now, store in options
 		[
 			// store alternative variable name
-			options'hash["xname"] := AtomToString(range[1]);
+			options'hash["xname"] := ToString(range[1]);
 			range := range[2];
 		]
 	);
@@ -121,7 +121,7 @@ Function() Plot2D(func, range, options, ...);
 		// store variable name if not already done so
 		If(
 			options'hash["xname"] = "",
-			options'hash["xname"] := AtomToString(VarList(var)[1])
+			options'hash["xname"] := ToString(VarList(var)[1])
 		);
 		// store function name in options
 		DestructiveAppend(options'hash["yname"], PipeToString()Write(func));

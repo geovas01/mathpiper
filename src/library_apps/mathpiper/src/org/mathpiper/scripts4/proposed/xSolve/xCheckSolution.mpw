@@ -29,7 +29,7 @@ Retract("CloseEnough",*);
       If(iDebug=True,Tell("xCheckSolutionL",{exprs,var,solutions}));
       Local(tests);
       
-      tests := Subst(==,StringToAtom("-")) (exprs Where solutions);
+      tests := Subst(==,ToAtom("-")) (exprs Where solutions);
       If(iDebug,Tell("  1",tests));
       tests := AllSatisfy("IsZero",tests);
   ];

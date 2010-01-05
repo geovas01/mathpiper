@@ -6,7 +6,7 @@ Retract("PadLeft", *);
 [
     Local(integerString, padAmount, resultString);
     
-    integerString := AtomToString(number);
+    integerString := ToString(number);
     
     padAmount := totalDigits - Length(integerString);
     

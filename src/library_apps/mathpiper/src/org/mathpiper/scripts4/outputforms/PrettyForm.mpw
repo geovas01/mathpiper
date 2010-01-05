@@ -163,14 +163,14 @@ AlignBase(i1,i2):=
   MoveOper(i2,0,SubtractN(base,(i2[7])));
 ];
 
-10 # BuildArgs({}) <-- Formula(StringToAtom(" "));
+10 # BuildArgs({}) <-- Formula(ToAtom(" "));
 20 # BuildArgs({_head}) <-- head;
 30 # BuildArgs(_any)    <--
      [
         Local(item1,item2,comma,base,newitem);
         Set(item1, any[1]);
         Set(item2, any[2]);
-        Set(comma, Formula(StringToAtom(",")));
+        Set(comma, Formula(ToAtom(",")));
         Set(base, Max(item1[7],item2[7]));
         MoveOper(item1,0,SubtractN(base,(item1[7])));
         MoveOper(comma,AddN(item1[3],1),base);
@@ -185,8 +185,8 @@ AlignBase(i1,i2):=
 FormulaBracket(f):=
 [
   Local(left,right);
-  Set(left, Formula(StringToAtom("(")));
-  Set(right, Formula(StringToAtom(")")));
+  Set(left, Formula(ToAtom("(")));
+  Set(right, Formula(ToAtom(")")));
   left[4]:=f[4];
   right[4]:=f[4];
   MoveOper(left,f[1],f[2]);
@@ -199,7 +199,7 @@ FormulaBracket(f):=
 /* RuleBase("Formula",{f}); */
 
 1 # Formula(f_IsAtom) <--
-  MakeOper(0,0,Length(AtomToString(f)),1,"StringToAtom",AtomToString(f),0);
+  MakeOper(0,0,Length(ToString(f)),1,"ToAtom",ToString(f),0);
 
 2 # Formula(_xx ^ _yy) <--
 [
@@ -300,7 +300,7 @@ FormulaBracket(f):=
   Set(l, Formula(xx));
   Set(r, Formula(yy));
   Set(width, Max(l[3],r[3]));
-  Set(dash, Formula(StringToAtom(CharList(width,"-"))));
+  Set(dash, Formula(ToAtom(CharList(width,"-"))));
   MoveOper(dash,0,l[4]);
   MoveOper(l,(SubtractN(width,l[3])>>1),0);
   MoveOper(r,(SubtractN(width,r[3])>>1),AddN(dash[2], dash[4]));
@@ -361,7 +361,7 @@ RuleBase("RenderFormula",{cf,f,x,y});
        \
 */
 
-Rule("RenderFormula",4,1,f[5] = "StringToAtom" And f[6] = "(" And f[4] > 1)
+Rule("RenderFormula",4,1,f[5] = "ToAtom" And f[6] = "(" And f[4] > 1)
 [
   Local(height,i);
   Set(x, AddN(x,f[1]));
@@ -374,7 +374,7 @@ Rule("RenderFormula",4,1,f[5] = "StringToAtom" And f[6] = "(" And f[4] > 1)
     cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
-Rule("RenderFormula",4,1,f[5] = "StringToAtom" And f[6] = ")" And f[4] > 1)
+Rule("RenderFormula",4,1,f[5] = "ToAtom" And f[6] = ")" And f[4] > 1)
 [
   Local(height,i);
   Set(x, AddN(x,f[1]));
@@ -386,7 +386,7 @@ Rule("RenderFormula",4,1,f[5] = "StringToAtom" And f[6] = ")" And f[4] > 1)
     cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
-Rule("RenderFormula",4,5,f[5] = "StringToAtom")
+Rule("RenderFormula",4,5,f[5] = "ToAtom")
 [
   cf[AddN(y, f[2]) ]:=
     StringMidSet(AddN(x,f[1]),f[6],cf[AddN(y, f[2]) ]);
@@ -431,7 +431,7 @@ HoldArg("PrettyForm",ff);
 EvalFormula(f):=
 [
   Local(result);
-  result:= ListToFunction({StringToAtom("="),f,Eval(f)});
+  result:= ListToFunction({ToAtom("="),f,Eval(f)});
   PrettyForm(result);
   True;
 ];

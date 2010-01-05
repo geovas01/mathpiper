@@ -7,8 +7,8 @@ RuleBase("else",{ifthen,otherwise});
 0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) = False) <-- Eval(otherwise);
 
 1 # (if (_predicate) _body else _otherwise) <--
-    ListToFunction({StringToAtom("else"),
-            ListToFunction({StringToAtom("if"), (Eval(predicate)), body}),
+    ListToFunction({ToAtom("else"),
+            ListToFunction({ToAtom("if"), (Eval(predicate)), body}),
             otherwise});
 
 HoldArg("else",ifthen);

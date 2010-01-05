@@ -34,7 +34,7 @@ HoldArg("CachedConstant", C'cache);	// name of the cache
 Rule("CachedConstant", 3, 10, And(IsAtom(C'atom), IsFunction(C'func)))
 [
  	Local(C'name,C'functionName);
-	Set(C'name, AtomToString(C'atom));	// this is for later conveniences
+	Set(C'name, ToString(C'atom));	// this is for later conveniences
   Set(C'functionName,ConcatStrings("Internal'",C'name));
 
 	If(	// create the cache it if it does not already exist
@@ -95,11 +95,11 @@ Function("AssignCachedConstantsN", {})
 	Local(var,fname);
 	ForEach(var, AssocIndices(CacheOfConstantsN))
 	[
-		MacroUnbind(StringToAtom(var));
+		MacroUnbind(ToAtom(var));
     Set(fname,ConcatStrings("Internal'",var));
-    Set(var,StringToAtom(var));
+    Set(var,ToAtom(var));
 		// this way the routine Internal'Pi() will be actually called only when the variable 'Pi' is used, etcetera.
-    `SetGlobalLazyVariable((@var), ListToFunction({StringToAtom(fname)}));
+    `SetGlobalLazyVariable((@var), ListToFunction({ToAtom(fname)}));
 	];
 ];
 UnFence("AssignCachedConstantsN", 0);
@@ -110,7 +110,7 @@ Function("ClearCachedConstantsN", {})
 [
 	Local(c'entry);
 	ForEach(c'entry, CacheOfConstantsN)
-		MacroUnbind(StringToAtom(c'entry[1]));
+		MacroUnbind(ToAtom(c'entry[1]));
 ];
 UnFence("ClearCachedConstantsN", 0);
 
