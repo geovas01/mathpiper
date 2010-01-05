@@ -191,7 +191,7 @@ Function(Fct,{poly,var})
     ForEach(p,accu)
     [
       Set(calc,Eval(lastcoef));
-      If (LessThan(calc,0),
+      If (IsLessThan(calc,0),
         Set(calc, AddN(calc,MultiplyN(twoq,DivN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Set(calc, BitAnd(calc, mask));
@@ -201,7 +201,7 @@ Function(Fct,{poly,var})
         AddFoundSolutionSingle(-2*q+p);
       ]);
       Set(calc, AddN(calc, Eval(ord)));
-      If (LessThan(calc,0),
+      If (IsLessThan(calc,0),
         Set(calc, AddN(calc,MultiplyN(twoq,DivN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Set(calc, BitAnd(calc, mask));

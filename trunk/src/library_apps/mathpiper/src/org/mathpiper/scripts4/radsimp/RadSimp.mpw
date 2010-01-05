@@ -30,7 +30,7 @@ CheckRadicals(_n,_test) <-- Abs(N(Eval(n-test),20)) < 0.000001;
 RadSimpTry(_n,_result,_current,_max)<--
 [
 //Echo(result," ",n," ",current);
-  if (LessThan(N(Eval(result-n)), 0))
+  if (IsLessThan(N(Eval(result-n)), 0))
   [
     Local(i);
 
@@ -44,7 +44,7 @@ RadSimpTry(_n,_result,_current,_max)<--
     ]);
 
     // Otherwise, search for another solution
-    if (LessThan(N(Eval(result-n)), 0))
+    if (IsLessThan(N(Eval(result-n)), 0))
     [
       For (Set(i,current),i<=max,Set(i,AddN(i,1)))
       [

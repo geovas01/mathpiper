@@ -62,7 +62,7 @@ CharList(length,item):=
 [
   Local(line,i);
   line:="";
-  For(Set(i,0),LessThan(i,length),Set(i,AddN(i,1)))
+  For(Set(i,0),IsLessThan(i,length),Set(i,AddN(i,1)))
     Set(line, line:item);
   line;
 ];
@@ -370,7 +370,7 @@ Rule("RenderFormula",4,1,f[5] = "ToAtom" And f[6] = "(" And f[4] > 1)
 
   cf[y] := StringMidSet(x, "/", cf[y]);
   cf[AddN(y,height)] := StringMidSet(x, "\\", cf[AddN(y,height)]);
-  For (Set(i,1),LessThan(i,height),Set(i,AddN(i,1)))
+  For (Set(i,1),IsLessThan(i,height),Set(i,AddN(i,1)))
     cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
@@ -382,7 +382,7 @@ Rule("RenderFormula",4,1,f[5] = "ToAtom" And f[6] = ")" And f[4] > 1)
   Set(height, SubtractN(f[4],1));
   cf[y] := StringMidSet(x, "\\", cf[y]);
   cf[y+height] := StringMidSet(x, "/", cf[y+height]);
-  For (Set(i,1),LessThan(i,height),Set(i,AddN(i,1)))
+  For (Set(i,1),IsLessThan(i,height),Set(i,AddN(i,1)))
     cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 

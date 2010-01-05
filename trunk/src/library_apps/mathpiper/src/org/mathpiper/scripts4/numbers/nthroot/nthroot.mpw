@@ -60,7 +60,7 @@ Function("NthRoot'Calc",{m,n})
    // following.  would this be
    // faster in general?
 //Echo("i j ",i," ",j);
-   While(LessThan(i,j))
+   While(IsLessThan(i,j))
    [
       Set(in,PowerN(i,n));
 //Echo("r in mod ",r, " ",in," ",ModN(r,in));

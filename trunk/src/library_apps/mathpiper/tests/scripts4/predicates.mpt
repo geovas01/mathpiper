@@ -38,8 +38,8 @@ Verify(IsEqual({a,b},{a}),False);
 Verify(IsEqual({a,b},{a,b}),True);
 
 Testing("NumberCompares");
-Verify(LessThan(2,3),True);
-Verify(LessThan(3,2),False);
+Verify(IsLessThan(2,3),True);
+Verify(IsLessThan(3,2),False);
 Verify(GreaterThan(2,3),False);
 Verify(GreaterThan(3,2),True);
 
@@ -80,11 +80,11 @@ Verify(1e5 > 0, True);
 Verify(1.0000000000000000000000000000111 > 1, True);
 Verify(0.999999999999999999999999999992 < 1, True);
 
-Verify(LessThan(-1e-115, 0), True);
-Verify(LessThan(-1e-15, 0), True);
-Verify(LessThan(-1e-10, 0), True);
-Verify(LessThan(-1e-5, 0), True);
-Verify(LessThan(-1e-1, 0), True);
+Verify(IsLessThan(-1e-115, 0), True);
+Verify(IsLessThan(-1e-15, 0), True);
+Verify(IsLessThan(-1e-10, 0), True);
+Verify(IsLessThan(-1e-5, 0), True);
+Verify(IsLessThan(-1e-1, 0), True);
 
 Testing("Matrix predicates");
 Verify(IsHermitian({{0,I},{-I,0}}),True);

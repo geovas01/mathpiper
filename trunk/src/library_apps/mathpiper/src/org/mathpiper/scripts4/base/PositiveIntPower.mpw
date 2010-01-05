@@ -7,7 +7,7 @@
 Defun("PositiveIntPower", {x,n})
 [
   Local(result,unit);
-  If(LessThan(n,0), False,
+  If(IsLessThan(n,0), False,
   [
 	Set(unit,1);	 // this is a constant, initial value of the power
 	Set(result, unit);

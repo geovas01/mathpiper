@@ -29,24 +29,24 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
   Set(result, {});
   Set(from, Min(curl,curr));
 
-  While(And(LessThan(curl,curr),left != {}))
+  While(And(IsLessThan(curl,curr),left != {}))
   [
     DestructiveAppend(result,First(left));
     Set(left,Rest(left));
     Set(curl,AddN(curl,1));
   ];
-  While(LessThan(curl,curr))
+  While(IsLessThan(curl,curr))
   [
     DestructiveAppend(result,0);
     Set(curl,AddN(curl,1));
   ];
-  While(And(LessThan(curr,curl), right != {}))
+  While(And(IsLessThan(curr,curl), right != {}))
   [
     DestructiveAppend(result,First(right));
     Set(right,Rest(right));
     Set(curr,AddN(curr,1));
   ];
-  While(LessThan(curr,curl))
+  While(IsLessThan(curr,curl))
   [
     DestructiveAppend(result,0);
     Set(curr,AddN(curr,1));
