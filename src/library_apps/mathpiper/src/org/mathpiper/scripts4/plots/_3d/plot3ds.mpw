@@ -123,11 +123,11 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 	// check that the input parameters are valid (all numbers)
 	Check(IsNumericList({xrange[1], xrange[2], options'hash["xpoints"], options'hash["ypoints"], options'hash["precision"]}),
 		"Plot3DS: Error: plotting ranges '"
-		:(ToString()Write(xrange, yrange))
+		:(PipeToString()Write(xrange, yrange))
 		:"' and/or the number of points '"
-		:(ToString()Write(options'hash["xpoints"], options'hash["ypoints"]))
+		:(PipeToString()Write(options'hash["xpoints"], options'hash["ypoints"]))
 		:"' and/or precision '"
-		:(ToString()Write(options'hash["precision"]))
+		:(PipeToString()Write(options'hash["precision"]))
 		:"' is not numeric"
 	);
 	// loop over functions in the list
@@ -137,7 +137,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 		var := VarList(func);        // variable names in a list
     	Check(Length(var)<=2,
 			"Plot3DS: Error: expression is not a function of at most two variables: "
-			:(ToString()Write(func))
+			:(PipeToString()Write(func))
 		);
 		// Allow plotting of constant functions
 		If(Length(var)=0, var:={dummy, dummy});
@@ -152,17 +152,17 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 			options'hash["yname"] := AtomToString(var[2])
 		);
 		// store function name in options
-		DestructiveAppend(options'hash["zname"], ToString()Write(func));
+		DestructiveAppend(options'hash["zname"], PipeToString()Write(func));
 		// compute the first point to see if it's okay
 		cx := xrange[1]; cy := yrange[1];
 		fc := N(Eval(Apply({var, func}, {cx, cy})));
 		Check(IsNumber(fc) Or fc=Infinity Or fc= -Infinity Or fc=Undefined,
 			"Plot3DS: Error: cannot evaluate function '"
-			:(ToString()Write(func))
+			:(PipeToString()Write(func))
 			:"' at point '"
-			:(ToString()Write(cx, cy))
+			:(PipeToString()Write(cx, cy))
 			:"' to a number, instead got '"
-			:(ToString()Write(fc))
+			:(PipeToString()Write(fc))
 			:"'"
 		);
 		// compute all other data points

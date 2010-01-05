@@ -4,8 +4,8 @@ NextTest("Converting to and from OpenMath expressions");
 Macro(OMTest1,{expr}) 
 [
   Local(string,result);
-  string:=ToString() OMForm(@expr);
-  result:=FromString(string)OMRead();
+  string:=PipeToString() OMForm(@expr);
+  result:=PipeFromString(string)OMRead();
 //  Echo(Hold(@expr),`Hold(@result));
   Verify(Hold(@expr),`Hold(@result));
 ];

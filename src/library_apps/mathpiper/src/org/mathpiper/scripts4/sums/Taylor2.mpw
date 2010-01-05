@@ -653,7 +653,7 @@ Echo(expr," ",n," ",result);
 
 60000 # Taylor'LPS'CompCoeff(_var, _expr, _n)
       <-- Check(False, "Taylor'LPS'CompCoeff'FallThrough"
-                       : ToString() Write({var,expr,n}));
+                       : PipeToString() Write({var,expr,n}));
 
 /**********************************************************************
  *

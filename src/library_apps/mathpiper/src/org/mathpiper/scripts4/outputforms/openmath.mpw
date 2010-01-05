@@ -32,13 +32,13 @@ Rule("OMREP",1,1,True)
   While(Not(IsExitRequested()))
   [
     Set(errorObject, "");
-    TrapError(Set(input, FromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()),Set(errorObject,OMGetCoreError()));
+    TrapError(Set(input, PipeFromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()),Set(errorObject,OMGetCoreError()));
     If(Not(errorObject = ""), errorObject);
     If (Not(IsExitRequested()) And errorObject="",
     [
       Set(stringOut,"");
       Set(result,False);
-      TrapError(Set(stringOut,ToString()[Secure(Set(result,Eval(input)));]),Set(errorObject,OMGetCoreError()));
+      TrapError(Set(stringOut,PipeToString()[Secure(Set(result,Eval(input)));]),Set(errorObject,OMGetCoreError()));
       If(Not(errorObject = ""), errorObject);
       If(Not(stringOut = ""), WriteString(stringOut));
       SetGlobalLazyVariable(%,result);
@@ -190,7 +190,7 @@ LocalSymbols(omindent) [
         [
         Local(result);
         result := OMApplyMapping(function, symbolDef[3]);
-        //Check(IsList(result), ToString()Echo("Mapping result is not a list: ", result));
+        //Check(IsList(result), PipeToString()Echo("Mapping result is not a list: ", result));
         If(IsList(result),
            [
            result := ListToFunction(Subst($, function[0]) result);
@@ -337,7 +337,7 @@ OMRead():=
 
 
 OMDump(str):=
-FromString(str:" EndOfFile")
+PipeFromString(str:" EndOfFile")
 [
   Local(result);
   XmlTokenizer();
@@ -354,7 +354,7 @@ FromString(str:" EndOfFile")
 
 
 10 # MatchClose(_x)_(x = OMToken()) <-- [OMNextToken();True;];
-20 # MatchClose(_x) <-- Check(False,ToString()Echo("encodingError:unexpected closing brace")); //@@@ TODO better error reporting
+20 # MatchClose(_x) <-- Check(False,PipeToString()Echo("encodingError:unexpected closing brace")); //@@@ TODO better error reporting
 
 10 # MatchOMOBJ(XmlTag("OMOBJ",_attributes,"Open")) <--
 [
@@ -372,7 +372,7 @@ FromString(str:" EndOfFile")
   // This is a void expression, of the form "<OMOBJ/>".
   Empty;
 ];
-20 # MatchOMOBJ(_rest) <-- Check(False,ToString()Echo("encodingError:not an OMOBJ :",rest));
+20 # MatchOMOBJ(_rest) <-- Check(False,PipeToString()Echo("encodingError:not an OMOBJ :",rest));
 
 10 # ReadOMOBJ(XmlTag("OMOBJ",_attributes,"Close")) <--
 [
@@ -548,7 +548,7 @@ HoldArgNr("OMPathSelect", 2, 2);
   omcd   := attributes["CD"];
   omname := attributes["NAME"];
   If(omcd = Empty Or omname = Empty,
-     OMCheck(False,OMError({"moreerrors", "encodingError"}, ToString()Echo("missing \"cd\" or \"name\" attribute: ",attributes))),
+     OMCheck(False,OMError({"moreerrors", "encodingError"}, PipeToString()Echo("missing \"cd\" or \"name\" attribute: ",attributes))),
      [
      Local(cdTable, piperform);
      cdTable := OMSymbolReverse()[ omcd ];
@@ -563,7 +563,7 @@ HoldArgNr("OMPathSelect", 2, 2);
     );
 ];
 
-101 # ReadOMOBJ(_rest) <-- OMCheck(False,OMError({"moreerrors", "encodingError"}, ToString()Echo("unhandled tag: ",rest)));
+101 # ReadOMOBJ(_rest) <-- OMCheck(False,OMError({"moreerrors", "encodingError"}, PipeToString()Echo("unhandled tag: ",rest)));
 
 
 
@@ -731,7 +731,7 @@ name as it has in MathPiper.
 
 *E.G. notest
 
-	In> str:=ToString()OMForm(2+Sin(a*3))
+	In> str:=PipeToString()OMForm(2+Sin(a*3))
 	Out> "<OMOBJ>
 	  <OMA>
 	    <OMS cd="arith1" name="plus"/>
@@ -747,7 +747,7 @@ name as it has in MathPiper.
 	  </OMA>
 	</OMOBJ>
 	";
-	In> FromString(str)OMRead()
+	In> PipeFromString(str)OMRead()
 	Out> 2+Sin(a*3);
 
 	In> OMForm(NotDefinedInOpenMath(2+3))
@@ -799,7 +799,7 @@ symbols that must be translated into a whole subexpression in MathPiper, such
 as {set1:emptyset} which gets translated to an empty list as follows:
 	In> OMDef( {}, "set1","emptyset" )
 	Out> True
-	In> FromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
+	In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
 	Out> {}
 	In> IsList(%)
 	Out> True
@@ -808,7 +808,7 @@ the MathPiper atom with the given name:
 	In> OMDef( "EmptySet", "set1","emptyset" )
 	Warning: the mapping for set1:emptyset was already defined as {} , but is redefined now as EmptySet
 	Out> True
-	In> FromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
+	In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
 	Out> EmptySet
 
 The definitions for the symbols in the MathPiper
@@ -870,9 +870,9 @@ contain them.
 	  </OMA>
 	</OMOBJ>
 	Out> True
-	In> FromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
+	In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
 	Out> Sqrt(16)
-	In> FromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>3</OMI></OMA></OMOBJ> ")OMRead()
+	In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>3</OMI></OMA></OMOBJ> ")OMRead()
 	Out> 16^(1/3)
 
 	In> OMDef("Limit", "limit1", "limit", \
@@ -926,7 +926,7 @@ contain them.
 	  </OMA>
 	</OMOBJ>
 	Out> True
-	In> FromString(ToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
+	In> PipeFromString(PipeToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
 	Out> Limit(x,0,Right)1/x
 	In> %
 	Out> Infinity

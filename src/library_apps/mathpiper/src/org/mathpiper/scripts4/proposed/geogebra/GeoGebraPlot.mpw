@@ -14,7 +14,7 @@ RuleBaseListed("GeoGebraPlot",{arg1,arg2});
     
     function := (Subst(==,=) function);
     
-    command := ConcatStrings(ToString()Write(function));
+    command := ConcatStrings(PipeToString()Write(function));
     
     JavaCall(geogebra,"evalCommand",command);
 ];

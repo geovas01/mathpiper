@@ -9,7 +9,7 @@ OMDef("Limit", "limit1","limit",
       |{_0, _{3,2,1}, _1, Right, _{3,3}}_(_2=OMS("limit1", "above"))
       |{_0, _{3,2,1}, _1, _{3,3}}
      );
-// Test [result Limit(x,0,Right)1/x]: FromString(ToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
+// Test [result Limit(x,0,Right)1/x]: PipeFromString(PipeToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
 
 // As explained in the manual, "limit1:both_sides" and "fns1:lambda" will
 // be handled as OMS("limit1", "both_sides") and OMS("fns1", "lambda"), so

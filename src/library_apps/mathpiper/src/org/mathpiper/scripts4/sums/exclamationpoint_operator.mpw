@@ -5,7 +5,7 @@
 10 # 0! <-- 1;
 10 # (Infinity)! <-- Infinity;
 20 # ((n_IsPositiveInteger)!) <-- [
-	Check(n <= 65535, "Factorial: Error: the argument " : ( ToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
+	Check(n <= 65535, "Factorial: Error: the argument " : ( PipeToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
 	MathFac(n);
 ];
 
@@ -44,7 +44,7 @@ HalfIntegerFactorial(n_IsOdd) _ (n<0)  <--
 /// partial factorial
 n1_IsRationalOrNumber *** n2_IsRationalOrNumber <--
 [
-	Check(n2-n1 <= 65535, "Partial factorial: Error: the range " : ( ToString() Write(n2-n1) ) : " is too large, you may want to avoid exact calculation");
+	Check(n2-n1 <= 65535, "Partial factorial: Error: the range " : ( PipeToString() Write(n2-n1) ) : " is too large, you may want to avoid exact calculation");
 	If(n2-n1<0,
 		1,
 		Factorial'partial(n1, n2)
