@@ -11,15 +11,15 @@ Defun("PositiveIntPower", {x,n})
   [
 	Set(unit,1);	 // this is a constant, initial value of the power
 	Set(result, unit);
-	If(Equals(n,0),unit,
-	 If(Equals(n,1),x,
+	If(IsEqual(n,0),unit,
+	 If(IsEqual(n,1),x,
 	  [
 		While(GreaterThan(n,0))
 		[
 			If(
-				Equals(BitAnd(n,1), 1),
+				IsEqual(BitAnd(n,1), 1),
 //				If(
-//					Equals(result,unit), // if result is already assigned
+//					IsEqual(result,unit), // if result is already assigned
 //					Set(result, x), // avoid multiplication
 					Set(result, MultiplyN(result,x))
 //				)

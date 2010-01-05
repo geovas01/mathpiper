@@ -15,7 +15,7 @@ LocalSymbols(foreachtail)
     Local(foreachtail);
     Local(@i);
     Set(foreachtail,@L);
-    While(Not(Equals(foreachtail,{})))
+    While(Not(IsEqual(foreachtail,{})))
     [
       Set(@i,First(foreachtail));
       @B;
@@ -27,8 +27,8 @@ LocalSymbols(foreachtail)
 LocalSymbols(index,nr)
 [
   20 # ForEachRest(_i,_A,_B)_(   And(
-            Equals(IsGeneric(A),True),
-            Equals(GenericTypeName(A),"Array")
+            IsEqual(IsGeneric(A),True),
+            IsEqual(GenericTypeName(A),"Array")
             )) <--
   [
     Local(index,nr);

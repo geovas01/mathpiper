@@ -6,7 +6,7 @@ Macro("Verify",{aLeft,aRight})
 
 	Local(result);
 	result := @aLeft;	// to save time
-  If (Not(Equals(result,@aRight)),
+  If (Not(IsEqual(result,@aRight)),
     [
       WriteString("******************");
       NewLine();
@@ -36,7 +36,7 @@ Function("Verify",{aLeft,aRight})
 
 	Local(result);
 	result := Eval(aLeft);	// to save time
-  If (Not(Equals(result,aRight)),
+  If (Not(IsEqual(result,aRight)),
     [
       WriteString("******************");
       NewLine();

@@ -42,14 +42,14 @@ LogicRemoveTautologies(_e) <--
         Local(y);
         Set(y, MathNth(e,j));
 
-        If(Equals(y, n),
+        If(IsEqual(y, n),
             [
                 //Echo({"Deleting from ", e, " i=", i, ", j=", j, Nl()});
 
                 Set(negationfound, True);
                 //Echo({"Removing clause ", i, Nl()});
             ],
-        If(Equals(y, x),
+        If(IsEqual(y, x),
             [
                 //Echo({"Deleting from ", e, " j=", j, Nl()});
                 DestructiveDelete(e, j);

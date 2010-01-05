@@ -57,7 +57,7 @@ Use("initialization.rep/stdarith.mpi");
 RuleBase(LoadPackages,{packages});
 Rule(LoadPackages, 1, 1, True)
 [
-	If(Equals(packages,{}), True,
+	If(IsEqual(packages,{}), True,
 	[
 		DefLoad(First(packages));
 		LoadPackages(Rest(packages));

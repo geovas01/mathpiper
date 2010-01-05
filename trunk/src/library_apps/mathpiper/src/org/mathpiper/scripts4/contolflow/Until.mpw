@@ -3,7 +3,7 @@
 TemplateFunction("Until",{predicate,body})
 [
   Eval(body);
-  While (Equals(Eval(predicate),False))
+  While (IsEqual(Eval(predicate),False))
   [
     Eval(body);
   ];

@@ -7,7 +7,7 @@ HoldArg("Macro",body);
 
 // macro with variable number of arguments: Macro("func",{x,y, ...})body;
 Rule("Macro",3,2047,
-	And(GreaterThan(Length(args), 1), Equals( MathNth(args, Length(args)), ToAtom("...") ))
+	And(GreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") ))
 )
 [
   DestructiveDelete(args,Length(args));	// remove trailing "..."
@@ -27,7 +27,7 @@ Rule("Macro",3,2048,True)
 RuleBase("Macro",{oper});
 // macro with variable number of arguments: Macro() f(x,y, ...)
 Rule("Macro",1,2047,
-	And(IsFunction(oper), GreaterThan(Length(oper), 1), Equals( MathNth(oper, Length(oper)), ToAtom("...") ))
+	And(IsFunction(oper), GreaterThan(Length(oper), 1), IsEqual( MathNth(oper, Length(oper)), ToAtom("...") ))
 )
 [
 	Local(args,name);

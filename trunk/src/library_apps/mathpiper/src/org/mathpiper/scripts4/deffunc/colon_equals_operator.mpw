@@ -41,8 +41,8 @@ Rule("AssignArray",3,1,IsString(setlistindex))
 // assign generic arrays
 Rule("AssignArray",3,1,
    And(
-           Equals(IsGeneric(setlistterm),True),
-           Equals(GenericTypeName(setlistterm),"Array")
+           IsEqual(IsGeneric(setlistterm),True),
+           IsEqual(GenericTypeName(setlistterm),"Array")
           )
     )
 [
@@ -72,15 +72,15 @@ Rule(":=",2,10,IsFunction(aLeftAssign) And (First(FunctionToList(aLeftAssign)) =
 ];
 
 // f(x):=... defines a new function
-Rule(":=",2,30,IsFunction(aLeftAssign) And Not(Equals(aLeftAssign[0], ToAtom(":="))) )
+Rule(":=",2,30,IsFunction(aLeftAssign) And Not(IsEqual(aLeftAssign[0], ToAtom(":="))) )
 [
-  Check( Not Equals(aLeftAssign[0], ToAtom("/")), "Only a variable can be placed on the left side of an := operator." );
+  Check( Not IsEqual(aLeftAssign[0], ToAtom("/")), "Only a variable can be placed on the left side of an := operator." );
 
   Local(oper,args,arity);
   Set(oper,ToString(aLeftAssign[0]));
   Set(args,Rest(FunctionToList(aLeftAssign)));
   If(
-	And(GreaterThan(Length(args), 1), Equals( MathNth(args, Length(args)), ToAtom("...") )),
+	And(GreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") )),
 	// function with variable number of arguments
 	[
 	  DestructiveDelete(args,Length(args));	// remove trailing "..."

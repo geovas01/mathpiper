@@ -3,9 +3,9 @@
 /// HasExpr --- test for an expression containing a subexpression
 /// for checking dependence on variables, this may be faster than using VarList or IsFreeOf and this also can be used on non-variables, e.g. strings or numbers or other atoms or even on non-atoms
 // an expression contains itself -- check early
-10 # HasExpr(_expr, _atom) _ Equals(expr, atom) <-- True;
+10 # HasExpr(_expr, _atom) _ IsEqual(expr, atom) <-- True;
 // an atom contains itself
-15 # HasExpr(expr_IsAtom, _atom) <-- Equals(expr, atom);
+15 # HasExpr(expr_IsAtom, _atom) <-- IsEqual(expr, atom);
 // a list contains an atom if one element contains it
 // we test for lists now because lists are also functions
 // first take care of the empty list:
