@@ -6,7 +6,7 @@
 
 Defun("ExpN", {x})
 	If(IsEqual(x,0),1,
-	 If(LessThan(x,0),DivideN(1, ExpN(MathNegate(x))),
+	 If(IsLessThan(x,0),DivideN(1, ExpN(MathNegate(x))),
 	  If(GreaterThan(x,1), MathExpDoubling(MathExpTaylor0(MathMul2Exp(x,MathNegate(MathBitCount(x)))), MathBitCount(x)), MathExpTaylor0(x)
 	)));
 

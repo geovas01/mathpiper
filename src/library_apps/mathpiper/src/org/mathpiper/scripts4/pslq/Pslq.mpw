@@ -66,7 +66,7 @@ Pslq(x, precision) :=
 If(Not IsNumber(tmp),
   Echo("******** not a number: ",tmp)
 );
-If(LessThan(tmp,0),
+If(IsLessThan(tmp,0),
 [
   Echo("******** not positive: ",tmp);
 ]

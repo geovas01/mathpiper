@@ -26,13 +26,13 @@
 
 
 // If n and m are numbers, use the standard LessThan function immediately
-5 # (n_IsNumber < m_IsNumber) <-- LessThan(n-m,0);
+5 # (n_IsNumber < m_IsNumber) <-- IsLessThan(n-m,0);
 
 
 // If n and m are symbolic after a single evaluation, see if they can be coerced in to a real-valued number.
 LocalSymbols(nNum,mNum)
 [
-  10 # (_n < _m)_[nNum:=N(Eval(n)); mNum:=N(Eval(m));IsNumber(nNum) And IsNumber(mNum);] <-- LessThan(nNum-mNum,0);
+  10 # (_n < _m)_[nNum:=N(Eval(n)); mNum:=N(Eval(m));IsNumber(nNum) And IsNumber(mNum);] <-- IsLessThan(nNum-mNum,0);
 ];
 
 // Deal with Infinity
