@@ -215,12 +215,12 @@ LocalSymbols(n,d,c)
 //  Echo("n = ",n);
 //  Echo("{n,d,c} = ",{n,d,c});
       Check(d = 1,
-        ToString()[
+        PipeToString()[
         Echo("FactorialGroupCommonDivisors failure 1 : ",d);
         ]);
 /*
       Check(Simplify(c-common) = 0,
-        ToString()
+        PipeToString()
         [
           Echo("FactorialGroupCommonDivisors failure 2 : ");
           Echo(c," ",common);

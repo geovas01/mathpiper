@@ -26,11 +26,11 @@ LocalSymbols(ZoomInOnce)
             
             ForEach(number, numbers)
             [
-                output := ToString() Write(number);
+                output := PipeToString() Write(number);
                 
                 zoomIndexes := Append(zoomIndexes, Length(output));
                 
-                numbersString := numbersString : output : ToString() Space(3);
+                numbersString := numbersString : output : PipeToString() Space(3);
                 
                 outputWidth := outputWidth + Length(output) + 3;
             

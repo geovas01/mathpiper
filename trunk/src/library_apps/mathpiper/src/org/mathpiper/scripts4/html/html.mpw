@@ -219,7 +219,7 @@ site:={};
 ClearSite() := [site:={};];
 LoadSite():=
 [
-  FromFile("siteall")
+  PipeFromFile("siteall")
   [
     site:=Read();
   ];
@@ -227,7 +227,7 @@ LoadSite():=
 
 SaveSite():=
 [
-  ToFile("siteall")
+  PipeToFile("siteall")
   [
     Write(site);
     WriteString(";");
@@ -237,10 +237,10 @@ SaveSite():=
 MySQLQuery(pidstr,string):=
 [
   Local(result);
-  ToFile("sqlin":pidstr) WriteString(string);
+  PipeToFile("sqlin":pidstr) WriteString(string);
   SystemCall("mysql mysql < ":"sqlin":pidstr:" > sqlout":pidstr);
   SystemCall(FindFile("tools/mysqlstubs"):" sqlout":pidstr:" sqlout_":pidstr);
-  result:= FromFile("sqlout_":pidstr)Read();
+  result:= PipeFromFile("sqlout_":pidstr)Read();
   SystemCall("rm -rf sqlin":pidstr);
   SystemCall("rm -rf sqlout":pidstr);
   SystemCall("rm -rf sqlout_":pidstr);

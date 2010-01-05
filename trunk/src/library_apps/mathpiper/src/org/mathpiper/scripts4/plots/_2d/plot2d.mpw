@@ -100,11 +100,11 @@ Function() Plot2D(func, range, options, ...);
 	// check that the input parameters are valid (all numbers)
 	Check(IsNumber(range[1]) And IsNumber(range[2]) And IsNumber(options'hash["points"]) And IsNumber(options'hash["precision"]),
 		"Plot2D: Error: plotting range '"
-		:(ToString()Write(range))
+		:(PipeToString()Write(range))
 		:"' and/or the number of points '"
-		:(ToString()Write(options'hash["points"]))
+		:(PipeToString()Write(options'hash["points"]))
 		:"' and/or precision '"
-		:(ToString()Write(options'hash["precision"]))
+		:(PipeToString()Write(options'hash["precision"]))
 		:"' is not numeric"
 	);
 	// loop over functions in the list
@@ -114,7 +114,7 @@ Function() Plot2D(func, range, options, ...);
 		var := VarList(func);        // variable name in a one-element list
     	Check(Length(var)<=1,
 			"Plot2D: Error: expression is not a function of one variable: "
-			:(ToString()Write(func))
+			:(PipeToString()Write(func))
 		);
 		// Allow plotting of constant functions
 		If(Length(var)=0, var:={dummy});
@@ -124,17 +124,17 @@ Function() Plot2D(func, range, options, ...);
 			options'hash["xname"] := AtomToString(VarList(var)[1])
 		);
 		// store function name in options
-		DestructiveAppend(options'hash["yname"], ToString()Write(func));
+		DestructiveAppend(options'hash["yname"], PipeToString()Write(func));
 		// compute the first point to see if it's okay
 		c := range[1];
 		fc := N(Eval(Apply({var, func}, {c})));
 		Check(IsNumber(fc) Or fc=Infinity Or fc= -Infinity Or fc=Undefined,
 			"Plot2D: Error: cannot evaluate function '"
-			:(ToString()Write(func))
+			:(PipeToString()Write(func))
 			:"' at point '"
-			:(ToString()Write(c))
+			:(PipeToString()Write(c))
 			:"' to a number, instead got '"
-			:(ToString()Write(fc))
+			:(PipeToString()Write(fc))
 			:"'"
 		);
 		// compute all other data points

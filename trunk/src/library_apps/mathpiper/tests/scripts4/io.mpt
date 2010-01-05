@@ -11,7 +11,7 @@ Verify(IsError(), False);
 Verify(IsError("testing"), False);
 Verify(IsError("testing1234"), False);
 
-Verify(ToString()DumpErrors(), "");
+Verify(PipeToString()DumpErrors(), "");
 
 // generate some errors
 Verify(Assert("testing") 1=0, False);
@@ -24,7 +24,7 @@ Verify(IsError("testing"), True);
 Verify(IsError("testing1234"), True);
 
 // report errors
-Verify(ToString()DumpErrors(), "Error: testing
+Verify(PipeToString()DumpErrors(), "Error: testing
 Error: testing1234: {1, 2, 3, 4}
 ");
 

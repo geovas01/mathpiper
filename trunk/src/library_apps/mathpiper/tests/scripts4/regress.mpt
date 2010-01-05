@@ -226,7 +226,7 @@ Verify(Sin(Pi/2), 1);
 
 // - and ! operators didn't get handled correctly in the
 // parser/pretty printer (did you fix this, Serge?)
-Verify(ToString()Write((-x)!),"(-x)!");
+Verify(PipeToString()Write((-x)!),"(-x)!");
 
 // some interesting interaction between the rules...
 Verify(x*x*x,x^3,);

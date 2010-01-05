@@ -22,11 +22,11 @@ LocalSymbols(a,b)[
 
 10 # MatchLinear(_expr)_(Degree(expr,var)<2) <--
 [
-  Check(IsUniVar(expr),ToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
+  Check(IsUniVar(expr),PipeToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
 
 //TODO if I enable these checks, then integration fails (only users of this function any way). Can this be removed? Where are these variables cleared any way?
-//  Check(a = Hold(a), ToString()(Echo({"Found bound variable a which should have been unbound, in MatchLinear: ", a, "=", Eval(a)})));
-//  Check(b = Hold(b), ToString()(Echo({"Found bound variable b which should have been unbound, in MatchLinear: ", b, "=", Eval(b)})));
+//  Check(a = Hold(a), PipeToString()(Echo({"Found bound variable a which should have been unbound, in MatchLinear: ", a, "=", Eval(a)})));
+//  Check(b = Hold(b), PipeToString()(Echo({"Found bound variable b which should have been unbound, in MatchLinear: ", b, "=", Eval(b)})));
 
   a := Coef(expr,1);
   b := Coef(expr,0);
@@ -54,7 +54,7 @@ UnFence("MatchLinear",2);
 				    Coef(expr,2)*sign2 > 0
 				    ) <--
 [
-  Check(IsUniVar(expr),ToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
+  Check(IsUniVar(expr),PipeToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
 //TODO if I enable these checks, then integration fails (only users of this function any way). Can this be removed? Where are these variables cleared any way?
 //  Check(a = Hold(a), "Found bound variable which should have been unbound, in MatchLinear");
 //  Check(b = Hold(b), "Found bound variable which should have been unbound, in MatchLinear");

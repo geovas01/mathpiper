@@ -1,5 +1,5 @@
 
-***** Fri Jan 01 22:01:00 EST 2010 *****
+***** Tue Jan 05 14:36:38 EST 2010 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .77b *****
 
@@ -722,7 +722,7 @@ Side Effects:
 ******************
 tests/scripts4/plots.mpt: 6 
 
-ToString()Write(Plot2D(a,-1:1,output->data,points->4,depth->0))
+PipeToString()Write(Plot2D(a,-1:1,output->data,points->4,depth->0))
  evaluates to 
 "{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
  which differs from 
@@ -731,7 +731,7 @@ ToString()Write(Plot2D(a,-1:1,output->data,points->4,depth->0))
 ******************
 tests/scripts4/plots.mpt: 7 
 
-ToString()Write(Plot2D(b,b->-1:1,output->data,points->4))
+PipeToString()Write(Plot2D(b,b->-1:1,output->data,points->4))
  evaluates to 
 "{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
  which differs from 
@@ -740,7 +740,7 @@ ToString()Write(Plot2D(b,b->-1:1,output->data,points->4))
 ******************
 tests/scripts4/plots.mpt: 14 
 
-ToString()Write(Plot3DS(a,-1:1,-1:1,output->data,points->2))
+PipeToString()Write(Plot3DS(a,-1:1,-1:1,output->data,points->2))
  evaluates to 
 "{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}"
  which differs from 
@@ -749,7 +749,7 @@ ToString()Write(Plot3DS(a,-1:1,-1:1,output->data,points->2))
 ******************
 tests/scripts4/plots.mpt: 14 
 
-ToString()Write(Plot3DS(x1,x1->-1:1,x2->-1:1,output->data,points->2))
+PipeToString()Write(Plot3DS(x1,x1->-1:1,x2->-1:1,output->data,points->2))
  evaluates to 
 "{{{-1,-1,0.1011417762},{-1,0,0.1011417762},{-1,1,0.1011417762},{0,-1,0.1011417762},{0,0,0.1011417762},{0,1,0.1011417762},{1,-1,0.1011417762},{1,0,0.1011417762},{1,1,0.1011417762}}}"
  which differs from 

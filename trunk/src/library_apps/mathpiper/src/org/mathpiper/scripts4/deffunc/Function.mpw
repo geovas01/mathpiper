@@ -122,7 +122,7 @@ first element of a list. Equivalent definitions would be
 
 The following function will print all arguments to a string:
 	In> Function("PrintAll",{x, ...}) If(IsList(x),
-	  PrintList(x), ToString()Write(x));
+	  PrintList(x), PipeToString()Write(x));
 	Out> True;
 	In> PrintAll(1):
 	Out> " 1";

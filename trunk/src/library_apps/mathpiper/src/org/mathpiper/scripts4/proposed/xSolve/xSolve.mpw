@@ -37,7 +37,7 @@ LocalSymbols(res)
   20  # xSolve(_expr, _var)_(Not IsAtom(var) Or IsNumber(var) Or IsString(var)) <--
     [ 
         If(iDebug=True,Tell("xSolve2",{expr,var}));
-        Assert("xSolve'TypeError", "Second argument, ":(ToString() Write(var)):", is not the name of a variable") False; {}; 
+        Assert("xSolve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; 
     ];
     
   30  # xSolve(_lhs == _rhs, _var) <-- 
@@ -82,7 +82,7 @@ LocalSymbols(res)
   42  # xSolve(_expr, _var)_(Not HasExpr(expr,var)) <--
     [ 
         If(iDebug=True,Tell("xSolve6",{expr,var}));
-        Assert("xSolve", "expression ":(ToString() Write(expr)):" does not depend on ":ToString() Write(var)) False; {}; 
+        Assert("xSolve", "expression ":(PipeToString() Write(expr)):" does not depend on ":PipeToString() Write(var)) False; {}; 
     ];
     
   44 # xSolve(Sqrt(_expr1) - _expr2,_var) <-- 
@@ -183,7 +183,7 @@ LocalSymbols(res)
   110 # xSolve(_expr, _var) <--
     [ 
         If(iDebug,Tell("xSolve18Fails",{expr,var}));
-        Assert("xSolve'Fails", "cannot solve equation ":(ToString() Write(expr)):" for ":ToString() Write(var)) False; {}; 
+        Assert("xSolve'Fails", "cannot solve equation ":(PipeToString() Write(expr)):" for ":PipeToString() Write(var)) False; {}; 
     ];
 ];    // LocalSymbols
 
