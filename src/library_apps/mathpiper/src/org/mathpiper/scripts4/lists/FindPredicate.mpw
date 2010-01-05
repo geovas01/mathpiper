@@ -6,7 +6,7 @@ Function("FindPredicate",{list,predicate})
   Local(result,count);
   Set(result, -1);
   Set(count, 1);
-  While(And(result<0, Not(Equals(list, {}))))
+  While(And(result<0, Not(IsEqual(list, {}))))
   [
     If(Apply(predicate,{First(list)}),
       Set(result, count)

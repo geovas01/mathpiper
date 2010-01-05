@@ -64,12 +64,12 @@ Function("NthRoot'Calc",{m,n})
    [
       Set(in,PowerN(i,n));
 //Echo("r in mod ",r, " ",in," ",ModN(r,in));
-      While(Equals(ModN(r,in),0))
+      While(IsEqual(ModN(r,in),0))
       [
 	 Set(f,MultiplyN(f,i));
 	 Set(r,DivN(r,in));
       ];
-      While(Equals(ModN(r,i),0))   //
+      While(IsEqual(ModN(r,i),0))   //
 	 Set(r,DivN(r,i));         //
       //Set(i,NextPrime(i));
       Set(i,NextPseudoPrime(i));

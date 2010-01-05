@@ -4,7 +4,7 @@ RuleBase("<--",{leftOperand,rightOperand});
 
 
 
-Rule("<--",2,1,Equals(Type(leftOperand),"#"))
+Rule("<--",2,1,IsEqual(Type(leftOperand),"#"))
 [
   DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
 ];

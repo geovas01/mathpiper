@@ -31,14 +31,14 @@
     */
     Set(clauses, RemoveDuplicates(clauses));
 
-    If(Equals(level, 3) And (Length(clauses) != 0), [
+    If(IsEqual(level, 3) And (Length(clauses) != 0), [
         Set(clauses, DoUnitSubsumptionAndResolution(clauses));
         Set(clauses, LogicCombine(clauses));
     ]);
 
     Set(clauses, RemoveDuplicates(clauses));
 
-    If(Equals(Length(clauses), 0), True, [
+    If(IsEqual(Length(clauses), 0), True, [
         /* assemble the result back into a boolean expression */
         Local(result);
         Set(result, True);

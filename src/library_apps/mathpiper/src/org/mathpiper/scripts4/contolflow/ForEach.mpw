@@ -5,8 +5,8 @@ Retract("ForEach" , *);
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
 TemplateFunction("ForEach",{item,listOrString,body})
 [
-  If(And(Equals(IsGeneric(listOrString),True),
-         Equals(GenericTypeName(listOrString),"Array")
+  If(And(IsEqual(IsGeneric(listOrString),True),
+         IsEqual(GenericTypeName(listOrString),"Array")
          ),
     `ForEachInArray(@item,listOrString,@body),
     [
@@ -34,7 +34,7 @@ TemplateFunction("ForEach",{item,listOrString,body})
       [
           Local(foreachtail);
           Set(foreachtail,listOrString);
-          While(Not(Equals(foreachtail,{})))
+          While(Not(IsEqual(foreachtail,{})))
           [
             MacroSet(item,First(foreachtail));
             Eval(body);

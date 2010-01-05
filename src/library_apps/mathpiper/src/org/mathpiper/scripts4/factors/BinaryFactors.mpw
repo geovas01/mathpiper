@@ -40,7 +40,7 @@ Function(AddFoundSolutionSingle,{p})
 //  If ( Not Contains(result,p),
 //  [
     Set(calc, Eval(lastcoef));
-    If (Equals(calc, 0),
+    If (IsEqual(calc, 0),
     [
       Local(newlist,count,root);
       count:=0;
@@ -195,7 +195,7 @@ Function(Fct,{poly,var})
         Set(calc, AddN(calc,MultiplyN(twoq,DivN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Set(calc, BitAnd(calc, mask));
-      If ( Equals(calc, 0),
+      If ( IsEqual(calc, 0),
       [
         Set(newaccu, p:newaccu);
         AddFoundSolutionSingle(-2*q+p);
@@ -205,7 +205,7 @@ Function(Fct,{poly,var})
         Set(calc, AddN(calc,MultiplyN(twoq,DivN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Set(calc, BitAnd(calc, mask));
-      If ( Equals(calc, 0),
+      If ( IsEqual(calc, 0),
       [
         Set(newaccu, AddN(p,q):newaccu);
         AddFoundSolution(AddN(p,q));

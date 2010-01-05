@@ -1,9 +1,9 @@
 %mathpiper,def="HasExprSome"
 
 /// Same except only look at function arguments for functions in a given list
-HasExprSome(_expr, _atom, _look'list) _ Equals(expr, atom) <-- True;
+HasExprSome(_expr, _atom, _look'list) _ IsEqual(expr, atom) <-- True;
 // an atom contains itself
-15 # HasExprSome(expr_IsAtom, _atom, _look'list) <-- Equals(expr, atom);
+15 # HasExprSome(expr_IsAtom, _atom, _look'list) <-- IsEqual(expr, atom);
 // a list contains an atom if one element contains it
 // we test for lists now because lists are also functions
 // first take care of the empty list:

@@ -32,10 +32,10 @@ Verify(True Or True,True);
 Verify(Not(True),False);
 Verify(Not(False),True);
 
-Verify(Equals(a,b),False);
-Verify(Equals(a,a),True);
-Verify(Equals({a,b},{a}),False);
-Verify(Equals({a,b},{a,b}),True);
+Verify(IsEqual(a,b),False);
+Verify(IsEqual(a,a),True);
+Verify(IsEqual({a,b},{a}),False);
+Verify(IsEqual({a,b},{a,b}),True);
 
 Testing("NumberCompares");
 Verify(LessThan(2,3),True);

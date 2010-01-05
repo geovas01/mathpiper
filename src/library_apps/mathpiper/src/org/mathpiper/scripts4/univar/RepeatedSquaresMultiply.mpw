@@ -17,7 +17,7 @@
   While(m>0)
   [
     Set(b,b*b);
-    If (Not(Equals(BitAnd(m,n), 0)),Set(b,b*a));
+    If (Not(IsEqual(BitAnd(m,n), 0)),Set(b,b*a));
     Set(m, ShiftRight(m,1));
   ];
   b;
