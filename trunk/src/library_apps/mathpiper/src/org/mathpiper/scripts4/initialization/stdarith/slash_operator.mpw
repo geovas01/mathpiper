@@ -21,7 +21,7 @@
        Set(x,x);
        Set(y,y);
        Set(gcd,GcdN(x,y));
-       DivN(x,gcd)/DivN(y,gcd);
+       QuotientN(x,gcd)/QuotientN(y,gcd);
      ];
 
 

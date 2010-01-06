@@ -192,7 +192,7 @@ Function(Fct,{poly,var})
     [
       Set(calc,Eval(lastcoef));
       If (IsLessThan(calc,0),
-        Set(calc, AddN(calc,MultiplyN(twoq,DivN(AddN(MathNegate(calc),twoq),twoq))))
+        Set(calc, AddN(calc,MultiplyN(twoq,QuotientN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Set(calc, BitAnd(calc, mask));
       If ( IsEqual(calc, 0),
@@ -202,7 +202,7 @@ Function(Fct,{poly,var})
       ]);
       Set(calc, AddN(calc, Eval(ord)));
       If (IsLessThan(calc,0),
-        Set(calc, AddN(calc,MultiplyN(twoq,DivN(AddN(MathNegate(calc),twoq),twoq))))
+        Set(calc, AddN(calc,MultiplyN(twoq,QuotientN(AddN(MathNegate(calc),twoq),twoq))))
          );
       Set(calc, BitAnd(calc, mask));
       If ( IsEqual(calc, 0),
