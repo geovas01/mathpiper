@@ -1,6 +1,6 @@
 %mathpiper,def="BinaryFactors",public="todo"
 
-LocalSymbols(lastcoef,OrdBuild, AddFoundSolutionSingle , AddFoundSolution, Fct, MkfactD)
+LocalSymbols(lastcoef,OrdBuild, AddFoundSolutionSingle , AddFoundSolution, Fct, MkfactD,p)
 [
 
 LastCoef(_vector,_p) <--
