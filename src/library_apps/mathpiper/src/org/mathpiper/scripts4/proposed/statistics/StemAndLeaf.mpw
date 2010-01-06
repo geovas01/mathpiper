@@ -173,7 +173,7 @@ stemandleaf(x) :=
     [
       leftover := AbsN(Round(leftover/10));
     ];
-   theMax2 := Max(theMax,abMin);
+   theMax2 := Maximum(theMax,abMin);
    t4 := trunc(theMax2/base);
   t4 := trunc(N(Ln(t4) * .4342945));
   t4 := Power(10,t4);

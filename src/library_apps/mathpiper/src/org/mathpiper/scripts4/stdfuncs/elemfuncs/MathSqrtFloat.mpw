@@ -23,7 +23,7 @@ MathSqrtFloat(_A) <--
 	BuiltinPrecisionSet(10);	// enough to compute at this point
 	// cannot get more target bits than 1 + (the bits in A)
 	// if this is less than the requested precision, the result will be silently less precise, but c'est la vie
-	targetbits := Min(DigitsToBits(targetprec, 10), 1+GetExactBitsN(A));
+	targetbits := Minimum(DigitsToBits(targetprec, 10), 1+GetExactBitsN(A));
 	// initial approximation
 	x0 := DivideN(14+22*a0, 31+5*a0);
 	// this approximation gives at least 7 bits (relative error < 0.005) of Sqrt(a0) for 1 <= a0 <= 4

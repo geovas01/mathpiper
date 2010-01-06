@@ -1,4 +1,4 @@
-%mathpiper,def="Min"
+%mathpiper,def="Minimum"
 
 /*  this is disabled because some functions seem to implicitly define Min / Max with a different number of args, 
 and then MathPiper is confused if it hasn't loaded all the Function() declarations beforehand.
@@ -6,48 +6,48 @@ FIXME
 /// Min, Max with many arguments
 */
 
-Retract("Min", 1);
-Retract("Min", 2);
-Retract("Min", 3);
+Retract("Minimum", 1);
+Retract("Minimum", 2);
+Retract("Minimum", 3);
 
-//Function() Min(list);
+//Function() Minimum(list);
 
-//Function() Min(l1, l2)
+//Function() Minimum(l1, l2)
 
-Function() Min(l1, l2, l3, ...);
+Function() Minimum(l1, l2, l3, ...);
 
-10 # Min(_l1, _l2, l3_IsList) <-- Min(Concat({l1, l2}, l3));
-20 # Min(_l1, _l2, _l3) <-- Min({l1, l2, l3});
+10 # Minimum(_l1, _l2, l3_IsList) <-- Minimum(Concat({l1, l2}, l3));
+20 # Minimum(_l1, _l2, _l3) <-- Minimum({l1, l2, l3});
 
-10 # Min(l1_IsList,l2_IsList) <-- Map("Min",{l1,l2});
+10 # Minimum(l1_IsList,l2_IsList) <-- Map("Minimum",{l1,l2});
 
-20 # Min(l1_IsRationalOrNumber,l2_IsRationalOrNumber) <-- If(l1<l2,l1,l2);
+20 # Minimum(l1_IsRationalOrNumber,l2_IsRationalOrNumber) <-- If(l1<l2,l1,l2);
 
-30 # Min(l1_IsConstant,l2_IsConstant) <-- If(N(Eval(l1-l2))<0,l1,l2);
+30 # Minimum(l1_IsConstant,l2_IsConstant) <-- If(N(Eval(l1-l2))<0,l1,l2);
 
 //Min on an empty list.
-10 # Min({}) <-- Undefined;
+10 # Minimum({}) <-- Undefined;
 
-20 # Min(list_IsList) <--
+20 # Minimum(list_IsList) <--
 [
   Local(result);
   result:= list[1];
-  ForEach(item,Rest(list)) result:=Min(result,item);
+  ForEach(item,Rest(list)) result:=Minimum(result,item);
   result;
 ];
 
-30 # Min(_x) <-- x;
+30 # Minimum(_x) <-- x;
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="Min",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="Minimum",categories="User Functions;Numbers (Operations)"
 *CMD Min --- minimum of a number of values
 *STD
 *CALL
-	Min(x,y)
-	Min(list)
+	Minimum(x,y)
+	Minimum(list)
 
 *PARMS
 
@@ -65,9 +65,9 @@ with numerical values and not with symbolic arguments.
 
 *E.G.
 
-	In> Min(2,3);
+	In> Minimum(2,3);
 	Out> 2;
-	In> Min({5,8,4});
+	In> Minimum({5,8,4});
 	Out> 4;
 
 *SEE Max, Sum

@@ -5,7 +5,7 @@ Tr(x_IsList) <--
    Local(i,j,n,d,r,aux,result);
    d:=Dimensions(x);
    r:=Length(d); // tensor rank
-   n:=Min(d);    // minimal dim
+   n:=Minimum(d);    // minimal dim
    result:=0;
    For(i:=1,i<=n,i++)
    [

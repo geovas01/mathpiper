@@ -183,7 +183,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       If (Not finished And lps[4][0] = Taylor'LPS'Add,
       [
-         lps[1] := Min(Taylor'LPS'GetOrder(lps[4][1])[1],
+         lps[1] := Minimum(Taylor'LPS'GetOrder(lps[4][1])[1],
                        Taylor'LPS'GetOrder(lps[4][2])[1], n2);
          If (IsError("dunno"),
          [
@@ -204,7 +204,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       If (Not finished And lps[4][0] = Taylor'LPS'ScalarMult,
       [
-         lps[1] := Min(Taylor'LPS'GetOrder(lps[4][2])[1], n2);
+         lps[1] := Minimum(Taylor'LPS'GetOrder(lps[4][2])[1], n2);
          If (Not ClearError("dunno"),
          [
    	    If (lps[1] <= n2,
@@ -363,8 +363,8 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 10 # Taylor'TPS'Add({_n1,_c1}, {_n2,_c2}) <--
 [
    Local(n, len, c1b, c2b);
-   n := Min(n1,n2);
-   len := Min(n1+Length(c1), n2+Length(c2)) - n;
+   n := Minimum(n1,n2);
+   len := Minimum(n1+Length(c1), n2+Length(c2)) - n;
    c1b := Take(Concat(FillList(0, n1-n), c1), len);
    c2b := Take(Concat(FillList(0, n2-n), c2), len);
    {n, c1b+c2b};
@@ -376,7 +376,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 [
    Local(j,k,c);
    c := {};
-   For (k:=1, k<=Min(Length(c1), Length(c2)), k++)
+   For (k:=1, k<=Minimum(Length(c1), Length(c2)), k++)
    [
       c := c : Sum(j, 1, k, c1[j]*c2[k+1-j]);
    ];
@@ -386,7 +386,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 10 # Taylor'TPS'Compose({_n1,_c1}, {_n2,_c2}) <--
 [
    Local(res, tps, tps2, k, n);
-   n := Min(n1+Length(c1)-1, n2+Length(c2)-1);
+   n := Minimum(n1+Length(c1)-1, n2+Length(c2)-1);
    tps := {0, 1 : FillList(0, n)}; // tps = {n2,c2} ^ k
    res := Taylor'TPS'ScalarMult(Taylor'TPS'GetCoeff({n1,c1}, 0), tps);
    For (k:=1, k<=n, k++)
@@ -691,7 +691,7 @@ Echo(expr," ",n," ",result);
          res2 := Taylor'LPS'GetOrder(lps[4][2]);
          If (Not ClearError("dunno"),
 	 [
-	    res := {Min(res1[1],res2[1]), False};
+	    res := {Minimum(res1[1],res2[1]), False};
 	    /* flag = False, since terms may cancel */
 	    computed := True;
 	 ]);

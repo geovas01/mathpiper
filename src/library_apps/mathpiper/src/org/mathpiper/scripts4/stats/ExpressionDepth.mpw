@@ -8,7 +8,7 @@
   [
     Local(newresult);
     newresult:=ExpressionDepth(item);
-    result:=Max(result,newresult);
+    result:=Maximum(result,newresult);
   ];
   result+1;
 ];

@@ -158,7 +158,7 @@ MoveOper(f,x,y):=
 AlignBase(i1,i2):=
 [
   Local(base);
-  Set(base, Max(i1[7],i2[7]));
+  Set(base, Maximum(i1[7],i2[7]));
   MoveOper(i1,0,SubtractN(base,(i1[7])));
   MoveOper(i2,0,SubtractN(base,(i2[7])));
 ];
@@ -171,12 +171,12 @@ AlignBase(i1,i2):=
         Set(item1, any[1]);
         Set(item2, any[2]);
         Set(comma, Formula(ToAtom(",")));
-        Set(base, Max(item1[7],item2[7]));
+        Set(base, Maximum(item1[7],item2[7]));
         MoveOper(item1,0,SubtractN(base,(item1[7])));
         MoveOper(comma,AddN(item1[3],1),base);
 
         MoveOper(item2,comma[1]+comma[3]+1,SubtractN(base,(item2[7])));
-        Set(newitem, MakeOper(0,0,AddN(item2[1],item2[3]),Max(item1[4],item2[4]),"Func",{item1,comma,item2},base));
+        Set(newitem, MakeOper(0,0,AddN(item2[1],item2[3]),Maximum(item1[4],item2[4]),"Func",{item1,comma,item2},base));
         BuildArgs(newitem:Rest(Rest(any)));
       ];
 
@@ -299,7 +299,7 @@ FormulaBracket(f):=
 */
   Set(l, Formula(xx));
   Set(r, Formula(yy));
-  Set(width, Max(l[3],r[3]));
+  Set(width, Maximum(l[3],r[3]));
   Set(dash, Formula(ToAtom(CharList(width,"-"))));
   MoveOper(dash,0,l[4]);
   MoveOper(l,(SubtractN(width,l[3])>>1),0);
@@ -328,11 +328,11 @@ Rule("BracketOn",3,2,True)
   Set(r, BracketOn(r,f[2],OpRightPrecedence(Type(f))));
 
   Set(oper, Formula(f[0]));
-  Set(base, Max(l[7],r[7]));
+  Set(base, Maximum(l[7],r[7]));
   MoveOper(oper,AddN(l[3],1),SubtractN(base,(oper[7])));
   MoveOper(r,oper[1] + oper[3]+1,SubtractN(base,(r[7])));
   MoveOper(l,0,SubtractN(base,(l[7])));
-  Set(height, Max(AddN(l[2], l[4]),AddN(r[2], r[4])));
+  Set(height, Maximum(AddN(l[2], l[4]),AddN(r[2], r[4])));
 
   MakeOper(0,0,AddN(r[1], r[3]),height,"Func",{l,r,oper},base);
 ];
@@ -347,7 +347,7 @@ Rule("BracketOn",3,2,True)
   AlignBase(head,args);
   MoveOper(args,head[3],0);
 
-  MakeOper(0,0,args[1]+args[3],Max(head[4],args[4]),"Func",{head,args},head[7]);
+  MakeOper(0,0,args[1]+args[3],Maximum(head[4],args[4]),"Func",{head,args},head[7]);
 ];
 
 

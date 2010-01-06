@@ -31,7 +31,7 @@ MathPi() :=
     // now k is the iteration counter
     For(k:=0, curprec < prec, k := k+1) [
     // at this iteration we know the result to curprec digits
-      curprec := Min(prec, curprec * order-2);	// 2 guard digits
+      curprec := Minimum(prec, curprec * order-2);	// 2 guard digits
       BuiltinPrecisionSet(curprec+2);
   //		Echo("Iteration ", k, " setting precision to ", BuiltinPrecisionGet());
   //		Echo("old result=", CosN(result));

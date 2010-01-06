@@ -17,7 +17,7 @@
   left:=aLeft[3];
   right:=aRight[3];
   result:={};
-  from:=Min(curl,curr);
+  from:=Minimum(curl,curr);
 
   While(curl<curr And left != {})
   [
