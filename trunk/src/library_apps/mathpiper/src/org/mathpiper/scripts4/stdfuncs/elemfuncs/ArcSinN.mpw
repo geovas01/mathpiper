@@ -7,7 +7,7 @@ Defun("ArcSinN",{int1})
   Local(x,q,s,c);
   Set(q,SubtractN(SinN(result),int1));
   Set(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
-  While(GreaterThan(AbsN(q),eps))
+  While(IsGreaterThan(AbsN(q),eps))
   [
 		Set(s,SubtractN(int1,SinN(result)));
     Set(c,CosN(result));

@@ -80,7 +80,7 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(IsEqual(aLeftAssign[0], ToAtom(":
   Set(oper,ToString(aLeftAssign[0]));
   Set(args,Rest(FunctionToList(aLeftAssign)));
   If(
-	And(GreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") )),
+	And(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") )),
 	// function with variable number of arguments
 	[
 	  DestructiveDelete(args,Length(args));	// remove trailing "..."

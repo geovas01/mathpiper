@@ -14,7 +14,7 @@ Defun("PositiveIntPower", {x,n})
 	If(IsEqual(n,0),unit,
 	 If(IsEqual(n,1),x,
 	  [
-		While(GreaterThan(n,0))
+		While(IsGreaterThan(n,0))
 		[
 			If(
 				IsEqual(BitAnd(n,1), 1),
