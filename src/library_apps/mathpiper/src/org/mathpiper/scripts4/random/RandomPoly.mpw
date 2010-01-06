@@ -3,7 +3,7 @@
 /* Generate a random polynomial */
 
 RandomPoly(_var,_degree,_coefmin,_coefmax) <--
-  NormalForm(UniVariate(var,0,RandomIntegerVector(degree+1,coefmin,coefmax)));
+  NormalForm(UniVariate(var,0,RandomIntegerList(degree+1,coefmin,coefmax)));
 
 %/mathpiper
 
@@ -40,5 +40,5 @@ this interval, and are independent of each other.
 	In> RandomPoly(x,3,-10,10)
 	Out> -2*x^3-8*x^2+8;
 
-*SEE Random, RandomInteger, RandomIntegerVector, RandomIntegerMatrix
+*SEE Random, RandomInteger, RandomIntegerList, RandomIntegerMatrix
 %/mathpiper_docs

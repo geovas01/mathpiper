@@ -43,5 +43,5 @@ which contains "var" with the number "n" appended to it.
 	In> MakeVector(a,3)
 	Out> {a1,a2,a3};
 
-*SEE RandomIntegerVector, ZeroVector
+*SEE RandomIntegerList, ZeroVector
 %/mathpiper_docs

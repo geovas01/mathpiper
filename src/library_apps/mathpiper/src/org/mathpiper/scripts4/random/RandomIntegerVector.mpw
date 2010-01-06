@@ -1,6 +1,6 @@
-%mathpiper,def="RandomIntegerVector"
+%mathpiper,def="RandomIntegerList"
 
-RandomIntegerVector(_count,_coefmin,_coefmax) <--
+RandomIntegerList(_count,_coefmin,_coefmax) <--
   Table(FloorN(coefmin+Random()*(coefmax+1-coefmin)),i,1,count,1);
 
 %/mathpiper
@@ -8,13 +8,13 @@ RandomIntegerVector(_count,_coefmin,_coefmax) <--
 
 
 
-%mathpiper_docs,name="RandomIntegerVector",categories="User Functions;Numbers (Random)"
-*CMD RandomIntegerVector --- generate a vector of random integers
+%mathpiper_docs,name="RandomIntegerList",categories="User Functions;Numbers (Random)"
+*CMD RandomIntegerList --- generate a vector of random integers
 
 *STD
 
 *CALL
-	RandomIntegerVector(nr, from, to)
+	RandomIntegerList(nr, from, to)
 
 *PARMS
 
@@ -32,7 +32,7 @@ are uniformly distributed in this interval.
 
 *E.G.
 
-	In> RandomIntegerVector(4,-3,3)
+	In> RandomIntegerList(4,-3,3)
 	Out> {0,3,2,-2};
 
 *SEE Random, RandomPoly, RandomInteger, RandomIntegerMatrix
