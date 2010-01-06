@@ -167,8 +167,8 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     {"Infinity", "\\infty "},
     {"TeX", "\\textrm{\\TeX\\/}"},
     {"LaTeX", "\\textrm{\\LaTeX\\/}"},
-    {"Max", "\\max "},	// this replaces these function names
-    {"Min", "\\min "},
+    {"Maximum", "\\max "},	// this replaces these function names
+    {"Minimum", "\\min "},
     {"Prog", " "},
     {"Zeta", "\\zeta "},
   };

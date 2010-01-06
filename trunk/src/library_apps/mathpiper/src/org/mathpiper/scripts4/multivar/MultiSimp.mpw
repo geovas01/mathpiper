@@ -19,7 +19,7 @@ MultiSimp(_expr) <--
   c1[2] := c1[2]/gcd;
   c2[2] := c2[2]/gcd;
 
-  cmn:=Min(c1[1],c2[1]);
+  cmn:=Minimum(c1[1],c2[1]);
   c1[1] := c1[1] - cmn;
   c2[1] := c2[1] - cmn;
 
@@ -58,7 +58,7 @@ MultiContentTerm(multi_IsMulti)
 
 MultiContentScan(_coefs,_fact) <--
 [
-  Set(least,Min({least,coefs}));
+  Set(least,Minimum({least,coefs}));
   Set(gcd,Gcd(gcd,fact));
 ];
 UnFence("MultiContentScan",2);

@@ -11,7 +11,7 @@ MultiS(_g,_h,MultiNomial(_vars,_terms)) <--
 [
   Local(gamma);
 
-  gamma :=Max(MultiDegree(g),MultiDegree(h));
+  gamma :=Maximum(MultiDegree(g),MultiDegree(h));
   Local(result,topterm);
   topterm := MM(Product(vars^gamma));
 

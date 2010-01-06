@@ -9,10 +9,10 @@ Retract("InfinityNorm",*);
 	sumlist := {};
     ForEach(row,M)
         Push(sumlist,Sum(Abs(row)));
-    Max(sumlist);
+    Maximum(sumlist);
 ];
 
-10 # InfinityNorm( M_IsVector ) <-- Max(Abs(M));
+10 # InfinityNorm( M_IsVector ) <-- Maximum(Abs(M));
 
 %/mathpiper
 

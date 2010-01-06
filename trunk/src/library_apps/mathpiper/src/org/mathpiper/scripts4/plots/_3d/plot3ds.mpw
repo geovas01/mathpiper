@@ -278,7 +278,7 @@ y1	11  31  21
 			<= N(Eval( epsilon*(	// the expression here will be nonnegative because we subtract the minimum value
 			// cubature normalized to 1
 		(f11 + f12 + f21 + f22)/12 + 2*f33/3
-		- Min({f11, f12, f21, f22, f13, f31, f33, f32, f23}) ) ) )
+		- Minimum({f11, f12, f21, f22, f13, f31, f33, f32, f23}) ) ) )
 		,
 		// okay, do not refine any more
 		result,
@@ -375,7 +375,7 @@ many points will be plotted in each coordinate.
 The initial grid of this many points will be
 adaptively refined.
 If {points} is specified, it serves as a default for both {xpoints} and {ypoints}; this value may be overridden by {xpoints} and {ypoints} values.
-*	{precision}: graphing precision (default $0.01$). This is interpreted as the relative precision of computing the integral of $f(x,y)-Min(f(x,y))$ using the grid points. For a smooth, non-oscillating function this value should be roughly 1/(number of screen pixels in the plot).
+*	{precision}: graphing precision (default $0.01$). This is interpreted as the relative precision of computing the integral of $f(x,y)-Minimum(f(x,y))$ using the grid points. For a smooth, non-oscillating function this value should be roughly 1/(number of screen pixels in the plot).
 *	{depth}: max. refinement depth, logarithmic (default 3) -- means there will be at most $2^depth$ extra points per initial grid point (in each coordinate).
 *	{output}: name of the plotting backend. Supported names: {data} (default).
 The {data} backend will return the data as a list of triples such as {{{x1, y1, z1}, {x2, y2, z2}, ...}}.

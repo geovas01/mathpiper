@@ -27,7 +27,7 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
   Set(left, c1);
   Set(right, c2);
   Set(result, {});
-  Set(from, Min(curl,curr));
+  Set(from, Minimum(curl,curr));
 
   While(And(IsLessThan(curl,curr),left != {}))
   [

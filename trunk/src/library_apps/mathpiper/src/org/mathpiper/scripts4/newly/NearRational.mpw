@@ -33,7 +33,7 @@ NearRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
 			True,
 		// neither "x1" nor "x2" ended and there is a mismatch at "i"
 		// apply recipe: select the smalest of the differing terms
-			x1[i]:=Min(x1[i],x2[i])
+			x1[i]:=Minimum(x1[i],x2[i])
 		)
 	);
 	// recipe: x1dd 1 to the lx1st term unless it's the lx1st in the originx1l sequence

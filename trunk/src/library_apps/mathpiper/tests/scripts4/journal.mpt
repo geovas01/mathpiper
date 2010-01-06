@@ -14,7 +14,7 @@ Verify(6/3,2);
 Verify(1/3,1/3);
 Verify(IsNumber(N(1/3)),True);
 Verify(Sin(Pi),0);
-Verify(Min(5,1,3,-5,10),-5);
+Verify(Minimum(5,1,3,-5,10),-5);
 Verify(Sqrt(2),Sqrt(2));
 Verify({1,2,3},{1,2,3});
 Verify({a,b,c}[2],b);

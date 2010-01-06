@@ -207,7 +207,7 @@ Plot2D'adaptive(_func, _var, {_a,_b,_c}, {_fa, _fb, _fc}, _depth, _epsilon) <--
 		  	<= N(Eval( epsilon*(	// the expression here will be nonnegative because we subtract the minimum value
 		    //(fa+fc+2*fb+4*(fa1+fb1))/12	// this is 1/4 of the Simpson quadrature on the whole interval
 			(5*fb+8*fb1-fc)/12	// this is the Simpson quadrature for the (fb,f1) subinterval
-			- Min({fa,fa1,fb,fb1,fc}) ) ) )
+			- Minimum({fa,fa1,fb,fb1,fc}) ) ) )
 		),
 		// okay, do not refine any more
 		{{a,fa}, {a1,fa1}, {b,fb}, {b1,fb1}, {c,fc}},
@@ -299,7 +299,7 @@ leave the choice to the plotting backend.
 *	{points}: initial number of points (default 23) -- at least that
 many points will be plotted. The initial grid of this many points will be
 adaptively refined. 
-*	{precision}: graphing precision (default $10^(-6)$). This is interpreted as the relative precision of computing the integral of $f(x)-Min(f(x))$ using the grid points. For a smooth, non-oscillating function this value should be roughly 1/(number of screen pixels in the plot).
+*	{precision}: graphing precision (default $10^(-6)$). This is interpreted as the relative precision of computing the integral of $f(x)-Minimum(f(x))$ using the grid points. For a smooth, non-oscillating function this value should be roughly 1/(number of screen pixels in the plot).
 *	{depth}: max. refinement depth, logarithmic (default 5) -- means there will be at most $2^depth$ extra points per initial grid point.
 *	{output}: name of the plotting backend. Supported names: {data} (default).
 The {data} backend will return the data as a list of pairs such as {{{x1,y1}, {x2,y2}, ...}}.
