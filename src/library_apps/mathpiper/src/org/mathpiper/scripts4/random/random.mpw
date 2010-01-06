@@ -221,7 +221,7 @@ LCG'4(state) := RandomLCG(state, 18014398509481984,2783377640906189,0);
 // state is a list with one element
 RandomLCG(_state, _im, _ia, _ic) <--
 {
-	DestructiveReplace(state,1, ModN(state[1]*ia+ic,im)),
+	DestructiveReplace(state,1, ModuloN(state[1]*ia+ic,im)),
 	DivideN(state[1], im)	// division should never give 1
 };
 
@@ -282,7 +282,7 @@ LocalSymbols(RandSeed) [
   /// Linear congruential generator
   RandomLCG(_im, _ia, _ic) <--
   [
-    RandSeed:=ModN(RandSeed*ia+ic,im);
+    RandSeed:=ModuloN(RandSeed*ia+ic,im);
     DivideN(RandSeed,im);	// should never give 1
   ];
 ]; // LocalSymbols(RandSeed)

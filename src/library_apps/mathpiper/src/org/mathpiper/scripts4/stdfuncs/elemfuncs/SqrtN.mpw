@@ -27,7 +27,7 @@ SqrtN(x) := MathSqrt1(x);	// to have another function is easier for debugging
 20 # MathSqrt1(x_IsInteger) _ (IsGreaterThan(x,0)) <--
 [
 	Local(result);
-	If(ModN(x,4)<2 And ModN(x,3)<2 And ModN(x+1,5)<3,
+	If(ModuloN(x,4)<2 And ModuloN(x,3)<2 And ModuloN(x+1,5)<3,
 		// now the number x has a nonzero chance of being an exact square
 		[
 			// check whether increased precision would be at all necessary

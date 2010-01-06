@@ -63,13 +63,13 @@ Function("NthRoot'Calc",{m,n})
    While(IsLessThan(i,j))
    [
       Set(in,PowerN(i,n));
-//Echo("r in mod ",r, " ",in," ",ModN(r,in));
-      While(IsEqual(ModN(r,in),0))
+//Echo("r in mod ",r, " ",in," ",ModuloN(r,in));
+      While(IsEqual(ModuloN(r,in),0))
       [
 	 Set(f,MultiplyN(f,i));
 	 Set(r,QuotientN(r,in));
       ];
-      While(IsEqual(ModN(r,i),0))   //
+      While(IsEqual(ModuloN(r,i),0))   //
 	 Set(r,QuotientN(r,i));         //
       //Set(i,NextPrime(i));
       Set(i,NextPseudoPrime(i));
