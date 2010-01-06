@@ -4,22 +4,27 @@
 //Misc.
 - D -> Derive //Because syntax highlighting just "D" is too general.
 Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operators to make function calls uniform and to reduce confusion.
-- Listify -> FunctionToList
-- UnList -> ListToFunction
-- Clear -> Unbind
-- MacroClear -> MacroUnbind
-b String -> ToString
-b Atom -> StringToAtom
-b Equals -> IsEqual
-b LessThan -> IsLessThan
-b GreaterThan -> IsGreaterThan
-MM -> MultinomialForm
-b Div -> Divide
-b Mod -> Modulus
-ModN -> ModulusN
-Min -> Minimum
-Max -> Maximum
-RandomIntegerVector -> RandomIntegerList.
+-b Listify -> FunctionToList
+-b UnList -> ListToFunction
+-b Clear -> Unbind
+-b MacroClear -> MacroUnbind
+-b ToFile -> PipeToFile
+-b ToString -> PipeToString
+-b ToStdout -> PipeToStdout
+-b FromFile -> PipeFromFile
+-b FromString -> PipeFromString
+-b String -> ToString
+-b Atom -> ToAtom
+-b Equals -> IsEqual
+-b LessThan -> IsLessThan
+-b GreaterThan -> IsGreaterThan
+- Div -> Quotent
+- Mod -> Modulo
+-b DivN -> QuotentN
+-b ModN -> ModuloN
+- Min -> Minimum
+- Max -> Maximum
+- RandomIntegerVector -> RandomIntegerList.
 b OpPrecedence -> OperatorPrecedenceGet
 b OpLeftPrecedence -> OperatorLeftPrecedenceGet
 b OpRightPrecedence -> OperatorRightPrecedenceGet
@@ -31,6 +36,8 @@ b Use -> UseScript
 b Load -> LoadScript
 Normalize -> NormalizeVector
 NumRealRoots -> NumberOfRealRoots
+
+
 
 
 //Make RuleBase names read more like the name Database does because they are suppose to sound like "database" and operate like a database.
@@ -49,6 +56,9 @@ NrArgs -> NumberOfArguments
 Select -> Should the list be the first argument (to match the ordering of most other MathPiper functions that operate on lists)?
 
 
+
+
+MM -> MultinomialForm
 
 
 ============================= Changes that have already been done.
