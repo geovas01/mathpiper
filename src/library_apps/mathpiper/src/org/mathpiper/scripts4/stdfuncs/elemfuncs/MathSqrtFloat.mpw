@@ -29,8 +29,8 @@ MathSqrtFloat(_A) <--
 	// this approximation gives at least 7 bits (relative error < 0.005) of Sqrt(a0) for 1 <= a0 <= 4
 	gotbits := 7;
 	// find the conditions for the last 2 iterations to be done in almost optimal precision
-	subtargetbits := DivN(targetbits+8, 9);
-	If(gotbits >= subtargetbits, subtargetbits := DivN(targetbits+2, 3));
+	subtargetbits := QuotientN(targetbits+8, 9);
+	If(gotbits >= subtargetbits, subtargetbits := QuotientN(targetbits+2, 3));
 	If(gotbits >= subtargetbits, subtargetbits := targetbits*4);
 //	Echo("debug: subtargetbits=", subtargetbits, "a0=", a0, "targetbits=", targetbits, "bitshift=", bitshift, "targetprec=", targetprec);
 	// now perform Halley iterations until we get at least subtargetbits, then start with subtargetbits and perform further Halley iterations

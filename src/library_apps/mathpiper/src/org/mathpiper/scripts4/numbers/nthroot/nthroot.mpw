@@ -67,16 +67,16 @@ Function("NthRoot'Calc",{m,n})
       While(IsEqual(ModN(r,in),0))
       [
 	 Set(f,MultiplyN(f,i));
-	 Set(r,DivN(r,in));
+	 Set(r,QuotientN(r,in));
       ];
       While(IsEqual(ModN(r,i),0))   //
-	 Set(r,DivN(r,i));         //
+	 Set(r,QuotientN(r,i));         //
       //Set(i,NextPrime(i));
       Set(i,NextPseudoPrime(i));
       Set(j,Ceil(FastPower(r,N(1.0/n))+1));
    ];
    //List(f,r);
-   List(f,DivN(m,PowerN(f,n))); //
+   List(f,QuotientN(m,PowerN(f,n))); //
 ];
 
 // lookup table utilities
