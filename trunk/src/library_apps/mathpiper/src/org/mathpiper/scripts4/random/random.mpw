@@ -325,7 +325,7 @@ generated in every MathPiper session.
 The random number generator can be initialized by calling {RandomSeed} with an integer value.
 Each seed value will result in the same sequence of pseudo-random numbers.
 
-*SEE RandomInteger, RandomPoly, Rng, Random, RandomIntegerVector, RandomIntegerMatrix
+*SEE RandomInteger, RandomPoly, Rng, Random, RandomIntegerList, RandomIntegerMatrix
 %/mathpiper_docs
 
 
@@ -405,7 +405,7 @@ The generator {r1} can be re-initialized with seed 1 again to obtain the same se
 	Out> Complex(-1.6668466417,0.228904004);
 	
 
-*SEE Random, RandomInteger, RandomIntegerVector, RandomIntegerMatrix
+*SEE Random, RandomInteger, RandomIntegerList, RandomIntegerMatrix
 %/mathpiper_docs
 
 

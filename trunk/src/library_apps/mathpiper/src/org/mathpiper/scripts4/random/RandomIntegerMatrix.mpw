@@ -47,5 +47,5 @@ are uniformly distributed in this interval.
 	| ( 679 )  ( 854 )  ( -78 )  ( 503 )  ( 772 )   |
 	\                                               /
 
-*SEE RandomPoly, Random, RandomInteger, RandomIntegerVector
+*SEE RandomPoly, Random, RandomInteger, RandomIntegerList
 %/mathpiper_docs

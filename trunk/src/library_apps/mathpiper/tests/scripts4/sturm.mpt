@@ -133,5 +133,5 @@ sl();
 
 
 //RandomPoly(_var,_degree,_coefmin,_coefmax)
-//RandomIntegerVector(_count,_coefmin,_coefmax)
+//RandomIntegerList(_count,_coefmin,_coefmax)
 
