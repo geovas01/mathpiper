@@ -6,7 +6,7 @@ Retract("IsPolynomialOverIntegers",*);
 [
     Local(x,vars);
     vars := VarList(expr);
-    If(Length(vars)>1,vars:=HeapSort(vars,"GreaterThan"));    
+    If(Length(vars)>1,vars:=HeapSort(vars,"IsGreaterThan"));    
     x := vars[1];
     IsPolynomialOverIntegers(expr,x);
 ];

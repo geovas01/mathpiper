@@ -12,12 +12,12 @@ Defun("MathPi",{})
   Set(result, 3.141592653589793238462643383279502884197169399);    // initial guess
 
 	// optimize precision sequence
-	While (GreaterThan(initialPrec, MultiplyN(curPrec,3)))
+	While (IsGreaterThan(initialPrec, MultiplyN(curPrec,3)))
   [
 		Set(initialPrec, FloorN(DivideN(AddN(initialPrec,2),3)));
   ];
 	Set(curPrec, initialPrec);
-  While (Not(GreaterThan(curPrec, aPrecision)))
+  While (Not(IsGreaterThan(curPrec, aPrecision)))
   [
  		// start of iteration code
     // Get Sin(result)
@@ -33,7 +33,7 @@ Defun("MathPi",{})
     [
 			Set(curPrec, MultiplyN(curPrec,3));	// precision triples at each iteration
 			// need to guard against overshooting precision
- 			If (GreaterThan(curPrec, aPrecision),
+ 			If (IsGreaterThan(curPrec, aPrecision),
       [
 				Set(curPrec, aPrecision);	// next will be the last iteration
       ]);

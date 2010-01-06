@@ -40,8 +40,8 @@ Verify(IsEqual({a,b},{a,b}),True);
 Testing("NumberCompares");
 Verify(IsLessThan(2,3),True);
 Verify(IsLessThan(3,2),False);
-Verify(GreaterThan(2,3),False);
-Verify(GreaterThan(3,2),True);
+Verify(IsGreaterThan(2,3),False);
+Verify(IsGreaterThan(3,2),True);
 
 Verify(.1<2,True);
 Verify(0.1<2,True);

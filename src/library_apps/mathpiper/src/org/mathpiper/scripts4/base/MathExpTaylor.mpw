@@ -15,7 +15,7 @@ Defun("MathExpTaylor0",{x})
   Set(term,1.0);
   Set(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
   // While (term>epsilon)
-  While(GreaterThan(AbsN(term),eps))
+  While(IsGreaterThan(AbsN(term),eps))
   [
     //   i <- i+1
     Set(i,AddN(i,1));
