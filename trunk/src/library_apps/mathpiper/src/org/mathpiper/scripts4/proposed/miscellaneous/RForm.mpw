@@ -64,7 +64,7 @@ LocalSymbols(rFormRegularOps) [
     {":=","<-"},
     {"sequence",":"},
     {"True","TRUE"},
-    {"Mod","%%"},
+    {"Modulo","%%"},
     {"Quotient","%/%"},
   };
 
@@ -176,7 +176,7 @@ RFormArgs(list_IsList) <--
 
 /* Some special functions: Mod */
 
-100 # RForm(Mod(_x, _y), _p) <-- RFormBracketIf(p<OpPrecedence("/"), ConcatStrings(RForm(x, OpPrecedence("/")), " % ", RForm(y, OpPrecedence("/")) ) )
+100 # RForm(Modulo(_x, _y), _p) <-- RFormBracketIf(p<OpPrecedence("/"), ConcatStrings(RForm(x, OpPrecedence("/")), " % ", RForm(y, OpPrecedence("/")) ) )
 ;
 
 /* Indexed expressions are never bracketed */
@@ -329,7 +329,7 @@ transtab <- matrix( c(
 	"/",		"divide",	"/",
 	"/",		"rational",	"/",
 	"^",		"power",	"^",
-	"%%",		"mod",		"Mod",
+	"%%",		"mod",		"Modulo",
 	"%/%",		"div",		"Quotient",
 	"root",		"root",		"NthRoot",
 	"Inf",		"infinity",	"Infinite",

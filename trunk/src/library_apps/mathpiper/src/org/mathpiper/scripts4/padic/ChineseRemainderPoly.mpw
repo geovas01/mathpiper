@@ -22,7 +22,7 @@ ChineseRemainderPoly(mlist_IsList,vlist_IsList) <--
 
     c:=vlist[i] * euclid[2];
 
-    c:=Mod(c, mlist[i]);
+    c:=Modulo(c, mlist[i]);
 
     DestructiveAppend(clist,c);
     result:=result + msub * c;

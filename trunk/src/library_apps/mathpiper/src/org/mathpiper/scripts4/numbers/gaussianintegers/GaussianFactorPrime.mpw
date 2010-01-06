@@ -14,7 +14,7 @@ and p. Note: If the result is Complex(a,b), then p=a^2+b^2 */
 GaussianFactorPrime(p_IsInteger) <-- [
  Local(a,i);
  a := 1;
- For (i:=2,i<=(p-1)/2,i++) a := Mod(a*i,p);
+ For (i:=2,i<=(p-1)/2,i++) a := Modulo(a*i,p);
  GaussianGcd(a+I,p);
 ];
 

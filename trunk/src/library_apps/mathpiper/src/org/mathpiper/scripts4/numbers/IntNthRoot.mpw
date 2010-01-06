@@ -28,7 +28,7 @@ IntNthRoot1(_n, s_IsInteger) <--
 	// select initial interval using (the number of bits in n) mod s
 	// note that if the answer is 1, the initial guess must also be 1 (not 0)
 	x2 := Quotient(x1, s);	// save these values for the next If()
-	x1 := Mod(x1, s)/s;	// this is kept as a fraction
+	x1 := Modulo(x1, s)/s;	// this is kept as a fraction
 	// now assign the initial interval, x1 <= root <= x2
 	{x1, x2} := If(
 		x1 >= 263/290,	// > Ln(15/8)/Ln(2)

@@ -18,7 +18,7 @@ Function("IsGaussianPrime",{x})
 
 
 /*
-10 # IsGaussianPrime(p_IsInteger) <-- IsPrime(p) And Mod(p,3)=1;
+10 # IsGaussianPrime(p_IsInteger) <-- IsPrime(p) And Modulo(p,3)=1;
 20 # IsGaussianPrime(p_IsGaussianInteger) <-- IsPrime(GaussianNorm(p));
 */
 
@@ -51,9 +51,9 @@ following properties:
 *	If $Re(z)$ and $Im(z)$ are nonzero then $z$ is a Gaussian prime if and only 
 if $Re(z)^2 + Im(z)^2$ is an ordinary prime.
 *	If $Re(z)==0$ then $z$ is a Gaussian prime if and only if $Im(z)$ is an
-ordinary prime and $Im(z):=Mod(3,4)$.
+ordinary prime and $Im(z):=Modulo(3,4)$.
 *	If $Im(z)==0$ then $z$ is a Gaussian prime
-if and only if $Re(z)$ is an ordinary prime and $Re(z):=Mod(3,4)$.
+if and only if $Re(z)$ is an ordinary prime and $Re(z):=Modulo(3,4)$.
 
 *E.G.
 	In> IsGaussianPrime(13)

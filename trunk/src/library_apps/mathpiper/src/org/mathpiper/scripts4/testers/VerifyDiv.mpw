@@ -27,7 +27,7 @@ VerifyDiv(_u,_v) <--
 *DESC
 
 {VerifyDiv(u,v)} checks that
-$$ u = v*Quotient(u,v) + Mod(u,v) $$.
+$$ u = v*Quotient(u,v) + Modulo(u,v) $$.
 
 
 *E.G.

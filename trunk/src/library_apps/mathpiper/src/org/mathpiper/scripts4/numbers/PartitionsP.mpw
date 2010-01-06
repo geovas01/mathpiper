@@ -60,8 +60,8 @@
 				Gcd(l,k)=1,
 				A := A + Cos(Pi*
 				  (	// replace Exp(I*Pi*...) by Cos(Pi*...) since the imaginary part always cancels
-					Sum(j,1,k-1, j*(Mod(l*j,k)/k-1/2)) - 2*l*n
-					// replace (x/y - Floor(x/y)) by Mod(x,y)/y for integer x,y
+					Sum(j,1,k-1, j*(Modulo(l*j,k)/k-1/2)) - 2*l*n
+					// replace (x/y - Floor(x/y)) by Modulo(x,y)/y for integer x,y
 				  )/k)
 			);
 			A:=N(A);	// avoid accumulating symbolic Cos() expressions

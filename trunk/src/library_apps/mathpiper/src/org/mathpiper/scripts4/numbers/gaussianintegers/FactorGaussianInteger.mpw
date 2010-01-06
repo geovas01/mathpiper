@@ -30,7 +30,7 @@ Function("FactorGaussianInteger",{x}) [
 					if( d > 1 )[
 						a := re * i + im * j;
 						b := im * i - re * j;
-						While( (Mod(a,d) = 0) And  (Mod(b,d) = 0) ) [
+						While( (Modulo(a,d) = 0) And  (Modulo(b,d) = 0) ) [
 							FactorGaussianInteger(Complex(i,j));
 							re:= a/d;
 							im:= b/d;

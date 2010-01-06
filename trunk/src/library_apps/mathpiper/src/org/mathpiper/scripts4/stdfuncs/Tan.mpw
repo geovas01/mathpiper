@@ -2,7 +2,7 @@
 
 1 # TanMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Tan"),n*Pi});
 2 # TanMap( _n )_(n<0) <-- -TanMap(-n);
-2 # TanMap( _n )_(n>1) <-- TanMap(Mod(n,1));
+2 # TanMap( _n )_(n>1) <-- TanMap(Modulo(n,1));
 4 # TanMap( _n )_(n>1/2) <-- -TanMap(1-n);
 
 5 # TanMap( 0 ) <-- 0;

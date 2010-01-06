@@ -317,7 +317,7 @@ OrthoPolySumCoeffs(name_IsString, c_IsList, p_IsList) <-- [
 BitList(n) := BitList(n, {});
 /// This will not be called on very large numbers so it's okay to use recursion
 1# BitList(0, _bits) <-- bits;
-2# BitList(_n, _bits) <-- BitList(Quotient(n,2), Push(bits, Mod(n,2)));
+2# BitList(_n, _bits) <-- BitList(Quotient(n,2), Push(bits, Modulo(n,2)));
 
 // Tchebyshev polynomials of 1st kind
 1 # FastOrthoT(0, _x) <-- 1;

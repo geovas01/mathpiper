@@ -6,7 +6,7 @@ Verify(IntPowerNum(3*10^100, 0, MultiplyN,1), 1);
 Verify(IntPowerNum(3, 3, MultiplyN,1), 27);
 Verify(IntPowerNum(HilbertMatrix(2), 4, *,  Identity(2)), {{289/144,29/27},{29/27,745/1296}});
 
-Verify(IntPowerNum(3,100,{{x,y},Mod(x*y,7)},1), 4);
+Verify(IntPowerNum(3,100,{{x,y},Modulo(x*y,7)},1), 4);
 
 BuiltinPrecisionSet(21);
 NumericEqual(RoundTo(SumTaylorNum(1, {{k},1/k!}, {{k},1/k}, 21),21), 2.718281828459045235359,21);

@@ -253,10 +253,10 @@ RNGEngine'L'Ecuyer(state_IsList) <--
 [
 	Local(new'state, result);
 	new'state := {
-		Mod(1403580*state[2]-810728*state[3], 4294967087), state[1], state[2],
-		Mod(527612*state[4]-1370589*state[6], 4294944433), state[4], state[5]
+		Modulo(1403580*state[2]-810728*state[3], 4294967087), state[1], state[2],
+		Modulo(527612*state[4]-1370589*state[6], 4294944433), state[4], state[5]
 	};
-	result:=Mod(state[1]-state[4], 4294967087);
+	result:=Modulo(state[1]-state[4], 4294967087);
 	{
 		new'state,
 		DivideN(If(result=0, 4294967087, result), 4294967088)
