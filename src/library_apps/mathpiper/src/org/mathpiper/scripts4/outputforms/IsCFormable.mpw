@@ -38,7 +38,7 @@ LocalSymbols(CFormAllFunctions) [
     "While",
     "Prog",
     "Nth",
-    "Mod",
+    "Modulo",
     "Complex",
     "if",
     "else",

@@ -22,7 +22,7 @@ OMDef( "Ceil" , "rounding1","ceiling" );
 OMDef( "Round", "rounding1","round"   );
 
 OMDef( "Quotient"   , mathpiper,"div"    );
-OMDef( "Mod"   , mathpiper,"mod"    );
+OMDef( "Modulo"   , mathpiper,"mod"    );
 OMDef( "Expand", mathpiper,"expand" );
 OMDef( "Object", mathpiper,"object" );
 OMDef( "Sign"  , mathpiper,"sign"   );

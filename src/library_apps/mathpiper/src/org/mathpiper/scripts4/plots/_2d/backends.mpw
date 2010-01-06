@@ -65,7 +65,7 @@ Plot2DJava(values_IsList, _optionsHash) <--
 10 # ColorForGraphNr(0) <-- " pencolor 64 64 128 ";
 10 # ColorForGraphNr(1) <-- " pencolor 128 64 64 ";
 10 # ColorForGraphNr(2) <-- " pencolor 64 128 64 ";
-20 # ColorForGraphNr(_count) <-- ColorForGraphNr(Mod(count,3));
+20 # ColorForGraphNr(_count) <-- ColorForGraphNr(Modulo(count,3));
 
 
 

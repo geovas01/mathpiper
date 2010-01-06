@@ -79,7 +79,7 @@
      exyu:=Quotient(exyu,gcd);
      exxu:=Quotient(exxu,gcd);
      AntiDeriv(var,NormalForm(Quotient(exyu,exxu))) +
-       AntiDeriv(var,NormalForm(Mod(exyu,exxu))/NormalForm(exxu));
+       AntiDeriv(var,NormalForm(Modulo(exyu,exxu))/NormalForm(exxu));
      ];
 
 11 # IntRat(_var,_exy / _exx,_exyu,_exxu)_

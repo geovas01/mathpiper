@@ -270,7 +270,7 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
 
 /* Some functions which are displayed as infix: Mod, Union, Intersection, Difference, Contains */
 
-100 # TeXForm(Mod(_x, _y), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings(TeXForm(x, OpPrecedence("/")), "\\bmod ", TeXForm(y, OpPrecedence("/")) ) );
+100 # TeXForm(Modulo(_x, _y), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings(TeXForm(x, OpPrecedence("/")), "\\bmod ", TeXForm(y, OpPrecedence("/")) ) );
 
 100 # TeXForm(Union(_x, _y), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings(TeXForm(x, OpPrecedence("/")), "\\cup ", TeXForm(y, OpPrecedence("/")) ) );
 

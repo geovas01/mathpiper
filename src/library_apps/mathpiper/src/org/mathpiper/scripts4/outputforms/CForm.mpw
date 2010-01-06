@@ -161,7 +161,7 @@ CFormArgs(list_IsList) <--
 
 /* Some special functions: Mod */
 
-100 # CForm(Mod(_x, _y), _p) <-- CFormBracketIf(p<OpPrecedence("/"), ConcatStrings(CForm(x, OpPrecedence("/")), " % ", CForm(y, OpPrecedence("/")) ) )
+100 # CForm(Modulo(_x, _y), _p) <-- CFormBracketIf(p<OpPrecedence("/"), ConcatStrings(CForm(x, OpPrecedence("/")), " % ", CForm(y, OpPrecedence("/")) ) )
 ;
 
 /* Indexed expressions are never bracketed */

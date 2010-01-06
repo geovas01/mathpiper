@@ -49,9 +49,9 @@ PollardRhoPolynomial(_x) <-- x^2+1;
     /* loop until failure or success found */
     While(gcd = 1 And repeat>=0)
     [
-      x:= Mod( PollardRhoPolynomial(x), n);
-   	  y:= Mod( PollardRhoPolynomial(
-	  	Mod( PollardRhoPolynomial(y), n)	// this is faster for large numbers
+      x:= Modulo( PollardRhoPolynomial(x), n);
+   	  y:= Modulo( PollardRhoPolynomial(
+	  	Modulo( PollardRhoPolynomial(y), n)	// this is faster for large numbers
 	  ), n);
    	  If(x-y = 0,
        	 [

@@ -71,8 +71,8 @@ Otherwise, the usual {*} operator suffices:
 	In> IntPowerNum(HilbertMatrix(2), 4, *,
 	  Identity(2))
 	Out> {{289/144,29/27},{29/27,745/1296}};
-Compute $Mod(3^100,7)$:
-	In> IntPowerNum(3,100,{{x,y},Mod(x*y,7)},1)
+Compute $Modulo(3^100,7)$:
+	In> IntPowerNum(3,100,{{x,y},Modulo(x*y,7)},1)
 	Out> 4;
 
 *SEE MultiplyNum, MathPower, MatrixPower

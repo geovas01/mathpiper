@@ -53,13 +53,13 @@
 
 {Div} performs integer division. {Div} is also defined for polynomials.
 
-If {Quotient(x,y)} returns "a" and {Mod(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
+If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
 
 *E.G.
 
 	In> Quotient(5,3)
 	Out> 1;
-	In> Mod(5,3)
+	In> Modulo(5,3)
 	Out> 2;
 
 *SEE Gcd, Lcm, Mod

@@ -54,13 +54,13 @@ Verify(aa-aa,0);
 Testing("IntegerOperations");
 Verify(1<<10,1024);
 Verify(1024>>10,1);
-Verify(Mod(10,3),1);
+Verify(Modulo(10,3),1);
 Verify(Quotient(10,3),3);
 Verify(GcdN(55,10),5);
 
-Verify(Mod(2,Infinity),2);
-Verify(Mod({0,1,2,3,4,5,6},2),{0,1,0,1,0,1,0});
-Verify(Mod({0,1,2,3,4,5,6},{2,2,2,2,2,2,2}),{0,1,0,1,0,1,0});
+Verify(Modulo(2,Infinity),2);
+Verify(Modulo({0,1,2,3,4,5,6},2),{0,1,0,1,0,1,0});
+Verify(Modulo({0,1,2,3,4,5,6},{2,2,2,2,2,2,2}),{0,1,0,1,0,1,0});
 
 Testing("PowerN");
 // was broken in the gmp version

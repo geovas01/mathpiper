@@ -5,7 +5,7 @@
 [
   Local(result,rev,first,period,repeat,static);
   result:={Quotient(n,d)};
-  Decimal(result,Mod(n,d),d,350);
+  Decimal(result,Modulo(n,d),d,350);
   rev:=DecimalFindPeriod(result);
   first:=rev[1];
   period:=rev[2];
@@ -20,7 +20,7 @@
   While(count>0)
   [
     DestructiveAppend(result,Quotient(10*n,d));
-    n:=Mod(10*n,d);
+    n:=Modulo(10*n,d);
     count--;
   ];
 ];
