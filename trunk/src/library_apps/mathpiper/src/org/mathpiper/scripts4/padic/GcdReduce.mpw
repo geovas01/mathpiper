@@ -9,8 +9,8 @@ GcdReduce(_f,_var)<--
 /*  gcd:=gcd*Gcd(Content(rat[1]),Content(rat[2]));*/
 
   Local(numer,denom,lc);
-  numer:=Div(rat[1],gcd);
-  denom:=Div(rat[2],gcd);
+  numer:=Quotient(rat[1],gcd);
+  denom:=Quotient(rat[2],gcd);
   lc:=LeadingCoef(numer,var);
   numer:=numer/lc;
   denom:=denom/lc;

@@ -65,7 +65,7 @@ LocalSymbols(rFormRegularOps) [
     {"sequence",":"},
     {"True","TRUE"},
     {"Mod","%%"},
-    {"Div","%/%"},
+    {"Quotient","%/%"},
   };
 
   RFormRegularOps() := rFormRegularOps;
@@ -330,7 +330,7 @@ transtab <- matrix( c(
 	"/",		"rational",	"/",
 	"^",		"power",	"^",
 	"%%",		"mod",		"Mod",
-	"%/%",		"div",		"Div",
+	"%/%",		"div",		"Quotient",
 	"root",		"root",		"NthRoot",
 	"Inf",		"infinity",	"Infinite",
 	"NaN",		"undefined","Undefined",

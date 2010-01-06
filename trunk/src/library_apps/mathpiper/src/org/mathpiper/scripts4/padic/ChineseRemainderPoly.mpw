@@ -13,7 +13,7 @@ ChineseRemainderPoly(mlist_IsList,vlist_IsList) <--
   nr:=Length(mlist);
   For(i:=1,i<=nr,i++)
   [
-    msub:=Div(m,mlist[i]);
+    msub:=Quotient(m,mlist[i]);
 
 /* Echo({Factor(msub)}); */
 

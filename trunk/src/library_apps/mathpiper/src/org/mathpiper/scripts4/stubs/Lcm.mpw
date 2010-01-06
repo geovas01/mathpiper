@@ -1,7 +1,7 @@
 %mathpiper,def="Lcm"
 
 /* Least common multiple */
-5  # Lcm(a_IsInteger,b_IsInteger) <-- Div(a*b,Gcd(a,b));
+5  # Lcm(a_IsInteger,b_IsInteger) <-- Quotient(a*b,Gcd(a,b));
 
 10 # Lcm(list_IsList)_(Length(list)>2) <--
 [
@@ -35,7 +35,7 @@ the integers in the list {list}.
 The least common multiple of two numbers "n" and "m" is the lowest
 number which is an integer multiple of both "n" and "m".
 It is calculated with the formula
-$$Lcm(n,m) = Div(n*m,Gcd(n,m))$$.
+$$Lcm(n,m) = Quotient(n*m,Gcd(n,m))$$.
 
 This means it also works on polynomials, since {Div}, {Gcd} and multiplication are also defined for
 them.

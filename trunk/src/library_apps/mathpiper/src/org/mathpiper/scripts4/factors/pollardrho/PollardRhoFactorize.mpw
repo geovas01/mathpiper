@@ -67,7 +67,7 @@ PollardRhoPolynomial(_x) <-- x^2+1;
   Check(restarts>0, "PollardRhoFactorize: Error: failed to factorize " : ToString(n));
   If(InVerboseMode() And gcd > 1, Echo({"PollardRhoFactorize: Info: while factorizing ", n, " found factor ", gcd}));
   /* Return result found */
-  PollardCombineLists(PollardRhoFactorize(gcd), PollardRhoFactorize(Div(n,gcd)));
+  PollardCombineLists(PollardRhoFactorize(gcd), PollardRhoFactorize(Quotient(n,gcd)));
 ];
 
 %/mathpiper

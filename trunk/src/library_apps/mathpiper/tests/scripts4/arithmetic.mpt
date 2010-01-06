@@ -55,7 +55,7 @@ Testing("IntegerOperations");
 Verify(1<<10,1024);
 Verify(1024>>10,1);
 Verify(Mod(10,3),1);
-Verify(Div(10,3),3);
+Verify(Quotient(10,3),3);
 Verify(GcdN(55,10),5);
 
 Verify(Mod(2,Infinity),2);
@@ -91,7 +91,7 @@ Verify(DigitsToBits(602, 10), 2000);
 
 LocalSymbols(f,ft)
 [
-  f(x,y):=(Div(x,y)*y+Rem(x,y)-x);
+  f(x,y):=(Quotient(x,y)*y+Rem(x,y)-x);
   ft(x,y):=
   [
     Verify(f(x,y),0);

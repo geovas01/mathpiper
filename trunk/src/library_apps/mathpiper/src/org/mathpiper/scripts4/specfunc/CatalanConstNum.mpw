@@ -43,7 +43,7 @@ CatalanConstNum() :=
 	prec:=BuiltinPrecisionGet();
 
 	// number of terms
-	n := 1+Div(prec*1068+642,643); // prec*Ln(10)/Ln(4)
+	n := 1+Quotient(prec*1068+642,643); // prec*Ln(10)/Ln(4)
 	BuiltinPrecisionSet(prec+2);	// 2 guard digits
 
 	result := N(1/(2*n+1));
@@ -71,7 +71,7 @@ CatalanConstNum2() :=
 
 	// first series
 	// number of terms
-	n := 1+Div(prec*534+642,643); // prec*Ln(10)/Ln(16)
+	n := 1+Quotient(prec*534+642,643); // prec*Ln(10)/Ln(16)
 	BuiltinPrecisionSet(prec+2);	// 2 guard digits
 
 	result1 := 0;
@@ -85,7 +85,7 @@ CatalanConstNum2() :=
 
 	// second series
 	// number of terms
-	n := 1+Div(prec*178+642,643); // prec*Ln(10)/Ln(4096)
+	n := 1+Quotient(prec*178+642,643); // prec*Ln(10)/Ln(4096)
 	BuiltinPrecisionSet(prec+2);	// 2 guard digits
 
 	result2 := 0;

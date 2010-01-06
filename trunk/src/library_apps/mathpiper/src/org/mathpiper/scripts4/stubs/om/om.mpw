@@ -21,7 +21,7 @@ OMDef( "Floor", "rounding1","floor"   );
 OMDef( "Ceil" , "rounding1","ceiling" );
 OMDef( "Round", "rounding1","round"   );
 
-OMDef( "Div"   , mathpiper,"div"    );
+OMDef( "Quotient"   , mathpiper,"div"    );
 OMDef( "Mod"   , mathpiper,"mod"    );
 OMDef( "Expand", mathpiper,"expand" );
 OMDef( "Object", mathpiper,"object" );

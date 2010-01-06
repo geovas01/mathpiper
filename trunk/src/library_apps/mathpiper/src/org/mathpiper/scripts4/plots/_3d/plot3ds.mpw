@@ -13,7 +13,7 @@ Plot3DS'get'data to obtain the list of points and values, and then it calls
 Plot3DS'<backend> on that data.
 
 	Algorithm for Plot3DS'get'data:
-	1) Split the given square into Div(Sqrt(points)+1, 2) subsquares, and split each subsquare into 4 parts.
+	1) Split the given square into Quotient(Sqrt(points)+1, 2) subsquares, and split each subsquare into 4 parts.
 	2) For each of the parts: evaluate function values and call Plot3DS'adaptive
 	3) concatenate resulting lists and return
 */
@@ -110,8 +110,8 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 	);
 	options'hash["used depth"] := options'hash["depth"];
 	// we will divide each subsquare in 4 parts, so divide number of points by 2 now
-	options'hash["xpoints"] := N(Eval(Div(options'hash["xpoints"]+1, 2)));
-	options'hash["ypoints"] := N(Eval(Div(options'hash["ypoints"]+1, 2)));
+	options'hash["xpoints"] := N(Eval(Quotient(options'hash["xpoints"]+1, 2)));
+	options'hash["ypoints"] := N(Eval(Quotient(options'hash["ypoints"]+1, 2)));
 	// in case it is not a simple number but an unevaluated expression
 	options'hash["precision"] := N(Eval(options'hash["precision"]));
 	// store range in options

@@ -1,9 +1,9 @@
-%mathpiper,def="Div"
+%mathpiper,def="Quotient"
 
 /* Integer divisions */
-0 # Div(n_IsInteger,m_IsInteger) <-- DivN(n,m);
-1 # Div(0  ,_m) <-- 0;
-2 # Div(n_IsRationalOrNumber,m_IsRationalOrNumber) <--
+0 # Quotient(n_IsInteger,m_IsInteger) <-- DivN(n,m);
+1 # Quotient(0  ,_m) <-- 0;
+2 # Quotient(n_IsRationalOrNumber,m_IsRationalOrNumber) <--
 [
   Local(n1,n2,m1,m2,sgn1,sgn2);
   n1:=Numerator(n);
@@ -14,20 +14,20 @@
   sgn2 := Sign(m1*n2);
   sgn1*sgn2*Floor(DivideN(sgn1*n1*m2,sgn2*m1*n2));
 ];
-30 # Div(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=1) <--
+30 # Quotient(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=1) <--
 [
 
   Local(vars,nl,ml);
   vars:=VarList(n*m);
   nl := MakeUni(n,vars);
   ml := MakeUni(m,vars);
-  NormalForm(Div(nl,ml));
+  NormalForm(Quotient(nl,ml));
 ];
 
 
 //Note:tk:moved here from univariate.rep.
-0 # Div(n_IsUniVar,m_IsUniVar)_(Degree(n) < Degree(m)) <-- 0;
-1 # Div(n_IsUniVar,m_IsUniVar)_
+0 # Quotient(n_IsUniVar,m_IsUniVar)_(Degree(n) < Degree(m)) <-- 0;
+1 # Quotient(n_IsUniVar,m_IsUniVar)_
     (n[1] = m[1] And Degree(n) >= Degree(m)) <--
 [
     UniVariate(n[1],0,
@@ -38,12 +38,12 @@
 %/mathpiper
 
 
-%mathpiper_docs,name="Div",categories="User Functions;Numbers (Operations)"
+%mathpiper_docs,name="Quotient",categories="User Functions;Numbers (Operations)"
 *CMD Div --- Determine quotient of two mathematical objects
 
 *STD
 *CALL
-	Div(x,y)
+	Quotient(x,y)
 
 *PARMS
 
@@ -53,11 +53,11 @@
 
 {Div} performs integer division. {Div} is also defined for polynomials.
 
-If {Div(x,y)} returns "a" and {Mod(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
+If {Quotient(x,y)} returns "a" and {Mod(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
 
 *E.G.
 
-	In> Div(5,3)
+	In> Quotient(5,3)
 	Out> 1;
 	In> Mod(5,3)
 	Out> 2;

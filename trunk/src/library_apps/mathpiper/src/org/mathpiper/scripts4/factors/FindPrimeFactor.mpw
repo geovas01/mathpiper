@@ -18,22 +18,22 @@ FindPrimeFactor(n, prime) :=
 		factor := factor^2;
 		power := power*2;
 	];
-	power := Div(power,2);
+	power := Quotient(power,2);
 	factor := old'factor;
-	n := Div(n, factor);
+	n := Quotient(n, factor);
 	// second loop: decrease step
-	step := Div(power,2);
+	step := Quotient(power,2);
 	While(step>0 And n > 1)
 	[
 		factor := prime^step;
 		If(
 			Mod(n, factor)=0,
 			[
-				n := Div(n, factor);
+				n := Quotient(n, factor);
 				power := power + step;
 			]
 		);
-		step := Div(step, 2);
+		step := Quotient(step, 2);
 	];
 	{n, power};
 ];

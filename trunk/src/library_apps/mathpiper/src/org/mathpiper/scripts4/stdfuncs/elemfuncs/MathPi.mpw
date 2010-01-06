@@ -25,7 +25,7 @@ MathPi() :=
     BuiltinPrecisionSet(curprec);
     result := 3.14159265358979323846*0.5;
     // find optimal initial precision
-    For(k:=prec, k>=curprec, k:=Div(k,order)+2) True;
+    For(k:=prec, k>=curprec, k:=Quotient(k,order)+2) True;
     If(k<5, curprec:=5, curprec:=k);
   //	Echo("initial precision", curprec);
     // now k is the iteration counter
