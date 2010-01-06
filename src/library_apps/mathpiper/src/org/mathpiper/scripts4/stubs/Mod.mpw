@@ -65,11 +65,11 @@
 
 {Mod} returns the remainder after division.  {Mod} is also defined for polynomials.
 
-If {Div(x,y)} returns "a" and {Mod(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
+If {Quotient(x,y)} returns "a" and {Mod(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
 
 *E.G.
 
-	In> Div(5,3)
+	In> Quotient(5,3)
 	Out> 1;
 	In> Mod(5,3)
 	Out> 2;

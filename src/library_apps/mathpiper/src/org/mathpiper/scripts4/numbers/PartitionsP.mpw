@@ -27,7 +27,7 @@
 	GlobalPush(BuiltinPrecisionGet());
 	// precision must be at least Pi/Ln(10)*Sqrt(2*n/3)-Ln(4*n*Sqrt(3))/Ln(10)
 	// here Pi/Ln(10) < 161/118, and Ln(4*Sqrt(3))/Ln(10) <1 so it is disregarded. Add 2 guard digits and compensate for round-off errors by not subtracting Ln(n)/Ln(10) now
-	prec := 2+Div(IntNthRoot(Div(2*n+2,3),2)*161+117,118);
+	prec := 2+Quotient(IntNthRoot(Quotient(2*n+2,3),2)*161+117,118);
 	BuiltinPrecisionSet(prec);	// compensate for round-off errors
 	epsilon := PowerN(10,-prec)*n*10;	// stop when term < epsilon
 
@@ -50,7 +50,7 @@
 	// this is a heuristic, because the next term error is expensive
 	// to calculate and the theoretic bounds have arbitrary constants
 	// use at most 5+Sqrt(n)/2 terms, stop when the term is nonzero and result stops to change at precision prec
-	For(k:=1, k<=5+Div(IntNthRoot(n,2),2) And (A=0 Or Abs(term)>epsilon), k++)
+	For(k:=1, k<=5+Quotient(IntNthRoot(n,2),2) And (A=0 Or Abs(term)>epsilon), k++)
 	[
 		// compute A(k,n)
 		A:=0;

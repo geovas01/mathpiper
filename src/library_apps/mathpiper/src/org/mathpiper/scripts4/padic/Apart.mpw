@@ -19,7 +19,7 @@ Apart(_f,_var) <--
        /*TODO check this one! Do we have to do the same as with the
         * integers?
         */
-       Expand(Div(rat[1],rat[2])) + PartFracExpand(Rem(rat[1],rat[2]),rat[2]);
+       Expand(Quotient(rat[1],rat[2])) + PartFracExpand(Rem(rat[1],rat[2]),rat[2]);
      ]
      );
 ];

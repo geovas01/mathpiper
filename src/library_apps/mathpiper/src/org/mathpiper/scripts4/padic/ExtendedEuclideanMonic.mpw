@@ -20,7 +20,7 @@ Echo({});
    newr:=r[2];
    While(newr != 0)
    [
-     q   :=Div(r[i],r[i+1]);
+     q   :=Quotient(r[i],r[i+1]);
      newr:=Mod(r[i],r[i+1]);
      newrho:=LeadingCoef(newr);
 

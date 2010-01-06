@@ -92,7 +92,7 @@ CyclotomicDivisorsList(n_IsPositiveInteger) <--
 
 // CyclotomicFactor(x,a,b): Auxiliary function that constructs the term list of
 // the polynomial
-// Div(x^a-1,x^b-1) =
+// Quotient(x^a-1,x^b-1) =
 // x^(b*(p-1)) + x^(b^*(p-2)) + ... + x^(b) + 1
 // p= a/b, b should divide a
 

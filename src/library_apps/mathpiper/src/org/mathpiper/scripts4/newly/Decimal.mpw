@@ -4,7 +4,7 @@
 10 # Decimal( (n_IsPositiveInteger) / (d_IsPositiveInteger) ) <--
 [
   Local(result,rev,first,period,repeat,static);
-  result:={Div(n,d)};
+  result:={Quotient(n,d)};
   Decimal(result,Mod(n,d),d,350);
   rev:=DecimalFindPeriod(result);
   first:=rev[1];
@@ -19,7 +19,7 @@
 [
   While(count>0)
   [
-    DestructiveAppend(result,Div(10*n,d));
+    DestructiveAppend(result,Quotient(10*n,d));
     n:=Mod(10*n,d);
     count--;
   ];

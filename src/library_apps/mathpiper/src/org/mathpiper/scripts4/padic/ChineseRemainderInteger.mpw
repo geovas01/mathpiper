@@ -12,7 +12,7 @@ ChineseRemainderInteger(mlist_IsList,vlist_IsList) <--
   nr:=Length(mlist);
   For(i:=1,i<=nr,i++)
   [
-    msub:=Div(m,mlist[i]);
+    msub:=Quotient(m,mlist[i]);
     euclid := ExtendedEuclidean(msub,mlist[i]);
     Local(c);
     c:=vlist[i] * euclid[2];

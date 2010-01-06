@@ -76,9 +76,9 @@
      [
      Local(gcd);
      gcd:=Gcd(exxu,exyu);
-     exyu:=Div(exyu,gcd);
-     exxu:=Div(exxu,gcd);
-     AntiDeriv(var,NormalForm(Div(exyu,exxu))) +
+     exyu:=Quotient(exyu,gcd);
+     exxu:=Quotient(exxu,gcd);
+     AntiDeriv(var,NormalForm(Quotient(exyu,exxu))) +
        AntiDeriv(var,NormalForm(Mod(exyu,exxu))/NormalForm(exxu));
      ];
 

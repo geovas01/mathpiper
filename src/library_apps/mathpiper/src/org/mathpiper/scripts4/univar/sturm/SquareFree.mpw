@@ -15,7 +15,7 @@ SquareFree(_p) <--
 //Echo(NormalForm(gcd));
 //Echo(NormalForm(MultiDivide(p,{gcd})[1][1]));
   NormalForm(MultiDivide(p,{gcd})[1][1]);
-//  Div(p,Gcd(p,Monic(`(Differentiate(x)(@p)))));
+//  Quotient(p,Gcd(p,Monic(`(Differentiate(x)(@p)))));
 ];
 
 %/mathpiper

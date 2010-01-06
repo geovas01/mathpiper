@@ -62,9 +62,9 @@ Function(AddFoundSolutionSingle,{p})
 
       Local(lgcd,lc);
       Set(lgcd,Gcd({andiv,an,root}));
-      Set(lc,Div(an,lgcd));
-      Set(result,{var+ (-(Div(root,lgcd)/lc)),count}:result);
-      Set(andiv,Div(andiv,lgcd^count));
+      Set(lc,Quotient(an,lgcd));
+      Set(result,{var+ (-(Quotient(root,lgcd)/lc)),count}:result);
+      Set(andiv,Quotient(andiv,lgcd^count));
       Set(anmul,anmul*lc^count);
 
 //      factor:=(x-root);
@@ -125,7 +125,7 @@ Function(Fct,{poly,var})
   // the factors. the original polynomials is kept around to find the
   // multiplicity of the factor.
   Local(testpoly);
-//  Set(testpoly,Mkc(Div(polynom,Monic(Gcd(polynom,Deriv(var)polynom))),var));
+//  Set(testpoly,Mkc(Quotient(polynom,Monic(Gcd(polynom,Deriv(var)polynom))),var));
   Local(deriv);
   // First determine a derivative of the original polynomial
   deriv:=Rest(poly);

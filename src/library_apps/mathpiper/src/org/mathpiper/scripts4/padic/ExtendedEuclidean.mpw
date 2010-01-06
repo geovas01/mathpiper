@@ -33,7 +33,7 @@ ExtendedEuclidean(_f,_g) <--
    While(newr != 0)
    [
      newr:=Rem(r[i],r[i+1]);
-     q   :=Div(r[i],r[i+1]);
+     q   :=Quotient(r[i],r[i+1]);
      news  :=(s[i]-q*s[i+1]);
      newt  :=(t[i]-q*t[i+1]);
      DestructiveAppend(r  ,newr);

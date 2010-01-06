@@ -15,7 +15,7 @@ Plot2D'get'data to obtain the list of points and values, and then it calls
 Plot2D'<backend> on that data.
 
 	Algorithm for Plot2D'get'data:
-	1) Split the given interval into Div(points+3, 4) subintervals, and split each subinterval into 4 parts.
+	1) Split the given interval into Quotient(points+3, 4) subintervals, and split each subinterval into 4 parts.
 	2) For each of the parts: evaluate function values and call Plot2D'adaptive
 	3) concatenate resulting lists and return
 */
@@ -86,7 +86,7 @@ Function() Plot2D(func, range, options, ...);
 	);
     
 	// we will divide each subinterval in 4 parts, so divide number of points by 4 now
-	options'hash["points"] := N(Eval(Div(options'hash["points"]+3, 4)));
+	options'hash["points"] := N(Eval(Quotient(options'hash["points"]+3, 4)));
     
 	// in case it is not a simple number but an unevaluated expression
 	options'hash["precision"] := N(Eval(options'hash["precision"]));

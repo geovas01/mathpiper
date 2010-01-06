@@ -35,7 +35,7 @@ Retract("RandomIrreducibleQuadraticWithRealRoots",*);
         p[ii] := NormalForm(UniVariate(var,0,{i2,i1}));
     ];
     quadPoly := ExpandBrackets(p[1]*p[2]);
-    quadPoly := Simplify(Div(quadPoly,LeadingCoef(quadPoly)));
+    quadPoly := Simplify(Quotient(quadPoly,LeadingCoef(quadPoly)));
 ];
 
 

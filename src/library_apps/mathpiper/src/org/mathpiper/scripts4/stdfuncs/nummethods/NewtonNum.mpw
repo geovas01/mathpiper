@@ -17,7 +17,7 @@ Common'digits(x,y) :=
 		diff=0,
 		Infinity,
 		// use approximation Ln(2)/Ln(10) > 351/1166
-		Div(IntLog(FloorN(DivideN(Maximum(Abs(x), Abs(y)), diff)), 2)*351, 1166)
+		Quotient(IntLog(FloorN(DivideN(Maximum(Abs(x), Abs(y)), diff)), 2)*351, 1166)
 	); 	// this many decimal digits in common
 ];
 
@@ -63,7 +63,7 @@ NewtonNum(_func, _x'init, _prec0, _order) <--
     While(exact'digits*order <= prec)
     [
       exact'digits := exact'digits*order;
-      BuiltinPrecisionSet(2+Minimum(exact'digits, Div(prec,order)+1)-int'part);
+      BuiltinPrecisionSet(2+Minimum(exact'digits, Quotient(prec,order)+1)-int'part);
       x0 := x1;
       x1 := (func @ x0);
   //		If(InVerboseMode(), Echo("NewtonNum: Info: got", Common'digits(x0, x1), "exact digits at prec. ", BuiltinPrecisionGet()));

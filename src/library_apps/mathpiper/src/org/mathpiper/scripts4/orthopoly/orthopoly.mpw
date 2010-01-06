@@ -317,7 +317,7 @@ OrthoPolySumCoeffs(name_IsString, c_IsList, p_IsList) <-- [
 BitList(n) := BitList(n, {});
 /// This will not be called on very large numbers so it's okay to use recursion
 1# BitList(0, _bits) <-- bits;
-2# BitList(_n, _bits) <-- BitList(Div(n,2), Push(bits, Mod(n,2)));
+2# BitList(_n, _bits) <-- BitList(Quotient(n,2), Push(bits, Mod(n,2)));
 
 // Tchebyshev polynomials of 1st kind
 1 # FastOrthoT(0, _x) <-- 1;
@@ -331,8 +331,8 @@ BitList(n) := BitList(n, {});
 2 # FastOrthoU(_n, _x) _ (IsInteger(n) And n<0) <-- Undefined;
 
 // make T(), U() of even order more efficient: delegate gruntwork to odd order
-2 # FastOrthoT(n_IsEven, _x) <-- 2*FastOrthoT(Div(n,2), x)^2-1;
-2 # FastOrthoU(n_IsEven, _x) <-- 2*FastOrthoT(Div(n,2), x)*FastOrthoU(Div(n,2), x)-1;
+2 # FastOrthoT(n_IsEven, _x) <-- 2*FastOrthoT(Quotient(n,2), x)^2-1;
+2 # FastOrthoU(n_IsEven, _x) <-- 2*FastOrthoT(Quotient(n,2), x)*FastOrthoU(Quotient(n,2), x)-1;
 
 // FastOrthoT() of odd order
 3 # FastOrthoT(n_IsOdd, _x) <--
@@ -410,21 +410,21 @@ OrthoPolyCoeffs("Hermite", n_IsInteger, {}) <-- HermiteCoeffs(n);
 HermiteCoeffs(n_IsEven)_(n>0) <--
 [
 	Local(i, k, result);
-	k := Div(n,2);
+	k := Quotient(n,2);
 	result := ZeroVector(n+1);
 	result[1] := (-2)^k*(n-1)!!;	// coefficient at x^0
 	For(i:=1,i<=k,i++)	// prepare coefficient at x^(2*i) now
-		result[2*i+1] := Div(-2*result[2*i-1] * (k-i+1), (2*i-1)*i);	// this division is always integer but faster with Div()
+		result[2*i+1] := Quotient(-2*result[2*i-1] * (k-i+1), (2*i-1)*i);	// this division is always integer but faster with Quotient()
 	result;
 ];
 HermiteCoeffs(n_IsOdd)_(n>0) <--
 [
 	Local(i, k, result);
-	k := Div(n,2);
+	k := Quotient(n,2);
 	result := ZeroVector(n+1);
 	result[2] := 2*(-2)^k*(n!!);	// coefficient at x^1
 	For(i:=1,i<=k,i++)	// prepare coefficient at x^(2*i+1) now
-		result[2*i+2] := Div(-2*result[2*i] * (k-i+1), i*(2*i+1));	// this division is always integer but faster with Div()
+		result[2*i+2] := Quotient(-2*result[2*i] * (k-i+1), i*(2*i+1));	// this division is always integer but faster with Quotient()
 	result;
 ];
 
