@@ -3,7 +3,7 @@
 /* Tensor package. This code intends to simplify tensorial expressions.
  */
 
-RuleBase("TSum",{indices,body});
+Rulebase("TSum",{indices,body});
 
 /* The only TSum summation simplification: summing over no indices
    means no summation. */

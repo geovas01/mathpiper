@@ -1,7 +1,7 @@
 %mathpiper,def="Differentiate"
 
-RuleBase("Differentiate",{aVar,aFunc});
-RuleBase("Differentiate",{aVar,aCount,aFunc});
+Rulebase("Differentiate",{aVar,aFunc});
+Rulebase("Differentiate",{aVar,aCount,aFunc});
 
 Rule("Differentiate",2,1,IsList(aVar) And Not(IsList(aFunc)))
 	Map("Differentiate",{aVar,FillList(aFunc, Length(aVar))});

@@ -3,7 +3,7 @@
 Function("HoldArgNr",{function,arity,index})
 [
   Local(args);
-  args:=RuleBaseArgList(function,arity);
+  args:=RulebaseArgList(function,arity);
 /* Echo({"holdnr ",args}); */
   ApplyPure("HoldArg",{function,args[index]});
 ];
@@ -28,7 +28,7 @@ Function("HoldArgNr",{function,arity,index})
 Declares the argument numbered {argNum} of the function named {"function"} with
 specified {arity} to be unevaluated ("held"). Useful if you don't know symbolic
 names of parameters, for instance, when the function was not declared using an
-explicit {RuleBase} call. Otherwise you could use {HoldArg}.
+explicit {Rulebase} call. Otherwise you could use {HoldArg}.
 
-*SEE HoldArg, RuleBase
+*SEE HoldArg, Rulebase
 %/mathpiper_docs

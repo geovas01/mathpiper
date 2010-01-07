@@ -7,7 +7,7 @@ Function("Substitute",{body,predicate,change})
 HoldArg("Substitute",predicate);
 HoldArg("Substitute",change);
 UnFence("Substitute",3);
-RuleBase("Substitute",{body});
+Rulebase("Substitute",{body});
 UnFence("Substitute",1);
 
 Rule("Substitute",1,1,Apply(predicate,{body}) = True)

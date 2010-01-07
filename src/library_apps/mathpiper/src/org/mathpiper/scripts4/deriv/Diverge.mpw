@@ -1,6 +1,6 @@
 %mathpiper,def="Diverge"
 
-RuleBase("Diverge", {aFunc, aBasis});
+Rulebase("Diverge", {aFunc, aBasis});
 Rule("Diverge", 2, 1, IsList(aBasis) And IsList(aFunc) And Length(aBasis) = Length(aFunc))
 	Add(Map("Differentiate", {aBasis,aFunc}));
 

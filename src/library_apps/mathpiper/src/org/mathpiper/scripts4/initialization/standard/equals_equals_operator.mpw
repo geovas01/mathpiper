@@ -1,6 +1,6 @@
 %mathpiper,def="=="
 
-RuleBase("==",{left,right});
+Rulebase("==",{left,right});
 
 %/mathpiper
 

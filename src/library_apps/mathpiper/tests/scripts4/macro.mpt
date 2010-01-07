@@ -1,7 +1,7 @@
 
 [
   Local(a,b,c,d);
-  DefMacroRuleBase(foo,{a,b});
+  DefMacroRulebase(foo,{a,b});
 
   // Simple check
   foo(_c,_d) <-- {@c,@d};

@@ -30,9 +30,9 @@
      adding and multiplying expressions with trig. functions, non-trig.
      functions, constants, etc. a lot easier.
 */
-RuleBase("FSin",{f,x});
-RuleBase("FCos",{f,x});
-RuleBase(":*:",{x,y});
+Rulebase("FSin",{f,x});
+Rulebase("FCos",{f,x});
+Rulebase(":*:",{x,y});
 Infix(":*:",3);
 
 
@@ -49,17 +49,17 @@ IsPow(f):=
 
 
 /* Convert Sin/Cos to FSin/FCos */
-RuleBase("TrigChange",{f});
+Rulebase("TrigChange",{f});
 Rule("TrigChange",1,1,Type(f)="Cos") FCos(1,f[1]);
 Rule("TrigChange",1,1,Type(f)="Sin") FSin(1,f[1]);
 
-RuleBase("TrigUnChange",{f});
+Rulebase("TrigUnChange",{f});
 Rule("TrigUnChange",1,1,Type(f)="FCos") Cos(f[2]);
 Rule("TrigUnChange",1,1,Type(f)="FSin") Sin(f[2]);
 
 
 /* Do a full replacement to internal format on a term. */
-RuleBase("FReplace",{f});
+Rulebase("FReplace",{f});
 UnFence("FReplace",1);
 Rule("FReplace",1,1,IsMul(f))  Substitute(f[1]) :*: Substitute(f[2]);
 Rule("FReplace",1,2,IsPow(f))  (Substitute(f[1]) :*: Substitute(f[1])) :*: Substitute(f[1]^(f[2]-2));
@@ -94,7 +94,7 @@ FFromInternal(f):=Substitute(f,"IsMulF","FReplaceBack");
 
 
 /* FSimpTerm simplifies the current term, wrt. trigonometric functions. */
-RuleBase("FSimpTerm",{f,rlist});
+Rulebase("FSimpTerm",{f,rlist});
 UnFence("FSimpTerm",2);
 
 /* Addition: add all the subterms */
@@ -187,7 +187,7 @@ FLog("rlist",rlist);
 UnFence("FSimpFactor",1);
 
 
-RuleBase("FProcessTerm",{t});
+Rulebase("FProcessTerm",{t});
 UnFence("FProcessTerm",1);
 
 /* Deal with (a+b)*c -> a*c+b*c */
@@ -326,7 +326,7 @@ Rule("FProcessTerm",1,5,Length(t)>1)
 ];
 
 /* TrigSimpCombineB : take two FSin/FCos factors, and write them out into two terms */
-RuleBase("TrigSimpCombineB",{x,y});
+Rulebase("TrigSimpCombineB",{x,y});
 Rule("TrigSimpCombineB",2,1,Type(x) = "FCos" And Type(y) = "FCos")
      { FCos((x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) };
 Rule("TrigSimpCombineB",2,1,Type(x) = "FSin" And Type(y) = "FSin")
@@ -337,7 +337,7 @@ Rule("TrigSimpCombineB",2,1,Type(x) = "FCos" And Type(y) = "FSin")
      { FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin(-(x[1]*y[1])/2,x[2]-y[2]) };
 
 
-RuleBase("TrigSimpCombine",{f});
+Rulebase("TrigSimpCombine",{f});
 Rule("TrigSimpCombine",1,1,IsList(f))
   Map("TrigSimpCombine",{f});
 

@@ -7,7 +7,7 @@ only when all arguments are numbers and will return unevaluated
 LocalSymbols(NFunction'Numberize)
 [
 NFunction(new'name_IsString, old'name_IsString, arg'list_IsList) <-- [
-	MacroRuleBase(new'name, arg'list);
+	MacroRulebase(new'name, arg'list);
 	MacroRule(new'name, Length(arg'list), 0,	// check whether all args are numeric
 		ListToFunction({IsNumericList, arg'list})
 	)

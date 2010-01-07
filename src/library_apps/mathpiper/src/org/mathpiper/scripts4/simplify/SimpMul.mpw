@@ -1,5 +1,5 @@
 %mathpiper,def="SimpMul",scope="private"
 
-RuleBase("SimpMul",{x,y});
+Rulebase("SimpMul",{x,y});
 
 %/mathpiper

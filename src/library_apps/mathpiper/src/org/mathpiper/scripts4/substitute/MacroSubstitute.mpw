@@ -11,7 +11,7 @@ Function("MacroSubstitute",{body,predicate,change})
 HoldArg("MacroSubstitute",predicate);
 HoldArg("MacroSubstitute",change);
 UnFence("MacroSubstitute",3);
-RuleBase("MacroSubstitute",{body});
+Rulebase("MacroSubstitute",{body});
 UnFence("MacroSubstitute",1);
 
 Rule("MacroSubstitute",1,1,`ApplyPure(predicate,{Hold(Hold(@body))}) = True)

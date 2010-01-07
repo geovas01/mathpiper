@@ -1,6 +1,6 @@
 %mathpiper,def="Degree"
 
-RuleBase("Degree",{expr});
+Rulebase("Degree",{expr});
 Rule("Degree",1,0, IsUniVar(expr))
 [
 

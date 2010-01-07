@@ -4,8 +4,8 @@
 
 //tk:this code was moved here from Integrate.mpw because it was causing a 
 // "rulebase with this arity already defined" error.
-//hso:but the RuleBase line causes hang when processing in fold
-//RuleBase("IntegrateMultiplicative",{var,from,a,b});
+//hso:but the Rulebase line causes hang when processing in fold
+//Rulebase("IntegrateMultiplicative",{var,from,a,b});
 
 ////////////////////////////////////////////////
 //

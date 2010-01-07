@@ -4,7 +4,7 @@
  */
 
 /* functions internal to tensors */
-RuleBase("Delta",{ind1,ind2});
+Rulebase("Delta",{ind1,ind2});
 
 //Not defined in the scripts. todo:tk.
 
