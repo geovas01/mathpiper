@@ -690,16 +690,16 @@ OMDef( "^" ,  "arith1", "power"  );
 OMDef( "*" ,  "arith1", "times"  );
 
 
-Use("constants.rep/om.mpi");
-Use("stdfuncs.rep/om.mpi");
-Use("stubs.rep/om.mpi");
-Use("logic.rep/om.mpi");
-Use("complex.rep/om.mpi");
-Use("integrate.rep/om.mpi");
-Use("sums.rep/om.mpi");
-Use("limit.rep/om.mpi");
-//Use("numbers.rep/om.mpi");// Sqrt is loaded before (stubs.rep) than IntNthRoot.
-Use("functional.rep/om.mpi");
+LoadScriptOnce("constants.rep/om.mpi");
+LoadScriptOnce("stdfuncs.rep/om.mpi");
+LoadScriptOnce("stubs.rep/om.mpi");
+LoadScriptOnce("logic.rep/om.mpi");
+LoadScriptOnce("complex.rep/om.mpi");
+LoadScriptOnce("integrate.rep/om.mpi");
+LoadScriptOnce("sums.rep/om.mpi");
+LoadScriptOnce("limit.rep/om.mpi");
+//LoadScriptOnce("numbers.rep/om.mpi");// Sqrt is loaded before (stubs.rep) than IntNthRoot.
+LoadScriptOnce("functional.rep/om.mpi");
 
 
 %/mathpiper

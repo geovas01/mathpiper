@@ -1,5 +1,5 @@
 
-//Use("logic.ys");
+//LoadScriptOnce("logic.ys");
 
 
 NextTest("CNF");

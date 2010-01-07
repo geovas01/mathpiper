@@ -1,4 +1,4 @@
-/*Use("texform");*/
+/*LoadScriptOnce("texform");*/
 
 NextTest("TeXForm()...");
 
