@@ -79,7 +79,7 @@ SumListSide(_x, y_IsList) <--
 	x+y
 	+x
 Precedence:
-*EVAL OperatorPrecedenceGet("+")
+*EVAL PrecedenceGet("+")
 
 *PARMS
 

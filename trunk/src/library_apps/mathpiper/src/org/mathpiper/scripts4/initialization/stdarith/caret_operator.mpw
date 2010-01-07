@@ -94,7 +94,7 @@
 
 	x^y
 Precedence:
-*EVAL OperatorPrecedenceGet("^")
+*EVAL PrecedenceGet("^")
 
 *PARMS
 

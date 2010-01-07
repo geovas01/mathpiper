@@ -17,7 +17,7 @@ _x . _y <-- Dot(x,y);
 *CALL
 	t1 . t2
 Precedence:
-*EVAL OperatorPrecedenceGet(".")
+*EVAL PrecedenceGet(".")
 
 *PARMS
 

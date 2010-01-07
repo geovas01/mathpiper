@@ -204,8 +204,8 @@ FormulaBracket(f):=
 2 # Formula(_xx ^ _yy) <--
 [
   Local(l,r);
-  Set(l, BracketOn(Formula(xx),xx,OperatorLeftPrecedenceGet("^")));
-  Set(r, BracketOn(Formula(yy),yy,OperatorRightPrecedenceGet("^")));
+  Set(l, BracketOn(Formula(xx),xx,LeftPrecedenceGet("^")));
+  Set(r, BracketOn(Formula(yy),yy,RightPrecedenceGet("^")));
   MoveOper(l,0,r[4]);
   MoveOper(r,l[3],0);
   MakeOper(0,0,AddN(l[3],r[3]),AddN(l[4],r[4]),"Func",{l,r},l[2]+l[4]-1);
@@ -294,8 +294,8 @@ FormulaBracket(f):=
 [
   Local(l,r,dash,width);
 /*
-  Set(l, BracketOn(Formula(xx),xx,OperatorLeftPrecedenceGet("/")));
-  Set(r, BracketOn(Formula(yy),yy,OperatorRightPrecedenceGet("/")));
+  Set(l, BracketOn(Formula(xx),xx,LeftPrecedenceGet("/")));
+  Set(r, BracketOn(Formula(yy),yy,RightPrecedenceGet("/")));
 */
   Set(l, Formula(xx));
   Set(r, Formula(yy));
@@ -309,7 +309,7 @@ FormulaBracket(f):=
 
 RuleBase("BracketOn",{op,f,prec});
 Rule("BracketOn",3,1,IsFunction(f) And NrArgs(f) = 2
-     And IsInfix(Type(f)) And OperatorPrecedenceGet(Type(f)) > prec)
+     And IsInfix(Type(f)) And PrecedenceGet(Type(f)) > prec)
 [
  FormulaBracket(op);
 ];
@@ -324,8 +324,8 @@ Rule("BracketOn",3,2,True)
   Set(l, Formula(f[1]));
   Set(r, Formula(f[2]));
 
-  Set(l, BracketOn(l,f[1],OperatorLeftPrecedenceGet(Type(f))));
-  Set(r, BracketOn(r,f[2],OperatorRightPrecedenceGet(Type(f))));
+  Set(l, BracketOn(l,f[1],LeftPrecedenceGet(Type(f))));
+  Set(r, BracketOn(r,f[2],RightPrecedenceGet(Type(f))));
 
   Set(oper, Formula(f[0]));
   Set(base, Maximum(l[7],r[7]));

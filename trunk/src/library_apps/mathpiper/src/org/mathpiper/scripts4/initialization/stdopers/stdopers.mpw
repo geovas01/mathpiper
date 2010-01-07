@@ -101,8 +101,8 @@ Infix("/::",20000);
 Infix("<-",10000);
 
 /* Operators used for manual layout */
-Infix("<>", OperatorPrecedenceGet("="));
-Infix("<=>", OperatorPrecedenceGet("="));
+Infix("<>", PrecedenceGet("="));
+Infix("<=>", PrecedenceGet("="));
 
 /* Operators for Solve: Where and AddTo */
 Infix("Where", 11000);

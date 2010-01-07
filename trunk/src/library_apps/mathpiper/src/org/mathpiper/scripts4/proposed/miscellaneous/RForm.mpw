@@ -116,17 +116,17 @@ LocalSymbols(rFormMathFunctions) [
 
 
 /* This is the template for "regular" binary infix operators:
-100 # RForm(_x + _y, _p) <-- RFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(RForm(x, OperatorLeftPrecedenceGet("+")), " + ", RForm(y, OperatorRightPrecedenceGet("+")) ) );
+100 # RForm(_x + _y, _p) <-- RFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(RForm(x, LeftPrecedenceGet("+")), " + ", RForm(y, RightPrecedenceGet("+")) ) );
 	*/
 
 	/* unary addition */
-100 # RForm(+ _y, _p) <-- RFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(" + ", RForm(y, OperatorRightPrecedenceGet("+")) ) );
+100 # RForm(+ _y, _p) <-- RFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(" + ", RForm(y, RightPrecedenceGet("+")) ) );
 
 	/* unary subtraction */
-100 # RForm(- _y, _p) <-- RFormBracketIf(p<OperatorPrecedenceGet("-"), ConcatStrings(" - ", RForm(y, OperatorRightPrecedenceGet("-")) ) );
+100 # RForm(- _y, _p) <-- RFormBracketIf(p<PrecedenceGet("-"), ConcatStrings(" - ", RForm(y, RightPrecedenceGet("-")) ) );
 
 	/* power's argument is never bracketed but it must be put in braces. */
-100 # RForm(_x ^ _y, _p) <-- RFormBracketIf(p <= OperatorPrecedenceGet("^"), ConcatStrings(RForm(x, RFormMaxPrec()), "^", RForm(y, RFormMaxPrec())) );
+100 # RForm(_x ^ _y, _p) <-- RFormBracketIf(p <= PrecedenceGet("^"), ConcatStrings(RForm(x, RFormMaxPrec()), "^", RForm(y, RFormMaxPrec())) );
 
 100 # RForm(if(_pred)_body, _p) <-- "if (":RForm(pred,60000):") ":RForm(body);
 100 # RForm(_left else _right, _p) <-- RForm(left):" else ":RForm(right);
@@ -135,7 +135,7 @@ LocalSymbols(rFormMathFunctions) [
 
 
 120 # RForm(expr_IsFunction, _p)_(NrArgs(expr)=2 And Contains(AssocIndices(RFormRegularOps()), Type(expr)) ) <--
-      RFormBracketIf(p<OperatorPrecedenceGet(Type(expr)), ConcatStrings(RForm(FunctionToList(expr)[2], OperatorLeftPrecedenceGet(Type(expr))), RFormRegularOps()[Type(expr)], RForm(FunctionToList(expr)[3], OperatorRightPrecedenceGet(Type(expr))) ) );
+      RFormBracketIf(p<PrecedenceGet(Type(expr)), ConcatStrings(RForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), RFormRegularOps()[Type(expr)], RForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
@@ -176,7 +176,7 @@ RFormArgs(list_IsList) <--
 
 /* Some special functions: Mod */
 
-100 # RForm(Modulo(_x, _y), _p) <-- RFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings(RForm(x, OperatorPrecedenceGet("/")), " % ", RForm(y, OperatorPrecedenceGet("/")) ) )
+100 # RForm(Modulo(_x, _y), _p) <-- RFormBracketIf(p<PrecedenceGet("/"), ConcatStrings(RForm(x, PrecedenceGet("/")), " % ", RForm(y, PrecedenceGet("/")) ) )
 ;
 
 /* Indexed expressions are never bracketed */
