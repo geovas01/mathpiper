@@ -20,30 +20,30 @@
 10 # Print(_x,_n)_(IsInfix(Type(x))And NrArgs(x) = 2) <--
 [
   Local(bracket);
-  bracket:= (OperatorPrecedenceGet(Type(x)) > n);
+  bracket:= (PrecedenceGet(Type(x)) > n);
   If(bracket,WriteString("("));
-  Print(x[1],OperatorLeftPrecedenceGet(Type(x)));
+  Print(x[1],LeftPrecedenceGet(Type(x)));
   Write(x[0]);
-  Print(x[2],OperatorRightPrecedenceGet(Type(x)));
+  Print(x[2],RightPrecedenceGet(Type(x)));
   If(bracket,WriteString(")"));
 ];
 
 10 # Print(_x,_n)_(IsPrefix(Type(x)) And NrArgs(x) = 1) <--
 [
   Local(bracket);
-  bracket:= (OperatorPrecedenceGet(Type(x)) > n);
+  bracket:= (PrecedenceGet(Type(x)) > n);
   Write(x[0]);
   If(bracket,WriteString("("));
-  Print(x[1],OperatorRightPrecedenceGet(Type(x)));
+  Print(x[1],RightPrecedenceGet(Type(x)));
   If(bracket,WriteString(")"));
 ];
 
 10 # Print(_x,_n)_(IsPostfix(Type(x))And NrArgs(x) = 1) <--
 [
   Local(bracket);
-  bracket:= (OperatorPrecedenceGet(Type(x)) > n);
+  bracket:= (PrecedenceGet(Type(x)) > n);
   If(bracket,WriteString("("));
-  Print(x[1],OperatorLeftPrecedenceGet(Type(x)));
+  Print(x[1],LeftPrecedenceGet(Type(x)));
   Write(x[0]);
   If(bracket,WriteString(")"));
 ];

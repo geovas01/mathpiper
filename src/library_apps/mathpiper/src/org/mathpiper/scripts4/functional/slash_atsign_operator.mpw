@@ -12,7 +12,7 @@ Function("/@",{func,lst}) Apply("MapSingle",{func,lst});
 *CALL
 	fn /@ list
 Precedence:
-*EVAL OperatorPrecedenceGet("/@")
+*EVAL PrecedenceGet("/@")
 
 *PARMS
 

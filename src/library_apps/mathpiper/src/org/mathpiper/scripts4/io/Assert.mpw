@@ -31,7 +31,7 @@
 	Assert("str") pred
 	Assert() pred
 Precedence:
-*EVAL OperatorPrecedenceGet("Assert")
+*EVAL PrecedenceGet("Assert")
 
 *PARMS
 

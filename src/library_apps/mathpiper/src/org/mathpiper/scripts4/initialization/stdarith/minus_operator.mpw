@@ -78,9 +78,9 @@ LocalSymbols(x,y,xarg,yarg)
 
 	x-y
 Precedence: left-side:
-*EVAL OperatorPrecedenceGet("-")
+*EVAL PrecedenceGet("-")
 , right-side:
-*EVAL OperatorRightPrecedenceGet("-")
+*EVAL RightPrecedenceGet("-")
 
 	-x
 

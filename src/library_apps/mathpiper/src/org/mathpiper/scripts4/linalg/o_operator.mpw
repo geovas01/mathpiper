@@ -12,7 +12,7 @@ _x o _y <-- Outer(x,y);
 *CALL
 	t1 o t2
 Precedence:
-*EVAL OperatorPrecedenceGet("o")
+*EVAL PrecedenceGet("o")
 
 *PARMS
 
