@@ -50,5 +50,5 @@ $$ p[1]* ... * p[m] $$
 	In> Monic(%)
 	Out> x+1;
 
-*SEE FindRealRoots, NumRealRoots, MinimumBound, MaximumBound, Factor
+*SEE FindRealRoots, RealRootsCount, MinimumBound, MaximumBound, Factor
 %/mathpiper_docs

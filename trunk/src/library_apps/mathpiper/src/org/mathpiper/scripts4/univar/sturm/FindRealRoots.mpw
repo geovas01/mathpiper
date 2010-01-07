@@ -97,5 +97,5 @@ of the result can be improved by increasing the calculation precision.
 	In> FindRealRoots(p)
 	Out> {-3.1,6.23};
 
-*SEE SquareFree, NumRealRoots, MinimumBound, MaximumBound, Factor
+*SEE SquareFree, RealRootsCount, MinimumBound, MaximumBound, Factor
 %/mathpiper_docs

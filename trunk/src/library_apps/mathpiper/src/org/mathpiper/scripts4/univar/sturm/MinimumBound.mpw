@@ -45,5 +45,5 @@ The polynomial must use the variable {x}.
 	In> N(%)
 	Out> 2.1973279236;
 
-*SEE MaximumBound, SquareFree, NumRealRoots, FindRealRoots, Factor
+*SEE MaximumBound, SquareFree, RealRootsCount, FindRealRoots, Factor
 %/mathpiper_docs

@@ -48,5 +48,5 @@ The polynomial must use the variable {x}.
 	In> N(%)
 	Out> 8.7893116904;
 
-*SEE MinimumBound, SquareFree, NumRealRoots, FindRealRoots, Factor
+*SEE MinimumBound, SquareFree, RealRootsCount, FindRealRoots, Factor
 %/mathpiper_docs
