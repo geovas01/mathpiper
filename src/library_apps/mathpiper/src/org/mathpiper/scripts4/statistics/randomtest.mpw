@@ -6,8 +6,8 @@
 */
 
 DefaultDerivtory("c:/src/ys/prob");
-Load("incompletegamma.mpi");
-Load("hypothesystest.mpi");
+LoadScript("incompletegamma.mpi");
+LoadScript("hypothesystest.mpi");
 
 
 Function("DoTest",{size})

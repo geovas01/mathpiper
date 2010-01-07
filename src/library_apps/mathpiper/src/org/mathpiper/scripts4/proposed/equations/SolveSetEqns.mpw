@@ -1,6 +1,6 @@
 %mathpiper,scope="private"
 
-Use("proposed.rep/equations.mpi");
+LoadScriptOnce("proposed.rep/equations.mpi");
 
 Retract("SolveLinearSysViaMatrix",*);
 
