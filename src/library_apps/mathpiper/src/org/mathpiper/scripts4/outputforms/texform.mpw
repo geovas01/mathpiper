@@ -88,16 +88,16 @@ TeXFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is eq
 
 
 	/* Template for "regular" binary infix operators:
-100 # TeXForm(_x + _y, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(TeXForm(x, OpLeftPrecedence("+")), " + ", TeXForm(y, OpRightPrecedence("+")) ) );
+100 # TeXForm(_x + _y, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(TeXForm(x, OperatorLeftPrecedenceGet("+")), " + ", TeXForm(y, OpRightPrecedence("+")) ) );
 	*/
 // special cases: things like x*2 and 2*10^x look ugly without a period
 // cases like x*2
-115 # TeXForm(_expr * n_IsNumber, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("*"), ConcatStrings(TeXForm(expr, OpLeftPrecedence("*")), "\\cdot ", TeXForm(n, OpRightPrecedence("*")) ) );
+115 # TeXForm(_expr * n_IsNumber, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("*"), ConcatStrings(TeXForm(expr, OperatorLeftPrecedenceGet("*")), "\\cdot ", TeXForm(n, OpRightPrecedence("*")) ) );
 // cases like a*20! and a*10^x
-116 # TeXForm(_n * _expr, _p) _ (IsFunction(expr) And Contains({"^", "!", "!!"}, Type(expr)) And IsNumber(FunctionToList(expr)[2])) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("*"), ConcatStrings(TeXForm(n, OpLeftPrecedence("*")), "\\cdot ", TeXForm(expr, OpRightPrecedence("*")) ) );
+116 # TeXForm(_n * _expr, _p) _ (IsFunction(expr) And Contains({"^", "!", "!!"}, Type(expr)) And IsNumber(FunctionToList(expr)[2])) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("*"), ConcatStrings(TeXForm(n, OperatorLeftPrecedenceGet("*")), "\\cdot ", TeXForm(expr, OpRightPrecedence("*")) ) );
 
 	/* generic binary ops here */
-120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=2 And IsInfix(Type(expr)) ) <-- TeXFormBracketIf(p<OperatorPrecedenceGet(Type(expr)), ConcatStrings(TeXForm(FunctionToList(expr)[2], OpLeftPrecedence(Type(expr))), TeXFormTeXify(Type(expr)), TeXForm(FunctionToList(expr)[3], OpRightPrecedence(Type(expr))) ) );
+120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=2 And IsInfix(Type(expr)) ) <-- TeXFormBracketIf(p<OperatorPrecedenceGet(Type(expr)), ConcatStrings(TeXForm(FunctionToList(expr)[2], OperatorLeftPrecedenceGet(Type(expr))), TeXFormTeXify(Type(expr)), TeXForm(FunctionToList(expr)[3], OpRightPrecedence(Type(expr))) ) );
 
 	/* Template for "regular" unary prefix operators:
 100 # TeXForm(+ _y, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(" + ", TeXForm(y, OpRightPrecedence("+")) ) );
@@ -111,8 +111,8 @@ TeXFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is eq
 	TeXForm(FunctionToList(expr)[2], OpRightPrecedence(Type(expr)))
 ) );
 	/* postfix */
-120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=1 And IsPostfix(Type(expr))) <-- TeXFormBracketIf(p<OpLeftPrecedence(Type(expr)), ConcatStrings(
-	TeXForm(FunctionToList(expr)[2], OpLeftPrecedence(Type(expr))),
+120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=1 And IsPostfix(Type(expr))) <-- TeXFormBracketIf(p<OperatorLeftPrecedenceGet(Type(expr)), ConcatStrings(
+	TeXForm(FunctionToList(expr)[2], OperatorLeftPrecedenceGet(Type(expr))),
 	TeXFormTeXify(Type(expr))
 ) );
 

@@ -70,7 +70,7 @@ LocalSymbols(cformRegularOps) [
 ]; // LocalSymbols(cformRegularOps)
 
 	/* This is the template for "regular" binary infix operators:
-100 # CForm(_x + _y, _p) <-- CFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(CForm(x, OpLeftPrecedence("+")), " + ", CForm(y, OpRightPrecedence("+")) ) );
+100 # CForm(_x + _y, _p) <-- CFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(CForm(x, OperatorLeftPrecedenceGet("+")), " + ", CForm(y, OpRightPrecedence("+")) ) );
 	*/
 
 	/* unary addition */
@@ -120,7 +120,7 @@ LocalSymbols(cformMathFunctions) [
 
 
 120 # CForm(expr_IsFunction, _p)_(NrArgs(expr)=2 And Contains(AssocIndices(CFormRegularOps()), Type(expr)) ) <--
-      CFormBracketIf(p<OperatorPrecedenceGet(Type(expr)), ConcatStrings(CForm(FunctionToList(expr)[2], OpLeftPrecedence(Type(expr))), CFormRegularOps()[Type(expr)], CForm(FunctionToList(expr)[3], OpRightPrecedence(Type(expr))) ) );
+      CFormBracketIf(p<OperatorPrecedenceGet(Type(expr)), ConcatStrings(CForm(FunctionToList(expr)[2], OperatorLeftPrecedenceGet(Type(expr))), CFormRegularOps()[Type(expr)], CForm(FunctionToList(expr)[3], OpRightPrecedence(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */

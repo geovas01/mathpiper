@@ -204,7 +204,7 @@ FormulaBracket(f):=
 2 # Formula(_xx ^ _yy) <--
 [
   Local(l,r);
-  Set(l, BracketOn(Formula(xx),xx,OpLeftPrecedence("^")));
+  Set(l, BracketOn(Formula(xx),xx,OperatorLeftPrecedenceGet("^")));
   Set(r, BracketOn(Formula(yy),yy,OpRightPrecedence("^")));
   MoveOper(l,0,r[4]);
   MoveOper(r,l[3],0);
@@ -294,7 +294,7 @@ FormulaBracket(f):=
 [
   Local(l,r,dash,width);
 /*
-  Set(l, BracketOn(Formula(xx),xx,OpLeftPrecedence("/")));
+  Set(l, BracketOn(Formula(xx),xx,OperatorLeftPrecedenceGet("/")));
   Set(r, BracketOn(Formula(yy),yy,OpRightPrecedence("/")));
 */
   Set(l, Formula(xx));
@@ -324,7 +324,7 @@ Rule("BracketOn",3,2,True)
   Set(l, Formula(f[1]));
   Set(r, Formula(f[2]));
 
-  Set(l, BracketOn(l,f[1],OpLeftPrecedence(Type(f))));
+  Set(l, BracketOn(l,f[1],OperatorLeftPrecedenceGet(Type(f))));
   Set(r, BracketOn(r,f[2],OpRightPrecedence(Type(f))));
 
   Set(oper, Formula(f[0]));
