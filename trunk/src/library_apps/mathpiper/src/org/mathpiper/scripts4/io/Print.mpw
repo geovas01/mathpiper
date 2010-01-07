@@ -22,7 +22,7 @@
   Local(bracket);
   bracket:= (OperatorPrecedenceGet(Type(x)) > n);
   If(bracket,WriteString("("));
-  Print(x[1],OpLeftPrecedence(Type(x)));
+  Print(x[1],OperatorLeftPrecedenceGet(Type(x)));
   Write(x[0]);
   Print(x[2],OpRightPrecedence(Type(x)));
   If(bracket,WriteString(")"));
@@ -43,7 +43,7 @@
   Local(bracket);
   bracket:= (OperatorPrecedenceGet(Type(x)) > n);
   If(bracket,WriteString("("));
-  Print(x[1],OpLeftPrecedence(Type(x)));
+  Print(x[1],OperatorLeftPrecedenceGet(Type(x)));
   Write(x[0]);
   If(bracket,WriteString(")"));
 ];
