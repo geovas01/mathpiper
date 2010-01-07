@@ -25,31 +25,33 @@ Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operat
 - Min -> Minimum
 - Max -> Maximum
 - RandomIntegerVector -> RandomIntegerList.
-b OpPrecedence -> OperatorPrecedenceGet
-b OpLeftPrecedence -> OperatorLeftPrecedenceGet
-b OpRightPrecedence -> OperatorRightPrecedenceGet
-b LeftPrecedence -> LeftPrecedenceSet
-b RightPrecedence -> RightPrecedenceSet
-b RightAssociative -> RightAssociativeSet
-b FullForm -> LispForm
-b Use -> UseScript
-b Load -> LoadScript
-Normalize -> NormalizeVector
-NumRealRoots -> NumberOfRealRoots
+-b OpPrecedence -> PrecedenceGet
+-b OpLeftPrecedence -> LeftPrecedenceGet
+-b OpRightPrecedence -> RightPrecedenceGet
+-b LeftPrecedence -> LeftPrecedenceSet
+-b RightPrecedence -> RightPrecedenceSet
+-b RightAssociative -> RightAssociativeSet
+-b FullForm -> LispForm
+-b Use -> LoadScriptOnce
+-b Load -> LoadScript
+
+NumRealRoots -> RealRootsCount
 
 
 
 
 //Make RuleBase names read more like the name Database does because they are suppose to sound like "database" and operate like a database.
-b RuleBase -> Rulebase
-b MacroRuleBase -> MacroRulebase
-RuleBaseArgList -> RulebaseArgs
-b MacroRuleBase  -> MacroRulebase
-b MacroRuleBaseListed  -> MacroRulebaseListed
+-b RuleBase -> Rulebase
+-b MacroRuleBase -> MacroRulebase
+-b MacroRuleBase  -> MacroRulebase
+-b MacroRuleBaseListed  -> MacroRulebaseListed
+-RuleBaseArgList -> RulebaseArgsList
 
 //In general, spell function names out completely.
 RulebaseArgs -> RulebaseArguments
-NrArgs -> NumberOfArguments
+NrArgs -> ArgumentsCount
+
+HoldArgNr -> HoldArgumentNumber
 
 
 ====== Proposed argument changes.
@@ -59,6 +61,10 @@ Select -> Should the list be the first argument (to match the ordering of most o
 
 
 MM -> MultinomialForm
+Normalize -> NormalizeVector
+FW -> ?
+FWatom -> ?
+
 
 
 ============================= Changes that have already been done.
