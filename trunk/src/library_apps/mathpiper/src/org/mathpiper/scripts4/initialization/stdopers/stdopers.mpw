@@ -23,15 +23,15 @@ RightAssociative(":=");
 
 Infix("+",70);
 Infix("-",70);
-RightPrecedence("-",40);
+RightPrecedenceSet("-",40);
 Infix("/",30);
 Infix("*",40);
 Infix("^",20);
-LeftPrecedence("^",19); //Added to make expressions like x^n^2 unambiguous.
+LeftPrecedenceSet("^",19); //Added to make expressions like x^n^2 unambiguous.
 RightAssociative("^");
 Prefix("+",50);
 Prefix("-",50);
-RightPrecedence("-",40);
+RightPrecedenceSet("-",40);
 Bodied("For",60000);
 Bodied("Until",60000);
 Postfix("++",5);
