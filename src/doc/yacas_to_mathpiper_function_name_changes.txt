@@ -65,6 +65,8 @@ Normalize -> NormalizeVector
 FW -> ?
 FWatom -> ?
 
+All Gets and Sets should be at the end of a function's name.
+
 
 
 ============================= Changes that have already been done.
