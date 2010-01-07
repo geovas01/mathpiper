@@ -77,7 +77,7 @@ Dot1(_t1,_t2,_m,_n) <--
 	Dot(t1,t2)
 	t1 . t2
 Precedence:
-*EVAL OpPrecedence(".")
+*EVAL OperatorPrecedenceGet(".")
 
 *PARMS
 

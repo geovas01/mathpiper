@@ -112,7 +112,7 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(IsEqual(aLeftAssign[0], ToAtom(":
 	var[i] := expr
 	fn(arg1, arg2, ...) := expr
 Precedence:
-*EVAL OpPrecedence(":=")
+*EVAL OperatorPrecedenceGet(":=")
 
 *PARMS
 

@@ -309,7 +309,7 @@ FormulaBracket(f):=
 
 RuleBase("BracketOn",{op,f,prec});
 Rule("BracketOn",3,1,IsFunction(f) And NrArgs(f) = 2
-     And IsInfix(Type(f)) And OpPrecedence(Type(f)) > prec)
+     And IsInfix(Type(f)) And OperatorPrecedenceGet(Type(f)) > prec)
 [
  FormulaBracket(op);
 ];
