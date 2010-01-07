@@ -71,9 +71,9 @@ TryRandomRoots(5,5,1000);  sl();
 Verify(MinimumBound(4),-Infinity); sl();
 Verify(MaximumBound(4),Infinity);  sl();
 
-// NumRealRoots
-Verify(NumRealRoots(x^2-1),2);     sl();
-Verify(NumRealRoots(x^2+1),0);     sl();
+// RealRootsCount
+Verify(RealRootsCount(x^2-1),2);     sl();
+Verify(RealRootsCount(x^2+1),0);     sl();
 
 [
   Local(p);
@@ -81,7 +81,7 @@ Verify(NumRealRoots(x^2+1),0);     sl();
   Verify(VerifyZero(p . p),True);
 ];
 Verify(FindRealRoots((x^2+20)*(x^2+10)),{});
-Verify(NumRealRoots((x^2+20)*(x^2+10)),0);
+Verify(RealRootsCount((x^2+20)*(x^2+10)),0);
 
 sl();
 
