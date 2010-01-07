@@ -70,14 +70,14 @@ LocalSymbols(cformRegularOps) [
 ]; // LocalSymbols(cformRegularOps)
 
 	/* This is the template for "regular" binary infix operators:
-100 # CForm(_x + _y, _p) <-- CFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(CForm(x, OperatorLeftPrecedenceGet("+")), " + ", CForm(y, OpRightPrecedence("+")) ) );
+100 # CForm(_x + _y, _p) <-- CFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(CForm(x, OperatorLeftPrecedenceGet("+")), " + ", CForm(y, OperatorRightPrecedenceGet("+")) ) );
 	*/
 
 	/* unary addition */
-100 # CForm(+ _y, _p) <-- CFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(" + ", CForm(y, OpRightPrecedence("+")) ) );
+100 # CForm(+ _y, _p) <-- CFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(" + ", CForm(y, OperatorRightPrecedenceGet("+")) ) );
 
 	/* unary subtraction */
-100 # CForm(- _y, _p) <-- CFormBracketIf(p<OperatorPrecedenceGet("-"), ConcatStrings(" - ", CForm(y, OpRightPrecedence("-")) ) );
+100 # CForm(- _y, _p) <-- CFormBracketIf(p<OperatorPrecedenceGet("-"), ConcatStrings(" - ", CForm(y, OperatorRightPrecedenceGet("-")) ) );
 
 	/* power's argument is never bracketed but it must be put in braces. */
 100 # CForm(_x ^ _y, _p) <-- CFormBracketIf(p<=OperatorPrecedenceGet("^"), ConcatStrings("pow(", CForm(x, CFormMaxPrec()), ", ", CForm(y, CFormMaxPrec()), ")" ) );
@@ -120,7 +120,7 @@ LocalSymbols(cformMathFunctions) [
 
 
 120 # CForm(expr_IsFunction, _p)_(NrArgs(expr)=2 And Contains(AssocIndices(CFormRegularOps()), Type(expr)) ) <--
-      CFormBracketIf(p<OperatorPrecedenceGet(Type(expr)), ConcatStrings(CForm(FunctionToList(expr)[2], OperatorLeftPrecedenceGet(Type(expr))), CFormRegularOps()[Type(expr)], CForm(FunctionToList(expr)[3], OpRightPrecedence(Type(expr))) ) );
+      CFormBracketIf(p<OperatorPrecedenceGet(Type(expr)), ConcatStrings(CForm(FunctionToList(expr)[2], OperatorLeftPrecedenceGet(Type(expr))), CFormRegularOps()[Type(expr)], CForm(FunctionToList(expr)[3], OperatorRightPrecedenceGet(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
