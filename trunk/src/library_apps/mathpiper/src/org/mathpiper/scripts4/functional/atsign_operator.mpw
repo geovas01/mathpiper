@@ -1,6 +1,6 @@
 %mathpiper,def="@"
 
-RuleBase("@",{func,arg});
+Rulebase("@",{func,arg});
 Rule("@",2,1,IsList(arg)) Apply(func,arg);
 Rule("@",2,2,True       ) Apply(func,{arg});
 

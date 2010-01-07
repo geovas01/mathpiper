@@ -2,7 +2,7 @@
 
 Retract("Manipulate",*);
 
-RuleBase("Manipulate",{symbolicEquation});
+Rulebase("Manipulate",{symbolicEquation});
 HoldArg("Manipulate",symbolicEquation);
 10 # Manipulate(_symbolicEquation)_HasFunc(Eval(symbolicEquation), "==") <--
 [

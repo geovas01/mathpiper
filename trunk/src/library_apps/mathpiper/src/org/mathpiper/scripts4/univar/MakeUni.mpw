@@ -3,7 +3,7 @@
 Function("MakeUni",{expression}) MakeUni(expression,UniVarList(expression));
 
 /* Convert normal form to univariate expression */
-RuleBase("MakeUni",{expression,var});
+Rulebase("MakeUni",{expression,var});
 
 5 # MakeUni(_expr,{}) <-- UniVariate(dummyvar,0,{expression});
 6 # MakeUni(_expr,var_IsList) <--

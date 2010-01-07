@@ -19,12 +19,12 @@ OMEchoEscape
    than zero, only that number of iterations will be performed before
    exiting. This is particularly useful when connecting to MathPiper via pipes.
 */
-RuleBase("OMREP",{});
+Rulebase("OMREP",{});
 Rule("OMREP",0,1,True)
 [
   OMREP(0);// 0 means keep repeating, as usual.
 ];
-RuleBase("OMREP",{count});
+Rulebase("OMREP",{count});
 LocalSymbols(input,stringOut,result)
 Rule("OMREP",1,1,True)
 [

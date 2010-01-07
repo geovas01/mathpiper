@@ -13,7 +13,7 @@ Retract("Repeat",*);
 LocalSymbols(count, iterations, body)[
 
 
-RuleBase("Repeat",{iterations,body});
+Rulebase("Repeat",{iterations,body});
 
 /*
   A Rule function needed to be used here because 10 # xxx <--
@@ -44,7 +44,7 @@ Rule("Repeat",2,10,IsInteger(iterations) And iterations > 0)
 
 
 
-RuleBase("Repeat",{body});
+Rulebase("Repeat",{body});
 
 
 Rule("Repeat",1,20,True)

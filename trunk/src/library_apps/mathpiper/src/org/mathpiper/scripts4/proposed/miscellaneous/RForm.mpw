@@ -7,8 +7,8 @@ Retract("RIndent",*);
 Retract("RUndent",*);
 Retract("RNlIndented",*); 
 
-RuleBase("RForm",{expression});
-RuleBase("RForm",{expression, precedence});
+Rulebase("RForm",{expression});
+Rulebase("RForm",{expression, precedence});
 
 Function ("RFormBracketIf", {predicate, string})
 [

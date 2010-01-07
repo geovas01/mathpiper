@@ -2,7 +2,7 @@
 
 // this will "unhold" a variable - used to make sure that := with Eval()
 // immediately on the right hand side evaluates its argument
-RuleBase("UnHoldable",{var});
+Rulebase("UnHoldable",{var});
 HoldArg("UnHoldable",var);
 UnFence("UnHoldable",1);
 Rule("UnHoldable",1,10,IsEqual(Type(Eval(var)),"Eval"))

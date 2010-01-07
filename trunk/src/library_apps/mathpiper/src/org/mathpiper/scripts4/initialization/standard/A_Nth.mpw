@@ -1,7 +1,7 @@
 %mathpiper,def="Nth"
 
 /* Implementation of Nth that allows extending. */
-RuleBase("Nth",{alist,aindex});
+Rulebase("Nth",{alist,aindex});
 Rule("Nth",2,10,
     And(IsEqual(IsFunction(alist),True),
             IsEqual(IsInteger(aindex),True),

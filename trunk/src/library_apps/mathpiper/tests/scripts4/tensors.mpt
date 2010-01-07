@@ -8,7 +8,7 @@ TestMathPiper(TSimplify( TSum({j,i}) Delta(i,j)*Delta(j,i) ), Ndim);
 TestMathPiper(TSimplify( TSum({j}) Delta(i,j)*Delta(j,k) ), Delta(i,k));
 TestMathPiper(TSimplify( TSum({i}) v(i)*v(i) ), TSum({i})(v(i)^2));
 Retract("v",1);
-RuleBase("v",{ii});
+Rulebase("v",{ii});
 f(i,j):=v(i)*v(j);
 TestMathPiper(f(i,i),v(i)^2);
 TestMathPiper(TSimplify( TSum({i}) f(i,i) ),TSum({i})(v(i)^2));

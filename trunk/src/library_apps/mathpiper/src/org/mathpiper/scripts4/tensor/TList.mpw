@@ -3,7 +3,7 @@
 /* Tensor package. This code intends to simplify tensorial expressions.
  */
 
-RuleBase("TList",{head,tail});
+Rulebase("TList",{head,tail});
 
 //Not defined in the scripts. todo:tk.
 

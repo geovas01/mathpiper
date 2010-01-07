@@ -10,7 +10,7 @@
   Write(item);Space();
 ];
 
-RuleBaseListed("Echo",{args});
+RulebaseListed("Echo",{args});
 10 # Echo(list_IsList)<--
 [
   ForEach(item,list) EchoInternal(item);
@@ -78,5 +78,5 @@ print a list:
 	{a,b,c}
 	Out> True;
 
-*SEE PrettyForm, Write, WriteString, RuleBaseListed
+*SEE PrettyForm, Write, WriteString, RulebaseListed
 %/mathpiper_docs

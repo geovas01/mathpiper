@@ -1,6 +1,6 @@
 %mathpiper,def="if"
 
-RuleBase("if",{predicate,body});
+Rulebase("if",{predicate,body});
 
 (if(True) _body) <-- Eval(body);
 

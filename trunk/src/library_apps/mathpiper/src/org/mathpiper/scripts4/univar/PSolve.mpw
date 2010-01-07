@@ -1,6 +1,6 @@
 %mathpiper,def="PSolve"
 
-RuleBase("PSolve",{uni});
+Rulebase("PSolve",{uni});
 
 Rule("PSolve",1,1,IsUniVar(uni) And Degree(uni) = 1)
     -Coef(uni,0)/Coef(uni,1);

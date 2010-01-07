@@ -1,7 +1,7 @@
 %mathpiper,def=":="
 
 /* := assignment. */
-RuleBase(":=",{aLeftAssign,aRightAssign});
+Rulebase(":=",{aLeftAssign,aRightAssign});
 UnFence(":=",2);
 HoldArg(":=",aLeftAssign);
 HoldArg(":=",aRightAssign);
@@ -26,7 +26,7 @@ Rule(":=",2,0,IsList(aLeftAssign))
 ];
 
 // auxiliary function to help assign arrays using :=
-RuleBase("AssignArray",{setlistterm,setlistindex,setlistresult});
+Rulebase("AssignArray",{setlistterm,setlistindex,setlistresult});
 UnFence("AssignArray",3);
 Rule("AssignArray",3,1,IsString(setlistindex))
 [
@@ -86,13 +86,13 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(IsEqual(aLeftAssign[0], ToAtom(":
 	  DestructiveDelete(args,Length(args));	// remove trailing "..."
 	  Set(arity,Length(args));
 	  Retract(oper,arity);
-	  MacroRuleBaseListed(oper, args);
+	  MacroRulebaseListed(oper, args);
 	],
 	// function with a fixed number of arguments
 	[
 	  Set(arity,Length(args));
 	  Retract(oper,arity);
-	  MacroRuleBase(oper, args);
+	  MacroRulebase(oper, args);
 	]
   );
   UnHoldable(aRightAssign);

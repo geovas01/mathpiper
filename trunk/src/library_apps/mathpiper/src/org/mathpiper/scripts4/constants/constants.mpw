@@ -26,7 +26,7 @@ LocalSymbols(CacheOfConstantsN) [
 
 /// declare a new cached constant C'atom and its associated function C'atom().
 /// C'atom() will call C'func() at current precision to evaluate C'atom if it has not yet been cached at that precision. (note: any arguments to C'func() must be included)
-RuleBase("CachedConstant", {C'cache, C'atom, C'func});
+Rulebase("CachedConstant", {C'cache, C'atom, C'func});
 UnFence("CachedConstant", 3);	// not sure if this is useful
 HoldArg("CachedConstant", C'func);
 HoldArg("CachedConstant", C'cache);	// name of the cache
@@ -55,7 +55,7 @@ Rule("CachedConstant", 3, 10, And(IsAtom(C'atom), IsFunction(C'func)))
 		// define the new function "C'atom"()
 		// note: this should not use N() because it may be called from inside N() itself
 
-		MacroRuleBase(C'functionName, {});
+		MacroRulebase(C'functionName, {});
 		`( Rule(@C'functionName, 0, 1024, True)
 		[
 			Local(new'prec, new'C, cached'C);

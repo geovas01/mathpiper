@@ -1,7 +1,7 @@
 %mathpiper,def="VarListAll"
 
 /*
- * RuleBase for VarListAll: recursively traverse an expression looking
+ * Rulebase for VarListAll: recursively traverse an expression looking
  * up all variables the expression depends on.
  */
 /* Accept any variable. */

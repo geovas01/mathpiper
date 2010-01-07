@@ -42,8 +42,8 @@ TexForm
 /// TeXmacs prettyprinter
 TexForm(_expr) <-- [DumpErrors();WriteString(TeXForm(expr));NewLine();];
 
-RuleBase("TeXForm",{expression});
-RuleBase("TeXForm",{expression, precedence});
+Rulebase("TeXForm",{expression});
+Rulebase("TeXForm",{expression, precedence});
 
 /* Boolean predicate */
 

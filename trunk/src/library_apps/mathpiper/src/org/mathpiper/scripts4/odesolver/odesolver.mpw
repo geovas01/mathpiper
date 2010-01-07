@@ -61,7 +61,7 @@ OdeConstantList(n_IsInteger) <--
 ];
 
 
-RuleBase("OdeTerm",{px,list});
+Rulebase("OdeTerm",{px,list});
 
 /*5 # OdeFlatTerm(_x)_[Echo({x});False;] <-- True; */
 
