@@ -33,7 +33,7 @@ Function("CrossProduct",{aLeft,aRight})
 	CrossProduct(a,b)
 	a X b
 Precedence:
-*EVAL OpPrecedence("X")
+*EVAL OperatorPrecedenceGet("X")
 
 *PARMS
 

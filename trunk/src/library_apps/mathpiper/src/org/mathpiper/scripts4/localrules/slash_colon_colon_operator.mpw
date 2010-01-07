@@ -31,7 +31,7 @@
 	expression /: patterns
 	expressions /:: patterns
 Precedence:
-*EVAL OpPrecedence("/:")
+*EVAL OperatorPrecedenceGet("/:")
 
 
 *PARMS

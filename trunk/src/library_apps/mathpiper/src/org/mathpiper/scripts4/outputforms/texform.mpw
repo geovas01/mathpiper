@@ -88,25 +88,25 @@ TeXFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is eq
 
 
 	/* Template for "regular" binary infix operators:
-100 # TeXForm(_x + _y, _p) <-- TeXFormBracketIf(p<OpPrecedence("+"), ConcatStrings(TeXForm(x, OpLeftPrecedence("+")), " + ", TeXForm(y, OpRightPrecedence("+")) ) );
+100 # TeXForm(_x + _y, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(TeXForm(x, OpLeftPrecedence("+")), " + ", TeXForm(y, OpRightPrecedence("+")) ) );
 	*/
 // special cases: things like x*2 and 2*10^x look ugly without a period
 // cases like x*2
-115 # TeXForm(_expr * n_IsNumber, _p) <-- TeXFormBracketIf(p<OpPrecedence("*"), ConcatStrings(TeXForm(expr, OpLeftPrecedence("*")), "\\cdot ", TeXForm(n, OpRightPrecedence("*")) ) );
+115 # TeXForm(_expr * n_IsNumber, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("*"), ConcatStrings(TeXForm(expr, OpLeftPrecedence("*")), "\\cdot ", TeXForm(n, OpRightPrecedence("*")) ) );
 // cases like a*20! and a*10^x
-116 # TeXForm(_n * _expr, _p) _ (IsFunction(expr) And Contains({"^", "!", "!!"}, Type(expr)) And IsNumber(FunctionToList(expr)[2])) <-- TeXFormBracketIf(p<OpPrecedence("*"), ConcatStrings(TeXForm(n, OpLeftPrecedence("*")), "\\cdot ", TeXForm(expr, OpRightPrecedence("*")) ) );
+116 # TeXForm(_n * _expr, _p) _ (IsFunction(expr) And Contains({"^", "!", "!!"}, Type(expr)) And IsNumber(FunctionToList(expr)[2])) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("*"), ConcatStrings(TeXForm(n, OpLeftPrecedence("*")), "\\cdot ", TeXForm(expr, OpRightPrecedence("*")) ) );
 
 	/* generic binary ops here */
-120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=2 And IsInfix(Type(expr)) ) <-- TeXFormBracketIf(p<OpPrecedence(Type(expr)), ConcatStrings(TeXForm(FunctionToList(expr)[2], OpLeftPrecedence(Type(expr))), TeXFormTeXify(Type(expr)), TeXForm(FunctionToList(expr)[3], OpRightPrecedence(Type(expr))) ) );
+120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=2 And IsInfix(Type(expr)) ) <-- TeXFormBracketIf(p<OperatorPrecedenceGet(Type(expr)), ConcatStrings(TeXForm(FunctionToList(expr)[2], OpLeftPrecedence(Type(expr))), TeXFormTeXify(Type(expr)), TeXForm(FunctionToList(expr)[3], OpRightPrecedence(Type(expr))) ) );
 
 	/* Template for "regular" unary prefix operators:
-100 # TeXForm(+ _y, _p) <-- TeXFormBracketIf(p<OpPrecedence("+"), ConcatStrings(" + ", TeXForm(y, OpRightPrecedence("+")) ) );
+100 # TeXForm(+ _y, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("+"), ConcatStrings(" + ", TeXForm(y, OpRightPrecedence("+")) ) );
 	Note that OpRightPrecedence needs to be defined for prefix ops or else we won't be able to tell combined prefix/infix ops like "-" from strictly prefix ops.
 	*/
 
 	/* generic unary ops here */
 	/* prefix */
-120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=1 And IsPrefix(Type(expr))) <-- TeXFormBracketIf(p<OpPrecedence(Type(expr)), ConcatStrings(
+120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=1 And IsPrefix(Type(expr))) <-- TeXFormBracketIf(p<OperatorPrecedenceGet(Type(expr)), ConcatStrings(
 	TeXFormTeXify(Type(expr)),
 	TeXForm(FunctionToList(expr)[2], OpRightPrecedence(Type(expr)))
 ) );
@@ -117,14 +117,14 @@ TeXFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is eq
 ) );
 
 	/* fraction and its operands are never bracketed except when they are under power */
-100 # TeXForm(_x / _y, _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings("\\frac{", TeXForm(x, TeXFormMaxPrec()), "}{", TeXForm(y, TeXFormMaxPrec()), "} ") );
+100 # TeXForm(_x / _y, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings("\\frac{", TeXForm(x, TeXFormMaxPrec()), "}{", TeXForm(y, TeXFormMaxPrec()), "} ") );
 
 	/* power's argument is never bracketed but it must be put in braces. Chained powers must be bracketed. Powers of 1/n are displayed as roots. */
 100 # TeXForm(_x ^ (1/2), _p) <-- ConcatStrings("\\sqrt{", TeXForm(x, TeXFormMaxPrec()), "}");
 101 # TeXForm(_x ^ (1/_y), _p) <-- ConcatStrings("\\sqrt[", TeXForm(y, TeXFormMaxPrec()), "]{", TeXForm(x, TeXFormMaxPrec()), "}");
 
 
-120 # TeXForm(_x ^ _y, _p) <-- TeXFormBracketIf(p<=OpPrecedence("^"), ConcatStrings(TeXForm(x, OpPrecedence("^")), " ^{", TeXForm(y, TeXFormMaxPrec()), "}" ) );
+120 # TeXForm(_x ^ _y, _p) <-- TeXFormBracketIf(p<=OperatorPrecedenceGet("^"), ConcatStrings(TeXForm(x, OperatorPrecedenceGet("^")), " ^{", TeXForm(y, TeXFormMaxPrec()), "}" ) );
 
 /* functions */
 
@@ -200,8 +200,8 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
 	func := Type(x);
 	args := Rest(FunctionToList(x));
 	last'arg := PopBack(args);
-	TeXFormBracketIf(p<OpPrecedence(func), ConcatStrings(
-	  TeXFormTeXify(func), TeXForm(args, TeXFormMaxPrec()),  TeXForm(last'arg, OpPrecedence(func))
+	TeXFormBracketIf(p<OperatorPrecedenceGet(func), ConcatStrings(
+	  TeXFormTeXify(func), TeXForm(args, TeXFormMaxPrec()),  TeXForm(last'arg, OperatorPrecedenceGet(func))
 	));
 ];
 
@@ -215,7 +215,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
 100 # TeXForm(Sqrt(_x), _p) <-- ConcatStrings("\\sqrt{", TeXForm(x, TeXFormMaxPrec()), "}");
 
 	/* Always bracket Exp's arguments */
-100 # TeXForm(Exp(_x), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings("\\exp ", TeXFormBracketIf(True, TeXForm(x, TeXFormMaxPrec())) ) );
+100 # TeXForm(Exp(_x), _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings("\\exp ", TeXFormBracketIf(True, TeXForm(x, TeXFormMaxPrec())) ) );
 
 
 LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
@@ -239,10 +239,10 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
   /* Precedence of 120 because we'd like to process other functions like sqrt or exp first */
 
   // generic math functions of one argument
-  120 # TeXForm(expr_IsFunction, _p) _ (NrArgs(expr)=1 And Contains(AssocIndices(TeXFormMathFunctions), Type(expr)) ) <-- TeXFormBracketIf(p<OpPrecedence("*"), ConcatStrings(TeXFormMathFunctions[Type(expr)], TeXForm( FunctionToList(expr)[2], OpPrecedence("*")) ) );
+  120 # TeXForm(expr_IsFunction, _p) _ (NrArgs(expr)=1 And Contains(AssocIndices(TeXFormMathFunctions), Type(expr)) ) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("*"), ConcatStrings(TeXFormMathFunctions[Type(expr)], TeXForm( FunctionToList(expr)[2], OperatorPrecedenceGet("*")) ) );
 
   /// math functions two arguments of the form $A_n(x)$
-  120 # TeXForm(expr_IsFunction, _p) _ (NrArgs(expr)=2 And Contains(AssocIndices(TeXFormMathFunctions2), Type(expr)) ) <-- TeXFormBracketIf(p<OpPrecedence("*"),
+  120 # TeXForm(expr_IsFunction, _p) _ (NrArgs(expr)=2 And Contains(AssocIndices(TeXFormMathFunctions2), Type(expr)) ) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("*"),
     ConcatStrings(
     TeXFormMathFunctions2[Type(expr)],
     "_{",
@@ -270,17 +270,17 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
 
 /* Some functions which are displayed as infix: Mod, Union, Intersection, Difference, Contains */
 
-100 # TeXForm(Modulo(_x, _y), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings(TeXForm(x, OpPrecedence("/")), "\\bmod ", TeXForm(y, OpPrecedence("/")) ) );
+100 # TeXForm(Modulo(_x, _y), _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings(TeXForm(x, OperatorPrecedenceGet("/")), "\\bmod ", TeXForm(y, OperatorPrecedenceGet("/")) ) );
 
-100 # TeXForm(Union(_x, _y), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings(TeXForm(x, OpPrecedence("/")), "\\cup ", TeXForm(y, OpPrecedence("/")) ) );
+100 # TeXForm(Union(_x, _y), _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings(TeXForm(x, OperatorPrecedenceGet("/")), "\\cup ", TeXForm(y, OperatorPrecedenceGet("/")) ) );
 
-100 # TeXForm(Intersection(_x, _y), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings(TeXForm(x, OpPrecedence("/")), "\\cap ", TeXForm(y, OpPrecedence("/")) ) );
+100 # TeXForm(Intersection(_x, _y), _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings(TeXForm(x, OperatorPrecedenceGet("/")), "\\cap ", TeXForm(y, OperatorPrecedenceGet("/")) ) );
 
-100 # TeXForm(Difference(_x, _y), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings(TeXForm(x, OpPrecedence("/")), "\\setminus ", TeXForm(y, OpPrecedence("/")) ) );
+100 # TeXForm(Difference(_x, _y), _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings(TeXForm(x, OperatorPrecedenceGet("/")), "\\setminus ", TeXForm(y, OperatorPrecedenceGet("/")) ) );
 
 /* "Contains" is displayed right to left */
 
-100 # TeXForm(Contains(_x, _y), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings(TeXForm(y, OpPrecedence("/")), "\\in ", TeXForm(x, OpPrecedence("/")) ) );
+100 # TeXForm(Contains(_x, _y), _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings(TeXForm(y, OperatorPrecedenceGet("/")), "\\in ", TeXForm(x, OperatorPrecedenceGet("/")) ) );
 
 /// Binomial coefficients: always bracketed
 100 # TeXForm(BinomialCoefficient(_n, _m), _p) <-- TeXFormBracketIf(False, ConcatStrings("{", TeXForm(n, TeXFormMaxPrec()), " \\choose ", TeXForm(m, TeXFormMaxPrec()), "}" )
@@ -288,34 +288,34 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
 
 /* Some functions with limits: Lim, Sum, Integrate */
 
-100 # TeXForm(Sum(_x, _x1, _x2, _expr), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings("\\sum _{", TeXForm(x, TeXFormMaxPrec()), " = ", TeXForm(x1, TeXFormMaxPrec()), "} ^{", TeXForm(x2, TeXFormMaxPrec()), "} ", TeXForm(expr, OpPrecedence("*")) ) );
+100 # TeXForm(Sum(_x, _x1, _x2, _expr), _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings("\\sum _{", TeXForm(x, TeXFormMaxPrec()), " = ", TeXForm(x1, TeXFormMaxPrec()), "} ^{", TeXForm(x2, TeXFormMaxPrec()), "} ", TeXForm(expr, OperatorPrecedenceGet("*")) ) );
 
-100 # TeXForm(Product(_x, _x1, _x2, _expr), _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings("\\prod _{", TeXForm(x, TeXFormMaxPrec()), " = ", TeXForm(x1, TeXFormMaxPrec()), "} ^{", TeXForm(x2, TeXFormMaxPrec()), "} ", TeXForm(expr, OpPrecedence("*")) ) );
+100 # TeXForm(Product(_x, _x1, _x2, _expr), _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings("\\prod _{", TeXForm(x, TeXFormMaxPrec()), " = ", TeXForm(x1, TeXFormMaxPrec()), "} ^{", TeXForm(x2, TeXFormMaxPrec()), "} ", TeXForm(expr, OperatorPrecedenceGet("*")) ) );
 
-100 # TeXForm(Integrate(_x, _x1, _x2) _expr, _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings(
-"\\int _{", TeXForm(x1, TeXFormMaxPrec()), "} ^{", TeXForm(x2, TeXFormMaxPrec()), " } ", TeXForm(expr, OpPrecedence("*")), " d", TeXForm(x, TeXFormMaxPrec())
+100 # TeXForm(Integrate(_x, _x1, _x2) _expr, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings(
+"\\int _{", TeXForm(x1, TeXFormMaxPrec()), "} ^{", TeXForm(x2, TeXFormMaxPrec()), " } ", TeXForm(expr, OperatorPrecedenceGet("*")), " d", TeXForm(x, TeXFormMaxPrec())
 ) );
 
 /* indeterminate integration */
-100 # TeXForm(Integrate(_x) _expr, _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings(
-"\\int ", TeXForm(expr, OpPrecedence("*")), " d", TeXForm(x, TeXFormMaxPrec())
+100 # TeXForm(Integrate(_x) _expr, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings(
+"\\int ", TeXForm(expr, OperatorPrecedenceGet("*")), " d", TeXForm(x, TeXFormMaxPrec())
 ) );
 
-100 # TeXForm(Limit(_x, _x1) _expr, _p) <-- TeXFormBracketIf(p<OpPrecedence("/"), ConcatStrings("\\lim _{", TeXForm(x, TeXFormMaxPrec()), "\\rightarrow ", TeXForm(x1, TeXFormMaxPrec()), "} ", TeXForm(expr, OpPrecedence("/")) ) );
+100 # TeXForm(Limit(_x, _x1) _expr, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("/"), ConcatStrings("\\lim _{", TeXForm(x, TeXFormMaxPrec()), "\\rightarrow ", TeXForm(x1, TeXFormMaxPrec()), "} ", TeXForm(expr, OperatorPrecedenceGet("/")) ) );
 
 /* Derivatives */
 
 /* Use partial derivative only when the expression has several variables */
-100 # TeXForm(Deriv(_x)_y, _p) <-- TeXFormBracketIf(p<OpPrecedence("-"), ConcatStrings(
+100 # TeXForm(Deriv(_x)_y, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("-"), ConcatStrings(
 	If(Length(VarList(y))>1, "\\frac{\\partial}{\\partial ", "\\frac{d}{d "
-	), TeXForm(x, OpPrecedence("^")), "}", TeXForm(y, OpPrecedence("/")) ) );
+	), TeXForm(x, OperatorPrecedenceGet("^")), "}", TeXForm(y, OperatorPrecedenceGet("/")) ) );
 
-100 # TeXForm(Deriv(_x, _n)_y, _p) <-- TeXFormBracketIf(p<OpPrecedence("-"), ConcatStrings(
+100 # TeXForm(Deriv(_x, _n)_y, _p) <-- TeXFormBracketIf(p<OperatorPrecedenceGet("-"), ConcatStrings(
 	If(
 		Length(VarList(y))>1,
 		"\\frac{\\partial^" : TeXForm(n, TeXFormMaxPrec()) : "}{\\partial ",
 		"\\frac{d^" : TeXForm(n, TeXFormMaxPrec()) : "}{d "
-	), TeXForm(x, OpPrecedence("^")), " ^", TeXForm(n, TeXFormMaxPrec()), "}", TeXForm(y, OpPrecedence("/")) ) );
+	), TeXForm(x, OperatorPrecedenceGet("^")), " ^", TeXForm(n, TeXFormMaxPrec()), "}", TeXForm(y, OperatorPrecedenceGet("/")) ) );
 100 # TeXForm(Differentiate(_x)_y, _p) <-- TeXForm(Deriv(x) y, p);
 100 # TeXForm(Differentiate(_x, _n)_y, _p) <-- TeXForm(Deriv(x, n) y, p);
 

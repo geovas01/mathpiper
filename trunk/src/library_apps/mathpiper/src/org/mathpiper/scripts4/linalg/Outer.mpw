@@ -24,7 +24,7 @@ Outer(t1_IsVector, t2_IsVector) <--
 	Outer(t1,t2)
 	t1 o t2
 Precedence:
-*EVAL OpPrecedence("o")
+*EVAL OperatorPrecedenceGet("o")
 
 *PARMS
 
