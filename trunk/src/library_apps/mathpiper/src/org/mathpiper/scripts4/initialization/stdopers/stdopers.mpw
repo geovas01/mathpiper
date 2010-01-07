@@ -9,7 +9,7 @@
 
 Infix("=",90);
 Infix("And",1000);
-RightAssociative("And");
+RightAssociativeSet("And");
 Infix("Or", 1010);
 Prefix("Not", 100);
 Infix("<",90);
@@ -19,7 +19,7 @@ Infix(">=",90);
 Infix("!=",90);
 
 Infix(":=",10000);
-RightAssociative(":=");
+RightAssociativeSet(":=");
 
 Infix("+",70);
 Infix("-",70);
@@ -28,7 +28,7 @@ Infix("/",30);
 Infix("*",40);
 Infix("^",20);
 LeftPrecedenceSet("^",19); //Added to make expressions like x^n^2 unambiguous.
-RightAssociative("^");
+RightAssociativeSet("^");
 Prefix("+",50);
 Prefix("-",50);
 RightPrecedenceSet("-",40);
@@ -59,7 +59,7 @@ Infix("->",600);
 
 /* functional operators */
 Infix(":",70);
-RightAssociative(":");
+RightAssociativeSet(":");
 Infix("@",600);
 Infix("/@",600);
 Infix("..",600);
@@ -87,7 +87,7 @@ Infix("=>",10000); /* implication, read as 'implies' */
 
 Bodied("if",5);
 Infix("else",60000);
-RightAssociative("else");
+RightAssociativeSet("else");
 /* Bitwise operations we REALLY need. Perhaps we should define them
    also as MathPiper operators?
  */
