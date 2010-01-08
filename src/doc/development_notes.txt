@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ The InconpleteGamma function locks up with this input IncompleteGamma(.9/2,4).
 + The following is a bug from the Yacas list: I believe that Yacas may be incorrectly evaluating the integral of the
 square root of x, as the derivative of of the integral square root of
 x dose not return the the square root of x.
