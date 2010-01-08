@@ -11,10 +11,10 @@ TemplateFunction("For",{start,predicate,increment,body})
   ];
 ];
 UnFence("For",4);
-HoldArgNr("For",4,1);
-HoldArgNr("For",4,2);
-HoldArgNr("For",4,3);
-HoldArgNr("For",4,4);
+HoldArgumentNumber("For",4,1);
+HoldArgumentNumber("For",4,2);
+HoldArgumentNumber("For",4,3);
+HoldArgumentNumber("For",4,4);
 
 %/mathpiper
 

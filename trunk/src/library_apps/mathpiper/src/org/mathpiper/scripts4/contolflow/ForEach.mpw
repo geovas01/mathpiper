@@ -44,8 +44,8 @@ TemplateFunction("ForEach",{item,listOrString,body})
     ]);
 ];
 UnFence("ForEach",3);
-HoldArgNr("ForEach",3,1);
-HoldArgNr("ForEach",3,3);
+HoldArgumentNumber("ForEach",3,1);
+HoldArgumentNumber("ForEach",3,3);
 
 %/mathpiper
 

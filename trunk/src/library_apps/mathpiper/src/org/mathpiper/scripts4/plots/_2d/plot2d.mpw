@@ -149,9 +149,9 @@ Function() Plot2D(func, range, options, ...);
 
 //HoldArg("Plot2D", range);
 //HoldArg("Plot2D", options);
-HoldArgNr("Plot2D", 2, 2);
-HoldArgNr("Plot2D", 3, 2);
-HoldArgNr("Plot2D", 3, 3);
+HoldArgumentNumber("Plot2D", 2, 2);
+HoldArgumentNumber("Plot2D", 3, 2);
+HoldArgumentNumber("Plot2D", 3, 3);
 
 
 

@@ -1,6 +1,6 @@
-%mathpiper,def="HoldArgNr"
+%mathpiper,def="HoldArgumentNumber"
 
-Function("HoldArgNr",{function,arity,index})
+Function("HoldArgumentNumber",{function,arity,index})
 [
   Local(args);
   args:=RulebaseArgumentsList(function,arity);
@@ -12,11 +12,11 @@ Function("HoldArgNr",{function,arity,index})
 
 
 
-%mathpiper_docs,name="HoldArgNr"
-*CMD HoldArgNr --- specify argument as not evaluated
+%mathpiper_docs,name="HoldArgumentNumber"
+*CMD HoldArgumentNumber --- specify argument as not evaluated
 *STD
 *CALL
-	HoldArgNr("function", arity, argNum)
+	HoldArgumentNumber("function", arity, argNum)
 
 *PARMS
 {"function"} -- string, function name

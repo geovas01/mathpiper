@@ -271,9 +271,9 @@ OMEchoEscape(expression_IsList) <--
 ];
 
 
-HoldArgNr("OMForm",1,1);
-//HoldArgNr("OMFormExpression",1,1);
-//HoldArgNr("OMFormFunction",1,1);
+HoldArgumentNumber("OMForm",1,1);
+//HoldArgumentNumber("OMFormExpression",1,1);
+//HoldArgumentNumber("OMFormFunction",1,1);
 
 
 OMSignature(_function) <-- "";
@@ -299,7 +299,7 @@ OMSignature(function_IsFunction) <--
   ];
   Secure(Eval(ListToFunction(makeSig)));
 ];
-HoldArgNr("OMSignature", 1, 1);
+HoldArgumentNumber("OMSignature", 1, 1);
 
 
 
@@ -532,7 +532,7 @@ PipeFromString(str:" EndOfFile")
        Undefined);
   expression;
 ];
-HoldArgNr("OMPathSelect", 2, 2);
+HoldArgumentNumber("OMPathSelect", 2, 2);
 
 // Previously, any unknown symbols where reported as errors.
 // Now, we just store them as OMS(cd, name) since MathPiper is perfectly happy
@@ -646,8 +646,8 @@ OMDef(piperalias_IsString, pipername_IsString) <--
 [
   OMSymbol()[ piperalias ] := OMSymbol()[ pipername ];
 ];
-HoldArgNr("OMDef", 5, 4);
-HoldArgNr("OMDef", 5, 5);
+HoldArgumentNumber("OMDef", 5, 4);
+HoldArgumentNumber("OMDef", 5, 5);
 
 // Many objects, such as matrices and sets, do not have a specific
 // encoding in MathPiper, but are represented as lists.

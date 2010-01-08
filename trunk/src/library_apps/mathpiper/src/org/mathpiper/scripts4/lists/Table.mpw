@@ -2,7 +2,7 @@
 
 /* Juan: TemplateFunction (as defined in the file "deffunc")
  * also makes the arguments to the function local symbols.
- * Use HoldArgNr to specify the index of a variable to hold
+ * Use HoldArgumentNumber to specify the index of a variable to hold
  * (since they are defined as local symbols).
  */
 
@@ -21,8 +21,8 @@ TemplateFunction("Table",{body,var,count'from,count'to,step})
       ];
     DestructiveReverse(result);
   ];
-HoldArgNr("Table",5,1); /* body */
-HoldArgNr("Table",5,2); /* var */
+HoldArgumentNumber("Table",5,1); /* body */
+HoldArgumentNumber("Table",5,2); /* var */
 UnFence("Table",5);
 
 %/mathpiper

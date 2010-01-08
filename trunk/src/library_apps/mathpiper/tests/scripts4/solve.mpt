@@ -26,7 +26,7 @@ If (VerifySolve'Equal(Eval(e1), Eval(e2)),
       WriteString("******************");    NewLine();
       False; 
     ]); 
-HoldArgNr("VerifySolve", 2, 1);
+HoldArgumentNumber("VerifySolve", 2, 1);
 
 10 # VerifySolve'Equal({}, {}) <-- True;
 

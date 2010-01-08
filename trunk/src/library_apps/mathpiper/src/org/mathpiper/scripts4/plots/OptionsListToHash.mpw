@@ -2,7 +2,7 @@
 
 /// utility function: convert options lists of the form
 /// "{key=value, key=value}" into a hash of the same form.
-/// The argument list is kept unevaluated using "HoldArgNr()".
+/// The argument list is kept unevaluated using "HoldArgumentNumber()".
 /// Note that symbolic values of type atom are automatically converted to strings, e.g. ListToHash({a -> b}) returns {{"a", "b"}}
 OptionsListToHash(list) :=
 [
@@ -22,7 +22,7 @@ OptionsListToHash(list) :=
 	result;
 ];
 
-HoldArgNr("OptionsListToHash", 1, 1);
+HoldArgumentNumber("OptionsListToHash", 1, 1);
 
 %/mathpiper
 

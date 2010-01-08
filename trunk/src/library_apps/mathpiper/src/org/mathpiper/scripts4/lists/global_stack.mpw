@@ -16,7 +16,7 @@ LocalSymbols(GlobalStack, x)
 		Eval(x);
 	];
 
-	HoldArgNr("GlobalPop", 1, 1);
+	HoldArgumentNumber("GlobalPop", 1, 1);
 
 	GlobalPop() <--
 	[

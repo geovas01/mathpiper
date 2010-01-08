@@ -38,8 +38,8 @@ RemoveDuplicates(
 	)
 );
 
-HoldArgNr("FuncList", 1, 1);
-HoldArgNr("FuncList", 2, 1);
+HoldArgumentNumber("FuncList", 1, 1);
+HoldArgumentNumber("FuncList", 2, 1);
 
 %/mathpiper
 
