@@ -1,17 +1,17 @@
-%mathpiper,def="NrArgs"
+%mathpiper,def="ArgumentsCount"
 
-Function("NrArgs",{aLeft}) Length(FunctionToList(aLeft))-1;
+Function("ArgumentsCount",{aLeft}) Length(FunctionToList(aLeft))-1;
 
 %/mathpiper
 
 
 
 
-%mathpiper_docs,name="NrArgs",categories="User Functions;Lists (Operations)"
-*CMD NrArgs --- return number of top-level arguments
+%mathpiper_docs,name="ArgumentsCount",categories="User Functions;Lists (Operations)"
+*CMD ArgumentsCount --- return number of top-level arguments
 *STD
 *CALL
-	NrArgs(expr)
+	ArgumentsCount(expr)
 
 *PARMS
 
@@ -25,11 +25,11 @@ that would lead to an error.
 
 *E.G.
 
-	In> NrArgs(f(a,b,c))
+	In> ArgumentsCount(f(a,b,c))
 	Out> 3;
-	In> NrArgs(Sin(x));
+	In> ArgumentsCount(Sin(x));
 	Out> 1;
-	In> NrArgs(a*(b+c));
+	In> ArgumentsCount(a*(b+c));
 	Out> 2;
 
 *SEE Type, Length

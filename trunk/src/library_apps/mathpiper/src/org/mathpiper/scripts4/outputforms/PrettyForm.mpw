@@ -308,7 +308,7 @@ FormulaBracket(f):=
 ];
 
 Rulebase("BracketOn",{op,f,prec});
-Rule("BracketOn",3,1,IsFunction(f) And NrArgs(f) = 2
+Rule("BracketOn",3,1,IsFunction(f) And ArgumentsCount(f) = 2
      And IsInfix(Type(f)) And PrecedenceGet(Type(f)) > prec)
 [
  FormulaBracket(op);
@@ -318,7 +318,7 @@ Rule("BracketOn",3,2,True)
   op;
 ];
 
-10 # Formula(f_IsFunction)_(NrArgs(f) = 2 And IsInfix(Type(f))) <--
+10 # Formula(f_IsFunction)_(ArgumentsCount(f) = 2 And IsInfix(Type(f))) <--
 [
   Local(l,r,oper,width,height,base);
   Set(l, Formula(f[1]));
