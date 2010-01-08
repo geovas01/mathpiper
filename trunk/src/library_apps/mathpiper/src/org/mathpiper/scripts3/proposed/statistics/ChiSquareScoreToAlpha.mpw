@@ -1,0 +1,171 @@
+%mathpiper,def="ChiSquareScoreToAlpha",scope="private"
+
+/* 
+    This function was adapted from the Javascript version of function
+    that is located here:
+    
+    http://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.js
+    http://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.html
+    
+    The following JavaScript functions for calculating normal and
+    chi-square probabilities and critical values were adapted by
+    John Walker from C implementations
+    written by Gary Perlman of Wang Institute, Tyngsboro, MA
+    01879. Both the original C code and this JavaScript edition
+    are in the public domain. 
+*/
+
+
+/*  POCHISQ  --  probability of chi-square value
+
+          Adapted from:
+                  Hill, I. D. and Pike, M. C.  Algorithm 299
+                  Collected Algorithms for the CACM 1967 p. 243
+          Updated for rounding errors based on remark in
+                  ACM TOMS June 1985, page 185
+*/
+
+ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
+[
+    Local(a, y, s, e, c, z, LogSqrtPi, ISqrtPi,result);                     
+    
+    y := 0;
+    
+    LogSqrtPi := 0.5723649429247000870717135; /* log(sqrt(pi)) */
+    
+    ISqrtPi := 0.5641895835477562869480795;   /* 1 / sqrt(pi) */
+    
+    if(score <= 0.0 Or degreesOfFreedom < 1) 
+    [
+        result := 1.0;
+    ]
+    else
+    [
+        a := N(0.5 * score);
+        
+        if (degreesOfFreedom > 1) 
+        [
+            y := If(-a < -20, 0, ExpN(-a));
+        ];
+        
+        s := If(IsEven(degreesOfFreedom), y , (2.0 * ZScoreToProbability(-SqrtN(score))));
+        
+        if (degreesOfFreedom > 2) 
+        [
+            score := 0.5 * (degreesOfFreedom - 1.0);
+            
+            z := If(IsEven(degreesOfFreedom), 1.0, 0.5);
+            
+            if (a > 20) 
+            [
+                e := If(IsEven(degreesOfFreedom), 0.0, LogSqrtPi);
+                
+                c := LogN(a);
+                
+                While(z <= score) 
+                [
+                    e := LogN(z) + e;
+                    s := s + If(c * z - a - e < -20, 0, ExpN(c * z - a - e));
+                    z := z + 1.0;
+                ];
+                result := s;
+            ] 
+            else 
+            [
+                e := If(IsEven(degreesOfFreedom) , 1.0, (ISqrtPi / SqrtN(a)));
+                
+                c := 0.0;
+                
+                While(z <= score) 
+                [
+                    e := e * (a / z);
+                    c := c + e;
+                    z := z + 1.0;
+                ];
+                
+                result := c * y + s;
+            ];
+        ]
+        else
+        [
+            result := s;
+        ];
+    
+    ];
+    
+    N(result);
+];
+
+
+
+
+
+    /*  CRITCHI  --  Compute critical chi-square value to
+                     produce given p.  We just do a bisection
+                     search for a value within CHI_EPSILON,
+                     relying on the monotonicity of pochisq().  */
+
+AlphaToChiSquareScore(p, df) :=
+[
+    Local(ChiEpsilon, ChiMax, minchisq, maxchisq, chisqval, result);
+    
+    ChiEpsilon := 0.000001;   /* Accuracy of critchi approximation */
+    
+    ChiMax := 99999.0;        /* Maximum chi-square value */
+    
+    minchisq := 0.0;
+    
+    maxchisq := ChiMax;
+    
+    if( p <= 0.0 Or p >= 1.0)
+    [
+    
+        if (p <= 0.0) 
+        [
+            result := maxchisq;
+        ] 
+        else 
+        [
+            if (p >= 1.0) 
+            [
+                result := 0.0;
+            ];
+        ];
+    
+    ]
+    else
+    [
+        chisqval := df / SqrtN(p);
+        
+        /* fair first value */
+        While ((maxchisq - minchisq) > ChiEpsilon) 
+        [
+            if (ChiSquareScoreToAlpha(chisqval, df) < p) 
+            [
+                maxchisq := chisqval;
+            ] 
+            else 
+            [
+                minchisq := chisqval;
+            ];
+            chisqval := (maxchisq + minchisq) * 0.5;
+        ];
+        
+        result := chisqval;
+    
+    ];
+    
+    N(result);
+];
+
+
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
