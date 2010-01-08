@@ -3,7 +3,7 @@
 Function("HoldArgNr",{function,arity,index})
 [
   Local(args);
-  args:=RulebaseArgList(function,arity);
+  args:=RulebaseArgumentsList(function,arity);
 /* Echo({"holdnr ",args}); */
   ApplyPure("HoldArg",{function,args[index]});
 ];
