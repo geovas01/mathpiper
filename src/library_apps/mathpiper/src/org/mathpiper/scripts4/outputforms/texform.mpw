@@ -97,7 +97,7 @@ TeXFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is eq
 116 # TeXForm(_n * _expr, _p) _ (IsFunction(expr) And Contains({"^", "!", "!!"}, Type(expr)) And IsNumber(FunctionToList(expr)[2])) <-- TeXFormBracketIf(p<PrecedenceGet("*"), ConcatStrings(TeXForm(n, LeftPrecedenceGet("*")), "\\cdot ", TeXForm(expr, RightPrecedenceGet("*")) ) );
 
 	/* generic binary ops here */
-120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=2 And IsInfix(Type(expr)) ) <-- TeXFormBracketIf(p<PrecedenceGet(Type(expr)), ConcatStrings(TeXForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), TeXFormTeXify(Type(expr)), TeXForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
+120 # TeXForm(expr_IsFunction, _p)_(ArgumentsCount(expr)=2 And IsInfix(Type(expr)) ) <-- TeXFormBracketIf(p<PrecedenceGet(Type(expr)), ConcatStrings(TeXForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), TeXFormTeXify(Type(expr)), TeXForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
 	/* Template for "regular" unary prefix operators:
 100 # TeXForm(+ _y, _p) <-- TeXFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(" + ", TeXForm(y, RightPrecedenceGet("+")) ) );
@@ -106,12 +106,12 @@ TeXFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is eq
 
 	/* generic unary ops here */
 	/* prefix */
-120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=1 And IsPrefix(Type(expr))) <-- TeXFormBracketIf(p<PrecedenceGet(Type(expr)), ConcatStrings(
+120 # TeXForm(expr_IsFunction, _p)_(ArgumentsCount(expr)=1 And IsPrefix(Type(expr))) <-- TeXFormBracketIf(p<PrecedenceGet(Type(expr)), ConcatStrings(
 	TeXFormTeXify(Type(expr)),
 	TeXForm(FunctionToList(expr)[2], RightPrecedenceGet(Type(expr)))
 ) );
 	/* postfix */
-120 # TeXForm(expr_IsFunction, _p)_(NrArgs(expr)=1 And IsPostfix(Type(expr))) <-- TeXFormBracketIf(p<LeftPrecedenceGet(Type(expr)), ConcatStrings(
+120 # TeXForm(expr_IsFunction, _p)_(ArgumentsCount(expr)=1 And IsPostfix(Type(expr))) <-- TeXFormBracketIf(p<LeftPrecedenceGet(Type(expr)), ConcatStrings(
 	TeXForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))),
 	TeXFormTeXify(Type(expr))
 ) );
@@ -239,10 +239,10 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
   /* Precedence of 120 because we'd like to process other functions like sqrt or exp first */
 
   // generic math functions of one argument
-  120 # TeXForm(expr_IsFunction, _p) _ (NrArgs(expr)=1 And Contains(AssocIndices(TeXFormMathFunctions), Type(expr)) ) <-- TeXFormBracketIf(p<PrecedenceGet("*"), ConcatStrings(TeXFormMathFunctions[Type(expr)], TeXForm( FunctionToList(expr)[2], PrecedenceGet("*")) ) );
+  120 # TeXForm(expr_IsFunction, _p) _ (ArgumentsCount(expr)=1 And Contains(AssocIndices(TeXFormMathFunctions), Type(expr)) ) <-- TeXFormBracketIf(p<PrecedenceGet("*"), ConcatStrings(TeXFormMathFunctions[Type(expr)], TeXForm( FunctionToList(expr)[2], PrecedenceGet("*")) ) );
 
   /// math functions two arguments of the form $A_n(x)$
-  120 # TeXForm(expr_IsFunction, _p) _ (NrArgs(expr)=2 And Contains(AssocIndices(TeXFormMathFunctions2), Type(expr)) ) <-- TeXFormBracketIf(p<PrecedenceGet("*"),
+  120 # TeXForm(expr_IsFunction, _p) _ (ArgumentsCount(expr)=2 And Contains(AssocIndices(TeXFormMathFunctions2), Type(expr)) ) <-- TeXFormBracketIf(p<PrecedenceGet("*"),
     ConcatStrings(
     TeXFormMathFunctions2[Type(expr)],
     "_{",

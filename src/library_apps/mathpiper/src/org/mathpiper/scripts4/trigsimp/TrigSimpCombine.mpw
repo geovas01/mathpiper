@@ -124,13 +124,13 @@ TrigNegate(f):=
 
 FUnTrig(result) := Substitute(result,"IsFTrig","TrigUnChange");
 
-Rule("FSimpTerm",2,1,Type(f) = "-" And NrArgs(f)=1)
+Rule("FSimpTerm",2,1,Type(f) = "-" And ArgumentsCount(f)=1)
 [
   Local(result);
   result:=FSimpTerm(f[1],{{},{}});
   Substitute(result,"IsFTrig","TrigNegate");
 ];
-Rule("FSimpTerm",2,1,Type(f) = "-" And NrArgs(f)=2)
+Rule("FSimpTerm",2,1,Type(f) = "-" And ArgumentsCount(f)=2)
 [
   Local(result1,result2);
   result1:=FSimpTerm(f[1],{{},{}});
@@ -202,7 +202,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) = "+")
   DestructiveInsert(flist,1,term1);
   DestructiveInsert(flist,1,term2);
 ];
-Rule("FProcessTerm",1,1,Type(t[1]) = "-" And NrArgs(t[1]) = 2)
+Rule("FProcessTerm",1,1,Type(t[1]) = "-" And ArgumentsCount(t[1]) = 2)
 [
   Local(split,term1,term2);
   split:=t[1];
@@ -215,7 +215,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) = "-" And NrArgs(t[1]) = 2)
   DestructiveInsert(flist,1,term2);
 ];
 
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "-" And NrArgs(t[2]) = 2)
+Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "-" And ArgumentsCount(t[2]) = 2)
 [
   Local(split,term1,term2);
   split:=t[2];
@@ -248,7 +248,7 @@ Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = ":*:")
   DestructiveInsert(flist,1,term);
 ];
 
-Rule("FProcessTerm",1,1,Type(t[1]) = "-" And NrArgs(t[1]) = 1)
+Rule("FProcessTerm",1,1,Type(t[1]) = "-" And ArgumentsCount(t[1]) = 1)
 [
   Local(split,term);
   split:=t[1];
@@ -257,7 +257,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) = "-" And NrArgs(t[1]) = 1)
   DestructiveInsert(term,1,FCos(-1,0));
   DestructiveInsert(flist,1,term);
 ];
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "-" And NrArgs(t[2]) = 1)
+Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) = "-" And ArgumentsCount(t[2]) = 1)
 [
   Local(split,term);
   split:=t[2];
