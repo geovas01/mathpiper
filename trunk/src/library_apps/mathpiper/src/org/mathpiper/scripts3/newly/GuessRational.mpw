@@ -22,11 +22,11 @@ GuessRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
 			);
 		];
 	If (denom'estimate < 10^prec,
-		If(InVerboseMode(), Echo({"GuessRational: all ", i, "terms are within limits"})),
+		//If(InVerboseMode(), Echo({"GuessRational: all ", i, "terms are within limits"})),
 		i--	// do not use the last term
 	);
 	i--;	// loop returns one more number
-	If(InVerboseMode(), Echo({"GuessRational: using ", i, "terms of the continued fraction"}));
+	//If(InVerboseMode(), Echo({"GuessRational: using ", i, "terms of the continued fraction"}));
 	ContFracEval(Take(cf, i));
 ];
 
