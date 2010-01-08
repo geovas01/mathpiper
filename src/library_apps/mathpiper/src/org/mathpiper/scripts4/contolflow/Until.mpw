@@ -10,8 +10,8 @@ TemplateFunction("Until",{predicate,body})
   True;
 ];
 UnFence("Until",2);
-HoldArgNr("Until",2,1);
-HoldArgNr("Until",2,2);
+HoldArgumentNumber("Until",2,1);
+HoldArgumentNumber("Until",2,2);
 
 %/mathpiper
 

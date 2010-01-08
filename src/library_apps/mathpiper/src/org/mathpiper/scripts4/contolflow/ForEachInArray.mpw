@@ -18,7 +18,7 @@ LocalSymbols(i,nr)
 ];
 
 UnFence("ForEachInArray",3);
-HoldArgNr("ForEachInArray",3,1);
-HoldArgNr("ForEachInArray",3,3);
+HoldArgumentNumber("ForEachInArray",3,1);
+HoldArgumentNumber("ForEachInArray",3,3);
 
 %/mathpiper

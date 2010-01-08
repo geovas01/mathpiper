@@ -27,8 +27,8 @@ LocalSymbols(CFormAllFunctions) [
       ]
     );
   ];
-  HoldArgNr("IsCFormable", 1, 1);
-  HoldArgNr("IsCFormable", 2, 1);
+  HoldArgumentNumber("IsCFormable", 1, 1);
+  HoldArgumentNumber("IsCFormable", 2, 1);
 
   /// This is a list of all function atoms which CForm can safely handle
   CFormAllFunctions := MapSingle(ToAtom, Concat(AssocIndices(CFormMathFunctions()), AssocIndices(CFormRegularOps()),

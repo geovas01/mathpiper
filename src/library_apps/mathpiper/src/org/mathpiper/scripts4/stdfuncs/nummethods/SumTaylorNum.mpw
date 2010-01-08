@@ -38,7 +38,7 @@ If(
 	SumTaylorNum1(x, nth'term'func, next'term'factor, n'terms),
 	SumTaylorNum0(x, nth'term'func, next'term'factor, n'terms)
 );
-//HoldArgNr(SumTaylorNum, 3, 2);
+//HoldArgumentNumber(SumTaylorNum, 3, 2);
 
 /// straightforward algorithms for a small number of terms
 1# SumTaylorNum0(_x, _nth'term'func, {}, _n'terms) <--
@@ -54,7 +54,7 @@ If(
 	sum;
 ];
 
-//HoldArgNr(SumTaylorNum0, 3, 2);
+//HoldArgumentNumber(SumTaylorNum0, 3, 2);
 
 2# SumTaylorNum0(_x, _nth'term'func, _next'term'factor, _n'terms) <--
 [
@@ -83,8 +83,8 @@ If(
 /// interface
 SumTaylorNum0(_x, _nth'term'func, _n'terms) <-- SumTaylorNum0(x, nth'term'func, {}, n'terms);
 
-//HoldArgNr(SumTaylorNum0, 4, 2);
-//HoldArgNr(SumTaylorNum0, 4, 3);
+//HoldArgumentNumber(SumTaylorNum0, 4, 2);
+//HoldArgumentNumber(SumTaylorNum0, 4, 3);
 
 /// this is to be used when a simple relation between a term and the next term is known.
 /// next'term'factor must be a function applicable to one argument, so that if term = nth'term'func(k-1), then nth'term'func(k) = term / next'term'factor(k). (This is optimized for Taylor series of elementary functions.) In this case, nth'term'func is either a number, value of the 0th term, or a function.
@@ -147,8 +147,8 @@ SumTaylorNum1(x, nth'term'func, next'term'factor, n'terms) :=
 	sum;
 ];
 
-//HoldArgNr(SumTaylorNum, 4, 2);
-//HoldArgNr(SumTaylorNum, 4, 3);
+//HoldArgumentNumber(SumTaylorNum, 4, 2);
+//HoldArgumentNumber(SumTaylorNum, 4, 3);
 
 /*
 Examples:

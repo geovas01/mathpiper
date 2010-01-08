@@ -64,9 +64,9 @@ Rule("Repeat",1,20,True)
 ];//end LocalSymbols
 
 UnFence("Repeat",2);
-HoldArgNr("Repeat",2,2);
+HoldArgumentNumber("Repeat",2,2);
 UnFence("Repeat",1);
-HoldArgNr("Repeat",1,1);
+HoldArgumentNumber("Repeat",1,1);
 
 
 

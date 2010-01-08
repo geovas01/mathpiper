@@ -4,7 +4,7 @@
 
 FuncListArith(expr) := FuncList(expr, {ToAtom("+"), ToAtom("-"), *, /});
 
-HoldArgNr("FuncListArith", 1, 1);
+HoldArgumentNumber("FuncListArith", 1, 1);
 
 %/mathpiper
 

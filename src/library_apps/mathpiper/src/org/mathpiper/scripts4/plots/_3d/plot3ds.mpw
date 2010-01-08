@@ -174,11 +174,11 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 	Plot3DS'outputs()[options'hash["output"]] @ {all'values, options'hash};
 ];
 
-HoldArgNr("Plot3DS", 3, 2);
-HoldArgNr("Plot3DS", 3, 3);
-HoldArgNr("Plot3DS", 4, 2);
-HoldArgNr("Plot3DS", 4, 3);
-HoldArgNr("Plot3DS", 4, 4);
+HoldArgumentNumber("Plot3DS", 3, 2);
+HoldArgumentNumber("Plot3DS", 3, 3);
+HoldArgumentNumber("Plot3DS", 4, 2);
+HoldArgumentNumber("Plot3DS", 4, 3);
+HoldArgumentNumber("Plot3DS", 4, 4);
 
 /// this is the middle-level plotting routine; it generates the initial
 /// grid, calls the adaptive routine, and gathers data points.
