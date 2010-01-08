@@ -106,7 +106,7 @@ This function calculates the chi square score of a given probability.
 In> AlphaToChiSquareScore(.1,4)
 Result: 7.779440287
 
-*SEE ChiSquareScoreToProbability
+*SEE ChiSquareScoreToProbability, ChiSquareTest
 %/mathpiper_docs
 
     %output,preserve="false"
