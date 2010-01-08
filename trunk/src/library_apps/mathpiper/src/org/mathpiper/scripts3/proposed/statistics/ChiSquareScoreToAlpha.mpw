@@ -99,73 +99,32 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
 
 
 
-
-    /*  CRITCHI  --  Compute critical chi-square value to
-                     produce given p.  We just do a bisection
-                     search for a value within CHI_EPSILON,
-                     relying on the monotonicity of pochisq().  */
-
-AlphaToChiSquareScore(p, df) :=
-[
-    Local(ChiEpsilon, ChiMax, minchisq, maxchisq, chisqval, result);
-    
-    ChiEpsilon := 0.000001;   /* Accuracy of critchi approximation */
-    
-    ChiMax := 99999.0;        /* Maximum chi-square value */
-    
-    minchisq := 0.0;
-    
-    maxchisq := ChiMax;
-    
-    if( p <= 0.0 Or p >= 1.0)
-    [
-    
-        if (p <= 0.0) 
-        [
-            result := maxchisq;
-        ] 
-        else 
-        [
-            if (p >= 1.0) 
-            [
-                result := 0.0;
-            ];
-        ];
-    
-    ]
-    else
-    [
-        chisqval := df / SqrtN(p);
-        
-        /* fair first value */
-        While ((maxchisq - minchisq) > ChiEpsilon) 
-        [
-            if (ChiSquareScoreToAlpha(chisqval, df) < p) 
-            [
-                maxchisq := chisqval;
-            ] 
-            else 
-            [
-                minchisq := chisqval;
-            ];
-            chisqval := (maxchisq + minchisq) * 0.5;
-        ];
-        
-        result := chisqval;
-    
-    ];
-    
-    N(result);
-];
-
-
-
-
-
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
+
+
+
+
+
+%mathpiper_docs,name="ChiSquareScoreToAlpha",categories="User Functions;Statistics & Probability"
+*CMD ChiSquareScoreToAlpha --- calculates the alpha probability of a chi square score
+*STD
+*CALL
+	ChiSquareScoreToAlpha(chiSquareScore, degreesOfFreedom)
+
+*PARMS
+{chiSquareScore} -- a chi square score
+{degreesOfFreedom} -- the degrees of freedom
+
+*DESC
+This function calculates the alpha probability of a chi square score.
+
+*E.G.
+In> ChiSquareScoreToAlpha(7.779,4)
+Result: 0.1000175159
+
+*SEE AlphaToChiSquareScore
+%/mathpiper_docs
+
 
 
