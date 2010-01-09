@@ -51,7 +51,7 @@ Plot2DJava(values_IsList, _optionsHash) <--
     count++;
     result:=result:" lines2d ":ToString(Length(function));
 
-    function:=Select(Lambda({item},item[2] != Undefined),function);
+    function:=Select(function, Lambda({item},item[2] != Undefined));
 
     ForEach(item,function)
     [
@@ -81,7 +81,7 @@ Plot2DGeogebra(values_IsList, _optionsHash) <--
   ForEach(function,values)
   [
 
-    function:=Select(Lambda({item},item[2] != Undefined),function);
+    function:=Select(function, Lambda({item},item[2] != Undefined));
 
     ForEach(item,function)
     [
@@ -120,7 +120,7 @@ Plot2DJFreeChart(values_IsList, _optionsHash) <--
         
         domainList := {};
         
-        function := Select(Lambda({item},item[2] != Undefined),function);
+        function := Select(function, Lambda({item},item[2] != Undefined));
         
         ForEach(item,function)
         [

@@ -33,7 +33,7 @@ Retract("FactorsMonomial",*);
     ]
   );
   If(InVerboseMode(),Tell("     ",{num,den}));
-  Ns  := Select("IsComplex",num);
+  Ns  := Select(num, "IsComplex");
   If(InVerboseMode(),Tell("     ",Ns));
   If( Ns = {},
        If( den != 1, DestructiveInsert(num,1,1/den)),

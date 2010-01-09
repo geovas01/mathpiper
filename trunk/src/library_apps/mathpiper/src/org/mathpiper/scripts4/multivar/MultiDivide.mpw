@@ -45,7 +45,7 @@
       Set(glt, MultiLT(g[i]));
 
       if (MultiLM(glt) = MultiLM(plt) Or MultiTermLess({MultiLM(glt),1}, {MultiLM(plt),1}))
-      if (Select({{n},n<0},MultiLM(plt)-MultiLM(glt)) = {})
+      if (Select(MultiLM(plt)-MultiLM(glt)) = {}, {{n},n<0})
       [
         Local(ff);
       Set(ff, CreateTerm(v,{MultiLM(plt)-MultiLM(glt),MultiLC(plt)/MultiLC(glt)}));

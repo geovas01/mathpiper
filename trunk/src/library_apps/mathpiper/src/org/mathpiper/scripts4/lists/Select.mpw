@@ -2,7 +2,7 @@
 
 LocalSymbols(predicate,list,result,item)
 [
-  Function("Select",{predicate,list})
+  Function("Select",{list,predicate})
   [
     Local(result);
     result:={};
@@ -24,7 +24,7 @@ LocalSymbols(predicate,list,result,item)
 *CMD Select --- select entries satisfying some predicate
 *STD
 *CALL
-	Select(pred, list)
+	Select(list, pred)
 
 *PARMS
 
@@ -43,7 +43,7 @@ if desired.
 
 *E.G.
 
-In> Select("IsInteger",{a,b,2,c,3,d,4,e,f})
+In> Select({a,b,2,c,3,d,4,e,f}, "IsInteger")
 Out> {2,3,4};
 
 
@@ -51,7 +51,7 @@ Out> {2,3,4};
 
 list := {1,-3,2,-6,-4,3};
 
-Select(Lambda({i}, i > 0 ),list);
+Select(list, Lambda({i}, i > 0 ));
 
 /%/mathpiper
 

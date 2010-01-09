@@ -30,7 +30,7 @@ neither prime nor composite.
 	Out> False;
 	In> IsComposite(8)
 	Out> True;
-	In> Select(IsComposite,1 .. 20)
+	In> Select(1 .. 20, IsComposite)
 	Out> {4,6,8,9,10,12,14,15,16,18,20};
 
 *SEE IsPrime
