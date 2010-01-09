@@ -57,7 +57,7 @@ Compares evaluated {a} and {b} recursively
 "True" if the expressions would be printed exactly
 the same, and "False" otherwise.
 
-*SEE GreaterThan, LessThan
+*SEE GreaterThan, IsLessThan
 
 %/mathpiper_docs
 */

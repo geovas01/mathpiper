@@ -78,6 +78,6 @@ public class ToString extends BuiltinFunction
 	In> String(a)
 	Out> "a";
 
-*SEE Atom, ExpressionToString
+*SEE ToAtom, ExpressionToString
 %/mathpiper_docs
 */

@@ -93,7 +93,7 @@ public class Or extends BuiltinFunction
 *CALL
 	a1 Or a2
 Precedence:
-*EVAL OpPrecedence("Or")
+*EVAL PrecedenceGet("Or")
 	Or(a1, a2, a3, ..., aN)
 
 *PARMS

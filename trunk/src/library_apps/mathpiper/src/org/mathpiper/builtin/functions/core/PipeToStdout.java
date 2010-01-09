@@ -60,16 +60,16 @@ public class PipeToStdout extends BuiltinFunction
 
 *DESC
 
-When using {ToString} or {ToFile}, it might happen that something needs to be
+When using {PipeToString} or {PipeToFile}, it might happen that something needs to be
 written to the standard default initial output (typically the screen). {PipeToStdout} can be used to select this stream.
 
 **E.G.
 
-	In> ToString()[Echo("aaaa");PipeToStdout()Echo("bbbb");];
+	In> PipeToString()[Echo("aaaa");PipeToStdout()Echo("bbbb");];
 	bbbb
 	Out> "aaaa
 	"
 
-*SEE ToString, ToFile
+*SEE PipeToString, PipeToFile
 %/mathpiper_docs
 */

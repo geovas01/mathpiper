@@ -65,13 +65,13 @@ Specify that parameter should
 not be evaluated before used. This will be
 declared for all arities of "operator", at the moment
 this function is called, so it is best called
-after all {RuleBase} calls for this operator.
+after all {Rulebase} calls for this operator.
 "operator" can be a string or atom specifying the
 function name.
 
 The {parameter} must be an atom from the list of symbolic
-arguments used when calling {RuleBase}.
+arguments used when calling {Rulebase}.
 
-*SEE RuleBase, HoldArgNr, RuleBaseArgList
+*SEE Rulebase, HoldArgumentNumber, RulebaseArgumentsList
 %/mathpiper_docs
 */

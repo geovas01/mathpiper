@@ -105,6 +105,6 @@ Then we can have the following dialogue:
 	In> PipeFromFile("foo") res := ReadToken();
 	Out> 2;
 
-*SEE ToFile, FromString, Read, ReadToken
+*SEE PipeToFile, FromString, Read, ReadToken
 %/mathpiper_docs
 */

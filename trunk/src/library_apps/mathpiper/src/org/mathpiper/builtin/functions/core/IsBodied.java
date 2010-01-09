@@ -63,6 +63,6 @@ Check whether the function with given name {"op"} has been declared as a
 	In> IsBodied("Sin");
 	Out> False;
 
-*SEE Bodied, OpPrecedence,IsInfix,IsPostfix,IsPrefix
+*SEE Bodied, PrecedenceGet,IsInfix,IsPostfix,IsPrefix
 %/mathpiper_docs
 */

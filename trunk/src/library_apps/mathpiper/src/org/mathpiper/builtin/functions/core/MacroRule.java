@@ -48,6 +48,6 @@ rules based on parameters.
 
 Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro version!
 
-*SEE Set, Clear, Local, RuleBase, Rule, Backquoting, MacroSet, MacroClear, MacroLocal, MacroRuleBase, MacroRuleBaseListed
+*SEE Set, Clear, Local, Rulebase, Rule, Backquoting, MacroSet, MacroClear, MacroLocal, MacroRulebase, MacroRulebaseListed
 %/mathpiper_docs
 */

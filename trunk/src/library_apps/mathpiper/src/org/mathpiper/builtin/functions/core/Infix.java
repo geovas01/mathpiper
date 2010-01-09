@@ -68,6 +68,6 @@ Precedence is optional (will be set to 0 by default).
 	In> a ## b ## c
 	Out> a##b##c;
 
-*SEE IsBodied, OpPrecedence, Bodied, Postfix, Prefix
+*SEE IsBodied, PrecedenceGet, Bodied, Postfix, Prefix
 %/mathpiper_docs
 */

@@ -29,18 +29,18 @@ public class DefMacroRulebaseListed extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.Utility.defMacroRuleBase(aEnvironment, aStackTop, true);
+        org.mathpiper.lisp.Utility.defMacroRulebase(aEnvironment, aStackTop, true);
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="DefMacroRuleBaseListed",categories="Programmer Functions;Programming;Built In"
-*CMD DefMacroRuleBaseListed --- define macro with variable number of arguments
+%mathpiper_docs,name="DefMacroRulebaseListed",categories="Programmer Functions;Programming;Built In"
+*CMD DefMacroRulebaseListed --- define macro with variable number of arguments
 *CORE
 *CALL
-	DefMacroRuleBaseListed("name", params)
+	DefMacroRulebaseListed("name", params)
 
 *PARMS
 
@@ -50,9 +50,9 @@ public class DefMacroRulebaseListed extends BuiltinFunction
 
 *DESC
 
-This does the same as {DefMacroRuleBase} (define a macro), but with a variable
-number of arguments, similar to {RuleBaseListed}.
+This does the same as {DefMacroRulebase} (define a macro), but with a variable
+number of arguments, similar to {RulebaseListed}.
 
-*SEE RuleBase, RuleBaseListed, Backquoting, DefMacroRuleBase
+*SEE Rulebase, RulebaseListed, Backquoting, DefMacroRulebase
 %/mathpiper_docs
 */

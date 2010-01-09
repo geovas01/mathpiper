@@ -75,6 +75,6 @@ Note that, due to a current parser limitation, a function atom that is declared 
 	In> YY
 	CommandLine(1) : Error parsing expression
 
-*SEE IsBodied, OpPrecedence, Bodied, Infix, Postfix
+*SEE IsBodied, PrecedenceGet, Bodied, Infix, Postfix
 %/mathpiper_docs
 */

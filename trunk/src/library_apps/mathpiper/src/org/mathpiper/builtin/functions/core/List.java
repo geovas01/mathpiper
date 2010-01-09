@@ -78,6 +78,6 @@ is "expr2", and so on. This command is equivalent to the expression
 	In> List(a,{1,2},d);
 	Out> {a,{1,2},d};
 
-*SEE UnList, Listify
+*SEE ListToFunction, FunctionToList
 %/mathpiper_docs
 */

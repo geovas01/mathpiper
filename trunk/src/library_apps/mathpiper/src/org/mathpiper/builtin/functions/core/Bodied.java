@@ -70,6 +70,6 @@ Precedence is optional (will be set to 0 by default).
 *E.G.
 	In> todo
 
-*SEE IsBodied, OpPrecedence, Infix, Postfix, Prefix
+*SEE IsBodied, PrecedenceGet, Infix, Postfix, Prefix
 %/mathpiper_docs
 */

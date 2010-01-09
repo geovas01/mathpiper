@@ -68,6 +68,6 @@ list is returned.
 	In> FunctionToList(3*a);
 	Out> {*,3,a};
 
-*SEE List, UnList, IsAtom
+*SEE List, ListToFunction, IsAtom
 %/mathpiper_docs
 */

@@ -77,6 +77,6 @@ the result is the empty string {""}.
 	In> Type(123);
 	Out> "";
 
-*SEE IsAtom, NrArgs
+*SEE IsAtom, ArgumentsCount
 %/mathpiper_docs
 */

@@ -78,6 +78,6 @@ collected in a string and this string is returned.
 	  "The square of 8 is "); Write(8^2); ];
 	Out> "The square of 8 is  64";
 
-*SEE FromFile, PipeToString, Echo, Write, WriteString
+*SEE PipeFromFile, PipeToString, Echo, Write, WriteString
 %/mathpiper_docs
 */

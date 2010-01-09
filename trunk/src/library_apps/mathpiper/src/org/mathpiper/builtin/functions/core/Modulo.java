@@ -42,11 +42,11 @@ public class Modulo extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ModN",categories="User Functions;Numeric;Built In"
-*CMD ModN --- remainder of division or x mod y (arbitrary-precision math function)
+%mathpiper_docs,name="ModuloN",categories="User Functions;Numeric;Built In"
+*CMD ModuloN --- remainder of division or x mod y (arbitrary-precision math function)
 *CORE
 *CALL
-	ModN(x,y)    ()
+	ModuloN(x,y)    ()
 
 *DESC
 

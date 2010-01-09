@@ -47,7 +47,7 @@ public class XmlTokenizer extends BuiltinFunction
 *DESC
 
 A "tokenizer" is an internal routine in the kernel that parses the input into MathPiper expressions.
-This affects all input typed in by a user at the prompt and also the input redirected from files or strings using {FromFile} and {FromString} and read using {Read} or {ReadToken}.
+This affects all input typed in by a user at the prompt and also the input redirected from files or strings using {PipeFromFile} and {FromString} and read using {Read} or {ReadToken}.
 
 The MathPiper environment currently supports some experimental tokenizers for
 various syntaxes. {XmlTokenizer} switches to an XML syntax.
@@ -81,6 +81,6 @@ Note that:
 *	2. The resulting expression is an atom with the string representation {<a>};
 it is <i>not</i> a string.
 
-*SEE OMRead, TrapError, XmlExplodeTag, ReadToken, FromFile, FromString, DefaultTokenizer
+*SEE OMRead, TrapError, XmlExplodeTag, ReadToken, PipeFromFile, FromString, DefaultTokenizer
 %/mathpiper_docs
 */

@@ -92,6 +92,6 @@ The "{3}" will be in the next token.
 (The results will be different if a non-default tokenizer is selected.)
 
 
-*SEE FromFile, FromString, Read, LispRead, DefaultTokenizer
+*SEE PipeFromFile, FromString, Read, LispRead, DefaultTokenizer
 %/mathpiper_docs
 */

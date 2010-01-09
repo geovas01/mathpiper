@@ -134,6 +134,6 @@ After this command the file {out} contains:
 	    6    120   5040   362880
 
 
-*SEE FromFile, ToString, Echo, Write, WriteString, PrettyForm, Taylor
+*SEE PipeFromFile, PipeToString, Echo, Write, WriteString, PrettyForm, Taylor
 %/mathpiper_docs
 */
