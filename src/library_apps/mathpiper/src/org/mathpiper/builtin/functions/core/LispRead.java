@@ -68,6 +68,6 @@ default.
 	In> FromString("(+ a b)")LispRead()
 	Out> a+b;
 
-*SEE FromFile, FromString, Read, ReadToken, FullForm, LispReadListed
+*SEE PipeFromFile, FromString, Read, ReadToken, LispForm, LispReadListed
 %/mathpiper_docs
 */

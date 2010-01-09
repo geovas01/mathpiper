@@ -93,7 +93,7 @@ public class And extends BuiltinFunction
 *CALL
 	a1 And a2
 Precedence:
-*EVAL OpPrecedence("And")
+*EVAL PrecedenceGet("And")
 
 	And(a1, a2, a3, ..., aN)
 

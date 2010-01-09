@@ -57,6 +57,6 @@ Comparing numbers or strings (lexicographically).
 	In> IsLessThan("a","b")
 	Out> True;
 
-*SEE GreaterThan, Equals
+*SEE GreaterThan, IsEqual
 %/mathpiper_docs
 */

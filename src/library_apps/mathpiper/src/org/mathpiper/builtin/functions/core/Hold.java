@@ -50,7 +50,7 @@ The expression "expr" is returned unevaluated. This is useful to
 prevent the evaluation of a certain expression in a context in which
 evaluation normally takes place.
 
-The function {UnList()} also leaves its result unevaluated. Both functions stop the process of evaluation (no more rules will be applied).
+The function {ListToFunction()} also leaves its result unevaluated. Both functions stop the process of evaluation (no more rules will be applied).
 
 *E.G. notest
 
@@ -58,6 +58,6 @@ The function {UnList()} also leaves its result unevaluated. Both functions stop 
 	 1+1 = 2
 	Out> True;
 
-*SEE Eval, HoldArg, UnList
+*SEE Eval, HoldArgument, ListToFunction
 %/mathpiper_docs
 */

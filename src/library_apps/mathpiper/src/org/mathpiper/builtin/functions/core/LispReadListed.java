@@ -53,7 +53,7 @@ public class LispReadListed extends BuiltinFunction
 
 The function {LispReadListed} reads a LISP expression and returns
 it in a list, instead of the form usual to MathPiper (expressions).
-The result can be thought of as applying {Listify} to {LispRead}.
+The result can be thought of as applying {FunctionToList} to {LispRead}.
 The function {LispReadListed} is more useful for reading arbitrary LISP expressions, because the
 first object in a list can be itself a list (this is never the case for MathPiper expressions where the first object in a list is always a function atom).
 
@@ -62,6 +62,6 @@ first object in a list can be itself a list (this is never the case for MathPipe
 	In> FromString("(+ a b)")LispReadListed()
 	Out> {+,a,b};
 
-*SEE FromFile, FromString, Read, ReadToken, FullForm, LispRead
+*SEE PipeFromFile, FromString, Read, ReadToken, LispForm, LispRead
 %/mathpiper_docs
 */

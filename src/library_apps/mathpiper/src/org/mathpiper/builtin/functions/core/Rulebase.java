@@ -28,18 +28,18 @@ public class Rulebase extends BuiltinFunction
 {
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.Utility.ruleDatabase(aEnvironment, aStackTop, false);
+        org.mathpiper.lisp.Utility.rulebase(aEnvironment, aStackTop, false);
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="RuleBase",categories="User Functions;Built In"
-*CMD RuleBase --- define function with a fixed number of arguments
+%mathpiper_docs,name="Rulebase",categories="User Functions;Built In"
+*CMD Rulebase --- define function with a fixed number of arguments
 *CORE
 *CALL
-	RuleBase(name,params)
+	Rulebase(name,params)
 
 *PARMS
 
@@ -54,12 +54,12 @@ either a string or simple atom.
 
 In the context of the transformation rule declaration facilities
 this is a useful function in that it allows the stating of argument
-names that can he used with HoldArg.
+names that can he used with HoldArgument.
 
 Functions can be overloaded: the same function can be defined
 with different number of arguments.
 
 
-*SEE MacroRuleBase, RuleBaseListed, MacroRuleBaseListed, HoldArg, Retract
+*SEE MacroRulebase, RulebaseListed, MacroRulebaseListed, HoldArgument, Retract
 %/mathpiper_docs
 */

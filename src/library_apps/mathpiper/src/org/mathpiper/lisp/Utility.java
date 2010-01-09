@@ -1113,10 +1113,10 @@ public class Utility {
 
 
     /**
-     *Implements the MathPiper functions RuleBase and MacroRuleBase .
+     *Implements the MathPiper functions Rulebase and MacroRulease .
      * The real work is done by Environment.declareRulebase().
      */
-    public static void ruleDatabase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
+    public static void rulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         //TESTARGS(3);
 
         // Get operator
@@ -1183,7 +1183,7 @@ public class Utility {
     }
 
 
-    public static void defMacroRuleBase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
+    public static void defMacroRulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         // Get operator
         ConsPointer args = new ConsPointer();
         ConsPointer body = new ConsPointer();

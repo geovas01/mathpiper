@@ -66,7 +66,7 @@ backquote binds tighter than other operators.
 The expression should contain some variables (assigned atoms) with the special
 prefix operator {@}. Variables prefixed by {@} will be evaluated even if they
 are inside function arguments that are normally not evaluated (e.g. functions
-declared with {HoldArg}). If the {@var} pair is in place of a function name,
+declared with {HoldArgument}). If the {@var} pair is in place of a function name,
 e.g. "{@f(x)}", then at the first stage of evaluation the function name itself
 is replaced, not the return value of the function (see example); so at the
 second stage of evaluation, a new function may be called.
@@ -74,7 +74,7 @@ second stage of evaluation, a new function may be called.
 One way to view backquoting is to view it as a parametric expression
 generator. {@var} pairs get substituted with the value of the variable {var}
 even in contexts where nothing would be evaluated. This effect can be also
-achieved using {UnList} and {Hold} but the resulting code is much more
+achieved using {ListToFunction} and {Hold} but the resulting code is much more
 difficult to read and maintain.
 
 This operation is relatively slow since a new expression is built
@@ -109,6 +109,6 @@ the first argument of {Set} would be unevaluated.
 	Out> Sin(x);
 
 
-*SEE MacroSet, MacroLocal, MacroRuleBase, Hold, HoldArg, DefMacroRuleBase
+*SEE MacroSet, MacroLocal, MacroRulebase, Hold, HoldArgument, DefMacroRulebase
 %/mathpiper_docs
 */

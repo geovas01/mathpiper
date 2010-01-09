@@ -62,11 +62,11 @@ public class RulebaseArgumentsList extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RuleBaseArgList",categories="User Functions;Built In;Built In"
-*CMD RuleBaseArgList --- obtain list of arguments
+%mathpiper_docs,name="RulebaseArgumentsList",categories="User Functions;Built In;Built In"
+*CMD RulebaseArgumentsList --- obtain list of arguments
 *CORE
 *CALL
-	RuleBaseArgList("operator", arity)
+	RulebaseArgumentsList("operator", arity)
 
 *PARMS
 {"operator"} -- string, name of function
@@ -75,9 +75,9 @@ public class RulebaseArgumentsList extends BuiltinFunction
 
 *DESC
 
-Returns a list of atoms, symbolic parameters specified in the {RuleBase} call
+Returns a list of atoms, symbolic parameters specified in the {Rulebase} call
 for the function named {"operator"} with the specific {arity}.
 
-*SEE RuleBase, HoldArgNr, HoldArg
+*SEE Rulebase, HoldArgumentNumber, HoldArgument
 %/mathpiper_docs
 */

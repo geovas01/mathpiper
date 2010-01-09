@@ -29,18 +29,18 @@ public class DefMacroRulebase extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.Utility.defMacroRuleBase(aEnvironment, aStackTop, false);
+        org.mathpiper.lisp.Utility.defMacroRulebase(aEnvironment, aStackTop, false);
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="DefMacroRuleBase",categories="Programmer Functions;Programming;Built In"
-*CMD DefMacroRuleBase --- define a function as a macro
+%mathpiper_docs,name="DefMacroRulebase",categories="Programmer Functions;Programming;Built In"
+*CMD DefMacroRulebase --- define a function as a macro
 *CORE
 *CALL
-	DefMacroRuleBase(name,params)
+	DefMacroRulebase(name,params)
 
 *PARMS
 
@@ -50,7 +50,7 @@ public class DefMacroRulebase extends BuiltinFunction
 
 *DESC
 
-{DefMacroRuleBase} is similar to {RuleBase}, with the difference that it declares a macro,
+{DefMacroRulebase} is similar to {Rulebase}, with the difference that it declares a macro,
 instead of a function.
 After this call, rules can be defined for the function "{name}", but their interpretation will be different.
 
@@ -114,7 +114,7 @@ with two arguments, and a macro {foo(a,b,c)} with three arguments.
 The following example defines a macro {myfor}, and shows one use, referencing
 a variable {a} from the calling environment.
 
-	In> DefMacroRuleBase("myfor",{init,pred,inc,body})
+	In> DefMacroRulebase("myfor",{init,pred,inc,body})
 	Out> True;
 	In> myfor(_init,_pred,_inc,_body)<--[@init;While(@pred)[@body;@inc;];True;];
 	Out> True;
@@ -134,6 +134,6 @@ a variable {a} from the calling environment.
 	In> i
 	Out> 10;
 
-*SEE RuleBase, Backquoting, DefMacroRuleBaseListed
+*SEE Rulebase, Backquoting, DefMacroRulebaseListed
 %/mathpiper_docs
 */

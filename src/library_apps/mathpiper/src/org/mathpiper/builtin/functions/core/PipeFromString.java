@@ -97,6 +97,6 @@ result of "body" is returned.
 	  res := Eval(Read());
 	Out> 7;
 
-*SEE ToString, FromFile, Read, ReadToken
+*SEE PipeToString, PipeFromFile, Read, ReadToken
 %/mathpiper_docs
 */

@@ -81,6 +81,6 @@ the same name but different arities are not affected.
 
 Assignment {:=} of a function does this to the function being (re)defined.
 
-*SEE RuleBaseArgList, RuleBase, :=
+*SEE RulebaseArgumentsList, Rulebase, :=
 %/mathpiper_docs
 */

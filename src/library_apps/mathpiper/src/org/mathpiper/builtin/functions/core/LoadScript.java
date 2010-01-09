@@ -67,6 +67,6 @@ public class LoadScript extends BuiltinFunction
 The file "name" is opened. All expressions in the file are read and
 evaluated. {LoadScript} always returns {true}.
 
-*SEE Use, DefLoad, DefaultDirectory, FindFile
+*SEE LoadScriptOnce, DefLoad, DefaultDirectory, FindFile
 %/mathpiper_docs
 */

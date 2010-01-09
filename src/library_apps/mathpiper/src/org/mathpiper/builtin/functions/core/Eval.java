@@ -72,7 +72,7 @@ assignments. If the assignment {a := x} were given
 while {x} had the value 5, the variable {a} would also get the value 5 because the assignment
 operator {:=} evaluates the right-hand side.
 
-*SEE Hold, HoldArg, :=
+*SEE Hold, HoldArgument, :=
 %/mathpiper_docs
 
  */

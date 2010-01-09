@@ -76,6 +76,6 @@ formed, but the resulting expression is left unevaluated. The functions {ListToF
 	In> Eval(%);
 	Out> 1-x^2/2+x^4/24;
 
-*SEE List, Listify, Hold
+*SEE List, FunctionToList, Hold
 %/mathpiper_docs
 */

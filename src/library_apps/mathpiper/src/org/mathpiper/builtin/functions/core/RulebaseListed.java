@@ -29,18 +29,18 @@ public class RulebaseListed extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.Utility.ruleDatabase(aEnvironment, aStackTop, true);
+        org.mathpiper.lisp.Utility.rulebase(aEnvironment, aStackTop, true);
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="RuleBaseListed",categories="User Functions;Built In"
-*CMD RuleBaseListed --- define function with variable number of arguments
+%mathpiper_docs,name="RulebaseListed",categories="User Functions;Built In"
+*CMD RulebaseListed --- define function with variable number of arguments
 *CORE
 *CALL
-	RuleBaseListed("name", params)
+	RulebaseListed("name", params)
 
 *PARMS
 
@@ -50,21 +50,21 @@ public class RulebaseListed extends BuiltinFunction
 
 *DESC
 
-The command {RuleBaseListed} defines a new function. It essentially works the
-same way as {RuleBase}, except that it declares a new function with a variable
+The command {RulebaseListed} defines a new function. It essentially works the
+same way as {Rulebase}, except that it declares a new function with a variable
 number of arguments. The list of parameters {params} determines the smallest
 number of arguments that the new function will accept. If the number of
 arguments passed to the new function is larger than the number of parameters in
 {params}, then the last argument actually passed to the new function will be a
 list containing all the remaining arguments.
 
-A function defined using {RuleBaseListed} will appear to have the arity equal
+A function defined using {RulebaseListed} will appear to have the arity equal
 to the number of parameters in the {param} list, and it can accept any number
 of arguments greater or equal than that. As a consequence, it will be impossible to define a new function with the same name and with a greater arity.
 
 The function body will know that the function is passed more arguments than the
 length of the {param} list, because the last argument will then be a list. The
-rest then works like a {RuleBase}-defined function with a fixed number of
+rest then works like a {Rulebase}-defined function with a fixed number of
 arguments. Transformation rules can be defined for the new function as usual.
 
 
@@ -72,7 +72,7 @@ arguments. Transformation rules can be defined for the new function as usual.
 
 The definitions
 
-	RuleBaseListed("f",{a,b,c})
+	RulebaseListed("f",{a,b,c})
 	10 # f(_a,_b,{_c,_d}) <--
 	  Echo({"four args",a,b,c,d});
 	20 # f(_a,_b,c_IsList) <--
@@ -99,11 +99,11 @@ give the following interaction:
 
 The function {f} now appears to occupy all arities greater than 3:
 
-	In> RuleBase("f", {x,y,z,t});
+	In> Rulebase("f", {x,y,z,t});
 	CommandLine(1) : Rule base with this arity
 	  already defined
 
 
-*SEE RuleBase, Retract, Echo
+*SEE Rulebase, Retract, Echo
 %/mathpiper_docs
 */

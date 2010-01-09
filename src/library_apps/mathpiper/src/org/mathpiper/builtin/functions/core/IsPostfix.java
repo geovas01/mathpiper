@@ -61,6 +61,6 @@ Check whether the function with given name {"op"} has been declared as a
 	In> IsPostfix("!");
 	Out> True;
 
-*SEE Bodied, OpPrecedence,IsBodied,IsInfix,IsPrefix
+*SEE Bodied, PrecedenceGet,IsBodied,IsInfix,IsPrefix
 %/mathpiper_docs
 */
