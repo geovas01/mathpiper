@@ -192,7 +192,7 @@ import org.mathpiper.builtin.functions.core.ShiftRight;
 import org.mathpiper.builtin.functions.core.StackSize;
 import org.mathpiper.builtin.functions.core.StringMidGet;
 import org.mathpiper.builtin.functions.core.StringMidSet;
-import org.mathpiper.builtin.functions.core.Stringify;
+import org.mathpiper.builtin.functions.core.ToString;
 import org.mathpiper.builtin.functions.core.Subst;
 import org.mathpiper.builtin.functions.core.Subtract;
 import org.mathpiper.builtin.functions.core.SystemCall;
@@ -433,7 +433,7 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new ToAtom(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "ToAtom");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new Stringify(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+		        new BuiltinFunctionEvaluator(new ToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "ToString");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new ExpressionToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
