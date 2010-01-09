@@ -1,4 +1,4 @@
-/*  v 1.09.
+/*  v 1.10.
     This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -57,7 +57,7 @@ ForEach(x,a)
 %mathpiper,output="geogebra"
 //Define a function and graph it by pressing <shift><enter> in the output fold.
 
-Clear(x);
+Unbind(x);
 f(x) := 11*x-2*x^2;
 f(x);
 
@@ -72,7 +72,7 @@ f(x);
 //Calculate the derivative of the function in the previous cell and graph it by
 // pressing <shift><enter> in the output fold.
 
-df := D(x) f(x);
+df := Differentiate(x) f(x);
 df;
 
 %/mathpiper
@@ -718,7 +718,7 @@ demonstration.
 Execute this Piper code and then press <shift><enter> in its output fold
 to render the LaTeX expression it generates.
 */
-Clear(x);
+Unbind(x);
 a := (2*x)*(x+3)*(x+4);
 b := Expand(a);
 b;
@@ -733,7 +733,7 @@ b;
 /*Execute this Piper code and then press <shift><enter> in its output fold
 to render the LaTeX expression it generates.
 */
-Clear(x);
+Unbind(x);
 a := x^3 - 2*x - 7 == 0;
 Solve(a,x);
 
