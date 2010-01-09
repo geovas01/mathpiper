@@ -11,9 +11,9 @@ Rulebase("else",{ifthen,otherwise});
             ListToFunction({ToAtom("if"), (Eval(predicate)), body}),
             otherwise});
 
-HoldArg("else",ifthen);
+HoldArgument("else",ifthen);
 
-HoldArg("else",otherwise);
+HoldArgument("else",otherwise);
 
 UnFence("else",2);
 

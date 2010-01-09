@@ -26,8 +26,8 @@ LocalSymbols(sumi,sumsum)[
 ];
 
 UnFence("Sum",4);
-HoldArg("Sum",sumvar'arg);
-HoldArg("Sum",sumbody'arg);
+HoldArgument("Sum",sumvar'arg);
+HoldArgument("Sum",sumbody'arg);
 
 
 

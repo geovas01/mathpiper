@@ -11,7 +11,7 @@ Function("GenMatrix",{func,m,n})
 
   result;
 ];
-HoldArg("GenMatrix",func);
+HoldArgument("GenMatrix",func);
 UnFence("GenMatrix",3);
 
 %/mathpiper

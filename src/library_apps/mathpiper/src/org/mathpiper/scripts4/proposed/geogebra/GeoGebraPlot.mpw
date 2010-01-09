@@ -88,7 +88,7 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
 
 ];
 
-//HoldArg("GeoGebraPlot",arg2);
+//HoldArgument("GeoGebraPlot",arg2);
 
 
 %/mathpiper

@@ -1,7 +1,7 @@
 %mathpiper,def="Newton"
 
 Function("Newton",{function,variable,initial,accuracy})
-[	// since we call a function with HoldArg(), we need to evaluate some variables by hand
+[	// since we call a function with HoldArgument(), we need to evaluate some variables by hand
   `Newton(@function,@variable,initial,accuracy,-Infinity,Infinity);
 ];
 

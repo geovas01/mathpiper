@@ -13,8 +13,8 @@ Function("Product",{sumvar,sumfrom,sumto,sumbody})
    sumsum;
 ];
 UnFence("Product",4);
-HoldArg("Product",sumvar);
-HoldArg("Product",sumbody);
+HoldArgument("Product",sumvar);
+HoldArgument("Product",sumbody);
 
 Product(sumlist_IsList) <--
 [

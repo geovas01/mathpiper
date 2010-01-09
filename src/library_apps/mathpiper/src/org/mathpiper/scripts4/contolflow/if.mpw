@@ -4,7 +4,7 @@ Rulebase("if",{predicate,body});
 
 (if(True) _body) <-- Eval(body);
 
-HoldArg("if",body);
+HoldArgument("if",body);
 
 UnFence("if",2);
 

@@ -24,8 +24,8 @@ Function ("SumForDivisors",{sumvar,n,sumbody}) LocalSymbols(s,d)
    s;
 ];
 UnFence("SumForDivisors",3);
-HoldArg("SumForDivisors",sumvar);
-HoldArg("SumForDivisors",sumbody); 
+HoldArgument("SumForDivisors",sumvar);
+HoldArgument("SumForDivisors",sumbody); 
 
 %/mathpiper
 

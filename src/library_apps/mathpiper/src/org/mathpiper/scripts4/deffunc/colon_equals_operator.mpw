@@ -3,8 +3,8 @@
 /* := assignment. */
 Rulebase(":=",{aLeftAssign,aRightAssign});
 UnFence(":=",2);
-HoldArg(":=",aLeftAssign);
-HoldArg(":=",aRightAssign);
+HoldArgument(":=",aLeftAssign);
+HoldArgument(":=",aRightAssign);
 
 /* := assignment. */
 // assign a variable

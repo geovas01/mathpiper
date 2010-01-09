@@ -9,7 +9,7 @@
 /// Fast summation of Taylor series using a rectangular scheme.
 /// SumTaylorNum(x, nth'term'func, n'terms) = Sum(k, 0, n'terms, nth'term'func(k)*x^k)
 /// Note that sufficient precision must be preset to avoid roundoff errors (these methods do not modify precision).
-/// The only reason to try making these functions HoldArg is to make sure that the closures nth'term'func and next'term'factor are passed intact. But it's probably not desired in most cases because a closure might contain parameters that should be evaluated.
+/// The only reason to try making these functions HoldArgument is to make sure that the closures nth'term'func and next'term'factor are passed intact. But it's probably not desired in most cases because a closure might contain parameters that should be evaluated.
 
 /// The short form is used when only the nth term is known but no simple relation between a term and the next term.
 /// The long form is used when there is a simple relation between consecutive terms. In that case, the n'th term function is not needed, only the 0th term value.

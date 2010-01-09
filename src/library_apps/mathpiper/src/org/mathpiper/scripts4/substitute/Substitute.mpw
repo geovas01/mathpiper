@@ -4,8 +4,8 @@ Function("Substitute",{body,predicate,change})
 [
   Substitute(body);
 ];
-HoldArg("Substitute",predicate);
-HoldArg("Substitute",change);
+HoldArgument("Substitute",predicate);
+HoldArgument("Substitute",change);
 UnFence("Substitute",3);
 Rulebase("Substitute",{body});
 UnFence("Substitute",1);

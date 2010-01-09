@@ -4,9 +4,9 @@
 
 Function() SumFunc(k,from,to,summand, sum, predicate );
 Function() SumFunc(k,from,to,summand, sum);
-HoldArg(SumFunc,predicate);
-HoldArg(SumFunc,sum);
-HoldArg(SumFunc,summand);
+HoldArgument(SumFunc,predicate);
+HoldArgument(SumFunc,sum);
+HoldArgument(SumFunc,summand);
 
 // Difference code does not work
 SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum) <--

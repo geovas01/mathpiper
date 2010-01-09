@@ -28,8 +28,8 @@ LocalSymbols(CacheOfConstantsN) [
 /// C'atom() will call C'func() at current precision to evaluate C'atom if it has not yet been cached at that precision. (note: any arguments to C'func() must be included)
 Rulebase("CachedConstant", {C'cache, C'atom, C'func});
 UnFence("CachedConstant", 3);	// not sure if this is useful
-HoldArg("CachedConstant", C'func);
-HoldArg("CachedConstant", C'cache);	// name of the cache
+HoldArgument("CachedConstant", C'func);
+HoldArgument("CachedConstant", C'cache);	// name of the cache
 // check syntax: must be called on an atom and a function
 Rule("CachedConstant", 3, 10, And(IsAtom(C'atom), IsFunction(C'func)))
 [

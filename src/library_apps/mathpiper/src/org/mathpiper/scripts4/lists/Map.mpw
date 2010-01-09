@@ -14,7 +14,7 @@ LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
     DestructiveReverse(mapsingleresult);
   ];
   UnFence("Map",2);
-  HoldArg("Map",func);
+  HoldArgument("Map",func);
 ];
 
 %/mathpiper

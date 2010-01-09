@@ -8,7 +8,7 @@ TemplateFunction("MapArgs",{expr,oper})
    ) );
 ];
 UnFence("MapArgs",2);
-HoldArg("MapArgs",oper);
+HoldArgument("MapArgs",oper);
 
 %/mathpiper
 

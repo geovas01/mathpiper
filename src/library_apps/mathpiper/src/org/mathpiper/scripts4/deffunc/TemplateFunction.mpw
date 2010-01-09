@@ -2,9 +2,9 @@
 
 Rulebase("TemplateFunction",{oper,args,body});
 Bodied("TemplateFunction",60000);
-HoldArg("TemplateFunction",oper);
-HoldArg("TemplateFunction",args);
-HoldArg("TemplateFunction",body);
+HoldArgument("TemplateFunction",oper);
+HoldArgument("TemplateFunction",args);
+HoldArgument("TemplateFunction",body);
 Rule("TemplateFunction",3,2047,True)
 [
   Retract(oper,Length(args));

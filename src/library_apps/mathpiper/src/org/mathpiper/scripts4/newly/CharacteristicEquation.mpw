@@ -2,7 +2,7 @@
 
 Function("CharacteristicEquation",{matrix,var})
    SymbolicDeterminant(matrix-var*Identity(Length(matrix)));
-HoldArg("CharacteristicEquation",var);
+HoldArgument("CharacteristicEquation",var);
 
 %/mathpiper
 

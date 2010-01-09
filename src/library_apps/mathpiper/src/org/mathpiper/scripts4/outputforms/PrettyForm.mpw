@@ -425,7 +425,7 @@ Function("PrettyForm",{ff})
   True;
 ];
 /*
-HoldArg("PrettyForm",ff);
+HoldArgument("PrettyForm",ff);
 */
 
 EvalFormula(f):=
@@ -435,7 +435,7 @@ EvalFormula(f):=
   PrettyForm(result);
   True;
 ];
-HoldArg("EvalFormula",f);
+HoldArgument("EvalFormula",f);
 
 /*
 {x,y,width,height,oper,args,base}

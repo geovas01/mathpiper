@@ -147,8 +147,8 @@ Function() Plot2D(func, range, options, ...);
 	Plot2DOutputs()[options'hash["output"]] @ {all'values, options'hash};
 ];
 
-//HoldArg("Plot2D", range);
-//HoldArg("Plot2D", options);
+//HoldArgument("Plot2D", range);
+//HoldArgument("Plot2D", options);
 HoldArgumentNumber("Plot2D", 2, 2);
 HoldArgumentNumber("Plot2D", 3, 2);
 HoldArgumentNumber("Plot2D", 3, 3);
