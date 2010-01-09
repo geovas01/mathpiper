@@ -1,0 +1,130 @@
+%mathpiper,def="ChiSquareScoreToAlpha",scope="private"
+
+/* 
+    This function was adapted from the Javascript version of function
+    that is located here:
+    
+    http://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.js
+    http://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.html
+    
+    The following JavaScript functions for calculating normal and
+    chi-square probabilities and critical values were adapted by
+    John Walker from C implementations
+    written by Gary Perlman of Wang Institute, Tyngsboro, MA
+    01879. Both the original C code and this JavaScript edition
+    are in the public domain. 
+*/
+
+
+/*  POCHISQ  --  probability of chi-square value
+
+          Adapted from:
+                  Hill, I. D. and Pike, M. C.  Algorithm 299
+                  Collected Algorithms for the CACM 1967 p. 243
+          Updated for rounding errors based on remark in
+                  ACM TOMS June 1985, page 185
+*/
+
+ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
+[
+    Local(a, y, s, e, c, z, LogSqrtPi, ISqrtPi,result);                     
+    
+    y := 0;
+    
+    LogSqrtPi := 0.5723649429247000870717135; /* log(sqrt(pi)) */
+    
+    ISqrtPi := 0.5641895835477562869480795;   /* 1 / sqrt(pi) */
+    
+    if(score <= 0.0 Or degreesOfFreedom < 1) 
+    [
+        result := 1.0;
+    ]
+    else
+    [
+        a := N(0.5 * score);
+        
+        if (degreesOfFreedom > 1) 
+        [
+            y := If(-a < -20, 0, ExpN(-a));
+        ];
+        
+        s := If(IsEven(degreesOfFreedom), y , (2.0 * ZScoreToProbability(-SqrtN(score))));
+        
+        if (degreesOfFreedom > 2) 
+        [
+            score := 0.5 * (degreesOfFreedom - 1.0);
+            
+            z := If(IsEven(degreesOfFreedom), 1.0, 0.5);
+            
+            if (a > 20) 
+            [
+                e := If(IsEven(degreesOfFreedom), 0.0, LogSqrtPi);
+                
+                c := LogN(a);
+                
+                While(z <= score) 
+                [
+                    e := LogN(z) + e;
+                    s := s + If(c * z - a - e < -20, 0, ExpN(c * z - a - e));
+                    z := z + 1.0;
+                ];
+                result := s;
+            ] 
+            else 
+            [
+                e := If(IsEven(degreesOfFreedom) , 1.0, (ISqrtPi / SqrtN(a)));
+                
+                c := 0.0;
+                
+                While(z <= score) 
+                [
+                    e := e * (a / z);
+                    c := c + e;
+                    z := z + 1.0;
+                ];
+                
+                result := c * y + s;
+            ];
+        ]
+        else
+        [
+            result := s;
+        ];
+    
+    ];
+    
+    N(result);
+];
+
+
+
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper_docs,name="ChiSquareScoreToAlpha",categories="User Functions;Statistics & Probability"
+*CMD ChiSquareScoreToAlpha --- calculates the alpha probability of a chi square score
+*STD
+*CALL
+	ChiSquareScoreToAlpha(chiSquareScore, degreesOfFreedom)
+
+*PARMS
+{chiSquareScore} -- a chi square score
+{degreesOfFreedom} -- the degrees of freedom
+
+*DESC
+This function calculates the alpha probability of a chi square score.
+
+*E.G.
+In> ChiSquareScoreToAlpha(7.779,4)
+Result: 0.1000175159
+
+*SEE AlphaToChiSquareScore, ChiSquareTest
+%/mathpiper_docs
+
+
+

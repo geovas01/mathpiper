@@ -30,7 +30,7 @@ public class RunTestSuite {
     private java.io.File testDirectory;
     private EvaluationResponse evaluationResponse;
     private java.io.FileWriter logFile;
-    private String scriptsDirectory = "scripts";
+    private String scriptsDirectory = "scripts4";
 
     public RunTestSuite() {
         super();
@@ -80,7 +80,7 @@ public class RunTestSuite {
                         System.out.print(output);
                         logFile.write(output);
 
-                        evaluationResponse = mathPiper.evaluate("Load(\"tests/" + scriptsDirectory + "/" + scriptName + "\");");
+                        evaluationResponse = mathPiper.evaluate("LoadScript(\"tests/" + scriptsDirectory + "/" + scriptName + "\");");
                         output = "Result: " + evaluationResponse.getResult() + "\n";
                         
                         if(!evaluationResponse.getSideEffects().equals(""))
