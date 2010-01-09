@@ -51,7 +51,7 @@
 
 
 %mathpiper_docs,name="Modulo",categories="User Functions;Numbers (Operations)"
-*CMD Mod --- Determine remainder of two mathematical objects after dividing one by the other
+*CMD Modulo --- Determine remainder of two mathematical objects after dividing one by the other
 
 *STD
 *CALL
@@ -63,7 +63,7 @@
 
 *DESC
 
-{Mod} returns the remainder after division.  {Mod} is also defined for polynomials.
+{Modulo} returns the remainder after division.  {Modulo} is also defined for polynomials.
 
 If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
 
@@ -74,5 +74,5 @@ If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers 
 	In> Modulo(5,3)
 	Out> 2;
 
-*SEE Gcd, Lcm, Div
+*SEE Gcd, Lcm, Quotient
 %/mathpiper_docs

@@ -43,10 +43,10 @@ public class Modulo extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="ModuloN",categories="User Functions;Numeric;Built In"
-*CMD ModuloN --- remainder of division or x mod y (arbitrary-precision math function)
+*CMD ModuloN --- remainder of division or x modulo y (arbitrary-precision math function)
 *CORE
 *CALL
-	ModuloN(x,y)    ()
+	ModuloN(x,y) ()
 
 *DESC
 
@@ -64,8 +64,8 @@ integer result is returned even if the calculation requires more digits than set
 the functions return a floating-point result which is correct only to the current precision.
 
 *E.G.
-	In>
-	Result>
+In> Modulo(2,3)
+Result: 2
 
 %/mathpiper_docs
 */
