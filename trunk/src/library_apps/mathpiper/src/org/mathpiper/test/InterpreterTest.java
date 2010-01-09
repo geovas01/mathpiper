@@ -38,7 +38,7 @@ public class InterpreterTest implements ResponseListener
        // System.out.println("Straight: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());
          
         //Load("/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/test/test.mpi");
-        response = interpreter.evaluate("Load(\"/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/test/test.mpi\");");
+        response = interpreter.evaluate("LoadScript(\"/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/test/test.mpi\");");
         System.out.println("Load test: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage() + "   File: " + response.getSourceFileName() + "  Line number: " + response.getLineNumber());
         
        /* response = interpreter.evaluate("3+3;");

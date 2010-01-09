@@ -1,7 +1,7 @@
 
-***** Fri Jan 08 19:40:31 EST 2010 *****
+***** Fri Jan 08 19:59:02 EST 2010 *****
 ***** Using a new interpreter instance for each test file. *****
-***** MathPiper version: .77b *****
+***** MathPiper version: .78 *****
 
 ===========================
 arithmetic.mpt: 
@@ -560,6 +560,15 @@ RoundTo(RoundTo(N(Zeta(1.5)),19)-2.6123753486854883433,19)
 -0.0000000000000000003
  which differs from 
 0
+******************
+******************
+tests/scripts4/numerics.mpt: 257 
+
+GuessRational(N(Pi))
+ evaluates to 
+25582/8143
+ which differs from 
+355/113
 ******************
 ******************
 tests/scripts4/numerics.mpt: 283 
