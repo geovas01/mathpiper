@@ -15,7 +15,6 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
@@ -28,11 +27,13 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class Use extends BuiltinFunction
+public class LoadScript extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
+        LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);
+
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
@@ -41,33 +42,31 @@ public class Use extends BuiltinFunction
         String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
-        Utility.use(aEnvironment, orig);
+        Utility.load(aEnvironment, orig);
+        
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         
     }
 }
 
 
+
 /*
-%mathpiper_docs,name="Use",categories="User Functions;Control Flow;Input/Output;Built In"
-*CMD Use --- load a file (but not twice)
+%mathpiper_docs,name="LoadScript",categories="User Functions;Input/Output;Built In"
+*CMD LoadScript --- evaluate all expressions in a file
 *CORE
 *CALL
-	Use(name)
+	LoadScript(name)
 
 *PARMS
 
-{name} -- name of the file to load
+{name} -- string, name of the file to load
 
 *DESC
 
-If the file "name" has been loaded before, either by an earlier call
-to {Use} or via the {DefLoad}
-mechanism, nothing happens. Otherwise all expressions in the file are
-read and evaluated. {Use} always returns {True}.
+The file "name" is opened. All expressions in the file are read and
+evaluated. {LoadScript} always returns {true}.
 
-The purpose of this function is to make sure that the file will at
-least have been loaded, but is not loaded twice.
-
-*SEE Load, DefLoad, DefaultDirectory
+*SEE Use, DefLoad, DefaultDirectory, FindFile
 %/mathpiper_docs
 */

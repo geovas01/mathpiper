@@ -30,7 +30,7 @@ import org.mathpiper.lisp.Utility;
  *
  * 
  */
-public class ToFile extends BuiltinFunction
+public class PipeToFile extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -70,11 +70,11 @@ public class ToFile extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ToFile",categories="User Functions;Input/Output;Built In"
-*CMD ToFile --- connect current output to a file
+%mathpiper_docs,name="PipeToFile",categories="User Functions;Input/Output;Built In"
+*CMD PipeToFile --- connect current output to a file
 *CORE
 *CALL
-	ToFile(name) body
+	PipeToFile(name) body
 
 *PARMS
 
@@ -90,13 +90,13 @@ to the current output, ends up in the file "name". Finally, the
 file is closed and the result of evaluating "body" is returned.
 
 If the file is opened again, the old contents will be overwritten.
-This is a limitation of {ToFile}: one cannot append to a file that has already been created.
+This is a limitation of {PipeToFile}: one cannot append to a file that has already been created.
 
 *E.G. notest
 
 Here is how one can create a file with C code to evaluate an expression:
 
-	In> ToFile("expr1.c") WriteString(
+	In> PipeToFile("expr1.c") WriteString(
 	  CForm(Sqrt(x-y)*Sin(x)) );
 	Out> True;
 The file {expr1.c} was created in the current working directory and it
@@ -119,7 +119,7 @@ As another example, take a look at the following command:
 Now suppose one wants to send the output of this command to a
 file. This can be achieved as follows:
 
-	In> ToFile("out") [ Echo("Result:");  \
+	In> PipeToFile("out") [ Echo("Result:");  \
 	  PrettyForm(Taylor(x,0,9) Sin(x)); ];
 	Out> True;
 

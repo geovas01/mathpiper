@@ -15,48 +15,60 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
  *  
  */
-public class LessThan extends BuiltinFunction
+public class ToAtom extends BuiltinFunction
 {
-
-    LexLessThan compare = new LexLessThan();
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        compare.Compare(aEnvironment, aStackTop);
+        ConsPointer evaluated = new ConsPointer();
+        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+
+        // Get operator
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        String orig =  (String) evaluated.car();
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpUnStringify(orig)));
     }
-}//end class.
+}
 
 
 
 
 /*
-%mathpiper_docs,name="LessThan"
-*CMD LessThan --- comparison predicate
+%mathpiper_docs,name="ToAtom",categories="User Functions;String Manipulation"
+*CMD ToAtom --- convert string to atom
 *CORE
 *CALL
-	LessThan(a,b)
+	ToAtom("string")
 
 *PARMS
-{a}, {b} -- numbers or strings
+
+{"string"} -- a string
+
 *DESC
-Comparing numbers or strings (lexicographically).
 
-**E.G.
-	In> LessThan(1,1)
-	Out> False;
-	In> LessThan("a","b")
-	Out> True;
+Returns an atom with the string representation given
+as the evaluated argument. Example: {ToAtom("foo");} returns
+{foo}.
 
-*SEE GreaterThan, Equals
+
+*E.G.
+
+	In> ToAtom("a")
+	Out> a;
+
+*SEE String, ExpressionToString
 %/mathpiper_docs
 */

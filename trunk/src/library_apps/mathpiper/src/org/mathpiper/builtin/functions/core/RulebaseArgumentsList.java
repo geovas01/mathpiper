@@ -30,7 +30,7 @@ import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
  *
  *  
  */
-public class RulebaseArgList extends BuiltinFunction
+public class RulebaseArgumentsList extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

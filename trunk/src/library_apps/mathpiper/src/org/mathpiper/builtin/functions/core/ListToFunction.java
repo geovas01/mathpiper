@@ -28,7 +28,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class UnList extends BuiltinFunction
+public class ListToFunction extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -45,11 +45,11 @@ public class UnList extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="UnList",categories="User Functions;Lists (Operations);Built In"
-*CMD UnList --- convert a list to a function application
+%mathpiper_docs,name="ListToFunction",categories="User Functions;Lists (Operations);Built In"
+*CMD ListToFunction --- convert a list to a function application
 *CORE
 *CALL
-	UnList(list)
+	ListToFunction(list)
 
 *PARMS
 
@@ -63,15 +63,15 @@ are the arguments to this function. So the function referred to in the
 car element of "list" is applied to the other elements.
 
 Note that "list" is evaluated before the function application is
-formed, but the resulting expression is left unevaluated. The functions {UnList()} and {Hold()} both stop the process of evaluation.
+formed, but the resulting expression is left unevaluated. The functions {ListToFunction()} and {Hold()} both stop the process of evaluation.
 
 *E.G.
 
-	In> UnList({Cos, x});
+	In> ListToFunction({Cos, x});
 	Out> Cos(x);
-	In> UnList({f});
+	In> ListToFunction({f});
 	Out> f();
-	In> UnList({Taylor,x,0,5,Cos(x)});
+	In> ListToFunction({Taylor,x,0,5,Cos(x)});
 	Out> Taylor(x,0,5)Cos(x);
 	In> Eval(%);
 	Out> 1-x^2/2+x^4/24;

@@ -26,35 +26,27 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class Div extends BuiltinFunction
+public class Modulo extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
-        if (x.isInteger() && y.isInteger())
-        {  // both integer, perform integer division
-
-            BigNumber z = new BigNumber(aEnvironment.getPrecision());
-            z.divide(x, y, aEnvironment.getPrecision());
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(aEnvironment, z));
-            return;
-        } else
-        {
-            throw new Exception("LispDiv: error: both arguments must be integer");
-        }
+        BigNumber z = new BigNumber(aEnvironment.getPrecision());
+        z.mod(x, y);
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(aEnvironment, z));
     }
 }//end class.
 
 
 
 /*
-%mathpiper_docs,name="DivN",categories="User Functions;Numeric;Built In"
-*CMD DivN --- integer division result is an integer (arbitrary-precision math function)
+%mathpiper_docs,name="ModN",categories="User Functions;Numeric;Built In"
+*CMD ModN --- remainder of division or x mod y (arbitrary-precision math function)
 *CORE
 *CALL
-	DivN(x,y)    ()
+	ModN(x,y)    ()
 
 *DESC
 

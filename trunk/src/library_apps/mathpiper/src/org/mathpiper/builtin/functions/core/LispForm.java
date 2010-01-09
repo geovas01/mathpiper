@@ -25,7 +25,7 @@ import org.mathpiper.lisp.printers.LispPrinter;
  *
  * 
  */
-public class FullForm extends BuiltinFunction
+public class LispForm extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -40,11 +40,11 @@ public class FullForm extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="FullForm",categories="User Functions;Input/Output;Built In"
-*CMD FullForm --- print an expression in LISP-format
+%mathpiper_docs,name="LispForm",categories="User Functions;Input/Output;Built In"
+*CMD LispForm --- print an expression in LISP-format
 *CORE
 *CALL
-	FullForm(expr)
+	LispForm(expr)
 
 *PARMS
 
@@ -61,10 +61,10 @@ a certain expression.
 
 *E.G. notest
 
-	In> FullForm(a+b+c);
+	In> LispForm(a+b+c);
 	(+ (+ a b )c )
 	Out> a+b+c;
-	In> FullForm(2*I*b^2);
+	In> LispForm(2*I*b^2);
 	(* (Complex 0 2 )(^ b 2 ))
 	Out> Complex(0,2)*b^2;
 

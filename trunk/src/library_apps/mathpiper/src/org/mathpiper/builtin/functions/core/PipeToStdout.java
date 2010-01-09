@@ -18,57 +18,58 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.io.MathPiperOutputStream;
 
 /**
  *
  *  
  */
-public class Atom extends BuiltinFunction
+public class PipeToStdout extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-
-        // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
-        String orig =  (String) evaluated.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpUnStringify(orig)));
+        MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
+        aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;
+        try
+        {
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+        } catch (Exception e)
+        {
+            throw e;
+        } finally
+        {
+            aEnvironment.iCurrentOutput = previous;
+        }
     }
 }
 
 
 
-
 /*
-%mathpiper_docs,name="Atom",categories="User Functions;String Manipulation"
-*CMD Atom --- convert string to atom
+%mathpiper_docs,name="PipeToStdout",categories="User Functions;Input/Output;Built In"
+*CMD PipeToStdout --- select initial output stream for output
 *CORE
 *CALL
-	Atom("string")
+	PipeToStdout() body
 
 *PARMS
 
-{"string"} -- a string
+{body} -- expression to be evaluated
 
 *DESC
 
-Returns an atom with the string representation given
-as the evaluated argument. Example: {Atom("foo");} returns
-{foo}.
+When using {ToString} or {ToFile}, it might happen that something needs to be
+written to the standard default initial output (typically the screen). {PipeToStdout} can be used to select this stream.
 
+**E.G.
 
-*E.G.
+	In> ToString()[Echo("aaaa");PipeToStdout()Echo("bbbb");];
+	bbbb
+	Out> "aaaa
+	"
 
-	In> Atom("a")
-	Out> a;
-
-*SEE String, ExpressionToString
+*SEE ToString, ToFile
 %/mathpiper_docs
 */

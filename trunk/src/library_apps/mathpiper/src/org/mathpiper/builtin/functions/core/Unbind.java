@@ -28,7 +28,7 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class Clear extends BuiltinFunction
+public class Unbind extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

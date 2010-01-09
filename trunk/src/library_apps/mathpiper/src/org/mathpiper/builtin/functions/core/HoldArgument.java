@@ -15,20 +15,18 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 
 /**
  *
  *  
  */
-public class LeftPrecedence extends BuiltinFunction
+public class HoldArgument extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -38,13 +36,11 @@ public class LeftPrecedence extends BuiltinFunction
         String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
-        ConsPointer index = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, index, getArgumentPointer(aEnvironment, aStackTop, 2));
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 2);
-        int ind = Integer.parseInt( (String) index.car(), 10);
-
-        aEnvironment.iInfixOperators.setLeftPrecedence(Utility.getSymbolName(aEnvironment, orig), ind);
+        // The arguments
+        String tohold =  (String) getArgumentPointer(aEnvironment, aStackTop, 2).car();
+        LispError.checkArgument(aEnvironment, aStackTop, tohold != null, 2);
+        aEnvironment.holdArgument(Utility.getSymbolName(aEnvironment, orig), tohold);
+        // Return true
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
@@ -52,30 +48,30 @@ public class LeftPrecedence extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="LeftPrecedence",categories="User Functions;Built In"
-*CMD LeftPrecedence --- set operator precedence
+%mathpiper_docs,name="HoldArgument",categories="User Functions;Built In"
+*CMD HoldArgument --- mark argument as not evaluated
 *CORE
 *CALL
-	LeftPrecedence("op",precedence)
+	HoldArgument("operator",parameter)
 
 *PARMS
 
-{"op"} -- string, the name of a function
+{"operator"} -- string, name of a function
 
-{precedence} -- nonnegative integer
+{parameter} -- atom, symbolic name of parameter
 
 *DESC
+Specify that parameter should
+not be evaluated before used. This will be
+declared for all arities of "operator", at the moment
+this function is called, so it is best called
+after all {RuleBase} calls for this operator.
+"operator" can be a string or atom specifying the
+function name.
 
-{"op"} should be an infix operator. This function call tells the
-infix expression printer to bracket the left  hand side of
-the expression if its precedence is larger than precedence.
+The {parameter} must be an atom from the list of symbolic
+arguments used when calling {RuleBase}.
 
-This functionality was required in order to display expressions like {a-(b-c)}
-correctly. Thus, {a+b+c} is the same as {a+(b+c)}, but {a-(b-c)} is not
-the same as {a-b-c}.
-
-Note that the left precedence of an infix operator does not affect the way MathPiper interprets expressions typed by the user. You cannot make MathPiper parse {a-b-c} as {a-(b-c)} unless you declare the operator "{-}" to be right-associative.
-
-*SEE OpPrecedence, OpLeftPrecedence, OpRightPrecedence, RightAssociative, RightPrecedence
+*SEE RuleBase, HoldArgNr, RuleBaseArgList
 %/mathpiper_docs
 */

@@ -15,49 +15,47 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.Utility;
 
 /**
  *
  *  
  */
-public class Equals extends BuiltinFunction
+public class IsGreaterThan extends BuiltinFunction
 {
+
+    LexGreaterThan compare = new LexGreaterThan();
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated1 = new ConsPointer();
-        evaluated1.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer evaluated2 = new ConsPointer();
-        evaluated2.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
-                Utility.equals(aEnvironment, evaluated1, evaluated2));
+        compare.Compare(aEnvironment, aStackTop);
     }
 }//end class.
 
 
 
-
 /*
-%mathpiper_docs,name="Equals",categories="User Functions;Built In"
-*CMD Equals --- check equality
+%mathpiper_docs,name="IsGreaterThan"
+*CMD IsGreaterThan --- comparison predicate
 *CORE
 *CALL
-	Equals(a,b)
+	IsGreaterThan(a,b)
 
+*PARMS
+{a}, {b} -- numbers or strings
 *DESC
-Compares evaluated {a} and {b} recursively
-(stepping into expressions). So "Equals(a,b)" returns
-"True" if the expressions would be printed exactly
-the same, and "False" otherwise.
+Comparing numbers or strings (lexicographically).
 
-*SEE GreaterThan, LessThan
+**E.G.
+	In> IsGreaterThan(1,1)
+	Out> False;
+	In> IsGreaterThan("b","a")
+	Out> True;
 
+*SEE LessThan, Equals
 %/mathpiper_docs
 */

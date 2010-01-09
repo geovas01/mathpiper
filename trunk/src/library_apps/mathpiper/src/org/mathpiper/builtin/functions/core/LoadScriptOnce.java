@@ -15,20 +15,20 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
 package org.mathpiper.builtin.functions.core;
 
-import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
  *  
  */
-public class Stringify extends BuiltinFunction
+public class LoadScriptOnce extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -36,48 +36,38 @@ public class Stringify extends BuiltinFunction
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        // Get operator
+        // Get file name
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
-
-        String orig = null;
-        if(evaluated.car() instanceof String)
-        {
-                 orig = (String) evaluated.car();
-        }
-        else if(evaluated.car() instanceof BuiltinContainer)
-        {
-            BuiltinContainer container = (BuiltinContainer) evaluated.car();
-            orig = container.getObject().toString();
-        }
-        
+        String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(orig)));
+        Utility.use(aEnvironment, orig);
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 
 
-
 /*
-%mathpiper_docs,name="String",categories="User Functions;String Manipulation;Built In"
-*CMD String --- convert atom to string
+%mathpiper_docs,name="LoadScriptOnce",categories="User Functions;Control Flow;Input/Output;Built In"
+*CMD LoadScriptOnce --- load a file (but not twice)
 *CORE
 *CALL
-	String(atom)
+	LoadScriptOnce(name)
 
 *PARMS
 
-{atom} -- an atom
+{name} -- name of the file to load
 
 *DESC
 
-{String} is the inverse of {Atom}: turns {atom} into {"atom"}.
+If the file "name" has been loaded before, either by an earlier call
+to {LoadScriptOnce} or via the {DefLoad}
+mechanism, nothing happens. Otherwise all expressions in the file are
+read and evaluated. {LoadScriptOnce} always returns {True}.
 
-*E.G.
+The purpose of this function is to make sure that the file will at
+least have been loaded, but is not loaded twice.
 
-	In> String(a)
-	Out> "a";
-
-*SEE Atom, ExpressionToString
+*SEE Load, DefLoad, DefaultDirectory
 %/mathpiper_docs
 */
