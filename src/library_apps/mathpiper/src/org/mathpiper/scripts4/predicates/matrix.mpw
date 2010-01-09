@@ -17,7 +17,7 @@ Function("IsScalar",{x}) Not(IsList(x));
 // test for a vector
 Function("IsVector",{x})
    If(IsList(x),
-   Length(Select(IsList,x))=0,
+   Length(Select(x, IsList))=0,
    False);
 
 // test for a vector w/ element test p
@@ -45,7 +45,7 @@ If(IsList(x) And Length(x)>0,
 [
    Local(n);
    n:=Length(x);
-   If(Length(Select(IsVector,x))=n,
+   If(Length(Select(x, IsVector))=n,
    MapSingle(Length,x)=Length(x[1])+ZeroVector(n),
    False);
 ],

@@ -81,7 +81,7 @@ Retract("CombineNumericalFactors",*);
     coeffs := uni[3]; 
     deg    := Length(coeffs)-1;
     If(InVerboseMode(),Tell("       ",{deg,coeffs}));
-    hasRealCoeffs := Length(Select("IsDecimal",coeffs)) > 0;
+    hasRealCoeffs := Length(Select(coeffs, "IsDecimal")) > 0;
     If(InVerboseMode(),Tell("       ",hasRealCoeffs));
     
     // If it has Real coefficients, convert to Q then Z

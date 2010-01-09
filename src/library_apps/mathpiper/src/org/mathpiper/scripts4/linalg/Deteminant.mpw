@@ -15,7 +15,7 @@
 // elements happens to be zero, the result is something like Infinity or Undefined.
 // Use the symbolic determinant in that case, as it is slower but much more robust.
 //
-15 # Determinant(_matrix)_(Length(Select("IsZero",Diagonal(matrix))) > 0) <-- SymbolicDeterminant(matrix);
+15 # Determinant(_matrix)_(Length(Select(Diagonal(matrix), "IsZero")) > 0) <-- SymbolicDeterminant(matrix);
 
 // Not numeric entries, so lets treat it symbolically.
 16 # Determinant(_matrix)_(VarList(matrix) != {}) <-- SymbolicDeterminant(matrix);

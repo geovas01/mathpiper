@@ -25,7 +25,7 @@ prime is a prime number $n$ such that $n+2$ is also a prime number.
 	Out> True;
 	In> IsTwinPrime(7)
 	Out> False;
-	In> Select(IsTwinPrime, 1 .. 100)
+	In> Select(1 .. 100, IsTwinPrime)
 	Out> {3,5,11,17,29,41,59,71};
 
 *SEE IsPrime
