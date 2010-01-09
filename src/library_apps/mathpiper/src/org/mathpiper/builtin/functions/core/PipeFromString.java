@@ -19,6 +19,7 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.io.InputStatus;
+import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.LispError;
@@ -29,12 +30,11 @@ import org.mathpiper.lisp.Utility;
  *
  * 
  */
-public class FromFile extends BuiltinFunction
+public class PipeFromString extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);
         ConsPointer evaluated = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
 
@@ -42,20 +42,16 @@ public class FromFile extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
         String orig =  (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
-
-        String hashedname = aEnvironment.getTokenHash().lookUpUnStringify(orig);
+        String oper = Utility.unstringify(orig);
 
         InputStatus oldstatus = aEnvironment.iInputStatus;
+        aEnvironment.iInputStatus.setTo("String");
+        StringInputStream newInput = new StringInputStream(new StringBuffer(oper), aEnvironment.iInputStatus);
+
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
+        aEnvironment.iCurrentInput = newInput;
         try
         {
-            aEnvironment.iInputStatus.setTo(hashedname);
-            MathPiperInputStream input = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
-                    Utility.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
-            aEnvironment.iCurrentInput = input;
-            // Open file
-            LispError.check(aEnvironment, aStackTop, input != null, LispError.FILE_NOT_FOUND);
-
             // Evaluate the body
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
         } catch (Exception e)
@@ -66,6 +62,7 @@ public class FromFile extends BuiltinFunction
             aEnvironment.iCurrentInput = previous;
             aEnvironment.iInputStatus.restoreFrom(oldstatus);
         }
+
     //Return the getTopOfStackPointer
     }
 }
@@ -73,38 +70,33 @@ public class FromFile extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="FromFile",categories="User Functions;Input/Output;Built In"
-*CMD FromFile --- connect current input to a file
+%mathpiper_docs,name="PipeFromString",categories="User Functions;Input/Output;Built In"
+*CMD PipeFromString --- connect current input to a string
 *CORE
 *CALL
-	FromFile(name) body
+	PipeFromString(str) body;
 
 *PARMS
 
-{name} - string, the name of the file to read
+{str} -- a string containing the text to parse
 
-{body} - expression to be evaluated
+{body} -- expression to be evaluated
 
 *DESC
 
-The current input is connected to the file "name". Then the expression
-"body" is evaluated. If some functions in "body" try to read
-from current input, they will now read from the file "name". Finally, the
-file is closed and the result of evaluating "body" is returned.
+The commands in "body" are executed, but everything that is read
+from the current input is now read from the string "str". The
+result of "body" is returned.
 
-*E.G. notest
+*E.G.
 
-Suppose that the file {foo} contains
-
-	2 + 5;
-
-Then we can have the following dialogue:
-
-	In> FromFile("foo") res := Read();
+	In> PipeFromString("2+5; this is never read") \
+	  res := Read();
 	Out> 2+5;
-	In> FromFile("foo") res := ReadToken();
-	Out> 2;
+	In> PipeFromString("2+5; this is never read") \
+	  res := Eval(Read());
+	Out> 7;
 
-*SEE ToFile, FromString, Read, ReadToken
+*SEE ToString, FromFile, Read, ReadToken
 %/mathpiper_docs
 */

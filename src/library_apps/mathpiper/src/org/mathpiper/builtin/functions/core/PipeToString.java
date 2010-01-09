@@ -27,7 +27,7 @@ import org.mathpiper.io.MathPiperOutputStream;
  *
  *  
  */
-public class ToString extends BuiltinFunction
+public class PipeToString extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -56,11 +56,11 @@ public class ToString extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ToString",categories="User Functions;Input/Output;Built In"
-*CMD ToString --- connect current output to a string
+%mathpiper_docs,name="PipeToString",categories="User Functions;Input/Output;Built In"
+*CMD PipeToString --- connect current output to a string
 *CORE
 *CALL
-	ToString() body
+	PipeToString() body
 
 *PARMS
 
@@ -74,10 +74,10 @@ collected in a string and this string is returned.
 
 *E.G.
 
-	In> str := ToString() [ WriteString(  \
+	In> str := PipeToString() [ WriteString(  \
 	  "The square of 8 is "); Write(8^2); ];
 	Out> "The square of 8 is  64";
 
-*SEE FromFile, ToString, Echo, Write, WriteString
+*SEE FromFile, PipeToString, Echo, Write, WriteString
 %/mathpiper_docs
 */

@@ -25,10 +25,10 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class GreaterThan extends BuiltinFunction
+public class IsLessThan extends BuiltinFunction
 {
 
-    LexGreaterThan compare = new LexGreaterThan();
+    LexLessThan compare = new LexLessThan();
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
@@ -38,12 +38,13 @@ public class GreaterThan extends BuiltinFunction
 
 
 
+
 /*
-%mathpiper_docs,name="GreaterThan"
-*CMD GreaterThan --- comparison predicate
+%mathpiper_docs,name="IsLessThan"
+*CMD IsLessThan --- comparison predicate
 *CORE
 *CALL
-	GreaterThan(a,b)
+	IsLessThan(a,b)
 
 *PARMS
 {a}, {b} -- numbers or strings
@@ -51,11 +52,11 @@ public class GreaterThan extends BuiltinFunction
 Comparing numbers or strings (lexicographically).
 
 **E.G.
-	In> GreaterThan(1,1)
+	In> IsLessThan(1,1)
 	Out> False;
-	In> GreaterThan("b","a")
+	In> IsLessThan("a","b")
 	Out> True;
 
-*SEE LessThan, Equals
+*SEE GreaterThan, Equals
 %/mathpiper_docs
 */

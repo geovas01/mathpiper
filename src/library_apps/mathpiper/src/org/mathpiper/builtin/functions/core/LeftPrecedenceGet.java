@@ -29,7 +29,7 @@ import org.mathpiper.lisp.LispError;
  *
  *  
  */
-public class OpLeftPrecedence extends BuiltinFunction
+public class LeftPrecedenceGet extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -48,11 +48,11 @@ public class OpLeftPrecedence extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="OpLeftPrecedence",categories="Programmer Functions;Programming;Built In"
-*CMD OpLeftPrecedence --- get operator precedence
+%mathpiper_docs,name="LeftPrecedenceGet",categories="Programmer Functions;Programming;Built In"
+*CMD LeftPrecedenceGet --- get operator precedence
 *CORE
 *CALL
-	OpLeftPrecedence("op")
+	LeftPrecedenceGet("op")
 
 *PARMS
 
@@ -65,7 +65,7 @@ Returns the precedence of the function named "op" which should have been declare
 For infix operators, right precedence can differ from left precedence. Bodied functions and prefix operators cannot have left precedence, while postfix operators cannot have right precedence; for these operators, there is only one value of precedence.
 
 *E.G.
-	In> OpLeftPrecedence("!")
+	In> LeftPrecedenceGet("!")
 	Out> 0;
 
 *SEE OpPrecedence,OpRightPrecedence,LeftPrecedence,RightPrecedence,RightAssociative

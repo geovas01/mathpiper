@@ -27,7 +27,7 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *  
  */
-public class Listify extends BuiltinFunction
+public class FunctionToList extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -43,11 +43,11 @@ public class Listify extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Listify",categories="User Functions;Lists (Operations);Built In"
-*CMD Listify --- convert a function application to a list
+%mathpiper_docs,name="FunctionToList",categories="User Functions;Lists (Operations);Built In"
+*CMD FunctionToList --- convert a function application to a list
 *CORE
 *CALL
-	Listify(expr)
+	FunctionToList(expr)
 
 *PARMS
 
@@ -63,9 +63,9 @@ list is returned.
 
 *E.G.
 
-	In> Listify(Cos(x));
+	In> FunctionToList(Cos(x));
 	Out> {Cos,x};
-	In> Listify(3*a);
+	In> FunctionToList(3*a);
 	Out> {*,3,a};
 
 *SEE List, UnList, IsAtom

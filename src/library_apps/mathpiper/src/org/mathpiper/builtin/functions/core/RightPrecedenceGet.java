@@ -29,39 +29,35 @@ import org.mathpiper.lisp.LispError;
  *
  *  
  */
-public class OpPrecedence extends BuiltinFunction
+public class RightPrecedenceGet extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
         if (op == null)
-        {  // also need to check for a postfix or prefix operator
+        {   // bodied, infix and prefix operators have right precedence
 
             op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
             if (op == null)
-            {
-                op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
-                if (op == null)
-                {  // or maybe it's a bodied function
+            {   // or maybe it's a bodied function
 
-                    op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                    LispError.check(aEnvironment, aStackTop, op != null, LispError.IS_NOT_INFIX);
-                }
+                op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+                LispError.check(aEnvironment, aStackTop, op != null, LispError.IS_NOT_INFIX);
             }
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + op.iPrecedence));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + op.iRightPrecedence));
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="OpPrecedence",categories="Programmer Functions;Programming;Built In"
-*CMD OpPrecedence --- get operator precedence
+%mathpiper_docs,name="RightPrecedenceGet",categories="Programmer Functions;Programming;Built In"
+*CMD RightPrecedenceGet --- get operator precedence
 *CORE
 *CALL
-	OpPrecedence("op")
+	RightPrecedenceGet("op")
 
 *PARMS
 
@@ -74,9 +70,9 @@ Returns the precedence of the function named "op" which should have been declare
 For infix operators, right precedence can differ from left precedence. Bodied functions and prefix operators cannot have left precedence, while postfix operators cannot have right precedence; for these operators, there is only one value of precedence.
 
 *E.G.
-	In> OpPrecedence("+")
-	Out> 6;
+	In> RightPrecedenceGet("+")
+	Result> 70
 
-*SEE OpLeftPrecedence,OpRightPrecedence,LeftPrecedence,RightPrecedence,RightAssociative
+*SEE OpPrecedence,OpLeftPrecedence,LeftPrecedence,RightPrecedence,RightAssociative
 %/mathpiper_docs
 */

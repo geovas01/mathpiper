@@ -19,57 +19,45 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.io.MathPiperOutputStream;
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
  *  
  */
-public class ToStdout extends BuiltinFunction
+public class IsEqual extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
-        aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;
-        try
-        {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
-        } catch (Exception e)
-        {
-            throw e;
-        } finally
-        {
-            aEnvironment.iCurrentOutput = previous;
-        }
+        ConsPointer evaluated1 = new ConsPointer();
+        evaluated1.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        ConsPointer evaluated2 = new ConsPointer();
+        evaluated2.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+
+        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
+                Utility.equals(aEnvironment, evaluated1, evaluated2));
     }
-}
+}//end class.
+
 
 
 
 /*
-%mathpiper_docs,name="ToStdout",categories="User Functions;Input/Output;Built In"
-*CMD ToStdout --- select initial output stream for output
+%mathpiper_docs,name="IsEqual",categories="User Functions;Built In"
+*CMD IsEqual --- check equality
 *CORE
 *CALL
-	ToStdout() body
-
-*PARMS
-
-{body} -- expression to be evaluated
+	IsEqual(a,b)
 
 *DESC
+Compares evaluated {a} and {b} recursively
+(stepping into expressions). So "IsEqual(a,b)" returns
+"True" if the expressions would be printed exactly
+the same, and "False" otherwise.
 
-When using {ToString} or {ToFile}, it might happen that something needs to be
-written to the standard default initial output (typically the screen). {ToStdout} can be used to select this stream.
+*SEE GreaterThan, LessThan
 
-**E.G.
-
-	In> ToString()[Echo("aaaa");ToStdout()Echo("bbbb");];
-	bbbb
-	Out> "aaaa
-	"
-
-*SEE ToString, ToFile
 %/mathpiper_docs
 */
