@@ -58,9 +58,9 @@ Rule("Function",1,2048,
 ];
 
 
-HoldArg("Function",oper);
-HoldArg("Function",args);
-HoldArg("Function",body);
+HoldArgument("Function",oper);
+HoldArgument("Function",args);
+HoldArgument("Function",body);
 
 %/mathpiper
 

@@ -3,7 +3,7 @@
 Retract("Manipulate",*);
 
 Rulebase("Manipulate",{symbolicEquation});
-HoldArg("Manipulate",symbolicEquation);
+HoldArgument("Manipulate",symbolicEquation);
 10 # Manipulate(_symbolicEquation)_HasFunc(Eval(symbolicEquation), "==") <--
 [
     Local(listForm, operator, operand, left, right, leftManipulated, rightManipulated, operandIndex, equationIndex, leftOrder, rightOrder);

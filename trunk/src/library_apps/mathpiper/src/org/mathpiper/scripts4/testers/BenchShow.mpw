@@ -7,6 +7,6 @@ Function("BenchShow",{expr})
   Echo({"Out&gt ",Eval(expr),"</font>"});
   True;
 ];
-HoldArg("BenchShow",expr);
+HoldArgument("BenchShow",expr);
 
 %/mathpiper

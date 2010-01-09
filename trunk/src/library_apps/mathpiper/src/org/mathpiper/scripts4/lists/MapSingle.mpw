@@ -13,7 +13,7 @@ TemplateFunction("MapSingle",{func,list})
   DestructiveReverse(mapsingleresult);
 ];
 UnFence("MapSingle",2);
-HoldArg("MapSingle",func);
+HoldArgument("MapSingle",func);
 
 %/mathpiper
 

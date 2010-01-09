@@ -8,8 +8,8 @@ Function("MacroSubstitute",{body,predicate,change})
 [
   `MacroSubstitute((Hold(@body)));
 ];
-HoldArg("MacroSubstitute",predicate);
-HoldArg("MacroSubstitute",change);
+HoldArgument("MacroSubstitute",predicate);
+HoldArgument("MacroSubstitute",change);
 UnFence("MacroSubstitute",3);
 Rulebase("MacroSubstitute",{body});
 UnFence("MacroSubstitute",1);

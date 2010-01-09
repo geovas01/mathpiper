@@ -7,7 +7,7 @@ Function("++",{aVar})
 
 UnFence("++",1);
 
-HoldArg("++",aVar);
+HoldArgument("++",aVar);
 
 %/mathpiper
 

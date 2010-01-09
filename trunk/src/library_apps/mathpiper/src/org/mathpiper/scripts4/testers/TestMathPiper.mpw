@@ -70,8 +70,8 @@ Function ("TestMathPiper", {expr, ans})
 			);
 ];
 
-HoldArg("TestMathPiper", expr);
-HoldArg("TestMathPiper", ans);
+HoldArgument("TestMathPiper", expr);
+HoldArgument("TestMathPiper", ans);
 
 
 %/mathpiper

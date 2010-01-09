@@ -81,7 +81,7 @@ LocalSymbols(knownRNGEngines, knownRNGDists) [
 
 Function() RngCreate();
 Function() RngCreate(seed, ...);
-HoldArg("RngCreate", seed);	// this is needed to prevent evaluation of = and also to prevent substitution of variables, e.g. if "seed" is defined
+HoldArgument("RngCreate", seed);	// this is needed to prevent evaluation of = and also to prevent substitution of variables, e.g. if "seed" is defined
 //UnFence("RngCreate", 0);
 //UnFence("RngCreate", 1);
 Function() RngSeed(r, seed);

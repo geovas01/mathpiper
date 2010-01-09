@@ -20,7 +20,7 @@ LocalSymbols(Verbose) [
 
 ]; // LocalSymbols(Verbose)
 
-HoldArg("V",aNumberBody);
+HoldArgument("V",aNumberBody);
 UnFence("V",1);
 
 %/mathpiper

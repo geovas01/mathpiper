@@ -16,7 +16,7 @@ Rule("<--",2,2,IsFunction(leftOperand))
  DefinePattern(leftOperand,rightOperand,0,True);
 ];
 
-HoldArg("<--",leftOperand);
-HoldArg("<--",rightOperand);
+HoldArgument("<--",leftOperand);
+HoldArgument("<--",rightOperand);
 
 %/mathpiper

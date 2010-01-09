@@ -12,7 +12,7 @@ LocalSymbols(predicate,list,result,item)
     ];
     result;
   ];
-  HoldArg("Select",predicate);
+  HoldArgument("Select",predicate);
   UnFence("Select",2);
 ];
 

@@ -29,8 +29,8 @@ Rule("Differentiate",3,3,True)
 ];
 
 
-HoldArg("Differentiate",aVar);
-HoldArg("Differentiate",aFunc);
+HoldArgument("Differentiate",aVar);
+HoldArgument("Differentiate",aFunc);
 
 %/mathpiper
 

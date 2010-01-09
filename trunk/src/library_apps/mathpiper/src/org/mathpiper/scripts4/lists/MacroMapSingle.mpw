@@ -14,7 +14,7 @@ TemplateFunction("MacroMapSingle",{func,list})
   DestructiveReverse(mapsingleresult);
 ];
 UnFence("MacroMapSingle",2);
-HoldArg("MacroMapSingle",func);
-HoldArg("MacroMapSingle",list);
+HoldArgument("MacroMapSingle",func);
+HoldArgument("MacroMapSingle",list);
 
 %/mathpiper

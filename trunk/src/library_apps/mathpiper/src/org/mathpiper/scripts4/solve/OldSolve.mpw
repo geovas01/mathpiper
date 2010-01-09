@@ -155,8 +155,8 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 100 # OldSolve(_left == _right,_var) <--
      SuchThat(left - right , 0 , var);
 
-/* HoldArg("OldSolve",arg1); */
-/* HoldArg("OldSolve",arg2); */
+/* HoldArgument("OldSolve",arg1); */
+/* HoldArgument("OldSolve",arg2); */
 
 %/mathpiper
 

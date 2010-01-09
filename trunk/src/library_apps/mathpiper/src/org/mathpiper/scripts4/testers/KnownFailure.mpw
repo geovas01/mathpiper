@@ -7,7 +7,7 @@ Function("KnownFailure",{expr})
   Set(rfail,Eval(expr));
   If(rfail,Echo({"Failure resolved!"}));
 ];
-HoldArg("KnownFailure",expr);
+HoldArgument("KnownFailure",expr);
 
 %/mathpiper
 

@@ -59,10 +59,10 @@ Function("Verify",{aLeft,aRight})
     True
   );
 ];
-HoldArg("Verify",aLeft);
+HoldArgument("Verify",aLeft);
 UnFence("Verify",2);
 /*
-HoldArg("Verify",aRight);
+HoldArgument("Verify",aRight);
 */
 
 Macro("Verify", {a,b,message})

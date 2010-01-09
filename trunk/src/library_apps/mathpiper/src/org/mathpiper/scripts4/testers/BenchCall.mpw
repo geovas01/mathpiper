@@ -8,6 +8,6 @@ Function("BenchCall",{expr})
   WriteString("</font>");
   True;
 ];
-HoldArg("BenchCall",expr);
+HoldArgument("BenchCall",expr);
 
 %/mathpiper

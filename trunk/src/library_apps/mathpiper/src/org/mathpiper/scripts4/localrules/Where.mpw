@@ -1,8 +1,8 @@
 %mathpiper,def="Where"
 
 Rulebase("Where",{left,right});
-//HoldArg("Where",left);
-//HoldArg("Where",right);
+//HoldArgument("Where",left);
+//HoldArgument("Where",right);
 UnFence("Where",2);
 10 # (_body Where var_IsAtom == _value)
      <-- `[Local(@var);@var := @value;@body;];

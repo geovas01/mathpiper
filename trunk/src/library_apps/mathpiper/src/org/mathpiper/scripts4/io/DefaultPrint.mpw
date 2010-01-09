@@ -9,6 +9,6 @@ Function("DefaultPrint", {x})
 	WriteString(";
 ");
 ];
-HoldArg("DefaultPrint", x);
+HoldArgument("DefaultPrint", x);
 
 %/mathpiper
