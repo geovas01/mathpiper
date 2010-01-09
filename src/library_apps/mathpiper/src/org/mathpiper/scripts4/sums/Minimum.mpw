@@ -43,7 +43,7 @@ Function() Minimum(l1, l2, l3, ...);
 
 
 %mathpiper_docs,name="Minimum",categories="User Functions;Numbers (Operations)"
-*CMD Min --- minimum of a number of values
+*CMD Minimum --- minimum of a number of values
 *STD
 *CALL
 	Minimum(x,y)
@@ -70,5 +70,5 @@ with numerical values and not with symbolic arguments.
 	In> Minimum({5,8,4});
 	Out> 4;
 
-*SEE Max, Sum
+*SEE Maximum, Sum
 %/mathpiper_docs

@@ -39,7 +39,7 @@
 
 
 %mathpiper_docs,name="Quotient",categories="User Functions;Numbers (Operations)"
-*CMD Div --- Determine quotient of two mathematical objects
+*CMD Quotient --- Determine quotient of two mathematical objects
 
 *STD
 *CALL
@@ -51,7 +51,7 @@
 
 *DESC
 
-{Div} performs integer division. {Div} is also defined for polynomials.
+{Quotient} performs integer division. {Quotient} is also defined for polynomials.
 
 If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
 
@@ -62,5 +62,5 @@ If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers 
 	In> Modulo(5,3)
 	Out> 2;
 
-*SEE Gcd, Lcm, Mod
+*SEE Gcd, Lcm, Modulo
 %/mathpiper_docs

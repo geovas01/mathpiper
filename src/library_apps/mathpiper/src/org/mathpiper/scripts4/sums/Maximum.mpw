@@ -49,7 +49,7 @@ Function() Maximum(l1, l2, l3, ...);
 
 
 %mathpiper_docs,name="Maximum",categories="User Functions;Numbers (Operations)"
-*CMD Max --- maximum of a number of values
+*CMD Maximum --- maximum of a number of values
 *STD
 *CALL
 	Maximum(x,y)
@@ -76,5 +76,5 @@ with numerical values and not with symbolic arguments.
 	In> Maximum({5,8,4});
 	Out> 8;
 
-*SEE Min, Sum
+*SEE Minimum, Sum
 %/mathpiper_docs

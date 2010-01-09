@@ -54,7 +54,7 @@ public class Quotient extends BuiltinFunction
 *CMD QuotientN --- integer division result is an integer (arbitrary-precision math function)
 *CORE
 *CALL
-	QuotientN(x,y)    ()
+	QuotientN(x,y)
 
 *DESC
 
