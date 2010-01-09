@@ -4,12 +4,20 @@ observedList := {145,128,73,32,22};
 
 expectedList := {160,120,80,20,20};
 
-ChiSquareTest(observedList, expectedList);
+a := ChiSquareTest(observedList, expectedList);
+
+TableForm(a);
 
 %/mathpiper
 
     %output,preserve="false"
-      Result: {TestStatistics<-chi2,P'value<-p'value,Atom("dof")<-dof}
+      Result: True
+      
+      Side Effects:
+      {"pValue",0.0412426135}
+      {"chiSquareScore",9.952083333}
+      
 .   %/output
+
 
 

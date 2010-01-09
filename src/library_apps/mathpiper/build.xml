@@ -90,11 +90,30 @@
                  outputScriptsDirectory="${build.classes.dir}/org/mathpiper/assembledscripts/"
 		 outputDocsDirectory="${build.classes.dir}/org/mathpiper/ui/gui/help/data/"
 		 baseDirectory="${basedir}/"/>
+       </target>
       
-      </target>
-	
-	
-	<target id="dist" name="dist" depends="compile,buildscripts3" >
+      
+       
+       
+      
+   	<target name="buildscripts4" >
+		<mkdir dir="${build.classes.dir}/org/mathpiper/ui/gui/help/data" />
+	       <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts" />
+	       <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts/initialization.rep" />
+		<taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"  />
+
+		<buildscripts sourceScriptsDirectory="${src.dir}/org/mathpiper/scripts4/"
+                 outputScriptsDirectory="${build.classes.dir}/org/mathpiper/assembledscripts/"
+		 outputDocsDirectory="${build.classes.dir}/org/mathpiper/ui/gui/help/data/"
+		 baseDirectory="${basedir}/"/>
+        </target>
+      
+      
+
+
+    
+    
+	<target id="dist" name="dist" depends="compile,buildscripts4" >
 	
 		<!--<copy todir="${build.classes.dir}/org/mathpiper/scripts">
 			<fileset dir="${mathpiper.dir}/src/org/mathpiper/scripts" >
