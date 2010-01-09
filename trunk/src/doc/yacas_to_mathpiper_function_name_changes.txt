@@ -1,9 +1,19 @@
-//Proposed function name changes: 
+============================== Proposed function name changes: 
 
-
-//Misc.
-- D -> Derive //Because syntax highlighting just "D" is too general.
 Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operators to make function calls uniform and to reduce confusion.
+MM -> MultinomialForm
+Normalize -> NormalizeVector
+FW -> ?
+FWatom -> ?
+All Gets and Sets should be at the end of a function's name.
+
+
+
+============================= Changes that have already been done.
+
+//Newest changes (1/8/2010).  The 'b' means built in function.
+
+- D -> Differentiate
 -b Listify -> FunctionToList
 -b UnList -> ListToFunction
 -b Clear -> Unbind
@@ -35,42 +45,27 @@ Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operat
 -b Use -> LoadScriptOnce
 -b Load -> LoadScript
 
-NumRealRoots -> RealRootsCount
-
-
+-b NumRealRoots -> RealRootsCount
 
 
 //Make RuleBase names read more like the name Database does because they are suppose to sound like "database" and operate like a database.
 -b RuleBase -> Rulebase
 -b MacroRuleBase -> MacroRulebase
--b MacroRuleBase  -> MacroRulebase
 -b MacroRuleBaseListed  -> MacroRulebaseListed
--RuleBaseArgList -> RulebaseArgsList
-
-//In general, spell function names out completely.
-RulebaseArgs -> RulebaseArguments
-NrArgs -> ArgumentsCount
-
-HoldArgNr -> HoldArgumentNumber
+-RuleBaseArgList -> RulebaseArgumentsList
+-NrArgs -> ArgumentsCount
+-HoldArgNr -> HoldArgumentNumber
+-HoldArg -> HoldArgument
 
 
-====== Proposed argument changes.
-Select -> Should the list be the first argument (to match the ordering of most other MathPiper functions that operate on lists)?
+-Select -> Switched the order of the arguments (to match the ordering of most other MathPiper functions that operate on lists)?
 
 
 
 
-MM -> MultinomialForm
-Normalize -> NormalizeVector
-FW -> ?
-FWatom -> ?
-
-All Gets and Sets should be at the end of a function's name.
 
 
-
-============================= Changes that have already been done.
-//Changed these function names.
+//Older changes.
 
 
 EquLeft -> EquationLeft
