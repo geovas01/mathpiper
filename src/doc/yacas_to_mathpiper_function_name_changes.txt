@@ -8,57 +8,58 @@ FWatom -> ?
 All Gets and Sets should be at the end of a function's name.
 
 
-
 ============================= Changes that have already been done.
 
-//Newest changes (1/8/2010).  The 'b' means built in function.
+//Newest changes (1/8/2010). 
 
-- D -> Differentiate
--b Listify -> FunctionToList
--b UnList -> ListToFunction
--b Clear -> Unbind
--b MacroClear -> MacroUnbind
--b ToFile -> PipeToFile
--b ToString -> PipeToString
--b ToStdout -> PipeToStdout
--b FromFile -> PipeFromFile
--b FromString -> PipeFromString
--b String -> ToString
--b Atom -> ToAtom
--b Equals -> IsEqual
--b LessThan -> IsLessThan
--b GreaterThan -> IsGreaterThan
-- Div -> Quotent
-- Mod -> Modulo
--b DivN -> QuotentN
--b ModN -> ModuloN
-- Min -> Minimum
-- Max -> Maximum
-- RandomIntegerVector -> RandomIntegerList.
--b OpPrecedence -> PrecedenceGet
--b OpLeftPrecedence -> LeftPrecedenceGet
--b OpRightPrecedence -> RightPrecedenceGet
--b LeftPrecedence -> LeftPrecedenceSet
--b RightPrecedence -> RightPrecedenceSet
--b RightAssociative -> RightAssociativeSet
--b FullForm -> LispForm
--b Use -> LoadScriptOnce
--b Load -> LoadScript
+D -> Differentiate
+Listify -> FunctionToList
+UnList -> ListToFunction
+Clear -> Unbind
+MacroClear -> MacroUnbind
+ToFile -> PipeToFile
+ToString -> PipeToString
+ToStdout -> PipeToStdout
+FromFile -> PipeFromFile
+FromString -> PipeFromString
+String -> ToString
+Atom -> ToAtom
+Equals -> IsEqual
+LessThan -> IsLessThan
+GreaterThan -> IsGreaterThan
+Div -> Quotient
+Mod -> Modulo
+DivN -> QuotientN
+ModN -> ModuloN
+Min -> Minimum
+Max -> Maximum
+RandomIntegerVector -> RandomIntegerList.
+OpPrecedence -> PrecedenceGet
+OpLeftPrecedence -> LeftPrecedenceGet
+OpRightPrecedence -> RightPrecedenceGet
+LeftPrecedence -> LeftPrecedenceSet
+RightPrecedence -> RightPrecedenceSet
+RightAssociative -> RightAssociativeSet
+FullForm -> LispForm
+Use -> LoadScriptOnce
+Load -> LoadScript
 
--b NumRealRoots -> RealRootsCount
+NumRealRoots -> RealRootsCount
 
 
 //Make RuleBase names read more like the name Database does because they are suppose to sound like "database" and operate like a database.
--b RuleBase -> Rulebase
--b MacroRuleBase -> MacroRulebase
--b MacroRuleBaseListed  -> MacroRulebaseListed
--RuleBaseArgList -> RulebaseArgumentsList
--NrArgs -> ArgumentsCount
--HoldArgNr -> HoldArgumentNumber
--HoldArg -> HoldArgument
+RuleBase -> Rulebase
+MacroRuleBase -> MacroRulebase
+MacroRuleBaseListed  -> MacroRulebaseListed
+DefMacroRuleBase -> DefMacroRulebase
+DefMacroRuleBaseListed -> DefMacroRulebaseListed
+RuleBaseArgList -> RulebaseArgumentsList
+NrArgs -> ArgumentsCount
+HoldArgNr -> HoldArgumentNumber
+HoldArg -> HoldArgument
 
 
--Select -> Switched the order of the arguments (to match the ordering of most other MathPiper functions that operate on lists)?
+Select -> Switched the order of the arguments (to match the ordering of most other MathPiper functions that operate on lists)?
 
 
 
