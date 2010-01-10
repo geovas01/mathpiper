@@ -1,0 +1,15 @@
+%mathpiper,title=""
+
+observedList := {145,128,73,32,22};
+
+expectedList := {160,120,80,20,20};
+
+ChiSquareTest(observedList, expectedList);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {TestStatistics<-chi2,P'value<-p'value,Atom("dof")<-dof}
+.   %/output
+
+
