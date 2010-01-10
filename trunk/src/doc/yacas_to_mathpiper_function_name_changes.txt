@@ -7,7 +7,7 @@ FW -> ?
 FWatom -> ?
 All Gets and Sets should be at the end of a function's name.
 
-
+Table -> BuildList (also, make the body the last argument or make a postfix function.
 ============================= Changes that have already been done.
 
 //Newest changes (1/8/2010). 
