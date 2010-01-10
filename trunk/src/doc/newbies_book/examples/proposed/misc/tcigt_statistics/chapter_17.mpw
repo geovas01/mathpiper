@@ -35,7 +35,6 @@ pp. 254.
 ZScore(sample1Mean, sample2Mean, hypothesedMeanDifference, standardErrorOfTheDifferenceBetweenTwoMeans) :=
 [
     N(((sample1Mean - sample2Mean) - hypothesedMeanDifference)/standardErrorOfTheDifferenceBetweenTwoMeans);
-
 ];
 
 %/mathpiper
