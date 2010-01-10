@@ -23,10 +23,12 @@ ChiSquareTest( observedFrequenciesList, expectedFrequenciesList) :=
     degreesOfFreedom := categoriesCount - 1;
 
     pValue := 1-N(IncompleteGamma(degreesOfFreedom/2,chi2/2)/Gamma(degreesOfFreedom/2));
+    
+    resultList["degreesOfFreedom"] := degreesOfFreedom;
+    
+    resultList["pValue"] := pValue;
    
     resultList["chiSquareScore"] := chi2;
-   
-    resultList["pValue"] := pValue;
     
     N(resultList);
 ];
@@ -75,8 +77,9 @@ TableForm(a);
       Result: True
       
       Side Effects:
-      {"pValue",0.0412426135}
       {"chiSquareScore",9.952083333}
+      {"pValue",0.0412426135}
+      {"degreesOfFreedom",4}
       
 .   /%/output
 
