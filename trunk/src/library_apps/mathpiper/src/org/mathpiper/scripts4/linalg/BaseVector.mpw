@@ -27,7 +27,7 @@ Function("BaseVector",{row,n})
 *DESC
 
 This command returns the "k"-th base vector of dimension "n". This
-is a vector of length "n" with all zeroes except for the "k"-th
+is a vector of length "n" with all zeros except for the "k"-th
 entry, which contains a 1.
 
 *E.G.
