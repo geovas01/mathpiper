@@ -25,7 +25,7 @@ public class IncompleteGamma extends BuiltinFunction{
 
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
 
-        double resultValue = Gamma.incompleteGamma(x.toDouble(),  a.toDouble());
+        double resultValue = Gamma.incompleteGammaComplement(x.toDouble(),  a.toDouble());
 
         BigNumber result = new BigNumber(aEnvironment.getPrecision());
 
