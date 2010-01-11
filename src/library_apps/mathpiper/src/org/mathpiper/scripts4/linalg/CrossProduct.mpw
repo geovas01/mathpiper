@@ -51,5 +51,5 @@ Both "a" and "b" have to be three-dimensional.
 	In> {a,b,c} X {d,e,f};
 	Out> {b*f-c*e,c*d-a*f,a*e-b*d};
 
-*SEE InProduct
+*SEE InProduct, X
 %/mathpiper_docs

@@ -13,3 +13,22 @@ FrobeniusNorm(matrix_IsMatrix) <--
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="FrobeniusNorm",categories="User Functions;Linear Algebra"
+*CMD FrobeniusNorm --- todo
+*CALL
+	FrobeniusNorm(matrix)
+
+*PARMS
+{matrix} -- a matrix
+
+*DESC
+todo
+
+*E.G.
+todo
+%/mathpiper_docs

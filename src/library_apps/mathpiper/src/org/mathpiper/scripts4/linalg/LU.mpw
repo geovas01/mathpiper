@@ -41,3 +41,26 @@
 
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="LU",categories="User Functions;Linear Algebra"
+*CMD LU --- in-place LU decomposition
+*CALL
+	LU(matrix)
+
+*PARMS
+{matrix} -- a matrix
+
+*DESC
+todo
+
+*E.G.
+todo
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+

@@ -1,4 +1,4 @@
-%mathpiper,def="GaussianDeterminant",scope="private"
+%mathpiper,def="GaussianDeterminant"
 
 GaussianDeterminant(matrix):=
 [
@@ -39,3 +39,27 @@ GaussianDeterminant(matrix):=
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="GaussianDeterminant",categories="User Functions;Linear Algebra"
+*CMD GaussianDeterminant --- todo
+*CALL
+	GaussianDeterminant(matrix)
+
+*PARMS
+{matrix} -- a matrix
+
+*DESC
+todo
+
+*E.G.
+todo
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+

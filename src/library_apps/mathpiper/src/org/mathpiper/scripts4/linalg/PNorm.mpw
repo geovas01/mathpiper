@@ -16,3 +16,22 @@ Function("PNorm",{v,p})
 ];
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="PNorm",categories="User Functions;Linear Algebra"
+*CMD PNorm --- todo:?
+*CALL
+	PNorm(v,p)
+
+*PARMS
+{v} -- ?
+{p} -- ?
+
+*DESC
+?
+
+*E.G.
+todo
+%/mathpiper_docs
