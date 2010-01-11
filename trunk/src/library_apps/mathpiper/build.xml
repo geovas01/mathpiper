@@ -159,7 +159,7 @@
 	
 	
 	
-	<target id="geogebra_dist" name="geogebra_dist" depends="buildscripts3" >
+	<target id="geogebra_dist" name="geogebra_dist" depends="buildscripts4" >
 	
 	<!--  
 	cvs -z3 -d:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra co -P geogebra
