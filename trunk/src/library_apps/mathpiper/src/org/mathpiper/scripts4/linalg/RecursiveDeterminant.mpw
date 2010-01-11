@@ -1,12 +1,11 @@
-%mathpiper,def="RecursiveDeterminant",scope="private"
+%mathpiper,def="RecursiveDeterminant"
 
 /* Recursive calculation of determinant, provided by Sebastian Ferraro
  */
 20 # RecursiveDeterminant(_matrix) <--
 [
   /*
-  Computes a determinant recursively by summing the product of each (nonzero) element on the first row of the matrix
-  by +/- the determinant of the submatrix with the corresponding row and column deleted.
+  
   */
   Local(result);
   If(IsEqual(Length(matrix),1),matrix[1][1],[
@@ -21,3 +20,28 @@
 ];
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="RecursiveDeterminant",categories="User Functions;Linear Algebra"
+*CMD RecursiveDeterminant --- computes a determinant recursively
+*STD
+*CALL
+	RecursiveDeterminant(matrix)
+
+*PARMS
+{matrix} -- a matrix
+*DESC
+Computes a determinant recursively by summing the product of each (nonzero) element 
+on the first row of the matrix by +/- the determinant of the submatrix with the 
+corresponding row and column deleted.
+
+*E.G.
+todo
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+

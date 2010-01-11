@@ -1,6 +1,21 @@
 %mathpiper,def="Trace"
 
-Trace(matrix_IsList) <-- Tr(matrix);
+Trace(matrix_IsList) <--
+[
+   Local(i,j,n,d,r,aux,result);
+   d:=Dimensions(x);
+   r:=Length(d); // tensor rank
+   n:=Minimum(d);    // minimal dim
+   result:=0;
+   For(i:=1,i<=n,i++)
+   [
+      aux:=x[i];
+      For(j:=2,j<=r,j++)
+	 aux:=aux[i];
+      result:=result+aux;
+   ];
+   result;
+];
 
 %/mathpiper
 

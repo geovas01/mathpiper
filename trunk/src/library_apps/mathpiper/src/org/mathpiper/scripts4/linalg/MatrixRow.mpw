@@ -12,3 +12,34 @@ Function("MatrixRow",{matrix,row})
 ];
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="MatrixRow",categories="User Functions;Linear Algebra"
+*CMD MatrixRow --- obtain the row of a matrix
+*STD
+*CALL
+	MatrixRow(matrix,row)
+
+*PARMS
+{matrix} -- a matrix
+{row} -- the index of a matrix row
+
+*DESC
+Returns the row of a matrix which is specified by {row}.
+
+*E.G.
+In> A := {{1,2}, {3,4}};
+Result: {{1,2},{3,4}}
+
+In> MatrixRow(A,1)
+Result: {1,2}
+
+*SEE MatrixColumn
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+

@@ -11,8 +11,6 @@ _x o _y <-- Outer(x,y);
 *STD
 *CALL
 	t1 o t2
-Precedence:
-*EVAL PrecedenceGet("o")
 
 *PARMS
 
