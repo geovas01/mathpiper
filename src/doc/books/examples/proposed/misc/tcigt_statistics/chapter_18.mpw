@@ -1,15 +1,99 @@
-%mathpiper,title=""
+%mathpiper,title="Example on page 274-278."
 
 observedList := {145,128,73,32,22};
 
-expectedList := {160,120,80,20,20};
+expectedList := 400*{.40,.30,.20,.05,.05};
 
-ChiSquareTest(observedList, expectedList);
+chiSquareTest := ChiSquareTest(observedList, expectedList);
+
+Echo("Chi square test: ", chiSquareTest);
+
+alpha := .1;
+
+criticalChiSquareScore := AlphaToChiSquareScore(alpha, chiSquareTest["degreesOfFreedom"]);
+
+Echo("Critical chi square score: ", criticalChiSquareScore);
+
+If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."), Echo("Do not reject H0."));
 
 %/mathpiper
 
     %output,preserve="false"
-      Result: {TestStatistics<-chi2,P'value<-p'value,Atom("dof")<-dof}
+      Result: True
+      
+      Side Effects:
+      Chi square test: {{"chiSquareScore",9.952083333},{"pValue",0.0540319219},{"degreesOfFreedom",4}} 
+      Critical chi square score: 7.779440295 
+      Reject H0.
+      
 .   %/output
+
+
+
+
+
+%mathpiper,title="Example on page 280-282."
+
+observedList := {26,34,30,7,3};
+
+binomialProbabilitiesList := Table(PMF(BinomialDistribution(.3,4),x),x,0,4,1);
+
+expectedList := 100*binomialProbabilitiesList;
+
+observedList2 := Take(observedList,3) : observedList[4] + observedList[5];
+
+expectedList2 := Take(expectedList,3) : expectedList[4] + expectedList[5];
+
+chiSquareTest := ChiSquareTest(observedList2, expectedList2);
+
+Echo("Chi square test: ", chiSquareTest);
+
+alpha := .05;
+
+criticalChiSquareScore := AlphaToChiSquareScore(alpha, chiSquareTest["degreesOfFreedom"]);
+
+Echo("Critical chi square score: ", criticalChiSquareScore);
+
+If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."), Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Chi square test: {{"chiSquareScore",2.201492110},{"pValue",0.7113206409},{"degreesOfFreedom",3}} 
+      Critical chi square score: 7.814728270 
+      Do not reject H0.
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Example on page 282-286."
+observed :=
+{
+{4,10,9},
+{14,9,4},
+};
+
+total := Sum(Sum(observed));
+
+expected := GenMatrix(Lambda({r,c},
+    N((Sum(MatrixRow(observed,r))*Sum(MatrixColumn(observed,c)))/total)),
+    Dimensions(observed)[1],Dimensions(observed)[2]);
+
+chiSquareTest := ChiSquareTest(observed, expected);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {{"chiSquareScore",7.257713426},{"pValue",0.0332802809},{"degreesOfFreedom",2}}
+.   %/output
+
+
 
 
