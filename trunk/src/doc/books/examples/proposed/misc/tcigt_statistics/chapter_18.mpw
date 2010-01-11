@@ -1,14 +1,14 @@
 %mathpiper,title="Example on page 274-278."
 
+alpha := .1;
+
 observedList := {145,128,73,32,22};
 
-expectedList := 400*{.40,.30,.20,.05,.05};
+expectedList := Sum(observedList)*{.40,.30,.20,.05,.05};
 
 chiSquareTest := ChiSquareTest(observedList, expectedList);
 
 Echo("Chi square test: ", chiSquareTest);
-
-alpha := .1;
 
 criticalChiSquareScore := AlphaToChiSquareScore(alpha, chiSquareTest["degreesOfFreedom"]);
 
@@ -34,11 +34,13 @@ If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."),
 
 %mathpiper,title="Example on page 280-282."
 
+alpha := .05;
+
 observedList := {26,34,30,7,3};
 
-binomialProbabilitiesList := Table(PMF(BinomialDistribution(.3,4),x),x,0,4,1);
+binomialProbabilitiesList := Table(PMF(BinomialDistribution(.3,Length(observedList) - 1),x),x,0,Length(observedList) - 1,1);
 
-expectedList := 100*binomialProbabilitiesList;
+expectedList := Sum(observedList)*binomialProbabilitiesList;
 
 observedList2 := Take(observedList,3) : observedList[4] + observedList[5];
 
@@ -47,8 +49,6 @@ expectedList2 := Take(expectedList,3) : expectedList[4] + expectedList[5];
 chiSquareTest := ChiSquareTest(observedList2, expectedList2);
 
 Echo("Chi square test: ", chiSquareTest);
-
-alpha := .05;
 
 criticalChiSquareScore := AlphaToChiSquareScore(alpha, chiSquareTest["degreesOfFreedom"]);
 
@@ -74,6 +74,9 @@ If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."),
 
 
 %mathpiper,title="Example on page 282-286."
+
+alpha := .1;
+
 observed :=
 {
 {4,10,9},
@@ -88,12 +91,185 @@ expected := GenMatrix(Lambda({r,c},
 
 chiSquareTest := ChiSquareTest(observed, expected);
 
+Echo("Chi square test: ", chiSquareTest);
+
+criticalChiSquareScore := AlphaToChiSquareScore(alpha, chiSquareTest["degreesOfFreedom"]);
+
+Echo("Critical chi square score: ", criticalChiSquareScore);
+
+If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."), Echo("Do not reject H0."));
+
 %/mathpiper
 
     %output,preserve="false"
-      Result: {{"chiSquareScore",7.257713426},{"pValue",0.0332802809},{"degreesOfFreedom",2}}
+      Result: True
+      
+      Side Effects:
+      Chi square test: {{"chiSquareScore",7.257713426},{"pValue",0.0332802809},{"degreesOfFreedom",2}} 
+      Critical chi square score: 4.605170363 
+      Reject H0.
+      
 .   %/output
 
 
+
+
+
+==========================================
+Solutions to the Your Turn problems.
+
+
+
+
+%mathpiper,title="Exercise 1."
+
+alpha := .05;
+
+observedList := {31,18,36,23,47,60};
+
+expectedList := Sum(observedList)*{.10,.10,.15,.15,.20,.30};
+
+chiSquareTest := ChiSquareTest(observedList, expectedList);
+
+Echo("Chi square test: ", chiSquareTest);
+
+criticalChiSquareScore := AlphaToChiSquareScore(alpha, chiSquareTest["degreesOfFreedom"]);
+
+Echo("Critical chi square score: ", criticalChiSquareScore);
+
+If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."), Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Chi square test: {{"chiSquareScore",8.542635658},{"pValue",0.3968425111},{"degreesOfFreedom",5}} 
+      Critical chi square score: 11.07049751 
+      Do not reject H0.
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title="Exercise 2"
+
+alpha := .01;
+
+observedList := {22,51,72,92,60,44,25,14};
+
+binomialProbabilitiesList := Table(N(PMF(PoissonDistribution(3), x)),x,0,Length(observedList) - 1,1);
+
+//This is to adjust the calculation for 7 or more.
+binomialProbabilitiesList[Length(binomialProbabilitiesList)] := 1 - N(CDF(PoissonDistribution(3), 7));
+
+expectedList := Sum(observedList)*binomialProbabilitiesList;
+
+chiSquareTest := ChiSquareTest(observedList, expectedList);
+
+Echo("Chi square test: ", chiSquareTest);
+
+criticalChiSquareScore := AlphaToChiSquareScore(alpha, chiSquareTest["degreesOfFreedom"]);
+
+Echo("Critical chi square score: ", criticalChiSquareScore);
+
+If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."), Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Chi square test: {{"chiSquareScore",6.652198846},{"pValue",0.8823673042},{"degreesOfFreedom",7}} 
+      Critical chi square score: 18.47530684 
+      Do not reject H0.
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title="Exercise 3."
+
+alpha := .05;
+
+observed :=
+{
+{36,75,81,63,10},
+{27,28,50,25,10},
+{32,25,24,6,8},
+};
+
+total := Sum(Sum(observed));
+
+expected := GenMatrix(Lambda({r,c},
+    N((Sum(MatrixRow(observed,r))*Sum(MatrixColumn(observed,c)))/total)),
+    Dimensions(observed)[1],Dimensions(observed)[2]);
+
+chiSquareTest := ChiSquareTest(observed, expected);
+
+Echo("Chi square test: ", chiSquareTest);
+
+criticalChiSquareScore := AlphaToChiSquareScore(alpha, chiSquareTest["degreesOfFreedom"]);
+
+Echo("Critical chi square score: ", criticalChiSquareScore);
+
+If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."), Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Chi square test: {{"chiSquareScore",34.34759471},{"pValue",0.8333334789},{"degreesOfFreedom",8}} 
+      Critical chi square score: 15.50731285 
+      Reject H0.
+      
+.   %/output
+
+
+
+
+%mathpiper,title="Exercise 4."
+
+alpha := .05;
+
+observedList := {10,41,60,20,6,3};
+
+binomialProbabilitiesList := Table(PMF(BinomialDistribution(.4,Length(observedList) - 1),x),x,0,Length(observedList) - 1,1);
+
+expectedList := Sum(observedList)*binomialProbabilitiesList;
+
+//Note: these two line of code are to combine the last two categories if needed.
+observedList2 := Take(observedList,4) : observedList[5] + observedList[6];
+expectedList2 := Take(expectedList,4) : expectedList[5] + expectedList[6];
+
+chiSquareTest := ChiSquareTest(observedList, expectedList);
+
+Echo("Chi square test: ", chiSquareTest);
+
+criticalChiSquareScore := AlphaToChiSquareScore(alpha, chiSquareTest["degreesOfFreedom"]);
+
+Echo("Critical chi square score: ", criticalChiSquareScore);
+
+If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."), Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Chi square test: {{"chiSquareScore",11.94129831},{"pValue",0.2803175824},{"degreesOfFreedom",5}} 
+      Critical chi square score: 11.07049751 
+      Reject H0.
+      
+.   %/output
 
 
