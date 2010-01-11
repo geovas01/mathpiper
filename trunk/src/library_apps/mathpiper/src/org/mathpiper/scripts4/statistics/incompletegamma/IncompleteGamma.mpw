@@ -1,4 +1,6 @@
-%mathpiper,def="IncompleteGamma"
+%mathpiper,def=""
+
+
 
 /* IncompleteGamma function \int\limits_{0}^xt^{a-1}e^{-t}dt
 
@@ -11,6 +13,9 @@
    in Statistics.. Russian translation is also available)
    for large x.
 */
+
+
+/* This function is commented out because IncompleteGamma(2.5,3.6) causes infinite looping.
 
 Retract("IncompleteGamma",*);
 
@@ -65,6 +70,7 @@ Retract("IncompleteGamma",*);
   RoundTo(result,prec);
 ];
 
+*/
 
 %/mathpiper
 
