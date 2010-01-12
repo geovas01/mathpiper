@@ -98,8 +98,8 @@
       
    	<target name="buildscripts4" >
 		<mkdir dir="${build.classes.dir}/org/mathpiper/ui/gui/help/data" />
-	       <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts" />
-	       <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts/initialization.rep" />
+	        <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts" />
+	        <mkdir dir="${build.classes.dir}/org/mathpiper/assembledscripts/initialization.rep" />
 		<taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"  />
 
 		<buildscripts sourceScriptsDirectory="${src.dir}/org/mathpiper/scripts4/"
@@ -186,6 +186,8 @@
 		<mkdir dir="${build.dir}/geogebra_dist" />
 		<mkdir dir="${build.dir}/geogebra_dist/src" />
 		<mkdir dir="${build.dir}/geogebra_dist/src/org/mathpiper/geogebrascripts" />
+		<mkdir dir="${build.dir}/geogebra_dist/src/org/mathpiper/builtin/functions/optional" />
+		<mkdir dir="${build.dir}/geogebra_dist/src/org/mathpiper/builtin/functions/plugins" />
 		
 
 		
@@ -277,6 +279,7 @@
 	      
 	      <mkdir dir="${build.dir}/geogebra_dist/build/org/mathpiper/test" />
 	      <copy file="${src.dir}/org/mathpiper/test/RunTestSuite.java" todir="${build.dir}/geogebra_dist/src/org/mathpiper/test"/>
+
 	     
 	      
 			<javac 
@@ -312,6 +315,10 @@
 				<include name="**/*" />
 			</fileset>
 		</copy>
+		
+		<mkdir dir="${build.dir}/geogebra_dist/build/org/mathpiper/builtin/functions/optional" />
+	        <mkdir dir="${build.dir}/geogebra_dist/build/org/mathpiper/builtin/functions/plugins" />
+		
 		<copy file="${mathpiper.dir}/tests/win_test.bat" todir="${build.dir}/geogebra_dist/build"/>
 		<copy file="${mathpiper.dir}/tests/unix_test.sh" todir="${build.dir}/geogebra_dist/build"/>
 
