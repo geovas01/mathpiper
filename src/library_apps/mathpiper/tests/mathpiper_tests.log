@@ -1,5 +1,5 @@
 
-***** Sat Jan 09 14:26:57 EST 2010 *****
+***** Tue Jan 12 01:34:04 EST 2010 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .78a *****
 
@@ -995,14 +995,6 @@ Side Effects:
 transforms.mpt: 
 
 Result: True
-
-===========================
-tr.mpt: 
-
-Result: True
-
-Side Effects:
----- Tr (trace of tensor)
 
 ===========================
 : is not a MathPiper test file.

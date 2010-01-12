@@ -45,5 +45,4 @@ tensors.mpt
 test-yacas-c-version
 trace.mpt
 transforms.mpt
-tr.mpt
 
