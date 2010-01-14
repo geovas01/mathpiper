@@ -15,7 +15,7 @@ Retract("ReassembleListTerms",*);
         coef := coeffs[ii];
         //Tell("     ",{pows,coef});
         term  := coef*Product(vars^pows);
-        Tell("          ",term);
+        //Tell("          ",term);
         DestructiveAppend(lst,term);
     ];
     lst;
