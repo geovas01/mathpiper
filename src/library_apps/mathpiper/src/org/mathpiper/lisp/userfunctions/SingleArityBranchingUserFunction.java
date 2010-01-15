@@ -16,16 +16,16 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.userfunctions;
 
-
 import org.mathpiper.lisp.stacks.UserStackInformation;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
 import java.util.*;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.exceptions.EvaluationException;
+import org.mathpiper.exceptions.ReturnException;
 import org.mathpiper.lisp.Evaluator;
-
 
 /**
  * A function (usually mathematical) which is defined by one or more rules.
@@ -49,7 +49,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     boolean showFlag = false;
     protected String functionType = "**** user rulebase";
     protected String functionName;
-
 
     /**
      * Constructor.
@@ -82,7 +81,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         }
     }
 
-
     /**
      * Evaluate the function with the given arguments.
      * First, all arguments are evaluated by the evaluator associated
@@ -108,9 +106,12 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         // Create a new local variables frame that has the same fenced state as this function.
         aEnvironment.pushLocalFrame(fenced(), this.functionName);
 
-
+        int beforeStackTop = -1;
+        int beforeEvaluationDepth = -1;
+        int originalStackTop = -1;
 
         try {
+
             // define the local variables.
             for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
                 String variableName = ((FunctionParameter) iParameters.get(parameterIndex)).iParameter;
@@ -144,7 +145,23 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
                     userStackInformation.iSide = 1;
 
-                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, thisRule.getBodyPointer());
+                    try {
+                        beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                        beforeEvaluationDepth = aEnvironment.iEvalDepth;
+
+                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, thisRule.getBodyPointer());
+
+                    } catch (ReturnException re) {
+
+                        int stackTopIndex = aEnvironment.iArgumentStack.getStackTopIndex();
+                        ConsPointer resultPointer = BuiltinFunction.getTopOfStackPointer(aEnvironment, stackTopIndex - 1);
+
+                        aResult.setCons(resultPointer.getCons());
+
+                        aEnvironment.iArgumentStack.popTo(beforeStackTop);
+                        aEnvironment.iEvalDepth = beforeEvaluationDepth;
+
+                    }
 
                     /*Leave trace code */
                     if (isTraced() && showFlag) {
@@ -199,7 +216,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             aEnvironment.popLocalFrame();
         }
     }
-
 
     protected ConsPointer[] evaluateArguments(Environment aEnvironment, ConsPointer aArgumentsPointer) throws Exception {
         int arity = arity();
@@ -281,7 +297,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
     }//end method.
 
-
     /**
      * Put an argument on hold.
      * The \c iHold flag of the corresponding argument is setCons. This
@@ -299,7 +314,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         }
     }
 
-
     /**
      * Return true if the arity of the function equals \a aArity.
      * 
@@ -310,7 +324,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         return (arity() == aArity);
     }
 
-
     /**
      * Return the arity (number of arguments) of the function.
      *
@@ -319,7 +332,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     public int arity() {
         return iParameters.size();
     }
-
 
     /**
      *  Add a RuleBranch to the list of rules.
@@ -338,7 +350,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         insertRule(aPrecedence, newRule);
     }
 
-
     /**
      * Add a TruePredicateRuleBranch to the list of rules.
      * See: insertRule()
@@ -354,7 +365,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
         insertRule(aPrecedence, newRule);
     }
-
 
     /**
      *  Add a PatternBranch to the list of rules.
@@ -372,7 +382,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
         insertRule(aPrecedence, newRule);
     }
-
 
     /**
      * Insert any Branch object in the list of rules.
@@ -429,7 +438,6 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         }
     }
 
-
     /**
      * Return the argument list, stored in #iParameterList.
      * 
@@ -439,26 +447,20 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         return iParameterList;
     }
 
-
     public Iterator getRules() {
         return iBranchRules.iterator();
     }
-
 
     public Iterator getParameters() {
         return iParameters.iterator();
     }
 
-
     public void unFence() {
         iFenced = false;
     }
 
-
     public boolean fenced() {
         return iFenced;
     }
-
-
 }//end class.
 

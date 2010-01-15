@@ -21,13 +21,12 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.exceptions.ReturnException;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.Utility;
 
 /**
  *
  *
  */
-public class ReturnFromBlock extends BuiltinFunction
+public class Return extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -40,19 +39,16 @@ public class ReturnFromBlock extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ReturnFromBlock",categories="User Functions;Control Flow;Built In"
-*CMD ReturnFromBlock --- returns from a code block
+%mathpiper_docs,name="Return",categories="User Functions;Control Flow;Built In"
+*CMD Return --- return from a function
 *CORE
 *CALL
 
-    ReturnFromBlock(value)
+    Return(value)
 
 *DESC
 
-If ReturnFromBlock is executed inside of a code block, the code block will immediately
-return and {value} will be the result that is returned from the code block.  ReturnFromBlock
-can be used to return from a function if the function uses a code
-block to enclose the expressions which implement it.
+Return from a function.
 
 *E.G.
 
@@ -62,7 +58,7 @@ TestFunction() :=
 [
     Echo("1");
 
-    If(True, ReturnFromBlock(3));
+    If(True, Return(3));
 
     Echo("2");
 ];
