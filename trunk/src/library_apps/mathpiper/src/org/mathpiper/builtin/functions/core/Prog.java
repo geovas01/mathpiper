@@ -35,15 +35,8 @@ public class Prog extends BuiltinFunction {
         // Allow accessing previous locals.
         aEnvironment.pushLocalFrame(false, "Prog");
 
-        int beforeStackTop = -1;
-        int beforeEvaluationDepth = -1;
-        int progStackTop = aStackTop;
-
         try {
             Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-
-            beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            beforeEvaluationDepth = aEnvironment.iEvalDepth;
 
             // Evaluate args one by one.
             ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
@@ -52,16 +45,6 @@ public class Prog extends BuiltinFunction {
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), consTraverser.getPointer());
                 consTraverser.goNext();
             }
-        } catch (ReturnException re) {
-
-            int stackTopIndex = aEnvironment.iArgumentStack.getStackTopIndex();
-            ConsPointer resultPointer =  getTopOfStackPointer(aEnvironment, stackTopIndex-1);
-
-            getTopOfStackPointer(aEnvironment, progStackTop).setCons(resultPointer.getCons());
-
-            aEnvironment.iArgumentStack.popTo(beforeStackTop);
-            aEnvironment.iEvalDepth = beforeEvaluationDepth;
-
         } catch (Exception e) {
             throw e;
         } finally {
