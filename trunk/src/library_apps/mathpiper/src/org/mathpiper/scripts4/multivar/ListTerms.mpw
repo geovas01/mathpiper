@@ -1,0 +1,87 @@
+%mathpiper,def="ListTerms"
+
+If(IsBound(MultiNomialDriver),
+  `LoadScriptOnce(@MultiNomialDriver),
+  LoadScriptOnce("multivar.rep/sparsenomial.mpi"));
+
+Retract("ListTerms",*);
+
+
+10 # ListTerms( _expr, vars_IsList ) <--
+[
+    Local(mexpr,func,termList,ttl,lst,term);
+    mexpr    := MakeMultiNomial(expr,vars);
+    func     := Lambda({x,y},If(y!=0,DestructiveAppend(termList,{x,y})));
+    termList := {};
+    ScanMultiNomial(func,mexpr);
+    ttl      := Transpose(termList);
+    lst      := {};
+    For(ii:=1,ii<=Length(ttl[1]),ii++)
+       [ DestructiveAppend(lst,ttl[2][ii]*Product(vars^ttl[1][ii])); ];
+    lst;
+];
+
+
+12 # ListTerms( _expr ) <--
+[
+    Local(vars);
+    vars := MultiExpressionList( expr );
+    ListTerms( expr, vars );
+];
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="ListTerms",categories="User Functions;Polynomiala (Operations)"
+
+*CMD ListTerms --- returns a list of the terms in an expression
+
+*STD
+*CALL
+	ListTerms(expr,vars)
+	ListTerms(expr)
+
+*PARMS
+
+{expr} -- a mathematical expression composed of sums and differences of terms
+
+{vars} -- a list of the variables to be used
+
+*DESC
+Given an expression {expr} containing terms connected by "+" and/or "-" signs,
+this function generates a list of all such terms in the expression.
+
+If the first form of the function call is used, MathPiper accepts the list
+of variables provided in argument {vars}, and uses them to build and return
+a list of all the terms in the expression {expr}.
+
+If the second form of the function call is used, MathPiper calls its function
+{MultiExpressionList} to build a list, {vars}, of all the variables and 
+"quasi-variables" which it finds in {expr}, and then calls the first form of
+the function call.
+
+*E.G.
+    In> ex:=ExpandBrackets((3*x+5*y)^5)
+    Result: 243*x^5+2025*x^4*y+6750*x^3*y^2+11250*x^2*y^3+9375*x*y^4+3125*y^5
+    
+    In> ListTerms(ex)
+    Result: {243*x^5,2025*x^4*y,6750*x^3*y^2,11250*x^2*y^3,9375*x*y^4,3125*y^5}
+    
+    In> ListTerms(Sin(Sqrt(x))-Sqrt(x+1)-Exp(-2*x))
+    Result: {Sin(Sqrt(x)),-Sqrt(x+1),-Exp(-2*x)}
+    
+    In> ListTerms((a*x-b*y+c)^2)
+    Result: {a^2*x^2,-2*a*x*b*y,2*a*x*c,b^2*y^2,-2*b*y*c,c^2}
+    
+    In> ListTerms((a*x-b*y+c)^2,{x})
+    Result: {a^2*x^2,2*(c-b*y)*a*x,(c-b*y)^2}
+
+*SEE MultiExpressionList, DisassembleExpression,MM
+%/mathpiper_docs
+
+
+
+
