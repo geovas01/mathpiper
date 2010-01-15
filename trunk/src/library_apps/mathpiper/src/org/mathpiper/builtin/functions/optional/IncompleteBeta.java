@@ -10,22 +10,24 @@ import org.mathpiper.lisp.Environment;
 
 
 
-public class IncompleteGamma extends BuiltinFunction{
+public class IncompleteBeta extends BuiltinFunction{
 
     public void plugIn(Environment aEnvironment)
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "IncompleteGamma");
+                new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "IncompleteBeta");
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber a = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber b = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
 
-        double resultValue = Gamma.incompleteGammaComplement(x.toDouble(),  a.toDouble());
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 3);
+
+        double resultValue = Gamma.incompleteBeta(a.toDouble(), b.toDouble(), x.toDouble());
 
         BigNumber result = new BigNumber(aEnvironment.getPrecision());
 
@@ -41,14 +43,15 @@ public class IncompleteGamma extends BuiltinFunction{
 
 
 /*
-%mathpiper_docs,name="IncompleteGamma",categories="User Functions;Statistics & Probability"
-*CMD IncompleteGamma --- the incomplete gamma function
-*CORE
+%mathpiper_docs,name="IncompleteBeta",categories="User Functions;Statistics & Probability"
+*CMD IncompleteBeta --- the incomplete beta function
 *CALL
-    IncompleteGamma(a, x)
+    IncompleteBeta(a, b, x)
 
 *PARMS
-{a} -- the parameter of the gamma distribution
+{a} -- the alpha parameter of the beta distribution
+
+{b} -- the beta parameter of the beta distribution
 
 {x} -- the integration end point
 
@@ -57,8 +60,8 @@ public class IncompleteGamma extends BuiltinFunction{
 The incomplete gamma function.
 
 *E.G.
-In> IncompleteBeta(.2,.2,.2)
-Result> 0.3927221644
+In> IncompleteGamma(2.5,3.6)
+Result> 0.3188972206
 
 
 %/mathpiper_docs
