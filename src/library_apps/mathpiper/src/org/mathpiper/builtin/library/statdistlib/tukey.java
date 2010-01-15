@@ -20,8 +20,10 @@
  */
 package org.mathpiper.builtin.library.statdistlib;;
 
-import org.apache.commons.math.MathException;
-import org.apache.commons.math.special.Erf;
+//import org.apache.commons.math.MathException;
+//import org.apache.commons.math.special.Erf;
+
+import org.mathpiper.builtin.library.cern.Probability;
 
 /**
  * Distribution of the maximum of rr studentized
@@ -69,7 +71,7 @@ public class tukey {
   static final double  nleg = 12; 
   static final double  ihalf = 6; 
 
-  static double wprob(double w, double rr, double cc) throws MathException {
+  static double wprob(double w, double rr, double cc) throws ArithmeticException { //MathException {
     final double eps  =   1.0;
     final double eps1 = -30.0;
     final double eps2 = -50.0;
@@ -111,7 +113,7 @@ public class tukey {
 
     /* if ans ** cc < 2e-22 then set ans = 0 */
 
-    ans = Erf.erf(qsqz / Constants.M_SQRT_2);
+    ans = Probability.errorFunction(qsqz / Constants.M_SQRT_2);
     if (ans >= Math.exp(eps2 / cc)) ans = Math.pow(ans, cc);
     else ans = 0.0;
 
@@ -163,14 +165,14 @@ public class tukey {
 
         if (qexpo > eps3) break;
         if (ac > 0.0)
-          pplus = 1.0 + Erf.erf(ac / Constants.M_SQRT_2);
+          pplus = 1.0 + Probability.errorFunction(ac / Constants.M_SQRT_2);
         else
-          pplus = 1.0 - Erf.erf(-(ac / Constants.M_SQRT_2));
+          pplus = 1.0 - Probability.errorFunction(-(ac / Constants.M_SQRT_2));
 
         if (ac > w)
-          pminus = 1.0 + Erf.erf((ac / Constants.M_SQRT_2) - (w / Constants.M_SQRT_2));
+          pminus = 1.0 + Probability.errorFunction((ac / Constants.M_SQRT_2) - (w / Constants.M_SQRT_2));
         else
-          pminus = 1.0 - Erf.erf((w / Constants.M_SQRT_2) - (ac / Constants.M_SQRT_2));
+          pminus = 1.0 - Probability.errorFunction((w / Constants.M_SQRT_2) - (ac / Constants.M_SQRT_2));
 
         /* if rinsum ** (cc-1) < 9e-14, */
         /* then doesn't contribute to integral */
@@ -317,7 +319,7 @@ public class tukey {
     if (df > dlarg) {
       try {
         ans = wprob(q, rr, cc);
-      } catch (MathException me) {
+      } catch (ArithmeticException me) {  //Catch MathException.
         throw new ArithmeticException("Doesn't converge.");
       }
       return ans;
@@ -386,7 +388,7 @@ public class tukey {
 
             try {
               wprb = wprob(qsqz, rr, cc);
-            } catch (MathException e) {
+            } catch (ArithmeticException e) { //Catch ArithmeticException.
               throw new ArithmeticException("Doesn't converge");
             }
             rotsum = (wprb * alegq[j]) * Math.exp(t1);

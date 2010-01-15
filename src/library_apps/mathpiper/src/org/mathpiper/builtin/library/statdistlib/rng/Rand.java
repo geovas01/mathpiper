@@ -1,11 +1,11 @@
 /*
  * Created on Apr 17, 2007
  */
-package org.mathpiper.builtin.library.statdistlib;.rng;
+package org.mathpiper.builtin.library.statdistlib.rng;
 
 import java.util.Random;
 
-import DistLib.StdUniformRng;
+import org.mathpiper.builtin.library.statdistlib.StdUniformRng;
 
 
 public class Rand implements StdUniformRng {
