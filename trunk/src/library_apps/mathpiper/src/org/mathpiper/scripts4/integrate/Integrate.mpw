@@ -140,5 +140,5 @@ functions with polynomials can be integrated.
 	In> Integrate(x) Cos(x)
 	Out> Sin(x);
 
-*SEE D, UniqueConstant
+*SEE Differentiate, UniqueConstant
 %/mathpiper_docs
