@@ -20,7 +20,7 @@
  */
 package org.mathpiper.builtin.library.statdistlib;;
 
-import DistLib.rng.WichmannHill;
+import org.mathpiper.builtin.library.statdistlib.rng.WichmannHill;
 
 /**
  * Uniform distribution over an interval.

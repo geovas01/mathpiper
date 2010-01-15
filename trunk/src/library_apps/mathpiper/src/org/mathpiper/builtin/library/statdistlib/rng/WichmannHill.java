@@ -9,9 +9,9 @@
  *  
  * Created on Apr 16, 2007
  */
-package org.mathpiper.builtin.library.statdistlib;.rng;
+package org.mathpiper.builtin.library.statdistlib.rng;
 
-import DistLib.StdUniformRng;
+import org.mathpiper.builtin.library.statdistlib.StdUniformRng;
 
 public class WichmannHill implements StdUniformRng {
   

@@ -22,8 +22,8 @@
 
 package org.mathpiper.builtin.library.statdistlib;;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
 
 /**
  * Wrapper of functions for Wilcoxon distribution.
@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
  */
 
 public class wilcox {
-  private static Log log = LogFactory.getLog(wilcox.class);
+  //private static Log log = LogFactory.getLog(wilcox.class);
 
   public static final int  WILCOX_MMAX = 50; 
   public static final int  WILCOX_NMAX = 50; 
@@ -42,11 +42,11 @@ public class wilcox {
    */
   private static boolean checkSizesLarge(final double m, final double n) {
     if (m >= WILCOX_MMAX) {
-      log.info("m should be less than %d\n"+ WILCOX_MMAX);
+      //log.info("m should be less than %d\n"+ WILCOX_MMAX);
       return false;
     }
     if (n >= WILCOX_NMAX) {
-      log.info("n should be less than %d\n"+ WILCOX_NMAX);
+      //log.info("n should be less than %d\n"+ WILCOX_NMAX);
       return false;
     }
     return true;    
