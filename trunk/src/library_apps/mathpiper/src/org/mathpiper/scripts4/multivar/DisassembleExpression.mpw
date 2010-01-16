@@ -28,7 +28,7 @@ Retract("DisassembleExpression",*);
 
 
 
-%mathpiper_docs,name="DisassembleExpression",categories="User Functions;Polynomiala (Operations)"
+%mathpiper_docs,name="DisassembleExpression",categories="User Functions;Polynomials (Operations)"
 
 *CMD DisassembleExpression --- returns a list describing composition of an expression
 

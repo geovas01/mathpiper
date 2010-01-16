@@ -35,7 +35,7 @@ Retract("ListTerms",*);
 
 
 
-%mathpiper_docs,name="ListTerms",categories="User Functions;Polynomiala (Operations)"
+%mathpiper_docs,name="ListTerms",categories="User Functions;Polynomials (Operations)"
 
 *CMD ListTerms --- returns a list of the terms in an expression
 
