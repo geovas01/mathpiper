@@ -42,7 +42,7 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
 
 /*
 %mathpiper_docs,name="OneTailAlphaToTScore",categories="User Functions;Statistics & Probability"
-*CMD OneTailAlphaToTScore --- show the function help window
+*CMD OneTailAlphaToTScore --- convert a one-tail alpha to a t-score
 
 *CALL
 
