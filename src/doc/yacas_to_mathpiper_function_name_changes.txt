@@ -10,6 +10,8 @@ All Gets and Sets should be at the end of a function's name.
 Table -> GenerateList (Perhaps make the body the last argument or make a postfix function.  Also look at Sum.)
 GenMatrix -> GenerateMatrix
 UnFence -> Unfence
+UnbiasedVariance -> SampleVariance
+Variance -> PopulationVariance
 ============================= Changes that have already been done.
 
 //Newest changes (1/8/2010). 
