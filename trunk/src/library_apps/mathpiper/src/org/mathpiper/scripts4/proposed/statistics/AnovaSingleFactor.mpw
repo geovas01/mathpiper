@@ -1,0 +1,69 @@
+%mathpiper,def="ANOVASingleFactor",scope="private"
+
+Retract("AnovaSingleFactor",*);
+
+AnovaSingleFactor(levelsList, alpha) :=
+[
+
+    meansList := {};
+    
+    variancesList := {};
+    
+    sumsList := {};
+    
+    lengthsList := {};
+    
+    ForEach(levelList, levelsList)
+    [
+        meansList := meansList : N(Mean(levelList));
+        
+        variancesList := variancesList : N(UnbiasedVariance(levelList));
+        
+        sumsList := sumsList : N(Sum(levelList));
+
+        lengthsList := lengthsList : Length(levelList);
+    ];
+    
+    sumOfSquaresWithin := Sum((lengthsList - 1) * variancesList);
+
+    grandMean := N(Mean(meansList));
+    
+    sumOfSquaresBetween := Sum(lengthsList*(meansList - grandMean)^2);
+    
+    sumOfSquaresTotal := N(sumOfSquaresWithin + sumOfSquaresBetween);
+    
+    degreesOfFreedomBetweenGroups := (Length(levelsList)-1);
+    
+    degreesOfFreedomWithinGroups := (ElementCount(levelsList) - Length(levelsList));
+    
+    meanSquareBetween := N(sumOfSquaresBetween/degreesOfFreedom1);
+    
+    meanSquareWithin := N(sumOfSquaresWithin/degreesOfFreedom2);
+    
+    fStatistic := N(meanSquareBetween/meanSquareWithin);
+    
+    criticalFScore := ProbabilityToFScore(degreesOfFreedomBetweenGroups, degreesOfFreedomWithinGroups, 1-alpha);
+    
+    Echo("SUMMARY");
+    
+    index := 1;
+    
+    Echo("Groups  Count  Sum  Mean  Variance");
+    
+    While(index <= Length(levelsList))
+    [
+        Echo("Level":ToString(index):" ", lengthsList[index], sumsList[index], meansList[index], variancesList[index]);
+    
+        index++;
+    ];
+    
+    
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
