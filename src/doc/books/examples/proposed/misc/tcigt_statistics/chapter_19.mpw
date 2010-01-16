@@ -1,0 +1,83 @@
+%mathpiper,title="Example 1 pages 291-298"
+
+alpha := .05;
+
+fertilizer1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+
+fertilizer2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+
+fertilizer3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+
+AnovaSingleFactor({fertilizer1List,fertilizer2List,fertilizer3List}, alpha);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      SUMMARY
+      Level1 6 54.7 9.116666667 1.005666667 
+      Level2 6 65.5 10.91666667 1.701666667 
+      Level3 6 56.9 9.483333333 0.9616666668 
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title=""
+
+PatchString(
+"
+<html>
+
+<
+
+<?Write(2+3);?>
+
+and there it is.
+
+
+
+");
+
+%/mathpiper
+
+
+
+
+%html
+
+    <html>
+        <title>
+            Anova: Single Factor
+        </title>
+        
+        <body>
+            <h2>Anova: Single Factor</h2>
+            
+            <TABLE>
+                <CAPTION> <h3>Summary</h3>  </CAPTION>
+                
+                <TR> <TH> Level </TH> <TH> Count</TH> <TH> Sum </TH> <TH> Mean </TH> <TH> Variance </TH> </TR>
+                <TR> <TD> 1 </TD> <TD> 3 </TD> <TD> 2 </TD> </TR>
+                
+                <TR> <TD> 2 </TD> <TD> 4 </TD> <TD> 1 </TD> </TR>
+                <TR> <TD> 3 </TD> <TD> 0 </TD> <TD> 8 </TD> </TR>
+                
+                <TR> <TD> 4 </TD> <TD> 8 </TD> <TD> 7 </TD> </TR>
+                <TR> <TD> 5 </TD> <TD> 2 </TD> <TD> 1 </TD> </TR>
+            
+            </TABLE>
+        </body>         
+    </html>
+
+%/html
+
+    %output,preserve="false"
+      
+.   %/output
+
+
