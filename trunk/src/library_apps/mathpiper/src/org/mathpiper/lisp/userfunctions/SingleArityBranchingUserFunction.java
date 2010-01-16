@@ -66,7 +66,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         while (parameterTraverser.getCons() != null) {
 
             try {
-                LispError.check(parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION);
+                LispError.check(parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION, "INTERNAL");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
                     throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, this.functionName);
@@ -260,7 +260,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
             argumentsResultPointerArray[parameterIndex] = new ConsPointer();
 
-            LispError.check(argumentsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS);
+            LispError.check(argumentsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
 
             if (((FunctionParameter) iParameters.get(parameterIndex)).iHold) {
                 //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
@@ -269,7 +269,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 //If the parameter is not on hold:
 
                 //Verify that the pointer to the arguments is not null.
-                LispError.check(argumentsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS);
+                LispError.check(argumentsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
 
                 //Evaluate each argument and place the result into argumentsResultPointerArray[i];
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentsResultPointerArray[parameterIndex], argumentsTraverser);
@@ -345,7 +345,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     public void declareRule(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         // New branching rule.
         RuleBranch newRule = new RuleBranch(aPrecedence, aPredicate, aBody);
-        LispError.check(newRule != null, LispError.CREATING_RULE);
+        LispError.check(newRule != null, LispError.CREATING_RULE, "INTERNAL");
 
         insertRule(aPrecedence, newRule);
     }
@@ -361,7 +361,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     public void declareRule(int aPrecedence, ConsPointer aBody) throws Exception {
         // New branching rule.
         RuleBranch newRule = new TruePredicateRuleBranch(aPrecedence, aBody);
-        LispError.check(newRule != null, LispError.CREATING_RULE);
+        LispError.check(newRule != null, LispError.CREATING_RULE, "INTERNAL");
 
         insertRule(aPrecedence, newRule);
     }
@@ -378,7 +378,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     public void declarePattern(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         // New branching rule.
         PatternBranch newRule = new PatternBranch(aPrecedence, aPredicate, aBody);
-        LispError.check(newRule != null, LispError.CREATING_RULE);
+        LispError.check(newRule != null, LispError.CREATING_RULE, "INTERNAL");
 
         insertRule(aPrecedence, newRule);
     }

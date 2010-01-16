@@ -39,9 +39,9 @@ public class DefLoad extends BuiltinFunction
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get file name
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "DefLoad");
         String orig =  (String) evaluated.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "DefLoad");
 
         Utility.loadDefFile(aEnvironment, orig);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

@@ -35,19 +35,19 @@ public class StringMidSet extends BuiltinFunction
     {
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3);
+        LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3, "StringMidSet");
         String orig = (String) evaluated.car();
         ConsPointer index = new ConsPointer();
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1, "StringMidSet");
+        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 1, "StringMidSet");
         int from = Integer.parseInt( (String) index.car(), 10);
 
-        LispError.checkArgument(aEnvironment, aStackTop, from > 0, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, from > 0, 1, "StringMidSet");
 
         ConsPointer ev2 = new ConsPointer();
         ev2.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkIsString(aEnvironment, aStackTop, ev2, 2);
+        LispError.checkIsString(aEnvironment, aStackTop, ev2, 2, "StringMidSet");
         String replace =(String)  ev2.car();
 
         LispError.check(aEnvironment, aStackTop, from + replace.length() - 2 < orig.length(), LispError.INVALID_ARGUMENT);

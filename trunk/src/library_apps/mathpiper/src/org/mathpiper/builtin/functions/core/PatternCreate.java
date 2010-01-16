@@ -41,10 +41,10 @@ public class PatternCreate extends BuiltinFunction
         postPredicatePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         ConsTraverser patternPointerTraverser = new ConsTraverser(patternPointer);
-        LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.getCons() != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.car() instanceof ConsPointer, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.getCons() != null, 1, "PatternCreate");
+        LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.car() instanceof ConsPointer, 1, "PatternCreate");
         patternPointerTraverser.goSub();
-        LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.getCons() != null, 1, "PatternCreate");
         patternPointerTraverser.goNext();
 
         patternPointer = patternPointerTraverser.getPointer();

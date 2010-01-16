@@ -43,7 +43,7 @@ public class PrettyPrinterSet extends BuiltinFunction
             ConsPointer oper = new ConsPointer();
             oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons());
             oper.goNext();
-            LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
+            LispError.checkIsString(aEnvironment, aStackTop, oper, 1, "PrettyPrinterSet");
             aEnvironment.iPrettyPrinterName = (String) oper.car();
         }
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

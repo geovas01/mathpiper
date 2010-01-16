@@ -96,7 +96,7 @@ public class MathPiperParser extends Parser
         {
             iSExpressionResult.setCons(null);
         }
-        LispError.check(!iError, LispError.INVALID_EXPRESSION);
+        LispError.check(!iError, LispError.INVALID_EXPRESSION, "INTERNAL");
     }
 
     void readToken() throws Exception

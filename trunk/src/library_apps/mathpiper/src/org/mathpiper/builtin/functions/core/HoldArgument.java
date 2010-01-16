@@ -32,13 +32,13 @@ public class HoldArgument extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "HoldArgument");
         String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "HoldArgument");
 
         // The arguments
         String tohold =  (String) getArgumentPointer(aEnvironment, aStackTop, 2).car();
-        LispError.checkArgument(aEnvironment, aStackTop, tohold != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, tohold != null, 2, "HoldArgument");
         aEnvironment.holdArgument(Utility.getSymbolName(aEnvironment, orig), tohold);
         // Return true
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

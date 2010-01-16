@@ -35,16 +35,16 @@ public class AskUser extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "AskUser");
 
 
         Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
 
-        LispError.check(argument instanceof String, "The argument to AskUser must be a string.");
+        LispError.check(argument instanceof String, "The argument to AskUser must be a string.", "INTERNAL");
 
         String messageString = (String) argument;
 
-        LispError.checkArgument(aEnvironment, aStackTop, messageString != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, messageString != null, 1, "AskUser");
 
 
         messageString = Utility.stripEndQuotes(messageString);

@@ -64,7 +64,7 @@ public class While extends BuiltinFunction {
 
             }//end while.
 
-            LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1);
+            LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1, "While");
 
         } catch (BreakException be) {
               aEnvironment.iArgumentStack.popTo(beforeStackTop);

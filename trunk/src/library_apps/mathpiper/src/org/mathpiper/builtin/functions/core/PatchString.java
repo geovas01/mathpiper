@@ -40,7 +40,7 @@ public class PatchString extends BuiltinFunction {
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         String unpatchedString;
         unpatchedString = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, unpatchedString != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, unpatchedString != null, 2, "PatchString");
 
         String resultString;
         StringBuilder resultStringBuilder = new StringBuilder();

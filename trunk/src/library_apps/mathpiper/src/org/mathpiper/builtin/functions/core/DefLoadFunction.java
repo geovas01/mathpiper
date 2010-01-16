@@ -38,7 +38,7 @@ public class DefLoadFunction extends BuiltinFunction
         ConsPointer namePointer = new ConsPointer();
         namePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String)  namePointer.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "DefLoadFunction");
         String oper = Utility.unstringify(orig);
 
         MultipleArityUserFunction multiUserFunction =

@@ -37,7 +37,7 @@ public class ExpressionToString extends BuiltinFunction {
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "ExpressionToString");
 
 
 

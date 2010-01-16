@@ -37,7 +37,7 @@ public class ToString extends BuiltinFunction
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "ToString");
 
         String orig = null;
         if(evaluated.car() instanceof String)
@@ -50,7 +50,7 @@ public class ToString extends BuiltinFunction
             orig = container.getObject().toString();
         }
 
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "ToString");
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(orig)));
     }

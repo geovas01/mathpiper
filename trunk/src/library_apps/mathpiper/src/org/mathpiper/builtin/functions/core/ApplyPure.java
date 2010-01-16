@@ -38,7 +38,7 @@ public class ApplyPure extends BuiltinFunction
         ConsPointer args = new ConsPointer();
         args.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        LispError.checkArgument(aEnvironment, aStackTop, args.car() instanceof ConsPointer, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, args.car() instanceof ConsPointer, 2, "ApplyPure");
         LispError.check(aEnvironment, aStackTop, ((ConsPointer) args.car()).getCons() != null, 2);
 
         // Apply a pure string
@@ -52,8 +52,8 @@ public class ApplyPure extends BuiltinFunction
 
             ConsPointer args2 = new ConsPointer();
             args2.setCons(((ConsPointer) args.car()).cdr().getCons());
-            LispError.checkArgument(aEnvironment, aStackTop, oper.car() instanceof ConsPointer, 1);
-            LispError.checkArgument(aEnvironment, aStackTop, ((ConsPointer) oper.car()).getCons() != null, 1);
+            LispError.checkArgument(aEnvironment, aStackTop, oper.car() instanceof ConsPointer, 1, "ApplyPure");
+            LispError.checkArgument(aEnvironment, aStackTop, ((ConsPointer) oper.car()).getCons() != null, 1, "ApplyPure");
             Utility.applyPure(oper, args2, getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment);
         }
     }

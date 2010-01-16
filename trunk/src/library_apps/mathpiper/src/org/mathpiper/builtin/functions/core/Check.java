@@ -39,7 +39,7 @@ public class Check extends BuiltinFunction
         {
             ConsPointer evaluated = new ConsPointer();
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 2));
-            LispError.checkIsString(aEnvironment, aStackTop, evaluated, 2);
+            LispError.checkIsString(aEnvironment, aStackTop, evaluated, 2, "Check");
             throw new EvaluationException( Utility.stripEndQuotes((String) evaluated.car()), aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
         }
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(pred.getCons());

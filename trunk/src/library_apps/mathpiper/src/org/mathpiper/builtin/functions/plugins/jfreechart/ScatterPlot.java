@@ -65,13 +65,13 @@ public class ScatterPlot extends BuiltinFunction {
 
         ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        LispError.check(Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT);
+        LispError.check(Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "ScatterPlot");
 
         argumentsPointer.goSub(); //Go to sub list.
 
         argumentsPointer.goNext(); //Strip List tag.
 
-        LispError.check(Utility.isList(argumentsPointer), LispError.NOT_A_LIST);
+        LispError.check(Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "ScatterPlot");
 
         ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
 

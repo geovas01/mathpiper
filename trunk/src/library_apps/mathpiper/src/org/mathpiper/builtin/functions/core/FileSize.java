@@ -39,7 +39,7 @@ public class FileSize extends BuiltinFunction
     {
         ConsPointer fnameObject = new ConsPointer();
         fnameObject.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkIsString(aEnvironment, aStackTop, fnameObject, 1);
+        LispError.checkIsString(aEnvironment, aStackTop, fnameObject, 1, "FileSize");
         String fname = Utility.unstringify(  (String) fnameObject.car());
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(fname);
 
@@ -52,7 +52,7 @@ public class FileSize extends BuiltinFunction
             MathPiperInputStream newInput = // new StdFileInput(hashedname, aEnvironment.iInputStatus);
                     Utility.openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
-            LispError.check(newInput != null, LispError.FILE_NOT_FOUND);
+            LispError.check(newInput != null, LispError.FILE_NOT_FOUND, "FileSize");
             fileSize = newInput.startPtr().length();
         } catch (Exception e)
         {

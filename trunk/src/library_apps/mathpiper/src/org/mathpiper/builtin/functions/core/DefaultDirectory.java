@@ -32,9 +32,9 @@ public class DefaultDirectory extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get file name
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "DefaultDirectory");
         String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "DefaultDirectory");
         String oper = Utility.unstringify(orig);
         aEnvironment.iInputDirectories.add(oper);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

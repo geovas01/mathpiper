@@ -40,9 +40,9 @@ public class FindFile extends BuiltinFunction
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get file name
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "FindFile");
         String orig = (String)  evaluated.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "FindFile");
         String oper = Utility.unstringify(orig);
 
         String filename = Utility.findFile(oper, aEnvironment.iInputDirectories);

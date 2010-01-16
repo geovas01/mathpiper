@@ -56,8 +56,8 @@ abstract public class LexCompare2
             String str2;
             str1 =  (String) result1.car();
             str2 = (String) result2.car();
-            LispError.checkArgument(aEnvironment, aStackTop, str1 != null, 1);
-            LispError.checkArgument(aEnvironment, aStackTop, str2 != null, 2);
+            LispError.checkArgument(aEnvironment, aStackTop, str1 != null, 1, "LexCompare2");
+            LispError.checkArgument(aEnvironment, aStackTop, str2 != null, 2, "LexCompare2");
             // the getPrecision argument is ignored in "lex" functions
             cmp = lexfunc(str1, str2,
                     aEnvironment.getTokenHash(),
