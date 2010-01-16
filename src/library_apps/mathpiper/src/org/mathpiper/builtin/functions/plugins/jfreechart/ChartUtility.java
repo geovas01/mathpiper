@@ -69,7 +69,7 @@ public class ChartUtility {
             dataListPointer.goNext(); //Strip List tag.
             int seriesIndex = 1;
             while (dataListPointer.getCons() != null) {
-                double[] dataValues = JavaObject.LispListToJavaDoubleArray((ConsPointer) dataListPointer.car());
+                double[] dataValues = JavaObject.lispListToJavaDoubleArray((ConsPointer) dataListPointer.car());
                 String seriesTitle = "";
                 if (userOptions.containsKey("series" + seriesIndex + "Title")) {
                     seriesTitle = (String) userOptions.get("series" + seriesIndex + "Title");
@@ -117,7 +117,7 @@ public class ChartUtility {
             }//end if.
 
 
-            double[] dataValues = JavaObject.LispListToJavaDoubleArray(dataListPointer);
+            double[] dataValues = JavaObject.lispListToJavaDoubleArray(dataListPointer);
 
 
             Double binMinimum = (Double) userOptions.get("binMinimum");
@@ -139,7 +139,7 @@ public class ChartUtility {
 
     public static XYBarDataset listToCumulativeDataset(ConsPointer dataListPointer, Map userOptions) throws Exception {
 
-        LispError.check(!Utility.isNestedList(dataListPointer), LispError.INVALID_ARGUMENT);
+        LispError.check(!Utility.isNestedList(dataListPointer), LispError.INVALID_ARGUMENT, "ChartUtility");
 
 
         int numberOfBins = 15;
@@ -150,7 +150,7 @@ public class ChartUtility {
         }//end if.
 
 
-        double[] dataValues = JavaObject.LispListToJavaDoubleArray(dataListPointer);
+        double[] dataValues = JavaObject.lispListToJavaDoubleArray(dataListPointer);
 
 
         Arrays.sort(dataValues);
@@ -220,23 +220,23 @@ public class ChartUtility {
 
     public static DefaultXYDataset listToXYDataset(ConsPointer dataListPointer, Map userOptions) throws Exception {
 
-        LispError.check(Utility.isNestedList(dataListPointer), LispError.INVALID_ARGUMENT);
+        LispError.check(Utility.isNestedList(dataListPointer), LispError.INVALID_ARGUMENT, "ChartUtility");
 
         DefaultXYDataset dataSet = new DefaultXYDataset();
 
         dataListPointer.goNext(); //Strip List tag.
         int seriesIndex = 1;
         while (dataListPointer.getCons() != null) {
-            double[] dataXValues = JavaObject.LispListToJavaDoubleArray((ConsPointer) dataListPointer.car());
+            double[] dataXValues = JavaObject.lispListToJavaDoubleArray((ConsPointer) dataListPointer.car());
             dataListPointer.goNext();
-            double[] dataYValues = JavaObject.LispListToJavaDoubleArray((ConsPointer) dataListPointer.car());
+            double[] dataYValues = JavaObject.lispListToJavaDoubleArray((ConsPointer) dataListPointer.car());
 
             String seriesTitle = "series" + seriesIndex;
             if (userOptions.containsKey("series" + seriesIndex + "Title")) {
                 seriesTitle = (String) userOptions.get("series" + seriesIndex + "Title");
             }
 
-            LispError.check(dataXValues.length == dataYValues.length, LispError.LIST_LENGTHS_MUST_BE_EQUAL);
+            LispError.check(dataXValues.length == dataYValues.length, LispError.LIST_LENGTHS_MUST_BE_EQUAL, "ChartUtility");
 
             dataSet.addSeries(seriesTitle, new double[][]{dataXValues, dataYValues});
 
@@ -256,7 +256,7 @@ public class ChartUtility {
         DefaultXYDataset xYDataset = listToXYDataset(dataListPointer, userOptions);
 
         int seriesCount = xYDataset.getSeriesCount();
-        LispError.check(seriesCount != 0, LispError.INVALID_ARGUMENT);
+        LispError.check(seriesCount != 0, LispError.INVALID_ARGUMENT, "ChartUtility");
 
         //int seriesItemCount =  xYDataset.getItemCount(0);
 

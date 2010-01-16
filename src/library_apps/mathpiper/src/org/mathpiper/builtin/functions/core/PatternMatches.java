@@ -39,8 +39,8 @@ public class PatternMatches extends BuiltinFunction
         ConsPointer pattern = new ConsPointer();
         pattern.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         BuiltinContainer gen = (BuiltinContainer) pattern.car();
-        LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Pattern\""), 1);
+        LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1, "PatternMatches");
+        LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Pattern\""), 1, "PatternMatches");
 
         ConsPointer list = new ConsPointer();
         list.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
@@ -48,14 +48,14 @@ public class PatternMatches extends BuiltinFunction
         PatternContainer patclass = (PatternContainer) gen;
 
         ConsTraverser consTraverser = new ConsTraverser(list);
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.car() instanceof ConsPointer, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2, "PatternMatches");
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.car() instanceof ConsPointer, 2, "PatternMatches");
         consTraverser.goSub();
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2, "PatternMatches");
         consTraverser.goNext();
 
         ConsPointer ptr = consTraverser.getPointer();
-        LispError.checkArgument(aEnvironment, aStackTop, ptr != null, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, ptr != null, 2, "PatternMatches");
         boolean matches = patclass.matches(aEnvironment, ptr);
         Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), matches);
     }

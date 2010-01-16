@@ -53,7 +53,7 @@ public class XmlTokenizer
 			while (c != '>')
 			{
 				c = aInput.next();
-				LispError.check(!aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE);
+				LispError.check(!aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "INTERNAL");
 			}
 		}
 		else

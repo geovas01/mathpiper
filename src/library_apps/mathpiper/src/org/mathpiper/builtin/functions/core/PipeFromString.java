@@ -39,9 +39,9 @@ public class PipeFromString extends BuiltinFunction
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "PipeFromString");
         String orig =  (String) evaluated.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "PipeFromString");
         String oper = Utility.unstringify(orig);
 
         InputStatus oldstatus = aEnvironment.iInputStatus;

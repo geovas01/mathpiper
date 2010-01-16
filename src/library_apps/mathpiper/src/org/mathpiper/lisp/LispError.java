@@ -193,21 +193,22 @@ public class LispError
         return "Unspecified Error.";
     }
 
-    public static void check(boolean hastobetrue, int aError) throws Exception
+    public static void check(boolean hastobetrue, int aError, String functionName) throws Exception
     {
         if (!hastobetrue)
         {
-            String errorMessage = errorString(aError);//"LispError number "+aError+" (//TODO FIXME still need to port over the string table)";
+            String errorMessage = errorString(aError) + " in function " + functionName;
             throw new EvaluationException(errorMessage,"none", -1);
         }
     }//end method.
 
 
-    public static void check(boolean hastobetrue, String aErrorMessage) throws Exception
+
+    public static void check(boolean hastobetrue, String aErrorMessage, String functionName) throws Exception
     {
         if (!hastobetrue)
         {
-            throw new EvaluationException(aErrorMessage,"none", -1);
+            throw new EvaluationException(aErrorMessage + " in function " + functionName,"none", -1);
         }
     }//end method.
 
@@ -217,16 +218,16 @@ public class LispError
         throw new EvaluationException(str,"none",-1);
     }
 
-    public static void checkNumberOfArguments(int n, ConsPointer aArguments, Environment aEnvironment) throws Exception
+    public static void checkNumberOfArguments(int n, ConsPointer aArguments, Environment aEnvironment, String functionName) throws Exception
     {
         int nrArguments = Utility.listLength(aArguments);
         if (nrArguments != n)
         {
-            errorNumberOfArguments(n - 1, nrArguments - 1, aArguments, aEnvironment);
+            errorNumberOfArguments(n - 1, nrArguments - 1, aArguments, aEnvironment, functionName);
         }
     }
 
-    public static void errorNumberOfArguments(int needed, int passed, ConsPointer aArguments, Environment aEnvironment) throws Exception
+    public static void errorNumberOfArguments(int needed, int passed, ConsPointer aArguments, Environment aEnvironment, String functionName) throws Exception
     {
         if (aArguments.getCons() == null)
         {
@@ -234,7 +235,7 @@ public class LispError
         } else
         {
             //TODO FIXME      ShowStack(aEnvironment);
-            String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed;
+            String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed + " in function " + functionName + ". ";
             throw new EvaluationException(error,"none",-1);
 
         /*TODO FIXME
@@ -293,22 +294,22 @@ public class LispError
         }
     }
 
-    public static void checkArgument(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr) throws Exception
+    public static void checkArgument(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String functionName) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, aPredicate, aArgNr, "");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, aPredicate, aArgNr, "", functionName);
     }
 
-    public static void checkIsList(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
+    public static void checkIsList(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr, String functionName) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.isSublist(evaluated), aArgNr, "argument is not a list.");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.isSublist(evaluated), aArgNr, "argument is not a list.", functionName);
     }
 
-    public static void checkIsString(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr) throws Exception
+    public static void checkIsString(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr, String functionName) throws Exception
     {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.isString( evaluated.car()), aArgNr, "argument is not a string.");
+        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.isString( evaluated.car()), aArgNr, "argument is not a string.", functionName);
     }
 
-    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String aErrorDescription) throws Exception
+    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String aErrorDescription, String functionName) throws Exception
     {
         if (!aPredicate)
         {

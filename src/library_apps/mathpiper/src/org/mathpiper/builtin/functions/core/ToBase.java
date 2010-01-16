@@ -41,9 +41,9 @@ public class ToBase extends BuiltinFunction
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
         BigNumber num =(BigNumber) oper.getCons().getNumber(aEnvironment.getPrecision());
-        LispError.checkArgument(aEnvironment, aStackTop, num != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, num != null, 1, "ToBase");
         // check that the base is an integer between 2 and 32
-        LispError.checkArgument(aEnvironment, aStackTop, num.isInteger(), 1);
+        LispError.checkArgument(aEnvironment, aStackTop, num.isInteger(), 1, "ToBase");
 
         // Get a short platform integer from the car argument
         int base = (int) (num.toLong());

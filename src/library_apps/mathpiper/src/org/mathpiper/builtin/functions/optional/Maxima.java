@@ -181,9 +181,9 @@ public class Maxima extends BuiltinFunction {
         expressionPointerr.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, expressionPointerr.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, expressionPointerr.getCons() != null, 1, "Maxima");
         String orig = (String) expressionPointerr.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "Maxima");
 
         if(maximaInstalled)
         {

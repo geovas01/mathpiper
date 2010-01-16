@@ -24,15 +24,15 @@ public class ProbabilityToFScore extends BuiltinFunction{
     {
         BigNumber degreesOfFreedom1 = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-        LispError.check(degreesOfFreedom1.isInteger() && degreesOfFreedom1.toInt() >= 0, "The first argument must be an integer which is greater than 0.");
+        LispError.check(degreesOfFreedom1.isInteger() && degreesOfFreedom1.toInt() >= 0, "The first argument must be an integer which is greater than 0.", "ProbabilityToFScore");
 
         BigNumber degreesOfFreedom2 = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
 
-        LispError.check(degreesOfFreedom2.isInteger() && degreesOfFreedom2.toInt() >= 0, "The second argument must be an integer which is greater than 0.");
+        LispError.check(degreesOfFreedom2.isInteger() && degreesOfFreedom2.toInt() >= 0, "The second argument must be an integer which is greater than 0.", "ProbabilityToFScore");
 
         BigNumber probability = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 3);
 
-        LispError.check(probability.toDouble() >= 0, "The third argument must be greater than 0.");
+        LispError.check(probability.toDouble() >= 0, "The third argument must be greater than 0.", "ProbabilityToFScore");
 
 
         FDistribution fDistribution = new FDistribution(degreesOfFreedom1.toDouble(),degreesOfFreedom2.toDouble());

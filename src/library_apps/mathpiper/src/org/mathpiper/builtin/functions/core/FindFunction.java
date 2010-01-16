@@ -42,9 +42,9 @@ public class FindFunction extends BuiltinFunction
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get file name
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "FindFunction");
         String orig =  (String) evaluated.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "FindFunction");
         String oper = Utility.unstringify(orig);
 
         MultipleArityUserFunction multiUserFunc =

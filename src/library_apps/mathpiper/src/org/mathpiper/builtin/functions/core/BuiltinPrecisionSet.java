@@ -35,11 +35,11 @@ public class BuiltinPrecisionSet extends BuiltinFunction
     {
         ConsPointer index = new ConsPointer();
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1);
-        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1, "BuiltinPrecisionSet");
+        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 1, "BuiltinPrecisionSet");
 
         int ind = Integer.parseInt( (String) index.car(), 10);
-        LispError.checkArgument(aEnvironment, aStackTop, ind > 0, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, ind > 0, 1, "BuiltinPrecisionSet");
         aEnvironment.setPrecision(ind);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }

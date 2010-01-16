@@ -37,13 +37,13 @@ public class RulebaseDefined extends BuiltinFunction
         ConsPointer name = new ConsPointer();
         name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String) name.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RulebaseDefined");
         String oper = Utility.unstringify(orig);
 
         ConsPointer sizearg = new ConsPointer();
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.car() instanceof String, 2);
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2, "RulebaseDefined");
+        LispError.checkArgument(aEnvironment, aStackTop, sizearg.car() instanceof String, 2, "RulebaseDefined");
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 

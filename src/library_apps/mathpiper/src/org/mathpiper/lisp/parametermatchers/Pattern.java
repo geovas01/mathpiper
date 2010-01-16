@@ -162,7 +162,7 @@ public class Pattern {
 
         
         for (i = 0; i < iParamMatchers.size(); i++) {
-            LispError.check(i < aArguments.length, "Listed function definitions need at least two parameters.");
+            LispError.check(i < aArguments.length, "Listed function definitions need at least two parameters.", "INTERNAL");
             PatternParameter patternParameter = (PatternParameter) iParamMatchers.get(i);
             ConsPointer argument = aArguments[i];
             if (! patternParameter.argumentMatches(aEnvironment, argument, arguments)) {
@@ -339,7 +339,7 @@ public class Pattern {
                 aEnvironment.write(strout);
                 aEnvironment.write("\n");
 
-                LispError.check(isTrue, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN);
+                LispError.check(isTrue, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, "INTERNAL");
             }
         }
         return true;

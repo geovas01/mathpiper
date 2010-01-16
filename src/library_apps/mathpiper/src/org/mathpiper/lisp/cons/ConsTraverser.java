@@ -59,14 +59,14 @@ public class ConsTraverser
 	
 	public void goNext() throws Exception
 	{
-		LispError.check(iPointer.getCons() != null,LispError.NOT_LONG_ENOUGH);
+		LispError.check(iPointer.getCons() != null,LispError.NOT_LONG_ENOUGH, "INTERNAL");
 		iPointer = (iPointer.cdr());
 	}
 	
 	public void goSub() throws Exception
 	{
-		LispError.check(iPointer.getCons() != null,LispError.INVALID_ARGUMENT);
-		LispError.check(iPointer.car() instanceof ConsPointer,LispError.NOT_A_LIST);
+		LispError.check(iPointer.getCons() != null,LispError.INVALID_ARGUMENT, "INTERNAL");
+		LispError.check(iPointer.car() instanceof ConsPointer,LispError.NOT_A_LIST, "INTERNAL");
 		iPointer = (ConsPointer) iPointer.car();
 	}
 

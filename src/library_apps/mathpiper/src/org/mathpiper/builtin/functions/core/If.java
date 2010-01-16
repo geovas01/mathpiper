@@ -43,7 +43,7 @@ public class If extends BuiltinFunction
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 2));
         } else
         {
-            LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1);
+            LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1, "If");
             if (nrArguments == 4)
             {
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), 3));

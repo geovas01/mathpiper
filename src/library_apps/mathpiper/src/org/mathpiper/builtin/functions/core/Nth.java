@@ -33,8 +33,8 @@ public class Nth extends BuiltinFunction
     {
         String str;
         str = (String) getArgumentPointer(aEnvironment, aStackTop, 2).car();
-        LispError.checkArgument(aEnvironment, aStackTop, str != null, 2);
-        LispError.checkArgument(aEnvironment, aStackTop, Utility.isNumber(str, false), 2);
+        LispError.checkArgument(aEnvironment, aStackTop, str != null, 2, "Nth");
+        LispError.checkArgument(aEnvironment, aStackTop, Utility.isNumber(str, false), 2, "Nth");
         int index = Integer.parseInt(str);
         Utility.nth(aEnvironment,getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1), index);
     }

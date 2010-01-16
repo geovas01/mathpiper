@@ -33,13 +33,13 @@ public class Factorial extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getNumber(0) != null, 1);
+        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getNumber(0) != null, 1, "Factorial");
         ConsPointer arg = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still
 //        LispError.check(arg.type().equals("Number"), LispError.INVALID_ARGUMENT);
         int nr = (int) ((BigNumber) arg.getCons().getNumber(0)).toLong();
-        LispError.check(nr >= 0, LispError.INVALID_ARGUMENT);
+        LispError.check(nr >= 0, LispError.INVALID_ARGUMENT, "Factorial");
         BigNumber fac = new BigNumber("1", 10, 10);
         int i;
         for (i = 2; i <= nr; i++)
