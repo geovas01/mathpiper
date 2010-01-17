@@ -191,7 +191,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
                 multiUserFunc.iFileToOpen = null;
-                Utility.use(aEnvironment, def.iFileName);
+                Utility.loadScriptOnce(aEnvironment, def.iFileName);
 
                 if (DEBUG) {
                     //extern int VERBOSE_DEBUG;

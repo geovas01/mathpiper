@@ -51,7 +51,7 @@ public class DefLoadFunction extends BuiltinFunction
                 if (!def.iIsLoaded)
                 {
                     multiUserFunction.iFileToOpen = null;
-                    Utility.use(aEnvironment, def.iFileName);
+                    Utility.loadScriptOnce(aEnvironment, def.iFileName);
                 }//end if.
             }//end if.
         }//end if.

@@ -42,7 +42,7 @@ public class LoadScript extends BuiltinFunction
         String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "LoadScript");
 
-        Utility.load(aEnvironment, orig);
+        Utility.loadScript(aEnvironment, orig);
         
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
          
