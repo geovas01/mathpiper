@@ -98,7 +98,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
 
-        // Push a place holder for the result: push full expression so it is available for error reporting
+        // Push a place holder for the result and initialize it to the function name for error reporting purposes.
         aEnvironment.iArgumentStack.pushArgumentOnStack(aArgumentsPointer.getCons());
 
         ConsPointer argumentsConsTraverser = new ConsPointer(aArgumentsPointer.getCons());
@@ -219,7 +219,9 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         }//end if.
 
 
-        iCalledBuiltinFunction.evaluate(aEnvironment, stackTop);
+        iCalledBuiltinFunction.evaluate(aEnvironment, stackTop); //********************** built in function is called here.
+
+
         aResultPointer.setCons(aEnvironment.iArgumentStack.getElement(stackTop).getCons());
 
         if (isTraced() && showFlag == true) {
