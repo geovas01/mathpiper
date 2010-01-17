@@ -673,7 +673,7 @@ public class Utility {
      * @param aFileName
      * @throws java.lang.Exception
      */
-    public static void load(Environment aEnvironment, String aFileName) throws Exception {
+    public static void loadScript(Environment aEnvironment, String aFileName) throws Exception {
         String oper = unstringify(aFileName);
 
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(oper);
@@ -716,11 +716,11 @@ public class Utility {
     }
 
 
-    public static void use(Environment aEnvironment, String aFileName) throws Exception {
+    public static void loadScriptOnce(Environment aEnvironment, String aFileName) throws Exception {
         DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
         if (!def.isLoaded()) {
             def.setLoaded();
-            load(aEnvironment, aFileName);
+            loadScript(aEnvironment, aFileName);
         }
     }
 
