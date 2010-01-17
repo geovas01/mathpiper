@@ -12,11 +12,14 @@ Retract("xPrimitivePart",*);
 
 Macro("xPrimitivePart",{poly,xcont})
 [
+    Local(result,xCont);
+    
     If( IsBound(@xcont), 
       [
           result := Simplify(Simplify(Eval(@poly)/Eval(@xcont)));
       ],
       [
+          Local(xCont);
           xCont  := xContent(Eval(@poly));
           @xcont := xCont;
           result := Simplify(Simplify(Eval(@poly)/xCont));
@@ -27,11 +30,7 @@ Macro("xPrimitivePart",{poly,xcont})
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
+ 
 
 
 %mathpiper_docs,name="xPrimitivePart",categories="User Functions;Factors"
