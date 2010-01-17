@@ -17,18 +17,12 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
-import org.mathpiper.lisp.*;
-import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 
 import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
-import org.mathpiper.lisp.printers.MathPiperPrinter;
-import org.mathpiper.lisp.Evaluator;
 
 /**
  *  The basic evaluator for Lisp expressions.
@@ -116,31 +110,31 @@ public class LispExpressionEvaluator extends Evaluator {
                 Cons head = subList.getCons();
                 if (head != null) {
                     if (head.car() instanceof String) {
-                        {
-                            BuiltinFunctionEvaluator evaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp( (String) head.car());
-                            // Try to find a built-in command
-                            if (evaluator != null) {
-                                evaluator.evaluate(aEnvironment, aResult, subList);
-                                aEnvironment.iEvalDepth--;
-                                return;
-                            }
+
+                        //Built-in function handler.
+                        BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp( (String) head.car());
+                        if (builtinInFunctionEvaluator != null) {
+                            builtinInFunctionEvaluator.evaluate(aEnvironment, aResult, subList);
+                            aEnvironment.iEvalDepth--;
+                            return;
                         }
-                        {
-                            SingleArityBranchingUserFunction userFunc;
-                            userFunc = getUserFunction(aEnvironment, subList);
-                            if (userFunc != null) {
-                                userFunc.evaluate(aEnvironment, aResult, subList);
-                                aEnvironment.iEvalDepth--;
-                                return;
-                            }
+
+                        //User function handler.
+                        SingleArityBranchingUserFunction userFunction;
+                        userFunction = getUserFunction(aEnvironment, subList);
+                        if (userFunction != null) {
+                            userFunction.evaluate(aEnvironment, aResult, subList);
+                            aEnvironment.iEvalDepth--;
+                            return;
                         }
+
                     } else {
-                        //printf("ApplyPure!\n");
-                        ConsPointer oper = new ConsPointer();
+                        //Pure function handler.
+                        ConsPointer operator = new ConsPointer();
                         ConsPointer args2 = new ConsPointer();
-                        oper.setCons(subList.getCons());
+                        operator.setCons(subList.getCons());
                         args2.setCons(subList.cdr().getCons());
-                        Utility.applyPure(oper, args2, aResult, aEnvironment);
+                        Utility.applyPure(operator, args2, aResult, aEnvironment);
                         aEnvironment.iEvalDepth--;
                         return;
                     }
