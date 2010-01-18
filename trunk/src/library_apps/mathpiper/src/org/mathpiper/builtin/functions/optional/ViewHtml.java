@@ -21,6 +21,7 @@ import java.awt.Dimension;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
@@ -42,15 +43,28 @@ public class ViewHtml extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer htmlTextPointer = new ConsPointer();
-
-        htmlTextPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-
-        LispError.checkIsString(aEnvironment, aStackTop, htmlTextPointer, 1, "ViewHtml");
+        String htmlText = null;
         
-        String htmlText = (String) htmlTextPointer.car();
+        ConsPointer consPointer = null;
 
-        htmlText = Utility.stripEndQuotes(htmlText);
+        Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
+
+        if (argument instanceof String)
+        {
+            htmlText = (String) argument;
+
+            htmlText = Utility.stripEndQuotes(htmlText);
+        }
+        else if (argument instanceof BuiltinContainer)
+        {
+            BuiltinContainer builtinContainer = (BuiltinContainer) argument;
+            LispError.check(builtinContainer.typeName().equals("java.lang.String"), "Argument must be a MathPiper string or a Java String object.", "ViewHtml");
+            htmlText = (String) builtinContainer.getObject();
+        }
+        else
+        {
+            LispError.raiseError("Argument must be a MathPiper string or a Java String object.", "ViewHtml");
+        }//end else.
 
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();
