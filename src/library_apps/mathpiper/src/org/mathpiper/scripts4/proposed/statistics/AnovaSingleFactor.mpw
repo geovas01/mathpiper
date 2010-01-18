@@ -123,7 +123,7 @@ AnovaSingleFactor(levelsList, alpha) :=
             <TABLE BORDER>
                 <CAPTION align=\"left\"> <h3>ANOVA</h3>  </CAPTION>
                 
-                <TR> <TH> Source of Variation </TH> <TH> Sum of Squares </TH> <TH> df </TH> <TH> Mean Square Between </TH> <TH> F </TH> <TH> F Critical </TH> </TR>
+                <TR> <TH> Source of Variation </TH> <TH> Sum of Squares </TH> <TH> Degrees of Freedom </TH> <TH> Mean Square Between </TH> <TH> F </TH> <TH> F Critical </TH> </TR>
 ";
 
     
