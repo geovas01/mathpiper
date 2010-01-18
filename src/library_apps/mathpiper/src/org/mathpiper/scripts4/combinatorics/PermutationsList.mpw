@@ -2,7 +2,7 @@
 
 Function("PermutationsList",{result,list})
 [
-  If (Length(list) = 0,
+  If(Length(list) = 0,
   [
     result;
   ],
@@ -35,7 +35,7 @@ Function("PermutationsList",{list})
 
 
 %mathpiper_docs,name="PermutationsList",categories="User Functions;Combinatorics"
-*CMD PermutationsList --- get all permutations of a list
+*CMD PermutationsList --- return all permutations of a list
 *STD
 *CALL
 	PermutationsList(list)
@@ -46,8 +46,8 @@ Function("PermutationsList",{list})
 
 *DESC
 
-PermutationsList returns a list with all the permutations of
-the original list.
+PermutationsList returns a list which contains all the permutations of
+the elements in the original list.
 
 *E.G.
 
@@ -55,5 +55,5 @@ the original list.
 	Out> {{a,b,c},{a,c,b},{c,a,b},{b,a,c},
 	{b,c,a},{c,b,a}};
 
-*SEE Permutations, Combinations, CombinationsAll, LeviCivita
+*SEE Permutations, Combinations, CombinationsList, LeviCivita
 %/mathpiper_docs
