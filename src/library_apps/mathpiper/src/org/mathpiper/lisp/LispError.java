@@ -213,9 +213,9 @@ public class LispError
     }//end method.
 
     
-    public static void raiseError(String str) throws Exception
+    public static void raiseError(String errorMessage, String functionName) throws Exception
     {        
-        throw new EvaluationException(str,"none",-1);
+        throw new EvaluationException(errorMessage + " In function " + functionName + ". ","none",-1);
     }
 
     public static void checkNumberOfArguments(int n, ConsPointer aArguments, Environment aEnvironment, String functionName) throws Exception

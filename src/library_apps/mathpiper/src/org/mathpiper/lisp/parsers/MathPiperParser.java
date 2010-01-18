@@ -135,7 +135,7 @@ public class MathPiperParser extends Parser
                 // Match closing bracket
                 if (iLookAhead != iEnvironment.iProgCloseAtom.car())
                 {
-                    LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead + " instead.");
+                    LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead + " instead.", "[INTERNAL]");
                     return;
                 }
                 matchToken(iLookAhead);
@@ -152,7 +152,7 @@ public class MathPiperParser extends Parser
                     if(iLookAhead.equals(""))
                     {
 
-                       LispError.raiseError("Expression must end with a semi-colon (;)");
+                       LispError.raiseError("Expression must end with a semi-colon (;)", "[INTERNAL]");
                         return;
                     }
                     if (MathPiperTokenizer.isSymbolic(iLookAhead.charAt(0)))
@@ -256,7 +256,7 @@ public class MathPiperParser extends Parser
                     matchToken(iLookAhead);
                 } else if (iLookAhead != iEnvironment.iListCloseAtom.car())
                 {
-                    LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead + " instead.");
+                    LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead + " instead.", "[INTERNAL]");
                     return;
                 }
             }
@@ -281,7 +281,7 @@ public class MathPiperParser extends Parser
                     matchToken(iLookAhead);
                 } else
                 {
-                    LispError.raiseError("Expecting ; end of statement in program block, but got " + iLookAhead + " instead.");
+                    LispError.raiseError("Expecting ; end of statement in program block, but got " + iLookAhead + " instead.", "[INTERNAL]");
                     return;
                 }
             }
@@ -311,7 +311,7 @@ public class MathPiperParser extends Parser
                         matchToken(iLookAhead);
                     } else if (iLookAhead != iEnvironment.iBracketCloseAtom.car())
                     {
-                        LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead + " instead.");
+                        LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead + " instead.", "[INTERNAL]");
                         return;
                     }
                 }
@@ -391,8 +391,8 @@ public class MathPiperParser extends Parser
         iError = true;
         if (iLookAhead != null)
         {
-            LispError.raiseError("Error parsing expression, near token " + iLookAhead + ".");
+            LispError.raiseError("Error parsing expression, near token " + iLookAhead + ".", "[INTERNAL]");
         }
-        LispError.raiseError("Error parsing expression.");
+        LispError.raiseError("Error parsing expression.", "[INTERNAL]");
     }
 };
