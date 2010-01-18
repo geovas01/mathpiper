@@ -12,6 +12,7 @@ GenMatrix -> GenerateMatrix
 UnFence -> Unfence
 UnbiasedVariance -> SampleVariance
 Variance -> PopulationVariance
+MakeVector -> MakeIdentifiers
 ============================= Changes that have already been done.
 
 //Newest changes (1/8/2010). 
