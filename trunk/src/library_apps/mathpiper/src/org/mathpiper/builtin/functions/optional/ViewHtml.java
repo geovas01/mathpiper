@@ -79,7 +79,7 @@ public class ViewHtml extends BuiltinFunction {
         frame.pack();
         frame.setAlwaysOnTop(false);
         frame.setTitle("MathPiper");
-        frame.setSize(new Dimension(700, 550));
+        frame.setSize(new Dimension(750, 550));
         frame.setResizable(true);
         //frame.setPreferredSize(new Dimension(400, 400));
         frame.setLocationRelativeTo(null);
