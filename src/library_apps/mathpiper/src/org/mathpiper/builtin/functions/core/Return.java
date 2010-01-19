@@ -39,7 +39,7 @@ public class Return extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Return",categories="User Functions;Control Flow;Built In"
+Private mathpiper_docs,name="Return",categories="User Functions;Control Flow;Built In"
 *CMD Return --- return from a function
 *CORE
 *CALL
@@ -78,3 +78,20 @@ TestFunction();
 *SEE Prog, [, ]
 %/mathpiper_docs
 */
+
+
+/* Code which shows how Return does not work.
+Test2() :=
+[
+   if(True)
+   [
+       Echo("In if");
+       Return(1);
+   ];
+
+   2;
+];
+
+
+Test2();
+ */
