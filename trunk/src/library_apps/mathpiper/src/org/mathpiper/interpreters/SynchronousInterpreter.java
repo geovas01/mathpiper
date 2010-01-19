@@ -271,8 +271,18 @@ class SynchronousInterpreter implements Interpreter {
             environment.iLispExpressionEvaluator.evaluate(environment, resultPointer, inputExpressionPointer); //*** The main valuation happens here.
 
             if (resultPointer.type() == Utility.OBJECT) {
-                JavaObject javaObject = (JavaObject) resultPointer.car();
-                evaluationResponse.setObject(javaObject.getObject());
+
+                Object object = resultPointer.car();
+
+                if(object instanceof JavaObject)
+                {
+                    JavaObject javaObject = (JavaObject) object;
+                    evaluationResponse.setObject(javaObject.getObject());
+                }
+                else
+                {
+                    evaluationResponse.setObject(object);
+                }
             }//end if.
 
             //Set the % symbol to the result of the current evaluation.
