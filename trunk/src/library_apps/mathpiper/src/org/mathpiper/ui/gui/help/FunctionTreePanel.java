@@ -81,7 +81,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private List pageList;
     private ToolPanel toolPanel = null;
     private String selectedFunctionName = "";
-    private boolean showPrivateFunctions = false;
+    private boolean showExperimentalFunctions = true;
     private JScrollPane treeViewScrollPane;
     private JSplitPane splitPane;
     private JPanel treePanel;
@@ -252,7 +252,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private void populateNode(DefaultMutableTreeNode treeNode, String[][] functionDataStringArray) {
         for (int row = 0; row < functionDataStringArray.length; row++) {
 
-            if ((this.showPrivateFunctions == true && functionDataStringArray[row][1].equals("private")) || functionDataStringArray[row][1].equals("public")) {
+            if ((this.showExperimentalFunctions == true && functionDataStringArray[row][1].equals("private")) || functionDataStringArray[row][1].equals("public")) {
 
                 //Populate.
                 for (int column = 3; column < functionDataStringArray[row].length; column++) {
@@ -856,7 +856,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
 
-            showPrivateFunctionsCheckBox = new JCheckBox("Private");
+            showPrivateFunctionsCheckBox = new JCheckBox("Experimental");
+            showPrivateFunctionsCheckBox.setSelected(true);
             showPrivateFunctionsCheckBox.addItemListener(this);
             add(showPrivateFunctionsCheckBox);
 
@@ -959,9 +960,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             if (source == showPrivateFunctionsCheckBox) {
 
                 if (ie.getStateChange() == ItemEvent.SELECTED) {
-                    showPrivateFunctions = true;
+                    showExperimentalFunctions = true;
                 } else {
-                    showPrivateFunctions = false;
+                    showExperimentalFunctions = false;
                 }//end if/else.
 
                 treePanel.removeAll();
