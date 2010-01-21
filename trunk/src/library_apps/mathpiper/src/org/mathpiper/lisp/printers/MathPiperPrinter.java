@@ -184,7 +184,10 @@ public class MathPiperPrinter extends LispPrinter {
 
                 ConsTraverser consTraverser = new ConsTraverser(subList.cdr());
 
-                if (functionOrOperatorName == iCurrentEnvironment.iComplexAtom.car()) {
+               /*
+                   Removing complex number output notation formatting until the problem with Solve(x^3 - 2*x - 7 == 0,x) is resolved.
+                
+                   if (functionOrOperatorName == iCurrentEnvironment.iComplexAtom.car()) {
 
                     Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
 
@@ -198,7 +201,8 @@ public class MathPiperPrinter extends LispPrinter {
 
                     WriteToken(aOutput, "*I");
 
-                } else if (functionOrOperatorName == iCurrentEnvironment.iListAtom.car()) {
+                } else */
+                if (functionOrOperatorName == iCurrentEnvironment.iListAtom.car()) {
 
                     /*
                     Cons atomCons = (Cons) subList.getCons();
