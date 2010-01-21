@@ -62,7 +62,7 @@ ScatterPlot({claim, days}, title -> "Scatter Plot", series1Title -> "Series 1", 
 
 claim := 1 .. 40;
 days1 := {48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17};
-days2 := RandomIntegerVector(Length(claim), 20, 50);
+days2 := RandomIntegerList(Length(claim), 20, 50);
 ScatterPlot({claim, days1, claim, days2}, title -> "Scatter Plot", series1Title -> "Series 1", series2Title -> "Series 2", xAxisLabel -> "Claim", yAxisLabel -> "Days");
 
 %/mathpiper
@@ -88,7 +88,7 @@ LineChart({claim, days}, title -> "Line Chart", series1Title -> "Series 1", xAxi
 
 claim := 1 .. 40;
 days1 := {48,41,35,36,37,26,36,46,35,47,35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17};
-days2 := RandomIntegerVector(Length(claim), 20, 50);
+days2 := RandomIntegerList(Length(claim), 20, 50);
 LineChart({claim, days1, claim, days2}, title -> "Line Chart", series1Title -> "Series 1", series2Title -> "Series 2", xAxisLabel -> "Claim", yAxisLabel -> "Days");
 
 %/mathpiper
@@ -101,9 +101,9 @@ LineChart({claim, days1, claim, days2}, title -> "Line Chart", series1Title -> "
 
 numberOfRoles := 1000;
 
-dieRolesList := RandomIntegerVector(numberOfRoles,1,6);
+dieRolesList := RandomIntegerList(numberOfRoles,1,6);
 
-Histogram(dieRolesList, binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6, title -> "Single Die Rolls", xAxisLabel -> "Number Rolled", yAxisLabel -> "Frequency", seriesTitle -> String(numberOfRoles) : " Roles");
+Histogram(dieRolesList, binMinimum -> .5, binMaximum -> 6.5, numberOfBins -> 6, title -> "Single Die Rolls", xAxisLabel -> "Number Rolled", yAxisLabel -> "Frequency", seriesTitle -> ToString(numberOfRoles) : " Roles");
 
 %/mathpiper
 
@@ -166,7 +166,7 @@ domain := 0 .. 15;
 sample1 := {};
 ForEach(x, 0 .. 15)
 [
-    probability := ProbabilityDensityFunction(BinomialDistribution(.1,15),x);
+    probability := N(PMF(BinomialDistribution(.1,15),x));
     sample1 := Append(sample1, probability);
 ];
 
@@ -175,7 +175,7 @@ ForEach(x, 0 .. 15)
 sample2 := {};
 ForEach(x, 0 .. 15)
 [
-    probability := ProbabilityDensityFunction(BinomialDistribution(.5,15),x);
+    probability := N(PMF(BinomialDistribution(.5,15),x));
     sample2 := Append(sample2, probability);
 ];
 
@@ -184,7 +184,7 @@ ForEach(x, 0 .. 15)
 sample3 := {};
 ForEach(x, 0 .. 15)
 [
-    probability := ProbabilityDensityFunction(BinomialDistribution(.9,15),x);
+    probability := N(PMF(BinomialDistribution(.9,15),x));
     sample3 := Append(sample3, probability);
 ];
 
@@ -204,7 +204,7 @@ domain := 0 .. 15;
 sample1 := {};
 ForEach(x, 0 .. 15)
 [
-    probability := ProbabilityDensityFunction(BinomialDistribution(.1,15),x);
+    probability := N(PMF(BinomialDistribution(.1,15),x));
     sample1 := Append(sample1, probability);
 ];
 
@@ -212,14 +212,14 @@ ForEach(x, 0 .. 15)
 sample2 := {};
 ForEach(x, 0 .. 15)
 [
-    probability := ProbabilityDensityFunction(BinomialDistribution(.5,15),x);
+    probability := N(PMF(BinomialDistribution(.5,15),x));
     sample2 := Append(sample2, probability);
 ];
 
 sample3 := {};
 ForEach(x, 0 .. 15)
 [
-    probability := ProbabilityDensityFunction(BinomialDistribution(.9,15),x);
+    probability := N(PMF(BinomialDistribution(.9,15),x));
     sample3 := Append(sample3, probability);
 ];
 
@@ -233,7 +233,7 @@ LineChart({domain, sample1, domain, sample2, domain, sample3});
 
 %mathpiper,title=""
 
-Clear(x);
+Unbind(x);
 Plot2D(x^2);
 
 %/mathpiper
@@ -244,7 +244,7 @@ Plot2D(x^2);
 
 %mathpiper,title=""
 
-Clear(x);
+Unbind(x);
 Plot2D({x, x^2});
 
 %/mathpiper

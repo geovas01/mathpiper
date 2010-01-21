@@ -1,4 +1,4 @@
-/*  v 1.02.
+/*  v 1.03.
   This is a MathPiperIDE worksheet file and it consists of folds which contain source
   code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
   a fold and then executed by placing the cursor anywhere inside the code and
@@ -10,7 +10,7 @@
   in the Folding menu at the top of the window.
   
   This worksheet contains examples which go with the "MathPiperIDE Worksheet Files" chapter
-  of the "MathPiperIDE for Newbies" book.
+  of the "Introduction to Progamming with Mathpiper" book.
 */
 
 
