@@ -41,7 +41,6 @@
 		<pathelement path="${master.lib.dir}/jars/ErrorList.jar" />
 		<pathelement path="${master.lib.dir}/jars/plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/mathpiper.jar" />
-		<pathelement path="${plugins.jars.dir}/piper_me.jar" />
 		<pathelement path="${master.lib.dir}/jars/ProjectViewer.jar" />
 		<pathelement path="${master.lib.dir}/jars/SideKick.jar" />
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
@@ -59,6 +58,8 @@
 		<pathelement path="${plugins.jars.dir}/jfreechart-1.0.13.jar" />
 		<pathelement path="${plugins.jars.dir}/jcommon-1.0.16.jar" />
 		<pathelement path="${plugins.jars.dir}/threedxplormathj_plugin.jar" />
+		<pathelement path="${plugins.jars.dir}/jrst_all_0.8.6.jar" />
+		<pathelement path="${plugins.jars.dir}/jrst_plugin.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />  
 		-->
@@ -329,6 +330,21 @@
 		</ant>
 		
 		<copy file="${plugins.build.dir}/threedxplormathj_plugin/dist/threedxplormathj_plugin.jar" todir="${plugins.jars.dir}"/>
+	</target>
+	
+	
+	
+	<target id="jrst_plugin" name="jrst_plugin" depends="" >
+		<ant dir="${plugins.src.dir}/jrst_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/jrst_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/jrst_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/jrst_plugin/dist/jrst_plugin.jar" todir="${plugins.jars.dir}"/>
 	</target>
 	
 	
