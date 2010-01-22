@@ -13,36 +13,34 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.ui.gui.worksheets;
+package org.mathpiper.ui.gui.worksheets.mathoutputlines;
 
+import java.applet.Applet;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 
-class StringLine extends MathOutputLine {
+public class ImageLine extends MathOutputLine {
 
-    StringLine(String aText, Font aFont, Color aColor) {
-        iText = aText;
-        iFont = aFont;
-        iColor = aColor;
+    Color bkColor = new Color(255, 255, 255); //TODO:tk:This variable was originally in ConsoleApplet.
+
+    public ImageLine(Image aImage, Applet aApplet) {
+        iImage = aImage;
+        iApplet = aApplet;
     }
 
     public void draw(Graphics g, int x, int y) {
-        g.setColor(iColor);
-        g.setFont(iFont);
-        FontMetrics fontMetrics = g.getFontMetrics();
-        g.drawString(iText, x, y + fontMetrics.getHeight());
+        if (iImage != null) {
+            Dimension d = iApplet.getSize();
+            g.drawImage(iImage, (d.width - iImage.getWidth(iApplet)) / 2, y, bkColor, iApplet);
+        }
     }
 
     public int height(Graphics g) {
-        g.setFont(iFont);
-        FontMetrics fontMetrics = g.getFontMetrics();
-        return fontMetrics.getHeight();
+        return iImage.getHeight(iApplet);
     }
-    private String iText;
-    private Font iFont;
-    private Color iColor;
+    Image iImage;
+    Applet iApplet;
 }

@@ -17,6 +17,14 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.worksheets;
 
+import org.mathpiper.ui.gui.worksheets.hints.Hints;
+import org.mathpiper.ui.gui.worksheets.hints.HintWindow;
+import org.mathpiper.ui.gui.worksheets.hints.HintItem;
+import org.mathpiper.ui.gui.worksheets.mathoutputlines.PromptedStringLine;
+import org.mathpiper.ui.gui.worksheets.mathoutputlines.ImageLine;
+import org.mathpiper.ui.gui.worksheets.mathoutputlines.MathOutputLine;
+import org.mathpiper.ui.gui.worksheets.mathoutputlines.PromptedGraph2DLine;
+import org.mathpiper.ui.gui.worksheets.mathoutputlines.PromptedFormulaLine;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.io.CachedStandardFileInputStream;
@@ -879,6 +887,8 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
             calculating = false;
 
             addOutputLine(outputStringBuffer.toString());
+
+            
             if (response.isExceptionThrown() == true)
             {
                 addLinesStatic(48, "Error> ", response.getExceptionMessage());
