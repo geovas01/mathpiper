@@ -18,6 +18,8 @@
 
 package org.mathpiper.ui.gui.worksheets;
 
+import org.mathpiper.ui.gui.worksheets.symbolboxes.GraphicsPrimitives;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
 import org.mathpiper.ui.gui.worksheets.TexParser;
 
 import java.awt.*;

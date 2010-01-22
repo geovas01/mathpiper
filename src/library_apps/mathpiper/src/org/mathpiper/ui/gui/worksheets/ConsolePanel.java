@@ -17,6 +17,13 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.worksheets;
 
+import org.mathpiper.ui.gui.worksheets.hints.Hints;
+import org.mathpiper.ui.gui.worksheets.hints.HintWindow;
+import org.mathpiper.ui.gui.worksheets.hints.HintItem;
+import org.mathpiper.ui.gui.worksheets.mathoutputlines.PromptedStringLine;
+import org.mathpiper.ui.gui.worksheets.mathoutputlines.MathOutputLine;
+import org.mathpiper.ui.gui.worksheets.mathoutputlines.PromptedGraph2DLine;
+import org.mathpiper.ui.gui.worksheets.mathoutputlines.PromptedFormulaLine;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.io.CachedStandardFileInputStream;
@@ -93,11 +100,11 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
     public void init()
     {
         System.out.println("Initializing.");
-        this.setSize(400, 400); //todo:tk:
+        this.setSize(500, 500); //todo:tk:
         
         setBackground(bkColor);
         setLayout(null);
-        this.setPreferredSize(new Dimension(400,400));
+        this.setPreferredSize(new Dimension(500,500));
         this.setFocusable(true);
         requestFocus();
         addKeyListener(this);

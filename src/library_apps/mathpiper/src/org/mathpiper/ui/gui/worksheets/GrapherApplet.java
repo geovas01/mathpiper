@@ -18,9 +18,8 @@
 
 package org.mathpiper.ui.gui.worksheets;
 
-import java.net.*;
+import org.mathpiper.ui.gui.worksheets.mathoutputlines.Grapher;
 import java.awt.*;
-import java.io.*;
 import java.awt.event.*;
 
 public class GrapherApplet extends java.applet.Applet implements KeyListener
