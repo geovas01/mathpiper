@@ -39,6 +39,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JFrame;
 
 import org.gjt.sp.jedit.EBComponent;
 import org.gjt.sp.jedit.EBMessage;
@@ -62,7 +63,7 @@ import geogebra.plugin.GgbAPI;
  * GeoGebra - a dockable JPanel, a demonstration of a jEdit plugin.
  *
  */
-public class GeoGebra extends JPanel
+public class GeoGebra extends javax.swing.JRootPane
 	implements EBComponent, GeoGebraActions, DefaultFocusComponent {
 
 	// {{{ Instance Variables
@@ -93,7 +94,7 @@ public class GeoGebra extends JPanel
 	 */
 	public GeoGebra(View view, String position) {
 		
-		super(new BorderLayout());
+		//super(new BorderLayout());
 		
 				//System.out.println("XXXXXXXXXXXXXXXXXXX GeoGebra.java initialized.");
 		this.view = view;
@@ -190,7 +191,7 @@ public class GeoGebra extends JPanel
     	ggbPanel = new GeoGebraPanel();
     	
     	// hide input bar
-    	ggbPanel.setShowAlgebraInput(false);
+    	ggbPanel.setShowAlgebraInput(true);
     	// use smaller icons in toolbar
     	ggbPanel.setMaxIconSize(24); 
     	
@@ -201,7 +202,11 @@ public class GeoGebra extends JPanel
     	// build the user interface of the GeoGebraPanel
     	ggbPanel.buildGUI();
     	
-    	this.add(ggbPanel);
+    	
+    	
+    	this.getContentPane().add(ggbPanel);
+    	
+    	//this.add(jFrame);
     	
     	
 		try{
