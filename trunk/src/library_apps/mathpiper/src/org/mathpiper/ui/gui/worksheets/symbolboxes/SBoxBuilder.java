@@ -63,7 +63,9 @@ public class SBoxBuilder {
     }
 
     void push(SBox aSbox) {
+
         stack[stackDepth] = aSbox;
+
         stackDepth++;
     }
 
