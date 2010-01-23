@@ -26,7 +26,7 @@ import java.awt.Graphics;
 
 public class PromptedFormulaLine extends MathOutputLine {
 
-    SBox expression;
+    SBox sBoxExpression;
 
     public PromptedFormulaLine(int aIndent, String aPrompt, Font aPromptFont, Color aPromptColor, String aLine) {
         iIndent = aIndent;
@@ -35,7 +35,7 @@ public class PromptedFormulaLine extends MathOutputLine {
         iPromptColor = aPromptColor;
 
         TexParser parser = new TexParser();
-        expression = parser.parse(aLine);
+        sBoxExpression = parser.parse(aLine);
     }
 
     public void draw(Graphics g, int x, int y) {
@@ -50,15 +50,15 @@ public class PromptedFormulaLine extends MathOutputLine {
         g.setColor(Color.black);
         GraphicsPrimitives gp = new GraphicsPrimitives(g);
         gp.setLineThickness(0);
-        expression.calculatePositions(gp, 3, new java.awt.Point(x + iIndent, y + expression.getCalculatedAscent() + 10));
-        expression.render(gp);
+        sBoxExpression.calculatePositions(gp, 3, new java.awt.Point(x + iIndent, y + sBoxExpression.getCalculatedAscent() + 10));
+        sBoxExpression.render(gp);
     }
 
     public int height(Graphics g) {
         if (height == -1) {
             GraphicsPrimitives gp = new GraphicsPrimitives(g);
-            expression.calculatePositions(gp, 3, new java.awt.Point(0, 0));
-            height = expression.getDimension().height + 20;
+            sBoxExpression.calculatePositions(gp, 3, new java.awt.Point(0, 0));
+            height = sBoxExpression.getDimension().height + 20;
         }
         return height;
     }

@@ -46,11 +46,16 @@ public class TexParser
 			return;
 		}
 
+
 		while (currentPos < iCurrentExpression.length() && isSpace(iCurrentExpression.charAt(currentPos)))
+                {
+                        //Skip spaces.
 			currentPos++;
+                }
 
 		if (currentPos == iCurrentExpression.length())
 		{
+                        //Return if at end of expression.
 
 			//showToken();
 			return;
@@ -141,6 +146,7 @@ public class TexParser
 	{
 
 		SBoxBuilder builder = new SBoxBuilder();
+
 		parseOneExpression10(builder);
 
 		SBox expression = builder.pop();

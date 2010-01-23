@@ -26,6 +26,7 @@ public abstract class SBox
 	int iAscent;
 	
 	abstract public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition);
+        
 	abstract public void render(GraphicsPrimitives g);
 
 	public java.awt.Dimension getDimension()
