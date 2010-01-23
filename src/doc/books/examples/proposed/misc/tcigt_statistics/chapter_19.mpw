@@ -22,4 +22,24 @@ ViewHtml(anova["html"]);
 
 
 
+%mathpiper,title="Scheffe test example pages 299-301"
+
+alpha := .05;
+
+fertilizer1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+
+fertilizer2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+
+fertilizer3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+
+anova := ScheffeTest({fertilizer1List,fertilizer2List,fertilizer3List}, alpha);
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {{"criticalFScore",3.682320344},{"fScore",4.438993381},{"meanSquareWithin",1.22300000},{"meanSquareBetween",5.428888905},{"degreesOfFreedomWithin",15},{"degreesOfFreedomBetween",2},{"sumOfSquaresTotal",29.20277781},{"sumOfSquaresBetween",10.85777781},{"sumOfSquaresWithin",18.34500000},{"html",java.lang.String}}
+.   %/output
+
 
