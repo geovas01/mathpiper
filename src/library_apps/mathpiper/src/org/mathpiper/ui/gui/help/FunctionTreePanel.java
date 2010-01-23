@@ -606,8 +606,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     }
 
                     line = applyBold(line);
-                    line = applyPre(line);
-                    //foldOutput = foldOutput + line;
+                    //line = applyPre(line);  Removed the [] <pre> symbol replacement because it clashes with normal brackets.
+
 
 
                     html.append(line);
