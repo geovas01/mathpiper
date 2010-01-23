@@ -1,0 +1,92 @@
+%mathpiper,def="ScheffeTest",scope="private"
+
+ScheffeTest(levelsList, alpha) :=
+[
+    Check(IsListOfLists(levelsList), "The first argument must be a list of lists.");
+    
+    Check(alpha >= 0 And alpha <= 1, "The second argument must be a number between 0 and 1.");
+    
+    anova := AnovaSingleFactor(levelsList, alpha);
+
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper,scope="nobuild"
+
+ScheffeStatistic(xBarA,nA,xBarB,nB,ssw,k) :=
+[
+    ((xBarA-xBarB)^2)/((ssw/Sum(i,1,k,(k-1))*1/nA + 1/nb));
+    
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,scope="nobuild"
+zz;
+
+
+%/mathpiper
+
+    %hoteqn,preserve="false"
+      Result: \frac{\left(\mathrm{xBarA}-\mathrm{xBarB}\right)^{2}}{\frac{\mathrm{ssw}}{\left(i-1\right)inA}+\frac{1}{nb}}
+.   %/hoteqn
+
+        %output,preserve="false"
+          HotEqn updated.
+.       %/output
+
+
+
+
+
+%mathpiper,title=""
+
+IsListOfLists(listOfLists) :=
+[
+    Local(result);
+    
+    result := True;
+    
+    if(Not IsList(listOfLists))
+    [
+        result := False;
+    ]
+    else 
+    [
+        ForEach(list, listOfLists)
+        [
+            If(Not IsList(list), result := False);
+        ];
+    ];
+    
+    result;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
