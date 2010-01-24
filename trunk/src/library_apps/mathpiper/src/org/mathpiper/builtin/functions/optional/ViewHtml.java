@@ -99,9 +99,9 @@ public class ViewHtml extends BuiltinFunction {
 *CORE
 *CALL
     ViewHtml(string)
- *
- *Params
- {string} -- a string which contains HTML text
+
+*Params
+{string} -- a string which contains HTML text
 
 *DESC
 Display rendered HTML in a window.
