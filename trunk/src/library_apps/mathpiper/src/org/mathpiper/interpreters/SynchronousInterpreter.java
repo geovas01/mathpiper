@@ -159,7 +159,7 @@ class SynchronousInterpreter implements Interpreter {
             EvaluationResponse evaluationResponse = evaluate("LoadScript(\"initialization.rep/mathpiperinit.mpi\");");
 
             if (evaluationResponse.isExceptionThrown()) {
-                throw new Exception("Error during initialization.");
+                throw new Exception("Error during script initialization.");
             }
 
 
