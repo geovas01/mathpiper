@@ -1,0 +1,58 @@
+%mathpiper,def="IsListOfLists",scope="private"
+
+IsListOfLists(listOfLists) :=
+[
+    Local(result);
+    
+    result := True;
+    
+    if(Not IsList(listOfLists))
+    [
+        result := False;
+    ]
+    else 
+    [
+        ForEach(list, listOfLists)
+        [
+            If(Not IsList(list), result := False);
+        ];
+    ];
+    
+    result;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+%mathpiper_docs,name="IsListOfLists",categories="User Functions;Predicates"
+*CMD IsListOfLists --- determine if {list} is a list of lists
+*STD
+*CALL
+	IsList(list)
+
+*PARMS
+{expr} -- a list
+
+*DESC
+This function returns {True} if {list} is a list of lists and {False} otherwise.
+
+*E.G.
+In> IsListOfLists(aa);
+Result: False
+
+In> IsListOfLists({1,2,3})
+Result: False
+
+In> IsListOfLists({{1,2},{3,4},{5,6}})
+Result: True
+    
+%/mathpiper_docs
