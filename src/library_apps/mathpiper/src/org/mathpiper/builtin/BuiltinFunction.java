@@ -218,6 +218,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 import java.io.*;
+import org.mathpiper.builtin.functions.core.GlobalVariablesGet;
 
 public abstract class BuiltinFunction {
 
@@ -915,6 +916,9 @@ public abstract class BuiltinFunction {
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new RoundToN(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "RoundToN");
+                aEnvironment.getBuiltinFunctions().setAssociation(
+		        new BuiltinFunctionEvaluator(new GlobalVariablesGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+		        "GlobalVariablesGet");
 
 
 	}//end method.

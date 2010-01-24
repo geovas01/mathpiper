@@ -13,9 +13,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.core;
 
 import java.util.Map;
@@ -23,58 +21,41 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
 
-
-public class MetaKeys extends BuiltinFunction {
+/**
+ *
+ *
+ */
+public class GlobalVariablesGet extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer();
-        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        java.util.Set<String> variablesSet = ((Map) aEnvironment.getGlobalState().getMap()).keySet();
 
+        Cons head = Utility.setToList(aEnvironment, variablesSet);
 
-        Map metadataMap = objectPointer.getCons().getMetadataMap();
-
-        if (metadataMap == null || metadataMap.isEmpty()) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy( aEnvironment, false)));
-
-            return;
-        }//end if.
-
-
-        java.util.Set keySet = (java.util.Set) metadataMap.keySet();
-
-        Cons head = Utility.setToList(aEnvironment, keySet);
-        
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head));
-
-
-
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, head));
 
     }//end method.
-
-
 }//end class.
 
 
 
 /*
-%mathpiper_docs,name="MetaKeys",categories="User Functions;Built In"
-*CMD MetaKeys --- returns the metadata keys for a value or an unbound variable
-*CORE
+%mathpiper_docs,name="GlobalVariablesSet",categories="User Functions;Visualization"
+*CMD GlobalVariablesSet --- return a list which contains the names of all the global variables
+
 *CALL
-MetaKeys(value_or_unbound_variable)
+GlobalVariablesSet()
 
-*PARMS
-
-{value_or_unbound_variable} -- a value or an unbound variable
 
 *DESC
-Returns the metadata keys for a value or an unbound variables.  The metadata is
-held in an associative list.
+return a list which contains the names of all the global variables.
 
-*SEE MetaGet, MetaSet, MetaValues, Clear
+*E.G.
+In> GlobalVariablesGet()
+Result> {$CacheOfConstantsN1,%,LoadResult,I,$numericMode2}
+
 %/mathpiper_docs
  */
