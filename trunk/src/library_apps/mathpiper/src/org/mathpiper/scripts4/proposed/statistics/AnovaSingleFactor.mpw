@@ -234,6 +234,8 @@ factor3List := {8.1,9.0,10.7,9.1,10.5,9.5};
 
 Echo(anova := AnovaSingleFactor({factor1List,factor2List,factor3List}, alpha));
 
+NewLine();
+
 Echo("F-Score of the data: ", anova["fScore"]);
 
 ViewHtml(anova["html"]);
@@ -253,7 +255,7 @@ ViewHtml(anova["html"]);
       
 .   /%/output
 
-*SEE ViewHtml
+*SEE ViewHtml, ScheffeTest
 %/mathpiper_docs
 
     %output,preserve="false"
