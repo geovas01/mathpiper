@@ -100,7 +100,7 @@ public class Console {
      */
     public void repl(InputStream inputStream, PrintStream out) {
         out.println("\nMathPiper version '" + Version.version + "'.");
-        out.println("See http://mathpiperide.org for more information and documentation on MathPiper.");
+        out.println("See http://mathpiper.org for more information and documentation on MathPiper.");
         out.println("Place a backslash at the end of a line to enter multiline input.");
         out.println("To exit MathPiper, enter \"Exit()\" or \"exit\" or \"quit\" or Ctrl-c.\n");
         /*TODO fixme
