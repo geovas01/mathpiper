@@ -122,9 +122,9 @@
 		</copy>-->
 		
 		<mkdir dir="${build.classes.dir}/tests" />
-		<mkdir dir="${build.classes.dir}/tests/scripts" />
-		<copy todir="${build.classes.dir}/tests/scripts">
-			<fileset dir="${mathpiper.dir}/tests/scripts" >
+		<mkdir dir="${build.classes.dir}/tests/scripts4" />
+		<copy todir="${build.classes.dir}/tests/scripts4">
+			<fileset dir="${mathpiper.dir}/tests/scripts4" >
 				<include name="**/*" />
 			</fileset>
 		</copy>
