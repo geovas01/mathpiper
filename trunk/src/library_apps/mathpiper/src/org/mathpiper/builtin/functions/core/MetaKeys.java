@@ -46,7 +46,7 @@ public class MetaKeys extends BuiltinFunction {
 
         java.util.Set keySet = (java.util.Set) metadataMap.keySet();
 
-        Cons head = Utility.setToList(aEnvironment, keySet);
+        Cons head = Utility.iterableToList(aEnvironment, keySet);
         
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head));
 

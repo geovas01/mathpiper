@@ -1343,14 +1343,14 @@ public class Utility {
     }//end method.
 
     /**
-     * Converts a java Set into a MathPiper List.
+     * Converts a =Java Iterable into a MathPiper List.
      *
      * @param aEnvironment
-     * @param set
+     * @param iterable
      * @return cons
      * @throws java.lang.Exception
      */
-    public static Cons setToList(Environment aEnvironment, java.util.Set set) throws Exception {
+    public static Cons iterableToList(Environment aEnvironment, java.lang.Iterable iterable) throws Exception {
         
         Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
 
@@ -1358,7 +1358,7 @@ public class Utility {
 
         consPointer.setCons(head);
 
-        Iterator keyIterator = set.iterator();
+        Iterator keyIterator = iterable.iterator();
 
         while (keyIterator.hasNext()) {
             String key = (String) keyIterator.next();
