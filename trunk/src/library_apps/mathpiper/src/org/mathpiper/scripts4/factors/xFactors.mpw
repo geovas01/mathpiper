@@ -84,22 +84,26 @@ Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
     //  might be simpler
     
     //  Begin by identifying the nature of this polynomial (i.e., the PP)    
-    vars     := VarList(pp);
-    nvars    := Length(vars);
-    disassem := DisassembleExpression(pp);
-    nterms   := Length(disassem[3]);
-    degrees  := {};
-    ForEach(v,vars)
-        [ DestructiveAppend(degrees,Degree(pp,v)); ];
-    allCoeffs         := disassem[3];
-    isHomogeneous     := [
-        // A polynomial is homogeneous of degree n 
-        // if all terms have degree n.   
-        Local(sd,cmp); 
-        sd  := Sum /@ disassem[2];
-        cmp := FillList(sd[1],Length(sd));
-        IsZeroVector(sd - cmp);
-    ];
+    vars      := VarList(pp);
+    nvars     := Length(vars);
+    disassem  := DisassembleExpression(pp);
+    nterms    := Length(disassem[3]);
+    degrees   := {};
+    allCoeffs := disassem[3];
+    If(nvars > 0,
+      [
+        ForEach(v,vars)
+           [ DestructiveAppend(degrees,Degree(pp,v)); ];
+        isHomogeneous     := [
+            // A polynomial is homogeneous of degree n 
+            // if all terms have degree n.   
+            Local(sd,cmp); 
+            sd  := Sum /@ disassem[2];
+            cmp := FillList(sd[1],Length(sd));
+            IsZeroVector(sd - cmp);
+        ];
+      ]
+    );
     
     // Experimental: 
     //   Attach a set of Meta-Keys to pp, describing
@@ -162,18 +166,25 @@ UnFence("xFactorsPrimitivePart",1);
 UnFence("xFactorsPrimitivePart",1);
 
 
+     //  special case:  no variables in pp!
+14 # xFactorsPrimitivePart( _pp )_(nvars=0) <--
+[
+    ppfactors := {};
+];
+
+
      //  general case: univariate
-14 # xFactorsPrimitivePart( _pp )_(nvars=1) <--  xFactorsUnivariate(pp); 
+16 # xFactorsPrimitivePart( _pp )_(nvars=1) <--  xFactorsUnivariate(pp); 
 UnFence("xFactorsPrimitivePart",1);
 
 
      //  general case: multivariate
-16 # xFactorsPrimitivePart( _pp )_(nvars>1) <-- xFactorsMultivariate(pp);
+18 # xFactorsPrimitivePart( _pp )_(nvars>1) <-- xFactorsMultivariate(pp);
 UnFence("xFactorsPrimitivePart",1);
 
 
      //  catch-all: represents an ERROR CONDITION
-18 # xFactorsPrimitivePart( _pp ) <-- Tell("Should never get here!");
+20 # xFactorsPrimitivePart( _pp ) <-- Tell("Should never get here!");
 UnFence("xFactorsPrimitivePart",1);
 
 
