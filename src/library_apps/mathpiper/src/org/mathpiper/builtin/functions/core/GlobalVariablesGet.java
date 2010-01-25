@@ -16,6 +16,9 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.core;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
@@ -32,12 +35,26 @@ public class GlobalVariablesGet extends BuiltinFunction {
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
         java.util.Set<String> variablesSet = ((Map) aEnvironment.getGlobalState().getMap()).keySet();
+        
+        java.util.List variablesList = new ArrayList(variablesSet);
 
-        Cons head = Utility.setToList(aEnvironment, variablesSet);
+        Collections.sort(variablesList, new NameComparator() );
+
+        Cons head = Utility.iterableToList(aEnvironment, variablesList);
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, head));
 
     }//end method.
+
+
+
+    private class NameComparator implements Comparator<String>{
+
+        public int compare(String s1, String s2) {
+            return s1.compareToIgnoreCase(s2);
+        }//end method.
+    }//end class.
+
 }//end class.
 
 
