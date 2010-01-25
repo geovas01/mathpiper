@@ -1,37 +1,52 @@
 %mathpiper,def="xFactors"
 
 /*------------------------------------------------------------------------
- *  NEW VERSION 
+ *  PENULTIMATE VERSION 
  *    Started 091222
+ *    revised 100108-22
  *------------------------------------------------------------------------*/
 
 Retract("xFactors",*);
-Retract("xPolyFactors",*);
-Retract("xFactorsMultivariateSpecialCases",*);
-Retract("xFactorsSomethingElse",*);
-Retract("CombineNumericalFactors",*);
-//Retract("CommonMonomialFactors",*);
-//Retract("MakeUniPoly",*);
-//Retract("HeuristicUniPoly",*);
+Retract("xFactorsPrimitivePart",*);
+Retract("xFactorsUnivariate",*);
+Retract("xFactorsMultivariate",*);
+Retract("xFactorsHomogeneousBivariate",*);
 
-/* -------------    LISTS    --------------*/
+Retract("ApproximateRealCoefficients",*);
+Retract("FixUpMonicFactors",*);
+Retract("CombineNumericalFactors",*);
+Retract("IsPureRational",*);
+Retract("HasRealCoefficients",*);
+Retract("HasRationalCoefficients",*);
+Retract("matchPower",*);
+Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
+
+
+/* --------------    LISTS    ---------------*/
 
 10 # xFactors( L_IsList ) <-- xFactors /@ L;
 
 
 /* -------------    NUMBERS    --------------*/
 
+
 10 # xFactors(p_IsPositiveInteger) <--  
 [
     If( p < 1600, FactorsSmallInteger(p), FactorizeInt(p) );
 ];
 
-10 # xFactors(p_IsNegativeInteger) <-- xFactors(-p);
 
-10 # xFactors(p_IsRational)_(Denominator(p) != 1) <-- 
+12 # xFactors(p_IsNegativeInteger) <-- xFactors(-p);
+
+
+14 # xFactors(p_IsRational)_(Denominator(p) != 1) <-- 
              { {xFactor(Numerator(p)) / xFactor(Denominator(p) ) , 1} }; 
+             
 
-10 # xFactors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+16 # xFactors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+
+
+18 # xFactors(_p)_(Length(VarList(p))=0) <-- p;
 
 
 
@@ -39,132 +54,441 @@ Retract("CombineNumericalFactors",*);
 
 21 # xFactors( poly_CanBeUni ) <--
 [
-    If(InVerboseMode(),Tell("xFactors_can_be_uni",poly));
-    Local(content,pp,vars,nvars,ppFactors,monomialFactors,result);
+    If(InVerboseMode(),Tell("xFactors_can_be_uni_100122",poly));
+    Local(content,pp,ppFactors,monomialFactors,result);
+    Local(vars,nvars,disassem,degrees,mpoly,nterms,allCoeffs);
+    Local(hasRealCoefficients,hasRationalCoefficients);
+
+    //  First, check to see if the polynomial has any REAL coefficients.
+    //  If so, convert to approximate integers (with divisor).
+    hasRealCoefficients := HasRealCoefficients(poly);
+    If( hasRealCoefficients, 
+      [
+         Local(realPoly);
+         realPoly  := poly;   //  just in case -- save original form
+         disassem  := DisassembleExpression(poly);
+         allCoeffs := disassem[3];
+         poly      := ApproximateRealCoefficients(poly);
+      ]
+    );
     
-    // First step: get Content and Primitive Part
-    Unbind(content);
-    pp := xPrimitivePart( poly, content );
+    //  Also, check to see if the polynomial has Rational coeffs
+    hasRationalCoefficients := HasRationalCoefficients(poly);
+    
+    // Now: get Content and Primitive Part
+    content := xContent( poly );
+    pp      := xPrimitivePart( poly, content );
     If(InVerboseMode(),Tell("  ",{content,pp}));
     
     //  Now we can concentrate on factoring the Primitive Part, which
-    //  will hopefully be simpler
-    vars  := VarList(pp);
-    nvars := Length(vars);
-    //If( nvars > 1, vars := Reverse(vars) );  //  for heuristic purposes
-    If(InVerboseMode(),Tell("  ",vars));
-    ppFactors := xPolyFactors( pp );
-    If(InVerboseMode(),Tell("  ",ppFactors));
-    If( ppFactors = True, ReturnFromBlock(-9999) ); // signals an incomplete result
+    //  might be simpler
+    
+    //  Begin by identifying the nature of this polynomial (i.e., the PP)    
+    vars     := VarList(pp);
+    nvars    := Length(vars);
+    disassem := DisassembleExpression(pp);
+    nterms   := Length(disassem[3]);
+    degrees  := {};
+    ForEach(v,vars)
+        [ DestructiveAppend(degrees,Degree(pp,v)); ];
+    allCoeffs         := disassem[3];
+    isHomogeneous     := [
+        // A polynomial is homogeneous of degree n 
+        // if all terms have degree n.   
+        Local(sd,cmp); 
+        sd  := Sum /@ disassem[2];
+        cmp := FillList(sd[1],Length(sd));
+        IsZeroVector(sd - cmp);
+    ];
+    
+    // Experimental: 
+    //   Attach a set of Meta-Keys to pp, describing
+    //   some of the above information
+    pp := MetaSet(pp,"nvars",nvars);
+    pp := MetaSet(pp,"nterms",nterms);
+    pp := MetaSet(pp,"degrees",degrees);
+    pp := MetaSet(pp,"isHomogeneous",isHomogeneous);
+    
+    If(InVerboseMode(),
+      [
+        Tell("               ",vars);
+        Tell("              ",nvars);
+        Tell("             ",nterms);
+        Tell("            ",degrees);
+        Tell("           ",disassem);
+        Tell("          ",allCoeffs);
+        Tell("      ",isHomogeneous);
+        NewLine();
+      ]
+    );
+    
+    //  OK.  Now factor the PrimitivePart
+    ppFactors := xFactorsPrimitivePart( pp );
+    
+    If(InVerboseMode(),[NewLine();Tell("  ",ppFactors);]);
     
     // Next, include the factors of the Content, if any
+    If(InVerboseMode(),NewLine());
     monomialFactors := FactorsMonomial(content);
-    If(InVerboseMode(),Tell("  ",monomialFactors));
+    If(InVerboseMode(),[Tell("  ",monomialFactors);]);
     If( monomialFactors[1][1] = 1,
         result := ppFactors,        
         result := Concat(monomialFactors,ppFactors)
     );
-    If(InVerboseMode(),Tell("  ",result));
+    
+    If(InVerboseMode(),[NewLine();Tell("  final  ",result);]);
     result;
 ];
 
-// ----------------  UNIVARIATE POLYNOMIALS  -----------------
 
-10 # xPolyFactors( _poly )_(nvars=1) <--
+
+// -----------------  FACTOR PRIMITIVE PART  -----------------
+
+     //  special case: binomials
+10 # xFactorsPrimitivePart( _pp )_(nterms=2) <--
 [
-    Local(factrs,uni,deg,coeffs,hasRealCoeffs);
-    If(InVerboseMode(),Tell("xFactors_uni",poly));
-    
-    // What kind of univariate polynomial is this?
-    uni := MakeUni(poly);
-    If(InVerboseMode(),Tell("  ",uni));
-    coeffs := uni[3]; 
-    deg    := Length(coeffs)-1;
-    If(InVerboseMode(),Tell("       ",{deg,coeffs}));
-    hasRealCoeffs := Length(Select(coeffs, "IsDecimal")) > 0;
-    If(InVerboseMode(),Tell("       ",hasRealCoeffs));
-    
-    // If it has Real coefficients, convert to Q then Z
-    If( hasRealCoeffs,
+    If(InVerboseMode(),Tell("Binomial"));
+    ppFactors := xFactorsBinomial(pp);
+];
+UnFence("xFactorsPrimitivePart",1);
+
+
+     //  special case: homogeneous bivariates
+12 # xFactorsPrimitivePart( _pp )_(isHomogeneous And nvars=2) <--
+[
+    If(InVerboseMode(),Tell("Homogeneous and Bivariate"));
+    ppFactors := xFactorsHomogeneousBivariate(disassem);
+];
+UnFence("xFactorsPrimitivePart",1);
+
+
+     //  general case: univariate
+14 # xFactorsPrimitivePart( _pp )_(nvars=1) <--  xFactorsUnivariate(pp); 
+UnFence("xFactorsPrimitivePart",1);
+
+
+     //  general case: multivariate
+16 # xFactorsPrimitivePart( _pp )_(nvars>1) <-- xFactorsMultivariate(pp);
+UnFence("xFactorsPrimitivePart",1);
+
+
+     //  catch-all: represents an ERROR CONDITION
+18 # xFactorsPrimitivePart( _pp ) <-- Tell("Should never get here!");
+UnFence("xFactorsPrimitivePart",1);
+
+
+
+// ----------------------  UNIVARIATE POLYNOMIALS  -----------------------
+
+30 # xFactorsUnivariate( poly_CanBeUni )_(Length(VarList(poly))=1) <--
+[
+    Local(factrs,coeffs,deg,X,residuals,factrsnew);
+
+    If(InVerboseMode(),
       [
-          coeffs := Rationalize(coeffs);
-          If(InVerboseMode(),Tell("      Z",coeffs));
-          gcd    := Gcd(coeffs);
-          If(InVerboseMode(),Tell("       ",gcd));
-          If( gcd != 1,
-            [
-              coeffs  := Simplify(coeffs/gcd);
-              content := content * gcd;
-              If(InVerboseMode(),Tell("          ",{content,coeffs}));
-            ]
-          );
-          poly := NormalForm(UniVariate(uni[1],uni[2],coeffs));
-          If(InVerboseMode(),Tell("   new",poly));
+         NewLine();
+         Tell("xFactorsUnivariate",poly);
+         Tell("       ",allCoeffs);
       ]
     );
     
     // OK, First, send it through MathPiper's basic factoring function
     // for univariate polynomials
-    factrs := BinaryFactors(poly);
-    If(InVerboseMode(),Tell("       ",Type(factrs)));
-    factrs;
-];
-
-
-// ----------------  BIVARIATE POLYNOMIALS  -----------------
-
-10 # xPolyFactors( _poly )_(nvars=2) <--
-[
-    If(InVerboseMode(),Tell("xFactors_bivariate",poly));
-    Local(primeInteger,result1);
-    If(InVerboseMode(),Tell("   ",vars));
-    //primeInteger := NextPrime(RandomInteger(1000,10000));
-    primeInteger := 7247;
-    If(InVerboseMode(),Tell("    random",primeInteger));
-    upoly := Subst(vars[2],primeInteger) poly;
-    If(InVerboseMode(),Tell("   ",upoly));
-    result1 := xFactors(upoly);
-    If(InVerboseMode(),Tell(" ",result1));
-    ForEach(s,result1)
-    [
-        If(InVerboseMode(),Tell("      ",s));
-        //Tell("        ",s[1]);
-        us := MakeUni(s[1]);
-        //Tell("      ",us);
-        cs := us[3];
-        //Tell("      ",cs);
-        fs := FactorizeInt /@ cs;
-        //Tell("      ",fs);
-        result2 := (Subst(primeInteger,vars[2])fs);
-        //Tell("      ",result2);
-        ii := Find(result2,{});
-        //Tell("            ",ii);
-        If(ii > 0, DestructiveDelete(result2,ii));
-        //Tell("      ",result2[1]);
-        s1 := FW(result2[1]);
-        If(InVerboseMode(),Tell("      ",s1));
-        
-    ];
-    //result2 := Subst(primeInteger,vars[2]) result1;
-    //If(InVerboseMode(),Tell(" ",result2));
     
-];
+    factrs := BinaryFactors(poly);
+    If(InVerboseMode(),Tell("   output of BinaryFactors",factrs));
+
+    //    Now fix-up the (monic) factors found above, to express them
+    // as linear in x with integer coefficients.  
+    //    Also, separate out any 'residual' factors -- defined here as
+    // factors of degree > 2.
+    
+    {factrsnew,residuals} := FixUpMonicFactors(factrs);
+    
+    //  See if we can do something with the residuals
+    Local(residOut);
+    residOut := {};
+    If(Length(residuals) > 0, residOut := xFactorsResiduals( residuals ) );
+    
+    If(InVerboseMode(),
+      [
+          NewLine();
+          Tell(" just before end of univariate factoring");
+          Tell("    ",factrs);
+          Tell("    ",factrsnew);
+          Tell("    ",residOut);
+      ]
+    );
+    
+     //  Finally, the output --------
+     Concat(factrsnew,residOut);
+];   //   xFactorsUnivariate
+UnFence("xFactorsUnivariate",1);
 
 
 // ----------------  MULTIVARIATE POLYNOMIALS  -----------------
 
-10 # xPolyFactors( _poly )_(nvars>2) <--
+40 # xFactorsMultivariate( poly_CanBeUni )_(Length(VarList(poly))>1) <--
 [
-    If(InVerboseMode(),Tell("xFactors_multi",poly));
-    If(InVerboseMode(),Tell("   ",vars));
+    Local(factrs);
     
+    If(InVerboseMode(),[NewLine();Tell("xFactorsMultivariate",poly);]);
+    If( nterms = 2, 
+      [
+        If(InVerboseMode(),Tell("   Is Binomial"));
+        factrs := xFactorsBinomial(poly); 
+      ],
+      [
+        If(InVerboseMode(),Tell("   Has more than 2 terms"));
+      ]
+    );
+    factrs;
+];
+UnFence("xFactorsMultivariate",1);
+
+
+// ------------------  HOMOGENEOUS BIVARIATE  ------------------
+
+10 # xFactorsHomogeneousBivariate( dis_IsList ) <-- 
+[
+    If(InVerboseMode(),[NewLine();Tell("xFactorsHomogeneousBivariate",dis);]);
+    Local(dis1,f,dis2,poly1,ppFactors,residuals);
+    dis1  := {{xi},{{X},{X[1]}} /@ dis[2],dis[3]};
+    If(InVerboseMode(),Tell("   ",dis1));
+    poly1 := Sum(ReassembleListTerms(dis1));
+    If(InVerboseMode(),Tell("   ",poly1));
+    ppFactors := BinaryFactors(poly1);
+    {ppFactors,residuals} := FixUpMonicFactors(ppFactors);
+    For(ii:=1,ii<=Length(ppFactors),ii++)
+    [
+        f := ppFactors[ii];
+        If(InVerboseMode(),Tell("          ",f[1]));
+        lst := DisassembleExpression(f[1]);
+        If(InVerboseMode(),
+          [
+             Tell("               ",lst);
+             Tell("                            ",dis[1]);
+          ]
+        );
+        DestructiveReplace(lst,1,dis[1]);
+        DestructiveAppend(lst[2][1],0);
+        DestructiveAppend(lst[2][2],1);
+        If(InVerboseMode(),Tell("               ",lst));
+        preassem  := Sum(ReassembleListTerms(lst)) ;
+        If(InVerboseMode(),Tell("               ",preassem));
+        ppFactors[ii][1] := preassem;
+    ];
+    If(InVerboseMode(),[Tell("   ",ppFactors); Tell("   ",residuals);NewLine();] );  
+    ppFactors;
+];
+UnFence("xFactorsHomogeneousBivariate",1);
+
+
+// ---------------------   OTHER STUFF ------------------------
+
+
+10 # ApproximateRealCoefficients( poly_IsPolynomial ) <--
+[
+    // If the polynomial has REAL coefficients, convert them to
+    // approximate integers
+    If(InVerboseMode(),[NewLine();Tell("  REAL",poly);]);
+    Local(coeffs,gcd,lcm);
+    coeffs := Rationalize /@ (allCoeffs);
+    If(InVerboseMode(),[Tell("      to-Q",coeffs);Tell("      to-Z",coeffs);]);
+    Local(gcd,lcm);
+    gcd    := Gcd(Numerator /@ coeffs);
+    lcm    := Lcm(Denominator /@ coeffs);
+    If(InVerboseMode(),[Tell("       ",gcd);Tell("       ",lcm);]);
+    disassem[3] := coeffs;
+    allCoeffs   := coeffs;
+    poly        := Sum(ReassembleListTerms(disassem));
+    If(InVerboseMode(),Tell("   new",poly));
+    poly;
+];
+UnFence("ApproximateRealCoefficients",1);
+
+
+100 # CombineNumericalFactors( factrs_IsList ) <--
+[
+      If( InVerboseMode(), Tell("Combine",factrs) );
+      Local(q,a,b,t,f,ff,err);
+      err := False;
+      t   := 1;
+      f   := {};
+      ForEach(q,factrs)
+      [
+          If( InVerboseMode(), Tell(1,q) );
+          If( IsList(q) And Length(q)=2,
+            [
+                {a,b} := q;
+                If( InVerboseMode(), Echo("     ",{a,b}) );
+                If( IsNumericList( {a,b} ),
+                    t := t * a^b,
+                    f := {a,b}:f
+                );
+            ],
+              err := True
+          );
+      ];
+      If( InVerboseMode(),
+        [
+            Echo("      t = ",t);
+            Echo("      f = ",f);
+            Echo("    err = ",err);
+        ]
+      );
+      ff := If(Not err And t != 1, {t,1}:Reverse(f), factrs);
+      ff := Select(Lambda({x},x!={1,1}),ff);
+      If(ff[1]<0,ff[1]:=-ff[1]);
 ];
 
-UnFence("xPolyFactors",1);
+
+// ----------------  RATIONAL POLYNOMIALS  -----------------
+
+150 # xFactors( expr_IsRationalFunction )_
+        (IsPolynomial(Numerator(expr)) And IsPolynomial(Denominator(expr))) <--
+[
+    If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Function",expr);]);
+    Local(Numer,Denom,fNumer,fDenom);
+    Numer  := Numerator(expr);
+    Denom  := Denominator(expr);
+    fNumer := xFactors(Numer);
+    fDenom := xFactors(Denom);
+    If(InVerboseMode(),[Tell("   ",fNumer); Tell("   ",fDenom);]);
+    fNumer/fDenom;
+];
+
+
+// ----------   POSSIBLE NON-INTEGER EXPONENTS  ----------
+
+200 # xFactors( _expr )_(Length(VarList(expr)) = 1) <--
+[
+    If(InVerboseMode(),[NewLine();Tell("Some other kind of expression",expr);]);
+    Local(dis,X,pows);
+    dis := DisassembleExpression(expr);
+    X   := VarList(expr)[1];
+    pows := matchPower /@ dis[1];
+    rats := NearRational /@ pows;
+    dis[1] := x^rats;
+    p := Sum(ReassembleListTerms(dis));
+    If(InVerboseMode(),Tell("    new ",p));
+    xFactors(p);
+];
+
+
+
+
+10 # IsPureRational( N_IsRational )_(Not IsInteger(N)) <-- True;
+
+12 # IsPureRational( _N ) <-- False;
+
+
+10 # HasRealCoefficients( poly_IsPolynomial ) <--
+[
+    Local(disassem);
+    disassem := DisassembleExpression(poly);
+    (Length(Select(disassem[3],"IsDecimal")) > 0);
+];
+
+
+10 # HasRationalCoefficients( poly_IsPolynomial ) <--
+[
+    Local(disassem);
+    disassem := DisassembleExpression(poly);
+    //Tell("              ",disassem);
+    (Length(Select(disassem[3],"IsPureRational")) > 0);
+];
+
+
+10 # FixUpMonicFactors( factrs_IsList ) <--
+[
+    If(InVerboseMode(),[ NewLine(); Tell("   doing monic fixup"); ] );
+    Local(factrsnew,residuals,uni);
+    factrsnew := {};
+    residuals := {};
+    ForEach(f,factrs)
+    [
+        If(InVerboseMode(),Tell("               ",f));
+        uni := MakeUni(f[1]);
+        //If(InVerboseMode(),Tell("                    ",uni));
+        If( Degree(f[1])=1,
+          [
+            Local(cc,lcm,fnew);
+            If(InVerboseMode(),Tell("                          ",Degree(f[1])));
+            cc      := Coef(f[1],uni[1],0 .. 1);
+            lcm     := Lcm( Denominator /@ cc );
+            uni[3]  := lcm * cc;
+            fnew    := NormalForm(uni);
+            If( hasRationalCoefficients,
+              [
+                 DestructiveAppend(factrsnew,f);
+              ],
+              [ 
+                 DestructiveAppend(factrsnew,{fnew,f[2]});
+              ]
+            );
+          ]
+        );
+        If( Degree(f[1])=2,
+          [
+            If(InVerboseMode(),Tell("                          ",Degree(f[1])));
+            Local(pq);
+            pq      := PrimitivePart(f[1]);
+            DestructiveAppend(factrsnew,{pq,f[2]});
+          ]
+        );
+        //  If any factors have degree >=3, store them in a 'residuals' array
+        //  for further analysis
+        If( Degree(f[1]) > 2,
+          [
+            If(InVerboseMode(),Tell("                          ",Degree(f[1])));
+            Local(pq);
+            pq      := PrimitivePart(f[1]);
+            DestructiveAppend(residuals,{pq,f[2]});
+            If(InVerboseMode(),Tell("                   appending to residuals",pq));
+          ]
+        );       
+    ];
+    {factrsnew,residuals};
+];
+UnFence("FixUpMonicFactors",1);
+
+10 # IsIrreducible( poly_IsPolynomial )_(Length(VarList(poly))=1) <--
+[
+    //  If these tests return True, the polynomial IS irreducible..
+    //  If they return False, the reducibility of the polynomial is
+    //  not established, one way or the other.
+    //
+    // ----   THIS FUNCTION IS NOT YET COMPLETE OR USEABLE   ---
+    If(InVerboseMode(),Tell("IsIrreducible",poly));
+    Local(var,deg,coeffs,num1);
+    var    := VarList(poly)[1];
+    deg    := Degree(poly);
+    coeffs := Coef(poly,var,deg .. 0);
+    If(InVerboseMode(),Tell("   ",deg));
+    Local(ii,res,nprimes);
+    nprimes := 0;
+    For(ii:=-3*deg,ii<=3*deg,ii:=ii+3)
+    [
+        res := N(Subst(x,ii) poly);
+        //Tell("      ",{ii,res,IsPrime(res)});
+        If(Abs(res)=1 Or IsPrime(res), nprimes := nprimes + 1, );
+    ];
+    Tell("   ",nprimes);
+    If(nprimes > 2*deg, True, False );
+];
+
+
+10 # matchPower(_Z^n_IsNumber) <-- n;
+
+15 # matchPower(_Z) <-- 1;
 
 
 //========================================================================
 
 
 %/mathpiper
+
+
+
 

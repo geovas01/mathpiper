@@ -5,83 +5,15 @@
  *------------------------------------------------------------------------*/
 
 Retract("xContent",*);
-Retract("GetContent",*);
-Retract("xPeel",*);
-Retract("FinalPeel",*);
 
-10 # xContent( expr_CanBeUni ) <--
+
+10 # xContent( poly_IsPolynomial ) <--
 [
-    Local(vars,L,cont,result);
-    vars   := VarList(expr);
-    L      := Length(vars);
-    result := GetContent(expr,L);    
-    resid  := Simplify(expr/result);
-    cont   := result * FinalPeel(resid);
-];
-
-
-10 # GetContent(_expr,_L)_(L=0) <-- expr;
-
-
-12 # GetContent(_expr,_L)_(L=1) <--
-[
-    Local(uni,result);
-    uni    := MakeUni(expr);
-    result := NormalForm(Gcd(uni[3])*uni[1]^uni[2]);
-];
-
-
-14 # GetContent(_expr,_L) <--
-[
-    Local(cont2,lst);
-    cont2  := MultiSimp(expr);
-    lst    := FunctionToList(cont2);
-    result := xPeel(lst);
-
-];
-
-UnFence("GetContent",2);
-
-
-10 # xPeel(L_IsList)_(L[1] = /) <--
-[
-    Local(result);
-    result := L[3];
-    result := xPeel(FunctionToList(L[2])) / result;
-];
-
-
-10 # xPeel(L_IsList)_(L[1] = *) <--
-[
-    Local(result);
-    result := L[2];
-    result := xPeel(FunctionToList(L[3])) * result;
-    result;
-];
-
-
-12 # xPeel(L_IsList) <-- 1;
-
-
-10 # FinalPeel(_poly) <--
-[
-    Local(uni,Lu3,v,n,fac,fac2,result,p1);
-    uni := MakeUni(poly);
-    Lu3 := Length(uni[3]);
-    v := uni[1];
-    n := uni[2];
-    fac := If( n > 0, v^n, 1 );
-    result := fac;
-    p1 := uni[3][Lu3];
-    While ( Type(p1) = "UniVariate" )
-    [
-        v := p1[1];
-        n := p1[2];
-        fac2 := If( n > 0, v^n, 1 );
-        If( fac2 != 1, result := result * fac2 );
-        p1 := p1[3][1];
-   ];
-   result;
+    Local(disassem,gcdCoefs,minExpts);
+    disassem := DisassembleExpression(poly);
+    gcdCoefs := Gcd(disassem[3]);
+    minExpts := Minimum /@ Transpose(disassem[2]);
+    gcdCoefs * Product(disassem[1]^minExpts);
 ];
 
 %/mathpiper

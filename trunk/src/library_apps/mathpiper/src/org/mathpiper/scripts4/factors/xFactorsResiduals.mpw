@@ -1,0 +1,161 @@
+%mathpiper,def="xFactorsResiduals"
+
+Retract("xFactorsResiduals",*);
+
+10 # xFactorsResiduals( residualList_IsList ) <--
+[
+    If(InVerboseMode(),[NewLine(); Tell("Residuals",residualList);]);
+    If(InVerboseMode(),Tell("  --",content));
+    If(InVerboseMode(),Tell("  --",factrs));
+    If(InVerboseMode(),Tell("  --",factrsnew));
+    If(InVerboseMode(),Tell("  --",residuals));
+    Local(resid,sqf,sqfGood);
+    ForEach(resid,residualList)
+    [
+        If(InVerboseMode(),Tell("   ",resid));
+        
+        //--- First, try SquareFree factorization on this resid 
+        sqf := SquareFree(resid[1]);
+        If(InVerboseMode(),
+          [
+             Tell("          trying SQF");
+             Tell("            ",resid[1]);
+             Tell("            ",sqf);
+          ]
+        );
+        If(Degree(sqf) < Degree(resid[1]),
+          [
+            If(InVerboseMode(),Tell("               sqf helps factor resid"));
+            sqfGood := True;
+            Local(f1,f2);
+            f1 := sqf;
+            f2 := Simplify(resid[1]/sqf);
+            factrsnew := Concat({{f1,resid[2]},{f2,resid[2]}},factrsnew);
+            //HSO experimental
+            residuals := Difference(residuals,{resid});
+            If(InVerboseMode(),Tell("                       new",residuals));
+          ],
+          [
+            If(InVerboseMode(),
+              [
+                 Tell("               sqf DOES NOT HELP factor resid");
+                 sqfGood := False;
+              ]
+            );
+          ]
+        );
+        If(InVerboseMode(),Tell(" after sqf ",factrsnew));
+        If(InVerboseMode(),Tell("           ",residuals));
+        //If( Degree(resid[1]) < 4, Break() );
+    ];
+    If(InVerboseMode(),
+      [
+         Tell("   after SQF on all residuals    ",factrsnew);
+         Tell("       ",sqfGood);
+         NewLine();
+      ]
+    );
+        
+    //--- See if there are any REAL roots to factor out
+    //ForEach(resid,Union(factrsnew,residuals))
+    ForEach(resid,residuals)
+    [
+        Local(nrr,rr,ptry,uptry);
+        nrr := RealRootsCount(resid[1]);
+        If(InVerboseMode(),
+          [
+             Tell("          trying REAL roots");
+             Tell("            ",resid[1]);
+             Tell("            ",nrr);
+          ]
+        );
+        If( nrr = 2,
+          [
+             // a pair of real solutions -- probably form a quadratic
+             rr := FindRealRoots(resid[1]);
+             ptry  := Expand((x-rr[1])*(x-rr[2]));
+             If(InVerboseMode(),[Tell("    ",rr);Tell("    ",ptry);]);
+             uptry    := MakeUni(ptry);
+             uptry[3] := "GuessRational" /@ uptry[3];
+             ptry     := NormalForm(uptry);
+             If(InVerboseMode(),Tell("    ",ptry));
+             If( Abs(Lcm(uptry[3])) < 100,
+               [
+                  //  looks OK -- try to use it
+                  Local(f1,f2,new);
+                  f1    := ptry;
+                  f2    := Simplify(resid[1]/f1);
+                  new   := {{f1,resid[2]},{f2,resid[2]}};
+                  If(InVerboseMode(),Tell("    ",new));
+                  resid := new;
+                  residOut := new;
+                  If(InVerboseMode(),Tell("    ",residOut)); 
+               ]
+             );
+          ],
+          [
+             If( nrr = 0,
+               [
+                  //  OhOh - no real solutions -- have to try something else
+                  If(InVerboseMode(),
+                    [
+                       NewLine();
+                       Tell("               NO real solutions");
+                       Tell("               try something else");
+                    ]
+                  );
+                  //  Here go some ad-hoc solutions that can be useful....
+                  Local(u,X);
+                  u := MakeUni(resid[1]);
+                  X := u[1];
+                  If( u[2]=0 And u[3]={1,0,1,0,1},
+                    [ 
+                       DestructiveAppend(residOut,{X^2-X+1,1});
+                       DestructiveAppend(residOut,{X^2+X+1,1});
+                       If(InVerboseMode(),
+                         [
+                            Tell("     found ",factrsnew);
+                            Tell("           ",resid);
+                            Tell("           ",factrs);
+                            Tell("           ",residOut);
+                         ]
+                       );
+                    ]
+                  );
+               ],
+               [
+                  //  more than 2 real solutions -- have to do a bit more work
+                  rr := FindRealRoots(resid[1]);
+                  If(InVerboseMode(),Tell("    ",rr));
+                  // try them pairwise
+                  goodptry := 0;
+                  For(ii:=2,ii<=nrr,ii++)
+                  [
+                      ptry     := Expand((x-rr[1])*(x-rr[ii]));
+                      uptry    := MakeUni(ptry);
+                      uptry[3] := "GuessRational" /@ uptry[3];
+                      If(InVerboseMode(),Tell("    rat",uptry[3]));
+                      If(InVerboseMode(),Tell("  ",Maximum(Denominator /@ uptry[3])));
+                      If( Maximum(Denominator /@ uptry[3]) < 100,
+                        [ goodptry := NormalForm(uptry); ]    );
+                  ];
+                  If(InVerboseMode(),Tell("    ",goodptry));
+                  DestructiveAppend(residOut,goodptry);
+               ]
+             );  //   if nrr=0
+          ]
+        );  //  if nrr=2
+     ];  
+     //factrsnew;
+     residOut;
+];
+UnFence("xFactorsResiduals",1);
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
