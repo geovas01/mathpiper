@@ -71,7 +71,7 @@ ViewHtml(blockAnova["html"]);
 =========================== Exercises.
 
 
-%mathpiper,title="Exercise 1"
+%mathpiper,title="Exercise 1."
 
 alpha := .05;
 
@@ -96,7 +96,7 @@ ViewHtml(anova["html"]);
 
 
 
-%mathpiper,title="Exercise 2"
+%mathpiper,title="Exercise 2."
 
 alpha := .05;
 
@@ -121,7 +121,7 @@ ViewHtml(scheffeTest["html"]);
 
 
 
-%mathpiper,title="Exercise 3"
+%mathpiper,title="Exercise 3."
 
 alpha := .05;
 
@@ -145,5 +145,27 @@ ViewHtml(anova["html"]);
 
 
 
+
+
+
+%mathpiper,title="Exercise 4."
+
+alpha := .05;
+
+dadList := {93,98,89,90};
+
+brianList := {85,87,82,80};
+
+johnList := {80,88,84,82};
+
+blockAnova := AnovaCompletelyRandomizedBlock({dadList,brianList,johnList}, alpha);
+
+ViewHtml(blockAnova["html"]);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
