@@ -1,0 +1,285 @@
+%mathpiper,title="xFactorsBinomial"
+
+/*-----------------------------------------------------------------
+ *  Factoring Binomial expressions of the form  A X^n ± B Y^n,
+ *-----------------------------------------------------------------*/
+
+Retract("xFactorsBinomial",*);
+Retract("xFB1",*);
+Retract("xFB2",*);
+
+
+10 # xFactorsBinomial( poly_IsPolynomial )_(Length(VarList(poly))=1)  <-- 
+                        xFB1( DisassembleExpression(poly) );
+
+
+10 # xFactorsBinomial( poly_IsPolynomial )_(Length(VarList(poly))=2)  <-- 
+                        xFB2( DisassembleExpression(poly) );
+
+
+12 # xFB1( dis_IsList )_(Length(dis)=3 And Length(dis[3])=2) <--
+[
+    If(InVerboseMode(),[NewLine();Tell("xFB1",dis);]);
+    Local(n,X,Y,y,var,A,B,s,Ar,Br,ii,fac1);
+    n     := Maximum(dis[2])[1];
+    X     := dis[1][1];
+    var   := dis[1][1];
+    A     := Abs(dis[3][1]);
+    B     := Abs(dis[3][2]);
+    s     := Sign(dis[3][1]*dis[3][2]);
+    Ar    := NearRational(N(A^(1/n)));
+    Br    := NearRational(N(B^(1/n)));
+    X     := Ar*X;
+    Y     := Br;
+    Unbind(y);
+    y     := 1;
+    If(InVerboseMode(),
+      [
+         Tell("     ",n);
+         Tell("     ",X);
+         Tell("     ",{A,B,s});
+         Tell("     ",{Ar,Br});
+         Tell("     ",{X,Y});
+      ]
+    );
+    fac1  := xFB1( X/Y,n,s);    //  factor using normalized variable
+    // now convert factorization back to actual variable if required
+    If( Y != 1,
+      [
+          Local(f,d);
+          For(ii:=1,ii<=Length(fac1),ii++)
+          [
+              f := fac1[ii][1];
+              d := Degree(f);
+              fac1[ii][1] := Simplify(Y^d*f);
+          ];
+      ]
+    );
+    fac1;
+];
+UnFence("xFB1",1);
+
+
+15 # xFB1(_X,n_IsSmallPrime,s_IsNotZero)_(IsOdd(n)) <--
+[
+    Local(ans,k);
+    If(InVerboseMode(),[NewLine();Tell("   xFB1prime",{X,n,s});]);
+    ans := {{X+s,1}};
+    If( n > 1, ans := Concat(ans,{{Sum(k,0,n-1,(-s)^k*X^(n-1-k)),1}}) );
+    If(InVerboseMode(),Tell("          ",ans));
+    ans;
+];
+UnFence("xFB1",3);
+
+
+20 # xFB1(_X, n_IsOdd, s_IsPositiveInteger) <--
+[
+    Local(ans,ans1);
+    If(InVerboseMode(),[NewLine(); Tell("   xFB1oddsum",{X,Y,n});]);
+    If( n = 9,  ans := {{X+1,1},{X^2-X+1,1},{X^6-X^3+1,1}} );
+    If( n = 15, ans := {{X+1,1},{X^2-X+1,1},{X^4-X^3+X^2-X+1,1},{X^8+X^7-X^5-X^4-X^3+X+1,1}} );
+    If( n = 21, ans := {{X+1,1},{X^2-X+1,1},{X^6-X^5+X^4-X^3+X^2-X+1,1},{X^12+X^11-X^9-X^8+X^6-X^4-X^3+X+1,1}} );    
+    
+    If( n > 21, ans := BinaryFactors(X^n+1) );  //  may take a long time, and not be complete
+    ans;
+];
+
+
+25 # xFB1(_X,n_IsOdd, s_IsNegativeInteger) <--
+[
+    Local(ans);
+    If(InVerboseMode(),[NewLine(); Tell("   xFB1odddif",{X,n});]);
+    If( n = 9,  ans := {{X-1,1},{X^2+X+1,1},{X^6+X^3+1,1}} );
+    If( n = 15, ans := {{X-1,1},{X^2+X+1,1},{X^4+X^3+X^2+X+1,1},{X^8-X^7+X^5-X^4+X^3-X+1,1}} );
+    If( n = 21, ans := {{X-1,1},{X^2+X+1,1},{X^6+X^5+X^4+X^3+X^2+X+1,1},{X^12-X^11+X^9-X^8+X^6-X^4+X^3-X+1,1}} );    
+    
+    If( n > 21, ans := BinaryFactors(X^n-1) );  //  may take a long time, and not be complete
+    If(InVerboseMode(),Tell("    ",ans));
+    ans;
+];
+
+
+30 # xFB1(_X, n_IsEven, s_IsPositiveInteger) <--
+[
+    Local(ans,fn,mx,my);
+    If(InVerboseMode(),[NewLine(); Tell("   xFB1evensum",{X,n});]);
+    fn    := {{1,1}};
+    If( n > 1, fn := FactorsSmallInteger(n) );
+    If(Length(fn)=1 And IsOdd(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
+    If(Length(fn)>1,
+         ForEach(f,fn) [ If( IsOdd(f[1]), mx := f[1]^f[2] ); ]);
+    my    := n/mx;
+
+    If( n = 2, [ ans:={{X^2+1,1}};] );
+    If( n != 2 And CheckIntPower(n,2)[2]!=1,
+      [
+         //  is power of 2,  so does not factor
+         ans := {{X^n+1,1}};
+      ],
+      [
+         //  is not power of 2  -- check further
+         If( n = 6, ans := {{X^2+1,1},{X^4-X^2+1,1}} );
+         If( n > 8, 
+              ans := {{X^my+1,1},{Sum(k,0,mx-1,X^(n-my-k*my)*(-1)^k),1}} );
+      ]
+    );
+    If(InVerboseMode(),Tell("    ",ans));
+    ans;
+];
+
+
+35 # xFB1(_X, n_IsEven, s_IsNegativeInteger) <--
+[
+    Local(ans);
+    If(InVerboseMode(),[NewLine(); Tell("   xFB1evendif",{X,n});]);
+    If( n = 2, 
+        [ ans := {{X-1,1},{X+1,1}}; ],
+        [ ans := Concat( xFB1(X,n/2,1), xFB1(X,n/2,-1) ); ]
+    );
+    If(InVerboseMode(),Tell("    ",ans));
+    ans;
+];
+
+
+
+50 # xFB2( dis_IsList )_(Length(dis)=3 And Length(dis[3])=2) <--
+[
+    If(InVerboseMode(),[NewLine();Tell("xFB2",dis);]);
+    Local(ns,n,X,Y,vars,A,B,s,Ar,Br,ii,fn,mx,my,fac2);
+    n     := Maximum(dis[2])[1];
+    X     := dis[1][1];
+    Y     := dis[1][2];
+    vars  := dis[1];
+    A     := Abs(dis[3][1]);
+    B     := Abs(dis[3][2]);
+    s     := Sign(dis[3][1]*dis[3][2]);
+    Ar    := NearRational(N(A^(1/n)));
+    Br    := NearRational(N(B^(1/n)));
+    If(InVerboseMode(),
+      [
+         Tell("     ",n);
+         Tell("     ",{X,Y});
+         Tell("     ",{A,B,s});
+         Tell("     ",{Ar,Br});
+      ]
+    );
+    X     := Ar*X;
+    Y     := Br*Y;
+    If(InVerboseMode(),Tell("     ",{X,Y}));
+    fac2  := xFB1( X/Y,n,s);    //  factor using normalized variable
+    If(InVerboseMode(),Tell("      ",fac2));
+    
+    // now convert factorization back to actual variables if required
+
+    If( Y != 1,
+      [
+          Local(f,d);
+          For(ii:=1,ii<=Length(fac2),ii++)
+          [
+              f := fac2[ii][1];
+              d := Degree(f);
+              fac2[ii][1] := Simplify(Simplify(Y^d*f));
+          ];
+      ]
+    );
+    fac2;
+];
+UnFence("xFB2",1);
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper,title="testing"
+
+Retract("TestPlus1",*);
+Retract("TestMinus1",*);
+
+
+1000 # TestMinus1() <--
+[
+    Local(n,poly,a,b,result,prod,ok);
+    NewLine(1);
+    Tell("Test Binomial Dif, 1 Variable");
+    a := 2;
+    b := 3;
+    For(n:=2,n<=12,n++)
+    [
+        poly   := ExpandBrackets(a^n*x^n-b^n);
+        result := xFactorsBinomial1v(poly);
+        prod   := ExpandBrackets(FW(result));
+        ok     := Verify(a^n*x^n-b^n,prod);
+        NewLine(1);
+        Tell("    ",poly);
+        If(InVerboseMode(),
+          [
+             Tell("         ",result);
+             Tell("         ",prod);
+          ]
+        );
+        Tell("    ",ok);
+    ];
+];
+
+
+1000 # TestPlus1() <--
+[
+    Local(n,poly,a,b,result,prod,ok);
+    NewLine(1);
+    Tell("Test Binomial Sum, 1 Variable");
+    a := 2;
+    b := 3;
+    For(n:=2,n<=12,n++)
+    [
+        poly   := ExpandBrackets(a^n*x^n+b^n);
+        result := xFactorsBinomial1v(poly);
+        prod   := ExpandBrackets(FW(result));
+        ok     := Verify(a^n*x^n+b^n,prod);
+        NewLine(1);
+        Tell("    ",poly);
+        If(InVerboseMode(),
+          [
+             Tell("         ",result);
+             Tell("         ",prod);
+          ]
+        );
+        Tell("    ",ok);
+    ];
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+/*
+In> a*x^n+b*y^n
+Result: a*x^n+b*y^n
+
+In> y^n*(a*x^n/y^n+b)
+Result: y^n*((a*x^n)/y^n+b)
+
+In> b*y^n*((a/b)*(x/y)^n+1)
+Result: b*y^n*(((x/y)^n*a)/b+1)
+
+In> q==(a/b)^(1/n)
+Result: q==(a/b)^(1/n)
+
+In> b*y^n*((q*x/y)^n+1)
+Result: b*y^n*(((q*x)/y)^n+1)
+
+In> t==q*x/y
+Result: t==(q*x)/y
+
+In> b*y^n*(t^n+1)
+Result: b*y^n*(t^n+1)
+
+In> t==(a/b)^(1/n)*x/y
+Result: t==((a/b)^(1/n)*x)/y
+*/

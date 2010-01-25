@@ -2,6 +2,18 @@
 
 Retract("xFactor",*);
 
+10 # xFactor( p_CanBeUni ) <-- FW(xFactors(p));
+
+
+10 # xFactor( p_IsRationalFunction ) <--
+[
+    Local(fs,n,d);
+    fs := xFactors( p );
+    n  := FW(Numerator(fs));
+    d  := FW(Denominator(fs));
+    n/d;
+];
+
 
 10 # xFactor( L_IsList ) <-- 
 [
@@ -17,13 +29,7 @@ Retract("xFactor",*);
 ];
 
 
-//15 # xFactor( _expr ) <-- FW(xFactors(expr));
-15 # xFactor( _expr ) <-- expr;
+
+20 # xFactor( _expr ) <-- expr;
 
 %/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
