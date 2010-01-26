@@ -18,18 +18,13 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.io.InputStatus;
 import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.parsers.MathPiperParser;
-import org.mathpiper.lisp.parsers.Parser;
-import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 /**
  *
@@ -54,8 +49,24 @@ public class PatchString extends BuiltinFunction {
                     if (scriptCode.endsWith(";")) {
                         scriptCode = scriptCode.substring(0, scriptCode.length() - 1);
                     }
-                    resultString = lispEvaluate(aEnvironment, "Eval(" + scriptCode + ");");
-                    resultStringBuilder.append(resultString);
+                    
+
+                    StringBuffer oper = new StringBuffer();
+                    StringOutputStream newOutput = new StringOutputStream(oper);
+                    MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
+                    try{
+                        aEnvironment.iCurrentOutput = newOutput;
+                        ConsPointer resultPointer = Utility.lispEvaluate(aEnvironment, "Eval(" + scriptCode + ");");
+                        resultString = Utility.printExpression(resultPointer, aEnvironment, 0);
+                    }catch(Exception e)
+                    {
+                        throw e;
+                    }finally
+                    {
+                        aEnvironment.iCurrentOutput = previous;
+                    }
+
+                    resultStringBuilder.append(oper);
                 }
             }//end for.
             resultStringBuilder.append(tags[tags.length - 1]);
@@ -66,36 +77,7 @@ public class PatchString extends BuiltinFunction {
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, resultStringBuilder.toString()));
     }
 
-    private String lispEvaluate(Environment aEnvironment, String inputExpression) throws Exception {
-        ConsPointer result = new ConsPointer();
-        StringBuffer oper = new StringBuffer();
-        StringOutputStream newOutput = new StringOutputStream(oper);
-        MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
-        aEnvironment.iCurrentOutput = newOutput;
 
-        MathPiperTokenizer tokenizer = new MathPiperTokenizer();
-        InputStatus someStatus = new InputStatus();
-        ConsPointer inputExpressionPointer = new ConsPointer();
-        try {
-            StringBuffer inp = new StringBuffer();
-            inp.append(inputExpression);
-            inp.append(";");
-            StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
-
-            Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-            infixParser.parse(aEnvironment, inputExpressionPointer);
-
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, inputExpressionPointer);
-
-            String resultString = Utility.printExpression(result, aEnvironment, 0);
-
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            aEnvironment.iCurrentOutput = previous;
-        }
-        return oper.toString();
-    }
 }//end class.
 
 
@@ -118,10 +100,8 @@ in stead of on the contents of a text file. See PatchLoad for more
 details.
 
 *E.G.
-
-	In> PatchString("Two plus three \
-	  is <? Write(2+3); ?> ");
-	Out> "Two plus three is 5 ";
+In> PatchString("Two plus three is <?Write(2+3);?> ");
+Out> "Two plus three is 5 ";
 
 *SEE PatchLoad
 %/mathpiper_docs

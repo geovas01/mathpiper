@@ -38,12 +38,15 @@ import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.JarFileInputStream;
+import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StandardFileInputStream;
+import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
 import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.parametermatchers.Pattern;
 import org.mathpiper.lisp.parametermatchers.PatternParameter;
+import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.lisp.userfunctions.Branch;
 import org.mathpiper.lisp.userfunctions.FunctionParameter;
 import org.mathpiper.lisp.userfunctions.MacroUserFunction;
@@ -1374,5 +1377,42 @@ public class Utility {
         return head;
 
     }//end method.
+
+
+
+
+    public static ConsPointer lispEvaluate(Environment aEnvironment, String inputExpression) throws Exception {
+        ConsPointer result = new ConsPointer();
+        MathPiperTokenizer tokenizer = new MathPiperTokenizer();
+        InputStatus someStatus = new InputStatus();
+        ConsPointer inputExpressionPointer = new ConsPointer();
+        try {
+            StringBuffer inp = new StringBuffer();
+            inp.append(inputExpression);
+            inp.append(";");
+            StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
+
+            Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+            infixParser.parse(aEnvironment, inputExpressionPointer);
+
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, inputExpressionPointer);
+
+        } catch (Exception e) {
+            throw e;
+        }
+        return result;
+    }//end method.
+
+
+    public static ConsPointer lispEvaluate(Environment aEnvironment, ConsPointer inputExpressionPointer) throws Exception {
+        ConsPointer result = new ConsPointer();
+        MathPiperTokenizer tokenizer = new MathPiperTokenizer();
+        InputStatus someStatus = new InputStatus();
+
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, inputExpressionPointer);
+
+        return result;
+    }//end method.
+
 }//end class.
 
