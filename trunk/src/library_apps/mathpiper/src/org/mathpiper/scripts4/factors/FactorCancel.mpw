@@ -30,7 +30,7 @@ Retract("FactorCancel",*);
 
 
 
-%mathpiper_docs,name="FactorCancel",categories="User Functions;Polynomials"
+%mathpiper_docs,name="FactorCancel",categories="User Functions;Polynomials (Operations)"
 
 *CMD FactorCancel -- Factors a Rational Function and cancels where possible
 
