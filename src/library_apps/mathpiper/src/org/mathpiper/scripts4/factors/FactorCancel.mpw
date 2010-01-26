@@ -1,8 +1,8 @@
-%mathpiper,def="xFactorCancel"
+%mathpiper,def="FactorCancel"
 
-Retract("xFactorCancel",*);
+Retract("FactorCancel",*);
 
-10 # xFactorCancel( p_IsRationalFunction ) <--
+10 # FactorCancel( p_IsRationalFunction ) <--
 [
     Local(fs,n,d,tnu,newn,newd,s);
     fs := xFactors( p );
@@ -22,6 +22,6 @@ Retract("xFactorCancel",*);
     FW(newn)/FW(newd);
 ];
 
-15 # xFactorCancel( _p ) <-- p;
+15 # FactorCancel( _p ) <-- p;
 
 %/mathpiper
