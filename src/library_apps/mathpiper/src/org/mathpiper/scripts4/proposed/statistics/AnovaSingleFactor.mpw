@@ -60,7 +60,7 @@ AnovaSingleFactor(levelsList, alpha) :=
     
     sumOfSquaresWithin := Sum((lengthsList - 1) * variancesList);
 
-    grandMean := N(Mean(meansList));
+    grandMean := N(Mean(Flatten(levelsList, "List")));
     
     sumOfSquaresBetween := Sum(lengthsList*(meansList - grandMean)^2);
     
