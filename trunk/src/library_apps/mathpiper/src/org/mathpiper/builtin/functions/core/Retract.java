@@ -71,15 +71,16 @@ public class Retract extends BuiltinFunction
 *PARMS
 {"function"} -- string, name of function
 
-{arity} -- positive integer
+{arity} -- positive integer or *
 
 *DESC
 
 Remove a rulebase for the function named {"function"} with the specific {arity}, if it exists at all. This will make
-MathPiper forget all rules defined for a given function. Rules for functions with
-the same name but different arities are not affected.
+MathPiper forget all rules defined for a given function with the given arity. Rules for functions with
+the same name but different arities are not affected unless the * wildcard character is used.  If * is used for the
+arity, then all arities of the rulebase are removed.
 
-Assignment {:=} of a function does this to the function being (re)defined.
+Assignment {:=} of a function automatically does a single arity retract to the function being (re)defined.
 
 *SEE RulebaseArgumentsList, Rulebase, :=
 %/mathpiper_docs
