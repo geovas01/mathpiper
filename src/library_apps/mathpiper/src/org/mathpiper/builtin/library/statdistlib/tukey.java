@@ -18,7 +18,7 @@
  * data translated from C using perl script translate.pl
  * script version 0.00
  */
-package org.mathpiper.builtin.library.statdistlib;;
+package org.mathpiper.builtin.library.statdistlib;
 
 //import org.apache.commons.math.MathException;
 //import org.apache.commons.math.special.Erf;
