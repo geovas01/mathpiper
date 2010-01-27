@@ -1,7 +1,0 @@
-%mathpiper,def="IsOne",private="true"
-
-// why do we need this? Why doesn't x=1 not work?
-10 # IsOne(x_IsNumber) <-- IsZero(SubtractN(x,1));
-60000 # IsOne(_x) <-- False;
-
-%/mathpiper

@@ -1,7 +1,0 @@
-%mathpiper,def="Beta"
-
-//Jonathan Leto
-
-10 # Beta(_n,_m)	<-- Gamma(m)*Gamma(n)/Gamma(m+n);
-
-%/mathpiper
