@@ -3,6 +3,8 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ RandomPoly does not work inside of Table: Unbind(x);
+Table(RandomPoly(x,3,-10,10),i,1,9,1);
 + Change Check to require the name of the function which is calling it.
 + Local(LOG_SQRT_PI,I_SQRT_PI); causes an org.mathpiper.lisp.cons.ConsPointer cannot be cast to java.lang.String exception.
 + The InconpleteGamma function locks up with this input IncompleteGamma(.9/2,4).
