@@ -18,6 +18,9 @@
 
 package org.mathpiper.builtin.functions.optional;
 
+import java.awt.Container;
+import java.awt.Dimension;
+import javax.swing.JFrame;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
@@ -26,6 +29,9 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.ui.gui.worksheets.MathPanel;
+import org.mathpiper.ui.gui.worksheets.TexParser;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
 
 /**
  *
@@ -37,7 +43,7 @@ public class ViewMath extends BuiltinFunction
     public void plugIn(Environment aEnvironment)
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "ViewMath");
     }//end method.
 
@@ -55,9 +61,39 @@ public class ViewMath extends BuiltinFunction
 
          aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, resultPointer, new ConsPointer(head) );
 
-         getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultPointer.getCons());
+         String texString = (String) resultPointer.car();
+         texString = Utility.stripEndQuotes(texString);
+         texString = texString.substring(1,texString.length());
+         texString = texString.substring(0,texString.length()-1);
+
+
+
+        TexParser parser = new TexParser();
+        SBox sBoxExpression = parser.parse(texString);
+
+        MathPanel mathPanel = new MathPanel(sBoxExpression);
+
+
+        JFrame frame = new JFrame();
+        Container contentPane = frame.getContentPane();
+
+        contentPane.add(mathPanel);
+        frame.pack();
+        frame.setAlwaysOnTop(false);
+        frame.setTitle("MathPiper");
+        frame.setSize(new Dimension(300, 200));
+        frame.setResizable(true);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultPointer.getCons());
 
     }//end method.
 
+
+
+
 }//end class.
+
+
 
