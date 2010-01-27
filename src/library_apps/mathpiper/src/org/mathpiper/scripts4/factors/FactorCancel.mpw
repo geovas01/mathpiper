@@ -72,4 +72,7 @@ this operation.
     In> FactorCancel(F)
     Result: (x-1)/(x+1)
 
+    
+*SEE Factor,Factors
+
 %/mathpiper_docs
