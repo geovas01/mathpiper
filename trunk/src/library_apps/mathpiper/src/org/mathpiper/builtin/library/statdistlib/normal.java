@@ -1,4 +1,4 @@
-package org.mathpiper.builtin.library.statdistlib;;
+package org.mathpiper.builtin.library.statdistlib;
 
     /*
      *  DistLib : A C Library of Special Functions

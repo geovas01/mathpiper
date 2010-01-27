@@ -3,7 +3,7 @@
  * 
  * Created on Apr 16, 2007
  */
-package org.mathpiper.builtin.library.statdistlib;;
+package org.mathpiper.builtin.library.statdistlib;
 
 public interface StdUniformRng {
   public void fixupSeeds();

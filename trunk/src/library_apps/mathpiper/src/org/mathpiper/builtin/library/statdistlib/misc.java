@@ -18,7 +18,7 @@
  * data translated from C using perl script translate.pl
  * script version 0.00
  */
-package org.mathpiper.builtin.library.statdistlib;;
+package org.mathpiper.builtin.library.statdistlib;
 
 /**
  * Miscellaneous functions and values.

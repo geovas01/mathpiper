@@ -20,7 +20,7 @@
  * script version 0.00
  */
 
-package org.mathpiper.builtin.library.statdistlib;;
+package org.mathpiper.builtin.library.statdistlib;
 
 //import org.apache.commons.logging.Log;
 //import org.apache.commons.logging.LogFactory;
