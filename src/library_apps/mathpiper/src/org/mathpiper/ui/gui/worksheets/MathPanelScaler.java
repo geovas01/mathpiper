@@ -26,7 +26,7 @@ public class MathPanelScaler extends JPanel implements ChangeListener{
             //framesPerSecond.setPaintTicks(true);
             scaleSlider.setPaintLabels(true);
 
-            this.add(new JLabel("Adjust Experssion Scale"));
+            this.add(new JLabel("Adjust Expression Scale"));
             this.add(scaleSlider);
         }
 
