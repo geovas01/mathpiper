@@ -22,7 +22,7 @@ import java.awt.*;
 
 public class GraphicsPrimitives
 {
-	static double viewScale = 1.0;
+	private double viewScale = 1.0;
 	private Graphics iG = null;
 	private Graphics2D iG2D = null;
 
@@ -99,5 +99,11 @@ public class GraphicsPrimitives
 	{
 		return (int)(metrics.getDescent()/viewScale);
 	}
+
+
+        public void setViewScale(double aViewScale)
+        {
+            viewScale = aViewScale;
+        }
 
 }
