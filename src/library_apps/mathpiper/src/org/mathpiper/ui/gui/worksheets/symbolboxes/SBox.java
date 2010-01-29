@@ -20,6 +20,8 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 public abstract class SBox
 {
+        static boolean drawBoundingBox = false;
+
 	java.awt.Dimension iDimension;
 	java.awt.Point iPosition;
 	int iSize;
@@ -60,6 +62,12 @@ public abstract class SBox
 		g.drawLine(x1,y0,x1,y1);
 		g.drawLine(x1,y1,x0,y1);
 		g.drawLine(x0,y1,x0,y0);
-	}
+	}//end method.
 
-}
+
+        public static void drawBoundingBox(boolean state)
+        {
+            drawBoundingBox = state;
+        }//end method.
+
+}//end class.

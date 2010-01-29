@@ -16,6 +16,8 @@ class SBoxInt extends SBox {
 
     public void render(GraphicsPrimitives g) {
 
+        if(drawBoundingBox) drawBoundingBox(g);
+
         int height = SBoxBuilder.fontForSize(iSize);
         g.setLineThickness(2);
 

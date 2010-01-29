@@ -47,6 +47,8 @@ class SBoxDivisor extends SBoxCompoundExpression {
     public void render(GraphicsPrimitives g) {
         super.render(g);
 
+        if(drawBoundingBox) drawBoundingBox(g);
+
         java.awt.Dimension ndim = iExpressions[0].getDimension();
         java.awt.Dimension ddim = iExpressions[1].getDimension();
         int width = ndim.width;

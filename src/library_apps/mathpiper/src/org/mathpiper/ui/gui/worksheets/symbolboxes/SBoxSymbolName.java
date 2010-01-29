@@ -50,6 +50,8 @@ class SBoxSymbolName extends SBox {
 
     public void render(GraphicsPrimitives g) {
 
+        if(drawBoundingBox) drawBoundingBox(g);
+
         if (iSymbol.equals("\\pi")) {
 
             double deltax = 0.15 * iDimension.width;
