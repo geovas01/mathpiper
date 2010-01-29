@@ -50,8 +50,8 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
 
         }
 
-        public Dimension preferredSize()
-        {
+ 
+        public Dimension getPreferredSize() {
             return new Dimension(700,600);
         }
 
