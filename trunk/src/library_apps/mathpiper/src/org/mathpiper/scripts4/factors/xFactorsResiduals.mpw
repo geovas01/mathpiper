@@ -122,35 +122,40 @@ Retract("xFactorsResiduals",*);
                        );
                     ]
                   );
-               ],
+               ],              
                [
                   //  more than 2 real solutions -- have to do a bit more work
+                  Local(rr,goodptry,ii,jj,ptry,uptry);
                   rr := FindRealRoots(resid[1]);
                   If(InVerboseMode(),Tell("    ",rr));
                   // try them pairwise
-                  goodptry := 0;
-                  For(ii:=2,ii<=nrr,ii++)
-                  [
-                      ptry     := Expand((x-rr[1])*(x-rr[ii]));
-                      uptry    := MakeUni(ptry);
-                      uptry[3] := "GuessRational" /@ uptry[3];
-                      If(InVerboseMode(),Tell("    rat",uptry[3]));
-                      If(InVerboseMode(),Tell("  ",Maximum(Denominator /@ uptry[3])));
-                      If( Maximum(Denominator /@ uptry[3]) < 100,
-                        [ goodptry := NormalForm(uptry); ]    );
-                  ];
+                  goodptry := {};
+                  For(ii:=1,ii<nrr,ii++)
+                      For(jj:=ii+1,jj<=nrr,jj++)
+                      [
+                          If(InVerboseMode(),Tell("   ",{ii,jj}));
+                          ptry     := Expand((x-rr[ii])*(x-rr[jj]));
+                          uptry    := MakeUni(ptry);
+                          uptry[3] := "NearRational" /@ uptry[3];
+                          If(InVerboseMode(),Tell("    rat",uptry[3]));
+                          If(InVerboseMode(),Tell("  ",Maximum(Denominator /@ uptry[3])));
+                          If( Maximum(Denominator /@ uptry[3]) < 100,
+                            [ DestructiveAppend(goodptry,NormalForm(uptry)); ]    );
+                      ];
                   If(InVerboseMode(),Tell("    ",goodptry));
-                  DestructiveAppend(residOut,goodptry);
-               ]
+                  If(Length(goodptry) > 0,
+                       ForEach(pt,goodptry)
+                         [ DestructiveAppend(residOut,{pt,1}); ]
+                  );
+               ]               
              );  //   if nrr=0
-          ]
+          ]         
         );  //  if nrr=2
      ];  
      //factrsnew;
      residOut;
 ];
 UnFence("xFactorsResiduals",1);
-
 
 %/mathpiper
 
