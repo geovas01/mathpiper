@@ -13,61 +13,55 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-public abstract class SBox
-{
-        static boolean drawBoundingBox = false;
+public abstract class SBox {
 
-	java.awt.Dimension iDimension;
-	java.awt.Point iPosition;
-	int iSize;
-	int iAscent;
-	
-	abstract public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition);
-        
-	abstract public void render(GraphicsPrimitives g);
+    static boolean drawBoundingBox = false;
+    java.awt.Dimension iDimension;
+    java.awt.Point iPosition;
+    int iSize;
+    int iAscent;
 
-	public java.awt.Dimension getDimension()
-	{
-		return iDimension;
-	}
-	
-	public java.awt.Point getCalculatedPosition()
-	{
-		return iPosition;
-	}
-	
-	public int getSetSize()
-	{
-		return iSize;
-	}
-	
-	public int getCalculatedAscent()
-	{
-		return iAscent;
-	}
+    abstract public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition);
 
-	public void drawBoundingBox(GraphicsPrimitives g)
-	{
-		g.setLineThickness(0);
-		int x0 = iPosition.x;
-		int y0 = iPosition.y-getCalculatedAscent();
-		int x1 = x0+iDimension.width;
-		int y1 = y0+iDimension.height;
-		g.drawLine(x0,y0,x1,y0);
-		g.drawLine(x1,y0,x1,y1);
-		g.drawLine(x1,y1,x0,y1);
-		g.drawLine(x0,y1,x0,y0);
-	}//end method.
+    abstract public void render(GraphicsPrimitives g);
 
+    public java.awt.Dimension getDimension() {
+        return iDimension;
+    }
 
-        public static void drawBoundingBox(boolean state)
-        {
-            drawBoundingBox = state;
-        }//end method.
+    public java.awt.Point getCalculatedPosition() {
+        return iPosition;
+    }
 
+    public int getSetSize() {
+        return iSize;
+    }
+
+    public int getCalculatedAscent() {
+        return iAscent;
+    }
+
+    public void drawBoundingBox(GraphicsPrimitives g) {
+        g.setLineThickness(0);
+        int x0 = iPosition.x;
+        int y0 = iPosition.y - getCalculatedAscent();
+        int x1 = x0 + iDimension.width;
+        int y1 = y0 + iDimension.height;
+        g.drawLine(x0, y0, x1, y0);
+        g.drawLine(x1, y0, x1, y1);
+        g.drawLine(x1, y1, x0, y1);
+        g.drawLine(x0, y1, x0, y0);
+    }//end method.
+
+    public static void setDrawBoundingBox(boolean drawBoundingBox) {
+        SBox.drawBoundingBox = drawBoundingBox;
+    }
+
+    public static boolean isDrawBoundingBox() {
+        return drawBoundingBox;
+    }
 }//end class.
+

@@ -33,6 +33,8 @@ public class MathPanelController extends JPanel implements ChangeListener, ItemL
 
         JCheckBox drawBoundingBoxCheckBox = new JCheckBox("Draw Bounding Boxes");
 
+        drawBoundingBoxCheckBox.setSelected(SBox.isDrawBoundingBox());
+
         drawBoundingBoxCheckBox.addItemListener(this);
 
         this.add(drawBoundingBoxCheckBox);
@@ -55,11 +57,11 @@ public class MathPanelController extends JPanel implements ChangeListener, ItemL
 
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
-            SBox.drawBoundingBox(true);
+            SBox.setDrawBoundingBox(true);
             mathPanel.repaint();
 
         } else {
-            SBox.drawBoundingBox(false);
+            SBox.setDrawBoundingBox(false);
             mathPanel.repaint();
         }
 
