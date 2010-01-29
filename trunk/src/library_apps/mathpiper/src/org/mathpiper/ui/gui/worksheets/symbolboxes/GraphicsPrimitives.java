@@ -106,4 +106,16 @@ public class GraphicsPrimitives
             viewScale = aViewScale;
         }
 
+        public void setColor(Color color)
+        {
+            if(iG2D != null){
+                iG2D.setColor(color);
+            }
+            else if(iG != null)
+            {
+                iG.setColor(color);
+            }
+
+        }
+
 }

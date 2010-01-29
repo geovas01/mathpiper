@@ -4,6 +4,8 @@
  */
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
+import java.awt.Color;
+
 abstract class SBoxCompoundExpression extends SBox {
 
     SBox[] iExpressions;
@@ -28,6 +30,8 @@ abstract class SBoxCompoundExpression extends SBox {
     }
 
     public void drawBoundingBox(GraphicsPrimitives g) {
+
+        g.setColor(Color.blue);
         g.setLineThickness(0);
 
         int x0 = iPosition.x;
@@ -38,6 +42,8 @@ abstract class SBoxCompoundExpression extends SBox {
         g.drawLine(x1, y0, x1, y1);
         g.drawLine(x1, y1, x0, y1);
         g.drawLine(x0, y1, x0, y0);
+
+        g.setColor(Color.black);
 
         int i;
 

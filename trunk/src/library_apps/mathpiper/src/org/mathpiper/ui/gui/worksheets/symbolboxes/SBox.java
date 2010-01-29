@@ -16,6 +16,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
+import java.awt.Color;
+
 public abstract class SBox {
 
     static boolean drawBoundingBox = false;
@@ -45,6 +47,7 @@ public abstract class SBox {
     }
 
     public void drawBoundingBox(GraphicsPrimitives g) {
+        g.setColor(Color.red);
         g.setLineThickness(0);
         int x0 = iPosition.x;
         int y0 = iPosition.y - getCalculatedAscent();
@@ -54,6 +57,8 @@ public abstract class SBox {
         g.drawLine(x1, y0, x1, y1);
         g.drawLine(x1, y1, x0, y1);
         g.drawLine(x0, y1, x0, y0);
+
+        g.setColor(Color.black);
     }//end method.
 
     public static void setDrawBoundingBox(boolean drawBoundingBox) {
