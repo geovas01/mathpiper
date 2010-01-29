@@ -45,6 +45,8 @@ class SBoxBracket extends SBoxCompoundExpression {
     public void render(GraphicsPrimitives g) {
         super.render(g);
 
+        if(drawBoundingBox) drawBoundingBox(g);
+
         Dimension dim = iExpressions[0].getDimension();
         drawBracket(g, iOpen, iPosition.x, iPosition.y - getCalculatedAscent());
         drawBracket(g, iClose, iPosition.x + dim.width + iBracketWidth, iPosition.y - getCalculatedAscent());

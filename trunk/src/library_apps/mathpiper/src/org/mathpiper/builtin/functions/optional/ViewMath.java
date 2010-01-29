@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -32,7 +33,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.ui.gui.worksheets.MathPanel;
-import org.mathpiper.ui.gui.worksheets.MathPanelScaler;
+import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.TexParser;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
 
@@ -86,9 +87,9 @@ public class ViewMath extends BuiltinFunction {
         contentPane.setBackground(Color.WHITE);
 
 
-        MathPanelScaler mathPanelScaler = new MathPanelScaler(mathPanel);
+        MathPanelController mathPanelScaler = new MathPanelController(mathPanel);
 
-
+        JScrollPane scrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         /*
         DebugGraphics.setFlashCount(10);
@@ -99,7 +100,7 @@ public class ViewMath extends BuiltinFunction {
         panel.setDebugGraphicsOptions(DebugGraphics.LOG_OPTION);
          */
 
-        contentPane.add(mathPanel);
+        contentPane.add(scrollPane);
         contentPane.add(mathPanelScaler, BorderLayout.NORTH);
 
         frame.setAlwaysOnTop(false);

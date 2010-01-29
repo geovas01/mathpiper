@@ -15,6 +15,8 @@ abstract class SBoxCompoundExpression extends SBox {
     public void render(GraphicsPrimitives g) {
 
         //drawBoundingBox(g);
+        if(drawBoundingBox) drawBoundingBox(g);
+        
         int i;
 
         for (i = 0; i < iExpressions.length; i++) {

@@ -22,9 +22,9 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
         public MathPanel(SBox sBoxExpression, double viewScale)
         {
             this.sBoxExpression = sBoxExpression;
-            this.setOpaque(false);
+            this.setOpaque(true);
             this.viewScale = viewScale;
-
+            this.setBackground(Color.white);
 
         }
 

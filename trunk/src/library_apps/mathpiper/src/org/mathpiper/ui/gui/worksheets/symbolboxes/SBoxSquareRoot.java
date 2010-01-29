@@ -30,6 +30,9 @@ class SBoxSquareRoot extends SBoxCompoundExpression {
 
     public void render(GraphicsPrimitives g) {
         super.render(g);
+        
+        if(drawBoundingBox) drawBoundingBox(g);
+
         g.setLineThickness(1);
 
         Dimension dim = iExpressions[0].getDimension();
