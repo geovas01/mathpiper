@@ -5,14 +5,18 @@ Rulebase("PSolve",{uni});
 Rule("PSolve",1,1,IsUniVar(uni) And Degree(uni) = 1)
     -Coef(uni,0)/Coef(uni,1);
 
+
 Rule("PSolve",1,1,IsUniVar(uni) And Degree(uni) = 2)
     [
-     Local(a,b,c,d);
+     Local(a,b,c,d,q,r);
      c:=Coef(uni,0);
      b:=Coef(uni,1);
      a:=Coef(uni,2);
      d:=b*b-4*a*c;
-     {(-b+Sqrt(d))/(2*a),(-b-Sqrt(d))/(2*a)};
+     q:=RadSimp(Sqrt(d)/(2*a));
+     r:=Simplify(-b/(2*a));
+     If(InVerboseMode(),[ Tell("   ",{c,b,a,d}); Tell("   ",{q,r}); ]);
+     {r+q,r-q};
     ];
 
 
