@@ -11,7 +11,7 @@ import java.awt.RenderingHints;
 import javax.swing.DebugGraphics;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.GraphicsPrimitives;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
 
     public class MathPanel extends JPanel
@@ -38,15 +38,16 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
             g2d.setStroke(new BasicStroke((float) (2), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.setColor(Color.black);
             g2d.setBackground(Color.white);
-            GraphicsPrimitives gp = new GraphicsPrimitives(g2d);
-            gp.setLineThickness(0);
-            gp.setViewScale(viewScale);
+            ScaledGraphics sg = new ScaledGraphics(g2d);
+            sg.setLineThickness(0);
+            sg.setViewScale(viewScale);
             int x = 10;
             int y = 30;
             int iIndent = 0;
-            int calculatedAscent = sBoxExpression.getCalculatedAscent();
-            sBoxExpression.calculatePositions(gp, 3, new java.awt.Point(x + iIndent, y + /*calculatedAscent + 10*/30));
-            sBoxExpression.render(gp);
+            double calculatedAscent = sBoxExpression.getCalculatedAscent();
+            sBoxExpression.calculatePositions(sg, 3, new java.awt.Point(x + iIndent, y + /*calculatedAscent + 10*/30));
+            SBox.setSequence(1);
+            sBoxExpression.render(sg);
 
         }
 

@@ -17,7 +17,7 @@
 package org.mathpiper.ui.gui.worksheets.mathoutputlines;
 
 import org.mathpiper.ui.gui.worksheets.*;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.GraphicsPrimitives;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
 import java.awt.Color;
 import java.awt.Font;
@@ -48,16 +48,16 @@ public class PromptedFormulaLine extends MathOutputLine {
         }
 
         g.setColor(Color.black);
-        GraphicsPrimitives gp = new GraphicsPrimitives(g);
-        gp.setLineThickness(0);
-        sBoxExpression.calculatePositions(gp, 3, new java.awt.Point(x + iIndent, y + sBoxExpression.getCalculatedAscent() + 10));
-        sBoxExpression.render(gp);
+        ScaledGraphics sg = new ScaledGraphics(g);
+        sg.setLineThickness(0);
+        sBoxExpression.calculatePositions(sg, 3, new java.awt.Point(x + iIndent, (int) (y + sBoxExpression.getCalculatedAscent() + 10)));
+        sBoxExpression.render(sg);
     }
 
     public int height(Graphics g) {
         if (height == -1) {
-            GraphicsPrimitives gp = new GraphicsPrimitives(g);
-            sBoxExpression.calculatePositions(gp, 3, new java.awt.Point(0, 0));
+            ScaledGraphics sg = new ScaledGraphics(g);
+            sBoxExpression.calculatePositions(sg, 3, new java.awt.Point(0, 0));
             height = sBoxExpression.getDimension().height + 20;
         }
         return height;

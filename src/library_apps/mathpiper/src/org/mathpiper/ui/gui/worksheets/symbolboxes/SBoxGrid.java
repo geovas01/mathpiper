@@ -20,7 +20,7 @@ class SBoxGrid extends SBoxCompoundExpression {
         iExpressions[x + iWidth * y] = aExpression;
     }
 
-    public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
 
         int spacing = 12;
         iSize = aSize;
@@ -33,7 +33,7 @@ class SBoxGrid extends SBoxCompoundExpression {
             int j;
 
             for (i = 0; i < iWidth * iHeight; i++) {
-                iExpressions[i].calculatePositions(g, aSize, null);
+                iExpressions[i].calculatePositions(sg, aSize, null);
             }
 
             iWidths = new int[iWidth];
@@ -83,11 +83,11 @@ class SBoxGrid extends SBoxCompoundExpression {
 
             int i;
             int j;
-            int h = -iAscent;
+            double h = -iAscent;
 
             for (j = 0; j < iHeight; j++) {
 
-                int maxAscent = -10000;
+                double maxAscent = -10000;
 
                 for (i = 0; i < iWidth; i++) {
 
@@ -98,10 +98,10 @@ class SBoxGrid extends SBoxCompoundExpression {
 
                 h = h + maxAscent;
 
-                int w = 0;
+                double w = 0;
 
                 for (i = 0; i < iWidth; i++) {
-                    iExpressions[i + j * iWidth].calculatePositions(g, aSize, new Point(aPosition.x + w, aPosition.y + h));
+                    iExpressions[i + j * iWidth].calculatePositions(sg, aSize, new Point((int) (aPosition.x + w), (int) (aPosition.y + h)));
                     w += iWidths[i] + spacing;
                 }
 

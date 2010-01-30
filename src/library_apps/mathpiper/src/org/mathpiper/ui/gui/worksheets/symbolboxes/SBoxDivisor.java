@@ -12,14 +12,14 @@ class SBoxDivisor extends SBoxCompoundExpression {
         iExpressions[1] = aDenominator;
     }
 
-    public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
         iSize = aSize;
         iPosition = aPosition;
         iDashheight = SBoxBuilder.fontForSize(iSize);
 
         if (iDimension == null) {
-            iExpressions[0].calculatePositions(g, aSize, null);
-            iExpressions[1].calculatePositions(g, aSize, null);
+            iExpressions[0].calculatePositions(sg, aSize, null);
+            iExpressions[1].calculatePositions(sg, aSize, null);
 
             Dimension ndim = iExpressions[0].getDimension();
             Dimension ddim = iExpressions[1].getDimension();
@@ -37,17 +37,17 @@ class SBoxDivisor extends SBoxCompoundExpression {
 
             Dimension ndim = iExpressions[0].getDimension();
             Dimension ddim = iExpressions[1].getDimension();
-            int ynumer = aPosition.y - ndim.height + iExpressions[0].getCalculatedAscent() - iDashheight;
-            int ydenom = aPosition.y + iExpressions[1].getCalculatedAscent();
-            iExpressions[0].calculatePositions(g, aSize, new java.awt.Point(aPosition.x + (iDimension.width - ndim.width) / 2, ynumer));
-            iExpressions[1].calculatePositions(g, aSize, new java.awt.Point(aPosition.x + (iDimension.width - ddim.width) / 2, ydenom));
+            double ynumer = aPosition.y - ndim.height + iExpressions[0].getCalculatedAscent() - iDashheight;
+            double ydenom = aPosition.y + iExpressions[1].getCalculatedAscent();
+            iExpressions[0].calculatePositions(sg, aSize, new java.awt.Point(aPosition.x + (iDimension.width - ndim.width) / 2, (int)ynumer));
+            iExpressions[1].calculatePositions(sg, aSize, new java.awt.Point(aPosition.x + (iDimension.width - ddim.width) / 2, (int)ydenom));
         }
     }
 
-    public void render(GraphicsPrimitives g) {
-        super.render(g);
+    public void render(ScaledGraphics sg) {
+        super.render(sg);
 
-        if(drawBoundingBox) drawBoundingBox(g);
+        if(drawBoundingBox) drawBoundingBox(sg);
 
         java.awt.Dimension ndim = iExpressions[0].getDimension();
         java.awt.Dimension ddim = iExpressions[1].getDimension();
@@ -57,7 +57,7 @@ class SBoxDivisor extends SBoxCompoundExpression {
             width = ddim.width;
         }
 
-        g.setLineThickness(1);
-        g.drawLine(iPosition.x, iPosition.y - iDashheight / 2 + 2, iPosition.x + width, iPosition.y - iDashheight / 2 + 2);
+        sg.setLineThickness(1);
+        sg.drawLine(iPosition.x, iPosition.y - iDashheight / 2 + 2, iPosition.x + width, iPosition.y - iDashheight / 2 + 2);
     }
 }

@@ -9,12 +9,12 @@ class SBoxSquareRoot extends SBoxCompoundExpression {
         iExpressions[0] = aExpression;
     }
 
-    public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
         iSize = aSize;
         iPosition = aPosition;
 
         if (iDimension == null) {
-            iExpressions[0].calculatePositions(g, aSize, null);
+            iExpressions[0].calculatePositions(sg, aSize, null);
 
             Dimension dim = iExpressions[0].getDimension();
             iDimension = new Dimension((int) (dim.width + 6), dim.height + 3);
@@ -24,24 +24,24 @@ class SBoxSquareRoot extends SBoxCompoundExpression {
         if (aPosition != null) {
 
             Dimension dim = iExpressions[0].getDimension();
-            iExpressions[0].calculatePositions(g, aSize, new java.awt.Point((int) (aPosition.x + 6), aPosition.y));
+            iExpressions[0].calculatePositions(sg, aSize, new java.awt.Point((int) (aPosition.x + 6), aPosition.y));
         }
     }
 
-    public void render(GraphicsPrimitives g) {
-        super.render(g);
+    public void render(ScaledGraphics sg) {
+        super.render(sg);
         
-        if(drawBoundingBox) drawBoundingBox(g);
+        if(drawBoundingBox) drawBoundingBox(sg);
 
-        g.setLineThickness(1);
+        sg.setLineThickness(1);
 
         Dimension dim = iExpressions[0].getDimension();
-        int x0 = iPosition.x;
-        int y0 = iPosition.y - iAscent;
-        int x1 = x0 + dim.width + 6;
-        int y1 = y0 + dim.height + 6;
-        g.drawLine(x0, y0 + 1, x0 + 3, y1 - 1);
-        g.drawLine(x0 + 3, y1 - 1, x0 + 6, y0 + 2);
-        g.drawLine(x0 + 6, y0 + 1, x1, y0 + 1);
+        double x0 = iPosition.x;
+        double y0 = iPosition.y - iAscent;
+        double x1 = x0 + dim.width + 6;
+        double y1 = y0 + dim.height + 6;
+        sg.drawLine(x0, y0 + 1, x0 + 3, y1 - 1);
+        sg.drawLine(x0 + 3, y1 - 1, x0 + 6, y0 + 2);
+        sg.drawLine(x0 + 6, y0 + 1, x1, y0 + 1);
     }
 }

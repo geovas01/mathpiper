@@ -18,7 +18,7 @@
 
 package org.mathpiper.ui.gui.worksheets;
 
-import org.mathpiper.ui.gui.worksheets.symbolboxes.GraphicsPrimitives;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
 import org.mathpiper.ui.gui.worksheets.TexParser;
 
@@ -118,9 +118,9 @@ public class FormulaViewApplet extends Applet
 		// All graphics should be black from now on
 		g.setColor(Color.black);
 
-		GraphicsPrimitives gp = new GraphicsPrimitives(g);
+		ScaledGraphics sg = new ScaledGraphics(g);
 
-		gp.setLineThickness(0);
+		sg.setLineThickness(0);
 
 		if (expression == null)
 		{
@@ -134,8 +134,8 @@ public class FormulaViewApplet extends Applet
 		}
 		if (expression != null)
 		{
-			expression.calculatePositions(gp, 3, new java.awt.Point(1, d.height/2));
-			expression.render(gp);
+			expression.calculatePositions(sg, 3, new java.awt.Point(1, d.height/2));
+			expression.render(sg);
 		}
 	}
 

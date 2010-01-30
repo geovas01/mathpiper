@@ -20,16 +20,16 @@ class SBoxBracket extends SBoxCompoundExpression {
         iExpressions[0] = aExpression;
     }
 
-    public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
         iSize = aSize;
         iPosition = aPosition;
 
         if (iDimension == null) {
-            iExpressions[0].calculatePositions(g, aSize, null);
+            iExpressions[0].calculatePositions(sg, aSize, null);
 
             Dimension dim = iExpressions[0].getDimension();
             iFontSize = dim.height;
-            g.setFontSize(dim.height);
+            sg.setFontSize(dim.height);
             iBracketWidth = SBoxBuilder.fontForSize(aSize) / 2;
             iDimension = new Dimension(dim.width + 2 * iBracketWidth, dim.height);
             iAscent = iExpressions[0].getCalculatedAscent();
@@ -38,42 +38,42 @@ class SBoxBracket extends SBoxCompoundExpression {
         if (aPosition != null) {
 
             Dimension dim = iExpressions[0].getDimension();
-            iExpressions[0].calculatePositions(g, aSize, new java.awt.Point(aPosition.x + iBracketWidth, aPosition.y));
+            iExpressions[0].calculatePositions(sg, aSize, new java.awt.Point(aPosition.x + iBracketWidth, aPosition.y));
         }
     }
 
-    public void render(GraphicsPrimitives g) {
-        super.render(g);
+    public void render(ScaledGraphics sg) {
+        super.render(sg);
 
-        if(drawBoundingBox) drawBoundingBox(g);
+        if(drawBoundingBox) drawBoundingBox(sg);
 
         Dimension dim = iExpressions[0].getDimension();
-        drawBracket(g, iOpen, iPosition.x, iPosition.y - getCalculatedAscent());
-        drawBracket(g, iClose, iPosition.x + dim.width + iBracketWidth, iPosition.y - getCalculatedAscent());
+        drawBracket(sg, iOpen, iPosition.x, iPosition.y - getCalculatedAscent());
+        drawBracket(sg, iClose, iPosition.x + dim.width + iBracketWidth, iPosition.y - getCalculatedAscent());
     }
 
-    void drawBracket(GraphicsPrimitives g, String bracket, int x, int y) {
+    void drawBracket(ScaledGraphics sg, String bracket, double x, double y) {
 
         Dimension dim = iExpressions[0].getDimension();
 
         if (bracket.equals("[") || bracket.equals("]")) {
 
             int margin = 2;
-            g.setLineThickness(2);
+            sg.setLineThickness(2);
 
             if (bracket.equals("[")) {
-                g.drawLine(x + margin, y, x + margin, y + dim.height);
+                sg.drawLine(x + margin, y, x + margin, y + dim.height);
             } else {
-                g.drawLine(x + iBracketWidth - margin, y, x + iBracketWidth - margin, y + dim.height);
+                sg.drawLine(x + iBracketWidth - margin, y, x + iBracketWidth - margin, y + dim.height);
             }
 
-            g.setLineThickness(1);
-            g.drawLine(x + iBracketWidth - margin, y, x + margin, y);
-            g.drawLine(x + margin, y + dim.height, x + iBracketWidth - margin, y + dim.height);
+            sg.setLineThickness(1);
+            sg.drawLine(x + iBracketWidth - margin, y, x + margin, y);
+            sg.drawLine(x + margin, y + dim.height, x + iBracketWidth - margin, y + dim.height);
         } else if (bracket.equals("(") || bracket.equals(")")) {
 
-            int xstart;
-            int xend;
+            double xstart;
+            double xend;
 
             if (bracket.equals("(")) {
                 xstart = x + iBracketWidth;
@@ -83,26 +83,32 @@ class SBoxBracket extends SBoxCompoundExpression {
                 xend = x + iBracketWidth;
             }
 
-            int delta = xend - xstart;
-            float[] steps = new float[3];
-            steps[0] = 0.2f;
-            steps[1] = 0.6f;
-            steps[2] = 0.8f;
-            g.setLineThickness(1f);
-            g.drawLine((int) (xstart + (delta * steps[0])), y + (0 * dim.height) / 6, (int) (xstart + (delta * steps[1])), y + (1 * dim.height) / 6);
-            g.setLineThickness(1.3f);
-            g.drawLine((int) (xstart + (delta * steps[1])), y + (1 * dim.height) / 6, (int) (xstart + (delta * steps[2])), y + (2 * dim.height) / 6);
-            g.setLineThickness(1.6f);
-            g.drawLine((int) (xstart + (delta * steps[2])), y + (2 * dim.height) / 6, (int) (xstart + (delta * steps[2])), y + (4 * dim.height) / 6);
-            g.setLineThickness(1.3f);
-            g.drawLine((int) (xstart + (delta * steps[2])), y + (4 * dim.height) / 6, (int) (xstart + (delta * steps[1])), y + (5 * dim.height) / 6);
-            g.setLineThickness(1f);
-            g.drawLine((int) (xstart + (delta * steps[1])), y + (5 * dim.height) / 6, (int) (xstart + (delta * steps[0])), y + (6 * dim.height) / 6);
-        } else {
-            g.setFontSize(iFontSize);
+            double delta = xend - xstart;
+            double[] steps = new double[3];
+            steps[0] = 0.2;
+            steps[1] = 0.6;
+            steps[2] = 0.8;
 
-            int offset = (iFontSize - iAscent) / 2;
-            g.drawText(bracket, x, y + offset);
+            sg.setLineThickness(1);
+            sg.drawLine( (xstart + (delta * steps[0])), y + (0 * dim.height) / 6,  xstart + (delta * steps[1]), y + (1 * dim.height) / 6);
+
+            sg.setLineThickness(1.3);
+            sg.drawLine( (xstart + (delta * steps[1])), y + (1 * dim.height) / 6,  xstart + (delta * steps[2]), y + (2 * dim.height) / 6);
+
+            sg.setLineThickness(1.6);
+            sg.drawLine( (xstart + (delta * steps[2])), y + (2 * dim.height) / 6,  xstart + (delta * steps[2]), y + (4 * dim.height) / 6);
+
+            sg.setLineThickness(1.3);
+            sg.drawLine( (xstart + (delta * steps[2])), y + (4 * dim.height) / 6, xstart + (delta * steps[1]), y + (5 * dim.height) / 6);
+
+            sg.setLineThickness(1);
+            sg.drawLine( (xstart + (delta * steps[1])), y + (5 * dim.height) / 6, xstart + (delta * steps[0]), y + (6 * dim.height) / 6);
+
+        } else {
+            sg.setFontSize(iFontSize);
+
+            double offset = (iFontSize - iAscent) / 2;
+            sg.drawText(bracket, x, y + offset);
         }
     }
 }
