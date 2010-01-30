@@ -21,14 +21,25 @@ import java.awt.Color;
 public abstract class SBox {
 
     static boolean drawBoundingBox = false;
-    java.awt.Dimension iDimension;
-    java.awt.Point iPosition;
+    static int sequence = 0;
+
+    protected java.awt.Dimension iDimension;
+    protected java.awt.Point iPosition;
     int iSize;
-    int iAscent;
+    double iAscent;
 
-    abstract public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition);
+    public static int getSequence() {
+        return sequence;
+    }
 
-    abstract public void render(GraphicsPrimitives g);
+    public static void setSequence(int sequence) {
+        SBox.sequence = sequence;
+    }
+
+
+    abstract public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition);
+
+    abstract public void render(ScaledGraphics sg);
 
     public java.awt.Dimension getDimension() {
         return iDimension;
@@ -42,23 +53,26 @@ public abstract class SBox {
         return iSize;
     }
 
-    public int getCalculatedAscent() {
+    public double getCalculatedAscent() {
         return iAscent;
     }
 
-    public void drawBoundingBox(GraphicsPrimitives g) {
-        g.setColor(Color.red);
-        g.setLineThickness(0);
-        int x0 = iPosition.x;
-        int y0 = iPosition.y - getCalculatedAscent();
-        int x1 = x0 + iDimension.width;
-        int y1 = y0 + iDimension.height;
-        g.drawLine(x0, y0, x1, y0);
-        g.drawLine(x1, y0, x1, y1);
-        g.drawLine(x1, y1, x0, y1);
-        g.drawLine(x0, y1, x0, y0);
+    public void drawBoundingBox(ScaledGraphics sg) {
+        sg.setColor(Color.red);
+        sg.setLineThickness(0);
+        double x0 = iPosition.x;
+        double y0 = iPosition.y - getCalculatedAscent();
+        double x1 = x0 + iDimension.width;
+        double y1 = y0 + iDimension.height;
 
-        g.setColor(Color.black);
+        sg.drawLine(x0, y0, x1, y0);
+        sg.drawLine(x1, y0, x1, y1);
+        sg.drawLine(x1, y1, x0, y1);
+        sg.drawLine(x0, y1, x0, y0);
+
+        sg.drawscaledText("" + sequence++, x0, y0 + 3, .2);
+
+        sg.setColor(Color.black);
     }//end method.
 
     public static void setDrawBoundingBox(boolean drawBoundingBox) {

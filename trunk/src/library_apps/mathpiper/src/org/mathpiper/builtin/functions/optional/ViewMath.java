@@ -87,7 +87,7 @@ public class ViewMath extends BuiltinFunction {
         contentPane.setBackground(Color.WHITE);
 
 
-        MathPanelController mathPanelScaler = new MathPanelController(mathPanel);
+        MathPanelController mathPanelScaler = new MathPanelController(mathPanel, viewScale.toDouble());
 
         JScrollPane scrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 

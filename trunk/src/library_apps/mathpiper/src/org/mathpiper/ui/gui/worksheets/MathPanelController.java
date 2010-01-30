@@ -15,11 +15,11 @@ public class MathPanelController extends JPanel implements ChangeListener, ItemL
     private JSlider scaleSlider;
     private MathPanel mathPanel;
 
-    public MathPanelController(MathPanel mathPanel) {
+    public MathPanelController(MathPanel mathPanel, double initialValue) {
         super();
         this.mathPanel = mathPanel;
 
-        scaleSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, 10);
+        scaleSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, (int) (initialValue*10));
         scaleSlider.addChangeListener(this);
 
         //Turn on labels at major tick marks.

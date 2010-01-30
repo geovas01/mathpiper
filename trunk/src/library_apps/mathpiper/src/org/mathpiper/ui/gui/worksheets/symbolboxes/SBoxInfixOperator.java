@@ -12,15 +12,15 @@ class SBoxInfixOperator extends SBoxCompoundExpression {
         iExpressions[2] = aRight;
     }
 
-    public void calculatePositions(GraphicsPrimitives g, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
         iSize = aSize;
         iPosition = aPosition;
 
         // Get dimensions first
         if (iDimension == null) {
-            iExpressions[0].calculatePositions(g, aSize, null);
-            iExpressions[1].calculatePositions(g, aSize, null);
-            iExpressions[2].calculatePositions(g, aSize, null);
+            iExpressions[0].calculatePositions(sg, aSize, null);
+            iExpressions[1].calculatePositions(sg, aSize, null);
+            iExpressions[2].calculatePositions(sg, aSize, null);
 
             Dimension dleft = iExpressions[0].getDimension();
             Dimension dinfix = iExpressions[1].getDimension();
@@ -52,9 +52,9 @@ class SBoxInfixOperator extends SBoxCompoundExpression {
             Dimension dleft = iExpressions[0].getDimension();
             Dimension dinfix = iExpressions[1].getDimension();
             Dimension dright = iExpressions[2].getDimension();
-            iExpressions[0].calculatePositions(g, aSize, new Point(aPosition.x, aPosition.y));
-            iExpressions[1].calculatePositions(g, aSize, new Point(aPosition.x + dleft.width + 2, aPosition.y));
-            iExpressions[2].calculatePositions(g, aSize, new Point(aPosition.x + dleft.width + dinfix.width + 4, aPosition.y));
+            iExpressions[0].calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y));
+            iExpressions[1].calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + 2, aPosition.y));
+            iExpressions[2].calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + dinfix.width + 4, aPosition.y));
         }
     }
 }
