@@ -214,6 +214,20 @@ public class Environment {
         }
         return null;
     }//end method.
+
+
+
+    public void unbindAllLocalVariables() throws Exception{
+        LispError.check(iLocalVariablesFrame != null, LispError.INVALID_STACK, "INTERNAL");
+
+        LocalVariable localVariable = iLocalVariablesFrame.iFirst;
+
+        while (localVariable != null) {
+            localVariable.iValue.setCons(null);
+            localVariable = localVariable.iNext;
+        }
+        
+    }//end method.
     public String getLocalVariables() throws Exception {
         LispError.check(iLocalVariablesFrame != null, LispError.INVALID_STACK, "INTERNAL");
         //    check(iLocalsList.iFirst != null,INVALID_STACK);
@@ -249,12 +263,24 @@ public class Environment {
     }//end method.
 
     public void unbindVariable(String aVariableName) throws Exception {
-        ConsPointer localVariable = getLocalVariable(aVariableName);
-        if (localVariable != null) {
-            localVariable.setCons(null);
-            return;
+
+        if(aVariableName.equals("*"))
+        {
+            this.unbindAllLocalVariables();
+
+            iGlobalState.unbindAllUserDefinedVariables();
         }
-        iGlobalState.release(aVariableName);
+        else
+        {
+            //Unbind local variable.
+            ConsPointer localVariable = getLocalVariable(aVariableName);
+            if (localVariable != null) {
+                localVariable.setCons(null);
+                return;
+            }
+
+            iGlobalState.unbindVariable(aVariableName);
+        }//end else.
 
     }
 
