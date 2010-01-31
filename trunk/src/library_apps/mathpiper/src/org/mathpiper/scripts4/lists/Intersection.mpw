@@ -38,7 +38,7 @@ Retract("Intersection",*);
     result:={};
     ForEach(item,list1)
     [
-        Set(index, Find(l2,item));
+        SetVariable(index, Find(l2,item));
         If(index>0,
           [
              DestructiveDelete(l2,index);

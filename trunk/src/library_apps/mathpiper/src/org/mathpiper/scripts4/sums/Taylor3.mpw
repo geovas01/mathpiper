@@ -8,22 +8,22 @@
 Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
 [
   Local(result,i,j,jset,ilimit,jlimit);
-  Set(result, ArrayCreate(AddN(degree,1),0));
-  Set(i,1);
-  Set(ilimit,AddN(degree,2));
+  SetVariable(result, ArrayCreate(AddN(degree,1),0));
+  SetVariable(i,1);
+  SetVariable(ilimit,AddN(degree,2));
   While (Not IsEqual(i,ilimit))
   [
 //Echo(coefs1,coefs2);
-    Set(j,1);
-    Set(jlimit,AddN(degree,SubtractN(3,i)));
+    SetVariable(j,1);
+    SetVariable(jlimit,AddN(degree,SubtractN(3,i)));
     While (Not IsEqual(j,jlimit))
     [
-      Set(jset,AddN(i,SubtractN(j,1)));
+      SetVariable(jset,AddN(i,SubtractN(j,1)));
 //Echo("index = ",i+j-1);
       ArraySet(result,jset,ArrayGet(result,jset) + ArrayGet(coefs1,i)*ArrayGet(coefs2,j));
-      Set(j,AddN(j,1));
+      SetVariable(j,AddN(j,1));
     ];
-    Set(i,AddN(i,1));
+    SetVariable(i,AddN(i,1));
   ];
   result;
 ];
@@ -33,7 +33,7 @@ Bodied("Taylor3'TaylorCoefs",0);
 10 # (Taylor3'TaylorCoefs(_var,_degree)(_var)) <--
 [
   Local(result);
-  Set(result,ArrayCreate(degree+1,0));
+  SetVariable(result,ArrayCreate(degree+1,0));
   ArraySet(result,2, 1);
   result;
 //Echo("degree = ",degree);
@@ -43,7 +43,7 @@ Bodied("Taylor3'TaylorCoefs",0);
    <--
    [
     Local(result);
-    Set(result,ArrayCreate(degree+1,0));
+    SetVariable(result,ArrayCreate(degree+1,0));
     ArraySet(result,1, atom);
     result;
 //     atom*BaseVector(1,degree+1);
@@ -52,8 +52,8 @@ Bodied("Taylor3'TaylorCoefs",0);
    <--
    [
      Local(result,add,i);
-     Set(result,Taylor3'TaylorCoefs(var,degree)(X));
-     Set(add, Taylor3'TaylorCoefs(var,degree)(Y));
+     SetVariable(result,Taylor3'TaylorCoefs(var,degree)(X));
+     SetVariable(add, Taylor3'TaylorCoefs(var,degree)(Y));
      For(i:=1,i<=degree+1,i++)
      [
        ArraySet(result,i,ArrayGet(result,i)+ArrayGet(add,i));
@@ -65,8 +65,8 @@ Bodied("Taylor3'TaylorCoefs",0);
    <--
    [
      Local(result,add,i);
-     Set(result,Taylor3'TaylorCoefs(var,degree)(X));
-     Set(add, Taylor3'TaylorCoefs(var,degree)(Y));
+     SetVariable(result,Taylor3'TaylorCoefs(var,degree)(X));
+     SetVariable(add, Taylor3'TaylorCoefs(var,degree)(Y));
      For(i:=1,i<=degree+1,i++)
      [
        ArraySet(result,i,ArrayGet(result,i)-ArrayGet(add,i));
@@ -78,7 +78,7 @@ Bodied("Taylor3'TaylorCoefs",0);
    <--
    [
      Local(result,add,i);
-     Set(result,Taylor3'TaylorCoefs(var,degree)(Y));
+     SetVariable(result,Taylor3'TaylorCoefs(var,degree)(Y));
      For(i:=1,i<=degree+1,i++)
      [
        ArraySet(result,i,-ArrayGet(result,i));
@@ -149,8 +149,8 @@ Bodied("Taylor3'TaylorCoefs",0);
 Taylor3'FuncCoefs(_fname,_degree) <--
 [
   Local(sins,i);
-  Set(sins, ArrayCreate(degree+1,0));
-  For (i:=0,i<=degree,Set(i,i+1))
+  SetVariable(sins, ArrayCreate(degree+1,0));
+  For (i:=0,i<=degree,SetVariable(i,i+1))
   [
     ArraySet(sins,i+1, Taylor3'CompCoeff(fname,i));
   ];
@@ -174,14 +174,14 @@ Taylor3'FuncCoefs(_fname,_degree) <--
 //Echo("8...",sins,expr);
   For (i:=2,i<=degree+1,i++)
   [
-    Set(sinfact,sins[i]);
+    SetVariable(sinfact,sins[i]);
 //Echo("8.1..",i," ",j);
     For (j:=1,j<=degree+1,j++)
     [
       ArraySet(result,j,ArrayGet(result,j) + (ArrayGet(xx,j) * sinfact));
     ];
 //Echo("8.2..");
-    Set(xx,Taylor3'MultiplyCoefs(xx,expr,degree));
+    SetVariable(xx,Taylor3'MultiplyCoefs(xx,expr,degree));
 //Echo("8.3..");
   ];
   result;

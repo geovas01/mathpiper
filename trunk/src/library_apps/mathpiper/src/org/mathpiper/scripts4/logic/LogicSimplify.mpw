@@ -11,16 +11,16 @@
   Local(cnf, list, clauses);
   Check(level > 1, "Wrong level");
   // First get the CNF version of the proposition
-  Set(cnf, CNF(proposition));
+  SetVariable(cnf, CNF(proposition));
 
   If(level <= 1, cnf, [
-    Set(list, Flatten(cnf, "And"));
-    Set(clauses, {});
+    SetVariable(list, Flatten(cnf, "And"));
+    SetVariable(clauses, {});
     ForEach(clause, list)
     [
       Local(newclause);
       //newclause := BubbleSort(LogicRemoveTautologies(Flatten(clause, "Or")), LessThan);
-      Set(newclause, LogicRemoveTautologies(Flatten(clause, "Or")));
+      SetVariable(newclause, LogicRemoveTautologies(Flatten(clause, "Or")));
       If(newclause != {True}, DestructiveAppend(clauses, newclause));
     ];
 
@@ -29,22 +29,22 @@
         i.e. if we have (A And B) And ( B And A), only the first one will
         persist.
     */
-    Set(clauses, RemoveDuplicates(clauses));
+    SetVariable(clauses, RemoveDuplicates(clauses));
 
     If(IsEqual(level, 3) And (Length(clauses) != 0), [
-        Set(clauses, DoUnitSubsumptionAndResolution(clauses));
-        Set(clauses, LogicCombine(clauses));
+        SetVariable(clauses, DoUnitSubsumptionAndResolution(clauses));
+        SetVariable(clauses, LogicCombine(clauses));
     ]);
 
-    Set(clauses, RemoveDuplicates(clauses));
+    SetVariable(clauses, RemoveDuplicates(clauses));
 
     If(IsEqual(Length(clauses), 0), True, [
         /* assemble the result back into a boolean expression */
         Local(result);
-        Set(result, True);
+        SetVariable(result, True);
         ForEach(item,clauses)
         [
-            Set(result, result And UnFlatten(item, "Or", False));
+            SetVariable(result, result And UnFlatten(item, "Or", False));
         ];
 
         result;

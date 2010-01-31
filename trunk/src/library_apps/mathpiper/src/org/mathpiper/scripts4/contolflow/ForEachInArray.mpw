@@ -6,13 +6,13 @@ LocalSymbols(i,nr)
   [
     Local(i,nr);
     MacroLocal(item);
-    Set(i,1);
-    Set(nr,Length(list));
+    SetVariable(i,1);
+    SetVariable(nr,Length(list));
     While(i<=nr)
     [
       MacroSet(item,list[i]);
       Eval(body);
-      Set(i,AddN(i,1));
+      SetVariable(i,AddN(i,1));
     ];
   ];
 ];

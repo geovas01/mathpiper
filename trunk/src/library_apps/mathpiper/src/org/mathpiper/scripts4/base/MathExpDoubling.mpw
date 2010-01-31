@@ -4,12 +4,12 @@
 Defun("MathExpDoubling", {value, n})
 [
 	Local(shift, result);
-	Set(shift, n);
-	Set(result, value);
+	SetVariable(shift, n);
+	SetVariable(result, value);
 	While (IsGreaterThan(shift,0))	// will lose 'shift' bits of precision here
 	[
-		Set(result, MultiplyN(result, result));
-		Set(shift, AddN(shift,MathNegate(1)));
+		SetVariable(result, MultiplyN(result, result));
+		SetVariable(shift, AddN(shift,MathNegate(1)));
 	];
 	result;
 ];

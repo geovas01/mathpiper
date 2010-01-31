@@ -40,8 +40,8 @@ Retract("CloseEnough",*);
       If(iDebug=True,Tell("xCheckSolution1",{expr,var,solution}));
       Local(expr0,result,s,r);
       If( IsEquation(expr),
-          Set(expr0,EquationLeft(expr)-EquationRight(expr)),
-          Set(expr0,expr)
+          SetVariable(expr0,EquationLeft(expr)-EquationRight(expr)),
+          SetVariable(expr0,expr)
       );
       result := {};
       ForEach(s,solution) 

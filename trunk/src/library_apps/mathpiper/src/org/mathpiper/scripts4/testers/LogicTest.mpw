@@ -9,8 +9,8 @@ LocalSymbols(TrueFalse)
   30 # TrueFalse(var_IsList,_expr) <--
   `[
     Local(t,h);
-    Set(h,First(@var));
-    Set(t,Rest(@var));
+    SetVariable(h,First(@var));
+    SetVariable(t,Rest(@var));
     TrueFalse(h,TrueFalse(t,@expr));
   ];
 

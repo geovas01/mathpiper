@@ -9,8 +9,8 @@ Defun("PositiveIntPower", {x,n})
   Local(result,unit);
   If(IsLessThan(n,0), False,
   [
-	Set(unit,1);	 // this is a constant, initial value of the power
-	Set(result, unit);
+	SetVariable(unit,1);	 // this is a constant, initial value of the power
+	SetVariable(result, unit);
 	If(IsEqual(n,0),unit,
 	 If(IsEqual(n,1),x,
 	  [
@@ -20,12 +20,12 @@ Defun("PositiveIntPower", {x,n})
 				IsEqual(BitAnd(n,1), 1),
 //				If(
 //					IsEqual(result,unit), // if result is already assigned
-//					Set(result, x), // avoid multiplication
-					Set(result, MultiplyN(result,x))
+//					SetVariable(result, x), // avoid multiplication
+					SetVariable(result, MultiplyN(result,x))
 //				)
 			);
-			Set(x, MultiplyN(x,x));
-			Set(n,ShiftRight(n,1));
+			SetVariable(x, MultiplyN(x,x));
+			SetVariable(n,ShiftRight(n,1));
 		];
 		result;
 	  ]

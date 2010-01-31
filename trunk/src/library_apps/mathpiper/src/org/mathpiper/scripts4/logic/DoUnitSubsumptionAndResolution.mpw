@@ -5,26 +5,26 @@
 DoUnitSubsumptionAndResolution(_list) <--
 [
     Local(i, j, k, isFalse, isTrue, changed);
-    Set(isFalse, False);
-    Set(isTrue,  False);
-    Set(changed, True);
+    SetVariable(isFalse, False);
+    SetVariable(isTrue,  False);
+    SetVariable(changed, True);
 
     //Echo({"In DoUnitSubsumptionAndResolution", Nl()});
 
     While(changed) [
-      Set(changed, False);
+      SetVariable(changed, False);
 
       For(i:=1, (Not isFalse And Not isTrue) And i <= Length(list), i++)
       [
         If(Length(list[i]) = 1, [
-          Local(x); Set(x, list[i][1]); //n := SimpleNegate(x);
+          Local(x); SetVariable(x, list[i][1]); //n := SimpleNegate(x);
           //Echo({"Unit clause ", x, Nl()});
 
           // found a unit clause, {x}, not use it to modify other clauses
           For(j:=1, (Not isFalse And Not isTrue) And j <= Length(list), j++)
           [
               If(i !=j, [
-                Local(deletedClause); Set(deletedClause, False);
+                Local(deletedClause); SetVariable(deletedClause, False);
                 For(k:=1, (Not isFalse And Not isTrue And Not deletedClause) And k <= Length(list[j]),  k++)
                 [
                     // In both of these, if a clause becomes empty, the whole thing is False
@@ -37,17 +37,17 @@ DoUnitSubsumptionAndResolution(_list) <--
                         DestructiveDelete(list, j);
                         j--;
                         If(i>j, i--);   // i also needs to be decremented
-                        Set(deletedClause, True);
-                        Set(changed, True);
-                        If(Length(list) = 0, [Set(isTrue, True);]);
+                        SetVariable(deletedClause, True);
+                        SetVariable(changed, True);
+                        If(Length(list) = 0, [SetVariable(isTrue, True);]);
                     ],
                       // else, try unit resolution
                     If(Contradict(x, list[j][k]), [
                         //Echo({x, " contradicts", list[j][k], Nl()});
                         DestructiveDelete(list[j], k);
                         k--;
-                        Set(changed, True);
-                        If(Length(list[j]) = 0, [Set(isFalse, True);]);
+                        SetVariable(changed, True);
+                        If(Length(list[j]) = 0, [SetVariable(isFalse, True);]);
                     ])
                     );
                 ];

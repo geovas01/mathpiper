@@ -7,9 +7,9 @@
  */
 
 /* Set up drivers, configurable in the .mpiperrc
- *   Set(MultiNomialDriver,"multivar.rep/sparsenomial.mpi");
+ *   SetVariable(MultiNomialDriver,"multivar.rep/sparsenomial.mpi");
  *     or
- *   Set(MultiNomialDriver,"multivar.rep/partialdensenomial.mpi");
+ *   SetVariable(MultiNomialDriver,"multivar.rep/partialdensenomial.mpi");
  */
 
 /* The truly required files (MathPiper NEEDS to load). */
@@ -25,11 +25,11 @@ DefMacroRulebase("Defun",{func,args,body});
 Rule("Defun",3,0,True)
 [
   Local(nrargs);
-  Set(nrargs,Length(@args));
+  SetVariable(nrargs,Length(@args));
   Retract(@func, `(@nrargs));
   Rulebase(@func,@args);
   Local(fn,bd);
-  Set(fn,Hold(@func)); Set(bd,Hold(@body));
+  SetVariable(fn,Hold(@func)); SetVariable(bd,Hold(@body));
   `Rule(@fn, @nrargs, 0,True)(@bd);
 ];
 
@@ -76,16 +76,16 @@ Rule("REP",0,1,True)
   Local(input,stringOut,result);
   While(Not(IsExitRequested()))
   [
-    Set(errorString, "");
+    SetVariable(errorString, "");
     If(And(IsString(PrettyReaderGet()),Not(PrettyReaderGet() = "")),
-      TrapError(Set(input, PipeFromString(ReadCmdLineString("In> "))ApplyPure(PrettyReaderGet(),{})),Set(errorString,GetCoreError())),
-      TrapError(Set(input, PipeFromString(ConcatStrings(ReadCmdLineString("In> "),";"))Read()),Set(errorString,GetCoreError())));
+      TrapError(SetVariable(input, PipeFromString(ReadCmdLineString("In> "))ApplyPure(PrettyReaderGet(),{})),SetVariable(errorString,GetCoreError())),
+      TrapError(SetVariable(input, PipeFromString(ConcatStrings(ReadCmdLineString("In> "),";"))Read()),SetVariable(errorString,GetCoreError())));
     If(Not(errorString = ""), WriteString(errorString));
     If (Not(IsExitRequested()) And errorString="",
     [
-      Set(stringOut,"");
-      Set(result,False);
-      Set(stringOut,PipeToString()[TrapError(Set(result,Eval(input)),Set(errorString,GetCoreError()));]);
+      SetVariable(stringOut,"");
+      SetVariable(result,False);
+      SetVariable(stringOut,PipeToString()[TrapError(SetVariable(result,Eval(input)),SetVariable(errorString,GetCoreError()));]);
       If(Not(stringOut = ""), WriteString(stringOut));
       If(Not(errorString = ""), WriteString(errorString));
       SetGlobalLazyVariable(%,result);

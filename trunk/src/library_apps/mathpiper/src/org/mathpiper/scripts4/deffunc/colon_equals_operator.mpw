@@ -62,11 +62,11 @@ Rule(":=",2,10,IsFunction(aLeftAssign) And (First(FunctionToList(aLeftAssign)) =
  Local(frst,scnd);
 
  Local(lst);
- Set(lst,(FunctionToList(aLeftAssign)));
- Set(lst,Rest(lst));
- Set(frst, Eval(First(lst)));
- Set(lst,Rest(lst));
- Set(scnd, Eval(First(lst)));
+ SetVariable(lst,(FunctionToList(aLeftAssign)));
+ SetVariable(lst,Rest(lst));
+ SetVariable(frst, Eval(First(lst)));
+ SetVariable(lst,Rest(lst));
+ SetVariable(scnd, Eval(First(lst)));
 
  AssignArray(frst,scnd,Eval(aRightAssign));
 ];
@@ -77,20 +77,20 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(IsEqual(aLeftAssign[0], ToAtom(":
   Check( Not IsEqual(aLeftAssign[0], ToAtom("/")), "Only a variable can be placed on the left side of an := operator." );
 
   Local(oper,args,arity);
-  Set(oper,ToString(aLeftAssign[0]));
-  Set(args,Rest(FunctionToList(aLeftAssign)));
+  SetVariable(oper,ToString(aLeftAssign[0]));
+  SetVariable(args,Rest(FunctionToList(aLeftAssign)));
   If(
 	And(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") )),
 	// function with variable number of arguments
 	[
 	  DestructiveDelete(args,Length(args));	// remove trailing "..."
-	  Set(arity,Length(args));
+	  SetVariable(arity,Length(args));
 	  Retract(oper,arity);
 	  MacroRulebaseListed(oper, args);
 	],
 	// function with a fixed number of arguments
 	[
-	  Set(arity,Length(args));
+	  SetVariable(arity,Length(args));
 	  Retract(oper,arity);
 	  MacroRulebase(oper, args);
 	]

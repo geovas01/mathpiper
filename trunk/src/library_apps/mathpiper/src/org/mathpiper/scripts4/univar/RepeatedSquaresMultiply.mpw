@@ -10,15 +10,15 @@
 20 # RepeatedSquaresMultiply(_a,n_IsInteger) <--
 [
   Local(m,b);
-  Set(m,1);
-  Set(b,1);
-  While(m<=n) Set(m,(ShiftLeft(m,1)));
-  Set(m, ShiftRight(m,1));
+  SetVariable(m,1);
+  SetVariable(b,1);
+  While(m<=n) SetVariable(m,(ShiftLeft(m,1)));
+  SetVariable(m, ShiftRight(m,1));
   While(m>0)
   [
-    Set(b,b*b);
-    If (Not(IsEqual(BitAnd(m,n), 0)),Set(b,b*a));
-    Set(m, ShiftRight(m,1));
+    SetVariable(b,b*b);
+    If (Not(IsEqual(BitAnd(m,n), 0)),SetVariable(b,b*a));
+    SetVariable(m, ShiftRight(m,1));
   ];
   b;
 ];

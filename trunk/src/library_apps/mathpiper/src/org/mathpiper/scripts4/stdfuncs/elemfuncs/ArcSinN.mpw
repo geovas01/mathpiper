@@ -3,16 +3,16 @@
 Defun("ArcSinN",{int1})
 [
   Local(result,eps);
-	Set(result,FastArcSin(int1));
+	SetVariable(result,FastArcSin(int1));
   Local(x,q,s,c);
-  Set(q,SubtractN(SinN(result),int1));
-  Set(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
+  SetVariable(q,SubtractN(SinN(result),int1));
+  SetVariable(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
   While(IsGreaterThan(AbsN(q),eps))
   [
-		Set(s,SubtractN(int1,SinN(result)));
-    Set(c,CosN(result));
-    Set(q,DivideN(s,c));
-    Set(result,AddN(result,q));
+		SetVariable(s,SubtractN(int1,SinN(result)));
+    SetVariable(c,CosN(result));
+    SetVariable(q,DivideN(s,c));
+    SetVariable(result,AddN(result,q));
   ];
   result;
 ];

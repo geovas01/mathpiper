@@ -22,50 +22,50 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
   Local(from,result);
   Local(curl,curr,left,right);
 
-  Set(curl, f1);
-  Set(curr, f2);
-  Set(left, c1);
-  Set(right, c2);
-  Set(result, {});
-  Set(from, Minimum(curl,curr));
+  SetVariable(curl, f1);
+  SetVariable(curr, f2);
+  SetVariable(left, c1);
+  SetVariable(right, c2);
+  SetVariable(result, {});
+  SetVariable(from, Minimum(curl,curr));
 
   While(And(IsLessThan(curl,curr),left != {}))
   [
     DestructiveAppend(result,First(left));
-    Set(left,Rest(left));
-    Set(curl,AddN(curl,1));
+    SetVariable(left,Rest(left));
+    SetVariable(curl,AddN(curl,1));
   ];
   While(IsLessThan(curl,curr))
   [
     DestructiveAppend(result,0);
-    Set(curl,AddN(curl,1));
+    SetVariable(curl,AddN(curl,1));
   ];
   While(And(IsLessThan(curr,curl), right != {}))
   [
     DestructiveAppend(result,First(right));
-    Set(right,Rest(right));
-    Set(curr,AddN(curr,1));
+    SetVariable(right,Rest(right));
+    SetVariable(curr,AddN(curr,1));
   ];
   While(IsLessThan(curr,curl))
   [
     DestructiveAppend(result,0);
-    Set(curr,AddN(curr,1));
+    SetVariable(curr,AddN(curr,1));
   ];
   While(And(left != {}, right != {}))
   [
     DestructiveAppend(result,First(left)+First(right));
-    Set(left, Rest(left));
-    Set(right, Rest(right));
+    SetVariable(left, Rest(left));
+    SetVariable(right, Rest(right));
   ];
   While(left != {})
   [
     DestructiveAppend(result,First(left));
-    Set(left, Rest(left));
+    SetVariable(left, Rest(left));
   ];
   While(right != {})
   [
     DestructiveAppend(result,First(right));
-    Set(right, Rest(right));
+    SetVariable(right, Rest(right));
   ];
 
   UniVariate(var,from,result);
@@ -92,15 +92,15 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
 200 # UniVariate(_var,_f1,_c1) * UniVariate(_var,_f2,_c2) <--
 [
   Local(i,j,n,shifted,result);
-  Set(result,MakeUni(0,var));
+  SetVariable(result,MakeUni(0,var));
 //Echo("c1 = ",var,f1,c1);
 //Echo("c2 = ",var,f2,c2);
-  Set(n,Length(c1));
+  SetVariable(n,Length(c1));
   For(i:=1,i<=n,i++)
   [
 //Echo("before = ",result);
 //Echo("parms = ",var,c1,c2,f1,f2,f1+i-1);
-    Set(result,result+ShiftUniVar(UniVariate(var,f2,c2),MathNth(c1,i),f1+i-1));
+    SetVariable(result,result+ShiftUniVar(UniVariate(var,f2,c2),MathNth(c1,i),f1+i-1));
 //Echo("after = ",result);
   ];
 //Echo("result = ",result);

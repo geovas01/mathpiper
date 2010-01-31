@@ -17,7 +17,7 @@ TemplateFunction("Table",{body,var,count'from,count'to,step})
       [
        MacroSet( var, count'from + ii * step );
        DestructiveInsert( result,1,Eval(body) );
-       Set(ii,AddN(ii,1));
+       SetVariable(ii,AddN(ii,1));
       ];
     DestructiveReverse(result);
   ];

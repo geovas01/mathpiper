@@ -7,17 +7,17 @@ FindIsq(max,f)  :=
   Local(low,high,mid,current);
   low:=1;
   high:=max+1;
-  Set(mid,((high+low)>>1));
+  SetVariable(mid,((high+low)>>1));
   While(high>low And mid>1)
   [
-    Set(mid,((high+low)>>1));
-    Set(current,Apply(f,{mid}));
+    SetVariable(mid,((high+low)>>1));
+    SetVariable(current,Apply(f,{mid}));
 //Echo({low,high,current});
     If(current = 0,
        high:=low-1,
        If(current > 0,
-          Set(high,mid),
-          Set(low,mid+1)
+          SetVariable(high,mid),
+          SetVariable(low,mid+1)
           )
        );
   ];

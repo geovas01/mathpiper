@@ -33,12 +33,12 @@ TemplateFunction("ForEach",{item,listOrString,body})
       ],
       [
           Local(foreachtail);
-          Set(foreachtail,listOrString);
+          SetVariable(foreachtail,listOrString);
           While(Not(IsEqual(foreachtail,{})))
           [
             MacroSet(item,First(foreachtail));
             Eval(body);
-            Set(foreachtail,Rest(foreachtail));
+            SetVariable(foreachtail,Rest(foreachtail));
           ];
       ]);
     ]);

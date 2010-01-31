@@ -8,14 +8,14 @@
 LogicCombine(_list) <--
 [
   Local(i, j);
-  For(Set(i,1), i<=Length(list), Set(i,AddN(i,1)))
+  For(SetVariable(i,1), i<=Length(list), SetVariable(i,AddN(i,1)))
   [
     //Echo({"list[", i, "/", Length(list), "]: ", list[i], Nl()});
 
     For(j := 1, (j<=Length(list[i])), j++)
     [
       Local(tocombine, n, k);
-      Set(n, list[i][j]);
+      SetVariable(n, list[i][j]);
 
       {tocombine, k} := LogicFindWith(list, i, n);// search forward for n, tocombine is the list we
                                                   // will combine the current one with
@@ -24,9 +24,9 @@ LogicCombine(_list) <--
         Local(combination);
         Check(k != -1, "k is -1");
 
-        Set(combination, LogicRemoveTautologies(Concat(list[i], list[tocombine])));
+        SetVariable(combination, LogicRemoveTautologies(Concat(list[i], list[tocombine])));
         If(combination = {},                      // the combined clause is false, so the whole thing is false
-          [Set(list, {{}}); Set(i, Length(list)+1);], [/*Set(i, 0);*/]);
+          [SetVariable(list, {{}}); SetVariable(i, Length(list)+1);], [/*SetVariable(i, 0);*/]);
       ]);
     ];
   ];

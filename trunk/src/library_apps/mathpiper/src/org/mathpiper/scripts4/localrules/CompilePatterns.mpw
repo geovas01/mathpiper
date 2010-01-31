@@ -2,7 +2,7 @@
 
 LocalSymbols(LocResult) [
 
-  Set(LocResult,True);
+  SetVariable(LocResult,True);
   10 # LocPredicate(exp_IsAtom) <--
   [
     Local(tr,result);
@@ -12,7 +12,7 @@ LocalSymbols(LocResult) [
     [
       If (First(First(tr)) = exp,
       [
-        Set(LocResult,Eval(First(Rest(First(tr)))));
+        SetVariable(LocResult,Eval(First(Rest(First(tr)))));
         result := True;
         tr:={};
       ],
@@ -30,15 +30,15 @@ LocalSymbols(LocResult) [
     result:=False;
     While (tr != {})
     [
-      Set(head, First(First(tr)));
+      SetVariable(head, First(First(tr)));
       If (Not(IsAtom(head)) And exp[0]=head[1] And Pattern'Matches(head[2], exp),
       [
-        Set(LocResult,Eval(First(Rest(First(tr)))));
-        Set(result, True);
-        Set(tr,{});
+        SetVariable(LocResult,Eval(First(Rest(First(tr)))));
+        SetVariable(result, True);
+        SetVariable(tr,{});
       ],
       [
-        Set(tr, Rest(tr));
+        SetVariable(tr, Rest(tr));
       ]);
     ];
     result;
