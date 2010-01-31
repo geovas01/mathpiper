@@ -1,0 +1,25 @@
+%mathpiper
+
+c(x,y) := 
+[
+    n := Length(x);
+    N((n*Sum(x*y)-Sum(x)*Sum(y))/Sqrt((n*Sum(x^2)-(Sum(x))^2)*(n*Sum(y^2)-(Sum(y)^2))) );
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title=""
+
+x := {3,5,4,4,2,3};
+y := {86,95,92,83,78,82};
+
+c(x,y);
+
+%/mathpiper
