@@ -11,16 +11,16 @@
      x:=N(Eval(x));
 //Echo("x = ",x);
      Local(prec,result,n);
-     SetVariable(prec,BuiltinPrecisionGet());
+     Bind(prec,BuiltinPrecisionGet());
      If(IsZero(x),
-       SetVariable(n,2),
+       Bind(n,2),
        If(x>0,
-         SetVariable(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
-         SetVariable(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
+         Bind(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
+         Bind(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));
      If(n>prec,BuiltinPrecisionSet(n));
 //Echo("Before");
-     SetVariable(result,FloorN(x));
+     Bind(result,FloorN(x));
 //Echo("After");
      BuiltinPrecisionSet(prec);
      result;

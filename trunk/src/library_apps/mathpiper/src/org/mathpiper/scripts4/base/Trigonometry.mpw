@@ -3,20 +3,20 @@
 Defun("Trigonometry",{x,i,sum,term})
 [
   Local(x2,orig,eps,previousPrec,newPrec);
-  SetVariable(previousPrec,BuiltinPrecisionGet());
-  SetVariable(newPrec,AddN(BuiltinPrecisionGet(),2));
-  SetVariable(x2,MultiplyN(x,x));
+  Bind(previousPrec,BuiltinPrecisionGet());
+  Bind(newPrec,AddN(BuiltinPrecisionGet(),2));
+  Bind(x2,MultiplyN(x,x));
   BuiltinPrecisionSet(newPrec);
-  SetVariable(eps,MathIntPower(10,MathNegate(previousPrec)));
+  Bind(eps,MathIntPower(10,MathNegate(previousPrec)));
   While(IsGreaterThan(AbsN(term),eps))
   [
-    SetVariable(term,MultiplyN(term,x2));
-    SetVariable(i,AddN(i,1.0));
-    SetVariable(term,DivideN(term,i));
-    SetVariable(i,AddN(i,1.0));
-    SetVariable(term,DivideN(MathNegate(term),i));
+    Bind(term,MultiplyN(term,x2));
+    Bind(i,AddN(i,1.0));
+    Bind(term,DivideN(term,i));
+    Bind(i,AddN(i,1.0));
+    Bind(term,DivideN(MathNegate(term),i));
     BuiltinPrecisionSet(previousPrec);
-    SetVariable(sum, AddN(sum, term));
+    Bind(sum, AddN(sum, term));
     BuiltinPrecisionSet(newPrec);
   ];
   BuiltinPrecisionSet(previousPrec);

@@ -20,7 +20,7 @@ Rulebase("TSum",{indices,body});
       MacroLocal(index);
       For(i:=1,i<=Ndim,i++)
       [
-        MacroSet(index,i);
+        MacroBind(index,i);
         sum:=sum+Eval(TSum(Rest(indices))body);
       ];
       sum;

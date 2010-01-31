@@ -51,10 +51,10 @@ NthRoot(m_IsNonNegativeInteger,n_IsInteger)_(n>1) <--
 Function("NthRoot'Calc",{m,n})
 [
    Local(i,j,f,r,in);
-   SetVariable(i,2);
-   SetVariable(j,Ceil(FastPower(m,N(1.0/n))+1));
-   SetVariable(f,1);
-   SetVariable(r,m);
+   Bind(i,2);
+   Bind(j,Ceil(FastPower(m,N(1.0/n))+1));
+   Bind(f,1);
+   Bind(r,m);
    // for large j (approx >4000)
    // using Factors instead of the
    // following.  would this be
@@ -62,18 +62,18 @@ Function("NthRoot'Calc",{m,n})
 //Echo("i j ",i," ",j);
    While(IsLessThan(i,j))
    [
-      SetVariable(in,PowerN(i,n));
+      Bind(in,PowerN(i,n));
 //Echo("r in mod ",r, " ",in," ",ModuloN(r,in));
       While(IsEqual(ModuloN(r,in),0))
       [
-	 SetVariable(f,MultiplyN(f,i));
-	 SetVariable(r,QuotientN(r,in));
+	 Bind(f,MultiplyN(f,i));
+	 Bind(r,QuotientN(r,in));
       ];
       While(IsEqual(ModuloN(r,i),0))   //
-	 SetVariable(r,QuotientN(r,i));         //
-      //SetVariable(i,NextPrime(i));
-      SetVariable(i,NextPseudoPrime(i));
-      SetVariable(j,Ceil(FastPower(r,N(1.0/n))+1));
+	 Bind(r,QuotientN(r,i));         //
+      //Bind(i,NextPrime(i));
+      Bind(i,NextPseudoPrime(i));
+      Bind(j,Ceil(FastPower(r,N(1.0/n))+1));
    ];
    //List(f,r);
    List(f,QuotientN(m,PowerN(f,n))); //

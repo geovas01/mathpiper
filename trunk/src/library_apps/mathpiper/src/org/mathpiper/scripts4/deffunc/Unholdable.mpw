@@ -7,7 +7,7 @@ HoldArgument("UnHoldable",var);
 UnFence("UnHoldable",1);
 Rule("UnHoldable",1,10,IsEqual(Type(Eval(var)),"Eval"))
 [
-  MacroSet(var,Eval(Eval(var)));
+  MacroBind(var,Eval(Eval(var)));
 /* Echo({"unheld",var,Eval(var)}); */
 ];
 Rule("UnHoldable",1,20,True)

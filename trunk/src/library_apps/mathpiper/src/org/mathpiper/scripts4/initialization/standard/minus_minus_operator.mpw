@@ -2,7 +2,7 @@
 
 Function("--",{aVar})
 [
-   MacroSet(aVar,SubtractN(Eval(aVar),1));
+   MacroBind(aVar,SubtractN(Eval(aVar),1));
 ];
 
 UnFence("--",1);

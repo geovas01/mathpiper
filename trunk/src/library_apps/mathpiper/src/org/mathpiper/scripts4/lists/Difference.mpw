@@ -7,7 +7,7 @@ Function("Difference",{list1,list2})
   result:=FlatCopy(list1);
   ForEach(item,list1)
   [
-    SetVariable(index,Find(l2,item));
+    Bind(index,Find(l2,item));
     If(index>0,
       [
         DestructiveDelete(l2,index);

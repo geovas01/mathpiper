@@ -2,7 +2,7 @@
 
 Function("++",{aVar})
 [
-   MacroSet(aVar,AddN(Eval(aVar),1));
+   MacroBind(aVar,AddN(Eval(aVar),1));
 ];
 
 UnFence("++",1);

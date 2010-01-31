@@ -6,7 +6,7 @@ Function("UniTaylor",{taylorfunction,taylorvariable,taylorat,taylororder})
   result:={};
   [
     MacroLocal(taylorvariable);
-    MacroSet(taylorvariable,taylorat);
+    MacroBind(taylorvariable,taylorat);
     DestructiveAppend(result,Eval(taylorfunction));
   ];
   dif:=taylorfunction;
@@ -15,7 +15,7 @@ Function("UniTaylor",{taylorfunction,taylorvariable,taylorat,taylororder})
   [
     dif:= Deriv(taylorvariable) dif;
     MacroLocal(taylorvariable);
-    MacroSet(taylorvariable,taylorat);
+    MacroBind(taylorvariable,taylorat);
     DestructiveAppend(result,(Eval(dif)/n!));
   ];
   UniVariate(taylorvariable,0,result);

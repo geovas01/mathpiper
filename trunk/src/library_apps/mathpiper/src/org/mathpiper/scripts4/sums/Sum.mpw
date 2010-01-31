@@ -19,7 +19,7 @@ LocalSymbols(sumi,sumsum)[
    For(sumi:=sumfrom,sumi<=sumto,sumi++)
        [
         MacroLocal(sumvar);
-        MacroSet(sumvar,sumi);
+        MacroBind(sumvar,sumi);
         sumsum:=sumsum+Eval(sumbody);
        ];
    sumsum;

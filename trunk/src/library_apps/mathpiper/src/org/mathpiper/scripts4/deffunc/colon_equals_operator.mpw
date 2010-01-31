@@ -12,7 +12,7 @@ Rule(":=",2,0,IsAtom(aLeftAssign))
 [
   Check( Not IsNumber(aLeftAssign), "Only a variable can be placed on the left side of an := operator." );
 
-  MacroSet(aLeftAssign,Eval(aRightAssign));
+  MacroBind(aLeftAssign,Eval(aRightAssign));
 
   Eval(aLeftAssign);
 ];
@@ -62,11 +62,11 @@ Rule(":=",2,10,IsFunction(aLeftAssign) And (First(FunctionToList(aLeftAssign)) =
  Local(frst,scnd);
 
  Local(lst);
- SetVariable(lst,(FunctionToList(aLeftAssign)));
- SetVariable(lst,Rest(lst));
- SetVariable(frst, Eval(First(lst)));
- SetVariable(lst,Rest(lst));
- SetVariable(scnd, Eval(First(lst)));
+ Bind(lst,(FunctionToList(aLeftAssign)));
+ Bind(lst,Rest(lst));
+ Bind(frst, Eval(First(lst)));
+ Bind(lst,Rest(lst));
+ Bind(scnd, Eval(First(lst)));
 
  AssignArray(frst,scnd,Eval(aRightAssign));
 ];
@@ -77,20 +77,20 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(IsEqual(aLeftAssign[0], ToAtom(":
   Check( Not IsEqual(aLeftAssign[0], ToAtom("/")), "Only a variable can be placed on the left side of an := operator." );
 
   Local(oper,args,arity);
-  SetVariable(oper,ToString(aLeftAssign[0]));
-  SetVariable(args,Rest(FunctionToList(aLeftAssign)));
+  Bind(oper,ToString(aLeftAssign[0]));
+  Bind(args,Rest(FunctionToList(aLeftAssign)));
   If(
 	And(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") )),
 	// function with variable number of arguments
 	[
 	  DestructiveDelete(args,Length(args));	// remove trailing "..."
-	  SetVariable(arity,Length(args));
+	  Bind(arity,Length(args));
 	  Retract(oper,arity);
 	  MacroRulebaseListed(oper, args);
 	],
 	// function with a fixed number of arguments
 	[
-	  SetVariable(arity,Length(args));
+	  Bind(arity,Length(args));
 	  Retract(oper,arity);
 	  MacroRulebase(oper, args);
 	]

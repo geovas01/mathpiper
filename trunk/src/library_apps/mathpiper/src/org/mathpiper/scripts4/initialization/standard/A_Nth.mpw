@@ -50,7 +50,7 @@ Rule("Nth",2,40,IsEqual(IsString(aindex),True))
 [
   Local(as);
   as := Assoc(aindex,alist);
-  If (Not(IsEqual(as,Empty)),SetVariable(as,Nth(as,2)));
+  If (Not(IsEqual(as,Empty)),Bind(as,Nth(as,2)));
   as;
 ];
 

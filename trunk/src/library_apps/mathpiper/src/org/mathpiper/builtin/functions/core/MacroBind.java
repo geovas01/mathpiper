@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class MacroSet extends BuiltinFunction
+public class MacroBind extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -37,8 +37,8 @@ public class MacroSet extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MacroSet",categories="Programmer Functions;Programming;Built In"
-*CMD MacroSet --- define rules in functions
+%mathpiper_docs,name="MacroBind",categories="Programmer Functions;Programming;Built In"
+*CMD MacroBind --- define rules in functions
 *CORE
 *DESC
 
@@ -49,6 +49,6 @@ rules based on parameters.
 
 Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro version!
 
-*SEE Set, Clear, Local, Rulebase, Rule, Backquoting, MacroClear, MacroLocal, MacroRulebase, MacroRulebaseListed, MacroRule
+*SEE Bind, Unbind, Local, Rulebase, Rule, Backquoting, MacroUnbind, MacroLocal, MacroRulebase, MacroRulebaseListed, MacroRule
 %/mathpiper_docs
 */

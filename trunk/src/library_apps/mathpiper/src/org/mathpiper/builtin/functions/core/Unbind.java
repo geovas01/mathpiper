@@ -57,21 +57,21 @@ public class Unbind extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Clear",categories="User Functions;Variables;Built In"
-*CMD Clear --- undo an assignment
+%mathpiper_docs,name="Unbind",categories="User Functions;Variables;Built In"
+*CMD Unbind --- undo an assignment
 *CORE
 *CALL
-	Clear(var, ...)
+	Unbind(var, ...)
 
 *PARMS
 
-{var} -- name of variable to be cleared
+{var} -- name of variable to be unbound
 
 *DESC
 
 All assignments made to the variables listed as arguments are
 undone. From now on, all these variables remain unevaluated (until a
-subsequent assignment is made). Also clears any metadata that may have
+subsequent assignment is made). Also unbinds any metadata that may have
 been set in an unbound variable.  The result of the expression is
 True.
 
@@ -82,12 +82,12 @@ True.
 	In> a^2;
 	Out> 25;
 
-	In> Clear(a);
+	In> Unbind(a);
 	Out> True;
 	In> a^2;
 	Out> a^2;
 
-*SEE Set, :=
+*SEE Bind, :=
 %/mathpiper_docs
 */
 
@@ -106,6 +106,6 @@ rules based on parameters.
 
 Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro version!
 
-*SEE Set, Clear, Local, Rulebase, Rule, Backquoting, MacroSet, MacroLocal, MacroRulebase, MacroRulebaseListed, MacroRule
+*SEE Bind, Unbind, Local, Rulebase, Rule, Backquoting, MacroBind, MacroLocal, MacroRulebase, MacroRulebaseListed, MacroRule
 %/mathpiper_docs
 */

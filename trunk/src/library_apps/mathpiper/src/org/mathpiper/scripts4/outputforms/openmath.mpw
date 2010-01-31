@@ -31,14 +31,14 @@ Rule("OMREP",1,1,True)
   Local(input,stringOut,result);
   While(Not(IsExitRequested()))
   [
-    SetVariable(errorObject, "");
-    TrapError(SetVariable(input, PipeFromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()),SetVariable(errorObject,OMGetCoreError()));
+    Bind(errorObject, "");
+    TrapError(Bind(input, PipeFromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()),Bind(errorObject,OMGetCoreError()));
     If(Not(errorObject = ""), errorObject);
     If (Not(IsExitRequested()) And errorObject="",
     [
-      SetVariable(stringOut,"");
-      SetVariable(result,False);
-      TrapError(SetVariable(stringOut,PipeToString()[Secure(SetVariable(result,Eval(input)));]),SetVariable(errorObject,OMGetCoreError()));
+      Bind(stringOut,"");
+      Bind(result,False);
+      TrapError(Bind(stringOut,PipeToString()[Secure(Bind(result,Eval(input)));]),Bind(errorObject,OMGetCoreError()));
       If(Not(errorObject = ""), errorObject);
       If(Not(stringOut = ""), WriteString(stringOut));
       SetGlobalLazyVariable(%,result);

@@ -6,36 +6,36 @@ Defun("MathPi",{})
   // x[0] := 3.1415926
   // x[n+1] := x[n] + Sin(x[n])
   Local(initialPrec,curPrec,result,aPrecision);
-  SetVariable(aPrecision,BuiltinPrecisionGet());
-	SetVariable(initialPrec, aPrecision);	// target precision of first iteration, will be computed below
-  SetVariable(curPrec, 40);  // precision of the initial guess
-  SetVariable(result, 3.141592653589793238462643383279502884197169399);    // initial guess
+  Bind(aPrecision,BuiltinPrecisionGet());
+	Bind(initialPrec, aPrecision);	// target precision of first iteration, will be computed below
+  Bind(curPrec, 40);  // precision of the initial guess
+  Bind(result, 3.141592653589793238462643383279502884197169399);    // initial guess
 
 	// optimize precision sequence
 	While (IsGreaterThan(initialPrec, MultiplyN(curPrec,3)))
   [
-		SetVariable(initialPrec, FloorN(DivideN(AddN(initialPrec,2),3)));
+		Bind(initialPrec, FloorN(DivideN(AddN(initialPrec,2),3)));
   ];
-	SetVariable(curPrec, initialPrec);
+	Bind(curPrec, initialPrec);
   While (Not(IsGreaterThan(curPrec, aPrecision)))
   [
  		// start of iteration code
     // Get Sin(result)
     BuiltinPrecisionSet(curPrec);
-    SetVariable(result,AddN(result,SinN(result)));
+    Bind(result,AddN(result,SinN(result)));
     // Calculate new result: result := result + Sin(result);
 		// end of iteration code
 		// decide whether we are at end of loop now
 		If (IsEqual(curPrec, aPrecision),	// if we are exactly at full precision, it's the last iteration
     [
-			SetVariable(curPrec, AddN(aPrecision,1));	// terminate loop
+			Bind(curPrec, AddN(aPrecision,1));	// terminate loop
     ],
     [
-			SetVariable(curPrec, MultiplyN(curPrec,3));	// precision triples at each iteration
+			Bind(curPrec, MultiplyN(curPrec,3));	// precision triples at each iteration
 			// need to guard against overshooting precision
  			If (IsGreaterThan(curPrec, aPrecision),
       [
-				SetVariable(curPrec, aPrecision);	// next will be the last iteration
+				Bind(curPrec, aPrecision);	// next will be the last iteration
       ]);
 		]);
   ];

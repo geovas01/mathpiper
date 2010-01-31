@@ -210,7 +210,7 @@ Macro(Profile,{expression})
 Macro(EchoTime,{expression})
 [
 	Local(result);
-	Echo(Time()SetVariable(result, @expression), "seconds taken.");
+	Echo(Time()Bind(result, @expression), "seconds taken.");
 	result;
 ];
 

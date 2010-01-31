@@ -67,12 +67,12 @@ Rule("FReplace",1,2,IsPow(f))  (Substitute(f[1]) :*: Substitute(f[1])) :*: Subst
 Rule("FReplace",1,2,IsPow(f))
 [
   Local(trm,i,res,n);
-  SetVariable(trm,Substitute(f[1]));
-  SetVariable(n,f[2]);
-  SetVariable(res,trm);
+  Bind(trm,Substitute(f[1]));
+  Bind(n,f[2]);
+  Bind(res,trm);
   For(i:=2,i<=n,i++)
   [
-    SetVariable(res,res :*: trm);
+    Bind(res,res :*: trm);
   ];
   res;
 ];

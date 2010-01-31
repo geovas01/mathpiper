@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class SetVariable extends BuiltinFunction
+public class Bind extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -37,11 +37,11 @@ public class SetVariable extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="SetVariable",categories="User Functions;Variables;Built In"
-*CMD SetVariable --- assignment
+%mathpiper_docs,name="Bind",categories="User Functions;Variables;Built In"
+*CMD Bind --- assignment
 *CORE
 *CALL
-	SetVariable(var, exp)
+	Bind(var, exp)
 
 *PARMS
 
@@ -55,12 +55,12 @@ The expression "exp" is evaluated and assigned it to the variable
 named "var". The first argument is not evaluated. The value True
 is returned.
 
-The statement {SetVariable(var, exp)} is equivalent to {var := exp}, but the {:=} operator
+The statement {Bind(var, exp)} is equivalent to {var := exp}, but the {:=} operator
 has more uses, e.g. changing individual entries in a list.
 
 *E.G.
 
-	In> SetVariable(a, Sin(x)+3);
+	In> Bind(a, Sin(x)+3);
 	Out> True;
 	In> a;
 	Out> Sin(x)+3;

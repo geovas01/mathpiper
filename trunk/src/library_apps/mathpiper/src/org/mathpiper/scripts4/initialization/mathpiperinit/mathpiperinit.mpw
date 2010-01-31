@@ -7,9 +7,9 @@
  */
 
 /* Set up drivers, configurable in the .mpiperrc
- *   SetVariable(MultiNomialDriver,"multivar.rep/sparsenomial.mpi");
+ *   Bind(MultiNomialDriver,"multivar.rep/sparsenomial.mpi");
  *     or
- *   SetVariable(MultiNomialDriver,"multivar.rep/partialdensenomial.mpi");
+ *   Bind(MultiNomialDriver,"multivar.rep/partialdensenomial.mpi");
  */
 
 /* The truly required files (MathPiper NEEDS to load). */
@@ -25,11 +25,11 @@ DefMacroRulebase("Defun",{func,args,body});
 Rule("Defun",3,0,True)
 [
   Local(nrargs);
-  SetVariable(nrargs,Length(@args));
+  Bind(nrargs,Length(@args));
   Retract(@func, `(@nrargs));
   Rulebase(@func,@args);
   Local(fn,bd);
-  SetVariable(fn,Hold(@func)); SetVariable(bd,Hold(@body));
+  Bind(fn,Hold(@func)); Bind(bd,Hold(@body));
   `Rule(@fn, @nrargs, 0,True)(@bd);
 ];
 
@@ -76,16 +76,16 @@ Rule("REP",0,1,True)
   Local(input,stringOut,result);
   While(Not(IsExitRequested()))
   [
-    SetVariable(errorString, "");
+    Bind(errorString, "");
     If(And(IsString(PrettyReaderGet()),Not(PrettyReaderGet() = "")),
-      TrapError(SetVariable(input, PipeFromString(ReadCmdLineString("In> "))ApplyPure(PrettyReaderGet(),{})),SetVariable(errorString,GetCoreError())),
-      TrapError(SetVariable(input, PipeFromString(ConcatStrings(ReadCmdLineString("In> "),";"))Read()),SetVariable(errorString,GetCoreError())));
+      TrapError(Bind(input, PipeFromString(ReadCmdLineString("In> "))ApplyPure(PrettyReaderGet(),{})),Bind(errorString,GetCoreError())),
+      TrapError(Bind(input, PipeFromString(ConcatStrings(ReadCmdLineString("In> "),";"))Read()),Bind(errorString,GetCoreError())));
     If(Not(errorString = ""), WriteString(errorString));
     If (Not(IsExitRequested()) And errorString="",
     [
-      SetVariable(stringOut,"");
-      SetVariable(result,False);
-      SetVariable(stringOut,PipeToString()[TrapError(SetVariable(result,Eval(input)),SetVariable(errorString,GetCoreError()));]);
+      Bind(stringOut,"");
+      Bind(result,False);
+      Bind(stringOut,PipeToString()[TrapError(Bind(result,Eval(input)),Bind(errorString,GetCoreError()));]);
       If(Not(stringOut = ""), WriteString(stringOut));
       If(Not(errorString = ""), WriteString(errorString));
       SetGlobalLazyVariable(%,result);

@@ -7,7 +7,7 @@ Function("Product",{sumvar,sumfrom,sumto,sumbody})
    For(sumi:=sumfrom,sumi<=sumto And sumsum!=0,sumi++)
        [
         MacroLocal(sumvar);
-        MacroSet(sumvar,sumi);
+        MacroBind(sumvar,sumi);
         sumsum:=sumsum*Eval(sumbody);
        ];
    sumsum;
