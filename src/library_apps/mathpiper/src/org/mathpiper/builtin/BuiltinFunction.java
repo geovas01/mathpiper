@@ -401,6 +401,9 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.List(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
 		        "List");
 		aEnvironment.getBuiltinFunctions().setAssociation(
+		        new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Set(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
+		        "Set");
+		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new ListToFunction(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "ListToFunction");
 		aEnvironment.getBuiltinFunctions().setAssociation(
