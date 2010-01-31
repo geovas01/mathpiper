@@ -3,15 +3,15 @@
 Function("Find",{list,element})
 [
   Local(result,count);
-  SetVariable(result, -1);
-  SetVariable(count, 1);
+  Bind(result, -1);
+  Bind(count, 1);
   While(And(result<0, Not(IsEqual(list, {}))))
   [
     If(IsEqual(First(list), element),
-      SetVariable(result, count)
+      Bind(result, count)
       );
-    SetVariable(list,Rest(list));
-    SetVariable(count,AddN(count,1));
+    Bind(list,Rest(list));
+    Bind(count,AddN(count,1));
   ];
   result;
 ];

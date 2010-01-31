@@ -5,8 +5,8 @@ LocalSymbols(max,f,result)
   BSearch(max,f)  :=
   [
     Local(result);
-    SetVariable(result, FindIsq(max,f));
-    If(Apply(f,{result})!=0,SetVariable(result,-1));
+    Bind(result, FindIsq(max,f));
+    If(Apply(f,{result})!=0,Bind(result,-1));
     result;
   ];
 ];

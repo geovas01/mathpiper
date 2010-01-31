@@ -18,7 +18,7 @@ Function ("SumForDivisors",{sumvar,n,sumbody}) LocalSymbols(s,d)
    ForEach (d,DivisorsList(n))
    [
     MacroLocal(sumvar);
-    MacroSet(sumvar,d);
+    MacroBind(sumvar,d);
     s:=s+Eval(sumbody);
    ];
    s;

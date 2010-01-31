@@ -18,7 +18,7 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
     MacroLocal(taylorvariable);
     [
       MacroLocal(taylorvariable);
-      MacroSet(taylorvariable, taylorat);
+      MacroBind(taylorvariable, taylorat);
       result:=Eval(taylorfunction);
     ];
     If(result=Undefined,
@@ -26,7 +26,7 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
       result:=Apply("Limit",{taylorvariable,taylorat,taylorfunction});
     ]);
 /*
-    MacroSet(taylorvariable,taylorat);
+    MacroBind(taylorvariable,taylorat);
     result:=Eval(taylorfunction);
 */
   ];
@@ -39,7 +39,7 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
     MacroLocal(taylorvariable);
     [
       MacroLocal(taylorvariable);
-      MacroSet(taylorvariable, taylorat);
+      MacroBind(taylorvariable, taylorat);
       term:=Eval(dif);
     ];
     If(term=Undefined,
@@ -50,7 +50,7 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
     result:=result+(term/(n!))*(polf^n);
 /*    result:=result+Apply("Limit",{taylorvariable,taylorat,(dif/(n!))})*(polf^n); */
 /*
-    MacroSet(taylorvariable,taylorat);
+    MacroBind(taylorvariable,taylorat);
     result:=result+(Eval(dif)/(n!))*(polf^n);
 */
   ];

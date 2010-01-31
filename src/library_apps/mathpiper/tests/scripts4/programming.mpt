@@ -34,10 +34,10 @@ Function("count",{from,to})
 [
    Local(i);
    Local(sum);
-   SetVariable(sum,0);
+   Bind(sum,0);
    For(i:=from,i<to,i:=i+1)
    [
-     SetVariable(sum,sum+i);
+     Bind(sum,sum+i);
    ];
    sum;
 ];

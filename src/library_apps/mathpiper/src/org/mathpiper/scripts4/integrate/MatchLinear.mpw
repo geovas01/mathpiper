@@ -15,7 +15,7 @@ LocalSymbols(a,b)[
 
 10 # MatchLinear(var_IsAtom,expr_CanBeUni(var)) <--
 [
-  SetVariable(expr,MakeUni(expr,var));
+  Bind(expr,MakeUni(expr,var));
   MatchLinear(expr);
 ];
 20 # MatchLinear(_var,_expr) <-- False;
@@ -41,7 +41,7 @@ UnFence("MatchLinear",2);
  */
 10 # MatchPureSquared(var_IsAtom,_sign2,_sign0,expr_CanBeUni(var)) <--
 [
-  SetVariable(expr,MakeUni(expr,var));
+  Bind(expr,MakeUni(expr,var));
   MatchPureSquared(expr,sign2,sign0);
 ];
 20 # MatchPureSquared(_var,_sign2,_sign0,_expr) <-- False;

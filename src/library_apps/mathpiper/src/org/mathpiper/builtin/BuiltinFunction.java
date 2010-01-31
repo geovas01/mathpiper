@@ -140,7 +140,7 @@ import org.mathpiper.builtin.functions.core.MacroNewRulePattern;
 import org.mathpiper.builtin.functions.core.MacroRule;
 import org.mathpiper.builtin.functions.core.MacroRulebase;
 import org.mathpiper.builtin.functions.core.MacroRulebaseListed;
-import org.mathpiper.builtin.functions.core.MacroSet;
+import org.mathpiper.builtin.functions.core.MacroBind;
 import org.mathpiper.builtin.functions.core.MathIsSmall;
 import org.mathpiper.builtin.functions.core.MathNegate;
 import org.mathpiper.builtin.functions.core.MathSign;
@@ -184,7 +184,7 @@ import org.mathpiper.builtin.functions.core.RulebaseArgumentsList;
 import org.mathpiper.builtin.functions.core.RulebaseDefined;
 import org.mathpiper.builtin.functions.core.RulebaseListed;
 import org.mathpiper.builtin.functions.core.Secure;
-import org.mathpiper.builtin.functions.core.SetVariable;
+import org.mathpiper.builtin.functions.core.Bind;
 import org.mathpiper.builtin.functions.core.SetExactBits;
 import org.mathpiper.builtin.functions.core.SetGlobalLazyVariable;
 import org.mathpiper.builtin.functions.core.ShiftLeft;
@@ -365,11 +365,11 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new LoadScript(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "LoadScript");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new SetVariable(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-		        "SetVariable");
+		        new BuiltinFunctionEvaluator(new Bind(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+		        "Bind");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new MacroSet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-		        "MacroSet");
+		        new BuiltinFunctionEvaluator(new MacroBind(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+		        "MacroBind");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new Unbind(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
 		        "Unbind");

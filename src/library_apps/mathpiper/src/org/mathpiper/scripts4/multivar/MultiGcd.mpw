@@ -31,15 +31,15 @@
 [
   LocalSymbols(a)
   [
-    SetVariable(f,Subst(a,a)f);
-    SetVariable(g,Subst(a,a)g);
+    Bind(f,Subst(a,a)f);
+    Bind(g,Subst(a,a)g);
   ];
   Local(new);
   While(g != 0)
   [
 //Echo("before f",f,NormalForm(f));
 //Echo("before g",g,NormalForm(g));
-    SetVariable(new, MultiDivide(f,{g}));
+    Bind(new, MultiDivide(f,{g}));
 //Echo("new g",NormalForm(new[1][1]),NormalForm(new[2]));
 If(new[1][1]=0,
 [
@@ -47,9 +47,9 @@ If(new[1][1]=0,
 //Echo("PRIM ",MultiPrimitivePart(g));
   new[2]:=0;
 ]);
-    SetVariable(new, new[2]);
-    SetVariable(f,g);
-    SetVariable(g,new);
+    Bind(new, new[2]);
+    Bind(f,g);
+    Bind(g,new);
 
 //Echo("after f",f,NormalForm(f));
 //Echo("after g",g,NormalForm(g));

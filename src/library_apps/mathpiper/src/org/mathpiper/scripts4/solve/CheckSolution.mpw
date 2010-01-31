@@ -6,8 +6,8 @@ Retract("CheckSolution",*);
   [
       Local(expr0,result,s,r);
       If( IsEquation(expr),
-          SetVariable(expr0,EquationLeft(expr)-EquationRight(expr)),
-          SetVariable(expr0,expr)
+          Bind(expr0,EquationLeft(expr)-EquationRight(expr)),
+          Bind(expr0,expr)
       );
       result := {};
       ForEach(s,solution) 

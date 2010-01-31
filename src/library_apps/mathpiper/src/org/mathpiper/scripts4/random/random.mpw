@@ -277,7 +277,7 @@ LocalSymbols(RandSeed) [
   RandSeed := SystemTimer(); //Was 76544321.
 
   /// assign random seed
-  Function("RandomSeed", {seed}) SetVariable(RandSeed, seed);
+  Function("RandomSeed", {seed}) Bind(RandSeed, seed);
 
   /// Linear congruential generator
   RandomLCG(_im, _ia, _ic) <--

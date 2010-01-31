@@ -3,8 +3,8 @@
 Function("Count",{list,element})
 [
    Local(result);
-   SetVariable(result,0);
-   ForEach(item,list) If(IsEqual(item, element), SetVariable(result,AddN(result,1)));
+   Bind(result,0);
+   ForEach(item,list) If(IsEqual(item, element), Bind(result,AddN(result,1)));
    result;
 ];
 

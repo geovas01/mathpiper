@@ -3,12 +3,12 @@
 Function("Contains",{list,element})
 [
   Local(result);
-  SetVariable(result,False);
+  Bind(result,False);
   While(And(Not(result), Not(IsEqual(list, {}))))
   [
     If(IsEqual(First(list),element),
-      SetVariable(result, True),
-      SetVariable(list, Rest(list))
+      Bind(result, True),
+      Bind(list, Rest(list))
       );
   ];
   result;
