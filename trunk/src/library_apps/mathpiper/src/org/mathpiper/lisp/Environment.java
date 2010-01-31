@@ -75,6 +75,7 @@ public class Environment {
     public Cons iListCloseAtom;
     public Cons iCommaAtom;
     public Cons iListAtom;
+    public Cons iSetAtom;
     public Cons iProgAtom;
     public OperatorMap iPrefixOperators = new OperatorMap();
     public OperatorMap iInfixOperators = new OperatorMap();
@@ -126,6 +127,7 @@ public class Environment {
         iListCloseAtom = AtomCons.getInstance(this, "}");
         iCommaAtom = AtomCons.getInstance(this, ",");
         iListAtom = AtomCons.getInstance(this, "List");
+        iSetAtom = AtomCons.getInstance(this, "Set");
         iProgAtom = AtomCons.getInstance(this, "Prog");
 
         iArgumentStack = new ArgumentStack(50000 /*TODO FIXME*/);
