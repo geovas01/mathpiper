@@ -1,16 +1,21 @@
 %mathpiper,def="NearRational"
 
+Retract("NearRational",*);
+
 //////////////////////////////////////////////////
 /// NearRational, GuessRational
 //////////////////////////////////////////////////
 
 /// find rational number with smallest num./denom. near a given number x
 /// See: HAKMEM, MIT AI Memo 239, 02/29/1972, Item 101C
-NearRational(_x) <-- NearRational(x, Floor(1/2*BuiltinPrecisionGet()));
-NearRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
+
+10 # NearRational(_x) <-- NearRational(x, Floor(1/2*BuiltinPrecisionGet()));
+
+15 # NearRational(x_IsRationalOrNumber, prec_IsInteger) <-- 
+[
 	Local(x1, x2, i,  old'prec);
 	old'prec := BuiltinPrecisionGet();
-  BuiltinPrecisionSet(prec + 8);	// 8 guard digits (?)
+    BuiltinPrecisionSet(prec + 8);	// 8 guard digits (?)
 	x1 := ContFracList(N(Eval(x+10^(-prec))));
 	x2 := ContFracList(N(Eval(x-10^(-prec))));
 
@@ -51,7 +56,22 @@ NearRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
 	ContFracEval(Take(x1, i));
 ];
 
+
+20 # NearRational(_x, prec_IsInteger)_(Im(x)!=0) <--
+[
+    Local(rr,ii);
+    rr := Re(x);
+    ii := Im(x);
+    If( Not IsDecimal(rr), rr := N(rr,prec+2) );
+    If( Not IsDecimal(ii), ii := N(rr,prec+2) );
+    Complex( NearRational(rr,prec), NearRational(ii,prec) );
+];
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
@@ -61,10 +81,13 @@ NearRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
 *CALL
 	NearRational(x)
 	NearRational(x, digits)
+    NearRational(z)
+    NearRational(z, digits)
 
 *PARMS
 
 {x} -- a number to be approximated (must be already evaluated to floating-point)
+{z} -- a complex number to be approximated (not necessarily in floating-point)
 
 {digits} -- desired number of decimal digits (integer)
 
@@ -108,3 +131,9 @@ This function found a different rational number closeby because the precision wa
 
 *SEE BracketRational, GuessRational, ContFrac, ContFracList, Rationalize
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
