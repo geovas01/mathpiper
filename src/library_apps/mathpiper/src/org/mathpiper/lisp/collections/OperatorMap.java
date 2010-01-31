@@ -21,7 +21,7 @@ package org.mathpiper.lisp.collections;
 import org.mathpiper.lisp.*;
 
 
-public class OperatorMap extends Map // <Operator>
+public class OperatorMap extends MathPiperMap // <Operator>
 {
 	
 	public void setOperator(int aPrecedence,String aString)

@@ -17,10 +17,12 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.mathpiper.lisp.stacks.ArgumentStack;
 import org.mathpiper.lisp.collections.DefFileMap;
-import org.mathpiper.lisp.collections.Map;
+import org.mathpiper.lisp.collections.MathPiperMap;
 import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.AtomCons;
@@ -35,7 +37,6 @@ import org.mathpiper.io.InputStatus;
 import org.mathpiper.io.InputDirectories;
 
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
@@ -96,9 +97,9 @@ public class Environment {
     public MathPiperTokenizer iCurrentTokenizer;
     public MathPiperTokenizer iDefaultTokenizer = new MathPiperTokenizer();
     public MathPiperTokenizer iXmlTokenizer = new XmlTokenizer();
-    public Map iGlobalState = new Map();
-    public Map iUserFunctions = new Map();
-    Map iBuiltinFunctions = new Map();
+    public MathPiperMap iGlobalState = new MathPiperMap();
+    public MathPiperMap iUserFunctions = new MathPiperMap();
+    MathPiperMap iBuiltinFunctions = new MathPiperMap();
     public String iError = null;
     public DefFileMap iDefFiles = new DefFileMap();
     public InputDirectories iInputDirectories = new InputDirectories();
@@ -146,15 +147,15 @@ public class Environment {
         return iTokenHash;
     }
 
-    public Map getGlobalState() {
+    public MathPiperMap getGlobalState() {
         return iGlobalState;
     }
 
-    public Map getUserFunctions() {
+    public MathPiperMap getUserFunctions() {
         return iUserFunctions;
     }
 
-    public Map getBuiltinFunctions() {
+    public MathPiperMap getBuiltinFunctions() {
         return iBuiltinFunctions;
     }
 
@@ -268,7 +269,18 @@ public class Environment {
         {
             this.unbindAllLocalVariables();
 
-            iGlobalState.unbindAllUserDefinedVariables();
+
+            //Unbind global variables
+            Set<String> keySet = new HashSet(iGlobalState.getMap().keySet());
+
+            for(String key : keySet)
+            {
+                if(!key.startsWith("$") && !key.equals("I") && !key.equals("%") && !key.equals("LoadResult") )
+                {
+                    //Do not unbind private variables (which are those which start with a $) or the other listed variables.
+                    iGlobalState.release(key);
+                }
+            }
         }
         else
         {
@@ -279,7 +291,7 @@ public class Environment {
                 return;
             }
 
-            iGlobalState.unbindVariable(aVariableName);
+            iGlobalState.release(aVariableName);
         }//end else.
 
     }

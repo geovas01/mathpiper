@@ -18,10 +18,8 @@
 package org.mathpiper.lisp.collections;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
-/** Map allows you to associate arbitrary
+/** MathPiperMap allows you to associate arbitrary
  * information with a string in the above hash table. You can
  * specify what type of information to link to the string, and
  * this class then stores that information for a string. It is
@@ -30,7 +28,7 @@ import java.util.Set;
  * points to, but instead relies on the fact that the strings
  * are maintained in a hash table (like LispHashTable above).
  */
-public class Map
+public class MathPiperMap
 {
     //java.util.Hashtable iMap = new java.util.Hashtable();
     java.util.Map iMap = Collections.synchronizedMap(new java.util.HashMap());
@@ -75,7 +73,7 @@ public class Map
      * 
      * @param aString
      */
-    public void unbindVariable(String aString)
+    public void release(String aString)
     {
         //if (iMap.containsKey(aString))
         //iMap.remove(aString);
@@ -83,21 +81,7 @@ public class Map
     }
 
 
-    public void unbindAllUserDefinedVariables()
-    {
-        Set<String> keySet = new HashSet(iMap.keySet());
-
-        for(String key : keySet)
-        {
-            if(!key.startsWith("$") && !key.equals("I") && !key.equals("LoadResult") )
-            {
-                //Do not unbind private variables (which are those which start with a $) or the other listed variables.
-                unbindVariable(key);
-            }
-        }
-    }
-
-    public Object getMap()
+    public java.util.Map getMap()
     {
         return iMap;
     }
