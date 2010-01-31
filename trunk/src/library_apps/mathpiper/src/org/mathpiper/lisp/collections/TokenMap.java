@@ -17,7 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.collections;
 
-public class TokenMap extends Map
+public class TokenMap extends MathPiperMap
 {
 
    // java.util.Hashtable iMap = new java.util.Hashtable();

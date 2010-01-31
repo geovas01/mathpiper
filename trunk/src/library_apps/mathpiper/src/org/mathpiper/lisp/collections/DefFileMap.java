@@ -21,7 +21,7 @@ package org.mathpiper.lisp.collections;
 import org.mathpiper.lisp.DefFile;
 
 
-public class DefFileMap extends Map // <DefFile>
+public class DefFileMap extends MathPiperMap // <DefFile>
 {
 	public DefFile getFile(String aFileName)
 	{
