@@ -72,20 +72,24 @@ public class Unbind extends BuiltinFunction
 All assignments made to the variables listed as arguments are
 undone. From now on, all these variables remain unevaluated (until a
 subsequent assignment is made). Also unbinds any metadata that may have
-been set in an unbound variable.  The result of the expression is
-True.
+been set in an unbound variable.  If a * wildcard character is passed in
+ as the variable name, all local and global variables are unbound.
 
 *E.G.
+In> a := 5;
+Result> 5;
 
-	In> a := 5;
-	Out> 5;
-	In> a^2;
-	Out> 25;
+In> a^2;
+Result> 25;
 
-	In> Unbind(a);
-	Out> True;
-	In> a^2;
-	Out> a^2;
+In> Unbind(a);
+Result> True;
+
+In> a^2;
+Result> a^2;
+
+In> Unbind(*)
+Result> True
 
 *SEE Bind, :=
 %/mathpiper_docs

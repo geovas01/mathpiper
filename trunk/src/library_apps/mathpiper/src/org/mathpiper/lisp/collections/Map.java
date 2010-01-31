@@ -18,6 +18,8 @@
 package org.mathpiper.lisp.collections;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /** Map allows you to associate arbitrary
  * information with a string in the above hash table. You can
@@ -73,11 +75,26 @@ public class Map
      * 
      * @param aString
      */
-    public void release(String aString)
+    public void unbindVariable(String aString)
     {
         //if (iMap.containsKey(aString))
         //iMap.remove(aString);
         iMap.remove(aString);
+    }
+
+
+    public void unbindAllUserDefinedVariables()
+    {
+        Set<String> keySet = new HashSet(iMap.keySet());
+
+        for(String key : keySet)
+        {
+            if(!key.startsWith("$") && !key.equals("I") && !key.equals("LoadResult") )
+            {
+                //Do not unbind private variables (which are those which start with a $) or the other listed variables.
+                unbindVariable(key);
+            }
+        }
     }
 
     public Object getMap()
