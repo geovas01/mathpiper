@@ -83,7 +83,7 @@ LocalSymbols(x,y,z,vars,gcd,a,a)  [
           Local(result);
 //Echo("1...",x);
 //Echo("2...",y);
-          Set(result,MultiRemoveGcd(MakeMultiNomial(x,vars)/MakeMultiNomial(y,vars)));
+          SetVariable(result,MultiRemoveGcd(MakeMultiNomial(x,vars)/MakeMultiNomial(y,vars)));
 //Echo("3...",result);
           result;
         ];
@@ -106,13 +106,13 @@ LocalSymbols(x,n,vars)  [
 40 #  MakeMultiNomial(_x ^ n_IsPositiveInteger,vars_IsList) <--
       [
         Local(mult,result);
-        Set(mult,MakeMultiNomial(x,vars));
-        Set(result,MakeMultiNomial(1,vars));
+        SetVariable(mult,MakeMultiNomial(x,vars));
+        SetVariable(result,MakeMultiNomial(1,vars));
 	While(n>0)
         [
-          If(n&1 != 0, Set(result, MultiNomialMultiply(result,mult)));
-          Set(n,n>>1);
-          If(n!=0,Set(mult,MultiNomialMultiply(mult,mult)));
+          If(n&1 != 0, SetVariable(result, MultiNomialMultiply(result,mult)));
+          SetVariable(n,n>>1);
+          If(n!=0,SetVariable(mult,MultiNomialMultiply(mult,mult)));
         ];
         result;
       ];
@@ -122,7 +122,7 @@ LocalSymbols(x,n,vars)  [
 
   50 #  MakeMultiNomial(_x ^ (_n),vars_IsList)_(Contains(vars,x)) <--
         [
-          Set(n,Simplify(n));
+          SetVariable(n,Simplify(n));
           If(IsInteger(n),
             MultiSingleFactor(vars,x,n),
             MultiSingleFactor(vars,x^n,1)

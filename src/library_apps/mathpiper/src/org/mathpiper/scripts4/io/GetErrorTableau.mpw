@@ -12,17 +12,17 @@ GetError
 LocalSymbols(ErrorTableau) [
 
   /// global error tableau. Its entries do not have to be lists.
-  Set(ErrorTableau, {});
+  SetVariable(ErrorTableau, {});
 
   GetErrorTableau() := ErrorTableau;
 
-  ClearErrors() <-- Set(ErrorTableau, {});
+  ClearErrors() <-- SetVariable(ErrorTableau, {});
 
   /// aux function to check for corrupt tableau
   CheckErrorTableau() <--
   If(
     Not IsList(ErrorTableau),
-    Set(ErrorTableau, {{"general", "corrupted ErrorTableau"}})
+    SetVariable(ErrorTableau, {{"general", "corrupted ErrorTableau"}})
   );
 
 ]; // LocalSymbols(ErrorTableau)

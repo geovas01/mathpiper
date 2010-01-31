@@ -184,7 +184,7 @@ import org.mathpiper.builtin.functions.core.RulebaseArgumentsList;
 import org.mathpiper.builtin.functions.core.RulebaseDefined;
 import org.mathpiper.builtin.functions.core.RulebaseListed;
 import org.mathpiper.builtin.functions.core.Secure;
-import org.mathpiper.builtin.functions.core.Set;
+import org.mathpiper.builtin.functions.core.SetVariable;
 import org.mathpiper.builtin.functions.core.SetExactBits;
 import org.mathpiper.builtin.functions.core.SetGlobalLazyVariable;
 import org.mathpiper.builtin.functions.core.ShiftLeft;
@@ -365,8 +365,8 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new LoadScript(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "LoadScript");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new Set(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-		        "Set");
+		        new BuiltinFunctionEvaluator(new SetVariable(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+		        "SetVariable");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new MacroSet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "MacroSet");

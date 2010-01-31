@@ -14,12 +14,12 @@ LocalSymbols(foreachtail)
   [
     Local(foreachtail);
     Local(@i);
-    Set(foreachtail,@L);
+    SetVariable(foreachtail,@L);
     While(Not(IsEqual(foreachtail,{})))
     [
-      Set(@i,First(foreachtail));
+      SetVariable(@i,First(foreachtail));
       @B;
-      Set(foreachtail,Rest(foreachtail));
+      SetVariable(foreachtail,Rest(foreachtail));
     ];
   ];
 ];
@@ -33,13 +33,13 @@ LocalSymbols(index,nr)
   [
     Local(index,nr);
     Local(@i);
-    Set(index,1);
-    Set(nr,Length(@A));
+    SetVariable(index,1);
+    SetVariable(nr,Length(@A));
     While(index<=nr)
     [
-      Set(@i,(@A)[index]);
+      SetVariable(@i,(@A)[index]);
       @B;
-      Set(index,AddN(index,1));
+      SetVariable(index,AddN(index,1));
     ];
   ];
 ];

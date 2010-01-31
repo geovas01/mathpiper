@@ -15,13 +15,13 @@ Rule("DefinePattern",4,10,True)
 [
       Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);
       
-      Set(patternFlat, FunctionToList(leftOperand)); //Turn the pattern into a list.
+      SetVariable(patternFlat, FunctionToList(leftOperand)); //Turn the pattern into a list.
       
-      Set(patternVariables, Rest(patternFlat)); //Remove the function name from the list.
+      SetVariable(patternVariables, Rest(patternFlat)); //Remove the function name from the list.
       
-      Set(patternOperator,ToString(First(patternFlat))); //Obtain the function name.
+      SetVariable(patternOperator,ToString(First(patternFlat))); //Obtain the function name.
       
-      Set(arity,Length(patternVariables)); //Obtain the arity of the function.
+      SetVariable(arity,Length(patternVariables)); //Obtain the arity of the function.
       
       DefLoadFunction(patternOperator);  //Load the function if it exists.
     
@@ -34,7 +34,7 @@ Rule("DefinePattern",4,10,True)
          ]
         );
     
-      Set(pattern,Pattern'Create(patternVariables,postPredicate));
+      SetVariable(pattern,Pattern'Create(patternVariables,postPredicate));
     
       MacroRulePattern(patternOperator,arity,rulePrecedence, pattern)rightOperand;
     

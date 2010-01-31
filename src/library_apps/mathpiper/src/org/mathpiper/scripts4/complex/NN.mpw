@@ -2,7 +2,7 @@
 
 LocalSymbols(complexReduce) [
 
-  Set(complexReduce,
+  SetVariable(complexReduce,
     Hold(
     {
       Exp(x_IsComplexII) <- Exp(ReII(x))*(Cos(ImII(x))+II*Sin(ImII(x)))

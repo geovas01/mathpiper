@@ -3,7 +3,7 @@
 Remove(list, expression) :=
 [
    Local(result);
-   Set(result,{});
+   SetVariable(result,{});
    ForEach(item,list)
    If(item != expression, DestructiveAppend(result,item));
    result;

@@ -7,9 +7,9 @@
 RadSimp(_n) <--
 [
   Local(max, result);
-  Set(max, CeilN(N(Eval(n^2))));
-  Set(result,0);
-  Set(result,RadSimpTry(n,0,1,max));
+  SetVariable(max, CeilN(N(Eval(n^2))));
+  SetVariable(result,0);
+  SetVariable(result,RadSimpTry(n,0,1,max));
 
 //Echo("result is ",result);
   if (CheckRadicals(n,result))
@@ -38,26 +38,26 @@ RadSimpTry(_n,_result,_current,_max)<--
     i:=BSearch(max,Hold({{try},ClampRadicals(N(Eval((result+Sqrt(try))-n),20))}));
     If(i>0,
     [
-      Set(result,result+Sqrt(i));
-      Set(i,AddN(max,1));
-      Set(current,AddN(max,1));
+      SetVariable(result,result+Sqrt(i));
+      SetVariable(i,AddN(max,1));
+      SetVariable(current,AddN(max,1));
     ]);
 
     // Otherwise, search for another solution
     if (IsLessThan(N(Eval(result-n)), 0))
     [
-      For (Set(i,current),i<=max,Set(i,AddN(i,1)))
+      For (SetVariable(i,current),i<=max,SetVariable(i,AddN(i,1)))
       [
         Local(new, test);
-        Set(test,result+Sqrt(i));
+        SetVariable(test,result+Sqrt(i));
 
 /* Echo({"Full-try ",test}); */
 
-        Set(new,RadSimpTry(n,test,i,max));
+        SetVariable(new,RadSimpTry(n,test,i,max));
 	if (CheckRadicals(n,new))
         [
-          Set(result,new);
-          Set(i,AddN(max,1));
+          SetVariable(result,new);
+          SetVariable(i,AddN(max,1));
         ];
       ];
     ];

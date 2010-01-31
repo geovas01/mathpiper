@@ -19,7 +19,7 @@ Retract("N",*);
 LocalSymbols(numericMode)
 [
 
-  Set(numericMode, False);
+  SetVariable(numericMode, False);
 
 
   // N function: evaluate numerically with given precision.
@@ -29,23 +29,23 @@ LocalSymbols(numericMode)
 
     Local(previousNumericMode, previousPrecision, numericResult, errorString);
 
-    Set(previousPrecision, BuiltinPrecisionGet());
+    SetVariable(previousPrecision, BuiltinPrecisionGet());
 
     BuiltinPrecisionSet(@precision);
 
     AssignCachedConstantsN();
 
-    Set(previousNumericMode, numericMode);
+    SetVariable(previousNumericMode, numericMode);
 
-    Set(numericMode, True);
+    SetVariable(numericMode, True);
 
-    Set(errorString,"");
+    SetVariable(errorString,"");
 
-    TrapError(Set(numericResult, Eval(@expression)),Set(errorString,GetCoreError()));
+    TrapError(SetVariable(numericResult, Eval(@expression)),SetVariable(errorString,GetCoreError()));
 
     If(IsDecimal(numericResult), numericResult := RoundToN(numericResult, @precision));
 
-    Set(numericMode,previousNumericMode);
+    SetVariable(numericMode,previousNumericMode);
 
     If(Not numericMode,
     [
@@ -69,9 +69,9 @@ LocalSymbols(numericMode)
   [
     Local(precision, heldExpression);
 
-    Set(precision, BuiltinPrecisionGet());
+    SetVariable(precision, BuiltinPrecisionGet());
 
-    Set(heldExpression, Hold(@expression));
+    SetVariable(heldExpression, Hold(@expression));
 
     `N(@heldExpression, @precision);
   ];

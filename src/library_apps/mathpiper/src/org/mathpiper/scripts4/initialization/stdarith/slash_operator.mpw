@@ -18,9 +18,9 @@
 56 # (x_IsNonZeroInteger / y_IsNonZeroInteger)_(GcdN(x,y) > 1) <--
      [
        Local(gcd);
-       Set(x,x);
-       Set(y,y);
-       Set(gcd,GcdN(x,y));
+       SetVariable(x,x);
+       SetVariable(y,y);
+       SetVariable(gcd,GcdN(x,y));
        QuotientN(x,gcd)/QuotientN(y,gcd);
      ];
 

@@ -4,9 +4,9 @@
 Macro("MacroMapArgs",{expr,oper})
 [
   Local(ex,tl,op);
-  Set(op,@oper);
-  Set(ex,FunctionToList(@expr));
-  Set(tl,Rest(ex));
+  SetVariable(op,@oper);
+  SetVariable(ex,FunctionToList(@expr));
+  SetVariable(tl,Rest(ex));
 
    ListToFunction(Concat({ex[1]},
      `MacroMapSingle(@op,Hold(@tl)))

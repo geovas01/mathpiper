@@ -24,17 +24,17 @@ SparseTreeGet
    <--
 [
   Local(Current,assoc,result);
-  Set(assoc,Assoc(i,tree));
+  SetVariable(assoc,Assoc(i,tree));
   if(assoc=Empty)
   [
-    Set(Current,0);
-    Set(result,Eval(newvalue));
+    SetVariable(Current,0);
+    SetVariable(result,Eval(newvalue));
     AddSparseTrees(1,tree,CreateSparseTree({i},result));
   ]
   else
   [
-    Set(Current,assoc[2]);
-    Set(result,Eval(newvalue));
+    SetVariable(Current,assoc[2]);
+    SetVariable(result,Eval(newvalue));
     assoc[2] := result;
   ];
   result;
@@ -94,24 +94,24 @@ UnFence("SparseTreeScan", 3);
 10 # AddSparseTrees(_depth,_x,_y) <--
 [
   Local(i,t1,t2,inspt);
-  Set(t1,x);
-  Set(i,1);
-  Set(t2,y);
-  Set(inspt,{});
+  SetVariable(t1,x);
+  SetVariable(i,1);
+  SetVariable(t2,y);
+  SetVariable(inspt,{});
   While(t1 != {} And t2 != {})
   [
     Muaddterm(First(t1),First(t2));
   ];
   While(t2 != {})
   [
-    Set(x,DestructiveAppend(x,First(t2)));
-    Set(t2,Rest(t2));
+    SetVariable(x,DestructiveAppend(x,First(t2)));
+    SetVariable(t2,Rest(t2));
   ];
   While(inspt != {})
   [
-    Set(i,First(inspt));
-    Set(x,DestructiveInsert(x,i[2],i[1]));
-    Set(inspt,Rest(inspt));
+    SetVariable(i,First(inspt));
+    SetVariable(x,DestructiveInsert(x,i[2],i[1]));
+    SetVariable(inspt,Rest(inspt));
   ];
   x;
 ];
@@ -122,17 +122,17 @@ UnFence("SparseTreeScan", 3);
     [ t1[1][2] := list1+list2; ]
   else
     [ t1[1][2] := AddSparseTrees(AddN(depth,-1),list1,list2);];
-  Set(t2,Rest(t2));
+  SetVariable(t2,Rest(t2));
 ];
 20 # Muaddterm(_h1,_h2)_(h1[1]<h2[1]) <--
 [
-  Set(inspt,{h2,i}:inspt);
-  Set(t2,Rest(t2));
+  SetVariable(inspt,{h2,i}:inspt);
+  SetVariable(t2,Rest(t2));
 ];
 30 # Muaddterm(_h1,_h2)<--
 [
-  Set(t1,Rest(t1));
-  Set(i,AddN(i,1));
+  SetVariable(t1,Rest(t1));
+  SetVariable(i,AddN(i,1));
 ];
 [Local(fn);fn:=ToString(Muaddterm);`UnFence(@fn,2);];
 
@@ -141,10 +141,10 @@ UnFence("SparseTreeScan", 3);
     <--
 [
   Local(i,t1,t2,inspt,term);
-  Set(t1,x);
-  Set(i,1);
-  Set(t2,y);
-  Set(inspt,{});
+  SetVariable(t1,x);
+  SetVariable(i,1);
+  SetVariable(t2,y);
+  SetVariable(inspt,{});
   While(t1 != {} And t2 != {})
   [
     MuMuaddterm(First(t1),First(t2),coefs);
@@ -152,15 +152,15 @@ UnFence("SparseTreeScan", 3);
 
   While(t2 != {})
   [
-    Set(term,First(t2));
-    Set(x,DestructiveAppend(x,meradd(First(t2),coefs)));
-    Set(t2,Rest(t2));
+    SetVariable(term,First(t2));
+    SetVariable(x,DestructiveAppend(x,meradd(First(t2),coefs)));
+    SetVariable(t2,Rest(t2));
   ];
   While(inspt != {})
   [
-    Set(i,First(inspt));
-    Set(x,DestructiveInsert(x,i[2],i[1]));
-    Set(inspt,Rest(inspt));
+    SetVariable(i,First(inspt));
+    SetVariable(x,DestructiveInsert(x,i[2],i[1]));
+    SetVariable(inspt,Rest(inspt));
   ];
   x;
 ];
@@ -168,8 +168,8 @@ UnFence("SparseTreeScan", 3);
 10 # meradd({_ord,rest_IsList},_coefs) <--
 [
   Local(head);
-  Set(head,First(coefs));
-  Set(coefs,Rest(coefs));
+  SetVariable(head,First(coefs));
+  SetVariable(coefs,Rest(coefs));
   {ord+head,meraddmap(rest,coefs)};
 ];
 20 # meradd({_ord,_rest},_coefs) <--
@@ -180,7 +180,7 @@ UnFence("SparseTreeScan", 3);
 10 # meraddmap(list_IsList,_coefs) <--
 [
   Local(result);
-  Set(result,{});
+  SetVariable(result,{});
   ForEach(item,list)
   [
     DestructiveAppend(result,meradd(item,coefs));
@@ -198,18 +198,18 @@ UnFence("SparseTreeScan", 3);
     [
       t1[1] := {pow1,MultiplyAddSparseTrees(AddN(depth,-1),list1,list2,Rest(coefs),fact)};
     ];
-  Set(t2,Rest(t2));
+  SetVariable(t2,Rest(t2));
 ];
 20 # MuMuaddterm(_h1,_h2,_coefs)_(h1[1]<h2[1]+coefs[1]) <--
 [
 //Echo({"inspt ",h1,h2,coefs});
-  Set(inspt,{meradd(First(t2),coefs),i}:inspt);
-  Set(t2,Rest(t2));
+  SetVariable(inspt,{meradd(First(t2),coefs),i}:inspt);
+  SetVariable(t2,Rest(t2));
 ];
 30 # MuMuaddterm(_h1,_h2,_coefs)<--
 [
-  Set(t1,Rest(t1));
-  Set(i,AddN(i,1));
+  SetVariable(t1,Rest(t1));
+  SetVariable(i,AddN(i,1));
 ];
 [Local(fn);fn:=ToString(MuMuaddterm);`UnFence(@fn,3);];
 

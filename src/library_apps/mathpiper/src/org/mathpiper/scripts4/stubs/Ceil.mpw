@@ -9,14 +9,14 @@
    [
      x:=N(x);
      Local(prec,result,n);
-     Set(prec,BuiltinPrecisionGet());
-     If(IsZero(x),Set(n,2),
+     SetVariable(prec,BuiltinPrecisionGet());
+     If(IsZero(x),SetVariable(n,2),
      If(x>0,
-       Set(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
-       Set(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
+       SetVariable(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
+       SetVariable(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));
      If(n>prec,BuiltinPrecisionSet(n));
-     Set(result,CeilN(x));
+     SetVariable(result,CeilN(x));
      BuiltinPrecisionSet(prec);
      result;
    ];
