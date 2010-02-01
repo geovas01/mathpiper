@@ -57,13 +57,12 @@ Retract("NearRational",*);
 ];
 
 
-20 # NearRational(_x, prec_IsInteger)_(Im(x)!=0) <--
+20 # NearRational(_z, prec_IsInteger)_
+      (And(Im(z)!=0,IsRationalOrNumber(Im(z)),IsRationalOrNumber(Re(z)))) <--
 [
     Local(rr,ii);
-    rr := Re(x);
-    ii := Im(x);
-    If( Not IsDecimal(rr), rr := N(rr,prec+2) );
-    If( Not IsDecimal(ii), ii := N(rr,prec+2) );
+    rr := Re(z);
+    ii := Im(z);
     Complex( NearRational(rr,prec), NearRational(ii,prec) );
 ];
 
@@ -87,7 +86,7 @@ Retract("NearRational",*);
 *PARMS
 
 {x} -- a number to be approximated (must be already evaluated to floating-point)
-{z} -- a complex number to be approximated (not necessarily in floating-point)
+{z} -- a complex number to be approximated (Re and Im as above)
 
 {digits} -- desired number of decimal digits (integer)
 
