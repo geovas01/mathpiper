@@ -1,0 +1,56 @@
+%mathpiper,def="CoefficientOfDetermination",scope="private"
+
+CoefficientOfDetermination(x,y) :=
+[   
+    Check(IsList(x), "The first argument must be a list.");
+    
+    Check(IsList(y), "The second argument must be a list.");
+    
+    Check(Length(x) = Length(y), "The lists for argument 1 and argument 2 must have the same length.");
+    
+    N(CorrelationCoefficient(x,y)^2);
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper_docs,name="CoefficientOfDetermination",categories="User Functions;Statistics & Probability"
+*CMD CoefficientOfDetermination --- calculates the correlation coefficient between two lists of values
+*STD
+*CALL
+	CoefficientOfDetermination(xList,yList)
+
+*PARMS
+
+{xList} -- the list of domain values
+{yList} -- the list of range values
+
+*DESC
+This function calculates the correlation coefficient between two lists of values.
+
+*E.G.
+/%mathpiper
+
+x := {4,3,5,2,3,4,3};
+y := {83,86,92,78,82,95,80};
+
+CoefficientOfDetermination(x,y);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: 0.7766185090
+.   /%/output
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

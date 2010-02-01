@@ -1,18 +1,16 @@
 %mathpiper,def="RegressionLineConfidenceInterval",scope="private"
 
-RegressionLineConfidenceInterval(x,y,xValue,confidenceInterval) :=
+RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
 [   
-Echo(x);
-Echo(y);
-Echo(xValue);
-Echo(confidenceInterval);
     Check(IsList(x), "The first argument must be a list.");
     
     Check(IsList(y), "The second argument must be a list.");
     
     Check(Length(x) = Length(y), "The lists for argument 1 and argument 2 must have the same length.");
     
-    //Local(n,a,b,xMean,regressionLine);
+    Check(confidenceLevel >=0 And confidenceLevel <=1, "The confidence level must be >= 0 and <= 1.");
+    
+    Local(n,a,b,xMean,regressionLine,part,result,criticalTScore);
     
     regressionLine := RegressionLine(x,y);
     
@@ -20,15 +18,21 @@ Echo(confidenceInterval);
     
     f(x) := [Eval(regressionLine["line"]);];
     
-    Echo(f(xValue));
-    
-    criticalTScore := OneTailAlphaToTScore(n - 2, 1 - confidenceInterval);
+    criticalTScore := OneTailAlphaToTScore(n-2, N((1 - confidenceLevel)/2));
     
     standardErrorOfTheEstimate := StandardErrorOfTheEstimate(x,y);
     
     xMean := regressionLine["xMean"];
         
-    N(f(xValue) + criticalTScore * standardErrorOfTheEstimate * Sqrt(1/n + ((xValue - xMean)^2)/(Sum(x^2) - Sum(x)^2/n)));
+    part := N(criticalTScore * standardErrorOfTheEstimate * Sqrt(1/n + ((xValue - xMean)^2)/(Sum(x^2) - Sum(x)^2/n)));
+    
+    result := {};
+    
+    result["upper"] := f(xValue) + part;
+    
+    result["lower"] := f(xValue) - part;
+    
+    result;
 ];
 
 %/mathpiper
@@ -40,7 +44,7 @@ Echo(confidenceInterval);
 
 
 
-%mathpiper_docs,name="RegressionLineConfidenceInterval",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="RegressionLineconfidenceInterval",categories="User Functions;Statistics & Probability"
 *CMD RegressionLineConfidenceInterval --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL
