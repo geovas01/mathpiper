@@ -101,9 +101,12 @@ public class GeoGebra extends javax.swing.JRootPane
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 
 
-
+		JPanel geoGebraPanel = new JPanel();
+		
+		geoGebraPanel.setLayout(new java.awt.BorderLayout());
+		
 		this.toolPanel = new GeoGebraToolPanel(this);
-		add(BorderLayout.NORTH, this.toolPanel);
+		geoGebraPanel.add(BorderLayout.NORTH, this.toolPanel);
 
 		if (floating)
 			this.setPreferredSize(new Dimension(500, 250));
@@ -202,9 +205,9 @@ public class GeoGebra extends javax.swing.JRootPane
     	// build the user interface of the GeoGebraPanel
     	ggbPanel.buildGUI();
     	
+    	geoGebraPanel.add(ggbPanel);
     	
-    	
-    	this.getContentPane().add(ggbPanel);
+    	this.getContentPane().add(geoGebraPanel);
     	
     	//this.add(jFrame);
     	
@@ -335,7 +338,7 @@ public class GeoGebra extends javax.swing.JRootPane
 
 	// {{{
 	public void reset() {
-		//geoGebraApplet.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
+		ggbPanel.getGeoGebraAPI().setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
 	}
 	// }}}
 
