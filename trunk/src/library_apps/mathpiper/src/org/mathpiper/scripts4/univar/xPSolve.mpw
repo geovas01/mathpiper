@@ -1,0 +1,393 @@
+%mathpiper,def="xPSolve"
+
+Retract("xPSolve",*);
+Retract("xPSolveCubic",*);
+Retract("xPSC1",*);
+Retract("xPSC2",*);
+
+/*-------------------------------------------------------
+ * NOTES: TODO: RadSimp() may have a problem with 
+ *        roots of complex numbers
+ *-------------------------------------------------------*/
+
+ 
+Rulebase("xPSolve",{uni});
+
+Rule("xPSolve",1,1,IsUniVar(uni) And Degree(uni) = 1)
+[
+    If(iDebug,Tell("   xPSolve_1",uni));
+    {-Coef(uni,0)/Coef(uni,1)};
+];
+
+Rule("xPSolve",1,1,IsUniVar(uni) And Degree(uni) = 2)
+[
+     If(iDebug,Tell("   xPSolve_2",uni));
+     Local(a,b,c,d,q,r);
+     c:=Coef(uni,0);
+     b:=Coef(uni,1);
+     a:=Coef(uni,2);
+     If(iDebug,Tell("        ",{a,b,c}));
+     d:=b*b-4*a*c;
+     If(iDebug,Tell("              ",d));
+     //q:=RadSimp(Sqrt(d)/(2*a));
+     q:=Sqrt(d)/(2*a);
+     If(iDebug,Tell("              ",q));
+     r:=Simplify(-b/(2*a));
+     If(iDebug,Tell("              ",r));
+     {r+q,r-q};
+];
+
+/*
+    How to solve the cubic equation?
+
+   The equation is  a3 x^3 + a2 x^2 + a1 x + a0  = 0.  
+   
+   Get coefficients for a new polynomial, such that the coefficient of
+   degree 2 is zero:
+   Take f(x)=a0+a1*x+a2*x^2+a3*x^3 and substitute x = x' + adjust
+   to get the expression  g(x) = b0+b1*x+b2*x^2+b3*x^3,
+   where
+      b3 = a3;
+      b2 = 0 => adjust = (-a2)/(3*a3);
+      b1 = 2*a2*adjust+3*a3*adjust^2+a1;
+      b0 = a2*adjust^2+a3*adjust^3+adjust*a1+a0;
+
+   After solving g(x') = 0, return x = x' + adjust.
+   
+   Since b2 = 0 by construction, we have the equation
+      g(x) = x^3 + q x + r = 0,
+   where
+      r = b0/b3  and  q = b1/b3.
+      
+    Let x = a + b, so
+	   a^3 + b^3 + 3 (a^2 b + b^2 a) + q (a + b) + r = 0
+	   a^3 + b^3 + (3 a b + q) x + r = 0
+
+	Let 3 a b + q = 0. This is permissible, for we can still find a+b == x
+
+	a^3 + b^3 = -r
+	(a b)^3 = -q^3/27
+
+        So a^3 and b^3 are the roots of t^2 + r t - q^3/27 = 0
+
+	Let
+                a^3 = -r/2 + Sqrt(q^3/27+ r^2/4)
+                b^3 = -r/2 - Sqrt(q^3/27+ r^2/4)
+	Therefore there are three values for each of a and b.
+	Clearly if ab = -q/3 is true then (wa)(w^2b) == (wb)(w^2a) == -q/3
+*/
+
+Rule("xPSolve",1,1,IsUniVar(uni) And Degree(uni) = 3 )
+[
+     If(iDebug,Tell("   xPSolve_3",uni));
+     Local(p,q,r,s,t,w1,w2,a,b);
+     Local(c0,c1,c3,adjust);
+
+     //  w1 and w2 are constants: the "other" two cube-roots of unity
+     w1 := (1/2)*Complex(-1, Sqrt(3));
+     w2 := Conjugate(w1);
+     If( iDebug, Tell("   ",{w1,w2}) );
+     
+     // Now we begin to find solutions
+     adjust := (-uni[3][3])/(3*uni[3][4]);
+     If( iDebug, Tell("   ",adjust));
+     c3  := uni[3][4];
+     c1  := (3*uni[3][4]*adjust+2*uni[3][3])*adjust+uni[3][2];
+     c0  :=((uni[3][4]*adjust+uni[3][3])*adjust+uni[3][2])*adjust+uni[3][1];
+     If( iDebug, Tell("   ",{c0,c1,c3})); 
+
+     // Invariant: c0, c1, c2 are all REAL
+     Assert("Invariant", "Coefficients Must be Real") And(Im(c0)=0,Im(c1)=0,Im(c2)=0);
+     If( IsError("Invariant"), DumpErrors() );
+
+     p :=c3;
+     q :=c1/p;
+     r :=c0/p;
+     If( iDebug, Tell("   ",{p,q,r}));
+     Local(a3,b3,qq,r1,r2,r3);
+     qq := Sqrt(q^3/27 + r^2/4);
+     a3 := -r/2 + qq;
+     b3 := -r/2 - qq;
+     // NOTE: If q < 0 and r = 0, then qq is pure imaginary, a3 = qq, b3 = -qq.
+     If( iDebug, [Tell("   ",{qq,a3,b3}); Tell("   ",N(a3+b3+r)); Tell("   ",N(a3-b3-2*qq));]);
+     a  := (a3)^(1/3);
+     b  := (b3)^(1/3);
+     If( iDebug, Tell("   ",{a,b}));
+     r1 := a+b+adjust;
+     r2 := w1*a+w2*b+adjust;
+     r3 := w2*a+w1*b+adjust;
+     // NOTE: If q < 0 and r = 0, then r3 = adjust  and  r2 = Sqrt(3)*qqi + adjust
+     If( iDebug,
+       [
+          Tell("   ",r1);
+          Tell("   ",r2);
+          Tell("   ",r3);
+       ]
+     );
+     {r1,r2,r3};
+];
+
+
+/*
+How to solve the quartic equation?
+
+The equation is x^4 + a1 x^3 + a2 x^2 + a3 x + a4 = 0.
+The idea is to write the left-hand side as the difference of two
+squares: (x^2 + p x + q)^2 - (s x + t)^2.
+Eliminating the parentheses and equation coefficients yields four
+equations for the four unknowns p, q, s and t:
+  a1 = 2p              (1)
+  a2 = p^2 + 2q - s^2  (2)
+  a3 = 2pq - 2st       (3)
+  a4 = q^2 - t^2       (4)
+From the first equation, we find that p = a1/2. Substituting this in
+the other three equations and rearranging gives
+  s^2 = a1^2/4 - a2 + 2q   (5)
+  2st = a1 q - a3          (6)
+  t^2 = q^2 - a4           (7)
+We now take the square (6) and substitute (5) and (7):
+  4 (a1^2/4 - a2 + 2q) (q^2 - a4) = (a1 q - a3)^2  <==>
+  8 q^3 - 4 a2 q^2 + (2 a1 a3 - 8 a4) q + 4 a2 a4 - a1^2 a4 - a3^2 = 0.
+Miraculously, we got a cubic equation for q. Suppose we can solve this
+equation. We can then compute t from (7): t = sqrt(q^2 - a4). If t is
+nonzero, we can compute s from (6). Note that we cannot compute s from
+(5), since we introduced an extra solution when squaring (6). However,
+if t is zero, then no extra solution was introduced and we can safely
+use (5). Having found the values of p, q, s and t, we can factor the
+difference of squares and solve the quartic:
+  x^4 + a1 x^3 + a2 x^2 + a3 x + a4 = (x^2 + p x + q)^2 - (s x + t)^2
+                 = (x^2 + p x + q + s x + t) (x^2 + p x + q - sx - t).
+The four roots of the quartic are the two roots of the first quadratic
+factor plus the two roots of the second quadratic factor.
+*/
+
+Rule("xPSolve",1,1,IsUniVar(uni) And Degree(uni) = 4 )
+[
+    If(iDebug,Tell("   xPSolve_4",uni));
+    Local(coef4,a1,a2,a3,a4,y,y1,z,t,s);
+
+    coef4:=Coef(uni,4);
+    a1:=Coef(uni,3)/coef4;
+    a2:=Coef(uni,2)/coef4;
+    a3:=Coef(uni,1)/coef4;
+    a4:=Coef(uni,0)/coef4;
+    If( iDebug, Tell("        ",{a1,a2,a3,a4}));
+
+    /* y1 = 2q, with q as above. */
+    Local(ys);
+    ys := xPSolveCubic(y^3-a2*y^2+(a1*a3-4*a4)*y+(4*a2*a4-a3^2-a1^2*a4));
+    If( iDebug, [NewLine(); Tell("        ",ys[1]);] );
+    y1:=First(ys);
+    If( iDebug, Tell("        ",y1));
+    t := Sqrt(y1^2/4-a4);
+    If( iDebug, Tell("        ",t));
+    If(t=0, s:=Sqrt(y1+a1^2/4-a2), s:=(a1*y1-2*a3)/(4*t));
+    If( iDebug, Tell("        ",s));
+    
+    Local(q11,q12,q21,q2,quad1,quad2);
+    q11 := a1/2+s;    q12 := y1/2+t;
+    q21 := a1/2-s;    q22 := y1/2-t;
+    If( iDebug, Tell("        ",{q11,q12}));
+    If( iDebug, Tell("        ",{q21,q22}));
+    quad1 := z^2 + q11*z + q12;
+    quad2 := z^2 + q21*z + q22;
+    If( iDebug, Tell("        ",{quad1,quad2}));
+    
+    Local(r1,r2,r3,r4);
+    {r1,r2} := xPSolve( quad1, z );
+    {r3,r4} := xPSolve( quad2, z );
+    r1 := NearRational(N(r1,10),8);
+    r2 := NearRational(N(r2,10),8);
+    r3 := NearRational(N(r3,10),8);
+    r4 := NearRational(N(r4,10),8);
+    
+    {r1,r2,r3,r4};
+];
+
+
+Function("xPSolve",{expr,var})
+[
+    If( Not IsBound(iDebug), iDebug := False );
+    If(iDebug,Tell("xPSolve_notUni",{expr,var}));  
+    Local(lhs,rhs,cc,pp,uni,solnpp,solncc,soln);
+    If( IsEquation(expr), 
+      [
+         If(iDebug,Tell("   is Equation"));
+         lhs  := EquationLeft(expr);
+         rhs  := EquationRight(expr);
+         expr := lhs - rhs;
+      ]
+    );
+    If(iDebug,Tell("   ",expr));
+    cc := xContent(expr);
+    pp := xPrimitivePart(expr,cc);
+    If(iDebug,Tell("   ",{cc,pp}));
+    solnpp := xPSolve(MakeUni(pp,var));
+    If(iDebug,Tell("   ",solnpp));
+    If( Length(VarList(cc)) > 0 And Contains(VarList(cc),var ),
+      [
+         solncc := xPSolve(MakeUni(cc,var));
+         If(iDebug,Tell("   ",solncc));
+         soln   := Concat(solncc,solnpp);
+      ],
+      [
+         soln   := solnpp;
+      ]
+    );
+    soln;
+];
+
+
+10 # xPSolveCubic( poly_IsPolynomial )_
+                   (Length(VarList(poly))=1 And Degree(poly)=3) <--
+[
+    If( iDebug, Tell("  xPSolveCubic",poly) );
+    Local(var,coeffs,ans);
+    var    := VarList(poly)[1];
+    coeffs := Coef(poly,var,3 .. 0);
+    If( iDebug, Tell("     ",{var,coeffs}));
+    ans    := xPSC1(coeffs);    
+];
+UnFence("xPSolveCubic",1);
+
+
+10 # xPSC1( coeffs_IsList ) <--
+[
+    If( iDebug, Tell("    xPSC1",coeffs) );
+    /*
+     * This function solves a general cubic equation with REAL coefficients.
+     * It is based on an algorithm described in the book
+     * "Handbook of Applied Mathematics for Engineers and Scientists",
+     * by Max Curtz.
+     */
+     Local(f,g,h,j,iType,ans);
+     f := coeffs[2]/coeffs[1]/3;
+     g := coeffs[3]/coeffs[1]/3 - f^2;
+     h := coeffs[4]/coeffs[1]/2 + f^3 - f * coeffs[3]/coeffs[1]/2;
+     j := g^3 + h^2;
+     If( iDebug, Tell("     ",{f,g,h,j}) );
+     ans := xPSC2( {f,g,h,j} );
+];
+
+
+10 # xPSC2( xs_IsList )_(xs[4]=0) <--
+[
+    If( iDebug, Tell("        Type 1",xs) );                 
+    Local(f,g,h,j,m,r1,r2,r3,ans);
+    {f,g,h,j} := FlatCopy(xs);
+    m   := 2*(-h)^(1/3);
+    r1  := NearRational(N(m - f,10),8);
+    r2  := NearRational(N(-m/2 - f,10),8);
+    r3  := NearRational(N(-m/2 - f,10),8);
+    ans := {r1,r2,r3};
+];
+
+10 # xPSC2( xs_IsList )_(xs[4]>0) <--
+[
+    If( iDebug, Tell("        Type 2",xs) ); 
+    Local(f,g,h,j,k,l1,l2,m,n,r1,r2,r3,ans); 
+    {f,g,h,j} := FlatCopy(xs);
+    k   := Sqrt(j);
+    l1  := (-h + k)^(1/3);
+    l2  := (-h - k)^(1/3);
+    m   := l1 + l2;
+    n   := (l1 - l2)*Sqrt(3)/2;
+    r1  := NearRational(N(m - f,10),8);
+    r2  := NearRational(N(-m/2 - f + I*n,10),8);
+    r3  := NearRational(N(Conjugate(r2),10),8);
+    ans := {r1,r2,r3};
+    
+];
+
+10 # xPSC2( xs_IsList )_(xs[4]<0 And xs[3]=0) <--
+[
+    If( iDebug, Tell("        Type 3a",xs) );
+    Local(f,g,h,j,p,r1,r2,r3,ans);
+    {f,g,h,j} := FlatCopy(xs);
+    p   := 2*Sqrt(-g);
+    r1  := NearRational(N(-f,10),8);
+    r2  := NearRational(N( p*Sqrt(3)/2 - f,10),8);
+    r3  := NearRational(N(-p*Sqrt(3)/2 - f,10),8);
+    ans := {r1,r2,r3};
+];
+
+10 # xPSC2( xs_IsList )_(xs[4]<0 And xs[3]>0) <--
+[
+    If( iDebug, Tell("        Type 3b",xs) );
+    Local(p,x,alpha,beta,gama,r1,r2,r3,ans);
+    {f,g,h,j} := FlatCopy(xs);
+    p     := 2*Sqrt(-g);
+    k     := Sqrt(-j);
+    alpha := ArcTan(k/(-h));   //  alpha should be Acute
+    beta  := Pi + alpha;
+    gama  := beta / 3;
+    If( iDebug,
+      [
+         Tell("          ",{p,k});
+         Tell("          ",{alpha,beta,gama});
+         Tell("          ",57.2957795*N({alpha,beta,gama}));
+         Tell("          ",N(Cos(gama)));
+      ]
+    );
+    r1    := NearRational(N(p * Cos(gama) - f,10),8);
+    r2    := NearRational(N(p * Cos(gama+2*Pi/3) - f,10),8);
+    r3    := NearRational(N(p * Cos(gama+4*Pi/3) - f,10),8);
+    ans   := {r1,r2,r3};
+];
+
+10 # xPSC2( xs_IsList )_(xs[4]<0 And xs[3]<0) <--
+[
+    If( iDebug, Tell("        Type 3c",xs) );
+    Local(f,g,h,j,p,k,alpha,beta,gama,r1,r2,r3,ans);
+    {f,g,h,j} := FlatCopy(xs);
+    p     := 2*Sqrt(-g);
+    k     := Sqrt(-j);
+    alpha := ArcTan(k/(-h));   //  alpha should be Acute
+    beta  := alpha;
+    gama  := beta / 3;
+    If(iDebug,[Tell("          ",{p,k}); Tell("          ",{alpha,beta,gama});]);
+    r1    := NearRational(N(p * Cos(gama) - f,10),8);
+    r2    := NearRational(N(p * Cos(gama+2*Pi/3) - f,10),8);
+    r3    := NearRational(N(p * Cos(gama+4*Pi/3) - f,10),8);
+    ans   := {r1,r2,r3};
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="xPSolve",categories="User Functions;Solvers (Symbolic)"
+*CMD xPSolve --- solve a polynomial equation
+*STD
+*CALL
+	xPSolve(poly, var)
+
+*PARMS
+
+{poly} -- a polynomial in "var"
+
+{var} -- a variable
+
+*DESC
+
+This commands returns a list containing the roots of "poly",
+considered as a polynomial in the variable "var". If there is only
+one root, it is not returned as a one-entry list but just by
+itself. A double root occurs twice in the result, and similarly for
+roots of higher multiplicity. All polynomials of degree up to 4 are
+handled.
+
+*E.G.
+
+	In> xPSolve(b*x+a,x)
+	Out> -a/b;
+	In> xPSolve(c*x^2+b*x+a,x)
+	Out> {(Sqrt(b^2-4*c*a)-b)/(2*c),(-(b+
+	Sqrt(b^2-4*c*a)))/(2*c)};
+
+*SEE Solve, Factor
+%/mathpiper_docs
