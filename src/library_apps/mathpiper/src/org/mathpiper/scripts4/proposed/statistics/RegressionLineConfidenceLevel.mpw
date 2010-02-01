@@ -1,0 +1,76 @@
+%mathpiper,def="RegressionLineConfidenceInterval",scope="private"
+
+RegressionLineConfidenceInterval(x,y,xValue,confidenceInterval) :=
+[   
+Echo(x);
+Echo(y);
+Echo(xValue);
+Echo(confidenceInterval);
+    Check(IsList(x), "The first argument must be a list.");
+    
+    Check(IsList(y), "The second argument must be a list.");
+    
+    Check(Length(x) = Length(y), "The lists for argument 1 and argument 2 must have the same length.");
+    
+    //Local(n,a,b,xMean,regressionLine);
+    
+    regressionLine := RegressionLine(x,y);
+    
+    n := regressionLine["count"];
+    
+    f(x) := [Eval(regressionLine["line"]);];
+    
+    Echo(f(xValue));
+    
+    criticalTScore := OneTailAlphaToTScore(n - 2, 1 - confidenceInterval);
+    
+    standardErrorOfTheEstimate := StandardErrorOfTheEstimate(x,y);
+    
+    xMean := regressionLine["xMean"];
+        
+    N(f(xValue) + criticalTScore * standardErrorOfTheEstimate * Sqrt(1/n + ((xValue - xMean)^2)/(Sum(x^2) - Sum(x)^2/n)));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper_docs,name="RegressionLineConfidenceInterval",categories="User Functions;Statistics & Probability"
+*CMD RegressionLineConfidenceInterval --- calculates the correlation coefficient between two lists of values
+*STD
+*CALL
+	RegressionLineConfidenceInterval(xList,yList)
+
+*PARMS
+
+{xList} -- the list of domain values
+{yList} -- the list of range values
+
+*DESC
+This function calculates the correlation coefficient between two lists of values.
+
+*E.G.
+/%mathpiper
+
+x := {4,3,5,2,3,4,3};
+y := {83,86,92,78,82,95,80};
+
+RegressionLineConfidenceInterval(x,y);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: 0.7766185090
+.   /%/output
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
