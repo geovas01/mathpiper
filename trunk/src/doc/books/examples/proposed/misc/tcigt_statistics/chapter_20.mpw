@@ -80,39 +80,159 @@ GeoGebraPlot(Map("List",{xList,yList}));
 
 
 
-%mathpiper,title=""
+%mathpiper,title="Standard error of the estimate pages 321."
 
 StandardErrorOfTheEstimate(xList,yList);
 
 %/mathpiper
 
     %output,preserve="false"
-      Result: 11.60400924
+      Result: 2.234712373
 .   %/output
 
 
 
 
-
-
-
-
-%mathpiper,title=""
+%mathpiper,title="Confidence interval for the regression line pages 321-323"
 
 RegressionLineConfidenceInterval(xList,yList,8,.95);
 %/mathpiper
 
     %output,preserve="false"
-      Result: 14.68154737
+      Result: {{"lower",10.77897119},{"upper",15.09981669}}
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Standard error of the slope pages 323-324."
+standardErrorOfTheSlope := StandardErrorOfTheSlope(xList,yList);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.2460337348
+.   %/output
+
+
+
+%mathpiper,title=""
+
+testStatistic := N((RegressionLine(xList,yList)["slope"] - 0)/standardErrorOfTheSlope);
+Echo("Test statistic: ", testStatistic);
+
+
+criticalTScore := OneTailAlphaToTScore(Length(xList)-2,N(.01/2));
+Echo("Critical t-score: ", criticalTScore);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
       
       Side Effects:
-      1 2 3 4 5 6 7 8 9 10 
-      8 6 10 6 10 13 9 11 15 17 
-      8 
-      .95 
-      12.93939394 
+      Test statistic: 3.965950347 
+      Critical t-score: 3.355387364 
       
 .   %/output
 
+
+
+
+
+
+%mathpiper,title="Coefficient of determination example on page 326."
+
+CoefficientOfDetermination(xList,yList);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.6628564123
+.   %/output
+
+
+
+
+
+%mathpiper,title="Car price example on pages 327-330."
+
+xList := {
+21.800,
+34.000,
+41.700,
+53.500,
+65.800,
+72.100,
+76.500,
+84.700
+};
+
+yList := {
+16.000,
+11.500,
+13.400,
+14.800,
+10.500,
+12.300,
+8.200,
+9.500
+};
+
+Echo("Correlation coefficient: ", CorrelationCoefficient(xList,yList));
+
+Echo("Coefficient of determination: ", CoefficientOfDetermination(xList,yList));
+
+regressionLine := RegressionLine(xList,yList);
+
+Echo("Regression line: ", regressionLine);
+
+f(x) := [Eval(regressionLine["line"]);];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Correlation coefficient: -0.7577797980 
+      Coefficient of determination: 0.5742302223 
+      Regression line: {{"count",8},{"slope",-0.09020814571},{"yIntercept",17.10033580},{"line",17.10033580-0.09020814571*x},{"yMean",12.025},{"xMean",56.2625}} 
+      
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Regression line plot on pp. 328."
+
+GeoGebraPlot(f(x));
+
+GeoGebraPlot(Map("List",{xList,yList})); 
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title="Last example continues."
+
+Echo("Standard error of the estimate.", StandardErrorOfTheEstimate(xList,yList));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Standard error of the estimate.1.866130203 
+      
+.   %/output
 
 
