@@ -1,10 +1,74 @@
-%mathpiper
+%mathpiper,title="Correlation coefficient example on pages 312-314"
 
-c(x,y) := 
-[
-    n := Length(x);
-    N((n*Sum(x*y)-Sum(x)*Sum(y))/Sqrt((n*Sum(x^2)-(Sum(x))^2)*(n*Sum(y^2)-(Sum(y)^2))) );
-];
+xList := {3,5,4,4,2,3};
+yList := {86,95,92,83,78,82};
+
+r := CorrelationCoefficient(xList,yList);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 0.8615550708
+.   %/output
+
+
+
+
+%mathpiper,title="Testing the significance of the correlation coefficient on pages 314-315."
+
+n := Length(xList);
+
+Echo("t-score: ", N(r/Sqrt((1-r^2)/(n-2))) );
+
+Echo("Critical t-score: ", OneTailAlphaToTScore(n-2,.05));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      t-score: 3.394193266 
+      Critical t-score: 2.131846786 
+      
+.   %/output
+
+
+
+
+
+
+
+
+%mathpiper,title="Simple regression example on pages 316-321."
+
+xList := 1 .. 10;
+yList := {8,6,10,6,10,13,9,11,15,17};
+
+regressionLine := RegressionLine(xList,yList);
+
+Echo(regressionLine);
+
+f(x) := [Eval(regressionLine["line"]);];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      {"count",10} {"slope",0.9757575758} {"yIntercept",5.133333333} {"line",0.9757575758*x+5.133333333} {"yMean",10.5} {"xMean",5.5} 
+      
+.   %/output
+
+
+
+
+%mathpiper,title="Regression line plot on pp. 321."
+
+GeoGebraPlot(f(x));
+
+GeoGebraPlot(Map("List",{xList,yList})); 
 
 %/mathpiper
 
@@ -15,11 +79,40 @@ c(x,y) :=
 
 
 
+
 %mathpiper,title=""
 
-x := {3,5,4,4,2,3};
-y := {86,95,92,83,78,82};
-
-c(x,y);
+StandardErrorOfTheEstimate(xList,yList);
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: 11.60400924
+.   %/output
+
+
+
+
+
+
+
+
+%mathpiper,title=""
+
+RegressionLineConfidenceInterval(xList,yList,8,.95);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 14.68154737
+      
+      Side Effects:
+      1 2 3 4 5 6 7 8 9 10 
+      8 6 10 6 10 13 9 11 15 17 
+      8 
+      .95 
+      12.93939394 
+      
+.   %/output
+
+
+
