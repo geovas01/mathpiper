@@ -44,6 +44,12 @@ public class ScaledGraphics {
         iG.drawLine((int) (x0 * viewScale), (int) (y0 * viewScale), (int) (x1 * viewScale), (int) (y1 * viewScale));
     }
 
+
+    public void drawArc(double x,double y,double width,double height,int startAngle,int arcAngle) {
+        //iG.drawLine((int) (x0 * viewScale), (int) (y0 * viewScale), (int) (x1 * viewScale), (int) (y1 * viewScale));
+        iG.drawArc((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale), startAngle, arcAngle);
+    }
+
     void setGray(int aGray) {
         if (prevGray != aGray) {
             prevGray = aGray;
