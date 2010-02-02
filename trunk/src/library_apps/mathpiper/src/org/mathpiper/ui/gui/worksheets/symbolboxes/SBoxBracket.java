@@ -4,6 +4,7 @@
  */
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 class SBoxBracket extends SBoxCompoundExpression {
@@ -84,25 +85,37 @@ class SBoxBracket extends SBoxCompoundExpression {
             }
 
             double delta = xend - xstart;
+
             double[] steps = new double[3];
+
+            double verticalOffset = 2;
+
             steps[0] = 0.2;
             steps[1] = 0.6;
             steps[2] = 0.8;
 
-            sg.setLineThickness(1);
-            sg.drawLine( (xstart + (delta * steps[0])), y + (0 * dim.height) / 6,  xstart + (delta * steps[1]), y + (1 * dim.height) / 6);
+            sg.setLineThickness(1.1);
+            sg.drawLine( (xstart + (delta * steps[0])), y + verticalOffset + (0 * dim.height) / 6,  xstart + (delta * steps[1]), y + verticalOffset + (1 * dim.height) / 6);
 
             sg.setLineThickness(1.3);
-            sg.drawLine( (xstart + (delta * steps[1])), y + (1 * dim.height) / 6,  xstart + (delta * steps[2]), y + (2 * dim.height) / 6);
+            sg.drawLine( (xstart + (delta * steps[1])), y + verticalOffset + (1 * dim.height) / 6,  xstart + (delta * steps[2]), y + verticalOffset + (2 * dim.height) / 6);
 
+            sg.setLineThickness(1.5);
+            sg.drawLine( (xstart + (delta * steps[2])), y + verticalOffset + (2 * dim.height) / 6,  xstart + (delta * steps[2]), y + verticalOffset + (4 * dim.height) / 6);
+
+            sg.setLineThickness(1.3);
+            sg.drawLine( (xstart + (delta * steps[2])), y + verticalOffset + (4 * dim.height) / 6, xstart + (delta * steps[1]), y + verticalOffset + (5 * dim.height) / 6);
+
+            sg.setLineThickness(1.1);
+            sg.drawLine( (xstart + (delta * steps[1])), y + verticalOffset + (5 * dim.height) / 6, xstart + (delta * steps[0]), y + verticalOffset + (6 * dim.height) / 6);
+
+
+           /* sg.setColor(Color.RED);
             sg.setLineThickness(1.6);
             sg.drawLine( (xstart + (delta * steps[2])), y + (2 * dim.height) / 6,  xstart + (delta * steps[2]), y + (4 * dim.height) / 6);
 
-            sg.setLineThickness(1.3);
-            sg.drawLine( (xstart + (delta * steps[2])), y + (4 * dim.height) / 6, xstart + (delta * steps[1]), y + (5 * dim.height) / 6);
-
-            sg.setLineThickness(1);
-            sg.drawLine( (xstart + (delta * steps[1])), y + (5 * dim.height) / 6, xstart + (delta * steps[0]), y + (6 * dim.height) / 6);
+            sg.drawArc(xstart + (delta * .8), y + (0 * dim.height)/6,30, 30, 180, -60);
+            sg.setColor(Color.black);*/
 
         } else {
             sg.setFontSize(iFontSize);
