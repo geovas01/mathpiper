@@ -47,9 +47,11 @@ public class FindFunction extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "FindFunction");
         String oper = Utility.unstringify(orig);
 
-        MultipleArityUserFunction multiUserFunc =
-                aEnvironment.getMultipleArityUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), false);
-        if (multiUserFunc != null)
+        MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), false);
+
+        String fileLocation =  "\"\"" ;
+        
+        if (multiUserFunc != null )
         {
             /*DefFile def = multiUserFunc.iFileToOpen;
             if (def != null)
@@ -57,12 +59,21 @@ public class FindFunction extends BuiltinFunction
                 getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, def.iFileName));
                 return;
             }*/
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, multiUserFunc.iFileLocation));
-            return;
-        }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"\""));
-    }
-}
+            if(multiUserFunc.iFileLocation != null)
+            {
+                fileLocation = multiUserFunc.iFileLocation;
+            }
+            else
+            {
+               fileLocation = "Function is defined, but it has no body.";
+            }
+
+        }//end if
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, fileLocation));
+    }//end method
+
+}//end class.
 
 
 
