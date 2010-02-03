@@ -1,5 +1,7 @@
 Use File->New inside GeoGebra to reset the GeoGebra environment.
-
+Note: the GeoGebra plugin must be opened at least once after 
+launching the application to initialize the MathPiper/GeoGebra 
+communications link.
 
 
 %mathpiper
