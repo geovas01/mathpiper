@@ -208,7 +208,7 @@ public class LispError
     {
         if (!hastobetrue)
         {
-            throw new EvaluationException(aErrorMessage + " in function " + functionName,"none", -1);
+            throw new EvaluationException(aErrorMessage + " In function " + functionName,"none", -1);
         }
     }//end method.
 
