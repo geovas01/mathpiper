@@ -1,5 +1,5 @@
 
-***** Sun Jan 31 17:54:48 EST 2010 *****
+***** Thu Feb 04 01:52:42 EST 2010 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .78h *****
 
@@ -934,7 +934,11 @@ Result: True
 Side Effects:
 --Solve
 
-Exception:org.mathpiper.lisp.cons.ConsPointer cannot be cast to java.lang.String Source file: tests/scripts4/solve.mpt Line number: 76
+Exception:In function "IsLessThan" : 
+bad argument number 1(counting from 1) : 
+The first argument must be a non-complex decimal number or a string.
+The offending argument N(Eval(result-n)) evaluated to Complex(0,-1)
+ In function: RadSimpTry, Source file: tests/scripts4/solve.mpt Line number: 76
 ===========================
 sturm.mpt: 
 

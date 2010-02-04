@@ -46,9 +46,9 @@ public class IsGreaterThan extends BuiltinFunction
 	IsGreaterThan(a,b)
 
 *PARMS
-{a}, {b} -- numbers or strings
+{a}, {b} -- decimal numbers or strings
 *DESC
-Comparing numbers or strings (lexicographically).
+Compare decimal numbers or strings (lexicographically).
 
 **E.G.
 	In> IsGreaterThan(1,1)

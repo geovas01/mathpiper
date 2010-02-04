@@ -28,12 +28,12 @@ import org.mathpiper.lisp.collections.TokenMap;
 public class LexGreaterThan extends LexCompare2
 {
 
-    boolean lexfunc(String f1, String f2, TokenMap aHashTable, int aPrecision)
+    boolean lexFunction(String f1, String f2, TokenMap aHashTable, int aPrecision)
     {
         return f1.compareTo(f2) > 0;
     }
 
-    boolean numfunc(BigNumber n1, BigNumber n2)
+    boolean numFunction(BigNumber n1, BigNumber n2)
     {
         return !(n1.lessThan(n2) || n1.equals(n2));
     }

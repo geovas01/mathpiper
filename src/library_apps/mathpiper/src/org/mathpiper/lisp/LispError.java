@@ -197,7 +197,7 @@ public class LispError
     {
         if (!hastobetrue)
         {
-            String errorMessage = errorString(aError) + " in function " + functionName;
+            String errorMessage = errorString(aError) + " In function " + functionName + ". ";
             throw new EvaluationException(errorMessage,"none", -1);
         }
     }//end method.
