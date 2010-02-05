@@ -37,14 +37,14 @@ public class PipeToFile extends BuiltinFunction
     {
         LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);
 
-        ConsPointer evaluated = new ConsPointer();
+        ConsPointer evaluated = new ConsPointer(aEnvironment);
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "PipeToFile");
         String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "PipeToFile");
-        String oper = Utility.unstringify(orig);
+        String oper = Utility.unstringify(aEnvironment, orig);
 
         // Open file for writing
         FileOutputStream localFP = new FileOutputStream(oper);

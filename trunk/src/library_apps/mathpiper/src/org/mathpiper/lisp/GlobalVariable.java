@@ -33,19 +33,27 @@ import org.mathpiper.lisp.cons.ConsPointer;
  */
 public class GlobalVariable
 {
-	ConsPointer iValue = new ConsPointer();
+	ConsPointer iValue;
 	boolean iEvalBeforeReturn;
+        private Environment iEnvironment;
 
-	public GlobalVariable(GlobalVariable aOther)
+	public GlobalVariable(Environment aEnvironment, GlobalVariable aOther)
 	{
+                iEnvironment = aEnvironment;
+                iValue = new ConsPointer(aEnvironment);
 		iValue = aOther.iValue;
 		iEvalBeforeReturn = aOther.iEvalBeforeReturn;
 	}
-	public GlobalVariable(ConsPointer aValue)
+	public GlobalVariable(Environment aEnvironment, ConsPointer aValue)
 	{
+                iEnvironment = aEnvironment;
+                iValue = new ConsPointer(aEnvironment);
 		iValue.setCons(aValue.getCons());
 		iEvalBeforeReturn = false;
 	}
+
+
+
 	public  void setEvalBeforeReturn(boolean aEval)
 	{
 		iEvalBeforeReturn = aEval;

@@ -34,11 +34,14 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     protected Map metadataMap;
 
+    protected Environment iEnvironment;
+
 
 
     public Cons(Environment aEnvironment) throws Exception
     {
         metadataMap = null; //aEnvironment.iEmptyAtom;
+        iEnvironment = aEnvironment;
     }//end constructor.
 
 

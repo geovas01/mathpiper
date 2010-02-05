@@ -36,14 +36,14 @@ public class FindFile extends BuiltinFunction
     {
         LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);
 
-        ConsPointer evaluated = new ConsPointer();
+        ConsPointer evaluated = new ConsPointer(aEnvironment);
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get file name
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "FindFile");
         String orig = (String)  evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "FindFile");
-        String oper = Utility.unstringify(orig);
+        String oper = Utility.unstringify(aEnvironment, orig);
 
         String filename = Utility.findFile(oper, aEnvironment.iInputDirectories);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(filename)));

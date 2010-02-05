@@ -40,9 +40,9 @@ abstract public class LexCompare2
 
     void Compare(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer argument1 = new ConsPointer();
+        ConsPointer argument1 = new ConsPointer(aEnvironment);
 
-        ConsPointer argument2 = new ConsPointer();
+        ConsPointer argument2 = new ConsPointer(aEnvironment);
 
         argument1.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 

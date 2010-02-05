@@ -42,19 +42,19 @@ public class Parser
 		iListed = false;
 	}
 	
-	public void parse(Environment aEnvironment,ConsPointer aResult ) throws Exception
+	public void parse(ConsPointer aResult ) throws Exception
 	{
 		aResult.setCons(null);
 
 		String token;
 		// Get token.
-		token = iTokenizer.nextToken(iInput,iEnvironment.getTokenHash());
+		token = iTokenizer.nextToken(iEnvironment, iInput,iEnvironment.getTokenHash());
 		if (token.length() == 0) //TODO FIXME either token == null or token.length() == 0?
 		{
 			aResult.setCons(AtomCons.getInstance(iEnvironment,"EndOfFile"));
 			return;
 		}
-		parseAtom(aEnvironment,aResult, token);
+		parseAtom(iEnvironment,aResult, token);
 	}
 
 	void parseList(Environment aEnvironment,ConsPointer aResult) throws Exception
@@ -70,9 +70,9 @@ public class Parser
 		for (;;)
 		{
 			//Get token.
-			token = iTokenizer.nextToken(iInput,iEnvironment.getTokenHash());
+			token = iTokenizer.nextToken(iEnvironment, iInput,iEnvironment.getTokenHash());
 			// if token is empty string, error!
-			LispError.check(token.length() > 0,LispError.INVALID_TOKEN, "INTERNAL"); //TODO FIXME
+			LispError.check(iEnvironment, token.length() > 0,LispError.INVALID_TOKEN, "INTERNAL"); //TODO FIXME
 			// if token is ")" return result.
 			if (token == iEnvironment.getTokenHash().lookUp(")"))
 			{
@@ -95,7 +95,7 @@ public class Parser
 		//   and make a sublist
 		if (aToken == iEnvironment.getTokenHash().lookUp("("))
 		{
-			ConsPointer subList = new ConsPointer();
+			ConsPointer subList = new ConsPointer(aEnvironment);
 			parseList(aEnvironment, subList);
 			aResult.setCons(SublistCons.getInstance(aEnvironment,subList.getCons()));
 			return;

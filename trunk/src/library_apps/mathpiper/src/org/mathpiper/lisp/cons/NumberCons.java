@@ -35,7 +35,7 @@ public class NumberCons extends Cons {
     private BigNumber iCarBigNumber;
     /// string representation in decimal; NULL if not yet converted from BigNumber
     private String iCarStringNumber;
-    private ConsPointer iCdr = new ConsPointer();
+    private ConsPointer iCdr;
 
     /**
      * Construct a number from either a BigNumber or a String.
@@ -47,6 +47,7 @@ public class NumberCons extends Cons {
         super(aEnvironment);
         iCarStringNumber = aString;
         iCarBigNumber = aNumber;
+        iCdr = new ConsPointer(aEnvironment);
     }
 
     /**
@@ -57,6 +58,7 @@ public class NumberCons extends Cons {
         super(aEnvironment);
         iCarStringNumber = null;
         iCarBigNumber = aNumber;
+        iCdr = new ConsPointer(aEnvironment);
     }
 
     /**
@@ -70,6 +72,7 @@ public class NumberCons extends Cons {
         //(also create a number object).
         iCarStringNumber = aString;
         iCarBigNumber = null;  // purge whatever it was.
+        iCdr = new ConsPointer(aEnvironment);
 
     // create a new BigNumber object out of iString, set its precision in digits
     //TODO FIXME enable this in the end    NumberCons(aBasePrecision);
@@ -135,7 +138,7 @@ public class NumberCons extends Cons {
             String str;
             str = iCarStringNumber;
             // aBasePrecision is in digits, not in bits, ok
-            iCarBigNumber = new BigNumber(str, aPrecision, 10/*TODO FIXME BASE10*/);
+            iCarBigNumber = new BigNumber(iEnvironment, str, aPrecision, 10/*TODO FIXME BASE10*/);
         } // check if the BigNumber object has enough precision, if not, extend it
         // (applies only to floats). Note that iNumber->GetPrecision() might be < 0
         else if (!iCarBigNumber.isInteger() && iCarBigNumber.getPrecision() < aPrecision) {

@@ -33,7 +33,7 @@ public class MaxEvalDepth extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer index = new ConsPointer();
+        ConsPointer index = new ConsPointer(aEnvironment);
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1, "MaxEvalDepth");
         LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 1, "MaxEvalDepth");

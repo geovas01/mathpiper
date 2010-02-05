@@ -20,6 +20,7 @@ package org.mathpiper.builtin;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.LispError;
 import java.math.*;
+import org.mathpiper.lisp.Environment;
 
 /**
  * 
@@ -36,6 +37,8 @@ public class BigNumber {
     private static BigDecimal two = new BigDecimal("2");
     private static BigDecimal ten = new BigDecimal("10");
 
+    private Environment iEnvironment;
+
     public static boolean numericSupportForMantissa() {
         return true;
     }
@@ -49,7 +52,7 @@ public class BigNumber {
      * @param aBasePrecision
      * @param aBase
      */
-    public BigNumber(String aString, int aBasePrecision, int aBase/*=10*/) {
+    public BigNumber(Environment aEnvironment, String aString, int aBasePrecision, int aBase/*=10*/) {
         setTo(aString, aBasePrecision, aBase);
     }
 
@@ -507,8 +510,8 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     public void mod(BigNumber aY, BigNumber aZ) throws Exception {
-        LispError.check(aY.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
-        LispError.check(aZ.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
+        LispError.check(iEnvironment, aY.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
+        LispError.check(iEnvironment, aZ.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
         //TODO fixme    LispError.check(!IsZero(aZ),LispError.INVALID_ARGUMENT);
         javaBigInteger = aY.javaBigInteger.mod(aZ.javaBigInteger);
         javaBigDecimal = null;

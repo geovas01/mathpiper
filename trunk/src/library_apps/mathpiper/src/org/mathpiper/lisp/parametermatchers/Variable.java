@@ -54,7 +54,7 @@ public class Variable extends PatternParameter
 		// this should not be necessary
 		//    if (arguments[iVarIndex] == null)
 		//    {
-		//      arguments[iVarIndex] = new ConsPointer();
+		//      arguments[iVarIndex] = new ConsPointer(aEnvironment);
 		//    }
 		if (arguments[iVarIndex].getCons() == null)
 		{

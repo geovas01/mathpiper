@@ -38,7 +38,7 @@ public class Write extends BuiltinFunction
 
             ConsPointer subList = (ConsPointer) arguments.car();
             
-            ConsPointer consTraverser = new ConsPointer(subList.getCons());
+            ConsPointer consTraverser = new ConsPointer(aEnvironment, subList.getCons());
             consTraverser.goNext();
             while (consTraverser.getCons() != null)
             {

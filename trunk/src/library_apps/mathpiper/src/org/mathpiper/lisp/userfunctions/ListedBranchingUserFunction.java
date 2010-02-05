@@ -27,9 +27,9 @@ import org.mathpiper.lisp.cons.SublistCons;
 
 public class ListedBranchingUserFunction extends SingleArityBranchingUserFunction
 {
-	public ListedBranchingUserFunction(ConsPointer  aParameters, String functionName) throws Exception
+	public ListedBranchingUserFunction(Environment aEnvironment, ConsPointer  aParameters, String functionName) throws Exception
 	{
-		super(aParameters, functionName);
+		super(aEnvironment, aParameters, functionName);
 	}
 	
 	public boolean isArity(int aArity)
@@ -39,8 +39,8 @@ public class ListedBranchingUserFunction extends SingleArityBranchingUserFunctio
 	
 	public void evaluate( Environment aEnvironment,ConsPointer aResult, ConsPointer aArguments) throws Exception
 	{
-		ConsPointer newArgs = new ConsPointer();
-		ConsTraverser consTraverser = new ConsTraverser(aArguments);
+		ConsPointer newArgs = new ConsPointer(aEnvironment);
+		ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
 		ConsPointer ptr =  newArgs;
 		int arity = arity();
 		int i=0;
@@ -61,7 +61,7 @@ public class ListedBranchingUserFunction extends SingleArityBranchingUserFunctio
 		}
 		else
 		{
-			ConsPointer head = new ConsPointer();
+			ConsPointer head = new ConsPointer(aEnvironment);
 			head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
 			head.cdr().setCons(consTraverser.getCons());
 			ptr.setCons(SublistCons.getInstance(aEnvironment,head.getCons()));

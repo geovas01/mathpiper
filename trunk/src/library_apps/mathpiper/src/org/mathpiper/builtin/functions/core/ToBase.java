@@ -36,7 +36,7 @@ public class ToBase extends BuiltinFunction
     {
         // Get the base to convert to:
         // Evaluate car argument, and store getTopOfStackPointer in oper
-        ConsPointer oper = new ConsPointer();
+        ConsPointer oper = new ConsPointer(aEnvironment);
         oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);

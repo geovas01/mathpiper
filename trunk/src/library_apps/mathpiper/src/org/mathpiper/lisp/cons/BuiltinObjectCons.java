@@ -26,13 +26,19 @@ import org.mathpiper.builtin.BuiltinContainer;
 public class BuiltinObjectCons extends Cons {
 
     BuiltinContainer iCarBuiltin;
-    ConsPointer iCdr = new ConsPointer();
+    ConsPointer iCdr;
 
 
-    public static BuiltinObjectCons getInstance(Environment aEnvironment,BuiltinContainer aClass) throws Exception {
+    private BuiltinObjectCons(Environment aEnvironment, BuiltinContainer aClass) throws Exception  {
+        super(aEnvironment);
+        iCarBuiltin = aClass;
+        iCdr = new ConsPointer(aEnvironment);
+    }
+
+    public static BuiltinObjectCons getInstance(Environment aEnvironment, BuiltinContainer aClass) throws Exception {
         LispError.lispAssert(aClass != null);
         BuiltinObjectCons self = new BuiltinObjectCons(aEnvironment, aClass);
-        LispError.check(self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
+        LispError.check(aEnvironment, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
         return self;
     }
 
@@ -52,11 +58,6 @@ public class BuiltinObjectCons extends Cons {
         
     }
 
-
-    BuiltinObjectCons(Environment aEnvironment, BuiltinContainer aClass) throws Exception  {
-        super(aEnvironment);
-        iCarBuiltin = aClass;
-    }
 
 
     public ConsPointer cdr() {

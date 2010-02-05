@@ -32,7 +32,7 @@ public class Type extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer evaluated = new ConsPointer();
+        ConsPointer evaluated = new ConsPointer(aEnvironment);
 
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 

@@ -32,7 +32,7 @@ public class Subtract extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = Utility.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int length = Utility.listLength(aEnvironment, getArgumentPointer(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);

@@ -31,8 +31,8 @@ import org.mathpiper.lisp.parametermatchers.Pattern;
 public class PatternBranch extends Branch {
 
     protected int iPrecedence;    /// The body of this rule.
-    protected ConsPointer iBody = new ConsPointer();    /// Generic object of type \c PatternContainer containing #iPatternClass
-    protected ConsPointer iPredicate = new ConsPointer();    /// The pattern that decides whether this rule matches.
+    protected ConsPointer iBody;    /// Generic object of type \c PatternContainer containing #iPatternClass
+    protected ConsPointer iPredicate;    /// The pattern that decides whether this rule matches.
     protected PatternContainer iPatternClass;
 
     /**
@@ -42,14 +42,16 @@ public class PatternBranch extends Branch {
      * @param aPredicate getObject object of type PatternContainer
      * @param aBody body of the rule
      */
-    public PatternBranch(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public PatternBranch(Environment aEnvironment, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+        iBody = new ConsPointer(aEnvironment);
+        iPredicate = new ConsPointer(aEnvironment);
         iPatternClass = null;
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());
 
         BuiltinContainer gen = (BuiltinContainer) aPredicate.car();
-        LispError.check(gen != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-        LispError.check(gen.typeName().equals("\"Pattern\""), LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, gen != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, gen.typeName().equals("\"Pattern\""), LispError.INVALID_ARGUMENT, "INTERNAL");
 
         iPatternClass = (PatternContainer) gen;
         iBody.setCons(aBody.getCons());

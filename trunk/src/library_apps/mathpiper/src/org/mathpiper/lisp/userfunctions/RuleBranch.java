@@ -28,18 +28,36 @@ import org.mathpiper.lisp.Utility;
 class RuleBranch extends Branch
 {
         protected int iPrecedence;
-        protected ConsPointer iBody = new ConsPointer();
-        protected ConsPointer iPredicate = new ConsPointer();
+        protected ConsPointer iBody;
+        protected ConsPointer iPredicate;
 
-    public RuleBranch(int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
+    public RuleBranch(Environment aEnvironment, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
     {
+        iBody = new ConsPointer(aEnvironment);
+        iBody.setCons(aBody.getCons());
+        iPredicate = new ConsPointer(aEnvironment);
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());
-        iBody.setCons(aBody.getCons());
+        
     }
 
-    protected RuleBranch()
+    public RuleBranch(Environment aEnvironment, int aPrecedence, ConsPointer aBody)
     {
+        iBody = new ConsPointer(aEnvironment);
+        iBody.setCons(aBody.getCons());
+        iPredicate = new ConsPointer(aEnvironment);
+        iPrecedence = aPrecedence;
+
+    }
+
+    protected RuleBranch(Environment aEnvironment)
+    {
+        iBody = new ConsPointer(aEnvironment);
+    }
+
+    private RuleBranch()
+    {
+
     }
 
     /**
@@ -55,7 +73,7 @@ class RuleBranch extends Branch
     /// IsTrue(), this function returns true
     public boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception
     {
-        ConsPointer pred = new ConsPointer();
+        ConsPointer pred = new ConsPointer(aEnvironment);
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, pred, iPredicate);
         return Utility.isTrue(aEnvironment, pred);
     }

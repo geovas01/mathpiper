@@ -31,16 +31,16 @@ public class MetaSet extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer();
+        ConsPointer objectPointer = new ConsPointer(aEnvironment);
         objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 
-        ConsPointer keyPointer = new ConsPointer();
+        ConsPointer keyPointer = new ConsPointer(aEnvironment);
         keyPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, keyPointer, 2, "MetaSet");
 
 
-        ConsPointer value = new ConsPointer();
+        ConsPointer value = new ConsPointer(aEnvironment);
         value.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
 
 
@@ -105,7 +105,7 @@ public class MetaSet extends BuiltinFunction {
 
 
         //Check for global variable.
-        variablePointer = new ConsPointer();
+        variablePointer = new ConsPointer(aEnvironment);
         aEnvironment.getGlobalVariable((String) object.car(), variablePointer);
 
         if (variablePointer.getCons() != null) {

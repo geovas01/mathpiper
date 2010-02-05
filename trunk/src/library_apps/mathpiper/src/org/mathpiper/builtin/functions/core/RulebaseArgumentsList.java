@@ -35,13 +35,13 @@ public class RulebaseArgumentsList extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer name = new ConsPointer();
+        ConsPointer name = new ConsPointer(aEnvironment);
         name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String) name.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RulebaseArgumentsList");
-        String oper = Utility.unstringify(orig);
+        String oper = Utility.unstringify(aEnvironment, orig);
 
-        ConsPointer sizearg = new ConsPointer();
+        ConsPointer sizearg = new ConsPointer(aEnvironment);
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2, "RulebaseArgumentsList");
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.car() instanceof String, 2, "RulebaseArgumentsList");
@@ -52,7 +52,7 @@ public class RulebaseArgumentsList extends BuiltinFunction
         LispError.check(aEnvironment, aStackTop, userFunc != null, LispError.INVALID_ARGUMENT);
 
         ConsPointer list = userFunc.argList();
-        ConsPointer head = new ConsPointer();
+        ConsPointer head = new ConsPointer(aEnvironment);
         head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
         head.cdr().setCons(list.getCons());
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head.getCons()));

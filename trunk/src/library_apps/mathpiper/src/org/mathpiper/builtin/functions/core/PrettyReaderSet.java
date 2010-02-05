@@ -33,14 +33,14 @@ public class PrettyReaderSet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Utility.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.listLength(aEnvironment, getArgumentPointer(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
             aEnvironment.iPrettyReaderName = null;
         } else
         {
             LispError.check(aEnvironment, aStackTop, nrArguments == 2, LispError.WRONG_NUMBER_OF_ARGUMENTS);
-            ConsPointer oper = new ConsPointer();
+            ConsPointer oper = new ConsPointer(aEnvironment);
             oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons());
             oper.goNext();
             LispError.checkIsString(aEnvironment, aStackTop, oper, 1, "PrettyReaderSet");

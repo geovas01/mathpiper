@@ -31,10 +31,12 @@ import org.mathpiper.lisp.cons.Cons;
 public class ConsTraverser
 {
 	ConsPointer iPointer;
+        private Environment iEnvironment;
 	
-	public ConsTraverser(ConsPointer aPtr)
+	public ConsTraverser(Environment aEnvironment, ConsPointer aPtr)
 	{
-		iPointer = aPtr;
+            iEnvironment = aEnvironment;
+            iPointer = aPtr;
 	}
 
      public Object car() throws Exception
@@ -59,14 +61,14 @@ public class ConsTraverser
 	
 	public void goNext() throws Exception
 	{
-		LispError.check(iPointer.getCons() != null,LispError.NOT_LONG_ENOUGH, "INTERNAL");
+		LispError.check(iEnvironment, iPointer.getCons() != null,LispError.NOT_LONG_ENOUGH, "INTERNAL");
 		iPointer = (iPointer.cdr());
 	}
 	
 	public void goSub() throws Exception
 	{
-		LispError.check(iPointer.getCons() != null,LispError.INVALID_ARGUMENT, "INTERNAL");
-		LispError.check(iPointer.car() instanceof ConsPointer,LispError.NOT_A_LIST, "INTERNAL");
+		LispError.check(iEnvironment, iPointer.getCons() != null,LispError.INVALID_ARGUMENT, "INTERNAL");
+		LispError.check(iEnvironment, iPointer.car() instanceof ConsPointer,LispError.NOT_A_LIST, "INTERNAL");
 		iPointer = (ConsPointer) iPointer.car();
 	}
 

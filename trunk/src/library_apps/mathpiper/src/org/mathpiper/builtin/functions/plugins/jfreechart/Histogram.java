@@ -71,23 +71,23 @@ public class Histogram extends BuiltinFunction {
 
         ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        LispError.check(Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "Histogram");
+        LispError.check(aEnvironment, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "Histogram");
 
         argumentsPointer.goSub(); //Go to sub list.
 
         argumentsPointer.goNext(); //Strip List tag.
 
-        LispError.check(Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "Histogram");
+        LispError.check(aEnvironment, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "Histogram");
 
         ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
 
         ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
 
-        Map userOptions = ChartUtility.optionsListToJavaMap(optionsPointer, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, optionsPointer, defaultOptions);
 
 
 
-        HistogramDataset dataSet = ChartUtility.listToHistogramDataset(dataListPointer, userOptions);
+        HistogramDataset dataSet = ChartUtility.listToHistogramDataset(aEnvironment, dataListPointer, userOptions);
 
         JFreeChart chart = ChartFactory.createHistogram(
                 (String) userOptions.get("title"), //title.

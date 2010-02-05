@@ -35,14 +35,14 @@ public class ArrayGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
+        ConsPointer evaluated = new ConsPointer(aEnvironment);
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1,"ArrayGet");
         LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1, "ArrayGet");
 
-        ConsPointer sizearg = new ConsPointer();
+        ConsPointer sizearg = new ConsPointer(aEnvironment);
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2, "ArrayGet");

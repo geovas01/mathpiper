@@ -193,7 +193,7 @@ public class LispError
         return "Unspecified Error.";
     }
 
-    public static void check(boolean hastobetrue, int aError, String functionName) throws Exception
+    public static void check(Environment aEnvironment, boolean hastobetrue, int aError, String functionName) throws Exception
     {
         if (!hastobetrue)
         {
@@ -220,7 +220,7 @@ public class LispError
 
     public static void checkNumberOfArguments(int n, ConsPointer aArguments, Environment aEnvironment, String functionName) throws Exception
     {
-        int nrArguments = Utility.listLength(aArguments);
+        int nrArguments = Utility.listLength(aEnvironment, aArguments);
         if (nrArguments != n)
         {
             errorNumberOfArguments(n - 1, nrArguments - 1, aArguments, aEnvironment, functionName);
@@ -329,7 +329,7 @@ public class LispError
                 strout = Utility.printExpression(arg, aEnvironment, 60);
                 error = error + strout;
 
-                ConsPointer eval = new ConsPointer();
+                ConsPointer eval = new ConsPointer(aEnvironment);
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, eval, arg);
                 error = error + " evaluated to ";
                 strout = Utility.printExpression(eval, aEnvironment, 60);

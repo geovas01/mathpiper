@@ -35,7 +35,7 @@ public class IsInteger extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer result = new ConsPointer();
+        ConsPointer result = new ConsPointer(aEnvironment);
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 //        LispError.check(result.type().equals("Number"), LispError.KLispErrInvalidArg);

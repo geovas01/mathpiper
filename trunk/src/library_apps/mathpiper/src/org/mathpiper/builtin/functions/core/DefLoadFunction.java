@@ -35,11 +35,11 @@ public class DefLoadFunction extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer namePointer = new ConsPointer();
+        ConsPointer namePointer = new ConsPointer(aEnvironment);
         namePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String)  namePointer.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "DefLoadFunction");
-        String oper = Utility.unstringify(orig);
+        String oper = Utility.unstringify(aEnvironment, orig);
 
         MultipleArityUserFunction multiUserFunction =
                 aEnvironment.getMultipleArityUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), true);

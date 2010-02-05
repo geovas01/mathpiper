@@ -31,14 +31,14 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class Set extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        ConsPointer allPointer = new ConsPointer();
+        ConsPointer allPointer = new ConsPointer(aEnvironment);
         allPointer.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
-        ConsTraverser tail = new ConsTraverser(allPointer);
+        ConsTraverser tail = new ConsTraverser(aEnvironment, allPointer);
         tail.goNext();
-        ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext();
         while (consTraverser.getCons() != null) {
-            ConsPointer evaluated = new ConsPointer();
+            ConsPointer evaluated = new ConsPointer(aEnvironment);
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, consTraverser.getPointer());
             tail.getPointer().setCons(evaluated.getCons());
             tail.goNext();
@@ -50,11 +50,11 @@ public class Set extends BuiltinFunction {
 
         ((ConsPointer) head.car()).cdr().setCons(SublistCons.getInstance(aEnvironment, allPointer.getCons()));
 
-        ConsPointer removeDuplicatesResultPointer = new ConsPointer();
+        ConsPointer removeDuplicatesResultPointer = new ConsPointer(aEnvironment);
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, removeDuplicatesResultPointer, new ConsPointer(head));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, removeDuplicatesResultPointer, new ConsPointer(aEnvironment, head));
         
-        ConsPointer resultPointer = new ConsPointer();
+        ConsPointer resultPointer = new ConsPointer(aEnvironment);
 
         resultPointer.setCons(aEnvironment.iSetAtom.copy(aEnvironment, false));
 

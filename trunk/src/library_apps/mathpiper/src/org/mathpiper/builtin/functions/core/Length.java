@@ -40,7 +40,7 @@ public class Length extends BuiltinFunction
 
         if (argument instanceof ConsPointer)
         {
-            int num = Utility.listLength(((ConsPointer)argument).cdr());
+            int num = Utility.listLength(aEnvironment, ((ConsPointer)argument).cdr());
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
             return;
         }//end if.
@@ -61,7 +61,7 @@ public class Length extends BuiltinFunction
 
 
 
-        LispError.check(argument instanceof String, LispError.INVALID_ARGUMENT, "Length");
+        LispError.check(aEnvironment, argument instanceof String, LispError.INVALID_ARGUMENT, "Length");
         String string =  (String) argument;
         if (Utility.isString(string))
         {
