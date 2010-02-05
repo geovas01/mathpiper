@@ -40,8 +40,8 @@ public class Length extends BuiltinFunction
 
         if (argument instanceof ConsPointer)
         {
-            int num = Utility.listLength(aEnvironment, ((ConsPointer)argument).cdr());
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
+            int num = Utility.listLength(aEnvironment, aStackTop, ((ConsPointer)argument).cdr());
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
             return;
         }//end if.
         
@@ -53,7 +53,7 @@ public class Length extends BuiltinFunction
             if (gen.typeName().equals("\"Array\""))
             {
                 int size = ((Array) gen).size();
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + size));
+                getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
                 return;
             }
         //  CHK_ISLIST_CORE(aEnvironment,aStackTop,getArgumentPointer(aEnvironment, aStackTop, 1),1);
@@ -61,12 +61,12 @@ public class Length extends BuiltinFunction
 
 
 
-        LispError.check(aEnvironment, argument instanceof String, LispError.INVALID_ARGUMENT, "Length");
+        LispError.check(aEnvironment, aStackTop, argument instanceof String, LispError.INVALID_ARGUMENT, "Length");
         String string =  (String) argument;
         if (Utility.isString(string))
         {
             int num = string.length() - 2;
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + num));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
             return;
         }//end if.
         

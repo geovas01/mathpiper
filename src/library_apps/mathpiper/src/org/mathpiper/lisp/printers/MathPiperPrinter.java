@@ -50,11 +50,11 @@ public class MathPiperPrinter extends LispPrinter {
         iPrevLastChar = 0;
     }
 
-    public void print(ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
+    public void print(int aStackTop, ConsPointer aExpression,  MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
         iCurrentEnvironment = aEnvironment;
 
 
-        Print(aEnvironment, aExpression, aOutput, KMaxPrecedence);
+        Print(aEnvironment, aStackTop, aExpression, aOutput, KMaxPrecedence);
 
         //visitedLists.clear();
     }
@@ -63,7 +63,7 @@ public class MathPiperPrinter extends LispPrinter {
         iPrevLastChar = aChar;
     }
 
-    void Print(Environment aEnvironment, ConsPointer aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
+    void Print(Environment aEnvironment, int aStackTop, ConsPointer aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
 
         LispError.lispAssert(aExpression.getCons() != null);
 
@@ -95,12 +95,12 @@ public class MathPiperPrinter extends LispPrinter {
 
         ConsPointer subList = (ConsPointer) aExpression.car();
 
-        LispError.check(aEnvironment, subList != null, LispError.UNPRINTABLE_TOKEN, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, subList != null, LispError.UNPRINTABLE_TOKEN, "INTERNAL");
 
         if (subList.getCons() == null) {
             WriteToken(aOutput, "( )");
         } else {
-            int length = Utility.listLength(aEnvironment, subList);
+            int length = Utility.listLength(aEnvironment, aStackTop, subList);
             functionOrOperatorName = (String) subList.car();
             Operator prefix = (Operator) iPrefixOperators.lookUp(functionOrOperatorName);
             Operator infix = (Operator) iInfixOperators.lookUp(functionOrOperatorName);
@@ -151,7 +151,7 @@ public class MathPiperPrinter extends LispPrinter {
                         WriteToken(aOutput, "(");
                     }//end if.
 
-                    Print(aEnvironment, left, aOutput, operator.iLeftPrecedence);
+                    Print(aEnvironment, aStackTop, left, aOutput, operator.iLeftPrecedence);
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(left).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
@@ -168,7 +168,7 @@ public class MathPiperPrinter extends LispPrinter {
                         WriteToken(aOutput, "(");
                     }//end if.
 
-                    Print(aEnvironment, right, aOutput, operator.iRightPrecedence);
+                    Print(aEnvironment, aStackTop, right, aOutput, operator.iRightPrecedence);
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(right).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
@@ -217,8 +217,8 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, "{");
 
                     while (consTraverser.getCons() != null) {
-                        Print(aEnvironment, consTraverser.getPointer(), aOutput, KMaxPrecedence);
-                        consTraverser.goNext();
+                        Print(aEnvironment, aStackTop, consTraverser.getPointer(), aOutput, KMaxPrecedence);
+                        consTraverser.goNext(aStackTop);
                         if (consTraverser.getCons() != null) {
                             WriteToken(aOutput, ",");
                         }
@@ -235,8 +235,8 @@ public class MathPiperPrinter extends LispPrinter {
 
                     while (consTraverser.getCons() != null) {
                         aOutput.write(spaces.toString());
-                        Print(aEnvironment, consTraverser.getPointer(), aOutput, KMaxPrecedence);
-                        consTraverser.goNext();
+                        Print(aEnvironment, aStackTop, consTraverser.getPointer(), aOutput, KMaxPrecedence);
+                        consTraverser.goNext(aStackTop);
                         WriteToken(aOutput, ";");
                         aOutput.write("\n");
                     }
@@ -245,10 +245,10 @@ public class MathPiperPrinter extends LispPrinter {
                     aOutput.write("\n");
                     spaces.delete(0, 4);
                 } else if (functionOrOperatorName == iCurrentEnvironment.iNthAtom.car()) {
-                    Print(aEnvironment, consTraverser.getPointer(), aOutput, 0);
-                    consTraverser.goNext();
+                    Print(aEnvironment, aStackTop, consTraverser.getPointer(), aOutput, 0);
+                    consTraverser.goNext(aStackTop);
                     WriteToken(aOutput, "[");
-                    Print(aEnvironment, consTraverser.getPointer(), aOutput, KMaxPrecedence);
+                    Print(aEnvironment, aStackTop,  consTraverser.getPointer(), aOutput, KMaxPrecedence);
                     WriteToken(aOutput, "]");
                 } else {
                     boolean bracket = false;
@@ -264,7 +264,7 @@ public class MathPiperPrinter extends LispPrinter {
                     if (functionOrOperatorName != null) {
                         WriteToken(aOutput, functionOrOperatorName); //Print function name.
                     } else {
-                        Print(aEnvironment, subList, aOutput, 0);
+                        Print(aEnvironment, aStackTop, subList, aOutput, 0);
                     }
                     WriteToken(aOutput, "("); //Print the opening parenthese of the function argument list.
 
@@ -272,7 +272,7 @@ public class MathPiperPrinter extends LispPrinter {
                     int nr = 0;
 
                     while (counter.getCons() != null) { //Count arguments.
-                        counter.goNext();
+                        counter.goNext(aStackTop);
                         nr++;
                     }
 
@@ -280,9 +280,9 @@ public class MathPiperPrinter extends LispPrinter {
                         nr--;
                     }
                     while (nr-- != 0) {
-                        Print(aEnvironment, consTraverser.getPointer(), aOutput, KMaxPrecedence); //Print argument.
+                        Print(aEnvironment, aStackTop, consTraverser.getPointer(), aOutput, KMaxPrecedence); //Print argument.
 
-                        consTraverser.goNext();
+                        consTraverser.goNext(aStackTop);
 
                         if (nr != 0) {
                             WriteToken(aOutput, ","); //Print the comma which is between arguments.
@@ -292,7 +292,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, ")");
 
                     if (consTraverser.getCons() != null) {
-                        Print(aEnvironment, consTraverser.getPointer(), aOutput, bodied.iPrecedence);
+                        Print(aEnvironment, aStackTop, consTraverser.getPointer(), aOutput, bodied.iPrecedence);
                     }
 
                     if (bracket) {

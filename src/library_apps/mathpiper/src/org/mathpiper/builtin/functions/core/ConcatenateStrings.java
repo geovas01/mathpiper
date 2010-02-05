@@ -37,14 +37,14 @@ public class ConcatenateStrings extends BuiltinFunction
         int arg = 1;
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car() );
-        consTraverser.goNext();
+        consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null)
         {
             LispError.checkIsString(aEnvironment, aStackTop, consTraverser.getPointer(), arg, "ConcatenateStrings");
             String thisString =  (String) consTraverser.car();
             String toAppend = thisString.substring(1, thisString.length() - 1);
             aStringBuffer.append(toAppend);
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
             arg++;
         }
         aStringBuffer.append('\"');
@@ -54,7 +54,7 @@ public class ConcatenateStrings extends BuiltinFunction
     {
         StringBuffer strBuffer = new StringBuffer("");
         ConcatenateStrings(strBuffer, aEnvironment, aStackTop);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, strBuffer.toString()));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, strBuffer.toString()));
     }
 }
 

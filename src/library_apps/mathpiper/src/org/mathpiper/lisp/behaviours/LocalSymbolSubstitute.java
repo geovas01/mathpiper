@@ -41,7 +41,7 @@ public class LocalSymbolSubstitute implements Substitute
 		iNewNames = aNewNames;
 		iNumberOfNames = aNrNames;
 	}
-	public boolean matches(Environment aEnvironment,ConsPointer aResult, ConsPointer aElement) throws Exception
+	public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aElement) throws Exception
 	{
 		
 		if (!(aElement.car() instanceof String))
@@ -56,7 +56,7 @@ public class LocalSymbolSubstitute implements Substitute
 		{
 			if (name == iOriginalNames[i])
 			{
-				aResult.setCons(AtomCons.getInstance(iEnvironment,iNewNames[i]));
+				aResult.setCons(AtomCons.getInstance(iEnvironment,aStackTop, iNewNames[i]));
 				return true;
 			}
 		}

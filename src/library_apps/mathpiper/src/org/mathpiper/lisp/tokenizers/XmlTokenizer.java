@@ -29,7 +29,7 @@ public class XmlTokenizer
 
 	/// NextToken returns a string representing the next token,
 	/// or an empty list.
-	public String nextToken(Environment aEnvironment, MathPiperInputStream aInput, TokenMap aHashTable)
+	public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, TokenMap aHashTable)
 	throws Exception
 	{
 
@@ -53,7 +53,7 @@ public class XmlTokenizer
 			while (c != '>')
 			{
 				c = aInput.next();
-				LispError.check(aEnvironment, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "INTERNAL");
+				LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "INTERNAL");
 			}
 		}
 		else

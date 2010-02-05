@@ -41,7 +41,7 @@ public class LoadScriptOnce extends BuiltinFunction
         String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "LoadScriptOnce");
 
-        Utility.loadScriptOnce(aEnvironment, orig);
+        Utility.loadScriptOnce(aEnvironment, aStackTop, orig);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

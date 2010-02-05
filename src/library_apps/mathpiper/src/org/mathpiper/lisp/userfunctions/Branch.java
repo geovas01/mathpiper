@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Environment;
 public abstract class Branch
 {
 
-    public abstract boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception;
+    public abstract boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception;
 
     public abstract int getPrecedence();
 

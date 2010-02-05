@@ -44,7 +44,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         iFlags = aFlags;
     }
 
-    public void evaluate(Environment aEnvironment, ConsPointer aResultPointer, ConsPointer aArgumentsPointer) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResultPointer, ConsPointer aArgumentsPointer) throws Exception {
         ConsPointer[] argumentsResultPointerArray = null;
         /*Trace code*/
         if (isTraced()) {
@@ -93,7 +93,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                     functionName = (String) sub.car();
                 }
             }//end function.
-            LispError.checkNumberOfArguments(iNumberOfArguments + 1, aArgumentsPointer, aEnvironment, functionName);
+            LispError.checkNumberOfArguments(aStackTop, iNumberOfArguments + 1, aArgumentsPointer, aEnvironment, functionName);
         }
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
@@ -104,7 +104,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         ConsPointer argumentsConsTraverser = new ConsPointer(aEnvironment, aArgumentsPointer.getCons());
 
         //Strip the function name from the head of the list.
-        argumentsConsTraverser.goNext();
+        argumentsConsTraverser.goNext(aStackTop);
 
         int i;
         int numberOfArguments = iNumberOfArguments;
@@ -120,7 +120,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
             for (i = 0; i < numberOfArguments; i++) {
                 //Push all arguments on the stack.
-                LispError.check(aEnvironment, argumentsConsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, argumentsConsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
 
                 if (isTraced() && argumentsResultPointerArray != null && showFlag) {
                     argumentsResultPointerArray[i] = new ConsPointer(aEnvironment);
@@ -128,7 +128,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 }
 
                 aEnvironment.iArgumentStack.pushArgumentOnStack(argumentsConsTraverser.getCons().copy(aEnvironment, false));
-                argumentsConsTraverser.goNext();
+                argumentsConsTraverser.goNext(aStackTop);
             }
 
             if ((iFlags & Variable) != 0) {//This macro has a variable number of arguments.
@@ -141,9 +141,9 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         } else {//This is a function, not a macro.
 
             for (i = 0; i < numberOfArguments; i++) {
-                LispError.check(aEnvironment, argumentsConsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
-                LispError.check(aEnvironment, argumentsConsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentResultPointer, argumentsConsTraverser);
+                LispError.check(aEnvironment, aStackTop, argumentsConsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, argumentsConsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentResultPointer, argumentsConsTraverser);
 
                 if (isTraced() && argumentsResultPointerArray != null && showFlag) {
                     argumentsResultPointerArray[i] = new ConsPointer(aEnvironment);
@@ -151,7 +151,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 }
 
                 aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResultPointer.getCons());
-                argumentsConsTraverser.goNext();
+                argumentsConsTraverser.goNext(aStackTop);
             }//end for.
 
             if ((iFlags & Variable) != 0) {//This function has a variable number of arguments.
@@ -172,7 +172,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 printf("before %s\n",res.String());
                  */
 
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, argumentResultPointer, listPointer);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentResultPointer, listPointer);
 
                 /*
                 PrintExpression(res, arg,aEnvironment,100);
@@ -192,14 +192,14 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
             ConsPointer traceArgumentPointer = new ConsPointer(aEnvironment, aArgumentsPointer.getCons());
 
-            traceArgumentPointer.goNext();
+            traceArgumentPointer.goNext(aStackTop);
 
             int parameterIndex = 1;
             if ((iFlags & Variable) != 0) {//This function has a  variable number of arguments.
 
                 while (traceArgumentPointer.getCons() != null) {
-                    Evaluator.traceShowArg(aEnvironment, new ConsPointer(aEnvironment, AtomCons.getInstance(aEnvironment, "parameter" + parameterIndex++)), traceArgumentPointer);
-                    traceArgumentPointer.goNext();
+                    Evaluator.traceShowArg(aEnvironment, new ConsPointer(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "parameter" + parameterIndex++)), traceArgumentPointer);
+                    traceArgumentPointer.goNext(aStackTop);
                 }//end while.
 
             } else {
@@ -209,9 +209,9 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                     argumentsResultPointerArray[i] = new ConsPointer(AtomCons.getInstance(aEnvironment, "NULL"));
                     }*/
 
-                    Evaluator.traceShowArg(aEnvironment, new ConsPointer(aEnvironment, AtomCons.getInstance(aEnvironment, "parameter" + parameterIndex++)), argumentsResultPointerArray[i]);
+                    Evaluator.traceShowArg(aEnvironment, new ConsPointer(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "parameter" + parameterIndex++)), argumentsResultPointerArray[i]);
 
-                    traceArgumentPointer.goNext();
+                    traceArgumentPointer.goNext(aStackTop);
                 }//end for.
 
             }
@@ -227,7 +227,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         if (isTraced() && showFlag == true) {
             ConsPointer argumentsPointer = new ConsPointer(aEnvironment);
             argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
-            String localVariables = aEnvironment.getLocalVariables();
+            String localVariables = aEnvironment.getLocalVariables(aStackTop);
             Evaluator.traceShowLeave(aEnvironment, aResultPointer, argumentsPointer, "builtin", localVariables);
             argumentsPointer.setCons(null);
         }//end if.

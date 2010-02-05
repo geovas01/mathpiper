@@ -237,7 +237,7 @@ class SynchronousInterpreter implements Interpreter {
                 iEnvironment.iCurrentInput = newInput;
                 try {
                     ConsPointer args = new ConsPointer(iEnvironment);
-                    Utility.applyString(iEnvironment, inputExpressionPointer,
+                    Utility.applyString(iEnvironment, -1, inputExpressionPointer,
                             iEnvironment.iPrettyReaderName,
                             args);
                 } catch (Exception exception) {
@@ -264,11 +264,11 @@ class SynchronousInterpreter implements Interpreter {
                 StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
 
                 Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
-                infixParser.parse(inputExpressionPointer);
+                infixParser.parse(-1, inputExpressionPointer);
             }
 
             ConsPointer resultPointer = new ConsPointer(iEnvironment);
-            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, resultPointer, inputExpressionPointer); //*** The main valuation happens here.
+            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, resultPointer, inputExpressionPointer); //*** The main valuation happens here.
 
             if (resultPointer.type() == Utility.OBJECT) {
 
@@ -287,7 +287,7 @@ class SynchronousInterpreter implements Interpreter {
 
             //Set the % symbol to the result of the current evaluation.
             String percent = (String) iEnvironment.getTokenHash().lookUp("%");
-            iEnvironment.setGlobalVariable(percent, resultPointer, true);
+            iEnvironment.setGlobalVariable(-1, percent, resultPointer, true);
 
             StringBuffer outputBuffer = new StringBuffer();
             MathPiperOutputStream outputStream = new StringOutputStream(outputBuffer);
@@ -299,7 +299,7 @@ class SynchronousInterpreter implements Interpreter {
 
                 if(iEnvironment.iPrettyPrinterName.equals("\"RForm\""))
                 {
-                    Cons holdAtom = AtomCons.getInstance(iEnvironment, "Hold");
+                    Cons holdAtom = AtomCons.getInstance(iEnvironment, -1, "Hold");
 
                     holdAtom.cdr().setCons(resultPointer.getCons());
 
@@ -307,26 +307,25 @@ class SynchronousInterpreter implements Interpreter {
 
                     ConsPointer resultPointerWithHold = new ConsPointer(iEnvironment, subListCons);
 
-                    Utility.applyString(iEnvironment, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointerWithHold);
+                    Utility.applyString(iEnvironment, -1, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointerWithHold);
                 }
                 else
                 {
-                    Utility.applyString(iEnvironment, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointer);
+                    Utility.applyString(iEnvironment, -1, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointer);
                 }
 
                 printer.rememberLastChar(' ');
-                printer.print(applyResultPointer, outputStream, iEnvironment);
+                printer.print(-1, applyResultPointer, outputStream, iEnvironment);
                 resultString = outputBuffer.toString();
 
             } else {
                 //Default printer.
                 printer.rememberLastChar(' ');
-                printer.print(resultPointer, outputStream, iEnvironment);
+                printer.print(-1, resultPointer, outputStream, iEnvironment);
                 resultString = outputBuffer.toString();
             }
         } catch (Exception exception) {
-            //Uncomment this for debugging();
-            //exception.printStackTrace();
+            //exception.printStackTrace();  todo:tk:uncomment for debugging.
 
             Evaluator.DEBUG = false;
             Evaluator.VERBOSE_DEBUG = false;
@@ -374,11 +373,11 @@ class SynchronousInterpreter implements Interpreter {
         try {
             if (inputExpression.trim().startsWith("Load")) {
                 ConsPointer loadResult = new ConsPointer(iEnvironment);
-                iEnvironment.getGlobalVariable("LoadResult", loadResult);
+                iEnvironment.getGlobalVariable(-1, "LoadResult", loadResult);
                 StringBuffer string_out = new StringBuffer();
                 MathPiperOutputStream output = new StringOutputStream(string_out);
                 printer.rememberLastChar(' ');
-                printer.print(loadResult, output, iEnvironment);
+                printer.print(-1, loadResult, output, iEnvironment);
                 String loadResultString = string_out.toString();
                 //GlobalVariable loadResultVariable = (GlobalVariable) environment.iGlobalState.lookUp("LoadResult");
                 evaluationResponse.setResult(loadResultString);

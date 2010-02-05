@@ -23,11 +23,11 @@ public class ExpressionSubstitute
 		iToReplaceWith = aToReplaceWith;
 	}
 
-	public boolean matches(Environment aEnvironment,ConsPointer aResult, ConsPointer aElement)
+	public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aElement)
 	throws Exception
 	{
 
-		if (Utility.equals(iEnvironment, aElement, iToMatch))
+		if (Utility.equals(iEnvironment, aStackTop, aElement, iToMatch))
 		{
 			aResult.setCons(iToReplaceWith.getCons().copy( aEnvironment, false));
 

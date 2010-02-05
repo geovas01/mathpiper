@@ -34,7 +34,7 @@ public class LocalSymbols extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int numberOfArguments = Utility.listLength(aEnvironment, getArgumentPointer(aEnvironment, aStackTop, 0));
+        int numberOfArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
         int numberOfSymbols = numberOfArguments - 2;
 
         String atomNames[] = new String[numberOfSymbols];
@@ -53,8 +53,8 @@ public class LocalSymbols extends BuiltinFunction
         }
         LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
         ConsPointer result = new ConsPointer(aEnvironment);
-        Utility.substitute(aEnvironment, result, getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), result);
+        Utility.substitute(aEnvironment, aStackTop, result, getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), result);
     }
 }//end class.
 

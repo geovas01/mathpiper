@@ -42,7 +42,7 @@ public class PatternBranch extends Branch {
      * @param aPredicate getObject object of type PatternContainer
      * @param aBody body of the rule
      */
-    public PatternBranch(Environment aEnvironment, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public PatternBranch(Environment aEnvironment, int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         iBody = new ConsPointer(aEnvironment);
         iPredicate = new ConsPointer(aEnvironment);
         iPatternClass = null;
@@ -50,16 +50,16 @@ public class PatternBranch extends Branch {
         iPredicate.setCons(aPredicate.getCons());
 
         BuiltinContainer gen = (BuiltinContainer) aPredicate.car();
-        LispError.check(aEnvironment, gen != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-        LispError.check(aEnvironment, gen.typeName().equals("\"Pattern\""), LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, gen != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, gen.typeName().equals("\"Pattern\""), LispError.INVALID_ARGUMENT, "INTERNAL");
 
         iPatternClass = (PatternContainer) gen;
         iBody.setCons(aBody.getCons());
     }
 
     /// Return true if the corresponding pattern matches.
-    public boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception {
-        return iPatternClass.matches(aEnvironment, aArguments);
+    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
+        return iPatternClass.matches(aEnvironment, aStackTop, aArguments);
     }
 
     /// Access #iPrecedence

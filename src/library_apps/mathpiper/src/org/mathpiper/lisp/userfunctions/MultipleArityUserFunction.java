@@ -80,7 +80,7 @@ public class MultipleArityUserFunction
 	}
 
 	/// Add another SingleArityBranchingUserFunction to #iFunctions.
-	public  void addRulebaseEntry(Environment aEnvironment, SingleArityBranchingUserFunction aNewFunction) throws Exception
+	public  void addRulebaseEntry(Environment aEnvironment, int aStackTop, SingleArityBranchingUserFunction aNewFunction) throws Exception
 	{
 		int ruleIndex;
 		//Find function body with the right arity
@@ -89,8 +89,8 @@ public class MultipleArityUserFunction
 		{
 			LispError.lispAssert(((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)) != null);
 			LispError.lispAssert(aNewFunction != null);
-			LispError.check(aEnvironment, !((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
-			LispError.check(aEnvironment, !aNewFunction.isArity(((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
+			LispError.check(aEnvironment, aStackTop, !((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
+			LispError.check(aEnvironment, aStackTop, !aNewFunction.isArity(((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
 		}
 		iFunctions.add(aNewFunction);
 	}

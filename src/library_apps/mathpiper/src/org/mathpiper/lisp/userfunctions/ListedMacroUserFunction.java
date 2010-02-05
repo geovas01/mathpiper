@@ -28,9 +28,9 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class ListedMacroUserFunction extends MacroUserFunction
 {
 
-	public ListedMacroUserFunction(Environment aEnvironment, ConsPointer  aParameters, String functionName) throws Exception
+	public ListedMacroUserFunction(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
 	{
-		super(aEnvironment, aParameters, functionName);
+		super(aEnvironment, aStackTop, aParameters, functionName);
 	}
 	
 	public boolean isArity(int aArity)
@@ -38,7 +38,7 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		return (arity() <= aArity);
 	}
 	
-	public void evaluate( Environment aEnvironment,ConsPointer aResult, ConsPointer aArguments) throws Exception
+	public void evaluate( Environment aEnvironment,int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception
 	{
 		ConsPointer newArgs = new ConsPointer(aEnvironment);
 		ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
@@ -50,14 +50,14 @@ public class ListedMacroUserFunction extends MacroUserFunction
 			ptr.setCons(consTraverser.getCons().copy( aEnvironment, false));
 			ptr = (ptr.cdr());
 			i++;
-			consTraverser.goNext();
+			consTraverser.goNext(aStackTop);
 		}
 		if (consTraverser.cdr().getCons() == null)
 		{
 			ptr.setCons(consTraverser.getCons().copy( aEnvironment, false));
 			ptr = (ptr.cdr());
 			i++;
-			consTraverser.goNext();
+			consTraverser.goNext(aStackTop);
 			LispError.lispAssert(consTraverser.getCons() == null);
 		}
 		else
@@ -67,7 +67,7 @@ public class ListedMacroUserFunction extends MacroUserFunction
 			head.cdr().setCons(consTraverser.getCons());
 			ptr.setCons(SublistCons.getInstance(aEnvironment,head.getCons()));
 		}
-		super.evaluate(aEnvironment, aResult, newArgs);
+		super.evaluate(aEnvironment, aStackTop, aResult, newArgs);
 	}
 }
 

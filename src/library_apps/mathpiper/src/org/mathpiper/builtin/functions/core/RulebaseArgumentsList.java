@@ -39,7 +39,7 @@ public class RulebaseArgumentsList extends BuiltinFunction
         name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String) name.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RulebaseArgumentsList");
-        String oper = Utility.unstringify(aEnvironment, orig);
+        String oper = Utility.unstringify(aEnvironment, aStackTop, orig);
 
         ConsPointer sizearg = new ConsPointer(aEnvironment);
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());

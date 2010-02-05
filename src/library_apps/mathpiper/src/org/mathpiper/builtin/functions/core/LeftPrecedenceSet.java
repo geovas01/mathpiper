@@ -39,12 +39,12 @@ public class LeftPrecedenceSet extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "LeftPrecedenceSet");
 
         ConsPointer index = new ConsPointer(aEnvironment);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, index, getArgumentPointer(aEnvironment, aStackTop, 2));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, index, getArgumentPointer(aEnvironment, aStackTop, 2));
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2, "LeftPrecedenceSet");
         LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 2, "LeftPrecedenceSet");
         int ind = Integer.parseInt( (String) index.car(), 10);
 
-        aEnvironment.iInfixOperators.setLeftPrecedence(Utility.getSymbolName(aEnvironment, orig), ind);
+        aEnvironment.iInfixOperators.setLeftPrecedence(aStackTop, Utility.getSymbolName(aEnvironment, orig), ind);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

@@ -36,7 +36,7 @@ public class PipeFromFile extends BuiltinFunction
     {
         LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);
         ConsPointer evaluated = new ConsPointer(aEnvironment);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "PipeFromFile");
@@ -57,7 +57,7 @@ public class PipeFromFile extends BuiltinFunction
             LispError.check(aEnvironment, aStackTop, input != null, LispError.FILE_NOT_FOUND);
 
             // Evaluate the body
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
         } catch (Exception e)
         {
             throw e;

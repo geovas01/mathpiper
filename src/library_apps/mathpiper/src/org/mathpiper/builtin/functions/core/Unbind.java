@@ -38,15 +38,15 @@ public class Unbind extends BuiltinFunction
             ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
             int nr = 1;
             while (consTraverser.getCons() != null)
             {
                 String variableName;
                 variableName =  (String) consTraverser.car();
                 LispError.checkArgument(aEnvironment, aStackTop, variableName != null, nr, "Unbind");
-                aEnvironment.unbindVariable(variableName);
-                consTraverser.goNext();
+                aEnvironment.unbindVariable(aStackTop, variableName);
+                consTraverser.goNext(aStackTop);
                 nr++;
             }
         }

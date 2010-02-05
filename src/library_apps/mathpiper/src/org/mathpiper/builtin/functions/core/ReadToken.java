@@ -33,14 +33,14 @@ public class ReadToken extends BuiltinFunction
     {
         MathPiperTokenizer tok = aEnvironment.iCurrentTokenizer;
         String result;
-        result = tok.nextToken(aEnvironment, aEnvironment.iCurrentInput, aEnvironment.getTokenHash());
+        result = tok.nextToken(aEnvironment, aStackTop, aEnvironment.iCurrentInput, aEnvironment.getTokenHash());
 
         if (result.length() == 0)
         {
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(aEnvironment.iEndOfFileAtom.copy( aEnvironment, false));
             return;
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, result));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, result));
     }
 }
 

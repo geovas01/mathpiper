@@ -53,7 +53,7 @@ public class ViewMath extends BuiltinFunction {
 
         //Utility.lispEvaluate(aEnvironment, "TeXForm(x^2);");
 
-        Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, "TeXForm"));
+        Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
 
         ((ConsPointer) head.car()).cdr().setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
@@ -66,7 +66,7 @@ public class ViewMath extends BuiltinFunction {
 
         ConsPointer resultPointer = new ConsPointer(aEnvironment);
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, resultPointer, new ConsPointer(aEnvironment, head));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, new ConsPointer(aEnvironment, head));
 
         String texString = (String) resultPointer.car();
         texString = Utility.stripEndQuotes(texString);

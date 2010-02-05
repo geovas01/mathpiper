@@ -67,15 +67,20 @@ public class LispExpressionEvaluator extends Evaluator {
      * @param aExpression     the expression to evaluate
      * @throws java.lang.Exception
      */
-    public void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aExpression) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aExpression) throws Exception {
+
+        if(aExpression == null)
+        {
+            int xx =1;
+        }
         LispError.lispAssert(aExpression.getCons() != null);
         synchronized (aEnvironment) {
             aEnvironment.iEvalDepth++;
             if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
                 if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
-                    LispError.check(aEnvironment, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.USER_INTERRUPT, "INTERNAL");
+                    LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.USER_INTERRUPT, "INTERNAL");
                 } else {
-                    LispError.check(aEnvironment, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "INTERNAL");
+                    LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "INTERNAL");
                 }
             }
         }
@@ -92,7 +97,7 @@ public class LispExpressionEvaluator extends Evaluator {
             }
 
             ConsPointer val = new ConsPointer(aEnvironment);
-            aEnvironment.getGlobalVariable(str, val);
+            aEnvironment.getGlobalVariable(aStackTop, str, val);
             if (val.getCons() != null) {
                 aResult.setCons(val.getCons().copy( aEnvironment, false));
                 aEnvironment.iEvalDepth--;
@@ -114,16 +119,16 @@ public class LispExpressionEvaluator extends Evaluator {
                         //Built-in function handler.
                         BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp( (String) head.car());
                         if (builtinInFunctionEvaluator != null) {
-                            builtinInFunctionEvaluator.evaluate(aEnvironment, aResult, subList);
+                            builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, aResult, subList);
                             aEnvironment.iEvalDepth--;
                             return;
                         }
 
                         //User function handler.
                         SingleArityBranchingUserFunction userFunction;
-                        userFunction = getUserFunction(aEnvironment, subList);
+                        userFunction = getUserFunction(aEnvironment, aStackTop, subList);
                         if (userFunction != null) {
-                            userFunction.evaluate(aEnvironment, aResult, subList);
+                            userFunction.evaluate(aEnvironment, aStackTop, aResult, subList);
                             aEnvironment.iEvalDepth--;
                             return;
                         }
@@ -134,12 +139,12 @@ public class LispExpressionEvaluator extends Evaluator {
                         ConsPointer args2 = new ConsPointer(aEnvironment);
                         operator.setCons(subList.getCons());
                         args2.setCons(subList.cdr().getCons());
-                        Utility.applyPure(operator, args2, aResult, aEnvironment);
+                        Utility.applyPure(aStackTop, operator, args2, aResult, aEnvironment);
                         aEnvironment.iEvalDepth--;
                         return;
                     }
                     //printf("**** Undef: %s\n",head.String().String());
-                    Utility.returnUnEvaluated(aResult, subList, aEnvironment);
+                    Utility.returnUnEvaluated(aStackTop, aResult, subList, aEnvironment);
                     aEnvironment.iEvalDepth--;
                     return;
                 }
@@ -149,15 +154,15 @@ public class LispExpressionEvaluator extends Evaluator {
         aEnvironment.iEvalDepth--;
     }
 
-    SingleArityBranchingUserFunction getUserFunction(Environment aEnvironment, ConsPointer subList) throws Exception {
+    SingleArityBranchingUserFunction getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
         Cons head = subList.getCons();
         SingleArityBranchingUserFunction userFunc = null;
 
-        userFunc = (SingleArityBranchingUserFunction) aEnvironment.getUserFunction(subList);
+        userFunc = (SingleArityBranchingUserFunction) aEnvironment.getUserFunction(aStackTop, subList);
         if (userFunc != null) {
             return userFunc;
         } else if (head.car() instanceof String) {
-            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction( (String) head.car(), true);
+            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction( aStackTop, (String) head.car(), true);
             if (multiUserFunc.iFileToOpen != null) {
                 DefFile def = multiUserFunc.iFileToOpen;
 
@@ -185,7 +190,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
                 multiUserFunc.iFileToOpen = null;
-                Utility.loadScriptOnce(aEnvironment, def.iFileName);
+                Utility.loadScriptOnce(aEnvironment, aStackTop, def.iFileName);
 
                 if (DEBUG) {
                     //extern int VERBOSE_DEBUG;
@@ -207,7 +212,7 @@ public class LispExpressionEvaluator extends Evaluator {
                     }
                 }
             }
-            userFunc = aEnvironment.getUserFunction(subList);
+            userFunc = aEnvironment.getUserFunction(aStackTop, subList);
         }
         return userFunc;
     }//end method.

@@ -39,11 +39,11 @@ public class Write extends BuiltinFunction
             ConsPointer subList = (ConsPointer) arguments.car();
             
             ConsPointer consTraverser = new ConsPointer(aEnvironment, subList.getCons());
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
             while (consTraverser.getCons() != null)
             {
-                aEnvironment.iCurrentPrinter.print(consTraverser, aEnvironment.iCurrentOutput, aEnvironment);
-                consTraverser.goNext();
+                aEnvironment.iCurrentPrinter.print(aStackTop, consTraverser, aEnvironment.iCurrentOutput, aEnvironment);
+                consTraverser.goNext(aStackTop);
             }
         }
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

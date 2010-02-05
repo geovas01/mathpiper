@@ -39,12 +39,12 @@ public class RightPrecedenceSet extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RightPrecedenceSet");
 
         ConsPointer index = new ConsPointer(aEnvironment);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, index, getArgumentPointer(aEnvironment, aStackTop, 2));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, index, getArgumentPointer(aEnvironment, aStackTop, 2));
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2, "RightPrecedenceSet");
         LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 2, "RightPrecedenceSet");
         int ind = Integer.parseInt ( (String) index.car(), 10);
 
-        aEnvironment.iInfixOperators.setRightPrecedence(Utility.getSymbolName(aEnvironment, orig), ind);
+        aEnvironment.iInfixOperators.setRightPrecedence(aStackTop, Utility.getSymbolName(aEnvironment, orig), ind);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

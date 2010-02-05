@@ -37,7 +37,7 @@ public class SystemCall extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "SystemCall");
         String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "SystemCall");
-        String oper = Utility.unstringify(aEnvironment, orig);
+        String oper = Utility.unstringify(aEnvironment, aStackTop, orig);
         String ls_str;
         Process ls_proc = Runtime.getRuntime().exec(oper);
         // getCons its output (your input) stream

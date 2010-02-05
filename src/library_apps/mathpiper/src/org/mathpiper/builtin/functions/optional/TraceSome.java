@@ -51,7 +51,7 @@ public class TraceSome extends BuiltinFunction
         // Get function list.
         LispError.checkArgument(aEnvironment, aStackTop, functionListPointer.getCons() != null, 1, "TraceSome");
         ConsPointer result = new ConsPointer(aEnvironment);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result , functionListPointer);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result , functionListPointer);
         String functionNamesString =  (String) result.car();
         LispError.checkArgument(aEnvironment, aStackTop, functionNamesString != null, 1, "TraceSome");
 
@@ -69,7 +69,7 @@ public class TraceSome extends BuiltinFunction
 
         //Evaluate expresstion with tracing on.
         Evaluator.traceOn();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), bodyPointer);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), bodyPointer);
         Evaluator.traceOff();
         Evaluator.setTraceFunctionList(null);
 

@@ -47,7 +47,7 @@ public class Variable extends PatternParameter
 	/// pattern matches and \a aExpression is stored in this
 	/// entry. Otherwise, the pattern only matches if the entry equals
 	/// \a aExpression.
-	public boolean argumentMatches(Environment  aEnvironment,
+	public boolean argumentMatches(Environment  aEnvironment, int aStackTop, 
 	                               ConsPointer  aExpression,
 	                               ConsPointer[]  arguments) throws Exception
 	{
@@ -64,7 +64,7 @@ public class Variable extends PatternParameter
 		}
 		else
 		{
-			if (Utility.equals(aEnvironment, aExpression, arguments[iVarIndex]))
+			if (Utility.equals(aEnvironment, aStackTop, aExpression, arguments[iVarIndex]))
 			{
 				//            LogPrintf("Matched var %d\n",iVarIndex);
 				return true;

@@ -35,16 +35,16 @@ import org.mathpiper.lisp.cons.SublistCons;
 			ConsPointer allPointer = new ConsPointer(aEnvironment);
 			allPointer.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
 			ConsTraverser tail = new ConsTraverser(aEnvironment, allPointer);
-			tail.goNext();
+			tail.goNext(aStackTop);
 			ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
-			consTraverser.goNext();
+			consTraverser.goNext(aStackTop);
 			while (consTraverser.getCons() != null)
 			{
 				ConsPointer evaluated = new ConsPointer(aEnvironment);
-				aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment,evaluated,consTraverser.getPointer());
+				aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated,consTraverser.getPointer());
 				tail.getPointer().setCons(evaluated.getCons());
-				tail.goNext();
-				consTraverser.goNext();
+				tail.goNext(aStackTop);
+				consTraverser.goNext(aStackTop);
 			}
 			getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,allPointer.getCons()));
 		}

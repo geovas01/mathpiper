@@ -61,7 +61,7 @@ public class MetaValues extends BuiltinFunction {
 
            consPointer.getCons().cdr().setCons(cons);
 
-           consPointer.goNext();
+           consPointer.goNext(aStackTop);
 
         }//end while.
 

@@ -43,7 +43,7 @@ public class DefLoad extends BuiltinFunction
         String orig =  (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "DefLoad");
 
-        Utility.loadDefFile(aEnvironment, orig);
+        Utility.loadDefFile(aEnvironment, aStackTop, orig);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

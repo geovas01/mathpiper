@@ -193,7 +193,7 @@ public class LispError
         return "Unspecified Error.";
     }
 
-    public static void check(Environment aEnvironment, boolean hastobetrue, int aError, String functionName) throws Exception
+    public static void check(Environment aEnvironment, int aStackTop, boolean hastobetrue, int aError, String functionName) throws Exception
     {
         if (!hastobetrue)
         {
@@ -218,9 +218,9 @@ public class LispError
         throw new EvaluationException(errorMessage + " In function " + functionName + ". ","none",-1);
     }
 
-    public static void checkNumberOfArguments(int n, ConsPointer aArguments, Environment aEnvironment, String functionName) throws Exception
+    public static void checkNumberOfArguments(int aStackTop, int n, ConsPointer aArguments, Environment aEnvironment, String functionName) throws Exception
     {
-        int nrArguments = Utility.listLength(aEnvironment, aArguments);
+        int nrArguments = Utility.listLength(aEnvironment, aStackTop, aArguments);
         if (nrArguments != n)
         {
             errorNumberOfArguments(n - 1, nrArguments - 1, aArguments, aEnvironment, functionName);
@@ -326,13 +326,13 @@ public class LispError
                 String strout;
 
                 error = error + "The offending argument ";
-                strout = Utility.printExpression(arg, aEnvironment, 60);
+                strout = Utility.printExpression(aStackTop, arg, aEnvironment, 60);
                 error = error + strout;
 
                 ConsPointer eval = new ConsPointer(aEnvironment);
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, eval, arg);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, eval, arg);
                 error = error + " evaluated to ";
-                strout = Utility.printExpression(eval, aEnvironment, 60);
+                strout = Utility.printExpression(aStackTop, eval, aEnvironment, 60);
                 error = error + strout;
                 error = error + "\n";
 

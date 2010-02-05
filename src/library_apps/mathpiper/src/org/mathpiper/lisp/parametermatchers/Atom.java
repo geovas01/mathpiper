@@ -34,7 +34,7 @@ public class Atom extends PatternParameter
 		iString = aString;
 	}
 	
-	public boolean argumentMatches(Environment  aEnvironment,
+	public boolean argumentMatches(Environment  aEnvironment, int aStackTop, 
 	                               ConsPointer  aExpression,
 	                               ConsPointer[]  arguments) throws Exception
 	{

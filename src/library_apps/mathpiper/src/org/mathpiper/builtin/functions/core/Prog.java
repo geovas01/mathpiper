@@ -40,10 +40,10 @@ public class Prog extends BuiltinFunction {
 
             // Evaluate args one by one.
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
             while (consTraverser.getCons() != null) {
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), consTraverser.getPointer());
-                consTraverser.goNext();
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), consTraverser.getPointer());
+                consTraverser.goNext(aStackTop);
             }
         } catch (Exception e) {
             throw e;

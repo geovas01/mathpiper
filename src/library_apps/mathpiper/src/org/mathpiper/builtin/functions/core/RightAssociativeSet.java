@@ -36,7 +36,7 @@ public class RightAssociativeSet extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "RightAssociativeSet");
         String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RightAssociativeSet");
-        aEnvironment.iInfixOperators.setRightAssociative(Utility.getSymbolName(aEnvironment, orig));
+        aEnvironment.iInfixOperators.setRightAssociative(aStackTop, Utility.getSymbolName(aEnvironment, orig));
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }

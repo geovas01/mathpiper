@@ -37,7 +37,7 @@ public class IsBound extends BuiltinFunction
         {
             String str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             ConsPointer val = new ConsPointer(aEnvironment);
-            aEnvironment.getGlobalVariable(str, val);
+            aEnvironment.getGlobalVariable(aStackTop, str, val);
             if (val.getCons() != null)
             {
                 Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

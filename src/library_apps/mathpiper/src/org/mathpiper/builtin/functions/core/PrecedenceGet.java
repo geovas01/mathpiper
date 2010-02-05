@@ -50,7 +50,7 @@ public class PrecedenceGet extends BuiltinFunction
                 }
             }
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + op.iPrecedence));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iPrecedence));
     }
 }
 
