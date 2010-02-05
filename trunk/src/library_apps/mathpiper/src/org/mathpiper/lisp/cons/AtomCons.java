@@ -35,7 +35,7 @@ public class AtomCons extends Cons
         iCdr = new ConsPointer(aEnvironment);
     }
 
-    public static Cons getInstance(Environment aEnvironment, String aString) throws Exception
+    public static Cons getInstance(Environment aEnvironment, int aStackTop, String aString) throws Exception
     {
         Cons self = null;
         if (Utility.isNumber(aString, true))  // check if aString is a number (int or float)
@@ -47,7 +47,7 @@ public class AtomCons extends Cons
             self = new AtomCons(aEnvironment,(String)aEnvironment.getTokenHash().lookUp(aString));
         }
         
-        LispError.check(aEnvironment, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
         
         return self;
     }

@@ -38,10 +38,10 @@ public class And extends BuiltinFunction
         ConsPointer evaluated = new ConsPointer(aEnvironment);
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
-        consTraverser.goNext();
+        consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null)
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, consTraverser.getPointer());
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, consTraverser.getPointer());
             if (Utility.isFalse(aEnvironment, evaluated))
             {
                 Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
@@ -55,7 +55,7 @@ public class And extends BuiltinFunction
                 nogos.setCons(ptr.getCons());
             }
 
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
         }
 
         if (nogos.getCons() != null)

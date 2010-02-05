@@ -37,7 +37,7 @@ public class IsEqual extends BuiltinFunction
         evaluated2.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
-                Utility.equals(aEnvironment, evaluated1, evaluated2));
+                Utility.equals(aEnvironment, aStackTop, evaluated1, evaluated2));
     }
 }//end class.
 

@@ -30,7 +30,7 @@ public class MetaGet extends BuiltinFunction {
         Map metadataMap = objectPointer.getCons().getMetadataMap();
 
         if (metadataMap == null) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "Empty"));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
 
             return;
         }//end if.
@@ -40,7 +40,7 @@ public class MetaGet extends BuiltinFunction {
 
 
         if (valueCons == null) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "Empty"));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
         } else {
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(valueCons);
         }

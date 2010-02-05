@@ -69,21 +69,21 @@ public class BarChart extends BuiltinFunction {
 
         ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        LispError.check(aEnvironment, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "BarChart");
+        LispError.check(aEnvironment, aStackTop, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "BarChart");
 
-        argumentsPointer.goSub(); //Go to sub list.
+        argumentsPointer.goSub(aStackTop); //Go to sub list.
 
-        argumentsPointer.goNext(); //Strip List tag.
+        argumentsPointer.goNext(aStackTop); //Strip List tag.
 
-        LispError.check(aEnvironment, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "BarChart");
+        LispError.check(aEnvironment, aStackTop, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "BarChart");
 
         ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
 
         ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
 
-        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, optionsPointer, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, aStackTop, optionsPointer, defaultOptions);
 
-        IntervalXYDataset dataSet = ChartUtility.listToIntervalXYDataset(aEnvironment, dataListPointer, userOptions);
+        IntervalXYDataset dataSet = ChartUtility.listToIntervalXYDataset(aEnvironment, aStackTop, dataListPointer, userOptions);
 
 
         JFreeChart chart = ChartFactory.createXYBarChart(
@@ -120,7 +120,7 @@ public class BarChart extends BuiltinFunction {
             Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
             return;
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment,new JavaObject(new ChartPanel(chart))));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
             return;
         }//end if/else.
 

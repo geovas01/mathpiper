@@ -232,10 +232,10 @@ public class JavaObject extends BuiltinContainer {
     }//end method.
 
 
-    public static List lispListToJavaList(Environment aEnvironment, ConsPointer lispList) throws Exception {
-        LispError.check(aEnvironment, Utility.isList(lispList), LispError.NOT_A_LIST, "INTERNAL");
+    public static List lispListToJavaList(Environment aEnvironment, int aStackTop,ConsPointer lispList) throws Exception {
+        LispError.check(aEnvironment, aStackTop, Utility.isList(lispList), LispError.NOT_A_LIST, "INTERNAL");
         
-        lispList.goNext();
+        lispList.goNext(aStackTop);
 
         ArrayList javaList = new ArrayList();
 
@@ -245,7 +245,7 @@ public class JavaObject extends BuiltinContainer {
             item = narrow(item);
             javaList.add(item);
 
-            lispList.goNext();
+            lispList.goNext(aStackTop);
 
         }//end while.
 
@@ -253,19 +253,19 @@ public class JavaObject extends BuiltinContainer {
     }//end method.
 
 
-    public static double[] lispListToJavaDoubleArray(Environment aEnvironment, ConsPointer lispListPointer) throws Exception {
-        LispError.check(aEnvironment, Utility.isList(lispListPointer), LispError.NOT_A_LIST, "INTERNAL");
+    public static double[] lispListToJavaDoubleArray(Environment aEnvironment, int aStackTop, ConsPointer lispListPointer) throws Exception {
+        LispError.check(aEnvironment, aStackTop, Utility.isList(lispListPointer), LispError.NOT_A_LIST, "INTERNAL");
 
-        lispListPointer.goNext(); //Remove List designator.
+        lispListPointer.goNext(aStackTop); //Remove List designator.
 
-        double[] values = new double[Utility.listLength(aEnvironment, lispListPointer)];
+        double[] values = new double[Utility.listLength(aEnvironment, aStackTop, lispListPointer)];
 
         int index = 0;
         while (lispListPointer.getCons() != null) {
 
             Object item = lispListPointer.car();
 
-            LispError.check(aEnvironment, item instanceof String, LispError.INVALID_ARGUMENT, "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, item instanceof String, LispError.INVALID_ARGUMENT, "INTERNAL");
             String itemString = (String) item;
 
             try {
@@ -274,7 +274,7 @@ public class JavaObject extends BuiltinContainer {
                 LispError.raiseError("Can not convert into a double." , "INTERNAL");
             }//end try/catch.
 
-            lispListPointer.goNext();
+            lispListPointer.goNext(aStackTop);
 
         }//end while.
 

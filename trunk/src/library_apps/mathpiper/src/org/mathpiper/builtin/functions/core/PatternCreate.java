@@ -43,15 +43,15 @@ public class PatternCreate extends BuiltinFunction
         ConsTraverser patternPointerTraverser = new ConsTraverser(aEnvironment, patternPointer);
         LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.getCons() != null, 1, "PatternCreate");
         LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.car() instanceof ConsPointer, 1, "PatternCreate");
-        patternPointerTraverser.goSub();
+        patternPointerTraverser.goSub(aStackTop);
         LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.getCons() != null, 1, "PatternCreate");
-        patternPointerTraverser.goNext();
+        patternPointerTraverser.goNext(aStackTop);
 
         patternPointer = patternPointerTraverser.getPointer();
 
 
-        org.mathpiper.lisp.parametermatchers.Pattern matcher = new org.mathpiper.lisp.parametermatchers.Pattern(aEnvironment, patternPointer, postPredicatePointer);
+        org.mathpiper.lisp.parametermatchers.Pattern matcher = new org.mathpiper.lisp.parametermatchers.Pattern(aEnvironment, aStackTop, patternPointer, postPredicatePointer);
         PatternContainer patternContainer = new PatternContainer(matcher);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, patternContainer));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, patternContainer));
     }
 }

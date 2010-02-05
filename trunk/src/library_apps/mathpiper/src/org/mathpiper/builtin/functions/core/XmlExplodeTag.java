@@ -111,9 +111,9 @@ public class XmlExplodeTag extends BuiltinFunction
 
             //printf("[%s], [%s]\n",name.String(),value.String());
             {
-                Cons ls = AtomCons.getInstance(aEnvironment, "List");
-                Cons nm = AtomCons.getInstance(aEnvironment, name);
-                Cons vl = AtomCons.getInstance(aEnvironment, value);
+                Cons ls = AtomCons.getInstance(aEnvironment, aStackTop, "List");
+                Cons nm = AtomCons.getInstance(aEnvironment, aStackTop, name);
+                Cons vl = AtomCons.getInstance(aEnvironment, aStackTop, value);
                 nm.cdr().setCons(vl);
                 ls.cdr().setCons(nm);
                 Cons newinfo = SublistCons.getInstance(aEnvironment, ls);
@@ -137,14 +137,14 @@ public class XmlExplodeTag extends BuiltinFunction
             }
         }
         {
-            Cons ls = AtomCons.getInstance(aEnvironment, "List");
+            Cons ls = AtomCons.getInstance(aEnvironment, aStackTop, "List");
             ls.cdr().setCons(info);
             info = SublistCons.getInstance(aEnvironment, ls);
         }
 
-        Cons xm = AtomCons.getInstance(aEnvironment, "XmlTag");
-        Cons tg = AtomCons.getInstance(aEnvironment, tag);
-        Cons tp = AtomCons.getInstance(aEnvironment, type);
+        Cons xm = AtomCons.getInstance(aEnvironment, aStackTop, "XmlTag");
+        Cons tg = AtomCons.getInstance(aEnvironment, aStackTop, tag);
+        Cons tp = AtomCons.getInstance(aEnvironment, aStackTop, type);
         info.cdr().setCons(tp);
         tg.cdr().setCons(info);
         xm.cdr().setCons(tg);

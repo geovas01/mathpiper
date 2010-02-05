@@ -52,7 +52,7 @@ public class ToString extends BuiltinFunction
 
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "ToString");
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aEnvironment.getTokenHash().lookUpStringify(orig)));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(orig)));
     }
 }
 

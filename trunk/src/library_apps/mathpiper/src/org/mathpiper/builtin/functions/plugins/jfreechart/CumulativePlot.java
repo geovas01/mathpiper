@@ -69,22 +69,22 @@ public class CumulativePlot extends BuiltinFunction {
 
         ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        LispError.check(aEnvironment, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "CumulativePlot");
+        LispError.check(aEnvironment, aStackTop, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "CumulativePlot");
 
-        argumentsPointer.goSub(); //Go to sub list.
+        argumentsPointer.goSub(aStackTop); //Go to sub list.
 
-        argumentsPointer.goNext(); //Strip List tag.
+        argumentsPointer.goNext(aStackTop); //Strip List tag.
 
-        LispError.check(aEnvironment, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "CumulativePlot");
+        LispError.check(aEnvironment, aStackTop, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "CumulativePlot");
 
         ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
 
         ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
         
-        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, optionsPointer, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, aStackTop, optionsPointer, defaultOptions);
 
 
-        IntervalXYDataset dataSet = ChartUtility.listToCumulativeDataset(aEnvironment, dataListPointer, userOptions);
+        IntervalXYDataset dataSet = ChartUtility.listToCumulativeDataset(aEnvironment, aStackTop, dataListPointer, userOptions);
 
         //createXYBarChart(java.lang.String title, java.lang.String xAxisLabel, boolean dateAxis, java.lang.String yAxisLabel, IntervalXYDataset dataset, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls)
 
@@ -120,7 +120,7 @@ public class CumulativePlot extends BuiltinFunction {
             Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
             return;
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment,new JavaObject(new ChartPanel(chart))));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
             return;
         }//end if/else.
 

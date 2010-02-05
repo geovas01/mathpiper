@@ -42,7 +42,7 @@ public class ArraySize extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1, "ArraySize");
         LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Array\""), 1, "ArraySize");
         int size = ((Array) gen).size();
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "" + size));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
     }
 }//end class.
 

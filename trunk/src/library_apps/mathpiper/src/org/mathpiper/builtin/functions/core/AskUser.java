@@ -56,7 +56,7 @@ public class AskUser extends BuiltinFunction
             throw new BreakException();
         }//end method.
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "\"" + userInputString + "\""));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "\"" + userInputString + "\""));
     }//end method.
 
 }//end class.

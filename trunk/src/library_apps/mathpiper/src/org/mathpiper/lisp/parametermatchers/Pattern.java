@@ -65,16 +65,17 @@ public class Pattern {
     /// in \a aPattern, and the resulting pattern matchers are
     /// collected in #iParamMatchers. Additionally, \a aPostPredicate
     /// is copied, and the copy is added to #iPredicates.
-    public Pattern(Environment aEnvironment,
+    public Pattern(Environment aEnvironment, int aStackTop,
             ConsPointer aPattern,
             ConsPointer aPostPredicate) throws Exception {
+
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aPattern);
 
         while (consTraverser.getCons() != null) {
-            PatternParameter matcher = makeParamMatcher(aEnvironment, consTraverser.getCons());
+            PatternParameter matcher = makeParamMatcher(aEnvironment, aStackTop, consTraverser.getCons());
             LispError.lispAssert(matcher != null);
             iParamMatchers.add(matcher);
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
         }
         ConsPointer post = new ConsPointer(aEnvironment);
         post.setCons(aPostPredicate.getCons());
@@ -92,7 +93,7 @@ public class Pattern {
     /// function also returns false. Otherwise, setPatternVariables()
     /// is called again, but now in the current LispLocalFrame, and
     /// this function returns true.
-    public boolean matches(Environment aEnvironment, ConsPointer aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aArguments) throws Exception {
         int i;
 
         ConsPointer[] argumentsPointer = null;
@@ -113,10 +114,10 @@ public class Pattern {
             if (argumentsPointer2 == null) {
                 return false;
             }
-            if (!((PatternParameter) iParamMatchers.get(i)).argumentMatches(aEnvironment, argumentsPointer2, argumentsPointer)) {
+            if (!((PatternParameter) iParamMatchers.get(i)).argumentMatches(aEnvironment, aStackTop, argumentsPointer2, argumentsPointer)) {
                 return false;
             }
-            argumentsTraverser.goNext();
+            argumentsTraverser.goNext(aStackTop);
         }
         if (argumentsTraverser.getCons() != null) {
             return false;
@@ -129,7 +130,7 @@ public class Pattern {
                 setPatternVariables(aEnvironment, argumentsPointer);
 
                 // do the predicates
-                if (!checkPredicates(aEnvironment)) {
+                if (!checkPredicates(aEnvironment, aStackTop)) {
                     return false;
                 }
             } catch (Exception e) {
@@ -148,7 +149,7 @@ public class Pattern {
     /// Try to match the pattern against \a aArguments.
     /// This function does the same as matches(Environment ,ConsPointer ),
     /// but differs in the type of the arguments.
-    public boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
         int i;
 
         ConsPointer[] arguments = null;
@@ -165,7 +166,7 @@ public class Pattern {
             LispError.check(i < aArguments.length, "Listed function definitions need at least two parameters.", "INTERNAL");
             PatternParameter patternParameter = (PatternParameter) iParamMatchers.get(i);
             ConsPointer argument = aArguments[i];
-            if (! patternParameter.argumentMatches(aEnvironment, argument, arguments)) {
+            if (! patternParameter.argumentMatches(aEnvironment, aStackTop, argument, arguments)) {
                 return false;
             }
         }
@@ -177,7 +178,7 @@ public class Pattern {
                 setPatternVariables(aEnvironment, arguments);
 
                 // do the predicates
-                if (!checkPredicates(aEnvironment)) {
+                if (!checkPredicates(aEnvironment, aStackTop)) {
                     return false;
                 }
             } catch (Exception e) {
@@ -210,7 +211,7 @@ public class Pattern {
     ///   resulting PatternParameter objects are collected in a
     ///   SublistCons, which is returned.
     /// - Otherwise, this function returns #null.
-    protected PatternParameter makeParamMatcher(Environment aEnvironment, Cons aPattern) throws Exception {
+    protected PatternParameter makeParamMatcher(Environment aEnvironment, int aStackTop, Cons aPattern) throws Exception {
         if (aPattern == null) {
             return null;
         }
@@ -229,7 +230,7 @@ public class Pattern {
             ConsPointer sublist = (ConsPointer) aPattern.car();
             //LispError.lispAssert(sublist != null);
 
-            int num = Utility.listLength(aEnvironment, sublist);
+            int num = Utility.listLength(aEnvironment, aStackTop, sublist);
 
             // variable matcher here...
             if (num > 1) {
@@ -245,7 +246,7 @@ public class Pattern {
 
                             Cons predicate = second.cdr().getCons();
                             if ( (predicate.car() instanceof ConsPointer)) {
-                                Utility.flatCopy(aEnvironment, third, (ConsPointer) predicate.car());
+                                Utility.flatCopy(aEnvironment, aStackTop, third, (ConsPointer) predicate.car());
                             } else {
                                 third.setCons(second.cdr().getCons().copy( aEnvironment, false));
                             }
@@ -256,7 +257,7 @@ public class Pattern {
                                 last = last.cdr().getCons();
                             }
 
-                            last.cdr().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, str));
+                            last.cdr().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, str));
 
                             ConsPointer pred = new ConsPointer(aEnvironment);
                             pred.setCons(org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment,third.getCons()));
@@ -273,9 +274,9 @@ public class Pattern {
             int i;
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, sublist);
             for (i = 0; i < num; i++) {
-                matchers[i] = makeParamMatcher(aEnvironment, consTraverser.getCons());
+                matchers[i] = makeParamMatcher(aEnvironment, aStackTop, consTraverser.getCons());
                 LispError.lispAssert(matchers[i] != null);
-                consTraverser.goNext();
+                consTraverser.goNext(aStackTop);
             }
             return new Sublist(matchers, num);
         }
@@ -316,11 +317,11 @@ public class Pattern {
     /// evaluates them. It returns #false if at least one
     /// of these results IsFalse(). An error is raised if any result
     /// neither IsTrue() nor IsFalse().
-    protected boolean checkPredicates(Environment aEnvironment) throws Exception {
+    protected boolean checkPredicates(Environment aEnvironment, int aStackTop) throws Exception {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
             ConsPointer pred = new ConsPointer(aEnvironment);
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, pred, ((ConsPointer) iPredicates.get(i)));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, ((ConsPointer) iPredicates.get(i)));
             if (Utility.isFalse(aEnvironment, pred)) {
                 return false;
             }
@@ -332,14 +333,14 @@ public class Pattern {
                 //TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
                 String strout;
                 aEnvironment.write("The predicate\n\t");
-                strout = Utility.printExpression(((ConsPointer) iPredicates.get(i)), aEnvironment, 60);
+                strout = Utility.printExpression(aStackTop, ((ConsPointer) iPredicates.get(i)), aEnvironment, 60);
                 aEnvironment.write(strout);
                 aEnvironment.write("\nevaluated to\n\t");
-                strout = Utility.printExpression(pred, aEnvironment, 60);
+                strout = Utility.printExpression(aStackTop, pred, aEnvironment, 60);
                 aEnvironment.write(strout);
                 aEnvironment.write("\n");
 
-                LispError.check(aEnvironment, isTrue, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, isTrue, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, "INTERNAL");
             }
         }
         return true;

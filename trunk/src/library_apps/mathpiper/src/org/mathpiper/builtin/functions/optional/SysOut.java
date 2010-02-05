@@ -47,11 +47,11 @@ public class SysOut extends BuiltinFunction {
             ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
             while (consTraverser.getCons() != null)
             {
-                aEnvironment.iCurrentPrinter.print(consTraverser.getPointer(), out, aEnvironment);
-                consTraverser.goNext();
+                aEnvironment.iCurrentPrinter.print(aStackTop, consTraverser.getPointer(), out, aEnvironment);
+                consTraverser.goNext(aStackTop);
             }
         }
         String output = out.toString();

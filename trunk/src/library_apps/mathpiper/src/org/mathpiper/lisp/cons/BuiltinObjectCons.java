@@ -35,10 +35,10 @@ public class BuiltinObjectCons extends Cons {
         iCdr = new ConsPointer(aEnvironment);
     }
 
-    public static BuiltinObjectCons getInstance(Environment aEnvironment, BuiltinContainer aClass) throws Exception {
+    public static BuiltinObjectCons getInstance(Environment aEnvironment, int aStackTop, BuiltinContainer aClass) throws Exception {
         LispError.lispAssert(aClass != null);
         BuiltinObjectCons self = new BuiltinObjectCons(aEnvironment, aClass);
-        LispError.check(aEnvironment, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
         return self;
     }
 

@@ -30,7 +30,7 @@ public class LispPrinter {
     //private List<Cons> visitedLists = new ArrayList<Cons>();
 
 
-    public void print(ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
+    public void print(int aStackTop, ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
         printExpression(aExpression, aOutput, aEnvironment, 0);
 
         //visitedLists.clear();

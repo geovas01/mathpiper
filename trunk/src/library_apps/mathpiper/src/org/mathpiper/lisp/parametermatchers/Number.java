@@ -35,7 +35,7 @@ public class Number extends PatternParameter
 		iNumber = aNumber;
 	}
 	
-	public boolean argumentMatches(Environment  aEnvironment,
+	public boolean argumentMatches(Environment  aEnvironment, int aStackTop, 
 	                               ConsPointer  aExpression,
 	                               ConsPointer[]  arguments) throws Exception
 	{

@@ -35,7 +35,7 @@ public class Sublist extends PatternParameter
 		iNrMatchers = aNrMatchers;
 	}
 
-	public boolean argumentMatches(Environment  aEnvironment,
+	public boolean argumentMatches(Environment  aEnvironment, int aStackTop,
 	                               ConsPointer  aExpression,
 	                               ConsPointer[]  arguments) throws Exception
 	{
@@ -44,7 +44,7 @@ public class Sublist extends PatternParameter
 		int i;
 
 		ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aExpression);
-		consTraverser.goSub();
+		consTraverser.goSub(aStackTop);
 
 		for (i=0;i<iNrMatchers;i++)
 		{
@@ -53,9 +53,9 @@ public class Sublist extends PatternParameter
 				return false;
 			if (consTraverser.getCons() == null)
 				return false;
-			if (!iMatchers[i].argumentMatches(aEnvironment,ptr,arguments))
+			if (!iMatchers[i].argumentMatches(aEnvironment, aStackTop, ptr,arguments))
 				return false;
-			consTraverser.goNext();
+			consTraverser.goNext(aStackTop );
 		}
 		if (consTraverser.getCons() != null)
 			return false;

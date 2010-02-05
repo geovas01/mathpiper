@@ -52,7 +52,7 @@ public class StringMidGet extends BuiltinFunction
 
 
         String str = "\"" + orig.substring(from, from + count) + "\"";
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, str));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, str));
     }
 }
 

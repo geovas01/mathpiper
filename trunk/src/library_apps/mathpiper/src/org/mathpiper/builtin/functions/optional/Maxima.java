@@ -198,7 +198,7 @@ public class Maxima extends BuiltinFunction {
                 response = response.substring(1);
             }
 
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, response));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, response));
         } catch (Throwable t) {
             t.printStackTrace();
             Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

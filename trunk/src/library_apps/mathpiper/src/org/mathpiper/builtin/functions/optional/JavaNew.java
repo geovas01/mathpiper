@@ -48,7 +48,7 @@ public class JavaNew extends BuiltinFunction {
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
 
             //Skip past List type.
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
 
             Cons argumentCons = consTraverser.getPointer().getCons();
 
@@ -59,7 +59,7 @@ public class JavaNew extends BuiltinFunction {
                 fullyQualifiedClassName = fullyQualifiedClassName.substring(1, fullyQualifiedClassName.length());
                 fullyQualifiedClassName = fullyQualifiedClassName.substring(0, fullyQualifiedClassName.length() - 1);
 
-                consTraverser.goNext();
+                consTraverser.goNext(aStackTop);
 
                 ArrayList argumentArrayList = new ArrayList();
 
@@ -74,7 +74,7 @@ public class JavaNew extends BuiltinFunction {
 
                     argumentArrayList.add(argument);
 
-                    consTraverser.goNext();
+                    consTraverser.goNext(aStackTop);
 
                 }//end while.
 
@@ -86,7 +86,7 @@ public class JavaNew extends BuiltinFunction {
                     Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                     return;
                 } else {
-                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, response));
+                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
                     return;
                 }//end if/else.
 

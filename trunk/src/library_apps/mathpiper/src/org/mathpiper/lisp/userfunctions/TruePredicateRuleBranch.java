@@ -33,7 +33,7 @@ class TruePredicateRuleBranch extends RuleBranch
         iBody.setCons(aBody.getCons());
     }
     /// Return #true, always.
-    public boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception
+    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception
     {
         return true;
     }

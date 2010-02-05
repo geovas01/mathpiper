@@ -509,9 +509,9 @@ public class BigNumber {
      * @param aZ
      * @throws java.lang.Exception
      */
-    public void mod(BigNumber aY, BigNumber aZ) throws Exception {
-        LispError.check(iEnvironment, aY.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
-        LispError.check(iEnvironment, aZ.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
+    public void mod(int aStackTop, BigNumber aY, BigNumber aZ) throws Exception {
+        LispError.check(iEnvironment, aStackTop, aY.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
+        LispError.check(iEnvironment, aStackTop, aZ.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
         //TODO fixme    LispError.check(!IsZero(aZ),LispError.INVALID_ARGUMENT);
         javaBigInteger = aY.javaBigInteger.mod(aZ.javaBigInteger);
         javaBigDecimal = null;

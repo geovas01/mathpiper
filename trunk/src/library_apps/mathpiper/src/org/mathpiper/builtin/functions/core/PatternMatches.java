@@ -50,13 +50,13 @@ public class PatternMatches extends BuiltinFunction
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, list);
         LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2, "PatternMatches");
         LispError.checkArgument(aEnvironment, aStackTop, consTraverser.car() instanceof ConsPointer, 2, "PatternMatches");
-        consTraverser.goSub();
+        consTraverser.goSub(aStackTop);
         LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2, "PatternMatches");
-        consTraverser.goNext();
+        consTraverser.goNext(aStackTop);
 
         ConsPointer ptr = consTraverser.getPointer();
         LispError.checkArgument(aEnvironment, aStackTop, ptr != null, 2, "PatternMatches");
-        boolean matches = patclass.matches(aEnvironment, ptr);
+        boolean matches = patclass.matches(aEnvironment, aStackTop, ptr);
         Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), matches);
     }
 }

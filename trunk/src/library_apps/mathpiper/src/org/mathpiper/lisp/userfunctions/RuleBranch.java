@@ -53,6 +53,7 @@ class RuleBranch extends Branch
     protected RuleBranch(Environment aEnvironment)
     {
         iBody = new ConsPointer(aEnvironment);
+        iPredicate = new ConsPointer(aEnvironment);
     }
 
     private RuleBranch()
@@ -71,10 +72,10 @@ class RuleBranch extends Branch
 
     // iPredicate is evaluated in \a Environment. If the result
     /// IsTrue(), this function returns true
-    public boolean matches(Environment aEnvironment, ConsPointer[] aArguments) throws Exception
+    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception
     {
         ConsPointer pred = new ConsPointer(aEnvironment);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, pred, iPredicate);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, iPredicate);
         return Utility.isTrue(aEnvironment, pred);
     }
 

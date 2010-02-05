@@ -40,7 +40,7 @@ public class GlobalVariablesGet extends BuiltinFunction {
 
         Collections.sort(variablesList, new NameComparator() );
 
-        Cons head = Utility.iterableToList(aEnvironment, variablesList);
+        Cons head = Utility.iterableToList(aEnvironment, aStackTop, variablesList);
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, head));
 

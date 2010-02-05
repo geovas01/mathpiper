@@ -56,8 +56,8 @@ public class PatchString extends BuiltinFunction {
                     MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
                     try{
                         aEnvironment.iCurrentOutput = newOutput;
-                        ConsPointer resultPointer = Utility.lispEvaluate(aEnvironment, "Eval(" + scriptCode + ");");
-                        resultString = Utility.printExpression(resultPointer, aEnvironment, 0);
+                        ConsPointer resultPointer = Utility.lispEvaluate(aEnvironment, aStackTop, "Eval(" + scriptCode + ");");
+                        resultString = Utility.printExpression(aStackTop, resultPointer, aEnvironment, 0);
                     }catch(Exception e)
                     {
                         throw e;
@@ -74,7 +74,7 @@ public class PatchString extends BuiltinFunction {
             resultStringBuilder.append(unpatchedString);
         }
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, resultStringBuilder.toString()));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, resultStringBuilder.toString()));
     }
 
 

@@ -31,7 +31,7 @@ public class MathPiperTokenizer {
 
     /// NextToken returns a string representing the next token,
     /// or an empty list.
-    public String nextToken(Environment aEnvironment, MathPiperInputStream aInput, TokenMap aTokenHashTable) throws Exception {
+    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, TokenMap aTokenHashTable) throws Exception {
         char streamCharacter;
         int firstpos = aInput.position();
 
@@ -69,7 +69,7 @@ public class MathPiperTokenizer {
                 aInput.next(); //consume *
                 while (true) {
                     while (aInput.next() != '*' && !aInput.endOfStream());
-                    LispError.check(aEnvironment, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "INTERNAL");
+                    LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "INTERNAL");
                     if (aInput.peek() == '/') {
                         aInput.next();  // consume /
                         redo = true;
@@ -93,11 +93,11 @@ public class MathPiperTokenizer {
                 while (aInput.peek() != '\"') {
                     if (aInput.peek() == '\\') {
                         aInput.next();
-                        LispError.check(aEnvironment, !aInput.endOfStream(), LispError.PARSING_INPUT, "INTERNAL");
+                        LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.PARSING_INPUT, "INTERNAL");
                     }
                     //TODO FIXME is following append char correct?
                     aResult = aResult + ((char) aInput.next());
-                    LispError.check(aEnvironment, !aInput.endOfStream(), LispError.PARSING_INPUT, "INTERNAL");
+                    LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.PARSING_INPUT, "INTERNAL");
                 }
                 //TODO FIXME is following append char correct?
                 aResult = aResult + ((char) aInput.next()); // consume the close quote

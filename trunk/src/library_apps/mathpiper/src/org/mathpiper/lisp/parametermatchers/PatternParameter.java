@@ -30,7 +30,7 @@ public abstract class PatternParameter
 	/// \param aExpression the expression to test.
 	/// \param arguments (input/output) actual values of the pattern
 	/// variables for \a aExpression.
-	public abstract boolean argumentMatches(Environment  aEnvironment,
+	public abstract boolean argumentMatches(Environment  aEnvironment, int aStackTop, 
 	                                        ConsPointer  aExpression,
 	                                        ConsPointer[]  arguments) throws Exception;
 

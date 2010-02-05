@@ -37,7 +37,7 @@ public class While extends BuiltinFunction {
         ConsPointer arg2 = getArgumentPointer(aEnvironment, aStackTop, 2);
 
         ConsPointer predicate = new ConsPointer(aEnvironment);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, arg1);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, predicate, arg1);
 
         ConsPointer evaluated = new ConsPointer(aEnvironment);
 
@@ -52,7 +52,7 @@ public class While extends BuiltinFunction {
 
                 try {
 
-                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, evaluated, arg2);
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, arg2);
 
                 } catch (ContinueException ce) {
                     aEnvironment.iArgumentStack.popTo(beforeStackTop);
@@ -60,7 +60,7 @@ public class While extends BuiltinFunction {
                     Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                 }//end continue catch.
 
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, arg1);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, predicate, arg1);
 
             }//end while.
 

@@ -46,7 +46,7 @@ public abstract class Evaluator {
 		// Print out the current expression
 		//StringOutput stream(outString);
 		MathPiperOutputStream stream = new StringOutputStream(outString);
-		infixprinter.print(aExpression, stream, aEnvironment);
+		infixprinter.print(-1, aExpression, stream, aEnvironment);
 		// Escape quotes.
 		for (int i = outString.length() - 1; i >= 0; --i) {
 			char c = outString.charAt(i);
@@ -264,7 +264,7 @@ public abstract class Evaluator {
 		iTraced = true;
 	}
 
-	public abstract void evaluate(Environment aEnvironment, ConsPointer aResult, ConsPointer aArgumentsOrExpression) throws Exception;
+	public abstract void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArgumentsOrExpression) throws Exception;
 
 
 	public UserStackInformation stackInformation() {

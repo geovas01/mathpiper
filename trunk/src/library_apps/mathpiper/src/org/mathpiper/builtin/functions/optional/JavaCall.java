@@ -51,7 +51,7 @@ public class JavaCall extends BuiltinFunction {
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
 
             //Skip past List type.
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
 
             //Obtain the Java object to call.
             Cons argumentCons = consTraverser.getPointer().getCons();
@@ -78,14 +78,14 @@ public class JavaCall extends BuiltinFunction {
                 if (builtinContainer != null) {
 
 
-                    consTraverser.goNext();
+                    consTraverser.goNext(aStackTop);
                     argumentCons = consTraverser.getPointer().getCons();
                     String methodName = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
                     methodName = methodName.substring(1, methodName.length());
                     methodName = methodName.substring(0, methodName.length() - 1);
 
-                    consTraverser.goNext();
+                    consTraverser.goNext(aStackTop);
 
                     ArrayList argumentArrayList = new ArrayList();
 
@@ -103,7 +103,7 @@ public class JavaCall extends BuiltinFunction {
 
                         argumentArrayList.add(argument);
 
-                        consTraverser.goNext();
+                        consTraverser.goNext(aStackTop);
 
                     }//end while.
 
@@ -119,7 +119,7 @@ public class JavaCall extends BuiltinFunction {
                     Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                     return;
                     }*/
-                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, response));
+                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
                     return;
 

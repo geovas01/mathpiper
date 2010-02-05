@@ -49,13 +49,13 @@ public class BuiltinAssoc extends BuiltinFunction {
         LispError.checkArgument(aEnvironment, aStackTop, listCons != null, 2, "BuiltinAssoc");
         listCons = listCons.cdr().getCons();
 
-        Cons result = Utility.associativeListGet(aEnvironment, key, listCons);
+        Cons result = Utility.associativeListGet(aEnvironment, aStackTop, key, listCons);
 
         if (result != null) {
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(result);
 
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, "Empty"));
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
         }
 
 

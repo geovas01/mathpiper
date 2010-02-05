@@ -31,7 +31,7 @@ public class Postfix extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Utility.listLength(aEnvironment, getArgumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
         if (nrArguments == 2)
         {
             Utility.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);

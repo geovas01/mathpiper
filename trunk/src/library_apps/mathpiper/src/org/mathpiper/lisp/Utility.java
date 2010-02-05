@@ -167,11 +167,11 @@ public class Utility {
         return true;
     }
 
-    public static int listLength(Environment aEnvironment, ConsPointer aOriginal) throws Exception {
+    public static int listLength(Environment aEnvironment, int aStackTop, ConsPointer aOriginal) throws Exception {
         ConsPointer consTraverser = new ConsPointer(aEnvironment, aOriginal.getCons());
         int length = 0;
         while (consTraverser.getCons() != null) {
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
             length++;
         }
         return length;
@@ -194,65 +194,65 @@ public class Utility {
         aResult.setCons(previous.getCons());
     }
 
-    public static void returnUnEvaluated(ConsPointer aResult, ConsPointer aArguments, Environment aEnvironment) throws Exception {
+    public static void returnUnEvaluated(int aStackTop, ConsPointer aResult, ConsPointer aArguments, Environment aEnvironment) throws Exception {
         ConsPointer full = new ConsPointer(aEnvironment);
         full.setCons(aArguments.getCons().copy(aEnvironment, false));
         aResult.setCons(SublistCons.getInstance(aEnvironment, full.getCons()));
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
-        consTraverser.goNext();
+        consTraverser.goNext(aStackTop);
 
         while (consTraverser.getCons() != null) {
             ConsPointer next = new ConsPointer(aEnvironment);
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, next, consTraverser.getPointer());
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, next, consTraverser.getPointer());
             full.cdr().setCons(next.getCons());
             full.setCons(next.getCons());
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
         }
         full.cdr().setCons(null);
     }
 
     //Evaluate a function which is in string form.
-    public static void applyString(Environment aEnvironment, ConsPointer aResult, String aOperator, ConsPointer aArgs) throws Exception {
-        LispError.check(aEnvironment, isString(aOperator), LispError.NOT_A_STRING, "INTERNAL");
+    public static void applyString(Environment aEnvironment, int aStackTop, ConsPointer aResult, String aOperator, ConsPointer aArgs) throws Exception {
+        LispError.check(aEnvironment, aStackTop, isString(aOperator), LispError.NOT_A_STRING, "INTERNAL");
 
-        Cons head = AtomCons.getInstance(aEnvironment, getSymbolName(aEnvironment, aOperator));
+        Cons head = AtomCons.getInstance(aEnvironment, aStackTop, getSymbolName(aEnvironment, aOperator));
         head.cdr().setCons(aArgs.getCons());
         ConsPointer body = new ConsPointer(aEnvironment);
         body.setCons(SublistCons.getInstance(aEnvironment, head));
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, body);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, aResult, body);
     }
 
-    public static void applyPure(ConsPointer oper, ConsPointer args2, ConsPointer aResult, Environment aEnvironment) throws Exception {
-        LispError.check(aEnvironment, oper.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, "INTERNAL");
-        LispError.check(aEnvironment, ((ConsPointer) oper.car()).getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+    public static void applyPure(int aStackTop, ConsPointer oper, ConsPointer args2, ConsPointer aResult, Environment aEnvironment) throws Exception {
+        LispError.check(aEnvironment, aStackTop, oper.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, ((ConsPointer) oper.car()).getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         ConsPointer oper2 = new ConsPointer(aEnvironment);
         oper2.setCons(((ConsPointer) oper.car()).cdr().getCons());
-        LispError.check(aEnvironment, oper2.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, oper2.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
 
         ConsPointer body = new ConsPointer(aEnvironment);
         body.setCons(oper2.cdr().getCons());
-        LispError.check(aEnvironment, body.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, body.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
 
-        LispError.check(aEnvironment, oper2.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, "INTERNAL");
-        LispError.check(aEnvironment, ((ConsPointer) oper2.car()).getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, oper2.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, ((ConsPointer) oper2.car()).getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         oper2.setCons(((ConsPointer) oper2.car()).cdr().getCons());
 
         aEnvironment.pushLocalFrame(false, "Pure");
         try {
             while (oper2.getCons() != null) {
-                LispError.check(aEnvironment, args2.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, args2.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
 
                 String var = (String) oper2.car();
-                LispError.check(aEnvironment, var != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, var != null, LispError.INVALID_ARGUMENT, "INTERNAL");
                 ConsPointer newly = new ConsPointer(aEnvironment);
                 newly.setCons(args2.getCons().copy(aEnvironment, false));
                 aEnvironment.newLocalVariable(var, newly.getCons());
                 oper2.setCons(oper2.cdr().getCons());
                 args2.setCons(args2.cdr().getCons());
             }
-            LispError.check(aEnvironment, args2.getCons() == null, LispError.INVALID_ARGUMENT, "INTERNAL");
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aResult, body);
+            LispError.check(aEnvironment, aStackTop, args2.getCons() == null, LispError.INVALID_ARGUMENT, "INTERNAL");
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, aResult, body);
         } catch (EvaluationException e) {
             throw e;
         } finally {
@@ -277,28 +277,28 @@ public class Utility {
         }
     }
 
-    public static void nth(Environment aEnvironment, ConsPointer aResult, ConsPointer aArg, int n) throws Exception {
-        LispError.check(aEnvironment, aArg.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-        LispError.check(aEnvironment, aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, "INTERNAL");
-        LispError.check(aEnvironment, n >= 0, LispError.INVALID_ARGUMENT, "INTERNAL");
+    public static void nth(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArg, int n) throws Exception {
+        LispError.check(aEnvironment, aStackTop, aArg.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, n >= 0, LispError.INVALID_ARGUMENT, "INTERNAL");
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) aArg.car());
 
         while (n > 0) {
-            LispError.check(aEnvironment, consTraverser.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-            consTraverser.goNext();
+            LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+            consTraverser.goNext(aStackTop);
             n--;
         }
-        LispError.check(aEnvironment, consTraverser.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         aResult.setCons(consTraverser.getCons().copy(aEnvironment, false));
     }
 
-    public static void tail(Environment aEnvironment, ConsPointer aResult, ConsPointer aArg) throws Exception {
-        LispError.check(aEnvironment, aArg.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-        LispError.check(aEnvironment, aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, "INTERNAL");
+    public static void tail(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArg) throws Exception {
+        LispError.check(aEnvironment, aStackTop, aArg.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, "INTERNAL");
 
         ConsPointer iter = (ConsPointer) aArg.car();
 
-        LispError.check(aEnvironment, iter.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, iter.getCons() != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         aResult.setCons(SublistCons.getInstance(aEnvironment, iter.cdr().getCons()));
     }
 
@@ -389,15 +389,15 @@ public class Utility {
 
     }//end method.
 
-    public static boolean isNestedList(Environment aEnvironment, ConsPointer clientListPointer) throws Exception {
+    public static boolean isNestedList(Environment aEnvironment, int aStackTop, ConsPointer clientListPointer) throws Exception {
 
         ConsPointer listPointer = new ConsPointer(aEnvironment, clientListPointer.getCons());
 
-        listPointer.goNext(); //Strip List tag.
+        listPointer.goNext(aStackTop); //Strip List tag.
 
         while (listPointer.getCons() != null) {
             if (listPointer.car() instanceof ConsPointer && isList((ConsPointer) listPointer.car())) {
-                listPointer.goNext();
+                listPointer.goNext(aStackTop);
             } else {
                 return false;
             }
@@ -405,26 +405,26 @@ public class Utility {
         return true;
     }//end method.
 
-    public static Map optionsListToJavaMap(Environment aEnvironment, ConsPointer argumentsPointer, Map defaultOptions) throws Exception {
+    public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, ConsPointer argumentsPointer, Map defaultOptions) throws Exception {
 
         Map userOptions = (Map) ((HashMap) defaultOptions).clone();
 
         while (argumentsPointer.getCons() != null) {
             //Obtain -> operator.
             ConsPointer optionPointer = (ConsPointer) argumentsPointer.car();
-            LispError.check(aEnvironment, optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT, "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT, "INTERNAL");
             String operator = (String) optionPointer.car();
-            LispError.check(aEnvironment, operator.equals("->"), LispError.INVALID_ARGUMENT, "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, operator.equals("->"), LispError.INVALID_ARGUMENT, "INTERNAL");
 
             //Obtain key.
-            optionPointer.goNext();
-            LispError.check(aEnvironment, optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT, "INTERNAL");
+            optionPointer.goNext(aStackTop);
+            LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT, "INTERNAL");
             String key = (String) optionPointer.car();
             key = Utility.stripEndQuotes(key);
 
             //Obtain value.
-            optionPointer.goNext();
-            LispError.check(aEnvironment, optionPointer.type() == Utility.ATOM || optionPointer.type() == Utility.NUMBER, LispError.INVALID_ARGUMENT, "INTERNAL");
+            optionPointer.goNext(aStackTop);
+            LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM || optionPointer.type() == Utility.NUMBER, LispError.INVALID_ARGUMENT, "INTERNAL");
             if (optionPointer.type() == Utility.ATOM) {
                 String value = (String) optionPointer.car();
                 value = Utility.stripEndQuotes(value);
@@ -443,7 +443,7 @@ public class Utility {
 
 
 
-            argumentsPointer.goNext();
+            argumentsPointer.goNext(aStackTop);
 
         }//end while
 
@@ -478,27 +478,27 @@ public class Utility {
         return aOriginal;
     }//end method.
 
-    public static void not(ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
+    public static void not(int aStackTop, ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
         if (isTrue(aEnvironment, aExpression)) {
             putFalseInPointer(aEnvironment, aResult);
         } else {
-            LispError.check(aEnvironment, isFalse(aEnvironment, aExpression), LispError.INVALID_ARGUMENT, "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, isFalse(aEnvironment, aExpression), LispError.INVALID_ARGUMENT, "INTERNAL");
             putTrueInPointer(aEnvironment, aResult);
         }
     }
 
-    public static void flatCopy(Environment aEnvironment, ConsPointer aResult, ConsPointer aOriginal) throws Exception {
+    public static void flatCopy(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aOriginal) throws Exception {
         ConsTraverser orig = new ConsTraverser(aEnvironment, aOriginal);
         ConsTraverser res = new ConsTraverser(aEnvironment, aResult);
 
         while (orig.getCons() != null) {
             res.getPointer().setCons(orig.getCons().copy(aEnvironment, false));
-            orig.goNext();
-            res.goNext();
+            orig.goNext(aStackTop);
+            res.goNext(aStackTop);
         }
     }
 
-    public static boolean equals(Environment aEnvironment, ConsPointer aExpression1, ConsPointer aExpression2) throws Exception {
+    public static boolean equals(Environment aEnvironment, int aStackTop, ConsPointer aExpression1, ConsPointer aExpression2) throws Exception {
         // Handle pointers to same, or null
         if (aExpression1.getCons() == aExpression2.getCons()) {
             return true;
@@ -546,13 +546,13 @@ public class Utility {
 
             while (consTraverser1.getCons() != null && consTraverser2.getCons() != null) {
                 // compare two list elements
-                if (!equals(aEnvironment, consTraverser1.getPointer(), consTraverser2.getPointer())) {
+                if (!equals(aEnvironment, aStackTop, consTraverser1.getPointer(), consTraverser2.getPointer())) {
                     return false;
                 }
 
                 // Step to rest
-                consTraverser1.goNext();
-                consTraverser2.goNext();
+                consTraverser1.goNext(aStackTop);
+                consTraverser2.goNext(aStackTop);
             }
             // Lists don't have the same length
             if (consTraverser1.getCons() != consTraverser2.getCons()) {
@@ -565,10 +565,10 @@ public class Utility {
         return false;
     }
 
-    public static void substitute(Environment aEnvironment, ConsPointer aTarget, ConsPointer aSource, Substitute aBehaviour) throws Exception {
+    public static void substitute(Environment aEnvironment, int aStackTop, ConsPointer aTarget, ConsPointer aSource, Substitute aBehaviour) throws Exception {
         Cons object = aSource.getCons();
         LispError.lispAssert(object != null);
-        if (!aBehaviour.matches(aEnvironment, aTarget, aSource)) {
+        if (!aBehaviour.matches(aEnvironment, aStackTop, aTarget, aSource)) {
             Object oldList = object.car();
 
             ConsPointer oldListPointer = null;
@@ -581,7 +581,7 @@ public class Utility {
                 ConsPointer newList = new ConsPointer(aEnvironment);
                 ConsPointer next = newList;
                 while (oldListPointer.getCons() != null) {
-                    substitute(aEnvironment, next, oldListPointer, aBehaviour);
+                    substitute(aEnvironment, aStackTop, next, oldListPointer, aBehaviour);
                     oldListPointer = oldListPointer.cdr();
                     next = next.cdr();
                 }
@@ -592,15 +592,15 @@ public class Utility {
         }//end matches if.
     }
 
-    public static String unstringify(Environment aEnvironment, String aOriginal) throws Exception {
-        LispError.check(aEnvironment, aOriginal != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-        LispError.check(aEnvironment, aOriginal.charAt(0) == '\"', LispError.INVALID_ARGUMENT, "INTERNAL");
+    public static String unstringify(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
+        LispError.check(aEnvironment, aStackTop, aOriginal != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, aOriginal.charAt(0) == '\"', LispError.INVALID_ARGUMENT, "INTERNAL");
         int nrc = aOriginal.length() - 1;
-        LispError.check(aEnvironment, aOriginal.charAt(nrc) == '\"', LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, aOriginal.charAt(nrc) == '\"', LispError.INVALID_ARGUMENT, "INTERNAL");
         return aOriginal.substring(1, nrc);
     }
 
-    private static void doInternalLoad(Environment aEnvironment, MathPiperInputStream aInput) throws Exception {
+    private static void doInternalLoad(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
         try {
             aEnvironment.iCurrentInput = aInput;
@@ -615,17 +615,17 @@ public class Utility {
             ConsPointer readIn = new ConsPointer(aEnvironment);
             while (!endoffile) {
                 // Read expression
-                parser.parse(readIn);
+                parser.parse(aStackTop, readIn);
 
-                LispError.check(aEnvironment, readIn.getCons() != null, LispError.READING_FILE, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "INTERNAL");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()) == eof) {
                     endoffile = true;
                 } // Else evaluate
                 else {
                     ConsPointer result = new ConsPointer(aEnvironment);
-                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, readIn);
-                    aEnvironment.setGlobalVariable("LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
+                    aEnvironment.setGlobalVariable(aStackTop, "LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
                 }
             }//end while.
 
@@ -647,8 +647,8 @@ public class Utility {
      * @param aFileName
      * @throws java.lang.Exception
      */
-    public static void loadScript(Environment aEnvironment, String aFileName) throws Exception {
-        String oper = unstringify(aEnvironment, aFileName);
+    public static void loadScript(Environment aEnvironment, int aStackTop, String aFileName) throws Exception {
+        String oper = unstringify(aEnvironment, aStackTop, aFileName);
 
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(oper);
 
@@ -665,8 +665,8 @@ public class Utility {
         if (inputStream != null) //File is on the classpath.
         {
             newInput = new StandardFileInputStream(new InputStreamReader(inputStream), aEnvironment.iInputStatus);
-            LispError.check(aEnvironment, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
-            doInternalLoad(aEnvironment, newInput);
+            LispError.check(aEnvironment, aStackTop, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
+            doInternalLoad(aEnvironment, aStackTop, newInput);
 
         } else { //File may be in the filesystem.
             try {
@@ -674,8 +674,8 @@ public class Utility {
                 newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
                         openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
 
-                LispError.check(aEnvironment, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
-                doInternalLoad(aEnvironment, newInput);
+                LispError.check(aEnvironment, aStackTop, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
+                doInternalLoad(aEnvironment, aStackTop, newInput);
             } catch (Exception e) {
                 throw e;
             } finally {
@@ -689,15 +689,15 @@ public class Utility {
 
     }
 
-    public static void loadScriptOnce(Environment aEnvironment, String aFileName) throws Exception {
+    public static void loadScriptOnce(Environment aEnvironment, int aStackTop, String aFileName) throws Exception {
         DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
         if (!def.isLoaded()) {
             def.setLoaded();
-            loadScript(aEnvironment, aFileName);
+            loadScript(aEnvironment, aStackTop, aFileName);
         }
     }
 
-    public static String printExpression(ConsPointer aExpression,
+    public static String printExpression(int aStackTop, ConsPointer aExpression,
             Environment aEnvironment,
             int aMaxChars) throws Exception {
         StringBuffer result = new StringBuffer();
@@ -706,7 +706,7 @@ public class Utility {
                 aEnvironment.iInfixOperators,
                 aEnvironment.iPostfixOperators,
                 aEnvironment.iBodiedOperators);
-        infixprinter.print(aExpression, newOutput, aEnvironment);
+        infixprinter.print(aStackTop, aExpression, newOutput, aEnvironment);
         if (aMaxChars > 0 && result.length() > aMaxChars) {
             result.delete(aMaxChars, result.length());
             result.append((char) '.');
@@ -773,7 +773,7 @@ public class Utility {
         return "";
     }
 
-    private static void doLoadDefFile(Environment aEnvironment, MathPiperInputStream aInput, DefFile def) throws Exception {
+    private static void doLoadDefFile(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, DefFile def) throws Exception {
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
         try {
             aEnvironment.iCurrentInput = aInput;
@@ -785,7 +785,7 @@ public class Utility {
 
             while (!endoffile) {
                 // Read expression
-                String token = tok.nextToken(aEnvironment, aEnvironment.iCurrentInput, aEnvironment.getTokenHash());
+                String token = tok.nextToken(aEnvironment, aStackTop, aEnvironment.iCurrentInput, aEnvironment.getTokenHash());
 
                 // check for end of file
                 if (token == eof || token == end) {
@@ -793,7 +793,7 @@ public class Utility {
                 } // Else evaluate
                 else {
                     String str = token;
-                    MultipleArityUserFunction multiUser = aEnvironment.getMultipleArityUserFunction(str, true);
+                    MultipleArityUserFunction multiUser = aEnvironment.getMultipleArityUserFunction(aStackTop, str, true);
                     if (multiUser.iFileToOpen != null) {
                         throw new EvaluationException("[" + str + "]" + "] : def file already chosen: " + multiUser.iFileToOpen.iFileName, aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
                     }
@@ -808,10 +808,10 @@ public class Utility {
         }
     }
 
-    public static void loadDefFile(Environment aEnvironment, String aFileName) throws Exception {
+    public static void loadDefFile(Environment aEnvironment, int aStackTop, String aFileName) throws Exception {
         LispError.lispAssert(aFileName != null);
 
-        String flatfile = unstringify(aEnvironment, aFileName) + ".def";
+        String flatfile = unstringify(aEnvironment, aStackTop, aFileName) + ".def";
         DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
 
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(flatfile);
@@ -830,15 +830,15 @@ public class Utility {
         if (inputStream != null) //File is on the classpath.
         {
             newInput = new StandardFileInputStream(new InputStreamReader(inputStream), aEnvironment.iInputStatus);
-            LispError.check(aEnvironment, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
-            doLoadDefFile(aEnvironment, newInput, def);
+            LispError.check(aEnvironment, aStackTop, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
+            doLoadDefFile(aEnvironment, aStackTop, newInput, def);
 
         } else //File may be in the filesystem.
         {
             newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
                     openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
-            LispError.check(aEnvironment, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
-            doLoadDefFile(aEnvironment, newInput, def);
+            LispError.check(aEnvironment, aStackTop, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
+            doLoadDefFile(aEnvironment, aStackTop, newInput, def);
         }
 
         aEnvironment.iInputStatus.restoreFrom(oldstatus);
@@ -911,7 +911,7 @@ public class Utility {
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "INTERNAL");
 
         ConsPointer precedence = new ConsPointer(aEnvironment);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, precedence, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, precedence, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
         LispError.checkArgument(aEnvironment, aStackTop, precedence.car() instanceof String, 2, "INTERNAL");
         int prec = Integer.parseInt((String) precedence.car(), 10);
         LispError.checkArgument(aEnvironment, aStackTop, prec <= MathPiperPrinter.KMaxPrecedence, 2, "INTERNAL");
@@ -954,7 +954,7 @@ public class Utility {
         String variableString = null;
         if (aMacroMode) {
             ConsPointer result = new ConsPointer(aEnvironment);
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1));
             variableString = (String) result.car();
         } else {
             variableString = (String) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).car();
@@ -963,8 +963,8 @@ public class Utility {
         LispError.checkArgument(aEnvironment, aStackTop, !Utility.isNumber(variableString, true), 1, "INTERNAL");
 
         ConsPointer result = new ConsPointer(aEnvironment);
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
-        aEnvironment.setGlobalVariable(variableString, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
+        aEnvironment.setGlobalVariable(aStackTop, variableString, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
@@ -977,7 +977,7 @@ public class Utility {
         if (aDestructive) {
             copied.setCons(((ConsPointer) evaluated.car()).getCons());
         } else {
-            Utility.flatCopy(aEnvironment, copied, (ConsPointer) evaluated.car());
+            Utility.flatCopy(aEnvironment, aStackTop, copied, (ConsPointer) evaluated.car());
         }
 
         ConsPointer index = new ConsPointer(aEnvironment);
@@ -989,7 +989,7 @@ public class Utility {
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied);
         while (ind > 0) {
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
             ind--;
         }
         LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.NOT_LONG_ENOUGH);
@@ -1008,7 +1008,7 @@ public class Utility {
         if (aDestructive) {
             copied.setCons(((ConsPointer) evaluated.car()).getCons());
         } else {
-            Utility.flatCopy(aEnvironment, copied, (ConsPointer) evaluated.car());
+            Utility.flatCopy(aEnvironment, aStackTop, copied, (ConsPointer) evaluated.car());
         }
 
         ConsPointer index = new ConsPointer(aEnvironment);
@@ -1020,7 +1020,7 @@ public class Utility {
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied);
         while (ind > 0) {
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
             ind--;
         }
 
@@ -1047,13 +1047,13 @@ public class Utility {
         if (aDestructive) {
             copied.setCons(((ConsPointer) evaluated.car()).getCons());
         } else {
-            Utility.flatCopy(aEnvironment, copied, (ConsPointer) evaluated.car());
+            Utility.flatCopy(aEnvironment, aStackTop, copied, (ConsPointer) evaluated.car());
         }
         LispError.checkArgument(aEnvironment, aStackTop, ind > 0, 2, "INTERNAL");
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied);
         while (ind > 0) {
-            consTraverser.goNext();
+            consTraverser.goNext(aStackTop);
             ind--;
         }
 
@@ -1086,7 +1086,7 @@ public class Utility {
         LispError.checkIsList(aEnvironment, aStackTop, argsPointer, 2, "INTERNAL");
 
         // Finally define the rule database.
-        aEnvironment.declareRulebase(Utility.getSymbolName(aEnvironment, functionName),
+        aEnvironment.declareRulebase(aStackTop, Utility.getSymbolName(aEnvironment, functionName),
                 ((ConsPointer) argsPointer.car()).cdr(), aListed);
 
         // Return true
@@ -1125,7 +1125,7 @@ public class Utility {
         precedence = Integer.parseInt((String) pr.car(), 10);
 
         // Finally define the rule base
-        aEnvironment.defineRule(Utility.getSymbolName(aEnvironment, orig),
+        aEnvironment.defineRule(aStackTop, Utility.getSymbolName(aEnvironment, orig),
                 arity,
                 precedence,
                 predicate,
@@ -1150,7 +1150,7 @@ public class Utility {
         LispError.checkIsList(aEnvironment, aStackTop, args, 2, "INTERNAL");
 
         // Finally define the rule base
-        aEnvironment.declareMacroRulebase(Utility.getSymbolName(aEnvironment, orig),
+        aEnvironment.declareMacroRulebase(aStackTop, Utility.getSymbolName(aEnvironment, orig),
                 ((ConsPointer) args.car()).cdr(), aListed);
 
         // Return true
@@ -1187,7 +1187,7 @@ public class Utility {
         precedence = Integer.parseInt((String) precedencePointer.car(), 10);
 
         // Finally define the rule base
-        aEnvironment.defineRulePattern(Utility.getSymbolName(aEnvironment, orig),
+        aEnvironment.defineRulePattern(aStackTop, Utility.getSymbolName(aEnvironment, orig),
                 arity,
                 precedence,
                 predicatePointer,
@@ -1197,7 +1197,7 @@ public class Utility {
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
-    public static String dumpRule(Branch branch, Environment aEnvironment, SingleArityBranchingUserFunction userFunction) {
+    public static String dumpRule(int aStackTop, Branch branch, Environment aEnvironment, SingleArityBranchingUserFunction userFunction) {
         StringBuilder dumpResult = new StringBuilder();
         try {
             int precedence = branch.getPrecedence();
@@ -1207,7 +1207,7 @@ public class Utility {
             if (predicatePointerString == null || predicatePointerString.equalsIgnoreCase("Empty.")) {
                 predicate = "None.";
             } else {
-                predicate = Utility.printExpression(predicatePointer1, aEnvironment, 0);
+                predicate = Utility.printExpression(aStackTop, predicatePointer1, aEnvironment, 0);
             }
 
             if (predicate.equalsIgnoreCase("\"Pattern\"")) {
@@ -1242,7 +1242,7 @@ public class Utility {
                 Iterator patternPredicatesIterator = pattern.getPredicates().iterator();
                 while (patternPredicatesIterator.hasNext()) {
                     ConsPointer predicatePointer = (ConsPointer) patternPredicatesIterator.next();
-                    String patternPredicate = Utility.printExpression(predicatePointer, aEnvironment, 0);
+                    String patternPredicate = Utility.printExpression(aStackTop, predicatePointer, aEnvironment, 0);
                     predicate += patternPredicate + ", ";
                 }
                 /*if (predicate.contains(",")) {
@@ -1267,7 +1267,7 @@ public class Utility {
                 parameters = parameters.substring(0, parameters.lastIndexOf(","));
             }
 
-            String body = Utility.printExpression(branch.getBodyPointer(), aEnvironment, 0);
+            String body = Utility.printExpression(aStackTop, branch.getBodyPointer(), aEnvironment, 0);
             body = body.replace(",", ", ");
             //System.out.println(data);
 
@@ -1276,8 +1276,8 @@ public class Utility {
             if (userFunction instanceof MacroUserFunction) {
                 BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
                 ConsPointer substitutedBodyPointer = new ConsPointer(aEnvironment);
-                Utility.substitute(aEnvironment, substitutedBodyPointer, branch.getBodyPointer(), backQuoteSubstitute);
-                substitutedMacroBody = Utility.printExpression(substitutedBodyPointer, aEnvironment, 0);
+                Utility.substitute(aEnvironment, aStackTop, substitutedBodyPointer, branch.getBodyPointer(), backQuoteSubstitute);
+                substitutedMacroBody = Utility.printExpression(aStackTop, substitutedBodyPointer, aEnvironment, 0);
             }
 
             dumpResult.append("Precedence: " + precedence + ", ");
@@ -1300,7 +1300,7 @@ public class Utility {
 
     }//end method.
 
-    public static Cons associativeListGet(Environment aEnvironment, ConsPointer key, Cons listCons) throws Exception {
+    public static Cons associativeListGet(Environment aEnvironment, int aStackTop, ConsPointer key, Cons listCons) throws Exception {
 
 
         while (listCons != null) {
@@ -1310,7 +1310,7 @@ public class Utility {
                     sub = sub.cdr().getCons();
                     ConsPointer temp = new ConsPointer(aEnvironment);
                     temp.setCons(sub);
-                    if (Utility.equals(aEnvironment, key, temp)) {
+                    if (Utility.equals(aEnvironment, aStackTop, key, temp)) {
                         return listCons;
                     }//end if.
 
@@ -1355,7 +1355,7 @@ public class Utility {
      * @return cons
      * @throws java.lang.Exception
      */
-    public static Cons iterableToList(Environment aEnvironment, java.lang.Iterable iterable) throws Exception {
+    public static Cons iterableToList(Environment aEnvironment, int aStackTop, java.lang.Iterable iterable) throws Exception {
         
         Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
 
@@ -1368,11 +1368,11 @@ public class Utility {
         while (keyIterator.hasNext()) {
             String key = (String) keyIterator.next();
 
-            Cons stringCons = AtomCons.getInstance(aEnvironment, key);
+            Cons stringCons = AtomCons.getInstance(aEnvironment, aStackTop, key);
 
             consPointer.getCons().cdr().setCons(stringCons);
 
-            consPointer.goNext();
+            consPointer.goNext(aStackTop);
 
         }//end while.
 
@@ -1383,7 +1383,7 @@ public class Utility {
 
 
 
-    public static ConsPointer lispEvaluate(Environment aEnvironment, String inputExpression) throws Exception {
+    public static ConsPointer lispEvaluate(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
         ConsPointer result = new ConsPointer(aEnvironment);
         MathPiperTokenizer tokenizer = new MathPiperTokenizer();
         InputStatus someStatus = new InputStatus();
@@ -1395,9 +1395,9 @@ public class Utility {
             StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
 
             Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-            infixParser.parse(inputExpressionPointer);
+            infixParser.parse(aStackTop, inputExpressionPointer);
 
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, inputExpressionPointer);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, inputExpressionPointer);
 
         } catch (Exception e) {
             throw e;
@@ -1406,12 +1406,12 @@ public class Utility {
     }//end method.
 
 
-    public static ConsPointer lispEvaluate(Environment aEnvironment, ConsPointer inputExpressionPointer) throws Exception {
+    public static ConsPointer lispEvaluate(Environment aEnvironment, int aStackTop, ConsPointer inputExpressionPointer) throws Exception {
         ConsPointer result = new ConsPointer(aEnvironment);
         MathPiperTokenizer tokenizer = new MathPiperTokenizer();
         InputStatus someStatus = new InputStatus();
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result, inputExpressionPointer);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, inputExpressionPointer);
 
         return result;
     }//end method.
