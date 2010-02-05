@@ -21,9 +21,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 public class JavaObject extends BuiltinContainer {
@@ -232,8 +232,8 @@ public class JavaObject extends BuiltinContainer {
     }//end method.
 
 
-    public static List lispListToJavaList(ConsPointer lispList) throws Exception {
-        LispError.check(Utility.isList(lispList), LispError.NOT_A_LIST, "INTERNAL");
+    public static List lispListToJavaList(Environment aEnvironment, ConsPointer lispList) throws Exception {
+        LispError.check(aEnvironment, Utility.isList(lispList), LispError.NOT_A_LIST, "INTERNAL");
         
         lispList.goNext();
 
@@ -253,19 +253,19 @@ public class JavaObject extends BuiltinContainer {
     }//end method.
 
 
-    public static double[] lispListToJavaDoubleArray(ConsPointer lispListPointer) throws Exception {
-        LispError.check(Utility.isList(lispListPointer), LispError.NOT_A_LIST, "INTERNAL");
+    public static double[] lispListToJavaDoubleArray(Environment aEnvironment, ConsPointer lispListPointer) throws Exception {
+        LispError.check(aEnvironment, Utility.isList(lispListPointer), LispError.NOT_A_LIST, "INTERNAL");
 
         lispListPointer.goNext(); //Remove List designator.
 
-        double[] values = new double[Utility.listLength(lispListPointer)];
+        double[] values = new double[Utility.listLength(aEnvironment, lispListPointer)];
 
         int index = 0;
         while (lispListPointer.getCons() != null) {
 
             Object item = lispListPointer.car();
 
-            LispError.check(item instanceof String, LispError.INVALID_ARGUMENT, "INTERNAL");
+            LispError.check(aEnvironment, item instanceof String, LispError.INVALID_ARGUMENT, "INTERNAL");
             String itemString = (String) item;
 
             try {

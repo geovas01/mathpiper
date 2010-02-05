@@ -32,10 +32,10 @@ public class If extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Utility.listLength(getArgumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.listLength(aEnvironment, getArgumentPointer(aEnvironment, aStackTop, 0));
         LispError.check(aEnvironment, aStackTop, nrArguments == 3 || nrArguments == 4, LispError.WRONG_NUMBER_OF_ARGUMENTS);
 
-        ConsPointer predicate = new ConsPointer();
+        ConsPointer predicate = new ConsPointer(aEnvironment);
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, predicate, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         if (Utility.isTrue(aEnvironment, predicate))

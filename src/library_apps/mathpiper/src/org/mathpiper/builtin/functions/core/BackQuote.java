@@ -33,7 +33,7 @@ public class BackQuote extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         org.mathpiper.lisp.behaviours.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.behaviours.BackQuoteSubstitute(aEnvironment);
-        ConsPointer result = new ConsPointer();
+        ConsPointer result = new ConsPointer(aEnvironment);
         Utility.substitute(aEnvironment, result, getArgumentPointer(aEnvironment, aStackTop, 1), behaviour);
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), result);
     }

@@ -69,21 +69,21 @@ public class LineChart extends BuiltinFunction {
 
         ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        LispError.check(Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "LineChart");
+        LispError.check(aEnvironment, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "LineChart");
 
         argumentsPointer.goSub(); //Go to sub list.
 
         argumentsPointer.goNext(); //Strip List tag.
 
-        LispError.check(Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "LineChart");
+        LispError.check(aEnvironment, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "LineChart");
 
         ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
 
         ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
 
-        Map userOptions = ChartUtility.optionsListToJavaMap(optionsPointer, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, optionsPointer, defaultOptions);
 
-        IntervalXYDataset dataSet = ChartUtility.listToIntervalXYDataset(dataListPointer, userOptions);
+        IntervalXYDataset dataSet = ChartUtility.listToIntervalXYDataset(aEnvironment, dataListPointer, userOptions);
 
 
         JFreeChart chart = ChartFactory.createXYLineChart(

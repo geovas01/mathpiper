@@ -37,7 +37,7 @@ public class Local extends BuiltinFunction
 
             ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             
-            ConsTraverser consTraverser = new ConsTraverser(subList);
+            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
             consTraverser.goNext();
 
             int nr = 1;

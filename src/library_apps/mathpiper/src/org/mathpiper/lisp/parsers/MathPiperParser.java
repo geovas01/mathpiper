@@ -38,11 +38,12 @@ public class MathPiperParser extends Parser
     public OperatorMap iInfixOperators;
     public OperatorMap iPostfixOperators;
     public OperatorMap iBodiedOperators;
+    private Environment iEnvironment;
     
     boolean iError;
     boolean iEndOfFile;
     String iLookAhead;
-    public ConsPointer iSExpressionResult = new ConsPointer();
+    public ConsPointer iSExpressionResult = new ConsPointer(iEnvironment);
 
     public MathPiperParser(MathPiperTokenizer aTokenizer,
             MathPiperInputStream aInput,
@@ -57,28 +58,29 @@ public class MathPiperParser extends Parser
         iInfixOperators = aInfixOperators;
         iPostfixOperators = aPostfixOperators;
         iBodiedOperators = aBodiedOperators;
+        iEnvironment = aEnvironment;
 
         iError = false;
         iEndOfFile = false;
         iLookAhead = null;
     }
 
-    public void parse(Environment aEnvironment,ConsPointer aResult) throws Exception
+    public void parse(ConsPointer aResult) throws Exception
     {
-        parse(aEnvironment);
+        parse();
         aResult.setCons(iSExpressionResult.getCons());
     }
 
-    public void parse(Environment aEnvironment) throws Exception
+    public void parse() throws Exception
     {
         readToken();
         if (iEndOfFile)
         {
-            iSExpressionResult.setCons(iEnvironment.iEndOfFileAtom.copy( aEnvironment, true));
+            iSExpressionResult.setCons(iEnvironment.iEndOfFileAtom.copy( iEnvironment, true));
             return;
         }
 
-        readExpression(aEnvironment,MathPiperPrinter.KMaxPrecedence);  // least precedence
+        readExpression(iEnvironment,MathPiperPrinter.KMaxPrecedence);  // least precedence
 
         if (iLookAhead != iEnvironment.iEndStatementAtom.car())
         {
@@ -96,13 +98,13 @@ public class MathPiperParser extends Parser
         {
             iSExpressionResult.setCons(null);
         }
-        LispError.check(!iError, LispError.INVALID_EXPRESSION, "INTERNAL");
+        LispError.check(iEnvironment, !iError, LispError.INVALID_EXPRESSION, "INTERNAL");
     }
 
     void readToken() throws Exception
     {
         // Get token.
-        iLookAhead = iTokenizer.nextToken(iInput,
+        iLookAhead = iTokenizer.nextToken(iEnvironment, iInput,
                 iEnvironment.getTokenHash());
         if (iLookAhead.length() == 0)
         {
@@ -352,9 +354,9 @@ public class MathPiperParser extends Parser
 
     void combine(Environment aEnvironment,int aNrArgsToCombine) throws Exception
     {
-        ConsPointer subList = new ConsPointer();
+        ConsPointer subList = new ConsPointer(aEnvironment);
         subList.setCons(SublistCons.getInstance(aEnvironment,iSExpressionResult.getCons()));
-        ConsTraverser consTraverser = new ConsTraverser(iSExpressionResult);
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, iSExpressionResult);
         int i;
         for (i = 0; i < aNrArgsToCombine; i++)
         {
@@ -373,14 +375,14 @@ public class MathPiperParser extends Parser
         subList.cdr().setCons(consTraverser.cdr().getCons());
         consTraverser.cdr().setCons(null);
 
-        Utility.reverseList(((ConsPointer) subList.car()).cdr(),
+        Utility.reverseList(aEnvironment, ((ConsPointer) subList.car()).cdr(),
                 ((ConsPointer) subList.car()).cdr());
         iSExpressionResult.setCons(subList.getCons());
     }
 
     void insertAtom(String aString) throws Exception
     {
-        ConsPointer ptr = new ConsPointer();
+        ConsPointer ptr = new ConsPointer(iEnvironment);
         ptr.setCons(AtomCons.getInstance(iEnvironment, aString));
         ptr.cdr().setCons(iSExpressionResult.getCons());
         iSExpressionResult.setCons(ptr.getCons());

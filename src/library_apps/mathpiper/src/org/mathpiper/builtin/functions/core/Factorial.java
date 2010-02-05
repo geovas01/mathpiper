@@ -39,12 +39,12 @@ public class Factorial extends BuiltinFunction
         //TODO fixme I am sure this can be optimized still
 //        LispError.check(arg.type().equals("Number"), LispError.INVALID_ARGUMENT);
         int nr = (int) ((BigNumber) arg.getCons().getNumber(0)).toLong();
-        LispError.check(nr >= 0, LispError.INVALID_ARGUMENT, "Factorial");
-        BigNumber fac = new BigNumber("1", 10, 10);
+        LispError.check(aEnvironment, nr >= 0, LispError.INVALID_ARGUMENT, "Factorial");
+        BigNumber fac = new BigNumber(aEnvironment, "1", 10, 10);
         int i;
         for (i = 2; i <= nr; i++)
         {
-            BigNumber m = new BigNumber("" + i, 10, 10);
+            BigNumber m = new BigNumber(aEnvironment, "" + i, 10, 10);
             m.multiply(fac, m, 0);
             fac = m;
         }

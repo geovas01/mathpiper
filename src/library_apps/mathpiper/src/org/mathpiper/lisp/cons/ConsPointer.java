@@ -18,8 +18,8 @@
 package org.mathpiper.lisp.cons;
 
 import org.mathpiper.io.StringOutput;
+import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.printers.LispPrinter;
 
 /** 
@@ -34,6 +34,8 @@ public class ConsPointer {
 
     Cons iCons;
 
+    private Environment iEnvironment;
+
     public Object car() throws Exception {
         return iCons.car();
     }
@@ -42,11 +44,17 @@ public class ConsPointer {
         return iCons.cdr();
     }
 
-    public ConsPointer() {
+    private ConsPointer()
+    {    
+    }
+
+    public ConsPointer(Environment aEnvironment) {
+        iEnvironment = aEnvironment;
         iCons = null;
     }
 
-    public ConsPointer(Cons aCons) {
+    public ConsPointer(Environment aEnvironment, Cons aCons) {
+        iEnvironment = aEnvironment;
         iCons = aCons;
     }
 
@@ -66,13 +74,13 @@ public class ConsPointer {
 
     //iPointer = (iPointer.cdr());
     public void goNext() throws Exception {
-        LispError.check(iCons != null, LispError.NOT_LONG_ENOUGH, "INTERNAL");
+        LispError.check(iEnvironment, iCons != null, LispError.NOT_LONG_ENOUGH, "INTERNAL");
         iCons = iCons.cdr().iCons;
     }
 
     public void goSub() throws Exception {
-        LispError.check(iCons != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-        LispError.check(iCons.car() instanceof ConsPointer, LispError.NOT_A_LIST, "INTERNAL");
+        LispError.check(iEnvironment, iCons != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(iEnvironment, iCons.car() instanceof ConsPointer, LispError.NOT_A_LIST, "INTERNAL");
         iCons = ((ConsPointer)iCons.car()).getCons();
     }
 

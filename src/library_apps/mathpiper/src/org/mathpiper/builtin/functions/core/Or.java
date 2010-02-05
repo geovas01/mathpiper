@@ -33,12 +33,12 @@ public class Or extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer nogos = new ConsPointer();
+        ConsPointer nogos = new ConsPointer(aEnvironment);
         int nrnogos = 0;
 
-        ConsPointer evaluated = new ConsPointer();
+        ConsPointer evaluated = new ConsPointer(aEnvironment);
 
-        ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext();
         while (consTraverser.getCons() != null)
         {
@@ -49,7 +49,7 @@ public class Or extends BuiltinFunction
                 return;
             } else if (!Utility.isFalse(aEnvironment, evaluated))
             {
-                ConsPointer ptr = new ConsPointer();
+                ConsPointer ptr = new ConsPointer(aEnvironment);
                 nrnogos++;
 
                 ptr.setCons(evaluated.getCons().copy( aEnvironment, false));
@@ -66,9 +66,9 @@ public class Or extends BuiltinFunction
                 getTopOfStackPointer(aEnvironment, aStackTop).setCons(nogos.getCons());
             } else
             {
-                ConsPointer ptr = new ConsPointer();
+                ConsPointer ptr = new ConsPointer(aEnvironment);
 
-                Utility.reverseList(ptr, nogos);
+                Utility.reverseList(aEnvironment, ptr, nogos);
                 nogos.setCons(ptr.getCons());
 
                 ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy( aEnvironment, false));

@@ -65,21 +65,21 @@ public class ScatterPlot extends BuiltinFunction {
 
         ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        LispError.check(Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "ScatterPlot");
+        LispError.check(aEnvironment, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "ScatterPlot");
 
         argumentsPointer.goSub(); //Go to sub list.
 
         argumentsPointer.goNext(); //Strip List tag.
 
-        LispError.check(Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "ScatterPlot");
+        LispError.check(aEnvironment, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "ScatterPlot");
 
         ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
 
         ConsPointer optionsPointer = (ConsPointer) argumentsPointer.cdr();
 
-        Map userOptions = ChartUtility.optionsListToJavaMap(optionsPointer, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, optionsPointer, defaultOptions);
 
-        XYDataset dataSet = ChartUtility.listToXYDataset(dataListPointer, userOptions);
+        XYDataset dataSet = ChartUtility.listToXYDataset(aEnvironment, dataListPointer, userOptions);
 
         JFreeChart chart = ChartFactory.createScatterPlot(
                 (String) userOptions.get("title"), //title.

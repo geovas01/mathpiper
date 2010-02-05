@@ -78,10 +78,10 @@ public class Environment {
     public Cons iListAtom;
     public Cons iSetAtom;
     public Cons iProgAtom;
-    public OperatorMap iPrefixOperators = new OperatorMap();
-    public OperatorMap iInfixOperators = new OperatorMap();
-    public OperatorMap iPostfixOperators = new OperatorMap();
-    public OperatorMap iBodiedOperators = new OperatorMap();
+    public OperatorMap iPrefixOperators = new OperatorMap(this);
+    public OperatorMap iInfixOperators = new OperatorMap(this);
+    public OperatorMap iPostfixOperators = new OperatorMap(this);
+    public OperatorMap iBodiedOperators = new OperatorMap(this);
     public volatile int iEvalDepth = 0;
     public int iMaxEvalDepth = 10000;
     //TODO FIXME
@@ -131,7 +131,7 @@ public class Environment {
         iSetAtom = AtomCons.getInstance(this, "Set");
         iProgAtom = AtomCons.getInstance(this, "Prog");
 
-        iArgumentStack = new ArgumentStack(50000 /*TODO FIXME*/);
+        iArgumentStack = new ArgumentStack(this, 50000 /*TODO FIXME*/);
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();
         //mc.addCoreFunctions(this);
 
@@ -173,7 +173,7 @@ public class Environment {
             localVariable.setCons(aValue.getCons());
             return;
         }
-        GlobalVariable globalVariable = new GlobalVariable(aValue);
+        GlobalVariable globalVariable = new GlobalVariable(this,aValue);
         iGlobalState.setAssociation(globalVariable, aVariable);
         if (aGlobalLazyVariable) {
             globalVariable.setEvalBeforeReturn(true);
@@ -203,7 +203,7 @@ public class Environment {
 
 
     public ConsPointer getLocalVariable(String aVariable) throws Exception {
-        LispError.check(iLocalVariablesFrame != null, LispError.INVALID_STACK, "INTERNAL");
+        LispError.check(this, iLocalVariablesFrame != null, LispError.INVALID_STACK, "INTERNAL");
         //    check(iLocalsList.iFirst != null,INVALID_STACK);
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
 
@@ -219,7 +219,7 @@ public class Environment {
 
 
     public void unbindAllLocalVariables() throws Exception{
-        LispError.check(iLocalVariablesFrame != null, LispError.INVALID_STACK, "INTERNAL");
+        LispError.check(this, iLocalVariablesFrame != null, LispError.INVALID_STACK, "INTERNAL");
 
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
 
@@ -230,7 +230,7 @@ public class Environment {
         
     }//end method.
     public String getLocalVariables() throws Exception {
-        LispError.check(iLocalVariablesFrame != null, LispError.INVALID_STACK, "INTERNAL");
+        LispError.check(this, iLocalVariablesFrame != null, LispError.INVALID_STACK, "INTERNAL");
         //    check(iLocalsList.iFirst != null,INVALID_STACK);
 
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
@@ -302,7 +302,7 @@ public class Environment {
 
     public void newLocalVariable(String aVariable, Cons aValue) throws Exception {
         LispError.lispAssert(iLocalVariablesFrame != null);
-        iLocalVariablesFrame.add(new LocalVariable(aVariable, aValue));
+        iLocalVariablesFrame.add(new LocalVariable(this, aVariable, aValue));
     }
 
     public void pushLocalFrame(boolean aFenced, String functionName) {
@@ -328,7 +328,7 @@ public class Environment {
 
     public void holdArgument(String aOperator, String aVariable) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
-        LispError.check(multipleArityUserFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(this, multipleArityUserFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         multipleArityUserFunc.holdArgument(aVariable);
     }
 
@@ -342,7 +342,7 @@ public class Environment {
     public SingleArityBranchingUserFunction getUserFunction(ConsPointer aArguments) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp( (String) aArguments.car());
         if (multipleArityUserFunc != null) {
-            int arity = Utility.listLength(aArguments) - 1;
+            int arity = Utility.listLength(this, aArguments) - 1;
             return multipleArityUserFunc.getUserFunction(arity);
         }
         return null;
@@ -359,9 +359,9 @@ public class Environment {
     public void unFenceRule(String aOperator, int aArity) throws Exception {
         MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
 
-        LispError.check(multiUserFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(this, multiUserFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         SingleArityBranchingUserFunction userFunc = multiUserFunc.getUserFunction(aArity);
-        LispError.check(userFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(this, userFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         userFunc.unFence();
     }
 
@@ -375,7 +375,7 @@ public class Environment {
             MultipleArityUserFunction newMultipleArityUserFunction = new MultipleArityUserFunction();
             iUserFunctions.setAssociation(newMultipleArityUserFunction, aOperator);
             multipleArityUserFunction = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
-            LispError.check(multipleArityUserFunction != null, LispError.CREATING_USER_FUNCTION, "INTERNAL");
+            LispError.check(this, multipleArityUserFunction != null, LispError.CREATING_USER_FUNCTION, "INTERNAL");
         }
         return multipleArityUserFunction;
     }
@@ -386,11 +386,11 @@ public class Environment {
         // add an operator with this arity to the multiuserfunc.
         SingleArityBranchingUserFunction newBranchingUserFunction;
         if (aListed) {
-            newBranchingUserFunction = new ListedBranchingUserFunction(aParametersPointer, aOperator);
+            newBranchingUserFunction = new ListedBranchingUserFunction(this, aParametersPointer, aOperator);
         } else {
-            newBranchingUserFunction = new SingleArityBranchingUserFunction(aParametersPointer, aOperator);
+            newBranchingUserFunction = new SingleArityBranchingUserFunction(this, aParametersPointer, aOperator);
         }
-        multipleArityUserFunction.addRulebaseEntry(newBranchingUserFunction);
+        multipleArityUserFunction.addRulebaseEntry(this, newBranchingUserFunction);
     }
 
     public void defineRule(String aOperator, int aArity,
@@ -398,11 +398,11 @@ public class Environment {
             ConsPointer aBody) throws Exception {
         // Find existing multiuser func.
         MultipleArityUserFunction multipleArityUserFunction = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
-        LispError.check(multipleArityUserFunction != null, LispError.CREATING_RULE, "INTERNAL");
+        LispError.check(this, multipleArityUserFunction != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Get the specific user function with the right arity
         SingleArityBranchingUserFunction userFunction = (SingleArityBranchingUserFunction) multipleArityUserFunction.getUserFunction(aArity);
-        LispError.check(userFunction != null, LispError.CREATING_RULE, "INTERNAL");
+        LispError.check(this, userFunction != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Declare a new evaluation rule
         if (Utility.isTrue(this, aPredicate)) {
@@ -419,21 +419,21 @@ public class Environment {
         MacroUserFunction newMacroUserFunction;
 
         if (aListed) {
-            newMacroUserFunction = new ListedMacroUserFunction(aParameters, aFunctionName);
+            newMacroUserFunction = new ListedMacroUserFunction(this, aParameters, aFunctionName);
         } else {
-            newMacroUserFunction = new MacroUserFunction(aParameters, aFunctionName);
+            newMacroUserFunction = new MacroUserFunction(this, aParameters, aFunctionName);
         }
-        multipleArityUserFunc.addRulebaseEntry(newMacroUserFunction);
+        multipleArityUserFunc.addRulebaseEntry(this, newMacroUserFunction);
     }
 
     public void defineRulePattern(String aOperator, int aArity, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         // Find existing multiuser func.
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
-        LispError.check(multipleArityUserFunc != null, LispError.CREATING_RULE, "INTERNAL");
+        LispError.check(this, multipleArityUserFunc != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Get the specific user function with the right arity
         SingleArityBranchingUserFunction userFunction = multipleArityUserFunc.getUserFunction(aArity);
-        LispError.check(userFunction != null, LispError.CREATING_RULE, "INTERNAL");
+        LispError.check(this, userFunction != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Declare a new evaluation rule
         userFunction.declarePattern(aPrecedence, aPredicate, aBody);

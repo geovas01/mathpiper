@@ -42,7 +42,7 @@ public class SetPlotWidth extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         ConsPointer consPointer = new ConsPointer();
+         ConsPointer consPointer = new ConsPointer(aEnvironment);
          aEnvironment.getGlobalVariable("Simulator", consPointer);
          org.mathpiper.ui.gui.simulator.SimulatorFrame simulator =  (org.mathpiper.ui.gui.simulator.SimulatorFrame) ((BuiltinContainer)consPointer.car()).getObject();
 

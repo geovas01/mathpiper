@@ -34,7 +34,7 @@ public class ArrayCreate extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer sizearg = new ConsPointer();
+        ConsPointer sizearg = new ConsPointer(aEnvironment);
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 1, "ArrayCreate");
@@ -42,10 +42,10 @@ public class ArrayCreate extends BuiltinFunction
 
         int size = Integer.parseInt( (String) sizearg.car(), 10);
 
-        ConsPointer initarg = new ConsPointer();
+        ConsPointer initarg = new ConsPointer(aEnvironment);
         initarg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        Array array = new Array(size, initarg.getCons());
+        Array array = new Array(aEnvironment, size, initarg.getCons());
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, array));
     }
 }//end class.

@@ -18,8 +18,7 @@
 
 package org.mathpiper.lisp.cons;
 
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.Environment;
 
 
 /** 
@@ -31,14 +30,14 @@ public class ConsPointerArray
 	int iSize;
 	ConsPointer iArray[];
 	
-	public ConsPointerArray(int aSize,Cons aInitialItem)
+	public ConsPointerArray(Environment aEnvironment, int aSize,Cons aInitialItem)
 	{
 		iArray = new ConsPointer[aSize];
 		iSize = aSize;
 		int i;
 		for(i=0;i<aSize;i++)
 		{
-			iArray[i] = new ConsPointer();
+			iArray[i] = new ConsPointer(aEnvironment);
 			iArray[i].setCons(aInitialItem);
 		}
 	}

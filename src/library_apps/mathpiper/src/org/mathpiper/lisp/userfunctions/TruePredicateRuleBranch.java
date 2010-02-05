@@ -26,8 +26,9 @@ import org.mathpiper.lisp.Environment;
 class TruePredicateRuleBranch extends RuleBranch
 {
 
-    public TruePredicateRuleBranch(int aPrecedence, ConsPointer aBody)
+    public TruePredicateRuleBranch(Environment aEnvironment, int aPrecedence, ConsPointer aBody)
     {
+        super(aEnvironment);
         iPrecedence = aPrecedence;
         iBody.setCons(aBody.getCons());
     }

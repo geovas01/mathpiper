@@ -43,7 +43,7 @@ public class Sublist extends PatternParameter
 			return false;
 		int i;
 
-		ConsTraverser consTraverser = new ConsTraverser(aExpression);
+		ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aExpression);
 		consTraverser.goSub();
 
 		for (i=0;i<iNrMatchers;i++)

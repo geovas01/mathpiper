@@ -35,12 +35,12 @@ public class PatternCreate extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer patternPointer = new ConsPointer();
+        ConsPointer patternPointer = new ConsPointer(aEnvironment);
         patternPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer postPredicatePointer = new ConsPointer();
+        ConsPointer postPredicatePointer = new ConsPointer(aEnvironment);
         postPredicatePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
-        ConsTraverser patternPointerTraverser = new ConsTraverser(patternPointer);
+        ConsTraverser patternPointerTraverser = new ConsTraverser(aEnvironment, patternPointer);
         LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.getCons() != null, 1, "PatternCreate");
         LispError.checkArgument(aEnvironment, aStackTop, patternPointerTraverser.car() instanceof ConsPointer, 1, "PatternCreate");
         patternPointerTraverser.goSub();

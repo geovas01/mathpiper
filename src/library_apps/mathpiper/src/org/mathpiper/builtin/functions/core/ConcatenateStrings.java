@@ -36,7 +36,7 @@ public class ConcatenateStrings extends BuiltinFunction
         aStringBuffer.append('\"');
         int arg = 1;
 
-        ConsTraverser consTraverser = new ConsTraverser( (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car() );
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car() );
         consTraverser.goNext();
         while (consTraverser.getCons() != null)
         {

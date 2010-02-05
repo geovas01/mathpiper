@@ -54,7 +54,7 @@ public class MathPiperPrinter extends LispPrinter {
         iCurrentEnvironment = aEnvironment;
 
 
-        Print(aExpression, aOutput, KMaxPrecedence);
+        Print(aEnvironment, aExpression, aOutput, KMaxPrecedence);
 
         //visitedLists.clear();
     }
@@ -63,7 +63,7 @@ public class MathPiperPrinter extends LispPrinter {
         iPrevLastChar = aChar;
     }
 
-    void Print(ConsPointer aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
+    void Print(Environment aEnvironment, ConsPointer aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
 
         LispError.lispAssert(aExpression.getCons() != null);
 
@@ -95,12 +95,12 @@ public class MathPiperPrinter extends LispPrinter {
 
         ConsPointer subList = (ConsPointer) aExpression.car();
 
-        LispError.check(subList != null, LispError.UNPRINTABLE_TOKEN, "INTERNAL");
+        LispError.check(aEnvironment, subList != null, LispError.UNPRINTABLE_TOKEN, "INTERNAL");
 
         if (subList.getCons() == null) {
             WriteToken(aOutput, "( )");
         } else {
-            int length = Utility.listLength(subList);
+            int length = Utility.listLength(aEnvironment, subList);
             functionOrOperatorName = (String) subList.car();
             Operator prefix = (Operator) iPrefixOperators.lookUp(functionOrOperatorName);
             Operator infix = (Operator) iInfixOperators.lookUp(functionOrOperatorName);
@@ -151,7 +151,7 @@ public class MathPiperPrinter extends LispPrinter {
                         WriteToken(aOutput, "(");
                     }//end if.
 
-                    Print(left, aOutput, operator.iLeftPrecedence);
+                    Print(aEnvironment, left, aOutput, operator.iLeftPrecedence);
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(left).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
@@ -168,7 +168,7 @@ public class MathPiperPrinter extends LispPrinter {
                         WriteToken(aOutput, "(");
                     }//end if.
 
-                    Print(right, aOutput, operator.iRightPrecedence);
+                    Print(aEnvironment, right, aOutput, operator.iRightPrecedence);
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(right).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
@@ -182,7 +182,7 @@ public class MathPiperPrinter extends LispPrinter {
 
             } else {
 
-                ConsTraverser consTraverser = new ConsTraverser(subList.cdr());
+                ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList.cdr());
 
                /*
                    Removing complex number output notation formatting until the problem with Solve(x^3 - 2*x - 7 == 0,x) is resolved.
@@ -217,7 +217,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, "{");
 
                     while (consTraverser.getCons() != null) {
-                        Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
+                        Print(aEnvironment, consTraverser.getPointer(), aOutput, KMaxPrecedence);
                         consTraverser.goNext();
                         if (consTraverser.getCons() != null) {
                             WriteToken(aOutput, ",");
@@ -235,7 +235,7 @@ public class MathPiperPrinter extends LispPrinter {
 
                     while (consTraverser.getCons() != null) {
                         aOutput.write(spaces.toString());
-                        Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
+                        Print(aEnvironment, consTraverser.getPointer(), aOutput, KMaxPrecedence);
                         consTraverser.goNext();
                         WriteToken(aOutput, ";");
                         aOutput.write("\n");
@@ -245,10 +245,10 @@ public class MathPiperPrinter extends LispPrinter {
                     aOutput.write("\n");
                     spaces.delete(0, 4);
                 } else if (functionOrOperatorName == iCurrentEnvironment.iNthAtom.car()) {
-                    Print(consTraverser.getPointer(), aOutput, 0);
+                    Print(aEnvironment, consTraverser.getPointer(), aOutput, 0);
                     consTraverser.goNext();
                     WriteToken(aOutput, "[");
-                    Print(consTraverser.getPointer(), aOutput, KMaxPrecedence);
+                    Print(aEnvironment, consTraverser.getPointer(), aOutput, KMaxPrecedence);
                     WriteToken(aOutput, "]");
                 } else {
                     boolean bracket = false;
@@ -264,11 +264,11 @@ public class MathPiperPrinter extends LispPrinter {
                     if (functionOrOperatorName != null) {
                         WriteToken(aOutput, functionOrOperatorName); //Print function name.
                     } else {
-                        Print(subList, aOutput, 0);
+                        Print(aEnvironment, subList, aOutput, 0);
                     }
                     WriteToken(aOutput, "("); //Print the opening parenthese of the function argument list.
 
-                    ConsTraverser counter = new ConsTraverser(consTraverser.getPointer());
+                    ConsTraverser counter = new ConsTraverser(aEnvironment, consTraverser.getPointer());
                     int nr = 0;
 
                     while (counter.getCons() != null) { //Count arguments.
@@ -280,7 +280,7 @@ public class MathPiperPrinter extends LispPrinter {
                         nr--;
                     }
                     while (nr-- != 0) {
-                        Print(consTraverser.getPointer(), aOutput, KMaxPrecedence); //Print argument.
+                        Print(aEnvironment, consTraverser.getPointer(), aOutput, KMaxPrecedence); //Print argument.
 
                         consTraverser.goNext();
 
@@ -292,7 +292,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, ")");
 
                     if (consTraverser.getCons() != null) {
-                        Print(consTraverser.getPointer(), aOutput, bodied.iPrecedence);
+                        Print(aEnvironment, consTraverser.getPointer(), aOutput, bodied.iPrecedence);
                     }
 
                     if (bracket) {

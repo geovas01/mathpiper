@@ -33,9 +33,9 @@ public class ApplyPure extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer oper = new ConsPointer();
+        ConsPointer oper = new ConsPointer(aEnvironment);
         oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer args = new ConsPointer();
+        ConsPointer args = new ConsPointer(aEnvironment);
         args.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         LispError.checkArgument(aEnvironment, aStackTop, args.car() instanceof ConsPointer, 2, "ApplyPure");
@@ -50,7 +50,7 @@ public class ApplyPure extends BuiltinFunction
         } else
         {   // Apply a pure function {args,body}.
 
-            ConsPointer args2 = new ConsPointer();
+            ConsPointer args2 = new ConsPointer(aEnvironment);
             args2.setCons(((ConsPointer) args.car()).cdr().getCons());
             LispError.checkArgument(aEnvironment, aStackTop, oper.car() instanceof ConsPointer, 1, "ApplyPure");
             LispError.checkArgument(aEnvironment, aStackTop, ((ConsPointer) oper.car()).getCons() != null, 1, "ApplyPure");

@@ -23,7 +23,13 @@ import org.mathpiper.lisp.*;
 
 public class OperatorMap extends MathPiperMap // <Operator>
 {
-	
+	Environment iEnvironment;
+
+        public OperatorMap(Environment aEnvironment)
+        {
+            iEnvironment = aEnvironment;
+        }
+
 	public void setOperator(int aPrecedence,String aString)
 	{
 		Operator op = new Operator(aPrecedence);
@@ -33,21 +39,21 @@ public class OperatorMap extends MathPiperMap // <Operator>
 	public void setRightAssociative(String aString) throws Exception
 	{
 		Operator op = (Operator)lookUp(aString);
-		LispError.check(op != null,LispError.NOT_AN_INFIX_OPERATOR, "INTERNAL");
+		LispError.check(iEnvironment, op != null,LispError.NOT_AN_INFIX_OPERATOR, "INTERNAL");
 		op.setRightAssociative();
 	}
 	
 	public void setLeftPrecedence(String aString,int aPrecedence) throws Exception
 	{
 		Operator op = (Operator)lookUp(aString);
-		LispError.check(op != null,LispError.NOT_AN_INFIX_OPERATOR, "INTERNAL");
+		LispError.check(iEnvironment, op != null,LispError.NOT_AN_INFIX_OPERATOR, "INTERNAL");
 		op.setLeftPrecedence(aPrecedence);
 	}
 	
 	public void setRightPrecedence(String aString,int aPrecedence) throws Exception
 	{
 		Operator op = (Operator)lookUp(aString);
-		LispError.check(op != null,LispError.NOT_AN_INFIX_OPERATOR, "INTERNAL");
+		LispError.check(iEnvironment, op != null,LispError.NOT_AN_INFIX_OPERATOR, "INTERNAL");
 		op.setRightPrecedence(aPrecedence);
 	}
 	

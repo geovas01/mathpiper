@@ -24,9 +24,16 @@ import org.mathpiper.lisp.printers.LispPrinter;
 
 public class SublistCons extends Cons {
 
-    ConsPointer iCar = new ConsPointer();
-    ConsPointer iCdr = new ConsPointer();
+    ConsPointer iCar;
+    ConsPointer iCdr;
 
+
+    private SublistCons(Environment aEnvironment, Cons aSubList) throws Exception {
+        super(aEnvironment);
+        iCar = new ConsPointer(aEnvironment);
+        iCar.setCons(aSubList);
+        iCdr = new ConsPointer(aEnvironment);
+    }
 
     public static SublistCons getInstance(Environment aEnvironment, Cons aSubList) throws Exception {
         return new SublistCons(aEnvironment, aSubList);
@@ -55,11 +62,6 @@ public class SublistCons extends Cons {
     }
 
 
-    SublistCons(Environment aEnvironment, Cons aSubList) throws Exception {
-        super(aEnvironment);
-        iCar.setCons(aSubList);
-    }
-
 
     public ConsPointer cdr() {
         return iCdr;
@@ -70,7 +72,7 @@ public class SublistCons extends Cons {
         StringOutput out = new StringOutput();
         LispPrinter printer = new LispPrinter();
         try {
-            printer.print(new ConsPointer(this), out, null);
+            printer.print(new ConsPointer(iEnvironment), out, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

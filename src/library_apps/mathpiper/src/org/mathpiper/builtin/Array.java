@@ -18,6 +18,7 @@
 
 package org.mathpiper.builtin;
 
+import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointerArray;
@@ -27,9 +28,9 @@ public class Array extends BuiltinContainer
 {
 	ConsPointerArray iArray;
 
-	public Array(int aSize,Cons aInitialItem)
+	public Array(Environment aEnvironment, int aSize,Cons aInitialItem)
 	{
-		iArray = new ConsPointerArray(aSize,aInitialItem);
+		iArray = new ConsPointerArray(aEnvironment, aSize,aInitialItem);
 	}
 	public String send(ArgumentList aArgList)
 	{

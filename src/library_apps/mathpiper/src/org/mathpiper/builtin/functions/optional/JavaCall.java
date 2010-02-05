@@ -48,7 +48,7 @@ public class JavaCall extends BuiltinFunction {
         if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer) {
 
             ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-            ConsTraverser consTraverser = new ConsTraverser(subList);
+            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
 
             //Skip past List type.
             consTraverser.goNext();

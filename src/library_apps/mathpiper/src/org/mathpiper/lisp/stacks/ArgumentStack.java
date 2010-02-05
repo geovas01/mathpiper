@@ -34,9 +34,9 @@ public class ArgumentStack
     int iStackTopIndex;
 
     //TODO appropriate constructor?
-    public ArgumentStack(int aStackSize)
+    public ArgumentStack(Environment aEnvironment, int aStackSize)
     {
-        iArgumentStack = new ConsPointerArray(aStackSize, null);
+        iArgumentStack = new ConsPointerArray(aEnvironment, aStackSize, null);
         iStackTopIndex = 0;
     //printf("STACKSIZE %d\n",aStackSize);
     }

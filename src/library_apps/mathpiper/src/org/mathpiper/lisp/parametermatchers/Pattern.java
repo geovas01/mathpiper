@@ -68,7 +68,7 @@ public class Pattern {
     public Pattern(Environment aEnvironment,
             ConsPointer aPattern,
             ConsPointer aPostPredicate) throws Exception {
-        ConsTraverser consTraverser = new ConsTraverser(aPattern);
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aPattern);
 
         while (consTraverser.getCons() != null) {
             PatternParameter matcher = makeParamMatcher(aEnvironment, consTraverser.getCons());
@@ -76,7 +76,7 @@ public class Pattern {
             iParamMatchers.add(matcher);
             consTraverser.goNext();
         }
-        ConsPointer post = new ConsPointer();
+        ConsPointer post = new ConsPointer(aEnvironment);
         post.setCons(aPostPredicate.getCons());
         iPredicates.add(post);
     }
@@ -99,11 +99,11 @@ public class Pattern {
         if (iVariables.size() > 0) {
             argumentsPointer = new ConsPointer[iVariables.size()];
             for (i = 0; i < iVariables.size(); i++) {
-                argumentsPointer[i] = new ConsPointer();
+                argumentsPointer[i] = new ConsPointer(aEnvironment);
             }
 
         }
-        ConsTraverser argumentsTraverser = new ConsTraverser(aArguments);
+        ConsTraverser argumentsTraverser = new ConsTraverser(aEnvironment, aArguments);
 
         for (i = 0; i < iParamMatchers.size(); i++) {
             if (argumentsTraverser.getCons() == null) {
@@ -156,7 +156,7 @@ public class Pattern {
             arguments = new ConsPointer[iVariables.size()];
         }
         for (i = 0; i < iVariables.size(); i++) {
-            arguments[i] = new ConsPointer();
+            arguments[i] = new ConsPointer(aEnvironment);
         }
 
 
@@ -229,7 +229,7 @@ public class Pattern {
             ConsPointer sublist = (ConsPointer) aPattern.car();
             //LispError.lispAssert(sublist != null);
 
-            int num = Utility.listLength(sublist);
+            int num = Utility.listLength(aEnvironment, sublist);
 
             // variable matcher here...
             if (num > 1) {
@@ -241,7 +241,7 @@ public class Pattern {
 
                         // Make a predicate for the type, if needed
                         if (num > 2) {
-                            ConsPointer third = new ConsPointer();
+                            ConsPointer third = new ConsPointer(aEnvironment);
 
                             Cons predicate = second.cdr().getCons();
                             if ( (predicate.car() instanceof ConsPointer)) {
@@ -258,7 +258,7 @@ public class Pattern {
 
                             last.cdr().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, str));
 
-                            ConsPointer pred = new ConsPointer();
+                            ConsPointer pred = new ConsPointer(aEnvironment);
                             pred.setCons(org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment,third.getCons()));
 
                             iPredicates.add(pred);
@@ -271,7 +271,7 @@ public class Pattern {
             PatternParameter[] matchers = new PatternParameter[num];
 
             int i;
-            ConsTraverser consTraverser = new ConsTraverser(sublist);
+            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, sublist);
             for (i = 0; i < num; i++) {
                 matchers[i] = makeParamMatcher(aEnvironment, consTraverser.getCons());
                 LispError.lispAssert(matchers[i] != null);
@@ -319,7 +319,7 @@ public class Pattern {
     protected boolean checkPredicates(Environment aEnvironment) throws Exception {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
-            ConsPointer pred = new ConsPointer();
+            ConsPointer pred = new ConsPointer(aEnvironment);
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, pred, ((ConsPointer) iPredicates.get(i)));
             if (Utility.isFalse(aEnvironment, pred)) {
                 return false;
@@ -339,7 +339,7 @@ public class Pattern {
                 aEnvironment.write(strout);
                 aEnvironment.write("\n");
 
-                LispError.check(isTrue, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, "INTERNAL");
+                LispError.check(aEnvironment, isTrue, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, "INTERNAL");
             }
         }
         return true;

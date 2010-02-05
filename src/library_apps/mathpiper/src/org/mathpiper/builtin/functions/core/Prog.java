@@ -39,7 +39,7 @@ public class Prog extends BuiltinFunction {
             Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
             // Evaluate args one by one.
-            ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
+            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
             consTraverser.goNext();
             while (consTraverser.getCons() != null) {
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), consTraverser.getPointer());

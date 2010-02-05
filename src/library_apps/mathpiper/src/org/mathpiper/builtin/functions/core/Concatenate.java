@@ -34,13 +34,13 @@ public class Concatenate extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer all = new ConsPointer();
+        ConsPointer all = new ConsPointer(aEnvironment);
         all.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        ConsTraverser tail = new ConsTraverser(all);
+        ConsTraverser tail = new ConsTraverser(aEnvironment, all);
         tail.goNext();
         int arg = 1;
 
-        ConsTraverser consTraverser = new ConsTraverser((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext();
         while (consTraverser.getCons() != null)
         {

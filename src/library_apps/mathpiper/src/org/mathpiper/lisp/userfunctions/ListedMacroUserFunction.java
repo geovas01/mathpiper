@@ -28,9 +28,9 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class ListedMacroUserFunction extends MacroUserFunction
 {
 
-	public ListedMacroUserFunction(ConsPointer  aParameters, String functionName) throws Exception
+	public ListedMacroUserFunction(Environment aEnvironment, ConsPointer  aParameters, String functionName) throws Exception
 	{
-		super(aParameters, functionName);
+		super(aEnvironment, aParameters, functionName);
 	}
 	
 	public boolean isArity(int aArity)
@@ -40,8 +40,8 @@ public class ListedMacroUserFunction extends MacroUserFunction
 	
 	public void evaluate( Environment aEnvironment,ConsPointer aResult, ConsPointer aArguments) throws Exception
 	{
-		ConsPointer newArgs = new ConsPointer();
-		ConsTraverser consTraverser = new ConsTraverser(aArguments);
+		ConsPointer newArgs = new ConsPointer(aEnvironment);
+		ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
 		ConsPointer ptr =  newArgs;
 		int arity = arity();
 		int i=0;
@@ -62,7 +62,7 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		}
 		else
 		{
-			ConsPointer head = new ConsPointer();
+			ConsPointer head = new ConsPointer(aEnvironment);
 			head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
 			head.cdr().setCons(consTraverser.getCons());
 			ptr.setCons(SublistCons.getInstance(aEnvironment,head.getCons()));

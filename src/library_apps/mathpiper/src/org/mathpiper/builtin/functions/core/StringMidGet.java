@@ -33,12 +33,12 @@ public class StringMidGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
+        ConsPointer evaluated = new ConsPointer(aEnvironment);
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3, "StringMidGet");
         String orig = (String) evaluated.car();
 
-        ConsPointer index = new ConsPointer();
+        ConsPointer index = new ConsPointer(aEnvironment);
         index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 1, "StringMidGet");
         LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 1, "StringMidGet");
