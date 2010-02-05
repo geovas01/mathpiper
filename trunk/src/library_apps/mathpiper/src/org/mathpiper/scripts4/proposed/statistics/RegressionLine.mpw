@@ -10,8 +10,6 @@ RegressionLine(x,y) :=
     
     Local(n,a,b,xMean,yMean,line,result);
     
-    result := {};
-    
     n := Length(x);
     
     b := N((n*Sum(x*y) - Sum(x)*Sum(y))/(n*Sum(x^2)-(Sum(x))^2));
@@ -23,6 +21,8 @@ RegressionLine(x,y) :=
     a := N(yMean - b*xMean);
     
     line := a + b*Hold(x);
+    
+    result := {};
     
     result["xMean"] := xMean;
     
