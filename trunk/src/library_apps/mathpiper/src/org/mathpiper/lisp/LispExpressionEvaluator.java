@@ -69,10 +69,6 @@ public class LispExpressionEvaluator extends Evaluator {
      */
     public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aExpression) throws Exception {
 
-        if(aExpression == null)
-        {
-            int xx =1;
-        }
         LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
         synchronized (aEnvironment) {
             aEnvironment.iEvalDepth++;
