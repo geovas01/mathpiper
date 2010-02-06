@@ -42,22 +42,22 @@ public class NumberCons extends Cons {
      * @param aNumber
      * @param aString
      */
-    public NumberCons(Environment aEnvironment,BigNumber aNumber, String aString) throws Exception {
-        super(aEnvironment);
+    public NumberCons(BigNumber aNumber, String aString) throws Exception {
+        super();
         iCarStringNumber = aString;
         iCarBigNumber = aNumber;
-        iCdr = new ConsPointer(aEnvironment);
+        iCdr = new ConsPointer();
     }
 
     /**
      * Construct a number from a BigNumber.
      * @param aNumber
      */
-    public NumberCons(Environment aEnvironment,BigNumber aNumber) throws Exception {
-        super(aEnvironment);
+    public NumberCons(BigNumber aNumber) throws Exception {
+        super();
         iCarStringNumber = null;
         iCarBigNumber = aNumber;
-        iCdr = new ConsPointer(aEnvironment);
+        iCdr = new ConsPointer();
     }
 
     /**
@@ -66,12 +66,12 @@ public class NumberCons extends Cons {
      * @param aString a number in decimal format
      * @param aBasePrecision the number of decimal digits for the number
      */
-    public NumberCons(Environment aEnvironment,String aString, int aBasePrecision) throws Exception {
-        super(aEnvironment);
+    public NumberCons(String aString, int aBasePrecision) throws Exception {
+        super();
         //(also create a number object).
         iCarStringNumber = aString;
         iCarBigNumber = null;  // purge whatever it was.
-        iCdr = new ConsPointer(aEnvironment);
+        iCdr = new ConsPointer();
 
     // create a new BigNumber object out of iString, set its precision in digits
     //TODO FIXME enable this in the end    NumberCons(aBasePrecision);
@@ -79,7 +79,7 @@ public class NumberCons extends Cons {
 
     public Cons copy( Environment aEnvironment, boolean aRecursed) throws Exception  {
 
-        NumberCons numberCons = new NumberCons(aEnvironment, iCarBigNumber, iCarStringNumber);
+        NumberCons numberCons = new NumberCons(iCarBigNumber, iCarStringNumber);
 
         numberCons.setMetadataMap(this.getMetadataMap());
         
@@ -132,7 +132,7 @@ public class NumberCons extends Cons {
      * @return
      * @throws java.lang.Exception
      */
-    public Object getNumber(int aPrecision) throws Exception {
+    public Object getNumber(int aPrecision, Environment aEnvironment) throws Exception {
         /// If necessary, will create a BigNumber object out of the stored string, at given precision (in decimal?)
         if (iCarBigNumber == null) {  // create and store a BigNumber out of the string representation.
             
@@ -143,7 +143,7 @@ public class NumberCons extends Cons {
             String str;
             str = iCarStringNumber;
             // aBasePrecision is in digits, not in bits, ok
-            iCarBigNumber = new BigNumber(iEnvironment, str, aPrecision, 10/*TODO FIXME BASE10*/);
+            iCarBigNumber = new BigNumber(aEnvironment, str, aPrecision, 10/*TODO FIXME BASE10*/);
         } // check if the BigNumber object has enough precision, if not, extend it
         // (applies only to floats). Note that iNumber->GetPrecision() might be < 0
         else if (!iCarBigNumber.isInteger() && iCarBigNumber.getPrecision() < aPrecision) {

@@ -58,15 +58,15 @@ public class ViewMath extends BuiltinFunction {
         ((ConsPointer) head.car()).cdr().setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 
-        ConsPointer viewScalePointer = new ConsPointer(aEnvironment);
+        ConsPointer viewScalePointer = new ConsPointer();
         viewScalePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        BigNumber viewScale = (BigNumber) viewScalePointer.getCons().getNumber(aEnvironment.getPrecision());
+        BigNumber viewScale = (BigNumber) viewScalePointer.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
         LispError.checkArgument(aEnvironment, aStackTop, viewScale != null, 1, "ViewMath");
 
 
-        ConsPointer resultPointer = new ConsPointer(aEnvironment);
+        ConsPointer resultPointer = new ConsPointer();
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, new ConsPointer(aEnvironment, head));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, new ConsPointer(head));
 
         String texString = (String) resultPointer.car();
         texString = Utility.stripEndQuotes(texString);

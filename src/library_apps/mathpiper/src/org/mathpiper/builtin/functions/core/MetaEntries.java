@@ -31,7 +31,7 @@ public class MetaEntries extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer(aEnvironment);
+        ConsPointer objectPointer = new ConsPointer();
         objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 
@@ -44,7 +44,7 @@ public class MetaEntries extends BuiltinFunction {
         }//end if.
 
 
-        ConsPointer consPointer = new ConsPointer(aEnvironment);
+        ConsPointer consPointer = new ConsPointer();
 
         Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
 
@@ -84,7 +84,7 @@ public class MetaEntries extends BuiltinFunction {
             //Place entry in list.
             consPointer.getCons().cdr().setCons(SublistCons.getInstance(aEnvironment, operatorCons));
 
-            consPointer.goNext(aStackTop);
+            consPointer.goNext(aStackTop, aEnvironment);
 
 
 

@@ -40,9 +40,9 @@ public class PrettyReaderSet extends BuiltinFunction
         } else
         {
             LispError.check(aEnvironment, aStackTop, nrArguments == 2, LispError.WRONG_NUMBER_OF_ARGUMENTS);
-            ConsPointer oper = new ConsPointer(aEnvironment);
+            ConsPointer oper = new ConsPointer();
             oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons());
-            oper.goNext(aStackTop);
+            oper.goNext(aStackTop, aEnvironment);
             LispError.checkIsString(aEnvironment, aStackTop, oper, 1, "PrettyReaderSet");
             aEnvironment.iPrettyReaderName = (String) oper.car();
         }

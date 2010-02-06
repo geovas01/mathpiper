@@ -43,8 +43,8 @@ public class PatternBranch extends Branch {
      * @param aBody body of the rule
      */
     public PatternBranch(Environment aEnvironment, int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
-        iBody = new ConsPointer(aEnvironment);
-        iPredicate = new ConsPointer(aEnvironment);
+        iBody = new ConsPointer();
+        iPredicate = new ConsPointer();
         iPatternClass = null;
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());

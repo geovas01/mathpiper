@@ -31,10 +31,10 @@ public class Rest extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer first = new ConsPointer(aEnvironment);
+        ConsPointer first = new ConsPointer();
         Utility.tail(aEnvironment, aStackTop, first, getArgumentPointer(aEnvironment, aStackTop, 1));
         Utility.tail(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), first);
-        ConsPointer head = new ConsPointer(aEnvironment);
+        ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
         head.cdr().setCons(((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).getCons());
         ((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).setCons(head.getCons());

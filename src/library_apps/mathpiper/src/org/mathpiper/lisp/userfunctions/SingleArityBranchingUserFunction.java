@@ -60,11 +60,11 @@ public class SingleArityBranchingUserFunction extends Evaluator {
     public SingleArityBranchingUserFunction(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
         iEnvironment = aEnvironment;
         this.functionName = functionName;
-        iParameterList = new ConsPointer(aEnvironment);
+        iParameterList = new ConsPointer();
         // iParameterList and #iParameters are set from \a aParameters.
         iParameterList.setCons(aParameters.getCons());
 
-        ConsPointer parameterTraverser = new ConsPointer(aEnvironment, aParameters.getCons());
+        ConsPointer parameterTraverser = new ConsPointer( aParameters.getCons());
 
         while (parameterTraverser.getCons() != null) {
 
@@ -80,7 +80,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
             FunctionParameter parameter = new FunctionParameter((String) parameterTraverser.car(), false);
             iParameters.add(parameter);
-            parameterTraverser.goNext(aStackTop);
+            parameterTraverser.goNext(aStackTop, aEnvironment);
         }
     }
 
@@ -140,7 +140,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
                     /* Rule dump trace code. */
                     if (isTraced() && showFlag) {
-                        ConsPointer argumentsPointer = new ConsPointer(aEnvironment);
+                        ConsPointer argumentsPointer = new ConsPointer();
                         argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackTop, thisRule, aEnvironment, this);
                         Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
@@ -168,7 +168,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
                     /*Leave trace code */
                     if (isTraced() && showFlag) {
-                        ConsPointer argumentsPointer2 = new ConsPointer(aEnvironment);
+                        ConsPointer argumentsPointer2 = new ConsPointer();
                         argumentsPointer2.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                         String localVariables = aEnvironment.getLocalVariables(aStackTop);
                         Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2, functionType, localVariables);
@@ -187,7 +187,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
             // No predicate was true: return a new expression with the evaluated
             // arguments.
-            ConsPointer full = new ConsPointer(aEnvironment);
+            ConsPointer full = new ConsPointer();
             full.setCons(aArgumentsPointer.getCons().copy(aEnvironment, false));
             if (arity == 0) {
                 full.cdr().setCons(null);
@@ -202,7 +202,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
             /* Trace code */
             if (isTraced() && showFlag) {
-                ConsPointer argumentsPointer3 = new ConsPointer(aEnvironment);
+                ConsPointer argumentsPointer3 = new ConsPointer();
                 argumentsPointer3.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                 String localVariables = aEnvironment.getLocalVariables(aStackTop);
                 Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3, functionType, localVariables);
@@ -229,7 +229,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
         /*Enter trace code*/
         if (isTraced()) {
-            ConsPointer argumentsPointer = new ConsPointer(aEnvironment);
+            ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
             String functionName = "";
             if (argumentsPointer.car() instanceof ConsPointer) {
@@ -247,10 +247,10 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             argumentsPointer.setCons(null);
         }
 
-        ConsPointer argumentsTraverser = new ConsPointer(aEnvironment, aArgumentsPointer.getCons());
+        ConsPointer argumentsTraverser = new ConsPointer( aArgumentsPointer.getCons());
 
         //Strip the function name from the head of the list.
-        argumentsTraverser.goNext(aStackTop);
+        argumentsTraverser.goNext(aStackTop, aEnvironment);
 
         //Creat an array which holds pointers to each argument.
         ConsPointer[] argumentsResultPointerArray;
@@ -264,7 +264,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         // Walk over all arguments, evaluating them as necessary ********************************************************
         for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
 
-            argumentsResultPointerArray[parameterIndex] = new ConsPointer(aEnvironment);
+            argumentsResultPointerArray[parameterIndex] = new ConsPointer();
 
             LispError.check(aEnvironment, aStackTop, argumentsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
 
@@ -280,7 +280,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 //Evaluate each argument and place the result into argumentsResultPointerArray[i];
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsResultPointerArray[parameterIndex], argumentsTraverser);
             }
-            argumentsTraverser.goNext(aStackTop);
+            argumentsTraverser.goNext(aStackTop, aEnvironment);
         }//end for.
 
         /*Argument trace code */
@@ -289,13 +289,13 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             //ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
             //ConsTransverser traceArgumentPointer new ConsTraverser(this.iParameterList);
-            ConsPointer traceParameterPointer = new ConsPointer(aEnvironment, this.iParameterList.getCons());
+            ConsPointer traceParameterPointer = new ConsPointer( this.iParameterList.getCons());
 
             //traceArgumentPointer.goNext();
             for (parameterIndex = 0; parameterIndex < argumentsResultPointerArray.length; parameterIndex++) {
                 Evaluator.traceShowArg(aEnvironment, traceParameterPointer, argumentsResultPointerArray[parameterIndex]);
 
-                traceParameterPointer.goNext(aStackTop);
+                traceParameterPointer.goNext(aStackTop, aEnvironment);
             }//end for.
         }//end if.
 

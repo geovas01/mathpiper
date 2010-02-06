@@ -40,9 +40,9 @@ abstract public class LexCompare2
 
     void Compare(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer argument1 = new ConsPointer(aEnvironment);
+        ConsPointer argument1 = new ConsPointer();
 
-        ConsPointer argument2 = new ConsPointer(aEnvironment);
+        ConsPointer argument2 = new ConsPointer();
 
         argument1.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
@@ -57,8 +57,8 @@ abstract public class LexCompare2
 
 
         boolean cmp;
-        BigNumber n1 = (BigNumber) argument1.getCons().getNumber(aEnvironment.getPrecision());
-        BigNumber n2 = (BigNumber) argument2.getCons().getNumber(aEnvironment.getPrecision());
+        BigNumber n1 = (BigNumber) argument1.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber n2 = (BigNumber) argument2.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
 
         if (n1 != null && n2 != null)
         {

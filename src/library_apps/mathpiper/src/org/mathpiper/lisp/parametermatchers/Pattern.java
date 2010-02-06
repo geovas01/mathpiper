@@ -77,7 +77,7 @@ public class Pattern {
             iParamMatchers.add(matcher);
             consTraverser.goNext(aStackTop);
         }
-        ConsPointer post = new ConsPointer(aEnvironment);
+        ConsPointer post = new ConsPointer();
         post.setCons(aPostPredicate.getCons());
         iPredicates.add(post);
     }
@@ -100,7 +100,7 @@ public class Pattern {
         if (iVariables.size() > 0) {
             argumentsPointer = new ConsPointer[iVariables.size()];
             for (i = 0; i < iVariables.size(); i++) {
-                argumentsPointer[i] = new ConsPointer(aEnvironment);
+                argumentsPointer[i] = new ConsPointer();
             }
 
         }
@@ -157,7 +157,7 @@ public class Pattern {
             arguments = new ConsPointer[iVariables.size()];
         }
         for (i = 0; i < iVariables.size(); i++) {
-            arguments[i] = new ConsPointer(aEnvironment);
+            arguments[i] = new ConsPointer();
         }
 
 
@@ -216,8 +216,8 @@ public class Pattern {
             return null;
         }
         //LispError.check(aPattern.type().equals("Number"), LispError.INVALID_ARGUMENT);
-        if (aPattern.getNumber(aEnvironment.getPrecision()) != null) {
-            return new Number((BigNumber) aPattern.getNumber(aEnvironment.getPrecision()));
+        if (aPattern.getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
+            return new Number((BigNumber) aPattern.getNumber(aEnvironment.getPrecision(), aEnvironment));
         }
         // Deal with atoms
         if (aPattern.car() instanceof String) {
@@ -242,7 +242,7 @@ public class Pattern {
 
                         // Make a predicate for the type, if needed
                         if (num > 2) {
-                            ConsPointer third = new ConsPointer(aEnvironment);
+                            ConsPointer third = new ConsPointer();
 
                             Cons predicate = second.cdr().getCons();
                             if ( (predicate.car() instanceof ConsPointer)) {
@@ -259,7 +259,7 @@ public class Pattern {
 
                             last.cdr().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, str));
 
-                            ConsPointer pred = new ConsPointer(aEnvironment);
+                            ConsPointer pred = new ConsPointer();
                             pred.setCons(org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment,third.getCons()));
 
                             iPredicates.add(pred);
@@ -320,7 +320,7 @@ public class Pattern {
     protected boolean checkPredicates(Environment aEnvironment, int aStackTop) throws Exception {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
-            ConsPointer pred = new ConsPointer(aEnvironment);
+            ConsPointer pred = new ConsPointer();
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, ((ConsPointer) iPredicates.get(i)));
             if (Utility.isFalse(aEnvironment, pred, aStackTop)) {
                 return false;

@@ -32,7 +32,7 @@ public class Subst extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer from = new ConsPointer(aEnvironment), to = new ConsPointer(aEnvironment), body = new ConsPointer(aEnvironment);
+        ConsPointer from = new ConsPointer(), to = new ConsPointer(), body = new ConsPointer();
         from.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         to.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         body.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());

@@ -35,7 +35,7 @@ public class If extends BuiltinFunction
         int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
         LispError.check(aEnvironment, aStackTop, nrArguments == 3 || nrArguments == 4, LispError.WRONG_NUMBER_OF_ARGUMENTS);
 
-        ConsPointer predicate = new ConsPointer(aEnvironment);
+        ConsPointer predicate = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, predicate, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         if (Utility.isTrue(aEnvironment, predicate, aStackTop))

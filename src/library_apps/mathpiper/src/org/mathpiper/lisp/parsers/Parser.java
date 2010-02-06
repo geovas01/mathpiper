@@ -95,7 +95,7 @@ public class Parser
 		//   and make a sublist
 		if (aToken == iEnvironment.getTokenHash().lookUp("("))
 		{
-			ConsPointer subList = new ConsPointer(aEnvironment);
+			ConsPointer subList = new ConsPointer();
 			parseList(aEnvironment, aStackTop, subList);
 			aResult.setCons(SublistCons.getInstance(aEnvironment,subList.getCons()));
 			return;

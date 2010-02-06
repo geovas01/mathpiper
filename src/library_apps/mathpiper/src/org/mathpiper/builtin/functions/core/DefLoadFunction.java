@@ -35,7 +35,7 @@ public class DefLoadFunction extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer namePointer = new ConsPointer(aEnvironment);
+        ConsPointer namePointer = new ConsPointer();
         namePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String)  namePointer.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "DefLoadFunction");

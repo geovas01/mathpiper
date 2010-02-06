@@ -33,10 +33,10 @@ public class IsDecimal extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer result = new ConsPointer(aEnvironment);
+        ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        Object cons = result.getCons().getNumber(aEnvironment.getPrecision());
+        Object cons = result.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
 
         BigNumber bigNumber;
         if(cons instanceof BigNumber)

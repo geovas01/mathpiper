@@ -73,9 +73,9 @@ public class Histogram extends BuiltinFunction {
 
         LispError.check(aEnvironment, aStackTop, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "Histogram");
 
-        argumentsPointer.goSub(aStackTop); //Go to sub list.
+        argumentsPointer.goSub(aStackTop, aEnvironment); //Go to sub list.
 
-        argumentsPointer.goNext(aStackTop); //Strip List tag.
+        argumentsPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
 
         LispError.check(aEnvironment, aStackTop, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "Histogram");
 

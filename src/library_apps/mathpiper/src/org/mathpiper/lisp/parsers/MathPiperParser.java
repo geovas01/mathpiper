@@ -43,7 +43,7 @@ public class MathPiperParser extends Parser
     boolean iError;
     boolean iEndOfFile;
     String iLookAhead;
-    public ConsPointer iSExpressionResult = new ConsPointer(iEnvironment);
+    public ConsPointer iSExpressionResult = new ConsPointer();
 
     public MathPiperParser(MathPiperTokenizer aTokenizer,
             MathPiperInputStream aInput,
@@ -354,7 +354,7 @@ public class MathPiperParser extends Parser
 
     void combine(Environment aEnvironment, int aStackTop, int aNrArgsToCombine) throws Exception
     {
-        ConsPointer subList = new ConsPointer(aEnvironment);
+        ConsPointer subList = new ConsPointer();
         subList.setCons(SublistCons.getInstance(aEnvironment,iSExpressionResult.getCons()));
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, iSExpressionResult);
         int i;
@@ -382,7 +382,7 @@ public class MathPiperParser extends Parser
 
     void insertAtom(int aStackTop, String aString) throws Exception
     {
-        ConsPointer ptr = new ConsPointer(iEnvironment);
+        ConsPointer ptr = new ConsPointer();
         ptr.setCons(AtomCons.getInstance(iEnvironment, aStackTop, aString));
         ptr.cdr().setCons(iSExpressionResult.getCons());
         iSExpressionResult.setCons(ptr.getCons());

@@ -30,9 +30,9 @@ public class AtomCons extends Cons
 
     private AtomCons(Environment aEnvironment,String aString) throws Exception
     {
-        super(aEnvironment);
+        super();
         iCar = aString;
-        iCdr = new ConsPointer(aEnvironment);
+        iCdr = new ConsPointer();
     }
 
     public static Cons getInstance(Environment aEnvironment, int aStackTop, String aString) throws Exception
@@ -41,7 +41,7 @@ public class AtomCons extends Cons
         if (Utility.isNumber(aString, true))  // check if aString is a number (int or float)
         {
             /// construct a number from a decimal string representation (also create a number object)
-            self = new NumberCons(aEnvironment, aString, aEnvironment.getPrecision());
+            self = new NumberCons(aString, aEnvironment.getPrecision());
         } else
         {
             self = new AtomCons(aEnvironment,(String)aEnvironment.getTokenHash().lookUp(aString));

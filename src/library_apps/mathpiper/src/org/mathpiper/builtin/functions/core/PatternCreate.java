@@ -35,9 +35,9 @@ public class PatternCreate extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer patternPointer = new ConsPointer(aEnvironment);
+        ConsPointer patternPointer = new ConsPointer();
         patternPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer postPredicatePointer = new ConsPointer(aEnvironment);
+        ConsPointer postPredicatePointer = new ConsPointer();
         postPredicatePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         ConsTraverser patternPointerTraverser = new ConsTraverser(aEnvironment, patternPointer);

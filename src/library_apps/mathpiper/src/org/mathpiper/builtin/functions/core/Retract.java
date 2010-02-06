@@ -33,7 +33,7 @@ public class Retract extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        ConsPointer evaluated = new ConsPointer(aEnvironment);
+        ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "Retract");
@@ -41,7 +41,7 @@ public class Retract extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "Retract");
         String oper = Utility.getSymbolName(aEnvironment, orig);
 
-        ConsPointer arityPointer = new ConsPointer(aEnvironment);
+        ConsPointer arityPointer = new ConsPointer();
         arityPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, arityPointer.car() instanceof String, 2, "Retract");
         String arityString = (String) arityPointer.car();

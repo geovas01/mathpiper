@@ -224,7 +224,7 @@ class SynchronousInterpreter implements Interpreter {
 
             //iError = null;
 
-            ConsPointer inputExpressionPointer = new ConsPointer(iEnvironment);
+            ConsPointer inputExpressionPointer = new ConsPointer();
             if (iEnvironment.iPrettyReaderName != null) {
                 InputStatus someStatus = new InputStatus();
                 StringBuffer inp = new StringBuffer();
@@ -236,7 +236,7 @@ class SynchronousInterpreter implements Interpreter {
                 MathPiperInputStream previous = iEnvironment.iCurrentInput;
                 iEnvironment.iCurrentInput = newInput;
                 try {
-                    ConsPointer args = new ConsPointer(iEnvironment);
+                    ConsPointer args = new ConsPointer();
                     Utility.applyString(iEnvironment, -1, inputExpressionPointer,
                             iEnvironment.iPrettyReaderName,
                             args);
@@ -267,7 +267,7 @@ class SynchronousInterpreter implements Interpreter {
                 infixParser.parse(-1, inputExpressionPointer);
             }
 
-            ConsPointer resultPointer = new ConsPointer(iEnvironment);
+            ConsPointer resultPointer = new ConsPointer();
             iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, resultPointer, inputExpressionPointer); //*** The main valuation happens here.
 
             if (resultPointer.type() == Utility.OBJECT) {
@@ -295,7 +295,7 @@ class SynchronousInterpreter implements Interpreter {
             if (iEnvironment.iPrettyPrinterName != null) {
                 //Pretty printer.
 
-                ConsPointer applyResultPointer = new ConsPointer(iEnvironment);
+                ConsPointer applyResultPointer = new ConsPointer();
 
                 if(iEnvironment.iPrettyPrinterName.equals("\"RForm\""))
                 {
@@ -305,7 +305,7 @@ class SynchronousInterpreter implements Interpreter {
 
                     Cons subListCons = SublistCons.getInstance(iEnvironment, holdAtom);
 
-                    ConsPointer resultPointerWithHold = new ConsPointer(iEnvironment, subListCons);
+                    ConsPointer resultPointerWithHold = new ConsPointer(subListCons);
 
                     Utility.applyString(iEnvironment, -1, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointerWithHold);
                 }
@@ -372,7 +372,7 @@ class SynchronousInterpreter implements Interpreter {
 
         try {
             if (inputExpression.trim().startsWith("Load")) {
-                ConsPointer loadResult = new ConsPointer(iEnvironment);
+                ConsPointer loadResult = new ConsPointer();
                 iEnvironment.getGlobalVariable(-1, "LoadResult", loadResult);
                 StringBuffer string_out = new StringBuffer();
                 MathPiperOutputStream output = new StringOutputStream(string_out);

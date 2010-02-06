@@ -34,16 +34,11 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     protected Map metadataMap;
 
-    protected Environment iEnvironment;
 
-
-
-    public Cons(Environment aEnvironment) throws Exception
+    public Cons() throws Exception
     {
         metadataMap = null; //aEnvironment.iEmptyAtom;
-        iEnvironment = aEnvironment;
     }//end constructor.
-
 
 
     public abstract ConsPointer cdr();
@@ -57,7 +52,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
     /**
      * If this is a number, return a BigNumber representation of it.
      */
-    public Object getNumber(int aPrecision) throws Exception {
+    public Object getNumber(int aPrecision, Environment aEnvironment) throws Exception {
         return null;
     }
 

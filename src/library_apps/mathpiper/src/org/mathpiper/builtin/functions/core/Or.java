@@ -33,10 +33,10 @@ public class Or extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer nogos = new ConsPointer(aEnvironment);
+        ConsPointer nogos = new ConsPointer();
         int nrnogos = 0;
 
-        ConsPointer evaluated = new ConsPointer(aEnvironment);
+        ConsPointer evaluated = new ConsPointer();
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext(aStackTop);
@@ -49,7 +49,7 @@ public class Or extends BuiltinFunction
                 return;
             } else if (!Utility.isFalse(aEnvironment, evaluated, aStackTop))
             {
-                ConsPointer ptr = new ConsPointer(aEnvironment);
+                ConsPointer ptr = new ConsPointer();
                 nrnogos++;
 
                 ptr.setCons(evaluated.getCons().copy( aEnvironment, false));
@@ -66,7 +66,7 @@ public class Or extends BuiltinFunction
                 getTopOfStackPointer(aEnvironment, aStackTop).setCons(nogos.getCons());
             } else
             {
-                ConsPointer ptr = new ConsPointer(aEnvironment);
+                ConsPointer ptr = new ConsPointer();
 
                 Utility.reverseList(aEnvironment, ptr, nogos);
                 nogos.setCons(ptr.getCons());

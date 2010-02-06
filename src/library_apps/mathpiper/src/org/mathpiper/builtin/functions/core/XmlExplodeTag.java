@@ -36,7 +36,7 @@ public class XmlExplodeTag extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer out = new ConsPointer(aEnvironment);
+        ConsPointer out = new ConsPointer();
         out.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, out, 1, "XmlExplodeTag");
 
