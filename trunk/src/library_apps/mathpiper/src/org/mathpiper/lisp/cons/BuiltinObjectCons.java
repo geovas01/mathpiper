@@ -30,9 +30,9 @@ public class BuiltinObjectCons extends Cons {
 
 
     private BuiltinObjectCons(Environment aEnvironment, BuiltinContainer aClass) throws Exception  {
-        super(aEnvironment);
+        super();
         iCarBuiltin = aClass;
-        iCdr = new ConsPointer(aEnvironment);
+        iCdr = new ConsPointer();
     }
 
     public static BuiltinObjectCons getInstance(Environment aEnvironment, int aStackTop, BuiltinContainer aClass) throws Exception {

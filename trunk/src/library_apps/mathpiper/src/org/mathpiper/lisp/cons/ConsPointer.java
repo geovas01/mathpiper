@@ -34,7 +34,6 @@ public class ConsPointer {
 
     Cons iCons;
 
-    private Environment iEnvironment;
 
     public Object car() throws Exception {
         return iCons.car();
@@ -44,17 +43,14 @@ public class ConsPointer {
         return iCons.cdr();
     }
 
-    private ConsPointer()
-    {    
+    public ConsPointer()
+    {
+        super();
     }
 
-    public ConsPointer(Environment aEnvironment) {
-        iEnvironment = aEnvironment;
-        iCons = null;
-    }
 
-    public ConsPointer(Environment aEnvironment, Cons aCons) {
-        iEnvironment = aEnvironment;
+    public ConsPointer( Cons aCons) {
+        super();
         iCons = aCons;
     }
 
@@ -73,14 +69,14 @@ public class ConsPointer {
 
 
     //iPointer = (iPointer.cdr());
-    public void goNext(int aStackTop ) throws Exception {
-        LispError.check(iEnvironment, aStackTop, iCons != null, LispError.NOT_LONG_ENOUGH, "INTERNAL");
+    public void goNext(int aStackTop , Environment aEnvironment) throws Exception {
+        LispError.check(aEnvironment, aStackTop, iCons != null, LispError.NOT_LONG_ENOUGH, "INTERNAL");
         iCons = iCons.cdr().iCons;
     }
 
-    public void goSub(int aStackTop ) throws Exception {
-        LispError.check(iEnvironment, aStackTop, iCons != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-        LispError.check(iEnvironment, aStackTop, iCons.car() instanceof ConsPointer, LispError.NOT_A_LIST, "INTERNAL");
+    public void goSub(int aStackTop , Environment aEnvironment) throws Exception {
+        LispError.check(aEnvironment, aStackTop, iCons != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, iCons.car() instanceof ConsPointer, LispError.NOT_A_LIST, "INTERNAL");
         iCons = ((ConsPointer)iCons.car()).getCons();
     }
 

@@ -37,7 +37,7 @@ public class ConsPointerArray
 		int i;
 		for(i=0;i<aSize;i++)
 		{
-			iArray[i] = new ConsPointer(aEnvironment);
+			iArray[i] = new ConsPointer();
 			iArray[i].setCons(aInitialItem);
 		}
 	}

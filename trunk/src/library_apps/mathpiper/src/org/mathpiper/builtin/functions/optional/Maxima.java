@@ -177,7 +177,7 @@ public class Maxima extends BuiltinFunction {
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        ConsPointer expressionPointerr = new ConsPointer(aEnvironment);
+        ConsPointer expressionPointerr = new ConsPointer();
         expressionPointerr.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get operator

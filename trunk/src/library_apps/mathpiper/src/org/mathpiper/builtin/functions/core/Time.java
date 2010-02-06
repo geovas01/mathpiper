@@ -45,7 +45,7 @@ public class Time extends BuiltinFunction
     {
         BigDecimal startTime = new BigDecimal(System.nanoTime());
 
-        ConsPointer res = new ConsPointer(aEnvironment);
+        ConsPointer res = new ConsPointer();
 
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, res, getArgumentPointer(aEnvironment, aStackTop, 1));
 

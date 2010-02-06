@@ -363,7 +363,7 @@ public class LispError
                 strout = Utility.printExpression(aStackTop, arg, aEnvironment, 60);
                 error = error + strout;
 
-                ConsPointer eval = new ConsPointer(aEnvironment);
+                ConsPointer eval = new ConsPointer();
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, eval, arg);
                 error = error + " evaluated to ";
                 strout = Utility.printExpression(aStackTop, eval, aEnvironment, 60);

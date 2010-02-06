@@ -35,11 +35,11 @@ public class IsInteger extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer result = new ConsPointer(aEnvironment);
+        ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 //        LispError.check(result.type().equals("Number"), LispError.KLispErrInvalidArg);
-        BigNumber num = (BigNumber) result.getCons().getNumber(aEnvironment.getPrecision());
+        BigNumber num = (BigNumber) result.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
         if (num == null)
         {
             Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

@@ -18,11 +18,11 @@ public class MetaGet extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer(aEnvironment);
+        ConsPointer objectPointer = new ConsPointer();
         objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 
-        ConsPointer keyPointer = new ConsPointer(aEnvironment);
+        ConsPointer keyPointer = new ConsPointer();
         keyPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, keyPointer, 2, "MetaGet");
 

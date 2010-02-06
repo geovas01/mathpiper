@@ -37,7 +37,7 @@ public class PipeToFile extends BuiltinFunction
     {
         LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);
 
-        ConsPointer evaluated = new ConsPointer(aEnvironment);
+        ConsPointer evaluated = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name

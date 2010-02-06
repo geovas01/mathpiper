@@ -37,7 +37,7 @@ public class FileSize extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer fnameObject = new ConsPointer(aEnvironment);
+        ConsPointer fnameObject = new ConsPointer();
         fnameObject.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, fnameObject, 1, "FileSize");
         String fname = Utility.unstringify(aEnvironment, aStackTop, (String) fnameObject.car());

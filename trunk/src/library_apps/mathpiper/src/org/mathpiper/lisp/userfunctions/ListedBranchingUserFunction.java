@@ -39,7 +39,7 @@ public class ListedBranchingUserFunction extends SingleArityBranchingUserFunctio
 	
 	public void evaluate( Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception
 	{
-		ConsPointer newArgs = new ConsPointer(aEnvironment);
+		ConsPointer newArgs = new ConsPointer();
 		ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
 		ConsPointer ptr =  newArgs;
 		int arity = arity();
@@ -61,7 +61,7 @@ public class ListedBranchingUserFunction extends SingleArityBranchingUserFunctio
 		}
 		else
 		{
-			ConsPointer head = new ConsPointer(aEnvironment);
+			ConsPointer head = new ConsPointer();
 			head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
 			head.cdr().setCons(consTraverser.getCons());
 			ptr.setCons(SublistCons.getInstance(aEnvironment,head.getCons()));

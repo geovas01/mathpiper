@@ -40,14 +40,14 @@ public class GlobalVariable
 	public GlobalVariable(Environment aEnvironment, GlobalVariable aOther)
 	{
                 iEnvironment = aEnvironment;
-                iValue = new ConsPointer(aEnvironment);
+                iValue = new ConsPointer();
 		iValue = aOther.iValue;
 		iEvalBeforeReturn = aOther.iEvalBeforeReturn;
 	}
 	public GlobalVariable(Environment aEnvironment, ConsPointer aValue)
 	{
                 iEnvironment = aEnvironment;
-                iValue = new ConsPointer(aEnvironment);
+                iValue = new ConsPointer();
 		iValue.setCons(aValue.getCons());
 		iEvalBeforeReturn = false;
 	}

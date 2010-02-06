@@ -31,14 +31,14 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class Set extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        ConsPointer allPointer = new ConsPointer(aEnvironment);
+        ConsPointer allPointer = new ConsPointer();
         allPointer.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
         ConsTraverser tail = new ConsTraverser(aEnvironment, allPointer);
         tail.goNext(aStackTop);
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null) {
-            ConsPointer evaluated = new ConsPointer(aEnvironment);
+            ConsPointer evaluated = new ConsPointer();
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, consTraverser.getPointer());
             tail.getPointer().setCons(evaluated.getCons());
             tail.goNext(aStackTop);
@@ -50,15 +50,15 @@ public class Set extends BuiltinFunction {
 
         ((ConsPointer) head.car()).cdr().setCons(SublistCons.getInstance(aEnvironment, allPointer.getCons()));
 
-        ConsPointer removeDuplicatesResultPointer = new ConsPointer(aEnvironment);
+        ConsPointer removeDuplicatesResultPointer = new ConsPointer();
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, removeDuplicatesResultPointer, new ConsPointer(aEnvironment, head));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, removeDuplicatesResultPointer, new ConsPointer(head));
         
-        ConsPointer resultPointer = new ConsPointer(aEnvironment);
+        ConsPointer resultPointer = new ConsPointer();
 
         resultPointer.setCons(aEnvironment.iSetAtom.copy(aEnvironment, false));
 
-        removeDuplicatesResultPointer.goSub(aStackTop);
+        removeDuplicatesResultPointer.goSub(aStackTop, aEnvironment);
 
         resultPointer.getCons().cdr().setCons(removeDuplicatesResultPointer.cdr().getCons());
 

@@ -42,7 +42,7 @@ public class LispPrinter {
 
 
     void printExpression(ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, int aDepth /* =0 */) throws Exception {
-        ConsPointer consWalker = new ConsPointer(aEnvironment);
+        ConsPointer consWalker = new ConsPointer();
         consWalker.setCons(aExpression.getCons());
         int item = 0;
 

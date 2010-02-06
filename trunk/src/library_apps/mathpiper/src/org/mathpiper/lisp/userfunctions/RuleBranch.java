@@ -33,9 +33,9 @@ class RuleBranch extends Branch
 
     public RuleBranch(Environment aEnvironment, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody)
     {
-        iBody = new ConsPointer(aEnvironment);
+        iBody = new ConsPointer();
         iBody.setCons(aBody.getCons());
-        iPredicate = new ConsPointer(aEnvironment);
+        iPredicate = new ConsPointer();
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());
         
@@ -43,17 +43,17 @@ class RuleBranch extends Branch
 
     public RuleBranch(Environment aEnvironment, int aPrecedence, ConsPointer aBody)
     {
-        iBody = new ConsPointer(aEnvironment);
+        iBody = new ConsPointer();
         iBody.setCons(aBody.getCons());
-        iPredicate = new ConsPointer(aEnvironment);
+        iPredicate = new ConsPointer();
         iPrecedence = aPrecedence;
 
     }
 
     protected RuleBranch(Environment aEnvironment)
     {
-        iBody = new ConsPointer(aEnvironment);
-        iPredicate = new ConsPointer(aEnvironment);
+        iBody = new ConsPointer();
+        iPredicate = new ConsPointer();
     }
 
     private RuleBranch()
@@ -74,7 +74,7 @@ class RuleBranch extends Branch
     /// IsTrue(), this function returns true
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception
     {
-        ConsPointer pred = new ConsPointer(aEnvironment);
+        ConsPointer pred = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, iPredicate);
         return Utility.isTrue(aEnvironment, pred, aStackTop);
     }

@@ -32,7 +32,7 @@ import org.mathpiper.lisp.cons.SublistCons;
 	{
 		public void evaluate(Environment aEnvironment,int aStackTop) throws Exception
 		{
-			ConsPointer allPointer = new ConsPointer(aEnvironment);
+			ConsPointer allPointer = new ConsPointer();
 			allPointer.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
 			ConsTraverser tail = new ConsTraverser(aEnvironment, allPointer);
 			tail.goNext(aStackTop);
@@ -40,7 +40,7 @@ import org.mathpiper.lisp.cons.SublistCons;
 			consTraverser.goNext(aStackTop);
 			while (consTraverser.getCons() != null)
 			{
-				ConsPointer evaluated = new ConsPointer(aEnvironment);
+				ConsPointer evaluated = new ConsPointer();
 				aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated,consTraverser.getPointer());
 				tail.getPointer().setCons(evaluated.getCons());
 				tail.goNext(aStackTop);

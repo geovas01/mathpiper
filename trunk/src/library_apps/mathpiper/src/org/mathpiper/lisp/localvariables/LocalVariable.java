@@ -33,7 +33,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
         {
             iNext = null;
             iVariable = aVariable;
-            iValue = new ConsPointer(aEnvironment);
+            iValue = new ConsPointer();
             iValue.setCons(aValue);
             
 

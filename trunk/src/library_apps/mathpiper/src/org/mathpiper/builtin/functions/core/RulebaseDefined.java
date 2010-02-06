@@ -34,13 +34,13 @@ public class RulebaseDefined extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer name = new ConsPointer(aEnvironment);
+        ConsPointer name = new ConsPointer();
         name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String) name.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RulebaseDefined");
         String oper = Utility.unstringify(aEnvironment, aStackTop, orig);
 
-        ConsPointer sizearg = new ConsPointer(aEnvironment);
+        ConsPointer sizearg = new ConsPointer();
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2, "RulebaseDefined");
         LispError.checkArgument(aEnvironment, aStackTop, sizearg.car() instanceof String, 2, "RulebaseDefined");

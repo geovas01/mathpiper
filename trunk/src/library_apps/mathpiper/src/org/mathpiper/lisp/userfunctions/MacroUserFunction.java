@@ -68,7 +68,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
 
 
 
-        ConsPointer substitutedBodyPointer = new ConsPointer(aEnvironment);
+        ConsPointer substitutedBodyPointer = new ConsPointer();
 
         //Create a new local variable frame that is unfenced (false = unfenced).
         aEnvironment.pushLocalFrame(false, this.functionName);
@@ -98,7 +98,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                 if (matches) {
                     /* Rule dump trace code. */
                     if (isTraced() && showFlag) {
-                        ConsPointer argumentsPointer = new ConsPointer(aEnvironment);
+                        ConsPointer argumentsPointer = new ConsPointer();
                         argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackTop, thisRule, aEnvironment, this);
                         Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
@@ -136,7 +136,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
         } else // No predicate was true: return a new expression with the evaluated
         // arguments.
         {
-            ConsPointer full = new ConsPointer(aEnvironment);
+            ConsPointer full = new ConsPointer();
             full.setCons(aArgumentsPointer.getCons().copy(aEnvironment, false));
             if (arity == 0) {
                 full.cdr().setCons(null);
@@ -152,7 +152,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
 
         /*Leave trace code */
         if (isTraced() && showFlag) {
-            ConsPointer tr = new ConsPointer(aEnvironment);
+            ConsPointer tr = new ConsPointer();
             tr.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
             String localVariables = aEnvironment.getLocalVariables(aStackTop);
             LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr, "macro", localVariables);

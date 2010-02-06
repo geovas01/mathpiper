@@ -36,10 +36,10 @@ public class While extends BuiltinFunction {
         ConsPointer arg1 = getArgumentPointer(aEnvironment, aStackTop, 1);
         ConsPointer arg2 = getArgumentPointer(aEnvironment, aStackTop, 2);
 
-        ConsPointer predicate = new ConsPointer(aEnvironment);
+        ConsPointer predicate = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, predicate, arg1);
 
-        ConsPointer evaluated = new ConsPointer(aEnvironment);
+        ConsPointer evaluated = new ConsPointer();
 
         int beforeStackTop = -1;
         int beforeEvaluationDepth = -1;

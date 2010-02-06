@@ -31,9 +31,9 @@ public class IsEqual extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated1 = new ConsPointer(aEnvironment);
+        ConsPointer evaluated1 = new ConsPointer();
         evaluated1.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer evaluated2 = new ConsPointer(aEnvironment);
+        ConsPointer evaluated2 = new ConsPointer();
         evaluated2.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),

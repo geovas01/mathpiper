@@ -35,7 +35,7 @@ public class PipeFromString extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer(aEnvironment);
+        ConsPointer evaluated = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name

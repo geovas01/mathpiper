@@ -30,10 +30,10 @@ public class SublistCons extends Cons {
 
 
     private SublistCons(Environment aEnvironment, Cons aSubList) throws Exception {
-        super(aEnvironment);
-        iCar = new ConsPointer(aEnvironment);
+        super();
+        iCar = new ConsPointer();
         iCar.setCons(aSubList);
-        iCdr = new ConsPointer(aEnvironment);
+        iCdr = new ConsPointer();
     }
 
     public static SublistCons getInstance(Environment aEnvironment, Cons aSubList) throws Exception {
@@ -75,7 +75,7 @@ public class SublistCons extends Cons {
         StringOutput out = new StringOutput();
         LispPrinter printer = new LispPrinter();
         try {
-            printer.print(-1, new ConsPointer(iEnvironment), out, null);
+            printer.print(-1, new ConsPointer(this), out, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

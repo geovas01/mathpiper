@@ -26,7 +26,7 @@ public class RoundToN extends BuiltinFunction {
             decimalToBeRounded.setPrecision(requestedPrecision.toInt());
         }
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(aEnvironment, decimalToBeRounded));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(decimalToBeRounded));
     }
 
 

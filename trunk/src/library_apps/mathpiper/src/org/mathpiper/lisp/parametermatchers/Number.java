@@ -40,7 +40,7 @@ public class Number extends PatternParameter
 	                               ConsPointer[]  arguments) throws Exception
 	{
 //        LispError.check(aExpression.type().equals("Number"), LispError.KLispErrInvalidArg);
-        BigNumber bigNumber = (BigNumber) aExpression.getCons().getNumber(aEnvironment.getPrecision());
+        BigNumber bigNumber = (BigNumber) aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
 		if (bigNumber != null)
 			return iNumber.equals(bigNumber);
 		return false;

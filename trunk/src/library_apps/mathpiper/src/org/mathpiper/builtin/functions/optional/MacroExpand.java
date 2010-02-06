@@ -41,7 +41,7 @@ public class MacroExpand extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         org.mathpiper.lisp.behaviours.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.behaviours.BackQuoteSubstitute(aEnvironment);
-        ConsPointer result = new ConsPointer(aEnvironment);
+        ConsPointer result = new ConsPointer();
         ConsPointer argument = getArgumentPointer(aEnvironment, aStackTop, 1);
         Cons argumentCons = argument.getCons();
         argument = ((ConsPointer) argumentCons.car()).cdr();

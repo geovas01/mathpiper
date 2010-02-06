@@ -96,7 +96,7 @@ public class LispExpressionEvaluator extends Evaluator {
                 return;
             }
 
-            ConsPointer val = new ConsPointer(aEnvironment);
+            ConsPointer val = new ConsPointer();
             aEnvironment.getGlobalVariable(aStackTop, str, val);
             if (val.getCons() != null) {
                 aResult.setCons(val.getCons().copy( aEnvironment, false));
@@ -135,8 +135,8 @@ public class LispExpressionEvaluator extends Evaluator {
 
                     } else {
                         //Pure function handler.
-                        ConsPointer operator = new ConsPointer(aEnvironment);
-                        ConsPointer args2 = new ConsPointer(aEnvironment);
+                        ConsPointer operator = new ConsPointer();
+                        ConsPointer args2 = new ConsPointer();
                         operator.setCons(subList.getCons());
                         args2.setCons(subList.cdr().getCons());
                         Utility.applyPure(aStackTop, operator, args2, aResult, aEnvironment);

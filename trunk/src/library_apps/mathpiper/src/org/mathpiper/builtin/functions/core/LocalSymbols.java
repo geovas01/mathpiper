@@ -52,7 +52,7 @@ public class LocalSymbols extends BuiltinFunction
             localAtomNames[i] = variable;
         }
         LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
-        ConsPointer result = new ConsPointer(aEnvironment);
+        ConsPointer result = new ConsPointer();
         Utility.substitute(aEnvironment, aStackTop, result, getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), result);
     }

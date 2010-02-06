@@ -64,7 +64,7 @@ public class ChartUtility {
 
             List dataSeriesList = new ArrayList();
             List seriesTotalList = new ArrayList();
-            dataListPointer.goNext(aStackTop); //Strip List tag.
+            dataListPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
             int seriesIndex = 1;
             while (dataListPointer.getCons() != null) {
                 double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (ConsPointer) dataListPointer.car());
@@ -79,7 +79,7 @@ public class ChartUtility {
                     seriesTotalList.add(dataValues[index++]);
                 }//end while
                 seriesIndex++;
-                dataListPointer.goNext(aStackTop);
+                dataListPointer.goNext(aStackTop, aEnvironment);
             }//end while.
 
             double minimumValue = Double.MAX_VALUE;
@@ -222,11 +222,11 @@ public class ChartUtility {
 
         DefaultXYDataset dataSet = new DefaultXYDataset();
 
-        dataListPointer.goNext(aStackTop); //Strip List tag.
+        dataListPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
         int seriesIndex = 1;
         while (dataListPointer.getCons() != null) {
             double[] dataXValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (ConsPointer) dataListPointer.car());
-            dataListPointer.goNext(aStackTop);
+            dataListPointer.goNext(aStackTop, aEnvironment);
             double[] dataYValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (ConsPointer) dataListPointer.car());
 
             String seriesTitle = "series" + seriesIndex;
@@ -239,7 +239,7 @@ public class ChartUtility {
             dataSet.addSeries(seriesTitle, new double[][]{dataXValues, dataYValues});
 
             seriesIndex++;
-            dataListPointer.goNext(aStackTop);
+            dataListPointer.goNext(aStackTop, aEnvironment);
         }//end while.
 
 

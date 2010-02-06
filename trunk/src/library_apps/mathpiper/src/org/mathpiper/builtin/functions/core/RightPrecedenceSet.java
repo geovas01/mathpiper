@@ -38,7 +38,7 @@ public class RightPrecedenceSet extends BuiltinFunction
         String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RightPrecedenceSet");
 
-        ConsPointer index = new ConsPointer(aEnvironment);
+        ConsPointer index = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, index, getArgumentPointer(aEnvironment, aStackTop, 2));
         LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2, "RightPrecedenceSet");
         LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 2, "RightPrecedenceSet");

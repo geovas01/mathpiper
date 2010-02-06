@@ -33,7 +33,7 @@ public class IncompleteBeta extends BuiltinFunction{
 
         result.setTo(resultValue);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(aEnvironment, result));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(result));
 
     }//end method.
 

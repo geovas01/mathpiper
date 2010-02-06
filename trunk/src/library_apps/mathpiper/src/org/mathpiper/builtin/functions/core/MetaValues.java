@@ -32,7 +32,7 @@ public class MetaValues extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer(aEnvironment);
+        ConsPointer objectPointer = new ConsPointer();
         objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 
@@ -45,7 +45,7 @@ public class MetaValues extends BuiltinFunction {
         }//end if.
 
 
-        ConsPointer consPointer = new ConsPointer(aEnvironment);
+        ConsPointer consPointer = new ConsPointer();
 
         Cons head = aEnvironment.iListAtom.copy( aEnvironment, false);
 
@@ -61,7 +61,7 @@ public class MetaValues extends BuiltinFunction {
 
            consPointer.getCons().cdr().setCons(cons);
 
-           consPointer.goNext(aStackTop);
+           consPointer.goNext(aStackTop, aEnvironment);
 
         }//end while.
 
