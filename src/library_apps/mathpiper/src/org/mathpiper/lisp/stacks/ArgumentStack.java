@@ -46,39 +46,39 @@ public class ArgumentStack
         return iStackTopIndex;
     }
 
-    public void raiseStackOverflowError() throws Exception
+    public void raiseStackOverflowError(int aStackTop, Environment aEnvironment) throws Exception
     {
-        LispError.raiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.", "[INTERNAL]");
+        LispError.raiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.", "[INTERNAL]", aStackTop, aEnvironment);
     }
 
-    public void pushArgumentOnStack(Cons aCons) throws Exception
+    public void pushArgumentOnStack(Cons aCons, int aStackTop, Environment aEnvironment) throws Exception
     {
         if (iStackTopIndex >= iArgumentStack.size())
         {
-            raiseStackOverflowError();
+            raiseStackOverflowError(aStackTop, aEnvironment);
         }
         iArgumentStack.setElement(iStackTopIndex, aCons);
         iStackTopIndex++;
     }
 
-    public void pushNulls(int aNr) throws Exception
+    public void pushNulls(int aNr, int aStackTop, Environment aEnvironment) throws Exception
     {
         if (iStackTopIndex + aNr > iArgumentStack.size())
         {
-            raiseStackOverflowError();
+            raiseStackOverflowError(aStackTop, aEnvironment);
         }
         iStackTopIndex += aNr;
     }
 
-    public ConsPointer getElement(int aPos) throws Exception
+    public ConsPointer getElement(int aPos, int aStackTop, Environment aEnvironment) throws Exception
     {
-        LispError.lispAssert(aPos >= 0 && aPos < iStackTopIndex);
+        LispError.lispAssert(aPos >= 0 && aPos < iStackTopIndex, aEnvironment, aStackTop);
         return iArgumentStack.getElement(aPos);
     }
 
-    public void popTo(int aTop) throws Exception
+    public void popTo(int aTop, int aStackTop, Environment aEnvironment) throws Exception
     {
-        LispError.lispAssert(aTop <= iStackTopIndex);
+        LispError.lispAssert(aTop <= iStackTopIndex, aEnvironment, aStackTop);
         while (iStackTopIndex > aTop)
         {
             iStackTopIndex--;
@@ -87,18 +87,22 @@ public class ArgumentStack
     }
 
 
-    public void reset() throws Exception
+
+    public void reset(int aStackTop, Environment aEnvironment) throws Exception
     {
-        this.popTo(0);
+        this.popTo(0, aStackTop, aEnvironment);
     }//end method.
-    
-    public void dump() throws Exception
+
+
+
+
+    public void dump(int aStackTop, Environment aEnvironment) throws Exception
     {
         for(int x=0; x <= iStackTopIndex; x++)
         {
             //try
             //{
-                 ConsPointer consPointer = getElement(x);
+                 ConsPointer consPointer = getElement(x, aStackTop, aEnvironment);
                   Cons cons = consPointer.getCons();
             //}
             //catch(Exception e)
@@ -109,7 +113,6 @@ public class ArgumentStack
             //System.out.println()
         }
     }//end method.
-
 
     public ConsPointer[]  getElements(int quantity) throws IndexOutOfBoundsException
     {

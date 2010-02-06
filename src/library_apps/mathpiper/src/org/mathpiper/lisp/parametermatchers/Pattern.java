@@ -73,7 +73,7 @@ public class Pattern {
 
         while (consTraverser.getCons() != null) {
             PatternParameter matcher = makeParamMatcher(aEnvironment, aStackTop, consTraverser.getCons());
-            LispError.lispAssert(matcher != null);
+            LispError.lispAssert(matcher != null, aEnvironment, aStackTop);
             iParamMatchers.add(matcher);
             consTraverser.goNext(aStackTop);
         }
@@ -127,7 +127,7 @@ public class Pattern {
             // setCons the local variables.
             aEnvironment.pushLocalFrame(false, "Pattern");
             try {
-                setPatternVariables(aEnvironment, argumentsPointer);
+                setPatternVariables(aEnvironment, argumentsPointer, aStackTop);
 
                 // do the predicates
                 if (!checkPredicates(aEnvironment, aStackTop)) {
@@ -136,12 +136,12 @@ public class Pattern {
             } catch (Exception e) {
                 throw e;
             } finally {
-                aEnvironment.popLocalFrame();
+                aEnvironment.popLocalFrame(aStackTop);
             }
         }
 
         // setCons the local variables for sure now
-        setPatternVariables(aEnvironment, argumentsPointer);
+        setPatternVariables(aEnvironment, argumentsPointer, aStackTop);
 
         return true;
     }
@@ -163,7 +163,7 @@ public class Pattern {
 
         
         for (i = 0; i < iParamMatchers.size(); i++) {
-            LispError.check(i < aArguments.length, "Listed function definitions need at least two parameters.", "INTERNAL");
+            LispError.check(i < aArguments.length, "Listed function definitions need at least two parameters.", "INTERNAL", aStackTop, aEnvironment);
             PatternParameter patternParameter = (PatternParameter) iParamMatchers.get(i);
             ConsPointer argument = aArguments[i];
             if (! patternParameter.argumentMatches(aEnvironment, aStackTop, argument, arguments)) {
@@ -175,7 +175,7 @@ public class Pattern {
             // setCons the local variables.
             aEnvironment.pushLocalFrame(false, "Pattern");
             try {
-                setPatternVariables(aEnvironment, arguments);
+                setPatternVariables(aEnvironment, arguments, aStackTop);
 
                 // do the predicates
                 if (!checkPredicates(aEnvironment, aStackTop)) {
@@ -184,12 +184,12 @@ public class Pattern {
             } catch (Exception e) {
                 throw e;
             } finally {
-                aEnvironment.popLocalFrame();
+                aEnvironment.popLocalFrame(aStackTop);
             }
         }
 
         // setCons the local variables for sure now
-        setPatternVariables(aEnvironment, arguments);
+        setPatternVariables(aEnvironment, arguments, aStackTop);
         return true;
     }
 
@@ -275,7 +275,7 @@ public class Pattern {
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, sublist);
             for (i = 0; i < num; i++) {
                 matchers[i] = makeParamMatcher(aEnvironment, aStackTop, consTraverser.getCons());
-                LispError.lispAssert(matchers[i] != null);
+                LispError.lispAssert(matchers[i] != null, aEnvironment, aStackTop);
                 consTraverser.goNext(aStackTop);
             }
             return new Sublist(matchers, num);
@@ -304,11 +304,11 @@ public class Pattern {
     /// This function goes through the #iVariables array. A local
     /// variable is made for every entry in the array, and the
     /// corresponding argument is assigned to it.
-    protected void setPatternVariables(Environment aEnvironment, ConsPointer[] arguments) throws Exception {
+    protected void setPatternVariables(Environment aEnvironment, ConsPointer[] arguments, int aStackTop) throws Exception {
         int i;
         for (i = 0; i < iVariables.size(); i++) {
             // setCons the variable to the new value
-            aEnvironment.newLocalVariable((String) iVariables.get(i), arguments[i].getCons());
+            aEnvironment.newLocalVariable((String) iVariables.get(i), arguments[i].getCons(), aStackTop);
         }
     }
 
@@ -322,13 +322,13 @@ public class Pattern {
         for (i = 0; i < iPredicates.size(); i++) {
             ConsPointer pred = new ConsPointer(aEnvironment);
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, ((ConsPointer) iPredicates.get(i)));
-            if (Utility.isFalse(aEnvironment, pred)) {
+            if (Utility.isFalse(aEnvironment, pred, aStackTop)) {
                 return false;
             }
 
 
             // If the result is not False, it should be True, else probably something is wrong (the expression returned unevaluated)
-            boolean isTrue = Utility.isTrue(aEnvironment, pred);
+            boolean isTrue = Utility.isTrue(aEnvironment, pred, aStackTop);
             if (!isTrue) {
                 //TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
                 String strout;

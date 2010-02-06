@@ -43,11 +43,11 @@ public class Or extends BuiltinFunction
         while (consTraverser.getCons() != null)
         {
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, consTraverser.getPointer());
-            if (Utility.isTrue(aEnvironment, evaluated))
+            if (Utility.isTrue(aEnvironment, evaluated, aStackTop))
             {
                 Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                 return;
-            } else if (!Utility.isFalse(aEnvironment, evaluated))
+            } else if (!Utility.isFalse(aEnvironment, evaluated, aStackTop))
             {
                 ConsPointer ptr = new ConsPointer(aEnvironment);
                 nrnogos++;

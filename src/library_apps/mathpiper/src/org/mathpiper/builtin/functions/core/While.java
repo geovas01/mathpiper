@@ -45,7 +45,7 @@ public class While extends BuiltinFunction {
         int beforeEvaluationDepth = -1;
         
         try {
-            while (Utility.isTrue(aEnvironment, predicate)) {
+            while (Utility.isTrue(aEnvironment, predicate, aStackTop)) {
 
                 beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
                 beforeEvaluationDepth = aEnvironment.iEvalDepth;
@@ -55,7 +55,7 @@ public class While extends BuiltinFunction {
                     aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, arg2);
 
                 } catch (ContinueException ce) {
-                    aEnvironment.iArgumentStack.popTo(beforeStackTop);
+                    aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
                     aEnvironment.iEvalDepth = beforeEvaluationDepth;
                     Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                 }//end continue catch.
@@ -64,10 +64,10 @@ public class While extends BuiltinFunction {
 
             }//end while.
 
-            LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate), 1, "While");
+            LispError.checkArgument(aEnvironment, aStackTop, Utility.isFalse(aEnvironment, predicate, aStackTop), 1, "While");
 
         } catch (BreakException be) {
-              aEnvironment.iArgumentStack.popTo(beforeStackTop);
+              aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
               aEnvironment.iEvalDepth = beforeEvaluationDepth;
         }
 

@@ -84,7 +84,7 @@ public class MathPiperParser extends Parser
 
         if (iLookAhead != iEnvironment.iEndStatementAtom.car())
         {
-            fail();
+            fail(aStackTop);
         }
         if (iError)
         {
@@ -116,7 +116,7 @@ public class MathPiperParser extends Parser
     {
         if (aToken != iLookAhead)
         {
-            fail();
+            fail(aStackTop);
         }
         readToken(aStackTop);
     }
@@ -137,7 +137,7 @@ public class MathPiperParser extends Parser
                 // Match closing bracket
                 if (iLookAhead != iEnvironment.iProgCloseAtom.car())
                 {
-                    LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead + " instead.", "[INTERNAL]");
+                    LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead + " instead.", "[INTERNAL]", aStackTop, aEnvironment);
                     return;
                 }
                 matchToken(aStackTop, iLookAhead);
@@ -154,7 +154,7 @@ public class MathPiperParser extends Parser
                     if(iLookAhead.equals(""))
                     {
 
-                       LispError.raiseError("Expression must end with a semi-colon (;)", "[INTERNAL]");
+                       LispError.raiseError("Expression must end with a semi-colon (;)", "[INTERNAL]", aStackTop, aEnvironment);
                         return;
                     }
                     if (MathPiperTokenizer.isSymbolic(iLookAhead.charAt(0)))
@@ -258,7 +258,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead);
                 } else if (iLookAhead != iEnvironment.iListCloseAtom.car())
                 {
-                    LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead + " instead.", "[INTERNAL]");
+                    LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead + " instead.", "[INTERNAL]", aStackTop, aEnvironment);
                     return;
                 }
             }
@@ -283,7 +283,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead);
                 } else
                 {
-                    LispError.raiseError("Expecting ; end of statement in program block, but got " + iLookAhead + " instead.", "[INTERNAL]");
+                    LispError.raiseError("Expecting ; end of statement in program block, but got " + iLookAhead + " instead.", "[INTERNAL]", aStackTop, aEnvironment);
                     return;
                 }
             }
@@ -313,7 +313,7 @@ public class MathPiperParser extends Parser
                         matchToken(aStackTop, iLookAhead);
                     } else if (iLookAhead != iEnvironment.iBracketCloseAtom.car())
                     {
-                        LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead + " instead.", "[INTERNAL]");
+                        LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead + " instead.", "[INTERNAL]", aStackTop, aEnvironment);
                         return;
                     }
                 }
@@ -362,14 +362,14 @@ public class MathPiperParser extends Parser
         {
             if (consTraverser.getCons() == null)
             {
-                fail();
+                fail(aStackTop);
                 return;
             }
             consTraverser.goNext(aStackTop);
         }
         if (consTraverser.getCons() == null)
         {
-            fail();
+            fail(aStackTop);
             return;
         }
         subList.cdr().setCons(consTraverser.cdr().getCons());
@@ -388,13 +388,13 @@ public class MathPiperParser extends Parser
         iSExpressionResult.setCons(ptr.getCons());
     }
 
-    void fail() throws Exception // called when parsing fails, raising an exception
+    void fail(int aStackTop) throws Exception // called when parsing fails, raising an exception
     {
         iError = true;
         if (iLookAhead != null)
         {
-            LispError.raiseError("Error parsing expression, near token " + iLookAhead + ".", "[INTERNAL]");
+            LispError.raiseError("Error parsing expression, near token " + iLookAhead + ".", "[INTERNAL]", aStackTop, iEnvironment);
         }
-        LispError.raiseError("Error parsing expression.", "[INTERNAL]");
+        LispError.raiseError("Error parsing expression.", "[INTERNAL]", aStackTop, iEnvironment);
     }
 };

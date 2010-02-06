@@ -73,7 +73,7 @@ public class LispExpressionEvaluator extends Evaluator {
         {
             int xx =1;
         }
-        LispError.lispAssert(aExpression.getCons() != null);
+        LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
         synchronized (aEnvironment) {
             aEnvironment.iEvalDepth++;
             if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {

@@ -53,7 +53,7 @@ public class ArraySet extends BuiltinFunction
 
         ConsPointer obj = new ConsPointer(aEnvironment);
         obj.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        ((Array) gen).setElement(size, obj.getCons());
+        ((Array) gen).setElement(size, obj.getCons(), aStackTop, aEnvironment);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }//end class.

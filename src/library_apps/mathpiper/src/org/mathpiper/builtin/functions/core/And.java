@@ -42,11 +42,11 @@ public class And extends BuiltinFunction
         while (consTraverser.getCons() != null)
         {
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, consTraverser.getPointer());
-            if (Utility.isFalse(aEnvironment, evaluated))
+            if (Utility.isFalse(aEnvironment, evaluated, aStackTop))
             {
                 Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                 return;
-            } else if (!Utility.isTrue(aEnvironment, evaluated))
+            } else if (!Utility.isTrue(aEnvironment, evaluated, aStackTop))
             {
                 ConsPointer ptr = new ConsPointer(aEnvironment);
                 nrnogos++;

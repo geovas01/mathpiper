@@ -58,7 +58,7 @@ public class ListedMacroUserFunction extends MacroUserFunction
 			ptr = (ptr.cdr());
 			i++;
 			consTraverser.goNext(aStackTop);
-			LispError.lispAssert(consTraverser.getCons() == null);
+			LispError.lispAssert(consTraverser.getCons() == null, aEnvironment, aStackTop);
 		}
 		else
 		{

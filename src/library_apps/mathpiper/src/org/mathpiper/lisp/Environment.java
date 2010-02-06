@@ -300,8 +300,8 @@ public class Environment {
 
     }
 
-    public void newLocalVariable(String aVariable, Cons aValue) throws Exception {
-        LispError.lispAssert(iLocalVariablesFrame != null);
+    public void newLocalVariable(String aVariable, Cons aValue, int aStackTop) throws Exception {
+        LispError.lispAssert(iLocalVariablesFrame != null, this, aStackTop);
         iLocalVariablesFrame.add(new LocalVariable(this, aVariable, aValue));
     }
 
@@ -315,8 +315,8 @@ public class Environment {
         }
     }
 
-    public void popLocalFrame() throws Exception {
-        LispError.lispAssert(iLocalVariablesFrame != null);
+    public void popLocalFrame(int aStackTop) throws Exception {
+        LispError.lispAssert(iLocalVariablesFrame != null, this, aStackTop);
         LocalVariableFrame nextLocalVariableFrame = iLocalVariablesFrame.iNext;
         iLocalVariablesFrame.delete();
         iLocalVariablesFrame = nextLocalVariableFrame;
@@ -326,16 +326,16 @@ public class Environment {
         return iLastUniqueId++;
     }
 
-    public void holdArgument(int aStackTop, String aOperator, String aVariable) throws Exception {
+    public void holdArgument(int aStackTop, String aOperator, String aVariable, Environment aEnvironment) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
         LispError.check(this, aStackTop, multipleArityUserFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-        multipleArityUserFunc.holdArgument(aVariable);
+        multipleArityUserFunc.holdArgument(aVariable, aStackTop, aEnvironment);
     }
 
-    public void retractFunction(String aOperator, int aArity) throws Exception {
+    public void retractFunction(String aOperator, int aArity, int aStackTop, Environment aEnvironment) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
         if (multipleArityUserFunc != null) {
-            multipleArityUserFunc.deleteRulebaseEntry(aArity);
+            multipleArityUserFunc.deleteRulebaseEntry(aArity, aStackTop, aEnvironment);
         }
     }
 
@@ -343,15 +343,15 @@ public class Environment {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp( (String) aArguments.car());
         if (multipleArityUserFunc != null) {
             int arity = Utility.listLength(this, aStackTop, aArguments) - 1;
-            return multipleArityUserFunc.getUserFunction(arity);
+            return multipleArityUserFunc.getUserFunction(arity, aStackTop, this);
         }
         return null;
     }
 
-    public SingleArityBranchingUserFunction getUserFunction(String aName, int aArity) throws Exception {
+    public SingleArityBranchingUserFunction getUserFunction(String aName, int aArity, int aStackTop) throws Exception {
         MultipleArityUserFunction multipleArityUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aName);
         if (multipleArityUserFunc != null) {
-            return multipleArityUserFunc.getUserFunction(aArity);
+            return multipleArityUserFunc.getUserFunction(aArity, aStackTop, this);
         }
         return null;
     }
@@ -360,7 +360,7 @@ public class Environment {
         MultipleArityUserFunction multiUserFunc = (MultipleArityUserFunction) iUserFunctions.lookUp(aOperator);
 
         LispError.check(this, aStackTop, multiUserFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-        SingleArityBranchingUserFunction userFunc = multiUserFunc.getUserFunction(aArity);
+        SingleArityBranchingUserFunction userFunc = multiUserFunc.getUserFunction(aArity, aStackTop, this);
         LispError.check(this, aStackTop, userFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         userFunc.unFence();
     }
@@ -401,11 +401,11 @@ public class Environment {
         LispError.check(this, aStackTop, multipleArityUserFunction != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Get the specific user function with the right arity
-        SingleArityBranchingUserFunction userFunction = (SingleArityBranchingUserFunction) multipleArityUserFunction.getUserFunction(aArity);
+        SingleArityBranchingUserFunction userFunction = (SingleArityBranchingUserFunction) multipleArityUserFunction.getUserFunction(aArity, aStackTop, this);
         LispError.check(this, aStackTop, userFunction != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Declare a new evaluation rule
-        if (Utility.isTrue(this, aPredicate)) {
+        if (Utility.isTrue(this, aPredicate, aStackTop)) {
             //        printf("FastPredicate on %s\n",aOperator->String());
             userFunction.declareRule(aStackTop, aPrecedence, aBody);
         } else {
@@ -432,7 +432,7 @@ public class Environment {
         LispError.check(this, aStackTop, multipleArityUserFunc != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Get the specific user function with the right arity
-        SingleArityBranchingUserFunction userFunction = multipleArityUserFunc.getUserFunction(aArity);
+        SingleArityBranchingUserFunction userFunction = multipleArityUserFunc.getUserFunction(aArity, aStackTop, this);
         LispError.check(this, aStackTop, userFunction != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Declare a new evaluation rule
@@ -450,9 +450,9 @@ public class Environment {
 
 
 
-    public void resetArgumentStack() throws Exception
+    public void resetArgumentStack(int aStackTop) throws Exception
     {
-        this.iArgumentStack.reset();
+        this.iArgumentStack.reset(aStackTop, this);
     }//end method.
 
 

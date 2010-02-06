@@ -58,12 +58,12 @@ public class ViewHtml extends BuiltinFunction {
         else if (argument instanceof BuiltinContainer)
         {
             BuiltinContainer builtinContainer = (BuiltinContainer) argument;
-            LispError.check(builtinContainer.typeName().equals("java.lang.String"), "Argument must be a MathPiper string or a Java String object.", "ViewHtml");
+            LispError.check(builtinContainer.typeName().equals("java.lang.String"), "Argument must be a MathPiper string or a Java String object.", "ViewHtml", aStackTop, aEnvironment);
             htmlText = (String) builtinContainer.getObject();
         }
         else
         {
-            LispError.raiseError("Argument must be a MathPiper string or a Java String object.", "ViewHtml");
+            LispError.raiseError("Argument must be a MathPiper string or a Java String object.", "ViewHtml", aStackTop, aEnvironment);
         }//end else.
 
         JFrame frame = new JFrame();

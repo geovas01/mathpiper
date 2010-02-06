@@ -44,7 +44,7 @@ public class LocalSymbols extends BuiltinFunction
         int i;
         for (i = 0; i < numberOfSymbols; i++)
         {
-            String atomName = (String) getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), i + 1).car();
+            String atomName = (String) getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), i + 1).car();
             LispError.checkArgument(aEnvironment, aStackTop, atomName != null, i + 1, "LocalSymbols");
             atomNames[i] = atomName;
             String newAtomName = "$" + atomName + uniqueNumber;
@@ -53,7 +53,7 @@ public class LocalSymbols extends BuiltinFunction
         }
         LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
         ConsPointer result = new ConsPointer(aEnvironment);
-        Utility.substitute(aEnvironment, aStackTop, result, getArgumentPointer(getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
+        Utility.substitute(aEnvironment, aStackTop, result, getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), result);
     }
 }//end class.

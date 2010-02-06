@@ -35,7 +35,7 @@ public class Check extends BuiltinFunction
     {
         ConsPointer pred = new ConsPointer(aEnvironment);
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, getArgumentPointer(aEnvironment, aStackTop, 1));
-        if (!Utility.isTrue(aEnvironment, pred))
+        if (!Utility.isTrue(aEnvironment, pred, aStackTop))
         {
             ConsPointer evaluated = new ConsPointer(aEnvironment);
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, getArgumentPointer(aEnvironment, aStackTop, 2));

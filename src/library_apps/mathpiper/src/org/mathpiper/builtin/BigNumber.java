@@ -614,8 +614,8 @@ public class BigNumber {
      * @param aNrToShift
      * @throws java.lang.Exception
      */
-    public void shiftLeft(BigNumber aX, int aNrToShift) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null);
+    public void shiftLeft(BigNumber aX, int aNrToShift, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
         javaBigDecimal = null;
         javaBigInteger = aX.javaBigInteger.shiftLeft(aNrToShift);
     }
@@ -626,8 +626,8 @@ public class BigNumber {
      * @param aNrToShift
      * @throws java.lang.Exception
      */
-    public void shiftRight(BigNumber aX, int aNrToShift) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null);
+    public void shiftRight(BigNumber aX, int aNrToShift, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
         javaBigDecimal = null;
         javaBigInteger = aX.javaBigInteger.shiftRight(aNrToShift);
     }
@@ -639,9 +639,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void gcd(BigNumber aX, BigNumber aY) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null);
-        LispError.lispAssert(aY.javaBigInteger != null);
+    public void gcd(BigNumber aX, BigNumber aY, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
+        LispError.lispAssert(aY.javaBigInteger != null, iEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.gcd(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -653,9 +653,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void bitAnd(BigNumber aX, BigNumber aY) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null);
-        LispError.lispAssert(aY.javaBigInteger != null);
+    public void bitAnd(BigNumber aX, BigNumber aY, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
+        LispError.lispAssert(aY.javaBigInteger != null, iEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.and(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -666,9 +666,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void bitOr(BigNumber aX, BigNumber aY) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null);
-        LispError.lispAssert(aY.javaBigInteger != null);
+    public void bitOr(BigNumber aX, BigNumber aY, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
+        LispError.lispAssert(aY.javaBigInteger != null, iEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.or(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -680,9 +680,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void bitXor(BigNumber aX, BigNumber aY) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null);
-        LispError.lispAssert(aY.javaBigInteger != null);
+    public void bitXor(BigNumber aX, BigNumber aY, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
+        LispError.lispAssert(aY.javaBigInteger != null, iEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.xor(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -693,8 +693,8 @@ public class BigNumber {
      * @param aX
      * @throws java.lang.Exception
      */
-    void bitNot(BigNumber aX) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null);
+    void bitNot(BigNumber aX, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.not();
         javaBigDecimal = null;
     }

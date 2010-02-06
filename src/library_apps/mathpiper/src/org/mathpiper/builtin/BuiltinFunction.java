@@ -281,15 +281,15 @@ public abstract class BuiltinFunction {
 	public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
 
 	public static ConsPointer getTopOfStackPointer(Environment aEnvironment, int aStackTop) throws Exception {
-		return aEnvironment.iArgumentStack.getElement(aStackTop);
+		return aEnvironment.iArgumentStack.getElement(aStackTop, aStackTop, aEnvironment);
 	}
 
 	public static ConsPointer getArgumentPointer(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
-		return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition);
+		return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition, aStackTop, aEnvironment);
 	}
 
-	public static ConsPointer getArgumentPointer(ConsPointer cur, int n) throws Exception {
-		LispError.lispAssert(n >= 0);
+	public static ConsPointer getArgumentPointer(Environment aEnvironment, int aStackTop, ConsPointer cur, int n) throws Exception {
+		LispError.lispAssert(n >= 0, aEnvironment, aStackTop);
 
 		ConsPointer loop = cur;
 		while (n != 0) {

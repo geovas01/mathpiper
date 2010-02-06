@@ -38,7 +38,7 @@ public class TellUser extends BuiltinFunction
 
         Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
 
-        LispError.check(argument instanceof String, "The argument to TellUser must be a string.", "INTERNAL");
+        LispError.check(argument instanceof String, "The argument to TellUser must be a string.", "INTERNAL", aStackTop, aEnvironment);
 
         String messageString = (String) argument;
 

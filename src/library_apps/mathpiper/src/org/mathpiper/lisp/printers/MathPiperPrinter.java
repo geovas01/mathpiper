@@ -65,7 +65,7 @@ public class MathPiperPrinter extends LispPrinter {
 
     void Print(Environment aEnvironment, int aStackTop, ConsPointer aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
 
-        LispError.lispAssert(aExpression.getCons() != null);
+        LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
 
         String functionOrOperatorName;
         if (aExpression.car() instanceof String) {

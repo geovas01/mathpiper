@@ -70,7 +70,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             if (iNumberOfArguments == 0) {
                 argumentsResultPointerArray = null;
             } else {
-                LispError.lispAssert(iNumberOfArguments > 0);
+                LispError.lispAssert(iNumberOfArguments > 0, aEnvironment, aStackTop);
                 argumentsResultPointerArray = new ConsPointer[iNumberOfArguments];
             }//end if.
         }//end if.
@@ -99,7 +99,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
 
         // Push a place holder for the result and initialize it to the function name for error reporting purposes.
-        aEnvironment.iArgumentStack.pushArgumentOnStack(aArgumentsPointer.getCons());
+        aEnvironment.iArgumentStack.pushArgumentOnStack(aArgumentsPointer.getCons(), aStackTop, aEnvironment);
 
         ConsPointer argumentsConsTraverser = new ConsPointer(aEnvironment, aArgumentsPointer.getCons());
 
@@ -127,7 +127,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                     argumentsResultPointerArray[i].setCons(argumentsConsTraverser.getCons().copy(aEnvironment, false));
                 }
 
-                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentsConsTraverser.getCons().copy(aEnvironment, false));
+                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentsConsTraverser.getCons().copy(aEnvironment, false), aStackTop, aEnvironment);
                 argumentsConsTraverser.goNext(aStackTop);
             }
 
@@ -135,7 +135,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 ConsPointer head = new ConsPointer(aEnvironment);
                 head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
                 head.cdr().setCons(argumentsConsTraverser.getCons());
-                aEnvironment.iArgumentStack.pushArgumentOnStack(SublistCons.getInstance(aEnvironment, head.getCons()));
+                aEnvironment.iArgumentStack.pushArgumentOnStack(SublistCons.getInstance(aEnvironment, head.getCons()), aStackTop, aEnvironment);
             }//end if.
 
         } else {//This is a function, not a macro.
@@ -150,7 +150,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                     argumentsResultPointerArray[i].setCons(argumentResultPointer.getCons().copy(aEnvironment, false));
                 }
 
-                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResultPointer.getCons());
+                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResultPointer.getCons(), aStackTop, aEnvironment);
                 argumentsConsTraverser.goNext(aStackTop);
             }//end for.
 
@@ -179,7 +179,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 printf("after %s\n",res.String());
                  */
 
-                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResultPointer.getCons());
+                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResultPointer.getCons(), aStackTop, aEnvironment);
                 //printf("Leave\n");
                                     /*Trace code */
 
@@ -222,7 +222,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         iCalledBuiltinFunction.evaluate(aEnvironment, stackTop); //********************** built in function is called here.
 
 
-        aResultPointer.setCons(aEnvironment.iArgumentStack.getElement(stackTop).getCons());
+        aResultPointer.setCons(aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment).getCons());
 
         if (isTraced() && showFlag == true) {
             ConsPointer argumentsPointer = new ConsPointer(aEnvironment);
@@ -232,7 +232,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             argumentsPointer.setCons(null);
         }//end if.
 
-        aEnvironment.iArgumentStack.popTo(stackTop);
+        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
     }
 }
 

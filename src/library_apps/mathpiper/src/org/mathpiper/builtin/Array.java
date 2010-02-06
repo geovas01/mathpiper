@@ -51,14 +51,14 @@ public class Array extends BuiltinContainer
 	{
 		return iArray.size();
 	}
-	public Cons getElement(int aItem) throws Exception
+	public Cons getElement(int aItem, int aStackTop, Environment aEnvironment) throws Exception
 	{
-		LispError.lispAssert(aItem>0 && aItem<=iArray.size());
+		LispError.lispAssert(aItem>0 && aItem<=iArray.size(), aEnvironment, aStackTop);
 		return iArray.getElement(aItem-1).getCons();
 	}
-	public void setElement(int aItem,Cons aObject) throws Exception
+	public void setElement(int aItem,Cons aObject, int aStackTop, Environment aEnvironment) throws Exception
 	{
-		LispError.lispAssert(aItem>0 && aItem<=iArray.size());
+		LispError.lispAssert(aItem>0 && aItem<=iArray.size(), aEnvironment, aStackTop);
 		iArray.setElement(aItem-1,aObject);
 	}
 

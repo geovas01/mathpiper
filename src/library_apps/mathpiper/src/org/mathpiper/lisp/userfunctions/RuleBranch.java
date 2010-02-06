@@ -76,7 +76,7 @@ class RuleBranch extends Branch
     {
         ConsPointer pred = new ConsPointer(aEnvironment);
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, iPredicate);
-        return Utility.isTrue(aEnvironment, pred);
+        return Utility.isTrue(aEnvironment, pred, aStackTop);
     }
 
     /// Access #iPrecedence.

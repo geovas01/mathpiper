@@ -119,7 +119,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
             for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
                 String variableName = ((FunctionParameter) iParameters.get(parameterIndex)).iParameter;
                 // set the variable to the new value
-                aEnvironment.newLocalVariable(variableName, argumentsResultPointerArray[parameterIndex].getCons());
+                aEnvironment.newLocalVariable(variableName, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);
             }
 
             // walk the rules database, returning the evaluated result if the
@@ -130,7 +130,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
             for (parameterIndex = 0; parameterIndex < numberOfRules; parameterIndex++) {
                 Branch thisRule = ((Branch) iBranchRules.get(parameterIndex));
-                LispError.lispAssert(thisRule != null);
+                LispError.lispAssert(thisRule != null, aEnvironment, aStackTop);
 
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
 
@@ -161,7 +161,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
                         aResult.setCons(resultPointer.getCons());
 
-                        aEnvironment.iArgumentStack.popTo(beforeStackTop);
+                        aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
                         aEnvironment.iEvalDepth = beforeEvaluationDepth;
 
                     }
@@ -219,7 +219,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 throw ex;
             }
         } finally {
-            aEnvironment.popLocalFrame();
+            aEnvironment.popLocalFrame(aStackTop);
         }
     }
 
@@ -257,7 +257,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
         if (arity == 0) {
             argumentsResultPointerArray = null;
         } else {
-            LispError.lispAssert(arity > 0);
+            LispError.lispAssert(arity > 0, aEnvironment, aStackTop);
             argumentsResultPointerArray = new ConsPointer[arity];
         }
 
