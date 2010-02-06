@@ -48,7 +48,7 @@ public class Prog extends BuiltinFunction {
         } catch (Exception e) {
             throw e;
         } finally {
-            aEnvironment.popLocalFrame();
+            aEnvironment.popLocalFrame(aStackTop);
         }
     }
 

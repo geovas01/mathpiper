@@ -271,7 +271,7 @@ public class JavaObject extends BuiltinContainer {
             try {
                 values[index++] = Double.parseDouble(itemString);
             } catch (NumberFormatException nfe) {
-                LispError.raiseError("Can not convert into a double." , "INTERNAL");
+                LispError.raiseError("Can not convert into a double." , "INTERNAL", aStackTop, aEnvironment);
             }//end try/catch.
 
             lispListPointer.goNext(aStackTop);

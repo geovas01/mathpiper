@@ -17,6 +17,7 @@
 package org.mathpiper.lisp.cons;
 
 
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.*;
 import org.mathpiper.lisp.printers.LispPrinter;
@@ -52,7 +53,9 @@ public class SublistCons extends Cons {
     }*/
     public Cons copy(Environment aEnvironment, boolean aRecursed) throws Exception {
         //TODO recursed copy needs to be implemented still
-        LispError.lispAssert(aRecursed == false);
+        //LispError.lispAssert(aRecursed == false, aEnvironment, aStackTop);
+
+        if(aRecursed != false) throw new EvaluationException("Internal error in SublistCons.","",-1);
 
         Cons copied = new SublistCons(aEnvironment, iCar.getCons());
 

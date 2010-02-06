@@ -36,7 +36,7 @@ public class BuiltinObjectCons extends Cons {
     }
 
     public static BuiltinObjectCons getInstance(Environment aEnvironment, int aStackTop, BuiltinContainer aClass) throws Exception {
-        LispError.lispAssert(aClass != null);
+        LispError.lispAssert(aClass != null, aEnvironment, aStackTop);
         BuiltinObjectCons self = new BuiltinObjectCons(aEnvironment, aClass);
         LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
         return self;

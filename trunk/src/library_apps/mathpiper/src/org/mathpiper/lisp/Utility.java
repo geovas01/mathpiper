@@ -247,7 +247,7 @@ public class Utility {
                 LispError.check(aEnvironment, aStackTop, var != null, LispError.INVALID_ARGUMENT, "INTERNAL");
                 ConsPointer newly = new ConsPointer(aEnvironment);
                 newly.setCons(args2.getCons().copy(aEnvironment, false));
-                aEnvironment.newLocalVariable(var, newly.getCons());
+                aEnvironment.newLocalVariable(var, newly.getCons(), aStackTop);
                 oper2.setCons(oper2.cdr().getCons());
                 args2.setCons(args2.cdr().getCons());
             }
@@ -256,7 +256,7 @@ public class Utility {
         } catch (EvaluationException e) {
             throw e;
         } finally {
-            aEnvironment.popLocalFrame();
+            aEnvironment.popLocalFrame(aStackTop);
         }
 
     }
@@ -302,8 +302,9 @@ public class Utility {
         aResult.setCons(SublistCons.getInstance(aEnvironment, iter.cdr().getCons()));
     }
 
-    public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression) throws Exception {
-        LispError.lispAssert(aExpression.getCons() != null);
+
+    public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression, int aStackTop) throws Exception {
+        LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
 
         //return aExpression.car() == aEnvironment.iTrueAtom.car();
         return aExpression.car() instanceof String && ((String) aExpression.car()) == aEnvironment.iTrueString;
@@ -329,9 +330,8 @@ public class Utility {
         }*/
 
     }//end method.
-
-    public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression) throws Exception {
-        LispError.lispAssert(aExpression.getCons() != null);
+    public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression, int aStackTop) throws Exception {
+        LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
         return aExpression.car() instanceof String && ((String) aExpression.car()) == aEnvironment.iFalseString;
 
         /* Code which returns True for everything except False and {};
@@ -479,10 +479,10 @@ public class Utility {
     }//end method.
 
     public static void not(int aStackTop, ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
-        if (isTrue(aEnvironment, aExpression)) {
+        if (isTrue(aEnvironment, aExpression, aStackTop)) {
             putFalseInPointer(aEnvironment, aResult);
         } else {
-            LispError.check(aEnvironment, aStackTop, isFalse(aEnvironment, aExpression), LispError.INVALID_ARGUMENT, "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, isFalse(aEnvironment, aExpression, aStackTop), LispError.INVALID_ARGUMENT, "INTERNAL");
             putTrueInPointer(aEnvironment, aResult);
         }
     }
@@ -567,7 +567,7 @@ public class Utility {
 
     public static void substitute(Environment aEnvironment, int aStackTop, ConsPointer aTarget, ConsPointer aSource, Substitute aBehaviour) throws Exception {
         Cons object = aSource.getCons();
-        LispError.lispAssert(object != null);
+        LispError.lispAssert(object != null, aEnvironment, aStackTop);
         if (!aBehaviour.matches(aEnvironment, aStackTop, aTarget, aSource)) {
             Object oldList = object.car();
 
@@ -809,7 +809,7 @@ public class Utility {
     }
 
     public static void loadDefFile(Environment aEnvironment, int aStackTop, String aFileName) throws Exception {
-        LispError.lispAssert(aFileName != null);
+        LispError.lispAssert(aFileName != null, aEnvironment, aStackTop);
 
         String flatfile = unstringify(aEnvironment, aStackTop, aFileName) + ".def";
         DefFile def = aEnvironment.iDefFiles.getFile(aFileName);

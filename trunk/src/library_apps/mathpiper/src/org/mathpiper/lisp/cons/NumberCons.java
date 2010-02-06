@@ -18,9 +18,8 @@
 package org.mathpiper.lisp.cons;
 
 import org.mathpiper.lisp.*;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BigNumber;
+import org.mathpiper.exceptions.EvaluationException;
 
 
 /**
@@ -103,7 +102,9 @@ public class NumberCons extends Cons {
      */
     public Object car() throws Exception {
         if (iCarStringNumber == null) {
-            LispError.lispAssert(iCarBigNumber != null);  // either the string is null or the number but not both.
+            //LispError.lispAssert(iCarBigNumber != null, aEnvironment, aStackTop);  // either the string is null or the number but not both.
+
+            if(iCarBigNumber == null) throw new EvaluationException("Internal error in NumberCons.","",-1);
 
             iCarStringNumber = iCarBigNumber.numToString(0/*TODO FIXME*/, 10);
         // export the current number to string and store it as NumberCons::iString
@@ -134,7 +135,11 @@ public class NumberCons extends Cons {
     public Object getNumber(int aPrecision) throws Exception {
         /// If necessary, will create a BigNumber object out of the stored string, at given precision (in decimal?)
         if (iCarBigNumber == null) {  // create and store a BigNumber out of the string representation.
-            LispError.lispAssert(iCarStringNumber != null);
+            
+            //LispError.lispAssert(iCarStringNumber != null, aEnvironment, aStackTop);
+
+            if(iCarStringNumber == null) throw new EvaluationException("Internal error in NumberCons.","",-1);
+
             String str;
             str = iCarStringNumber;
             // aBasePrecision is in digits, not in bits, ok

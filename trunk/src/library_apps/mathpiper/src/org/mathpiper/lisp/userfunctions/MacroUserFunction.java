@@ -79,7 +79,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                 String variable = ((FunctionParameter) iParameters.get(parameterIndex)).iParameter;
 
                 // setCons the variable to the new value
-                aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[parameterIndex].getCons());
+                aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);
             }
 
             // walk the rules database, returning the evaluated result if the
@@ -89,7 +89,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
             for (parameterIndex = 0; parameterIndex < numberOfRules; parameterIndex++) {
                 Branch thisRule = ((Branch) iBranchRules.get(parameterIndex));
                 //TODO remove            CHECKPTR(thisRule);
-                LispError.lispAssert(thisRule != null);
+                LispError.lispAssert(thisRule != null, aEnvironment, aStackTop);
 
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
 
@@ -125,7 +125,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
                 throw ex;
             }
         } finally {
-            aEnvironment.popLocalFrame();
+            aEnvironment.popLocalFrame(aStackTop);
         }
 
 

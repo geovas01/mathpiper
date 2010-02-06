@@ -62,7 +62,11 @@ public class LispError
 
     public static String errorString(int aError) throws Exception
     {
-        lispAssert(aError >= 0 && aError < MAXIMUM_NUMBER_OF_ERRORS);
+        //lispAssert(aError >= 0 && aError < MAXIMUM_NUMBER_OF_ERRORS, aEnvironment, aStackTop);
+
+        if(aError < 0 || aError >= MAXIMUM_NUMBER_OF_ERRORS) throw new EvaluationException("Maximum number of errors exceeded.","",-1);
+
+
         //    switch (aError)
         {
             if (aError == NONE)
@@ -197,25 +201,47 @@ public class LispError
     {
         if (!hastobetrue)
         {
-            String errorMessage = errorString(aError) + " In function " + functionName + ". ";
-            throw new EvaluationException(errorMessage,"none", -1);
+            String errorMessage = errorString(aError);// + " In function " + functionName + ". ";
+
+            check(hastobetrue,errorMessage,functionName, aStackTop, aEnvironment);
+
         }
     }//end method.
 
 
 
-    public static void check(boolean hastobetrue, String aErrorMessage, String functionName) throws Exception
+
+    public static void check(boolean hastobetrue, String aErrorMessage, String functionName, int aStackTop, Environment aEnvironment) throws Exception
     {
         if (!hastobetrue)
         {
-            throw new EvaluationException(aErrorMessage + " In function " + functionName + ". ","none", -1);
+            if(aStackTop == -1)
+            {
+                throw new EvaluationException("Error encountered during parsing: " ,"none",-1);
+            }
+            else
+            {
+                ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
+                if (arguments.getCons() == null)
+                {
+                    throw new EvaluationException("Error in compiled code\n","none",-1);
+                } else
+                {
+                    //TODO FIXME          ShowStack(aEnvironment);
+                    aErrorMessage = aErrorMessage + showFunctionError(arguments, aEnvironment) + "internal error.";
+                }
+
+
+                throw new EvaluationException(aErrorMessage + /*" In function " + functionName +*/ ". ","none", -1);
+
+            }
         }
     }//end method.
 
-    
-    public static void raiseError(String errorMessage, String functionName) throws Exception
-    {        
-        throw new EvaluationException(errorMessage + " In function " + functionName + ". ","none",-1);
+    public static void raiseError(String errorMessage, String functionName, int aStackTop, Environment aEnvironment) throws Exception
+    {
+        check(  true, errorMessage,functionName, aStackTop, aEnvironment);
+        //throw new EvaluationException(errorMessage + " In function " + functionName + ". ","none",-1);
     }
 
     public static void checkNumberOfArguments(int aStackTop, int n, ConsPointer aArguments, Environment aEnvironment, String functionName) throws Exception
@@ -235,7 +261,7 @@ public class LispError
         } else
         {
             //TODO FIXME      ShowStack(aEnvironment);
-            String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed + " in function " + functionName + ". ";
+            String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed + /*" in function " + functionName +*/ ". ";
             throw new EvaluationException(error,"none",-1);
 
         /*TODO FIXME
@@ -272,25 +298,33 @@ public class LispError
     {
         if (!aPredicate)
         {
-            ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
-            if (arguments.getCons() == null)
+            if(aStackTop == -1)
             {
-                throw new EvaluationException("Error in compiled code\n","none",-1);
-            } else
+                throw new EvaluationException("Error encountered during parsing: " + errorString(errNo) ,"none",-1);
+            }
+            else
             {
-                String error = "";
-                //TODO FIXME          ShowStack(aEnvironment);
-                error = error + showFunctionError(arguments, aEnvironment) + "generic error.";
-                throw new EvaluationException(error,"none",-1);
+                ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
+                if (arguments.getCons() == null)
+                {
+                    throw new EvaluationException("Error in compiled code\n","none",-1);
+                } else
+                {
+                    String error = "";
+                    //TODO FIXME          ShowStack(aEnvironment);
+                    error = error + showFunctionError(arguments, aEnvironment) + "internal error.";
+                    throw new EvaluationException(error,"none",-1);
+                }
             }
         }
     }
 
-    public static void lispAssert(boolean aPredicate) throws Exception
+    public static void lispAssert(boolean aPredicate, Environment aEnvironment, int aStackTop) throws Exception
     {
         if (!aPredicate)
         {
-            throw new EvaluationException("Assertion failed.","none",-1);
+            //throw new EvaluationException("Assertion failed.","none",-1);
+            check(aPredicate, "Assertion error.","", aStackTop, aEnvironment);
         }
     }
 
@@ -322,7 +356,7 @@ public class LispError
                 String error = "";
                 //TODO FIXME          ShowStack(aEnvironment);
                 error = error + showFunctionError(arguments, aEnvironment) + "\nbad argument number " + aArgNr + "(counting from 1) : \n" + aErrorDescription + "\n";
-                ConsPointer arg = BuiltinFunction.getArgumentPointer(arguments, aArgNr);
+                ConsPointer arg = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, arguments, aArgNr);
                 String strout;
 
                 error = error + "The offending argument ";

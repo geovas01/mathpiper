@@ -51,7 +51,7 @@ public class ArrayGet extends BuiltinFunction
         int size = Integer.parseInt( (String) sizearg.car(), 10);
 
         LispError.checkArgument(aEnvironment, aStackTop, size > 0 && size <= ((Array) gen).size(), 2, "ArrayGet");
-        Cons object = ((Array) gen).getElement(size);
+        Cons object = ((Array) gen).getElement(size, aStackTop, aEnvironment);
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(object.copy( aEnvironment, false));
     }
