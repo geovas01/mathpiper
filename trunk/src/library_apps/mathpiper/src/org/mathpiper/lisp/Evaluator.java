@@ -39,6 +39,7 @@ public abstract class Evaluator {
 	public static boolean iTraced = false;
 	private static List traceFunctionList = null;
 	private static List traceExceptFunctionList = null;
+        public static boolean iStackTraced = false;
 	UserStackInformation iBasicInfo = new UserStackInformation();
 
 	public static void showExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
@@ -262,6 +263,18 @@ public abstract class Evaluator {
 
 	public static void traceOn() {
 		iTraced = true;
+	}
+
+	public static boolean isStackTraced() {
+		return iStackTraced;
+	}
+
+	public static void stackTraceOff() {
+		iStackTraced = false;
+	}
+
+	public static void stackTraceOn() {
+		iStackTraced = true;
 	}
 
 	public abstract void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArgumentsOrExpression) throws Exception;
