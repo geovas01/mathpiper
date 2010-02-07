@@ -49,7 +49,7 @@ public class GeoGebraToolPanel extends JPanel {
 		Box labelBox = new Box(BoxLayout.Y_AXIS);
 		labelBox.add(Box.createGlue());
 
-		label = new JLabel("THIS IS AN EXPERIMENTAL VERSION OF GEOGEBRA. PLEASE DO NOT DISTRIBUTE IT OUTSIDE OF MATHPIPER_IDE.");
+		label = new JLabel("This is an experimental version of GeoGebra. Please do not distribute it outside of MathPiperIDE.");
 		//JLabel title = new JLabel("Want a Raise?", JLabel.CENTER);
 		//title.setFont(new Font("Serif", Font.BOLD, 48));
 
