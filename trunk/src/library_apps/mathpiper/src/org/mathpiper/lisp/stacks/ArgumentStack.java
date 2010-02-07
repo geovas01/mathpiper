@@ -91,7 +91,7 @@ public class ArgumentStack {
 
             if(functionBaseIndex == 0)
             {
-                stringBuilder.append("\n========================================= Start Of Stack Trace\n");
+                stringBuilder.append("\n\n========================================= Start Of Stack Trace\n");
             }
             else
             {
