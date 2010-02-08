@@ -220,6 +220,8 @@ public class LispError
             if(Evaluator.isStackTraced() && aStackTop >= 0)
             {
                 stackTrace = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
+
+                stackTrace = stackTrace + aEnvironment.dumpLocalVariablesFrame(aStackTop);
             }
 
 
@@ -236,11 +238,11 @@ public class LispError
                 } else
                 {
                     //TODO FIXME          ShowStack(aEnvironment);
-                    aErrorMessage = aErrorMessage + showFunctionError(arguments, aEnvironment) + "internal error.";
+                    aErrorMessage = aErrorMessage + " " + showFunctionError(arguments, aEnvironment) + "internal error.";
                 }
 
 
-                throw new EvaluationException(aErrorMessage + /*" In function " + functionName +*/ ". "  + stackTrace,"none", -1);
+                throw new EvaluationException(aErrorMessage /*+ " In function " + functionName + ". " */ + stackTrace,"none", -1);
 
             }
         }
@@ -268,6 +270,8 @@ public class LispError
         if(Evaluator.isStackTraced() && aStackTop >= 0)
         {
             stackTrace = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
+
+            stackTrace = stackTrace + aEnvironment.dumpLocalVariablesFrame(aStackTop);
         }
 
         if (aArguments.getCons() == null)
@@ -319,6 +323,8 @@ public class LispError
             if(Evaluator.isStackTraced() && aStackTop >= 0)
             {
                 stackTrace = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
+
+                stackTrace = stackTrace + aEnvironment.dumpLocalVariablesFrame(aStackTop);
             }
 
             if(aStackTop == -1)
@@ -374,6 +380,8 @@ public class LispError
             if(Evaluator.isStackTraced() && aStackTop >= 0)
             {
                 stackTrace = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
+
+                stackTrace = stackTrace + aEnvironment.dumpLocalVariablesFrame(aStackTop);
             }
 
             ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
@@ -388,13 +396,13 @@ public class LispError
                 String strout;
 
                 error = error + "The offending argument ";
-                strout = Utility.printExpression(aStackTop, arg, aEnvironment, 60);
+                strout = Utility.printMathPiperExpression(aStackTop, arg, aEnvironment, 60);
                 error = error + strout;
 
                 ConsPointer eval = new ConsPointer();
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, eval, arg);
                 error = error + " evaluated to ";
-                strout = Utility.printExpression(aStackTop, eval, aEnvironment, 60);
+                strout = Utility.printMathPiperExpression(aStackTop, eval, aEnvironment, 60);
                 error = error + strout;
                 error = error + "\n";
 

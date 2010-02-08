@@ -152,10 +152,10 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                         beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
                         beforeEvaluationDepth = aEnvironment.iEvalDepth;
 
-                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, aResult, thisRule.getBodyPointer());
+                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, aResult, thisRule.getBodyPointer()); //*** User function is called here.
 
                     } catch (ReturnException re) {
-
+                        //todo:tk:note that user functions currently return their results in aResult, not on the stack.
                         int stackTopIndex = aEnvironment.iArgumentStack.getStackTopIndex();
                         ConsPointer resultPointer = BuiltinFunction.getTopOfStackPointer(aEnvironment, stackTopIndex - 1);
 

@@ -333,10 +333,10 @@ public class Pattern {
                 //TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
                 String strout;
                 aEnvironment.write("The predicate\n\t");
-                strout = Utility.printExpression(aStackTop, ((ConsPointer) iPredicates.get(i)), aEnvironment, 60);
+                strout = Utility.printMathPiperExpression(aStackTop, ((ConsPointer) iPredicates.get(i)), aEnvironment, 60);
                 aEnvironment.write(strout);
                 aEnvironment.write("\nevaluated to\n\t");
-                strout = Utility.printExpression(aStackTop, pred, aEnvironment, 60);
+                strout = Utility.printMathPiperExpression(aStackTop, pred, aEnvironment, 60);
                 aEnvironment.write(strout);
                 aEnvironment.write("\n");
 

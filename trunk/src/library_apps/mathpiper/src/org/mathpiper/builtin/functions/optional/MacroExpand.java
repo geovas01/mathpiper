@@ -46,7 +46,7 @@ public class MacroExpand extends BuiltinFunction
         Cons argumentCons = argument.getCons();
         argument = ((ConsPointer) argumentCons.car()).cdr();
         Utility.substitute(aEnvironment, aStackTop, result, argument, behaviour);
-        String substitutedResult = Utility.printExpression(aStackTop, result, aEnvironment, 0);
+        String substitutedResult = Utility.printMathPiperExpression(aStackTop, result, aEnvironment, 0);
         aEnvironment.write(substitutedResult);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }

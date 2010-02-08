@@ -45,8 +45,29 @@ public class ViewMath extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) {
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "ViewMath");
+                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "ViewMathInternal");
+        try{
+            Cons atomCons = AtomCons.getInstance(aEnvironment, -1, "expression");
+
+            ConsPointer argumentsPointer = new ConsPointer(atomCons);
+
+            atomCons.cdr().setCons(AtomCons.getInstance(aEnvironment, -1, "size"));
+
+            aEnvironment.declareRulebase(-1, "ViewMath", argumentsPointer, false);
+            
+            ConsPointer truePointer = new ConsPointer();
+            
+            Utility.putTrueInPointer(aEnvironment, truePointer);
+            
+            ConsPointer expressionPointer = Utility.mathPiperParse(aEnvironment, -1, "ViewMathInternal(expression, size);");
+
+            aEnvironment.defineRule(-1, "ViewMath", 2, 100, truePointer, expressionPointer);
+
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
