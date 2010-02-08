@@ -229,6 +229,8 @@ public class Environment {
         }
         
     }//end method.
+
+
     public String getLocalVariables(int aStackTop) throws Exception {
         LispError.check(this, aStackTop, iLocalVariablesFrame != null, LispError.INVALID_STACK, "INTERNAL");
         //    check(iLocalsList.iFirst != null,INVALID_STACK);
@@ -260,6 +262,146 @@ public class Environment {
         }//end while.
 
         return localVariablesStringBuilder.toString();
+
+    }//end method.
+
+
+    public String dumpLocalVariablesFrame(int aStackTop) throws Exception {
+
+        LispError.check(this, aStackTop, iLocalVariablesFrame != null, LispError.INVALID_STACK, "INTERNAL");
+
+        LocalVariableFrame localVariableFramePointer = iLocalVariablesFrame;
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+
+
+        int functionPositionIndex = 0;
+
+        //int functionBaseIndex = 0;
+
+        while (localVariableFramePointer != null) {
+
+            String functionName = localVariableFramePointer.getFunctionName();
+
+
+            if(functionPositionIndex == 0)
+            {
+                stringBuilder.append("\n\n========================================= Start Of User Function Stack Trace\n");
+            }
+            else
+            {
+                stringBuilder.append("-----------------------------------------\n");
+            }
+
+
+            stringBuilder.append(functionPositionIndex++ + ": ");
+            stringBuilder.append(functionName);
+            stringBuilder.append("\n");
+
+            LocalVariable localVariable = localVariableFramePointer.iFirst;
+
+
+            //stringBuilder.append("Local variables: ");
+
+
+            while (localVariable != null) {
+
+
+                stringBuilder.append("   " + functionPositionIndex++ + ": -> ");
+
+                stringBuilder.append(localVariable.iVariable);
+
+                stringBuilder.append(" = ");
+
+                ConsPointer valuePointer = localVariable.iValue;
+
+                String valueString = Utility.printMathPiperExpression(aStackTop, valuePointer, this, -1);
+
+                stringBuilder.append(valueString);
+
+                stringBuilder.append("\n");
+
+
+
+
+                /*if(value != null)
+                {
+                    localVariablesStringBuilder.append(value.trim().replace("  ","").replace("\n", "") );
+                }
+                else
+                {
+                    localVariablesStringBuilder.append("unbound");
+                }//end else.
+
+
+                localVariablesStringBuilder.append(", ");*/
+
+                localVariable = localVariable.iNext;
+            }//end while.
+
+            localVariableFramePointer = localVariableFramePointer.iNext;
+
+        }//end while
+
+        stringBuilder.append("========================================= End Of Stack Trace\n\n");
+
+        return stringBuilder.toString();
+
+
+
+
+        /*StringBuilder stringBuilder = new StringBuilder();
+
+        int functionBaseIndex = 0;
+
+        int functionPositionIndex = 0;
+
+
+        while (functionBaseIndex <= aStackTop) {
+
+            if(functionBaseIndex == 0)
+            {
+                stringBuilder.append("\n\n========================================= Start Of Stack Trace\n");
+            }
+            else
+            {
+                stringBuilder.append("-----------------------------------------\n");
+            }
+
+            ConsPointer consPointer = getElement(functionBaseIndex, aStackTop, aEnvironment);
+
+            int argumentCount = Utility.listLength(aEnvironment, aStackTop, consPointer);
+
+            ConsPointer argumentPointer = new ConsPointer();
+
+            Object car = consPointer.getCons().car();
+
+            ConsPointer consTraverser = new ConsPointer( consPointer.getCons());
+
+            stringBuilder.append(functionPositionIndex++ + ": ");
+            stringBuilder.append(Utility.printMathPiperExpression(aStackTop, consTraverser, aEnvironment, -1));
+            stringBuilder.append("\n");
+
+            consTraverser.goNext(aStackTop, aEnvironment);
+
+            while(consTraverser.getCons() != null)
+            {
+                stringBuilder.append("   " + functionPositionIndex++ + ": ");
+                stringBuilder.append("-> " + Utility.printMathPiperExpression(aStackTop, consTraverser, aEnvironment, -1));
+                stringBuilder.append("\n");
+
+                consTraverser.goNext(aStackTop, aEnvironment);
+            }
+
+
+            functionBaseIndex = functionBaseIndex + argumentCount;
+
+        }//end while.
+
+        stringBuilder.append("========================================= End Of Stack Trace\n\n");
+
+        return stringBuilder.toString();*/
 
     }//end method.
 

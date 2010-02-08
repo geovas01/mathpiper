@@ -41,7 +41,7 @@ public class ExpressionToString extends BuiltinFunction {
 
 
 
-        String expressionString = Utility.printExpression(aStackTop, evaluated, aEnvironment, 0);
+        String expressionString = Utility.printMathPiperExpression(aStackTop, evaluated, aEnvironment, 0);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "\"" + expressionString + "\""));
 
 

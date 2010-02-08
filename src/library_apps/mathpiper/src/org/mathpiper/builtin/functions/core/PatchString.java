@@ -57,7 +57,7 @@ public class PatchString extends BuiltinFunction {
                     try{
                         aEnvironment.iCurrentOutput = newOutput;
                         ConsPointer resultPointer = Utility.lispEvaluate(aEnvironment, aStackTop, "Eval(" + scriptCode + ");");
-                        resultString = Utility.printExpression(aStackTop, resultPointer, aEnvironment, 0);
+                        resultString = Utility.printMathPiperExpression(aStackTop, resultPointer, aEnvironment, 0);
                     }catch(Exception e)
                     {
                         throw e;

@@ -38,15 +38,16 @@ import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.JarFileInputStream;
-import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StandardFileInputStream;
 import org.mathpiper.io.StringInputStream;
+import org.mathpiper.io.StringOutput;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
 import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.parametermatchers.Pattern;
 import org.mathpiper.lisp.parametermatchers.PatternParameter;
 import org.mathpiper.lisp.parsers.Parser;
+import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.lisp.userfunctions.Branch;
 import org.mathpiper.lisp.userfunctions.FunctionParameter;
 import org.mathpiper.lisp.userfunctions.MacroUserFunction;
@@ -697,9 +698,12 @@ public class Utility {
         }
     }
 
-    public static String printExpression(int aStackTop, ConsPointer aExpression,
-            Environment aEnvironment,
-            int aMaxChars) throws Exception {
+    public static String printMathPiperExpression(int aStackTop, ConsPointer aExpression, Environment aEnvironment, int aMaxChars) throws Exception {
+        if(aExpression.getCons() == null)
+        {
+            return "NULL";
+        }
+
         StringBuffer result = new StringBuffer();
         StringOutputStream newOutput = new StringOutputStream(result);
         MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators,
@@ -714,6 +718,24 @@ public class Utility {
             result.append((char) '.');
         }
         return result.toString();
+    }//end method.
+
+
+    public static String printLispExpression( int aStackTop, ConsPointer aExpression, Environment aEnvironment, int aMaxChars) throws Exception {
+        if(aExpression.getCons() == null)
+        {
+            return "NULL";
+        }
+
+        StringOutput out = new StringOutput();
+
+        LispPrinter printer = new LispPrinter();
+
+        printer.print(aStackTop, aExpression, out, aEnvironment);
+
+        //todo:tk:add the ability to truncate the result.
+
+        return out.toString();
     }
 
     public static MathPiperInputStream openInputFile(String aFileName, InputStatus aInputStatus) throws Exception {//Note:tk:primary method for file opening.
@@ -1207,7 +1229,7 @@ public class Utility {
             if (predicatePointerString == null || predicatePointerString.equalsIgnoreCase("Empty.")) {
                 predicate = "None.";
             } else {
-                predicate = Utility.printExpression(aStackTop, predicatePointer1, aEnvironment, 0);
+                predicate = Utility.printMathPiperExpression(aStackTop, predicatePointer1, aEnvironment, 0);
             }
 
             if (predicate.equalsIgnoreCase("\"Pattern\"")) {
@@ -1242,7 +1264,7 @@ public class Utility {
                 Iterator patternPredicatesIterator = pattern.getPredicates().iterator();
                 while (patternPredicatesIterator.hasNext()) {
                     ConsPointer predicatePointer = (ConsPointer) patternPredicatesIterator.next();
-                    String patternPredicate = Utility.printExpression(aStackTop, predicatePointer, aEnvironment, 0);
+                    String patternPredicate = Utility.printMathPiperExpression(aStackTop, predicatePointer, aEnvironment, 0);
                     predicate += patternPredicate + ", ";
                 }
                 /*if (predicate.contains(",")) {
@@ -1267,7 +1289,7 @@ public class Utility {
                 parameters = parameters.substring(0, parameters.lastIndexOf(","));
             }
 
-            String body = Utility.printExpression(aStackTop, branch.getBodyPointer(), aEnvironment, 0);
+            String body = Utility.printMathPiperExpression(aStackTop, branch.getBodyPointer(), aEnvironment, 0);
             body = body.replace(",", ", ");
             //System.out.println(data);
 
@@ -1277,7 +1299,7 @@ public class Utility {
                 BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
                 ConsPointer substitutedBodyPointer = new ConsPointer();
                 Utility.substitute(aEnvironment, aStackTop, substitutedBodyPointer, branch.getBodyPointer(), backQuoteSubstitute);
-                substitutedMacroBody = Utility.printExpression(aStackTop, substitutedBodyPointer, aEnvironment, 0);
+                substitutedMacroBody = Utility.printMathPiperExpression(aStackTop, substitutedBodyPointer, aEnvironment, 0);
             }
 
             dumpResult.append("Precedence: " + precedence + ", ");
@@ -1381,29 +1403,36 @@ public class Utility {
     }//end method.
 
 
+    public static ConsPointer mathPiperParse(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
+        MathPiperTokenizer tokenizer = new MathPiperTokenizer();
+        InputStatus someStatus = new InputStatus();
+        ConsPointer inputExpressionPointer = new ConsPointer();
+
+        StringBuffer inp = new StringBuffer();
+        inp.append(inputExpression);
+        inp.append(";");
+        StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
+
+        Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+        infixParser.parse(aStackTop, inputExpressionPointer);
+
+        return inputExpressionPointer;
+    }//end method.
+
+
 
 
     public static ConsPointer lispEvaluate(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
         ConsPointer result = new ConsPointer();
-        MathPiperTokenizer tokenizer = new MathPiperTokenizer();
-        InputStatus someStatus = new InputStatus();
-        ConsPointer inputExpressionPointer = new ConsPointer();
-        try {
-            StringBuffer inp = new StringBuffer();
-            inp.append(inputExpression);
-            inp.append(";");
-            StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
 
-            Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-            infixParser.parse(aStackTop, inputExpressionPointer);
+        ConsPointer inputExpressionPointer = mathPiperParse(aEnvironment, aStackTop, inputExpression);
 
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, inputExpressionPointer);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, inputExpressionPointer);
 
-        } catch (Exception e) {
-            throw e;
-        }
         return result;
     }//end method.
+
+
 
 
     public static ConsPointer lispEvaluate(Environment aEnvironment, int aStackTop, ConsPointer inputExpressionPointer) throws Exception {
@@ -1415,6 +1444,13 @@ public class Utility {
 
         return result;
     }//end method.
+
+
+
+    public static void defineFunction(String name, String[] parameters)
+    {
+        
+    }
 
 }//end class.
 

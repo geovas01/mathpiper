@@ -91,7 +91,7 @@ public class ArgumentStack {
 
             if(functionBaseIndex == 0)
             {
-                stringBuilder.append("\n\n========================================= Start Of Stack Trace\n");
+                stringBuilder.append("\n\n========================================= Start Of Built In Function Stack Trace\n");
             }
             else
             {
@@ -109,14 +109,15 @@ public class ArgumentStack {
             ConsPointer consTraverser = new ConsPointer( consPointer.getCons());
 
             stringBuilder.append(functionPositionIndex++ + ": ");
-            stringBuilder.append(Utility.printExpression(aStackTop, consTraverser, aEnvironment, -1));
+            stringBuilder.append(Utility.printMathPiperExpression(aStackTop, consTraverser, aEnvironment, -1));
             stringBuilder.append("\n");
 
             consTraverser.goNext(aStackTop, aEnvironment);
 
             while(consTraverser.getCons() != null)
             {
-                stringBuilder.append("   -> " + Utility.printExpression(aStackTop, consTraverser, aEnvironment, -1));
+                stringBuilder.append("   " + functionPositionIndex++ + ": ");
+                stringBuilder.append("-> " + Utility.printMathPiperExpression(aStackTop, consTraverser, aEnvironment, -1));
                 stringBuilder.append("\n");
                 
                 consTraverser.goNext(aStackTop, aEnvironment);

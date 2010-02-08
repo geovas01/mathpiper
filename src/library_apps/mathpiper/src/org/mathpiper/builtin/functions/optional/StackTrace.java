@@ -21,7 +21,6 @@ package org.mathpiper.builtin.functions.optional;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.Utility;
 
 /**
@@ -42,6 +41,10 @@ public class StackTrace extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          String dump = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
+
+         aEnvironment.write(dump);
+
+         dump = aEnvironment.dumpLocalVariablesFrame(aStackTop);
 
          aEnvironment.write(dump);
          
