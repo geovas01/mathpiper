@@ -428,7 +428,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 	//System.out.println("Out> " + evaluationResponse);
 			if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
 			{
-				result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
+				result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects() + result;
 			}
 			else
 			{
