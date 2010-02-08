@@ -1,5 +1,7 @@
 %mathpiper,def="Degree"
 
+Retract("Degree",*);
+
 Rulebase("Degree",{expr});
 Rule("Degree",1,0, IsUniVar(expr))
 [
@@ -12,10 +14,11 @@ Rule("Degree",1,0, IsUniVar(expr))
   i;
 ];
 
-10 # Degree(_poly)      <-- Degree(MakeUni(poly));
-10 # Degree(_poly,_var) <-- Degree(MakeUni(poly,var));
+10 # Degree(poly_CanBeUni)                   <-- Degree(MakeUni(poly));
+10 # Degree(_poly,_var)_(CanBeUni(var,poly)) <-- Degree(MakeUni(poly,var));
 
 %/mathpiper
+
 
 
 
@@ -41,14 +44,24 @@ respect to the variable "var". The degree is the highest power of
 should use the second form in which the variable is explicitly
 mentioned.
 
-*E.G.
+If {expr} is not a polynomial in the accepted sense of the word,
+this command will return unevaluated.  In particular, if {expr} 
+contains negative powers of the variable, it is not a polynomial.
 
-	In> Degree(x^5+x-1);
-	Out> 5;
-	In> Degree(a+b*x^3, a);
-	Out> 1;
-	In> Degree(a+b*x^3, x);
-	Out> 3;
+*E.G.
+    In> Degree(x^5+x-1)
+    Result: 5
+    
+    In> Degree(a+b*x^3, a)
+    Result: 1
+    
+    In> Degree(a+b*x^3, x)
+    Result: 3
+    
+    In> Degree(x^-2+x-1)
+    Result: Degree(x^(-2)+x-1)
 
 *SEE Expand, Coef
 %/mathpiper_docs
+
+
