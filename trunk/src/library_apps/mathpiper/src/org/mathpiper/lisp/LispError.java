@@ -24,6 +24,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 
 public class LispError
 {
+    public static final int TODO = -1;
     public static final int NONE = 0;
     public static final int INVALID_ARGUMENT = 1;
     public static final int WRONG_NUMBER_OF_ARGUMENTS = 2;

@@ -12,7 +12,7 @@ import org.mathpiper.lisp.Environment;
 
 public class IncompleteBeta extends BuiltinFunction{
 
-    public void plugIn(Environment aEnvironment)
+    public void plugIn(Environment aEnvironment) throws Exception
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),

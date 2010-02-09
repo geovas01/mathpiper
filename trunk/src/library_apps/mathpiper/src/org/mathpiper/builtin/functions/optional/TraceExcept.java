@@ -34,7 +34,7 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
 public class TraceExcept extends BuiltinFunction
 {
 
-    public void plugIn(Environment aEnvironment)
+    public void plugIn(Environment aEnvironment) throws Exception
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),

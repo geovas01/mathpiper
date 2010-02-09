@@ -13,7 +13,7 @@ import org.mathpiper.lisp.LispError;
 
 public class OneTailAlphaToTScore extends BuiltinFunction{
 
-    public void plugIn(Environment aEnvironment)
+    public void plugIn(Environment aEnvironment) throws Exception
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),

@@ -34,7 +34,8 @@ import org.mathpiper.lisp.cons.ConsTraverser;
  */
 public class JavaNew extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) {
+    public void plugIn(Environment aEnvironment)  throws Exception
+    {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "JavaNew");
