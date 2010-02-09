@@ -43,31 +43,20 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
  */
 public class ViewMath extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) {
+    public void plugIn(Environment aEnvironment)  throws Exception
+    {
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "ViewMathInternal");
-        try{
-            Cons atomCons = AtomCons.getInstance(aEnvironment, -1, "expression");
 
-            ConsPointer argumentsPointer = new ConsPointer(atomCons);
+       String[] parameters = new String[] {"expression","size"};
+       Utility.declareFunction("ViewMath", parameters, "ViewMathInternal(expression, size);", aEnvironment, LispError.TODO);
 
-            atomCons.cdr().setCons(AtomCons.getInstance(aEnvironment, -1, "size"));
 
-            aEnvironment.declareRulebase(-1, "ViewMath", argumentsPointer, false);
-            
-            ConsPointer truePointer = new ConsPointer();
-            
-            Utility.putTrueInPointer(aEnvironment, truePointer);
-            
-            ConsPointer expressionPointer = Utility.mathPiperParse(aEnvironment, -1, "ViewMathInternal(expression, size);");
+       parameters = new String[] {"expression"};
+       Utility.declareFunction("ViewMath", parameters, "ViewMathInternal(expression, 2);", aEnvironment, LispError.TODO);
 
-            aEnvironment.defineRule(-1, "ViewMath", 2, 100, truePointer, expressionPointer);
 
-        }catch(Exception e)
-        {
-            e.printStackTrace();
-        }
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
@@ -79,13 +68,16 @@ public class ViewMath extends BuiltinFunction {
         ((ConsPointer) head.car()).cdr().setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 
+        ConsPointer resultPointer = new ConsPointer();
+
         ConsPointer viewScalePointer = new ConsPointer();
         viewScalePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        BigNumber viewScale = (BigNumber) viewScalePointer.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, viewScalePointer);
+        BigNumber viewScale = (BigNumber) resultPointer.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
         LispError.checkArgument(aEnvironment, aStackTop, viewScale != null, 1, "ViewMath");
 
 
-        ConsPointer resultPointer = new ConsPointer();
+        
 
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, new ConsPointer(head));
 

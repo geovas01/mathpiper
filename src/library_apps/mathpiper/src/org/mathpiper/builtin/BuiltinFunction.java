@@ -299,7 +299,7 @@ public abstract class BuiltinFunction {
 		return loop;
 	}
 
-	public void plugIn(Environment aEnvironment) {
+	public void plugIn(Environment aEnvironment) throws Exception{
 	}//end method.
 
 	public static void addCoreFunctions(Environment aEnvironment) {

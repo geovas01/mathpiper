@@ -45,7 +45,8 @@ public class CumulativePlot extends BuiltinFunction {
 
     private Map defaultOptions;
 
-    public void plugIn(Environment aEnvironment) {
+    public void plugIn(Environment aEnvironment)  throws Exception
+    {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "CumulativePlot");
