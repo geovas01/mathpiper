@@ -1447,9 +1447,27 @@ public class Utility {
 
 
 
-    public static void defineFunction(String name, String[] parameters)
+    public static void declareFunction(String functionName, String[] parameters, Environment aEnvironment, int aStackTop) throws Exception
     {
-        
+
+        ConsTraverser parameterTraverser = new ConsTraverser(aEnvironment, new ConsPointer());
+
+        for(String parameterName:parameters)
+        {
+           Cons atomCons = AtomCons.getInstance(aEnvironment, aStackTop, parameterName);
+           parameterTraverser.setCons(atomCons);
+           parameterTraverser.goNext(aStackTop);
+        }//end for.
+
+        aEnvironment.declareRulebase(aStackTop, "ViewMath", parameterTraverser.getHeadPointer(), false);
+
+        ConsPointer truePointer = new ConsPointer();
+
+        Utility.putTrueInPointer(aEnvironment, truePointer);
+
+        ConsPointer expressionPointer = Utility.mathPiperParse(aEnvironment, -1, "ViewMathInternal(expression, size);");
+
+        aEnvironment.defineRule(-1, "ViewMath", 2, 100, truePointer, expressionPointer);
     }
 
 }//end class.
