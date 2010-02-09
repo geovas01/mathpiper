@@ -57,19 +57,19 @@ public class SingleArityBranchingUserFunction extends Evaluator {
      * @param aParameters linked list constaining the names of the arguments
      * @throws java.lang.Exception
      */
-    public SingleArityBranchingUserFunction(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public SingleArityBranchingUserFunction(Environment aEnvironment, int aStackTop, ConsPointer aParametersPointer, String functionName) throws Exception {
         iEnvironment = aEnvironment;
         this.functionName = functionName;
         iParameterList = new ConsPointer();
         // iParameterList and #iParameters are set from \a aParameters.
-        iParameterList.setCons(aParameters.getCons());
+        iParameterList.setCons(aParametersPointer.getCons());
 
-        ConsPointer parameterTraverser = new ConsPointer( aParameters.getCons());
+        ConsPointer parameterPointer = new ConsPointer( aParametersPointer.getCons());
 
-        while (parameterTraverser.getCons() != null) {
+        while (parameterPointer.getCons() != null) {
 
             try {
-                LispError.check(aEnvironment, aStackTop, parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, parameterPointer.car() instanceof String, LispError.CREATING_USER_FUNCTION, "INTERNAL");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
                     throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, this.functionName);
@@ -78,9 +78,9 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 }
             }//end catch.
 
-            FunctionParameter parameter = new FunctionParameter((String) parameterTraverser.car(), false);
+            FunctionParameter parameter = new FunctionParameter((String) parameterPointer.car(), false);
             iParameters.add(parameter);
-            parameterTraverser.goNext(aStackTop, aEnvironment);
+            parameterPointer.goNext(aStackTop, aEnvironment);
         }
     }
 
@@ -92,7 +92,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
      * constructed, in which the actual arguments are assigned to the
      * names of the formal arguments, as stored in iParameter. Then
      * all rules in <b>iRules</b> are tried one by one. The body of the
-     * getFirstPointer rule that matches is evaluated, and the result is put in
+     * first rule that matches is evaluated, and the result is put in
      * aResult. If no rule matches, aResult will recieve a new
      * expression with evaluated arguments.
      * 
