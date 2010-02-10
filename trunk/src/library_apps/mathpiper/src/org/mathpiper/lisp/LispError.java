@@ -228,7 +228,7 @@ public class LispError
 
             if(aStackTop == -1)
             {
-                throw new EvaluationException("Error encountered during parsing." + stackTrace,"none",-1);
+                throw new EvaluationException("Error encountered during initialization. " + aErrorMessage + stackTrace,"none",-1);
             }
             else
             {
@@ -330,7 +330,7 @@ public class LispError
 
             if(aStackTop == -1)
             {
-                throw new EvaluationException("Error encountered during parsing: " + errorString(errNo) + stackTrace,"none",-1);
+                throw new EvaluationException("Error encountered during initialization. " + errorString(errNo) + stackTrace,"none",-1);
             }
             else
             {
