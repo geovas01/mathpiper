@@ -1461,7 +1461,7 @@ public class Utility {
            parameterTraverser.goNext(aStackTop);
         }//end for.
 
-        aEnvironment.declareRulebase(aStackTop, "ViewMath", parameterTraverser.getHeadPointer(), false);
+        aEnvironment.declareRulebase(aStackTop, functionName, parameterTraverser.getHeadPointer(), false);
 
         ConsPointer truePointer = new ConsPointer();
 
@@ -1469,7 +1469,7 @@ public class Utility {
 
         ConsPointer expressionPointer = Utility.mathPiperParse(aEnvironment, aStackTop, body);
 
-        aEnvironment.defineRule(aStackTop, "ViewMath", parameters.length, 100, truePointer, expressionPointer);
+        aEnvironment.defineRule(aStackTop, functionName, parameters.length, 100, truePointer, expressionPointer);
     }
 
 }//end class.
