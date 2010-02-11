@@ -43,7 +43,7 @@ public class ViewLatex extends BuiltinFunction {
     public void plugIn(Environment aEnvironment)  throws Exception
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+                new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "ViewLatexInternal");
 
        String[] parameters = new String[] {"expression","size"};
@@ -69,8 +69,8 @@ public class ViewLatex extends BuiltinFunction {
             latexString = (String) expressionPointer;
 
             latexString = Utility.stripEndQuotes(latexString);
-            latexString = latexString.substring(1, latexString.length());
-            latexString = latexString.substring(0, latexString.length() - 1);
+
+            latexString = Utility.stripEndDollarSigns(latexString);
         }
         else
         {

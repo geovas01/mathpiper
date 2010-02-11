@@ -479,6 +479,18 @@ public class Utility {
         return aOriginal;
     }//end method.
 
+
+    public static String stripEndDollarSigns(String aOriginal) throws Exception {
+        //If there are not dollar signs on both ends of the string then return without any changes.
+        aOriginal = aOriginal.trim();
+        if (aOriginal.startsWith("$") && aOriginal.endsWith("$")) {
+            aOriginal = aOriginal.substring(1, aOriginal.length());
+            aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
+        }//end if.
+
+        return aOriginal;
+    }//end method.
+
     public static void not(int aStackTop, ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
         if (isTrue(aEnvironment, aExpression, aStackTop)) {
             putFalseInPointer(aEnvironment, aResult);
