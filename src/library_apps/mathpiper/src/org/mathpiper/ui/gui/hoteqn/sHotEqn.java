@@ -111,7 +111,7 @@ This file is part of the HotEqn package.
 * **********  Version 1.01               *************************************
 * 29.08.1996  \sum Sum, \prod Product                                        *
 * **********  Version 1.02               *************************************
-* 23.09.1996  Various accents \bar \hat \acute \grave \dot                   *
+* 23.09.1996  Various large \bar \hat \acute \grave \dot                   *
 *             \tilde \ddot                                                   *
 * **********  Version 1.03               *************************************
 * 24.09.1996  Handing over mechanism between the various                     *
@@ -429,7 +429,7 @@ public void setFontsizes(int gsize1, int gsize2, int gsize3, int gsize4) {
    GreekSize[2]=0;
    GreekSize[3]=0;
 
-   // Fontgr��en for all the characters and the Greek symbols and special characters.
+   // Fontlargen for all the characters and the Greek symbols and special characters.
    for (int i=0; i<GreekFontSizes.length; i++){
        if (gsize1 == GreekFontSizes[i]) {GreekSize[0]=gsize1;GreekDescent[0]=GreekFontDescents[i];size1=EmbedFontSizes[i];}
        if (gsize2 == GreekFontSizes[i]) {GreekSize[1]=gsize2;GreekDescent[1]=GreekFontDescents[i];size2=EmbedFontSizes[i];}
@@ -873,15 +873,15 @@ private BoxC eqn(int x, int y, boolean disp, Graphics g, int rec){
 
 
 private BoxC eqn(int x, int y, boolean disp, Graphics g, int rec, boolean Standard_Single){
-// Parameter: Baselinekoordinaten:         x und y
-//            Zeichnen oder Gr��e berechnen: disp (true/false)
-//            Rekursionstiefe (Br�che, Hoch,Tief,...)
+// Parameter: Baseline coordinates:         x and y
+//            or drawing large calculate: disp (true/false)
+//            Recursion (break, high,low,...)
 //            Single (e.g. A_3)(false) o. Standard argument (e.g. A_{3+x})(true)
 
-// die Methode: boxReturn = adjustBox(box,boxReturn) ersetzt die separate
-//              Berechnung der neuen Boxgr��en nach einem Funktionsaufruf
-   BoxC        box       = new BoxC();  // f�r R�ckgaben von Funktionsaufrufen
-   BoxC        boxReturn = new BoxC();  // akkumuliert die max. Boxgr��e 
+// the method: boxReturn = adjustBox(box,boxReturn) replaces the separate
+//              calculation of the new box size after a function call
+   BoxC        box       = new BoxC();  // for R�ckgaben function calls
+   BoxC        boxReturn = new BoxC();  // accumulates the max. box size
 
    boolean Standard_Single_flag = true;
    boolean Space_flag           = false;
@@ -1024,7 +1024,7 @@ private BoxC eqn(int x, int y, boolean disp, Graphics g, int rec, boolean Standa
                break;
      default:
                printStatus("Parser: unknown token: "+eqTok.typ+" "+eqTok.stringS);
-               // einfach ignorieren 
+               //ignore
      } // end switch
 
 	if (disp)  {
@@ -1035,7 +1035,7 @@ private BoxC eqn(int x, int y, boolean disp, Graphics g, int rec, boolean Standa
 					 mouse1X           <= (x+boxReturn.dx+box.dx)    && 
 					 (y-box.dy_pos)    <= mouse1Y                    && 
 					 mouse1Y           <= (y+box.dy_neg) ) {
-					//System.out.println("Anfang token "+eqToktyp+" "+eqTokstringS+" "+rec+" "+editModeRec);
+					//System.out.println("Top token "+eqToktyp+" "+eqTokstringS+" "+rec+" "+editModeRec);
 					x0 = x1 = mouse1X;
 					y0 = y1 = mouse1Y;
 					editModeFind   = true;
@@ -1048,7 +1048,7 @@ private BoxC eqn(int x, int y, boolean disp, Graphics g, int rec, boolean Standa
 					 mouse2X           <= (x+boxReturn.dx+box.dx)    && 
 					 (y-box.dy_pos)    <= mouse2Y                    && 
 					 mouse2Y           <= (y+box.dy_neg) ) {
-					//System.out.println("Anfang2token "+eqToktyp+" "+eqTokstringS+" "+rec+" "+editModeRec);
+					//System.out.println("Top2token "+eqToktyp+" "+eqTokstringS+" "+rec+" "+editModeRec);
 					x0 = x1 = mouse2X;
 					y0 = y1 = mouse2Y;
 					editModeFind = true;
@@ -1146,25 +1146,25 @@ private BoxC eqn(int x, int y, boolean disp, Graphics g, int rec, boolean Standa
 
 //************************************************************************
 private BoxC ACCENT(int x, int y, boolean disp, Graphics g, int rec) {
-// Akzente: \dot \ddot \hat \grave \acute \tilde 
+// accents: \dot \ddot \hat \grave \acute \tilde
 // eqTok.stringS enth�lt das/die darzustellende(n) Zeichen
    BoxC        box      = new BoxC();
    int         count    = 0;
    FontMetrics fM       = g.getFontMetrics();
-   String      accentS  = eqTok.stringS;
+   String      large  = eqTok.stringS;
    
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   //Only disp=true must Scanner later reset will
    if (disp) count = eqScan.get_count(); 
 
 
-   // Gr��e der Argument-Box berechnen
+   // large der Argument-Box berechnen
    box    = eqn(x,y,false,g,rec,false);
-   int dx = Math.max(box.dx,fM.stringWidth(accentS));
+   int dx = Math.max(box.dx,fM.stringWidth(large));
    int dy_pos = box.dy_pos + (int)(fM.getAscent()/2); 
    int dy_neg = box.dy_neg; 
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
 
@@ -1174,15 +1174,15 @@ private BoxC ACCENT(int x, int y, boolean disp, Graphics g, int rec) {
       box = eqn(x,y,true,g,rec,false);
 
       // Mittenverschiebung ausrechenen
-      int d_dx = 3*(int)( (dx-fM.stringWidth(accentS))/4 );
+      int d_dx = 3*(int)( (dx-fM.stringWidth(large))/4 );
 
-      if (accentS.equals(".") | accentS.equals("..")) {
-         g.drawString(accentS,x+d_dx,y-fM.getAscent());
+      if (large.equals(".") | large.equals("..")) {
+         g.drawString(large,x+d_dx,y-fM.getAscent());
          }
-      else if (accentS.equals("�") | accentS.equals("`")) {
-         g.drawString(accentS,x+d_dx,y-(int)(fM.getAscent()/3));
+      else if (large.equals("�") | large.equals("`")) {
+         g.drawString(large,x+d_dx,y-(int)(fM.getAscent()/3));
          }
-      else g.drawString(accentS,x+d_dx,y-(int)(fM.getAscent()*2/3));
+      else g.drawString(large,x+d_dx,y-(int)(fM.getAscent()*2/3));
    } // end disp
    return new BoxC(dx,dy_pos,dy_neg);  
 } // end ACCENT
@@ -1228,7 +1228,7 @@ private BoxC ARRAY(int x, int y, boolean disp, Graphics g, int rec) {
    // Abstand 1 quad hinter Element
    int quad              = g.getFont().getSize();
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count(); 
 
    // "{" vom Scanner holen
@@ -1241,7 +1241,7 @@ private BoxC ARRAY(int x, int y, boolean disp, Graphics g, int rec) {
 
       // Schleife: Spalten
       for (int x_i=0; x_i<99; x_i++) {
-         // Gr��e der Argument-Box berechnen
+         // large der Argument-Box berechnen
          box  = eqn(x,y,false,g,rec);
 
          dy_pos = Math.max(dy_pos,box.dy_pos); 
@@ -1250,7 +1250,7 @@ private BoxC ARRAY(int x, int y, boolean disp, Graphics g, int rec) {
          // Breitesten Elemente pro Spalte
          dx_eqn[x_i] = Math.max(dx_eqn[x_i],box.dx+quad);
 
-         // Trennzeichen am SPALTENende
+         // delimiter am SPALTENende
          if ((eqTok.typ==EqToken.DBackSlash) || 
              (eqTok.typ==EqToken.EndSym)) break;
       } // end Spalten
@@ -1260,7 +1260,7 @@ private BoxC ARRAY(int x, int y, boolean disp, Graphics g, int rec) {
       dy_neg_eqn[y_i] = Math.max(dy_neg_eqn[y_i],dy_neg);
       dy_pos_max += (dy_pos + dy_neg); 
 
-      // Trennzeichen am ARRAY-Ende
+      // delimiter am ARRAY-Ende
       if (eqTok.typ == EqToken.EndSym) break;
    } // end Zeilen
 
@@ -1269,7 +1269,7 @@ private BoxC ARRAY(int x, int y, boolean disp, Graphics g, int rec) {
    int dx_max = 0;
    for (int i=0; i<99; i++) dx_max += dx_eqn[i];
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
 
@@ -1286,15 +1286,15 @@ private BoxC ARRAY(int x, int y, boolean disp, Graphics g, int rec) {
            else     { dy_pos += (dy_neg_eqn[y_i-1] + dy_pos_eqn[y_i]); }
         // Schleife: Spalten
         for (int x_i=0; x_i<99; x_i++) {
-           // Gr��e der Argument-Box berechnen
+           // large der Argument-Box berechnen
            box = eqn(x+dx,y-dy_pos_max/2-fM.getDescent()+dy_pos,true,g,rec);
            dx     += dx_eqn[x_i];
 
-           // Trennzeichen am SPALTENende
+           // delimiter am SPALTENende
            if ((eqTok.typ == EqToken.DBackSlash) ||
                (eqTok.typ == EqToken.EndSym)) break;
         } // end Spalten
-        // Trennzeichen am ARRAY-Ende
+        // delimiter am ARRAY-Ende
         if (eqTok.typ == EqToken.EndSym) break;
      } // end Zeilen
    } // end disp
@@ -1370,7 +1370,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
             case '@': 
                format[i] = 4; 
                format_count[i]  = eqScan.get_count();         
-               box              = eqn(x,y,false,g,rec,false); // Gr��e berechnen
+               box              = eqn(x,y,false,g,rec,false); // large berechnen
                format_dx       += box.dx;
                format_dy_pos = Math.max(format_dy_pos,box.dy_pos);
                format_dy_neg = Math.max(format_dy_neg,box.dy_neg);
@@ -1407,7 +1407,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
                          case '@': 
                             format[i] = 4; 
                             format_count[i]  = eqScan.get_count();         
-                            box              = eqn(x,y,false,g,rec,false); // Gr��e Gleichung
+                            box              = eqn(x,y,false,g,rec,false); // large Gleichung
                             format_dx       += box.dx;
                             format_dy_pos = Math.max(format_dy_pos,box.dy_pos);
                             format_dy_neg = Math.max(format_dy_neg,box.dy_neg);
@@ -1445,7 +1445,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
    //if (disp) for (int z=0; z<i+2 ; z++) System.out.println("format "+format[z]);
 
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count();
 
    // Schleife: Zeilen
@@ -1455,7 +1455,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
 
       // Schleife: Spalten
       for (int x_i=0; x_i<99; x_i++) {
-         // Gr��e der Argument-Box berechnen
+         // large der Argument-Box berechnen
          box  = eqn(x,y,false,g,rec);  
 
          dy_pos = Math.max(dy_pos,box.dy_pos); 
@@ -1464,7 +1464,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
          // Breitestes Elemente pro Spalte
          dx_eqn[x_i] = Math.max(dx_eqn[x_i],box.dx);  
 
-         // Trennzeichen am SPALTENende
+         // delimiter am SPALTENende
          if ((eqTok.typ == EqToken.DBackSlash) || 
              (eqTok.typ == EqToken.END)           ) break;
       } // end Spalten
@@ -1475,7 +1475,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
       dy_neg_eqn[y_i] = dy_neg;
       dy_max += (dy_pos + dy_neg); 
 
-      // Trennzeichen am ARRAY-Ende
+      // delimiter am ARRAY-Ende
       if (eqTok.typ == EqToken.END) break;
    } // end Zeilen
 
@@ -1485,7 +1485,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
  
    dx_max += 2 * quad/2;  // Platz links und rechts
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
 
@@ -1542,7 +1542,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
 
            dx     += dx_eqn[x_i];
 
-           // Trennzeichen am SPALTENende
+           // delimiter am SPALTENende
            flag     = false;
            flag_end = false;
            if (eqTok.typ == EqToken.DBackSlash) flag=true;
@@ -1561,7 +1561,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
 
        } // end Spalten
 
-        if (flag_end) break;    // Trennzeichen am ARRAY-Ende
+        if (flag_end) break;    // delimiter am ARRAY-Ende
      } // end Zeilen
    } // end disp
 
@@ -1608,17 +1608,17 @@ private BoxC FG_BGColor(int x, int y, boolean disp, Graphics g, int rec,
    // "}" vom Scanner holen
    if (!expect(EqToken.EndSym, "Color: EndSym") )  return new BoxC(0,0,0);  
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count();
 
-   // Gr��e der Argument-Box berechnen; die FGFarben muessen hier gesetzt werden, da
-   // im ersten Pass schon Images geladen und gefiltert werden koennen!
+   // large der Argument-Box berechnen; die FGFarben muessen hier gesetzt will, da
+   // im ersten Pass schon Images geladen und gefiltert will koennen!
    Color oldColor = g.getColor();
    if (FG_BG) g.setColor(localColor);
    box    = eqn(x,y,false,g,rec,false);
    g.setColor(oldColor);
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count);
       g.setColor(localColor);
@@ -1646,7 +1646,7 @@ private BoxC FRAC(int x, int y, boolean disp, Graphics g, int rec, boolean frac_
    rec_Font(g,rec+1);
    FontMetrics fM   = g.getFontMetrics();
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count();
 
    // Z�hler-Box berechnen
@@ -1670,7 +1670,7 @@ private BoxC FRAC(int x, int y, boolean disp, Graphics g, int rec, boolean frac_
    dy_pos+=(2+bruch);
    dy_neg+=(1-bruch); 
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
        //System.out.println("Parser: FRAC: set_count = "+count);
        eqScan.set_count(count); 
@@ -1685,7 +1685,7 @@ private BoxC FRAC(int x, int y, boolean disp, Graphics g, int rec, boolean frac_
 
       if (editModeFind && (rec<editModeRec)) editModeRec = rec; 
                               // damit bei Markierung der ganze Bruch 
-                              // erkannt wird.
+                              // erkannt is.
      
       // Nenner zeichnen
       box = eqn(x+(dx-boxN.dx)/2,y+1+boxN.dy_pos-bruch,true,g,rec+1,false);   
@@ -1813,13 +1813,13 @@ private BoxC LEFT(int x, int y, boolean disp, Graphics g, int rec) {
    Font BracketFont;
    FontMetrics BracketMetrics;
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp)  count = eqScan.get_count();
 
    // Klammertyp f�r linke Seite vom Scanner holen
    String LeftBracket    = eqScan.nextToken().stringS;
 
-   // Gr��e der Argument-Box berechnen
+   // large der Argument-Box berechnen
    box    = eqn(x,y,false,g,rec);
    int dx     = box.dx;
    int dy_pos = box.dy_pos;  
@@ -1830,7 +1830,7 @@ private BoxC LEFT(int x, int y, boolean disp, Graphics g, int rec) {
    // Klammertyp f�r rechte Seite vom Scanner holen
    String RightBracket = eqScan.nextToken().stringS;
 
-   // Klammergr��e berechnen
+   // Klammerlarge berechnen
    int BracketSize    = dy_pos+dy_neg-2;
 
    BracketFont = new Font("Helvetica",Font.PLAIN,BracketSize);
@@ -1879,7 +1879,7 @@ private BoxC LEFT(int x, int y, boolean disp, Graphics g, int rec) {
    } else eqScan.set_count(count1); 
    SUB_dx = Math.max(SUB_dx,SUP_dx);
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
 
@@ -1941,7 +1941,7 @@ private BoxC LIM(int x, int y, boolean disp, Graphics g, int rec){
    FontMetrics fM       = g.getFontMetrics();
    String stringS = eqTok.stringS;
 
-   // es mu� Scanner sp�ter zur�ckgesetzt werden
+   // es only Scanner later reset will
    int count = eqScan.get_count();
 
    int im_dx = dx = fM.stringWidth(stringS);
@@ -1956,7 +1956,7 @@ private BoxC LIM(int x, int y, boolean disp, Graphics g, int rec){
       dy_neg = box.dy_pos+box.dy_neg;
    } else eqScan.set_count(count); 
  
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       //g.drawRect(x,y-dy_pos,dx,dy_pos+dy_neg);
@@ -2027,10 +2027,10 @@ private BoxC OverBRACE(int x, int y, boolean disp, Graphics g, int rec) {
    int SUP_base         = 0;
    int SUP_dy           = 0;
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count(); 
 
-   // Gr��e der Argument-Box berechnen
+   // large der Argument-Box berechnen
    box          = eqn(x,y,false,g,rec,false);
    int dx       = box.dx;
    int dxh      = dx/2;
@@ -2048,7 +2048,7 @@ private BoxC OverBRACE(int x, int y, boolean disp, Graphics g, int rec) {
       SUP_dy   = box.dy_pos + box.dy_neg;
    } else eqScan.set_count(count1); 
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count);
       int xx   = x + x_middle-dxh;  
@@ -2086,10 +2086,10 @@ private BoxC UnderBRACE(int x, int y, boolean disp, Graphics g, int rec) {
    int SUB_base         = 0;
    int SUB_dy           = 0;
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count(); 
 
-   // Gr��e der Argument-Box berechnen
+   // large der Argument-Box berechnen
    box      = eqn(x,y,false,g,rec,false);
    int dx       = box.dx;
    int dxh      = dx/2;
@@ -2107,7 +2107,7 @@ private BoxC UnderBRACE(int x, int y, boolean disp, Graphics g, int rec) {
       SUB_dy   = box.dy_pos + box.dy_neg;
    } else eqScan.set_count(count1); 
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       int xx   = x + x_middle-dxh;  
@@ -2140,16 +2140,16 @@ private BoxC OverUnderLINE(int x, int y, boolean disp, Graphics g, int rec,
    int         count    = 0;
    BoxC        box      = new BoxC();
   
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count(); 
 
-   // Gr��e der Argument-Box berechnen
+   // large der Argument-Box berechnen
    box = eqn(x,y,false,g,rec,false);
    if (OverUnder)  box.dy_pos += 2; // Platz �ber Strich
    else            box.dy_neg += 2; // Platz unter Strich
    int dy_pos=box.dy_pos;
    int dy_neg=box.dy_neg;
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       if (OverUnder)  g.drawLine(x+1, y-dy_pos+2, x+box.dx-1, y-dy_pos+2);
@@ -2207,7 +2207,7 @@ private BoxC SQRT(int x, int y, boolean disp, Graphics g, int rec) {
    int dy_n             = 0;
    boolean n_sqrt       = false;
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count();
 
    // etwas Platz f�r den Haken der Wurzel
@@ -2220,7 +2220,7 @@ private BoxC SQRT(int x, int y, boolean disp, Graphics g, int rec) {
    EqToken token  = new EqToken();
    token          = eqScan.nextToken();
    if (token.stringS.equals("[")) {
-      // Gr��e der [n.ten] Wurzel
+      // large der [n.ten] Wurzel
       rec_Font(g,rec+1);
       box    = eqn(x,y,false,g,rec+1,true);
       rec_Font(g,rec);
@@ -2232,7 +2232,7 @@ private BoxC SQRT(int x, int y, boolean disp, Graphics g, int rec) {
    } 
    else eqScan.set_count(count1);  
 
-   // Gr��e der Argument-Box berechnen
+   // large der Argument-Box berechnen
    box    = eqn(x,y,false,g,rec,false);
    int dx     = box.dx +  dx_Haken;
    int dy_pos = box.dy_pos + 2;  // zus�tzlicher Platz �ber Querstrich
@@ -2240,7 +2240,7 @@ private BoxC SQRT(int x, int y, boolean disp, Graphics g, int rec) {
 
    if (n_sqrt & dx_n>dx_Hakenh) dx += dx_n - dx_Hakenh;
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
 
@@ -2281,7 +2281,7 @@ private BoxC STACKREL(int x, int y, boolean disp, Graphics g, int rec){
    int     count    = 0;
    int     leading  = g.getFontMetrics().getLeading();
    
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count();
 
    // Obere-Box berechnen
@@ -2300,7 +2300,7 @@ private BoxC STACKREL(int x, int y, boolean disp, Graphics g, int rec){
    int dy_neg   = box.dy_neg;
    base        += box.dy_pos;
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       //g.drawRect(x,y-dy_pos,dx,dy_pos+dy_neg);
@@ -2323,18 +2323,18 @@ private BoxC SUB(int x, int y, boolean disp, Graphics g, int rec, boolean sub) {
    int         count    = 0;
    int         ascenth  = g.getFontMetrics().getAscent()/2;
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp)  count = eqScan.get_count();
 
    rec_Font(g,rec+1);
-   // Gr��e der Argument-Box berechnen
+   // large der Argument-Box berechnen
    box    = eqn(x,y,false,g,rec+1,false);
    int dx = box.dx;
    if (sub){ dy_pos = ascenth-1; 
              dy_neg = box.dy_pos+box.dy_neg-dy_pos;}
    else    { dy_neg = box.dy_pos+box.dy_neg;}
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       //g.drawRect(x,y-dy_pos,dx,box.dy_pos+box.dy_neg);
@@ -2367,19 +2367,19 @@ private BoxC SUP(int x, int y, boolean disp, Graphics g, int rec, boolean sup) {
    int         count    = 0;
    int         ascenth  = g.getFontMetrics().getAscent()/2;
 
-   // nur bei disp=true mu� Scanner sp�ter zur�ckgesetzt werden
+   // nur bei disp=true only Scanner later reset will
    if (disp)  count = eqScan.get_count();
 
    rec_Font(g,rec+1);
 
-   // Gr��e der Argument-Box berechnen
+   // large der Argument-Box berechnen
    box    = eqn(x,y,false,g,rec+1,false);
    int dx = box.dx;
    if (sup){ dy_neg = -ascenth-1;
              dy_pos = box.dy_pos+box.dy_neg-dy_neg;}
    else    { dy_pos = box.dy_pos+box.dy_neg;} 
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count);
       //g.drawRect(x,y-dy_pos,dx,box.dy_pos+box.dy_neg);
@@ -2488,7 +2488,7 @@ private BoxC SYMBOLBIG(int x, int y, boolean disp, Graphics g, int rec){
    //if (disp)  g.drawRect(x,y-dy_pos,dx,dy_pos+dy_neg);
 
    /////////// SUB und SUP ////// berechnen
-   // es mu� Scanner sp�ter zur�ckgesetzt werden
+   // es only Scanner later reset will
    int count = eqScan.get_count();
 
    // "SUB" 
@@ -2510,7 +2510,7 @@ private BoxC SYMBOLBIG(int x, int y, boolean disp, Graphics g, int rec){
       dy_pos      += box.dy_pos+box.dy_neg;
    } else eqScan.set_count(count1); 
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       g.drawImage(image,x+(dx-im_dx)/2,y-dy_pos_image,this);
@@ -2543,7 +2543,7 @@ private BoxC VEC(int x, int y, boolean disp, Graphics g, int rec) {
    int dy_pos = box.dy_pos + dd; 
    int dy_neg = box.dy_neg; 
 
-   // nur bei disp=true wird Scanner zur�ckgesetzt
+   // nur bei disp=true is Scanner reset
    if (disp) {
 
       int ddy   = y-dy_pos+dd;
@@ -2614,7 +2614,7 @@ private boolean expect(int token1, int token2, String S) {
 
 //**********************************************************************
 private void rec_Font(Graphics g, int rec) {
-   // Begrenzung der Rekursionstiefe f�r die Schriftgr��e
+   // Begrenzung der Rekursionstiefe f�r die Schriftlarge
    // Vermeidung von SEHR KLEINEN Schriften
    if (rec <= 1)  g.setFont(f1);
    else if (rec == 2)  g.setFont(f2);
