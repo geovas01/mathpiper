@@ -20,6 +20,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import org.mathpiper.builtin.BigNumber;
@@ -29,6 +30,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.ui.gui.hoteqn.sHotEqn;
 import org.mathpiper.ui.gui.worksheets.MathPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.TexParser;
@@ -87,10 +89,14 @@ public class ViewLatex extends BuiltinFunction {
         BigNumber viewScale = (BigNumber) resultPointer.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
         LispError.checkArgument(aEnvironment, aStackTop, viewScale != null, 1, "ViewLatex");
 
+        sHotEqn hotEqn = new sHotEqn();
+        hotEqn.setFontsizes(18,18,18,18);
+        hotEqn.setDebug(false);
+        //hotEqn.setEquation(latexString);
+        JScrollPane hotEqnScrollPane = new JScrollPane(hotEqn,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         TexParser parser = new TexParser();
         SBox sBoxExpression = parser.parse(latexString);
-
         MathPanel mathPanel = new MathPanel(sBoxExpression, viewScale.toDouble());
 
 
@@ -102,7 +108,7 @@ public class ViewLatex extends BuiltinFunction {
 
         MathPanelController mathPanelScaler = new MathPanelController(mathPanel, viewScale.toDouble());
 
-        JScrollPane scrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane mathPiperScrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         /*
         DebugGraphics.setFlashCount(10);
@@ -113,7 +119,16 @@ public class ViewLatex extends BuiltinFunction {
         panel.setDebugGraphicsOptions(DebugGraphics.LOG_OPTION);
          */
 
-        contentPane.add(scrollPane);
+
+
+        Box box = Box.createVerticalBox();
+
+        box.add(mathPiperScrollPane);
+
+        box.add(hotEqnScrollPane);
+
+        contentPane.add(box);
+
         contentPane.add(mathPanelScaler, BorderLayout.NORTH);
 
         frame.setAlwaysOnTop(false);
