@@ -92,7 +92,7 @@ public class ViewLatex extends BuiltinFunction {
         sHotEqn hotEqn = new sHotEqn();
         hotEqn.setFontsizes(18,18,18,18);
         hotEqn.setDebug(false);
-        //hotEqn.setEquation(latexString);
+        hotEqn.setEquation(latexString);
         JScrollPane hotEqnScrollPane = new JScrollPane(hotEqn,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         TexParser parser = new TexParser();
