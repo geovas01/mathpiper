@@ -141,9 +141,8 @@ public class ViewLatex extends BuiltinFunction {
         frame.setVisible(true);
 
 
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
-
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultPointer.getCons());
 
     }//end method.
 
