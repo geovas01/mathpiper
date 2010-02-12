@@ -96,52 +96,52 @@ This file is part of the HotEqn package.
 *                                                                            *
 ******************************************************************************
 ************  Version 0.x                *************************************
-* 15.07.1996  Beginn                                                         *
-* 18.07.1996  Parameter Erweiterung                                          *
-* 22.07.1996  Scanner: Token Tabelle                                         *
-* 24.07.1996  Br�che \frac{ }{ }                                             *
-* 25.07.1996  Wurzel \sqrt{}, Tief _, Hoch ^, rekur. Schrift                 *
+* 15.07.1996  Start.                                                         *
+* 18.07.1996  Parameter Expansion                                            *
+* 22.07.1996  Scanner: Token Table                                           *
+* 24.07.1996  Fraction \frac{ }{ }                                           *
+* 25.07.1996  Root \sqrt{}, Tief _, High ^, recursive. Font.                 *
 * **********  Version 1.0                *************************************
 * 26.07.1996  Array \array                                                   *
-* 29.07.1996  Klammern \left ( | \{ \[ \right ) | \} \]                      *
-*             public setEquation(String equation) f�r JS                     *
-* 30.07.1996  Griechische Symbole in Scanner                                 *
-* 04.08.1996  Greek Symbole werden EINZELN vom Netz geladen                  *
-* 05.08.1996  Greek Zeichensatz erneuern (schwarz-weiss Prob.)               *
+* 29.07.1996  Parentheses \left ( | \{ \[ \right ) | \} \]                   *
+*             public setEquation(String equation) for JS                     *
+* 30.07.1996  Greek symbols in Scanner                                       *
+* 04.08.1996  Greek Symbols isolation to be downloaded from the net.         *
+* 05.08.1996  Greek character set refresh (black and white Prob.)               *
 * **********  Version 1.01               *************************************
-* 29.08.1996  \sum Summen, \prod Produkte                                    *
+* 29.08.1996  \sum Sum, \prod Product                                        *
 * **********  Version 1.02               *************************************
-* 23.09.1996  Diverse Akzente \bar \hat \acute \grave \dot                   *
+* 23.09.1996  Various accents \bar \hat \acute \grave \dot                   *
 *             \tilde \ddot                                                   *
 * **********  Version 1.03               *************************************
-* 24.09.1996  �bergabemechanismus zwischen den verschiedenen                 *
-*             Applets auf einer HTML-Seite                                   *
+* 24.09.1996  Handing over mechanism between the various                     *
+*             applets on an HTML page.                                       *
 * **********  Version 1.04               *************************************
-*             evalMFile bei Mouse-Klick (->JS->Plugin)                       *
+*             evalMFile at mouse-click (->JS->Plugin)                        *
 *             engGetFull                                                     *
-* 14.10.1996  Matrix2LaTeX holt aktuelle Matrix vom Plugin                   *
-*               und ruft setRightSide auf                                    *
-* 15.10.1996  Alle Plugin-Funktionen mit Argument, muessen                   *
-*                das Argument aus JS holen "var VCLabHandle"                 *
+* 14.10.1996  Matrix2LaTeX retrieves current matrix by the plugin            *
+*               and calls on setRightSide.                                   *
+* 15.10.1996  All plugin functions with arguments that have to               *
+*                the argument from JS fetch "var VCLabHandle"                *
 ************  Version 1.05               *************************************
-* 18.10.1996  L�sung Applet -> Plugin (alles zur�ck !!)                      * 
+* 18.10.1996  Solution Applet -> Plugin (everything back to results !!)      *
 ************  Version 1.1                *************************************
 * 04.01.1997  Integral \int_{}^{}                                            *
-*             Limes \lim \infty \arrow                                       *
-* 22.01.1997  Korrektur der engGetFull() Methode                             *
+*             Limits \lim \infty \arrow                                      *
+* 22.01.1997  Corrected the engGetFull() method                              *
 ******************************************************************************
 **************   Release of Version 2.0  *************************************
 *                                                                            *
 *        1997 Chr. Schmid, S. Mueller                                        *
-*             Redesign wegen Matlab 5                                        *
-* 05.11.1997  Umbenennungen der Parameter                                    *
-*             alt:             neu:                                          *
+*             Redesigned for Matlab 5                                        *
+* 05.11.1997  Renaming of the parameters                                     *
+*             old:             new:                                          *
 *             engEvalString    mEvalString                                   *
 *             eval             mEvalString                                   *
 *             evalMFile        mEvalMFile                                    *
 *             engGetFull       mGetArray                                     *
 *             Matrix2LaTeX     mMatrix2LaTeX                                 *
-* 09.11.1997  Background und Foreground Color, Border, Size                  *
+* 09.11.1997  Background and Foreground Color, Border, Size                  *
 * 10.11.1997  Separation into HotEqn(no MATLAB) and mHotEqn(MATLAB) version  *
 * 12.11.1997  Scanner compactified, parser small changes:                    *
 *             new methof: adjustBox for recalculation of box size after      * 
@@ -211,7 +211,7 @@ This file is part of the HotEqn package.
 * 11.03.1998  migration to JDK1.1.5                                  (2.01d1)*
 * 14.03.1998  migration to the new event model and public methods    (2.01d2)*
 * 20.03.1998  setPreferredSize() setMinimumSize()                    (2.01d3)*
-* 04.04.1998  this.getSize()... in paint wieder eingebaut            (2.01d4)*
+* 04.04.1998  this.getSize()... in paint reinstalled.                (2.01d4)*
 *             PropertyChange... ---> automatic resize of bean                *
 * 11.04.1998  java-files renamed cHotEqn.java --> bHotEqn.java (Bean)(2.01d5)*
 *             setBorder() setRoundRectBorder()                               *
@@ -250,7 +250,7 @@ This file is part of the HotEqn package.
 
 package org.mathpiper.ui.gui.hoteqn;
 
-// **** localWidth u. localHeight nur bei getPreferredSize() zur�ckgeben
+// **** localWidth u. localHeight only at getPreferredSize() to give back
 
 // package bHotEqn;  // for Bean-compilation to avoid double filenames
 
@@ -258,7 +258,7 @@ import java.util.*;
 //changed 13.10.2002 //import java.awt.*; 
 import java.awt.image.*; 
 import java.awt.event.*;
-//changed 13.10.2002 //import java.applet.Applet; // wenn Component von Applet aufgerufen wird.
+//changed 13.10.2002 //import java.applet.Applet; // If component is called by applet.
 import java.net.URL;       // for image loading in beans
 import java.io.*;
 import java.util.StringTokenizer;
@@ -298,13 +298,13 @@ private Font f2 = new Font(Fontname,Font.PLAIN, 14);
 private Font f3 = new Font(Fontname,Font.PLAIN, 11);
 private Font f4 = new Font(Fontname,Font.PLAIN, 10);
 
-private static final float mk = 2.0f;     // Umschaltfaktor f�r Klammerndarstellung (font,zeichnen)
+private static final float mk = 2.0f;     // Switchable factor for parentheses (font,draw)
 
-private static final int GreekFontSizes[]    = { 8,10,12,14,18 }; // vorhandene GreekFonts
-private static final int GreekFontDescents[] = { 2, 3, 4, 5, 6 }; // vorhandene GreekFonts Descents
+private static final int GreekFontSizes[]    = { 8,10,12,14,18 }; // Default GreekFonts
+private static final int GreekFontDescents[] = { 2, 3, 4, 5, 6 }; // Default GreekFonts Descents
 private int GreekSize[]                      = {14,12,10, 8};
 private int GreekDescent[]                   = { 3, 3, 3, 3};
-private static final int EmbedFontSizes[]    = { 9,11,14,16,22 }; // zugeordnete normale Fonts
+private static final int EmbedFontSizes[]    = { 9,11,14,16,22 }; // Assigned normal Fonts
 
 /* greek font embedding characteristic based on Helvetica
 
@@ -336,15 +336,15 @@ private String  halign           = "left";
 private String  valign           = "top";
 private int     xpos             = 0;
 private int     ypos             = 0;
-private boolean drawn            = false;       // drawn Semaphore fuer paint
+private boolean drawn            = false;       // drawn Semaphore for paint
 
 private sSymbolLoader symbolLoader;              // flexible fontloader
 private MediaTracker tracker;                   // global image tracker
-private Hashtable imageH = new Hashtable (13);  // Hashtable fuer Image Cache (Primzahl) 
+private Hashtable imageH = new Hashtable (13);  // Hashtable for Image Cache (prime)
 
-private JApplet  app;  //changed 13.10.2002 // Applet-Handle: wegen Netscape 4.x Bug mit Toolkit...getImage()  
-public  boolean appletB          = false;      // true wenn fuer HotEqn - sHotEqn benutzt
-public  boolean beanB            = false;      // true wenn als Bean benutzt    
+private JApplet  app;  //changed 13.10.2002 // Applet-Handle: because Netscape 4.x Bug mit Toolkit...getImage()
+public  boolean appletB          = false;      // true if for HotEqn - sHotEqn used
+public  boolean beanB            = false;      // true when used as bean.
 public  boolean debug            = true;       // debug-Meldungen
 
 private boolean editMode         = false;      // Editor mode: select parts of equation
@@ -375,15 +375,15 @@ public  sHotEqn(String equation) {
 }
 
 public sHotEqn(String equation, JApplet app, String nameS) {//changed 13.10.2002
-   this.app       = app;                // Handle fuer Applet fuer Applet.getImage()
+   this.app       = app;                // Handle for Applet for Applet.getImage()
    this.equation  = equation;
    this.nameS     = nameS;
    addMouseListener(this);
    addMouseMotionListener(this);
    if (app != null)  appletB=true; 
    symbolLoader   = new sSymbolLoader();      // Fontlader
-   tracker        = new MediaTracker(this);  // Mediatracker fuer Images
-   eqScan         = new EqScanner(equation); // Scanner zur Erkennung der Token
+   tracker        = new MediaTracker(this);  // Media tracker for Images
+   eqScan         = new EqScanner(equation); // Scanner to detect the Token.
    System.out.println(VERSION+nameS);
 }
 
@@ -429,7 +429,7 @@ public void setFontsizes(int gsize1, int gsize2, int gsize3, int gsize4) {
    GreekSize[2]=0;
    GreekSize[3]=0;
 
-   // Fontgr��en f�r alle Zeichen und die Griechischen Symbole und Sonderzeichen
+   // Fontgr��en for all the characters and the Greek symbols and special characters.
    for (int i=0; i<GreekFontSizes.length; i++){
        if (gsize1 == GreekFontSizes[i]) {GreekSize[0]=gsize1;GreekDescent[0]=GreekFontDescents[i];size1=EmbedFontSizes[i];}
        if (gsize2 == GreekFontSizes[i]) {GreekSize[1]=gsize2;GreekDescent[1]=GreekFontDescents[i];size2=EmbedFontSizes[i];}
@@ -437,13 +437,13 @@ public void setFontsizes(int gsize1, int gsize2, int gsize3, int gsize4) {
        if (gsize4 == GreekFontSizes[i]) {GreekSize[3]=gsize4;GreekDescent[3]=GreekFontDescents[i];size4=EmbedFontSizes[i];} 
    }
 
-   // wenn keine passende Fontgr��e gefunden, gr��t m�gliche Fonts w�hlen
+   // If no matching font size found, most alternative Fonts chosen.
    if (GreekSize[0]==0) {GreekSize[0]=GreekFontSizes[GreekFontSizes.length-1];GreekDescent[0]=GreekFontDescents[GreekFontDescents.length-1];size1=EmbedFontSizes[EmbedFontSizes.length-1];}
    if (GreekSize[1]==0) {GreekSize[1]=GreekSize[0];GreekDescent[1]=GreekDescent[0];size2=size1;}
    if (GreekSize[2]==0) {GreekSize[2]=GreekSize[1];GreekDescent[2]=GreekDescent[1];size3=size2;} 
    if (GreekSize[3]==0) {GreekSize[3]=GreekSize[2];GreekDescent[3]=GreekDescent[2];size4=size3;}
 
-   // Fonts f�r die Darstellung 
+   // Fonts for the representation.
    f1  = new Font(Fontname,Font.PLAIN,size1);   
    f2  = new Font(Fontname,Font.PLAIN,size2);
    f3  = new Font(Fontname,Font.PLAIN,size3);
@@ -522,7 +522,7 @@ public String getSelectedArea() {
    return  eqScan.getSelectedArea(editModeCount1,editModeCount2);
 }
 
-//*************************  Eventhandler  *************************************
+//*************************  Event handler  ************************************
 public void mousePressed(MouseEvent ev)  {}
 public void mouseReleased(MouseEvent ev) {}
 public void mouseEntered(MouseEvent ev)  {}
@@ -533,7 +533,7 @@ public void mouseDragged(MouseEvent ev)  {}
 
 public void processMouseEvent(MouseEvent ev) {
 
-  // bei CONTROL Taste Breite/Hoehe ausgeben  
+  // Print width/height information when the control key is pressed during a mouse click.
   if (ev.isControlDown()) { 
      if (ev.getID() == MouseEvent.MOUSE_PRESSED && !ev.isMetaDown()) {
         System.out.println(nameS+" (width,height) given=("+this.getSize().width+","+this.getSize().height
@@ -549,7 +549,7 @@ public void processMouseEvent(MouseEvent ev) {
 				mouse2Y = 0;
 				editModeRec = 5;
 				selectImage = null;
-				repaint();  // Markierung l�schen
+				repaint();  // Mark for repainting.
 			} 
 			else if (ev.getID() == MouseEvent.MOUSE_RELEASED) { 
 				if (editMode) {
@@ -605,7 +605,7 @@ public Dimension getPreferredSize() {
   width  = localWidth;
   height = localHeight;
 
-  if (localWidth<=1) return new Dimension(100,100); // zur Sicherheit
+  if (localWidth<=1) return new Dimension(100,100); //safety.
 
   return new Dimension(localWidth,localHeight);
 }
@@ -634,7 +634,7 @@ public void removeActionListener(ActionListener listener) {
 //changed  13.10.2002
 /*
 public synchronized void update (Graphics g) {
-// ******!!!! ist diese Methode �berhaupt notwendig ?????*******
+// ******!!!! is this method at all necessary ?????*******
   if (drawn) return;
      imageOK = false;
      paint(g);  
@@ -722,14 +722,16 @@ private synchronized void generateImage (Graphics g) {
      //System.out.println("getMaxDecent  = "+fM.getMaxDecent()   );
      //System.out.println("getMaxDescent = "+fM.getMaxDescent()  );
    
-     // Scanner zur�cksetzen & Gleichung in d. Mitte d. Fensters 
+     // Scanner to back out & equation in d. middle d. of the window.
 
-     //imageH.clear();  // Image Cache leeren (nicht erforderlich)
+     //imageH.clear();  // Image Cache blank (not required)
      //System.out.println("vor 1. eqn");
      eqScan.start();
      area0 = eqn(0,height, true, geng, 1);
      displayStatus(" ");
-     
+
+     //todo:tk:continue translation from this point.
+
      // set alignment
      xpos=0; // left
      if (halign.equals("center"))     xpos=1;
