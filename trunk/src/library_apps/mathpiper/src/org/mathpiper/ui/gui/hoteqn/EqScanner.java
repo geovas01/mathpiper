@@ -6,7 +6,7 @@
 *                                                                            *
 ******************************************************************************
 *    Die Klasse "EqScanner" stellt Methoden zur Erkennung                    *
-*    der Elemente (Token) in einer Gleichung zur Verf�gung.                  *
+*    der Elemente (Token) in einer equation zur Verf�gung.                  *
 ******************************************************************************
 
 Copyright 2006 Stefan M�ller and Christian Schmid
@@ -25,17 +25,17 @@ This file is part of the HotEqn package.
 
 ******************************************************************************
 * Methoden:                                                                  *
-*       EqToken    nextToken()      n�chstes Token                           *
-*       boolean    EoT()            true, wenn Tokenende erreicht            *
-*       void       start()          countT=-1: Scanner zurueckstellen, aber  *
-*                                   NICHT neu scannen                        *
-*       int        get_count()      Wert von "countT" (f�r Rekursive Token)  *
-*       void       set_count(int)   ruft init() und springt bis countT=int   *
-*       void       setEquation(eq)  eq scannen und in TokenV ablegen         * 
+*       EqToken    nextToken()      next Token                           *
+*       boolean    EoT()            true, if Tokenende achieved              *
+*       void       start()          countT=-1: Scanner reset, but            *
+*                                   not rescan.                              *
+*       int        get_count()      value "countT" (for recursive Token)     *
+*       void       set_count(int)   calls init() and jumps up countT=int     *
+*       void       setEquation(eq)  eq scan and in TokenV store              *
 *                                                                            *
 * Methoden (intern):                                                         *
-*       EqToken    ScanNextToken() n�chstes Token aus Gleichungsstring       *
-*       char       getChar()      aktueller char                             *
+*       EqToken    ScanNextToken() next Token out equations string        *
+*       char       getChar()      current char                             *
 *       void       advance()      eine Stelle weiterschalten                 *
 *                                                                            *
 **************   Version 2.0     *********************************************
@@ -72,13 +72,13 @@ package org.mathpiper.ui.gui.hoteqn;
 import java.util.*;
 
 class EqScanner {
-   private String    equation;                           // Gleichung als String
-   private int       count;                              // Zeichen Position
+   private String    equation;                           // equation than String
+   private int       count;                              // Character Position
    private int       countT;                             // Token Position
-   private EqToken   token;                              // Momentanes Token
-   private boolean   EOF              = false;           // Fileende Variable
+   private EqToken   token;                              // Momentary Token
+   private boolean   EOF              = false;           // File end Variable
    //public  boolean inScanPaint      = false;           // Scan  semaphore
-   private Vector    TokenV = new Vector (50,50);        // dynamischer Vector mit allen Tokens
+   private Vector    TokenV = new Vector (50,50);        // dynamic Vector with alln Tokens
    private boolean   selectB          = false;           // find selected area
    private boolean   collectB         = false;
    private int       selectCount1     = 0;
@@ -99,7 +99,7 @@ public String getSelectedArea(int count1, int count2) {
    selectB      = true;
    selectSB     = new StringBuffer("");
 
-   setEquation(this.equation);  // Scannvorgang neu anstossen   
+   setEquation(this.equation);  // New scan, strike ends.
 
    selectB      = false;
    return selectSB.toString();
@@ -108,11 +108,11 @@ public String getSelectedArea(int count1, int count2) {
 public void setEquation(String equation) {
    //if (inScanPaint)  return; // Semaphore
    //inScanPaint=true;
-   // Zum setzen der Gleichung
+   // To share the equation
    this.equation = equation;
 
-   // Scanner r�cksetzen und EINmal Gleichung scannen.
-   // Tokens in TokenV ablegen
+   // Scanner back space und EINmal equation scannen.
+   // Tokens in TokenV store
 
    int i             = 0;
    int ii            = 0;
@@ -121,8 +121,8 @@ public void setEquation(String equation) {
    EOF       = false;
    countT    = -1;
    count     = -1;
-   TokenV.removeAllElements();  // alle alten Tokens entfernen
-   advance();                   // leere Gleichungen abfangen
+   TokenV.removeAllElements();  // all remove the old token.
+   advance();                   // empty eauation intercept.
    while (!EOF) {
       countT ++;
       if (selectB && (countT == selectCount1 )) collectB=true;
@@ -132,13 +132,13 @@ public void setEquation(String equation) {
    }
    countT = -1;
 
-   // Beseitigung von Sprachkonflikten: 
+   // Eliminate language conflicts:
    // { ... \choose ... } --> \choose{ ... }{ ... }
    // { ... \atop ... }   --> \atop{ ... }{ ... }
    while ( i < TokenV.size() ) {   
       if (((EqToken)TokenV.elementAt(i)).typ == EqToken.CHOOSE){
 
-          // einzelnes { suchen
+          // single { search
           ii            = i-1; 
           countBeginEnd = 0;
           while ( ii>0 ) {
@@ -148,7 +148,7 @@ public void setEquation(String equation) {
              ii--;
           } // end while ii
 
-          // einzelnes } suchen
+          // single } search
           int jj        = i+1;
           countBeginEnd = 0;
           while ( jj < TokenV.size() ) {
@@ -159,15 +159,15 @@ public void setEquation(String equation) {
           } // end while jj
           if ((countBeginEnd == 1) && (ii >=0)) {
  
-             // rechte Klammer ) einfuegen
+             // right bracket ) insert
              TokenV.insertElementAt(new EqToken(EqToken.Paren,")"),jj+1);
              TokenV.insertElementAt(new EqToken(EqToken.RIGHT),jj+1);
 
-             // bei \choose }{ einfuegen
+             // at \choose }{ insert
              TokenV.setElementAt(new EqToken(EqToken.EndSym),i);
              TokenV.insertElementAt(new EqToken(EqToken.BeginSym),i+1);
 
-             // \atop einsetzen mit Klammer ( 
+             // \atop einsetzen mit bracket (
              TokenV.insertElementAt(new EqToken(EqToken.ATOP),ii);
              TokenV.insertElementAt(new EqToken(EqToken.Paren,"("),ii);
              TokenV.insertElementAt(new EqToken(EqToken.LEFT),ii);
@@ -179,7 +179,7 @@ public void setEquation(String equation) {
       } // end if \choose
       else if ( ((EqToken)TokenV.elementAt(i)).typ == EqToken.ATOP ){
 
-          // einzelnes { suchen
+          // single { search
           ii            = i-1; 
           countBeginEnd = 0;
           while ( ii>0 ) {
@@ -190,11 +190,11 @@ public void setEquation(String equation) {
           } // end while ii
           if ( ii >= 0 ) {
 
-             // bei \atop }{ einfuegen
+             // at \atop }{ insert
              TokenV.setElementAt(new EqToken(EqToken.EndSym),i);
              TokenV.insertElementAt(new EqToken(EqToken.BeginSym),i+1);
 
-             // \atop an neue Stelle kopieren
+             // \atop copy to new location
              TokenV.insertElementAt(new EqToken(EqToken.ATOP),ii);
              i +=2; // 2 Token nach rechts ger�ckt
 
@@ -205,7 +205,7 @@ public void setEquation(String equation) {
       i++;
    } // end while i
 
-   // Beseitigung von Sprachkonflikten: 
+   // Eliminate language conflicts:
    // \sqrt[ ... ]{ ... } --> \sqrt[ ... }{ ... }
    i = 0;
    while ( i < TokenV.size()-2 ) {   
@@ -221,7 +221,7 @@ public void setEquation(String equation) {
                    if ( ((EqToken)TokenV.elementAt(ii)).stringS.equals("[") )      countParen++;
                    else if ( ((EqToken)TokenV.elementAt(ii)).stringS.equals("]") ) countParen--;
                    if ( countParen== 0 ){
-                      // "]" gefunden u. alle geschweiften Klammern und "]" sind zu.
+                      // "]" found u. all geschweiften bracketn und "]" are zu.
                       // "]" durch "EndSym" ersetzen.
                       TokenV.setElementAt(new EqToken(EqToken.EndSym),ii);
                       break;
@@ -242,9 +242,9 @@ public void setEquation(String equation) {
 } // end SetEquation
 
 public void start(){
-   // R�cksetzen des Pointers auf die Token. 
-   // Erspart weitere Scannerl�ufe, nachdem Gleichung einmal
-   // gescannt wurde.
+   // back space the Pointers of the Token.
+   // Saves more scanners over after equation once
+   //scan was.
    countT = -1;
 } // end start
 
@@ -287,8 +287,8 @@ private void advance() {
 } // end advance
 
 private EqToken ScanNextToken() {
-  // Bestimmung des n�chsten Tokens
-  // Token werden durch Trennzeichen abgetrennt
+  // Determination of next Tokens
+  // Token are separated by delimiters.
   StringBuffer SBuffer = new StringBuffer("");
   String       SBufferString = new String("");
   EqToken      SlashToken = new EqToken();
@@ -296,7 +296,7 @@ private EqToken ScanNextToken() {
   boolean      tag     = false; // alround Boolean  
  
   while (!EOF) {
-      eqchar = getChar(); // aktueller Char aus Equation
+      eqchar = getChar(); // current Char out Equation
       switch (eqchar) {
       case '\n':
       case '\r':
@@ -378,8 +378,8 @@ private EqToken ScanNextToken() {
 
       case '\\':
       // /////////////////////////////////////
-      // Alle Token die mit BACKSLASH beginnen
-      // Es gilt immer \command  (in command sind NUR Buchstaben)
+      // all Token with BACKSLASH begin
+      // It is always \command  (in command are only letters)
       advance();
       tag = false;
       if (EOF) break;
@@ -537,7 +537,7 @@ private EqToken ScanNextToken() {
                  .indexOf(" "+SBufferString+" ")>=0) return new EqToken(EqToken.SYMBOP,SBufferString);
 
              if ((" beta chi eta gamma mu psi phi rho varrho varsigma varphi xi zeta"
-                 +" le leq ge geq vdots ddots natural jmath bigtriangledown sharp uparrow downarrow updownarrow nearrow searrow swarrow nwarrow succeq mid preceq parallel subseteq sqsubseteq supseteq sqsupseteq clubsuit diamondsuit heartsuit spadesuit wp dagger ddagger setminus unlhd unrhd bigcirc ")
+                 +" le leq ge geq vdots ddots natural jmath bigtriangledown sharp uparrow downarrow updownarrow nearrow searrow swarrow nwarrow succeq mid preceq paralll subseteq sqsubseteq supseteq sqsupseteq clubsuit diamondsuit heartsuit spaofuit wp dagger ddagger setminus unlhd unrhd bigcirc ")
                  .indexOf(" "+SBufferString+" ")>=0) return new EqToken(EqToken.SYMBOPD,SBufferString);
 
              if ((" Delta Gamma Lambda Omega Pi Phi Psi Sigma Theta Upsilon Xi"

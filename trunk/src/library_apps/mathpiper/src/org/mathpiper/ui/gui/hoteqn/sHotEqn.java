@@ -381,10 +381,10 @@ public sHotEqn(String equation, JApplet app, String nameS) {//changed 13.10.2002
    addMouseListener(this);
    addMouseMotionListener(this);
    if (app != null)  appletB=true; 
-   symbolLoader   = new sSymbolLoader();      // Fontlader
+   symbolLoader   = new sSymbolLoader();      // Font loader.
    tracker        = new MediaTracker(this);  // Media tracker for Images
    eqScan         = new EqScanner(equation); // Scanner to detect the Token.
-   System.out.println(VERSION+nameS);
+   //System.out.println(VERSION+nameS);
 }
 
 //*************************  Public Methods ***********************************
@@ -725,12 +725,11 @@ private synchronized void generateImage (Graphics g) {
      // Scanner to back out & equation in d. middle d. of the window.
 
      //imageH.clear();  // Image Cache blank (not required)
-     //System.out.println("vor 1. eqn");
+     //System.out.println("before 1. eqn");
      eqScan.start();
      area0 = eqn(0,height, true, geng, 1);
      displayStatus(" ");
 
-     //todo:tk:continue translation from this point.
 
      // set alignment
      xpos=0; // left
@@ -762,12 +761,11 @@ private synchronized void generateImage (Graphics g) {
        case 1: yoff=border-(localHeight-height)/2; break;
        case 2: yoff=height-border-area0.dy_neg-area0.dy_pos; break;
      }
-     //System.out.println("nach 1. eqn");
+     //System.out.println("after 1. eqn");
      g.drawImage(genImage,xoff,yoff,xoff+area0.dx,yoff+area0.dy_pos+area0.dy_neg+1,0,height-area0.dy_pos,area0.dx,height+area0.dy_neg+1 ,this);
-     //System.out.println("nach 2. eqn");
+     //System.out.println("after 2. eqn");
      geng.dispose();
-     if (toosmall) printStatus("(width,height) given=("+width+","+height
-                                   +") used=("+localWidth+","+localHeight+")");
+     if (toosmall) printStatus("(width,height) given=("+width+","+height +") used=("+localWidth+","+localHeight+")");
      imageOK = true;
      drawn   = true;
      xOFF=xoff;
@@ -810,10 +808,10 @@ private synchronized void generateImage (Graphics g) {
      //System.out.println("getMaxDecent  = "+fM.getMaxDecent()   );
      //System.out.println("getMaxDescent = "+fM.getMaxDescent()  );
    
-     // Scanner zur�cksetzen & Gleichung in d. Mitte d. Fensters 
+     // Scanner reset & equation in d. Mitte d. Fensters
 
      //imageH.clear();  // Image Cache leeren (nicht erforderlich)
-     //System.out.println("vor 1. eqn");
+     //System.out.println("before 1. eqn");
      eqScan.start();
      area0 = eqn(0,150, false, g, 1);
      displayStatus(" ");
@@ -848,10 +846,10 @@ private synchronized void generateImage (Graphics g) {
        case 1: yoff=border+area0.dy_pos-(localHeight-height)/2; break;
        case 2: yoff=height-border-area0.dy_neg-1; break;
      }
-     //System.out.println("nach 1. eqn");
+     //System.out.println("after 1. eqn");
      eqScan.start();
      area = eqn(xoff,yoff,true,g,1);
-     //System.out.println("nach 2. eqn"); 
+     //System.out.println("after 2. eqn");
      if (toosmall) printStatus("(width,height) given=("+width+","+height
                                    +") used=("+localWidth+","+localHeight+")");
      imageOK = true;
@@ -865,7 +863,7 @@ private synchronized void generateImage (Graphics g) {
 
 //***************************************************************************
 //***************************************************************************
-//***************             Parser-Routinen              ******************
+//***************             Parser-routine              ******************
 private BoxC eqn(int x, int y, boolean disp, Graphics g, int rec){
    // different number of parameters
    return eqn(x, y, disp, g, rec, true); // Standard Argument (e.g. A_{.....})
@@ -1147,7 +1145,7 @@ private BoxC eqn(int x, int y, boolean disp, Graphics g, int rec, boolean Standa
 //************************************************************************
 private BoxC ACCENT(int x, int y, boolean disp, Graphics g, int rec) {
 // accents: \dot \ddot \hat \grave \acute \tilde
-// eqTok.stringS enth�lt das/die darzustellende(n) Zeichen
+// eqTok.stringS contain the be displayed(n) character
    BoxC        box      = new BoxC();
    int         count    = 0;
    FontMetrics fM       = g.getFontMetrics();
@@ -1158,19 +1156,19 @@ private BoxC ACCENT(int x, int y, boolean disp, Graphics g, int rec) {
    if (disp) count = eqScan.get_count(); 
 
 
-   // large der Argument-Box berechnen
+   // large Argument-Box calculate
    box    = eqn(x,y,false,g,rec,false);
    int dx = Math.max(box.dx,fM.stringWidth(large));
    int dy_pos = box.dy_pos + (int)(fM.getAscent()/2); 
    int dy_neg = box.dy_neg; 
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
 
       //g.drawRect(x,y-dy_pos,dx,dy_pos+dy_neg);
  
-      // Argument zeichnen
+      // Argument draw
       box = eqn(x,y,true,g,rec,false);
 
       // Mittenverschiebung ausrechenen
@@ -1197,7 +1195,7 @@ private BoxC ANGLE(int x, int y, boolean disp, Graphics g) {
    int dy_pos = fM.getHeight()-fM.getDescent();
    int dy_neg = fM.getDescent();
 
-   // nur bei disp zeichnen
+   // only disp draw
    if (disp) {
       int yp     = y-dy_pos+1;
       int yn     = y+dy_neg-1;
@@ -1219,57 +1217,57 @@ private BoxC ARRAY(int x, int y, boolean disp, Graphics g, int rec) {
    int         dy_pos    = 0;
    int         dy_neg    = 0;
    int         dy_pos_max= 0;
-   int         dx_eqn[]      = new int[100];  // Breite Spaltenelemente
-   int         dy_pos_eqn[]  = new int[100];  // H�he   Zeilenelemente
-   int         dy_neg_eqn[]  = new int[100];  // H�he   Zeilenelemente
+   int         dx_eqn[]      = new int[100];  // Breite columnselemente
+   int         dy_pos_eqn[]  = new int[100];  // H�he   rowselemente
+   int         dy_neg_eqn[]  = new int[100];  // H�he   rowselemente
    BoxC        box       = new BoxC();
    int         count     = 0;
    FontMetrics fM        = g.getFontMetrics();
    // Abstand 1 quad hinter Element
    int quad              = g.getFont().getSize();
 
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count(); 
 
    // "{" vom Scanner holen
    if (!expect(EqToken.BeginSym, "ARRAY: BeginSym")) return new BoxC(0,0,0);  
 
-   // Schleife: Zeilen
+   // loop: rows
    for (int y_i = 0; y_i<99; y_i++) {
       dy_pos = 0;
       dy_neg = 0;
 
-      // Schleife: Spalten
+      // loop: columns
       for (int x_i=0; x_i<99; x_i++) {
-         // large der Argument-Box berechnen
+         // large der Argument-Box calculate
          box  = eqn(x,y,false,g,rec);
 
          dy_pos = Math.max(dy_pos,box.dy_pos); 
          dy_neg = Math.max(dy_neg,box.dy_neg); 
 
-         // Breitesten Elemente pro Spalte
+         // Breitesten Elemente pro column
          dx_eqn[x_i] = Math.max(dx_eqn[x_i],box.dx+quad);
 
-         // delimiter am SPALTENende
+         // delimiter am columnsende
          if ((eqTok.typ==EqToken.DBackSlash) || 
              (eqTok.typ==EqToken.EndSym)) break;
-      } // end Spalten
+      } // end columns
 
-      // H�chste und tiefste Zeilenh�he
+      // H�chste und tiefste rowsh�he
       dy_pos_eqn[y_i] = Math.max(dy_pos_eqn[y_i],dy_pos);
       dy_neg_eqn[y_i] = Math.max(dy_neg_eqn[y_i],dy_neg);
       dy_pos_max += (dy_pos + dy_neg); 
 
       // delimiter am ARRAY-Ende
       if (eqTok.typ == EqToken.EndSym) break;
-   } // end Zeilen
+   } // end rows
 
 
-   // maximale Zeilenbreite bestimmen
+   // maximum rows wide determine
    int dx_max = 0;
    for (int i=0; i<99; i++) dx_max += dx_eqn[i];
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
 
@@ -1278,25 +1276,25 @@ private BoxC ARRAY(int x, int y, boolean disp, Graphics g, int rec) {
       // "{" vom Scanner holen
       expect(EqToken.BeginSym, "ARRAY: Begin");  
 
-     // Schleife: Zeilen
+     // loop: rows
      dy_pos = 0;
      for (int y_i=0; y_i<99; y_i++) {
         dx     = 0;
         if (y_i==0) { dy_pos  = dy_pos_eqn[y_i]; }
            else     { dy_pos += (dy_neg_eqn[y_i-1] + dy_pos_eqn[y_i]); }
-        // Schleife: Spalten
+        // loop: columns
         for (int x_i=0; x_i<99; x_i++) {
-           // large der Argument-Box berechnen
+           // large der Argument-Box calculate
            box = eqn(x+dx,y-dy_pos_max/2-fM.getDescent()+dy_pos,true,g,rec);
            dx     += dx_eqn[x_i];
 
-           // delimiter am SPALTENende
+           // delimiter am columnsende
            if ((eqTok.typ == EqToken.DBackSlash) ||
                (eqTok.typ == EqToken.EndSym)) break;
-        } // end Spalten
+        } // end columns
         // delimiter am ARRAY-Ende
         if (eqTok.typ == EqToken.EndSym) break;
-     } // end Zeilen
+     } // end rows
    } // end disp
 
    return new BoxC(dx_max-quad,dy_pos_max/2+fM.getDescent(),dy_pos_max/2-fM.getDescent());  
@@ -1306,9 +1304,9 @@ private BoxC ARRAY(int x, int y, boolean disp, Graphics g, int rec) {
 private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
    int         dx,     dx_max                 = 0;
    int         dy_pos, dy_neg, dy_top, dy_max = 0;
-   int         dx_eqn[]      = new int[100];  // Breite Spaltenelemente
-   int         dy_pos_eqn[]  = new int[100];  // H�he   Zeilenelemente
-   int         dy_neg_eqn[]  = new int[100];  // H�he   Zeilenelemente
+   int         dx_eqn[]      = new int[100];  // Breite columns elemente
+   int         dy_pos_eqn[]  = new int[100];  // H�he   rows element
+   int         dy_neg_eqn[]  = new int[100];  // H�he   rows elemente
    int         format[]      = new int[100];  // Format 1-l 2-c 3-r 4-@
    int         format_count[]= new int[100];  // f�r getcount() bei @-Einsch�ben
    int         format_dx     = 0;             // dx     bei @-Einsch�ben
@@ -1370,7 +1368,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
             case '@': 
                format[i] = 4; 
                format_count[i]  = eqScan.get_count();         
-               box              = eqn(x,y,false,g,rec,false); // large berechnen
+               box              = eqn(x,y,false,g,rec,false); // large calculate
                format_dx       += box.dx;
                format_dy_pos = Math.max(format_dy_pos,box.dy_pos);
                format_dy_neg = Math.max(format_dy_neg,box.dy_neg);
@@ -1407,7 +1405,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
                          case '@': 
                             format[i] = 4; 
                             format_count[i]  = eqScan.get_count();         
-                            box              = eqn(x,y,false,g,rec,false); // large Gleichung
+                            box              = eqn(x,y,false,g,rec,false); // large equation
                             format_dx       += box.dx;
                             format_dy_pos = Math.max(format_dy_pos,box.dy_pos);
                             format_dy_neg = Math.max(format_dy_neg,box.dy_neg);
@@ -1436,7 +1434,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
       i = 3;
    } 
 
-   // zwischen lrc Platz, sonst @{...} statt Platz
+   // zwischen lrc place, sonst @{...} statt place
    for (int z=0; z<i-1 ; z++) {
       if ( format[z]!=4 && format[z+1]!=4)  dx_max += quad/2;  
    }
@@ -1445,29 +1443,29 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
    //if (disp) for (int z=0; z<i+2 ; z++) System.out.println("format "+format[z]);
 
 
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count();
 
-   // Schleife: Zeilen
+   // loop: rows
    for (int y_i = 0; y_i<99; y_i++) {
       dy_pos = 0;
       dy_neg = 0;
 
-      // Schleife: Spalten
+      // loop: columns
       for (int x_i=0; x_i<99; x_i++) {
-         // large der Argument-Box berechnen
+         // large der Argument-Box calculate
          box  = eqn(x,y,false,g,rec);  
 
          dy_pos = Math.max(dy_pos,box.dy_pos); 
          dy_neg = Math.max(dy_neg,box.dy_neg); 
 
-         // Breitestes Elemente pro Spalte
+         // largest Element per column
          dx_eqn[x_i] = Math.max(dx_eqn[x_i],box.dx);  
 
-         // delimiter am SPALTENende
+         // delimiter on columns end
          if ((eqTok.typ == EqToken.DBackSlash) || 
              (eqTok.typ == EqToken.END)           ) break;
-      } // end Spalten
+      } // end columns
 
       dy_pos = Math.max(dy_pos,format_dy_pos); 
       dy_neg = Math.max(dy_neg,format_dy_neg); 
@@ -1475,23 +1473,23 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
       dy_neg_eqn[y_i] = dy_neg;
       dy_max += (dy_pos + dy_neg); 
 
-      // delimiter am ARRAY-Ende
+      // delimiter on ARRAY-End
       if (eqTok.typ == EqToken.END) break;
-   } // end Zeilen
+   } // end rows
 
 
-   // maximale Zeilenbreite bestimmen
+   // maximum rows wide determine
    for (i=0; i<99; i++) dx_max += dx_eqn[i]; 
  
-   dx_max += 2 * quad/2;  // Platz links und rechts
+   dx_max += 2 * quad/2;  // place links and right
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
 
      dy_pos = 0;
      dy_top = dy_max/2+fM.getDescent();
-     // Schleife: Zeilen
+     // loop: rows
      for (int y_i=0; y_i<99; y_i++) {
         dx     = quad/2;
         if (y_i==0) { dy_pos  = dy_pos_eqn[y_i]; }
@@ -1499,7 +1497,7 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
 
         int f = 0;     
 
-        // Schleife: Spalten
+        // loop: columns
         for (int x_i=0; x_i<99; x_i++) {
 
            while (format[f]==4){
@@ -1538,11 +1536,11 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
            default:
            } // end switch
  
-           if (format[f]!=4) dx += quad/2;   // kein @{}, dann etwas mehr Platz
+           if (format[f]!=4) dx += quad/2;   // no @{}, then something mehr place
 
            dx     += dx_eqn[x_i];
 
-           // delimiter am SPALTENende
+           // delimiter am columnsende
            flag     = false;
            flag_end = false;
            if (eqTok.typ == EqToken.DBackSlash) flag=true;
@@ -1559,10 +1557,10 @@ private BoxC BEGIN(int x, int y, boolean disp, Graphics g, int rec) {
            }
            if (flag) break;
 
-       } // end Spalten
+       } // end columns
 
         if (flag_end) break;    // delimiter am ARRAY-Ende
-     } // end Zeilen
+     } // end rows
    } // end disp
 
 
@@ -1595,7 +1593,7 @@ private BoxC FG_BGColor(int x, int y, boolean disp, Graphics g, int rec,
    if (!expect(EqToken.BeginSym, "Color: BeginSym") )  return new BoxC(0,0,0);  
 
    // Farbe vom Scanner holen (Wegen Unterscheidung Buchstaben Zahlen,
-   // z.B. 000012 , ffccff ABER 00ff00 (MIX Buchst. Zahl.) Schleife)
+   // z.B. 000012 , ffccff ABER 00ff00 (MIX Buchst. Zahl.) loop)
    StringBuffer SBuffer = new StringBuffer("");
    for (int i=1; i<7; i++){
        SBuffer.append(eqScan.nextToken().stringS); 
@@ -1608,17 +1606,17 @@ private BoxC FG_BGColor(int x, int y, boolean disp, Graphics g, int rec,
    // "}" vom Scanner holen
    if (!expect(EqToken.EndSym, "Color: EndSym") )  return new BoxC(0,0,0);  
 
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count();
 
-   // large der Argument-Box berechnen; die FGFarben muessen hier gesetzt will, da
+   // large der Argument-Box calculate; die FGFarben muessen hier gesetzt will, da
    // im ersten Pass schon Images geladen und gefiltert will koennen!
    Color oldColor = g.getColor();
    if (FG_BG) g.setColor(localColor);
    box    = eqn(x,y,false,g,rec,false);
    g.setColor(oldColor);
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count);
       g.setColor(localColor);
@@ -1626,7 +1624,7 @@ private BoxC FG_BGColor(int x, int y, boolean disp, Graphics g, int rec,
          g.fillRect(x, y-box.dy_pos, box.dx, box.dy_pos+box.dy_neg);
          g.setColor(oldColor);
       }
-      // Argument zeichnen
+      // Argument draw
       box = eqn(x,y,true,g,rec,false);
       g.setColor(oldColor);
    } // end disp
@@ -1646,31 +1644,31 @@ private BoxC FRAC(int x, int y, boolean disp, Graphics g, int rec, boolean frac_
    rec_Font(g,rec+1);
    FontMetrics fM   = g.getFontMetrics();
 
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count();
 
-   // Z�hler-Box berechnen
+   // Z�hler-Box calculate
    boxZ       = eqn(x,y,false,g,rec+1,false);
    int dy_pos = boxZ.dy_pos + boxZ.dy_neg; 
 
-   // Nenner-Box berechnen
+   // Nenner-Box calculate
    boxN = eqn(x,y,false,g,rec+1,false);
    int dx = Math.max(boxZ.dx,boxN.dx);  // wenn Nenner breiter als Z�hler 
    int dy_neg = boxN.dy_pos + boxN.dy_neg;
 
-   // Abstand 3/18 quad vor und hinter Bruchstrich
+   // Abstand 3/18 quad before und hinter Bruchstrich
    Font font = g.getFont();
    int dx_bruch = (3*font.getSize())/18;
    dx += 2*dx_bruch;
 
-   // Bruchstrich auf Zeichenmitte anheben
+   // Bruchstrich auf charactermitte anheben
    if (fM.getAscent()<dy_neg)  bruch = fM.getAscent()/2;
 
    // Space f�r Bruchstrich
    dy_pos+=(2+bruch);
    dy_neg+=(1-bruch); 
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
        //System.out.println("Parser: FRAC: set_count = "+count);
        eqScan.set_count(count); 
@@ -1680,14 +1678,14 @@ private BoxC FRAC(int x, int y, boolean disp, Graphics g, int rec, boolean frac_
       // Bruchstrich
       if (frac_other) g.drawLine(x+dx_bruch,y-bruch,x+dx-dx_bruch,y-bruch);  
 
-      // Z�hler zeichnen
+      // Z�hler draw
       box = eqn(x+(dx-boxZ.dx)/2,y-2-boxZ.dy_neg-bruch,true,g,rec+1,false);
 
       if (editModeFind && (rec<editModeRec)) editModeRec = rec; 
                               // damit bei Markierung der ganze Bruch 
                               // erkannt is.
      
-      // Nenner zeichnen
+      // Nenner draw
       box = eqn(x+(dx-boxN.dx)/2,y+1+boxN.dy_pos-bruch,true,g,rec+1,false);   
 
    } // end disp
@@ -1813,13 +1811,13 @@ private BoxC LEFT(int x, int y, boolean disp, Graphics g, int rec) {
    Font BracketFont;
    FontMetrics BracketMetrics;
 
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp)  count = eqScan.get_count();
 
    // Klammertyp f�r linke Seite vom Scanner holen
    String LeftBracket    = eqScan.nextToken().stringS;
 
-   // large der Argument-Box berechnen
+   // large der Argument-Box calculate
    box    = eqn(x,y,false,g,rec);
    int dx     = box.dx;
    int dy_pos = box.dy_pos;  
@@ -1830,7 +1828,7 @@ private BoxC LEFT(int x, int y, boolean disp, Graphics g, int rec) {
    // Klammertyp f�r rechte Seite vom Scanner holen
    String RightBracket = eqScan.nextToken().stringS;
 
-   // Klammerlarge berechnen
+   // Klammerlarge calculate
    int BracketSize    = dy_pos+dy_neg-2;
 
    BracketFont = new Font("Helvetica",Font.PLAIN,BracketSize);
@@ -1879,7 +1877,7 @@ private BoxC LEFT(int x, int y, boolean disp, Graphics g, int rec) {
    } else eqScan.set_count(count1); 
    SUB_dx = Math.max(SUB_dx,SUP_dx);
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
 
@@ -1889,31 +1887,31 @@ private BoxC LEFT(int x, int y, boolean disp, Graphics g, int rec) {
       LeftBracket = eqScan.nextToken().stringS;
       if (!LeftBracket.equals(".")) {
          if (BracketSize < mkq && !(LeftBracket.equals("<") || LeftBracket.equals(">"))) { 
-            // linke Klammern mit font zeichnen
+            // linke Klammern mit font draw
             g.setFont(BracketFont);
             g.drawString(LeftBracket,x,yn-BracketMetrics.getDescent()
                                          -BracketMetrics.getLeading()/2);
             g.setFont(localFont);
          } else 
-            //linke Klammern direkt zeichnen
+            //linke Klammern direkt draw
             drawBracket (g,LeftBracket,x,dx_left,yp,yn,quad,0);
       }
 
-      // Argument zeichnen
+      // Argument draw
       box = eqn(x+dx_left,y,true,g,rec);
 
       // rechter Klammertyp vom Scanner holen
       RightBracket = eqScan.nextToken().stringS;
       if (!RightBracket.equals(".")) {
          if (BracketSize < mkq && !(RightBracket.equals("<") || RightBracket.equals(">"))) { 
-            // rechte Klammern mit font zeichnen
+            // rechte Klammern mit font draw
             g.setFont(BracketFont);
             if ("([{)]}".indexOf(RightBracket) < 0) space = 0;
             g.drawString(RightBracket,x+dx+dx_left+space,yn-BracketMetrics.getDescent()
                                                      -BracketMetrics.getLeading()/2);
             g.setFont(localFont); 
          } else 
-            //rechte Klammern direkt zeichnen
+            //rechte Klammern direkt draw
            drawBracket (g,RightBracket,x+dx+dx_left,dx_right,yp,yn,-quad,-1); 
       }
       // hinter Klammer Hoch-/Tiefstellung
@@ -1956,7 +1954,7 @@ private BoxC LIM(int x, int y, boolean disp, Graphics g, int rec){
       dy_neg = box.dy_pos+box.dy_neg;
    } else eqScan.set_count(count); 
  
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       //g.drawRect(x,y-dy_pos,dx,dy_pos+dy_neg);
@@ -2027,10 +2025,10 @@ private BoxC OverBRACE(int x, int y, boolean disp, Graphics g, int rec) {
    int SUP_base         = 0;
    int SUP_dy           = 0;
 
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count(); 
 
-   // large der Argument-Box berechnen
+   // large der Argument-Box calculate
    box          = eqn(x,y,false,g,rec,false);
    int dx       = box.dx;
    int dxh      = dx/2;
@@ -2038,7 +2036,7 @@ private BoxC OverBRACE(int x, int y, boolean disp, Graphics g, int rec) {
    int dy_pos   = box.dy_pos;
    int dy_neg   = box.dy_neg;
 
-   // "SUP" behandeln, FALLS vorhanden
+   // "SUP" behandeln, FALLS beforehanden
    int count1 = eqScan.get_count();
    if (expect(EqToken.SUP)) {
       box      = SUP(x,y,false,g,rec,false);
@@ -2048,7 +2046,7 @@ private BoxC OverBRACE(int x, int y, boolean disp, Graphics g, int rec) {
       SUP_dy   = box.dy_pos + box.dy_neg;
    } else eqScan.set_count(count1); 
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count);
       int xx   = x + x_middle-dxh;  
@@ -2086,10 +2084,10 @@ private BoxC UnderBRACE(int x, int y, boolean disp, Graphics g, int rec) {
    int SUB_base         = 0;
    int SUB_dy           = 0;
 
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count(); 
 
-   // large der Argument-Box berechnen
+   // large der Argument-Box calculate
    box      = eqn(x,y,false,g,rec,false);
    int dx       = box.dx;
    int dxh      = dx/2;
@@ -2097,7 +2095,7 @@ private BoxC UnderBRACE(int x, int y, boolean disp, Graphics g, int rec) {
    int dy_pos   = box.dy_pos;
    int dy_neg   = box.dy_neg;
 
-   // "SUB" behandeln, FALLS vorhanden
+   // "SUB" behandeln, FALLS beforehanden
    int count1 = eqScan.get_count();
    if (expect(EqToken.SUB)) {
       box      = SUB(x,y,false,g,rec,false);
@@ -2107,7 +2105,7 @@ private BoxC UnderBRACE(int x, int y, boolean disp, Graphics g, int rec) {
       SUB_dy   = box.dy_pos + box.dy_neg;
    } else eqScan.set_count(count1); 
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       int xx   = x + x_middle-dxh;  
@@ -2140,16 +2138,16 @@ private BoxC OverUnderLINE(int x, int y, boolean disp, Graphics g, int rec,
    int         count    = 0;
    BoxC        box      = new BoxC();
   
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count(); 
 
-   // large der Argument-Box berechnen
+   // large der Argument-Box calculate
    box = eqn(x,y,false,g,rec,false);
-   if (OverUnder)  box.dy_pos += 2; // Platz �ber Strich
-   else            box.dy_neg += 2; // Platz unter Strich
+   if (OverUnder)  box.dy_pos += 2; // place over Strich
+   else            box.dy_neg += 2; // place unter Strich
    int dy_pos=box.dy_pos;
    int dy_neg=box.dy_neg;
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       if (OverUnder)  g.drawLine(x+1, y-dy_pos+2, x+box.dx-1, y-dy_pos+2);
@@ -2207,10 +2205,10 @@ private BoxC SQRT(int x, int y, boolean disp, Graphics g, int rec) {
    int dy_n             = 0;
    boolean n_sqrt       = false;
 
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count();
 
-   // etwas Platz f�r den Haken der Wurzel
+   // something place for the hook of the root.
    int dx_Haken  = fM.stringWidth("A");
    int dx_Hakenh = dx_Haken/2;
 
@@ -2220,7 +2218,7 @@ private BoxC SQRT(int x, int y, boolean disp, Graphics g, int rec) {
    EqToken token  = new EqToken();
    token          = eqScan.nextToken();
    if (token.stringS.equals("[")) {
-      // large der [n.ten] Wurzel
+      // large der [n.ten] root
       rec_Font(g,rec+1);
       box    = eqn(x,y,false,g,rec+1,true);
       rec_Font(g,rec);
@@ -2232,21 +2230,21 @@ private BoxC SQRT(int x, int y, boolean disp, Graphics g, int rec) {
    } 
    else eqScan.set_count(count1);  
 
-   // large der Argument-Box berechnen
+   // large der Argument-Box calculate
    box    = eqn(x,y,false,g,rec,false);
    int dx     = box.dx +  dx_Haken;
-   int dy_pos = box.dy_pos + 2;  // zus�tzlicher Platz �ber Querstrich
+   int dy_pos = box.dy_pos + 2;  // additional place over overbar
    int dy_neg = box.dy_neg; 
 
    if (n_sqrt & dx_n>dx_Hakenh) dx += dx_n - dx_Hakenh;
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
 
       //g.drawRect(x,y-dy_pos,dx,dy_pos+dy_neg);
  
-      // Wurzelzeichen
+      // root character
       int dx_n_h = 0;
       if (n_sqrt & dx_n > dx_Hakenh) dx_n_h = dx_n - dx_Hakenh;
       g.drawLine(x+dx_n_h+1,y-dy_pos/2,           x+dx_n_h+dx_Hakenh,y+dy_neg-1);
@@ -2264,7 +2262,7 @@ private BoxC SQRT(int x, int y, boolean disp, Graphics g, int rec) {
          rec_Font(g,rec);
       }
 
-      // Argument zeichnen
+      // Argument draw
       box = eqn(x+dx_n_h+dx_Haken,y,true,g,rec,false);
 
    } // end disp
@@ -2281,35 +2279,35 @@ private BoxC STACKREL(int x, int y, boolean disp, Graphics g, int rec){
    int     count    = 0;
    int     leading  = g.getFontMetrics().getLeading();
    
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp) count = eqScan.get_count();
 
-   // Obere-Box berechnen
+   // Obere-Box calculate
    box          = SUP(x, y, false, g, rec, true);
    int dx       = box.dx; 
-   int dx_oben  = box.dx;
+   int dx_top  = box.dx;
    int dy_pos   = box.dy_pos + box.dy_neg - leading; 
    int base     = box.dy_neg - leading;
 
-   // Untere-Box berechnen
+   // Untere-Box calculate
    box          = eqn(x, y, false, g, rec, false);
    dx           = Math.max(dx,box.dx);
    int x_mitte  = dx/2;
-   int dx_unten = box.dx;  
+   int dx_below = box.dx;
    dy_pos      += box.dy_pos;
    int dy_neg   = box.dy_neg;
    base        += box.dy_pos;
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       //g.drawRect(x,y-dy_pos,dx,dy_pos+dy_neg);
  
-      // Oben zeichnen
-      box = SUP(x+x_mitte-dx_oben/2, y-base, true, g, rec, false);
+      // top draw
+      box = SUP(x+x_mitte-dx_top/2, y-base, true, g, rec, false);
      
-      // Unten zeichnen
-      box = eqn(x+x_mitte-dx_unten/2, y, true, g, rec, false);   
+      // below draw
+      box = eqn(x+x_mitte-dx_below/2, y, true, g, rec, false);
    } // end disp
 
    return new BoxC(dx,dy_pos,dy_neg);  
@@ -2323,22 +2321,22 @@ private BoxC SUB(int x, int y, boolean disp, Graphics g, int rec, boolean sub) {
    int         count    = 0;
    int         ascenth  = g.getFontMetrics().getAscent()/2;
 
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp)  count = eqScan.get_count();
 
    rec_Font(g,rec+1);
-   // large der Argument-Box berechnen
+   // large der Argument-Box calculate
    box    = eqn(x,y,false,g,rec+1,false);
    int dx = box.dx;
    if (sub){ dy_pos = ascenth-1; 
              dy_neg = box.dy_pos+box.dy_neg-dy_pos;}
    else    { dy_neg = box.dy_pos+box.dy_neg;}
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       //g.drawRect(x,y-dy_pos,dx,box.dy_pos+box.dy_neg);
-      // Argument zeichnen
+      // Argument draw
       if (sub)  box = eqn(x,y+box.dy_pos-dy_pos,true,g,rec+1,false);
       else      box = eqn(x,y+box.dy_pos,true,g,rec+1,false);
    } // end disp
@@ -2367,23 +2365,23 @@ private BoxC SUP(int x, int y, boolean disp, Graphics g, int rec, boolean sup) {
    int         count    = 0;
    int         ascenth  = g.getFontMetrics().getAscent()/2;
 
-   // nur bei disp=true only Scanner later reset will
+   // only disp=true only Scanner later reset will
    if (disp)  count = eqScan.get_count();
 
    rec_Font(g,rec+1);
 
-   // large der Argument-Box berechnen
+   // large der Argument-Box calculate
    box    = eqn(x,y,false,g,rec+1,false);
    int dx = box.dx;
    if (sup){ dy_neg = -ascenth-1;
              dy_pos = box.dy_pos+box.dy_neg-dy_neg;}
    else    { dy_pos = box.dy_pos+box.dy_neg;} 
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count);
       //g.drawRect(x,y-dy_pos,dx,box.dy_pos+box.dy_neg);
-      // Argument zeichnen
+      // Argument draw
       if (sup)  box = eqn(x,y-box.dy_neg+dy_neg,true,g,rec+1,false);
       else      box = eqn(x,y-box.dy_neg,true,g,rec+1,false);
    } // end disp
@@ -2405,22 +2403,22 @@ private BoxC SUP(int x, int y, boolean disp, Graphics g, int rec, boolean sup) {
 
 /************************************************************************/
 private Image getSymbol(Graphics g, int rec){
-   // Symbol �ber das Netz laden wenn noch nicht in Cache
-   // Benutzung des MediaTrackers, damit das Bild zum Anzeigezeitpunkt
-   // auch vollst�ndig geladen ist.
+   // Symbol over the network load if not already in cache
+   // using the Media Tracker, so that the image on the display time
+   // also completely loaded.
 
    // generate unique key
    String key = eqTok.stringS+GreekSize[rec-1]+g.getColor().getRGB();
 
    if (!imageH.containsKey(key)) {
-      // Symbol ist nicht im Cache
+      // Symbol is not in Cache
 
       String s1 = "Fonts/Greek" + GreekSize[rec - 1] + "/" + eqTok.stringS + ".gif";
       Image image = symbolLoader.getImage(appletB, beanB, s1, g, app);
       int i = eqScan.get_count();
       tracker.addImage(image,i);
       displayStatus("Loading "+eqTok.stringS);
-      try   { tracker.waitForID(i,10000); }    // warten bis Bild geladen (max. 10 Sek.)
+      try   { tracker.waitForID(i,10000); }    // warten bis Bild geladen (max. 10 sec.)
       catch (InterruptedException e) {};
       if (tracker.isErrorID(i))  displayStatus("Error loading "+eqTok.stringS);
       else {
@@ -2441,13 +2439,13 @@ private Image getSymbol(Graphics g, int rec){
 //************************************************************************
 private BoxC SYMBOP(int x, int y, boolean disp, Graphics g, int rec, boolean desc){
    FontMetrics fM     = g.getFontMetrics();
-   // Symbol �ber das Netz laden
-   // Benutzung des MediaTrackers, damit das Bild zum Anzeigezeitpunkt
-   // auch vollst�ndig geladen ist.
+   // Symbol over the network load
+   // using the Media Tracker, so that the image on the display time
+   // also completely loaded.
    rec=Math.min(rec,GreekSize.length);
    Image image = getSymbol(g,rec);
    int dx = image.getWidth(this);
-   if (dx < 0) dx = fM.getMaxAdvance();    // default falls image fehlt
+   if (dx < 0) dx = fM.getMaxAdvance();    // default falls image missing
    if (disp) {
      int dy = 0;
      if (desc) dy = GreekDescent[rec-1];
@@ -2461,7 +2459,7 @@ private BoxC SYMBOP(int x, int y, boolean disp, Graphics g, int rec, boolean des
 
 //************************************************************************
 private BoxC SYMBOLBIG(int x, int y, boolean disp, Graphics g, int rec){
-   // f�r SUM,PROD,INT und aehnliches
+   // for SUM,PROD,INT, etc.
    int         dx        = 0;
    BoxC        box       = new BoxC();
    int       SUB_baseline= 0;
@@ -2470,24 +2468,24 @@ private BoxC SYMBOLBIG(int x, int y, boolean disp, Graphics g, int rec){
    int       SUP_dx      = 0;
    int      dy_pos_image = 0;
    int       asc         = g.getFontMetrics().getAscent();
-   // Symbol �ber das Netz laden
-   // Benutzung des MediaTrackers, damit das Bild zum Anzeigezeitpunkt
-   // auch vollst�ndig geladen ist.
+   // Symbol over the network load
+   // using the Media Tracker, so that the image on the display time
+   // also completely loaded.
    rec=Math.min(rec,GreekSize.length);
-   //System.out.println(" vor getSymbol");
+   //System.out.println(" before getSymbol");
    Image image = getSymbol(g,rec);
-   //System.out.println(" nach getSymbol");
+   //System.out.println(" after getSymbol");
    int im_dx  = dx = image.getWidth(this);
    int h      = image.getHeight(this);
    if (h < 0) {
-      h = 2*asc;      // default falls image fehlt
+      h = 2*asc;      // default falls image missing
       im_dx  = dx = asc;
    }
    int dy_neg = (int)(h/2-0.4*asc);
    int dy_pos = dy_pos_image = h-dy_neg;
    //if (disp)  g.drawRect(x,y-dy_pos,dx,dy_pos+dy_neg);
 
-   /////////// SUB und SUP ////// berechnen
+   /////////// SUB und SUP ////// calculate
    // es only Scanner later reset will
    int count = eqScan.get_count();
 
@@ -2510,7 +2508,7 @@ private BoxC SYMBOLBIG(int x, int y, boolean disp, Graphics g, int rec){
       dy_pos      += box.dy_pos+box.dy_neg;
    } else eqScan.set_count(count1); 
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
       eqScan.set_count(count); 
       g.drawImage(image,x+(dx-im_dx)/2,y-dy_pos_image,this);
@@ -2543,7 +2541,7 @@ private BoxC VEC(int x, int y, boolean disp, Graphics g, int rec) {
    int dy_pos = box.dy_pos + dd; 
    int dy_neg = box.dy_neg; 
 
-   // nur bei disp=true is Scanner reset
+   // only disp=true is Scanner reset
    if (disp) {
 
       int ddy   = y-dy_pos+dd;
