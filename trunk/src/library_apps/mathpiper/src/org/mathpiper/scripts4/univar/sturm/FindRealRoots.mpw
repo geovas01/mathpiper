@@ -1,72 +1,79 @@
 %mathpiper,def="FindRealRoots"
 
+iDebug:=False;
+
+Retract("FindRealRoots",*);
+
 FindRealRoots(_p) <--
 [
-//Echo("0...");
-//Echo("0...");
-  p:=SquareFree(Rationalize(p));
-//Echo("1...");
-//Echo("2...",MinimumBound(p));
-//Echo("3...",MaximumBound(p));
-  FindRealRoots(p,MinimumBound(p),MaximumBound(p));
+    If(iDebug,Tell("FindRealRoots",p));
+    Local(vars,var,cc,pp,vlcc,zeroRoot,minb,maxb,rr);
+    vars := VarList(p);
+    var  := vars[1];
+    cc   := Content(p);
+    pp   := PrimitivePart(p);
+    If(iDebug,Tell("   ",{cc,pp}));
+    vlcc := VarList(cc);
+    If(Length(vlcc)>0 And Contains(vlcc,var), zeroRoot:=True,zeroRoot:=False);
+    p:=SquareFree(Rationalize(pp));
+    If(iDebug,Tell("   after sqf",p));
+    minb := MinimumBound(p);
+    maxb := MaximumBound(p);
+    If(iDebug,Tell("   ",{minb,maxb}));
+    rr := FindRealRoots(p,minb,maxb);
+    If(zeroRoot,DestructiveAppend(rr,0));
+    rr;
 ];
+
 
 FindRealRoots(_p,_Mmin,_Mmax) <--
 [
-  Local(bounds,result,i,prec,requiredPrec);
-//Echo("bounds1");
-  bounds := BoundRealRoots(p,Mmin,Mmax);
-//Echo("bounds2");
-  result:=FillList(0,Length(bounds));
-  requiredPrec := BuiltinPrecisionGet();
-  BuiltinPrecisionSet(BuiltinPrecisionGet()+2);
-  prec:=10^-(requiredPrec+1);
+    If(iDebug,Tell("  FindRealRoots3",{p,Mmin,Mmax}));
+    Local(bounds,result,i,prec,requiredPrec);
+    bounds := BoundRealRoots(p,Mmin,Mmax);
+    If(iDebug,Tell("      ",{bounds,Length(bounds)}));
+    result:=FillList(0,Length(bounds));
+    requiredPrec := BuiltinPrecisionGet();
+    BuiltinPrecisionSet(BuiltinPrecisionGet()+4);
+    prec:=10^-(requiredPrec+1);
 
-  For(i:=1,i<=Length(bounds),i++)
-  [
-    Local(a,b,c,r);
-    {a,b} := bounds[i];
-    c:=N(Eval((a+b)/2));
-//Echo(a,b,c);
-    r := Fail;
-//Echo("newton1",`Hold(Newton(@p,x,@c,@prec,@a,@b)));
-    if (a != b) [r := `Newton(@p,x,@c,prec,a,b);];
-//Echo("newton2",r," ",CurrentFile(),CurrentLine());
-    if (r = Fail)
+    For(i:=1,i<=Length(bounds),i++)
     [
-      Local(c,cold,pa,pb,pc);
-      pa:=(p Where x==a);
-      pb:=(p Where x==b);
-      c:=((a+b)/2);
-      cold := a;
-      While (Abs(cold-c)>prec)
-      [
-        pc:=(p Where x==c);
-//Echo(a,b,c);
-        if (Abs(pc) < prec)
-        [
-          a:=c;
-          b:=c;
-        ]
-        else if (pa*pc < 0)
-        [
-          b:=c;
-          pb:=pc;
-        ]
-        else
-        [
-          a:=c;
-          pa:=pc;
-        ];
-        cold:=c;
-        c:=((a+b)/2);
-      ];
-      r:=c;
+        If(iDebug,Tell(i));
+        Local(a,b,c,r);
+        {a,b} := bounds[i];
+        c:=N(Eval((a+b)/2));
+        If(iDebug,Tell("         ",{a,b,c}));
+        r := Fail;
+        If(iDebug,Tell("         newt1",`Hold(Newton(@p,x,@c,@prec,@a,@b))));
+        if (a != b) [r := `Newton(@p,x,@c,prec,a,b);];
+        If(iDebug,Tell("         newt2",r));
+        if (r = Fail)
+          [
+             Local(c,cold,pa,pb,pc);
+             pa:=(p Where x==a);
+             pb:=(p Where x==b);
+             c:=((a+b)/2);
+             cold := a;
+             While (Abs(cold-c)>prec)
+             [
+                 pc:=(p Where x==c);
+                 If(iDebug,Tell("              ",{a,b,c}));
+                 if (Abs(pc) < prec)
+                   [ a:=c; b:=c; ]
+                 else if (pa*pc < 0)
+                   [ b:=c; pb:=pc; ]
+                 else
+                   [ a:=c; pa:=pc; ];
+                   cold:=c;
+                   c:=((a+b)/2);
+             ];
+             r:=c;
+          ];
+        result[i] := N(Eval((r/10)*(10)),requiredPrec);
     ];
-    result[i] := N(Eval((r/10)*(10)),requiredPrec);
-  ];
-  BuiltinPrecisionSet(requiredPrec);
-  result;
+    BuiltinPrecisionSet(requiredPrec);
+    result;
 ];
 
 %/mathpiper
