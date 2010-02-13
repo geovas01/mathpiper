@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.consoles;
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -64,7 +63,6 @@ import org.mathpiper.interpreters.ResponseListener;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Environment;
 
-
 public class Console extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
     private boolean suppressOutput = false;
@@ -98,18 +96,13 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private boolean controlKeyDown = false;
     private int historyIndex = -1;
     private String helpMessage =
-            "Press <enter> after an expression to create an additional input line and to append a hidden ;.\n\n" +
-            "Press <shift><enter> after any input line in a group of input lines to execute them all.\n\n" +
+            "Enter an expression after any In> prompt and press <enter> to evaluate it.\n\n" +
             "Type In> on the left edge of any line to create your own input prompt.\n\n" +
-            "Press <enter> after an empty In> to erase the In>.\n" +
-            "Any line in a group that ends with a \\ will not have a ; appended to it.\n\n" +
-            "Pressing <ctrl><enter> at the end of a line automatically appends a \\ to the line.\n\n" +
             "Use <ctrl><up arrow> and <ctrl><down arrow> to navigate through the command line history.\n\n" +
             "The console window is an editable text area, so you can add text to it and remove text from \n" +
             "it as needed.\n\n" +
-            "Placing ;; after the last line of input will suppress the output.\n\n" +
+            "Placing ;; after the end of the line of input will suppress the output.\n\n" +
             "The Raw Output checkbox sends all side effects output to the raw output text area.";
-
 
     public Console() {
 
@@ -135,7 +128,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         textPane = new ColorPane();
 
         textPane.append(purple, "MathPiper version " + org.mathpiper.Version.version + ".\n");
-        textPane.append(purple, "Enter an expression after any In> prompt and press <shift><enter> to evaluate it.\n");
+        textPane.append(purple, "Enter an expression after any In> prompt and press <enter> to evaluate it.\n");
 
 
         textPane.append(Color.BLACK, "\nIn> ");
@@ -222,7 +215,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
     }//Constructor.
 
-
     public void actionPerformed(ActionEvent event) {
         Object src = event.getSource();
 
@@ -250,7 +242,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
     }//end method.
 
-
     public void itemStateChanged(ItemEvent ie) {
         Object source = ie.getSource();
 
@@ -275,7 +266,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         }
     }//end method.
 
-
     public void putChar(char aChar) throws Exception {
         if (rawOutputTextArea != null && currentOutput != null) {
             this.rawOutputTextArea.append("" + aChar);
@@ -284,14 +274,12 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         }//end if.
     }//end method.
 
-
     public void write(String aString) throws Exception {
         int i;
         for (i = 0; i < aString.length(); i++) {
             putChar(aString.charAt(i));
         }
     }//end method.
-
 
     public void keyPressed(KeyEvent e) {
         int keyCode = (int) e.getKeyCode();
@@ -328,7 +316,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
 
     }//end method.
-
 
     public void keyReleased(KeyEvent e) {
         int keyCode = (int) e.getKeyCode();
@@ -377,7 +364,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
     }//end method.
 
-
     public void keyTyped(KeyEvent e) {
 
         char key = e.getKeyChar();
@@ -387,65 +373,60 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         if ((int) key == e.VK_ENTER || (int) key == 13) { //== 10) {
             try {
                 int lineNumber = textPane.getLineOfOffset(textPane.getCaretPosition());
+                lineNumber--;
                 String line = "";
                 //System.out.println("key pressed"); //TODO remove.
 
                 //System.out.println("LN: " + lineNumber + "  LSO: " + lineStartOffset + "  LEO: " + lineEndOffset  );
-                if (e.isShiftDown()) {
+                if (!e.isShiftDown()) {
 
-                    captureInputLines(lineNumber);
-
-                    clearPreviousResponse();
-
-
-                    String code = inputLines.toString().trim();
-
-                    // System.out.println("1: " + code);
-
-                    if (code.endsWith(";;")) {
-                        this.suppressOutput = true;
-                    }
-
-                    code = code.replaceAll(";;;", ";");
-                    code = code.replaceAll(";;", ";");
-
-                    code = code.replaceAll("\\\\", "");
-
-                    //System.out.println("2: " + code);
-
-                    history.push(code.substring(0, code.length() - 1));
-                    this.historyIndex = -1;
-
-                    if (code.length() > 0) {
-                        interpreter.addResponseListener(this);
-                        interpreter.evaluate("[" + code + "];", true);
-                        haltButton.setEnabled(true);
-
-                    }//end if.
-                } else {
-                    int relativeLineOffset = -1;
-                    int cursorInsert = 0;
-                    String eol = "";
-                    if (e.isControlDown()) {
-                        relativeLineOffset = 0;
-                        int textAreaLineCount = textPane.getLineCount();
-                        if (lineNumber + 1 == textAreaLineCount) {
-                            eol = " \\\n";
-                            cursorInsert = 3;
-                        }
-
-                    }
-                    int lineStartOffset = textPane.getLineStartOffset(lineNumber + relativeLineOffset);
-                    int lineEndOffset = textPane.getLineEndOffset(lineNumber + relativeLineOffset);
+                    int lineStartOffset = textPane.getLineStartOffset(lineNumber);
+                    int lineEndOffset = textPane.getLineEndOffset(lineNumber);
                     line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset);
                     if (line.startsWith("In> \n") || line.startsWith("In>\n")) {
-                        textPane.replaceRange("", lineStartOffset, lineEndOffset);
-                    } else if (line.startsWith("In>")) {
-                        textPane.insert(Color.BLACK, eol + "In> ", lineEndOffset);
-                        textPane.setCaretPosition(lineEndOffset + 4 + cursorInsert);
-                    }
+                        //textPane.replaceRange("In> \n", lineStartOffset, lineEndOffset); //Just leave the In> there.
+                        //textPane.setCaretPosition(lineEndOffset- 1);
+                    } else if (line.startsWith("In>")){
 
-                }
+
+                        captureInputLines(lineNumber);
+
+                        clearPreviousResponse();
+
+
+                        String code = inputLines.toString().trim();
+
+                        // System.out.println("1: " + code);
+
+                        if (code.endsWith(";;")) {
+                            this.suppressOutput = true;
+                        }
+
+                        code = code.replaceAll(";;;", ";");
+                        code = code.replaceAll(";;", ";");
+
+                        //code = code.replaceAll("\\\\", "");
+
+                        //System.out.println("2: " + code);
+
+                        history.push(code.substring(0, code.length() - 1));
+                        this.historyIndex = -1;
+
+                        if (code.length() > 0) {
+                            interpreter.addResponseListener(this);
+                            interpreter.evaluate("[" + code + "];", true);
+                            haltButton.setEnabled(true);
+
+                        }//end if.
+
+
+
+
+                    }//end else
+
+
+
+                }//end if.
 
 
 
@@ -492,7 +473,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             //setReceiveDataRegisterFull(true);
         }
     }//end method.
-
 
     public void response(EvaluationResponse response) {
 
@@ -599,19 +579,15 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
 
             }//end method.
-
-
         });
 
         //}//end if/else.
 
     }//end method.
 
-
     public boolean remove() {
         return true;
     }
-
 
     private void clearPreviousResponse() {
 
@@ -646,7 +622,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             return;
         }
     }//end method.
-
 
     private void captureInputLines(int lineNumber) {
 
@@ -703,12 +678,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
     }//end method.
 
-
     public void setHaltButtonEnabledState(boolean state) {
         this.haltButton.setEnabled(state);
 
     }//end method.
-
 
     public class ColorPane extends JTextPane {
 
@@ -724,7 +697,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             setCharacterAttributes(aset, false);
             replaceSelection(s); // there is no selection, so inserts at caret
         }//end method.
-
 
         public void insert(Color c, String str, int pos) {
 
@@ -748,7 +720,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
         }
 
-
         /**
          * Translates an offset into the components text to a
          * line number.
@@ -770,7 +741,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             }
         }
 
-
         /**
          * Determines the number of lines contained in the area.
          *
@@ -780,7 +750,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             Element map = getDocument().getDefaultRootElement();
             return map.getElementCount();
         }
-
 
         /**
          * Determines the offset of the start of the given line.
@@ -804,7 +773,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 return lineElem.getStartOffset();
             }
         }
-
 
         /**
          * Determines the offset of the end of the given line.
@@ -830,7 +798,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 return ((line == lineCount - 1) ? (endOffset - 1) : endOffset);
             }
         }
-
 
         /**
          * Replaces text from the indicated start to end position with the
@@ -868,10 +835,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             replaceSelection(str);
 
         }//end method.
-
-
     }//end class
-
 
     public void setJTextPaneFont(JTextPane textPane, int fontSize) {
 
@@ -888,12 +852,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         doc.setCharacterAttributes(0, doc.getLength() + 1, attrs, false);
     }//end method.
 
-
     public static class PopupTriggerMouseListener extends MouseAdapter {
 
         private JPopupMenu popup;
         private JComponent component;
-
 
         public PopupTriggerMouseListener(JPopupMenu popup, JComponent component) {
             this.popup = popup;
@@ -901,7 +863,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         }
 
         //some systems trigger popup on mouse press, others on mouse release, we want to cater for both
-
         private void showMenuIfPopupTrigger(MouseEvent e) {
             if (e.isPopupTrigger()) {
                 popup.show(component, e.getX() + 3, e.getY() + 3);
@@ -911,19 +872,14 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         //according to the javadocs on isPopupTrigger, checking for popup trigger on mousePressed and mouseReleased
         //should be all  that is required
         //public void mouseClicked(MouseEvent e)
-
         public void mousePressed(MouseEvent e) {
             showMenuIfPopupTrigger(e);
         }
 
-
         public void mouseReleased(MouseEvent e) {
             showMenuIfPopupTrigger(e);
         }
-
-
     }//end method.
-
 
     private void addPopupMenu() {
         final JPopupMenu menu = new JPopupMenu();
@@ -949,8 +905,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
             public void actionPerformed(ActionEvent e) {
                 textPane.insert(Color.BLACK, "In> ", textPane.getCaretPosition());
             }
-
-
         });
         insertPrompt.setText("Insert In>");
 
@@ -966,7 +920,6 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         textPane.add(menu);
         textPane.addMouseListener(new PopupTriggerMouseListener(menu, textPane));
     }//end method.
-
 
     public static void main(String[] args) {
         Console console = new Console();
