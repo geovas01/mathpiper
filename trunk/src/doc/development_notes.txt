@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Why does this return a 2?: D2Value(0,2;
 + RandomPoly does not work inside of Table: Unbind(x);
 Table(RandomPoly(x,3,-10,10),i,1,9,1);
 + Change Check to require the name of the function which is calling it.
