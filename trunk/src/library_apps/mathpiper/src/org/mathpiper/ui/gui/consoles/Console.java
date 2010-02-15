@@ -95,6 +95,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private Stack history = new java.util.Stack();
     private boolean controlKeyDown = false;
     private int historyIndex = -1;
+    private int caretPositionWhenEnterWasPressed = -1;
     private String helpMessage =
             "Enter an expression after any In> prompt and press <enter> to evaluate it.\n\n" +
             "Type In> on the left edge of any line to create your own input prompt.\n\n" +
@@ -372,8 +373,13 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
         if ((int) key == e.VK_ENTER || (int) key == 13) { //== 10) {
             try {
+
+                textPane.replaceRange("", textPane.getCaretPosition() - 1, textPane.getCaretPosition());
+
+                caretPositionWhenEnterWasPressed = textPane.getCaretPosition();
+
                 int lineNumber = textPane.getLineOfOffset(textPane.getCaretPosition());
-                lineNumber--;
+                //lineNumber--;
                 String line = "";
                 //System.out.println("key pressed"); //TODO remove.
 
@@ -381,13 +387,15 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 if (!e.isShiftDown()) {
 
                     int lineStartOffset = textPane.getLineStartOffset(lineNumber);
+
                     int lineEndOffset = textPane.getLineEndOffset(lineNumber);
+
                     line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+
                     if (line.startsWith("In> \n") || line.startsWith("In>\n")) {
                         //textPane.replaceRange("In> \n", lineStartOffset, lineEndOffset); //Just leave the In> there.
                         //textPane.setCaretPosition(lineEndOffset- 1);
                     } else if (line.startsWith("In>")){
-
 
                         captureInputLines(lineNumber);
 
@@ -422,7 +430,11 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
 
 
-                    }//end else
+                    }
+                    else
+                    {
+                        textPane.insert(Color.BLACK, "\n", caretPositionWhenEnterWasPressed);
+                    }
 
 
 
@@ -476,7 +488,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
 
     public void response(EvaluationResponse response) {
 
-        final int caretPosition = responseInsertionOffset;
+        //final int caretPosition = responseInsertionOffset;
 
         int offsetIndex = responseInsertionOffset;
 
@@ -534,6 +546,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         final int finalSideEffectsOffset = sideEffectsOffset;
         final int finalExceptionOffset = exceptionOffset;
         final int insertInOffset = responseOffset + result.length() + sideEffectsLength + exceptionLength;
+        final int finalCaretPositionWhenEnterWasPressed = caretPositionWhenEnterWasPressed;
 
 
 
@@ -574,7 +587,9 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                     textPane.insert(Color.BLACK, "\n\nIn> ", insertInOffset);
 
                 } else {
-                    textPane.setCaretPosition(caretPosition - 1);
+                    //textPane.setCaretPosition(caretPosition - 1);
+                    textPane.setCaretPosition(finalCaretPositionWhenEnterWasPressed);
+
                 }
 
 
