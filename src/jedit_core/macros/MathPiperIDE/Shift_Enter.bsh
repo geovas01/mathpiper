@@ -1102,6 +1102,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				
 				htmlText = org.mathpiper.ui.gui.help.FunctionTreePanel.textToHtml(codeText);
 				
+				htmlText = org.mathpiper.ui.gui.help.FunctionTreePanel.processLatex(htmlText);
 				
 				if(foldProperties.get("output").equalsIgnoreCase("html") )
 				{
