@@ -492,7 +492,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     }//end method.
 
 
-    private String processLatex(String html)
+    public static String processLatex(String html)
     {
         StringBuilder stringBuilder = new StringBuilder();
 
