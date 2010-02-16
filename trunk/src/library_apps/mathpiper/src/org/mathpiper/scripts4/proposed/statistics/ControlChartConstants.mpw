@@ -56,7 +56,7 @@ ControlChartConstants(n) :=
 
 
 %mathpiper_docs,name="ControlChartConstants",categories="User Functions;Statistics & Probability"
-*CMD ControlChartConstants --- returns the control chart constants A2, d2, D3, D4
+*CMD ControlChartConstants --- returns the control chart constants A2 d2 D3 D4
 *STD
 *CALL
 	ControlChartConstants(n)
