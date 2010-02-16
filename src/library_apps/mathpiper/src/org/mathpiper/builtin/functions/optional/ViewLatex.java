@@ -91,9 +91,18 @@ public class ViewLatex extends BuiltinFunction {
 
         sHotEqn hotEqn = new sHotEqn();
         hotEqn.setFontsizes(18,18,18,18);
-        hotEqn.setDebug(false);
         hotEqn.setEquation(latexString);
         JScrollPane hotEqnScrollPane = new JScrollPane(hotEqn,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        /*
+        JEditorPane htmlPane = new JEditorPane();
+        htmlPane.setContentType("text/html");
+        htmlPane.setEditable(false); // very important, as the default is true (sorry about that!)
+        try {
+        htmlPane.setPage(ViewLatex.class.getResource("/org/mathpiper/test/test.html"));
+        } catch (Exception e) {
+        e.printStackTrace();
+        }*/
 
         TexParser parser = new TexParser();
         SBox sBoxExpression = parser.parse(latexString);
