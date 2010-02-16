@@ -1,0 +1,87 @@
+%mathpiper,title="Gage R&R example"
+
+ATrial1 := {
+.55,
+.95,
+.90,
+.90,
+.60,
+.95,
+1.00,
+.90,
+.95,
+.55};
+
+
+ATrial2 := {
+.60,
+1.00,
+.90,
+.90,
+.55,
+1.05,
+1.00,
+.80,
+1.00,
+.65
+};
+
+
+ATrial3 := {
+.55,
+.95,
+.85,
+.90,
+.55,
+.95,
+.95,
+.90,
+.95,
+.60
+};
+
+
+ARangeList := Map( Lambda({x,y,z}, Maximum(x,y,z) - Minimum(x,y,z)), {ATrial1, ATrial2, ATrial3});
+
+ARangeBar := N(Mean(ARangeList));
+
+ASum := Sum(Sum({ATrial1,ATrial2,ATrial3}));
+
+AXBar := N(ASum / Add(Length(ATrial1),Length(ATrial2),Length(ATrial3)));
+
+BXBar := .7533;
+
+CXBar := .8350;
+
+XBarDiff := N(Minimum({AXBar, BXBar, CXBar}) - Maximum({AXBar, BXBar, CXBar}));
+
+BRangeBar := .07;
+
+CRangeBar := .06;
+
+RBarBar := N(Mean({ARangeBar, BRangeBar, CRangeBar}));
+
+K1 := 3.05;
+
+K2 := 2.70;
+
+EV := N(RBarBar * K1);
+
+tolerance := .40;
+
+PercentEV := N(100*EV/tolerance);
+
+n := Length(ATrial1);
+
+r := 3;
+
+AV := N(Sqrt((XBarDiff * K2)^2 - (EV^2/(n*r))));
+
+PercentAV := N(100*AV/tolerance);
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 54.43813543
+.   %/output
+
+
