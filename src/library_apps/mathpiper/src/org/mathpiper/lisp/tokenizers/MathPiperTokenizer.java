@@ -95,11 +95,11 @@ public class MathPiperTokenizer {
                         aInput.next();
                         LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.PARSING_INPUT, "INTERNAL");
 
-                        if(! (aInput.peek() == '\"'))
+                        /*if(! (aInput.peek() == '\"'))
                         {
                             //Leave in backslash in front of all characters except a " character.
                             aResult = aResult + "\\";
-                        }
+                        }*/
                     }
                     //TODO FIXME is following append char correct?
                     aResult = aResult + ((char) aInput.next());
