@@ -1,11 +1,14 @@
 %mathpiper,def="Apart"
 
+Retract("Apart",*);
+
 Apart(_f) <-- Apart(f,x);
 
 Apart(_f,_var) <--
 [
   Local(rat);
-  rat:=RationalForm(f,var);
+  //rat:=RationalForm(f,var);  // hso 100215  (this step seems superfluous and wrong!)
+  rat := {Numerator(f),Denominator(f)};
   If(Degree(rat[1],var) = 0 And Degree(rat[2],var) = 0,
      [
        rat:={Coef(rat[1],var,0),Coef(rat[2],var,0)};
@@ -25,3 +28,5 @@ Apart(_f,_var) <--
 ];
 
 %/mathpiper
+
+
