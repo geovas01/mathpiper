@@ -401,12 +401,26 @@ UnFence("ApproximateRealCoefficients",1);
     (Length(Select(disassem[3],"IsDecimal")) > 0);
 ];
 
+10 # HasRealCoefficients( poly_IsMonomial ) <--
+[
+    Local(disassem);
+    disassem := DisassembleExpression(poly);
+    (Length(Select(disassem[3],"IsDecimal")) > 0);
+];
+
 
 10 # HasRationalCoefficients( poly_IsPolynomial ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
     //Tell("              ",disassem);
+    (Length(Select(disassem[3],"IsPureRational")) > 0);
+];
+
+10 # HasRationalCoefficients( poly_IsMonomial) <--
+[
+    Local(disassem);
+    disassem := DisassembleExpression(poly);
     (Length(Select(disassem[3],"IsPureRational")) > 0);
 ];
 
@@ -499,6 +513,10 @@ UnFence("FixUpMonicFactors",1);
 
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
