@@ -329,8 +329,8 @@ private Color   BGColor          = Color.white;
 private Color   EnvColor         = Color.white;
 private Color   FGColor          = Color.black;
 private Color   BorderColor      = Color.red;
-private boolean borderB          = false;
-private boolean roundRectBorderB = false; 
+private boolean borderB          = false; //If true, draws a border around the component.
+private boolean roundRectBorderB = false; //Makes the border rounded.
 private int     border           = 0;
 private String  halign           = "left";
 private String  valign           = "top";
@@ -345,7 +345,7 @@ private Hashtable imageH = new Hashtable (13);  // Hashtable for Image Cache (pr
 private JApplet  app;  //changed 13.10.2002 // Applet-Handle: because Netscape 4.x Bug mit Toolkit...getImage()
 public  boolean appletB          = false;      // true if for HotEqn - sHotEqn used
 public  boolean beanB            = false;      // true when used as bean.
-public  boolean debug            = true;       // debug-Meldungen
+public  boolean debug            = false;       // debug-reporting.
 
 private boolean editMode         = false;      // Editor mode: select parts of equation
 private boolean editableB        = true;
@@ -623,6 +623,8 @@ public Dimension getSizeof(String equation) {
 }
 
 public Dimension getMinimumSize() { return getPreferredSize();}
+
+public Dimension getMaximumSize() { return getPreferredSize();}
 
 public void addActionListener(ActionListener listener) {
        actionListener = AWTEventMulticaster.add(actionListener, listener);

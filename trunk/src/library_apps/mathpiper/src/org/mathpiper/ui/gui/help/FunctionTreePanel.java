@@ -56,6 +56,9 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.Style;
+import javax.swing.text.html.HTML;
+import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import org.mathpiper.interpreters.EvaluationResponse;
@@ -466,9 +469,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 String documentationDataString = new String(documentationData);
 
-                documentationDataString = documentationDataString.replace("$", "");
+                //documentationDataString = documentationDataString.replace("$", "");
 
                 String html = textToHtml(documentationDataString);
+
+                html = processLatex(html);
 
                 setPage(functionName, html, save);
 
@@ -487,18 +492,113 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     }//end method.
 
 
+    private String processLatex(String html)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        int startIndex = -1;
+
+        int endIndex = -1;
+
+        for(int index = 0; index < html.length(); index++)
+        {
+            if(html.charAt(index) == '$')
+            {
+                if(startIndex == -1)
+                {
+                    startIndex = index + 1;
+
+                    endIndex = 0;
+                }
+                else
+                {
+                    endIndex = index;
+
+                    String latexCode = html.substring(startIndex, endIndex);
+
+                    latexCode = latexCode.replace(" ", "");
+
+                    String latexEmbedString = "<object classid=\"org.mathpiper.ui.gui.hoteqn.sHotEqn\" equation=\"" + latexCode + "\" >  </object>";
+
+                    //System.out.println("LATEX: " + latexEmbedString);
+
+                    stringBuilder.append(latexEmbedString);
+
+                    startIndex = -1;
+
+                    endIndex = -1;
+                }
+
+            }
+            else
+            {
+                if(endIndex == -1)
+                {
+                    stringBuilder.append(html.charAt(index));
+                }
+            }
+        }//end for.
+
+
+        return stringBuilder.toString();
+    }
+
+
     private static String applyBold(String line) {
-        line = line.replaceAll("\\{", "<b><tt>");
-        line = line.replaceAll("\\}", "</tt></b>");
-        return line;
+
+
+        //line = line.replaceAll("\\{", "<b><tt>");
+        //line = line.replaceAll("\\}", "</tt></b>");
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        int startIndex = -1;
+
+        int endIndex = -1;
+
+        for(int index = 0; index < line.length(); index++)
+        {
+            if(line.charAt(index) == '$')
+            {
+                stringBuilder.append(line.charAt(index));
+
+                index++;
+                while(line.charAt(index) != '$')
+                {
+                    stringBuilder.append(line.charAt(index));
+                    index++;
+                }
+                stringBuilder.append(line.charAt(index));
+
+            }
+            else
+            {
+                if(line.charAt(index) == '{')
+                {
+                    stringBuilder.append("<b><tt>");
+                }
+                else if(line.charAt(index) == '}')
+                {
+                    stringBuilder.append("</tt></b>");
+                }
+                else
+                {
+                    stringBuilder.append(line.charAt(index));
+                }
+            }
+        }//end for.
+
+
+        return stringBuilder.toString();
     }//end method.
 
 
-    private static String applyPre(String line) {
+    /*private static String applyPre(String line) {
         line = line.replaceAll("\\[", "<pre>");
         line = line.replaceAll("\\]", "</pre>");
         return line;
     }//end method.
+    */
 
 
     public static String textToHtml(String scriptCode) {
@@ -700,6 +800,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private void setPage(String functionName, String html, boolean save) {
         editorPane.setText(html);
 
+        //HTMLEditorKit editorKit = (HTMLEditorKit) editorPane.getEditorKit();
+        //Style style = editorKit.getStyleSheet().getRule("object");
 
 
         //forward button logic.
