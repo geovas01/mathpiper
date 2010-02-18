@@ -721,7 +721,7 @@ public class Build {
         if (args.length > 0) {
             sourceScriptsDirectory = args[0];
         } else {
-            sourceScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/scripts3/";
+            sourceScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/scripts4/";
         }
 
         String outputScriptsDirectory = "/home/tkosan/NetBeansProjects/scripts/";
