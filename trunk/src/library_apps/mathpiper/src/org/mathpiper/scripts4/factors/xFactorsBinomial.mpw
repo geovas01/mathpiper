@@ -50,7 +50,7 @@ Retract("xFB2",*);
           For(ii:=1,ii<=Length(fac1),ii++)
           [
               f := fac1[ii][1];
-              d := Degree(f);
+              d := Degree(f,X);
               fac1[ii][1] := Simplify(Y^d*f);
           ];
       ]
@@ -247,7 +247,7 @@ UnFence("xFB1",3);
           For(ii:=1,ii<=Length(fac2),ii++)
           [
               f := fac2[ii][1];
-              d := Degree(f);
+              d := Degree(f,X);
               fac2[ii][1] := Simplify(Simplify(Y^d*f));
           ];
       ]
