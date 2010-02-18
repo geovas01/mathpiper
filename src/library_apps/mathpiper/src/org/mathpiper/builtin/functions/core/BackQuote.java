@@ -98,10 +98,10 @@ a {N(...)} section).
 	Out> 0.8414709848;
 
 This example assigns the expression {func(value)} to variable {var}. Normally
-the first argument of {Set} would be unevaluated.
+the first argument of {Bind} would be unevaluated.
 
 	In> SetF(var,func,value) := \
-	In>     `(Set(@var,@func(@value)));
+	In>     `(Bind(@var,@func(@value)));
 	Out> True;
 	In> SetF(a,Sin,x)
 	Out> True;
