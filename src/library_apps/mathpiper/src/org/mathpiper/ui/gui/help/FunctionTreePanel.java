@@ -144,7 +144,33 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        tabbedPane.addTab("Functions", null, treeViewScrollPane, "Functions tree.");
+        JPanel treePanelContainer = new JPanel();
+
+
+        //Collapse tree button.
+        JButton collapseButton = new javax.swing.JButton("Collapse");
+        collapseButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                collapse();
+            }
+        });
+        collapseButton.setEnabled(true);
+        collapseButton.setToolTipText("Collapse function tree.");
+        add(collapseButton);
+
+        treePanelContainer.setLayout(new BorderLayout());
+
+        Box treeToolPanel = new Box(BoxLayout.X_AXIS);
+
+        treeToolPanel.add(collapseButton);
+
+        treeToolPanel.add(Box.createHorizontalGlue());
+
+        treePanelContainer.add(treeToolPanel,BorderLayout.NORTH);
+
+        treePanelContainer.add(treeViewScrollPane);
+
+        tabbedPane.addTab("Functions", null, treePanelContainer, "Functions tree.");
 
         tabbedPane.addTab("Search", null, new SearchPanel(), "Search the function descriptions.");
 
@@ -926,7 +952,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         private JLabel label;
         private JButton sourceButton;
-        private JButton collapseButton;
         private JButton backButton;
         private JButton forwardButton;
         private JButton homeButton;
@@ -954,22 +979,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             sourceButton.setEnabled(false);
             sourceButton.setToolTipText("View script source.");
             add(sourceButton);
-
-
-            //Collapse tree button.
-            collapseButton = new javax.swing.JButton("Collapse");
-            collapseButton.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent evt) {
-                    collapse();
-                }
-
-
-            });
-            collapseButton.setEnabled(true);
-            collapseButton.setToolTipText("Collapse function tree.");
-            add(collapseButton);
-
 
 
             showPrivateFunctionsCheckBox = new JCheckBox("Experimental");
