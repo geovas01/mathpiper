@@ -17,17 +17,9 @@
 package org.mathpiper.builtin;
 
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipEntry;
-import java.lang.reflect.Method;
 
 import org.mathpiper.builtin.functions.core.Abs;
 import org.mathpiper.builtin.functions.core.Add;
@@ -930,7 +922,31 @@ public abstract class BuiltinFunction {
 
 
 	public static String[] getResourceListing(Class loadedClass, String path) throws URISyntaxException, IOException {
-		URL dirURL = loadedClass.getClassLoader().getResource(path);
+
+            InputStream inputStream = loadedClass.getClassLoader().getResourceAsStream(path + "plugins_list.txt");
+
+            if(inputStream == null)
+            {
+                return null;
+            }
+
+            BufferedReader pluginListFileReader =  new BufferedReader(new InputStreamReader(inputStream));
+
+
+
+            java.util.Set<String> result = new HashSet<String>();
+
+            String name = null;
+            while ((name = pluginListFileReader.readLine()) != null) {
+                    name = name.trim();
+                    result.add(name);
+            }
+            return result.toArray(new String[result.size()]);
+
+
+
+
+/*		URL dirURL = loadedClass.getClassLoader().getResource(path);
 		if (dirURL != null && dirURL.getProtocol().equals("file")) {
 
 			return new File(dirURL.toURI()).list();
@@ -1017,6 +1033,7 @@ public abstract class BuiltinFunction {
 
 
 		throw new UnsupportedOperationException("Cannot list files for URL " + dirURL);
+ * */
 	}//end method.
 
 
