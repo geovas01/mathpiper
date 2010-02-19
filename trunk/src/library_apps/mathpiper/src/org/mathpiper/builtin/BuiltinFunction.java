@@ -233,12 +233,12 @@ public abstract class BuiltinFunction {
 				fileName = functionsPath + fileName;
 				fileName = fileName.replace("/", ".");
 
-				//System.out.println(fileName);
+				System.out.println(fileName);
 
 				try {
 					Class functionClass = Class.forName(fileName, true, BuiltinFunction.class.getClassLoader());
 
-					//System.out.println("CLASS :" + functionClass.toString());
+					System.out.println("CLASS :" + functionClass.toString() + "   CLASSLOADER: " + BuiltinFunction.class.getClassLoader().toString());
 
 					Object functionObject = functionClass.newInstance();
 					if (functionObject instanceof BuiltinFunction) {
@@ -252,7 +252,7 @@ public abstract class BuiltinFunction {
 				} catch (IllegalAccessException iae) {
 					System.out.println("Illegal access of class: " + fileName);
 				} catch (NoClassDefFoundError ncdfe) {
-					//System.out.println("Class not found: " + fileName);
+					System.out.println("Class not found: " + fileName);
 					failList.add(fileName);
 				}
 

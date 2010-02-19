@@ -25,6 +25,7 @@
 	<property name="plugins.src.dir" value="${master.src.dir}/plugins" />
 	<property name="plugins.build.dir" value="${master.build.dir}/plugins" />
 	<property name="plugins.jars.dir" value="${master.build.dir}/mathpiperide/jars" />
+	<property name="non_plugin.jars.dir" value="${master.build.dir}/mathpiperide/non_plugin_jars" />
 	<property name="library_apps.src.dir" value="${master.src.dir}/library_apps" />
 	<property name="library_apps.build.dir" value="${master.build.dir}/library_apps" />
 	<property name="dist.build.dir" value="${master.build.dir}/dist" />
@@ -40,23 +41,23 @@
 		<pathelement path="${master.lib.dir}/jedit.jar" />
 		<pathelement path="${master.lib.dir}/jars/ErrorList.jar" />
 		<pathelement path="${master.lib.dir}/jars/plugin.jar" />
-		<pathelement path="${plugins.jars.dir}/mathpiper.jar" />
+		<pathelement path="${non_plugin.jars.dir}/mathpiper.jar" />
 		<pathelement path="${master.lib.dir}/jars/ProjectViewer.jar" />
 		<pathelement path="${master.lib.dir}/jars/SideKick.jar" />
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
 		<pathelement path="${master.lib.dir}/jars/clojure.jar" />
 		<pathelement path="${master.lib.dir}/jars/abcl.jar" />
-		<pathelement path="${master.lib.dir}/jars/geogebra.jar" />
-		<pathelement path="${master.lib.dir}/jars/geogebra_cas.jar" />
-		<pathelement path="${master.lib.dir}/jars/geogebra_export.jar" />
-		<pathelement path="${master.lib.dir}/jars/geogebra_gui.jar" />
-		<pathelement path="${master.lib.dir}/jars/geogebra_main.jar" />
-		<pathelement path="${master.lib.dir}/jars/geogebra_properties.jar" />
+		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra.jar" />
+		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_cas.jar" />
+		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_export.jar" />
+		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_gui.jar" />
+		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_main.jar" />
+		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_properties.jar" />
 		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/jung2.jar" />
 		<pathelement path="${plugins.jars.dir}/jfreechart_plugin.jar" />
-		<pathelement path="${plugins.jars.dir}/jfreechart-1.0.13.jar" />
-		<pathelement path="${plugins.jars.dir}/jcommon-1.0.16.jar" />
+		<pathelement path="${master.lib.dir}/non_plugin_jars/jfreechart-1.0.13.jar" />
+		<pathelement path="${master.lib.dir}/non_plugin_jars/jcommon-1.0.16.jar" />
 		<pathelement path="${plugins.jars.dir}/threedxplormathj_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/jrst_all_0.8.6.jar" />
 		<pathelement path="${plugins.jars.dir}/jrst_plugin.jar" />
@@ -409,6 +410,13 @@
 			</fileset>
 		</copy>
 		
+		<!-- Copy non-plugin jars into mathpiperide directory. -->
+		<copy todir="${master.build.dir}/mathpiperide/non_plugin_jars">
+			<fileset dir="${master.lib.dir}/non_plugin_jars" >
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		
 		<!-- Copy jedit.jar into mathpiperide directory. -->
 		<copy file="${master.lib.dir}/jedit.jar" todir="${master.build.dir}/mathpiperide"/> 
 		
@@ -424,7 +432,7 @@
 		<antcall target="mathpiper_library">
 			<param name="target" value="dist"/>
 		</antcall>
-		<copy file="${library_apps.build.dir}/mathpiper/dist/mathpiper.jar" todir="${plugins.jars.dir}"/>
+		<copy file="${library_apps.build.dir}/mathpiper/dist/mathpiper.jar" todir="${non_plugin.jars.dir}"/>
 		
 		<!--<antcall target="piper_me_library">
 			<param name="target" value="dist"/>
