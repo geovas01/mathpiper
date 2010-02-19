@@ -59,6 +59,9 @@ public class JFreeChartPlugin extends EditPlugin implements EBComponent{
 			
 			org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 			org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("[Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\"); Plot2DOutputs()[\"default\"] := \"jfreechart\";];");
+			
+			System.out.println("XXX: "+ response.getResult());
+			
 			if(response.isExceptionThrown())
 			{
 				System.out.println(response.getExceptionMessage());
