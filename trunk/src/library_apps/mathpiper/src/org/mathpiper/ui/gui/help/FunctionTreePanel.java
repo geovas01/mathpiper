@@ -20,6 +20,7 @@ package org.mathpiper.ui.gui.help;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,26 +40,31 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.text.Style;
-import javax.swing.text.html.HTML;
-import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import org.mathpiper.interpreters.EvaluationResponse;
@@ -135,7 +141,15 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         //JdocsScrollPane editorScrollPane = new JScrollPane(editorPane);
         docsScrollPane = new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeViewScrollPane, docsScrollPane);
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        tabbedPane.addTab("Functions", null, treeViewScrollPane, "Functions tree.");
+
+        tabbedPane.addTab("Search", null, new SearchPanel(), "Search the function descriptions.");
+
+
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tabbedPane, docsScrollPane);
         splitPane.setOneTouchExpandable(true);
         //tree.getPreferredScrollableViewportSize().width;
         splitPane.setDividerLocation(290);
@@ -1081,23 +1095,145 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     }//end class.
 
 
+
+
+    private class SearchPanel extends JPanel implements ActionListener, ListSelectionListener {
+
+        private JTextField searchTextField;
+
+        private Vector hits = new Vector();
+
+        private JScrollPane listScroller;
+
+        private JList list;
+
+        public SearchPanel()
+        {
+            this.setLayout(new BorderLayout());
+
+            searchTextField = new JTextField();
+
+            searchTextField.setActionCommand("search");
+
+            searchTextField.addActionListener(this);
+
+            this.add(searchTextField,BorderLayout.NORTH);
+
+
+            hits.add("Enter a search term or phrase into the");
+            hits.add("above text field and press <Enter> to search.");
+            hits.add(" ");
+            hits.add("Select a returned function to view its documentation.");
+
+            list = new JList(hits);
+            list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            list.addListSelectionListener(this);
+            list.setVisibleRowCount(-1);
+
+            listScroller = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+            this.add(listScroller);
+
+
+        }//end constructor.
+
+        public void actionPerformed(ActionEvent e)
+        {
+            if(e.getActionCommand().equals("search"))
+            {
+                JTextField textField = (JTextField) e.getSource();
+
+                String searchString = textField.getText();
+
+                searchString = searchString.toLowerCase();
+
+                hits.removeAllElements();
+
+                int index = 0;
+
+                //Search user functions.
+                hits.add("USER FUNCTIONS:");
+
+                for(index = 0; index < userFunctionsData.length; index++)
+                {
+                    if(userFunctionsData[index][0].toLowerCase().contains(searchString) || userFunctionsData[index][2].toLowerCase().contains(searchString))
+                    {
+                        hits.add(userFunctionsData[index][0] + " -- " + userFunctionsData[index][2] + ".");
+                    }
+                }//end for.
+
+
+                //Search programmer functions.
+                hits.add(" ");
+                hits.add("PROGRAMMER FUNCTIONS:");
+
+                for(index = 0; index < programmerFunctionsData.length; index++)
+                {
+                    if(programmerFunctionsData[index][0].toLowerCase().contains(searchString) || programmerFunctionsData[index][2].toLowerCase().contains(searchString))
+                    {
+                        hits.add(programmerFunctionsData[index][0] + " -- " + programmerFunctionsData[index][2] + ".");
+                    }
+                }//end for.
+
+
+                //Search operators.
+                hits.add(" ");
+                hits.add("OPERATORS:");
+
+                for(index = 0; index < operatorsData.length; index++)
+                {
+                    if(operatorsData[index][0].toLowerCase().contains(searchString) || operatorsData[index][2].toLowerCase().contains(searchString))
+                    {
+                        hits.add(operatorsData[index][0] + " -- " + operatorsData[index][2] + ".");
+                    }
+                }//end for.
+                
+                
+                list.setListData(hits);
+
+                listScroller.revalidate();
+
+            }//end if.
+            
+        }//end method.
+
+
+        public void valueChanged(ListSelectionEvent e) {
+            JList list = (JList) e.getSource();
+            if(!list.getSelectionModel().getValueIsAdjusting())
+            {
+                String function = (String) list.getSelectedValue();
+                if(function != null)
+                {
+                    String functionName = function.split("-")[0].trim();
+                    viewFunction(functionName,true);
+                }
+            }
+        }
+
+
+    }//end class.
+
+
+
+
     public static void main(String[] args) {
 
         JFrame frame = new javax.swing.JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        FunctionTreePanel helpPanel = null;
+        FunctionTreePanel functionTreePanel = null;
 
         try {
 
-            helpPanel = new FunctionTreePanel();
+            functionTreePanel = new FunctionTreePanel();
 
             Container contentPane = frame.getContentPane();
-            contentPane.add(helpPanel.getToolPanel(), BorderLayout.NORTH);
-            contentPane.add(helpPanel, BorderLayout.CENTER);
+            contentPane.add(functionTreePanel.getToolPanel(), BorderLayout.NORTH);
+            contentPane.add(functionTreePanel, BorderLayout.CENTER);
 
             frame.pack();
-//frame.setAlwaysOnTop(true);
+
             frame.setTitle("MathPiper Help");
             frame.setSize(new Dimension(700, 700));
             //frame.setResizable(false);
