@@ -7,6 +7,7 @@
             <source-roots>
                 <root id="src.tests.dir"/>
                 <root id="src.src.dir"/>
+                <root id="src.asciimath.dir"/>
             </source-roots>
             <test-roots/>
         </data>

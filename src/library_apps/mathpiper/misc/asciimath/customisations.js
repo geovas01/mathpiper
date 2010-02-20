@@ -90,7 +90,7 @@ function AMdisplay(inputNodeId, outputNodeId, now) {
                 var arr = str.split("#");
                 var frag = AMarr2docFrag(arr);
                 outnode.appendChild(frag);
-                AMprocessNode(outnode,true);
+                AMprocessNode(outnode,true); //Note:tk:entry point?
             }
         }
     }
