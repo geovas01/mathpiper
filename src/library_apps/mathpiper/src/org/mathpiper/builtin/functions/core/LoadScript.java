@@ -53,14 +53,14 @@ public class LoadScript extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="LoadScript",categories="User Functions;Input/Output;Built In"
-*CMD LoadScript --- evaluate all expressions in a file
+*CMD LoadScript --- evaluate all expressions in a script file
 *CORE
 *CALL
 	LoadScript(name)
 
 *PARMS
 
-{name} -- string, name of the file to load
+{name} -- string, name of the script file to load
 
 *DESC
 
