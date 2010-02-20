@@ -49,14 +49,14 @@ public class LoadScriptOnce extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="LoadScriptOnce",categories="User Functions;Control Flow;Input/Output;Built In"
-*CMD LoadScriptOnce --- load a file (but not twice)
+*CMD LoadScriptOnce --- load a script file (but not twice)
 *CORE
 *CALL
 	LoadScriptOnce(name)
 
 *PARMS
 
-{name} -- name of the file to load
+{name} -- name of the script file to load
 
 *DESC
 
