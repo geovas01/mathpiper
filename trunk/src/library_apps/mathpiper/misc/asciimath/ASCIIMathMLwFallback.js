@@ -400,7 +400,7 @@ function AMposition(arr, str, n) {
   return i; // i=arr.length || arr[i]>=str
 }
 
-function AMgetSymbol(str) {
+function AMgetSymbol(str) { //Note:tk:the tokenizer. Returns either a token or a bracket or empty.
 //return maximal initial substring of str that appears in names
 //return null if there is none
   var k = 0; //new pos
@@ -970,7 +970,7 @@ function AMparseSexpr(str) { //parses str and returns [node,tailstr]
   }
 }
 
-function AMparseIexpr(str) {
+function AMparseIexpr(str) { //Note:tk:I think this parses infix expressions.
   var symbol, sym1, sym2, node, result, underover;
   str = AMremoveCharsAndBlanks(str,0);
   sym1 = AMgetSymbol(str);
@@ -1012,7 +1012,7 @@ function AMparseIexpr(str) {
   return [node,str];
 }
 
-function AMparseExpr(str,rightbracket) {
+function AMparseExpr(str,rightbracket) { //Note:tk:this is called before AMparseIExpr.
   var symbol, node, result, i, nodeList = [],
   newFrag = document.createDocumentFragment();
   do {
@@ -1105,7 +1105,7 @@ function AMparseExpr(str,rightbracket) {
   return [newFrag,str];
 }
 
-function AMparseMath(str) {
+function AMparseMath(str) { //Note:tk:this appears to do some pre-parsing work.
   var result, node = AMcreateElementMathML("mstyle");
   if (mathcolor != "") node.setAttribute("mathcolor",mathcolor);
   if (displaystyle) node.setAttribute("displaystyle","true");
@@ -1128,7 +1128,7 @@ function AMparseMath(str) {
   return node;
 }
 
-function AMstrarr2docFrag(arr, linebreaks,usingMathML) {
+function AMstrarr2docFrag(arr, linebreaks,usingMathML) { //Note:tk:determines what parts of the input to parse with a given parser.
   var newFrag=document.createDocumentFragment();
   var expr = false;
   for (var i=0; i<arr.length; i++) {
@@ -1149,7 +1149,7 @@ function AMstrarr2docFrag(arr, linebreaks,usingMathML) {
   return newFrag;
 }
 
-function AMprocessNodeR(n, linebreaks) {
+function AMprocessNodeR(n, linebreaks) { //Delimiters get processed here.
   var mtch, str, arr, frg, i;
   if (n.childNodes.length == 0) {
    if ((n.nodeType!=8 || linebreaks) &&
@@ -1196,7 +1196,7 @@ function AMprocessNodeR(n, linebreaks) {
     frg = AMstrarr2docFrag(arr,n.nodeType==8,false);
   }
         var len = frg.childNodes.length;
-        n.parentNode.replaceChild(frg,n);
+        n.parentNode.replaceChild(frg,n); //The output text area gets updated here.
         return len-1;
         
       }
