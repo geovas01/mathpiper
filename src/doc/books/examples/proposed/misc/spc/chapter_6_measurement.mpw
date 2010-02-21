@@ -1,6 +1,7 @@
 %mathpiper,title="Gage R&R example"
 
-ATrial1 := {
+ATrial := {
+{
 .55,
 .95,
 .90,
@@ -10,10 +11,11 @@ ATrial1 := {
 1.00,
 .90,
 .95,
-.55};
+.55
+},
 
 
-ATrial2 := {
+{
 .60,
 1.00,
 .90,
@@ -24,10 +26,10 @@ ATrial2 := {
 .80,
 1.00,
 .65
-};
+},
 
 
-ATrial3 := {
+{
 .55,
 .95,
 .85,
@@ -38,50 +40,246 @@ ATrial3 := {
 .90,
 .95,
 .60
+}
 };
 
 
-ARangeList := Map( Lambda({x,y,z}, Maximum(x,y,z) - Minimum(x,y,z)), {ATrial1, ATrial2, ATrial3});
+BTrial := {
+{
+.5,
+1.0,
+.75,
+.7,
+.4,
+.95,
+.9,
+.8,
+.9,
+.45
+},
 
-ARangeBar := N(Mean(ARangeList));
 
-ASum := Sum(Sum({ATrial1,ATrial2,ATrial3}));
+{
+.55,
+.95,
+.75,
+.75,
+.4,
+1.05,
+.9,
+.7,
+.9,
+.5
+},
 
-AXBar := N(ASum / Add(Length(ATrial1),Length(ATrial2),Length(ATrial3)));
 
-BXBar := .7533;
+{
+.55,
+1.05,
+.75,
+.8,
+.45,
+1.0,
+.95,
+.75,
+.95,
+.55
+}
+};
 
-CXBar := .8350;
 
-XBarDiff := N(Minimum({AXBar, BXBar, CXBar}) - Maximum({AXBar, BXBar, CXBar}));
 
-BRangeBar := .07;
 
-CRangeBar := .06;
+CTrial := {
+{
+.55,
+1.05,
+.75,
+.75,
+.5,
+1.05,
+.95,
+.8,
+1.0,
+.9
+},
 
-RBarBar := N(Mean({ARangeBar, BRangeBar, CRangeBar}));
 
-K1 := 3.05;
+{
+.5,
+1.0,
+.85,
+.8,
+.55,
+1.05,
+.95,
+.85,
+1.0,
+.85
+},
 
-K2 := 2.70;
 
-EV := N(RBarBar * K1);
 
-tolerance := .40;
+{
+.55,
+.95,
+.8,
+.8,
+.55,
+1.0,
+1.0,
+.8,
+1.05,
+.85
+}
+};
 
-PercentEV := N(100*EV/tolerance);
+True;
 
-n := Length(ATrial1);
-
-r := 3;
-
-AV := N(Sqrt((XBarDiff * K2)^2 - (EV^2/(n*r))));
-
-PercentAV := N(100*AV/tolerance);
 %/mathpiper
 
     %output,preserve="false"
-      Result: 54.43813543
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper,title=""
+
+AnalyzeOperator(trial1, trial2, trial3) :=
+[
+    Check(Length(trial1) = Length(trial2) And Length(trial1) = Length(trial3), "The lengths of the lists must be equal.");
+
+    Local(rangeList, rangeBar, trialsSum, xBar);
+    
+    rangeList := Map( Lambda({x,y,z}, Maximum(x,y,z) - Minimum(x,y,z)), {trial1, trial2, trial3});
+    
+    rangeBar := N(Mean(rangeList));
+    
+    trialsSum := Sum(Sum({trial1,trial2,trial3}));
+    
+    xBar := N(trialsSum / Add(Length(trial1),Length(trial2),Length(trial3)));
+
+    result := {};
+        
+    result["rangeBar"] := rangeBar;
+    
+    result["xBar"] := xBar;
+    
+    result;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper
+AnalyzeOperators(operatorATrials, operatorBTrials, operatorCTrials) :=
+[
+    
+    //Analyze operator A.
+    AAnalysis := AnalyzeOperator(operatorATrials[1], operatorATrials[2], operatorATrials[3]);
+
+    ARangeBar := AAnalysis["rangeBar"];
+    
+    AXBar := AAnalysis["xBar"];
+    
+    
+    //Analyze operator B.
+    BAnalysis := AnalyzeOperator(operatorBTrials[1], operatorBTrials[2], operatorBTrials[3]);
+    
+    BRangeBar := BAnalysis["rangeBar"];
+    
+    BXBar := BAnalysis["xBar"];
+    
+    
+    //Analyze operator C.
+    CAnalysis := AnalyzeOperator(operatorCTrials[1], operatorCTrials[2], operatorCTrials[3]);
+    
+    CRangeBar := CAnalysis["rangeBar"];
+    
+    CXBar := CAnalysis["xBar"];
+    
+    
+    XBarDiff := N(Minimum({AXBar, BXBar, CXBar}) - Maximum({AXBar, BXBar, CXBar}));
+    
+    
+    
+    RBarBar := N(Mean({ARangeBar, BRangeBar, CRangeBar}));
+    
+    K1 := 3.05;
+    
+    K2 := 2.70;
+    
+    EV := N(RBarBar * K1);
+    
+    tolerance := .40;
+    
+    PercentEV := N(100*EV/tolerance);
+    
+    n := Length(operatorATrials[1]);
+    
+    r := Length(operatorATrials);
+    
+    AV := N(Sqrt((XBarDiff * K2)^2 - (EV^2/(n*r))));
+    
+    PercentAV := N(100*AV/tolerance);
+    
+    RAndR := N(Sqrt(EV^2 + AV^2));
+    
+    Echo("Gage Repeatability and Reproducibility Report");
+    
+    Echo("------------------------------------------------");
+    
+    Echo("Repeatability/Equipment Variation (EV): ", EV);
+    
+    Echo("EV Percent Of Tolerance: ", PercentEV);
+    
+    Echo("------------------------------------------------");
+    
+    Echo("Reproducibility/Appraser Variation (AV): ", AV);
+    
+    Echo("AV Percent Of Tolerance: ", PercentAV);
+    
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper
+AnalyzeOperators(ATrial, BTrial, CTrial );
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Gage Repeatability and Reproducibility Report
+      ------------------------------------------------
+      Repeatability/Equipment Variation (EV): 0.1931666667 
+      EV Percent Of Tolerance: 48.29166668 
+      ------------------------------------------------
+      Reproducibility/Appraser Variation (AV): 0.2176613685 
+      AV Percent Of Tolerance: 54.41534213 
+      
 .   %/output
 
 
