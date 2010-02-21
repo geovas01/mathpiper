@@ -324,55 +324,66 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		if(foldType.equalsIgnoreCase("%mathpiper"))    
 		{
 
-				//system = MathPiperInterpreter.getInstance();
-				asynchronousInterpreter = org.mathpiper.interpreters.Interpreters.getAsynchronousInterpreter();
-				synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+			//system = MathPiperInterpreter.getInstance();
+			asynchronousInterpreter = org.mathpiper.interpreters.Interpreters.getAsynchronousInterpreter();
+			synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+		
+			//org.mathpiper.ide.ResponseListener responseListener = new org.mathpiper.ide.ResponseListener() {
+			org.mathpiper.interpreters.ResponseListener responseListener = new org.mathpiper.interpreters.ResponseListener(){
+				
+			response (evaluationResponse)
+			{
+				
+			/*try  //todo:tk:This code is a hack to prevent a second fold update occurring before the first update is finished.
+			{
+				
+				Thread.sleep(400);
+			}
+			catch(InterruptedException e)
+			{
+			}*/
 			
-				//org.mathpiper.ide.ResponseListener responseListener = new org.mathpiper.ide.ResponseListener() {
-				org.mathpiper.interpreters.ResponseListener responseListener = new org.mathpiper.interpreters.ResponseListener(){
-					
-				response (evaluationResponse)
-				{
-					
-				/*try  //todo:tk:This code is a hack to prevent a second fold update occurring before the first update is finished.
-				{
-					
-					Thread.sleep(400);
-				}
-				catch(InterruptedException e)
-				{
-				}*/
+			System.out.println("<shift><enter> Received response.");
+			wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(false);
 				
-				System.out.println("<shift><enter> Received response.");
-				wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(false);
-					
-				//result = evaluationResponse[2];
-				result = evaluationResponse.getResult();//("load_result");
+			//result = evaluationResponse[2];
+			result = evaluationResponse.getResult();//("load_result");
+		
+			if(evaluationResponse.isExceptionThrown())//containsKey("error_message")) //evaluationResponse[3] != null) //Error.
+			{
+				//result = evaluationResponse[3] + ";Error near line: " + evaluationResponse[4];
+				
+				output_fold_type = "%error";
+				
+				errorLineNumber = evaluationResponse.getLineNumber();//("line_number"); //evaluationResponse[4];
+				
+				errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 
+				adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 2);
+				
+				errorResult =  evaluationResponse.getExceptionMessage() + " Error near line " + adjustedErrorLineNumber;							
+				
+				filePath = textArea.getBuffer().getPath();
 			
-				if(evaluationResponse.isExceptionThrown())//containsKey("error_message")) //evaluationResponse[3] != null) //Error.
+				errorSource.clear();
+			
+				errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber-1, 0, 0, result ) );
+			
+				jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+				
+				if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
 				{
-					//result = evaluationResponse[3] + ";Error near line: " + evaluationResponse[4];
-					
-					output_fold_type = "%error";
-					
-					errorLineNumber = evaluationResponse.getLineNumber();//("line_number"); //evaluationResponse[4];
-					
-					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
-
-					adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 2);
-					result =  evaluationResponse.getExceptionMessage() + " Error near line " + adjustedErrorLineNumber;							
-					
-					filePath = textArea.getBuffer().getPath();
-				
-					errorSource.clear();
-				
-					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber-1, 0, 0, result ) );
-				
-					jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
-
+					result = "Result: " + errorResult + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
 				}
-				else if(foldProperties.get("output").equalsIgnoreCase("latex") )
+				else
+				{
+					result = "Result: " + errorResult ;
+				}
+
+			}
+			else
+			{
+				if(foldProperties.get("output").equalsIgnoreCase("latex") )
 				{
 		//System.out.println("XXXXXXXXX " +  evaluationResponse.getResult()  );
 					evaluationResponse = synchronousInterpreter.evaluate("TeXForm(Hold(" + evaluationResponse.getResult() + "));", false);
@@ -426,15 +437,15 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					output_fold_type = "%output";
 				}
 	//System.out.println("Out> " + evaluationResponse);
-			if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
-			{
-				result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects() + result;
-			}
-			else
-			{
-				result = "Result: " + result ;
-			}
-			
+				if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
+				{
+					result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
+				}
+				else
+				{
+					result = "Result: " + result ;
+				}
+			}//end else.
 			//System.out.println("XTTXTXTXTT :" + result);
 			
 			//wm.addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
