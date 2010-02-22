@@ -3,6 +3,9 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ There is a bug in Echo: 
+In> Echo("Trial 1 data mean: ", N(Mean({1,2,3});
+Result: 2
 + Why does this return a 2?: D2Value(0,2;
 + RandomPoly does not work inside of Table: Unbind(x);
 Table(RandomPoly(x,3,-10,10),i,1,9,1);
