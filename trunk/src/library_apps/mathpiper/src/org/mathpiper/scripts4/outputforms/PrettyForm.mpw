@@ -58,6 +58,9 @@ NLog(str):=
 ];
 */
 
+
+
+
 CharList(length,item):=
 [
   Local(line,i);
@@ -67,7 +70,13 @@ CharList(length,item):=
   line;
 ];
 
+
+
+
 CharField(width,height) := ArrayCreate(height,CharList(width," "));
+
+
+
 
 WriteCharField(charfield):=
 [
@@ -81,6 +90,9 @@ WriteCharField(charfield):=
   True;
 ];
 
+
+
+
 ColumnFilled(charfield,column):=
 [
   Local(i,result,len);
@@ -92,6 +104,10 @@ ColumnFilled(charfield,column):=
   ];
   result;
 ];
+
+
+
+
 WriteCharField(charfield,width):=
 [
   Local(pos,length,len);
@@ -127,11 +143,15 @@ WriteCharField(charfield,width):=
 
 
 
+
 PutString(charfield,x,y,string):=
 [
   cf[y] := StringMidSet(x,string,cf[y]);
   True;
 ];
+
+
+
 
 MakeOper(x,y,width,height,oper,args,base):=
 [
@@ -148,12 +168,17 @@ MakeOper(x,y,width,height,oper,args,base):=
 ];
 
 
+
+
 MoveOper(f,x,y):=
 [
   f[1]:=AddN(f[1], x); /* move x */
   f[2]:=AddN(f[2], y); /* move y */
   f[7]:=AddN(f[7], y); /* move base */
 ];
+
+
+
 
 AlignBase(i1,i2):=
 [
@@ -163,8 +188,19 @@ AlignBase(i1,i2):=
   MoveOper(i2,0,SubtractN(base,(i2[7])));
 ];
 
+
+
+
 10 # BuildArgs({}) <-- Formula(ToAtom(" "));
+
+
+
+
 20 # BuildArgs({_head}) <-- head;
+
+
+
+
 30 # BuildArgs(_any)    <--
      [
         Local(item1,item2,comma,base,newitem);
@@ -182,6 +218,7 @@ AlignBase(i1,i2):=
 
 
 
+
 FormulaBracket(f):=
 [
   Local(left,right);
@@ -196,10 +233,15 @@ FormulaBracket(f):=
 ];
 
 
+
+
 /* Rulebase("Formula",{f}); */
 
 1 # Formula(f_IsAtom) <--
   MakeOper(0,0,Length(ToString(f)),1,"ToAtom",ToString(f),0);
+
+
+
 
 2 # Formula(_xx ^ _yy) <--
 [
@@ -210,6 +252,7 @@ FormulaBracket(f):=
   MoveOper(r,l[3],0);
   MakeOper(0,0,AddN(l[3],r[3]),AddN(l[4],r[4]),"Func",{l,r},l[2]+l[4]-1);
 ];
+
 
 
 
@@ -229,7 +272,11 @@ FormulaBracket(f):=
 ];
 
 
+
 20 # FormulaArrayItem(_item) <-- Formula(item);
+
+
+
 
 2 # Formula(xx_IsList) <--
 [
@@ -290,6 +337,10 @@ FormulaBracket(f):=
   FormulaBracket(sub);
 ];
 
+
+
+
+
 2 # Formula(_xx / _yy) <--
 [
   Local(l,r,dash,width);
@@ -307,16 +358,28 @@ FormulaBracket(f):=
   MakeOper(0,0,width,AddN(r[2], r[4]),"Func",{l,r,dash},dash[2]);
 ];
 
+
+
+
 Rulebase("BracketOn",{op,f,prec});
+
 Rule("BracketOn",3,1,IsFunction(f) And ArgumentsCount(f) = 2
      And IsInfix(Type(f)) And PrecedenceGet(Type(f)) > prec)
 [
  FormulaBracket(op);
 ];
+
+
+
+
 Rule("BracketOn",3,2,True)
 [
   op;
 ];
+
+
+
+
 
 10 # Formula(f_IsFunction)_(ArgumentsCount(f) = 2 And IsInfix(Type(f))) <--
 [
@@ -336,6 +399,9 @@ Rule("BracketOn",3,2,True)
 
   MakeOper(0,0,AddN(r[1], r[3]),height,"Func",{l,r,oper},base);
 ];
+
+
+
 
 11 # Formula(f_IsFunction) <--
 [
@@ -374,6 +440,9 @@ Rule("RenderFormula",4,1,f[5] = "ToAtom" And f[6] = "(" And f[4] > 1)
     cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
+
+
+
 Rule("RenderFormula",4,1,f[5] = "ToAtom" And f[6] = ")" And f[4] > 1)
 [
   Local(height,i);
@@ -386,11 +455,17 @@ Rule("RenderFormula",4,1,f[5] = "ToAtom" And f[6] = ")" And f[4] > 1)
     cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
+
+
+
 Rule("RenderFormula",4,5,f[5] = "ToAtom")
 [
   cf[AddN(y, f[2]) ]:=
     StringMidSet(AddN(x,f[1]),f[6],cf[AddN(y, f[2]) ]);
 ];
+
+
+
 
 Rule("RenderFormula",4,6,True)
 [
@@ -400,6 +475,9 @@ Rule("RenderFormula",4,6,True)
   ];
 ];
 
+
+
+
 LocalSymbols(formulaMaxWidth) [
   SetFormulaMaxWidth(width):=
   [
@@ -408,6 +486,9 @@ LocalSymbols(formulaMaxWidth) [
   FormulaMaxWidth() := formulaMaxWidth;
   SetFormulaMaxWidth(60);
 ]; // LocalSymbols(formulaMaxWidth)
+
+
+
 
 Function("PrettyForm",{ff})
 [
@@ -427,6 +508,9 @@ Function("PrettyForm",{ff})
 /*
 HoldArgument("PrettyForm",ff);
 */
+
+
+
 
 EvalFormula(f):=
 [
