@@ -97,8 +97,8 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private int historyIndex = -1;
     private int caretPositionWhenEnterWasPressed = -1;
     private String helpMessage =
-            "Enter an expression after any In> prompt and press <enter> to evaluate it.\n\n" +
-            "Type In> on the left edge of any line to create your own input prompt.\n\n" +
+            "Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.\n\n" +
+            "Type In> on the left end of any line to create your own input prompt.\n\n" +
             "Use <ctrl><up arrow> and <ctrl><down arrow> to navigate through the command line history.\n\n" +
             "The console window is an editable text area, so you can add text to it and remove text from \n" +
             "it as needed.\n\n" +
@@ -129,7 +129,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         textPane = new ColorPane();
 
         textPane.append(purple, "MathPiper version " + org.mathpiper.Version.version + ".\n");
-        textPane.append(purple, "Enter an expression after any In> prompt and press <enter> to evaluate it.\n");
+        textPane.append(purple, "Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.\n");
 
 
         textPane.append(Color.BLACK, "\nIn> ");
@@ -374,71 +374,64 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         if ((int) key == e.VK_ENTER || (int) key == 13) { //== 10) {
             try {
 
-                textPane.replaceRange("", textPane.getCaretPosition() - 1, textPane.getCaretPosition());
+                //System.out.println("key pressed"); //TODO remove.
+
+                //System.out.println("LN: " + lineNumber + "  LSO: " + lineStartOffset + "  LEO: " + lineEndOffset  );
+                if (!e.isShiftDown()) {
+                    textPane.replaceRange("", textPane.getCaretPosition() - 1, textPane.getCaretPosition());
+                }//end if.
 
                 caretPositionWhenEnterWasPressed = textPane.getCaretPosition();
 
                 int lineNumber = textPane.getLineOfOffset(textPane.getCaretPosition());
                 //lineNumber--;
                 String line = "";
-                //System.out.println("key pressed"); //TODO remove.
 
-                //System.out.println("LN: " + lineNumber + "  LSO: " + lineStartOffset + "  LEO: " + lineEndOffset  );
-                if (!e.isShiftDown()) {
+                int lineStartOffset = textPane.getLineStartOffset(lineNumber);
 
-                    int lineStartOffset = textPane.getLineStartOffset(lineNumber);
+                int lineEndOffset = textPane.getLineEndOffset(lineNumber);
 
-                    int lineEndOffset = textPane.getLineEndOffset(lineNumber);
+                line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset);
 
-                    line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+                if (line.startsWith("In> \n") || line.startsWith("In>\n")) {
+                    //textPane.replaceRange("In> \n", lineStartOffset, lineEndOffset); //Just leave the In> there.
+                    //textPane.setCaretPosition(lineEndOffset- 1);
+                    } else if (line.startsWith("In>")) {
 
-                    if (line.startsWith("In> \n") || line.startsWith("In>\n")) {
-                        //textPane.replaceRange("In> \n", lineStartOffset, lineEndOffset); //Just leave the In> there.
-                        //textPane.setCaretPosition(lineEndOffset- 1);
-                    } else if (line.startsWith("In>")){
+                    captureInputLines(lineNumber);
 
-                        captureInputLines(lineNumber);
-
-                        clearPreviousResponse();
+                    clearPreviousResponse();
 
 
-                        String code = inputLines.toString().trim();
+                    String code = inputLines.toString().trim();
 
-                        // System.out.println("1: " + code);
+                    // System.out.println("1: " + code);
 
-                        if (code.endsWith(";;")) {
-                            this.suppressOutput = true;
-                        }
-
-                        code = code.replaceAll(";;;", ";");
-                        code = code.replaceAll(";;", ";");
-
-                        //code = code.replaceAll("\\\\", "");
-
-                        //System.out.println("2: " + code);
-
-                        history.push(code.substring(0, code.length() - 1));
-                        this.historyIndex = -1;
-
-                        if (code.length() > 0) {
-                            interpreter.addResponseListener(this);
-                            interpreter.evaluate("[" + code + "];", true);
-                            haltButton.setEnabled(true);
-
-                        }//end if.
-
-
-
-
-                    }
-                    else
-                    {
-                        textPane.insert(Color.BLACK, "\n", caretPositionWhenEnterWasPressed);
+                    if (code.endsWith(";;")) {
+                        this.suppressOutput = true;
                     }
 
+                    code = code.replaceAll(";;;", ";");
+                    code = code.replaceAll(";;", ";");
+
+                    //code = code.replaceAll("\\\\", "");
+
+                    //System.out.println("2: " + code);
+
+                    history.push(code.substring(0, code.length() - 1));
+                    this.historyIndex = -1;
+
+                    if (code.length() > 0) {
+                        interpreter.addResponseListener(this);
+                        interpreter.evaluate("[" + code + "];", true);
+                        haltButton.setEnabled(true);
+
+                    }//end if.
 
 
-                }//end if.
+                } else {
+                    textPane.insert(Color.BLACK, "\n", caretPositionWhenEnterWasPressed);
+                }
 
 
 
