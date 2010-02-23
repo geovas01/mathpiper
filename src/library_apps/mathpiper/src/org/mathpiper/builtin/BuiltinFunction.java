@@ -233,7 +233,7 @@ public abstract class BuiltinFunction {
 				fileName = functionsPath + fileName;
 				fileName = fileName.replace("/", ".");
 
-				System.out.println(fileName);
+				//System.out.println(fileName);
 
 				try {
 					Class functionClass = Class.forName(fileName, true, BuiltinFunction.class.getClassLoader());
