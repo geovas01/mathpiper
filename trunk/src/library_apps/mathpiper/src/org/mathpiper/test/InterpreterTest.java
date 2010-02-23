@@ -15,6 +15,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
@@ -28,10 +30,22 @@ public class InterpreterTest implements ResponseListener
 
     public InterpreterTest()
     {
-        Interpreter interpreter;
+        
         EvaluationResponse response;
        
-        interpreter = Interpreters.getSynchronousInterpreter();
+        final Interpreter interpreter = Interpreters.getSynchronousInterpreter();
+
+        /*
+         final Timer timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            public void run() {
+                interpreter.haltEvaluation();
+                timer.cancel();
+            }
+
+        }, 1000); //Time out after one second.
+        */
 
         
         // response = interpreter.evaluate("Tell(a);");
@@ -39,6 +53,9 @@ public class InterpreterTest implements ResponseListener
          
         //Load("/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/test/test.mpi");
         response = interpreter.evaluate("LoadScript(\"/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/test/test.mpi\");");
+
+        //timer.cancel();
+        
         System.out.println("Load test: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage() + "   File: " + response.getSourceFileName() + "  Line number: " + response.getLineNumber());
         
        /* response = interpreter.evaluate("3+3;");
