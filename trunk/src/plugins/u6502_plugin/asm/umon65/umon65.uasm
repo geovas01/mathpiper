@@ -3610,7 +3610,7 @@ GtCkAgn *
 	rts
 	
 ;****************************************************************************
-;                 Output Chacacter to Serial Channel Subroutine 
+;                 Output Character to Serial Channel Subroutine 
 ;                   Character to print is in register 'A'
 ;****************************************************************************
 OutChar *

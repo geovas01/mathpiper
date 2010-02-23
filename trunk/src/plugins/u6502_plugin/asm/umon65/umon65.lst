@@ -3653,7 +3653,7 @@ F3EC AD CE 00   003608 |	lda RegTemp	;
 F3EF 60         003610 |	rts
                 003611 |	
                 003612 |;****************************************************************************
-                003613 |;                 Output Chacacter to Serial Channel Subroutine 
+                003613 |;                 Output Character to Serial Channel Subroutine 
                 003614 |;                   Character to print is in register 'A'
                 003615 |;****************************************************************************
 F3F0            003616 |OutChar *
