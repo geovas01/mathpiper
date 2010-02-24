@@ -1,7 +1,5 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-import java.awt.Dimension;
-import java.awt.Point;
 
 class SBoxSubSuperfix extends SBoxCompoundExpression {
 
@@ -35,7 +33,7 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
         return (iSuperfix != null);
     }
 
-    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
         iSize = aSize;
         iPosition = aPosition;
 
@@ -131,25 +129,25 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
                 dlfix = iSubfix.getDimension();
             }
 
-            iExpr.calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y));
+            iExpr.calculatePositions(sg, aSize, new Position(aPosition.x, aPosition.y));
 
             if (iExpr instanceof SBoxSum || iExpr instanceof SBoxInt) {
 
                 if (iSuperfix != null) {
-                    iSuperfix.calculatePositions(sg, aSize - 1, new Point(aPosition.x, (int) (aPosition.y - iExpr.iAscent - dsfix.height)));
+                    iSuperfix.calculatePositions(sg, aSize - 1, new Position(aPosition.x,  (aPosition.y - iExpr.iAscent - dsfix.height)));
                 }
 
                 if (iSubfix != null) {
-                    iSubfix.calculatePositions(sg, aSize - 1, new Point(aPosition.x, (int) (aPosition.y + iSubfix.iAscent + dlfix.height)));
+                    iSubfix.calculatePositions(sg, aSize - 1, new Position(aPosition.x,  (aPosition.y + iSubfix.iAscent + dlfix.height)));
                 }
             } else {
 
                 if (iSuperfix != null) {
-                    iSuperfix.calculatePositions(sg, aSize - 1, new Point((int) (aPosition.x + dexpr.width), (int) (aPosition.y - iExpr.iAscent - iSuperOffset)));
+                    iSuperfix.calculatePositions(sg, aSize - 1, new Position( (aPosition.x + dexpr.width),  (aPosition.y - iExpr.iAscent - iSuperOffset)));
                 }
 
                 if (iSubfix != null) {
-                    iSubfix.calculatePositions(sg, aSize - 1, new Point((int) (aPosition.x + dexpr.width), (int) (aPosition.y + iSubOffset)));
+                    iSubfix.calculatePositions(sg, aSize - 1, new Position( (aPosition.x + dexpr.width),  (aPosition.y + iSubOffset)));
                 }
             }
         }

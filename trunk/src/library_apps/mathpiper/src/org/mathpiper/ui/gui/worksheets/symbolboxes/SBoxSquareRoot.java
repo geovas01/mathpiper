@@ -10,7 +10,7 @@ class SBoxSquareRoot extends SBoxCompoundExpression {
         iExpression = aExpression;
     }
 
-    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
         iSize = aSize;
         iPosition = aPosition;
 
@@ -18,14 +18,14 @@ class SBoxSquareRoot extends SBoxCompoundExpression {
             iExpression.calculatePositions(sg, aSize, null);
 
             Dimensions dim = iExpression.getDimension();
-            iDimension = new Dimensions((int) (dim.width + 6), dim.height + 3);
+            iDimension = new Dimensions( (dim.width + 6), dim.height + 3);
             iAscent = iExpression.getCalculatedAscent() + 3;
         }
 
         if (aPosition != null) {
 
             Dimensions dim = iExpression.getDimension();
-            iExpression.calculatePositions(sg, aSize, new java.awt.Point((int) (aPosition.x + 6), aPosition.y));
+            iExpression.calculatePositions(sg, aSize, new Position( (aPosition.x + 6), aPosition.y));
         }
     }
 

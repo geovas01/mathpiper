@@ -62,11 +62,11 @@ public class ScaledGraphics {
     }
 
     public void drawscaledText(String text, double x, double y, double scale) {
-        int normalFontSize = getFontSize();
+        double normalFontSize = getFontSize();
 
         double scaledFontSize = normalFontSize * scale;
 
-        setFontSize((int) Math.round(scaledFontSize));
+        setFontSize(scaledFontSize);
 
         iG.drawString(text, (int) (x * viewScale), (int) (y * viewScale));
 
@@ -75,7 +75,7 @@ public class ScaledGraphics {
     }
 
 
-    void setFontSize(int aSize) {
+    void setFontSize(double aSize) {
         int newFontSize = (int) (viewScale * aSize);
         if (prevSetFontSize != newFontSize) {
             prevSetFontSize = newFontSize;
@@ -87,13 +87,13 @@ public class ScaledGraphics {
         }
     }
 
-    int getFontSize() {
-        return (int) (prevSetFontSize / viewScale);
+    double getFontSize() {
+        return  (prevSetFontSize / viewScale);
     }
 
-    int getTextWidth(String text) {
+    double getTextWidth(String text) {
         java.awt.geom.Rectangle2D textBoundingRectangle = metrics.getStringBounds(text, iG);
-        return (int) (textBoundingRectangle.getWidth() / viewScale);
+        return  (textBoundingRectangle.getWidth() / viewScale);
     }
 
     double getAscent() {
@@ -101,7 +101,7 @@ public class ScaledGraphics {
     }
 
     double getDescent() {
-        return (int) (metrics.getDescent() / viewScale);
+        return  (metrics.getDescent() / viewScale);
     }
 
     public void setViewScale(double aViewScale) {

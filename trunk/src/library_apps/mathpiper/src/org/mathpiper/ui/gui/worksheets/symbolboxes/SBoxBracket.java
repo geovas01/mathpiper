@@ -9,9 +9,9 @@ import java.awt.Dimension;
 
 class SBoxBracket extends SBoxCompoundExpression {
 
-    int iBracketWidth;
+    double iBracketWidth;
     String iClose;
-    int iFontSize;
+    double iFontSize;
     String iOpen;
 
     private SBox iExpression;
@@ -23,7 +23,7 @@ class SBoxBracket extends SBoxCompoundExpression {
         iExpression = aExpression;
     }
 
-    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
         iSize = aSize;
         iPosition = aPosition;
 
@@ -31,8 +31,8 @@ class SBoxBracket extends SBoxCompoundExpression {
             iExpression.calculatePositions(sg, aSize, null);
 
             Dimensions dim = iExpression.getDimension();
-            iFontSize = (int) dim.height;
-            sg.setFontSize((int) dim.height);
+            iFontSize =  dim.height;
+            sg.setFontSize( dim.height);
             iBracketWidth = SBoxBuilder.fontForSize(aSize) / 2;
             iDimension = new Dimensions(dim.width + 2 * iBracketWidth, dim.height);
             iAscent = iExpression.getCalculatedAscent();
@@ -41,7 +41,7 @@ class SBoxBracket extends SBoxCompoundExpression {
         if (aPosition != null) {
 
             Dimensions dim = iExpression.getDimension();
-            iExpression.calculatePositions(sg, aSize, new java.awt.Point(aPosition.x + iBracketWidth, aPosition.y));
+            iExpression.calculatePositions(sg, aSize, new Position(aPosition.x + iBracketWidth, aPosition.y));
         }
     }
 
