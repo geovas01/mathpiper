@@ -25,7 +25,7 @@ public abstract class SBox {
 
     protected Dimensions iDimension;
 
-    protected java.awt.Point iPosition;
+    protected Position iPosition;
     int iSize;
     double iAscent;
 
@@ -38,7 +38,7 @@ public abstract class SBox {
     }
 
 
-    abstract public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition);
+    abstract public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition);
 
     abstract public void render(ScaledGraphics sg);
 
@@ -46,7 +46,7 @@ public abstract class SBox {
         return iDimension;
     }
 
-    public java.awt.Point getCalculatedPosition() {
+    public Position getCalculatedPosition() {
         return iPosition;
     }
 

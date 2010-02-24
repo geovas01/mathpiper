@@ -1,7 +1,6 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-import java.awt.Dimension;
-import java.awt.Point;
+
 
 class SBoxGrid extends SBoxCompoundExpression {
 
@@ -23,7 +22,7 @@ class SBoxGrid extends SBoxCompoundExpression {
         iExpressions[x + iWidth * y] = aExpression;
     }
 
-    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
 
         int spacing = 12;
         iSize = aSize;
@@ -104,7 +103,7 @@ class SBoxGrid extends SBoxCompoundExpression {
                 double w = 0;
 
                 for (i = 0; i < iWidth; i++) {
-                    iExpressions[i + j * iWidth].calculatePositions(sg, aSize, new Point((int) (aPosition.x + w), (int) (aPosition.y + h)));
+                    iExpressions[i + j * iWidth].calculatePositions(sg, aSize, new Position( (aPosition.x + w),  (aPosition.y + h)));
                     w += iWidths[i] + spacing;
                 }
 

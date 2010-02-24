@@ -23,7 +23,7 @@ class SBoxSymbolName extends SBox {
         }
     }
 
-    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
 
         int height = SBoxBuilder.fontForSize(aSize);
         sg.setFontSize(height);

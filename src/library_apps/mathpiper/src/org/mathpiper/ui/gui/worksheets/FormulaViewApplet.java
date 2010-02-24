@@ -20,13 +20,10 @@ package org.mathpiper.ui.gui.worksheets;
 
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
-import org.mathpiper.ui.gui.worksheets.TexParser;
 
 import java.awt.*;
 import java.applet.*;
-import java.awt.event.*;
-import java.io.*;
-import java.net.*;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.Position;
 
 public class FormulaViewApplet extends Applet
 {
@@ -134,7 +131,7 @@ public class FormulaViewApplet extends Applet
 		}
 		if (expression != null)
 		{
-			expression.calculatePositions(sg, 3, new java.awt.Point(1, d.height/2));
+			expression.calculatePositions(sg, 3, new Position(1, d.height/2));
 			expression.render(sg);
 		}
 	}

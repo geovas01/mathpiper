@@ -8,9 +8,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import javax.swing.DebugGraphics;
 import javax.swing.JPanel;
-import javax.swing.RepaintManager;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.Position;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
 
@@ -45,7 +44,7 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
             int y = 30;
             int iIndent = 0;
             double calculatedAscent = sBoxExpression.getCalculatedAscent();
-            sBoxExpression.calculatePositions(sg, 3, new java.awt.Point(x + iIndent, y + /*calculatedAscent + 10*/30));
+            sBoxExpression.calculatePositions(sg, 3, new Position(x + iIndent, y + /*calculatedAscent + 10*/30));
             SBox.setSequence(1);
             sBoxExpression.render(sg);
 

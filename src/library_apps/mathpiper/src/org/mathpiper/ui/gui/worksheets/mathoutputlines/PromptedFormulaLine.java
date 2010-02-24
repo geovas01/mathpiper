@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.Position;
 
 public class PromptedFormulaLine extends MathOutputLine {
 
@@ -50,14 +51,14 @@ public class PromptedFormulaLine extends MathOutputLine {
         g.setColor(Color.black);
         ScaledGraphics sg = new ScaledGraphics(g);
         sg.setLineThickness(0);
-        sBoxExpression.calculatePositions(sg, 3, new java.awt.Point(x + iIndent, (int) (y + sBoxExpression.getCalculatedAscent() + 10)));
+        sBoxExpression.calculatePositions(sg, 3, new Position(x + iIndent, (y + sBoxExpression.getCalculatedAscent() + 10)));
         sBoxExpression.render(sg);
     }
 
     public int height(Graphics g) {
         if (height == -1) {
             ScaledGraphics sg = new ScaledGraphics(g);
-            sBoxExpression.calculatePositions(sg, 3, new java.awt.Point(0, 0));
+            sBoxExpression.calculatePositions(sg, 3, new Position(0, 0));
             height = (int) sBoxExpression.getDimension().height + 20;
         }
         return height;

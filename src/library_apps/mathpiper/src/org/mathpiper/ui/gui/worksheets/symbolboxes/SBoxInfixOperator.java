@@ -1,7 +1,5 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-import java.awt.Dimension;
-import java.awt.Point;
 
 class SBoxInfixOperator extends SBoxCompoundExpression {
 
@@ -17,7 +15,7 @@ class SBoxInfixOperator extends SBoxCompoundExpression {
         iRight = aRight;
     }
 
-    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
         iSize = aSize;
         iPosition = aPosition;
 
@@ -57,9 +55,9 @@ class SBoxInfixOperator extends SBoxCompoundExpression {
             Dimensions dleft = iLeft.getDimension();
             Dimensions dinfix = iInfix.getDimension();
             Dimensions dright = iRight.getDimension();
-            iLeft.calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y));
-            iInfix.calculatePositions(sg, aSize, new Point((int) (aPosition.x + dleft.width + 2), aPosition.y) );
-            iRight.calculatePositions(sg, aSize, new Point((int) (aPosition.x + dleft.width + dinfix.width + 4), aPosition.y));
+            iLeft.calculatePositions(sg, aSize, new Position(aPosition.x, aPosition.y));
+            iInfix.calculatePositions(sg, aSize, new Position( (aPosition.x + dleft.width + 2), aPosition.y) );
+            iRight.calculatePositions(sg, aSize, new Position( (aPosition.x + dleft.width + dinfix.width + 4), aPosition.y));
         }
     }//end calculatePositions.
 

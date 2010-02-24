@@ -17,7 +17,7 @@ class SBoxDivisor extends SBoxCompoundExpression {
         iDenominator = aDenominator;
     }
 
-    public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
+    public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
         iSize = aSize;
         iPosition = aPosition;
         iDashheight = SBoxBuilder.fontForSize(iSize);
@@ -44,8 +44,8 @@ class SBoxDivisor extends SBoxCompoundExpression {
             Dimensions ddim = iDenominator.getDimension();
             double ynumer = aPosition.y - ndim.height + iNumerator.getCalculatedAscent() - iDashheight;
             double ydenom = aPosition.y + iDenominator.getCalculatedAscent();
-            iNumerator.calculatePositions(sg, aSize, new java.awt.Point((int) (aPosition.x + (iDimension.width - ndim.width) / 2), (int)ynumer));
-            iDenominator.calculatePositions(sg, aSize, new java.awt.Point((int) (aPosition.x + (iDimension.width - ddim.width) / 2), (int)ydenom));
+            iNumerator.calculatePositions(sg, aSize, new Position( (aPosition.x + (iDimension.width - ndim.width) / 2), ynumer));
+            iDenominator.calculatePositions(sg, aSize, new Position( (aPosition.x + (iDimension.width - ddim.width) / 2), ydenom));
         }
     }
 
