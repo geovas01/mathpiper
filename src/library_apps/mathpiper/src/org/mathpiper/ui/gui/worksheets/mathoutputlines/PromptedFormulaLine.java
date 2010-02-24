@@ -18,7 +18,7 @@ package org.mathpiper.ui.gui.worksheets.mathoutputlines;
 
 import org.mathpiper.ui.gui.worksheets.*;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -27,7 +27,7 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.Position;
 
 public class PromptedFormulaLine extends MathOutputLine {
 
-    SBox sBoxExpression;
+    SymbolBox sBoxExpression;
 
     public PromptedFormulaLine(int aIndent, String aPrompt, Font aPromptFont, Color aPromptColor, String aLine) {
         iIndent = aIndent;

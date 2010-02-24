@@ -18,7 +18,7 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.Color;
 
-public abstract class SBox {
+public abstract class SymbolBox {
 
     static boolean drawBoundingBox = false;
     static int sequence = 0;
@@ -34,7 +34,7 @@ public abstract class SBox {
     }
 
     public static void setSequence(int sequence) {
-        SBox.sequence = sequence;
+        SymbolBox.sequence = sequence;
     }
 
 
@@ -58,8 +58,8 @@ public abstract class SBox {
         return iAscent;
     }
 
-    public void drawBoundingBox(ScaledGraphics sg) {
-        sg.setColor(Color.red);
+    public void drawBoundingBox(ScaledGraphics sg, Color color) {
+        sg.setColor(color);
         sg.setLineThickness(0);
         double x0 = iPosition.x;
         double y0 = iPosition.y - getCalculatedAscent();
@@ -77,7 +77,7 @@ public abstract class SBox {
     }//end method.
 
     public static void setDrawBoundingBox(boolean drawBoundingBox) {
-        SBox.drawBoundingBox = drawBoundingBox;
+        SymbolBox.drawBoundingBox = drawBoundingBox;
     }
 
     public static boolean isDrawBoundingBox() {

@@ -2,11 +2,11 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.Dimension;
 
-class SBoxSquareRoot extends SBoxCompoundExpression {
+class SquareRoot extends CompoundExpression {
 
-    private SBox iExpression;
+    private SymbolBox iExpression;
 
-    SBoxSquareRoot(SBox aExpression) {
+    SquareRoot(SymbolBox aExpression) {
         iExpression = aExpression;
     }
 

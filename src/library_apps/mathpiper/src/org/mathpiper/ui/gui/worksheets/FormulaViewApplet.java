@@ -19,7 +19,7 @@
 package org.mathpiper.ui.gui.worksheets;
 
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 import java.awt.*;
 import java.applet.*;
@@ -31,7 +31,7 @@ public class FormulaViewApplet extends Applet
 	Graphics offGraphics = null;
 	Dimension offDimension = null;
 
-	SBox expression = null;
+	SymbolBox expression = null;
 
 	public void init()
 	{

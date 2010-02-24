@@ -1,12 +1,12 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-import java.awt.Dimension;
+import java.awt.Color;
 
-class SBoxSymbolName extends SBox {
+class SymbolName extends SymbolBox {
 
     public String iSymbol;
 
-    SBoxSymbolName(String aSymbol) {
+    SymbolName(String aSymbol) {
         iSymbol = aSymbol;
 
         if (iSymbol.indexOf("\\") == 0) {
@@ -25,7 +25,7 @@ class SBoxSymbolName extends SBox {
 
     public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
 
-        int height = SBoxBuilder.fontForSize(aSize);
+        int height = SymbolBoxBuilder.fontForSize(aSize);
         sg.setFontSize(height);
         iSize = aSize;
         iPosition = aPosition;
@@ -50,7 +50,7 @@ class SBoxSymbolName extends SBox {
 
     public void render(ScaledGraphics sg) {
 
-        if(drawBoundingBox) drawBoundingBox(sg);
+        if(drawBoundingBox) drawBoundingBox(sg, Color.RED);
 
         if (iSymbol.equals("\\pi")) {
 
@@ -76,20 +76,20 @@ class SBoxSymbolName extends SBox {
             sg.drawLine( (iPosition.x + 1 * deltax), ybase, iPosition.x + iDimension.width / 2, ytip);
             sg.drawLine( (iPosition.x + iDimension.width - 1 * deltax), ybase, iPosition.x + iDimension.width / 2, ytip);
         } else if (iSymbol.equals("\\neq")) {
-            sg.setFontSize(SBoxBuilder.fontForSize(iSize));
+            sg.setFontSize(SymbolBoxBuilder.fontForSize(iSize));
             sg.drawText("=", iPosition.x, iPosition.y);
             sg.drawLine(iPosition.x + (2 * iDimension.width) / 3, iPosition.y - iAscent + (2 * iDimension.height) / 6, iPosition.x + (1 * iDimension.width) / 3, iPosition.y - iAscent + (6 * iDimension.height) / 6);
         } else if (iSymbol.equals("\\infty")) {
-            sg.setFontSize(SBoxBuilder.fontForSize(iSize));
+            sg.setFontSize(SymbolBoxBuilder.fontForSize(iSize));
             sg.drawText("o", iPosition.x + 1, iPosition.y);
             sg.drawText("o", iPosition.x + sg.getTextWidth("o") - 2, iPosition.y);
         } else if (iSymbol.equals("\\cdot")) {
 
-            int height = SBoxBuilder.fontForSize(iSize);
+            int height = SymbolBoxBuilder.fontForSize(iSize);
             sg.setFontSize(height);
             sg.drawText(".", iPosition.x, iPosition.y - height / 3);
         } else {
-            sg.setFontSize(SBoxBuilder.fontForSize(iSize));
+            sg.setFontSize(SymbolBoxBuilder.fontForSize(iSize));
             sg.drawText(iSymbol, iPosition.x, iPosition.y);
         }
     }

@@ -18,8 +18,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.worksheets;
 
-import org.mathpiper.ui.gui.worksheets.symbolboxes.SBoxBuilder;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBoxBuilder;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 
 public class TexParser
@@ -133,7 +133,7 @@ public class TexParser
 		return false;
 	}
 
-	public SBox parse(String aExpression)
+	public SymbolBox parse(String aExpression)
 	{
 		iCurrentExpression = aExpression;
 		currentPos = 0;
@@ -142,19 +142,19 @@ public class TexParser
 		return parseTopExpression();
 	}
 
-	SBox parseTopExpression()
+	SymbolBox parseTopExpression()
 	{
 
-		SBoxBuilder builder = new SBoxBuilder();
+		SymbolBoxBuilder builder = new SymbolBoxBuilder();
 
 		parseOneExpression10(builder);
 
-		SBox expression = builder.pop();
+		SymbolBox expression = builder.pop();
 
 		return expression;
 	}
 
-	void parseOneExpression10(SBoxBuilder builder)
+	void parseOneExpression10(SymbolBoxBuilder builder)
 	{
 		parseOneExpression20(builder);
 
@@ -169,7 +169,7 @@ public class TexParser
 		}
 	}
 
-	void parseOneExpression20(SBoxBuilder builder)
+	void parseOneExpression20(SymbolBoxBuilder builder)
 	{
 		parseOneExpression25(builder);
 
@@ -192,7 +192,7 @@ public class TexParser
 		}
 	}
 
-	void parseOneExpression25(SBoxBuilder builder)
+	void parseOneExpression25(SymbolBoxBuilder builder)
 	{
 		parseOneExpression30(builder);
 
@@ -209,7 +209,7 @@ public class TexParser
 		}
 	}
 
-	void parseOneExpression30(SBoxBuilder builder)
+	void parseOneExpression30(SymbolBoxBuilder builder)
 	{
 		parseOneExpression40(builder);
 
@@ -233,7 +233,7 @@ public class TexParser
 		}
 	}
 
-	void parseOneExpression40(SBoxBuilder builder)
+	void parseOneExpression40(SymbolBoxBuilder builder)
 	{
 
 		// atom

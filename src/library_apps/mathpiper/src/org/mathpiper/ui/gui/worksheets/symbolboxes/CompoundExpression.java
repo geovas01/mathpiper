@@ -6,12 +6,12 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.Color;
 
-abstract class SBoxCompoundExpression extends SBox {
+abstract class CompoundExpression extends SymbolBox {
 
-    //SBox[] iExpressions;
+    //SymbolBox[] iExpressions;
 
-   /* SBoxCompoundExpression(int aNrSubExpressions) {
-        iExpressions = new SBox[aNrSubExpressions];
+   /* CompoundExpression(int aNrSubExpressions) {
+        iExpressions = new SymbolBox[aNrSubExpressions];
     }*/
 
     public void render(ScaledGraphics sg) {

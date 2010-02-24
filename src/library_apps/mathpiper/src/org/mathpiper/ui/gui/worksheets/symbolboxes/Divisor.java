@@ -2,15 +2,15 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.Dimension;
 
-class SBoxDivisor extends SBoxCompoundExpression {
+class Divisor extends CompoundExpression {
 
     private int iDashheight = 0;
 
-    private SBox iNumerator;
+    private SymbolBox iNumerator;
 
-    private SBox iDenominator;
+    private SymbolBox iDenominator;
 
-    SBoxDivisor(SBox aNumerator, SBox aDenominator) {
+    Divisor(SymbolBox aNumerator, SymbolBox aDenominator) {
 
         iNumerator = aNumerator;
 
@@ -20,7 +20,7 @@ class SBoxDivisor extends SBoxCompoundExpression {
     public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
         iSize = aSize;
         iPosition = aPosition;
-        iDashheight = SBoxBuilder.fontForSize(iSize);
+        iDashheight = SymbolBoxBuilder.fontForSize(iSize);
 
         if (iDimension == null) {
             iNumerator.calculatePositions(sg, aSize, null);

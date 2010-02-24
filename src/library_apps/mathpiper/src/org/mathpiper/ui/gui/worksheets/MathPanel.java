@@ -11,14 +11,14 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.Position;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
     public class MathPanel extends JPanel
     {
-        private SBox sBoxExpression;
+        private SymbolBox sBoxExpression;
         private double viewScale = 1;
 
-        public MathPanel(SBox sBoxExpression, double viewScale)
+        public MathPanel(SymbolBox sBoxExpression, double viewScale)
         {
             this.sBoxExpression = sBoxExpression;
             this.setOpaque(true);
@@ -45,7 +45,7 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
             int iIndent = 0;
             double calculatedAscent = sBoxExpression.getCalculatedAscent();
             sBoxExpression.calculatePositions(sg, 3, new Position(x + iIndent, y + /*calculatedAscent + 10*/30));
-            SBox.setSequence(1);
+            SymbolBox.setSequence(1);
             sBoxExpression.render(sg);
 
         }
