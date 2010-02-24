@@ -56,7 +56,7 @@ public class SymbolBoxBuilder {
 
             SymbolBox denom = pop();
             SymbolBox numer = pop();
-            push(new Divisor(numer, denom));
+            push(new Fraction(numer, denom));
         } else if (aType.equals("-/2")) {
 
             SymbolBox right = pop();
