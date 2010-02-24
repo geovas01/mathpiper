@@ -34,7 +34,7 @@ import org.mathpiper.ui.gui.hoteqn.sHotEqn;
 import org.mathpiper.ui.gui.worksheets.MathPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.TexParser;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 /**
  *
@@ -105,7 +105,7 @@ public class ViewLatex extends BuiltinFunction {
         }*/
 
         TexParser parser = new TexParser();
-        SBox sBoxExpression = parser.parse(latexString);
+        SymbolBox sBoxExpression = parser.parse(latexString);
         MathPanel mathPanel = new MathPanel(sBoxExpression, viewScale.toDouble());
 
 
