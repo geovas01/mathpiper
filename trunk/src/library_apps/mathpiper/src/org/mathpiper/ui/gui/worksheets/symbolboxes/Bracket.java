@@ -4,9 +4,6 @@
  */
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-import java.awt.Color;
-import java.awt.Dimension;
-
 class Bracket extends CompoundExpression {
 
     double iBracketWidth;

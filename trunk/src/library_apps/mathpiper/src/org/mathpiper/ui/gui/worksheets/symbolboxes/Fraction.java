@@ -1,8 +1,6 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-import java.awt.Dimension;
-
-class Divisor extends CompoundExpression {
+class Fraction extends CompoundExpression {
 
     private int iDashheight = 0;
 
@@ -10,7 +8,7 @@ class Divisor extends CompoundExpression {
 
     private SymbolBox iDenominator;
 
-    Divisor(SymbolBox aNumerator, SymbolBox aDenominator) {
+    Fraction(SymbolBox aNumerator, SymbolBox aDenominator) {
 
         iNumerator = aNumerator;
 

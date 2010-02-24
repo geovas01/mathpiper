@@ -1,7 +1,5 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-import java.awt.Dimension;
-
 class SquareRoot extends CompoundExpression {
 
     private SymbolBox iExpression;
