@@ -14,11 +14,13 @@ class SBoxBracket extends SBoxCompoundExpression {
     int iFontSize;
     String iOpen;
 
+    private SBox iExpression;
+
     SBoxBracket(SBox aExpression, String aOpen, String aClose) {
-        super(1);
+        //super(1);
         iOpen = aOpen;
         iClose = aClose;
-        iExpressions[0] = aExpression;
+        iExpression = aExpression;
     }
 
     public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
@@ -26,36 +28,37 @@ class SBoxBracket extends SBoxCompoundExpression {
         iPosition = aPosition;
 
         if (iDimension == null) {
-            iExpressions[0].calculatePositions(sg, aSize, null);
+            iExpression.calculatePositions(sg, aSize, null);
 
-            Dimension dim = iExpressions[0].getDimension();
+            Dimension dim = iExpression.getDimension();
             iFontSize = dim.height;
             sg.setFontSize(dim.height);
             iBracketWidth = SBoxBuilder.fontForSize(aSize) / 2;
             iDimension = new Dimension(dim.width + 2 * iBracketWidth, dim.height);
-            iAscent = iExpressions[0].getCalculatedAscent();
+            iAscent = iExpression.getCalculatedAscent();
         }
 
         if (aPosition != null) {
 
-            Dimension dim = iExpressions[0].getDimension();
-            iExpressions[0].calculatePositions(sg, aSize, new java.awt.Point(aPosition.x + iBracketWidth, aPosition.y));
+            Dimension dim = iExpression.getDimension();
+            iExpression.calculatePositions(sg, aSize, new java.awt.Point(aPosition.x + iBracketWidth, aPosition.y));
         }
     }
 
     public void render(ScaledGraphics sg) {
-        super.render(sg);
 
         if(drawBoundingBox) drawBoundingBox(sg);
 
-        Dimension dim = iExpressions[0].getDimension();
+        iExpression.render(sg);
+
+        Dimension dim = iExpression.getDimension();
         drawBracket(sg, iOpen, iPosition.x, iPosition.y - getCalculatedAscent());
         drawBracket(sg, iClose, iPosition.x + dim.width + iBracketWidth, iPosition.y - getCalculatedAscent());
     }
 
     void drawBracket(ScaledGraphics sg, String bracket, double x, double y) {
 
-        Dimension dim = iExpressions[0].getDimension();
+        Dimension dim = iExpression.getDimension();
 
         if (bracket.equals("[") || bracket.equals("]")) {
 

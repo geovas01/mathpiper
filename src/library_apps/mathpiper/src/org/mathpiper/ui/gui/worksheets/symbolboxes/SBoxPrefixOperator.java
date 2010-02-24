@@ -5,10 +5,14 @@ import java.awt.Point;
 
 class SBoxPrefixOperator extends SBoxCompoundExpression {
 
+    private SBox iLeft;
+
+    private SBox iRight;
+
     SBoxPrefixOperator(SBox aLeft, SBox aRight) {
-        super(2);
-        iExpressions[0] = aLeft;
-        iExpressions[1] = aRight;
+        //super(2);
+        iLeft = aLeft;
+        iRight = aRight;
     }
 
     public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
@@ -17,11 +21,11 @@ class SBoxPrefixOperator extends SBoxCompoundExpression {
 
         // Get dimensions first
         if (iDimension == null) {
-            iExpressions[0].calculatePositions(sg, aSize, null);
-            iExpressions[1].calculatePositions(sg, aSize, null);
+            iLeft.calculatePositions(sg, aSize, null);
+            iRight.calculatePositions(sg, aSize, null);
 
-            Dimension dleft = iExpressions[0].getDimension();
-            Dimension dright = iExpressions[1].getDimension();
+            Dimension dleft = iLeft.getDimension();
+            Dimension dright = iRight.getDimension();
             int height = dleft.height;
 
             if (height < dright.height) {
@@ -29,19 +33,29 @@ class SBoxPrefixOperator extends SBoxCompoundExpression {
             }
 
             iDimension = new Dimension(dleft.width + dright.width + 2, height);
-            iAscent = iExpressions[0].getCalculatedAscent();
+            iAscent = iLeft.getCalculatedAscent();
 
-            if (iAscent < iExpressions[1].getCalculatedAscent()) {
-                iAscent = iExpressions[1].getCalculatedAscent();
+            if (iAscent < iRight.getCalculatedAscent()) {
+                iAscent = iRight.getCalculatedAscent();
             }
         }
 
         if (aPosition != null) {
 
-            Dimension dleft = iExpressions[0].getDimension();
-            Dimension dright = iExpressions[1].getDimension();
-            iExpressions[0].calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y)); /*+(iAscent-iExpressions[0].getCalculatedAscent())*/
-            iExpressions[1].calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + 2, aPosition.y)); /*+(iAscent-iExpressions[1].getCalculatedAscent())*/
+            Dimension dleft = iLeft.getDimension();
+            Dimension dright = iRight.getDimension();
+            iLeft.calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y)); /*+(iAscent-iLeft.getCalculatedAscent())*/
+            iRight.calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + 2, aPosition.y)); /*+(iAscent-iRight.getCalculatedAscent())*/
         }
-    }
+    }//end calculatePositions.
+
+
+    public void render(ScaledGraphics sg) {
+
+        if(drawBoundingBox) drawBoundingBox(sg);
+
+        iLeft.render(sg);
+
+        iRight.render(sg);
+    }//end render.
 }

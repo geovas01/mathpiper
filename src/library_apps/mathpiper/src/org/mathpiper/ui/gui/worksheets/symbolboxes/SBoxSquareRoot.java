@@ -4,9 +4,10 @@ import java.awt.Dimension;
 
 class SBoxSquareRoot extends SBoxCompoundExpression {
 
+    private SBox iExpression;
+
     SBoxSquareRoot(SBox aExpression) {
-        super(1);
-        iExpressions[0] = aExpression;
+        iExpression = aExpression;
     }
 
     public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
@@ -14,28 +15,29 @@ class SBoxSquareRoot extends SBoxCompoundExpression {
         iPosition = aPosition;
 
         if (iDimension == null) {
-            iExpressions[0].calculatePositions(sg, aSize, null);
+            iExpression.calculatePositions(sg, aSize, null);
 
-            Dimension dim = iExpressions[0].getDimension();
+            Dimension dim = iExpression.getDimension();
             iDimension = new Dimension((int) (dim.width + 6), dim.height + 3);
-            iAscent = iExpressions[0].getCalculatedAscent() + 3;
+            iAscent = iExpression.getCalculatedAscent() + 3;
         }
 
         if (aPosition != null) {
 
-            Dimension dim = iExpressions[0].getDimension();
-            iExpressions[0].calculatePositions(sg, aSize, new java.awt.Point((int) (aPosition.x + 6), aPosition.y));
+            Dimension dim = iExpression.getDimension();
+            iExpression.calculatePositions(sg, aSize, new java.awt.Point((int) (aPosition.x + 6), aPosition.y));
         }
     }
 
     public void render(ScaledGraphics sg) {
-        super.render(sg);
-        
+
         if(drawBoundingBox) drawBoundingBox(sg);
+
+        iExpression.render(sg);
 
         sg.setLineThickness(1);
 
-        Dimension dim = iExpressions[0].getDimension();
+        Dimension dim = iExpression.getDimension();
         double x0 = iPosition.x;
         double y0 = iPosition.y - iAscent;
         double x1 = x0 + dim.width + 6;

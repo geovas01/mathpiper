@@ -8,27 +8,17 @@ import java.awt.Color;
 
 abstract class SBoxCompoundExpression extends SBox {
 
-    SBox[] iExpressions;
+    //SBox[] iExpressions;
 
-    SBoxCompoundExpression(int aNrSubExpressions) {
+   /* SBoxCompoundExpression(int aNrSubExpressions) {
         iExpressions = new SBox[aNrSubExpressions];
-    }
+    }*/
 
     public void render(ScaledGraphics sg) {
 
-        //drawBoundingBox(g);
-        if(drawBoundingBox) drawBoundingBox(sg);
-        
-        int i;
-
-        for (i = 0; i < iExpressions.length; i++) {
-
-            if (iExpressions[i] != null) {
-                iExpressions[i].render(sg);
-            }
-        }
     }
 
+    
     public void drawBoundingBox(ScaledGraphics sg) {
 
         sg.setColor(Color.blue);
