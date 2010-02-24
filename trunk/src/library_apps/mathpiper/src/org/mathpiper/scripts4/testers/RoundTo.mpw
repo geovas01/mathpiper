@@ -33,12 +33,14 @@
 
 
 
+/* ------   moved to separate file (already present but empty!) ---
 
 Macro(NumericEqual,{left,right,precision})
 [
   Verify(RoundTo((@left)-(@right),@precision),0);
 ];
 
+*/
 
 %/mathpiper
 
