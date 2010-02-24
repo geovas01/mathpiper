@@ -20,6 +20,6 @@ package org.mathpiper;
 public class Version
 {
 //"$Id$"
-   public  static final String version = ".78o";
+   public  static final String version = ".78p";
     
 }//end class.
