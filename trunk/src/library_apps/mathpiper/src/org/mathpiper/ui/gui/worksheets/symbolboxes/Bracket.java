@@ -33,7 +33,7 @@ class Bracket extends CompoundExpression {
             Dimensions dim = iExpression.getDimension();
             iFontSize =  dim.height;
             sg.setFontSize( dim.height);
-            iBracketWidth = SymbolBoxBuilder.fontForSize(aSize) / 2;
+            iBracketWidth = ScaledGraphics.fontForSize(aSize) / 2;
             iDimension = new Dimensions(dim.width + 2 * iBracketWidth, dim.height);
             iAscent = iExpression.getCalculatedAscent();
         }

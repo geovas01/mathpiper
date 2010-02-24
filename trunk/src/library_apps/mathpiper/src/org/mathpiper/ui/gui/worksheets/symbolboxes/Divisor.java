@@ -20,7 +20,7 @@ class Divisor extends CompoundExpression {
     public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
         iSize = aSize;
         iPosition = aPosition;
-        iDashheight = SymbolBoxBuilder.fontForSize(iSize);
+        iDashheight = ScaledGraphics.fontForSize(iSize);
 
         if (iDimension == null) {
             iNumerator.calculatePositions(sg, aSize, null);
