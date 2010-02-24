@@ -5,11 +5,16 @@ import java.awt.Point;
 
 class SBoxInfixOperator extends SBoxCompoundExpression {
 
+    private SBox iLeft;
+
+    private SBox iInfix;
+
+    private SBox iRight;
+
     SBoxInfixOperator(SBox aLeft, SBox aInfix, SBox aRight) {
-        super(3);
-        iExpressions[0] = aLeft;
-        iExpressions[1] = aInfix;
-        iExpressions[2] = aRight;
+        iLeft = aLeft;
+        iInfix = aInfix;
+        iRight = aRight;
     }
 
     public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
@@ -18,13 +23,13 @@ class SBoxInfixOperator extends SBoxCompoundExpression {
 
         // Get dimensions first
         if (iDimension == null) {
-            iExpressions[0].calculatePositions(sg, aSize, null);
-            iExpressions[1].calculatePositions(sg, aSize, null);
-            iExpressions[2].calculatePositions(sg, aSize, null);
+            iLeft.calculatePositions(sg, aSize, null);
+            iInfix.calculatePositions(sg, aSize, null);
+            iRight.calculatePositions(sg, aSize, null);
 
-            Dimension dleft = iExpressions[0].getDimension();
-            Dimension dinfix = iExpressions[1].getDimension();
-            Dimension dright = iExpressions[2].getDimension();
+            Dimension dleft = iLeft.getDimension();
+            Dimension dinfix = iInfix.getDimension();
+            Dimension dright = iRight.getDimension();
             int height = dleft.height;
 
             if (height < dinfix.height) {
@@ -36,25 +41,38 @@ class SBoxInfixOperator extends SBoxCompoundExpression {
             }
 
             iDimension = new Dimension(dleft.width + dinfix.width + dright.width + 4, height);
-            iAscent = iExpressions[0].getCalculatedAscent();
+            iAscent = iLeft.getCalculatedAscent();
 
-            if (iAscent < iExpressions[1].getCalculatedAscent()) {
-                iAscent = iExpressions[1].getCalculatedAscent();
+            if (iAscent < iInfix.getCalculatedAscent()) {
+                iAscent = iInfix.getCalculatedAscent();
             }
 
-            if (iAscent < iExpressions[2].getCalculatedAscent()) {
-                iAscent = iExpressions[2].getCalculatedAscent();
+            if (iAscent < iRight.getCalculatedAscent()) {
+                iAscent = iRight.getCalculatedAscent();
             }
         }
 
         if (aPosition != null) {
 
-            Dimension dleft = iExpressions[0].getDimension();
-            Dimension dinfix = iExpressions[1].getDimension();
-            Dimension dright = iExpressions[2].getDimension();
-            iExpressions[0].calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y));
-            iExpressions[1].calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + 2, aPosition.y));
-            iExpressions[2].calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + dinfix.width + 4, aPosition.y));
+            Dimension dleft = iLeft.getDimension();
+            Dimension dinfix = iInfix.getDimension();
+            Dimension dright = iRight.getDimension();
+            iLeft.calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y));
+            iInfix.calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + 2, aPosition.y));
+            iRight.calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + dinfix.width + 4, aPosition.y));
         }
-    }
-}
+    }//end calculatePositions.
+
+
+    public void render(ScaledGraphics sg) {
+
+        if(drawBoundingBox) drawBoundingBox(sg);
+
+        iLeft.render(sg);
+
+        iInfix.render(sg);
+
+        iRight.render(sg);
+    }//end render.
+
+}//end class.

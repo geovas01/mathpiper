@@ -10,8 +10,11 @@ class SBoxGrid extends SBoxCompoundExpression {
     int iWidth;
     int[] iWidths;
 
+    private SBox iExpressions[];
+
     SBoxGrid(int aWidth, int aHeight) {
-        super(aWidth * aHeight);
+        //super(aWidth * aHeight);
+        iExpressions = new SBox[aWidth * aHeight];
         iWidth = aWidth;
         iHeight = aHeight;
     }
@@ -109,5 +112,22 @@ class SBoxGrid extends SBoxCompoundExpression {
                 h = h + iHeights[j] + spacing;
             }
         }
-    }
-}
+    }//end calculatePositions.
+
+
+    public void render(ScaledGraphics sg) {
+
+        if(drawBoundingBox) drawBoundingBox(sg);
+
+        int i;
+
+        for (i = 0; i < iExpressions.length; i++) {
+
+            if (iExpressions[i] != null) {
+                iExpressions[i].render(sg);
+            }
+        }//end for.
+
+    }//end render.
+
+}//end class

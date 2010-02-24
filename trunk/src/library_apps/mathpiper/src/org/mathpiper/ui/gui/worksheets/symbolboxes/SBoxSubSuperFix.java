@@ -9,24 +9,30 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
     double iSubOffset = 0;
     double iSuperOffset = 0;
 
+    private SBox iExpr;
+
+    private SBox iSuperfix;
+
+    private SBox iSubfix;
+
     SBoxSubSuperfix(SBox aExpr, SBox aSuperfix, SBox aSubfix) {
-        super(3);
-        iExpressions[0] = aExpr;
-        iExpressions[1] = aSuperfix;
-        iExpressions[2] = aSubfix;
+
+        iExpr = aExpr;
+        iSuperfix = aSuperfix;
+        iSubfix = aSubfix;
     }
 
     void setSuperfix(SBox aExpression) {
-        iExpressions[1] = aExpression;
+        iSuperfix = aExpression;
     }
 
     void setSubfix(SBox aExpression) {
-        iExpressions[2] = aExpression;
+        iSubfix = aExpression;
     }
 
     boolean hasSuperfix() {
 
-        return (iExpressions[1] != null);
+        return (iSuperfix != null);
     }
 
     public void calculatePositions(ScaledGraphics sg, int aSize, java.awt.Point aPosition) {
@@ -38,36 +44,36 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
 
             Dimension dsfix = new Dimension(0, 0);
             Dimension dlfix = new Dimension(0, 0);
-            iExpressions[0].calculatePositions(sg, aSize, null);
+            iExpr.calculatePositions(sg, aSize, null);
 
-            if (iExpressions[1] != null) {
-                iExpressions[1].calculatePositions(sg, aSize - 1, null);
+            if (iSuperfix != null) {
+                iSuperfix.calculatePositions(sg, aSize - 1, null);
             }
 
-            if (iExpressions[2] != null) {
-                iExpressions[2].calculatePositions(sg, aSize - 1, null);
+            if (iSubfix != null) {
+                iSubfix.calculatePositions(sg, aSize - 1, null);
             }
 
-            Dimension dexpr = iExpressions[0].getDimension();
+            Dimension dexpr = iExpr.getDimension();
 
-            if (iExpressions[1] != null) {
-                dsfix = iExpressions[1].getDimension();
+            if (iSuperfix != null) {
+                dsfix = iSuperfix.getDimension();
             }
 
-            if (iExpressions[2] != null) {
-                dlfix = iExpressions[2].getDimension();
+            if (iSubfix != null) {
+                dlfix = iSubfix.getDimension();
             }
 
-            if (iExpressions[0] instanceof SBoxSum || iExpressions[0] instanceof SBoxInt) {
+            if (iExpr instanceof SBoxSum || iExpr instanceof SBoxInt) {
                 iSuperOffset = 0;
                 iSubOffset = 0;
 
-                if (iExpressions[1] != null) {
-                    iExtent = iExtent + iExpressions[1].iAscent;
+                if (iSuperfix != null) {
+                    iExtent = iExtent + iSuperfix.iAscent;
                 }
 
-                if (iExpressions[2] != null) {
-                    iExtent = iExtent + iExpressions[2].iAscent;
+                if (iSubfix != null) {
+                    iExtent = iExtent + iSubfix.iAscent;
                 }
 
                 int fixMaxWidth = dsfix.width;
@@ -83,15 +89,15 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
                 iDimension = new Dimension(fixMaxWidth, (int) (dexpr.height + iExtent));
             } else {
 
-                if (iExpressions[1] != null) {
-                    iSuperOffset = iExpressions[1].getDimension().height - iExpressions[1].iAscent - iExpressions[0].getDimension().height / 4;
-                    iExtent = iExtent + iSuperOffset + iExpressions[1].iAscent;
+                if (iSuperfix != null) {
+                    iSuperOffset = iSuperfix.getDimension().height - iSuperfix.iAscent - iExpr.getDimension().height / 4;
+                    iExtent = iExtent + iSuperOffset + iSuperfix.iAscent;
                 }
 
-                if (iExpressions[2] != null) {
-                    iSubOffset = iExpressions[2].iAscent;
+                if (iSubfix != null) {
+                    iSubOffset = iSubfix.iAscent;
 
-                    double delta = iSubOffset + (iExpressions[2].getDimension().height - iExpressions[2].iAscent) - (iExpressions[0].getDimension().height - iExpressions[0].iAscent);
+                    double delta = iSubOffset + (iSubfix.getDimension().height - iSubfix.iAscent) - (iExpr.getDimension().height - iExpr.iAscent);
                     iExtent = iExtent + delta;
                 }
 
@@ -104,10 +110,10 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
                 iDimension = new Dimension(dexpr.width + fixMaxWidth, (int) (dexpr.height + iExtent));
             }
 
-            iAscent = iExpressions[0].getCalculatedAscent() + iExtent;
+            iAscent = iExpr.getCalculatedAscent() + iExtent;
 
-            if (iExpressions[2] != null) {
-                iAscent = iAscent - iExpressions[2].getDimension().height;
+            if (iSubfix != null) {
+                iAscent = iAscent - iSubfix.getDimension().height;
             }
         }
 
@@ -115,37 +121,54 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
 
             Dimension dsfix = new Dimension(0, 0);
             Dimension dlfix = new Dimension(0, 0);
-            Dimension dexpr = iExpressions[0].getDimension();
+            Dimension dexpr = iExpr.getDimension();
 
-            if (iExpressions[1] != null) {
-                dsfix = iExpressions[1].getDimension();
+            if (iSuperfix != null) {
+                dsfix = iSuperfix.getDimension();
             }
 
-            if (iExpressions[2] != null) {
-                dlfix = iExpressions[2].getDimension();
+            if (iSubfix != null) {
+                dlfix = iSubfix.getDimension();
             }
 
-            iExpressions[0].calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y));
+            iExpr.calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y));
 
-            if (iExpressions[0] instanceof SBoxSum || iExpressions[0] instanceof SBoxInt) {
+            if (iExpr instanceof SBoxSum || iExpr instanceof SBoxInt) {
 
-                if (iExpressions[1] != null) {
-                    iExpressions[1].calculatePositions(sg, aSize - 1, new Point(aPosition.x, (int) (aPosition.y - iExpressions[0].iAscent - dsfix.height)));
+                if (iSuperfix != null) {
+                    iSuperfix.calculatePositions(sg, aSize - 1, new Point(aPosition.x, (int) (aPosition.y - iExpr.iAscent - dsfix.height)));
                 }
 
-                if (iExpressions[2] != null) {
-                    iExpressions[2].calculatePositions(sg, aSize - 1, new Point(aPosition.x, (int) (aPosition.y + iExpressions[2].iAscent + dlfix.height)));
+                if (iSubfix != null) {
+                    iSubfix.calculatePositions(sg, aSize - 1, new Point(aPosition.x, (int) (aPosition.y + iSubfix.iAscent + dlfix.height)));
                 }
             } else {
 
-                if (iExpressions[1] != null) {
-                    iExpressions[1].calculatePositions(sg, aSize - 1, new Point(aPosition.x + dexpr.width, (int) (aPosition.y - iExpressions[0].iAscent - iSuperOffset)));
+                if (iSuperfix != null) {
+                    iSuperfix.calculatePositions(sg, aSize - 1, new Point(aPosition.x + dexpr.width, (int) (aPosition.y - iExpr.iAscent - iSuperOffset)));
                 }
 
-                if (iExpressions[2] != null) {
-                    iExpressions[2].calculatePositions(sg, aSize - 1, new Point(aPosition.x + dexpr.width, (int) (aPosition.y + iSubOffset)));
+                if (iSubfix != null) {
+                    iSubfix.calculatePositions(sg, aSize - 1, new Point(aPosition.x + dexpr.width, (int) (aPosition.y + iSubOffset)));
                 }
             }
         }
+    }//end calculate positions.
+
+    public void render(ScaledGraphics sg) {
+
+        if(drawBoundingBox) drawBoundingBox(sg);
+
+        iExpr.render(sg);
+
+        if(iSuperfix != null)
+        {
+            iSuperfix.render(sg);
+        }
+        else
+        {
+            iSubfix.render(sg);
+        }
     }
-}
+
+}//end class.
