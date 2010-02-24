@@ -7,16 +7,16 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 import java.awt.Color;
 import java.awt.Dimension;
 
-class SBoxBracket extends SBoxCompoundExpression {
+class Bracket extends CompoundExpression {
 
     double iBracketWidth;
     String iClose;
     double iFontSize;
     String iOpen;
 
-    private SBox iExpression;
+    private SymbolBox iExpression;
 
-    SBoxBracket(SBox aExpression, String aOpen, String aClose) {
+    Bracket(SymbolBox aExpression, String aOpen, String aClose) {
         //super(1);
         iOpen = aOpen;
         iClose = aClose;
@@ -33,7 +33,7 @@ class SBoxBracket extends SBoxCompoundExpression {
             Dimensions dim = iExpression.getDimension();
             iFontSize =  dim.height;
             sg.setFontSize( dim.height);
-            iBracketWidth = SBoxBuilder.fontForSize(aSize) / 2;
+            iBracketWidth = SymbolBoxBuilder.fontForSize(aSize) / 2;
             iDimension = new Dimensions(dim.width + 2 * iBracketWidth, dim.height);
             iAscent = iExpression.getCalculatedAscent();
         }

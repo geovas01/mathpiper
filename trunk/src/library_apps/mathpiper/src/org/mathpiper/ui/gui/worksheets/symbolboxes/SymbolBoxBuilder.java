@@ -20,9 +20,9 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 import org.mathpiper.ui.gui.worksheets.*;
 import java.awt.*;
 
-public class SBoxBuilder {
+public class SymbolBoxBuilder {
 
-    SBox[] stack = new SBox[1024];
+    SymbolBox[] stack = new SymbolBox[1024];
     int stackDepth = 0;
 
     static int fontForSize(int aSize) {
@@ -54,15 +54,15 @@ public class SBoxBuilder {
         }
     }
 
-    public SBox pop() {
+    public SymbolBox pop() {
         stackDepth--;
 
-        SBox result = stack[stackDepth];
+        SymbolBox result = stack[stackDepth];
 
         return result;
     }
 
-    void push(SBox aSbox) {
+    void push(SymbolBox aSbox) {
 
         stack[stackDepth] = aSbox;
 
@@ -78,45 +78,45 @@ public class SBoxBuilder {
 
         if (aType.equals("=") || aType.equals("\\neq") || aType.equals("+") || aType.equals(",") || aType.equals("\\wedge") || aType.equals("\\vee") || aType.equals("<") || aType.equals(">") || aType.equals("<=") || aType.equals(">=")) {
 
-            SBox right = pop();
-            SBox left = pop();
-            push(new SBoxInfixOperator(left, new SBoxSymbolName(aType), right));
+            SymbolBox right = pop();
+            SymbolBox left = pop();
+            push(new InfixOperator(left, new SymbolName(aType), right));
         } else if (aType.equals("/")) {
 
-            SBox denom = pop();
-            SBox numer = pop();
-            push(new SBoxDivisor(numer, denom));
+            SymbolBox denom = pop();
+            SymbolBox numer = pop();
+            push(new Divisor(numer, denom));
         } else if (aType.equals("-/2")) {
 
-            SBox right = pop();
-            SBox left = pop();
-            push(new SBoxInfixOperator(left, new SBoxSymbolName("-"), right));
+            SymbolBox right = pop();
+            SymbolBox left = pop();
+            push(new InfixOperator(left, new SymbolName("-"), right));
         } else if (aType.equals("-/1")) {
 
-            SBox right = pop();
-            push(new SBoxPrefixOperator(new SBoxSymbolName("-"), right));
+            SymbolBox right = pop();
+            push(new PrefixOperator(new SymbolName("-"), right));
         } else if (aType.equals("~")) {
 
-            SBox right = pop();
-            push(new SBoxPrefixOperator(new SBoxSymbolName("~"), right));
+            SymbolBox right = pop();
+            push(new PrefixOperator(new SymbolName("~"), right));
         } else if (aType.equals("!")) {
 
-            SBox left = pop();
-            push(new SBoxPrefixOperator(left, new SBoxSymbolName("!")));
+            SymbolBox left = pop();
+            push(new PrefixOperator(left, new SymbolName("!")));
         } else if (aType.equals("*")) {
 
-            SBox right = pop();
-            SBox left = pop();
-            push(new SBoxInfixOperator(left, new SBoxSymbolName(""), right));
+            SymbolBox right = pop();
+            SymbolBox left = pop();
+            push(new InfixOperator(left, new SymbolName(""), right));
         } else if (aType.equals("[func]")) {
 
-            SBox right = pop();
-            SBox left = pop();
-            push(new SBoxPrefixOperator(left, right));
+            SymbolBox right = pop();
+            SymbolBox left = pop();
+            push(new PrefixOperator(left, right));
         } else if (aType.equals("^")) {
 
-            SBox right = pop();
-            SBox left = pop();
+            SymbolBox right = pop();
+            SymbolBox left = pop();
             boolean appendToExisting = false;
 
             if (left instanceof SBoxSubSuperfix) {
@@ -138,8 +138,8 @@ public class SBoxBuilder {
             }
         } else if (aType.equals("_")) {
 
-            SBox right = pop();
-            SBox left = pop();
+            SymbolBox right = pop();
+            SymbolBox left = pop();
 
             if (left instanceof SBoxSubSuperfix) {
 
@@ -151,31 +151,31 @@ public class SBoxBuilder {
             }
         } else if (aType.equals("[sqrt]")) {
 
-            SBox left = pop();
-            push(new SBoxSquareRoot(left));
+            SymbolBox left = pop();
+            push(new SquareRoot(left));
         } else if (aType.equals("[sum]")) {
-            push(new SBoxSum());
+            push(new Sum());
         } else if (aType.equals("[int]")) {
-            push(new SBoxInt());
+            push(new Integral());
         } else if (aType.equals("[roundBracket]")) {
 
-            SBox left = pop();
-            push(new SBoxBracket(left, "(", ")"));
+            SymbolBox left = pop();
+            push(new Bracket(left, "(", ")"));
         } else if (aType.equals("[squareBracket]")) {
 
-            SBox left = pop();
-            push(new SBoxBracket(left, "[", "]"));
+            SymbolBox left = pop();
+            push(new Bracket(left, "[", "]"));
         } else if (aType.equals("[accoBracket]")) {
 
-            SBox left = pop();
-            push(new SBoxBracket(left, "{", "}"));
+            SymbolBox left = pop();
+            push(new Bracket(left, "{", "}"));
         } else if (aType.equals("[grid]")) {
 
-            SBox widthBox = pop();
-            SBox heightBox = pop();
-            int width = Integer.parseInt(((SBoxSymbolName) widthBox).iSymbol);
-            int height = Integer.parseInt(((SBoxSymbolName) heightBox).iSymbol);
-            SBoxGrid grid = new SBoxGrid(width, height);
+            SymbolBox widthBox = pop();
+            SymbolBox heightBox = pop();
+            int width = Integer.parseInt(((SymbolName) widthBox).iSymbol);
+            int height = Integer.parseInt(((SymbolName) heightBox).iSymbol);
+            Grid grid = new Grid(width, height);
             int i;
             int j;
 
@@ -183,19 +183,19 @@ public class SBoxBuilder {
 
                 for (i = width - 1; i >= 0; i--) {
 
-                    SBox value = pop();
+                    SymbolBox value = pop();
                     grid.SetSBox(i, j, value);
                 }
             }
 
             push(grid);
         } else {
-            push(new SBoxSymbolName(aType));
+            push(new SymbolName(aType));
         }
     }
 
     public void processLiteral(String aExpression) {
-        push(new SBoxSymbolName(aExpression));
+        push(new SymbolName(aExpression));
     }
 }//end class
 

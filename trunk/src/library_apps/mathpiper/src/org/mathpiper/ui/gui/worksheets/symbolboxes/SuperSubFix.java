@@ -1,30 +1,30 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 
-class SBoxSubSuperfix extends SBoxCompoundExpression {
+class SBoxSubSuperfix extends CompoundExpression {
 
     double iExtent = 0;
     double iSubOffset = 0;
     double iSuperOffset = 0;
 
-    private SBox iExpr;
+    private SymbolBox iExpr;
 
-    private SBox iSuperfix;
+    private SymbolBox iSuperfix;
 
-    private SBox iSubfix;
+    private SymbolBox iSubfix;
 
-    SBoxSubSuperfix(SBox aExpr, SBox aSuperfix, SBox aSubfix) {
+    SBoxSubSuperfix(SymbolBox aExpr, SymbolBox aSuperfix, SymbolBox aSubfix) {
 
         iExpr = aExpr;
         iSuperfix = aSuperfix;
         iSubfix = aSubfix;
     }
 
-    void setSuperfix(SBox aExpression) {
+    void setSuperfix(SymbolBox aExpression) {
         iSuperfix = aExpression;
     }
 
-    void setSubfix(SBox aExpression) {
+    void setSubfix(SymbolBox aExpression) {
         iSubfix = aExpression;
     }
 
@@ -62,7 +62,7 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
                 dlfix = iSubfix.getDimension();
             }
 
-            if (iExpr instanceof SBoxSum || iExpr instanceof SBoxInt) {
+            if (iExpr instanceof Sum || iExpr instanceof Integral) {
                 iSuperOffset = 0;
                 iSubOffset = 0;
 
@@ -131,7 +131,7 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
 
             iExpr.calculatePositions(sg, aSize, new Position(aPosition.x, aPosition.y));
 
-            if (iExpr instanceof SBoxSum || iExpr instanceof SBoxInt) {
+            if (iExpr instanceof Sum || iExpr instanceof Integral) {
 
                 if (iSuperfix != null) {
                     iSuperfix.calculatePositions(sg, aSize - 1, new Position(aPosition.x,  (aPosition.y - iExpr.iAscent - dsfix.height)));

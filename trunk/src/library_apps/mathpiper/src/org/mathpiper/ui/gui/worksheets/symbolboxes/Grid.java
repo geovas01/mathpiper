@@ -2,23 +2,23 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 
 
-class SBoxGrid extends SBoxCompoundExpression {
+class Grid extends CompoundExpression {
 
     int iHeight;
     double[] iHeights;
     int iWidth;
     double[] iWidths;
 
-    private SBox iExpressions[];
+    private SymbolBox iExpressions[];
 
-    SBoxGrid(int aWidth, int aHeight) {
+    Grid(int aWidth, int aHeight) {
         //super(aWidth * aHeight);
-        iExpressions = new SBox[aWidth * aHeight];
+        iExpressions = new SymbolBox[aWidth * aHeight];
         iWidth = aWidth;
         iHeight = aHeight;
     }
 
-    void SetSBox(int x, int y, SBox aExpression) {
+    void SetSBox(int x, int y, SymbolBox aExpression) {
         iExpressions[x + iWidth * y] = aExpression;
     }
 

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 public class MathPanelController extends JPanel implements ChangeListener, ItemListener {
 
@@ -33,7 +33,7 @@ public class MathPanelController extends JPanel implements ChangeListener, ItemL
 
         JCheckBox drawBoundingBoxCheckBox = new JCheckBox("Draw Bounding Boxes");
 
-        drawBoundingBoxCheckBox.setSelected(SBox.isDrawBoundingBox());
+        drawBoundingBoxCheckBox.setSelected(SymbolBox.isDrawBoundingBox());
 
         drawBoundingBoxCheckBox.addItemListener(this);
 
@@ -57,11 +57,11 @@ public class MathPanelController extends JPanel implements ChangeListener, ItemL
 
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
-            SBox.setDrawBoundingBox(true);
+            SymbolBox.setDrawBoundingBox(true);
             mathPanel.repaint();
 
         } else {
-            SBox.setDrawBoundingBox(false);
+            SymbolBox.setDrawBoundingBox(false);
             mathPanel.repaint();
         }
 

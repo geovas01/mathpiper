@@ -2,13 +2,13 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 
 
-class SBoxPrefixOperator extends SBoxCompoundExpression {
+class PrefixOperator extends CompoundExpression {
 
-    private SBox iLeft;
+    private SymbolBox iLeft;
 
-    private SBox iRight;
+    private SymbolBox iRight;
 
-    SBoxPrefixOperator(SBox aLeft, SBox aRight) {
+    PrefixOperator(SymbolBox aLeft, SymbolBox aRight) {
         //super(2);
         iLeft = aLeft;
         iRight = aRight;

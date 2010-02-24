@@ -1,12 +1,12 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-import java.awt.Dimension;
+import java.awt.Color;
 
-class SBoxSum extends SBox {
+class Sum extends SymbolBox {
 
     public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
 
-        int height = SBoxBuilder.fontForSize(aSize);
+        int height = SymbolBoxBuilder.fontForSize(aSize);
         sg.setFontSize(height);
         iSize = aSize;
         iPosition = aPosition;
@@ -16,9 +16,9 @@ class SBoxSum extends SBox {
 
     public void render(ScaledGraphics sg) {
 
-        if(drawBoundingBox) drawBoundingBox(sg);
+        if(drawBoundingBox) drawBoundingBox(sg, Color.RED);
 
-        int height = SBoxBuilder.fontForSize(iSize);
+        int height = SymbolBoxBuilder.fontForSize(iSize);
         sg.setLineThickness(2);
 
         double x0 = iPosition.x;

@@ -1,15 +1,15 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 
-class SBoxInfixOperator extends SBoxCompoundExpression {
+class InfixOperator extends CompoundExpression {
 
-    private SBox iLeft;
+    private SymbolBox iLeft;
 
-    private SBox iInfix;
+    private SymbolBox iInfix;
 
-    private SBox iRight;
+    private SymbolBox iRight;
 
-    SBoxInfixOperator(SBox aLeft, SBox aInfix, SBox aRight) {
+    InfixOperator(SymbolBox aLeft, SymbolBox aInfix, SymbolBox aRight) {
         iLeft = aLeft;
         iInfix = aInfix;
         iRight = aRight;
