@@ -35,7 +35,7 @@ import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.ui.gui.worksheets.MathPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.TexParser;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.SBox;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 /**
  *
@@ -89,7 +89,7 @@ public class ViewMath extends BuiltinFunction {
 
 
         TexParser parser = new TexParser();
-        SBox sBoxExpression = parser.parse(texString);
+        SymbolBox sBoxExpression = parser.parse(texString);
 
         MathPanel mathPanel = new MathPanel(sBoxExpression, viewScale.toDouble());
 
