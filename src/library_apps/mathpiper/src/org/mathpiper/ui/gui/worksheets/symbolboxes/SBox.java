@@ -23,7 +23,8 @@ public abstract class SBox {
     static boolean drawBoundingBox = false;
     static int sequence = 0;
 
-    protected java.awt.Dimension iDimension;
+    protected Dimensions iDimension;
+
     protected java.awt.Point iPosition;
     int iSize;
     double iAscent;
@@ -41,7 +42,7 @@ public abstract class SBox {
 
     abstract public void render(ScaledGraphics sg);
 
-    public java.awt.Dimension getDimension() {
+    public Dimensions getDimension() {
         return iDimension;
     }
 

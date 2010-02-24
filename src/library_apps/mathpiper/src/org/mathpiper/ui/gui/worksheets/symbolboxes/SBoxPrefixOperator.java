@@ -24,15 +24,15 @@ class SBoxPrefixOperator extends SBoxCompoundExpression {
             iLeft.calculatePositions(sg, aSize, null);
             iRight.calculatePositions(sg, aSize, null);
 
-            Dimension dleft = iLeft.getDimension();
-            Dimension dright = iRight.getDimension();
-            int height = dleft.height;
+            Dimensions dleft = iLeft.getDimension();
+            Dimensions dright = iRight.getDimension();
+            double height = dleft.height;
 
             if (height < dright.height) {
                 height = dright.height;
             }
 
-            iDimension = new Dimension(dleft.width + dright.width + 2, height);
+            iDimension = new Dimensions(dleft.width + dright.width + 2, height);
             iAscent = iLeft.getCalculatedAscent();
 
             if (iAscent < iRight.getCalculatedAscent()) {
@@ -42,10 +42,10 @@ class SBoxPrefixOperator extends SBoxCompoundExpression {
 
         if (aPosition != null) {
 
-            Dimension dleft = iLeft.getDimension();
-            Dimension dright = iRight.getDimension();
+            Dimensions dleft = iLeft.getDimension();
+            Dimensions dright = iRight.getDimension();
             iLeft.calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y)); /*+(iAscent-iLeft.getCalculatedAscent())*/
-            iRight.calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + 2, aPosition.y)); /*+(iAscent-iRight.getCalculatedAscent())*/
+            iRight.calculatePositions(sg, aSize, new Point((int) (aPosition.x + dleft.width + 2), aPosition.y)); /*+(iAscent-iRight.getCalculatedAscent())*/
         }
     }//end calculatePositions.
 

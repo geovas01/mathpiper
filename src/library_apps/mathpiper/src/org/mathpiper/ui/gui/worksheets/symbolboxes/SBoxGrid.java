@@ -6,9 +6,9 @@ import java.awt.Point;
 class SBoxGrid extends SBoxCompoundExpression {
 
     int iHeight;
-    int[] iHeights;
+    double[] iHeights;
     int iWidth;
-    int[] iWidths;
+    double[] iWidths;
 
     private SBox iExpressions[];
 
@@ -39,8 +39,8 @@ class SBoxGrid extends SBoxCompoundExpression {
                 iExpressions[i].calculatePositions(sg, aSize, null);
             }
 
-            iWidths = new int[iWidth];
-            iHeights = new int[iHeight];
+            iWidths = new double[iWidth];
+            iHeights = new double[iHeight];
 
             for (i = 0; i < iWidth; i++) {
                 iWidths[i] = 0;
@@ -54,7 +54,7 @@ class SBoxGrid extends SBoxCompoundExpression {
 
                 for (j = 0; j < iHeight; j++) {
 
-                    Dimension d = iExpressions[i + iWidth * j].getDimension();
+                    Dimensions d = iExpressions[i + iWidth * j].getDimension();
 
                     if (iWidths[i] < d.width) {
                         iWidths[i] = d.width;
@@ -66,19 +66,19 @@ class SBoxGrid extends SBoxCompoundExpression {
                 }
             }
 
-            int totalWidth = 0;
+            double totalWidth = 0;
 
             for (i = 0; i < iWidth; i++) {
                 totalWidth = totalWidth + iWidths[i];
             }
 
-            int totalHeight = 0;
+            double totalHeight = 0;
 
             for (j = 0; j < iHeight; j++) {
                 totalHeight = totalHeight + iHeights[j];
             }
 
-            iDimension = new Dimension(totalWidth + spacing * (iWidth), totalHeight + spacing * (iHeight));
+            iDimension = new Dimensions(totalWidth + spacing * (iWidth), totalHeight + spacing * (iHeight));
             iAscent = iDimension.height / 2;
         }
 
