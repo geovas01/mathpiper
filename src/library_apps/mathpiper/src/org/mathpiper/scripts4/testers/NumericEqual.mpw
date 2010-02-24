@@ -1,5 +1,10 @@
-%mathpiper,def=""
+%mathpiper,def="NumericEqual"
 
-//Not defined in scripts. todo:tk.
+Retract("NumericEqual",*);
+
+Macro(NumericEqual,{left,right,precision})
+[
+  Verify(RoundTo((@left)-(@right),@precision),0);
+];
 
 %/mathpiper
