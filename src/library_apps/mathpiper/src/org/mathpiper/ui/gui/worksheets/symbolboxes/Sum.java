@@ -6,7 +6,7 @@ class Sum extends SymbolBox {
 
     public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
 
-        int height = SymbolBoxBuilder.fontForSize(aSize);
+        int height = ScaledGraphics.fontForSize(aSize);
         sg.setFontSize(height);
         iSize = aSize;
         iPosition = aPosition;
@@ -18,7 +18,7 @@ class Sum extends SymbolBox {
 
         if(drawBoundingBox) drawBoundingBox(sg, Color.RED);
 
-        int height = SymbolBoxBuilder.fontForSize(iSize);
+        int height = ScaledGraphics.fontForSize(iSize);
         sg.setLineThickness(2);
 
         double x0 = iPosition.x;

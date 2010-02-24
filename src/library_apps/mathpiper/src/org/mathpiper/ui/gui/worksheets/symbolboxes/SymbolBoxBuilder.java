@@ -17,42 +17,13 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-import org.mathpiper.ui.gui.worksheets.*;
-import java.awt.*;
 
 public class SymbolBoxBuilder {
 
     SymbolBox[] stack = new SymbolBox[1024];
+
     int stackDepth = 0;
 
-    static int fontForSize(int aSize) {
-
-        if (aSize > 3) {
-            aSize = 3;
-        }
-
-        if (aSize < 0) {
-            aSize = 0;
-        }
-
-        switch (aSize) {
-
-            case 0:
-                return 6;
-
-            case 1:
-                return 8;
-
-            case 2:
-                return 12;
-
-            case 3:
-                return 16;
-
-            default:
-                return 16;
-        }
-    }
 
     public SymbolBox pop() {
         stackDepth--;

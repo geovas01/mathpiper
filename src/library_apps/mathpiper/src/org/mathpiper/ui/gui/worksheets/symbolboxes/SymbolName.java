@@ -25,7 +25,7 @@ class SymbolName extends SymbolBox {
 
     public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
 
-        int height = SymbolBoxBuilder.fontForSize(aSize);
+        int height = ScaledGraphics.fontForSize(aSize);
         sg.setFontSize(height);
         iSize = aSize;
         iPosition = aPosition;
@@ -76,20 +76,20 @@ class SymbolName extends SymbolBox {
             sg.drawLine( (iPosition.x + 1 * deltax), ybase, iPosition.x + iDimension.width / 2, ytip);
             sg.drawLine( (iPosition.x + iDimension.width - 1 * deltax), ybase, iPosition.x + iDimension.width / 2, ytip);
         } else if (iSymbol.equals("\\neq")) {
-            sg.setFontSize(SymbolBoxBuilder.fontForSize(iSize));
+            sg.setFontSize(ScaledGraphics.fontForSize(iSize));
             sg.drawText("=", iPosition.x, iPosition.y);
             sg.drawLine(iPosition.x + (2 * iDimension.width) / 3, iPosition.y - iAscent + (2 * iDimension.height) / 6, iPosition.x + (1 * iDimension.width) / 3, iPosition.y - iAscent + (6 * iDimension.height) / 6);
         } else if (iSymbol.equals("\\infty")) {
-            sg.setFontSize(SymbolBoxBuilder.fontForSize(iSize));
+            sg.setFontSize(ScaledGraphics.fontForSize(iSize));
             sg.drawText("o", iPosition.x + 1, iPosition.y);
             sg.drawText("o", iPosition.x + sg.getTextWidth("o") - 2, iPosition.y);
         } else if (iSymbol.equals("\\cdot")) {
 
-            int height = SymbolBoxBuilder.fontForSize(iSize);
+            int height = ScaledGraphics.fontForSize(iSize);
             sg.setFontSize(height);
             sg.drawText(".", iPosition.x, iPosition.y - height / 3);
         } else {
-            sg.setFontSize(SymbolBoxBuilder.fontForSize(iSize));
+            sg.setFontSize(ScaledGraphics.fontForSize(iSize));
             sg.drawText(iSymbol, iPosition.x, iPosition.y);
         }
     }

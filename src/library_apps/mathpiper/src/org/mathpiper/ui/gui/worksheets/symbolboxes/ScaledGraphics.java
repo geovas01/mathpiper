@@ -115,5 +115,37 @@ public class ScaledGraphics {
             iG.setColor(color);
         }
 
-    }
-}
+    }//end method.
+    
+    static int fontForSize(int aSize) {
+
+        if (aSize > 3) {
+            aSize = 3;
+        }
+
+        if (aSize < 0) {
+            aSize = 0;
+        }
+
+        switch (aSize) {
+
+            case 0:
+                return 6;
+
+            case 1:
+                return 8;
+
+            case 2:
+                return 12;
+
+            case 3:
+                return 16;
+
+            default:
+                return 16;
+        }//end switch.
+        
+    }//end method.
+
+
+}//end class.
