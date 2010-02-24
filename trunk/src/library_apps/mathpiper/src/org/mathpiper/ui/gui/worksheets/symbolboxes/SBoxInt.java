@@ -11,7 +11,7 @@ class SBoxInt extends SBox {
         iSize = aSize;
         iPosition = aPosition;
         iAscent = height / 2 + sg.getAscent();
-        iDimension = new Dimension((1 * height) / 2, 2 * height);
+        iDimension = new Dimensions((1 * height) / 2, 2 * height);
     }
 
     public void render(ScaledGraphics sg) {
@@ -25,10 +25,10 @@ class SBoxInt extends SBox {
         double y0 = iPosition.y - iAscent;
         double x1 = x0 + iDimension.width;
         double y1 = y0 + iDimension.height;
-        sg.drawLine(x1, y0, x1 - iDimension.width / 4, y0);
-        sg.drawLine(x1 - iDimension.width / 4, y0, x1 - (2 * iDimension.width) / 4, y0 + iDimension.width / 4);
-        sg.drawLine(x1 - (2 * iDimension.width) / 4, y0 + iDimension.width / 4, x1 - (2 * iDimension.width) / 4, y0 + iDimension.height - iDimension.width / 4);
-        sg.drawLine(x1 - (2 * iDimension.width) / 4, y0 + iDimension.height - iDimension.width / 4, x1 - (3 * iDimension.width) / 4, y0 + iDimension.height);
-        sg.drawLine(x1 - (3 * iDimension.width) / 4, y0 + iDimension.height, x0, y0 + iDimension.height);
+        sg.drawLine(x1, y0, x1 - iDimension.width / 4.0, y0);
+        sg.drawLine(x1 - iDimension.width / 4.0, y0, x1 - (2 * iDimension.width) / 4.0, y0 + iDimension.width / 4.0);
+        sg.drawLine(x1 - (2.0 * iDimension.width) / 4.0, y0 + iDimension.width / 4.0, x1 - (2.0 * iDimension.width) / 4.0, y0 + iDimension.height - iDimension.width / 4.0);
+        sg.drawLine(x1 - (2.0 * iDimension.width) / 4.0, y0 + iDimension.height - iDimension.width / 4.0, x1 - (3.0 * iDimension.width) / 4.0, y0 + iDimension.height);
+        sg.drawLine(x1 - (3.0 * iDimension.width) / 4.0, y0 + iDimension.height, x0, y0 + iDimension.height);
     }
 }

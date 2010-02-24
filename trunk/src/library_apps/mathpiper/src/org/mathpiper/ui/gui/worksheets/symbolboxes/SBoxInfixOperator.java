@@ -27,10 +27,10 @@ class SBoxInfixOperator extends SBoxCompoundExpression {
             iInfix.calculatePositions(sg, aSize, null);
             iRight.calculatePositions(sg, aSize, null);
 
-            Dimension dleft = iLeft.getDimension();
-            Dimension dinfix = iInfix.getDimension();
-            Dimension dright = iRight.getDimension();
-            int height = dleft.height;
+            Dimensions dleft = iLeft.getDimension();
+            Dimensions dinfix = iInfix.getDimension();
+            Dimensions dright = iRight.getDimension();
+            double height = dleft.height;
 
             if (height < dinfix.height) {
                 height = dinfix.height;
@@ -40,7 +40,7 @@ class SBoxInfixOperator extends SBoxCompoundExpression {
                 height = dright.height;
             }
 
-            iDimension = new Dimension(dleft.width + dinfix.width + dright.width + 4, height);
+            iDimension = new Dimensions(dleft.width + dinfix.width + dright.width + 4, height);
             iAscent = iLeft.getCalculatedAscent();
 
             if (iAscent < iInfix.getCalculatedAscent()) {
@@ -54,12 +54,12 @@ class SBoxInfixOperator extends SBoxCompoundExpression {
 
         if (aPosition != null) {
 
-            Dimension dleft = iLeft.getDimension();
-            Dimension dinfix = iInfix.getDimension();
-            Dimension dright = iRight.getDimension();
+            Dimensions dleft = iLeft.getDimension();
+            Dimensions dinfix = iInfix.getDimension();
+            Dimensions dright = iRight.getDimension();
             iLeft.calculatePositions(sg, aSize, new Point(aPosition.x, aPosition.y));
-            iInfix.calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + 2, aPosition.y));
-            iRight.calculatePositions(sg, aSize, new Point(aPosition.x + dleft.width + dinfix.width + 4, aPosition.y));
+            iInfix.calculatePositions(sg, aSize, new Point((int) (aPosition.x + dleft.width + 2), aPosition.y) );
+            iRight.calculatePositions(sg, aSize, new Point((int) (aPosition.x + dleft.width + dinfix.width + 4), aPosition.y));
         }
     }//end calculatePositions.
 

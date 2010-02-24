@@ -26,26 +26,26 @@ class SBoxDivisor extends SBoxCompoundExpression {
             iNumerator.calculatePositions(sg, aSize, null);
             iDenominator.calculatePositions(sg, aSize, null);
 
-            Dimension ndim = iNumerator.getDimension();
-            Dimension ddim = iDenominator.getDimension();
-            int width = ndim.width;
+            Dimensions ndim = iNumerator.getDimension();
+            Dimensions ddim = iDenominator.getDimension();
+            double width = ndim.width;
 
             if (width < ddim.width) {
                 width = ddim.width;
             }
 
-            iDimension = new Dimension(width, ndim.height + ddim.height + iDashheight);
+            iDimension = new Dimensions(width, ndim.height + ddim.height + iDashheight);
             iAscent = ndim.height + iDashheight;
         }
 
         if (aPosition != null) {
 
-            Dimension ndim = iNumerator.getDimension();
-            Dimension ddim = iDenominator.getDimension();
+            Dimensions ndim = iNumerator.getDimension();
+            Dimensions ddim = iDenominator.getDimension();
             double ynumer = aPosition.y - ndim.height + iNumerator.getCalculatedAscent() - iDashheight;
             double ydenom = aPosition.y + iDenominator.getCalculatedAscent();
-            iNumerator.calculatePositions(sg, aSize, new java.awt.Point(aPosition.x + (iDimension.width - ndim.width) / 2, (int)ynumer));
-            iDenominator.calculatePositions(sg, aSize, new java.awt.Point(aPosition.x + (iDimension.width - ddim.width) / 2, (int)ydenom));
+            iNumerator.calculatePositions(sg, aSize, new java.awt.Point((int) (aPosition.x + (iDimension.width - ndim.width) / 2), (int)ynumer));
+            iDenominator.calculatePositions(sg, aSize, new java.awt.Point((int) (aPosition.x + (iDimension.width - ddim.width) / 2), (int)ydenom));
         }
     }
 
@@ -57,9 +57,9 @@ class SBoxDivisor extends SBoxCompoundExpression {
         
         iDenominator.render(sg);
 
-        java.awt.Dimension ndim = iNumerator.getDimension();
-        java.awt.Dimension ddim = iDenominator.getDimension();
-        int width = ndim.width;
+        Dimensions ndim = iNumerator.getDimension();
+        Dimensions ddim = iDenominator.getDimension();
+        double width = ndim.width;
 
         if (width < ddim.width) {
             width = ddim.width;

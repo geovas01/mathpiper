@@ -11,7 +11,7 @@ class SBoxSum extends SBox {
         iSize = aSize;
         iPosition = aPosition;
         iAscent = height / 2 + sg.getAscent();
-        iDimension = new Dimension((4 * height) / 3, 2 * height);
+        iDimension = new Dimensions((4 * height) / 3, 2 * height);
     }
 
     public void render(ScaledGraphics sg) {
@@ -26,8 +26,8 @@ class SBoxSum extends SBox {
         double x1 = x0 + iDimension.width;
         double y1 = y0 + iDimension.height;
         sg.drawLine(x1, y0, x0, y0);
-        sg.drawLine(x0, y0, x0 + (2 * height) / 4, (int) (y0 + y1) / 2);
-        sg.drawLine(x0 + (2 * height) / 4, (int) (y0 + y1) / 2, x0, y1);
+        sg.drawLine(x0, y0, x0 + (2 * height) / 4, (y0 + y1) / 2);
+        sg.drawLine(x0 + (2 * height) / 4, (y0 + y1) / 2, x0, y1);
         sg.drawLine(x0, y1, x1, y1);
     }
 }

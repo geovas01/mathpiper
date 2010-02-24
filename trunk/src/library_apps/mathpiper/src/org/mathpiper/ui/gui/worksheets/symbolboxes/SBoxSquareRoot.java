@@ -17,14 +17,14 @@ class SBoxSquareRoot extends SBoxCompoundExpression {
         if (iDimension == null) {
             iExpression.calculatePositions(sg, aSize, null);
 
-            Dimension dim = iExpression.getDimension();
-            iDimension = new Dimension((int) (dim.width + 6), dim.height + 3);
+            Dimensions dim = iExpression.getDimension();
+            iDimension = new Dimensions((int) (dim.width + 6), dim.height + 3);
             iAscent = iExpression.getCalculatedAscent() + 3;
         }
 
         if (aPosition != null) {
 
-            Dimension dim = iExpression.getDimension();
+            Dimensions dim = iExpression.getDimension();
             iExpression.calculatePositions(sg, aSize, new java.awt.Point((int) (aPosition.x + 6), aPosition.y));
         }
     }
@@ -37,7 +37,7 @@ class SBoxSquareRoot extends SBoxCompoundExpression {
 
         sg.setLineThickness(1);
 
-        Dimension dim = iExpression.getDimension();
+        Dimensions dim = iExpression.getDimension();
         double x0 = iPosition.x;
         double y0 = iPosition.y - iAscent;
         double x1 = x0 + dim.width + 6;
