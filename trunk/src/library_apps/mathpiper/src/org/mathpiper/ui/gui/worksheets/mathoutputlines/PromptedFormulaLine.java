@@ -58,7 +58,7 @@ public class PromptedFormulaLine extends MathOutputLine {
         if (height == -1) {
             ScaledGraphics sg = new ScaledGraphics(g);
             sBoxExpression.calculatePositions(sg, 3, new java.awt.Point(0, 0));
-            height = sBoxExpression.getDimension().height + 20;
+            height = (int) sBoxExpression.getDimension().height + 20;
         }
         return height;
     }

@@ -42,8 +42,8 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
         // Get dimensions first
         if (iDimension == null) {
 
-            Dimension dsfix = new Dimension(0, 0);
-            Dimension dlfix = new Dimension(0, 0);
+            Dimensions dsfix = new Dimensions(0, 0);
+            Dimensions dlfix = new Dimensions(0, 0);
             iExpr.calculatePositions(sg, aSize, null);
 
             if (iSuperfix != null) {
@@ -54,7 +54,7 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
                 iSubfix.calculatePositions(sg, aSize - 1, null);
             }
 
-            Dimension dexpr = iExpr.getDimension();
+            Dimensions dexpr = iExpr.getDimension();
 
             if (iSuperfix != null) {
                 dsfix = iSuperfix.getDimension();
@@ -76,7 +76,7 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
                     iExtent = iExtent + iSubfix.iAscent;
                 }
 
-                int fixMaxWidth = dsfix.width;
+                double fixMaxWidth = dsfix.width;
 
                 if (dlfix.width > fixMaxWidth) {
                     fixMaxWidth = dlfix.width;
@@ -86,7 +86,7 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
                     fixMaxWidth = dexpr.width;
                 }
 
-                iDimension = new Dimension(fixMaxWidth, (int) (dexpr.height + iExtent));
+                iDimension = new Dimensions(fixMaxWidth, (dexpr.height + iExtent));
             } else {
 
                 if (iSuperfix != null) {
@@ -101,13 +101,13 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
                     iExtent = iExtent + delta;
                 }
 
-                int fixMaxWidth = dsfix.width;
+                double fixMaxWidth = dsfix.width;
 
                 if (dlfix.width > fixMaxWidth) {
                     fixMaxWidth = dlfix.width;
                 }
 
-                iDimension = new Dimension(dexpr.width + fixMaxWidth, (int) (dexpr.height + iExtent));
+                iDimension = new Dimensions(dexpr.width + fixMaxWidth, (dexpr.height + iExtent));
             }
 
             iAscent = iExpr.getCalculatedAscent() + iExtent;
@@ -119,9 +119,9 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
 
         if (aPosition != null) {
 
-            Dimension dsfix = new Dimension(0, 0);
-            Dimension dlfix = new Dimension(0, 0);
-            Dimension dexpr = iExpr.getDimension();
+            Dimensions dsfix = new Dimensions(0, 0);
+            Dimensions dlfix = new Dimensions(0, 0);
+            Dimensions dexpr = iExpr.getDimension();
 
             if (iSuperfix != null) {
                 dsfix = iSuperfix.getDimension();
@@ -145,11 +145,11 @@ class SBoxSubSuperfix extends SBoxCompoundExpression {
             } else {
 
                 if (iSuperfix != null) {
-                    iSuperfix.calculatePositions(sg, aSize - 1, new Point(aPosition.x + dexpr.width, (int) (aPosition.y - iExpr.iAscent - iSuperOffset)));
+                    iSuperfix.calculatePositions(sg, aSize - 1, new Point((int) (aPosition.x + dexpr.width), (int) (aPosition.y - iExpr.iAscent - iSuperOffset)));
                 }
 
                 if (iSubfix != null) {
-                    iSubfix.calculatePositions(sg, aSize - 1, new Point(aPosition.x + dexpr.width, (int) (aPosition.y + iSubOffset)));
+                    iSubfix.calculatePositions(sg, aSize - 1, new Point((int) (aPosition.x + dexpr.width), (int) (aPosition.y + iSubOffset)));
                 }
             }
         }
