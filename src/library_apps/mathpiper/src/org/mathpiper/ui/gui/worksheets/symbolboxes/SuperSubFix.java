@@ -1,7 +1,7 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 
-class SBoxSubSuperfix extends CompoundExpression {
+class SuperSubFix extends CompoundExpression {
 
     double iExtent = 0;
     double iSubOffset = 0;
@@ -13,7 +13,7 @@ class SBoxSubSuperfix extends CompoundExpression {
 
     private SymbolBox iSubfix;
 
-    SBoxSubSuperfix(SymbolBox aExpr, SymbolBox aSuperfix, SymbolBox aSubfix) {
+    SuperSubFix(SymbolBox aExpr, SymbolBox aSuperfix, SymbolBox aSubfix) {
 
         iExpr = aExpr;
         iSuperfix = aSuperfix;

@@ -90,9 +90,9 @@ public class SymbolBoxBuilder {
             SymbolBox left = pop();
             boolean appendToExisting = false;
 
-            if (left instanceof SBoxSubSuperfix) {
+            if (left instanceof SuperSubFix) {
 
-                SBoxSubSuperfix sbox = (SBoxSubSuperfix) left;
+                SuperSubFix sbox = (SuperSubFix) left;
 
                 if (!sbox.hasSuperfix()) {
                     appendToExisting = true;
@@ -101,24 +101,24 @@ public class SymbolBoxBuilder {
 
             if (appendToExisting) {
 
-                SBoxSubSuperfix sbox = (SBoxSubSuperfix) left;
+                SuperSubFix sbox = (SuperSubFix) left;
                 sbox.setSuperfix(right);
                 push(sbox);
             } else {
-                push(new SBoxSubSuperfix(left, right, null));
+                push(new SuperSubFix(left, right, null));
             }
         } else if (aType.equals("_")) {
 
             SymbolBox right = pop();
             SymbolBox left = pop();
 
-            if (left instanceof SBoxSubSuperfix) {
+            if (left instanceof SuperSubFix) {
 
-                SBoxSubSuperfix sbox = (SBoxSubSuperfix) left;
+                SuperSubFix sbox = (SuperSubFix) left;
                 sbox.setSubfix(right);
                 push(sbox);
             } else {
-                push(new SBoxSubSuperfix(left, null, right));
+                push(new SuperSubFix(left, null, right));
             }
         } else if (aType.equals("[sqrt]")) {
 
