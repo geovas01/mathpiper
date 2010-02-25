@@ -163,7 +163,8 @@ class SuperSubFix extends CompoundExpression {
         {
             iSuperfix.render(sg);
         }
-        else
+        
+        if(iSubfix != null)
         {
             iSubfix.render(sg);
         }
