@@ -57,4 +57,21 @@ class PrefixOperator extends CompoundExpression {
 
         iRight.render(sg);
     }//end render.
-}
+
+
+
+    public SymbolBox[] getChildren()
+    {
+        return new SymbolBox[] {this.iLeft, this.iRight};
+    }//end method.
+
+
+
+
+    public String toString()
+    {
+        String returnString = "<Prefix Operator>";
+        return returnString;
+    }//end method.
+
+}//end class

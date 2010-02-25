@@ -93,4 +93,21 @@ class SymbolName extends SymbolBox {
             sg.drawText(iSymbol, iPosition.x, iPosition.y);
         }
     }
-}
+
+
+
+    public SymbolBox[] getChildren()
+    {
+        return null;
+    }//end method.
+
+
+
+
+    public String toString()
+    {
+        String returnString = "<SymbolName: " + this.iSymbol + ">";
+        return returnString;
+    }//end method.
+
+}//end class

@@ -123,5 +123,21 @@ class Bracket extends CompoundExpression {
             double offset = (iFontSize - iAscent) / 2;
             sg.drawText(bracket, x, y + offset);
         }
-    }
-}
+    }//end method.
+
+
+
+    public SymbolBox[] getChildren()
+    {
+        return new SymbolBox[] {this.iExpression};
+    }//end method.
+
+
+
+    public String toString()
+    {
+        String returnString = "<Bracket>";
+        return returnString;
+    }//end method.
+
+}//end class

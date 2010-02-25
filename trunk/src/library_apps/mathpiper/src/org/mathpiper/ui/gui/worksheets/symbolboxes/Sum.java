@@ -30,4 +30,21 @@ class Sum extends SymbolBox {
         sg.drawLine(x0 + (2 * height) / 4, (y0 + y1) / 2, x0, y1);
         sg.drawLine(x0, y1, x1, y1);
     }
-}
+
+
+
+    public SymbolBox[] getChildren()
+    {
+        return null;
+    }//end method.
+
+
+
+
+    public String toString()
+    {
+        String returnString = "<Sum>";
+        return returnString;
+    }//end method.
+
+}//end class

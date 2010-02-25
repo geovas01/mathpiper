@@ -66,4 +66,22 @@ class Fraction extends CompoundExpression {
         sg.setLineThickness(1);
         sg.drawLine(iPosition.x, iPosition.y - iDashheight / 2 + 2, iPosition.x + width, iPosition.y - iDashheight / 2 + 2);
     }
-}
+
+
+
+    public SymbolBox[] getChildren()
+    {
+        return new SymbolBox[] {this.iNumerator, this.iDenominator};
+    }//end method.
+
+
+
+
+
+    public String toString()
+    {
+        String returnString = "<Fraction>";
+        return returnString;
+    }//end method.
+
+}//end class

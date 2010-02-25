@@ -146,7 +146,7 @@ public class SymbolBoxBuilder {
             SymbolBox heightBox = pop();
             int width = Integer.parseInt(((SymbolName) widthBox).iSymbol);
             int height = Integer.parseInt(((SymbolName) heightBox).iSymbol);
-            Grid grid = new Grid(width, height);
+            Array grid = new Array(width, height);
             int i;
             int j;
 

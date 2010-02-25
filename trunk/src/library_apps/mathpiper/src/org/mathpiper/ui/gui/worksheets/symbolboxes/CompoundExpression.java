@@ -45,4 +45,13 @@ abstract class CompoundExpression extends SymbolBox {
             }
         }*/
     }
-}
+
+
+
+    public String toString()
+    {
+        String returnString = "<Compound Expression>";
+        return returnString;
+    }//end method.
+
+}//end class

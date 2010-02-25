@@ -17,6 +17,7 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.Color;
+import java.util.List;
 
 public abstract class SymbolBox {
 
@@ -83,5 +84,9 @@ public abstract class SymbolBox {
     public static boolean isDrawBoundingBox() {
         return drawBoundingBox;
     }
+
+
+    public abstract SymbolBox[] getChildren();
+
 }//end class.
 
