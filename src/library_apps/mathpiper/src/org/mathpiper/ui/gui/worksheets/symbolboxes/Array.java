@@ -2,7 +2,7 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 
 
-class Grid extends CompoundExpression {
+class Array extends CompoundExpression {
 
     int iHeight;
     double[] iHeights;
@@ -11,7 +11,7 @@ class Grid extends CompoundExpression {
 
     private SymbolBox iExpressions[];
 
-    Grid(int aWidth, int aHeight) {
+    Array(int aWidth, int aHeight) {
         //super(aWidth * aHeight);
         iExpressions = new SymbolBox[aWidth * aHeight];
         iWidth = aWidth;
@@ -128,5 +128,19 @@ class Grid extends CompoundExpression {
         }//end for.
 
     }//end render.
+
+
+    public SymbolBox[] getChildren()
+    {
+        return this.iExpressions;
+    }//end method.
+
+
+
+    public String toString()
+    {
+        String returnString = "<Array>";
+        return returnString;
+    }//end method.
 
 }//end class

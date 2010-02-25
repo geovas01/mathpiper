@@ -169,4 +169,20 @@ class SBoxSubSuperfix extends CompoundExpression {
         }
     }
 
-}//end class.
+
+
+    public SymbolBox[] getChildren()
+    {
+        return new SymbolBox[] {this.iExpr, this.iSuperfix, this.iSubfix};
+    }//end method.
+
+
+
+
+    public String toString()
+    {
+        String returnString = "<Super Sub Fix>";
+        return returnString;
+    }//end method.
+
+}//end class

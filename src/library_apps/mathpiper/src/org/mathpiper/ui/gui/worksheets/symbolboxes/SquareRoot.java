@@ -44,4 +44,21 @@ class SquareRoot extends CompoundExpression {
         sg.drawLine(x0 + 3, y1 - 1, x0 + 6, y0 + 2);
         sg.drawLine(x0 + 6, y0 + 1, x1, y0 + 1);
     }
-}
+
+
+
+    public SymbolBox[] getChildren()
+    {
+        return new SymbolBox[] {this.iExpression};
+    }//end method.
+
+
+
+
+    public String toString()
+    {
+        String returnString = "<Square Root>";
+        return returnString;
+    }//end method.
+
+}//end class

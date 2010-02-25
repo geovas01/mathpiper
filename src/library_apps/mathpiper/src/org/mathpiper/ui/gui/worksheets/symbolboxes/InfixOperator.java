@@ -73,4 +73,20 @@ class InfixOperator extends CompoundExpression {
         iRight.render(sg);
     }//end render.
 
-}//end class.
+
+
+    public SymbolBox[] getChildren()
+    {
+        return new SymbolBox[] {this.iLeft, this.iInfix, this.iRight};
+    }//end method.
+
+
+
+
+    public String toString()
+    {
+        String returnString = "<Infix Operator>";
+        return returnString;
+    }//end method.
+
+}//end class

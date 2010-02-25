@@ -31,4 +31,21 @@ class Integral extends SymbolBox {
         sg.drawLine(x1 - (2 * iDimension.width) / 4, y0 + iDimension.height - iDimension.width / 4, x1 - (3 * iDimension.width) / 4, y0 + iDimension.height);
         sg.drawLine(x1 - (3 * iDimension.width) / 4, y0 + iDimension.height, x0, y0 + iDimension.height);
     }
-}
+
+
+
+    public SymbolBox[] getChildren()
+    {
+        return null;
+    }//end method.
+
+
+
+
+    public String toString()
+    {
+        String returnString = "<Integral>";
+        return returnString;
+    }//end method.
+
+}//end class
