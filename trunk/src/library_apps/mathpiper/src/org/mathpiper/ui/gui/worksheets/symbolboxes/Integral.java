@@ -2,7 +2,7 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.Color;
 
-class Integral extends SymbolBox {
+public class Integral extends SymbolBox {
 
     public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
 

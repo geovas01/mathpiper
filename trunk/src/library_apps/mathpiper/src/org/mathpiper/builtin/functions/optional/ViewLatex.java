@@ -33,7 +33,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.ui.gui.hoteqn.sHotEqn;
 import org.mathpiper.ui.gui.worksheets.MathPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
-import org.mathpiper.ui.gui.worksheets.TexParser;
+import org.mathpiper.ui.gui.worksheets.latexparser.TexParser;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 /**

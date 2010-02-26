@@ -16,9 +16,8 @@
 
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.ui.gui.worksheets;
+package org.mathpiper.ui.gui.worksheets.latexparser;
 
-import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBoxBuilder;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 
@@ -30,9 +29,11 @@ public class TexParser
 	String iCurrentExpression;
 	String nextToken;
 
-	private void showToken()
+        private boolean showToken = true;
+
+	private void showToken(String sourceName)
 	{
-		System.out.println("[" + nextToken + "]");
+		System.out.println(sourceName + ": " + nextToken);
 	}
 
 	void nextToken()
@@ -42,7 +43,8 @@ public class TexParser
 		if (currentPos == iCurrentExpression.length())
 		{
 
-			//showToken();
+			if(showToken) showToken("End of expression");
+
 			return;
 		}
 
@@ -57,7 +59,7 @@ public class TexParser
 		{
                         //Return if at end of expression.
 
-			//showToken();
+			if(showToken) showToken("End of expression");
 			return;
 		}
 		else if (isAlNum(iCurrentExpression.charAt(currentPos)))
@@ -72,7 +74,7 @@ public class TexParser
 
 			nextToken = iCurrentExpression.substring(startPos, currentPos);
 
-			//showToken();
+			if(showToken) showToken("Is alpha numeric");
 			return;
 		}
 
@@ -83,7 +85,7 @@ public class TexParser
 			nextToken = "{";
 			currentPos++;
 
-			//showToken();
+			if(showToken) showToken("Left brace");
 			return;
 		}
 		else if (c == '}')
@@ -91,7 +93,7 @@ public class TexParser
 			nextToken = "}";
 			currentPos++;
 
-			//showToken();
+			if(showToken) showToken("Right brace");
 			return;
 		}
 		else if (singleOps.indexOf(c) >= 0)
@@ -99,7 +101,7 @@ public class TexParser
 			nextToken = "" + (char)c;
 			currentPos++;
 
-			//showToken();
+			if(showToken) showToken("Single operator");
 			return;
 		}
 		else if (c == '\\')
@@ -114,11 +116,11 @@ public class TexParser
 
 			nextToken = iCurrentExpression.substring(startPos, currentPos);
 
-			//showToken();
+			if(showToken) showToken("Backslash");
 			return;
 		}
 
-		//showToken();
+		if(showToken) showToken("No match");
 	}
 
 	boolean matchToken(String token)

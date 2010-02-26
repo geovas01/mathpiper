@@ -1,10 +1,10 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-class SquareRoot extends CompoundExpression {
+public class SquareRoot extends CompoundExpression {
 
     private SymbolBox iExpression;
 
-    SquareRoot(SymbolBox aExpression) {
+    public SquareRoot(SymbolBox aExpression) {
         iExpression = aExpression;
     }
 

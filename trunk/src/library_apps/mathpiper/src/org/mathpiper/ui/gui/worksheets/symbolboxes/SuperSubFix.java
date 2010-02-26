@@ -1,7 +1,7 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 
-class SuperSubFix extends CompoundExpression {
+public class SuperSubFix extends CompoundExpression {
 
     double iExtent = 0;
     double iSubOffset = 0;
@@ -13,22 +13,22 @@ class SuperSubFix extends CompoundExpression {
 
     private SymbolBox iSubfix;
 
-    SuperSubFix(SymbolBox aExpr, SymbolBox aSuperfix, SymbolBox aSubfix) {
+    public SuperSubFix(SymbolBox aExpr, SymbolBox aSuperfix, SymbolBox aSubfix) {
 
         iExpr = aExpr;
         iSuperfix = aSuperfix;
         iSubfix = aSubfix;
     }
 
-    void setSuperfix(SymbolBox aExpression) {
+    public void setSuperfix(SymbolBox aExpression) {
         iSuperfix = aExpression;
     }
 
-    void setSubfix(SymbolBox aExpression) {
+    public void setSubfix(SymbolBox aExpression) {
         iSubfix = aExpression;
     }
 
-    boolean hasSuperfix() {
+    public boolean hasSuperfix() {
 
         return (iSuperfix != null);
     }
@@ -181,8 +181,21 @@ class SuperSubFix extends CompoundExpression {
 
 
     public String toString()
-    {
-        String returnString = "<Super Sub Fix>";
+    {   
+        String returnString = "<Super Sub Fix:";
+
+        if(this.iSuperfix != null)
+        {
+            returnString = returnString + " Super ";
+        }
+
+        if(this.iSubfix != null)
+        {
+            returnString = returnString + " Sub ";
+        }
+
+        returnString = returnString + ">";
+        
         return returnString;
     }//end method.
 

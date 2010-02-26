@@ -18,6 +18,7 @@
 
 package org.mathpiper.ui.gui.worksheets;
 
+import org.mathpiper.ui.gui.worksheets.latexparser.TexParser;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
