@@ -20,7 +20,7 @@ package org.mathpiper.ui.gui.worksheets.latexparser;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.*;
 
 
-public class SymbolBoxBuilder {
+public class SymbolBoxStack {
 
     SymbolBox[] stack = new SymbolBox[1024];
 

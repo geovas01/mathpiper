@@ -106,19 +106,6 @@ public class SymbolName extends SymbolBox {
 
     public String toString()
     {
-        String symbolString;
-
-        /*
-        if(this.iSymbol.equals(""))
-        {
-            symbolString = "*";
-        }
-        else
-        {
-            symbolString = this.iSymbol;
-        }
-        */
-
         String returnString = "<SymbolName: " + this.iSymbol + ">";
         
         return returnString;

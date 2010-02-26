@@ -2,8 +2,14 @@
 
 package org.mathpiper.ui.gui.worksheets;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.Queue;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 
@@ -11,14 +17,14 @@ public class ViewTree {
 
     private Queue<SymbolBox> queue = new LinkedList();
 
-
     public void walkTree(SymbolBox node)
     {
+
         SymbolBox currentNode = node;
 
         currentNode.setEndOfLevel(true);
 
-        //Walk the leftmost path of the tree and place end of level markers at each node.
+        //Walk the rightmost path of the tree and place end of level markers at each node.
         while(currentNode != null)
         {
             SymbolBox[] children = currentNode.getChildren();
@@ -63,8 +69,6 @@ public class ViewTree {
 
                 if(children != null)
                 {
-                    treeData.append("\n");
-
                     for(SymbolBox child:children)
                     {
                         if(child != null)
@@ -82,6 +86,32 @@ public class ViewTree {
 
         }//end while.
         System.out.println(treeData.toString());
+
+
+        JFrame frame = new JFrame();
+        Container contentPane = frame.getContentPane();
+        frame.setBackground(Color.WHITE);
+        contentPane.setBackground(Color.WHITE);
+
+        TreePanel treePanel = new TreePanel(node, 1.5);
+
+        MathPanelController mathPanelScaler = new MathPanelController(treePanel,2.0);
+
+        JScrollPane scrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        contentPane.add(scrollPane);
+        contentPane.add(mathPanelScaler, BorderLayout.NORTH);
+
+        frame.setAlwaysOnTop(false);
+        frame.setTitle("Syntax Tree Viewer");
+        frame.setSize(new Dimension(300, 200));
+        frame.setResizable(true);
+        frame.setLocationRelativeTo(null);
+
+        frame.pack();
+        frame.setVisible(true);
     }//end method.
 
-}//end clas.
+
+
+}//end class.
