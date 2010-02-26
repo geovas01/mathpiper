@@ -50,7 +50,7 @@ public class ScaledGraphics {
         iG.drawArc((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale), startAngle, arcAngle);
     }
 
-    void setGray(int aGray) {
+    public void setGray(int aGray) {
         if (prevGray != aGray) {
             prevGray = aGray;
             iG.setColor(new Color(aGray, aGray, aGray));
@@ -75,7 +75,7 @@ public class ScaledGraphics {
     }
 
 
-    void setFontSize(double aSize) {
+    public void setFontSize(double aSize) {
         int newFontSize = (int) (viewScale * aSize);
         if (prevSetFontSize != newFontSize) {
             prevSetFontSize = newFontSize;
@@ -87,20 +87,20 @@ public class ScaledGraphics {
         }
     }
 
-    double getFontSize() {
+    public double getFontSize() {
         return  (prevSetFontSize / viewScale);
     }
 
-    double getTextWidth(String text) {
+    public double getTextWidth(String text) {
         java.awt.geom.Rectangle2D textBoundingRectangle = metrics.getStringBounds(text, iG);
         return  (textBoundingRectangle.getWidth() / viewScale);
     }
 
-    double getAscent() {
+    public double getAscent() {
         return (metrics.getAscent() / viewScale);
     }
 
-    double getDescent() {
+    public double getDescent() {
         return  (metrics.getDescent() / viewScale);
     }
 

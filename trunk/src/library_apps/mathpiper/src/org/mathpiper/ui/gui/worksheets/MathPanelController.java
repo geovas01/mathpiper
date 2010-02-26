@@ -13,11 +13,11 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 public class MathPanelController extends JPanel implements ChangeListener, ItemListener {
 
     private JSlider scaleSlider;
-    private MathPanel mathPanel;
+    private ViewPanel viewPanel;
 
-    public MathPanelController(MathPanel mathPanel, double initialValue) {
+    public MathPanelController(ViewPanel viewPanel, double initialValue) {
         super();
-        this.mathPanel = mathPanel;
+        this.viewPanel = viewPanel;
 
         scaleSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, (int) (initialValue*10));
         scaleSlider.addChangeListener(this);
@@ -49,8 +49,8 @@ public class MathPanelController extends JPanel implements ChangeListener, ItemL
         int intValue = (int) source.getValue();
         double doubleValue = intValue / 10.0;
         //System.out.println("XXX: " + doubleValue);
-        mathPanel.setViewScale(doubleValue);
-        mathPanel.repaint();
+        viewPanel.setViewScale(doubleValue);
+        viewPanel.repaint();
 
         //}
         }//end method.
@@ -58,11 +58,11 @@ public class MathPanelController extends JPanel implements ChangeListener, ItemL
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             SymbolBox.setDrawBoundingBox(true);
-            mathPanel.repaint();
+            viewPanel.repaint();
 
         } else {
             SymbolBox.setDrawBoundingBox(false);
-            mathPanel.repaint();
+            viewPanel.repaint();
         }
 
     }//end method.

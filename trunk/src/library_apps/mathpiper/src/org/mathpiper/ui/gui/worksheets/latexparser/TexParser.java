@@ -147,7 +147,7 @@ public class TexParser
 	SymbolBox parseTopExpression()
 	{
 
-		SymbolBoxBuilder builder = new SymbolBoxBuilder();
+		SymbolBoxStack builder = new SymbolBoxStack();
 
 		parseOneExpression10(builder);
 
@@ -156,7 +156,7 @@ public class TexParser
 		return expression;
 	}
 
-	void parseOneExpression10(SymbolBoxBuilder builder)
+	void parseOneExpression10(SymbolBoxStack builder)
 	{
 		parseOneExpression20(builder);
 
@@ -171,7 +171,7 @@ public class TexParser
 		}
 	}
 
-	void parseOneExpression20(SymbolBoxBuilder builder)
+	void parseOneExpression20(SymbolBoxStack builder)
 	{
 		parseOneExpression25(builder);
 
@@ -194,7 +194,7 @@ public class TexParser
 		}
 	}
 
-	void parseOneExpression25(SymbolBoxBuilder builder)
+	void parseOneExpression25(SymbolBoxStack builder)
 	{
 		parseOneExpression30(builder);
 
@@ -211,7 +211,7 @@ public class TexParser
 		}
 	}
 
-	void parseOneExpression30(SymbolBoxBuilder builder)
+	void parseOneExpression30(SymbolBoxStack builder)
 	{
 		parseOneExpression40(builder);
 
@@ -235,7 +235,7 @@ public class TexParser
 		}
 	}
 
-	void parseOneExpression40(SymbolBoxBuilder builder)
+	void parseOneExpression40(SymbolBoxStack builder)
 	{
 
 		// atom

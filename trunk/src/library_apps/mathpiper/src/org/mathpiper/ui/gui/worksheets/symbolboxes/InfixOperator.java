@@ -77,7 +77,7 @@ public class InfixOperator extends CompoundExpression {
 
     public SymbolBox[] getChildren()
     {
-        return new SymbolBox[] {this.iLeft, this.iRight};
+        return new SymbolBox[] {this.iLeft, this.iInfix, this.iRight};
     }//end method.
 
 
@@ -85,7 +85,7 @@ public class InfixOperator extends CompoundExpression {
 
     public String toString()
     {
-        String returnString = this.iInfix.toString();
+        String returnString = "<InfixOperator:>"; //this.iInfix.toString();
         return returnString;
     }//end method.
 
