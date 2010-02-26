@@ -4,7 +4,7 @@
  */
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-class Bracket extends CompoundExpression {
+public class Bracket extends CompoundExpression {
 
     double iBracketWidth;
     String iClose;
@@ -13,7 +13,7 @@ class Bracket extends CompoundExpression {
 
     private SymbolBox iExpression;
 
-    Bracket(SymbolBox aExpression, String aOpen, String aClose) {
+    public Bracket(SymbolBox aExpression, String aOpen, String aClose) {
         //super(1);
         iOpen = aOpen;
         iClose = aClose;

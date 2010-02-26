@@ -14,9 +14,34 @@ public class ViewTree {
 
     public void walkTree(SymbolBox node)
     {
+        SymbolBox currentNode = node;
+
+        currentNode.setEndOfLevel(true);
+
+        //Walk the leftmost path of the tree and place end of level markers at each node.
+        while(currentNode != null)
+        {
+            SymbolBox[] children = currentNode.getChildren();
+
+            if(children != null)
+            {
+
+                currentNode = children[children.length - 1];
+
+                currentNode.setEndOfLevel(true);
+
+            }
+            else
+            {
+                currentNode = null;
+            }
+        }//end while.
+
+
+        
+
         queue.add(node);
 
-        SymbolBox currentNode;
         StringBuilder treeData = new StringBuilder();
 
         while(! queue.isEmpty())
@@ -26,6 +51,11 @@ public class ViewTree {
             if(currentNode != null)
             {
                 String nodeString = currentNode.toString() + "  ";
+
+                if(currentNode.isEndOfLevel())
+                {
+                    nodeString = nodeString + "\n";
+                }
 
                 treeData.append(nodeString);
 

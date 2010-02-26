@@ -15,7 +15,9 @@
  */
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.ui.gui.worksheets.symbolboxes;
+package org.mathpiper.ui.gui.worksheets.latexparser;
+
+import org.mathpiper.ui.gui.worksheets.symbolboxes.*;
 
 
 public class SymbolBoxBuilder {
@@ -146,7 +148,7 @@ public class SymbolBoxBuilder {
             SymbolBox heightBox = pop();
             int width = Integer.parseInt(((SymbolName) widthBox).iSymbol);
             int height = Integer.parseInt(((SymbolName) heightBox).iSymbol);
-            Array grid = new Array(width, height);
+            Grid grid = new Grid(width, height);
             int i;
             int j;
 
@@ -155,7 +157,7 @@ public class SymbolBoxBuilder {
                 for (i = width - 1; i >= 0; i--) {
 
                     SymbolBox value = pop();
-                    grid.SetSBox(i, j, value);
+                    grid.setSBox(i, j, value);
                 }
             }
 

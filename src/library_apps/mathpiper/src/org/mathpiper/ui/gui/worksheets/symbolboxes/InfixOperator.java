@@ -1,7 +1,7 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 
-class InfixOperator extends CompoundExpression {
+public class InfixOperator extends CompoundExpression {
 
     private SymbolBox iLeft;
 
@@ -9,7 +9,7 @@ class InfixOperator extends CompoundExpression {
 
     private SymbolBox iRight;
 
-    InfixOperator(SymbolBox aLeft, SymbolBox aInfix, SymbolBox aRight) {
+    public InfixOperator(SymbolBox aLeft, SymbolBox aInfix, SymbolBox aRight) {
         iLeft = aLeft;
         iInfix = aInfix;
         iRight = aRight;
@@ -77,7 +77,7 @@ class InfixOperator extends CompoundExpression {
 
     public SymbolBox[] getChildren()
     {
-        return new SymbolBox[] {this.iLeft, this.iInfix, this.iRight};
+        return new SymbolBox[] {this.iLeft, this.iRight};
     }//end method.
 
 
@@ -85,7 +85,7 @@ class InfixOperator extends CompoundExpression {
 
     public String toString()
     {
-        String returnString = "<Infix Operator>";
+        String returnString = this.iInfix.toString();
         return returnString;
     }//end method.
 

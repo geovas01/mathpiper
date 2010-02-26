@@ -1,6 +1,6 @@
 package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
-class Fraction extends CompoundExpression {
+public class Fraction extends CompoundExpression {
 
     private int iDashheight = 0;
 
@@ -8,7 +8,7 @@ class Fraction extends CompoundExpression {
 
     private SymbolBox iDenominator;
 
-    Fraction(SymbolBox aNumerator, SymbolBox aDenominator) {
+    public Fraction(SymbolBox aNumerator, SymbolBox aDenominator) {
 
         iNumerator = aNumerator;
 

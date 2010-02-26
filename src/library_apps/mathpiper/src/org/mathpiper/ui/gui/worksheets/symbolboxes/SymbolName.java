@@ -2,11 +2,11 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.Color;
 
-class SymbolName extends SymbolBox {
+public class SymbolName extends SymbolBox {
 
     public String iSymbol;
 
-    SymbolName(String aSymbol) {
+    public SymbolName(String aSymbol) {
         iSymbol = aSymbol;
 
         if (iSymbol.indexOf("\\") == 0) {
@@ -106,7 +106,21 @@ class SymbolName extends SymbolBox {
 
     public String toString()
     {
+        String symbolString;
+
+        /*
+        if(this.iSymbol.equals(""))
+        {
+            symbolString = "*";
+        }
+        else
+        {
+            symbolString = this.iSymbol;
+        }
+        */
+
         String returnString = "<SymbolName: " + this.iSymbol + ">";
+        
         return returnString;
     }//end method.
 

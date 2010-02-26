@@ -30,6 +30,8 @@ public abstract class SymbolBox {
     int iSize;
     double iAscent;
 
+    private boolean endOfLevel = false;
+
     public static int getSequence() {
         return sequence;
     }
@@ -87,6 +89,19 @@ public abstract class SymbolBox {
 
 
     public abstract SymbolBox[] getChildren();
+    
+    
+
+    public boolean isEndOfLevel() {
+        return endOfLevel;
+    }
+
+    public void setEndOfLevel(boolean endOfLevel) {
+        this.endOfLevel = endOfLevel;
+    }
+
+
+
 
 }//end class.
 

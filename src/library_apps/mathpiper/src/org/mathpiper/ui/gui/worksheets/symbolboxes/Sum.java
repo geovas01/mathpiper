@@ -2,7 +2,7 @@ package org.mathpiper.ui.gui.worksheets.symbolboxes;
 
 import java.awt.Color;
 
-class Sum extends SymbolBox {
+public class Sum extends SymbolBox {
 
     public void calculatePositions(ScaledGraphics sg, int aSize, Position aPosition) {
 
