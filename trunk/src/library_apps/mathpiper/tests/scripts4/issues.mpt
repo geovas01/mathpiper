@@ -1,0 +1,26 @@
+NextTest("Problems reported as Issues");
+
+//Issue 23
+//Verify(Factor(x^8+2*x^6+3*x^4+2*x^2+1),(x^2+x+1)*(x^2+x+1)*(x^2-x+1)*(x^2-x+1));
+
+//Issue 24
+//Verify(Factor(x^5+4*x^4-22*x^2+59*x-30),x^5+4*x^4-22*x^2+59*x-30);
+
+//Issue 40
+Verify(Factor(x^2-2),x^2-2);
+
+//Issue 41
+//Verify(FactorCancel((1-x)/(x-1)),-1);
+
+//Issue 43a
+//Verify(FactorCancel((x^2)/(x)), x);
+
+//Issue 43b
+//Verify(FactorCancel((x^2+1)/(x+1)),(x^2+1)/(x+1));
+
+//Issue 43c
+//Verify(FactorCancel((x+3)/(x^2+2)),(x+3)/(x^2+2));
+
+//Issue 44
+//Verify(Solve(pmt == loan * (rate * (1+rate)^n) / ((1+rate)^n -1), rate), );
+
