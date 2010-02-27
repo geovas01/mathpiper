@@ -1,5 +1,42 @@
 NextTest("Problems reported as Issues");
 
+//Issue02
+Verify(Rationalize( 1.5 / 0.5 ),3);             // OK
+
+//Issue03
+Verify(N(Sqrt(17.032 * 3.22), 5), 7.4056);      // OK
+Verify(N(Sqrt(17.032 * 3.22), 4), 7.406);       // OK
+Verify(N(Sqrt(17.032 * 3.22), 3), 7.40);        // OK, but should be 7.41 !!
+
+//Issue04
+Verify(Factor( Sqrt(61/10-Sqrt(36/5)) ), Sqrt(61/10-Sqrt(36/5)));       // OK
+
+//Issue05
+Verify(Factor( a^2 + 2*a*b + b^2 ), (a+b)^2);   // OK
+
+//Issue06
+//Verify(Simplify( Sqrt(6.1 - Sqrt(7.2)) ), Sqrt(610-120*Sqrt(5))/10);    // NOT OK
+
+//Issue08
+Verify(Factor(x^2 + x^3), x^2*(x+1) );          // OK
+
+//Issue09
+Verify(Solve(x^2==21,x), {x==Sqrt(21),x==-Sqrt(21)} );      // OK
+
+//Issue10
+//Verify(Solve({x + y == 2, y == x}, {x, y}), {{x==1,y==1}} );          //  NOT OK
+
+//Issue11
+//Verify(Solve(x^3==x,x),  );
+//Verify(Solve(x^3==x^2,x),  );
+Verify(Solve(x^4==x^2,x), {x==0,x==0,x==1,x==(-1)});        // OK 
+
+//Issue12
+Verify(Factor( t^2-9 ), (t-3)*(t+3));       // OK
+
+
+
+
 //Issue 23
 //Verify(Factor(x^8+2*x^6+3*x^4+2*x^2+1),(x^2+x+1)*(x^2+x+1)*(x^2-x+1)*(x^2-x+1));
 
@@ -12,13 +49,9 @@ Verify(Factor(x^2-2),x^2-2);
 //Issue 41
 //Verify(FactorCancel((1-x)/(x-1)),-1);
 
-//Issue 43a
+//Issue 43
 //Verify(FactorCancel((x^2)/(x)), x);
-
-//Issue 43b
 //Verify(FactorCancel((x^2+1)/(x+1)),(x^2+1)/(x+1));
-
-//Issue 43c
 //Verify(FactorCancel((x+3)/(x^2+2)),(x+3)/(x^2+2));
 
 //Issue 44
