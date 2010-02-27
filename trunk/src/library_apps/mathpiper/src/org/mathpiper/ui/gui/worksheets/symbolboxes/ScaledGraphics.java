@@ -91,9 +91,24 @@ public class ScaledGraphics {
         return  (prevSetFontSize / viewScale);
     }
 
-    public double getTextWidth(String text) {
+    public double getScaledTextWidth(String text) {
         java.awt.geom.Rectangle2D textBoundingRectangle = metrics.getStringBounds(text, iG);
         return  (textBoundingRectangle.getWidth() / viewScale);
+    }
+
+    public double getScaledTextHeight(String text) {
+        java.awt.geom.Rectangle2D textBoundingRectangle = metrics.getStringBounds(text, iG);
+        return  (textBoundingRectangle.getHeight() / viewScale);
+    }
+
+    public double getTextWidth(String text) {
+        java.awt.geom.Rectangle2D textBoundingRectangle = metrics.getStringBounds(text, iG);
+        return  textBoundingRectangle.getWidth();
+    }
+
+    public double getTextHeight(String text) {
+        java.awt.geom.Rectangle2D textBoundingRectangle = metrics.getStringBounds(text, iG);
+        return  textBoundingRectangle.getHeight();
     }
 
     public double getAscent() {

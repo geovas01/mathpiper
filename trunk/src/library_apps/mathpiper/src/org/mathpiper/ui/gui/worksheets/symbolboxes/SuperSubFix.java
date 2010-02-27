@@ -174,7 +174,19 @@ public class SuperSubFix extends CompoundExpression {
 
     public SymbolBox[] getChildren()
     {
-        return new SymbolBox[] {this.iExpr, this.iSuperfix, this.iSubfix};
+        if(this.iSuperfix == null)
+        {
+            return new SymbolBox[] {this.iExpr, this.iSubfix};
+        }
+        else if(this.iSubfix == null)
+        {
+            return new SymbolBox[] {this.iExpr, this.iSuperfix};
+        }
+        else
+        {
+            return new SymbolBox[] {this.iExpr, this.iSuperfix, this.iSubfix};
+        }
+        
     }//end method.
 
 

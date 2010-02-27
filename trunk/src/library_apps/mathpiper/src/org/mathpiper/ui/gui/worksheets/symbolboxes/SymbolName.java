@@ -31,20 +31,20 @@ public class SymbolName extends SymbolBox {
         iPosition = aPosition;
 
         if (iSymbol.equals("\\pi") || iSymbol.equals("\\wedge") || iSymbol.equals("\\vee")) {
-            iDimension = new Dimensions(sg.getTextWidth("M"), height);
+            iDimension = new Dimensions(sg.getScaledTextWidth("M"), height);
             iAscent = sg.getAscent();
         } else if (iSymbol.equals("\\neq")) {
-            iDimension = new Dimensions(sg.getTextWidth("="), height);
+            iDimension = new Dimensions(sg.getScaledTextWidth("="), height);
             iAscent = sg.getAscent();
         } else if (iSymbol.equals("\\infty")) {
-            iDimension = new Dimensions(sg.getTextWidth("oo"), height);
+            iDimension = new Dimensions(sg.getScaledTextWidth("oo"), height);
             iAscent = sg.getAscent();
         } else if (iSymbol.equals("\\cdot")) {
-            iDimension = new Dimensions(sg.getTextWidth("."), height);
+            iDimension = new Dimensions(sg.getScaledTextWidth("."), height);
             iAscent = sg.getAscent();
         } else {
             iAscent = sg.getAscent();
-            iDimension = new Dimensions(sg.getTextWidth(iSymbol), height);
+            iDimension = new Dimensions(sg.getScaledTextWidth(iSymbol), height);
         }
     }
 
@@ -82,7 +82,7 @@ public class SymbolName extends SymbolBox {
         } else if (iSymbol.equals("\\infty")) {
             sg.setFontSize(ScaledGraphics.fontForSize(iSize));
             sg.drawText("o", iPosition.x + 1, iPosition.y);
-            sg.drawText("o", iPosition.x + sg.getTextWidth("o") - 2, iPosition.y);
+            sg.drawText("o", iPosition.x + sg.getScaledTextWidth("o") - 2, iPosition.y);
         } else if (iSymbol.equals("\\cdot")) {
 
             int height = ScaledGraphics.fontForSize(iSize);
@@ -98,7 +98,7 @@ public class SymbolName extends SymbolBox {
 
     public SymbolBox[] getChildren()
     {
-        return null;
+        return new SymbolBox[0];
     }//end method.
 
 

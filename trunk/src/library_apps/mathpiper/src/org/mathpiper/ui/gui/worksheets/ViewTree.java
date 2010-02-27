@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 
@@ -29,7 +30,7 @@ public class ViewTree {
         {
             SymbolBox[] children = currentNode.getChildren();
 
-            if(children != null)
+            if(children.length != 0)
             {
 
                 currentNode = children[children.length - 1];
@@ -45,7 +46,7 @@ public class ViewTree {
 
 
         
-
+        //Breadth first tree search.
         queue.add(node);
 
         StringBuilder treeData = new StringBuilder();
@@ -67,7 +68,7 @@ public class ViewTree {
 
                 SymbolBox[] children = currentNode.getChildren();
 
-                if(children != null)
+                if(children.length != 0)
                 {
                     for(SymbolBox child:children)
                     {
@@ -86,6 +87,20 @@ public class ViewTree {
 
         }//end while.
         System.out.println(treeData.toString());
+
+
+
+  /*      postorder(node)
+  if node.left  ≠ null then postorder(node.left)
+  if node.right ≠ null then postorder(node.right)
+  print node.value
+
+        */
+
+
+
+
+
 
 
         JFrame frame = new JFrame();
@@ -111,7 +126,6 @@ public class ViewTree {
         frame.pack();
         frame.setVisible(true);
     }//end method.
-
 
 
 }//end class.
