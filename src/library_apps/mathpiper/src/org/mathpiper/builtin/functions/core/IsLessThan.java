@@ -40,7 +40,7 @@ public class IsLessThan extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsLessThan"
+%mathpiper_docs,name="IsLessThan",categories="User Functions;Predicates;Built In"
 *CMD IsLessThan --- comparison predicate
 *CORE
 *CALL
