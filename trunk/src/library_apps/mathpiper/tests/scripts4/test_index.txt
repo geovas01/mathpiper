@@ -12,6 +12,7 @@ dot.mpt
 GaussianIntegers.mpt
 includetestfiles
 integrate.mpt
+issues.mpt
 io.mpt
 journal.mpt
 linalg.mpt
