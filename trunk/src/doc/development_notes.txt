@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ This causes a hang that "Halt Evaluation" will not halt: WithValue({a,b}, 2 , (72*a^3*b^5)^(1/2));
 + There is a bug in Echo: 
 In> Echo("Trial 1 data mean: ", N(Mean({1,2,3});
 Result: 2
