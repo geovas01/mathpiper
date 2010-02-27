@@ -11,41 +11,61 @@ Retract("IsPowerOf2",*);
 
 
 10 # xFactorsBinomial( poly_IsPolynomial )_(Length(VarList(poly))=1)  <-- 
-                        xFB1( DisassembleExpression(poly) );
+[
+    If(InVerboseMode(),Tell(xFactorsBinomial,poly));
+    Local(dis,n,X,var,A,B,s,Ar,Br);
+    dis := DisassembleExpression(poly);
+    If(InVerboseMode(),Tell("   ",dis));
+    n      := Maximum(dis[2])[1];
+    X      := dis[1][1];
+    var    := dis[1][1];
+    A      := Abs(dis[3][1]);
+    B      := Abs(dis[3][2]);
+    s      := Sign(dis[3][1]*dis[3][2]);
+    Ar     := NearRational(N(A^(1/n),20));
+    Br     := NearRational(N(B^(1/n),20));
+    If(InVerboseMode(),[Tell("       ",{n,X,var,A,B}); Tell("       ",{Ar,Br,s});]);
+    If( IsInteger(Ar) And IsInteger(Br), xFB1(dis), {{poly,1}} );
+];
 
 
 10 # xFactorsBinomial( poly_IsPolynomial )_(Length(VarList(poly))=2)  <-- 
-                        xFB2( DisassembleExpression(poly) );
-
-
-12 # xFB1( dis_IsList )_(Length(dis)=3 And Length(dis[3])=2) <--
 [
-    If(InVerboseMode(),[NewLine();Tell("xFB1",dis);]);
-    Local(n,X,Y,y,var,A,B,s,Ar,Br,Bb,ii,fac1);
+    If(InVerboseMode(),Tell(xFactorsBinomial,poly));
+    Local(dis,n,X,Y,vars,A,B,Ar,Br);
+    dis := DisassembleExpression(poly);
+    If(InVerboseMode(),Tell("   ",dis));
     n     := Maximum(dis[2])[1];
     X     := dis[1][1];
-    var   := dis[1][1];
+    Y     := dis[1][2];
+    vars  := dis[1];
     A     := Abs(dis[3][1]);
     B     := Abs(dis[3][2]);
     s     := Sign(dis[3][1]*dis[3][2]);
     Ar    := NearRational(N(A^(1/n)));
     Br    := NearRational(N(B^(1/n)));
-    If( IsInteger(Br), Bb := Br, Bb := B^(1/n) );
-    X     := Ar*X;
-    Y     := Bb;
-    
-    Unbind(y);
-    y     := 1;
     If(InVerboseMode(),
       [
-         Tell("     ",n);
-         Tell("     ",X);
-         Tell("     ",{A,B,s});
-         Tell("     ",{Ar,Br,Bb});
-         Tell("     ",{X,Y});
+          Tell("       ",{n,X,Y}); 
+          Tell("       ",{vars,A,B});
+          Tell("       ",{Ar,Br,s});
       ]
     );
+    If( IsInteger(Ar) And IsInteger(Br), xFB2(dis), {{poly,1} );
+];
+
+
+12 # xFB1( dis_IsList )_(Length(dis)=3 And Length(dis[3])=2) <--
+[
+    If(InVerboseMode(),[NewLine();Tell("xFB1",dis);]);
+    Local(Y,y,ii,fac1);
+    X  := Ar*X;     Y  := Br;
+    Unbind(y);
+    y  := 1;
+    If(InVerboseMode(), Tell("     ",{X,Y}));
     fac1  := xFB1( X/Y,n,s);    //  factor using normalized variable
+    
+    If( InVerboseMode(),Tell("   ",fac1));
     
     // now convert factorization back to actual variable if required
     If( Y != 1,
@@ -54,7 +74,8 @@ Retract("IsPowerOf2",*);
           For(ii:=1,ii<=Length(fac1),ii++)
           [
               f := fac1[ii][1];
-              d := Degree(f,X);
+              d := Degree(f,var);
+              If(InVerboseMode(),Tell("             ",{ii,f,d}));
               fac1[ii][1] := Simplify(Y^d*f);
           ];
       ]
@@ -194,28 +215,19 @@ UnFence("xFB1",3);
 50 # xFB2( dis_IsList )_(Length(dis)=3 And Length(dis[3])=2) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFB2",dis);]);
-    Local(ns,n,X,Y,vars,A,B,s,Ar,Br,Bb,ii,fn,mx,my,fac2);
-    n     := Maximum(dis[2])[1];
-    X     := dis[1][1];
-    Y     := dis[1][2];
-    vars  := dis[1];
-    A     := Abs(dis[3][1]);
-    B     := Abs(dis[3][2]);
-    s     := Sign(dis[3][1]*dis[3][2]);
-    Ar    := NearRational(N(A^(1/n)));
-    Br    := NearRational(N(B^(1/n)));
-    If( IsInteger(Br), Bb := Br, Bb := B^(1/n) );
+    Local(ns,ii,fn,mx,my,fac2);
     If(InVerboseMode(),
       [
          Tell("     ",n);
          Tell("     ",{X,Y});
          Tell("     ",{A,B,s});
-         Tell("     ",{Ar,Br,Bb});
+         Tell("     ",{Ar,Br});
       ]
     );
     X     := Ar*X;
-    Y     := Bb*Y;
+    Y     := Br*Y;
     If(InVerboseMode(),Tell("     ",{X,Y}));
+    
     fac2  := xFB1( X/Y,n,s);    //  factor using normalized variable
     If(InVerboseMode(),Tell("      ",fac2));
     
@@ -227,7 +239,8 @@ UnFence("xFB1",3);
           For(ii:=1,ii<=Length(fac2),ii++)
           [
               f := fac2[ii][1];
-              d := Degree(f,X);
+              d := Degree(f,vars[1]);
+              If(InVerboseMode(),Tell("             ",{ii,f,d}));
               fac2[ii][1] := Simplify(Simplify(Y^d*f));
           ];
       ]
@@ -240,4 +253,3 @@ UnFence("xFB2",1);
 IsPowerOf2( n_IsPositiveInteger ) <-- [ Count(StringToList(ToBase(2,n)),"1") = 1; ];
 
 %/mathpiper
-
