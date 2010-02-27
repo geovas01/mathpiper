@@ -35,7 +35,7 @@ public class Sum extends SymbolBox {
 
     public SymbolBox[] getChildren()
     {
-        return null;
+        return new SymbolBox[0];
     }//end method.
 
 

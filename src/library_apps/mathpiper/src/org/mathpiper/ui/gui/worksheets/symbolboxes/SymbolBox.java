@@ -32,6 +32,10 @@ public abstract class SymbolBox {
 
     private boolean endOfLevel = false;
 
+    private int treeX;
+
+    private int treeY;
+
     public static int getSequence() {
         return sequence;
     }
@@ -99,6 +103,34 @@ public abstract class SymbolBox {
     public void setEndOfLevel(boolean endOfLevel) {
         this.endOfLevel = endOfLevel;
     }
+
+
+    public int width(ScaledGraphics sg)
+    {
+        return (int) sg.getScaledTextWidth(toString());
+    }
+
+    public int height(ScaledGraphics sg)
+    {
+        return (int) sg.getScaledTextHeight(toString());
+    }
+
+    public int getTreeX() {
+        return treeX;
+    }
+
+    public void setTreeX(int treeX) {
+        this.treeX = treeX;
+    }
+
+    public int getTreeY() {
+        return treeY;
+    }
+
+    public void setTreeY(int treeY) {
+        this.treeY = treeY;
+    }
+
 
 
 
