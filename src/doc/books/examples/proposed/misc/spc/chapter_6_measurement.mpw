@@ -1,4 +1,137 @@
-%mathpiper,title="Gage R&R example"
+%mathpiper
+
+AnalyzeOperator(trial1, trial2, trial3) :=
+[
+    Check(Length(trial1) = Length(trial2) And Length(trial1) = Length(trial3), "The lengths of the lists must be equal.");
+
+    Local(rangeList, rangeBar, trialsSum, xBar);
+    
+    rangeList := Map( Lambda({x,y,z}, Maximum(x,y,z) - Minimum(x,y,z)), {trial1, trial2, trial3});
+    
+    rangeBar := N(Mean(rangeList));
+    
+    trialsSum := Sum(Sum({trial1,trial2,trial3}));
+    
+    xBar := N(trialsSum / Add(Length(trial1),Length(trial2),Length(trial3)));
+
+    result := {};
+        
+    result["rangeBar"] := rangeBar;
+    
+    result["xBar"] := xBar;
+    
+    result;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper
+AnalyzeOperators(tolerance, operatorATrials, operatorBTrials, operatorCTrials) :=
+[
+    
+    //Analyze operator A.
+    AAnalysis := AnalyzeOperator(operatorATrials[1], operatorATrials[2], operatorATrials[3]);
+
+    ARangeBar := AAnalysis["rangeBar"];
+    
+    AXBar := AAnalysis["xBar"];
+    
+    
+    //Analyze operator B.
+    BAnalysis := AnalyzeOperator(operatorBTrials[1], operatorBTrials[2], operatorBTrials[3]);
+    
+    BRangeBar := BAnalysis["rangeBar"];
+    
+    BXBar := BAnalysis["xBar"];
+    
+    
+    //Analyze operator C.
+    CAnalysis := AnalyzeOperator(operatorCTrials[1], operatorCTrials[2], operatorCTrials[3]);
+    
+    CRangeBar := CAnalysis["rangeBar"];
+    
+    CXBar := CAnalysis["xBar"];
+    
+    
+    XBarDiff := N(Maximum({AXBar, BXBar, CXBar}) - Minimum({AXBar, BXBar, CXBar}));
+    
+    
+    
+    RBarBar := N(Mean({ARangeBar, BRangeBar, CRangeBar}));
+    
+    K1 := 3.05;
+    
+    K2 := 2.70;
+    
+    EV := N(RBarBar * K1);
+    
+    PercentEV := N(100*EV/tolerance);
+    
+    n := Length(operatorATrials[1]);
+    
+    r := Length(operatorATrials);
+    
+    AV := N(Sqrt((XBarDiff * K2)^2 - (EV^2/(n*r))));
+    
+    PercentAV := N(100*AV/tolerance);
+    
+    RAndR := N(Sqrt(EV^2 + AV^2));
+    
+    Echo("Gage Repeatability And Reproducibility Report");
+    
+    Echo("------------------------------------------------");
+    
+    Echo("Operator A Mean Of All Measurements: ", AXBar);
+    
+    Echo("Operator A Range Of All Measurements: ", ARangeBar);
+    
+    NewLine();
+    
+    Echo("Operator B Mean Of All Measurements: ", BXBar);
+    
+    Echo("Operator B Range Of All Measurements: ", BRangeBar);
+    
+    NewLine();
+    
+    Echo("Operator C Mean Of All Measurements: ", CXBar);
+    
+    Echo("Operator C Range Of All Measurements: ", CRangeBar);
+    
+    Echo("------------------------------------------------");
+    
+    Echo("Repeatability/Equipment Variation (EV): ", EV);
+    
+    Echo("EV Percent Of Tolerance: ", PercentEV);
+    
+    Echo("------------------------------------------------");
+    
+    Echo("Reproducibility/Appraser Variation (AV): ", AV);
+    
+    Echo("AV Percent Of Tolerance: ", PercentAV);
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Gage R&R example data"
 
 ATrial := {
 {
@@ -145,126 +278,8 @@ True;
 
 
 
-
-
-%mathpiper,title=""
-
-AnalyzeOperator(trial1, trial2, trial3) :=
-[
-    Check(Length(trial1) = Length(trial2) And Length(trial1) = Length(trial3), "The lengths of the lists must be equal.");
-
-    Local(rangeList, rangeBar, trialsSum, xBar);
-    
-    rangeList := Map( Lambda({x,y,z}, Maximum(x,y,z) - Minimum(x,y,z)), {trial1, trial2, trial3});
-    
-    rangeBar := N(Mean(rangeList));
-    
-    trialsSum := Sum(Sum({trial1,trial2,trial3}));
-    
-    xBar := N(trialsSum / Add(Length(trial1),Length(trial2),Length(trial3)));
-
-    result := {};
-        
-    result["rangeBar"] := rangeBar;
-    
-    result["xBar"] := xBar;
-    
-    result;
-];
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
-
-
-
-
 %mathpiper
-AnalyzeOperators(operatorATrials, operatorBTrials, operatorCTrials) :=
-[
-    
-    //Analyze operator A.
-    AAnalysis := AnalyzeOperator(operatorATrials[1], operatorATrials[2], operatorATrials[3]);
-
-    ARangeBar := AAnalysis["rangeBar"];
-    
-    AXBar := AAnalysis["xBar"];
-    
-    
-    //Analyze operator B.
-    BAnalysis := AnalyzeOperator(operatorBTrials[1], operatorBTrials[2], operatorBTrials[3]);
-    
-    BRangeBar := BAnalysis["rangeBar"];
-    
-    BXBar := BAnalysis["xBar"];
-    
-    
-    //Analyze operator C.
-    CAnalysis := AnalyzeOperator(operatorCTrials[1], operatorCTrials[2], operatorCTrials[3]);
-    
-    CRangeBar := CAnalysis["rangeBar"];
-    
-    CXBar := CAnalysis["xBar"];
-    
-    
-    XBarDiff := N(Minimum({AXBar, BXBar, CXBar}) - Maximum({AXBar, BXBar, CXBar}));
-    
-    
-    
-    RBarBar := N(Mean({ARangeBar, BRangeBar, CRangeBar}));
-    
-    K1 := 3.05;
-    
-    K2 := 2.70;
-    
-    EV := N(RBarBar * K1);
-    
-    tolerance := .40;
-    
-    PercentEV := N(100*EV/tolerance);
-    
-    n := Length(operatorATrials[1]);
-    
-    r := Length(operatorATrials);
-    
-    AV := N(Sqrt((XBarDiff * K2)^2 - (EV^2/(n*r))));
-    
-    PercentAV := N(100*AV/tolerance);
-    
-    RAndR := N(Sqrt(EV^2 + AV^2));
-    
-    Echo("Gage Repeatability and Reproducibility Report");
-    
-    Echo("------------------------------------------------");
-    
-    Echo("Repeatability/Equipment Variation (EV): ", EV);
-    
-    Echo("EV Percent Of Tolerance: ", PercentEV);
-    
-    Echo("------------------------------------------------");
-    
-    Echo("Reproducibility/Appraser Variation (AV): ", AV);
-    
-    Echo("AV Percent Of Tolerance: ", PercentAV);
-    
-
-];
-
-%/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
-
-
-%mathpiper
-AnalyzeOperators(ATrial, BTrial, CTrial );
+AnalyzeOperators(.40, ATrial, BTrial, CTrial );
 
 %/mathpiper
 
@@ -272,13 +287,204 @@ AnalyzeOperators(ATrial, BTrial, CTrial );
       Result: True
       
       Side Effects:
-      Gage Repeatability and Reproducibility Report
+      Gage Repeatability And Reproducibility Report
+      ------------------------------------------------
+      Operator A Mean Of All Measurements: 0.8283333333 
+      Operator A Range Of All Measurements: 0.06 
+      
+      Operator B Mean Of All Measurements: 0.7533333333 
+      Operator B Range Of All Measurements: 0.07 
+      
+      Operator C Mean Of All Measurements: 0.835 
+      Operator C Range Of All Measurements: 0.06 
       ------------------------------------------------
       Repeatability/Equipment Variation (EV): 0.1931666667 
       EV Percent Of Tolerance: 48.29166668 
       ------------------------------------------------
       Reproducibility/Appraser Variation (AV): 0.2176613685 
       AV Percent Of Tolerance: 54.41534213 
+      
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Gage R&R small plastic part data"
+
+ATrial := {
+{
+79.02,
+77.70,
+77.60,
+74.42,
+77.05,
+78.88,
+78.20,
+78.52,
+76.35,
+76.33
+},
+
+
+{
+79.00,
+77.68,
+77.80,
+74.41,
+77.00,
+78.91,
+78.35,
+78.62,
+76.29,
+76.31
+},
+
+
+{
+79.04,
+77.74,
+77.59,
+74.40,
+77.07,
+78.88,
+78.27,
+78.56,
+76.32,
+76.39
+}
+};
+
+
+BTrial := {
+{
+79.0,
+77.7,
+77.52,
+74.07,
+77.02,
+78.9,
+78.36,
+78.77,
+76.25,
+76.37
+},
+
+
+{
+79.0,
+77.68,
+77.56,
+74.22,
+76.67,
+78.9,
+78.26,
+78.52,
+76.25,
+76.41
+},
+
+
+{
+78.99,
+77.68,
+77.53,
+74.35,
+76.59,
+78.86,
+78.53,
+78.54,
+76.16,
+76.37
+}
+};
+
+
+
+
+CTrial := {
+{
+78.95,
+77.20,
+77.33,
+73.52,
+76.34,
+78.73,
+78.16,
+78.18,
+75.95,
+76.23
+},
+
+
+{
+78.83,
+77.13,
+77.19,
+73.27,
+76.13,
+78.62,
+78.05,
+78.15,
+75.74,
+75.92
+},
+
+
+
+{
+78.87,
+77.15,
+77.44,
+73.32,
+75.99,
+78.56,
+78.03,
+78.13,
+75.69,
+75.93
+}
+};
+
+True;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper
+AnalyzeOperators(5, ATrial, BTrial, CTrial );
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Operator A Mean Of All Measurements: 77.42333333 
+      Operator A Range Of All Measurements: 0.082 
+      
+      Operator B Mean Of All Measurements: 77.36766667 
+      Operator B Range Of All Measurements: 0.147 
+      
+      Operator C Mean Of All Measurements: 76.95766667 
+      Operator C Range Of All Measurements: 0.196 
+      
+      Gage Repeatability And Reproducibility Report
+      ------------------------------------------------
+      Repeatability/Equipment Variation (EV): 0.4320833334 
+      EV Percent Of Tolerance: 8.641666668 
+      ------------------------------------------------
+      Reproducibility/Appraser Variation (AV): 1.254822715 
+      AV Percent Of Tolerance: 25.09645430 
       
 .   %/output
 
