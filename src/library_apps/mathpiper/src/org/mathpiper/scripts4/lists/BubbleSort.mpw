@@ -29,11 +29,9 @@ Function("BubbleSort",{list,compare})
 
 %mathpiper_docs,name="BubbleSort",categories="User Functions;Lists (Operations)"
 *CMD BubbleSort --- sort a list
-*CMD HeapSort --- sort a list
 *STD
 *CALL
 	BubbleSort(list, compare)
-	HeapSort(list, compare)
 
 *PARMS
 
@@ -48,21 +46,20 @@ compare elements. The function {compare} should accept two arguments,
 which will be elements of {list}, and compare them. It should return
 {True} if in the sorted list the second argument
 should come after the first one, and {False}
-otherwise.
+otherwise.  The function {compare} can either be a string which
+contains the name of a function or a pure function.
 
 The function {BubbleSort} uses the so-called "bubble sort" algorithm to do the
 sorting by swapping elements that are out of order. This algorithm is easy to
 implement, though it is not particularly fast. The sorting time is proportional
 to $n^2$ where $n$ is the length of the list.
 
-The function {HeapSort} uses a recursive algorithm "heapsort" and is much
-faster for large lists. The sorting time is proportional to $n*Ln(n)$ where $n$
-is the length of the list.
-
 *E.G.
+In> BubbleSort({4,7,23,53,-2,1}, ">")
+Result: {53,23,7,4,1,-2}
 
-	In> BubbleSort({4,7,23,53,-2,1}, "<");
-	Out> {-2,1,4,7,23,53};
-	In> HeapSort({4,7,23,53,-2,1}, ">");
-	Out> {53,23,7,4,1,-2};
+In> BubbleSort({3,5,2},Lambda({x,y},x<y))
+Result: {2,3,5}
+
+*SEE HeapSort, Lambda
 %/mathpiper_docs
