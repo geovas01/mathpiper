@@ -24,7 +24,7 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
 
 10 # GeoGebraPlot(list_IsList, _options)_(IsEven(Length(list)And IsNumericList(list)) )  <--
 [
-    If(IsList(options), options := OptionListToAssociativeList(options), options := OptionListToAssociativeList({options}));
+    If(IsList(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList({options}));
 
     Local(length, index, labelIndex, pointTemplate, segmentCommandTemplate, segmentElementTemplate, command, code, x, y);
     
