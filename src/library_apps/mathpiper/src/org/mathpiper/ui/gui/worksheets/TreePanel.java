@@ -9,7 +9,6 @@ import java.awt.RenderingHints;
 import java.util.LinkedList;
 import java.util.Queue;
 import javax.swing.JPanel;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.InfixOperator;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.Position;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
@@ -47,7 +46,7 @@ public class TreePanel extends JPanel implements ViewPanel {
 
         symbolBox.calculatePositions(sg, 3, new Position(x + iIndent, y + /*calculatedAscent + 10*/ 30));
 
-        doShapeTree(symbolBox, 150/*yPosition*/, new int[20000]/*int[] last*/, 10/*position*/, sg);
+        doShapeTree(symbolBox, 150/*yPosition*/, new int[20000]/*int[] last*/, 10/*position*/, null, sg);
 
 
         queue.add(symbolBox);
@@ -67,12 +66,12 @@ public class TreePanel extends JPanel implements ViewPanel {
 
                 sg.drawText(nodeString, currentNode.getTreeX(), currentNode.getTreeY() );//xPosition, yPosition);
 
-                /*if (currentNode.isEndOfLevel()) {
-                    xPosition = 50;
-                    yPosition += 50;
-                } else {
-                    xPosition += sg.getScaledTextWidth(nodeString) + 20;
-                }*/
+                if(currentNode.getParentYAnchor() != -1)
+                {
+                    sg.setColor(Color.BLACK);
+                    sg.setLineThickness(1.5);
+                    sg.drawLine(currentNode.getTreeX() + currentNode.width(sg)/2, currentNode.getTreeY() - currentNode.height(sg), currentNode.getParentXAnchor(), currentNode.getParentYAnchor());
+                }
 
                 SymbolBox[] children = currentNode.getChildren();
 
@@ -103,10 +102,10 @@ public class TreePanel extends JPanel implements ViewPanel {
     }
 
 
-    private int doShapeTree(SymbolBox tree, int yPosition, int[] last, int position, ScaledGraphics sg)
+    private int doShapeTree(SymbolBox tree, int yPosition, int[] last, int position, SymbolBox parent, ScaledGraphics sg)
     {
-        int Y_SEPARATION = 20;
-        int MIN_X_SEPARATION = 15;
+        int Y_SEPARATION = 30;
+        int MIN_X_SEPARATION = 25;
 
         int branchPosition;
         int i;
@@ -116,12 +115,13 @@ public class TreePanel extends JPanel implements ViewPanel {
 
 
         //System.out.println("W: " + tree.width(sg));
-        if(tree instanceof InfixOperator)
+        //System.out.println("XX: " + tree.toString());
+        /*if(tree.toString().contains("0"))
         {
             int xx = 0;
             int wi = tree.width(sg);
             xx = 0;
-        }
+        }*/
 
         if(tree == null)
         {
@@ -129,10 +129,12 @@ public class TreePanel extends JPanel implements ViewPanel {
         }
         else /* Place subtree. */
         {
-            /* Ensure the nominal position of the node is right of any other node. */
+            /* Ensure the nominal position of the node to the is right of any other node. */
             for(i = yPosition - Y_SEPARATION; i < yPosition+tree.height(sg); i++)
             {
-                int possibleNewPosition = (last[i] + MIN_X_SEPARATION + tree.width(sg)/2);
+                int lastOnRaster = last[i];
+                
+                int possibleNewPosition = (lastOnRaster + MIN_X_SEPARATION + tree.width(sg)/2);
 
                 if(possibleNewPosition > position)
                 {
@@ -143,20 +145,23 @@ public class TreePanel extends JPanel implements ViewPanel {
 
 
             if(tree.getChildren().length >= 1){ /* Place branches if they exist. */
+
                 if(tree.getChildren().length > 1) {
+
                     width = (tree.getChildren()[0].width(sg) +
                             tree.getChildren()[tree.getChildren().length-1].width(sg))/2 +
                             (tree.getChildren().length-1)*MIN_X_SEPARATION;
+
                     for(i=1; i < tree.getChildren().length-1; i++)
                         width += tree.getChildren()[i].width(sg);}
 
                 else
                     width = 0;
 
-                branchPosition = position = width/2;
+                branchPosition = position - width/2;
                 /* Position far left branch. */
-                leftPosition = doShapeTree(tree.getChildren()[0], yPosition+tree.height(sg)+Y_SEPARATION,
-                        last, branchPosition, sg);
+                leftPosition = doShapeTree(tree.getChildren()[0], yPosition + tree.height(sg) + Y_SEPARATION,
+                        last, branchPosition, tree, sg);
 
                 /* Position the other branches if they exist. */
                 rightPosition = leftPosition;
@@ -164,8 +169,8 @@ public class TreePanel extends JPanel implements ViewPanel {
                     branchPosition += MIN_X_SEPARATION +
                             (tree.getChildren()[i-1].width(sg) +
                             tree.getChildren()[i].width(sg))/2;
-                    rightPosition = doShapeTree(tree.getChildren()[i], yPosition+tree.height(sg)+Y_SEPARATION,
-                            last, branchPosition, sg);
+                    rightPosition = doShapeTree(tree.getChildren()[i], yPosition + tree.height(sg) + Y_SEPARATION,
+                            last, branchPosition, tree, sg);
                 } /* for */
 
                 position = (leftPosition+rightPosition)/2;
@@ -173,13 +178,21 @@ public class TreePanel extends JPanel implements ViewPanel {
             }//end if tree -> nrBranches >= 1 */
 
             /* Add node to list. */
-            for(i = yPosition-Y_SEPARATION; i < yPosition+tree.height(sg); i++)
-                last[i] = position + (tree.width(sg)+1)/2;
+            for(i = yPosition - Y_SEPARATION; i < yPosition+tree.height(sg); i++)
+                last[i] = position + (tree.width(sg) + 1)/2;
 
 
             tree.setTreeX(position);
 
             tree.setTreeY(yPosition);
+
+            if(parent != null)
+            {
+
+                tree.setParentXAnchor(parent.getTreeX() + parent.width(sg)/2 );
+
+                tree.setParentYAnchor(parent.getTreeY() + 4 );
+            }//end if
 
             return position;
 

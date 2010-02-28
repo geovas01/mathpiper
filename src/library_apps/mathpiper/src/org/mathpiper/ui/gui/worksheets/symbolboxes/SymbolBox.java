@@ -36,6 +36,10 @@ public abstract class SymbolBox {
 
     private int treeY;
 
+    private int parentXAnchor = -1;
+
+    private int parentYAnchor = -1;
+
     public static int getSequence() {
         return sequence;
     }
@@ -129,6 +133,22 @@ public abstract class SymbolBox {
 
     public void setTreeY(int treeY) {
         this.treeY = treeY;
+    }
+
+    public int getParentXAnchor() {
+        return parentXAnchor;
+    }
+
+    public void setParentXAnchor(int parentXAnchor) {
+        this.parentXAnchor = parentXAnchor;
+    }
+
+    public int getParentYAnchor() {
+        return parentYAnchor;
+    }
+
+    public void setParentYAnchor(int parentYAnchor) {
+        this.parentYAnchor = parentYAnchor;
     }
 
 
