@@ -35,5 +35,5 @@ and this list is returned.
 	In> AssocIndices(writer);
 	Out> {"Iliad","Henry IV","Ulysses"};
 
-*SEE Assoc, AssocDelete
+*SEE Assoc, AssocDelete, AssocValues
 %/mathpiper_docs

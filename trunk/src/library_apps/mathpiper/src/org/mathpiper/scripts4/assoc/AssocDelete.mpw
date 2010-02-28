@@ -91,5 +91,5 @@ At most one entry is deleted.
 	Out> {{"Iliad","Homer"},{"Ulysses","Dublin"}};
 
 
-*SEE Assoc, AssocIndices
+*SEE Assoc, AssocIndices, AssocValues
 %/mathpiper_docs
