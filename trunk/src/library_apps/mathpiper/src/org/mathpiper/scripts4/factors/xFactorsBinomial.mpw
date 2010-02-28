@@ -51,7 +51,7 @@ Retract("IsPowerOf2",*);
           Tell("       ",{Ar,Br,s});
       ]
     );
-    If( IsInteger(Ar) And IsInteger(Br), xFB2(dis), {{poly,1} );
+    If( IsInteger(Ar) And IsInteger(Br), xFB2(dis), {{poly,1}} );
 ];
 
 
