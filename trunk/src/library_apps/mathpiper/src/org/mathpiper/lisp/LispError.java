@@ -251,7 +251,7 @@ public class LispError
 
     public static void raiseError(String errorMessage, String functionName, int aStackTop, Environment aEnvironment) throws Exception
     {
-        check(  true, errorMessage,functionName, aStackTop, aEnvironment);
+        check(  false, errorMessage,functionName, aStackTop, aEnvironment);
         //throw new EvaluationException(errorMessage + " In function " + functionName + ". ","none",-1);
     }
 
