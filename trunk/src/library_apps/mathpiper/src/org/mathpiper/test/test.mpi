@@ -1,4 +1,5 @@
 
 
-StackTraceOn();
-FactorCancel(((x) + (1))/((x) + (2)));
+zz :=  JavaCall( JavaNew("java.lang.String","Hello"),"toUpperCase");
+
+JavaValue(zz);
