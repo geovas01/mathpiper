@@ -51,5 +51,5 @@ intuitively) be accessed as {alist[key]}.
 	In> Assoc("War and Peace", writer);
 	Out> Empty;
 
-*SEE AssocIndices, [], :=, AssocDelete
+*SEE AssocIndices, [], :=, AssocDelete, AssocValues
 %/mathpiper_docs
