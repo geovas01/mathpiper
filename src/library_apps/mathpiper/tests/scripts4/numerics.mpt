@@ -7,14 +7,17 @@ f():=[];//Echo(CurrentLine());
 
 BuiltinPrecisionSet(10);
 
-NumericEqual(N(Sqrt(2),5), 1.41421,5);		// no idea where the problem is
+NumericEqual(N(Sqrt(2),6), 1.41421,6);	
 NumericEqual(N(N(1+Pi,20)-Pi,20),1,20);		// "N" should have "HoldArgument" in some way, so inner "N" is evaluated with outer precision 20
 
 /* Got the first digits of Pi from the following page:
    http://www.cecm.sfu.ca/projects/ISC/dataB/isc/C/pi10000.txt
   Just checking that Yacas agrees.
+  First, however, we need to set BuiltinPrecision way higher than 10 !!
 */
-NumericEqual(N(Pi,70),3.1415926535897932384626433832795028841971693993751058209749445923078164062862,70);
+BuiltinPrecisionSet(90);
+NumericEqual(N(Pi,70),3.141592653589793238462643383279502884197169399375105820974944592307816,70);
+BuiltinPrecisionSet(10);
 
 NumericEqual( N(Sec(2),9), -2.402997962, 9);
 NumericEqual( N(Csc(2),9),  1.09975017,9);
