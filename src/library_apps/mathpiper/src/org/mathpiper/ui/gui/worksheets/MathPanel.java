@@ -41,7 +41,7 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
             sg.setLineThickness(0);
             sg.setViewScale(viewScale);
             int x = 10;
-            int y = 30;
+            int y = 60;
             int iIndent = 0;
             double calculatedAscent = symbolBox.getCalculatedAscent();
             symbolBox.calculatePositions(sg, 3, new Position(x + iIndent, y + /*calculatedAscent + 10*/30));
