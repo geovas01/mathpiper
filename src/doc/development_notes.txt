@@ -3,6 +3,10 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Good example of where ViewMath is useful:
+sd := Hold(Sqrt((Sum(d^2) - (Sum(d)^2)/n))/(n-1)); //Wrong.
+sd := Hold(Sqrt((Sum(d^2) - (Sum(d)^2)/n)/(n-1))); //Right.
+
 + RandomPoly does not work inside of Table: Unbind(x);
 Table(RandomPoly(x,3,-10,10),i,1,9,1);
 + Change Check to require the name of the function which is calling it.
