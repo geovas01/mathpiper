@@ -263,7 +263,7 @@ UnFence("xFactorsMultivariate",1);
 10 # xFactorsHomogeneousBivariate( dis_IsList ) <-- 
 [
     If(InVerboseMode(),[NewLine();Tell("xFactorsHomogeneousBivariate",dis);]);
-    Local(dis1,f,dis2,poly1,ppFactors,residuals);
+    Local(dis1,f,lst,dis2,poly1,ppFactors,residuals);
     dis1  := {{xi},{{X},{X[1]}} /@ dis[2],dis[3]};
     If(InVerboseMode(),Tell("   ",dis1));
     poly1 := Sum(ReassembleListTerms(dis1));
