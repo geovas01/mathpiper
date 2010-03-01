@@ -10,7 +10,7 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
     
     Check(confidenceLevel >=0 And confidenceLevel <=1, "The confidence level must be >= 0 and <= 1.");
     
-    Local(n,a,b,xMean,regressionLine,part,result,criticalTScore);
+    Local(n,a,b,xMean,part,result,criticalTScore,standardErrorOfTheEstimate/* regressionLine, todo:tk:causes an error if it is not global. */);
     
     regressionLine := RegressionLine(x,y);
     
@@ -21,9 +21,9 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
     criticalTScore := OneTailAlphaToTScore(n-2, N((1 - confidenceLevel)/2));
     
     standardErrorOfTheEstimate := StandardErrorOfTheEstimate(x,y);
-    
+
     xMean := regressionLine["xMean"];
-        
+
     part := N(criticalTScore * standardErrorOfTheEstimate * Sqrt(1/n + ((xValue - xMean)^2)/(Sum(x^2) - Sum(x)^2/n)));
     
     result := {};
@@ -38,7 +38,7 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
 %/mathpiper
 
     %output,preserve="false"
-      Result: True
+      Result: {{"lower",f(8)-1.954274717},{"upper",f(8)+1.954274717}}
 .   %/output
 
 
