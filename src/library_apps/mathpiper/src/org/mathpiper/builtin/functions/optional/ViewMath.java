@@ -92,8 +92,8 @@ public class ViewMath extends BuiltinFunction {
         TexParser parser = new TexParser();
         SymbolBox sBoxExpression = parser.parse(texString);
 
-        //ViewTree viewTree = new ViewTree();
-        //viewTree.walkTree(sBoxExpression);
+        ViewTree viewTree = new ViewTree();
+        viewTree.walkTree(sBoxExpression);
 
         MathPanel mathPanel = new MathPanel(sBoxExpression, viewScale.toDouble());
 
