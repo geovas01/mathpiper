@@ -48,7 +48,7 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
 *CMD RegressionLineConfidenceInterval --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL
-	RegressionLineConfidenceInterval(xList,yList)
+	RegressionLineConfidenceInterval(xList,yList,xValue,confidenceLevel)
 
 *PARMS
 
@@ -71,4 +71,4 @@ RegressionLineConfidenceInterval(xList,yList,8,.95);
       Result: {{"lower",51.59027286},{"upper",55.49882230}}
 .   /%/output
 
-
+%/mathpiper_docs
