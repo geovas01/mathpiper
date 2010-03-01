@@ -367,7 +367,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 				errorSource.clear();
 			
-				errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber-1, 0, 0, result ) );
+				errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber-1, 0, 0, errorResult ) );
 			
 				jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
 				
