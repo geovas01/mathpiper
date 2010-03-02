@@ -1,0 +1,152 @@
+
+
+%mathpiper,title="Manual standard deviation calculation example on pages 38-39."
+
+//Create the list of numbers.
+x := {8,8,8,7,6,6,5,5,4,3};
+Echo("x: ", x);
+NewLine();
+
+
+//The Length function determines how many numbers are in a list.
+n := Length(x);
+Echo("n: ", n);
+NewLine();
+
+
+mean := N(Mean(x));
+Echo("Mean: ", mean);
+NewLine();
+
+
+//Automatically subtract the mean from every number in the list.
+xMinusMean := x - mean; 
+Echo("x - mean: ", xMinusMean);
+NewLine();
+
+
+//Automatically calculate (x - mean)^2 for every number in the list.
+xMinusMeanSquared := (x - mean)^2;
+Echo("(x - mean)^2: ", xMinusMeanSquared);
+NewLine();
+
+
+//The Sum function calculates the sum of the numbers in a list.
+sum := Sum(x);
+Echo("Sum: ", sum);
+NewLine();
+
+
+//The Sqrt function calculates the square root of a number.
+squareRoot := N(Sqrt(25));
+Echo("The square root of 25 is: ", squareRoot);
+NewLine();
+
+
+//Finally, these are all put together into one expression to calculate
+//the standard deviation.
+standardDeviation := N(Sqrt( (Sum((x - mean)^2))/(n - 1) ));
+Echo("Standard deviation: ", standardDeviation);
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      x: {8,8,8,7,6,6,5,5,4,3} 
+      
+      n: 10 
+      
+      Mean: 6 
+      
+      x - mean: {2,2,2,1,0,0,-1,-1,-2,-3} 
+      
+      (x - mean)^2: {4,4,4,1,0,0,1,1,4,9} 
+      
+      Sum: 60 
+      
+      The square root of 25 is: 5 
+      
+      Standard deviation: 1.763834207 
+      
+.   %/output
+
+
+
+
+
+
+
+
+
+
+%mathpiper,title="Example on pages 43-44."
+//This example uses the built-in Range, StandardDeviation, and UnbiasedVariance functions
+//to perform the calculations instead of doing it manually.
+
+//Chapter 3 Data Set 1.
+
+//Data was taken from the Excel files on http://soe.ku.edu/Salkind/stats_fpwhs3e/
+
+dataList := {
+0.4,
+0.7,
+0.4,
+0.9,
+0.8,
+0.7,
+0.3,
+1.9,
+1.2,
+2.8,
+0.8,
+0.9,
+1.1,
+1.3,
+0.2,
+0.6,
+0.8,
+0.7,
+0.5,
+2.6,
+0.5,
+2.1,
+2.3,
+0.2,
+0.5,
+0.7,
+1.1,
+0.9,
+0.6,
+0.2
+};
+
+
+n := Length(dataList);
+Echo("N: ", n);
+
+standardDeviation := N(StandardDeviation(dataList));
+Echo("Standard deviation: ", standardDeviation);
+
+unbiasedVariance := N(UnbiasedVariance(dataList));
+Echo("Unbiased variance: ", unbiasedVariance);
+
+range := Range(dataList);
+Echo("Range: ", range);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      N: 30 
+      Standard deviation: 0.7025487255 
+      Unbiased variance: 0.4935747117 
+      Range: 2.6 
+      
+.   %/output
+
+
