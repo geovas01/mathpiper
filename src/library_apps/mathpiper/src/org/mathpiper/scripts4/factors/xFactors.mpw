@@ -4,6 +4,8 @@
  *  PENULTIMATE VERSION 
  *    Started 091222
  *    revised 100108-22
+ *    revised 100215
+ *    revised 100301
  *------------------------------------------------------------------------*/
 
 Retract("xFactors",*);
@@ -11,6 +13,7 @@ Retract("xFactorsPrimitivePart",*);
 Retract("xFactorsUnivariate",*);
 Retract("xFactorsMultivariate",*);
 Retract("xFactorsHomogeneousBivariate",*);
+Retract("CheckForSpecialForms",*);
 
 Retract("ApproximateRealCoefficients",*);
 Retract("FixUpMonicFactors",*);
@@ -40,7 +43,7 @@ Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
 
 
 14 # xFactors(p_IsRational)_(Denominator(p) != 1) <-- 
-             { {xFactor(Numerator(p)) / xFactor(Denominator(p) ) , 1} }; 
+             { {newFactor(Numerator(p)) / newFactor(Denominator(p) ) , 1} }; 
              
 
 16 # xFactors(p_IsGaussianInteger)	<-- GaussianFactors(p);
@@ -56,7 +59,7 @@ Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
 [
     If(InVerboseMode(),Tell("xFactors_can_be_uni_100122",poly));
     Local(content,pp,ppFactors,monomialFactors,result);
-    Local(vars,nvars,disassem,degrees,mpoly,nterms,allCoeffs);
+    Local(vars,nvars,disassem,degrees,mpoly,nterms,allCoeffs,allPowers);
     Local(hasRealCoefficients,hasRationalCoefficients);
 
     //  First, check to see if the polynomial has any REAL coefficients.
@@ -68,6 +71,7 @@ Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
          realPoly  := poly;   //  just in case -- save original form
          disassem  := DisassembleExpression(poly);
          allCoeffs := disassem[3];
+         allPowers := Flatten(disassem[2],"List");
          poly      := ApproximateRealCoefficients(poly);
       ]
     );
@@ -79,17 +83,13 @@ Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
     content := xContent( poly );
     pp      := xPrimitivePart( poly, content );
     If(InVerboseMode(),Tell("  ",{content,pp}));
-    
-    //  Now we can concentrate on factoring the Primitive Part, which
-    //  might be simpler
-    
-    //  Begin by identifying the nature of this polynomial (i.e., the PP)    
-    vars      := VarList(pp);
-    nvars     := Length(vars);
-    disassem  := DisassembleExpression(pp);
-    nterms    := Length(disassem[3]);
-    degrees   := {};
-    allCoeffs := disassem[3];
+    vars     := VarList(pp);
+    nvars    := Length(vars);
+    disassem := DisassembleExpression(pp);
+    nterms   := Length(disassem[3]);
+    degrees  := {};
+    allCoeffs         := disassem[3];
+    allPowers         := Flatten(disassem[2],"List");
     If(nvars > 0,
       [
         ForEach(v,vars)
@@ -121,6 +121,7 @@ Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
         Tell("            ",degrees);
         Tell("           ",disassem);
         Tell("          ",allCoeffs);
+        Tell("          ",allPowers);
         Tell("      ",isHomogeneous);
         NewLine();
       ]
@@ -128,7 +129,7 @@ Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
     
     //  OK.  Now factor the PrimitivePart
     ppFactors := xFactorsPrimitivePart( pp );
-    
+
     If(InVerboseMode(),[NewLine();Tell("  ",ppFactors);]);
     
     // Next, include the factors of the Content, if any
@@ -229,10 +230,14 @@ UnFence("xFactorsPrimitivePart",1);
           Tell("    ",factrsnew);
           Tell("    ",residOut);
       ]
+    );   
+    //  Finally, the output --------
+    Local(final);
+    If(Length(Union(factrsnew,residOut)) > 0,
+        final := Concat(factrsnew,residOut),
+        final := factrs
     );
-    
-     //  Finally, the output --------
-     Concat(factrsnew,residOut);
+    CheckForSpecialForms( final );
 ];   //   xFactorsUnivariate
 UnFence("xFactorsUnivariate",1);
 
@@ -293,6 +298,43 @@ UnFence("xFactorsMultivariate",1);
     ppFactors;
 ];
 UnFence("xFactorsHomogeneousBivariate",1);
+
+
+// ------------------  SPECIAL FORMS  ------------------
+
+10 # CheckForSpecialForms( final_IsList ) <-- 
+[
+    If(InVerboseMode(),[NewLine();Tell("CheckForSpecialForms",final);]);
+    Local(LL,ii,fact,mult,dis,new);
+    new := {};
+    LL  := Length(final);
+    For(ii:=1,ii<=LL,ii++)
+    [
+        fact := final[ii][1];
+        mult := final[ii][2];
+        If(InVerboseMode(),Tell("   ",{fact,mult}));
+        dis := DisassembleExpression( fact );
+        If(InVerboseMode(),Tell("   ",dis));
+        Local(var);
+        var := dis[1][1];
+        if ( dis[2]={{4},{2},{0}} And dis[3]={1,1,1} )
+            [
+                Local(new1,new2);
+                new1 := {var^2-var+1,mult};
+                new2 := {var^2+var+1,mult};
+                DestructiveAppend(new,new1);
+                DestructiveAppend(new,new2);
+                If(InVerboseMode(),Tell("   ",new));
+            ]
+        else
+            [
+                If(InVerboseMode(),Tell("   no special form"));
+                DestructiveAppend(new,{fact,mult});
+            ];
+        );
+    ];
+    new;
+];
 
 
 // ---------------------   OTHER STUFF ------------------------
@@ -370,6 +412,20 @@ UnFence("ApproximateRealCoefficients",1);
 ];
 
 
+152 # xFactors( expr_IsRationalFunction )_
+        (IsConstant(Numerator(expr)) And IsPolynomial(Denominator(expr))) <--
+[
+    If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Denom",expr);]);
+    Local(Numer,Denom,fNumer,fDenom);
+    Numer  := Numerator(expr);
+    Denom  := Denominator(expr);
+    fNumer := xFactors(Numer);
+    fDenom := xFactors(Denom);
+    If(InVerboseMode(),[Tell("   ",fNumer); Tell("   ",fDenom);]);
+    fNumer/fDenom;
+];
+
+
 // ----------   POSSIBLE NON-INTEGER EXPONENTS  ----------
 
 200 # xFactors( _expr )_(Length(VarList(expr)) = 1) <--
@@ -435,12 +491,13 @@ UnFence("ApproximateRealCoefficients",1);
     [
         If(InVerboseMode(),Tell("               ",f));
         uni := MakeUni(f[1]);
-        //If(InVerboseMode(),Tell("                    ",uni));
+        If(InVerboseMode(),Tell("                    ",uni));
         If( Degree(f[1])=1,
           [
             Local(cc,lcm,fnew);
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             cc      := Coef(f[1],uni[1],0 .. 1);
+            //Tell("                       ",cc);
             lcm     := Lcm( Denominator /@ cc );
             uni[3]  := lcm * cc;
             fnew    := NormalForm(uni);
@@ -517,6 +574,9 @@ UnFence("FixUpMonicFactors",1);
     %output,preserve="false"
       Result: True
 .   %/output
+
+
+
 
 
 

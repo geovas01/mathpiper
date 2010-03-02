@@ -253,3 +253,77 @@ UnFence("xFB2",1);
 IsPowerOf2( n_IsPositiveInteger ) <-- [ Count(StringToList(ToBase(2,n)),"1") = 1; ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title="testing"
+
+Retract("TestPlus1",*);
+Retract("TestMinus1",*);
+
+
+1000 # TestMinus1() <--
+[
+    Local(n,poly,a,b,result,prod,ok);
+    NewLine(1);
+    Tell("Test Binomial Dif, 1 Variable");
+    a := 2;
+    b := 3;
+    For(n:=2,n<=12,n++)
+    [
+        poly   := ExpandBrackets(a^n*x^n-b^n);
+        result := xFactorsBinomial(poly);
+        prod   := ExpandBrackets(FW(result));
+        ok     := Verify(a^n*x^n-b^n,prod);
+        NewLine(1);
+        Tell("    ",poly);
+        If(InVerboseMode(),
+          [
+             Tell("         ",result);
+             Tell("         ",prod);
+          ]
+        );
+        Tell("    ",ok);
+    ];
+];
+
+
+1000 # TestPlus1() <--
+[
+    Local(n,poly,a,b,result,prod,ok);
+    NewLine(1);
+    Tell("Test Binomial Sum, 1 Variable");
+    a := 2;
+    b := 3;
+    For(n:=2,n<=12,n++)
+    [
+        poly   := ExpandBrackets(a^n*x^n+b^n);
+        result := xFactorsBinomial(poly);
+        prod   := ExpandBrackets(FW(result));
+        ok     := Verify(a^n*x^n+b^n,prod);
+        NewLine(1);
+        Tell("    ",poly);
+        If(InVerboseMode(),
+          [
+             Tell("         ",result);
+             Tell("         ",prod);
+          ]
+        );
+        Tell("    ",ok);
+    ];
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
