@@ -90,6 +90,7 @@ Echo("Standard deviation: ", standardDeviation);
 
 //Data was taken from the Excel files on http://soe.ku.edu/Salkind/stats_fpwhs3e/
 
+//Note that it is often easier to enter lists as a column rather than a row.
 dataList := {
 0.4,
 0.7,
