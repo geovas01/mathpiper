@@ -2,24 +2,32 @@
 
 Mode(list) :=
 [
-    Check(IsList(list), "Argument must be a list.");
+    Check(Length(list) > 0 And IsNumericList(list), "Argument must be a nonempty numeric list.");
     
-    Local(mostFrequent, highestFrequency, currentElementCount);
-    
-    highestFrequency := 0;
+    Local(noDuplicatesList, countsList, sortedList, highestCountsList, resultList);
     
     noDuplicatesList := RemoveDuplicates(list);
     
+    countsList := {};
+    
     ForEach(element, noDuplicatesList)
     [
-        If( (currentElementCount := Count(list, element)) > highestFrequency,[ mostFrequent := element; highestFrequency := currentElementCount;] );
+        countsList := Append(countsList, {Count(list, element), element} );
     ];
     
-    mostFrequent;
+    sortedList := HeapSort(countsList,Lambda({x,y},x[1] > y[1]));
+    
+    highestCountsList := Select(sortedList, Lambda({x},x[1] = sortedList[1][1]));
+    
+    resultList := MapSingle(Lambda({x},x[2]), highestCountsList);
 
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
