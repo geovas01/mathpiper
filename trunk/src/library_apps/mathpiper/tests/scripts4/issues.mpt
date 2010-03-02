@@ -38,10 +38,10 @@ Verify(Factor( t^2-9 ), (t-3)*(t+3));       // OK
 
 
 //Issue 23
-//Verify(Factor(x^8+2*x^6+3*x^4+2*x^2+1),(x^2+x+1)*(x^2+x+1)*(x^2-x+1)*(x^2-x+1));
+TestMathPiper(Factor(x^8+2*x^6+3*x^4+2*x^2+1),(x^2+x+1)*(x^2+x+1)*(x^2-x+1)*(x^2-x+1));
 
 //Issue 24
-//Verify(Factor(x^5+4*x^4-22*x^2+59*x-30),x^5+4*x^4-22*x^2+59*x-30);
+TestMathPiper(Factor(x^5+4*x^4-22*x^2+59*x-30),x^5+4*x^4-22*x^2+59*x-30);
 
 //Issue 40
 Verify(Factor(x^2-2),x^2-2);
