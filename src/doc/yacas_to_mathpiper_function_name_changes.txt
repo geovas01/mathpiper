@@ -13,7 +13,8 @@ UnFence -> Unfence
 UnbiasedVariance -> SampleVariance
 Variance -> PopulationVariance
 MakeVector -> MakeIdentifiers
-RulebaseDefined -> IsRulebaseDefined
+RulebaseDefined -> IsRulebaseDefined.
+Map and MapSingle should have the list as the first argument to match Find and Contains.
 ============================= Changes that have already been done.
 
 //Newest changes (1/8/2010). 
