@@ -30,5 +30,5 @@ specified {arity} to be unevaluated ("held"). Useful if you don't know symbolic
 names of parameters, for instance, when the function was not declared using an
 explicit {Rulebase} call. Otherwise you could use {HoldArg}.
 
-*SEE HoldArg, Rulebase
+*SEE HoldArgument, Rulebase
 %/mathpiper_docs
