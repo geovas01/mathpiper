@@ -49,7 +49,8 @@ public class RulebaseArgumentsList extends BuiltinFunction
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
         SingleArityBranchingUserFunction userFunc = aEnvironment.getUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), arity, aStackTop);
-        LispError.check(aEnvironment, aStackTop, userFunc != null, LispError.INVALID_ARGUMENT);
+        
+        LispError.check(userFunc != null, "User function for this arity is not defined.", "RulebaseArgumentsList", aStackTop, aEnvironment);
 
         ConsPointer list = userFunc.argList();
         ConsPointer head = new ConsPointer();
