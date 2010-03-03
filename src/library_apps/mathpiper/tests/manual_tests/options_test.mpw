@@ -1,0 +1,60 @@
+%mathpiper
+Retract("tstSolve",*);
+
+RulebaseListed("tstSolve",{expression, variable, optionsList});
+
+//Handle no option call.
+5 # tstSolve(_expression, _variable) <-- tstSolve(expression, variable, {});
+
+
+//Main routine.  It will automatically accept 2 or more option calls because the
+//options come in a list.
+10 # tstSolve(_expression, _variable, optionsList_IsList) <--
+[
+    Local(options);
+    
+    Echo(expression, variable, optionsList);
+    
+    options := OptionsToAssociativeList(optionsList);
+    
+    Echo("All submitted options: ", options);
+    
+    Echo("The roots option is set to ", options["roots"]);
+];
+
+
+//Handle a single option call because the option does not come in a list for some reason.
+20 # tstSolve(_expression, _variable, _singleOption) <-- tstSolve(expression, variable, {singleOption});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+//No option call.
+In> tstSolve(x^2+x,x)
+Result: {}
+Side Effects:
+x^2+x x {} 
+All submitted options: {} 
+The roots option is set to Empty 
+
+
+ //One option call.
+In> TestSolve(x^2+x,x,roots->R)
+Result: TestSolve(x^2+x,x,roots->R)
+
+
+//Multiple option call.
+In> tstSolve(x^2+x,x,roots->R, option2 -> 15, option3 -> test)
+Result: {{"option3","test"},{"option2","15"},{"roots","R"}}
+Side Effects:
+x^2+x x {roots->R,option2->15,option3->test} 
+All submitted options: {{"option3","test"},{"option2","15"},{"roots","R"}} 
+The roots option is set to R
