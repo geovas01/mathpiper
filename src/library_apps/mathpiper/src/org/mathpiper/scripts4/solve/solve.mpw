@@ -266,8 +266,8 @@ LocalSymbols(x)
 *DESC
 
 This command tries to solve an equation. If {eq} does not contain the
-{==} operator, it is assumed that the user wants to solve $eq ==
-0$. The result is a list of equations of the form {var == value}, each
+{==} operator, it is assumed that the user wants to solve
+$eq == 0$. The result is a list of equations of the form {var == value}, each
 representing a solution of the given equation. The {Where} operator
 can be used to substitute this solution in another expression. If the
 given equation {eq} does not have any solutions, or if {Solve} is
