@@ -50,6 +50,10 @@ public class ScaledGraphics {
         iG.drawArc((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale), startAngle, arcAngle);
     }
 
+    public void drawRectangle(double x, double y, double width, double height) {
+        iG.drawRect((int) (x * viewScale), (int) (y * viewScale), (int) (width * viewScale), (int) (height * viewScale));
+    }
+
     public void setGray(int aGray) {
         if (prevGray != aGray) {
             prevGray = aGray;
@@ -132,7 +136,7 @@ public class ScaledGraphics {
 
     }//end method.
     
-    static int fontForSize(int aSize) {
+    public static int fontForSize(int aSize) {
 
         if (aSize > 3) {
             aSize = 3;
