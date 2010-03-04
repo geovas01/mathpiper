@@ -21,6 +21,9 @@ import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.LispError;
 import java.math.*;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  * 
@@ -530,6 +533,27 @@ public class BigNumber {
             aOutput.write("BigDecimal: " + javaBigDecimal.toPlainString() + "   Precision: " + javaBigDecimal.precision()  + "   Unscaled Value: " + javaBigDecimal.unscaledValue() + "   Scale: " + javaBigDecimal.scale() + ".\n");
         }
     }
+
+
+    public Cons dumpNumber(Environment aEnvironment, int aStackTop) throws Exception
+    {
+
+        Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+        ConsPointer consPointer = new ConsPointer();
+
+        consPointer.setCons(head);
+
+        Cons stringCons = AtomCons.getInstance(aEnvironment, aStackTop, "precision");
+
+        consPointer.getCons().cdr().setCons(stringCons);
+
+        consPointer.goNext(aStackTop, aEnvironment);
+
+
+        return null;
+        
+    }//end method.
 
 
 
