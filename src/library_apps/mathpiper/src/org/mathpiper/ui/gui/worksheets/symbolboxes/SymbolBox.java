@@ -84,6 +84,8 @@ public abstract class SymbolBox {
 
         sg.drawscaledText("" + sequence++, x0, y0 + 3, .2);
 
+
+
         sg.setColor(Color.black);
     }//end method.
 
@@ -93,6 +95,17 @@ public abstract class SymbolBox {
 
     public static boolean isDrawBoundingBox() {
         return drawBoundingBox;
+    }
+
+    public Bounds getScaledBounds(double scale)
+    {
+        scale = 1;
+        double x0 = iPosition.x * scale;
+        double y0 = (iPosition.y - getCalculatedAscent()) * scale;
+        double x1 = (x0 + iDimension.width) * scale;
+        double y1 = (y0 + iDimension.height) * scale;
+
+        return new Bounds(x0, x1, y0, y1);
     }
 
 

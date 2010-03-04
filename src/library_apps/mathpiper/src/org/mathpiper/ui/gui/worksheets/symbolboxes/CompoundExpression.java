@@ -21,7 +21,8 @@ abstract class CompoundExpression extends SymbolBox {
     
     public void drawBoundingBox(ScaledGraphics sg) {
 
-        sg.setColor(Color.blue);
+        drawBoundingBox(sg, Color.BLUE);
+        /*sg.setColor(Color.blue);
         sg.setLineThickness(0);
 
         double x0 = iPosition.x;
@@ -35,15 +36,10 @@ abstract class CompoundExpression extends SymbolBox {
 
         sg.drawscaledText("" + sequence++, x0, y0 + 3, .2);
 
-        sg.setColor(Color.black);
+        sg.setColor(Color.black);*/
 
 
-        /*for (int i = 0; i < iExpressions.length; i++) {
 
-            if (iExpressions[i] != null) {
-                iExpressions[i].drawBoundingBox(g);
-            }
-        }*/
     }
 
 
