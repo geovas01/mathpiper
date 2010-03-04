@@ -1,7 +1,7 @@
 
-***** Thu Feb 11 03:11:45 EST 2010 *****
+***** Wed Mar 03 01:46:57 EST 2010 *****
 ***** Using a new interpreter instance for each test file. *****
-***** MathPiper version: .78o *****
+***** MathPiper version: .78r *****
 
 ===========================
 arithmetic.mpt: 
@@ -121,16 +121,14 @@ integrate.mpt:
 
 Result: True
 
-Side Effects:
-******************
-tests/scripts4/integrate.mpt: 28 
+===========================
+issues.mpt: 
 
-Integrate(x)Sin(x)/(2*y+4)
- evaluates to 
-(-Cos(x))/(2*y+4)
- which differs from 
-(-Cos(x))/(2*(y+2))
-******************
+Result: True
+
+Side Effects:
+
+Test suite for Problems reported as Issues : 
 
 ===========================
 io.mpt: 
@@ -247,25 +245,7 @@ Result: True
 
 Side Effects:
 ******************
-tests/scripts4/numerics.mpt: 9 
-
-RoundTo(N(Sqrt(2),5)-1.41421,5)
- evaluates to 
--0.00001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 16 
-
-RoundTo(N(Pi,70)-3.1415926535897932384626433832795028841971693993751058209749445923078164062862,70)
- evaluates to 
--0.0000000004102067615
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 18 
+tests/scripts4/numerics.mpt: 21 
 
 RoundTo(N(Sec(2),9)-(-2.402997962),9)
  evaluates to 
@@ -274,7 +254,7 @@ RoundTo(N(Sec(2),9)-(-2.402997962),9)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 20 
+tests/scripts4/numerics.mpt: 23 
 
 RoundTo(N(Cot(2),9)-(-0.457657554),9)
  evaluates to 
@@ -283,7 +263,7 @@ RoundTo(N(Cot(2),9)-(-0.457657554),9)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 21 
+tests/scripts4/numerics.mpt: 24 
 
 RoundTo(N(Sinh(2),10)-3.6268604078,10)
  evaluates to 
@@ -292,7 +272,7 @@ RoundTo(N(Sinh(2),10)-3.6268604078,10)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 23 
+tests/scripts4/numerics.mpt: 26 
 
 RoundTo(N(ArcSin(2),9)-Complex(1.570796327,1.316957897),9)
  evaluates to 
@@ -301,7 +281,7 @@ Complex(0.000000003,-0.000000007)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 24 
+tests/scripts4/numerics.mpt: 27 
 
 RoundTo(N(ArcCos(2),9)-Complex(0,-1.316957897),9)
  evaluates to 
@@ -310,7 +290,7 @@ Complex(0,0.000000007)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 25 
+tests/scripts4/numerics.mpt: 28 
 
 RoundTo(N(ArcTan(2*I),12)-N(Complex(1.57079632679,0.54930614433),12),11)
  evaluates to 
@@ -319,7 +299,7 @@ RoundTo(N(ArcTan(2*I),12)-N(Complex(1.57079632679,0.54930614433),12),11)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 26 
+tests/scripts4/numerics.mpt: 29 
 
 RoundTo(N(ArcSinh(2),9)-1.443635475,9)
  evaluates to 
@@ -328,7 +308,7 @@ RoundTo(N(ArcSinh(2),9)-1.443635475,9)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 27 
+tests/scripts4/numerics.mpt: 30 
 
 RoundTo(N(ArcCosh(2),9)-1.316957897,9)
  evaluates to 
@@ -337,7 +317,7 @@ RoundTo(N(ArcCosh(2),9)-1.316957897,9)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 28 
+tests/scripts4/numerics.mpt: 31 
 
 RoundTo(N(ArcCosh(-2),8)-Complex(-1.3169579,3.14159265),8)
  evaluates to 
@@ -346,7 +326,7 @@ Complex(0,0.00000005)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 29 
+tests/scripts4/numerics.mpt: 32 
 
 RoundTo(N(ArcTanh(2),9)-Complex(0.549306144,1.570796327),9)
  evaluates to 
@@ -355,7 +335,7 @@ Complex(0.000000001,0.000000003)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 42 
+tests/scripts4/numerics.mpt: 45 
 
 RoundTo(RoundTo(N(Sin(2.0)),49)-0.9092974268256816953960198659117448427022549714479,49)
  evaluates to 
@@ -364,7 +344,7 @@ RoundTo(RoundTo(N(Sin(2.0)),49)-0.9092974268256816953960198659117448427022549714
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 47 
+tests/scripts4/numerics.mpt: 50 
 
 RoundTo(RoundTo(N(Sin(2.0)),50)-0.90929742682568169539601986591174484270225497144789,50)
  evaluates to 
@@ -373,7 +353,7 @@ RoundTo(RoundTo(N(Sin(2.0)),50)-0.9092974268256816953960198659117448427022549714
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 52 
+tests/scripts4/numerics.mpt: 55 
 
 RoundTo(RoundTo(N(Sin(2.0)),51)-0.90929742682568169539601986591174484270225497144789,51)
  evaluates to 
@@ -382,7 +362,7 @@ RoundTo(RoundTo(N(Sin(2.0)),51)-0.9092974268256816953960198659117448427022549714
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 57 
+tests/scripts4/numerics.mpt: 60 
 
 RoundTo(RoundTo(N(Cos(20.0)),49)-0.4080820618133919860622678609276449570992995103163,49)
  evaluates to 
@@ -391,7 +371,7 @@ RoundTo(RoundTo(N(Cos(20.0)),49)-0.408082061813391986062267860927644957099299510
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 62 
+tests/scripts4/numerics.mpt: 65 
 
 RoundTo(RoundTo(N(Tan(20.0)),49)-2.2371609442247422652871732477303491783724839749188,49)
  evaluates to 
@@ -400,7 +380,7 @@ RoundTo(RoundTo(N(Tan(20.0)),49)-2.237160944224742265287173247730349178372483974
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 67 
+tests/scripts4/numerics.mpt: 70 
 
 RoundTo(RoundTo(N(Exp(10.32),54),54)-30333.2575962246035600343483350109621778376486335450125,48)
  evaluates to 
@@ -409,7 +389,7 @@ RoundTo(RoundTo(N(Exp(10.32),54),54)-30333.2575962246035600343483350109621778376
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 72 
+tests/scripts4/numerics.mpt: 75 
 
 RoundTo(RoundTo(N(Ln(10.32/4.07)),49)-0.93044076059891305468974486564632598071134270468,49)
  evaluates to 
@@ -418,7 +398,7 @@ RoundTo(RoundTo(N(Ln(10.32/4.07)),49)-0.9304407605989130546897448656463259807113
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 77 
+tests/scripts4/numerics.mpt: 80 
 
 RoundTo(RoundTo(N(1.3^10.32),48)-14.99323664825717956473936947123246987802978985306,48)
  evaluates to 
@@ -427,7 +407,7 @@ RoundTo(RoundTo(N(1.3^10.32),48)-14.99323664825717956473936947123246987802978985
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 82 
+tests/scripts4/numerics.mpt: 85 
 
 RoundTo(RoundTo(N(Sqrt(5.3),51),51)-2.302172886644267644194841586420201850185830282633675,51)
  evaluates to 
@@ -436,7 +416,7 @@ RoundTo(RoundTo(N(Sqrt(5.3),51),51)-2.302172886644267644194841586420201850185830
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 106 
+tests/scripts4/numerics.mpt: 109 
 
 RoundTo(RoundTo(N(ArcSin(0.32)),49)-0.3257294872946301593103199105324500784354180998123,49)
  evaluates to 
@@ -445,7 +425,7 @@ RoundTo(RoundTo(N(ArcSin(0.32)),49)-0.325729487294630159310319910532450078435418
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 111 
+tests/scripts4/numerics.mpt: 114 
 
 RoundTo(RoundTo(N(Sin(N(ArcSin(0.1234567)))),49)-0.1234567,49)
  evaluates to 
@@ -454,7 +434,7 @@ RoundTo(RoundTo(N(Sin(N(ArcSin(0.1234567)))),49)-0.1234567,49)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 118 
+tests/scripts4/numerics.mpt: 121 
 
 RoundTo(RoundTo(N((1-Sin(N(ArcSin(1-10^(-25)))))*10^25),25)-1.,25)
  evaluates to 
@@ -463,7 +443,7 @@ RoundTo(RoundTo(N((1-Sin(N(ArcSin(1-10^(-25)))))*10^25),25)-1.,25)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 123 
+tests/scripts4/numerics.mpt: 126 
 
 RoundTo(N(ArcSin(N(Sin(1.234567),50)),50)-N(1.234567,50),49)
  evaluates to 
@@ -472,7 +452,7 @@ RoundTo(N(ArcSin(N(Sin(1.234567),50)),50)-N(1.234567,50),49)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 128 
+tests/scripts4/numerics.mpt: 131 
 
 RoundTo(RoundTo(N(ArcCos(0.32)),49)-1.2450668395002664599210017811073013636631665998753,49)
  evaluates to 
@@ -481,7 +461,7 @@ RoundTo(RoundTo(N(ArcCos(0.32)),49)-1.245066839500266459921001781107301363663166
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 133 
+tests/scripts4/numerics.mpt: 136 
 
 RoundTo(RoundTo(N(ArcTan(0.32)),49)-0.3097029445424561999173808103924156700884366304804,49)
  evaluates to 
@@ -490,7 +470,7 @@ RoundTo(RoundTo(N(ArcTan(0.32)),49)-0.309702944542456199917380810392415670088436
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 138 
+tests/scripts4/numerics.mpt: 141 
 
 RoundTo(RoundTo(N(Cos(N(ArcCos(0.1234567)))),49)-0.1234567,49)
  evaluates to 
@@ -499,7 +479,7 @@ RoundTo(RoundTo(N(Cos(N(ArcCos(0.1234567)))),49)-0.1234567,49)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 187 
+tests/scripts4/numerics.mpt: 190 
 
 RoundTo(RoundTo(N(Internal'GammaNum(10.5)),13)-1133278.3889487855673,13)
  evaluates to 
@@ -508,7 +488,7 @@ RoundTo(RoundTo(N(Internal'GammaNum(10.5)),13)-1133278.3889487855673,13)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 188 
+tests/scripts4/numerics.mpt: 191 
 
 RoundTo(RoundTo(N(Internal'GammaNum(-11.5)),20)-0.00000002295758104824,20)
  evaluates to 
@@ -517,7 +497,7 @@ RoundTo(RoundTo(N(Internal'GammaNum(-11.5)),20)-0.00000002295758104824,20)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 189 
+tests/scripts4/numerics.mpt: 192 
 
 RoundTo(RoundTo(N(Internal'GammaNum(-12.5)),20)-(-0.00000000183660648386),20)
  evaluates to 
@@ -526,7 +506,7 @@ RoundTo(RoundTo(N(Internal'GammaNum(-12.5)),20)-(-0.00000000183660648386),20)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 192 
+tests/scripts4/numerics.mpt: 195 
 
 RoundTo(RoundTo(N(Gamma(10.5)),13)-1133278.3889487855673,13)
  evaluates to 
@@ -535,7 +515,7 @@ RoundTo(RoundTo(N(Gamma(10.5)),13)-1133278.3889487855673,13)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 199 
+tests/scripts4/numerics.mpt: 202 
 
 RoundTo(RoundTo(N(Zeta(-11.5)),18)-0.020396978715942792,18)
  evaluates to 
@@ -544,7 +524,7 @@ RoundTo(RoundTo(N(Zeta(-11.5)),18)-0.020396978715942792,18)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 219 
+tests/scripts4/numerics.mpt: 222 
 
 RoundTo(RoundTo(N(Zeta(40)),19)-1.0000000000009094948,19)
  evaluates to 
@@ -553,7 +533,7 @@ RoundTo(RoundTo(N(Zeta(40)),19)-1.0000000000009094948,19)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 224 
+tests/scripts4/numerics.mpt: 227 
 
 RoundTo(RoundTo(N(Zeta(1.5)),19)-2.6123753486854883433,19)
  evaluates to 
@@ -562,7 +542,7 @@ RoundTo(RoundTo(N(Zeta(1.5)),19)-2.6123753486854883433,19)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 257 
+tests/scripts4/numerics.mpt: 260 
 
 GuessRational(N(Pi))
  evaluates to 
@@ -571,7 +551,7 @@ GuessRational(N(Pi))
 355/113
 ******************
 ******************
-tests/scripts4/numerics.mpt: 283 
+tests/scripts4/numerics.mpt: 286 
 
 RoundTo(N(BesselJ(0,.5))-RoundTo(.93846980724081290422840467359971262556892679709682,50),50)
  evaluates to 
@@ -580,7 +560,7 @@ RoundTo(N(BesselJ(0,.5))-RoundTo(.9384698072408129042284046735997126255689267970
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 284 
+tests/scripts4/numerics.mpt: 287 
 
 RoundTo(N(BesselJ(0,.9))-RoundTo(.80752379812254477730240904228745534863542363027564,50),50)
  evaluates to 
@@ -589,7 +569,7 @@ RoundTo(N(BesselJ(0,.9))-RoundTo(.8075237981225447773024090422874553486354236302
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 285 
+tests/scripts4/numerics.mpt: 288 
 
 RoundTo(N(BesselJ(0,.99999))-RoundTo(.76520208704756659155313775543958045290339472808482,50),50)
  evaluates to 
@@ -598,7 +578,7 @@ RoundTo(N(BesselJ(0,.99999))-RoundTo(.765202087047566591553137755439580452903394
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 291 
+tests/scripts4/numerics.mpt: 294 
 
 RoundTo(N(BesselJ(11,11))-RoundTo(.20101400990926940339478738551009382430831534125484,50),50)
  evaluates to 
@@ -607,7 +587,7 @@ RoundTo(N(BesselJ(11,11))-RoundTo(.201014009909269403394787385510093824308315341
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 293 
+tests/scripts4/numerics.mpt: 296 
 
 RoundTo(RoundTo(N(BesselJ(1,10)),50)-RoundTo(.04347274616886143666974876802585928830627286711859,50),50)
  evaluates to 
@@ -616,7 +596,7 @@ RoundTo(RoundTo(N(BesselJ(1,10)),50)-RoundTo(.0434727461688614366697487680258592
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 294 
+tests/scripts4/numerics.mpt: 297 
 
 RoundTo(N(BesselJ(10,10))-RoundTo(.20748610663335885769727872351875342803274461128682,50),50)
  evaluates to 
@@ -625,7 +605,7 @@ RoundTo(N(BesselJ(10,10))-RoundTo(.207486106633358857697278723518753428032744611
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 295 
+tests/scripts4/numerics.mpt: 298 
 
 RoundTo(RoundTo(N(BesselJ(1,3.6)),50)-RoundTo(.09546554717787640384570674422606098601943275490885,50),50)
  evaluates to 
@@ -634,7 +614,7 @@ RoundTo(RoundTo(N(BesselJ(1,3.6)),50)-RoundTo(.095465547177876403845706744226060
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 300 
+tests/scripts4/numerics.mpt: 303 
 
 RoundTo(N(Erf(Sqrt(0.8)),20),19)
  evaluates to 
@@ -643,7 +623,7 @@ RoundTo(N(Erf(Sqrt(0.8)),20),19)
 0.7940967892679316912
 ******************
 ******************
-tests/scripts4/numerics.mpt: 303 
+tests/scripts4/numerics.mpt: 306 
 
 RoundTo(N(Erf(50*I+20)/10^910,22),19)
  evaluates to 
@@ -653,7 +633,7 @@ Complex(1.093171190029095854,0.0047546330693181896)
 ******************
 --Gamma constant
 ******************
-tests/scripts4/numerics.mpt: 308 
+tests/scripts4/numerics.mpt: 311 
 
 RoundTo(Internal'gamma()+0-0.5772156649015328606065120900824024310422,BuiltinPrecisionGet())
  evaluates to 
@@ -662,7 +642,7 @@ RoundTo(Internal'gamma()+0-0.5772156649015328606065120900824024310422,BuiltinPre
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 311 
+tests/scripts4/numerics.mpt: 314 
 
 RoundTo(RoundTo(Internal'gamma()+0,19)-0.5772156649015328606,19)
  evaluates to 
@@ -671,7 +651,7 @@ RoundTo(RoundTo(Internal'gamma()+0,19)-0.5772156649015328606,19)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 312 
+tests/scripts4/numerics.mpt: 315 
 
 RoundTo(RoundTo(N(1/2+gamma+Pi),19)-4.2188083184913260991,19)
  evaluates to 
@@ -902,15 +882,6 @@ Known failure: (Differentiate(z)Conjugate(z))=Undefined
 Known failure: ArcCos(Cos(beta))!=beta 
 Known failure: (Limit(n,Infinity)n^5/2^n)=0 
 Known failure: RoundTo(RoundTo(N(Cot(2),9),9),N(Cot(2),9),9)=0 
-******************
-tests/scripts4/regress.mpt: 561 
-
-Factor(2*x^2)
- evaluates to 
-2*x^2
- which differs from 
-x^2
-******************
 
 ===========================
 scopestack.mpt: 
@@ -954,7 +925,7 @@ Side Effects:
 ******************
 tests/scripts4/sums.mpt: 339 
 
-$pp2083
+$pp2240
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 
