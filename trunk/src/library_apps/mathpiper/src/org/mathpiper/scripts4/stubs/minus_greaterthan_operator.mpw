@@ -2,9 +2,9 @@
 
 Rulebase("->",{left,right});
 
-HoldArgument("->",left);
+//HoldArgument("->",left);
 
-HoldArgument("->",right);
+//HoldArgument("->",right);
 
 %/mathpiper
 
@@ -22,6 +22,7 @@ HoldArgument("->",right);
 {value} -- the value to associate with the option
 
 *DESC
-The -> operator is used to create options.
+The -> operator is used to create options.  {option} and {value}
+need to be placed in quotes if they are not meant to be evaluated.
 
 %/mathpiper_docs
