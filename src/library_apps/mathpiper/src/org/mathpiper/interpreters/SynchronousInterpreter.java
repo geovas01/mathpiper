@@ -325,7 +325,7 @@ class SynchronousInterpreter implements Interpreter {
                 resultString = outputBuffer.toString();
             }
         } catch (Exception exception) {
-            //exception.printStackTrace();  todo:tk:uncomment for debugging.
+            //exception.printStackTrace();  //todo:tk:uncomment for debugging.
 
             Evaluator.DEBUG = false;
             Evaluator.VERBOSE_DEBUG = false;
