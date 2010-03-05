@@ -1435,6 +1435,18 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		//}}}		
 		
 		
+	///{{{ *** %latex ***
+		else if(foldType.equalsIgnoreCase("%latex")) 
+		{
+			
+			result = "Conversion capabilities are being worked on...";
+			output_fold_type = "%output";
+			
+
+		}//end else
+		//end %latex }}}		
+		
+		
 	///{{{ *** %output ***
 		else if(foldType.equalsIgnoreCase("%output"))
 		{

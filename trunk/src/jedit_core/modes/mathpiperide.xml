@@ -109,6 +109,11 @@
 			<BEGIN>%jung[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
 			<END>%/jung</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="latex::MAIN">
+			<BEGIN>%latex[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/latex</END>
+		</SPAN_REGEXP>
 
 	</RULES>
     
