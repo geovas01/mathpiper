@@ -7,51 +7,45 @@
 
 /* Some very basic functions that are used always any way... */
 
-
-
-
-
 /* Implementation of numeric mode */
 
 Retract("N",*);
 
-
 LocalSymbols(numericMode)
 [
 
-  Bind(numericMode, False);
-
+  numericMode := False;
 
   // N function: evaluate numerically with given precision.
-  LocalSymbols(previousNumericMode, previousPrecision, numericResult) Macro("N",{expression, precision})
+  LocalSymbols(previousNumericMode, previousPrecision, numericResult) 
+  Macro("N",{expression, precision})
   [
+    If(InVerboseMode(),
+        [Tell("N",{expression,precision}); Tell("  ",{@expression,@precision});]
+    );
     // we were in non-numeric mode
-
     Local(previousNumericMode, previousPrecision, numericResult, errorString);
 
-    Bind(previousPrecision, BuiltinPrecisionGet());
-
-    BuiltinPrecisionSet(@precision);
+    previousPrecision := BuiltinPrecisionGet();
+    If(InVerboseMode(),Tell("  ",previousPrecision));
+    BuiltinPrecisionSet(@precision+2);
 
     AssignCachedConstantsN();
 
-    Bind(previousNumericMode, numericMode);
+    previousNumericMode := numericMode;
+    numericMode         := True;
+    errorString         := "";
 
-    Bind(numericMode, True);
-
-    Bind(errorString,"");
-
-    TrapError(Bind(numericResult, Eval(@expression)),Bind(errorString,GetCoreError()));
+    //TrapError(Bind(numericResult, Eval(@expression)),Bind(errorString,GetCoreError()));
+    TrapError( numericResult:=Eval(@expression), errorString:= GetCoreError() );
+    If(InVerboseMode(),Tell("  1",numericResult));
 
     If(IsDecimal(numericResult), numericResult := RoundToN(numericResult, @precision));
+    If(InVerboseMode(),Tell("  2",numericResult));
 
-    Bind(numericMode,previousNumericMode);
+    numericMode := previousNumericMode;
 
-    If(Not numericMode,
-    [
-        // clear constants
-        ClearCachedConstantsN();
-    ]);
+    If(Not numericMode, [ ClearCachedConstantsN(); ] );
 
     BuiltinPrecisionSet(previousPrecision);
 
@@ -65,34 +59,26 @@ LocalSymbols(numericMode)
 
 
   // N function: evaluate numerically with default precision.
-  LocalSymbols(precision,heldExpression) Macro("N",{expression})
+  LocalSymbols(precision,heldExpression) 
+  Macro("N",{expression})
   [
-    Local(precision, heldExpression);
+     Local(precision, heldExpression);
+     precision      :=  BuiltinPrecisionGet();
+     heldExpression :=  Hold(@expression);
 
-    Bind(precision, BuiltinPrecisionGet());
-
-    Bind(heldExpression, Hold(@expression));
-
-    `N(@heldExpression, @precision);
+     `N(@heldExpression, @precision);
   ];
 
-
-
-
-
+  
   // NoN function.
-  LocalSymbols(result) Macro("NonN",{expression})
+  LocalSymbols(result) 
+  Macro("NonN",{expression})
   [
     Local(result);
-
     GlobalPush(numericMode);
-
     numericMode := False;
-
-    result := (@expression);
-
+    result      := (@expression);
     numericMode := GlobalPop();
-
     result;
   ];
 
@@ -100,21 +86,11 @@ LocalSymbols(numericMode)
   // InNumericMode function.
   Function("InNumericMode",{}) numericMode;
 
-
-
 ]; //LocalSymbols(numericMode)
-
-
-
-
-
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
-
+   
 
 
 
@@ -163,14 +139,14 @@ be evaluated after switching to numeric mode.
 	In> Pi
 	Out> Pi;
 	In> N(Pi,20)
-	Out> 3.14159265358979323846;
+	Out> 3.1415926535897932385
 
 *SEE Pi
 %/mathpiper_docs
 
-
-
-
+    %output,preserve="false"
+      
+.   %/output
 
 
 
@@ -222,3 +198,5 @@ be evaluated after the numeric mode has been set appropriately.
 
 *SEE N, BuiltinPrecisionSet, BuiltinPrecisionGet, Pi, CachedConstant
 %/mathpiper_docs
+
+
