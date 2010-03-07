@@ -1,5 +1,5 @@
 
-***** Wed Mar 03 01:46:57 EST 2010 *****
+***** Sat Mar 06 14:59:49 EST 2010 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .78r *****
 
@@ -254,56 +254,11 @@ RoundTo(N(Sec(2),9)-(-2.402997962),9)
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 23 
-
-RoundTo(N(Cot(2),9)-(-0.457657554),9)
- evaluates to 
--0.000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 24 
-
-RoundTo(N(Sinh(2),10)-3.6268604078,10)
- evaluates to 
--0.000000006
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 26 
-
-RoundTo(N(ArcSin(2),9)-Complex(1.570796327,1.316957897),9)
- evaluates to 
-Complex(0.000000003,-0.000000007)
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 27 
-
-RoundTo(N(ArcCos(2),9)-Complex(0,-1.316957897),9)
- evaluates to 
-Complex(0,0.000000007)
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 28 
-
-RoundTo(N(ArcTan(2*I),12)-N(Complex(1.57079632679,0.54930614433),12),11)
- evaluates to 
-0.00000000001
- which differs from 
-0
-******************
-******************
 tests/scripts4/numerics.mpt: 29 
 
 RoundTo(N(ArcSinh(2),9)-1.443635475,9)
  evaluates to 
--0.000000005
+0.000000005
  which differs from 
 0
 ******************
@@ -312,25 +267,7 @@ tests/scripts4/numerics.mpt: 30
 
 RoundTo(N(ArcCosh(2),9)-1.316957897,9)
  evaluates to 
--0.000000007
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 31 
-
-RoundTo(N(ArcCosh(-2),8)-Complex(-1.3169579,3.14159265),8)
- evaluates to 
-Complex(0,0.00000005)
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 32 
-
-RoundTo(N(ArcTanh(2),9)-Complex(0.549306144,1.570796327),9)
- evaluates to 
-Complex(0.000000001,0.000000003)
+0.000000003
  which differs from 
 0
 ******************
@@ -348,7 +285,7 @@ tests/scripts4/numerics.mpt: 50
 
 RoundTo(RoundTo(N(Sin(2.0)),50)-0.90929742682568169539601986591174484270225497144789,50)
  evaluates to 
-0.00000000000000000000000000000000000000000000000003
+0.00000000000000000000000000000000000000000000000001
  which differs from 
 0
 ******************
@@ -357,7 +294,7 @@ tests/scripts4/numerics.mpt: 55
 
 RoundTo(RoundTo(N(Sin(2.0)),51)-0.90929742682568169539601986591174484270225497144789,51)
  evaluates to 
-0.000000000000000000000000000000000000000000000000021
+0.000000000000000000000000000000000000000000000000001
  which differs from 
 0
 ******************
@@ -428,24 +365,6 @@ RoundTo(RoundTo(N(ArcSin(0.32)),49)-0.325729487294630159310319910532450078435418
 tests/scripts4/numerics.mpt: 114 
 
 RoundTo(RoundTo(N(Sin(N(ArcSin(0.1234567)))),49)-0.1234567,49)
- evaluates to 
-0.0000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 121 
-
-RoundTo(RoundTo(N((1-Sin(N(ArcSin(1-10^(-25)))))*10^25),25)-1.,25)
- evaluates to 
--0.0000000000000000000000002
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 126 
-
-RoundTo(N(ArcSin(N(Sin(1.234567),50)),50)-N(1.234567,50),49)
  evaluates to 
 0.0000000000000000000000000000000000000000000000001
  which differs from 
@@ -551,6 +470,15 @@ GuessRational(N(Pi))
 355/113
 ******************
 ******************
+tests/scripts4/numerics.mpt: 281 
+
+RoundTo(N(LambertW(10),BuiltinPrecisionGet())-1.7455280027,BuiltinPrecisionGet())
+ evaluates to 
+-0.0000000003
+ which differs from 
+0
+******************
+******************
 tests/scripts4/numerics.mpt: 286 
 
 RoundTo(N(BesselJ(0,.5))-RoundTo(.93846980724081290422840467359971262556892679709682,50),50)
@@ -587,15 +515,6 @@ RoundTo(N(BesselJ(11,11))-RoundTo(.201014009909269403394787385510093824308315341
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 296 
-
-RoundTo(RoundTo(N(BesselJ(1,10)),50)-RoundTo(.04347274616886143666974876802585928830627286711859,50),50)
- evaluates to 
-0.00000000000000000000000000000000000000000000000011
- which differs from 
-0
-******************
-******************
 tests/scripts4/numerics.mpt: 297 
 
 RoundTo(N(BesselJ(10,10))-RoundTo(.20748610663335885769727872351875342803274461128682,50),50)
@@ -603,33 +522,6 @@ RoundTo(N(BesselJ(10,10))-RoundTo(.207486106633358857697278723518753428032744611
 -0.00000000000000000000000000000000000000000000000001
  which differs from 
 0
-******************
-******************
-tests/scripts4/numerics.mpt: 298 
-
-RoundTo(RoundTo(N(BesselJ(1,3.6)),50)-RoundTo(.09546554717787640384570674422606098601943275490885,50),50)
- evaluates to 
-0.00000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 303 
-
-RoundTo(N(Erf(Sqrt(0.8)),20),19)
- evaluates to 
-0.7940967892679316913
- which differs from 
-0.7940967892679316912
-******************
-******************
-tests/scripts4/numerics.mpt: 306 
-
-RoundTo(N(Erf(50*I+20)/10^910,22),19)
- evaluates to 
-Complex(1.093171190029095858,0.0047546330693181896)
- which differs from 
-Complex(1.093171190029095854,0.0047546330693181896)
 ******************
 --Gamma constant
 ******************
@@ -663,7 +555,18 @@ RoundTo(RoundTo(N(1/2+gamma+Pi),19)-4.2188083184913260991,19)
 ===========================
 nummethods.mpt: 
 
-Result: True
+Result: False
+
+Side Effects:
+******************
+tests/scripts4/nummethods.mpt: 14 
+
+RoundTo(NewtonNum({{x},x+Sin(x)},3,5,3)-3.14159265358979323846,20)
+ evaluates to 
+-0.00000000000000000004
+ which differs from 
+0
+******************
 
 ===========================
 ode.mpt: 
@@ -925,7 +828,7 @@ Side Effects:
 ******************
 tests/scripts4/sums.mpt: 339 
 
-$pp2240
+$pp2253
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 
