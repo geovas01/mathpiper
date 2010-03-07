@@ -41,7 +41,7 @@ public class ViewList extends BuiltinFunction {
         contentPane.add(mathPanelScaler, BorderLayout.NORTH);
 
         frame.setAlwaysOnTop(false);
-        frame.setTitle("Syntax Tree Viewer");
+        frame.setTitle("List Viewer");
         frame.setSize(new Dimension(300, 200));
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
