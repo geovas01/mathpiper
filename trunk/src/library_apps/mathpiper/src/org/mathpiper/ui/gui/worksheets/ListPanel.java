@@ -14,6 +14,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.ui.gui.worksheets.symbolboxes.Bounds;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 
 public class ListPanel extends JPanel implements ViewPanel {
@@ -26,6 +27,12 @@ public class ListPanel extends JPanel implements ViewPanel {
     
     private Stack<ConsXHolder> sequenceStack = new Stack();
 
+    private boolean paintedOnce = false;
+
+    private int largestX = 0;
+
+    private int largestY = 0;
+
 
     public ListPanel(Environment aEnvironment, int aStackTop, ConsPointer consPointer, double viewScale) {
         super();
@@ -33,15 +40,31 @@ public class ListPanel extends JPanel implements ViewPanel {
         this.viewScale = viewScale;
         this.setBackground(Color.white);
 
+        String sublistName = "(    )";
+
         int startX = 10;
         int xStep = 60;
 
         int startY = 10;
         int yStep = 40;
 
+
         try {
 
+
             Cons headCons = consPointer.getCons();
+
+            headNode = new ConsNode();
+            if(headCons instanceof SublistCons)
+            {
+                headNode.setName(sublistName);
+            }
+            else
+            {
+                headNode.setName(headCons.car().toString());
+            }
+            headNode.setX(startX);
+            headNode.setY(startY);
 
             if(headCons == null)
             {
@@ -52,14 +75,15 @@ public class ListPanel extends JPanel implements ViewPanel {
             if(!(headCons instanceof SublistCons))
             {
                 //Display a single non-list cons.
-                headNode = new ConsNode();
+                /*headNode = new ConsNode();
                 headNode.setName(headCons.car().toString());
                 headNode.setX(startX);
                 headNode.setY(startY);
+                 * */
             }
             else
             {
-                ConsXHolder consXHolder = new ConsXHolder(headCons, startX);
+                ConsXHolder consXHolder = new ConsXHolder(headCons, headNode);
                 sequenceStack.push(consXHolder);
 
                 ConsNode currentNode = null;
@@ -73,15 +97,15 @@ public class ListPanel extends JPanel implements ViewPanel {
 
                     ConsPointer currentConsPointer = new ConsPointer(consXHolder.getCons());
 
-                    int currentX = consXHolder.getX();
+                    currentNode = consXHolder.getConsNode();
 
                     if(currentConsPointer.getCons() == headCons)
                     {
                         //If this is the head cons, create the head node.
-                        headNode = new ConsNode();
+                        /*headNode = new ConsNode();
                         currentNode = headNode;
                         currentNode.setX(startX);
-                        currentNode.setY(startY);
+                        currentNode.setY(startY);*/
                     }//end if.
 
                     while(currentConsPointer.cdr().getCons() != null || (currentConsPointer.car() instanceof ConsPointer && ((ConsPointer)currentConsPointer.car()).getCons() != null))
@@ -98,16 +122,21 @@ public class ListPanel extends JPanel implements ViewPanel {
                             }
                             else
                             {
-                                newNode.setName("Sl_a");
+                                newNode.setName(sublistName);
                             }
                             newNode.setX(currentNode.getX() + xStep);
+
+                            if(newNode.getX() > largestX)
+                            {
+                                largestX = newNode.getX();
+                            }
 
                             currentNode.setCdr(newNode);
                             currentNode = newNode;
 
                             if(currentConsPointer.getCons() instanceof SublistCons)
                             {
-                                sequenceStack.push(new ConsXHolder(currentConsPointer.getCons(), currentNode.getX()));
+                                sequenceStack.push(new ConsXHolder(currentConsPointer.getCons(), currentNode));
 
                                 if(currentConsPointer.getCons().cdr().getCons() == null)
                                 {
@@ -129,7 +158,7 @@ public class ListPanel extends JPanel implements ViewPanel {
 
                             if(currentConsPointer.getCons() instanceof SublistCons)
                             {
-                                sequenceStack.push(new ConsXHolder(currentConsPointer.getCons(), currentX)); //currentNode.getX()));
+                                sequenceStack.push(new ConsXHolder(currentConsPointer.getCons(), currentNode)); //currentNode.getX()));
                             }//end if.
 
                             ConsNode newNode = new ConsNode();
@@ -141,10 +170,10 @@ public class ListPanel extends JPanel implements ViewPanel {
                             }
                             else
                             {
-                                newNode.setName("Sl_b");
+                                newNode.setName(sublistName);
                             }
 
-                            newNode.setX(currentX); //currentNode.getX());
+                            newNode.setX(currentNode.getX()); //currentNode.getX());
 
                             currentNode.setCar(newNode);
 
@@ -165,6 +194,11 @@ public class ListPanel extends JPanel implements ViewPanel {
                 {
                     ConsNode consNode = levelQueue.poll();
                     consNode.setY(y += yStep);
+
+                    if(consNode.getY() > largestY)
+                    {
+                        largestY = consNode.getY();
+                    }
                 }
 
             }//end else.
@@ -193,18 +227,13 @@ public class ListPanel extends JPanel implements ViewPanel {
         int height = ScaledGraphics.fontForSize(1);
         sg.setFontSize(height);
 
-
-        int x;
-
-        int y;
-
         if(headNode != null)
         {   
             drawBox(headNode, sg);
 
-
         }//end if
 
+        paintedOnce = true;
 
     }//end method.
 
@@ -241,7 +270,7 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         if(currentNode.getCar() != null)
         {
-            sg.drawLine(x + 12, y + 12, x + 12 , y + 25 + 15);
+            sg.drawLine(x + 12, y + 12, x + 12 , currentNode.getCar().getY());
         }
 
         drawBox(currentNode.getCdr(), sg);
@@ -251,12 +280,26 @@ public class ListPanel extends JPanel implements ViewPanel {
 
     }//end method.
 
-    public Dimension getPreferredSize() {
-        return new Dimension(700, 600);
-    }
+        public Dimension getPreferredSize() {
+           if(paintedOnce)
+           {
+                Bounds maxBounds = new Bounds(0, largestY + 25 + 10, 0, largestX + 50 + 10);
+
+                Dimension scaledDimension = maxBounds.getScaledDimension(this.viewScale);
+
+                return scaledDimension;
+           }
+           else
+           {
+                return new Dimension(700,600);
+           }
+
+        }//end method.
 
     public void setViewScale(double viewScale) {
         this.viewScale = viewScale;
+        this.revalidate();
+        this.repaint();
     }
 
 
@@ -319,12 +362,11 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         private Cons cons;
         private ConsNode consNode;
-        private int x;
 
-        public ConsXHolder(Cons cons, int x){
+        public ConsXHolder(Cons cons, ConsNode consNode){
             this.cons = cons;
 
-            this.x = x;
+            this.consNode = consNode;
         }
 
         public Cons getCons() {
@@ -335,12 +377,12 @@ public class ListPanel extends JPanel implements ViewPanel {
             this.cons = cons;
         }
 
-        public int getX() {
-            return x;
+        public ConsNode getConsNode() {
+            return consNode;
         }
 
-        public void setX(int x) {
-            this.x = x;
+        public void setConsNode(ConsNode consNode) {
+            this.consNode = consNode;
         }
 
 
