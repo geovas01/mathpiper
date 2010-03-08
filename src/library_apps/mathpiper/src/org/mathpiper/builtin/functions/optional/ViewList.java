@@ -31,7 +31,7 @@ public class ViewList extends BuiltinFunction {
         frame.setBackground(Color.WHITE);
         contentPane.setBackground(Color.WHITE);
 
-        ListPanel listPanel = new ListPanel(aEnvironment, aStackTop, consPointer, 1);
+        ListPanel listPanel = new ListPanel(aEnvironment, aStackTop, consPointer, 2);
 
         MathPanelController mathPanelScaler = new MathPanelController(listPanel, 2.0);
 
