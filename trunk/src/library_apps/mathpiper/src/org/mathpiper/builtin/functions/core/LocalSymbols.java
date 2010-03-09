@@ -78,7 +78,7 @@ public class LocalSymbols extends BuiltinFunction
 
 Given the symbols passed as the first arguments to LocalSymbols a set of local
 symbols will be created, and creates unique ones for them, typically of the
-form {$<symbol><number>}, where {symbol} was the symbol entered by the user,
+form {\$<symbol><number>}, where {symbol} was the symbol entered by the user,
 and {number} is a unique number. This scheme was used to ensure that a generated
 symbol can not accidentally be entered by a user.
 
@@ -88,7 +88,7 @@ for example, in the macro-like functions ({For}, {While}, etc.).
 *E.G. notest
 
 	In> LocalSymbols(a,b)a+b
-	Out> $a6+ $b6;
+	Out> \$a6+ \$b6;
 
 *SEE UniqueConstant
 %/mathpiper_docs
