@@ -51,7 +51,7 @@ Retract("NumberInternalRepresentation",*);
 
 
 
-%mathpiper_docs,name="NumberInternalRepresentation",categories="ProgrammerFunctions;Numerical(Arbitrary Precision)"
+%mathpiper_docs,name="NumberInternalRepresentation",categories="Programmer Functions;Numerical (Arbitrary Precision)"
 *CMD NumberInternalRepresentation --- returns a List showing MathPiper's internal representation of a number
 *STD
 *CALL
