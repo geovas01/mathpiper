@@ -40,13 +40,13 @@ public class ListPanel extends JPanel implements ViewPanel {
         this.viewScale = viewScale;
         this.setBackground(Color.white);
 
-        String sublistName = "(    )";
+        String sublistName = "(   )";
 
-        int startX = 10;
-        int xStep = 60;
+        //int startX = 0; //10;
+        //int xStep = 1; //60;
 
-        int startY = 10;
-        int yStep = 40;
+        int startY = 0; //10;
+        int yStep = 1; //40;
 
 
         try {
@@ -63,7 +63,7 @@ public class ListPanel extends JPanel implements ViewPanel {
             {
                 headNode.setName(headCons.car().toString());
             }
-            headNode.setX(startX);
+            //headNode.setX(startX);
             headNode.setY(startY);
 
             if(headCons == null)
@@ -124,12 +124,12 @@ public class ListPanel extends JPanel implements ViewPanel {
                             {
                                 newNode.setName(sublistName);
                             }
-                            newNode.setX(currentNode.getX() + xStep);
+                            //newNode.setX(currentNode.getX() + xStep);
 
-                            if(newNode.getX() > largestX)
+                            /*if(newNode.getX() > largestX)
                             {
                                 largestX = newNode.getX();
-                            }
+                            }*/
 
                             currentNode.setCdr(newNode);
                             currentNode = newNode;
@@ -173,7 +173,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                                 newNode.setName(sublistName);
                             }
 
-                            newNode.setX(currentNode.getX()); //currentNode.getX());
+                            //newNode.setX(currentNode.getX()); //currentNode.getX());
 
                             currentNode.setCar(newNode);
 
@@ -229,7 +229,7 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         if(headNode != null)
         {   
-            drawBox(headNode, sg);
+            drawBox(headNode, 0, sg);
 
         }//end if
 
@@ -237,45 +237,78 @@ public class ListPanel extends JPanel implements ViewPanel {
 
     }//end method.
 
-    private void drawBox(ConsNode currentNode, ScaledGraphics sg)
+    private void drawBox(ConsNode currentNode, double previousRightX, ScaledGraphics sg)
     {
+
+        int height = 25;
+        int xGap = 10;
+        int yGap = 10;
+        int textOffset = 0;
+
+
 
         if(currentNode == null)
         {
             return;
         }
 
-        int x = currentNode.getX();
+ 
+        double x = previousRightX + xGap;
 
-        int y = currentNode.getY();
+        int y = currentNode.getY() * (height + yGap) + yGap;
 
-        sg.drawRectangle(x, y, 50, 25);
+        String name = currentNode.getName() ;
+        double textWidth = sg.getScaledTextWidth(name);
 
-        sg.drawLine(x + 25, y, x + 25, y + 25);
+        if(textWidth < 25)
+        {
+            textOffset = ((int) (25 - textWidth)/2) + 1;
+            textWidth = 25;
+        }
+        else
+        {
+            textOffset = 3;
+            textWidth += 5;
+        }
 
-        String name = currentNode.getName();
+        double boxWidth = textWidth + 25;
+
+
+        sg.drawRectangle(x, y, boxWidth, height);
+
+        sg.drawLine(x + textWidth, y, x + textWidth, y + height);
+
 
         if(name != null)
         {
-            sg.drawscaledText(name, x + 3, y + 16, 1.3);
+            sg.setColor(Color.BLUE);
+            sg.drawscaledText(name, x + textOffset, y + 15, 1.0);
+            sg.setColor(Color.BLACK);
         }
 
         if(currentNode.getCdr() != null)
         {
             currentNode.getCdr().setY(currentNode.getY());
 
-            sg.drawLine(x + 37, y + 12, x + 50 + 10 , y + 12);
+            sg.drawLine(x + boxWidth - 12, y + 12, x + boxWidth + xGap , y + 12);
         }
+
+        
+        if(largestX < (int) (x + boxWidth + xGap))
+        {
+            largestX = (int) (x + boxWidth + xGap);
+        }
+        
 
 
         if(currentNode.getCar() != null)
         {
-            sg.drawLine(x + 12, y + 12, x + 12 , currentNode.getCar().getY());
+            sg.drawLine(x + 13, y + 12, x + 13 , currentNode.getCar().getY() * (height + yGap) + yGap);
         }
 
-        drawBox(currentNode.getCdr(), sg);
+        drawBox(currentNode.getCdr(), x + boxWidth, sg);
 
-        drawBox(currentNode.getCar(), sg);
+        drawBox(currentNode.getCar(), previousRightX, sg);
 
 
     }//end method.
@@ -283,7 +316,7 @@ public class ListPanel extends JPanel implements ViewPanel {
         public Dimension getPreferredSize() {
            if(paintedOnce)
            {
-                Bounds maxBounds = new Bounds(0, largestY + 25 + 10, 0, largestX + 50 + 10);
+                Bounds maxBounds = new Bounds(0, (largestY + 1) * (25 + 10) + 10, 0, largestX);
 
                 Dimension scaledDimension = maxBounds.getScaledDimension(this.viewScale);
 
@@ -308,7 +341,6 @@ public class ListPanel extends JPanel implements ViewPanel {
         private ConsNode car;
         private ConsNode cdr;
         private String name = "";
-        private int x;
         private int y;
 
         public ConsNode() {
@@ -337,14 +369,6 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         public void setName(String name) {
             this.name = name;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public void setX(int x) {
-            this.x = x;
         }
 
         public int getY() {
