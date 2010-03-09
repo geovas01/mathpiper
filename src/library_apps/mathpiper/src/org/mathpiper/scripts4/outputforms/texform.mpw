@@ -377,7 +377,7 @@ Function ("TeXFormPrintMatrix", {M})
 *E.G.
 
 	In> TeXForm(Sin(a1)+2*Cos(b1))
-	Out> "$\sin a_{1} + 2 \cos b_{1}$";
+	Out> "\$\sin a_{1} + 2 \cos b_{1}\$";
 
 *SEE PrettyForm, CForm
 %/mathpiper_docs

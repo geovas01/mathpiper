@@ -542,33 +542,42 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         for(int index = 0; index < html.length(); index++)
         {
-            if(html.charAt(index) == '$')
+            if(html.charAt(index) == '$' )
             {
-                if(startIndex == -1)
+                if( html.charAt(index - 1) == '\\')
                 {
-                    startIndex = index + 1;
-
-                    endIndex = 0;
+                    //Strip \ character in escaped \$.
+                    stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+                    stringBuilder.append(html.charAt(index));
                 }
                 else
                 {
-                    endIndex = index;
+                    if(startIndex == -1)
+                    {
+                        startIndex = index + 1;
 
-                    String latexCode = html.substring(startIndex, endIndex);
+                        endIndex = 0;
+                    }
+                    else
+                    {
+                        endIndex = index;
 
-                    latexCode = latexCode.replace(" ", "");
+                        String latexCode = html.substring(startIndex, endIndex);
 
-                    String latexEmbedString = "<object classid=\"org.mathpiper.ui.gui.hoteqn.sHotEqn\" equation=\"" + latexCode + "\" >  </object>";
+                        latexCode = latexCode.replace(" ", "");
 
-                    //System.out.println("LATEX: " + latexEmbedString);
+                        String latexEmbedString = "<object classid=\"org.mathpiper.ui.gui.hoteqn.sHotEqn\" equation=\"" + latexCode + "\" >  </object>";
 
-                    stringBuilder.append(latexEmbedString);
+                        //System.out.println("LATEX: " + latexEmbedString);
 
-                    startIndex = -1;
+                        stringBuilder.append(latexEmbedString);
 
-                    endIndex = -1;
-                }
+                        startIndex = -1;
 
+                        endIndex = -1;
+                    }//end else.
+
+                }//end else.
             }
             else
             {
@@ -597,35 +606,20 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         int endIndex = -1;
 
         for(int index = 0; index < line.length(); index++)
-        {
-            if(line.charAt(index) == '$')
+        {      
+            if(line.charAt(index) == '{')
             {
-                stringBuilder.append(line.charAt(index));
-
-                index++;
-                while(line.charAt(index) != '$')
-                {
-                    stringBuilder.append(line.charAt(index));
-                    index++;
-                }
-                stringBuilder.append(line.charAt(index));
-
+                stringBuilder.append("<b><tt>");
+            }
+            else if(line.charAt(index) == '}')
+            {
+                stringBuilder.append("</tt></b>");
             }
             else
             {
-                if(line.charAt(index) == '{')
-                {
-                    stringBuilder.append("<b><tt>");
-                }
-                else if(line.charAt(index) == '}')
-                {
-                    stringBuilder.append("</tt></b>");
-                }
-                else
-                {
-                    stringBuilder.append(line.charAt(index));
-                }
+                stringBuilder.append(line.charAt(index));
             }
+            
         }//end for.
 
 
