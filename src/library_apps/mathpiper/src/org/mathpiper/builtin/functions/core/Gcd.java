@@ -34,7 +34,7 @@ public class Gcd extends BuiltinFunction
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
-        z.gcd(x, y, aStackTop);
+        z.gcd(x, y, null, aStackTop);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
