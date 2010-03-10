@@ -24,6 +24,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.NumberCons;
 
 /**
  * 
@@ -40,7 +41,6 @@ public class BigNumber {
     private static BigDecimal two = new BigDecimal("2");
     private static BigDecimal ten = new BigDecimal("10");
 
-    private Environment iEnvironment;
 
     public static boolean numericSupportForMantissa() {
         return true;
@@ -55,7 +55,9 @@ public class BigNumber {
      * @param aBasePrecision
      * @param aBase
      */
-    public BigNumber(Environment aEnvironment, String aString, int aBasePrecision, int aBase/*=10*/) {
+    public BigNumber( String aString, int aBasePrecision, int aBase/*=10*/) {
+
+
         setTo(aString, aBasePrecision, aBase);
     }
 
@@ -512,9 +514,9 @@ public class BigNumber {
      * @param aZ
      * @throws java.lang.Exception
      */
-    public void mod(int aStackTop, BigNumber aY, BigNumber aZ) throws Exception {
-        LispError.check(iEnvironment, aStackTop, aY.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
-        LispError.check(iEnvironment, aStackTop, aZ.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
+    public void mod(Environment aEnvironment,int aStackTop, BigNumber aY, BigNumber aZ) throws Exception {
+        LispError.check(aEnvironment, aStackTop, aY.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, aZ.javaBigInteger != null, LispError.NOT_AN_INTEGER, "INTERNAL");
         //TODO fixme    LispError.check(!IsZero(aZ),LispError.INVALID_ARGUMENT);
         javaBigInteger = aY.javaBigInteger.mod(aZ.javaBigInteger);
         javaBigDecimal = null;
@@ -537,6 +539,14 @@ public class BigNumber {
 
     public Cons dumpNumber(Environment aEnvironment, int aStackTop) throws Exception
     {
+
+        Cons precisionList = aEnvironment.iListAtom.copy(aEnvironment, false);
+        
+        Cons precisionAtom = AtomCons.getInstance(aEnvironment, aStackTop, "precision");
+        
+        //Cons precisionValue = new NumberCons(new BigNumber())
+
+
 
         Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
 
@@ -638,8 +648,8 @@ public class BigNumber {
      * @param aNrToShift
      * @throws java.lang.Exception
      */
-    public void shiftLeft(BigNumber aX, int aNrToShift, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
+    public void shiftLeft(BigNumber aX, int aNrToShift, Environment aEnvironment, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
         javaBigDecimal = null;
         javaBigInteger = aX.javaBigInteger.shiftLeft(aNrToShift);
     }
@@ -650,8 +660,8 @@ public class BigNumber {
      * @param aNrToShift
      * @throws java.lang.Exception
      */
-    public void shiftRight(BigNumber aX, int aNrToShift, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
+    public void shiftRight(BigNumber aX, int aNrToShift, Environment aEnvironment, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
         javaBigDecimal = null;
         javaBigInteger = aX.javaBigInteger.shiftRight(aNrToShift);
     }
@@ -663,9 +673,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void gcd(BigNumber aX, BigNumber aY, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
-        LispError.lispAssert(aY.javaBigInteger != null, iEnvironment, aStackTop);
+    public void gcd(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
+        LispError.lispAssert(aY.javaBigInteger != null, aEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.gcd(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -677,9 +687,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void bitAnd(BigNumber aX, BigNumber aY, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
-        LispError.lispAssert(aY.javaBigInteger != null, iEnvironment, aStackTop);
+    public void bitAnd(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
+        LispError.lispAssert(aY.javaBigInteger != null, aEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.and(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -690,9 +700,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void bitOr(BigNumber aX, BigNumber aY, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
-        LispError.lispAssert(aY.javaBigInteger != null, iEnvironment, aStackTop);
+    public void bitOr(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
+        LispError.lispAssert(aY.javaBigInteger != null, aEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.or(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -704,9 +714,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void bitXor(BigNumber aX, BigNumber aY, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
-        LispError.lispAssert(aY.javaBigInteger != null, iEnvironment, aStackTop);
+    public void bitXor(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
+        LispError.lispAssert(aY.javaBigInteger != null, aEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.xor(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -717,8 +727,8 @@ public class BigNumber {
      * @param aX
      * @throws java.lang.Exception
      */
-    void bitNot(BigNumber aX, int aStackTop) throws Exception {
-        LispError.lispAssert(aX.javaBigInteger != null, iEnvironment, aStackTop);
+    void bitNot(BigNumber aX, Environment aEnvironment, int aStackTop) throws Exception {
+        LispError.lispAssert(aX.javaBigInteger != null, aEnvironment, aStackTop);
         javaBigInteger = aX.javaBigInteger.not();
         javaBigDecimal = null;
     }

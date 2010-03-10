@@ -61,7 +61,7 @@ public class FromBase extends BuiltinFunction
         str2 = aEnvironment.getTokenHash().lookUpUnStringify(str2);
 
         // convert using correct base
-        BigNumber z = new BigNumber(aEnvironment, str2, aEnvironment.getPrecision(), base);
+        BigNumber z = new BigNumber(str2, aEnvironment.getPrecision(), base);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }

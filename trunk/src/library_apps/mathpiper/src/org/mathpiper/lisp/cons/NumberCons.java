@@ -143,7 +143,7 @@ public class NumberCons extends Cons {
             String str;
             str = iCarStringNumber;
             // aBasePrecision is in digits, not in bits, ok
-            iCarBigNumber = new BigNumber(aEnvironment, str, aPrecision, 10/*TODO FIXME BASE10*/);
+            iCarBigNumber = new BigNumber(str, aPrecision, 10/*TODO FIXME BASE10*/);
         } // check if the BigNumber object has enough precision, if not, extend it
         // (applies only to floats). Note that iNumber->GetPrecision() might be < 0
         else if (!iCarBigNumber.isInteger() && iCarBigNumber.getPrecision() < aPrecision) {
