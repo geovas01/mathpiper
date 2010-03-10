@@ -110,7 +110,7 @@ In> NumberToRep(123.45678)
 Result: {12345678,8,5}
     
 In> NumberToRep(34700)
-Result: {34700}
+Result: {34700,5}
     
 In> NumberToRep(1.5+6.75*I)
 Result: {{150,3,2},{675,3,2}}
@@ -120,8 +120,7 @@ Result: {12345678,8,15}
    
 In> NumberToRep(123.45678E+10)
 Result: {12345678,8,-5}
-
-
+    
 NOTICE that the first, fourth, and fifth of these have the same 
 BigInteger representation, and hence the same precision, namely 8.  
 The ScaleFactor tells how many places the decimal point must be 
@@ -134,8 +133,11 @@ because, if we write those terminal zeros explicitly, they are assumed
 to be "significant", and so the number is shown with precision 13.
 Exponential notation must be used if the precision really is 8.
 
-*SEE 
+*SEE RepToNumber, DumpNumber
 %/mathpiper_docs
 
+    %output,preserve="false"
+      
+.   %/output
 
 
