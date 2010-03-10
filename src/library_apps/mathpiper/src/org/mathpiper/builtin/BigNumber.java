@@ -25,6 +25,7 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.NumberCons;
+import org.mathpiper.lisp.cons.SublistCons;
 
 /**
  * 
@@ -528,40 +529,154 @@ public class BigNumber {
      * @param aOutput
      * @throws java.lang.Exception
      */
-    public void dumpNumber(MathPiperOutputStream aOutput) throws Exception {
+    public Cons dumpNumber(Environment aEnvironment, int aStackTop, MathPiperOutputStream aOutput) throws Exception {
         if (javaBigInteger != null) {
             aOutput.write("BigInteger: " + javaBigInteger.toString() + "\n");
         } else {
             aOutput.write("BigDecimal: " + javaBigDecimal.toPlainString() + "   Precision: " + javaBigDecimal.precision()  + "   Unscaled Value: " + javaBigDecimal.unscaledValue() + "   Scale: " + javaBigDecimal.scale() + ".\n");
         }
+
+        return this.dumpNumber(aEnvironment, aStackTop);
     }
 
 
     public Cons dumpNumber(Environment aEnvironment, int aStackTop) throws Exception
     {
-
-        Cons precisionList = aEnvironment.iListAtom.copy(aEnvironment, false);
-        
-        Cons precisionAtom = AtomCons.getInstance(aEnvironment, aStackTop, "precision");
-        
-        //Cons precisionValue = new NumberCons(new BigNumber())
+        Cons resultSublistCons = null;
 
 
+        if(javaBigInteger != null)
+        {
+            //Create type association list.
+            Cons typeListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
 
-        Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons typeAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
 
-        ConsPointer consPointer = new ConsPointer();
+            Cons typeValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"BigInteger\"");
 
-        consPointer.setCons(head);
+            typeListAtomCons.cdr().setCons(typeAtomCons);
 
-        Cons stringCons = AtomCons.getInstance(aEnvironment, aStackTop, "precision");
+            typeAtomCons.cdr().setCons(typeValueAtomCons);
 
-        consPointer.getCons().cdr().setCons(stringCons);
-
-        consPointer.goNext(aStackTop, aEnvironment);
+            Cons typeSublistCons = SublistCons.getInstance(aEnvironment, typeListAtomCons);
 
 
-        return null;
+            //Create value association list.
+            Cons valueListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            Cons valueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"value\"");
+
+            Cons valueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, javaBigInteger.toString());
+
+            valueListAtomCons.cdr().setCons(valueAtomCons);
+
+            valueAtomCons.cdr().setCons(valueValueAtomCons);
+
+            Cons valueSublistCons = SublistCons.getInstance(aEnvironment, valueListAtomCons);
+
+
+            //Create result list.
+            typeSublistCons.cdr().setCons(valueSublistCons);
+
+            Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            resultListAtomCons.cdr().setCons(typeSublistCons);
+
+            resultSublistCons = SublistCons.getInstance(aEnvironment, resultListAtomCons);
+        }
+        else
+        {
+            //Create type association list.
+            Cons typeListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            Cons typeAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
+
+            Cons typeValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"BigDecimal\"");
+
+            typeListAtomCons.cdr().setCons(typeAtomCons);
+
+            typeAtomCons.cdr().setCons(typeValueAtomCons);
+
+            Cons typeSublistCons = SublistCons.getInstance(aEnvironment, typeListAtomCons);
+
+
+            //Create value association list.
+            Cons valueListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            Cons valueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"value\"");
+
+            Cons valueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, javaBigDecimal.toPlainString());
+
+            valueListAtomCons.cdr().setCons(valueAtomCons);
+
+            valueAtomCons.cdr().setCons(valueValueAtomCons);
+
+            Cons valueSublistCons = SublistCons.getInstance(aEnvironment, valueListAtomCons);
+
+
+            //Create precision association list.
+            Cons precisionListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            Cons precisionAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"precision\"");
+
+            Cons precisionValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.precision(), this.iPrecision, 10));
+
+            precisionListAtomCons.cdr().setCons(precisionAtomCons);
+
+            precisionAtomCons.cdr().setCons(precisionValueAtomCons);
+
+            Cons precisionSublistCons = SublistCons.getInstance(aEnvironment, precisionListAtomCons);
+
+
+            //Create unscaled value association list.
+            Cons unscaledValueListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            Cons unscaledValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"unscaledValue\"");
+
+            Cons unscaledValueValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.unscaledValue(), this.iPrecision, 10));
+
+            unscaledValueListAtomCons.cdr().setCons(unscaledValueAtomCons);
+
+            unscaledValueAtomCons.cdr().setCons(unscaledValueValueAtomCons);
+
+            Cons unscaledValueSublistCons = SublistCons.getInstance(aEnvironment, unscaledValueListAtomCons);
+
+
+            //Create scale association list.
+            Cons scaleListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            Cons scaleAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"scale\"");
+
+            Cons scaleValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.scale(), this.iPrecision, 10));
+
+            scaleListAtomCons.cdr().setCons(scaleAtomCons);
+
+            scaleAtomCons.cdr().setCons(scaleValueAtomCons);
+
+            Cons scaleSublistCons = SublistCons.getInstance(aEnvironment, scaleListAtomCons);
+
+
+            //Create result list.
+            typeSublistCons.cdr().setCons(valueSublistCons);
+
+            valueSublistCons.cdr().setCons(precisionSublistCons);
+
+            precisionSublistCons.cdr().setCons(unscaledValueSublistCons);
+
+            unscaledValueSublistCons.cdr().setCons(scaleSublistCons);
+
+            Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            resultListAtomCons.cdr().setCons(typeSublistCons);
+
+            resultSublistCons = SublistCons.getInstance(aEnvironment, resultListAtomCons);
+
+        }//end else.
+
+
+
+
+        return resultSublistCons;
         
     }//end method.
 

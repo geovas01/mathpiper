@@ -21,7 +21,8 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -34,9 +35,10 @@ public class DumpNumber extends BuiltinFunction
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-        x.dumpNumber(aEnvironment.iCurrentOutput);
+        Cons resultCons = x.dumpNumber(aEnvironment, aStackTop, aEnvironment.iCurrentOutput);
 
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultCons);
+
 
     }//end method.
 
