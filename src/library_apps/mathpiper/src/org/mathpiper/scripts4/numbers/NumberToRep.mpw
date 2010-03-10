@@ -65,8 +65,8 @@ Retract("NumberToRep",*);
 
 
 
-%mathpiper_docs,name="NumberToRep",categories="ProgrammerFunctions;Numerical(Arbitrary Precision)"
-*CMD NumbertoRep --- returns a List showing MathPiper's internal representation of a number
+%mathpiper_docs,name="NumberToRep",categories="Programmer Functions;Numerical (Arbitrary Precision)"
+*CMD NumberToRep --- returns a List showing MathPiper's internal representation of a number
 *STD
 *CALL
 	NumberToRep(number)
