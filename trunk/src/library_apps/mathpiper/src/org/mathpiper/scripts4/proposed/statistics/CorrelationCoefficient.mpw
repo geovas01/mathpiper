@@ -51,6 +51,8 @@ CorrelationCoefficient(x,y);
     /%output,preserve="false"
       Result: 0.7766185090
 .   /%/output
+
+*SEE CorrelationMatrix
 %/mathpiper_docs
 
     %output,preserve="false"
