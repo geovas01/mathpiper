@@ -1,25 +1,28 @@
-%mathpiper,title="NumberInternalRepresentation"
+%mathpiper,def="NumberToRep"
 
-Retract("NumberInternalRepresentation",*);
+Retract("NumberToRep",*);
 
-10 # NumberInternalRepresentation( N_IsNumber ) <--
+
+10 # NumberToRep( N_IsNumber ) <--
 [
-    //Tell(NumberInternalRepresentation,N);
-    Local(oldPrecision,c,str,lst,strN,lenN,numChars,inNum,ss,ans);
-    numChars     := "0123456789.+-";
-    numChars     := StringToList(numChars);
+    If(InVerboseMode(),Tell(NumberToRep,N));
+    Local(oldPrecision,sgn,c,str,lst,strN,lenN,defaultPrec,numChars,inNum,ss,ans1,ans);
+    numChars     := StringToList("0123456789.+-");
     oldPrecision := BuiltinPrecisionGet();
-    inNum        := False;
-    str          := "";
-    lst          := {};
     BuiltinPrecisionSet(300);
     /*   NOTE: the above arbitrary 'magic number' is used because it is 
      *   currently necessary to set BuiltinPrecision to a value large 
      *   enough to handle any forseeable input.  Of course, even 300
      *   might not be enough!  I am looking for a way to base the 
      *   setting directly on the input number itself.                   */
-    strN         := PipeToString() DumpNumber(N);
+     
+    sgn          := Sign(N); 
+    strN         := PipeToString() DumpNumber(Abs(N));
     lenN         := Length(strN);
+    If(InVerboseMode(),[Tell("   ",{lenN,strN}); Tell("   ",strN[4]);]);
+    str          := "";
+    lst          := {};
+    inNum        := False;
     For(ii:=1,ii<=lenN,ii++)
     [
         c := strN[ii];
@@ -28,34 +31,45 @@ Retract("NumberInternalRepresentation",*);
           [ If( inNum, [ inNum := False; Push(lst,str); str := ""; ] );  ]
         );
     ];
-    ans := StringToNumber /@ Reverse(lst);
+    If(strN[4]="D",defaultPrec:=ToAtom(lst[3]), defaultPrec:= Length(lst[1])-(1-sgn)/2);
+    ans1 := ToAtom /@ Reverse(lst);
+    If(InVerboseMode(),
+       [  Tell("   ",lst); 
+          Tell("   ",sgn);
+          Tell("   ",defaultPrec);
+          Tell("   ",ans1);      
+       ]
+    );
+    ans := If( Length(ans1) = 1, 
+                  {ans1[1],defaultPrec}, 
+                  {ans1[3],ans1[2],Round(ans1[4])} 
+             );
+    If(InVerboseMode(),Tell("   ",{sgn,ans}));
+    DestructiveReplace(ans,1,sgn*ans[1]);
     BuiltinPrecisionSet(oldPrecision);
     ans;
 ];
 
 
 
-12 # NumberInternalRepresentation( N_IsComplex ) <--
+12 # NumberToRep( N_IsComplex ) <-- 
 [
-    {NumberInternalRepresentation(Re(N)),NumberInternalRepresentation(Im(N))};
+    If(IsZero(Re(N)),
+        {NumberToRep(0.0),NumberToRep(Im(N))},
+        {NumberToRep(Re(N)),NumberToRep(Im(N))}
+    );
 ];
-
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
-
-
-%mathpiper_docs,name="NumberInternalRepresentation",categories="Programmer Functions;Numerical (Arbitrary Precision)"
-*CMD NumberInternalRepresentation --- returns a List showing MathPiper's internal representation of a number
+%mathpiper_docs,name="NumberToRep",categories="ProgrammerFunctions;Numerical(Arbitrary Precision)"
+*CMD NumbertoRep --- returns a List showing MathPiper's internal representation of a number
 *STD
 *CALL
-	NumberInternalRepresentation(number)
+	NumberToRep(number)
 	
 *PARMS
 
@@ -76,9 +90,9 @@ the number, and a {scale factor} telling where the implied decimal point is supp
 be placed with respect to the end of the integer.  The {precision} of the number is
 just the number of digits in the integer.
 
-The four components of the List returned for a decimal number are, respectively,
-{{BigDecimal, Precision, BigInteger (unscaled), ScaleFactor}}.
-Note that some of these are redundent: only the BigInteger and the ScaleFactor
+The three components of the List returned for a decimal number are, respectively,
+{{BigInteger (unscaled), Precision, ScaleFactor}}.
+Note that the second of these is redundent: only the BigInteger and the ScaleFactor
 are needed to completely define the number.
 
 For an Integer number, the integer is its own representation, and again, the number of
@@ -92,33 +106,36 @@ of the information given by this function.
 
 *E.G.
     
-In> NumberInternalRepresentation(123.45678)
-Result: {123.45678,8,12345678,5}
+In> NumberToRep(123.45678)
+Result: {12345678,8,5}
     
-In> NumberInternalRepresentation(34700)
+In> NumberToRep(34700)
 Result: {34700}
     
-In> NumberInternalRepresentation(1.5+6.75*I)
-Result: {{1.50,3,150,2},{6.75,3,675,2}}
+In> NumberToRep(1.5+6.75*I)
+Result: {{150,3,2},{675,3,2}}
     
-In> NumberInternalRepresentation(123.45678E-10)
-Result: {0.000000012345678,8,12345678,15}
-    
-In> NumberInternalRepresentation(123.45678E+10)
-Result: {1234567800000,8,12345678,-5}
+In> NumberToRep(123.45678E-10)
+Result: {12345678,8,15}
+   
+In> NumberToRep(123.45678E+10)
+Result: {12345678,8,-5}
 
-NOTICE that the first,fourth, and fifth of these have the same 
+
+NOTICE that the first, fourth, and fifth of these have the same 
 BigInteger representation, and hence the same precision, namely 8.  
 The ScaleFactor tells how many places the decimal point must be 
 moved {leftward} from the {end} of the integer.  A negative 
 ScaleFactor says to move the decimal point to the right -- 
-i.e., add terminal zeros.
+i.e., effectively, add terminal zeros. However, if the number had 
+originally been written as 1234567800000., it would actually have
+a different representation, namely {1234567800000,13,0}.  That is
+because, if we write those terminal zeros explicitly, they are assumed
+to be "significant", and so the number is shown with precision 13.
+Exponential notation must be used if the precision really is 8.
 
 *SEE 
 %/mathpiper_docs
 
-    %output,preserve="false"
-      
-.   %/output
 
 
