@@ -6,9 +6,8 @@ Retract("NumberToRep",*);
 10 # NumberToRep( N_IsNumber ) <--
 [
     If(InVerboseMode(),Tell(NumberToRep,N));
-    Local(oldPrecision,sgn,c,str,lst,strN,lenN,defaultPrec,numChars,inNum,ss,ans1,ans);
-    numChars     := StringToList("0123456789.+-");
-    oldPrecision := BuiltinPrecisionGet();
+    Local(oldPrec,sgn,assoc,typ,val,prec,rep);
+    oldPrec  := BuiltinPrecisionGet();
     BuiltinPrecisionSet(300);
     /*   NOTE: the above arbitrary 'magic number' is used because it is 
      *   currently necessary to set BuiltinPrecision to a value large 
@@ -16,38 +15,27 @@ Retract("NumberToRep",*);
      *   might not be enough!  I am looking for a way to base the 
      *   setting directly on the input number itself.                   */
      
-    sgn          := Sign(N); 
-    strN         := PipeToString() DumpNumber(Abs(N));
-    lenN         := Length(strN);
-    If(InVerboseMode(),[Tell("   ",{lenN,strN}); Tell("   ",strN[4]);]);
-    str          := "";
-    lst          := {};
-    inNum        := False;
-    For(ii:=1,ii<=lenN,ii++)
-    [
-        c := strN[ii];
-        If(Contains(numChars,c),
-          [ If( Not inNum, inNum := True ); str := ConcatStrings(str,c); ],
-          [ If( inNum, [ inNum := False; Push(lst,str); str := ""; ] );  ]
-        );
-    ];
-    If(strN[4]="D",defaultPrec:=ToAtom(lst[3]), defaultPrec:= Length(lst[1])-(1-sgn)/2);
-    ans1 := ToAtom /@ Reverse(lst);
-    If(InVerboseMode(),
-       [  Tell("   ",lst); 
-          Tell("   ",sgn);
-          Tell("   ",defaultPrec);
-          Tell("   ",ans1);      
+    sgn      := Sign(N); 
+    assoc    := DumpNumber(Abs(N));
+    If(InVerboseMode(),[ Tell("   ",assoc); Tell("   ",sgn); ]);
+    typ := Assoc("type",assoc)[2];
+    If(InVerboseMode(),Tell("   ",typ));
+    If( typ = "BigDecimal",
+       [
+          rep := { sgn*Assoc("unscaledValue",assoc)[2],
+                   Assoc("precision",    assoc)[2],
+                   Assoc("scale",        assoc)[2] 
+                 };
+       ],
+       [
+          Local(val,prec);
+          val  := Assoc("value",assoc)[2];
+          prec := Length(ExpressionToString(val));
+          rep := { sgn*val, prec };
        ]
     );
-    ans := If( Length(ans1) = 1, 
-                  {ans1[1],defaultPrec}, 
-                  {ans1[3],ans1[2],Round(ans1[4])} 
-             );
-    If(InVerboseMode(),Tell("   ",{sgn,ans}));
-    DestructiveReplace(ans,1,sgn*ans[1]);
-    BuiltinPrecisionSet(oldPrecision);
-    ans;
+    If(InVerboseMode(),Tell("   ",rep));
+    rep;
 ];
 
 
@@ -61,6 +49,10 @@ Retract("NumberToRep",*);
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
