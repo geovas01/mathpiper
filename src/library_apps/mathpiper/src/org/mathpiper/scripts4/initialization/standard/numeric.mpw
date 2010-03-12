@@ -29,7 +29,7 @@ LocalSymbols(numericMode)
 
     previousPrecision := BuiltinPrecisionGet();
     //If(InVerboseMode(),Tell("  ",previousPrecision));
-    BuiltinPrecisionSet(@precision+2);
+    BuiltinPrecisionSet(@precision+5);
 
     AssignCachedConstantsN();
 
@@ -90,6 +90,10 @@ LocalSymbols(numericMode)
 ]; //LocalSymbols(numericMode)
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
    
 
