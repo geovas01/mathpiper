@@ -21,8 +21,9 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -35,7 +36,14 @@ public class DumpNumber extends BuiltinFunction
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-        Cons resultCons = x.dumpNumber(aEnvironment, aStackTop, aEnvironment.iCurrentOutput);
+        Cons resultCons = x.dumpNumber(aEnvironment, aStackTop);
+
+        ConsPointer isVerbosePointer = Utility.lispEvaluate(aEnvironment, aStackTop, "InVerboseMode();");
+
+        if(((String)isVerbosePointer.car()).equals("True"))
+        {
+            x.dumpNumber(aEnvironment, aStackTop, aEnvironment.iCurrentOutput);
+        }
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultCons);
 
@@ -61,7 +69,8 @@ public class DumpNumber extends BuiltinFunction
 
 *DESC
 
-This function prints the implementation details of an integer or decimal number.
+This function prints the implementation details of an integer or decimal number.  If this function is
+run in verbose mode, these details are also output as side effect information.
 
 *E.G.
 In> DumpNumber(42)
