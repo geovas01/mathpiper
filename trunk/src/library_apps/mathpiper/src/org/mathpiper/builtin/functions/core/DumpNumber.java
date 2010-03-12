@@ -38,12 +38,14 @@ public class DumpNumber extends BuiltinFunction
 
         Cons resultCons = x.dumpNumber(aEnvironment, aStackTop);
 
+        /*
         ConsPointer isVerbosePointer = Utility.lispEvaluate(aEnvironment, aStackTop, "InVerboseMode();");
 
         if(((String)isVerbosePointer.car()).equals("True"))
         {
             x.dumpNumber(aEnvironment, aStackTop, aEnvironment.iCurrentOutput);
         }
+        */
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultCons);
 
@@ -69,19 +71,17 @@ public class DumpNumber extends BuiltinFunction
 
 *DESC
 
-This function prints the implementation details of an integer or decimal number.  If this function is
-run in verbose mode, these details are also output as side effect information.
+This function prints the implementation details of an integer or decimal number.
 
 *E.G.
-In> DumpNumber(42)
-Result> True
-Side Effects>
-BigInteger: 42
+In> DumpNumber(4)
+Result> {{"type","BigInteger"},{"value",4}}
 
-In> DumpNumber(42.2343)
-Result> True
-Side Effects>
-BigDecimal: 42.2343   Precision: 6   Unscaled Value: 422343   Scale: 4
+In> DumpNumber(3.2)
+Result> {{"type","BigDecimal"},{"value",3.2},{"precision",2},{"unscaledValue",32},{"scale",1}}
+
+In> DumpNumber(3.2)["precision"]
+Result> 2
 
 %/mathpiper_docs
 */
