@@ -529,15 +529,14 @@ public class BigNumber {
      * @param aOutput
      * @throws java.lang.Exception
      */
-    public Cons dumpNumber(Environment aEnvironment, int aStackTop, MathPiperOutputStream aOutput) throws Exception {
+    public void dumpNumber(Environment aEnvironment, int aStackTop, MathPiperOutputStream aOutput) throws Exception {
         if (javaBigInteger != null) {
             aOutput.write("BigInteger: " + javaBigInteger.toString() + "\n");
         } else {
             aOutput.write("BigDecimal: " + javaBigDecimal.toPlainString() + "   Precision: " + javaBigDecimal.precision()  + "   Unscaled Value: " + javaBigDecimal.unscaledValue() + "   Scale: " + javaBigDecimal.scale() + ".\n");
         }
 
-        return this.dumpNumber(aEnvironment, aStackTop);
-    }
+    }//end method.
 
 
     public Cons dumpNumber(Environment aEnvironment, int aStackTop) throws Exception
