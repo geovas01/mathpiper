@@ -8,6 +8,12 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.NumberCons;
+import org.mathpiper.lisp.cons.SublistCons;
 
 /**
  *
@@ -17,17 +23,81 @@ public class RoundToN extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        BigNumber decimalToBeRounded = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
-
         BigNumber requestedPrecision = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
 
-        if(decimalToBeRounded.getPrecision() != requestedPrecision.toInt())
-        {
-            decimalToBeRounded.setPrecision(requestedPrecision.toInt());
-        }
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(decimalToBeRounded));
-    }
+
+        Cons argument1 = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
+
+        if(argument1 instanceof NumberCons)
+        {
+
+            BigNumber decimalToBeRounded = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+
+            if(decimalToBeRounded.getPrecision() != requestedPrecision.toInt())
+            {
+                decimalToBeRounded.setPrecision(requestedPrecision.toInt());
+            }
+
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(decimalToBeRounded));
+
+            return;
+
+        }
+        else if (argument1 instanceof SublistCons)
+        {
+            ConsPointer consPointer = new ConsPointer(argument1);
+
+            consPointer.goSub(aStackTop, aEnvironment);
+
+            String functionName = ((String) consPointer.car());
+
+            if(functionName.equals("Complex"))
+            {
+                consPointer.goNext(aStackTop, aEnvironment);
+
+                BigNumber realPart = (BigNumber) ((NumberCons) (consPointer.getCons())).getNumber(aEnvironment.getPrecision(), aEnvironment);
+
+                if(realPart.getPrecision() != requestedPrecision.toInt())
+                {
+                    realPart.setPrecision(requestedPrecision.toInt());
+                }//end if.
+
+                consPointer.goNext(aStackTop, aEnvironment);
+
+                BigNumber imaginaryPart = (BigNumber) ((NumberCons) (consPointer.getCons())).getNumber(aEnvironment.getPrecision(), aEnvironment);
+
+                if(imaginaryPart.getPrecision() != requestedPrecision.toInt())
+                {
+                    imaginaryPart.setPrecision(requestedPrecision.toInt());
+                }//end if.
+
+
+
+                Cons complexAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "Complex");
+
+                Cons realNumberCons = new NumberCons(realPart);
+
+                complexAtomCons.cdr().setCons(realNumberCons);
+
+                Cons imaginaryNumberCons = new NumberCons(imaginaryPart);
+
+                realNumberCons.cdr().setCons(imaginaryNumberCons);
+
+                Cons complexSublistCons = SublistCons.getInstance(aEnvironment, complexAtomCons);
+
+                getTopOfStackPointer(aEnvironment, aStackTop).setCons(complexSublistCons);
+                
+                return;
+                
+            }//end if.
+
+
+        }//end else.
+
+        LispError.raiseError("The first argument must be a number.", "RoundToN", aStackTop, aEnvironment);
+
+    }//end method.
 
 
 }//end class.
