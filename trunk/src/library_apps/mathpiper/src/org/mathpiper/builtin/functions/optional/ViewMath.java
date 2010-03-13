@@ -21,7 +21,9 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -34,8 +36,8 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.ui.gui.worksheets.MathPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
+import org.mathpiper.ui.gui.worksheets.TreePanel;
 import org.mathpiper.ui.gui.worksheets.latexparser.TexParser;
-import org.mathpiper.ui.gui.worksheets.ViewTree;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 /**
@@ -92,10 +94,9 @@ public class ViewMath extends BuiltinFunction {
         TexParser parser = new TexParser();
         SymbolBox sBoxExpression = parser.parse(texString);
 
-        ViewTree viewTree = new ViewTree();
-        viewTree.walkTree(sBoxExpression);
+        //ViewTree viewTree = new ViewTree();
+        //viewTree.walkTree(sBoxExpression);
 
-        MathPanel mathPanel = new MathPanel(sBoxExpression, viewScale.toDouble());
 
 
         JFrame frame = new JFrame();
@@ -104,9 +105,7 @@ public class ViewMath extends BuiltinFunction {
         contentPane.setBackground(Color.WHITE);
 
 
-        MathPanelController mathPanelScaler = new MathPanelController(mathPanel, viewScale.toDouble());
 
-        JScrollPane scrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         /*
         DebugGraphics.setFlashCount(10);
@@ -116,12 +115,51 @@ public class ViewMath extends BuiltinFunction {
         panel.setDebugGraphicsOptions(DebugGraphics.FLASH_OPTION);
         panel.setDebugGraphicsOptions(DebugGraphics.LOG_OPTION);
          */
+        JTabbedPane tabbedPane = new JTabbedPane();
 
-        contentPane.add(scrollPane);
-        contentPane.add(mathPanelScaler, BorderLayout.NORTH);
+
+        //Math viewer.
+        JPanel mathControllerPanel = new JPanel();
+
+        mathControllerPanel.setLayout(new BorderLayout());
+
+        MathPanel mathPanel = new MathPanel(sBoxExpression, viewScale.toDouble());
+
+        MathPanelController mathPanelScaler = new MathPanelController(mathPanel, viewScale.toDouble());
+
+        JScrollPane scrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        mathControllerPanel.add(scrollPane);
+
+        mathControllerPanel.add(mathPanelScaler, BorderLayout.NORTH);
+
+        tabbedPane.addTab("Math Form", null, mathControllerPanel, "Math expression viewer.");
+
+
+        //Tree viewer.
+        JPanel treeControllerPanel = new JPanel();
+
+        treeControllerPanel.setLayout(new BorderLayout());
+
+        TreePanel treePanel = new TreePanel(sBoxExpression,viewScale.toDouble());
+
+        MathPanelController treePanelScaler = new MathPanelController(treePanel,viewScale.toDouble());
+
+        JScrollPane treeScrollPane = new JScrollPane(treePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        treeControllerPanel.add(treeScrollPane);
+
+        treeControllerPanel.add(treePanelScaler, BorderLayout.NORTH);
+
+        tabbedPane.addTab("Parse Tree", null, treeControllerPanel, "Parse tree viewer..");
+
+
+
+        contentPane.add(tabbedPane);
+
 
         frame.setAlwaysOnTop(false);
-        frame.setTitle("MathPiper");
+        frame.setTitle("Math Viewer");
         frame.setSize(new Dimension(300, 200));
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);

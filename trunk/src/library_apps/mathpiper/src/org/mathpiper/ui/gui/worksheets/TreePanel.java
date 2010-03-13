@@ -25,7 +25,7 @@ public class TreePanel extends JPanel implements ViewPanel {
         this.viewScale = viewScale;
         this.setBackground(Color.white);
 
-
+        this.repaint();
     }
 
     public void paint(Graphics g) {
