@@ -2,7 +2,7 @@
 
 Rulebase("->",{left,right});
 
-//HoldArgument("->",left);
+HoldArgument("->",left);
 
 //HoldArgument("->",right);
 
