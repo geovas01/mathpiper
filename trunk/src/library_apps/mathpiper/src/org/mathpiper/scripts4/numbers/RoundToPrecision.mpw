@@ -162,57 +162,50 @@ arguably not any kind of approximation of the old one.
 
 On the whole, it is probably best NOT to round integers UP.
 *E.G.
-    In> dec:=123.45678
-    Result: 123.45678
-    In> NumberToRep(dec)
-    Result: {12345678,8,5}
-    
-    In> dec2:=RoundToPrecision(dec,5)
-    Result: 123.46
-    In> NumberToRep(dec2)
-    Result: {12346,5,2}
-    
-    In> dec3:=RoundToPrecision(dec,10)
-    Result: 123.4567800
-    In> NumberToRep(dec3)
-    Result: {1234567800,10,7}
+In> dec:=123.45678
+Result: 123.45678
+In> NumberToRep(dec)
+Result: {12345678,8,5}
 
-    In> cmplx:=12.345-I*567.891
-    Result: Complex(12.345,-567.891)
-    In> NumberToRep(cmplx)
-    Result: {{12345,5,3},{-567891,6,3}}
-    
-    In> cmplx2:=RoundToPrecision(cmplx,4)
-    Result: Complex(12.34,-567.9)
-    In> NumberToRep(cmplx2)
-    Result: {{1234,4,2},{-5679,4,1}}
-    
-    In> cmplx3:=RoundToPrecision(cmplx,8)
-    Result: Complex(12.345000,-567.89100)
-    In> NumberToRep(cmplx3)
-    Result: {{12345000,8,6},{-56789100,8,5}}
+In> dec2:=RoundToPrecision(dec,5)
+Result: 123.46
+In> NumberToRep(dec2)
+Result: {12346,5,2}
 
-    In> int:=12345678
-    Result: 12345678
-    In> NumberToRep(int)
-    Result: {12345678,8}
-    
-    In> int2:=RoundToPrecision(int,5)
-    Result: 12346000
-    In> NumberToRep(int2)
-    Result: {12346000,8}
-    
-    In> int3:=RoundToPrecision(int,10)
-    Result: 1234567800
-    In> NumberToRep(int3)
-    Result: {1234567800,10}
-    
-    
+In> dec3:=RoundToPrecision(dec,10)
+Result: 123.4567800
+In> NumberToRep(dec3)
+Result: {1234567800,10,7}
+
+In> cmplx:=12.345-I*567.891
+Result: Complex(12.345,-567.891)
+In> NumberToRep(cmplx)
+Result: {{12345,5,3},{-567891,6,3}}
+
+In> cmplx2:=RoundToPrecision(cmplx,4)
+Result: Complex(12.34,-567.9)
+In> NumberToRep(cmplx2)
+Result: {{1234,4,2},{-5679,4,1}}
+
+In> cmplx3:=RoundToPrecision(cmplx,8)
+Result: Complex(12.345000,-567.89100)
+In> NumberToRep(cmplx3)
+Result: {{12345000,8,6},{-56789100,8,5}}
+
+In> int:=12345678
+Result: 12345678
+In> NumberToRep(int)
+Result: {12345678,8}
+
+In> int2:=RoundToPrecision(int,5)
+Result: 12346000
+In> NumberToRep(int2)
+Result: {12346000,8}
+
+In> int3:=RoundToPrecision(int,10)
+Result: 1234567800
+In> NumberToRep(int3)
+Result: {1234567800,10}
 *SEE RoundToPlace, RoundToN, NumberToRep, DumpNumber
 %/mathpiper_docs
-
-    %output,preserve="false"
-      
-.   %/output
-
 
