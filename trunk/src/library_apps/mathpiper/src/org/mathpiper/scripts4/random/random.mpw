@@ -81,7 +81,7 @@ LocalSymbols(knownRNGEngines, knownRNGDists) [
 
 Function() RngCreate();
 Function() RngCreate(seed, ...);
-HoldArgument("RngCreate", seed);	// this is needed to prevent evaluation of = and also to prevent substitution of variables, e.g. if "seed" is defined
+//HoldArgument("RngCreate", seed);	// this is needed to prevent evaluation of = and also to prevent substitution of variables, e.g. if "seed" is defined
 //UnFence("RngCreate", 0);
 //UnFence("RngCreate", 1);
 Function() RngSeed(r, seed);
@@ -93,16 +93,16 @@ Function() Rng(r);
 
 RngCreate() <-- RngCreate(0);
 
-10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {ToAtom("seed") -> a'seed});
+10 # RngCreate(a'seed_IsInteger) <-- (RngCreate @ {seed -> a'seed});
 
 // a single option given: convert explicitly to a list
-20 # RngCreate(_key -> _value) <-- (RngCreate @ {{key -> value}});
-20 # RngCreate(_key = _value) <-- (RngCreate @ {{key -> value}});
+20 # RngCreate(_key -> _value) <-- `(RngCreate({@key -> value}));
 
 // expect a list of options
 30 # RngCreate(options_IsList) <--
 [
 	options := OptionsListToHash @ {options};
+
 	// check options and assign defaults
 	If(
 		options["seed"] = Empty Or options["seed"] <= 0,
@@ -389,14 +389,14 @@ However, the {Random} function is slightly faster.
 
 *E.G.
 
-	In> r1:=RngCreate(seed=1,dist=gauss)
+	In> r1:=RngCreate(seed->1,dist->gauss)
 	Out> {"GaussianRNGDist","RNGEngine'LCG'2",{1}}
 	In> Rng(r1)
 	Out> Complex(-1.6668466417,0.228904004);
 	In> Rng(r1);
 	Out> Complex(0.0279296109,-0.5382405341);
 The second RNG gives a uniform distribution (default option) but uses a more complicated algorithm:
-	In> [r2:=RngCreate(engine=advanced);Rng(r2);]
+	In> [r2:=RngCreate(engine->advanced);Rng(r2);]
 	Out> 0.3653615377;
 The generator {r1} can be re-initialized with seed 1 again to obtain the same sequence:
 	In> RngSeed(r1, 1)
