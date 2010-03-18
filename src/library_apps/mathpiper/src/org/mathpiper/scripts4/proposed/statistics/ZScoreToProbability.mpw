@@ -34,7 +34,7 @@ ZScoreToProbability(zScore) :=
     
     Local( y, x, w, ZMAX, result);
     
-    ZMAX := 6; // Maximum ±z value
+    ZMAX := 6; // Maximum ï¿½z value
     
     if(zScore = 0.0)
     [
@@ -107,7 +107,7 @@ This function calculates the probability of a given z-score.
 In> ZScoreToProbability(1.08)
 Result: 0.8599289100
 
-*SEE NormalDistribution,ProbabilityToZScore,ConfidenceLevelToZScore
+*SEE NormalDistribution,ProbabilityToZScore,ValueToZScore,ZScoreToValue,ConfidenceLevelToZScore
 %/mathpiper_docs
 
     %output,preserve="false"

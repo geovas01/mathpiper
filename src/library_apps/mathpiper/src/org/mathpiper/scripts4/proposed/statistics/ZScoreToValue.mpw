@@ -2,7 +2,7 @@
 
 Retract("ZScoreToValue",*);
 
-ZScoreToValue(zScore,mean,standardDeviation) :=
+ZScoreToValue(zScore) :=
 [
     -((-mean)/standardDeviation - zScore)*standardDeviation;
 ];
@@ -19,7 +19,7 @@ ZScoreToValue(zScore,mean,standardDeviation) :=
 
 
 %mathpiper_docs,name="ZScoreToValue",categories="User Functions;Statistics & Probability"
-*CMD ZScoreToValue --- calculates the z-score for a given numerical value
+*CMD ZScoreToValue --- calculates the numerical value for a given z-score
 *STD
 *CALL
 	ZScoreToValue(zScore,mean,standardDeviation)
@@ -31,11 +31,11 @@ ZScoreToValue(zScore,mean,standardDeviation) :=
 {standardDeviation} -- the standard deviation
 
 *DESC
-This function calculates the z-score for a given numerical value.
+This function calculates the numerical value for a given z-score.
 
 *E.G.
-In> N(ZScoreToValue(4.74,5,.332))
-Result: -0.7831325301
+In> N(ZScoreToValue(1,5,1))
+Result: 6
 
 *SEE ValueToZScore,ZScoreToProbability,ProbabilityToZScore,ConfidenceLevelToZScore
 %/mathpiper_docs

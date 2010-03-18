@@ -30,7 +30,7 @@ ProbabilityToZScore(probability) :=
     
     Check(probability >= 0.0 And probability <= 1.0, "The argument must be between 0 and 1.");
     
-    ZMAX := 6; // Maximum ±z value.
+    ZMAX := 6; // Maximum ï¿½z value.
     
     ZEPSILON := 0.000001; /* Accuracy of z approximation */
     
@@ -88,7 +88,7 @@ This function calculates the z-score for a given probability.
 In> ProbabilityToZScore(.90)
 Result: 1.281551244
 
-*SEE NormalDistribution,ZScoreToProbability,ConfidenceLevelToZScore
+*SEE NormalDistribution,ZScoreToProbability,ValueToZScore,ZScoreToValue,ConfidenceLevelToZScore
 %/mathpiper_docs
 
     %output,preserve="false"
