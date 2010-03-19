@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ The Swap function's documentation indicates it returns a list, but it doesn't.
 + HotEqn can't display a %.  This is needed in the IsCarmichaelNumber documentation.
 + Good example of where ViewMath is useful:
 sd := Hold(Sqrt((Sum(d^2) - (Sum(d)^2)/n))/(n-1)); //Wrong.
@@ -275,7 +276,7 @@ a significantly larger cIass of functions. I believe this is why Yacas
 fails to solve your equation.
 
 Best regards
-Björn Terelius
+Bjï¿½rn Terelius
 +String processing needs to be significantly improved.  For example, turing lists into strings and strings into lists.  Also, perhaps use Python's string processing functions as a guide.
 +Rounding to a specified number of digits still needs to be implemented.
 +The While and For functions need a way to break and continue.
