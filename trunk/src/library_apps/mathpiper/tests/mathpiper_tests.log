@@ -1,7 +1,7 @@
 
-***** Wed Mar 10 01:26:53 EST 2010 *****
+***** Sat Mar 20 21:59:36 EST 2010 *****
 ***** Using a new interpreter instance for each test file. *****
-***** MathPiper version: .78s *****
+***** MathPiper version: .78t *****
 
 ===========================
 arithmetic.mpt: 
@@ -245,313 +245,106 @@ Result: True
 
 Side Effects:
 ******************
+tests/scripts4/numerics.mpt: 7 
+
+newreplo[1]-rephi[1]
+ evaluates to 
+-9999999999000000000
+ which differs from 
+0
+******************
+******************
 tests/scripts4/numerics.mpt: 21 
 
-RoundTo(N(Sec(2),9)-(-2.402997962),9)
+newreplo[1]-rephi[1]
  evaluates to 
-0.000000002
+-32641743670
+ which differs from 
+0
+******************
+******************
+tests/scripts4/numerics.mpt: 23 
+
+newreplo[1]-rephi[1]
+ evaluates to 
+-15706392471622
+ which differs from 
+0
+******************
+******************
+tests/scripts4/numerics.mpt: 24 
+
+newreplo[1]-rephi[1]
+ evaluates to 
+13168262011351
+ which differs from 
+0
+******************
+******************
+tests/scripts4/numerics.mpt: 25 
+
+newreplo[1]-rephi[1]
+ evaluates to 
+-15707961697152639
+ which differs from 
+0
+******************
+******************
+tests/scripts4/numerics.mpt: 28 
+
+newreplo[1]-rephi[1]
+ evaluates to 
+131695788375523770
  which differs from 
 0
 ******************
 ******************
 tests/scripts4/numerics.mpt: 29 
 
-RoundTo(N(ArcSinh(2),9)-1.443635475,9)
+newreplo[1]-rephi[1]
  evaluates to 
-0.000000005
+-5493061437847487017
  which differs from 
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 30 
+tests/scripts4/numerics.mpt: 41 
 
-RoundTo(N(ArcCosh(2),9)-1.316957897,9)
+newreplo[1]-rephi[1]
  evaluates to 
-0.000000003
+-1
  which differs from 
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 45 
+tests/scripts4/numerics.mpt: 66 
 
-RoundTo(RoundTo(N(Sin(2.0)),49)-0.9092974268256816953960198659117448427022549714479,49)
+newreplo[1]-rephi[1]
  evaluates to 
-0.0000000000000000000000000000000000000000000000001
+2
  which differs from 
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 50 
+tests/scripts4/numerics.mpt: 81 
 
-RoundTo(RoundTo(N(Sin(2.0)),50)-0.90929742682568169539601986591174484270225497144789,50)
+newreplo[1]-rephi[1]
  evaluates to 
-0.00000000000000000000000000000000000000000000000001
+4
  which differs from 
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 55 
+tests/scripts4/numerics.mpt: 86 
 
-RoundTo(RoundTo(N(Sin(2.0)),51)-0.90929742682568169539601986591174484270225497144789,51)
+newreplo[1]-rephi[1]
  evaluates to 
-0.000000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 60 
-
-RoundTo(RoundTo(N(Cos(20.0)),49)-0.4080820618133919860622678609276449570992995103163,49)
- evaluates to 
-0.0000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 65 
-
-RoundTo(RoundTo(N(Tan(20.0)),49)-2.2371609442247422652871732477303491783724839749188,49)
- evaluates to 
-0.0000000000000000000000000000000000000000000000002
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 70 
-
-RoundTo(RoundTo(N(Exp(10.32),54),54)-30333.2575962246035600343483350109621778376486335450125,48)
- evaluates to 
-0.000000000000000000000000000000000000000000000013
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 75 
-
-RoundTo(RoundTo(N(Ln(10.32/4.07)),49)-0.93044076059891305468974486564632598071134270468,49)
- evaluates to 
-0.0000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 80 
-
-RoundTo(RoundTo(N(1.3^10.32),48)-14.99323664825717956473936947123246987802978985306,48)
- evaluates to 
-0.00000000000000000000000000000000000000000000004
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 85 
-
-RoundTo(RoundTo(N(Sqrt(5.3),51),51)-2.302172886644267644194841586420201850185830282633675,51)
- evaluates to 
--0.00000000000000000000000000000000000000000000000002
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 109 
-
-RoundTo(RoundTo(N(ArcSin(0.32)),49)-0.3257294872946301593103199105324500784354180998123,49)
- evaluates to 
-0.0000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 114 
-
-RoundTo(RoundTo(N(Sin(N(ArcSin(0.1234567)))),49)-0.1234567,49)
- evaluates to 
-0.0000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 131 
-
-RoundTo(RoundTo(N(ArcCos(0.32)),49)-1.2450668395002664599210017811073013636631665998753,49)
- evaluates to 
--0.0000000000000000000000000000000000000000000000003
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 136 
-
-RoundTo(RoundTo(N(ArcTan(0.32)),49)-0.3097029445424561999173808103924156700884366304804,49)
- evaluates to 
-0.0000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 141 
-
-RoundTo(RoundTo(N(Cos(N(ArcCos(0.1234567)))),49)-0.1234567,49)
- evaluates to 
-0.0000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 190 
-
-RoundTo(RoundTo(N(Internal'GammaNum(10.5)),13)-1133278.3889487855673,13)
- evaluates to 
-0.0000002144327
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 191 
-
-RoundTo(RoundTo(N(Internal'GammaNum(-11.5)),20)-0.00000002295758104824,20)
- evaluates to 
--0.00000005376844611667
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 192 
-
-RoundTo(RoundTo(N(Internal'GammaNum(-12.5)),20)-(-0.00000000183660648386),20)
- evaluates to 
--0.00000000062826272161
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 195 
-
-RoundTo(RoundTo(N(Gamma(10.5)),13)-1133278.3889487855673,13)
- evaluates to 
-0.0000002144327
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 202 
-
-RoundTo(RoundTo(N(Zeta(-11.5)),18)-0.020396978715942792,18)
- evaluates to 
--0.046731508865215728
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 222 
-
-RoundTo(RoundTo(N(Zeta(40)),19)-1.0000000000009094948,19)
- evaluates to 
-0.0000000000000000002
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 227 
-
-RoundTo(RoundTo(N(Zeta(1.5)),19)-2.6123753486854883433,19)
- evaluates to 
--0.0000000000000000003
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 260 
-
-GuessRational(N(Pi))
- evaluates to 
-25582/8143
- which differs from 
-355/113
-******************
-******************
-tests/scripts4/numerics.mpt: 281 
-
-RoundTo(N(LambertW(10),BuiltinPrecisionGet())-1.7455280027,BuiltinPrecisionGet())
- evaluates to 
--0.0000000003
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 286 
-
-RoundTo(N(BesselJ(0,.5))-RoundTo(.93846980724081290422840467359971262556892679709682,50),50)
- evaluates to 
--0.00000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 287 
-
-RoundTo(N(BesselJ(0,.9))-RoundTo(.80752379812254477730240904228745534863542363027564,50),50)
- evaluates to 
--0.00000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 288 
-
-RoundTo(N(BesselJ(0,.99999))-RoundTo(.76520208704756659155313775543958045290339472808482,50),50)
- evaluates to 
--0.00000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 294 
-
-RoundTo(N(BesselJ(11,11))-RoundTo(.20101400990926940339478738551009382430831534125484,50),50)
- evaluates to 
--0.00000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 297 
-
-RoundTo(N(BesselJ(10,10))-RoundTo(.20748610663335885769727872351875342803274461128682,50),50)
- evaluates to 
--0.00000000000000000000000000000000000000000000000001
- which differs from 
-0
-******************
---Gamma constant
-******************
-tests/scripts4/numerics.mpt: 311 
-
-RoundTo(Internal'gamma()+0-0.5772156649015328606065120900824024310422,BuiltinPrecisionGet())
- evaluates to 
-0.0000000000000000000000000000000000000002
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 314 
-
-RoundTo(RoundTo(Internal'gamma()+0,19)-0.5772156649015328606,19)
- evaluates to 
-0.0000000000000000001
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 315 
-
-RoundTo(RoundTo(N(1/2+gamma+Pi),19)-4.2188083184913260991,19)
- evaluates to 
--0.0000000000000000001
+5
  which differs from 
 0
 ******************
 
+Exception:Invalid argument. In function "MathNth" : internal error. In function: Nth, Source file: tests/scripts4/numerics.mpt Line number: 103
 ===========================
 nummethods.mpt: 
 
@@ -559,11 +352,29 @@ Result: False
 
 Side Effects:
 ******************
+tests/scripts4/nummethods.mpt: 11 
+
+newreplo[1]-rephi[1]
+ evaluates to 
+-2446453645613140711823
+ which differs from 
+0
+******************
+******************
+tests/scripts4/nummethods.mpt: 12 
+
+newreplo[1]-rephi[1]
+ evaluates to 
+-2446453645613140711823
+ which differs from 
+0
+******************
+******************
 tests/scripts4/nummethods.mpt: 14 
 
-RoundTo(NewtonNum({{x},x+Sin(x)},3,5,3)-3.14159265358979323846,20)
+newreplo[1]-rephi[1]
  evaluates to 
--0.00000000000000000004
+-3141561237663257340530258
  which differs from 
 0
 ******************
@@ -650,18 +461,18 @@ PipeToString()Write(Plot3DS(x1,x1->-1:1,x2->-1:1,output->data,points->2))
 ******************
 tests/scripts4/plots.mpt: 23 
 
-RoundTo(RoundTo(f(3),BuiltinPrecisionGet())-0.6666666667,BuiltinPrecisionGet())
+repL[1]-repR[1]
  evaluates to 
-0.0000000001
+1
  which differs from 
 0
 ******************
 ******************
 tests/scripts4/plots.mpt: 26 
 
-RoundTo(RoundTo(f1(3),BuiltinPrecisionGet())-0.6666666667,BuiltinPrecisionGet())
+repL[1]-repR[1]
  evaluates to 
-0.0000000001
+1
  which differs from 
 0
 ******************
@@ -752,20 +563,11 @@ Side Effects:
 
 Test suite for Regression on bug reports : 
 ******************
-tests/scripts4/regress.mpt: 192 
-
-RoundTo(RoundTo(N(ArcSin(0.0000000321232123),50),50)-0.00000003212321230000000552466124302049336784679316,50)
- evaluates to 
-0.000000000000000000000005524661243
- which differs from 
-0
-******************
-******************
 tests/scripts4/regress.mpt: 304 
 
-RoundTo(N(Cos(Pi*.5))-0,BuiltinPrecisionGet())
+newreplo[1]-rephi[1]
  evaluates to 
--0.0000000002
+2051030287
  which differs from 
 0
 ******************
@@ -828,7 +630,7 @@ Side Effects:
 ******************
 tests/scripts4/sums.mpt: 339 
 
-$pp2253
+$pp1980
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 
@@ -866,5 +668,5 @@ Result: True
 
 ***** Tests complete *****
 
-Exception Count: 1
+Exception Count: 2
 
