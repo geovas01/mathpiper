@@ -1,5 +1,9 @@
+Initialization response: Result: True
 
-***** Sun Mar 21 00:57:09 EST 2010 *****
+Side Effects:
+Stack tracing is on.
+
+***** Sun Mar 21 01:14:02 EST 2010 *****
 ***** Using a new interpreter instance for each test file. *****
 ***** MathPiper version: .78t *****
 
@@ -344,7 +348,621 @@ newreplo[1]-rephi[1]
 0
 ******************
 
-Exception:Invalid argument. In function "MathNth" : internal error. In function: Nth, Source file: tests/scripts4/numerics.mpt Line number: 103
+Exception:Invalid argument. In function "MathNth" : internal error.
+
+========================================= Start Of Built In Function Stack Trace
+0: LoadScript
+   1: -> "tests/scripts4/numerics.mpt"
+-----------------------------------------
+2: Prog
+   3: -> If(InVerboseMode(),Tell("NumericEqual",{left,right}))
+   4: -> Local(repL,repR,precL,precR,nlo,nhi,plo,phi,replo,rephi)
+   5: -> Local(newhi,newrephi,newlo,newreplo,ans)
+   6: -> repL:=NumberToRep(left)
+   7: -> repR:=NumberToRep(right)
+   8: -> precL:=repL[2]
+   9: -> precR:=repR[2]
+   10: -> If(InVerboseMode(),Tell("  ",{precL,precR}))
+   11: -> if(precL=precR)[
+    ans:=Verify(repL[1]-repR[1],0);
+    If(InVerboseMode(),Tell("  ",ans));
+    phi:=precL;
+    If(repL[1]=0,phi:=Infinity);
+]
+else[
+    If(precL<precR,[
+        nlo:=left;
+        nhi:=right;
+        plo:=precL;
+        phi:=precR;
+        replo:=repL;
+        rephi:=repR;
+]
+,[
+        nlo:=right;
+        nhi:=left;
+        plo:=precR;
+        phi:=precL;
+        replo:=repR;
+        rephi:=repL;
+]
+);
+    newlo:=RoundToPrecision(nlo,phi);
+    newreplo:=NumberToRep(newlo);
+    ans:=Verify(newreplo[1]-rephi[1],0);
+    If(InVerboseMode(),[
+        Tell("  ",{phi,plo});
+        Tell("      ",rephi);
+        Tell("      ",replo);
+        Tell("   ",newrephi);
+        Tell("   ",newreplo);
+        Tell("        ",ans);
+]
+);
+]
+
+   12: -> ansAndphi>=precision
+-----------------------------------------
+13: Eval
+   14: -> aRightAssign
+-----------------------------------------
+15: Prog
+   16: -> Local(rep,sgn,oldInt,oldPrec,oldScale,strOInt,LS)
+   17: -> Local(newInt,newScale,newRep,ans)
+   18: -> sgn:=Sign(N)
+   19: -> rep:=NumberToRep(Abs(N))
+   20: -> oldInt:=rep[1]
+   21: -> oldPrec:=rep[2]
+   22: -> oldScale:=rep[3]
+   23: -> strOInt:=ExpressionToString(oldInt)
+   24: -> LS:=Length(strOInt)
+   25: -> Local(first,secnd,rem,ad)
+   26: -> if(newPrec=oldPrec)[
+    ans:=N;
+]
+elseif(newPrec<oldPrec)[
+    first:=StringMidGet(1,newPrec,strOInt);
+    secnd:=StringMidGet(newPrec+1,LS-newPrec,strOInt);
+    rem:=ToAtom(ConcatStrings(".",secnd));
+    ad:=If(rem>=0.5,1,0);
+    newInt:=sgn*(ToAtom(first)+ad);
+    newScale:=oldScale-(oldPrec-newPrec);
+    newRep:={newInt,newPrec,newScale};
+    ans:=RepToNumber(newRep);
+]
+else[
+    Local(diffPrec);
+    diffPrec:=oldPrec-newPrec;
+    newInt:=sgn*ToAtom(strOInt)*10^(-diffPrec);
+    newScale:=oldScale-diffPrec;
+    newRep:={newInt,newPrec,newScale};
+    ans:=RepToNumber(newRep);
+]
+
+   27: -> ans
+========================================= End Of Stack Trace
+
+
+
+========================================= Start Of User Function Stack Trace
+0: Nth
+   1: -> aindex = 3
+   2: -> alist = {4,1}
+-----------------------------------------
+3: Prog
+   4: -> aRightAssign = rep[3]
+   5: -> aLeftAssign = oldScale
+   6: -> ans = NULL
+   7: -> newRep = NULL
+   8: -> newScale = NULL
+   9: -> newInt = NULL
+   10: -> LS = NULL
+   11: -> strOInt = NULL
+   12: -> oldScale = NULL
+   13: -> oldPrec = 1
+   14: -> oldInt = 4
+   15: -> sgn = 1
+   16: -> rep = {4,1}
+   17: -> newPrec = 49
+   18: -> N = 4.
+   19: -> arg2 = 49
+   20: -> arg1 = 4.
+-----------------------------------------
+21: :=
+   22: -> aRightAssign = rep[3]
+   23: -> aLeftAssign = oldScale
+   24: -> ans = NULL
+   25: -> newRep = NULL
+   26: -> newScale = NULL
+   27: -> newInt = NULL
+   28: -> LS = NULL
+   29: -> strOInt = NULL
+   30: -> oldScale = NULL
+   31: -> oldPrec = 1
+   32: -> oldInt = 4
+   33: -> sgn = 1
+   34: -> rep = {4,1}
+   35: -> newPrec = 49
+   36: -> N = 4.
+   37: -> arg2 = 49
+   38: -> arg1 = 4.
+-----------------------------------------
+39: Prog
+   40: -> ans = NULL
+   41: -> newRep = NULL
+   42: -> newScale = NULL
+   43: -> newInt = NULL
+   44: -> LS = NULL
+   45: -> strOInt = NULL
+   46: -> oldScale = NULL
+   47: -> oldPrec = 1
+   48: -> oldInt = 4
+   49: -> sgn = 1
+   50: -> rep = {4,1}
+   51: -> newPrec = 49
+   52: -> N = 4.
+   53: -> arg2 = 49
+   54: -> arg1 = 4.
+-----------------------------------------
+55: RoundToPrecision
+   56: -> newPrec = 49
+   57: -> N = 4.
+   58: -> arg2 = 49
+   59: -> arg1 = 4.
+-----------------------------------------
+60: Prog
+   61: -> aRightAssign = RoundToPrecision(nlo,phi)
+   62: -> aLeftAssign = newlo
+   63: -> otherwise = [
+    If(precL<precR,[
+        nlo:=left;
+        nhi:=right;
+        plo:=precL;
+        phi:=precR;
+        replo:=repL;
+        rephi:=repR;
+]
+,[
+        nlo:=right;
+        nhi:=left;
+        plo:=precR;
+        phi:=precL;
+        replo:=repR;
+        rephi:=repL;
+]
+);
+    newlo:=RoundToPrecision(nlo,phi);
+    newreplo:=NumberToRep(newlo);
+    ans:=Verify(newreplo[1]-rephi[1],0);
+    If(InVerboseMode(),[
+        Tell("  ",{phi,plo});
+        Tell("      ",rephi);
+        Tell("      ",replo);
+        Tell("   ",newrephi);
+        Tell("   ",newreplo);
+        Tell("        ",ans);
+]
+);
+]
+
+   64: -> body = [
+    ans:=Verify(repL[1]-repR[1],0);
+    If(InVerboseMode(),Tell("  ",ans));
+    phi:=precL;
+    If(repL[1]=0,phi:=Infinity);
+]
+
+   65: -> predicate = precL=precR
+   66: -> otherwise = [
+    If(precL<precR,[
+        nlo:=left;
+        nhi:=right;
+        plo:=precL;
+        phi:=precR;
+        replo:=repL;
+        rephi:=repR;
+]
+,[
+        nlo:=right;
+        nhi:=left;
+        plo:=precR;
+        phi:=precL;
+        replo:=repR;
+        rephi:=repL;
+]
+);
+    newlo:=RoundToPrecision(nlo,phi);
+    newreplo:=NumberToRep(newlo);
+    ans:=Verify(newreplo[1]-rephi[1],0);
+    If(InVerboseMode(),[
+        Tell("  ",{phi,plo});
+        Tell("      ",rephi);
+        Tell("      ",replo);
+        Tell("   ",newrephi);
+        Tell("   ",newreplo);
+        Tell("        ",ans);
+]
+);
+]
+
+   67: -> ifthen = if(precL=precR)[
+    ans:=Verify(repL[1]-repR[1],0);
+    If(InVerboseMode(),Tell("  ",ans));
+    phi:=precL;
+    If(repL[1]=0,phi:=Infinity);
+]
+
+   68: -> ans = NULL
+   69: -> newreplo = NULL
+   70: -> newlo = NULL
+   71: -> newrephi = NULL
+   72: -> newhi = NULL
+   73: -> rephi = {4000000000000000000000000000000000000000000000000,49,48}
+   74: -> replo = {4,1,0}
+   75: -> phi = 49
+   76: -> plo = 1
+   77: -> nhi = 4.000000000000000000000000000000000000000000000000
+   78: -> nlo = 4.
+   79: -> precR = 1
+   80: -> precL = 49
+   81: -> repR = {4,1,0}
+   82: -> repL = {4000000000000000000000000000000000000000000000000,49,48}
+   83: -> precision = 49
+   84: -> right = 4.
+   85: -> left = 4.000000000000000000000000000000000000000000000000
+   86: -> arg3 = 49
+   87: -> arg2 = 4.
+   88: -> arg1 = 4.000000000000000000000000000000000000000000000000
+-----------------------------------------
+89: :=
+   90: -> aRightAssign = RoundToPrecision(nlo,phi)
+   91: -> aLeftAssign = newlo
+   92: -> otherwise = [
+    If(precL<precR,[
+        nlo:=left;
+        nhi:=right;
+        plo:=precL;
+        phi:=precR;
+        replo:=repL;
+        rephi:=repR;
+]
+,[
+        nlo:=right;
+        nhi:=left;
+        plo:=precR;
+        phi:=precL;
+        replo:=repR;
+        rephi:=repL;
+]
+);
+    newlo:=RoundToPrecision(nlo,phi);
+    newreplo:=NumberToRep(newlo);
+    ans:=Verify(newreplo[1]-rephi[1],0);
+    If(InVerboseMode(),[
+        Tell("  ",{phi,plo});
+        Tell("      ",rephi);
+        Tell("      ",replo);
+        Tell("   ",newrephi);
+        Tell("   ",newreplo);
+        Tell("        ",ans);
+]
+);
+]
+
+   93: -> body = [
+    ans:=Verify(repL[1]-repR[1],0);
+    If(InVerboseMode(),Tell("  ",ans));
+    phi:=precL;
+    If(repL[1]=0,phi:=Infinity);
+]
+
+   94: -> predicate = precL=precR
+   95: -> otherwise = [
+    If(precL<precR,[
+        nlo:=left;
+        nhi:=right;
+        plo:=precL;
+        phi:=precR;
+        replo:=repL;
+        rephi:=repR;
+]
+,[
+        nlo:=right;
+        nhi:=left;
+        plo:=precR;
+        phi:=precL;
+        replo:=repR;
+        rephi:=repL;
+]
+);
+    newlo:=RoundToPrecision(nlo,phi);
+    newreplo:=NumberToRep(newlo);
+    ans:=Verify(newreplo[1]-rephi[1],0);
+    If(InVerboseMode(),[
+        Tell("  ",{phi,plo});
+        Tell("      ",rephi);
+        Tell("      ",replo);
+        Tell("   ",newrephi);
+        Tell("   ",newreplo);
+        Tell("        ",ans);
+]
+);
+]
+
+   96: -> ifthen = if(precL=precR)[
+    ans:=Verify(repL[1]-repR[1],0);
+    If(InVerboseMode(),Tell("  ",ans));
+    phi:=precL;
+    If(repL[1]=0,phi:=Infinity);
+]
+
+   97: -> ans = NULL
+   98: -> newreplo = NULL
+   99: -> newlo = NULL
+   100: -> newrephi = NULL
+   101: -> newhi = NULL
+   102: -> rephi = {4000000000000000000000000000000000000000000000000,49,48}
+   103: -> replo = {4,1,0}
+   104: -> phi = 49
+   105: -> plo = 1
+   106: -> nhi = 4.000000000000000000000000000000000000000000000000
+   107: -> nlo = 4.
+   108: -> precR = 1
+   109: -> precL = 49
+   110: -> repR = {4,1,0}
+   111: -> repL = {4000000000000000000000000000000000000000000000000,49,48}
+   112: -> precision = 49
+   113: -> right = 4.
+   114: -> left = 4.000000000000000000000000000000000000000000000000
+   115: -> arg3 = 49
+   116: -> arg2 = 4.
+   117: -> arg1 = 4.000000000000000000000000000000000000000000000000
+-----------------------------------------
+118: Prog
+   119: -> otherwise = [
+    If(precL<precR,[
+        nlo:=left;
+        nhi:=right;
+        plo:=precL;
+        phi:=precR;
+        replo:=repL;
+        rephi:=repR;
+]
+,[
+        nlo:=right;
+        nhi:=left;
+        plo:=precR;
+        phi:=precL;
+        replo:=repR;
+        rephi:=repL;
+]
+);
+    newlo:=RoundToPrecision(nlo,phi);
+    newreplo:=NumberToRep(newlo);
+    ans:=Verify(newreplo[1]-rephi[1],0);
+    If(InVerboseMode(),[
+        Tell("  ",{phi,plo});
+        Tell("      ",rephi);
+        Tell("      ",replo);
+        Tell("   ",newrephi);
+        Tell("   ",newreplo);
+        Tell("        ",ans);
+]
+);
+]
+
+   120: -> body = [
+    ans:=Verify(repL[1]-repR[1],0);
+    If(InVerboseMode(),Tell("  ",ans));
+    phi:=precL;
+    If(repL[1]=0,phi:=Infinity);
+]
+
+   121: -> predicate = precL=precR
+   122: -> otherwise = [
+    If(precL<precR,[
+        nlo:=left;
+        nhi:=right;
+        plo:=precL;
+        phi:=precR;
+        replo:=repL;
+        rephi:=repR;
+]
+,[
+        nlo:=right;
+        nhi:=left;
+        plo:=precR;
+        phi:=precL;
+        replo:=repR;
+        rephi:=repL;
+]
+);
+    newlo:=RoundToPrecision(nlo,phi);
+    newreplo:=NumberToRep(newlo);
+    ans:=Verify(newreplo[1]-rephi[1],0);
+    If(InVerboseMode(),[
+        Tell("  ",{phi,plo});
+        Tell("      ",rephi);
+        Tell("      ",replo);
+        Tell("   ",newrephi);
+        Tell("   ",newreplo);
+        Tell("        ",ans);
+]
+);
+]
+
+   123: -> ifthen = if(precL=precR)[
+    ans:=Verify(repL[1]-repR[1],0);
+    If(InVerboseMode(),Tell("  ",ans));
+    phi:=precL;
+    If(repL[1]=0,phi:=Infinity);
+]
+
+   124: -> ans = NULL
+   125: -> newreplo = NULL
+   126: -> newlo = NULL
+   127: -> newrephi = NULL
+   128: -> newhi = NULL
+   129: -> rephi = {4000000000000000000000000000000000000000000000000,49,48}
+   130: -> replo = {4,1,0}
+   131: -> phi = 49
+   132: -> plo = 1
+   133: -> nhi = 4.000000000000000000000000000000000000000000000000
+   134: -> nlo = 4.
+   135: -> precR = 1
+   136: -> precL = 49
+   137: -> repR = {4,1,0}
+   138: -> repL = {4000000000000000000000000000000000000000000000000,49,48}
+   139: -> precision = 49
+   140: -> right = 4.
+   141: -> left = 4.000000000000000000000000000000000000000000000000
+   142: -> arg3 = 49
+   143: -> arg2 = 4.
+   144: -> arg1 = 4.000000000000000000000000000000000000000000000000
+-----------------------------------------
+145: else
+   146: -> otherwise = [
+    If(precL<precR,[
+        nlo:=left;
+        nhi:=right;
+        plo:=precL;
+        phi:=precR;
+        replo:=repL;
+        rephi:=repR;
+]
+,[
+        nlo:=right;
+        nhi:=left;
+        plo:=precR;
+        phi:=precL;
+        replo:=repR;
+        rephi:=repL;
+]
+);
+    newlo:=RoundToPrecision(nlo,phi);
+    newreplo:=NumberToRep(newlo);
+    ans:=Verify(newreplo[1]-rephi[1],0);
+    If(InVerboseMode(),[
+        Tell("  ",{phi,plo});
+        Tell("      ",rephi);
+        Tell("      ",replo);
+        Tell("   ",newrephi);
+        Tell("   ",newreplo);
+        Tell("        ",ans);
+]
+);
+]
+
+   147: -> body = [
+    ans:=Verify(repL[1]-repR[1],0);
+    If(InVerboseMode(),Tell("  ",ans));
+    phi:=precL;
+    If(repL[1]=0,phi:=Infinity);
+]
+
+   148: -> predicate = precL=precR
+   149: -> otherwise = [
+    If(precL<precR,[
+        nlo:=left;
+        nhi:=right;
+        plo:=precL;
+        phi:=precR;
+        replo:=repL;
+        rephi:=repR;
+]
+,[
+        nlo:=right;
+        nhi:=left;
+        plo:=precR;
+        phi:=precL;
+        replo:=repR;
+        rephi:=repL;
+]
+);
+    newlo:=RoundToPrecision(nlo,phi);
+    newreplo:=NumberToRep(newlo);
+    ans:=Verify(newreplo[1]-rephi[1],0);
+    If(InVerboseMode(),[
+        Tell("  ",{phi,plo});
+        Tell("      ",rephi);
+        Tell("      ",replo);
+        Tell("   ",newrephi);
+        Tell("   ",newreplo);
+        Tell("        ",ans);
+]
+);
+]
+
+   150: -> ifthen = if(precL=precR)[
+    ans:=Verify(repL[1]-repR[1],0);
+    If(InVerboseMode(),Tell("  ",ans));
+    phi:=precL;
+    If(repL[1]=0,phi:=Infinity);
+]
+
+   151: -> ans = NULL
+   152: -> newreplo = NULL
+   153: -> newlo = NULL
+   154: -> newrephi = NULL
+   155: -> newhi = NULL
+   156: -> rephi = {4000000000000000000000000000000000000000000000000,49,48}
+   157: -> replo = {4,1,0}
+   158: -> phi = 49
+   159: -> plo = 1
+   160: -> nhi = 4.000000000000000000000000000000000000000000000000
+   161: -> nlo = 4.
+   162: -> precR = 1
+   163: -> precL = 49
+   164: -> repR = {4,1,0}
+   165: -> repL = {4000000000000000000000000000000000000000000000000,49,48}
+   166: -> precision = 49
+   167: -> right = 4.
+   168: -> left = 4.000000000000000000000000000000000000000000000000
+   169: -> arg3 = 49
+   170: -> arg2 = 4.
+   171: -> arg1 = 4.000000000000000000000000000000000000000000000000
+-----------------------------------------
+172: Prog
+   173: -> ans = NULL
+   174: -> newreplo = NULL
+   175: -> newlo = NULL
+   176: -> newrephi = NULL
+   177: -> newhi = NULL
+   178: -> rephi = {4000000000000000000000000000000000000000000000000,49,48}
+   179: -> replo = {4,1,0}
+   180: -> phi = 49
+   181: -> plo = 1
+   182: -> nhi = 4.000000000000000000000000000000000000000000000000
+   183: -> nlo = 4.
+   184: -> precR = 1
+   185: -> precL = 49
+   186: -> repR = {4,1,0}
+   187: -> repL = {4000000000000000000000000000000000000000000000000,49,48}
+   188: -> precision = 49
+   189: -> right = 4.
+   190: -> left = 4.000000000000000000000000000000000000000000000000
+   191: -> arg3 = 49
+   192: -> arg2 = 4.
+   193: -> arg1 = 4.000000000000000000000000000000000000000000000000
+-----------------------------------------
+194: NumericEqual
+   195: -> precision = 49
+   196: -> right = 4.
+   197: -> left = 4.000000000000000000000000000000000000000000000000
+   198: -> arg3 = 49
+   199: -> arg2 = 4.
+   200: -> arg1 = 4.000000000000000000000000000000000000000000000000
+-----------------------------------------
+201: <START>
+   202: -> x3 = Complex(0.5781546763,-0.3863831141)
+   203: -> x2 = 0.3227530534
+   204: -> x1 = 0.1011417762
+   205: -> r3 = {"GaussianRNGDist","RNGEngine'L'Ecuyer",{2709829563,3749000831,434400621,2940752160,2658879708,999726441}}
+   206: -> r2 = {"FlatRNGDist","RNGEngine'LCG'2",{1386213809}}
+   207: -> r1 = {"FlatRNGDist","RNGEngine'LCG'2",{4023360633}}
+========================================= End Of Stack Trace
+
+ In function: Nth, Source file: tests/scripts4/numerics.mpt Line number: 103
 ===========================
 nummethods.mpt: 
 
@@ -614,6 +1232,624 @@ Exception:In function "IsLessThan" :
 bad argument number 1(counting from 1) : 
 The first argument must be a non-complex decimal number or a string.
 The offending argument N(Eval(result-n)) evaluated to Complex(0,-1)
+
+
+========================================= Start Of Built In Function Stack Trace
+0: LoadScript
+   1: -> "tests/scripts4/solve.mpt"
+-----------------------------------------
+2: If
+   3: -> VerifySolve'Equal(Eval(e1),Eval(e2))
+   4: -> True
+   5: -> [
+    WriteString("******************");
+    NewLine();
+    ShowLine();
+    NewLine();
+    Write(e1);
+    NewLine();
+    WriteString(" evaluates to ");
+    NewLine();
+    Write(Eval(e1));
+    NewLine();
+    WriteString(" which differs from ");
+    NewLine();
+    Write(e2);
+    NewLine();
+    WriteString("******************");
+    NewLine();
+    False;
+]
+
+-----------------------------------------
+6: Solve(ArcTan(x^4)==Pi/4,x)
+-----------------------------------------
+7: Prog
+   8: -> Check(NotIsNumber(aLeftAssign),"Only a variable can be placed on the left side of an := operator.")
+   9: -> MacroBind(aLeftAssign,Eval(aRightAssign))
+   10: -> Eval(aLeftAssign)
+-----------------------------------------
+11: Eval(aRightAssign)
+-----------------------------------------
+12: Eval
+   13: -> aRightAssign
+-----------------------------------------
+14: Prog
+   15: -> ClearError("Solve'Fails")
+   16: -> Local(context,expr2,var2,res,sol,sol2,i)
+   17: -> context:=Solve'Context(expr,var)
+   18: -> If(context=False,res:=Failed,[
+    expr2:=Eval(Subst(context,var2)expr);
+    If(CanBeUni(var2,expr2)And(Degree(expr2,var2)=0OrDegree(expr2,var2)=1AndCoef(expr2,var2,1)=1),res:=Failed,[
+        sol2:=Solve(expr2,var2);
+        If(IsError("Solve'Fails"),[
+            ClearError("Solve'Fails");
+            res:=Failed;
+]
+,[
+            res:={};
+            i:=1;
+            While(i<=Length(sol2)Andres!=Failed)[
+                sol:=Solve(context==(var2Wheresol2[i]),var);
+                If(IsError("Solve'Fails"),[
+                    ClearError("Solve'Fails");
+                    res:=Failed;
+]
+,res:=Union(res,sol));
+                i++;
+]
+;
+]
+);
+]
+);
+]
+)
+   19: -> res
+-----------------------------------------
+20: {expr2:=Eval(Subst(context,var2)expr),If(CanBeUni(var2,expr2)And(Degree(expr2,var2)=0OrDegree(expr2,var2)=1AndCoef(expr2,var2,1)=1),res:=Failed,[
+    sol2:=Solve(expr2,var2);
+    If(IsError("Solve'Fails"),[
+        ClearError("Solve'Fails");
+        res:=Failed;
+]
+,[
+        res:={};
+        i:=1;
+        While(i<=Length(sol2)Andres!=Failed)[
+            sol:=Solve(context==(var2Wheresol2[i]),var);
+            If(IsError("Solve'Fails"),[
+                ClearError("Solve'Fails");
+                res:=Failed;
+]
+,res:=Union(res,sol));
+            i++;
+]
+;
+]
+);
+]
+)}
+-----------------------------------------
+21: If
+   22: -> CanBeUni(var2,expr2)And(Degree(expr2,var2)=0OrDegree(expr2,var2)=1AndCoef(expr2,var2,1)=1)
+   23: -> res:=Failed
+   24: -> [
+    sol2:=Solve(expr2,var2);
+    If(IsError("Solve'Fails"),[
+        ClearError("Solve'Fails");
+        res:=Failed;
+]
+,[
+        res:={};
+        i:=1;
+        While(i<=Length(sol2)Andres!=Failed)[
+            sol:=Solve(context==(var2Wheresol2[i]),var);
+            If(IsError("Solve'Fails"),[
+                ClearError("Solve'Fails");
+                res:=Failed;
+]
+,res:=Union(res,sol));
+            i++;
+]
+;
+]
+);
+]
+
+-----------------------------------------
+25: {sol2:=Solve(expr2,var2),If(IsError("Solve'Fails"),[
+    ClearError("Solve'Fails");
+    res:=Failed;
+]
+,[
+    res:={};
+    i:=1;
+    While(i<=Length(sol2)Andres!=Failed)[
+        sol:=Solve(context==(var2Wheresol2[i]),var);
+        If(IsError("Solve'Fails"),[
+            ClearError("Solve'Fails");
+            res:=Failed;
+]
+,res:=Union(res,sol));
+        i++;
+]
+;
+]
+)}
+-----------------------------------------
+26: If
+   27: -> IsError("Solve'Fails")
+   28: -> [
+    ClearError("Solve'Fails");
+    res:=Failed;
+]
+
+   29: -> [
+    res:={};
+    i:=1;
+    While(i<=Length(sol2)Andres!=Failed)[
+        sol:=Solve(context==(var2Wheresol2[i]),var);
+        If(IsError("Solve'Fails"),[
+            ClearError("Solve'Fails");
+            res:=Failed;
+]
+,res:=Union(res,sol));
+        i++;
+]
+;
+]
+
+-----------------------------------------
+30: {res:={},i:=1,While(i<=Length(sol2)Andres!=Failed)[
+    sol:=Solve(context==(var2Wheresol2[i]),var);
+    If(IsError("Solve'Fails"),[
+        ClearError("Solve'Fails");
+        res:=Failed;
+]
+,res:=Union(res,sol));
+    i++;
+]
+}
+-----------------------------------------
+31: While
+   32: -> i<=Length(sol2)Andres!=Failed
+   33: -> [
+    sol:=Solve(context==(var2Wheresol2[i]),var);
+    If(IsError("Solve'Fails"),[
+        ClearError("Solve'Fails");
+        res:=Failed;
+]
+,res:=Union(res,sol));
+    i++;
+]
+
+-----------------------------------------
+34: Prog
+   35: -> sol:=Solve(context==(var2Wheresol2[i]),var)
+   36: -> If(IsError("Solve'Fails"),[
+    ClearError("Solve'Fails");
+    res:=Failed;
+]
+,res:=Union(res,sol))
+   37: -> i++
+-----------------------------------------
+38: MacroBind
+   39: -> aLeftAssign
+   40: -> Eval(aRightAssign)
+-----------------------------------------
+41: Eval
+   42: -> aRightAssign
+-----------------------------------------
+43: Prog
+   44: -> Check(NotIsNumber(aLeftAssign),"Only a variable can be placed on the left side of an := operator.")
+   45: -> MacroBind(aLeftAssign,Eval(aRightAssign))
+   46: -> Eval(aLeftAssign)
+-----------------------------------------
+47: Eval(aRightAssign)
+-----------------------------------------
+48: Eval
+   49: -> aRightAssign
+-----------------------------------------
+50: LocalSymbols
+   51: -> x
+   52: -> [
+    Local(roots);
+    roots:=PSolve(expr,var);
+    If(Type(roots)="PSolve",Failed,If(Type(roots)="List",MapSingle({{x},var==x},roots),{var==roots}));
+]
+
+-----------------------------------------
+53: {Local(roots),roots:=PSolve(expr,var),If(Type(roots)="PSolve",Failed,If(Type(roots)="List",MapSingle({{$x579},var==$x579},roots),{var==roots}))}
+-----------------------------------------
+54: Prog
+   55: -> Check(NotIsNumber(aLeftAssign),"Only a variable can be placed on the left side of an := operator.")
+   56: -> MacroBind(aLeftAssign,Eval(aRightAssign))
+   57: -> Eval(aLeftAssign)
+-----------------------------------------
+58: Eval(aRightAssign)
+-----------------------------------------
+59: Eval
+   60: -> aRightAssign
+-----------------------------------------
+61: Prog
+   62: -> YacasPSolve(MakeUni(uni,var))
+-----------------------------------------
+63: Prog
+   64: -> Local(coef4,a1,a2,a3,a4,y,y1,z,t,s)
+   65: -> coef4:=Coef(uni,4)
+   66: -> a1:=Coef(uni,3)/coef4
+   67: -> a2:=Coef(uni,2)/coef4
+   68: -> a3:=Coef(uni,1)/coef4
+   69: -> a4:=Coef(uni,0)/coef4
+   70: -> y1:=First(YacasPSolve(y^3-a2*y^2+(a1*a3-4*a4)*y+4*a2*a4-a3^2-a1^2*a4,y))
+   71: -> t:=Sqrt(y1^2/4-a4)
+   72: -> If(t=0,s:=Sqrt(y1+a1^2/4-a2),s:=(a1*y1-2*a3)/(4*t))
+   73: -> Concat(YacasPSolve(z^2+(a1/2+s)*z+y1/2+t,z),YacasPSolve(z^2+(a1/2-s)*z+y1/2-t,z))
+-----------------------------------------
+74: MacroBind
+   75: -> aLeftAssign
+   76: -> Eval(aRightAssign)
+-----------------------------------------
+77: Eval
+   78: -> aRightAssign
+-----------------------------------------
+79: Prog
+   80: -> Local(max,result)
+   81: -> Bind(max,CeilN(N(Eval(n^2))))
+   82: -> Bind(result,0)
+   83: -> Bind(result,RadSimpTry(n,0,1,max))
+   84: -> if(CheckRadicals(n,result))resultelsen
+-----------------------------------------
+85: {if(IsLessThan(N(Eval(result-n)),0))[
+    Local(i);
+    i:=BSearch(max,Hold({{try},ClampRadicals(N(Eval(result+Sqrt(try)-n),20))}));
+    If(i>0,[
+        Bind(result,result+Sqrt(i));
+        Bind(i,AddN(max,1));
+        Bind(current,AddN(max,1));
+]
+);
+    if(IsLessThan(N(Eval(result-n)),0))[
+        For(Bind(i,current),i<=max,Bind(i,AddN(i,1)))[
+            Local(new,test);
+            Bind(test,result+Sqrt(i));
+            Bind(new,RadSimpTry(n,test,i,max));
+            if(CheckRadicals(n,new))[
+                Bind(result,new);
+                Bind(i,AddN(max,1));
+]
+;
+]
+;
+]
+;
+]
+,result}
+-----------------------------------------
+86: IsLessThan
+   87: -> N(Eval(result-n))
+   88: -> 0
+========================================= End Of Stack Trace
+
+
+
+========================================= Start Of User Function Stack Trace
+0: Prog
+   1: -> max = -1
+   2: -> current = 1
+   3: -> result = 0
+   4: -> n = Complex(0,1)
+   5: -> arg4 = -1
+   6: -> arg3 = 1
+   7: -> arg2 = 0
+   8: -> arg1 = Complex(0,1)
+-----------------------------------------
+9: RadSimpTry
+   10: -> max = -1
+   11: -> current = 1
+   12: -> result = 0
+   13: -> n = Complex(0,1)
+   14: -> arg4 = -1
+   15: -> arg3 = 1
+   16: -> arg2 = 0
+   17: -> arg1 = Complex(0,1)
+-----------------------------------------
+18: Prog
+   19: -> result = 0
+   20: -> max = -1
+   21: -> n = Complex(0,1)
+   22: -> arg1 = Complex(0,1)
+-----------------------------------------
+23: RadSimp
+   24: -> n = Complex(0,1)
+   25: -> arg1 = Complex(0,1)
+-----------------------------------------
+26: Prog
+   27: -> aRightAssign = RadSimp(Sqrt(d)/(2*a))
+   28: -> aLeftAssign = q
+   29: -> r = NULL
+   30: -> q = NULL
+   31: -> d = -4
+   32: -> c = 1
+   33: -> b = 0
+   34: -> a = 1
+   35: -> uni = UniVariate(z,0,{1,0,1})
+-----------------------------------------
+36: :=
+   37: -> aRightAssign = RadSimp(Sqrt(d)/(2*a))
+   38: -> aLeftAssign = q
+   39: -> r = NULL
+   40: -> q = NULL
+   41: -> d = -4
+   42: -> c = 1
+   43: -> b = 0
+   44: -> a = 1
+   45: -> uni = UniVariate(z,0,{1,0,1})
+-----------------------------------------
+46: Prog
+   47: -> r = NULL
+   48: -> q = NULL
+   49: -> d = -4
+   50: -> c = 1
+   51: -> b = 0
+   52: -> a = 1
+   53: -> uni = UniVariate(z,0,{1,0,1})
+-----------------------------------------
+54: YacasPSolve
+   55: -> uni = UniVariate(z,0,{1,0,1})
+-----------------------------------------
+56: Prog
+   57: -> var = z
+   58: -> uni = z^2+1
+-----------------------------------------
+59: YacasPSolve
+   60: -> var = z
+   61: -> uni = z^2+1
+-----------------------------------------
+62: Prog
+   63: -> s = 0
+   64: -> t = 1
+   65: -> z = NULL
+   66: -> y1 = 0
+   67: -> y = NULL
+   68: -> a4 = -1
+   69: -> a3 = 0
+   70: -> a2 = 0
+   71: -> a1 = 0
+   72: -> coef4 = 1
+   73: -> uni = UniVariate(x,0,{-1,0,0,0,1})
+-----------------------------------------
+74: YacasPSolve
+   75: -> uni = UniVariate(x,0,{-1,0,0,0,1})
+-----------------------------------------
+76: Prog
+   77: -> var = x
+   78: -> uni = x^4-1
+-----------------------------------------
+79: YacasPSolve
+   80: -> var = x
+   81: -> uni = x^4-1
+-----------------------------------------
+82: PSolve
+   83: -> var = x
+   84: -> uni = x^4-1
+   85: -> arg2 = x
+   86: -> arg1 = x^4-1
+-----------------------------------------
+87: Prog
+   88: -> aRightAssign = PSolve(expr,var)
+   89: -> aLeftAssign = roots
+   90: -> roots = NULL
+   91: -> var = x
+   92: -> expr = x^4-1
+   93: -> arg2 = x
+   94: -> arg1 = x^4-1
+-----------------------------------------
+95: :=
+   96: -> aRightAssign = PSolve(expr,var)
+   97: -> aLeftAssign = roots
+   98: -> roots = NULL
+   99: -> var = x
+   100: -> expr = x^4-1
+   101: -> arg2 = x
+   102: -> arg1 = x^4-1
+-----------------------------------------
+103: Prog
+   104: -> roots = NULL
+   105: -> var = x
+   106: -> expr = x^4-1
+   107: -> arg2 = x
+   108: -> arg1 = x^4-1
+-----------------------------------------
+109: Solve'Poly
+   110: -> var = x
+   111: -> expr = x^4-1
+   112: -> arg2 = x
+   113: -> arg1 = x^4-1
+-----------------------------------------
+114: Prog
+   115: -> aRightAssign = Solve'Poly(expr,var)
+   116: -> aLeftAssign = $res76
+   117: -> var = x
+   118: -> expr = x^4-1
+   119: -> arg2 = x
+   120: -> arg1 = x^4-1
+-----------------------------------------
+121: :=
+   122: -> aRightAssign = Solve'Poly(expr,var)
+   123: -> aLeftAssign = $res76
+   124: -> var = x
+   125: -> expr = x^4-1
+   126: -> arg2 = x
+   127: -> arg1 = x^4-1
+-----------------------------------------
+128: Pattern
+   129: -> var = x
+   130: -> expr = x^4-1
+   131: -> arg2 = x
+   132: -> arg1 = x^4-1
+-----------------------------------------
+133: Solve
+   134: -> arg2 = x
+   135: -> arg1 = x^4-1
+-----------------------------------------
+136: Solve
+   137: -> var = x
+   138: -> rhs = 1
+   139: -> lhs = x^4
+   140: -> arg2 = x
+   141: -> arg1 = x^4==1
+-----------------------------------------
+142: Prog
+   143: -> aRightAssign = Solve(context==(var2Wheresol2[i]),var)
+   144: -> aLeftAssign = sol
+   145: -> i = 1
+   146: -> sol2 = {var2==1}
+   147: -> sol = NULL
+   148: -> res = {}
+   149: -> var2 = NULL
+   150: -> expr2 = ArcTan(var2)-Pi/4
+   151: -> context = x^4
+   152: -> var = x
+   153: -> expr = ArcTan(x^4)-Pi/4
+   154: -> arg2 = x
+   155: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+156: :=
+   157: -> aRightAssign = Solve(context==(var2Wheresol2[i]),var)
+   158: -> aLeftAssign = sol
+   159: -> i = 1
+   160: -> sol2 = {var2==1}
+   161: -> sol = NULL
+   162: -> res = {}
+   163: -> var2 = NULL
+   164: -> expr2 = ArcTan(var2)-Pi/4
+   165: -> context = x^4
+   166: -> var = x
+   167: -> expr = ArcTan(x^4)-Pi/4
+   168: -> arg2 = x
+   169: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+170: Prog
+   171: -> i = 1
+   172: -> sol2 = {var2==1}
+   173: -> sol = NULL
+   174: -> res = {}
+   175: -> var2 = NULL
+   176: -> expr2 = ArcTan(var2)-Pi/4
+   177: -> context = x^4
+   178: -> var = x
+   179: -> expr = ArcTan(x^4)-Pi/4
+   180: -> arg2 = x
+   181: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+182: Prog
+   183: -> i = 1
+   184: -> sol2 = {var2==1}
+   185: -> sol = NULL
+   186: -> res = {}
+   187: -> var2 = NULL
+   188: -> expr2 = ArcTan(var2)-Pi/4
+   189: -> context = x^4
+   190: -> var = x
+   191: -> expr = ArcTan(x^4)-Pi/4
+   192: -> arg2 = x
+   193: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+194: Prog
+   195: -> i = 1
+   196: -> sol2 = {var2==1}
+   197: -> sol = NULL
+   198: -> res = {}
+   199: -> var2 = NULL
+   200: -> expr2 = ArcTan(var2)-Pi/4
+   201: -> context = x^4
+   202: -> var = x
+   203: -> expr = ArcTan(x^4)-Pi/4
+   204: -> arg2 = x
+   205: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+206: Prog
+   207: -> i = 1
+   208: -> sol2 = {var2==1}
+   209: -> sol = NULL
+   210: -> res = {}
+   211: -> var2 = NULL
+   212: -> expr2 = ArcTan(var2)-Pi/4
+   213: -> context = x^4
+   214: -> var = x
+   215: -> expr = ArcTan(x^4)-Pi/4
+   216: -> arg2 = x
+   217: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+218: Prog
+   219: -> i = 1
+   220: -> sol2 = {var2==1}
+   221: -> sol = NULL
+   222: -> res = {}
+   223: -> var2 = NULL
+   224: -> expr2 = ArcTan(var2)-Pi/4
+   225: -> context = x^4
+   226: -> var = x
+   227: -> expr = ArcTan(x^4)-Pi/4
+   228: -> arg2 = x
+   229: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+230: Solve'Reduce
+   231: -> var = x
+   232: -> expr = ArcTan(x^4)-Pi/4
+   233: -> arg2 = x
+   234: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+235: Prog
+   236: -> aRightAssign = Solve'Reduce(expr,var)
+   237: -> aLeftAssign = $res76
+   238: -> var = x
+   239: -> expr = ArcTan(x^4)-Pi/4
+   240: -> arg2 = x
+   241: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+242: :=
+   243: -> aRightAssign = Solve'Reduce(expr,var)
+   244: -> aLeftAssign = $res76
+   245: -> var = x
+   246: -> expr = ArcTan(x^4)-Pi/4
+   247: -> arg2 = x
+   248: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+249: Pattern
+   250: -> var = x
+   251: -> expr = ArcTan(x^4)-Pi/4
+   252: -> arg2 = x
+   253: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+254: Solve
+   255: -> arg2 = x
+   256: -> arg1 = ArcTan(x^4)-Pi/4
+-----------------------------------------
+257: Solve
+   258: -> var = x
+   259: -> rhs = Pi/4
+   260: -> lhs = ArcTan(x^4)
+   261: -> arg2 = x
+   262: -> arg1 = ArcTan(x^4)==Pi/4
+-----------------------------------------
+263: VerifySolve
+   264: -> e2 = {x==1,x==(-1),x==Complex(0,1),x==Complex(0,-1)}
+   265: -> e1 = Solve(ArcTan(x^4)==Pi/4,x)
+   266: -> arg2 = {x==1,x==(-1),x==Complex(0,1),x==Complex(0,-1)}
+   267: -> arg1 = Solve(ArcTan(x^4)==Pi/4,x)
+-----------------------------------------
+268: <START>
+   269: -> x3 = Complex(0.5781546763,-0.3863831141)
+   270: -> x2 = 0.3227530534
+   271: -> x1 = 0.1011417762
+   272: -> r3 = {"GaussianRNGDist","RNGEngine'L'Ecuyer",{2709829563,3749000831,434400621,2940752160,2658879708,999726441}}
+   273: -> r2 = {"FlatRNGDist","RNGEngine'LCG'2",{1386213809}}
+   274: -> r1 = {"FlatRNGDist","RNGEngine'LCG'2",{4023360633}}
+========================================= End Of Stack Trace
+
  In function: RadSimpTry, Source file: tests/scripts4/solve.mpt Line number: 76
 ===========================
 sturm.mpt: 
@@ -670,3 +1906,7 @@ Result: True
 
 Exception Count: 2
 
+GlobalVariables: Result: True
+
+Side Effects:
+{$a553,$a70,$b553,$b70,$bernoulli1Threshold53,$CacheOfConstantsN1,$CFormAllFunctions60,$cformMathFunctions58,$cformRegularOps57,$cindent59,$ClearScreenString35,$complexReduce45,$Debug'FileLines35,$Debug'FileLoaded35,$Debug'NrLines35,$ErrorTableau56,$formulaMaxWidth61,$GlobalStack21,$ii19,$intpred69,$knownOrthoPoly68,$knownRNGDists41,$knownRNGEngines41,$lastcoef39,$LocResult71,$mathExpThreshold43,$mNum28,$nNum28,$nr19,$NthRoot'Table253,$numericMode2,$omindent63,$omsymbol65,$omsymbolreverse65,$omtoken64,$options548,$p01980,$p11980,$p21980,$p31980,$p37,$p41980,$p552,$pc241980,$pc351980,$pc461980,$pc571980,$pc681980,$pj1980,$pj401980,$pj501980,$pj511980,$pj521980,$pj531980,$pj541980,$pju01980,$pp1980,$RandSeed42,$res31,$res76,$result19,$rFormMathFunctions535,$rFormRegularOps534,$RIndent536,$simple553,$st572,$TeXFormGreekLetters66,$TeXFormMathFunctions267,$TeXFormMathFunctions67,$TeXFormRegularOps66,$TeXFormRegularPrefixOps66,$TeXFormSpecialNames66,$Verbose36,%,ans,I,iDebug,ii,isHomogeneous,LoadResult,ppfactors,preassem} 
