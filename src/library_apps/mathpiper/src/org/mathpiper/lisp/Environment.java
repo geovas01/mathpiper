@@ -348,7 +348,7 @@ public class Environment {
 
         }//end while
 
-        stringBuilder.append("========================================= End Of Stack Trace\n\n");
+        stringBuilder.append("========================================= End Of User Function Stack Trace\n\n");
 
         return stringBuilder.toString();
 
@@ -403,7 +403,7 @@ public class Environment {
 
         }//end while.
 
-        stringBuilder.append("========================================= End Of Stack Trace\n\n");
+        stringBuilder.append("========================================= End Of User Function Stack Trace\n\n");
 
         return stringBuilder.toString();*/
 

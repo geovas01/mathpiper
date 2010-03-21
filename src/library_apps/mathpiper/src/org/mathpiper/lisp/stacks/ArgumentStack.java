@@ -128,7 +128,7 @@ public class ArgumentStack {
 
         }//end while.
 
-        stringBuilder.append("========================================= End Of Stack Trace\n\n");
+        stringBuilder.append("========================================= End Of Built In Function Stack Trace\n\n");
 
         return stringBuilder.toString();
         
