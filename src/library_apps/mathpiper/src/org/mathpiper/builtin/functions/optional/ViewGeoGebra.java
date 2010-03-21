@@ -67,7 +67,7 @@ public class ViewGeoGebra extends BuiltinFunction {
 
 
         frame.setAlwaysOnTop(false);
-        frame.setTitle("List Viewer");
+        frame.setTitle("GeoGebra (Experimental Version)");
         frame.setSize(new Dimension(300, 200));
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
