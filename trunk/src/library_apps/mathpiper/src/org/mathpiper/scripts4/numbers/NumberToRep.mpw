@@ -5,7 +5,7 @@ Retract("NumberToRep",*);
 
 10 # NumberToRep( N_IsNumber ) <--
 [
-    If(InVerboseMode(),Tell(NumberToRep,N));
+    //If(InVerboseMode(),Tell(NumberToRep,N));
     Local(oldPrec,sgn,assoc,typ,val,prec,rep);
     oldPrec  := BuiltinPrecisionGet();
     BuiltinPrecisionSet(300);
@@ -17,9 +17,9 @@ Retract("NumberToRep",*);
      
     sgn      := Sign(N); 
     assoc    := DumpNumber(Abs(N));
-    If(InVerboseMode(),[ Tell("   ",assoc); Tell("   ",sgn); ]);
+    //If(InVerboseMode(),[ Tell("   ",assoc); Tell("   ",sgn); ]);
     typ := Assoc("type",assoc)[2];
-    If(InVerboseMode(),Tell("   ",typ));
+    //If(InVerboseMode(),Tell("   ",typ));
     If( typ = "BigDecimal",
        [
           rep := { sgn*Assoc("unscaledValue",assoc)[2],
@@ -34,7 +34,7 @@ Retract("NumberToRep",*);
           rep := { sgn*val, prec };
        ]
     );
-    If(InVerboseMode(),Tell("   ",rep));
+    //If(InVerboseMode(),Tell("   ",rep));
     BuiltinPrecisionSet(oldPrec);
     rep;
 ];
@@ -50,6 +50,10 @@ Retract("NumberToRep",*);
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
     
 
