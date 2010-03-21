@@ -3,7 +3,7 @@
 Function("KnownFailure",{expr})
 [
   Local(rfail);
-  Echo({"Known failure: ", expr});
+  Echo("Known failure: ", expr);
   Bind(rfail,Eval(expr));
   If(rfail,Echo({"Failure resolved!"}));
 ];
