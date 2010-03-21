@@ -13,7 +13,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
@@ -31,6 +30,7 @@ public class RunTestSuite {
     private EvaluationResponse evaluationResponse;
     private java.io.FileWriter logFile;
     private String scriptsDirectory = "scripts4";
+    private int exceptionCount = 0;
 
     public RunTestSuite() {
         super();
@@ -41,7 +41,7 @@ public class RunTestSuite {
         try {
 
             logFile = new java.io.FileWriter("./tests/mathpiper_tests.log");
-            int exceptionCount = 0;
+            
 
 
             BufferedReader scriptNames = new BufferedReader(new InputStreamReader(RunTestSuite.class.getClassLoader().getSystemResource("tests/" + scriptsDirectory + "/test_index.txt").openStream()));
@@ -51,24 +51,21 @@ public class RunTestSuite {
 
                 mathPiper = Interpreters.newSynchronousInterpreter();
 
-                
-                //Optional initialization code.
-                /*
-                evaluationResponse = mathPiper.evaluate("10 # Factors(p_IsRational)_(Denom(p) != 1) <-- {{Factor(Numer(p)) / Factor(Denom(p)) , 1}};");
-                output = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects() + "\nException:" + evaluationResponse.getExceptionMessage();
-                if (evaluationResponse.isExceptionThrown()) {
-                    output = output + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber();
-                }
-                System.out.println("Initialization response: " + output);
-                */
 
-                output = "\n***** Beginning of tests. *****\n";
+                //Initialization code.
+                evaluationResponse = mathPiper.evaluate("StackTraceOn();");
+                output = evaluationResponse(evaluationResponse);
+                System.out.println("Turning stack tracing on: " + output);
+                logFile.write("Turning stack tracing on: " + output);
+
+
+                output = "\n\n***** Beginning of tests. *****\n";
                 output = "\n***** " + new java.util.Date() + " *****\n";
                 output += "***** Using a new interpreter instance for each test file. *****\n";
                 output += "***** MathPiper version: " + org.mathpiper.Version.version + " *****\n";
                 System.out.print(output);
                 logFile.write(output);
-                
+
                 while (scriptNames.ready()) {
 
 
@@ -81,21 +78,12 @@ public class RunTestSuite {
                         logFile.write(output);
 
                         evaluationResponse = mathPiper.evaluate("LoadScript(\"tests/" + scriptsDirectory + "/" + scriptName + "\");");
-                        output = "Result: " + evaluationResponse.getResult() + "\n";
-                        
-                        if(!evaluationResponse.getSideEffects().equals(""))
-                        {
-                            output = output + "\nSide Effects:\n" + evaluationResponse.getSideEffects();
-                        }
 
 
-                        if (evaluationResponse.isExceptionThrown()) {
-                            output = output + "\nException:" + evaluationResponse.getExceptionMessage() + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber();
-                            exceptionCount++;
-                        }
+                        output = evaluationResponse(evaluationResponse);
+
+
                         System.out.println(output);
-
-
                         logFile.write(output);
                     } else {
                         output = "\n===========================\n" + scriptName + ": is not a MathPiper test file.\n";
@@ -115,6 +103,12 @@ public class RunTestSuite {
             logFile.write(output);
 
 
+            //Check the global variables.
+            evaluationResponse = mathPiper.evaluate("Echo(GlobalVariablesGet());");
+            output = evaluationResponse(evaluationResponse);
+            System.out.println("Global variables: " + output);
+            logFile.write("GlobalVariables: " + output);
+
             logFile.close();
 
         } catch (java.io.IOException e) {
@@ -123,6 +117,23 @@ public class RunTestSuite {
         }
 
     }//end method.
+
+    private String evaluationResponse(EvaluationResponse evaluationResponse) {
+
+        String result = "Result: " + evaluationResponse.getResult() + "\n";
+
+        if (!evaluationResponse.getSideEffects().equals("")) {
+            result = result + "\nSide Effects:\n" + evaluationResponse.getSideEffects();
+        }
+
+
+        if (evaluationResponse.isExceptionThrown()) {
+            result = result + "\nException:" + evaluationResponse.getExceptionMessage() + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber();
+            exceptionCount++;
+        }
+
+        return result;
+    }
 
     public static void main(String[] args) {
 
