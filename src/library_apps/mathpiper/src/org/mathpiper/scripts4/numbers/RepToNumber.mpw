@@ -5,14 +5,14 @@ Retract("RepToNumber",*);
 
 10 # RepToNumber( rep_IsListOfLists ) <--
 [
-    If(InVerboseMode(),[Tell(RepToNumberZ,rep); Tell("     complex");]);
+    //If(InVerboseMode(),[Tell(RepToNumberZ,rep); Tell("     complex");]);
     RepToNumber(rep[1])+I*RepToNumber(rep[2]);
 ];
 
 
 12 # RepToNumber( rep_IsList ) <--
 [
-    If(InVerboseMode(),Tell(RepToNumber,rep));
+    //If(InVerboseMode(),Tell(RepToNumber,rep));
     Local(bigInt,precision,scale,strBI,sgn,index);
     Local(first,secnd,third,LS,numStr);
     precision := rep[2];
@@ -23,7 +23,7 @@ Retract("RepToNumber",*);
     If( Length(rep) > 2, scale := rep[3] );
     strBI     := ExpressionToString(Abs(bigInt));
     LS        := Length(strBI);
-    If(InVerboseMode(),[Tell("   ",{bigInt,precision,scale,sgn});Tell("   ",strBI);]);
+    //If(InVerboseMode(),[Tell("   ",{bigInt,precision,scale,sgn});Tell("   ",strBI);]);
     If( Length(rep)=2, 
        [ numStr := strBI; ],
        [
@@ -31,28 +31,28 @@ Retract("RepToNumber",*);
            first := strBI[1];
            secnd := StringMidGet(2,LS-1,strBI);   
            third := ExpressionToString(index-1);
-           If(InVerboseMode(),Tell("     ",{index,first,secnd,third}));
+           //If(InVerboseMode(),Tell("     ",{index,first,secnd,third}));
            if ( index > 0 )
                [
                    if ( index < precision )
                        [
-                           If(InVerboseMode(),Tell("   index < precision "));
+                           //If(InVerboseMode(),Tell("   index < precision "));
                            numStr := ConcatStrings(first,".",secnd,"E",third);
                        ]
                    else if ( index >= precision )
                        [
-                           If(InVerboseMode(),Tell("   index >= precision "));
+                           //If(InVerboseMode(),Tell("   index >= precision "));
                            numStr := ConcatStrings(first,".",secnd,"E+",third);
                        ];
                ]
            else if ( index < 0 )
                [
-                   If(InVerboseMode(),Tell("   index < 0 "));
+                   //If(InVerboseMode(),Tell("   index < 0 "));
                    numStr := ConcatStrings(first,".",secnd,"E",third);
                ]
            else
                [
-                   If(InVerboseMode(),Tell("   index = 0 "));
+                   //If(InVerboseMode(),Tell("   index = 0 "));
                    first  := "0." ; 
                    secnd  := strBI;
                    numStr := ConcatStrings(first,secnd);
@@ -60,7 +60,7 @@ Retract("RepToNumber",*);
         ]
      );
      ans := sgn * ToAtom(numStr);
-     If(InVerboseMode(),Tell("     ",ans));
+     //If(InVerboseMode(),Tell("     ",ans));
      ans;
 ];
 
