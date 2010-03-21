@@ -112,8 +112,8 @@ public class JavaCall extends BuiltinFunction {
                     JavaObject response = builtinContainer.execute(methodName, (Object[]) argumentArrayList.toArray(new Object[0]));
                     //System.out.println("XXXXXXXXXXX: " + response);
 
-                    if (response == null) {
-                        Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                    if (response == null || response.getObject() == null) {
+                        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                         return;
                     } /*else if (response.equalsIgnoreCase("")) {
                     Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
