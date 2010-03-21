@@ -34,7 +34,7 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
     
     labelIndex := 1;
     
-    pointTemplate := "<element type=\"point\" label=\"A<?Write(labelIndex)?>\"> <show object=\"true\" label=\"false\"/><objColor r=\"0\" g=\"0\" b=\"255\" alpha=\"0.0\"/>	<layer val=\"0\"/>	<animation step=\"0.1\" speed=\"1\" type=\"0\" playing=\"false\"/>	<coords x=\"<?Write(x)?>\" y=\"<?Write(y)?>\" z=\"1.0\"/>	<pointSize val=\"3\"/></element>";
+    pointTemplate := "<element type=\"point\" label=\"A<?Write(labelIndex)?>\"> <show object=\"true\" label=\"false\"/><objColor r=\"0\" g=\"0\" b=\"255\" alpha=\"0.0\"/>	<layer val=\"0\"/>	<animation step=\"0.1\" speed=\"1\" type=\"0\" playing=\"false\"/>	<coords x=\"<?Write(x)?>\" y=\"<?Write(y)?>\" z=\"1.0\"/>	<pointSize val=\"1\"/></element>";
     segmentCommandTemplate := "<command name=\"Segment\"><input a0=\"A1\" a1=\"A2\"/><output a0=\"a\"/>";
     segmentElementTemplate := "<element type=\"segment\" label=\"a<?Write(labelIndex-1)?>\"><lineStyle thickness=\"2\" type=\"0\"/><show object=\"true\" label=\"false\"/><layer val=\"0\"/><coords x=\"-1.0\" y=\"1.0\" z=\"0.0\"/><lineStyle thickness=\"2\" type=\"0\"/><eqnStyle style=\"implicit\"/><outlyingIntersections val=\"false\"/><keepTypeOnTransform val=\"true\"/></element>";
     
