@@ -187,9 +187,11 @@ Verify( Limit(x, Infinity) x*I, Complex(0,Infinity) ); //Changed Ayal: I didn't 
 Verify(Integrate(x) z^100, z^100*x );
 Verify(Integrate(x) x^(-1),Ln(x) );
 
+BuiltinPrecisionSet(50);
+
 NumericEqual(
 RoundTo(N(ArcSin(0.0000000321232123),50),50)
-, 0.00000003212321230000000552466124302049336784679316
+, 0.000000032123212300000005524661243020493367846793163005802
 ,50);
 
 Verify(Internal'LnNum(1), 0);
@@ -302,7 +304,7 @@ Verify(Undefined <= -4, False);
 
 // Jonathan's bug report
 BuiltinPrecisionSet(10);
-NumericEqual(N(Cos(Pi*.5)), 0,BuiltinPrecisionGet());
+NumericEqual(N(Cos(Pi*.5),BuiltinPrecisionGet()), 0,BuiltinPrecisionGet());
 
 /* Jitse's bug report, extended with the changes that do not coerce integers to floats automatically 
    any more (just enter a dot and the number becomes float if that is what is intended).
@@ -462,7 +464,7 @@ Verify(IsZero(Determinant( {{1,-1,0,0},{0,0,-1,1},{1,0,0,1},{0,1,1,0}} )),True);
 // The following failed when numerics changed so that 0e-1 was not matched to 0 any more in 
 // a transformation rule defining the less than operator.
 Verify(ExpNum(0),1);
-NumericEqual(ExpNum(0e-1),1.,BuiltinPrecisionGet());
+NumericEqual(ExpNum(0e-1),1,BuiltinPrecisionGet());
 Verify(500 < 0e-1,False);
 
 // version 1.0.56: Due to MathBitCount returning negative values sometimes, functions depending on 
