@@ -2,54 +2,25 @@
 
 Retract("NumericEqual",*);
 
-//--NOTE: modified 100316 to extend precision of nlo instead of decreasing
-//        precision of nhi
 10 # NumericEqual(left_IsDecimal, right_IsDecimal, precision_IsPositiveInteger) <--
 [
-  If(InVerboseMode(),Tell("NumericEqual",{left,right}));
-  Local(repL,repR,precL,precR,nlo,nhi,plo,phi,replo,rephi);
-  Local(newhi,newrephi,newlo,newreplo,ans);
-  repL  := NumberToRep(left);
-  repR  := NumberToRep(right);
-  precL := repL[2];
-  precR := repR[2];
-  If(InVerboseMode(),Tell("  ",{precL,precR}));
-  if ( precL = precR )
-      [ 
-          ans := Verify( repL[1] - repR[1], 0 );
-          If(InVerboseMode(),Tell("  ",ans));
-          phi := precL;
-          If( repL[1] = 0, phi := Infinity );
-      ]
-  else 
-      [
-          If( precL < precR, 
-              [ 
-                  nlo   := left;   nhi   := right;
-                  plo   := precL;  phi   := precR;
-                  replo := repL;   rephi := repR;
-              ],
-              [
-                  nlo   := right;  nhi   := left;
-                  plo   := precR;  phi   := precL;
-                  replo := repR;   rephi := repL;
-              ]
-          );
-          newlo    := RoundToPrecision( nlo, phi );
-          newreplo := NumberToRep( newlo ); 
-          ans := Verify( newreplo[1] - rephi[1], 0 );
-          If(InVerboseMode(),
-            [
-               Tell("  ",{phi,plo});
-               Tell("      ",rephi);
-               Tell("      ",replo);
-               Tell("   ",newrephi);
-               Tell("   ",newreplo);
-               Tell("        ",ans);
-            ]
-          );
-      ];
-      ans And ( phi >= precision );
+    If(InVerboseMode(),Tell("NumericEqual",{left,right}));
+    Local(repL,repR,precL,precR,newL,newR,plo,phi,replo,rephi);
+    Local(newhi,newrepL,newlo,newrepR,ans);
+    repL     := NumberToRep(left);
+    repR     := NumberToRep(right);
+    precL    := repL[2];
+    precR    := repR[2];
+    If(InVerboseMode(),Tell("  ",{precL,precR,precision}));
+    newL     := RoundToPrecision(left,  precision );
+    newR     := RoundToPrecision(right, precision );
+    If(InVerboseMode(),Tell("  ",{newL,newR}));
+    newrepL  := NumberToRep( newL );
+    newrepR  := NumberToRep( newR );
+    If(InVerboseMode(),Tell("  ",{newrepL,newrepR}));
+    ans      := Verify( newrepL[1] - newrepR[1], 0 );
+    If(InVerboseMode(),Tell("        ",ans));
+    ans;
 ];
 
 
@@ -63,23 +34,29 @@ Retract("NumericEqual",*);
 20 # NumericEqual(left_IsNumber, right_IsNumber, precision_IsPositiveInteger) <--
 [
     If(InVerboseMode(),Tell("NumericEqualNum",{left,right}));
-    Local(nI,nD,repI,repD,precI,precD,intAsDec,ans);
+    Local(nI,nD,repI,repD,precI,precD,intAsDec,newDec,newrepI,newrepD,ans);
     If( IsInteger(left), [nI:=left; nD:=right;], [nI:=right; nD:=left;]);
     // the integer can be converted to the equivalent decimal at any precision
     repI  := NumberToRep(nI);
     repD  := NumberToRep(nD);
     precI := repI[2];
     precD := repD[2];
-    intAsDec := RoundToPrecision(1.0*nI,precD);
+    intAsDec := RoundToPrecision(1.0*nI,precision);
+    newDec   := RoundToPrecision( nD,   precision );
+    newrepI  := NumberToRep( intAsDec );
+    newrepD  := NumberToRep( newDec   );
     If(InVerboseMode(),
       [
           Tell("        ",{nI,nD});
           Tell("    ",{repI,repD});
           Tell("  ",{precI,precD});
-          Tell("       ",intAsDec);
+          Tell("       ",{intAsDec,newDec});
+          Tell("       ",{newrepI,newrepD});
        ]
     );
-    ans := NumericEqual(intAsDec,nD,precision);
+    ans      := Verify( newrepI[1] - newrepD[1], 0 );
+    If(InVerboseMode(),Tell("        ",ans));
+    ans;
 ];
 
 
@@ -101,6 +78,6 @@ Retract("NumericEqual",*);
     ans := (NumericEqual(rrL,rrR,precision) And NumericEqual(iiL,iiR,precision));
 ];
 
-
 %/mathpiper
+
 
