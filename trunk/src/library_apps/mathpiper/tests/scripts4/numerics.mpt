@@ -259,7 +259,7 @@ ContFracList(-355/113)
 BuiltinPrecisionSet(7);//Echo("BIP set to ",7);
 
 Verify(
-GuessRational(N(Pi),4)
+NearRational(N(Pi))
 , 355/113
 );f();
 
