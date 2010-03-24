@@ -6,10 +6,10 @@
  * (since they are defined as local symbols).
  */
 
-LocalSymbols(result,nr,ii)
 TemplateFunction("Table",{body,var,count'from,count'to,step})
   [
     MacroLocal(var);
+    Local(result,nr,ii);
     result:={};
     nr := (count'to - count'from) / step;
     ii := 0;
