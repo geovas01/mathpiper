@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.interpreters;
 
-
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
@@ -42,7 +41,6 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
-
 /**
  * 
  * 
@@ -63,13 +61,12 @@ class SynchronousInterpreter implements Interpreter {
     MathPiperOutputStream sideEffectsStream;
     private static SynchronousInterpreter singletonInstance;
 
-
     private SynchronousInterpreter(String docBase) {
         responseListeners = new ArrayList<ResponseListener>();
         removeListeners = new ArrayList<ResponseListener>();
 
         sideEffectsStream = new StringOutput();
-        
+
         Utility.scriptsPath = "/org/mathpiper/assembledscripts/";
 
         try {
@@ -170,21 +167,17 @@ class SynchronousInterpreter implements Interpreter {
         }
     }//end constructor.
 
-
     private SynchronousInterpreter() {
         this(null);
     }
-
 
     static SynchronousInterpreter newInstance() {
         return new SynchronousInterpreter();
     }
 
-
     static SynchronousInterpreter newInstance(String docBase) {
         return new SynchronousInterpreter(docBase);
     }
-
 
     static SynchronousInterpreter getInstance() {
         if (singletonInstance == null) {
@@ -193,7 +186,6 @@ class SynchronousInterpreter implements Interpreter {
         return singletonInstance;
     }
 
-
     static SynchronousInterpreter getInstance(String docBase) {
         if (singletonInstance == null) {
             singletonInstance = new SynchronousInterpreter(docBase);
@@ -201,11 +193,9 @@ class SynchronousInterpreter implements Interpreter {
         return singletonInstance;
     }
 
-
     public synchronized EvaluationResponse evaluate(String inputExpression) {
         return this.evaluate(inputExpression, false);
     }//end method.
-
 
     public synchronized EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners) {
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
@@ -267,20 +257,40 @@ class SynchronousInterpreter implements Interpreter {
                 infixParser.parse(-1, inputExpressionPointer);
             }
 
+            return evaluate(inputExpressionPointer, notifyEvaluationListeners);
+
+        } catch (Exception e) {
+            e.printStackTrace(); //todo:tk: add code to gracefully handle MathPiper exceptions.
+        }
+
+        return null; //todo:tk: add code to gracefully handle MathPiper exceptions.
+
+    }//end method.
+
+    public synchronized EvaluationResponse evaluate(ConsPointer inputExpressionPointer) {
+        return evaluate(inputExpressionPointer, false);
+    }
+
+    public synchronized EvaluationResponse evaluate(ConsPointer inputExpressionPointer, boolean notifyEvaluationListeners) {
+        //return this.evaluate(inputExpression, false);
+        EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
+
+        String resultString = "XX_Error";
+
+        try {
             ConsPointer resultPointer = new ConsPointer();
-            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, resultPointer, inputExpressionPointer); //*** The main valuation happens here.
+            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, resultPointer, inputExpressionPointer); //*** The main evaluation happens here.
+
+            evaluationResponse.setResultList(resultPointer);
 
             if (resultPointer.type() == Utility.OBJECT) {
 
                 Object object = resultPointer.car();
 
-                if(object instanceof JavaObject)
-                {
+                if (object instanceof JavaObject) {
                     JavaObject javaObject = (JavaObject) object;
                     evaluationResponse.setObject(javaObject.getObject());
-                }
-                else
-                {
+                } else {
                     evaluationResponse.setObject(object);
                 }
             }//end if.
@@ -297,8 +307,7 @@ class SynchronousInterpreter implements Interpreter {
 
                 ConsPointer applyResultPointer = new ConsPointer();
 
-                if(iEnvironment.iPrettyPrinterName.equals("\"RForm\""))
-                {
+                if (iEnvironment.iPrettyPrinterName.equals("\"RForm\"")) {
                     Cons holdAtom = AtomCons.getInstance(iEnvironment, -1, "Hold");
 
                     holdAtom.cdr().setCons(resultPointer.getCons());
@@ -308,9 +317,7 @@ class SynchronousInterpreter implements Interpreter {
                     ConsPointer resultPointerWithHold = new ConsPointer(subListCons);
 
                     Utility.applyString(iEnvironment, -1, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointerWithHold);
-                }
-                else
-                {
+                } else {
                     Utility.applyString(iEnvironment, -1, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointer);
                 }
 
@@ -332,10 +339,9 @@ class SynchronousInterpreter implements Interpreter {
             Evaluator.TRACE_TO_STANDARD_OUT = false;
             Evaluator.iTraced = false;
 
-            try{
+            try {
                 iEnvironment.iArgumentStack.reset(-1, iEnvironment);
-            }catch(Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -366,7 +372,7 @@ class SynchronousInterpreter implements Interpreter {
 
             evaluationResponse.setException(exception);
             evaluationResponse.setExceptionMessage(exception.getMessage());
-        }
+        }//end catch.
 
 
         evaluationResponse.setResult(resultString);
@@ -377,23 +383,35 @@ class SynchronousInterpreter implements Interpreter {
             evaluationResponse.setSideEffects(sideEffects);
         }
 
+        /*try{
+        org.mathpiper.builtin.functions.optional.ViewList.evaluate(iEnvironment, -1, inputExpressionPointer);
+        }catch(Exception e)
+        {
+        e.printStackTrace();
+        }*/
+
         try {
-            if (inputExpression.trim().startsWith("Load")) {
-                ConsPointer loadResult = new ConsPointer();
-                iEnvironment.getGlobalVariable(-1, "LoadResult", loadResult);
-                StringBuffer string_out = new StringBuffer();
-                MathPiperOutputStream output = new StringOutputStream(string_out);
-                printer.rememberLastChar(' ');
-                printer.print(-1, loadResult, output, iEnvironment);
-                String loadResultString = string_out.toString();
-                //GlobalVariable loadResultVariable = (GlobalVariable) environment.iGlobalState.lookUp("LoadResult");
-                evaluationResponse.setResult(loadResultString);
-                //environment.iGlobalState.release("LoadResult");
-                if (loadResult.type() == Utility.OBJECT) {
-                    JavaObject javaObject = (JavaObject) loadResult.car();
-                    evaluationResponse.setObject(javaObject.getObject());
-                }//end if.
-            }
+            if (inputExpressionPointer.getCons() instanceof SublistCons) {
+
+                Object object = ((ConsPointer) inputExpressionPointer.getCons().car()).car();
+
+                if (object instanceof String && ((String) object).startsWith("Load")) {
+                    ConsPointer loadResult = new ConsPointer();
+                    iEnvironment.getGlobalVariable(-1, "LoadResult", loadResult);
+                    StringBuffer string_out = new StringBuffer();
+                    MathPiperOutputStream output = new StringOutputStream(string_out);
+                    printer.rememberLastChar(' ');
+                    printer.print(-1, loadResult, output, iEnvironment);
+                    String loadResultString = string_out.toString();
+                    //GlobalVariable loadResultVariable = (GlobalVariable) environment.iGlobalState.lookUp("LoadResult");
+                    evaluationResponse.setResult(loadResultString);
+                    //environment.iGlobalState.release("LoadResult");
+                    if (loadResult.type() == Utility.OBJECT) {
+                        JavaObject javaObject = (JavaObject) loadResult.car();
+                        evaluationResponse.setObject(javaObject.getObject());
+                    }//end if.
+                }//if.
+            }//end if
         } catch (Exception e) {
             evaluationResponse.setExceptionMessage(e.getMessage());
             evaluationResponse.setException(e);
@@ -406,13 +424,11 @@ class SynchronousInterpreter implements Interpreter {
         return evaluationResponse;
     }
 
-
     public void haltEvaluation() {
         synchronized (iEnvironment) {
             iEnvironment.iEvalDepth = iEnvironment.iMaxEvalDepth + 100;
         }
     }
-
 
     public Environment getEnvironment() {
         return iEnvironment;
@@ -422,7 +438,6 @@ class SynchronousInterpreter implements Interpreter {
     {
     return Utility.zipFile;
     }//end method.*/
-
     public void addScriptsDirectory(String directory) {
         String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";
 
@@ -430,16 +445,13 @@ class SynchronousInterpreter implements Interpreter {
 
     }//addScriptsDirectory.
 
-
     public void addResponseListener(ResponseListener listener) {
         responseListeners.add(listener);
     }
 
-
     public void removeResponseListener(ResponseListener listener) {
         responseListeners.remove(listener);
     }
-
 
     protected void notifyListeners(EvaluationResponse response) {
         //notify listeners.
@@ -463,7 +475,5 @@ class SynchronousInterpreter implements Interpreter {
         removeListeners.clear();
 
     }//end method.
-
-
 }// end class.
 

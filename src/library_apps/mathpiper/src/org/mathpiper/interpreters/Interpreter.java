@@ -17,6 +17,7 @@
 package org.mathpiper.interpreters;
 
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  * Interpreter is implemented by all MathPiper interpreters and it allows client code to evaluate
@@ -43,6 +44,15 @@ public interface Interpreter
      * @return an EvaluationResponse object
      */
     public EvaluationResponse evaluate(String expression, boolean notifyListeners);
+
+    /**
+     * Evaluates a MathPiper expression.  The results of the evaluation are returned
+     * in a {@link EvaluationResponse} object.
+     *
+     * @param expressionPointer the list form of a MathPiper expression to be evaluated
+     * @return an EvaluationResponse object
+     */
+    public EvaluationResponse evaluate(ConsPointer expressionPointer);
 
     /**
      * Halts the current evaluation.
