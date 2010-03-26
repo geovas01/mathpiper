@@ -34,6 +34,7 @@ import javax.swing.text.Element;
 import javax.swing.text.AttributeSet;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -42,6 +43,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
@@ -62,6 +64,10 @@ import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.ResponseListener;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.SublistCons;
 
 public class Console extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
@@ -96,6 +102,11 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private boolean controlKeyDown = false;
     private int historyIndex = -1;
     private int caretPositionWhenEnterWasPressed = -1;
+    private JRadioButton numericModeButton;
+    private JRadioButton symbolicModeButton;
+    private ButtonGroup resultModeGroup;
+    private boolean numericResultMode = true;
+
     private String helpMessage =
             "Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.\n\n" +
             "Type In> on the left end of any line to create your own input prompt.\n\n" +
@@ -153,6 +164,18 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         haltButton.setForeground(Color.RED);
         haltButton.addActionListener(this);
         consoleButtons.add(haltButton);
+
+        numericModeButton = new JRadioButton("Numeric Mode");
+        numericModeButton.setSelected(true);
+        numericModeButton.addItemListener(this);
+        symbolicModeButton = new JRadioButton("Symbolic Mode");
+        symbolicModeButton.setSelected(true);
+        symbolicModeButton.addItemListener(this);
+        resultModeGroup = new ButtonGroup();
+        resultModeGroup.add(numericModeButton);
+        resultModeGroup.add(symbolicModeButton);
+        consoleButtons.add(numericModeButton);
+        consoleButtons.add(symbolicModeButton);
 
         button2 = new JButton("Font-");
         button2.addActionListener(this);
@@ -264,7 +287,20 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 splitPane.remove(2);
                 splitPane.revalidate();
             }//end if/else.
-        }
+        } else if (source == numericModeButton) {
+            if (ie.getStateChange() == ItemEvent.SELECTED) {
+                this.numericResultMode = true;
+            } else {
+                this.numericResultMode = false;
+            }//end if/else.
+        } else if (source == symbolicModeButton) {
+            if (ie.getStateChange() == ItemEvent.SELECTED) {
+                this.numericResultMode = false;
+            } else {
+                this.numericResultMode = true;
+            }//end if/else.
+
+        }//end if/else.
     }//end method.
 
     public void putChar(char aChar) throws Exception {
@@ -480,6 +516,30 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     }//end method.
 
     public void response(EvaluationResponse response) {
+
+        if(this.numericResultMode)
+        {
+            try{
+                Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
+
+                Cons atomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "N");
+
+                atomCons.cdr().setCons(response.getResultList().getCons());
+
+                Cons subListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), atomCons);
+
+                ConsPointer inputExpressionPointer = new ConsPointer(subListCons);
+
+                response = syncronousInterpreter.evaluate(inputExpressionPointer);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }//end if.
+
+
+
 
         //final int caretPosition = responseInsertionOffset;
 
@@ -936,10 +996,10 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         Container contentPane = frame.getContentPane();
         contentPane.add(console, BorderLayout.CENTER);
         //frame.setAlwaysOnTop(true);
-        frame.setSize(new Dimension(700, 600));
+        frame.setSize(new Dimension(800, 600));
         frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
         //frame.setResizable(false);
-        frame.setPreferredSize(new Dimension(700, 600));
+        frame.setPreferredSize(new Dimension(800, 600));
         frame.setLocationRelativeTo(null); // added
         frame.pack();
         frame.setVisible(true);
