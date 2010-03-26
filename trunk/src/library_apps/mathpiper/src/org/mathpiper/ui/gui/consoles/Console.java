@@ -105,7 +105,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
     private JRadioButton numericModeButton;
     private JRadioButton symbolicModeButton;
     private ButtonGroup resultModeGroup;
-    private boolean numericResultMode = true;
+    private boolean numericResultMode = false;
 
     private String helpMessage =
             "Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.\n\n" +
