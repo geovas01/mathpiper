@@ -166,11 +166,17 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         consoleButtons.add(haltButton);
 
         numericModeButton = new JRadioButton("Numeric Mode");
-        numericModeButton.setSelected(true);
         numericModeButton.addItemListener(this);
         symbolicModeButton = new JRadioButton("Symbolic Mode");
-        symbolicModeButton.setSelected(true);
         symbolicModeButton.addItemListener(this);
+        if(numericResultMode)
+        {
+            numericModeButton.setSelected(true);
+        }
+        else
+        {
+            symbolicModeButton.setSelected(true);
+        }
         resultModeGroup = new ButtonGroup();
         resultModeGroup.add(numericModeButton);
         resultModeGroup.add(symbolicModeButton);
