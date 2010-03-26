@@ -5,13 +5,15 @@
 
 package org.mathpiper.interpreters;
 
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.ConsPointer;
+
 /**
  * This class is used by an {@link Interpreter} to send the results of an evaluation to
  * client code.
  */
 public class EvaluationResponse {
     private String result = "";
-    private String loadResult = "";
     private String sideEffects = "";
     private String exceptionMessage = "";
     private boolean exceptionThrown = false;
@@ -19,6 +21,7 @@ public class EvaluationResponse {
     private int lineNumber;
     private String sourceFileName = "";
     private Object object = null;
+    private ConsPointer resultList = null;
             
     private EvaluationResponse()
     {
@@ -168,15 +171,6 @@ public class EvaluationResponse {
         return exceptionThrown;
     }
 
-    /**
-     * Sets a Java object to be returned to the user..
-     *
-     * @param exception the exception object
-     */
-    public void setObject(Object object)
-    {
-        this.object = object;
-    }
 
     /**
      * Allows the user to obtain a Java object from a function.
@@ -187,5 +181,39 @@ public class EvaluationResponse {
     {
         return object;
     }
+
+
+    /**
+     * Sets a Java object to be returned to the user..
+     *
+     * @param exception the exception object
+     */
+    public void setObject(Object object)
+    {
+        this.object = object;
+    }
+
+
+
+    /**
+     * Allows the user to obtain the result list.
+     *
+     * @return a Java object if one is available to return to the user.
+     */
+    public ConsPointer getResultList() {
+        return resultList;
+    }
+
+
+    /**
+     * Sets the result list to be returned to the user..
+     *
+     * @param exception the exception object
+     */
+    public void setResultList(ConsPointer resultList) {
+        this.resultList = resultList;
+    }
+
+
 
 }//end class.
