@@ -259,11 +259,50 @@ class SynchronousInterpreter implements Interpreter {
 
             return evaluate(inputExpressionPointer, notifyEvaluationListeners);
 
-        } catch (Exception e) {
-            e.printStackTrace(); //todo:tk: add code to gracefully handle MathPiper exceptions.
+        } catch (Exception exception) {
+                        //exception.printStackTrace();  //todo:tk:uncomment for debugging.
+
+            Evaluator.DEBUG = false;
+            Evaluator.VERBOSE_DEBUG = false;
+            Evaluator.TRACE_TO_STANDARD_OUT = false;
+            Evaluator.iTraced = false;
+
+            try {
+                iEnvironment.iArgumentStack.reset(-1, iEnvironment);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (exception instanceof EvaluationException) {
+                EvaluationException mpe = (EvaluationException) exception;
+                int errorLineNumber = mpe.getLineNumber();
+                if (errorLineNumber == -1) {
+                    errorLineNumber = iEnvironment.iInputStatus.lineNumber();
+                    if (errorLineNumber == -1) {
+                        errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
+                    }
+                    evaluationResponse.setLineNumber(errorLineNumber);
+                    evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.fileName());
+                } else {
+                    evaluationResponse.setLineNumber(mpe.getLineNumber());
+                    evaluationResponse.setSourceFileName(mpe.getFileName());
+                }
+
+
+            } else {
+                int errorLineNumber = iEnvironment.iInputStatus.lineNumber();
+                if (errorLineNumber == -1) {
+                    errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
+                    }
+                evaluationResponse.setLineNumber(errorLineNumber);
+                evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.fileName());
+            }
+
+            evaluationResponse.setException(exception);
+            evaluationResponse.setExceptionMessage(exception.getMessage());
         }
 
-        return null; //todo:tk: add code to gracefully handle MathPiper exceptions.
+        return evaluationResponse; 
 
     }//end method.
 
