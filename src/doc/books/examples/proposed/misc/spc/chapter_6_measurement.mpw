@@ -1,4 +1,4 @@
-%mathpiper
+%mathpiper,title="These functions must be evaluated before they are used."
 
 AnalyzeOperator(trial1, trial2, trial3) :=
 [
@@ -23,18 +23,7 @@ AnalyzeOperator(trial1, trial2, trial3) :=
     result;
 ];
 
-%/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
-
-
-
-
-%mathpiper
 AnalyzeOperators(tolerance, operatorATrials, operatorBTrials, operatorCTrials) :=
 [
     
@@ -108,13 +97,13 @@ AnalyzeOperators(tolerance, operatorATrials, operatorBTrials, operatorCTrials) :
     
     Echo("------------------------------------------------");
     
-    Echo("Repeatability/Equipment Variation (EV): ", EV);
+    Echo("Repeatability Or Equipment Variation (EV): ", EV);
     
     Echo("EV Percent Of Tolerance: ", PercentEV);
     
     Echo("------------------------------------------------");
     
-    Echo("Reproducibility/Appraser Variation (AV): ", AV);
+    Echo("Reproducibility Or Appraser Variation (AV): ", AV);
     
     Echo("AV Percent Of Tolerance: ", PercentAV);
 
@@ -131,7 +120,7 @@ AnalyzeOperators(tolerance, operatorATrials, operatorBTrials, operatorCTrials) :
 
 
 
-%mathpiper,title="Gage R&R example data"
+%mathpiper,title="Gage R&R example data."
 
 ATrial := {
 {
@@ -298,10 +287,10 @@ AnalyzeOperators(.40, ATrial, BTrial, CTrial );
       Operator C Mean Of All Measurements: 0.835 
       Operator C Range Of All Measurements: 0.06 
       ------------------------------------------------
-      Repeatability/Equipment Variation (EV): 0.1931666667 
+      Repeatability Or Equipment Variation (EV): 0.1931666667 
       EV Percent Of Tolerance: 48.29166668 
       ------------------------------------------------
-      Reproducibility/Appraser Variation (AV): 0.2176613685 
+      Reproducibility Or Appraser Variation (AV): 0.2176613685 
       AV Percent Of Tolerance: 54.41534213 
       
 .   %/output
@@ -312,7 +301,7 @@ AnalyzeOperators(.40, ATrial, BTrial, CTrial );
 
 
 
-%mathpiper,title="Gage R&R small plastic part data"
+%mathpiper,title="Gage R&R small plastic part data."
 
 ATrial := {
 {
@@ -469,6 +458,8 @@ AnalyzeOperators(5, ATrial, BTrial, CTrial );
       Result: True
       
       Side Effects:
+      Gage Repeatability And Reproducibility Report
+      ------------------------------------------------
       Operator A Mean Of All Measurements: 77.42333333 
       Operator A Range Of All Measurements: 0.082 
       
@@ -477,14 +468,12 @@ AnalyzeOperators(5, ATrial, BTrial, CTrial );
       
       Operator C Mean Of All Measurements: 76.95766667 
       Operator C Range Of All Measurements: 0.196 
-      
-      Gage Repeatability And Reproducibility Report
       ------------------------------------------------
-      Repeatability/Equipment Variation (EV): 0.4320833334 
+      Repeatability Or Equipment Variation (EV): 0.4320833334 
       EV Percent Of Tolerance: 8.641666668 
       ------------------------------------------------
-      Reproducibility/Appraser Variation (AV): 1.254822715 
-      AV Percent Of Tolerance: 25.09645430 
+      Reproducibility Or Appraser Variation (AV): 1.254822714 
+      AV Percent Of Tolerance: 25.09645428 
       
 .   %/output
 
