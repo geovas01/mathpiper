@@ -153,11 +153,18 @@ class SynchronousInterpreter implements Interpreter {
             }*/
 
 
-            EvaluationResponse evaluationResponse = evaluate("LoadScript(\"initialization.rep/mathpiperinit.mpi\");");
+            EvaluationResponse initializationEvaluationResponse = evaluate("LoadScript(\"initialization.rep/mathpiperinit.mpi\");");
 
-            if (evaluationResponse.isExceptionThrown()) {
-                throw new Exception("Error during script initialization.");
+            if (initializationEvaluationResponse.isExceptionThrown()) {
+                throw new Exception("Error during system script initialization.");
             }
+
+            initializationEvaluationResponse = evaluate("LoadScript(\"mathpiper_user_initialization.mpi\");");
+
+            //if (initializationEvaluationResponse.isExceptionThrown()) {
+            //    throw new Exception("Error during user script initialization.");
+            //}
+
 
 
         } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
