@@ -21,6 +21,8 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
         protected SymbolBox symbolBox;
         protected double viewScale = 1;
         private boolean paintedOnce = false;
+        private int xOffset = 0;
+        private int yOffset = 0;
 
         public MathPanel(SymbolBox symbolBox, double viewScale)
         {
@@ -30,6 +32,14 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
             this.setBackground(Color.white);
 
             this.addMouseListener(this);
+     
+
+            //Bounds bounds = search(symbolBox);
+
+            //xOffset = Math.abs((int) bounds.left);
+            //yOffset = Math.abs((int) bounds.top);
+
+
 
         }
 
@@ -46,15 +56,25 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
             ScaledGraphics sg = new ScaledGraphics(g2d);
             sg.setLineThickness(0);
             sg.setViewScale(viewScale);
-            int x = 0; //10;
-            int y = 0; //60;
-            int iIndent = 0;
+
+            //int iIndent = 0;
             double calculatedAscent = symbolBox.getCalculatedAscent();
-            symbolBox.calculatePositions(sg, 3, new Position(x + iIndent, y + calculatedAscent /*+ 10 30*/));
+
+            if(paintedOnce == false)
+            {
+                symbolBox.calculatePositions(sg, 3, new Position(0, 0));
+                Bounds bounds = search(symbolBox);
+
+                xOffset = Math.abs((int) bounds.left);
+                yOffset = Math.abs((int) bounds.top);
+                paintedOnce = true;
+                
+            }//end if.
+
+            symbolBox.calculatePositions(sg, 3, new Position(xOffset, yOffset));
             SymbolBox.setSequence(1);
             symbolBox.render(sg);
-            paintedOnce = true;
-
+            
         }
 
  
@@ -80,6 +100,8 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
         public void setViewScale(double viewScale)
         {
             this.viewScale = viewScale;
+            this.revalidate();
+            this.repaint();
         }
 
 
@@ -108,7 +130,7 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
                     {
                         Bounds bounds = search(child);
 
-                        if(bounds.getTop() > topMost)
+                        if(bounds.getTop() < topMost)
                         {
                             topMost = bounds.getTop();
                         }
