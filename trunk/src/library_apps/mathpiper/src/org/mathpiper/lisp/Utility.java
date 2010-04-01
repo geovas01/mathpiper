@@ -672,7 +672,14 @@ public class Utility {
 
         String path = Utility.scriptsPath + oper;
 
+        //Try to find script on classpath + scriptspath.
         java.io.InputStream inputStream = Utility.class.getResourceAsStream(path);
+
+        //Try to find script on classpath.
+        if(inputStream == null)
+        {
+            inputStream = Utility.class.getResourceAsStream(oper);
+        }
 
 
         if (inputStream != null) //File is on the classpath.
