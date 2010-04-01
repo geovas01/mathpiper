@@ -425,7 +425,7 @@
 		<mkdir dir="${plugins.jars.dir}/scripts" />
 		<copy todir="${plugins.jars.dir}/scripts">
 			<fileset dir="${master.src.dir}/scripts" >
-				<include name="**/*" />
+				<include name="**/*.bsh" />
 			</fileset>
 		</copy>
 
@@ -446,6 +446,10 @@
 		
 		<antcall target="chmod-unix-launch-script">
 		</antcall>
+		
+		
+		<mkdir dir="${master.build.dir}/mathpiperide/mathpiper_initialization" />
+		<copy file="${master.src.dir}/scripts/startup/mathpiper_user_initialization.mpi" todir="${master.build.dir}/mathpiperide/mathpiper_initialization"/>
 		
 	</target>
 	
