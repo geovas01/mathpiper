@@ -99,6 +99,8 @@ public class TreePanel extends JPanel implements ViewPanel {
 
     public void setViewScale(double viewScale) {
         this.viewScale = viewScale;
+        this.revalidate();
+        this.repaint();
     }
 
 

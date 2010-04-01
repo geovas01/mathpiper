@@ -105,7 +105,7 @@ public abstract class SymbolBox {
         double x1 = (x0 + iDimension.width) * scale;
         double y1 = (y0 + iDimension.height) * scale;
 
-        return new Bounds(x0, x1, y0, y1);
+        return new Bounds(y0, y1, x0, x1);
     }
 
 
