@@ -159,10 +159,10 @@ class SynchronousInterpreter implements Interpreter {
                 throw new Exception("Error during system script initialization.");
             }
 
-            initializationEvaluationResponse = evaluate("LoadScript(\"mathpiper_user_initialization.mpi\");");
+            initializationEvaluationResponse = evaluate("LoadScript(\"/mathpiper_user_initialization.mpi\");");
 
-            if (initializationEvaluationResponse.isExceptionThrown()) {
-                System.out.println("The initialization file mathpiper_user_initialization.mpi was not found.");
+            if (! initializationEvaluationResponse.isExceptionThrown()) {
+                System.out.println("The initialization file mathpiper_user_initialization.mpi was evaluated.");
             }
 
 
