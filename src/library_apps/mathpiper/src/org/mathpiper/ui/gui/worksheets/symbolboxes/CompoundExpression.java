@@ -27,8 +27,8 @@ abstract class CompoundExpression extends SymbolBox {
 
         double x0 = iPosition.x;
         double y0 = iPosition.y - getCalculatedAscent();
-        double x1 = x0 + iDimension.width;
-        double y1 = y0 + iDimension.height;
+        double x1 = x0 + iDimension.getTextWidth;
+        double y1 = y0 + iDimension.getTextHeight;
         sg.drawLine(x0, y0, x1, y0);
         sg.drawLine(x1, y0, x1, y1);
         sg.drawLine(x1, y1, x0, y1);

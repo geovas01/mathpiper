@@ -112,9 +112,9 @@ public class Bracket extends CompoundExpression {
 
            /* sg.setColor(Color.RED);
             sg.setLineThickness(1.6);
-            sg.drawLine( (xstart + (delta * steps[2])), y + (2 * dim.height) / 6,  xstart + (delta * steps[2]), y + (4 * dim.height) / 6);
+            sg.drawLine( (xstart + (delta * steps[2])), y + (2 * dim.getTextHeight) / 6,  xstart + (delta * steps[2]), y + (4 * dim.getTextHeight) / 6);
 
-            sg.drawArc(xstart + (delta * .8), y + (0 * dim.height)/6,30, 30, 180, -60);
+            sg.drawArc(xstart + (delta * .8), y + (0 * dim.getTextHeight)/6,30, 30, 180, -60);
             sg.setColor(Color.black);*/
 
         } else {

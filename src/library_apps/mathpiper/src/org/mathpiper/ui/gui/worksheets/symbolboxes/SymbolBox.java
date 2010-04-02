@@ -36,9 +36,9 @@ public abstract class SymbolBox {
 
     private int treeY;
 
-    private int parentXAnchor = -1;
+    private int parentAnchorX = -1;
 
-    private int parentYAnchor = -1;
+    private int parentAnchorY = -1;
 
     public static int getSequence() {
         return sequence;
@@ -122,12 +122,12 @@ public abstract class SymbolBox {
     }
 
 
-    public int width(ScaledGraphics sg)
+    public int getTextWidth(ScaledGraphics sg)
     {
         return (int) sg.getScaledTextWidth(toString());
     }
 
-    public int height(ScaledGraphics sg)
+    public int getTextHeight(ScaledGraphics sg)
     {
         return (int) sg.getScaledTextHeight(toString());
     }
@@ -148,20 +148,20 @@ public abstract class SymbolBox {
         this.treeY = treeY;
     }
 
-    public int getParentXAnchor() {
-        return parentXAnchor;
+    public int getParentAnchorX() {
+        return parentAnchorX;
     }
 
-    public void setParentXAnchor(int parentXAnchor) {
-        this.parentXAnchor = parentXAnchor;
+    public void setParentAnchorX(int parentXAnchor) {
+        this.parentAnchorX = parentXAnchor;
     }
 
-    public int getParentYAnchor() {
-        return parentYAnchor;
+    public int getParentAnchorY() {
+        return parentAnchorY;
     }
 
-    public void setParentYAnchor(int parentYAnchor) {
-        this.parentYAnchor = parentYAnchor;
+    public void setParentAnchorY(int parentYAnchor) {
+        this.parentAnchorY = parentYAnchor;
     }
 
 

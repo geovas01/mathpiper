@@ -111,7 +111,7 @@ public class FormulaViewApplet extends Applet
 		// Clear Background
 		Dimension d = getSize();
 		//    g.setColor(Color.white);
-		//   g.fillRect(0, 0, d.width, d.height);
+		//   g.fillRect(0, 0, d.getTextWidth, d.getTextHeight);
 
 		// All graphics should be black from now on
 		g.setColor(Color.black);
