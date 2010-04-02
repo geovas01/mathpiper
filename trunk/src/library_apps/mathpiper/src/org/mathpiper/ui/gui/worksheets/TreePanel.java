@@ -141,13 +141,15 @@ public class TreePanel extends JPanel implements ViewPanel {
     private int layoutTree(SymbolBox tree, int yPosition,  int position, SymbolBox parent, ScaledGraphics sg)
     {
         int Y_SEPARATION = 30;
-        int MIN_X_SEPARATION = 30;
+        int MIN_X_SEPARATION = 20;
 
         int branchPosition;
         int i;
         int leftPosition;
         int rightPosition;
         int width;
+
+        int interBranchSpace = 75;
 
 
         //System.out.println("W: " + tree.getTextWidth(sg));
@@ -216,7 +218,7 @@ public class TreePanel extends JPanel implements ViewPanel {
             /* Add node to list. */
             for(i = yPosition - Y_SEPARATION; i < yPosition+tree.getTextHeight(sg); i++)
             {
-                lastOnRasterArray[i] = position + (tree.getTextWidth(sg) + 1)/2;
+                lastOnRasterArray[i] = position + ((tree.getTextWidth(sg) + interBranchSpace) + 1)/2;
                 if(i > maxTreeY)
                 {
                     maxTreeY = i;
