@@ -18,6 +18,8 @@ public class TreePanel extends JPanel implements ViewPanel {
     protected SymbolBox symbolBox;
     protected double viewScale = 1;
     private Queue<SymbolBox> queue = new LinkedList();
+    private int[] lastOnRasterArray = new int[10000];
+    private int maxTreeY = 0;
 
     public TreePanel(SymbolBox symbolBox, double viewScale) {
         this.symbolBox = symbolBox;
@@ -25,7 +27,12 @@ public class TreePanel extends JPanel implements ViewPanel {
         this.viewScale = viewScale;
         this.setBackground(Color.white);
 
-        this.repaint();
+        for(int index = 0; index < lastOnRasterArray.length; index++)
+        {
+            lastOnRasterArray[index] = -1;
+        }//end for.
+
+        //this.repaint();
     }
 
     public void paint(Graphics g) {
@@ -40,13 +47,19 @@ public class TreePanel extends JPanel implements ViewPanel {
         sg.setLineThickness(0);
         sg.setViewScale(viewScale);
 
-        int x = 10;
-        int y = 30;
-        int iIndent = 0;
+        int x = 0;
+        int y = 0;
+        symbolBox.calculatePositions(sg, 3, new Position(x , y));
 
-        symbolBox.calculatePositions(sg, 3, new Position(x + iIndent, y + /*calculatedAscent + 10*/ 30));
 
-        doShapeTree(symbolBox, 150/*yPosition*/, new int[20000]/*int[] last*/, 10/*position*/, null, sg);
+        for(int index = 0; index < lastOnRasterArray.length; index++)
+        {
+            lastOnRasterArray[index] = -1;
+        }//end for.
+
+        maxTreeY = 0;
+        
+        layoutTree(symbolBox, 50/*yPosition*/,  -20/*position*/, null, sg);
 
 
         queue.add(symbolBox);
@@ -66,11 +79,11 @@ public class TreePanel extends JPanel implements ViewPanel {
 
                 sg.drawText(nodeString, currentNode.getTreeX(), currentNode.getTreeY() );//xPosition, yPosition);
 
-                if(currentNode.getParentYAnchor() != -1)
+                if(currentNode.getParentAnchorY() != -1)
                 {
                     sg.setColor(Color.BLACK);
                     sg.setLineThickness(1.5);
-                    sg.drawLine(currentNode.getTreeX() + currentNode.width(sg)/2, currentNode.getTreeY() - currentNode.height(sg), currentNode.getParentXAnchor(), currentNode.getParentYAnchor());
+                    sg.drawLine(currentNode.getTreeX() + currentNode.getTextWidth(sg)/2, currentNode.getTreeY() - currentNode.getTextHeight(sg), currentNode.getParentAnchorX(), currentNode.getParentAnchorY());
                 }
 
                 SymbolBox[] children = currentNode.getChildren();
@@ -94,8 +107,29 @@ public class TreePanel extends JPanel implements ViewPanel {
     }
 
     public Dimension getPreferredSize() {
-        return new Dimension(700, 600);
-    }
+        //return new Dimension(700, 600);
+
+        int maxWidth = 0;
+
+        int index = 0;
+
+        for(; index < lastOnRasterArray.length; index++)
+        {
+            if(lastOnRasterArray[index] > maxWidth)
+            {
+                maxWidth = lastOnRasterArray[index];
+            }//end if.
+
+        }//end for.
+
+        maxWidth = (int) ((maxWidth + 100) * viewScale);
+
+        int maxHeight = (int) ((maxTreeY) * viewScale);
+
+        return(new Dimension(maxWidth, maxHeight));
+
+    }//end method.
+
 
     public void setViewScale(double viewScale) {
         this.viewScale = viewScale;
@@ -104,10 +138,10 @@ public class TreePanel extends JPanel implements ViewPanel {
     }
 
 
-    private int doShapeTree(SymbolBox tree, int yPosition, int[] last, int position, SymbolBox parent, ScaledGraphics sg)
+    private int layoutTree(SymbolBox tree, int yPosition,  int position, SymbolBox parent, ScaledGraphics sg)
     {
         int Y_SEPARATION = 30;
-        int MIN_X_SEPARATION = 25;
+        int MIN_X_SEPARATION = 30;
 
         int branchPosition;
         int i;
@@ -116,12 +150,12 @@ public class TreePanel extends JPanel implements ViewPanel {
         int width;
 
 
-        //System.out.println("W: " + tree.width(sg));
+        //System.out.println("W: " + tree.getTextWidth(sg));
         //System.out.println("XX: " + tree.toString());
         /*if(tree.toString().contains("0"))
         {
             int xx = 0;
-            int wi = tree.width(sg);
+            int wi = tree.getTextWidth(sg);
             xx = 0;
         }*/
 
@@ -131,12 +165,12 @@ public class TreePanel extends JPanel implements ViewPanel {
         }
         else /* Place subtree. */
         {
-            /* Ensure the nominal position of the node to the is right of any other node. */
-            for(i = yPosition - Y_SEPARATION; i < yPosition+tree.height(sg); i++)
+            /* Ensure the nominal position of the node is to the right of any other node. */
+            for(i = yPosition - Y_SEPARATION; i < yPosition+tree.getTextHeight(sg); i++)
             {
-                int lastOnRaster = last[i];
+                int lastOnRaster = lastOnRasterArray[i];
                 
-                int possibleNewPosition = (lastOnRaster + MIN_X_SEPARATION + tree.width(sg)/2);
+                int possibleNewPosition = (lastOnRaster + MIN_X_SEPARATION + tree.getTextWidth(sg)/2);
 
                 if(possibleNewPosition > position)
                 {
@@ -150,29 +184,29 @@ public class TreePanel extends JPanel implements ViewPanel {
 
                 if(tree.getChildren().length > 1) {
 
-                    width = (tree.getChildren()[0].width(sg) +
-                            tree.getChildren()[tree.getChildren().length-1].width(sg))/2 +
+                    width = (tree.getChildren()[0].getTextWidth(sg) +
+                            tree.getChildren()[tree.getChildren().length-1].getTextWidth(sg))/2 +
                             (tree.getChildren().length-1)*MIN_X_SEPARATION;
 
                     for(i=1; i < tree.getChildren().length-1; i++)
-                        width += tree.getChildren()[i].width(sg);}
+                        width += tree.getChildren()[i].getTextWidth(sg);}
 
                 else
                     width = 0;
 
                 branchPosition = position - width/2;
                 /* Position far left branch. */
-                leftPosition = doShapeTree(tree.getChildren()[0], yPosition + tree.height(sg) + Y_SEPARATION,
-                        last, branchPosition, tree, sg);
+                leftPosition = layoutTree(tree.getChildren()[0], yPosition + tree.getTextHeight(sg) + Y_SEPARATION,
+                         branchPosition, tree, sg);
 
                 /* Position the other branches if they exist. */
                 rightPosition = leftPosition;
                 for(i = 1; i < tree.getChildren().length; i++){
                     branchPosition += MIN_X_SEPARATION +
-                            (tree.getChildren()[i-1].width(sg) +
-                            tree.getChildren()[i].width(sg))/2;
-                    rightPosition = doShapeTree(tree.getChildren()[i], yPosition + tree.height(sg) + Y_SEPARATION,
-                            last, branchPosition, tree, sg);
+                            (tree.getChildren()[i-1].getTextWidth(sg) +
+                            tree.getChildren()[i].getTextWidth(sg))/2;
+                    rightPosition = layoutTree(tree.getChildren()[i], yPosition + tree.getTextHeight(sg) + Y_SEPARATION,
+                             branchPosition, tree, sg);
                 } /* for */
 
                 position = (leftPosition+rightPosition)/2;
@@ -180,8 +214,14 @@ public class TreePanel extends JPanel implements ViewPanel {
             }//end if tree -> nrBranches >= 1 */
 
             /* Add node to list. */
-            for(i = yPosition - Y_SEPARATION; i < yPosition+tree.height(sg); i++)
-                last[i] = position + (tree.width(sg) + 1)/2;
+            for(i = yPosition - Y_SEPARATION; i < yPosition+tree.getTextHeight(sg); i++)
+            {
+                lastOnRasterArray[i] = position + (tree.getTextWidth(sg) + 1)/2;
+                if(i > maxTreeY)
+                {
+                    maxTreeY = i;
+                }//end if.
+            }//end for.
 
 
             tree.setTreeX(position);
@@ -191,9 +231,9 @@ public class TreePanel extends JPanel implements ViewPanel {
             if(parent != null)
             {
 
-                tree.setParentXAnchor(parent.getTreeX() + parent.width(sg)/2 );
+                tree.setParentAnchorX(parent.getTreeX() + parent.getTextWidth(sg)/2 );
 
-                tree.setParentYAnchor(parent.getTreeY() + 4 );
+                tree.setParentAnchorY(parent.getTreeY() + 4 );
             }//end if
 
             return position;

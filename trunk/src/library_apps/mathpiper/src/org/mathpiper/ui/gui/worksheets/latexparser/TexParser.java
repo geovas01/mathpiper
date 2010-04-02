@@ -29,7 +29,7 @@ public class TexParser
 	String iCurrentExpression;
 	String nextToken;
 
-        private boolean showToken = true;
+        private boolean showToken = false;
 
 	private void showToken(String sourceName)
 	{
