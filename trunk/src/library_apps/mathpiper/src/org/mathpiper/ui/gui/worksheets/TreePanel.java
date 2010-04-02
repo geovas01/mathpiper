@@ -20,6 +20,7 @@ public class TreePanel extends JPanel implements ViewPanel {
     private Queue<SymbolBox> queue = new LinkedList();
     private int[] lastOnRasterArray = new int[10000];
     private int maxTreeY = 0;
+    private boolean paintedOnce = false;
 
     public TreePanel(SymbolBox symbolBox, double viewScale) {
         this.symbolBox = symbolBox;
@@ -32,7 +33,6 @@ public class TreePanel extends JPanel implements ViewPanel {
             lastOnRasterArray[index] = -1;
         }//end for.
 
-        //this.repaint();
     }
 
     public void paint(Graphics g) {
@@ -66,10 +66,6 @@ public class TreePanel extends JPanel implements ViewPanel {
 
         SymbolBox currentNode;
 
-        //double xPosition = 50;
-
-        //double yPosition = 50;
-
 
         while (!queue.isEmpty()) {
             currentNode = queue.remove();
@@ -79,19 +75,17 @@ public class TreePanel extends JPanel implements ViewPanel {
 
                 sg.drawText(nodeString, currentNode.getTreeX(), currentNode.getTreeY() );//xPosition, yPosition);
 
-                if(currentNode.getParentAnchorY() != -1)
-                {
-                    sg.setColor(Color.BLACK);
-                    sg.setLineThickness(1.5);
-                    sg.drawLine(currentNode.getTreeX() + currentNode.getTextWidth(sg)/2, currentNode.getTreeY() - currentNode.getTextHeight(sg), currentNode.getParentAnchorX(), currentNode.getParentAnchorY());
-                }
-
                 SymbolBox[] children = currentNode.getChildren();
 
                 if (children != null) {
                     for (SymbolBox child : children) {
                         if (child != null) {
                             queue.add(child);
+
+                            sg.setColor(Color.BLACK);
+                            sg.setLineThickness(1.5);
+                            sg.drawLine(currentNode.getTreeX() + currentNode.getTextWidth(sg)/2, currentNode.getTreeY() + 4, child.getTreeX() + child.getTextWidth(sg)/2, child.getTreeY() - child.getTextHeight(sg) + 3);
+
                         }
                     }
 
@@ -102,12 +96,22 @@ public class TreePanel extends JPanel implements ViewPanel {
                 System.out.print("<Null>");
             }
 
+            if(paintedOnce == false)
+            {
+                super.revalidate();
+                paintedOnce = true;
+            }
+
         }//end while.
 
     }
 
     public Dimension getPreferredSize() {
-        //return new Dimension(700, 600);
+        
+        if(paintedOnce == false)
+        {
+            return new Dimension(0,0);
+        }
 
         int maxWidth = 0;
 
@@ -138,9 +142,10 @@ public class TreePanel extends JPanel implements ViewPanel {
     }
 
 
+    //Layout algorithm from "Aesthetic Layout of Generalized Trees" by Anthony Bloesch.
     private int layoutTree(SymbolBox tree, int yPosition,  int position, SymbolBox parent, ScaledGraphics sg)
     {
-        int Y_SEPARATION = 30;
+        int Y_SEPARATION = 35;
         int MIN_X_SEPARATION = 20;
 
         int branchPosition;
@@ -151,15 +156,6 @@ public class TreePanel extends JPanel implements ViewPanel {
 
         int interBranchSpace = 75;
 
-
-        //System.out.println("W: " + tree.getTextWidth(sg));
-        //System.out.println("XX: " + tree.toString());
-        /*if(tree.toString().contains("0"))
-        {
-            int xx = 0;
-            int wi = tree.getTextWidth(sg);
-            xx = 0;
-        }*/
 
         if(tree == null)
         {
@@ -229,14 +225,6 @@ public class TreePanel extends JPanel implements ViewPanel {
             tree.setTreeX(position);
 
             tree.setTreeY(yPosition);
-
-            if(parent != null)
-            {
-
-                tree.setParentAnchorX(parent.getTreeX() + parent.getTextWidth(sg)/2 );
-
-                tree.setParentAnchorY(parent.getTreeY() + 4 );
-            }//end if
 
             return position;
 

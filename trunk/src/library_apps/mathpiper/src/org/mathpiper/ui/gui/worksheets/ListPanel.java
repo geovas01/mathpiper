@@ -233,7 +233,12 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         }//end if
 
-        paintedOnce = true;
+        if(paintedOnce == false)
+        {
+            super.revalidate();
+            
+            paintedOnce = true;
+        }
 
     }//end method.
 
