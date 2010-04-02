@@ -67,6 +67,9 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
                 xOffset = Math.abs((int) bounds.left);
                 yOffset = Math.abs((int) bounds.top);
+
+                super.revalidate();
+                
                 paintedOnce = true;
                 
             }//end if.
