@@ -309,6 +309,10 @@ class SynchronousInterpreter implements Interpreter {
             evaluationResponse.setExceptionMessage(exception.getMessage());
         }
 
+        if (notifyEvaluationListeners) {
+            notifyListeners(evaluationResponse);
+        }//end if.
+
         return evaluationResponse; 
 
     }//end method.
