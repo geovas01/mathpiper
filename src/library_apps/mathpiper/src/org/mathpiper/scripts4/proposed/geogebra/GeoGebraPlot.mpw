@@ -22,19 +22,23 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
 
 
 
-10 # GeoGebraPlot(list_IsList, _options)_(IsEven(Length(list)And IsNumericList(list)) )  <--
+10 # GeoGebraPlot(list_IsList, _options)_(IsNumericList(list) )  <--
 [
     If(IsList(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList({options}));
 
-    Local(length, index, labelIndex, pointTemplate, segmentCommandTemplate, segmentElementTemplate, command, code, x, y);
+    Local(length, index, labelIndex, pointTemplate, segmentCommandTemplate, segmentElementTemplate, command, code, x, y, pointSize);
     
     length := Length(list);
+    
+    If(IsOdd(length), list := Append(list,list[length])); //Make list even for line drawing.
+    
+    If(options["pointSize"] != Empty, pointSize := options["pointSize"], pointSize := 1);
     
     index := 1;
     
     labelIndex := 1;
     
-    pointTemplate := "<element type=\"point\" label=\"A<?Write(labelIndex)?>\"> <show object=\"true\" label=\"false\"/><objColor r=\"0\" g=\"0\" b=\"255\" alpha=\"0.0\"/>	<layer val=\"0\"/>	<animation step=\"0.1\" speed=\"1\" type=\"0\" playing=\"false\"/>	<coords x=\"<?Write(x)?>\" y=\"<?Write(y)?>\" z=\"1.0\"/>	<pointSize val=\"1\"/></element>";
+    pointTemplate := "<element type=\"point\" label=\"A<?Write(labelIndex)?>\"> <show object=\"true\" label=\"false\"/><objColor r=\"0\" g=\"0\" b=\"255\" alpha=\"0.0\"/>	<layer val=\"0\"/>	<animation step=\"0.1\" speed=\"1\" type=\"0\" playing=\"false\"/>	<coords x=\"<?Write(x)?>\" y=\"<?Write(y)?>\" z=\"1.0\"/>	<pointSize val=\"<?Write(ToAtom(pointSize))?>\"/></element>";
     segmentCommandTemplate := "<command name=\"Segment\"><input a0=\"A1\" a1=\"A2\"/><output a0=\"a\"/>";
     segmentElementTemplate := "<element type=\"segment\" label=\"a<?Write(labelIndex-1)?>\"><lineStyle thickness=\"2\" type=\"0\"/><show object=\"true\" label=\"false\"/><layer val=\"0\"/><coords x=\"-1.0\" y=\"1.0\" z=\"0.0\"/><lineStyle thickness=\"2\" type=\"0\"/><eqnStyle style=\"implicit\"/><outlyingIntersections val=\"false\"/><keepTypeOnTransform val=\"true\"/></element>";
     
@@ -50,6 +54,8 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
         
         
         code := PatchString(pointTemplate);
+
+        
         JavaCall(geogebra,"evalXML",code);
         
         If(options["lines"] = "True" And labelIndex > 1,

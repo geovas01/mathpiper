@@ -1,0 +1,151 @@
+%mathpiper,def="ControlChart"
+
+
+ControlChart(data) :=
+[
+    A2 := .577;
+    D3 := 0;
+    D4 := 2.144;
+
+    means := {};
+    meansPoints := {};
+    
+    ranges := {};
+    rangesPoints := {};
+    
+    index := 1;
+    ForEach(group, data)
+    [
+        groupMean := Mean(group);
+        means := N(Append(means, groupMean));
+        meansPoints := N(Append(meansPoints,{index, groupMean} ));
+        
+
+        groupRange := Range(group);
+        ranges := N(Append(ranges, groupRange));
+        rangesPoints := N(Append(rangesPoints,{index, groupRange} ));
+        
+        index++;
+    ];
+    
+    xBarBar := N(Mean(means));
+    
+    rBar := N(Mean(ranges));
+    
+    xBarUCL := N(xBarBar + A2*rBar);
+    
+    xBarLCL := N(xBarBar - A2*rBar);
+    
+    rUCL := N(D4*rBar);
+    
+    rLCL := N(D3*rBar);
+];
+
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper,title=""
+
+data := GenMatrix(Lambda({m,n},Distribution(5,2)),25,5);
+
+
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {{7.440398494,5.028163840,6.363015846,4.725396853,6.193041753},{5.787724130,6.675333481,8.372306071,8.746638347,2.874372957},{5.510725354,3.463786143,3.809876822,3.799568161,3.985328395},{3.117207761,1.857852479,9.764307399,4.143374197,2.621960264},{5.109097240,4.601411378,5.207149545,1.477967292,4.710939076},{7.104478242,6.309474892,2.907265287,2.407092374,4.768706873},{4.237537658,7.106660735,3.671468600,6.473215683,-0.3207283887},{2.464767539,4.842158951,9.549274714,7.816882465,1.638318843},{6.222040825,2.731253160,7.697763633,5.950107963,6.393195883},{4.744316448,5.868438134,5.973295179,5.004252845,3.713463563},{7.575249003,3.959982272,8.986854037,6.464394587,5.284880599},{6.796123340,7.004301405,3.072061920,2.818757053,3.130245873},{2.428556237,0.8104781353,3.666213860,3.797523600,5.472286669},{4.518086433,3.621593758,5.916818350,4.489760450,5.333739154},{6.351196493,4.644545821,4.226142424,5.741211157,2.891848643},{5.836324859,1.491324318,7.165765554,3.358679822,2.708765287},{5.761633053,4.796053169,6.694788113,7.367718353,3.603767565},{5.888046604,4.887281039,3.277691022,8.275074817,5.649562149},{6.562577407,8.186594160,6.271385260,5.546836946,2.841371848},{5.183771843,2.792082645,4.793197166,5.756721706,4.205049122},{7.137908993,0.3457273766,4.598787679,5.612672318,4.060460639},{4.421949758,5.152998323,1.320477711,8.890344987,4.990935044},{5.425202048,4.466549889,4.509081901,4.147518291,6.272334200},{9.786724186,3.611259617,7.751389637,6.622939385,5.473592202},{4.971505967,9.512785661,6.153254773,5.515284510,3.589850163}}
+.   %/output
+
+
+
+
+%mathpiper
+
+//GeoGebraPlot(meansPoints, lines -> True, pointSize -> 3);
+
+/*
+GeoGebraPoint("M1",-10,xBarBar);
+GeoGebraPoint("M2",-10.1,xBarBar);
+ggbLine("M1","M2");
+
+
+
+GeoGebraPoint("XBUCL1",-10,xBarUCL);
+GeoGebraPoint("XBUCL2",-10.1,xBarUCL);
+ggbLine("XBUCL1","XBUCL2");
+
+
+
+GeoGebraPoint("XBLCL1",-10,xBarLCL);
+GeoGebraPoint("XBLCL2",-10.1,xBarLCL);
+ggbLine("XBLCL1","XBLCL2");
+*/
+
+
+
+
+GeoGebraPlot(rangesPoints, lines -> True, pointSize -> 3);
+
+GeoGebraPoint("RM1",-10,rBar);
+GeoGebraPoint("RM2",-10.1,rBar);
+ggbLine("RM1","RM2");
+
+
+
+GeoGebraPoint("RUCL1",-10,rUCL);
+GeoGebraPoint("RUCL2",-10.1,rUCL);
+ggbLine("RUCL1","RUCL2");
+
+
+
+//GeoGebraPoint("RLCL1",-10,rLCL);
+//GeoGebraPoint("RLCL2",-10.1,rLCL);
+//ggbLine("RLCL1","RLCL2");
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: java.lang.Boolean
+      
+      Side Effects:
+      <element type="point" label="A1"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="1" y="4.401597958" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A2"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="2" y="7.415539032" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A3"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="3" y="6.516310482" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A4"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="4" y="4.960984003" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A5"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="5" y="6.607533389" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A6"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="6" y="3.351101907" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A7"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="7" y="3.711356949" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A8"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="8" y="2.663339424" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A9"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="9" y="3.330187478" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A10"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="10" y="4.518878615" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A11"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="11" y="3.089577923" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A12"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="12" y="4.234330404" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A13"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="13" y="2.650687067" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A14"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="14" y="2.613969742" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A15"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="15" y="4.432720657" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A16"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="16" y="7.290783206" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A17"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="17" y="5.328920509" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A18"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="18" y="2.203502444" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A19"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="19" y="3.365583911" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A20"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="20" y="8.080912609" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A21"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="21" y="8.950468284" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A22"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="22" y="6.096206707" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A23"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="23" y="6.351141051" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A24"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="24" y="2.934938519" z="1.0"/>	<pointSize val="3"/></element>
+      <element type="point" label="A25"> <show object="true" label="false"/><objColor r="0" g="0" b="255" alpha="0.0"/>	<layer val="0"/>	<animation step="0.1" speed="1" type="0" playing="false"/>	<coords x="25" y="5.846030612" z="1.0"/>	<pointSize val="3"/></element>
+      
+.   %/output
+
+
