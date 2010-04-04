@@ -42,7 +42,7 @@ public class ControlChart extends BuiltinFunction {
     {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "ControlChart");
+                "ControlChartInternal");
 
         defaultOptions = new HashMap();
         defaultOptions.put("title", null);
