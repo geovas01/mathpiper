@@ -26,14 +26,11 @@ Retract("ExtractSubMatrix",*);
     Local(nrows,ncols);
     {nrows,ncols} := Dimensions( mat );
     Check(And(row1>0,col1>0,row1<nrows,col1<ncols),"ERROR: UL out of range");
-    xExtractSubMatrix( mat, row1, col1, nrows, ncols );
+    ExtractSubMatrix( mat, row1, col1, nrows, ncols );
 ];
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
