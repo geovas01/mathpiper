@@ -75,7 +75,10 @@ public class JavaObject extends BuiltinContainer {
                 return clas;
             } catch (ClassNotFoundException cnfe) {
             }
-        }//end if
+        }else if(argument instanceof JavaObject)
+        {
+            return ((JavaObject)argument).getObject();
+        }
 
         // Give up -- it's a string
         return argument;
