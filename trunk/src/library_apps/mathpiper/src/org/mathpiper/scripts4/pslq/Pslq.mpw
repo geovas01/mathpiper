@@ -252,11 +252,11 @@ Echo("************** H[i][j] = ",H[i][j]);
 //Echo("9...",N(H[1],10));
 
     /* BuiltinPrecisionSet(10);*/ /*low precision*/
-//    maxi := N(H[1] .  H[1],10);
-    maxi := N(H[1] .  H[1]);
+//    maxi := N(Dot(H[1],  H[1]),10);
+    maxi := N(Dot(H[1], H[1]));
 //Echo("H[1] = ",H[1]);
 //Echo("N(H[1]) = ",N(H[1]));
-//Echo("N(H[1] . H[1]) = ",N(H[1] . H[1]));
+//Echo("N(Dot(H[1], H[1])) = ",N(Dot(H[1], H[1])));
 //Echo("maxi 4...",maxi);
 
 //Echo("9... maxi = ",maxi);
@@ -264,7 +264,7 @@ Echo("************** H[i][j] = ",H[i][j]);
     For (j:=2,j<=n,j++)
     [
 //Echo("9.1...");
-      tmp:=N(H[j] . H[j],10);
+      tmp:=N(Dot(H[j], H[j]),10);
 //Echo("9.2...");
       if (maxi < tmp) [ maxi:=tmp; ];
 //Echo("maxi 5...",maxi);

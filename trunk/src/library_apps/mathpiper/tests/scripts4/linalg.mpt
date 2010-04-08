@@ -17,11 +17,11 @@ Testing("VectorProducts");
   Verify(n X l, {0,1,0});
   Verify(l X n, {0,-1,0});
 
-  Verify(l . m, 0);
-  Verify(m . n, 0);
-  Verify(n . l, 0);
+  Verify(Dot(l, m), 0);
+  Verify(Dot(m, n), 0);
+  Verify(Dot(n, l), 0);
 
-  Verify(l . l, 1);
+  Verify(Dot(l, l), 1);
 ];
 
 
@@ -33,7 +33,7 @@ Testing("VectorProducts");
  */
   a:={1,2,3};
   b:={3,1,5};
-  Verify( a . b , 20);
+  Verify( Dot(a, b) , 20);
   Verify(CrossProduct({1,2,3} , {4,2,5}) , {4,7,-6});
 ];
 Verify(aa,Hold(aa));
@@ -43,7 +43,7 @@ Verify(aa,Hold(aa));
   NextTest("Inproduct");
   a:={1,2,3};
   b:={3,1,5};
-  Verify( a . b , 20);
+  Verify( Dot(a, b) , 20);
 ];
 
 Verify(CrossProduct({1,2,3} , {4,2,5}) , {4,7,-6});

@@ -1,17 +1,17 @@
-%mathpiper,def="."
+%mathpiper,def=""
 
 //////
 // dot product for vectors and matrices (dr)
 //////
 
-_x . _y <-- Dot(x,y);
+//_x . _y <-- Dot(x,y);
 
 %/mathpiper
 
 
 
 
-%mathpiper_docs,name=".",categories="Operators"
+mathpiper_docs,name=".",categories="Operators"
 *CMD . --- get dot product of tensors
 *STD
 *CALL
@@ -28,4 +28,16 @@ Precedence:
 See the {Dot} function for more information.
 
 *SEE Dot
-%/mathpiper_docs
+/mathpiper_docs
+
+
+	Or, using the "."-Operator:
+
+	In> {1,2} . {3,4}
+	Out> 11;
+	In> {{1,2},{3,4}} . {5,6}
+	Out> {17,39};
+	In> {5,6} . {{1,2},{3,4}}
+	Out> {23,34};
+	In> {{1,2},{3,4}} . {{5,6},{7,8}}
+	Out> {{19,22},{43,50}};

@@ -34,7 +34,7 @@ direction but with length 1.
 
 	In> v:=Normalize({3,4})
 	Out> {3/5,4/5};
-	In> v . v
+	In> Dot(v, v)
 	Out> 1;
 
 *SEE InProduct, CrossProduct
