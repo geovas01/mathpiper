@@ -39,7 +39,7 @@ This function is superceded by the {.} operator.
 
 *E.G.
 
-	In> {a,b,c} . {d,e,f};
+	In> Dot({a,b,c}, {d,e,f});
 	Out> a*d+b*e+c*f;
 
 *SEE Dot, CrossProduct

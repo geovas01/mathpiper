@@ -71,13 +71,10 @@ Dot1(_t1,_t2,_m,_n) <--
 
 
 %mathpiper_docs,name="Dot",categories="User Functions;Linear Algebra"
-*CMD Dot, . --- get dot product of tensors
+*CMD Dot --- get dot product of tensors
 *STD
 *CALL
 	Dot(t1,t2)
-	t1 . t2
-Precedence:
-*EVAL PrecedenceGet(".")
 
 *PARMS
 
@@ -102,16 +99,5 @@ vector or a matrix.
 	In> Dot({{1,2},{3,4}},{{5,6},{7,8}})
 	Out> {{19,22},{43,50}};
 
-	Or, using the "."-Operator:
-
-	In> {1,2} . {3,4}
-	Out> 11;
-	In> {{1,2},{3,4}} . {5,6}
-	Out> {17,39};
-	In> {5,6} . {{1,2},{3,4}}
-	Out> {23,34};
-	In> {{1,2},{3,4}} . {{5,6},{7,8}}
-	Out> {{19,22},{43,50}};
-
-*SEE Outer, Cross, IsScalar, IsVector, IsMatrix, .
+*SEE Outer, Cross, IsScalar, IsVector, IsMatrix
 %/mathpiper_docs

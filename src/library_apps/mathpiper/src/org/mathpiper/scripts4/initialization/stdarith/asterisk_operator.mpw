@@ -30,7 +30,7 @@
    Local(i,result);
    result:={};
    For(i:=1,i<=Length(x),i++)
-   [ DestructiveInsert(result,i,x[i] . y); ];
+   [ DestructiveInsert(result,i,Dot(x[i], y)); ];
    result;
 ];
 

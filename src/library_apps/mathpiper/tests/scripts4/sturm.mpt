@@ -28,7 +28,7 @@ TryRandomPoly(deg,coefmin,coefmax):=
   roots:=FindRealRoots(p);
 //Echo("roots ",roots);
   px := (p Where x==x);
-  Verify(px . px < 0.01);
+  Verify(Dot(px, px) < 0.01);
 ];
 TryRandomRoots(deg,coefmin,coefmax):=
 [
@@ -48,7 +48,7 @@ Echo("roots ",roots);
   Verify(Length(roots) = Length(coefs));
   Verify(Length(RemoveDuplicates(roots)) = Length(coefs));
   px := (p Where x==x);
-  Verify(px . px < 0.01);
+  Verify(Dot(px, px) < 0.01);
 ];
 
 sl();
@@ -56,7 +56,7 @@ sl();
 [
   Local(p);
   p := FindRealRoots((x+2)^9*(x-4)^5*(x-1)^4)-{-2.,1.,4.};
-  Verify(VerifyZero(p . p),True);
+  Verify(VerifyZero(Dot(p,p)),True);
 ];
 sl();
 
@@ -78,7 +78,7 @@ Verify(RealRootsCount(x^2+1),0);     sl();
 [
   Local(p);
   p:=Difference(FindRealRoots(Expand((x*(x-10)^3*(x+2)^2))),{0,-2.,10.});
-  Verify(VerifyZero(p . p),True);
+  Verify(VerifyZero(Dot(p, p)),True);
 ];
 Verify(FindRealRoots((x^2+20)*(x^2+10)),{});
 Verify(RealRootsCount((x^2+20)*(x^2+10)),0);
@@ -95,7 +95,7 @@ sl();
 [
   Local(p);
   p:=FindRealRoots((x+4)*(x-6),1,7)-{-4.,6.};
-  Verify(VerifyZero(p . p),True);
+  Verify(VerifyZero(Dot(p, p)),True);
 ];
 
 
@@ -106,7 +106,7 @@ sl();
 
   p:=Expand((x-3.1)*(x+6.23));
   p:=FindRealRoots(p)-{-6.23,3.1};
-  Verify(VerifyZero(p . p),True);
+  Verify(VerifyZero(Dot(p, p)),True);
 ];
 
 sl();
@@ -114,7 +114,7 @@ Verify(BuiltinPrecisionGet(),5);
 [ 
   Local(res);
   res:=FindRealRoots(Expand((x-3.1)*(x+6.23)))-{-6.23,3.1};
-  Verify(VerifyZero(res . res) , True);
+  Verify(VerifyZero(Dot(res, res)) , True);
 ];
 sl();
 
