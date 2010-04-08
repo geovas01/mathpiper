@@ -8,9 +8,9 @@
 52 # x_IsNegativeNumber / 0 <-- -Infinity;
 55 # (_x / y_IsNumber)_(IsZero(y)) <-- Undefined;
 55 # 0 / _x <-- 0;
-60 # (x_IsNumber / y_IsNumber)_(InNumericMode() /* Sorry, Serge Or
-                                Not(IsInteger(x) And IsInteger(y)) */ ) <--
-    DivideN(x,y);
+60 # (x_IsDecimal / y_IsNumber)  <-- DivideN(x,y);
+60 # (x_IsNumber  / y_IsDecimal) <-- DivideN(x,y); 
+60 # (x_IsNumber  / y_IsNumber)_(InNumericMode()) <-- DivideN(x,y);
 
 // unnecessary rule (see #100 below). TODO: REMOVE
 //55 # x_IsNumber / y_IsNegativeNumber <-- (-x)/(-y);
