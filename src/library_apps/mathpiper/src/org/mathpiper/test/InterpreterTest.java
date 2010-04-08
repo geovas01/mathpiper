@@ -15,8 +15,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.awt.Container;
+import javax.swing.JFrame;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
@@ -87,11 +87,42 @@ public class InterpreterTest implements ResponseListener
         /*
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();
-        JButton haltButton = org.mathpiper.ui.gui.controlpanel.HaltButton.getInstance();
-        contentPane.add(haltButton);
-        frame.setBounds ( 10 , 10 , 200 , 90 );
-        frame.setVisible(true);
-         */
 
-    }
+    	geogebra.GeoGebraPanel ggbPanel = new geogebra.GeoGebraPanel();
+    	ggbPanel.setShowAlgebraInput(true);
+        ggbPanel.setShowAlgebraView(false);
+    	ggbPanel.setMaxIconSize(24);
+    	ggbPanel.setShowMenubar(true);
+    	ggbPanel.setShowToolbar(true);
+    	ggbPanel.buildGUI();
+    	contentPane.add(ggbPanel);
+        frame.setBounds ( 10 , 10 , 700 , 700 );
+        frame.setVisible(true);
+
+        geogebra.plugin.GgbAPI ggbAPI = ggbPanel.getGeoGebraAPI();
+
+
+        //Wait until the frame is shown.
+        try
+        {
+        Thread.sleep(3000);
+        }
+        catch(InterruptedException ie)
+        {
+
+        }
+
+
+        ggbAPI.setRepaintingActive(false);
+
+
+
+        //Plot 1000 points to the drawing pad.
+        for(double x = -5; x < 5; x = x + .01)
+        {
+            ggbAPI.evalCommand("(" + x + "," + x + ")");
+        }//end for.
+        */
+
+    }//end main.
 }

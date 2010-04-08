@@ -1,5 +1,5 @@
 
 
-zz :=  JavaCall( JavaNew("java.lang.String","Hello"),"toUpperCase");
+z1 := JavaNew("java.io.StringReader","Z(a,b,x,y) L");
 
-JavaValue(zz);
+z2 := JavaNew("edu.jas.poly.GenPolynomialTokenizer",z1);
