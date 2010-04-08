@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
+import org.mathpiper.builtin.javareflection.Invoke;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
@@ -73,14 +74,25 @@ public class JavaNew extends BuiltinFunction {
                         argument = ((String) argument).substring(0, ((String) argument).length() - 1);
                     }
 
+
+                    if(argument instanceof JavaObject)
+                    {
+                        argument = ((JavaObject)argument).getObject();
+                    }
+
                     argumentArrayList.add(argument);
 
                     consTraverser.goNext(aStackTop);
 
                 }//end while.
 
+                Object[] argumentsArray = (Object[]) argumentArrayList.toArray(new Object[0]);
 
-                JavaObject response = JavaObject.instantiate(fullyQualifiedClassName, (Object[]) argumentArrayList.toArray(new Object[0]));
+                Object o = Invoke.invokeConstructor(fullyQualifiedClassName, argumentsArray);
+
+                JavaObject response = new JavaObject(o);
+
+                //JavaObject response = JavaObject.instantiate(fullyQualifiedClassName, argumentsArray);
                 //System.out.println("XXXXXXXXXXX: " + response);
 
                 if (response == null) {

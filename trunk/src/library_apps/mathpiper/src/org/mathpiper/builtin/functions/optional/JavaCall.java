@@ -22,6 +22,7 @@ import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
+import org.mathpiper.builtin.javareflection.Invoke;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
@@ -94,22 +95,33 @@ public class JavaCall extends BuiltinFunction {
 
                         Object argument = argumentCons.car();
 
+                        
                         if (argument instanceof String) {
-                            if (argument instanceof String) {
-                                argument = ((String) argument).substring(1, ((String) argument).length());
-                                argument = ((String) argument).substring(0, ((String) argument).length() - 1);
-                            }
+                            argument = ((String) argument).substring(1, ((String) argument).length());
+                            argument = ((String) argument).substring(0, ((String) argument).length() - 1);
                         }
+
+                        if(argument instanceof JavaObject)
+                        {
+                            argument = ((JavaObject)argument).getObject();
+                        }
+                        
 
                         argumentArrayList.add(argument);
 
                         consTraverser.goNext(aStackTop);
 
                     }//end while.
+                    
+
+                    Object[] argumentsArray = (Object[]) argumentArrayList.toArray(new Object[0]);
 
 
-                    // JavaObject response = builtinContainer.execute(methodName, (String[]) argumentArrayList.toArray(new String[0]));
-                    JavaObject response = builtinContainer.execute(methodName, (Object[]) argumentArrayList.toArray(new Object[0]));
+                    Object o  = Invoke.invokeInstance(builtinContainer.getObject(), methodName, argumentsArray, true);
+
+                    JavaObject response = new JavaObject(o);
+
+                    //JavaObject response = builtinContainer.execute(methodName, (Object[]) argumentArrayList.toArray(new Object[0]));
                     //System.out.println("XXXXXXXXXXX: " + response);
 
                     if (response == null || response.getObject() == null) {
