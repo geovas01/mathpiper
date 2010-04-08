@@ -1,5 +1,7 @@
 
 
-z1 := JavaNew("java.io.StringReader","Z(a,b,x,y) L");
+z1 := Ring("Z(a,b,x,y) L");
 
-z2 := JavaNew("edu.jas.poly.GenPolynomialTokenizer",z1);
+z2 := JavaCall(z1,"gens");
+
+//z2 := JavaNew("edu.jas.poly.GenPolynomialTokenizer",z1);
