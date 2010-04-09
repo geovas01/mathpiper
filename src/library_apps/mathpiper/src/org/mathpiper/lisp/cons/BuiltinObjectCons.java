@@ -72,7 +72,7 @@ public class BuiltinObjectCons extends Cons {
 
     public String toString()
     {
-        return this.iCarBuiltin.getObject().toString();
+        return "JavaObject: " + this.iCarBuiltin.getObject().toString();
     }//end method.
     
 };
