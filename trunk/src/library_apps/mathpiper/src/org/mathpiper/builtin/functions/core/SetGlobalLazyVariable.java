@@ -53,7 +53,7 @@ public class SetGlobalLazyVariable extends BuiltinFunction
 *DESC
 
 {SetGlobalLazyVariable} enforces that a global variable will re-evaluate
-when used. This functionality doesn't survive if {Clear(var)}
+when used. This functionality doesn't survive if {Unbind(var)}
 is called afterwards.
 
 Places where this is used include the global variables {%} and {I}.
@@ -93,6 +93,6 @@ the variable {test} forces the expression to be evaluated:
 	Out> 5
 
 
-*SEE Set, Clear, Local, %, I
+*SEE Set, Unbind, Local, %, I
 %/mathpiper_docs
 */

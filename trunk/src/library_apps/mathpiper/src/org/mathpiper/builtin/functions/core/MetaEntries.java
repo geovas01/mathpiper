@@ -127,6 +127,6 @@ held in an associative list.
 
 
 
-*SEE MetaGet, MetaSet, MetaKeys, Clear
+*SEE MetaGet, MetaSet, MetaKeys, Unbind
 %/mathpiper_docs
  */

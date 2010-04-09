@@ -65,6 +65,6 @@ has more uses, e.g. changing individual entries in a list.
 	In> a;
 	Out> Sin(x)+3;
 
-*SEE Clear, :=
+*SEE Unbind, :=
 %/mathpiper_docs
 */
