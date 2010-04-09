@@ -13,11 +13,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.optional;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
@@ -31,6 +31,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.NumberCons;
+import org.mathpiper.lisp.cons.SublistCons;
 
 /**
  *
@@ -38,8 +39,7 @@ import org.mathpiper.lisp.cons.NumberCons;
  */
 public class JavaCall extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) throws Exception
-    {
+    public void plugIn(Environment aEnvironment) throws Exception {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
                 "JavaCall");
@@ -92,64 +92,57 @@ public class JavaCall extends BuiltinFunction {
 
                     while (consTraverser.getCons() != null) {
                         argumentCons = consTraverser.getPointer().getCons();
-                        
+
                         Object argument = null;
 
-                        if(argumentCons instanceof NumberCons)
-                        {
+                        if (argumentCons instanceof NumberCons) {
                             NumberCons numberCons = (NumberCons) argumentCons;
                             BigNumber bigNumber = (BigNumber) numberCons.getNumber(aEnvironment.getPrecision(), aEnvironment);
 
-                            if(bigNumber.isInteger())
-                            {
+                            if (bigNumber.isInteger()) {
                                 argument = bigNumber.toInt();
-                            }
-                            else
-                            {
+                            } else {
                                 argument = bigNumber.toDouble();
                             }
-                        }
-                        else
-                        {
+                        } else {
                             argument = argumentCons.car();
 
 
                             if (argument instanceof String) {
-                                argument = Utility.stripEndQuotes((String)argument);
+                                argument = Utility.stripEndQuotes((String) argument);
                             }
 
-                            if(argument instanceof JavaObject)
-                            {
-                                argument = ((JavaObject)argument).getObject();
+                            if (argument instanceof JavaObject) {
+                                argument = ((JavaObject) argument).getObject();
                             }
                         }//end if/else.
-                        
+
 
                         argumentArrayList.add(argument);
 
                         consTraverser.goNext(aStackTop);
 
                     }//end while.
-                    
+
 
                     Object[] argumentsArray = (Object[]) argumentArrayList.toArray(new Object[0]);
 
 
-                    Object o  = Invoke.invokeInstance(builtinContainer.getObject(), methodName, argumentsArray, true);
+                    Object object = Invoke.invokeInstance(builtinContainer.getObject(), methodName, argumentsArray, true);
 
-                    JavaObject response = new JavaObject(o);
+                    if (object instanceof List) {
+                        Cons listCons = Utility.iterableToList(aEnvironment, aStackTop, (List) object);
 
-                    //JavaObject response = builtinContainer.execute(methodName, (Object[]) argumentArrayList.toArray(new Object[0]));
-                    //System.out.println("XXXXXXXXXXX: " + response);
+                        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, listCons));
+                    } else {
+                        JavaObject response = new JavaObject(object);
+                        if (response == null || response.getObject() == null) {
+                            Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                            return;
+                        }
+                        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+                    }
 
-                    if (response == null || response.getObject() == null) {
-                        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-                        return;
-                    } /*else if (response.equalsIgnoreCase("")) {
-                    Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-                    return;
-                    }*/
-                    getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
                     return;
 

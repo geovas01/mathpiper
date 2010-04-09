@@ -31,6 +31,7 @@ import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.io.InputDirectories;
 import org.mathpiper.lisp.behaviours.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
@@ -43,6 +44,7 @@ import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.parametermatchers.Pattern;
 import org.mathpiper.lisp.parametermatchers.PatternParameter;
@@ -1404,14 +1406,23 @@ public class Utility {
 
         consPointer.setCons(head);
 
-        Iterator keyIterator = iterable.iterator();
+        Iterator iterator = iterable.iterator();
 
-        while (keyIterator.hasNext()) {
-            String key = (String) keyIterator.next();
+        while (iterator.hasNext()) {
+            Object object = iterator.next();
 
-            Cons stringCons = AtomCons.getInstance(aEnvironment, aStackTop, key);
+            if(object instanceof String)
+            {
+                String key = (String) object;
 
-            consPointer.getCons().cdr().setCons(stringCons);
+                Cons stringCons = AtomCons.getInstance(aEnvironment, aStackTop, key);
+
+                consPointer.getCons().cdr().setCons(stringCons);
+            }
+            else
+            {
+                consPointer.getCons().cdr().setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(object)));
+            }
 
             consPointer.goNext(aStackTop, aEnvironment);
 
