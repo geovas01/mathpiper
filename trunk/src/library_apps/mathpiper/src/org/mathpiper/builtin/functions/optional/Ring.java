@@ -51,7 +51,7 @@ public class Ring extends BuiltinFunction
 
         String configurationString = Utility.stripEndQuotes((String) pathPointer.car());
 
-        org.mathpiper.builtin.library.jas.Ring ring = new org.mathpiper.builtin.library.jas.Ring(configurationString);
+        org.mathpiper.builtin.library.jas.Ring ring = new org.mathpiper.builtin.library.jas.Ring(aEnvironment, configurationString);
 
         JavaObject response = new JavaObject(ring);
 
