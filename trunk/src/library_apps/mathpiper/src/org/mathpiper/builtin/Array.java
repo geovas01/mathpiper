@@ -32,15 +32,6 @@ public class Array extends BuiltinContainer
 	{
 		iArray = new ConsPointerArray(aEnvironment, aSize,aInitialItem);
 	}
-	public String send(ArgumentList aArgList)
-	{
-		return null;
-	}
-
-	public JavaObject execute(String methodName, Object[] arguemnts) throws Exception
-	{
-		return null;
-	}
 
 	public String typeName()
 	{
