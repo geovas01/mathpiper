@@ -94,7 +94,7 @@ MetaValues(value_or_unbound_variable)
 
 *DESC
 
-Returns the metadata values for a value or an unbound variables.  The metadata is
+Returns the metadata values for a value or an unbound variable.  The metadata is
 held in an associative list.
 
 
