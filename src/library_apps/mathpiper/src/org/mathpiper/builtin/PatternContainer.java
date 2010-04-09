@@ -61,15 +61,6 @@ public class PatternContainer extends BuiltinContainer
 	}
 	
 	//From BuiltinContainer
-	public String send(ArgumentList aArgList)
-	{
-		return null;
-	}
-
-	public JavaObject execute(String methodName, Object[] arguemnts) throws Exception
-	{
-		return null;
-	}
 	
 	public String typeName()
 	{

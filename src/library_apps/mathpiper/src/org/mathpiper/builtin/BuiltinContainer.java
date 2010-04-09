@@ -26,12 +26,10 @@ public abstract class BuiltinContainer {
     public BuiltinContainer() {
     }
 
-    public abstract String send(ArgumentList aArgList);
-
     public abstract String typeName();
 
     public abstract Object getObject();
 
-    public abstract JavaObject execute(String methodName, Object[] arguments) throws Exception;
+
 }
 
