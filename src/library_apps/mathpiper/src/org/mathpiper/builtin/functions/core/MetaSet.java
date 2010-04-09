@@ -239,6 +239,6 @@ In> MetaGet(f(x),"TAG")
 Result: DATA
 
 
-*SEE MetaGet, MetaKeys, MetaValues, Clear
+*SEE MetaGet, MetaKeys, MetaValues, Unbind
 %/mathpiper_docs
  */
