@@ -18,6 +18,7 @@
 package org.mathpiper.builtin.functions.optional;
 
 import java.util.ArrayList;
+import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
@@ -28,6 +29,7 @@ import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.ConsTraverser;
+import org.mathpiper.lisp.cons.NumberCons;
 
 /**
  *
@@ -58,8 +60,7 @@ public class JavaNew extends BuiltinFunction {
 
                 String fullyQualifiedClassName = (String) argumentCons.car();
                 //Strip leading and trailing quotes.
-                fullyQualifiedClassName = fullyQualifiedClassName.substring(1, fullyQualifiedClassName.length());
-                fullyQualifiedClassName = fullyQualifiedClassName.substring(0, fullyQualifiedClassName.length() - 1);
+                fullyQualifiedClassName = Utility.stripEndQuotes(fullyQualifiedClassName);
 
                 consTraverser.goNext(aStackTop);
 
@@ -67,18 +68,37 @@ public class JavaNew extends BuiltinFunction {
 
                 while (consTraverser.getCons() != null) {
                     argumentCons = consTraverser.getPointer().getCons();
-                    Object argument = argumentCons.car();
 
-                    if (argument instanceof String) {
-                        argument = ((String) argument).substring(1, ((String) argument).length());
-                        argument = ((String) argument).substring(0, ((String) argument).length() - 1);
-                    }
+                    Object argument = null;
 
-
-                    if(argument instanceof JavaObject)
+                    if(argumentCons instanceof NumberCons)
                     {
-                        argument = ((JavaObject)argument).getObject();
+                        NumberCons numberCons = (NumberCons) argumentCons;
+                        BigNumber bigNumber = (BigNumber) numberCons.getNumber(aEnvironment.getPrecision(), aEnvironment);
+
+                        if(bigNumber.isInteger())
+                        {
+                            argument = bigNumber.toInt();
+                        }
+                        else
+                        {
+                            argument = bigNumber.toDouble();
+                        }
                     }
+                    else
+                    {
+                        argument = argumentCons.car();
+
+
+                        if (argument instanceof String) {
+                            argument = Utility.stripEndQuotes((String)argument);
+                        }
+
+                        if(argument instanceof JavaObject)
+                        {
+                            argument = ((JavaObject)argument).getObject();
+                        }
+                    }//end if/else.
 
                     argumentArrayList.add(argument);
 
