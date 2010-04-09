@@ -68,4 +68,11 @@ public class BuiltinObjectCons extends Cons {
     public int type() {
         return Utility.OBJECT;
     }//end method.
+
+
+    public String toString()
+    {
+        return this.iCarBuiltin.getObject().toString();
+    }//end method.
+    
 };
