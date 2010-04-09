@@ -18,6 +18,7 @@
 package org.mathpiper.builtin.functions.optional;
 
 import java.util.ArrayList;
+import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -29,6 +30,7 @@ import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.ConsTraverser;
+import org.mathpiper.lisp.cons.NumberCons;
 
 /**
  *
@@ -67,8 +69,7 @@ public class JavaCall extends BuiltinFunction {
                 if (argumentCons.car() instanceof String) {
                     String firstArgumentString = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
-                    firstArgumentString = firstArgumentString.substring(1, firstArgumentString.length());
-                    firstArgumentString = firstArgumentString.substring(0, firstArgumentString.length() - 1);
+                    firstArgumentString = Utility.stripEndQuotes(firstArgumentString);
                     Object clas = Class.forName(firstArgumentString);
                     builtinContainer = new JavaObject(clas);
                 } else if (argumentCons.car() instanceof BuiltinContainer) {
@@ -83,8 +84,7 @@ public class JavaCall extends BuiltinFunction {
                     argumentCons = consTraverser.getPointer().getCons();
                     String methodName = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
-                    methodName = methodName.substring(1, methodName.length());
-                    methodName = methodName.substring(0, methodName.length() - 1);
+                    methodName = Utility.stripEndQuotes(methodName);
 
                     consTraverser.goNext(aStackTop);
 
@@ -92,19 +92,37 @@ public class JavaCall extends BuiltinFunction {
 
                     while (consTraverser.getCons() != null) {
                         argumentCons = consTraverser.getPointer().getCons();
-
-                        Object argument = argumentCons.car();
-
                         
-                        if (argument instanceof String) {
-                            argument = ((String) argument).substring(1, ((String) argument).length());
-                            argument = ((String) argument).substring(0, ((String) argument).length() - 1);
-                        }
+                        Object argument = null;
 
-                        if(argument instanceof JavaObject)
+                        if(argumentCons instanceof NumberCons)
                         {
-                            argument = ((JavaObject)argument).getObject();
+                            NumberCons numberCons = (NumberCons) argumentCons;
+                            BigNumber bigNumber = (BigNumber) numberCons.getNumber(aEnvironment.getPrecision(), aEnvironment);
+
+                            if(bigNumber.isInteger())
+                            {
+                                argument = bigNumber.toInt();
+                            }
+                            else
+                            {
+                                argument = bigNumber.toDouble();
+                            }
                         }
+                        else
+                        {
+                            argument = argumentCons.car();
+
+
+                            if (argument instanceof String) {
+                                argument = Utility.stripEndQuotes((String)argument);
+                            }
+
+                            if(argument instanceof JavaObject)
+                            {
+                                argument = ((JavaObject)argument).getObject();
+                            }
+                        }//end if/else.
                         
 
                         argumentArrayList.add(argument);
