@@ -1,0 +1,85 @@
+%mathpiper,title=""
+ring := Ring("Z(a,b,x,y) L"); 
+
+gens := JavaCall(z1,"gens");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {edu.jas.poly.GenPolynomial,edu.jas.poly.GenPolynomial,edu.jas.poly.GenPolynomial,edu.jas.poly.GenPolynomial,edu.jas.poly.GenPolynomial}
+.   %/output
+
+
+
+%mathpiper,title=""
+
+ForEach(var,gens)
+[
+
+    variableName := JavaValue(JavaCall(var,"toString"));
+    
+    Echo(variableName);
+    
+    If(Not IsNumber(variableName), MacroBind(variableName,MetaSet(variableName,"jas",variable)) );
+    
+    
+    
+];
+
+f := 5*a*x + 5*b*x - 2*b*y - 2*a*y;
+
+g := a-2;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: a-2
+      
+      Side Effects:
+      1 
+      a 
+      b 
+      x 
+      y 
+      
+.   %/output
+
+
+
+
+
+%mathpiper,title=""
+
+JasAdd(x,y) := 
+[
+
+    Echo(x,y);
+
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper,title=""
+
+JasAdd(g[1],g[2]);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      a 2 
+      
+.   %/output
+
+
