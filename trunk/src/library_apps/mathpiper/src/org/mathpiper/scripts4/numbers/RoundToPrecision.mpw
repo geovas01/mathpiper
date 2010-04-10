@@ -5,13 +5,15 @@ Retract("RoundToPrecision",*);
 10 # RoundToPrecision( N_IsDecimal, newPrec_IsPositiveInteger ) <--
 [
     //If(InVerboseMode(),Tell("RoundToPrecision_D",{N,newPrec}));
-    Local(rep,sgn,oldInt,oldPrec,oldScale,strOInt,LS);
+    Local(rep,sgn,oldInt,oldPrec,oldScale,strOInt,LS,BIP0);
     Local(newInt,newScale,newRep,ans);
+    BIP0     := BuiltinPrecisionGet();
     sgn      := Sign(N);
     rep      := NumberToRep( Abs(N) );
     oldInt   := rep[1];
     oldPrec  := rep[2];
     oldScale := rep[3];
+    If( newPrec > oldPrec, BuiltinPrecisionSet(newPrec) );
     strOInt  := ExpressionToString(oldInt);
     LS       := Length(strOInt);
     //If(InVerboseMode(),
@@ -57,6 +59,7 @@ Retract("RoundToPrecision",*);
             //If(InVerboseMode(),[Tell("         ",diffPrec);Tell("         ",newRep);]);
             ans      := RepToNumber(newRep);
         ];
+    BuiltinPrecisionSet(BIP0);
     ans;
 ];
 
@@ -91,6 +94,10 @@ Retract("RoundToPrecision",*);
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
    
 
