@@ -57,3 +57,7 @@ Verify(Factor(x^2-2),x^2-2);
 //Issue 44
 //Verify(Solve(pmt == loan * (rate * (1+rate)^n) / ((1+rate)^n -1), rate), );
 
+
+//Issue 50
+//Verify(Factor(5*a*x+5*b*x-2*b*y-2*a*y),(5*x-2*y)*(a+b));
+
