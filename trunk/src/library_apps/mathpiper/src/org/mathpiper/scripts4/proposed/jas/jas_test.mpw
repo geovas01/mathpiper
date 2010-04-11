@@ -1,7 +1,7 @@
 %mathpiper,title=""
 ring := Ring("Z(a,b,x,y) L"); 
 
-gens := JavaCall(z1,"gens");
+gens := JavaCall(ring,"gens");
 
 %/mathpiper
 
