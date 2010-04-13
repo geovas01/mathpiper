@@ -13,16 +13,14 @@ gens := JavaCall(ring,"gens");
 
 %mathpiper,title=""
 
-ForEach(var,gens)
+ForEach(variable,gens)
 [
 
-    variableName := JavaValue(JavaCall(var,"toString"));
+    variableName := JavaValue(JavaCall(variable,"toString"));
     
     Echo(variableName);
     
     If(Not IsNumber(variableName), MacroBind(variableName,MetaSet(variableName,"jas",variable)) );
-    
-    
     
 ];
 
@@ -48,13 +46,12 @@ g := a-2;
 
 
 
+
 %mathpiper,title=""
 
-JasAdd(x,y) := 
+IsJas(atom) :=
 [
-
-    Echo(x,y);
-
+    If(MetaGet(atom,"jas") != Empty, True, False);
 
 ];
 
@@ -68,9 +65,56 @@ JasAdd(x,y) :=
 
 
 
+
 %mathpiper,title=""
 
-JasAdd(g[1],g[2]);
+200 # a_IsInteger * b_IsJas <-- Echo("H");
+
+201 # _a * b_IsJas <-- Echo("I");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper,title=""
+
+x := (xx/yy)/zz;
+
+x:=(
+  x/::Hold({
+      (_a/_b)/_c <- (a)/(b*c),
+      (-(_a/_b))/_c <- (-a)/(b*c),
+      (_a/_b)*_c <- (a*c)/b,
+      (_a*_b)^_m <- a^m*b^m,
+      (_a/_b)^_m*_c <- (a^m*c)/b^m,
+      _a*(_b+_c) <- a*b+a*c,
+      (_b+_c)*_a <- a*b+a*c,
+      (_b+_c)/_a <- b/a+c/a,
+      _a*(_b-_c) <- a*b-a*c,
+      (_b-_c)*_a <- a*b-a*c,
+      (_b-_c)/_a <- b/a-c/a
+ }));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: xx/(yy*zz)
+.   %/output
+
+
+
+
+
+
+%mathpiper,title=""
+
+5*a*x;
 
 %/mathpiper
 
@@ -78,7 +122,8 @@ JasAdd(g[1],g[2]);
       Result: True
       
       Side Effects:
-      a 2 
+      H
+      I
       
 .   %/output
 
