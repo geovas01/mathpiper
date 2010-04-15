@@ -61,6 +61,7 @@
 		<pathelement path="${plugins.jars.dir}/threedxplormathj_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/jrst_all_0.8.6.jar" />
 		<pathelement path="${plugins.jars.dir}/jrst_plugin.jar" />
+		<pathelement path="${non_plugin.jars.dir}/jas.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />  
 		-->
