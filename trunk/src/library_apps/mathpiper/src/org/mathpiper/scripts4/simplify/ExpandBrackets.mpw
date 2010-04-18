@@ -1,9 +1,28 @@
 %mathpiper,def="ExpandBrackets"
 
+Retract("ExpandBrackets",*);
+
+ExpandBrackets(_xx) <-- 
+[
+    If( IsRationalFunction(xx),
+       [
+           Local(N,D);
+           N := Add(ReassembleListTerms(DisassembleExpression(Numerator(xx))));
+           D := Add(ReassembleListTerms(DisassembleExpression(Denominator(xx))));
+           (N/D);
+       ],
+       [
+           Add(ReassembleListTerms(DisassembleExpression(xx)));
+       ]           
+    );
+];
+
 //ExpandBrackets(_xx) <-- SimpExpand(SimpImplode(SimpFlatten(xx)));
-ExpandBrackets(x) := NormalForm(MM(x));
+//ExpandBrackets(x) := NormalForm(MM(x));
 
 %/mathpiper
+
+    
 
 
 
