@@ -61,3 +61,13 @@ Verify(Factor(x^2-2),x^2-2);
 //Issue 50
 //Verify(Factor(5*a*x+5*b*x-2*b*y-2*a*y),(5*x-2*y)*(a+b));
 
+//Issue 54
+Verify(ExpandBrackets((x-y)*(a+b)),x*a-y*a+x*b-y*b);
+
+//Issue 55
+Verify(Factor(s^2 - r^2),(s-r)*(r+s));
+
+
+
+
+
