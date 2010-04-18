@@ -32,7 +32,7 @@ Retract("IsPowerOf2",*);
 10 # xFactorsBinomial( poly_IsPolynomial )_(Length(VarList(poly))=2)  <-- 
 [
     If(InVerboseMode(),Tell(xFactorsBinomial,poly));
-    Local(dis,n,X,Y,vars,A,B,Ar,Br);
+    Local(dis,n,X,Y,vars,A,B,s,Ar,Br);
     dis := DisassembleExpression(poly);
     If(InVerboseMode(),Tell("   ",dis));
     n     := Maximum(dis[2])[1];
