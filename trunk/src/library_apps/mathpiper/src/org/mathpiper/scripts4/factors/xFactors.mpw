@@ -60,7 +60,7 @@ Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
     If(InVerboseMode(),Tell("xFactors_can_be_uni_100122",poly));
     Local(content,pp,ppFactors,monomialFactors,result);
     Local(vars,nvars,disassem,degrees,mpoly,nterms,allCoeffs,allPowers);
-    Local(hasRealCoefficients,hasRationalCoefficients);
+    Local(hasRealCoefficients,hasRationalCoefficients,isHomogeneous);
 
     //  First, check to see if the polynomial has any REAL coefficients.
     //  If so, convert to approximate integers (with divisor).
@@ -153,6 +153,7 @@ Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
 10 # xFactorsPrimitivePart( _pp )_(nterms=2) <--
 [
     If(InVerboseMode(),Tell("Binomial"));
+    Local(ppFactors);
     ppFactors := xFactorsBinomial(pp);
 ];
 UnFence("xFactorsPrimitivePart",1);
@@ -162,6 +163,7 @@ UnFence("xFactorsPrimitivePart",1);
 12 # xFactorsPrimitivePart( _pp )_(isHomogeneous And nvars=2) <--
 [
     If(InVerboseMode(),Tell("Homogeneous and Bivariate"));
+    Local(ppFactors);
     ppFactors := xFactorsHomogeneousBivariate(disassem);
 ];
 UnFence("xFactorsPrimitivePart",1);
@@ -170,6 +172,7 @@ UnFence("xFactorsPrimitivePart",1);
      //  special case:  no variables in pp!
 14 # xFactorsPrimitivePart( _pp )_(nvars=0) <--
 [
+    Local(ppFactors);
     ppfactors := {};
 ];
 
@@ -268,7 +271,7 @@ UnFence("xFactorsMultivariate",1);
 10 # xFactorsHomogeneousBivariate( dis_IsList ) <-- 
 [
     If(InVerboseMode(),[NewLine();Tell("xFactorsHomogeneousBivariate",dis);]);
-    Local(dis1,f,lst,dis2,poly1,ppFactors,residuals);
+    Local(dis1,f,lst,dis2,poly1,ppFactors,residuals,preassem);
     dis1  := {{xi},{{X},{X[1]}} /@ dis[2],dis[3]};
     If(InVerboseMode(),Tell("   ",dis1));
     poly1 := Sum(ReassembleListTerms(dis1));
