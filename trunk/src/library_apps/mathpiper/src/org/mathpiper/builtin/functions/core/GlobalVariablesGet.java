@@ -60,19 +60,19 @@ public class GlobalVariablesGet extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="GlobalVariablesSet",categories="User Functions;Visualization"
-*CMD GlobalVariablesSet --- return a list which contains the names of all the global variables
+%mathpiper_docs,name="GlobalVariablesGet",categories="User Functions;Visualization"
+*CMD GlobalVariablesGet --- return a list which contains the names of all the global variables
 
 *CALL
-GlobalVariablesSet()
+GlobalVariablesGet()
 
 
 *DESC
-return a list which contains the names of all the global variables.
+Return a list which contains the names of all the global variables.
 
 *E.G.
 In> GlobalVariablesGet()
-Result> {$CacheOfConstantsN1,%,LoadResult,I,$numericMode2}
+Result> {\$CacheOfConstantsN1,%,LoadResult,I,\$numericMode2}
 
 %/mathpiper_docs
  */
