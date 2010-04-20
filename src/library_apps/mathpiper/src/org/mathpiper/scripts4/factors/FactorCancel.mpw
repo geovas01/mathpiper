@@ -4,30 +4,43 @@ Retract("FactorCancel",*);
 
 10 # FactorCancel( p_IsRationalFunction ) <--
 [
-    Local(n,d,fn,fd,tnu,newn,newd,s);
-    n  := Numerator(p);
-    d  := Denominator(p);
-    fn := Factors(n);
-    fd := Factors(d);
-    ForEach(f,fd) [ DestructiveAppend(fn,{f[1],-f[2]}); ];
-    tnu := RemoveDuplicates(Transpose(fn)[1]);
-    newn := {};
-    newd := {};
-    ForEach(f,tnu)
-    [
-       s := Select(fn,Lambda({X},X[1]=f));
-       k := Sum(Transpose(s)[2]);
-       If( k > 0, DestructiveAppend(newn,{f,k}) );
-       If( k < 0, DestructiveAppend(newd,{f,-k}) );
-    ];
-    FW(newn)/FW(newd);
+    //Tell(FactorCancel,p);
+    Local(pp,n,d,fn,fd,f,tnu,newn,newd,s,k);
+    pp := Simplify(p);
+    //Tell("   ",pp);
+    If ( IsRationalFunction(pp),
+       [
+           n  := Numerator(pp);
+           d  := Denominator(pp);
+           fn := Factors(n);
+           fd := Factors(d);
+    
+           ForEach(f,fd) [ DestructiveAppend(fn,{f[1],-f[2]}); ];
+           tnu := RemoveDuplicates(Transpose(fn)[1]);
+           newn := {};
+           newd := {};
+           ForEach(f,tnu)
+           [
+              s := Select(fn,Lambda({X},X[1]=f));
+              k := Sum(Transpose(s)[2]);
+              If( k > 0, DestructiveAppend(newn,{f,k}) );
+              If( k < 0, DestructiveAppend(newd,{f,-k}) );
+           ];
+           FW(newn)/FW(newd);
+       ],
+       [
+           pp;
+       ]
+    );
 ];
 
 15 # FactorCancel( _p ) <-- p;
 
 %/mathpiper
 
-
+   
+   
+.  
 
 
 
