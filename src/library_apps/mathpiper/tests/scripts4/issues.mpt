@@ -47,12 +47,12 @@ TestMathPiper(Factor(x^5+4*x^4-22*x^2+59*x-30),x^5+4*x^4-22*x^2+59*x-30);
 Verify(Factor(x^2-2),x^2-2);
 
 //Issue 41
-//Verify(FactorCancel((1-x)/(x-1)),-1);
+Verify(FactorCancel((1-x)/(x-1)),-1);
 
 //Issue 43
-//Verify(FactorCancel((x^2)/(x)), x);
-//Verify(FactorCancel((x^2+1)/(x+1)),(x^2+1)/(x+1));
-//Verify(FactorCancel((x+3)/(x^2+2)),(x+3)/(x^2+2));
+Verify(FactorCancel((x^2)/(x)), x);
+Verify(FactorCancel((x^2+1)/(x+1)),(x^2+1)/(x+1));
+Verify(FactorCancel((x+3)/(x^2+2)),(x+3)/(x^2+2));
 
 //Issue 44
 //Verify(Solve(pmt == loan * (rate * (1+rate)^n) / ((1+rate)^n -1), rate), );
