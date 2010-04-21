@@ -165,6 +165,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         haltButton.addActionListener(this);
         consoleButtons.add(haltButton);
 
+/*
         numericModeButton = new JRadioButton("Numeric Mode");
         numericModeButton.addItemListener(this);
         symbolicModeButton = new JRadioButton("Symbolic Mode");
@@ -182,6 +183,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         resultModeGroup.add(symbolicModeButton);
         consoleButtons.add(numericModeButton);
         consoleButtons.add(symbolicModeButton);
+*/
 
         button2 = new JButton("Font-");
         button2.addActionListener(this);
@@ -521,8 +523,9 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         }
     }//end method.
 
-    public void response(EvaluationResponse response) {
-
+    public void response(EvaluationResponse response) 
+    {
+/*
         if(this.numericResultMode)
         {
             try{
@@ -543,7 +546,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
                 e.printStackTrace();
             }
         }//end if.
-
+*/
 
 
 
