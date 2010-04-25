@@ -422,3 +422,37 @@ r^2;
     %output,preserve="false"
       Result: 0.6122253891
 .   %/output
+
+
+
+
+
+%mathpiper,title="Problem 3: GMAT and GPA"
+
+gpaList := {3.7,3.0,3.2,4.0,3.5};
+
+gmatList := {660,580,450,710,550};
+
+regressionLine := RegressionLine(gmatList, gpaList);
+
+Echo(regressionLine);
+
+f(x) := [Eval(regressionLine["line"]);];
+
+NewLine();
+
+Echo("Predicted GPA for a GMAT of 600: ", f(600));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      {{"count",5},{"slope",0.002980295567},{"yIntercept",1.721625615},{"line",0.002980295567*x+1.721625615},{"yMean",3.48},{"xMean",590}} 
+      
+      Predicted GPA for a GMAT of 600: 3.509802955 
+      
+.   %/output
+
+

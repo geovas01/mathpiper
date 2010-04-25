@@ -3,7 +3,7 @@
 
 1) A new weight gain program claims that participants will gain more than 17 poiunds after 
 completion of the program.  The following data represents the before and after weights of 
-nine individuals who completed the program.  Test the claim at the .1 level.
+nine individuals who completed the program.  Test the claim at an alpha of .1.
 
 
 
@@ -34,7 +34,7 @@ Echo("n 1: ", n);
 Echo("Mean: ", mean);
 Echo("Standard deviation: ", standardDeviation);
 
-criticalTScore := OneTailAlphaToTScore(degreesOfFreedom, alpha);
+criticalTScore := OneTailAlphaToTScore(degreesOfFreedom, .1);
 
 Echo("t-score: ", tScore);
 
@@ -154,7 +154,10 @@ If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."),
 
 %group,title="Problem 3."
 
-3) A consumer group is testing the stopping distance from 60 mph of three different models of cars.  Several cars of each model were tested under controlled conditions and their stopping distances in feet were recorded as follows:
+3) A consumer group is testing the stopping distance from 60 mph 
+of three different models of cars.  Several cars of each model were 
+tested under controlled conditions and their stopping distances in 
+feet were recorded as follows:
 
       Car1: 211 191 186 172 180 198
 
