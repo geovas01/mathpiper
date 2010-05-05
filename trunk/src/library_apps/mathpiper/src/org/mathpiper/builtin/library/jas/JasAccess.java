@@ -112,7 +112,7 @@ public class JasAccess {
 
 
 
-    public void terminateJas()
+    public void terminate()
     {
         ComputerThreads.terminate();
     }
@@ -134,7 +134,7 @@ public class JasAccess {
 
         Set resultSet = jas.factorPolyInt("x**2-9", "x");
 
-        jas.terminateJas();
+        jas.terminate();
 
     }//end main.
     
