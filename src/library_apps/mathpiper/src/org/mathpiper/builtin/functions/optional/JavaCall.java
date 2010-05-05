@@ -26,6 +26,7 @@ import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.builtin.javareflection.Invoke;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -104,17 +105,31 @@ public class JavaCall extends BuiltinFunction {
                             } else {
                                 argument = bigNumber.toDouble();
                             }
+                        } else if (argumentCons instanceof AtomCons) {
+                            String string = (String) ((AtomCons) argumentCons).car();
+                            if (string != null) {
+
+                                if (Utility.isString(string)) { //MathPiper string.
+                                    argument = Utility.stripEndQuotes((String) string);
+                                } else { //Atom.
+                                    if (string.equals("True")) {
+                                        argument = Boolean.TRUE;
+                                    }//end if.
+
+                                    if (string.equals("False")) {
+                                        argument = Boolean.FALSE;
+                                    }//end if.
+                                }//end if/else.
+
+                            }//end if.
                         } else {
                             argument = argumentCons.car();
 
 
-                            if (argument instanceof String) {
-                                argument = Utility.stripEndQuotes((String) argument);
-                            }
-
                             if (argument instanceof JavaObject) {
                                 argument = ((JavaObject) argument).getObject();
                             }
+
                         }//end if/else.
 
 
