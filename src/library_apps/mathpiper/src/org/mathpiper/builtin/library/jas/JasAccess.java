@@ -27,8 +27,20 @@ public class JasAccess {
 
     private boolean debug = false;
 
+    private BigInteger bi;
+
+    private Factorization<BigInteger> fEngineBI;
+
     public JasAccess() {
+        // define the "nominal" BigInteger as type prototype
+        bi = new BigInteger(1);
+
+        // create a factorization engine suitable for BigInteger coefficient type
+        fEngineBI = FactorFactory.getImplementation(bi);
+        
     }//end constructor.
+
+    
 
     public Set factorPolyInt(String poly, String vars) {
         if (debug) {
@@ -54,11 +66,7 @@ public class JasAccess {
             System.out.println(" term-order = " + to);
         }
 
-        // define the "nominal" BigInteger as type prototype
-        BigInteger bi = new BigInteger(1);
 
-        // create a factorization engine suitable for BigInteger coefficient type
-        Factorization<BigInteger> fEngineBI = FactorFactory.getImplementation(bi);
         Factorization fEngine = fEngineBI;
         if (debug) {
             System.out.println("\nFactorization:  fEngineBI = " + fEngineBI);
