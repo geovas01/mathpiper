@@ -50,6 +50,10 @@ public class Import extends BuiltinFunction
 
         String path = Utility.stripEndQuotes((String) pathPointer.car());
 
+        /*org.mathpiper.builtin.javareflection.Import.addImport(path);
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));*/
+
+
         List failList = BuiltinFunction.addOptionalFunctions(aEnvironment, path);
 
         if(failList.isEmpty())

@@ -44,9 +44,29 @@ public class JavaValue extends BuiltinFunction {
 
         if(argument instanceof JavaObject)
         {
+            String atomValue = "";
+
             JavaObject javaObject = (JavaObject) argument;
 
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, javaObject.getObject().toString().trim()));
+            Object object = javaObject.getObject();
+
+            if(object instanceof java.lang.Boolean)
+            {
+                if (((Boolean)object).booleanValue() == true)
+                {
+                    atomValue = "True";
+                }
+                else
+                {
+                    atomValue = "False";
+                }
+            }
+            else
+            {
+                atomValue = (String) javaObject.getObject().toString().trim();
+            }
+            
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, atomValue));
         }
         else
         {
