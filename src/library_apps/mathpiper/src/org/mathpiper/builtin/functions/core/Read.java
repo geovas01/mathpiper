@@ -58,11 +58,11 @@ the end of an input file is encountered, the token atom {EndOfFile} is returned.
 
 *E.G.
 
-	In> FromString("2+5;") Read();
+	In> PipeFromString("2+5;") Read();
 	Out> 2+5;
-	In> FromString("") Read();
+	In> PipeFromString("") Read();
 	Out> EndOfFile;
 
-*SEE PipeFromFile, FromString, LispRead, ReadToken, Write
+*SEE PipeFromFile, LispRead, ReadToken, Write
 %/mathpiper_docs
 */
