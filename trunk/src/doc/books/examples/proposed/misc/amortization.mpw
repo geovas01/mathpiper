@@ -1,10 +1,10 @@
 %mathpiper
 
-loanAmount := 500;
+loanAmount := 750;
 
-annualInterestRate := .08;
+annualInterestRate := .10;
 
-numberOfMonths := 12;
+numberOfMonths := 6;
 
 //-----------------------------------------------
 
@@ -28,7 +28,7 @@ balanceList := {balance};
 
 NewLine();
 
-Echo("# ","Principal ", "Interest ", "Balance");
+//Echo("# ","Principal ", "Interest ", "Balance");
 
 For(i := 1, i <= numberOfMonths, i++)
 [
@@ -49,7 +49,7 @@ For(i := 1, i <= numberOfMonths, i++)
 ];
 
 
-DisplayHtml();
+ViewHtml(DisplayHtml());
 
 %/mathpiper
 
@@ -87,9 +87,14 @@ DisplayHtml() :=
         
         <B> Annual Interest Rate: </B> <?Write(annualInterestRate);?> <br> <br>
         
-        <B> Monthly Interest Rate: </B> <?Write(monthlyInterestRate);?> <br> <br>
+        <B> Monthly Interest Rate: </B> <?Write(RoundToPlace(monthlyInterestRate,4));?> <br> <br>
+        
+        <B> Monthly Payment: </B> <?Write(RoundToPlace(monthlyPayment,2));?> <br> <br>
         
         <B> Number Of Months: </B> <?Write(numberOfMonths);?> <br> <br>
+        
+        <B> Total Interest Paid: </B> <?Write(RoundToPlace(Sum(interestList),2));?> <br> <br>
+
 ";
 
     topOfPage := PatchString(topOfPage);
@@ -137,10 +142,9 @@ DisplayHtml() :=
                 bottomOfSummary : 
                 bottomOfPage);
    
-   ViewHtml(htmlJavaString);
+   htmlJavaString;
 ];
 
-DisplayHtml();
 %/mathpiper
 
     %output,preserve="false"
