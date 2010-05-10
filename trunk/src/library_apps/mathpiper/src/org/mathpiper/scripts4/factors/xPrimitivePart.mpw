@@ -33,7 +33,7 @@ Macro("xPrimitivePart",{poly,xcont})
  
 
 
-%mathpiper_docs,name="xPrimitivePart",categories="User Functions;Factors"
+%mathpiper_docs,name="xPrimitivePart",categories="User Functions;Number Theory"
 *CMD xPrimitivePart --- primitive part of a polynomial
 *STD
 *CALL
