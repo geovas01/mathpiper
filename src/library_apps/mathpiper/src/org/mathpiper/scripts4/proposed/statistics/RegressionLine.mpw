@@ -1,4 +1,4 @@
-%mathpiper,def="RegressionLine",scope="private"
+%mathpiper,def="RegressionLine"
 
 RegressionLine(x,y) :=
 [   
@@ -47,7 +47,7 @@ RegressionLine(x,y) :=
 
 
 
-%mathpiper_docs,name="RegressionLine",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="RegressionLine",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD RegressionLine --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,def="ListToString",scope="private"
+%mathpiper,def="ListToString"
 
 
 Retract("ListToString", *);
@@ -31,7 +31,7 @@ Retract("ListToString", *);
 
 
 
-%mathpiper_docs,name="ListToString",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="ListToString",categories="User Functions;Lists (Operations)",access="experimental"
 *CMD ListToString --- converts a list into a string
 *STD
 *CALL

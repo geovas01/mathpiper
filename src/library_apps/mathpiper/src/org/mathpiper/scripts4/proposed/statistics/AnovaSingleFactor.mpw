@@ -1,4 +1,4 @@
-%mathpiper,def="AnovaSingleFactor",scope="private"
+%mathpiper,def="AnovaSingleFactor"
 
 Retract("AnovaSingleFactor",*);
 
@@ -204,7 +204,7 @@ AnovaSingleFactor(levelsList, alpha) :=
 
 
 
-%mathpiper_docs,name="AnovaSingleFactor",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="AnovaSingleFactor",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD AnovaSingleFactor --- performs an ANOVA single factor analysis
 
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,def="Repeat",scope="private"
+%mathpiper,def="Repeat"
 
 
 
@@ -76,7 +76,7 @@ HoldArgumentNumber("Repeat",1,1);
 
 
 
-%mathpiper_docs,name="Repeat",categories="User Functions;Control Flow"
+%mathpiper_docs,name="Repeat",categories="User Functions;Control Flow",access="experimental"
 *CMD Repeat --- loop a specified number of times or loop indefinitely
 *STD
 *CALL

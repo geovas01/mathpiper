@@ -1,4 +1,4 @@
-%mathpiper,title="xCheckSolution",scope="private"
+%mathpiper,title="xCheckSolution"
 
 Retract("xCheckSolution",*);
 Retract("CloseEnough",*);
@@ -62,7 +62,7 @@ Retract("CloseEnough",*);
 
 
 
-%mathpiper_docs,name="xCheckSolution",categories="User Functions;Solvers (Symbolic)"
+%mathpiper_docs,name="xCheckSolution",categories="User Functions;Solvers (Symbolic)",access="experimental"
 
 *CMD xCheckSolution --- Check the validity of solutions returned by the {xSolve} function.
 *STD

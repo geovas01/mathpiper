@@ -1,4 +1,4 @@
-%mathpiper,def="BenchCall",scope="private"
+%mathpiper,def="BenchCall"
 
 Function("BenchCall",{expr})
 [

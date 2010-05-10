@@ -1,4 +1,4 @@
-%mathpiper,def="Range",scope="private"
+%mathpiper,def="Range"
 
 Range(list) :=
 [
@@ -15,7 +15,7 @@ Range(list) :=
 
 
 
-%mathpiper_docs,name="Range",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="Range",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD Range --- calculates the Range of a list of values
 *STD
 *CALL

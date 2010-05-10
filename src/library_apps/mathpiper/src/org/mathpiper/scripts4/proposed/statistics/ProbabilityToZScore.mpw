@@ -1,4 +1,4 @@
-%mathpiper,def="ProbabilityToZScore",scope="private"
+%mathpiper,def="ProbabilityToZScore"
 
 /* 
     This function was adapted from the Javascript version of function
@@ -70,7 +70,7 @@ ProbabilityToZScore(probability) :=
 
 
 
-%mathpiper_docs,name="ProbabilityToZScore",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="ProbabilityToZScore",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD ProbabilityToZScore --- calculates the z-score for a given probability
 *STD
 *CALL

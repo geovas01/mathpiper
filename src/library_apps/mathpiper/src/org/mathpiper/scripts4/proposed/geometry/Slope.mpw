@@ -1,4 +1,4 @@
-%mathpiper,def="Slope",scope="private"
+%mathpiper,def="Slope"
 
 10 # Slope(PointA_IsPoint,PointB_IsPoint) <--
 [
@@ -32,7 +32,7 @@
 
 
 
-%mathpiper_docs,name="Slope"
+%mathpiper_docs,name="Slope",categories="User Functions;Analytic Geometry",access="experimental",access="experimental"
 *CMD Slope --- returns the slope of a line which is represented by two points
 *STD
 *CALL

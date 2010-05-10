@@ -1,4 +1,4 @@
-%mathpiper,def="SimpFlatten",scope="private"
+%mathpiper,def="SimpFlatten"
 
 10 # SimpFlatten((_x)+(_y)) <-- SimpAdd(SimpFlatten(x),SimpFlatten(y));
 10 # SimpFlatten((_x)-(_y)) <-- SimpAdd(SimpFlatten(x),SimpMul(-1,SimpFlatten(y)));

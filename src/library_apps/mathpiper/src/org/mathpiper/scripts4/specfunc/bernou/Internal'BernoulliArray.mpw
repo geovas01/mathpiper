@@ -1,4 +1,4 @@
-%mathpiper,def="Internal'BernoulliArray",scope="private"
+%mathpiper,def="Internal'BernoulliArray"
 
 /// Simple implementation of the recurrence relation: create an array of Bernoulli numbers
 // special cases: n=0 or n=1

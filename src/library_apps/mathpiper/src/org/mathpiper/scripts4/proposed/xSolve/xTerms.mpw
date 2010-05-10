@@ -1,4 +1,4 @@
-%mathpiper,title="xTerms",scope="private"
+%mathpiper,title="xTerms"
 
 Retract("xTerms",*);
 Retract("xTerms2",*);

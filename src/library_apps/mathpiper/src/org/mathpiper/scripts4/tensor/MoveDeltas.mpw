@@ -1,4 +1,4 @@
-%mathpiper,def="MoveDeltas",scope="private"
+%mathpiper,def="MoveDeltas"
 
 /* Tensor package. This code intends to simplify tensorial expressions.
  */

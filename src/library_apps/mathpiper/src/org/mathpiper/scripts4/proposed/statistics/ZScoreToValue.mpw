@@ -1,4 +1,4 @@
-%mathpiper,def="ZScoreToValue",scope="private"
+%mathpiper,def="ZScoreToValue"
 
 Retract("ZScoreToValue",*);
 
@@ -18,7 +18,7 @@ ZScoreToValue(zScore) :=
 
 
 
-%mathpiper_docs,name="ZScoreToValue",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="ZScoreToValue",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD ZScoreToValue --- calculates the numerical value for a given z-score
 *STD
 *CALL

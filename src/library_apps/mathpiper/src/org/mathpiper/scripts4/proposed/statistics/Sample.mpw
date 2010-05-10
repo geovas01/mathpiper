@@ -1,4 +1,4 @@
-%mathpiper,def="Sample",scope="private"
+%mathpiper,def="Sample"
 
 Retract("Sample",*);
 
@@ -19,7 +19,7 @@ Sample(list, sampleSize) :=
 
 
 
-%mathpiper_docs,name="Sample",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="Sample",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD Sample --- takes a random sample of elements from a list
 *STD
 *CALL

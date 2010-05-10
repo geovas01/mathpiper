@@ -1,4 +1,4 @@
-%mathpiper,title="xSolve",scope="private"
+%mathpiper,title="xSolve"
 
 Retract("xSolve",*);
 Retract("xSolve'Simple",*);
@@ -445,7 +445,7 @@ LocalSymbols(x)
 
 
 
-%mathpiper_docs,name="xSolve",categories="User Functions;Solvers (Symbolic)"
+%mathpiper_docs,name="xSolve",categories="User Functions;Solvers (Symbolic)",access="experimental"
 *CMD Solve --- solve an equation or set of linear equations
 *STD
 *CALL

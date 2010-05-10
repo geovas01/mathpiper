@@ -1,4 +1,4 @@
-%mathpiper,def="SampleSizeForTheProportion",scope="private"
+%mathpiper,def="SampleSizeForTheProportion"
 
 Retract("SampleSizeForTheProportion",*);
 
@@ -24,7 +24,7 @@ SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError) :
 
 
 
-%mathpiper_docs,name="SampleSizeForTheProportion",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="SampleSizeForTheProportion",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD SampleSizeForTheProportion --- calculates the sample size for the proportion
 *STD
 *CALL

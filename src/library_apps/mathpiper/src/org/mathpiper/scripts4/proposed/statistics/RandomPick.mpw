@@ -1,4 +1,4 @@
-%mathpiper,def="RandomPick",scope="private"
+%mathpiper,def="RandomPick"
 
 Retract("RandomPick",*);
 
@@ -24,7 +24,7 @@ RandomPick(list) :=
 
 
 
-%mathpiper_docs,name="RandomPick",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="RandomPick",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD RandomPick --- randomly pick an element from a list
 *STD
 *CALL

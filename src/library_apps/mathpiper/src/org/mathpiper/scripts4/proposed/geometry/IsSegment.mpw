@@ -1,4 +1,4 @@
-%mathpiper,def="IsSegment",scope="private"
+%mathpiper,def="IsSegment"
 
 IsSegment(list_IsList) <--
 [
@@ -10,7 +10,7 @@ IsSegment(list_IsList) <--
 
 
 
-%mathpiper_docs,name="IsSegment"
+%mathpiper_docs,name="IsSegment",categories="User Functions;Analytic Geometry",access="experimental"
 *CMD IsSegment --- test for a segment
 *STD
 *CALL

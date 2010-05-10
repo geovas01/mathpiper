@@ -1,4 +1,4 @@
-%mathpiper,def="RForm",scope="private"
+%mathpiper,def="RForm"
 
 /* RForm: convert MathPiper objects to R code. */
 

@@ -1,4 +1,4 @@
-%mathpiper,def="Quartile",scope="private"
+%mathpiper,def="Quartile"
 
 Retract("Quartile",*);
 
@@ -39,7 +39,7 @@ Quartile(list) :=
 
 
 
-%mathpiper_docs,name="Quartile",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="Quartile",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD Quartile --- returns all of the quartiles and the interquartile range of a list of values
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,def="ConfidenceIntervalOfTheMean",scope="private"
+%mathpiper,def="ConfidenceIntervalOfTheMean"
 
 Retract("ConfidenceIntervalOfTheMean",*);
 
@@ -73,7 +73,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
 
 
 
-%mathpiper_docs,name="ConfidenceIntervalOfTheMean",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="ConfidenceIntervalOfTheMean",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD ConfidenceIntervalOfTheMean --- calculates a confidence interval
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,def="StandardErrorOfTheProportion",scope="private"
+%mathpiper,def="StandardErrorOfTheProportion"
 
 Retract("StandardErrorOfTheProportion",*);
 
@@ -18,7 +18,7 @@ StandardErrorOfTheProportion(meanOfSampleProportions, sampleSize) :=
 
 
 
-%mathpiper_docs,name="StandardErrorOfTheProportion",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="StandardErrorOfTheProportion",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD StandardErrorOfTheProportion --- calculates the standard error of the proportion
 *STD
 *CALL

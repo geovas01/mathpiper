@@ -1,4 +1,4 @@
-%mathpiper,def="Internal'LnNum",scope="private"
+%mathpiper,def="Internal'LnNum"
 
 /// low-level numerical calculations of elementary functions.
 /// These are only called if InNumericMode() returns True

@@ -1,4 +1,4 @@
-%mathpiper,def="IsPoint",scope="private"
+%mathpiper,def="IsPoint"
 
 IsPoint(p) := If(IsList(p) And (Length(p) = 2 Or Length(p) = 3),True,False);
 
@@ -6,7 +6,7 @@ IsPoint(p) := If(IsList(p) And (Length(p) = 2 Or Length(p) = 3),True,False);
 
 
 
-%mathpiper_docs,name="IsPoint"
+%mathpiper_docs,name="IsPoint",categories="User Functions;Analytic Geometry",access="experimental"
 *CMD IsPoint --- test for a point
 *STD
 *CALL

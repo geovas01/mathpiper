@@ -1,4 +1,4 @@
-%mathpiper,def="MathBitCount",scope="private"
+%mathpiper,def="MathBitCount"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.

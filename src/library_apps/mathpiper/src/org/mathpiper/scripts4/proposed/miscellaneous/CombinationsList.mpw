@@ -1,4 +1,4 @@
-%mathpiper,def="CombinationsList",scope="private"
+%mathpiper,def="CombinationsList"
 
 /*
     The algorithm this function uses is on pp. 299-300 of
@@ -78,7 +78,7 @@ CombinationsList(inputList, r) :=
 
 
 
-%mathpiper_docs,name="CombinationsList",categories="User Functions;Combinatorics"
+%mathpiper_docs,name="CombinationsList",categories="User Functions;Combinatorics",access="experimental"
 *CMD CombinationsList --- return all of the combinations from a given list taken r at a time
 *CALL
 	CombinationsList(list,r)

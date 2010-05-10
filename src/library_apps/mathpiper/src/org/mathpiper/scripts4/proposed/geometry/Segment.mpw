@@ -1,4 +1,4 @@
-%mathpiper,def="Segment",scope="private"
+%mathpiper,def="Segment"
 
 Segment(PointA_IsPoint,PointB_IsPoint) <--
 [
@@ -16,7 +16,7 @@ Segment(PointA_IsPoint,PointB_IsPoint) <--
 
 
 
-%mathpiper_docs,name="Segment"
+%mathpiper_docs,name="Segment",categories="User Functions;Analytic Geometry",access="experimental"
 *CMD Segment --- returns a list which contains the endpoints of a segment
 *STD
 *CALL
