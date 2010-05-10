@@ -1,4 +1,4 @@
-%mathpiper,def="PadLeft",scope="private"
+%mathpiper,def="PadLeft"
 
 Retract("PadLeft", *);
 
@@ -24,7 +24,7 @@ Retract("PadLeft", *);
 
 
 
-%mathpiper_docs,name="GeometricMean",categories="User Functions;Input/Output"
+%mathpiper_docs,name="GeometricMean",categories="User Functions;Input/Output",access="experimental"
 *CMD PadLeft --- converts a number into a string which has a specified width
 *STD
 *CALL

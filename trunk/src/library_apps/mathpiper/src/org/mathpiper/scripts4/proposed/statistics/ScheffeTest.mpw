@@ -1,4 +1,4 @@
-%mathpiper,def="ScheffeTest",scope="private"
+%mathpiper,def="ScheffeTest"
 
 ScheffeTest(levelsList, alpha) :=
 [
@@ -185,7 +185,7 @@ ScheffeStatistic(xBarA,nA,xBarB,nB,ssw,k,countsList) :=
 
 
 
-%mathpiper_docs,name="ScheffeTest",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="ScheffeTest",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD ScheffeTest --- performs a Scheffe pairwise analysis
 
 *CALL

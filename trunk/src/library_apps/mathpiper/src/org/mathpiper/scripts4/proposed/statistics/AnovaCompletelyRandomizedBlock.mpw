@@ -1,4 +1,4 @@
-%mathpiper,def="AnovaCompletelyRandomizedBlock",scope="private"
+%mathpiper,def="AnovaCompletelyRandomizedBlock"
 
 
 AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
@@ -268,7 +268,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
 
 
 
-%mathpiper_docs,name="AnovaCompletelyRandomizedBlock",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="AnovaCompletelyRandomizedBlock",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD AnovaCompleteRandomizedBlock --- performs an ANOVA completely randomized block analysis
 
 *CALL

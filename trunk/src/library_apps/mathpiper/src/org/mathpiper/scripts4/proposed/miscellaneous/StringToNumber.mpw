@@ -1,4 +1,4 @@
-%mathpiper,def="StringToNumber",scope="private"
+%mathpiper,def="StringToNumber"
 Retract("StringToNumber",*);
 
 StringToNumber( str_IsString ) <-- FromBase(10,str);
@@ -11,7 +11,7 @@ StringToNumber( str_IsString ) <-- FromBase(10,str);
 
 
 
-%mathpiper_docs,name="StringToNumber",categories="User Functions;String Manipulation"
+%mathpiper_docs,name="StringToNumber",categories="User Functions;String Manipulation",access="experimental"
 *CMD StringToNumber --- Convert a base-10 number in string form to its numeric value
 *STD
 *CALL

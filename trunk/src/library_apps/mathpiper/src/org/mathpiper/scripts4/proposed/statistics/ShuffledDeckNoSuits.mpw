@@ -1,4 +1,4 @@
-%mathpiper,def="ShuffledDeckNoSuits",scope="private"
+%mathpiper,def="ShuffledDeckNoSuits"
 
 Retract("ShuffledDeckNoSuits",*);
 

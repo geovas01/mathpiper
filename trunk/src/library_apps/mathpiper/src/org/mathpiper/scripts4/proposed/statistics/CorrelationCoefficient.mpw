@@ -1,4 +1,4 @@
-%mathpiper,def="CorrelationCoefficient",scope="private"
+%mathpiper,def="CorrelationCoefficient"
 
 CorrelationCoefficient(x,y) :=
 [   
@@ -24,7 +24,7 @@ CorrelationCoefficient(x,y) :=
 
 
 
-%mathpiper_docs,name="CorrelationCoefficient",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="CorrelationCoefficient",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD CorrelationCoefficient --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL

@@ -1,4 +1,4 @@
-%mathpiper,def="IsRationalFunction",scope="private"
+%mathpiper,def="IsRationalFunction"
 
 Retract("IsRationalFunction",*);
 
@@ -26,7 +26,7 @@ Retract("IsRationalFunction",*);
 
 
 
-%mathpiper_docs,name="IsRationalFunction",categories="Programmer Functions;Predicates"
+%mathpiper_docs,name="IsRationalFunction",categories="Programmer Functions;Predicates",access="experimental"
 
 *CMD IsRationalFunction --- test for a Rational Function
 *STD

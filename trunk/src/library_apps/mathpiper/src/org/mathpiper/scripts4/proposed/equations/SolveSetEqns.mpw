@@ -1,4 +1,4 @@
-%mathpiper,scope="private"
+%mathpiper
 
 LoadScriptOnce("proposed.rep/equations.mpi");
 

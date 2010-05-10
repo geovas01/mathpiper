@@ -1,4 +1,4 @@
-%mathpiper,def="StandardErrorOfTheEstimate",scope="private"
+%mathpiper,def="StandardErrorOfTheEstimate"
 
 StandardErrorOfTheEstimate(x,y) :=
 [   
@@ -30,7 +30,7 @@ StandardErrorOfTheEstimate(x,y) :=
 
 
 
-%mathpiper_docs,name="StandardErrorOfTheEstimate",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="StandardErrorOfTheEstimate",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD StandardErrorOfTheEstimate --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL

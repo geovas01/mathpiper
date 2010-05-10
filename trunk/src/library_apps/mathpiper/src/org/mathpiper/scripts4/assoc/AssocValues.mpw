@@ -1,4 +1,4 @@
-%mathpiper,def="AssocValues",scope="private"
+%mathpiper,def="AssocValues"
 
 AssocValues(assocvalueslist_IsList) <--
   DestructiveReverse(MapSingle(Lambda({x},First(Rest(x))),assocvalueslist));
@@ -7,7 +7,7 @@ AssocValues(assocvalueslist_IsList) <--
 
 
 
-%mathpiper_docs,name="AssocValues",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="AssocValues",categories="User Functions;Lists (Operations)",access="experimental"
 *CMD AssocValues --- return the values in an association list
 *STD
 *CALL

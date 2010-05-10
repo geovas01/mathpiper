@@ -1,4 +1,4 @@
-%mathpiper,def="FactorsPolynomialOverIntegers",scope="private"
+%mathpiper,def="FactorsPolynomialOverIntegers"
 
 Retract("FactorsPolynomialOverIntegers",*);
 Retract("TryToReduceSpecialPolynomial",*);
@@ -140,7 +140,7 @@ Retract("TryToReduceSpecialPolynomial",*);
 
 
 
-%mathpiper_docs,name="FactorsPolynomialOverIntegers",categories="User Functions;Number Theory"
+%mathpiper_docs,name="FactorsPolynomialOverIntegers",categories="User Functions;Number Theory",access="experimental"
 *CMD Factors --- factorization of univariate polynomials over the integers 
 *STD
 *CALL

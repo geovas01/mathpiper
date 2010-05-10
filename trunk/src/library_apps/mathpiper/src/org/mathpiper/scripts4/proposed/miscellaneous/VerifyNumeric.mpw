@@ -1,4 +1,4 @@
-%mathpiper,def="VerifyNumeric",scope="private"
+%mathpiper,def="VerifyNumeric"
 
 VerifyNumeric(expression1, expression2, optionsList) :=
 [
@@ -74,7 +74,7 @@ VerifyNumeric(expression1, expression2) :=
 
 
 
-%mathpiper_docs,name="VerifyNumeric",categories="Programmer Functions;Testing"
+%mathpiper_docs,name="VerifyNumeric",categories="Programmer Functions;Testing",access="experimental"
 *CMD VerifyNumeric --- numerically evaluates two expressions to indicate if they may be equivalent or not
 *STD
 *CALL

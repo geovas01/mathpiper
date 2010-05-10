@@ -1,4 +1,4 @@
-%mathpiper,def="StringToList",scope="private"
+%mathpiper,def="StringToList"
 
 Retract("StringToList", *);
 
@@ -28,7 +28,7 @@ Retract("StringToList", *);
 
 
 
-%mathpiper_docs,name="StringToList",categories="User Functions;String Manipulation"
+%mathpiper_docs,name="StringToList",categories="User Functions;String Manipulation",access="experimental"
 *CMD StringToList --- converts a string into a list
 *STD
 *CALL

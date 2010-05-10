@@ -1,4 +1,4 @@
-%mathpiper,def="ExpN'Doubling",scope="private"
+%mathpiper,def="ExpN'Doubling"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.

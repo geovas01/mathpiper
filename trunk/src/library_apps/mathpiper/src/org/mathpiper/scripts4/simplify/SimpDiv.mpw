@@ -1,4 +1,4 @@
-%mathpiper,def="SimpDiv",scope="private"
+%mathpiper,def="SimpDiv"
 
 Rulebase("SimpDiv",{x,y});
 

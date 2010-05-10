@@ -1,4 +1,4 @@
-%mathpiper,def="BinomialDistributionStandardDeviation",scope="private"
+%mathpiper,def="BinomialDistributionStandardDeviation"
 
 
 Retract("BinomialDistributionStandardDeviation", *);
@@ -24,7 +24,7 @@ BinomialDistributionStandardDeviation(probability,numberOfTrials) :=
 
 
 
-%mathpiper_docs,name="BinomialDistributionStandardDeviation",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="BinomialDistributionStandardDeviation",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD BinomialDistributionStandardDeviation --- the standard deviation of a binomial distribution
 *STD
 *CALL

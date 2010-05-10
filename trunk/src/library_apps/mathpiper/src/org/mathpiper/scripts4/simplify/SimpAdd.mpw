@@ -1,4 +1,4 @@
-%mathpiper,def="SimpAdd",scope="private"
+%mathpiper,def="SimpAdd"
 
 Rulebase("SimpAdd",{x,y});
 

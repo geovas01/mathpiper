@@ -1,4 +1,4 @@
-%mathpiper,def="WeightedMean",scope="private"
+%mathpiper,def="WeightedMean"
 
 
 WeightedMean(list) :=
@@ -36,7 +36,7 @@ WeightedMean(list) :=
 
 
 
-%mathpiper_docs,name="WeightedMean",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="WeightedMean",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD WeightedMean --- weighted mean
 *STD
 *CALL 

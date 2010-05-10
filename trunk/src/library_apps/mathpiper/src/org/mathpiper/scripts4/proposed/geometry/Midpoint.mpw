@@ -1,4 +1,4 @@
-%mathpiper,def="Midpoint",scope="private"
+%mathpiper,def="Midpoint"
 
 Midpoint(PointA_IsPoint,PointB_IsPoint) <-- 
 [
@@ -38,7 +38,7 @@ Midpoint(segment_IsSegment) <--
 
 
 
-%mathpiper_docs,name="Midpoint"
+%mathpiper_docs,name="Midpoint",categories="User Functions;Analytic Geometry",access="experimental"
 *CMD Midpoint --- returns a Point which represents the midpoint between two points
 *STD
 *CALL

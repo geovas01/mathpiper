@@ -1,4 +1,4 @@
-%mathpiper,def="ErrorFunction",scope="private"
+%mathpiper,def="ErrorFunction"
 
 /*
 This function came from http://www.johndcook.com/blog/2009/01/19/stand-alone-error-function-erf/
@@ -53,7 +53,7 @@ ErrorFunction(x) :=
 
 
 
-%mathpiper_docs,name="ErrorFunction",categories="User Functions;Special"
+%mathpiper_docs,name="ErrorFunction",categories="User Functions;Special",access="experimental"
 *CMD ErrorFunction --- a special function which occurs in probability statistics and partial differential equations
 *STD
 *CALL

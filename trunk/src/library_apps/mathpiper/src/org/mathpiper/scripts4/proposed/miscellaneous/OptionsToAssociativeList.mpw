@@ -1,4 +1,4 @@
-%mathpiper,def="OptionsToAssociativeList",scope="private"
+%mathpiper,def="OptionsToAssociativeList"
 OptionsToAssociativeList(optionList) :=
 [
     Local(associativeList, key, value);
@@ -24,7 +24,7 @@ OptionsToAssociativeList(optionList) :=
 
 
 
-%mathpiper_docs,name="OptionsToAssociativeList",categories="User Functions;Lists (Operations)"
+%mathpiper_docs,name="OptionsToAssociativeList",categories="User Functions;Lists (Operations)",access="experimental"
 *CMD OptionsToAssociativeList --- converts an options list into an associative list
 *CALL
 	OptionsToAssociativeList(optionsList)

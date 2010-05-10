@@ -1,4 +1,4 @@
-%mathpiper,def="BinomialDistributionMean",scope="private"
+%mathpiper,def="BinomialDistributionMean"
 
 
 Retract("BinomialDistributionMean", *);
@@ -20,7 +20,7 @@ BinomialDistributionMean(probability,numberOfTrials) :=
 
 
 
-%mathpiper_docs,name="BinomialDistributionMean",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="BinomialDistributionMean",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD BinomialDistributionMean --- the mean of a binomial distribution
 *STD
 *CALL

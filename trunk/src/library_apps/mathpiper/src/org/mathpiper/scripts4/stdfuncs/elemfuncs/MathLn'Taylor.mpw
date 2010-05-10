@@ -1,4 +1,4 @@
-%mathpiper,def="MathLn'Taylor",scope="private"
+%mathpiper,def="MathLn'Taylor"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.

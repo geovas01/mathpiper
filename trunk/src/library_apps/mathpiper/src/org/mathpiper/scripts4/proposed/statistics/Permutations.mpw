@@ -1,4 +1,4 @@
-%mathpiper,def="Permutations",scope="private"
+%mathpiper,def="Permutations"
 
 Retract("Permutations", *);
 
@@ -25,7 +25,7 @@ Permutations(n, r) :=
 
 
 
-%mathpiper_docs,name="Permutations",categories="User Functions;Combinatorics"
+%mathpiper_docs,name="Permutations",categories="User Functions;Combinatorics",access="experimental"
 *CMD Permutations --- number of permutations
 *STD
 *CALL

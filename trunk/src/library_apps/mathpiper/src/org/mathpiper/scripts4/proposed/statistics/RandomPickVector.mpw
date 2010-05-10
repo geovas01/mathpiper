@@ -1,4 +1,4 @@
-%mathpiper,def="RandomPickVector",scope="private"
+%mathpiper,def="RandomPickVector"
 
 Retract("RandomPickVector", *);
 
@@ -23,7 +23,7 @@ RandomPickVector(list, count) :=
 
 
 
-%mathpiper_docs,name="RandomPickVector",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="RandomPickVector",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD RandomPickVector --- returns a given number of randomly picked elements from a given list
 *STD
 *CALL

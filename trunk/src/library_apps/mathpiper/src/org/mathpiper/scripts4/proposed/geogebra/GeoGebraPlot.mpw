@@ -1,4 +1,4 @@
-%mathpiper,def="GeoGebraPlot",scope="private"
+%mathpiper,def="GeoGebraPlot"
 Retract("GeoGebraPlot",*);
 
 RulebaseListed("GeoGebraPlot",{arg1,arg2});

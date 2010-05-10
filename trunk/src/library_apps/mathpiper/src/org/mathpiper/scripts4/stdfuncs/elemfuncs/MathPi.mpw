@@ -1,4 +1,4 @@
-%mathpiper,def="",scope="private"
+%mathpiper,def=""
 
 //todo:tk:this MathPI cannot be in a def file because it conflicts with the MathPI in base.rep/elemfunctions.
 
@@ -56,7 +56,7 @@ MathPi() :=
 
 
 
-%mathpiper_docs,name="MathPi",categories="User Functions;Numeric"
+%mathpiper_docs,name="MathPi",categories="User Functions;Numeric",access="experimental"
 *CMD MathPi --- The constant Pi.
 *CALL
 	MathPi()

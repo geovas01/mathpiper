@@ -1,4 +1,4 @@
-%mathpiper,def="SampleSizeForTheMean",scope="private"
+%mathpiper,def="SampleSizeForTheMean"
 
 Retract("SampleSizeForTheMean",*);
 
@@ -22,7 +22,7 @@ SampleSizeForTheMean(standardDeviation,confidenceLevel,marginOfError) :=
 
 
 
-%mathpiper_docs,name="SampleSizeForTheMean",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="SampleSizeForTheMean",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD SampleSizeForTheMean --- calculates the sample size for the mean
 *STD
 *CALL

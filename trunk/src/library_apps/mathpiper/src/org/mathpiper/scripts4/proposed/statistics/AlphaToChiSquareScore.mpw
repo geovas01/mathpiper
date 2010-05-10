@@ -1,4 +1,4 @@
-%mathpiper,def="AlphaToChiSquareScore",scope="private"
+%mathpiper,def="AlphaToChiSquareScore",access="experimental"
 
 /* 
     This function was adapted from the Javascript version of function
@@ -91,7 +91,7 @@ AlphaToChiSquareScore(p, df) :=
 
 
 
-%mathpiper_docs,name="AlphaToChiSquareScore",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="AlphaToChiSquareScore",categories="User Functions;Statistics & Probability",access="experimental"
 *CMD AlphaToChiSquareScore --- calculates the chi square score of a given alpha probability
 *STD
 *CALL
