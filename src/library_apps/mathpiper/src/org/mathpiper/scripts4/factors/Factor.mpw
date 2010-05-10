@@ -16,7 +16,7 @@ Factor(_x) <-- xFactor(x);
 
 
 
-%mathpiper_docs,name="Factor",categories="User Functions;Polynomials (Operations);NumberTheory"
+%mathpiper_docs,name="Factor",categories="User Functions;Polynomials (Operations);Number Theory"
 *CMD Factor -- Factorization of almost anything factorable
 *CALL
 Factor( expr )
