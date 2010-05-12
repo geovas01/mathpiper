@@ -87,7 +87,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private List pageList;
     private ToolPanel toolPanel = null;
     private String selectedFunctionName = "";
-    private boolean showPrivateFunctions = true;
+    private boolean showPrivateFunctions = false;
     private boolean showExperimentalFunctions = true;
     private JScrollPane treeViewScrollPane;
     private JSplitPane splitPane;
@@ -943,7 +943,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             add(showExperimentalFunctionsCheckBox);
 
             showPrivateFunctionsCheckBox = new JCheckBox("Private");
-            showPrivateFunctionsCheckBox.setSelected(true);
+            showPrivateFunctionsCheckBox.setSelected(false);
             showPrivateFunctionsCheckBox.addItemListener(this);
             add(showPrivateFunctionsCheckBox);
 
