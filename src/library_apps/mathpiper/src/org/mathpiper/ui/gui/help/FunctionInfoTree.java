@@ -43,12 +43,17 @@ public class FunctionInfoTree extends JTree {
 
                     FunctionInfo functionInfo = (FunctionInfo) userObject;
 
-                    String scope = functionInfo.getScope();
+                    String access = functionInfo.getAccess();
 
-                    if (scope.equals("private")) {
+                    if (access.equals("private")) {
                         //this.setTextSelectionColor(Color.RED);
                         //this.setTextNonSelectionColor(Color.RED);
                         this.setForeground(Color.RED);
+                    }
+                    else if (access.equals("experimental")) {
+                        //this.setTextSelectionColor(Color.RED);
+                        //this.setTextNonSelectionColor(Color.RED);
+                        this.setForeground(new Color(155,0,153));
                     } else {
                         //this.setTextSelectionColor(Color.BLACK);
                         //this.setTextNonSelectionColor(Color.BLACK);

@@ -16,11 +16,9 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.help;
 
-
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -71,7 +69,6 @@ import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
 
-
 public class FunctionTreePanel extends JPanel implements TreeSelectionListener, HyperlinkListener {
 
     private JScrollPane docsScrollPane;
@@ -90,11 +87,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private List pageList;
     private ToolPanel toolPanel = null;
     private String selectedFunctionName = "";
+    private boolean showPrivateFunctions = true;
     private boolean showExperimentalFunctions = true;
     private JScrollPane treeViewScrollPane;
     private JSplitPane splitPane;
     private JPanel treePanel;
-
 
     public FunctionTreePanel() throws FileNotFoundException {
 
@@ -150,6 +147,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         //Collapse tree button.
         JButton collapseButton = new javax.swing.JButton("Collapse");
         collapseButton.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent evt) {
                 collapse();
             }
@@ -166,7 +164,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         treeToolPanel.add(Box.createHorizontalGlue());
 
-        treePanelContainer.add(treeToolPanel,BorderLayout.NORTH);
+        treePanelContainer.add(treeToolPanel, BorderLayout.NORTH);
 
         treePanelContainer.add(treeViewScrollPane);
 
@@ -185,7 +183,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         home();
 
     }//end constructor.
-
 
     private void loadCategories(InputStream inputStream) {
         BufferedReader categoriesFile = null;
@@ -233,7 +230,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
-
     private void populateUserFunctionNodeWithCategories() {
         userFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("User Functions", "Functions for MathPiper users."));
 
@@ -278,7 +274,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
-
     private void populateProgrammerFunctionNodeWithCategories() {
         programmerFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("Programmer Functions", "Functions for MathPiper code developers."));
 
@@ -292,46 +287,53 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
-
     private void populateNode(DefaultMutableTreeNode treeNode, String[][] functionDataStringArray) {
         for (int row = 0; row < functionDataStringArray.length; row++) {
 
-            if ((this.showExperimentalFunctions == true && functionDataStringArray[row][1].equals("private")) || functionDataStringArray[row][1].equals("public")) {
+            if (this.showPrivateFunctions == true && functionDataStringArray[row][1].equals("private")) {
+                //Pass through to populate.
+            } else if (this.showExperimentalFunctions == true && functionDataStringArray[row][1].equals("experimental")) {
+                //Pass through to populate.
+            } else if (functionDataStringArray[row][1].equals("public")) {
+                //Pass through to populate.
+            } else {
+                //Skip populate.
+                continue;
+            }
 
-                //Populate.
-                for (int column = 3; column < functionDataStringArray[row].length; column++) {
-                    String category = functionDataStringArray[row][column];
-                    //System.out.println("XXXXX " + descriptionsStringArray[row][column]);
-
-
-                    boolean hasCategory = false;
-                    Enumeration children = treeNode.children();
-                    for (; children.hasMoreElements();) {
-                        DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
-                        if (child.getUserObject().toString().equalsIgnoreCase(category)) //Add leaf to existing category.
-                        {
-                            child.add(new DefaultMutableTreeNode(new FunctionInfo(functionDataStringArray[row][0], functionDataStringArray[row][1], functionDataStringArray[row][2])));
-                            hasCategory = true;
-                        }
+            //Populate.
+            for (int column = 3; column < functionDataStringArray[row].length; column++) {
+                String category = functionDataStringArray[row][column];
+                //System.out.println("XXXXX " + descriptionsStringArray[row][column]);
 
 
-                    }//end for.
-
-                    if (hasCategory == false) {
-                        DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(new FunctionInfo(functionDataStringArray[row][0], functionDataStringArray[row][1], functionDataStringArray[row][2]));
-                        DefaultMutableTreeNode categoryNode = new DefaultMutableTreeNode(functionDataStringArray[row][column]);
-                        categoryNode.add(leaf);
-                        treeNode.add(categoryNode);
+                boolean hasCategory = false;
+                Enumeration children = treeNode.children();
+                for (; children.hasMoreElements();) {
+                    DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
+                    if (child.getUserObject().toString().equalsIgnoreCase(category)) //Add leaf to existing category.
+                    {
+                        child.add(new DefaultMutableTreeNode(new FunctionInfo(functionDataStringArray[row][0], functionDataStringArray[row][1], functionDataStringArray[row][2])));
+                        hasCategory = true;
                     }
 
-                }//end column for.
 
-            }//end public/private if.
+                }//end for.
+
+                if (hasCategory == false) {
+                    DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(new FunctionInfo(functionDataStringArray[row][0], functionDataStringArray[row][1], functionDataStringArray[row][2]));
+                    DefaultMutableTreeNode categoryNode = new DefaultMutableTreeNode(functionDataStringArray[row][column]);
+                    categoryNode.add(leaf);
+                    treeNode.add(categoryNode);
+                }
+
+            }//end column for.
+
+
 
         }//end row for.
 
     }//end method.
-
 
     private void processFunctionData() {
         allFunctions = new java.util.ArrayList();
@@ -393,7 +395,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
-
     public void createTree() {
 
         this.populateUserFunctionNodeWithCategories();
@@ -433,7 +434,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
-
     private void loadDocumentationIndex(InputStream inputStream) {
         documentationIndex = new HashMap();
         try {
@@ -461,7 +461,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }
     }//end method.
 
-
     public void valueChanged(TreeSelectionEvent e) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) functionsTree.getLastSelectedPathComponent();
         //System.out.println("XXXXX");
@@ -479,7 +478,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             //Note:tk:Perhaps display top of chapter here?
         }
     }//end method.
-
 
     public boolean viewFunction(String functionName, boolean save) {
 
@@ -500,7 +498,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 if (documentationStream == null) {
                     throw new FileNotFoundException("The file documentation.txt was not found.");
                 }
-                
+
                 documentationStream.skip(startIndex);
                 documentationStream.read(documentationData, 0, length);
                 //docsStream.close();
@@ -532,35 +530,25 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }
     }//end method.
 
-
-    public static String processLatex(String html)
-    {
+    public static String processLatex(String html) {
         StringBuilder stringBuilder = new StringBuilder();
 
         int startIndex = -1;
 
         int endIndex = -1;
 
-        for(int index = 0; index < html.length(); index++)
-        {
-            if(html.charAt(index) == '$' )
-            {
-                if( html.charAt(index - 1) == '\\')
-                {
+        for (int index = 0; index < html.length(); index++) {
+            if (html.charAt(index) == '$') {
+                if (html.charAt(index - 1) == '\\') {
                     //Strip \ character in escaped \$.
                     stringBuilder.deleteCharAt(stringBuilder.length() - 1);
                     stringBuilder.append(html.charAt(index));
-                }
-                else
-                {
-                    if(startIndex == -1)
-                    {
+                } else {
+                    if (startIndex == -1) {
                         startIndex = index + 1;
 
                         endIndex = 0;
-                    }
-                    else
-                    {
+                    } else {
                         endIndex = index;
 
                         String latexCode = html.substring(startIndex, endIndex);
@@ -579,11 +567,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     }//end else.
 
                 }//end else.
-            }
-            else
-            {
-                if(endIndex == -1)
-                {
+            } else {
+                if (endIndex == -1) {
                     stringBuilder.append(html.charAt(index));
                 }
             }
@@ -592,7 +577,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         return stringBuilder.toString();
     }
-
 
     private static String applyBold(String line) {
 
@@ -606,21 +590,15 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         int endIndex = -1;
 
-        for(int index = 0; index < line.length(); index++)
-        {      
-            if(line.charAt(index) == '{')
-            {
+        for (int index = 0; index < line.length(); index++) {
+            if (line.charAt(index) == '{') {
                 stringBuilder.append("<b><tt>");
-            }
-            else if(line.charAt(index) == '}')
-            {
+            } else if (line.charAt(index) == '}') {
                 stringBuilder.append("</tt></b>");
-            }
-            else
-            {
+            } else {
                 stringBuilder.append(line.charAt(index));
             }
-            
+
         }//end for.
 
 
@@ -629,13 +607,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
     /*private static String applyPre(String line) {
-        line = line.replaceAll("\\[", "<pre>");
-        line = line.replaceAll("\\]", "</pre>");
-        return line;
+    line = line.replaceAll("\\[", "<pre>");
+    line = line.replaceAll("\\]", "</pre>");
+    return line;
     }//end method.
-    */
-
-
+     */
     public static String textToHtml(String scriptCode) {
 //s = "*CMD D --- take derivative of expression with respect to variable\n*STD\n*CALL\n	D(variable) expression\n	D(list) expression\n	D(variable,n) expression\n\n*PARMS\n\n{variable} -- variable\n\n{list} -- a list of variables\n\n{expression} -- expression to take derivatives of\n\n{n} -- order of derivative\n\n*DESC\n\nThis function calculates the derivative of the expression {expr} with\nrespect to the variable {var} and returns it. If the third calling\nformat is used, the {n}-th derivative is determined. Yacas knows\nhow to differentiate standard functions such as {Ln}\nand {Sin}.\n\nThe {D} operator is threaded in both {var} and\n{expr}. This means that if either of them is a list, the function is\napplied to each entry in the list. The results are collected in\nanother list which is returned. If both {var} and {expr} are a\nlist, their lengths should be equal. In this case, the first entry in\nthe list {expr} is differentiated with respect to the first entry in\nthe list {var}, the second entry in {expr} is differentiated with\nrespect to the second entry in {var}, and so on.\n\nThe {D} operator returns the original function if $n=0$, a common\nmathematical idiom that simplifies many formulae.\n\n*E.G.\n\n	In> D(x)Sin(x*y)\n	Out> y*Cos(x*y);\n	In> D({x,y,z})Sin(x*y)\n	Out> {y*Cos(x*y),x*Cos(x*y),0};\n	In> D(x,2)Sin(x*y)\n	Out> -Sin(x*y)*y^2;\n	In> D(x){Sin(x),Cos(x)}\n	Out> {Cos(x),-Sin(x)};\n\n*SEE Integrate, Taylor, Diverge, Curl\n";
 
@@ -810,7 +786,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
-
     public void hyperlinkUpdate(HyperlinkEvent event) {
         //System.out.println(event.toString());
         URL url = event.getURL();
@@ -827,10 +802,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }//end if.  + getRef())
 
     }//end method.
-
-
     private int pageIndex = -1;
-
 
     private void setPage(String functionName, String html, boolean save) {
         editorPane.setText(html);
@@ -881,13 +853,10 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             public void run() {
                 verticalScrollBar.setValue(verticalScrollBar.getMinimum());
             }
-
-
         });
 
 
     }//end method.
-
 
     private String getSource() {
         Interpreter interpreter = Interpreters.getSynchronousInterpreter();
@@ -899,11 +868,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         return location;
     }//end method.
 
-
     private void collapse() {
         functionsTree.collapseAll();
     }//end method.
-
 
     private void back() {
         if (pageIndex != 0) {
@@ -918,7 +885,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }//end if.
     }//end method.
 
-
     private void forward() {
         String functionName = (String) pageList.get(++pageIndex);
 
@@ -930,18 +896,15 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
-
     private void home() {
         toolPanel.sourceButtonEnabled(false);
 
         setPage("HomePage", "<html>Home page</html>", true);
     }//end method.
 
-
     public JPanel getToolPanel() {
         return toolPanel;
     }//end method.
-
 
     private class ToolPanel extends JPanel implements ItemListener {
 
@@ -952,9 +915,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         private JButton homeButton;
         private JButton fontSizeIncreaseButton;
         private JButton fontSizeDecreaseButton;
+        private JCheckBox showExperimentalFunctionsCheckBox;
         private JCheckBox showPrivateFunctionsCheckBox;
         private boolean isShowPrivateFunctions = false;
-
 
         private ToolPanel() {
             setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -968,19 +931,21 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 public void actionPerformed(ActionEvent evt) {
                     //source();
                 }
-
-
             });
             sourceButton.setEnabled(false);
             sourceButton.setToolTipText("View script source.");
             add(sourceButton);
 
 
-            showPrivateFunctionsCheckBox = new JCheckBox("Experimental");
+            showExperimentalFunctionsCheckBox = new JCheckBox("Experimental");
+            showExperimentalFunctionsCheckBox.setSelected(true);
+            showExperimentalFunctionsCheckBox.addItemListener(this);
+            add(showExperimentalFunctionsCheckBox);
+
+            showPrivateFunctionsCheckBox = new JCheckBox("Private");
             showPrivateFunctionsCheckBox.setSelected(true);
             showPrivateFunctionsCheckBox.addItemListener(this);
             add(showPrivateFunctionsCheckBox);
-
 
 
             add(Box.createGlue());
@@ -1004,8 +969,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     //editorPane.
 
                 }//end method.
-
-
             });
             fontSizeIncreaseButton.setEnabled(true);
             //add(fontSizeIncreaseButton);
@@ -1019,8 +982,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 public void actionPerformed(ActionEvent evt) {
                     back();
                 }
-
-
             });
             backButton.setEnabled(false);
             add(backButton);
@@ -1033,8 +994,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 public void actionPerformed(ActionEvent evt) {
                     forward();
                 }
-
-
             });
             forwardButton.setEnabled(false);
             add(forwardButton);
@@ -1047,8 +1006,6 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 public void actionPerformed(ActionEvent evt) {
                     home();
                 }
-
-
             });
             homeButton.setEnabled(true);
             add(homeButton);
@@ -1058,61 +1015,60 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         }//end constructor.
 
-
         public void sourceButtonEnabled(Boolean state) {
             sourceButton.setEnabled(state);
         }//end method.
-
 
         public void backButtonEnabled(Boolean state) {
             backButton.setEnabled(state);
         }//end method.
 
-
         public void forwardButtonEnabled(Boolean state) {
             forwardButton.setEnabled(state);
         }//end method.
 
-
         public void itemStateChanged(ItemEvent ie) {
             Object source = ie.getSource();
 
-            if (source == showPrivateFunctionsCheckBox) {
+            if (source == showPrivateFunctionsCheckBox || source == showExperimentalFunctionsCheckBox) {
+                if (source == showPrivateFunctionsCheckBox) {
 
-                if (ie.getStateChange() == ItemEvent.SELECTED) {
-                    showExperimentalFunctions = true;
-                } else {
-                    showExperimentalFunctions = false;
-                }//end if/else.
+                    if (ie.getStateChange() == ItemEvent.SELECTED) {
+                        showPrivateFunctions = true;
+                    } else {
+                        showPrivateFunctions = false;
+                    }//end if/else.
+
+                } else if (source == showExperimentalFunctionsCheckBox) {
+
+                    if (ie.getStateChange() == ItemEvent.SELECTED) {
+                        showExperimentalFunctions = true;
+                    } else {
+                        showExperimentalFunctions = false;
+                    }//end if/else.
+
+
+                }//end if.
 
                 treePanel.removeAll();
                 createTree();
                 treePanel.add(functionsTree);
-
                 treeViewScrollPane.revalidate();
 
+            }//End if.
 
-            }//end if.
+
         }//end method.
-
-
     }//end class.
-
-
-
 
     private class SearchPanel extends JPanel implements ActionListener, ListSelectionListener {
 
         private JTextField searchTextField;
-
         private Vector hits = new Vector();
-
         private JScrollPane listScroller;
-
         private JList list;
 
-        public SearchPanel()
-        {
+        public SearchPanel() {
             this.setLayout(new BorderLayout());
 
             searchTextField = new JTextField();
@@ -1121,7 +1077,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
             searchTextField.addActionListener(this);
 
-            this.add(searchTextField,BorderLayout.NORTH);
+            this.add(searchTextField, BorderLayout.NORTH);
 
 
             hits.add("Enter a search term or phrase into the");
@@ -1141,10 +1097,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         }//end constructor.
 
-        public void actionPerformed(ActionEvent e)
-        {
-            if(e.getActionCommand().equals("search"))
-            {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand().equals("search")) {
                 JTextField textField = (JTextField) e.getSource();
 
                 String searchString = textField.getText();
@@ -1158,10 +1112,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 //Search user functions.
                 hits.add("USER FUNCTIONS:");
 
-                for(index = 0; index < userFunctionsData.length; index++)
-                {
-                    if(userFunctionsData[index][0].toLowerCase().contains(searchString) || userFunctionsData[index][2].toLowerCase().contains(searchString))
-                    {
+                for (index = 0; index < userFunctionsData.length; index++) {
+                    if (userFunctionsData[index][0].toLowerCase().contains(searchString) || userFunctionsData[index][2].toLowerCase().contains(searchString)) {
                         hits.add(userFunctionsData[index][0] + " -- " + userFunctionsData[index][2] + ".");
                     }
                 }//end for.
@@ -1171,10 +1123,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 hits.add(" ");
                 hits.add("PROGRAMMER FUNCTIONS:");
 
-                for(index = 0; index < programmerFunctionsData.length; index++)
-                {
-                    if(programmerFunctionsData[index][0].toLowerCase().contains(searchString) || programmerFunctionsData[index][2].toLowerCase().contains(searchString))
-                    {
+                for (index = 0; index < programmerFunctionsData.length; index++) {
+                    if (programmerFunctionsData[index][0].toLowerCase().contains(searchString) || programmerFunctionsData[index][2].toLowerCase().contains(searchString)) {
                         hits.add(programmerFunctionsData[index][0] + " -- " + programmerFunctionsData[index][2] + ".");
                     }
                 }//end for.
@@ -1184,42 +1134,32 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 hits.add(" ");
                 hits.add("OPERATORS:");
 
-                for(index = 0; index < operatorsData.length; index++)
-                {
-                    if(operatorsData[index][0].toLowerCase().contains(searchString) || operatorsData[index][2].toLowerCase().contains(searchString))
-                    {
+                for (index = 0; index < operatorsData.length; index++) {
+                    if (operatorsData[index][0].toLowerCase().contains(searchString) || operatorsData[index][2].toLowerCase().contains(searchString)) {
                         hits.add(operatorsData[index][0] + " -- " + operatorsData[index][2] + ".");
                     }
                 }//end for.
-                
-                
+
+
                 list.setListData(hits);
 
                 listScroller.revalidate();
 
             }//end if.
-            
-        }//end method.
 
+        }//end method.
 
         public void valueChanged(ListSelectionEvent e) {
             JList list = (JList) e.getSource();
-            if(!list.getSelectionModel().getValueIsAdjusting())
-            {
+            if (!list.getSelectionModel().getValueIsAdjusting()) {
                 String function = (String) list.getSelectedValue();
-                if(function != null)
-                {
+                if (function != null) {
                     String functionName = function.split("-")[0].trim();
-                    viewFunction(functionName,true);
+                    viewFunction(functionName, true);
                 }
             }
         }
-
-
     }//end class.
-
-
-
 
     public static void main(String[] args) {
 

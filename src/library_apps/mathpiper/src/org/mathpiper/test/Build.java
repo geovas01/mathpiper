@@ -424,7 +424,7 @@ public class Build {
         boolean hasDocs = false;
 
         String scopeAttribute = "public";
-        String scope = "public";
+        //String scope = "public";
 
         for (Fold fold : folds) {
 
@@ -454,14 +454,14 @@ public class Build {
                         }//end if.
                     }//end if.
 
-                    scope = scopeAttribute;
+                    //scope = scopeAttribute;
                 }//end if.
 
 
             } else if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
                 //System.out.println("        **** Contains docs *****");
                 hasDocs = true;
-                processMathPiperDocsFold(fold, scope);
+                processMathPiperDocsFold(fold);
 
             }//end if.
 
@@ -479,7 +479,7 @@ public class Build {
     }//end method.
 
 
-    private void processMathPiperDocsFold(Fold fold, String scope) throws Exception {
+    private void processMathPiperDocsFold(Fold fold) throws Exception {
         if (documentationFile != null) {
 
             String functionNamesString = "";
@@ -521,6 +521,8 @@ public class Build {
                     documentationFile.write(separator, 0, separator.length);
 
                     documentationOffset = documentationOffset + separator.length;
+
+                    String access = "public";
 
                     if (fold.getAttributes().containsKey("categories")) {
 
@@ -569,7 +571,12 @@ public class Build {
                         if (functionCategoryName.equalsIgnoreCase("")) {
                             functionCategoryName = "Uncategorized";  //todo:tk:perhaps we should throw an exception here.
                         }
-                        CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, scope, description, categories);
+
+                        if (fold.getAttributes().containsKey("access")) {
+                            access = (String) fold.getAttributes().get("access");
+                        }
+
+                        CategoryEntry categoryEntry = new CategoryEntry(functionCategoryName, functionName, access, description, categories);
 
                         functionCategoriesList.add(categoryEntry);
 
@@ -601,15 +608,15 @@ public class Build {
 
         private String categoryName;
         private String functionName;
-        private String scope;
+        private String access;
         private String description;
         private String categories;
 
 
-        public CategoryEntry(String categoryName, String functionName, String scope, String description, String categories) {
+        public CategoryEntry(String categoryName, String functionName, String access, String description, String categories) {
             this.categoryName = categoryName;
             this.functionName = functionName;
-            this.scope = scope;
+            this.access = access;
             this.description = description;
             this.categories = categories;
         }
@@ -627,7 +634,7 @@ public class Build {
 
 
         public String toString() {
-            return categoryName + "," + functionName + "," + scope + "," + description + "," + categories;
+            return categoryName + "," + functionName + "," + access + "," + description + "," + categories;
         }//end method.
 
 
@@ -693,7 +700,7 @@ public class Build {
                         hasDocs = true;
 
 
-                        processMathPiperDocsFold(fold, "public");
+                        processMathPiperDocsFold(fold);
 
                     }//end if.
 
