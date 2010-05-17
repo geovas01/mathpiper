@@ -1,4 +1,4 @@
-//package org.mathpiper.builtin.library.jas;
+package org.mathpiper.builtin.library.jas;
 
 //------------------------------------------------------------------------
 //          Operations on JAS Polynomials of various types
