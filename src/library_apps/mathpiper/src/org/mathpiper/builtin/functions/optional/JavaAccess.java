@@ -34,7 +34,7 @@ public class JavaAccess extends BuiltinFunction {
                 "JavaAccess");
     }//end method.
 
-    //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
         ConsPointer args = new ConsPointer();
@@ -48,6 +48,8 @@ public class JavaAccess extends BuiltinFunction {
         ConsPointer result = new ConsPointer();
 
         Utility.applyString(aEnvironment, aStackTop, result, "\"JavaCall\"", args);
+
+        Utility.applyString(aEnvironment, aStackTop, result, "\"JavaValue\"", result);
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(result.getCons());
 
