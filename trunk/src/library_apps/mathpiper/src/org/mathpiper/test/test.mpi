@@ -1,7 +1,7 @@
 
 
-z1 := Ring("Z(a,b,x,y) L");
+z1 := JavaNew("java.lang.String", "Hello");
 
-z2 := JavaCall(z1,"gens");
+//z2 := JavaCall(z1,"toUpperCase");
 
-//z2 := JavaNew("edu.jas.poly.GenPolynomialTokenizer",z1);
+z2 := JavaAccess(z1,"toUpperCase");
