@@ -487,7 +487,7 @@ public class Build {
                 functionNamesString = (String) fold.getAttributes().get("name");
 
                 //Uncomment to debug the documentation for a given function..
-                /*if(functionNamesString.equals("Factors"))
+                /*if(functionNamesString.equals("RepToNumber"))
                 {
                 int xxx = 1;
                 }*/
@@ -535,6 +535,11 @@ public class Build {
                         String descriptionLine = contents.substring(commandIndex, contents.indexOf("\n", commandIndex));
                         String description = descriptionLine.substring(descriptionLine.lastIndexOf("--") + 2);
                         description = description.trim();
+
+                        if(description.contains(","))
+                        {
+                            description = "\"" + description + "\"";
+                        }
 
                         System.out.print(functionName + ": " + description + ", ");
 
