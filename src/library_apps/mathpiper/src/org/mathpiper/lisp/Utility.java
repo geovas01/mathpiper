@@ -615,6 +615,12 @@ public class Utility {
         return aOriginal.substring(1, nrc);
     }
 
+    public static String stringify(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
+        LispError.check(aEnvironment, aStackTop, aOriginal != null, LispError.INVALID_ARGUMENT, "INTERNAL");
+
+        return "\"" + aOriginal + "\"";
+    }
+
     private static void doInternalLoad(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
         try {
