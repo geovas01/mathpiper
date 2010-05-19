@@ -16,7 +16,7 @@ gens := JavaCall(ring,"gens");
 ForEach(variable,gens)
 [
 
-    variableName := JavaValue(JavaCall(variable,"toString"));
+    variableName := JavaToValue(JavaCall(variable,"toString"));
     
     Echo(variableName);
     

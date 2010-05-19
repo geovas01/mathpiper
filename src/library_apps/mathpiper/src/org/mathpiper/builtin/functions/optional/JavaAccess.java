@@ -49,7 +49,7 @@ public class JavaAccess extends BuiltinFunction {
 
         Utility.applyString(aEnvironment, aStackTop, result, "\"JavaCall\"", args);
 
-        Utility.applyString(aEnvironment, aStackTop, result, "\"JavaValue\"", result);
+        Utility.applyString(aEnvironment, aStackTop, result, "\"JavaToValue\"", result);
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(result.getCons());
 
