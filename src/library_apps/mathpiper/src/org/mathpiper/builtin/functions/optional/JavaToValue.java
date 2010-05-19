@@ -87,6 +87,8 @@ public class JavaToValue extends BuiltinFunction {
                 }
 
                 getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, atomValue));
+
+                return;
             }
         } else {
             LispError.raiseError("The argument must be a JavaObject.", "JavaToValue", aStackTop, aEnvironment);
