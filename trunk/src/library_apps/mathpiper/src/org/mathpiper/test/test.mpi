@@ -1,7 +1,4 @@
 
-
-z1 := JavaNew("java.lang.String", "Hello");
-
-//z2 := JavaCall(z1,"toUpperCase");
-
-z2 := JavaAccess(z1,"toUpperCase");
+jasI := JavaNew("org.mathpiper.builtin.library.jas.JasPolynomial","Integer","x,y,z");
+ring := JavaCall(jasI,"getRing");   // note specific need to use JavaCall() not JavaAccess() here
+vars := JavaAccess(ring,"getVars");  //  the method getVars() of the Ring class produces a java String array
