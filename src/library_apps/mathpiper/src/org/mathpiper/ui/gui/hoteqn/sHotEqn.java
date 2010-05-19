@@ -6,7 +6,7 @@
 * Java-Coponent to view mathematical Equations provided in the LaTeX language*
 ******************************************************************************
 
-Copyright 2006 Stefan M�ller and Christian Schmid
+Copyright 2006 Stefan Muller and Christian Schmid
 
 This file is part of the HotEqn package.
 
