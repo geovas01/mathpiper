@@ -39,11 +39,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -190,24 +191,32 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         List programmerFunctions = new ArrayList();
         List operators = new ArrayList();
 
+
+
+
         try {
             categoriesFile = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
+
+
             while ((line = categoriesFile.readLine()) != null) {
                 line = line + ",Alphabetical";
-                String[] functionDataLine = line.split(",");
 
-                String functionCategory = functionDataLine[0].trim();
+                List<String> functionDatalineFields = parseCSV(line);
 
-                String[] functionData = Arrays.copyOfRange(functionDataLine, 1/*Removing overall category*/, functionDataLine.length);
+                String functionCategory = functionDatalineFields.get(0).trim();
+
+                functionDatalineFields.remove(0);
+
+                String[] functionDatalineFieldsArray =  functionDatalineFields.toArray(new String[functionDatalineFields.size()]);  //line.split(",");
 
                 if (functionCategory.equalsIgnoreCase("User Functions")) {
-                    userFunctions.add(functionData);
+                    userFunctions.add(functionDatalineFieldsArray);
                 } else if (functionCategory.equalsIgnoreCase("Programmer Functions")) {
-                    programmerFunctions.add(functionData);
+                    programmerFunctions.add(functionDatalineFieldsArray);
                 } else {
-                    operators.add(functionData);
+                    operators.add(functionDatalineFieldsArray);
                 }
 
             }//end while.
@@ -229,6 +238,30 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }//end finally. 
 
     }//end method.
+
+
+    private List parseCSV(String line) {
+    List list = new ArrayList();
+    String CSV_PATTERN = "\"([^\"]+?)\",?|([^,]+),?|,";
+    Pattern csvRE = Pattern.compile(CSV_PATTERN);
+    Matcher m = csvRE.matcher(line);
+    // For each field
+    while (m.find()) {
+      String match = m.group();
+      if (match == null)
+        break;
+      if (match.endsWith(",")) {  // trim trailing ,
+        match = match.substring(0, match.length() - 1);
+      }
+      if (match.startsWith("\"")) { // assume also ends with
+        match = match.substring(1, match.length() - 1);
+      }
+        //if (match.length() == 0)
+        //match = null;
+      list.add(match);
+    }
+    return list;
+  }
 
     private void populateUserFunctionNodeWithCategories() {
         userFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("User Functions", "Functions for MathPiper users."));
