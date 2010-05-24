@@ -14,15 +14,9 @@ FDistribution(_n1, _n2) <-- Undefined;
 
 
 
-%mathpiper_docs,name="tDistribution",categories="User Functions;Statistics & Probability"
+%mathpiper_docs,name="FDistribution",categories="User Functions;Statistics & Probability"
 *CMD FDistribution --- the F distribution
-*STD
 *CALL
-	{tDistribution}(m)
-
-*PARMS 
-{m} -- integer, number of degrees of freedom
-
-*DESC
+ Not Implemented Yet
 
 %/mathpiper_docs
