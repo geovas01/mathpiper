@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class noncentral_f 
+public class NoncentralF
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -54,6 +54,6 @@ public class noncentral_f
         if (x <= 0.0)
     	return 0.0;
         y = (n1 / n2) * x;
-        return noncentral_beta.cumulative(y/(1 + y), n1 / 2.0, n2 / 2.0, ncp);
+        return NoncentralBeta.cumulative(y/(1 + y), n1 / 2.0, n2 / 2.0, ncp);
     }
   }

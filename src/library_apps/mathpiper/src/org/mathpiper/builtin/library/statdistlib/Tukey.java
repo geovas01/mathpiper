@@ -38,7 +38,7 @@ import org.mathpiper.builtin.library.cern.Probability;
  *    Vol.30, pp.1-15, 1988.
  */
 
-public class tukey { 
+public class Tukey {
 
   /*
    *  This function calculates probability integral of Hartley's
@@ -329,7 +329,7 @@ public class tukey {
     /* lgamma is the log gamma function. */
 
     f2 = df * 0.5;
-    f2lf = ((f2 * Math.log(df)) - (df * Constants.M_LN_2)) - misc.lgammafn(f2);
+    f2lf = ((f2 * Math.log(df)) - (df * Constants.M_LN_2)) - Misc.lgammafn(f2);
     f21 = f2 - 1.0;
 
     /* integral is divided into unit, half-unit, quarter-unit, or */

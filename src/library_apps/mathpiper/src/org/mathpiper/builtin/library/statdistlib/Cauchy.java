@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class lognormal
+public class Cauchy
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -30,34 +30,30 @@ public class lognormal
      *
      *  SYNOPSIS
      *
-     *    double density(double x, double logmean, double logsd);
+     *    #include "DistLib.h"
+     *    double density(double x, double location, double scale);
      *
      *  DESCRIPTION
      *
-     *    The density of the lognormal distribution.
-     *
-     * 	M_1_SQRT_2PI = 1 / sqrt(2 * pi)
+     *    The density of the Cauchy distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  density(double x, double logmean, double logsd)
+    public static double  density(double x, double location, double scale)
     {
         double y;
-    
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isNaN(x) || Double.isNaN(logmean) || Double.isNaN(logsd))
-    	return x + logmean + logsd;
+        /* NaNs propagated correctly */
+        if (Double.isNaN(x) || Double.isNaN(location) || Double.isNaN(scale))
+    	return x + location + scale;
     /*!* #endif /*4!*/
-        if(logsd <= 0) {
-            throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-	    //            return Double.NaN;
+        if (scale <= 0) {
+    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	//    	return Double.NaN;
         }
-        if(x == 0) return 0;
-/*!*     y = (log(x) - logmean) / logsd; *!*/
-        y = (java.lang.Math.log(x) - logmean) / logsd;
-/*!*     return Constants.M_1_SQRT_2PI * exp(-0.5 * y * y) / (x * logsd); *!*/
-        return Constants.M_1_SQRT_2PI * java.lang.Math.exp(-0.5 * y * y) / (x * logsd);
+        y = (x - location) / scale;
+        return 1.0 / (Constants.M_PI * scale * (1.0 + y * y));
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -80,29 +76,34 @@ public class lognormal
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double cumulative(double x, double logmean, double logsd);
+     *    double cumulative(double x, double location, double scale);
      *
      *  DESCRIPTION
      *
-     *    The lognormal distribution function.
+     *    The distribution function of the Cauchy distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  cumulative(double x, double logmean, double logsd)
+    public static double  cumulative(double x, double location, double scale)
     {
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isNaN(x) || Double.isNaN(logmean) || Double.isNaN(logsd))
-    	return x + logmean + logsd;
+        if (Double.isNaN(x) || Double.isNaN(location) || Double.isNaN(scale))
+    	return x + location + scale;
     /*!* #endif /*4!*/
-        if (logsd <= 0) {
-            throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-	    //            return Double.NaN;
-        }
-        if (x > 0)
-/*!* 	return normal.cumulative!!!COMMENT!!!(log(x), logmean, logsd); *!*/
-    	return normal.cumulative(java.lang.Math.log(x), logmean, logsd);
-        return 0;
+        if (scale <= 0) {
+    	    throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	    //    	    return Double.NaN;
+    	}
+    	x = (x - location) / scale;
+    /*!* #ifdef IEEE_754 /*4!*/
+    	if(Double.isInfinite(x)) {
+    	    if(x < 0) return 0;
+    	    else return 1;
+    	}
+    /*!* #endif /*4!*/
+/*!* 	return 0.5 + atan(x) / Constants.M_PI; *!*/
+    	return 0.5 + java.lang.Math.atan(x) / Constants.M_PI;
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -125,29 +126,32 @@ public class lognormal
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double quantile(double x, double logmean, double logsd);
+     *    double quantile(double x, double location, double scale);
      *
      *  DESCRIPTION
      *
-     *    This the lognormal quantile function.
+     *    The quantile function of the Cauchy distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  quantile(double x, double logmean, double logsd)
+    public static double  quantile(double x, double location, double scale)
     {
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isNaN(x) || Double.isNaN(logmean) || Double.isNaN(logsd))
-    	return x + logmean + logsd;
-    /*!* #endif /*4!*/
-        if(x < 0 || x > 1 || logsd <= 0) {
+        if (Double.isNaN(x) || Double.isNaN(location) || Double.isNaN(scale))
+            return x + location + scale;
+        if(Double.isInfinite(x) || Double.isInfinite(location) || Double.isInfinite(scale)) {
             throw new java.lang.ArithmeticException("Math Error: DOMAIN");
 	    //            return Double.NaN;
         }
-        if (x == 1) return Double.POSITIVE_INFINITY;
-/*!*     if (x > 0) return exp(qnorm(x, logmean, logsd)); *!*/
-        if (x > 0) return java.lang.Math.exp(normal.quantile(x, logmean, logsd));
-        return 0;
+    /*!* #endif /*4!*/
+    
+        if (scale <= 0) {
+    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	//    	return Double.NaN;
+        }
+/*!*     return location + scale * tan(Constants.M_PI * (x - 0.5)); *!*/
+        return location + scale * java.lang.Math.tan(Constants.M_PI * (x - 0.5));
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -170,26 +174,26 @@ public class lognormal
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double random(double logmean, double logsd);
+     *    double random(double location, double scale);
      *
      *  DESCRIPTION
      *
-     *    Random variates from the lognormal distribution.
+     *    Random variates from the normal distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  random(double logmean, double logsd, uniform PRNG)
+    public static double  random(double location, double scale, Uniform uniformDistribution)
     {
-        if(
+        if (
     /*!* #ifdef IEEE_754 /*4!*/
-    	Double.isInfinite(logmean) || Double.isInfinite(logsd) ||
+    	Double.isInfinite(location) || Double.isInfinite(scale) ||
     /*!* #endif /*4!*/
-    	logsd <= 0.0) {
-            throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-	    //            return Double.NaN;
+    	scale < 0) {
+    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	//    	return Double.NaN;
         }
-/*!*     return exp(rnorm(logmean, logsd)); *!*/
-        return java.lang.Math.exp(normal.random(logmean, logsd, PRNG));
+/*!*     return location + scale * tan(Constants.M_PI * sunif()); *!*/
+        return location + scale * java.lang.Math.tan(Constants.M_PI * uniformDistribution.random());
     }
   }

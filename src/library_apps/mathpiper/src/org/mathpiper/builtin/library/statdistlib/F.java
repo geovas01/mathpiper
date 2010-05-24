@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class geometric
+public class F
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -31,33 +31,33 @@ public class geometric
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double density(double x, double p);
+     *    double density(double x, double n1, double n2);
      *
      *  DESCRIPTION
      *
-     *    The density of the geometric distribution.
+     *    The density function of the F distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  density(double x, double p)
+    public static double  density(double x, double n1, double n2)
     {
+    	double a;
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isNaN(x) || Double.isNaN(p)) return x + p;
+        if (Double.isNaN(x) || Double.isNaN(n1) || Double.isNaN(n2))
+    	return x + n1 + n2;
     /*!* #endif /*4!*/
-        if (p <= 0 || p >= 1) {
-    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-	//    	return Double.NaN;
-        }
-/*!*     x = floor(x + 0.5); *!*/
-        x = java.lang.Math.floor(x + 0.5);
-        if (x < 0)
-    	return 0;
-    /*!* #ifdef IEEE_754 /*4!*/
-        if(Double.isInfinite(x)) return 1;
-    /*!* #endif /*4!*/
-/*!*     return p * pow(1 - p, x); *!*/
-        return p * java.lang.Math.pow(1 - p, x);
+    	if (n1 <= 0 || n2 <= 0) {
+    	    throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	    //    	    return Double.NaN;
+    	}
+    	if (x <= 0.0)
+    		return 0.0;
+    	a = (n1 / n2) * x;
+/*!* 	return pow(a, 0.5 * n1) * pow(1.0 + a, -0.5 * (n1 + n2)) *!*/
+    	return java.lang.Math.pow(a, 0.5 * n1) * java.lang.Math.pow(1.0 + a, -0.5 * (n1 + n2))
+/*!* 			/ (x * Beta(0.5 * n1, 0.5 * n2)); *!*/
+    			/ (x * Misc.beta(0.5 * n1, 0.5 * n2));
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -80,33 +80,29 @@ public class geometric
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double quantile(double x, double p);
+     *    double cumulative(double x, double n1, double n2);
      *
      *  DESCRIPTION
      *
-     *    The distribution function of the geometric distribution.
+     *    The distribution function of the F distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  cumulative(double x, double p)
+    public static double  cumulative(double x, double n1, double n2)
     {
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isNaN(x) || Double.isNaN(p))
-    	return x + p;
+        if (Double.isNaN(x) || Double.isNaN(n1) || Double.isNaN(n2))
+    	return x + n2 + n1;
     /*!* #endif /*4!*/
-/*!*     x = floor(x); *!*/
-        x = java.lang.Math.floor(x);
-        if(p <= 0 || p >= 1) {
+        if (n1 <= 0.0 || n2 <= 0.0) {
     	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
 	//    	return Double.NaN;
         }
-        if (x < 0.0) return 0;
-    /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isInfinite(x)) return 1;
-    /*!* #endif /*4!*/
-/*!*     return 1 - pow(1 - p, x + 1); *!*/
-        return 1 - java.lang.Math.pow(1 - p, x + 1);
+        if (x <= 0.0)
+    	return 0.0;
+        x = 1.0 - Beta.cumulative(n2 / (n2 + n1 * x), n2 / 2.0, n1 / 2.0);
+        return !Double.isNaN(x) ? x : Double.NaN;
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -129,38 +125,33 @@ public class geometric
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double quantile(double x, double p);
+     *    double quantile(double x, double n1, double n2);
      *
      *  DESCRIPTION
      *
-     *    The quantile function of the geometric distribution.
-     */
+     *    The quantile function of the F distribution.
+    */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  quantile(double x, double p)
+    public static double  quantile(double x, double n1, double n2)
     {
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isNaN(x) || Double.isNaN(p))
-    	return x + p;
-        if (x < 0 || x > 1 || p <= 0 || p > 1) {
-    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-	//    	return Double.NaN;
-        }
-        if (x == 1) return Double.POSITIVE_INFINITY;
-    /*!* #else /*4!*/
-        if (x < 0 || x >= 1 || p <= 0 || p > 1) {
-    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-	//    	return Double.NaN;
-        }
+        if (Double.isNaN(x) || Double.isNaN(n1) || Double.isNaN(n2))
+    	return x + n1 + n2;
     /*!* #endif /*4!*/
-        if (x == 0) return 0;
-/*!*     return ceil(log(1 - x) / log(1.0 - p) - 1); *!*/
-        return java.lang.Math.ceil(java.lang.Math.log(1 - x) / java.lang.Math.log(1.0 - p) - 1);
+        if (n1 <= 0.0 || n2 <= 0.0) {
+    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	//    	return Double.NaN;
+        }
+        if (x <= 0.0)
+    	return 0.0;
+        x = (1.0 / Beta.quantile(1.0 - x, n2 / 2.0, n1 / 2.0) - 1.0) * (n2 / n1);
+        return !Double.isNaN(x) ? x : Double.NaN;
     }
     /*
      *  DistLib : A C Library of Special Functions
-     *  Copyright (C) 1998 Ross Ihaka and the R Core Team.
+     *  Copyright (C) 1998 Ross Ihaka
      *
      *  This program is free software; you can redistribute it and/or modify
      *  it under the terms of the GNU General Public License as published by
@@ -178,38 +169,33 @@ public class geometric
      *
      *  SYNOPSIS
      *
-     *    #include "DistLib.h"
-     *    double random(double p);
+     *    #include "mathlib.h"
+     *    double random(double dfn, double dfd);
      *
      *  DESCRIPTION
      *
-     *    Random variates from the geometric distribution.
+     *    Pseudo-random variates from an F distribution.
      *
      *  NOTES
      *
-     *    We generate lambda as exponential with scale parameter
-     *    p / (1 - p).  Return a Poisson deviate with mean lambda.
-     *
-     *  REFERENCE
-     *
-     *    Devroye, L. (1980).
-     *    Non-Uniform Random Variate Generation.
-     *    New York: Springer-Verlag.
-     *    Page 480.
+     *    This function calls rchisq to do the real work
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  random(double p, uniform PRNG)
+    public static double  random(double n1, double n2, Uniform uniformDistribution)
     {
+        double v1, v2;
         if (
     /*!* #ifdef IEEE_754 /*4!*/
-    	Double.isNaN(p) ||
+    	Double.isNaN(n1) || Double.isNaN(n2) ||
     /*!* #endif /*4!*/
-    	p <= 0 || p >= 1) {
+    	n1 <= 0.0 || n2 <= 0.0) {
     	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
 	//    	return Double.NaN;
         }
-        return poisson.random(exponential.random( PRNG ) * ((1 - p) / p), PRNG);
+        v1 = !Double.isInfinite(n1) ? (Chisquare.random(n1,uniformDistribution) / n1) : Normal.random(uniformDistribution);
+        v2 = !Double.isInfinite(n2) ? (Chisquare.random(n2,uniformDistribution) / n2) : Normal.random(uniformDistribution);
+        return v1 / v2;
     }
   }

@@ -24,7 +24,7 @@ package org.mathpiper.builtin.library.statdistlib;
  * Miscellaneous functions and values.
  */
 
-public class misc {
+public class Misc {
 
   /**
    * Value of the beta function

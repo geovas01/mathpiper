@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class polygamma 
+public class Polygamma
   { 
 /***UNUSED***    /*
 /***UNUSED***     *  DistLib : A C Library of Special Functions
@@ -41,7 +41,7 @@ public class polygamma
 /***UNUSED***     *  DESCRIPTION
 /***UNUSED***     *
 /***UNUSED***     *    Compute the derivatives of the psi function
-/***UNUSED***     *    and polygamma functions.
+/***UNUSED***     *    and Polygamma functions.
 /***UNUSED***     *
 /***UNUSED***     *    The following definitions are used in dpsifn:
 /***UNUSED***     *

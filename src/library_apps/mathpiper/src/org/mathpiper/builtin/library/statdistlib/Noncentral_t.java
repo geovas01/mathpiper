@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class noncentral_t 
+public class Noncentral_t
   { 
     /*
      *  Algorithm AS 243  Appl. Statist. (1989), Vol.38, No. 1.
@@ -22,8 +22,8 @@ public class noncentral_t
      *    Requires the following auxiliary routines:
      *
      *        lgammafn(x)       - log gamma function
-     *        beta.cumulative(x, a, b)  - incomplete beta function
-     *        normal.cumulative(x)        - normal distribution function
+     *        Beta.cumulative(x, a, b)  - incomplete Beta function
+     *        Normal.cumulative(x)        - Normal distribution function
      *
      *  CONSTANTS
      *
@@ -78,8 +78,8 @@ public class noncentral_t
 /*!* 	rxb = pow(one - x, b); *!*/
     	rxb = java.lang.Math.pow(one - x, b);
 /*!* 	albeta = Constants.M_LN_SQRT_PI + lgammafn(b) - lgammafn(a + b); *!*/
-    	albeta = Constants.M_LN_SQRT_PI + misc.lgammafn(b) - misc.lgammafn(a + b);
-    	xodd = beta.cumulative(x, a, b);
+    	albeta = Constants.M_LN_SQRT_PI + Misc.lgammafn(b) - Misc.lgammafn(a + b);
+    	xodd = Beta.cumulative(x, a, b);
 /*!* 	godd = two * rxb * exp(a * log(x) - albeta); *!*/
     	godd = two * rxb * java.lang.Math.exp(a * java.lang.Math.log(x) - albeta);
     	xeven = one - rxb;
@@ -105,7 +105,7 @@ public class noncentral_t
         }
         if (en <= itrmax)
     	throw new java.lang.ArithmeticException("Math Error: PRECISION");
-        tnc = tnc + normal.cumulative(- del, zero, one);
+        tnc = tnc + Normal.cumulative(- del, zero, one);
         if (negdel)
     	tnc = one - tnc;
         return tnc;

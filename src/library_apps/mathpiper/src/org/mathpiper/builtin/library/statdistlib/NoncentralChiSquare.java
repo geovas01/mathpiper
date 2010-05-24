@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class noncentral_chisquare
+public class NoncentralChiSquare
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -35,7 +35,7 @@ public class noncentral_chisquare
      *
      *  DESCRIPTION
      *
-     *    The density of the noncentral chisquare distribution with
+     *    The density of the noncentral Chisquare distribution with
      *    "df" degrees of freedom and noncentrality parameter "lambda".
      *
      */
@@ -66,7 +66,7 @@ public class noncentral_chisquare
     
     	if(x <= 0) return 0;
     
-    	dens = chisquare.density(x, df);
+    	dens = Chisquare.density(x, df);
     	if(lambda == 0)
     		return dens;
     
@@ -157,7 +157,7 @@ public class noncentral_chisquare
 /*!*        t = pow(x2, f2) * exp(-x2) / exp(lgamma((f2 + 1))); */ /*!*/
         /* t = java.lang.Math.pow(x2, f2) * java.lang.Math.exp(-x2) / java.lang.Math.exp(lgamma((f2 + 1))); */
 /*!*     t = exp(f2*log(x2) -x2 - lgammafn(f2 + 1)); *!*/
-        t = java.lang.Math.exp(f2*java.lang.Math.log(x2) -x2 - misc.lgammafn(f2 + 1));
+        t = java.lang.Math.exp(f2*java.lang.Math.log(x2) -x2 - Misc.lgammafn(f2 + 1));
     
         /* there is no need to test ifault si */
         /* already been checked */ /*^^^^^^^^ ?????? */

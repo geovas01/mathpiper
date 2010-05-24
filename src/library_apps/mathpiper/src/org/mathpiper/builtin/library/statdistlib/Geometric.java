@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class negative_binomial 
+public class Geometric
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -31,43 +31,33 @@ public class negative_binomial
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double density(double x, double n, double p);
+     *    double density(double x, double p);
      *
      *  DESCRIPTION
      *
-     *    The density function of the negative binomial distribution.
-     *
-     *  NOTES
-     *
-     *    x = the number of failures before the n-th success
+     *    The density of the Geometric distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  density(double x, double n, double p)
+    public static double  density(double x, double p)
     {
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isNaN(x) || Double.isNaN(n) || Double.isNaN(p))
-    	return x + n + p;
+        if (Double.isNaN(x) || Double.isNaN(p)) return x + p;
     /*!* #endif /*4!*/
+        if (p <= 0 || p >= 1) {
+    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	//    	return Double.NaN;
+        }
 /*!*     x = floor(x + 0.5); *!*/
         x = java.lang.Math.floor(x + 0.5);
-/*!*     n = floor(n + 0.5); *!*/
-        n = java.lang.Math.floor(n + 0.5);
-        if (n < 1 || p <= 0 || p >= 1) {
-	    throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-	    //    	return Double.NaN;
-        }
         if (x < 0)
     	return 0;
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isInfinite(x))
-    	return 0;
+        if(Double.isInfinite(x)) return 1;
     /*!* #endif /*4!*/
-/*!*     return exp(lfastchoose(x + n - 1, x) *!*/
-        return java.lang.Math.exp(misc.lfastchoose(x + n - 1, x)
-/*!* 	       + n * log(p) + x * log(1 - p)); *!*/
-    	       + n * java.lang.Math.log(p) + x * java.lang.Math.log(1 - p));
+/*!*     return p * pow(1 - p, x); *!*/
+        return p * java.lang.Math.pow(1 - p, x);
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -90,43 +80,33 @@ public class negative_binomial
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double cumulative(double x, double n, double p);
+     *    double quantile(double x, double p);
      *
      *  DESCRIPTION
      *
-     *    The distribution function of the negative binomial distribution.
-     *
-     *  NOTES
-     *
-     *    x = the number of failures before the n-th success
+     *    The distribution function of the Geometric distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  cumulative(double x, double n, double p)
+    public static double  cumulative(double x, double p)
     {
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isNaN(x) || Double.isNaN(n) || Double.isNaN(p))
-    	return x + n + p;
-        if(Double.isInfinite(n) || Double.isInfinite(p)) {
-    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-	//    	return Double.NaN;
-        }
+        if (Double.isNaN(x) || Double.isNaN(p))
+    	return x + p;
     /*!* #endif /*4!*/
-/*!*     x = floor(x + 0.5); *!*/
-        x = java.lang.Math.floor(x + 0.5);
-/*!*     n = floor(n + 0.5); *!*/
-        n = java.lang.Math.floor(n + 0.5);
-        if (n < 1 || p <= 0 || p >= 1) {
+/*!*     x = floor(x); *!*/
+        x = java.lang.Math.floor(x);
+        if(p <= 0 || p >= 1) {
     	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
 	//    	return Double.NaN;
         }
-        if (x < 0) return 0;
+        if (x < 0.0) return 0;
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isInfinite(x))
-    	return 1;
+        if (Double.isInfinite(x)) return 1;
     /*!* #endif /*4!*/
-        return beta.cumulative(p, n, x + 1);
+/*!*     return 1 - pow(1 - p, x + 1); *!*/
+        return 1 - java.lang.Math.pow(1 - p, x + 1);
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -149,84 +129,38 @@ public class negative_binomial
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double quantile(double x, double n, double p);
+     *    double quantile(double x, double p);
      *
      *  DESCRIPTION
      *
-     *    The distribution function of the negative binomial distribution.
-     *
-     *  NOTES
-     *
-     *    x = the number of failures before the n-th success
-     *
-     *  METHOD
-     *
-     *    Uses the Cornish-Fisher Expansion to include a skewness
-     *    correction to a normal approximation.  This gives an
-     *    initial value which never seems to be off by more than
-     *    1 or 2.  A search is then conducted of values close to
-     *    this initial start point.
+     *    The quantile function of the Geometric distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  quantile(double x, double n, double p)
+    public static double  quantile(double x, double p)
     {
-        double P, Q, mu, sigma, gamma, z, y;
-    
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isNaN(x) || Double.isNaN(n) || Double.isNaN(p))
-    	return x + n + p;
-        if (Double.isInfinite(x)) {
+        if (Double.isNaN(x) || Double.isNaN(p))
+    	return x + p;
+        if (x < 0 || x > 1 || p <= 0 || p > 1) {
     	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
 	//    	return Double.NaN;
         }
-    /*!* #endif /*4!*/
-/*!*     n = floor(n + 0.5); *!*/
-        n = java.lang.Math.floor(n + 0.5);
-        if (x < 0 || x > 1 || p <= 0 || p >= 1 || n <= 0) {
-    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-	//    	return Double.NaN;
-        }
-        if (x == 0) return 0;
-    /*!* #ifdef IEEE_754 /*4!*/
         if (x == 1) return Double.POSITIVE_INFINITY;
+    /*!* #else /*4!*/
+        if (x < 0 || x >= 1 || p <= 0 || p > 1) {
+    	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	//    	return Double.NaN;
+        }
     /*!* #endif /*4!*/
-        Q = 1.0 / p;
-        P = (1.0 - p) * Q;
-        mu = n * P;
-/*!*     sigma = sqrt(n * P * Q); *!*/
-        sigma = java.lang.Math.sqrt(n * P * Q);
-        gamma = (Q + P)/sigma;
-        z = normal.quantile(x, 0.0, 1.0);
-/*!*     y = floor(mu + sigma * (z + gamma * (z*z - 1.0) / 6.0) + 0.5); *!*/
-        y = java.lang.Math.floor(mu + sigma * (z + gamma * (z*z - 1.0) / 6.0) + 0.5);
-    
-        z = cumulative(y, n, p);
-        if(z >= x) {
-    
-    	/* search to the left */
-    
-    	for(;;) {
-    	    if((z = cumulative(y - 1, n, p)) < x)
-    		return y;
-    	    y = y - 1;
-    	}
-        }
-        else {
-    
-    	/* search to the right */
-    
-    	for(;;) {
-    	    if((z = cumulative(y + 1, n, p)) >= x)
-    		return y + 1;
-    	    y = y + 1;
-    	}
-        }
+        if (x == 0) return 0;
+/*!*     return ceil(log(1 - x) / log(1.0 - p) - 1); *!*/
+        return java.lang.Math.ceil(java.lang.Math.log(1 - x) / java.lang.Math.log(1.0 - p) - 1);
     }
     /*
      *  DistLib : A C Library of Special Functions
-     *  Copyright (C) 1998 Ross Ihaka
+     *  Copyright (C) 1998 Ross Ihaka and the R Core Team.
      *
      *  This program is free software; you can redistribute it and/or modify
      *  it under the terms of the GNU General Public License as published by
@@ -245,42 +179,37 @@ public class negative_binomial
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double density(double x, double n, double p);
+     *    double random(double p);
      *
      *  DESCRIPTION
      *
-     *    Random variates from the negative binomial distribution.
+     *    Random variates from the Geometric distribution.
      *
      *  NOTES
      *
-     *    x = the number of failures before the n-th success
-     * 
+     *    We generate lambda as Exponential with scale parameter
+     *    p / (1 - p).  Return a Poisson deviate with mean lambda.
+     *
      *  REFERENCE
-     * 
+     *
      *    Devroye, L. (1980).
      *    Non-Uniform Random Variate Generation.
-     *    New York:Springer-Verlag. Page 480.
-     * 
-     *  METHOD
-     * 
-     *    Generate lambda as gamma with shape parameter n and scale
-     *    parameter p/(1-p).  Return a Poisson deviate with mean lambda.
+     *    New York: Springer-Verlag.
+     *    Page 480.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  random(double n, double p, uniform PRNG)
+    public static double  random(double p, Uniform uniformDistribution)
     {
-/*!*     n = floor(n + 0.5); *!*/
-        n = java.lang.Math.floor(n + 0.5);
-        if(
+        if (
     /*!* #ifdef IEEE_754 /*4!*/
-    	Double.isInfinite(n) || Double.isInfinite(p) ||
+    	Double.isNaN(p) ||
     /*!* #endif /*4!*/
-    	n <= 0 || p <= 0 || p >= 1) {
+    	p <= 0 || p >= 1) {
     	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
 	//    	return Double.NaN;
         }
-        return poisson.random(gamma.random(n, (1 - p) / p, PRNG), PRNG);
+        return Poisson.random(Exponential.random( uniformDistribution ) * ((1 - p) / p), uniformDistribution);
     }
   }

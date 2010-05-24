@@ -26,10 +26,10 @@ import org.mathpiper.builtin.library.statdistlib.rng.WichmannHill;
  * Uniform distribution over an interval.
  */
 
-public class uniform {
+public class Uniform {
   
   /**
-   * density of the uniform distribution.
+   * density of the Uniform distribution.
    */
   public static double density(double x, double a, double b) {
     if (Double.isNaN(x) || Double.isNaN(a) || Double.isNaN(b))
@@ -43,7 +43,7 @@ public class uniform {
   }
   
   /**
-   * distribution function of the uniform distribution.
+   * distribution function of the Uniform distribution.
    */
   public static double cumulative(double x, double a, double b) {
     if (Double.isNaN(x) || Double.isNaN(a) || Double.isNaN(b))
@@ -59,7 +59,7 @@ public class uniform {
   }
   
   /**
-   * quantile function of the uniform distribution.
+   * quantile function of the Uniform distribution.
    */
   public static double quantile(double x, double a, double b) {
     if (Double.isNaN(x) || Double.isNaN(a) || Double.isNaN(b))
@@ -71,7 +71,7 @@ public class uniform {
   }
   
   /**
-   *  Random variates from the uniform distribution.
+   *  Random variates from the Uniform distribution.
    */
   public static double random(double a, double b) {
     if (Double.isInfinite(a) || Double.isInfinite(b) || b < a) {
@@ -89,7 +89,7 @@ public class uniform {
   public static StdUniformRng uniRng = new WichmannHill();
   
   /**
-   * generate standard uniform random variate
+   * generate standard Uniform random variate
    */
   public static double random() {
     return uniRng.random();
