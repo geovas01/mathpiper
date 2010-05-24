@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class beta 
+public class Beta
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -35,7 +35,7 @@ public class beta
      *
      *  DESCRIPTION
      *
-     *    The density of the beta distribution.
+     *    The density of the Beta distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
@@ -55,7 +55,7 @@ public class beta
     	return 0;
         if (x > 1)
     	return 0;
-        y = misc.beta(a, b);
+        y = Misc.beta(a, b);
 /*!*     a = pow(x, a - 1);  *!*/
         a = java.lang.Math.pow(x, a - 1);
 /*!*     b = pow(1.0 - x, b - 1.0);  *!*/
@@ -91,8 +91,8 @@ public class beta
      *
      *  DESCRIPTION
      *
-     *    Returns distribution function of the beta distribution.
-     *    (The incomplete beta ratio).
+     *    Returns distribution function of the Beta distribution.
+     *    (The incomplete Beta ratio).
      *
      *  NOTES
      *
@@ -120,10 +120,10 @@ public class beta
 	double alnsml = 0;
     
         if (eps == 0) {
-            eps = misc.d1mach(3);
+            eps = Misc.d1mach(3);
 /*!*         alneps = log(eps);  *!*/
             alneps = java.lang.Math.log(eps);
-            sml = misc.d1mach(1);
+            sml = Misc.d1mach(1);
 /*!*         alnsml = log(sml);  *!*/
             alnsml = java.lang.Math.log(sml);
         }
@@ -145,8 +145,8 @@ public class beta
     	/* tail approximation */
     
             ans = 0;
-/*!*         xb = p * log(Math.max(y, sml)) - log(p) - misc.lbeta(p, q);  *!*/
-            xb = p * java.lang.Math.log(Math.max(y, sml)) - java.lang.Math.log(p) - misc.lbeta(p, q);
+/*!*         xb = p * log(Math.max(y, sml)) - log(p) - Misc.lbeta(p, q);  *!*/
+            xb = p * java.lang.Math.log(Math.max(y, sml)) - java.lang.Math.log(p) - Misc.lbeta(p, q);
             if (xb > alnsml && y != 0)
 /*!*             ans = exp(xb);  *!*/
                 ans = java.lang.Math.exp(xb);
@@ -156,14 +156,14 @@ public class beta
         else {
     
             /* evaluate the infinite sum first.  term will equal */
-            /* y^p / beta(ps, p) * (1 - ps)-sub-i * y^i / fac(i) */
+            /* y^p / Beta(ps, p) * (1 - ps)-sub-i * y^i / fac(i) */
     
 /*!*         ps = q - floor(q);  *!*/
             ps = q - java.lang.Math.floor(q);
             if (ps == 0)
                 ps = 1;
-/*!*         xb = p * log(y) - misc.lbeta(ps, p) - log(p);  *!*/
-            xb = p * java.lang.Math.log(y) - misc.lbeta(ps, p) - java.lang.Math.log(p);
+/*!*         xb = p * log(y) - Misc.lbeta(ps, p) - log(p);  *!*/
+            xb = p * java.lang.Math.log(y) - Misc.lbeta(ps, p) - java.lang.Math.log(p);
             ans = 0;
             if (xb >= alnsml) {
 /*!*             ans = exp(xb);  *!*/
@@ -182,8 +182,8 @@ public class beta
             /* now evaluate the finite sum, maybe. */
     
             if (q > 1) {
-/*!*             xb = p * log(y) + q * log(1 - y) - misc.lbeta(p, q) - log(q);  *!*/
-                xb = p * java.lang.Math.log(y) + q * java.lang.Math.log(1 - y) - misc.lbeta(p, q) - java.lang.Math.log(q);
+/*!*             xb = p * log(y) + q * log(1 - y) - Misc.lbeta(p, q) - log(q);  *!*/
+                xb = p * java.lang.Math.log(y) + q * java.lang.Math.log(1 - y) - Misc.lbeta(p, q) - java.lang.Math.log(q);
                 ib = (int) Math.max(xb / alnsml, 0.0);
 /*!*             term = exp(xb - ib * alnsml);  *!*/
                 term = java.lang.Math.exp(xb - ib * alnsml);
@@ -312,7 +312,7 @@ public class beta
     	if (alpha == zero || alpha == 1)
     		return alpha;
     
-    	logbeta = misc.lbeta(p, q);
+    	logbeta = Misc.lbeta(p, q);
     
     	/* change tail if necessary;  afterwards   0 < a <= 1/2	 */
     	if (alpha <= 0.5) {
@@ -443,7 +443,7 @@ L_converged:	{
     
     /* Reference:
      * R. C. H. Cheng (1978).
-     * Generating beta variates with nonintegral shape parameters.
+     * Generating Beta variates with nonintegral shape parameters.
      * Communications of the ACM 21, 317-322.
      * (Algorithms BB and BC)
      */
@@ -451,7 +451,7 @@ L_converged:	{
     /*!* #include "DistLib.h" /*4!*/
     
 /*!* double random(double aa, double bb) *!*/
-    public static double random(double aa, double bb, uniform PRNG)
+    public static double random(double aa, double bb, Uniform uniformDistribution)
     {
     	int qsame;
       
@@ -495,8 +495,8 @@ L_converged:	{
     			k2 = 0.25 + (0.5 + 0.25 / delta) * b;
     		}
     		for(;;) {
- 			u1 = PRNG.random();
- 			u2 = PRNG.random();
+ 			u1 = uniformDistribution.random();
+ 			u2 = uniformDistribution.random();
 
     			if (u1 < 0.5) {
     				y = u1 * u2;
@@ -510,7 +510,7 @@ L_converged:	{
     				if (z >= k2)
     					continue;
     			}
-/*!* 			v = beta * log(u1 / (1.0 - u1));  *!*/
+/*!* 			v = Beta * log(u1 / (1.0 - u1));  *!*/
     			v = beta * java.lang.Math.log(u1 / (1.0 - u1));
     			if (v <= expmax)
 /*!* 				w = a * exp(v);  *!*/
@@ -523,7 +523,7 @@ L_converged:	{
     			    >= java.lang.Math.log(z))
     				break deliver;
     		}
-/*!* 		v = beta * log(u1 / (1.0 - u1));  *!*/
+/*!* 		v = Beta * log(u1 / (1.0 - u1));  *!*/
     		v = beta * java.lang.Math.log(u1 / (1.0 - u1));
     		if (v <= expmax)
 /*!* 			w = a * exp(v);  *!*/
@@ -535,16 +535,16 @@ L_converged:	{
     			a = Math.min(aa, bb);
     			b = Math.max(aa, bb);
     			alpha = a + b;
-/*!* 			beta = sqrt((alpha - 2.0) / (2.0 * a * b - alpha));  *!*/
+/*!* 			Beta = sqrt((alpha - 2.0) / (2.0 * a * b - alpha));  *!*/
     			beta = java.lang.Math.sqrt((alpha - 2.0) / (2.0 * a * b - alpha));
     			gamma = a + 1.0 / beta;
     		}
     		do {
-/*!* 			u1 = PRNG.random();  *!*/
-    			u1 = PRNG.random();
-/*!* 			u2 = PRNG.random();  *!*/
-    			u2 = PRNG.random();
-/*!* 			v = beta * log(u1 / (1.0 - u1));  *!*/
+/*!* 			u1 = uniformDistribution.random();  *!*/
+    			u1 = uniformDistribution.random();
+/*!* 			u2 = uniformDistribution.random();  *!*/
+    			u2 = uniformDistribution.random();
+/*!* 			v = Beta * log(u1 / (1.0 - u1));  *!*/
     			v = beta * java.lang.Math.log(u1 / (1.0 - u1));
     			if (v <= expmax)
 /*!* 				w = a * exp(v);  *!*/

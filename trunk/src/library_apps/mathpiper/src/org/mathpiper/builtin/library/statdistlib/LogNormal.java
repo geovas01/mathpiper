@@ -8,11 +8,11 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class logistic
+public class LogNormal
   { 
     /*
-     *  R : A Computer Langage for Statistical Data Analysis
-     *  Copyright (C) 1995, 1996  Robert Gentleman and Ross Ihaka
+     *  DistLib : A C Library of Special Functions
+     *  Copyright (C) 1998 Ross Ihaka
      *
      *  This program is free software; you can redistribute it and/or modify
      *  it under the terms of the GNU General Public License as published by
@@ -27,29 +27,41 @@ public class logistic
      *  You should have received a copy of the GNU General Public License
      *  along with this program; if not, write to the Free Software
      *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+     *
+     *  SYNOPSIS
+     *
+     *    double density(double x, double logmean, double logsd);
+     *
+     *  DESCRIPTION
+     *
+     *    The density of the LogNormal distribution.
+     *
+     * 	M_1_SQRT_2PI = 1 / sqrt(2 * pi)
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double density(double x, double location, double scale)
+    public static double  density(double x, double logmean, double logsd)
     {
-    	double e, f;
+        double y;
+    
     /*!* #ifdef IEEE_754 /*4!*/
-        if (Double.isNaN(x) || Double.isNaN(location) || Double.isNaN(scale))
-    	return x + location + scale;
+        if (Double.isNaN(x) || Double.isNaN(logmean) || Double.isNaN(logsd))
+    	return x + logmean + logsd;
     /*!* #endif /*4!*/
-    	if (scale <= 0.0) {
-    		throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-		//    		return Double.NaN;
-    	}
-/*!* 	e = exp(-(x - location) / scale); *!*/
-    	e = java.lang.Math.exp(-(x - location) / scale);
-    	f = 1.0 + e;
-    	return e / (scale * f * f);
+        if(logsd <= 0) {
+            throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	    //            return Double.NaN;
+        }
+        if(x == 0) return 0;
+/*!*     y = (log(x) - logmean) / logsd; *!*/
+        y = (java.lang.Math.log(x) - logmean) / logsd;
+/*!*     return Constants.M_1_SQRT_2PI * exp(-0.5 * y * y) / (x * logsd); *!*/
+        return Constants.M_1_SQRT_2PI * java.lang.Math.exp(-0.5 * y * y) / (x * logsd);
     }
     /*
-     *  R : A Computer Langage for Statistical Data Analysis
-     *  Copyright (C) 1995, 1996  Robert Gentleman and Ross Ihaka
+     *  DistLib : A C Library of Special Functions
+     *  Copyright (C) 1998 Ross Ihaka
      *
      *  This program is free software; you can redistribute it and/or modify
      *  it under the terms of the GNU General Public License as published by
@@ -64,30 +76,37 @@ public class logistic
      *  You should have received a copy of the GNU General Public License
      *  along with this program; if not, write to the Free Software
      *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+     *
+     *  SYNOPSIS
+     *
+     *    #include "DistLib.h"
+     *    double cumulative(double x, double logmean, double logsd);
+     *
+     *  DESCRIPTION
+     *
+     *    The LogNormal distribution function.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double cumulative(double x, double location, double scale)
+    public static double  cumulative(double x, double logmean, double logsd)
     {
     /*!* #ifdef IEEE_754 /*4!*/
-    	if (Double.isNaN(x) || Double.isNaN(location) || Double.isNaN(scale))
-    		return x + location + scale;
+        if (Double.isNaN(x) || Double.isNaN(logmean) || Double.isNaN(logsd))
+    	return x + logmean + logsd;
     /*!* #endif /*4!*/
-    	if (scale <= 0.0) {
-    		throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-		//    		return Double.NaN;
-    	}
-    	if(Double.isInfinite(x)) {
-    		if (x > 0) return 1;
-    		else return 0;
-    	}
-/*!* 	return 1.0 / (1.0 + exp(-(x - location) / scale)); *!*/
-    	return 1.0 / (1.0 + java.lang.Math.exp(-(x - location) / scale));
+        if (logsd <= 0) {
+            throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	    //            return Double.NaN;
+        }
+        if (x > 0)
+/*!* 	return Normal.cumulative!!!COMMENT!!!(log(x), logmean, logsd); *!*/
+    	return Normal.cumulative(java.lang.Math.log(x), logmean, logsd);
+        return 0;
     }
     /*
-     *  R : A Computer Langage for Statistical Data Analysis
-     *  Copyright (C) 1995, 1996  Robert Gentleman and Ross Ihaka
+     *  DistLib : A C Library of Special Functions
+     *  Copyright (C) 1998 Ross Ihaka
      *
      *  This program is free software; you can redistribute it and/or modify
      *  it under the terms of the GNU General Public License as published by
@@ -102,28 +121,37 @@ public class logistic
      *  You should have received a copy of the GNU General Public License
      *  along with this program; if not, write to the Free Software
      *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+     *
+     *  SYNOPSIS
+     *
+     *    #include "DistLib.h"
+     *    double quantile(double x, double logmean, double logsd);
+     *
+     *  DESCRIPTION
+     *
+     *    This the LogNormal quantile function.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double quantile(double x, double location, double scale)
+    public static double  quantile(double x, double logmean, double logsd)
     {
     /*!* #ifdef IEEE_754 /*4!*/
-    	if (Double.isNaN(x) || Double.isNaN(location) || Double.isNaN(scale))
-    		return x + location + scale;
+        if (Double.isNaN(x) || Double.isNaN(logmean) || Double.isNaN(logsd))
+    	return x + logmean + logsd;
     /*!* #endif /*4!*/
-    	if (scale <= 0.0 || x < 0 || x > 1) {
-    		throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-		//    		return Double.NaN;
-    	}
-    	if(x <= 0) return Double.NEGATIVE_INFINITY;
-    	if(x == 1) return Double.POSITIVE_INFINITY;
-/*!* 	return location + scale * log(x / (1.0 - x)); *!*/
-    	return location + scale * java.lang.Math.log(x / (1.0 - x));
+        if(x < 0 || x > 1 || logsd <= 0) {
+            throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	    //            return Double.NaN;
+        }
+        if (x == 1) return Double.POSITIVE_INFINITY;
+/*!*     if (x > 0) return exp(qnorm(x, logmean, logsd)); *!*/
+        if (x > 0) return java.lang.Math.exp(Normal.quantile(x, logmean, logsd));
+        return 0;
     }
     /*
-     *  R : A Computer Langage for Statistical Data Analysis
-     *  Copyright (C) 1995, 1996  Robert Gentleman and Ross Ihaka
+     *  DistLib : A C Library of Special Functions
+     *  Copyright (C) 1998 Ross Ihaka
      *
      *  This program is free software; you can redistribute it and/or modify
      *  it under the terms of the GNU General Public License as published by
@@ -138,21 +166,30 @@ public class logistic
      *  You should have received a copy of the GNU General Public License
      *  along with this program; if not, write to the Free Software
      *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+     *
+     *  SYNOPSIS
+     *
+     *    #include "DistLib.h"
+     *    double random(double logmean, double logsd);
+     *
+     *  DESCRIPTION
+     *
+     *    Random variates from the LogNormal distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double random(double location, double scale, uniform PRNG)
+    public static double  random(double logmean, double logsd, Uniform uniformDistribution)
     {
-    	double u;
-    /* #ifndef IEEE_754 */
-    	if (Double.isInfinite(location) || Double.isInfinite(scale)) {
-    		throw new java.lang.ArithmeticException("Math Error: DOMAIN");
-		//    		return Double.NaN;
-    	}
-    /* #endif */
-    	u = PRNG.random();
-/*!* 	return location + scale * log(u / (1.0 - u)); *!*/
-    	return location + scale * java.lang.Math.log(u / (1.0 - u));
+        if(
+    /*!* #ifdef IEEE_754 /*4!*/
+    	Double.isInfinite(logmean) || Double.isInfinite(logsd) ||
+    /*!* #endif /*4!*/
+    	logsd <= 0.0) {
+            throw new java.lang.ArithmeticException("Math Error: DOMAIN");
+	    //            return Double.NaN;
+        }
+/*!*     return exp(rnorm(logmean, logsd)); *!*/
+        return java.lang.Math.exp(Normal.random(logmean, logsd, uniformDistribution));
     }
   }

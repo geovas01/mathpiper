@@ -3,7 +3,7 @@ package org.mathpiper.builtin.library.statdistlib;
 /* data translated from C using perl script translate.pl */
 /* script version 0.00                               */
 
-public class gamma 
+public class Gamma
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -30,7 +30,7 @@ public class gamma
      *
      *  DESCRIPTION
      *
-     *    Computes the density of the gamma distribution.
+     *    Computes the density of the Gamma distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
@@ -59,7 +59,7 @@ public class gamma
         }
         x = x / scale;
 /*!*     return exp((shape - 1) * log(x) - lgammafn(shape) - x) / scale; *!*/
-        return java.lang.Math.exp((shape - 1) * java.lang.Math.log(x) - misc.lgammafn(shape) - x) / scale;
+        return java.lang.Math.exp((shape - 1) * java.lang.Math.log(x) - Misc.lgammafn(shape) - x) / scale;
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -87,8 +87,8 @@ public class gamma
      *  DESCRIPTION
      *
      *    This function computes the distribution function for the
-     *    gamma distribution with shape parameter a and scale parameter
-     *    scale.  This is also known as the incomplete gamma function.
+     *    Gamma distribution with shape parameter a and scale parameter
+     *    scale.  This is also known as the incomplete Gamma function.
      *    See Abramowitz and Stegun (6.5.1) for example.
      *
      *  NOTES
@@ -138,12 +138,12 @@ public class gamma
         if (x <= zero)
     	return 0.0;
     
-        /* use a normal approximation if p > plimit */
+        /* use a Normal approximation if p > plimit */
     
         if (p > plimit) {
 /*!* 	pn1 = sqrt(p) * three * (pow(x/p, third) + one / (p * nine) - one); *!*/
     	pn1 = java.lang.Math.sqrt(p) * three * (java.lang.Math.pow(x/p, third) + one / (p * nine) - one);
-    	return normal.cumulative(pn1, 0.0, 1.0);
+    	return Normal.cumulative(pn1, 0.0, 1.0);
         }
     
         /* if x is extremely large compared to p then return 1 */
@@ -156,7 +156,7 @@ public class gamma
     	/* use pearson's series expansion. */
     
 /*!* 	arg = p * log(x) - x - lgammafn(p + one); *!*/
-    	arg = p * java.lang.Math.log(x) - x - misc.lgammafn(p + one);
+    	arg = p * java.lang.Math.log(x) - x - Misc.lgammafn(p + one);
     	c = one;
     	sum = one;
     	a = p;
@@ -176,7 +176,7 @@ public class gamma
     	/* use a continued fraction expansion */
     
 /*!* 	arg = p * log(x) - x - lgammafn(p); *!*/
-    	arg = p * java.lang.Math.log(x) - x - misc.lgammafn(p);
+    	arg = p * java.lang.Math.log(x) - x - Misc.lgammafn(p);
     	a = one - p;
     	b = a + x + one;
     	c = zero;
@@ -250,7 +250,7 @@ public class gamma
      *
      *  DESCRIPTION
      *
-     *    Compute the quantile function of the gamma distribution.
+     *    Compute the quantile function of the Gamma distribution.
      *
      *  NOTES
      *
@@ -334,7 +334,7 @@ public class gamma
     
         c = alpha-1;
 /*!*     g = lgammafn(alpha);!!!COMMENT!!! *!*/
-        g = misc.lgammafn(alpha);/* log Gamma(v/2) */
+        g = Misc.lgammafn(alpha);/* log Gamma(v/2) */
     
 /*!*     if(v < (-1.24)*log(p)) { *!*/
         if(v < (-1.24)*java.lang.Math.log(p)) {
@@ -351,7 +351,7 @@ public class gamma
     
     	/* starting approximation using Wilson and Hilferty estimate */
     
-    	x = normal.quantile(p, 0, 1);
+    	x = Normal.quantile(p, 0, 1);
     	p1 = 0.222222/v;
 /*!* 	ch = v*pow(x*sqrt(p1)+1-p1, 3); *!*/
     	ch = v*java.lang.Math.pow(x*java.lang.Math.sqrt(p1)+1-p1, 3);
@@ -434,14 +434,14 @@ public class gamma
      *
      *  DESCRIPTION
      *
-     *    Random variates from the gamma distribution.
+     *    Random variates from the Gamma distribution.
      *
      *  REFERENCES
      *
      *    [1] Shape parameter a >= 1.  Algorithm GD in:
      *
      *	  Ahrens, J.H. and Dieter, U. (1982).
-     *	  Generating gamma variates by a modified
+     *	  Generating Gamma variates by a modified
      *	  rejection technique.
      *	  Comm. ACM, 25, 47-54.
      *
@@ -449,12 +449,12 @@ public class gamma
      *    [2] Shape parameter 0 < a < 1. Algorithm GS in:
      *
      *        Ahrens, J.H. and Dieter, U. (1974).
-     *	  Computer methods for sampling from gamma, beta,
+     *	  Computer methods for sampling from Gamma, beta,
      *	  poisson and binomial distributions.
      *	  Computing, 12, 223-246.
      *
-     *    Input: a = parameter (mean) of the standard gamma distribution.
-     *    Output: a variate from the gamma(a)-distribution
+     *    Input: a = parameter (mean) of the standard Gamma distribution.
+     *    Output: a variate from the Gamma(a)-distribution
      *
      *    Coefficients q(k) - for q0 = sum(q(k)*a**(-k))
      *    Coefficients a(k) - for q = q0+(t*t/2)*sum(a(k)*v**k)
@@ -491,7 +491,7 @@ public class gamma
     static private double q0, s2, si;
       
     
-    public static double  random(double a, double scale, uniform PRNG)
+    public static double  random(double a, double scale, Uniform uniformDistribution)
     {
     	double ret_val;
     
@@ -501,17 +501,17 @@ public class gamma
     		aa = 0.0;
     		b = 1.0 + 0.36787944117144232159 * a;
     		while(true) {
-    			p = b * PRNG.random();
+    			p = b * uniformDistribution.random();
     			if (p >= 1.0) {
 /*!* 				ret_val = -log((b - p) / a); *!*/
     				ret_val = -java.lang.Math.log((b - p) / a);
-/*!* 				if (exponential.random!!!COMMENT!!!() >= (1.0 - a) * log(ret_val)) *!*/
-    				if (exponential.random(PRNG) >= (1.0 - a) * java.lang.Math.log(ret_val))
+/*!* 				if (Exponential.random!!!COMMENT!!!() >= (1.0 - a) * log(ret_val)) *!*/
+    				if (Exponential.random(uniformDistribution) >= (1.0 - a) * java.lang.Math.log(ret_val))
     					break;
     			} else {
 /*!* 				ret_val = exp(log(p) / a); *!*/
     				ret_val = java.lang.Math.exp(java.lang.Math.log(p) / a);
-    				if (exponential.random(PRNG) >= ret_val)
+    				if (Exponential.random(uniformDistribution) >= ret_val)
     					break;
     			}
     		}
@@ -525,18 +525,18 @@ public class gamma
     		s = java.lang.Math.sqrt(s2);
     		d = sqrt32 - s * 12.0;
     	}
-    	/* Step 2: t = standard normal deviate, */
-    	/* x = (s,1/2)-normal deviate. */
+    	/* Step 2: t = standard Normal deviate, */
+    	/* x = (s,1/2)-Normal deviate. */
     	/* immediate acceptance (i) */
     
-    	t = normal.random(PRNG);
+    	t = Normal.random(uniformDistribution);
     	x = s + 0.5 * t;
     	ret_val = x * x;
     	if (t >= 0.0)
     		return scale * ret_val;
     
-    	/* Step 3: u = 0,1 - uniform sample. squeeze acceptance (s) */
-    	u = PRNG.random();
+    	/* Step 3: u = 0,1 - Uniform sample. squeeze acceptance (s) */
+    	u = uniformDistribution.random();
     	if (d * u <= t * t * t) {
     		return scale * ret_val;
     	}
@@ -588,13 +588,13 @@ public class gamma
     		if (java.lang.Math.log(1.0 - u) <= q)
     			return scale * ret_val;
     	}
-    	/* Step 8: e = standard exponential deviate */
-    	/* u= 0,1 -uniform deviate */
-    	/* t=(b,si)-double exponential (laplace) sample */
+    	/* Step 8: e = standard Exponential deviate */
+    	/* u= 0,1 -Uniform deviate */
+    	/* t=(b,si)-double Exponential (laplace) sample */
     
     	while(true) {
-    		e = exponential.random(PRNG);
-    		u = PRNG.random();
+    		e = Exponential.random(uniformDistribution);
+    		u = uniformDistribution.random();
     		u = u + u - 1.0;
     		if (u < 0.0)
     			t = b - si * e;

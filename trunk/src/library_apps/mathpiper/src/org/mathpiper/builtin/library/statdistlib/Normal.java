@@ -28,7 +28,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class normal 
+public class Normal
   { 
     
     /*  Mathematical Constants */
@@ -58,7 +58,7 @@ public class normal
      *    from those in "Rational Chebyshev approximations for the error
      *    function" by W. J. Cody, Math. Comp., 1969, 631-637.  This
      *    transportable program uses rational functions that theoretically
-     *    approximate the normal distribution function to at least 18
+     *    approximate the Normal distribution function to at least 18
      *    significant decimal digits.  The accuracy achieved depends on the
      *    arithmetic system, the compiler, the intrinsic functions, and
      *    proper selection of the machine-dependent constants.
@@ -264,7 +264,7 @@ public class normal
      *
      *  DESCRIPTION
      *
-     *    Compute the quantile function for the normal distribution.
+     *    Compute the quantile function for the Normal distribution.
      *
      *    For small to moderate probabilities, algorithm referenced
      *    below is used to obtain an initial approximation which is
@@ -275,7 +275,7 @@ public class normal
      *  REFERENCE
      *
      *    Beasley, J. D. and S. G. Springer (1977).
-     *    Algorithm AS 111: The percentage points of the normal distribution,
+     *    Algorithm AS 111: The percentage points of the Normal distribution,
      *    Applied Statistics, 26, 118-121.
      */
     
@@ -348,7 +348,7 @@ public class normal
 	    //    	    }
     	}
         }
-        val = val - (cumulative(val, 0.0, 1.0) - p) / normal.density(val, 0.0, 1.0);
+        val = val - (cumulative(val, 0.0, 1.0) - p) / Normal.density(val, 0.0, 1.0);
         return mu + sigma * val;
     }
     /*
@@ -372,17 +372,17 @@ public class normal
      *  SYNOPSIS
      *
      *    #include "DistLib.h"
-     *    double random(double mu, double sigma, uniform PRNG );
+     *    double random(double mu, double sigma, Uniform uniformDistribution );
      *
      *  DESCRIPTION
      *
-     *    Random variates from the normal distribution.
+     *    Random variates from the Normal distribution.
      *
      */
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  random(double mu, double sigma, uniform PRNG)
+    public static double  random(double mu, double sigma, Uniform uniformDistribution)
     {
         if(
     /*!* #ifdef IEEE_754 /*4!*/
@@ -395,7 +395,7 @@ public class normal
         if (sigma == 0.0)
     	return mu;
         else
-    	return mu + sigma * random(PRNG);
+    	return mu + sigma * random(uniformDistribution);
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -422,7 +422,7 @@ public class normal
      *
      *  DESCRIPTION
      *
-     *    Random variates from the STANDARD normal distribution  N(0,1).
+     *    Random variates from the STANDARD Normal distribution  N(0,1).
      *
      * Is called from  random(..), but also rt(), rf(), rgamma(), ...
      */
@@ -438,13 +438,13 @@ public class normal
      *
      *    Ahrens, J.H. and Dieter, U.
      *    Extensions of Forsythe's method for random sampling from
-     *    the normal distribution.
+     *    the Normal distribution.
      *    Math. Comput. 27, 927-937.
      *
      *    The definitions of the constants a[k], d[k], t[k] and
      *    h[k] are according to the abovementioned article
      */
-    public static double  random_AhrensDieter( uniform PRNG )
+    public static double  random_AhrensDieter( Uniform uniformDistribution )
     {      
       final double a[] =
     {
@@ -497,7 +497,7 @@ public class normal
         double s, u, w, y, ustar, aa, tt;
         int i;
     
-        u = PRNG.random();
+        u = uniformDistribution.random();
         s = 0.0;
         if (u > 0.5)
 	    s = 1.0;
@@ -511,19 +511,19 @@ public class normal
 		ustar = u - i;
 		aa = a[i - 1];
 		while (ustar <= t[i - 1]) {
-		    u = PRNG.random();
+		    u = uniformDistribution.random();
 		    w = u * (a[i] - aa);
 		    tt = (w * 0.5 + aa) * w;
 		    while(true) {
 			if (ustar > tt)
 			    break deliver;
-			u = PRNG.random();
+			u = uniformDistribution.random();
 			if (ustar < u)
 			    break;
 			tt = u;
-			ustar = PRNG.random();
+			ustar = uniformDistribution.random();
 		    }
-		    ustar = PRNG.random();
+		    ustar = uniformDistribution.random();
 		}
 		w = (ustar - t[i - 1]) * h[i - 1];
 	    }
@@ -542,15 +542,15 @@ public class normal
 		    w = u * d[i - 1];
 		    tt = (w * 0.5 + aa) * w;
 		    while(true) {
-			ustar = PRNG.random();
+			ustar = uniformDistribution.random();
 			if (ustar > tt)
 			    break jump;
-			u = PRNG.random();
+			u = uniformDistribution.random();
 			if (ustar < u)
 			    break;
 			tt = u;
 		    }
-		    u = PRNG.random();
+		    u = uniformDistribution.random();
 		} // jump:;
 	    }
 	    
@@ -568,7 +568,7 @@ public class normal
      *  REFERENCE
      *
      *    Kinderman A. J. and Ramage J. G. (1976).
-     *    Computer generation of normal random variables.
+     *    Computer generation of Normal random variables.
      *    JASA 71, 893-896.
      */
     
@@ -582,20 +582,20 @@ public class normal
 	return (C1*java.lang.Math.exp(-x*x/2.0)-C2*(a-java.lang.Math.abs(x))) ;
     }
     
-    public static double  random( uniform PRNG )
+    public static double  random( Uniform uniformDistribution )
     {
         double t, u1, u2, u3;
     
-        u1 = PRNG.random();
+        u1 = uniformDistribution.random();
         if(u1 < 0.884070402298758) {
-    	u2 = PRNG.random();
+    	u2 = uniformDistribution.random();
     	return a*(1.13113163544180*u1+u2-1);
         }
     
         if(u1 >= 0.973310954173898) {
         tail: while(true) {
-    	u2 = PRNG.random();
-    	u3 = PRNG.random();
+    	u2 = uniformDistribution.random();
+    	u3 = uniformDistribution.random();
 /*!* 	t = (a*a-2*log(u3)); *!*/
     	t = (a*a-2*java.lang.Math.log(u3));
     	if( u2*u2<(a*a)/t )
@@ -607,8 +607,8 @@ public class normal
     
         if(u1 >= 0.958720824790463) {
         region3: while(true) {
-    	u2 = PRNG.random();
-    	u3 = PRNG.random();
+    	u2 = uniformDistribution.random();
+    	u3 = uniformDistribution.random();
 /*!* 	t = a - 0.630834801921960* fmin2(u2,u3); *!*/
     	t = a - 0.630834801921960* Math.min(u2,u3);
 /*!* 	if(fmax2(u2,u3) <= 0.755591531667601) *!*/
@@ -623,8 +623,8 @@ public class normal
     
         if(u1 >= 0.911312780288703) {
         region2: {
-    	u2 = PRNG.random();
-    	u3 = PRNG.random();
+    	u2 = uniformDistribution.random();
+    	u3 = uniformDistribution.random();
 /*!* 	t = 0.479727404222441+1.105473661022070*fmin2(u2,u3); *!*/
     	t = 0.479727404222441+1.105473661022070*Math.min(u2,u3);
 /*!* 	if( fmax2(u2,u3)<=0.872834976671790 ) *!*/
@@ -637,8 +637,8 @@ public class normal
         }}
     
     region1: while(true) {
-        u2 = PRNG.random();
-        u3 = PRNG.random();
+        u2 = uniformDistribution.random();
+        u3 = uniformDistribution.random();
 /*!*     t = 0.479727404222441-0.595507138015940*fmin2(u2,u3); *!*/
         t = 0.479727404222441-0.595507138015940*Math.min(u2,u3);
 /*!*     if(fmax2(u2,u3) <= 0.805577924423817) *!*/

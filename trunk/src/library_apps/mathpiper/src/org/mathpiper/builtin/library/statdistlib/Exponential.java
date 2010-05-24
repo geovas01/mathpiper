@@ -21,13 +21,13 @@
 package org.mathpiper.builtin.library.statdistlib;
 
 /**
- * Wrapper of functions for the exponential distribution.
+ * Wrapper of functions for the Exponential distribution.
  */
 
-public class exponential { 
+public class Exponential {
   
   /**
-   * Density of the exponential distribution.
+   * Density of the Exponential distribution.
    */
   public static double density(double x, double scale) {
     if (Double.isNaN(x) || Double.isNaN(scale)) return x + scale;
@@ -39,7 +39,7 @@ public class exponential {
   }
 
   /**
-   * Distribution function of the exponential distribution
+   * Distribution function of the Exponential distribution
    *
    */
   public static double cumulative(double x, double scale) {
@@ -53,7 +53,7 @@ public class exponential {
   }
 
   /**
-   * quantile function of the exponential distribution
+   * quantile function of the Exponential distribution
    */
   public static double quantile(double x, double scale) {
     if (Double.isNaN(x) || Double.isNaN(scale))
@@ -66,20 +66,20 @@ public class exponential {
   }
   
   /**
-   * Random variates from the exponential distribution
+   * Random variates from the Exponential distribution
    */
-  public static double random(double scale, uniform PRNG) {
+  public static double random(double scale, Uniform uniformDistribution) {
     if (Double.isInfinite(scale) || scale <= 0.0) {
       throw new java.lang.ArithmeticException("Math Error: DOMAIN");
     }
-    return scale * random(PRNG);
+    return scale * random(uniformDistribution);
   }
   
   /**
    * Random variates from the standard normal distribution.
    *
    *    Ahrens, J.H. and Dieter, U. (1972).
-   *    Computer methods for sampling from the exponential and
+   *    Computer methods for sampling from the Exponential and
    *    normal distributions.
    *    Comm. ACM, 15, 873-882.
    */
@@ -104,7 +104,7 @@ public class exponential {
   };
 
 
-  public static double random(uniform PRNG) {
+  public static double random(Uniform uniformDistribution) {
     /* q[k-1] = sum(alog(2.0)**k/k!) k=1,..,n, */
     /* The highest n (here 8) is determined by q[n-1] = 1.0 */
     /* within standard precision */
@@ -112,7 +112,7 @@ public class exponential {
     int i;
 
     a = 0.0;
-    u = PRNG.random();
+    u = uniformDistribution.random();
     for (;;) {
       u = u + u;
       if (u > 1.0)
@@ -125,10 +125,10 @@ public class exponential {
       return a + u;
 
     i = 0;
-    ustar = PRNG.random();
+    ustar = uniformDistribution.random();
     umin = ustar;
     do {
-      ustar = PRNG.random();
+      ustar = uniformDistribution.random();
       if (ustar < umin)
         umin = ustar;
       i = i + 1;

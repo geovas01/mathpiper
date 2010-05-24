@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class chisquare
+public class Chisquare
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -45,7 +45,7 @@ public class chisquare
     /*!* #ifdef IEEE_754 /*4!*/
         /* NaNs propagated correctly */
     /*!* #endif /*4!*/
-        return gamma.density(x, df / 2.0, 2.0);
+        return Gamma.density(x, df / 2.0, 2.0);
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -79,7 +79,7 @@ public class chisquare
     
     public static double  cumulative(double x, double df)
     {
-        return gamma.cumulative(x, df / 2.0, 2.0);
+        return Gamma.cumulative(x, df / 2.0, 2.0);
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -113,7 +113,7 @@ public class chisquare
     
     public static double  quantile(double p, double df)
     {
-        return gamma.quantile(p, 0.5 * df, 2.0);
+        return Gamma.quantile(p, 0.5 * df, 2.0);
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -149,7 +149,7 @@ public class chisquare
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  random(double df, uniform PRNG)
+    public static double  random(double df, Uniform uniformDistribution)
     {
         if (
     /*!* #ifdef IEEE_754 /*4!*/
@@ -159,6 +159,6 @@ public class chisquare
     	throw new java.lang.ArithmeticException("Math Error: DOMAIN");
 	//    	return Double.NaN;
         }
-        return gamma.random(df / 2.0, 2.0, PRNG);
+        return Gamma.random(df / 2.0, 2.0, uniformDistribution);
     }
   }

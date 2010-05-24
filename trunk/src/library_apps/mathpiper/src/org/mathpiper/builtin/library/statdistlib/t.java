@@ -54,12 +54,12 @@ public class t
         if(Double.isInfinite(x))
     	return 0;
         if(Double.isInfinite(n))
-    	return normal.density(x, 0.0, 1.0);
+    	return Normal.density(x, 0.0, 1.0);
     /*!* #endif /*4!*/
 /*!*     return pow(1.0 + x * x / n, -0.5 * (n + 1.0)) *!*/
         return java.lang.Math.pow(1.0 + x * x / n, -0.5 * (n + 1.0))
-/*!* 	/ (sqrt(n) * beta(0.5, 0.5 * n)); *!*/
-    	/ (java.lang.Math.sqrt(n) * misc.beta(0.5, 0.5 * n));
+/*!* 	/ (sqrt(n) * Beta(0.5, 0.5 * n)); *!*/
+    	/ (java.lang.Math.sqrt(n) * Misc.beta(0.5, 0.5 * n));
     }
     /*
      *  R : A Computer Langage for Statistical Data Analysis
@@ -97,9 +97,9 @@ public class t
         if(Double.isInfinite(x))
     	return (x < 0) ? 0 : 1;
         if(Double.isInfinite(n))
-    	return normal.cumulative(x, 0.0, 1.0);
+    	return Normal.cumulative(x, 0.0, 1.0);
     /*!* #endif /*4!*/
-        val = 0.5 * beta.cumulative(n / (n + x * x), n / 2.0, 0.5);
+        val = 0.5 * Beta.cumulative(n / (n + x * x), n / 2.0, 0.5);
         return (x > 0.0) ? 1 - val : val;
     }
     /*
@@ -160,7 +160,7 @@ public class t
 	    //    	    return Double.NaN;
     	}
     /*!* #endif /*4!*/
-    	if (ndf > 1e20) return normal.quantile(p, 0.0, 1.0);
+    	if (ndf > 1e20) return Normal.quantile(p, 0.0, 1.0);
     
     	if(p > 0.5) {
     		neg = false; P = 2 * (1 - p);
@@ -191,8 +191,8 @@ public class t
     		y = java.lang.Math.pow(d * P, 2 / ndf);
     
     		if (y > 0.05 + a) {
-    			/* Asymptotic inverse expansion about normal */
-    			x = normal.quantile(0.5 * P, 0.0, 1.0);
+    			/* Asymptotic inverse expansion about Normal */
+    			x = Normal.quantile(0.5 * P, 0.0, 1.0);
     			y = x * x;
     			if (ndf < 5)
     				c = c + 0.3 * (ndf - 4.5) * (x + 0.6);
@@ -251,7 +251,7 @@ public class t
     
     /*!* #include "DistLib.h" /*4!*/
     
-    public static double  random(double df, uniform PRNG)
+    public static double  random(double df, Uniform uniformDistribution)
     {
         if (
     /*!* #ifdef IEEE_754 /*4!*/
@@ -261,9 +261,9 @@ public class t
 	    throw new java.lang.ArithmeticException("Math Error: DOMAIN");
         }
         if(Double.isInfinite(df))
-	    return normal.random(PRNG);
+	    return Normal.random(uniformDistribution);
         else
-/*!* 	return normal.random!!!COMMENT!!!() / sqrt(rchisq(df) / df); *!*/
-	    return normal.random(PRNG) / java.lang.Math.sqrt(chisquare.random(df, PRNG) / df);
+/*!* 	return Normal.random!!!COMMENT!!!() / sqrt(rchisq(df) / df); *!*/
+	    return Normal.random(uniformDistribution) / java.lang.Math.sqrt(Chisquare.random(df, uniformDistribution) / df);
     }
   }

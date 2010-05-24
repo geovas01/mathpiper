@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class binomial
+public class Binomial
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -35,7 +35,7 @@ public class binomial
      *
      *  DESCRIPTION
      *
-     *    The density of the binomial distribution.
+     *    The density of the Binomial distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
@@ -61,7 +61,7 @@ public class binomial
         if (p == 1)
     	return (x == n) ? 1 : 0;
 /*!*     return exp(lfastchoose(n, x) + log(p) * x + (n - x) * log(1 - p)); *!*/
-        return java.lang.Math.exp(misc.lfastchoose(n, x) + java.lang.Math.log(p) * x + (n - x) * java.lang.Math.log(1 - p));
+        return java.lang.Math.exp(Misc.lfastchoose(n, x) + java.lang.Math.log(p) * x + (n - x) * java.lang.Math.log(1 - p));
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -88,7 +88,7 @@ public class binomial
      *  
      *  DESCRIPTION
      *
-     *    The distribution function of the binomial distribution.
+     *    The distribution function of the Binomial distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
@@ -113,7 +113,7 @@ public class binomial
         x = java.lang.Math.floor(x);
         if (x < 0.0) return 0;
         if (n <= x) return 1;
-        return beta.cumulative(1.0 - p, n - x, x + 1);
+        return Beta.cumulative(1.0 - p, n - x, x + 1);
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -140,12 +140,12 @@ public class binomial
      *
      *  DESCRIPTION
      *
-     *    The quantile function of the binomial distribution.
+     *    The quantile function of the Binomial distribution.
      *
      *  NOTES
      *
      *    The function uses the Cornish-Fisher Expansion to include
-     *    a skewness correction to a normal approximation.  This gives
+     *    a skewness correction to a Normal approximation.  This gives
      *    an initial value which never seems to be off by more than
      *    1 or 2.  A search is then conducted of values close to
      *    this initial start point.
@@ -179,7 +179,7 @@ public class binomial
 /*!*     sigma = sqrt(n * p * q); *!*/
         sigma = java.lang.Math.sqrt(n * p * q);
         gamma = (q-p)/sigma;
-        z = normal.quantile(x, 0.0, 1.0);
+        z = Normal.quantile(x, 0.0, 1.0);
 /*!*     y = floor(mu + sigma * (z + gamma * (z*z - 1) / 6) + 0.5); *!*/
         y = java.lang.Math.floor(mu + sigma * (z + gamma * (z*z - 1) / 6) + 0.5);
     
@@ -230,7 +230,7 @@ public class binomial
      *    
      *  DESCRIPTION
      *
-     *    Random variates from the binomial distribution.
+     *    Random variates from the Binomial distribution.
      *
      *  REFERENCE
      *
@@ -244,7 +244,7 @@ public class binomial
     /*!* #include <stdlib.h> /*4!*/
     
 
-    public static double  random(double nin, double pp, uniform PRNG)
+    public static double  random(double nin, double pp, Uniform uniformDistribution)
     {
       double al=0.0, alv=0.0, amaxp=0.0, c=0.0, f=0.0, f1=0.0;
       double f2=0.0, ffm=0.0, fm=0.0, g=0.0;
@@ -318,8 +318,8 @@ public class binomial
     } 
     // L10:
     while(true) {
-	  u = PRNG.random() * p4;
-          v = PRNG.random();
+	  u = uniformDistribution.random() * p4;
+          v = uniformDistribution.random();
           /* triangular region */
           if (u <= p1) {
     	  ix = (int) (xm - p1 * v + u);
@@ -398,7 +398,7 @@ public class binomial
     while(true) {
 	ix = 0;
 	f = qn;
-	u = PRNG.random();
+	u = uniformDistribution.random();
 	while(true) {
 	    if (u < f)
 		break L30;

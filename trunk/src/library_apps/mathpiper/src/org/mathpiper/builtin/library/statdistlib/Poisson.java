@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class poisson 
+public class Poisson
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -59,7 +59,7 @@ public class poisson
     	return 0;
     /*!* #endif /*4!*/
 /*!*     return exp(x * log(lambda) - lambda - lgammafn(x + 1)); *!*/
-        return java.lang.Math.exp(x * java.lang.Math.log(lambda) - lambda - misc.lgammafn(x + 1));
+        return java.lang.Math.exp(x * java.lang.Math.log(lambda) - lambda - Misc.lgammafn(x + 1));
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -109,7 +109,7 @@ public class poisson
         if (Double.isInfinite(x))
     	return 1;
     /*!* #endif /*4!*/
-        return  1 - gamma.cumulative(lambda, x + 1, 1.0);
+        return  1 - Gamma.cumulative(lambda, x + 1, 1.0);
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -141,7 +141,7 @@ public class poisson
      *  METHOD
      *
      *    Uses the Cornish-Fisher Expansion to include a skewness
-     *    correction to a normal approximation.  This gives an
+     *    correction to a Normal approximation.  This gives an
      *    initial value which never seems to be off by more than
      *    1 or 2.  A search is then conducted of values close to
      *    this initial start point.
@@ -172,8 +172,8 @@ public class poisson
 /*!*     sigma = sqrt(lambda); *!*/
         sigma = java.lang.Math.sqrt(lambda);
         gamma = sigma;
-        z = normal.quantile(x, 0.0, 1.0);
-/*!*     y = floor(mu + sigma * (z + gamma * (z * z - 1) / 6) + 0.5); *!*/
+        z = Normal.quantile(x, 0.0, 1.0);
+/*!*     y = floor(mu + sigma * (z + Gamma * (z * z - 1) / 6) + 0.5); *!*/
         y = java.lang.Math.floor(mu + sigma * (z + gamma * (z * z - 1) / 6) + 0.5);
         z = cumulative(y, lambda);
     
@@ -182,7 +182,7 @@ public class poisson
     	/* search to the left */
     
     	for(;;) {
-    	    if((z = poisson.cumulative(y - 1, lambda)) < x)
+    	    if((z = Poisson.cumulative(y - 1, lambda)) < x)
     		return y;
     	    y = y - 1;
     	}
@@ -192,7 +192,7 @@ public class poisson
     	/* search to the right */
     
     	for(;;) {
-    	    if((z = poisson.cumulative(y + 1, lambda)) >= x)
+    	    if((z = Poisson.cumulative(y + 1, lambda)) >= x)
     		return y + 1;
     	    y = y + 1;
     	}
@@ -229,7 +229,7 @@ public class poisson
      *
      *    Ahrens, J.H. and Dieter, U. (1982).
      *    Computer generation of Poisson deviates
-     *    from modified normal distributions.
+     *    from modified Normal distributions.
      *    ACM Trans. Math. Software 8, 163-179.
      */
     
@@ -273,7 +273,7 @@ public class poisson
       static private double muold = 0.0;
 
 
-    public static double  random(double mu, uniform PRNG )
+    public static double  random(double mu, Uniform uniformDistribution )
     {
 	throw new  java.lang.ArithmeticException("FUNCTION NOT IMPLEMENTED");
     }
@@ -283,8 +283,8 @@ public class poisson
 /******    	if (mu >= 10.0) {
 /******    	    /* case a. (recalculation of s,d,l */
 /******    	    /* if mu has changed)  */
-/******    	    /* the poisson probabilities pk */
-/******    	    /* exceed the discrete normal */
+/******    	    /* the Poisson probabilities pk */
+/******    	    /* exceed the discrete Normal */
 /******    	    /* probabilities fk whenever k >= m(mu). */
 /******    	    /* l=ifix(mu-1.1484) is an upper bound */
 /******    	    /* to m(mu) for all mu >= 10. */
@@ -308,15 +308,15 @@ public class poisson
 /******    		p0 = p;
 /******    	    }
 /******    	    while(true) {
-/******    				/* Step U. uniform sample */
+/******    				/* Step U. Uniform sample */
 /******    				/* for inversion method */
-/******    		u = uniform.random();
+/******    		u = Uniform.random();
 /******    		ipois = 0;
 /******    		if (u <= p0)
 /******    		    return (double)ipois;
 /******    				/* Step T. table comparison until */
 /******    				/* the end pp(l) of the pp-table of */
-/******    				/* cumulative poisson probabilities */
+/******    				/* cumulative Poisson probabilities */
 /******    				/* (0.458=pp(9) for mu=10) */
 /******    		if (l != 0) {
 /******    		    j = 1;
@@ -329,7 +329,7 @@ public class poisson
 /******    		    if (l == 35)
 /******    			continue;
 /******    		}
-/******    				/* Step C. creation of new poisson */
+/******    				/* Step C. creation of new Poisson */
 /******    				/* probabilities p and their cumulatives */
 /******    				/* q=pp[k] */
 /******    		l = l + 1;
@@ -346,9 +346,9 @@ public class poisson
 /******    	    }
 /******    	}
 /******        }
-/******        /* Step N. normal sample */
-/******        /* normal.random() for standard normal deviate */
-/******        g = mu + s * normal.random();
+/******        /* Step N. Normal sample */
+/******        /* Normal.random() for standard Normal deviate */
+/******        g = mu + s * Normal.random();
 /******        if (g >= 0.0) {
 /******    	ipois = g;
 /******    	/* Step I. immediate acceptance */
@@ -356,10 +356,10 @@ public class poisson
 /******    	if (ipois >= l)
 /******    	    return (double)ipois;
 /******    	/* Step S. squeeze acceptance */
-/******    	/* uniform.random() for (0,1)-sample u */
+/******    	/* Uniform.random() for (0,1)-sample u */
 /******    	fk = ipois;
 /******    	difmuk = mu - fk;
-/******    	u = uniform.random();
+/******    	u = Uniform.random();
 /******    	if (d * u >= difmuk * difmuk * difmuk)
 /******    	    return (double)ipois;
 /******        }
@@ -369,7 +369,7 @@ public class poisson
 /******        /* 0.416667e-1=1./24. */
 /******        /* 0.1428571=1./7. */
 /******        /* The quantities b1, b2, c3, c2, c1, c0 are for the Hermite */
-/******        /* approximations to the discrete normal probabilities fk. */
+/******        /* approximations to the discrete Normal probabilities fk. */
 /******        /* c=.1069/mu guarantees majorization by the 'hat'-function. */
 /******        if (mu != muold) {
 /******    	muold = mu;
@@ -393,10 +393,10 @@ public class poisson
 /******    	/* e and sample t from the laplace 'hat' */
 /******    	/* (if t <= -0.6744 then pk < fk for all mu >= 10.) */
 /******    	e = exponential.random();
-/******    	u = uniform.random();
+/******    	u = Uniform.random();
 /******    	u = u + u - 1.0;
 /****** /*!* 	t = 1.8 + fsign(e, u); *!*/
-/******    	t = 1.8 + misc.fsign(e, u);
+/******    	t = 1.8 + Misc.fsign(e, u);
 /******    	if (t > -0.6744) {
 /******    	    ipois = mu + s * t;
 /******    	    fk = ipois;

@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class noncentral_beta 
+public class NoncentralBeta
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -35,8 +35,8 @@ public class noncentral_beta
      *
      *  DESCRIPTION
      *
-     *    Computes the density of the noncentral beta distribution with
-     *    noncentrality parameter lambda.  The noncentral beta distribution
+     *    Computes the density of the noncentral Beta distribution with
+     *    noncentrality parameter lambda.  The noncentral Beta distribution
      *    has density:
      *
      *                     Inf
@@ -90,7 +90,7 @@ public class noncentral_beta
     
     	if(x <= 0) return 0;
     
-    	term = beta.density(x, a, b);
+    	term = Beta.density(x, a, b);
     	if(lambda == 0)
     		return term;
     
@@ -114,11 +114,11 @@ public class noncentral_beta
      *  Incorporates modification AS R84 from AS Vol. 39, pp311-2, 1990
      *
      *  Returns the cumulative probability of x for the non-central
-     *  beta distribution with parameters a, b and non-centrality lambda.
+     *  Beta distribution with parameters a, b and non-centrality lambda.
      *
      *  Auxiliary routines required:
      *    lgamma - log-gamma function
-     *    pbeta  - incomplete-beta function
+     *    pbeta  - incomplete-Beta function
      */
     
     /*!* #include "DistLib.h" /*4!*/
@@ -160,13 +160,13 @@ public class noncentral_beta
         x0 = java.lang.Math.floor(Math.max(c - ualpha * java.lang.Math.sqrt(c), zero));
         a0 = a + x0;
 /*!*     lbeta = lgammafn(a0) + lgammafn(b) - lgammafn(a0 + b); *!*/
-        lbeta = misc.lgammafn(a0) + misc.lgammafn(b) - misc.lgammafn(a0 + b);
-        temp = beta.cumulative(x, a0, b);
+        lbeta = Misc.lgammafn(a0) + Misc.lgammafn(b) - Misc.lgammafn(a0 + b);
+        temp = Beta.cumulative(x, a0, b);
 /*!*     gx = exp(a0 * log(x) + b * log(one - x) - lbeta - log(a0)); *!*/
         gx = java.lang.Math.exp(a0 * java.lang.Math.log(x) + b * java.lang.Math.log(one - x) - lbeta - java.lang.Math.log(a0));
         if (a0 > a)
 /*!* 	q = exp(-c + x0 * log(c) - lgammafn(x0 + one)); *!*/
-    	q = java.lang.Math.exp(-c + x0 * java.lang.Math.log(c) - misc.lgammafn(x0 + one));
+    	q = java.lang.Math.exp(-c + x0 * java.lang.Math.log(c) - Misc.lgammafn(x0 + one));
         else
 /*!* 	q = exp(-c); *!*/
     	q = java.lang.Math.exp(-c);

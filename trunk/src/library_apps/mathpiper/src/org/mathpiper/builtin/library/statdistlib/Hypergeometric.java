@@ -8,7 +8,7 @@ import java.lang.*;
 import java.lang.Math;
 import java.lang.Double;
 
-public class hypergeometric
+public class Hypergeometric
   { 
     /*
      *  DistLib : A C Library of Special Functions
@@ -35,7 +35,7 @@ public class hypergeometric
      *
      *  DESCRIPTION
      *
-     *    The density of the hypergeometric distribution.
+     *    The density of the Hypergeometric distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
@@ -64,9 +64,9 @@ public class hypergeometric
         if (x < Math.max(0, n - NB) || x > Math.min(n, NR))
     	return 0;
 /*!*     return exp(lfastchoose(NR, x) + lfastchoose(NB, n - x) *!*/
-        return java.lang.Math.exp(misc.lfastchoose(NR, x) + misc.lfastchoose(NB, n - x)
+        return java.lang.Math.exp(Misc.lfastchoose(NR, x) + Misc.lfastchoose(NB, n - x)
 /*!* 	       - lfastchoose(N, n)); *!*/
-    	       - misc.lfastchoose(N, n));
+    	       - Misc.lfastchoose(N, n));
     }
     /*
      *  DistLib : A C Library of Special Functions
@@ -93,7 +93,7 @@ public class hypergeometric
      *
      *  DESCRIPTION
      *
-     *    The distribution function of the hypergeometric distribution.
+     *    The distribution function of the Hypergeometric distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
@@ -133,9 +133,9 @@ public class hypergeometric
         xr = xstart;
         xb = n - xr;
 /*!*     term = exp(lfastchoose(NR, xr) + lfastchoose(NB, xb) *!*/
-        term = java.lang.Math.exp(misc.lfastchoose(NR, xr) + misc.lfastchoose(NB, xb)
+        term = java.lang.Math.exp(Misc.lfastchoose(NR, xr) + Misc.lfastchoose(NB, xb)
 /*!* 	       - lfastchoose(N, n)); *!*/
-    	       - misc.lfastchoose(N, n));
+    	       - Misc.lfastchoose(N, n));
         NR = NR - xr;
         NB = NB - xb;
         sum = 0.0;
@@ -174,7 +174,7 @@ public class hypergeometric
      *
      *  DESCRIPTION
      *
-     *    The quantile function of the hypergeometric distribution.
+     *    The quantile function of the Hypergeometric distribution.
      */
     
     /*!* #include "DistLib.h" /*4!*/
@@ -210,9 +210,9 @@ public class hypergeometric
         xr = xstart;
         xb = n - xr;
 /*!*     term = exp(lfastchoose(NR, xr) + lfastchoose(NB, xb) *!*/
-        term = java.lang.Math.exp(misc.lfastchoose(NR, xr) + misc.lfastchoose(NB, xb)
+        term = java.lang.Math.exp(Misc.lfastchoose(NR, xr) + Misc.lfastchoose(NB, xb)
 /*!* 	       - lfastchoose(N, n)); *!*/
-    	       - misc.lfastchoose(N, n));
+    	       - Misc.lfastchoose(N, n));
         NR = NR - xr;
         NB = NB - xb;
         sum = term;
@@ -251,7 +251,7 @@ public class hypergeometric
      *
      *  DESCRIPTION
      *
-     *    Random variates from the hypergeometric distribution.
+     *    Random variates from the Hypergeometric distribution.
      *    Returns the number of white balls drawn when kk balls
      *    are drawn at random from an urn containing nn1 white
      *    and nn2 black balls.
@@ -259,7 +259,7 @@ public class hypergeometric
      *  REFERENCE
      *
      *    V. Kachitvichyanukul and B. Schmeiser (1985).
-     *    ``Computer generation of hypergeometric random variates,''
+     *    ``Computer generation of Hypergeometric random variates,''
      *    Journal of Statistical Computation and Simulation 22, 127-145.
      */
     
@@ -333,7 +333,7 @@ public class hypergeometric
     
 
     public static double  random(double nn1in, double nn2in, double kkin,
-				 uniform PRNG)
+				 Uniform uniformDistribution)
     {
         int nn1, nn2, kk;
     
@@ -432,7 +432,7 @@ public class hypergeometric
 	L10: while(true) {
 	    p = w;
 	    ix = minjx;
-	    u = PRNG.random() * scale;
+	    u = uniformDistribution.random() * scale;
 	L20: while(true) {
 	    if (u > p) {
 		u = u - p;
@@ -480,8 +480,8 @@ public class hypergeometric
     	    p3 = p2 + kr / lamdr;
     	}
 	L30: while(true) {
-    	u = PRNG.random() * p3;
-    	v = PRNG.random();
+    	u = uniformDistribution.random() * p3;
+    	v = uniformDistribution.random();
     	if (u < p1) {
     	    /* rectangular region */
     	    ix = (int) (xl + u);

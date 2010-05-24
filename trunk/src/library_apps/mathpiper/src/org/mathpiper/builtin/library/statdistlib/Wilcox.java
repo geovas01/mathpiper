@@ -31,8 +31,8 @@ package org.mathpiper.builtin.library.statdistlib;
  * This actually the Mann-Whitney Ux statistic.
  */
 
-public class wilcox {
-  //private static Log log = LogFactory.getLog(wilcox.class);
+public class Wilcox {
+  //private static Log log = LogFactory.getLog(Wilcox.class);
 
   public static final int  WILCOX_MMAX = 50; 
   public static final int  WILCOX_NMAX = 50; 
@@ -116,7 +116,7 @@ public class wilcox {
     if ((x < 0) || (x > m * n))
       return 0;
     /*!*   return(cwilcox(x, m, n) / choose(m + n, n)); *!*/
-    return(cwilcox((int) x, (int) m, (int) n) / misc.choose(m + n, n));
+    return(cwilcox((int) x, (int) m, (int) n) / Misc.choose(m + n, n));
   }
 
   /**
@@ -205,7 +205,7 @@ public class wilcox {
       x[i] = i;
     for (int i = 0; i < n; i++) {
       /*!*     j = floor(k * sunif()); *!*/
-      int j = (int) java.lang.Math.floor(k * uniform.random());
+      int j = (int) java.lang.Math.floor(k * Uniform.random());
       r += x[j];
       x[j] = x[--k];
     }
