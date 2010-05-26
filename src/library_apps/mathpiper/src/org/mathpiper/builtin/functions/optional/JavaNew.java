@@ -133,3 +133,31 @@ public class JavaNew extends BuiltinFunction {
 
     }//end method.
 }
+
+
+
+
+/*
+%mathpiper_docs,name="JavaNew",categories="Programmer Functions;Built In;Native Objects",access="experimental"
+*CMD JavaNew --- instantiates a Java object
+*CALL
+    JavaNew(fullyQualifiedClassName, constructorParameter1, constructorParameter2, ...)
+
+*PARMS
+{fullyQualifiedClassName} -- (string) the fully qualified name of a Java class
+
+{constructorParameters} -- zero or more parameters which will be sent to the constructor
+
+*DESC
+This function instantiates a Java object and then returns it as a result.
+
+*E.G.
+In> javaString := JavaNew("java.lang.String", "Hello")
+Result: java.lang.String
+
+In> javaString := JavaAccess(javaString, "toUpperCase")
+Result: HELLO
+
+*SEE JavaCall, JavaAccess, JavaToValue
+%/mathpiper_docs
+*/
