@@ -99,3 +99,30 @@ public class JavaToValue extends BuiltinFunction {
     }//end method.
 }//end class.
 
+
+
+
+
+/*
+%mathpiper_docs,name="JavaToValue",categories="Programmer Functions;Built In;Native Objects",access="experimental"
+*CMD JavaToValue --- converts a Java object into a MathPiper data structure
+*CALL
+    JavaToValue(javaObject)
+
+*PARMS
+{javaObject} -- a Java object
+
+*DESC
+This function is used to convert a Java object into a MathPiper data structure.  It is typically 
+used with JavaCall.
+
+*E.G.
+In> javaString := JavaNew("java.lang.String", "Hello")
+Result: java.lang.String
+
+In> JavaToValue(javaString)
+Result: Hello
+
+*SEE JavaCall, JavaAccess, JavaNew
+%/mathpiper_docs
+*/

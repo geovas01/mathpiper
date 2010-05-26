@@ -55,3 +55,32 @@ public class JavaAccess extends BuiltinFunction {
 
     }//end method.
 }
+
+
+
+/*
+%mathpiper_docs,name="JavaAccess",categories="Programmer Functions;Built In;Native Objects",access="experimental"
+*CMD JavaAccess --- calls a method on a Java object and converts the result into a MathPiper data structure
+*CALL
+    JavaAccess(javaObject, methodName, methodParameter1, methodParameter2, ...)
+
+*PARMS
+{javaObject} -- a Java object
+
+{methodName} -- the name of a method to call on the Java object (it can be either a string or an atom)
+
+{methodParameters} -- zero or more parameters which will be sent to the method
+
+*DESC
+This is a convenience function which can be used instead of using JavaCall and JavaToValue.
+
+*E.G.
+In> javaString := JavaNew("java.lang.String", "Hello")
+Result: java.lang.String
+
+In> JavaAccess(javaString, "charAt",1)
+Result: e
+
+*SEE JavaNew, JavaCall, JavaToValue
+%/mathpiper_docs
+*/

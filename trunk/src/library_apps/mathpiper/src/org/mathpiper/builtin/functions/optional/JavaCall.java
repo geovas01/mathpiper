@@ -171,3 +171,41 @@ public class JavaCall extends BuiltinFunction {
 
     }//end method.
 }
+
+
+
+
+/*
+%mathpiper_docs,name="JavaCall",categories="Programmer Functions;Built In;Native Objects",access="experimental"
+*CMD JavaCall --- calls a method on a Java object and returns the result as a Java object
+*CALL
+    JavaCall(javaObject, methodName, methodParameter1, methodParameter2, ...)
+
+*PARMS
+{javaObject} -- a Java object
+
+{methodName} -- the name of a method to call on the Java object (it can be either a string or an atom)
+
+{methodParameters} -- zero or more parameters which will be sent to the method
+
+*DESC
+This function calls a method on {javaObject} and returns the result as a Java object.  The returned Java object
+can be converted into a MathPiper data structure by passing it to JavaToValue, or in can be passed
+to JavaCall or JavaAccess for further processing.
+
+*E.G.
+In> javaString := JavaNew("java.lang.String", "Hello")
+Result: java.lang.String
+
+In> javaString := JavaCall(javaString, "replace", "e", "o")
+Result: java.lang.String
+
+In> JavaToValue(javaString)
+Result: Hollo
+
+In> JavaAccess(javaString, "charAt", 0)
+Result: H
+
+*SEE JavaNew, JavaAccess, JavaToValue
+%/mathpiper_docs
+*/
