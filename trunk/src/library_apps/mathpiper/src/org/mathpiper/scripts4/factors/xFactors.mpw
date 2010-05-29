@@ -43,7 +43,7 @@ Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
 
 
 14 # xFactors(p_IsRational)_(Denominator(p) != 1) <-- 
-             { {newFactor(Numerator(p)) / newFactor(Denominator(p) ) , 1} }; 
+             { {xFactor(Numerator(p)) / xFactor(Denominator(p) ) , 1} }; 
              
 
 16 # xFactors(p_IsGaussianInteger)	<-- GaussianFactors(p);
@@ -571,12 +571,7 @@ UnFence("FixUpMonicFactors",1);
 
 //========================================================================
 
-
 %/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
