@@ -109,6 +109,6 @@ the first argument of {Bind} would be unevaluated.
 	Out> Sin(x);
 
 
-*SEE MacroSet, MacroLocal, MacroRulebase, Hold, HoldArgument, DefMacroRulebase
+*SEE MacroBind, MacroLocal, MacroRulebase, Hold, HoldArgument, DefMacroRulebase, MacroExpand
 %/mathpiper_docs
 */
