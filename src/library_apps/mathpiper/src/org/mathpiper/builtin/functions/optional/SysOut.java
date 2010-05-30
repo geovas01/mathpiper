@@ -64,4 +64,24 @@ public class SysOut extends BuiltinFunction {
     }//end method.
 
 
-}
+}//end class.
+
+
+
+
+/*
+%mathpiper_docs,name="SysOut",categories="User Functions;Built In;Input/Output",access="experimental"
+*CMD SysOut --- similar to the Write function, except a copy of the output is also sent to Java's System.out stream
+*CALL
+    SysOut()
+
+*DESC
+If a function prints side effect output, the output is not displayed until the function returns.  If a function
+throws an exception, the output may not be displayed at all.  Therefore, sometimes it is desireable to see
+the output as it is printed instead of waiting until the function returns.  SysOut
+is similar to the Write function, except it also sends a copy of its side effect output to Java's System.out
+stream so that it can be viewed immediately.
+
+*SEE Write
+%/mathpiper_docs
+*/
