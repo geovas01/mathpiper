@@ -45,3 +45,22 @@ public class StackTraceOff extends BuiltinFunction
          Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
+
+
+
+
+/*
+%mathpiper_docs,name="StackTraceOff",categories="Programmer Functions;Built In;Debugging",access="experimental"
+*CMD StackTraceOff --- clears the flag which will show a stack trace when an exception is thrown
+*CALL
+    StackTraceOff()
+
+*DESC
+This function clears the flag which will show the current state of the user function stack and the built in function stack
+when an exception is thrown.
+
+See the StackTraceOn function for more information.
+
+*SEE StackTrace, StackTraceOn, TraceSome, TraceExcept, TraceOn, TraceOff
+%/mathpiper_docs
+*/
