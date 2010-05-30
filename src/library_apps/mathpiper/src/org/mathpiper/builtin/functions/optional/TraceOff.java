@@ -46,3 +46,21 @@ public class TraceOff extends BuiltinFunction
          Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
+
+
+
+
+/*
+%mathpiper_docs,name="TraceOff",categories="Programmer Functions;Built In;Debugging",access="experimental"
+*CMD TraceOff --- disables a complete trace of all the functions that are called when an expression is evaluated
+*CALL
+    TraceOff()
+
+*DESC
+This function disables a complete trace of all the functions that are called when an expression is evaluated.
+
+See TraceOn for more information.
+
+*SEE StackTrace, StackTraceOn, StackTraceOff, TraceSome, TraceExcept, TraceOn
+%/mathpiper_docs
+*/
