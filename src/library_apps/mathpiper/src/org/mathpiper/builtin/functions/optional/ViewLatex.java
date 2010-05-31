@@ -76,7 +76,7 @@ public class ViewLatex extends BuiltinFunction {
         }
         else
         {
-            LispError.raiseError("The first argument must be an expression.", "ViewLatex", aStackTop, aEnvironment);
+            LispError.raiseError("The first argument must be a string which contains Latex code.", "ViewLatex", aStackTop, aEnvironment);
         }//end else.
 
 
@@ -157,6 +157,32 @@ public class ViewLatex extends BuiltinFunction {
 
 
 }//end class.
+
+
+
+
+
+/*
+%mathpiper_docs,name="ViewLatex",categories="User Functions;Visualization"
+*CMD ViewLatex --- display rendered Latex code
+
+*CALL
+    ViewLatex(string)
+
+*Params
+{string} -- a string which contains Latex code
+
+*DESC
+Display rendered Latex code.  Note: backslashes must be escaped
+with a backslash.
+ 
+*E.G.
+In> ViewLatex("2\\sum_{i=1}^n a_i")
+Result> True
+
+*SEE ViewMath
+%/mathpiper_docs
+*/
 
 
 
