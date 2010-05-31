@@ -96,16 +96,16 @@ public class ViewHtml extends BuiltinFunction {
 
 /*
 %mathpiper_docs,name="ViewHtml",categories="User Functions;Visualization"
-*CMD ViewHtml --- display rendered HTML in a window
-*CORE
+*CMD ViewHtml --- display rendered HTML code
+
 *CALL
     ViewHtml(string)
 
 *Params
-{string} -- a string which contains HTML text
+{string} -- a string which contains HTML code
 
 *DESC
-Display rendered HTML in a window.
+Display rendered HTML code.
 
 
 %/mathpiper_docs

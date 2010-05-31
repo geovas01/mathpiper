@@ -179,3 +179,46 @@ public class ViewMath extends BuiltinFunction {
 
 
 
+
+/*
+%mathpiper_docs,name="ViewMath",categories="User Functions;Visualization"
+*CMD ViewMath --- display an expression in traditional form
+
+*CALL
+    ViewMath(expression)
+
+*Params
+{expression} -- an expression to view
+
+*DESC
+Display an expression in traditional form.
+
+*E.G.
+In> ViewMath(Expand((2*x)*(x+3)*(x+4)));
+
+In> ViewMath(15*x^2 * Hold(Integrate(x,0,Infinity)Exp(-x^2)));
+
+
+/%mathpiper
+
+index := 1;
+
+expressionsList := {};
+
+While(index <= 9)
+[
+   expressionsList := Append(expressionsList, RandomPoly(x,3,1,10));
+
+   index++;
+];
+
+matrix := Partition(expressionsList,3);
+
+ViewMath(matrix);
+
+/%/mathpiper
+
+*SEE ViewList, ViewLatex
+%/mathpiper_docs
+*/
+
