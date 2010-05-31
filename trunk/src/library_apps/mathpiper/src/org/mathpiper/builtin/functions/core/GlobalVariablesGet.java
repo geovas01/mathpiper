@@ -60,7 +60,7 @@ public class GlobalVariablesGet extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="GlobalVariablesGet",categories="User Functions;Visualization"
+%mathpiper_docs,name="GlobalVariablesGet",categories="User Functions;Variables"
 *CMD GlobalVariablesGet --- return a list which contains the names of all the global variables
 
 *CALL
