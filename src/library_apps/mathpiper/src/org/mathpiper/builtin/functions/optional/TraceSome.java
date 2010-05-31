@@ -103,7 +103,6 @@ Outputs a trace of the functions which are listed in the given string and are ev
 
 
 *E.G.
-
 In> TraceSome("Factors,FactorizeInt",Factor(8))
 Result> True
 Side Effects>
@@ -117,7 +116,7 @@ Enter<**** user rulebase>{(Factors,Factors(p));
 Leave<**** user rulebase>}(Factors(p)->{{2,3}});
 
 
- *SEE TraceExcept
+*SEE TraceExcept, StackTrace, StackTraceOn, StackTraceOff, TraceOff
 
 %/mathpiper_docs
 */
