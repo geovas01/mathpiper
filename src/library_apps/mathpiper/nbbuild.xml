@@ -79,4 +79,18 @@
 		<taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"/>
 		<buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts4/" outputScriptsDirectory="${basedir}/build/classes/org/mathpiper/assembledscripts/" outputDirectory="${basedir}/build/classes/" baseDirectory="${basedir}/"/>
 	</target>
+	
+	
+	<target id="jas_delete_tests" name="jas_delete_tests_and_examples" >
+	
+		<delete >
+			<fileset dir="src/edu" >
+				<include name="**/*Test*" />
+				<include name="**/*Example*" />
+			</fileset>
+		</delete>
+
+	</target>
+	
+	
 </project>

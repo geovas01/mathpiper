@@ -3,9 +3,9 @@ Turning stack tracing on: Result: True
 Side Effects:
 Stack tracing is on.
 
-***** Thu Apr 08 18:03:21 EST 2010 *****
+***** Wed Jun 02 04:01:25 EDT 2010 *****
 ***** Using a new interpreter instance for each test file. *****
-***** MathPiper version: .78z *****
+***** MathPiper version: .80 *****
 
 ===========================
 arithmetic.mpt: 
@@ -248,24 +248,6 @@ numerics.mpt:
 Result: True
 
 Side Effects:
-******************
-tests/scripts4/numerics.mpt: 7 
-
-newrepI[1]-newrepD[1]
- evaluates to 
--9999999999000000000
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 25 
-
-newrepL[1]-newrepR[1]
- evaluates to 
--49437552990
- which differs from 
-0
-******************
 ******************
 tests/scripts4/numerics.mpt: 193 
 
@@ -835,7 +817,7 @@ The offending argument N(Eval(result-n)) evaluated to Complex(0,-1)
 ]
 
 -----------------------------------------
-53: {Local(roots),roots:=PSolve(expr,var),If(Type(roots)="PSolve",Failed,If(Type(roots)="List",MapSingle({{$x877},var==$x877},roots),{var==roots}))}
+53: {Local(roots),roots:=PSolve(expr,var),If(Type(roots)="PSolve",Failed,If(Type(roots)="List",MapSingle({{$x1121},var==$x1121},roots),{var==roots}))}
 -----------------------------------------
 54: Prog
    55: -> Check(NotIsNumber(aLeftAssign),"Only a variable can be placed on the left side of an := operator.")
@@ -1241,7 +1223,7 @@ Side Effects:
 ******************
 tests/scripts4/sums.mpt: 339 
 
-$pp2278
+$pp2522
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 
@@ -1284,4 +1266,4 @@ Exception Count: 1
 GlobalVariables: Result: True
 
 Side Effects:
-{$a73,$a851,$b73,$b851,$bernoulli1Threshold56,$CacheOfConstantsN1,$CFormAllFunctions63,$cformMathFunctions61,$cformRegularOps60,$cindent62,$ClearScreenString34,$complexReduce48,$Debug'FileLines34,$Debug'FileLoaded34,$Debug'NrLines34,$ErrorTableau59,$formulaMaxWidth64,$GlobalStack20,$intpred72,$knownOrthoPoly71,$knownRNGDists44,$knownRNGEngines44,$lastcoef42,$LocResult74,$mathExpThreshold46,$mNum27,$n'max58,$nNum27,$NthRoot'Table256,$numericMode2,$omindent66,$omsymbol68,$omsymbolreverse68,$omtoken67,$options846,$p02278,$p12278,$p22278,$p32278,$p36,$p42278,$p850,$pc242278,$pc352278,$pc462278,$pc572278,$pc682278,$pj2278,$pj402278,$pj502278,$pj512278,$pj522278,$pj532278,$pj542278,$pju02278,$pp2278,$RandSeed45,$res30,$res79,$rFormMathFunctions39,$rFormRegularOps38,$RIndent40,$simple851,$st870,$TeXFormGreekLetters69,$TeXFormMathFunctions270,$TeXFormMathFunctions70,$TeXFormRegularOps69,$TeXFormRegularPrefixOps69,$TeXFormSpecialNames69,$Verbose35,%,ans,I,iDebug,ii,isHomogeneous,LoadResult,ppfactors,preassem} 
+{$a1095,$a73,$b1095,$b73,$bernoulli1Threshold56,$CacheOfConstantsN1,$CFormAllFunctions63,$cformMathFunctions61,$cformRegularOps60,$cindent62,$ClearScreenString34,$complexReduce48,$Debug'FileLines34,$Debug'FileLoaded34,$Debug'NrLines34,$ErrorTableau59,$formulaMaxWidth64,$GlobalStack20,$intpred72,$knownOrthoPoly71,$knownRNGDists44,$knownRNGEngines44,$lastcoef42,$LocResult74,$mathExpThreshold46,$mNum27,$n'max58,$nNum27,$NthRoot'Table263,$numericMode2,$omindent66,$omsymbol68,$omsymbolreverse68,$omtoken67,$options1090,$p02522,$p1094,$p12522,$p22522,$p32522,$p36,$p42522,$pc242522,$pc352522,$pc462522,$pc572522,$pc682522,$pj2522,$pj402522,$pj502522,$pj512522,$pj522522,$pj532522,$pj542522,$pju02522,$pp2522,$RandSeed45,$res30,$res79,$rFormMathFunctions39,$rFormRegularOps38,$RIndent40,$simple1095,$st1114,$TeXFormGreekLetters69,$TeXFormMathFunctions270,$TeXFormMathFunctions70,$TeXFormRegularOps69,$TeXFormRegularPrefixOps69,$TeXFormSpecialNames69,$Verbose35,%,ans,I,iDebug,LoadResult,ppfactors} 
