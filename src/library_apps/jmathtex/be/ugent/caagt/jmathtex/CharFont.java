@@ -31,7 +31,7 @@ package be.ugent.caagt.jmathtex;
 /**
  * Represents a specific character in a specific font (identified by its font ID).
  */
-class CharFont {
+public class CharFont {
    public char c;
 
    public int fontId;

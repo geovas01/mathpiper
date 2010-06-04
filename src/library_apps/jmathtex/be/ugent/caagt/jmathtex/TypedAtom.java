@@ -28,6 +28,8 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * An atom representing another atom with an overrided lefttype and righttype. This
  * affects the glue inserted before and after this atom.

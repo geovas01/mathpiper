@@ -28,6 +28,9 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.StrutBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * An atom representing whitespace. The dimension values can be set using different
  * unit types.

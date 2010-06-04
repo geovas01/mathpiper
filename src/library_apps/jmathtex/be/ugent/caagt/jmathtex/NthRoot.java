@@ -28,6 +28,11 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.OverBar;
+import be.ugent.caagt.jmathtex.box.StrutBox;
+import be.ugent.caagt.jmathtex.box.HorizontalBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * An atom representing an nth-root construction.
  */

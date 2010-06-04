@@ -33,7 +33,7 @@ import java.awt.Font;
 /**
  * Represents a character together with its font, font ID and metric information.
  */
-class Char {
+public class Char {
 
    private final char c;
 

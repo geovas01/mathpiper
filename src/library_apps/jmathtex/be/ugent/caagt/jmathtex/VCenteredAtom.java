@@ -28,6 +28,9 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.HorizontalBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * An atom representing another atom vertically centered with respect to the axis 
  * (determined by a general TeXFont parameter)

@@ -26,15 +26,17 @@
  *
  */
 
-package be.ugent.caagt.jmathtex;
+package be.ugent.caagt.jmathtex.box;
 
+import be.ugent.caagt.jmathtex.*;
+import be.ugent.caagt.jmathtex.box.Box;
 import java.awt.Graphics2D;
 import java.util.ListIterator;
 
 /**
  * A box composed of other boxes, put one above the other.
  */
-class VerticalBox extends Box {
+public class VerticalBox extends Box {
     
     private float leftMostPos = Float.MAX_VALUE;
     private float rightMostPos = Float.MIN_VALUE; // NOPMD

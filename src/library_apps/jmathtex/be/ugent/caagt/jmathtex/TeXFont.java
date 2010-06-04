@@ -34,7 +34,7 @@ package be.ugent.caagt.jmathtex;
  * 
  * @author Kurt Vermeulen
  */
-interface TeXFont {
+public interface TeXFont {
 
    // point-to-pixel conversion
    public static final float PIXELS_PER_POINT = 1f;

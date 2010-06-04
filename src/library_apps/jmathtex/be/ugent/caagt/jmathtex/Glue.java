@@ -28,6 +28,9 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.GlueBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * Represents glue by its 3 components. Contains the "glue rules".
  */

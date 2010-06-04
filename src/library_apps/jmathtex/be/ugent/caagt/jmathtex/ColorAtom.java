@@ -28,6 +28,7 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.Box;
 import java.awt.Color;
 
 /**

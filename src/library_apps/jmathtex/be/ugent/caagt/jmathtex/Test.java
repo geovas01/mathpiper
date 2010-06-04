@@ -30,6 +30,7 @@ public class Test {
 
 
         frame.setAlwaysOnTop(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("JMathTeX");
         frame.setSize(new Dimension(300, 200));
         frame.setPreferredSize(new Dimension(300, 200));

@@ -28,6 +28,9 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.HorizontalBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * An atom representing a base atom surrounded with delimiters that change their size
  * according to the height of the base.

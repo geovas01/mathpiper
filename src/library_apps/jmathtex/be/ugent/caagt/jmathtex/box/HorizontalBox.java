@@ -26,8 +26,10 @@
  *
  */
 
-package be.ugent.caagt.jmathtex;
+package be.ugent.caagt.jmathtex.box;
 
+import be.ugent.caagt.jmathtex.*;
+import be.ugent.caagt.jmathtex.box.Box;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ListIterator;
@@ -35,7 +37,7 @@ import java.util.ListIterator;
 /**
  * A box composed of a horizontal row of child boxes.
  */
-class HorizontalBox extends Box {
+public class HorizontalBox extends Box {
     
     private float curPos = 0; // NOPMD
     

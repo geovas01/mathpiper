@@ -26,8 +26,9 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex;
+package be.ugent.caagt.jmathtex.box;
 
+import be.ugent.caagt.jmathtex.box.Box;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
@@ -35,7 +36,7 @@ import java.awt.geom.AffineTransform;
  * A box representing another box with a delimiter box and a script box above or under it, 
  * with script and delimiter seperated by a kern.
  */
-class OverUnderBox extends Box {
+public class OverUnderBox extends Box {
 
    // base, delimiter and script atom
    private final Box base;

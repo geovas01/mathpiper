@@ -28,6 +28,9 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.CharBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * An atom representing a fixed character (not depending on a text style).
  */

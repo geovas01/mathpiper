@@ -28,6 +28,12 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.StrutBox;
+import be.ugent.caagt.jmathtex.box.VerticalBox;
+import be.ugent.caagt.jmathtex.box.OverUnderBox;
+import be.ugent.caagt.jmathtex.box.HorizontalBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * A box representing another atom with a delimiter and a script above or under it, 
  * with script and delimiter seperated by a kern.
