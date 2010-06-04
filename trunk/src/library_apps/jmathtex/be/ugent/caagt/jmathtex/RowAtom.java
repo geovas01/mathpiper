@@ -28,6 +28,9 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.StrutBox;
+import be.ugent.caagt.jmathtex.box.HorizontalBox;
+import be.ugent.caagt.jmathtex.box.Box;
 import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;

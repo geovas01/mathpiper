@@ -28,6 +28,11 @@
 
 package be.ugent.caagt.jmathtex; // NOPMD
 
+import be.ugent.caagt.jmathtex.box.CharBox;
+import be.ugent.caagt.jmathtex.box.VerticalBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
+
 /**
  * Responsible for creating a box containing a delimiter symbol that exists
  * in different sizes.

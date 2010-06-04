@@ -26,14 +26,16 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex;
+package be.ugent.caagt.jmathtex.box;
 
+import be.ugent.caagt.jmathtex.*;
+import be.ugent.caagt.jmathtex.box.Box;
 import java.awt.Graphics2D;
 
 /**
  * A box representing glue.
  */
-class GlueBox extends Box {
+public class GlueBox extends Box {
 
    protected float stretch = 0, shrink = 0;
 

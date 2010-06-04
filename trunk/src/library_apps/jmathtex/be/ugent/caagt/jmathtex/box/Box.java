@@ -26,7 +26,7 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex;
+package be.ugent.caagt.jmathtex.box;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -49,7 +49,7 @@ import java.util.List;
  * {@link #getLastFontId()} method (the last font
  * that will be used when this box will be painted).
  */
-abstract class Box {
+public abstract class Box {
 
    /**
     * The foreground color of the whole box. Child boxes can override this color.

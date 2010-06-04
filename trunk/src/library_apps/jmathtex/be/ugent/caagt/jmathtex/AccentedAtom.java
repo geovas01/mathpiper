@@ -28,6 +28,12 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.StrutBox;
+import be.ugent.caagt.jmathtex.box.VerticalBox;
+import be.ugent.caagt.jmathtex.box.CharBox;
+import be.ugent.caagt.jmathtex.box.HorizontalBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * An atom representing another atom with an accent symbol above it.
  */

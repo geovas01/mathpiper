@@ -1,4 +1,4 @@
-/* HorizontalRule.java
+/* OverBar.java
  * =========================================================================
  * This file is part of the JMathTeX Library - http://jmathtex.sourceforge.net
  * 
@@ -26,27 +26,22 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex;
+package be.ugent.caagt.jmathtex.box;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
+import be.ugent.caagt.jmathtex.box.HorizontalRule;
+import be.ugent.caagt.jmathtex.box.Box;
 
 /**
- * A box representing a horizontal line.
+ * A box representing another box with a horizontal rule above it, with appropriate
+ * kerning. 
  */
-class HorizontalRule extends Box {
+public class OverBar extends VerticalBox {
 
-   public HorizontalRule(float thickness, float width, float s) {
-      height = thickness;
-      this.width = width;
-      shift = s;
-   }
-
-   public void draw(Graphics2D g2, float x, float y) {
-      g2.fill(new Rectangle2D.Float(x, y - height, width, height));
-   }
-
-   public int getLastFontId() {
-      return TeXFont.NO_FONT;
+   public OverBar(Box b, float kern, float thickness) {
+      // construct vertical box
+      add(new StrutBox(0, thickness, 0, 0));
+      add(new HorizontalRule(thickness, b.getWidth(), 0));
+      add(new StrutBox(0, kern, 0, 0));
+      add(b);
    }
 }

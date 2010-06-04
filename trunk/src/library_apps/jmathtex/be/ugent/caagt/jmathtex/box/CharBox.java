@@ -26,15 +26,17 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex;
+package be.ugent.caagt.jmathtex.box;
 
+import be.ugent.caagt.jmathtex.*;
+import be.ugent.caagt.jmathtex.box.Box;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
 /**
  * A box representing a single character.
  */
-class CharBox extends Box {
+public class CharBox extends Box {
 
    private final CharFont cf;
 

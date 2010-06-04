@@ -28,6 +28,8 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * An abstract superclass for all logical mathematical constructions that can be
  * a part of a TeXFormula. All subclasses must implement the abstract 

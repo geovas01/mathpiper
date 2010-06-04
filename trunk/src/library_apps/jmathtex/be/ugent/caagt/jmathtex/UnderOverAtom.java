@@ -28,6 +28,11 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.StrutBox;
+import be.ugent.caagt.jmathtex.box.VerticalBox;
+import be.ugent.caagt.jmathtex.box.HorizontalBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * An atom representing another atom with an atom above it (if not null) seperated
  * by a kern and in a smaller size depending on "overScriptSize" and/or an atom under

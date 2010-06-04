@@ -28,6 +28,8 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.CharBox;
+import be.ugent.caagt.jmathtex.box.Box;
 import java.util.BitSet;
 import java.util.Map;
 

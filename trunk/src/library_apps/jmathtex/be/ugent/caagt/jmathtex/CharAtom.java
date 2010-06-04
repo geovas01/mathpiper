@@ -28,6 +28,9 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.CharBox;
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * An atom representing exactly one alphanumeric character and the text style in which 
  * it should be drawn. 

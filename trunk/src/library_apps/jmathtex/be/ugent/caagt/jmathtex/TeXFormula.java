@@ -28,6 +28,8 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.StrutBox;
+import be.ugent.caagt.jmathtex.box.Box;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.HashSet;

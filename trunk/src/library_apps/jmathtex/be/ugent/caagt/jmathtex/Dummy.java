@@ -28,6 +28,8 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.box.Box;
+
 /**
  * Used by RowAtom. The "textSymbol"-property and the type of an atom can change 
  * (according to the TeX-algorithms used). Or this atom can be replaced by a ligature, 
