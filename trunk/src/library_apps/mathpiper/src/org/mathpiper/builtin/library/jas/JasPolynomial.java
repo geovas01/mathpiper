@@ -117,6 +117,10 @@ public class JasPolynomial {
         return fEngine;
     }
     
+    public String getRingVariables() {
+        return polyRing.varsToString();
+    }
+    
     public boolean isIrreducible() {
         return fEngine.isIrreducible(poly);
     }
@@ -152,11 +156,15 @@ public class JasPolynomial {
     
     // factorization of this.poly
     public SortedMap<GenPolynomial,Long> factors() {
-        System.out.println(" DEBUG:  in method factors()");
-        System.out.flush();
+        if ( debug ) {
+            System.out.println(" DEBUG:  in method factors()");
+            System.out.flush();
+        }
         factorsMap = fEngine.factors(poly);
-        System.out.println("       map of factors:   " + factorsMap);
-        System.out.flush();
+        if ( debug ) {
+            System.out.println("       map of factors:   " + factorsMap);
+            System.out.flush();
+        }
         return factorsMap;       
     }
 
@@ -164,23 +172,31 @@ public class JasPolynomial {
     // factorization of a new poly
     
     public SortedMap<GenPolynomial,Long> factorNewPolynomial(String polyString) {
-        System.out.println(" DEBUG:  in method factorNewPolynomial1()");
-        System.out.flush();
+        if ( debug ) {
+            System.out.println(" DEBUG:  in method factorNewPolynomial1()");
+            System.out.flush();
+        }
         setPolynomial(polyString);
-        System.out.println("\n  the poly was changed to: " + getPolynomial().toScript());
-        System.out.flush();
+        if ( debug ) {
+            System.out.println("\n  the poly was changed to: " + getPolynomial().toScript());
+            System.out.flush();
+        }
         factorsMap = factors();
         return factorsMap;       
     }
     
     
     public SortedMap<GenPolynomial,Long> factorNewPolynomial(String polyString, String newPolyVars) {
-        System.out.println(" DEBUG:  in method factorNewPolynomial2()");
-        System.out.flush();
+        if ( debug ) {
+            System.out.println(" DEBUG:  in method factorNewPolynomial2()");
+            System.out.flush();
+        }
         setPolynomial(polyString, newPolyVars);
-        System.out.println("\n  the poly was changed to: " + getPolynomial().toScript());
-        System.out.println("       the ring variables are " + getRing().varsToString());
-        System.out.flush();
+        if ( debug ) {
+            System.out.println("\n  the poly was changed to: " + getPolynomial().toScript());
+            System.out.println("       the ring variables are " + getRing().varsToString());
+            System.out.flush();           
+        }
         factorsMap = factors();
         return factorsMap;       
     }
