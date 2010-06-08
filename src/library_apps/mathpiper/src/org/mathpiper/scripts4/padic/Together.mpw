@@ -30,3 +30,25 @@ Retract("Together",*);
 
 %/mathpiper
 
+
+
+
+%mathpiper_docs,name="Together",categories="User Functions;Number Theory"
+*CMD Together --- places terms in a sum over a common denominator and cancels factors in the result
+*CALL
+    Together(expression)
+
+*PARMS
+
+{expression} -- a sum
+
+*DESC
+This function places terms in a sum over a common denominator and cancels factors in the result.
+
+*E.G.
+In> Together(a/b + c/d)
+Result: (d*a+b*c)/(d*b)
+
+*SEE Apart
+
+%/mathpiper_docs

@@ -30,3 +30,28 @@ Apart(_f,_var) <--
 %/mathpiper
 
 
+
+
+%mathpiper_docs,name="Apart",categories="User Functions;Number Theory"
+*CMD Apart --- creates a partial fraction expansion of a polynomial
+*CALL
+    Apart(expression)
+    Apart(expression, var)
+
+*PARMS
+
+{expression} -- a polynomial
+
+{var} -- specify that all variables other than {var} are constants
+
+*DESC
+Creates a partial fraction expansion of a polynomial.
+
+*E.G.
+In> Apart(1/(x^2-1),x);
+Result: 1/(2*(x-1))+(-1)/(2*(x+1))
+
+*SEE Together
+
+%/mathpiper_docs
+
