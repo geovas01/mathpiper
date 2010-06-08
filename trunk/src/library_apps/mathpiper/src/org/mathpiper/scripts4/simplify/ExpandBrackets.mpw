@@ -2,25 +2,24 @@
 
 Retract("ExpandBrackets",*);
 
-ExpandBrackets(_xx) <-- 
+10 # ExpandBrackets(xx_IsZero) <-- 0;
+
+20 # ExpandBrackets(xx_IsRationalFunction) <-- 
 [
-    If( IsRationalFunction(xx),
-       [
-           Local(N,D);
-           N := Add(ReassembleListTerms(DisassembleExpression(Numerator(xx))));
-           D := Add(ReassembleListTerms(DisassembleExpression(Denominator(xx))));
-           (N/D);
-       ],
-       [
-           Add(ReassembleListTerms(DisassembleExpression(xx)));
-       ]           
-    );
+    Local(N,D);
+    N := Add(ReassembleListTerms(DisassembleExpression(Numerator(xx))));
+    D := Add(ReassembleListTerms(DisassembleExpression(Denominator(xx))));
+    (N/D);
 ];
+
+30 # ExpandBrackets(_xx) <--  Add(ReassembleListTerms(DisassembleExpression(xx)));
+
 
 //ExpandBrackets(_xx) <-- SimpExpand(SimpImplode(SimpFlatten(xx)));
 //ExpandBrackets(x) := NormalForm(MM(x));
 
 %/mathpiper
+
 
     
 
