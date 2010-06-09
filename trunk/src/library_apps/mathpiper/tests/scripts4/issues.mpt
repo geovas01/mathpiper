@@ -67,6 +67,27 @@ Verify(ExpandBrackets((x-y)*(a+b)),x*a+x*b-y*a-y*b);
 //Issue 55
 Verify(Factor(s^2 - r^2),(s-r)*(r+s));
 
+//Issue 56
+//Verify(Factor(5 * a - 10 * b^2),5*(a-2*b^2));
+
+//Issue 57a
+//Verify(Solve(3*(3*x-4)+2*(3*x-7)==3*(5*x-6)-8, x),{x==x});
+
+//Issue 57b
+//Verify(Solve((2*x - 1)*(4*x + 3) == (8*x - 3)*(x + 4) - 3*(9*x + 1), x),{});
+
+//Issue 58
+Verify(Simplify(Ln(3)),Ln(3));
+
+//Issue 59
+//Verify(RemoveDuplicates(Solve((x - 1)*(x - 2)*(x - 3)==0, x)),{{x==1},{x==2},{x==3}});
+
+//Issue 60
+//RemoveDuplicates(Solve(-3*x^3+10*x^2-11*x+4==0, x)),{{x==4/3},{x==1}});
+
+//Issue 61
+Verify(TrigSimpCombine(ExpandBrackets((2*x^2-x+3)-(2*x^2-x+3))),0);
+
 
 
 
