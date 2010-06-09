@@ -31,7 +31,7 @@ package be.ugent.caagt.jmathtex.mathml;
 import java.util.List;
 
 import org.jdom.Element;
-import be.ugent.caagt.jmathtex.JMathTeXException;
+import be.ugent.caagt.jmathtex.exceptions.JMathTeXException;
 import be.ugent.caagt.jmathtex.TeXFormula;
 
 class MoverParser extends PresentationElementParser {

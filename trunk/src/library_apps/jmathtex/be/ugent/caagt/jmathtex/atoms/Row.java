@@ -1,4 +1,4 @@
-/* MnParser.java
+/* Row.java
  * =========================================================================
  * This file is part of the JMathTeX Library - http://jmathtex.sourceforge.net
  * 
@@ -26,27 +26,24 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.mathml;
+package be.ugent.caagt.jmathtex.atoms;
 
-import org.jdom.Element;
-import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.exceptions.ParseException;
+import be.ugent.caagt.jmathtex.*;
 
-class MnParser extends TokenElementParser {
+/**
+ * A "composed atom": an atom that consists of child atoms that will be displayed 
+ * next to each other horizontally with glue between them.
+ */
+public interface Row {
 
-   public TeXFormula buildFormula(Element el, Environment env)
-         throws MathMLException {
-      String texString = convertMathMLToTeX(el);
-      if (texString.length() == 0)
-         return super.processAtrributes(new TeXFormula(), el, env);
-      else {
-         try {
-            return super.processAtrributes(new TeXFormula("\\mathrm{" + texString
-                  + "}"), el, env);
-         } catch (ParseException e) {
-            throw new MathMLException("couldn't parse mn element data : '"
-                  + el.getTextNormalize() + "'", e);
-         }
-      }
-   }
+   /**
+    * Sets the given dummy containing the atom that comes just before
+    * the first child atom of this "composed atom". This method will allways be called
+    * by another composed atom, so this composed atom will be a child of it (nested). 
+    * This is necessary to determine the glue to insert between the first child atom 
+    * of this nested composed atom and the atom that the dummy contains. 
+    * 
+    * @param dummy the dummy that comes just before this "composed atom"
+    */
+   public void setPreviousAtom(Dummy dummy);
 }

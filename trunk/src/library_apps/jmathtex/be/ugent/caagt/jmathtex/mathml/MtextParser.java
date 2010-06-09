@@ -30,7 +30,7 @@ package be.ugent.caagt.jmathtex.mathml;
 
 import org.jdom.Element;
 import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.ParseException;
+import be.ugent.caagt.jmathtex.exceptions.ParseException;
 
 class MtextParser extends TokenElementParser {
 

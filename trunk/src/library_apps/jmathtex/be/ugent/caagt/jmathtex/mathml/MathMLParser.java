@@ -47,7 +47,7 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import be.ugent.caagt.jmathtex.TeXConstants;
 import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.ResourceParseException;
+import be.ugent.caagt.jmathtex.exceptions.ResourceParseException;
 import java.util.HashMap;
 
 /**

@@ -28,6 +28,7 @@
 
 package be.ugent.caagt.jmathtex;
 
+import be.ugent.caagt.jmathtex.fonts.TeXFont;
 import java.awt.Color;
 
 /**
@@ -35,7 +36,7 @@ import java.awt.Color;
  * formula must be drawn. It's used in the createBox-methods. Contains methods that
  * apply the style changing rules for subformula's.
  */
-class TeXEnvironment {
+public class TeXEnvironment {
     
     // colors
     private Color background = null, color = null;
@@ -67,7 +68,7 @@ class TeXEnvironment {
         color = c;
     }
     
-    protected TeXEnvironment copy() {
+    public TeXEnvironment copy() {
         return new TeXEnvironment(style, tf, background, color);
     }
     

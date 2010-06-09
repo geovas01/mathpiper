@@ -28,8 +28,41 @@
 
 package be.ugent.caagt.jmathtex;
 
-import be.ugent.caagt.jmathtex.box.StrutBox;
-import be.ugent.caagt.jmathtex.box.Box;
+import be.ugent.caagt.jmathtex.fonts.DefaultTeXFont;
+import be.ugent.caagt.jmathtex.xmlconfigurationparsers.TeXFormulaSettingsParser;
+import be.ugent.caagt.jmathtex.xmlconfigurationparsers.PredefinedTeXFormulaParser;
+import be.ugent.caagt.jmathtex.exceptions.InvalidTeXFormulaException;
+import be.ugent.caagt.jmathtex.exceptions.InvalidDelimiterTypeException;
+import be.ugent.caagt.jmathtex.exceptions.EmptyFormulaException;
+import be.ugent.caagt.jmathtex.exceptions.InvalidSymbolTypeException;
+import be.ugent.caagt.jmathtex.exceptions.DelimiterMappingNotFoundException;
+import be.ugent.caagt.jmathtex.exceptions.InvalidAtomTypeException;
+import be.ugent.caagt.jmathtex.exceptions.ParseException;
+import be.ugent.caagt.jmathtex.exceptions.FormulaNotFoundException;
+import be.ugent.caagt.jmathtex.exceptions.SymbolNotFoundException;
+import be.ugent.caagt.jmathtex.exceptions.InvalidDelimiterException;
+import be.ugent.caagt.jmathtex.exceptions.InvalidUnitException;
+import be.ugent.caagt.jmathtex.atoms.Atom;
+import be.ugent.caagt.jmathtex.atoms.UnderOverAtom;
+import be.ugent.caagt.jmathtex.atoms.VCenteredAtom;
+import be.ugent.caagt.jmathtex.atoms.OverlinedAtom;
+import be.ugent.caagt.jmathtex.atoms.CharAtom;
+import be.ugent.caagt.jmathtex.atoms.RowAtom;
+import be.ugent.caagt.jmathtex.atoms.TypedAtom;
+import be.ugent.caagt.jmathtex.atoms.SymbolAtom;
+import be.ugent.caagt.jmathtex.atoms.BigOperatorAtom;
+import be.ugent.caagt.jmathtex.atoms.PhantomAtom;
+import be.ugent.caagt.jmathtex.atoms.SpaceAtom;
+import be.ugent.caagt.jmathtex.atoms.AccentedAtom;
+import be.ugent.caagt.jmathtex.atoms.FencedAtom;
+import be.ugent.caagt.jmathtex.atoms.FractionAtom;
+import be.ugent.caagt.jmathtex.atoms.OverUnderDelimiter;
+import be.ugent.caagt.jmathtex.atoms.ColorAtom;
+import be.ugent.caagt.jmathtex.atoms.ScriptsAtom;
+import be.ugent.caagt.jmathtex.atoms.UnderlinedAtom;
+import be.ugent.caagt.jmathtex.atoms.NthRoot;
+import be.ugent.caagt.jmathtex.boxes.StrutBox;
+import be.ugent.caagt.jmathtex.boxes.Box;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -97,7 +130,7 @@ public class TeXFormula {
     private static final int UNDER_DEL = 1;
     
     // for comparing floats with 0
-    protected static final float PREC = 0.0000001f;
+    public static final float PREC = 0.0000001f;
     
     // predefined TeXFormula's
     private static Map<String,TeXFormula> predefinedTeXFormulas = new HashMap<String,TeXFormula>();
@@ -135,7 +168,7 @@ public class TeXFormula {
     private int pos = 0;
     
     // the root atom of the "atom tree" that represents the formula
-    protected Atom root = null;
+    public Atom root = null;
     
     // the current text style
     private String textStyle = null;

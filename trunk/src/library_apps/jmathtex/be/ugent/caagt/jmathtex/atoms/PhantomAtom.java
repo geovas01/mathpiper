@@ -1,4 +1,4 @@
-/* MnParser.java
+/* PhantomAtom.java
  * =========================================================================
  * This file is part of the JMathTeX Library - http://jmathtex.sourceforge.net
  * 
@@ -26,27 +26,52 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.mathml;
+package be.ugent.caagt.jmathtex.atoms;
 
-import org.jdom.Element;
-import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.exceptions.ParseException;
+import be.ugent.caagt.jmathtex.*;
+import be.ugent.caagt.jmathtex.boxes.StrutBox;
+import be.ugent.caagt.jmathtex.boxes.Box;
 
-class MnParser extends TokenElementParser {
+/**
+ * An atom representing another atom that should be drawn invisibly.
+ */
+public class PhantomAtom extends Atom implements Row {
 
-   public TeXFormula buildFormula(Element el, Environment env)
-         throws MathMLException {
-      String texString = convertMathMLToTeX(el);
-      if (texString.length() == 0)
-         return super.processAtrributes(new TeXFormula(), el, env);
-      else {
-         try {
-            return super.processAtrributes(new TeXFormula("\\mathrm{" + texString
-                  + "}"), el, env);
-         } catch (ParseException e) {
-            throw new MathMLException("couldn't parse mn element data : '"
-                  + el.getTextNormalize() + "'", e);
-         }
-      }
+   // RowAtom to be drawn invisibly
+   private RowAtom elements;
+
+   // dimensions to be taken into account
+   private boolean w = true, h = true, d = true;
+
+   public PhantomAtom(Atom el) {
+      if (el == null)
+         elements = new RowAtom();
+      else
+         elements = new RowAtom(el);
+   }
+
+   public PhantomAtom(Atom el, boolean width, boolean height, boolean depth) {
+      this(el);
+      w = width;
+      h = height;
+      d = depth;
+   }
+
+   public Box createBox(TeXEnvironment env) {
+      Box res = elements.createBox(env);
+      return new StrutBox((w ? res.getWidth() : 0), (h ? res.getHeight() : 0),
+            (d ? res.getDepth() : 0), res.getShift());
+   }
+
+   public int getLeftType() {
+      return elements.getLeftType();
+   }
+
+   public int getRightType() {
+      return elements.getRightType();
+   }
+
+   public void setPreviousAtom(Dummy prev) {
+      elements.setPreviousAtom(prev);
    }
 }

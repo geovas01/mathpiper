@@ -1,4 +1,4 @@
-/* MnParser.java
+/* DelimiterMappingNotFoundException.java
  * =========================================================================
  * This file is part of the JMathTeX Library - http://jmathtex.sourceforge.net
  * 
@@ -26,27 +26,21 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.mathml;
+package be.ugent.caagt.jmathtex.exceptions;
 
-import org.jdom.Element;
-import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.exceptions.ParseException;
+import be.ugent.caagt.jmathtex.xmlconfigurationparsers.TeXFormulaSettingsParser;
+import be.ugent.caagt.jmathtex.*;
 
-class MnParser extends TokenElementParser {
+/**
+ * Signals a missing character-to-delimiter mapping.
+ * 
+ * @author Kurt Vermeulen
+ */
+public class DelimiterMappingNotFoundException extends JMathTeXException {
 
-   public TeXFormula buildFormula(Element el, Environment env)
-         throws MathMLException {
-      String texString = convertMathMLToTeX(el);
-      if (texString.length() == 0)
-         return super.processAtrributes(new TeXFormula(), el, env);
-      else {
-         try {
-            return super.processAtrributes(new TeXFormula("\\mathrm{" + texString
-                  + "}"), el, env);
-         } catch (ParseException e) {
-            throw new MathMLException("couldn't parse mn element data : '"
-                  + el.getTextNormalize() + "'", e);
-         }
-      }
+   public DelimiterMappingNotFoundException(char delimiter) {
+      super("No mapping found for the character '" + delimiter + "'! "
+            + "Insert a <" + TeXFormulaSettingsParser.CHARTODEL_MAPPING_EL
+            + ">-element in '" + TeXFormulaSettingsParser.RESOURCE_NAME + "'.");
    }
 }

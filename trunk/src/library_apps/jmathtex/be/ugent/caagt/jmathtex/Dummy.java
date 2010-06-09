@@ -28,7 +28,14 @@
 
 package be.ugent.caagt.jmathtex;
 
-import be.ugent.caagt.jmathtex.box.Box;
+import be.ugent.caagt.jmathtex.atoms.Row;
+import be.ugent.caagt.jmathtex.fonts.TeXFont;
+import be.ugent.caagt.jmathtex.fonts.CharFont;
+import be.ugent.caagt.jmathtex.atoms.Atom;
+import be.ugent.caagt.jmathtex.atoms.FixedCharAtom;
+import be.ugent.caagt.jmathtex.atoms.SpaceAtom;
+import be.ugent.caagt.jmathtex.atoms.CharSymbol;
+import be.ugent.caagt.jmathtex.boxes.Box;
 
 /**
  * Used by RowAtom. The "textSymbol"-property and the type of an atom can change 
@@ -38,7 +45,7 @@ import be.ugent.caagt.jmathtex.box.Box;
  * This "dummy atom" makes sure that changes to an atom (during the createBox-method of
  * a RowAtom) will be reset.
  */
-class Dummy {
+public class Dummy {
 
    private Atom el;
 
