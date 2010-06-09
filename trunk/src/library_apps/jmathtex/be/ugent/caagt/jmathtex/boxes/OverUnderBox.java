@@ -26,9 +26,9 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.box;
+package be.ugent.caagt.jmathtex.boxes;
 
-import be.ugent.caagt.jmathtex.box.Box;
+import be.ugent.caagt.jmathtex.boxes.Box;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 

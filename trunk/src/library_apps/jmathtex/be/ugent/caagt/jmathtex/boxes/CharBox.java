@@ -26,10 +26,12 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.box;
+package be.ugent.caagt.jmathtex.boxes;
 
+import be.ugent.caagt.jmathtex.fonts.CharFont;
+import be.ugent.caagt.jmathtex.fonts.Char;
 import be.ugent.caagt.jmathtex.*;
-import be.ugent.caagt.jmathtex.box.Box;
+import be.ugent.caagt.jmathtex.boxes.Box;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
