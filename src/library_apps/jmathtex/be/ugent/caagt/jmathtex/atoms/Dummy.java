@@ -26,8 +26,9 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex;
+package be.ugent.caagt.jmathtex.atoms;
 
+import be.ugent.caagt.jmathtex.*;
 import be.ugent.caagt.jmathtex.atoms.Row;
 import be.ugent.caagt.jmathtex.fonts.TeXFont;
 import be.ugent.caagt.jmathtex.fonts.CharFont;
