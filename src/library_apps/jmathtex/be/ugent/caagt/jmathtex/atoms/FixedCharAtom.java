@@ -1,4 +1,4 @@
-/* MnParser.java
+/* FixedCharAtom.java
  * =========================================================================
  * This file is part of the JMathTeX Library - http://jmathtex.sourceforge.net
  * 
@@ -26,27 +26,35 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.mathml;
+package be.ugent.caagt.jmathtex.atoms;
 
-import org.jdom.Element;
-import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.exceptions.ParseException;
+import be.ugent.caagt.jmathtex.fonts.CharFont;
+import be.ugent.caagt.jmathtex.fonts.Char;
+import be.ugent.caagt.jmathtex.fonts.TeXFont;
+import be.ugent.caagt.jmathtex.*;
+import be.ugent.caagt.jmathtex.atoms.CharSymbol;
+import be.ugent.caagt.jmathtex.boxes.CharBox;
+import be.ugent.caagt.jmathtex.boxes.Box;
 
-class MnParser extends TokenElementParser {
+/**
+ * An atom representing a fixed character (not depending on a text style).
+ */
+public class FixedCharAtom extends CharSymbol {
 
-   public TeXFormula buildFormula(Element el, Environment env)
-         throws MathMLException {
-      String texString = convertMathMLToTeX(el);
-      if (texString.length() == 0)
-         return super.processAtrributes(new TeXFormula(), el, env);
-      else {
-         try {
-            return super.processAtrributes(new TeXFormula("\\mathrm{" + texString
-                  + "}"), el, env);
-         } catch (ParseException e) {
-            throw new MathMLException("couldn't parse mn element data : '"
-                  + el.getTextNormalize() + "'", e);
-         }
-      }
+   private final CharFont cf;
+
+   public FixedCharAtom(CharFont c) {
+      cf = c;
    }
+
+   public CharFont getCharFont(TeXFont tf) {
+      return cf;
+   }
+
+   public Box createBox(TeXEnvironment env) {
+      TeXFont tf = env.getTeXFont();
+      Char c = tf.getChar(cf, env.getStyle());
+      return new CharBox(c);
+   }
+
 }

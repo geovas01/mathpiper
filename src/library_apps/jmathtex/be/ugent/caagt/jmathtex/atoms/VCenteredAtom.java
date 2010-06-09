@@ -1,4 +1,4 @@
-/* MnParser.java
+/* VCenteredAtom.java
  * =========================================================================
  * This file is part of the JMathTeX Library - http://jmathtex.sourceforge.net
  * 
@@ -26,27 +26,35 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.mathml;
+package be.ugent.caagt.jmathtex.atoms;
 
-import org.jdom.Element;
-import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.exceptions.ParseException;
+import be.ugent.caagt.jmathtex.*;
+import be.ugent.caagt.jmathtex.boxes.HorizontalBox;
+import be.ugent.caagt.jmathtex.boxes.Box;
 
-class MnParser extends TokenElementParser {
+/**
+ * An atom representing another atom vertically centered with respect to the axis 
+ * (determined by a general TeXFont parameter)
+ */
+public class VCenteredAtom extends Atom {
 
-   public TeXFormula buildFormula(Element el, Environment env)
-         throws MathMLException {
-      String texString = convertMathMLToTeX(el);
-      if (texString.length() == 0)
-         return super.processAtrributes(new TeXFormula(), el, env);
-      else {
-         try {
-            return super.processAtrributes(new TeXFormula("\\mathrm{" + texString
-                  + "}"), el, env);
-         } catch (ParseException e) {
-            throw new MathMLException("couldn't parse mn element data : '"
-                  + el.getTextNormalize() + "'", e);
-         }
-      }
+   // atom to be centered vertically with respect to the axis
+   private final Atom atom;
+
+   public VCenteredAtom(Atom atom) {
+      this.atom = atom;
+   }
+
+   public Box createBox(TeXEnvironment env) {
+      Box b = atom.createBox(env);
+
+      float total = b.getHeight() + b.getDepth(), axis = env.getTeXFont()
+            .getAxisHeight(env.getStyle());
+
+      // center on axis
+      b.setShift(-(total / 2) - axis);
+      
+      // put in horizontal box, so shifting will be vertically!
+      return new HorizontalBox(b);
    }
 }

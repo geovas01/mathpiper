@@ -1,4 +1,4 @@
-/* MnParser.java
+/* CharFont.java
  * =========================================================================
  * This file is part of the JMathTeX Library - http://jmathtex.sourceforge.net
  * 
@@ -26,27 +26,18 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.mathml;
+package be.ugent.caagt.jmathtex.fonts;
 
-import org.jdom.Element;
-import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.exceptions.ParseException;
+/**
+ * Represents a specific character in a specific font (identified by its font ID).
+ */
+public class CharFont {
+   public char c;
 
-class MnParser extends TokenElementParser {
+   public int fontId;
 
-   public TeXFormula buildFormula(Element el, Environment env)
-         throws MathMLException {
-      String texString = convertMathMLToTeX(el);
-      if (texString.length() == 0)
-         return super.processAtrributes(new TeXFormula(), el, env);
-      else {
-         try {
-            return super.processAtrributes(new TeXFormula("\\mathrm{" + texString
-                  + "}"), el, env);
-         } catch (ParseException e) {
-            throw new MathMLException("couldn't parse mn element data : '"
-                  + el.getTextNormalize() + "'", e);
-         }
-      }
+   public CharFont(char ch, int f) {
+      c = ch;
+      fontId = f;
    }
 }

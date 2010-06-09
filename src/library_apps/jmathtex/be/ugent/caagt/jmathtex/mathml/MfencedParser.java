@@ -33,7 +33,7 @@ import java.util.ListIterator;
 
 import org.jdom.Element;
 import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.ParseException;
+import be.ugent.caagt.jmathtex.exceptions.ParseException;
 import java.util.Arrays;
 
 class MfencedParser extends PresentationElementParser {

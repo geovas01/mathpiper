@@ -1,56 +1,79 @@
-/* MiParser.java
+/* Extension.java
  * =========================================================================
  * This file is part of the JMathTeX Library - http://jmathtex.sourceforge.net
- *
+ * 
  * Copyright (C) 2004-2007 Universiteit Gent
- *
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- *
+ * 
  * A copy of the GNU General Public License can be found in the file
  * LICENSE.txt provided with the source distribution of this program (see
  * the META-INF directory in the source jar). This license can also be
  * found on the GNU website at http://www.gnu.org/licenses/gpl.html.
- *
+ * 
  * If you did not receive a copy of the GNU General Public License along
  * with this program, contact the lead developer, or write to the Free
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
- *
+ * 
  */
 
-package be.ugent.caagt.jmathtex.mathml;
+package be.ugent.caagt.jmathtex.fonts;
 
-import org.jdom.Element;
+import be.ugent.caagt.jmathtex.fonts.Char;
 
-import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.exceptions.ParseException;
+/**
+ * Represents an extension character that is defined by Char-objects of it's 4
+ * possible parts (null means part not present).
+ */
+public class Extension {
 
-class MiParser extends TokenElementParser {
-    
-    public TeXFormula buildFormula(Element el, Environment env) throws MathMLException {
-        try {
-            String texString = convertMathMLToTeX(el);
-            if (texString.length() == 0)
-                return super.processAtrributes(new TeXFormula(), el, env);
-            else if (texString.length() == 1) // italic
-                return super.processAtrributes(new TeXFormula(texString), el, env);
-            else if (texString.indexOf('\\') == -1)
-                // string -> upright (not italic)
-                return super.processAtrributes(new TeXFormula("\\mathrm{" + texString
-                        + "}"), el, env);
-            else
-                return super.processAtrributes(new TeXFormula(texString), el, env);
-        } catch (ParseException e1) {
-            throw new MathMLException("couldn't parse mi element data : '"
-                    + el.getTextNormalize() + "'", e1);
-        }
-    }
+   // there ALLWAYS is a repeat character! (check TFM.isExtensionChar())
+   private final Char top;
+   private final Char middle;
+   private final Char bottom;
+   private final Char repeat;
+
+   public Extension(Char t, Char m, Char r, Char b) {
+      top = t;
+      middle = m;
+      repeat = r;
+      bottom = b;
+   }
+
+   public boolean hasTop() {
+      return top != null;
+   }
+
+   public boolean hasMiddle() {
+      return middle != null;
+   }
+
+   public boolean hasBottom() {
+      return bottom != null;
+   }
+
+   public Char getTop() {
+      return top;
+   }
+
+   public Char getMiddle() {
+      return middle;
+   }
+
+   public Char getRepeat() {
+      return repeat;
+   }
+
+   public Char getBottom() {
+      return bottom;
+   }
 }

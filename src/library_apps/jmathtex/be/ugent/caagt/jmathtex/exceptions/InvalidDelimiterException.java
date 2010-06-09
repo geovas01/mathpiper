@@ -1,4 +1,4 @@
-/* MnParser.java
+/* InvalidDelimiterException.java
  * =========================================================================
  * This file is part of the JMathTeX Library - http://jmathtex.sourceforge.net
  * 
@@ -26,27 +26,30 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.mathml;
+package be.ugent.caagt.jmathtex.exceptions;
 
-import org.jdom.Element;
-import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.exceptions.ParseException;
+import be.ugent.caagt.jmathtex.xmlconfigurationparsers.TeXSymbolParser;
+import be.ugent.caagt.jmathtex.*;
 
-class MnParser extends TokenElementParser {
+/**
+ * Signals that a symbol, that was not defined as a delimiter, was used
+ * as a delimiter.
+ * 
+ * @author Kurt Vermeulen
+ */
+public class InvalidDelimiterException extends JMathTeXException {
 
-   public TeXFormula buildFormula(Element el, Environment env)
-         throws MathMLException {
-      String texString = convertMathMLToTeX(el);
-      if (texString.length() == 0)
-         return super.processAtrributes(new TeXFormula(), el, env);
-      else {
-         try {
-            return super.processAtrributes(new TeXFormula("\\mathrm{" + texString
-                  + "}"), el, env);
-         } catch (ParseException e) {
-            throw new MathMLException("couldn't parse mn element data : '"
-                  + el.getTextNormalize() + "'", e);
-         }
-      }
+   public InvalidDelimiterException(String symbolName) {
+      super("The symbol with the name '" + symbolName
+            + "' is not defined as a delimiter ("
+            + TeXSymbolParser.DELIMITER_ATTR + "='true') in '"
+            + TeXSymbolParser.RESOURCE_NAME + "'!");
+   }
+
+   public InvalidDelimiterException(char ch, String symbolName) {
+      super("The character '" + ch + "' is mapped to a symbol with the name '"
+            + symbolName + "', but that symbol is not defined as a delimiter ("
+            + TeXSymbolParser.DELIMITER_ATTR + "='true') in '"
+            + TeXSymbolParser.RESOURCE_NAME + "'!");
    }
 }

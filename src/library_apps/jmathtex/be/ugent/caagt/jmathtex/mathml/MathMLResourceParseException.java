@@ -28,7 +28,7 @@
 
 package be.ugent.caagt.jmathtex.mathml;
 
-import be.ugent.caagt.jmathtex.ResourceParseException;
+import be.ugent.caagt.jmathtex.exceptions.ResourceParseException;
 
 class MathMLResourceParseException extends ResourceParseException {
 
