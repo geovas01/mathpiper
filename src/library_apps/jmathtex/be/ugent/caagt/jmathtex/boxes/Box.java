@@ -26,7 +26,7 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.box;
+package be.ugent.caagt.jmathtex.boxes;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

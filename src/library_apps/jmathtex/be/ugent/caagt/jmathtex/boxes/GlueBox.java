@@ -1,4 +1,4 @@
-/* HorizontalRule.java
+/* GlueBox.java
  * =========================================================================
  * This file is part of the JMathTeX Library - http://jmathtex.sourceforge.net
  * 
@@ -26,26 +26,28 @@
  * 
  */
 
-package be.ugent.caagt.jmathtex.box;
+package be.ugent.caagt.jmathtex.boxes;
 
+import be.ugent.caagt.jmathtex.fonts.TeXFont;
 import be.ugent.caagt.jmathtex.*;
-import be.ugent.caagt.jmathtex.box.Box;
+import be.ugent.caagt.jmathtex.boxes.Box;
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 
 /**
- * A box representing a horizontal line.
+ * A box representing glue.
  */
-public class HorizontalRule extends Box {
+public class GlueBox extends Box {
 
-   public HorizontalRule(float thickness, float width, float s) {
-      height = thickness;
-      this.width = width;
-      shift = s;
+   protected float stretch = 0, shrink = 0;
+
+   public GlueBox(float space, float stretch, float shrink) {
+      this.width = space;
+      this.stretch = stretch;
+      this.shrink = shrink;
    }
 
    public void draw(Graphics2D g2, float x, float y) {
-      g2.fill(new Rectangle2D.Float(x, y - height, width, height));
+       // no visible effect
    }
 
    public int getLastFontId() {
