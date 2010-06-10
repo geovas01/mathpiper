@@ -63,6 +63,13 @@
 			</fileset>
 		</copy>
 		
+		<copy todir="${build.classes.dir}/org/mathpiper/ui/gui/jmathtex/xmlconfigurationparsers">
+			<fileset dir="${src.dir}/org/mathpiper/ui/gui/jmathtex/xmlconfigurationparsers" >
+				<include name="*.xml" />
+				<include name="*.ttf" />
+			</fileset>
+		</copy>
+		
 	</target>
 	
       
