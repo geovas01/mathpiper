@@ -20,8 +20,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Insets;
 import javax.swing.Box;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
@@ -31,6 +33,8 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.ui.gui.hoteqn.sHotEqn;
+import org.mathpiper.ui.gui.jmathtex.TeXFormula;
+import org.mathpiper.ui.gui.jmathtex.TeXIcon;
 import org.mathpiper.ui.gui.worksheets.MathPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.latexparser.TexParser;
@@ -94,6 +98,16 @@ public class ViewLatex extends BuiltinFunction {
         hotEqn.setEquation(latexString);
         JScrollPane hotEqnScrollPane = new JScrollPane(hotEqn,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
+
+        TeXFormula formula = new TeXFormula(latexString);
+        TeXIcon icon = formula.createTeXIcon(0, 50);
+        icon.setInsets(new Insets(1, 1, 1, 1));
+        JLabel jMathTexLabel = new JLabel();
+        jMathTexLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+        jMathTexLabel.setAlignmentY(icon.getBaseLine());
+        jMathTexLabel.setIcon(icon);
+        JScrollPane jMathTexScrollPane = new JScrollPane(jMathTexLabel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
         /*
         JEditorPane htmlPane = new JEditorPane();
         htmlPane.setContentType("text/html");
@@ -135,6 +149,8 @@ public class ViewLatex extends BuiltinFunction {
         box.add(mathPiperScrollPane);
 
         box.add(hotEqnScrollPane);
+
+        box.add(jMathTexScrollPane);
 
         contentPane.add(box);
 
