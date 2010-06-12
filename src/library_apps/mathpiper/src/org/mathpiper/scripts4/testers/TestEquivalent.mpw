@@ -1,0 +1,39 @@
+%mathpiper,def="TestEquivalent"
+
+Retract("TestEquivalent",*);
+
+Macro("TestEquivalent",{left,right})
+[
+    Local(leftEval,rightEval,diff,vars,isEquiv);
+    If(InVerboseMode(),Tell(TestEquivalent,{left,right}));
+    leftEval  := @left;
+    rightEval := @right;
+    diff      := Simplify(leftEval - rightEval);
+    vars      := VarList(diff);
+    If(InVerboseMode(),
+      [
+         Tell("    ",{leftEval,rightEval});
+         Tell("    ",vars);
+         Tell("    ",diff);
+      ]
+    );
+    isEquiv   := ( IsZero(diff) Or IsZeroVector(diff) );
+    
+    If ( Not isEquiv,
+      [
+		  WriteString("******************");          NewLine();
+		  WriteString("L.H.S. evaluates to: ");
+		  Write(leftEval);                            NewLine();
+		  WriteString("which differs from   ");
+		  Write(rightEval);                           NewLine();
+		  WriteString(" by                  "); 
+		  Write(diff);                                NewLine();
+		  WriteString("******************");          NewLine();
+      ]
+    );
+    isEquiv;
+];
+
+%/mathpiper
+
+
