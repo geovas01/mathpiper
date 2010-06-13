@@ -15,6 +15,9 @@ Variance -> PopulationVariance
 MakeVector -> MakeIdentifiers
 RulebaseDefined -> IsRulebaseDefined.
 Map and MapSingle should have the list as the first argument to match Find and Contains.
+Outer -> OuterProduct
+InProduct -> InnerProduct
+Dot -> DotProduct
 ============================= Changes that have already been done.
 
 //Newest changes (1/8/2010). 
