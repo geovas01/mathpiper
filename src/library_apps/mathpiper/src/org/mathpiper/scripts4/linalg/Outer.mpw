@@ -51,5 +51,5 @@ product of two vectors yields a matrix.
 	Out> {{a*c,a*d},{b*c,b*d}};
 
 
-*SEE Dot, Cross
+*SEE InProduct, Dot, Cross
 %/mathpiper_docs

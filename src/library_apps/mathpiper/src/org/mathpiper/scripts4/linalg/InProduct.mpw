@@ -35,12 +35,10 @@ Function("InProduct",{aLeft,aRight})
 The inner product of the two vectors "a" and "b" is returned. The
 vectors need to have the same size.
 
-This function is superceded by the {.} operator.
-
 *E.G.
 
 	In> Dot({a,b,c}, {d,e,f});
 	Out> a*d+b*e+c*f;
 
-*SEE Dot, CrossProduct
+*SEE Outer, Dot, CrossProduct
 %/mathpiper_docs
