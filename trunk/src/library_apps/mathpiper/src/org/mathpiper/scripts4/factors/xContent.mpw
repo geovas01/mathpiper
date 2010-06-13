@@ -9,10 +9,11 @@ Retract("xContent",*);
 
 10 # xContent( poly_IsPolynomial ) <--
 [
-    Local(disassem,gcdCoefs,minExpts);
+    Local(disassem,gcdCoefs,lc,minExpts);
     disassem := DisassembleExpression(poly);
     gcdCoefs := Gcd(disassem[3]);
-    If(LeadingCoef(poly) < 0 And gcdCoefs > 0, gcdCoefs:=-gcdCoefs);
+    lc       := LeadingCoef(poly);
+    If(IsNegativeNumber(lc) And gcdCoefs > 0, gcdCoefs:=-gcdCoefs);
     minExpts := Minimum /@ Transpose(disassem[2]);
     gcdCoefs * Product(disassem[1]^minExpts);
 ];
