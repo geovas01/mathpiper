@@ -1,15 +1,49 @@
 %mathpiper,def="Factor"
 
-// This is the new wrapper for the function Factor().  
-// It can call either the old function YacasFactor() or the
-// new function xFactor().
-//
-// Currently, it is set-up to call the new version.
+Retract("Factor",*);
+
+10 # Factor( p_CanBeUni ) <-- 
+[
+    If(InVerboseMode(),Tell("in Factor",p));
+    Local(facList);
+    facList := Factors(p);
+    If(InVerboseMode(),[Tell("out Factor   ",facList);NewLine();]);
+    FW(facList);
+];
 
 
-Factor(_x) <-- xFactor(x);
+10 # Factor( p_IsRationalFunction ) <--
+[
+    Local(fs,n,d);
+    fs := Factors( p );
+    n  := FW(Numerator(fs));
+    d  := FW(Denominator(fs));
+    n/d;
+];
+
+
+10 # Factor( L_IsList ) <-- 
+[
+    Local (result,x,f);
+    result := {};
+    ForEach(x,L)
+    [
+        f := Factors(x);
+        If( f = {}, f := 0, f := FW(f) );
+        DestructiveAppend(result,f);
+    ];
+    result;
+];
+
+
+
+20 # Factor( _expr ) <-- expr;
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
@@ -101,3 +135,4 @@ is not yet fully implemented.
 *SEE FactorCancel,Factors
 
 %/mathpiper_docs
+
