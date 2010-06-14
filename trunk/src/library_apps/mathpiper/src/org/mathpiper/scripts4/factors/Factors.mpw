@@ -1,15 +1,58 @@
 %mathpiper,def="Factors"
 
-// This is the new wrapper for the function Factors().  
-// It can call either the old function YacasFactors() or the
-// new function xFactors().
-//
-// Currently, it is set-up to call the new version.
+/*------------------------------------------------------------------------
+ *    Started 091222
+ *    revised 100108-22
+ *    revised 100215
+ *    major refactoring 100425
+ *    convert polynomial factoring to use JAS library  100511
+ *    Another major refactoring -- 100529
+ *    Ready for initial commit     100610
+ *------------------------------------------------------------------------*/
+
+Retract("Factors",*);
 
 
-Factors(_x) <-- xFactors(x);
+/* --------------    LISTS    ---------------*/
+
+10 # Factors( L_IsList ) <-- nFactors /@ L;
+
+
+/* -------------    NUMBERS    --------------*/
+
+
+10 # Factors(p_IsPositiveInteger) <--  
+[
+    If( p < 1600, FactorsSmallInteger(p), FactorizeInt(p) );
+];
+
+
+15 # Factors(p_IsNegativeInteger) <-- Factors(-p);
+
+
+20 # Factors(p_IsRational)_(Denominator(p) != 1) <-- 
+             { {jFactor(Numerator(p)) / jFactor(Denominator(p) ) , 1} }; 
+             
+
+25 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+
+
+30 # Factors(_p)_(Length(VarList(p))=0) <-- {{p,1}};
+
+
+50 # Factors( p_CanBeUni ) <-- jFactorsPoly(p);
+
+100 # Factors( _p ) <--
+[
+    Tell("Factors__Fall-Through_cases",p);
+];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
 
 
 
@@ -51,7 +94,8 @@ Programmer: Yacas Team + Sherm Ostrowsky
 *SEE Factor, IsPrime, GaussianFactors
 %/mathpiper_docs
 
-
-
+    %output,preserve="false"
+      
+.   %/output
 
 
