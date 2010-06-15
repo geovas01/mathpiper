@@ -1,6 +1,8 @@
 
 package org.apache.log4j;
 
+import java.util.logging.Level;
+
 
 /**
  * Logger adapter for log4j to java logger. 
@@ -24,6 +26,7 @@ public class Logger {
     protected Logger(java.util.logging.Logger logger, String name) {
         this.logger = logger; 
         this.className = name;
+        this.logger.setLevel(Level.WARNING);
     }
 
 
