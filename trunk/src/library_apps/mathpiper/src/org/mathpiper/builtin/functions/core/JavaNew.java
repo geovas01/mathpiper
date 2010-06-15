@@ -15,7 +15,7 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.builtin.functions.optional;
+package org.mathpiper.builtin.functions.core;
 
 import java.util.ArrayList;
 import org.mathpiper.builtin.BigNumber;
@@ -36,13 +36,6 @@ import org.mathpiper.lisp.cons.NumberCons;
  *
  */
 public class JavaNew extends BuiltinFunction {
-
-    public void plugIn(Environment aEnvironment)  throws Exception
-    {
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "JavaNew");
-    }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 

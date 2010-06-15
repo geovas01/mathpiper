@@ -211,6 +211,10 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 import java.io.*;
 import org.mathpiper.builtin.functions.core.GlobalVariablesGet;
+import org.mathpiper.builtin.functions.core.JavaAccess;
+import org.mathpiper.builtin.functions.core.JavaCall;
+import org.mathpiper.builtin.functions.core.JavaNew;
+import org.mathpiper.builtin.functions.core.JavaToValue;
 
 public abstract class BuiltinFunction {
 
@@ -914,7 +918,18 @@ public abstract class BuiltinFunction {
                 aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new GlobalVariablesGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "GlobalVariablesGet");
-
+                aEnvironment.getBuiltinFunctions().setAssociation(
+                        new BuiltinFunctionEvaluator(new JavaAccess(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                        "JavaAccess");
+                aEnvironment.getBuiltinFunctions().setAssociation(
+                    new BuiltinFunctionEvaluator(new JavaCall(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                    "JavaCall");
+                aEnvironment.getBuiltinFunctions().setAssociation(
+                    new BuiltinFunctionEvaluator(new JavaNew(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                    "JavaNew");
+                aEnvironment.getBuiltinFunctions().setAssociation(
+                    new BuiltinFunctionEvaluator(new JavaToValue(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                    "JavaToValue");
 
 	}//end method.
 
