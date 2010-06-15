@@ -14,7 +14,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.builtin.functions.optional;
+package org.mathpiper.builtin.functions.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +39,6 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  */
 public class JavaCall extends BuiltinFunction {
-
-    public void plugIn(Environment aEnvironment) throws Exception {
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "JavaCall");
-    }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
