@@ -181,8 +181,12 @@
 				<include name="org/mathpiper/builtin/" />
 				<exclude name="org/mathpiper/builtin/functions/optional/" />
 				<exclude name="org/mathpiper/builtin/functions/plugins/" />
-				<exclude name="org/mathpiper/builtin/library/" />
-				
+				<include name="org/mathpiper/builtin/library/jas/" />
+				<exclude name="org/mathpiper/builtin/library/cern/" />
+				<exclude name="org/mathpiper/builtin/library/jscistats/" />
+				<exclude name="org/mathpiper/builtin/library/statdistlib/" />
+				<include name="edu/" />
+				<include name="org/apache/" />
 				<include name="org/mathpiper/exceptions/" />
 				<include name="org/mathpiper/interpreters/" />
 				<include name="org/mathpiper/io/" />
