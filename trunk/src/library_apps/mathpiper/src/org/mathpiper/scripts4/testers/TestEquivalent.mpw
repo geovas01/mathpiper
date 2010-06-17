@@ -5,20 +5,42 @@ Retract("TestEquivalent",*);
 Macro("TestEquivalent",{left,right})
 [
     Local(leftEval,rightEval,diff,vars,isEquiv);
-    If(InVerboseMode(),Tell(TestEquivalent,{left,right}));
+    If(InVerboseMode(),[Tell(TestEquivalent,{left,right});]);
     leftEval  := @left;
     rightEval := @right;
-    diff      := Simplify(leftEval - rightEval);
-    vars      := VarList(diff);
     If(InVerboseMode(),
+      [ NewLine(); Tell("    ",leftEval); Tell("   ",rightEval); ]);
+    If( IsList(leftEval),
       [
-         Tell("    ",{leftEval,rightEval});
-         Tell("    ",vars);
-         Tell("    ",diff);
+          If( IsList(rightEval),
+            [
+                // both are lists, so check equality as SETS
+                If(InVerboseMode(),Tell("     both are sets "));
+                isEquiv := EqualAsSets(leftEval,rightEval);
+            ],
+            isEquiv := False
+          );
+      ],
+      [
+          If( IsList(rightEval), 
+            isEquiv := False,
+            [
+                // neither is a list, so check equality of diff
+                diff      := Simplify(leftEval - rightEval);
+                vars      := VarList(diff);
+                If(InVerboseMode(),
+                  [
+                     Tell("    ",{leftEval,rightEval});
+                     Tell("    ",vars);
+                     Tell("    ",diff);
+                  ]
+                );
+                isEquiv   := ( IsZero(diff) Or IsZeroVector(diff) );
+            ]
+          );
       ]
     );
-    isEquiv   := ( IsZero(diff) Or IsZeroVector(diff) );
-    
+    If(InVerboseMode(),Tell("     Equivalence = ",isEquiv));
     If ( Not isEquiv,
       [
 		  WriteString("******************");          NewLine();
