@@ -20,7 +20,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Insets;
+import org.mathpiper.ui.gui.jmathtex.exceptions.ParseException;
+import javax.swing.Box;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -34,6 +38,8 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
+import org.mathpiper.ui.gui.jmathtex.TeXFormula;
+import org.mathpiper.ui.gui.jmathtex.TeXIcon;
 import org.mathpiper.ui.gui.worksheets.MathPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.TreePanel;
@@ -154,8 +160,29 @@ public class ViewMath extends BuiltinFunction {
         tabbedPane.addTab("Parse Tree", null, treeControllerPanel, "Parse tree viewer..");
 
 
+        Box box = Box.createVerticalBox();
 
-        contentPane.add(tabbedPane);
+        box.add(tabbedPane);
+
+        try
+        {
+            TeXFormula formula = new TeXFormula(texString);
+            TeXIcon icon = formula.createTeXIcon(0, 50);
+            icon.setInsets(new Insets(1, 1, 1, 1));
+            JLabel jMathTexLabel = new JLabel();
+            jMathTexLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+            jMathTexLabel.setAlignmentY(icon.getBaseLine());
+            jMathTexLabel.setIcon(icon);
+            JScrollPane jMathTexScrollPane = new JScrollPane(jMathTexLabel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+            box.add(jMathTexScrollPane);
+        }
+        catch(ParseException pe)
+        {
+            box.add(new JLabel(pe.getMessage()));
+        }
+
+        contentPane.add(box);
 
 
         frame.setAlwaysOnTop(false);
