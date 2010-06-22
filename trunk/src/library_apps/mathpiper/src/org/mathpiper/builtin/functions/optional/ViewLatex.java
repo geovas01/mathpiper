@@ -28,6 +28,7 @@ import javax.swing.JScrollPane;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.ui.gui.jmathtex.exceptions.ParseException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
@@ -99,15 +100,6 @@ public class ViewLatex extends BuiltinFunction {
         JScrollPane hotEqnScrollPane = new JScrollPane(hotEqn,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 
-        TeXFormula formula = new TeXFormula(latexString);
-        TeXIcon icon = formula.createTeXIcon(0, 50);
-        icon.setInsets(new Insets(1, 1, 1, 1));
-        JLabel jMathTexLabel = new JLabel();
-        jMathTexLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-        jMathTexLabel.setAlignmentY(icon.getBaseLine());
-        jMathTexLabel.setIcon(icon);
-        JScrollPane jMathTexScrollPane = new JScrollPane(jMathTexLabel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
         /*
         JEditorPane htmlPane = new JEditorPane();
         htmlPane.setContentType("text/html");
@@ -150,7 +142,25 @@ public class ViewLatex extends BuiltinFunction {
 
         box.add(hotEqnScrollPane);
 
-        box.add(jMathTexScrollPane);
+        try
+        {
+            TeXFormula formula = new TeXFormula(latexString);
+            TeXIcon icon = formula.createTeXIcon(0, 50);
+            icon.setInsets(new Insets(1, 1, 1, 1));
+            JLabel jMathTexLabel = new JLabel();
+            jMathTexLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+            jMathTexLabel.setAlignmentY(icon.getBaseLine());
+            jMathTexLabel.setIcon(icon);
+            JScrollPane jMathTexScrollPane = new JScrollPane(jMathTexLabel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            jMathTexScrollPane.setBackground(Color.WHITE);
+
+            box.add(jMathTexScrollPane);
+        }
+        catch(ParseException pe)
+        {
+            box.add(new JLabel(pe.getMessage()));
+        }
+        
 
         contentPane.add(box);
 
