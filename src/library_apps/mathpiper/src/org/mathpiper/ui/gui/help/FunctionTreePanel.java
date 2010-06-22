@@ -589,7 +589,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                         latexCode = latexCode.replace(" ", "");
 
-                        String latexEmbedString = "<object classid=\"org.mathpiper.ui.gui.hoteqn.sHotEqn\" equation=\"" + latexCode + "\" >  </object>";
+                        //String latexEmbedString = "<object classid=\"org.mathpiper.ui.gui.hoteqn.sHotEqn\" equation=\"" + latexCode + "\" >  </object>";
+
+                        String latexEmbedString = "<object classid=\"org.mathpiper.ui.gui.help.RenderedLatex\" latex=\"" + latexCode + "\" >  </object>";
 
                         //System.out.println("LATEX: " + latexEmbedString);
 
