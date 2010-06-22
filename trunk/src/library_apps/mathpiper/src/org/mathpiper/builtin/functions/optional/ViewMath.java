@@ -174,7 +174,7 @@ public class ViewMath extends BuiltinFunction {
             jMathTexLabel.setAlignmentY(icon.getBaseLine());
             jMathTexLabel.setIcon(icon);
             JScrollPane jMathTexScrollPane = new JScrollPane(jMathTexLabel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            jMathTexScrollPane.setBackground(Color.WHITE);
+            jMathTexScrollPane.getViewport().setBackground(Color.WHITE);
 
             box.add(jMathTexScrollPane);
         }
