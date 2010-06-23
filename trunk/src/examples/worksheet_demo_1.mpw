@@ -1,4 +1,4 @@
-/*  v 1.10.
+/*  v 1.11.
     This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -28,12 +28,14 @@ While(x < 100)
 
 
 
+
 %mathpiper,title="series"
 //Automatically generate a sequence of numbers.
 
 1 .. 100;
 
 %/mathpiper
+
 
 
 
@@ -54,6 +56,7 @@ ForEach(x,a)
 
 
 
+
 %mathpiper,output="geogebra"
 //Define a function and graph it by pressing <shift><enter> in the output fold.
 
@@ -68,6 +71,8 @@ f(x);
 
 
 
+
+
 %mathpiper,output="geogebra"
 //Calculate the derivative of the function in the previous cell and graph it by
 // pressing <shift><enter> in the output fold.
@@ -76,6 +81,8 @@ df := Differentiate(x) f(x);
 df;
 
 %/mathpiper
+
+
 
 
 
@@ -342,12 +349,14 @@ left and right to dynamically change the plot.
 
 
 
+
 %geogebra,clear="true"
 //Plot a function in GeoGebra.
 
 f(x)=2*sin(x)
 
 %/geogebra
+
 
 
 
@@ -362,6 +371,7 @@ p1 = 2
 t1 = Tangent[p1, f]
 
 %/geogebra
+
 
 
 
@@ -495,6 +505,7 @@ a, b, and c to change the sin wave.
 
 
 %/geogebra_xml
+
 
 
 
@@ -704,24 +715,26 @@ demonstration.
 
 
 
+
+%mathpiper
 //Execute this fold to render the LaTeX expression it contains.
-%hoteqn
-    2\sum_{i=1}^n a_i \;\int_a^b f_i(x)g_i(x)\,dx
-%/hoteqn
+ViewLatex("2\\sum_{i=1}^n a_i \\;\\int_a^b f_i(x)g_i(x)\\,dx");
+%/mathpiper
 
 
 
 
 
-%mathpiper,output="latex"
+
+%mathpiper
 /*
-Execute this Piper code and then press <shift><enter> in its output fold
-to render the LaTeX expression it generates.
+Execute this fold to view the expression it creates in traditional mathematical form..
 */
 Unbind(x);
 a := (2*x)*(x+3)*(x+4);
 b := Expand(a);
-b;
+
+ViewMath(b);
 
 %/mathpiper
 
@@ -729,15 +742,19 @@ b;
 
 
 
-%mathpiper,output="latex"
-/*Execute this Piper code and then press <shift><enter> in its output fold
-to render the LaTeX expression it generates.
+
+%mathpiper
+/*
+Execute this fold to view the expression it creates in traditional mathematical form..
 */
 Unbind(x);
 a := x^3 - 2*x - 7 == 0;
-Solve(a,x);
+b := Solve(a,x);
+
+ViewMath(b);
 
 %/mathpiper
+
 
 
 
@@ -773,6 +790,7 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
     </html>
 
 %/html
+
 
 
 
@@ -889,6 +907,7 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
 15 16
 
 %/jung
+
 
 
 
