@@ -28,6 +28,7 @@ While(x < 100)
 
 
 
+
 %mathpiper,title="series"
 //Automatically generate a sequence of numbers.
 
@@ -726,6 +727,7 @@ ViewLatex("2\\sum_{i=1}^n a_i");
 
 
 
+
 %mathpiper
 //Execute this fold to view the expression it creates in traditional mathematical form..
 
@@ -736,6 +738,7 @@ b := Expand(a);
 ViewMath(b);
 
 %/mathpiper
+
 
 
 
@@ -760,12 +763,15 @@ ViewMath(b);
 
 
 
+
 %mathpiper
 //Execute this fold to view a MathPiper expression as a Lisp box diagram.
 
+Unbind(x);
 ViewList(x^2 + 3*x + 7);
 
 %/mathpiper
+
 
 
 
