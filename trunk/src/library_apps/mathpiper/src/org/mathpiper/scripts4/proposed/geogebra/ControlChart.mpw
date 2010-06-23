@@ -54,7 +54,7 @@ ControlChart(data) :=
 
 
 
-%mathpiper,title=""
+%mathpiper,scope="nobuild",subtype="manual_test"
 
 data := GenMatrix(Lambda({m,n},Distribution(5,2)),25,5);
 
@@ -73,7 +73,7 @@ data := GenMatrix(Lambda({m,n},Distribution(5,2)),25,5);
 
 
 
-%mathpiper,title=""
+%mathpiper,scope="nobuild",subtype="manual_test"
 ControlChart(data);
 %/mathpiper
 
@@ -86,7 +86,7 @@ ControlChart(data);
 
 
 
-%mathpiper
+%mathpiper,scope="nobuild",subtype="manual_test"
 
 GeoGebraPlot(meansPoints, lines -> True, pointSize -> 3);
 
@@ -141,7 +141,7 @@ ggbLine("RUCL1","RUCL2");
 
 
 
-%mathpiper
+%mathpiper,scope="nobuild",subtype="manual_test"
 valuesList := {};
 
 Repeat(100)
@@ -159,7 +159,7 @@ valuesList;
 
 
 
-%mathpiper,title=""
+%mathpiper,scope="nobuild",subtype="manual_test"
 
 zz1 := RandomIntegerList(1000,1,9);
 Histogram(zz1);
@@ -173,7 +173,7 @@ Histogram(zz1);
 
 
 
-%mathpiper,title=""
+%mathpiper,scope="nobuild",subtype="manual_test"
 
 /*
 This is
@@ -196,7 +196,7 @@ zz3 := GenMatrix(Lambda({m,n},m,n),4,5);
 
 
 
-%mathpiper,title=""
+%mathpiper,scope="nobuild",subtype="manual_test"
 
 parts := {10.225,10.290,10.193,10.187,10.097,10.116,10.149,10.128,10.032,10.071,10.089,10.090,10.105,10.091,10.137,10.140,10.071,10.077,10.020,10.057,10.107,10.075,10.139,10.170,10.150,9.937,9.908,9.927,9.911,9.862,9.823,9.400,10.145,10.007,9.026};
 
@@ -222,7 +222,7 @@ partsPoints;
 
 
 
-%mathpiper,title=""
+%mathpiper,scope="nobuild",subtype="manual_test"
 
 GeoGebraPlot(partsPoints, lines -> True, pointSize -> 3);
 
