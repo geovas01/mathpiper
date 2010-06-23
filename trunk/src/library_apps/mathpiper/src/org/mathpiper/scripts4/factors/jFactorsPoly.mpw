@@ -44,56 +44,61 @@ Retract("IsPureRational",*);
     // Now: get Content and Primitive Part
     content := xContent( poly );
     pp      := Simplify( poly / content );
-    If(InVerboseMode(),Tell("  ",{content,pp}));
-    vars     := VarList(pp);
-    nvars    := Length(vars);
-    disassem := DisassembleExpression(pp);
-    nterms   := Length(disassem[3]);
-    degrees  := {};
-    allCoeffs         := disassem[3];
-    allPowers         := Flatten(disassem[2],"List");
-    If(nvars > 0,
+    //If(IsConstant(pp) And Length(VarList(content))>0,{content,pp}:={pp,content});
+    If( Length(VarList(pp))=0, result := {{pp*content,1}},
       [
-        ForEach(v,vars)
-           [ DestructiveAppend(degrees,Degree(pp,v)); ];
-        isHomogeneous     := [
-            // A polynomial is homogeneous of degree n 
-            // if all terms have degree n.   
-            Local(sd,cmp); 
-            sd  := Sum /@ disassem[2];
-            cmp := FillList(sd[1],Length(sd));
-            IsZeroVector(sd - cmp);
-        ];
+         If(InVerboseMode(),Tell("  ",{content,pp}));
+         vars     := VarList(pp);
+         nvars    := Length(vars);
+         disassem := DisassembleExpression(pp);
+         nterms   := Length(disassem[3]);
+         degrees  := {};
+         allCoeffs         := disassem[3];
+         allPowers         := Flatten(disassem[2],"List");
+         If(nvars > 0,
+           [
+             ForEach(v,vars)
+                [ DestructiveAppend(degrees,Degree(pp,v)); ];
+             isHomogeneous     := [
+                 // A polynomial is homogeneous of degree n 
+                 // if all terms have degree n.   
+                 Local(sd,cmp); 
+                 sd  := Sum /@ disassem[2];
+                 cmp := FillList(sd[1],Length(sd));
+                 IsZeroVector(sd - cmp);
+             ];
+           ]
+         );
+    
+         If(InVerboseMode(),
+           [
+             Tell("               ",vars);
+             Tell("              ",nvars);
+             Tell("             ",nterms);
+             Tell("            ",degrees);
+             Tell("           ",disassem);
+             Tell("          ",allCoeffs);
+             Tell("          ",allPowers);
+             Tell("      ",isHomogeneous);
+             NewLine();
+           ]
+         );
+    
+         //  Does the Content have factors?  If so, get them.
+         If(InVerboseMode(),NewLine());
+         monomialFactors := FactorsMonomial(content);
+         If(InVerboseMode(),[Tell("  ",monomialFactors); NewLine();]);
+    
+         //  OK.  Now factor the PrimitivePart
+         ppFactors := jFactorsPrimitivePart( pp );
+         If(InVerboseMode(),[NewLine();Tell("  ",ppFactors);]);
+    
+         // Next, include the factors of the Content, if any
+         If( monomialFactors[1][1] = 1,
+             result := ppFactors,        
+             result := Concat(monomialFactors,ppFactors)
+         );
       ]
-    );
-    
-    If(InVerboseMode(),
-      [
-        Tell("               ",vars);
-        Tell("              ",nvars);
-        Tell("             ",nterms);
-        Tell("            ",degrees);
-        Tell("           ",disassem);
-        Tell("          ",allCoeffs);
-        Tell("          ",allPowers);
-        Tell("      ",isHomogeneous);
-        NewLine();
-      ]
-    );
-    
-    //  Does the Content have factors?  If so, get them.
-    If(InVerboseMode(),NewLine());
-    monomialFactors := FactorsMonomial(content);
-    If(InVerboseMode(),[Tell("  ",monomialFactors); NewLine();]);
-    
-    //  OK.  Now factor the PrimitivePart
-    ppFactors := jFactorsPrimitivePart( pp );
-    If(InVerboseMode(),[NewLine();Tell("  ",ppFactors);]);
-    
-    // Next, include the factors of the Content, if any
-    If( monomialFactors[1][1] = 1,
-        result := ppFactors,        
-        result := Concat(monomialFactors,ppFactors)
     );
     
     If(InVerboseMode(),[NewLine();Tell("  final  ",result);]);
