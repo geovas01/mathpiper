@@ -1,4 +1,4 @@
-/*  v 1.11.
+/*  v 1.12.
     This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -21,7 +21,6 @@ While(x < 100)
 ];
 
 %/mathpiper
-
 
 
 
@@ -718,7 +717,7 @@ demonstration.
 
 %mathpiper
 //Execute this fold to render the LaTeX expression it contains.
-ViewLatex("2\\sum_{i=1}^n a_i \\;\\int_a^b f_i(x)g_i(x)\\,dx");
+ViewLatex("2\\sum_{i=1}^n a_i");
 %/mathpiper
 
 
@@ -726,10 +725,10 @@ ViewLatex("2\\sum_{i=1}^n a_i \\;\\int_a^b f_i(x)g_i(x)\\,dx");
 
 
 
+
 %mathpiper
-/*
-Execute this fold to view the expression it creates in traditional mathematical form..
-*/
+//Execute this fold to view the expression it creates in traditional mathematical form..
+
 Unbind(x);
 a := (2*x)*(x+3)*(x+4);
 b := Expand(a);
@@ -743,15 +742,28 @@ ViewMath(b);
 
 
 
+
 %mathpiper
-/*
-Execute this fold to view the expression it creates in traditional mathematical form..
-*/
+//Execute this fold to view the expression it creates in traditional mathematical form..
+
 Unbind(x);
 a := x^3 - 2*x - 7 == 0;
 b := Solve(a,x);
 
 ViewMath(b);
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper
+//Execute this fold to view a MathPiper expression as a Lisp box diagram.
+
+ViewList(x^2 + 3*x + 7);
 
 %/mathpiper
 
