@@ -20,6 +20,7 @@
 import org.mathpiper.ide.mathpiperplugin.MathPiperInterpreter;
 import org.mathpiper.ide.pipermeplugin.PiperMEInterpreter;
 import org.mathpiper.ide.maximaplugin.MaximaWrapper;
+import org.mathpiper.ide.fricasplugin.FriCASWrapper;
 import java.io.File;
 import java.io.BufferedWriter;
 import org.gjt.sp.jedit.textarea.Selection.Range;
@@ -297,6 +298,10 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		{
 			fileExtension = ".lisp";
 		}
+		else if(foldType.equalsIgnoreCase("%_fricas"))
+		{
+			fileExtension = ".input";
+		}
 		else
 		{
 			fileExtension = ".mpw_tmp";
@@ -551,7 +556,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				
 				
 			//{{{
-			org.mathpiper.ide.ResponseListener responseListener = new org.mathpiper.ide.ResponseListener() {
+			org.mathpiper.ide.ResponseListener responseListener = new org.mathpiperide.ResponseListener() {
 				response(response)
 				{
 					System.out.println("WWWW " + response );
@@ -594,6 +599,62 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		}//end if }}}
 
 
+		
+		
+		///{{{ *** %_fricas ***.
+		else if(foldType.equalsIgnoreCase("%_fricas"))    
+		{		
+			
+
+			try 
+			{   
+
+							
+				foldName = foldProperties.get("name");
+				
+				
+			//{{{
+			org.mathpiperide.ResponseListener responseListener = new org.mathpiperide.ResponseListener() {
+				response(response)
+				{
+					System.out.println("WWWW " + response );
+					result = response;
+					displayResult();
+					
+				}//end method.
+				
+				remove()
+				{
+					return true;
+				}//end method.
+				
+			};//end interface implementation.
+			//}}}
+				system = FriCASWrapper.getInstance();
+				system.addResponseListener(responseListener);
+				//System.out.println(tempFilePath);
+				sendString = ")read "+tempFilePath+"\n";
+				system.send(sendString);//sendString
+				
+				//this.console.setShell("Maxima");o = console.getOutput();o.writeAttrs(null, "\n");
+				//runCommandInConsole(view,"Maxima","LoadScript(\""+path+"\");");
+				//runCommandInConsole(view,"Maxima",codeText + "\n");
+				
+				output_fold_type = "%output";
+				//System.out.println(
+								
+					
+			}catch(org.mathpiper.ide.maxima.MathPiperException ye) 
+			{
+				result = ye.getMessage();
+				output_fold_type = "%error ";
+			}
+			
+			
+					
+		}//end if }}}
+
+		
 
 		
 		///{{{ *** %lisp ***.

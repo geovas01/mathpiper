@@ -64,6 +64,11 @@
 			<BEGIN>%maxima[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
 			<END>%/maxima</END>
 		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
+			<BEGIN>%_fricas[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/_fricas</END>
+		</SPAN_REGEXP>
 
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="lisp::MAIN">
 			<BEGIN>%lisp[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
