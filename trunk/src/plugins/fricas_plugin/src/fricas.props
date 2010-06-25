@@ -1,0 +1,83 @@
+# Properties file for FriCAS plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.name=FriCAS
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.version=4.3
+
+# online help
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.docs=index.html
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin..longdescription=description.html
+#}}}
+
+
+
+
+fricas.shell.msg.info=\nFriCAS Shell \n\
+
+
+fricas.shell.msg.usage=See http://fricas.sourceforge.net for information on how to use FriCAS.
+
+
+
+# plugin menu
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.menu=fricas
+#	- \
+#	fricas.choose-file \
+#	fricas.save-file \
+#	fricas.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+fricas.label=fricas
+
+# action labels for actions supplied by actions.xml
+fricas.choose-file.label=Choose notepad file
+fricas.save-file.label=Save notepad file
+fricas.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.fricas.option-pane=fricas
+
+# Option pane activation BeanShell snippet
+options.fricas.code=new org.mathpiper.ide.fricasplugin.FriCASOptionPane();
+
+# Option pane labels
+options.fricas.label=fricas
+options.fricas.file=File:
+options.fricas.choose-file=Choose
+options.fricas.choose-file.title=Choose a notepad file
+options.fricas.choose-font=Font:
+options.fricas.show-filepath.title=Display notepad file path
+
+# window title
+fricas.title=FriCAS
+
+# window toolbar buttons
+fricas.choose-file.icon=Open.png
+fricas.save-file.icon=Save.png
+fricas.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.fricas.show-filepath=true
+options.fricas.font=Monospaced
+options.fricas.fontstyle=0
+options.fricas.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.fricas.filepath=
+
+fricas.path=/home/tkosan/checkouts/usr/local/bin/fricas
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
