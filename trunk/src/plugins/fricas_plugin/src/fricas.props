@@ -19,7 +19,7 @@ plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.depend.0=jedit 04.02.01.00
 plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.depend.1=jdk 1.5
 plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.2=plugin console.ConsolePlugin 4.3.5
 plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
-plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin..longdescription=description.html
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.longdescription=description.html
 #}}}
 
 
@@ -40,7 +40,7 @@ plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.menu=fricas
 #	fricas.copy-to-buffer
 
 # action labels for actions supplied by dockables.xml
-fricas.label=fricas
+fricas.label=FriCAS
 
 # action labels for actions supplied by actions.xml
 fricas.choose-file.label=Choose notepad file
@@ -48,13 +48,13 @@ fricas.save-file.label=Save notepad file
 fricas.copy-to-buffer.label=Copy notepad to buffer
 
 # plugin option pane
-plugin.fricas.option-pane=fricas
+plugin.org.mathpiper.ide.fricasplugin.FriCASPlugin.option-pane=fricas
 
 # Option pane activation BeanShell snippet
 options.fricas.code=new org.mathpiper.ide.fricasplugin.FriCASOptionPane();
 
 # Option pane labels
-options.fricas.label=fricas
+options.fricas.label=FriCAS
 options.fricas.file=File:
 options.fricas.choose-file=Choose
 options.fricas.choose-file.title=Choose a notepad file
@@ -76,8 +76,8 @@ options.fricas.fontstyle=0
 options.fricas.fontsize=14
 
 # Setting not defined but supplied for completeness
-options.fricas.filepath=
+options.fricas.path=
 
-fricas.path=/home/tkosan/checkouts/usr/local/bin/fricas
+#fricas.path=/home/tkosan/checkouts/usr/local/bin/fricas
 
 # :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:

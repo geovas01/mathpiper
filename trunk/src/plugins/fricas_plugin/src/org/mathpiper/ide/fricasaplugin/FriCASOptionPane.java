@@ -19,55 +19,35 @@ import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.gui.FontSelector;
 
 public class FriCASOptionPane extends AbstractOptionPane implements
-		ActionListener {
-	private JCheckBox showPath;
+	ActionListener {
+
 
 	private JTextField pathName;
 
-	private FontSelector font;
+
 
 	public FriCASOptionPane() {
 		super(FriCASPlugin.NAME);
 	}
 
 	public void _init() {
-		showPath = new JCheckBox(jEdit
-				.getProperty(FriCASPlugin.OPTION_PREFIX
-						+ "show-filepath.title"), jEdit.getProperty(
-				FriCASPlugin.OPTION_PREFIX + "show-filepath").equals(
-				"true"));
-		addComponent(showPath);
 
-		pathName = new JTextField(jEdit
-				.getProperty(FriCASPlugin.OPTION_PREFIX + "filepath"));
-		JButton pickPath = new JButton(jEdit
-				.getProperty(FriCASPlugin.OPTION_PREFIX + "choose-file"));
+		pathName = new JTextField(jEdit.getProperty(FriCASPlugin.OPTION_PREFIX + "path"));
+		JButton pickPath = new JButton(jEdit.getProperty(FriCASPlugin.OPTION_PREFIX + "choose-file"));
 		pickPath.addActionListener(this);
 
 		JPanel pathPanel = new JPanel(new BorderLayout(0, 0));
 		pathPanel.add(pathName, BorderLayout.CENTER);
 		pathPanel.add(pickPath, BorderLayout.EAST);
 
-		addComponent(jEdit.getProperty(FriCASPlugin.OPTION_PREFIX
-				+ "file"), pathPanel);
+		addComponent(jEdit.getProperty(FriCASPlugin.OPTION_PREFIX + "file"), pathPanel);
 
-		font = new FontSelector(makeFont());
-		addComponent(jEdit.getProperty(FriCASPlugin.OPTION_PREFIX
-				+ "choose-font"), font);
+
 	}
 
 	public void _save() {
-		jEdit.setProperty(FriCASPlugin.OPTION_PREFIX + "filepath",
-				pathName.getText());
-		Font _font = font.getFont();
-		jEdit.setProperty(FriCASPlugin.OPTION_PREFIX + "font", _font
-				.getFamily());
-		jEdit.setProperty(FriCASPlugin.OPTION_PREFIX + "fontsize", String
-				.valueOf(_font.getSize()));
-		jEdit.setProperty(FriCASPlugin.OPTION_PREFIX + "fontstyle",
-				String.valueOf(_font.getStyle()));
-		jEdit.setProperty(FriCASPlugin.OPTION_PREFIX + "show-filepath",
-				String.valueOf(showPath.isSelected()));
+		jEdit.setProperty(FriCASPlugin.OPTION_PREFIX + "path", pathName.getText());
+
 	}
 
 	// end AbstractOptionPane implementation
@@ -75,35 +55,12 @@ public class FriCASOptionPane extends AbstractOptionPane implements
 	// begin ActionListener implementation
 	public void actionPerformed(ActionEvent evt) {
 		String[] paths = GUIUtilities.showVFSFileDialog(null, null,
-				JFileChooser.OPEN_DIALOG, false);
+		                 JFileChooser.OPEN_DIALOG, false);
 		if (paths != null) {
 			pathName.setText(paths[0]);
 		}
 	}
 
-	// helper method to get Font from plugin properties
-	static public Font makeFont() {
-		int style, size;
-		String family = jEdit.getProperty(FriCASPlugin.OPTION_PREFIX
-				+ "font");
-		try {
-			size = Integer
-					.parseInt(jEdit
-							.getProperty(FriCASPlugin.OPTION_PREFIX
-									+ "fontsize"));
-		} catch (NumberFormatException nf) {
-			size = 14;
-		}
-		try {
-			style = Integer
-					.parseInt(jEdit
-							.getProperty(FriCASPlugin.OPTION_PREFIX
-									+ "fontstyle"));
-		} catch (NumberFormatException nf) {
-			style = Font.PLAIN;
-		}
-		return new Font(family, style, size);
-	}
 
 }//
 

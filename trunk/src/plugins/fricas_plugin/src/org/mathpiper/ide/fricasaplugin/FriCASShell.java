@@ -28,35 +28,35 @@ public class FriCASShell extends Shell implements org.mathpiperide.ResponseListe
 	private Output lastRequestOutput;
 	private Console lastRequestConsole;
 
-	
-	
+
+
 	public FriCASShell()
 	{
 		super("FriCAS");
-		
+
 		try{
-		
-			fricas = FriCASWrapper.getInstance(); 
+
+			fricas = FriCASWrapper.getInstance();
 			fricasStartMessage = fricas.getStartMessage();
-			fricas.addResponseListener(this);
+
 		}catch(Throwable t)
 		{
 			t.printStackTrace();
 		}
 
-		
+
 	}//end constructor.
-	
-	
-	
+
+
+
 	//{{{Begin Shell implementation.
 	public void printInfoMessage(Output output)
 	{
 		output.print(null,fricasStartMessage);
-	
+
 	}//end method.
-	
-	
+
+
 	public void response(String response)
 	{
 		org.gjt.sp.jedit.View view = org.gjt.sp.jedit.jEdit.getActiveView();
@@ -64,7 +64,7 @@ public class FriCASShell extends Shell implements org.mathpiperide.ResponseListe
 		lastRequestConsole = (Console) dockableWindowManager.getDockable("console");
 		lastRequestConsole.setShell("FriCAS");
 		lastRequestOutput = lastRequestConsole.getOutput();
-		
+
 		if(response.indexOf(".input") != -1 || response.indexOf(".lisp") != -1 )
 		{
 			lastRequestOutput.print(null, "\n" + response);
@@ -74,38 +74,43 @@ public class FriCASShell extends Shell implements org.mathpiperide.ResponseListe
 		{
 			lastRequestOutput.print(null, response);
 		}//end if/else/
-		
+
 		lastRequestOutput.commandDone();
 	}//end method.
-	
+
 	public boolean remove()
 	{
-		return false;
+		return true;
 	}//end method.
-	
+
 	public void response(java.util.HashMap response)
 	{
 	}
-	
+
 
 	public void execute(Console console, String input, Output output, Output error, String command)
 	{
-		//Note:tk: must set output and console another way for when user executes fricas fold
-		//before using the shell.
-		lastRequestOutput = output;
-		lastRequestConsole = console;
-		
-		try 
+		if(! command.equals(""))
 		{
-			fricas.send(command + "\n");
-			
-			
-			
-		}catch(Throwable t) 
-		{
-			output.print(null,t.getMessage() );
-			output.commandDone();
-		}
+			//Note:tk: must set output and console another way for when user executes fricas fold
+			//before using the shell.
+			lastRequestOutput = output;
+			lastRequestConsole = console;
+
+			try
+			{
+				fricas.addResponseListener(this);
+
+				fricas.send(command + "\n");
+
+
+			}catch(Throwable t)
+			{
+				output.print(null,t.getMessage() );
+				output.commandDone();
+			}
+
+		}//end if.
 
 	}//end method.
 
@@ -119,19 +124,19 @@ public class FriCASShell extends Shell implements org.mathpiperide.ResponseListe
 
 		return true;
 	}//end method.
-	
-	
+
+
 	public void printPrompt(Console console, Output output)
 	{
 		output.writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), fricas.getPrompt());
 	}//end method.
-	
-	
+
+
 
 	// }}}End Shell implementation
-	
-	
-	
+
+
+
 	//{{{ Print usage methods.
 	private void printCurrentProjectInfo(Color color, Output output)
 	{
