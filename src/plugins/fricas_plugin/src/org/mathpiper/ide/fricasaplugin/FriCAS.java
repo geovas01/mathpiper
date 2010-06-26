@@ -88,7 +88,7 @@ public class FriCAS extends JPanel
 			this.setPreferredSize(new Dimension(500, 250));
 
 		textArea = new FriCASTextArea();
-		textArea.setFont(FriCASOptionPane.makeFont());
+		//textArea.setFont(FriCASOptionPane.makeFont());
 
 		JScrollPane pane = new JScrollPane(textArea);
 		add(BorderLayout.CENTER, pane);
@@ -132,10 +132,10 @@ public class FriCAS extends JPanel
 			filename = defaultFilename;
 			readFile();
 		}
-		Font newFont = FriCASOptionPane.makeFont();
-		if (!newFont.equals(textArea.getFont())) {
-			textArea.setFont(newFont);
-		}
+		//Font newFont = FriCASOptionPane.makeFont();
+		//if (!newFont.equals(textArea.getFont())) {
+		//	textArea.setFont(newFont);
+		//}
 	}
     // }}}
 

@@ -617,7 +617,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			org.mathpiperide.ResponseListener responseListener = new org.mathpiperide.ResponseListener() {
 				response(response)
 				{
-					System.out.println("WWWW " + response );
+					//System.out.println("WWWW " + response );
 					result = response;
 					displayResult();
 					
@@ -633,7 +633,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				system = FriCASWrapper.getInstance();
 				system.addResponseListener(responseListener);
 				//System.out.println(tempFilePath);
-				sendString = ")read "+tempFilePath+"\n";
+				sendString = ")read "+tempFile.getAbsolutePath()+"\n";
 				system.send(sendString);//sendString
 				
 				//this.console.setShell("Maxima");o = console.getOutput();o.writeAttrs(null, "\n");

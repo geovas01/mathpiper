@@ -59,8 +59,8 @@ public class FriCASWrapper implements Runnable
 		ArrayList command = new ArrayList();
 		//command.add("C:\\Program Files\\FriCAS-5.15.0\\bin\\fricas.bat");
 		//command.add("/usr/bin/fricas");
-	System.out.println("XXXX " + jEdit.getProperty("fricas.path"));
-		command.add(jEdit.getProperty("fricas.path"));
+	//System.out.println("XXXX " + jEdit.getProperty("fricas.path"));
+		command.add(jEdit.getProperty(FriCASPlugin.OPTION_PREFIX + "path"));
 		command.add("-nox");
 		command.add("-noclef");
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
@@ -180,14 +180,12 @@ mainLoop: while(keepChecking)
 				//System.out.println("PPPPPP found end");
 				responseBuffer.delete(0,responseBuffer.length());
 				
-				/*
-				int promptIndex = response.lastIndexOf("(%");
-				if(promptIndex == -1)
-				{
-					promptIndex = response.lastIndexOf("MAX");
-				}
+				
+				int promptIndex = response.lastIndexOf("\n") + 1;
+
 				prompt = response.substring(promptIndex,response.length());
-				response = response.substring(0,promptIndex);*/
+				
+				response = response.substring(0,promptIndex);
 				
 				keepChecking = false;
 
