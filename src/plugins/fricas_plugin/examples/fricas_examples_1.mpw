@@ -1,16 +1,16 @@
+v 1.00.
+Before executing any folds, make sure you have set the path to the CAS executable
+in the Plugins -> Plugin Options -> FriCAS menu.  Then, place the cursor in a fold
+and press <shift><enter> to execute it.
+
+
+
 
 %_fricas,title=""
 1+1 
 %/_fricas
 
-    %output,preserve="false"
-            1+1
-             
-            
-               (3)  2
-                                                                    Type: PositiveInteger
-            
-.   %/output
+
 
 
         	
@@ -20,14 +20,6 @@
 1-1
 %/_fricas
 
-    %output,preserve="false"
-      1-1
-       
-      
-         (4)  0
-                                                           Type: NonNegativeInteger
-      
-.   %/output
 
  
         	
@@ -39,14 +31,6 @@
 -1 
 %/_fricas
 
-    %output,preserve="false"
-      -1
-       
-      
-         (5)  - 1
-                                                                      Type: Integer
-      
-.   %/output
 
         	
 
@@ -59,16 +43,6 @@ Apart from the above integer domains, there are rational numbers and floting poi
 2/3 
 %/_fricas
 
-    %output,preserve="false"
-      2/3
-       
-      
-              2
-         (6)  -
-              3
-                                                            Type: Fraction(Integer)
-      
-.   %/output
 
         	
 
@@ -78,16 +52,6 @@ Apart from the above integer domains, there are rational numbers and floting poi
 3/6 
 %/_fricas
 
-    %output,preserve="false"
-            3/6
-             
-            
-                    1
-               (7)  -
-                    2
-                                                                  Type: Fraction(Integer)
-            
-.   %/output
 
 
         	
@@ -98,16 +62,6 @@ Apart from the above integer domains, there are rational numbers and floting poi
 2/3 + 1/5 * (- 2/11)
 %/_fricas
 
-    %output,preserve="false"
-      2/3 + 1/5 * (- 2/11)
-       
-      
-              104
-         (8)  ---
-              165
-                                                            Type: Fraction(Integer)
-      
-.   %/output
 
  
         	
@@ -126,17 +80,6 @@ Apart from the above integer domains, there are rational numbers and floting poi
 factorial(100) 
 %/_fricas
 
-    %output,preserve="false"
-      factorial(100)
-       
-      
-         (9)
-        9332621544394415268169923885626670049071596826438162146859296389521759999322_
-         991560894146397615651828625369792082722375825118521091686400000000000000000_
-         0000000
-                                                              Type: PositiveInteger
-      
-.   %/output
 
 
         	
@@ -148,14 +91,6 @@ By default 20 digits are used for floting point computation.
 2/3 + 1.0 
 %/_fricas
 
-    %output,preserve="false"
-      2/3 + 1.0
-       
-      
-         (10)  1.6666666666 666666667
-                                                                        Type: Float
-      
-.   %/output
 
 
         	
@@ -172,29 +107,6 @@ digits(20)
 22/7 :: Float 
 %/_fricas
 
-    %output,preserve="false"
-      digits 40 
-       
-      
-         (11)  20
-                                                              Type: PositiveInteger
-      22/7 :: Float 
-       
-      
-         (12)  3.1428571428 5714285714 2857142857 142857143
-                                                                        Type: Float
-      digits(20) 
-       
-      
-         (13)  40
-                                                              Type: PositiveInteger
-      22/7 :: Float
-       
-      
-         (14)  3.1428571428 571428571
-                                                                        Type: Float
-      
-.   %/output
 
 
         	
@@ -206,14 +118,6 @@ A number that contains a dot, is automatically a member of the floating point do
 22/7.0 
 %/_fricas
 
-    %output,preserve="false"
-      22/7.0
-       
-      
-         (15)  3.1428571428 571428571
-                                                                        Type: Float
-      
-.   %/output
 
 
 
@@ -222,14 +126,6 @@ A number that contains a dot, is automatically a member of the floating point do
 sqrt(2.0)
 %/_fricas
 
-    %output,preserve="false"
-      sqrt(2.0)
-       
-      
-         (16)  1.4142135623 730950488
-                                                                        Type: Float
-      
-.   %/output
 
  
         	
@@ -243,15 +139,6 @@ Note that we get AlgebraicNumber as yet another number type.
 sqrt(3)
 %/_fricas
 
-    %output,preserve="false"
-      sqrt(3)
-       
-      
-                +-+
-         (17)  \|3
-                                                              Type: AlgebraicNumber
-      
-.   %/output
 
  
         	
@@ -264,15 +151,6 @@ In fact, AlgebraicNumber is a step into the direction of computing with symbols 
 sqrt(2)+sqrt(3)
 %/_fricas
 
-    %output,preserve="false"
-      sqrt(2)+sqrt(3)
-       
-      
-                +-+    +-+
-         (18)  \|3  + \|2
-                                                              Type: AlgebraicNumber
-      
-.   %/output
 
  
         	
@@ -285,14 +163,6 @@ FriCAS can also deal with complex numbers. The symbol %i denotes the imaginary u
 2+3*%i 
 %/_fricas
 
-    %output,preserve="false"
-      2+3*%i
-       
-      
-         (19)  2 + 3%i
-                                                             Type: Complex(Integer)
-      
-.   %/output
 
 
         	
@@ -305,16 +175,6 @@ As with integers, the resulting type is appropriately chosen, i.e. "complex rati
 (2 + 3*%i) / (3 + 5*%i)
 %/_fricas
 
-    %output,preserve="false"
-      (2 + 3*%i) / (3 + 5*%i)
-       
-      
-               21    1
-         (20)  -- - -- %i
-               34   34
-                                                   Type: Complex(Fraction(Integer))
-      
-.   %/output
 
  
 
@@ -325,14 +185,6 @@ As with real numbers where Float is the corresponding domain in FriCAS, complex 
 sqrt(2.0) * (1 + 2.0*%i)
 %/_fricas
 
-    %output,preserve="false"
-            sqrt(2.0) * (1 + 2.0*%i)
-             
-            
-               (21)  1.4142135623 730950488 + 2.8284271247 461900976 %i
-                                                                     Type: Complex(Float)
-            
-.   %/output
 
  
         	
@@ -347,20 +199,6 @@ sqrt(5.0)
 sqrt(-5.0)
 %/_fricas
 
-    %output,preserve="false"
-      sqrt(5.0) 
-       
-      
-         (22)  2.2360679774 997896964
-                                                                        Type: Float
-      sqrt(-5.0)
-       
-       
-         >> Error detected within library code:
-         negative sqrt
-      
-      
-.   %/output
 
  
         	
@@ -374,20 +212,6 @@ sqrt(-5)
 sqrt(-5) :: Complex(Float) 
 %/_fricas
 
-    %output,preserve="false"
-      sqrt(-5) 
-       
-      
-                +---+
-         (23)  \|- 5
-                                                              Type: AlgebraicNumber
-      sqrt(-5) :: Complex(Float)
-       
-      
-         (24)  2.2360679774 997896964 %i
-                                                               Type: Complex(Float)
-      
-.   %/output
 
 
         	
@@ -402,113 +226,6 @@ Note that % is an abbreviation of "this domain", i.e. Float in our case. The que
 )show Float 
 %/_fricas
 
-    %output,preserve="false"
-      )show Float
-       
-       Float  is a domain constructor
-       Abbreviation for Float is FLOAT 
-       This constructor is exposed in this frame.
-      ------------------------------- Operations --------------------------------
-       ?*? : (Fraction(Integer),%) -> %      ?*? : (%,Fraction(Integer)) -> %
-       ?*? : (%,%) -> %                      ?*? : (Integer,%) -> %
-       ?*? : (PositiveInteger,%) -> %        ?+? : (%,%) -> %
-       ?-? : (%,%) -> %                      -? : % -> %
-       ?/? : (%,Integer) -> %                ?/? : (%,%) -> %
-       ?<? : (%,%) -> Boolean                ?<=? : (%,%) -> Boolean
-       ?=? : (%,%) -> Boolean                ?>? : (%,%) -> Boolean
-       ?>=? : (%,%) -> Boolean               D : % -> %
-       D : (%,NonNegativeInteger) -> %       OMwrite : (%,Boolean) -> String
-       OMwrite : % -> String                 1 : () -> %
-       0 : () -> %                           ?^? : (%,%) -> %
-       ?^? : (%,Fraction(Integer)) -> %      ?^? : (%,Integer) -> %
-       ?^? : (%,PositiveInteger) -> %        abs : % -> %
-       acos : % -> %                         acosh : % -> %
-       acot : % -> %                         acoth : % -> %
-       acsc : % -> %                         acsch : % -> %
-       asec : % -> %                         asech : % -> %
-       asin : % -> %                         asinh : % -> %
-       associates? : (%,%) -> Boolean        atan : (%,%) -> %
-       atan : % -> %                         atanh : % -> %
-       base : () -> PositiveInteger          bits : () -> PositiveInteger
-       ceiling : % -> %                      coerce : % -> DoubleFloat
-       coerce : Fraction(Integer) -> %       coerce : Integer -> %
-       coerce : Fraction(Integer) -> %       coerce : % -> %
-       coerce : Integer -> %                 coerce : % -> OutputForm
-       convert : DoubleFloat -> %            convert : % -> InputForm
-       convert : % -> String                 convert : % -> Pattern(Float)
-       convert : % -> DoubleFloat            convert : % -> Float
-       cos : % -> %                          cosh : % -> %
-       cot : % -> %                          coth : % -> %
-       csc : % -> %                          csch : % -> %
-       differentiate : % -> %                digits : () -> PositiveInteger
-       exp : % -> %                          exp1 : () -> %
-       exponent : % -> Integer               factor : % -> Factored(%)
-       float : (Integer,Integer) -> %        floor : % -> %
-       fractionPart : % -> %                 gcd : List(%) -> %
-       gcd : (%,%) -> %                      hash : % -> SingleInteger
-       inv : % -> %                          latex : % -> String
-       lcm : List(%) -> %                    lcm : (%,%) -> %
-       log : % -> %                          log10 : % -> %
-       log10 : () -> %                       log2 : % -> %
-       log2 : () -> %                        mantissa : % -> Integer
-       max : (%,%) -> %                      min : (%,%) -> %
-       negative? : % -> Boolean              norm : % -> %
-       normalize : % -> %                    nthRoot : (%,Integer) -> %
-       one? : % -> Boolean                   order : % -> Integer
-       outputFixed : () -> Void              outputFloating : () -> Void
-       outputGeneral : () -> Void            pi : () -> %
-       positive? : % -> Boolean              precision : () -> PositiveInteger
-       prime? : % -> Boolean                 ?quo? : (%,%) -> %
-       recip : % -> Union(%,"failed")        relerror : (%,%) -> Integer
-       ?rem? : (%,%) -> %                    retract : % -> Fraction(Integer)
-       retract : % -> Integer                round : % -> %
-       sample : () -> %                      sec : % -> %
-       sech : % -> %                         shift : (%,Integer) -> %
-       sign : % -> Integer                   sin : % -> %
-       sinh : % -> %                         sizeLess? : (%,%) -> Boolean
-       smaller? : (%,%) -> Boolean           sqrt : % -> %
-       squareFree : % -> Factored(%)         squareFreePart : % -> %
-       tan : % -> %                          tanh : % -> %
-       truncate : % -> %                     unit? : % -> Boolean
-       unitCanonical : % -> %                wholePart : % -> Integer
-       zero? : % -> Boolean                  ?~=? : (%,%) -> Boolean
-       ?*? : (NonNegativeInteger,%) -> %
-       OMwrite : (OpenMathDevice,%,Boolean) -> Void
-       OMwrite : (OpenMathDevice,%) -> Void
-       ?^? : (%,NonNegativeInteger) -> %
-       bits : PositiveInteger -> PositiveInteger if $ has ATARBPR
-       characteristic : () -> NonNegativeInteger
-       decreasePrecision : Integer -> PositiveInteger if $ has ATARBPR
-       differentiate : (%,NonNegativeInteger) -> %
-       digits : PositiveInteger -> PositiveInteger if $ has ATARBPR
-       divide : (%,%) -> Record(quotient: %,remainder: %)
-       euclideanSize : % -> NonNegativeInteger
-       expressIdealMember : (List(%),%) -> Union(List(%),"failed")
-       exquo : (%,%) -> Union(%,"failed")
-       extendedEuclidean : (%,%,%) -> Union(Record(coef1: %,coef2: %),"failed")
-       extendedEuclidean : (%,%) -> Record(coef1: %,coef2: %,generator: %)
-       float : (Integer,Integer,PositiveInteger) -> %
-       gcdPolynomial : (SparseUnivariatePolynomial(%),SparseUnivariatePolynomial(%)) -> SparseUnivariatePolynomial(%)
-       increasePrecision : Integer -> PositiveInteger if $ has ATARBPR
-       max : () -> % if not(has($,arbitraryExponent)) and not(has($,arbitraryPrecision))
-       min : () -> % if not(has($,arbitraryExponent)) and not(has($,arbitraryPrecision))
-       multiEuclidean : (List(%),%) -> Union(List(%),"failed")
-       outputFixed : NonNegativeInteger -> Void
-       outputFloating : NonNegativeInteger -> Void
-       outputGeneral : NonNegativeInteger -> Void
-       outputSpacing : NonNegativeInteger -> Void
-       patternMatch : (%,Pattern(Float),PatternMatchResult(Float,%)) -> PatternMatchResult(Float,%)
-       precision : PositiveInteger -> PositiveInteger if $ has ATARBPR
-       principalIdeal : List(%) -> Record(coef: List(%),generator: %)
-       rationalApproximation : (%,NonNegativeInteger,NonNegativeInteger) -> Fraction(Integer)
-       rationalApproximation : (%,NonNegativeInteger) -> Fraction(Integer)
-       retractIfCan : % -> Union(Fraction(Integer),"failed")
-       retractIfCan : % -> Union(Integer,"failed")
-       subtractIfCan : (%,%) -> Union(%,"failed")
-       unitNormal : % -> Record(unit: %,canonical: %,associate: %)
-      
-      
-.   %/output
 
 
         	
@@ -521,14 +238,6 @@ FriCAS can be used as a numerical engine.
 tan(sin(1.0)*exp(3.5)) 
 %/_fricas
 
-    %output,preserve="false"
-      tan(sin(1.0)*exp(3.5))
-       
-      
-         (25)  - 0.4330175174 1640407036
-                                                                        Type: Float
-      
-.   %/output
 
 
         	
@@ -539,14 +248,6 @@ tan(sin(1.0)*exp(3.5))
 log(abs(-3.0*sin(2*3.1415))) 
 %/_fricas
 
-    %output,preserve="false"
-      log(abs(-3.0*sin(2*3.1415)))
-       
-      
-         (26)  - 7.4948833967 339587459
-                                                                        Type: Float
-      
-.   %/output
 
 
         	
@@ -561,14 +262,6 @@ while the expression %%(-n) counts from the current line number backwards and re
 11 
 %/_fricas
 
-    %output,preserve="false"
-      11
-       
-      
-         (27)  11
-                                                              Type: PositiveInteger
-      
-.   %/output
 
 
         	
@@ -579,14 +272,6 @@ while the expression %%(-n) counts from the current line number backwards and re
 22 
 %/_fricas
 
-    %output,preserve="false"
-      22
-       
-      
-         (28)  22
-                                                              Type: PositiveInteger
-      
-.   %/output
 
 
         	
@@ -596,14 +281,6 @@ while the expression %%(-n) counts from the current line number backwards and re
 % 
 %/_fricas
 
-    %output,preserve="false"
-            %
-             
-            
-               (29)  22
-                                                                    Type: PositiveInteger
-            
-.   %/output
 
 
         	
@@ -614,14 +291,6 @@ while the expression %%(-n) counts from the current line number backwards and re
 %%(-3)
 %/_fricas
 
-    %output,preserve="false"
-      %%(-3)
-       
-      
-         (30)  11
-                                                              Type: PositiveInteger
-      
-.   %/output
 
  
         	
@@ -631,14 +300,6 @@ while the expression %%(-n) counts from the current line number backwards and re
 %%(3)
 %/_fricas
 
-    %output,preserve="false"
-      %%(3)
-       
-      
-         (31)  20
-                                                              Type: PositiveInteger
-      
-.   %/output
 
  
         	
@@ -653,15 +314,6 @@ Entering variables is as easy as in most other CAS.
 4*x^2+4*x+1
 %/_fricas
 
-    %output,preserve="false"
-      4*x^2+4*x+1
-       
-      
-                 2
-         (32)  4x  + 4x + 1
-                                                          Type: Polynomial(Integer)
-      
-.   %/output
 
  
         	
@@ -673,15 +325,6 @@ Note that the resulting domain is not Polynomial(Integer).
 factor(%) 
 %/_fricas
 
-    %output,preserve="false"
-      factor(%)
-       
-      
-                       2
-         (33)  (2x + 1)
-                                                Type: Factored(Polynomial(Integer))
-      
-.   %/output
 
 
         	
@@ -694,14 +337,6 @@ The domain Factored(X) keeps its elements in a factored form as long as possible
 factor((x^2-1))
 %/_fricas
 
-    %output,preserve="false"
-      factor((x^2-1))
-       
-      
-         (34)  (x - 1)(x + 1)
-                                                Type: Factored(Polynomial(Integer))
-      
-.   %/output
 
  
         	
@@ -712,15 +347,6 @@ factor((x^2-1))
 %*(x-1)
 %/_fricas
 
-    %output,preserve="false"
-        %*(x-1)
-         
-        
-                        2
-           (35)  (x - 1) (x + 1)
-                                                  Type: Factored(Polynomial(Integer))
-            
-.   %/output
 
  
         	
@@ -731,15 +357,6 @@ factor((x^2-1))
 %+1
 %/_fricas
 
-    %output,preserve="false"
-      %+1
-       
-      
-                3    2
-         (36)  x  - x  - x + 2
-                                                Type: Factored(Polynomial(Integer))
-      
-.   %/output
 
  
         	
@@ -754,15 +371,6 @@ Delaying computation to the time when an actual result is needed is usually a go
 %-1
 %/_fricas
 
-    %output,preserve="false"
-            %-1
-             
-            
-                      3    2
-               (37)  x  - x  - x + 1
-                                                      Type: Factored(Polynomial(Integer))
-            
-.   %/output
 
  
         	
@@ -773,15 +381,6 @@ Delaying computation to the time when an actual result is needed is usually a go
 factor % 
 %/_fricas
 
-    %output,preserve="false"
-      factor %
-       
-      
-                      2
-         (38)  (x - 1) (x + 1)
-                                                Type: Factored(Polynomial(Integer))
-      
-.   %/output
 
 
         	
@@ -794,15 +393,6 @@ FriCAS knows about the standard mathematical functions. And can do computations 
 sin(x)*exp(x) 
 %/_fricas
 
-    %output,preserve="false"
-      sin(x)*exp(x)
-       
-      
-                 x
-         (39)  %e sin(x)
-                                                          Type: Expression(Integer)
-      
-.   %/output
 
 
         	
@@ -815,14 +405,6 @@ Some mathematical constants and their properties are built-in.
 %e 
 %/_fricas
 
-    %output,preserve="false"
-      %e
-       
-      
-         (40)  %e
-                                                          Type: Expression(Integer)
-      
-.   %/output
 
 
         	
@@ -833,14 +415,6 @@ Some mathematical constants and their properties are built-in.
 %pi
 %/_fricas
 
-    %output,preserve="false"
-      %pi
-       
-      
-         (41)  %pi
-                                                                           Type: Pi
-      
-.   %/output
 
  
         	
@@ -851,14 +425,6 @@ Some mathematical constants and their properties are built-in.
 %e^(%pi * %i) 
 %/_fricas
 
-    %output,preserve="false"
-      %e^(%pi * %i)
-       
-      
-         (42)  - 1
-                                                 Type: Expression(Complex(Integer))
-      
-.   %/output
 
 
         	
@@ -873,15 +439,6 @@ Eagerness of evaluation of an expression depends on its type. In fact, each type
 (x^100 + 1)*(x^100-1)
 %/_fricas
 
-    %output,preserve="false"
-      (x^100 + 1)*(x^100-1)
-       
-      
-                200
-         (43)  x    - 1
-                                                          Type: Polynomial(Integer)
-      
-.   %/output
 
  
         	
@@ -892,25 +449,6 @@ Eagerness of evaluation of an expression depends on its type. In fact, each type
 (x^50-1)/(x-1) 
 %/_fricas
 
-    %output,preserve="false"
-      (x^50-1)/(x-1)
-       
-      
-         (44)
-            49    48    47    46    45    44    43    42    41    40    39    38    37
-           x   + x   + x   + x   + x   + x   + x   + x   + x   + x   + x   + x   + x
-         + 
-            36    35    34    33    32    31    30    29    28    27    26    25    24
-           x   + x   + x   + x   + x   + x   + x   + x   + x   + x   + x   + x   + x
-         + 
-            23    22    21    20    19    18    17    16    15    14    13    12    11
-           x   + x   + x   + x   + x   + x   + x   + x   + x   + x   + x   + x   + x
-         + 
-            10    9    8    7    6    5    4    3    2
-           x   + x  + x  + x  + x  + x  + x  + x  + x  + x + 1
-                                                Type: Fraction(Polynomial(Integer))
-      
-.   %/output
 
 
         	
@@ -925,17 +463,6 @@ If FriCAS does not find a more appropriate interpretation for an expresssion, th
 sin(%pi/3)
 %/_fricas
 
-    %output,preserve="false"
-      sin(%pi/3)
-       
-      
-                +-+
-               \|3
-         (45)  ----
-                 2
-                                                          Type: Expression(Integer)
-      
-.   %/output
 
  
         	
@@ -946,15 +473,6 @@ sin(%pi/3)
 sin(x)^2 + cos(x)^2 
 %/_fricas
 
-    %output,preserve="false"
-      sin(x)^2 + cos(x)^2
-       
-      
-                     2         2
-         (46)  sin(x)  + cos(x)
-                                                          Type: Expression(Integer)
-      
-.   %/output
 
 
         	
@@ -966,14 +484,6 @@ Some expressions are not automatically simplified.
 simplify(%)
 %/_fricas
 
-    %output,preserve="false"
-      simplify(%)
-       
-      
-         (47)  1
-                                                          Type: Expression(Integer)
-      
-.   %/output
 
  
         	
@@ -986,14 +496,6 @@ In some cases, it is simply not clear what a "simpler expression" actually means
 simplify(sin(2*x)) 
 %/_fricas
 
-    %output,preserve="false"
-      simplify(sin(2*x))
-       
-      
-         (48)  sin(2x)
-                                                          Type: Expression(Integer)
-      
-.   %/output
 
 
         	
@@ -1004,14 +506,6 @@ simplify(sin(2*x))
 simplify(2*sin(x)*cos(x))
 %/_fricas
 
-    %output,preserve="false"
-      simplify(2*sin(x)*cos(x))
-       
-      
-         (49)  2cos(x)sin(x)
-                                                          Type: Expression(Integer)
-      
-.   %/output
 
  
         	
@@ -1026,16 +520,6 @@ In addition to accessing previoiusly computed values via the %%(n) mechanism, in
 a := 1/3 + 22/7
 %/_fricas
 
-    %output,preserve="false"
-      a := 1/3 + 22/7
-       
-      
-               73
-         (50)  --
-               21
-                                                            Type: Fraction(Integer)
-      
-.   %/output
 
  
         	
@@ -1046,16 +530,6 @@ a := 1/3 + 22/7
 a
 %/_fricas
 
-    %output,preserve="false"
-      a
-       
-      
-               73
-         (51)  --
-               21
-                                                            Type: Fraction(Integer)
-      
-.   %/output
 
 
         	
@@ -1068,16 +542,6 @@ Assignment is done via :=. A simple = sign just creates an equation.
 A = 1/3 + 22/7 
 %/_fricas
 
-    %output,preserve="false"
-      A = 1/3 + 22/7
-       
-      
-                  73
-         (52)  A= --
-                  21
-                                      Type: Equation(Polynomial(Fraction(Integer)))
-      
-.   %/output
 
 
         	
@@ -1090,14 +554,6 @@ FriCAS is case-sensitive.
 A 
 %/_fricas
 
-    %output,preserve="false"
-      A
-       
-      
-         (53)  A
-                                                                  Type: Variable(A)
-      
-.   %/output
 
 
         	
@@ -1108,14 +564,6 @@ A
 A = lhs(%%(-2))
 %/_fricas
 
-    %output,preserve="false"
-      A = lhs(%%(-2))
-       
-      
-         (54)  A= A
-                                      Type: Equation(Polynomial(Fraction(Integer)))
-      
-.   %/output
 
  
         	
@@ -1128,14 +576,6 @@ In order to see whether an equation is true or false, we must turn it into a boo
 %::Boolean
 %/_fricas
 
-    %output,preserve="false"
-      %::Boolean
-       
-      
-         (55)  true
-                                                                      Type: Boolean
-      
-.   %/output
 
  
         	
@@ -1146,14 +586,6 @@ In order to see whether an equation is true or false, we must turn it into a boo
 (A=10)::Boolean
 %/_fricas
 
-    %output,preserve="false"
-      (A=10)::Boolean
-       
-      
-         (56)  false
-                                                                      Type: Boolean
-      
-.   %/output
 
  
         	
@@ -1166,12 +598,6 @@ The type of a variable can be declared in advance. Its type is then fixed for th
 v: PositiveInteger
 %/_fricas
 
-    %output,preserve="false"
-      v: PositiveInteger
-       
-                                                                         Type: Void
-      
-.   %/output
 
  
         	
@@ -1182,16 +608,6 @@ v: PositiveInteger
 v := 1/2 
 %/_fricas
 
-    %output,preserve="false"
-      v := 1/2
-       
-       
-         Cannot convert right-hand side of assignment
-         0.5
-      
-            to an object of the type PositiveInteger of the left-hand side.
-      
-.   %/output
 
 
         	
@@ -1205,14 +621,6 @@ If a variable has been declared, it is no longer automatically converted to an i
 5*v
 %/_fricas
 
-    %output,preserve="false"
-      5*v
-       
-       
-         v is declared as being in PositiveInteger but has not been given a 
-            value.
-      
-.   %/output
 
  
         	
@@ -1226,14 +634,6 @@ One would have to prepend an apostroph to refer to a symbol of that name.
 5 * 'v
 %/_fricas
 
-    %output,preserve="false"
-      5 * 'v
-       
-      
-         (58)  5v
-                                                          Type: Polynomial(Integer)
-      
-.   %/output
 
  
         	
@@ -1246,17 +646,6 @@ Only values that belong to the respective type can be assigned to the variable.
 v := -1
 %/_fricas
 
-    %output,preserve="false"
-      v := -1
-       
-         Compiling function G849 with type Integer -> Boolean 
-       
-         Cannot convert right-hand side of assignment
-         - 1
-      
-            to an object of the type PositiveInteger of the left-hand side.
-      
-.   %/output
 
  
         	
@@ -1267,14 +656,6 @@ v := -1
 v := 1
 %/_fricas
 
-    %output,preserve="false"
-      v := 1
-       
-      
-         (59)  1
-                                                              Type: PositiveInteger
-      
-.   %/output
 
  
         	
@@ -1291,14 +672,6 @@ The operator +-> is used to created anonymous functions, i.e. lambda expressions
 f := x +-> sin(x)*exp(x)
 %/_fricas
 
-    %output,preserve="false"
-      f := x +-> sin(x)*exp(x)
-       
-      
-         (60)  x +-> sin(x)exp(x)
-                                                            Type: AnonymousFunction
-      
-.   %/output
 
  
         	
@@ -1309,19 +682,6 @@ f := x +-> sin(x)*exp(x)
 f(%pi/3) 
 %/_fricas
 
-    %output,preserve="false"
-      f(%pi/3)
-       
-      
-                     %pi
-                     ---
-                +-+   3
-               \|3 %e
-         (61)  ---------
-                   2
-                                                          Type: Expression(Integer)
-      
-.   %/output
 
 
         	
@@ -1334,15 +694,6 @@ Simply using an expression in a functional way makes no sense.
 g := sin(x)*exp(x)
 %/_fricas
 
-    %output,preserve="false"
-      g := sin(x)*exp(x)
-       
-      
-                 x
-         (62)  %e sin(x)
-                                                          Type: Expression(Integer)
-      
-.   %/output
 
  
         	
@@ -1353,22 +704,6 @@ g := sin(x)*exp(x)
 g(%pi/2)
 %/_fricas
 
-    %output,preserve="false"
-      g(%pi/2)
-       
-         There are no library operations named g 
-            Use HyperDoc Browse or issue
-                                       )what op g
-            to learn if there is any operation containing " g " in its name.
-       
-         Cannot find a definition or applicable library operation named g 
-            with argument type(s) 
-                                           Pi
-            
-            Perhaps you should use "@" to indicate the required return type, 
-            or "$" to specify which version of the function you need.
-      
-.   %/output
 
  
         	
@@ -1380,17 +715,6 @@ g(%pi/2)
 eval(g, x=%pi/2) 
 %/_fricas
 
-    %output,preserve="false"
-      eval(g, x=%pi/2)
-       
-      
-                 %pi
-                 ---
-                  2
-         (63)  %e
-                                                          Type: Expression(Integer)
-      
-.   %/output
 
 
         	
@@ -1403,12 +727,6 @@ Declaring the type of a function explicitly, restricts the way the function can 
 f1: Integer -> Integer 
 %/_fricas
 
-    %output,preserve="false"
-      f1: Integer -> Integer
-       
-                                                                         Type: Void
-      
-.   %/output
 
 
         	
@@ -1418,14 +736,6 @@ f1: Integer -> Integer
 f1 := x +-> gcd(x,x+6) 
 %/_fricas
 
-    %output,preserve="false"
-      f1 := x +-> gcd(x,x+6)
-       
-      
-         (65)  theMap(*1;anonymousFunction;1;frame1;internal)
-                                                         Type: (Integer -> Integer)
-      
-.   %/output
 
 
         	
@@ -1436,14 +746,6 @@ f1 := x +-> gcd(x,x+6)
 f1(18)
 %/_fricas
 
-    %output,preserve="false"
-      f1(18)
-       
-      
-         (66)  6
-                                                              Type: PositiveInteger
-      
-.   %/output
 
  
         	
@@ -1454,22 +756,6 @@ f1(18)
 f1(2.3) 
 %/_fricas
 
-    %output,preserve="false"
-      f1(2.3)
-       
-         There are no library operations named f1 
-            Use HyperDoc Browse or issue
-                                       )what op f1
-            to learn if there is any operation containing " f1 " in its name.
-       
-         Cannot find a definition or applicable library operation named f1 
-            with argument type(s) 
-                                          Float
-            
-            Perhaps you should use "@" to indicate the required return type, 
-            or "$" to specify which version of the function you need.
-      
-.   %/output
 
 
         	
@@ -1482,14 +768,6 @@ Functions can also be defined via the "delayed assignment" using ==.
 f2(x: Integer): String == reverse(string(x))
 %/_fricas
 
-    %output,preserve="false"
-      f2(x: Integer): String == reverse(string(x))
-       
-         Function declaration f2 : Integer -> String has been added to 
-            workspace.
-                                                                         Type: Void
-      
-.   %/output
 
  
         	
@@ -1502,15 +780,6 @@ Functions will automatically be compiled to machine code, the first time they ar
 f2(123453) 
 %/_fricas
 
-    %output,preserve="false"
-      f2(123453)
-       
-         Compiling function f2 with type Integer -> String 
-      
-         (68)  "354321"
-                                                                       Type: String
-      
-.   %/output
 
 
         	
@@ -1523,16 +792,6 @@ The function cannot be applied to strings, because that would require the string
 f2("FriCAS") 
 %/_fricas
 
-    %output,preserve="false"
-      f2("FriCAS")
-       
-         Conversion failed in the compiled user function f2 .
-       
-         Cannot convert from type String to Integer for value
-         "FriCAS"
-      
-      
-.   %/output
 
 
         	
@@ -1545,12 +804,6 @@ Multivariate function definitions are no problem.
 f3(x,y,z) == (x+2*y)*z 
 %/_fricas
 
-    %output,preserve="false"
-      f3(x,y,z) == (x+2*y)*z
-       
-                                                                         Type: Void
-      
-.   %/output
 
 
         	
@@ -1561,16 +814,6 @@ f3(x,y,z) == (x+2*y)*z
 f3(3,4,2)
 %/_fricas
 
-    %output,preserve="false"
-      f3(3,4,2)
-       
-         Compiling function f3 with type (PositiveInteger,PositiveInteger,
-            PositiveInteger) -> PositiveInteger 
-      
-         (71)  22
-                                                              Type: PositiveInteger
-      
-.   %/output
 
  
         	
@@ -1581,16 +824,6 @@ f3(3,4,2)
 f3(3.2,4.1,2) 
 %/_fricas
 
-    %output,preserve="false"
-      f3(3.2,4.1,2)
-       
-         Compiling function f3 with type (Float,Float,PositiveInteger) -> 
-            Float 
-      
-         (72)  22.8
-                                                                        Type: Float
-      
-.   %/output
 
 
         	
