@@ -3,11 +3,11 @@
 package org.mathpiper.ide.fricasplugin;
 
 interface FriCASActions {
-	void chooseFile();
+	//void chooseFile();
 
-	void saveFile();
+	//void saveFile();
 
-	void copyToBuffer();
+	//void copyToBuffer();
 }//end interface.
 
 

@@ -4,25 +4,6 @@
 <!DOCTYPE ACTIONS SYSTEM "actions.dtd">
 
 <ACTIONS>
-	<ACTION NAME="fricas.choose-file">
-		<CODE>
-			wm.addDockableWindow(org.mathpiper.ide.fricasplugin.FriCASPlugin.NAME);
-			wm.getDockableWindow(org.mathpiper.ide.fricasplugin.FriCASPlugin.NAME).chooseFile();
-		</CODE>
-	</ACTION>
 
-	<ACTION NAME="fricas.save-file">
-		<CODE>
-			wm.addDockableWindow(org.mathpiper.ide.fricasplugin.FriCASPlugin.NAME);
-			wm.getDockableWindow(org.mathpiper.ide.fricasplugin.FriCASPlugin.NAME).saveFile();
-		</CODE>
-	</ACTION>
-
-	<ACTION NAME="fricas.copy-to-buffer">
-		<CODE>
-			wm.addDockableWindow(org.mathpiper.ide.fricasplugin.FriCASPlugin.NAME);
-			wm.getDockableWindow(org.mathpiper.ide.fricasplugin.FriCASPlugin.NAME).copyToBuffer();
-		</CODE>
-	</ACTION>
 </ACTIONS>
 

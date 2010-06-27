@@ -89,6 +89,14 @@
 				</section>
 			</manifest>
 		</jar>
+		
+		<mkdir dir="${examples.dir}/fricas" />
+		<copy todir="${examples.dir}/fricas">
+			<fileset dir="./examples" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
 	</target>
 	
 </project>

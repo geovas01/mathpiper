@@ -24,15 +24,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.mathpiperide.ResponseListener;
 import java.io.*;
-//import errorlist.*;
 import org.gjt.sp.jedit.jEdit;
+import org.gjt.sp.jedit.EBMessage;
+import org.gjt.sp.jedit.EBComponent;
+import org.gjt.sp.jedit.msg.*;
 
 /**
  *
  * @author tk
  */
 
-public class FriCASWrapper implements Runnable
+public class FriCASWrapper implements Runnable, EBComponent
 {
 
 	private static FriCASWrapper fricasInstance = null;
@@ -49,45 +51,60 @@ public class FriCASWrapper implements Runnable
 	private boolean keepRunning;
 	private String prompt;
 	private ArrayList<ResponseListener> removeListeners;
+	private Process fricasProcess = null;
 
 	/** Creates a new instance of FriCASWrapper */
 	protected FriCASWrapper() throws Throwable
 	{
 
+		ArrayList command = new ArrayList();
+		String path = jEdit.getProperty(FriCASPlugin.OPTION_PREFIX + "path");
+
+
+		if(path.equals(""))
+		{
+			throw new IOException("No path to the CAS executible specified.  A path must be specified in Plugins -> Plugin Options.");
+		}
+
+
+		if(! new File(path).exists() )
+		{
+			throw new IOException("The path to the CAS executable is invalid: " + path);
+		}
+
+		org.gjt.sp.jedit.EditBus.addToBus(this);
+
+
 		responseListeners = new ArrayList<ResponseListener>();
 		removeListeners = new ArrayList<ResponseListener>();
-		ArrayList command = new ArrayList();
-		//command.add("C:\\Program Files\\FriCAS-5.15.0\\bin\\fricas.bat");
-		//command.add("/usr/bin/fricas");
-	//System.out.println("XXXX " + jEdit.getProperty("fricas.path"));
-		command.add(jEdit.getProperty(FriCASPlugin.OPTION_PREFIX + "path"));
+
+		command.add(path);
 		command.add("-nox");
 		command.add("-noclef");
-		ProcessBuilder processBuilder = new ProcessBuilder(command);
-		Process fricasProcess = processBuilder.start();
-		inputStream = fricasProcess.getInputStream();
-		outputStream = fricasProcess.getOutputStream();
-		responseBuffer = new StringBuffer();
-		inputPromptPattern = Pattern.compile("\\n\\([0-9]+\\) \\->");
-		startMessage = getResponse();
-
-		/*//Add temporary files directory to fricas search path.
-		File tempFile = File.createTempFile("mathpiperide", ".tmp");
-		tempFile.deleteOnExit();
-		String searchDirectory = tempFile.getParent() + File.separator + "###.{mac,mc}";
-		searchDirectory = searchDirectory.replace("\\","/");
-		send("file_search_fricas: append (file_search_fricas, [\"" + searchDirectory + "\"])$\n");
-		fileSearchFriCASAppendResponse = getResponse();
 
 
-		//Add temporary files directory to lisp search path.
-		searchDirectory = tempFile.getParent() + File.separator + "###.{lisp,lsp}";
-		searchDirectory = searchDirectory.replace("\\","/");
-		send("file_search_lisp: append (file_search_lisp, [\"" + searchDirectory + "\"])$\n");
-		fileSearchLispAppendResponse = getResponse();
-		//System.out.println("FFF " + fileSearchFriCASAppendResponse);*/
+		try{
 
-		new Thread(this,"fricas").start();
+			ProcessBuilder processBuilder = new ProcessBuilder(command);
+			fricasProcess = processBuilder.start();
+			inputStream = fricasProcess.getInputStream();
+			outputStream = fricasProcess.getOutputStream();
+			responseBuffer = new StringBuffer();
+			inputPromptPattern = Pattern.compile("\\n\\([0-9]+\\) \\->");
+			startMessage = getResponse();
+
+
+			new Thread(this,"fricas").start();
+
+		}catch(IOException ioe)
+		{
+			if(fricasProcess != null)
+			{
+				fricasProcess.destroy();
+			}
+
+			throw new IOException("Invalid path to executible or target CAS failed to launch: " + path);
+		}
 
 	}//end constructor.
 
@@ -179,14 +196,14 @@ mainLoop: while(keepChecking)
 			{
 				//System.out.println("PPPPPP found end");
 				responseBuffer.delete(0,responseBuffer.length());
-				
-				
+
+
 				int promptIndex = response.lastIndexOf("\n") + 1;
 
 				prompt = response.substring(promptIndex,response.length());
-				
+
 				response = response.substring(0,promptIndex);
-				
+
 				keepChecking = false;
 
 			}//end if.
@@ -232,6 +249,28 @@ mainLoop: while(keepChecking)
 		}//end for.
 
 		removeListeners.clear();
+
+	}//end method.
+
+
+	public void handleMessage(EBMessage message) {
+		if (message instanceof PropertiesChanged) {
+			//String propertyFilename = jEdit.getProperty(MaximaPlugin.OPTION_PREFIX + "filepath");
+		}
+		if (message instanceof org.gjt.sp.jedit.msg.EditorExiting) {
+			if(fricasProcess != null)
+			{
+				//fricasProcess.destroy();
+				try{
+
+					send(")quit\n");
+				}
+				catch(Throwable t)
+				{
+					t.printStackTrace();
+				}
+			}
+		}
 
 	}//end method.
 
