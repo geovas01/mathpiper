@@ -608,9 +608,6 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 
 			try 
 			{   
-
-							
-				foldName = foldProperties.get("name");
 				
 				
 			//{{{
@@ -630,27 +627,24 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				
 			};//end interface implementation.
 			//}}}
+			
 				system = FriCASWrapper.getInstance();
 				system.addResponseListener(responseListener);
-				//System.out.println(tempFilePath);
+
 				sendString = ")read "+tempFile.getAbsolutePath()+"\n";
-				system.send(sendString);//sendString
+				system.send(sendString);
 				
-				//this.console.setShell("Maxima");o = console.getOutput();o.writeAttrs(null, "\n");
-				//runCommandInConsole(view,"Maxima","LoadScript(\""+path+"\");");
-				//runCommandInConsole(view,"Maxima",codeText + "\n");
+
 				
 				output_fold_type = "%output";
-				//System.out.println(
-								
+			
 					
-			}catch(org.mathpiper.ide.maxima.MathPiperException ye) 
+			}catch(java.io.IOException ioe) 
 			{
-				result = ye.getMessage();
+				result = ioe.getMessage();
 				output_fold_type = "%error ";
 			}
-			
-			
+
 					
 		}//end if }}}
 
@@ -1120,7 +1114,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 							java.io.File exportImageFile = new File(fileName);
 							try
 							{
-								org.mathpiper.ide.library.ScreenCapture.createImage(editorPane, fileName);
+								org.mathpiperide.library.ScreenCapture.createImage(editorPane, fileName);
 							}
 							catch (java.io.IOException ioe)
 							{

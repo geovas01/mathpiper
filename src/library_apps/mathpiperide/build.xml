@@ -37,6 +37,13 @@
 			<include name="**/*.java" />
 		</javac>
 		
+		
+		<copy todir="${build.classes.dir}/org/mathpiperide">
+			<fileset dir="${src.dir}/org/mathpiperide" >
+				<include name="**/*.gif" />
+			</fileset>
+		</copy>
+		
 	</target>
 	
 	<target id="dist" name="dist" depends="compile" >

@@ -1,4 +1,4 @@
-/*  v 1.12.
+/*  v 1.13.
     This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -769,6 +769,24 @@ ViewMath(b);
 
 Unbind(x);
 ViewList(x^2 + 3*x + 7);
+
+%/mathpiper
+
+
+
+
+
+
+
+%mathpiper,output="latex"
+/*
+Execute this MathPiper code and then press <shift><enter> in its output fold
+to render the LaTeX expression it generates.
+*/
+Unbind(x);
+a := (2*x)*(x+3)*(x+4);
+b := Expand(a);
+b;
 
 %/mathpiper
 
