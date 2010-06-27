@@ -55,7 +55,7 @@
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_properties.jar" />
 		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
 		<pathelement path="${plugins.jars.dir}/jung2.jar" />
-		<pathelement path="${non_plugin.jars.dir}/mathpiperide_library.jar" />
+		<pathelement path="${plugins.jars.dir}/mathpiperide_library.jar" />
 		<pathelement path="${plugins.jars.dir}/jfreechart_plugin.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/jfreechart-1.0.13.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/jcommon-1.0.16.jar" />
@@ -103,6 +103,7 @@
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${library_apps.src.dir}/mathpiper/src"/>
 			<property name="mathpiper.dir" value="${library_apps.src.dir}/mathpiper"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 	</target>
@@ -114,6 +115,7 @@
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${library_apps.src.dir}/piper_refactor/src"/>
 			<property name="piper.dir" value="${library_apps.src.dir}/piper_refactor"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 	</target>
@@ -126,6 +128,7 @@
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${library_apps.src.dir}/piper_me/src"/>
 			<property name="piper_me.dir" value="${library_apps.src.dir}/piper_me"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 	</target>
@@ -138,10 +141,11 @@
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="compile.debug" value="${master.compile.debug}"/>
 			<property name="src.dir" value="${library_apps.src.dir}/mathpiperide/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
-		<copy file="${library_apps.build.dir}/mathpiperide/dist/mathpiperide_library.jar" todir="${non_plugin.jars.dir}"/>
+		<copy file="${library_apps.build.dir}/mathpiperide/dist/mathpiperide_library.jar" todir="${plugins.jars.dir}"/>
 	</target>
 	
 	
@@ -151,6 +155,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/mathpiper_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -165,6 +170,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/piper_me_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -207,6 +213,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/maxima_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -221,6 +228,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/fricas_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -235,6 +243,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/mathpiper_docs_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -249,6 +258,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/geogebra_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -263,6 +273,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/hoteqn_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -291,6 +302,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/jscicalc_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -331,6 +343,7 @@
 			<property name="compile.source" value="${master.compile.source}"/>
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${plugins.src.dir}/fortress_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 		
@@ -402,7 +415,7 @@
 	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, 
-		geogebra_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, fricas_plugin" />
+		geogebra_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, hoteqn_plugin, fricas_plugin" />
 	
 	
 	
