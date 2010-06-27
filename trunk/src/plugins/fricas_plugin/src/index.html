@@ -8,32 +8,34 @@ an input stream and an output stream. <br><br>
 
 The first step in using the plugin is to specify the path to the CAS executable 
 in the <b>Plugins -> Plugin Options -> FriCAS</b> menu.  After this is done, code can 
-be sent to the CAS either with a _fricas fold in a worksheet or with the FriCAS 
+be sent to the CAS either with a %_fricas fold in a worksheet or with the FriCAS 
 console.  Both of these options are discussed below.<br><br>
 
-<h3>Using _fricas Folds In A Worksheet To Interact With The CAS. </h3>
+<h3>Using %_fricas Folds In A Worksheet To Interact With The CAS. </h3>
 
-MathPiperIDE worksheets are simply text files which have a .mpw extension.  In order to
+MathPiperIDE worksheets are simply text files which have an .mpw extension.  In order to
 communicate with the CAS using a worksheet, create a new file, save it with a .mpw
-extension, and then add one or more _fricas folds to the worksheet. <span style="color:red">
+extension, and then add one or more %_fricas folds to the worksheet. <span style="color:red">
 (Note: the file will not be recognized as a worksheet until after it has been named and given a .mpw
 file extension.) </span> <br><br>
 
-You can enter a _fricas fold by typing in the FriCAS begin and end fold tags like this:<br>
+You can enter a %_fricas fold by typing in the FriCAS <b>begin fold tag</b> and <b>end fold tag</b> like this:<br>
 <br>
-_fricas<br>
+%_fricas<br>
 <br>
 2 + 2<br>
 <br>
-_/fricas<br>
+%_/fricas<br>
 <br>
 <br>
-or you can place your cursor on the line you want to begin a fold on, press your right mouse
-button, and select the <b>Insert FriCAS Fold</b> command to have an empty fold automatically
-inserted into the worksheet beginning at the cursor.<br><br>
+As an alternative to manually typing in the fold tags, you can place your cursor on the line you want to begin a fold on, press your right mouse
+button, and select the <b>Insert FriCAS Fold</b> command to <span style="color:red">have an empty fold automatically
+inserted into the worksheet</span> beginning at the cursor.<br><br>
 
-The code that is entered inside of a _fricas fold is executed by placing the cursor in the fold
-and then pressing &lt;shift&gt;&lt;enter&gt;. <br><br>
+The code that is entered inside of a %_fricas fold is executed by placing the cursor in the fold
+and then pressing &lt;shift&gt;&lt;enter&gt;. There is an example FriCAS worksheet in the <b>examples</b> 
+directory (which is present in the MathPiperIDE main directory) that contains numerous FriCAS
+folds that can be executed.<br><br>
 
 <h3>Using The FriCAS Console To Interact With The CAS</h3>
 
