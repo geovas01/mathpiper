@@ -10,6 +10,8 @@ public class FriCASTextArea extends JTextArea {
 		setLineWrap(true);
 		setWrapStyleWord(true);
 		setTabSize(4);
+		
+		this.append("This window is for future expansion.  For now, use worksheets and the console to communicate with the CAS.");
 	}
 }//end class.
 

@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
@@ -37,6 +38,8 @@ public class FriCASOptionPane extends AbstractOptionPane implements
 		pickPath.addActionListener(this);
 
 		JPanel pathPanel = new JPanel(new BorderLayout(0, 0));
+		JLabel instructions = new JLabel("Path to the CAS executable.");
+		pathPanel.add(instructions,BorderLayout.NORTH);
 		pathPanel.add(pathName, BorderLayout.CENTER);
 		pathPanel.add(pickPath, BorderLayout.EAST);
 

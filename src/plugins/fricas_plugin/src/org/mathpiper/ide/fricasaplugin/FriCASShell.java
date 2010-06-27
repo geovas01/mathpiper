@@ -12,6 +12,7 @@ import java.io.*;
 
 import org.gjt.sp.jedit.View;
 import org.gjt.sp.jedit.jEdit;
+import org.gjt.sp.jedit.Macros;
 import org.gjt.sp.jedit.EditPlugin;
 
 import console.Console;
@@ -39,7 +40,14 @@ public class FriCASShell extends Shell implements org.mathpiperide.ResponseListe
 			fricas = FriCASWrapper.getInstance();
 			fricasStartMessage = fricas.getStartMessage();
 
-		}catch(Throwable t)
+		}catch(java.io.IOException ioe)
+		{
+
+			Macros.message(jEdit.getActiveView(), ioe.getMessage());
+
+			fricasStartMessage = "CAS not started.  Specify a path to the CAS executable in Plugins -> Plugin Options.";
+		}
+		catch(Throwable t)
 		{
 			t.printStackTrace();
 		}
@@ -90,27 +98,42 @@ public class FriCASShell extends Shell implements org.mathpiperide.ResponseListe
 
 	public void execute(Console console, String input, Output output, Output error, String command)
 	{
-		if(! command.equals(""))
+		try{
+			fricas = FriCASWrapper.getInstance();
+
+
+
+			if(! command.equals(""))
+			{
+				//Note:tk: must set output and console another way for when user executes fricas fold
+				//before using the shell.
+				lastRequestOutput = output;
+				lastRequestConsole = console;
+
+				try
+				{
+					fricas.addResponseListener(this);
+
+					fricas.send(command + "\n");
+
+
+				}catch(Throwable t)
+				{
+					output.print(null,t.getMessage() );
+					output.commandDone();
+				}
+
+			}//end if.
+
+		}
+		catch(IOException ioe)
 		{
-			//Note:tk: must set output and console another way for when user executes fricas fold
-			//before using the shell.
-			lastRequestOutput = output;
-			lastRequestConsole = console;
-
-			try
-			{
-				fricas.addResponseListener(this);
-
-				fricas.send(command + "\n");
-
-
-			}catch(Throwable t)
-			{
-				output.print(null,t.getMessage() );
-				output.commandDone();
-			}
-
-		}//end if.
+			output.print(null, ioe.getMessage());
+		}
+		catch(Throwable t)
+		{
+			t.printStackTrace();
+		}
 
 	}//end method.
 
@@ -128,7 +151,14 @@ public class FriCASShell extends Shell implements org.mathpiperide.ResponseListe
 
 	public void printPrompt(Console console, Output output)
 	{
-		output.writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), fricas.getPrompt());
+		if(fricas != null)
+		{
+			output.writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), fricas.getPrompt());
+		}
+		else
+		{
+			output.print(null, " ");
+		}
 	}//end method.
 
 

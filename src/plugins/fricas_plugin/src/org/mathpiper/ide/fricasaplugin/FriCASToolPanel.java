@@ -27,56 +27,13 @@ public class FriCASToolPanel extends JPanel {
 		Box labelBox = new Box(BoxLayout.Y_AXIS);
 		labelBox.add(Box.createGlue());
 
-		label = new JLabel(pad.getFilename());
-		label.setVisible(jEdit.getProperty(
-				FriCASPlugin.OPTION_PREFIX + "show-filepath").equals(
-				"true"));
-
-		labelBox.add(label);
-		labelBox.add(Box.createGlue());
-
-		add(labelBox);
-
-		add(Box.createGlue());
-
-		add(makeCustomButton("fricas.choose-file", new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				FriCASToolPanel.this.pad.chooseFile();
-			}
-		}));
-		add(makeCustomButton("fricas.save-file", new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				FriCASToolPanel.this.pad.saveFile();
-			}
-		}));
-		add(makeCustomButton("fricas.copy-to-buffer",
-				new ActionListener() {
-					public void actionPerformed(ActionEvent evt) {
-						FriCASToolPanel.this.pad.copyToBuffer();
-					}
-				}));
 	}
 
 	void propertiesChanged() {
-		label.setText(pad.getFilename());
-		label.setVisible(jEdit.getProperty(
-				FriCASPlugin.OPTION_PREFIX + "show-filepath").equals(
-				"true"));
+
 	}
 
-	private AbstractButton makeCustomButton(String name, ActionListener listener) {
-		String toolTip = jEdit.getProperty(name.concat(".label"));
-		AbstractButton b = new RolloverButton(GUIUtilities.loadIcon(jEdit
-				.getProperty(name + ".icon")));
-		if (listener != null) {
-			b.addActionListener(listener);
-			b.setEnabled(true);
-		} else {
-			b.setEnabled(false);
-		}
-		b.setToolTipText(toolTip);
-		return b;
-	}
+
 
 }//end class.
 

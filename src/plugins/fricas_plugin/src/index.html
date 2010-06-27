@@ -1,15 +1,59 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
-
-  
-  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-  
-
 <body>
-<h2>Note: Add documentation here.</h2>
+<h2>Fricas Plugin Instructions</h2>
 
-  
+The FriCAS plugin launches a FriCAS process and then communicates with it using 
+an input stream and an output stream. <br><br>
+
+The first step in using the plugin is to specify the path to the CAS executable 
+in the <b>Plugins -> Plugin Options -> FriCAS</b> menu.  After this is done, code can 
+be sent to the CAS either with a _fricas fold in a worksheet or with the FriCAS 
+console.  Both of these options are discussed below.<br><br>
+
+<h3>Using _fricas Folds In A Worksheet To Interact With The CAS. </h3>
+
+MathPiperIDE worksheets are simply text files which have a .mpw extension.  In order to
+communicate with the CAS using a worksheet, create a new file, save it with a .mpw
+extension, and then add one or more _fricas folds to the worksheet. <span style="color:red">
+(Note: the file will not be recognized as a worksheet until after it has been named and given a .mpw
+file extension.) </span> <br><br>
+
+You can enter a _fricas fold by typing in the FriCAS begin and end fold tags like this:<br>
+<br>
+_fricas<br>
+<br>
+2 + 2<br>
+<br>
+_/fricas<br>
+<br>
+<br>
+or you can place your cursor on the line you want to begin a fold on, press your right mouse
+button, and select the <b>Insert FriCAS Fold</b> command to have an empty fold automatically
+inserted into the worksheet beginning at the cursor.<br><br>
+
+The code that is entered inside of a _fricas fold is executed by placing the cursor in the fold
+and then pressing &lt;shift&gt;&lt;enter&gt;. <br><br>
+
+<h3>Using The FriCAS Console To Interact With The CAS</h3>
+
+The FriCAS console provides a REPL interface to the CAS that can be used to interact with the CAS
+concurrently with the worksheet folds.  When MathPiperIDE is first launched, the Console plugin
+is not docked to a side of the application and it must be launched by selecting <b>Plugins -> Console
+-> Console</b>. The Console plugin contains multiple consoles and the System console is the one that
+is shown by defult.  To switch to the FriCAS console, select the word "System" in the upper left
+corner of the Console plugin and then select the FriCAS plugin.<br><br>
+
+If you want to dock the Console plugin window instead of having it float, select the small black
+inverted triangle which is in the upper left corner of the Console plugin window and the docking
+menu will be shown. This docking menu will allow you to dock the plugin on the top, bottom, left, or
+right sides of the application.  Note: there is a small black inverted triangle which is present near
+the plugins which are docked on any side of the application, and selecting it will bring up the docking
+menu.<br><br>
+
+Code is sent to the CAS from the FriCAS console a line at a time by entering a line of code and then
+pressing &lt;enter&gt;.
+
 
 </body>
 </html>
