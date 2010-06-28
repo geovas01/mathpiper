@@ -1,4 +1,4 @@
-v 1.00.
+v 1.00. Author: Ralf Hemmecke.
 Before executing any folds, make sure you have set the path to the CAS executable
 in the Plugins -> Plugin Options -> FriCAS menu.  Then, place the cursor in a fold
 and press <shift><enter> to execute it.
