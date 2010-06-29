@@ -73,10 +73,11 @@ public class Maxima extends BuiltinFunction {
 
             send("display2d:false;\n");
             getResponse();
+            maximaInstalled = true;
         } catch (Throwable t) {
             t.printStackTrace();
         }
-        maximaInstalled = true;
+
 
         
         //System.out.println("M+");
