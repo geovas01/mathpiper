@@ -60,6 +60,7 @@ class SynchronousInterpreter implements Interpreter {
     boolean inZipFile = false;
     MathPiperOutputStream sideEffectsStream;
     private static SynchronousInterpreter singletonInstance;
+    private Thread evaluationThread;
 
     private SynchronousInterpreter(String docBase) {
         responseListeners = new ArrayList<ResponseListener>();
@@ -205,6 +206,8 @@ class SynchronousInterpreter implements Interpreter {
     }//end method.
 
     public synchronized EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners) {
+        evaluationThread = Thread.currentThread();
+
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
         if (inputExpression.length() == 0) {
             //return (String) "";
@@ -322,6 +325,9 @@ class SynchronousInterpreter implements Interpreter {
     }
 
     public synchronized EvaluationResponse evaluate(ConsPointer inputExpressionPointer, boolean notifyEvaluationListeners) {
+
+        evaluationThread = Thread.currentThread();
+
         //return this.evaluate(inputExpression, false);
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
 
@@ -477,6 +483,8 @@ class SynchronousInterpreter implements Interpreter {
     public void haltEvaluation() {
         synchronized (iEnvironment) {
             iEnvironment.iEvalDepth = iEnvironment.iMaxEvalDepth + 100;
+
+            evaluationThread.interrupt();
         }
     }
 

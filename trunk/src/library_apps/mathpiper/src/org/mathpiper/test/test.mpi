@@ -1,4 +1,6 @@
 
-jasI := JavaNew("org.mathpiper.builtin.library.jas.JasPolynomial","Integer","x,y,z");
-ring := JavaCall(jasI,"getRing");   // note specific need to use JavaCall() not JavaAccess() here
-vars := JavaAccess(ring,"getVars");  //  the method getVars() of the Ring class produces a java String array
+//jasI := JavaNew("org.mathpiper.builtin.library.jas.JasPolynomial","Integer","x,y,z");
+//ring := JavaCall(jasI,"getRing");   // note specific need to use JavaCall() not JavaAccess() here
+//vars := JavaAccess(ring,"getVars");  //  the method getVars() of the Ring class produces a java String array
+
+Factor(a*x^3+b*x^2+c*x+d);
