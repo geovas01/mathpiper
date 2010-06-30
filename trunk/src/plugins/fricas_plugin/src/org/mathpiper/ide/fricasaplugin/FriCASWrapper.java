@@ -79,8 +79,9 @@ public class FriCASWrapper implements Runnable, EBComponent
 		removeListeners = new ArrayList<ResponseListener>();
 
 		command.add(path);
-		command.add("-nox");
-		command.add("-noclef");
+		command.add("-nosman");
+		//command.add("-nox");
+		//command.add("-noclef");
 
 
 		try{
