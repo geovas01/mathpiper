@@ -604,6 +604,8 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		///{{{ *** %_fricas ***.
 		else if(foldType.equalsIgnoreCase("%_fricas"))    
 		{		
+			
+			
 			try 
 			{   
 				
@@ -636,8 +638,33 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				fricasWrapper = FriCASWrapper.getInstance();
 				
 				fricasWrapper.addResponseListener(responseListener);
+				
+				
+				//Handle the quiet property.
+				quietProperty = foldProperties.get("quiet");
+				quietCommand = " )quiet"; //Default to quiet output.
+				if(quietProperty == null)
+				{
+					//Default to quiet output.
+				}
+				else
+				{
+					if(quietProperty.equalsIgnoreCase("true"))
+					{
+						quietCommand = " )quiet";
+					}
+					else if (quietProperty.equalsIgnoreCase("false"))
+					{
+						quietCommand = "";
+					}
+					else
+					{
+						Macros.message(jEdit.getActiveView(), "The quiet property has been passed an invalid value: \"" + quietProperty + "\".\n Set it to either true or false.");
+					}
+				}//end else.
 	
-				sendString = ")read "+tempFile.getAbsolutePath()+"\n";
+				
+				sendString = ")read "+tempFile.getAbsolutePath() + quietCommand + "\n";
 				
 				fricasWrapper.send(sendString);
 				
