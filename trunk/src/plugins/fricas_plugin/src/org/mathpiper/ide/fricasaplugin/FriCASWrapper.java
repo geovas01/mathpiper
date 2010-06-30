@@ -87,8 +87,8 @@ public class FriCASWrapper implements Runnable, EBComponent
 
 			ProcessBuilder processBuilder = new ProcessBuilder(command);
 			fricasProcess = processBuilder.start();
-			inputStream = fricasProcess.getInputStream();
-			outputStream = fricasProcess.getOutputStream();
+			inputStream = new BufferedInputStream(fricasProcess.getInputStream());
+			outputStream = new BufferedOutputStream(fricasProcess.getOutputStream());
 			responseBuffer = new StringBuffer();
 			inputPromptPattern = Pattern.compile("\\n\\([0-9]+\\) \\->");
 			startMessage = getResponse();
