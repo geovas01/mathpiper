@@ -21,19 +21,19 @@ Retract("Simplify",*);
 // otherwise
 40 # Simplify(_expr)_(Type(expr)="Ln") <--
 [
-    If(InVerboseMode(),Tell("Simplify_Ln",expr));
+    //If(InVerboseMode(),Tell("Simplify_Ln",expr));
     LnCombine(expr);
 ];
 
 40 # Simplify(_expr)_(Type(expr)="Exp") <--
 [
-    If(InVerboseMode(),Tell("Simplify_Exp",expr));
+    //If(InVerboseMode(),Tell("Simplify_Exp",expr));
     expr;
 ];
 
 50 # Simplify(_expr) <-- 
 [
-    If(InVerboseMode(),Tell("Simplify_other",expr));
+    //If(InVerboseMode(),Tell("Simplify_other",expr));
     MultiSimp(Eval(expr));
 ];
 
