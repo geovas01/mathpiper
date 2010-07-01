@@ -79,9 +79,9 @@ public class FriCASWrapper implements Runnable, EBComponent
 		removeListeners = new ArrayList<ResponseListener>();
 
 		command.add(path);
-		command.add("-nosman");
-		//command.add("-nox");
-		//command.add("-noclef");
+		//command.add("-nosman");
+		command.add("-nox");
+		command.add("-noclef");
 
 
 		try{
@@ -93,7 +93,6 @@ public class FriCASWrapper implements Runnable, EBComponent
 			responseBuffer = new StringBuffer();
 			inputPromptPattern = Pattern.compile("\\n\\([0-9]+\\) \\->");
 			startMessage = getResponse();
-
 
 			new Thread(this,"fricas").start();
 
