@@ -1,0 +1,28 @@
+%mathpiper,def="SolveSystem"
+
+/*-------------------------------------------------------------------
+ *  NOTE:  this is a diversion of the SolveSystem modules to a
+ *  new file all its own.  Previously, it was named "Solve'System",
+ *  and was contained in the file OldSolve.mpw.
+ *
+ *  For the time being, we are just reconnecting the new file to
+ *  point to the same old file  Solve'SimpleBackSubstitution .
+ *  This will be changed soon.
+ *  hso 100630.
+ *-------------------------------------------------------------------*/
+
+Retract("SolveSystem",*);
+
+10 # SolveSystem( eqns_IsList, vars_IsList ) <--
+[
+    If(InVerboseMode(),Tell("SolveSystem",{eqns,vars}));
+    Solve'SimpleBackSubstitution(eqns,vars);
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
