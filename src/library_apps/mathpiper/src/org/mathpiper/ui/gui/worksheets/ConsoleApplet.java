@@ -1565,7 +1565,8 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
 
     public void stopCurrentCalculation()
     {
-        interpreter.getEnvironment().iEvalDepth = interpreter.getEnvironment().iMaxEvalDepth + 100;
+        //interpreter.getEnvironment().iEvalDepth = interpreter.getEnvironment().iMaxEvalDepth + 100;
+        interpreter.haltEvaluation();
     }
 }
 

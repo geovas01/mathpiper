@@ -32,9 +32,10 @@ public class TrapError extends BuiltinFunction
         try
         {
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
-        } catch (Exception e)
+        } catch (Throwable e)
         {
             //e.printStackTrace();
+            Boolean interrupted = Thread.currentThread().interrupted(); //Clear interrupted condition.
             aEnvironment.iError ="Caught in TrapError function: " + e.toString();
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
             aEnvironment.iError = null;

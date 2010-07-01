@@ -13,7 +13,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
@@ -73,21 +72,26 @@ public class LispExpressionEvaluator extends Evaluator {
         synchronized (aEnvironment) {
             aEnvironment.iEvalDepth++;
             if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
-                if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
-                    LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.USER_INTERRUPT, "INTERNAL");
-                } else {
-                    LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "INTERNAL");
-                }
+                /* if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
+                LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.USER_INTERRUPT, "INTERNAL");
+                } else {*/
+                LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "INTERNAL");
+                // }
+            }
+
+            if(Thread.currentThread().interrupted())
+            {
+                LispError.raiseError("User halted calculation.", "", aStackTop, aEnvironment);
             }
         }
 
 
 
         // evaluate an atom: find the bound value (treat it as a variable)
-        if ( aExpression.car() instanceof String) {
+        if (aExpression.car() instanceof String) {
             String str = (String) aExpression.car();
             if (str.charAt(0) == '\"') {
-                aResult.setCons(aExpression.getCons().copy( aEnvironment, false));
+                aResult.setCons(aExpression.getCons().copy(aEnvironment, false));
                 aEnvironment.iEvalDepth--;
                 return;
             }
@@ -95,25 +99,25 @@ public class LispExpressionEvaluator extends Evaluator {
             ConsPointer val = new ConsPointer();
             aEnvironment.getGlobalVariable(aStackTop, str, val);
             if (val.getCons() != null) {
-                aResult.setCons(val.getCons().copy( aEnvironment, false));
+                aResult.setCons(val.getCons().copy(aEnvironment, false));
                 aEnvironment.iEvalDepth--;
                 return;
             }
-            aResult.setCons(aExpression.getCons().copy( aEnvironment, false));
+            aResult.setCons(aExpression.getCons().copy(aEnvironment, false));
             aEnvironment.iEvalDepth--;
             return;
         }
         {
 
 
-            if ( aExpression.car() instanceof ConsPointer) {
+            if (aExpression.car() instanceof ConsPointer) {
                 ConsPointer subList = (ConsPointer) aExpression.car();
                 Cons head = subList.getCons();
                 if (head != null) {
                     if (head.car() instanceof String) {
 
                         //Built-in function handler.
-                        BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp( (String) head.car());
+                        BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp((String) head.car());
                         if (builtinInFunctionEvaluator != null) {
                             builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, aResult, subList);
                             aEnvironment.iEvalDepth--;
@@ -145,10 +149,11 @@ public class LispExpressionEvaluator extends Evaluator {
                     return;
                 }
             }
-            aResult.setCons(aExpression.getCons().copy( aEnvironment, false));
+            aResult.setCons(aExpression.getCons().copy(aEnvironment, false));
         }
         aEnvironment.iEvalDepth--;
     }
+
 
     SingleArityBranchingUserFunction getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
         Cons head = subList.getCons();
@@ -158,7 +163,7 @@ public class LispExpressionEvaluator extends Evaluator {
         if (userFunc != null) {
             return userFunc;
         } else if (head.car() instanceof String) {
-            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction( aStackTop, (String) head.car(), true);
+            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction(aStackTop, (String) head.car(), true);
             if (multiUserFunc.iFileToOpen != null) {
                 DefFile def = multiUserFunc.iFileToOpen;
 
@@ -438,4 +443,5 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
      */
+
 }//end class.
