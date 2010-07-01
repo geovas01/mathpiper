@@ -9,7 +9,7 @@ OldSolve
 /*
  * Strategy for Solve(expr, x):
  *
- * 10.  Call Solve'System for systems of equations.
+ * 10.  Call SolveSystem for systems of equations [now in its own file]
  * 20.  Check arguments.
  * 30.  Get rid of "==" in 'expr'.
  * 40.  Special cases.
@@ -29,7 +29,8 @@ OldSolve
 
 LocalSymbols(res)
 [
-  10  # Solve(expr_IsList, var_IsList) <-- Solve'System(expr, var);
+  10  # Solve(expr_IsList, var_IsList) <-- SolveSystem(expr, var);
+  
   20  # Solve(_expr, _var)_(Not IsAtom(var) Or IsNumber(var) Or IsString(var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
   30  # Solve(_lhs == _rhs, _var) <-- Solve(lhs - rhs, var);
@@ -248,6 +249,10 @@ LocalSymbols(x)
 
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
