@@ -72,7 +72,7 @@ Setting a tokenizer is a global action that affects all {ReadToken} calls.
 
 *E.G. notest
 
-	In> FromString("a := Sin(x)") While \
+	In> PipeFromString("a := Sin(x)") While \
 	  ((tok := ReadToken()) != EndOfFile) \
 	  Echo(tok);
 	a
@@ -84,7 +84,7 @@ Setting a tokenizer is a global action that affects all {ReadToken} calls.
 	Out> True;
 
 We can read some junk too:
-	In> FromString("-$3")ReadToken();
+	In> PipeFromString("-$3")ReadToken();
 	Out> -$;
 The result is an atom with the string representation {-$}.
 MathPiper assumes that {-$} is an operator symbol yet to be defined.
@@ -92,6 +92,6 @@ The "{3}" will be in the next token.
 (The results will be different if a non-default tokenizer is selected.)
 
 
-*SEE PipeFromFile, FromString, Read, LispRead, DefaultTokenizer
+*SEE PipeFromFile, PipeFromString, Read, LispRead, DefaultTokenizer
 %/mathpiper_docs
 */

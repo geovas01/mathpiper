@@ -63,6 +63,6 @@ the end of an input file is encountered, the token atom {EndOfFile} is returned.
 	In> PipeFromString("") Read();
 	Out> EndOfFile;
 
-*SEE PipeFromFile, LispRead, ReadToken, Write
+*SEE PipeFromFile, PipeFromString, LispRead, ReadToken, Write
 %/mathpiper_docs
 */
