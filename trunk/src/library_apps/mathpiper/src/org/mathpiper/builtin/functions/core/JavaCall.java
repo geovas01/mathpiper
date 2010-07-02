@@ -136,15 +136,25 @@ public class JavaCall extends BuiltinFunction {
 
                     Object[] argumentsArray = (Object[]) argumentArrayList.toArray(new Object[0]);
 
+                    Object targetObject = builtinContainer.getObject();
 
-                    Object object = Invoke.invokeInstance(builtinContainer.getObject(), methodName, argumentsArray, true);
+                    Object returnObject = null;
+                            
+                    if(targetObject instanceof Class)
+                    {
+                        returnObject = Invoke.invokeStatic((Class) targetObject, methodName, argumentsArray);
+                    }
+                    else
+                    {
+                        returnObject = Invoke.invokeInstance(targetObject, methodName, argumentsArray, true);
+                    }
 
-                    if (object instanceof List) {
-                        Cons listCons = Utility.iterableToList(aEnvironment, aStackTop, (List) object);
+                    if (returnObject instanceof List) {
+                        Cons listCons = Utility.iterableToList(aEnvironment, aStackTop, (List) returnObject);
 
                         getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, listCons));
                     } else {
-                        JavaObject response = new JavaObject(object);
+                        JavaObject response = new JavaObject(returnObject);
                         if (response == null || response.getObject() == null) {
                             Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                             return;
