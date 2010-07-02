@@ -59,9 +59,9 @@ first object in a list can be itself a list (this is never the case for MathPipe
 
 *E.G. notest
 
-	In> FromString("(+ a b)")LispReadListed()
+	In> PipeFromString("(+ a b)")LispReadListed()
 	Out> {+,a,b};
 
-*SEE PipeFromFile, FromString, Read, ReadToken, LispForm, LispRead
+*SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, LispRead
 %/mathpiper_docs
 */
