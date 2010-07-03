@@ -93,6 +93,7 @@ Retract("SolveNonlinearSystem",*);
     rhs := -WithValue(vars,zeros,polys);
     If(InVerboseMode(),Tell("       ",rhs));
     
+    //SolveMatrix(lhs,rhs);
     MatrixSolve(lhs,rhs);
 ];
 
