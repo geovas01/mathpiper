@@ -2,6 +2,7 @@
 
 Function("SolveMatrix",{matrix,vector})
 [
+  If(InVerboseMode(),Tell("   SolveMatrix",{matrix,vector}));
   Local(perms,indices,inv,det,n);
   n:=Length(matrix);
   indices:=Table(i,i,1,n,1);
@@ -21,10 +22,14 @@ Function("SolveMatrix",{matrix,vector})
         ];
   ];
   Check(det != 0, "Zero determinant");
-  (1/det)*inv;
+  {(1/det)*inv};
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
