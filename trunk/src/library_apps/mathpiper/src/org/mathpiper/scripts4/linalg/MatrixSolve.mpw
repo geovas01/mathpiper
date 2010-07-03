@@ -1,9 +1,12 @@
 %mathpiper,def="MatrixSolve"
 
+Retract("MatrixSolve",*);
+
 10 # MatrixSolve(matrix_IsDiagonal,b_IsVector) <--
 [
+    If(InVerboseMode(),Tell("   MatrixSolve_diag",{matrix,b}));
 	Local(rowsm,rowsb,x);
-        rowsm:=Length(matrix);
+    rowsm:=Length(matrix);
 	rowsb:=Length(b);
 	Check(rowsm=rowsb,"MatrixSolve: Matrix and vector must have same number of rows");
 	x:=ZeroVector(rowsb);
@@ -15,11 +18,12 @@
 // Backward Substitution
 15 # MatrixSolve(matrix_IsUpperTriangular,b_IsVector) <--
 [
-        Local(rowsm,rowsb,x,s);
-        rowsm:=Length(matrix);
-        rowsb:=Length(b);
-        Check(rowsm=rowsb,"MatrixSolve: Matrix and vector must have same number of rows");
-        x:=ZeroVector(rowsb);
+    If(InVerboseMode(),Tell("   MatrixSolve_ut",{matrix,b}));
+    Local(rowsm,rowsb,x,s);
+    rowsm:=Length(matrix);
+    rowsb:=Length(b);
+    Check(rowsm=rowsb,"MatrixSolve: Matrix and vector must have same number of rows");
+    x:=ZeroVector(rowsb);
 
 	x[rowsb]:=b[rowsb]/matrix[rowsb][rowsb];
 	If(InVerboseMode(),Echo({"set x[",rowsb,"] = ",b[rowsb]/matrix[rowsb][rowsb]}));
@@ -38,6 +42,7 @@
 // Forward Substitution
 15 # MatrixSolve(matrix_IsLowerTriangular,b_IsVector) <--
 [
+    If(InVerboseMode(),Tell("   MatrixSolve_lt",{matrix,b}));
 	Local(rowsm,rowsb,x,s);
 	rowsm:=Length(matrix);
 	rowsb:=Length(b);
@@ -61,11 +66,12 @@
 // pivoting not implemented yet
 20 # MatrixSolve(matrix_IsMatrix,b_IsVector) <--
 [
+    If(InVerboseMode(),Tell("   MatrixSolve",{matrix,b}));
 	Local(aug,rowsm,rowsb,x,s);
-        rowsm:=Length(matrix);
-        rowsb:=Length(b);
-        Check(rowsm=rowsb,"MatrixSolve: Matrix and vector must have same number of rows");
-        aug:=ZeroMatrix(rowsb,rowsb+1);
+    rowsm:=Length(matrix);
+    rowsb:=Length(b);
+    Check(rowsm=rowsb,"MatrixSolve: Matrix and vector must have same number of rows");
+    aug:=ZeroMatrix(rowsb,rowsb+1);
 	x:=ZeroVector(rowsb);
 
 	// create augmented matrix
@@ -108,14 +114,17 @@
 		ForEach(j,i+1 .. rowsb)[
 			s := s - aug[i][j]*x[j];
 		];
-		x[i]:=s/aug[i][i];
+		x[i]:=Simplify(s/aug[i][i]);
 		If(InVerboseMode(),Echo({"set x[",i,"] = ",x[i] }));
 	];
 	x;
-
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
