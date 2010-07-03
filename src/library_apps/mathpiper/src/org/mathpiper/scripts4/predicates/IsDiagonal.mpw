@@ -3,24 +3,30 @@
 IsDiagonal(A_IsMatrix) <--
 [
 	Local(i,j,m,n,result);
-	m:=Length(A);
-	n:=Length(A[1]);
+	m      := Length(A);
+	n      := Length(A[1]);
+	result := (m=n);    //    must be a square matrix
+	
 	i:=2;
-	result:=(m=n);
-	While(i<=m And result)
-	[
-		j:=1;
-		While(j<=n And result)
-		[
- 			result:= (i=j Or A[i][j] = 0);
- 			j++;
-		];
-		i++;
-	];
+    While(i<=m And result)
+     [
+	     j:=1;
+	     While(j<=n And result)
+	     [
+		     result:= (i=j Or A[i][j] = 0);
+		     j++;
+	     ];
+	     i++;
+	 ];
+	If(m=2, [ result := result And (A=Transpose(A)); ]	);
 	result;
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
