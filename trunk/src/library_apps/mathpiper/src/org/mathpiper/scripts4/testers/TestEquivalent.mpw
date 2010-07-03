@@ -1,6 +1,7 @@
 %mathpiper,def="TestEquivalent"
 
 Retract("TestEquivalent",*);
+Retract("TestTwoLists",*);
 
 Macro("TestEquivalent",{left,right})
 [
@@ -14,9 +15,9 @@ Macro("TestEquivalent",{left,right})
       [
           If( IsList(rightEval),
             [
-                // both are lists, so check equality as SETS
-                If(InVerboseMode(),Tell("     both are sets "));
-                isEquiv := EqualAsSets(leftEval,rightEval);
+                // both are lists
+                If(InVerboseMode(),Tell("     both are lists "));
+                isEquiv := TestTwoLists(leftEval,rightEval);
             ],
             isEquiv := False
           );
@@ -26,16 +27,40 @@ Macro("TestEquivalent",{left,right})
             isEquiv := False,
             [
                 // neither is a list, so check equality of diff
-                diff      := Simplify(leftEval - rightEval);
-                vars      := VarList(diff);
-                If(InVerboseMode(),
+                If(InVerboseMode(),Tell("     neither is list "));
+                If(IsEquation(leftEval),
                   [
-                     Tell("    ",{leftEval,rightEval});
-                     Tell("    ",vars);
-                     Tell("    ",diff);
-                  ]
+                      If(IsEquation(rightEval),
+                        [
+                            If(InVerboseMode(),Tell("      both are equations"));
+                            Local(dLHs,dRHS);
+                            dLHS := Simplify(EquationLeft(leftEval) - EquationLeft(rightEval));
+                            dRHS := Simplify(EquationRight(leftEval) - EquationRight(rightEval));
+                            If(InVerboseMode(),Tell("      ",{dLHS,dRHS}));
+                            isEquiv := dLHS=0 And dRHS=0;
+                        ],
+                        isEquiv := False
+                      );
+                  ],
+                  [
+                     If(IsEquation(rightEval),
+                        isEquiv := False,
+                        [
+                            If(InVerboseMode(),Tell("      neither is equation"));
+                            diff := Simplify(leftEval - rightEval);
+                            vars := VarList(diff);
+                            If(InVerboseMode(),
+                              [
+                                 Tell("    ",{leftEval,rightEval});
+                                 Tell("    ",vars);
+                                 Tell("    ",diff);
+                              ]
+                            );
+                            isEquiv   := ( IsZero(diff) Or IsZeroVector(diff) );
+                        ]
+                      );
+                   ]
                 );
-                isEquiv   := ( IsZero(diff) Or IsZeroVector(diff) );
             ]
           );
       ]
@@ -56,6 +81,24 @@ Macro("TestEquivalent",{left,right})
     isEquiv;
 ];
 
+
+10 # TestTwoLists( L1_IsList, L2_IsList ) <--
+[
+    If(InVerboseMode(),[Tell("   TestTwoLists");Tell("     ",L1);Tell("     ",L2);]);
+    If(Length(L1)=1 And Length(L2)=1,
+      [
+          TestEquivalent(L1[1],L2[1]);
+      ],
+      [
+          EqualAsSets(L1,L2);
+      ]
+    );
+];
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
