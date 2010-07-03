@@ -1,10 +1,6 @@
 %mathpiper,def="Solve"
 
-/* def file definitions
-Solve
-OldSolve
-*/
-
+Retract("Solve",*);
 
 /*
  * Strategy for Solve(expr, x):
@@ -30,9 +26,14 @@ OldSolve
 LocalSymbols(res)
 [
   10  # Solve(expr_IsList, var_IsList) <-- SolveSystem(expr, var);
+  12  # Solve(_expr, var_IsList)_(Length(var)=1) <--
+        [ {Solve(expr,var[1])}; ];
   
-  20  # Solve(_expr, _var)_(Not IsAtom(var) Or IsNumber(var) Or IsString(var)) <--
+  20  # Solve(_expr, _var)_(IsNumber(var) Or IsString(var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
+  22  # Solve(_expr, _var)_(Not IsAtom(var) And Not HasExpr(expr,var)) <--
+        [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
+
   30  # Solve(_lhs == _rhs, _var) <-- Solve(lhs - rhs, var);
   40  # Solve(0, _var) <-- {var == var};
   41  # Solve(a_IsConstant, _var) <-- {};
