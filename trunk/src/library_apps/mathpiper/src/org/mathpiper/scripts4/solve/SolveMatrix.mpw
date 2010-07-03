@@ -22,7 +22,7 @@ Function("SolveMatrix",{matrix,vector})
         ];
   ];
   Check(det != 0, "Zero determinant");
-  {(1/det)*inv};
+  (1/det)*inv;
 ];
 
 %/mathpiper
