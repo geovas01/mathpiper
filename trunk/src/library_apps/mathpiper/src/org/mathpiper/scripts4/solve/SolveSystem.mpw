@@ -8,16 +8,115 @@
  *  For the time being, we are just reconnecting the new file to
  *  point to the same old file  Solve'SimpleBackSubstitution .
  *  This will be changed soon.
- *  hso 100630.
+ *    started   hso 100630.
+ *    begin mods    100701
  *-------------------------------------------------------------------*/
 
 Retract("SolveSystem",*);
+Retract("VarsAndDegs",*);
+Retract("MakeCoefMatrix",*);
+Retract("SolveLinearSystem",*);
+Retract("SolveNonlinearSystem",*);
 
+/*
 10 # SolveSystem( eqns_IsList, vars_IsList ) <--
 [
-    If(InVerboseMode(),Tell("SolveSystem",{eqns,vars}));
+    // This is the old, now obsolete method
+    If(InVerboseMode(),Tell("SolveSystem0",{eqns,vars}));
     Solve'SimpleBackSubstitution(eqns,vars);
 ];
+*/
+
+10 # SolveSystem( eqns_IsList, vars_IsList )_(Length(eqns)=1 And Length(vars)=1) <--
+[
+    {Solve(eqns[1],vars[1])};
+];
+
+12 # SolveSystem( eqns_IsList, vars_IsList ) <--
+[
+    // This is the first try at a better algorithm for doing this
+    If(InVerboseMode(),Tell("SolveSystem",{eqns,vars}));
+    
+    Local(eq,expr,exprns,VaD,isLinearSet,ans);
+    // express as set of polynomials, to be equated to zero
+    exprns := {};
+    ForEach(eq,eqns)
+     [
+         expr := If( IsEquation(eq), EquationLeft(eq)-EquationRight(eq), eq );
+         DestructiveAppend(exprns,expr);
+     ];
+    If(InVerboseMode(),Tell(" ",exprns));
+    
+    // are all polynomials linear in given variables?
+    VaD := VarsAndDegs(exprns,vars);
+    If(InVerboseMode(),Tell(" ",VaD));
+    isLinearSet := Maximum(Flatten(VaD,"List"))=1;
+    If(InVerboseMode(),Tell(" ",isLinearSet));
+    
+    If( isLinearSet,
+        ans:=SolveLinearSystem( exprns, vars ),
+        ans:=SolveNonlinearSystem( exprns, vars )
+    );
+    ans := Map("==",{vars,ans});
+    If(InVerboseMode(),Tell("",ans));
+    ans;
+];
+
+
+10 # VarsAndDegs(exs_IsList,vars_IsList) <--
+[
+    Local(ex,v,result);
+    result := {};
+    ForEach(ex,exs)
+     [
+         Local(res);
+         res := {};
+         ForEach(v,vars)
+          [
+              DestructiveAppend(res,Apply("Degree",{ex,v}));
+          ];
+          DestructiveAppend(result,res);
+     ];
+    result;
+];
+
+
+
+10 # SolveLinearSystem( polys_IsList, vars_IsList ) <--
+[
+    If(InVerboseMode(),Tell("   SolveLinearSystem",{polys,vars}));
+    // note  Coef(polys[1],vars[1],1) etc, to create matrix of coefficients
+    Local(lhs,rhs,zeros);
+    lhs := MakeCoefMatrix(polys,vars);
+    If(InVerboseMode(),Tell("       ",lhs));
+    zeros := ZeroVector(Length(vars));
+    rhs := -WithValue(vars,zeros,polys);
+    If(InVerboseMode(),Tell("       ",rhs));
+    
+    MatrixSolve(lhs,rhs);
+];
+
+
+
+10 # MakeCoefMatrix(polys_IsList,vars_IsList) <--
+[
+    If(InVerboseMode(),Tell("      MakeCoefMatrix",{polys,vars}));
+    Local(p,v,result);
+    result := {};
+    ForEach(p,polys)
+     [
+         Local(res);
+         res := {};
+         ForEach(v,vars)
+          [
+              DestructiveAppend(res,Apply("Coef",{p,v,1}));
+          ];
+          DestructiveAppend(result,res);
+     ];
+    result;
+];
+
+
 
 %/mathpiper
 
