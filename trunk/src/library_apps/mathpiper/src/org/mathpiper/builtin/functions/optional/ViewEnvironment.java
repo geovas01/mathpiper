@@ -50,3 +50,36 @@ public class ViewEnvironment extends BuiltinFunction
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
     }
 }
+
+
+
+
+/*
+%mathpiper_docs,name="ViewEnvironment",categories="User Functions;Built In"
+*CMD ViewEnvironment --- show the console window
+*CORE
+*CALL
+    ViewEnvironment()
+
+*DESC
+
+Shows the MathPiper environment.
+
+*E.G.
+The ViewXXX functions all return a reference to the Java JFrame windows which they are displayed in.
+This JFrame instance can be used to hide, show, and dispose of the window.
+
+In> frame := ViewEnvironment()
+Result: javax.swing.JFrame
+
+In> JavaCall(frame, "hide")
+Result: True
+
+In> JavaCall(frame, "show")
+Result: True
+
+In> JavaCall(frame, "dispose")
+Result: True
+
+%/mathpiper_docs
+*/

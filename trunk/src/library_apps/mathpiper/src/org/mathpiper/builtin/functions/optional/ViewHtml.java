@@ -102,7 +102,7 @@ public class ViewHtml extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="ViewHtml",categories="User Functions;Visualization"
+%mathpiper_docs,name="ViewHtml",categories="User Functions;Built In;Visualization"
 *CMD ViewHtml --- display rendered HTML code
 
 *CALL
@@ -114,12 +114,30 @@ public class ViewHtml extends BuiltinFunction {
 *DESC
 Display rendered HTML code.
 
+*E.G.
+/%html
+<html>
+    <title>
+    HTML Demo
+    </title>
+
+    <body>
+        <h1>HTML demo 1.</h1>
+
+
+        <h2>LaTeX math formulas can be placed into the HTML code.</h2>
+        \$x_{j}\$
+
+    </body>
+</html>
+/%/html
+
 
 
 The ViewXXX functions all return a reference to the Java JFrame windows which they are displayed in.
 This JFrame instance can be used to hide, show, and dispose of the window.
 
-In> frame := ViewMath(x^2)
+In> frame := ViewHtml("<html><body>Hello</body></html>")
 Result: javax.swing.JFrame
 
 In> JavaCall(frame, "hide")

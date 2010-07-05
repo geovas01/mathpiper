@@ -65,7 +65,7 @@ public class ViewList extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="ViewList",categories="User Functions;Visualization"
+%mathpiper_docs,name="ViewList",categories="User Functions;Built In;Visualization"
 *CMD ViewList --- display an expression in Lisp box diagram form
 
 *CALL
@@ -79,10 +79,8 @@ Display an expression in Lisp box diagram form.
 
 *E.G.
 In> ViewList(x^2)
-Result> True
 
 In> ViewList(2*x^3+14*x^2+24*x)
-Result> True
 
  
 

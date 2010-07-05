@@ -212,7 +212,24 @@ with a backslash.
  
 *E.G.
 In> ViewLatex("2\\sum_{i=1}^n a_i")
-Result> True
+Result: javax.swing.JFrame
+
+
+
+The ViewXXX functions all return a reference to the Java JFrame windows which they are displayed in.
+This JFrame instance can be used to hide, show, and dispose of the window.
+
+In> frame := ViewLatex("2\\sum_{i=1}^n a_i")
+Result: javax.swing.JFrame
+
+In> JavaCall(frame, "hide")
+Result: True
+
+In> JavaCall(frame, "show")
+Result: True
+
+In> JavaCall(frame, "dispose")
+Result: True
 
 *SEE ViewMath
 %/mathpiper_docs
