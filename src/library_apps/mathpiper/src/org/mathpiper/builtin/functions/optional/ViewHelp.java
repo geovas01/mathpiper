@@ -89,7 +89,7 @@ public class ViewHelp extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="ViewHelp",categories="User Functions;Built In;Visualization"
+%mathpiper_docs,name="ViewHelp",categories="User Functions;Built In"
 *CMD ViewHelp --- display the function help window
 *CORE
 *CALL
@@ -99,6 +99,21 @@ public class ViewHelp extends BuiltinFunction
 
 Displays the function help window.
 
+*E.G.
+The ViewXXX functions all return a reference to the Java JFrame windows which they are displayed in.
+This JFrame instance can be used to hide, show, and dispose of the window.
+
+In> frame := ViewHelp()
+Result: javax.swing.JFrame
+
+In> JavaCall(frame, "hide")
+Result: True
+
+In> JavaCall(frame, "show")
+Result: True
+
+In> JavaCall(frame, "dispose")
+Result: True
 
 %/mathpiper_docs
 */

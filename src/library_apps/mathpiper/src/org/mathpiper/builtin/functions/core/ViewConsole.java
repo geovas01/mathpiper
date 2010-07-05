@@ -73,6 +73,21 @@ public class ViewConsole extends BuiltinFunction
 
 Shows the console window.
 
+*E.G.
+The ViewXXX functions all return a reference to the Java JFrame windows which they are displayed in.
+This JFrame instance can be used to hide, show, and dispose of the window.
+
+In> frame := ViewConsole()
+Result: javax.swing.JFrame
+
+In> JavaCall(frame, "hide")
+Result: True
+
+In> JavaCall(frame, "show")
+Result: True
+
+In> JavaCall(frame, "dispose")
+Result: True
 
 %/mathpiper_docs
 */

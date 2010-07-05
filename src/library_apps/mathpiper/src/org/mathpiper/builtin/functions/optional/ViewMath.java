@@ -218,7 +218,7 @@ public class ViewMath extends BuiltinFunction {
 
 
 /*
-%mathpiper_docs,name="ViewMath",categories="User Functions;Visualization"
+%mathpiper_docs,name="ViewMath",categories="User Functions;Built In;Visualization"
 *CMD ViewMath --- display an expression in traditional form
 
 *CALL
@@ -236,6 +236,7 @@ In> ViewMath(Expand((2*x)*(x+3)*(x+4)));
 In> ViewMath(15*x^2 * Hold(Integrate(x,0,Infinity)Exp(-x^2)));
 
 
+ 
 /%mathpiper
 
 index := 1;
