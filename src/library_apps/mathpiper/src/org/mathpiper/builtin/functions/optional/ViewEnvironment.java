@@ -18,10 +18,12 @@
 
 package org.mathpiper.builtin.functions.optional;
 
+import javax.swing.JFrame;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 
 /**
  *
@@ -40,7 +42,11 @@ public class ViewEnvironment extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          org.mathpiper.ui.gui.EnvironmentViewer viewer = new org.mathpiper.ui.gui.EnvironmentViewer();
-         viewer.getViewerFrame(aEnvironment);
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+
+         JFrame frame = viewer.getViewerFrame(aEnvironment);
+
+        JavaObject response = new JavaObject(frame);
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
     }
 }

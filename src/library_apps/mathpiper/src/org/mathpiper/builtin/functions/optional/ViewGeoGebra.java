@@ -1,15 +1,15 @@
 package org.mathpiper.builtin.functions.optional;
 
 import geogebra.GeoGebraPanel;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 
 public class ViewGeoGebra extends BuiltinFunction {
 
@@ -76,7 +76,9 @@ public class ViewGeoGebra extends BuiltinFunction {
         frame.setVisible(true);
 
 
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        JavaObject response = new JavaObject(frame);
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
     }//end method.
 }//end class.
 

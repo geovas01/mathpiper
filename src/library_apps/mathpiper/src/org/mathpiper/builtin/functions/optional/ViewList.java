@@ -8,8 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.ui.gui.worksheets.ListPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
@@ -22,19 +23,11 @@ public class ViewList extends BuiltinFunction {
                 "ViewList");
     }//end method.
 
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer consPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
-
-        evaluate(aEnvironment, aStackTop, consPointer);
-
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-    }//end method.
-
-
-
-
-    public static void evaluate(Environment aEnvironment, int aStackTop, ConsPointer expressionPointer) throws Exception {
+        ConsPointer expressionPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();
@@ -58,6 +51,10 @@ public class ViewList extends BuiltinFunction {
 
         frame.pack();
         frame.setVisible(true);
+
+        JavaObject response = new JavaObject(frame);
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 
@@ -86,6 +83,23 @@ Result> True
 
 In> ViewList(2*x^3+14*x^2+24*x)
 Result> True
+
+ 
+
+The ViewXXX functions all return a reference to the Java JFrame windows which they are displayed in.
+This JFrame instance can be used to hide, show, and dispose of the window.
+
+In> frame := ViewList(x^2)
+Result: javax.swing.JFrame
+
+In> JavaCall(frame, "hide")
+Result: True
+
+In> JavaCall(frame, "show")
+Result: True
+
+In> JavaCall(frame, "dispose")
+Result: True
 
 *SEE LispForm, ViewMath
 %/mathpiper_docs

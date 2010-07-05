@@ -18,9 +18,15 @@
 
 package org.mathpiper.builtin.functions.core;
 
+import java.awt.Dimension;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import javax.swing.JFrame;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
+import org.mathpiper.ui.gui.consoles.Console;
 
 /**
  *
@@ -31,9 +37,23 @@ public class ViewConsole extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         org.mathpiper.ui.gui.consoles.Console.main(null);
+        Console console = new Console();
 
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        JFrame frame = new javax.swing.JFrame();
+        Container contentPane = frame.getContentPane();
+        contentPane.add(console, BorderLayout.CENTER);
+        //frame.setAlwaysOnTop(true);
+        frame.setSize(new Dimension(800, 600));
+        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
+        //frame.setResizable(false);
+        frame.setPreferredSize(new Dimension(800, 600));
+        frame.setLocationRelativeTo(null); // added
+        frame.pack();
+        frame.setVisible(true);
+
+        JavaObject response = new JavaObject(frame);
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 

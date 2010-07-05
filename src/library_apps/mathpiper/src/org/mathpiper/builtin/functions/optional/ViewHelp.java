@@ -18,10 +18,17 @@
 
 package org.mathpiper.builtin.functions.optional;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.io.FileNotFoundException;
+import javax.swing.JFrame;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.ui.gui.help.FunctionTreePanel;
 
 /**
@@ -40,9 +47,39 @@ public class ViewHelp extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         FunctionTreePanel.main(null);
+        JFrame frame = new javax.swing.JFrame();
 
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        FunctionTreePanel functionTreePanel = null;
+
+        try {
+
+            functionTreePanel = new FunctionTreePanel();
+
+            Container contentPane = frame.getContentPane();
+            contentPane.add(functionTreePanel.getToolPanel(), BorderLayout.NORTH);
+            contentPane.add(functionTreePanel, BorderLayout.CENTER);
+
+            frame.pack();
+
+            frame.setTitle("MathPiper Help");
+            frame.setSize(new Dimension(700, 700));
+            //frame.setResizable(false);
+            frame.setPreferredSize(new Dimension(700, 700));
+            frame.setLocationRelativeTo(null); // added
+
+            frame.setVisible(true);
+
+            JavaObject response = new JavaObject(frame);
+
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+
+        } catch (FileNotFoundException fnfe) {
+            LispError.raiseError("The help application data file was not found.", "ViewHelp", aStackTop, aEnvironment);
+        }
+
+
          
     }//end method.
 

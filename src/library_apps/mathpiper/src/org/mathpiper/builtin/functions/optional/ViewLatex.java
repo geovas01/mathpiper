@@ -40,6 +40,8 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 
+import org.mathpiper.builtin.JavaObject;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
@@ -180,7 +182,9 @@ public class ViewLatex extends BuiltinFunction {
         frame.setVisible(true);
 
 
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        JavaObject response = new JavaObject(frame);
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
 
     }//end method.
