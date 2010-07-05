@@ -103,10 +103,11 @@ public class ViewLatex extends BuiltinFunction {
         BigNumber viewScale = (BigNumber) resultPointer.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
         LispError.checkArgument(aEnvironment, aStackTop, viewScale != null, 1, "ViewLatex");
 
-        sHotEqn hotEqn = new sHotEqn();
+        /*sHotEqn hotEqn = new sHotEqn();
         hotEqn.setFontsizes(18,18,18,18);
         hotEqn.setEquation(latexString);
         JScrollPane hotEqnScrollPane = new JScrollPane(hotEqn,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        */
 
 
         /*
@@ -143,13 +144,7 @@ public class ViewLatex extends BuiltinFunction {
         panel.setDebugGraphicsOptions(DebugGraphics.LOG_OPTION);
          */
 
-
-
         Box box = Box.createVerticalBox();
-
-        box.add(mathPiperScrollPane);
-
-        box.add(hotEqnScrollPane);
 
 
         //JLateXMath
@@ -167,10 +162,9 @@ public class ViewLatex extends BuiltinFunction {
         box.add(jMathTexScrollPane);
 
         
-
         contentPane.add(box);
-
         contentPane.add(mathPanelScaler, BorderLayout.NORTH);
+        box.add(mathPiperScrollPane);
 
         frame.setAlwaysOnTop(false);
         frame.setTitle("MathPiper");
