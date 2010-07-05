@@ -782,7 +782,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                         break;
                     }
                     if (line.equalsIgnoreCase("")) {
-                        html.append("<br />\n");
+                        html.append("\n");
                         continue;
                     }
 
