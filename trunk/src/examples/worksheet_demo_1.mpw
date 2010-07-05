@@ -1,4 +1,4 @@
-/*  v 1.13.
+/*  v 1.14.
     This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -901,6 +901,14 @@ HTML demo.  Execute this code by pressing <shift><enter> inside the fold.
 	</html>
     
 %/html
+
+
+
+
+
+%latex
+\lim_{x \to 0} f(x) = 0
+%/latex
 
 
 
