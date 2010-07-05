@@ -1116,17 +1116,21 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			try 
 			{   
-				tempFilePath = tempFile.getAbsolutePath();
-				tempFilePath = ChangeToForwardSlash(tempFilePath);
-				tempFilePath = "file:///" + tempFilePath;
+				//tempFilePath = tempFile.getAbsolutePath();
+				//tempFilePath = ChangeToForwardSlash(tempFilePath);
+				//tempFilePath = "file:///" + tempFilePath;
+				
+				htmlTextWithLatex = org.mathpiper.ui.gui.help.FunctionTreePanel.processLatex(codeText);
 				frame = new javax.swing.JFrame(); 
 				contentPane = frame.getContentPane();
 				contentPane.setLayout(new java.awt.BorderLayout());
 				JEditorPane editorPane = new JEditorPane();
+				editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
 				JScrollPane editorScrollPane = new JScrollPane(editorPane);
 				editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				editorPane.setEditable(false);
-				editorPane.setPage(tempFilePath);
+				//editorPane.setPage(tempFilePath);
+				editorPane.setText(htmlTextWithLatex);
 				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
 				
 				
@@ -1525,7 +1529,16 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		else if(foldType.equalsIgnoreCase("%latex")) 
 		{
 			
-			result = "Conversion capabilities are being worked on...";
+			synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+			
+			latexText = codeText.replace("\\","\\\\");
+			
+			evaluationResponse = synchronousInterpreter.evaluate("ViewLatex(\"" + latexText + "\");");
+			
+			
+			
+			result = evaluationResponse.getExceptionMessage();
+			
 			output_fold_type = "%output";
 			
 
