@@ -44,6 +44,8 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
 import javax.swing.JLabel;
 
+import org.mathpiper.builtin.JavaObject;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
@@ -201,9 +203,11 @@ public class ViewMath extends BuiltinFunction {
         frame.setVisible(true);
 
 
+        //getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultPointer.getCons()); //This use to print Latex code.
 
+        JavaObject response = new JavaObject(frame);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultPointer.getCons());
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 
@@ -250,6 +254,23 @@ matrix := Partition(expressionsList,3);
 ViewMath(matrix);
 
 /%/mathpiper
+ 
+ 
+ 
+The ViewXXX functions all return a reference to the Java JFrame windows which they are displayed in.
+This JFrame instance can be used to hide, show, and dispose of the window.
+ 
+In> frame := ViewMath(x^2)
+Result: javax.swing.JFrame
+
+In> JavaCall(frame, "hide")
+Result: True
+
+In> JavaCall(frame, "show")
+Result: True
+
+In> JavaCall(frame, "dispose")
+Result: True
 
 *SEE ViewList, ViewLatex
 %/mathpiper_docs

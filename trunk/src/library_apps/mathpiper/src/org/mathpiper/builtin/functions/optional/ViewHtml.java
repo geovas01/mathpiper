@@ -24,10 +24,13 @@ import javax.swing.JScrollPane;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.ui.gui.help.FunctionTreePanel;
 
 /**
  *
@@ -67,6 +70,8 @@ public class ViewHtml extends BuiltinFunction {
             LispError.raiseError("Argument must be a MathPiper string or a Java String object.", "ViewHtml", aStackTop, aEnvironment);
         }//end else.
 
+        htmlText = FunctionTreePanel.processLatex(htmlText);
+
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();
         contentPane.setLayout(new java.awt.BorderLayout());
@@ -86,7 +91,9 @@ public class ViewHtml extends BuiltinFunction {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        JavaObject response = new JavaObject(frame);
+
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 }//end class.
@@ -107,6 +114,22 @@ public class ViewHtml extends BuiltinFunction {
 *DESC
 Display rendered HTML code.
 
+
+
+The ViewXXX functions all return a reference to the Java JFrame windows which they are displayed in.
+This JFrame instance can be used to hide, show, and dispose of the window.
+
+In> frame := ViewMath(x^2)
+Result: javax.swing.JFrame
+
+In> JavaCall(frame, "hide")
+Result: True
+
+In> JavaCall(frame, "show")
+Result: True
+
+In> JavaCall(frame, "dispose")
+Result: True
 
 %/mathpiper_docs
 */
