@@ -169,8 +169,6 @@ public class ViewMath extends BuiltinFunction {
 
         Box box = Box.createVerticalBox();
 
-        box.add(tabbedPane);
-
 
 
         //JLatexMath
@@ -188,6 +186,7 @@ public class ViewMath extends BuiltinFunction {
         box.add(jMathTexScrollPane);
 
 
+        box.add(tabbedPane); //MathPiper's built-in renderer.
         
 
         contentPane.add(box);
