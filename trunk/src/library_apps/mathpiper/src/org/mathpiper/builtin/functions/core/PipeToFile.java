@@ -96,32 +96,30 @@ This is a limitation of {PipeToFile}: one cannot append to a file that has alrea
 
 Here is how one can create a file with C code to evaluate an expression:
 
-	In> PipeToFile("expr1.c") WriteString(
-	  CForm(Sqrt(x-y)*Sin(x)) );
-	Out> True;
+In> PipeToFile("expr1.c") WriteString(CForm(Sqrt(x-y)*Sin(x)) );
+Result> True;
+
 The file {expr1.c} was created in the current working directory and it
-contains the line
-	sqrt(x-y)*sin(x)
+contains the line sqrt(x-y)*sin(x)
+
 
 As another example, take a look at the following command:
 
-	In> [ Echo("Result:");  \
-	  PrettyForm(Taylor(x,0,9) Sin(x)); ];
-	Result:
+In> [ Echo("Result:");  PrettyForm(Taylor(x,0,9) Sin(x)); ];
+Result:
 
 	     3    5      7       9
 	    x    x      x       x
 	x - -- + --- - ---- + ------
 	    6    120   5040   362880
 
-	Out> True;
+Result> True;
 
 Now suppose one wants to send the output of this command to a
 file. This can be achieved as follows:
 
-	In> PipeToFile("out") [ Echo("Result:");  \
-	  PrettyForm(Taylor(x,0,9) Sin(x)); ];
-	Out> True;
+In> PipeToFile("out") [ Echo("Result:");  PrettyForm(Taylor(x,0,9) Sin(x)); ];
+Result> True;
 
 After this command the file {out} contains:
 
