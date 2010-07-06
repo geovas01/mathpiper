@@ -29,22 +29,16 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.ui.gui.hoteqn.sHotEqn;
-import org.mathpiper.ui.gui.worksheets.MathPanel;
-import org.mathpiper.ui.gui.worksheets.MathPanelController;
-import org.mathpiper.ui.gui.worksheets.latexparser.TexParser;
-import org.mathpiper.ui.gui.worksheets.symbolboxes.SymbolBox;
 
-import java.awt.Insets;
 import java.awt.Color;
 
 import javax.swing.JLabel;
 
+import javax.swing.JPanel;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
-import org.scilab.forge.jlatexmath.TeXConstants;
+import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
 import org.scilab.forge.jlatexmath.DefaultTeXFont;
 
 import org.scilab.forge.jlatexmath.cyrillic.CyrillicRegistration;
@@ -110,30 +104,20 @@ public class ViewLatex extends BuiltinFunction {
         */
 
 
-        /*
-        JEditorPane htmlPane = new JEditorPane();
-        htmlPane.setContentType("text/html");
-        htmlPane.setEditable(false); // very important, as the default is true (sorry about that!)
-        try {
-        htmlPane.setPage(ViewLatex.class.getResource("/org/mathpiper/test/test.html"));
-        } catch (Exception e) {
-        e.printStackTrace();
-        }*/
 
-        TexParser parser = new TexParser();
+
+        //MathPiper built-in math viewer.
+        /*TexParser parser = new TexParser();
         SymbolBox sBoxExpression = parser.parse(latexString);
         MathPanel mathPanel = new MathPanel(sBoxExpression, viewScale.toDouble());
-
+        MathPanelController mathPanelScaler = new MathPanelController(mathPanel, viewScale.toDouble());
+        JScrollPane mathPiperScrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+         */
 
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();
         frame.setBackground(Color.WHITE);
         contentPane.setBackground(Color.WHITE);
-
-
-        MathPanelController mathPanelScaler = new MathPanelController(mathPanel, viewScale.toDouble());
-
-        JScrollPane mathPiperScrollPane = new JScrollPane(mathPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         /*
         DebugGraphics.setFlashCount(10);
@@ -151,20 +135,18 @@ public class ViewLatex extends BuiltinFunction {
         DefaultTeXFont.registerAlphabet(new CyrillicRegistration());
 	DefaultTeXFont.registerAlphabet(new GreekRegistration());
 	TeXFormula formula = new TeXFormula(latexString);
-	TeXIcon icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 50);
-	icon.setInsets(new Insets(5, 5, 5, 5));
-        JLabel jLatexMathLabel = new JLabel();
-        jLatexMathLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-        jLatexMathLabel.setAlignmentY(icon.getBaseLine());
-        jLatexMathLabel.setIcon(icon);
-        JScrollPane jMathTexScrollPane = new JScrollPane(jLatexMathLabel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JLabel latexLabel = new JLabel();
+        JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, 100);
+        JScrollPane jMathTexScrollPane = new JScrollPane(latexLabel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         jMathTexScrollPane.getViewport().setBackground(Color.WHITE);
         box.add(jMathTexScrollPane);
 
         
         contentPane.add(box);
-        contentPane.add(mathPanelScaler, BorderLayout.NORTH);
-        box.add(mathPiperScrollPane);
+
+        contentPane.add(latexPanelController, BorderLayout.NORTH);
+
+        //box.add(mathPiperScrollPane);
 
         frame.setAlwaysOnTop(false);
         frame.setTitle("MathPiper");
