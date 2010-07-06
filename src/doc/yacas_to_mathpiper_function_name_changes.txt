@@ -18,6 +18,9 @@ Map and MapSingle should have the list as the first argument to match Find and C
 Outer -> OuterProduct
 InProduct -> InnerProduct
 Dot -> DotProduct
+ExtractSubMatrix -> ExtractSubmatrix
+CoFactor -> Cofactor
+
 ============================= Changes that have already been done.
 
 //Newest changes (1/8/2010). 
