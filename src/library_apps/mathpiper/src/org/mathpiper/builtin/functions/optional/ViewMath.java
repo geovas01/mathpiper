@@ -149,8 +149,6 @@ public class ViewMath extends BuiltinFunction {
 
 
         //JLatexMath
-        DefaultTeXFont.registerAlphabet(new CyrillicRegistration());
-	DefaultTeXFont.registerAlphabet(new GreekRegistration());
 	TeXFormula formula = new TeXFormula(texString);
         JLabel latexLabel = new JLabel();
         JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, 100);
