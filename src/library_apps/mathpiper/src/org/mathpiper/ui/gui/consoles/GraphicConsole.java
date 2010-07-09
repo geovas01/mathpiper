@@ -523,42 +523,49 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
     public void response(EvaluationResponse response) {
-
-
         ResultHolder resultHolder = null;
-        try {
-            Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
 
-            //Evaluate Hold function.
-            Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
-            holdAtomCons.cdr().setCons(response.getResultList().getCons());
-            Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
-            ConsPointer holdInputExpressionPointer = new ConsPointer(holdSubListCons);
+        Object responseObject = response.getObject();
+        if ( responseObject == null) {
+
+            try {
+                Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
+
+                //Evaluate Hold function.
+                Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
+                holdAtomCons.cdr().setCons(response.getResultList().getCons());
+                Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
+                ConsPointer holdInputExpressionPointer = new ConsPointer(holdSubListCons);
 
 
-            //Evaluate TeXForm function.
-            Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
-            texFormAtomCons.cdr().setCons(holdInputExpressionPointer.getCons());
-            Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
-            ConsPointer texFormInputExpressionPointer = new ConsPointer(texFormSubListCons);
-            EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormInputExpressionPointer);
+                //Evaluate TeXForm function.
+                Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
+                texFormAtomCons.cdr().setCons(holdInputExpressionPointer.getCons());
+                Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
+                ConsPointer texFormInputExpressionPointer = new ConsPointer(texFormSubListCons);
+                EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormInputExpressionPointer);
 
-            String latexString = latexResponse.getResult();
+                String latexString = latexResponse.getResult();
 
-            latexString = Utility.stripEndQuotes(latexString);
+                latexString = Utility.stripEndQuotes(latexString);
 
-            latexString = Utility.stripEndDollarSigns(latexString);
+                latexString = Utility.stripEndDollarSigns(latexString);
 
-            
+                resultHolder = new ResultHolder(latexString, response.getResult(), fontSize + 5);
 
-            resultHolder = new ResultHolder(latexString, response.getResult(), fontSize + 5);
-            //jMathTexScrollPane = new JScrollPane(latexLabel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            //jMathTexScrollPane.getViewport().setBackground(Color.WHITE);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+                //Set the % variable to the original result.
+                Environment iEnvironment = syncronousInterpreter.getEnvironment();
+                String percent = (String) iEnvironment.getTokenHash().lookUp("%");
+                iEnvironment.setGlobalVariable(-1, percent, response.getResultList(), true);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            resultHolder = new ResultHolder(response.getResult(), response.getResult(), fontSize + 5);
         }
-
-
 
 
 
