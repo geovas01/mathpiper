@@ -1,0 +1,94 @@
+%mathpiper,def="Assume"
+
+Retract("Assume",*);
+Retract("AddAssumption",*);
+Retract("AddAssumptions",*);
+Retract("AssumptionsAbout",*);
+Retract("UnAssume",*);
+Retract("IsAssumed",*);
+Retract("AssumptionsGet",*);
+
+LocalSymbols(assumptions) [
+
+assumptions := {};
+
+10 # Assume( L_IsList ) <--
+[
+    If(InVerboseMode(),Tell("AssumeLst",L));
+    Local(len,s);
+    len := Length(L);
+    If( len > 0, ForEach(s,L) [ Assume(s); ] );
+    assumptions;
+];
+
+
+
+10 # AddAssumptions( L_IsList, assList_IsList ) <--
+[
+    If(InVerboseMode(),Tell("AddAssumptions",{L,assList}));
+    Local(len,s);
+    len := Length(L);
+    If( len > 0, ForEach(s,L) [ AddAssumption(s,assList); ] );
+];
+
+
+10 # Assume( _x -> _y ) <--
+[ 
+    If(InVerboseMode(),Tell("AssumeItem",{x,y}));
+    Local(key,value);
+    key   := Hold(x); 
+    value := Hold(y);
+    If(InVerboseMode(),Tell("       ",{key,value}));
+    
+    DestructiveAppend(assumptions,{Eval(key),Eval(value)});
+    assumptions;
+];
+
+
+
+10 # AddAssumption( _x -> _y, assList_IsList ) <--
+[ 
+    If(InVerboseMode(),[Tell("AddAssumption",{x,y}); Tell("      ",assList);]);
+    Local(key,value);
+    key   := Hold(x); 
+    value := Hold(y);
+    If(InVerboseMode(),Tell("       ",{key,value}));
+    
+    DestructiveAppend(assList,{Eval(key),Eval(value)});
+];
+
+
+10 # AssumptionsGet() <-- assumptions;
+
+
+10 # AssumptionsAbout(_key) <--
+[
+    Local(props);
+    props := Select(assumptions,Lambda({X},X[1]=key));
+    If( Length(props) > 0, Transpose(props)[2], {} );
+];
+
+
+10 # IsAssumed( _key, _valueExpected ) <-- Contains(AssumptionsAbout(key),valueExpected);
+
+
+10 # UnAssume( _x )_(Contains(AssocIndices(assumptions),x)) <--
+[
+    Local(lst,len,jj);
+    lst := Lambda({X},If(IsList(X),X[1])) /@ assumptions;
+    jj := Find(lst,x);
+    If( jj > 0, DestructiveDelete(assumptions,jj) );
+    lst := Lambda({X},If(IsList(X),X[1])) /@ assumptions;
+    jj := Find(lst,x);
+    If( jj > 0, UnAssume(x), True );
+];
+
+];  //  LocalSymbols
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
