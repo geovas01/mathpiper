@@ -2,6 +2,10 @@ package org.mathpiper.ui.gui.consoles;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -52,8 +56,9 @@ public class ResultHolder extends JPanel {
         texLabel.setIcon(icon);
         texLabel.repaint();
 
-
     }//end method.
+
+
 
 }//end class.
 
