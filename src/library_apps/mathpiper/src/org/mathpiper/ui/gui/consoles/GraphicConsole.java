@@ -76,6 +76,8 @@ import org.scilab.forge.jlatexmath.TeXFormula;
 
 public class GraphicConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
+    ResultHolder resultHolder;
+
     private boolean suppressOutput = false;
     private final Color green = new Color(0, 130, 0);
     private final Color purple = new Color(153, 0, 153);
@@ -92,6 +94,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private JPanel consoleButtons;
     private JPanel rawButtons;
     private boolean deleteFlag = false;
+    private double zoomScale = 2.0;
     private int fontSize = 12;
     private Font bitstreamVera;
     private StringBuilder inputLines;
@@ -245,16 +248,24 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         if (src == haltButton) {
             interpreter.haltEvaluation();
         } else if (src == button2) {
-            this.fontSize -= 2;
+            this.zoomScale -= .5;
 
-            //bitstreamVera = bitstreamVera.deriveFont(fontSize);
-            //typeArea.setFont(bitstreamVera);
-            this.setJTextPaneFont(textPane, fontSize);
+            MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
+            document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
+            document.refresh();
+
+
+            //textPane.firePropertyChange("ZOOM_FACTOR",  ((Double)textPane.getDocument().getProperty("ZOOM_FACTOR")).doubleValue(), zoomScale);
+
+            //this.setJTextPaneFont(textPane, zoomScal);
         } else if (src == button3) {
-            this.fontSize += 2;
-            //bitstreamVera = bitstreamVera.deriveFont(fontSize);
-            //typeArea.setFont(bitstreamVera);
-            this.setJTextPaneFont(textPane, fontSize);
+            this.zoomScale += .5;
+            MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
+            document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
+            document.refresh();
+
+        System.out.println("XXXXXX " + resultHolder.getParent());
+        
         } else if (src == helpButton) {
             JOptionPane.showMessageDialog(this, this.helpMessage);
         } else if (src == clearConsoleButton) {
@@ -523,10 +534,10 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
     public void response(EvaluationResponse response) {
-        ResultHolder resultHolder = null;
+        //ResultHolder resultHolder = null;
 
         Object responseObject = response.getObject();
-        if ( responseObject == null) {
+        if (responseObject == null) {
 
             try {
                 Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
@@ -551,7 +562,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                 latexString = Utility.stripEndDollarSigns(latexString);
 
-                resultHolder = new ResultHolder(latexString, response.getResult(), fontSize + 5);
+                resultHolder = new ResultHolder(latexString, response.getResult(), (int) (zoomScale + 20));
 
 
                 //Set the % variable to the original result.
@@ -564,7 +575,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 e.printStackTrace();
             }
         } else {
-            resultHolder = new ResultHolder(response.getResult(), response.getResult(), fontSize + 5);
+            resultHolder = new ResultHolder(response.getResult(), response.getResult(), (int) (zoomScale + 20));
         }
 
 
@@ -676,16 +687,23 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
                 try {
-                    // Get the text pane's document JTextPane
-                    StyledDocument doc = (StyledDocument) textPane.getDocument();
-                    // The component must first be wrapped in a style
-                    Style style = doc.addStyle("StyleName", null);
-                    StyleConstants.setComponent(style, resultHolderFinal);
-                    // Insert the component at the end of the text
-                    doc.insertString(responseOffset + 8, "ignored text", style);
+                // Get the text pane's document JTextPane
+                StyledDocument doc = (StyledDocument) textPane.getDocument();
+                // The component must first be wrapped in a style
+                Style style = doc.addStyle("StyleName", null);
+                StyleConstants.setComponent(style, resultHolderFinal);
+                // Insert the component at the end of the text
+                int currentCaretPosition = textPane.getCaretPosition();
+
+                doc.insertString(responseOffset + 8, "ignored text", style);
+                //textPane.setCaretPosition(responseOffset + 8);
+                //textPane.insertComponent(resultHolderFinal);
+                //textPane.setCaretPosition(currentCaretPosition);
+                //textPane.insert(Color.red, "hello", responseOffset + 8);
+
 
                 } catch (BadLocationException e) {
-                    e.printStackTrace();
+                e.printStackTrace();
                 }
 
 
@@ -799,7 +817,15 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
     }//end method.
 
-    public class ColorPane extends JTextPane {
+    public class ColorPane extends ScaledTextPane {
+
+        public ColorPane() {
+            super();
+            this.getDocument().putProperty("i18n", Boolean.FALSE);
+            this.getDocument().putProperty("ZOOM_FACTOR", new Double(zoomScale));
+
+        }
+
 
         public void append(Color c, String s) { // better implementation--uses
             // StyleContext
