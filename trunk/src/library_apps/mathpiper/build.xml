@@ -70,6 +70,13 @@
 			</fileset>
 		</copy>
 		
+		<copy todir="${build.classes.dir}/org/scilab">
+			<fileset dir="${src.dir}/org/scilab" >
+				<include name="**/*.xml" />
+				<include name="**/*.ttf" />
+			</fileset>
+		</copy>
+		
 	</target>
 	
       
