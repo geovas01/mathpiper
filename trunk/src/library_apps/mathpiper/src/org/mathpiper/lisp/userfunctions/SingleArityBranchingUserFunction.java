@@ -348,7 +348,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void declareRule(int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public void declareSometimesTrueRule(int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         // New branching rule.
         RuleBranch newRule = new RuleBranch(iEnvironment, aPrecedence, aPredicate, aBody);
         LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -364,7 +364,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void declareRule(int aStackTop, int aPrecedence, ConsPointer aBody) throws Exception {
+    public void declareAlwaysTrueRule(int aStackTop, int aPrecedence, ConsPointer aBody) throws Exception {
         // New branching rule.
         RuleBranch newRule = new TruePredicateRuleBranch(iEnvironment, aPrecedence, aBody);
         LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -391,7 +391,7 @@ public class SingleArityBranchingUserFunction extends Evaluator {
 
     /**
      * Insert any Branch object in the list of rules.
-     * This function does the real work for declareRule() and
+     * This function does the real work for declareAlwaysTrueRule() and
      * declarePattern(): it inserts the rule in <b>iRules</b>, while
      * keeping it sorted. The algorithm is O(log n), where
      * n denotes the number of rules.

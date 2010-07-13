@@ -553,9 +553,9 @@ public class Environment {
         // Declare a new evaluation rule
         if (Utility.isTrue(this, aPredicate, aStackTop)) {
             //        printf("FastPredicate on %s\n",aOperator->String());
-            userFunction.declareRule(aStackTop, aPrecedence, aBody);
+            userFunction.declareAlwaysTrueRule(aStackTop, aPrecedence, aBody);
         } else {
-            userFunction.declareRule(aStackTop, aPrecedence, aPredicate, aBody);
+            userFunction.declareSometimesTrueRule(aStackTop, aPrecedence, aPredicate, aBody);
         }
     }
 
