@@ -243,7 +243,7 @@ Debug> Loading file"org/mathpiper/scripts/testers.rep/code.mpi" for function Tel
         MacroRuleBase(patternoper,MakeVector(arg,arity));
 ]
 );
-    Set(patt,Pattern'Create(patternvars,postpredicate));
+    Set(patt,PatternCreate(patternvars,postpredicate));
     MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright;
     True;
 ]
@@ -251,7 +251,7 @@ Debug> Loading file"org/mathpiper/scripts/testers.rep/code.mpi" for function Tel
                     Arg(Local(patternflat,patternvars,patt,patternoper,arity),{Local(patternflat,patternvars,patt,patternoper,arity),Set(patternflat,Listify(patternleft)),Set(patternvars,Tail(patternflat)),Set(patternoper,String(Head(patternflat))),Set(arity,Length(patternvars)),DefLoadFunction(patternoper),If(Not RuleBaseDefined(patternoper,arity),[
     MacroRuleBase(patternoper,MakeVector(arg,arity));
 ]
-),Set(patt,Pattern'Create(patternvars,postpredicate)),MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,True});
+),Set(patt,PatternCreate(patternvars,postpredicate)),MacroRulePattern(patternoper,arity,patternprecedence,patt)patternright,True});
                     Enter<builtin>{(Local,Local(patternflat,patternvars,patt,patternoper,arity));
                         Arg(patternflat,{patternflat,patternvars,patt,patternoper,arity});
                     Leave}(Local(patternflat,patternvars,patt,patternoper,arity),True);
