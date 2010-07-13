@@ -13,9 +13,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin;
 
 //import org.mathpiper.parametermatchers.PatternContainer;
@@ -25,51 +23,49 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.builtin.ArgumentList;
 import org.mathpiper.lisp.parametermatchers.Pattern;
 
-
 /**
  * Allows a org.mathpiper.parametermatchers.Pattern to be placed into a org.mathpiper.lisp.BuiltinObject.
  * 
  */
-public class PatternContainer extends BuiltinContainer
-{
-	protected org.mathpiper.lisp.parametermatchers.Pattern iPatternMatcher;
-	
-	public PatternContainer(org.mathpiper.lisp.parametermatchers.Pattern aPatternMatcher)
-	{
-		iPatternMatcher = aPatternMatcher;
-	}
+public class PatternContainer extends BuiltinContainer {
 
-    public Pattern getPattern()
-    {
+    protected org.mathpiper.lisp.parametermatchers.Pattern iPatternMatcher;
+
+
+    public PatternContainer(org.mathpiper.lisp.parametermatchers.Pattern aPatternMatcher) {
+        iPatternMatcher = aPatternMatcher;
+    }
+
+
+    public Pattern getPattern() {
         return iPatternMatcher;
     }
 
-	public boolean matches(Environment  aEnvironment, int aStackTop, ConsPointer aArguments) throws Exception
-	{
-		LispError.lispAssert(iPatternMatcher != null, aEnvironment, aStackTop);
-		boolean result;
-		result = iPatternMatcher.matches(aEnvironment, aStackTop, aArguments);
-		return result;
-	}
-	
-	public boolean matches(Environment  aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception
-	{
-		LispError.lispAssert(iPatternMatcher != null, aEnvironment, aStackTop);
-		boolean result;
-		result = iPatternMatcher.matches(aEnvironment, aStackTop, aArguments);
-		return result;
-	}
-	
-	//From BuiltinContainer
-	
-	public String typeName()
-	{
-		return "\"Pattern\"";
-	}
 
-     public Object getObject()
-    {
-        return null;
+    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aArguments) throws Exception {
+        LispError.lispAssert(iPatternMatcher != null, aEnvironment, aStackTop);
+        boolean result;
+        result = iPatternMatcher.matches(aEnvironment, aStackTop, aArguments);
+        return result;
+    }
+
+
+    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
+        LispError.lispAssert(iPatternMatcher != null, aEnvironment, aStackTop);
+        boolean result;
+        result = iPatternMatcher.matches(aEnvironment, aStackTop, aArguments);
+        return result;
+    }
+
+    //From BuiltinContainer
+
+    public String typeName() {
+        return "\"Pattern\"";
+    }
+
+
+    public Object getObject() {
+        return this;
     }
 
 }
