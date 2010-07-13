@@ -1259,7 +1259,7 @@ public class Utility {
                 predicate = Utility.printMathPiperExpression(aStackTop, predicatePointer1, aEnvironment, 0);
             }
 
-            if (predicate.equalsIgnoreCase("\"Pattern\"")) {
+            if (branch instanceof PatternBranch) {
                 predicate = "(Pattern) ";
                 PatternBranch branchPattern = (PatternBranch) branch;
                 Pattern pattern = branchPattern.getPattern();
