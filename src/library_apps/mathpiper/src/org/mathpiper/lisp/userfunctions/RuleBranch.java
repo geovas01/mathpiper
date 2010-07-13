@@ -23,7 +23,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 
 /**
- * A rule with a predicate (the rule matches if the predicate evaluates to True.).
+ * A rule with a predicate (the rule matches if the predicate evaluates to True.)
  */
 class RuleBranch extends Branch
 {
@@ -41,14 +41,6 @@ class RuleBranch extends Branch
         
     }
 
-    public RuleBranch(Environment aEnvironment, int aPrecedence, ConsPointer aBody)
-    {
-        iBody = new ConsPointer();
-        iBody.setCons(aBody.getCons());
-        iPredicate = new ConsPointer();
-        iPrecedence = aPrecedence;
-
-    }
 
     protected RuleBranch(Environment aEnvironment)
     {
