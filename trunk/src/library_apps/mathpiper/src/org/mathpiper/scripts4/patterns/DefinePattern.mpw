@@ -34,7 +34,7 @@ Rule("DefinePattern",4,10,True)
          ]
         );
     
-      Bind(pattern,Pattern'Create(patternVariables,postPredicate));
+      Bind(pattern,PatternCreate(patternVariables,postPredicate));
     
       MacroRulePattern(patternOperator,arity,rulePrecedence, pattern)rightOperand;
     
