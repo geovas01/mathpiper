@@ -30,21 +30,24 @@ import org.mathpiper.lisp.Evaluator;
 /**
  * A function (usually mathematical) which is defined by one or more rules.
  * This is the basic class which implements functions.  Evaluation is done
- * by consulting a set of rewritng rules.  The body of the car rule that
+ * by consulting a set of rewritng rules.  The body of the first rule that
  * matches is evaluated and its result is returned as the function's result.
  */
 public class SingleArityBranchingUserFunction extends Evaluator {
-    /// List of arguments, with corresponding \c iHold property.
-
+    // List of arguments, with corresponding iHold property.
     protected List<FunctionParameter> iParameters = new ArrayList(); //CArrayGrower<FunctionParameter>
-    /// List of rules, sorted on precedence.
+
+    // List of rules, sorted on precedence.
     protected List<Branch> iBranchRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
-    /// List of arguments
+
+    // List of arguments
     ConsPointer iParameterList;
+
 /// Abstract class providing the basic user function API.
 /// Instances of this class are associated to the name of the function
 /// via an associated hash table. When obtained, they can be used to
 /// evaluate the function with some arguments.
+
     boolean iFenced = true;
     boolean showFlag = false;
     protected String functionType = "**** user rulebase";
@@ -430,11 +433,17 @@ public class SingleArityBranchingUserFunction extends Evaluator {
                 iBranchRules.add(mid, newRule);
                 return;
             }
+
+
             mid = (low + high) >> 1;
 
-            if (((Branch) iBranchRules.get(mid)).getPrecedence() > aPrecedence) {
+            Branch branch = (Branch) iBranchRules.get(mid);
+
+            int branchPrecedence = branch.getPrecedence();
+
+            if (branchPrecedence > aPrecedence) {
                 high = mid;
-            } else if (((Branch) iBranchRules.get(mid)).getPrecedence() < aPrecedence) {
+            } else if (branchPrecedence < aPrecedence) {
                 low = (++mid);
             } else {
                 // Insert it
