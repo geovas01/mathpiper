@@ -13,9 +13,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.lisp.parametermatchers;
 
 import org.mathpiper.builtin.BigNumber;
@@ -23,33 +21,34 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.NumberCons;
 
+//Class for matching an expression to a given atom.
+public class AtomPatternParameter extends PatternParameter {
 
-/// Class for matching an expression to a given atom.
-public class Atom extends PatternParameter
-{
-	protected String iString;
-	
-	public Atom(String aString)
-	{
-		iString = aString;
-	}
-	
-	public boolean argumentMatches(Environment  aEnvironment, int aStackTop, 
-	                               ConsPointer  aExpression,
-	                               ConsPointer[]  arguments) throws Exception
-	{
-		// If it is a floating point, don't even bother comparing
-		if (aExpression.getCons() != null)
-			if (aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment) != null)
-				if (! ((BigNumber) ((NumberCons) aExpression.getCons()).getNumber(aEnvironment.getPrecision(), aEnvironment)).isInteger())
-					return false;
+    protected String iString;
 
-		return (iString == aExpression.car());
-	}
 
-    public String getType()
-    {
+    public AtomPatternParameter(String aString) {
+        iString = aString;
+    }
+
+
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
+        
+        // If it is a floating point, don't even bother comparing
+        if (aExpression.getCons() != null) {
+            if (aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
+                if (!((BigNumber) ((NumberCons) aExpression.getCons()).getNumber(aEnvironment.getPrecision(), aEnvironment)).isInteger()) {
+                    return false;
+                }
+            }
+        }
+
+        return (iString == aExpression.car());
+    }
+
+
+    public String getType() {
         return "Atom";
     }
-	
+
 }

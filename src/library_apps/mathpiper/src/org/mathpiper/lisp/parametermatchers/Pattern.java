@@ -46,25 +46,28 @@ import org.mathpiper.builtin.BigNumber;
  *arguments, and return whether there was a match.
  */
 public class Pattern {
-    /// List of parameter matches, one for every parameter.
+    // List of parameter matchers, one for every parameter.
     protected List iParamMatchers = new ArrayList(); //CDeletingArrayGrower<PatternParameter*> iParamMatchers;
 
-    /// List of variables appearing in the pattern.
+    // List of variables appearing in the pattern.
     protected List iVariables = new ArrayList(); //CArrayGrower<String>
 
-    /// List of predicates which need to be true for a match.
+    // List of predicates which need to be true for a match.
     protected List iPredicates = new ArrayList(); //CDeletingArrayGrower<ConsPointer[] >
 
-    /// Constructor.
-    /// \param aEnvironment the underlying Lisp environment
-    /// \param aPattern Lisp expression containing the pattern
-    /// \param aPostPredicate Lisp expression containing the
-    /// postpredicate
-    ///
-    /// The function MakePatternMatcher() is called for every argument
-    /// in \a aPattern, and the resulting pattern matchers are
-    /// collected in #iParamMatchers. Additionally, \a aPostPredicate
-    /// is copied, and the copy is added to #iPredicates.
+
+    /*
+    Constructor.
+    \param aEnvironment the underlying Lisp environment
+    \param aPattern Lisp expression containing the pattern
+    \param aPostPredicate Lisp expression containing the
+    postpredicate
+
+    The function MakePatternMatcher() is called for every argument
+    in aPattern, and the resulting pattern matchers are
+    collected in iParamMatchers. Additionally, aPostPredicate
+    is copied, and the copy is added to iPredicates.
+    */
     public Pattern(Environment aEnvironment, int aStackTop,
             ConsPointer aPattern,
             ConsPointer aPostPredicate) throws Exception {
@@ -83,16 +86,18 @@ public class Pattern {
     }
 
 
-    /// Try to match the pattern against \a aArguments.
-    /// First, every argument in \a aArguments is matched against the
-    /// corresponding PatternParameter in #iParamMatches. If any
-    /// match fails, matches() returns false. Otherwise, a temporary
-    /// LispLocalFrame is constructed, then setPatternVariables() and
-    /// checkPredicates() are called, and then the LispLocalFrame is
-    /// immediately deleted. If checkPredicates() returns false, this
-    /// function also returns false. Otherwise, setPatternVariables()
-    /// is called again, but now in the current LispLocalFrame, and
-    /// this function returns true.
+    /*
+    Try to match the pattern against aArguments.
+    First, every argument in aArguments is matched against the
+    corresponding PatternParameter in iParamMatches. If any
+    match fails, matches() returns false. Otherwise, a temporary
+    LispLocalFrame is constructed, then setPatternVariables() and
+    checkPredicates() are called, and then the LispLocalFrame is
+    immediately deleted. If checkPredicates() returns false, this
+    function also returns false. Otherwise, setPatternVariables()
+    is called again, but now in the current LispLocalFrame, and
+    this function returns true.
+    */
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aArguments) throws Exception {
         int i;
 
@@ -124,12 +129,12 @@ public class Pattern {
         }
 
         {
-            // setCons the local variables.
+            //Set the local variables.
             aEnvironment.pushLocalFrame(false, "Pattern");
             try {
                 setPatternVariables(aEnvironment, argumentsPointer, aStackTop);
 
-                // do the predicates
+                //Do the predicates
                 if (!checkPredicates(aEnvironment, aStackTop)) {
                     return false;
                 }
@@ -146,9 +151,11 @@ public class Pattern {
         return true;
     }
 
-    /// Try to match the pattern against \a aArguments.
-    /// This function does the same as matches(Environment ,ConsPointer ),
-    /// but differs in the type of the arguments.
+    /*
+    Try to match the pattern against aArguments.
+    This function does the same as matches(Environment, ConsPointer),
+    but differs in the type of the arguments.
+    */
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
         int i;
 
@@ -172,7 +179,7 @@ public class Pattern {
         }
 
         {
-            // setCons the local variables.
+            // Set the local variables.
             aEnvironment.pushLocalFrame(false, "Pattern");
             try {
                 setPatternVariables(aEnvironment, arguments, aStackTop);
@@ -188,40 +195,42 @@ public class Pattern {
             }
         }
 
-        // setCons the local variables for sure now
+        // Set the local variables for sure now.
         setPatternVariables(aEnvironment, arguments, aStackTop);
         return true;
     }
 
-    /// Construct a pattern matcher out of a Lisp expression.
-    /// The result of this function depends on the value of \a aPattern:
-    /// - If \a aPattern is a number, the corresponding Number is
-    ///   constructed and returned.
-    /// - If \a aPattern is an atom, the corresponding AtomCons is
-    ///   constructed and returned.
-    /// - If \a aPattern is a list of the form <tt>( _ var )<tt>,
-    ///   where \c var is an atom, lookUp() is called on \c var. Then
-    ///   the correspoding Variable is constructed and returned.
-    /// - If \a aPattern is a list of the form <tt>( _ var expr )<tt>,
-    ///   where \c var is an atom, lookUp() is called on \c var. Then,
-    ///   \a expr is appended to #iPredicates. Finally, the
-    ///   correspoding Variable is constructed and returned.
-    /// - If \a aPattern is a list of another form, this function
-    ///   calls itself on any of the entries in this list. The
-    ///   resulting PatternParameter objects are collected in a
-    ///   SublistCons, which is returned.
-    /// - Otherwise, this function returns #null.
+    /*
+    Construct a pattern matcher out of a Lisp expression.
+    The result of this function depends on the value of aPattern:
+    - If aPattern is a number, the corresponding NumberPatternParameter is
+      constructed and returned.
+    - If aPattern is an atom, the corresponding AtomCons is
+      constructed and returned.
+    - If aPattern is a list of the form ( _ var ),
+      where var is an atom, lookUp() is called on var. Then
+      the correspoding VariablePatternParameter is constructed and returned.
+    - If aPattern is a list of the form ( _ var expr ),
+      where var is an atom, lookUp() is called on var. Then,
+      expr is appended to #iPredicates. Finally, the
+      correspoding VariablePatternParameter is constructed and returned.
+    - If aPattern is a list of another form, this function
+      calls itself on any of the entries in this list. The
+      resulting PatternParameter objects are collected in a
+      SublistCons, which is returned.
+    - Otherwise, this function returns #null.
+    */
     protected PatternParameter makeParamMatcher(Environment aEnvironment, int aStackTop, Cons aPattern) throws Exception {
         if (aPattern == null) {
             return null;
         }
-        //LispError.check(aPattern.type().equals("Number"), LispError.INVALID_ARGUMENT);
+        //LispError.check(aPattern.type().equals("NumberPatternParameter"), LispError.INVALID_ARGUMENT);
         if (aPattern.getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
-            return new Number((BigNumber) aPattern.getNumber(aEnvironment.getPrecision(), aEnvironment));
+            return new NumberPatternParameter((BigNumber) aPattern.getNumber(aEnvironment.getPrecision(), aEnvironment));
         }
         // Deal with atoms
         if (aPattern.car() instanceof String) {
-            return new Atom( (String) aPattern.car());
+            return new AtomPatternParameter( (String) aPattern.car());
         }
 
         // Else it must be a sublist
@@ -264,7 +273,7 @@ public class Pattern {
 
                             iPredicates.add(pred);
                         }
-                        return new Variable(index);
+                        return new VariablePatternParameter(index);
                     }
                 }
             }
@@ -278,17 +287,19 @@ public class Pattern {
                 LispError.lispAssert(matchers[i] != null, aEnvironment, aStackTop);
                 consTraverser.goNext(aStackTop);
             }
-            return new Sublist(matchers, num);
+            return new SublistPatternParameter(matchers, num);
         }
 
         return null;
     }
 
-    /// Look up a variable name in #iVariables
-    /// \returns index in #iVariables array where \a aVariable
-    /// appears.
-    ///
-    /// If \a aVariable is not in #iVariables, it is added.
+    /*
+    Look up a variable name in #iVariables.
+    Returns index in #iVariables array where aVariable
+    appears.
+    
+    If \a aVariable is not in #iVariables, it is added.
+    */
     protected int lookUp(String aVariable) {
         int i;
         for (i = 0; i < iVariables.size(); i++) {

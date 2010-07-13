@@ -13,42 +13,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.lisp.parametermatchers;
 
 import org.mathpiper.builtin.BigNumber;
 
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.LispError;
-
 
 /// Class for matching an expression to a given number.
-public class Number extends PatternParameter
-{
-	protected BigNumber iNumber;
-	
-	public Number(BigNumber aNumber)
-	{
-		iNumber = aNumber;
-	}
-	
-	public boolean argumentMatches(Environment  aEnvironment, int aStackTop, 
-	                               ConsPointer  aExpression,
-	                               ConsPointer[]  arguments) throws Exception
-	{
-//        LispError.check(aExpression.type().equals("Number"), LispError.KLispErrInvalidArg);
-        BigNumber bigNumber = (BigNumber) aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
-		if (bigNumber != null)
-			return iNumber.equals(bigNumber);
-		return false;
-	}
+public class NumberPatternParameter extends PatternParameter {
 
-        public String getType()
-    {
+    protected BigNumber iNumber;
+
+
+    public NumberPatternParameter(BigNumber aNumber) {
+        iNumber = aNumber;
+    }
+
+
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
+
+        BigNumber bigNumber = (BigNumber) aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        
+        if (bigNumber != null) {
+            return iNumber.equals(bigNumber);
+        }
+        
+        return false;
+    }
+
+
+    public String getType() {
         return "Number";
     }
-	
+
 }

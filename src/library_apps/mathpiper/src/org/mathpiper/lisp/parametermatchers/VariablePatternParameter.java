@@ -24,7 +24,7 @@ import org.mathpiper.lisp.Environment;
 
 
 /// Class for matching against a pattern variable.
-public class Variable extends PatternParameter
+public class VariablePatternParameter extends PatternParameter
 {
 	/// Index of variable in MathPiperPatternPredicateBase.iVariables.
 	protected int iVarIndex;
@@ -32,7 +32,7 @@ public class Variable extends PatternParameter
 	/// Not used.
 	protected String iString;
 
-	public Variable(int aVarIndex)
+	public VariablePatternParameter(int aVarIndex)
 	{
 		iVarIndex = aVarIndex;
 	}
