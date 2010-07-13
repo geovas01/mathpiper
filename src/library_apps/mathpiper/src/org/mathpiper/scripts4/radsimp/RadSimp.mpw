@@ -1,10 +1,11 @@
 %mathpiper,def="RadSimp"
 
+Retract("RadSimp",*);
 
 /* Simplification of nested radicals.
 */
 
-RadSimp(_n) <--
+10 # RadSimp(_n)_(Length(VarList(n))<1) <--
 [
   Local(max, result);
   Bind(max, CeilN(N(Eval(n^2))));
@@ -17,6 +18,10 @@ RadSimp(_n) <--
   else
     n;
 ];
+
+
+20 # RadSimp(_n) <-- n;
+
 
 /*Echo({"Try ",test}); */
 
@@ -67,6 +72,10 @@ RadSimpTry(_n,_result,_current,_max)<--
 
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
