@@ -22,17 +22,17 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
 
-/// Abstract class for matching one argument to a pattern.
+//Abstract class for matching one argument to a pattern.
 public abstract class PatternParameter
 {
-	/// Check whether some expression matches to the pattern.
-	/// \param aEnvironment the underlying Lisp environment.
-	/// \param aExpression the expression to test.
-	/// \param arguments (input/output) actual values of the pattern
-	/// variables for \a aExpression.
-	public abstract boolean argumentMatches(Environment  aEnvironment, int aStackTop, 
-	                                        ConsPointer  aExpression,
-	                                        ConsPointer[]  arguments) throws Exception;
+    /*
+    Check whether some expression matches to the pattern.
+    \param aEnvironment the underlying Lisp environment.
+    \param aExpression the expression to test.
+    \param arguments (input/output) actual values of the pattern
+    variables for aExpression.
+    */
+    public abstract boolean argumentMatches(Environment  aEnvironment, int aStackTop, ConsPointer  aExpression, ConsPointer[]  arguments) throws Exception;
 
     public abstract String getType();
 }

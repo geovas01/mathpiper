@@ -89,7 +89,7 @@ public class MathPiperPrinter extends LispPrinter {
 
         if (aExpression.car() instanceof BuiltinContainer) {
             //TODO display genericclass
-            WriteToken(aOutput, ((BuiltinContainer) aExpression.car()).typeName());
+            WriteToken(aOutput, ((BuiltinContainer) aExpression.car()).getObject().getClass().toString());
             return;
         }
 
