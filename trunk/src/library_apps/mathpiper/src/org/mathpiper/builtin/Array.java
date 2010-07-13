@@ -55,7 +55,7 @@ public class Array extends BuiltinContainer
 
     public Object getObject()
     {
-        return null;
+        return this;
     }
 
 }

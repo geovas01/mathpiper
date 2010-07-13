@@ -34,6 +34,7 @@ import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.io.CachedStandardFileInputStream;
 import java.io.*;
 import java.util.ArrayList;
+import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Evaluator;
@@ -343,9 +344,9 @@ class SynchronousInterpreter implements Interpreter {
 
                 Object object = resultPointer.car();
 
-                if (object instanceof JavaObject) {
-                    JavaObject javaObject = (JavaObject) object;
-                    evaluationResponse.setObject(javaObject.getObject());
+                if (object instanceof BuiltinContainer) {
+                    BuiltinContainer builtinContainer = (BuiltinContainer) object;
+                    evaluationResponse.setObject(builtinContainer.getObject());
                 } else {
                     evaluationResponse.setObject(object);
                 }
