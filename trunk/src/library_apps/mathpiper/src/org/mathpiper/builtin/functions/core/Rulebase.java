@@ -35,7 +35,7 @@ public class Rulebase extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Rulebase",categories="User Functions;Built In"
+%mathpiper_docs,name="Rulebase",categories="Programmer Functions;Programming;Built In"
 *CMD Rulebase --- define function with a fixed number of arguments
 *CORE
 *CALL

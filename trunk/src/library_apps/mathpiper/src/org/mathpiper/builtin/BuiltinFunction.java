@@ -128,7 +128,7 @@ import org.mathpiper.builtin.functions.core.FunctionToList;
 import org.mathpiper.builtin.functions.core.LoadScript;
 import org.mathpiper.builtin.functions.core.Local;
 import org.mathpiper.builtin.functions.core.LocalSymbols;
-import org.mathpiper.builtin.functions.core.MacroNewRulePattern;
+import org.mathpiper.builtin.functions.core.MacroRulePattern;
 import org.mathpiper.builtin.functions.core.MacroRule;
 import org.mathpiper.builtin.functions.core.MacroRulebase;
 import org.mathpiper.builtin.functions.core.MacroRulebaseListed;
@@ -144,7 +144,7 @@ import org.mathpiper.builtin.functions.core.MetaSet;
 import org.mathpiper.builtin.functions.core.MetaValues;
 import org.mathpiper.builtin.functions.core.Modulo;
 import org.mathpiper.builtin.functions.core.Multiply;
-import org.mathpiper.builtin.functions.core.NewRulePattern;
+import org.mathpiper.builtin.functions.core.RulePattern;
 import org.mathpiper.builtin.functions.core.Not;
 import org.mathpiper.builtin.functions.core.Nth;
 import org.mathpiper.builtin.functions.core.LeftPrecedenceGet;
@@ -772,10 +772,10 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new RulebaseArgumentsList(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "RulebaseArgumentsList");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new NewRulePattern(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+		        new BuiltinFunctionEvaluator(new RulePattern(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "RulePattern");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new MacroNewRulePattern(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+		        new BuiltinFunctionEvaluator(new MacroRulePattern(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "MacroRulePattern");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new Subst(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),

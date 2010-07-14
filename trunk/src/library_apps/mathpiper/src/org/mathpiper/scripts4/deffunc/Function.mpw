@@ -66,7 +66,7 @@ HoldArgument("Function",body);
 
 
 
-%mathpiper_docs,name="Function",categories="User Functions;Control Flow"
+%mathpiper_docs,name="Function",categories="Programmer Functions;Programming;Built In"
 *CMD Function --- declare or define a function
 *STD
 *CALL

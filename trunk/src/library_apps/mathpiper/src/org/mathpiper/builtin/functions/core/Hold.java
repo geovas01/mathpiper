@@ -34,7 +34,7 @@ public class Hold extends BuiltinFunction
 }
 
 /*
-%mathpiper_docs,name="Hold",categories="User Functions;Control Flow;Built In"
+%mathpiper_docs,name="Hold",categories="Programmer Functions;Programming;Built In"
 *CMD Hold --- keep expression unevaluated
 *CORE
 *CALL
@@ -50,13 +50,15 @@ The expression "expr" is returned unevaluated. This is useful to
 prevent the evaluation of a certain expression in a context in which
 evaluation normally takes place.
 
-The function {ListToFunction()} also leaves its result unevaluated. Both functions stop the process of evaluation (no more rules will be applied).
+The function {ListToFunction()} also leaves its result unevaluated.
+ Both functions stop the process of evaluation (no more rules will be applied).
 
-*E.G. notest
+*E.G.
 
-	In> Echo({ Hold(1+1), "=", 1+1 });
-	 1+1 = 2
-	Out> True;
+In> Echo({ Hold(1+1), "=", 1+1 });
+Result: True
+Side Effects:
+{1+1,"=",2} 
 
 *SEE Eval, HoldArgument, ListToFunction
 %/mathpiper_docs

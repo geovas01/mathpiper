@@ -20,7 +20,7 @@
    Alternative:
    f(x):=
    [
-     UnHoldable(x);
+     Unholdable(x);
      Sin(x);
    ];
 

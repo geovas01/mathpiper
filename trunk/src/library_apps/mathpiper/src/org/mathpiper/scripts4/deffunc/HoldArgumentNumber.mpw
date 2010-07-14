@@ -12,7 +12,7 @@ Function("HoldArgumentNumber",{function,arity,index})
 
 
 
-%mathpiper_docs,name="HoldArgumentNumber"
+%mathpiper_docs,name="HoldArgumentNumber",categories="Programmer Functions;Programming;Built In"
 *CMD HoldArgumentNumber --- specify argument as not evaluated
 *STD
 *CALL

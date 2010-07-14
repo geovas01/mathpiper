@@ -51,3 +51,24 @@ public class RulebaseDefined extends BuiltinFunction
         Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), userFunc != null);
     }
 }
+
+
+
+
+
+/*
+%mathpiper_docs,name="RulebaseDefined",categories="Programmer Functions;Programming;Built In"
+*CMD RulebaseDefined --- predicate function which indicates whether or not a rulebase is defined.
+*CORE
+*CALL
+    RulebaseDefined(name)
+
+*PARMS
+
+{name} -- string, name of rulebase
+
+*DESC
+This is a predicate function which indicates whether or not a rulebase is defined.
+
+%/mathpiper_docs
+*/

@@ -36,7 +36,7 @@ public class RulebaseListed extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulebaseListed",categories="User Functions;Built In"
+%mathpiper_docs,name="RulebaseListed",categories="Programmer Functions;Programming;Built In"
 *CMD RulebaseListed --- define function with variable number of arguments
 *CORE
 *CALL
