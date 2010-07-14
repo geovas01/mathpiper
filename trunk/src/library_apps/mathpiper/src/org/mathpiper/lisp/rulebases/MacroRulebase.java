@@ -30,9 +30,9 @@ import org.mathpiper.lisp.LispExpressionEvaluator;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
-public class MacroUserFunction extends SingleArityBranchingUserFunction {
+public class MacroRulebase extends SingleArityBranchingRulebase {
 
-    public MacroUserFunction(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public MacroRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
         ConsTraverser parameterTraverser = new ConsTraverser(aEnvironment, aParameters);
         int i = 0;
@@ -50,7 +50,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
             }//end catch.
 
 
-            ((FunctionParameter) iParameters.get(i)).iHold = true;
+            ((RuleParameter) iParameters.get(i)).iHold = true;
             parameterTraverser.goNext(aStackTop);
             i++;
         }
@@ -76,7 +76,7 @@ public class MacroUserFunction extends SingleArityBranchingUserFunction {
         try {
             // define the local variables.
             for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
-                String variable = ((FunctionParameter) iParameters.get(parameterIndex)).iParameter;
+                String variable = ((RuleParameter) iParameters.get(parameterIndex)).iParameter;
 
                 // setCons the variable to the new value
                 aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);

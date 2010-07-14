@@ -25,10 +25,10 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
-public class ListedMacroUserFunction extends MacroUserFunction
+public class ListedMacroRulebase extends MacroRulebase
 {
 
-	public ListedMacroUserFunction(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
+	public ListedMacroRulebase(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
 	{
 		super(aEnvironment, aStackTop, aParameters, functionName);
 	}

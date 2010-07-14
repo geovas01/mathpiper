@@ -25,9 +25,9 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
-public class ListedBranchingUserFunction extends SingleArityBranchingUserFunction
+public class ListedBranchingRulebase extends SingleArityBranchingRulebase
 {
-	public ListedBranchingUserFunction(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
+	public ListedBranchingRulebase(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
 	{
 		super(aEnvironment, aStackTop, aParameters, functionName);
 	}

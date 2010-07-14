@@ -44,8 +44,8 @@ import javax.swing.table.AbstractTableModel;
 import org.mathpiper.lisp.GlobalVariable;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.rulebases.Branch;
-import org.mathpiper.lisp.rulebases.MultipleArityUserFunction;
-import org.mathpiper.lisp.rulebases.SingleArityBranchingUserFunction;
+import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
+import org.mathpiper.lisp.rulebases.SingleArityBranchingRulebase;
 import org.mathpiper.ui.gui.MultiSplitLayout.Divider;
 import org.mathpiper.ui.gui.MultiSplitLayout.Leaf;
 import org.mathpiper.ui.gui.MultiSplitLayout.Split;
@@ -481,7 +481,7 @@ public class EnvironmentViewer implements ActionListener {
 
             String name = (String) table.getValueAt(row, 0);
 
-            MultipleArityUserFunction multipleArityUserfunction = (MultipleArityUserFunction) table.getModel().getValueAt(row, 1);
+            MultipleArityRulebase multipleArityUserfunction = (MultipleArityRulebase) table.getModel().getValueAt(row, 1);
 
             String defFileLocation = multipleArityUserfunction.iFileLocation;
             String location = "Not specified in a .def file.";
@@ -499,7 +499,7 @@ public class EnvironmentViewer implements ActionListener {
             Iterator multipleArityUserFunctionIterator = multipleArityUserfunction.getFunctions();
 
             while (multipleArityUserFunctionIterator.hasNext()) {
-                SingleArityBranchingUserFunction userFunction = (SingleArityBranchingUserFunction) multipleArityUserFunctionIterator.next();
+                SingleArityBranchingRulebase userFunction = (SingleArityBranchingRulebase) multipleArityUserFunctionIterator.next();
                 Iterator rulesIterator = userFunction.getRules();
 
                 while (rulesIterator.hasNext()) {

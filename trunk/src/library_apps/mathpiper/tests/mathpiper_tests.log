@@ -3,9 +3,9 @@ Turning stack tracing on: Result: True
 Side Effects:
 Stack tracing is on.
 
-***** Tue Jul 13 16:39:40 EDT 2010 *****
+***** Tue Jul 13 21:01:35 EDT 2010 *****
 ***** Using a new interpreter instance for each test file. *****
-***** MathPiper version: .80g *****
+***** MathPiper version: .80h *****
 
 ===========================
 arithmetic.mpt: 

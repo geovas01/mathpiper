@@ -20,12 +20,12 @@ package org.mathpiper.lisp.rulebases;
 /**
  * Contains the name of a parameter and if it is put on hold.
  */
-public class FunctionParameter
+public class RuleParameter
 {
         String iParameter;
         boolean iHold;
 
-    public FunctionParameter(String aParameter, boolean aHold /*=false*/)
+    public RuleParameter(String aParameter, boolean aHold /*=false*/)
     {
         iParameter = aParameter;
         iHold = aHold;

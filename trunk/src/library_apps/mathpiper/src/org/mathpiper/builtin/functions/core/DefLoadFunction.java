@@ -24,7 +24,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.rulebases.MultipleArityUserFunction;
+import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 
 /**
  *
@@ -41,7 +41,7 @@ public class DefLoadFunction extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "DefLoadFunction");
         String oper = Utility.unstringify(aEnvironment, aStackTop, orig);
 
-        MultipleArityUserFunction multiUserFunction =
+        MultipleArityRulebase multiUserFunction =
                 aEnvironment.getMultipleArityUserFunction(aStackTop, (String)aEnvironment.getTokenHash().lookUp(oper), true);
         if (multiUserFunction != null)
         {
