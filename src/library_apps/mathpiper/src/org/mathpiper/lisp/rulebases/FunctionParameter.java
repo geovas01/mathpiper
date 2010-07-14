@@ -15,26 +15,30 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp.userfunctions;
-
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.Environment;
+package org.mathpiper.lisp.rulebases;
 
 /**
- * A rule that always matches.
+ * Contains the name of a parameter and if it is put on hold.
  */
-class TruePredicateRuleBranch extends RuleBranch
+public class FunctionParameter
 {
+        String iParameter;
+        boolean iHold;
 
-    public TruePredicateRuleBranch(Environment aEnvironment, int aPrecedence, ConsPointer aBody)
+    public FunctionParameter(String aParameter, boolean aHold /*=false*/)
     {
-        super(aEnvironment);
-        iPrecedence = aPrecedence;
-        iBody.setCons(aBody.getCons());
+        iParameter = aParameter;
+        iHold = aHold;
     }
-    /// Return #true, always.
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception
+
+    public String getParameter()
     {
-        return true;
+        return iParameter;
     }
+
+    public boolean isHold()
+    {
+        return iHold;
+    }
+
 }

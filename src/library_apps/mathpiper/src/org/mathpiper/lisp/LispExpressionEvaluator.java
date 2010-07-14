@@ -19,9 +19,9 @@ package org.mathpiper.lisp;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
-import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
+import org.mathpiper.lisp.rulebases.MultipleArityUserFunction;
 
-import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
+import org.mathpiper.lisp.rulebases.SingleArityBranchingUserFunction;
 
 /**
  *  The basic evaluator for Lisp expressions.

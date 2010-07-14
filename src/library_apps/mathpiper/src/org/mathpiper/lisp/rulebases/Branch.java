@@ -15,7 +15,7 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp.userfunctions;
+package org.mathpiper.lisp.rulebases;
 
 import java.util.Iterator;
 import org.mathpiper.lisp.cons.ConsPointer;

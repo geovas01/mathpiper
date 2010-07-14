@@ -35,7 +35,7 @@ import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.io.InputDirectories;
 import org.mathpiper.lisp.behaviours.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
-import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
+import org.mathpiper.lisp.rulebases.MultipleArityUserFunction;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.JarFileInputStream;
@@ -50,11 +50,11 @@ import org.mathpiper.lisp.parametermatchers.Pattern;
 import org.mathpiper.lisp.parametermatchers.PatternParameter;
 import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.lisp.printers.LispPrinter;
-import org.mathpiper.lisp.userfunctions.Branch;
-import org.mathpiper.lisp.userfunctions.FunctionParameter;
-import org.mathpiper.lisp.userfunctions.MacroUserFunction;
-import org.mathpiper.lisp.userfunctions.PatternBranch;
-import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
+import org.mathpiper.lisp.rulebases.Branch;
+import org.mathpiper.lisp.rulebases.FunctionParameter;
+import org.mathpiper.lisp.rulebases.MacroUserFunction;
+import org.mathpiper.lisp.rulebases.PatternBranch;
+import org.mathpiper.lisp.rulebases.SingleArityBranchingUserFunction;
 
 public class Utility {
 
