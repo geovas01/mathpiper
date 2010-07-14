@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class MacroNewRulePattern extends BuiltinFunction
+public class MacroRulePattern extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -33,3 +33,29 @@ public class MacroNewRulePattern extends BuiltinFunction
         org.mathpiper.lisp.Utility.newRulePattern(aEnvironment, aStackTop, true);
     }
 }
+
+
+
+
+/*
+%mathpiper_docs,name="MacroRulePattern",categories="Programmer Functions;Programming;Built In"
+*CMD MacroRulePattern --- defines a rule which uses a pattern as its predicate
+
+*CALL
+	MacroRulePattern("operator", arity, precedence, pattern) body
+*PARMS
+
+{"operator"} -- string, name of function
+
+{arity}, {precedence} -- integers
+
+{pattern} -- a pattern object
+
+{body} -- expression, body of rule
+
+*DESC
+This function defines a rule which uses a pattern as its predicate.
+
+*SEE RulePattern
+%/mathpiper_docs
+*/

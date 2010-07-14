@@ -95,7 +95,7 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(IsEqual(aLeftAssign[0], ToAtom(":
 	  MacroRulebase(oper, args);
 	]
   );
-  UnHoldable(aRightAssign);
+  Unholdable(aRightAssign);
   MacroRule(oper,arity,1025,True) aRightAssign;
 ];
 
@@ -279,5 +279,5 @@ x^11/39916800+x^13/6227020800-x^15
 -x^23/25852016738884976640000+x^25/
 15511210043330985984000000;
 
-*SEE Set, Unbind, [], Rule, Infix, Eval, Function
+*SEE <--, Bind, Unbind, [], Rule, Infix, Eval, Function
 %/mathpiper_docs

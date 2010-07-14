@@ -36,7 +36,7 @@ public class Rule extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Rule",categories="User Functions;Built In"
+%mathpiper_docs,name="Rule",categories="User Functions;Functions & Macros;Built In"
 *CMD Rule --- define a rewrite rule
 *CORE
 *CALL
