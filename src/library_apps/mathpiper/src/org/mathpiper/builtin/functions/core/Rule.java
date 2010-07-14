@@ -40,8 +40,7 @@ public class Rule extends BuiltinFunction
 *CMD Rule --- define a rewrite rule
 *CORE
 *CALL
-	Rule("operator", arity,
-	  precedence, predicate) body
+	Rule("operator", arity, precedence, predicate) body
 *PARMS
 
 {"operator"} -- string, name of function
@@ -59,7 +58,7 @@ Define a rule for the function "operator" with
 "body". The "precedence" goes from low to high: rules with low precedence will be applied first.
 
 The arity for a rules database equals the number of arguments. Different
-rules data bases can be built for functions with the same name but with
+rules databases can be built for functions with the same name but with
 a different number of arguments.
 
 Rules with a low precedence value will be tried before rules with a high value, so

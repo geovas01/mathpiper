@@ -78,7 +78,7 @@ public class MacroRulebase extends SingleArityBranchingRulebase {
             for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
                 String variable = ((RuleParameter) iParameters.get(parameterIndex)).iParameter;
 
-                // setCons the variable to the new value
+                // set the variable to the new value
                 aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);
             }
 

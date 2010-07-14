@@ -155,124 +155,129 @@ table), and the key "i" is paired with the value "exp". In both
 cases, the right-hand side is evaluated before the assignment and the
 result of the assignment is {True}.
 
-The last form defines a function. For example, the assignment {fn(x) := x^2} removes any rules previously associated with {fn(x)} and defines the rule {fn(_x) <-- x^2}. Note that the left-hand side may take a different form if
+The last form defines a function. For example, the assignment {fn(x) := x^2}
+removes any rules previously associated with {fn(x)} and defines the rule
+{fn(_x) <-- x^2}. Note that the left-hand side may take a different form if
 {fn} is defined to be a prefix, infix or bodied function. This case
 is special since the right-hand side is not evaluated
 immediately, but only when the function {fn} is used. If this takes
-time, it may be better to force an immediate evaluation with {Eval} (see the last example). If the expression on the right hand side begins with {Eval()}, then it <i>will</i> be evaluated before defining the new function.
+time, it may be better to force an immediate evaluation with {Eval}
+(see the last example). If the expression on the right hand side begins
+with {Eval()}, then it <i>will</i> be evaluated before defining the new function.
 
-A variant of the function definition can be used to make a function accepting a variable number of arguments. The last argument
+A variant of the function definition can be used to make a function
+accepting a variable number of arguments.
 
 *E.G.
 
 A simple assignment:
 
-	In> a := Sin(x) + 3;
-	Out> Sin(x)+3;
-	In> a;
-	Out> Sin(x)+3;
+In> a := Sin(x) + 3;
+Result: Sin(x)+3;
+In> a;
+Result: Sin(x)+3;
 
 Multiple assignments:
 
-	In> {a,b,c} := {1,2,3};
-	Out> {1,2,3};
-	In> a;
-	Out> 1;
-	In> b+c;
-	Out> 5;
+In> {a,b,c} := {1,2,3};
+Result: {1,2,3};
+In> a;
+Result: 1;
+In> b+c;
+Result: 5;
 
 Assignment to a list:
 
-	In> xs := { 1,2,3,4,5 };
-	Out> {1,2,3,4,5};
-	In> xs[3] := 15;
-	Out> True;
-	In> xs;
-	Out> {1,2,15,4,5};
+In> xs := { 1,2,3,4,5 };
+Result: {1,2,3,4,5};
+In> xs[3] := 15;
+Result: True;
+In> xs;
+Result: {1,2,15,4,5};
 
 Building an associative list:
 
-	In> alist := {};
-	Out> {};
-	In> alist["cherry"] := "red";
-	Out> True;
-	In> alist["banana"] := "yellow";
-	Out> True;
-	In> alist["cherry"];
-	Out> "red";
-	In> alist;
-	Out> {{"banana","yellow"},{"cherry","red"}};
+In> alist := {};
+Result: {};
+In> alist["cherry"] := "red";
+Result: True;
+In> alist["banana"] := "yellow";
+Result: True;
+In> alist["cherry"];
+Result: "red";
+In> alist;
+Result: {{"banana","yellow"},{"cherry","red"}};
 
 Defining a function:
 
-	In> f(x) := x^2;
-	Out> True;
-	In> f(3);
-	Out> 9;
-	In> f(Sin(a));
-	Out> Sin(a)^2;
+In> f(x) := x^2;
+Result: True;
+In> f(3);
+Result: 9;
+In> f(Sin(a));
+Result: Sin(a)^2;
 
 Defining a function with variable number of arguments:
 
-	In> f(x, ...) := If(IsList(x),Sum(x),x);
-	Out> True;
-	In> f(2);
-	Out> 2;
-	In> f(1,2,3);
-	Out> 6;
+In> f(x, ...) := If(IsList(x),Sum(x),x);
+Result: True;
+In> f(2);
+Result: 2;
+In> f(1,2,3);
+Result: 6;
 
 Defining a new infix operator:
 
-	In> Infix("*&*",10);
-	Out> True;
-	In> x1 *&* x2 := x1/x2 + x2/x1;
-	Out> True;
-	In> Sin(a) *&* Cos(a);
-	Out> Tan(1)+Cos(1)/Sin(1);
-	In> Unbind(a);
-	Out> True;
-	In> Sin(a) *&* Exp(a);
-	Out> Sin(a)/Exp(a)+Exp(a)/Sin(a);
+In> Infix("*&*",10);
+Result: True;
+In> x1 *&* x2 := x1/x2 + x2/x1;
+Result: True;
+In> Sin(a) *&* Cos(a);
+Result: Tan(1)+Cos(1)/Sin(1);
+In> Unbind(a);
+Result: True;
+In> Sin(a) *&* Exp(a);
+Result: Sin(a)/Exp(a)+Exp(a)/Sin(a);
 
 In the following example, it may take some time to compute the Taylor
 expansion. This has to be done every time the function {f} is called.
 
-	In> f(a) := Taylor(x,0,25) Sin(x);
-	Out> True;
-	In> f(1);
-	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-
-	x^11/39916800+x^13/6227020800-x^15/
-	1307674368000+x^17/355687428096000-x^19/
-	121645100408832000+x^21/51090942171709440000
-	-x^23/25852016738884976640000+x^25
-	/15511210043330985984000000;
-	In> f(2);
-	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-
-	x^11/39916800+x^13/6227020800-x^15
-	/1307674368000+x^17/355687428096000-x^19/
-	121645100408832000+x^21/51090942171709440000
-	-x^23/25852016738884976640000+x^25/
-	15511210043330985984000000;
+In> f(a) := Taylor(x,0,25) Sin(x);
+Result: True;
+In> f(1);
+Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880-
+x^11/39916800+x^13/6227020800-x^15/
+1307674368000+x^17/355687428096000-x^19/
+121645100408832000+x^21/51090942171709440000
+-x^23/25852016738884976640000+x^25
+/15511210043330985984000000;
+In> f(2);
+Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880-
+x^11/39916800+x^13/6227020800-x^15
+/1307674368000+x^17/355687428096000-x^19/
+121645100408832000+x^21/51090942171709440000
+-x^23/25852016738884976640000+x^25/
+15511210043330985984000000;
 
 The remedy is to evaluate the Taylor expansion immediately. Now the
 expansion is computed only once.
 
-	In> f(a) := Eval(Taylor(x,0,25) Sin(x));
-	Out> True;
-	In> f(1);
-	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-
-	x^11/39916800+x^13/6227020800-x^15/
-	1307674368000+x^17/355687428096000-x^19/
-	121645100408832000+x^21/51090942171709440000
-	-x^23/25852016738884976640000+x^25
-	/15511210043330985984000000;
-	In> f(2);
-	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-
-	x^11/39916800+x^13/6227020800-x^15
-	/1307674368000+x^17/355687428096000-x^19/
-	121645100408832000+x^21/51090942171709440000
-	-x^23/25852016738884976640000+x^25/
-	15511210043330985984000000;
+In> f(a) := Eval(Taylor(x,0,25) Sin(x));
+Result: True;
+In> f(1);
+Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880-
+x^11/39916800+x^13/6227020800-x^15/
+1307674368000+x^17/355687428096000-x^19/
+121645100408832000+x^21/51090942171709440000
+-x^23/25852016738884976640000+x^25
+/15511210043330985984000000;
+In> f(2);
+Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880-
+x^11/39916800+x^13/6227020800-x^15
+/1307674368000+x^17/355687428096000-x^19/
+121645100408832000+x^21/51090942171709440000
+-x^23/25852016738884976640000+x^25/
+15511210043330985984000000;
 
 *SEE Set, Unbind, [], Rule, Infix, Eval, Function
 %/mathpiper_docs

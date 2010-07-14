@@ -115,7 +115,8 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
         ConsPointer argumentResultPointer = new ConsPointer();
 
-        // Walk over all arguments, evaluating them as necessary *****************************************************
+        // Walk over all arguments, evaluating them only if this is a function. *****************************************************
+
         if ((iFlags & Macro) != 0) {//This is a macro, not a function.
 
             for (i = 0; i < numberOfArguments; i++) {
