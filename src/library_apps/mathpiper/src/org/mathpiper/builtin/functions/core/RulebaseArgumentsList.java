@@ -24,7 +24,7 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.SublistCons;
-import org.mathpiper.lisp.rulebases.SingleArityBranchingUserFunction;
+import org.mathpiper.lisp.rulebases.SingleArityBranchingRulebase;
 
 /**
  *
@@ -48,7 +48,7 @@ public class RulebaseArgumentsList extends BuiltinFunction
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
-        SingleArityBranchingUserFunction userFunc = aEnvironment.getUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), arity, aStackTop);
+        SingleArityBranchingRulebase userFunc = aEnvironment.getRulebase((String)aEnvironment.getTokenHash().lookUp(oper), arity, aStackTop);
         
         LispError.check(userFunc != null, "User function for this arity is not defined.", "RulebaseArgumentsList", aStackTop, aEnvironment);
 

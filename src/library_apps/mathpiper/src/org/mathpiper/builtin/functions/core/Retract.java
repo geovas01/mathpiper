@@ -47,12 +47,12 @@ public class Retract extends BuiltinFunction
         String arityString = (String) arityPointer.car();
         if(arityString.equalsIgnoreCase("*"))
         {
-            aEnvironment.retractFunction(oper, -1, aStackTop, aEnvironment);
+            aEnvironment.retractRule(oper, -1, aStackTop, aEnvironment);
         }
         else
         {
             int arity = Integer.parseInt(arityString, 10);
-            aEnvironment.retractFunction(oper, arity, aStackTop, aEnvironment);
+            aEnvironment.retractRule(oper, arity, aStackTop, aEnvironment);
         }
   
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

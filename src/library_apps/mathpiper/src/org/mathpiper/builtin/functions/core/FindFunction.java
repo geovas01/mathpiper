@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.rulebases.MultipleArityUserFunction;
+import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 
 /**
  *
@@ -47,7 +47,7 @@ public class FindFunction extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "FindFunction");
         String oper = Utility.unstringify(aEnvironment, aStackTop, orig);
 
-        MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction(aStackTop, (String)aEnvironment.getTokenHash().lookUp(oper), false);
+        MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityUserFunction(aStackTop, (String)aEnvironment.getTokenHash().lookUp(oper), false);
 
         String fileLocation =  "\"\"" ;
         

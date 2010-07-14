@@ -19,9 +19,9 @@ package org.mathpiper.lisp;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
-import org.mathpiper.lisp.rulebases.MultipleArityUserFunction;
+import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 
-import org.mathpiper.lisp.rulebases.SingleArityBranchingUserFunction;
+import org.mathpiper.lisp.rulebases.SingleArityBranchingRulebase;
 
 /**
  *  The basic evaluator for Lisp expressions.
@@ -49,7 +49,7 @@ public class LispExpressionEvaluator extends Evaluator {
      * is called. If the head is a string, it is checked against
      * the core commands (if there is a check, the corresponding
      * evaluator is called). Then it is checked agaist the list of
-     * user function with getUserFunction().   Again, the
+     * user function with getRulebase().   Again, the
      * corresponding evaluator is called if there is a check. If
      * all fails, ReturnUnEvaluated() is called.</p>
      * <li value="3"><p>
@@ -125,7 +125,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         }
 
                         //User function handler.
-                        SingleArityBranchingUserFunction userFunction;
+                        SingleArityBranchingRulebase userFunction;
                         userFunction = getUserFunction(aEnvironment, aStackTop, subList);
                         if (userFunction != null) {
                             userFunction.evaluate(aEnvironment, aStackTop, aResult, subList);
@@ -155,15 +155,15 @@ public class LispExpressionEvaluator extends Evaluator {
     }
 
 
-    SingleArityBranchingUserFunction getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
+    SingleArityBranchingRulebase getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
         Cons head = subList.getCons();
-        SingleArityBranchingUserFunction userFunc = null;
+        SingleArityBranchingRulebase userFunc = null;
 
-        userFunc = (SingleArityBranchingUserFunction) aEnvironment.getUserFunction(aStackTop, subList);
+        userFunc = (SingleArityBranchingRulebase) aEnvironment.getRulebase(aStackTop, subList);
         if (userFunc != null) {
             return userFunc;
         } else if (head.car() instanceof String) {
-            MultipleArityUserFunction multiUserFunc = aEnvironment.getMultipleArityUserFunction(aStackTop, (String) head.car(), true);
+            MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityUserFunction(aStackTop, (String) head.car(), true);
             if (multiUserFunc.iFileToOpen != null) {
                 DefFile def = multiUserFunc.iFileToOpen;
 
@@ -213,7 +213,7 @@ public class LispExpressionEvaluator extends Evaluator {
                     }
                 }
             }
-            userFunc = aEnvironment.getUserFunction(aStackTop, subList);
+            userFunc = aEnvironment.getRulebase(aStackTop, subList);
         }
         return userFunc;
     }//end method.

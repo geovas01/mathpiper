@@ -23,7 +23,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.rulebases.SingleArityBranchingUserFunction;
+import org.mathpiper.lisp.rulebases.SingleArityBranchingRulebase;
 
 /**
  *
@@ -47,7 +47,7 @@ public class RulebaseDefined extends BuiltinFunction
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
-        SingleArityBranchingUserFunction userFunc = aEnvironment.getUserFunction((String)aEnvironment.getTokenHash().lookUp(oper), arity, aStackTop);
+        SingleArityBranchingRulebase userFunc = aEnvironment.getRulebase((String)aEnvironment.getTokenHash().lookUp(oper), arity, aStackTop);
         Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), userFunc != null);
     }
 }

@@ -26,15 +26,15 @@ import java.util.*;
 
 
 /**
- * Holds a set of {@link SingleArityBranchingUserFunction} which are associated with one function name.
- * A specific SingleArityBranchingUserFunction can be selected by providing its name.  The
+ * Holds a set of {@link SingleArityBranchingRulebase} which are associated with one function name.
+ * A specific SingleArityBranchingRulebase can be selected by providing its name.  The
  * name of the file in which the function is defined can also be specified.
  */
-public class MultipleArityUserFunction
+public class MultipleArityRulebase
 {
 
-	/// Set of SingleArityBranchingUserFunction's provided by this MultipleArityUserFunction.
-	List<SingleArityBranchingUserFunction> iFunctions = new ArrayList();//
+	/// Set of SingleArityBranchingRulebase's provided by this MultipleArityRulebase.
+	List<SingleArityBranchingRulebase> iFunctions = new ArrayList();//
 
 	/// File to read for the definition of this function.
 	public DefFile iFileToOpen;
@@ -42,13 +42,13 @@ public class MultipleArityUserFunction
     public String iFileLocation;
 
 	/// Constructor.
-	public MultipleArityUserFunction()
+	public MultipleArityRulebase()
 	{
 		iFileToOpen = null;
 	}
 
 	/// Return user function with given arity.
-	public SingleArityBranchingUserFunction getUserFunction(int aArity, int aStackTop, Environment aEnvironment) throws Exception
+	public SingleArityBranchingRulebase getUserFunction(int aArity, int aStackTop, Environment aEnvironment) throws Exception
 	{
 		int ruleIndex;
 		//Find function body with the right arity
@@ -57,9 +57,9 @@ public class MultipleArityUserFunction
 		{
 			LispError.lispAssert(iFunctions.get(ruleIndex) != null, aEnvironment, aStackTop);
 
-			if (((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).isArity(aArity))
+			if (((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)).isArity(aArity))
 			{
-				return (SingleArityBranchingUserFunction)iFunctions.get(ruleIndex);
+				return (SingleArityBranchingRulebase)iFunctions.get(ruleIndex);
 			}
 		}
 
@@ -75,22 +75,22 @@ public class MultipleArityUserFunction
 		for (ruleIndex =0;ruleIndex <iFunctions.size();ruleIndex ++)
 		{
 			LispError.lispAssert(iFunctions.get(ruleIndex ) != null, aEnvironment, aStackTop);
-			((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex )).holdArgument(aVariable);
+			((SingleArityBranchingRulebase)iFunctions.get(ruleIndex )).holdArgument(aVariable);
 		}
 	}
 
-	/// Add another SingleArityBranchingUserFunction to #iFunctions.
-	public  void addRulebaseEntry(Environment aEnvironment, int aStackTop, SingleArityBranchingUserFunction aNewFunction) throws Exception
+	/// Add another SingleArityBranchingRulebase to #iFunctions.
+	public  void addRulebaseEntry(Environment aEnvironment, int aStackTop, SingleArityBranchingRulebase aNewFunction) throws Exception
 	{
 		int ruleIndex;
 		//Find function body with the right arity
 		int numberOfRules =iFunctions.size();
 		for (ruleIndex=0; ruleIndex<numberOfRules; ruleIndex++)
 		{
-			LispError.lispAssert(((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
+			LispError.lispAssert(((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
 			LispError.lispAssert(aNewFunction != null, aEnvironment, aStackTop);
-			LispError.check(aEnvironment, aStackTop, !((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
-			LispError.check(aEnvironment, aStackTop, !aNewFunction.isArity(((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
+			LispError.check(aEnvironment, aStackTop, !((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
+			LispError.check(aEnvironment, aStackTop, !aNewFunction.isArity(((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)).arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
 		}
 		iFunctions.add(aNewFunction);
 	}
@@ -109,9 +109,9 @@ public class MultipleArityUserFunction
 		int numberOfRules =iFunctions.size();
 		for (ruleIndex=0; ruleIndex<numberOfRules; ruleIndex++)
 		{
-			LispError.lispAssert(((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
+			LispError.lispAssert(((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
 
-            if (((SingleArityBranchingUserFunction)iFunctions.get(ruleIndex)).isArity(aArity))
+            if (((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)).isArity(aArity))
 			{
 				iFunctions.remove(ruleIndex);
 				return;

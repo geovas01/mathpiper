@@ -35,7 +35,7 @@ import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.io.InputDirectories;
 import org.mathpiper.lisp.behaviours.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
-import org.mathpiper.lisp.rulebases.MultipleArityUserFunction;
+import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.JarFileInputStream;
@@ -51,10 +51,10 @@ import org.mathpiper.lisp.parametermatchers.PatternParameter;
 import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.lisp.rulebases.Branch;
-import org.mathpiper.lisp.rulebases.FunctionParameter;
-import org.mathpiper.lisp.rulebases.MacroUserFunction;
+import org.mathpiper.lisp.rulebases.RuleParameter;
+import org.mathpiper.lisp.rulebases.MacroRulebase;
 import org.mathpiper.lisp.rulebases.PatternBranch;
-import org.mathpiper.lisp.rulebases.SingleArityBranchingUserFunction;
+import org.mathpiper.lisp.rulebases.SingleArityBranchingRulebase;
 
 public class Utility {
 
@@ -842,7 +842,7 @@ public class Utility {
                 } // Else evaluate
                 else {
                     String str = token;
-                    MultipleArityUserFunction multiUser = aEnvironment.getMultipleArityUserFunction(aStackTop, str, true);
+                    MultipleArityRulebase multiUser = aEnvironment.getMultipleArityUserFunction(aStackTop, str, true);
                     if (multiUser.iFileToOpen != null) {
                         throw new EvaluationException("[" + str + "]" + "] : def file already chosen: " + multiUser.iFileToOpen.iFileName, aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
                     }
@@ -1117,7 +1117,7 @@ public class Utility {
 
     /**
      *Implements the MathPiper functions Rulebase and MacroRulease .
-     * The real work is done by Environment.declareRulebase().
+     * The real work is done by Environment.defineRulebase().
      */
     public static void rulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         //TESTARGS(3);
@@ -1135,7 +1135,7 @@ public class Utility {
         LispError.checkIsList(aEnvironment, aStackTop, argsPointer, 2, "INTERNAL");
 
         // Finally define the rule database.
-        aEnvironment.declareRulebase(aStackTop, Utility.getSymbolName(aEnvironment, functionName),
+        aEnvironment.defineRulebase(aStackTop, Utility.getSymbolName(aEnvironment, functionName),
                 ((ConsPointer) argsPointer.car()).cdr(), aListed);
 
         // Return true
@@ -1199,7 +1199,7 @@ public class Utility {
         LispError.checkIsList(aEnvironment, aStackTop, args, 2, "INTERNAL");
 
         // Finally define the rule base
-        aEnvironment.declareMacroRulebase(aStackTop, Utility.getSymbolName(aEnvironment, orig),
+        aEnvironment.defineMacroRulebase(aStackTop, Utility.getSymbolName(aEnvironment, orig),
                 ((ConsPointer) args.car()).cdr(), aListed);
 
         // Return true
@@ -1246,7 +1246,7 @@ public class Utility {
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
-    public static String dumpRule(int aStackTop, Branch branch, Environment aEnvironment, SingleArityBranchingUserFunction userFunction) {
+    public static String dumpRule(int aStackTop, Branch branch, Environment aEnvironment, SingleArityBranchingRulebase userFunction) {
         StringBuilder dumpResult = new StringBuilder();
         try {
             int precedence = branch.getPrecedence();
@@ -1307,7 +1307,7 @@ public class Utility {
             String parameters = "";
             boolean isHold = false;
             while (paremetersIterator.hasNext()) {
-                FunctionParameter branchParameter = (FunctionParameter) paremetersIterator.next();
+                RuleParameter branchParameter = (RuleParameter) paremetersIterator.next();
                 String parameter = branchParameter.getParameter();
                 isHold = branchParameter.isHold();
                 parameters += parameter + "<hold=" + isHold + ">, ";
@@ -1322,7 +1322,7 @@ public class Utility {
 
             String substitutedMacroBody = "";
 
-            if (userFunction instanceof MacroUserFunction) {
+            if (userFunction instanceof MacroRulebase) {
                 BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
                 ConsPointer substitutedBodyPointer = new ConsPointer();
                 Utility.substitute(aEnvironment, aStackTop, substitutedBodyPointer, branch.getBodyPointer(), backQuoteSubstitute);
@@ -1333,7 +1333,7 @@ public class Utility {
             dumpResult.append("\n" + "Parameters: " + parameters + ", ");
             dumpResult.append("\n" + "Predicates: " + predicate + ",    ");
 
-            if (userFunction instanceof MacroUserFunction) {
+            if (userFunction instanceof MacroRulebase) {
                 dumpResult.append("\n" + "Body: \n" + body + ", ");
                 dumpResult.append("\n" + "Substituted Macro Body: \n" + substitutedMacroBody + "\n");
             } else {
@@ -1497,7 +1497,7 @@ public class Utility {
            parameterTraverser.goNext(aStackTop);
         }//end for.
 
-        aEnvironment.declareRulebase(aStackTop, functionName, parameterTraverser.getHeadPointer(), false);
+        aEnvironment.defineRulebase(aStackTop, functionName, parameterTraverser.getHeadPointer(), false);
 
         ConsPointer truePointer = new ConsPointer();
 
