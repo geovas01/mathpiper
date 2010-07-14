@@ -511,7 +511,7 @@ public class Environment {
         userFunc.unFence();
     }
 
-    public MultipleArityRulebase getMultipleArityUserFunction(int aStackTop, String aOperator, boolean create) throws Exception {
+    public MultipleArityRulebase getMultipleArityRulebase(int aStackTop, String aOperator, boolean create) throws Exception {
         // Find existing multiuser func.  Todo:tk:a user function name is added to the list even if a non-existing function
         // is being executed or looked for by FindFunction();
         MultipleArityRulebase multipleArityUserFunction = (MultipleArityRulebase) iUserFunctions.lookUp(aOperator);
@@ -527,16 +527,16 @@ public class Environment {
     }
 
     public void defineRulebase(int aStackTop, String aOperator, ConsPointer aParametersPointer, boolean aListed) throws Exception {
-        MultipleArityRulebase multipleArityUserFunction = getMultipleArityUserFunction(aStackTop, aOperator, true);
+        MultipleArityRulebase multipleArityUserFunction = getMultipleArityRulebase(aStackTop, aOperator, true);
 
         // add an operator with this arity to the multiuserfunc.
-        SingleArityBranchingRulebase newBranchingUserFunction;
+        SingleArityBranchingRulebase newBranchingRulebase;
         if (aListed) {
-            newBranchingUserFunction = new ListedBranchingRulebase(this, aStackTop, aParametersPointer, aOperator);
+            newBranchingRulebase = new ListedBranchingRulebase(this, aStackTop, aParametersPointer, aOperator);
         } else {
-            newBranchingUserFunction = new SingleArityBranchingRulebase(this, aStackTop, aParametersPointer, aOperator);
+            newBranchingRulebase = new SingleArityBranchingRulebase(this, aStackTop, aParametersPointer, aOperator);
         }
-        multipleArityUserFunction.addRulebaseEntry(this, aStackTop, newBranchingUserFunction);
+        multipleArityUserFunction.addRulebaseEntry(this, aStackTop, newBranchingRulebase);
     }
 
     public void defineRule(int aStackTop, String aOperator, int aArity,
@@ -560,29 +560,29 @@ public class Environment {
     }
 
     public void defineMacroRulebase(int aStackTop, String aFunctionName, ConsPointer aParameters, boolean aListed) throws Exception {
-        MultipleArityRulebase multipleArityUserFunc = getMultipleArityUserFunction(aStackTop, aFunctionName, true);
+        MultipleArityRulebase multipleArityRulebase = getMultipleArityRulebase(aStackTop, aFunctionName, true);
 
-        MacroRulebase newMacroUserFunction;
+        MacroRulebase newMacroRulebase;
 
         if (aListed) {
-            newMacroUserFunction = new ListedMacroRulebase(this, aStackTop, aParameters, aFunctionName);
+            newMacroRulebase = new ListedMacroRulebase(this, aStackTop, aParameters, aFunctionName);
         } else {
-            newMacroUserFunction = new MacroRulebase(this, aStackTop, aParameters, aFunctionName);
+            newMacroRulebase = new MacroRulebase(this, aStackTop, aParameters, aFunctionName);
         }
-        multipleArityUserFunc.addRulebaseEntry(this, aStackTop, newMacroUserFunction);
+        multipleArityRulebase.addRulebaseEntry(this, aStackTop, newMacroRulebase);
     }
 
     public void defineRulePattern(int aStackTop, String aOperator, int aArity, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
-        // Find existing multiuser func.
-        MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserFunctions.lookUp(aOperator);
-        LispError.check(this, aStackTop, multipleArityUserFunc != null, LispError.CREATING_RULE, "INTERNAL");
+        // Find existing multiuser rulebase.
+        MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserFunctions.lookUp(aOperator);
+        LispError.check(this, aStackTop, multipleArityRulebase != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Get the specific user function with the right arity
-        SingleArityBranchingRulebase userFunction = multipleArityUserFunc.getUserFunction(aArity, aStackTop, this);
-        LispError.check(this, aStackTop, userFunction != null, LispError.CREATING_RULE, "INTERNAL");
+        SingleArityBranchingRulebase rulebase = multipleArityRulebase.getUserFunction(aArity, aStackTop, this);
+        LispError.check(this, aStackTop, rulebase != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Declare a new evaluation rule
-        userFunction.definePattern(aStackTop, aPrecedence, aPredicate, aBody);
+        rulebase.definePattern(aStackTop, aPrecedence, aPredicate, aBody);
     }
 
     /**

@@ -842,7 +842,7 @@ public class Utility {
                 } // Else evaluate
                 else {
                     String str = token;
-                    MultipleArityRulebase multiUser = aEnvironment.getMultipleArityUserFunction(aStackTop, str, true);
+                    MultipleArityRulebase multiUser = aEnvironment.getMultipleArityRulebase(aStackTop, str, true);
                     if (multiUser.iFileToOpen != null) {
                         throw new EvaluationException("[" + str + "]" + "] : def file already chosen: " + multiUser.iFileToOpen.iFileName, aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
                     }
@@ -1116,11 +1116,10 @@ public class Utility {
     }
 
     /**
-     *Implements the MathPiper functions Rulebase and MacroRulease .
+     *Implements the MathPiper functions Rulebase and MacroRulebase .
      * The real work is done by Environment.defineRulebase().
      */
     public static void rulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
-        //TESTARGS(3);
 
         // Get operator
         ConsPointer argsPointer = new ConsPointer();
@@ -1135,15 +1134,13 @@ public class Utility {
         LispError.checkIsList(aEnvironment, aStackTop, argsPointer, 2, "INTERNAL");
 
         // Finally define the rule database.
-        aEnvironment.defineRulebase(aStackTop, Utility.getSymbolName(aEnvironment, functionName),
-                ((ConsPointer) argsPointer.car()).cdr(), aListed);
+        aEnvironment.defineRulebase(aStackTop, Utility.getSymbolName(aEnvironment, functionName), ((ConsPointer) argsPointer.car()).cdr(), aListed);
 
         // Return true
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
     public static void newRule(Environment aEnvironment, int aStackTop) throws Exception {
-        //TESTARGS(6);
 
         int arity;
         int precedence;

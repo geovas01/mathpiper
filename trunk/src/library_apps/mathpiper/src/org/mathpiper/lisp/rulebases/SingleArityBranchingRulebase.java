@@ -39,20 +39,19 @@ public class SingleArityBranchingRulebase extends Evaluator {
 
     // List of rules, sorted on precedence.
     protected List<Branch> iBranchRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
-
+    
     // List of arguments
     ConsPointer iParameterList;
-
 /// Abstract class providing the basic user function API.
 /// Instances of this class are associated to the name of the function
 /// via an associated hash table. When obtained, they can be used to
 /// evaluate the function with some arguments.
-
     boolean iFenced = true;
     boolean showFlag = false;
     protected String functionType = "**** user rulebase";
     protected String functionName;
     protected Environment iEnvironment;
+
 
     /**
      * Constructor.
@@ -67,7 +66,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
         // iParameterList and #iParameters are set from \a aParameters.
         iParameterList.setCons(aParametersPointer.getCons());
 
-        ConsPointer parameterPointer = new ConsPointer( aParametersPointer.getCons());
+        ConsPointer parameterPointer = new ConsPointer(aParametersPointer.getCons());
 
         while (parameterPointer.getCons() != null) {
 
@@ -86,6 +85,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
             parameterPointer.goNext(aStackTop, aEnvironment);
         }
     }
+
 
     /**
      * Evaluate the function with the given arguments.
@@ -215,7 +215,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
         } catch (EvaluationException ex) {
 
             //ex.printStackTrace();//todo:tk:uncomment for debugging.
-            
+
             if (ex.getFunctionName() == null) {
                 throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, this.functionName);
             } else {
@@ -225,6 +225,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
             aEnvironment.popLocalFrame(aStackTop);
         }
     }
+
 
     protected ConsPointer[] evaluateArguments(Environment aEnvironment, int aStackTop, ConsPointer aArgumentsPointer) throws Exception {
         int arity = arity();
@@ -250,7 +251,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
             argumentsPointer.setCons(null);
         }
 
-        ConsPointer argumentsTraverser = new ConsPointer( aArgumentsPointer.getCons());
+        ConsPointer argumentsTraverser = new ConsPointer(aArgumentsPointer.getCons());
 
         //Strip the function name from the head of the list.
         argumentsTraverser.goNext(aStackTop, aEnvironment);
@@ -292,7 +293,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
             //ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 
             //ConsTransverser traceArgumentPointer new ConsTraverser(this.iParameterList);
-            ConsPointer traceParameterPointer = new ConsPointer( this.iParameterList.getCons());
+            ConsPointer traceParameterPointer = new ConsPointer(this.iParameterList.getCons());
 
             //traceArgumentPointer.goNext();
             for (parameterIndex = 0; parameterIndex < argumentsResultPointerArray.length; parameterIndex++) {
@@ -305,6 +306,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
         return argumentsResultPointerArray;
 
     }//end method.
+
 
     /**
      * Put an argument on hold.
@@ -323,6 +325,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
         }
     }
 
+
     /**
      * Return true if the arity of the function equals \a aArity.
      * 
@@ -333,6 +336,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
         return (arity() == aArity);
     }
 
+
     /**
      * Return the arity (number of arguments) of the function.
      *
@@ -341,6 +345,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
     public int arity() {
         return iParameters.size();
     }
+
 
     /**
      *  Add a RuleBranch to the list of rules.
@@ -359,6 +364,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
         insertRule(aPrecedence, newRule);
     }
 
+
     /**
      * Add a TruePredicateRuleBranch to the list of rules.
      * See: insertRule()
@@ -374,6 +380,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
 
         insertRule(aPrecedence, newRule);
     }
+
 
     /**
      *  Add a PatternBranch to the list of rules.
@@ -391,6 +398,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
 
         insertRule(aPrecedence, newRule);
     }
+
 
     /**
      * Insert any Branch object in the list of rules.
@@ -453,6 +461,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
         }
     }
 
+
     /**
      * Return the argument list, stored in #iParameterList.
      * 
@@ -462,20 +471,25 @@ public class SingleArityBranchingRulebase extends Evaluator {
         return iParameterList;
     }
 
+
     public Iterator getRules() {
         return iBranchRules.iterator();
     }
+
 
     public Iterator getParameters() {
         return iParameters.iterator();
     }
 
+
     public void unFence() {
         iFenced = false;
     }
 
+
     public boolean fenced() {
         return iFenced;
     }
+
 }//end class.
 
