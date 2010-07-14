@@ -11,7 +11,7 @@ VerifySolve(Solve({a+x*y==z},{x}),{{x==(z-a)/y}});
   Local(eq,res);
   eq:={a-b==c,b==c};
   res:=Solve(eq,{a,b});
-  VerifySolve(eq Where res,{c==c,c==c});
+  Verify(eq Where res,{c==c,c==c});
 ];
 
 VerifySolve(Solve(a+x*y == z, x), { x == (z-a)/y });
