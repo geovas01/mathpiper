@@ -16,7 +16,7 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.lisp.userfunctions;
+package org.mathpiper.lisp.rulebases;
 
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
@@ -25,10 +25,9 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
-public class ListedMacroUserFunction extends MacroUserFunction
+public class ListedBranchingUserFunction extends SingleArityBranchingUserFunction
 {
-
-	public ListedMacroUserFunction(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
+	public ListedBranchingUserFunction(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
 	{
 		super(aEnvironment, aStackTop, aParameters, functionName);
 	}
@@ -38,7 +37,7 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		return (arity() <= aArity);
 	}
 	
-	public void evaluate( Environment aEnvironment,int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception
+	public void evaluate( Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception
 	{
 		ConsPointer newArgs = new ConsPointer();
 		ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
@@ -70,4 +69,5 @@ public class ListedMacroUserFunction extends MacroUserFunction
 		super.evaluate(aEnvironment, aStackTop, aResult, newArgs);
 	}
 }
+
 

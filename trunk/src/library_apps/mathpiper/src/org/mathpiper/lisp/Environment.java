@@ -39,16 +39,16 @@ import org.mathpiper.io.InputDirectories;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
-import org.mathpiper.lisp.userfunctions.MultipleArityUserFunction;
+import org.mathpiper.lisp.rulebases.MultipleArityUserFunction;
 
-import org.mathpiper.lisp.userfunctions.MacroUserFunction;
+import org.mathpiper.lisp.rulebases.MacroUserFunction;
 
 
-import org.mathpiper.lisp.userfunctions.ListedBranchingUserFunction;
+import org.mathpiper.lisp.rulebases.ListedBranchingUserFunction;
 
-import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
+import org.mathpiper.lisp.rulebases.SingleArityBranchingUserFunction;
 
-import org.mathpiper.lisp.userfunctions.ListedMacroUserFunction;
+import org.mathpiper.lisp.rulebases.ListedMacroUserFunction;
 
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 

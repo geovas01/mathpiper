@@ -24,7 +24,7 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.SublistCons;
-import org.mathpiper.lisp.userfunctions.SingleArityBranchingUserFunction;
+import org.mathpiper.lisp.rulebases.SingleArityBranchingUserFunction;
 
 /**
  *
