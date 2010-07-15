@@ -93,9 +93,12 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private JScrollPane treeViewScrollPane;
     private JSplitPane splitPane;
     private JPanel treePanel;
+    private ArrayList<HelpListener> helpListeners;
 
 
     public FunctionTreePanel() throws FileNotFoundException {
+        
+        helpListeners = new ArrayList<HelpListener>();
 
         this.setLayout(new BorderLayout());
 
@@ -861,14 +864,21 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                     if (inputStream != null) //File is on the classpath.
                     {
+
                         try{
+                            String mpwFileText = convertStreamToString(inputStream);
+
+                            HelpEvent helpEvent = new HelpEvent(mpwFileText);
+
+                            this.notifyListeners(helpEvent);
+
                             inputStream.close();
                         }
                         catch(Exception e)
                         {
-
+                            System.out.println(e.getMessage());
                         }
-                        int xx = 3;
+
                     }
 
                 } else {
@@ -996,6 +1006,46 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         setPage("HomePage", "<html>Home page</html>", true);
     }//end method.
+
+
+        public String convertStreamToString(InputStream inputStream) throws IOException {
+
+        if (inputStream != null) {
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+            } finally {
+                inputStream.close();
+            }
+            return stringBuilder.toString();
+        } else {
+            return "";
+        }
+    }//end method.
+
+
+
+    public void addResponseListener(HelpListener listener) {
+        helpListeners.add(listener);
+    }
+
+    public void removeResponseListener(HelpListener listener) {
+        helpListeners.remove(listener);
+    }
+
+    protected void notifyListeners(HelpEvent helpEvent) {
+
+        for (HelpListener listener : helpListeners) {
+            listener.helpEvent(helpEvent);
+        }//end for.
+
+    }//end method.
+
 
 
     public JPanel getToolPanel() {
@@ -1268,7 +1318,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     viewFunction(functionName, true);
                 }
             }
-        }
+        }//end method.
+
 
     }//end class.
 
