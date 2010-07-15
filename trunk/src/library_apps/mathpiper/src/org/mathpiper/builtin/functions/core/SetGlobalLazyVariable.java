@@ -93,6 +93,6 @@ the variable {test} forces the expression to be evaluated:
 	Out> 5
 
 
-*SEE Set, Unbind, Local, %, I
+*SEE Bind, Unbind, Local, %, I
 %/mathpiper_docs
 */
