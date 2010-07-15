@@ -25,7 +25,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
 
 /**
- *
+ * Used to create sets like List() is used to create lists.
  *
  */
 public class Set extends BuiltinFunction {
