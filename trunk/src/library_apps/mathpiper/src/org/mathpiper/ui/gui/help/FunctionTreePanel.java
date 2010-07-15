@@ -94,6 +94,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private JSplitPane splitPane;
     private JPanel treePanel;
 
+
     public FunctionTreePanel() throws FileNotFoundException {
 
         this.setLayout(new BorderLayout());
@@ -152,6 +153,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             public void actionPerformed(ActionEvent evt) {
                 collapse();
             }
+
         });
         collapseButton.setEnabled(true);
         collapseButton.setToolTipText("Collapse function tree.");
@@ -185,6 +187,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end constructor.
 
+
     private void loadCategories(InputStream inputStream) {
         BufferedReader categoriesFile = null;
         List userFunctions = new ArrayList();
@@ -209,7 +212,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 functionDatalineFields.remove(0);
 
-                String[] functionDatalineFieldsArray =  functionDatalineFields.toArray(new String[functionDatalineFields.size()]);  //line.split(",");
+                String[] functionDatalineFieldsArray = functionDatalineFields.toArray(new String[functionDatalineFields.size()]);  //line.split(",");
 
                 if (functionCategory.equalsIgnoreCase("User Functions")) {
                     userFunctions.add(functionDatalineFieldsArray);
@@ -241,27 +244,29 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
     private List parseCSV(String line) {
-    List list = new ArrayList();
-    String CSV_PATTERN = "\"([^\"]+?)\",?|([^,]+),?|,";
-    Pattern csvRE = Pattern.compile(CSV_PATTERN);
-    Matcher m = csvRE.matcher(line);
-    // For each field
-    while (m.find()) {
-      String match = m.group();
-      if (match == null)
-        break;
-      if (match.endsWith(",")) {  // trim trailing ,
-        match = match.substring(0, match.length() - 1);
-      }
-      if (match.startsWith("\"")) { // assume also ends with
-        match = match.substring(1, match.length() - 1);
-      }
-        //if (match.length() == 0)
-        //match = null;
-      list.add(match);
+        List list = new ArrayList();
+        String CSV_PATTERN = "\"([^\"]+?)\",?|([^,]+),?|,";
+        Pattern csvRE = Pattern.compile(CSV_PATTERN);
+        Matcher m = csvRE.matcher(line);
+        // For each field
+        while (m.find()) {
+            String match = m.group();
+            if (match == null) {
+                break;
+            }
+            if (match.endsWith(",")) {  // trim trailing ,
+                match = match.substring(0, match.length() - 1);
+            }
+            if (match.startsWith("\"")) { // assume also ends with
+                match = match.substring(1, match.length() - 1);
+            }
+            //if (match.length() == 0)
+            //match = null;
+            list.add(match);
+        }
+        return list;
     }
-    return list;
-  }
+
 
     private void populateUserFunctionNodeWithCategories() {
         userFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("User Functions", "Functions for MathPiper users."));
@@ -307,6 +312,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
+
     private void populateProgrammerFunctionNodeWithCategories() {
         programmerFunctionsNode = new DefaultMutableTreeNode(new FunctionInfo("Programmer Functions", "Functions for MathPiper code developers."));
 
@@ -320,6 +326,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         programmerFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Testing", "Functions for verifying the correct operation of MathPiper code.")));
 
     }//end method.
+
 
     private void populateNode(DefaultMutableTreeNode treeNode, String[][] functionDataStringArray) {
         for (int row = 0; row < functionDataStringArray.length; row++) {
@@ -368,6 +375,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }//end row for.
 
     }//end method.
+
 
     private void processFunctionData() {
         allFunctions = new java.util.ArrayList();
@@ -429,6 +437,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
+
     public void createTree() {
 
         this.populateUserFunctionNodeWithCategories();
@@ -468,6 +477,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
+
     private void loadDocumentationIndex(InputStream inputStream) {
         documentationIndex = new HashMap();
         try {
@@ -495,6 +505,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }
     }//end method.
 
+
     public void valueChanged(TreeSelectionEvent e) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) functionsTree.getLastSelectedPathComponent();
         //System.out.println("XXXXX");
@@ -512,6 +523,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             //Note:tk:Perhaps display top of chapter here?
         }
     }//end method.
+
 
     public boolean viewFunction(String functionName, boolean save) {
 
@@ -564,6 +576,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }
     }//end method.
 
+
     public static String processLatex(String html) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -613,6 +626,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         return stringBuilder.toString();
     }
+
 
     private static String applyBold(String line) {
 
@@ -806,10 +820,17 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     seeFunctionsBuilder.append("<a href=\"http://" + seeFunction + "\">" + seeFunction + "</a>, ");
                 }
 
-                html.append("<h4>\nSee also:\n</h4>" + seeFunctionsBuilder.toString() + "\n");
+                html.append("<h4>See also:</h4>" + seeFunctionsBuilder.toString() + "\n");
 
                 seeFunctionsBuilder.delete(0, seeFunctionsBuilder.length());
 
+            } else if (line.startsWith("*SOURCE")) {
+
+                html.append("<br /> <h4>Source:</h4>");
+
+                line = line.substring(7, line.length());
+                line = line.trim();
+                html.append("<a href=\"file:///org/mathpiper/scripts4/" + line + "\">View source code.</a>\n");
             }
 
 
@@ -822,6 +843,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
+
     public void hyperlinkUpdate(HyperlinkEvent event) {
         //System.out.println(event.toString());
         URL url = event.getURL();
@@ -830,16 +852,32 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
             String functionName = "";
 
-            if(url != null)
-            {
-                String urlString = url.toString();
-                functionName = urlString.substring(7, urlString.length());
-            }
-            else
-            {
+            if (url != null) {
+                String protocol = url.getProtocol();
+                if (protocol.equalsIgnoreCase("file")) {
+                    String mpwFilePath = url.getFile();
+
+                    java.io.InputStream inputStream = FunctionTreePanel.class.getResourceAsStream(mpwFilePath);
+
+                    if (inputStream != null) //File is on the classpath.
+                    {
+                        try{
+                            inputStream.close();
+                        }
+                        catch(Exception e)
+                        {
+
+                        }
+                        int xx = 3;
+                    }
+
+                } else {
+                    String urlString = url.toString();
+                    functionName = urlString.substring(7, urlString.length());
+                }
+            } else {
                 //Hack to get around problem of null url object being returned for the := operator.
-                if(event.getDescription().contains("http://:="))
-                {
+                if (event.getDescription().contains("http://:=")) {
                     functionName = ":=";
                 }
             }
@@ -851,7 +889,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }//end if.  + getRef())
 
     }//end method.
+
     private int pageIndex = -1;
+
 
     private void setPage(String functionName, String html, boolean save) {
         editorPane.setText(html);
@@ -902,10 +942,12 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             public void run() {
                 verticalScrollBar.setValue(verticalScrollBar.getMinimum());
             }
+
         });
 
 
     }//end method.
+
 
     private String getSource() {
         Interpreter interpreter = Interpreters.getSynchronousInterpreter();
@@ -917,9 +959,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         return location;
     }//end method.
 
+
     private void collapse() {
         functionsTree.collapseAll();
     }//end method.
+
 
     private void back() {
         if (pageIndex != 0) {
@@ -934,6 +978,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }//end if.
     }//end method.
 
+
     private void forward() {
         String functionName = (String) pageList.get(++pageIndex);
 
@@ -945,11 +990,13 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     }//end method.
 
+
     private void home() {
         toolPanel.sourceButtonEnabled(false);
 
         setPage("HomePage", "<html>Home page</html>", true);
     }//end method.
+
 
     public JPanel getToolPanel() {
         return toolPanel;
@@ -968,6 +1015,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         private JCheckBox showPrivateFunctionsCheckBox;
         private boolean isShowPrivateFunctions = false;
 
+
         private ToolPanel() {
             setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
@@ -980,6 +1028,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 public void actionPerformed(ActionEvent evt) {
                     //source();
                 }
+
             });
             sourceButton.setEnabled(false);
             sourceButton.setToolTipText("View script source.");
@@ -1018,6 +1067,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                     //editorPane.
 
                 }//end method.
+
             });
             fontSizeIncreaseButton.setEnabled(true);
             //add(fontSizeIncreaseButton);
@@ -1031,6 +1081,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 public void actionPerformed(ActionEvent evt) {
                     back();
                 }
+
             });
             backButton.setEnabled(false);
             add(backButton);
@@ -1043,6 +1094,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 public void actionPerformed(ActionEvent evt) {
                     forward();
                 }
+
             });
             forwardButton.setEnabled(false);
             add(forwardButton);
@@ -1055,6 +1107,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 public void actionPerformed(ActionEvent evt) {
                     home();
                 }
+
             });
             homeButton.setEnabled(true);
             add(homeButton);
@@ -1064,17 +1117,21 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         }//end constructor.
 
+
         public void sourceButtonEnabled(Boolean state) {
             sourceButton.setEnabled(state);
         }//end method.
+
 
         public void backButtonEnabled(Boolean state) {
             backButton.setEnabled(state);
         }//end method.
 
+
         public void forwardButtonEnabled(Boolean state) {
             forwardButton.setEnabled(state);
         }//end method.
+
 
         public void itemStateChanged(ItemEvent ie) {
             Object source = ie.getSource();
@@ -1108,6 +1165,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
         }//end method.
+
     }//end class.
 
     private class SearchPanel extends JPanel implements ActionListener, ListSelectionListener {
@@ -1116,6 +1174,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         private Vector hits = new Vector();
         private JScrollPane listScroller;
         private JList list;
+
 
         public SearchPanel() {
             this.setLayout(new BorderLayout());
@@ -1145,6 +1204,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
         }//end constructor.
+
 
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("search")) {
@@ -1198,6 +1258,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
         }//end method.
 
+
         public void valueChanged(ListSelectionEvent e) {
             JList list = (JList) e.getSource();
             if (!list.getSelectionModel().getValueIsAdjusting()) {
@@ -1208,7 +1269,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 }
             }
         }
+
     }//end class.
+
 
     public static void main(String[] args) {
 

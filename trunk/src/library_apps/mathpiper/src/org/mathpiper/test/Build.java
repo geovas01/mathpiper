@@ -461,7 +461,11 @@ public class Build {
             } else if (foldType.equalsIgnoreCase("%mathpiper_docs")) {
                 //System.out.println("        **** Contains docs *****");
                 hasDocs = true;
-                processMathPiperDocsFold(fold);
+
+                String mpwFilePath = mpwFile.getPath();
+                mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf("scripts4")+9);
+
+                processMathPiperDocsFold(fold, mpwFilePath);
 
             }//end if.
 
@@ -479,7 +483,7 @@ public class Build {
     }//end method.
 
 
-    private void processMathPiperDocsFold(Fold fold) throws Exception {
+    private void processMathPiperDocsFold(Fold fold, String mpwFilePath) throws Exception {
         if (documentationFile != null) {
 
             String functionNamesString = "";
@@ -509,6 +513,9 @@ public class Build {
                     documentationIndexFile.write(documentationOffset + ",");
 
                     String contents = fold.getContents();
+
+                    contents = contents + "\n*SOURCE " + mpwFilePath;
+
                     byte[] contentsBytes = contents.getBytes();
                     documentationFile.write(contentsBytes, 0, contentsBytes.length);
                     //individualDocumentationFile.write(contentsBytes, 0, contentsBytes.length);
@@ -705,7 +712,7 @@ public class Build {
                         hasDocs = true;
 
 
-                        processMathPiperDocsFold(fold);
+                        processMathPiperDocsFold(fold, "BUILTIN");
 
                     }//end if.
 
