@@ -1,5 +1,7 @@
 ============================== Proposed function name changes: 
 
+
+
 Change the bodied operators D, Integrate, Limit, and Taylor to non-bodied operators to make function calls uniform and to reduce confusion.
 MM -> MultinomialForm
 Normalize -> NormalizeVector
@@ -16,10 +18,32 @@ MakeVector -> MakeIdentifiers
 RulebaseDefined -> IsRulebaseDefined.
 Map and MapSingle should have the list as the first argument to match Find and Contains.
 Outer -> OuterProduct
+Eval -> Evaluate
 InProduct -> InnerProduct
 Dot -> DotProduct
 ExtractSubMatrix -> ExtractSubmatrix
 CoFactor -> Cofactor
+
+
+
+---------------------------- Potential function name changes:
+Rulebase -> RulebaseHoldArguments
+RulebaseListed -> RulebaseListedHoldArguments
+Rule -> RuleHoldArguments
+
+MacroRulebase -> RulebaseEvaluateArguments
+MacroRulebaseListed -> RulebaseListedEvaluateArguments
+MacroRule -> RuleEvaluateArguments
+
+Local -> LocalHoldArguments (leave Local as a synonym)
+MacroLocal -> LocalEvaluateArguments
+
+Unbind -> UnbindHoldArguments (and leave Unbind as a synonym)
+MacroUnbind -> UnbindEvaluateArguments
+
+DefMacroRulebase -> MacroRulebaseEvaluateArguments
+DefMacroRulebaseListed -> MacroRulebaseListedEvaluateArguments
+
 
 ============================= Changes that have already been done.
 
