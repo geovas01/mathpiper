@@ -136,11 +136,18 @@ public class EnvironmentViewer implements ActionListener {
         tables.add(scrollPane);
         multiSplitPane.add(scrollPane, "four");
 
+        JPanel buttonsPanel = new JPanel();
+
         JButton refreshButton = new JButton("Refresh");
         refreshButton.addActionListener(this);
         refreshButton.setActionCommand("refresh");
-        JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(refreshButton);
+
+        JButton clearButton = new JButton("Clear");
+        clearButton.addActionListener(this);
+        clearButton.setActionCommand("clear");
+        buttonsPanel.add(clearButton);
+
         contentPane.add(buttonsPanel, BorderLayout.NORTH);
 
 
@@ -170,12 +177,14 @@ public class EnvironmentViewer implements ActionListener {
                 //model.fireTableDataChanged();
 
                 SwingUtilities.updateComponentTreeUI(scrollPane);
-
-
             }
+        }else if (actionCommand.equalsIgnoreCase("clear")) {
+            textArea.setText("");
         }
 
-    }
+    }//end method.
+
+    
 
     /**
      * Returns a GUI table which contains a sorted list of the user functions.
