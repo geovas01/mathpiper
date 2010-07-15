@@ -1030,11 +1030,11 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
 
-    public void addResponseListener(HelpListener listener) {
+    public void addHelpListener(HelpListener listener) {
         helpListeners.add(listener);
     }
 
-    public void removeResponseListener(HelpListener listener) {
+    public void removeHelpListener(HelpListener listener) {
         helpListeners.remove(listener);
     }
 
