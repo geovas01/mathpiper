@@ -78,7 +78,7 @@
 		</copy>
 		
 		
-		<copy todir="${build.classes.dir}/org/mathpiper/sourcescripts">
+		<copy todir="${build.classes.dir}/org/mathpiper/scripts4">
 			<fileset dir="${src.dir}/org/mathpiper/scripts4" >
 				<include name="**/*.mpw" />
 			</fileset>

@@ -833,8 +833,23 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
                 line = line.substring(7, line.length());
                 line = line.trim();
-                html.append("<a href=\"file:///org/mathpiper/scripts4/" + line + "\">View source code.</a>\n");
-            }
+                
+                if(line.endsWith(".mpw"))
+                {
+                		
+                	html.append("<a href=\"file://" + line + "\">View source code.</a>\n");
+                }
+                else
+                {
+                	html.append(
+                	"This is a built-in function and its source file is written in Java. <br />" + 
+			"The path to the Java source code for this function is: <br />" + line.substring(1, line.length()) + "<br /><br />" +
+			"The source code can be browsed on the MathPiper project site at: <br />" +
+			"http://code.google.com/p/mathpiper/source/browse/");
+			
+                }//end else.
+                
+            }//end else/if.
 
 
 
@@ -856,41 +871,60 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             String functionName = "";
 
             if (url != null) {
+            	    
+            //System.out.println("XXXXX: " + url);
+            	        
                 String protocol = url.getProtocol();
+                
                 if (protocol.equalsIgnoreCase("file")) {
                     String mpwFilePath = url.getFile();
-
-                    java.io.InputStream inputStream = FunctionTreePanel.class.getResourceAsStream(mpwFilePath);
-
-                    if (inputStream != null) //File is on the classpath.
+                    
+                    if(mpwFilePath.endsWith(".mpw"))
                     {
 
-                        try{
-                            String mpwFileText = convertStreamToString(inputStream);
-
-                            HelpEvent helpEvent = new HelpEvent(mpwFileText);
-
-                            this.notifyListeners(helpEvent);
-
-                            inputStream.close();
-                        }
-                        catch(Exception e)
-                        {
-                            System.out.println(e.getMessage());
-                        }
-
-                    }
+			    java.io.InputStream inputStream = FunctionTreePanel.class.getResourceAsStream(mpwFilePath);
+	
+			    if (inputStream != null) //File is on the classpath.
+			    {
+	
+				try{
+				    String mpwFileText = convertStreamToString(inputStream);
+				    
+				    HelpEvent helpEvent = new HelpEvent(mpwFilePath, mpwFileText);
+	
+				    this.notifyListeners(helpEvent);
+	
+				    inputStream.close();
+				}
+				catch(Exception e)
+				{
+				    System.out.println(e.getMessage());
+				}
+	
+			    }//end if.
+                    
+		    }else
+		    {
+		    	   //.java file.
+		           //HelpEvent helpEvent = new HelpEvent(mpwFilePath, null);
+		           //this.notifyListeners(helpEvent);
+		    }
 
                 } else {
                     String urlString = url.toString();
                     functionName = urlString.substring(7, urlString.length());
                 }
+                
+                
+                
+                
             } else {
                 //Hack to get around problem of null url object being returned for the := operator.
                 if (event.getDescription().contains("http://:=")) {
                     functionName = ":=";
                 }
             }
+            
             //System.out.println(functionName);
             viewFunction(functionName, true);
 
@@ -1002,7 +1036,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
     private void home() {
-        toolPanel.sourceButtonEnabled(false);
+        //toolPanel.sourceButtonEnabled(false);
 
         setPage("HomePage", "<html>Home page</html>", true);
     }//end method.
@@ -1055,7 +1089,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private class ToolPanel extends JPanel implements ItemListener {
 
         private JLabel label;
-        private JButton sourceButton;
+        //private JButton sourceButton;
         private JButton backButton;
         private JButton forwardButton;
         private JButton homeButton;
@@ -1072,7 +1106,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
 
             //View source button.
-            sourceButton = new javax.swing.JButton("Source");
+            /*sourceButton = new javax.swing.JButton("Source");
             sourceButton.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent evt) {
@@ -1082,7 +1116,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             });
             sourceButton.setEnabled(false);
             sourceButton.setToolTipText("View script source.");
-            add(sourceButton);
+            add(sourceButton);*/
 
 
             showExperimentalFunctionsCheckBox = new JCheckBox("Experimental");
@@ -1168,9 +1202,9 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }//end constructor.
 
 
-        public void sourceButtonEnabled(Boolean state) {
-            sourceButton.setEnabled(state);
-        }//end method.
+        //public void sourceButtonEnabled(Boolean state) {
+        //    sourceButton.setEnabled(state);
+        //}//end method.
 
 
         public void backButtonEnabled(Boolean state) {
