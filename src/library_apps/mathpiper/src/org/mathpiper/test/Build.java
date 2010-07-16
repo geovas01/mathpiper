@@ -463,7 +463,6 @@ public class Build {
                 hasDocs = true;
 
                 String mpwFilePath = mpwFile.getPath();
-                mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf("scripts4")+9);
 
                 processMathPiperDocsFold(fold, mpwFilePath);
 
@@ -485,6 +484,8 @@ public class Build {
 
     private void processMathPiperDocsFold(Fold fold, String mpwFilePath) throws Exception {
         if (documentationFile != null) {
+        	
+            mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf("/org/mathpiper/"));
 
             String functionNamesString = "";
             if (fold.getAttributes().containsKey("name")) {
@@ -712,7 +713,7 @@ public class Build {
                         hasDocs = true;
 
 
-                        processMathPiperDocsFold(fold, "BUILTIN");
+                        processMathPiperDocsFold(fold, javaFile.getPath());
 
                     }//end if.
 
