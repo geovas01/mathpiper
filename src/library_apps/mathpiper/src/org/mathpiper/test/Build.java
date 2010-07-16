@@ -485,7 +485,7 @@ public class Build {
     private void processMathPiperDocsFold(Fold fold, String mpwFilePath) throws Exception {
         if (documentationFile != null) {
         	
-            mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf("/org/mathpiper/"));
+            mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator)); //"/org/mathpiper/";
 
             String functionNamesString = "";
             if (fold.getAttributes().containsKey("name")) {
