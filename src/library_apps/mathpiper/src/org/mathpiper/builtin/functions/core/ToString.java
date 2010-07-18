@@ -59,11 +59,11 @@ public class ToString extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="String",categories="User Functions;String Manipulation;Built In"
-*CMD String --- convert atom to string
+%mathpiper_docs,name="ToString",categories="User Functions;String Manipulation;Built In"
+*CMD ToString --- convert atom to string
 *CORE
 *CALL
-	String(atom)
+	ToString(atom)
 
 *PARMS
 
@@ -71,12 +71,11 @@ public class ToString extends BuiltinFunction
 
 *DESC
 
-{String} is the inverse of {Atom}: turns {atom} into {"atom"}.
+{ToString} is the inverse of {ToAtom}: turns {atom} into {"atom"}.
 
 *E.G.
-
-	In> String(a)
-	Out> "a";
+In> ToString(a)
+Out> "a";
 
 *SEE ToAtom, ExpressionToString
 %/mathpiper_docs
