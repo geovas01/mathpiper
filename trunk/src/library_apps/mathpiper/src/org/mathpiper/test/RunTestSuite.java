@@ -61,7 +61,7 @@ public class RunTestSuite {
 
                 output = "\n\n***** Beginning of tests. *****\n";
                 output = "\n***** " + new java.util.Date() + " *****\n";
-                output += "***** Using a new interpreter instance for each test file. *****\n";
+                //output += "***** Using a new interpreter instance for each test file. *****\n";
                 output += "***** MathPiper version: " + org.mathpiper.Version.version + " *****\n";
                 System.out.print(output);
                 logFile.write(output);

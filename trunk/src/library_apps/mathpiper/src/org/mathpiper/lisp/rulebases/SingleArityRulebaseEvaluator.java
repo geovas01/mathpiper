@@ -33,12 +33,12 @@ import org.mathpiper.lisp.Evaluator;
  * by consulting a set of rewritng rules.  The body of the first rule that
  * matches is evaluated and its result is returned as the function's result.
  */
-public class SingleArityBranchingRulebase extends Evaluator {
+public class SingleArityRulebaseEvaluator extends Evaluator {
     // List of arguments, with corresponding iHold property.
-    protected List<RuleParameter> iParameters = new ArrayList(); //CArrayGrower<RuleParameter>
+    protected List<ParameterName> iParameters = new ArrayList(); //CArrayGrower<ParameterName>
 
     // List of rules, sorted on precedence.
-    protected List<Branch> iBranchRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
+    protected List<Rule> iBranchRules = new ArrayList();//CDeletingArrayGrower<BranchRuleBase*>
     
     // List of arguments
     ConsPointer iParameterList;
@@ -59,7 +59,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
      * @param aParameters linked list constaining the names of the arguments
      * @throws java.lang.Exception
      */
-    public SingleArityBranchingRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParametersPointer, String functionName) throws Exception {
+    public SingleArityRulebaseEvaluator(Environment aEnvironment, int aStackTop, ConsPointer aParametersPointer, String functionName) throws Exception {
         iEnvironment = aEnvironment;
         this.functionName = functionName;
         iParameterList = new ConsPointer();
@@ -80,7 +80,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
                 }
             }//end catch.
 
-            RuleParameter parameter = new RuleParameter((String) parameterPointer.car(), false);
+            ParameterName parameter = new ParameterName((String) parameterPointer.car(), false);
             iParameters.add(parameter);
             parameterPointer.goNext(aStackTop, aEnvironment);
         }
@@ -93,7 +93,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
      * with aEnvironment, unless the iHold flag of the
      * corresponding parameter is true. Then a new LocalFrame is
      * constructed, in which the actual arguments are assigned to the
-     * names of the formal arguments, as stored in iParameter. Then
+     * names of the formal arguments, as stored in iName. Then
      * all rules in <b>iRules</b> are tried one by one. The body of the
      * first rule that matches is evaluated, and the result is put in
      * aResult. If no rule matches, aResult will recieve a new
@@ -120,7 +120,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
 
             // define the local variables.
             for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
-                String variableName = ((RuleParameter) iParameters.get(parameterIndex)).iParameter;
+                String variableName = ((ParameterName) iParameters.get(parameterIndex)).iName;
                 // set the variable to the new value
                 aEnvironment.newLocalVariable(variableName, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);
             }
@@ -132,7 +132,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
             UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
 
             for (parameterIndex = 0; parameterIndex < numberOfRules; parameterIndex++) {
-                Branch thisRule = ((Branch) iBranchRules.get(parameterIndex));
+                Rule thisRule = ((Rule) iBranchRules.get(parameterIndex));
                 LispError.lispAssert(thisRule != null, aEnvironment, aStackTop);
 
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
@@ -182,7 +182,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
                 }//end if matches.
 
                 // If rules got inserted, walk back
-                while (thisRule != ((Branch) iBranchRules.get(parameterIndex)) && parameterIndex > 0) {
+                while (thisRule != ((Rule) iBranchRules.get(parameterIndex)) && parameterIndex > 0) {
                     parameterIndex--;
                 }
             }//end for.
@@ -272,7 +272,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
 
             LispError.check(aEnvironment, aStackTop, argumentsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
 
-            if (((RuleParameter) iParameters.get(parameterIndex)).iHold) {
+            if (((ParameterName) iParameters.get(parameterIndex)).iHold) {
                 //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
                 argumentsResultPointerArray[parameterIndex].setCons(argumentsTraverser.getCons().copy(aEnvironment, false));
             } else {
@@ -319,8 +319,8 @@ public class SingleArityBranchingRulebase extends Evaluator {
         int i;
         int nrc = iParameters.size();
         for (i = 0; i < nrc; i++) {
-            if (((RuleParameter) iParameters.get(i)).iParameter == aVariable) {
-                ((RuleParameter) iParameters.get(i)).iHold = true;
+            if (((ParameterName) iParameters.get(i)).iName == aVariable) {
+                ((ParameterName) iParameters.get(i)).iHold = true;
             }
         }
     }
@@ -348,7 +348,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
 
 
     /**
-     *  Add a RuleBranch to the list of rules.
+     *  Add a PredicateRule to the list of rules.
      * See: insertRule()
      * 
      * @param aPrecedence
@@ -358,7 +358,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
      */
     public void defineSometimesTrueRule(int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         // New branching rule.
-        RuleBranch newRule = new RuleBranch(iEnvironment, aPrecedence, aPredicate, aBody);
+        PredicateRule newRule = new PredicateRule(iEnvironment, aPrecedence, aPredicate, aBody);
         LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
 
         insertRule(aPrecedence, newRule);
@@ -366,7 +366,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
 
 
     /**
-     * Add a TruePredicateRuleBranch to the list of rules.
+     * Add a TrueRule to the list of rules.
      * See: insertRule()
      * 
      * @param aPrecedence
@@ -375,7 +375,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
      */
     public void defineAlwaysTrueRule(int aStackTop, int aPrecedence, ConsPointer aBody) throws Exception {
         // New branching rule.
-        RuleBranch newRule = new TruePredicateRuleBranch(iEnvironment, aPrecedence, aBody);
+        PredicateRule newRule = new TrueRule(iEnvironment, aPrecedence, aBody);
         LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
 
         insertRule(aPrecedence, newRule);
@@ -383,7 +383,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
 
 
     /**
-     *  Add a PatternBranch to the list of rules.
+     *  Add a PatternRule to the list of rules.
      *  See: insertRule()
      * 
      * @param aPrecedence
@@ -393,7 +393,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
      */
     public void definePattern(int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         // New branching rule.
-        PatternBranch newRule = new PatternBranch(iEnvironment, aStackTop, aPrecedence, aPredicate, aBody);
+        PatternRule newRule = new PatternRule(iEnvironment, aStackTop, aPrecedence, aPredicate, aBody);
         LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
 
         insertRule(aPrecedence, newRule);
@@ -401,7 +401,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
 
 
     /**
-     * Insert any Branch object in the list of rules.
+     * Insert any Rule object in the list of rules.
      * This function does the real work for defineAlwaysTrueRule() and
      * definePattern(): it inserts the rule in <b>iRules</b>, while
      * keeping it sorted. The algorithm is O(log n), where
@@ -410,7 +410,7 @@ public class SingleArityBranchingRulebase extends Evaluator {
      * @param aPrecedence
      * @param newRule
      */
-    void insertRule(int aPrecedence, Branch newRule) {
+    void insertRule(int aNewRulePrecedence, Rule aNewRule) {
         // Find place to insert
         int low, high, mid;
         low = 0;
@@ -419,43 +419,45 @@ public class SingleArityBranchingRulebase extends Evaluator {
         // Constant time: find out if the precedence is before any of the
         // currently defined rules or past them.
         if (high > 0) {
-            if (((Branch) iBranchRules.get(0)).getPrecedence() > aPrecedence) {
+            if (((Rule) iBranchRules.get(0)).getPrecedence() > aNewRulePrecedence) {
                 mid = 0;
                 // Insert it
-                iBranchRules.add(mid, newRule);
+                iBranchRules.add(mid, aNewRule);
                 return;
             }
-            if (((Branch) iBranchRules.get(high - 1)).getPrecedence() < aPrecedence) {
+            if (((Rule) iBranchRules.get(high - 1)).getPrecedence() < aNewRulePrecedence) {
                 mid = high;
                 // Insert it
-                iBranchRules.add(mid, newRule);
+                iBranchRules.add(mid, aNewRule);
                 return;
             }
         }
 
         // Otherwise, O(log n) search algorithm for place to insert
-        for (;;) {
+        while(true) {
             if (low >= high) {
+                //Insert it.
                 mid = low;
-                // Insert it
-                iBranchRules.add(mid, newRule);
+                iBranchRules.add(mid, aNewRule);
                 return;
             }
 
 
             mid = (low + high) >> 1;
 
-            Branch branch = (Branch) iBranchRules.get(mid);
+            Rule existingRule = (Rule) iBranchRules.get(mid);
 
-            int branchPrecedence = branch.getPrecedence();
+            int existingRulePrecedence = existingRule.getPrecedence();
 
-            if (branchPrecedence > aPrecedence) {
+            if (existingRulePrecedence > aNewRulePrecedence) {
                 high = mid;
-            } else if (branchPrecedence < aPrecedence) {
+            } else if (existingRulePrecedence < aNewRulePrecedence) {
                 low = (++mid);
             } else {
-                // Insert it
-                iBranchRules.add(mid, newRule);
+
+                //existingRule.
+                //Insert it.
+                iBranchRules.add(mid, aNewRule);
                 return;
             }
         }

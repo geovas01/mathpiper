@@ -25,9 +25,10 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
-public class ListedBranchingRulebase extends SingleArityBranchingRulebase
+public class ListedMacroRulebaseEvaluator extends MacroRulebaseEvaluator
 {
-	public ListedBranchingRulebase(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
+
+	public ListedMacroRulebaseEvaluator(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
 	{
 		super(aEnvironment, aStackTop, aParameters, functionName);
 	}
@@ -37,7 +38,7 @@ public class ListedBranchingRulebase extends SingleArityBranchingRulebase
 		return (arity() <= aArity);
 	}
 	
-	public void evaluate( Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception
+	public void evaluate( Environment aEnvironment,int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception
 	{
 		ConsPointer newArgs = new ConsPointer();
 		ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
@@ -69,5 +70,4 @@ public class ListedBranchingRulebase extends SingleArityBranchingRulebase
 		super.evaluate(aEnvironment, aStackTop, aResult, newArgs);
 	}
 }
-
 

@@ -28,24 +28,23 @@ import org.mathpiper.lisp.parametermatchers.Pattern;
 /**
  * A rule which matches if the corresponding {@link PatternContainer} matches.
  */
-public class PatternBranch extends Branch {
+public class PatternRule extends Rule {
 
-    protected int iPrecedence;    /// The body of this rule.
-    protected ConsPointer iBody;    /// Generic object of type \c PatternContainer containing #iPatternClass
-    protected ConsPointer iPredicate;    /// The pattern that decides whether this rule matches.
-    protected PatternContainer iPatternClass;
+    protected int iPrecedence;
+    protected ConsPointer iBody;
+    protected ConsPointer iPredicate;    
+    protected PatternContainer iPattern; //The pattern that decides whether this rule matches or not.
 
     /**
-    /// Constructor.
      * 
      * @param aPrecedence precedence of the rule
      * @param aPredicate getObject object of type PatternContainer
      * @param aBody body of the rule
      */
-    public PatternBranch(Environment aEnvironment, int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         iBody = new ConsPointer();
         iPredicate = new ConsPointer();
-        iPatternClass = null;
+        iPattern = null;
         iPrecedence = aPrecedence;
         iPredicate.setCons(aPredicate.getCons());
 
@@ -53,16 +52,16 @@ public class PatternBranch extends Branch {
         LispError.check(aEnvironment, aStackTop, gen != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         LispError.check(aEnvironment, aStackTop, gen.typeName().equals("\"Pattern\""), LispError.INVALID_ARGUMENT, "INTERNAL");
 
-        iPatternClass = (PatternContainer) gen;
+        iPattern = (PatternContainer) gen;
         iBody.setCons(aBody.getCons());
     }
 
-    /// Return true if the corresponding pattern matches.
+    //Return true if the corresponding pattern matches.
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
-        return iPatternClass.matches(aEnvironment, aStackTop, aArguments);
+        return iPattern.matches(aEnvironment, aStackTop, aArguments);
     }
 
-    /// Access #iPrecedence
+    //Access iPrecedence.
     public int getPrecedence() {
         return iPrecedence;
     }
@@ -72,11 +71,11 @@ public class PatternBranch extends Branch {
     }
 
     public Pattern getPattern() {
-        return iPatternClass.getPattern();
+        return iPattern.getPattern();
     }
 
-    /// Access #iBody
+    //Access iBody
     public ConsPointer getBodyPointer() {
         return iBody;
-    }    /// The precedence of this rule.
+    }
 }

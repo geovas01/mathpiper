@@ -3,8 +3,7 @@ Turning stack tracing on: Result: True
 Side Effects:
 Stack tracing is on.
 
-***** Wed Jul 14 19:21:51 EDT 2010 *****
-***** Using a new interpreter instance for each test file. *****
+***** Sat Jul 17 22:59:06 EDT 2010 *****
 ***** MathPiper version: .80h *****
 
 ===========================
@@ -584,15 +583,6 @@ Result: True
 
 Side Effects:
 --Solve
-******************
-tests/scripts4/solve.mpt: 14 
-
-eqWhereres
- evaluates to 
-eqWhereres
- which differs from 
-{c==c,c==c}
-******************
 --PSolve
 --     Linear
 --     Quadratic

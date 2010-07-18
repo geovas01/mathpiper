@@ -17,28 +17,20 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.Environment;
+
 /**
- * Contains the name of a parameter and if it is put on hold.
+ * Base class for rules.
  */
-public class RuleParameter
+public abstract class Rule
 {
-        String iParameter;
-        boolean iHold;
 
-    public RuleParameter(String aParameter, boolean aHold /*=false*/)
-    {
-        iParameter = aParameter;
-        iHold = aHold;
-    }
+    public abstract boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception;
 
-    public String getParameter()
-    {
-        return iParameter;
-    }
+    public abstract int getPrecedence();
 
-    public boolean isHold()
-    {
-        return iHold;
-    }
+    public abstract ConsPointer getPredicatePointer();
 
+    public abstract ConsPointer getBodyPointer();
 }

@@ -43,9 +43,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import org.mathpiper.lisp.GlobalVariable;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.rulebases.Branch;
+import org.mathpiper.lisp.rulebases.Rule;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
-import org.mathpiper.lisp.rulebases.SingleArityBranchingRulebase;
+import org.mathpiper.lisp.rulebases.SingleArityRulebaseEvaluator;
 import org.mathpiper.ui.gui.MultiSplitLayout.Divider;
 import org.mathpiper.ui.gui.MultiSplitLayout.Leaf;
 import org.mathpiper.ui.gui.MultiSplitLayout.Split;
@@ -508,12 +508,12 @@ public class EnvironmentViewer implements ActionListener {
             Iterator multipleArityUserFunctionIterator = multipleArityUserfunction.getFunctions();
 
             while (multipleArityUserFunctionIterator.hasNext()) {
-                SingleArityBranchingRulebase userFunction = (SingleArityBranchingRulebase) multipleArityUserFunctionIterator.next();
+                SingleArityRulebaseEvaluator userFunction = (SingleArityRulebaseEvaluator) multipleArityUserFunctionIterator.next();
                 Iterator rulesIterator = userFunction.getRules();
 
                 while (rulesIterator.hasNext()) {
 
-                    Branch branchRuleBase = (Branch) rulesIterator.next();
+                    Rule branchRuleBase = (Rule) rulesIterator.next();
 
                     String ruleDump = org.mathpiper.lisp.Utility.dumpRule(-1, branchRuleBase, iEnvironment, userFunction);
                     textArea.append(ruleDump);
