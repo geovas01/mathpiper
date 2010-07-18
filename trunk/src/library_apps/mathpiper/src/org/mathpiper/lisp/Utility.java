@@ -46,8 +46,8 @@ import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.NumberCons;
-import org.mathpiper.lisp.parametermatchers.Pattern;
-import org.mathpiper.lisp.parametermatchers.PatternParameter;
+import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
+import org.mathpiper.lisp.parametermatchers.PatternParameterMatcher;
 import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.lisp.rulebases.Rule;
@@ -1259,7 +1259,7 @@ public class Utility {
             if (branch instanceof PatternRule) {
                 predicate = "(Pattern) ";
                 PatternRule branchPattern = (PatternRule) branch;
-                Pattern pattern = branchPattern.getPattern();
+                ParametersPatternMatcher pattern = branchPattern.getPattern();
 
                 Iterator variablesIterator = pattern.getVariables().iterator();
                 String patternVariables = "";
@@ -1275,7 +1275,7 @@ public class Utility {
                 Iterator parameterMatchersIterator = pattern.getParameterMatchers().iterator();
                 String parameterTypes = "";
                 while (parameterMatchersIterator.hasNext()) {
-                    PatternParameter parameter = (PatternParameter) parameterMatchersIterator.next();
+                    PatternParameterMatcher parameter = (PatternParameterMatcher) parameterMatchersIterator.next();
                     String parameterType = (String) parameter.getType();
                     parameterTypes += parameterType + ", ";
                 }

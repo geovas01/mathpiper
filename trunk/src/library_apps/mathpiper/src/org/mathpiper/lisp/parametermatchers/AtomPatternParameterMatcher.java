@@ -17,35 +17,38 @@
 package org.mathpiper.lisp.parametermatchers;
 
 import org.mathpiper.builtin.BigNumber;
-
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.NumberCons;
 
-/// Class for matching an expression to a given number.
-public class NumberPatternParameter extends PatternParameter {
+//Class for matching an expression to a given atom.
+public class AtomPatternParameterMatcher extends PatternParameterMatcher {
 
-    protected BigNumber iNumber;
+    protected String iString;
 
 
-    public NumberPatternParameter(BigNumber aNumber) {
-        iNumber = aNumber;
+    public AtomPatternParameterMatcher(String aString) {
+        iString = aString;
     }
 
 
     public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
-
-        BigNumber bigNumber = (BigNumber) aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
         
-        if (bigNumber != null) {
-            return iNumber.equals(bigNumber);
+        // If it is a floating point, don't even bother comparing
+        if (aExpression.getCons() != null) {
+            if (aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
+                if (!((BigNumber) ((NumberCons) aExpression.getCons()).getNumber(aEnvironment.getPrecision(), aEnvironment)).isInteger()) {
+                    return false;
+                }
+            }
         }
-        
-        return false;
+
+        return (iString == aExpression.car());
     }
 
 
     public String getType() {
-        return "Number";
+        return "Atom";
     }
 
 }

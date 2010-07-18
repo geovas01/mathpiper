@@ -23,7 +23,7 @@ import org.mathpiper.builtin.PatternContainer;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.parametermatchers.Pattern;
+import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 
 /**
  * A rule which matches if the corresponding {@link PatternContainer} matches.
@@ -70,7 +70,7 @@ public class PatternRule extends Rule {
         return this.iPredicate;
     }
 
-    public Pattern getPattern() {
+    public ParametersPatternMatcher getPattern() {
         return iPattern.getPattern();
     }
 

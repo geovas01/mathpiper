@@ -20,23 +20,23 @@ package org.mathpiper.builtin;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.parametermatchers.Pattern;
+import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 
 /**
- * Allows a org.mathpiper.parametermatchers.Pattern to be placed into a org.mathpiper.lisp.BuiltinObject.
+ * Allows a org.mathpiper.parametermatchers.ParametersPatternMatcher to be placed into a org.mathpiper.lisp.BuiltinObject.
  * 
  */
 public class PatternContainer extends BuiltinContainer {
 
-    protected Pattern iPatternMatcher;
+    protected ParametersPatternMatcher iPatternMatcher;
 
 
-    public PatternContainer(org.mathpiper.lisp.parametermatchers.Pattern aPatternMatcher) {
+    public PatternContainer(org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher aPatternMatcher) {
         iPatternMatcher = aPatternMatcher;
     }
 
 
-    public Pattern getPattern() {
+    public ParametersPatternMatcher getPattern() {
         return iPatternMatcher;
     }
 

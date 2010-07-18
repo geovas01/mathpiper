@@ -20,15 +20,15 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 
-/// Class for matching against a list of PatternParameter objects.
-public class SublistPatternParameter extends PatternParameter {
+/// Class for matching against a list of PatternParameterMatcher objects.
+public class SublistPatternParameterMatcher extends PatternParameterMatcher {
 
-    protected PatternParameter[] iMatchers;
+    protected PatternParameterMatcher[] iMatchers;
 
     protected int iNumberOfMatchers;
 
 
-    public SublistPatternParameter(PatternParameter[] aMatchers, int aNrMatchers) {
+    public SublistPatternParameterMatcher(PatternParameterMatcher[] aMatchers, int aNrMatchers) {
         iMatchers = aMatchers;
         iNumberOfMatchers = aNrMatchers;
     }
