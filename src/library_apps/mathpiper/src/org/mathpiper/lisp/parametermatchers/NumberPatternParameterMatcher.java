@@ -13,26 +13,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.lisp.parametermatchers;
+
+import org.mathpiper.builtin.BigNumber;
 
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
+/// Class for matching an expression to a given number.
+public class NumberPatternParameterMatcher extends PatternParameterMatcher {
 
-//Abstract class for matching one argument to a pattern.
-public abstract class PatternParameter
-{
-    /*
-    Check whether some expression matches to the pattern.
-    \param aEnvironment the underlying Lisp environment.
-    \param aExpression the expression to test.
-    \param arguments (input/output) actual values of the pattern
-    variables for aExpression.
-    */
-    public abstract boolean argumentMatches(Environment  aEnvironment, int aStackTop, ConsPointer  aExpression, ConsPointer[]  arguments) throws Exception;
+    protected BigNumber iNumber;
 
-    public abstract String getType();
+
+    public NumberPatternParameterMatcher(BigNumber aNumber) {
+        iNumber = aNumber;
+    }
+
+
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
+
+        BigNumber bigNumber = (BigNumber) aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        
+        if (bigNumber != null) {
+            return iNumber.equals(bigNumber);
+        }
+        
+        return false;
+    }
+
+
+    public String getType() {
+        return "Number";
+    }
+
 }

@@ -21,7 +21,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
 //Class for matching against a pattern variable.
-public class VariablePatternParameter extends PatternParameter {
+public class VariablePatternParameterMatcher extends PatternParameterMatcher {
     //Index of variable in MathPiperPatternPredicateBase.iVariables.
     protected int iVarIndex;
 
@@ -29,7 +29,7 @@ public class VariablePatternParameter extends PatternParameter {
     protected String iString;
 
 
-    public VariablePatternParameter(int aVarIndex) {
+    public VariablePatternParameterMatcher(int aVarIndex) {
         iVarIndex = aVarIndex;
     }
 
@@ -38,8 +38,7 @@ public class VariablePatternParameter extends PatternParameter {
      *Matches an expression against the pattern variable.
      *@param aEnvironment the underlying Lisp environment.
      *@param aExpression the expression to test.
-     *@param arguments (input/output) actual values of the pattern
-     *variables for aExpression.
+     *@param arguments (input/output) actual values of the pattern variables for aExpression.
      *
      *If entry iVarIndex in arguments is still empty, the
      *pattern matches and aExpression is stored in this
