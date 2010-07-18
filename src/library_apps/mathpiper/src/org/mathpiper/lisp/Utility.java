@@ -50,11 +50,11 @@ import org.mathpiper.lisp.parametermatchers.Pattern;
 import org.mathpiper.lisp.parametermatchers.PatternParameter;
 import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.lisp.printers.LispPrinter;
-import org.mathpiper.lisp.rulebases.Branch;
-import org.mathpiper.lisp.rulebases.RuleParameter;
-import org.mathpiper.lisp.rulebases.MacroRulebase;
-import org.mathpiper.lisp.rulebases.PatternBranch;
-import org.mathpiper.lisp.rulebases.SingleArityBranchingRulebase;
+import org.mathpiper.lisp.rulebases.Rule;
+import org.mathpiper.lisp.rulebases.ParameterName;
+import org.mathpiper.lisp.rulebases.MacroRulebaseEvaluator;
+import org.mathpiper.lisp.rulebases.PatternRule;
+import org.mathpiper.lisp.rulebases.SingleArityRulebaseEvaluator;
 
 public class Utility {
 
@@ -1116,7 +1116,7 @@ public class Utility {
     }
 
     /**
-     *Implements the MathPiper functions Rulebase and MacroRulebase .
+     *Implements the MathPiper functions Rulebase and MacroRulebaseEvaluator .
      * The real work is done by Environment.defineRulebase().
      */
     public static void rulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
@@ -1243,7 +1243,7 @@ public class Utility {
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
-    public static String dumpRule(int aStackTop, Branch branch, Environment aEnvironment, SingleArityBranchingRulebase userFunction) {
+    public static String dumpRule(int aStackTop, Rule branch, Environment aEnvironment, SingleArityRulebaseEvaluator userFunction) {
         StringBuilder dumpResult = new StringBuilder();
         try {
             int precedence = branch.getPrecedence();
@@ -1256,9 +1256,9 @@ public class Utility {
                 predicate = Utility.printMathPiperExpression(aStackTop, predicatePointer1, aEnvironment, 0);
             }
 
-            if (branch instanceof PatternBranch) {
+            if (branch instanceof PatternRule) {
                 predicate = "(Pattern) ";
-                PatternBranch branchPattern = (PatternBranch) branch;
+                PatternRule branchPattern = (PatternRule) branch;
                 Pattern pattern = branchPattern.getPattern();
 
                 Iterator variablesIterator = pattern.getVariables().iterator();
@@ -1304,8 +1304,8 @@ public class Utility {
             String parameters = "";
             boolean isHold = false;
             while (paremetersIterator.hasNext()) {
-                RuleParameter branchParameter = (RuleParameter) paremetersIterator.next();
-                String parameter = branchParameter.getParameter();
+                ParameterName branchParameter = (ParameterName) paremetersIterator.next();
+                String parameter = branchParameter.getName();
                 isHold = branchParameter.isHold();
                 parameters += parameter + "<hold=" + isHold + ">, ";
             }
@@ -1319,7 +1319,7 @@ public class Utility {
 
             String substitutedMacroBody = "";
 
-            if (userFunction instanceof MacroRulebase) {
+            if (userFunction instanceof MacroRulebaseEvaluator) {
                 BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
                 ConsPointer substitutedBodyPointer = new ConsPointer();
                 Utility.substitute(aEnvironment, aStackTop, substitutedBodyPointer, branch.getBodyPointer(), backQuoteSubstitute);
@@ -1330,7 +1330,7 @@ public class Utility {
             dumpResult.append("\n" + "Parameters: " + parameters + ", ");
             dumpResult.append("\n" + "Predicates: " + predicate + ",    ");
 
-            if (userFunction instanceof MacroRulebase) {
+            if (userFunction instanceof MacroRulebaseEvaluator) {
                 dumpResult.append("\n" + "Body: \n" + body + ", ");
                 dumpResult.append("\n" + "Substituted Macro Body: \n" + substitutedMacroBody + "\n");
             } else {

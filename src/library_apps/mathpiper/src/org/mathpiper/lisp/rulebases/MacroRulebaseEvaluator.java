@@ -30,9 +30,9 @@ import org.mathpiper.lisp.LispExpressionEvaluator;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
-public class MacroRulebase extends SingleArityBranchingRulebase {
+public class MacroRulebaseEvaluator extends SingleArityRulebaseEvaluator {
 
-    public MacroRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public MacroRulebaseEvaluator(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
         ConsTraverser parameterTraverser = new ConsTraverser(aEnvironment, aParameters);
         int i = 0;
@@ -50,7 +50,7 @@ public class MacroRulebase extends SingleArityBranchingRulebase {
             }//end catch.
 
 
-            ((RuleParameter) iParameters.get(i)).iHold = true;
+            ((ParameterName) iParameters.get(i)).iHold = true;
             parameterTraverser.goNext(aStackTop);
             i++;
         }
@@ -76,7 +76,7 @@ public class MacroRulebase extends SingleArityBranchingRulebase {
         try {
             // define the local variables.
             for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
-                String variable = ((RuleParameter) iParameters.get(parameterIndex)).iParameter;
+                String variable = ((ParameterName) iParameters.get(parameterIndex)).iName;
 
                 // set the variable to the new value
                 aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);
@@ -87,7 +87,7 @@ public class MacroRulebase extends SingleArityBranchingRulebase {
             int numberOfRules = iBranchRules.size();
             UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
             for (parameterIndex = 0; parameterIndex < numberOfRules; parameterIndex++) {
-                Branch thisRule = ((Branch) iBranchRules.get(parameterIndex));
+                Rule thisRule = ((Rule) iBranchRules.get(parameterIndex));
                 //TODO remove            CHECKPTR(thisRule);
                 LispError.lispAssert(thisRule != null, aEnvironment, aStackTop);
 
@@ -114,7 +114,7 @@ public class MacroRulebase extends SingleArityBranchingRulebase {
                 }
 
                 // If rules got inserted, walk back
-                while (thisRule != ((Branch) iBranchRules.get(parameterIndex)) && parameterIndex > 0) {
+                while (thisRule != ((Rule) iBranchRules.get(parameterIndex)) && parameterIndex > 0) {
                     parameterIndex--;
                 }
             }

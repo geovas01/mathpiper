@@ -13,69 +13,57 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.lisp.parametermatchers;
 
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 
+//Class for matching against a pattern variable.
+public class VariablePatternParameter extends PatternParameter {
+    //Index of variable in MathPiperPatternPredicateBase.iVariables.
+    protected int iVarIndex;
 
-/// Class for matching against a pattern variable.
-public class VariablePatternParameter extends PatternParameter
-{
-	/// Index of variable in MathPiperPatternPredicateBase.iVariables.
-	protected int iVarIndex;
+    //Not used.
+    protected String iString;
 
-	/// Not used.
-	protected String iString;
 
-	public VariablePatternParameter(int aVarIndex)
-	{
-		iVarIndex = aVarIndex;
-	}
+    public VariablePatternParameter(int aVarIndex) {
+        iVarIndex = aVarIndex;
+    }
 
-	/// Matches an expression against the pattern variable.
-	/// \param aEnvironment the underlying Lisp environment.
-	/// \param aExpression the expression to test.
-	/// \param arguments (input/output) actual values of the pattern
-	/// variables for \a aExpression.
-	///
-	/// If entry #iVarIndex in \a arguments is still empty, the
-	/// pattern matches and \a aExpression is stored in this
-	/// entry. Otherwise, the pattern only matches if the entry equals
-	/// \a aExpression.
-	public boolean argumentMatches(Environment  aEnvironment, int aStackTop, 
-	                               ConsPointer  aExpression,
-	                               ConsPointer[]  arguments) throws Exception
-	{
-		// this should not be necessary
-		//    if (arguments[iVarIndex] == null)
-		//    {
-		//      arguments[iVarIndex] = new ConsPointer(aEnvironment);
-		//    }
-		if (arguments[iVarIndex].getCons() == null)
-		{
-			arguments[iVarIndex].setCons(aExpression.getCons());
-			//        LogPrintf("Set var %d\n",iVarIndex);
-			return true;
-		}
-		else
-		{
-			if (Utility.equals(aEnvironment, aStackTop, aExpression, arguments[iVarIndex]))
-			{
-				//            LogPrintf("Matched var %d\n",iVarIndex);
-				return true;
-			}
-			return false;
-		}
-		//    return false;
-	}
 
-        public String getType()
-    {
+    /**
+     *Matches an expression against the pattern variable.
+     *@param aEnvironment the underlying Lisp environment.
+     *@param aExpression the expression to test.
+     *@param arguments (input/output) actual values of the pattern
+     *variables for aExpression.
+     *
+     *If entry iVarIndex in arguments is still empty, the
+     *pattern matches and aExpression is stored in this
+     *entry. Otherwise, the pattern only matches if the entry equals
+     *aExpression.
+     */
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
+
+        if (arguments[iVarIndex].getCons() == null) {
+            arguments[iVarIndex].setCons(aExpression.getCons());
+            //Set var iVarIndex.
+            return true;
+        } else {
+            if (Utility.equals(aEnvironment, aStackTop, aExpression, arguments[iVarIndex])) {
+                //Matched var iVarIndex.
+                return true;
+            }
+            return false;
+        }
+
+    }//end method.
+
+
+    public String getType() {
         return "Variable";
     }
 

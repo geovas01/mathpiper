@@ -19,22 +19,21 @@
 package org.mathpiper.lisp.rulebases;
 
 
-import org.mathpiper.lisp.DefFile;
 import org.mathpiper.lisp.*;
 import java.util.*;
 
 
 
 /**
- * Holds a set of {@link SingleArityBranchingRulebase} which are associated with one function name.
- * A specific SingleArityBranchingRulebase can be selected by providing its name.  The
+ * Holds a set of {@link SingleArityRulebaseEvaluator} which are associated with one function name.
+ * A specific SingleArityRulebaseEvaluator can be selected by providing its name.  The
  * name of the file in which the function is defined can also be specified.
  */
 public class MultipleArityRulebase
 {
 
-	/// Set of SingleArityBranchingRulebase's provided by this MultipleArityRulebase.
-	List<SingleArityBranchingRulebase> iFunctions = new ArrayList();//
+	/// Set of SingleArityRulebaseEvaluator's provided by this MultipleArityRulebase.
+	List<SingleArityRulebaseEvaluator> iFunctions = new ArrayList();//
 
 	/// File to read for the definition of this function.
 	public DefFile iFileToOpen;
@@ -48,7 +47,7 @@ public class MultipleArityRulebase
 	}
 
 	/// Return user function with given arity.
-	public SingleArityBranchingRulebase getUserFunction(int aArity, int aStackTop, Environment aEnvironment) throws Exception
+	public SingleArityRulebaseEvaluator getUserFunction(int aArity, int aStackTop, Environment aEnvironment) throws Exception
 	{
 		int ruleIndex;
 		//Find function body with the right arity
@@ -57,9 +56,9 @@ public class MultipleArityRulebase
 		{
 			LispError.lispAssert(iFunctions.get(ruleIndex) != null, aEnvironment, aStackTop);
 
-			if (((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)).isArity(aArity))
+			if (((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)).isArity(aArity))
 			{
-				return (SingleArityBranchingRulebase)iFunctions.get(ruleIndex);
+				return (SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex);
 			}
 		}
 
@@ -75,22 +74,22 @@ public class MultipleArityRulebase
 		for (ruleIndex =0;ruleIndex <iFunctions.size();ruleIndex ++)
 		{
 			LispError.lispAssert(iFunctions.get(ruleIndex ) != null, aEnvironment, aStackTop);
-			((SingleArityBranchingRulebase)iFunctions.get(ruleIndex )).holdArgument(aVariable);
+			((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex )).holdArgument(aVariable);
 		}
 	}
 
-	/// Add another SingleArityBranchingRulebase to #iFunctions.
-	public  void addRulebaseEntry(Environment aEnvironment, int aStackTop, SingleArityBranchingRulebase aNewFunction) throws Exception
+	/// Add another SingleArityRulebaseEvaluator to #iFunctions.
+	public  void addRulebaseEntry(Environment aEnvironment, int aStackTop, SingleArityRulebaseEvaluator aNewFunction) throws Exception
 	{
 		int ruleIndex;
 		//Find function body with the right arity
 		int numberOfRules =iFunctions.size();
 		for (ruleIndex=0; ruleIndex<numberOfRules; ruleIndex++)
 		{
-			LispError.lispAssert(((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
+			LispError.lispAssert(((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
 			LispError.lispAssert(aNewFunction != null, aEnvironment, aStackTop);
-			LispError.check(aEnvironment, aStackTop, !((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
-			LispError.check(aEnvironment, aStackTop, !aNewFunction.isArity(((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)).arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
+			LispError.check(aEnvironment, aStackTop, !((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
+			LispError.check(aEnvironment, aStackTop, !aNewFunction.isArity(((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)).arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
 		}
 		iFunctions.add(aNewFunction);
 	}
@@ -109,9 +108,9 @@ public class MultipleArityRulebase
 		int numberOfRules =iFunctions.size();
 		for (ruleIndex=0; ruleIndex<numberOfRules; ruleIndex++)
 		{
-			LispError.lispAssert(((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
+			LispError.lispAssert(((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
 
-            if (((SingleArityBranchingRulebase)iFunctions.get(ruleIndex)).isArity(aArity))
+            if (((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)).isArity(aArity))
 			{
 				iFunctions.remove(ruleIndex);
 				return;

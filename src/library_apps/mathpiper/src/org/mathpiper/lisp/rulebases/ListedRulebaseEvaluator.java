@@ -25,10 +25,9 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
-public class ListedMacroRulebase extends MacroRulebase
+public class ListedRulebaseEvaluator extends SingleArityRulebaseEvaluator
 {
-
-	public ListedMacroRulebase(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
+	public ListedRulebaseEvaluator(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
 	{
 		super(aEnvironment, aStackTop, aParameters, functionName);
 	}
@@ -38,7 +37,7 @@ public class ListedMacroRulebase extends MacroRulebase
 		return (arity() <= aArity);
 	}
 	
-	public void evaluate( Environment aEnvironment,int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception
+	public void evaluate( Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception
 	{
 		ConsPointer newArgs = new ConsPointer();
 		ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
@@ -70,4 +69,5 @@ public class ListedMacroRulebase extends MacroRulebase
 		super.evaluate(aEnvironment, aStackTop, aResult, newArgs);
 	}
 }
+
 

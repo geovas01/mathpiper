@@ -13,7 +13,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.parametermatchers;
 
@@ -46,28 +45,28 @@ import org.mathpiper.builtin.BigNumber;
  *arguments, and return whether there was a match.
  */
 public class Pattern {
-    // List of parameter matchers, one for every parameter.
+    //List of parameter matchers, one for every parameter.
     protected List iParamMatchers = new ArrayList(); //CDeletingArrayGrower<PatternParameter*> iParamMatchers;
 
     // List of variables appearing in the pattern.
     protected List iVariables = new ArrayList(); //CArrayGrower<String>
-
+    
     // List of predicates which need to be true for a match.
     protected List iPredicates = new ArrayList(); //CDeletingArrayGrower<ConsPointer[] >
 
 
-    /*
-    Constructor.
-    \param aEnvironment the underlying Lisp environment
-    \param aPattern Lisp expression containing the pattern
-    \param aPostPredicate Lisp expression containing the
-    postpredicate
-
-    The function MakePatternMatcher() is called for every argument
-    in aPattern, and the resulting pattern matchers are
-    collected in iParamMatchers. Additionally, aPostPredicate
-    is copied, and the copy is added to iPredicates.
-    */
+    /**
+     *Constructor.
+     *@param aEnvironment the underlying Lisp environment
+     *@param aPattern Lisp expression containing the pattern
+     *@param aPostPredicate Lisp expression containing the
+     *postpredicate
+     *
+     *The function MakePatternMatcher() is called for every argument
+     *in aPattern, and the resulting pattern matchers are
+     *collected in iParamMatchers. Additionally, aPostPredicate
+     *is copied, and the copy is added to iPredicates.
+     */
     public Pattern(Environment aEnvironment, int aStackTop,
             ConsPointer aPattern,
             ConsPointer aPostPredicate) throws Exception {
@@ -97,7 +96,7 @@ public class Pattern {
     function also returns false. Otherwise, setPatternVariables()
     is called again, but now in the current LispLocalFrame, and
     this function returns true.
-    */
+     */
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aArguments) throws Exception {
         int i;
 
@@ -155,7 +154,8 @@ public class Pattern {
     Try to match the pattern against aArguments.
     This function does the same as matches(Environment, ConsPointer),
     but differs in the type of the arguments.
-    */
+     */
+
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
         int i;
 
@@ -168,23 +168,23 @@ public class Pattern {
         }
 
 
-        
+
         for (i = 0; i < iParamMatchers.size(); i++) {
             LispError.check(i < aArguments.length, "Listed function definitions need at least two parameters.", "INTERNAL", aStackTop, aEnvironment);
             PatternParameter patternParameter = (PatternParameter) iParamMatchers.get(i);
             ConsPointer argument = aArguments[i];
-            if (! patternParameter.argumentMatches(aEnvironment, aStackTop, argument, arguments)) {
+            if (!patternParameter.argumentMatches(aEnvironment, aStackTop, argument, arguments)) {
                 return false;
             }
         }
 
         {
-            // Set the local variables.
+            //Set the local variables.
             aEnvironment.pushLocalFrame(false, "Pattern");
             try {
                 setPatternVariables(aEnvironment, arguments, aStackTop);
 
-                // do the predicates
+                //Check the predicates.
                 if (!checkPredicates(aEnvironment, aStackTop)) {
                     return false;
                 }
@@ -197,6 +197,7 @@ public class Pattern {
 
         // Set the local variables for sure now.
         setPatternVariables(aEnvironment, arguments, aStackTop);
+
         return true;
     }
 
@@ -204,22 +205,23 @@ public class Pattern {
     Construct a pattern matcher out of a Lisp expression.
     The result of this function depends on the value of aPattern:
     - If aPattern is a number, the corresponding NumberPatternParameter is
-      constructed and returned.
+    constructed and returned.
     - If aPattern is an atom, the corresponding AtomCons is
-      constructed and returned.
+    constructed and returned.
     - If aPattern is a list of the form ( _ var ),
-      where var is an atom, lookUp() is called on var. Then
-      the correspoding VariablePatternParameter is constructed and returned.
+    where var is an atom, lookUp() is called on var. Then
+    the correspoding VariablePatternParameter is constructed and returned.
     - If aPattern is a list of the form ( _ var expr ),
-      where var is an atom, lookUp() is called on var. Then,
-      expr is appended to #iPredicates. Finally, the
-      correspoding VariablePatternParameter is constructed and returned.
+    where var is an atom, lookUp() is called on var. Then,
+    expr is appended to #iPredicates. Finally, the
+    correspoding VariablePatternParameter is constructed and returned.
     - If aPattern is a list of another form, this function
-      calls itself on any of the entries in this list. The
-      resulting PatternParameter objects are collected in a
-      SublistCons, which is returned.
+    calls itself on any of the entries in this list. The
+    resulting PatternParameter objects are collected in a
+    SublistCons, which is returned.
     - Otherwise, this function returns #null.
-    */
+     */
+
     protected PatternParameter makeParamMatcher(Environment aEnvironment, int aStackTop, Cons aPattern) throws Exception {
         if (aPattern == null) {
             return null;
@@ -230,7 +232,7 @@ public class Pattern {
         }
         // Deal with atoms
         if (aPattern.car() instanceof String) {
-            return new AtomPatternParameter( (String) aPattern.car());
+            return new AtomPatternParameter((String) aPattern.car());
         }
 
         // Else it must be a sublist
@@ -247,17 +249,17 @@ public class Pattern {
                 if (((String) head.car()) == aEnvironment.getTokenHash().lookUp("_")) {
                     Cons second = head.cdr().getCons();
                     if (second.car() instanceof String) {
-                        int index = lookUp( (String) second.car());
+                        int index = lookUp((String) second.car());
 
                         // Make a predicate for the type, if needed
                         if (num > 2) {
                             ConsPointer third = new ConsPointer();
 
                             Cons predicate = second.cdr().getCons();
-                            if ( (predicate.car() instanceof ConsPointer)) {
+                            if ((predicate.car() instanceof ConsPointer)) {
                                 Utility.flatCopy(aEnvironment, aStackTop, third, (ConsPointer) predicate.car());
                             } else {
-                                third.setCons(second.cdr().getCons().copy( aEnvironment, false));
+                                third.setCons(second.cdr().getCons().copy(aEnvironment, false));
                             }
 
                             String str = (String) second.car();
@@ -269,7 +271,7 @@ public class Pattern {
                             last.cdr().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, str));
 
                             ConsPointer pred = new ConsPointer();
-                            pred.setCons(org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment,third.getCons()));
+                            pred.setCons(org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, third.getCons()));
 
                             iPredicates.add(pred);
                         }
@@ -294,12 +296,13 @@ public class Pattern {
     }
 
     /*
-    Look up a variable name in #iVariables.
-    Returns index in #iVariables array where aVariable
+    Look up a variable name in iVariables.
+    Returns index in iVariables array where aVariable
     appears.
     
-    If \a aVariable is not in #iVariables, it is added.
-    */
+    If aVariable is not in iVariables, it is added.
+     */
+
     protected int lookUp(String aVariable) {
         int i;
         for (i = 0; i < iVariables.size(); i++) {
@@ -311,35 +314,44 @@ public class Pattern {
         return iVariables.size() - 1;
     }
 
-    /// Set local variables corresponding to the pattern variables.
-    /// This function goes through the #iVariables array. A local
-    /// variable is made for every entry in the array, and the
-    /// corresponding argument is assigned to it.
+    /*
+    Set local variables corresponding to the pattern variables.
+    This function goes through the #iVariables array. A local
+    variable is made for every entry in the array, and the
+    corresponding argument is assigned to it.
+     */
+
     protected void setPatternVariables(Environment aEnvironment, ConsPointer[] arguments, int aStackTop) throws Exception {
         int i;
         for (i = 0; i < iVariables.size(); i++) {
-            // setCons the variable to the new value
+            //Set the variable to the new value
             aEnvironment.newLocalVariable((String) iVariables.get(i), arguments[i].getCons(), aStackTop);
         }
     }
 
-    /// check whether all predicates are true.
-    /// This function goes through all predicates in #iPredicates, and
-    /// evaluates them. It returns #false if at least one
-    /// of these results IsFalse(). An error is raised if any result
-    /// neither IsTrue() nor IsFalse().
+    /*
+    Check whether all predicates are true.
+    This function goes through all predicates in iPredicates and
+    evaluates them. It returns false if at least one
+    of these results IsFalse(). An error is raised if any result
+    that is neither IsTrue() nor IsFalse().
+     */
+
     protected boolean checkPredicates(Environment aEnvironment, int aStackTop) throws Exception {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
-            ConsPointer pred = new ConsPointer();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, ((ConsPointer) iPredicates.get(i)));
-            if (Utility.isFalse(aEnvironment, pred, aStackTop)) {
+
+            ConsPointer resultPredicate = new ConsPointer();
+
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPredicate, ((ConsPointer) iPredicates.get(i)));
+
+            if (Utility.isFalse(aEnvironment, resultPredicate, aStackTop)) {
                 return false;
             }
 
 
             // If the result is not False, it should be True, else probably something is wrong (the expression returned unevaluated)
-            boolean isTrue = Utility.isTrue(aEnvironment, pred, aStackTop);
+            boolean isTrue = Utility.isTrue(aEnvironment, resultPredicate, aStackTop);
             if (!isTrue) {
                 //TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
                 String strout;
@@ -347,7 +359,7 @@ public class Pattern {
                 strout = Utility.printMathPiperExpression(aStackTop, ((ConsPointer) iPredicates.get(i)), aEnvironment, 60);
                 aEnvironment.write(strout);
                 aEnvironment.write("\nevaluated to\n\t");
-                strout = Utility.printMathPiperExpression(aStackTop, pred, aEnvironment, 60);
+                strout = Utility.printMathPiperExpression(aStackTop, resultPredicate, aEnvironment, 60);
                 aEnvironment.write(strout);
                 aEnvironment.write("\n");
 
@@ -357,16 +369,20 @@ public class Pattern {
         return true;
     }
 
+
     public List getParameterMatchers() {
         return iParamMatchers;
     }
+
 
     public List getPredicates() {
         return iPredicates;
     }
 
+
     public List getVariables() {
         return iVariables;
     }
+
 }
 

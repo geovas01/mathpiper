@@ -23,16 +23,16 @@ import org.mathpiper.lisp.Environment;
 /**
  * A rule that always matches.
  */
-class TruePredicateRuleBranch extends RuleBranch
+class TrueRule extends PredicateRule
 {
 
-    public TruePredicateRuleBranch(Environment aEnvironment, int aPrecedence, ConsPointer aBody)
+    public TrueRule(Environment aEnvironment, int aPrecedence, ConsPointer aBody)
     {
         super(aEnvironment);
         iPrecedence = aPrecedence;
         iBody.setCons(aBody.getCons());
     }
-    /// Return #true, always.
+    /// Return true, always.
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception
     {
         return true;

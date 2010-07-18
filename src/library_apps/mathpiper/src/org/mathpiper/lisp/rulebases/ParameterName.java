@@ -17,21 +17,28 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
-import java.util.Iterator;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.Environment;
-
 /**
- * Base class for rules.
+ * Contains the name of a parameter and if it is put on hold.
  */
-public abstract class Branch
+public class ParameterName
 {
+        String iName;
+        boolean iHold;
 
-    public abstract boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception;
+    public ParameterName(String aParameter, boolean aHold /*=false*/)
+    {
+        iName = aParameter;
+        iHold = aHold;
+    }
 
-    public abstract int getPrecedence();
+    public String getName()
+    {
+        return iName;
+    }
 
-    public abstract ConsPointer getPredicatePointer();
+    public boolean isHold()
+    {
+        return iHold;
+    }
 
-    public abstract ConsPointer getBodyPointer();
 }

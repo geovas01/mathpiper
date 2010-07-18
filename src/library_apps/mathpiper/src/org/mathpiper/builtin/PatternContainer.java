@@ -20,7 +20,6 @@ package org.mathpiper.builtin;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.builtin.ArgumentList;
 import org.mathpiper.lisp.parametermatchers.Pattern;
 
 /**
@@ -29,7 +28,7 @@ import org.mathpiper.lisp.parametermatchers.Pattern;
  */
 public class PatternContainer extends BuiltinContainer {
 
-    protected org.mathpiper.lisp.parametermatchers.Pattern iPatternMatcher;
+    protected Pattern iPatternMatcher;
 
 
     public PatternContainer(org.mathpiper.lisp.parametermatchers.Pattern aPatternMatcher) {
