@@ -13,116 +13,108 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.lisp.rulebases;
-
 
 import org.mathpiper.lisp.*;
 import java.util.*;
-
-
 
 /**
  * Holds a set of {@link SingleArityRulebaseEvaluator} which are associated with one function name.
  * A specific SingleArityRulebaseEvaluator can be selected by providing its name.  The
  * name of the file in which the function is defined can also be specified.
  */
-public class MultipleArityRulebase
-{
+public class MultipleArityRulebase {
 
-	/// Set of SingleArityRulebaseEvaluator's provided by this MultipleArityRulebase.
-	List<SingleArityRulebaseEvaluator> iFunctions = new ArrayList();//
-
-	/// File to read for the definition of this function.
-	public DefFile iFileToOpen;
-    
+    /// Set of SingleArityRulebaseEvaluator's provided by this MultipleArityRulebase.
+    List<SingleArityRulebaseEvaluator> iFunctions = new ArrayList();//
+    /// File to read for the definition of this function.
+    public DefFile iFileToOpen;
     public String iFileLocation;
 
-	/// Constructor.
-	public MultipleArityRulebase()
-	{
-		iFileToOpen = null;
-	}
 
-	/// Return user function with given arity.
-	public SingleArityRulebaseEvaluator getUserFunction(int aArity, int aStackTop, Environment aEnvironment) throws Exception
-	{
-		int ruleIndex;
-		//Find function body with the right arity
-		int numberOfRules=iFunctions.size();
-		for (ruleIndex =0; ruleIndex<numberOfRules; ruleIndex++)
-		{
-			LispError.lispAssert(iFunctions.get(ruleIndex) != null, aEnvironment, aStackTop);
+    public MultipleArityRulebase() {
+        iFileToOpen = null;
+    }
 
-			if (((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)).isArity(aArity))
-			{
-				return (SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex);
-			}
-		}
 
-		// if function not found, just unaccept!
-		// User-defined function not found! Returning null
-		return null;
-	}
+    /**
+     *Return user function with given arity.
+     */
+    public SingleArityRulebaseEvaluator getUserFunction(int aArity, int aStackTop, Environment aEnvironment) throws Exception {
+        int ruleIndex;
+        //Find function body with the right arity
+        int numberOfRules = iFunctions.size();
+        for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
+            LispError.lispAssert(iFunctions.get(ruleIndex) != null, aEnvironment, aStackTop);
 
-	/// Specify that some argument should be held.
-	public void holdArgument(String aVariable, int aStackTop, Environment aEnvironment) throws Exception
-	{
-		int ruleIndex ;
-		for (ruleIndex =0;ruleIndex <iFunctions.size();ruleIndex ++)
-		{
-			LispError.lispAssert(iFunctions.get(ruleIndex ) != null, aEnvironment, aStackTop);
-			((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex )).holdArgument(aVariable);
-		}
-	}
+            if (((SingleArityRulebaseEvaluator) iFunctions.get(ruleIndex)).isArity(aArity)) {
+                return (SingleArityRulebaseEvaluator) iFunctions.get(ruleIndex);
+            }
+        }
 
-	/// Add another SingleArityRulebaseEvaluator to #iFunctions.
-	public  void addRulebaseEntry(Environment aEnvironment, int aStackTop, SingleArityRulebaseEvaluator aNewFunction) throws Exception
-	{
-		int ruleIndex;
-		//Find function body with the right arity
-		int numberOfRules =iFunctions.size();
-		for (ruleIndex=0; ruleIndex<numberOfRules; ruleIndex++)
-		{
-			LispError.lispAssert(((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
-			LispError.lispAssert(aNewFunction != null, aEnvironment, aStackTop);
-			LispError.check(aEnvironment, aStackTop, !((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
-			LispError.check(aEnvironment, aStackTop, !aNewFunction.isArity(((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)).arity()),LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
-		}
-		iFunctions.add(aNewFunction);
-	}
+        // If function not found, just unaccept!
+        // User-defined function not found! Returning null
+        return null;
 
-	/// Delete user function with given arity.  If arity is -1 then delete all functions regardless of arity.
-	public  void deleteRulebaseEntry(int aArity, int aStackTop, Environment aEnvironment) throws Exception
-	{
-        if(aArity == -1) //Retract all functions regardless of arity.
+    }//end method.
+
+
+    /**
+     * Specify that some argument should be held.
+     */
+    public void holdArgument(String aVariable, int aStackTop, Environment aEnvironment) throws Exception {
+        int ruleIndex;
+        for (ruleIndex = 0; ruleIndex < iFunctions.size(); ruleIndex++) {
+            LispError.lispAssert(iFunctions.get(ruleIndex) != null, aEnvironment, aStackTop);
+            ((SingleArityRulebaseEvaluator) iFunctions.get(ruleIndex)).holdArgument(aVariable);
+        }
+    }//end method.
+
+
+    /**
+     *Add another SingleArityRulebaseEvaluator to #iFunctions.
+     */
+    public void addRulebaseEntry(Environment aEnvironment, int aStackTop, SingleArityRulebaseEvaluator aNewFunction) throws Exception {
+        int ruleIndex;
+        //Find function body with the right arity
+        int numberOfRules = iFunctions.size();
+        for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
+            LispError.lispAssert(((SingleArityRulebaseEvaluator) iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
+            LispError.lispAssert(aNewFunction != null, aEnvironment, aStackTop);
+            LispError.check(aEnvironment, aStackTop, !((SingleArityRulebaseEvaluator) iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()), LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, !aNewFunction.isArity(((SingleArityRulebaseEvaluator) iFunctions.get(ruleIndex)).arity()), LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
+        }
+        iFunctions.add(aNewFunction);
+    }//end method.
+
+
+    /**
+     *Delete user function with given arity.  If arity is -1 then delete all functions regardless of arity.
+     */
+    public void deleteRulebaseEntry(int aArity, int aStackTop, Environment aEnvironment) throws Exception {
+        if (aArity == -1) //Retract all functions regardless of arity.
         {
             iFunctions.clear();
             return;
         }//end if.
 
-		int ruleIndex;
-		//Find function body with the right arity
-		int numberOfRules =iFunctions.size();
-		for (ruleIndex=0; ruleIndex<numberOfRules; ruleIndex++)
-		{
-			LispError.lispAssert(((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
+        int ruleIndex;
+        //Find function body with the right arity
+        int numberOfRules = iFunctions.size();
+        for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
+            LispError.lispAssert(((SingleArityRulebaseEvaluator) iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
 
-            if (((SingleArityRulebaseEvaluator)iFunctions.get(ruleIndex)).isArity(aArity))
-			{
-				iFunctions.remove(ruleIndex);
-				return;
-			}
-		}
-	}
+            if (((SingleArityRulebaseEvaluator) iFunctions.get(ruleIndex)).isArity(aArity)) {
+                iFunctions.remove(ruleIndex);
+                return;
+            }
+        }
+    }//end method.
 
 
-    public Iterator getFunctions()
-    {
+    public Iterator getFunctions() {
         return this.iFunctions.iterator();
     }
-
 
 }

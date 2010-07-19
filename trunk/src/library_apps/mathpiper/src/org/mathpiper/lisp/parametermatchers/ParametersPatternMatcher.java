@@ -215,10 +215,10 @@ public class ParametersPatternMatcher {
     constructed and returned.
     - If aPattern is an atom, the corresponding AtomCons is
     constructed and returned.
-    - If aPattern is a list of the form ( _ var ),
+    - If aPattern is a list of the form ( _var ),
     where var is an atom, lookUp() is called on var. Then
     the correspoding VariablePatternParameterMatcher is constructed and returned.
-    - If aPattern is a list of the form ( _ var expr ),
+    - If aPattern is a list of the form ( var_expr ),
     where var is an atom, lookUp() is called on var. Then,
     expr is appended to #iPredicates. Finally, the
     correspoding VariablePatternParameterMatcher is constructed and returned.
@@ -229,20 +229,27 @@ public class ParametersPatternMatcher {
     - Otherwise, this function returns #null.
      */
     protected PatternParameterMatcher makeParameterMatcher(Environment aEnvironment, int aStackTop, Cons aPattern) throws Exception {
+
         if (aPattern == null) {
             return null;
         }
-        //LispError.check(aPattern.type().equals("NumberPatternParameterMatcher"), LispError.INVALID_ARGUMENT);
+
+
+        //Check for a number pattern.
         if (aPattern.getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
             return new NumberPatternParameterMatcher((BigNumber) aPattern.getNumber(aEnvironment.getPrecision(), aEnvironment));
         }
-        // Deal with atoms
+
+
+        //Check for an atom pattern.
         if (aPattern.car() instanceof String) {
             return new AtomPatternParameterMatcher((String) aPattern.car());
         }
 
-        // Else it must be a sublist
+
+        // Else, it must be a sublist pattern.
         if (aPattern.car() instanceof ConsPointer) {
+
             // See if it is a variable template:
             ConsPointer sublist = (ConsPointer) aPattern.car();
             //LispError.lispAssert(sublist != null);
@@ -252,13 +259,16 @@ public class ParametersPatternMatcher {
             // variable matcher here...
             if (num > 1) {
                 Cons head = sublist.getCons();
+
+                //Handle _ prefix or suffix on a pattern variables.
                 if (((String) head.car()) == aEnvironment.getTokenHash().lookUp("_")) {
                     Cons second = head.cdr().getCons();
                     if (second.car() instanceof String) {
                         int index = lookUp((String) second.car());
 
-                        // Make a predicate for the type, if needed
+
                         if (num > 2) {
+                            //Handle a pattern variable which has a predicate (like var_PredicateFunction).
                             ConsPointer third = new ConsPointer();
 
                             Cons predicate = second.cdr().getCons();
@@ -276,11 +286,12 @@ public class ParametersPatternMatcher {
 
                             last.cdr().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, str));
 
-                            ConsPointer pred = new ConsPointer();
-                            pred.setCons(org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, third.getCons()));
+                            ConsPointer newPredicate = new ConsPointer();
+                            newPredicate.setCons(org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, third.getCons()));
 
-                            iPredicates.add(pred);
-                        }
+                            iPredicates.add(newPredicate);
+                        }//end if.
+
                         return new VariablePatternParameterMatcher(index);
                     }
                 }
@@ -299,7 +310,8 @@ public class ParametersPatternMatcher {
         }
 
         return null;
-    }
+
+    }//end method.
 
 
     /*
