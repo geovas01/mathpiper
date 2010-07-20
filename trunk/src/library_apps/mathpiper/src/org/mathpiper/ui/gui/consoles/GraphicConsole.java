@@ -248,23 +248,24 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         if (src == haltButton) {
             interpreter.haltEvaluation();
         } else if (src == button2) {
-            this.zoomScale -= .5;
+            this.fontSize -= 2;
 
-            MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
+            /*MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
             document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
-            document.refresh();
+            document.refresh();*/
 
 
             //textPane.firePropertyChange("ZOOM_FACTOR",  ((Double)textPane.getDocument().getProperty("ZOOM_FACTOR")).doubleValue(), zoomScale);
 
-            //this.setJTextPaneFont(textPane, zoomScal);
+            this.setJTextPaneFont(textPane, fontSize);
         } else if (src == button3) {
-            this.zoomScale += .5;
-            MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
-            document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
-            document.refresh();
+            this.fontSize += 2;
 
-        System.out.println("XXXXXX " + resultHolder.getParent());
+            /*MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
+            document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
+            document.refresh();*/
+
+            this.setJTextPaneFont(textPane, fontSize);
         
         } else if (src == helpButton) {
             JOptionPane.showMessageDialog(this, this.helpMessage);
@@ -817,12 +818,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
     }//end method.
 
-    public class ColorPane extends ScaledTextPane {
+    public class ColorPane extends JTextPane {
 
         public ColorPane() {
             super();
-            this.getDocument().putProperty("i18n", Boolean.FALSE);
-            this.getDocument().putProperty("ZOOM_FACTOR", new Double(zoomScale));
+            //this.getDocument().putProperty("i18n", Boolean.FALSE);
+            //this.getDocument().putProperty("ZOOM_FACTOR", new Double(zoomScale));
 
         }
 
