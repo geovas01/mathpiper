@@ -77,7 +77,6 @@ import org.scilab.forge.jlatexmath.TeXFormula;
 public class GraphicConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
     ResultHolder resultHolder;
-
     private boolean suppressOutput = false;
     private final Color green = new Color(0, 130, 0);
     private final Color purple = new Color(153, 0, 153);
@@ -213,6 +212,19 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
 
+        JButton testButton = new javax.swing.JButton("Test");
+        testButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
+                //document.dump(System.out);
+                document.scanTree(fontSize);
+            }//end method.
+        });
+        testButton.setEnabled(true);
+        consoleButtons.add(testButton);
+
+
+
         this.add(consoleButtons, BorderLayout.NORTH);
 
         this.rawOutputPanel.add(rawButtons, BorderLayout.NORTH);
@@ -257,7 +269,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
             //textPane.firePropertyChange("ZOOM_FACTOR",  ((Double)textPane.getDocument().getProperty("ZOOM_FACTOR")).doubleValue(), zoomScale);
 
-            this.setJTextPaneFont(textPane, fontSize);
+            //this.setJTextPaneFont(textPane, fontSize);
         } else if (src == button3) {
             this.fontSize += 2;
 
@@ -265,8 +277,11 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
             document.refresh();*/
 
-            this.setJTextPaneFont(textPane, fontSize);
-        
+            //this.setJTextPaneFont(textPane, fontSize);
+
+            MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
+            document.scanTree(fontSize);
+
         } else if (src == helpButton) {
             JOptionPane.showMessageDialog(this, this.helpMessage);
         } else if (src == clearConsoleButton) {
@@ -538,7 +553,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         //ResultHolder resultHolder = null;
 
         Object responseObject = response.getObject();
-        if (responseObject == null) {
+        if (responseObject == null && response.getResultList() != null) {
 
             try {
                 Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
@@ -688,23 +703,23 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
                 try {
-                // Get the text pane's document JTextPane
-                StyledDocument doc = (StyledDocument) textPane.getDocument();
-                // The component must first be wrapped in a style
-                Style style = doc.addStyle("StyleName", null);
-                StyleConstants.setComponent(style, resultHolderFinal);
-                // Insert the component at the end of the text
-                int currentCaretPosition = textPane.getCaretPosition();
+                    // Get the text pane's document JTextPane
+                    StyledDocument doc = (StyledDocument) textPane.getDocument();
+                    // The component must first be wrapped in a style
+                    Style style = doc.addStyle("StyleName", null);
+                    StyleConstants.setComponent(style, resultHolderFinal);
+                    // Insert the component at the end of the text
+                    int currentCaretPosition = textPane.getCaretPosition();
 
-                doc.insertString(responseOffset + 8, "ignored text", style);
-                //textPane.setCaretPosition(responseOffset + 8);
-                //textPane.insertComponent(resultHolderFinal);
-                //textPane.setCaretPosition(currentCaretPosition);
-                //textPane.insert(Color.red, "hello", responseOffset + 8);
+                    doc.insertString(responseOffset + 8, "ignored text", style);
+                    //textPane.setCaretPosition(responseOffset + 8);
+                    //textPane.insertComponent(resultHolderFinal);
+                    //textPane.setCaretPosition(currentCaretPosition);
+                    //textPane.insert(Color.red, "hello", responseOffset + 8);
 
 
                 } catch (BadLocationException e) {
-                e.printStackTrace();
+                    e.printStackTrace();
                 }
 
 
@@ -824,6 +839,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             super();
             //this.getDocument().putProperty("i18n", Boolean.FALSE);
             //this.getDocument().putProperty("ZOOM_FACTOR", new Double(zoomScale));
+            this.setDocument(new MathPiperDocument());
 
         }
 

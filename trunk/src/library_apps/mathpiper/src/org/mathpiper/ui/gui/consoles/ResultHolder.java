@@ -20,12 +20,12 @@ public class ResultHolder extends JPanel {
     private String resultString;
 
 
-    public ResultHolder(String latexString, String resultString, int initialValue) {
+    public ResultHolder(String latexString, String resultString, int fontPointSize) {
         this.texLabel = new JLabel();
         this.resultString = resultString;
 
         texFormula = new TeXFormula(latexString);
-        TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, initialValue);
+        TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontPointSize);
         texLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         texLabel.setAlignmentY(icon.getBaseLine());
         texLabel.setIcon(icon);
@@ -46,6 +46,8 @@ public class ResultHolder extends JPanel {
         this.add(texLabel);
 
     }//end constructor.
+
+
 
 
     public void setScale(int scaleValue) {
