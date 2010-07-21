@@ -31,7 +31,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Stack;
 import javax.swing.text.Element;
-import javax.swing.text.AttributeSet;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -39,7 +38,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -52,14 +50,15 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.ComponentView;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.Document;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
+import javax.swing.text.View;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -71,8 +70,6 @@ import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
-import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
-import org.scilab.forge.jlatexmath.TeXFormula;
 
 public class GraphicConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
 
@@ -212,13 +209,40 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
 
+        JButton structureButton = new javax.swing.JButton("Structure");
+        structureButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+
+                new StructureDialog(textPane).setVisible(true);
+
+            }//end method.
+
+        });
+        structureButton.setEnabled(true);
+        consoleButtons.add(structureButton);
+
+
+
         JButton testButton = new javax.swing.JButton("Test");
         testButton.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent evt) {
                 MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
-                //document.dump(System.out);
-                document.scanTree(fontSize);
+
+                /*SimpleAttributeSet attrs = new SimpleAttributeSet();
+                StyleConstants.setFontSize(attrs, fontSize + 5);
+                document.setCharacterAttributes(0, document.getLength() + 1, attrs, false);*/
+
+                //document.scanTree(fontSize);
+
+
+
+
+                document.scanViews(textPane, fontSize);
+                
             }//end method.
+
         });
         testButton.setEnabled(true);
         consoleButtons.add(testButton);
@@ -266,10 +290,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
             document.refresh();*/
 
-
-            //textPane.firePropertyChange("ZOOM_FACTOR",  ((Double)textPane.getDocument().getProperty("ZOOM_FACTOR")).doubleValue(), zoomScale);
-
-            //this.setJTextPaneFont(textPane, fontSize);
+            this.setJTextPaneFont(textPane, fontSize);
         } else if (src == button3) {
             this.fontSize += 2;
 
@@ -277,10 +298,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
             document.refresh();*/
 
-            //this.setJTextPaneFont(textPane, fontSize);
+            this.setJTextPaneFont(textPane, fontSize);
 
-            MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
-            document.scanTree(fontSize);
 
         } else if (src == helpButton) {
             JOptionPane.showMessageDialog(this, this.helpMessage);
@@ -844,17 +863,18 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         }
 
 
-        public void append(Color c, String s) { // better implementation--uses
-            // StyleContext
-            StyleContext sc = StyleContext.getDefaultStyleContext();
-            AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                    StyleConstants.Foreground, c);
+        public void append(Color c, String s) { // better implementation--uses // StyleContext.
+            //MutableAttributeSet attrs = getInputAttributes();
 
-            int len = getDocument().getLength(); // same value as
-            // getText().length();
-            setCaretPosition(len); // place caret at the end (with no selection)
-            setCharacterAttributes(aset, false);
-            replaceSelection(s); // there is no selection, so inserts at caret
+            SimpleAttributeSet attrs = new SimpleAttributeSet();
+            //StyleConstants.setFontSize(attrs, fontSize);
+
+            StyleConstants.setForeground(attrs, c);
+
+            int len = getDocument().getLength(); // same value as // getText().length();
+            setCaretPosition(len); // place caret at the end (with no selection).
+            setCharacterAttributes(attrs, false);
+            replaceSelection(s); // there is no selection, so inserts at caret.
         }//end method.
 
 
@@ -862,11 +882,11 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
             Font font = getFont();
 
-            MutableAttributeSet attrs = getInputAttributes();
+            //MutableAttributeSet attrs = getInputAttributes();
+            SimpleAttributeSet attrs = new SimpleAttributeSet();
 
-
-            StyleConstants.setFontFamily(attrs, font.getFamily());
-            StyleConstants.setFontSize(attrs, fontSize);
+            //StyleConstants.setFontFamily(attrs, font.getFamily());
+            //StyleConstants.setFontSize(attrs, fontSize);
             StyleConstants.setForeground(attrs, c);
 
             //StyleContext sc = StyleContext.getDefaultStyleContext();
@@ -1006,17 +1026,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
     public void setJTextPaneFont(JTextPane textPane, int fontSize) {
 
-        Font font = textPane.getFont();
-
-        MutableAttributeSet attrs = textPane.getInputAttributes();
-
-        StyleConstants.setFontFamily(attrs, font.getFamily());
+        StyledDocument document = textPane.getStyledDocument();
+        SimpleAttributeSet attrs = new SimpleAttributeSet();
         StyleConstants.setFontSize(attrs, fontSize);
+        document.setCharacterAttributes(0, document.getLength() + 1, attrs, false);
+        document.setParagraphAttributes(0, document.getLength() + 1, attrs, false);
 
-        StyledDocument doc = textPane.getStyledDocument();
-
-
-        doc.setCharacterAttributes(0, doc.getLength() + 1, attrs, false);
     }//end method.
 
     public static class PopupTriggerMouseListener extends MouseAdapter {
