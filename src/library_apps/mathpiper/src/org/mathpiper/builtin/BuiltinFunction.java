@@ -210,6 +210,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 import java.io.*;
+import org.mathpiper.builtin.functions.core.Delay;
 import org.mathpiper.builtin.functions.core.GlobalVariablesGet;
 import org.mathpiper.builtin.functions.core.JavaAccess;
 import org.mathpiper.builtin.functions.core.JavaCall;
@@ -930,6 +931,9 @@ public abstract class BuiltinFunction {
                 aEnvironment.getBuiltinFunctions().setAssociation(
                     new BuiltinFunctionEvaluator(new JavaToValue(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                     "JavaToValue");
+                aEnvironment.getBuiltinFunctions().setAssociation(
+                    new BuiltinFunctionEvaluator(new Delay(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                    "Delay");
 
 	}//end method.
 
