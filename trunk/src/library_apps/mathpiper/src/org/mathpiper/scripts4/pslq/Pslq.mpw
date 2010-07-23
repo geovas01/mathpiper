@@ -27,7 +27,7 @@ Given a list of constants x find coefficients sol[i] such that
     Example:
 
     In> Pslq({2*Pi-4*Exp(1),Pi,Exp(1)},20)
-    Out> {1,-2,4};
+    Result: {1,-2,4};
 
 */
 
@@ -359,7 +359,7 @@ the {N} operator is applied on them.
 *E.G.
 
 	In> Pslq({ 2*Pi+3*Exp(1), Pi, Exp(1) },20)
-	Out> {1,-2,-3};
+	Result: {1,-2,-3};
 
 Note: in this example the system detects correctly that
 $1 * (2*Pi+3*e) + (-2) * Pi + (-3) * e = 0$.

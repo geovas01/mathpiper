@@ -40,7 +40,7 @@ Both "vector" and "basis" should be lists of length 3.
 *E.G.
 
 	In> Curl({x*y,x*y,x*y},{x,y,z})
-	Out> {x,-y,y-x};
+	Result: {x,-y,y-x};
 
 *SEE D, Diverge
 %/mathpiper_docs

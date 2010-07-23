@@ -48,12 +48,12 @@ matrix elements.
 *E.G.
 
 	In> A:=DiagonalMatrix({a,b,c})
-	Out> {{a,0,0},{0,b,0},{0,0,c}};
+	Result: {{a,0,0},{0,b,0},{0,0,c}};
 	In> B:=Inverse(A)
-	Out> {{(b*c)/(a*b*c),0,0},{0,(a*c)/(a*b*c),0},
+	Result: {{(b*c)/(a*b*c),0,0},{0,(a*c)/(a*b*c),0},
 	{0,0,(a*b)/(a*b*c)}};
 	In> Simplify(B)
-	Out> {{1/a,0,0},{0,1/b,0},{0,0,1/c}};
+	Result: {{1/a,0,0},{0,1/b,0},{0,0,1/c}};
 
 *SEE Determinant
 %/mathpiper_docs

@@ -24,9 +24,9 @@ not an integer, the result is {False}.
 *E.G.
 
 	In> IsNonZeroInteger(0)
-	Out> False;
+	Result: False;
 	In> IsNonZeroInteger(-2)
-	Out> True;
+	Result: True;
 
 *SEE IsPositiveInteger, IsNegativeInteger, IsNotZero
 %/mathpiper_docs

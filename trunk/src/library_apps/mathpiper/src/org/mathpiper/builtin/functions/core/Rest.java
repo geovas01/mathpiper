@@ -61,7 +61,7 @@ This function returns "list" without its car element.
 *E.G.
 
 	In> Rest({a,b,c})
-	Out> {b,c};
+	Result: {b,c};
 
 *SEE First, Length
 %/mathpiper_docs

@@ -39,7 +39,7 @@ number of arguments. The arguments can be also passed as a list.
 *E.G.
 
 	In> Add(1,4,9);
-	Out> 14;
+	Result: 14;
 	In> Add(1 .. 10);
-	Out> 55;
+	Result: 55;
 %/mathpiper_docs

@@ -548,7 +548,7 @@ complex than a simple number.
 *E.G.
 
 	In> Taylor(x,0,9)Sin(x)
-	Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880;
+	Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880;
 	In> PrettyForm(%)
 	
 	     3    5      7       9
@@ -556,7 +556,7 @@ complex than a simple number.
 	x - -- + --- - ---- + ------
 	    6    120   5040   362880
 	
-	Out> True;
+	Result: True;
 
 *SEE EvalFormula, PrettyPrinterSet
 %/mathpiper_docs

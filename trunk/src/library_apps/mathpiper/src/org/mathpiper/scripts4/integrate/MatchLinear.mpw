@@ -104,11 +104,11 @@ with "{a}" and "{b}" not depending on {x} if {x} is given as the variable.
 *E.G.
 
 	In> MatchLinear(x,(R+1)*x+(T-1))
-	Out> True;
+	Result: True;
 	In> {a,b};
-	Out> {R+1,T-1};
+	Result: {R+1,T-1};
 	In> MatchLinear(x,Sin(x)*x+(T-1))
-	Out> False;
+	Result: False;
 	
 *SEE Integrate
 %/mathpiper_docs

@@ -40,11 +40,11 @@ MathPiper and type {make test}.
 	******************
 	 1 evaluates to  1 which differs from  2
 	******************
-	Out> False;
+	Result: False;
 	In> KnownFailure(Verify(1,1))
 	Known failure:
 	Failure resolved!
-	Out> True;
+	Result: True;
 
 *SEE Verify, TestMathPiper, LogicVerify, LogicTest
 

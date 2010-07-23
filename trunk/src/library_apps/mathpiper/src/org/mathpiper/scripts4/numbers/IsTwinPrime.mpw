@@ -22,11 +22,11 @@ prime is a prime number $n$ such that $n+2$ is also a prime number.
 
 *E.G.
 	In> IsTwinPrime(101)
-	Out> True;
+	Result: True;
 	In> IsTwinPrime(7)
-	Out> False;
+	Result: False;
 	In> Select(1 .. 100, IsTwinPrime)
-	Out> {3,5,11,17,29,41,59,71};
+	Result: {3,5,11,17,29,41,59,71};
 
 *SEE IsPrime
 %/mathpiper_docs

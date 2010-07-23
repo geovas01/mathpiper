@@ -35,17 +35,17 @@ greater than the number of element on the stack, lead to an error.
 *E.G.
 
 	In> stack := {};
-	Out> {};
+	Result: {};
 	In> Push(stack, x);
-	Out> {x};
+	Result: {x};
 	In> Push(stack, x2);
-	Out> {x2,x};
+	Result: {x2,x};
 	In> Push(stack, x3);
-	Out> {x3,x2,x};
+	Result: {x3,x2,x};
 	In> Pop(stack, 2);
-	Out> x2;
+	Result: x2;
 	In> stack;
-	Out> {x3,x};
+	Result: {x3,x};
 
 *SEE Push, PopFront, PopBack
 %/mathpiper_docs

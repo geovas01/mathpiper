@@ -25,15 +25,15 @@ and this list is returned.
 *E.G.
 
 	In> writer := {};
-	Out> {};
+	Result: {};
 	In> writer["Iliad"] := "Homer";
-	Out> True;
+	Result: True;
 	In> writer["Henry IV"] := "Shakespeare";
-	Out> True;
+	Result: True;
 	In> writer["Ulysses"] := "James Joyce";
-	Out> True;
+	Result: True;
 	In> AssocIndices(writer);
-	Out> {"Homer","ShakespeareJames Joyce"};
+	Result: {"Homer","ShakespeareJames Joyce"};
 
 *SEE Assoc, AssocDelete, AssocIndices
 %/mathpiper_docs

@@ -72,9 +72,9 @@ with numerical values and not with symbolic arguments.
 *E.G.
 
 	In> Maximum(2,3);
-	Out> 3;
+	Result: 3;
 	In> Maximum({5,8,4});
-	Out> 8;
+	Result: 8;
 
 *SEE Minimum, Sum
 %/mathpiper_docs

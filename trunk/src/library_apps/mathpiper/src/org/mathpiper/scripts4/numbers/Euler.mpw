@@ -29,11 +29,11 @@
 *E.G.
 
 	In> Euler(6)
-	Out> -61;
+	Result: -61;
 	In> A:=Euler(5,x)
-	Out> (x-1/2)^5+(-10*(x-1/2)^3)/4+(25*(x-1/2))/16;
+	Result: (x-1/2)^5+(-10*(x-1/2)^3)/4+(25*(x-1/2))/16;
 	In> Simplify(A)
-	Out> (2*x^5-5*x^4+5*x^2-1)/2;
+	Result: (2*x^5-5*x^4+5*x^2-1)/2;
 
 *SEE BinomialCoefficient
 %/mathpiper_docs

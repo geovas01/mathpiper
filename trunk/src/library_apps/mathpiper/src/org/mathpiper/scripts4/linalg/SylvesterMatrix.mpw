@@ -71,16 +71,16 @@ share common roots only if the resultant is zero.
 *E.G.
 
 	In> ex1:= x^2+2*x-a
-	Out> x^2+2*x-a;
+	Result: x^2+2*x-a;
 	In> ex2:= x^2+a*x-4
-	Out> x^2+a*x-4;
+	Result: x^2+a*x-4;
 	In> A:=SylvesterMatrix(ex1,ex2,x)
-	Out> {{1,2,-a,0},{0,1,2,-a},
+	Result: {{1,2,-a,0},{0,1,2,-a},
 	  {1,a,-4,0},{0,1,a,-4}};
 	In> B:=Determinant(A)
-	Out> 16-a^2*a- -8*a-4*a+a^2- -2*a^2-16-4*a;
+	Result: 16-a^2*a- -8*a-4*a+a^2- -2*a^2-16-4*a;
 	In> Simplify(B)
-	Out> 3*a^2-a^3;
+	Result: 3*a^2-a^3;
 
 The above example shows that the two polynomials have common
 zeros if $ a = 3 $.

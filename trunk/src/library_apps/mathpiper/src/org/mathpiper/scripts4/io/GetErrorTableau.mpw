@@ -97,15 +97,15 @@ object was found and deleted, and {False} otherwise.
 *E.G.
 
 	In> x:=1
-	Out> 1;
+	Result: 1;
 	In> Assert("bad value", {x,"must be zero"}) x=0
-	Out> False;
+	Result: False;
 	In> GetError("bad value")
-	Out> {1, "must be zero"};
+	Result: {1, "must be zero"};
 	In> ClearError("bad value");
-	Out> True;
+	Result: True;
 	In> IsError()
-	Out> False;
+	Result: False;
 
 *SEE IsError, Assert, Check, ClearErrors
 

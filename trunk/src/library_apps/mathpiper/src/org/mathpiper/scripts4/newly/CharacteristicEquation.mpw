@@ -30,11 +30,11 @@ of the matrix, Det(matrix-I*var);
 *E.G.
 
 	In> A:=DiagonalMatrix({a,b,c})
-	Out> {{a,0,0},{0,b,0},{0,0,c}};
+	Result: {{a,0,0},{0,b,0},{0,0,c}};
 	In> B:=CharacteristicEquation(A,x)
-	Out> (a-x)*(b-x)*(c-x);
+	Result: (a-x)*(b-x)*(c-x);
 	In> Expand(B,x)
-	Out> (b+a+c)*x^2-x^3-((b+a)*c+a*b)*x+a*b*c;
+	Result: (b+a+c)*x^2-x^3-((b+a)*c+a*b)*x+a*b*c;
 
 *SEE EigenValues, EigenVectors
 %/mathpiper_docs

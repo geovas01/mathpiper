@@ -25,13 +25,13 @@ neither prime nor composite.
 *E.G.
 
 	In> IsComposite(1)
-	Out> False;
+	Result: False;
 	In> IsComposite(7)
-	Out> False;
+	Result: False;
 	In> IsComposite(8)
-	Out> True;
+	Result: True;
 	In> Select(1 .. 20, IsComposite)
-	Out> {4,6,8,9,10,12,14,15,16,18,20};
+	Result: {4,6,8,9,10,12,14,15,16,18,20};
 
 *SEE IsPrime
 %/mathpiper_docs

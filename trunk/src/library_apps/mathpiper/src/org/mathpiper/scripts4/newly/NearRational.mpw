@@ -118,15 +118,15 @@ precision.
 
 Start with a rational number and obtain a floating-point approximation:
 	In> x:=N(956/1013)
-	Out> 0.9437314906
+	Result: 0.9437314906
 	In> Rationalize(x)
-	Out> 4718657453/5000000000;
+	Result: 4718657453/5000000000;
 The first 10 terms of this continued fraction correspond to the correct continued fraction for the original rational number.
 	In> NearRational(x)
-	Out> 218/231;
+	Result: 218/231;
 This function found a different rational number closeby because the precision was not high enough.
 	In> NearRational(x, 10)
-	Out> 956/1013;
+	Result: 956/1013;
 
 *SEE BracketRational, GuessRational, ContFrac, ContFracList, Rationalize
 %/mathpiper_docs

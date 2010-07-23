@@ -37,7 +37,7 @@ minimum or a saddle point.
 *E.G.
 
 	In> HessianMatrix(3*x^2-2*x*y+y^2-8*y, {x,y} )
-	Out> {{6,-2},{-2,2}};
+	Result: {{6,-2},{-2,2}};
 	In> PrettyForm(%)
 
 	/                \

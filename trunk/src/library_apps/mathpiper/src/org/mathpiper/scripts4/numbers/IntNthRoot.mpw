@@ -98,7 +98,7 @@ This function is used to test numbers for prime powers.
 
 *E.G.
 	In> IntNthRoot(65537^111, 37)
-	Out> 281487861809153;
+	Result: 281487861809153;
 
 *SEE IntLog, MathPower, IsPrimePower
 %/mathpiper_docs

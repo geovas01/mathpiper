@@ -108,26 +108,26 @@ can be defined by adding more rules.
 
 This will declare a new function with two or more arguments, but define no rules for it. This is equivalent to {Rulebase ("f1", {x, y, ...})}.
 	In> Function() f1(x,y,...);
-	Out> True;
+	Result: True;
 	In> Function() f1(x,y);
-	Out> False;
+	Result: False;
 
 This defines a function {FirstOf} which returns the
 first element of a list. Equivalent definitions would be
 {FirstOf(_list) <-- list[1]} or {FirstOf(list) := list[1]}.
 	In> Function("FirstOf", {list})  list[1];
-	Out> True;
+	Result: True;
 	In> FirstOf({a,b,c});
-	Out> a;
+	Result: a;
 
 The following function will print all arguments to a string:
 	In> Function("PrintAll",{x, ...}) If(IsList(x),
 	  PrintList(x), PipeToString()Write(x));
-	Out> True;
+	Result: True;
 	In> PrintAll(1):
-	Out> " 1";
+	Result: " 1";
 	In> PrintAll(1,2,3);
-	Out> " 1 2 3";
+	Result: " 1 2 3";
 
 *SEE TemplateFunction, Rule, Rulebase,  RulebaseListed, :=, Retract
 %/mathpiper_docs

@@ -145,9 +145,9 @@ achieved exact digits should roughly form a geometric progression.
 *E.G.
 
 	In> BuiltinPrecisionSet(20)
-	Out> True;
+	Result: True;
 	In> NewtonNum({{x}, x+Sin(x)}, 3, 5, 3)
-	Out> 3.14159265358979323846;
+	Result: 3.14159265358979323846;
 
 *SEE Newton
 %/mathpiper_docs

@@ -87,11 +87,11 @@ list, the function is applied to all entries in the list.
 *E.G.
 
 	In> Cos(1)
-	Out> Cos(1);
+	Result: Cos(1);
 	In> N(Cos(1),20)
-	Out> 0.5403023058681397174;
+	Result: 0.5403023058681397174;
 	In> Cos(Pi/4)
-	Out> Sqrt(1/2);
+	Result: Sqrt(1/2);
 
 *SEE Sin, Tan, ArcSin, ArcCos, ArcTan, N, Pi
 %/mathpiper_docs

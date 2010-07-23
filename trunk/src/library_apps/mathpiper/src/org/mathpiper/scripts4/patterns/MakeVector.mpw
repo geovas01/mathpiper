@@ -41,7 +41,7 @@ which contains "var" with the number "n" appended to it.
 *E.G.
 
 	In> MakeVector(a,3)
-	Out> {a1,a2,a3};
+	Result: {a1,a2,a3};
 
 *SEE RandomIntegerList, ZeroVector
 %/mathpiper_docs

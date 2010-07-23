@@ -49,7 +49,7 @@ Both "a" and "b" have to be three-dimensional.
 *E.G.
 
 	In> {a,b,c} X {d,e,f};
-	Out> {b*f-c*e,c*d-a*f,a*e-b*d};
+	Result: {b*f-c*e,c*d-a*f,a*e-b*d};
 
 *SEE InProduct, X
 %/mathpiper_docs

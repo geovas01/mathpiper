@@ -25,9 +25,9 @@ only zeroes and {False} otherwise.
 *E.G.
 
 	In> IsZeroVector({0, x, 0});
-	Out> False;
+	Result: False;
 	In> IsZeroVector({x-x, 1 - Differentiate(x) x});
-	Out> True;
+	Result: True;
 
 *SEE IsList, ZeroVector
 %/mathpiper_docs

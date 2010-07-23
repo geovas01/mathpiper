@@ -81,21 +81,21 @@ The definitions
 give the following interaction:
 
 	In> f(A)
-	Out> f(A);
+	Result: f(A);
 	In> f(A,B)
-	Out> f(A,B);
+	Result: f(A,B);
 	In> f(A,B,C)
 	three args A B C
-	Out> True;
+	Result: True;
 	In> f(A,B,C,D)
 	four args A B C D
-	Out> True;
+	Result: True;
 	In> f(A,B,C,D,E)
 	more than four args A B {C,D,E}
-	Out> True;
+	Result: True;
 	In> f(A,B,C,D,E,E)
 	more than four args A B {C,D,E,E}
-	Out> True;
+	Result: True;
 
 The function {f} now appears to occupy all arities greater than 3:
 

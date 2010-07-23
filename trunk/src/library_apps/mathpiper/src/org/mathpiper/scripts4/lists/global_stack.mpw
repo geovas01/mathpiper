@@ -62,15 +62,15 @@ If the global stack is empty, an error message is printed.
 *E.G.
 
 	In> GlobalPush(3)
-	Out> 3;
+	Result: 3;
 	In> GlobalPush(Sin(x))
-	Out> Sin(x);
+	Result: Sin(x);
 	In> GlobalPop(x)
-	Out> Sin(x);
+	Result: Sin(x);
 	In> GlobalPop(x)
-	Out> 3;
+	Result: 3;
 	In> x
-	Out> 3;
+	Result: 3;
 
 *SEE Push, PopFront
 %/mathpiper_docs

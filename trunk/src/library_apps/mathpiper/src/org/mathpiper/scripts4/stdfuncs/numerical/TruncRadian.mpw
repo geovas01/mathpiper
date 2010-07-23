@@ -49,11 +49,11 @@ digits.
 *E.G.
 
 	In> 2*Internal'Pi()
-	Out> 6.283185307;
+	Result: 6.283185307;
 	In> TruncRadian(6.28)
-	Out> 6.28;
+	Result: 6.28;
 	In> TruncRadian(6.29)
-	Out> 0.0068146929;
+	Result: 0.0068146929;
 
 *SEE Sin, Cos, Tan
 

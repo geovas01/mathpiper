@@ -42,13 +42,13 @@ that case the top-level operands are tested for the occurrence of
 *E.G.
 
 	In> Contains({a,b,c,d}, b);
-	Out> True;
+	Result: True;
 	In> Contains({a,b,c,d}, x);
-	Out> False;
+	Result: False;
 	In> Contains({a,{1,2,3},z}, 1);
-	Out> False;
+	Result: False;
 	In> Contains(a*b, b);
-	Out> True;
+	Result: True;
 
 *SEE Find, Count
 %/mathpiper_docs

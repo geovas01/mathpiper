@@ -74,16 +74,16 @@ of numbers, integers (e.g. 6) and decimals (e.g. -2.75 or 6.0).
 *E.G.
 
 In> IsDecimal(3.25);
-Out> True;
+Result: True;
 
 In> IsDecimal(6);
-Out> False;
+Result: False;
 
 In> IsDecimal(1/2);
-Out> False;
+Result: False;
 
 In> IsDecimal(3.2/10);
-Out> False;
+Result: False;
 
 *SEE IsString, IsAsom, IsInteger, IsPositiveNumber, IsNegativeNumber, IsNumber
 %/mathpiper_docs

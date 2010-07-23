@@ -25,13 +25,13 @@ numbers are trivially square-free.
 *E.G.
 
 	In> IsSquareFree(37)
-	Out> True;
+	Result: True;
 	In> IsSquareFree(4)
-	Out> False;
+	Result: False;
 	In> IsSquareFree(16)
-	Out> False;
+	Result: False;
 	In> IsSquareFree(18)
-	Out> False;
+	Result: False;
 
 *SEE Moebius, SquareFreeDivisorsList
 %/mathpiper_docs

@@ -136,9 +136,9 @@ functions with polynomials can be integrated.
 *E.G.
 
 	In> Integrate(x,a,b) Cos(x)
-	Out> Sin(b)-Sin(a);
+	Result: Sin(b)-Sin(a);
 	In> Integrate(x) Cos(x)
-	Out> Sin(x);
+	Result: Sin(x);
 
 *SEE Differentiate, UniqueConstant
 %/mathpiper_docs

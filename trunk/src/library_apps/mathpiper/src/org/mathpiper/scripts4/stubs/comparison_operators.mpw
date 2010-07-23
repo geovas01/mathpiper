@@ -112,9 +112,9 @@ coerce the arguments passed to this comparison operator to a real value before m
 *E.G.
 
 	In> 2 < 5;
-	Out> True;
+	Result: True;
 	In> Cos(1) < 5;
-	Out> True;
+	Result: True;
 
 *SEE IsNumber, IsInfinity, N
 %/mathpiper_docs
@@ -149,9 +149,9 @@ coerce the arguments passed to this comparison operator to a real value before m
 *E.G.
 
 	In> 2 > 5;
-	Out> False;
+	Result: False;
 	In> Cos(1) > 5;
-	Out> False
+	Result: False
 
 *SEE IsNumber, IsInfinity, N
 %/mathpiper_docs
@@ -187,9 +187,9 @@ coerce the arguments passed to this comparison operator to a real value before m
 *E.G.
 
 	In> 2 <= 5;
-	Out> True;
+	Result: True;
 	In> Cos(1) <= 5;
-	Out> True
+	Result: True
 
 *SEE IsNumber, IsInfinity, N
 %/mathpiper_docs
@@ -225,9 +225,9 @@ coerce the arguments passed to this comparison operator to a real value before m
 *E.G.
 
 	In> 2 >= 5;
-	Out> False;
+	Result: False;
 	In> Cos(1) >= 5;
-	Out> False
+	Result: False
 
 *SEE IsNumber, IsInfinity, N
 %/mathpiper_docs
@@ -258,9 +258,9 @@ The expression {e1 != e2} is equivalent to {Not(e1 = e2)}.
 *E.G.
 
 	In> 1 != 2;
-	Out> True;
+	Result: True;
 	In> 1 != 1;
-	Out> False;
+	Result: False;
 
 *SEE =
 %/mathpiper_docs
@@ -295,14 +295,14 @@ if they were printed.
 *E.G.
 
 	In> e1 := (x+1) * (x-1);
-	Out> (x+1)*(x-1);
+	Result: (x+1)*(x-1);
 	In> e2 := x^2 - 1;
-	Out> x^2-1;
+	Result: x^2-1;
 	
 	In> e1 = e2;
-	Out> False;
+	Result: False;
 	In> Expand(e1) = e2;
-	Out> True;
+	Result: True;
 
 *SEE !=, Equals
 %/mathpiper_docs

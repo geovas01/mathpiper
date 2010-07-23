@@ -101,7 +101,7 @@ details.
 
 *E.G.
 In> PatchString("Two plus three is <?Write(2+3);?> ");
-Out> "Two plus three is 5 ";
+Result: "Two plus three is 5 ";
 
 *SEE PatchLoad
 %/mathpiper_docs

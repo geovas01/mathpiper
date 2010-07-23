@@ -51,9 +51,9 @@ disappeared.
 *E.G.
 
 	In> expr1:=Expand((1+x)^4)
-	Out> x^4+4*x^3+6*x^2+4*x+1;
+	Result: x^4+4*x^3+6*x^2+4*x+1;
 	In> Horner(expr1,x)
-	Out> (((x+4)*x+6)*x+4)*x+1;
+	Result: (((x+4)*x+6)*x+4)*x+1;
 
 *SEE Expand, ExpandBrackets, EvaluateHornerScheme
 %/mathpiper_docs

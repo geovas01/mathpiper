@@ -28,11 +28,11 @@ the lists. In the resulting list, any element will occur only once.
 *E.G.
 
 	In> Union({a,b,c}, {b,c,d});
-	Out> {a,b,c,d};
+	Result: {a,b,c,d};
 	In> Union({a,e,i,o,u}, {f,o,u,r,t,e,e,n});
-	Out> {a,e,i,o,u,f,r,t,n};
+	Result: {a,e,i,o,u,f,r,t,n};
 	In> Union({1,2,2,3,3,3}, {2,2,3,3,4,4});
-	Out> {1,2,3,4};
+	Result: {1,2,3,4};
 
 *SEE Intersection, Difference
 %/mathpiper_docs

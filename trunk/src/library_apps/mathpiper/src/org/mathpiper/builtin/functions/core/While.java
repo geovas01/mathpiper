@@ -103,7 +103,7 @@ all other loop commands are based. It is equivalent to the {while} command in th
 *E.G. notest
 
 In> x := 0;
-Out> 0;
+Result: 0;
 In> While (x! < 10^6) \
 [ Echo({x, x!}); x++; ];
 0  1
@@ -116,7 +116,7 @@ In> While (x! < 10^6) \
 7  5040
 8  40320
 9  362880
-Out> True;
+Result: True;
 
 *SEE Until, For, ForEach, Break, Continue
 %/mathpiper_docs

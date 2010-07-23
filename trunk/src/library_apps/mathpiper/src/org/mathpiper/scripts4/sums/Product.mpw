@@ -64,9 +64,9 @@ returned. Obviously, "to" should be greater than or equal to
 *E.G.
 
 	In> Product({1,2,3,4});
-	Out> 24;
+	Result: 24;
 	In> Product(i, 1, 4, i);
-	Out> 24;
+	Result: 24;
 
 *SEE Sum, Apply
 %/mathpiper_docs

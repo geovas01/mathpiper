@@ -96,9 +96,9 @@ This function also works on strings and arrays.
 *E.G.
 
 	In> Length({a,b,c})
-	Out> 3;
+	Result: 3;
 	In> Length("abcdef");
-	Out> 6;
+	Result: 6;
 
 *SEE First, Rest, Nth, Count
 %/mathpiper_docs

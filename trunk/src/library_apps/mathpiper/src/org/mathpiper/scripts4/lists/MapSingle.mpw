@@ -44,9 +44,9 @@ The {/@} operator provides a shorthand for
 *E.G.
 
 	In> MapSingle("Sin",{a,b,c});
-	Out> {Sin(a),Sin(b),Sin(c)};
+	Result: {Sin(a),Sin(b),Sin(c)};
 	In> MapSingle({{x},x^2}, {a,2,c});
-	Out> {a^2,4,c^2};
+	Result: {a^2,4,c^2};
 
 *SEE Map, MapArgs, /@, Apply
 %/mathpiper_docs

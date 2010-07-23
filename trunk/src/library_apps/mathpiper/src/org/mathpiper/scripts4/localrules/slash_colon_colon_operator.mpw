@@ -50,9 +50,9 @@ to change these into {Ln(a)+Ln(b)}, the easiest way
 to do this is using the {/:} operator, as follows:
 
 	In> Sin(x)*Ln(a*b)
-	Out> Sin(x)*Ln(a*b);
+	Result: Sin(x)*Ln(a*b);
 	In> % /: { Ln(_x*_y) <- Ln(x)+Ln(y) }
-	Out> Sin(x)*(Ln(a)+Ln(b));
+	Result: Sin(x)*(Ln(a)+Ln(b));
 
 A whole list of simplification rules can be built up in the list,
 and they will be applied to the expression on the left hand side
@@ -83,9 +83,9 @@ should become apparent.
 *E.G.
 
 	In> Sin(u)*Ln(a*b) /: {Ln(_x*_y) <- Ln(x)+Ln(y)}
-	Out> Sin(u)*(Ln(a)+Ln(b));
+	Result: Sin(u)*(Ln(a)+Ln(b));
 	In> Sin(u)*Ln(a*b) /:: { a <- 2, b <- 3 }
-	Out> Sin(u)*Ln(6);
+	Result: Sin(u)*Ln(6);
 
 *SEE Subst
 %/mathpiper_docs

@@ -26,9 +26,9 @@ This function returns the {n}-th Catalan number, defined as $BinomialCoefficient
 *E.G.
 
 	In> CatalanNumber(10)
-	Out> 16796;
+	Result: 16796;
 	In> CatalanNumber(5)
-	Out> 42;
+	Result: 42;
 
 *SEE BinomialCoefficient
 %/mathpiper_docs

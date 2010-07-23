@@ -53,13 +53,13 @@ the equation $M*x = v$. The determinant of $M$ should be non-zero.
 *E.G.
 
 	In> A := {{1,2}, {3,4}};
-	Out> {{1,2},{3,4}};
+	Result: {{1,2},{3,4}};
 	In> v := {5,6};
-	Out> {5,6};
+	Result: {5,6};
 	In> x := SolveMatrix(A, v);
-	Out> {-4,9/2};
+	Result: {-4,9/2};
 	In> A * x;
-	Out> {5,6};
+	Result: {5,6};
 
 *SEE Inverse, Solve, PSolve, Determinant
 %/mathpiper_docs

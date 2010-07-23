@@ -34,11 +34,11 @@ This operator can help the user to program in the style of functional programmin
 *E.G.
 
 	In> "Sin" @ a
-	Out> Sin(a);
+	Result: Sin(a);
 	In> {{a},Sin(a)} @ a
-	Out> Sin(a);
+	Result: Sin(a);
 	In> "f" @ {a,b}
-	Out> f(a,b);
+	Result: f(a,b);
 
 *SEE Apply
 %/mathpiper_docs

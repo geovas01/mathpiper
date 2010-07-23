@@ -28,9 +28,9 @@ share no common factors.
 *E.G.
 
 	In> IsCoprime({3,4,5,8})
-	Out> False;
+	Result: False;
 	In> IsCoprime(15,17)
-	Out> True;
+	Result: True;
 
 *SEE Prime
 %/mathpiper_docs

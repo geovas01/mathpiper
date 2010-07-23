@@ -42,13 +42,13 @@ An upper triangular matrix is a square matrix which has all zero entries above t
 
 *E.G.
 	In> IsUpperTriangular(Identity(5))
-	Out> True;
+	Result: True;
 	In> IsUpperTriangular({{1,2},{0,1}})
-	Out> True;
+	Result: True;
 
 A non-square matrix cannot be triangular:
 	In> IsUpperTriangular({{1,2,3},{0,1,2}})
-	Out> False;
+	Result: False;
 
 *SEE IsLowerTriangle, IsDiagonal
 %/mathpiper_docs

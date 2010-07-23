@@ -85,7 +85,7 @@ a new changed copy.
 *E.G.
 
 	In> StringMidSet(3,"XY","abcdef")
-	Out> "abXYef";
+	Result: "abXYef";
 
 *SEE StringMidGet, Length
 %/mathpiper_docs

@@ -55,41 +55,41 @@ numerator and denominator be polynomials.
 *E.G.
 
 	In> IsRationalFunction(3,x)  
-	Out> False
+	Result: False
 	In> IsRationalFunction(3)      
-	Out> False;
+	Result: False;
     In> IsRationalFunction(3.5,x)
-    Out>  False
+    Result:  False
     In> IsRationalFunction(3.5)
-    Out>  False 
+    Result:  False 
     In> IsRationalFunction(3/5,x)
-    Out>  False 
+    Result:  False 
     In> IsRationalFunction(3/5)
-    Out>  False 
+    Result:  False 
     In> IsRationalFunction(x,y)
-    Out>  False 
+    Result:  False 
     In> IsRationalFunction(x)
-    Out>  False 
+    Result:  False 
     In> IsRationalFunction(x/y,x)
-    Out>  True 
+    Result:  True 
     In> IsRationalFunction(x/y)
-    Out>  True 
+    Result:  True 
     In> IsRationalFunction(x/5,x)
-    Out>  True 
+    Result:  True 
     In> IsRationalFunction(x/5)
-    Out>  True 
+    Result:  True 
     In> IsRationalFunction(5/x,x)
-    Out>  True 
+    Result:  True 
     In> IsRationalFunction(5/x)
-    Out>  True 
+    Result:  True 
     In> IsRationalFunction(5/y,x)
-    Out>  False 
+    Result:  False 
     In> IsRationalFunction(5/y)
-    Out>  True 
+    Result:  True 
     In> IsRationalFunction(1-1/x,x)
-    Out>  False 
+    Result:  False 
     In> IsRationalFunction(1-1/x)
-    Out>  False
+    Result:  False
 
 %/mathpiper_docs
 

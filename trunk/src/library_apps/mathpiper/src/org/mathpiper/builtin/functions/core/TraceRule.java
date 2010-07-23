@@ -78,7 +78,7 @@ in the environment it is used in.
 	        TrArg(2+3*5, 17);
 	        TrArg(4, 4);
 	    TrLeave(2+3*5+4, 21);
-	Out> 21;
+	Result: 21;
 
 *SEE TraceStack, TraceExp
 %/mathpiper_docs

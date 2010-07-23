@@ -90,9 +90,9 @@ using logarithm rules.  It is intended to be the exact converse of {LnExpand}.
 
 *E.G.
 	In> LnCombine(Ln(a)+Ln(b)*n)
-	Out> Ln(a*b^n)
+	Result: Ln(a*b^n)
 	In> LnCombine(2*Ln(2)+Ln(3)-Ln(5))
-	Out> Ln(12/5)
+	Result: Ln(12/5)
 
 *SEE Ln, LnExpand
 %/mathpiper_docs

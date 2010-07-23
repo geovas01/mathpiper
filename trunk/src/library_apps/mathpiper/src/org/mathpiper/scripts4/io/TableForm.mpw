@@ -45,7 +45,7 @@ printing every element in the list on a separate line.
 	 40320
 	 362880
 	 3628800
-	Out> True;
+	Result: True;
 
 *SEE PrettyForm, Echo, Table
 %/mathpiper_docs

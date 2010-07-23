@@ -25,7 +25,7 @@ equivalently Inverse($A$) = Transpose($A$).
 *E.G.
 
 	In> A := {{1,2,2},{2,1,-2},{-2,2,-1}};
-	Out> {{1,2,2},{2,1,-2},{-2,2,-1}};
+	Result: {{1,2,2},{2,1,-2},{-2,2,-1}};
 	In> PrettyForm(A/3)
 
 	/                      \
@@ -41,7 +41,7 @@ equivalently Inverse($A$) = Transpose($A$).
 	| | -- | | - | | -- |  |
 	| \ 3  / \ 3 / \ 3  /  |
 	\                      /
-	Out> True;
+	Result: True;
 	In> IsOrthogonal(A/3)
-	Out> True;
+	Result: True;
 %/mathpiper_docs

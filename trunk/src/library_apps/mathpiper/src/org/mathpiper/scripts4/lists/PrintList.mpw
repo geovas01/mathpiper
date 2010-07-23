@@ -38,7 +38,7 @@ Prints {list} and inserts the {padding} string between each pair of items of the
 *E.G.
 
 	In> PrintList({a,b,{c, d}}, " .. ")
-	Out> " a ..  b .. { c ..  d}";
+	Result: " a ..  b .. { c ..  d}";
 
 *SEE Write, WriteString
 %/mathpiper_docs

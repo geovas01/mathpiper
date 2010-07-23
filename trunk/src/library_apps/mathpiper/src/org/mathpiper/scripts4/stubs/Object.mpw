@@ -27,13 +27,13 @@ so-called incomplete types.
 *E.G.
 
 	In> a := Object("IsNumber", x);
-	Out> Object("IsNumber",x);
+	Result: Object("IsNumber",x);
 	In> Eval(a);
-	Out> Object("IsNumber",x);
+	Result: Object("IsNumber",x);
 	In> x := 5;
-	Out> 5;
+	Result: 5;
 	In> Eval(a);
-	Out> 5;
+	Result: 5;
 
 *SEE IsNonObject
 %/mathpiper_docs

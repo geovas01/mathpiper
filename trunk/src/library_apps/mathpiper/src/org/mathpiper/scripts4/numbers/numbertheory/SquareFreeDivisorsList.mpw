@@ -40,7 +40,7 @@ For example, $18=2*3*3$ is not square-free because it contains a square of $3$ a
 *E.G.
 
 	In> SquareFreeDivisorsList(18)
-	Out> {1,2,3,6};
+	Result: {1,2,3,6};
 
 *SEE DivisorsList
 %/mathpiper_docs

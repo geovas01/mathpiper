@@ -38,7 +38,7 @@ vectors need to have the same size.
 *E.G.
 
 	In> Dot({a,b,c}, {d,e,f});
-	Out> a*d+b*e+c*f;
+	Result: a*d+b*e+c*f;
 
 *SEE Outer, Dot, CrossProduct
 %/mathpiper_docs

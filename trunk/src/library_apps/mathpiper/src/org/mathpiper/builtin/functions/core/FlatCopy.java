@@ -65,12 +65,12 @@ list nondestructively.
 
 	In> reverse(l_IsList) <-- DestructiveReverse \
 	  (FlatCopy(l));
-	Out> True;
+	Result: True;
 	In> lst := {a,b,c,d,e};
-	Out> {a,b,c,d,e};
+	Result: {a,b,c,d,e};
 	In> reverse(lst);
-	Out> {e,d,c,b,a};
+	Result: {e,d,c,b,a};
 	In> lst;
-	Out> {a,b,c,d,e};
+	Result: {a,b,c,d,e};
 %/mathpiper_docs
 */

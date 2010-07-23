@@ -27,7 +27,7 @@ output. The result is always True.
 *E.G. notest
 
 	In> Space(5);
-	     Out> True;
+	     Result: True;
 
 *SEE Echo, Write, NewLine
 %/mathpiper_docs

@@ -66,7 +66,7 @@ can be useful in the {~/.MathPiperrc} file.
 *E.G.
 
 	In> HistorySize(200)
-	Out> True;
+	Result: True;
 	In> quit
 
 *SEE quit

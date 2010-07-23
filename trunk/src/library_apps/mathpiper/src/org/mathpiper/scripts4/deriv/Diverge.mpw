@@ -33,7 +33,7 @@ where {n} is the length of the lists "vector" and
 *E.G.
 
 	In> Diverge({x*y,x*y,x*y},{x,y,z})
-	Out> y+x;
+	Result: y+x;
 
 *SEE D, Curl
 %/mathpiper_docs

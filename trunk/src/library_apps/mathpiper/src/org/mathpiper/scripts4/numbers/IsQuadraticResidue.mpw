@@ -30,7 +30,7 @@ A number $m$ is a "quadratic residue modulo $n$" if there exists a number $k$ su
 *E.G.
 
 	In> IsQuadraticResidue(9,13)
-	Out> True;
+	Result: True;
 
 *SEE Gcd, JacobiSymbol, LegendreSymbol
 %/mathpiper_docs

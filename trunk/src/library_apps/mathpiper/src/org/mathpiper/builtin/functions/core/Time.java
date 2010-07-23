@@ -81,7 +81,7 @@ Therefore, any CPU-intensive processes running alongside MathPiper will not sign
 
 *E.G.
 	In> Time() Simplify((a*b)/(b*a))
-	Out> 0.09;
+	Result: 0.09;
 
 *SEE EchoTime, SystemTimer
 

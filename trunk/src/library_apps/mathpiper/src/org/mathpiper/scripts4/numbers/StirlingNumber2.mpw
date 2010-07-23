@@ -25,9 +25,9 @@ $0$.
 *E.G.
 
 	In> StirlingNumber2(3,6)
-	Out> 0;
+	Result: 0;
 	In> StirlingNumber2(10,4)
-	Out> 34105;
+	Result: 34105;
 
 *SEE StirlingNumber1
 %/mathpiper_docs

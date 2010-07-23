@@ -41,9 +41,9 @@ A number is prime if and only if it has two divisors, 1 and itself.
 
 *E.G.
 	In> Divisors(180)
-	Out> 18;
+	Result: 18;
 	In> Divisors(37)
-	Out> 2;
+	Result: 2;
 
 *SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius
 %/mathpiper_docs

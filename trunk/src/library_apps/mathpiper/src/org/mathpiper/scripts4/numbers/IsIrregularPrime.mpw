@@ -45,9 +45,9 @@ are  37, 59 and 67. Asymptotically, roughly 40{%} of primes are irregular.
 *E.G.
 
 	In> IsIrregularPrime(5)
-	Out> False;
+	Result: False;
 	In> Select(1 .. 100, IsIrregularPrime)
-	Out> {37,59,67};
+	Result: {37,59,67};
 
 *SEE IsPrime
 %/mathpiper_docs

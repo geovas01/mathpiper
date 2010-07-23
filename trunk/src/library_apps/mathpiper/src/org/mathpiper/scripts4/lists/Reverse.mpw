@@ -27,11 +27,11 @@ and slower.
 *E.G.
 
 	In> lst:={a,b,c,13,19}
-	Out> {a,b,c,13,19};
+	Result: {a,b,c,13,19};
 	In> revlst:=Reverse(lst)
-	Out> {19,13,c,b,a};
+	Result: {19,13,c,b,a};
 	In> lst
-	Out> {a,b,c,13,19};
+	Result: {a,b,c,13,19};
 
 *SEE FlatCopy, DestructiveReverse
 %/mathpiper_docs

@@ -115,11 +115,11 @@ The following example defines a macro {myfor}, and shows one use, referencing
 a variable {a} from the calling environment.
 
 	In> DefMacroRulebase("myfor",{init,pred,inc,body})
-	Out> True;
+	Result: True;
 	In> myfor(_init,_pred,_inc,_body)<--[@init;While(@pred)[@body;@inc;];True;];
-	Out> True;
+	Result: True;
 	In> a:=10
-	Out> 10;
+	Result: 10;
 	In> myfor(i:=1,i<10,i++,Echo(a*i))
 	10
 	20
@@ -130,9 +130,9 @@ a variable {a} from the calling environment.
 	70
 	80
 	90
-	Out> True;
+	Result: True;
 	In> i
-	Out> 10;
+	Result: 10;
 
 *SEE Rulebase, Backquoting, DefMacroRulebaseListed
 %/mathpiper_docs

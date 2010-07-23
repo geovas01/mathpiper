@@ -74,11 +74,11 @@ list, the function is applied to all entries in the list.
 *E.G.
 
 	In> Sin(1)
-	Out> Sin(1);
+	Result: Sin(1);
 	In> N(Sin(1),20)
-	Out> 0.84147098480789650665;
+	Result: 0.84147098480789650665;
 	In> Sin(Pi/4)
-	Out> Sqrt(2)/2;
+	Result: Sqrt(2)/2;
 
 *SEE Cos, Tan, ArcSin, ArcCos, ArcTan, N, Pi
 %/mathpiper_docs

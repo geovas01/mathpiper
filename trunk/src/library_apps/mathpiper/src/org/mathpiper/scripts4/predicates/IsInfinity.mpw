@@ -31,9 +31,9 @@ case if {expr} is either {Infinity} or {-Infinity}.
 *E.G.
 
 	In> IsInfinity(10^1000);
-	Out> False;
+	Result: False;
 	In> IsInfinity(-Infinity);
-	Out> True;
+	Result: True;
 
 *SEE Integer
 %/mathpiper_docs

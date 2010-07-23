@@ -52,9 +52,9 @@ Compare decimal numbers or strings (lexicographically).
 
 **E.G.
 	In> IsGreaterThan(1,1)
-	Out> False;
+	Result: False;
 	In> IsGreaterThan("b","a")
-	Out> True;
+	Result: True;
 
 *SEE IsLessThan, IsEqual
 %/mathpiper_docs

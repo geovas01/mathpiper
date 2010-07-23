@@ -44,9 +44,9 @@
 *E.G.
 
 	In> DivisorsSum(180)
-	Out> 546;
+	Result: 546;
 	In> DivisorsSum(37)
-	Out> 38;
+	Result: 38;
 
 *SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius
 %/mathpiper_docs

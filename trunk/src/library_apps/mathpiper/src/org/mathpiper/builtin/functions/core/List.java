@@ -72,11 +72,11 @@ is "expr2", and so on. This command is equivalent to the expression
 *E.G.
 
 	In> List();
-	Out> {};
+	Result: {};
 	In> List(a,b);
-	Out> {a,b};
+	Result: {a,b};
 	In> List(a,{1,2},d);
-	Out> {a,{1,2},d};
+	Result: {a,{1,2},d};
 
 *SEE ListToFunction, FunctionToList
 %/mathpiper_docs

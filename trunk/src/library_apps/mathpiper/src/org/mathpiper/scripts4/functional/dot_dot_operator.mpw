@@ -38,7 +38,7 @@ This operator can help the user to program in the style of functional programmin
 *E.G.
 
 	In> 1 .. 4
-	Out> {1,2,3,4};
+	Result: {1,2,3,4};
 
 *SEE Table
 %/mathpiper_docs

@@ -38,9 +38,9 @@ $A$ is symmetric iff Transpose ($A$) =$A$.
 	|                                |
 	| ( 1 ) ( 0 ) ( 0 ) ( 0 ) ( 5 )  |
 	\                                /
-	Out> True;
+	Result: True;
 	In> IsSymmetric(A)
-	Out> True;
+	Result: True;
 		
 
 *SEE IsHermitian, IsSkewSymmetric

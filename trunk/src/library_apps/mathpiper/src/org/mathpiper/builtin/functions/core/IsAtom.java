@@ -59,9 +59,9 @@ variables are all atoms.
 *E.G.
 
 	In> IsAtom(x+5);
-	Out> False;
+	Result: False;
 	In> IsAtom(5);
-	Out> True;
+	Result: True;
 
 *SEE IsFunction, IsNumber, IsString
 %/mathpiper_docs

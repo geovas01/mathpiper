@@ -38,15 +38,15 @@ which speedup many calculations by orders of magnitude.
 *E.G.
 
 	In> Sparsity(Identity(2))
-	Out> 0.5;
+	Result: 0.5;
 	In> Sparsity(Identity(10))
-	Out> 0.9;
+	Result: 0.9;
 	In> Sparsity(HankelMatrix(10))
-	Out> 0.45;
+	Result: 0.45;
 	In> Sparsity(HankelMatrix(100))
-	Out> 0.495;
+	Result: 0.495;
 	In> Sparsity(HilbertMatrix(10))
-	Out> 0;
+	Result: 0;
 	In> Sparsity(ZeroMatrix(10,10))
-	Out> 1;
+	Result: 1;
 %/mathpiper_docs

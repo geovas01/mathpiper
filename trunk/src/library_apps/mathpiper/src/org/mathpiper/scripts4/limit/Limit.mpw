@@ -197,13 +197,13 @@ gives "dir" the value {Left}, the limit is taken as
 *E.G.
 
 	In> Limit(x,0) Sin(x)/x
-	Out> 1;
+	Result: 1;
 	In> Limit(x,0) (Sin(x)-Tan(x))/(x^3)
-	Out> -1/2;
+	Result: -1/2;
 	In> Limit(x,0) 1/x
-	Out> Undefined;
+	Result: Undefined;
 	In> Limit(x,0,Left) 1/x
-	Out> -Infinity;
+	Result: -Infinity;
 	In> Limit(x,0,Right) 1/x
-	Out> Infinity;
+	Result: Infinity;
 %/mathpiper_docs

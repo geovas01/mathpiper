@@ -69,11 +69,11 @@ it has been assigned a value. The argument "var" is not evaluated.
 *E.G.
 
 	In> IsBound(x);
-	Out> False;
+	Result: False;
 	In> x := 5;
-	Out> 5;
+	Result: 5;
 	In> IsBound(x);
-	Out> True;
+	Result: True;
 
 *SEE IsAtom
 %/mathpiper_docs

@@ -54,13 +54,13 @@ This function explicitly requests an evaluation of the expression
 *E.G.
 
 	In> a := x;
-	Out> x;
+	Result: x;
 	In> x := 5;
-	Out> 5;
+	Result: 5;
 	In> a;
-	Out> x;
+	Result: x;
 	In> Eval(a);
-	Out> 5;
+	Result: 5;
 
 The variable {a} is bound to {x},
 and {x} is bound to 5. Hence evaluating {a} will give {x}. Only when an extra

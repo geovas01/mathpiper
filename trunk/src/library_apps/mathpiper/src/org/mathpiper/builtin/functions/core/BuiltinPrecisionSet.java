@@ -79,23 +79,23 @@ Also, when typing floating-point numbers, the current value of {BuiltinPrecision
 *E.G.
 
 	In> BuiltinPrecisionSet(10)
-	Out> True;
+	Result: True;
 	In> N(Sin(1))
-	Out> 0.8414709848;
+	Result: 0.8414709848;
 	In> BuiltinPrecisionSet(20)
-	Out> True;
+	Result: True;
 	In> x:=N(Sin(1))
-	Out> 0.84147098480789650665;
+	Result: 0.84147098480789650665;
 
 The value {x} is not changed by a {BuiltinPrecisionSet()} call:
 
 	In> [ BuiltinPrecisionSet(10); x; ]
-	Out> 0.84147098480789650665;
+	Result: 0.84147098480789650665;
 
 The value {x} is rounded off to 10 digits after an arithmetic operation:
 
 	In> x+0.
-	Out> 0.8414709848;
+	Result: 0.8414709848;
 
 In the above operation, {0.} was interpreted as a number which is precise to 10 digits (the user does not need to type {0.0000000000} for this to happen).
 So the result of {x+0.} is precise only to 10 digits.

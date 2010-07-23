@@ -130,11 +130,11 @@ number. Hence {Im(Sqrt(x))} evaluates to {0} which is only true for nonnegative 
 *E.G.
 
 	In> I
-	Out> Complex(0,1);
+	Result: Complex(0,1);
 	In> 3+4*I
-	Out> Complex(3,4);
+	Result: Complex(3,4);
 	In> Complex(-2,0)
-	Out> -2;
+	Result: -2;
 
 *SEE Re, Im, I, Abs, Arg
 %/mathpiper_docs

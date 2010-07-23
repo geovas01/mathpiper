@@ -29,13 +29,13 @@ polynomial.
 *E.G.
 
 	In> poly := 2*x^2 + 4*x;
-	Out> 2*x^2+4*x;
+	Result: 2*x^2+4*x;
 	In> c := Content(poly);
-	Out> 2*x;
+	Result: 2*x;
 	In> pp := PrimitivePart(poly);
-	Out> x+2;
+	Result: x+2;
 	In> Expand(pp*c);
-	Out> 2*x^2+4*x;
+	Result: 2*x^2+4*x;
 
 *SEE Content
 %/mathpiper_docs

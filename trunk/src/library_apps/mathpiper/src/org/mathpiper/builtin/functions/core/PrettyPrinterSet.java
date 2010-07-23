@@ -82,7 +82,7 @@ can be useful in the {~/.MathPiperrc} file.
 *E.G.
 
 	In> Taylor(x,0,5)Sin(x)
-	Out> x-x^3/6+x^5/120;
+	Result: x-x^3/6+x^5/120;
 	In> PrettyPrinterSet("PrettyForm");
 
 	True
@@ -95,9 +95,9 @@ can be useful in the {~/.MathPiperrc} file.
 	    6    120
 
 	In> PrettyPrinterSet();
-	Out> True;
+	Result: True;
 	In> Taylor(x,0,5)Sin(x)
-	Out> x-x^3/6+x^5/120;
+	Result: x-x^3/6+x^5/120;
 
 *SEE PrettyForm, Write, TeXForm, CForm, OMForm, PrettyReaderSet, PrettyReaderGet, PrettyPrinterGet
 %/mathpiper_docs

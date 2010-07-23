@@ -112,18 +112,18 @@ big so the evaluation may take very long.
 *E.G.
 
 	In> RadSimp(Sqrt(9+4*Sqrt(2)))
-	Out> Sqrt(8)+1;
+	Result: Sqrt(8)+1;
 	In> RadSimp(Sqrt(5+2*Sqrt(6)) \
 	  +Sqrt(5-2*Sqrt(6)))
-	Out> Sqrt(12);
+	Result: Sqrt(12);
 	In> RadSimp(Sqrt(14+3*Sqrt(3+2
 	*Sqrt(5-12*Sqrt(3-2*Sqrt(2))))))
-	Out> Sqrt(2)+3;
+	Result: Sqrt(2)+3;
 
 But this command may yield incorrect results:
 
 	In> RadSimp(Sqrt(1+10^(-6)))
-	Out> 1;
+	Result: 1;
 
 *SEE Simplify, N
 %/mathpiper_docs

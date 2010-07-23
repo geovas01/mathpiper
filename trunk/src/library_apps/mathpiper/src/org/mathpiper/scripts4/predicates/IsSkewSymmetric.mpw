@@ -24,7 +24,7 @@ $A$ is skew symmetric iff $Transpose(A)$ =$-A$.
 *E.G.
 
 	In> A := {{0,-1},{1,0}}
-	Out> {{0,-1},{1,0}};
+	Result: {{0,-1},{1,0}};
 	In> PrettyForm(%)
 
 	/               \
@@ -32,9 +32,9 @@ $A$ is skew symmetric iff $Transpose(A)$ =$-A$.
 	|               |
 	| ( 1 ) ( 0 )   |
 	\               /
-	Out> True;
+	Result: True;
 	In> IsSkewSymmetric(A);
-	Out> True;
+	Result: True;
 
 *SEE IsSymmetric, IsHermitian
 %/mathpiper_docs

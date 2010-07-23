@@ -59,9 +59,9 @@ between curly braces, e.g. {{2, 3, 5}}.
 *E.G.
 
 	In> IsList({2,3,5});
-	Out> True;
+	Result: True;
 	In> IsList(2+3+5);
-	Out> False;
+	Result: False;
 
 *SEE IsFunction
 %/mathpiper_docs

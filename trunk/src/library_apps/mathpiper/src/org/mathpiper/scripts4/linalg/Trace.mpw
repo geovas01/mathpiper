@@ -50,7 +50,7 @@ elements on the diagonal of the matrix).
 *E.G.
 
 	In> A:=DiagonalMatrix(1 .. 4)
-	Out> {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+	Result: {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
 	In> Trace(A)
-	Out> 10;
+	Result: 10;
 %/mathpiper_docs

@@ -25,9 +25,9 @@ function returns {False}.
 *E.G.
 
 	In> IsPositiveInteger(31);
-	Out> True;
+	Result: True;
 	In> IsPositiveInteger(-2);
-	Out> False;
+	Result: False;
 
 *SEE IsNegativeInteger, IsNonZeroInteger, IsPositiveNumber
 %/mathpiper_docs

@@ -81,13 +81,13 @@ This operator can help the user to program in the style of functional programmin
 *E.G.
 
 	In> x^2+y^2 Where x==2
-	Out> y^2+4;
+	Result: y^2+4;
 	In> x^2+y^2 Where x==2 And y==3
-	Out> 13;
+	Result: 13;
 	In> x^2+y^2 Where {x==2 And y==3}
-	Out> {13};
+	Result: {13};
 	In> x^2+y^2 Where {x==2 And y==3,x==4 And y==5}
-	Out> {13,41};
+	Result: {13,41};
 
 *SEE Solve, AddTo
 %/mathpiper_docs

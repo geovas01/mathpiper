@@ -40,9 +40,9 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 *E.G.
 
 	In> HasFuncSome({a+b*2,c/d},/,{List})
-	Out> True;
+	Result: True;
 	In> HasFuncSome({a+b*2,c/d},*,{List})
-	Out> False;
+	Result: False;
 
 *SEE HasFunc, HasFuncArith, FuncList, VarList, HasExpr
 %/mathpiper_docs

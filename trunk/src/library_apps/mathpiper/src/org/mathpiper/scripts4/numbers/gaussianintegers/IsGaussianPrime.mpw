@@ -57,13 +57,13 @@ if and only if $Re(z)$ is an ordinary prime and $Re(z):=Modulo(3,4)$.
 
 *E.G.
 	In> IsGaussianPrime(13)
-	Out> False;
+	Result: False;
 	In> IsGaussianPrime(2+2*I)
-	Out> False;
+	Result: False;
 	In> IsGaussianPrime(2+3*I)
-	Out> True;
+	Result: True;
 	In> IsGaussianPrime(3)
-	Out> True;
+	Result: True;
 
 *SEE  IsGaussianInteger, GaussianFactors
 %/mathpiper_docs

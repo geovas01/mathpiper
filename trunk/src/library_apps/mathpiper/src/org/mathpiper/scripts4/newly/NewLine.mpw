@@ -28,7 +28,7 @@ current output. The result is always True.
 
 	In> NewLine();
 	
-	Out> True;
+	Result: True;
 
 *SEE Echo, Write, Space
 %/mathpiper_docs

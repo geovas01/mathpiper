@@ -11,9 +11,9 @@
 60 # (x_IsZero ^ n_IsRationalOrNumber)_(n<0) <-- Infinity;
 // This is to fix:
 // In> 0.0000^2
-// Out> 0.0000^2;
+// Result: 0.0000^2;
 // In> 0.0^2/2
-// Out> 0.0^2/2;
+// Result: 0.0^2/2;
 //60 # (x_IsNumber ^ n_IsRationalOrNumber)_(x+1=1) <-- 0;
 
 59 # _x ^ Undefined <-- Undefined;
@@ -111,5 +111,5 @@ to being built-in). This means that they can be extended by the user.
 *E.G.
 
 	In> 2^3
-	Out> 8;
+	Result: 8;
 %/mathpiper_docs

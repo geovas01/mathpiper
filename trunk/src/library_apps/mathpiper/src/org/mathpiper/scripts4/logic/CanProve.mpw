@@ -65,7 +65,7 @@ MathPiper can prove that is correct by applying {CanProve}
 to it:
 
 	In> CanProve(( (a=>b) And (b=>c) ) => (a=>c))
-	Out> True;
+	Result: True;
 
 It does this in the following way: in order to prove a proposition $p$, it
 suffices to prove that  $Not p$ is false. It continues to simplify  $Not p$
@@ -103,15 +103,15 @@ added advantage of simplifying the expression further.
 *E.G.
 
 	In> CanProve(a  Or   Not a)
-	Out> True;
+	Result: True;
 	In> CanProve(True  Or  a)
-	Out> True;
+	Result: True;
 	In> CanProve(False  Or  a)
-	Out> a;
+	Result: a;
 	In> CanProve(a  And   Not a)
-	Out> False;
+	Result: False;
 	In> CanProve(a  Or b Or (a And b))
-	Out> a Or b;
+	Result: a Or b;
 	
 
 *SEE True, False, And, Or, Not

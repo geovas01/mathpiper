@@ -26,9 +26,9 @@ $1$, $-1$, $I$, and $-I$.
 	
 *E.G.
 	In> IsGaussianInteger(I)
-	Out> True;
+	Result: True;
 	In> IsGaussianUnit(5+6*I)
-	Out> False;
+	Result: False;
 
 *SEE  IsGaussianInteger, IsGaussianPrime, GaussianNorm
 %/mathpiper_docs

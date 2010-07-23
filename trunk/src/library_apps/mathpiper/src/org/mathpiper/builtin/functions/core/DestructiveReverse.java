@@ -66,11 +66,11 @@ this function.
 *E.G.
 
 	In> lst := {a,b,c,13,19};
-	Out> {a,b,c,13,19};
+	Result: {a,b,c,13,19};
 	In> revlst := DestructiveReverse(lst);
-	Out> {19,13,c,b,a};
+	Result: {19,13,c,b,a};
 	In> lst;
-	Out> {a};
+	Result: {a};
 
 *SEE FlatCopy, Reverse
 %/mathpiper_docs

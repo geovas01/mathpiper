@@ -56,9 +56,9 @@ returned if "list" is an atom.
 *E.G.
 
 	In> First({a,b,c})
-	Out> a;
+	Result: a;
 	In> First(f(a,b,c));
-	Out> a;
+	Result: a;
 
 *SEE Rest, Length
 %/mathpiper_docs

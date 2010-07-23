@@ -25,7 +25,7 @@ to any power is also equal to $A$.
 *E.G.
 
 	In> IsIdempotent(ZeroMatrix(10,10));
-	Out> True;
+	Result: True;
 	In> IsIdempotent(Identity(20))
-	Out> True;
+	Result: True;
 %/mathpiper_docs

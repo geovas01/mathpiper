@@ -42,13 +42,13 @@ $Moebius(1)==1$.
 
 *E.G.
 	In> Moebius(10)
-	Out> 1;
+	Result: 1;
 	In> Moebius(11)
-	Out> -1;
+	Result: -1;
 	In> Moebius(12)
-	Out> 0;
+	Result: 0;
 	In> Moebius(13)
-	Out> -1;
+	Result: -1;
 
 *SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, MoebiusDivisorsList
 %/mathpiper_docs

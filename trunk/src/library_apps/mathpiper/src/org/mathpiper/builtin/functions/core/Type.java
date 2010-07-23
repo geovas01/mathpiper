@@ -71,11 +71,11 @@ the result is the empty string {""}.
 *E.G.
 
 	In> Type({a,b,c});
-	Out> "List";
+	Result: "List";
 	In> Type(a*(b+c));
-	Out> "*";
+	Result: "*";
 	In> Type(123);
-	Out> "";
+	Result: "";
 
 *SEE IsAtom, ArgumentsCount
 %/mathpiper_docs

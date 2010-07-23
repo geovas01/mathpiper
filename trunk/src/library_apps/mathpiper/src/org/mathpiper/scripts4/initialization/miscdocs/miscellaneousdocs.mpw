@@ -30,10 +30,10 @@ To be effective, the directive must be typed immediately after the prompt:
 	Quitting...
 We can use variables named {quit}:
 	In> 1+quit
-	Out> quit+1;
+	Result: quit+1;
 There is no effect if we type some spaces first:
 	In>       restart
-	Out> restart;
+	Result: restart;
 
 *SEE Exit
 %/mathpiper_docs
@@ -60,7 +60,7 @@ form respectively.
 *E.G.
 
 	In> Taylor(x,0,5)Sin(x)
-	Out> x-x^3/6+x^5/120;
+	Result: x-x^3/6+x^5/120;
 	In> PrettyForm(%)
 
 	     3    5
@@ -134,9 +134,9 @@ Thus {Infinity*2} will return {Infinity}, and {a < Infinity} will evaluate to {T
 *E.G.
 
 	In> 2*Infinity
-	Out> Infinity;
+	Result: Infinity;
 	In> 2<Infinity
-	Out> True;
+	Result: True;
 %/mathpiper_docs
 
 
@@ -159,13 +159,13 @@ Most functions also return {Undefined} when evaluated on it.
 *E.G.
 
 	In> 2*Infinity
-	Out> Infinity;
+	Result: Infinity;
 	In> 0*Infinity
-	Out> Undefined;
+	Result: Undefined;
 	In> Sin(Infinity);
-	Out> Undefined;
+	Result: Undefined;
 	In> Undefined+2*Exp(Undefined);
-	Out> Undefined;
+	Result: Undefined;
 
 *SEE Infinity
 %/mathpiper_docs

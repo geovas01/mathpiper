@@ -33,7 +33,7 @@ fact prime.
 
 *E.G.
 	In> NextPrime(5)
-	Out> 7;
+	Result: 7;
 
 *SEE IsPrime
 %/mathpiper_docs
