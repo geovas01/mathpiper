@@ -53,9 +53,9 @@ Compare decimal numbers or strings (lexicographically).
 
 **E.G.
 	In> IsLessThan(1,1)
-	Out> False;
+	Result: False;
 	In> IsLessThan("a","b")
-	Out> True;
+	Result: True;
 
 *SEE GreaterThan, IsEqual
 %/mathpiper_docs

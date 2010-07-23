@@ -10,7 +10,7 @@ In> TableForm(Groebner({x*(y-1),y*(x-1)}))
  y-x
  y^2-y
 In> Factor(y^2-y)
-Out> y*(y-1);
+Result: y*(y-1);
 
 From which you can see that x = y, and x^2 = x so x is 0 or 1.
 

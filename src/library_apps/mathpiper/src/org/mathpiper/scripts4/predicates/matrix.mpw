@@ -112,11 +112,11 @@ Something is considered to be a scalar if it's not a list.
 
 *E.G.
 	In> IsScalar(7)
-	Out> True;
+	Result: True;
 	In> IsScalar(Sin(x)+x)
-	Out> True;
+	Result: True;
 	In> IsScalar({x,y})
-	Out> False;
+	Result: False;
 
 *SEE IsList, IsVector, IsMatrix
 %/mathpiper_docs
@@ -148,13 +148,13 @@ the vector {expr}, {False} otherwise.
 
 *E.G.
 	In> IsVector({a,b,c})
-	Out> True;
+	Result: True;
 	In> IsVector({a,{b},c})
-	Out> False;
+	Result: False;
 	In> IsVector(IsInteger,{1,2,3})
-	Out> True;
+	Result: True;
 	In> IsVector(IsInteger,{1,2.5,3})
-	Out> False;
+	Result: False;
 
 *SEE IsList, IsScalar, IsMatrix
 %/mathpiper_docs
@@ -187,15 +187,15 @@ the matrix {expr}, {False} otherwise.
 *E.G.
 
 	In> IsMatrix(1)
-	Out> False;
+	Result: False;
 	In> IsMatrix({1,2})
-	Out> False;
+	Result: False;
 	In> IsMatrix({{1,2},{3,4}})
-	Out> True;
+	Result: True;
 	In> IsMatrix(IsRational,{{1,2},{3,4}})
-	Out> False;
+	Result: False;
 	In> IsMatrix(IsRational,{{1/2,2/3},{3/4,4/5}})
-	Out> True;
+	Result: True;
 
 *SEE IsList, IsVector
 %/mathpiper_docs
@@ -228,13 +228,13 @@ element of the matrix {expr}, {False} otherwise.
 *E.G.
 
 	In> IsSquareMatrix({{1,2},{3,4}});
-	Out> True;
+	Result: True;
 	In> IsSquareMatrix({{1,2,3},{4,5,6}});
-	Out> False;
+	Result: False;
 	In> IsSquareMatrix(IsBoolean,{{1,2},{3,4}});
-	Out> False;
+	Result: False;
 	In> IsSquareMatrix(IsBoolean,{{True,False},{False,True}});
-	Out> True;
+	Result: True;
 
 *SEE IsMatrix
 %/mathpiper_docs

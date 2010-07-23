@@ -153,9 +153,9 @@ SumTaylorNum1(x, nth'term'func, next'term'factor, n'terms) :=
 /*
 Examples:
 In> SumTaylorNum(1,{{k}, 1/k!},{{k}, 1/k}, 10 )
-Out> 2.7182818006;
+Result: 2.7182818006;
 In> SumTaylorNum(1,{{k},1/k!}, 10 )
-Out> 2.7182818007;
+Result: 2.7182818007;
 */
 
 %/mathpiper
@@ -216,15 +216,15 @@ To compute 20 digits of $Exp(1)$ using the Taylor series, one needs 21
 digits of working precision and 21 terms of the series. 
 
 	In> BuiltinPrecisionSet(21)
-	Out> True;
+	Result: True;
 	In> SumTaylorNum(1, {{k},1/k!}, 21)
-	Out> 2.718281828459045235351;
+	Result: 2.718281828459045235351;
 	In> SumTaylorNum(1, 1, {{k},1/k}, 21)
-	Out> 2.71828182845904523535;
+	Result: 2.71828182845904523535;
 	In> SumTaylorNum(1, {{k},1/k!}, {{k},1/k}, 21)
-	Out> 2.71828182845904523535;
+	Result: 2.71828182845904523535;
 	In> RoundTo(N(Ln(%)),20)
-	Out> 1;
+	Result: 1;
 
 
 *SEE Taylor

@@ -31,11 +31,11 @@ integer if and only if $a$ and $b$ are integers.
 
 *E.G.
 	In> IsGaussianInteger(5)
-	Out> True;
+	Result: True;
 	In> IsGaussianInteger(5+6*I)
-	Out> True;
+	Result: True;
 	In> IsGaussianInteger(1+2.5*I)
-	Out> False;
+	Result: False;
 
 *SEE  IsGaussianUnit, IsGaussianPrime
 %/mathpiper_docs

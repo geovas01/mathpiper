@@ -50,11 +50,11 @@ list, the function is applied to all entries in the list.
 *E.G.
 
 	In> Abs(2);
-	Out> 2;
+	Result: 2;
 	In> Abs(-1/2);
-	Out> 1/2;
+	Result: 1/2;
 	In> Abs(3+4*I);
-	Out> 5;
+	Result: 5;
 
 *SEE Sign, Arg
 %/mathpiper_docs

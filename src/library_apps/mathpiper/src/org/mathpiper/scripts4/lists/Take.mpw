@@ -51,13 +51,13 @@ number "m" and ending with the "n"-th entry.
 *E.G.
 
 	In> lst := {a,b,c,d,e,f,g};
-	Out> {a,b,c,d,e,f,g};
+	Result: {a,b,c,d,e,f,g};
 	In> Take(lst, 2);
-	Out> {a,b};
+	Result: {a,b};
 	In> Take(lst, -3);
-	Out> {e,f,g};
+	Result: {e,f,g};
 	In> Take(lst, {2,4});
-	Out> {b,c,d};
+	Result: {b,c,d};
 
 *SEE Drop, Select, Remove
 %/mathpiper_docs

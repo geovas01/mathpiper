@@ -33,9 +33,9 @@ direction but with length 1.
 *E.G.
 
 	In> v:=Normalize({3,4})
-	Out> {3/5,4/5};
+	Result: {3/5,4/5};
 	In> Dot(v, v)
-	Out> 1;
+	Result: 1;
 
 *SEE InProduct, CrossProduct
 %/mathpiper_docs

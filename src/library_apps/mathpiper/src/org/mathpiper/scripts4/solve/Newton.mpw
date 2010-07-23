@@ -76,11 +76,11 @@ going outside of the bounds.
 *E.G.
 
 	In> Newton(Sin(x),x,3,0.0001)
-	Out> 3.1415926535;
+	Result: 3.1415926535;
 	In> Newton(x^2-1,x,2,0.0001,-5,5)
-	Out> 1;
+	Result: 1;
 	In> Newton(x^2+1,x,2,0.0001,-5,5)
-	Out> Fail;
+	Result: Fail;
 
 *SEE Solve, NewtonNum
 %/mathpiper_docs

@@ -61,13 +61,13 @@ function, so {IsNumber} will return {False}.
 *E.G.
 
 	In> IsNumber(6);
-	Out> True;
+	Result: True;
 	In> IsNumber(3.25);
-	Out> True;
+	Result: True;
 	In> IsNumber(I);
-	Out> False;
+	Result: False;
 	In> IsNumber("duh");
-	Out> False;
+	Result: False;
 
 *SEE IsAtom, IsString, IsInteger, IsDecimal, IsPositiveNumber, IsNegativeNumber, Complex
 %/mathpiper_docs

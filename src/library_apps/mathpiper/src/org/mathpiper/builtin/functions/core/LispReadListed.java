@@ -60,7 +60,7 @@ first object in a list can be itself a list (this is never the case for MathPipe
 *E.G. notest
 
 	In> PipeFromString("(+ a b)")LispReadListed()
-	Out> {+,a,b};
+	Result: {+,a,b};
 
 *SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, LispRead
 %/mathpiper_docs

@@ -37,7 +37,7 @@ constant.
 *E.G.
 
 	In> Append({a,b,c,d}, 1);
-	Out> {a,b,c,d,1};
+	Result: {a,b,c,d,1};
 
 *SEE Concat, :, DestructiveAppend
 %/mathpiper_docs

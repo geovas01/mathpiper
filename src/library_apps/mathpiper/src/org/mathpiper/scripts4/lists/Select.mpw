@@ -44,7 +44,7 @@ if desired.
 *E.G.
 
 In> Select({a,b,2,c,3,d,4,e,f}, "IsInteger")
-Out> {2,3,4};
+Result: {2,3,4};
 
 
 /%mathpiper

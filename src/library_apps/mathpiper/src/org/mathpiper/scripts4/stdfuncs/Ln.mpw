@@ -43,11 +43,11 @@ list, the function is applied to all entries in the list.
 *E.G.
 
 	In> Ln(1)
-	Out> 0;
+	Result: 0;
 	In> Ln(Exp(x))
-	Out> x;
+	Result: x;
 	In> Differentiate(x) Ln(x)
-	Out> 1/x;
+	Result: 1/x;
 
 *SEE Exp, Arg
 %/mathpiper_docs

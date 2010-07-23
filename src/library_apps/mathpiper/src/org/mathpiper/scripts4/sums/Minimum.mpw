@@ -66,9 +66,9 @@ with numerical values and not with symbolic arguments.
 *E.G.
 
 	In> Minimum(2,3);
-	Out> 2;
+	Result: 2;
 	In> Minimum({5,8,4});
-	Out> 4;
+	Result: 4;
 
 *SEE Maximum, Sum
 %/mathpiper_docs

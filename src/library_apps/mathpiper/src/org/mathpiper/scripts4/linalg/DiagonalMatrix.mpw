@@ -35,7 +35,7 @@ whose off-diagonal entries are all zero. The elements of the vector
 *E.G.
 
 	In> DiagonalMatrix(1 .. 4)
-	Out> {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+	Result: {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
 
 *SEE Identity, ZeroMatrix
 %/mathpiper_docs

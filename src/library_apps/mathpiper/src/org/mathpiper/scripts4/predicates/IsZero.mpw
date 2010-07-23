@@ -33,11 +33,11 @@
 *E.G.
 
 	In> IsZero(3.25)
-	Out> False;
+	Result: False;
 	In> IsZero(0)
-	Out> True;
+	Result: True;
 	In> IsZero(x)
-	Out> False;
+	Result: False;
 
 *SEE IsNumber, IsNotZero
 %/mathpiper_docs

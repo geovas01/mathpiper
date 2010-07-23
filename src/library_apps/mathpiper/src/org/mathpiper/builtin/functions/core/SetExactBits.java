@@ -74,16 +74,16 @@ For integer {x}, the function {SetExactBitsN} returns the unmodified integer {x}
 *E.G.
 The default precision of 10 decimals corresponds to 33 bits:
 	In> GetExactBitsN(1000.123)
-	Out> 33;
+	Result: 33;
 	In> x:=SetExactBitsN(10., 20)
-	Out> 10.;
+	Result: 10.;
 	In> GetExactBitsN(x)
-	Out> 20;
+	Result: 20;
 Prepare a "floating zero" representing an interval [-4, 4]:
 	In> x:=SetExactBitsN(0., -2)
-	Out> 0.;
+	Result: 0.;
 	In> x=0
-	Out> True;
+	Result: True;
 
 *SEE BuiltinPrecisionSet, BuiltinPrecisionGet, GetExactBitsN
 %/mathpiper_docs

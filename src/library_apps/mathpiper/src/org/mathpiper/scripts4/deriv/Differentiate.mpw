@@ -77,13 +77,13 @@ mathematical idiom that simplifies many formulae.
 *E.G.
 
 	In> Differentiate(x)Sin(x*y)
-	Out> y*Cos(x*y);
+	Result: y*Cos(x*y);
 	In> Differentiate({x,y,z})Sin(x*y)
-	Out> {y*Cos(x*y),x*Cos(x*y),0};
+	Result: {y*Cos(x*y),x*Cos(x*y),0};
 	In> Differentiate(x,2)Sin(x*y)
-	Out> -Sin(x*y)*y^2;
+	Result: -Sin(x*y)*y^2;
 	In> Differentiate(x){Sin(x),Cos(x)}
-	Out> {Cos(x),-Sin(x)};
+	Result: {Cos(x),-Sin(x)};
 
 *SEE Integrate, Taylor, Diverge, Curl
 %/mathpiper_docs

@@ -732,7 +732,7 @@ name as it has in MathPiper.
 *E.G. notest
 
 	In> str:=PipeToString()OMForm(2+Sin(a*3))
-	Out> "<OMOBJ>
+	Result: "<OMOBJ>
 	  <OMA>
 	    <OMS cd="arith1" name="plus"/>
 	    <OMI>2</OMI>
@@ -748,7 +748,7 @@ name as it has in MathPiper.
 	</OMOBJ>
 	";
 	In> PipeFromString(str)OMRead()
-	Out> 2+Sin(a*3);
+	Result: 2+Sin(a*3);
 
 	In> OMForm(NotDefinedInOpenMath(2+3))
 	<OMOBJ>
@@ -761,7 +761,7 @@ name as it has in MathPiper.
 	    </OMA>
 	  </OMA>
 	</OMOBJ>
-	Out> True
+	Result: True
 
 *SEE XmlTokenizer, XmlExplodeTag, OMDef
 %/mathpiper_docs
@@ -798,18 +798,18 @@ is defined, and it uses the exact expression given. This is used for {OpenMath}
 symbols that must be translated into a whole subexpression in MathPiper, such
 as {set1:emptyset} which gets translated to an empty list as follows:
 	In> OMDef( {}, "set1","emptyset" )
-	Out> True
+	Result: True
 	In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
-	Out> {}
+	Result: {}
 	In> IsList(%)
-	Out> True
+	Result: True
 Otherwise, a symbol that is not inside an application (OMA) gets translated to
 the MathPiper atom with the given name:
 	In> OMDef( "EmptySet", "set1","emptyset" )
 	Warning: the mapping for set1:emptyset was already defined as {} , but is redefined now as EmptySet
-	Out> True
+	Result: True
 	In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
-	Out> EmptySet
+	Result: EmptySet
 
 The definitions for the symbols in the MathPiper
 library are in the {*.rep} script subdirectories. In those modules for which
@@ -860,7 +860,7 @@ contain them.
 *E.G. notest
 
 	In> OMDef( "Sqrt" ,  "arith1", "root", { $, _1, 2 }, $(_1)_(_2=2) | (_1^(1/_2)) );
-	Out> True
+	Result: True
 	In> OMForm(Sqrt(3))
 	<OMOBJ>
 	  <OMA>
@@ -869,11 +869,11 @@ contain them.
 	    <OMI>2</OMI>
 	  </OMA>
 	</OMOBJ>
-	Out> True
+	Result: True
 	In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
-	Out> Sqrt(16)
+	Result: Sqrt(16)
 	In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>3</OMI></OMA></OMOBJ> ")OMRead()
-	Out> 16^(1/3)
+	Result: 16^(1/3)
 
 	In> OMDef("Limit", "limit1", "limit", \
 	      {  $, _2, OMS("limit1", "under"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Left)  \
@@ -905,7 +905,7 @@ contain them.
 	    </OMBIND>
 	  </OMA>
 	</OMOBJ>
-	Out> True
+	Result: True
 	In> OMForm(Limit(x,0,Right) 1/x)
 	<OMOBJ>
 	  <OMA>
@@ -925,11 +925,11 @@ contain them.
 	    </OMBIND>
 	  </OMA>
 	</OMOBJ>
-	Out> True
+	Result: True
 	In> PipeFromString(PipeToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
-	Out> Limit(x,0,Right)1/x
+	Result: Limit(x,0,Right)1/x
 	In> %
-	Out> Infinity
+	Result: Infinity
 
 *SEE OMForm, OMRead
 %/mathpiper_docs

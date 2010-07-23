@@ -34,13 +34,13 @@ of order $r$ is returned, which is defined as $Sum(k,1,n,k^(-r))$.
 *E.G.
 
 	In> HarmonicNumber(10)
-	Out> 7381/2520;
+	Result: 7381/2520;
 	In> HarmonicNumber(15)
-	Out> 1195757/360360;
+	Result: 1195757/360360;
 	In> HarmonicNumber(1)
-	Out> 1;
+	Result: 1;
 	In> HarmonicNumber(4,3)
-	Out> 2035/1728;
+	Result: 2035/1728;
 
 
 

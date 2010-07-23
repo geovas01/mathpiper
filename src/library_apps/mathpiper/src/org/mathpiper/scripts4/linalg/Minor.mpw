@@ -27,7 +27,7 @@ deleting the $i$-th row and the $j$-th column.
 *E.G.
 
 	In> A := {{1,2,3}, {4,5,6}, {7,8,9}};
-	Out> {{1,2,3},{4,5,6},{7,8,9}};
+	Result: {{1,2,3},{4,5,6},{7,8,9}};
 	In> PrettyForm(A);
 	
 	/                    \
@@ -37,11 +37,11 @@ deleting the $i$-th row and the $j$-th column.
 	|                    |
 	| ( 7 ) ( 8 ) ( 9 )  |
 	\                    /
-	Out> True;
+	Result: True;
 	In> Minor(A,1,2);
-	Out> -6;
+	Result: -6;
 	In> Determinant({{2,3}, {8,9}});
-	Out> -6;
+	Result: -6;
 
 *SEE CoFactor, Determinant, Inverse
 %/mathpiper_docs

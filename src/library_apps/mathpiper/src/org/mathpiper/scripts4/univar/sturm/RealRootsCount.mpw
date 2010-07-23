@@ -30,9 +30,9 @@ The polynomial must use the variable {x} and no other variables.
 *E.G.
 
 	In> RealRootsCount(x^2-1)
-	Out> 2;
+	Result: 2;
 	In> RealRootsCount(x^2+1)
-	Out> 0;
+	Result: 0;
 
 *SEE FindRealRoots, SquareFree, MinimumBound, MaximumBound, Factor
 %/mathpiper_docs

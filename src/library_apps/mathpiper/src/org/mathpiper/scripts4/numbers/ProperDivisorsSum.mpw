@@ -28,9 +28,9 @@ since {n} is not counted.
 
 *E.G.
 	In> ProperDivisorsSum(180)
-	Out> 366;
+	Result: 366;
 	In> ProperDivisorsSum(37)
-	Out> 1;
+	Result: 1;
 
 
 *SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius

@@ -60,9 +60,9 @@ grouping similar terms.
 *E.G.
 
 	In> a*b*a^2/b-a^3
-	Out> (b*a^3)/b-a^3;
+	Result: (b*a^3)/b-a^3;
 	In> Simplify(a*b*a^2/b-a^3)
-	Out> 0;
+	Result: 0;
 
 *SEE TrigSimpCombine, RadSimp
 %/mathpiper_docs

@@ -57,7 +57,7 @@ the name of a generic object.
 *E.G.
 
 	In> GenericTypeName(ArrayCreate(10,1))
-	Out> "Array";
+	Result: "Array";
 
 %/mathpiper_docs
 */

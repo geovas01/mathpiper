@@ -101,7 +101,7 @@ Non-integer arguments are not supported.
 Write the binary number {111111} as a decimal number:
 
 	In> FromBase(2,"111111")
-	Out> 63;
+	Result: 63;
 
 
 *SEE PAdicExpand,ToBase

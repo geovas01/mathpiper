@@ -134,17 +134,17 @@ be evaluated after switching to numeric mode.
 *E.G.
 
 	In> 1/2
-	Out> 1/2;
+	Result: 1/2;
 	In> N(1/2)
-	Out> 0.5;
+	Result: 0.5;
 	In> Sin(1)
-	Out> Sin(1);
+	Result: Sin(1);
 	In> N(Sin(1),10)
-	Out> 0.8414709848;
+	Result: 0.8414709848;
 	In> Pi
-	Out> Pi;
+	Result: Pi;
 	In> N(Pi,20)
-	Out> 3.1415926535897932385
+	Result: 3.1415926535897932385
 
 *SEE Pi
 %/mathpiper_docs
@@ -195,11 +195,11 @@ be evaluated after the numeric mode has been set appropriately.
 *E.G.
 
 	In> InNumericMode()
-	Out> False
+	Result: False
 	In> N(InNumericMode())
-	Out> True
+	Result: True
 	In> N(NonN(InNumericMode()))
-	Out> False
+	Result: False
 
 *SEE N, BuiltinPrecisionSet, BuiltinPrecisionGet, Pi, CachedConstant
 %/mathpiper_docs

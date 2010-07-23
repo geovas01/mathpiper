@@ -26,9 +26,9 @@ appended to it.
 *E.G.
 
 	In> UniqueConstant()
-	Out> C9
+	Result: C9
 	In>  UniqueConstant()
-	Out> C10
+	Result: C10
 
 *SEE LocalSymbols
 %/mathpiper_docs

@@ -116,13 +116,13 @@ function until the variable "var" is reached.
 *E.G.
 
 	In> SuchThat(a+b*x, x)
-	Out> (-a)/b;
+	Result: (-a)/b;
 	In> SuchThat(Cos(a)+Cos(b)^2, Cos(b))
-	Out> Cos(a)^(1/2);
+	Result: Cos(a)^(1/2);
 	In> A:=Expand(a*x+b*x+c, x)
-	Out> (a+b)*x+c;
+	Result: (a+b)*x+c;
 	In> SuchThat(A, x)
-	Out> (-c)/(a+b);
+	Result: (-c)/(a+b);
 
 *SEE Solve, OldSolve, Subst, Simplify
 %/mathpiper_docs

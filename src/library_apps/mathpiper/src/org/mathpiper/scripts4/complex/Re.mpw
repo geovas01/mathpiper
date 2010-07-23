@@ -26,11 +26,11 @@ This function returns the real part of the complex number "x".
 *E.G.
 
 	In> Re(5)
-	Out> 5;
+	Result: 5;
 	In> Re(I)
-	Out> 0;
+	Result: 0;
 	In> Re(Complex(3,4))
-	Out> 3;
+	Result: 3;
 
 *SEE Complex, Im
 %/mathpiper_docs

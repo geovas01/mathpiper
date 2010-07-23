@@ -74,10 +74,10 @@ Any malformed XML will be treated as plain text.
 
 	In> [XmlTokenizer(); q:=ReadToken(); \
 	  DefaultTokenizer();q;]
-	<a>Out> <a>;
+	<a>Result: <a>;
 
 Note that:
-*	1. after switching to {XmlTokenizer} the {In>} prompt disappeared; the user typed {<a>} and the {Out>} prompt with the resulting expression appeared.
+*	1. after switching to {XmlTokenizer} the {In>} prompt disappeared; the user typed {<a>} and the {Result:} prompt with the resulting expression appeared.
 *	2. The resulting expression is an atom with the string representation {<a>};
 it is <i>not</i> a string.
 

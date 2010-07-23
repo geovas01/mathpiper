@@ -35,11 +35,11 @@ programming language C.
 *E.G.
 
 	In> x := 5;
-	Out> 5;
+	Result: 5;
 	In> x++;
-	Out> True;
+	Result: True;
 	In> x;
-	Out> 6;
+	Result: 6;
 
 *SEE --, :=
 %/mathpiper_docs

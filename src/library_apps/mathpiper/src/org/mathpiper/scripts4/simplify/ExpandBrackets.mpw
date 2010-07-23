@@ -44,11 +44,11 @@ It goes further than {Expand}, in that it expands all brackets.
 *E.G.
 
 	In> Expand((a-x)*(b-x),x)
-	Out> x^2-(b+a)*x+a*b;
+	Result: x^2-(b+a)*x+a*b;
 	In> Expand((a-x)*(b-x),{x,a,b})
-	Out> x^2-(b+a)*x+b*a;
+	Result: x^2-(b+a)*x+b*a;
 	In> ExpandBrackets((a-x)*(b-x))
-	Out> a*b-x*b+x^2-a*x;
+	Result: a*b-x*b+x^2-a*x;
 
 *SEE Expand
 %/mathpiper_docs

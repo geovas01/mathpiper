@@ -96,7 +96,7 @@ limit as "var" approaches "at".
 	x - -- + --- - ---- + ------
 	    6    120   5040   362880
 	
-	Out> True;
+	Result: True;
 
 *SEE D, InverseTaylor, ReversePoly, BigOh
 %/mathpiper_docs

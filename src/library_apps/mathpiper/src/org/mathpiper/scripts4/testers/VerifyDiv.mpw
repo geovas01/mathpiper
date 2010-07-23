@@ -33,9 +33,9 @@ $$ u = v*Quotient(u,v) + Modulo(u,v) $$.
 *E.G.
 
 	In> VerifyDiv(x^2+2*x+3,x+1)
-	Out> True;
+	Result: True;
 	In> VerifyDiv(3,2)
-	Out> True;
+	Result: True;
 
 *SEE Verify, VerifyArithmetic, RandVerifyArithmetic, VerifyDiv, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest
 

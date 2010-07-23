@@ -64,9 +64,9 @@ Precedence is optional (will be set to 0 by default).
 
 *E.G.
 	In> Infix("##", 5)
-	Out> True;
+	Result: True;
 	In> a ## b ## c
-	Out> a##b##c;
+	Result: a##b##c;
 
 *SEE IsBodied, PrecedenceGet, Bodied, Postfix, Prefix
 %/mathpiper_docs

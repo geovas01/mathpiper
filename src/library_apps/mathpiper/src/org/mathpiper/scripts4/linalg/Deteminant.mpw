@@ -43,7 +43,7 @@ Returns the determinant of a matrix M.
 *E.G.
 
 	In> A:=DiagonalMatrix(1 .. 4)
-	Out> {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+	Result: {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
 	In> Determinant(A)
-	Out> 24;
+	Result: 24;
 %/mathpiper_docs

@@ -32,7 +32,7 @@ random values, {n} times.
 *E.G.
 
 	In> RandVerifyArithmetic(4)
-	Out> True;
+	Result: True;
 
 *SEE Verify, VerifyArithmetic, RandVerifyArithmetic, VerifyDiv, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest
 

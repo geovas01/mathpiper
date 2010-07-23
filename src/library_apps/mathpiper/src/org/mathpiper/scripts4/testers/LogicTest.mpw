@@ -45,7 +45,7 @@ It returns {True} or {False}.
 *E.G.
 
 	In> LogicTest({A,B,C},Not((Not A) And (Not B)),A Or B)
-	Out> True
+	Result: True
 	In> LogicTest({A,B,C},Not((Not A) And (Not B)),A Or C)
 	******************
 	CommandLine: 1
@@ -56,7 +56,7 @@ It returns {True} or {False}.
 	 which differs from
 	{{{False,True},{False,True}},{{True,True},{True,True}}}
 	******************
-	Out> False
+	Result: False
 
 *SEE Simplify, CanProve, KnownFailure, Verify, TestMathPiper, LogicVerify
 

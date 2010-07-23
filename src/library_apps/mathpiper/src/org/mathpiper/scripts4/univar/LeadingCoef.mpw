@@ -45,18 +45,18 @@ sequence may be used.
 *E.G.
 
 	In> poly := 2*x^2 + 4*x;
-	Out> 2*x^2+4*x;
+	Result: 2*x^2+4*x;
 	In> lc := LeadingCoef(poly);
-	Out> 2;
+	Result: 2;
 	In> m := Monic(poly);
-	Out> x^2+2*x;
+	Result: x^2+2*x;
 	In> Expand(lc*m);
-	Out> 2*x^2+4*x;
+	Result: 2*x^2+4*x;
 	
 	In> LeadingCoef(2*a^2 + 3*a*b^2 + 5, a);
-	Out> 2;
+	Result: 2;
 	In> LeadingCoef(2*a^2 + 3*a*b^2 + 5, b);
-	Out> 3*a;
+	Result: 3*a;
 	
 *SEE Coef, Monic
 

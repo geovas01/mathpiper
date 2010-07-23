@@ -70,11 +70,11 @@ expression with evaluated arguments.
 *E.G.
 
 	In> Not True
-	Out> False;
+	Result: False;
 	In> Not False
-	Out> True;
+	Result: True;
 	In> Not(a)
-	Out> Not a;
+	Result: Not a;
 
 *SEE And, Or
 %/mathpiper_docs

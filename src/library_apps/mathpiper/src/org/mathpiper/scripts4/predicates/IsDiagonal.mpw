@@ -46,7 +46,7 @@ IsDiagonal(A_IsMatrix) <--
 
 *E.G.
 	In> IsDiagonal(Identity(5))
-	Out> True;
+	Result: True;
 	In> IsDiagonal(HilbertMatrix(5))
-	Out> False;
+	Result: False;
 %/mathpiper_docs

@@ -245,7 +245,7 @@ CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 *E.G.
 
 	In> CForm(Sin(a1)+2*Cos(b1));
-	Out> "sin(a1) + 2 * cos(b1)";
+	Result: "sin(a1) + 2 * cos(b1)";
 
 *SEE PrettyForm, TeXForm, IsCFormable
 %/mathpiper_docs

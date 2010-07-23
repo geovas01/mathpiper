@@ -67,15 +67,15 @@ because the latter copy the list before they alter it.
 *E.G.
 
 	In> lst := {a,b,c,d,e,f};
-	Out> {a,b,c,d,e,f};
+	Result: {a,b,c,d,e,f};
 	In> Replace(lst, 4, x);
-	Out> {a,b,c,x,e,f};
+	Result: {a,b,c,x,e,f};
 	In> lst;
-	Out> {a,b,c,d,e,f};
+	Result: {a,b,c,d,e,f};
 	In> DestructiveReplace(lst, 4, x);
-	Out> {a,b,c,x,e,f};
+	Result: {a,b,c,x,e,f};
 	In> lst;
-	Out> {a,b,c,x,e,f};
+	Result: {a,b,c,x,e,f};
 
 *SEE Replace, DestructiveDelete, DestructiveInsert
 %/mathpiper_docs

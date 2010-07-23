@@ -73,13 +73,13 @@ string. WriteString always returns True.
 *E.G. notest
 
 	In> Write("Hello, world!");
-	"Hello, world!"Out> True;
+	"Hello, world!"Result: True;
 	In> WriteString("Hello, world!");
-	Hello, world!Out> True;
+	Hello, world!Result: True;
 
 This example clearly shows the difference between Write and
 WriteString. Note that Write and WriteString do not write a newline,
-so the {Out>} prompt immediately follows the output.
+so the {Result:} prompt immediately follows the output.
 
 *SEE Echo, Write
 %/mathpiper_docs

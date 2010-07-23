@@ -92,10 +92,10 @@ result of "body" is returned.
 
 	In> PipeFromString("2+5; this is never read") \
 	  res := Read();
-	Out> 2+5;
+	Result: 2+5;
 	In> PipeFromString("2+5; this is never read") \
 	  res := Eval(Read());
-	Out> 7;
+	Result: 7;
 
 *SEE PipeToString, PipeFromFile, Read, ReadToken
 %/mathpiper_docs

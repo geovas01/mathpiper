@@ -33,7 +33,7 @@ are uniformly distributed in this interval.
 *E.G.
 
 	In> RandomIntegerList(4,-3,3)
-	Out> {0,3,2,-2};
+	Result: {0,3,2,-2};
 
 *SEE Random, RandomPoly, RandomInteger, RandomIntegerMatrix
 %/mathpiper_docs

@@ -81,11 +81,11 @@ Setting a tokenizer is a global action that affects all {ReadToken} calls.
 	(
 	x
 	)
-	Out> True;
+	Result: True;
 
 We can read some junk too:
 	In> PipeFromString("-$3")ReadToken();
-	Out> -$;
+	Result: -$;
 The result is an atom with the string representation {-$}.
 MathPiper assumes that {-$} is an operator symbol yet to be defined.
 The "{3}" will be in the next token.

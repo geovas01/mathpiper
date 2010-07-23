@@ -99,7 +99,7 @@ It returns {True} or {False}.
 
 *E.G.
 	In> TestMathPiper(x*(1+x),x^2+x)
-	Out> True;
+	Result: True;
 
 
 *SEE Simplify, CanProve, KnownFailure, Verify, LogicVerify, LogicTest

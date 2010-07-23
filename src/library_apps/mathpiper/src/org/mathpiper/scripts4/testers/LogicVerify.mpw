@@ -32,9 +32,9 @@ It returns {True} or {False}
 
 *E.G.
 	In> LogicVerify(a And c Or b And Not c,a Or b)
-	Out> True;
+	Result: True;
 	In> LogicVerify(a And c Or b And Not c,b Or a)
-	Out> True;
+	Result: True;
 
 *SEE Simplify, CanProve, KnownFailure, Verify, TestMathPiper, LogicTest
 

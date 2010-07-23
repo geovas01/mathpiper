@@ -101,9 +101,9 @@ Suppose that the file {foo} contains
 Then we can have the following dialogue:
 
 	In> PipeFromFile("foo") res := Read();
-	Out> 2+5;
+	Result: 2+5;
 	In> PipeFromFile("foo") res := ReadToken();
-	Out> 2;
+	Result: 2;
 
 *SEE PipeToFile, FromString, Read, ReadToken
 %/mathpiper_docs

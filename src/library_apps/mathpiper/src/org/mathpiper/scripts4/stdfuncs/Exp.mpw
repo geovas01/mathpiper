@@ -36,11 +36,11 @@ list, the function is applied to all entries in the list.
 *E.G.
 
 	In> Exp(0)
-	Out> 1;
+	Result: 1;
 	In> Exp(I*Pi)
-	Out> -1;
+	Result: -1;
 	In> N(Exp(1))
-	Out> 2.7182818284;
+	Result: 2.7182818284;
 
 *SEE Ln, Sin, Cos, Tan, N
 %/mathpiper_docs

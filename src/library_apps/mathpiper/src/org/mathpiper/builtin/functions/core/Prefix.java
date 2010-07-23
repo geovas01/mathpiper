@@ -64,11 +64,11 @@ Precedence is optional (will be set to 0 by default).
 	CommandLine(1) : Error parsing expression
 
 	In> Prefix("YY", 2)
-	Out> True;
+	Result: True;
 	In> YY x := x+1;
-	Out> True;
+	Result: True;
 	In> YY YY 2*3
-	Out> 12;
+	Result: 12;
 
 Note that, due to a current parser limitation, a function atom that is declared prefix cannot be used by itself as an argument.
 

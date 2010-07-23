@@ -41,11 +41,11 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 *E.G. notest
 
 	In> FuncList(x+y*Cos(Ln(x)/x))
-	Out> {+,*,Cos,/,Ln};
+	Result: {+,*,Cos,/,Ln};
 	In> FuncListArith(x+y*Cos(Ln(x)/x))
-	Out> {+,*,Cos};
+	Result: {+,*,Cos};
 	In> FuncListSome({a+b*2,c/d},{List})
-	Out> {List,+,/};
+	Result: {List,+,/};
 
 *SEE VarList, HasExpr, HasFunc
 %/mathpiper_docs

@@ -26,11 +26,11 @@ that would lead to an error.
 *E.G.
 
 	In> ArgumentsCount(f(a,b,c))
-	Out> 3;
+	Result: 3;
 	In> ArgumentsCount(Sin(x));
-	Out> 1;
+	Result: 1;
 	In> ArgumentsCount(a*(b+c));
-	Out> 2;
+	Result: 2;
 
 *SEE Type, Length
 %/mathpiper_docs

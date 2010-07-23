@@ -39,10 +39,10 @@ the functions return a floating-point result which is correct only to the curren
 
 *E.G.
 	In> BuiltinPrecisionSet(10)
-	Out> True
+	Result: True
 	In> PowerN(2,3)
-	Out> 8
+	Result: 8
 	In> PowerN(2,-3)
-	Out> 0.125
+	Result: 0.125
 
 %/mathpiper_docs

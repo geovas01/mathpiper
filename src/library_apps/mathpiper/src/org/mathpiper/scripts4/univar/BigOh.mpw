@@ -33,7 +33,7 @@ This function drops all terms of order "degree" or higher in
 *E.G.
 
 	In> BigOh(1+x+x^2+x^3,x,2)
-	Out> x+1;
+	Result: x+1;
 
 *SEE Taylor, InverseTaylor
 %/mathpiper_docs

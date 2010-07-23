@@ -61,9 +61,9 @@ This function returns $Floor(x)$, the largest integer smaller than or equal to $
 *E.G.
 
 	In> Floor(1.1)
-	Out> 1;
+	Result: 1;
 	In> Floor(-1.1)
-	Out> -2;
+	Result: -2;
 
 *SEE Ceil, Round
 %/mathpiper_docs

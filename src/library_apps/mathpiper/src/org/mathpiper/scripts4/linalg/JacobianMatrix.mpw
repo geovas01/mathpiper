@@ -31,7 +31,7 @@ of $i$-th function with respect to the $j$-th variable.
 *E.G.
 
 	In> JacobianMatrix( {Sin(x),Cos(y)}, {x,y} ); 
-	Out> {{Cos(x),0},{0,-Sin(y)}};
+	Result: {{Cos(x),0},{0,-Sin(y)}};
 	In> PrettyForm(%)
 
 	/                                 \

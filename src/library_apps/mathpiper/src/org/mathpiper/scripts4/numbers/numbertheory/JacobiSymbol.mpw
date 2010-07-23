@@ -51,7 +51,7 @@ The Jacobi symbol can be efficiently computed without knowing the full factoriza
 *E.G.
 
 	In> JacobiSymbol(7,15)
-	Out> -1;
+	Result: -1;
 
 *SEE Gcd, LegendreSymbol, IsQuadraticResidue
 %/mathpiper_docs

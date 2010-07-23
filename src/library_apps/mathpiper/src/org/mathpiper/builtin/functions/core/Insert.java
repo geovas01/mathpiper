@@ -67,11 +67,11 @@ case, the resulting list is returned.
 *E.G.
 
 	In> Insert({a,b,c,d}, 4, x);
-	Out> {a,b,c,x,d};
+	Result: {a,b,c,x,d};
 	In> Insert({a,b,c,d}, 5, x);
-	Out> {a,b,c,d,x};
+	Result: {a,b,c,d,x};
 	In> Insert({a,b,c,d}, 1, x);
-	Out> {x,a,b,c,d};
+	Result: {x,a,b,c,d};
 
 *SEE DestructiveInsert, :, Append, Delete, Remove
 %/mathpiper_docs

@@ -46,15 +46,15 @@ matrix is returned.
 
 *E.G.
 	In> A:={{1,2},{3,4}}
-	Out> {{1,2},{3,4}};
+	Result: {{1,2},{3,4}};
 	In> MatrixPower(A,0)
-	Out> {{1,0},{0,1}};
+	Result: {{1,0},{0,1}};
 	In> MatrixPower(A,1)
-	Out> {{1,2},{3,4}};
+	Result: {{1,2},{3,4}};
 	In> MatrixPower(A,3)
-	Out> {{37,54},{81,118}};
+	Result: {{37,54},{81,118}};
 	In> MatrixPower(A,-3)
-	Out> {{-59/4,27/4},{81/8,-37/8}};
+	Result: {{-59/4,27/4},{81/8,-37/8}};
 
 *SEE IsSquareMatrix, Inverse, Dot
 %/mathpiper_docs

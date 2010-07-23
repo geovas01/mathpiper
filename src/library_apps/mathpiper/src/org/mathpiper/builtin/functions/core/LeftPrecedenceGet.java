@@ -66,7 +66,7 @@ For infix operators, right precedence can differ from left precedence. Bodied fu
 
 *E.G.
 	In> LeftPrecedenceGet("!")
-	Out> 0;
+	Result: 0;
 
 *SEE PrecedenceGet,RightPrecedenceGet,LeftPrecedence,RightPrecedenceSet,RightAssociativeSet
 %/mathpiper_docs

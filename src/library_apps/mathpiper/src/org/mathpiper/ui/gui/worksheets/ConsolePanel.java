@@ -65,7 +65,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
     int cursorPos = 0;
     final int inset = 5;
     final static String inputPrompt = "In> ";
-    final static String outputPrompt = "Out> ";
+    final static String outputPrompt = "Result: ";
     static final int fontHeight = 14;
     private Font font = new Font("Verdana", Font.PLAIN, fontHeight);
     private static final int nrHistoryLines = 100;
@@ -604,7 +604,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
                                 gatheredMultiLine = gatheredMultiLine + inputLine.substring(0, inputLine.length() - 1);
                             } else
                             {
-                                performRequest("Out> ", gatheredMultiLine + inputLine, true);
+                                performRequest("Result: ", gatheredMultiLine + inputLine, true);
                             }
                             resetInput();
                         }
@@ -834,7 +834,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
                             gatheredMultiLine = gatheredMultiLine + inputLine.substring(0, inputLine.length() - 1);
                         } else
                         {
-                            performRequest("Out> ", gatheredMultiLine + inputLine, true);
+                            performRequest("Result: ", gatheredMultiLine + inputLine, true);
                         }
                         resetInput();
                         refreshHintWindow();
@@ -1478,7 +1478,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
         refreshHintWindow();
         inputDirty = true;
         outputDirty = true;
-        performRequest("Out> ", expression, false);
+        performRequest("Result: ", expression, false);
         inputDirty = true;
         outputDirty = true;
         repaint();
@@ -1536,10 +1536,10 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
                 {
                     dollared = dollared.substring(plotPos + 7);
                     //System.out.println("Plotting: ["+dollared+"]");
-                    addLine(new PromptedGraph2DLine(48, "Out>", iPromptFont, iPromptColor, dollared));
+                    addLine(new PromptedGraph2DLine(48, "Result:", iPromptFont, iPromptColor, dollared));
                 } else
                 {
-                    addLine(new PromptedFormulaLine(48, "Out>", iPromptFont, iPromptColor, dollared));
+                    addLine(new PromptedFormulaLine(48, "Result:", iPromptFont, iPromptColor, dollared));
                 }
                 dollarPos = outp.indexOf("$");
             }

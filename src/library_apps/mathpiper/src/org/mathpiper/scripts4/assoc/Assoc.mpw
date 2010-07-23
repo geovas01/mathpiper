@@ -39,17 +39,17 @@ intuitively) be accessed as {alist[key]}.
 *E.G.
 
 	In> writer := {};
-	Out> {};
+	Result: {};
 	In> writer["Iliad"] := "Homer";
-	Out> True;
+	Result: True;
 	In> writer["Henry IV"] := "Shakespeare";
-	Out> True;
+	Result: True;
 	In> writer["Ulysses"] := "James Joyce";
-	Out> True;
+	Result: True;
 	In> Assoc("Henry IV", writer);
-	Out> {"Henry IV","Shakespeare"};
+	Result: {"Henry IV","Shakespeare"};
 	In> Assoc("War and Peace", writer);
-	Out> Empty;
+	Result: Empty;
 
 *SEE AssocIndices, [], :=, AssocDelete, AssocValues
 %/mathpiper_docs

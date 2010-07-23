@@ -81,9 +81,9 @@ accessed using the {[]} operator.
 *E.G.
 
 	In> StringMidGet(3,2,"abcdef")
-	Out> "cd";
+	Result: "cd";
 	In> "abcdefg"[2 .. 4]
-	Out> "bcd";
+	Result: "bcd";
 
 *SEE StringMidSet, Length
 %/mathpiper_docs

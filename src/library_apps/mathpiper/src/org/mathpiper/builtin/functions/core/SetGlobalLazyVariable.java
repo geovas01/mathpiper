@@ -64,7 +64,7 @@ called. The {SetGlobalLazyVariable} property only holds once: after
 that, the result of evaluation is stored in the global variable, and it won't be reevaluated again:
 
 	In> SetGlobalLazyVariable(a,Hold(Taylor(x,0,30)Sin(x)))
-	Out> True
+	Result: True
 
 Then the first time you call {a} it evaluates {Taylor(...)} and assigns the result to {a}. The next time
 you call {a} it immediately returns the result.
@@ -73,24 +73,24 @@ you call {a} it immediately returns the result.
 The following example demonstrates the sequence of execution:
 
 	In> SetGlobalLazyVariable(test,Hold(Write("hello")))
-	Out> True
+	Result: True
 
 The text "hello" is not written out to screen yet. However, evaluating
 the variable {test} forces the expression to be evaluated:
 
 	In> test
-	"hello"Out> True
+	"hello"Result: True
 
 *E.G.
 
 	In> Set(a,Hold(2+3))
-	Out> True
+	Result: True
 	In> a
-	Out> 2+3
+	Result: 2+3
 	In> SetGlobalLazyVariable(a,Hold(2+3))
-	Out> True
+	Result: True
 	In> a
-	Out> 5
+	Result: 5
 
 
 *SEE Bind, Unbind, Local, %, I

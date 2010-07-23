@@ -52,13 +52,13 @@ through "n".
 *E.G.
 
 	In> lst := {a,b,c,d,e,f,g};
-	Out> {a,b,c,d,e,f,g};
+	Result: {a,b,c,d,e,f,g};
 	In> Drop(lst, 2);
-	Out> {c,d,e,f,g};
+	Result: {c,d,e,f,g};
 	In> Drop(lst, -3);
-	Out> {a,b,c,d};
+	Result: {a,b,c,d};
 	In> Drop(lst, {2,4});
-	Out> {a,e,f,g};
+	Result: {a,e,f,g};
 
 *SEE Take, Select, Remove
 %/mathpiper_docs

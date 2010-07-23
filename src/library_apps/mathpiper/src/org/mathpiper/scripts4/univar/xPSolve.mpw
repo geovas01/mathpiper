@@ -384,9 +384,9 @@ handled.
 *E.G.
 
 	In> xPSolve(b*x+a,x)
-	Out> -a/b;
+	Result: -a/b;
 	In> xPSolve(c*x^2+b*x+a,x)
-	Out> {(Sqrt(b^2-4*c*a)-b)/(2*c),(-(b+
+	Result: {(Sqrt(b^2-4*c*a)-b)/(2*c),(-(b+
 	Sqrt(b^2-4*c*a)))/(2*c)};
 
 *SEE Solve, Factor

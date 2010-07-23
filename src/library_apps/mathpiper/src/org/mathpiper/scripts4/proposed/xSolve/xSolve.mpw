@@ -497,20 +497,20 @@ quadratic equation $x^2 + x == 0$ is solved. Then the result is
 checked by substituting it back in the quadratic.
 
 	In> quadratic := x^2+x;
-	Out> x^2+x;
+	Result: x^2+x;
 	In> xSolve(quadratic, x);
-	Out> {x==0,x==(-1)};
+	Result: {x==0,x==(-1)};
 	In> quadratic Where %;
-	Out> {0,0};
+	Result: {0,0};
 
 If one tries to solve the equation $Exp(x) == Sin(x)$, one finds that
 {xSolve} can not do this.
 
 	In> PrettyPrinterSet("DefaultPrint");
-	Out> True;
+	Result: True;
 	In> xSolve(Exp(x) == Sin(x), x);
 	Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
-	Out> {};
+	Result: {};
 
 The equation $Cos(x) == 1/2$ has an infinite number of solutions,
 namely $x == (2*k + 1/3) * Pi$ and $x == (2*k - 1/3) * Pi$ for any
@@ -518,26 +518,26 @@ integer $k$. However, {xSolve} only reports the solutions with
 $k == 0$.
 
 	In> xSolve(Cos(x) == 1/2, x);
-	Out> {x==Pi/3,x== -Pi/3};
+	Result: {x==Pi/3,x== -Pi/3};
 
 For the equation $x/Sin(x) == 0$, a spurious solution at $x == 0$ is
 returned. However, the fraction is undefined at that point.
 
 	In> xSolve(x / Sin(x) == 0, x);
-	Out> {x==0};
+	Result: {x==0};
 
 At first sight, the equation $Sqrt(x) == a$ seems to have the solution
 $x == a^2$. However, this is not true for eg. $a == -1$.
 
 	In> PrettyPrinterSet("DefaultPrint");
-	Out> True;
+	Result: True;
 	In> xSolve(Sqrt(x) == a, x);
 	Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
-	Out> {};
+	Result: {};
 	In> xSolve(Sqrt(x) == 2, x);
-	Out> {x==4};
+	Result: {x==4};
 	In> xSolve(Sqrt(x) == -1, x);
-	Out> {};
+	Result: {};
 
 *SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinterSet, PSolve, xCheckSolution, Where, ==
 %/mathpiper_docs

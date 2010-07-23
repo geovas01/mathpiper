@@ -33,14 +33,14 @@ it shows the result in a more human-readable format.
 	 3
 	2  * 3
 	
-	Out> True;
+	Result: True;
 	In> PrettyForm(YacasFactor(2*x^3 + 3*x^2 - 1));
 	
 	             2   /     1 \
 	2 * ( x + 1 )  * | x - - |
 	                 \     2 /
 	
-	Out> True;
+	Result: True;
 
 *SEE YacasFactors, xFactor, IsPrime, PrettyForm
 %/mathpiper_docs

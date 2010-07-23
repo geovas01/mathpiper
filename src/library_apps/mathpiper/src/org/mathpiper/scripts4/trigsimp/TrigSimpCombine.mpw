@@ -498,7 +498,7 @@ integrated easily.
 	
 	Cos( -2 * a )
 	
-	Out>
+	Result:
 	In> TrigSimpCombine(Cos(a)^2*Sin(b))
 	
 	Sin( b )   Sin( -2 * a + b ) 

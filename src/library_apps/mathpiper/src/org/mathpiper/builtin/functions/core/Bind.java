@@ -61,9 +61,9 @@ has more uses, e.g. changing individual entries in a list.
 *E.G.
 
 	In> Bind(a, Sin(x)+3);
-	Out> True;
+	Result: True;
 	In> a;
-	Out> Sin(x)+3;
+	Result: Sin(x)+3;
 
 *SEE Unbind, :=
 %/mathpiper_docs

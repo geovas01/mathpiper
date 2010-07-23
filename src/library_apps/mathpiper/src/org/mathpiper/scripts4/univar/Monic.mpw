@@ -39,18 +39,18 @@ calling sequence may be used.
 *E.G.
 
 	In> poly := 2*x^2 + 4*x;
-	Out> 2*x^2+4*x;
+	Result: 2*x^2+4*x;
 	In> lc := LeadingCoef(poly);
-	Out> 2;
+	Result: 2;
 	In> m := Monic(poly);
-	Out> x^2+2*x;
+	Result: x^2+2*x;
 	In> Expand(lc*m);
-	Out> 2*x^2+4*x;
+	Result: 2*x^2+4*x;
 	
 	In> Monic(2*a^2 + 3*a*b^2 + 5, a);
-	Out> a^2+(a*3*b^2)/2+5/2;
+	Result: a^2+(a*3*b^2)/2+5/2;
 	In> Monic(2*a^2 + 3*a*b^2 + 5, b);
-	Out> b^2+(2*a^2+5)/(3*a);
+	Result: b^2+(2*a^2+5)/(3*a);
 
 *SEE LeadingCoef
 %/mathpiper_docs

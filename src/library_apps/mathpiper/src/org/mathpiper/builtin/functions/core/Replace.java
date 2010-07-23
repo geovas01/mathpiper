@@ -64,7 +64,7 @@ expression {Insert(Delete(list, n), n, expr)}.
 *E.G.
 
 	In> Replace({a,b,c,d,e,f}, 4, x);
-	Out> {a,b,c,x,e,f};
+	Result: {a,b,c,x,e,f};
 
 *SEE Delete, Insert, DestructiveReplace
 %/mathpiper_docs

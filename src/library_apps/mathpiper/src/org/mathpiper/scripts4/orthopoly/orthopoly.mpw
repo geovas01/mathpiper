@@ -506,7 +506,7 @@ the Horner scheme. The list of coefficients starts with the $0$-th power.
 *E.G.
 
 	In> EvaluateHornerScheme({a,b,c,d},x)
-	Out> a+x*(b+x*(c+x*d));
+	Result: a+x*(b+x*(c+x*d));
 
 *SEE Horner
 %/mathpiper_docs
@@ -651,9 +651,9 @@ Most of the work is performed by the internal function {OrthoPoly}.
 *E.G.
 
 	In> OrthoH(3, x);
-	Out> x*(8*x^2-12);
+	Result: x*(8*x^2-12);
 	In> OrthoH(6, 0.5);
-	Out> 31;
+	Result: 31;
 
 *SEE OrthoHSum, OrthoPoly
 %/mathpiper_docs
@@ -705,9 +705,9 @@ Most of the work is performed by the internal function {OrthoPoly}.
 *E.G.
 
 	In> OrthoG(5, 1, x);
-	Out> x*((32*x^2-32)*x^2+6);
+	Result: x*((32*x^2-32)*x^2+6);
 	In> OrthoG(5, 2, -0.5);
-	Out> 2;
+	Result: 2;
 
 *SEE OrthoP, OrthoT, OrthoU, OrthoGSum, OrthoPoly
 %/mathpiper_docs
@@ -758,9 +758,9 @@ Most of the work is performed by the internal function {OrthoPoly}.
 *E.G.
 
 	In> OrthoL(3, 1, x);
-	Out> x*(x*(2-x/6)-6)+4;
+	Result: x*(x*(2-x/6)-6)+4;
 	In> OrthoL(3, 1/2, 0.25);
-	Out> 1.2005208334;
+	Result: 1.2005208334;
 
 *SEE OrthoLSum, OrthoPoly
 %/mathpiper_docs
@@ -802,13 +802,13 @@ $U(1,x) = 2*x$.
 *E.G.
 
 	In> OrthoT(3, x);
-	Out> 2*x*(2*x^2-1)-x;
+	Result: 2*x*(2*x^2-1)-x;
 	In> OrthoT(10, 0.9);
-	Out> -0.2007474688;
+	Result: -0.2007474688;
 	In> OrthoU(3, x);
-	Out> 4*x*(2*x^2-1);
+	Result: 4*x*(2*x^2-1);
 	In> OrthoU(10, 0.9);
-	Out> -2.2234571776;
+	Result: -2.2234571776;
 
 
 *SEE OrthoG, OrthoTSum, OrthoUSum, OrthoPoly
@@ -856,7 +856,7 @@ Most of the work is performed by the internal function {OrthoPolySum}. The indiv
 
 	In> Expand(OrthoPSum({1,0,0,1/7,1/8}, 3/2, \
 	  2/3, x));
-	Out> (7068985*x^4)/3981312+(1648577*x^3)/995328+
+	Result: (7068985*x^4)/3981312+(1648577*x^3)/995328+
 	(-3502049*x^2)/4644864+(-4372969*x)/6967296
 	+28292143/27869184;
 

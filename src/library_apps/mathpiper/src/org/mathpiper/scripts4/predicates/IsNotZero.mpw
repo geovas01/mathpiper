@@ -31,9 +31,9 @@ number, the function returns {False}.
 *E.G.
 
 	In> IsNotZero(3.25);
-	Out> True;
+	Result: True;
 	In> IsNotZero(0);
-	Out> False;
+	Result: False;
 
 *SEE IsNumber, IsPositiveNumber, IsNegativeNumber, IsNonZeroInteger
 %/mathpiper_docs

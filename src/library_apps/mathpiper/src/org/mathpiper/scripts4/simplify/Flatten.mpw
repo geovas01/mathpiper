@@ -39,9 +39,9 @@ used in simple simplification schemes.
 *E.G.
 
 	In> Flatten(a+b*c+d,"+");
-	Out> {a,b*c,d};
+	Result: {a,b*c,d};
 	In> Flatten({a,{b,c},d},"List");
-	Out> {a,b,c,d};
+	Result: {a,b,c,d};
 
 *SEE UnFlatten
 %/mathpiper_docs

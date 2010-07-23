@@ -37,9 +37,9 @@ it returns the square {n} by {n} zero matrix.
 *E.G.
 
 	In> ZeroMatrix(3,4)
-	Out> {{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+	Result: {{0,0,0,0},{0,0,0,0},{0,0,0,0}};
 	In> ZeroMatrix(3)
-	Out> {{0,0,0},{0,0,0},{0,0,0}};
+	Result: {{0,0,0},{0,0,0},{0,0,0}};
 
 
 *SEE ZeroVector, Identity

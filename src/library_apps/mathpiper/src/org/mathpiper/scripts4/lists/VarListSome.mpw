@@ -58,15 +58,15 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 *E.G.
 
 	In> VarList(Sin(x))
-	Out> {x};
+	Result: {x};
 	In> VarList(x+a*y)
-	Out> {x,a,y};
+	Result: {x,a,y};
 	In> VarListSome(x+a*y, {ToAtom("+")})
-	Out> {x,a*y};
+	Result: {x,a*y};
 	In> VarListArith(x+y*Cos(Ln(x)/x))
-	Out> {x,y,Cos(Ln(x)/x)}
+	Result: {x,y,Cos(Ln(x)/x)}
 	In> VarListArith(x+a*y^2-1)
-	Out> {x,a,y^2};
+	Result: {x,a,y^2};
 
 *SEE IsFreeOf, IsVariable, FuncList, HasExpr, HasFunc
 %/mathpiper_docs

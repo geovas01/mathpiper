@@ -287,11 +287,11 @@ are integers.
 *E.G.
 
 	In> FactorialSimplify( (n-k+1)! / (n-k)! )
-	Out> n+1-k
+	Result: n+1-k
 	In> FactorialSimplify(n! / BinomialCoefficient(n,k))
-	Out> k! *(n-k)!
+	Result: k! *(n-k)!
 	In> FactorialSimplify(2^(n+1)/2^n)
-	Out> 2
+	Result: 2
 
 *SEE Simplify, !, BinomialCoefficient
 %/mathpiper_docs

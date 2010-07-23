@@ -75,7 +75,7 @@ public class ToString extends BuiltinFunction
 
 *E.G.
 In> ToString(a)
-Out> "a";
+Result: "a";
 
 *SEE ToAtom, ExpressionToString
 %/mathpiper_docs

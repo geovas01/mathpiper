@@ -85,7 +85,7 @@ returns {True}.
     5  120
     7  5040
     11  39916800
-    Out> True;
+    Result: True;
 
 
     In> ForEach(i,"Hello") Echo(i)

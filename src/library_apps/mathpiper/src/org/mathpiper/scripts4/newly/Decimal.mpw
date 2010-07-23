@@ -91,9 +91,9 @@ elements are the initial digits before the period sets in.
 *E.G.
 
 	In> Decimal(1/22)
-	Out> {0,0,{4,5}};
+	Result: {0,0,{4,5}};
 	In> N(1/22,30)
-	Out> 0.045454545454545454545454545454;
+	Result: 0.045454545454545454545454545454;
 
 *SEE N
 %/mathpiper_docs

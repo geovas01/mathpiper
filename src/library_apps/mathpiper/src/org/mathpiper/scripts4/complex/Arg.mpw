@@ -34,11 +34,11 @@ argument of 0 is {Undefined}.
 *E.G.
 
 	In> Arg(2)
-	Out> 0;
+	Result: 0;
 	In> Arg(-1)
-	Out> Pi;
+	Result: Pi;
 	In> Arg(1+I)
-	Out> Pi/4;
+	Result: Pi/4;
 
 *SEE Abs, Sign
 %/mathpiper_docs

@@ -28,7 +28,7 @@ case {L} (from "line").
 	In> WriteString("First line" : Nl() : "Second line" : Nl());
 	First line
 	Second line
-	Out> True;
+	Result: True;
 
 *SEE NewLine
 %/mathpiper_docs

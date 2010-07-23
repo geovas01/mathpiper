@@ -44,9 +44,9 @@ division of integers.
 *E.G.
 
 	In> {1.2,3.123,4.5}
-	Out> {1.2,3.123,4.5};
+	Result: {1.2,3.123,4.5};
 	In> Rationalize(%)
-	Out> {6/5,3123/1000,9/2};
+	Result: {6/5,3123/1000,9/2};
 
 *SEE IsRational
 

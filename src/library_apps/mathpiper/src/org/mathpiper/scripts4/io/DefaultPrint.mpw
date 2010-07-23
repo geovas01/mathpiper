@@ -4,7 +4,7 @@
 Function("DefaultPrint", {x})
 [
 	DumpErrors();
-	WriteString("Out> ");
+	WriteString("Result: ");
 	Write(x);
 	WriteString(";
 ");

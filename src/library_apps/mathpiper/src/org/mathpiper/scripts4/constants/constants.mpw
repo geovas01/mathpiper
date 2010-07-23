@@ -155,9 +155,9 @@ root of -1. It evaluates to {Complex(0,1)}.
 *E.G.
 
 	In> I
-	Out> Complex(0,1);
+	Result: Complex(0,1);
 	In> I = Sqrt(-1)
-	Out> True;
+	Result: True;
 
 *SEE Complex
 %/mathpiper_docs
@@ -183,11 +183,11 @@ This is a "cached constant" which is recalculated only when precision is increas
 *E.G.
 
 	In> Sin(3*Pi/2)
-	Out> -1;
+	Result: -1;
 	In> Pi+1
-	Out> Pi+1;
+	Result: Pi+1;
 	In> N(Pi)
-	Out> 3.14159265358979323846;
+	Result: 3.14159265358979323846;
 
 *SEE Sin, Cos, N, CachedConstant
 %/mathpiper_docs
@@ -217,16 +217,16 @@ The numerical value of the constant can also be obtained as {N(GoldenRatio)}.
 *E.G.
 
 	In> x:=GoldenRatio - 1
-	Out> GoldenRatio-1;
+	Result: GoldenRatio-1;
 	In> N(x)
-	Out> 0.6180339887;
+	Result: 0.6180339887;
 	In> N(1/GoldenRatio)
-	Out> 0.6180339887;
+	Result: 0.6180339887;
 	In> V(N(GoldenRatio,20));
 
 	CachedConstant: Info: constant GoldenRatio is
 	being recalculated at precision 20 
-	Out> 1.6180339887498948482;
+	Result: 1.6180339887498948482;
 
 
 *SEE N, CachedConstant
@@ -253,14 +253,14 @@ The low-level numerical computations are performed by the routine {CatalanConstN
 *E.G.
 
 	In> N(Catalan)
-	Out> 0.9159655941;
+	Result: 0.9159655941;
 	In> DirichletBeta(2)
-	Out> Catalan;
+	Result: Catalan;
 	In> V(N(Catalan,20))
 
 	CachedConstant: Info: constant Catalan is
 	being recalculated at precision 20
-	Out> 0.91596559417721901505;
+	Result: 0.91596559417721901505;
 
 
 *SEE N, CachedConstant
@@ -288,16 +288,16 @@ Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in MathPi
 *E.G.
 
 	In> gamma+Pi
-	Out> gamma+Pi;
+	Result: gamma+Pi;
 	In> N(gamma+Pi)
-	Out> 3.7188083184;
+	Result: 3.7188083184;
 	In> V(N(gamma,20))
 	
 	CachedConstant: Info: constant gamma is being
 	  recalculated at precision 20 
 	GammaConstNum: Info: used 56 iterations at
 	  working precision 24 
-	Out> 0.57721566490153286061;
+	Result: 0.57721566490153286061;
 
 *SEE Gamma, N, CachedConstant
 %/mathpiper_docs
@@ -346,15 +346,15 @@ After this, evaluating an expression such as {1/2+gamma} will call the function 
 *E.G. notest
 
 	In> CachedConstant( my'cache, Ln2, Internal'LnNum(2) )
-	Out> True;
+	Result: True;
 	In> Internal'Ln2()
-	Out> 0.6931471806;
+	Result: 0.6931471806;
 	In> V(N(Internal'Ln2(),20))
 	CachedConstant: Info: constant Ln2 is being
 	  recalculated at precision 20 
-	Out> 0.69314718055994530942;
+	Result: 0.69314718055994530942;
 	In> my'cache
-	Out> {{"Ln2",20,0.69314718055994530942}};
+	Result: {{"Ln2",20,0.69314718055994530942}};
 
 
 *SEE N, BuiltinPrecisionSet, Pi, GoldenRatio, Catalan, gamma

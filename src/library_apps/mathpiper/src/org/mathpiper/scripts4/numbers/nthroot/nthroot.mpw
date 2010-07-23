@@ -167,13 +167,13 @@ fast.
 
 *E.G.
 	In> NthRoot(12,2)
-	Out> {2,3};
+	Result: {2,3};
 	In> NthRoot(81,3)
-	Out> {3,3};
+	Result: {3,3};
 	In> NthRoot(3255552,2)
-	Out> {144,157};
+	Result: {144,157};
 	In> NthRoot(3255552,3)
-	Out> {12,1884};
+	Result: {12,1884};
 
 *SEE IntNthRoot, Factors, MathPower
 %/mathpiper_docs

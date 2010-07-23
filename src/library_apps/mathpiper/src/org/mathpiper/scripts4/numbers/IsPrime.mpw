@@ -48,15 +48,15 @@ The parameters of the test are such that the probability for a false result is l
 *E.G.
 
 	In> IsPrime(1)
-	Out> False;
+	Result: False;
 	In> IsPrime(2)
-	Out> True;
+	Result: True;
 	In> IsPrime(10)
-	Out> False;
+	Result: False;
 	In> IsPrime(23)
-	Out> True;
+	Result: True;
 	In> Select(1 .. 100, "IsPrime")
-	Out> {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,
+	Result: {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,
 	  53,59,61,67,71,73,79,83,89,97};
 
 *SEE IsPrimePower, Factors

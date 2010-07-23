@@ -51,11 +51,11 @@ The function {Version()} returns a string representing the version of the curren
 *E.G. notest
 
 	In> Version()
-	Out> "1.0.48rev3";
+	Result: "1.0.48rev3";
 	In> IsLessThan(Version(), "1.0.47")
-	Out> False;
+	Result: False;
 	In> GreaterThan(Version(), "1.0.47")
-	Out> True;
+	Result: True;
 
 The last two calls show that the {IsLessThan} and {GreaterThan}
 functions can be used for comparing version numbers. This
@@ -65,7 +65,7 @@ in the form {d.d.dd} as above.
 *REM
 Note that on the Windows platforms the output may be different:
 In> Version()
-Out> "Windows-latest";
+Result: "Windows-latest";
 
 *SEE IsLessThan, GreaterThan
 %/mathpiper_docs

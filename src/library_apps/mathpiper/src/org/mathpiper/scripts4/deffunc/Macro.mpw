@@ -90,9 +90,9 @@ easily with this function, in stead of having to use {DefMacroRulebase}.
 the following example defines a looping function.
 
 	In> Macro("myfor",{init,pred,inc,body}) [@init;While(@pred)[@body;@inc;];True;];
-	Out> True;
+	Result: True;
 	In> a:=10
-	Out> 10;
+	Result: 10;
 
 Here this new macro {myfor} is used to loop, using a variable {a} from the
 calling environment.
@@ -107,9 +107,9 @@ calling environment.
 	70 
 	80 
 	90 
-	Out> True;
+	Result: True;
 	In> i
-	Out> 10;
+	Result: 10;
 
 *SEE Function, DefMacroRulebase
 %/mathpiper_docs

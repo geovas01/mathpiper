@@ -69,9 +69,9 @@ using the {Verify} command.
 *E.G.
 
 	In> N(RoundTo(Exp(1),30),30)
-	Out> 2.71828182110230114951959786552;
+	Result: 2.71828182110230114951959786552;
 	In> N(RoundTo(Exp(1),20),20)
-	Out> 2.71828182796964237096;
+	Result: 2.71828182796964237096;
 
 *SEE Verify, VerifyArithmetic, VerifyDiv
 

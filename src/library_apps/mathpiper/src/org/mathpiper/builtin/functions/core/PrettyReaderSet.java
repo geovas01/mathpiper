@@ -82,11 +82,11 @@ can be useful in the {~/.MathPiperrc} file.
 *E.G.
 
 	In> Taylor(x,0,5)Sin(x)
-	Out> x-x^3/6+x^5/120
+	Result: x-x^3/6+x^5/120
 	In> PrettyReaderSet("LispRead")
-	Out> True
+	Result: True
 	In> (Taylor x 0 5 (Sin x))
-	Out> x-x^3/6+x^5/120
+	Result: x-x^3/6+x^5/120
 
 *SEE Read, LispRead, OMRead, PrettyPrinterSet, PrettyPrinterGet, PrettyReaderGet
 %/mathpiper_docs

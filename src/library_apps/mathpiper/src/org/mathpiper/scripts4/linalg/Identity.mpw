@@ -33,7 +33,7 @@ matrix has ones on the diagonal while the other entries are zero.
 *E.G.
 
 	In> Identity(3)
-	Out> {{1,0,0},{0,1,0},{0,0,1}};
+	Result: {{1,0,0},{0,1,0},{0,0,1}};
 
 *SEE BaseVector, ZeroMatrix, DiagonalMatrix
 %/mathpiper_docs

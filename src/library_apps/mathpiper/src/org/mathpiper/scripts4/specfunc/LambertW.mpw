@@ -72,9 +72,9 @@ To compute the numeric value of the  principal branch of Lambert's $W$ function 
 
 *E.G.
 	In> LambertW(0)
-	Out> 0;
+	Result: 0;
 	In> N(LambertW(-0.24/Sqrt(3*Pi)))
-	Out> -0.0851224014;
+	Result: -0.0851224014;
 
 *SEE Exp
 %/mathpiper_docs

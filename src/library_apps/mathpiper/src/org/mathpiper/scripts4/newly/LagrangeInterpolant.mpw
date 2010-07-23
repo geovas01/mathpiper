@@ -58,13 +58,13 @@ polynomial.
 
 	In> f := LagrangeInterpolant({0,1,2}, \
 	  {0,1,1}, x);
-	Out> (x*(x-1))/2-x*(x-2);
+	Result: (x*(x-1))/2-x*(x-2);
 	In> Eval(Subst(x,0) f);
-	Out> 0;
+	Result: 0;
 	In> Eval(Subst(x,1) f);
-	Out> 1;
+	Result: 1;
 	In> Eval(Subst(x,2) f);
-	Out> 1;
+	Result: 1;
 	
 	In> PrettyPrinterSet("PrettyForm");
 	

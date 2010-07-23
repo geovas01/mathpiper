@@ -27,11 +27,11 @@ functions that return a boolean result, e.g.
 *E.G.
 
 	In> IsBoolean(a)
-	Out> False;
+	Result: False;
 	In> IsBoolean(True)
-	Out> True;
+	Result: True;
 	In> IsBoolean(a And b)
-	Out> True;
+	Result: True;
 
 *SEE True, False
 %/mathpiper_docs

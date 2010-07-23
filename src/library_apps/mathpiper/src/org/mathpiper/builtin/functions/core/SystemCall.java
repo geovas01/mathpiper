@@ -80,19 +80,19 @@ In a UNIX environment, the command {SystemCall("ls")} would print the contents o
 	COPYING
 	ChangeLog
 ... (truncated to save space)
-	Out> True;
+	Result: True;
 
 The standard UNIX command {test} returns success or failure depending on conditions.
 For example, the following command will check if a directory exists:
 
 	In> SystemCall("test -d scripts/")
-	Out> True;
+	Result: True;
 
 Check that a file exists:
 	In> SystemCall("test -f COPYING")
-	Out> True;
+	Result: True;
 	In> SystemCall("test -f nosuchfile.txt")
-	Out> False;
+	Result: False;
 
 *SEE Secure
 %/mathpiper_docs

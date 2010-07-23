@@ -124,33 +124,33 @@ used for testing the logic theorem prover in MathPiper.
 
 *E.G.
 	In> Verify(1+2,3)
-	Out> True;
+	Result: True;
 
 	In> Verify(x*(1+x),x^2+x)
 	******************
 	x*(x+1) evaluates to x*(x+1) which differs
 	  from x^2+x
 	******************
-	Out> False;
+	Result: False;
 
 	In> TestMathPiper(x*(1+x),x^2+x)
-	Out> True;
+	Result: True;
 
 	In> Verify(a And c Or b And Not c,a Or b)
 	******************
 	 a And c Or b And Not c evaluates to  a And c
 	  Or b And Not c which differs from  a Or b
 	******************
-	Out> False;
+	Result: False;
 
 	In> LogicVerify(a And c Or b And Not c,a Or b)
-	Out> True;
+	Result: True;
 
 	In> LogicVerify(a And c Or b And Not c,b Or a)
-	Out> True;
+	Result: True;
 
 	In> LogicTest({A,B,C},Not((Not A) And (Not B)),A Or B)
-	Out> True
+	Result: True
 
 	In> LogicTest({A,B,C},Not((Not A) And (Not B)),A Or C)
 	******************
@@ -162,7 +162,7 @@ used for testing the logic theorem prover in MathPiper.
 	 which differs from
 	{{{False,True},{False,True}},{{True,True},{True,True}}}
 	******************
-	Out> False
+	Result: False
 
 *SEE Simplify, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest
 

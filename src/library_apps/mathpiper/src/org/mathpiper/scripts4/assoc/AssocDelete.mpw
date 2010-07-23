@@ -65,30 +65,30 @@ At most one entry is deleted.
 *E.G.
 
 	In> writer := {};
-	Out> {};
+	Result: {};
 	In> writer["Iliad"] := "Homer";
-	Out> True;
+	Result: True;
 	In> writer["Henry IV"] := "Shakespeare";
-	Out> True;
+	Result: True;
 	In> writer["Ulysses"] := "James Joyce";
-	Out> True;
+	Result: True;
 	In> AssocDelete(writer, "Henry IV")
-	Out> True;
+	Result: True;
 	In> AssocDelete(writer, "Henry XII")
-	Out> False;
+	Result: False;
 	In> writer
-	Out> {{"Ulysses","James Joyce"},
+	Result: {{"Ulysses","James Joyce"},
 	  {"Iliad","Homer"}};
 	In> DestructiveAppend(writer,
 	  {"Ulysses", "Dublin"});
-	Out> {{"Iliad","Homer"},{"Ulysses","James Joyce"},
+	Result: {{"Iliad","Homer"},{"Ulysses","James Joyce"},
 	  {"Ulysses","Dublin"}};
 	In> writer["Ulysses"];
-	Out> "James Joyce";
+	Result: "James Joyce";
 	In> AssocDelete(writer,{"Ulysses","James Joyce"});
-	Out> True;
+	Result: True;
 	In> writer
-	Out> {{"Iliad","Homer"},{"Ulysses","Dublin"}};
+	Result: {{"Iliad","Homer"},{"Ulysses","Dublin"}};
 
 
 *SEE Assoc, AssocIndices, AssocValues

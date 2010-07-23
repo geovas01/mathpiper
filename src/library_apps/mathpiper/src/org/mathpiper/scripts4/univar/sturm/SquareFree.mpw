@@ -44,11 +44,11 @@ $$ p[1]* ... * p[m] $$
 *E.G.
 
 	In> Expand((x+1)^5)
-	Out> x^5+5*x^4+10*x^3+10*x^2+5*x+1;
+	Result: x^5+5*x^4+10*x^3+10*x^2+5*x+1;
 	In> SquareFree(%)
-	Out> (x+1)/5;
+	Result: (x+1)/5;
 	In> Monic(%)
-	Out> x+1;
+	Result: x+1;
 
 *SEE FindRealRoots, RealRootsCount, MinimumBound, MaximumBound, Factor
 %/mathpiper_docs

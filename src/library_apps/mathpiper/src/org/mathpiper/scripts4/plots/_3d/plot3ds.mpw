@@ -399,7 +399,7 @@ Same limitations as {Plot2D}.
 
 *E.G. notest
 	In> Plot3DS(a*b^2)
-	Out> True;
+	Result: True;
 	In> V(Plot3DS(Sin(x)*Cos(y),x->0:20, y->0:20,depth->3))
 	CachedConstant: Info: constant Pi is being 
 	  recalculated at precision 10
@@ -408,7 +408,7 @@ Same limitations as {Plot2D}.
 	Plot3DS: using 1699  points for function Sin(x)*Cos(y)
 	Plot3DS: max. used 8 subdivisions for Sin(x)*Cos(y)
 	Plot3DS'datafile: created file '/tmp/plot.tmp/data1'
-	Out> True;
+	Result: True;
 
 
 *SEE V, NFunction, Plot2D

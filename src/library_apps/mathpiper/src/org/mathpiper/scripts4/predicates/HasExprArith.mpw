@@ -30,7 +30,7 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 *E.G.
 
 	In> HasExprArith(x+y*Cos(Ln(x)/x), z)
-	Out> False;
+	Result: False;
 
 *SEE HasExpr, HasExprSome, FuncList, VarList, HasFunc
 %/mathpiper_docs

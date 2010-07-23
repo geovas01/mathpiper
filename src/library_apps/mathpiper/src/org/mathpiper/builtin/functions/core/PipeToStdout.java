@@ -67,7 +67,7 @@ written to the standard default initial output (typically the screen). {PipeToSt
 
 	In> PipeToString()[Echo("aaaa");PipeToStdout()Echo("bbbb");];
 	bbbb
-	Out> "aaaa
+	Result: "aaaa
 	"
 
 *SEE PipeToString, PipeToFile

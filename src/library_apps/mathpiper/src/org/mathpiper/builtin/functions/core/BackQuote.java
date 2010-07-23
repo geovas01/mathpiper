@@ -89,24 +89,24 @@ a {N(...)} section).
 
 	In> Decl(f1,f2) := \
 	In>   `(@f1(x_IsNumber) <-- N(@f2(x)));
-	Out> True;
+	Result: True;
 	In> Decl(nSin,Sin)
-	Out> True;
+	Result: True;
 	In> Sin(1)
-	Out> Sin(1);
+	Result: Sin(1);
 	In> nSin(1)
-	Out> 0.8414709848;
+	Result: 0.8414709848;
 
 This example assigns the expression {func(value)} to variable {var}. Normally
 the first argument of {Bind} would be unevaluated.
 
 	In> SetF(var,func,value) := \
 	In>     `(Bind(@var,@func(@value)));
-	Out> True;
+	Result: True;
 	In> SetF(a,Sin,x)
-	Out> True;
+	Result: True;
 	In> a
-	Out> Sin(x);
+	Result: Sin(x);
 
 
 *SEE MacroBind, MacroLocal, MacroRulebase, Hold, HoldArgument, DefMacroRulebase, MacroExpand
