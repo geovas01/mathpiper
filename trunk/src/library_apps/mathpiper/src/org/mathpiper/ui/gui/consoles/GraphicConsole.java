@@ -79,7 +79,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private final Color purple = new Color(153, 0, 153);
     private Interpreter interpreter = Interpreters.getAsynchronousInterpreter();
     private StringBuilder input = new StringBuilder();
-    private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, button2, button3;
+    private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, smallerFontButton, largerFontButton;
     private JCheckBox rawOutputCheckBox;
     private JCheckBox showRawOutputCheckBox;
     private JTextArea rawOutputTextArea;
@@ -92,6 +92,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private boolean deleteFlag = false;
     private double zoomScale = 2.0;
     private int fontSize = 12;
+    private int resultHolderAdjustment = 2;
     private Font bitstreamVera;
     private StringBuilder inputLines;
     private int responseInsertionOffset = -1;
@@ -171,12 +172,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
 
-        button2 = new JButton("Font-");
-        button2.addActionListener(this);
-        consoleButtons.add(button2);
-        button3 = new JButton("Font+");
-        button3.addActionListener(this);
-        consoleButtons.add(button3);
+        smallerFontButton = new JButton("Font-");
+        smallerFontButton.addActionListener(this);
+        consoleButtons.add(smallerFontButton);
+        largerFontButton = new JButton("Font+");
+        largerFontButton.addActionListener(this);
+        consoleButtons.add(largerFontButton);
 
         rawOutputCheckBox = new JCheckBox("Raw Side Effects");
         rawOutputCheckBox.addItemListener(this);
@@ -283,22 +284,25 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         if (src == haltButton) {
             interpreter.haltEvaluation();
-        } else if (src == button2) {
+        } else if (src == smallerFontButton) {
             this.fontSize -= 2;
 
-            /*MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
+            MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
+            /*
             document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
             document.refresh();*/
 
             this.setJTextPaneFont(textPane, fontSize);
-        } else if (src == button3) {
+            document.scanViews(textPane, fontSize + resultHolderAdjustment);
+        } else if (src == largerFontButton) {
             this.fontSize += 2;
 
-            /*MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
-            document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
+            MathPiperDocument document = (MathPiperDocument) textPane.getDocument();
+            /*document.putProperty("ZOOM_FACTOR", new Double(zoomScale));
             document.refresh();*/
 
             this.setJTextPaneFont(textPane, fontSize);
+            document.scanViews(textPane, fontSize + resultHolderAdjustment);
 
 
         } else if (src == helpButton) {
@@ -597,7 +601,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                 latexString = Utility.stripEndDollarSigns(latexString);
 
-                resultHolder = new ResultHolder(latexString, response.getResult(), (int) (zoomScale + 20));
+                resultHolder = new ResultHolder(latexString, response.getResult(), fontSize + resultHolderAdjustment);
 
 
                 //Set the % variable to the original result.
