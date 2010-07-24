@@ -148,7 +148,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         textPane.append(purple, "Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.\n");
 
 
-        textPane.append(Color.BLACK, "\nIn> ");
+        textPane.append(Color.BLACK, "\nIn> \n");
         textPane.setCaretPosition(textPane.getDocument().getLength());
 
         //java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
@@ -241,7 +241,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
                 document.scanViews(textPane, fontSize);
-                
+
             }//end method.
 
         });
@@ -485,17 +485,20 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                 line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset);
 
-                if (line.startsWith("In> \n") || line.startsWith("In>\n")) {
-                    //textPane.replaceRange("In> \n", lineStartOffset, lineEndOffset); //Just leave the In> there.
-                    //textPane.setCaretPosition(lineEndOffset- 1);
-                    } else if (line.startsWith("In>")) {
+                if (line.startsWith("In>") && line.substring(3).trim().equals("")) {
+                    
+                }
+                else if (line.startsWith("In>")) {
 
-                    captureInputLines(lineNumber);
+                    String eol = new String(line);
+                    String code = line.substring(3, line.length()).trim();
+                    responseInsertionOffset = lineEndOffset;
+                    if (!eol.endsWith(";") && !eol.endsWith("\\\n")) {
+                        code = code + ";";
+                    }//end if.
 
                     clearPreviousResponse();
 
-
-                    String code = inputLines.toString().trim();
 
                     // System.out.println("1: " + code);
 
@@ -805,6 +808,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             String line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset);
 
             if (line.startsWith("In>")) {
+
                 //Scan backwards to first line that does not start with In>.
                 do {
                     lineStartOffset = textPane.getLineStartOffset(lineNumber);
@@ -841,7 +845,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                 } while (!pastInputLines && lineNumber < textPane.getLineCount());//end while.
 
-            }//end if.
+            }//end if.*/
 
         } catch (BadLocationException ex) {
             noLinesBetweenInAndEndOfTextArea = true;
