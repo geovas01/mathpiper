@@ -2,6 +2,7 @@ package org.mathpiper.ui.gui.consoles;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.plaf.basic.BasicArrowButton;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
@@ -22,7 +24,8 @@ public class ResultHolder extends JPanel implements MouseListener{
     private JTextField textResult;
     private String resultString;
     private int toggle = 0;
-    private JButton toggleButton;
+    private ArrowButton toggleButton;
+
 
 
     public ResultHolder(String latexString, String resultString, int fontPointSize) {
@@ -36,7 +39,10 @@ public class ResultHolder extends JPanel implements MouseListener{
         texLabel.setIcon(icon);
 
         textResult = new JTextField(resultString);
-
+        textResult.setAlignmentY(.7f);
+        textResult.setEditable(false);
+        textResult.setBackground(Color.white);
+        textResult.setMaximumSize( textResult.getPreferredSize() );
 
         this.setBackground(Color.white);
 
@@ -47,7 +53,7 @@ public class ResultHolder extends JPanel implements MouseListener{
         this.add(texLabel);
 
 
-        toggleButton = new javax.swing.JButton("^");
+        toggleButton = new ArrowButton(BasicArrowButton.NORTH);
         toggleButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -56,6 +62,7 @@ public class ResultHolder extends JPanel implements MouseListener{
 
         });
         toggleButton.setEnabled(true);
+        toggleButton.setAlignmentY(.9f);
 
 
         this.addMouseListener(this);
@@ -72,6 +79,12 @@ public class ResultHolder extends JPanel implements MouseListener{
         texLabel.setAlignmentY(icon.getBaseLine());
         texLabel.setIcon(icon);
         texLabel.repaint();
+
+
+        Font newFontSize = new Font(textResult.getFont().getName(), textResult.getFont().getStyle(), scaleValue);
+        textResult.setFont(newFontSize);
+        textResult.setMaximumSize( textResult.getPreferredSize() );
+        textResult.repaint();
 
     }//end method.
 
@@ -120,11 +133,31 @@ public class ResultHolder extends JPanel implements MouseListener{
         else
         {
             toggle = 1;
+
             this.add(textResult);
             this.add(toggleButton);
+
+
+
+            
         }
 
         this.revalidate();
+    }
+
+    private class ArrowButton extends BasicArrowButton{
+        private ArrowButton(){
+            super(BasicArrowButton.NORTH);
+        }
+
+        public ArrowButton(int direction){
+            super(direction);
+        }
+
+        public Dimension getMaximumSize(){
+            return this.getPreferredSize();
+        }
+
     }
 
 
