@@ -119,10 +119,5 @@ public class GoAwayButton extends JButton implements SwingConstants
             return getPreferredSize();
         }
 
-
-    	public boolean isFocusTraversable() {
-	  return false;
-	}
-
 }
 

@@ -733,7 +733,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                     // Insert the component at the end of the text
                     int currentCaretPosition = textPane.getCaretPosition();
 
-                    doc.insertString(responseOffset + 8, "ignored text", style);
+                    doc.insertString(responseOffset + 8, resultHolderFinal.getCodeResult(), style);
                     //textPane.setCaretPosition(responseOffset + 8);
                     //textPane.insertComponent(resultHolderFinal);
                     //textPane.setCaretPosition(currentCaretPosition);

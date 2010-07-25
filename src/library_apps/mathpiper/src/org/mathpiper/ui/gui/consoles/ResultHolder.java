@@ -205,6 +205,12 @@ public class ResultHolder extends JPanel implements MouseListener{
         }
 
     }
+    
+    
+    public String getCodeResult()
+    {
+	    return resultString;
+    }
 
 
 
