@@ -208,7 +208,7 @@
 				<include name="org/mathpiper/parametermatchers/" />
 				<include name="org/mathpiper/printers/" />
 				<include name="org/mathpiper/ui/text/consoles/" />
-				<include name="org/mathpiper/ui/gui/consoles/" />
+				<include name="org/mathpiper/ui/gui/consoles/Console.java" />
 
 			</fileset>
 		</copy>
