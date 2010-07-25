@@ -150,6 +150,7 @@ public class ResultHolder extends JPanel implements MouseListener{
 
     public void mouseClicked(MouseEvent e) {
         //eventOutput("Mouse clicked (# of clicks: "  + e.getClickCount() + ")", e);
+        toggle = 0;
         toggleView();
 
     }//end method.
@@ -177,6 +178,7 @@ public class ResultHolder extends JPanel implements MouseListener{
         this.revalidate();
         this.repaint();
     }
+
 
 
     private void goAway()
