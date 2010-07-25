@@ -332,7 +332,7 @@ class SynchronousInterpreter implements Interpreter {
         //return this.evaluate(inputExpression, false);
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
 
-        String resultString = "XX_Error";
+        String resultString = "Exception";
 
         try {
             ConsPointer resultPointer = new ConsPointer();

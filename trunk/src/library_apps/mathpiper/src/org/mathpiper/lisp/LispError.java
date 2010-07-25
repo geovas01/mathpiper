@@ -243,7 +243,7 @@ public class LispError
                 } else
                 {
                     //TODO FIXME          ShowStack(aEnvironment);
-                    aErrorMessage = aErrorMessage + " " + showFunctionError(arguments, aEnvironment) + "internal error.";
+                    aErrorMessage = aErrorMessage + " " + showFunctionError(arguments, aEnvironment) + "internal.";
                 }
 
 
@@ -349,7 +349,7 @@ public class LispError
                 } else
                 {
                     String error = "";
-                    error = error + showFunctionError(arguments, aEnvironment) + "internal error.";
+                    error = error + showFunctionError(arguments, aEnvironment) + "internal.";
                     throw new EvaluationException(error + stackTrace,"none",-1);
                 }
             }
