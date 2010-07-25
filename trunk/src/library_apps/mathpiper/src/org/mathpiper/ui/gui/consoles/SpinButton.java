@@ -12,16 +12,16 @@ import javax.swing.*;
 import javax.swing.plaf.UIResource;
 
 
-public class GoAwayButton extends JButton implements SwingConstants
+public class SpinButton extends JButton implements SwingConstants
 {
 
         private Color shadow;
         private Color darkShadow;
         private Color highlight;
 
-        private BasicStroke redXStroke = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        private BasicStroke thickStroke = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
-        public GoAwayButton() {
+        public SpinButton() {
 	    super();
 
             this.setBackground(UIManager.getColor("control"));
@@ -31,7 +31,7 @@ public class GoAwayButton extends JButton implements SwingConstants
 
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
-            this.setToolTipText("Go back to the traditional math view of this expression.");
+            this.setToolTipText("Select a different text view of this expression.");
 	}
 
 
@@ -89,11 +89,13 @@ public class GoAwayButton extends JButton implements SwingConstants
             }
 
 
-            g2d.setColor(Color.RED);
-            g2d.setStroke(redXStroke);
+            g2d.setColor(Color.BLUE);
+            g2d.setStroke(thickStroke);
 
-            g2d.drawLine(3, 4, 10, 11);
-            g2d.drawLine(10, 4, 3, 11);
+            g2d.drawLine(7, 12, 7, 3);
+
+            g2d.drawLine(7,3, 3, 6);
+            g2d.drawLine(7,3, 11, 6);
 
 
 
