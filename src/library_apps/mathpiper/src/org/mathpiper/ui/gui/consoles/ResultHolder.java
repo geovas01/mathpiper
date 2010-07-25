@@ -1,23 +1,23 @@
 package org.mathpiper.ui.gui.consoles;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.plaf.basic.BasicArrowButton;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
 
-public class ResultHolder extends JPanel implements MouseListener{
+public class ResultHolder extends JPanel implements MouseListener {
 
     private TeXFormula texFormula;
     private JLabel renderedResult;
@@ -26,9 +26,8 @@ public class ResultHolder extends JPanel implements MouseListener{
     private String resultString;
     private String latexString;
     private int toggle = 0;
-    private ArrowButton toggleButton;
+    private SpinButton spinButton;
     private GoAwayButton goAwayButton;
-
 
 
     public ResultHolder(String latexString, String resultString, int fontPointSize) {
@@ -44,6 +43,18 @@ public class ResultHolder extends JPanel implements MouseListener{
         renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         renderedResult.setAlignmentY(icon.getBaseLine());
         renderedResult.setIcon(icon);
+        renderedResult.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        renderedResult.setToolTipText("Click to see text versions of this expression.");
+        renderedResult.addMouseListener(new MouseAdapter() {
+
+            public void mouseClicked(MouseEvent e) {
+                //eventOutput("Mouse clicked (# of clicks: "  + e.getClickCount() + ")", e);
+                toggle = 0;
+                toggleView();
+            }
+
+        }//end method.
+                );
 
         codeResult = new JTextField(resultString);
         codeResult.setAlignmentY(.7f);
@@ -51,7 +62,7 @@ public class ResultHolder extends JPanel implements MouseListener{
         codeResult.setBackground(Color.white);
         Font newFontSize = new Font(codeResult.getFont().getName(), codeResult.getFont().getStyle(), fontPointSize);
         codeResult.setFont(newFontSize);
-        codeResult.setMaximumSize( codeResult.getPreferredSize() );
+        codeResult.setMaximumSize(codeResult.getPreferredSize());
         codeResult.repaint();
 
 
@@ -61,7 +72,7 @@ public class ResultHolder extends JPanel implements MouseListener{
         latexResult.setBackground(Color.white);
         newFontSize = new Font(latexResult.getFont().getName(), latexResult.getFont().getStyle(), fontPointSize);
         latexResult.setFont(newFontSize);
-        latexResult.setMaximumSize( latexResult.getPreferredSize() );
+        latexResult.setMaximumSize(latexResult.getPreferredSize());
         latexResult.repaint();
 
 
@@ -74,21 +85,25 @@ public class ResultHolder extends JPanel implements MouseListener{
         this.add(renderedResult);
 
 
-        toggleButton = new ArrowButton(BasicArrowButton.NORTH);
-        toggleButton.addActionListener(new ActionListener() {
+        spinButton = new SpinButton();
+        spinButton.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent evt) {
                 ResultHolder.this.toggleView();
             }//end method.
+
         });
-        toggleButton.setEnabled(true);
-        toggleButton.setAlignmentY(.9f);
+        spinButton.setEnabled(true);
+        spinButton.setAlignmentY(.9f);
 
 
         goAwayButton = new GoAwayButton();
         goAwayButton.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent evt) {
                 ResultHolder.this.goAway();
             }//end method.
+
         });
         goAwayButton.setEnabled(true);
         goAwayButton.setAlignmentY(.9f);
@@ -96,8 +111,6 @@ public class ResultHolder extends JPanel implements MouseListener{
         this.addMouseListener(this);
 
     }//end constructor.
-
-
 
 
     public void setScale(int scaleValue) {
@@ -111,42 +124,43 @@ public class ResultHolder extends JPanel implements MouseListener{
 
         Font newFontSize = new Font(codeResult.getFont().getName(), codeResult.getFont().getStyle(), scaleValue);
         codeResult.setFont(newFontSize);
-        codeResult.setMaximumSize( codeResult.getPreferredSize() );
+        codeResult.setMaximumSize(codeResult.getPreferredSize());
         codeResult.repaint();
 
 
         newFontSize = new Font(latexResult.getFont().getName(), latexResult.getFont().getStyle(), scaleValue);
         latexResult.setFont(newFontSize);
-        latexResult.setMaximumSize( latexResult.getPreferredSize() );
+        latexResult.setMaximumSize(latexResult.getPreferredSize());
         latexResult.repaint();
 
     }//end method.
 
 
-
-
     void eventOutput(String eventDescription, MouseEvent e) {
-        System.out.println(eventDescription + " detected on "
-                + e.getComponent().getClass().getName()
-                + "." );
+        System.out.println(eventDescription + " detected on " + e.getComponent().getClass().getName() + ".");
 
     }
+
 
     public void mousePressed(MouseEvent e) {
         //eventOutput("Mouse pressed (# of clicks: " + e.getClickCount() + ")", e);
     }
 
+
     public void mouseReleased(MouseEvent e) {
         //eventOutput("Mouse released (# of clicks: " + e.getClickCount() + ")", e);
     }
+
 
     public void mouseEntered(MouseEvent e) {
         //eventOutput("Mouse entered", e);
     }
 
+
     public void mouseExited(MouseEvent e) {
         //eventOutput("Mouse exited", e);
     }
+
 
     public void mouseClicked(MouseEvent e) {
         //eventOutput("Mouse clicked (# of clicks: "  + e.getClickCount() + ")", e);
@@ -156,23 +170,19 @@ public class ResultHolder extends JPanel implements MouseListener{
     }//end method.
 
 
-    public void toggleView()
-    {
+    public void toggleView() {
         this.removeAll();
 
-        if(toggle == 1)
-        {
+        if (toggle == 1) {
             toggle = 0;
             this.add(latexResult);
-        }
-        else
-        {
+        } else {
             toggle = 1;
 
             this.add(codeResult);
         }
 
-        this.add(toggleButton);
+        this.add(spinButton);
         this.add(goAwayButton);
 
         this.revalidate();
@@ -180,39 +190,15 @@ public class ResultHolder extends JPanel implements MouseListener{
     }
 
 
-
-    private void goAway()
-    {
+    private void goAway() {
         this.removeAll();
         this.add(renderedResult);
     }
 
-    private class ArrowButton extends BasicArrowButton{
-        private ArrowButton(){
-            super(BasicArrowButton.NORTH);
-        }
 
-        public ArrowButton(int direction){
-            super(direction);
-        }
-
-        public Dimension getMaximumSize(){
-            return this.getPreferredSize();
-        }
-
-        public Dimension getMinimumSize(){
-            return this.getPreferredSize();
-        }
-
+    public String getCodeResult() {
+        return resultString;
     }
-    
-    
-    public String getCodeResult()
-    {
-	    return resultString;
-    }
-
-
 
 }//end class.
 
