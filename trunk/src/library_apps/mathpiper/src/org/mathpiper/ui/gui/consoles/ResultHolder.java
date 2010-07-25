@@ -20,32 +20,50 @@ import org.scilab.forge.jlatexmath.TeXIcon;
 public class ResultHolder extends JPanel implements MouseListener{
 
     private TeXFormula texFormula;
-    private JLabel texLabel;
-    private JTextField textResult;
+    private JLabel renderedResult;
+    private JTextField codeResult;
+    private JTextField latexResult;
     private String resultString;
+    private String latexString;
     private int toggle = 0;
     private ArrowButton toggleButton;
+    private GoAwayButton goAwayButton;
 
 
 
     public ResultHolder(String latexString, String resultString, int fontPointSize) {
-        this.texLabel = new JLabel();
+
+
+        this.latexString = latexString;
         this.resultString = resultString;
 
+
+        this.renderedResult = new JLabel();
         texFormula = new TeXFormula(latexString);
         TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontPointSize);
-        texLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-        texLabel.setAlignmentY(icon.getBaseLine());
-        texLabel.setIcon(icon);
+        renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+        renderedResult.setAlignmentY(icon.getBaseLine());
+        renderedResult.setIcon(icon);
 
-        textResult = new JTextField(resultString);
-        textResult.setAlignmentY(.7f);
-        textResult.setEditable(false);
-        textResult.setBackground(Color.white);
-        Font newFontSize = new Font(textResult.getFont().getName(), textResult.getFont().getStyle(), fontPointSize);
-        textResult.setFont(newFontSize);
-        textResult.setMaximumSize( textResult.getPreferredSize() );
-        textResult.repaint();
+        codeResult = new JTextField(resultString);
+        codeResult.setAlignmentY(.7f);
+        codeResult.setEditable(false);
+        codeResult.setBackground(Color.white);
+        Font newFontSize = new Font(codeResult.getFont().getName(), codeResult.getFont().getStyle(), fontPointSize);
+        codeResult.setFont(newFontSize);
+        codeResult.setMaximumSize( codeResult.getPreferredSize() );
+        codeResult.repaint();
+
+
+        latexResult = new JTextField("$" + latexString + "$");
+        latexResult.setAlignmentY(.7f);
+        latexResult.setEditable(false);
+        latexResult.setBackground(Color.white);
+        newFontSize = new Font(latexResult.getFont().getName(), latexResult.getFont().getStyle(), fontPointSize);
+        latexResult.setFont(newFontSize);
+        latexResult.setMaximumSize( latexResult.getPreferredSize() );
+        latexResult.repaint();
+
 
         this.setBackground(Color.white);
 
@@ -53,20 +71,27 @@ public class ResultHolder extends JPanel implements MouseListener{
 
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-        this.add(texLabel);
+        this.add(renderedResult);
 
 
         toggleButton = new ArrowButton(BasicArrowButton.NORTH);
         toggleButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent evt) {
                 ResultHolder.this.toggleView();
             }//end method.
-
         });
         toggleButton.setEnabled(true);
         toggleButton.setAlignmentY(.9f);
 
+
+        goAwayButton = new GoAwayButton();
+        goAwayButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                ResultHolder.this.goAway();
+            }//end method.
+        });
+        goAwayButton.setEnabled(true);
+        goAwayButton.setAlignmentY(.9f);
 
         this.addMouseListener(this);
 
@@ -78,16 +103,22 @@ public class ResultHolder extends JPanel implements MouseListener{
     public void setScale(int scaleValue) {
 
         TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, scaleValue);
-        texLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-        texLabel.setAlignmentY(icon.getBaseLine());
-        texLabel.setIcon(icon);
-        texLabel.repaint();
+        renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+        renderedResult.setAlignmentY(icon.getBaseLine());
+        renderedResult.setIcon(icon);
+        renderedResult.repaint();
 
 
-        Font newFontSize = new Font(textResult.getFont().getName(), textResult.getFont().getStyle(), scaleValue);
-        textResult.setFont(newFontSize);
-        textResult.setMaximumSize( textResult.getPreferredSize() );
-        textResult.repaint();
+        Font newFontSize = new Font(codeResult.getFont().getName(), codeResult.getFont().getStyle(), scaleValue);
+        codeResult.setFont(newFontSize);
+        codeResult.setMaximumSize( codeResult.getPreferredSize() );
+        codeResult.repaint();
+
+
+        newFontSize = new Font(latexResult.getFont().getName(), latexResult.getFont().getStyle(), scaleValue);
+        latexResult.setFont(newFontSize);
+        latexResult.setMaximumSize( latexResult.getPreferredSize() );
+        latexResult.repaint();
 
     }//end method.
 
@@ -131,21 +162,27 @@ public class ResultHolder extends JPanel implements MouseListener{
         if(toggle == 1)
         {
             toggle = 0;
-            this.add(texLabel);
+            this.add(latexResult);
         }
         else
         {
             toggle = 1;
 
-            this.add(textResult);
-            this.add(toggleButton);
-
-
-
-            
+            this.add(codeResult);
         }
 
+        this.add(toggleButton);
+        this.add(goAwayButton);
+
         this.revalidate();
+        this.repaint();
+    }
+
+
+    private void goAway()
+    {
+        this.removeAll();
+        this.add(renderedResult);
     }
 
     private class ArrowButton extends BasicArrowButton{
@@ -158,6 +195,10 @@ public class ResultHolder extends JPanel implements MouseListener{
         }
 
         public Dimension getMaximumSize(){
+            return this.getPreferredSize();
+        }
+
+        public Dimension getMinimumSize(){
             return this.getPreferredSize();
         }
 

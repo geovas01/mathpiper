@@ -84,14 +84,10 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private ColorPane textPane;
     private MathPiperOutputStream currentOutput;
     private JScrollPane typePane;
-    private char[] typedKey = new char[1];
     private JPanel consoleButtons;
     private JPanel rawButtons;
-    private boolean deleteFlag = false;
-    private double zoomScale = 2.0;
     private int fontSize = 12;
-    private int resultHolderAdjustment = 2;
-    private Font bitstreamVera;
+    private int resultHolderAdjustment = 3;
     private StringBuilder inputLines;
     private int responseInsertionOffset = -1;
     private boolean encounteredIn = false;
@@ -105,6 +101,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private boolean controlKeyDown = false;
     private int historyIndex = -1;
     private int caretPositionWhenEnterWasPressed = -1;
+    private boolean deleteFlag = false;
     private JRadioButton numericModeButton;
     private JRadioButton symbolicModeButton;
     private ButtonGroup resultModeGroup;
@@ -113,6 +110,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             "Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.\n\n" +
             "Type In> on the left end of any line to create your own input prompt.\n\n" +
             "Use <ctrl><up arrow> and <ctrl><down arrow> to navigate through the command line history.\n\n" +
+            "Click on any result to obtain a code or a LaTeX version of it.\n\n" +
             "The console window is an editable text area, so you can add text to it and remove text from \n" +
             "it as needed.\n\n" +
             "Placing ;; after the end of the line of input will suppress the output.\n\n" +
@@ -225,7 +223,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         });
         structureButton.setEnabled(true);
-        consoleButtons.add(structureButton);
+        //consoleButtons.add(structureButton);
 
 
 
@@ -241,16 +239,13 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                 //document.scanTree(fontSize);
 
-
-
-
                 document.scanViews(textPane, fontSize);
 
             }//end method.
 
         });
         testButton.setEnabled(true);
-        consoleButtons.add(testButton);
+        //consoleButtons.add(testButton);
 
 
 
