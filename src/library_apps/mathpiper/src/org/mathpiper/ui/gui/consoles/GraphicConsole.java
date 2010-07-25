@@ -308,7 +308,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             JOptionPane.showMessageDialog(this, this.helpMessage);
         } else if (src == clearConsoleButton) {
             this.textPane.setText("");
-            this.textPane.append(Color.BLACK, "In> ");
+            this.textPane.append(Color.BLACK, "In> \n");
         } else if (src == clearRawButton) {
             this.rawOutputTextArea.setText("");
         }
