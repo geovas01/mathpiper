@@ -50,7 +50,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.ComponentView;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.Document;
 import javax.swing.text.MutableAttributeSet;
@@ -58,7 +57,6 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import javax.swing.text.View;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -161,6 +159,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         textPane.addKeyListener(this);
         typePane = new JScrollPane(textPane);
         //guiBox.add(typePane);
+
+        StyledDocument document = textPane.getStyledDocument();
+        SimpleAttributeSet attrs = new SimpleAttributeSet();
+        StyleConstants.setFontSize(attrs, fontSize);
+        document.setCharacterAttributes(0, document.getLength() + 1, attrs, false);
+        document.setParagraphAttributes(0, document.getLength() + 1, attrs, true);
 
 
 
@@ -486,9 +490,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset);
 
                 if (line.startsWith("In>") && line.substring(3).trim().equals("")) {
-                    
-                }
-                else if (line.startsWith("In>")) {
+                } else if (line.startsWith("In>")) {
 
                     String eol = new String(line);
                     String code = line.substring(3, line.length()).trim();
@@ -576,7 +578,6 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
     public void response(EvaluationResponse response) {
-        //ResultHolder resultHolder = null;
 
         Object responseObject = response.getObject();
         if (responseObject == null && response.getResultList() != null) {
@@ -617,7 +618,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 e.printStackTrace();
             }
         } else {
-            resultHolder = new ResultHolder(response.getResult(), response.getResult(), (int) (zoomScale + 20));
+            resultHolder = new ResultHolder(response.getResult(), response.getResult(), fontSize + resultHolderAdjustment);
         }
 
 
@@ -872,26 +873,41 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
         public void append(Color c, String s) { // better implementation--uses // StyleContext.
-            //MutableAttributeSet attrs = getInputAttributes();
-
-            SimpleAttributeSet attrs = new SimpleAttributeSet();
+            MutableAttributeSet attrs = getInputAttributes();
+            //attrs.removeAttribute("size");
+            //SimpleAttributeSet attrs = new SimpleAttributeSet();
             //StyleConstants.setFontSize(attrs, fontSize);
+
+
+            //StyleConstants.setFontSize(attrs, fontSize);
+
 
             StyleConstants.setForeground(attrs, c);
 
             int len = getDocument().getLength(); // same value as // getText().length();
             setCaretPosition(len); // place caret at the end (with no selection).
             setCharacterAttributes(attrs, false);
+
+
+            /*try {
+                this.getDocument().insertString(this.getCaretPosition(), s, attrs);
+            } catch (BadLocationException e) {
+            }*/
+
             replaceSelection(s); // there is no selection, so inserts at caret.
         }//end method.
 
 
         public void insert(Color c, String str, int pos) {
 
-            Font font = getFont();
 
-            //MutableAttributeSet attrs = getInputAttributes();
-            SimpleAttributeSet attrs = new SimpleAttributeSet();
+
+            MutableAttributeSet attrs = getInputAttributes();
+            //attrs.removeAttribute(StyleConstants.FontSize);
+            //SimpleAttributeSet attrs = new SimpleAttributeSet();
+
+            //StyleConstants.setFontSize(attrs, fontSize);
+
 
             //StyleConstants.setFontFamily(attrs, font.getFamily());
             //StyleConstants.setFontSize(attrs, fontSize);
@@ -902,9 +918,15 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             //AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
             setCaretPosition(pos); // place caret at the end (with no selection)
             setCharacterAttributes(attrs, false);
-            replaceSelection(str);
+
+            /*try {
+                this.getDocument().insertString(this.getCaretPosition(), str, attrs);
+            } catch (BadLocationException e) {
+            }*/
 
 
+
+            replaceSelection(str); // there is no selection, so inserts at caret.
 
         }
 
@@ -1038,7 +1060,10 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         SimpleAttributeSet attrs = new SimpleAttributeSet();
         StyleConstants.setFontSize(attrs, fontSize);
         document.setCharacterAttributes(0, document.getLength() + 1, attrs, false);
-        document.setParagraphAttributes(0, document.getLength() + 1, attrs, false);
+        document.setParagraphAttributes(0, document.getLength() + 1, attrs, true);
+
+        MutableAttributeSet attrs2 = textPane.getInputAttributes();
+        StyleConstants.setFontSize(attrs2, fontSize);
 
     }//end method.
 

@@ -42,7 +42,10 @@ public class ResultHolder extends JPanel implements MouseListener{
         textResult.setAlignmentY(.7f);
         textResult.setEditable(false);
         textResult.setBackground(Color.white);
+        Font newFontSize = new Font(textResult.getFont().getName(), textResult.getFont().getStyle(), fontPointSize);
+        textResult.setFont(newFontSize);
         textResult.setMaximumSize( textResult.getPreferredSize() );
+        textResult.repaint();
 
         this.setBackground(Color.white);
 

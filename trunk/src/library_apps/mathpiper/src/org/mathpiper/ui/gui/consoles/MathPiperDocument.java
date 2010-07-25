@@ -8,6 +8,7 @@ import javax.swing.text.AbstractDocument.ElementEdit;
 import javax.swing.text.ComponentView;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Element;
+import javax.swing.text.ParagraphView;
 import javax.swing.text.View;
 
 //Code from http://java-sl.com/tip_refresh_view.html. Stanislav Lapitsky
@@ -102,6 +103,11 @@ public class MathPiperDocument extends DefaultStyledDocument {
 
                 resultHolder.setScale(fontSize);
             }
+
+            /*if (currentNode instanceof ParagraphView) {
+                ParagraphView paragraphView = (ParagraphView) currentNode;
+
+            }*/
 
         }//end while.
 
