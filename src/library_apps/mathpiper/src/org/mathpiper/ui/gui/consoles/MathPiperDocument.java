@@ -65,10 +65,11 @@ public class MathPiperDocument extends DefaultStyledDocument {
 
             if (currentNode instanceof ComponentView) {
                 ComponentView componentView = (ComponentView) currentNode;
+                //System.out.println(componentView.getParent());
+                /*
                 ResultHolder resultHolder = (ResultHolder) componentView.getComponent();
-
                 resultHolder.setScale(fontSize);
-
+                */
 
             }
 
@@ -99,9 +100,15 @@ public class MathPiperDocument extends DefaultStyledDocument {
             if (currentNode instanceof ComponentView) {
                 ComponentView componentView = (ComponentView) currentNode;
 
-                ResultHolder resultHolder = (ResultHolder) componentView.getComponent();
+                System.out.println(componentView.getParent());
 
-                resultHolder.setScale(fontSize);
+                Object object = componentView.getComponent();
+
+                if(object instanceof ResultHolder)
+                {
+                    ResultHolder resultHolder = (ResultHolder) object;
+                    resultHolder.setScale(fontSize);
+                }
             }
 
             /*if (currentNode instanceof ParagraphView) {
