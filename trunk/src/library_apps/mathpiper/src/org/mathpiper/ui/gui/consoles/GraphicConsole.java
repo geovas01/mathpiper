@@ -678,6 +678,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         final int insertInOffset = responseOffset + result.length() + sideEffectsLength + exceptionLength;
         final int finalCaretPositionWhenEnterWasPressed = caretPositionWhenEnterWasPressed;
         final ResultHolder resultHolderFinal = resultHolder;
+        final EvaluationResponse responseFinal = response;
 
 
 
@@ -725,15 +726,29 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
                 try {
-                    // Get the text pane's document JTextPane
-                    StyledDocument doc = (StyledDocument) textPane.getDocument();
-                    // The component must first be wrapped in a style
-                    Style style = doc.addStyle("StyleName", null);
-                    StyleConstants.setComponent(style, resultHolderFinal);
-                    // Insert the component at the end of the text
-                    int currentCaretPosition = textPane.getCaretPosition();
 
-                    doc.insertString(responseOffset + 8, resultHolderFinal.getCodeResult(), style);
+                    StyledDocument doc = (StyledDocument) textPane.getDocument();
+
+                    Style style = doc.addStyle("StyleName", null);
+
+
+                    Object responseObject = responseFinal.getObject();
+
+                    if (responseObject instanceof JPanel) {
+                        //Histogram({3,4,3,2,2,3,3,4,5,5,6,5,4,3,2,1,2,3,3,4,5,4,5,6})
+                        JPanel responseObjectJPanel = (JPanel) responseObject;
+                        Resizable resizer = new Resizable(responseObjectJPanel);
+ 
+                        //resizer.setBounds(50, 50, 200, 150);
+                        StyleConstants.setComponent(style, resizer);
+                        doc.insertString(responseOffset + 8, responseObject.getClass().toString(), style);
+                    } else {
+                        StyleConstants.setComponent(style, resultHolderFinal);
+                        doc.insertString(responseOffset + 8, resultHolderFinal.getCodeResult(), style);
+                    }
+
+
+
                     //textPane.setCaretPosition(responseOffset + 8);
                     //textPane.insertComponent(resultHolderFinal);
                     //textPane.setCaretPosition(currentCaretPosition);
@@ -885,7 +900,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
             /*try {
-                this.getDocument().insertString(this.getCaretPosition(), s, attrs);
+            this.getDocument().insertString(this.getCaretPosition(), s, attrs);
             } catch (BadLocationException e) {
             }*/
 
@@ -915,7 +930,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             setCharacterAttributes(attrs, false);
 
             /*try {
-                this.getDocument().insertString(this.getCaretPosition(), str, attrs);
+            this.getDocument().insertString(this.getCaretPosition(), str, attrs);
             } catch (BadLocationException e) {
             }*/
 

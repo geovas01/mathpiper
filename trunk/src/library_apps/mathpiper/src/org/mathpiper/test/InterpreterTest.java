@@ -15,8 +15,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
-import java.awt.Container;
-import javax.swing.JFrame;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
