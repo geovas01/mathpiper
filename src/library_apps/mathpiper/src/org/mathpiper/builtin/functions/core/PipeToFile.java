@@ -47,12 +47,15 @@ public class PipeToFile extends BuiltinFunction
         String oper = Utility.unstringify(aEnvironment, aStackTop, orig);
 
         // Open file for writing
-        FileOutputStream localFP = new FileOutputStream(oper);
-        LispError.check(aEnvironment, aStackTop, localFP != null, LispError.FILE_NOT_FOUND);
-        StandardFileOutputStream newOutput = new StandardFileOutputStream(localFP);
+        FileOutputStream localFP = new FileOutputStream(oper, true);
 
-        MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
-        aEnvironment.iCurrentOutput = newOutput;
+        LispError.check(aEnvironment, aStackTop, localFP != null, LispError.FILE_NOT_FOUND);
+
+        StandardFileOutputStream newStream = new StandardFileOutputStream(localFP);
+
+        MathPiperOutputStream originalStream = aEnvironment.iCurrentOutput;
+
+        aEnvironment.iCurrentOutput = newStream;
 
         try
         {
@@ -62,7 +65,9 @@ public class PipeToFile extends BuiltinFunction
             throw e;
         } finally
         {
-            aEnvironment.iCurrentOutput = previous;
+            localFP.flush();
+            localFP.close();
+            aEnvironment.iCurrentOutput = originalStream;
         }
     }
 }
