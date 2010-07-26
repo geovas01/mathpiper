@@ -734,7 +734,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                     Object responseObject = responseFinal.getObject();
 
-                    if (responseObject instanceof JPanel) {
+                    if(false){//responseObject instanceof JPanel) {
                         //Histogram({3,4,3,2,2,3,3,4,5,5,6,5,4,3,2,1,2,3,3,4,5,4,5,6})
                         JPanel responseObjectJPanel = (JPanel) responseObject;
                         Resizable resizer = new Resizable(responseObjectJPanel);
