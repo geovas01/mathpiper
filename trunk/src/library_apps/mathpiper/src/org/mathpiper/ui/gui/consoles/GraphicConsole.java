@@ -487,12 +487,17 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 if (line.startsWith("In>") && line.substring(3).trim().equals("")) {
                 } else if (line.startsWith("In>")) {
 
-                    String eol = new String(line);
+                    //String eol = new String(line);
                     String code = line.substring(3, line.length()).trim();
                     responseInsertionOffset = lineEndOffset;
-                    if (!eol.endsWith(";") && !eol.endsWith("\\\n")) {
+
+                    /*if (!eol.endsWith(";") && !eol.endsWith("\\\n")) {
+                    code = code + ";";
+                    }//end if.*/
+
+                    if (!code.endsWith(";")) {
                         code = code + ";";
-                    }//end if.
+                    }
 
                     clearPreviousResponse();
 
@@ -640,8 +645,6 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             result = "Result: ";// + response.getResult().trim();
         } else {
             result = "Result: " + "OUTPUT SUPPRESSED";
-
-            this.suppressOutput = false;
         }
 
 
@@ -679,8 +682,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         final int finalCaretPositionWhenEnterWasPressed = caretPositionWhenEnterWasPressed;
         final ResultHolder resultHolderFinal = resultHolder;
         final EvaluationResponse responseFinal = response;
+        final boolean suppressOutputFinal = suppressOutput;
 
-
+        this.suppressOutput = false;
 
         /* if (insertionPointLine == lineCount - 1) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -725,39 +729,45 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 }
 
 
-                try {
+                if (!suppressOutputFinal) {
 
-                    StyledDocument doc = (StyledDocument) textPane.getDocument();
+                    try {
 
-                    Style style = doc.addStyle("StyleName", null);
+                        StyledDocument doc = (StyledDocument) textPane.getDocument();
+
+                        Style style = doc.addStyle("StyleName", null);
 
 
-                    Object responseObject = responseFinal.getObject();
 
-                    if(false){//responseObject instanceof JPanel) {
-                        //Histogram({3,4,3,2,2,3,3,4,5,5,6,5,4,3,2,1,2,3,3,4,5,4,5,6})
-                        JPanel responseObjectJPanel = (JPanel) responseObject;
-                        Resizable resizer = new Resizable(responseObjectJPanel);
- 
-                        //resizer.setBounds(50, 50, 200, 150);
-                        StyleConstants.setComponent(style, resizer);
-                        doc.insertString(responseOffset + 8, responseObject.getClass().toString(), style);
-                    } else {
-                        StyleConstants.setComponent(style, resultHolderFinal);
-                        doc.insertString(responseOffset + 8, resultHolderFinal.getCodeResult(), style);
+                        Object responseObject = responseFinal.getObject();
+
+                        if (false) {//responseObject instanceof JPanel) {
+                            //Histogram({3,4,3,2,2,3,3,4,5,5,6,5,4,3,2,1,2,3,3,4,5,4,5,6})
+                            JPanel responseObjectJPanel = (JPanel) responseObject;
+                            Resizable resizer = new Resizable(responseObjectJPanel);
+
+                            //resizer.setBounds(50, 50, 200, 150);
+                            StyleConstants.setComponent(style, resizer);
+                            doc.insertString(responseOffset + 8, responseObject.getClass().toString(), style);
+                        } else {
+                            StyleConstants.setComponent(style, resultHolderFinal);
+                            doc.insertString(responseOffset + 8, resultHolderFinal.getCodeResult(), style);
+                        }
+
+
+
+
+                        //textPane.setCaretPosition(responseOffset + 8);
+                        //textPane.insertComponent(resultHolderFinal);
+                        //textPane.setCaretPosition(currentCaretPosition);
+                        //textPane.insert(Color.red, "hello", responseOffset + 8);
+
+
+                    } catch (BadLocationException e) {
+                        e.printStackTrace();
                     }
 
-
-
-                    //textPane.setCaretPosition(responseOffset + 8);
-                    //textPane.insertComponent(resultHolderFinal);
-                    //textPane.setCaretPosition(currentCaretPosition);
-                    //textPane.insert(Color.red, "hello", responseOffset + 8);
-
-
-                } catch (BadLocationException e) {
-                    e.printStackTrace();
-                }
+                }//end if.
 
 
             }//end method.
