@@ -13,6 +13,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.scilab.forge.jlatexmath.JMathTeXException;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
@@ -38,11 +40,23 @@ public class ResultHolder extends JPanel implements MouseListener {
 
 
         this.renderedResult = new JLabel();
-        texFormula = new TeXFormula(latexString);
-        TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontPointSize);
-        renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-        renderedResult.setAlignmentY(icon.getBaseLine());
-        renderedResult.setIcon(icon);
+
+        try{
+            texFormula = new TeXFormula(latexString);
+            TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontPointSize);
+            renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+            renderedResult.setAlignmentY(icon.getBaseLine());
+            renderedResult.setIcon(icon);
+        }
+        catch(JMathTeXException e)
+        {
+            renderedResult.setText(resultString);
+            renderedResult.setAlignmentY(.9f);
+        }
+
+
+
+
         renderedResult.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         renderedResult.setToolTipText("Click to see text versions of this expression.");
         renderedResult.addMouseListener(new MouseAdapter() {
