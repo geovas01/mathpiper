@@ -42,7 +42,7 @@ Rule("TemplateFunction",3,2047,True)
 *DESC
 Defines a function.
 
-$E.G.
+*E.G.
 /%mathpiper
 TemplateFunction("MyUntil",{predicate,body})
 [
