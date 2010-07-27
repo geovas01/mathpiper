@@ -2,7 +2,7 @@
 
 LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
 [
-  Function("Map",{func,lists})
+  TemplateFunction("Map",{func,lists})
   [
     Local(mapsingleresult,mapsingleitem);
     mapsingleresult:={};
