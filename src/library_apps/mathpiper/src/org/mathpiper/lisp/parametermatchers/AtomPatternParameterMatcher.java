@@ -33,13 +33,17 @@ public class AtomPatternParameterMatcher extends PatternParameterMatcher {
 
 
     public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
-        
+
         // If it is a floating point, don't even bother comparing
         if (aExpression.getCons() != null) {
-            if (aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
-                if (!((BigNumber) ((NumberCons) aExpression.getCons()).getNumber(aEnvironment.getPrecision(), aEnvironment)).isInteger()) {
-                    return false;
+            try {
+                if (aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
+                    if (!((BigNumber) ((NumberCons) aExpression.getCons()).getNumber(aEnvironment.getPrecision(), aEnvironment)).isInteger()) {
+                        return false;
+                    }
                 }
+            } catch (NumberFormatException e) {
+                return false;
             }
         }
 
