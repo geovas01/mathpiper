@@ -29,6 +29,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Stack;
 import javax.swing.text.Element;
 import javax.swing.Box;
@@ -79,6 +81,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private StringBuilder input = new StringBuilder();
     private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, smallerFontButton, largerFontButton;
     private JCheckBox rawOutputCheckBox;
+    private boolean isCodeResult = false;
+    private JCheckBox codeResultCheckBox;
     private JCheckBox showRawOutputCheckBox;
     private JTextArea rawOutputTextArea;
     private ColorPane textPane;
@@ -145,7 +149,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
         textPane.append(Color.BLACK, "\nIn> \n");
-        textPane.setCaretPosition(textPane.getDocument().getLength());
+        textPane.setCaretPosition(textPane.getDocument().getLength() - 1);
 
         //java.io.InputStream inputStream = org.gjt.sp.jedit.jEdit.getPlugin("org.mathpiper.ide.u6502plugin.U6502Plugin").getPluginJAR().getClassLoader().getResourceAsStream( "resources/ttf-bitstream-vera-1.10/VeraMono.ttf" );
 
@@ -188,6 +192,10 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         rawOutputTextArea.setEditable(false);
         rawOutputTextArea.setText("Raw output text area.\n\n");
 
+        codeResultCheckBox = new JCheckBox("Code Result");
+        codeResultCheckBox.setToolTipText("Show results in code format instead of traditional mathematics format.");
+        codeResultCheckBox.addItemListener(this);
+        consoleButtons.add(codeResultCheckBox);
 
         showRawOutputCheckBox = new JCheckBox("Show Raw");
         showRawOutputCheckBox.addItemListener(this);
@@ -271,10 +279,6 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         this.addPopupMenu();
 
 
-
-
-
-
     }//Constructor.
 
 
@@ -309,9 +313,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         } else if (src == clearConsoleButton) {
             this.textPane.setText("");
             this.textPane.append(Color.BLACK, "In> \n");
+            textPane.setCaretPosition(textPane.getDocument().getLength() - 1);
         } else if (src == clearRawButton) {
             this.rawOutputTextArea.setText("");
         }
+
+        textPane.requestFocusInWindow();
 
     }//end method.
 
@@ -319,6 +326,13 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     public void itemStateChanged(ItemEvent ie) {
         Object source = ie.getSource();
 
+        if (source == codeResultCheckBox) {
+            if (ie.getStateChange() == ItemEvent.SELECTED) {
+                isCodeResult = true;
+            } else {
+                isCodeResult = false;
+            }//end if/else.
+        }
         if (source == rawOutputCheckBox) {
             if (ie.getStateChange() == ItemEvent.SELECTED) {
                 Environment environment = interpreter.getEnvironment();
@@ -351,6 +365,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             }//end if/else.
 
         }//end if/else.
+
+        textPane.requestFocusInWindow();
     }//end method.
 
 
@@ -582,45 +598,48 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         Object responseObject = response.getObject();
         if (responseObject == null && response.getResultList() != null) {
 
-            try {
-                Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
 
-                //Evaluate Hold function.
-                Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
-                holdAtomCons.cdr().setCons(response.getResultList().getCons());
-                Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
-                ConsPointer holdInputExpressionPointer = new ConsPointer(holdSubListCons);
+            if (!isCodeResult) {
+                try {
+                    Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
 
-
-                //Evaluate TeXForm function.
-                Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
-                texFormAtomCons.cdr().setCons(holdInputExpressionPointer.getCons());
-                Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
-                ConsPointer texFormInputExpressionPointer = new ConsPointer(texFormSubListCons);
-                EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormInputExpressionPointer);
-
-                String latexString = latexResponse.getResult();
-
-                latexString = Utility.stripEndQuotes(latexString);
-
-                latexString = Utility.stripEndDollarSigns(latexString);
-
-                resultHolder = new ResultHolder(latexString, response.getResult(), fontSize + resultHolderAdjustment);
+                    //Evaluate Hold function.
+                    Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
+                    holdAtomCons.cdr().setCons(response.getResultList().getCons());
+                    Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
+                    ConsPointer holdInputExpressionPointer = new ConsPointer(holdSubListCons);
 
 
-                //Set the % variable to the original result.
-                Environment iEnvironment = syncronousInterpreter.getEnvironment();
-                String percent = (String) iEnvironment.getTokenHash().lookUp("%");
-                iEnvironment.setGlobalVariable(-1, percent, response.getResultList(), true);
+                    //Evaluate TeXForm function.
+                    Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
+                    texFormAtomCons.cdr().setCons(holdInputExpressionPointer.getCons());
+                    Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
+                    ConsPointer texFormInputExpressionPointer = new ConsPointer(texFormSubListCons);
+                    EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormInputExpressionPointer);
+
+                    String latexString = latexResponse.getResult();
+
+                    latexString = Utility.stripEndQuotes(latexString);
+
+                    latexString = Utility.stripEndDollarSigns(latexString);
+
+                    resultHolder = new ResultHolder(latexString, response.getResult(), fontSize + resultHolderAdjustment);
 
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                    //Set the % variable to the original result.
+                    Environment iEnvironment = syncronousInterpreter.getEnvironment();
+                    String percent = (String) iEnvironment.getTokenHash().lookUp("%");
+                    iEnvironment.setGlobalVariable(-1, percent, response.getResultList(), true);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                resultHolder = new ResultHolder(response.getResult(), response.getResult(), fontSize + resultHolderAdjustment);
             }
-        } else {
-            resultHolder = new ResultHolder(response.getResult(), response.getResult(), fontSize + resultHolderAdjustment);
-        }
 
+        }//end if
 
 
         //final int caretPosition = responseInsertionOffset;
@@ -643,6 +662,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         String result;
         if (this.suppressOutput == false) {
             result = "Result: ";// + response.getResult().trim();
+            if (isCodeResult) {
+                result = result + response.getResult().trim();
+            }
         } else {
             result = "Result: " + "OUTPUT SUPPRESSED";
         }
@@ -682,6 +704,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         final int finalCaretPositionWhenEnterWasPressed = caretPositionWhenEnterWasPressed;
         final ResultHolder resultHolderFinal = resultHolder;
         final EvaluationResponse responseFinal = response;
+        final boolean isCodeResultFinal = isCodeResult;
         final boolean suppressOutputFinal = suppressOutput;
 
         this.suppressOutput = false;
@@ -729,7 +752,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                 }
 
 
-                if (!suppressOutputFinal) {
+                if (!suppressOutputFinal && !isCodeResultFinal) {
 
                     try {
 
@@ -756,11 +779,6 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
 
-
-                        //textPane.setCaretPosition(responseOffset + 8);
-                        //textPane.insertComponent(resultHolderFinal);
-                        //textPane.setCaretPosition(currentCaretPosition);
-                        //textPane.insert(Color.red, "hello", responseOffset + 8);
 
 
                     } catch (BadLocationException e) {
@@ -1164,8 +1182,16 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     }//end method.
 
 
+
+    
+    public void giveFocus()
+    {
+        textPane.requestFocusInWindow();
+    }
+
+
     public static void main(String[] args) {
-        GraphicConsole console = new GraphicConsole();
+        final GraphicConsole console = new GraphicConsole();
 
         JFrame frame = new javax.swing.JFrame();
         Container contentPane = frame.getContentPane();
@@ -1175,6 +1201,17 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
         frame.setTitle("Graphic Console");
         //frame.setResizable(false);
+
+
+        //Make textField get the focus whenever frame is activated.
+        frame.addWindowFocusListener(new WindowAdapter() {
+
+            public void windowGainedFocus(WindowEvent e) {
+                console.giveFocus();
+            }
+
+        });
+
         frame.setPreferredSize(new Dimension(800, 600));
         frame.setLocationRelativeTo(null); // added
         frame.pack();
