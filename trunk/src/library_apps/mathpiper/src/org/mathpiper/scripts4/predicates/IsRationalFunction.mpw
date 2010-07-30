@@ -8,7 +8,7 @@ Retract("IsRationalFunction",*);
 
 10 # IsRationalFunction(expr_IsRationalOrNumber,_x) <-- False;
 
-15 # IsRationalFunction(_expr,_x)_(Type(expr)="/") <-- 
+15 # IsRationalFunction(_expr,_x)_(Type(expr)="/" Or Type(-expr)="/") <-- 
 [
     If( Contains(VarList(Numerator(expr)),x) Or Contains(VarList(Denominator(expr)),x),
         True,
@@ -21,7 +21,7 @@ Retract("IsRationalFunction",*);
 %/mathpiper
 
     %output,preserve="false"
-      Result: True
+      Processing...
 .   %/output
 
 
@@ -46,18 +46,19 @@ Rational Function of the variable {var}.  If {var} is omitted, the
 test is made w.r.t. the first variable (if any) in VarList(expr).
 
 The strict definition of a"rational function" used here requires that
-(a) the {expr} has Type(expr) = "/",   and
-(b) either the numerator or the denominator of {expr} contains {var}.
+(a) the {expr} has Type(expr) = "/",   or
+(b) the {expr} has Type(-expr) = "/",   and
+(c) either the numerator or the denominator of {expr} contains {var}.
 
 Note that this definition neither requires nor implies that the
-numerator and denominator be polynomials.
+numerator and denominator be {polynomials}.
 
 *E.G.
 
-	In> IsRationalFunction(3,x)  
-	Result: False
-	In> IsRationalFunction(3)      
-	Result: False;
+    In> IsRationalFunction(3,x)  
+    Result: False
+    In> IsRationalFunction(3)      
+    Result: False;
     In> IsRationalFunction(3.5,x)
     Result:  False
     In> IsRationalFunction(3.5)
@@ -92,6 +93,10 @@ numerator and denominator be polynomials.
     Result:  False
 
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
 
 
 %mathpiper,scope="nobuild",subtype="manual_test"
