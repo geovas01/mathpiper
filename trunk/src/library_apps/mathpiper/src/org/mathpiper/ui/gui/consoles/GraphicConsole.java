@@ -595,51 +595,57 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
     public void response(EvaluationResponse response) {
 
-        Object responseObject = response.getObject();
-        if (responseObject == null && response.getResultList() != null) {
+        if (response.isExceptionThrown()) {
+            resultHolder = new ResultHolder("False", "False", fontSize + resultHolderAdjustment);
+        } else {
+
+            Object responseObject = response.getObject();
+            if (responseObject == null && response.getResultList() != null) {
 
 
-            if (!isCodeResult) {
-                try {
-                    Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
+                if (!isCodeResult) {
+                    try {
+                        Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
 
-                    //Evaluate Hold function.
-                    Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
-                    holdAtomCons.cdr().setCons(response.getResultList().getCons());
-                    Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
-                    ConsPointer holdInputExpressionPointer = new ConsPointer(holdSubListCons);
-
-
-                    //Evaluate TeXForm function.
-                    Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
-                    texFormAtomCons.cdr().setCons(holdInputExpressionPointer.getCons());
-                    Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
-                    ConsPointer texFormInputExpressionPointer = new ConsPointer(texFormSubListCons);
-                    EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormInputExpressionPointer);
-
-                    String latexString = latexResponse.getResult();
-
-                    latexString = Utility.stripEndQuotes(latexString);
-
-                    latexString = Utility.stripEndDollarSigns(latexString);
-
-                    resultHolder = new ResultHolder(latexString, response.getResult(), fontSize + resultHolderAdjustment);
+                        //Evaluate Hold function.
+                        Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
+                        holdAtomCons.cdr().setCons(response.getResultList().getCons());
+                        Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
+                        ConsPointer holdInputExpressionPointer = new ConsPointer(holdSubListCons);
 
 
-                    //Set the % variable to the original result.
-                    Environment iEnvironment = syncronousInterpreter.getEnvironment();
-                    String percent = (String) iEnvironment.getTokenHash().lookUp("%");
-                    iEnvironment.setGlobalVariable(-1, percent, response.getResultList(), true);
+                        //Evaluate TeXForm function.
+                        Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
+                        texFormAtomCons.cdr().setCons(holdInputExpressionPointer.getCons());
+                        Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
+                        ConsPointer texFormInputExpressionPointer = new ConsPointer(texFormSubListCons);
+                        EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormInputExpressionPointer);
+
+                        String latexString = latexResponse.getResult();
+
+                        latexString = Utility.stripEndQuotes(latexString);
+
+                        latexString = Utility.stripEndDollarSigns(latexString);
+
+                        resultHolder = new ResultHolder(latexString, response.getResult(), fontSize + resultHolderAdjustment);
 
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                        //Set the % variable to the original result.
+                        Environment iEnvironment = syncronousInterpreter.getEnvironment();
+                        String percent = (String) iEnvironment.getTokenHash().lookUp("%");
+                        iEnvironment.setGlobalVariable(-1, percent, response.getResultList(), true);
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    resultHolder = new ResultHolder(response.getResult(), response.getResult(), fontSize + resultHolderAdjustment);
                 }
-            } else {
-                resultHolder = new ResultHolder(response.getResult(), response.getResult(), fontSize + resultHolderAdjustment);
-            }
 
-        }//end if
+            }//end if
+
+        }//end if.
 
 
         //final int caretPosition = responseInsertionOffset;
@@ -1142,21 +1148,30 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
     private void addPopupMenu() {
         final JPopupMenu menu = new JPopupMenu();
+
         final JMenuItem copyItem = new JMenuItem();
         copyItem.setAction(textPane.getActionMap().get(DefaultEditorKit.copyAction));
         copyItem.setText("Copy");
+        menu.add(copyItem);
 
         final JMenuItem cutItem = new JMenuItem();
         cutItem.setAction(textPane.getActionMap().get(DefaultEditorKit.cutAction));
         cutItem.setText("Cut");
+        menu.add(cutItem);
 
         final JMenuItem pasteItem = new JMenuItem("Paste");
         pasteItem.setAction(textPane.getActionMap().get(DefaultEditorKit.pasteAction));
         pasteItem.setText("Paste");
+        menu.add(pasteItem);
+
+        menu.add(new JSeparator());
 
         final JMenuItem selectAllItem = new JMenuItem("Select All");
         selectAllItem.setAction(textPane.getActionMap().get(DefaultEditorKit.selectAllAction));
         selectAllItem.setText("Select All");
+        menu.add(selectAllItem);
+
+        menu.add(new JSeparator());
 
         final JMenuItem insertPrompt = new JMenuItem("Insert In>");
         insertPrompt.addActionListener(new ActionListener() {
@@ -1167,14 +1182,20 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         });
         insertPrompt.setText("Insert In>");
-
-        menu.add(copyItem);
-        menu.add(cutItem);
-        menu.add(pasteItem);
-        menu.add(new JSeparator());
-        menu.add(selectAllItem);
-        menu.add(new JSeparator());
         menu.add(insertPrompt);
+
+        final JMenuItem insertLatex = new JMenuItem("Insert LaTeX");
+        insertLatex.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                textPane.insertComponent(new LatexComponent(GraphicConsole.this.fontSize));
+            }
+
+        });
+        insertLatex.setText("Insert LaTeX");
+        //menu.add(insertLatex);
+
+
 
 
         textPane.add(menu);
@@ -1182,10 +1203,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     }//end method.
 
 
-
-    
-    public void giveFocus()
-    {
+    public void giveFocus() {
         textPane.requestFocusInWindow();
     }
 
