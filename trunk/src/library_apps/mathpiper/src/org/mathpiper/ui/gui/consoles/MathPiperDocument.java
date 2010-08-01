@@ -100,7 +100,7 @@ public class MathPiperDocument extends DefaultStyledDocument {
             if (currentNode instanceof ComponentView) {
                 ComponentView componentView = (ComponentView) currentNode;
 
-                System.out.println(componentView.getParent());
+                //System.out.println(componentView.getParent());
 
                 Object object = componentView.getComponent();
 
