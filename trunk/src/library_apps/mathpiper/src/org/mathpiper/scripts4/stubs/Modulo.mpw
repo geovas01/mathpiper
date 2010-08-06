@@ -1,5 +1,7 @@
 %mathpiper,def="Modulo"
 
+Retract("Modulo",*);
+
 0 # Modulo(_n,m_IsRationalOrNumber)_(m<0) <-- `Hold(Modulo(@n,@m));
 
 1 # Modulo(n_IsNegativeInteger,m_IsPositiveInteger) <--
@@ -47,7 +49,16 @@
                          Concat(ZeroVector(m[2]),m[3]))[2]);
 ];
 
+10 # Modulo(n_CanBeUni, m_CanBeUni, vars_IsList)_(Length(vars)=1) <--
+[
+    NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));
+];
+
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 %mathpiper_docs,name="Modulo",categories="User Functions;Numbers (Operations)"
@@ -56,16 +67,23 @@
 *STD
 *CALL
 	Modulo(x,y)
+	Modulo(x,y,vars)
 
 *PARMS
 
 {x}, {y} -- integers or univariate polynomials
+{vars}   -- a list containing the name of the (single) variable appearing in both polynomials
 
 *DESC
 
-{Modulo} returns the remainder after division.  {Modulo} is also defined for polynomials.
+{Modulo} returns the remainder after division.  {Modulo} is also defined for univariate polynomials.
 
 If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers satisfy $x =a*y + b$ and $0 <= b < y$.
+
+The second form of the function contains a third parameter, and is used in the special case where the 
+the "divisor" polynomial contains an unbound "variable" which is really just a parameter.  
+In that situation, MathPiper cannot distinguish the variable from the parameter, until you
+specifically name the variable.  See the example below.
 
 *E.G.
 
@@ -73,6 +91,22 @@ If {Quotient(x,y)} returns "a" and {Modulo(x,y)} equals "b", then these numbers 
 	Result: 1;
 	In> Modulo(5,3)
 	Result: 2;
+	
+	In> Modulo(x^2-5*x+2,x-1)
+	Result: -2
+	
+	In> Modulo(x^2-5*x+2,x-k)
+	Result: x^2-5*x+2          
+	    NOTE: answer is INCORRECT
+	In> Modulo(x^2-5*x+2,x-k,{x})
+	Result: (k-5)*k+2
+	    NOTE: answer is now CORRECT
 
 *SEE Gcd, Lcm, Quotient
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
