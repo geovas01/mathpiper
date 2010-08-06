@@ -2,23 +2,30 @@
 
 /*------------------------------------------------------------------------
  *  Finds the Content of a univariate or multivariate polynomial
+ *      mod 100727 by hso:  conform to majority definition of "Content"
  *------------------------------------------------------------------------*/
 
 Retract("xContent",*);
 
 
-10 # xContent( poly_IsPolynomial ) <--
+//10 # xContent( poly_IsPolynomial ) <--
+10 # xContent( poly_CanBeUni ) <--
 [
     Local(disassem,gcdCoefs,lc,minExpts);
     disassem := DisassembleExpression(poly);
     gcdCoefs := Gcd(disassem[3]);
     lc       := LeadingCoef(poly);
     If(IsNegativeNumber(lc) And gcdCoefs > 0, gcdCoefs:=-gcdCoefs);
-    minExpts := Minimum /@ Transpose(disassem[2]);
-    gcdCoefs * Product(disassem[1]^minExpts);
+    //minExpts := Minimum /@ Transpose(disassem[2]);
+    //gcdCoefs * Product(disassem[1]^minExpts);
+    gcdCoefs;
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
