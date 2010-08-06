@@ -100,7 +100,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
   While (continue And prime And (i < 8))
   [	// we do not really need to collect the information about roots of -1 here, so we do not do anything with root
     {root, prime} := IsStronglyProbablyPrime(primetable[i], n);
-    If(InVerboseMode() And prime, Echo("RabinMiller: Info: ", n, "is spp base", primetable[i]));
+    //If(InVerboseMode() And prime, Echo("RabinMiller: Info: ", n, "is spp base", primetable[i]));
     continue := (n >= pseudotable[i]);
     i++;
   ];
@@ -137,13 +137,13 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
       {root, prime} := IsStronglyProbablyPrime(b, n);
 	  If(prime, roots'of'minus1 := Union(roots'of'minus1, {root}));
 	  If(Length(roots'of'minus1)>3, prime := False);
-	  If(InVerboseMode() And prime, Echo("RabinMiller: Info: ", n, "is spp base", b));
+	  //If(InVerboseMode() And prime, Echo("RabinMiller: Info: ", n, "is spp base", b));
 	  If( // this whole If() clause is only working when InVerboseMode() is in effect and the test is terminated in the unusual way
 	  	InVerboseMode() And Length(roots'of'minus1)>3,
 	  	[	// we can actually find a factor of n now
 			Local(factor);
 			roots'of'minus1 := Difference(roots'of'minus1,{0});
-			Echo("RabinMiller: Info: ", n, "is composite via roots of -1 ; ", roots'of'minus1);
+			//Echo("RabinMiller: Info: ", n, "is composite via roots of -1 ; ", roots'of'minus1);
 			factor := Gcd(n, If(
 				roots'of'minus1[1]+roots'of'minus1[2]=n,
 				roots'of'minus1[1]+roots'of'minus1[3],
@@ -162,13 +162,13 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
  * This is the frontend function, which uses RabinMillerSmall for
  * ``small'' numbers and RabinMillerProbabilistic for bigger ones.
  *
- * The probability to err is set to 1e-25, hopping this is less
+ * The probability to err is set to 1e-25, hopeing this is less
  * than the one to step on a rattlesnake in northern Groenland. :-)
  */
 
 RabinMiller(n_IsPositiveInteger) <--
 [
-	If(InVerboseMode(), Echo("RabinMiller: Info: Testing ", n));
+	//If(InVerboseMode(), Echo("RabinMiller: Info: Testing ", n));
 	If(
 		n < 34155071728321,
 		RabinMillerSmall(n),
@@ -178,3 +178,8 @@ RabinMiller(n_IsPositiveInteger) <--
 
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
