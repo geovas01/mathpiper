@@ -2,8 +2,9 @@
 
 Retract("jFactorsPoly",*);
 Retract("HasRealCoefficients",*);      
-Retract("ApproximateRealCoefficients",*);
-Retract("HasRationalCoefficients",*);    
+Retract("RealToRationalConvert",*);
+Retract("HasRationalCoefficients",*);   
+Retract("RationalToIntegerConvert",*);
 Retract("jFactorsPrimitivePart",*);
 Retract("jFactorsBivariateBinomial",*);
 Retract("jFactorsHomogeneousBivariate",*);
@@ -20,9 +21,11 @@ Retract("IsPureRational",*);
 50 # jFactorsPoly( poly_CanBeUni ) <--
 [
     If(InVerboseMode(),Tell("jFactorsPoly_100612",poly));
-    Local(content,pp,ppFactors,monomialFactors,result);
+    Local(content,pp,ppFactors,monomialFactors,result,moreDetails);
     Local(vars,nvars,disassem,degrees,mpoly,nterms,allCoeffs,allPowers);
     Local(hasRealCoefficients,hasRationalCoefficients,isHomogeneous);
+    
+    moreDetails := False;
 
     //  First, check to see if the polynomial has any REAL coefficients.
     //  If so, convert to approximate integers (with divisor).
@@ -34,20 +37,31 @@ Retract("IsPureRational",*);
          disassem  := DisassembleExpression(poly);
          allCoeffs := disassem[3];
          allPowers := Flatten(disassem[2],"List");
-         poly      := ApproximateRealCoefficients(poly);
+         poly      := RealToRationalConvert(poly);
       ]
     );
     
     //  Also, check to see if the polynomial has Rational coeffs
     hasRationalCoefficients := HasRationalCoefficients(poly);
+    If(hasRationalCoefficients, 
+      [
+         Local(rationalPoly);
+         rationalPoly  := poly;   //  just in case -- save original form
+         If(InVerboseMode(),Tell("   RATIONAL",rationalPoly));
+         // convert to equivalent polynomial over Integers
+         poly := RationalToIntegerConvert(poly);
+      ]
+    );
     
     // Now: get Content and Primitive Part
     content := xContent( poly );
     pp      := Simplify( poly / content );
+    If(IsBound(extgraFactor),content := content / extraFactor);
+    If(InVerboseMode(),Tell("   ",{content,pp}));
     //If(IsConstant(pp) And Length(VarList(content))>0,{content,pp}:={pp,content});
     If( Length(VarList(pp))=0, result := {{pp*content,1}},
       [
-         If(InVerboseMode(),Tell("  ",{content,pp}));
+         //If(InVerboseMode(),Tell("  ",{content,pp}));
          vars     := VarList(pp);
          nvars    := Length(vars);
          disassem := DisassembleExpression(pp);
@@ -70,7 +84,7 @@ Retract("IsPureRational",*);
            ]
          );
     
-         If(InVerboseMode(),
+         If(InVerboseMode() And moreDetails,
            [
              Tell("               ",vars);
              Tell("              ",nvars);
@@ -85,25 +99,44 @@ Retract("IsPureRational",*);
          );
     
          //  Does the Content have factors?  If so, get them.
-         If(InVerboseMode(),NewLine());
+         //If(InVerboseMode(),NewLine());
          monomialFactors := FactorsMonomial(content);
-         If(InVerboseMode(),[Tell("  ",monomialFactors); NewLine();]);
+         If(InVerboseMode(),Tell("  ",monomialFactors));
     
          //  OK.  Now factor the PrimitivePart
          ppFactors := jFactorsPrimitivePart( pp );
-         If(InVerboseMode(),[NewLine();Tell("  ",ppFactors);]);
+         If(InVerboseMode(),Tell("                    ",ppFactors));
+         If( Not IsListOfLists(ppFactors), 
+           [
+               Local(L,op,var,exp);
+               L := If(IsAtom(ppFactors[1]), ppFactors, FunctionToList(ppFactors[1]) );
+               If(InVerboseMode(),Tell("                    ",L));
+               If( L[1] = ^, ppFactors := {L[2],L[3]} );
+               ppFactors := {ppFactors};
+           ]
+         );
+         If(InVerboseMode(),Tell("  ",ppFactors));
     
          // Next, include the factors of the Content, if any
          If( monomialFactors[1][1] = 1,
              result := ppFactors,        
-             result := Concat(monomialFactors,ppFactors)
+             //result := Concat(monomialFactors,{ppFactors})    // hso 100801
+             result := Concat(monomialFactors,ppFactors)      // hso 100803
          );
       ]
     );
     
-    If(InVerboseMode(),[NewLine();Tell("  final  ",result);]);
+    If(InVerboseMode(),
+      [
+          NewLine();
+          Tell("  ",monomialFactors);
+          Tell("        ",ppFactors);
+          Tell("  final    ",result);
+      ]
+    );
     result;
 ];
+UnFence("jFactorsPoly",1);
 
 
 
@@ -112,7 +145,7 @@ Retract("IsPureRational",*);
      //  special case: binomials
 60 # jFactorsPrimitivePart( _pp )_(isHomogeneous And nterms=2 And nvars=2) <--
 [
-    If(InVerboseMode(),Tell("Bivariate Binomial"));
+    If(InVerboseMode(),Tell("Bivariate Binomial",pp));
     Local(ppFactors);
     ppFactors := If(isHomogeneous,jFactorsBivariateBinomial(pp),jasFactorsInt(pp) );
 ];
@@ -120,7 +153,7 @@ UnFence("jFactorsPrimitivePart",1);
 
 
      //  special case: homogeneous bivariates
-65 # jFactorsPrimitivePart( _pp )_(isHomogeneous And nvars=2) <--
+65 # jFactorsPrimitivePart( _pp )_(isHomogeneous And nterms>1 And nvars=2) <--
 [
     If(InVerboseMode(),Tell("Homogeneous and Bivariate"));
     Local(ppFactors);
@@ -141,7 +174,10 @@ UnFence("jFactorsPrimitivePart",1);
 100 # jFactorsPrimitivePart( _pp ) <-- 
 [
     If(InVerboseMode(),Tell("jFactorsPrimitivePart_usingJAS",pp));
-    jasFactorsInt(pp);
+    Local(answer);
+    answer := If(IsMonomial(pp),{pp,1},jasFactorsInt(pp));
+    If(InVerboseMode(),Tell("          ",answer));
+    answer;
 ];
 UnFence("jFactorsPrimitivePart",1);
 
@@ -184,10 +220,10 @@ UnFence("jFactorsHomogeneousBivariate",1);
 
 // ---------------------   OTHER STUFF ------------------------
 
-10 # ApproximateRealCoefficients( poly_IsPolynomial ) <--
+10 # RealToRationalConvert( poly_IsPolynomial ) <--
 [
     // If the polynomial has REAL coefficients, convert them to
-    // approximate integers
+    // approximate RATIONALS
     If(InVerboseMode(),[NewLine();Tell("  REAL",poly);]);
     Local(coeffs,gcd,lcm);
     coeffs := Rationalize /@ (allCoeffs);
@@ -202,7 +238,24 @@ UnFence("jFactorsHomogeneousBivariate",1);
     If(InVerboseMode(),Tell("   new",poly));
     poly;
 ];
-UnFence("ApproximateRealCoefficients",1);
+UnFence("RealToRationalConvert",1);
+
+
+10 # RationalToIntegerConvert( poly_IsPolynomial ) <--
+[
+    // If the polynomial has RATIONAL coefficients, convert to
+    // approximate INTEGER
+    Local(coeffs,gcd,lcm);
+    coeffs := allCoeffs;
+    If(InVerboseMode(),Tell("  ",coeffs));
+    lcm         := Lcm(Denominator /@ coeffs);
+    extraFactor := lcm;
+    If(InVerboseMode(),[Tell("     ",extraFactor);]);
+    poly := Simplify(extraFactor*poly);
+    If(InVerboseMode(),Tell("  new ",poly));
+    poly;
+];
+UnFence("RationalToIntegerConvert",1);
 
 
 100 # CombineNumericalFactors( factrs_IsList ) <--
@@ -407,10 +460,13 @@ UnFence("jFac",3);
 
 10 # HasRationalCoefficients( poly_IsPolynomial ) <--
 [
-    Local(disassem);
+    Local(disassem,answer);
+    If(InVerboseMode(),Tell("  HasRationalCoefficients",poly));
     disassem := DisassembleExpression(poly);
     //Tell("              ",disassem);
-    (Length(Select(disassem[3],"IsPureRational")) > 0);
+    answer := (Length(Select(disassem[3],"IsPureRational")) > 0);
+    If(InVerboseMode(),Tell("   ",answer));
+    answer;
 ];
 
 10 # HasRationalCoefficients( poly_IsMonomial) <--
@@ -488,6 +544,7 @@ UnFence("FixUpMonicFactors",1);
     %output,preserve="false"
       Result: True
 .   %/output
+
 
 
 

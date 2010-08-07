@@ -8,6 +8,7 @@
  *    convert polynomial factoring to use JAS library  100511
  *    Another major refactoring -- 100529
  *    Ready for initial commit     100610
+ *    Modifications                100727
  *------------------------------------------------------------------------*/
 
 Retract("Factors",*);
@@ -21,17 +22,41 @@ Retract("Factors",*);
 /* -------------    NUMBERS    --------------*/
 
 
-10 # Factors(p_IsPositiveInteger) <--  
+10 # Factors(n_IsPositiveInteger) <--  
 [
-    If( p < 1600, FactorsSmallInteger(p), FactorizeInt(p) );
+    If( n < 1600, FactorsSmallInteger(n), FactorizeInt(n) );
 ];
 
 
-15 # Factors(p_IsNegativeInteger) <-- Factors(-p);
+
+15 # Factors(n_IsNegativeInteger) <--
+[
+    If(InVerboseMode(),Tell("Factors_negInt",n));
+    Local(en,ans);
+    en  := -n;
+    ans := {-1,1}:If( en < 1600, FactorsSmallInteger(en), FactorizeInt(en) );
+];
 
 
 20 # Factors(p_IsRational)_(Denominator(p) != 1) <-- 
-             { {jFactor(Numerator(p)) / jFactor(Denominator(p) ) , 1} }; 
+[
+    If(InVerboseMode(),Tell("Factors_ratNum",p));
+    Local(sgn,num,den,fn,fd,f,ans);
+    sgn := 1;
+    If(p < 0, [p := -p; sgn := -1;]);
+    num := Numerator(p);
+    den := Denominator(p);
+    fn := FactorizeInt(num);
+    If(sgn < 0, fn := {-1,1}:fn );
+    fd := FactorizeInt(den);
+    If(InVerboseMode(),Tell("  ",{fn,fd}));
+    ForEach(f,fd)
+     [
+         DestructiveReplace(f,2,-f[2]);
+         DestructiveAppend(fn,f);
+     ];
+    ans := fn;
+]; 
              
 
 25 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
@@ -40,7 +65,38 @@ Retract("Factors",*);
 30 # Factors(_p)_(Length(VarList(p))=0) <-- {{p,1}};
 
 
-50 # Factors( p_CanBeUni ) <-- jFactorsPoly(p);
+//40 # Factors(p_IsRationalFunction) <-- 
+//[
+//    If(InVerboseMode(),Tell("Factors_ratFunc",p));
+//    jFactorsRationalFunc(p);
+//];
+
+
+50 # Factors( p_CanBeUni ) <-- 
+[
+    If(InVerboseMode(),Tell("Factors_uni",p));
+    jFactorsPoly(p);
+];
+
+
+60 # Factors( p_IsRationalFunction ) <--
+[
+    If(InVerboseMode(),Tell("Factors_ratFunc",p));
+    Local(num,den,fn,fd,f);
+    num := Numerator(p);
+    den := Denominator(p);
+    If(InVerboseMode(),Tell("   ",{num,den}));
+    fn  := Factors(num);
+    fd  := Factors(den);
+    If(Not IsListOfLists(fd), fd := {fd});
+    If(InVerboseMode(),Tell("       r ",{fn,fd}));
+    ForEach(f,fd)
+     [
+         DestructiveReplace(f,2,-f[2]);
+         DestructiveAppend(fn,f);
+     ];
+    fn;
+];
 
 100 # Factors( _p ) <--
 [
@@ -52,6 +108,7 @@ Retract("Factors",*);
     %output,preserve="false"
       Result: True
 .   %/output
+
 
 
 
@@ -94,8 +151,5 @@ Programmer: Yacas Team + Sherm Ostrowsky
 *SEE Factor, IsPrime, GaussianFactors
 %/mathpiper_docs
 
-    %output,preserve="false"
-      
-.   %/output
 
 
