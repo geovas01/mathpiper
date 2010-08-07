@@ -26,6 +26,8 @@ Retract("IsPureRational",*);
     Local(hasRealCoefficients,hasRationalCoefficients,isHomogeneous);
     
     moreDetails := False;
+    disassem  := DisassembleExpression(poly);
+    allCoeffs := disassem[3];
 
     //  First, check to see if the polynomial has any REAL coefficients.
     //  If so, convert to approximate integers (with divisor).
@@ -34,8 +36,6 @@ Retract("IsPureRational",*);
       [
          Local(realPoly);
          realPoly  := poly;   //  just in case -- save original form
-         disassem  := DisassembleExpression(poly);
-         allCoeffs := disassem[3];
          allPowers := Flatten(disassem[2],"List");
          poly      := RealToRationalConvert(poly);
       ]
@@ -56,7 +56,7 @@ Retract("IsPureRational",*);
     // Now: get Content and Primitive Part
     content := xContent( poly );
     pp      := Simplify( poly / content );
-    If(IsBound(extgraFactor),content := content / extraFactor);
+    If(IsBound(extraFactor),content := content / extraFactor);
     If(InVerboseMode(),Tell("   ",{content,pp}));
     //If(IsConstant(pp) And Length(VarList(content))>0,{content,pp}:={pp,content});
     If( Length(VarList(pp))=0, result := {{pp*content,1}},
