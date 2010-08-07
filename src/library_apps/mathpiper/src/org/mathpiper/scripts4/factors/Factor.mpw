@@ -2,27 +2,56 @@
 
 Retract("Factor",*);
 
-10 # Factor( p_CanBeUni ) <-- 
+10 # Factor( p_IsRational )_(Denominator(p) != 1) <--
 [
-    If(InVerboseMode(),Tell("in Factor",p));
+    If(InVerboseMode(),Tell("Factor_ratNum",p));
+    Local(fs,num,den,dent,n,d);
+    fs := Factors(p);
+    If(InVerboseMode(),Tell("   ",fs));
+    num := Select(fs,Lambda({X},X[2]>=0));
+    den := Select(fs,Lambda({X},X[2]<0));
+    If(InVerboseMode(),Tell("   ",{num,den}));
+    dent := Transpose(den);
+    dent[2] := -1 * dent[2];
+    den  := Transpose(dent);
+    If(InVerboseMode(),Tell("   ",{num,den}));
+    n  := FW(num);
+    d  := FW(den);
+    n/d;
+
+];
+
+
+12 # Factor( p_CanBeUni ) <-- 
+[
+    If(InVerboseMode(),Tell("Factor_uni",p));
     Local(facList);
     facList := Factors(p);
-    If(InVerboseMode(),[Tell("out Factor   ",facList);NewLine();]);
+    If(InVerboseMode(),[Tell("   ",facList);]);
     FW(facList);
 ];
 
 
-10 # Factor( p_IsRationalFunction ) <--
+20 # Factor( p_IsRationalFunction ) <--
 [
-    Local(fs,n,d);
+    If(InVerboseMode(),Tell("Factor_ratFunc",p));
+    Local(fs,num,den,dent,n,d);
     fs := Factors( p );
-    n  := FW(Numerator(fs));
-    d  := FW(Denominator(fs));
+    If(InVerboseMode(),Tell("  ",fs));
+    num := Select(fs,Lambda({X},X[2]>=0));
+    den := Select(fs,Lambda({X},X[2]<0));
+    If(InVerboseMode(),Tell("   ",{num,den}));
+    dent := Transpose(den);
+    dent[2] := -1 * dent[2];
+    den  := Transpose(dent);
+    If(InVerboseMode(),Tell("   ",{num,den}));
+    n  := FW(num);
+    d  := FW(den);
     n/d;
 ];
 
 
-10 # Factor( L_IsList ) <-- 
+30 # Factor( L_IsList ) <-- 
 [
     Local (result,x,f);
     result := {};
@@ -37,7 +66,7 @@ Retract("Factor",*);
 
 
 
-20 # Factor( _expr ) <-- expr;
+40 # Factor( _expr ) <-- expr;
 
 %/mathpiper
 
@@ -76,6 +105,9 @@ If {expr} is a multivariate polynomial, it may or may not be factorized by this
 function.  In general, {bivariate binomials} and {homogeneous bivariate polynomials}
 will be factored correctly.  Factoring of other types of multivariate polynomials
 is not yet fully implemented.
+    
+If {expr} is a Rational {function} (quotient of polynomials), it is decomposed into a
+quotient of irreducible factors divided by irreducible factors, but not in lowest terms.
     
 *E.G.
     In> n:=2*2*5*7*11^2
@@ -131,8 +163,27 @@ is not yet fully implemented.
     
     In> Factor(f)
     Result: (2*x-5*y)^2*(7*x+3*y)
+    
+    In> f:=(a*x-a*y)/a
+    Result: (a*x-a*y)/a
+ 
+    In> Factor(f)
+    Result: ((-1)*a*(y-x))/a
+    
+    NOTE:  If you want the result of Factor on a rational function to express
+    the answer in lowest terms (i.e., with cancellation), then use the function
+    FactorCancel() instead.
+    
+    In> FactorCancel(f)
+    Result: x-y
 
+ 
 *SEE FactorCancel,Factors
 
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
 

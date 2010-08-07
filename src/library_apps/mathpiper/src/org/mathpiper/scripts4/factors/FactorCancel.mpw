@@ -2,41 +2,49 @@
 
 Retract("FactorCancel",*);
 
-10 # FactorCancel( p_IsRationalFunction ) <--
+10 # FactorCancel( p_IsRational ) <-- Factor(p);
+
+15 # FactorCancel( p_IsRationalFunction ) <--
 [
-    //Tell(FactorCancel,p);
-    Local(pp,n,d,fn,fd,f,tnu,newn,newd,s,k);
-    pp := Simplify(p);
-    //Tell("   ",pp);
-    If ( IsRationalFunction(pp),
-       [
-           n  := Numerator(pp);
-           d  := Denominator(pp);
-           fn := Factors(n);
-           fd := Factors(d);
-    
-           ForEach(f,fd) [ DestructiveAppend(fn,{f[1],-f[2]}); ];
-           tnu := RemoveDuplicates(Transpose(fn)[1]);
-           newn := {};
-           newd := {};
-           ForEach(f,tnu)
-           [
-              s := Select(fn,Lambda({X},X[1]=f));
-              k := Sum(Transpose(s)[2]);
-              If( k > 0, DestructiveAppend(newn,{f,k}) );
-              If( k < 0, DestructiveAppend(newd,{f,-k}) );
-           ];
-           FW(newn)/FW(newd);
-       ],
-       [
-           pp;
-       ]
-    );
+    If(InVerboseMode(),Tell(FactorCancel,p));
+    Local(pp,ff,n,d,fn,fd,f,tnu,newn,newd,s,k);
+    pp   := Simplify(p);
+    If(InVerboseMode(),Tell("  ",pp));
+    ff   := Factors(pp);
+    If(InVerboseMode(),Tell("  ",ff));
+    tnu  := {ff[1]};
+    If(IsListOfLists(ff), tnu  := RemoveDuplicates(Transpose(ff)[1]));
+    newn := {};
+    newd := {};
+    If(InVerboseMode(),Tell("      ",tnu));
+    ForEach(f,tnu)
+    [
+       s := Select(ff,Lambda({X},X[1]=f));
+       If(InVerboseMode(),Tell("      ",{f,s}));
+       If( s != {},
+         [
+            k := Sum(Transpose(s)[2]);
+            If(InVerboseMode(),Tell("      ",{s,k}));
+            If( k > 0, DestructiveAppend(newn,{f,k}) );
+            If( k < 0, DestructiveAppend(newd,{f,-k}) );
+         ],
+         [
+            k := 1;
+            DestructiveAppend(newn,{f,k});
+         ]
+       );
+    ];
+    If(InVerboseMode(),Tell("    ",{newn,newd}));
+    FW(newn)/FW(newd);
 ];
 
-15 # FactorCancel( _p ) <-- p;
+20 # FactorCancel( _p ) <-- Factor(p);
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
    
    
