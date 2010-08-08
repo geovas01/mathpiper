@@ -6,8 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -18,30 +17,37 @@ import javax.swing.JTextField;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import org.mathpiper.interpreters.EvaluationResponse;
+import org.mathpiper.interpreters.Interpreter;
+import org.mathpiper.interpreters.Interpreters;
+import org.mathpiper.lisp.Utility;
 import org.scilab.forge.jlatexmath.JMathTeXException;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
 
-public class LatexComponent extends JPanel implements MouseListener {
+public class LatexComponent extends JPanel implements RenderingComponent, MouseListener {
 
     private TeXFormula texFormula;
     private JLabel renderedResult;
-    private JTextField codeResult;
-    private JTextField latexResult;
+    private JTextField inputTextField;
     private String resultString;
     private String latexString;
     private int toggle = 0;
     private SpinButton spinButton;
     private GoAwayButton goAwayButton;
     private int fontPointSize;
+    private boolean latexMode = false;
+    private final GraphicConsole console;
 
 
-    public LatexComponent(int fontPointSize) {
+    public LatexComponent(int fontPointSize, GraphicConsole console) {
+
+        this.console = console;
 
         this.fontPointSize = fontPointSize;
 
-        this.latexString = "x";
+        this.latexString = "\\square";
 
 
 
@@ -75,42 +81,43 @@ public class LatexComponent extends JPanel implements MouseListener {
                 );
 
 
-        latexResult = new JTextField(10);
-        latexResult.setAlignmentY(.7f);
-        latexResult.setEditable(true);
-        latexResult.setBackground(Color.white);
-        Font newFontSize = new Font(latexResult.getFont().getName(), latexResult.getFont().getStyle(), fontPointSize);
-        latexResult.setFont(newFontSize);
-        latexResult.setMaximumSize(latexResult.getPreferredSize());
-        latexResult.addActionListener(new ActionListener() {
+        inputTextField = new JTextField(10);
+        inputTextField.setAlignmentY(.7f);
+        inputTextField.setEditable(true);
+        inputTextField.setBackground(Color.white);
+        Font newFontSize = new Font(inputTextField.getFont().getName(), inputTextField.getFont().getStyle(), fontPointSize);
+        inputTextField.setFont(newFontSize);
+        inputTextField.setMaximumSize(inputTextField.getPreferredSize());
+        inputTextField.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
+                //The enter key was pressed in the inputTextField.
                 removeAll();
                 add(renderedResult);
+                LatexComponent.this.console.giveFocus();
             }//end method.
 
         });
 
-        latexResult.getDocument().addDocumentListener(new DocumentListener() {
+        inputTextField.getDocument().addDocumentListener(new DocumentListener() {
 
             public void changedUpdate(DocumentEvent e) {
-
             }
 
 
             public void insertUpdate(DocumentEvent e) {
-                editLatex();
+                editCode();
             }
 
 
             public void removeUpdate(DocumentEvent e) {
-                editLatex();
+                editCode();
             }
 
         });
 
 
-        latexResult.repaint();
+        inputTextField.repaint();
 
 
         this.setBackground(Color.white);
@@ -139,7 +146,7 @@ public class LatexComponent extends JPanel implements MouseListener {
 
             public void actionPerformed(ActionEvent evt) {
                 //LatexComponent.this.goAway();
-                System.out.println(latexResult.getText());
+                //System.out.println(inputTextField.getText());
             }//end method.
 
         });
@@ -150,37 +157,43 @@ public class LatexComponent extends JPanel implements MouseListener {
 
 
         this.add(renderedResult);
-        this.add(latexResult);
+        this.add(inputTextField);
+
+
+        this.setFocusable(true);
 
 
     }//end constructor.
 
 
+    public void giveFocus()
+    {
+        inputTextField.requestFocusInWindow();
+    }
+
+
     public void setScale(int scaleValue) {
 
-        TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, scaleValue);
+        this.fontPointSize = scaleValue;
+
+        TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontPointSize);
         renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         renderedResult.setAlignmentY(icon.getBaseLine());
         renderedResult.setIcon(icon);
         renderedResult.repaint();
 
 
-        Font newFontSize = new Font(codeResult.getFont().getName(), codeResult.getFont().getStyle(), scaleValue);
-        codeResult.setFont(newFontSize);
-        codeResult.setMaximumSize(codeResult.getPreferredSize());
-        codeResult.repaint();
 
-
-        newFontSize = new Font(latexResult.getFont().getName(), latexResult.getFont().getStyle(), scaleValue);
-        latexResult.setFont(newFontSize);
-        latexResult.setMaximumSize(latexResult.getPreferredSize());
-        latexResult.repaint();
+        Font newFontSize = new Font(inputTextField.getFont().getName(), inputTextField.getFont().getStyle(), fontPointSize);
+        inputTextField.setFont(newFontSize);
+        inputTextField.setMaximumSize(inputTextField.getPreferredSize());
+        inputTextField.repaint();
 
     }//end method.
 
 
     void eventOutput(String eventDescription, MouseEvent e) {
-        System.out.println(eventDescription + " detected on " + e.getComponent().getClass().getName() + ".");
+        //System.out.println(eventDescription + " detected on " + e.getComponent().getClass().getName() + ".");
 
     }
 
@@ -217,7 +230,7 @@ public class LatexComponent extends JPanel implements MouseListener {
         this.removeAll();
 
         this.add(renderedResult);
-        this.add(latexResult);
+        this.add(inputTextField);
 
         this.revalidate();
         this.repaint();
@@ -235,21 +248,83 @@ public class LatexComponent extends JPanel implements MouseListener {
     }
 
 
-    public void editLatex()
+    public boolean isLatexMode() {
+        return latexMode;
+    }
+
+
+    public void setLatexMode(boolean latexMode) {
+        this.latexMode = latexMode;
+    }
+
+
+    
+
+
+    public void editCode() {
+
+        if (this.latexMode) {
+
+            latexString = inputTextField.getText();
+        } else {
+            Interpreter mathPiperInterpreter = Interpreters.getSynchronousInterpreter();
+
+            String mathPiperCode = inputTextField.getText();
+            EvaluationResponse response = mathPiperInterpreter.evaluate("TeXForm(" + mathPiperCode + ");");
+
+            if (response.isExceptionThrown()) {
+                return;
+            }
+
+            latexString = response.getResult();
+
+            if(latexString.equals("TeXForm()"))
+            {
+                latexString = "\\square";
+            }
+            
+            try{
+
+            latexString = Utility.stripEndQuotes(latexString);
+
+            latexString = Utility.stripEndDollarSigns(latexString);
+            }
+            catch(Exception e)
+            {
+
+            }
+        }
+
+        //System.out.println(latexString);
+
+        TeXFormula texFormula2 = null;
+        try {
+            texFormula2 = new TeXFormula(latexString);
+            TeXIcon icon = texFormula2.createTeXIcon(TeXConstants.STYLE_DISPLAY, this.fontPointSize);
+            renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+            renderedResult.setAlignmentY(icon.getBaseLine());
+            renderedResult.setIcon(icon);
+            renderedResult.repaint();
+            
+            
+            texFormula = texFormula2;
+        } catch (Exception ex) {
+        }
+
+    }
+
+
+
+    public String toString()
     {
-                latexString = latexResult.getText();
-
-                System.out.println(latexString);
-
-                TeXFormula texFormula2 = null;
-                try {
-                    texFormula2 = new TeXFormula(latexString);
-                    TeXIcon icon = texFormula2.createTeXIcon(TeXConstants.STYLE_DISPLAY, 18);
-                    renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-                    renderedResult.setAlignmentY(icon.getBaseLine());
-                    renderedResult.setIcon(icon);
-                } catch (Exception ex) {
-                }
+        if(latexMode)
+        {
+            return this.latexString;
+        }
+        else
+        {
+            return this.inputTextField.getText();
+        }
     }
 
 }//end class.

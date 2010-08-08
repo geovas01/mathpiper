@@ -23,6 +23,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
@@ -71,7 +73,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
 
-public class GraphicConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {
+public class GraphicConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, FocusListener, MathPiperOutputStream {
 
     ResultHolder resultHolder;
     private boolean suppressOutput = false;
@@ -500,6 +502,26 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                 line = textPane.getText(lineStartOffset, lineEndOffset - lineStartOffset);
 
+
+                if (line.startsWith("In>")) {
+                    //Check for a RenderingComponent in the input line.
+                    int lineIndex = 3;
+                    for (int lineOffsetIndex = lineStartOffset + 3; lineOffsetIndex < lineEndOffset; lineOffsetIndex++) {
+                        Element element = textPane.getStyledDocument().getCharacterElement(lineOffsetIndex);
+                        if (element.isLeaf()) {
+                            Object object = element.getAttributes().getAttribute(StyleConstants.ComponentAttribute);
+
+                            if (object instanceof LatexComponent) {
+                                line = line.subSequence(0, lineIndex) + " " + object.toString() + " " + line.substring(lineIndex);
+
+                                System.out.println(line);
+                            }
+                        }
+                        lineIndex++;
+                    }//end for
+                }
+
+
                 if (line.startsWith("In>") && line.substring(3).trim().equals("")) {
                 } else if (line.startsWith("In>")) {
 
@@ -764,7 +786,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                         StyledDocument doc = (StyledDocument) textPane.getDocument();
 
-                        Style style = doc.addStyle("StyleName", null);
+                        Style style = doc.addStyle("RenderingComponent", null);
 
 
 
@@ -1188,12 +1210,33 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         insertLatex.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                textPane.insertComponent(new LatexComponent(GraphicConsole.this.fontSize));
+                textPane.insertComponent(new LatexComponent(GraphicConsole.this.fontSize + GraphicConsole.this.resultHolderAdjustment, GraphicConsole.this) );
             }
 
         });
         insertLatex.setText("Insert LaTeX");
         //menu.add(insertLatex);
+
+
+
+        final JMenuItem insertMathPiperCode = new JMenuItem("Insert MathPiper Code Renderer");
+        insertMathPiperCode.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+
+                LatexComponent codeComponent = new LatexComponent(GraphicConsole.this.fontSize + GraphicConsole.this.resultHolderAdjustment, GraphicConsole.this);
+
+                codeComponent.setLatexMode(false);
+
+                textPane.insertComponent(codeComponent);
+
+                codeComponent.giveFocus();
+
+            }
+
+        });
+        insertMathPiperCode.setText("Insert MathPiper Code Renderer");
+        menu.add(insertMathPiperCode);
 
 
 
@@ -1205,6 +1248,17 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
     public void giveFocus() {
         textPane.requestFocusInWindow();
+    }
+
+
+    public void focusGained(FocusEvent e) {
+    }
+
+
+    public void focusLost(FocusEvent e) {
+        if (e.getSource() instanceof RenderingComponent) {
+            giveFocus();
+        }
     }
 
 
