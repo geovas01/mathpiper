@@ -8,6 +8,7 @@
 //Rulebase("IntegrateMultiplicative",{var,from,a,b});
 
 Retract("AntiDeriv",*);
+Retract("IntFunc",*);
 
 
 ////////////////////////////////////////////////
@@ -226,6 +227,8 @@ IntFunc(x,1/((_x)*Ln(_x)),Ln(Ln(x)));
 IntFunc(x,(_x)^(-1),Ln(x));
 
 IntFunc(x,(_x)^(n_IsFreeOf(x)),x^(n+1)/(n+1));
+IntFunc(x,C_IsFreeOf(x)*(_x)^(n_IsFreeOf(x)),C*x^(n+1)/(n+1));
+IntFunc(x,C_IsFreeOf(x)/(D_IsFreeOf(x)*(_x)^(n_IsFreeOf(x))),(C/D)*x^(1-n)/(1-n));
 IntFunc(x,Sinh(_x),Cosh(x));
 IntFunc(x,Sinh(_x)^2,Sinh(2*x)/4 - x/2);
 IntFunc(x,1/Sinh(_x),Ln(Tanh(x/2)));
