@@ -7,6 +7,9 @@
 //hso:but the Rulebase line causes hang when processing in fold
 //Rulebase("IntegrateMultiplicative",{var,from,a,b});
 
+Retract("AntiDeriv",*);
+
+
 ////////////////////////////////////////////////
 //
 // Anti-derivative of a univariate polynomial
@@ -174,6 +177,7 @@ IntPureSquare(_vr,_from,_sign2,_sign0,_to) <--
 
 
 IntFunc(x,Sqrt(_x),(2*Sqrt(x)^(3))/3);
+IntFunc(x,1/Sqrt(_x),2*Sqrt(x));
 IntFunc(x,1/_x^(_n),x^(1-n)/(1-n) );
 IntFunc(x,Sin(_x),-Cos(x));
 IntFunc(x,1/Sin(_x), Ln( 1/Sin(x) - Cos(x)/Sin(x) ) );
@@ -270,3 +274,9 @@ IntFunc(x,Erf(_x), x*Erf(x)+ 1/(Exp(x^2)*Sqrt(Pi)) );
 UnFence("IntegrateMultiplicative",4);
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
