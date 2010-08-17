@@ -411,7 +411,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                     int lineStartOffset = textPane.getLineStartOffset(lineNumber);
                     int lineEndOffset = textPane.getLineEndOffset(lineNumber);
 
-                    textPane.replaceRange("In> " + (String) history.get((history.size() - 1) - historyIndex), lineStartOffset, lineEndOffset);
+                    textPane.replaceRange("In> " + (String) history.get((history.size() - 1) - historyIndex) + "\n", lineStartOffset, lineEndOffset);
+
+                    textPane.setCaretPosition(textPane.getLineEndOffset(lineNumber) - 1);
 
                 } catch (BadLocationException ble) {
                     //Eat exception.
@@ -448,7 +450,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                     int lineStartOffset = textPane.getLineStartOffset(lineNumber);
                     int lineEndOffset = textPane.getLineEndOffset(lineNumber);
 
-                    textPane.replaceRange("In> " + (String) history.get((history.size() - 1) - historyIndex), lineStartOffset, lineEndOffset);
+                    textPane.replaceRange("In> " + (String) history.get((history.size() - 1) - historyIndex) + "\n", lineStartOffset, lineEndOffset);
+
+                    textPane.setCaretPosition(textPane.getLineEndOffset(lineNumber) - 1);
 
                 } catch (BadLocationException ble) {
                     //Eat exception.
@@ -460,7 +464,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                     int lineStartOffset = textPane.getLineStartOffset(lineNumber);
                     int lineEndOffset = textPane.getLineEndOffset(lineNumber);
 
-                    textPane.replaceRange("In> ", lineStartOffset, lineEndOffset);
+                    textPane.replaceRange("In> \n", lineStartOffset, lineEndOffset);
+
+                    textPane.setCaretPosition(textPane.getLineEndOffset(lineNumber) - 1);
 
                     this.historyIndex = -1;
 
