@@ -548,14 +548,9 @@
 	<target name="dist_windows" depends=""
 		description="zips the application for distribution." >
 
-		<jar jarfile="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh"
-		 whenmanifestonly="skip" >
-			<manifest> 
-				<section name="MathPiperIDE" >
-					<attribute name="Build-Date" value="${build.time}"/>
-				</section>
-			</manifest>
-		</jar>
+		<zip zipfile="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh" >
+
+		</zip>
 		
 		<!-- Make jre version. -->
 		
