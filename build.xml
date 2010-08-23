@@ -548,7 +548,7 @@
 	<target name="dist_windows" depends=""
 		description="zips the application for distribution." >
 
-		<zip zipfile="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh" >
+		<zip zipfile="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh" >
 		</zip>
 		
 		<zip zipfile="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip" update="true" >
@@ -589,7 +589,7 @@
 		 <arg value="--exclude=windows"/>
 		 <arg value="--exclude=win_run.bat"/>
 		    <arg value="-cf"/>
-		    <arg value="${dist.build.dir}/mathpiperide_unix_mac_dist_v${version}_beta.tar.bz2"/>
+		    <arg value="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_beta.tar.bz2"/>
 		   <arg value="-C"/>
 		    <arg value="${master.build.dir}"/>
 		    <arg value="mathpiperide"/>
@@ -603,13 +603,13 @@
 	<target name="*dist" depends="clean, *mathpiperide, all-plugins-dist, dist_clean, dist_unix_mac, dist_windows" >
 		
 		
-		<exec executable="md5sum"  output ="${dist.build.dir}/mathpiperide_unix_mac_dist_v${version}_beta.tar.bz2.md5" >
-			 <arg value="${dist.build.dir}/mathpiperide_unix_mac_dist_v${version}_beta.tar.bz2"/>
+		<exec executable="md5sum"  output ="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_beta.tar.bz2.md5" >
+			 <arg value="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_beta.tar.bz2"/>
 			
 		</exec>
 		
-		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip.md5" >
-			 <arg value="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip"/>
+		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_beta.zip.md5" >
+			 <arg value="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_beta.zip"/>
 		 </exec>
 		 
 		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip.md5" >
