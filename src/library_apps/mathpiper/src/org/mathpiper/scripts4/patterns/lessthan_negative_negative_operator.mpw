@@ -32,10 +32,15 @@ fn(_arg1, _arg2) <-- expression
 fn(arg1_PredicateFunction, _arg2) <-- expression
 fn(arg1_PredicateFunction, arg2_PredicateFunction) <-- expression
 fn(arg1_PredicateFunction, arg2_PredicateFunction)_(PredicateExpression) <-- expression
+_arg1 operator _arg2 <-- expression
+arg1_PredicateFunction operator _arg2 <-- expression
+arg1_PredicateFunction operator arg2_PredicateFunction <-- expression
+arg1_PredicateFunction operator arg2_PredicateFunction_(PredicateExpression) <-- expression
 
 *PARMS
 
-{var} -- a variable
+{arg} -- an expression
+{operator} -- an operator
 
 *DESC
 Mathematical calculations require versatile transformations on symbolic quantities.
