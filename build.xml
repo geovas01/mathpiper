@@ -549,7 +549,15 @@
 		description="zips the application for distribution." >
 
 		<zip zipfile="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh" >
-
+		</zip>
+		
+		<zip zipfile="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip" update="true" >
+		   <fileset dir="${basedir}" >
+			<include name="src/**" />
+			<include name="lib/**" />
+			<include name="build.xml" />
+		   </fileset>
+	
 		</zip>
 		
 		<!-- Make jre version. -->
@@ -602,6 +610,10 @@
 		
 		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip.md5" >
 			 <arg value="${dist.build.dir}/mathpiperide_windows_dist_v${version}_beta.zip"/>
+		 </exec>
+		 
+		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip.md5" >
+			 <arg value="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip"/>
 		 </exec>
 		
 	</target>	
