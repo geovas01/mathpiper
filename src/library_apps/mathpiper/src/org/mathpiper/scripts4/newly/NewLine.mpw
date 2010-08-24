@@ -2,10 +2,16 @@
 
 Retract("NewLine",*);
 
-NewLine()  <-- WriteN(Nl(),1);
-NewLine(n_IsPositiveInteger) <--  WriteN(Nl(),n);
+10 # NewLine()  <-- WriteN(Nl(),1);
+20 # NewLine(n_IsPositiveInteger) <--  WriteN(Nl(),n);
+30 # NewLine(_n) <-- Check(False,"The argument must be a positive integer  ");
+
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
