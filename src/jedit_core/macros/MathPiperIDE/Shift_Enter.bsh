@@ -698,33 +698,24 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				//result = abcl.eval(sendString);
 				response = abcl.eval(codeText);
 				
-			if(response instanceof org.armedbear.lisp.LispObject)
-			{
-				org.armedbear.lisp.LispObject lispObject = (org.armedbear.lisp.LispObject) response;
-				String responseString = lispObject.writeToString();
-				responseString = responseString.replaceAll("ABCL-SCRIPT-USER::","");
-				result = responseString;
-			}
-			else
-			{
-				result=response.toString();
-			}
-			
-				output_fold_type = "%output";
-				//System.out.println(
+				if(response instanceof org.armedbear.lisp.LispObject)
+				{
+					org.armedbear.lisp.LispObject lispObject = (org.armedbear.lisp.LispObject) response;
+					String responseString = lispObject.writeToString();
+					responseString = responseString.replaceAll("ABCL-SCRIPT-USER::","");
+					result = responseString;
+				}
+				else
+				{
+					result=response.toString();
+				}
 				
-					
-			
+				output_fold_type = "%output";
+				
 			
 			}catch(Throwable e) 
 			{
-				//result = e.toString();
-				//e.printStackTrace();
-				
-				cause = (org.armedbear.lisp.ConditionThrowable) e.getCause().getCause();
-				condition = cause.getCondition();
-				//System.out.println("condition: " + condition.writeToString() +"  report: " + condition.getConditionReport() );
-				result = condition.getConditionReport();
+				result = e.getCondition().getMessage();
 				
 				output_fold_type = "%error ";
 			}
