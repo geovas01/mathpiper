@@ -52,7 +52,7 @@ Result> 120
 In> Permutations(10,3)
 Result> 720
 
-*SEE PermutationsList, Combinations, LeviCivita
+*SEE PermutationsList, Combinations, CombinationsList, LeviCivita
 %/mathpiper_docs
 
 
