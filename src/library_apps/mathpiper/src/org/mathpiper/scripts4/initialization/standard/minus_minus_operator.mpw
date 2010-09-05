@@ -3,6 +3,8 @@
 Function("--",{aVar})
 [
    MacroBind(aVar,SubtractN(Eval(aVar),1));
+
+   Eval(aVar);
 ];
 
 UnFence("--",1);
@@ -28,20 +30,17 @@ HoldArgument("--",aVar);
 
 The variable with name "var" is decremented, i.e. the number 1 is
 subtracted from it. The expression {x--} is
-equivalent to the assignment {x := x - 1}, except
-that the assignment returns the new value of {x}
-while {x--} always returns true. In this respect,
-MathPiper' {--} differs from the corresponding operator
-in the programming language C.
+equivalent to the assignment {x := x - 1}.
 
 *E.G.
+In> x := 5;
+Result: 5;
 
-	In> x := 5;
-	Result: 5;
-	In> x--;
-	Result: True;
-	In> x;
-	Result: 4;
+In> x--;
+Result: 4;
+
+In> x;
+Result: 4;
 
 *SEE ++, :=
 %/mathpiper_docs
