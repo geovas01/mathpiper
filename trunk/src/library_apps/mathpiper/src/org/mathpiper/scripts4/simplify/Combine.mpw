@@ -2,7 +2,9 @@
 
 Retract("Combine",*);
 
-Combine(_expr) <-- 
+10 # Combine(expr_IsZero) <-- 0;
+
+20 # Combine(_expr) <-- 
 [
     Local(L);
     L := ReassembleListTerms(DisassembleExpression(expr));
