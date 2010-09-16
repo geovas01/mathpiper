@@ -25,9 +25,9 @@ Rule("Degree",1,0, IsUniVar(expr))
     Local(ex,pwr,deg);
     ex  := FunctionToList(poly)[3];
     pwr := 1/ex;
-    Tell("     ",{ex,pwr});
+    //Tell("     ",{ex,pwr});
     deg := Degree(poly^pwr,var);
-    Tell("     ",deg);
+    //Tell("     ",deg);
     deg*ex;
 ];
 
