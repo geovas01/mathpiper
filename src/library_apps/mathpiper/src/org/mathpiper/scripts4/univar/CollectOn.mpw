@@ -1,4 +1,4 @@
-%mathpiper,title="CollectOn"
+%mathpiper,def="CollectOn"
 
 //:::  Collect terms of a polynomial-like expression on powers of var,
 //     starting with power 0.
