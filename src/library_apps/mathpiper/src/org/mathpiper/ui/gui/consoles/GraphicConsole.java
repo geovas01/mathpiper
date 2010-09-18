@@ -33,6 +33,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Stack;
 import javax.swing.text.Element;
 import javax.swing.Box;
@@ -41,7 +48,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -112,6 +122,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private JRadioButton symbolicModeButton;
     private ButtonGroup resultModeGroup;
     private boolean numericResultMode = false;
+    private JMenuBar menuBar;
+    private JFileChooser fileChooser;
     private String helpMessage =
             "Enter an expression after any In> prompt and press <enter> or <shift><enter> to evaluate it.\n\n" +
             "Type In> on the left end of any line to create your own input prompt.\n\n" +
@@ -131,6 +143,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         this.setLayout(new BorderLayout());
 
         //keySendQueue = new java.util.concurrent.ArrayBlockingQueue(30);
+
+
 
         consoleButtons = new JPanel();
         consoleButtons.setLayout(new BoxLayout(consoleButtons, BoxLayout.X_AXIS));
@@ -258,7 +272,6 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         //consoleButtons.add(testButton);
 
 
-
         this.add(consoleButtons, BorderLayout.NORTH);
 
         this.rawOutputPanel.add(rawButtons, BorderLayout.NORTH);
@@ -277,8 +290,11 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         this.add(splitPane);
 
 
-
         this.addPopupMenu();
+
+        this.fileChooser = new JFileChooser();
+
+        this.menuBar = new MenuBar();
 
 
     }//Constructor.
@@ -933,7 +949,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
     }//end method.
 
-    public class ColorPane extends JTextPane {
+    class ColorPane extends JTextPane {
 
         public ColorPane() {
             super();
@@ -1174,6 +1190,11 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     }//end method.
 
 
+    public JMenuBar getMenuBar() {
+        return menuBar;
+    }
+
+
     private void addPopupMenu() {
         final JPopupMenu menu = new JPopupMenu();
 
@@ -1216,7 +1237,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         insertLatex.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                textPane.insertComponent(new LatexComponent(GraphicConsole.this.fontSize + GraphicConsole.this.resultHolderAdjustment, GraphicConsole.this) );
+                textPane.insertComponent(new LatexComponent(GraphicConsole.this.fontSize + GraphicConsole.this.resultHolderAdjustment, GraphicConsole.this));
             }
 
         });
@@ -1280,6 +1301,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         frame.setTitle("Graphic Console");
         //frame.setResizable(false);
 
+        frame.setJMenuBar(console.getMenuBar());
+
 
         //Make textField get the focus whenever frame is activated.
         frame.addWindowFocusListener(new WindowAdapter() {
@@ -1295,5 +1318,186 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         frame.pack();
         frame.setVisible(true);
     }//end main.
+
+    class MenuBar extends JMenuBar {
+
+        public MenuBar() {
+
+
+            JMenu fileMenu = new JMenu("File");
+            JMenu editMenu = new JMenu("Edit");
+            add(fileMenu);
+            add(editMenu);
+
+
+            JMenuItem newAction = new JMenuItem("New");
+            newAction.setText("New");
+            newAction.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent ae) {
+                }
+
+            });
+
+
+            JMenuItem openAction = new JMenuItem();
+            openAction.setText("Open");
+            openAction.addActionListener(new FileOperationListener());
+            fileMenu.add(openAction);
+
+            JMenuItem saveAction = new JMenuItem();
+            saveAction.setText("Save");
+            saveAction.addActionListener(new FileOperationListener());
+            fileMenu.add(saveAction);
+
+            //JMenuItem exitAction = new JMenuItem("Exit");
+            //fileMenu.add(exitAction);
+
+            JMenuItem copyAction = new JMenuItem();
+            copyAction.setAction(textPane.getActionMap().get(DefaultEditorKit.copyAction));
+            copyAction.setText("Copy");
+            editMenu.add(copyAction);
+
+            JMenuItem cutAction = new JMenuItem();
+            cutAction.setAction(textPane.getActionMap().get(DefaultEditorKit.cutAction));
+            cutAction.setText("Cut");
+            editMenu.add(cutAction);
+
+            JMenuItem pasteAction = new JMenuItem();
+            pasteAction.setAction(textPane.getActionMap().get(DefaultEditorKit.pasteAction));
+            pasteAction.setText("Paste");
+            editMenu.add(pasteAction);
+
+
+
+            /*
+            JCheckBoxMenuItem checkAction = new JCheckBoxMenuItem("Check Action");
+
+            JRadioButtonMenuItem radioAction1 = new JRadioButtonMenuItem(
+            "Radio Button1");
+            JRadioButtonMenuItem radioAction2 = new JRadioButtonMenuItem(
+            "Radio Button2");
+
+            ButtonGroup bg = new ButtonGroup();
+            bg.add(radioAction1);
+            bg.add(radioAction2);
+            fileMenu.add(newAction);
+            fileMenu.add(checkAction);
+            fileMenu.addSeparator();
+            editMenu.addSeparator();
+            editMenu.add(radioAction1);
+            editMenu.add(radioAction2);
+             */
+
+
+
+        }//end constructor.
+
+    }//end class.
+
+    class FileOperationListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+            int retVal;
+            boolean exists;
+
+            //set the current directory to the application's current directory
+            try {
+                //create a file object containing the cannonical path of the desired file
+                File f = new File(new File("mpconsole.txt").getCanonicalPath());
+                //set the selected file
+                fileChooser.setSelectedFile(f);
+            } catch (IOException ex3) {
+                ex3.printStackTrace();
+            }
+
+
+
+            if (command.equals("Save")) {
+                //show the dialog; wait until dialog is closed
+                retVal = fileChooser.showSaveDialog(null);
+                //Approve(Save was clicked)
+                if (retVal == JFileChooser.APPROVE_OPTION) {
+                    //get the currently selected file
+                    File thefile = fileChooser.getSelectedFile();
+                    String nameOfFile = "";
+                    nameOfFile = thefile.getPath();
+                    //check if the file exists
+                    exists = (new File(nameOfFile)).exists();
+                    if (!exists) {
+                        System.out.println("Does not exist");
+                        //If the file does not already exist, it is automatically created.
+                        try {
+                            BufferedWriter out = new BufferedWriter(new FileWriter(nameOfFile));
+                            out.write(textPane.getText());
+                            out.close();
+                        } catch (IOException ex1) {
+                            ex1.printStackTrace();
+                        }
+                    } else {
+                        //System.out.println(" Exists");
+                        //Save over a file.
+                        try {
+                            BufferedWriter out = new BufferedWriter(new FileWriter(nameOfFile, false));
+                            out.write(textPane.getText());
+                            out.close();
+                        } catch (IOException ex2) {
+                        }
+                    }//end else.
+
+                    if (thefile != null) {
+                        if (thefile.isDirectory()) {
+                            JOptionPane.showMessageDialog(null, "You chose this directory: " + thefile.getPath());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "You chose this file: " + thefile.getPath());
+
+                            //to append to the existing file
+                            //out = new FileOutputStream(theFile, true);
+                        }
+                    }
+                } else if (retVal == JFileChooser.CANCEL_OPTION) {
+                    //Cancel or the close dialog icon was clicked
+                    JOptionPane.showMessageDialog(null, "User cancelled operation. No file was chosen.");
+                } else if (retVal == JFileChooser.ERROR_OPTION) {
+                    //The selected process did not complete successfully
+                    JOptionPane.showMessageDialog(null, "An error occured. No file was chosen.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Unknown operation occured.");
+                }
+            } else if (command.equals("Open")) {
+                retVal = fileChooser.showOpenDialog(null);
+                //Approve(Save was clicked)
+                if (retVal == JFileChooser.APPROVE_OPTION) {
+
+                    String filePath = fileChooser.getSelectedFile().getPath();
+                    try {
+                        FileInputStream fr = new FileInputStream(filePath);
+                        InputStreamReader isr = new InputStreamReader(fr, "UTF-8");
+                        BufferedReader reader = new BufferedReader(isr);
+                        StringBuffer buffer = new StringBuffer();
+
+                        String line = null;
+                        while ((line = reader.readLine()) != null) {
+                            buffer.append(line + "\n");
+                        }
+
+                        reader.close();
+
+                        textPane.setText(buffer.toString());
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                }
+
+            }//end else if.
+
+
+
+        }//end of ActionPerformed method
+
+    }//end of action listener
+
 }//end class.
 
