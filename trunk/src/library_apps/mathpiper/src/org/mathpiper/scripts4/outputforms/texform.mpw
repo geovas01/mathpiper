@@ -143,7 +143,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
   {
     {"+"," + "},
     {"-"," - "},
-    {"*"," "},
+    {"*"," \\cdot "},
     {":="," := "}, //\\equiv "},
     {"=="," = "},
     {"="," = "},
