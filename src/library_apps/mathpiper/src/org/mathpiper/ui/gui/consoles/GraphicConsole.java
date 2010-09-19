@@ -16,11 +16,14 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.ui.gui.consoles;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -37,6 +40,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -50,6 +54,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -272,7 +277,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         //consoleButtons.add(testButton);
 
 
-        this.add(consoleButtons, BorderLayout.NORTH);
+        
 
         this.rawOutputPanel.add(rawButtons, BorderLayout.NORTH);
 
@@ -294,7 +299,24 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         this.fileChooser = new JFileChooser();
 
+
+        JPanel menuAndToolPanel = new JPanel();
+
+        menuAndToolPanel.setLayout(new BoxLayout(menuAndToolPanel, BoxLayout.Y_AXIS));
+
+
         this.menuBar = new MenuBar();
+
+
+        /*consoleButtons.setBorder(BorderFactory.createCompoundBorder(
+                   BorderFactory.createLineBorder(Color.red),
+                   consoleButtons.getBorder()));*/
+
+        menuAndToolPanel.add(menuBar);
+        
+        menuAndToolPanel.add(consoleButtons);
+
+        this.add(menuAndToolPanel, BorderLayout.NORTH);
 
 
     }//Constructor.
@@ -1301,7 +1323,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         frame.setTitle("Graphic Console");
         //frame.setResizable(false);
 
-        frame.setJMenuBar(console.getMenuBar());
+        //frame.setJMenuBar(console.getMenuBar());
 
 
         //Make textField get the focus whenever frame is activated.
@@ -1322,6 +1344,15 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     class MenuBar extends JMenuBar {
 
         public MenuBar() {
+
+            //setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+
+            FlowLayout layout = new FlowLayout();
+
+            layout.setAlignment(FlowLayout.LEFT);
+
+            this.setLayout(layout);
+
 
 
             JMenu fileMenu = new JMenu("File");
@@ -1393,6 +1424,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         }//end constructor.
 
+
     }//end class.
 
     class FileOperationListener implements ActionListener {
@@ -1405,7 +1437,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             //set the current directory to the application's current directory
             try {
                 //create a file object containing the cannonical path of the desired file
-                File f = new File(new File("mpconsole.txt").getCanonicalPath());
+                File f = new File(new File("untitled.txt").getCanonicalPath());
                 //set the selected file
                 fileChooser.setSelectedFile(f);
             } catch (IOException ex3) {
@@ -1445,7 +1477,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         } catch (IOException ex2) {
                         }
                     }//end else.
-
+                    /*
                     if (thefile != null) {
                         if (thefile.isDirectory()) {
                             JOptionPane.showMessageDialog(null, "You chose this directory: " + thefile.getPath());
@@ -1455,7 +1487,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                             //to append to the existing file
                             //out = new FileOutputStream(theFile, true);
                         }
-                    }
+                    }*/
                 } else if (retVal == JFileChooser.CANCEL_OPTION) {
                     //Cancel or the close dialog icon was clicked
                     JOptionPane.showMessageDialog(null, "User cancelled operation. No file was chosen.");
@@ -1485,7 +1517,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         reader.close();
 
                         textPane.setText(buffer.toString());
-                    } catch (IOException ex) {
+                    } catch (FileNotFoundException ex) {
+                        JOptionPane.showMessageDialog(null, "The file was not found.");
+                    }catch (IOException ex) {
                         ex.printStackTrace();
                     }
 
