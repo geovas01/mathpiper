@@ -46,7 +46,7 @@
 		<pathelement path="${master.lib.dir}/jars/SideKick.jar" />
 		<pathelement path="${master.lib.dir}/jars/Console.jar" />
 		<pathelement path="${master.lib.dir}/jars/clojure.jar" />
-		<pathelement path="${master.lib.dir}/jars/abcl.jar" />
+		<pathelement path="${master.lib.dir}/non_plugin_jars/abcl.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_cas.jar" />
 		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_export.jar" />
