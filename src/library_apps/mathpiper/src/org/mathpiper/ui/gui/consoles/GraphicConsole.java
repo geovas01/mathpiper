@@ -23,7 +23,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -45,6 +44,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Stack;
+import javax.swing.BorderFactory;
 import javax.swing.text.Element;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -54,7 +54,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -308,9 +307,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         this.menuBar = new MenuBar();
 
 
-        /*consoleButtons.setBorder(BorderFactory.createCompoundBorder(
-                   BorderFactory.createLineBorder(Color.red),
-                   consoleButtons.getBorder()));*/
+        //menuBar.setBorder(BorderFactory.createCompoundBorder( BorderFactory.createLineBorder(Color.red), menuBar.getBorder())); //For testing.
 
         menuAndToolPanel.add(menuBar);
         
@@ -1350,6 +1347,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
             FlowLayout layout = new FlowLayout();
 
             layout.setAlignment(FlowLayout.LEFT);
+
+            layout.setVgap(0);
 
             this.setLayout(layout);
 
