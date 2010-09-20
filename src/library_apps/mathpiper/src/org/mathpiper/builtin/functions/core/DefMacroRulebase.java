@@ -134,6 +134,6 @@ a variable {a} from the calling environment.
 	In> i
 	Result: 10;
 
-*SEE Rulebase, Backquoting, DefMacroRulebaseListed
+*SEE Rulebase, `, DefMacroRulebaseListed
 %/mathpiper_docs
 */
