@@ -165,7 +165,9 @@ public class MathPiperTokenizer {
             return true;
         } else if (c == '\'') {
             return true;
-        } else if (c == 0x00b7) { // middle dot (for Catalan). 
+        } else if (c == '?') {
+            return true;
+        }else if (c == 0x00b7) { // middle dot (for Catalan).
             return true;
         } else if (c == 0x00b0) { // degree symbol).
             return true;
