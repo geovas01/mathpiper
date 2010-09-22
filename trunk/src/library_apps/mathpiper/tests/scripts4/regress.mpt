@@ -567,7 +567,7 @@ Verify(Factor(2*x^2),2*x^2);
 Verify(CanBeUni(Determinant({{a,b},{c,d}})),True);
 
 /* Bug report from Michael Borcherds. The brackets were missing. */
-Verify(TeXForm(Hold(2*x*(-2))), "$2 x \\left(  - 2\\right) $");
+Verify(TeXForm(Hold(2*x*(-2))), "$2 \\cdot x \\cdot \\left(  - 2\\right) $");
 
 /* Bug reported by Adrian Vontobel. */
 [
