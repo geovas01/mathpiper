@@ -216,6 +216,7 @@ import org.mathpiper.builtin.functions.core.JavaAccess;
 import org.mathpiper.builtin.functions.core.JavaCall;
 import org.mathpiper.builtin.functions.core.JavaNew;
 import org.mathpiper.builtin.functions.core.JavaToValue;
+import org.mathpiper.builtin.functions.core.StringToUnicode;
 
 public abstract class BuiltinFunction {
 
@@ -442,6 +443,9 @@ public abstract class BuiltinFunction {
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new UnicodeToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "UnicodeToString");
+		aEnvironment.getBuiltinFunctions().setAssociation(
+		        new BuiltinFunctionEvaluator(new StringToUnicode(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+		        "StringToUnicode");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new FlatCopy(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "FlatCopy");

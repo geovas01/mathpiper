@@ -44,11 +44,14 @@ public class UnicodeToString extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="UnicodeToString",categories="User Functions;String Manipulation;Built In"
+%mathpiper_docs,name="UnicodeToString",categories="User Functions;String Manipulation;Built In",access="experimental"
 *CMD UnicodeToString --- creates a single character string from the character's unicode value
 *CORE
 *CALL
-	AbsN(x)
+	UnicodeToString(n)
+ 
+*PARMS
+ {n} - a unicode value
 
 *DESC
 This function creates a single character string from the character's unicode value.
