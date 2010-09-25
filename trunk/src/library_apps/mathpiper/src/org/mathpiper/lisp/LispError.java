@@ -212,9 +212,9 @@ public class LispError
 
 
 
-    public static void check(boolean hastobetrue, String aErrorMessage, String functionName, int aStackTop, Environment aEnvironment) throws Exception
+    public static void check(boolean predicate, String aErrorMessage, String functionName, int aStackTop, Environment aEnvironment) throws Exception
     {
-        if (!hastobetrue)
+        if (!predicate)
         {
             String stackTrace = "";
 
