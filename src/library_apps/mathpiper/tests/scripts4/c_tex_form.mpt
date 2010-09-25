@@ -11,56 +11,56 @@ Verify(TeXForm(g), ...);
 
 Verify(
 TeXForm(Hold(Cos(A-B)*Sqrt(C+D)-(a+b)*c^d+2*I+Complex(a+b,a-b)/Complex(0,1)))
-,"$\\cos \\left( A - B\\right)  \\cdot \\sqrt{C + D} - \\left( a + b\\right)  \\cdot c ^{d} + 2 \\cdot \\imath  + \\frac{a + b + \\imath  \\cdot \\left( a - b\\right) }{\\imath } $"
+,"$\\cos ( A - B)  \\cdot \\sqrt{C + D} - ( a + b)  \\cdot c ^{d} + 2 \\cdot \\imath  + \\frac{a + b + \\imath  \\cdot ( a - b) }{\\imath } $"
 );
 
 Verify(
 TeXForm(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))
-,"$\\frac{\\frac{\\frac{\\exp \\left( A \\cdot B\\right) }{C} }{D} }{E + F}  \\cdot G - \\left(  - \\left( a + b\\right)  - \\left( c - d\\right) \\right)  - b ^{c ^{d}} - \\left( a ^{b}\\right)  ^{c}$"
+,"$\\frac{\\frac{\\frac{\\exp ( A \\cdot B) }{C} }{D} }{E + F}  \\cdot G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$"
 );
 
 Verify(
 TeXForm(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d)))
-,"$\\cos \\left( A - B\\right)  \\cdot \\sin a \\cdot f\\left( b, c, d \\cdot \\left( e + 1\\right) \\right)  \\cdot \\sqrt{C + D} - \\left( g\\left( a + b\\right)  ^{c + d}\\right)  ^{c + d}$"
+,"$\\cos ( A - B)  \\cdot \\sin a \\cdot f( b, c, d \\cdot ( e + 1) )  \\cdot \\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$"
 );
 
 // testing latest features: \\cdot, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH
 Verify(
 TeXForm(3*2^n+Hold(x*10!) + (x/y)^2 + BinomialCoefficient(x,y) + BesselI(n,x) + Maximum(a,b) + OrthoH(n,x))
-, "$3\\cdot 2 ^{n} + x\\cdot 10! + \\left( \\frac{x}{y} \\right)  ^{2} + {x \\choose y} + I _{n}\\left( x\\right)  + \\max \\left( a, b\\right)  + H _{n}\\left( x\\right) $"
+, "$3\\cdot 2 ^{n} + x\\cdot 10! + ( \\frac{x}{y} )  ^{2} + {x \\choose y} + I _{n}( x)  + \\max ( a, b)  + H _{n}( x) $"
 );
 
 /* this fails because of a bug that Differentiate(x) f(y) does not go to 0 */ /*
 Verify(
 TeXForm(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
-,"$3 \\left( \\frac{\\partial}{\\partial x}f\\left( x, y, z\\right) \\right)  \\left( \\cos \\Omega \\right)  \\left( 4 \\left( \\sin a\\right) \\right) \\bmod \\frac{5}{a ^{b}} $"
+,"$3 ( \\frac{\\partial}{\\partial x}f( x, y, z) )  ( \\cos \\Omega )  ( 4 ( \\sin a) ) \\bmod \\frac{5}{a ^{b}} $"
 );
 */
 
 Verify(
 TeXForm(Hold(Differentiate(x)f(x)))
-,"$\\frac{d}{d x}f\\left( x\\right) $");
+,"$\\frac{d}{d x}f( x) $");
 
 Verify(
 TeXForm(Hold(Not (c<0) And (a+b)*c>= -d^e And (c<=0 Or b+1>0) Or a!=0 And Not (p=q)))
-,"$ \\neg c < 0\\wedge \\left( a + b\\right)  \\cdot c\\geq  - d ^{e}\\wedge \\left( c\\leq 0\\vee b + 1 > 0\\right) \\vee a\\neq 0\\wedge  \\neg p = q$"
+,"$ \\neg c < 0\\wedge ( a + b)  \\cdot c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
 );
 
 
 Verify(
 TeXForm((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
-,"$\\left( \\frac{\\partial}{\\partial x}f\\left( x, y, z\\right) \\right)  \\cdot \\cos \\Omega  \\cdot \\left( 4 \\cdot \\sin a\\right) \\bmod \\frac{5}{a ^{b}} $"
+,"$( \\frac{\\partial}{\\partial x}f( x, y, z) )  \\cdot \\cos \\Omega  \\cdot ( 4 \\cdot \\sin a) \\bmod \\frac{5}{a ^{b}} $"
 );
 
 
 Verify(
 TeXForm(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))
-,"$\\pi  + \\exp \\left( 1\\right)  - \\Theta  - \\int _{x_{1}} ^{\\frac{3}{g\\left( \\pi \\right) }  } 2 \\cdot \\theta \\left( x\\right)  \\cdot \\exp \\left( \\frac{1}{x} \\right)  dx$"
+,"$\\pi  + \\exp ( 1)  - \\Theta  - \\int _{x_{1}} ^{\\frac{3}{g( \\pi ) }  } 2 \\cdot \\theta ( x)  \\cdot \\exp ( \\frac{1}{x} )  dx$"
 );
 
 Verify(
 TeXForm({a[3]*b[5]-c[1][2],{a,b,c,d}})
-,"$\\left( a _{3} \\cdot b _{5} - c _{\\left( 1, 2\\right) }, \\left( a, b, c, d\\right) \\right) $"
+,"$( a _{3} \\cdot b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $"
 );
 
 Bodied("aa", 200);
@@ -68,7 +68,7 @@ Infix("bar", 100);
 
 Verify(
 TeXForm(aa(x,y) z + 1 bar y!)
-,"$aa\\left( x, y\\right) z + 1\\mathrm{ bar }y!$" 
+,"$aa( x, y) z + 1\\mathrm{ bar }y!$"
 );
 
 Verify(
