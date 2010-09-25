@@ -217,7 +217,7 @@ Macro(EchoTime,{expression})
 
 
 // ClearScreenString : the ascii escape codes to clear the screen
-ClearScreenString := CharString(27):"[2J":CharString(27):"[1;1H";
+ClearScreenString := UnicodeToString(27):"[2J":UnicodeToString(27):"[1;1H";
 
 // WriteLines: do the actual outputting of lines of a file to screen
 WriteLines(filename,lines,from,nrlines,breakpoints,current):=

@@ -42,7 +42,7 @@ import org.mathpiper.builtin.functions.core.BuiltinAssoc;
 import org.mathpiper.builtin.functions.core.BuiltinPrecisionGet;
 import org.mathpiper.builtin.functions.core.BuiltinPrecisionSet;
 import org.mathpiper.builtin.functions.core.Ceil;
-import org.mathpiper.builtin.functions.core.CharString;
+import org.mathpiper.builtin.functions.core.UnicodeToString;
 import org.mathpiper.builtin.functions.core.Check;
 import org.mathpiper.builtin.functions.core.Unbind;
 import org.mathpiper.builtin.functions.core.CommonLispTokenizer;
@@ -440,8 +440,8 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new ExpressionToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "ExpressionToString");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new CharString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "CharString");
+		        new BuiltinFunctionEvaluator(new UnicodeToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+		        "UnicodeToString");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new FlatCopy(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "FlatCopy");
