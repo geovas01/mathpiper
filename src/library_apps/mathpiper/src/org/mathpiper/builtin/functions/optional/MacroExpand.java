@@ -24,6 +24,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 /**
  *
@@ -36,6 +37,8 @@ public class MacroExpand extends BuiltinFunction
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "MacroExpand");
+	
+	aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "MacroExpand");
     }//end method.
 
 
@@ -57,8 +60,10 @@ public class MacroExpand extends BuiltinFunction
         String substitutedResult = Utility.printMathPiperExpression(aStackTop, result, aEnvironment, 0);
 
         aEnvironment.write(substitutedResult);
+	
+	aEnvironment.write("\n");
 
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), result);
 
     }//end method.
 
@@ -71,7 +76,7 @@ public class MacroExpand extends BuiltinFunction
 %mathpiper_docs,name="MacroExpand",categories="Programmer Functions;Built In;Programming",access="experimental"
 *CMD MacroExpand --- shows the expanded form of a macro
 *CALL
-    MacroExpand(macro)
+    MacroExpand() macro
 
 *PARMS
 {macro} -- a macro to expand
@@ -86,10 +91,11 @@ In> var := Echo;
 Result: Echo
 
 //Show the macro in expanded form.
-In> MacroExpand(`(@var(2,"Hello")))
+In> MacroExpand()`(@var(2,"Hello"))
 Result: True
 Side Effects:
 Echo(2,"Hello")
+2 Hello
 
 //Execute the macro.
 In> `(@var(2,"Hello"))
