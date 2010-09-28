@@ -7,6 +7,7 @@ MM -> MultinomialForm
 Normalize -> NormalizeVector
 FW -> ?
 FWatom -> ?
+
 All Gets and Sets should be at the end of a function's name.
 
 Table -> GenerateList (Perhaps make the body the last argument or make a postfix function.  Also look at Sum.)
@@ -45,14 +46,26 @@ DefMacroRulebase -> MacroRulebaseEvaluateArguments
 DefMacroRulebaseListed -> MacroRulebaseListedEvaluateArguments
 
 
------------------------------ Proposed operator name changes:
-= -> =?
+----------------------------- Proposed predicate operator & function name changes:
+= -> =?    
 = -> DEPRECATE.
 != -> !=?
 < -> <?
 > -> >?
 <= -> <=?
 >= -> >=?
+
+@$, @&, @%
+
+All predicate function should end with a ? mark.  For example,
+
+IsInteger -> Integer?
+IsList -> List?
+etc.
+
+ 
+
+
 
 
 
