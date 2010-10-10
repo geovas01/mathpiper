@@ -79,8 +79,7 @@ public class LispExpressionEvaluator extends Evaluator {
                 // }
             }
 
-            if(Thread.currentThread().interrupted())
-            {
+            if (Thread.currentThread().interrupted()) {
                 LispError.raiseError("User halted calculation.", "", aStackTop, aEnvironment);
             }
         }
@@ -114,10 +113,15 @@ public class LispExpressionEvaluator extends Evaluator {
                 ConsPointer subList = (ConsPointer) aExpression.car();
                 Cons head = subList.getCons();
                 if (head != null) {
+
+                    String functionName;
+
                     if (head.car() instanceof String) {
 
+                        functionName = (String) head.car();
+
                         //Built-in function handler.
-                        BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp((String) head.car());
+                        BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp(functionName);
                         if (builtinInFunctionEvaluator != null) {
                             builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, aResult, subList);
                             aEnvironment.iEvalDepth--;
@@ -133,6 +137,7 @@ public class LispExpressionEvaluator extends Evaluator {
                             return;
                         }
 
+
                     } else {
                         //Pure function handler.
                         ConsPointer operator = new ConsPointer();
@@ -144,9 +149,27 @@ public class LispExpressionEvaluator extends Evaluator {
                         return;
                     }
                     //printf("**** Undef: %s\n",head.String().String());
+
+
+                    /*  todo:tk: This code is for experimenting with having non-existent functions throw an exception when they are called.
+                    if (functionName.equals("_")) {
+                        Utility.returnUnEvaluated(aStackTop, aResult, subList, aEnvironment);
+                        aEnvironment.iEvalDepth--;
+                        return;
+                    } else {
+                        LispError.raiseError("The function " + functionName + " is not defined.\n", null, aStackTop, aEnvironment );
+                    }*/
+
+
                     Utility.returnUnEvaluated(aStackTop, aResult, subList, aEnvironment);
+
                     aEnvironment.iEvalDepth--;
+
                     return;
+
+
+
+
                 }
             }
             aResult.setCons(aExpression.getCons().copy(aEnvironment, false));
@@ -445,3 +468,4 @@ public class LispExpressionEvaluator extends Evaluator {
      */
 
 }//end class.
+
