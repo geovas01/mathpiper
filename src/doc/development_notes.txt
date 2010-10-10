@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Check for $$ in all of the documentation.
 + The unbound variable Fail is used in FindPrimeFactor.mpw.
 + The documentation for Curl has curly braces in it that are not meant to indicate bold text.
 + Nth in this line is an unbound variable in the := operator's .mpw file: Rule(":=",2,10,IsFunction(aLeftAssign) And (First(FunctionToList(aLeftAssign)) = Nth))
