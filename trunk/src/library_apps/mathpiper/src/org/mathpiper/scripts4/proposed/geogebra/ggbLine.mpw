@@ -1,4 +1,4 @@
-%mathpiper,dev="GgbLine"
+%mathpiper,def="GgbLine"
 
 Retract("ggbLine", *);
 
