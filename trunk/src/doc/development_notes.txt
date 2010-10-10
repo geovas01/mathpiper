@@ -3,6 +3,7 @@ Development notes.
 :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1
 
 {{{====To Do:
++ Nth in this line is an unbound variable in the := operator's .mpw file: Rule(":=",2,10,IsFunction(aLeftAssign) And (First(FunctionToList(aLeftAssign)) = Nth))
 + The Swap function's documentation indicates it returns a list, but it doesn't.
 + HotEqn can't display a %.  This is needed in the IsCarmichaelNumber documentation.
 + Good example of where ViewMath is useful:
