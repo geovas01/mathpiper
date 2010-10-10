@@ -13,6 +13,8 @@ ClearCachedConstants
  * There is a problem with defining I this way: if I is used, but the
  * file "complex" has not been loaded, the interpreter can not deal
  * with "Complex".
+ *
+ * Note:tk:10/9/09: Perhaps use SetGlobalLazyVariable(I,Hold(Complex(0,1)));
  */
 
 SetGlobalLazyVariable(I,Complex(0,1));
