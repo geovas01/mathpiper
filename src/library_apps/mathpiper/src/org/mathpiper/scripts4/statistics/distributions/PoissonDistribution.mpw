@@ -27,7 +27,7 @@ The poisson distribution.
 In> N(PMF(PoissonDistribution(5), 7))
 Result: 0.1044448631
 
-In> N(CDF(PoissonDistribution(5), 3))
+In> N(CDF(PoissonDistribution(5), 2))
 Result: 0.1246520197
 
 
