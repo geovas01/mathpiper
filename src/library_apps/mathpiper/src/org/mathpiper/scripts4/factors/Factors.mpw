@@ -75,7 +75,19 @@ Retract("Factors",*);
 50 # Factors( p_CanBeUni ) <-- 
 [
     If(InVerboseMode(),Tell("Factors_uni",p));
-    jFactorsPoly(p);
+    Local(res);
+    res := jFactorsPoly(p);
+    If( IsList(res) And Length(res) > 1,
+       If( IsZero(res[1][1]+1),
+          If( IsOdd(res[1][2]),
+             DestructiveReplace(res,1,{-1,1}),
+             DestructiveReplace(res,1,{ 1,1})
+          )
+       )
+    );
+    If( res[1] = {1,1}, DestructiveDelete(res,1) );
+    res;
+
 ];
 
 
@@ -104,11 +116,6 @@ Retract("Factors",*);
 ];
 
 %/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
-
 
 
 
