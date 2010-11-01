@@ -6,7 +6,7 @@ standardDeviation := SqrtN(2.08);
 sampleSize := 20;
 standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
 
-Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean),3.5)));
+Echo("a)", N(CDF(NormalDistribution(mean,standardErrorOfTheMean),3.5)));
 
 %/mathpiper
 
@@ -14,7 +14,8 @@ Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(mean,standardErro
       Result: True
       
       Side Effects:
-      a)0.9394813156
+      a)0.9394813155 
+      
 .   %/output
 
 
@@ -22,13 +23,13 @@ Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(mean,standardErro
 
 
 
-%mathpiper,title="Exercise 4"
+%mathpiper,title="Proportion example pp. 190-193."
 
 estimatedProportion := .164;
 sampleSize := 150;
 standardErrorOfTheProportion := N(StandardErrorOfTheProportion(estimatedProportion,sampleSize));
 
-Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.20)));
+Echo("a)", N(CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.20)));
 );
 
 %/mathpiper
@@ -37,8 +38,11 @@ Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(estimatedProporti
       Result: )
       
       Side Effects:
-      a)0.8831253987
+      a)0.8831253986 
+      
 .   %/output
+
+
 
 
 
@@ -56,9 +60,10 @@ Echo("c)",N(StandardErrorOfTheMean(7,20)));
       Result: True
       
       Side Effects:
-      a)2.581988898 
+      a)2.581988897 
       b)1.356773133 
-      c)1.565247584
+      c)1.565247584 
+      
 .   %/output
 
 
@@ -70,13 +75,13 @@ standardDeviation := 7.5;
 sampleSize := 9;
 standardErrorOfTheMean := N(StandardErrorOfTheMean(standardDeviation,sampleSize));
 
-Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean),17)));
+Echo("a)", N(CDF(NormalDistribution(mean,standardErrorOfTheMean),17)));
 
-Echo("b)", N(1 - CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean),18)));
+Echo("b)", N(1 - CDF(NormalDistribution(mean,standardErrorOfTheMean),18)));
 
 Echo("c)", 
-N(CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean),16.5)) -
-N(CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean),14.5))
+N(CDF(NormalDistribution(mean,standardErrorOfTheMean),16.5)) -
+N(CDF(NormalDistribution(mean,standardErrorOfTheMean),14.5))
 
 );
 
@@ -86,9 +91,10 @@ N(CumulativeDistributionFunction(NormalDistribution(mean,standardErrorOfTheMean)
       Result: True
       
       Side Effects:
-      a)0.6554216918 
-      b)0.2118553384 
-      c)0.3050066153
+      a)0.6554216923 
+      b)0.2118553386 
+      c)0.3050066148 
+      
 .   %/output
 
 
@@ -108,9 +114,10 @@ Echo("c)",N(StandardErrorOfTheProportion(.06,175)));
       Result: True
       
       Side Effects:
-      a)0.030618621785 
-      b)0.049355850717 
-      c)0.017952317799
+      a)0.03061862178 
+      b)0.04935585072 
+      c)0.01795231780 
+      
 .   %/output
 
 
@@ -122,13 +129,13 @@ estimatedProportion := .32;
 sampleSize := 160;
 standardErrorOfTheProportion := N(StandardErrorOfTheProportion(estimatedProportion,sampleSize));
 
-Echo("a)", N(CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.30)));
+Echo("a)", N(CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.30)));
 
-Echo("b)", N(1 - CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.36)));
+Echo("b)", N(1 - CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.36)));
 
 Echo("c)", 
-N(CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.37)) -
-N(CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.29))
+N(CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.37)) -
+N(CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),.29))
 
 );
 
@@ -138,9 +145,10 @@ N(CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standard
       Result: True
       
       Side Effects:
-      a)0.2937969009 
-      b)0.1390378831 
-      c)0.7044522206
+      a)0.2937969007 
+      b)0.1390378830 
+      c)0.7044522203 
+      
 .   %/output
 
 
@@ -153,7 +161,7 @@ estimatedProportion := 24/sampleSize;
 
 standardErrorOfTheProportion := N(StandardErrorOfTheProportion(estimatedProportion,sampleSize));
 
-Echo(N(1 - CumulativeDistributionFunction(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),30/sampleSize)));
+Echo(N(1 - CDF(NormalDistribution(estimatedProportion,standardErrorOfTheProportion),30/sampleSize)));
 
 %/mathpiper
 
@@ -161,7 +169,8 @@ Echo(N(1 - CumulativeDistributionFunction(NormalDistribution(estimatedProportion
       Result: True
       
       Side Effects:
-      0.0569231543
+      0.05692315437 
+      
 .   %/output
 
 
