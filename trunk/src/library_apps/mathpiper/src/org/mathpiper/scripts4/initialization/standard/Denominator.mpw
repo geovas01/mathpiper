@@ -1,10 +1,14 @@
 %mathpiper,def="Denominator"
 
+Retract("Denominator",*);
+
 1 # Denominator(_x / _y)      <-- y;
+1 # Denominator(-_x/ _y)      <-- y;
 2 # Denominator(x_IsNumber)   <-- 1;
 
 %/mathpiper
 
+ 
 
 
 %mathpiper_docs,name="Denominator",categories="User Functions;Numbers (Operations)"
@@ -30,8 +34,13 @@ neither rational nor numeric, the function returns unevaluated.
 	Result: 7;
 	In> Denominator(a / x^2)
 	Result: x^2;
+	In> Denominator(-a / x^2)
+	Result: x^2
 	In> Denominator(5)
 	Result: 1;
 
 *SEE Numerator, IsRational, IsNumber
 %/mathpiper_docs
+
+
+
