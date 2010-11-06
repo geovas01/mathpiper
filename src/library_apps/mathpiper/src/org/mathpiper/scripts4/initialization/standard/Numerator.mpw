@@ -1,10 +1,14 @@
 %mathpiper,def="Numerator"
 
+Retract("Numerator",*);
+
 1 # Numerator(_x / _y)      <-- x;
+1 # Numerator(-_x/ _y)      <-- -x;
 2 # Numerator(x_IsNumber)   <-- x;
 
 %/mathpiper
 
+ 
 
 
 
@@ -31,8 +35,14 @@ rational nor numeric, the function returns unevaluated.
 	Result: 2;
 	In> Numerator(a / x^2)
 	Result: a;
+	In> Numerator(-a / x^2)
+	Result: -a;
 	In> Numerator(5)
 	Result: 5;
 
 *SEE Denominator, IsRational, IsNumber
 %/mathpiper_docs
+
+
+
+
