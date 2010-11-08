@@ -225,9 +225,114 @@ Echo("Upper limit: ", upperLimit);
 
 
 
+============== Chapters 15 and 16.
+
+
+%mathpiper,title="Two tail hypothesis test."
+//H0: mean = 10.0.
+
+//H1: mean != 10.0.
+
+testMean := 10.0;
+
+standardDeviationIsKnown := False;
+
+twoTailAlpha := .05;
+
+confidenceLevel := 1 - twoTailAlpha;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
+
+upperLimit := confidenceIntervalOfTheMean["upperLimit"];
+
+Echo("Lower limit: ", lowerLimit);
+
+Echo("-> Sample mean: ", sampleMean);
+
+Echo("Upper limit: ", upperLimit);
+
+If(sampleMean > upperLimit Or sampleMean < lowerLimit, 
+    Echo("Reject H0."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using the normal distribution.
+      Critical z-score: 1.959964156 
+      Standard error of the mean: 0.02522281268 
+      Lower limit: 10.63056419 
+      -> Sample mean: 10.67629584 
+      Upper limit: 10.72943581 
+      Do not reject H0.
+      
+.   %/output
 
 
 
+
+
+
+%mathpiper,title="Phone minutes example on page 230.  When sigma is not known."
+
+//H0: mean >= 11
+
+//H1: mean < 11;
+
+testMean := 11;
+
+standardDeviationIsKnown := False;
+
+oneTailAlpha := .05;
+
+confidenceLevel := 1 - oneTailAlpha*2;
+
+V(confidenceIntervalOfTheMean := ConfidenceIntervalOfTheMean(testMean,sampleStandardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel));
+
+lowerLimit := confidenceIntervalOfTheMean["lowerLimit"];
+
+NewLine();
+Echo("H0: mean >= ",testMean);
+Echo("H1: mean < ", testMean);
+Echo("Sample mean: ", sampleMean);
+Echo("Sample size: ", sampleSize);
+Echo("Sample standard deviation: ", sampleStandardDeviation);
+Echo("One tail alpha: ", oneTailAlpha);
+Echo("Lower limit: ", lowerLimit);
+Echo("Critical Z score: ", -confidenceIntervalOfTheMean["criticalZScore"]);
+Echo("Z score of the sample mean: ", N(ValueToZScore(sampleMean,testMean,StandardErrorOfTheMean(sampleStandardDeviation,sampleSize))));
+
+If(sampleMean < lowerLimit, 
+    Echo("Reject H0."),
+    Echo("Do not reject H0."));
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Using the normal distribution.
+      Critical z-score: 1.644853950 
+      Standard error of the mean: 0.02522281268 
+      
+      H0: mean >= 11 
+      H1: mean < 11 
+      Sample mean: 10.67629584 
+      Sample size: 30 
+      Sample standard deviation: 0.1381510347 
+      One tail alpha: .05 
+      Lower limit: 10.95851216 
+      Critical Z score: -1.644853950 
+      Z score of the sample mean: -12.83378520 
+      Reject H0.
+      
+.   %/output
 
 
 
