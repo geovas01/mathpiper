@@ -343,7 +343,7 @@ Echo("Sample mean: ", sampleMean);
 Echo("Upper limit: ", upperLimit);
 
 If(sampleMean > upperLimit Or sampleMean < lowerLimit, 
-    Echo("Reject H0, concluding that the population mean is not 1.7 cups per day"),
+    Echo("Reject H0."),
     Echo("Do not reject H0."));
 
 %/mathpiper
