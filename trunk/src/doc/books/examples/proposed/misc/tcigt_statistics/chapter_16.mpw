@@ -517,7 +517,7 @@ sampleProportion := .47;
 
 sampleSize := 256;
 
-calculatedNumberOfSuccesses := Div(testProportion*sampleSize,1);
+calculatedNumberOfSuccesses := Quotient(testProportion*sampleSize,1);
 
 twoTailAlpha := .05;
 
@@ -550,7 +550,7 @@ Echo("Two tail p-value: ", N(ZScoreToProbability(valueZScore))*2);
       
       Side Effects:
       Critical z-score: 1.959964158 
-      Sample proportion: 0.5 
+      Proportion: 0.5 
       Standard error of the proportion: 0.03125 
       
       H0: proportion = .50 
@@ -814,7 +814,7 @@ sampleProportion := .30;
 
 sampleSize := 175;
 
-calculatedNumberOfSuccesses := Div(testProportion*sampleSize,1);
+calculatedNumberOfSuccesses := Quotient(testProportion*sampleSize,1);
 
 oneTailAlpha := .01;
 
@@ -846,8 +846,8 @@ Echo("One tail p-value: ", N(ZScoreToProbability(valueZScore)));
       
       Side Effects:
       Critical z-score: 2.326348187 
-      Sample proportion: 0.4 
-      Standard error of the proportion: 0.037032803989 
+      Proportion: 0.4 
+      Standard error of the proportion: 0.03703280399 
       
       H0: proportion = .40 
       H1: proportion != .40 
@@ -857,7 +857,7 @@ Echo("One tail p-value: ", N(ZScoreToProbability(valueZScore)));
       Lower limit: 0.3138488036 
       Value z-score: -2.700308624 
       Lower critical z-score: -2.326348187 
-      One tail p-value: 0.00346375970 
+      One tail p-value: 0.003463759684 
       
 .   %/output
 
@@ -875,7 +875,7 @@ sampleProportion := .69;
 
 sampleSize := 225;
 
-calculatedNumberOfSuccesses := Div(testProportion*sampleSize,1);
+calculatedNumberOfSuccesses := Quotient(testProportion*sampleSize,1);
 
 twoTailAlpha := .05;
 
@@ -908,8 +908,8 @@ Echo("Two tail p-value: ", N(ZScoreToProbability(-Abs(valueZScore)))*2);
       
       Side Effects:
       Critical z-score: 1.959964158 
-      Sample proportion: 0.6488888889 
-      Standard error of the proportion: 0.031821173870 
+      Proportion: 0.6488888889 
+      Standard error of the proportion: 0.03182117386 
       
       H0: proportion = .65 
       H1: proportion != .65 
