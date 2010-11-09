@@ -1,33 +1,63 @@
 %mathpiper,def="ListTerms"
 
-If(IsBound(MultiNomialDriver),
-  `LoadScriptOnce(@MultiNomialDriver),
-  LoadScriptOnce("multivar.rep/sparsenomial.mpi"));
+//From 0Solve5/ListTerms5.mpw, 7 Nov 2010
 
 Retract("ListTerms",*);
+Retract("terms",*);
 
-
-10 # ListTerms( _expr, vars_IsList ) <--
+10 # ListTerms(_expr) <--
 [
-    Local(mexpr,func,termList,ttl,lst,term);
-    mexpr    := MakeMultiNomial(expr,vars);
-    func     := Lambda({x,y},If(y!=0,DestructiveAppend(termList,{x,y})));
+    If(InVerboseMode(),Tell("ListTerms",expr));
+    Local(termList);
+    Local(op,x2,x3);
     termList := {};
-    ScanMultiNomial(func,mexpr);
-    ttl      := Transpose(termList);
-    lst      := {};
-    For(ii:=1,ii<=Length(ttl[1]),ii++)
-       [ DestructiveAppend(lst,ttl[2][ii]*Product(vars^ttl[1][ii])); ];
-    lst;
+    If(IsFunction(expr),
+      [
+         {op,x2,x3} := FunctionToList(expr);
+         If(InVerboseMode(),Tell("          ",{op,x2,x3})); 
+         terms(op,x2,x3);
+      ],
+      [
+         Push(termList,expr);
+      ]
+    );
+    termList;
 ];
 
 
-12 # ListTerms( _expr ) <--
+10 # terms(_op,_x2,_x3)_(op=ToAtom("+") Or op=ToAtom("-")) <--
 [
-    Local(vars);
-    vars := MultiExpressionList( expr );
-    ListTerms( expr, vars );
+    If(InVerboseMode(),[Tell("   terms10",op);Tell("         ",{x2,x3});]);
+    Local(sgn);
+    If(op=ToAtom("+"),sgn:=1,sgn:=-1);
+    Push(termList,sgn*x3);
+    If(InVerboseMode(),Tell("         ",termList));
+    If(IsFunction(x2),
+      [
+         Local(L);
+         L := FunctionToList(x2);
+         Tell("               ",L);
+         If(Length(L)=3,terms(L[1],L[2],L[3]),Push(termList,x2));
+      ],
+      [
+         Push(termList,x2);
+      ]
+    );
 ];
+UnFence("terms",3);
+
+
+20 # terms(_op,_x2,_x3) <--
+[
+    If(InVerboseMode(),[Tell("   terms20",op);Tell("         ",{x2,x3});]);
+    Local(F);
+    F := ListToFunction({op,x2,x3});
+    Push(termList,F);
+    If(InVerboseMode(),Tell("         ",termList));
+    termList;
+];
+UnFence("terms",3);
+
 
 %/mathpiper
 
@@ -41,47 +71,35 @@ Retract("ListTerms",*);
 
 *STD
 *CALL
-	ListTerms(expr,vars)
 	ListTerms(expr)
 
 *PARMS
-
-{expr} -- a mathematical expression composed of sums and differences of terms
-
-{vars} -- a list of the variables to be used
+{expr} -- a mathematical expression composed of sums and differences of terms=
 
 *DESC
-Given an expression {expr} containing terms connected by "+" and/or "-" signs,
-this function generates a list of all such terms in the expression.
+Given an expression {expr} containing (at top level) terms connected by
+"+" and/or "-" signs, this function generates a list of all such terms 
+in the expression.
 
-If the first form of the function call is used, MathPiper accepts the list
-of variables provided in argument {vars}, and uses them to build and return
-a list of all the terms in the expression {expr}.
+If the expression has only products, powers, or rational expressions (but not
+sums or differences) at the top level, this function will {not} expand them, 
+and thus will not list any "terms".  If the user wants the expression to be
+expanded, s/he must do so explicitly.
 
-If the second form of the function call is used, MathPiper calls its function
-{MultiExpressionList} to build a list, {vars}, of all the variables and 
-"quasi-variables" which it finds in {expr}, and then calls the first form of
-the function call.
-
-*E.G.
-    In> ex:=ExpandBrackets((3*x+5*y)^5)
-    Result: 243*x^5+2025*x^4*y+6750*x^3*y^2+11250*x^2*y^3+9375*x*y^4+3125*y^5
-    
-    In> ListTerms(ex)
-    Result: {243*x^5,2025*x^4*y,6750*x^3*y^2,11250*x^2*y^3,9375*x*y^4,3125*y^5}
-    
+*E.G.   
     In> ListTerms(Sin(Sqrt(x))-Sqrt(x+1)-Exp(-2*x))
     Result: {Sin(Sqrt(x)),-Sqrt(x+1),-Exp(-2*x)}
     
-    In> ListTerms((a*x-b*y+c)^2)
-    Result: {a^2*x^2,-2*a*x*b*y,2*a*x*c,b^2*y^2,-2*b*y*c,c^2}
+    In> ListTerms((a+b*x)/(x-d*x)-(e-f*x^2)/(g+h*x))
+    Result: {(a+b*x)/(x-d*x),(f*x^2-e)/(g+h*x)}
     
-    In> ListTerms((a*x-b*y+c)^2,{x})
-    Result: {a^2*x^2,2*(c-b*y)*a*x,(c-b*y)^2}
+    In> ListTerms((3*x+5*y)^5)
+    Result: {(3*x+5*y)^5}
+    
+    In> ListTerms(ExpandBrackets((3*x+5*y)^5))
+    Result: {243*x^5,2025*x^4*y,6750*x^3*y^2,11250*x^2*y^3,9375*x*y^4,3125*y^5}
 
-*SEE MultiExpressionList, DisassembleExpression,MM
+
 %/mathpiper_docs
-
-
 
 
