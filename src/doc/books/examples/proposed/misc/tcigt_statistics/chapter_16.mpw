@@ -457,7 +457,7 @@ sampleProportion := .38;
 
 sampleSize := 150;
 
-calculatedNumberOfSuccesses := Div(testProportion*sampleSize,1);
+calculatedNumberOfSuccesses := Quotient(testProportion*sampleSize,1);
 
 oneTailAlpha := .05;
 
