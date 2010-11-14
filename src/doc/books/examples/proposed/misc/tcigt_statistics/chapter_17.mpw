@@ -2,11 +2,7 @@ Rat brains example on pages 252 - 255.
 
 %mathpiper,title=""
 
-StandardErrorOfTheDifferenceBetweenTwoMeans(sigma1,n1,sigma2,n2) :=
-[
-    result := N(Sqrt(sigma1^2/n1 + sigma2^2/n2));
-
-];
+StandardErrorOfTheDifferenceBetweenTwoMeans(sigma1,n1,sigma2,n2) := N(Sqrt(sigma1^2/n1 + sigma2^2/n2));
 
 %/mathpiper
 
@@ -23,7 +19,7 @@ standardErrorOfTheDifferenceBetweenTwoMeans := StandardErrorOfTheDifferenceBetwe
 %/mathpiper
 
     %output,preserve="false"
-      Result: 0.1336662511
+      Result: 0.1336662510
 .   %/output
 
 
@@ -34,11 +30,9 @@ pp. 254.
 
 %mathpiper,title=""
 
-ZScore(sample1Mean, sample2Mean, hypothesedMeanDifference, standardErrorOfTheDifferenceBetweenTwoMeans) :=
-[
+CalculatedZScore(sample1Mean, sample2Mean, hypothesedMeanDifference, standardErrorOfTheDifferenceBetweenTwoMeans) :=
     N(((sample1Mean - sample2Mean) - hypothesedMeanDifference)/standardErrorOfTheDifferenceBetweenTwoMeans);
 
-];
 
 %/mathpiper
 
@@ -50,13 +44,84 @@ ZScore(sample1Mean, sample2Mean, hypothesedMeanDifference, standardErrorOfTheDif
 
 %mathpiper,title=""
 
-ZScore(2.4,2.1,0,standardErrorOfTheDifferenceBetweenTwoMeans);
+CalculatedZScore(2.4,2.1,0,standardErrorOfTheDifferenceBetweenTwoMeans);
 
 %/mathpiper
 
     %output,preserve="false"
-      Result: 2.244396005
+      Result: 2.244396007
 .   %/output
+
+
+
+
+
+
+%mathpiper,title="Large data example with generated data."
+
+//Generate population 1 data, samples, and statistics.
+sample1Size := 40;
+
+population1 := Table(NormalDistributionValue(105, 5),x ,1 ,1000, 1);
+
+sample1 := Table(population1[RandomInteger(1000)],x,1,sample1Size,1); 
+
+sample1Mean := N(Mean(sample1));
+
+sample1StandardDeviation := N(StandardDeviation(sample1));
+
+
+
+//Generate population 2 data, samples, and statistics.
+sample2Size := 40;
+
+population2 := Table(NormalDistributionValue(100, 5),x ,1 ,1000, 1);
+
+sample2 := Table(population2[RandomInteger(1000)],x,1,sample2Size,1); 
+
+sample2Mean := N(Mean(sample2));
+
+sample2StandardDeviation := N(StandardDeviation(sample2));
+
+
+
+standardErrorOfTheDifferenceBetweenTwoMeans := StandardErrorOfTheDifferenceBetweenTwoMeans(sample1StandardDeviation,sample1Size,sample2StandardDeviation,sample2Size);
+
+calculatedZScore := CalculatedZScore(sample1Mean,sample2Mean,0,standardErrorOfTheDifferenceBetweenTwoMeans);
+
+oneTailAlpha := .05;
+
+criticalZScore := ProbabilityToZScore(1 - oneTailAlpha);
+
+Echo("Sample 1 mean: ", sample1Mean);
+Echo("Sample 2 mean: ", sample2Mean);
+Echo("Sample 1 standard deviation: ", N(StandardDeviation(sample1)));
+Echo("Sample 2 standard deviation: ", N(StandardDeviation(sample2)));
+Echo("Standard error of the difference between the two means: ", standardErrorOfTheDifferenceBetweenTwoMeans);
+Echo("Calculated z-score: ", calculatedZScore);
+Echo("Critical z-score: ", criticalZScore);
+
+Histogram({population1, population2});
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: class org.jfree.chart.ChartPanel
+      
+      Side Effects:
+      Sample 1 mean: 104.7728179 
+      Sample 2 mean: 101.5719691 
+      Sample 1 standard deviation: 5.478645473 
+      Sample 2 standard deviation: 6.013209983 
+      Standard error of the difference between the two means: 1.286217813 
+      Calculated z-score: 2.488574460 
+      Critical z-score: 1.644853952 
+      
+.   %/output
+
+
+
 
 
 
@@ -76,7 +141,7 @@ sampleMean2 := 45400;
 standardErrorOfTheDifferenceBetweenTwoMeans := StandardErrorOfTheDifferenceBetweenTwoMeans(sigma1, n1, sigma2, n2);
 Echo("Standard error of the difference between two means: ", standardErrorOfTheDifferenceBetweenTwoMeans);
 
-zScore := ZScore(sampleMean1,sampleMean2,5000,standardErrorOfTheDifferenceBetweenTwoMeans);
+zScore := CalculatedZScore(sampleMean1,sampleMean2,5000,standardErrorOfTheDifferenceBetweenTwoMeans);
 Echo("z-score: ", zScore);
 
 %/mathpiper
@@ -104,15 +169,11 @@ Equal population standard deviations batteries example on page 257.
 
 %mathpiper,title="Function definitions."
 
-PooledEstimateOfTheStandardDeviation(s1,n1,s2,n2) :=
-[
-    N(Sqrt(((n1 - 1)*s1^2 + (n2 - 1)*s2^2)/(n1 + n2 -2)));
-];
+PooledEstimateOfTheStandardDeviation(s1,n1,s2,n2) := N(Sqrt(((n1 - 1)*s1^2 + (n2 - 1)*s2^2)/(n1 + n2 -2)));
 
-EstimatedStandardErrorOfTheDifferenceBetweenTwoMeans(sp,n1,n2) :=
-[
-    N(sp*Sqrt(1/n1 + 1/n2));
-];
+
+EstimatedStandardErrorOfTheDifferenceBetweenTwoMeans(sp,n1,n2) := N(sp*Sqrt(1/n1 + 1/n2));
+
 
 TScore(m1,m2,sigmaHat) := N(((m1-m2)-(0))/sigmaHat);
 
@@ -183,8 +244,8 @@ Echo("Critical t-score: ", criticalTScore);
       Mean 2: 41.1 
       Standard deviation 2: 6.402256547 
       Pooled estimate of the standard deviation: 6.915803159 
-      Sigma hat: 2.961170001 
-      t-score: 2.724148451 
+      Sigma hat: 2.961170002 
+      t-score: 2.724148450 
       Critical t-score: 2.527977004 
       
 .   %/output
@@ -200,9 +261,6 @@ Echo("Critical t-score: ", criticalTScore);
 %group,title="Golf ball example pages 263-265."
 
 
-
-
-
 %mathpiper,title=""
 
 mu := 20;
@@ -212,7 +270,7 @@ alpha := .05;
 population1List := {215,228,256,264,248,255,239,218,239};
 population2List := {201,213,230,233,218,226,212,195,208};
 
-N(Abs(population1List - population2List))
+differences := N(Abs(population1List - population2List));
 
 n := Length(differences);
 
@@ -227,7 +285,7 @@ degreesOfFreedom := n - 1;
 
 Echo("n 1: ", n);
 Echo("Mean: ", mean);
-Echo("Standard deviation: ", standardDeviation1);
+Echo("Standard deviation: ", standardDeviation);
 
 
 criticalTScore := OneTailAlphaToTScore(degreesOfFreedom, alpha);
@@ -245,7 +303,7 @@ Echo("Critical t-score: ", criticalTScore);
       Side Effects:
       n 1: 9 
       Mean: 25.11111111 
-      Standard deviation: standardDeviation1 
+      Standard deviation: 6.546839780 
       t-score: 2.342096927 
       Critical t-score: 1.859549480 
       
