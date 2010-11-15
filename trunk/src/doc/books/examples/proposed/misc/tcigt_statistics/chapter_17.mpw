@@ -175,7 +175,7 @@ PooledEstimateOfTheStandardDeviation(s1,n1,s2,n2) := N(Sqrt(((n1 - 1)*s1^2 + (n2
 EstimatedStandardErrorOfTheDifferenceBetweenTwoMeans(sp,n1,n2) := N(sp*Sqrt(1/n1 + 1/n2));
 
 
-TScore(m1,m2,sigmaHat) := N(((m1-m2)-(0))/sigmaHat);
+CalculatedTScore(m1,m2,sigmaHat) := N(((m1-m2)-(0))/sigmaHat);
 
 
 %/mathpiper
@@ -215,7 +215,7 @@ sp := PooledEstimateOfTheStandardDeviation(standardDeviation1,n1,standardDeviati
 
 sigmaHat := EstimatedStandardErrorOfTheDifferenceBetweenTwoMeans(sp,n1,n2);
 
-tScore := TScore(mean1,mean2,sigmaHat);
+calculatedTScore := CalculatedTScore(mean1,mean2,sigmaHat);
 
 degreesOfFreedom := n1 + n2 - 2;
 
@@ -227,7 +227,9 @@ Echo("Pooled estimate of the standard deviation: ", sp);
 
 Echo("Sigma hat: ", sigmaHat);
 
-Echo("t-score: ", tScore);
+Echo("Degrees of freedom: ", degreesOfFreedom);
+
+Echo("Calculated t-score: ", calculatedTScore);
 
 Echo("Critical t-score: ", criticalTScore);
 
@@ -245,7 +247,8 @@ Echo("Critical t-score: ", criticalTScore);
       Standard deviation 2: 6.402256547 
       Pooled estimate of the standard deviation: 6.915803159 
       Sigma hat: 2.961170002 
-      t-score: 2.724148450 
+      Degrees of freedom: 20 
+      Calculated t-score: 2.724148450 
       Critical t-score: 2.527977004 
       
 .   %/output
