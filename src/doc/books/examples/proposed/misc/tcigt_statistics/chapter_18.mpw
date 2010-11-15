@@ -1,10 +1,10 @@
-%mathpiper,title="Example on page 274-278."
+%mathpiper,title="Movie ratings example on page 274-278."
 
 alpha := .1;
 
 observedList := {145,128,73,32,22};
 
-expectedList := Sum(observedList)*{.40,.30,.20,.05,.05};
+expectedList := Sum(observedList) * {.40,.30,.20,.05,.05};
 
 chiSquareTest := ChiSquareTest(observedList, expectedList);
 
@@ -22,7 +22,7 @@ If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."),
       Result: True
       
       Side Effects:
-      Chi square test: {{"chiSquareScore",9.952083333},{"pValue",0.0540319219},{"degreesOfFreedom",4}} 
+      Chi square test: {"chiSquareScore",9.952083333} {"pValue",0.0540319219} {"degreesOfFreedom",4} 
       Critical chi square score: 7.779440295 
       Reject H0.
       
@@ -32,7 +32,7 @@ If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."),
 
 
 
-%mathpiper,title="Example on page 280-282."
+%mathpiper,title="Baseball player example on page 280-282."
 
 alpha := .05;
 
@@ -40,11 +40,14 @@ observedList := {26,34,30,7,3};
 
 binomialProbabilitiesList := Table(PMF(BinomialDistribution(.3,Length(observedList) - 1),x),x,0,Length(observedList) - 1,1);
 
-expectedList := Sum(observedList)*binomialProbabilitiesList;
+expectedList := Sum(observedList) * binomialProbabilitiesList;
 
+
+//At least 5 observations need to be in each category for a chi-square test.
 observedList2 := Take(observedList,3) : observedList[4] + observedList[5];
 
 expectedList2 := Take(expectedList,3) : expectedList[4] + expectedList[5];
+
 
 chiSquareTest := ChiSquareTest(observedList2, expectedList2);
 
@@ -62,7 +65,7 @@ If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."),
       Result: True
       
       Side Effects:
-      Chi square test: {{"chiSquareScore",2.201492110},{"pValue",0.7113206409},{"degreesOfFreedom",3}} 
+      Chi square test: {"chiSquareScore",2.201492110} {"pValue",0.7113206407} {"degreesOfFreedom",3} 
       Critical chi square score: 7.814728270 
       Do not reject H0.
       
@@ -73,7 +76,7 @@ If(chiSquareTest["chiSquareScore"] > criticalChiSquareScore, Echo("Reject H0."),
 
 
 
-%mathpiper,title="Example on page 282-286."
+%mathpiper,title="Tennisxample on page 282-286."
 
 alpha := .1;
 
