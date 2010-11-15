@@ -27,7 +27,6 @@ standardErrorOfTheDifferenceBetweenTwoMeans := StandardErrorOfTheDifferenceBetwe
 
 pp. 254.
 
-
 %mathpiper,title=""
 
 CalculatedZScore(sample1Mean, sample2Mean, hypothesedMeanDifference, standardErrorOfTheDifferenceBetweenTwoMeans) :=
@@ -42,7 +41,7 @@ CalculatedZScore(sample1Mean, sample2Mean, hypothesedMeanDifference, standardErr
 
 
 
-%mathpiper,title=""
+%mathpiper,title="Rat brains example pp. 252."
 
 CalculatedZScore(2.4,2.1,0,standardErrorOfTheDifferenceBetweenTwoMeans);
 
@@ -260,8 +259,25 @@ Echo("Critical t-score: ", criticalTScore);
 
 
 
+%mathpiper,title="pp. 260."
 
-%group,title="Golf ball example pages 263-265."
+CalculatedDegreesOfFreedom(s1,n1,s2,n2) := N( (s1^2/n1 + s2^2/n2)^2/(  (((s1^2/n1)^2)/(n1-1)) + ((s2^2/n2)^2)/(n2-1)));
+
+CalculatedDegreesOfFreedom(7.31,12,6.40,10);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 19.93171126
+.   %/output
+
+
+
+
+
+
+
+%group,title="better golf ball example pages 263-265."
 
 
 %mathpiper,title=""
@@ -281,19 +297,19 @@ mean := N(Mean(differences));
 
 standardDeviation := N(StandardDeviation(differences));
 
-tScore := N((Mean(differences)-mu)/(standardDeviation/Sqrt(n)));
+calculatedTScore := N((Mean(differences)-mu)/(standardDeviation/Sqrt(n)));
 
 degreesOfFreedom := n - 1;
 
 
-Echo("n 1: ", n);
+Echo("n: ", n);
 Echo("Mean: ", mean);
 Echo("Standard deviation: ", standardDeviation);
 
 
 criticalTScore := OneTailAlphaToTScore(degreesOfFreedom, alpha);
 
-Echo("t-score: ", tScore);
+Echo("Calculated t-score: ", calculatedTScore);
 
 Echo("Critical t-score: ", criticalTScore);
 
@@ -304,10 +320,10 @@ Echo("Critical t-score: ", criticalTScore);
       Result: True
       
       Side Effects:
-      n 1: 9 
+      n: 9 
       Mean: 25.11111111 
       Standard deviation: 6.546839780 
-      t-score: 2.342096927 
+      Calculated t-score: 2.342096927 
       Critical t-score: 1.859549480 
       
 .   %/output
@@ -334,7 +350,7 @@ population1List := {221,215,206,185,202,197,244,188,218};
 
 population2List := {200,192,195,166,187,177,227,165,201};
 
-N(Abs(population1List - population2List))
+differences := N(Abs(population1List - population2List));
 
 n := Length(differences);
 
@@ -342,18 +358,18 @@ mean := N(Mean(differences));
 
 standardDeviation := N(StandardDeviation(differences));
 
-tScore := N((Mean(differences)-mu)/(standardDeviation/Sqrt(n)));
+calculatedTScore := N((Mean(differences)-mu)/(standardDeviation/Sqrt(n)));
 
 degreesOfFreedom := n - 1;
 
 
-Echo("n 1: ", n);
+Echo("n: ", n);
 Echo("Mean: ", mean);
-Echo("Standard deviation: ", standardDeviation1);
+Echo("Standard deviation: ", standardDeviation);
 
 criticalTScore := OneTailAlphaToTScore(degreesOfFreedom, alpha);
 
-Echo("t-score: ", tScore);
+Echo("Calculated t-score: ", calculatedTScore);
 
 Echo("Critical t-score: ", criticalTScore);
 
@@ -364,10 +380,10 @@ Echo("Critical t-score: ", criticalTScore);
       Result: True
       
       Side Effects:
-      n 1: 9 
+      n: 9 
       Mean: 18.44444444 
-      Standard deviation: standardDeviation1 
-      t-score: 2.643688879 
+      Standard deviation: 3.908679800 
+      Calculated t-score: 2.643688883 
       Critical t-score: 1.859549480 
       
 .   %/output
