@@ -29,8 +29,8 @@ pp. 254.
 
 %mathpiper,title=""
 
-CalculatedZScore(sample1Mean, sample2Mean, hypothesedMeanDifference, standardErrorOfTheDifferenceBetweenTwoMeans) :=
-    N(((sample1Mean - sample2Mean) - hypothesedMeanDifference)/standardErrorOfTheDifferenceBetweenTwoMeans);
+CalculatedZScore(sample1Mean, sample2Mean, hypothesizedMeanDifference, standardErrorOfTheDifferenceBetweenTwoMeans) :=
+    N(((sample1Mean - sample2Mean) - hypothesizedMeanDifference)/standardErrorOfTheDifferenceBetweenTwoMeans);
 
 
 %/mathpiper
