@@ -1,4 +1,4 @@
-%mathpiper,title="Example 1 pages 291-298"
+%mathpiper,title="Fertilizer example pages 291-298"
 
 alpha := .05;
 
@@ -15,7 +15,7 @@ ViewHtml(anova["html"]);
 %/mathpiper
 
     %output,preserve="false"
-      Result: True
+      Result: class javax.swing.JFrame
 .   %/output
 
 
@@ -39,7 +39,7 @@ ViewHtml(scheffeTest["html"]);
 %/mathpiper
 
     %output,preserve="false"
-      Result: True
+      Result: class javax.swing.JFrame
 .   %/output
 
 
@@ -64,7 +64,7 @@ ViewHtml(blockAnova["html"]);
 %/mathpiper
 
     %output,preserve="false"
-      Result: True
+      Result: class javax.swing.JFrame
 .   %/output
 
 
