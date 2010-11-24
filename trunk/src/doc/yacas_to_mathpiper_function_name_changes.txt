@@ -24,6 +24,10 @@ InProduct -> InnerProduct
 Dot -> DotProduct
 ExtractSubMatrix -> ExtractSubmatrix
 CoFactor -> Cofactor
+TrapError -> TrapException
+GetErrorTableau -> GetErrorTable
+IsError -> TrapException
+GetError -> GetException
 
 
 
