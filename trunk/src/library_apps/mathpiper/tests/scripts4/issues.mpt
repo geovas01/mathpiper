@@ -24,7 +24,7 @@ Verify(Factor(x^2 + x^3), x^2*(x+1) );          // OK
 Verify(Solve(x^2==21,x), {x==Sqrt(21),x==-Sqrt(21)} );      // OK
 
 //Issue10
-//Verify(Solve({x + y == 2, y == x}, {x, y}), {{x==1,y==1}} );          //  NOT OK
+Verify(Solve({x + y == 2, y == x}, {x, y}), {x==1,y==1} );          //  OK
 
 //Issue11
 //Verify(Solve(x^3==x,x),  );
@@ -88,7 +88,23 @@ Verify(Simplify(Ln(3)),Ln(3));
 //Issue 61
 Verify(TrigSimpCombine(ExpandBrackets((2*x^2-x+3)-(2*x^2-x+3))),0);
 
+//Issue 67(a)
+//Factor(Rationalize(x^2+0.5*x+0.5));
+
+//Issue 67(b)
+//Factor(Rationalize(x^2+0.5*x-0.5));
+
+//Issue 67(c)
+//Factor(Rationalize(x^2-0.5*x-0.5));
+
+//Issue 67(d)
+//Factor(Rationalize(x^2-0.5*x+0.5));
+
+//Issue 68
+//Factor(Rationalize(x^2-0.7*x-2.6));
 
 
 
+//Issue 84
+TestEquivalent(Factor((9 * (a)^(2)) - (3 * a * b)),3*a*(3*a-b));
 
