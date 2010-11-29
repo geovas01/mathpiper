@@ -57,8 +57,8 @@ This function tests whether "expr" is a number. There are two kinds
 of numbers, integers (e.g. 6) and reals (e.g. -2.75 or 6.0). Note that a
 complex number is represented by the {Complex}
 function, so {IsNumber} will return {False}.  The value {False} will be returned
-for all expressions, but the user should be especially aware of expressions
-which might appear to be numbers, such as those returned by Hold(-1) (see below).
+for all expressions which are lists, but the user should be especially aware of expression
+lists which might appear to be numbers, such as those returned by Hold(-1) (see below).
  
 
 *E.G.
