@@ -146,8 +146,9 @@ UnFence("jFactorsPoly",1);
 60 # jFactorsPrimitivePart( _pp )_(isHomogeneous And nterms=2 And nvars=2) <--
 [
     If(InVerboseMode(),Tell("Bivariate Binomial",pp));
-    Local(ppFactors);
-    ppFactors := If(isHomogeneous,jFactorsBivariateBinomial(pp),jasFactorsInt(pp) );
+    Local(ppFactors,isDiagonal);
+    isDiagonal := IsDiagonal(disassem[2]);   //  mod hso 10-11-25
+    ppFactors := If(isDiagonal,jFactorsBivariateBinomial(pp),jasFactorsInt(pp) );
 ];
 UnFence("jFactorsPrimitivePart",1);
 
