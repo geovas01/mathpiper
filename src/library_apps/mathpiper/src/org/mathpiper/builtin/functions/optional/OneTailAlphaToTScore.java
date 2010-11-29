@@ -28,7 +28,7 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
 
         BigNumber alpha = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
 
-        LispError.check(alpha.toDouble() >= 0, "The second argument must be greater than 0.", "OneTailAlphaToTScore", aStackTop, aEnvironment);
+        LispError.check(alpha.toDouble() >= 0 && alpha.toDouble() <= .5, "The second argument must be greater than 0 and less than or equal to .5.", "OneTailAlphaToTScore", aStackTop, aEnvironment);
 
         double cdf = Probability.studentTInverse(alpha.toDouble()*2, (int) degreesOfFreedom.toLong());
 
