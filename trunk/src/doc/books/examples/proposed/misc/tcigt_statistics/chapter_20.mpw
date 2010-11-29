@@ -1,4 +1,4 @@
-%mathpiper,title="Correlation coefficient example on pages 312-314"
+%mathpiper,title="Hours/Exam Grade correlation coefficient example on pages 312-314"
 
 xList := {3,5,4,4,2,3};
 yList := {86,95,92,83,78,82};
@@ -8,8 +8,9 @@ r := CorrelationCoefficient(xList,yList);
 %/mathpiper
 
     %output,preserve="false"
-      Result: 0.8615550708
+      Result: 0.8615550710
 .   %/output
+
 
 
 
@@ -28,10 +29,11 @@ Echo("Critical t-score: ", OneTailAlphaToTScore(n-2,.05));
       Result: True
       
       Side Effects:
-      t-score: 3.394193266 
+      t-score: 3.394193269 
       Critical t-score: 2.131846786 
       
 .   %/output
+
 
 
 
@@ -57,9 +59,10 @@ f(x) := [Eval(regressionLine["line"]);];
       Result: True
       
       Side Effects:
-      {"count",10} {"slope",0.9757575758} {"yIntercept",5.133333333} {"line",0.9757575758*x+5.133333333} {"yMean",10.5} {"xMean",5.5} 
+      {{"count",10},{"slope",0.9757575758},{"yIntercept",5.133333333},{"line",0.9757575758*x+5.133333333},{"yMean",10.5},{"xMean",5.5}} 
       
 .   %/output
+
 
 
 
@@ -80,6 +83,11 @@ GeoGebraPlot(Map("List",{xList,yList}));
 
 
 
+
+%group,title="Confidence interval for the regression line example on pp. 321-323."
+
+
+
 %mathpiper,title="Standard error of the estimate pages 321."
 
 StandardErrorOfTheEstimate(xList,yList);
@@ -87,7 +95,7 @@ StandardErrorOfTheEstimate(xList,yList);
 %/mathpiper
 
     %output,preserve="false"
-      Result: 2.234712373
+      Result: 2.234712374
 .   %/output
 
 
@@ -96,6 +104,7 @@ StandardErrorOfTheEstimate(xList,yList);
 %mathpiper,title="Confidence interval for the regression line pages 321-323"
 
 RegressionLineConfidenceInterval(xList,yList,8,.95);
+
 %/mathpiper
 
     %output,preserve="false"
@@ -103,16 +112,25 @@ RegressionLineConfidenceInterval(xList,yList,8,.95);
 .   %/output
 
 
+%/group
 
 
+
+
+
+
+
+%group,title="Testing the slope of the regression line example pp. 323-324."
 
 
 %mathpiper,title="Standard error of the slope pages 323-324."
+
 standardErrorOfTheSlope := StandardErrorOfTheSlope(xList,yList);
+
 %/mathpiper
 
     %output,preserve="false"
-      Result: 0.2460337348
+      Result: 0.2460337349
 .   %/output
 
 
@@ -132,11 +150,13 @@ Echo("Critical t-score: ", criticalTScore);
       Result: True
       
       Side Effects:
-      Test statistic: 3.965950347 
+      Test statistic: 3.965950345 
       Critical t-score: 3.355387364 
       
 .   %/output
 
+
+%/group
 
 
 
@@ -145,14 +165,18 @@ Echo("Critical t-score: ", criticalTScore);
 %mathpiper,title="Coefficient of determination example on page 326."
 
 CoefficientOfDetermination(xList,yList);
+
 %/mathpiper
 
     %output,preserve="false"
-      Result: 0.6628564123
+      Result: 0.6628564122
 .   %/output
 
 
 
+
+
+%group,title="Volkswagen car price example."
 
 
 %mathpiper,title="Car price example on pages 327-330."
@@ -197,9 +221,10 @@ f(x) := [Eval(regressionLine["line"]);];
       Side Effects:
       Correlation coefficient: -0.7577797980 
       Coefficient of determination: 0.5742302223 
-      Regression line: {{"count",8},{"slope",-0.09020814571},{"yIntercept",17.10033580},{"line",17.10033580-0.09020814571*x},{"yMean",12.025},{"xMean",56.2625}} 
+      Regression line: {"count",8} {"slope",-0.09020814571} {"yIntercept",17.10033580} {"line",17.10033580-0.09020814571*x} {"yMean",12.025} {"xMean",56.2625} 
       
 .   %/output
+
 
 
 
@@ -221,7 +246,7 @@ GeoGebraPlot(Map("List",{xList,yList}));
 
 
 
-%mathpiper,title="Last example continues."
+%mathpiper,title="Calculate the standard error of the estimate (pp. 329)."
 
 Echo("Standard error of the estimate: ", StandardErrorOfTheEstimate(xList,yList));
 
@@ -231,11 +256,71 @@ Echo("Standard error of the estimate: ", StandardErrorOfTheEstimate(xList,yList)
       Result: True
       
       Side Effects:
-      Standard error of the estimate.1.866130203 
+      Standard error of the estimate: 1.866130205 
       
 .   %/output
 
 
+
+%mathpiper,title="Calculate the critical t-score (pp. 329)."
+
+criticalTScore := OneTailAlphaToTScore(6, .05);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 1.943180305
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Calculate a 90 percent confidence interval (pp. 329)."
+
+RegressionLineConfidenceInterval(xList,yList,45.000,.90);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: {{"lower",11.58311697},{"upper",14.49882151}}
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title="Determine if the relationship between mileage and price is statistically significant. (pp. 329-330)."
+
+alpha := .1;
+
+standardErrorOfTheSlope := StandardErrorOfTheSlope(xList, yList);
+
+slope := regressionLine["slope"];
+
+calculatedTScore := slope/standardErrorOfTheSlope;
+
+Echo("Calculated t-score: ", calculatedTScore);
+
+Echo("Critical t-score: ", criticalTScore);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Calculated t-score: -2.844665691 
+      Critical t-score: 1.943180305 
+      
+.   %/output
+
+
+
+%/group
 
 ======= Exercises
 
@@ -301,6 +386,7 @@ Echo("Critical t-score: ", OneTailAlphaToTScore(n-2,.05));
 
 
 
+
 %mathpiper,title="Simple regression (2a)."
 
 regressionLine := RegressionLine(xList,yList);
@@ -315,9 +401,11 @@ f(x) := [Eval(regressionLine["line"]);];
       Result: True
       
       Side Effects:
-      {"count",10} {"slope",0.2943181520} {"yIntercept",51.19000236} {"line",0.2943181520*x+51.19000236} {"yMean",74.5} {"xMean",79.2} 
+      {{"count",10},{"slope",0.2943181520},{"yIntercept",51.19000236},{"line",0.2943181520*x+51.19000236},{"yMean",74.5},{"xMean",79.2}} 
       
 .   %/output
+
+
 
 
 
@@ -346,17 +434,19 @@ StandardErrorOfTheEstimate(xList,yList);
 %/mathpiper
 
     %output,preserve="false"
-      Result: 10.22870654
+      Result: 10.22870653
 .   %/output
 
 
 
 %mathpiper,title="Standard error of the slope sb (2b)."
+
 standardErrorOfTheSlope := StandardErrorOfTheSlope(xList,yList);
+
 %/mathpiper
 
     %output,preserve="false"
-      Result: 0.08281444056
+      Result: 0.08281444048
 .   %/output
 
 
@@ -377,7 +467,7 @@ Echo("Critical t-score: ", criticalTScore);
       Result: True
       
       Side Effects:
-      Test statistic: 3.553947234 
+      Test statistic: 3.553947238 
       Critical t-score: 2.306004135 
       
 .   %/output
@@ -389,7 +479,9 @@ Echo("Critical t-score: ", criticalTScore);
 
 
 %mathpiper,title="(2c)"
+
 f(70);
+
 %/mathpiper
 
     %output,preserve="false"
@@ -407,7 +499,7 @@ RegressionLineConfidenceInterval(xList,yList,70,.99);
 %/mathpiper
 
     %output,preserve="false"
-      Result: {{"lower",60.64191919},{"upper",82.94262681}}
+      Result: {{"lower",60.64191920},{"upper",82.94262680}}
 .   %/output
 
 
@@ -454,5 +546,7 @@ Echo("Predicted GPA for a GMAT of 600: ", f(600));
       Predicted GPA for a GMAT of 600: 3.509802955 
       
 .   %/output
+
+
 
 
