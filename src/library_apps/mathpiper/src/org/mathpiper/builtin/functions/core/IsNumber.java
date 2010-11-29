@@ -56,18 +56,42 @@ public class IsNumber extends BuiltinFunction
 This function tests whether "expr" is a number. There are two kinds
 of numbers, integers (e.g. 6) and reals (e.g. -2.75 or 6.0). Note that a
 complex number is represented by the {Complex}
-function, so {IsNumber} will return {False}.
+function, so {IsNumber} will return {False}.  The value {False} will be returned
+for all expressions, but the user should be especially aware of expressions
+which might appear to be numbers, such as those returned by Hold(-1) (see below).
+ 
 
 *E.G.
+In> IsNumber(6);
+Result: True;
 
-	In> IsNumber(6);
-	Result: True;
-	In> IsNumber(3.25);
-	Result: True;
-	In> IsNumber(I);
-	Result: False;
-	In> IsNumber("duh");
-	Result: False;
+In> IsNumber(3.25);
+Result: True;
+
+In> IsNumber(I);
+Result: False;
+
+In> IsNumber(-1)
+Result: True
+
+In> LispForm(-1)
+Result: -1
+Side Effects:
+-1
+
+In> Hold(-1)
+Result: -1
+
+In> IsNumber(Hold(-1))
+Result: False
+
+In> LispForm(Hold(-1))
+Result: -1
+Side Effects:
+(- 1 )
+
+In> IsNumber("duh");
+Result: False;
 
 *SEE IsAtom, IsString, IsInteger, IsDecimal, IsPositiveNumber, IsNegativeNumber, Complex
 %/mathpiper_docs
