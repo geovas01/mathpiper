@@ -75,19 +75,30 @@ Retract("Factors",*);
 50 # Factors( p_CanBeUni ) <-- 
 [
     If(InVerboseMode(),Tell("Factors_uni",p));
-    Local(res);
-    res := jFactorsPoly(p);
-    If( IsList(res) And Length(res) > 1,
-       If( IsZero(res[1][1]+1),
-          If( IsOdd(res[1][2]),
-             DestructiveReplace(res,1,{-1,1}),
-             DestructiveReplace(res,1,{ 1,1})
-          )
-       )
-    );
-    If( res[1] = {1,1}, DestructiveDelete(res,1) );
-    res;
-
+    Local(res,len,newRes,ii,accum,n);
+    res    := jFactorsPoly(p);
+    //
+    // Now, do a bit of fix-up for factors of (-1)^n
+    //
+    len    := Length(res);
+    newRes := {};
+    accum  := 1;    //  initialize number accumulator
+    
+    ForEach(r,res)
+    [
+        If(InVerboseMode(),Tell("      ",r));
+        If( IsNumber(Eval(r[1])), 
+          [ 
+              n := r[1]^r[2];
+              If(InVerboseMode(),Tell("            ",n));              
+              accum := accum * n;
+          ],
+          DestructiveAppend(newRes,r)
+        );
+    ];
+    If(InVerboseMode(),Tell("   ",{newRes,accum}));
+    If(accum != 1, DestructiveInsert(newRes,1,{accum,1}));
+    newRes;
 ];
 
 
@@ -116,6 +127,18 @@ Retract("Factors",*);
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+    %output,preserve="false"
+      Processing...
+.   %/output
+
+    %output,preserve="false"
+      Processing...
+.   %/output
 
 
 
