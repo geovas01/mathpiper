@@ -1,22 +1,22 @@
 %mathpiper,def="StandardErrorOfTheSlope"
 
-StandardErrorOfTheSlope(x,y) :=
+StandardErrorOfTheSlope(xList,yList) :=
 [   
-    Check(IsList(x), "The first argument must be a list.");
+    Check(IsList(xList), "The first argument must be a list.");
     
-    Check(IsList(y), "The second argument must be a list.");
+    Check(IsList(yList), "The second argument must be a list.");
     
-    Check(Length(x) = Length(y), "The lists for argument 1 and argument 2 must have the same length.");
+    Check(Length(xList) = Length(yList), "The lists for argument 1 and argument 2 must have the same length.");
     
     Local(standardErrorOfTheEstimate,n,xMean);
     
     standardErrorOfTheEstimate := StandardErrorOfTheEstimate(xList,yList);
     
-    n := Length(x);
+    n := Length(xList);
     
-    xMean := Mean(x);
+    xMean := Mean(xList);
     
-    N(standardErrorOfTheEstimate/Sqrt(Sum(x^2) - n*xMean^2));
+    N(standardErrorOfTheEstimate/Sqrt(Sum(xList^2) - n*xMean^2));
 ];
 
 %/mathpiper
@@ -53,7 +53,7 @@ StandardErrorOfTheSlope(x,y);
 /%/mathpiper
 
     /%output,preserve="false"
-      Result: 0.7766185090
+      Result: 1.813835715
 .   /%/output
 %/mathpiper_docs
 
