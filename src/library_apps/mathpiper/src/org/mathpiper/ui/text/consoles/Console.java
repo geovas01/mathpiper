@@ -174,15 +174,20 @@ public class Console {
             }
             i++;
         }
-        int scriptsToRun = i;
-
 
         //Change the default directory. tk.
         if (defaultDirectory != null) {
             console.addDirectory(defaultDirectory);
         }
 
-        console.repl(System.in, System.out);
+        if (i < argv.length) {
+            for (; i < argv.length; ++i) {
+                String cmd = "LoadScript(\"".concat(argv[i]).concat("\");");
+                System.out.println(console.evaluate(cmd));
+            }
+        } else {
+            console.repl(System.in, System.out);
+        }
 
 
 
