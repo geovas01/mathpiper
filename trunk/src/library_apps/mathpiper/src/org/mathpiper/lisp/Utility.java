@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import org.mathpiper.io.MathPiperInputStream;
+import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
@@ -722,6 +723,37 @@ public class Utility {
         if (!def.isLoaded()) {
             def.setLoaded();
             loadScript(aEnvironment, aStackTop, aFileName);
+        }
+    }
+
+    public static void doPatchString(String unpatchedString, MathPiperOutputStream aOutput, Environment aEnvironment, int aStackTop) throws Exception
+    {
+        String[] tags = unpatchedString.split("\\?\\>");
+        if (tags.length > 1) {
+            for (int x = 0; x < tags.length; x++) {
+                String[] tag = tags[x].split("\\<\\?");
+                if (tag.length > 1) {
+                    aOutput.write(tag[0]);
+                    String scriptCode = tag[1].trim();
+                    StringBuffer scriptCodeBuffer = 
+                        new StringBuffer(scriptCode);
+                    StringInputStream scriptStream = 
+                        new StringInputStream(scriptCodeBuffer, aEnvironment.iInputStatus);
+                    MathPiperOutputStream previous = 
+                        aEnvironment.iCurrentOutput;
+                    try {
+                        aEnvironment.iCurrentOutput = aOutput;
+                        Utility.doInternalLoad(aEnvironment, aStackTop, scriptStream);
+                    } catch(Exception e) {
+                        throw e;
+                    } finally {
+                        aEnvironment.iCurrentOutput = previous;
+                    }
+                }
+            } // end for
+            aOutput.write(tags[tags.length - 1]);
+        } else {
+            aOutput.write(unpatchedString);
         }
     }
 
