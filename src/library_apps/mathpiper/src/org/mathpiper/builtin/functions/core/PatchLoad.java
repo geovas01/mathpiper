@@ -19,8 +19,14 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.Utility;
+import org.mathpiper.io.InputStatus;
+import org.mathpiper.io.StandardFileInputStream;
+import org.mathpiper.io.StringInputStream;
+import org.mathpiper.io.MathPiperOutputStream;
 
 /**
  *
@@ -31,9 +37,30 @@ public class PatchLoad extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.write("Function not yet implemented : PatchLoad");//TODO FIXME
+        ConsPointer evaluated = new ConsPointer();
+        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        throw new EvaluationException("Function not yet supported",aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
+        // Get file name
+        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "PatchLoad");
+        String string = (String) evaluated.car();
+        LispError.checkArgument(aEnvironment, aStackTop, string != null, 1, "PatchLoad");
+        
+        String oper = Utility.unstringify(aEnvironment, aStackTop, string);
+        String hashedName = (String) aEnvironment.getTokenHash().lookUp(oper);
+
+        InputStatus oldStatus = new InputStatus(aEnvironment.iInputStatus);
+        aEnvironment.iInputStatus.setTo(hashedName);
+
+        StandardFileInputStream newInput = 
+            new StandardFileInputStream(oper, aEnvironment.iInputStatus);
+
+        String inputString = new String(newInput.startPtr());
+
+        Utility.doPatchString(inputString, aEnvironment.iCurrentOutput, aEnvironment, aStackTop);
+
+        aEnvironment.iInputStatus.restoreFrom(oldStatus);
+
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 
