@@ -18,6 +18,7 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.io.InputStatus;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.Environment;
@@ -33,48 +34,21 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class PatchString extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        String unpatchedString;
-        unpatchedString = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        String unpatchedString = 
+            (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, unpatchedString != null, 2, "PatchString");
-
-        String resultString;
-        StringBuilder resultStringBuilder = new StringBuilder();
-        String[] tags = unpatchedString.split("\\?\\>");
-        if (tags.length > 1) {
-            for (int x = 0; x < tags.length; x++) {
-                String[] tag = tags[x].split("\\<\\?");
-                if (tag.length > 1) {
-                    resultStringBuilder.append(tag[0]);
-                    String scriptCode = tag[1];
-                    if (scriptCode.endsWith(";")) {
-                        scriptCode = scriptCode.substring(0, scriptCode.length() - 1);
-                    }
-                    
-
-                    StringBuffer oper = new StringBuffer();
-                    StringOutputStream newOutput = new StringOutputStream(oper);
-                    MathPiperOutputStream previous = aEnvironment.iCurrentOutput;
-                    try{
-                        aEnvironment.iCurrentOutput = newOutput;
-                        ConsPointer resultPointer = Utility.lispEvaluate(aEnvironment, aStackTop, "Eval(" + scriptCode + ");");
-                        resultString = Utility.printMathPiperExpression(aStackTop, resultPointer, aEnvironment, 0);
-                    }catch(Exception e)
-                    {
-                        throw e;
-                    }finally
-                    {
-                        aEnvironment.iCurrentOutput = previous;
-                    }
-
-                    resultStringBuilder.append(oper);
-                }
-            }//end for.
-            resultStringBuilder.append(tags[tags.length - 1]);
-        } else {
-            resultStringBuilder.append(unpatchedString);
-        }
-
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, resultStringBuilder.toString()));
+        
+        InputStatus oldStatus = new InputStatus(aEnvironment.iInputStatus);
+        aEnvironment.iInputStatus.setTo("STRING");
+        
+        StringBuffer resultBuffer = new StringBuffer();
+        StringOutputStream resultStream = new StringOutputStream(resultBuffer);
+        
+        Utility.doPatchString(unpatchedString, resultStream, aEnvironment, aStackTop);
+        
+        aEnvironment.iInputStatus.restoreFrom(oldStatus);
+        
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, resultBuffer.toString()));
     }
 
 
