@@ -51,6 +51,9 @@
 
 100 # Sqrt(_n)^(m_IsEven) <-- n^(m/2);
 
+100 # Abs(_a)^n_IsEven <-- a^n;
+100 # Abs(_a)^n_IsOdd <-- Sign(a)*a^n;
+
 
 200 # x_IsMatrix ^ n_IsPositiveInteger <-- x*(x^(n-1));
 204 # (xlist_IsList ^ nlist_IsList)_(Length(xlist)=Length(nlist)) <--
