@@ -1172,42 +1172,53 @@ public class Utility {
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
-    public static void newRule(Environment aEnvironment, int aStackTop) throws Exception {
+    public static void newRule(Environment aEnvironment, int aStackTop, boolean aPattern) throws Exception {
 
         int arity;
         int precedence;
 
-        ConsPointer ar = new ConsPointer();
-        ConsPointer pr = new ConsPointer();
+        ConsPointer arityPointer = new ConsPointer();
+        ConsPointer precidencePointer = new ConsPointer();
         ConsPointer predicate = new ConsPointer();
-        ConsPointer body = new ConsPointer();
+        ConsPointer bodyPointer = new ConsPointer();
         String orig = null;
 
         // Get operator
         LispError.checkArgument(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "INTERNAL");
         orig = (String) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "INTERNAL");
-        ar.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        pr.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
+        arityPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        precidencePointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
         predicate.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 4).getCons());
-        body.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 5).getCons());
+        bodyPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 5).getCons());
 
         // The arity
-        LispError.checkArgument(aEnvironment, aStackTop, ar.getCons() != null, 2, "INTERNAL");
-        LispError.checkArgument(aEnvironment, aStackTop, ar.car() instanceof String, 2, "INTERNAL");
-        arity = Integer.parseInt((String) ar.car(), 10);
+        LispError.checkArgument(aEnvironment, aStackTop, arityPointer.getCons() != null, 2, "INTERNAL");
+        LispError.checkArgument(aEnvironment, aStackTop, arityPointer.car() instanceof String, 2, "INTERNAL");
+        arity = Integer.parseInt((String) arityPointer.car(), 10);
 
         // The precedence
-        LispError.checkArgument(aEnvironment, aStackTop, pr.getCons() != null, 3, "INTERNAL");
-        LispError.checkArgument(aEnvironment, aStackTop, pr.car() instanceof String, 3, "INTERNAL");
-        precedence = Integer.parseInt((String) pr.car(), 10);
+        LispError.checkArgument(aEnvironment, aStackTop, precidencePointer.getCons() != null, 3, "INTERNAL");
+        LispError.checkArgument(aEnvironment, aStackTop, precidencePointer.car() instanceof String, 3, "INTERNAL");
+        precedence = Integer.parseInt((String) precidencePointer.car(), 10);
 
         // Finally define the rule base
-        aEnvironment.defineRule(aStackTop, Utility.getSymbolName(aEnvironment, orig),
+        if(aPattern == true)
+        {
+            aEnvironment.defineRulePattern(aStackTop, Utility.getSymbolName(aEnvironment, orig),
                 arity,
                 precedence,
                 predicate,
-                body);
+                bodyPointer);
+        }
+        else
+        {
+            aEnvironment.defineRule(aStackTop, Utility.getSymbolName(aEnvironment, orig),
+                arity,
+                precedence,
+                predicate,
+                bodyPointer);
+        }
 
         // Return true
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
@@ -1235,45 +1246,7 @@ public class Utility {
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
 
-    public static void newRulePattern(Environment aEnvironment, int aStackTop, boolean aMacroMode) throws Exception {
-        int arity;
-        int precedence;
 
-        ConsPointer arityPointer = new ConsPointer();
-        ConsPointer precedencePointer = new ConsPointer();
-        ConsPointer predicatePointer = new ConsPointer();
-        ConsPointer bodyPointer = new ConsPointer();
-        String orig = null;
-
-        // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "INTERNAL");
-        orig = (String) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "INTERNAL");
-        arityPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        precedencePointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
-        predicatePointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 4).getCons());
-        bodyPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 5).getCons());
-
-        // The arity
-        LispError.checkArgument(aEnvironment, aStackTop, arityPointer.getCons() != null, 2, "INTERNAL");
-        LispError.checkArgument(aEnvironment, aStackTop, arityPointer.car() instanceof String, 2, "INTERNAL");
-        arity = Integer.parseInt((String) arityPointer.car(), 10);
-
-        // The precedence
-        LispError.checkArgument(aEnvironment, aStackTop, precedencePointer.getCons() != null, 3, "INTERNAL");
-        LispError.checkArgument(aEnvironment, aStackTop, precedencePointer.car() instanceof String, 3, "INTERNAL");
-        precedence = Integer.parseInt((String) precedencePointer.car(), 10);
-
-        // Finally define the rule base
-        aEnvironment.defineRulePattern(aStackTop, Utility.getSymbolName(aEnvironment, orig),
-                arity,
-                precedence,
-                predicatePointer,
-                bodyPointer);
-
-        // Return true
-        Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
-    }
 
     public static String dumpRule(int aStackTop, Rule branch, Environment aEnvironment, SingleArityRulebaseEvaluator userFunction) {
         StringBuilder dumpResult = new StringBuilder();
