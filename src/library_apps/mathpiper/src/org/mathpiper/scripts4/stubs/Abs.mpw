@@ -14,8 +14,6 @@
 20 # Abs(n_IsList) <-- MapSingle("Abs",n);
 
 100 # Abs(_a^_n) <-- Abs(a)^n;
-100 # Abs(_a)^n_IsEven <-- a^n;
-100 # Abs(_a)^n_IsOdd <-- Sign(a)*a^n;
 
 
 
