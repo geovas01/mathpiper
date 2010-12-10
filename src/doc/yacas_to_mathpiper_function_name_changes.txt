@@ -28,6 +28,7 @@ TrapError -> TrapException
 GetErrorTableau -> GetErrorTable
 IsError -> TrapException
 GetError -> GetException
+RulebaseDefined -> IsRulebaseDefined
 
 
 
