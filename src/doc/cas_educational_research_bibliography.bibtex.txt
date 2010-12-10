@@ -1,0 +1,798 @@
+% This file was created with JabRef 2.6.
+% Encoding: Cp1252
+
+@ARTICLE{kutzler2000algebraic,
+  author = {Kutzler, B.},
+  title = {{The algebraic calculator as a pedagogical tool for teaching mathematics}},
+  journal = {International Journal of Computer Algebra in Mathematics Education},
+  year = {2000},
+  volume = {7},
+  pages = {5--24},
+  number = {1},
+  comment = {kutzler.pdf},
+  file = {:https\://docs.google.com/uc?export=download&id=0B1EmcC-S5HdcWXBRTDg0SXRxenAxWFgzQUhLVnhJMmxkcFpVPQ&revision=true:URL},
+  issn = {1362-7368},
+  keywords = {high school, assessment},
+  owner = {tkosan},
+  publisher = {Research Information Ltd; 1999},
+  review = {tk:Walking = mental calculation. Bicycle = paper and pencil calculation.
+	Car = calculator/computer calculation.
+	
+	
+	
+	tk:Proper use of technology when doing calculations. 7*9, do in one's
+	head. 34*56 do with a calculator.
+	
+	
+	
+	tk:Physical exercise for physical fitness and health. Mental exercise
+	for mental fitness and health.
+	
+	
+	
+	As we will demonstrate later with more examples, calculators and computers
+	can be excellent mathematical
+	
+	compensation tools which allow less gifted students to deal with advanced
+	topics.
+	
+	
+	
+	we distinguish two elementary uses of calculators or
+	
+	computers in teaching: automation and compensation.
+	
+	
+	
+	one can use calculators and computers as valuable teaching tools by
+	looking at four topics which I think are
+	
+	especially important in mathematics education: trivialization, experimentation,
+	visualization, and concentration.
+	
+	
+	
+	The car broadened our „moving/transportation horizons“ by trivializing
+	moving up to certain distances. Similarly,
+	
+	the calculator broadens our „calculation horizons.“
+	
+	
+	
+	Similarly, calculators and computers (i.e. the trivialization of
+	
+	arithmetic, graphics, and algebra) in teaching mean that we can tackle
+	
+	· (more) complex problems and
+	
+	· (more) realistic problems.
+	
+	
+	
+	This picture of a spiral which demonstrates the path of discovery
+	of (mathematical) knowledge was proposed by
+	
+	Bruno Buchberger.
+	
+	
+	
+	This Bourbaki
+	
+	system, being developed for the purpose of inner-mathematical communication,
+	did without documenting the
+	
+	phase of experimentation, hence it consisted only of the phases of
+	exactification and application.
+	
+	Gradually, Bourbakism lodged itself in teaching and learning. It has
+	become customary to teach mathematics by
+	
+	deductively presenting mathematical knowledge, then asking the students
+	to learn it and use/apply it to solve
+	
+	home work and exam problems. This is as if one would have to learn
+	walking (or cycling, or dancing, ...) by
+	
+	studying, understanding, then applying scientific descriptions of
+	the muscle motions required for walking (or
+	
+	cycling, or dancing, ...) – instead of learning by trial and error
+	(i.e. experimentation), as it is done naturally.
+	
+	
+	
+	Hardly any mathematician on this planet could do mathematical research
+	the way we demand our students to get
+	
+	into this subject. A student has to „locally“ build his individual
+	little „house of mathematics“. A scientist does
+	
+	pretty much the same „globally“, i.e. on a much larger scale. For
+	both the scientist and the student a substantial
+	
+	part of knowledge acquisition happens during the phase of experimentation.
+	From this point of view it becomes
+	
+	understandable why so many students are at loggerheads with mathematics
+	and one will demand that experimentation
+	
+	obtains its due position within the teaching of mathematics. Phases
+	of experimentation should complete
+	
+	the traditional teaching methods – not substitute them! We do not
+	advocate the return to Egyptian experimental
+	
+	mathematics. Simply, mathematics teaching should go through all three
+	phases of the above spiral.
+	
+	
+	
+	However, it is understandable that, within the framework of today‘s
+	curricula, there was hardly any experimentation
+	
+	in the sense of Buchberger’s creativity spiral. This kind of experimentation,
+	performed with paper and
+	
+	pencil, is both timeconsuming and errorprone. Within the time available
+	at school, students could produce only a
+	
+	very small number of examples for the purpose of observing and discovering,
+	and a hefty portion of these examexample
+	
+	conjecture
+	
+	theorem
+	
+	algorithm
+	
+	new example .......................
+	
+	apply observe
+	
+	implement prove
+	
+	new
+	
+	algorithm
+	
+	B Kutzler: The Algebraic Calculator as a Pedagogical Tool for Teaching
+	Mathematics
+	
+	Page 5 of 12
+	
+	ples could be faulty due to calculation errors. There is nothing you
+	can observe from only a few, partly wrong
+	
+	examples! From now on algebraic calculators enable students to experiment
+	within almost all topics treated in
+	
+	mathematics teaching. There is no limit to the number of examples
+	the student can do and the electronic assistant
+	
+	guarantees the properness of the results.
+	
+	
+	
+	Talking about an assistant: Records indicate that great mathematicians
+	
+	such as Carl Friedrich Gauss employed herds of human „calculators“
+	without which they would not have made
+	
+	most of their famous findings.
+	
+	
+	
+	Consider
+	
+	a less gifted student and compare the learning effect when the student
+	has to draw the graph manually with
+	
+	when the student is allowed to use a calculator: A manually produced
+	graph would take too much time and most
+	
+	probably it would have only a vague resemblance with the true graph.
+	(„What can you observe from wrong
+	
+	examples?“) Only with the help of the calculator this student has
+	a realistic chance to memo rize the correspondance
+	
+	between the expression and the (proper!) graph. Producing graphs with
+	paper and pencil certainly continues
+	
+	to be a worthwhile activity which is important in learning to understand
+	the correspondance between algebraic
+	
+	and graphic representations. However, immediacy and correctness are
+	such crucial psycho logical factors, that
+	
+	providing less giftes students with an appropriate tool (such as a
+	graphic calculator) is a pedagogical duty.
+	
+	
+	
+	In the above subsection on concentration we compared teaching mathematics
+	with building a house. In the language
+	
+	of this metaphor the above mentioned problem of mathematics education
+	translates into the problem of
+	
+	building a new storey on top of an incomplete storey. For example,
+	as soon as we start building the storey of
+	
+	„choosing equivalence transformations“, the storey of „simplifying“
+	is still incomplete for many of our students.
+	
+	In mathematics teaching at school we simply don’t have enough time
+	for waiting until all students have completed
+	
+	all previous storeys. The curriculum forces the teacher to continue
+	with the next topic, independent of the
+	
+	progress of individual students. So, it remains to ask how a student
+	can build a storey on top of an incomplete
+	
+	one. The above example demonstrates how I suggest to answer this question:
+	While the student learns the higherlevel
+	
+	skill, the calculator solves all subproblems that require the lower-level
+	skill. Using the language of the
+	
+	metaphor, the calculator is a scaffolding above the incomplete storey.
+	
+	
+	
+	In the above exercise, the algebraic calculator is a scaffolding that
+	compensates any weakness with the lowerlevel
+	
+	skills, hence it helps avoiding mistakes. In case the final teaching
+	goal is to have students be able to solve
+	
+	systems of equations (or perform any other skill B) manually (because,
+	for example, the students are assessed
+	
+	centrally at the end of the school year), then it is recommended to
+	perform the following three steps. The first
+	
+	step is teaching and practising skill A. The second step is teaching
+	and practising skill B, while using the algebraic
+	
+	calculator to solve all those subproblems that require s kill A (i.e.
+	the student can fully concentrate on
+	
+	learning skill B.) The third step is to combine skills A and B with
+	no support from technology.
+	
+	This is one of many conceivable methods of using algebraic calculators
+	and computers as pedagogical tools
+	
+	
+	
+	The temporary use of technology can help to break down the learning
+	process into smaller, easier „digestible“
+	
+	pieces. For less gifted students, who could not swallow the „big pieces“
+	we offered them so far, this may be the
+	
+	only way of mastering these learning steps. They find it easier to
+	keep track of the steps without getting lost (or
+	
+	screwed up) in details such as simplification. When comparing the
+	teaching of mathematics with building a
+	
+	house, the use of technology compares with using a scaffolding.
+	
+	
+	
+	The scaffolding method is any pedagogically justified sequence of
+	using and not using technology for trivialization,
+	
+	experimentation, visualization, or concentration either in the sense
+	of automation or compensation.
+	
+	
+	
+	I believe that the two central goals in mathematics education should
+	be to train the students in the two disciplines
+	
+	intellectual sports and problem solving.
+	
+	
+	
+	In medicine there exist definitions of what a „healthy“ person must
+	be able to do physically. After a heart attack,
+	
+	for example, a patient must be able to walk a certain distance and
+	to take the stairs a certain number of levels
+	
+	before he is considered cured. We need something similar for our intellectual
+	capabilities, i.e. a definition of
+	
+	what an „intellectually healthy“ person must be able to do in terms
+	of, for example, memorization, or mental
+	
+	calculations.
+	
+	For what concerns our physical capabilities, we introduced the school
+	subject „sports“ in order to fight a further
+	
+	deterioration. We need to take similar steps regarding our intellectual
+	capabilities, e.g. we need the introduction
+	
+	of a school subject „intellectual sports“. I believe that this should
+	be one of the goals of mathematics education.
+	
+	
+	
+	In mathematics I consider problem solving to be the ability to use
+	mathematical tools for solving real world
+	
+	technical problems.
+	
+	
+	
+	Today, problem solving is treated at school only half-heartedly. The
+	main emphasis is put on the second step,
+	
+	calculation, and its execution with paper and pencil. Therefore, most
+	problem solving exercises turn into exercises
+	
+	for practising calculation skills. Since translation hardly is taught
+	explicitely, it is understandable that a
+	
+	majority of students don’t develop this ability, hence they are afraid
+	of this type of exercises. As a consequence,
+	
+	most students believe that such exercises are only for the most ingenious
+	among them.
+	
+	By employing technology as widely as possible, we can dedicate enough
+	time to teach the choosing of models
+	
+	and the translating. Once these skills are taught explicitely, more
+	students will appreciate and master them.
+	
+	
+	
+	Curricula should aim at educating students in the disciplines intellectual
+	sports and problem solving.
+	
+	The goal of intellectual sports are intellectual fitness and health
+	as has been described in detail earlier. It goes
+	
+	without saying that technology should only be an training tool („mathematical
+	home trainer“) and must not be
+	
+	used when testing these abilities.
+	
+	The goal of problem solving is the ability of using given tools for
+	solving given problems. It goes without saying
+	
+	that the use of technology should be highly welcome here.
+	
+	Once again I draw a parallel using the initial comparision of mathematics
+	with moving/transportation. Problem
+	
+	solving compares with an actual desire of moving from A to B (or transporting
+	something from A to B). Only
+	
+	the reaching of B counts. It is less important (maybe even unimportant)
+	how we got there. Intellectual sports
+	
+	compares with a jogger who runs along a track in order to gain physical
+	fitness. Only the jogging counts. It is
+	
+	unimportant where the track is or where it leads to. Transferred to
+	mathematics this means the following: In
+	
+	problem solving only the result counts. It is irrelevant how the calculations
+	were performed. In intellectual sports
+	
+	only the performing of the calculation counts, while the result is
+	unimportant.
+	
+	
+	
+	The above yields a very simple rule for assessment: When assessing
+	intellectual fitness, no tool is allowed, not
+	
+	even a simple four-function calculator. When assessing problem solving,
+	all tools are allowed (better: solicited),
+	
+	in particular graphic or algebraic calculators. In case this splitting
+	is not managable within an exam, one should
+	
+	assess the two disciplines at different times.
+	
+	
+	
+	In the end technology should play a secondary role in both disciplines.
+	In intellectual sports the goal is a
+	
+	performance with a minimum of tools. In problem solving the goal is
+	to learn all those skills and abilities that are
+	
+	needed for problem solving and that are not supported by any technology.
+	A good mathematics education will
+	
+	use a calculator or computer like language education uses dictionaries.
+	
+	
+	
+	The Austrian and other investigations showed the following: If technology
+	is used properly, it leads to
+	
+	· more efficient teaching and learning,
+	
+	· more inpedendent productive student activity,
+	
+	· more student creativity,
+	
+	· an increased importance of the teacher.
+	
+	The teacher has the duty to accompany and direct the students at their
+	partly individual voyage of discovery
+	
+	through the world of mathematics. Consequently the key to the success
+	in teaching mathematics is good teacher
+	
+	training. Not technology changes teaching, but technology is a catalyst
+	for teachers to change},
+  timestamp = {2010.12.06}
+}
+
+@ARTICLE{pierce2algebraic,
+  author = {Pierce, R.},
+  title = {{Algebraic Insight Underpins the Use of CAS for Modeling}},
+  journal = {THE MONTANA MATHEMATICS ENTHUSIAST Volume 2, no. 2 [September 2005]},
+  volume = {2},
+  pages = {107--117},
+  number = {2},
+  file = {:https\://docs.google.com/uc?export=download&id=0B1EmcC-S5Hdcc0IvTVhSZlhCRzdJUXg3b2NXaWpqdUxoZDJzPQ&revision=true:URL},
+  issn = {1551-3440},
+  publisher = {Citeseer}
+}
+
+@ARTICLE{pierce2009worth,
+  author = {Pierce, R. and Ball, L. and Stacey, K.},
+  title = {{IS IT WORTH USING CAS FOR SYMBOLIC ALGEBRA MANIPULATION IN THE MIDDLE
+	SECONDARY YEARS? SOME TEACHERS’VIEWS}},
+  journal = {International Journal of Science and Mathematics Education},
+  year = {2009},
+  volume = {7},
+  pages = {1149--1172},
+  number = {6},
+  file = {:https\://docs.google.com/uc?export=download&id=0B1EmcC-S5HdccVh4YkVkdHhtRkgxb3V6bjdjNG1WdmY4T2VBPQ&revision=true:URL},
+  issn = {1571-0068},
+  publisher = {Springer},
+  timestamp = {2010.12.10}
+}
+
+@ARTICLE{pierce2004framework,
+  author = {Pierce, R. and Stacey, K.},
+  title = {{A framework for monitoring progress and planning teaching towards
+	the effective use of computer algebra systems}},
+  journal = {International Journal of Computers for Mathematical Learning},
+  year = {2004},
+  volume = {9},
+  pages = {59--93},
+  number = {1},
+  abstract = {This article suggests a framework to organise a cluster of variables
+	that are
+	
+	associated with students’ effective use of computer algebra systems
+	(CAS) in mathematics
+	
+	learning. Based on a review of the literature and from the authors’
+	own teaching experience,
+	
+	the framework identifies the main characteristics of students’ interactions
+	with
+	
+	CAS technology and how these may be used to monitor students’ developing
+	use of CAS;
+	
+	from this, the framework may be used to plan teaching in order to
+	gain greater benefit
+	
+	from the availability of CAS. Four case studies describing students’
+	development over a
+	
+	semester are reported. These demonstrate a variety of combinations
+	of technical competencies
+	
+	and personal attributes. They indicate the importance of both the
+	technical and
+	
+	personal aspects but suggest that negative attitudes rather than technical
+	difficulties can
+	
+	limit the effective use of CAS. Finally practical suggestions are
+	given for teaching strategies
+	
+	which may promote effective use of CAS.},
+  comment = {Pierce_Robyn.pdf},
+  file = {:https\://docs.google.com/uc?export=download&id=0B1EmcC-S5HdcWWxmWElJR2NTc2h3ZUh4WjJWaWxySTY4MTN3PQ&revision=true:URL},
+  issn = {1382-3892},
+  publisher = {Springer},
+  timestamp = {2010.12.06}
+}
+
+@ARTICLE{pierce2001reflections,
+  author = {Pierce, R. and Stacey, K.},
+  title = {{Reflections on the changing pedagogical use of computer algebra
+	systems: assistance for doing or learning mathematics?}},
+  journal = {Journal of Computers in Mathematics and Science Teaching},
+  year = {2001},
+  volume = {20},
+  pages = {143--162},
+  number = {2},
+  abstract = {This article documents a change in the use of a Computer Algebra
+	
+	System. (CAS, with a group of first year, undergraduate.
+	
+	mathematics students. CAS was initially used as an assistant
+	
+	for doing mathematics, enabling students to solve difficult
+	
+	problems. During the period of the study it came to be
+	
+	used as an assistant for learning mathematics, as a partner in
+	
+	the teaching and learning process. This article notes the
+	
+	changes required in organisation, teaching materials, and assessment.
+	
+	then reflects on changes in students' attitudes and
+	
+	learning outcomes.
+	
+	Surveys, interviews and teacher observations suggested that
+	
+	students' attitudes towvard the use of CAS f'or learning mathematics
+	
+	were positive and that they believed that it aided
+	
+	their understanding. Students appreciated the avaiiability of
+	
+	CAS for examinations. There was no dernonstrable change in
+	
+	student achievement resulting from the changed pedagogical
+	
+	use of CAS. However changes in learning goals and assessment.
+	
+	procedures mean that no simple comparison is possible.},
+  comment = {Pierce_Robyn2.pdf},
+  file = {:https\://docs.google.com/uc?export=download&id=0B1EmcC-S5HdccUY4bjJqWmpmbjVSaEhudDdkU2tWMFZrRU9RPQ&revision=true:URL},
+  issn = {0731-9258},
+  keywords = {undergraduate, freshman, assessment, attitude, good bibliography,
+	DERIVE, primary},
+  owner = {tkosan},
+  publisher = {AACE ASSOCIATION FOR THE ADVANCEMENT OF COMPUTING IN},
+  review = {In 1996 a review of the literature on the use of CAS in undergraduate
+	
+	mathematics suggested that not only could CAS be used to do mathematics
+	
+	but it might also help students leam quickly and increase their understanding
+	
+	of mathematical concepts. Heid (1988) reported that for an introductory
+	
+	calculus course a group taught using CAS to presen: and explore concepts
+	
+	produced sinmlar results to a comparison group on a skills test and
+	showed
+	
+	greater understanding of concepts and the ability to use different
+	representations.
+	
+	Palmniter ( 199 1 ) reported that an experimental CGS group covered
+	the
+	
+	same course as a traditional group with fewer hours teaching and that
+	these
+	
+	students outperformed the traditional group on both concepEual and
+	computational
+	
+	exams. Day (1.993) encouraged us that "the power and flexibility of
+	
+	technology can help change the focus of school algebra from students
+	becoming
+	
+	mediocre manipulators to their becoming accomplished analysts" (p.
+	30).
+	
+	Previous experience (Reid. 1988, Palmniter, 1991, Mayes, 1993,
+	
+	Llorens-Fuster, 1995, Heid & Zbiek, 1995, Bennett. 1995, Taylor, 1995:
+	
+	Hirschorn &Thompson, 1996) suggested that a CAS could facilitate student's
+	
+	learning by:
+	
+	* exposure to lots of examples and nonexarnples in a short space of
+	time;
+	
+	* encouraging detailed obsen'ation and conjectures;
+	
+	development of rules by induction;
+	
+	* exposure to multiple representations, graphical, numeric and algebraic;
+	
+	* improving attitudes and class attendance; and
+	
+	* reducing the anxiety of "making mnistakes.
+	
+	
+	
+	Initially CAS were used for demonstrating ideas in lectures by aiding
+	
+	visualisation and in 1992 laboratory sessions were introduced. These
+	sessions
+	
+	were based on worksheets which helned students learn to use DERIVE
+	
+	and required them to use the CAS in solving extended problems and
+	
+	harder examples (Yearwood & Glover, 1995). Until 1997 students had
+	three
+	
+	hours of lectures and tutorials for traditional mathematics and one
+	hour in a
+	
+	computer laboratory. Assessment was undertaken in separate parts both
+	
+	with and without CAS. In 1997 the use of CAS was broadened. Students
+	
+	were encouraged to see it as a tool to help them learn and understand
+	mathematics
+	
+	not just assist them with difficult problems. To facilitate this,
+	CAS
+	
+	was made available for all classes and all assessment tasks.
+	
+	This article examines the experience of the transition years, 1995-1998,
+	
+	and looks at the changes required in organisation and teaching. In
+	1995/96
+	
+	students learned mathematics "by hand" and learned to use DERIVE for
+	
+	mathematics. In 1997/98 students also used DERIVE to help them learn
+	
+	mathematics. A study was undertaken to monitor student's responses
+	to the
+	
+	changes in teaching and assessment. Data was collected using surveys,
+	interviews,
+	
+	and anecdotes (Table 1).
+	
+	
+	
+	It has been often stated (Ramsden, 1992) that assessment drives students'
+	
+	learning, and that students will value and concentrate on those aspects
+	
+	of a course that they know will be assessed. Amold (1 995k) observed
+	
+	that students who were not allowed to use CAS in their examinations
+	used it
+	
+	as little as possible in their learning exercises. If CAS is to be
+	taken seriously
+	
+	as a mathematics learning tool then students need to have access to
+	it for
+	
+	assessment tasks.
+	
+	
+	
+	A key change in exarmination questions was the extension of assessment
+	
+	from students' recall of facts and by-hand skills to questions that
+	require
+	
+	students to interpret and explain their answers.
+	
+	
+	
+	Lecturers in 1997/98 also commented that student's conversations in
+	
+	these laboratory sessions tended to focus on the mathematics problems.
+	
+	They shared conjectures about patterns in algebra and discussed key
+	features
+	
+	of graphs. Lecturers commented that this contrasted with students'
+	behaviour
+	
+	in the more traditional "pen and paper" tutorials where the stuldents
+	
+	either worked in silence or discussed unrelated topics.
+	
+	
+	
+	Rather than
+	
+	seeing the abilitv to use DERIVE as an end in itself, students saw
+	it as a tool
+	
+	for doing and exploring mathematics.
+	
+	
+	
+	As CAS becomes more accessible in both interface and cost, it inevitably
+	
+	impacts on both what is valued in mathematics and how this is taught.
+	
+	
+	
+	What does it mean to
+	
+	be able to do mathematics.. understand mnathematics when the CAS can
+	do
+	
+	the rouLtines and get the right answer?},
+  timestamp = {2010.12.06}
+}
+
+@ARTICLE{SHAW1997,
+  author = {NOMIKI SHAW and 
+	
+	BRIAN JEAN and 
+	
+	ROGER PECK},
+  title = {A Statistical Analysis on the Effectiveness of Using a Computer Algebra
+	System in a Developmental Algebra Course},
+  journal = {JOURNAL OF MATHEMATICAL BEHAVIOR,},
+  year = {1997},
+  volume = {16 (2)},
+  pages = {175-180},
+  abstract = {We evaluate the effectiveness of using a Computer Algebra System (CAS)
+	in an Intermediate
+	
+	Algebra course. We measure the effectiveness of using technology in
+	this developmental course by
+	
+	comparing the grade distributions in a follow-up course of three groups:
+	students who went
+	
+	through the technology based course, students who went through a traditional
+	course, and students
+	
+	who were not required to take a developmental course. This study indicates
+	that using a CAS is a
+	
+	very effective teaching tool for the developmental mathematics program.
+	We found that the students
+	
+	in the developmental program which had the technology based course
+	did at least as well as
+	
+	the students who did not need to take any developmental courses. This
+	is a real improvement since
+	
+	we also found that students who took the traditional Intermediate
+	Algebra course did not do as well
+	
+	in subsequent courses as students who took the technology based course.},
+  comment = {Shaw_Nomiki.pdf},
+  file = {:https\://docs.google.com/uc?export=download&id=0B1EmcC-S5HdcYzBvdlBzVUUwaWxZaDZpc2E0dDFGdUtpZVdrPQ&revision=true:URL},
+  keywords = {primary},
+  timestamp = {2010.12.06}
+}
+
+@comment{jabref-meta: selector_publisher:}
+
+@comment{jabref-meta: fileDirectory:D:\\documents\\mathpiper_research;
+}
+
+@comment{jabref-meta: selector_author:}
+
+@comment{jabref-meta: selector_journal:}
+
+@comment{jabref-meta: selector_keywords:assessment;attitude;DERIVE;fre
+shman;good bibliography;high school;primary;undergraduate;}
+
