@@ -48,4 +48,10 @@ public class NumberPatternParameterMatcher extends PatternParameterMatcher {
         return "Number";
     }
 
+
+    public String toString()
+    {
+        return this.iNumber.toString();
+    }
+
 }

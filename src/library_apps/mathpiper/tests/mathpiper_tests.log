@@ -3,7 +3,7 @@ Turning stack tracing on: Result: True
 Side Effects:
 Stack tracing is on.
 
-***** Fri Dec 10 04:11:11 EST 2010 *****
+***** Sat Dec 11 22:29:30 EST 2010 *****
 ***** MathPiper version: .80y *****
 
 ===========================
@@ -556,7 +556,7 @@ tests/scripts4/regress.mpt: 328
 ******************
 Known failure: (Limit(x,Infinity)x^n/Ln(x))=Infinity 
 Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=a 
-Known failure: Gcd(10,3.3)!=3.3AndGcd(10,3.3)!=1 
+Known failure: Gcd(10,3.3)!=3.3 And Gcd(10,3.3)!=1 
 Known failure: (Differentiate(z)Conjugate(z))=Undefined 
 Known failure: ArcCos(Cos(beta))!=beta 
 Known failure: (Limit(n,Infinity)n^5/2^n)=0 
