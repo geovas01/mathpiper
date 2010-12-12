@@ -6,7 +6,7 @@ ggbLine(point1Label, point2Label) :=
 [
     Local(command);
     
-    command := PatchString("Line[<?Write(ToAtom(point1Label))?>,<?Write(ToAtom(point2Label))?>]");
+    command := PatchString("Line[<?Write(ToAtom(point1Label));?>,<?Write(ToAtom(point2Label));?>]");
     
     
     JavaCall(geogebra,"evalCommand",command);
