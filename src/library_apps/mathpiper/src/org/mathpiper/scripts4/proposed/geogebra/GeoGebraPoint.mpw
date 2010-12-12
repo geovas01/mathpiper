@@ -5,9 +5,15 @@ Retract("GeoGebraPoint",*);
 [
     Local(command);
     
-    command := PatchString("<?Write(ToAtom(name))?>=(<?Write(x)?>,<?Write(y)?>)");
+    command := PatchString("<?Write(ToAtom(name));?>=(<?Write(x);?>,<?Write(y);?>)");
     
     JavaCall(geogebra,"evalCommand",command);
 ];
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+

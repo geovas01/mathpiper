@@ -136,7 +136,7 @@ AnovaSingleFactor(levelsList, alpha) :=
     
     anovaTableRow2 := PatchString("<TR> <TD> <?Write(ToAtom(\"Within Levels\"));?> </TD> <TD > <?Write(sumOfSquaresWithin);?> </TD> <TD> <?Write(degreesOfFreedomWithin);?> </TD>   <TD > <?Write(meanSquareWithin);?> </TD></TR>":Nl());
     
-    anovaTableTotal := PatchString("<TR> <TD> Total </TD> <TD> <?Write(sumOfSquaresTotal);?> </TD> <TD> <?Write(degreesOfFreedomBetween + degreesOfFreedomWithin)?> </TD> </TR>");
+    anovaTableTotal := PatchString("<TR> <TD> Total </TD> <TD> <?Write(sumOfSquaresTotal);?> </TD> <TD> <?Write(degreesOfFreedomBetween + degreesOfFreedomWithin);?> </TD> </TR>");
     
     bottomOfAnova :=
 "
