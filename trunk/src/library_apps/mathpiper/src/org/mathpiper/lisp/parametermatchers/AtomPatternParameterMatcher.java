@@ -55,4 +55,9 @@ public class AtomPatternParameterMatcher extends PatternParameterMatcher {
         return "Atom";
     }
 
+    public String toString()
+    {
+        return iString;
+    }
+
 }

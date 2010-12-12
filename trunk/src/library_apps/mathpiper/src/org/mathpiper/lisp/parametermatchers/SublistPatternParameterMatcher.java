@@ -71,8 +71,30 @@ public class SublistPatternParameterMatcher extends PatternParameterMatcher {
     }
 
 
-    public String getType() {
+    public String getType()
+    {
         return "Sublist";
+    }
+
+
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(int x = 0; x < iMatchers.length; x++)
+        {
+            PatternParameterMatcher matcher = iMatchers[x];
+
+            stringBuilder.append(matcher.getType());
+            
+            stringBuilder.append(": ");
+            
+            stringBuilder.append(matcher.toString());
+
+            stringBuilder.append(", ");
+            
+        }
+
+        return stringBuilder.toString();
     }
 
 }

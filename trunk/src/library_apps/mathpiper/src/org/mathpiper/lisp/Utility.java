@@ -1248,22 +1248,24 @@ public class Utility {
 
 
 
-    public static String dumpRule(int aStackTop, Rule branch, Environment aEnvironment, SingleArityRulebaseEvaluator userFunction) {
+    public static String dumpRule(int aStackTop, Rule rule, Environment aEnvironment, SingleArityRulebaseEvaluator userFunction) {
         StringBuilder dumpResult = new StringBuilder();
         try {
-            int precedence = branch.getPrecedence();
-            ConsPointer predicatePointer1 = branch.getPredicatePointer();
+            int precedence = rule.getPrecedence();
+
+            ConsPointer predicatePointer1 = rule.getPredicatePointer();
             String predicate = "";
             String predicatePointerString = predicatePointer1.toString();
+
             if (predicatePointerString == null || predicatePointerString.equalsIgnoreCase("Empty.")) {
                 predicate = "None.";
             } else {
                 predicate = Utility.printMathPiperExpression(aStackTop, predicatePointer1, aEnvironment, 0);
             }
 
-            if (branch instanceof PatternRule) {
+            if (rule instanceof PatternRule) {
                 predicate = "(Pattern) ";
-                PatternRule branchPattern = (PatternRule) branch;
+                PatternRule branchPattern = (PatternRule) rule;
                 ParametersPatternMatcher pattern = branchPattern.getPattern();
 
                 Iterator variablesIterator = pattern.getVariables().iterator();
@@ -1282,7 +1284,8 @@ public class Utility {
                 while (parameterMatchersIterator.hasNext()) {
                     PatternParameterMatcher parameter = (PatternParameterMatcher) parameterMatchersIterator.next();
                     String parameterType = (String) parameter.getType();
-                    parameterTypes += parameterType + ", ";
+                    parameterTypes += parameterType + ": " + parameter.toString();
+                    parameterTypes += "; ";
                 }
                 if (parameterTypes.contains(",")) {
                     parameterTypes = parameterTypes.substring(0, parameterTypes.lastIndexOf(","));
@@ -1302,7 +1305,6 @@ public class Utility {
                 predicate += "\n    Variables: " + patternVariables + ", ";
                 predicate += "\n    Types: " + parameterTypes;
 
-
             }//end if.
 
             Iterator paremetersIterator = userFunction.getParameters();
@@ -1318,7 +1320,7 @@ public class Utility {
                 parameters = parameters.substring(0, parameters.lastIndexOf(","));
             }
 
-            String body = Utility.printMathPiperExpression(aStackTop, branch.getBodyPointer(), aEnvironment, 0);
+            String body = Utility.printMathPiperExpression(aStackTop, rule.getBodyPointer(), aEnvironment, 0);
             body = body.replace(",", ", ");
             //System.out.println(data);
 
@@ -1327,11 +1329,13 @@ public class Utility {
             if (userFunction instanceof MacroRulebaseEvaluator) {
                 BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
                 ConsPointer substitutedBodyPointer = new ConsPointer();
-                Utility.substitute(aEnvironment, aStackTop, substitutedBodyPointer, branch.getBodyPointer(), backQuoteSubstitute);
+                Utility.substitute(aEnvironment, aStackTop, substitutedBodyPointer, rule.getBodyPointer(), backQuoteSubstitute);
                 substitutedMacroBody = Utility.printMathPiperExpression(aStackTop, substitutedBodyPointer, aEnvironment, 0);
             }
 
             dumpResult.append("Precedence: " + precedence + ", ");
+            dumpResult.append("\n" + "Rule Type: " + rule.getClass().getSimpleName() + ", ");
+            dumpResult.append("\n" + "Arity: " + userFunction.arity() + ", ");
             dumpResult.append("\n" + "Parameters: " + parameters + ", ");
             dumpResult.append("\n" + "Predicates: " + predicate + ",    ");
 

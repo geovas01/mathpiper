@@ -66,4 +66,10 @@ public class VariablePatternParameterMatcher extends PatternParameterMatcher {
         return "Variable";
     }
 
+
+    public String toString()
+    {
+        return "";
+    }
+
 };

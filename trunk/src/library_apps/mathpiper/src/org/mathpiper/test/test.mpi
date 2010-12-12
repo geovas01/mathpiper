@@ -1,27 +1,3 @@
-NextTest("Basic calculations");
-Verify(3 + 2 , 5);
-Verify(3-7, -4);
-Verify(1 = 2 , 0 = -1);
-Verify(5 ^ 2 , 25);
+a-1+1;
 
-Verify(IsZero(0.000),True);
-
-Verify(2/5,Hold(2/5));
-Verify(IsZero(N(2/5)-0.4));
-Verify(IsRational(2),True);
-Verify(IsRational(2/5),True);
-Verify(IsRational(-2/5),True);
-Verify(IsRational(2.0/5),False);
-Verify(IsRational(Pi/2),False);
-Verify(Numerator(2/5),2);
-Verify(Denominator(2/5),5);
-
-VerifyArithmetic(10,5,8);
-VerifyArithmetic(10000000000,5,8);
-VerifyArithmetic(10,50,80);
-VerifyArithmetic(10000,50,88);
-
-Verify(4!,24);
-Verify(BinomialCoefficient(2,1),2);
-
-NextTest("Testing math stuff");
+TraceSome("+,-") a-1+1;
