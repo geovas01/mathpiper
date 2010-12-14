@@ -8,4 +8,4 @@ I have a set of rules whose predicates are acceptable inputs.  If it "falls thro
 
 === Accept on fall through. ===
 
-In this connection, I have noticed that YT occasionally defined a hard-to-define concept by giving a set of rules (sometimes quite detailed and specific) for NOT-allowed cases, and defining the desired object by what falls through.  I have a specific example in mind, but can 't put my finger on it right now.
+In this connection, I have noticed that YT occasionally defined a hard-to-define concept by giving a set of rules (sometimes quite detailed and specific) for NOT-allowed cases, and defining the desired object by what falls through.  I have two specific examples in mind: the definitions of IsMultiExpression and IsVr in file multivar/makemulti/MakeMultiNomial.mpw.
