@@ -1,0 +1,6 @@
+= This Wiki is for holding information which is related to MathPiper development =
+
+[ArgumentChecking]
+
+
+
