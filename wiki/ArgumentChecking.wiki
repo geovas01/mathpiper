@@ -1,0 +1,11 @@
+#summary This page discusses techniques for checking function arguments.
+
+== Checking arguments to a related group of rules. ==
+
+=== Exception on fall through.===
+
+I have a set of rules whose predicates are acceptable inputs.  If it "falls through", then ipso-facto the input was NOT acceptable, and I will throw an exception.  This works whenever it is possible to enumerate in advance all the possible acceptable inputs, or at least all those which we are currently able to handle.  (More can be added later, if found, before the fall-through case.)
+
+=== Accept on fall through. ===
+
+In this connection, I have noticed that YT occasionally defined a hard-to-define concept by giving a set of rules (sometimes quite detailed and specific) for NOT-allowed cases, and defining the desired object by what falls through.  I have a specific example in mind, but can 't put my finger on it right now.
