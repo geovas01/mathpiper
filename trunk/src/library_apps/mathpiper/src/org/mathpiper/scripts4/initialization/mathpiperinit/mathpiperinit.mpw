@@ -68,37 +68,5 @@ LoadScriptOnce("initialization.rep/packages.mpi");
 LoadPackages(DefFileList());
 
 
-/* The read-eval-print loop */
-Rulebase("REP",{});
-LocalSymbols(input,stringOut,result,errorString)
-Rule("REP",0,1,True)
-[
-  Local(input,stringOut,result);
-  While(Not(IsExitRequested()))
-  [
-    Bind(errorString, "");
-    If(And(IsString(PrettyReaderGet()),Not(PrettyReaderGet() = "")),
-      TrapError(Bind(input, PipeFromString(ReadCmdLineString("In> "))ApplyPure(PrettyReaderGet(),{})),Bind(errorString,GetCoreError())),
-      TrapError(Bind(input, PipeFromString(ConcatStrings(ReadCmdLineString("In> "),";"))Read()),Bind(errorString,GetCoreError())));
-    If(Not(errorString = ""), WriteString(errorString));
-    If (Not(IsExitRequested()) And errorString="",
-    [
-      Bind(stringOut,"");
-      Bind(result,False);
-      Bind(stringOut,PipeToString()[TrapError(Bind(result,Eval(input)),Bind(errorString,GetCoreError()));]);
-      If(Not(stringOut = ""), WriteString(stringOut));
-      If(Not(errorString = ""), WriteString(errorString));
-      SetGlobalLazyVariable(%,result);
-      If(PrettyPrinterGet()="",
-      [
-        Write(ToAtom("Result: "),result);
-        NewLine();
-      ],
-      Apply(PrettyPrinterGet(),{result}));
-    ]);
-  ];
-];
-
-
 
 %/mathpiper
