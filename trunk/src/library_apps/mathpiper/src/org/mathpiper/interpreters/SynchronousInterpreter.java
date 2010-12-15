@@ -43,8 +43,8 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 /**
- * 
- * 
+ *
+ *
  */
 class SynchronousInterpreter implements Interpreter {
 
@@ -53,7 +53,7 @@ class SynchronousInterpreter implements Interpreter {
     private Environment iEnvironment = null;
     MathPiperTokenizer tokenizer = null;
     LispPrinter printer = null;
-    //private String iError = null;
+    //private String iException = null;
     String defaultDirectory = null;
     String archive = "";
     String detect = "";
@@ -206,7 +206,15 @@ class SynchronousInterpreter implements Interpreter {
         return this.evaluate(inputExpression, false);
     }//end method.
 
+    /**
+     Evaluate an input expression which is a string.
+
+     @param inputExpression
+     @param notifyEvaluationListeners
+     @return
+     */
     public synchronized EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners) {
+
         evaluationThread = Thread.currentThread();
 
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
@@ -223,7 +231,7 @@ class SynchronousInterpreter implements Interpreter {
             //environment.resetArgumentStack();
 
 
-            //iError = null;
+            //iException = null;
 
             ConsPointer inputExpressionPointer = new ConsPointer();
             if (iEnvironment.iPrettyReaderName != null) {
@@ -271,53 +279,14 @@ class SynchronousInterpreter implements Interpreter {
             return evaluate(inputExpressionPointer, notifyEvaluationListeners);
 
         } catch (Exception exception) {
-                        //exception.printStackTrace();  //todo:tk:uncomment for debugging.
-
-            Evaluator.DEBUG = false;
-            Evaluator.VERBOSE_DEBUG = false;
-            Evaluator.TRACE_TO_STANDARD_OUT = false;
-            Evaluator.iTraced = false;
-
-            try {
-                iEnvironment.iArgumentStack.reset(-1, iEnvironment);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if (exception instanceof EvaluationException) {
-                EvaluationException mpe = (EvaluationException) exception;
-                int errorLineNumber = mpe.getLineNumber();
-                if (errorLineNumber == -1) {
-                    errorLineNumber = iEnvironment.iInputStatus.lineNumber();
-                    if (errorLineNumber == -1) {
-                        errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
-                    }
-                    evaluationResponse.setLineNumber(errorLineNumber);
-                    evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.fileName());
-                } else {
-                    evaluationResponse.setLineNumber(mpe.getLineNumber());
-                    evaluationResponse.setSourceFileName(mpe.getFileName());
-                }
-
-
-            } else {
-                int errorLineNumber = iEnvironment.iInputStatus.lineNumber();
-                if (errorLineNumber == -1) {
-                    errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
-                    }
-                evaluationResponse.setLineNumber(errorLineNumber);
-                evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.fileName());
-            }
-
-            evaluationResponse.setException(exception);
-            evaluationResponse.setExceptionMessage(exception.getMessage());
+            this.handleException(exception, evaluationResponse);
         }
 
         if (notifyEvaluationListeners) {
             notifyListeners(evaluationResponse);
         }//end if.
 
-        return evaluationResponse; 
+        return evaluationResponse;
 
     }//end method.
 
@@ -325,6 +294,15 @@ class SynchronousInterpreter implements Interpreter {
         return evaluate(inputExpressionPointer, false);
     }
 
+
+
+    /**
+     Evaluate an input expression which is a Lisp list.
+
+     @param inputExpressionPointer
+     @param notifyEvaluationListeners
+     @return
+     */
     public synchronized EvaluationResponse evaluate(ConsPointer inputExpressionPointer, boolean notifyEvaluationListeners) {
 
         evaluationThread = Thread.currentThread();
@@ -388,47 +366,11 @@ class SynchronousInterpreter implements Interpreter {
                 printer.print(-1, resultPointer, outputStream, iEnvironment);
                 resultString = outputBuffer.toString();
             }
+
+            
+
         } catch (Exception exception) {
-            //exception.printStackTrace();  //todo:tk:uncomment for debugging.
-
-            Evaluator.DEBUG = false;
-            Evaluator.VERBOSE_DEBUG = false;
-            Evaluator.TRACE_TO_STANDARD_OUT = false;
-            Evaluator.iTraced = false;
-
-            try {
-                iEnvironment.iArgumentStack.reset(-1, iEnvironment);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if (exception instanceof EvaluationException) {
-                EvaluationException mpe = (EvaluationException) exception;
-                int errorLineNumber = mpe.getLineNumber();
-                if (errorLineNumber == -1) {
-                    errorLineNumber = iEnvironment.iInputStatus.lineNumber();
-                    if (errorLineNumber == -1) {
-                        errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
-                    }
-                    evaluationResponse.setLineNumber(errorLineNumber);
-                    evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.fileName());
-                } else {
-                    evaluationResponse.setLineNumber(mpe.getLineNumber());
-                    evaluationResponse.setSourceFileName(mpe.getFileName());
-                }
-
-
-            } else {
-                int errorLineNumber = iEnvironment.iInputStatus.lineNumber();
-                if (errorLineNumber == -1) {
-                    errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
-                    }
-                evaluationResponse.setLineNumber(errorLineNumber);
-                evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.fileName());
-            }
-
-            evaluationResponse.setException(exception);
-            evaluationResponse.setExceptionMessage(exception.getMessage());
+            this.handleException(exception, evaluationResponse);
         }//end catch.
 
 
@@ -480,6 +422,51 @@ class SynchronousInterpreter implements Interpreter {
 
         return evaluationResponse;
     }
+
+
+
+    private void handleException (Exception exception, EvaluationResponse evaluationResponse) {
+                        //exception.printStackTrace();  //todo:tk:uncomment for debugging.
+
+            Evaluator.DEBUG = false;
+            Evaluator.VERBOSE_DEBUG = false;
+            Evaluator.TRACE_TO_STANDARD_OUT = false;
+            Evaluator.iTraced = false;
+
+            try {
+                iEnvironment.iArgumentStack.reset(-1, iEnvironment);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (exception instanceof EvaluationException) {
+                EvaluationException mpe = (EvaluationException) exception;
+                int errorLineNumber = mpe.getLineNumber();
+                if (errorLineNumber == -1) {
+                    errorLineNumber = iEnvironment.iInputStatus.lineNumber();
+                    if (errorLineNumber == -1) {
+                        errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
+                    }
+                    evaluationResponse.setLineNumber(errorLineNumber);
+                    evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.fileName());
+                } else {
+                    evaluationResponse.setLineNumber(mpe.getLineNumber());
+                    evaluationResponse.setSourceFileName(mpe.getFileName());
+                }
+
+
+            } else {
+                int errorLineNumber = iEnvironment.iInputStatus.lineNumber();
+                if (errorLineNumber == -1) {
+                    errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
+                    }
+                evaluationResponse.setLineNumber(errorLineNumber);
+                evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.fileName());
+            }
+
+            evaluationResponse.setException(exception);
+            evaluationResponse.setExceptionMessage(exception.getMessage());
+        }
 
     public void haltEvaluation() {
         synchronized (iEnvironment) {
