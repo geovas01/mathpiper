@@ -659,7 +659,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     public void response(EvaluationResponse response) {
 
         if (response.isExceptionThrown()) {
-            resultHolder = new ResultHolder("False", "False", fontSize + resultHolderAdjustment);
+            resultHolder = new ResultHolder("Exception", "Exception", fontSize + resultHolderAdjustment);
         } else {
 
             Object responseObject = response.getObject();
