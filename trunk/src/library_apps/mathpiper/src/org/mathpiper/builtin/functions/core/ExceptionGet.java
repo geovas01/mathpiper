@@ -18,35 +18,45 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.lisp.cons.AtomCons;
+import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.BuiltinObjectCons;
 
 /**
  *
  *  
  */
-public class GetCoreError extends BuiltinFunction
+public class ExceptionGet extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(aEnvironment.iError)));
+        if(aEnvironment.iException == null)
+        {
+            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        }
+        else
+        {
+            JavaObject response = new JavaObject(aEnvironment.iException);
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        }
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="GetCoreError",categories="Programmer Functions;Built In"
-*CMD GetCoreError --- get "hard" error string
+%mathpiper_docs,name="ExceptionGet",categories="Programmer Functions;Built In"
+*CMD ExceptionGet --- returns the exception object which was thrown.
 *CORE
 *CALL
-	GetCoreError()
+	ExceptionGet()
 
 *DESC
 
-GetCoreError returns a string describing the core error.
-TrapError and GetCoreError can be used in combination to write
+ExceptionGet returns the exception object which was thrown.
+ExceptionCatch and ExceptionGet can be used in combination to write
 a custom error handler error reporting facility that does not stop the execution is provided by the function {Assert}.
 
 **E.G.

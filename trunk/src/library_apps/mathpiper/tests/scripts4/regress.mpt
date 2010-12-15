@@ -339,15 +339,17 @@ Verify( BesselJ(0,x), BesselJ(0,x) );
 // FunctionToList and ListToFunction coredumped when their arguments were invalid
 Verify(FunctionToList(Cos(x)),{Cos,x});
 Verify(ListToFunction({Cos,x}),Cos(x));
-[
-  Local(error);
-  error:="";
-  TrapError(FunctionToList(1.2),error:=GetCoreError());
-  Verify(IsString(error) And error != "");
 
-  error:="";
-  TrapError(ListToFunction(1.2),error:=GetCoreError());
-  Verify(IsString(error) And error != "");
+[
+  Local(exception);
+
+  exception := False;
+  ExceptionCatch(FunctionToList(1.2), exception := ExceptionGet());
+  Verify(exception = False, False);
+
+  exception := false;
+  ExceptionCatch(ListToFunction(1.2), exception := ExceptionGet());
+  Verify(exception = False, False);
 ];
 
 // Reported by Serge: xml tokenizer not general enough
@@ -406,7 +408,7 @@ Verify(Gcd(0, -10), 10);
 /* Bug #5 */
 /* How can we test for this? */
 /* Bug says: Limit(n,Infinity) Sqrt(n+1)-Sqrt(n) floods stack */
-/* but 'MaxEvalDepth reached' exits Yacas, even inside TrapError */
+/* but 'MaxEvalDepth reached' exits Yacas, even inside ExceptionCatch */
 
 /* Bug #6 */
 KnownFailure((Differentiate(z) Conjugate(z)) = Undefined);
@@ -441,7 +443,7 @@ Verify((Limit(x,Infinity) (x!)), Infinity);
 Verify(PowerN(0,0.55), 0);
 // LogN(-1) locks up in gmpnumbers.cpp, will be fixed in scripts
 //FIXME this test should be uncommented eventually
-// Verify(TrapError(PowerN(-1,-0.5), error), error);
+// Verify(ExceptionCatch(PowerN(-1,-0.5), error), error);
 
 /* Bug #16 */
 /* Can't test, bug in build system */
@@ -539,8 +541,8 @@ Verify(Integrate(x,1,1)Sin(Exp(x^2)),0);
  * I am not opposed to overloading these functions to also work on strings per se, but for now just
  * check that they return an error in stead of segfaulting.
  */ 
-Verify(TrapError(Reverse("abc"),True),True);
-Verify(TrapError(FlatCopy("abc"),True),True);
+Verify(ExceptionCatch(Reverse("abc"),"Exception"), "Exception");
+Verify(ExceptionCatch(FlatCopy("abc"),"Exception"), "Exception");
 
 // Make sure Mod works threaded
 Verify(Modulo(2,Infinity),2);

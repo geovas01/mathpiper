@@ -95,7 +95,7 @@ import org.mathpiper.builtin.functions.core.LispForm;
 import org.mathpiper.builtin.functions.core.GarbageCollect;
 import org.mathpiper.builtin.functions.core.Gcd;
 import org.mathpiper.builtin.functions.core.GenericTypeName;
-import org.mathpiper.builtin.functions.core.GetCoreError;
+import org.mathpiper.builtin.functions.core.ExceptionGet;
 import org.mathpiper.builtin.functions.core.GetExactBits;
 import org.mathpiper.builtin.functions.core.IsGreaterThan;
 import org.mathpiper.builtin.functions.core.HistorySize;
@@ -195,7 +195,7 @@ import org.mathpiper.builtin.functions.core.PipeToStdout;
 import org.mathpiper.builtin.functions.core.PipeToString;
 import org.mathpiper.builtin.functions.core.TraceRule;
 import org.mathpiper.builtin.functions.core.TraceStack;
-import org.mathpiper.builtin.functions.core.TrapError;
+import org.mathpiper.builtin.functions.core.ExceptionCatch;
 import org.mathpiper.builtin.functions.core.UnFence;
 import org.mathpiper.builtin.functions.core.ListToFunction;
 import org.mathpiper.builtin.functions.core.LoadScriptOnce;
@@ -462,11 +462,11 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new Check(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "Check");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new TrapError(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-		        "TrapError");
+		        new BuiltinFunctionEvaluator(new ExceptionCatch(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+		        "ExceptionCatch");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new GetCoreError(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "GetCoreError");
+		        new BuiltinFunctionEvaluator(new ExceptionGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+		        "ExceptionGet");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new Prefix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "Prefix");
