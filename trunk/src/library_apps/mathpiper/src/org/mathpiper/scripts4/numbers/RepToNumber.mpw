@@ -13,7 +13,7 @@ Retract("RepToNumber",*);
 12 # RepToNumber( rep_IsList ) <--
 [
     //If(InVerboseMode(),Tell(RepToNumber,rep));
-    Local(bigInt,precision,scale,strBI,sgn,index);
+    Local(bigInt,precision,scale,strBI,sgn,index,ans);
     Local(first,secnd,third,LS,numStr);
     precision := rep[2];
     scale     := 0;
