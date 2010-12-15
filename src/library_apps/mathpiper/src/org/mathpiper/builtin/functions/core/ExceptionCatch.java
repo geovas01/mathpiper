@@ -24,7 +24,7 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class TrapError extends BuiltinFunction
+public class ExceptionCatch extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -33,13 +33,13 @@ public class TrapError extends BuiltinFunction
         {
             //Return the first argument.
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
-        } catch (Throwable e)
+        } catch (Throwable exception)
         {   //Return the second argument.
             //e.printStackTrace();
             Boolean interrupted = Thread.currentThread().interrupted(); //Clear interrupted condition.
-            aEnvironment.iError ="Caught in TrapError function: " + e.toString();
+            aEnvironment.iException = exception;
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
-            aEnvironment.iError = null;
+            aEnvironment.iException = null;
         }
     }
 }
@@ -47,21 +47,21 @@ public class TrapError extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="TrapError",categories="Programmer Functions;Error Reporting;Built In"
-*CMD TrapError --- trap "hard" errors
+%mathpiper_docs,name="ExceptionCatch",categories="Programmer Functions;Error Reporting;Built In"
+*CMD ExceptionCatch --- catches exceptions
 *CORE
 *CALL
-	TrapError(expression,errorHandler)
+	ExceptionCatch(expression,exceptionHandler)
 
 *PARMS
 
 {expression} -- expression to evaluate (causing potential error)
 
-{errorHandler} -- expression to be called to handle error
+{exceptionHandler} -- expression to be called to handle error
 
 *DESC
-TrapError evaluates its argument {expression}, returning the
-result of evaluating {expression}. If an error occurs,
+ExceptionCatch evaluates its argument {expression}, returning the
+result of evaluating {expression}. If an exception is thrown,
 {errorHandler} is evaluated, returning its return value instead.
 
 **E.G.

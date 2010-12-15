@@ -36,13 +36,13 @@ Retract("RandomInteger", *);
 
 %mathpiper,scope="nobuild",subtype="manual_test",title="Test arguments."
 
-Verify(TrapError(RandomInteger(-1), "Exception"), "Exception");
+Verify(ExceptionCatch(RandomInteger(-1), "Exception"), "Exception");
 
-Verify(TrapError(RandomInteger(1.2, 4), "Exception"), "Exception");
+Verify(ExceptionCatch(RandomInteger(1.2, 4), "Exception"), "Exception");
 
-Verify(TrapError(RandomInteger(1, 4.2), "Exception"), "Exception");
+Verify(ExceptionCatch(RandomInteger(1, 4.2), "Exception"), "Exception");
 
-Verify(TrapError(RandomInteger(4, 1), "Exception"), "Exception");
+Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
 
 %/mathpiper
 

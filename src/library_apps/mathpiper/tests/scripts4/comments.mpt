@@ -17,11 +17,11 @@ NextTest("Checking comment syntax supported");
 ];
 
 
-[
-  Local(errorString);
-  errorString:="";
-  TrapError(Check(False,"some error"),errorString:=GetCoreError());
-  Verify(IsString(errorString),True);
-  Verify(Length(errorString)>4,True);  
+[ //Test ExceptionCatch and ExceptionGet.
+  Local(exception);
+  exception := False;
+  ExceptionCatch(Check(False,"some error"), exception := ExceptionGet());
+  Verify(exception = False, False);
 ];
-Verify(errorString,errorString);
+
+

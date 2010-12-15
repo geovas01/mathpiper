@@ -1,3 +1,7 @@
-a-1+1;
-
-TraceSome("+,-") a-1+1;
+// Check the rare case where the bounds finder lands on
+// exactly a root
+[
+  Local(p);
+  p:=FindRealRoots((x+4)*(x-6),1,7)-{-4.,6.};
+  Verify(VerifyZero(Dot(p, p)),True);
+];

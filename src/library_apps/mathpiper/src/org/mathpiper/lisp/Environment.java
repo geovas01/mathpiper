@@ -100,7 +100,7 @@ public class Environment {
     public MathPiperMap iGlobalState = new MathPiperMap();
     public MathPiperMap iUserRules = new MathPiperMap();
     MathPiperMap iBuiltinFunctions = new MathPiperMap();
-    public String iError = null;
+    public Throwable iException = null;
     public DefFileMap iDefFiles = new DefFileMap();
     public InputDirectories iInputDirectories = new InputDirectories();
     public String iPrettyReaderName = null;

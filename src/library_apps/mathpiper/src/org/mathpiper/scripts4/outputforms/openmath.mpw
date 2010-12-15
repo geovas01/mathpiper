@@ -31,15 +31,19 @@ Rule("OMREP",1,1,True)
   Local(input,stringOut,result);
   While(Not(IsExitRequested()))
   [
-    Bind(errorObject, "");
-    TrapError(Bind(input, PipeFromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()),Bind(errorObject,OMGetCoreError()));
-    If(Not(errorObject = ""), errorObject);
-    If (Not(IsExitRequested()) And errorObject="",
+    Bind(errorObject, False);
+    ExceptionCatch(Bind(input, PipeFromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()), Bind(errorObject,OMGetCoreError()));
+
+    If(Not(errorObject = False), errorObject); //todo:tk:check this code.
+
+    If (Not(IsExitRequested()) And errorObject = False,
     [
       Bind(stringOut,"");
       Bind(result,False);
-      TrapError(Bind(stringOut,PipeToString()[Secure(Bind(result,Eval(input)));]),Bind(errorObject,OMGetCoreError()));
-      If(Not(errorObject = ""), errorObject);
+      ExceptionCatch(Bind(stringOut,PipeToString()[Secure(Bind(result,Eval(input)));]), Bind(errorObject,OMGetCoreError()));
+
+      If(Not(errorObject = False), errorObject); //todo:tk:check this code.
+
       If(Not(stringOut = ""), WriteString(stringOut));
       SetGlobalLazyVariable(%,result);
       If(PrettyPrinterGet()="",
@@ -321,7 +325,7 @@ LocalSymbols(omtoken) [
 OMRead():=
 [
   Local(result);
-  TrapError(
+  ExceptionCatch(
   [
     XmlTokenizer();
     OMNextToken();
@@ -580,11 +584,14 @@ Macro(OMCheck,{predicate,error})
   ,
   True);
 ];
+
+
+
 OMGetCoreError():=
 [
   Local(result);
-  result := GetCoreError();
-  If(result != "",
+  result := ExceptionGet(); //todo:tk:verify that ExceptionCheck works properly with the soft error handling functions.
+  If(result != False,
      If( IsError("omErrorObject"),
         [result := GetError("omErrorObject");                     ],
         [result := OMError({"moreerrors", "unexpected"}, result); ])
