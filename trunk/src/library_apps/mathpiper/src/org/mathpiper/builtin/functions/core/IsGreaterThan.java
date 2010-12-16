@@ -50,7 +50,7 @@ public class IsGreaterThan extends BuiltinFunction
 *DESC
 Compare decimal numbers or strings (lexicographically).
 
-**E.G.
+*E.G.
 	In> IsGreaterThan(1,1)
 	Result: False;
 	In> IsGreaterThan("b","a")
