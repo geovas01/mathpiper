@@ -51,25 +51,108 @@ public class ExceptionCatch extends BuiltinFunction
 *CMD ExceptionCatch --- catches exceptions
 *CORE
 *CALL
-	ExceptionCatch(expression,exceptionHandler)
+	ExceptionCatch(expression, exceptionHandler)
 
 *PARMS
 
 {expression} -- expression to evaluate (causing potential error)
 
-{exceptionHandler} -- expression to be called to handle error
+{exceptionHandler} -- expression which is evaluated to handle the exception
 
 *DESC
-ExceptionCatch evaluates its argument {expression}, returning the
+ExceptionCatch evaluates its argument {expression} and returns the
 result of evaluating {expression}. If an exception is thrown,
 {errorHandler} is evaluated, returning its return value instead.
 
-**E.G.
-
-	In>
+{ExceptionGet} can be used to obtain information about the caught exception.
 
 
-*SEE Assert, Check, GetCoreError
+ 
+*E.G.
+
+
+In> ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), "This string is returned if an exception is thrown.");
+Result: "This string is returned if an exception is thrown."
+
+
+
+
+/%mathpiper,title="Example of how to use ExceptionCatch and ExceptionGet in test code (long version)."
+[
+  Local(exception);
+
+  exception := False;
+
+  ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), exception := True);
+
+  Verify(exception, True);
+
+];
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+.   /%/output
+
+
+
+
+
+/%mathpiper,title="Example of how to use ExceptionCatch and ExceptionGet in test code (short version)."
+
+//ExceptionGet returns False if there is no exception or an association list if there is.
+Verify( ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), ExceptionGet()) = False, False);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+.   /%/output
+
+
+
+
+
+/%mathpiper,title="Example of how to handle a caught exception."
+
+TestFunction(x) :=
+[
+
+    Check(IsInteger(x), "Argument", "The argument must be an integer.");
+
+];
+
+
+
+
+caughtException := ExceptionCatch(TestFunction(1.2), ExceptionGet());
+
+Echo(caughtException);
+
+NewLine();
+
+Echo("Type: ", caughtException["type"]);
+
+NewLine();
+
+Echo("Message: ", caughtException["message"]);
+
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+
+      Side Effects:
+      {{"type","Argument"},{"message","The argument must be an integer."},{"exceptionObject",class org.mathpiper.exceptions.EvaluationException}}
+
+      Type: Argument
+
+      Message: The argument must be an integer.
+
+.   /%/output
+
+*SEE Check, ExceptionGet
 
 %/mathpiper_docs
 */

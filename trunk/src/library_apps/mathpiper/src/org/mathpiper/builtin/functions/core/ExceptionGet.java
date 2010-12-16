@@ -130,11 +130,8 @@ public class ExceptionGet extends BuiltinFunction
 
 
 
-
-
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultSublistCons);
 
-            //getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, exceptionObject));
         }
     }
 }
@@ -150,15 +147,25 @@ public class ExceptionGet extends BuiltinFunction
 
 *DESC
 
-ExceptionGet returns the exception object which was thrown.
-ExceptionCatch and ExceptionGet can be used in combination to write
-a custom error handler error reporting facility that does not stop the execution is provided by the function {Assert}.
+ExceptionGet is designed to be used in the {exceptionHandler} argument of {ExceptionCatch} and it
+ returns an association list which contains information about the caught exception.  If {ExceptionGet} is
+ evaluated outside of {ExceptionCatch}, it always returns {False};
+{ExceptionCatch} and {ExceptionGet} are used in combination to write
+an exception handler.
 
-**E.G.
+*E.G.
 
-	In>
+In> ExceptionGet()
+Result: False
 
-*SEE Assert, Check, TrapError
+
+ 
+In> ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), Echo(ExceptionGet()))
+Result: True
+Side Effects:
+{{"type","Test"},{"message","Throwing a test exception."},{"exceptionObject",class org.mathpiper.exceptions.EvaluationException}}
+
+*SEE Check, ExceptionCatch
 
 %/mathpiper_docs
 */

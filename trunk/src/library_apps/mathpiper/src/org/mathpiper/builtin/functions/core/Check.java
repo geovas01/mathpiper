@@ -59,7 +59,7 @@ public class Check extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="Check",categories="Programmer Functions;Error Reporting;Built In"
-*CMD Check --- report exceptions
+*CMD Check --- throw an exception if a predicate expression returns False
 *CORE
 *CALL
 	Check(predicate, "exceptionType", "exceptionMessage")
@@ -76,20 +76,18 @@ public class Check extends BuiltinFunction
 If {predicate} does not evaluate to {True},
 the current operation will be stopped and an exception will be thrown.
 This facility can be used to assure that some condition
-is satisfied during evaluation of expressions (guarding
-against critical internal errors).
+is satisfied during evaluation of expressions.
 
 Exceptions that are thrown by this function can be caught by the {ExceptionCatch} function.
 
 
 
-**E.G.
+*E.G.
 
-	In> [Check(1=0,"bad value"); Echo(OK);]
-	In function "Check" :
-	CommandLine(1) : "bad value"
+In> Check(IsInteger(2.3), "Argument", "The argument must be an integer.")
+Result: Exception
+Exception: The argument must be an integer.
 
-Note that {OK} is not printed.
 
 *SEE ExceptionCatch, ExceptionGet
 
