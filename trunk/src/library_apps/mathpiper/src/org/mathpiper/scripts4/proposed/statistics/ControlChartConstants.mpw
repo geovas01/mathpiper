@@ -2,7 +2,7 @@
 
 ControlChartConstants(n) :=
 [   
-    Check(n >= 2 And n <= 15, "The argument n must be 2 <= n <= 20.");
+    Check(n >= 2 And n <= 15, "Argument", "The argument n must be 2 <= n <= 20.");
     
     Local(result, table);
     

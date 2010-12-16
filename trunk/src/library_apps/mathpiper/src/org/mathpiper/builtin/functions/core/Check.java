@@ -37,10 +37,19 @@ public class Check extends BuiltinFunction
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, getArgumentPointer(aEnvironment, aStackTop, 1));
         if (!Utility.isTrue(aEnvironment, pred, aStackTop))
         {
-            ConsPointer evaluated = new ConsPointer();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, getArgumentPointer(aEnvironment, aStackTop, 2));
-            LispError.checkIsString(aEnvironment, aStackTop, evaluated, 2, "Check");
-            throw new EvaluationException( Utility.stripEndQuotes((String) evaluated.car()), aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
+            ConsPointer type = new ConsPointer();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, type, getArgumentPointer(aEnvironment, aStackTop, 2));
+            LispError.checkIsString(aEnvironment, aStackTop, type, 2, "Check");
+            
+            
+            
+            ConsPointer message = new ConsPointer();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, message, getArgumentPointer(aEnvironment, aStackTop, 3));
+            LispError.checkIsString(aEnvironment, aStackTop, message, 3, "Check");
+
+
+
+            throw new EvaluationException( Utility.toNormalString(aEnvironment, aStackTop, (String) type.car()), Utility.toNormalString(aEnvironment, aStackTop, (String) message.car()), aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber(), "Check");
         }
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(pred.getCons());
     }
@@ -50,24 +59,29 @@ public class Check extends BuiltinFunction
 
 /*
 %mathpiper_docs,name="Check",categories="Programmer Functions;Error Reporting;Built In"
-*CMD Check --- report "hard" errors
+*CMD Check --- report exceptions
 *CORE
 *CALL
-	Check(predicate,"error text")
+	Check(predicate, "exceptionType", "exceptionMessage")
 
 *PARMS
 
 {predicate} -- expression returning {True} or {False}
 
-{"error text"} -- string to print on error
+{"exceptionType"} -- string which indicates the type of the exception
+
+{"exceptionMessage"} -- string which holds the exception message
 
 *DESC
 If {predicate} does not evaluate to {True},
-the current operation will be stopped, the string {"error text"} will be printed, and control will be returned immediately to the command line. This facility can be used to assure that some condition
+the current operation will be stopped and an exception will be thrown.
+This facility can be used to assure that some condition
 is satisfied during evaluation of expressions (guarding
 against critical internal errors).
 
-A "soft" error reporting facility that does not stop the execution is provided by the function {Assert}.
+Exceptions that are thrown by this function can be caught by the {ExceptionCatch} function.
+
+
 
 **E.G.
 
@@ -77,7 +91,7 @@ A "soft" error reporting facility that does not stop the execution is provided b
 
 Note that {OK} is not printed.
 
-*SEE Assert, TrapError, GetCoreError
+*SEE ExceptionCatch, ExceptionGet
 
 %/mathpiper_docs
 */

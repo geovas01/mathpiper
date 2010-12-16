@@ -20,7 +20,7 @@ Function("Inverse",{matrix})
              If(j=i,1,matrix[j][item[j] ]))*lc;
         ];
   ];
-  Check(det != 0, "Zero determinant");
+  Check(det != 0, "Math", "Zero determinant");
   (1/det)*inv;
 ];
 

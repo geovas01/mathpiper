@@ -21,7 +21,7 @@ Retract("CheckEquationSolution",*);
     LE := Length(eqns);
     LV := Length(vars);
     E  := Assert() LE=LV;
-    Check(E,"Number of equations != Number of variables");
+    Check(E, "Argument", "Number of equations != Number of variables");
     
     LHS := {};
     RHS := {};
@@ -57,7 +57,7 @@ Retract("CheckEquationSolution",*);
     LE := Length(eqns);
     LV := Length(vars);
     E  := Assert() LE=LV;
-    Check(E,"Number of equations != Number of variables");
+    Check(E, "Argument", "Number of equations != Number of variables");
     
     If(InVerboseMode(),Tell(0,{LE,LV,E}));
     s  := Solve( eqns, vars )[1];
@@ -96,7 +96,7 @@ Retract("CheckEquationSolution",*);
 12 # CheckEquationSolution( eqns_IsList, solns_IsList ) <--
 [
     Tell(CheckSetOfEqns,{eqns,solns});
-    Check(False,"Not implemented yet");
+    Check(False, "Unimplemented", "Not implemented yet");
 ];
 
 14 # CheckEquationSolution( _eq, _soln ) <-- 

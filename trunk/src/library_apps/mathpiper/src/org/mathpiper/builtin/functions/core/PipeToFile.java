@@ -44,7 +44,7 @@ public class PipeToFile extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "PipeToFile");
         String orig = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "PipeToFile");
-        String oper = Utility.unstringify(aEnvironment, aStackTop, orig);
+        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
         // Open file for writing
         FileOutputStream localFP = new FileOutputStream(oper, true);

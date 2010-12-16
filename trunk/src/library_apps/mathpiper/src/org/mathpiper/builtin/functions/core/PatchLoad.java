@@ -45,7 +45,7 @@ public class PatchLoad extends BuiltinFunction
         String string = (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, string != null, 1, "PatchLoad");
         
-        String oper = Utility.unstringify(aEnvironment, aStackTop, string);
+        String oper = Utility.toNormalString(aEnvironment, aStackTop, string);
         String hashedName = (String) aEnvironment.getTokenHash().lookUp(oper);
 
         InputStatus oldStatus = new InputStatus(aEnvironment.iInputStatus);

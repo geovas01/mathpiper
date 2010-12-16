@@ -54,7 +54,7 @@ Rulebase("TeXForm",{expression, precedence});
 
 Function ("TeXFormBracketIf", {predicate, string})
 [
-	Check(IsBoolean(predicate) And IsString(string), "TeXForm internal error: non-boolean and/or non-string argument of TeXFormBracketIf");
+	Check(IsBoolean(predicate) And IsString(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormBracketIf");
 	If(predicate, ConcatStrings("( ", string, ") "), string); //Was \\left( ", string, "\\right)
 ];
 
@@ -185,7 +185,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
   /* this function will take a user-defined variable or function name and output either this name unmodified if it's only 2 characters long, or the name in normal text if it's longer, or a TeX Greek letter code */
   Function ("TeXFormTeXify", {string})
   [
-    Check(IsString(string), "TeXForm internal error: non-string argument of TeXFormTeXify");
+    Check(IsString(string), "Argument", "TeXForm internal error: non-string argument of TeXFormTeXify");
     /* Check if it's a greek letter or a special name */
     If (Contains(AssocIndices(TeXFormSpecialNames), string), TeXFormSpecialNames[string],
     If (Contains(TeXFormGreekLetters, string), ConcatStrings("\\", string, " "),

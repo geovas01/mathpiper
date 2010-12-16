@@ -64,7 +64,7 @@ PollardRhoPolynomial(_x) <-- x^2+1;
    	];
 	If(InVerboseMode() And repeat<=0, Echo({"PollardRhoFactorize: Warning: stalled while factorizing ", n, "; counters ", x, y}));
   ];
-  Check(restarts>0, "PollardRhoFactorize: Error: failed to factorize " : ToString(n));
+  Check(restarts>0, "Math", "PollardRhoFactorize: Error: failed to factorize " : ToString(n));
   If(InVerboseMode() And gcd > 1, Echo({"PollardRhoFactorize: Info: while factorizing ", n, " found factor ", gcd}));
   /* Return result found */
   PollardCombineLists(PollardRhoFactorize(gcd), PollardRhoFactorize(Quotient(n,gcd)));

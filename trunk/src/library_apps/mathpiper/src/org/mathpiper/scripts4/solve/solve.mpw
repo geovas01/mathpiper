@@ -33,7 +33,7 @@ LocalSymbols(res)
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
   22  # Solve(_expr, _var)_(Not IsAtom(var) And Not HasExpr(expr,var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
-  24  # Solve(False,_var) <-- Check(False,"Bad input: possibly '=' instead of '==' "); 
+  24  # Solve(False,_var) <-- Check(False, "Argument", "Bad input: possibly '=' instead of '==' ");
 
   30  # Solve(_lhs == _rhs, _var) <-- Solve(lhs - rhs, var);
   40  # Solve(0, _var) <-- {var == var};

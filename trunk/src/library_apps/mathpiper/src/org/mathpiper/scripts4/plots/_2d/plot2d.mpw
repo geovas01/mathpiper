@@ -99,6 +99,7 @@ Function() Plot2D(func, range, options, ...);
     
 	// check that the input parameters are valid (all numbers)
 	Check(IsNumber(range[1]) And IsNumber(range[2]) And IsNumber(options'hash["points"]) And IsNumber(options'hash["precision"]),
+                "Argument",
 		"Plot2D: Error: plotting range '"
 		:(PipeToString()Write(range))
 		:"' and/or the number of points '"
@@ -112,8 +113,7 @@ Function() Plot2D(func, range, options, ...);
 	[
 		// obtain name of variable
 		var := VarList(func);        // variable name in a one-element list
-    	Check(Length(var)<=1,
-			"Plot2D: Error: expression is not a function of one variable: "
+                Check(Length(var)<=1, "Argument", "Plot2D: Error: expression is not a function of one variable: "
 			:(PipeToString()Write(func))
 		);
 		// Allow plotting of constant functions
@@ -129,6 +129,7 @@ Function() Plot2D(func, range, options, ...);
 		c := range[1];
 		fc := N(Eval(Apply({var, func}, {c})));
 		Check(IsNumber(fc) Or fc=Infinity Or fc= -Infinity Or fc=Undefined,
+                        "Argument", 
 			"Plot2D: Error: cannot evaluate function '"
 			:(PipeToString()Write(func))
 			:"' at point '"

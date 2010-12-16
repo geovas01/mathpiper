@@ -9,8 +9,7 @@
 // n's divisors, may have to change name in future
 10 # Divisors(_n)	<--
 [
-	Check(IsPositiveInteger(n),
-		"Divisors: argument must be positive integer");
+	Check(IsPositiveInteger(n), "Argument", "Divisors: argument must be positive integer");
 	Local(len,sum,factors,i);
 	sum:=1;
 	factors:=Factors(n);

@@ -44,7 +44,7 @@ public class TellUser extends BuiltinFunction
 
         LispError.checkArgument(aEnvironment, aStackTop, messageString != null, 1, "TellUser");
 
-        messageString = Utility.stripEndQuotes(messageString);
+        messageString = Utility.toNormalString(aEnvironment, aStackTop, messageString);
 
         JOptionPane.showMessageDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 

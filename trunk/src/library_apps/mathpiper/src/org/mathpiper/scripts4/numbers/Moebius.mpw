@@ -8,8 +8,7 @@
 
 10 # Moebius(_n)	<--
 [
-	Check(IsPositiveInteger(n),
-		"Moebius: argument must be positive integer");
+	Check(IsPositiveInteger(n), "Argument", "Moebius: argument must be positive integer");
         Local(factors,i,repeat);
 	repeat:=0;
         factors:=Factors(n);

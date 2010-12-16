@@ -42,7 +42,7 @@ public class PipeFromString extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "PipeFromString");
         String orig =  (String) evaluated.car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "PipeFromString");
-        String oper = Utility.unstringify(aEnvironment, aStackTop, orig);
+        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
         InputStatus oldstatus = aEnvironment.iInputStatus;
         aEnvironment.iInputStatus.setTo("String");

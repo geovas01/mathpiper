@@ -69,13 +69,13 @@ DebugStepOver():=
 ];
 DebugBreakAt(file,line):=
 [
-  Check(InDebugMode(),"DebugBreakAt only supported in the debug build of MathPiper");
+  Check(InDebugMode(), "Mode", "DebugBreakAt only supported in the debug build of MathPiper");
   If(filebreakpoints[file] = Empty,filebreakpoints[file]:={});
   DestructiveAppend(filebreakpoints[file],line);
 ];
 DebugRemoveBreakAt(file,line):=
 [
-  Check(InDebugMode(),"DebugRemoveBreakAt only supported in the debug build of MathPiper");
+  Check(InDebugMode(), "Mode", "DebugRemoveBreakAt only supported in the debug build of MathPiper");
   If(filebreakpoints[file] = Empty,filebreakpoints[file]:={});
   filebreakpoints[file] := Difference(filebreakpoints[file],{line});
 ];
@@ -183,7 +183,7 @@ Macro(Debug,{expression})
 PipeToStdout()
 [
    DebugStart();
-   CustomEval(DebugEnter(),DebugLeave(),If(debugstopped,Check(False,""),[debugging:=True;debugcallstack := Rest(debugcallstack);]),@expression);
+   CustomEval(DebugEnter(),DebugLeave(),If(debugstopped,Check(False, "Debug", ""),[debugging:=True;debugcallstack := Rest(debugcallstack);]),@expression);
 ];
 
 

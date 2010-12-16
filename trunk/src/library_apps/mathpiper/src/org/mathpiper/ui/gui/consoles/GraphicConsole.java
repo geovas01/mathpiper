@@ -686,7 +686,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                         String latexString = latexResponse.getResult();
 
-                        latexString = Utility.stripEndQuotes(latexString);
+                        latexString = Utility.toNormalString(null, -1, latexString);
 
                         latexString = Utility.stripEndDollarSigns(latexString);
 

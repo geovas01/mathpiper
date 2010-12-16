@@ -25,7 +25,7 @@ Rulebase("CForm",{expression, precedence});
 
 Function ("CFormBracketIf", {predicate, string})
 [
-	Check(IsBoolean(predicate) And IsString(string), "CForm internal error: non-boolean and/or non-string argument of CFormBracketIf");
+	Check(IsBoolean(predicate) And IsString(string), "Argument", "CForm internal error: non-boolean and/or non-string argument of CFormBracketIf");
 	If(predicate, ConcatStrings("( ", string, ") "), string);
 ];
 

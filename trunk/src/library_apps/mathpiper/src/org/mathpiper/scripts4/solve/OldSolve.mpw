@@ -4,7 +4,7 @@
 // for now, just use a very simple backsubstitution scheme
 Solve'System(_eqns, _vars) <-- Solve'SimpleBackSubstitution(eqns,vars);
 
-// Check(False, "Solve'System: not implemented");
+// Check(False, "Unimplemented", "Solve'System: not implemented");
 
 10 # Solve'SimpleBackSubstitution'FindAlternativeForms((_lx) == (_rx)) <--
 [

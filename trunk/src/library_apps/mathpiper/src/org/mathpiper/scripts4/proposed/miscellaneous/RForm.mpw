@@ -12,7 +12,7 @@ Rulebase("RForm",{expression, precedence});
 
 Function ("RFormBracketIf", {predicate, string})
 [
-	Check(IsBoolean(predicate) And IsString(string), "RForm internal error: non-boolean and/or non-string argument of RFormBracketIf");
+	Check(IsBoolean(predicate) And IsString(string), "Argument", "RForm internal error: non-boolean and/or non-string argument of RFormBracketIf");
 	If(predicate, ConcatStrings("( ", string, ") "), string);
 ];
 

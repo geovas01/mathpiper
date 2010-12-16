@@ -2,11 +2,11 @@
 
 StandardErrorOfTheSlope(xList,yList) :=
 [   
-    Check(IsList(xList), "The first argument must be a list.");
+    Check(IsList(xList), "Argument", "The first argument must be a list.");
     
-    Check(IsList(yList), "The second argument must be a list.");
+    Check(IsList(yList), "Argument", "The second argument must be a list.");
     
-    Check(Length(xList) = Length(yList), "The lists for argument 1 and argument 2 must have the same length.");
+    Check(Length(xList) = Length(yList), "Argument", "The lists for argument 1 and argument 2 must have the same length.");
     
     Local(standardErrorOfTheEstimate,n,xMean);
     

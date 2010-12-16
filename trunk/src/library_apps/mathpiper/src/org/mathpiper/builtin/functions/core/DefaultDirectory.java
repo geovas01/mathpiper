@@ -35,7 +35,7 @@ public class DefaultDirectory extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "DefaultDirectory");
         String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "DefaultDirectory");
-        String oper = Utility.unstringify(aEnvironment, aStackTop, orig);
+        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
         aEnvironment.iInputDirectories.add(oper);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }

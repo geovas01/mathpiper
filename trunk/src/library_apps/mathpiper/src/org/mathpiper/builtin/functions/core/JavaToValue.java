@@ -65,7 +65,7 @@ public class JavaToValue extends BuiltinFunction {
 
                     for(String javaString : stringArray)
                     {
-                        Cons atomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.stringify(aEnvironment, aStackTop, javaString));
+                        Cons atomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, javaString));
 
                         consPointer.cdr().setCons(atomCons);
 
