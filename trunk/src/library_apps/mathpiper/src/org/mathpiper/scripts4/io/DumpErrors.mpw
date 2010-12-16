@@ -40,7 +40,7 @@ DumpErrors() <--
 
 
 
-%mathpiper_docs,name="DumpErrors",categories="Programmer Functions;Error Reporting"
+%mathpiper_docs,name="DumpErrors",categories="Programmer Functions;Error Reporting",access="private"
 *CMD DumpErrors --- simple error handlers
 *STD
 *CALL
