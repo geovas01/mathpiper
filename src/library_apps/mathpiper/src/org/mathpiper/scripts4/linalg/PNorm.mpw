@@ -4,7 +4,7 @@
 Function("PNorm",{v,p})
 [
 	Local(result,i);
-	Check(p>=1,"PNorm: p must be >= 1");
+	Check(p>=1, "Argument", "PNorm: p must be >= 1");
 
 	result:=0;
 	For(i:=1,i<=Length(v),i++)[

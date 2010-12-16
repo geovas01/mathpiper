@@ -22,7 +22,7 @@ LogicCombine(_list) <--
       If(tocombine != -1,
       [
         Local(combination);
-        Check(k != -1, "k is -1");
+        Check(k != -1, "Math", "k is -1");
 
         Bind(combination, LogicRemoveTautologies(Concat(list[i], list[tocombine])));
         If(combination = {},                      // the combined clause is false, so the whole thing is false

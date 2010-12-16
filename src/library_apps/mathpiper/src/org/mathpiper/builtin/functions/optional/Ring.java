@@ -49,7 +49,7 @@ public class Ring extends BuiltinFunction
 
         LispError.checkIsString(aEnvironment, aStackTop, pathPointer, 1, "Ring");
 
-        String configurationString = Utility.stripEndQuotes((String) pathPointer.car());
+        String configurationString = Utility.toNormalString(aEnvironment, aStackTop, (String) pathPointer.car());
 
         org.mathpiper.builtin.library.jas.Ring ring = new org.mathpiper.builtin.library.jas.Ring(aEnvironment, configurationString);
 

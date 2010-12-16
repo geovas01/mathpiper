@@ -6,7 +6,7 @@
 10 # IsQuadraticResidue(_a,_p) <--
 [
         Check( IsInteger(a) And IsInteger(p) And p>2 And IsCoprime(a,p) And IsPrime(p),
-                "IsQuadraticResidue: Invalid arguments");
+                "Argument", "IsQuadraticResidue: Invalid arguments");
         If(a^((p-1)/2) % p = 1, True, False);
 ];
 

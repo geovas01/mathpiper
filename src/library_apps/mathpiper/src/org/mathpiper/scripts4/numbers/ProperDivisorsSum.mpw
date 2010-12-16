@@ -2,8 +2,7 @@
 
 10 # ProperDivisorsSum(_n) <--
 [
-        Check(IsPositiveInteger(n),
-                "ProperDivisorsSum: argument must be positive integer");
+        Check(IsPositiveInteger(n), "Argument", "ProperDivisorsSum: argument must be positive integer");
         DivisorsSum(n)-n;
 ];
 

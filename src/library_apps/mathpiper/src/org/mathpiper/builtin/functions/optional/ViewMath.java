@@ -90,7 +90,7 @@ public class ViewMath extends BuiltinFunction {
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, new ConsPointer(head));
 
         String texString = (String) resultPointer.car();
-        texString = Utility.stripEndQuotes(texString);
+        texString = Utility.toNormalString(aEnvironment, aStackTop, texString);
         texString = texString.substring(1, texString.length());
         texString = texString.substring(0, texString.length() - 1);
 

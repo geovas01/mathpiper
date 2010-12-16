@@ -28,7 +28,7 @@ ProbabilityToZScore(probability) :=
     
     probability := N(probability);
     
-    Check(probability >= 0.0 And probability <= 1.0, "The argument must be between 0 and 1.");
+    Check(probability >= 0.0 And probability <= 1.0, "Argument", "The argument must be between 0 and 1.");
     
     ZMAX := 6; // Maximum �z value.
     

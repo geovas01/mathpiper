@@ -5,7 +5,7 @@ Retract("RandomPickWeighted",*);
 RandomPickWeighted(list) :=
 [
 
-    Check(IsList(list), "Argument must be a list.");
+    Check(IsList(list), "Argument", "Argument must be a list.");
     
     Local(element, probabilities, items, lastWeight, randomNumber, result);
     
@@ -25,7 +25,7 @@ RandomPickWeighted(list) :=
         probabilities := probabilities + probability;
     ];
     
-    Check(probabilities = 1, "The probabilities must sum to 1.");
+    Check(probabilities = 1, "Argument", "The probabilities must sum to 1.");
     
     
     

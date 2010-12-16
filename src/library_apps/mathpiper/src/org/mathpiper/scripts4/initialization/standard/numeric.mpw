@@ -35,7 +35,7 @@ LocalSymbols(numericMode)
 
     previousNumericMode := numericMode;
     numericMode         := True;
-    exception         := "";
+    exception         := False;
 
     //ExceptionCatch(Bind(numericResult, Eval(@expression)),Bind(exception,ExceptionGet()));
 
@@ -51,7 +51,7 @@ LocalSymbols(numericMode)
 
     BuiltinPrecisionSet(previousPrecision);
 
-    Check(exception != False, exception);
+    Check(exception = False, exception["type"], exception["message"]);
 
     numericResult;
 

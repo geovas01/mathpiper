@@ -424,14 +424,14 @@ public class Utility {
             optionPointer.goNext(aStackTop, aEnvironment);
             LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT, "INTERNAL");
             String key = (String) optionPointer.car();
-            key = Utility.stripEndQuotes(key);
+            key = Utility.toNormalString(aEnvironment, aStackTop, key);
 
             //Obtain value.
             optionPointer.goNext(aStackTop, aEnvironment);
             LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM || optionPointer.type() == Utility.NUMBER, LispError.INVALID_ARGUMENT, "INTERNAL");
             if (optionPointer.type() == Utility.ATOM) {
                 String value = (String) optionPointer.car();
-                value = Utility.stripEndQuotes(value);
+                value = Utility.toNormalString(aEnvironment, aStackTop, value);
                 if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
                     userOptions.put(key, Boolean.parseBoolean(value));
                 } else {
@@ -471,16 +471,6 @@ public class Utility {
         }
         return false;
     }//end method
-
-    public static String stripEndQuotes(String aOriginal) throws Exception {
-        //If there are not quotes on both ends of the string then return without any changes.
-        if (aOriginal.startsWith("\"") && aOriginal.endsWith("\"")) {
-            aOriginal = aOriginal.substring(1, aOriginal.length());
-            aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
-        }//end if.
-
-        return aOriginal;
-    }//end method.
 
 
     public static String stripEndDollarSigns(String aOriginal) throws Exception {
@@ -608,7 +598,7 @@ public class Utility {
         }//end matches if.
     }
 
-    public static String unstringify(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
+    public static String toNormalString(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
         LispError.check(aEnvironment, aStackTop, aOriginal != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         LispError.check(aEnvironment, aStackTop, aOriginal.charAt(0) == '\"', LispError.INVALID_ARGUMENT, "INTERNAL");
         int nrc = aOriginal.length() - 1;
@@ -616,7 +606,7 @@ public class Utility {
         return aOriginal.substring(1, nrc);
     }
 
-    public static String stringify(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
+    public static String toMathPiperString(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
         LispError.check(aEnvironment, aStackTop, aOriginal != null, LispError.INVALID_ARGUMENT, "INTERNAL");
 
         return "\"" + aOriginal + "\"";
@@ -670,7 +660,7 @@ public class Utility {
      * @throws java.lang.Exception
      */
     public static void loadScript(Environment aEnvironment, int aStackTop, String aFileName) throws Exception {
-        String oper = unstringify(aEnvironment, aStackTop, aFileName);
+        String oper = toNormalString(aEnvironment, aStackTop, aFileName);
 
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(oper);
 
@@ -892,7 +882,7 @@ public class Utility {
     public static void loadDefFile(Environment aEnvironment, int aStackTop, String aFileName) throws Exception {
         LispError.lispAssert(aFileName != null, aEnvironment, aStackTop);
 
-        String flatfile = unstringify(aEnvironment, aStackTop, aFileName) + ".def";
+        String flatfile = toNormalString(aEnvironment, aStackTop, aFileName) + ".def";
         DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
 
         String hashedname = (String) aEnvironment.getTokenHash().lookUp(flatfile);

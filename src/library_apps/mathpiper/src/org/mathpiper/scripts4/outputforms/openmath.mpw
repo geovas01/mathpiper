@@ -194,7 +194,7 @@ LocalSymbols(omindent) [
         [
         Local(result);
         result := OMApplyMapping(function, symbolDef[3]);
-        //Check(IsList(result), PipeToString()Echo("Mapping result is not a list: ", result));
+        //Check(IsList(result), "Return Type", PipeToString()Echo("Mapping result is not a list: ", result));
         If(IsList(result),
            [
            result := ListToFunction(Subst($, function[0]) result);
@@ -358,7 +358,7 @@ PipeFromString(str:" EndOfFile")
 
 
 10 # MatchClose(_x)_(x = OMToken()) <-- [OMNextToken();True;];
-20 # MatchClose(_x) <-- Check(False,PipeToString()Echo("encodingError:unexpected closing brace")); //@@@ TODO better error reporting
+20 # MatchClose(_x) <-- Check(False, "Syntax", PipeToString()Echo("encodingError:unexpected closing brace")); //@@@ TODO better error reporting
 
 10 # MatchOMOBJ(XmlTag("OMOBJ",_attributes,"Open")) <--
 [
@@ -376,7 +376,7 @@ PipeFromString(str:" EndOfFile")
   // This is a void expression, of the form "<OMOBJ/>".
   Empty;
 ];
-20 # MatchOMOBJ(_rest) <-- Check(False,PipeToString()Echo("encodingError:not an OMOBJ :",rest));
+20 # MatchOMOBJ(_rest) <-- Check(False, "Type", PipeToString()Echo("encodingError:not an OMOBJ :",rest));
 
 10 # ReadOMOBJ(XmlTag("OMOBJ",_attributes,"Close")) <--
 [
@@ -552,7 +552,7 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
   omcd   := attributes["CD"];
   omname := attributes["NAME"];
   If(omcd = Empty Or omname = Empty,
-     OMCheck(False,OMError({"moreerrors", "encodingError"}, PipeToString()Echo("missing \"cd\" or \"name\" attribute: ",attributes))),
+     OMCheck(False, "Argument", OMError({"moreerrors", "encodingError"}, PipeToString()Echo("missing \"cd\" or \"name\" attribute: ",attributes))),
      [
      Local(cdTable, piperform);
      cdTable := OMSymbolReverse()[ omcd ];
@@ -567,7 +567,7 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
     );
 ];
 
-101 # ReadOMOBJ(_rest) <-- OMCheck(False,OMError({"moreerrors", "encodingError"}, PipeToString()Echo("unhandled tag: ",rest)));
+101 # ReadOMOBJ(_rest) <-- OMCheck(False, "Unimplemented", OMError({"moreerrors", "encodingError"}, PipeToString()Echo("unhandled tag: ",rest)));
 
 
 
@@ -579,7 +579,7 @@ Macro(OMCheck,{predicate,error})
   If(Not(@predicate),
   [
     Assert("omErrorObject", @error) False;
-    Check(False,"omErrorObject");
+    Check(False, "Undefined", "omErrorObject");
   ]
   ,
   True);

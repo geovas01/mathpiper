@@ -8,7 +8,7 @@ Retract("MatrixSolve",*);
 	Local(rowsm,rowsb,x);
     rowsm:=Length(matrix);
 	rowsb:=Length(b);
-	Check(rowsm=rowsb,"MatrixSolve: Matrix and vector must have same number of rows");
+	Check(rowsm=rowsb, "Argument", "MatrixSolve: Matrix and vector must have same number of rows");
 	x:=ZeroVector(rowsb);
 	ForEach(i,1 .. rowsb)
 		x[i]:=b[i]/matrix[i][i];
@@ -22,7 +22,7 @@ Retract("MatrixSolve",*);
     Local(rowsm,rowsb,x,s);
     rowsm:=Length(matrix);
     rowsb:=Length(b);
-    Check(rowsm=rowsb,"MatrixSolve: Matrix and vector must have same number of rows");
+    Check(rowsm=rowsb, "Argument", "MatrixSolve: Matrix and vector must have same number of rows");
     x:=ZeroVector(rowsb);
 
 	x[rowsb]:=b[rowsb]/matrix[rowsb][rowsb];
@@ -46,7 +46,7 @@ Retract("MatrixSolve",*);
 	Local(rowsm,rowsb,x,s);
 	rowsm:=Length(matrix);
 	rowsb:=Length(b);
-	Check(rowsm=rowsb,"MatrixSolve: Matrix and vector must have same number of rows");
+	Check(rowsm=rowsb, "Argument", "MatrixSolve: Matrix and vector must have same number of rows");
 	x:=ZeroVector(rowsb);
 
 	x[1]:=b[1]/matrix[1][1];
@@ -70,7 +70,7 @@ Retract("MatrixSolve",*);
 	Local(aug,rowsm,rowsb,x,s);
     rowsm:=Length(matrix);
     rowsb:=Length(b);
-    Check(rowsm=rowsb,"MatrixSolve: Matrix and vector must have same number of rows");
+    Check(rowsm=rowsb, "Argument", "MatrixSolve: Matrix and vector must have same number of rows");
     aug:=ZeroMatrix(rowsb,rowsb+1);
 	x:=ZeroVector(rowsb);
 

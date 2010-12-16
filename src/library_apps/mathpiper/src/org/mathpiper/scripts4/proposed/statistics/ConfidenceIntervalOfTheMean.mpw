@@ -4,7 +4,7 @@ Retract("ConfidenceIntervalOfTheMean",*);
 
 ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel) :=
 [
-    Check(IsBoolean(standardDeviationIsKnown),"The third argument must be True or False.");
+    Check(IsBoolean(standardDeviationIsKnown), "Argument", "The third argument must be True or False.");
     
     Local(criticalZScore,criticalTScore,standardErrorOfTheMean,upperLimitValue,lowerLimitValue,resultList);
     

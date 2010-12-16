@@ -6,9 +6,9 @@ Retract("BinomialDistributionStandardDeviation", *);
 BinomialDistributionStandardDeviation(probability,numberOfTrials) :=
 [
 
-    Check(IsRationalOrNumber(probability) And p >= 0 And p <= 1, "The first argument must be a number between 0 and 1.");
+    Check(IsRationalOrNumber(probability) And p >= 0 And p <= 1, "Argument", "The first argument must be a number between 0 and 1.");
     
-    Check(IsInteger(numberOfTrials) And numberOfTrials >= 0, "The second argument must be an integer which is greater than 0.");
+    Check(IsInteger(numberOfTrials) And numberOfTrials >= 0, "Argument", "The second argument must be an integer which is greater than 0.");
     
     SqrtN(numberOfTrials * probability * (1 - probability));
 ];

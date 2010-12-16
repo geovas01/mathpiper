@@ -12,7 +12,7 @@
 // function against the other
 
 Function("FactorGaussianInteger",{x}) [
-	Check( IsGaussianInteger(x), "FactorGaussianInteger: argument must be a Gaussian integer");
+	Check( IsGaussianInteger(x), "Argument", "FactorGaussianInteger: argument must be a Gaussian integer");
 	Local(re,im,norm,a,b,d,i,j);
 
 	re:=Re(x);im:=Im(x);

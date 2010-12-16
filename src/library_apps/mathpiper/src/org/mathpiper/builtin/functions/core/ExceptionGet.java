@@ -19,9 +19,13 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.JavaObject;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.SublistCons;
 
 /**
  *
@@ -38,8 +42,99 @@ public class ExceptionGet extends BuiltinFunction
         }
         else
         {
-            JavaObject response = new JavaObject(aEnvironment.iException);
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+            Throwable exception = aEnvironment.iException;
+
+            String type = null;
+
+            String message = null;
+
+            if(exception instanceof EvaluationException)
+            {
+               EvaluationException evaluationException = (EvaluationException) exception;
+
+               type = evaluationException.getType();
+            }
+            else
+            {
+                type = exception.getClass().getName();
+            }
+
+            message = exception.getMessage();
+
+
+            JavaObject exceptionObject = new JavaObject(exception);
+
+            
+            
+            //Create type association list.
+            Cons typeListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            Cons typeNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
+
+            Cons typeValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, type));
+
+            typeListAtomCons.cdr().setCons(typeNameAtomCons);
+
+            typeNameAtomCons.cdr().setCons(typeValueValueAtomCons);
+
+            Cons typeSublistCons = SublistCons.getInstance(aEnvironment, typeListAtomCons);
+
+
+
+
+            //Create message association list.
+            Cons messageListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            Cons messageNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"message\"");
+
+            Cons messageValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, message));
+
+            messageListAtomCons.cdr().setCons(messageNameAtomCons);
+
+            messageNameAtomCons.cdr().setCons(messageValueValueAtomCons);
+
+            Cons messageSublistCons = SublistCons.getInstance(aEnvironment, messageListAtomCons);
+
+
+
+            //Create exception object association list.
+            Cons exceptionObjectListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            Cons exceptionObjectNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"exceptionObject\"");
+
+            Cons exceptionObjectValueValueAtomCons = BuiltinObjectCons.getInstance(aEnvironment, aStackTop, exceptionObject);
+
+            exceptionObjectListAtomCons.cdr().setCons(exceptionObjectNameAtomCons);
+
+            exceptionObjectNameAtomCons.cdr().setCons(exceptionObjectValueValueAtomCons);
+
+            Cons exceptionObjectSublistCons = SublistCons.getInstance(aEnvironment, exceptionObjectListAtomCons);
+
+
+
+            //Create result list.
+            typeSublistCons.cdr().setCons(messageSublistCons);
+
+            messageSublistCons.cdr().setCons(exceptionObjectSublistCons);
+
+            //exceptionSublistCons.cdr().setCons(xxxSublistCons);
+
+            //xxxSublistCons.cdr().setCons(yyySublistCons);
+
+            Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+
+            resultListAtomCons.cdr().setCons(typeSublistCons);
+
+            Cons resultSublistCons = SublistCons.getInstance(aEnvironment, resultListAtomCons);
+
+
+
+
+
+
+            getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultSublistCons);
+
+            //getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, exceptionObject));
         }
     }
 }

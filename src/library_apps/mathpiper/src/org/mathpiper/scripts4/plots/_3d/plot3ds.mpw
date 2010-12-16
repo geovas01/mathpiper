@@ -122,6 +122,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 	ydelta := N(Eval( (yrange[2] - yrange[1]) / (options'hash["ypoints"]) ) );
 	// check that the input parameters are valid (all numbers)
 	Check(IsNumericList({xrange[1], xrange[2], options'hash["xpoints"], options'hash["ypoints"], options'hash["precision"]}),
+                "Argument", 
 		"Plot3DS: Error: plotting ranges '"
 		:(PipeToString()Write(xrange, yrange))
 		:"' and/or the number of points '"
@@ -135,8 +136,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 	[
 		// obtain name of variable
 		var := VarList(func);        // variable names in a list
-    	Check(Length(var)<=2,
-			"Plot3DS: Error: expression is not a function of at most two variables: "
+    	Check(Length(var)<=2, "Argument", "Plot3DS: Error: expression is not a function of at most two variables: "
 			:(PipeToString()Write(func))
 		);
 		// Allow plotting of constant functions
@@ -157,6 +157,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 		cx := xrange[1]; cy := yrange[1];
 		fc := N(Eval(Apply({var, func}, {cx, cy})));
 		Check(IsNumber(fc) Or fc=Infinity Or fc= -Infinity Or fc=Undefined,
+                        "Argument", 
 			"Plot3DS: Error: cannot evaluate function '"
 			:(PipeToString()Write(func))
 			:"' at point '"

@@ -72,8 +72,7 @@
   */
 10 # (Taylor2(_x, _a, _n) _y)
    _ (Not(IsPositiveInteger(n) Or IsZero(n)))
-   <-- Check(False,
-             "Third argument to Taylor should be a nonnegative integer");
+   <-- Check(False, "Argument", "Third argument to Taylor should be a nonnegative integer");
 
 20 # (Taylor2(_x, 0, _n) _y) <--
 [
@@ -294,7 +293,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
       If (Not finished And lps[4][0] = Taylor'LPS'Compose,
       [
 	 j := Taylor'LPS'GetOrder(lps[4][1])[1];
-	 Check(j >= 0, "Expansion of f(g(x)) where f has a"
+	 Check(j >= 0, "Math", "Expansion of f(g(x)) where f has a"
                        : "singularity is not implemented");
 	 k := Taylor'LPS'GetOrder(lps[4][2])[1];
          c1 := {j, Taylor'LPS'Coeffs(lps[4][1], j, n2)};
@@ -652,7 +651,7 @@ Echo(expr," ",n," ",result);
       <-- Assert("dunno") False;
 
 60000 # Taylor'LPS'CompCoeff(_var, _expr, _n)
-      <-- Check(False, "Taylor'LPS'CompCoeff'FallThrough"
+      <-- Check(False, "Argument", "Taylor'LPS'CompCoeff'FallThrough"
                        : PipeToString() Write({var,expr,n}));
 
 /**********************************************************************

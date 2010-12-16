@@ -459,7 +459,7 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new If(), 2, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
 		        "If");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new Check(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
+		        new BuiltinFunctionEvaluator(new Check(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "Check");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new ExceptionCatch(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),

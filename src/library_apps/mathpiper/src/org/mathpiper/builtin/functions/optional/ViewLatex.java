@@ -82,7 +82,7 @@ public class ViewLatex extends BuiltinFunction {
         {
             latexString = (String) expressionPointer;
 
-            latexString = Utility.stripEndQuotes(latexString);
+            latexString = Utility.toNormalString(aEnvironment, aStackTop, latexString);
 
             latexString = Utility.stripEndDollarSigns(latexString);
         }

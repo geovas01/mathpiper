@@ -47,7 +47,7 @@ public class AskUser extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, messageString != null, 1, "AskUser");
 
 
-        messageString = Utility.stripEndQuotes(messageString);
+        messageString = Utility.toNormalString(aEnvironment, aStackTop, messageString);
 
         String userInputString = JOptionPane.showInputDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 
