@@ -51,7 +51,7 @@ public class IsLessThan extends BuiltinFunction
 *DESC
 Compare decimal numbers or strings (lexicographically).
 
-**E.G.
+*E.G.
 	In> IsLessThan(1,1)
 	Result: False;
 	In> IsLessThan("a","b")

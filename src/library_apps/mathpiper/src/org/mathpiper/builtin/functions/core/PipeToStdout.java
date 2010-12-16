@@ -63,7 +63,7 @@ public class PipeToStdout extends BuiltinFunction
 When using {PipeToString} or {PipeToFile}, it might happen that something needs to be
 written to the standard default initial output (typically the screen). {PipeToStdout} can be used to select this stream.
 
-**E.G.
+*E.G.
 
 	In> PipeToString()[Echo("aaaa");PipeToStdout()Echo("bbbb");];
 	bbbb
