@@ -48,7 +48,7 @@ public class Import extends BuiltinFunction
 
         LispError.checkIsString(aEnvironment, aStackTop, pathPointer, 1, "Import");
 
-        String path = Utility.toNormalString(aEnvironment, aStackTop, (String) pathPointer.car());
+        String path = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) pathPointer.car());
 
         /*org.mathpiper.builtin.javareflection.Import.addImport(path);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));*/

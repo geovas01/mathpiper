@@ -424,14 +424,14 @@ public class Utility {
             optionPointer.goNext(aStackTop, aEnvironment);
             LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT, "INTERNAL");
             String key = (String) optionPointer.car();
-            key = Utility.toNormalString(aEnvironment, aStackTop, key);
+            key = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, key);
 
             //Obtain value.
             optionPointer.goNext(aStackTop, aEnvironment);
             LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM || optionPointer.type() == Utility.NUMBER, LispError.INVALID_ARGUMENT, "INTERNAL");
             if (optionPointer.type() == Utility.ATOM) {
                 String value = (String) optionPointer.car();
-                value = Utility.toNormalString(aEnvironment, aStackTop, value);
+                value = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, value);
                 if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
                     userOptions.put(key, Boolean.parseBoolean(value));
                 } else {
@@ -597,6 +597,19 @@ public class Utility {
             }
         }//end matches if.
     }
+
+
+    public static String stripEndQuotesIfPresent(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
+        //If there are not quotes on both ends of the string then return without any changes.
+        if (aOriginal.startsWith("\"") && aOriginal.endsWith("\"")) {
+            aOriginal = aOriginal.substring(1, aOriginal.length());
+            aOriginal = aOriginal.substring(0, aOriginal.length() - 1);
+        }//end if.
+
+        return aOriginal;
+    }//end method.
+
+    
 
     public static String toNormalString(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
         LispError.check(aEnvironment, aStackTop, aOriginal != null, LispError.INVALID_ARGUMENT, "INTERNAL");
