@@ -285,7 +285,7 @@ public class LatexComponent extends JPanel implements RenderingComponent, MouseL
             
             try{
 
-            latexString = Utility.toNormalString(null, -1, latexString);
+            latexString = Utility.stripEndQuotesIfPresent(null, -1, latexString);
 
             latexString = Utility.stripEndDollarSigns(latexString);
             }
