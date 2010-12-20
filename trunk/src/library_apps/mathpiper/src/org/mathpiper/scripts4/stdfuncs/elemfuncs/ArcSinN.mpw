@@ -1,5 +1,6 @@
 %mathpiper,def="ArcSinN"
 
+
 Defun("ArcSinN",{int1})
 [
   Local(result,eps);
@@ -9,13 +10,19 @@ Defun("ArcSinN",{int1})
   Bind(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
   While(IsGreaterThan(AbsN(q),eps))
   [
-		Bind(s,SubtractN(int1,SinN(result)));
+	Bind(s,SubtractN(int1,SinN(result)));
     Bind(c,CosN(result));
     Bind(q,DivideN(s,c));
     Bind(result,AddN(result,q));
   ];
   result;
 ];
+
+/*
+ArcSinN(x) :=
+[
+    FastArcSin(x);
+];*/
 
 %/mathpiper
 
@@ -43,7 +50,8 @@ integer result is returned even if the calculation requires more digits than set
 the functions return a floating-point result which is correct only to the current precision.
 
 *E.G.
-	In>
-	Result>
+
+In> ArcSinN(.5)
+Result> 0.5235987756
 
 %/mathpiper_docs

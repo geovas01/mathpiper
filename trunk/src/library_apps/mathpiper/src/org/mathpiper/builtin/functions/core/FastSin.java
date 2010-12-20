@@ -26,24 +26,24 @@ import org.mathpiper.lisp.LispError;
 
 /**
  *
- *  
+ *
  */
-public class FastArcSin extends BuiltinFunction
+public class FastSin extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x;
-        
+
         x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
         double xDouble = x.toDouble();
 
-        double result = Math.asin(xDouble);
+        double result = Math.sin(xDouble);
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The argument must have a value between -1 and 1.", "FastArcSin", aStackTop, aEnvironment);
+            LispError.raiseError("The result is NaN.", "FastSin", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
@@ -58,11 +58,11 @@ public class FastArcSin extends BuiltinFunction
 
 
 /*
-%mathpiper,name="FastArcSin",categories="Programmer Functions;Built In"
-*CMD FastArcSin --- double-precision math function
+%mathpiper,name="FastSin",categories="Programmer Functions;Built In"
+*CMD FastSin --- double-precision math function
 *CORE
 *CALL
-	FastArcSin(x)
+	FastSin(x)
 
 *PARMS
 {a} -- a number
