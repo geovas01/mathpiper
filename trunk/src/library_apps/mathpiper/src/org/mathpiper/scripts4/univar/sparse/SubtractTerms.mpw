@@ -1,11 +1,11 @@
-%mathpiper,def="SubstractTerms"
+%mathpiper,def="SubtractTerms"
 
 /*
 Note:tk:I am publishing this function as a def because
 but it seems like it was meant to be a published function.
 */
 
-Function("SubstractTerms",{terms1,terms2})
+Function("SubtractTerms",{terms1,terms2})
 [
   Local(result,t);
   begining :=1 ;
