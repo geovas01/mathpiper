@@ -40,7 +40,7 @@ public class TraceRule extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="TraceRule",categories="User Functions;Control Flow;Built In"
+%mathpiper_docs,name="TraceRule",categories="User Functions;Control Flow;Built In",access="private"
 *CMD TraceRule --- turn on tracing for a particular function
 *CORE
 *CALL
