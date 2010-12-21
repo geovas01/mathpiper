@@ -87,7 +87,7 @@ public class TraceExcept extends BuiltinFunction
 *CMD TraceExcept --- trace all the functions but the given functions an expression
 *CORE
 *CALL
-	TraceExcept("function_name,function_name,function_name,...", expression)
+	TraceExcept("function_name,function_name,function_name,...") expression
 
 *PARMS
 
@@ -103,8 +103,8 @@ function list string means trace all of the functions which are evaluated in the
 
 *E.G.
 
-In> In> TraceExcept("",2+3-6) //An empty function list means trace all functions.
-Result> True<In
+In> TraceExcept("") 2+3-6 //An empty function list means trace all functions.
+Result> True
 Side Effects>
 Enter<**** user rulebase>{(-,2+3-6);
     Enter<**** user rulebase>{(+,2+3);
@@ -141,7 +141,7 @@ Enter<**** user rulebase>{(-,2+3-6);
 Leave<**** user rulebase>}(2+3-6->-1);
 
 
-In> TraceExcept("IsList, IsNumber",2+3-6)
+In> TraceExcept("IsList, IsNumber") 2+3-6
 Result> True
 Side Effects>
 Enter<**** user rulebase>{(-,2+3-6);
