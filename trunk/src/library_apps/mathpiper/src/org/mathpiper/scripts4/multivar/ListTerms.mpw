@@ -36,7 +36,7 @@ Retract("terms",*);
       [
          Local(L);
          L := FunctionToList(x2);
-         Tell("               ",L);
+         If(InVerboseMode(),Tell("               ",L));
          If(Length(L)=3,terms(L[1],L[2],L[3]),Push(termList,x2));
       ],
       [
@@ -60,6 +60,10 @@ UnFence("terms",3);
 
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
