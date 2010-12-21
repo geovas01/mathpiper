@@ -89,7 +89,7 @@ public class TraceSome extends BuiltinFunction
 *CMD TraceSome --- trace the given functions which are evaluated in the given expression
 *CORE
 *CALL
-	TraceSome("function_name,function_name,function_name,...", expression)
+	TraceSome("function_name,function_name,function_name,...") expression
 
 *PARMS
 
@@ -103,7 +103,7 @@ Outputs a trace of the functions which are listed in the given string and are ev
 
 
 *E.G.
-In> TraceSome("Factors,FactorizeInt",Factor(8))
+In> TraceSome("Factors,FactorizeInt") Factor(8)
 Result> True
 Side Effects>
 Enter<**** user rulebase>{(Factors,Factors(p));
