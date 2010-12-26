@@ -1,36 +1,49 @@
 %mathpiper,def="SquareFree"
 
-SquareFree(_p) <--
-[
-  Local(dp,gcd);
-//Echo("1...");
-  dp:=MakeMultiNomial(`(Differentiate(x)(@p)),{x});
-//  dp:=dp/MultiLeadingCoef(dp);
+Retract("SquareFree",*);
 
-//Echo("2...",dp);
-  p:=MakeMultiNomial(p,{x});
-//Echo(NormalForm(p));
-//Echo(NormalForm(dp));
+
+10 # SquareFree(_p)_(Length(VarList(p))!=1) <-- Check(False,"Argument","Input must be Univariate");
+
+12 # SquareFree(_p) <-- SquareFree(p,VarList(p)[1]);
+
+14 # SquareFree(_p,_var)_(Not IsPolynomial(p,var)) <-- Check(False,"Argument","Input must be Univariate Polynomial");
+
+16 # SquareFree(_p,_var) <--
+[
+  /*
+  Local(dp,gcd);
+  dp:=MakeMultiNomial(`(Differentiate(var)(@p)),{var});
+
+  p:=MakeMultiNomial(p,{var});
   gcd:=MultiGcd(p,dp);
-//Echo(NormalForm(gcd));
-//Echo(NormalForm(MultiDivide(p,{gcd})[1][1]));
   NormalForm(MultiDivide(p,{gcd})[1][1]);
-//  Quotient(p,Gcd(p,Monic(`(Differentiate(x)(@p)))));
+  */
+  Quotient(p,Gcd(p,(`(Differentiate(@var)(@p)))));
 ];
 
 %/mathpiper
 
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+    
+
+  
+    
+
 
 
 %mathpiper_docs,name="SquareFree",categories="User Functions;Polynomials (Operations)"
-*CMD SquareFree --- return the square-free part of polynomial
+*CMD SquareFree --- return the square-free part of a univariate polynomial
 *STD
 *CALL
 	SquareFree(p)
 
 *PARMS
 
-{p} - a polynomial in {x}
+{p} - a univariate polynomial
 
 *DESC
 
@@ -40,6 +53,8 @@ with irreducible polynomials $ p[i] $,
 return the square-free version part (with all the factors having
 multiplicity 1):
 $$ p[1]* ... * p[m] $$
+
+Throws "argument" exception if input is not a univariate polynomial.
 
 *E.G.
 
@@ -52,3 +67,9 @@ $$ p[1]* ... * p[m] $$
 
 *SEE FindRealRoots, RealRootsCount, MinimumBound, MaximumBound, Factor
 %/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
