@@ -16,20 +16,13 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.printers;
 
-
-import java.util.ArrayList;
-import java.util.List;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.*;
 import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.lisp.cons.Cons;
-
 
 public class LispPrinter {
 
     //private List<Cons> visitedLists = new ArrayList<Cons>();
-
-
     public void print(int aStackTop, ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
         printExpression(aExpression, aOutput, aEnvironment, 0);
 
@@ -61,18 +54,18 @@ public class LispPrinter {
                 /*
                 Cons atomCons = (Cons) consWalker.getCons();
                 if (visitedLists.contains(atomCons)) {
-                    aOutput.write("(CYCLE_LIST)");
+                aOutput.write("(CYCLE_LIST)");
 
                 } else {
-                    visitedLists.add(atomCons);*/
+                visitedLists.add(atomCons);*/
 
-                    if (item != 0) {
-                        indent(aOutput, aDepth + 1);
-                    }
-                    aOutput.write("(");
-                    printExpression(((ConsPointer) consWalker.car()), aOutput, aEnvironment, aDepth + 1);
-                    aOutput.write(")");
-                    item = 0;
+                if (item != 0) {
+                    indent(aOutput, aDepth + 1);
+                }
+                aOutput.write("(");
+                printExpression(((ConsPointer) consWalker.car()), aOutput, aEnvironment, aDepth + 1);
+                aOutput.write(")");
+                item = 0;
                 //}
 
 
@@ -94,7 +87,4 @@ public class LispPrinter {
         }
     }
 
-
 };
-
-

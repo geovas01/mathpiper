@@ -50,6 +50,7 @@ public class MathPiperPrinter extends LispPrinter {
         iPrevLastChar = 0;
     }
 
+    @Override
     public void print(int aStackTop, ConsPointer aExpression,  MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
         iCurrentEnvironment = aEnvironment;
 
@@ -59,6 +60,7 @@ public class MathPiperPrinter extends LispPrinter {
         //visitedLists.clear();
     }
 
+    @Override
     public void rememberLastChar(char aChar) {
         iPrevLastChar = aChar;
     }

@@ -80,6 +80,7 @@ public class ConsPointer {
         iCons = ((ConsPointer)iCons.car()).getCons();
     }
 
+    @Override
     public String toString() {
         StringOutput out = new StringOutput();
         LispPrinter printer = new LispPrinter();

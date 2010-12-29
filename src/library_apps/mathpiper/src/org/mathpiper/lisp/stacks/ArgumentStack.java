@@ -20,7 +20,6 @@ import org.mathpiper.lisp.*;
 import org.mathpiper.lisp.cons.ConsPointerArray;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.SublistCons;
 
 /** 
  * Implements a stack of pointers to CONS that can be used to pass

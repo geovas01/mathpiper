@@ -21,7 +21,6 @@ import java.util.List;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.builtin.javareflection.Invoke;
 import org.mathpiper.lisp.Environment;

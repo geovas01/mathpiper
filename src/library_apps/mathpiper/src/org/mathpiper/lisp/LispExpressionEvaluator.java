@@ -79,7 +79,7 @@ public class LispExpressionEvaluator extends Evaluator {
                 // }
             }
 
-            if (Thread.currentThread().interrupted()) {
+            if (Thread.interrupted()) {
                 LispError.raiseError("User halted calculation.", "", aStackTop, aEnvironment);
             }
         }

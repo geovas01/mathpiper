@@ -44,7 +44,7 @@ public class ViewConsole extends BuiltinFunction
         contentPane.add(console, BorderLayout.CENTER);
         //frame.setAlwaysOnTop(true);
         frame.setSize(new Dimension(800, 600));
-        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //frame.setResizable(false);
         frame.setPreferredSize(new Dimension(800, 600));
         frame.setLocationRelativeTo(null); // added

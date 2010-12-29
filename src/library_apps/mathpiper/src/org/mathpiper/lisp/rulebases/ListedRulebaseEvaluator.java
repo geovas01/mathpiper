@@ -13,9 +13,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.lisp.rulebases;
 
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -24,50 +22,45 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
 
+public class ListedRulebaseEvaluator extends SingleArityRulebaseEvaluator {
 
-public class ListedRulebaseEvaluator extends SingleArityRulebaseEvaluator
-{
-	public ListedRulebaseEvaluator(Environment aEnvironment, int aStackTop, ConsPointer  aParameters, String functionName) throws Exception
-	{
-		super(aEnvironment, aStackTop, aParameters, functionName);
-	}
-	
-	public boolean isArity(int aArity)
-	{
-		return (arity() <= aArity);
-	}
-	
-	public void evaluate( Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception
-	{
-		ConsPointer newArgs = new ConsPointer();
-		ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
-		ConsPointer ptr =  newArgs;
-		int arity = arity();
-		int i=0;
-		while (i < arity && consTraverser.getCons() != null)
-		{
-			ptr.setCons(consTraverser.getCons().copy( aEnvironment, false));
-			ptr = (ptr.cdr());
-			i++;
-			consTraverser.goNext(aStackTop);
-		}
-		if (consTraverser.cdr().getCons() == null)
-		{
-			ptr.setCons(consTraverser.getCons().copy( aEnvironment, false));
-			ptr = (ptr.cdr());
-			i++;
-			consTraverser.goNext(aStackTop);
-			LispError.lispAssert(consTraverser.getCons() == null, aEnvironment, aStackTop);
-		}
-		else
-		{
-			ConsPointer head = new ConsPointer();
-			head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-			head.cdr().setCons(consTraverser.getCons());
-			ptr.setCons(SublistCons.getInstance(aEnvironment,head.getCons()));
-		}
-		super.evaluate(aEnvironment, aStackTop, aResult, newArgs);
-	}
+    public ListedRulebaseEvaluator(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+        super(aEnvironment, aStackTop, aParameters, functionName);
+    }
+
+
+    @Override
+    public boolean isArity(int aArity) {
+        return (arity() <= aArity);
+    }
+
+
+    @Override
+    public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception {
+        ConsPointer newArgs = new ConsPointer();
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
+        ConsPointer ptr = newArgs;
+        int arity = arity();
+        int i = 0;
+        while (i < arity && consTraverser.getCons() != null) {
+            ptr.setCons(consTraverser.getCons().copy(aEnvironment, false));
+            ptr = (ptr.cdr());
+            i++;
+            consTraverser.goNext(aStackTop);
+        }
+        if (consTraverser.cdr().getCons() == null) {
+            ptr.setCons(consTraverser.getCons().copy(aEnvironment, false));
+            ptr = (ptr.cdr());
+            i++;
+            consTraverser.goNext(aStackTop);
+            LispError.lispAssert(consTraverser.getCons() == null, aEnvironment, aStackTop);
+        } else {
+            ConsPointer head = new ConsPointer();
+            head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
+            head.cdr().setCons(consTraverser.getCons());
+            ptr.setCons(SublistCons.getInstance(aEnvironment, head.getCons()));
+        }
+        super.evaluate(aEnvironment, aStackTop, aResult, newArgs);
+    }
+
 }
-
-

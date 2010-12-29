@@ -5,7 +5,6 @@
 
 package org.mathpiper.interpreters;
 
-import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 /**

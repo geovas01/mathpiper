@@ -13,24 +13,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.stacks;
 
 import org.mathpiper.lisp.cons.ConsPointer;
 
-public class UserStackInformation
-{
+public class UserStackInformation {
 
-	public ConsPointer iExpression;
-	public ConsPointer iOperator;
-	public int iRulePrecedence;
-	public int iSide; // 0=pattern, 1=body
+    public ConsPointer iExpression;
+    public ConsPointer iOperator;
+    public int iRulePrecedence;
+    public int iSide; // 0=pattern, 1=body
 
-	public UserStackInformation()
-	{
-		iRulePrecedence = -1;
-		iSide = 0;
-	}
+
+    public UserStackInformation() {
+        iRulePrecedence = -1;
+        iSide = 0;
+    }
+
 }

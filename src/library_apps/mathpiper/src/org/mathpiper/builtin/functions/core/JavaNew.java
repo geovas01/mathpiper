@@ -20,7 +20,6 @@ package org.mathpiper.builtin.functions.core;
 import java.util.ArrayList;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.builtin.javareflection.Invoke;
 import org.mathpiper.lisp.Environment;

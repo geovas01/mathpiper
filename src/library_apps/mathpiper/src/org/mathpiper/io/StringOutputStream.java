@@ -13,27 +13,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.io;
 
-import org.mathpiper.io.MathPiperOutputStream;
+public class StringOutputStream implements MathPiperOutputStream {
 
-public class StringOutputStream implements MathPiperOutputStream
-{
+    StringBuffer iString;
 
-	StringBuffer iString;
 
-	public StringOutputStream(StringBuffer aString)
-	{
-		iString = aString;
-	}
+    public StringOutputStream(StringBuffer aString) {
+        iString = aString;
+    }
 
-	public void putChar(char aChar)
-	{
-		iString.append(aChar);
-	}
+
+    public void putChar(char aChar) {
+        iString.append(aChar);
+    }
+
 
     public void write(String aString) throws Exception {
         int i;
@@ -41,4 +38,5 @@ public class StringOutputStream implements MathPiperOutputStream
             putChar(aString.charAt(i));
         }
     }
+
 }
