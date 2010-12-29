@@ -26,8 +26,10 @@ public class AtomCons extends Cons
 
     ConsPointer iCdr;
 
-    private AtomCons(Environment aEnvironment,String aString) throws Exception
+    public AtomCons(String aString) throws Exception
     {
+        //Make sure to use aEnvironment.getTokenHash().lookUp(aString) with aString before calling this constructor.
+        
         super();
         iCar = aString;
         iCdr = new ConsPointer();
@@ -42,7 +44,7 @@ public class AtomCons extends Cons
             self = new NumberCons(aString, aEnvironment.getPrecision());
         } else
         {
-            self = new AtomCons(aEnvironment,(String)aEnvironment.getTokenHash().lookUp(aString));
+            self = new AtomCons((String)aEnvironment.getTokenHash().lookUp(aString));
         }
         
         LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
@@ -63,7 +65,7 @@ public class AtomCons extends Cons
 
     public Cons copy( Environment aEnvironment, boolean aRecursed) throws Exception
     {
-        Cons atomCons = new AtomCons(aEnvironment, iCar);
+        Cons atomCons = new AtomCons(iCar);
 
         atomCons.setMetadataMap(this.getMetadataMap());
         
