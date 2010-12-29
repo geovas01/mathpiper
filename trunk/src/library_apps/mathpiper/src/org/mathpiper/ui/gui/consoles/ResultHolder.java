@@ -11,8 +11,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
+import org.mathpiper.ui.gui.Utility;
 
 import org.scilab.forge.jlatexmath.JMathTeXException;
 import org.scilab.forge.jlatexmath.TeXConstants;
@@ -41,15 +44,13 @@ public class ResultHolder extends JPanel implements RenderingComponent, MouseLis
 
         this.renderedResult = new JLabel();
 
-        try{
+        try {
             texFormula = new TeXFormula(latexString);
             TeXIcon icon = texFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontPointSize);
             renderedResult.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
             renderedResult.setAlignmentY(icon.getBaseLine());
             renderedResult.setIcon(icon);
-        }
-        catch(JMathTeXException e)
-        {
+        } catch (JMathTeXException e) {
             renderedResult.setText(resultString);
             renderedResult.setAlignmentY(.9f);
         }
@@ -63,8 +64,29 @@ public class ResultHolder extends JPanel implements RenderingComponent, MouseLis
 
             public void mouseClicked(MouseEvent e) {
                 //eventOutput("Mouse clicked (# of clicks: "  + e.getClickCount() + ")", e);
-                toggle = 0;
-                toggleView();
+
+                int buttonNumber = e.getButton();
+
+                if (buttonNumber == MouseEvent.BUTTON3) {
+                    JPopupMenu popup = new JPopupMenu();
+                    JMenuItem menuItem = new JMenuItem("Save image to file");
+                    menuItem.addActionListener(new ActionListener() {
+
+                        public void actionPerformed(ActionEvent e) {
+                           Utility.saveImageOfComponent(ResultHolder.this);
+                        }
+
+                    });
+
+                    popup.add(menuItem);
+                    popup.show(ResultHolder.this, 10, 10);
+
+
+                } else {
+                    toggle = 0;
+                    toggleView();
+                }
+
             }
 
         }//end method.

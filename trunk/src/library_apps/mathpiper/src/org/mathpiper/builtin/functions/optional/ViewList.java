@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -14,6 +15,7 @@ import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.ui.gui.worksheets.ListPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
+import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 
 public class ViewList extends BuiltinFunction {
 
@@ -38,7 +40,11 @@ public class ViewList extends BuiltinFunction {
 
         MathPanelController mathPanelScaler = new MathPanelController(listPanel, 2.0);
 
-        JScrollPane scrollPane = new JScrollPane(listPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JPanel screenCapturePanel = new ScreenCapturePanel();
+
+        screenCapturePanel.add(listPanel);
+
+        JScrollPane scrollPane = new JScrollPane(screenCapturePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         contentPane.add(scrollPane);
         contentPane.add(mathPanelScaler, BorderLayout.NORTH);

@@ -40,10 +40,8 @@ import javax.swing.JLabel;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
+import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.DefaultTeXFont;
-import org.scilab.forge.jlatexmath.cyrillic.CyrillicRegistration;
-import org.scilab.forge.jlatexmath.greek.GreekRegistration;
 
 /**
  *
@@ -152,7 +150,12 @@ public class ViewMath extends BuiltinFunction {
 	TeXFormula formula = new TeXFormula(texString);
         JLabel latexLabel = new JLabel();
         JPanel latexPanelController = new LatexRenderingController(formula, latexLabel, 100);
-        JScrollPane jMathTexScrollPane = new JScrollPane(latexLabel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        JPanel screenCapturePanel = new ScreenCapturePanel();
+
+        screenCapturePanel.add(latexLabel);
+
+        JScrollPane jMathTexScrollPane = new JScrollPane(screenCapturePanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         jMathTexScrollPane.getViewport().setBackground(Color.WHITE);
         box.add(jMathTexScrollPane);
 
