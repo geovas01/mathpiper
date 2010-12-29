@@ -55,7 +55,7 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.localvariables.LocalVariable;
 import org.mathpiper.lisp.localvariables.LocalVariableFrame;
 
-public class Environment {
+public final class Environment {
 
     public Evaluator iLispExpressionEvaluator = new LispExpressionEvaluator();
     private int iPrecision = 10;
@@ -112,24 +112,24 @@ public class Environment {
         iCurrentOutput = aCurrentOutput;
         iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
-        iTrueAtom = AtomCons.getInstance(this, -1,"True");
+        iTrueAtom = new AtomCons((String)getTokenHash().lookUp("True"));
         iTrueString = (String) iTrueAtom.car();
-        iFalseAtom = AtomCons.getInstance(this, -1,"False");
+        iFalseAtom = new AtomCons((String)getTokenHash().lookUp("False"));
         iFalseString = (String) iFalseAtom.car();
-        iEndOfFileAtom = AtomCons.getInstance(this, -1,"EndOfFile");
-        iEndStatementAtom = AtomCons.getInstance(this, -1,";");
-        iProgOpenAtom = AtomCons.getInstance(this, -1,"[");
-        iProgCloseAtom = AtomCons.getInstance(this, -1,"]");
-        iNthAtom = AtomCons.getInstance(this, -1,"Nth");
-        iComplexAtom = AtomCons.getInstance(this, -1,"Complex");
-        iBracketOpenAtom = AtomCons.getInstance(this, -1,"(");
-        iBracketCloseAtom = AtomCons.getInstance(this, -1,")");
-        iListOpenAtom = AtomCons.getInstance(this, -1,"{");
-        iListCloseAtom = AtomCons.getInstance(this, -1,"}");
-        iCommaAtom = AtomCons.getInstance(this, -1,",");
-        iListAtom = AtomCons.getInstance(this, -1,"List");
-        iSetAtom = AtomCons.getInstance(this, -1,"Set");
-        iProgAtom = AtomCons.getInstance(this, -1,"Prog");
+        iEndOfFileAtom = new AtomCons((String)getTokenHash().lookUp("EndOfFile"));
+        iEndStatementAtom = new AtomCons((String)getTokenHash().lookUp(";"));
+        iProgOpenAtom = new AtomCons((String)getTokenHash().lookUp("["));
+        iProgCloseAtom = new AtomCons((String)getTokenHash().lookUp("]"));
+        iNthAtom = new AtomCons((String)getTokenHash().lookUp("Nth"));
+        iComplexAtom = new AtomCons((String)getTokenHash().lookUp("Complex"));
+        iBracketOpenAtom = new AtomCons((String)getTokenHash().lookUp("("));
+        iBracketCloseAtom = new AtomCons((String)getTokenHash().lookUp(")"));
+        iListOpenAtom = new AtomCons((String)getTokenHash().lookUp("{"));
+        iListCloseAtom = new AtomCons((String)getTokenHash().lookUp("}"));
+        iCommaAtom = new AtomCons((String)getTokenHash().lookUp(","));
+        iListAtom = new AtomCons((String)getTokenHash().lookUp("List"));
+        iSetAtom = new AtomCons((String)getTokenHash().lookUp("Set"));
+        iProgAtom = new AtomCons((String)getTokenHash().lookUp("Prog"));
 
         iArgumentStack = new ArgumentStack(this, 50000 /*TODO FIXME*/);
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();
@@ -137,14 +137,6 @@ public class Environment {
 
         //System.out.println("Classpath: " + System.getProperty("java.class.path"));
         
-        BuiltinFunction.addCoreFunctions(this);
-
-        if(! Utility.scriptsPath.contains("geogebra"))
-        {
-            List failList = BuiltinFunction.addOptionalFunctions(this, "org/mathpiper/builtin/functions/optional/");
-        }
-
-        pushLocalFrame(true, "<START>");
     }
 
     public TokenMap getTokenHash() {
