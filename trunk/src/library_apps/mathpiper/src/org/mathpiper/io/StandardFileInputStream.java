@@ -13,61 +13,55 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.io;
 
 import java.io.InputStreamReader;
 
-
-
 public class StandardFileInputStream
-			extends StringInputStream
-{
-       // private static String path;
-        //static void setPath(String aPath)
-        //{
-        //    path = aPath;
-        //}
-        
-	public StandardFileInputStream(String aFileName, InputStatus aStatus)
-	throws Exception
-	{
-		super(new StringBuffer(), aStatus);
+        extends StringInputStream {
+    // private static String path;
+    //static void setPath(String aPath)
+    //{
+    //    path = aPath;
+    //}
 
-		//System.out.println("YYYYYY " + aFileName);//Note:tk: remove.
-		InputStreamReader stream = new InputStreamReader(new java.io.FileInputStream(aFileName));
-		int c;
+    public StandardFileInputStream(String aFileName, InputStatus aStatus)
+            throws Exception {
+        super(new StringBuffer(), aStatus);
 
-		while (true)
-		{
-			c = stream.read();
+        //System.out.println("YYYYYY " + aFileName);//Note:tk: remove.
+        InputStreamReader stream = new InputStreamReader(new java.io.FileInputStream(aFileName));
+        int c;
 
-			if (c == -1)
+        while (true) {
+            c = stream.read();
 
-				break;
+            if (c == -1) {
+                break;
+            }
 
-			iString.append((char)c);
-		}
-	}
+            iString.append((char) c);
+        }
+    }
 
-	public StandardFileInputStream(java.io.InputStreamReader aStream, InputStatus aStatus)
-	throws Exception
-	{
-		super(new StringBuffer(), aStatus);
 
-		int c;
+    public StandardFileInputStream(java.io.InputStreamReader aStream, InputStatus aStatus)
+            throws Exception {
+        super(new StringBuffer(), aStatus);
 
-		while (true)
-		{
-			c = aStream.read();
+        int c;
 
-			if (c == -1)
+        while (true) {
+            c = aStream.read();
 
-				break;
+            if (c == -1) {
+                break;
+            }
 
-			iString.append((char)c);
-		}
-	}
+            iString.append((char) c);
+        }
+    }
+
 }

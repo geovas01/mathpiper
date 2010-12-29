@@ -236,7 +236,7 @@ class SynchronousInterpreter implements Interpreter {
             ConsPointer inputExpressionPointer = new ConsPointer();
             if (iEnvironment.iPrettyReaderName != null) {
                 InputStatus someStatus = new InputStatus();
-                StringBuffer inp = new StringBuffer();
+                StringBuilder inp = new StringBuilder();
                 inp.append(inputExpression);
                 InputStatus oldstatus = iEnvironment.iInputStatus;
                 iEnvironment.iInputStatus.setTo("String");

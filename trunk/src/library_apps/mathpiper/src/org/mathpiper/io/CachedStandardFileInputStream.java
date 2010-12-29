@@ -18,11 +18,6 @@
 
 package org.mathpiper.io;
 
-
-
-import org.mathpiper.io.MathPiperInputStream;
-import java.io.*;
-
 /** CachedStandardFileInputStream : input from stdin */
 public class CachedStandardFileInputStream extends MathPiperInputStream
 {

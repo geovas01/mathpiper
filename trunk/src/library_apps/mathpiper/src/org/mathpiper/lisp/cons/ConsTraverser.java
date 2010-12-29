@@ -17,8 +17,6 @@
 package org.mathpiper.lisp.cons;
 
 import org.mathpiper.lisp.*;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.Cons;
 
 /**
  * Works almost like ConsPointer, but doesn't enforce

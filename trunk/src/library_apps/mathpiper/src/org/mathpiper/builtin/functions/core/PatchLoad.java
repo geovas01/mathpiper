@@ -25,8 +25,6 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.io.StandardFileInputStream;
-import org.mathpiper.io.StringInputStream;
-import org.mathpiper.io.MathPiperOutputStream;
 
 /**
  *

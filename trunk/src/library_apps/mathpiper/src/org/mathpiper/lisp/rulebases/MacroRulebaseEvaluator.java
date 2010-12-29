@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
-
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.stacks.UserStackInformation;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
@@ -28,7 +27,6 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispExpressionEvaluator;
 import org.mathpiper.lisp.cons.SublistCons;
-
 
 public class MacroRulebaseEvaluator extends SingleArityRulebaseEvaluator {
 
@@ -61,6 +59,7 @@ public class MacroRulebaseEvaluator extends SingleArityRulebaseEvaluator {
     }
 
 
+    @Override
     public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception {
         int arity = arity();
         ConsPointer[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
@@ -161,7 +160,4 @@ public class MacroRulebaseEvaluator extends SingleArityRulebaseEvaluator {
 
     }
 
-
 }
-
-

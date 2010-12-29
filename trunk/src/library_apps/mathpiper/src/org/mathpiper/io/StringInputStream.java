@@ -13,77 +13,74 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.io;
 
-
-import org.mathpiper.io.MathPiperInputStream;
-
 public class StringInputStream
-			extends MathPiperInputStream
-{
+        extends MathPiperInputStream {
 
-	int iCurrent;
-	StringBuffer iString;
+    int iCurrent;
+    StringBuffer iString;
 
-	public StringInputStream(StringBuffer aString, InputStatus aStatus)
-	{
-		super(aStatus);
-		iString = aString;
-		iCurrent = 0;
-	}
 
-	public char next()
-	throws Exception
-	{
+    public StringInputStream(StringBuffer aString, InputStatus aStatus) {
+        super(aStatus);
+        iString = aString;
+        iCurrent = 0;
+    }
 
-		if (iCurrent == iString.length())
 
-			return '\0';
+    public char next()
+            throws Exception {
 
-		iCurrent++;
+        if (iCurrent == iString.length()) {
+            return '\0';
+        }
 
-		char c = iString.charAt(iCurrent - 1);
+        iCurrent++;
 
-		if (c == '\n')
-			iStatus.nextLine();
+        char c = iString.charAt(iCurrent - 1);
 
-		return c;
-	}
+        if (c == '\n') {
+            iStatus.nextLine();
+        }
 
-	public char peek()
-	throws Exception
-	{
+        return c;
+    }
 
-		if (iCurrent == iString.length())
 
-			return '\0';
+    public char peek()
+            throws Exception {
 
-		return iString.charAt(iCurrent);
-	}
+        if (iCurrent == iString.length()) {
+            return '\0';
+        }
 
-	public boolean endOfStream()
-	{
+        return iString.charAt(iCurrent);
+    }
 
-		return (iCurrent == iString.length());
-	}
 
-	public StringBuffer startPtr()
-	{
+    public boolean endOfStream() {
 
-		return iString;
-	}
+        return (iCurrent == iString.length());
+    }
 
-	public int position()
-	{
 
-		return iCurrent;
-	}
+    public StringBuffer startPtr() {
 
-	public void setPosition(int aPosition)
-	{
-		iCurrent = aPosition;
-	}
+        return iString;
+    }
+
+
+    public int position() {
+
+        return iCurrent;
+    }
+
+
+    public void setPosition(int aPosition) {
+        iCurrent = aPosition;
+    }
+
 }

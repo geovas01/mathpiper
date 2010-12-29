@@ -311,7 +311,7 @@ public class Utility {
         LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
 
         //return aExpression.car() == aEnvironment.iTrueAtom.car();
-        return aExpression.car() instanceof String && ((String) aExpression.car()) == aEnvironment.iTrueString;
+        return aExpression.car() instanceof String && ((String) aExpression.car()).equals(aEnvironment.iTrueString);
 
         /* Code which returns True for everything except False and {};
         String expressionString = aExpression.car();
@@ -336,7 +336,7 @@ public class Utility {
     }//end method.
     public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression, int aStackTop) throws Exception {
         LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
-        return aExpression.car() instanceof String && ((String) aExpression.car()) == aEnvironment.iFalseString;
+        return aExpression.car() instanceof String && ((String) aExpression.car()).equals(aEnvironment.iFalseString);
 
         /* Code which returns True for everything except False and {};
         return aExpression.car() == aEnvironment.iFalseString || (isSublist(aExpression) && (listLength(aExpression.car()) == 1));
@@ -644,7 +644,7 @@ public class Utility {
 
                 LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "INTERNAL");
                 // check for end of file
-                if (readIn.car() instanceof String && ((String) readIn.car()) == eof) {
+                if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
                 } // Else evaluate
                 else {
@@ -872,7 +872,7 @@ public class Utility {
                 String token = tok.nextToken(aEnvironment, aStackTop, aEnvironment.iCurrentInput, aEnvironment.getTokenHash());
 
                 // check for end of file
-                if (token == eof || token == end) {
+                if (token.equals(eof) || token.equals(end)) {
                     endoffile = true;
                 } // Else evaluate
                 else {

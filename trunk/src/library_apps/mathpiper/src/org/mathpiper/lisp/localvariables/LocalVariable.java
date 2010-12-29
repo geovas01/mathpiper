@@ -13,30 +13,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.lisp.localvariables;
 
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
-    public class LocalVariable
-    {
+public class LocalVariable {
 
-        public LocalVariable iNext;
-        public String iVariable;
-        public ConsPointer iValue;
+    public LocalVariable iNext;
+    public String iVariable;
+    public ConsPointer iValue;
 
-        public LocalVariable(Environment aEnvironment, String aVariable, Cons aValue)
-        {
-            iNext = null;
-            iVariable = aVariable;
-            iValue = new ConsPointer();
-            iValue.setCons(aValue);
-            
 
-        }
+    public LocalVariable(Environment aEnvironment, String aVariable, Cons aValue) {
+        iNext = null;
+        iVariable = aVariable;
+        iValue = new ConsPointer();
+        iValue.setCons(aValue);
+
 
     }
+
+}

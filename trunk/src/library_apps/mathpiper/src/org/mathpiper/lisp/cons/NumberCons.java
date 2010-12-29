@@ -112,6 +112,7 @@ public class NumberCons extends Cons {
         return iCarStringNumber;
     }
 
+    @Override
     public String toString() {
         String stringRepresentation = null;
         try {
@@ -132,6 +133,7 @@ public class NumberCons extends Cons {
      * @return
      * @throws java.lang.Exception
      */
+    @Override
     public Object getNumber(int aPrecision, Environment aEnvironment) throws Exception {
         /// If necessary, will create a BigNumber object out of the stored string, at given precision (in decimal?)
         if (iCarBigNumber == null) {  // create and store a BigNumber out of the string representation.

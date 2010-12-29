@@ -3,8 +3,8 @@ Turning stack tracing on: Result: True
 Side Effects:
 Stack tracing is on.
 
-***** Mon Dec 20 15:07:29 EST 2010 *****
-***** MathPiper version: .80z *****
+***** Tue Dec 28 23:00:53 EST 2010 *****
+***** MathPiper version: .81b *****
 
 ===========================
 arithmetic.mpt: 
@@ -604,7 +604,7 @@ Side Effects:
 ******************
 tests/scripts4/sums.mpt: 339 
 
-$pp2426
+$pp2187
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 
@@ -647,4 +647,4 @@ Exception Count: 0
 GlobalVariables: Result: True
 
 Side Effects:
-{$a73,$a994,$assumptions78,$b73,$b994,$bernoulli1Threshold56,$CacheOfConstantsN1,$CFormAllFunctions63,$cformMathFunctions61,$cformRegularOps60,$cindent62,$ClearScreenString34,$complexReduce48,$Debug'FileLines34,$Debug'FileLoaded34,$Debug'NrLines34,$ErrorTableau59,$formulaMaxWidth64,$GlobalStack20,$intpred72,$knownOrthoPoly71,$knownRNGDists44,$knownRNGEngines44,$lastcoef42,$LocResult74,$mathExpThreshold46,$mNum27,$n'max58,$nNum27,$NthRoot'Table162,$numericMode2,$omindent66,$omsymbol68,$omsymbolreverse68,$omtoken67,$options989,$p02426,$p12426,$p22426,$p32426,$p36,$p42426,$p993,$pc242426,$pc352426,$pc462426,$pc572426,$pc682426,$pj2426,$pj402426,$pj502426,$pj512426,$pj522426,$pj532426,$pj542426,$pju02426,$pp2426,$RandSeed45,$res30,$res79,$rFormMathFunctions39,$rFormRegularOps38,$RIndent40,$simple994,$st1011,$TeXFormGreekLetters69,$TeXFormMathFunctions270,$TeXFormMathFunctions70,$TeXFormRegularOps69,$TeXFormRegularPrefixOps69,$TeXFormSpecialNames69,$Verbose35,%,I,iDebug,LoadResult} 
+{$a73,$a994,$assumptions78,$b73,$b994,$bernoulli1Threshold56,$CacheOfConstantsN1,$CFormAllFunctions63,$cformMathFunctions61,$cformRegularOps60,$cindent62,$ClearScreenString34,$complexReduce48,$Debug'FileLines34,$Debug'FileLoaded34,$Debug'NrLines34,$ErrorTableau59,$formulaMaxWidth64,$GlobalStack20,$intpred72,$knownOrthoPoly71,$knownRNGDists44,$knownRNGEngines44,$lastcoef42,$LocResult74,$mathExpThreshold46,$mNum27,$n'max58,$nNum27,$NthRoot'Table162,$numericMode2,$omindent66,$omsymbol68,$omsymbolreverse68,$omtoken67,$options989,$p02187,$p12187,$p22187,$p32187,$p36,$p42187,$p993,$pc242187,$pc352187,$pc462187,$pc572187,$pc682187,$pj2187,$pj402187,$pj502187,$pj512187,$pj522187,$pj532187,$pj542187,$pju02187,$pp2187,$RandSeed45,$res30,$res79,$rFormMathFunctions39,$rFormRegularOps38,$RIndent40,$simple994,$st1011,$TeXFormGreekLetters69,$TeXFormMathFunctions270,$TeXFormMathFunctions70,$TeXFormRegularOps69,$TeXFormRegularPrefixOps69,$TeXFormSpecialNames69,$Verbose35,%,I,iDebug,LoadResult} 

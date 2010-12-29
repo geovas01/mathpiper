@@ -235,14 +235,14 @@ public class SingleArityRulebaseEvaluator extends Evaluator {
         if (isTraced()) {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
-            String functionName = "";
+            String traceFunctionName = "";
             if (argumentsPointer.car() instanceof ConsPointer) {
                 ConsPointer sub = (ConsPointer) argumentsPointer.car();
                 if (sub.car() instanceof String) {
-                    functionName = (String) sub.car();
+                    traceFunctionName = (String) sub.car();
                 }
             }//end function.
-            if (Evaluator.isTraceFunction(functionName)) {
+            if (Evaluator.isTraceFunction(traceFunctionName)) {
                 showFlag = true;
                 Evaluator.traceShowEnter(aEnvironment, argumentsPointer, functionType);
             } else {
@@ -319,7 +319,7 @@ public class SingleArityRulebaseEvaluator extends Evaluator {
         int i;
         int nrc = iParameters.size();
         for (i = 0; i < nrc; i++) {
-            if (((ParameterName) iParameters.get(i)).iName == aVariable) {
+            if (((ParameterName) iParameters.get(i)).iName.equals(aVariable)) {
                 ((ParameterName) iParameters.get(i)).iHold = true;
             }
         }

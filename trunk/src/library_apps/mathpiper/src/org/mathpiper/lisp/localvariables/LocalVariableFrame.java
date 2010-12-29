@@ -13,47 +13,44 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.lisp.localvariables;
 
-    public class LocalVariableFrame
-    {
-        public LocalVariableFrame iNext;
-        public LocalVariable iFirst;
-        LocalVariable iLast;
-        private String functionName;
+public class LocalVariableFrame {
 
-        public LocalVariableFrame(LocalVariableFrame aNext, LocalVariable aFirst, String functionName)
-        {
-            iNext = aNext;
-            iFirst = aFirst;
-            iLast = aFirst;
-            this.functionName = functionName;
+    public LocalVariableFrame iNext;
+    public LocalVariable iFirst;
+    LocalVariable iLast;
+    private String functionName;
+
+
+    public LocalVariableFrame(LocalVariableFrame aNext, LocalVariable aFirst, String functionName) {
+        iNext = aNext;
+        iFirst = aFirst;
+        iLast = aFirst;
+        this.functionName = functionName;
+    }
+
+
+    public void add(LocalVariable aNew) {
+        aNew.iNext = iFirst;
+        iFirst = aNew;
+    }
+
+
+    public void delete() {
+        LocalVariable t = iFirst;
+        LocalVariable next;
+        while (t != iLast) {
+            next = t.iNext;
+            t = next;
         }
+    }//end method.
 
-        public void add(LocalVariable aNew)
-        {
-            aNew.iNext = iFirst;
-            iFirst = aNew;
-        }
-
-        public void delete()
-        {
-            LocalVariable t = iFirst;
-            LocalVariable next;
-            while (t != iLast)
-            {
-                next = t.iNext;
-                t = next;
-            }
-        }//end method.
 
     public String getFunctionName() {
         return functionName;
     }
 
-     
+}//end class
 
-    }//end class

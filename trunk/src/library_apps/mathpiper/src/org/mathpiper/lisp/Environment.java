@@ -212,7 +212,7 @@ public class Environment {
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
 
         while (localVariable != null) {
-            if (localVariable.iVariable == aVariable) {
+            if (localVariable.iVariable.equals(aVariable)) {
                 return localVariable.iValue;
             }
             localVariable = localVariable.iNext;

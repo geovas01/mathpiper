@@ -33,6 +33,7 @@ class TrueRule extends PredicateRule
         iBody.setCons(aBody.getCons());
     }
     /// Return true, always.
+    @Override
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception
     {
         return true;

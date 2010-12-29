@@ -18,8 +18,6 @@
 package org.mathpiper.lisp.cons;
 
 import org.mathpiper.lisp.*;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.Cons;
 
 public class AtomCons extends Cons
 {
@@ -78,6 +76,7 @@ public class AtomCons extends Cons
         return iCdr;
     }
 
+    @Override
     public String toString()
     {
         return iCar;

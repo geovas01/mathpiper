@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BigNumber;
@@ -13,27 +12,25 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-	public class Floor extends BuiltinFunction
-	{
-		public void evaluate(Environment aEnvironment,int aStackTop) throws Exception
-		{
-			BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
-			BigNumber z = new BigNumber(aEnvironment.getPrecision());
-			z.floor(x);
-			getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
-		}
-	}//end class.
+public class Floor extends BuiltinFunction {
 
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber z = new BigNumber(aEnvironment.getPrecision());
+        z.floor(x);
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+    }
 
+}//end class.
 
 /*
 %mathpiper_docs,name="FloorN",categories="User Functions;Numeric;Built In"
-*CMD FloorN --- largest integer not larger than x (arbitrary-precision math function)
-*CORE
-*CALL
-	FloorN(x)
+ *CMD FloorN --- largest integer not larger than x (arbitrary-precision math function)
+ *CORE
+ *CALL
+FloorN(x)
 
-*DESC
+ *DESC
 
 This command performs the calculation of an elementary mathematical
 function.  The arguments <i>must</i> be numbers.  The reason for the
@@ -48,9 +45,9 @@ integer result is returned even if the calculation requires more digits than set
 {BuiltinPrecisionSet}.  However, when the result is mathematically not an integer,
 the functions return a floating-point result which is correct only to the current precision.
 
-*E.G.
-	In>
-	Result>
+ *E.G.
+In>
+Result>
 
 %/mathpiper_docs
-*/
+ */

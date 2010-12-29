@@ -38,7 +38,7 @@ public class MathPiperParser extends Parser
     public OperatorMap iInfixOperators;
     public OperatorMap iPostfixOperators;
     public OperatorMap iBodiedOperators;
-    private Environment iEnvironment;
+    //private Environment iEnvironment;
     
     boolean iError;
     boolean iEndOfFile;
@@ -65,6 +65,7 @@ public class MathPiperParser extends Parser
         iLookAhead = null;
     }
 
+    @Override
     public void parse(int aStackTop, ConsPointer aResult) throws Exception
     {
         parse(aStackTop);
@@ -114,7 +115,7 @@ public class MathPiperParser extends Parser
 
     void matchToken(int aStackTop, String aToken) throws Exception
     {
-        if (aToken != iLookAhead)
+        if (!aToken.equals(iLookAhead))
         {
             fail(aStackTop);
         }

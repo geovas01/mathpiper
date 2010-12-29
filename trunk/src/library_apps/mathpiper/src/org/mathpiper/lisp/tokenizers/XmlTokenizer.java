@@ -13,7 +13,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.tokenizers;
@@ -24,64 +23,59 @@ import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.Environment;
 
 public class XmlTokenizer
-			extends MathPiperTokenizer
-{
+        extends MathPiperTokenizer {
 
-	/// NextToken returns a string representing the next token,
-	/// or an empty list.
-	public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, TokenMap aHashTable)
-	throws Exception
-	{
+    /// NextToken returns a string representing the next token,
+    /// or an empty list.
+    @Override
+    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, TokenMap aHashTable)
+            throws Exception {
 
-		char c;
-		int firstpos = 0;
+        char c;
+        int firstpos = 0;
 
-		if (aInput.endOfStream())
+        if (aInput.endOfStream()) {
+            return (String) aHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
+        }
 
-			return (String) aHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
+        //skipping spaces
+        while (IsSpace(aInput.peek())) {
+            aInput.next();
+        }
 
-		//skipping spaces
-		while (IsSpace(aInput.peek()))
-			aInput.next();
+        firstpos = aInput.position();
+        c = aInput.next();
 
-		firstpos = aInput.position();
-		c = aInput.next();
+        if (c == '<') {
 
-		if (c == '<')
-		{
+            while (c != '>') {
+                c = aInput.next();
+                LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "INTERNAL");
+            }
+        } else {
 
-			while (c != '>')
-			{
-				c = aInput.next();
-				LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "INTERNAL");
-			}
-		}
-		else
-		{
+            while (aInput.peek() != '<' && !aInput.endOfStream()) {
+                c = aInput.next();
+            }
+        }
 
-			while (aInput.peek() != '<' && !aInput.endOfStream())
-			{
-				c = aInput.next();
-			}
-		}
+        return (String) aHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
+    }
 
-		return (String) aHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
-	}
 
-	private static boolean IsSpace(int c)
-	{
+    private static boolean IsSpace(int c) {
 
-		switch (c)
-		{
+        switch (c) {
 
-		case 0x20:
-		case 0x0D:
-		case 0x0A:
-		case 0x09:
-			return true;
+            case 0x20:
+            case 0x0D:
+            case 0x0A:
+            case 0x09:
+                return true;
 
-		default:
-			return false;
-		}
-	}
+            default:
+                return false;
+        }
+    }
+
 }
