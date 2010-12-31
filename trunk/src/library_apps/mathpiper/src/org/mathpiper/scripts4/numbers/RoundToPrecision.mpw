@@ -9,7 +9,7 @@ Retract("RoundToPrecision",*);
     Local(newInt,newScale,newRep,ans);
     BIP0     := BuiltinPrecisionGet();
     sgn      := Sign(N);
-    rep      := NumberToRep( Abs(N) );
+    rep      := NumberToRep( If(sgn<0,-N,N) );
     oldInt   := rep[1];
     oldPrec  := rep[2];
     oldScale := rep[3];
@@ -95,10 +95,7 @@ Retract("RoundToPrecision",*);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
-
+  
    
 
     
