@@ -131,7 +131,7 @@ Verify(2.0000e3-1,1999.);
   Local(p);
   p:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(12);//TODO this will fail if you drop precision to below 12, for some reason.
-  NumericEqual(RoundTo(10e3*1.2e-3,BuiltinPrecisionGet()),12.,BuiltinPrecisionGet());
+  NumericEqual(RoundToPrecision(10e3*1.2e-3,BuiltinPrecisionGet()),12.,BuiltinPrecisionGet());
   BuiltinPrecisionSet(p);
 ];
 Verify((10e3*1.2e-4)-1.2,0);
