@@ -23,7 +23,7 @@ NumericEqual( N(Sinh(2),10), 3.626860408,10); f();// matter of discussion whethe
 
 NumericEqual( N(ArcSin(2), 9), Complex(1.570796327,1.316957897),9);f();
 NumericEqual( N(ArcCos(2),9), Complex(0,-1.316957897),9);f();
-NumericEqual( N(ArcTan(2*I), 12), N(Complex(1.5707963267950,0.54930614433405),12),11); f();// calculating to precision+1 because RoundTo rounds... cluttering the last digit with round-off
+NumericEqual( N(ArcTan(2*I), 12), N(Complex(1.5707963267950,0.54930614433405),12),11); f();// calculating to precision+1 because RoundToPrecision rounds... cluttering the last digit with round-off
 NumericEqual( N(ArcSinh(2), 10), 1.443635475,9);f();
 NumericEqual( N(ArcCosh(2), 10), 1.316957897,9);f();
 NumericEqual( N(ArcCosh(-2), 8), Complex(-1.3169579,3.14159265),8);f();
@@ -37,123 +37,123 @@ BuiltinPrecisionSet(55);//Echo("BIP set to ",55);
 //      the value from 50 to 55, to satisfy this requirement.
 
 NumericEqual(
-RoundTo(N(Pi), 50)
+RoundToPrecision(N(Pi), 50)
 , 3.14159265358979323846264338327950288419716939937511
 , 50);f();
 
 NumericEqual(
-RoundTo(N(Sin(2.0)), 49)
+RoundToPrecision(N(Sin(2.0)), 49)
 , 0.9092974268256816953960198659117448427022549714479
 ,48);f();
 
 NumericEqual(
-RoundTo(N(Sin(2.0)), 50)
+RoundToPrecision(N(Sin(2.0)), 50)
 , 0.90929742682568169539601986591174484270225497144789
 ,49);f();
 
 NumericEqual(
-RoundTo(N(Sin(2.0)), 51)
+RoundToPrecision(N(Sin(2.0)), 51)
 , 0.90929742682568169539601986591174484270225497144789
 ,50);f();
 
 NumericEqual(
-RoundTo(N(Cos(20.0)), 49)
+RoundToPrecision(N(Cos(20.0)), 49)
 , 0.4080820618133919860622678609276449570992995103163
 , 48); f();
 
 NumericEqual(
-RoundTo(N(Tan(20.0)), 49)
+RoundToPrecision(N(Tan(20.0)), 49)
 , 2.2371609442247422652871732477303491783724839749188
 , 48); f(); // to here. hso
 
 NumericEqual(
-RoundTo(N(Exp(10.32),54), 54)
+RoundToPrecision(N(Exp(10.32),54), 54)
 , 30333.2575962246035600343483350109621778376486335450125
 ,48); f();  // This one rounds off the wrong direction (125 rounded to 12 iso 13). But alas, change was needed because new interpretation means the required precision was actually higher (not number of decimals after point, but total number of digits were meant).
 
 NumericEqual(
-RoundTo(N(Ln(10.32/4.07)), 49)
-, 0.9304407605989130546897448656463259807113427046801
-, 49); f();
+RoundToPrecision(N(Ln(10.32/4.07)), 50)
+, 0.93044076059891305468974486564632598071134270468002
+, 50); f();  //  fixed 20101229
 
 NumericEqual(
-RoundTo(N(1.3^10.32), 48)
+RoundToPrecision(N(1.3^10.32), 48)
 , 14.99323664825717956473936947123246987802978985306
 , 48); f();
 
 NumericEqual(
-RoundTo(N(Sqrt(5.3),51), 51)
+RoundToPrecision(N(Sqrt(5.3),51), 51)
 , 2.302172886644267644194841586420201850185830282633675
 ,51); f(); // increased to 51 digits so round-off is obviously downwards (previous rounding was defendably wrong)
 
 // this failed in gmp due to broken SqrtN()
 NumericEqual(
-RoundTo(N(Sqrt(25.3)), 50)
+RoundToPrecision(N(Sqrt(25.3)), 50)
 , 5.0299105359837166789719353820984438468186649281130
 ,50);f();
 
-// this failed due to broken RoundTo()
+// this failed due to broken RoundToPrecision()
 NumericEqual(
-RoundToN(PowerN(13, -23), 50)
+RoundToPrecisionN(PowerN(13, -23), 50)
 , 0.23949855470974885180294666343025235387321690490245e-25
 , 50);f();
 
 NumericEqual(
-RoundTo([Local(x);x:=Newton(x*Exp(x)-4,x,1,10^(-49)); N(x*Exp(x));], 49)
+RoundToPrecision([Local(x);x:=Newton(x*Exp(x)-4,x,1,10^(-49)); N(x*Exp(x));], 49)
 , 4
 ,49); f();
 Verify(Newton(x^2+1,x,1,0.1,-3,3), Fail); f();
 NumericEqual(Newton(x^2-1,x,1,0.1,-3,3), 1,BuiltinPrecisionGet()); f();
 
 NumericEqual(
-RoundToN(N(ArcSin(0.32)), 49)
+RoundToPrecisionN(N(ArcSin(0.32)), 49)
 , 0.3257294872946301593103199105324500784354180998122808003
 ,49); f();
 
 NumericEqual(
-RoundToN(N(Sin(N(ArcSin(0.1234567)))), 49)
+RoundToPrecisionN(N(Sin(N(ArcSin(0.1234567)))), 49)
 , 0.1234567
 ,49); f();
 
 /* ArcSin(x) for x close to 1 */
 
 NumericEqual(
-RoundTo(N( (1-Sin(N(ArcSin(1-10^(-25)))))*10^25), 25)
+RoundToPrecision(N( (1-Sin(N(ArcSin(1-10^(-25)))))*10^25), 25)
 , 1
 , 25); f();
 
 NumericEqual(
 N(ArcSin(N(Sin(1.234567),50)),50)
 , N(1.234567,50)
-, 49); f(); // calculating to precision+1 because RoundTo rounds... cluttering the last digit with round-off
+, 49); f(); // calculating to precision+1 because RoundToPrecision rounds... cluttering the last digit with round-off
 
 NumericEqual(
-RoundTo(N(ArcCos(0.32)), 49)
+RoundToPrecision(N(ArcCos(0.32)), 49)
 , 1.2450668395002664599210017811073013636631665998753
 , 49); f();
 
 NumericEqual(
-RoundToN(N(ArcTan(0.32)), 49)
+RoundToPrecisionN(N(ArcTan(0.32)), 49)
 , 0.3097029445424561999173808103924156700884366304804
 , 49); f();
 
 NumericEqual(
-RoundToN(N(Cos(N(ArcCos(0.1234567)))), 49)
+RoundToPrecisionN(N(Cos(N(ArcCos(0.1234567)))), 49)
 , 0.1234567
 , 49);f();
 
 NumericEqual(
-RoundTo(N(ArcCos(N(Cos(1.234567)))), 49)
+RoundToPrecision(N(ArcCos(N(Cos(1.234567)))), 49)
 , 1.234567
 , 49);f();
 
 NumericEqual(
-RoundTo(N(Tan(N(ArcTan(20)))), 46)	// large roundoff error on Tan() calculation due to subtraction from Pi/2 -- unavoidable loss of precision
+RoundToPrecision(N(Tan(N(ArcTan(20)))), 46)	// large roundoff error on Tan() calculation due to subtraction from Pi/2 -- unavoidable loss of precision
 , 20
 , 46);f();
 //KnownFailure(
 NumericEqual(
-RoundTo(N(Tan(N(ArcTan(500000)))), 38)
+RoundToPrecision(N(Tan(N(ArcTan(500000)))), 38)
 , 500000
 //)
 , 38);f();
@@ -161,7 +161,7 @@ RoundTo(N(Tan(N(ArcTan(500000)))), 38)
 BuiltinPrecisionSet(60); //Echo("BIP set to ",60); // obviously, 50 is not enough for the following
 //KnownFailure(
 NumericEqual(
-RoundTo(N((Pi/2-ArcTan(N(Tan(N(Pi/2)-10^(-24)))))*10^24 ), 25)
+RoundToPrecision(N((Pi/2-ArcTan(N(Tan(N(Pi/2)-10^(-24)))))*10^24 ), 25)
 , 1
 //)
 , 25);f();
@@ -189,19 +189,19 @@ Gamma(-7/2)
 , (16*Sqrt(Pi))/105
 );f();
 
-NumericEqual(RoundTo(N( Internal'GammaNum(10.5) ), 13), 1133278.3889487855673, 13);f();
+NumericEqual(RoundToPrecision(N( Internal'GammaNum(10.5) ), 13), 1133278.3889487855673, 13);f();
 
-NumericEqual(RoundTo(N( Internal'GammaNum(-11.5) ), 20), 0.00000002295758104824, 20);f();//gamma wrong
+NumericEqual(RoundToPrecision(N( Internal'GammaNum(-11.5) ), 20), 0.00000002295758104824, 20);f();//gamma wrong
 
-NumericEqual(RoundTo(N( Internal'GammaNum(-12.5) ), 20), -0.00000000183660648386, 20);f();//gamma wrong
+NumericEqual(RoundToPrecision(N( Internal'GammaNum(-12.5) ), 20), -0.00000000183660648386, 20);f();//gamma wrong
 
 // Check for one example that N(Gamma(x)) returns the same as Internal'GammaNum
-NumericEqual(RoundTo(N( Gamma(10.5) ), 13), 1133278.3889487855673, 13);f();
+NumericEqual(RoundToPrecision(N( Gamma(10.5) ), 13), 1133278.3889487855673, 13);f();
 
 
 
 NumericEqual(	// lost 2 digits b/c of imprecise arithmetic
-RoundToN(N( Zeta(-11.5) ), 18)
+RoundToPrecisionN(N( Zeta(-11.5) ), 18)
 , 0.020396978715942792
 ,18);f();
 
@@ -221,18 +221,18 @@ Zeta(-12)
 );f();
 
 NumericEqual(
-RoundTo(N(Zeta(40)), 19)
+RoundToPrecision(N(Zeta(40)), 19)
 , 1.0000000000009094948
 ,19);f();
 
 NumericEqual(
-RoundTo(N(Zeta(1.5)), 19)
+RoundToPrecision(N(Zeta(1.5)), 19)
 , 2.6123753486854883433
 ,19);f();
 
 // test correctness of Zeta(3)
 NumericEqual(
-RoundTo(Internal'ZetaNum(3)-N(Zeta(3)), 20)
+RoundToPrecision(Internal'ZetaNum(3)-N(Zeta(3)), 20)
 , 0
 ,20);f();
 
@@ -256,11 +256,11 @@ ContFracList(-355/113)
 , {-4,1,6,16}
 );f();
 
-BuiltinPrecisionSet(7);//Echo("BIP set to ",7);
+//BuiltinPrecisionSet(7);//Echo("BIP set to ",7);
 
 Verify(
-NearRational(N(Pi))
-, 355/113
+NearRational(N(Pi),3)
+, 201/64
 );f();
 
 /*
@@ -288,27 +288,27 @@ N(LambertW(10),BuiltinPrecisionGet())
 // Bessel Functions
 // These results are from GNU bc, matlab seems to suck.
 BuiltinPrecisionSet(50);//Echo("BIP set to ",50);
-NumericEqual( N(BesselJ(0,.5)), RoundTo(.93846980724081290422840467359971262556892679709682,50),50 );f();
-NumericEqual( N(BesselJ(0,.9)), RoundTo(.80752379812254477730240904228745534863542363027564,50),50 );f();
-NumericEqual( N(BesselJ(0,.99999)), RoundTo(.76520208704756659155313775543958045290339472808482,50),50 );f();
-NumericEqual( N(BesselJ(10,.75)), RoundTo(.00000000001496217131175968146987124836216828348578,50),50 );f();
-NumericEqual( N(BesselJ(5,1)), RoundTo(.00024975773021123443137506554098804519815836777698,50),50 );f();
-NumericEqual( N(BesselJ(4,2)), RoundTo(.03399571980756843414575921128853104471483296834631,50),50 );f();
-NumericEqual( N(BesselJ(10,3)), RoundTo( .00001292835164571588377753453080258017074342083284,50),50 );f();
+NumericEqual( N(BesselJ(0,.5)), RoundToPrecision(.93846980724081290422840467359971262556892679709682,50),50 );f();
+NumericEqual( N(BesselJ(0,.9)), RoundToPrecision(.80752379812254477730240904228745534863542363027564,50),50 );f();
+NumericEqual( N(BesselJ(0,.99999)), RoundToPrecision(.76520208704756659155313775543958045290339472808482,50),50 );f();
+NumericEqual( N(BesselJ(10,.75)), RoundToPrecision(.000000000014962171311759681469871248362168283485781647202136,50),50 );f();
+NumericEqual( N(BesselJ(5,1)), RoundToPrecision(.00024975773021123443137506554098804519815836777698007,50),50 );f();
+NumericEqual( N(BesselJ(4,2)), RoundToPrecision(.033995719807568434145759211288531044714832968346313,50),50 );f();
+NumericEqual( N(BesselJ(10,3)), RoundToPrecision( .000012928351645715883777534530802580170743420832844164,50),50 );f();
 
-NumericEqual( N(BesselJ(11,11)), RoundTo( .20101400990926940339478738551009382430831534125484,50),50 );f();
-NumericEqual( N(BesselJ(-11,11)), RoundTo( -.20101400990926940339478738551009382430831534125484,50),50 );f();
-NumericEqual( RoundTo(N(BesselJ(1,10)),50), RoundTo( .04347274616886143666974876802585928830627286711859, 50),50 );f();
-NumericEqual( N(BesselJ(10,10)), RoundTo( .20748610663335885769727872351875342803274461128682, 50 ),50 );f();
-NumericEqual( RoundTo(N(BesselJ(1,3.6)),50), RoundTo( .09546554717787640384570674422606098601943275490885, 50 ),50) ;f();
+NumericEqual( N(BesselJ(11,11)), RoundToPrecision( .20101400990926940339478738551009382430831534125484,50),50 );f();
+NumericEqual( N(BesselJ(-11,11)), RoundToPrecision( -.20101400990926940339478738551009382430831534125484,50),50 );f();
+NumericEqual( RoundToPrecision(N(BesselJ(1,10)),50), RoundToPrecision( .043472746168861436669748768025859288306272867118594, 50),50 );f();
+NumericEqual( N(BesselJ(10,10)), RoundToPrecision( .20748610663335885769727872351875342803274461128682, 50 ),50 );f();
+NumericEqual( RoundToPrecision(N(BesselJ(1,3.6)),50), RoundToPrecision( .095465547177876403845706744226060986019432754908851, 50 ),50) ;f();
 
 BuiltinPrecisionSet(20);//Echo("BIP set to ",20);
-Verify( RoundTo(N(Erf(Sqrt(0.8)),20),19), 
-RoundTo(.79409678926793169113034892342, 19)
+Verify( RoundToPrecision(N(Erf(Sqrt(0.8)),20),19), 
+RoundToPrecision(.79409678926793169113034892342, 19)
 );f();
 
-Verify( RoundTo(N(Erf(50*I+20)/10^910,22),19), 
-RoundTo(1.09317119002909585408+I*0.00475463306931818955275, 19)
+Verify( RoundToPrecision(N(Erf(50*I+20)/10^910,22),19), 
+RoundToPrecision(1.09317119002909585408+I*0.00475463306931818955275, 19)
 );f();
 
 // testing GammaConstNum against Maple
@@ -319,14 +319,14 @@ BuiltinPrecisionSet(20);//Echo("BIP set to ",20);
 
 Verify(gamma,ToAtom("gamma"));f();
 
-NumericEqual(RoundTo(Internal'gamma()+0,19), 0.5772156649015328606,19);f();
+NumericEqual(RoundToPrecision(Internal'gamma()+0,19), 0.5772156649015328606,19);f();
 
-NumericEqual(RoundTo(N(1/2+gamma+Pi), 19), 4.2188083184913260991,19);f();
+NumericEqual(RoundToPrecision(N(1/2+gamma+Pi), 19), 4.2188083184913260991,19);f();
 
 // From GSL 1.0
 //NumericEqual( N(PolyLog(2,-0.001),20), -0.00099975011104865108, 20 );
 // PolyLog I didn't write PolyLog, but it seems to not always calculate correctly up to the last digit.
-Verify( RoundTo(N(PolyLog(2,-0.001)+0.00099975011104865108,20),20),0);f();
+Verify( RoundToPrecision(N(PolyLog(2,-0.001)+0.00099975011104865108,20),20),0);f();
 
 // Round-off errors
 N([
