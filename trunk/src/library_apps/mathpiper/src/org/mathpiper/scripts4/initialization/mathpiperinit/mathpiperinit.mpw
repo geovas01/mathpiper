@@ -67,6 +67,11 @@ Rule(LoadPackages, 1, 1, True)
 LoadScriptOnce("initialization.rep/packages.mpi");
 LoadPackages(DefFileList());
 
+// The multivar routines are not all properly initialized until the first time
+// one of them is called.  This may come too late for some operations that try
+// to use them  before they have been initialized.  The following call should
+// take care of this problem.
+LoadScriptOnce("multivar.rep/code.mpi");
 
 
 %/mathpiper
