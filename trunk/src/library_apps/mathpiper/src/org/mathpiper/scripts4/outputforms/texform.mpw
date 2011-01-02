@@ -55,7 +55,7 @@ Rulebase("TeXForm",{expression, precedence});
 Function ("TeXFormBracketIf", {predicate, string})
 [
 	Check(IsBoolean(predicate) And IsString(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormBracketIf");
-	If(predicate, ConcatStrings("( ", string, ") "), string); //Was \\left( ", string, "\\right)
+	If(predicate, ConcatStrings("\\left( ", string, "\\right) "), string);    //Was "( ", string, ")"
 ];
 
 /* First, we convert TeXForm(x) to TeXForm(x, precedence). The enveloping precedence will determine whether we need to bracket the results. So TeXForm(x, TeXFormMaxPrec()) will always print "x", while TeXForm(x,-TeXFormMaxPrec()) will always print "(x)".
