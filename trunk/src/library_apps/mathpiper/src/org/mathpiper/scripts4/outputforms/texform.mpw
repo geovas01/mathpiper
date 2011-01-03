@@ -55,8 +55,19 @@ Rulebase("TeXForm",{expression, precedence});
 Function ("TeXFormBracketIf", {predicate, string})
 [
 	Check(IsBoolean(predicate) And IsString(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormBracketIf");
-	If(predicate, ConcatStrings("\\left[ ", string, "\\right]"), string);    //Was "( ", string, ")"
+	If(predicate, ConcatStrings("( ", string, ") "), string);
 ];
+
+
+
+
+Function ("TeXFormMatrixBracketIf", {predicate, string})
+[
+	Check(IsBoolean(predicate) And IsString(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormMatrixBracketIf");
+	If(predicate, ConcatStrings("\\left[ ", string, "\\right]"), string);
+];
+
+
 
 /* First, we convert TeXForm(x) to TeXForm(x, precedence). The enveloping precedence will determine whether we need to bracket the results. So TeXForm(x, TeXFormMaxPrec()) will always print "x", while TeXForm(x,-TeXFormMaxPrec()) will always print "(x)".
 */
@@ -345,7 +356,7 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
 
 /* Matrices are always bracketed. Precedence 80 because lists are at 100. */
 
-80 # TeXForm(M_IsMatrix, _p) <-- TeXFormBracketIf(True, TeXFormPrintMatrix(M));
+80 # TeXForm(M_IsMatrix, _p) <-- TeXFormMatrixBracketIf(True, TeXFormPrintMatrix(M));
 
 Function ("TeXFormPrintMatrix", {M})
 [
