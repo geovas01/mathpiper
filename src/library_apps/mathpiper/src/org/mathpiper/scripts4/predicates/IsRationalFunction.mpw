@@ -32,7 +32,12 @@ Retract("IsRationalFunction",*);
          Tell(" ",Denominator(expr));
       ]
     );
-    IsRationalFunction(expr,First(vars)) Or IsRationalFunction(expr,Rest(vars));
+    Check(vars != {}, "Argument", "IsRationalFunction: Error: Empty variables list passed to IsRationalFunction");
+
+    If(Rest(vars) = {},
+        IsRationalFunction(expr,First(vars)),
+        IsRationalFunction(expr,First(vars)) Or IsRationalFunction(expr,Rest(vars))
+    );
 ];
 
 60000 # IsRationalFunction(_expr,_var) <-- False;
@@ -40,9 +45,7 @@ Retract("IsRationalFunction",*);
 
 %/mathpiper
 
-
-.   %/output
-
+    
 
 
 %mathpiper_docs,name="IsRationalFunction",categories="Programmer Functions;Predicates",access="experimental"
