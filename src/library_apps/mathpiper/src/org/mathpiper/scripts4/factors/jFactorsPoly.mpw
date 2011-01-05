@@ -24,6 +24,7 @@ Retract("IsPureRational",*);
     Local(content,pp,ppFactors,monomialFactors,result,moreDetails);
     Local(vars,nvars,disassem,degrees,mpoly,nterms,allCoeffs,allPowers);
     Local(hasRealCoefficients,hasRationalCoefficients,isHomogeneous);
+    Local(extraFactor);
     
     moreDetails := False;
     disassem  := DisassembleExpression(poly);
