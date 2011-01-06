@@ -1037,8 +1037,13 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
 
     private void home() {
         //toolPanel.sourceButtonEnabled(false);
+        
+        String homePageText = "<html><h1><font color=\"red\">MathPiper Function Documentation.</font></h1> \n"
+         + "<br />\n"
+         + "Open the tree nodes to the left to access the function documentation. </html>\n";
 
-        setPage("HomePage", "<html>Home page</html>", true);
+
+        setPage("HomePage", homePageText, true);
     }//end method.
 
 
