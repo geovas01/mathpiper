@@ -1,0 +1,507 @@
+<html>
+<head>
+  <title>Random numbers</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c5">
+
+</a>
+(directly go to documentation on : <a href="refchapter5.html#Random, RandomSeed" target='Chapters' title="(pseudo-) random number generator">Random, RandomSeed</a>, <a href="refchapter5.html#RngCreate" target='Chapters' title="manipulate random number generators as objects">RngCreate</a>, <a href="refchapter5.html#RngSeed" target='Chapters' title="manipulate random number generators as objects">RngSeed</a>, <a href="refchapter5.html#Rng" target='Chapters' title="manipulate random number generators as objects">Rng</a>, <a href="refchapter5.html#RandomIntegerMatrix" target='Chapters' title="generate a matrix of random integers">RandomIntegerMatrix</a>, <a href="refchapter5.html#RandomIntegerVector" target='Chapters' title="generate a vector of random integers">RandomIntegerVector</a>, <a href="refchapter5.html#RandomPoly" target='Chapters' title="construct a random polynomial">RandomPoly</a>.
+)<h1>
+5. Random numbers
+</h1>
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter5.html#Random, RandomSeed" target='Chapters' title="(pseudo-) random number generator">Random, RandomSeed</a></td>
+<td>(pseudo-) random number generator</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter5.html#RngCreate" target='Chapters' title="manipulate random number generators as objects">RngCreate</a></td>
+<td>manipulate random number generators as objects</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter5.html#RngSeed" target='Chapters' title="manipulate random number generators as objects">RngSeed</a></td>
+<td>manipulate random number generators as objects</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter5.html#Rng" target='Chapters' title="manipulate random number generators as objects">Rng</a></td>
+<td>manipulate random number generators as objects</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter5.html#RandomIntegerMatrix" target='Chapters' title="generate a matrix of random integers">RandomIntegerMatrix</a></td>
+<td>generate a matrix of random integers</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter5.html#RandomIntegerVector" target='Chapters' title="generate a vector of random integers">RandomIntegerVector</a></td>
+<td>generate a vector of random integers</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter5.html#RandomPoly" target='Chapters' title="construct a random polynomial">RandomPoly</a></td>
+<td>construct a random polynomial</td>
+</tr>
+</table></center>
+<a name="Random">
+
+</a>
+<a name="RandomSeed">
+
+</a>
+<a name="Random, RandomSeed">
+
+</a>
+<a name="random, randomseed">
+
+</a>
+<h3>
+<hr>Random, RandomSeed -- (pseudo-) random number generator
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Random()
+RandomSeed(init)
+</pre></tr>
+</table>
+
+
+<p>
+*PARAMS
+<b><tt>init</tt></b> -- positive integer, initial random seed
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The function <b><tt>Random</tt></b> returns a random number, uniformly distributed in the
+interval between 0 and 1. The same sequence of random numbers is
+generated in every Yacas session.
+
+
+<p>
+The random number generator can be initialized by calling <b><tt>RandomSeed</tt></b> with an integer value.
+Each seed value will result in the same sequence of pseudo-random numbers.
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?RandomInteger" target="Chapters">
+RandomInteger
+</a>
+, <a href="ref.html?RandomPoly" target="Chapters">
+RandomPoly
+</a>
+, <a href="ref.html?Rng" target="Chapters">
+Rng
+</a>
+.<a name="RngCreate">
+
+</a>
+<a name="rngcreate">
+
+</a>
+<h3>
+<hr>RngCreate -- manipulate random number generators as objects
+</h3>
+<a name="RngSeed">
+
+</a>
+<a name="rngseed">
+
+</a>
+<h3>
+<hr>RngSeed -- manipulate random number generators as objects
+</h3>
+<a name="Rng">
+
+</a>
+<a name="rng">
+
+</a>
+<h3>
+<hr>Rng -- manipulate random number generators as objects
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RngCreate()
+RngCreate(init)
+RngCreate(option==value,...)
+RngSeed(r, init)
+Rng(r)
+
+</pre></tr>
+</table>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>init</tt></b> -- integer, initial seed value
+
+
+<p>
+<b><tt>option</tt></b> -- atom, option name
+
+
+<p>
+<b><tt>value</tt></b> -- atom, option value
+
+
+<p>
+<b><tt>r</tt></b> -- a list, RNG object
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These commands are an object-oriented interface to (pseudo-)random number generators (RNGs).
+
+
+<p>
+<b><tt>RngCreate</tt></b> returns a list which is a well-formed RNG object.
+Its value should be saved in a variable and used to call <b><tt>Rng</tt></b> and <b><tt>RngSeed</tt></b>.
+
+
+<p>
+<b><tt>Rng(r)</tt></b> returns a floating-point random number between 0 and 1 and updates the RNG object <b><tt>r</tt></b>.
+(Currently, the Gaussian option makes a RNG return a <i>complex</i> random number instead of a real random number.)
+
+
+<p>
+<b><tt>RngSeed(r,init)</tt></b> re-initializes the RNG object <b><tt>r</tt></b> with the seed value <b><tt>init</tt></b>.
+The seed value should be a positive integer.
+
+
+<p>
+The <b><tt>RngCreate</tt></b> function accepts several options as arguments.
+Currently the following options are available:
+
+
+<p>
+<ul><li></li><b><tt>seed</tt></b> -- specify initial seed value, must be a positive integer
+<li></li><b><tt>dist</tt></b> -- specify the distribution of the random number; currently <b><tt>flat</tt></b> and <b><tt>gauss</tt></b> are implemented, and the default is the flat (uniform) distribution
+<li></li><b><tt>engine</tt></b> -- specify the RNG engine; currently <b><tt>default</tt></b> and <b><tt>advanced</tt></b> are available ("advanced" is slower but has much longer period)
+</ul>
+
+<p>
+If the initial seed is not specified, the value of 76544321 will be used.
+
+
+<p>
+The <b><tt>gauss</tt></b> option will create a RNG object that generates pairs of Gaussian distributed random numbers as a complex random number.
+The real and the imaginary parts of this number are independent random numbers taken from a Gaussian (i.e. "normal") distribution with unit variance.
+
+
+<p>
+For the Gaussian distribution, the Box-Muller transform method is used.
+A good description of this method, along with the proof that the method
+generates normally distributed random numbers, can be found in Knuth, 
+"The Art of Computer Programming", Volume 2 (Seminumerical algorithms, third 
+edition), section 3.4.1 
+
+
+<p>
+Note that unlike the global <b><tt>Random</tt></b> function, the RNG objects created with <b><tt>RngCreate</tt></b> are independent RNGs and do not affect each other.
+They generate independent streams of pseudo-random numbers.
+However, the <b><tt>Random</tt></b> function is slightly faster.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; r1:=RngCreate(seed=1,dist=gauss)
+Out&gt; {"GaussianRNGDist","RNGEngine'LCG'2",{1}}
+In&gt; Rng(r1)
+Out&gt; Complex(-1.6668466417,0.228904004);
+In&gt; Rng(r1);
+Out&gt; Complex(0.0279296109,-0.5382405341);
+</pre></tr>
+</table>
+The second RNG gives a uniform distribution (default option) but uses a more complicated algorithm:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; [r2:=RngCreate(engine=advanced);Rng(r2);]
+Out&gt; 0.3653615377;
+</pre></tr>
+</table>
+The generator <b><tt>r1</tt></b> can be re-initialized with seed 1 again to obtain the same sequence:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; RngSeed(r1, 1)
+Out&gt; True;
+In&gt; Rng(r1)
+Out&gt; Complex(-1.6668466417,0.228904004);
+
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Random" target="Chapters">
+Random
+</a>
+.<a name="RandomIntegerMatrix">
+
+</a>
+<a name="randomintegermatrix">
+
+</a>
+<h3>
+<hr>RandomIntegerMatrix -- generate a matrix of random integers
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RandomIntegerMatrix(rows,cols,from,to)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>rows</tt></b> -- number of rows in matrix
+
+
+<p>
+<b><tt>cols</tt></b> -- number of cols in matrix
+
+
+<p>
+<b><tt>from</tt></b> -- lower bound
+
+
+<p>
+<b><tt>to</tt></b> -- upper bound
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function generates a <b><tt>rows x cols</tt></b> matrix of random integers. All
+entries lie between "from" and "to", including the boundaries, and
+are uniformly distributed in this interval.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; PrettyForm( RandomIntegerMatrix(5,5,-2^10,2^10) )
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+/                                               \
+| ( -506 ) ( 749 )  ( -574 ) ( -674 ) ( -106 )  |
+|                                               |
+| ( 301 )  ( 151 )  ( -326 ) ( -56 )  ( -277 )  |
+|                                               |
+| ( 777 )  ( -761 ) ( -161 ) ( -918 ) ( -417 )  |
+|                                               |
+| ( -518 ) ( 127 )  ( 136 )  ( 797 )  ( -406 )  |
+|                                               |
+| ( 679 )  ( 854 )  ( -78 )  ( 503 )  ( 772 )   |
+\                                               /
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?RandomIntegerVector" target="Chapters">
+RandomIntegerVector
+</a>
+, <a href="ref.html?RandomPoly" target="Chapters">
+RandomPoly
+</a>
+.<a name="RandomIntegerVector">
+
+</a>
+<a name="randomintegervector">
+
+</a>
+<h3>
+<hr>RandomIntegerVector -- generate a vector of random integers
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RandomIntegerVector(nr, from, to)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>nr</tt></b> -- number of integers to generate
+
+
+<p>
+<b><tt>from</tt></b> -- lower bound
+
+
+<p>
+<b><tt>to</tt></b> -- upper bound
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function generates a list with "nr" random integers. All
+entries lie between "from" and "to", including the boundaries, and
+are uniformly distributed in this interval.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; RandomIntegerVector(4,-3,3)
+Out&gt; {0,3,2,-2};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Random" target="Chapters">
+Random
+</a>
+, <a href="ref.html?RandomPoly" target="Chapters">
+RandomPoly
+</a>
+.<a name="RandomPoly">
+
+</a>
+<a name="randompoly">
+
+</a>
+<h3>
+<hr>RandomPoly -- construct a random polynomial
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+RandomPoly(var,deg,coefmin,coefmax)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>var</tt></b> -- free variable for resulting univariate polynomial
+
+
+<p>
+<b><tt>deg</tt></b> -- degree of resulting univariate polynomial
+
+
+<p>
+<b><tt>coefmin</tt></b> -- minimum value for coefficients
+
+
+<p>
+<b><tt>coefmax</tt></b> -- maximum value for coefficients
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+RandomPoly generates a random polynomial in variable "var", of
+degree "deg", with integer coefficients ranging from "coefmin" to
+"coefmax" (inclusive). The coefficients are uniformly distributed in
+this interval, and are independent of each other.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; RandomPoly(x,3,-10,10)
+Out&gt; 3*x^3+10*x^2-4*x-6;
+In&gt; RandomPoly(x,3,-10,10)
+Out&gt; -2*x^3-8*x^2+8;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Random" target="Chapters">
+Random
+</a>
+, <a href="ref.html?RandomIntegerVector" target="Chapters">
+RandomIntegerVector
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

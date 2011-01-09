@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!-- Dockable component definition file for JYacas plugin -->
+<!-- $Id: dockables.xml 4474 2003-02-09 20:37:14Z spestov $
+-->
+
+<!DOCTYPE DOCKABLES SYSTEM "dockables.dtd">
+
+<!-- JYacas dockable windows -->
+
+<DOCKABLES>
+	<DOCKABLE NAME="jyacas">
+		new org.mathrider.jyacasplugin.JYacas(view, position);
+	</DOCKABLE>
+</DOCKABLES>

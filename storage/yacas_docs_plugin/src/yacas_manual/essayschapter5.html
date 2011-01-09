@@ -1,0 +1,2513 @@
+<html>
+<head>
+  <title>For Yacas developers</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c5">
+
+</a>
+<h1>
+5. For Yacas developers
+</h1>
+<p> </p>
+<a name="c5s1">
+
+</a>
+<h2>
+<hr>5.1 A crash course in Yacas maintenance for developers
+</h2>
+This document intends to give a concise description of the way
+Yacas is maintained. There are a few parts to maintenance to
+take into account:
+
+
+<p>
+<ul><li>The </li><b><tt>autoconf</tt></b>/<b><tt>automake</tt></b> part -- makefile maintenance over various systems.
+<li>The </li><b><tt>cvs</tt></b> system -- enabling developers to work together.
+<li>The back up repository -- storage of tarballs with versions of Yacas.
+This can be found at the following address:
+</li></ul>
+
+<p>
+<a href="http://www.xs4all.nl/~apinkus/backups/">
+http://www.xs4all.nl/~apinkus/backups/
+</a>
+
+
+
+<p>
+
+<h3>
+<hr>The <b><tt>autoconf</tt></b>/<b><tt>automake</tt></b> system
+</h3>
+<a name="build system">
+
+</a>
+The short story is as follows. You probably do not need to bother about this
+unless you introduce a new file. However, if you add a new file, it probably
+should be added to the <b><tt>Makefile.am</tt></b> file in the same directory. In many
+cases, it should be clear from the <b><tt>Makefile.am</tt></b> file where your new file
+should be added. For instance, new Yacas script files go into the huge list
+in <b><tt>scripts/Makefile.am</tt></b> that is assigned to the <b><tt>SCRIPTFILES</tt></b> variable.
+Similarly, test scripts should go in the list in <b><tt>tests/Makefile.am</tt></b> that is
+assigned to the <b><tt>TESTFILES</tt></b> variable. Note that you should probably also run
+the <b><tt>cvs add</tt></b> command, as explained in the section on CVS below. If you remove
+a file, then you should go through the inverse procedure.
+
+
+<p>
+The addition of new files to the <b><tt>Makefile.am</tt></b> ensures that it will be added
+to the tarball <b><tt>yacas-*.tar.gz</tt></b> which is uploaded to the backup repository.
+This has the nice side effect that you can have local files which don't
+automatically get added to the distribution (by not adding them to the
+<b><tt>Makefile.am</tt></b> file). Additionally, files which are not listed in <b><tt>Makefile.am</tt></b>
+may not be built and/or installed automatically.  To make sure that the
+<b><tt>tar.gz</tt></b> distribution is complete, you can run the command
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+make distcheck
+</pre></tr>
+</table>
+This may take a little while, as it needs to rebuild and test the whole system
+from the <b><tt>tar.gz</tt></b> tarball.
+
+
+<p>
+If you want to do more complicated things (like adding files which are not
+Yacas script or test files, or files which should be compiled or installed
+only conditionally), or if you are simply curious, you can read more in the
+chapter entitled "The Yacas build system".
+
+
+<p>
+
+<h3>
+<hr>Maintaining Yacas through a <b><tt>cvs</tt></b> repository
+</h3>
+<a name="CVS">
+
+</a>
+<b><tt>CVS</tt></b> provides an efficient way for developers to work together, automatically
+merging changes various developers make, and at the same tile is a back up 
+system (uploading your changes to another computer from which you can
+easily obtain it at a later time). After a little effort setting it
+up it becomes very easy to use. This section describes the few commands
+needed for keeping your version and the version in the Yacas repository
+up to date.
+
+
+<p>
+
+<h3>
+<hr>How does <b><tt>cvs</tt></b> work?
+</h3>
+CVS has a copy of the files in the repository somewhere in a directory
+on some system, possibly your computer. Then there is such a thing
+as a cvs server which you can talk to to synchronize your version of
+the source code with the version on the server. 
+
+
+<p>
+CVS uses a diff-like scheme for merging differences: it looks at two
+text files, determines the different lines, and merges accordingly.
+It discovers the changes you made by looking at the version you checked
+out last and the version you have now, to discover which lines changed
+(it maintains an automatic version number for each file).
+
+
+<p>
+If the version of a file on your system and the version in the
+cvs repository has a line that has been changed by both you and some 
+one else, the cvs repository will obviously not know what to do with that,
+and it will signal a 'collision' which you will have to solve by hand
+(don't worry, this rarely happens). More on that later.
+
+
+<p>
+In commands to be described in this document are in short: 
+
+
+<p>
+<ul><li></li><b><tt>cvs checkout</tt></b> will get you an initial version. You only need to call this once.
+<li></li><b><tt>cvs update</tt></b> will merge the two versions and put it on your computer, so you have the latest version.
+<li></li><b><tt>cvs commit</tt></b> will merge the two versions and put it in the cvs repository.
+<li></li><b><tt>cvs add</tt></b> to add a file or directory.
+<li></li><b><tt>cvs remove</tt></b> to remove a file.
+</ul>
+
+<p>
+
+<h3>
+<hr>Checking out an initial version of Yacas
+</h3>
+<a name="CVS!check out">
+
+</a>
+There are two ways to check out a version of Yacas: as anonymous 
+user and as maintainer. Anonymous users don't need to log in,
+but also have no right to commit changes. Maintainers first need
+to get an account (at sourceforge), and their account needs to 
+be enabled so they are allowed by the maintainer to make changes.
+A maintainer needs to log in with every command. To be able to
+log in, you need ssh1 installed (ssh2 will not work). You can 
+find this at http://www.ssh.org/download.html.
+
+
+<p>
+To check out Yacas as anonymous user, type:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+cvs -d:pserver:anonymous@yacas.cvs.
+  sourceforge.net:/cvsroot/yacas login
+cvs -z3 -d:pserver:anonymous@yacas.cvs.
+  sourceforge.net:/cvsroot/yacas co yacas
+</pre></tr>
+</table>
+
+
+<p>
+To check out as a maintainer, type:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+export CVS_RSH=ssh1
+</pre></tr>
+</table>
+
+
+<p>
+This will tell CVS to use ssh1 for communication. Then, in order to download the yacas source tree, type
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+cvs -d:ext:loginname@yacas.cvs.sourceforge.
+  net:/cvsroot/yacas co yacas
+</pre></tr>
+</table>
+where <b><tt>loginname</tt></b> is your name on the sourceforge system.
+This creates a directory <b><tt>yacas/</tt></b> with the full most recent distribution.
+You need to enter your password there, but other than that, that's it!
+
+
+<p>
+Those lines typed above are long and obscure, but it is also
+the last time you need to type them. From now on, if you want to do 
+anything with cvs, just go into the <b><tt>yacas/</tt></b> directory you just checked
+out, and type the cvs command without the <b><tt>-d:</tt></b>... flag. This flag
+just tells cvs where to find the repository. But future cvs commands
+will know where to find them, which is why you don't need that flag.
+
+
+<p>
+
+<h3>
+<hr>Use case scenario 1 : getting the latest version of Yacas
+</h3>
+<a name="CVS!update">
+
+</a>
+You haven't looked at Yacas for a while (shame on you!) and want 
+to check out the latest version. Just type
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+cvs update -d
+</pre></tr>
+</table>
+
+
+<p>
+on the command line in the <b><tt>yacas</tt></b> directory, and that should essentially
+download the latest version for you in that directory (just the changes).
+The <b><tt>-d</tt></b> option here states that you are also interested in new directories
+that were added to the repository. Oddly enough, cvs will only get
+you changed and added files, not added directories, by default.
+
+
+<p>
+A command
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+cvs -q update -d
+</pre></tr>
+</table>
+
+
+<p>
+will print messages only about changed files.
+
+
+<p>
+
+<h3>
+<hr>Use case scenario 2 : you made changes to Yacas
+</h3>
+<a name="CVS!commit">
+
+</a>
+You got the latest version, but saw this huge, glaring omission in
+Yacas, and start hacking away to add it yourself. After a while, 
+after playing with the code you wrote, and if you think you are
+finished with it, you decide you like to add it to the cvs repository.
+
+
+<p>
+First, you should test the new Yacas system:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+make test
+</pre></tr>
+</table>
+If there are any failed tests, you need to fix them.
+
+
+<p>
+Now you can start entering your changes to the CVS. If you created some new files, you need to tell CVS to add them to the source tree:
+
+
+<p>
+<b><tt>cvs add </tt></b> [list of file names of ascii text files]
+
+
+<p>
+This adds ascii text files. If you added binary files (GIF images
+in the documentation directory, or something like that), you can 
+add it to the CVS with 
+
+
+<p>
+<b><tt>cvs add -kb </tt></b> [list of file names of binary files]
+
+
+<p>
+Note that, when adding files to the CVS, you should normally also add them to
+the Yacas <b><tt>tar.gz</tt></b> distribution. This is done by adding the file name to the <b><tt>EXTRA_DIST</tt></b>
+variable in the file <b><tt>Makefile.am</tt></b> in the directory where you were adding the file.
+
+
+<p>
+In case files need to be removed, there are two options:
+
+
+<p>
+<ul><li>The file is still on your drive: call </li><b><tt>cvs remove -f [filename]</tt></b> to remove
+the file from both your computer and the cvs repository.
+<li>You already removed the file from your system: call </li><b><tt>cvs remove [filename]</tt></b>
+</ul>
+
+<p>
+There seems to be no easy way to rename or move files; you would have to remove them at their old location and add them at a new location.
+
+
+<p>
+Now, when finished with that, you might want to 'commit' all
+changes with
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+cvs commit
+</pre></tr>
+</table>
+
+
+<p>
+If the commit succeeds, an email is sent out to the maintainers,
+who can then scan the diff files for changes, to see if they
+agree with the changes, and perhaps fix mistakes made (if any).
+
+
+<p>
+If there is a collision, the commit fails (it will tell you so). 
+This might happen because someone else also edited the same place in a file and their changes cannot be automatically merged with yours.
+In case of a collision, you need to invoke <b><tt>cvs update</tt></b> twice.
+The <b><tt>cvs update</tt></b> outputs a list of file names with a character
+in front of them. The important ones are the files with a 'C' before
+them. They have a collision. You can go into the file, and see the
+collision, which the cvs system conveniently marks as:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+&lt;&lt;&lt;&lt;&lt;&lt;
+old version
+===========
+new version
+&gt;&gt;&gt;&gt;&gt;&gt;
+</pre></tr>
+</table>
+
+
+<p>
+You can edit the file by merging the two versions by hand. This
+happens very rarely, but it can happen. Use <b><tt>cvs commit</tt></b> afterwards
+to commit.
+
+
+<p>
+The <b><tt>commit</tt></b> and <b><tt>update</tt></b> commands can be performed in specific 
+directories, and on specific files, if necessary, by stating them
+on the command line. Or you can go into a sub directory and do a
+<b><tt>cvs commit</tt></b> or <b><tt>cvs update</tt></b> there, if you are confident that is
+the only place that changed or whose changes you are interested in.
+
+
+<p>
+That is basically it, a quick crash course cvs. It is actually very
+convenient in that usually all that is needed is a <b><tt>cvs commit</tt></b>
+to fix small bugs. You type that in, and your version gets merged
+with the changes others made, and they get your changes, and you 
+backed up your changes at the same time (all with that little command!).
+
+
+<p>
+You can find more information about cvs at <a href="http://cvsbook.red-bean.com/">
+http://cvsbook.red-bean.com/
+</a>
+.
+
+<a name="c5s2">
+
+</a>
+<h2>
+<hr>5.2 Preparing and maintaining Yacas documentation
+</h2>
+<h3>
+<hr>Introduction
+</h3>
+<a name="documentation">
+
+</a>
+Yacas documentation in HTML and PS/PDF formats is generated by Yacas scripts from Yacas source files.
+Prior to version 1.0.48, all documentation had to be written directly in the Yacas language.
+However, it was very cumbersome to write those source files in the Yacas language.
+The scripts <b><tt>txt2yacasdoc.pl</tt></b>,
+<b><tt>book2TeX.sh</tt></b>, <b><tt>book2ys.sh</tt></b>, <b><tt>ytxt2tex</tt></b>
+were created to help maintain the documentation in an easy-to-read form.
+
+
+<p>
+The "source" form of all documentation is maintained in a special plain text format. The format is such that it is clearly readable without any processing and is easy to edit. To compile the documents, the system processes the plain text docs with a script to prepare Yacas-language files and then runs other scripts to produce the final documentation in HTML and other formats.
+
+
+<p>
+The source text must be formatted in a certain fashion to delimit sections, code examples, and so on, but the format is easy enough to enter in a plain text editor.
+Text is marked up mostly by TAB characters, spaces, and asterisks "<b><tt>*</tt></b>" at the beginning of a line.
+The format is easy enough so that, for example, the text of the GNU GPL (the file <b><tt>COPYING</tt></b>) can be used as a documentation source file without changes.
+The script <b><tt>txt2yacasdoc.pl</tt></b> converts this markup into Yacas code for further processing.
+
+
+<p>
+
+<h3>
+<hr>Organization of the Yacas documentation
+</h3>
+<a name="documentation!organization">
+
+</a>
+All documentation source files are kept in the subdirectory <b><tt>manmake</tt></b>.
+During compilation, Yacas language files as well as HTML, <b>LaTeX</b> and PS/PDF
+files are automatically generated in the <b><tt>manmake</tt></b> subdirectory.
+Contributors should only need to edit <b><tt>*.txt</tt></b> files in <b><tt>manmake</tt></b>.
+
+
+<p>
+Currently, the Yacas documentation consists of four "core" books (the introductory tutorial,
+the programming tutorial, the user's reference manual, and the
+programmer's reference manual), and three "extra" books (algorithms, Lisp programming, essays).
+<h6>There is also a documentation book describing the Emacs interface to Yacas (the "Yacas Notebook" mode). This book is not available as online help but is installed separately in the TeXinfo or PostScript formats.</h6>
+
+<p>
+All Yacas documentation books are distributed under the GNU Free Documentation License (FDL).
+If you add a new documentation book to Yacas, please include the file <b><tt>FDL.chapt</tt></b>.
+
+
+<p>
+The documentation books are meant to be stand-alone
+texts, except the two "reference manual" books which are meant to be used
+together because they share a common hyperlinked table of contents.
+
+
+<p>
+Stand-alone books are free-form, but reference books must be written with a
+certain template that allows online hyperlinking. The file
+<b><tt>manmake/dummies</tt></b> is an example template for a reference manual section.
+
+
+<p>
+Books are divided into "chapters", "sections" and "subsections".
+The reference manuals
+contain descriptions of Yacas commands and functions,
+and each function is given in a separate (unnumbered) section which
+is marked by a special <b><tt>*CMD</tt></b> label (see below). 
+
+
+<p>
+At the beginning of each book there <i>must</i> be a book title and a short book description (labeled <b><tt>*BLURB</tt></b>).
+The short description appears in the printed version as the subtitle on the title page.
+It also goes into the HTML top-level book index as the book description.
+
+
+<p>
+At the beginning of each chapter there may be a "chapter introduction" labeled
+<b><tt>*INTRO</tt></b> which is also a short description of the contents of that chapter. It
+may be one paragraph only. The "chapter intro" feature is only
+used in the HTML reference manual because it is the text that appears at the very top
+of a reference manual section. As you can see in the HTML version of reference docs, each
+chapter contains a list of all functions described in it. This list goes
+right after the first paragraph of "chapter intro".
+In the printed (PS/PDF) documentation, the <b><tt>*INTRO</tt></b> label is ignored and the "chapter intro" paragraph is shown exactly like any other text paragraph.
+
+
+<p>
+Each printed book contains a table of contents at the beginning and an index at the end.
+The index should help a reader to quickly find a particular concept.
+For example, all documented Yacas commands are automatically entered into the index in the reference manual.
+Additional index entries should be inserted by hand using the <b><tt>*A</tt></b> label (see below).
+
+
+<p>
+
+<h3>
+<hr>Translating the documentation
+</h3>
+The Yacas system is under active development and its documentation is constantly updated.
+An effort to translate the Yacas documentation from English into other languages has been started.
+
+
+<p>
+Translators should try to prepare translated documentation in the same plain text format as the original documentation.
+Any problems with conversion to HTML and PS/PDF formats should be easy to solve (at least for European languages).
+
+
+<p>
+The most important documentation books to translate are the reference manual and the tutorials.
+There is substantial documentation aimed at developers, for instance the algorithms book or the essays book.
+It is probably not as important to translate such books, since Yacas developers have to speak English to communicate.
+
+
+<p>
+
+<h3>
+<hr>Formatting of source text files
+</h3>
+<a name="documentation!markup overview">
+
+</a>
+Formatting of source text files uses TAB symbols; if your editor does not support them and converts them to spaces, you should convert the results back to contain real TAB symbols using the standard Unix <b><tt>unexpand</tt></b> utility or a custom perl script.
+
+
+<p>
+You may want to examine the source of this file (<b><tt>manmake/</tt></b>
+<b><tt>YacasDocs.chapt.txt</tt></b>) to see how various features of the markup are used.
+Currently the following markup is implemented:
+
+
+<p>
+<ul><li>Paragraphs are separated by blank lines (lines consisting of space characters or empty). Several blank lines next to each other are equivalent to one. However, TAB-indented blank lines inside a code example (see below) do not create another paragraph.
+</li></ul>
+
+<p>
+<ul><li>Book heading is quadruple TAB indented. Chapter heading is triple TAB indented. Section heading is double TAB indented. Subsection heading is indented by a TAB and 4 spaces. Headings must be within one line (but that line can be as long as needed).
+</li></ul>
+
+<p>
+<ul><li>Sample code is single TAB indented, for example:
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 1+2;
+
+Out&gt; 3;
+</pre></tr>
+</table>
+Note that empty lines in a single sample code block must be also TAB indented
+or else the sample code block will be split into several sample code
+paragraphs.
+A sample code block may or may not be separated from the text that follows
+it by an empty line.
+If the code block is not separated by an empty line, then the text following it will not be made
+into a separate paragraph (this currently affects paragraph indentation only in
+PS/PDF docs).
+</ul>
+
+<p>
+<ul><li>If a section or chapter heading immediately follows a sample code block
+(i.e. when it is the last code sample in the previous section), they
+</li><i>must</i> be separated from the headings by an empty (unindented) line. The
+reason for this is that the script will assume that everything which is at
+least single-TAB indented (up to a separation between paragraphs) belongs to
+one sample code block. This makes it easier to enter multiply indented sample
+code: a double-TAB indentation inside a sample code block will not start a new
+section. For example:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+While(x&lt;0) [
+	x:=x+1;
+	Write(x);
+];
+</pre></tr>
+</table>
+</ul>
+
+<p>
+
+<a name="documentation!environments">
+
+</a>
+<ul><li>Ordinary text must not be indented at all. Line length is arbitrary and
+linebreaks
+inside
+a
+paragraph
+are of no significance to the resulting documentation. The first symbol on a
+line should not be an asterisk (</li><b><tt>*</tt></b>) because it is reserved for markup
+purposes. In most cases it is okay to have an asterisk in the first position,
+though, as long as it does not conflict with any markup labels (see below).
+All markup labels start with an asterisk "<b><tt>*</tt></b>" in the first position on
+a line, followed by an uppercase keyword, e.g. <b><tt>*CMD</tt></b> or *<b><tt>INCLUDE</tt></b>.
+Some markup labels have arguments that follow them, and some take an
+entire following paragraph as an argument and must be terminated by a
+blank line.
+</ul>
+
+<p>
+<ul><li>Itemized text is marked by "*" in the first position, followed by TAB. For example:
+</li></ul>
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*	Item
+*	Another item
+</pre></tr>
+</table>
+This will produce:
+<ul><li>Item
+</li><li>Another item
+</li></ul>
+
+<p>
+<ul><li>Enumerated text is marked by "*" followed by TAB, number and period. The number used in the source text is irrelevant because the enumerated environment of the final document will introduce its own counter. For example:
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*	0. First item
+*	0. Second item
+</pre></tr>
+</table>
+This will produce:
+<ul><li>First item
+</li><li>Second item
+</li></ul></ul>
+
+<p>
+Note that the text of an item continues until the next itemized line is given or until end of paragraph (does not have to be all in one line).
+
+
+<p>
+Nesting of enumerated or itemized environments is not supported, except for fringe cases of nesting just one itemized list at the very end of an enumerated list or vice versa.
+
+
+<p>
+The enumerated environment is currently only implemented in <b> LaTeX</b> docs; HTML docs render them as itemized.
+
+
+<p>
+
+<a name="documentation!fonts">
+
+</a>
+<ul><li>Emphasized text (</li><i>italics</i>) should be surrounded by <b><tt>&lt;i&gt;</tt></b>
+<b><tt>&lt;/i&gt;</tt></b>. Note that the whole emphasized fragment of text must be located within a single line, or else it will not be emphasized.
+</ul>
+
+<p>
+<ul><li></li><b><tt>Typewriter font</tt></b> text is surrounded by braces <b><tt>{}</tt></b>. The typewriter font
+fragment must be within a single line and may contain no more than four nested
+sets of <b><tt>{}</tt></b> inside. This is hopefully enough for our documentation. A
+limitation of this markup is that there is no way to put a single brace in text
+alone without a matching brace. This would be okay for HTML docs but it breaks
+<b> LaTeX</b> docs because braces are special in <b> TeX</b> and because Serge was too lazy
+to implement a real parser.
+</ul>
+
+<p>
+
+<a name="documentation!Web hyperlinks">
+
+</a>
+<ul><li>Web hyperlinks are surrounded by </li><b><tt>&lt;*</tt></b>
+<b><tt>*&gt;</tt></b>. Text of the link must begin with <b><tt>http://</tt></b>, <b><tt>https://</tt></b> or <b><tt>ftp://</tt></b>. Alternatively, a hyperlink with anchored text is made by the markup <b><tt>&lt;*</tt></b>
+<i>anchored text</i> <b><tt>|</tt></b><i>Web URL</i><b><tt>*&gt;</tt></b>. For example:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+&lt;*http://host.net/file.html#anchor*&gt;
+</pre></tr>
+</table>
+or
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+&lt;*click here|somewebpage.html*&gt;
+</pre></tr>
+</table>
+(the latter example will refer to a local HTML file, i.e. a file in the documentation directory).
+</ul>
+
+<p>
+Note: Currently, only the HTML documentation is hyperlinked, while the printed PS/PDF documentation contains only text.
+
+
+<p>
+
+<a name="documentation!internal hyperlinks">
+
+</a>
+<ul><li>It is also possible to create hyperlinks pointing to other parts of the documentation.
+Such "documentation hyperlinks" are similar to the Web hyperlinks, except they use a special "protocol" named </li><b><tt>yacasdoc</tt></b> and chapters and sections can be referred to as "subdirectories".
+For example, this section can be referred to by the following code:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+&lt;*yacasdoc://essays/5/2/*&gt;
+</pre></tr>
+</table>
+A hyperlink with anchored text is made by the markup <b><tt>&lt;*</tt></b>
+<i>anchored text</i> <b><tt>|</tt></b>yacasdoc://...<b><tt>*&gt;</tt></b>. For example:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+&lt;*this section|yacasdoc://essays/5/2/*&gt;
+</pre></tr>
+</table>
+will generate a reference to <a href="essayschapter5.html#c5s2">
+this section
+</a>
+ in the documentation.
+There are currently the following ways to create documentation hyperlinks:
+<ul><li>Hyperlink into an anchor of the same file:
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+&lt;*yacasdoc://#documentation!hyperlinks*&gt;
+</pre></tr>
+</table>
+The anchor "<b><tt>documentation</tt></b><b><tt>!</tt></b><b><tt>hyperlinks</tt></b>" should have been created using the <b><tt>*A</tt></b> label.
+<li>Hyperlink into an anchor in a different documentation book:
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+&lt;*yacasdoc://Algo/3/#adaptive plotting*&gt;
+</pre></tr>
+</table>
+Note that one must specify the book name "<b><tt>Algo</tt></b>" and the chapter number (<b><tt>3</tt></b>) for this to work. Currently supported book names are <b><tt>Algo</tt></b>, <b><tt>coding</tt></b>, <b><tt>essays</tt></b>, <b><tt>intro</tt></b>, <b><tt>Lisp</tt></b>, <b><tt>ref</tt></b>, and <b><tt>refprog</tt></b>. A warning message is printed if the book name is not given correctly.
+<li>Hyperlink into a given chapter or a given section of a documentation book:
+</li><table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+&lt;*yacasdoc://Algo/3/1/*&gt;
+</pre></tr>
+</table>
+</ul></ul>
+
+<p>
+
+<a name="documentation!equations">
+
+</a>
+<ul><li>Mathematical expressions should be typed in </li><b><tt>Yacas</tt></b> syntax (<i>not</i> in <b> TeX</b>
+notation) and surrounded by dollar signs.
+Both delimiting dollar signs
+<i>must</i> be within one line of text.
+For example: <b><tt>$</tt></b>
+<b><tt>x^2 + y^2 != z^2 $</tt></b>
+produces <b> x^2+y^2!=z^2</b>. Double dollar signs will denote a displayed
+equation, like in <b> TeX</b>; both pairs of dollar signs should still be within one
+line.
+</ul>
+
+<p>
+There is a special feature for displayed equations:
+Any punctuation immediately following the second pair of dollar signs will be displayed on the same line. (This is used to get around the limitation of mathematical expressions that cannot end with a comma or a period or with another punctuation mark.) For example, the formula "<b><tt>$</tt></b><b><tt>$</tt></b><b><tt>x^2/2</tt></b><b><tt>$</tt></b><b><tt>$,</tt></b>" will produce 
+<p><center><b> x^2/2,</b></center></p>
+ with the comma on the same line. A formula such as "<b><tt>$</tt></b>x+1;<b><tt>$</tt></b>" will generate an error; the semicolon should be moved out of the dollar signs.
+
+
+<p>
+As special exceptions, one can enter the symbols "<b> TeX</b>" and "<b> LaTeX</b>"
+as if they are Yacas expressions, i.e. "<b><tt>$T</tt></b><b><tt>eX$</tt></b>" produces "<b> TeX</b>". One can also create a capitalized form of the name <b><tt>Yacas</tt></b> as "<b><tt>{Yacas}</tt></b>".
+
+
+<p>
+Please note: Mathematical expressions <i>must</i> be <i>valid Yacas expressions</i>, with no unbalanced
+parentheses, no undefined infix operators, no hanging periods and so on, or else the Yacas script that
+formats the docs will fail! (This limits the scope of mathematical formulae but
+is hopefully not critical.)
+
+
+<p>
+Also, please avoid putting equations into documentation as plain text. Expressions such as <b> a&gt;0</b> are not correctly typeset by <b> TeX</b> if included into the plain text without the dollar signs: "a>0". (The HTML documentation is currently not affected.)
+
+
+<p>
+Currently, when creating online HTML documentation, all
+mathematics is kept in Yacas notation and set in boldface font. (This may
+change in the future.)
+Of course, <b> LaTeX</b> typesets the documentation with
+correct mathematical symbols.
+
+
+<p>
+Another feature of the <b> LaTeX</b> exporter is that it will first try to represent all
+functions and infix operators according to their mathematical meaning, and if
+no such meaning is defined in Yacas, then it will show them exactly as they are
+written in Yacas. For infix operators to work, they have to be declared in the
+standard library, or else an error will occur when processing the manual.
+
+
+<p>
+For
+example, the Yacas operators <b><tt>=</tt></b> and <b><tt>==</tt></b> are represented in <b> LaTeX</b> by an equals sign
+(=), the operator <b><tt>:=</tt></b> becomes "identically equal" (<b> a:=b</b>), and the cosmetic
+operators <b><tt>&lt;&gt;</tt></b> and <b><tt>&lt;=&gt;</tt></b> become <b> a&lt;&gt;b</b> and <b> a&lt;=&gt;b</b>. But you cannot use an
+infix operator such as "<b><tt>:=*</tt></b>" because it is not defined in the standard library. A Yacas function which is not defined in the standard library, for example "<b><tt>func(x)</tt></b>", will appear just like that: <b> func(x)</b>.
+
+
+<p>
+
+<a name="documentation!insert another file">
+
+</a>
+<ul><li>Documentation may be split between several files for convenience.
+To insert another file, use the </li><b><tt>*INCLUDE</tt></b> label, e.g.
+</ul>
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*INCLUDE ../essays/howto.chapt
+</pre></tr>
+</table>
+
+
+<p>
+Note that the included document is the file <b><tt>howto.chapt</tt></b>, not <b><tt>howto.chapt.txt</tt></b>,
+because it must be a Yacas-language file, not a <b><tt>.txt</tt></b> file.
+(The <b><tt>IncludeFile()</tt></b> call, an alias to <b><tt>Load()</tt></b>, will be used
+to execute the specified file.)
+
+
+<p>
+
+<a name="documentation!comments">
+
+</a>
+<ul><li>Comments may be introduced by the label </li><b><tt>*REM</tt></b>. The line and the paragraph of text following <b><tt>*REM</tt></b> will be omitted from the documentation.
+An empty line should separate the <b><tt>*REM</tt></b> block from other text.
+(A mark-up label at the beginning of line will also terminate a <b><tt>*REM</tt></b> block.)
+For example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*REM this is
+a comment
+
+(documentation text continues)
+</pre></tr>
+</table>
+</ul>
+
+<p>
+
+<a name="documentation!footnotes">
+
+</a>
+<ul><li>Footnotes may be entered as a line containing the label </li><b><tt>*FOOT</tt></b>. Footnote text must be within one line (because a footnote does not necessarily break a paragraph).
+</ul>
+
+<p>
+For example, the text
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*FOOT This is an example footnote
+</pre></tr>
+</table>
+generates the footnote
+<h6>This is an example footnote.</h6>
+
+<p>
+<ul><li>Yacas expressions may be evaluated inline by using the directive </li><b><tt>*EVAL</tt></b>. Anything that follows <b><tt>*EVAL</tt></b> until the end of the line will be evaluated as a Yacas expression. If this expression prints something (e.g. via <b><tt>Write</tt></b>), the output will be inserted into the text (as is). The resulting value of the expression will also be inserted, unless the expression evaluates to <b><tt>True</tt></b>. The Yacas expression <i>must</i> be on one line.
+</ul>
+
+<p>
+For example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*EVAL "Yacas version: " : Version()
+</pre></tr>
+</table>
+will insert the string `
+
+Yacas version: 1.2.1
+' into the manual. Note the spaces around the version string---these additional spaces are currently unavoidable.
+<h6>If the absence of spaces is critically important, you can create the required text in a Yacas expression.</h6>
+
+<p>
+
+<h3>
+<hr>Formatting conventions for the reference manual
+</h3>
+<a name="documentation!reference manual markup">
+
+</a>
+The formatting explained in the previous section is enough to create most of the user guide and tutorial documentation. The script <b><tt>txt2yacasdoc.pl</tt></b> also implements some additional markup features to help create the reference manual.
+
+
+<p>
+A typical reference manual subsection documenting a certain function may look like this in plain text:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*CMD PrintList --- print list with padding
+*STD
+*CALL
+   {PrintList}(list)
+   {PrintList}(list, padding);
+
+*PARMS
+
+{list} -- a list to be printed
+
+{padding} -- (optional) a string
+
+*DESC
+Prints {list} and inserts the {padding} ...
+
+*E.G.
+
+	In&gt; PrintList({a,b,{c, d}}, " .. ")
+	Out&gt; " a ..  b .. { c ..  d}";
+
+*SEE Write, WriteString
+</pre></tr>
+</table>
+Compare this with the reference manual section on the function <b><tt>PrintList</tt></b> to see how this plain text markup is rendered in the finished documentation.
+
+
+<p>
+Notes:
+<ul><li>Some labels have parameters while other labels do not; labels that do not have parameters must be put alone on a line.
+</li><li>The </li><b><tt>*STD</tt></b> label is for functions defined in the standard library and the <b><tt>*CORE</tt></b> label is for built-in functions defined in the Yacas core engine.
+In addition, the labels <b><tt>*UNIX</tt></b>, <b><tt>*MSWIN</tt></b> and <b><tt>*MAC</tt></b> can be used to denote Un*x, MS Wind*ws and Macint*sh-specific add-on functions.
+<li>There must be </li><i>some</i> whitespace separating a markup label such as <b><tt>*SEE</tt></b> and the following text.
+Either TAB characters or spaces work equally well.
+<li>The comma-space combination "</li><b><tt>, </tt></b>" is mandatory when a label accepts a list of arguments.
+(One can put several spaces after a comma.)
+Lists of commands are used by the <b><tt>*CMD</tt></b> and <b><tt>*SEE</tt></b> labels.
+<li>Characters </li><b><tt>&lt;</tt></b> and <b><tt>&gt;</tt></b> are of special significance to both HTML and <b>TeX</b> and should be always escaped---either by braces <b><tt>{}</tt></b> or by dollar signs, as appropriate.
+<li>In the "examples" section, there may be just one example, in which case the alternative label "</li><b><tt>*EG</tt></b>" could be used instead of "<b><tt>*E.G.</tt></b>". This will currently generate the word "Example:" instead of "Examples:" in the documentation.
+(This is a cosmetic feature.)
+<li>Each example is a candidate for inclusion into the Yacas test suite.
+The Yacas code after the </li><b><tt>In&gt;</tt></b> prompts and the resulting expressions that follow the <b><tt>Out&gt;</tt></b> prompt are extracted into special files by the script <b><tt>txt2example.pl</tt></b>.
+(This provides an automatic check that the manual still agrees with the actual behavior of Yacas.)
+The script will ignore any text that is not preceded by <b><tt>In&gt;</tt></b> or <b><tt>Out&gt;</tt></b>.
+However, some examples are not appropriate for automatic testing and must be explicitly excluded.
+An example section is excluded for testing if the <b><tt>*E.G.</tt></b> or <b><tt>*EG</tt></b> label is followed by the word "notest", for example:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*EG notest
+	// some advanced tests
+</pre></tr>
+</table>
+Tests may be unsuitable for automatic processing for several reasons, including:
+system-dependent results (e.g. need to have particular files on the system); calculations that take a long time; calculations that output something to the screen and not just return an expression.
+<li>In a subsection there may be either one function documented or several at once: for example, it may make sense to document </li><b><tt>Sin</tt></b>, <b><tt>Cos</tt></b> and <b><tt>Tan</tt></b> together. In this case, all function names should be simply listed in the <b><tt>*CMD</tt></b> header, for example:
+</ul>
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*CMD Sin, Cos, Tan --- Trigonometric ...
+</pre></tr>
+</table>
+
+
+<p>
+In addition to the above labels, there are the following tags:
+
+
+<p>
+<ul><li></li><b><tt>*INTRO</tt></b> to denote a "reference chapter
+introduction" corresponding to the <b><tt>ChapterIntro()</tt></b> function
+<li></li><b><tt>*BLURB</tt></b> for the short book
+summary (it enters the HTML book index and the front page of the <b> LaTeX</b> docs)
+<li> </li><b><tt>*A</tt></b> to manually
+create an HTML anchor in a reference manual section and an index entry in the printed docs (see below for more details on indexing)
+<li></li><b><tt>*HEAD</tt></b>
+to create a small heading.
+The <b><tt>*HEAD</tt></b> tag might be useful for lowest-level headings.
+Currently, the special markup for the reference manual implements the same tag for its topical sections ("Parameters", "See also" etc.) <b><tt>*HEAD</tt></b>.
+For instance,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*PARMS
+</pre></tr>
+</table>
+results in the same text as
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*HEAD Parameters:
+</pre></tr>
+</table>
+</ul>
+
+<p>
+Usage of the <b><tt>*A</tt></b> label currently does not directly affect the appearance
+of the docs.
+In the HTML docs, it inserts the insivible anchor tags <b><tt>&lt;a&gt;&lt;/a&gt;</tt></b>.
+In the printed <b> LaTeX</b> docs, the <b><tt>*A</tt></b> label adds an index entry.
+The <b><tt>*CMD</tt></b> tag generates all necessary HTML anchors and index entries for
+commands in the reference manual.
+So only non-command index entries need to be manually entered using <b><tt>*A</tt></b>.
+
+
+<p>
+The <b><tt>*INTRO</tt></b> and <b><tt>*BLURB</tt></b> tags only work for one paragraph. There must be no
+empty line between <b><tt>*INTRO</tt></b>/<b><tt>*BLURB</tt></b> and that paragraph. Also, there must be no
+empty line between the "blurb" and the book title (for technical reasons).
+There must be one and only one "blurb" paragraph in a "book" and no more than
+one "chapter intro" paragraph per chapter.
+
+
+<p>
+This markup should be sufficient for creating reference documentation in plain text.
+
+
+<p>
+
+<h3>
+<hr>Indexing the documentation books
+</h3>
+<a name="documentation!indexing">
+
+</a>
+It is not difficult to automatically generate an alphabetically sorted
+index for the books. An "index entry" is a piece of text that does not
+appear in the book where it is entered, but instead is printed in the
+alphabetical list at the end of the text with the relevant page number.
+
+
+<p>
+Currently the following facilities are provided for indexing:
+
+
+<p>
+<ul><li>The label </li><b><tt>*CMD</tt></b> automatically adds index entries for all commands it describes. In this way, the printed reference manual automatically has every documented command listed in the index.
+<li>The label </li><b><tt>*A</tt></b> can be used to add an index entry by hand. An index entry can be any text that is admissible in the documentation (on one line). Preferably it should be something concise and something that users will want to look up and can't easily locate in the table of contents.
+</ul>
+
+<p>
+After <b> LaTeX</b> generates a "raw" index file <b><tt>*.idx</tt></b>, the <b><tt>makeindex</tt></b>
+utility is used to post-process and sort the index into the <b><tt>.ind</tt></b>
+file. If you do not have <b><tt>makeindex</tt></b> on your system, the book indices
+will not be generated.
+
+
+<p>
+Note that <b><tt>makeindex</tt></b> is not always friendly to special
+(non-alphanumeric) characters. For example, it uses the symbol <b><tt>!</tt></b> to
+separate index topics, which may conflict with Yacas commands. In other
+words, document index must be tested and sometimes debugged.
+
+
+<p>
+In the HTML docs, the index is currently not generated on a separate
+page, although HTML anchors are inserted in the text. 
+
+
+<p>
+An index entry may be a "topic" with "subtopics", which usually appears in book indices like this:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+gnus, 51
+   tame, 51
+   wild, 52-341
+</pre></tr>
+</table>
+This effect can be achieved with the <b><tt>!</tt></b> topic separator:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*A gnus
+*A gnus!tame
+*A gnus!wild
+</pre></tr>
+</table>
+This is a special feature of <b><tt>makeindex</tt></b>.
+
+
+<p>
+Currently, it is possible to include a command or an equation into an index entry, for example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*A {InterestingCommand}
+*A calculation of $Sqrt(x)$
+</pre></tr>
+</table>
+But this may sometimes conflict with the topic separator.
+
+
+<p>
+
+<h3>
+<hr>Summary of mark-up labels
+</h3>
+<a name="documentation!summary of labels">
+
+</a>
+Mark-up labels <i>must</i> appear as first characters on a line. The following mark-up labels are currently defined:
+
+
+<p>
+Labels with an argument on the same line (affect only the current line):
+
+
+<p>
+<ul><li></li><b><tt>*A</tt></b> <i>anchor</i> -- insert anchor and index entry
+<li></li><b><tt>*BOOK</tt></b> <i>title</i> -- start a book, give title
+<li></li><b><tt>*EVAL</tt></b> <i>statement</i> -- evaluate inline as a <b><tt>Yacas</tt></b> statement and insert results
+<li></li><b><tt>*HEAD</tt></b> <i>heading</i> -- lowest-level heading (lower than subsection)
+<li></li><b><tt>*FOOT</tt></b> <i>text</i> -- insert a footnote
+<li></li><b><tt>*INCLUDE</tt></b> <i>filename</i> -- include another documentation file
+<li></li><b><tt>*YSFILE</tt></b> <i>filename</i> -- give an alternative file name for <b><tt>Yacas</tt></b> code extraction (see the section on <b><tt>book2ys</tt></b>)
+</ul>
+
+<p>
+Labels that affect the rest of the line and the subsequent paragraph:
+
+
+<p>
+<ul><li></li><b><tt>*BLURB</tt></b> -- short summary of the book (must immediately precede the <b><tt>*BOOK</tt></b> label without any empty lines)
+<li></li><b><tt>*INTRO</tt></b> -- chapter introduction (significant for HTML only) (must be separated by an empty line from what follows)
+<li></li><b><tt>*REM</tt></b> -- documentation comment (must be separated by an empty line from what follows)
+</ul>
+
+<p>
+Special labels for the reference manual that accept several arguments on the same line:
+
+
+<p>
+<ul><li></li><b><tt>*CMD</tt></b> or <b><tt>*FUNC</tt></b> -- command name and one-line description
+<li></li><b><tt>*SEE</tt></b> -- "See also"
+</ul>
+
+<p>
+Special labels without arguments that generate headings for the reference manual:
+
+
+<p>
+<ul><li></li><b><tt>*STD</tt></b> -- "Standard library"
+<li></li><b><tt>*UNIX</tt></b> -- "Unix-specific"
+<li></li><b><tt>*MSWIN</tt></b> -- "MS Windows-specific"
+<li></li><b><tt>*MAC</tt></b> -- "Macintosh-specific"
+<li></li><b><tt>*CORE</tt></b> -- "Core function"
+<li></li><b><tt>*CALL</tt></b> -- "Calling format"
+<li></li><b><tt>*PARMS</tt></b> -- "Parameters"
+<li></li><b><tt>*DESC</tt></b> -- "Description"
+<li></li><b><tt>*E.G.</tt></b> -- "Examples"
+<li></li><b><tt>*EG</tt></b> -- "Example"
+</ul>
+
+<p>
+Other special markup:
+
+
+<p>
+<ul><li></li><b><tt>*BREAK</tt></b> -- insert an explicit line break at this point (no new paragraph)
+<li></li><b><tt>*NEWPAGE</tt></b> -- start a new page at this point (<b> LaTeX</b> documentation only)
+<li></li><b><tt>&lt;*</tt></b>
+... <b><tt>*&gt;</tt></b> -- insert a hyperlink
+</ul>
+
+<p>
+
+<h3>
+<hr>Summary of special markup syntax
+</h3>
+<a name="documentation!summary of syntax">
+
+</a>
+Special syntax entities include:
+<ul><li>TAB indented: book title (4 TABs), chapter (3 TABs), section (2 TABs), subsection (1 TAB and 4 spaces) titles, sample code (1 TAB)
+</li><li>asterisk-TAB: enumerated environment
+</li><li>asterisk-TAB-number-period: itemized environment
+</li><li>curly braces
+"</li><b><tt>{}</tt></b>": inline code samples, names of functions or variables (monospaced font)
+<li>special delimiters
+"</li><b><tt>&lt;i&gt;</tt></b>"
+and "<b><tt>&lt;/i&gt;</tt></b>": italics (for emphasis, not for mathematics).
+Both delimiters must be on the same line.
+<li>dollar signs "</li><b><tt>$</tt></b>", "<b><tt>$</tt></b><b><tt>$</tt></b>": inline and displayed mathematical equations
+<li>special delimiters
+"</li><b><tt>&lt;*</tt></b>" and
+"<b><tt>*&gt;</tt></b>": Web hyperlinks and documentation hyperlinks.
+Both delimiters must be on the same line.
+<li>the exclamation mark
+"</li><b><tt>!</tt></b>": nested index entries (use inside the <b><tt>*A</tt></b> label)
+</ul>
+
+<p>
+
+<h3>
+<hr>Debugging the manual
+</h3>
+<a name="documentation!markup debugging">
+
+</a>
+Sometimes the manual compilation <b><tt>make</tt></b> or <b><tt>make texdocs</tt></b> will break after you edit the plaintext manual sources. This can happen for one of these reasons:
+<ul><li>A math syntax error. You have used a mathematical formula that does not evaluate to a Yacas expression. Unbalanced parentheses, invalid infix operators such as </li><b><tt>&gt;-</tt></b>, <b><tt>=-</tt></b>, or forgotten punctuation inside the formula such as <b><tt>x+1:</tt></b> are the most frequent culprits. This will break both HTML and <b> TeX</b> manual formats.
+<li>The HTML format compiles but the </li><b> TeX</b> does not (the <b><tt>latex</tt></b> commands never finishes, that is, <b> latex</b> prints an error message which you do not see because it is redirected to <b><tt>/dev/null</tt></b>, and waits for your input; you have to kill the process).
+This means that somewhere the generated <b> TeX</b> code is incorrect. You probably forgot to balance braces <b><tt>{}</tt></b> or something more subtle happened.
+<li>Some mark-up which should not be split between lines was
+unintentionally split by reformatting paragraphs in a text editor. This will sometimes not break the compilation but will always give undesired results.
+</li></ul>
+
+<p>
+In case of a math syntax error, the documentation exporter cannot print the paragraph where the error occurred, but it usually prints the preceding paragraph. Currently, the easiest way to locate the error is to generate the <b><tt>.tex</tt></b> output and look at it, e.g.:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+make ref.book.tex; less ref.book.tex
+</pre></tr>
+</table>
+The last line in the <b><tt>.tex</tt></b> file must be <b><tt>\end{document}</tt></b>. If it is not, then the last portion of the text you see in the <b><tt>.tex</tt></b> file is the text directly before the paragraph where the error occurred. Most probably, there is a malformatted math formula in the next paragraph of your plaintext source.
+
+
+<p>
+If the last line is  <b><tt>\end{document}</tt></b> but <b><tt>latex</tt></b> does not finish, you will have to run <b><tt>latex</tt></b> by hand, e.g.
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+latex ref.book.tex
+</pre></tr>
+</table>
+and look at the error message(s) it prints.
+
+
+<p>
+
+<h3>
+<hr>Using the script <b><tt>txt2yacasdoc.pl</tt></b>
+</h3>
+The script <b><tt>txt2yacasdoc.pl</tt></b> is used to transform plain text markup into the
+Yacas language. The script acts as a stream filter:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+perl txt2yacasdoc.pl &lt; file.txt &gt; file.chapt
+</pre></tr>
+</table>
+
+
+<p>
+In this example, <b><tt>file.txt</tt></b> contains some formatted plain text (source text) and the resulting file <b><tt>file.chapt</tt></b> will be produced in Yacas-language documentation format.
+
+
+<p>
+There is a single option for <b><tt>txt2yacasdoc</tt></b>:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+perl txt2yacasdoc.pl -debug &lt; file.txt \
+  &gt; file.chapt
+</pre></tr>
+</table>
+This option is to be used for debugging, i.e. when the resulting file does not
+compile in Yacas. The effect of this option is to introduce more breaks
+between text strings in the generated file, so that the <b><tt>Text()</tt></b> function is
+called more often. It is then easier to locate the source of the problem in the
+Yacas-language file (Yacas will tell you the last line in the Yacas-language
+file at which a syntax error occurred). This option is largely obsolete because
+the <b><tt>Text()</tt></b> function is called frequently enough by default.
+See below for hints about finding syntax errors in documentation when the manual does not compile.
+
+
+<p>
+
+<h3>
+<hr><b><tt>book2TeX</tt></b>: preparing typeset documentation
+</h3>
+The script <b><tt>book2TeX.sh</tt></b> prepares a <b> TeX</b> file out of a Yacas-language documentation book. Usage is similar to <b><tt>book2txt.sh</tt></b>, except that only one file is processed at a time and the file must be a "book", not just a "chapter". For example:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+book2TeX.sh intro.book intro.book.tex
+</pre></tr>
+</table>
+will create a <b> LaTeX</b>-formatted version of the introductory tutorial.
+The <b> LaTeX</b> file can be processed with standard tools, for example
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+latex intro.book.tex
+dvips -o intro.book.ps intro.book dvi
+</pre></tr>
+</table>
+will prepare a Postscript version, while
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+pdflatex intro.book.tex
+</pre></tr>
+</table>
+will prepare a PDF version.
+
+
+<p>
+To generate printed docs, it is necessary to run <b><tt>latex</tt></b> (at least)
+three times in a row. This is because at first <b><tt>latex</tt></b> does not know
+how much space will be taken by the table of contents and the index, so
+the page numbers are all off by a few pages. Only on the second run
+<b><tt>latex</tt></b> generates correct page numbers for the TOC (the <b><tt>.aux</tt></b> file)
+and for the index (the <b><tt>.idx</tt></b> file). After this the index file has to
+be processed by the <b><tt>makeindex</tt></b> routine to sort it, and the third
+<b><tt>latex</tt></b> run is needed to actually insert the correct TOC and the
+processed index into the final document.
+
+
+<p>
+The shell commands in <b><tt>book2txt.sh</tt></b> execute the following Yacas commands:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Use("book2TeX.ys");
+ToFile("file.chapt.tex")
+  Load("file.chapt");
+</pre></tr>
+</table>
+This requires that the Yacas script <b><tt>book2TeX.ys</tt></b> be available in the current directory. The shell script <b><tt>book2TeX.sh</tt></b> assumes that <b><tt>book2TeX.ys</tt></b> is stored in the same directory as <b><tt>book2TeX.sh</tt></b> and that the Yacas executable is available in the directory <b><tt>../src/</tt></b>. Alternatively, the command line of the Yacas executable can be specified by the <b><tt>-run</tt></b> option. For example, the <b><tt>Makefile</tt></b> runs <b><tt>book2TeX.sh</tt></b> like this:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+book2TeX.sh -run "yacas-dir/src/yacas --rootdir
+  yacas-dir/scripts" file.book file.book.tex
+</pre></tr>
+</table>
+Note that the entire Yacas command line is given in quotes.
+
+
+<p>
+
+<h5>
+Some concerns with the printed documentation
+</h5>
+<a name="documentation!<b> TeX</b> problems">
+
+</a>
+Not all features of the Yacas documentation-generating scripts are compatible with <b> TeX</b> typesetting. To prevent errors, documentation source should avoid certain things. In general, it is a good idea to check the typeset appearance of documentation, since it helps detect errors.
+
+
+<p>
+For example, the symbols <b><tt>%</tt></b>, <b><tt>{ }</tt></b>, <b><tt>&lt; &gt;</tt></b>, <b><tt>#</tt></b>, <b><tt>\</tt></b>, <b><tt>_</tt></b> and <b><tt>&amp;</tt></b> are special to <b> TeX</b>. They should not normally be used in plain text; it is okay to use them in "typewriter" text (within braces <b><tt>{}</tt></b>) or code samples -- but <i>not</i> in section or chapter heads, because it makes it difficult to export to <b> TeX</b> correctly. <b> TeX</b> commands may be entered but will not be correctly rendered in HTML online documentation.
+
+
+<p>
+
+<a name="documentation!lines too wide">
+
+</a>
+Sometimes fixed-font text will hang over the right edge of the printed
+page. A workaround is to break the fixed-font text into shorter
+fragments or to rephrase the text.
+
+
+<p>
+Another concern is that code examples (TAB-indented blocks) are typeset
+in a fixed-width font and may not fit into the width of the page. To
+avoid this, the lines in the code examples should not be longer than
+about 50 characters.
+
+
+<p>
+The current implementation uses a "report" style which allows chapters, sections, subsections and includes an automatically generated table of contents and an index.
+The standard 10 point font and two-column format are used to save space (and trees).
+
+
+<p>
+The script <b><tt>txt2yacasdoc.pl</tt></b> attempts to convert double quotes <b><tt>""</tt></b>
+into proper English quotation marks "".
+However, this automatic conversion sometimes fails and produces wrongly-directed quotes.
+One such case is if the quotes are on the same line as a TAB character (e.g. in an itemized environment).
+This problem can be circumvented by putting the quoted words on a different line.
+
+
+<p>
+Some complicated mathematical expressions may not correctly render in <b> TeX</b>.
+This is because Yacas uses its library function <b><tt>TeXForm()</tt></b> to transform Yacas
+expressions to <b> TeX</b>.
+Mathematical expressions are entered in the plain text
+documentation source using Yacas syntax, then transformed to a special
+non-evaluating call <b><tt>TeXMath()</tt></b> in the Yacas-language documentation, which
+formats into HTML using a <b><tt>Write()</tt></b> call or into <b> TeX</b> using a <b><tt>TeXForm()</tt></b>
+call, as necessary. Testing should be performed on documentation before
+releasing it. The most stringent limitation is that the expression between
+dollar signs should evaluate in Yacas (preferably to itself) and not cause syntax
+errors. In case of doubt, check that the expression evaluates without errors
+and then try to use <b><tt>TeXForm</tt></b> on that expression and see if that evaluates
+without errors as well. For example, expressions such as <b><tt>x=+1</tt></b> will cause a syntax error and this will break the compilation of the manual (both HTML and <b> TeX</b>).
+
+
+<p>
+
+<h3>
+<hr><b><tt>book2ys</tt></b>: extracting Yacas code from books ("literate programming")
+</h3>
+<a name="documentation!embedded code">
+
+</a>
+<a name="documentation!literate programming">
+
+</a>
+<b><tt>book2ys.sh</tt></b> is a shell script that extracts Yacas code examples from a documentation chapter into a separate file.
+All other text is omitted.
+
+
+<p>
+Usage is similar to <b><tt>book2TeX.sh</tt></b>. For example, the benchmarking test code <b><tt>wester.yts</tt></b> can be automatically extracted from the corresponding essay chapter by the command
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+sh ../manmake/book2ys.sh wester-1994.chapt \
+  wester.yts
+</pre></tr>
+</table>
+After this command, the file <b><tt>wester.yts</tt></b> is created. Note that <b><tt>wester-1994.chapt</tt></b> is in Yacas language and is itself a generated file.
+
+
+<p>
+To prepare a documentation chapter in such a way that code extraction is possible, one needs to make sure that <i>all</i> code examples in the chapter taken together will become a correct sequence of Yacas expressions when cut out and written sequentially into a file.
+So, for instance, semicolons at the end of each statement are required.
+The script <b><tt>book2ys</tt></b> will <i>not</i> export example Yacas session code with "<b><tt>In&gt;</tt></b>" and "<b><tt>Out&gt;</tt></b>" prompts but it will export <i>all other</i> example code.
+
+
+<p>
+The example code with "<b><tt>In&gt;</tt></b>" and "<b><tt>Out&gt;</tt></b>" prompts will become comments in the exported Yacas file.
+It is possible to suppress this comment generation by the <b><tt>-strip</tt></b> option to the <b><tt>book2ys.sh</tt></b> script.
+
+
+<p>
+If the output file name is not given, the name will be the same as the Yacas book source name but with the <b><tt>.ys</tt></b> extension.
+
+
+<p>
+See the source file <b><tt>wester-1994.chapt.txt</tt></b> to get a feeling of how the source documentation is formatted to allow completely automatic code extraction. Note that the printed documentation may be in twocolumn format, and therefore it is necessary to split lines that are too long.
+
+
+<p>
+Using the script <b><tt>book2ys.sh</tt></b>, one can write documentation and code together, a la "literate programming".
+The main idea of literate programming is that the program code and the documentation should be written as one large book explaining to humans how the program is organized and how it works.
+From this book, a printable copy is generated and all code is automatically extracted for compilation.
+
+
+<p>
+Literate programming may require that code be split between many source files, and yet it may be convenient to keep all descriptions in one book.
+The special document formatting label <b><tt>*YSFILE</tt></b> can be used to redirect output to different Yacas source files.
+
+
+<p>
+By default, the output goes to the file specified on the <b><tt>book2ys.sh</tt></b> command line.
+This default can be restored by the directive "<b><tt>*YSFILE -</tt></b>" at any time.
+Otherwise, all code output will be printed to the file specified after the <b><tt>*YSFILE</tt></b> label.
+
+
+<p>
+Note that the multiple file support is somewhat restrictive:
+<ul><li>Once the output file name has been changed, the old file is closed and cannot be appended to. (This is a limitation of the </li><b><tt>ToFile()</tt></b> function in Yacas.)
+<li>If the same file name is chosen again, the file will be overwritten.
+</li><li>If the output file has been changed at least once,
+then at the end of the document the file name must be reset to the default "</li><b><tt>-</tt></b>".
+Otherwise the last file will not be properly closed.
+</ul>
+
+<p>
+Here is an example of using multiple files. Note how documentation text is interspersed with TAB-indented code.
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Text that does not appear in the code.
+    // code into default file
+    // more code
+*YSFILE script1.ys
+This will not appear in the file.
+    x:=1;
+    // some code for the file script1.ys
+*YSFILE script2.ys
+    // some code for the file script2.ys
+End of the example, need to reset *YSFILE.
+*YSFILE -
+</pre></tr>
+</table>
+After processing this file with <b><tt>book2ys.sh</tt></b>, one should get three files with Yacas code.
+
+
+<p>
+
+<h3>
+<hr><b><tt>ys2book</tt></b>: extracting documentation from Yacas code ("literate programming")
+</h3>
+<a name="documentation!embedded in code">
+
+</a>
+<a name="documentation!literate programming">
+
+</a>
+The standard view of literate programming is that one prepares a book readable by humans, and all code is automatically extracted from the book.
+The focus in this approach is on writing explanations on how the code works.
+
+
+<p>
+The converse approach is to write primarily code and
+embed some documentation as comments in the code files.
+This approach is implemented by the script <b><tt>ys2book.pl</tt></b>.
+
+
+<p>
+This script takes a Yacas script file and extracts Yacas comments from it into another file.
+Usage may look like this:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+perl ys2book.pl &lt; file.ys &gt; file.chapt.txt
+perl ys2book.pl -strip &lt; file.ys &gt; file.chapt.txt
+</pre></tr>
+</table>
+Here <b><tt>file.ys</tt></b> is the source file and <b><tt>file.chapt.txt</tt></b> is the output file.
+
+
+<p>
+Not all comments may be desirable as documentation.
+Formatting of comments is implemented as follows:
+
+
+<p>
+<ul><li>Line comments starting at the beginning of line with three or more slashes
+("</li><b><tt>///</tt></b>", "<b><tt>////</tt></b>" etc.) are exported as documentation.
+Line comments starting with "<b><tt>//</tt></b>" are not exported.
+Line comments that are found after some Yacas statements are also not exported.
+For example, if the source file contains the following lines,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+a:=1; // initialize a.
+   ///// This function needs
+  ///   an initializer.
+b:=1; /// also initialize b.
+</pre></tr>
+</table>
+then only the text
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+This function needs
+an initializer.
+</pre></tr>
+</table>
+will appear in the output file.
+Note that the initial spaces are stripped from the line comment strings.
+<li>Block comments starting with
+"</li><b><tt>/**</tt></b>" become documentation.
+The block comment must be the only content of the line.
+For example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+/** documentation text */
+/**   continues
+    here*/
+</pre></tr>
+</table>
+will export the following:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+documentation text
+continues
+    here
+</pre></tr>
+</table>
+Note that some initial spaces have been stripped.
+See below for more detail about the stripping of spaces.
+<li>Multiline comments marked with an initial asterisk
+"</li><b><tt>*</tt></b>" become documentation with the initial asterisk removed.
+For example, in the block comment
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+/** This starts
+ * a multiline
+ * comment.
+ */ 
+</pre></tr>
+</table>
+the initial <b><tt>*</tt></b> and any spaces before it will be removed from each line.
+This feature is designed to make the format easier to comprehend visually, if the documentation needs to be specially formatted.
+<li>All other comments remain unexported code comments.
+</li><li>All Yacas code, including unexported comments, is TAB-indented and printed to the output file, unless the "</li><b><tt>-strip</tt></b>" option is given.
+(TAB-indentation is the Yacas documentation markup for code examples.)
+With the "<b><tt>-strip</tt></b>" option, the output file will contain only exportable documentation comments and no code samples.
+</ul>
+
+<p>
+All exported text is printed to the output file as is, without any additional reformatting.
+The only change to the text is stripping of initial spaces.
+
+
+<p>
+Any leading spaces after the beginning of the comment sign are removed.
+For example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+/*      text */
+</pre></tr>
+</table>
+will be exported as just "text" without the leading spaces.
+In a multiline comment, such as
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+/*    start
+      of comment */
+</pre></tr>
+</table>
+the leading spaces in the first line will be stripped.
+However, the leading spaces (and TABs) in other lines of the multiline comment block will be preserved.
+
+
+<p>
+Empty lines can be introduced into the documentation either as part of a multiline comment block, or as a standalone empty comments such as
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+///
+////////
+</pre></tr>
+</table>
+
+
+<p>
+With these features it is easy to prepare the embedded documentation in the Yacas plaintext documentation format.
+This format requires space- and TAB-based formatting, which is mostly preserved by the script <b><tt>ys2book.pl</tt></b>.
+
+
+<p>
+
+<h3>
+<hr><b><tt>ytxt2tex</tt></b>: Conversion of plain text documentation to <b> LaTeX</b>
+</h3>
+<a name="documentation!outside of Yacas source tree">
+
+</a>
+An auxiliary script <b><tt>ytxt2tex</tt></b> converts plain text documentation to <b> LaTeX</b>.
+The script <b><tt>ytxt2tex</tt></b> can be used outside of the Yacas source tree to convert individual documents to <b> LaTeX</b>.
+This is useful if you would like to produce <b> TeX</b> documents and if you find the plain text format of the Yacas documentation more comfortable.
+Therefore, <b><tt>ytxt2tex</tt></b> is a kind of a special-purpose <b> TeX</b> preprocessor designed for producing Yacas documentation.
+
+
+<p>
+This is a standalone script; it is installed by default into <b><tt>/usr/local/bin</tt></b> and requires the Yacas executable also on the path, as well as the script files <b><tt>book2TeX.*</tt></b> and <b><tt>txt2yacasdoc.pl</tt></b> in the <b><tt>/manmake</tt></b> subdirectory of the Yacas installation tree <b><tt>/usr/local/share/yacas/</tt></b>.
+The script also requires <b><tt>perl</tt></b> and the Unix shell <b><tt>sh</tt></b>.
+
+
+<p>
+Limitations of this script are:
+<ul><li>it is impossible to include raw </li><b> TeX</b> code;
+<li>mathematical expressions are limited to those representable using Yacas functions and operators from the standard library;
+</li><li>the document comes out to be a twocolumn "report" with a certain fixed title page format, a table of contents, and an index;
+</li><li>front matter is fixed
+("</li><i>This is Yacas documentation... by the Yacas team... GNU Free Documentation License...</i>" etc.) and will most probably have to be edited by hand if you need to prepare anything other than Yacas documentation;
+<li>all current limitations of plaintext documentation format, for example, no nested itemized/enumerated environments;
+</li><li>some advanced features of index generation (e.g. the </li><b><tt>!</tt></b> separators combined with other markup) are not yet supported.
+</ul>
+
+<p>
+These limitations may be easily overcome by editing the resulting <b> TeX</b> file (but you need to know at least some <b> TeX</b> to do that).
+
+
+<p>
+The general usage pattern is
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ytxt2tex [-o outputfile] file1.txt [file2.txt] ...
+</pre></tr>
+</table>
+All source files must have extension ".txt".
+The command-line option <b><tt>-o</tt></b> specifies the name of the output <b> TeX</b> file.
+If the <b><tt>-o</tt></b> option is not given, the output file will be <b><tt>file1.tex</tt></b> (i.e. the name of the first <b><tt>.txt</tt></b> file with the <b><tt>.tex</tt></b> extension).
+If several <b><tt>.txt</tt></b> files are given, the first one must <b><tt>*INCLUDE</tt></b> all others.
+
+
+<p>
+To illustrate the usage of the script <b><tt>ytxt2tex</tt></b>, consider two examples.
+
+
+<p>
+The first example is just one plaintext file <b><tt>example1.txt</tt></b>. This file will have to be a "book" in itself, i.e. it will have to include a book title indented by four TAB symbols. For example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*REM file: example1.txt
+                Example Document Title
+*REM this is a section title:
+		Numbers and letters
+*REM here are some index entries:
+*A numbers
+*REM simple index entries like this are OK
+*A letters
+
+Numbers and letters are very important, etc.
+</pre></tr>
+</table>
+
+
+<p>
+This file <b><tt>example1.txt</tt></b> can be converted to a <b> LaTeX</b> file <b><tt>example1.tex</tt></b> by the following simple command:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ytxt2tex example1.txt
+</pre></tr>
+</table>
+If the resulting file should be named something other than <b><tt>example1.tex</tt></b>, say <b><tt>output1.tex</tt></b>, then the command is
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ytxt2tex -o output1.tex example1.txt
+</pre></tr>
+</table>
+
+
+<p>
+The second example is a longer "book" consisting of several plaintext files.
+One of these files is a "master file" and it should include all other files using the <b><tt>*INCLUDE</tt></b> label.
+The <b><tt>*INCLUDE</tt></b> label should contain file names without the <b><tt>.txt</tt></b> extension.
+
+
+<p>
+Suppose we have prepared the files <b><tt>book1.txt</tt></b>, <b><tt>chapter1.txt</tt></b>, and <b><tt>chapter2.txt</tt></b> containing the preamble text and two chapters.
+For example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*REM this is the file "book1.txt"
+*BLURB or, The Multitudinous Attempts
+to Avoid Counterproductivity
+                 Relationships of Entities
+*INCLUDE chapter1
+*INCLUDE chapter2
+</pre></tr>
+</table>
+
+
+<p>
+The chapter files might be:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*REM this is the file "chapter1.txt"
+        Entities and Epiphenomena
+The history of the ambiguous question of
+epiphenomenological discourse can be
+traced to the pre-postmodern period...
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+*REM this is the file "chapter2.txt"
+        Substrates and Superficiality
+In the preceding chapter, we have thoroughly
+investigated the metaphilosophical aspects of
+the trans-homocentric considerations...
+</pre></tr>
+</table>
+
+
+<p>
+The command to create the final <b> LaTeX</b> file <b><tt>book1.tex</tt></b> is
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ytxt2tex book1.txt chapter1.txt chapter2.txt
+</pre></tr>
+</table>
+The "master file" <b><tt>book1.txt</tt></b> that includes all other text files must be given first.
+The <b><tt>-o</tt></b> option can be used if the final <b> LaTeX</b> file should be named something else than <b><tt>book1.tex</tt></b>. For example,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ytxt2tex -o MyBook.tex book1.txt chapter*.txt
+</pre></tr>
+</table>
+
+
+<p>
+By default, both table of contents and the index are generated.
+The commands to create a PostScript file out of the <b> LaTeX</b> file might be:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+latex MyBook.tex
+latex MyBook.tex
+makeindex MyBook.idx -o MyBook.ind
+latex MyBook.tex
+</pre></tr>
+</table>
+
+
+<p>
+Note that the resulting <b> LaTeX</b> file needs to be processed three times if the table of contents or index are to be used.
+Without a table of contents and index, it is enough to process the file with <b> LaTeX</b> twice.
+
+
+<p>
+
+<h3>
+<hr><b><tt>book2txt</tt></b>: Conversion of existing documentation to plain text
+</h3>
+(Note: as of version 1.0.49, all Yacas documentation is converted to plaintext format. This section is left for reference only.)
+
+
+<p>
+Currently, most but not all of the Yacas documentation markup functionality is
+implemented in the simple plaintext filter; also, documentation includes some
+extra HTML files. However, almost all of the reasonable markup needed to write
+documentation is present. Therefore it is possible to maintain most of the
+documentation in the plain text format described above. To convert existing
+Yacas documentation back to the plain text format, a script
+<b><tt>book2txt.ys</tt></b>/<b><tt>book2txt.sh</tt></b> can be used.
+
+
+<p>
+By using a command such as
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+book2txt.sh file.chapt
+</pre></tr>
+</table>
+one can create a source text file <b><tt>file.chapt.txt</tt></b> corresponding to the Yacas documentation file <b><tt>file.chapt</tt></b>. For example:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+12:51pm scriabin&gt; book2txt.sh intro.book
+True;
+Out&gt; True;
+Quitting...
+File 'intro.book.txt' was created.
+12:51pm scriabin&gt;
+</pre></tr>
+</table>
+
+
+<p>
+In the above example, the shell commands in <b><tt>book2txt.sh</tt></b> executed the following Yacas commands,
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Use("book2txt.ys");
+ToFile("file.chapt.txt")
+  Load("file.chapt");
+</pre></tr>
+</table>
+This requires that the Yacas script <b><tt>book2txt.ys</tt></b> be available in the current directory. The shell script <b><tt>book2txt.sh</tt></b> assumes that <b><tt>book2txt.ys</tt></b> is stored in the same directory as <b><tt>book2txt.sh</tt></b>.
+
+
+<p>
+Of course, it is possible that some features of Yacas documentation were not implemented in the script and in that case the resulting file must be edited by hand. But the purpose of the <b><tt>book2txt</tt></b> script is exactly this: to make a plain text source file to be edited and maintained.
+
+
+<p>
+Several files can be converted at once, for example:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+book2txt.sh f1.chapt f2.chapt file3.book
+</pre></tr>
+</table>
+Each file is processed by an independent Yacas session. Any errors of processing are printed on the screen.
+
+
+<p>
+
+<a name="c5s3">
+
+</a>
+<h2>
+<hr>5.3 The Yacas build system
+</h2>
+<h3>
+<hr>Introduction
+</h3>
+<a name="build system">
+
+</a>
+This chapter describes the build system of Yacas. So here you will
+find what happens when you give the <b><tt>configure</tt></b> or the <b><tt>make</tt></b> command,
+and how to change this. It will concentrate on Unix systems; other
+architectures are briefly covered in the final section.
+
+
+<p>
+As the Yacas build system is built on the GNU autotools suite, which
+contains both <b><tt>automake</tt></b> and <b><tt>autoconf</tt></b>, we will start with a short
+description of this package. Then we will turn to the various
+components of Yacas: the program itself, the script files, the
+documentation, the test suite, and so on. 
+
+
+<p>
+As explained in the <b><tt>INSTALL</tt></b> file, building Yacas requires the
+following steps.
+<ul><li>(This step is only necessary if building from CVS.) Start by
+running the </li><b><tt>makemake</tt></b> script. This executes the <b><tt>automake</tt></b> and
+<b><tt>autoconf</tt></b> programs. 
+<li>Then the </li><b><tt>configure</tt></b> script should be run.
+<li>Finally, Yacas can be built by giving the </li><b><tt>make</tt></b> command.
+</ul>
+
+<p>
+Both <b><tt>configure</tt></b> and <b><tt>make</tt></b> accept many options. Some of them are
+explained below.
+
+
+<p>
+
+<h3>
+<hr>The GNU autotools suite
+</h3>
+<a name="build system!autotools">
+
+</a>
+<a name="autotools@\relax <b><tt>autotools</tt></b>">
+
+</a>
+The GNU <b><tt>autotools</tt></b> suite is a collection of applications to streamline
+the build system of other programs, like Yacas. Its two main goals are
+to present a consistent build procedure to users, and to assist
+developers in tackling portability problems.
+
+
+<p>
+The autotools suite consists of a number of utilities. These are
+developed separately, but are designed to be used together. They are
+<ul><li></li><b><tt>automake</tt></b>. Its main goal is to produce a <b><tt>Makefile.in</tt></b> file
+from a high-level description in the <b><tt>Makefile.am</tt></b> file. The
+<b><tt>configure</tt></b> script generated by <b><tt>autoconf</tt></b> will later transform it in
+a <b><tt>Makefile</tt></b>. The generated Makefiles are portable and contain all the
+targets specified in the GNU Coding Standards document, like <b><tt>all</tt></b>,
+<b><tt>install</tt></b> and <b><tt>clean</tt></b>.
+<li></li><b><tt>autoconf</tt></b>. Its main goal is to produce the <b><tt>configure</tt></b> script.
+When Yacas is built, this script gathers information from the user's
+system, like the operating system and the location of certain programs
+used by the Yacas build system. This information is used in turn by the
+Makefiles.
+<li></li><b><tt>libtool</tt></b>. This utility provides a portable interface for
+building and using libraries. Static libraries, shared libraries and
+dynamically loadable modules are all supported.
+</ul>
+
+<p>
+The users do not need to run <b><tt>automake</tt></b> and <b><tt>autoconf</tt></b> (here, "users"
+refers to the people who do not want to make any changes to Yacas and
+includes those who just want to compile Yacas from a tar.gz source
+archive). They do need the <b><tt>libtool</tt></b> script. But the <b><tt>libtool</tt></b> package
+is included in the Yacas distribution, so the users do not need to
+install <b><tt>libtool</tt></b> themselves.
+
+
+<p>
+
+<a name="build system!makemake">
+
+</a>
+<a name="makemake@\relax <b><tt>makemake</tt></b>">
+
+</a>
+Developers do need to install <b><tt>autoconf</tt></b> and <b><tt>automake</tt></b> on their
+systems. But they usually do not need to run these tools directly, as
+the Makefiles contain the necessary commands. When the Makefiles are
+not present, which occurs for instance when installing afresh from the
+CVS repository, the <b><tt>makemake</tt></b> script in the root of the Yacas source
+tree can (and probably should) be used to invoke <b><tt>automake</tt></b> and
+<b><tt>autoconf</tt></b> in the right order and with the correct flags.
+
+
+<p>
+In the following three sections, these utilities are briefly
+explained. In all cases, the reader is referred to the documentation
+included in the <b><tt>autotools</tt></b> suite for more information. Another useful
+source of information is <i>GNU Autoconf, Automake, and Libtool</i> by
+Gary V. Vaughan, Ben Elliston, Tom Tromey and Ian Lance, which is
+published by New Riders. An online version is available from
+<a href="http://sources.redhat.com/autobook">
+http://sources.redhat.com/autobook
+</a>
+.
+
+
+<p>
+
+<h3>
+<hr>The automake tool
+</h3>
+<a name="build system!automake">
+
+</a>
+<a name="automake@\relax <b><tt>automake</tt></b>">
+
+</a>
+Automake is a tool to generate standard-compliant Makefiles. More
+precisely, <b><tt>automake</tt></b> uses the information in <b><tt>Makefile.am</tt></b> to produce a
+<b><tt>Makefile.in</tt></b> file, which will be turned into a <b><tt>Makefile</tt></b> by the
+<b><tt>configure</tt></b> script generated by the <b><tt>autoconf</tt></b> utility.
+
+
+<p>
+The <b><tt>Makefile.am</tt></b> file contains the definition of certain macros that
+are used by <b><tt>automake</tt></b>. The rest of the <b><tt>Makefile.am</tt></b> file is copied
+verbatim to the generated <b><tt>Makefile.in</tt></b> file.
+
+
+<p>
+The most important macros which are used by <b><tt>automake</tt></b> are the
+so-called <i>primaries</i>. These list the files that make up the Yacas
+package. For instance, in the <b><tt>src</tt></b> directory, the file <b><tt>Makefile.am</tt></b>
+contains the following line
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ bin_PROGRAMS = yacas
+</pre></tr>
+</table>
+This is an example of the <b><tt>PROGRAMS</tt></b> primary, and says that the
+directory contains a program called <b><tt>yacas</tt></b>. Hence it will be built if
+the <b><tt>make all</tt></b> command is executed, it will be installed at 
+<b><tt>make install</tt></b>, etc. Other useful primaries are <b><tt>SCRIPTS</tt></b> for
+executable scripts, <b><tt>HEADERS</tt></b> for header files, and <b><tt>DATA</tt></b> for all
+files which are just copied verbatim at installation time (this
+includes Yacas scripts). 
+
+
+<p>
+The <b><tt>bin</tt></b> prefix in the example above says that <b><tt>yacas</tt></b> should be
+installed in the binary directory, as determined by the <b><tt>configure</tt></b>
+script. By default, this is the directory <b><tt>/usr/local/bin</tt></b>. There are
+also prefixes for the other directories, as well as some prefixes with
+different meanings: the <b><tt>noinst</tt></b> prefix says that the specified file
+need not be installed, and the <b><tt>check</tt></b> prefix says that the file is
+only needed when testing.
+
+
+<p>
+There are also so-called <i>associated variables</i>. The same
+<b><tt>Makefile.am</tt></b> contains the following variables associated to the Yacas
+executable:
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+yacas_SOURCES = yacasmain.cpp commandline.cpp \
+      unixcommandline.cpp stdcommandline.cpp
+yacas_LDADD = libyacas.a libyacasplatform.a 
+</pre></tr>
+</table>
+These lines tell that the executable is built from four source files
+(yacasmain.cpp, commandline.cpp, unixcommandline.cpp and stdcommandline.cpp)
+and two static libraries (libyacas.a and libyacasplatform.a). 
+
+
+<p>
+From the information contained in these lines, <b><tt>automake</tt></b> can construct
+the necessary commands to go in the final <b><tt>Makefile</tt></b>.  This <b><tt>Makefile</tt></b>
+does not only support building, testing, and installing the package, but
+also rolling the tar-ball for release (use <b><tt>make dist</tt></b> for this, as
+explained in the section <a href="#make!targets">
+"Targets for make"
+</a>
+
+below). In the above example, <b><tt>automake</tt></b> can figure out that
+<b><tt>yacasmain.cpp</tt></b> should be included in the distribution.
+
+
+<p>
+Unfortunately not everything is supported that well. For instance, Yacas
+comes with its own documentation system, which is of course not
+supported by <b><tt>automake</tt></b>. So we need to tell <b><tt>automake</tt></b> how to handle
+these files. To specify which files should be included in the distribution, the
+<b><tt>EXTRA_DIST</tt></b> variable can  be used. The developer should list all files
+to be included in the distribution that <b><tt>automake</tt></b> does not know about
+here. If we want to run some commands at build or installation time, we
+can specify them by <b><tt>Makefile</tt></b> rules in the traditional ways. Just
+write the rules in <b><tt>Makefile.am</tt></b> and they will be copied verbatim in the
+generated <b><tt>Makefile</tt></b>. Please keep in mind that the rules should work on
+a wide variety of platforms in order to retain portability. In
+particular,
+<ul><li>remember that the source files may be in a different directory,
+if the user decides to use separate source and build trees (see
+</li><a href="#build system!configure">
+"The configure script"
+</a>
+);
+<li>only use the automatic variable </li><b><tt>$&lt;</tt></b> in suffix rules, as Solaris
+<b><tt>make</tt></b> does not define <b><tt>$&lt;</tt></b> correctly in other rules;
+<li>do not use pattern rules (like </li><b><tt>%.o: %.c</tt></b>) as they are not
+supported on all platforms, use suffix rules (like <b><tt>.c.o:</tt></b>)
+instead. 
+</ul>
+
+<p>
+We currently assume <b><tt>automake</tt></b> version 1.4 or later. Note that version
+1.5 breaks backward compatibility and should be avoided. Version 1.6
+contains some useful additions, like the <b><tt>nobase</tt></b> prefix and the
+possibility to define new prefixes, so at a certain point we may
+require version 1.6.
+
+
+<p>
+For more information about <b><tt>automake</tt></b>, the reader is referred to the
+documentation that comes with the package.
+
+
+<p>
+
+<h3>
+<hr>The autoconf tool
+</h3>
+<a name="build system!autoconf">
+
+</a>
+<a name="autoconf@\relax <b><tt>autoconf</tt></b>">
+
+</a>
+Autoconf is a tool to generate portable shell scripts that users
+can run to configure the package (in our case Yacas) for their
+system. It reads the file <b><tt>configure.in</tt></b> and produces the <b><tt>configure</tt></b>
+script. The latter script can be run by the user to prepare for
+building Yacas.
+
+
+<p>
+The <b><tt>configure.in</tt></b> file consists of standard shell code, interspersed
+with special macros defined by the <b><tt>autoconf</tt></b> package. These can be
+recognized by the <b><tt>AC_</tt></b> prefix.
+
+
+<p>
+As the <b><tt>configure.in</tt></b> file only rarely needs to be changed, we will
+only describe the <b><tt>autoconf</tt></b> tool by one example. 
+
+
+<p>
+This ends the brief description of <b><tt>autoconf</tt></b>. For more information,
+the reader is referred to the documentation that comes with the
+package.
+
+
+<p>
+We currently assume <b><tt>autoconf</tt></b> version 2.13 or later.
+
+
+<p>
+
+<h3>
+<hr>The configure script
+</h3>
+<a name="build system!configure">
+
+</a>
+<a name="configuration">
+
+</a>
+The <b><tt>configure</tt></b> script is run by the user to prepare the Yacas package
+for the build and installation process. It examines the user's system
+and the options passed to the script by the user, and generates
+suitable Makefiles. Furthermore, it generates <b><tt>yacas.spec</tt></b> which is
+used to build a package in Red Hat's <b><tt>.rpm</tt></b> format, and the C header
+file <b><tt>config.h</tt></b>.
+
+
+<p>
+A nice feature is the possibility to build in a different directory
+than the source directory by simply running <b><tt>configure</tt></b> from that
+directory. This not only prevents the source directory from being
+cluttered up by object files and so on, but it also enables the user
+to build for different architectures in different directories or to
+have the source in a read-only directory. For example, suppose that
+the Yacas source is installed under <b><tt>/mnt/cdrom/src/yacas</tt></b> and that
+you want to build Yacas under <b><tt>/tmp/build-yacas</tt></b>. This is achieved by
+the following commands
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+mkdir /tmp/build-yacas
+cd /tmp/build-yacas
+/mnt/cdrom/src/yacas/configure
+make
+</pre></tr>
+</table>
+
+
+<p>
+A list of options accepted by the <b><tt>configure</tt></b> script can be retrieved
+by invoking it with the <b><tt>help</tt></b> option
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+./configure --help
+</pre></tr>
+</table>
+The most important is the <b><tt>prefix</tt></b> option, which influences where
+everything will be installed. The default is <b><tt>/usr/local</tt></b>, meaning
+that for instance the yacas executable is installed as
+<b><tt>/usr/local/bin/yacas</tt></b>. To change this in <b><tt>/usr/bin/yacas</tt></b>, invoke the
+script as follows
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+./configure --prefix=/usr
+</pre></tr>
+</table>
+Other options to <b><tt>configure</tt></b> enable the user to fine-tune the location
+where the various files should be installed.
+
+
+<p>
+We will not describe the common <b><tt>configure</tt></b> options which are shared
+by all packages, but will restrict ourselves to the options
+exclusively used by Yacas.
+<ul><li></li><b><tt>with-numlib=LIB</tt></b>. This option specifies the arbitrary-precision
+library to use.  The supported values for <b><tt>LIB</tt></b> so far are <b><tt>native</tt></b> (the
+default). 
+<li></li><b><tt>enable-debug</tt></b>. Build a version of Yacas suitable for debugging. 
+<li></li><b><tt>enable-archive</tt></b>. Build and install the library archive. The
+library archive resides in the file <b><tt>scripts.dat</tt></b> and contains all the
+Yacas scripts in compressed form.
+<li></li><b><tt>enable-server</tt></b>. Build a version of the Yacas executable which
+accepts the <b><tt>--server</tt></b> flag, which puts Yacas in server mode (see
+<a href="introchapter3.html#c3s1">
+"Command-line options"
+</a>
+) 
+</ul>
+
+<p>
+The following three options pertain to the extensive documentation
+that comes with Yacas. By default, only HTML documentation is
+generated.
+<ul><li></li><b><tt>disable-html-doc</tt></b>. Do not generate documentation in HTML
+format.
+<li></li><b><tt>enable-ps-doc</tt></b>. Generate documentation in PostScript
+format. This requires the latex suite.
+<li></li><b><tt>enable-pdf-doc</tt></b>. Generate documentation in PDF format. This
+also requires the latex suite. 
+</ul>
+
+<p>
+Then there are three options describing where to install various parts
+of the Yacas package.
+<ul><li></li><b><tt>with-script-dir=DIR</tt></b>. Install the Yacas script files, which
+have extension <b><tt>.ys</tt></b>, in the specified directory. By default, the
+script files are installed in <b><tt>DATADIR/yacas</tt></b>, where <b><tt>DATADIR</tt></b>
+defaults to <b><tt>PREFIX/share</tt></b>. In turn, <b><tt>PREFIX</tt></b> refers to the value of
+the <b><tt>prefix</tt></b> option described above; the default value is
+<b><tt>/usr/local</tt></b>. The conclusion is that the script files by default end
+up in <b><tt>/usr/local/share/yacas</tt></b>.
+<li></li><b><tt>with-html-dir=DIR</tt></b>. This specifies where to install the HTML
+documentation for the Yacas package. The default is a subdirectory
+named <b><tt>documentation</tt></b> of the directory in which the Yacas script files
+are installed.
+<li></li><b><tt>with-ps-dir=DIR</tt></b>. Where to install the PostScript and PDF
+documentation. This defaults to the same directory as for the
+documentation in HTML format.
+</ul>
+
+<p>
+Furthermore, the opposites of the above options (eg. <b><tt>disable-server</tt></b>)
+are also recognized.
+
+
+<p>
+
+<h3>
+<hr>Targets for make
+</h3>
+<a name="build system!targets for make">
+
+</a>
+<a name="make!targets">
+
+</a>
+One of the advantages of using the autotool suite to generate
+Makefiles, is that the resulting Makefiles support a variety of
+targets. Here is a partial list of them.
+<ul><li></li><b><tt>all</tt></b>. This is the default target, so instead of <b><tt>make all</tt></b>
+one can just type <b><tt>make</tt></b>. It builds the executables, which includes
+<b><tt>yacas</tt></b>, and the documentation. By default, only documentation in HTML
+format will be built, but this can be changed by the <b><tt>configure</tt></b> script.
+<li></li><b><tt>install</tt></b>. Compile the executables, and install them together
+with the libraries, Yacas scripts, and documentation so that the Yacas
+program can be run. 
+<li></li><b><tt>install-strip</tt></b>. Same as <b><tt>install</tt></b>, but also strip the debug
+information from the installed executables.
+<li></li><b><tt>uninstall</tt></b>. Remove the installed files.
+<li></li><b><tt>clean</tt></b>. Delete files that are created during the build
+process, for instance <b><tt>.o</tt></b> files.
+<li></li><b><tt>distclean</tt></b>. Delete files that are created during either the
+configuration or the build process. This leaves only the files in that
+were included in the distribution. 
+<li></li><b><tt>dist</tt></b>. Create a tar-ball (a gzipped tar archive) ready for
+distribution. 
+<li></li><b><tt>check</tt></b> (or its synonym <b><tt>test</tt></b>). Test whether Yacas works correctly.
+<li></li><b><tt>installcheck</tt></b>. Test whether Yacas is installed correctly. The
+difference with the <b><tt>check</tt></b> target is that that one tests the
+<i>built</i> version of Yacas, while the <b><tt>installcheck</tt></b> target tests
+the <i>installed</i> version.
+<li></li><b><tt>distcheck</tt></b>. Check whether Yacas is ready for
+distribution. This creates a tar-ball, unpacks it in a different
+directory, compiles Yacas with default options, installs it in a temporary directory, and
+finally checks that the installed version works correctly. Extra flags
+to be passed to the <b><tt>configure</tt></b> script (eg. <b><tt>--enable-archive</tt></b>) can be
+put in the <b><tt>DISTCHECK_CONFIGURE_FLAGS</tt></b> environment variable.
+</ul>
+
+<p>
+
+<h3>
+<hr>The Yacas executable
+</h3>
+<a name="build system!executable">
+
+</a>
+The main executable is called <b><tt>yacas</tt></b> and resides in the <b><tt>src</tt></b>
+directory. 
+
+
+<p>
+Conceptually, the build process consists of the following parts:
+<ul><li>Generating the source files. Almost all source files were
+written by the Yacas development team, but the following are generated
+automatically: </li><b><tt>version.h</tt></b> (generated from <b><tt>configure.in</tt></b>),
+<b><tt>fastprimes.c</tt></b> (generated by the <b><tt>mkfastprimes</tt></b> program), and
+<b><tt>core_yacasmain.h</tt></b> (generated from <b><tt>yacasmain.cpp</tt></b>).
+<li>Building the executables. Besides the Yacas executables, we
+also build </li><b><tt>mkfastprimes</tt></b> and <b><tt>gencorefunctions</tt></b> (which are needed to
+generate some source files), and the <b><tt>codereviewer</tt></b> executable (which does a static analysis of code 
+and can in some circumstances also fix the code where the coding
+style is not adhered to).
+</ul>
+
+<p>
+
+<h3>
+<hr>The Yacas script files
+</h3>
+<a name="build system!Yacas scripts">
+
+</a>
+<a name="scripts!installation">
+
+</a>
+The Yacas script files with extension <b><tt>ys</tt></b> can be found in the
+<b><tt>scripts/</tt></b> directory and its "repository" subdirectories. 
+
+
+<p>
+All script files and <b><tt>.def</tt></b> files are listed in <b><tt>Makefile.am</tt></b>. This
+definition is used to generate the <b><tt>packages.ys</tt></b> file, which contains
+a list of all <b><tt>.def</tt></b> files. The <b><tt>corefunctions.ys</tt></b> file is also
+automatically generated. This is done by running the
+<b><tt>gencorefunctions</tt></b> program, which resides in the <b><tt>src/</tt></b> directory. 
+
+
+<p>
+At installation time, all the script files and <b><tt>.def</tt></b> files that are
+listed in <b><tt>Makefile.am</tt></b> are copied. During this installation, the
+directory structure should be preserved.
+
+
+<p>
+The <b><tt>check</tt></b> target checks that all the script files and <b><tt>.def</tt></b> files
+listed in the <b><tt>Makefile.am</tt></b> are indeed present, and vice versa, that
+all files present in the <b><tt>scripts/</tt></b> hierarchy are indeed listed. 
+
+
+<p>
+
+<h3>
+<hr>The documentation
+</h3>
+<a name="build system!documentation">
+
+</a>
+<a name="documentation!building">
+
+</a>
+The documentation system for Yacas is explained in <a href="essayschapter5.html#c5s2">
+Essays on Yacas, Chapter 5, Section 2
+</a>
+. 
+
+
+<p>
+The documentation is generated from plain text source files with the
+<b><tt>txt</tt></b> extension in the <b><tt>manmake</tt></b> directory. The source files
+are converted to Yacas code by the <b><tt>txt2yacasdoc.pl</tt></b> script.
+The result is a set of Yacas source files containing the text of the documentation.
+These Yacas source files are not well suited for human reading and must be further processed to obtain the books in HTML and PS/PDF formats.
+
+
+<p>
+To generate the books in HTML format, the Yacas source files are processed by the Yacas interpreter using the scripts <b><tt>manualmaker</tt></b> and <b><tt>indexmaker</tt></b>.
+The script <b><tt>indexmaker</tt></b> creates the file <b><tt>books.html</tt></b> with the top-level index to all HTML documentation books.
+The script <b><tt>manualmaker</tt></b> creates the HTML files with the book text (both the framed and the non-framed versions are written out).
+It is also possible to generate more than one HTML book at once.
+The two reference manuals are generated together to produce the full hyperlinked index to all commands.
+
+
+<p>
+To generate the books in PostScript and PDF format, the <b><tt>book2TeX.sh</tt></b>
+script is used. This script converts the Yacas source files
+to <b>TeX</b> files. They can then be processed by the standard <b> TeX</b>
+tools.
+
+
+<p>
+By default, only the HTML-formatted documents are generated. To change this, use the options
+<b><tt>disable-html-doc</tt></b>, <b><tt>enable-ps-doc</tt></b> and <b><tt>enable-pdf-doc</tt></b>
+in the <b><tt>configure</tt></b> script. The <b><tt>with-html-dir</tt></b> and
+<b><tt>with-ps-dir</tt></b> options can be used to tell where the documentation
+should be installed.
+
+
+<p>
+
+<a name="Wester's benchmark">
+
+</a>
+At the moment, the <b><tt>Makefile.am</tt></b> for the documentation is rather
+messy. For this reason, we do not describe it in detail. Instead, we
+just point out some special features:
+<ul><li>The Yacas interpreter and </li><b><tt>perl</tt></b> are needed to generate the documentation.
+<li>The section
+</li><a href="refprogchapter5.html#c5s1">
+"Full listing of core functions"
+</a>
+
+is generated from the Yacas source by the <b><tt>gencorefunctions</tt></b> program,
+which resides in the <b><tt>src</tt></b> directory.
+<li>The Yacas code from the section 
+</li><i>M. Wester's CAS benchmark and Yacas</i>, built from
+<b><tt>wester-1994.chapt.txt</tt></b>, is extracted with the <b><tt>book2ys.sh</tt></b>
+script. This code is used for testing (see below).
+<li>All the scripts described can be found in the </li><b><tt>manmake</tt></b> directory.
+</ul>
+
+<p>
+
+<h3>
+<hr>The test suite
+</h3>
+<a name="build system!test suite">
+
+</a>
+<a name="testing Yacas">
+
+</a>
+The Yacas distribution contains a (hopefully comprehensive) test
+suite, which can be used to check whether Yacas is (still) functioning
+correctly. The command <b><tt>make check</tt></b> tests the latest compiled version
+of Yacas. To test the executable that is installed on your system, use
+the command <b><tt>make installcheck</tt></b>.
+
+
+<p>
+The <b><tt>yts</tt></b> files in the <b><tt>tests</tt></b> directory contain the tests for
+different subsystems of Yacas. For instance, the file <b><tt>arithmetic.yts</tt></b>
+contains tests for the basic arithmetic functions; the first test is
+to check that <b><tt>3+2</tt></b> evaluates to <b><tt>5</tt></b>. All the test files are listed in
+the <b><tt>TESTFILES</tt></b> variable. This variable can be overridden. For
+example, the command
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+make TESTFILES='comments.yts complex.yts' clean
+</pre></tr>
+</table>
+only runs the test scripts <b><tt>comments.yts</tt></b> and <b><tt>complex.yts</tt></b>.
+
+
+<p>
+The shell script <b><tt>test-yacas</tt></b> does the actual testing. It runs the
+scripts listed in the <b><tt>TESTFILES</tt></b> variable through the Yacas
+executable. The tests that take a long time are at the end of the
+list, so that these tests are performed last. The output of the tests
+is collected in the file <b><tt>testresult.txt</tt></b>. The test is considered to
+be failed, if the exit code is nonzero (which happens for instance if
+Yacas crashes) or if either of the strings <b><tt>******</tt></b> (six stars) or
+<b><tt>Error</tt></b> appear in the output.
+
+
+<p>
+
+<a name="Wester's benchmark">
+
+</a>
+A special case is the last test, which goes through the problems put
+forward by Michael Wester (see the section 
+<a href="essayschapter2.html#c2">
+M. Wester's CAS benchmark and Yacas
+</a>
+). The commands for this
+tests are not in a <b><tt>yts</tt></b> file in the <b><tt>tests</tt></b> directory, but are
+extracted from the documentation
+(see <a href="#documentation!building">
+the immediately preceding section
+</a>
+).
+
+
+<p>
+
+<h3>
+<hr>The library archive
+</h3>
+The library archive is a file, commonly called <b><tt>scripts.dat</tt></b>, which
+contains all the scripts in compressed form. If Yacas is started with
+the <b><tt>--archive</tt></b> flag, it uses the contents of this file. This is
+useful for binary releases, as one needs only two files: the Yacas
+executable and the library archive.
+
+
+<p>
+Support for the library archive resides in the <b><tt>src/</tt></b>
+directory. It contains the code for the <b><tt>compressor</tt></b> program. This
+program generates the library archive.
+
+
+<p>
+The archive is only built if the <b><tt>enable-archive</tt></b> option is
+passed to the <b><tt>configure</tt></b> script. In that case, the <b><tt>compressor</tt></b>
+program is built and run. At installation time, the generated archive
+is installed in the library directory (<b><tt>/usr/local/lib</tt></b> by
+default). There is also a test to check that the generated archive in
+fact works.
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

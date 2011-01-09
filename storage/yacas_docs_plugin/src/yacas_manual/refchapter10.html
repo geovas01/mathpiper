@@ -1,0 +1,103 @@
+<html>
+<head>
+  <title>Transforms</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c10">
+
+</a>
+(directly go to documentation on : <a href="refchapter10.html#LaplaceTransform" target='Chapters' title="Laplace Transform">LaplaceTransform</a>.
+)<h1>
+10. Transforms
+</h1>
+In this chapter, some facilities for various transforms
+are described.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter10.html#LaplaceTransform" target='Chapters' title="Laplace Transform">LaplaceTransform</a></td>
+<td>Laplace Transform</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="LaplaceTransform">
+
+</a>
+<a name="laplacetransform">
+
+</a>
+<h3>
+<hr>LaplaceTransform -- Laplace Transform
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LaplaceTransform(t,s,func)	
+</pre></tr>
+</table>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>t</tt></b> -- independent variable that is being transformed
+
+
+<p>
+<b><tt>s</tt></b> -- independent variable that is being transformed into
+
+
+<p>
+<b><tt>f</tt></b> -- function
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function attempts to take the function <b><tt>f(t)</tt></b> and find the Laplace transform
+of it,<b><tt>F(s)</tt></b>, which is defined as <b><tt>Integrate(t,0,Infinity) Exp(-s*t)*f</tt></b>. This is
+also sometimes referred to the "unilateral" Laplace tranform. <b><tt>LaplaceTransform</tt></b>
+can transform most elementary functions that do not require a convolution integral,
+as well as any polynomial times an elementary function. If a transform cannot
+be found then <b><tt>LaplaceTransform</tt></b> will return unevaluated. This can happen
+for function which are not of "exponential order", which means that they grow
+faster than exponential functions.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; LaplaceTransform(t,s,2*t^5+ t^2/2 )
+Out&gt; 240/s^6+2/(2*s^3);
+In&gt; LaplaceTransform(t,s,t*Sin(2*t)*Exp(-3*t) )
+Out&gt; (2*(s+3))/(2*(2*(((s+3)/2)^2+1))^2);
+In&gt; LaplaceTransform(t,s, BesselJ(3,2*t) )
+Out&gt; (Sqrt((s/2)^2+1)-s/2)^3/(2*Sqrt((s/2)^2+1));
+In&gt; LaplaceTransform(t,s,Exp(t^2)); // not of exponential order
+Out&gt; LaplaceTransform(t,s,Exp(t^2));
+In&gt; LaplaceTransform(p,q,Ln(p))
+Out&gt; -(gamma+Ln(q))/q;
+</pre></tr>
+</table>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

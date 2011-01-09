@@ -1,0 +1,547 @@
+<html>
+<head>
+  <title>Custom evaluation facilities</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c7">
+
+</a>
+<h1>
+7. Custom evaluation facilities
+</h1>
+<p> </p>
+Yacas supports a special form of evaluation where hooks are
+placed when evaluation enters or leaves an expression. 
+
+
+<p>
+This section will explain the way custom evaluation is supported
+in <b><tt>Yacas</tt></b>, and will proceed to demonstrate how it can be used
+by showing code to trace, interactively step through, profile,
+and write custom debugging code.
+
+
+<p>
+Debugging, tracing and profiling has been implemented in the
+debug.rep/ module, but a simplification of that code
+will be presented here to show the basic concepts.
+
+
+<p>
+
+<a name="c7s1">
+
+</a>
+<h2>
+<hr>7.1 The basic infrastructure for custom evaluation
+</h2>
+The name of the function is <b><tt>CustomEval</tt></b>, and the calling sequence
+is:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+CustomEval(enter,leave,error,expression);
+</pre></tr>
+</table>
+
+
+<p>
+Here, <b><tt>expression</tt></b> is the expression to be evaluated, <b><tt>enter</tt></b>
+some expression that should be evaluated when entering an
+expression, and <b><tt>leave</tt></b> an expression to be evaluated when leaving
+evaluation of that expression.
+
+
+<p>
+The <b><tt>error</tt></b> expression is evaluated when an error occurred. If an error
+occurs, this is caught high up, the <b><tt>error</tt></b> expression is called, and 
+the debugger goes back to evaluating <b><tt>enter</tt></b> again so the situation can
+be examined. When the debugger needs to stop, the <b><tt>error</tt></b> expression
+is the place to call <b><tt>CustomEval'Stop()</tt></b> (see explanation below).
+
+
+<p>
+The <b><tt>CustomEval</tt></b> function can be used to write custom debugging
+tools. Examples are: 
+
+
+<p>
+<ul><li>a trace facility following entering and leaving functions
+</li><li>interactive debugger for stepping through evaluation of an 
+expression.
+</li><li>profiler functionality, by having the callback functions do the 
+bookkeeping on counts of function calls for instance.
+</li></ul>
+
+<p>
+In addition, custom code can be written to for instance halt evaluation
+and enter interactive mode as soon as some very specific situation
+occurs, like "stop when function foo is called while the function bar
+is also on the call stack and the value of the local variable x is
+less than zero". 
+
+
+<p>
+As a first example, suppose we define the functions TraceEnter(),
+TraceLeave() and <b><tt>TraceExp()</tt></b> as follows:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+TraceStart() := [indent := 0;];
+TraceEnter() :=
+[
+   indent++;
+   Space(2*indent);
+   Echo("Enter ",CustomEval'Expression());
+];
+TraceLeave() :=
+[
+   Space(2*indent);
+   Echo("Leave ",CustomEval'Result());
+   indent--;
+];
+Macro(TraceExp,{expression})
+[
+   TraceStart();
+   CustomEval(TraceEnter(),
+              TraceLeave(),
+              CustomEval'Stop(),@expression);
+];
+</pre></tr>
+</table>
+
+
+<p>
+allows us to have tracing in a very basic way. We can now call:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; TraceExp(2+3)
+  Enter 2+3 
+    Enter 2 
+    Leave 2 
+    Enter 3 
+    Leave 3 
+    Enter IsNumber(x) 
+      Enter x 
+      Leave 2 
+    Leave True 
+    Enter IsNumber(y) 
+      Enter y 
+      Leave 3 
+    Leave True 
+    Enter True 
+    Leave True 
+    Enter MathAdd(x,y) 
+      Enter x 
+      Leave 2 
+      Enter y 
+      Leave 3 
+    Leave 5 
+  Leave 5 
+Out&gt; 5;
+</pre></tr>
+</table>
+
+
+<p>
+This example shows the use of <b><tt>CustomEval'Expression</tt></b> and
+<b><tt>CustomEval'Result</tt></b>. These functions give some extra access
+to interesting information while evaluating the expression.
+The functions defined to allow access to information while
+evaluating are:
+
+
+<p>
+<ul><li></li><b><tt>CustomEval'Expression()</tt></b> - return expression currently
+on the top call stack for evaluation.
+<li></li><b><tt>CustomEval'Result()</tt></b> - when the <b><tt>leave</tt></b> argument is called this
+function returns what the evaluation of the top expression will return.
+<li></li><b><tt>CustomEval'Locals()</tt></b> - returns a list with the current local variables.
+<li></li><b><tt>CustomEval'Stop()</tt></b> - stop debugging execution
+</ul>
+
+<p>
+
+<a name="c7s2">
+
+</a>
+<h2>
+<hr>7.2 A simple interactive debugger
+</h2>
+The following code allows for simple interactive debugging:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+DebugStart():=
+[
+   debugging:=True;
+   breakpoints:={};
+];
+DebugRun():= [debugging:=False;];
+DebugStep():=[debugging:=False;nextdebugging:=True;];
+DebugAddBreakpoint(fname_IsString) &lt;-- 
+   [ breakpoints := fname:breakpoints;];
+BreakpointsClear() &lt;-- [ breakpoints := {};];
+Macro(DebugEnter,{})
+[
+   Echo("&gt;&gt;&gt; ",CustomEval'Expression());
+   If(debugging = False And
+      IsFunction(CustomEval'Expression()) And 
+      Contains(breakpoints,
+      Type(CustomEval'Expression())),   
+        debugging:=True);
+   nextdebugging:=False;
+   While(debugging)
+   [
+      debugRes:=
+        Eval(FromString(
+          ReadCmdLineString("Debug&gt; "):";")
+          Read());
+      If(debugging,Echo("DebugOut&gt; ",debugRes));
+   ];
+   debugging:=nextdebugging;
+];
+Macro(DebugLeave,{})
+[
+   Echo(CustomEval'Result(),
+        " &lt;-- ",CustomEval'Expression());
+];
+Macro(Debug,{expression})
+[
+   DebugStart();
+   CustomEval(DebugEnter(),
+              DebugLeave(),
+              debugging:=True,@expression);
+];
+</pre></tr>
+</table>
+
+
+<p>
+This code allows for the following interaction:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Debug(2+3)
+&gt;&gt;&gt; 2+3 
+Debug&gt; 
+</pre></tr>
+</table>
+
+
+<p>
+The console now shows the current expression being evaluated, and a debug
+prompt for interactive debugging. We can enter <b><tt>DebugStep()</tt></b>, which steps to
+the next expression to be evaluated:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Debug&gt; DebugStep();
+&gt;&gt;&gt; 2 
+Debug&gt; 
+</pre></tr>
+</table>
+
+
+<p>
+This shows that in order to evaluate <b><tt>2+3</tt></b> the interpreter first needs
+to evaluate <b><tt>2</tt></b>. If we step further a few more times, we arrive at:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+&gt;&gt;&gt; IsNumber(x) 
+Debug&gt; 
+</pre></tr>
+</table>
+
+
+<p>
+Now we might be curious as to what the value for <b><tt>x</tt></b> is. We can dynamically
+obtain the value for <b><tt>x</tt></b> by just typing it on the command line. 
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+&gt;&gt;&gt; IsNumber(x) 
+Debug&gt; x
+DebugOut&gt; 2 
+</pre></tr>
+</table>
+
+
+<p>
+<b><tt>x</tt></b> is set to <b><tt>2</tt></b>, so we expect <b><tt>IsNumber</tt></b> to return <b><tt>True</tt></b>. Stepping again:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Debug&gt; DebugStep();
+&gt;&gt;&gt; x 
+Debug&gt; DebugStep();
+2  &lt;-- x 
+True  &lt;-- IsNumber(x) 
+&gt;&gt;&gt; IsNumber(y) 
+</pre></tr>
+</table>
+
+
+<p>
+So we see this is true. We can have a look at which local variables are currently
+available by calling <b><tt>CustomEval'Locals()</tt></b>:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Debug&gt; CustomEval'Locals()
+DebugOut&gt; {arg1,arg2,x,y,aLeftAssign,aRightAssign} 
+</pre></tr>
+</table>
+
+
+<p>
+And when bored, we can proceed with <b><tt>DebugRun()</tt></b> which will continue the
+debugger until finished in this case (a more sophisticated debugger can
+add breakpoints, so running would halt again at for instance a breakpoint).
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Debug&gt; DebugRun()
+&gt;&gt;&gt; y 
+3  &lt;-- y 
+True  &lt;-- IsNumber(y) 
+&gt;&gt;&gt; True 
+True  &lt;-- True 
+&gt;&gt;&gt; MathAdd(x,y) 
+&gt;&gt;&gt; x 
+2  &lt;-- x 
+&gt;&gt;&gt; y 
+3  &lt;-- y 
+5  &lt;-- MathAdd(x,y) 
+5  &lt;-- 2+3 
+Out&gt; 5;
+</pre></tr>
+</table>
+
+
+<p>
+The above bit of code also supports primitive breakpointing, in that
+one can instruct the evaluator to stop when a function will be entered.
+The debugger then stops just before the arguments to the function are 
+evaluated. In the following example, we make the debugger stop when 
+a call is made to the <b><tt>MathAdd</tt></b> function:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Debug(2+3)
+&gt;&gt;&gt; 2+3 
+Debug&gt; DebugAddBreakpoint("MathAdd")
+DebugOut&gt; {"MathAdd"} 
+Debug&gt; DebugRun()
+&gt;&gt;&gt; 2 
+2  &lt;-- 2 
+&gt;&gt;&gt; 3 
+3  &lt;-- 3 
+&gt;&gt;&gt; IsNumber(x) 
+&gt;&gt;&gt; x 
+2  &lt;-- x 
+True  &lt;-- IsNumber(x) 
+&gt;&gt;&gt; IsNumber(y) 
+&gt;&gt;&gt; y 
+3  &lt;-- y 
+True  &lt;-- IsNumber(y) 
+&gt;&gt;&gt; True 
+True  &lt;-- True 
+&gt;&gt;&gt; MathAdd(x,y) 
+Debug&gt; 
+</pre></tr>
+</table>
+
+
+<p>
+The arguments to <b><tt>MathAdd</tt></b> can now be examined, or execution continued.
+
+
+<p>
+One great advantage of defining much of the debugger in script code can
+be seen in the <b><tt>DebugEnter</tt></b> function, where the breakpoints are checked,
+and execution halts when a breakpoint is reached. In this case the condition
+for stopping evaluation is rather simple: when entering a specific function,
+stop. However, nothing stops a programmer from writing a custom debugger
+that could stop on any condition, halting at e very special case.
+
+
+<p>
+
+<a name="c7s3">
+
+</a>
+<h2>
+<hr>7.3 Profiling
+</h2>
+A simple profiler that counts the number of times each function is
+called can be written such:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ProfileStart():=
+[
+   profilefn:={};
+];
+10 # ProfileEnter()
+     _(IsFunction(CustomEval'Expression())) &lt;-- 
+[
+   Local(fname);
+   fname:=Type(CustomEval'Expression());
+   If(profilefn[fname]=Empty,profilefn[fname]:=0);
+   profilefn[fname] := profilefn[fname]+1;
+];
+Macro(Profile,{expression})
+[
+   ProfileStart();
+   CustomEval(ProfileEnter(),True,
+              CustomEval'Stop(),@expression);
+   ForEach(item,profilefn)
+     Echo("Function ",item[1]," called ",
+          item[2]," times");
+];
+</pre></tr>
+</table>
+
+
+<p>
+which allows for the interaction:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Profile(2+3)
+Function MathAdd called 1  times
+Function IsNumber called 2  times
+Function + called 1  times
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="c7s4">
+
+</a>
+<h2>
+<hr>7.4 The Yacas Debugger
+</h2>
+<h3>
+<hr>Why introduce a debug version?
+</h3>
+The reason for introducing a debug version is that for a debugger 
+it is often necessary to introduce features that make the interpreter
+slower. For the main kernel this is unacceptable, but for a debugging
+version this is defendable. It is good for testing small programs,
+to see where a calculation breaks. Having certain features only
+in the debug version keeps the release executable can be kept lean 
+and mean, while still offering advanced debug features.
+
+
+<p>
+
+<h3>
+<hr>How to build the debug version of Yacas ?
+</h3>
+The debug version has to be built separately from the "production"
+version of Yacas (all source files have to be recompiled).
+
+
+<p>
+To build the debug version of yacas, run configure with
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+./configure --enable-debug
+</pre></tr>
+</table>
+
+
+<p>
+and after that
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+make
+</pre></tr>
+</table>
+
+
+<p>
+as usual.
+
+
+<p>
+
+<h3>
+<hr>What does the debug version of yacas offer?
+</h3>
+The Yacas debugger is in development still, but already has
+some useful features. 
+
+
+<p>
+When you build the debug version of yacas, and run a command, it will:
+<ul><li>keep track of the memory allocated and freed, and show any memory leaks
+when you quit the program.
+</li><li>show which files are loaded to read function definitions and when. This is only done when the </li><b><tt>--verbose-debug</tt></b> flag is passed to the program at startup.
+<li>keep a file name and line number for each object loaded from file, for
+debugging purposes.
+</li><li>show you the stack trace when evaluation goes into an infinite recursion
+(equivalent of always using </li><b><tt>TraceStack</tt></b>) and print file names and line numbers
+for all rules.
+</ul>
+
+<p>
+Future versions will have the ability to step through code and to
+watch local and global variables while executing, modifying them
+on the fly.
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

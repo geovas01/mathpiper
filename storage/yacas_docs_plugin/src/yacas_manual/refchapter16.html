@@ -1,0 +1,1921 @@
+<html>
+<head>
+  <title>Linear Algebra</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c16">
+
+</a>
+(directly go to documentation on : <a href="refchapter16.html#Dot, ." target='Chapters' title="get dot product of tensors">Dot, .</a>, <a href="refchapter16.html#InProduct" target='Chapters' title="inner product of vectors (deprecated)">InProduct</a>, <a href="refchapter16.html#CrossProduct" target='Chapters' title="outer product of vectors">CrossProduct</a>, <a href="refchapter16.html#Outer, o" target='Chapters' title="get outer tensor product">Outer, o</a>, <a href="refchapter16.html#ZeroVector" target='Chapters' title="create a vector with all zeroes">ZeroVector</a>, <a href="refchapter16.html#BaseVector" target='Chapters' title="base vector">BaseVector</a>, <a href="refchapter16.html#Identity" target='Chapters' title="make identity matrix">Identity</a>, <a href="refchapter16.html#ZeroMatrix" target='Chapters' title="make a zero matrix">ZeroMatrix</a>, <a href="refchapter16.html#Diagonal" target='Chapters' title="extract the diagonal from a matrix">Diagonal</a>, <a href="refchapter16.html#DiagonalMatrix" target='Chapters' title="construct a diagonal matrix">DiagonalMatrix</a>, <a href="refchapter16.html#OrthogonalBasis" target='Chapters' title="create an orthogonal basis">OrthogonalBasis</a>, <a href="refchapter16.html#OrthonormalBasis" target='Chapters' title="create an orthonormal basis">OrthonormalBasis</a>, <a href="refchapter16.html#Normalize" target='Chapters' title="normalize a vector">Normalize</a>, <a href="refchapter16.html#Transpose" target='Chapters' title="get transpose of a matrix">Transpose</a>, <a href="refchapter16.html#Determinant" target='Chapters' title="determinant of a matrix">Determinant</a>, <a href="refchapter16.html#Trace" target='Chapters' title="trace of a matrix">Trace</a>, <a href="refchapter16.html#Inverse" target='Chapters' title="get inverse of a matrix">Inverse</a>, <a href="refchapter16.html#Minor" target='Chapters' title="get principal minor of a matrix">Minor</a>, <a href="refchapter16.html#CoFactor" target='Chapters' title="cofactor of a matrix">CoFactor</a>, <a href="refchapter16.html#MatrixPower" target='Chapters' title="get nth power of a square matrix">MatrixPower</a>, <a href="refchapter16.html#SolveMatrix" target='Chapters' title="solve a linear system">SolveMatrix</a>, <a href="refchapter16.html#CharacteristicEquation" target='Chapters' title="get characteristic polynomial of a matrix">CharacteristicEquation</a>, <a href="refchapter16.html#EigenValues" target='Chapters' title="get eigenvalues of a matrix">EigenValues</a>, <a href="refchapter16.html#EigenVectors" target='Chapters' title="get eigenvectors of a matrix">EigenVectors</a>, <a href="refchapter16.html#Sparsity" target='Chapters' title="get the sparsity of a matrix">Sparsity</a>, <a href="refchapter16.html#Cholesky" target='Chapters' title="find the Cholesky Decomposition">Cholesky</a>.
+)<h1>
+16. Linear Algebra
+</h1>
+This chapter describes the commands for doing linear
+algebra. They can be used to manipulate vectors, represented as lists,
+and matrices, represented as lists of lists.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Dot, ." target='Chapters' title="get dot product of tensors">Dot, .</a></td>
+<td>get dot product of tensors</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#InProduct" target='Chapters' title="inner product of vectors (deprecated)">InProduct</a></td>
+<td>inner product of vectors (deprecated)</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#CrossProduct" target='Chapters' title="outer product of vectors">CrossProduct</a></td>
+<td>outer product of vectors</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Outer, o" target='Chapters' title="get outer tensor product">Outer, o</a></td>
+<td>get outer tensor product</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#ZeroVector" target='Chapters' title="create a vector with all zeroes">ZeroVector</a></td>
+<td>create a vector with all zeroes</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#BaseVector" target='Chapters' title="base vector">BaseVector</a></td>
+<td>base vector</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Identity" target='Chapters' title="make identity matrix">Identity</a></td>
+<td>make identity matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#ZeroMatrix" target='Chapters' title="make a zero matrix">ZeroMatrix</a></td>
+<td>make a zero matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Diagonal" target='Chapters' title="extract the diagonal from a matrix">Diagonal</a></td>
+<td>extract the diagonal from a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#DiagonalMatrix" target='Chapters' title="construct a diagonal matrix">DiagonalMatrix</a></td>
+<td>construct a diagonal matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#OrthogonalBasis" target='Chapters' title="create an orthogonal basis">OrthogonalBasis</a></td>
+<td>create an orthogonal basis</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#OrthonormalBasis" target='Chapters' title="create an orthonormal basis">OrthonormalBasis</a></td>
+<td>create an orthonormal basis</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Normalize" target='Chapters' title="normalize a vector">Normalize</a></td>
+<td>normalize a vector</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Transpose" target='Chapters' title="get transpose of a matrix">Transpose</a></td>
+<td>get transpose of a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Determinant" target='Chapters' title="determinant of a matrix">Determinant</a></td>
+<td>determinant of a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Trace" target='Chapters' title="trace of a matrix">Trace</a></td>
+<td>trace of a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Inverse" target='Chapters' title="get inverse of a matrix">Inverse</a></td>
+<td>get inverse of a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Minor" target='Chapters' title="get principal minor of a matrix">Minor</a></td>
+<td>get principal minor of a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#CoFactor" target='Chapters' title="cofactor of a matrix">CoFactor</a></td>
+<td>cofactor of a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#MatrixPower" target='Chapters' title="get nth power of a square matrix">MatrixPower</a></td>
+<td>get nth power of a square matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#SolveMatrix" target='Chapters' title="solve a linear system">SolveMatrix</a></td>
+<td>solve a linear system</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#CharacteristicEquation" target='Chapters' title="get characteristic polynomial of a matrix">CharacteristicEquation</a></td>
+<td>get characteristic polynomial of a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#EigenValues" target='Chapters' title="get eigenvalues of a matrix">EigenValues</a></td>
+<td>get eigenvalues of a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#EigenVectors" target='Chapters' title="get eigenvectors of a matrix">EigenVectors</a></td>
+<td>get eigenvectors of a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Sparsity" target='Chapters' title="get the sparsity of a matrix">Sparsity</a></td>
+<td>get the sparsity of a matrix</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter16.html#Cholesky" target='Chapters' title="find the Cholesky Decomposition">Cholesky</a></td>
+<td>find the Cholesky Decomposition</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="Dot">
+
+</a>
+<a name=".">
+
+</a>
+<a name="Dot, .">
+
+</a>
+<a name="dot, .">
+
+</a>
+<h3>
+<hr>Dot, . -- get dot product of tensors
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Dot(t1,t2)
+t1 . t2
+</pre></tr>
+</table>
+Precedence:
+
+30
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>t1,t2</tt></b> -- tensor lists (currently only vectors and matrices are supported)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>Dot</tt></b> returns the dot (aka inner) product of two tensors t1 and t2. The last
+index of t1 and the first index of t2 are contracted. Currently <b><tt>Dot</tt></b> works
+only for vectors and matrices. <b><tt>Dot</tt></b>-multiplication of two vectors, a matrix
+with a vector (and vice versa) or two matrices yields either a scalar, a
+vector or a matrix.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Dot({1,2},{3,4})
+Out&gt; 11;
+In&gt; Dot({{1,2},{3,4}},{5,6})
+Out&gt; {17,39};
+In&gt; Dot({5,6},{{1,2},{3,4}})
+Out&gt; {23,34};
+In&gt; Dot({{1,2},{3,4}},{{5,6},{7,8}})
+Out&gt; {{19,22},{43,50}};
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Or, using the "."-Operator:
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; {1,2} . {3,4}
+Out&gt; 11;
+In&gt; {{1,2},{3,4}} . {5,6}
+Out&gt; {17,39};
+In&gt; {5,6} . {{1,2},{3,4}}
+Out&gt; {23,34};
+In&gt; {{1,2},{3,4}} . {{5,6},{7,8}}
+Out&gt; {{19,22},{43,50}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Outer" target="Chapters">
+Outer
+</a>
+, <a href="ref.html?Cross" target="Chapters">
+Cross
+</a>
+, <a href="ref.html?IsScalar" target="Chapters">
+IsScalar
+</a>
+, <a href="ref.html?IsVector" target="Chapters">
+IsVector
+</a>
+, <a href="ref.html?IsMatrix" target="Chapters">
+IsMatrix
+</a>
+.<a name="InProduct">
+
+</a>
+<a name="inproduct">
+
+</a>
+<h3>
+<hr>InProduct -- inner product of vectors (deprecated)
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+InProduct(a,b)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>a</tt></b>, <b><tt>b</tt></b> -- vectors of equal length
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The inner product of the two vectors "a" and "b" is returned. The
+vectors need to have the same size.
+
+
+<p>
+This function is superceded by the <b><tt>.</tt></b> operator.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; {a,b,c} . {d,e,f};
+Out&gt; a*d+b*e+c*f;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Dot" target="Chapters">
+Dot
+</a>
+, <a href="ref.html?CrossProduct" target="Chapters">
+CrossProduct
+</a>
+.<a name="CrossProduct">
+
+</a>
+<a name="crossproduct">
+
+</a>
+<h3>
+<hr>CrossProduct -- outer product of vectors
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+CrossProduct(a,b)
+a X b
+</pre></tr>
+</table>
+Precedence:
+
+30
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>a</tt></b>, <b><tt>b</tt></b> -- three-dimensional vectors
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The cross product of the vectors "a"
+and "b" is returned. The result is perpendicular to both "a" and
+"b" and its length is the product of the lengths of the vectors.
+Both "a" and "b" have to be three-dimensional.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; {a,b,c} X {d,e,f};
+Out&gt; {b*f-c*e,c*d-a*f,a*e-b*d};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?InProduct" target="Chapters">
+InProduct
+</a>
+.<a name="Outer">
+
+</a>
+<a name="o">
+
+</a>
+<a name="Outer, o">
+
+</a>
+<a name="outer, o">
+
+</a>
+<h3>
+<hr>Outer, o -- get outer tensor product
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Outer(t1,t2)
+t1 o t2
+</pre></tr>
+</table>
+Precedence:
+
+30
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>t1,t2</tt></b> -- tensor lists (currently only vectors are supported)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>Outer</tt></b> returns the outer product of two tensors t1 and t2. Currently
+<b><tt>Outer</tt></b> work works only for vectors, i.e. tensors of rank 1. The outer
+product of two vectors yields a matrix.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Outer({1,2},{3,4,5})
+Out&gt; {{3,4,5},{6,8,10}};
+In&gt; Outer({a,b},{c,d})
+Out&gt; {{a*c,a*d},{b*c,b*d}};
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Or, using the "o"-Operator:
+</pre></tr>
+</table>
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; {1,2} o {3,4,5}
+Out&gt; {{3,4,5},{6,8,10}};
+In&gt; {a,b} o {c,d}
+Out&gt; {{a*c,a*d},{b*c,b*d}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Dot" target="Chapters">
+Dot
+</a>
+, <a href="ref.html?Cross" target="Chapters">
+Cross
+</a>
+.<a name="ZeroVector">
+
+</a>
+<a name="zerovector">
+
+</a>
+<h3>
+<hr>ZeroVector -- create a vector with all zeroes
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ZeroVector(n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- length of the vector to return
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command returns a vector of length "n", filled with zeroes.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ZeroVector(4)
+Out&gt; {0,0,0,0};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?BaseVector" target="Chapters">
+BaseVector
+</a>
+, <a href="ref.html?ZeroMatrix" target="Chapters">
+ZeroMatrix
+</a>
+, <a href="ref.html?IsZeroVector" target="Chapters">
+IsZeroVector
+</a>
+.<a name="BaseVector">
+
+</a>
+<a name="basevector">
+
+</a>
+<h3>
+<hr>BaseVector -- base vector
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+BaseVector(k, n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>k</tt></b> -- index of the base vector to construct
+
+
+<p>
+<b><tt>n</tt></b> -- dimension of the vector
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command returns the "k"-th base vector of dimension "n". This
+is a vector of length "n" with all zeroes except for the "k"-th
+entry, which contains a 1.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; BaseVector(2,4)
+Out&gt; {0,1,0,0};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?ZeroVector" target="Chapters">
+ZeroVector
+</a>
+, <a href="ref.html?Identity" target="Chapters">
+Identity
+</a>
+.<a name="Identity">
+
+</a>
+<a name="identity">
+
+</a>
+<h3>
+<hr>Identity -- make identity matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Identity(n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- size of the matrix
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This commands returns the identity matrix of size "n" by "n". This
+matrix has ones on the diagonal while the other entries are zero.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Identity(3)
+Out&gt; {{1,0,0},{0,1,0},{0,0,1}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?BaseVector" target="Chapters">
+BaseVector
+</a>
+, <a href="ref.html?ZeroMatrix" target="Chapters">
+ZeroMatrix
+</a>
+, <a href="ref.html?DiagonalMatrix" target="Chapters">
+DiagonalMatrix
+</a>
+.<a name="ZeroMatrix">
+
+</a>
+<a name="zeromatrix">
+
+</a>
+<h3>
+<hr>ZeroMatrix -- make a zero matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ZeroMatrix(n)
+ZeroMatrix(n, m)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b> -- number of rows
+
+
+<p>
+<b><tt>m</tt></b> -- number of columns
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command returns a matrix with <b><tt>n</tt></b> rows and <b><tt>m</tt></b> columns,
+completely filled with zeroes. If only given one parameter,
+it returns the square <b><tt>n</tt></b> by <b><tt>n</tt></b> zero matrix.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; ZeroMatrix(3,4)
+Out&gt; {{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+In&gt; ZeroMatrix(3)
+Out&gt; {{0,0,0},{0,0,0},{0,0,0}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?ZeroVector" target="Chapters">
+ZeroVector
+</a>
+, <a href="ref.html?Identity" target="Chapters">
+Identity
+</a>
+.<a name="Diagonal">
+
+</a>
+<a name="diagonal">
+
+</a>
+<h3>
+<hr>Diagonal -- extract the diagonal from a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Diagonal(A)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>A</tt></b> -- matrix
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command returns a vector of the diagonal components
+of the matrix <b><tt>A</tt></b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Diagonal(5*Identity(4))
+Out&gt; {5,5,5,5};
+In&gt; Diagonal(HilbertMatrix(3))
+Out&gt; {1,1/3,1/5};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?DiagonalMatrix" target="Chapters">
+DiagonalMatrix
+</a>
+, <a href="ref.html?IsDiagonal" target="Chapters">
+IsDiagonal
+</a>
+.<a name="DiagonalMatrix">
+
+</a>
+<a name="diagonalmatrix">
+
+</a>
+<h3>
+<hr>DiagonalMatrix -- construct a diagonal matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+DiagonalMatrix(d)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>d</tt></b> -- list of values to put on the diagonal
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This command constructs a diagonal matrix, that is a square matrix
+whose off-diagonal entries are all zero. The elements of the vector
+"d" are put on the diagonal.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; DiagonalMatrix(1 .. 4)
+Out&gt; {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Identity" target="Chapters">
+Identity
+</a>
+, <a href="ref.html?ZeroMatrix" target="Chapters">
+ZeroMatrix
+</a>
+.<a name="OrthogonalBasis">
+
+</a>
+<a name="orthogonalbasis">
+
+</a>
+<h3>
+<hr>OrthogonalBasis -- create an orthogonal basis
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OrthogonalBasis(W)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>W</tt></b> - A linearly independent set of row vectors (aka a matrix)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Given a linearly independent set <b><tt>W</tt></b> (constructed of rows vectors),
+this command returns an orthogonal basis <b><tt>V</tt></b> for <b><tt>W</tt></b>, which means 
+that span(V) = span(W) and <b><tt>InProduct(V[i],V[j]) = 0</tt></b> when <b><tt>i != j</tt></b>.
+This function uses the Gram-Schmidt orthogonalization process.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OrthogonalBasis({{1,1,0},{2,0,1},{2,2,1}}) 
+Out&gt; {{1,1,0},{1,-1,1},{-1/3,1/3,2/3}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OrthonormalBasis" target="Chapters">
+OrthonormalBasis
+</a>
+, <a href="ref.html?InProduct" target="Chapters">
+InProduct
+</a>
+.<a name="OrthonormalBasis">
+
+</a>
+<a name="orthonormalbasis">
+
+</a>
+<h3>
+<hr>OrthonormalBasis -- create an orthonormal basis
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+OrthonormalBasis(W)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>W</tt></b> - A linearly independent set of row vectors (aka a matrix)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Given a linearly independent set <b><tt>W</tt></b> (constructed of rows vectors),
+this command returns an orthonormal basis <b><tt>V</tt></b> for <b><tt>W</tt></b>. This is done
+by first using <b><tt>OrthogonalBasis(W)</tt></b>, then dividing each vector by its
+magnitude, so as the give them unit length. 
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; OrthonormalBasis({{1,1,0},{2,0,1},{2,2,1}})
+Out&gt; {{Sqrt(1/2),Sqrt(1/2),0},{Sqrt(1/3),-Sqrt(1/3),Sqrt(1/3)},
+	{-Sqrt(1/6),Sqrt(1/6),Sqrt(2/3)}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?OrthogonalBasis" target="Chapters">
+OrthogonalBasis
+</a>
+, <a href="ref.html?InProduct" target="Chapters">
+InProduct
+</a>
+, <a href="ref.html?Normalize" target="Chapters">
+Normalize
+</a>
+.<a name="Normalize">
+
+</a>
+<a name="normalize">
+
+</a>
+<h3>
+<hr>Normalize -- normalize a vector
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Normalize(v)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>v</tt></b> -- a vector
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Return the normalized (unit) vector parallel to <b><tt>v</tt></b>: a vector having the same
+direction but with length 1.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; v:=Normalize({3,4})
+Out&gt; {3/5,4/5};
+In&gt; v . v
+Out&gt; 1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?InProduct" target="Chapters">
+InProduct
+</a>
+, <a href="ref.html?CrossProduct" target="Chapters">
+CrossProduct
+</a>
+.<a name="Transpose">
+
+</a>
+<a name="transpose">
+
+</a>
+<h3>
+<hr>Transpose -- get transpose of a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Transpose(M)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>M</tt></b> -- a matrix
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>Transpose</tt></b> returns the transpose of a matrix <b>M</b>. Because matrices are
+just lists of lists, this is a useful operation too for lists.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Transpose({{a,b}})
+Out&gt; {{a},{b}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="Determinant">
+
+</a>
+<a name="determinant">
+
+</a>
+<h3>
+<hr>Determinant -- determinant of a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Determinant(M)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>M</tt></b> -- a matrix
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Returns the determinant of a matrix M.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; A:=DiagonalMatrix(1 .. 4)
+Out&gt; {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+In&gt; Determinant(A)
+Out&gt; 24;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="Trace">
+
+</a>
+<a name="trace">
+
+</a>
+<h3>
+<hr>Trace -- trace of a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Trace(M)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>M</tt></b> -- a matrix
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>Trace</tt></b> returns the trace of a matrix <b> M</b> (defined as the sum of the
+elements on the diagonal of the matrix).
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; A:=DiagonalMatrix(1 .. 4)
+Out&gt; {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+In&gt; Trace(A)
+Out&gt; 10;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="Inverse">
+
+</a>
+<a name="inverse">
+
+</a>
+<h3>
+<hr>Inverse -- get inverse of a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Inverse(M)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>M</tt></b> -- a matrix
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Inverse returns the inverse of matrix <b> M</b>. The determinant of <b> M</b> should
+be non-zero. Because this function uses <b><tt>Determinant</tt></b> for calculating
+the inverse of a matrix, you can supply matrices with non-numeric (symbolic)
+matrix elements.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; A:=DiagonalMatrix({a,b,c})
+Out&gt; {{a,0,0},{0,b,0},{0,0,c}};
+In&gt; B:=Inverse(A)
+Out&gt; {{(b*c)/(a*b*c),0,0},{0,(a*c)/(a*b*c),0},
+{0,0,(a*b)/(a*b*c)}};
+In&gt; Simplify(B)
+Out&gt; {{1/a,0,0},{0,1/b,0},{0,0,1/c}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Determinant" target="Chapters">
+Determinant
+</a>
+.<a name="Minor">
+
+</a>
+<a name="minor">
+
+</a>
+<h3>
+<hr>Minor -- get principal minor of a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Minor(M,i,j)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>M</tt></b> -- a matrix
+
+
+<p>
+<b><tt>i</tt></b>, <b><tt>j</tt></b> - positive integers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Minor returns the minor of a matrix around
+the element (<b> i</b>, <b> j</b>). The minor is the determinant of the matrix obtained from <b> M</b> by
+deleting the <b> i</b>-th row and the <b> j</b>-th column.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; A := {{1,2,3}, {4,5,6}, {7,8,9}};
+Out&gt; {{1,2,3},{4,5,6},{7,8,9}};
+In&gt; PrettyForm(A);
+
+/                    \
+| ( 1 ) ( 2 ) ( 3 )  |
+|                    |
+| ( 4 ) ( 5 ) ( 6 )  |
+|                    |
+| ( 7 ) ( 8 ) ( 9 )  |
+\                    /
+Out&gt; True;
+In&gt; Minor(A,1,2);
+Out&gt; -6;
+In&gt; Determinant({{2,3}, {8,9}});
+Out&gt; -6;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?CoFactor" target="Chapters">
+CoFactor
+</a>
+, <a href="ref.html?Determinant" target="Chapters">
+Determinant
+</a>
+, <a href="ref.html?Inverse" target="Chapters">
+Inverse
+</a>
+.<a name="CoFactor">
+
+</a>
+<a name="cofactor">
+
+</a>
+<h3>
+<hr>CoFactor -- cofactor of a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+CoFactor(M,i,j)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>M</tt></b> -- a matrix
+
+
+<p>
+<b><tt>i</tt></b>, <b><tt>j</tt></b> - positive integers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>CoFactor</tt></b> returns the cofactor of a matrix around
+the element (<b> i</b>, <b> j</b>). The cofactor is the minor times
+<b>(-1)^(i+j)</b>.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; A := {{1,2,3}, {4,5,6}, {7,8,9}};
+Out&gt; {{1,2,3},{4,5,6},{7,8,9}};
+In&gt; PrettyForm(A);
+
+/                    \
+| ( 1 ) ( 2 ) ( 3 )  |
+|                    |
+| ( 4 ) ( 5 ) ( 6 )  |
+|                    |
+| ( 7 ) ( 8 ) ( 9 )  |
+\                    /
+Out&gt; True;
+In&gt; CoFactor(A,1,2);
+Out&gt; 6;
+In&gt; Minor(A,1,2);
+Out&gt; -6;
+In&gt; Minor(A,1,2) * (-1)^(1+2);
+Out&gt; 6;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Minor" target="Chapters">
+Minor
+</a>
+, <a href="ref.html?Determinant" target="Chapters">
+Determinant
+</a>
+, <a href="ref.html?Inverse" target="Chapters">
+Inverse
+</a>
+.<a name="MatrixPower">
+
+</a>
+<a name="matrixpower">
+
+</a>
+<h3>
+<hr>MatrixPower -- get nth power of a square matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MatrixPower(mat,n)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>mat</tt></b> -- a square matrix
+
+
+<p>
+<b><tt>n</tt></b> -- an integer
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>MatrixPower(mat,n)</tt></b> returns the <b><tt>n</tt></b>th power of a square matrix <b><tt>mat</tt></b>. For
+positive <b><tt>n</tt></b> it evaluates dot products of <b><tt>mat</tt></b> with itself. For negative
+<b><tt>n</tt></b> the nth power of the inverse of <b><tt>mat</tt></b> is returned. For <b><tt>n</tt></b>=0 the identity
+matrix is returned.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; A:={{1,2},{3,4}}
+Out&gt; {{1,2},{3,4}};
+In&gt; MatrixPower(A,0)
+Out&gt; {{1,0},{0,1}};
+In&gt; MatrixPower(A,1)
+Out&gt; {{1,2},{3,4}};
+In&gt; MatrixPower(A,3)
+Out&gt; {{37,54},{81,118}};
+In&gt; MatrixPower(A,-3)
+Out&gt; {{-59/4,27/4},{81/8,-37/8}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsSquareMatrix" target="Chapters">
+IsSquareMatrix
+</a>
+, <a href="ref.html?Inverse" target="Chapters">
+Inverse
+</a>
+, <a href="ref.html?Dot" target="Chapters">
+Dot
+</a>
+.<a name="SolveMatrix">
+
+</a>
+<a name="solvematrix">
+
+</a>
+<h3>
+<hr>SolveMatrix -- solve a linear system
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+SolveMatrix(M,v)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>M</tt></b> -- a matrix
+
+
+<p>
+<b><tt>v</tt></b> -- a vector
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>SolveMatrix</tt></b> returns the vector <b>x</b> that satisfies
+the equation <b> M*x=v</b>. The determinant of <b> M</b> should be non-zero.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; A := {{1,2}, {3,4}};
+Out&gt; {{1,2},{3,4}};
+In&gt; v := {5,6};
+Out&gt; {5,6};
+In&gt; x := SolveMatrix(A, v);
+Out&gt; {-4,9/2};
+In&gt; A * x;
+Out&gt; {5,6};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Inverse" target="Chapters">
+Inverse
+</a>
+, <a href="ref.html?Solve" target="Chapters">
+Solve
+</a>
+, <a href="ref.html?PSolve" target="Chapters">
+PSolve
+</a>
+, <a href="ref.html?Determinant" target="Chapters">
+Determinant
+</a>
+.<a name="CharacteristicEquation">
+
+</a>
+<a name="characteristicequation">
+
+</a>
+<h3>
+<hr>CharacteristicEquation -- get characteristic polynomial of a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+CharacteristicEquation(matrix,var)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>matrix</tt></b> -- a matrix
+
+
+<p>
+<b><tt>var</tt></b> -- a free variable
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+CharacteristicEquation
+returns the characteristic equation of "matrix", using
+"var". The zeros of this equation are the eigenvalues
+of the matrix, Det(matrix-I*var);
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; A:=DiagonalMatrix({a,b,c})
+Out&gt; {{a,0,0},{0,b,0},{0,0,c}};
+In&gt; B:=CharacteristicEquation(A,x)
+Out&gt; (a-x)*(b-x)*(c-x);
+In&gt; Expand(B,x)
+Out&gt; (b+a+c)*x^2-x^3-((b+a)*c+a*b)*x+a*b*c;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?EigenValues" target="Chapters">
+EigenValues
+</a>
+, <a href="ref.html?EigenVectors" target="Chapters">
+EigenVectors
+</a>
+.<a name="EigenValues">
+
+</a>
+<a name="eigenvalues">
+
+</a>
+<h3>
+<hr>EigenValues -- get eigenvalues of a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+EigenValues(matrix)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>matrix</tt></b> -- a square matrix
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+EigenValues returns the eigenvalues of a matrix.
+The eigenvalues x of a matrix M are the numbers such that
+<b> M*v=x*v</b> for some vector.
+
+
+<p>
+It first determines the characteristic equation, and then factorizes this
+equation, returning the roots of the characteristic equation
+Det(matrix-x*identity).
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; M:={{1,2},{2,1}}
+Out&gt; {{1,2},{2,1}};
+In&gt; EigenValues(M)
+Out&gt; {3,-1};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?EigenVectors" target="Chapters">
+EigenVectors
+</a>
+, <a href="ref.html?CharacteristicEquation" target="Chapters">
+CharacteristicEquation
+</a>
+.<a name="EigenVectors">
+
+</a>
+<a name="eigenvectors">
+
+</a>
+<h3>
+<hr>EigenVectors -- get eigenvectors of a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+EigenVectors(A,eigenvalues)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>matrix</tt></b> -- a square matrix
+
+
+<p>
+<b><tt>eigenvalues</tt></b> -- list of eigenvalues as returned by <b><tt>EigenValues</tt></b>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>EigenVectors</tt></b> returns a list of the eigenvectors of a matrix.
+It uses the eigenvalues and the matrix to set up n equations with
+n unknowns for each eigenvalue, and then calls <b><tt>Solve</tt></b> to determine
+the values of each vector.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; M:={{1,2},{2,1}}
+Out&gt; {{1,2},{2,1}};
+In&gt; e:=EigenValues(M)
+Out&gt; {3,-1};
+In&gt; EigenVectors(M,e)
+Out&gt; {{-ki2/ -1,ki2},{-ki2,ki2}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?EigenValues" target="Chapters">
+EigenValues
+</a>
+, <a href="ref.html?CharacteristicEquation" target="Chapters">
+CharacteristicEquation
+</a>
+.<a name="Sparsity">
+
+</a>
+<a name="sparsity">
+
+</a>
+<h3>
+<hr>Sparsity -- get the sparsity of a matrix
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Sparsity(matrix)
+</pre></tr>
+</table>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>matrix</tt></b> -- a matrix
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The function <b><tt>Sparsity</tt></b> returns a number between <b><tt>0</tt></b> and <b><tt>1</tt></b> which 
+represents the percentage of zero entries in the matrix. Although
+there is no definite critical value, a sparsity of <b><tt>0.75</tt></b>  or more
+is almost universally considered a "sparse" matrix. These type of
+matrices can be handled in a different manner than "full" matrices
+which speedup many calculations by orders of magnitude.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Sparsity(Identity(2))
+Out&gt; 0.5;
+In&gt; Sparsity(Identity(10))
+Out&gt; 0.9;
+In&gt; Sparsity(HankelMatrix(10))
+Out&gt; 0.45;
+In&gt; Sparsity(HankelMatrix(100))
+Out&gt; 0.495;
+In&gt; Sparsity(HilbertMatrix(10))
+Out&gt; 0;
+In&gt; Sparsity(ZeroMatrix(10,10))
+Out&gt; 1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="Cholesky">
+
+</a>
+<a name="cholesky">
+
+</a>
+<h3>
+<hr>Cholesky -- find the Cholesky Decomposition
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Cholesky(A)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>A</tt></b> -- a square positive definite matrix
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>Cholesky</tt></b> returns a upper triangular matrix <b><tt>R</tt></b> such that <b><tt>Transpose(R)*R = A</tt></b>.
+The matrix <b><tt>A</tt></b> must be positive definite, <b><tt>Cholesky</tt></b> will notify the user if the matrix
+is not. Some families of positive definite matrices are all symmetric matrices, diagonal
+matrices with positive elements and Hilbert matrices.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; A:={{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}}
+Out&gt; {{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}};
+In&gt; R:=Cholesky(A);
+Out&gt; {{2,-1,2,1},{0,3,0,-2},{0,0,2,1},{0,0,0,1}};
+In&gt; Transpose(R)*R = A
+Out&gt; True;
+In&gt; Cholesky(4*Identity(5))
+Out&gt; {{2,0,0,0,0},{0,2,0,0,0},{0,0,2,0,0},{0,0,0,2,0},{0,0,0,0,2}};
+In&gt; Cholesky(HilbertMatrix(3))
+Out&gt; {{1,1/2,1/3},{0,Sqrt(1/12),Sqrt(1/12)},{0,0,Sqrt(1/180)}};
+In&gt; Cholesky(ToeplitzMatrix({1,2,3}))
+In function "Check" :
+CommandLine(1) : "Cholesky: Matrix is not positive definite"
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?IsSymmetric" target="Chapters">
+IsSymmetric
+</a>
+, <a href="ref.html?IsDiagonal" target="Chapters">
+IsDiagonal
+</a>
+, <a href="ref.html?Diagonal" target="Chapters">
+Diagonal
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

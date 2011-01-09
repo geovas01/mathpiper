@@ -1,0 +1,324 @@
+<html>
+<head>
+  <title>Generic objects</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c6">
+
+</a>
+(directly go to documentation on : <a href="refprogchapter6.html#IsGeneric" target='Chapters' title="check for generic object">IsGeneric</a>, <a href="refprogchapter6.html#GenericTypeName" target='Chapters' title="get type name">GenericTypeName</a>, <a href="refprogchapter6.html#Array'Create" target='Chapters' title="create array">Array'Create</a>, <a href="refprogchapter6.html#Array'Size" target='Chapters' title="get array size">Array'Size</a>, <a href="refprogchapter6.html#Array'Get" target='Chapters' title="fetch array element">Array'Get</a>, <a href="refprogchapter6.html#Array'Set" target='Chapters' title="set array element">Array'Set</a>, <a href="refprogchapter6.html#Array'CreateFromList" target='Chapters' title="convert list to array">Array'CreateFromList</a>, <a href="refprogchapter6.html#Array'ToList" target='Chapters' title="convert array to list">Array'ToList</a>.
+)<h1>
+6. Generic objects
+</h1>
+Generic objects are objects that are implemented in C++, but
+can be accessed through the Yacas interpreter.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter6.html#IsGeneric" target='Chapters' title="check for generic object">IsGeneric</a></td>
+<td>check for generic object</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter6.html#GenericTypeName" target='Chapters' title="get type name">GenericTypeName</a></td>
+<td>get type name</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter6.html#Array'Create" target='Chapters' title="create array">Array'Create</a></td>
+<td>create array</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter6.html#Array'Size" target='Chapters' title="get array size">Array'Size</a></td>
+<td>get array size</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter6.html#Array'Get" target='Chapters' title="fetch array element">Array'Get</a></td>
+<td>fetch array element</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter6.html#Array'Set" target='Chapters' title="set array element">Array'Set</a></td>
+<td>set array element</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter6.html#Array'CreateFromList" target='Chapters' title="convert list to array">Array'CreateFromList</a></td>
+<td>convert list to array</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter6.html#Array'ToList" target='Chapters' title="convert array to list">Array'ToList</a></td>
+<td>convert array to list</td>
+</tr>
+</table></center>
+
+<p>
+
+<a name="IsGeneric">
+
+</a>
+<a name="isgeneric">
+
+</a>
+<h3>
+<hr>IsGeneric -- check for generic object
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsGeneric(object)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Returns <b><tt>True</tt></b> if an object is of a generic object type.
+
+
+<p>
+
+<a name="GenericTypeName">
+
+</a>
+<a name="generictypename">
+
+</a>
+<h3>
+<hr>GenericTypeName -- get type name
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+GenericTypeName(object)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Returns a string representation of
+the name of a generic object.
+
+
+<p>
+EG
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; GenericTypeName(Array'Create(10,1))
+Out&gt; "Array";
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="Array'Create">
+
+</a>
+<a name="array'create">
+
+</a>
+<h3>
+<hr>Array'Create -- create array
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Array'Create(size,init)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Creates an array with <b><tt>size</tt></b> elements, all initialized to the
+value <b><tt>init</tt></b>.
+
+
+<p>
+
+<a name="Array'Size">
+
+</a>
+<a name="array'size">
+
+</a>
+<h3>
+<hr>Array'Size -- get array size
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Array'Size(array)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Returns the size of an array (number of elements in the array).
+
+
+<p>
+
+<a name="Array'Get">
+
+</a>
+<a name="array'get">
+
+</a>
+<h3>
+<hr>Array'Get -- fetch array element
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Array'Get(array,index)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Returns the element at position index in the array passed. Arrays are treated
+as base-one, so <b><tt>index</tt></b> set to 1 would return the first element.
+
+
+<p>
+Arrays can also be accessed through the <b><tt>[]</tt></b> operators. So
+<b><tt>array[index]</tt></b> would return the same as <b><tt>Array'Get(array, index)</tt></b>.
+
+
+<p>
+
+<a name="Array'Set">
+
+</a>
+<a name="array'set">
+
+</a>
+<h3>
+<hr>Array'Set -- set array element
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Array'Set(array,index,element)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Sets the element at position index in the array passed to the value
+passed in as argument to element. Arrays are treated
+as base-one, so <b><tt>index</tt></b> set to 1 would set first element.
+
+
+<p>
+Arrays can also be accessed through the <b><tt>[]</tt></b> operators. So
+<b><tt>array[index] := element</tt></b> would do the same as <b><tt>Array'Set(array, index,element)</tt></b>.
+
+
+<p>
+
+<a name="Array'CreateFromList">
+
+</a>
+<a name="array'createfromlist">
+
+</a>
+<h3>
+<hr>Array'CreateFromList -- convert list to array
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Array'CreateFromList(list)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Creates an array from the contents of the list passed in.
+
+
+<p>
+
+<a name="Array'ToList">
+
+</a>
+<a name="array'tolist">
+
+</a>
+<h3>
+<hr>Array'ToList -- convert array to list
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Array'ToList(array)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Creates a list from the contents of the array passed in.
+
+
+<p>
+
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

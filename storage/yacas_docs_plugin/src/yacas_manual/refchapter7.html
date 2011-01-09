@@ -1,0 +1,456 @@
+<html>
+<head>
+  <title>Combinatorics</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c7">
+
+</a>
+(directly go to documentation on : <a href="refchapter7.html#!" target='Chapters' title="factorial">!</a>, <a href="refchapter7.html#!!" target='Chapters' title="factorial and related functions">!!</a>, <a href="refchapter7.html#***" target='Chapters' title="factorial and related functions">***</a>, <a href="refchapter7.html#Subfactorial" target='Chapters' title="factorial and related functions">Subfactorial</a>, <a href="refchapter7.html#Bin" target='Chapters' title="binomial coefficients">Bin</a>, <a href="refchapter7.html#Eulerian" target='Chapters' title="Eulerian numbers">Eulerian</a>, <a href="refchapter7.html#LeviCivita" target='Chapters' title="totally anti-symmetric Levi-Civita symbol">LeviCivita</a>, <a href="refchapter7.html#Permutations" target='Chapters' title="get all permutations of a list">Permutations</a>.
+)<h1>
+7. Combinatorics
+</h1>
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter7.html#!" target='Chapters' title="factorial">!</a></td>
+<td>factorial</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter7.html#!!" target='Chapters' title="factorial and related functions">!!</a></td>
+<td>factorial and related functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter7.html#***" target='Chapters' title="factorial and related functions">***</a></td>
+<td>factorial and related functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter7.html#Subfactorial" target='Chapters' title="factorial and related functions">Subfactorial</a></td>
+<td>factorial and related functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter7.html#Bin" target='Chapters' title="binomial coefficients">Bin</a></td>
+<td>binomial coefficients</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter7.html#Eulerian" target='Chapters' title="Eulerian numbers">Eulerian</a></td>
+<td>Eulerian numbers</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter7.html#LeviCivita" target='Chapters' title="totally anti-symmetric Levi-Civita symbol">LeviCivita</a></td>
+<td>totally anti-symmetric Levi-Civita symbol</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refchapter7.html#Permutations" target='Chapters' title="get all permutations of a list">Permutations</a></td>
+<td>get all permutations of a list</td>
+</tr>
+</table></center>
+<a name="!">
+
+</a>
+<a name="!">
+
+</a>
+<h3>
+<hr>! -- factorial
+</h3>
+<a name="!!">
+
+</a>
+<a name="!!">
+
+</a>
+<h3>
+<hr>!! -- factorial and related functions
+</h3>
+<a name="***">
+
+</a>
+<a name="***">
+
+</a>
+<h3>
+<hr>*** -- factorial and related functions
+</h3>
+<a name="Subfactorial">
+
+</a>
+<a name="subfactorial">
+
+</a>
+<h3>
+<hr>Subfactorial -- factorial and related functions
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+n!
+n!!
+a *** b
+Subfactorial(m)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>m</tt></b> -- integer
+<b><tt>n</tt></b> -- integer, half-integer, or list
+<b><tt>a</tt></b>, <b><tt>b</tt></b> -- numbers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The factorial function <b><tt>n!</tt></b> calculates the factorial of integer or half-integer numbers. For
+nonnegative integers, <b>n! :=n*(n-1)*(n-2)*...*1</b>. The factorial of
+half-integers is defined via Euler's Gamma function, <b> z! :=Gamma(z+1)</b>. If <b>n=0</b> the function returns <b> 1</b>.
+
+
+<p>
+The "double factorial" function <b><tt>n!!</tt></b> calculates <b> n*(n-2)*(n-4)*...</b>. This product terminates either with <b>1</b> or with <b> 2</b> depending on whether <b> n</b> is odd or even. If <b> n=0</b> the function returns <b> 1</b>.
+
+
+<p>
+The "partial factorial" function <b><tt>a *** b</tt></b> calculates the product <b> a*(a+1)*...</b> which is terminated at the least integer not greater than <b>b</b>. The arguments <b> a</b> and <b> b</b> do not have to be integers; for integer arguments, <b><tt>a *** b</tt></b> = <b> b! /(a-1)!</b>. This function is sometimes a lot faster than evaluating the two factorials, especially if <b>a</b> and <b> b</b> are close together. If <b> a&gt;b</b> the function returns <b> 1</b>.
+
+
+<p>
+The <b><tt>Subfactorial</tt></b> function can be interpreted as the  number of permutations of <b><tt>m</tt></b> objects in which no object 
+appears in its natural place, also called "derangements." 
+
+
+<p>
+The factorial functions are threaded, meaning that if the argument <b><tt>n</tt></b> is a
+list, the function will be applied to each element of the list.
+
+
+<p>
+Note: For reasons of Yacas syntax, the factorial sign <b><tt>!</tt></b> cannot precede other
+non-letter symbols such as <b><tt>+</tt></b> or <b><tt>*</tt></b>. Therefore, you should enter a space
+after <b><tt>!</tt></b> in expressions such as <b><tt>x! +1</tt></b>.
+
+
+<p>
+The factorial functions terminate and print an error message if the arguments are too large (currently the limit is <b> n&lt;65535</b>) because exact factorials of such large numbers are computationally expensive and most probably not useful. One can call <b><tt>Internal'LnGammaNum()</tt></b> to evaluate logarithms of such factorials to desired precision.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; 5!
+Out&gt; 120;
+In&gt; 1 * 2 * 3 * 4 * 5
+Out&gt; 120;
+In&gt; (1/2)!
+Out&gt; Sqrt(Pi)/2;
+In&gt; 7!!;
+Out&gt; 105;
+In&gt; 1/3 *** 10;
+Out&gt; 17041024000/59049;
+In&gt; Subfactorial(10)
+Out&gt; 1334961;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Bin" target="Chapters">
+Bin
+</a>
+, <a href="ref.html?Factorize" target="Chapters">
+Factorize
+</a>
+, <a href="ref.html?Gamma" target="Chapters">
+Gamma
+</a>
+, <a href="ref.html?!!" target="Chapters">
+!!
+</a>
+, <a href="ref.html?***" target="Chapters">
+***
+</a>
+, <a href="ref.html?Subfactorial" target="Chapters">
+Subfactorial
+</a>
+.<a name="Bin">
+
+</a>
+<a name="bin">
+
+</a>
+<h3>
+<hr>Bin -- binomial coefficients
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Bin(n, m)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b>, <b><tt>m</tt></b> -- integers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+This function calculates the binomial coefficient "n" above
+"m", which equals 
+<p><center><b> n! /(m! *(n-m)!) </b></center></p>
+
+
+
+<p>
+This is equal to the number of ways
+to choose "m" objects out of a total of "n" objects if order is
+not taken into account. The binomial coefficient is defined to be zero
+if "m" is negative or greater than "n"; <b><tt>Bin(0,0)</tt></b>=1.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Bin(10, 4)
+Out&gt; 210;
+In&gt; 10! / (4! * 6!)
+Out&gt; 210;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?!" target="Chapters">
+!
+</a>
+, <a href="ref.html?Eulerian" target="Chapters">
+Eulerian
+</a>
+.<a name="Eulerian">
+
+</a>
+<a name="eulerian">
+
+</a>
+<h3>
+<hr>Eulerian -- Eulerian numbers
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Eulerian(n,m)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>n</tt></b>, <b><tt>m</tt></b> --- integers
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+The Eulerian numbers can be viewed as a generalization of the binomial coefficients,
+and are given explicitly by 
+<p><center><b>Sum(j,0,k+1,(-1)^j*Bin(n+1,j)*(k-j+1)^n) </b></center></p>
+ .
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Eulerian(6,2)
+Out&gt; 302;
+In&gt; Eulerian(10,9)
+Out&gt; 1;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Bin" target="Chapters">
+Bin
+</a>
+.<a name="LeviCivita">
+
+</a>
+<a name="levicivita">
+
+</a>
+<h3>
+<hr>LeviCivita -- totally anti-symmetric Levi-Civita symbol
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+LeviCivita(list)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>list</tt></b> -- a list of integers 1 .. n in some order
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+<b><tt>LeviCivita</tt></b> implements the Levi-Civita symbol. This is generally
+useful for tensor calculus.  <b><tt>list</tt></b>  should be a list of integers,
+and this function returns 1 if the integers are in successive order,
+eg. <b><tt>LeviCivita( {1,2,3,...} )</tt></b>  would return 1. Swapping two elements of this
+list would return -1. So, <b><tt>LeviCivita( {2,1,3} )</tt></b> would evaluate
+to -1.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; LeviCivita({1,2,3})
+Out&gt; 1;
+In&gt; LeviCivita({2,1,3})
+Out&gt; -1;
+In&gt; LeviCivita({2,2,3})
+Out&gt; 0;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Permutations" target="Chapters">
+Permutations
+</a>
+.<a name="Permutations">
+
+</a>
+<a name="permutations">
+
+</a>
+<h3>
+<hr>Permutations -- get all permutations of a list
+</h3>
+<h5 align=right>Standard library</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Permutations(list)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>list</tt></b> -- a list of elements
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Permutations returns a list with all the permutations of
+the original list.
+
+
+<p>
+
+<h5>
+Examples:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Permutations({a,b,c})
+Out&gt; {{a,b,c},{a,c,b},{c,a,b},{b,a,c},
+{b,c,a},{c,b,a}};
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?LeviCivita" target="Chapters">
+LeviCivita
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,677 @@
+<html>
+<head>
+  <title>Built-in (core) functions</title>
+  <link rel="stylesheet" href="yacas.css" TYPE="text/css" MEDIA="screen">
+</head>
+<body>
+<a name="c5">
+
+</a>
+(directly go to documentation on : <a href="refprogchapter5.html#MathNot" target='Chapters' title="built-in logical "not"">MathNot</a>, <a href="refprogchapter5.html#MathAnd" target='Chapters' title="built-in logical "and"">MathAnd</a>, <a href="refprogchapter5.html#MathOr" target='Chapters' title="built-in logical "or"">MathOr</a>, <a href="refprogchapter5.html#BitAnd" target='Chapters' title="bitwise and operation">BitAnd</a>, <a href="refprogchapter5.html#BitOr" target='Chapters' title="bitwise or operation">BitOr</a>, <a href="refprogchapter5.html#BitXor" target='Chapters' title="bitwise xor operation">BitXor</a>, <a href="refprogchapter5.html#Equals" target='Chapters' title="check equality">Equals</a>, <a href="refprogchapter5.html#GreaterThan" target='Chapters' title="comparison predicate">GreaterThan</a>, <a href="refprogchapter5.html#LessThan" target='Chapters' title="comparison predicate">LessThan</a>, <a href="refprogchapter5.html#Math..." target='Chapters' title="arbitrary-precision math functions">Math...</a>, <a href="refprogchapter5.html#Fast..." target='Chapters' title="double-precision math functions">Fast...</a>, <a href="refprogchapter5.html#ShiftLeft" target='Chapters' title="built-in bitwise shift left operation">ShiftLeft</a>, <a href="refprogchapter5.html#ShiftRight" target='Chapters' title="built-in bitwise shift right operation">ShiftRight</a>, <a href="refprogchapter5.html#IsPromptShown" target='Chapters' title="test for the Yacas prompt option">IsPromptShown</a>, <a href="refprogchapter5.html#GetTime" target='Chapters' title="measure the time taken by an evaluation">GetTime</a>.
+)<h1>
+5. Built-in (core) functions
+</h1>
+
+Yacas comes with a small core of built-in functions and a large library of
+user-defined functions. Some of these core functions are documented in this
+chapter.
+
+<p> </p>
+<center><table>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#MathNot" target='Chapters' title="built-in logical "not"">MathNot</a></td>
+<td>built-in logical "not"</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#MathAnd" target='Chapters' title="built-in logical "and"">MathAnd</a></td>
+<td>built-in logical "and"</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#MathOr" target='Chapters' title="built-in logical "or"">MathOr</a></td>
+<td>built-in logical "or"</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#BitAnd" target='Chapters' title="bitwise and operation">BitAnd</a></td>
+<td>bitwise and operation</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#BitOr" target='Chapters' title="bitwise or operation">BitOr</a></td>
+<td>bitwise or operation</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#BitXor" target='Chapters' title="bitwise xor operation">BitXor</a></td>
+<td>bitwise xor operation</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#Equals" target='Chapters' title="check equality">Equals</a></td>
+<td>check equality</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#GreaterThan" target='Chapters' title="comparison predicate">GreaterThan</a></td>
+<td>comparison predicate</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#LessThan" target='Chapters' title="comparison predicate">LessThan</a></td>
+<td>comparison predicate</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#Math..." target='Chapters' title="arbitrary-precision math functions">Math...</a></td>
+<td>arbitrary-precision math functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#Fast..." target='Chapters' title="double-precision math functions">Fast...</a></td>
+<td>double-precision math functions</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#ShiftLeft" target='Chapters' title="built-in bitwise shift left operation">ShiftLeft</a></td>
+<td>built-in bitwise shift left operation</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#ShiftRight" target='Chapters' title="built-in bitwise shift right operation">ShiftRight</a></td>
+<td>built-in bitwise shift right operation</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#IsPromptShown" target='Chapters' title="test for the Yacas prompt option">IsPromptShown</a></td>
+<td>test for the Yacas prompt option</td>
+</tr>
+<tr BGCOLOR=#E0E0E0>
+<td><a href="refprogchapter5.html#GetTime" target='Chapters' title="measure the time taken by an evaluation">GetTime</a></td>
+<td>measure the time taken by an evaluation</td>
+</tr>
+</table></center>
+
+<p>
+It is important for a developer to know which functions are built-in and cannot
+be redefined or <b><tt>Retract</tt></b>-ed. Also, core functions may be somewhat faster to
+execute than functions defined in the script library. All core functions are
+listed in the file <b><tt>corefunctions.h</tt></b> in the <b><tt>src/</tt></b> subdirectory of the Yacas
+source tree. The declarations typically look like this:
+
+
+<p>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+SetCommand(LispSubtract, "MathSubtract");
+</pre></tr>
+</table>
+Here <b><tt>LispSubtract</tt></b> is the Yacas internal name for the function and <b><tt>MathSubtract</tt></b> is the name visible to the Yacas language.
+Built-in bodied functions and infix operators are declared in the same file.
+
+
+<p>
+
+<a name="MathNot">
+
+</a>
+<a name="mathnot">
+
+</a>
+<h3>
+<hr>MathNot -- built-in logical "not"
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathNot(expression)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Returns "False" if "expression" evaluates
+to "True", and vice versa.
+
+
+<p>
+
+<a name="MathAnd">
+
+</a>
+<a name="mathand">
+
+</a>
+<h3>
+<hr>MathAnd -- built-in logical "and"
+</h3>
+<h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathAnd(...)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Lazy logical <b><tt>And</tt></b>: returns <b><tt>True</tt></b> if all args evaluate to
+<b><tt>True</tt></b>, and does this by looking at first, and then at the
+second argument, until one is <b><tt>False</tt></b>.
+If one of the arguments is <b><tt>False</tt></b>, <b><tt>And</tt></b> immediately returns <b><tt>False</tt></b> without
+evaluating the rest. This is faster, but also means that none of the
+arguments should cause side effects when they are evaluated.
+
+
+<p>
+
+<a name="MathOr">
+
+</a>
+<a name="mathor">
+
+</a>
+<h3>
+<hr>MathOr -- built-in logical "or"
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathOr(...)
+</pre></tr>
+</table>
+
+
+<p>
+<b><tt>MathOr</tt></b> is the basic logical "or" function. Similarly to <b><tt>And</tt></b>, it is
+lazy-evaluated. <b><tt>And(...)</tt></b> and <b><tt>Or(...)</tt></b> do also exist, defined in the script
+library. You can redefine them as infix operators yourself, so you have the
+choice of precedence. In the standard scripts they are in fact declared as
+infix operators, so you can write <b><tt>expr1 And expr</tt></b>.
+
+
+<p>
+
+<a name="BitAnd">
+
+</a>
+<a name="bitand">
+
+</a>
+<h3>
+<hr>BitAnd -- bitwise and operation
+</h3>
+<a name="BitOr">
+
+</a>
+<a name="bitor">
+
+</a>
+<h3>
+<hr>BitOr -- bitwise or operation
+</h3>
+<a name="BitXor">
+
+</a>
+<a name="bitxor">
+
+</a>
+<h3>
+<hr>BitXor -- bitwise xor operation
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+BitAnd(n,m)
+BitOr(n,m)
+BitXor(n,m)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These functions return bitwise "and", "or" and "xor"
+of two numbers.
+
+
+<p>
+
+<a name="Equals">
+
+</a>
+<a name="equals">
+
+</a>
+<h3>
+<hr>Equals -- check equality
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+Equals(a,b)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Compares evaluated <b><tt>a</tt></b> and <b><tt>b</tt></b> recursively
+(stepping into expressions). So "Equals(a,b)" returns
+"True" if the expressions would be printed exactly
+the same, and "False" otherwise.
+
+
+<p>
+
+<a name="GreaterThan">
+
+</a>
+<a name="greaterthan">
+
+</a>
+<h3>
+<hr>GreaterThan -- comparison predicate
+</h3>
+<a name="LessThan">
+
+</a>
+<a name="lessthan">
+
+</a>
+<h3>
+<hr>LessThan -- comparison predicate
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+GreaterThan(a,b)
+LessThan(a,b)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>a</tt></b>, <b><tt>b</tt></b> -- numbers or strings
+
+<h5>
+Description:
+</h5>
+Comparing numbers or strings (lexicographically).
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; LessThan(1,1)
+Out&gt; False;
+In&gt; LessThan("a","b")
+Out&gt; True;
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="MathExp@\relax <b><tt>MathExp</tt></b>">
+
+</a>
+<a name="MathLog@\relax <b><tt>MathLog</tt></b>">
+
+</a>
+<a name="MathPower@\relax <b><tt>MathPower</tt></b>">
+
+</a>
+<a name="MathSin@\relax <b><tt>MathSin</tt></b>">
+
+</a>
+<a name="MathCos@\relax <b><tt>MathCos</tt></b>">
+
+</a>
+<a name="MathTan@\relax <b><tt>MathTan</tt></b>">
+
+</a>
+<a name="MathArcSin@\relax <b><tt>MathArcSin</tt></b>">
+
+</a>
+<a name="MathArcCos@\relax <b><tt>MathArcCos</tt></b>">
+
+</a>
+<a name="MathArcTan@\relax <b><tt>MathArcTan</tt></b>">
+
+</a>
+<a name="MathSinh@\relax <b><tt>MathSinh</tt></b>">
+
+</a>
+<a name="MathCosh@\relax <b><tt>MathCosh</tt></b>">
+
+</a>
+<a name="MathTanh@\relax <b><tt>MathTanh</tt></b>">
+
+</a>
+<a name="MathArcSinh@\relax <b><tt>MathArcSinh</tt></b>">
+
+</a>
+<a name="MathArcCosh@\relax <b><tt>MathArcCosh</tt></b>">
+
+</a>
+<a name="MathArcTanh@\relax <b><tt>MathArcTanh</tt></b>">
+
+</a>
+<a name="MathGcd@\relax <b><tt>MathGcd</tt></b>">
+
+</a>
+<a name="MathAdd@\relax <b><tt>MathAdd</tt></b>">
+
+</a>
+<a name="MathSubtract@\relax <b><tt>MathSubtract</tt></b>">
+
+</a>
+<a name="MathMultiply@\relax <b><tt>MathMultiply</tt></b>">
+
+</a>
+<a name="MathDivide@\relax <b><tt>MathDivide</tt></b>">
+
+</a>
+<a name="MathSqrt@\relax <b><tt>MathSqrt</tt></b>">
+
+</a>
+<a name="MathFloor@\relax <b><tt>MathFloor</tt></b>">
+
+</a>
+<a name="MathCeil@\relax <b><tt>MathCeil</tt></b>">
+
+</a>
+<a name="MathAbs@\relax <b><tt>MathAbs</tt></b>">
+
+</a>
+<a name="MathMod@\relax <b><tt>MathMod</tt></b>">
+
+</a>
+<a name="MathDiv@\relax <b><tt>MathDiv</tt></b>">
+
+</a>
+<a name="Math...">
+
+</a>
+<a name="math...">
+
+</a>
+<h3>
+<hr>Math... -- arbitrary-precision math functions
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+MathGcd(n,m)      (Greatest Common Divisor)
+MathAdd(x,y)      (add two numbers)
+MathSubtract(x,y) (subtract two numbers)
+MathMultiply(x,y) (multiply two numbers)
+MathDivide(x,y)   (divide two numbers)
+MathSqrt(x)    (square root, must be x&gt;=0)
+MathFloor(x)   (largest integer not larger than x)
+MathCeil(x)    (smallest integer not smaller than x)
+MathAbs(x)     (absolute value of x, or |x| )
+MathExp(x)     (exponential, base 2.718...)
+MathLog(x)     (natural logarithm, for x&gt;0)
+MathPower(x,y) (power, x ^ y)
+MathSin(x)     (sine)
+MathCos(x)     (cosine)
+MathTan(x)     (tangent)
+MathSinh(x)     (hyperbolic sine)
+MathCosh(x)     (hyperbolic cosine)
+MathTanh(x)     (hyperbolic tangent)
+MathArcSin(x)   (inverse sine)
+MathArcCos(x)   (inverse cosine)
+MathArcTan(x)   (inverse tangent)
+MathArcSinh(x)  (inverse hyperbolic sine)
+MathArcCosh(x)  (inverse hyperbolic cosine)
+MathArcTanh(x)  (inverse hyperbolic tangent)
+MathDiv(x,y)    (integer division, result is an integer)
+MathMod(x,y)    (remainder of division, or x mod y)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+These commands perform the calculation of elementary mathematical functions.
+The arguments <i>must</i> be numbers.
+The reason for the prefix <b><tt>Math</tt></b> is that
+the library needs to define equivalent
+non-numerical functions for symbolic computations, such as <b><tt>Exp</tt></b>, <b><tt>Sin</tt></b> and so on.
+
+
+<p>
+Note that all functions, such as the <b><tt>MathPower</tt></b>, <b><tt>MathSqrt</tt></b>, <b><tt>MathAdd</tt></b> etc., accept integers as well as floating-point numbers.
+The resulting values may be integers or floats.
+If the mathematical result is an exact integer, then the integer is returned.
+For example, <b><tt>MathSqrt(25)</tt></b> returns the integer <b><tt>5</tt></b>, and <b><tt>MathPower(2,3)</tt></b> returns the integer <b><tt>8</tt></b>.
+In such cases, the integer result is returned even if the calculation requires more digits than set by <b><tt>Builtin'Precision'Set</tt></b>.
+However, when the result is mathematically not an integer, the functions return a floating-point result which is correct only to the current precision.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; Builtin'Precision'Set(10)
+Out&gt; True
+In&gt; Sqrt(10)
+Out&gt; Sqrt(10)
+In&gt; MathSqrt(10)
+Out&gt; 3.16227766
+In&gt; MathSqrt(490000*2^150)
+Out&gt; 26445252304070013196697600
+In&gt; MathSqrt(490000*2^150+1)
+Out&gt; 0.264452523e26
+In&gt; MathPower(2,3)
+Out&gt; 8
+In&gt; MathPower(2,-3)
+Out&gt; 0.125
+</pre></tr>
+</table>
+
+
+<p>
+
+<a name="FastLog@\relax <b><tt>FastLog</tt></b>">
+
+</a>
+<a name="FastPower@\relax <b><tt>FastPower</tt></b>">
+
+</a>
+<a name="FastArcSin@\relax <b><tt>FastArcSin</tt></b>">
+
+</a>
+<a name="Fast...">
+
+</a>
+<a name="fast...">
+
+</a>
+<h3>
+<hr>Fast... -- double-precision math functions
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+
+<p>
+FastLog(x) (natural logarithm),
+FastPower(x,y),
+FastArcSin(x)
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Versions of these functions using the C++ library. These
+should then at least be faster than the arbitrary precision versions.
+
+
+<p>
+
+<a name="ShiftLeft">
+
+</a>
+<a name="shiftleft">
+
+</a>
+<h3>
+<hr>ShiftLeft -- built-in bitwise shift left operation
+</h3>
+<a name="ShiftRight">
+
+</a>
+<a name="shiftright">
+
+</a>
+<h3>
+<hr>ShiftRight -- built-in bitwise shift right operation
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+ShiftLeft(expr,bits)
+ShiftRight(expr,bits)
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+Description:
+</h5>
+Shift bits to the left or to the right.
+
+
+<p>
+
+<a name="IsPromptShown">
+
+</a>
+<a name="ispromptshown">
+
+</a>
+<h3>
+<hr>IsPromptShown -- test for the Yacas prompt option
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+IsPromptShown()
+</pre></tr>
+</table>
+
+<h5>
+Description:
+</h5>
+Returns <b><tt>False</tt></b> if Yacas has been started with the option to suppress the prompt, and <b><tt>True</tt></b> otherwise.
+
+
+<p>
+
+<a name="GetTime">
+
+</a>
+<a name="gettime">
+
+</a>
+<h3>
+<hr>GetTime -- measure the time taken by an evaluation
+</h3>
+<h5 align=right>Internal function</h5><h5>
+Calling format:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+GetTime(expr)
+</pre></tr>
+</table>
+
+<h5>
+Parameters:
+</h5>
+<b><tt>expr</tt></b> -- any expression
+
+<h5>
+Description:
+</h5>
+The function <b><tt>GetTime(expr)</tt></b> evaluates the expression <b><tt>expr</tt></b> and returns the time needed for the evaluation.
+The result is returned as a floating-point number of seconds.
+The value of the expression <b><tt>expr</tt></b> is lost.
+
+
+<p>
+The result is the "user time" as reported by the OS, not the real ("wall clock") time.
+Therefore, any CPU-intensive processes running alongside Yacas will not significantly affect the result of <b><tt>GetTime</tt></b>.
+
+
+<p>
+
+<h5>
+Example:
+</h5>
+<table cellpadding="0" width="100%">
+<tr><td width=100% bgcolor="#DDDDEE"><pre>
+In&gt; GetTime(Simplify((a*b)/(b*a)))
+Out&gt; 0.09;
+</pre></tr>
+</table>
+
+
+<p>
+
+<h5>
+See also:
+</h5>
+<a href="ref.html?Time" target="Chapters">
+Time
+</a>
+.
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2425144-1";
+urchinTracker();
+</script>
+</body>
+
+</html>
