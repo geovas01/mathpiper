@@ -39,7 +39,8 @@ Retract("IsPureRational",*);
          realPoly  := poly;   //  just in case -- save original form
          allPowers := Flatten(disassem[2],"List");
          poly      := RealToRationalConvert(poly);
-      ]
+         // From now on we operate on a polynomial over Integers
+         hasRealCoefficients := False;          ]
     );
     
     //  Also, check to see if the polynomial has Rational coeffs
@@ -51,9 +52,11 @@ Retract("IsPureRational",*);
          If(InVerboseMode(),Tell("   RATIONAL",rationalPoly));
          // convert to equivalent polynomial over Integers
          poly := RationalToIntegerConvert(poly);
+         // From now on we operate on a polynomial over Integers
+         hasRationalCoefficients := False;    
       ]
     );
-    
+
     // Now: get Content and Primitive Part
     content := xContent( poly );
     pp      := Simplify( poly / content );
