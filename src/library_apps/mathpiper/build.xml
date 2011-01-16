@@ -32,6 +32,10 @@
 	</target>
 	
 	<target name="init" depends="clean">
+	    <condition property="IsUnix" value="true">
+		    <os family="unix" />
+	    </condition>
+
 		<tstamp>
 			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
 		</tstamp>
@@ -126,6 +130,8 @@
 		
 		<copy file="${mathpiper.dir}/tests/win_test.bat" todir="${build.classes.dir}"/>
 		<copy file="${mathpiper.dir}/tests/unix_test.sh" todir="${build.classes.dir}"/>
+
+		<antcall target="chmod-unix-test-script"/>
 		
 		<!--<copy file="${mathpiper.dir}/mathpiper.properties" todir="${build.classes.dir}">
 			<filterset>
@@ -150,8 +156,13 @@
 		</jar> 
 	</target>
 	
-	
-	
+	<target  id="chmod-unix-test-script" name="chmod-unix-test-script" if="IsUnix">
+	    <echo message="Making unix test script executable."/>
+	    <exec executable="chmod">
+		    <arg value="+x" />
+		    <arg value="${build.classes.dir}/unix_test.sh" />
+	    </exec>
+	</target>
 	
 	<target id="geogebra_dist" name="geogebra_dist" depends="buildscripts4" >
 	
