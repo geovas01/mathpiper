@@ -3,8 +3,8 @@ Turning stack tracing on: Result: True
 Side Effects:
 Stack tracing is on.
 
-***** Wed Dec 29 00:36:48 EST 2010 *****
-***** MathPiper version: .81b *****
+***** Mon Jan 10 09:55:07 PST 2011 *****
+***** MathPiper version: .81c *****
 
 ===========================
 arithmetic.mpt: 
@@ -252,7 +252,7 @@ tests/scripts4/numerics.mpt: 193
 
 newrepL[1]-newrepR[1]
  evaluates to 
--53768446116670000000
+-53768446116670492691
  which differs from 
 0
 ******************
@@ -261,134 +261,35 @@ tests/scripts4/numerics.mpt: 195
 
 newrepL[1]-newrepR[1]
  evaluates to 
--6282627216100000000
+-6282627216144394152
  which differs from 
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 205 
+tests/scripts4/numerics.mpt: 282 
 
 newrepL[1]-newrepR[1]
  evaluates to 
--467315088652157285
+-3357578071772547517286808
  which differs from 
 0
 ******************
 ******************
-tests/scripts4/numerics.mpt: 263 
-
-NearRational(N(Pi))
- evaluates to 
-201/64
- which differs from 
-355/113
-******************
-******************
-tests/scripts4/numerics.mpt: 285 
+tests/scripts4/numerics.mpt: 287 
 
 newrepL[1]-newrepR[1]
  evaluates to 
--15709752024
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 290 
-
-newrepL[1]-newrepR[1]
- evaluates to 
--1
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 291 
-
-newrepL[1]-newrepR[1]
- evaluates to 
--1
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 292 
-
-newrepL[1]-newrepR[1]
- evaluates to 
--1
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 293 
-
-newrepL[1]-newrepR[1]
- evaluates to 
-1647202136
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 294 
-
-newrepL[1]-newrepR[1]
- evaluates to 
-7
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 295 
-
-newrepL[1]-newrepR[1]
- evaluates to 
-3
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 296 
-
-newrepL[1]-newrepR[1]
- evaluates to 
-4164
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 298 
-
-newrepL[1]-newrepR[1]
- evaluates to 
--1
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 301 
-
-newrepL[1]-newrepR[1]
- evaluates to 
--1
+406993831
  which differs from 
 0
 ******************
 --Gamma constant
 ******************
-tests/scripts4/numerics.mpt: 316 
+tests/scripts4/numerics.mpt: 318 
 
 newrepL[1]-newrepR[1]
  evaluates to 
 2
- which differs from 
-0
-******************
-******************
-tests/scripts4/numerics.mpt: 321 
-
-newrepL[1]-newrepR[1]
- evaluates to 
-1
  which differs from 
 0
 ******************
@@ -647,4 +548,4 @@ Exception Count: 0
 GlobalVariables: Result: True
 
 Side Effects:
-{$a73,$a994,$assumptions78,$b73,$b994,$bernoulli1Threshold56,$CacheOfConstantsN1,$CFormAllFunctions63,$cformMathFunctions61,$cformRegularOps60,$cindent62,$ClearScreenString34,$complexReduce48,$Debug'FileLines34,$Debug'FileLoaded34,$Debug'NrLines34,$ErrorTableau59,$formulaMaxWidth64,$GlobalStack20,$intpred72,$knownOrthoPoly71,$knownRNGDists44,$knownRNGEngines44,$lastcoef42,$LocResult74,$mathExpThreshold46,$mNum27,$n'max58,$nNum27,$NthRoot'Table162,$numericMode2,$omindent66,$omsymbol68,$omsymbolreverse68,$omtoken67,$options989,$p02187,$p12187,$p22187,$p32187,$p36,$p42187,$p993,$pc242187,$pc352187,$pc462187,$pc572187,$pc682187,$pj2187,$pj402187,$pj502187,$pj512187,$pj522187,$pj532187,$pj542187,$pju02187,$pp2187,$RandSeed45,$res30,$res79,$rFormMathFunctions39,$rFormRegularOps38,$RIndent40,$simple994,$st1011,$TeXFormGreekLetters69,$TeXFormMathFunctions270,$TeXFormMathFunctions70,$TeXFormRegularOps69,$TeXFormRegularPrefixOps69,$TeXFormSpecialNames69,$Verbose35,%,I,iDebug,LoadResult} 
+{$a73,$a994,$assumptions78,$b73,$b994,$bernoulli1Threshold56,$CacheOfConstantsN1,$CFormAllFunctions63,$cformMathFunctions61,$cformRegularOps60,$cindent62,$ClearScreenString40,$complexReduce54,$Debug'FileLines40,$Debug'FileLoaded40,$Debug'NrLines40,$ErrorTableau59,$formulaMaxWidth68,$GlobalStack19,$intpred72,$knownOrthoPoly71,$knownRNGDists50,$knownRNGEngines50,$lastcoef48,$LocResult74,$mathExpThreshold52,$mNum33,$n'max58,$nNum33,$NthRoot'Table162,$numericMode2,$omindent65,$omsymbol67,$omsymbolreverse67,$omtoken66,$options989,$p02187,$p12187,$p22187,$p32187,$p42,$p42187,$p993,$pc242187,$pc352187,$pc462187,$pc572187,$pc682187,$pj2187,$pj402187,$pj502187,$pj512187,$pj522187,$pj532187,$pj542187,$pju02187,$pp2187,$RandSeed51,$res36,$res79,$rFormMathFunctions45,$rFormRegularOps44,$RIndent46,$simple994,$st1011,$TeXFormGreekLetters69,$TeXFormMathFunctions270,$TeXFormMathFunctions70,$TeXFormRegularOps69,$TeXFormRegularPrefixOps69,$TeXFormSpecialNames69,$Verbose41,%,I,LoadResult} 
