@@ -156,7 +156,7 @@ used for testing the logic theorem prover in MathPiper.
 	******************
 	CommandLine: 1
 
-	$TrueFalse4({A,B,C},Not(Not A And Not B))
+	TrueFalse4({A,B,C},Not(Not A And Not B))
 	 evaluates to
 	{{{False,False},{True,True}},{{True,True},{True,True}}}
 	 which differs from
