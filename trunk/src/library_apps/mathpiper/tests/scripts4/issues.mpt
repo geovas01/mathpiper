@@ -106,6 +106,8 @@ Verify(TrigSimpCombine(ExpandBrackets((2*x^2-x+3)-(2*x^2-x+3))),0);
 //Issue 68
 //Factor(Rationalize(x^2-0.7*x-2.6));
 
+//Issue 80
+Verify(Solve((-((10 * c) + (3)))/(2 * ((4 * (c)^(2)) - (9))) == (-1)/(2 * ((2 * c) - (3))), c), {c==0});
 
 //Issue 82
 //Verify(Solve((x^3-6*x^2+32)/8==x^2-4, x),{x==(-2),x==8-2^(5/2),x==8+2^(5/2)});
