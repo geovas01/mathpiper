@@ -50,8 +50,8 @@
 50  # Undefined * _y <-- Undefined;
 
 
-100  # 0 * Infinity <-- Undefined;
-100  # Infinity * 0 <-- Undefined;
+100  # 0 * y_IsInfinity <-- Undefined;
+100  # x_IsInfinity * 0 <-- Undefined;
 
 101 # 0    * (_x) <-- 0;
 101 # (_x) *    0 <-- 0;
