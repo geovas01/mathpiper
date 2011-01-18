@@ -110,3 +110,8 @@ Verify(TrigSimpCombine(ExpandBrackets((2*x^2-x+3)-(2*x^2-x+3))),0);
 //Issue 84
 TestEquivalent(Factor((9 * (a)^(2)) - (3 * a * b)),3*a*(3*a-b));
 
+// Issue 99
+Verify(0*Infinity, Undefined);
+Verify(0*(-Infinity), Undefined);
+Verify(Infinity*0, Undefined);
+Verify((-Infinity)*0, Undefined);
