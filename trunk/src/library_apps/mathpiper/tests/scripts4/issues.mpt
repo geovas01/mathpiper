@@ -43,6 +43,9 @@ TestMathPiper(Factor(x^8+2*x^6+3*x^4+2*x^2+1),(x^2+x+1)*(x^2+x+1)*(x^2-x+1)*(x^2
 //Issue 24
 TestMathPiper(Factor(x^5+4*x^4-22*x^2+59*x-30),x^5+4*x^4-22*x^2+59*x-30);
 
+//Issue 37
+Verify(Solve((x) * (Ln(x)) == 0, x), {x==1});
+
 //Issue 40
 Verify(Factor(x^2-2),x^2-2);
 
