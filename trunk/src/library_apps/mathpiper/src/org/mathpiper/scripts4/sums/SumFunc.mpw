@@ -1,5 +1,7 @@
 %mathpiper,def="SumFunc"
 
+LocalSymbols(c,d,expr,from,to,summand,sum,predicate,n,r,var,x) [
+
 // Attempt to Sum series
 
 Function() SumFunc(k,from,to,summand, sum, predicate );
@@ -84,5 +86,7 @@ SumFunc(_k,1,Infinity,1/(_k*BinomialCoefficient(2*_k,_k)), (Pi*Sqrt(3))/9 );
 SumFunc(_k,1,Infinity,1/(_k^2*BinomialCoefficient(2*_k,_k)), Zeta(2)/3 );
 SumFunc(_k,1,Infinity,1/(_k^3*BinomialCoefficient(2*_k,_k)), 17*Zeta(4)/36 );
 SumFunc(_k,1,Infinity,(-1)^(_k-1)/_k, Ln(2) );
+
+];
 
 %/mathpiper
