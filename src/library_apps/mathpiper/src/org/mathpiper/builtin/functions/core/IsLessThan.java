@@ -52,11 +52,11 @@ public class IsLessThan extends BuiltinFunction
 Compare decimal numbers or strings (lexicographically).
 
 *E.G.
-	In> IsLessThan(1,1)
-	Result: False;
-	In> IsLessThan("a","b")
-	Result: True;
+In> IsLessThan(1,1)
+Result: False;
+In> IsLessThan("a","b")
+Result: True;
 
-*SEE GreaterThan, IsEqual
+*SEE IsGreaterThan, IsEqual
 %/mathpiper_docs
 */

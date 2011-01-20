@@ -51,10 +51,10 @@ public class IsGreaterThan extends BuiltinFunction
 Compare decimal numbers or strings (lexicographically).
 
 *E.G.
-	In> IsGreaterThan(1,1)
-	Result: False;
-	In> IsGreaterThan("b","a")
-	Result: True;
+In> IsGreaterThan(1,1)
+Result: False;
+In> IsGreaterThan("b","a")
+Result: True;
 
 *SEE IsLessThan, IsEqual
 %/mathpiper_docs
