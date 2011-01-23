@@ -98,11 +98,11 @@ LocalSymbols(x)
 [
   Local(roots);
   roots := PSolve(expr, var);
-  If(Type(roots) = "PSolve",
-     Failed,                              /* Case 3 */
+  If(Type(roots) = "YacasPSolve",
+     If(roots = YacasPSolve(0), {var == var}, Failed),   /* Case 3 */
      If(Type(roots) = "List",
-        MapSingle({{x},var==x}, roots),   /* Case 2 */
-        {var == roots}));                 /* Case 1 */
+        MapSingle({{x},var==x}, roots),                  /* Case 2 */
+        {var == roots}));                                /* Case 1 */
 ];
 
 /********** Solve'Reduce **********/
