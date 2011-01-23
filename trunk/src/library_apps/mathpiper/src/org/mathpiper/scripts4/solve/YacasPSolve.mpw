@@ -2,6 +2,9 @@
 
 Rulebase("YacasPSolve",{uni});
 
+Rule("YacasPSolve",1,1,IsUniVar(uni) And Degree(uni) = 0)
+    {};
+
 Rule("YacasPSolve",1,1,IsUniVar(uni) And Degree(uni) = 1)
     -Coef(uni,0)/Coef(uni,1);
 
