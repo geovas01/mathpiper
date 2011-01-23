@@ -74,10 +74,10 @@ TestEquivalent(Factor(s^2 - r^2),(s-r)*(r+s));
 TestEquivalent(Factor(5 * a - 10 * b^2),5*(a-2*b^2));
 
 //Issue 57a
-//Verify(Solve(3*(3*x-4)+2*(3*x-7)==3*(5*x-6)-8, x),{x==x});
+Verify(Solve(3*(3*x-4)+2*(3*x-7)==3*(5*x-6)-8, x),{x==x});
 
 //Issue 57b
-//Verify(Solve((2*x - 1)*(4*x + 3) == (8*x - 3)*(x + 4) - 3*(9*x + 1), x),{});
+Verify(Solve((2*x - 1)*(4*x + 3) == (8*x - 3)*(x + 4) - 3*(9*x + 1), x),{});
 
 //Issue 58
 Verify(Simplify(Ln(3)),Ln(3));
