@@ -1,6 +1,6 @@
 %mathpiper,def="Apart"
 
-Retract("Apart",*);
+//Retract("Apart",*);
 
 Apart(_f) <-- Apart(f,x);
 

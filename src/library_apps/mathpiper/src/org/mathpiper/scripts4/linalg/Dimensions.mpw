@@ -1,6 +1,6 @@
 %mathpiper,def="Dimensions"
 
-Retract("Dimensions",*);
+//Retract("Dimensions",*);
 
 /* Code that returns the list of the dimensions of a tensor or matrix
    Code submitted by Dirk Reusch.

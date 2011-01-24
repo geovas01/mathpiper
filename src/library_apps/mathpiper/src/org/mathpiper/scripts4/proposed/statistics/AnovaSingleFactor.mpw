@@ -1,6 +1,6 @@
 %mathpiper,def="AnovaSingleFactor"
 
-Retract("AnovaSingleFactor",*);
+//Retract("AnovaSingleFactor",*);
 
 AnovaSingleFactor(levelsList, alpha) :=
 [

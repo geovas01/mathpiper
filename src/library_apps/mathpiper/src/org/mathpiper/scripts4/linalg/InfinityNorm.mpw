@@ -1,6 +1,6 @@
 %mathpiper,def="xnfinityNorm"
 
-Retract("InfinityNorm",*);
+//Retract("InfinityNorm",*);
 
 
 10 # InfinityNorm( M_IsMatrix ) <--

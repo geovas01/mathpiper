@@ -1,7 +1,7 @@
 %mathpiper,def="VerifySolve"
 
-Retract("VerifySolve",*);
-Retract("VerifySolve'Equal",*);
+//Retract("VerifySolve",*);
+//Retract("VerifySolve'Equal",*);
 
 VerifySolve(_e1, _e2) <--
 If (VerifySolve'Equal(Eval(e1), Eval(e2)), 

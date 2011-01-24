@@ -1,6 +1,6 @@
 %mathpiper,def="GeoGebra"
 
-Retract("GeoGebra",*);
+//Retract("GeoGebra",*);
 
 LocalSymbols(options)
 [

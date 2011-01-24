@@ -1,7 +1,7 @@
 %mathpiper,title="xSolveReduce"
 
-Retract("xSolve'Reduce",*);
-Retract("xSolve'Context",*);
+//Retract("xSolve'Reduce",*);
+//Retract("xSolve'Context",*);
 
 /***************************** xSolve'Reduce *****************************/
 

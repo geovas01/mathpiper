@@ -5,7 +5,7 @@
  *      mod 100727 by hso:  conform to majority definition of "Content"
  *------------------------------------------------------------------------*/
 
-Retract("xContent",*);
+//Retract("xContent",*);
 
 
 //10 # xContent( poly_IsPolynomial ) <--

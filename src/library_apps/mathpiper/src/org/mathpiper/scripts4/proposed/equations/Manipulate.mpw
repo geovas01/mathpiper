@@ -1,6 +1,6 @@
 %mathpiper,def="Manipulate"
 
-Retract("Manipulate",*);
+//Retract("Manipulate",*);
 
 Rulebase("Manipulate",{symbolicEquation});
 HoldArgument("Manipulate",symbolicEquation);

@@ -1,8 +1,8 @@
 %mathpiper,def="Monomials"
 
-Retract("CanBeMonomial",*);
-Retract("IsMonomial",*);
-Retract("FactorsMonomial",*);
+//Retract("CanBeMonomial",*);
+//Retract("IsMonomial",*);
+//Retract("FactorsMonomial",*);
 
 10 # CanBeMonomial(_expr)<--Not (HasFunc(expr,ToAtom("+")) Or HasFunc(expr,ToAtom("-")));
 

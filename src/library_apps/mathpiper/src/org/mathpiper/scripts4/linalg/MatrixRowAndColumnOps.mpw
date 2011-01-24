@@ -1,11 +1,11 @@
 %mathpiper,def="MatrixRowAndColumnOps"
 
-Retract("MatrixRowReplace",*);
-Retract("MatrixRowSwap",*);
-Retract("MatrixRowStack",*);
-Retract("MatrixColumnReplace",*);
-Retract("MatrixColumnSwap",*);
-Retract("MatrixColumnAugment",*);
+//Retract("MatrixRowReplace",*);
+//Retract("MatrixRowSwap",*);
+//Retract("MatrixRowStack",*);
+//Retract("MatrixColumnReplace",*);
+//Retract("MatrixColumnSwap",*);
+//Retract("MatrixColumnAugment",*);
 
 MatrixRowReplace( M_IsMatrix, iRow_IsPositiveInteger, v_IsVector )_(Length(v)=Length(M[1])) <--
 [

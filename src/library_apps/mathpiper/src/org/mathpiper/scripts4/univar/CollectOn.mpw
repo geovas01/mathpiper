@@ -3,7 +3,7 @@
 //:::  Collect terms of a polynomial-like expression on powers of var,
 //     starting with power 0.
 
-Retract("CollectOn",*);
+//Retract("CollectOn",*);
 
 10 # CollectOn(_var,_expr)_(CanBeUni(var,expr)) <--
 [

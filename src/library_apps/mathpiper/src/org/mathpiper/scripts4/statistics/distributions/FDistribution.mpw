@@ -3,7 +3,7 @@
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-Retract("FDistribution",*);
+//Retract("FDistribution",*);
 FDistribution(_n1, _n2) <-- Undefined;
 
 %/mathpiper

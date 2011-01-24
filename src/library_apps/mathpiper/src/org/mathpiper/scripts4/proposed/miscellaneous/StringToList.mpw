@@ -1,6 +1,6 @@
 %mathpiper,def="StringToList"
 
-Retract("StringToList", *);
+//Retract("StringToList", *);
 
 10 # StringToList(string_IsString)_(Length(string) = 0) <-- {};
 

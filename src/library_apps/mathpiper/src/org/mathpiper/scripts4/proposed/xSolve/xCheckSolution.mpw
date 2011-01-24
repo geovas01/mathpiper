@@ -1,7 +1,7 @@
 %mathpiper,title="xCheckSolution"
 
-Retract("xCheckSolution",*);
-Retract("CloseEnough",*);
+//Retract("xCheckSolution",*);
+//Retract("CloseEnough",*);
 
 10 # CloseEnough(_expr1,_expr2,_prec) <--
   [

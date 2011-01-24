@@ -1,6 +1,6 @@
 %mathpiper,title="FactorsBinomials"
 
-Retract("FactorsBinomials",*);
+//Retract("FactorsBinomials",*);
 
 10 # FactorsBinomials( _x + y_IsFreeOf(x) ) <-- {x+y,1};
 

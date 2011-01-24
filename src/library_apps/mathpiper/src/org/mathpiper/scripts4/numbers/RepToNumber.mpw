@@ -1,6 +1,6 @@
 %mathpiper,def="RepToNumber"
 
-Retract("RepToNumber",*);
+//Retract("RepToNumber",*);
 
 
 10 # RepToNumber( rep_IsListOfLists ) <--

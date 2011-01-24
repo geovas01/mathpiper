@@ -1,6 +1,6 @@
 %mathpiper,def="Combine"
 
-Retract("Combine",*);
+//Retract("Combine",*);
 
 10 # Combine(expr_IsZero) <-- 0;
 

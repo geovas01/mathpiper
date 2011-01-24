@@ -1,6 +1,6 @@
 %mathpiper,title="ExtractSubMatrix"
 
-Retract("ExtractSubMatrix",*);
+//Retract("ExtractSubMatrix",*);
 
 10 # ExtractSubMatrix( mat_IsMatrix, _row1, _col1, _row2, _col2 )_
        (And(IsPositiveInteger(row1),IsPositiveInteger(col1),

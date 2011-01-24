@@ -1,6 +1,6 @@
 %mathpiper,def="xFactor"
 
-Retract("xFactor",*);
+//Retract("xFactor",*);
 
 10 # xFactor( p_CanBeUni ) <-- FW(xFactors(p));
 

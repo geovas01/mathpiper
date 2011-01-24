@@ -1,6 +1,6 @@
 %mathpiper,def="IsSubset"
 
-Retract("IsSubset",*);
+//Retract("IsSubset",*);
 
 IsSubset(bigList, littleList) :=
 [

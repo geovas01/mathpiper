@@ -1,6 +1,6 @@
 %mathpiper,def="ReducedRowEchelonForm"
 
-Retract("ReducedRowEchelonForm",*);
+//Retract("ReducedRowEchelonForm",*);
 
 10 # ReducedRowEchelonForm( am_IsMatrix ) <--
 [

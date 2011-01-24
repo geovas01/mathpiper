@@ -1,6 +1,6 @@
 %mathpiper,def="Intersection"
 
-Retract("Intersection",*);
+//Retract("Intersection",*);
 
 10 # Intersection( LoL_IsList )_(AllSatisfy("IsList",LoL)) <--
 [

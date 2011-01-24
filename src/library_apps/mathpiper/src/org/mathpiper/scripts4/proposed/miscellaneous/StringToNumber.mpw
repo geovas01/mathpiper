@@ -1,5 +1,5 @@
 %mathpiper,def="StringToNumber"
-Retract("StringToNumber",*);
+//Retract("StringToNumber",*);
 
 StringToNumber( str_IsString ) <-- FromBase(10,str);
 

@@ -2,10 +2,10 @@
 
 /* RForm: convert MathPiper objects to R code. */
 
-Retract("RForm",*);
-Retract("RIndent",*);
-Retract("RUndent",*);
-Retract("RNlIndented",*); 
+//Retract("RForm",*);
+//Retract("RIndent",*);
+//Retract("RUndent",*);
+//Retract("RNlIndented",*); 
 
 Rulebase("RForm",{expression});
 Rulebase("RForm",{expression, precedence});

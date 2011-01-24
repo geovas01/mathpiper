@@ -23,7 +23,7 @@
   TODO: Should domain contain numbers only?
 */
 
-Retract("PMF", *);
+//Retract("PMF", *);
 
 10 # PMF(BernoulliDistribution(_p),0) <-- p;
 10 # PMF(BernoulliDistribution(_p),1) <-- 1-p;

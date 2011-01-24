@@ -2,8 +2,8 @@
 
 //From 0Solve5/ListTerms5.mpw, 7 Nov 2010
 
-Retract("ListTerms",*);
-Retract("terms",*);
+//Retract("ListTerms",*);
+//Retract("terms",*);
 
 10 # ListTerms(_expr) <--
 [

@@ -17,7 +17,7 @@
 
 /* This function is commented out because IncompleteGamma(2.5,3.6) causes infinite looping.
 
-Retract("IncompleteGamma",*);
+//Retract("IncompleteGamma",*);
 
 100 # IncompleteGamma(_a, _x)_(x<=a+1) <--
 [

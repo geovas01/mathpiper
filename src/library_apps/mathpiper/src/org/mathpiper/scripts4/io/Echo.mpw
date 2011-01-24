@@ -1,6 +1,6 @@
 %mathpiper,def="Echo"
 
-Retract("EchoInternal",*);
+//Retract("EchoInternal",*);
 
 10 # EchoInternal(string_IsString) <--
 [
@@ -17,7 +17,7 @@ Retract("EchoInternal",*);
 
 
 
-Retract("Echo",*);
+//Retract("Echo",*);
 
 RulebaseListed("Echo",{firstParameter, parametersList});
 

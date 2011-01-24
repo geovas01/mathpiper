@@ -1,6 +1,6 @@
 %mathpiper,title=""
 
-Retract("JavaAccess",*);
+//Retract("JavaAccess",*);
 
 RulebaseListed("JavaAccess",{object, method, parameters});
 

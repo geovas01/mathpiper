@@ -1,6 +1,6 @@
 %mathpiper,def="Shuffle"
 
-Retract("Shuffle",*);
+//Retract("Shuffle",*);
 
 /*
  This function is based on the Fisher-Yates/Knuth shuffle algorithm

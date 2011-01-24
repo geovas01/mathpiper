@@ -1,6 +1,6 @@
 %mathpiper,def="Solve"
 
-Retract("Solve",*);
+//Retract("Solve",*);
 
 /*
  * Strategy for Solve(expr, x):

@@ -1,6 +1,6 @@
 %mathpiper,def="IsEquation"
 
-Retract("IsEquation",*);
+//Retract("IsEquation",*);
 
 10 # IsEquation(expr_IsAtom) <-- False;
 

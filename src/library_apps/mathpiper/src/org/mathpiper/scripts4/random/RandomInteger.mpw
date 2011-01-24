@@ -1,6 +1,6 @@
 %mathpiper,def="RandomInteger"
 
-Retract("RandomInteger", *);
+//Retract("RandomInteger", *);
 
 
 10 # RandomInteger(_n) <--

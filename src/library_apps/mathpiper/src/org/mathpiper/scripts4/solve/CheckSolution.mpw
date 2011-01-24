@@ -1,6 +1,6 @@
 %mathpiper,def="CheckSolution"
 
-Retract("CheckSolution",*);
+//Retract("CheckSolution",*);
 
 10 # CheckSolution( _expr, _var, solution_IsList )_(Not IsFreeOf(var,expr)) <--
   [

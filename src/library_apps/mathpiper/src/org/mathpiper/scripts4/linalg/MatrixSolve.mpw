@@ -1,6 +1,6 @@
 %mathpiper,def="MatrixSolve"
 
-Retract("MatrixSolve",*);
+//Retract("MatrixSolve",*);
 
 10 # MatrixSolve(matrix_IsDiagonal,b_IsVector) <--
 [

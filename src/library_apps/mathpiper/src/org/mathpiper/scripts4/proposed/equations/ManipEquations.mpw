@@ -1,13 +1,13 @@
 %mathpiper
 
-Retract("IsEquation",*);
+//Retract("IsEquation",*);
 
-Retract("*==",*);
-Retract("/==",*);
-Retract("+==",*);
-Retract("-==",*);
-Retract("==+",*);
-Retract("==-",*);
+//Retract("*==",*);
+//Retract("/==",*);
+//Retract("+==",*);
+//Retract("-==",*);
+//Retract("==+",*);
+//Retract("==-",*);
 
 10 # IsEquation(expr_IsAtom) <-- False;
 12 # IsEquation(_expr) <-- 

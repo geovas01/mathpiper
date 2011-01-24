@@ -1,6 +1,6 @@
 %mathpiper,def="GeoGebraHistogram"
 
-Retract("GeoGebraHistogram",*);
+//Retract("GeoGebraHistogram",*);
 
 GeoGebraHistogram(classBoundaries, data) := 
 [

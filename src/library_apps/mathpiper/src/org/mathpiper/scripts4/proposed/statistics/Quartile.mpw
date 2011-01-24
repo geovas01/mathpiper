@@ -1,6 +1,6 @@
 %mathpiper,def="Quartile"
 
-Retract("Quartile",*);
+//Retract("Quartile",*);
 
 Quartile(list) :=
 [

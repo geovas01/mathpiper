@@ -1,6 +1,6 @@
 %mathpiper,def="Denominator"
 
-Retract("Denominator",*);
+//Retract("Denominator",*);
 
 1 # Denominator(_x / _y)      <-- y;
 1 # Denominator(-_x/ _y)      <-- y;

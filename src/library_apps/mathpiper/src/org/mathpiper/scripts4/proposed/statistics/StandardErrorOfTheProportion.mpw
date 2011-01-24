@@ -1,6 +1,6 @@
 %mathpiper,def="StandardErrorOfTheProportion"
 
-Retract("StandardErrorOfTheProportion",*);
+//Retract("StandardErrorOfTheProportion",*);
 
 StandardErrorOfTheProportion(meanOfSampleProportions, sampleSize) :=
 [

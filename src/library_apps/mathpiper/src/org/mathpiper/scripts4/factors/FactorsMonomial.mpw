@@ -1,6 +1,6 @@
 %mathpiper,def="FactorsMonomial"
 
-Retract("FactorsMonomial",*);
+//Retract("FactorsMonomial",*);
 
 10 # FactorsMonomial(expr_IsMonomial) <--
 [

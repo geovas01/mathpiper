@@ -1,9 +1,9 @@
 %mathpiper,def="YacasFactors"
 
-Retract("YacasFactors",*);
-Retract("FactorsMultivariateSpecialCases",*);
-Retract("FactorsSomethingElse",*);
-Retract("CombineNumericalFactors",*);
+//Retract("YacasFactors",*);
+//Retract("FactorsMultivariateSpecialCases",*);
+//Retract("FactorsSomethingElse",*);
+//Retract("CombineNumericalFactors",*);
 
 /*
  * This is the fundamental factorization algorithm as created for Yacas, with

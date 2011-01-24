@@ -1,7 +1,7 @@
 %mathpiper,title="xSolveSystem"
 
-Retract("xSolve'System",*);
-Retract("xSolveLinearSystemViaMatrix",*);
+//Retract("xSolve'System",*);
+//Retract("xSolveLinearSystemViaMatrix",*);
 
 
 10 # xSolve'System( eqns_IsList, vars_IsList ) <--

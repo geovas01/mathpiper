@@ -1,6 +1,6 @@
 %mathpiper,def="ShuffledDeckNoSuits"
 
-Retract("ShuffledDeckNoSuits",*);
+//Retract("ShuffledDeckNoSuits",*);
 
 
 ShuffledDeckNoSuits() := 
