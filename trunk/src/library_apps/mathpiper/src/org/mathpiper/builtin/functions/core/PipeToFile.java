@@ -94,8 +94,8 @@ The current output is connected to the file "name". Then the expression
 to the current output, ends up in the file "name". Finally, the
 file is closed and the result of evaluating "body" is returned.
 
-If the file is opened again, the old contents will be overwritten.
-This is a limitation of {PipeToFile}: one cannot append to a file that has already been created.
+If the file is opened again, the new information will be appended to the
+existing information in the file.
 
 *E.G. notest
 
