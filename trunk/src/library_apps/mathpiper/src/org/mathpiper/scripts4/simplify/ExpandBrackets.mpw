@@ -1,6 +1,6 @@
 %mathpiper,def="ExpandBrackets"
 
-Retract("ExpandBrackets",*);
+//Retract("ExpandBrackets",*);
 
 10 # ExpandBrackets(xx_IsZero) <-- 0;
 

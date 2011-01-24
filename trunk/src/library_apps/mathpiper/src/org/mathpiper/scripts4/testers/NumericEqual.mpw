@@ -1,6 +1,6 @@
 %mathpiper,def="NumericEqual"
 
-Retract("NumericEqual",*);
+//Retract("NumericEqual",*);
 
 10 # NumericEqual(left_IsDecimal, right_IsDecimal, precision_IsPositiveInteger) <--
 [

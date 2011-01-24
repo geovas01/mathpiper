@@ -1,13 +1,13 @@
 %mathpiper,title="xFactorsBinomial"
 
 /*-----------------------------------------------------------------
- *  Factoring Binomial expressions of the form  A X^n ± B Y^n,
+ *  Factoring Binomial expressions of the form  A X^n ï¿½ B Y^n,
  *-----------------------------------------------------------------*/
 
-Retract("xFactorsBinomial",*);
-Retract("xFB1",*);
-Retract("xFB2",*);
-Retract("IsPowerOf2",*);
+//Retract("xFactorsBinomial",*);
+//Retract("xFB1",*);
+//Retract("xFB2",*);
+//Retract("IsPowerOf2",*);
 
 
 10 # xFactorsBinomial( poly_IsPolynomial )_(Length(VarList(poly))=1)  <-- 
@@ -263,8 +263,8 @@ IsPowerOf2( n_IsPositiveInteger ) <-- [ Count(StringToList(ToBase(2,n)),"1") = 1
 
 %mathpiper,title="testing"
 
-Retract("TestPlus1",*);
-Retract("TestMinus1",*);
+//Retract("TestPlus1",*);
+//Retract("TestMinus1",*);
 
 
 1000 # TestMinus1() <--

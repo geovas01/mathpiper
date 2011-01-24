@@ -1,6 +1,6 @@
 %mathpiper,def="ConfidenceIntervalOfTheProportion"
 
-Retract("ConfidenceIntervalOfTheProportion",*);
+//Retract("ConfidenceIntervalOfTheProportion",*);
 
 ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) :=
 [

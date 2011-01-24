@@ -1,6 +1,6 @@
 %mathpiper,def="CartesianProduct"
 
-Retract("CartesianProduct",*);
+//Retract("CartesianProduct",*);
 
 CartesianProduct(xList_IsList, yList_IsList) <--
 [

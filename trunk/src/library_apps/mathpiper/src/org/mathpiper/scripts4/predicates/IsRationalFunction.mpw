@@ -1,6 +1,6 @@
 %mathpiper,def="IsRationalFunction"
 
-Retract("IsRationalFunction",*);
+//Retract("IsRationalFunction",*);
 
 10 # IsRationalFunction(_expr)_(Length(VarList(expr))=0) <-- False;
 

@@ -1,6 +1,6 @@
 %mathpiper,def="RandomPickVector"
 
-Retract("RandomPickVector", *);
+//Retract("RandomPickVector", *);
 
 RandomPickVector(list, count) :=
 [

@@ -1,6 +1,6 @@
 %mathpiper,def="SturmSequence"
 
-Retract("SturmSequence",*);
+//Retract("SturmSequence",*);
 
 /** SturmSequence(p) : generate a Sturm sequence for a univariate polynomial
  */

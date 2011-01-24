@@ -1,6 +1,6 @@
 %mathpiper,def="Sample"
 
-Retract("Sample",*);
+//Retract("Sample",*);
 
 Sample(list, sampleSize) :=
 [

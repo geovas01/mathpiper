@@ -22,7 +22,7 @@
   TODO: Should domain contain numbers only?
 */
 
-Retract("PDF", *);
+//Retract("PDF", *);
 
 
 10 # PDF(ExponentialDistribution(_l), _x) <-- If(x<0,0,l*Exp(-l*x));

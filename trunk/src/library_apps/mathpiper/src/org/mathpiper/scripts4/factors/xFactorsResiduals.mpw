@@ -1,9 +1,9 @@
 %mathpiper,def="xFactorsResiduals"
 
-Retract("xFactorsResiduals",*);
-Retract("trySQF",*);
-Retract("tryRealRoots",*);
-Retract("processRealRoots",*);
+//Retract("xFactorsResiduals",*);
+//Retract("trySQF",*);
+//Retract("tryRealRoots",*);
+//Retract("processRealRoots",*);
 
 10 # xFactorsResiduals( residualList_IsList ) <--
 [

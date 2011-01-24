@@ -1,6 +1,6 @@
 %mathpiper,def="FactorsSmallInteger"
 
-Retract("FactorsSmallInteger",*);
+//Retract("FactorsSmallInteger",*);
 
 10 # FactorsSmallInteger( N_IsInteger ) <--
 [

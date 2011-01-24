@@ -1,7 +1,7 @@
 %mathpiper,def="FactorsPolynomialOverIntegers"
 
-Retract("FactorsPolynomialOverIntegers",*);
-Retract("TryToReduceSpecialPolynomial",*);
+//Retract("FactorsPolynomialOverIntegers",*);
+//Retract("TryToReduceSpecialPolynomial",*);
 
 //---------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 %mathpiper,def="MakeSparseUniVar"
 
-Retract("MakeSparseUniVar",*);
+//Retract("MakeSparseUniVar",*);
 
 10 # MakeSparseUniVar(poly_CanBeUni,var_IsAtom) <--
 [

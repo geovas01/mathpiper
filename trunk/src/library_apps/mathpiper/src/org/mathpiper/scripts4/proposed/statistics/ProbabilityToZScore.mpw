@@ -20,7 +20,7 @@
 search for a value within CHI_EPSILON,
 relying on the monotonicity of pochisq(). */
 
-Retract("ProbabilityToZScore",*);
+//Retract("ProbabilityToZScore",*);
 
 ProbabilityToZScore(probability) :=
 [

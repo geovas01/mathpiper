@@ -1,6 +1,6 @@
 %mathpiper,def="GaussianFactors"
 
-Retract("GaussianFactors",*);
+//Retract("GaussianFactors",*);
 
 /* 
 GaussianFactors(n) : returns a list of factors of n, in a similar way to Factors(n).

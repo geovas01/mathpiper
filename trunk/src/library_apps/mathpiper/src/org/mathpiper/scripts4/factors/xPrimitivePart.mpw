@@ -1,6 +1,6 @@
 %mathpiper,def="xPrimitivePart"
 
-Retract("xPrimitivePart",*);
+//Retract("xPrimitivePart",*);
     
 10 # xPrimitivePart(poly_CanBeUni) <-- 
 [

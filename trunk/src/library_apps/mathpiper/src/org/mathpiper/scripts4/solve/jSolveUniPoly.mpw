@@ -1,6 +1,6 @@
 %mathpiper,def="jSolveUniPoly"
 
-Retract("jSolveUniPoly",*);
+//Retract("jSolveUniPoly",*);
 
 10 # jSolveUniPoly( _lhs==_rhs, var_IsAtom ) <--
 [

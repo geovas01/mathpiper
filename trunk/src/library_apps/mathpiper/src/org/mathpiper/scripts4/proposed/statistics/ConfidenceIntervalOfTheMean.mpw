@@ -1,6 +1,6 @@
 %mathpiper,def="ConfidenceIntervalOfTheMean"
 
-Retract("ConfidenceIntervalOfTheMean",*);
+//Retract("ConfidenceIntervalOfTheMean",*);
 
 ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel) :=
 [

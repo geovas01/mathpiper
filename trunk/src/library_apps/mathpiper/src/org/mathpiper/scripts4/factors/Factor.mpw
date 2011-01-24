@@ -1,6 +1,6 @@
 %mathpiper,def="Factor"
 
-Retract("Factor",*);
+//Retract("Factor",*);
 
 10 # Factor( p_IsRational )_(Denominator(p) != 1) <--
 [

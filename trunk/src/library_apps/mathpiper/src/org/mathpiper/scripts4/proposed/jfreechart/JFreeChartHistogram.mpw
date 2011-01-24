@@ -1,6 +1,6 @@
   %mathpiper
   
-  Retract("JFreeChartHistogram",*);
+  //Retract("JFreeChartHistogram",*);
   
   JFreeChartHistogram(data) :=
   [

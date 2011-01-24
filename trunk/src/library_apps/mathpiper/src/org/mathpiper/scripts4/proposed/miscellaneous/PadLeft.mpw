@@ -1,6 +1,6 @@
 %mathpiper,def="PadLeft"
 
-Retract("PadLeft", *);
+//Retract("PadLeft", *);
 
 10 # PadLeft(number_IsNumber, totalDigits_IsInteger) <--
 [

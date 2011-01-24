@@ -1,7 +1,7 @@
 %mathpiper,def="IsMonomial"
 
-Retract("CanBeMonomial",*);
-Retract("IsMonomial",*);
+//Retract("CanBeMonomial",*);
+//Retract("IsMonomial",*);
 
 10 # CanBeMonomial(_expr)_(Type(expr)="UniVariate") <-- False;
 

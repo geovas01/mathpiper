@@ -1,6 +1,6 @@
 %mathpiper,def="RoundToPlace"
 
-Retract("RoundToPlace",*);
+//Retract("RoundToPlace",*);
 
 10 # RoundToPlace( N_IsDecimal, place_IsInteger ) <--
 [

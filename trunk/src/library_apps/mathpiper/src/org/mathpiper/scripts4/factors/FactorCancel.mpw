@@ -1,6 +1,6 @@
 %mathpiper,def="FactorCancel"
 
-Retract("FactorCancel",*);
+//Retract("FactorCancel",*);
 
 10 # FactorCancel( p_IsRational ) <-- Factor(p);
 

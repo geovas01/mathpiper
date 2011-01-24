@@ -1,10 +1,10 @@
 %mathpiper,def="Assume"
 
-Retract("Assume",*);
-Retract("AssumptionsAbout",*);
-Retract("UnAssume",*);
-Retract("IsAssumed",*);
-Retract("AssumptionsGet",*);
+//Retract("Assume",*);
+//Retract("AssumptionsAbout",*);
+//Retract("UnAssume",*);
+//Retract("IsAssumed",*);
+//Retract("AssumptionsGet",*);
 
 LocalSymbols(assumptions) [
 

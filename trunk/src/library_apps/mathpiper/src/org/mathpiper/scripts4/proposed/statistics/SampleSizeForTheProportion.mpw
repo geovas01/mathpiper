@@ -1,6 +1,6 @@
 %mathpiper,def="SampleSizeForTheProportion"
 
-Retract("SampleSizeForTheProportion",*);
+//Retract("SampleSizeForTheProportion",*);
 
 SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError) :=
 [

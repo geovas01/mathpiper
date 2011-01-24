@@ -1,6 +1,6 @@
 %mathpiper,def="Together"
 
-Retract("Together",*);
+//Retract("Together",*);
 
 10 # Together((_f/_g) + (_h/_i)) <--  Simplify(Expand(f*i+h*g)/Expand(g*i));
 

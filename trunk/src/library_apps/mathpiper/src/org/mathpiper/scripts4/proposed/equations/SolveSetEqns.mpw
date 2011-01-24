@@ -2,11 +2,11 @@
 
 LoadScriptOnce("proposed.rep/equations.mpi");
 
-Retract("SolveLinearSysViaMatrix",*);
+//Retract("SolveLinearSysViaMatrix",*);
 
-Retract("SolveLinearSystemViaGauss",*);
+//Retract("SolveLinearSystemViaGauss",*);
 
-Retract("CheckEquationSolution",*);
+//Retract("CheckEquationSolution",*);
 
 
 

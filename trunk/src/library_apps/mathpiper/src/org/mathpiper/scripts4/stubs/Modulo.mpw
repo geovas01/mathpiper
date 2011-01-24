@@ -1,6 +1,6 @@
 %mathpiper,def="Modulo"
 
-Retract("Modulo",*);
+//Retract("Modulo",*);
 
 0 # Modulo(_n,m_IsRationalOrNumber)_(m<0) <-- `Hold(Modulo(@n,@m));
 

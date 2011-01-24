@@ -1,6 +1,6 @@
 %mathpiper,def="SquareFree"
 
-Retract("SquareFree",*);
+//Retract("SquareFree",*);
 
 
 10 # SquareFree(_p)_(Length(VarList(p))!=1) <-- Check(False,"Argument","Input must be Univariate");

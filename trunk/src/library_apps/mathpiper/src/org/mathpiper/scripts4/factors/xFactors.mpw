@@ -8,21 +8,21 @@
  *    revised 100301
  *------------------------------------------------------------------------*/
 
-Retract("xFactors",*);
-Retract("xFactorsPrimitivePart",*);
-Retract("xFactorsUnivariate",*);
-Retract("xFactorsMultivariate",*);
-Retract("xFactorsHomogeneousBivariate",*);
-Retract("CheckForSpecialForms",*);
+//Retract("xFactors",*);
+//Retract("xFactorsPrimitivePart",*);
+//Retract("xFactorsUnivariate",*);
+//Retract("xFactorsMultivariate",*);
+//Retract("xFactorsHomogeneousBivariate",*);
+//Retract("CheckForSpecialForms",*);
 
-Retract("ApproximateRealCoefficients",*);
-Retract("FixUpMonicFactors",*);
-Retract("CombineNumericalFactors",*);
-Retract("IsPureRational",*);
-Retract("HasRealCoefficients",*);
-Retract("HasRationalCoefficients",*);
-Retract("matchPower",*);
-Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
+//Retract("ApproximateRealCoefficients",*);
+//Retract("FixUpMonicFactors",*);
+//Retract("CombineNumericalFactors",*);
+//Retract("IsPureRational",*);
+//Retract("HasRealCoefficients",*);
+//Retract("HasRationalCoefficients",*);
+//Retract("matchPower",*);
+//Retract("IsIrreducible",*);     //      NOT YET OPERATIONAL
 
 
 /* --------------    LISTS    ---------------*/

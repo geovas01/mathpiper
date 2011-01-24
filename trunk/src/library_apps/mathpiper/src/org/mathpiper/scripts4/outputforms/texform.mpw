@@ -39,7 +39,7 @@ TexForm
 	2. Need to figure out how to deal with variable names such as "alpha3"
 */
 
-Retract("TeXForm", *);
+//Retract("TeXForm", *);
 
 /// TeXmacs prettyprinter
 TexForm(_expr) <-- [DumpErrors();WriteString(TeXForm(expr));NewLine();];

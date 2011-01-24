@@ -1,7 +1,7 @@
 %mathpiper,def="TestEquivalent"
 
-Retract("TestEquivalent",*);
-Retract("TestTwoLists",*);
+//Retract("TestEquivalent",*);
+//Retract("TestTwoLists",*);
 
 Macro("TestEquivalent",{left,right})
 [

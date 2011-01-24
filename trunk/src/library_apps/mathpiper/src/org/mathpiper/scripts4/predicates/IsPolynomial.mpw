@@ -1,6 +1,6 @@
 %mathpiper,def="IsPolynomial"
 
-Retract("IsPolynomial",*);
+//Retract("IsPolynomial",*);
 
 10 # IsPolynomial(expr_IsFunction) <-- 
 [

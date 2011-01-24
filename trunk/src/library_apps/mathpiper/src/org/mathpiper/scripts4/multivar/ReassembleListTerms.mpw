@@ -1,6 +1,6 @@
 %mathpiper,def="ReassembleListTerms"
 
-Retract("ReassembleListTerms",*);
+//Retract("ReassembleListTerms",*);
 
 10 # ReassembleListTerms( disassembly_IsList ) <--
 [

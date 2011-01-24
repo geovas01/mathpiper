@@ -1,5 +1,5 @@
 %mathpiper,def="GeoGebraPoint"
-Retract("GeoGebraPoint",*);
+//Retract("GeoGebraPoint",*);
 
 10 # GeoGebraPoint(name_IsString, x_IsNumber, y_IsNumber)  <--
 [

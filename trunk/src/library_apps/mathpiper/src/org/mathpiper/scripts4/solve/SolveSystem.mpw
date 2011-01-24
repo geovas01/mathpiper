@@ -12,11 +12,11 @@
  *    begin mods    100701
  *-------------------------------------------------------------------*/
 
-Retract("SolveSystem",*);
-Retract("VarsAndDegs",*);
-Retract("MakeCoefMatrix",*);
-Retract("SolveLinearSystem",*);
-Retract("SolveNonlinearSystem",*);
+//Retract("SolveSystem",*);
+//Retract("VarsAndDegs",*);
+//Retract("MakeCoefMatrix",*);
+//Retract("SolveLinearSystem",*);
+//Retract("SolveNonlinearSystem",*);
 
 /*
 10 # SolveSystem( eqns_IsList, vars_IsList ) <--

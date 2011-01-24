@@ -1,6 +1,6 @@
 %mathpiper,def="IsPolynomialOverIntegers"
 
-Retract("IsPolynomialOverIntegers",*);
+//Retract("IsPolynomialOverIntegers",*);
 
 10 # IsPolynomialOverIntegers(expr_IsFunction) <-- 
 [

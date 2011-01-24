@@ -1,6 +1,6 @@
 %mathpiper,def="NewLine"
 
-Retract("NewLine",*);
+//Retract("NewLine",*);
 
 10 # NewLine()  <-- WriteN(Nl(),1);
 20 # NewLine(n_IsPositiveInteger) <--  WriteN(Nl(),n);

@@ -2,7 +2,7 @@
 
 iDebug:=False;
 
-Retract("FindRealRoots",*);
+//Retract("FindRealRoots",*);
 
 FindRealRoots(_p) <--
 [

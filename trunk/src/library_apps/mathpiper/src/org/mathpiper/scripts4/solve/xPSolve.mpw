@@ -1,9 +1,9 @@
 %mathpiper,def="xPSolve"
 
-Retract("xPSolve",*);
-Retract("xPSolveCubic",*);
-Retract("xPSC1",*);
-Retract("xPSC2",*);
+//Retract("xPSolve",*);
+//Retract("xPSolveCubic",*);
+//Retract("xPSC1",*);
+//Retract("xPSC2",*);
 
 /*-------------------------------------------------------
  * NOTES: TODO: RadSimp() may have a problem with 

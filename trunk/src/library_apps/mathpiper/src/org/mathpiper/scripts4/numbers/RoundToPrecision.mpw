@@ -1,6 +1,6 @@
 %mathpiper,def="RoundToPrecision"
 
-Retract("RoundToPrecision",*);
+//Retract("RoundToPrecision",*);
 
 10 # RoundToPrecision( N_IsDecimal, newPrec_IsPositiveInteger ) <--
 [

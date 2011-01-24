@@ -1,7 +1,7 @@
 %mathpiper,title="xTerms"
 
-Retract("xTerms",*);
-Retract("xTerms2",*);
+//Retract("xTerms",*);
+//Retract("xTerms2",*);
 
 xTerms(_expr) <--
 [

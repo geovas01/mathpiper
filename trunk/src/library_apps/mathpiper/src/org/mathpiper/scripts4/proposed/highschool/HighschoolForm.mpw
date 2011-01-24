@@ -1,6 +1,6 @@
 %mathpiper,def=""
 
-Retract("HighschoolForm",*);
+//Retract("HighschoolForm",*);
 
 HighschoolForm(expression) :=
 [

@@ -1,7 +1,7 @@
 
 %mathpiper,def="ElementCount"
 
-Retract("ElementCount",*);
+//Retract("ElementCount",*);
 
 ElementCount(list) :=
 [   

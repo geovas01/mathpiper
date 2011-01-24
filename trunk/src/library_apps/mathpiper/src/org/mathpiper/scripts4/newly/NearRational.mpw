@@ -1,6 +1,6 @@
 %mathpiper,def="NearRational"
 
-Retract("NearRational",*);
+//Retract("NearRational",*);
 
 //////////////////////////////////////////////////
 /// NearRational, GuessRational

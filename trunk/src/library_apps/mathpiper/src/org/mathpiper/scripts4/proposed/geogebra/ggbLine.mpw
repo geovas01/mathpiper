@@ -1,6 +1,6 @@
 %mathpiper,def="GgbLine"
 
-Retract("ggbLine", *);
+//Retract("ggbLine", *);
 
 ggbLine(point1Label, point2Label) :=
 [

@@ -1,6 +1,6 @@
 %mathpiper,def="Simplify"
 
-Retract("Simplify",*);
+//Retract("Simplify",*);
 
 10 # Simplify(expr_IsList) <-- MapSingle("Simplify",expr);
 

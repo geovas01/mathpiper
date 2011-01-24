@@ -1,20 +1,20 @@
 %mathpiper,title="jFactorsPoly"
 
-Retract("jFactorsPoly",*);
-Retract("HasRealCoefficients",*);      
-Retract("RealToRationalConvert",*);
-Retract("HasRationalCoefficients",*);   
-Retract("RationalToIntegerConvert",*);
-Retract("jFactorsPrimitivePart",*);
-Retract("jFactorsBivariateBinomial",*);
-Retract("jFactorsHomogeneousBivariate",*);
+//Retract("jFactorsPoly",*);
+//Retract("HasRealCoefficients",*);      
+//Retract("RealToRationalConvert",*);
+//Retract("HasRationalCoefficients",*);   
+//Retract("RationalToIntegerConvert",*);
+//Retract("jFactorsPrimitivePart",*);
+//Retract("jFactorsBivariateBinomial",*);
+//Retract("jFactorsHomogeneousBivariate",*);
 
-Retract("jFB",*);
-Retract("jFac",*);
+//Retract("jFB",*);
+//Retract("jFac",*);
 
-Retract("FixUpMonicFactors",*);
-Retract("CombineNumericalFactors",*);
-Retract("IsPureRational",*);
+//Retract("FixUpMonicFactors",*);
+//Retract("CombineNumericalFactors",*);
+//Retract("IsPureRational",*);
 
 /* -------------    POLYNOMIALS -- CAN BE UNI   --------------*/
 
@@ -347,7 +347,7 @@ UnFence("RationalToIntegerConvert",1);
 
 
 /*-------------------------------------------------------------------
- *  Factoring Binomial expressions of the form  A X^n ± B Y^n,
+ *  Factoring Binomial expressions of the form  A X^n ï¿½ B Y^n,
  *     Uses JAS library, but converts to univariate equivalent
  *     before factoring. (JAS is inefficient for multivariate
  *     factoring when degree is large.)
@@ -434,7 +434,7 @@ UnFence("jFB",1);
 
 60 # jFac( _var, n_IsPositiveInteger, s_IsInteger ) <--
 [
-    //  Uses JAS to factor polynomial of form x^n ± 1.
+    //  Uses JAS to factor polynomial of form x^n ï¿½ 1.
     If(InVerboseMode(),[NewLine();Tell("jFac",{var,n,s});]);
     Local(x,poly,result);
     poly := x^n+s;

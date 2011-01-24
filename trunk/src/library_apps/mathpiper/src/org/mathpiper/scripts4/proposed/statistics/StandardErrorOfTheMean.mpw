@@ -1,6 +1,6 @@
 %mathpiper,def="StandardErrorOfTheMean"
 
-Retract("StandardErrorOfTheMean",*);
+//Retract("StandardErrorOfTheMean",*);
 
 StandardErrorOfTheMean(sigma, sampleSize) :=
 [

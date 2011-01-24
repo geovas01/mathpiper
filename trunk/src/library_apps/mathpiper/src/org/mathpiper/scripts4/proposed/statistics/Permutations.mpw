@@ -1,6 +1,6 @@
 %mathpiper,def="Permutations"
 
-Retract("Permutations", *);
+//Retract("Permutations", *);
 
 Permutations(n) :=
 [

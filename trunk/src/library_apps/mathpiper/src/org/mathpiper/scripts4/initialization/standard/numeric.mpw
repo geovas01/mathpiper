@@ -9,7 +9,7 @@
 
 /* Implementation of numeric mode */
 
-Retract("N",*);
+//Retract("N",*);
 
 LocalSymbols(numericMode)
 [

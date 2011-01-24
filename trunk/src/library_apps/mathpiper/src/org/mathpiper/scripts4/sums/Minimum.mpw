@@ -6,9 +6,9 @@ FIXME
 /// Min, Max with many arguments
 */
 
-Retract("Minimum", 1);
-Retract("Minimum", 2);
-Retract("Minimum", 3);
+//Retract("Minimum", 1);
+//Retract("Minimum", 2);
+//Retract("Minimum", 3);
 
 //Function() Minimum(list);
 

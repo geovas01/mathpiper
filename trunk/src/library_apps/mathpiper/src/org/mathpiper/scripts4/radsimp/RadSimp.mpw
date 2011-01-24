@@ -1,6 +1,6 @@
 %mathpiper,def="RadSimp"
 
-Retract("RadSimp",*);
+//Retract("RadSimp",*);
 
 /* Simplification of nested radicals.
 */

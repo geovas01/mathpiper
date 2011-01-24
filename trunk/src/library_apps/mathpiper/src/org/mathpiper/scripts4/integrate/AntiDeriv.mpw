@@ -7,8 +7,8 @@
 //hso:but the Rulebase line causes hang when processing in fold
 //Rulebase("IntegrateMultiplicative",{var,from,a,b});
 
-Retract("AntiDeriv",*);
-Retract("IntFunc",*);
+//Retract("AntiDeriv",*);
+//Retract("IntFunc",*);
 
 
 ////////////////////////////////////////////////

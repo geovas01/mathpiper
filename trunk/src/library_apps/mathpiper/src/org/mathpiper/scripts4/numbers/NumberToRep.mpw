@@ -1,6 +1,6 @@
 %mathpiper,def="NumberToRep"
 
-Retract("NumberToRep",*);
+//Retract("NumberToRep",*);
 
 
 10 # NumberToRep( N_IsNumber ) <--
