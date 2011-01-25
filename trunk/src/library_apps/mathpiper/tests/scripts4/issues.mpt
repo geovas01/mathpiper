@@ -27,9 +27,9 @@ Verify(Solve(x^2==21,x), {x==Sqrt(21),x==-Sqrt(21)} );      // OK
 Verify(Solve({x + y == 2, y == x}, {x, y}), {x==1,y==1} );          //  OK
 
 //Issue11
-//Verify(Solve(x^3==x,x),  );
-//Verify(Solve(x^3==x^2,x),  );
-Verify(Solve(x^4==x^2,x), {x==0,x==0,x==1,x==(-1)});        // OK 
+Verify(Solve(x^3==x,x), {x==0,x==1,x==(-1)});
+Verify(Solve(x^3==x^2,x), {x==0,x==1} );
+Verify(Solve(x^4==x^2,x), {x==0,x==1,x==(-1)});        // OK 
 
 //Issue12
 Verify(Factor( t^2-9 ), (t-3)*(t+3));       // OK
@@ -83,10 +83,10 @@ Verify(Solve((2*x - 1)*(4*x + 3) == (8*x - 3)*(x + 4) - 3*(9*x + 1), x),{});
 Verify(Simplify(Ln(3)),Ln(3));
 
 //Issue 59
-//Verify(RemoveDuplicates(Solve((x - 1)*(x - 2)*(x - 3)==0, x)),{{x==1},{x==2},{x==3}});
+Verify(Solve((x - 1)*(x - 2)*(x - 3)==0, x),{x==1,x==3,x==2});
 
 //Issue 60
-//RemoveDuplicates(Solve(-3*x^3+10*x^2-11*x+4==0, x)),{{x==4/3},{x==1}});
+Verify(Solve(-3*x^3+10*x^2-11*x+4==0, x),{x==1,x==4/3});
 
 //Issue 61
 Verify(TrigSimpCombine(ExpandBrackets((2*x^2-x+3)-(2*x^2-x+3))),0);
