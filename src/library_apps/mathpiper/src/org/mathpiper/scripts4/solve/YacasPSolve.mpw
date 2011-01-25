@@ -131,10 +131,22 @@ Rule("YacasPSolve",1,1,IsUniVar(uni) And Degree(uni) = 4 )
            YacasPSolve(z^2+(a1/2-s)*z+y1/2-t,z));
 ];
 
-Function("YacasPSolve",{uni,var})
-    [
-     YacasPSolve(MakeUni(uni,var));
+Function("YacasPSolve",{uni,var}) [
+     Local(u, factors, f, r, s);
+     u := Simplify(uni);
+     If(IsPolynomialOverIntegers(uni,var) And Degree(u) > 1,
+         factors := FactorsPolynomialOverIntegers(uni,var),
+         factors := {{uni, 1}}
+     );
+
+     r := {};
+     ForEach(f, factors) [
+         s := YacasPSolve(MakeUni(f[1],var));
+         r := Union(r, If(IsList(s), s, {s}));
      ];
+
+     If(Length(r) = 1, r[1], r);
+];
 
 %/mathpiper
 

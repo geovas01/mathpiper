@@ -108,20 +108,22 @@ VerifySolve(PSolve(2*x-a,a), 2*x);
 /* Quadratic equations */
 Testing("     Quadratic");
 
-VerifySolve(PSolve(x^2,x), {0,0});
+VerifySolve(PSolve(x^2,x), 0);
 VerifySolve(PSolve(4*x^2-1,x), {1/2,-1/2});
-//VerifySolve(PSolve(x^2+1,x), {I,-I});
+VerifySolve(PSolve(x^2+1,x), {I,-I});
 VerifySolve(PSolve(x^2-3*x+2,x), {1,2});
 
 /* Cubic equations */
 Testing("     Cubic");
 
-VerifySolve(PSolve(x^3,x), {0,0,0});
+VerifySolve(PSolve(x^3,x), 0);
 VerifySolve(PSolve(x^3-1,x), {1, Exp(2/3*Pi*I), Exp(-2/3*Pi*I)});
 VerifySolve(PSolve(x^3+1,x), {-1, Exp(1/3*Pi*I), Exp(-1/3*Pi*I)});
 [
   Local(roots);
-  roots := BubbleSort(N(PSolve(x^3-3*x^2+2*x,x)), "<");
+  roots := PSolve(x^3-3*x^2+2*x,x);
+  // FIXME: for some reason applying N to PSolve directly break things badly
+  roots := BubbleSort(N(roots), "<");
   NumericEqual(roots[1], 0, 10);
   NumericEqual(roots[2], 1, 10);
   NumericEqual(roots[3], 2, 10);
@@ -133,7 +135,7 @@ VerifySolve(PSolve(x^3+1,x), {-1, Exp(1/3*Pi*I), Exp(-1/3*Pi*I)});
 /* Quartic equations */
 Testing("     Quartic");
 
-VerifySolve(PSolve(x^4,x), {0,0,0,0});
+VerifySolve(PSolve(x^4,x), 0);
 /*
 VerifySolve(PSolve(16*x^4-1,x), {1/2, -1/2, 1/2*I, -1/2*I});
 VerifySolve(PSolve(x^4-x,x), {0, 1, Exp(2/3*Pi*I), Exp(-2/3*Pi*I)});
