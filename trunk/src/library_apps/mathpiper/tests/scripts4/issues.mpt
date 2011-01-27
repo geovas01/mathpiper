@@ -123,3 +123,6 @@ Verify(0*Infinity, Undefined);
 Verify(0*(-Infinity), Undefined);
 Verify(Infinity*0, Undefined);
 Verify((-Infinity)*0, Undefined);
+
+// Issue 108
+Verify(CForm(2.), "2.");

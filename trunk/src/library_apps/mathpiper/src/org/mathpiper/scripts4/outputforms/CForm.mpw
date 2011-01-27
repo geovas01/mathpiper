@@ -29,6 +29,19 @@ Function ("CFormBracketIf", {predicate, string})
 	If(predicate, ConcatStrings("( ", string, ") "), string);
 ];
 
+CFormDoublePrecisionNumber(x_IsNumber) <--
+[
+    Local(i,n,s,f);
+    s := ToString(x);
+    n := Length(s);
+    f := False;
+    For(i := 1, i <= n, i++)
+    [
+        If(s[i] = "e" Or s[i] = ".", f := True);
+    ];
+    If(f, s, s : ".");
+];
+
 /* Proceed just like TeXForm()
 */
 
@@ -40,7 +53,7 @@ CFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is equa
 /* Replace numbers and variables -- never bracketed except explicitly */
 110 # CForm(x_IsInteger, _p) <-- ToString(x);
 111 # CForm(x_IsZero, _p) <-- "0.";
-112 # CForm(x_IsNumber, _p) <-- ToString(x);
+112 # CForm(x_IsNumber, _p) <-- CFormDoublePrecisionNumber(x);
 /* Variables are left as is, except some special ones */
 190 # CForm(False, _p) <-- "false";
 190 # CForm(True, _p) <-- "true";
