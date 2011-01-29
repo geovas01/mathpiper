@@ -17,9 +17,11 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper;
 
+//$Revision$
+//$Id$
 public class Version
 {
-//"$Id$"
-   public  static final String version = ".81c";
+
+   public  static final String version = ".81d";
     
 }//end class.
