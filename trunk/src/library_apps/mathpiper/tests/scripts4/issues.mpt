@@ -126,3 +126,6 @@ Verify((-Infinity)*0, Undefined);
 
 // Issue 108
 Verify(CForm(2.), "2.");
+
+// Issue 109
+Verify(Rationalize({2.25,-33.333,8}),{9/4,(-33333)/1000,8});
