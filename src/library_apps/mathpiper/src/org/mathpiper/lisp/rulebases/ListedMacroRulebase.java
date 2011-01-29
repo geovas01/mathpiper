@@ -22,9 +22,9 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
 
-public class ListedMacroRulebaseEvaluator extends MacroRulebaseEvaluator {
+public class ListedMacroRulebase extends MacroRulebase {
 
-    public ListedMacroRulebaseEvaluator(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public ListedMacroRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
     }
 

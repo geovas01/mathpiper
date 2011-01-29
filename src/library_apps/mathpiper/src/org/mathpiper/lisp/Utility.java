@@ -53,9 +53,9 @@ import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.lisp.rulebases.Rule;
 import org.mathpiper.lisp.rulebases.ParameterName;
-import org.mathpiper.lisp.rulebases.MacroRulebaseEvaluator;
+import org.mathpiper.lisp.rulebases.MacroRulebase;
 import org.mathpiper.lisp.rulebases.PatternRule;
-import org.mathpiper.lisp.rulebases.SingleArityRulebaseEvaluator;
+import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
 public class Utility {
 
@@ -1151,7 +1151,7 @@ public class Utility {
     }
 
     /**
-     *Implements the MathPiper functions Rulebase and MacroRulebaseEvaluator .
+     *Implements the MathPiper functions Rulebase and MacroRulebase .
      * The real work is done by Environment.defineRulebase().
      */
     public static void rulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
@@ -1251,7 +1251,7 @@ public class Utility {
 
 
 
-    public static String dumpRule(int aStackTop, Rule rule, Environment aEnvironment, SingleArityRulebaseEvaluator userFunction) {
+    public static String dumpRule(int aStackTop, Rule rule, Environment aEnvironment, SingleArityRulebase userFunction) {
         StringBuilder dumpResult = new StringBuilder();
         try {
             int precedence = rule.getPrecedence();
@@ -1329,7 +1329,7 @@ public class Utility {
 
             String substitutedMacroBody = "";
 
-            if (userFunction instanceof MacroRulebaseEvaluator) {
+            if (userFunction instanceof MacroRulebase) {
                 BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
                 ConsPointer substitutedBodyPointer = new ConsPointer();
                 Utility.substitute(aEnvironment, aStackTop, substitutedBodyPointer, rule.getBodyPointer(), backQuoteSubstitute);
@@ -1342,7 +1342,7 @@ public class Utility {
             dumpResult.append("\n" + "Parameters: " + parameters + ", ");
             dumpResult.append("\n" + "Predicates: " + predicate + ",    ");
 
-            if (userFunction instanceof MacroRulebaseEvaluator) {
+            if (userFunction instanceof MacroRulebase) {
                 dumpResult.append("\n" + "Body: \n" + body + ", ");
                 dumpResult.append("\n" + "Substituted Macro Body: \n" + substitutedMacroBody + "\n");
             } else {

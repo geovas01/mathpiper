@@ -22,9 +22,9 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
 
-public class ListedRulebaseEvaluator extends SingleArityRulebaseEvaluator {
+public class ListedRulebase extends SingleArityRulebase {
 
-    public ListedRulebaseEvaluator(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public ListedRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
     }
 
