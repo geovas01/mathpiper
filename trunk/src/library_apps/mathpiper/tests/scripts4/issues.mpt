@@ -110,7 +110,7 @@ Verify(TrigSimpCombine(ExpandBrackets((2*x^2-x+3)-(2*x^2-x+3))),0);
 Verify(Solve((-((10 * c) + (3)))/(2 * ((4 * (c)^(2)) - (9))) == (-1)/(2 * ((2 * c) - (3))), c), {c==0});
 
 //Issue 82
-//Verify(Solve((x^3-6*x^2+32)/8==x^2-4, x),{x==(-2),x==8-2^(5/2),x==8+2^(5/2)});
+Verify(Solve((x^3-6*x^2+32)/8==x^2-4, x),{x==(-2),x==8+2^(5/2),x==8-2^(5/2)});
 
 //Issue 84
 TestEquivalent(Factor((9 * (a)^(2)) - (3 * a * b)),3*a*(3*a-b));

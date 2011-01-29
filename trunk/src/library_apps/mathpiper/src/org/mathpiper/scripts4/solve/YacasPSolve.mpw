@@ -133,11 +133,22 @@ Rule("YacasPSolve",1,1,IsUniVar(uni) And Degree(uni) = 4 )
 
 Function("YacasPSolve",{uni,var}) [
      Local(u, factors, f, r, s);
-     u := Simplify(uni);
-     If(IsPolynomialOverIntegers(uni,var) And Degree(u) > 1,
-         factors := FactorsPolynomialOverIntegers(uni,var),
-         factors := {{uni, 1}}
-     );
+
+     u := MakeUni(uni, var);
+
+     If(Type(u) = "UniVariate" And (And @ (Lambda({x}, IsNumber(x) Or IsRational(x)) /@ u[3])), [
+         Local(coeffs);
+         coeffs := Rationalize(u[3]);
+         coeffs := If(Length(coeffs) > 1, 
+                       Lcm(Denominator /@ coeffs) * coeffs, 
+                       (Denominator /@ coeffs) * coeffs);
+         DestructiveReplace(u, 3, coeffs);
+         factors := If(Degree(u)>0, 
+                        FactorsPolynomialOverIntegers(NormalForm(u),var), 
+                        {NormalForm(u), 1});
+     ], [
+         factors := {{uni, 1}};
+     ]);
 
      r := {};
      ForEach(f, factors) [
