@@ -33,7 +33,7 @@ import org.mathpiper.lisp.Evaluator;
  * by consulting a set of rewritng rules.  The body of the first rule that
  * matches is evaluated and its result is returned as the function's result.
  */
-public class SingleArityRulebaseEvaluator extends Evaluator {
+public class SingleArityRulebase extends Evaluator {
     // List of arguments, with corresponding iHold property.
     protected List<ParameterName> iParameters = new ArrayList(); //CArrayGrower<ParameterName>
 
@@ -59,7 +59,7 @@ public class SingleArityRulebaseEvaluator extends Evaluator {
      * @param aParameters linked list constaining the names of the arguments
      * @throws java.lang.Exception
      */
-    public SingleArityRulebaseEvaluator(Environment aEnvironment, int aStackTop, ConsPointer aParametersPointer, String functionName) throws Exception {
+    public SingleArityRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParametersPointer, String functionName) throws Exception {
         iEnvironment = aEnvironment;
         this.functionName = functionName;
         iParameterList = new ConsPointer();

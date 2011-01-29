@@ -21,7 +21,7 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 
-import org.mathpiper.lisp.rulebases.SingleArityRulebaseEvaluator;
+import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
 /**
  *  The basic evaluator for Lisp expressions.
@@ -129,7 +129,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         }
 
                         //User function handler.
-                        SingleArityRulebaseEvaluator userFunction;
+                        SingleArityRulebase userFunction;
                         userFunction = getUserFunction(aEnvironment, aStackTop, subList);
                         if (userFunction != null) {
                             userFunction.evaluate(aEnvironment, aStackTop, aResult, subList);
@@ -178,11 +178,11 @@ public class LispExpressionEvaluator extends Evaluator {
     }
 
 
-    SingleArityRulebaseEvaluator getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
+    SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
         Cons head = subList.getCons();
-        SingleArityRulebaseEvaluator userFunc = null;
+        SingleArityRulebase userFunc = null;
 
-        userFunc = (SingleArityRulebaseEvaluator) aEnvironment.getRulebase(aStackTop, subList);
+        userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
         if (userFunc != null) {
             return userFunc;
         } else if (head.car() instanceof String) {

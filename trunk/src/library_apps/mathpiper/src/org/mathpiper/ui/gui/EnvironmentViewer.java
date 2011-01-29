@@ -58,7 +58,7 @@ import org.mathpiper.lisp.GlobalVariable;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.rulebases.Rule;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
-import org.mathpiper.lisp.rulebases.SingleArityRulebaseEvaluator;
+import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 import org.mathpiper.ui.gui.MultiSplitLayout.Divider;
 import org.mathpiper.ui.gui.MultiSplitLayout.Leaf;
 import org.mathpiper.ui.gui.MultiSplitLayout.Split;
@@ -648,7 +648,7 @@ public class EnvironmentViewer implements ActionListener {
             Iterator multipleArityUserFunctionIterator = multipleArityUserfunction.getFunctions();
 
             while (multipleArityUserFunctionIterator.hasNext()) {
-                SingleArityRulebaseEvaluator userFunction = (SingleArityRulebaseEvaluator) multipleArityUserFunctionIterator.next();
+                SingleArityRulebase userFunction = (SingleArityRulebase) multipleArityUserFunctionIterator.next();
                 Iterator rulesIterator = userFunction.getRules();
 
                 while (rulesIterator.hasNext()) {

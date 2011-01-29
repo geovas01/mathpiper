@@ -41,14 +41,14 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 
-import org.mathpiper.lisp.rulebases.MacroRulebaseEvaluator;
+import org.mathpiper.lisp.rulebases.MacroRulebase;
 
 
-import org.mathpiper.lisp.rulebases.ListedRulebaseEvaluator;
+import org.mathpiper.lisp.rulebases.ListedRulebase;
 
-import org.mathpiper.lisp.rulebases.SingleArityRulebaseEvaluator;
+import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
-import org.mathpiper.lisp.rulebases.ListedMacroRulebaseEvaluator;
+import org.mathpiper.lisp.rulebases.ListedMacroRulebase;
 
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
@@ -477,7 +477,7 @@ public final class Environment {
         }
     }
 
-    public SingleArityRulebaseEvaluator getRulebase(int aStackTop, ConsPointer aArguments) throws Exception {
+    public SingleArityRulebase getRulebase(int aStackTop, ConsPointer aArguments) throws Exception {
         MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRules.lookUp( (String) aArguments.car());
         if (multipleArityUserFunc != null) {
             int arity = Utility.listLength(this, aStackTop, aArguments) - 1;
@@ -486,7 +486,7 @@ public final class Environment {
         return null;
     }
 
-    public SingleArityRulebaseEvaluator getRulebase(String aName, int aArity, int aStackTop) throws Exception {
+    public SingleArityRulebase getRulebase(String aName, int aArity, int aStackTop) throws Exception {
         MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRules.lookUp(aName);
         if (multipleArityUserFunc != null) {
             return multipleArityUserFunc.getUserFunction(aArity, aStackTop, this);
@@ -498,7 +498,7 @@ public final class Environment {
         MultipleArityRulebase multiUserFunc = (MultipleArityRulebase) iUserRules.lookUp(aOperator);
 
         LispError.check(this, aStackTop, multiUserFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
-        SingleArityRulebaseEvaluator userFunc = multiUserFunc.getUserFunction(aArity, aStackTop, this);
+        SingleArityRulebase userFunc = multiUserFunc.getUserFunction(aArity, aStackTop, this);
         LispError.check(this, aStackTop, userFunc != null, LispError.INVALID_ARGUMENT, "INTERNAL");
         userFunc.unFence();
     }
@@ -522,11 +522,11 @@ public final class Environment {
         MultipleArityRulebase multipleArityUserFunction = getMultipleArityRulebase(aStackTop, aOperator, true);
 
         // add an operator with this arity to the multiuserfunc.
-        SingleArityRulebaseEvaluator newBranchingRulebase;
+        SingleArityRulebase newBranchingRulebase;
         if (aListed) {
-            newBranchingRulebase = new ListedRulebaseEvaluator(this, aStackTop, aParametersPointer, aOperator);
+            newBranchingRulebase = new ListedRulebase(this, aStackTop, aParametersPointer, aOperator);
         } else {
-            newBranchingRulebase = new SingleArityRulebaseEvaluator(this, aStackTop, aParametersPointer, aOperator);
+            newBranchingRulebase = new SingleArityRulebase(this, aStackTop, aParametersPointer, aOperator);
         }
         multipleArityUserFunction.addRulebaseEntry(this, aStackTop, newBranchingRulebase);
     }
@@ -537,7 +537,7 @@ public final class Environment {
         LispError.check(this, aStackTop, multipleArityRulebase != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Get the specific user function with the right arity
-        SingleArityRulebaseEvaluator rulebase = (SingleArityRulebaseEvaluator) multipleArityRulebase.getUserFunction(aArity, aStackTop, this);
+        SingleArityRulebase rulebase = (SingleArityRulebase) multipleArityRulebase.getUserFunction(aArity, aStackTop, this);
         LispError.check(this, aStackTop, rulebase != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Declare a new evaluation rule
@@ -552,12 +552,12 @@ public final class Environment {
     public void defineMacroRulebase(int aStackTop, String aFunctionName, ConsPointer aParameters, boolean aListed) throws Exception {
         MultipleArityRulebase multipleArityRulebase = getMultipleArityRulebase(aStackTop, aFunctionName, true);
 
-        MacroRulebaseEvaluator newMacroRulebase;
+        MacroRulebase newMacroRulebase;
 
         if (aListed) {
-            newMacroRulebase = new ListedMacroRulebaseEvaluator(this, aStackTop, aParameters, aFunctionName);
+            newMacroRulebase = new ListedMacroRulebase(this, aStackTop, aParameters, aFunctionName);
         } else {
-            newMacroRulebase = new MacroRulebaseEvaluator(this, aStackTop, aParameters, aFunctionName);
+            newMacroRulebase = new MacroRulebase(this, aStackTop, aParameters, aFunctionName);
         }
         multipleArityRulebase.addRulebaseEntry(this, aStackTop, newMacroRulebase);
     }
@@ -568,7 +568,7 @@ public final class Environment {
         LispError.check(this, aStackTop, multipleArityRulebase != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Get the specific user function with the right arity
-        SingleArityRulebaseEvaluator rulebase = multipleArityRulebase.getUserFunction(aArity, aStackTop, this);
+        SingleArityRulebase rulebase = multipleArityRulebase.getUserFunction(aArity, aStackTop, this);
         LispError.check(this, aStackTop, rulebase != null, LispError.CREATING_RULE, "INTERNAL");
 
         // Declare a new evaluation rule

@@ -28,9 +28,9 @@ import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispExpressionEvaluator;
 import org.mathpiper.lisp.cons.SublistCons;
 
-public class MacroRulebaseEvaluator extends SingleArityRulebaseEvaluator {
+public class MacroRulebase extends SingleArityRulebase {
 
-    public MacroRulebaseEvaluator(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public MacroRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
         ConsTraverser parameterTraverser = new ConsTraverser(aEnvironment, aParameters);
         int i = 0;
