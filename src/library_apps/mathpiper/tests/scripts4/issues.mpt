@@ -129,3 +129,4 @@ Verify(CForm(2.), "2.");
 
 // Issue 109
 Verify(Rationalize({2.25,-33.333,8}),{9/4,(-33333)/1000,8});
+Verify(Rationalize(Sqrt(6.1 - Sqrt(7.2))),Sqrt(61/10-Sqrt(36/5)));
