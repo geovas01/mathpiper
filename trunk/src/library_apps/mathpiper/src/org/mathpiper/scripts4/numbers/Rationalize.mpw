@@ -1,21 +1,28 @@
 %mathpiper,def="Rationalize"
 
+//Retract("Rationalize",*);
+
 10 # Rationalize(aNumber_IsList) <-- Rationalize /@ aNumber;
 
 20 # Rationalize( _aNumber ) <--
 [
     Local(result,n,d);
     result:=Substitute(aNumber,{{x},IsNumber(x) And Not(IsInteger(x))},"RationalizeNumber");
+    If(InVerboseMode(),Tell("",result));
     If(Length(VarList(aNumber))=0,
       [
         n:=Numerator(result);
+        If(Type(n)="Numerator",n:=result);
         d:=Denominator(result);
+        If(Type(d)="Denominator",d:=1);
         result := n*(1/d);
       ]
     );
     result;
 ];
 %/mathpiper
+
+   
 
 
 
