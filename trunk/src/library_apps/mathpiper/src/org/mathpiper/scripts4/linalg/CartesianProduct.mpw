@@ -28,7 +28,7 @@ CartesianProduct(xList_IsList, yList_IsList) <--
 
 
 
-%mathpiper_docs,name="CartesianProduct",categories="User Functions;Linear Algebra",access="experimental"
+%mathpiper_docs,name="CartesianProduct",categories="User Functions;Linear Algebra;Lists (Operations)",access="experimental"
 *CMD CartesianProduct --- returns the Cartesian product of two lists
 *CALL
 	CartesianProduct(list1, list2)
