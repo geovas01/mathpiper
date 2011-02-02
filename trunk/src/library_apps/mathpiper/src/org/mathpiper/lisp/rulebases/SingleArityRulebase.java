@@ -107,7 +107,6 @@ public class SingleArityRulebase extends Evaluator {
     public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception {
         int arity = arity();
         ConsPointer[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
-        int parameterIndex;
 
         // Create a new local variables frame that has the same fenced state as this function.
         aEnvironment.pushLocalFrame(fenced(), this.functionName);
@@ -119,7 +118,7 @@ public class SingleArityRulebase extends Evaluator {
         try {
 
             // define the local variables.
-            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+            for (int parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
                 String variableName = ((ParameterName) iParameters.get(parameterIndex)).iName;
                 // set the variable to the new value
                 aEnvironment.newLocalVariable(variableName, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);
@@ -131,8 +130,8 @@ public class SingleArityRulebase extends Evaluator {
 
             UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
 
-            for (parameterIndex = 0; parameterIndex < numberOfRules; parameterIndex++) {
-                Rule thisRule = ((Rule) iBranchRules.get(parameterIndex));
+            for (int ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
+                Rule thisRule = ((Rule) iBranchRules.get(ruleIndex));
                 LispError.lispAssert(thisRule != null, aEnvironment, aStackTop);
 
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
@@ -181,9 +180,9 @@ public class SingleArityRulebase extends Evaluator {
                     return;
                 }//end if matches.
 
-                // If rules got inserted, walk back
-                while (thisRule != ((Rule) iBranchRules.get(parameterIndex)) && parameterIndex > 0) {
-                    parameterIndex--;
+                // If rules got inserted, walk back.
+                while (thisRule != ((Rule) iBranchRules.get(ruleIndex)) && ruleIndex > 0) {
+                    ruleIndex--;
                 }
             }//end for.
 
@@ -196,7 +195,7 @@ public class SingleArityRulebase extends Evaluator {
                 full.cdr().setCons(null);
             } else {
                 full.cdr().setCons(argumentsResultPointerArray[0].getCons());
-                for (parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
+                for (int parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
                     argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
                 }
             }
