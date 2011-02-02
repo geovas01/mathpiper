@@ -63,7 +63,6 @@ public class MacroRulebase extends SingleArityRulebase {
     public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception {
         int arity = arity();
         ConsPointer[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
-        int parameterIndex;
 
 
 
@@ -74,7 +73,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
         try {
             // define the local variables.
-            for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
+            for (int parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
                 String variable = ((ParameterName) iParameters.get(parameterIndex)).iName;
 
                 // set the variable to the new value
@@ -85,8 +84,8 @@ public class MacroRulebase extends SingleArityRulebase {
             // predicate is true.
             int numberOfRules = iBranchRules.size();
             UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
-            for (parameterIndex = 0; parameterIndex < numberOfRules; parameterIndex++) {
-                Rule thisRule = ((Rule) iBranchRules.get(parameterIndex));
+            for (int ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
+                Rule thisRule = ((Rule) iBranchRules.get(ruleIndex));
                 //TODO remove            CHECKPTR(thisRule);
                 LispError.lispAssert(thisRule != null, aEnvironment, aStackTop);
 
@@ -113,8 +112,8 @@ public class MacroRulebase extends SingleArityRulebase {
                 }
 
                 // If rules got inserted, walk back
-                while (thisRule != ((Rule) iBranchRules.get(parameterIndex)) && parameterIndex > 0) {
-                    parameterIndex--;
+                while (thisRule != ((Rule) iBranchRules.get(ruleIndex)) && ruleIndex > 0) {
+                    ruleIndex--;
                 }
             }
         } catch (EvaluationException ex) {
@@ -141,7 +140,7 @@ public class MacroRulebase extends SingleArityRulebase {
                 full.cdr().setCons(null);
             } else {
                 full.cdr().setCons(argumentsResultPointerArray[0].getCons());
-                for (parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
+                for (int parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
                     argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
                 }
             }
