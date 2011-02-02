@@ -1,4 +1,4 @@
-%mathpiper,def="AG'Mean"
+%mathpiper,def="AGMean"
 
 /// coded by Serge Winitzki. See essays documentation for algorithms.
 
@@ -7,10 +7,10 @@
 //////////////////////////////////////////////////
 
 /// compute the AGM sequence up to a given precision
-AG'Mean(a, b, eps) :=
+AGMean(a, b, eps) :=
 [
 	Local(a1, b1);
-	If(InVerboseMode(), Echo("AG'Mean: Info: at prec. ", BuiltinPrecisionGet()));
+	If(InVerboseMode(), Echo("AGMean: Info: at prec. ", BuiltinPrecisionGet()));
 	// AGM main loop
 	While(Abs(a-b)>=eps)
 	[
@@ -21,6 +21,6 @@ AG'Mean(a, b, eps) :=
 	];
 	DivideN(a+b, 2);
 ];
-//UnFence(AG'Mean, 3);
+//UnFence(AGMean, 3);
 
 %/mathpiper
