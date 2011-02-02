@@ -99,7 +99,7 @@ LN(x_IsNumber)_(x>1 ) <--
 
 
 
-%mathpiper_docs,name="NewtonNum"
+%mathpiper_docs,name="NewtonNum",categories="User Functions;Solvers (Numeric)
 *CMD NewtonNum --- low-level optimized Newton's iterations
 *STD
 *CALL
@@ -143,11 +143,10 @@ The verbose option {V} can be used to monitor the convergence. The
 achieved exact digits should roughly form a geometric progression.
 
 *E.G.
-
-	In> BuiltinPrecisionSet(20)
-	Result: True;
-	In> NewtonNum({{x}, x+Sin(x)}, 3, 5, 3)
-	Result: 3.14159265358979323846;
+In> BuiltinPrecisionSet(20)
+Result: True;
+In> NewtonNum({{x}, x+Sin(x)}, 3, 5, 3)
+Result: 3.14159265358979323846;
 
 *SEE Newton
 %/mathpiper_docs

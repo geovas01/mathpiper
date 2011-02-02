@@ -1,4 +1,4 @@
-%mathpiper,def="NthRoot;NthRoot'Calc;NthRoot'List;NthRoot'Save;NthRoot'Restore;NthRoot'Clear"
+%mathpiper,def="NthRoot"
 
 /* def file definitions
 NthRoot
@@ -140,7 +140,7 @@ NthRoot'Clear();
 
 
 
-%mathpiper_docs,name="NthRoot"
+%mathpiper_docs,name="NthRoot",categories="User Functions;Numbers (Operations)"
 *CMD NthRoot --- calculate/simplify nth root of an integer
 *STD
 *CALL
@@ -166,14 +166,14 @@ For large {m} and small {n}
 fast.
 
 *E.G.
-	In> NthRoot(12,2)
-	Result: {2,3};
-	In> NthRoot(81,3)
-	Result: {3,3};
-	In> NthRoot(3255552,2)
-	Result: {144,157};
-	In> NthRoot(3255552,3)
-	Result: {12,1884};
+In> NthRoot(12,2)
+Result: {2,3};
+In> NthRoot(81,3)
+Result: {3,3};
+In> NthRoot(3255552,2)
+Result: {144,157};
+In> NthRoot(3255552,3)
+Result: {12,1884};
 
-*SEE IntNthRoot, Factors, MathPower
+*SEE IntNthRoot, Factors, PowerN
 %/mathpiper_docs

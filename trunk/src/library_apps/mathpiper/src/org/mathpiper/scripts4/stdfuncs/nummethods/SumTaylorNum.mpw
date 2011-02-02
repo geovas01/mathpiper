@@ -162,7 +162,7 @@ Result: 2.7182818007;
 
 
 
-%mathpiper_docs,name="SumTaylorNum"
+%mathpiper_docs,name="SumTaylorNum",categories="User Functions;Series"
 *CMD SumTaylorNum --- optimized numerical evaluation of Taylor series
 *STD
 *CALL
@@ -215,16 +215,16 @@ advance to achieve the desired accuracy.
 To compute 20 digits of $Exp(1)$ using the Taylor series, one needs 21
 digits of working precision and 21 terms of the series. 
 
-	In> BuiltinPrecisionSet(21)
-	Result: True;
-	In> SumTaylorNum(1, {{k},1/k!}, 21)
-	Result: 2.718281828459045235351;
-	In> SumTaylorNum(1, 1, {{k},1/k}, 21)
-	Result: 2.71828182845904523535;
-	In> SumTaylorNum(1, {{k},1/k!}, {{k},1/k}, 21)
-	Result: 2.71828182845904523535;
-	In> RoundTo(N(Ln(%)),20)
-	Result: 1;
+In> BuiltinPrecisionSet(21)
+Result: True;
+In> SumTaylorNum(1, {{k},1/k!}, 21)
+Result: 2.718281828459045235351;
+In> SumTaylorNum(1, 1, {{k},1/k}, 21)
+Result: 2.71828182845904523535;
+In> SumTaylorNum(1, {{k},1/k!}, {{k},1/k}, 21)
+Result: 2.71828182845904523535;
+In> RoundTo(N(Ln(%)),20)
+Result: 1;
 
 
 *SEE Taylor
