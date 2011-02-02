@@ -25,7 +25,7 @@
 
 %/mathpiper
 
-%mathpiper_docs,name="IsSumOfTerms"
+%mathpiper_docs,name="IsSumOfTerms",categories="User Functions;Predicates"
 *CMD IsSumOfTerms --- check for expression being a sum of terms in variable
 
 *STD
@@ -57,30 +57,29 @@ The criteria for {expr} to be a sum of terms in {var} are:
 Note that the last three criteria are somewhat subjective!  
 
 *E.G.
-
-    In> IsSumOfTerms(x,23)
-    Result> False
-    In> IsSumOfTerms(x,23*x)
-    Result> True
-    In> IsSumOfTerms(x,5*y)
-    Result> False
-    In> IsSumOfTerms(x,a*x^2-b*x-c/x)
-    Result> True
-    In> IsSumOfTerms(x,Sin(x))
-    Result> False
-    In> IsSumOfTerms(x,Sin(x)+Exp(x))
-    Result> True
-    In> IsSumOfTerms(x,d*(x^2-1))
-    Result> True
-    In> IsSumOfTerms(x,(x^2-1)*d)
-    Result> True
-    In> IsSumOfTerms(x,(x^2-1)/d)
-    Result> True
-    In> IsSumOfTerms(x,d/(x^2-1))
-    Result> False
-    In> IsSumOfTerms(x,(x^2-1)*(x^2+1))
-    Result> False
-    In> IsSumOfTerms(x,(x^2-1)/(x^2+1))
+In> IsSumOfTerms(x,23)
+Result> False
+In> IsSumOfTerms(x,23*x)
+Result> True
+In> IsSumOfTerms(x,5*y)
+Result> False
+In> IsSumOfTerms(x,a*x^2-b*x-c/x)
+Result> True
+In> IsSumOfTerms(x,Sin(x))
+Result> False
+In> IsSumOfTerms(x,Sin(x)+Exp(x))
+Result> True
+In> IsSumOfTerms(x,d*(x^2-1))
+Result> True
+In> IsSumOfTerms(x,(x^2-1)*d)
+Result> True
+In> IsSumOfTerms(x,(x^2-1)/d)
+Result> True
+In> IsSumOfTerms(x,d/(x^2-1))
+Result> False
+In> IsSumOfTerms(x,(x^2-1)*(x^2+1))
+Result> False
+In> IsSumOfTerms(x,(x^2-1)/(x^2+1))
     Result> False    
     
 %/mathpiper_docs

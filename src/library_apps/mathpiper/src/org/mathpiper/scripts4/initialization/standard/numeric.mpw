@@ -105,7 +105,6 @@ LocalSymbols(numericMode)
 %mathpiper_docs,name="N",categories="User Functions;Numbers (Operations)"
 *CMD N --- try to determine an numerical approximation of expression
 
-*STD
 *CALL
 	N(expression)
 	N(expression, precision)
@@ -133,21 +132,20 @@ the value of $Pi$ calculated at the current precision.
 be evaluated after switching to numeric mode.
 
 *E.G.
+In> 1/2
+Result: 1/2;
+In> N(1/2)
+Result: 0.5;
+In> Sin(1)
+Result: Sin(1);
+In> N(Sin(1),10)
+Result: 0.8414709848;
+In> Pi
+Result: Pi;
+In> N(Pi,20)
+Result: 3.1415926535897932385
 
-	In> 1/2
-	Result: 1/2;
-	In> N(1/2)
-	Result: 0.5;
-	In> Sin(1)
-	Result: Sin(1);
-	In> N(Sin(1),10)
-	Result: 0.8414709848;
-	In> Pi
-	Result: Pi;
-	In> N(Pi,20)
-	Result: 3.1415926535897932385
-
-*SEE Pi
+*SEE Pi, InNumericMode, NonN
 %/mathpiper_docs
 
     %output,preserve="false"
@@ -157,19 +155,11 @@ be evaluated after switching to numeric mode.
 
 
 
-%mathpiper_docs,name="InNumericMode;NonN"
+%mathpiper_docs,name="InNumericMode",categories="User Functions;Predicates"
 *CMD InNumericMode --- determine if currently in numeric mode
-*CMD NonN --- calculate part in non-numeric mode
 
-*STD
 *CALL
-	NonN(expr)
 	InNumericMode()
-*PARMS
-
-{expr} -- expression to evaluate
-
-{prec} -- integer, precision to use
 
 *DESC
 
@@ -187,6 +177,30 @@ could define a transformation rule
 {InNumericMode()} usually returns {False}, so transformation rules that check for this
 predicate are usually left alone.
 
+
+*E.G.
+In> InNumericMode()
+Result: False
+In> N(InNumericMode())
+Result: True
+
+*SEE N, BuiltinPrecisionSet, BuiltinPrecisionGet, Pi, CachedConstant
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper_docs,name="NonN",categories="User Functions;Numbers (Operations)"
+*CMD NonN --- calculate part in non-numeric mode
+
+*CALL
+	NonN(expr)
+
+*PARMS
+{expr} -- expression to evaluate
+
+*DESC
 When in numeric mode, {NonN} can be called to switch back to non-numeric
 mode temporarily.
 
@@ -194,15 +208,8 @@ mode temporarily.
 be evaluated after the numeric mode has been set appropriately.
 
 *E.G.
-
-	In> InNumericMode()
-	Result: False
-	In> N(InNumericMode())
-	Result: True
-	In> N(NonN(InNumericMode()))
-	Result: False
+In> N(NonN(InNumericMode()))
+Result: False
 
 *SEE N, BuiltinPrecisionSet, BuiltinPrecisionGet, Pi, CachedConstant
 %/mathpiper_docs
-
-
