@@ -342,3 +342,26 @@ xSolveSystem.mpw
 xTerms.mpw
 zeta.mpw
 
+
+
+
+
+The following functions have documentation, but they have not been categorized:
+
+  *IntLog.mpw
+  *IntNthRoot.mpw
+  *IntPowerNum.mpw
+  *IsSumOfTerms.mpw
+  *MultiplyNum.mpw
+  *NetwonNum.mpw
+  *nthroot.mpw NthRoot
+  *numeric.mpw InNumericMode, NonN
+  *Remove.mpw
+  *SumTaylorNum.mpw
+
+
+
+
+
+
+
