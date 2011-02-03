@@ -2,6 +2,24 @@
 
 //Retract("GaussianFactors",*);
 
+
+/* AddGaussianFactor: auxiliary function for Gaussian Factors.
+L is a lists of factors of the Gaussian integer z and p is a Gaussian prime
+that we want to add to the list. We first find the exponent e of p in the
+decomposition of z (into Gaussian primes). If it is not zero, we add {p,e}
+to the list */
+
+AddGaussianFactor(L_IsList,z_IsGaussianInteger,p_IsGaussianInteger) <--
+[
+ Local(e);
+ e :=0;
+ While (IsGaussianInteger(z:= z/p)) e++;
+ If (e != 0, DestructiveAppend(L,{p,e}));
+];
+
+
+
+
 /* 
 GaussianFactors(n) : returns a list of factors of n, in a similar way to Factors(n).
 If n is a rational integer, we factor n in the Gaussian integers, by first
@@ -87,11 +105,10 @@ which this factor should be raised. So the factorization is returned as
 a list, e.g. {{{p1,n1}, {p2,n2}, ...}}.
 
 *E.G.
-
-	In> GaussianFactors(5)
-	Result: {{Complex(2,1),1},{Complex(2,-1),1}};
-	In> GaussianFactors(3+I)
-	Result: {{Complex(1,1),1},{Complex(2,-1),1}};
+In> GaussianFactors(5)
+Result: {{Complex(2,1),1},{Complex(2,-1),1}};
+In> GaussianFactors(3+I)
+Result: {{Complex(1,1),1},{Complex(2,-1),1}};
 
 *SEE Factors, IsGaussianPrime, IsGaussianUnit
 %/mathpiper_docs
