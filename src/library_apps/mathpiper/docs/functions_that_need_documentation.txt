@@ -1,6 +1,8 @@
-The following functions and .mpw files need to be documented:
+The following functions and .mpw files need to be documented
+(functions that start with * and are indented have already had documentation
+added to them):
 
-AG'Mean.mpw
+  *ArithmeticGeometricMean.mpw
 AddGaussianFactor.mpw
 AddTerm.mpw
 AddTerms.mpw
