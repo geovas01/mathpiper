@@ -19,7 +19,7 @@ CachedConstant(Ln2, Internal'LnNum(2));	// this is only useful for BrentLn
 	eps := DivideN(1, 10^n);	// precision
 	y := PowerN(x, k);	// not yet divided by 4
 	// this is Brent's AGM times y. This way we work around the MathPiper limitation of fixed precision, at cost of slightly slower initial iterations
-	y := DivideN(Internal'Pi()*y, (2*k)*AGMean(4, y, eps));
+	y := DivideN(Internal'Pi()*y, (2*k)*ArithmeticGeometricMean(4, y, eps));
 	BuiltinPrecisionSet(n);
 	RoundTo(y, n);	// do not return a more precise number than we really have
 ];
@@ -47,7 +47,7 @@ CachedConstant(Ln2, Internal'LnNum(2));	// this is only useful for BrentLn
     y := x*2^(k-2);	// divided already by 4
     // initial values for AGM
     // this is Brent's AGM times y. This way we work around the MathPiper limitation of fixed precision, at cost of slightly slower initial iterations
-    y:=Internal'Pi()*y/(2*AGMean(1,y,eps)) - k*Ln2();
+    y:=Internal'Pi()*y/(2*ArithmeticGeometricMean(1,y,eps)) - k*Ln2();
     BuiltinPrecisionSet(n);
   ]);
 	y;	// do not return a more precise number than we really have
