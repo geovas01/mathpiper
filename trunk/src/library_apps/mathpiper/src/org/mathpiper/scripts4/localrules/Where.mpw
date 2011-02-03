@@ -44,7 +44,7 @@ UnFence("Where",2);
 
 
 
-%mathpiper_docs,name="Where",categories="User Functions;Functional Operators"
+%mathpiper_docs,name="Where",categories="User Functions;Solvers (Symbolic)"
 *CMD Where --- substitute result into expression
 *STD
 *CALL
@@ -71,23 +71,21 @@ It accepts sets of variable/value pairs defined as
 and fills in the corresponding values. Lists of value pairs are
 also possible, as:
 
-	{var1==val1 And var2==val2, var1==val3
-	  And var2==val4}
+	{var1==val1 And var2==val2, var1==val3 And var2==val4}
 
 These values might be obtained through {Solve}.
 
 This operator can help the user to program in the style of functional programming languages such as Miranda or Haskell.
 
 *E.G.
-
-	In> x^2+y^2 Where x==2
-	Result: y^2+4;
-	In> x^2+y^2 Where x==2 And y==3
-	Result: 13;
-	In> x^2+y^2 Where {x==2 And y==3}
-	Result: {13};
-	In> x^2+y^2 Where {x==2 And y==3,x==4 And y==5}
-	Result: {13,41};
+In> x^2+y^2 Where x==2
+Result: y^2+4;
+In> x^2+y^2 Where x==2 And y==3
+Result: 13;
+In> x^2+y^2 Where {x==2 And y==3}
+Result: {13};
+In> x^2+y^2 Where {x==2 And y==3,x==4 And y==5}
+Result: {13,41};
 
 *SEE Solve, AddTo
 %/mathpiper_docs

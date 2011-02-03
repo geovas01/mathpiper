@@ -21,7 +21,7 @@
 
 
 
-%mathpiper_docs,name="AddTo",categories="User Functions;Functional Operators"
+%mathpiper_docs,name="AddTo",categories="User Functions;Solvers (Symbolic)"
 *CMD AddTo --- add an equation to a set of equations or set of set of equations
 *STD
 *CALL
@@ -50,8 +50,7 @@ existing set of equations. Suppose a solve command returned
 then a new identity a==2 could be added as follows:
 
 	In> a==2 AddTo {a>=0 And x==a,a<0 And x== -a}
-	Result: {a==2 And a>=0 And x==a,a==2 And a<0
-	  And x== -a};
+	Result: {a==2 And a>=0 And x==a,a==2 And a<0 And x== -a};
 
 Passing this set of set of identities back to solve, solve
 should recognize that the second one is not a possibility
@@ -61,12 +60,10 @@ This operator can help the user to program in the style of functional programmin
 
 *E.G.
 
-	In> {A==2,c==d} AddTo {b==3 And d==2}
-	Result: {A==2 And b==3 And d==2,c==d
-	  And b==3 And d==2};
-	In> {A==2,c==d} AddTo {b==3, d==2}
-	Result: {A==2 And b==3,A==2 And d==2,c==d
-	  And b==3,c==d And d==2};
+In> {A==2,c==d} AddTo {b==3 And d==2}
+Result: {A==2 And b==3 And d==2,c==d And b==3 And d==2};
+In> {A==2,c==d} AddTo {b==3, d==2}
+Result: {A==2 And b==3,A==2 And d==2,c==d And b==3,c==d And d==2};
 
 *SEE Where, Solve
 %/mathpiper_docs
