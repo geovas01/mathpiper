@@ -151,7 +151,7 @@ public class JavaCall extends BuiltinFunction {
                         {
                             try
                             {
-                                returnObject = JavaField.getField((Class) targetObject, methodName, true);
+                                returnObject = JavaField.getField((Class) targetObject, methodName, true).get(null);
                             }
                             catch(Exception e2)
                             {
