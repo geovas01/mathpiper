@@ -45,7 +45,7 @@ public class LispExpressionEvaluator extends Evaluator {
      *
      * <li value="2"><p>
      * If aExpression is a list, the head of the list is
-     * examined. If the head is not a string. InternalApplyPure()
+     * examined. If the head is not a string. ApplyFast()
      * is called. If the head is a string, it is checked against
      * the core commands (if there is a check, the corresponding
      * evaluator is called). Then it is checked agaist the list of

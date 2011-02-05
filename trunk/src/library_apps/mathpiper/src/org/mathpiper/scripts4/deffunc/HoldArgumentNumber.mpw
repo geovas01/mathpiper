@@ -5,7 +5,7 @@ Function("HoldArgumentNumber",{function,arity,index})
   Local(args);
   args:=RulebaseArgumentsList(function,arity);
 /* Echo({"holdnr ",args}); */
-  ApplyPure("HoldArgument",{function,args[index]});
+  ApplyFast("HoldArgument",{function,args[index]});
 ];
 
 %/mathpiper

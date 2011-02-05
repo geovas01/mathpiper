@@ -66,7 +66,7 @@ LocalSymbols(SparseTreeMap2,SparseTreeScan2,Muaddterm,MuMuaddterm,
    <--
    ForEach(item,list)
    [
-     item[2] := ApplyPure(op,{Concat(coefs,{item[1]}),item[2]});
+     item[2] := ApplyFast(op,{Concat(coefs,{item[1]}),item[2]});
    ];
 20 # SparseTreeMap2(_list,_depth,_coefs)
    <--
@@ -78,7 +78,7 @@ UnFence("SparseTreeMap", 3);
 [Local(fn);fn:=ToString(SparseTreeMap2);`UnFence(@fn,3);];
 
 10 # SparseTreeScan(_op,_depth,_list) <-- SparseTreeScan2(list,depth,{});
-10 # SparseTreeScan2(_list,0,_coefs)  <-- ApplyPure(op,{coefs,list});
+10 # SparseTreeScan2(_list,0,_coefs)  <-- ApplyFast(op,{coefs,list});
 20 # SparseTreeScan2(_list,_depth,_coefs)
    <--
    ForEach(item,list)

@@ -152,9 +152,9 @@ RngSeed(_r, seed_IsInteger) <--
 
 /// trivial distribution adaptor: flat distribution, simply calls SomeEngine(r)
 /* we have to return whole objects; we can't use references b/c the core
-function ApplyPure will not work properly on references, i.e. if r = {"", "", {1}} so that
+function ApplyFast will not work properly on references, i.e. if r = {"", "", {1}} so that
 r[3] = {1}, then LCG'2(r[3]) modifies r[3], but LCG'2 @ r[3] or
-ApplyPure("LCG'2", {r[3]}) do not actually modify r[3].
+ApplyFast("LCG'2", {r[3]}) do not actually modify r[3].
 */
 
 // return pair {state, number}
