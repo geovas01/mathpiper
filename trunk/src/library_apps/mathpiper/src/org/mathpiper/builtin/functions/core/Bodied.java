@@ -68,7 +68,7 @@ characters (such as "+", ":" etc.).
 Precedence is optional (will be set to 0 by default).
 
 *E.G.
-	In> todo
+In> todo
 
 *SEE IsBodied, PrecedenceGet, Infix, Postfix, Prefix
 %/mathpiper_docs

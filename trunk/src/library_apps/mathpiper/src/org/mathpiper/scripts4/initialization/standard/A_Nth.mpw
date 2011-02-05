@@ -85,16 +85,16 @@ An alternative but equivalent form of {Nth(list, n)} is
 
 *E.G.
 
-	In> lst := {a,b,c,13,19};
-	Result: {a,b,c,13,19};
-	In> Nth(lst, 3);
-	Result: c;
-	In> lst[3];
-	Result: c;
-	In> Nth(lst, {3,4,1});
-	Result: {c,13,a};
-	In> Nth(b*(a+c), 2);
-	Result: a+c;
+In> lst := {a,b,c,13,19};
+Result: {a,b,c,13,19};
+In> Nth(lst, 3);
+Result: c;
+In> lst[3];
+Result: c;
+In> Nth(lst, {3,4,1});
+Result: {c,13,a};
+In> Nth(b*(a+c), 2);
+Result: a+c;
 
 *SEE Select, Nth
 %/mathpiper_docs

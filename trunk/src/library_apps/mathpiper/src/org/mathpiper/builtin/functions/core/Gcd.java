@@ -64,8 +64,8 @@ integer result is returned even if the calculation requires more digits than set
 the functions return a floating-point result which is correct only to the current precision.
 
 *E.G.
-	In>
-	Result>
+In>
+Result:
 
 %/mathpiper_docs
 */

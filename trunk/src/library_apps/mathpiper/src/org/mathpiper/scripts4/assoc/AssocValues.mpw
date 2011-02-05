@@ -24,16 +24,16 @@ and this list is returned.
 
 *E.G.
 
-	In> writer := {};
-	Result: {};
-	In> writer["Iliad"] := "Homer";
-	Result: True;
-	In> writer["Henry IV"] := "Shakespeare";
-	Result: True;
-	In> writer["Ulysses"] := "James Joyce";
-	Result: True;
-	In> AssocIndices(writer);
-	Result: {"Homer","ShakespeareJames Joyce"};
+In> writer := {};
+Result: {};
+In> writer["Iliad"] := "Homer";
+Result: True;
+In> writer["Henry IV"] := "Shakespeare";
+Result: True;
+In> writer["Ulysses"] := "James Joyce";
+Result: True;
+In> AssocIndices(writer);
+Result: {"Homer","ShakespeareJames Joyce"};
 
 *SEE Assoc, AssocDelete, AssocIndices
 %/mathpiper_docs

@@ -72,7 +72,7 @@ Any malformed XML will be treated as plain text.
 
 *E.G. notest
 
-	In> [XmlTokenizer(); q:=ReadToken(); \
+In> [XmlTokenizer(); q:=ReadToken(); \
 	  DefaultTokenizer();q;]
 	<a>Result: <a>;
 

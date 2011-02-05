@@ -42,8 +42,8 @@ This is useful for loops like
 
 *E.G.
 
-	In> DivisorsList(18)
-	Result: {1,2,3,6,9,18};
+In> DivisorsList(18)
+Result: {1,2,3,6,9,18};
 
 *SEE DivisorsSum
 %/mathpiper_docs

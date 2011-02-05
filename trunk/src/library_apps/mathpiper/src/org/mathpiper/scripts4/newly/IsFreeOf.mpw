@@ -43,14 +43,14 @@ the variables named in the list. The result is {True} if none of the variables a
 
 *E.G.
 
-	In> IsFreeOf(x, Sin(x));
-	Result: False;
-	In> IsFreeOf(y, Sin(x));
-	Result: True;
-	In> IsFreeOf(x, Differentiate(x) a*x+b);
-	Result: True;
-	In> IsFreeOf({x,y}, Sin(x));
-	Result: False;
+In> IsFreeOf(x, Sin(x));
+Result: False;
+In> IsFreeOf(y, Sin(x));
+Result: True;
+In> IsFreeOf(x, Differentiate(x) a*x+b);
+Result: True;
+In> IsFreeOf({x,y}, Sin(x));
+Result: False;
 
 The third command returns {True} because the
 expression {Differentiate(x) a*x+b} evaluates to {a}, which does not depend on {x}.

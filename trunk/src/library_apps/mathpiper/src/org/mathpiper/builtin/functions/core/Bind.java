@@ -60,10 +60,10 @@ has more uses, e.g. changing individual entries in a list.
 
 *E.G.
 
-	In> Bind(a, Sin(x)+3);
-	Result: True;
-	In> a;
-	Result: Sin(x)+3;
+In> Bind(a, Sin(x)+3);
+Result: True;
+In> a;
+Result: Sin(x)+3;
 
 *SEE Unbind, :=
 %/mathpiper_docs

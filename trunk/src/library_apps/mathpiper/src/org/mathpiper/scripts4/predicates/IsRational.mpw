@@ -42,16 +42,16 @@ number, i.e. an integer or a fraction of integers.
 
 *E.G.
 
-	In> IsRational(5)
-	Result: True;
-	In> IsRational(2/7)
-	Result: True;
-	In> IsRational(0.5)
-	Result: False;
-	In> IsRational(a/b)
-	Result: False;
-	In> IsRational(x + 1/x)
-	Result: False;
+In> IsRational(5)
+Result: True;
+In> IsRational(2/7)
+Result: True;
+In> IsRational(0.5)
+Result: False;
+In> IsRational(a/b)
+Result: False;
+In> IsRational(x + 1/x)
+Result: False;
 
 *SEE Numerator, Denominator
 %/mathpiper_docs

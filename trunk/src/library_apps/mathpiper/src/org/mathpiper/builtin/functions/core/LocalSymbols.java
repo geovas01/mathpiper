@@ -87,8 +87,8 @@ for example, in the macro-like functions ({For}, {While}, etc.).
 
 *E.G. notest
 
-	In> LocalSymbols(a,b)a+b
-	Result: \$a6+ \$b6;
+In> LocalSymbols(a,b)a+b
+Result: \$a6+ \$b6;
 
 *SEE UniqueConstant
 %/mathpiper_docs

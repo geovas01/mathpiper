@@ -24,10 +24,10 @@ $n$ and the sum of the proper divisors of $n$ is $m$.
 
 *E.G.
 
-	In> IsAmicablePair(200958394875, 209194708485 )
-	Result: True;
-	In> IsAmicablePair(220, 284)
-	Result: True;
+In> IsAmicablePair(200958394875, 209194708485 )
+Result: True;
+In> IsAmicablePair(220, 284)
+Result: True;
 
 *SEE ProperDivisorsSum
 %/mathpiper_docs

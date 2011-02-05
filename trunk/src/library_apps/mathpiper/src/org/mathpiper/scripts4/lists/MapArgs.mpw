@@ -35,10 +35,10 @@ pure functions).
 
 *E.G.
 
-	In> MapArgs(f(x,y,z),"Sin");
-	Result: f(Sin(x),Sin(y),Sin(z));
-	In> MapArgs({3,4,5,6}, {{x},x^2});
-	Result: {9,16,25,36};
+In> MapArgs(f(x,y,z),"Sin");
+Result: f(Sin(x),Sin(y),Sin(z));
+In> MapArgs({3,4,5,6}, {{x},x^2});
+Result: {9,16,25,36};
 
 *SEE MapSingle, Map, Apply
 %/mathpiper_docs

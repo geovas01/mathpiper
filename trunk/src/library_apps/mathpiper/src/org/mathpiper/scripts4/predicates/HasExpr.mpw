@@ -40,12 +40,12 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 
 *E.G.
 
-	In> HasExpr(x+y*Cos(Ln(z)/z), z)
-	Result: True;
-	In> HasExpr(x+y*Cos(Ln(z)/z), Ln(z))
-	Result: True;
-	In> HasExpr(x+y*Cos(Ln(z)/z), z/Ln(z))
-	Result: False;
+In> HasExpr(x+y*Cos(Ln(z)/z), z)
+Result: True;
+In> HasExpr(x+y*Cos(Ln(z)/z), Ln(z))
+Result: True;
+In> HasExpr(x+y*Cos(Ln(z)/z), z/Ln(z))
+Result: False;
 
 *SEE HasExprArith, HasExprSome, FuncList, VarList, HasFunc
 %/mathpiper_docs

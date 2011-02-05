@@ -70,8 +70,8 @@ Returns the precedence of the function named "op" which should have been declare
 For infix operators, right precedence can differ from left precedence. Bodied functions and prefix operators cannot have left precedence, while postfix operators cannot have right precedence; for these operators, there is only one value of precedence.
 
 *E.G.
-	In> RightPrecedenceGet("+")
-	Result> 70
+In> RightPrecedenceGet("+")
+Result: 70
 
 *SEE PrecedenceGet,LeftPrecedenceGet,LeftPrecedenceSet,RightPrecedenceSet,RightAssociativeSet
 %/mathpiper_docs

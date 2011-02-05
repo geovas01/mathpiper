@@ -31,14 +31,14 @@ rational nor numeric, the function returns unevaluated.
 
 *E.G.
 
-	In> Numerator(2/7)
-	Result: 2;
-	In> Numerator(a / x^2)
-	Result: a;
-	In> Numerator(-a / x^2)
-	Result: -a;
-	In> Numerator(5)
-	Result: 5;
+In> Numerator(2/7)
+Result: 2;
+In> Numerator(a / x^2)
+Result: a;
+In> Numerator(-a / x^2)
+Result: -a;
+In> Numerator(5)
+Result: 5;
 
 *SEE Denominator, IsRational, IsNumber
 %/mathpiper_docs

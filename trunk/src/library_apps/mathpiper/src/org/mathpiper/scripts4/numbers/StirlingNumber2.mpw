@@ -24,10 +24,10 @@ $0$.
 
 *E.G.
 
-	In> StirlingNumber2(3,6)
-	Result: 0;
-	In> StirlingNumber2(10,4)
-	Result: 34105;
+In> StirlingNumber2(3,6)
+Result: 0;
+In> StirlingNumber2(10,4)
+Result: 34105;
 
 *SEE StirlingNumber1
 %/mathpiper_docs

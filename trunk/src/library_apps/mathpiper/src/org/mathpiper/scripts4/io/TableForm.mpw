@@ -33,7 +33,7 @@ printing every element in the list on a separate line.
 
 *E.G.
 
-	In> TableForm(Table(i!, i, 1, 10, 1));
+In> TableForm(Table(i!, i, 1, 10, 1));
 
 	1
 	 2
@@ -45,7 +45,7 @@ printing every element in the list on a separate line.
 	 40320
 	 362880
 	 3628800
-	Result: True;
+Result: True;
 
 *SEE PrettyForm, Echo, Table
 %/mathpiper_docs

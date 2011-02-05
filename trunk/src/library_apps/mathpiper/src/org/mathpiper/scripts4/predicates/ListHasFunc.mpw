@@ -30,20 +30,20 @@ Given a list of expressions and and a function name, this command returns
 {True} if the list contains the function name.
 
 *E.G.
-    In> lst := {Ln(x),Sinh(a*x),ArcTan(3/x)}
-    Result: {Ln(x),Sinh(a*x),ArcTan(3/x)}
-    
-    In> ListHasFunc(lst,Sqrt)
-    Result: False
-    
-    In> ListHasFunc(lst,Ln)
-    Result: True
-    
-    In> ListHasFunc(lst,Sinh)
-    Result: True
-    
-    In> ListHasFunc(lst,ArcTan)
-    Result: True
+In> lst := {Ln(x),Sinh(a*x),ArcTan(3/x)}
+Result: {Ln(x),Sinh(a*x),ArcTan(3/x)}
+
+In> ListHasFunc(lst,Sqrt)
+Result: False
+
+In> ListHasFunc(lst,Ln)
+Result: True
+
+In> ListHasFunc(lst,Sinh)
+Result: True
+
+In> ListHasFunc(lst,ArcTan)
+Result: True
 *SEE HasFunc
 %/mathpiper_docs
 

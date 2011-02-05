@@ -95,8 +95,8 @@ to being built-in). This means that they can be extended by the user.
 
 *E.G.
 
-	In> 6/2
-	Result: 3;
+In> 6/2
+Result: 3;
 
 *SEE %_v1
 %/mathpiper_docs

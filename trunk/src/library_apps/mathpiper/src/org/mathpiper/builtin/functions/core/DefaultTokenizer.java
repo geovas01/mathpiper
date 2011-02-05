@@ -66,7 +66,7 @@ or else the user will be unable to continue the session
 
 *E.G. notest
 
-	In>
+In>
 
 
 *SEE OMRead, TrapError, XmlExplodeTag, ReadToken, PipeFromFile, FromString, XmlTokenizer

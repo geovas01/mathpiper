@@ -73,26 +73,26 @@ inline prettyprinter, which is enabled by default); they call
 
 *E.G.
 
-	In> Assert("bad value", "must be zero") 1=0
-	Result: False;
-	In> Assert("bad value", "must be one") 1=1
-	Result: True;
-	In> IsError()
-	Result: True;
-	In> IsError("bad value")
-	Result: True;
-	In> IsError("bad file")
-	Result: False;
-	In> GetError("bad value");
-	Result: "must be zero";
-	In> DumpErrors()
+In> Assert("bad value", "must be zero") 1=0
+Result: False;
+In> Assert("bad value", "must be one") 1=1
+Result: True;
+In> IsError()
+Result: True;
+In> IsError("bad value")
+Result: True;
+In> IsError("bad file")
+Result: False;
+In> GetError("bad value");
+Result: "must be zero";
+In> DumpErrors()
 	Error: bad value: must be zero
-	Result: True;
+Result: True;
 No more errors left:
-	In> IsError()
-	Result: False;
-	In> DumpErrors()
-	Result: True;
+In> IsError()
+Result: False;
+In> DumpErrors()
+Result: True;
 
 *SEE IsError, DumpErrors, Check, GetError, ClearError, ClearErrors, GetErrorTableau
 

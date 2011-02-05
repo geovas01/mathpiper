@@ -28,10 +28,10 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 
 *E.G.
 
-	In> HasFuncArith(x+y*Cos(Ln(x)/x), Cos)
-	Result: True;
-	In> HasFuncArith(x+y*Cos(Ln(x)/x), Ln)
-	Result: False;
+In> HasFuncArith(x+y*Cos(Ln(x)/x), Cos)
+Result: True;
+In> HasFuncArith(x+y*Cos(Ln(x)/x), Ln)
+Result: False;
 
 *SEE HasFunc, HasFuncSome, FuncList, VarList, HasExpr
 %/mathpiper_docs

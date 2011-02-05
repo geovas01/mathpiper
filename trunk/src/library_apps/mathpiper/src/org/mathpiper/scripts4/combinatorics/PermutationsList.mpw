@@ -51,8 +51,8 @@ the elements in the original list.
 
 *E.G.
 
-	In> PermutationsList({a,b,c})
-	Result: {{a,b,c},{a,c,b},{c,a,b},{b,a,c},
+In> PermutationsList({a,b,c})
+Result: {{a,b,c},{a,c,b},{c,a,b},{b,a,c},
 	{b,c,a},{c,b,a}};
 
 *SEE Permutations, Combinations, CombinationsList, LeviCivita

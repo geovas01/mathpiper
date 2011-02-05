@@ -72,9 +72,9 @@ string. WriteString always returns True.
 
 *E.G. notest
 
-	In> Write("Hello, world!");
+In> Write("Hello, world!");
 	"Hello, world!"Result: True;
-	In> WriteString("Hello, world!");
+In> WriteString("Hello, world!");
 	Hello, world!Result: True;
 
 This example clearly shows the difference between Write and

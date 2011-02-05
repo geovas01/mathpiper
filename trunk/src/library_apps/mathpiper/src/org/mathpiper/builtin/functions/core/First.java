@@ -55,10 +55,10 @@ returned if "list" is an atom.
 
 *E.G.
 
-	In> First({a,b,c})
-	Result: a;
-	In> First(f(a,b,c));
-	Result: a;
+In> First({a,b,c})
+Result: a;
+In> First(f(a,b,c));
+Result: a;
 
 *SEE Rest, Length
 %/mathpiper_docs

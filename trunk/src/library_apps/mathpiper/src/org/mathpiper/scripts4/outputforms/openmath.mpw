@@ -738,8 +738,8 @@ name as it has in MathPiper.
 
 *E.G. notest
 
-	In> str:=PipeToString()OMForm(2+Sin(a*3))
-	Result: "<OMOBJ>
+In> str:=PipeToString()OMForm(2+Sin(a*3))
+Result: "<OMOBJ>
 	  <OMA>
 	    <OMS cd="arith1" name="plus"/>
 	    <OMI>2</OMI>
@@ -754,10 +754,10 @@ name as it has in MathPiper.
 	  </OMA>
 	</OMOBJ>
 	";
-	In> PipeFromString(str)OMRead()
-	Result: 2+Sin(a*3);
+In> PipeFromString(str)OMRead()
+Result: 2+Sin(a*3);
 
-	In> OMForm(NotDefinedInOpenMath(2+3))
+In> OMForm(NotDefinedInOpenMath(2+3))
 	<OMOBJ>
 	  <OMA>
 	    <OMS cd="mathpiper" name="NotDefinedInOpenMath"/>
@@ -768,7 +768,7 @@ name as it has in MathPiper.
 	    </OMA>
 	  </OMA>
 	</OMOBJ>
-	Result: True
+Result: True
 
 *SEE XmlTokenizer, XmlExplodeTag, OMDef
 %/mathpiper_docs
@@ -804,19 +804,19 @@ difference is that when giving an expression only the {omToMathPiper} translatio
 is defined, and it uses the exact expression given. This is used for {OpenMath}
 symbols that must be translated into a whole subexpression in MathPiper, such
 as {set1:emptyset} which gets translated to an empty list as follows:
-	In> OMDef( {}, "set1","emptyset" )
-	Result: True
-	In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
-	Result: {}
-	In> IsList(%)
-	Result: True
+In> OMDef( {}, "set1","emptyset" )
+Result: True
+In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
+Result: {}
+In> IsList(%)
+Result: True
 Otherwise, a symbol that is not inside an application (OMA) gets translated to
 the MathPiper atom with the given name:
-	In> OMDef( "EmptySet", "set1","emptyset" )
+In> OMDef( "EmptySet", "set1","emptyset" )
 	Warning: the mapping for set1:emptyset was already defined as {} , but is redefined now as EmptySet
-	Result: True
-	In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
-	Result: EmptySet
+Result: True
+In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
+Result: EmptySet
 
 The definitions for the symbols in the MathPiper
 library are in the {*.rep} script subdirectories. In those modules for which
@@ -866,9 +866,9 @@ contain them.
 
 *E.G. notest
 
-	In> OMDef( "Sqrt" ,  "arith1", "root", { $, _1, 2 }, $(_1)_(_2=2) | (_1^(1/_2)) );
-	Result: True
-	In> OMForm(Sqrt(3))
+In> OMDef( "Sqrt" ,  "arith1", "root", { $, _1, 2 }, $(_1)_(_2=2) | (_1^(1/_2)) );
+Result: True
+In> OMForm(Sqrt(3))
 	<OMOBJ>
 	  <OMA>
 	    <OMS cd="arith1" name="root"/>
@@ -876,13 +876,13 @@ contain them.
 	    <OMI>2</OMI>
 	  </OMA>
 	</OMOBJ>
-	Result: True
-	In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
-	Result: Sqrt(16)
-	In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>3</OMI></OMA></OMOBJ> ")OMRead()
-	Result: 16^(1/3)
+Result: True
+In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
+Result: Sqrt(16)
+In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>3</OMI></OMA></OMOBJ> ")OMRead()
+Result: 16^(1/3)
 
-	In> OMDef("Limit", "limit1", "limit", \
+In> OMDef("Limit", "limit1", "limit", \
 	      {  $, _2, OMS("limit1", "under"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Left)  \
 	      |{ $, _2, OMS("limit1", "above"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Right) \
 	      |{ $, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) },      \
@@ -890,7 +890,7 @@ contain them.
 	      |{$, _{3,2,1}, _1, Right, _{3,3}}_(_2=OMS("limit1", "above")) \
 	      |{$, _{3,2,1}, _1, _{3,3}}                                    \
 	     );
-	In> OMForm(Limit(x,0) Sin(x)/x)
+In> OMForm(Limit(x,0) Sin(x)/x)
 	<OMOBJ>
 	  <OMA>
 	    <OMS cd="limit1" name="limit"/>
@@ -912,8 +912,8 @@ contain them.
 	    </OMBIND>
 	  </OMA>
 	</OMOBJ>
-	Result: True
-	In> OMForm(Limit(x,0,Right) 1/x)
+Result: True
+In> OMForm(Limit(x,0,Right) 1/x)
 	<OMOBJ>
 	  <OMA>
 	    <OMS cd="limit1" name="limit"/>
@@ -932,11 +932,11 @@ contain them.
 	    </OMBIND>
 	  </OMA>
 	</OMOBJ>
-	Result: True
-	In> PipeFromString(PipeToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
-	Result: Limit(x,0,Right)1/x
-	In> %
-	Result: Infinity
+Result: True
+In> PipeFromString(PipeToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
+Result: Limit(x,0,Right)1/x
+In> %
+Result: Infinity
 
 *SEE OMForm, OMRead
 %/mathpiper_docs

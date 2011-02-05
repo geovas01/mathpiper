@@ -41,12 +41,12 @@ index is returned. If "expr" does not occur at all,
 
 *E.G.
 
-	In> Find({a,b,c,d,e,f}, d);
-	Result: 4;
-	In> Find({1,2,3,2,1}, 2);
-	Result: 2;
-	In> Find({1,2,3,2,1}, 4);
-	Result: -1;
+In> Find({a,b,c,d,e,f}, d);
+Result: 4;
+In> Find({1,2,3,2,1}, 2);
+Result: 2;
+In> Find({1,2,3,2,1}, 4);
+Result: -1;
 
 *SEE Contains
 %/mathpiper_docs

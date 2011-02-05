@@ -34,10 +34,10 @@ If the determinant of the Wronskian matrix is zero, then the functions
 are dependent, otherwise they are independent.
 
 *E.G.
-	In> WronskianMatrix({Sin(x),Cos(x),x^4},x);
-	Result: {{Sin(x),Cos(x),x^4},{Cos(x),-Sin(x),4*x^3},
+In> WronskianMatrix({Sin(x),Cos(x),x^4},x);
+Result: {{Sin(x),Cos(x),x^4},{Cos(x),-Sin(x),4*x^3},
 	  {-Sin(x),-Cos(x),12*x^2}};
-	In> PrettyForm(%)
+In> PrettyForm(%)
 
 	/                                                 \
 	| ( Sin( x ) )      ( Cos( x ) )      /  4 \      |
@@ -50,11 +50,11 @@ are dependent, otherwise they are independent.
 	|                                     \ 12 * x  / |
 	\                                                 /
 The last element is a linear combination of the first two, so the determinant is zero:
-	In> A:=Determinant( WronskianMatrix( {x^4,x^3,2*x^4 
+In> A:=Determinant( WronskianMatrix( {x^4,x^3,2*x^4 
 	  + 3*x^3},x ) )
-	Result: x^4*3*x^2*(24*x^2+18*x)-x^4*(8*x^3+9*x^2)*6*x
+Result: x^4*3*x^2*(24*x^2+18*x)-x^4*(8*x^3+9*x^2)*6*x
 	  +(2*x^4+3*x^3)*4*x^3*6*x-4*x^6*(24*x^2+18*x)+x^3
 	  *(8*x^3+9*x^2)*12*x^2-(2*x^4+3*x^3)*3*x^2*12*x^2;
-	In> Simplify(A)
-	Result: 0;
+In> Simplify(A)
+Result: 0;
 %/mathpiper_docs

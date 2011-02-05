@@ -53,14 +53,14 @@ This function explicitly requests an evaluation of the expression
 
 *E.G.
 
-	In> a := x;
-	Result: x;
-	In> x := 5;
-	Result: 5;
-	In> a;
-	Result: x;
-	In> Eval(a);
-	Result: 5;
+In> a := x;
+Result: x;
+In> x := 5;
+Result: 5;
+In> a;
+Result: x;
+In> Eval(a);
+Result: 5;
 
 The variable {a} is bound to {x},
 and {x} is bound to 5. Hence evaluating {a} will give {x}. Only when an extra

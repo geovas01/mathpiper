@@ -76,14 +76,14 @@ mathematical idiom that simplifies many formulae.
 
 *E.G.
 
-	In> Differentiate(x)Sin(x*y)
-	Result: y*Cos(x*y);
-	In> Differentiate({x,y,z})Sin(x*y)
-	Result: {y*Cos(x*y),x*Cos(x*y),0};
-	In> Differentiate(x,2)Sin(x*y)
-	Result: -Sin(x*y)*y^2;
-	In> Differentiate(x){Sin(x),Cos(x)}
-	Result: {Cos(x),-Sin(x)};
+In> Differentiate(x)Sin(x*y)
+Result: y*Cos(x*y);
+In> Differentiate({x,y,z})Sin(x*y)
+Result: {y*Cos(x*y),x*Cos(x*y),0};
+In> Differentiate(x,2)Sin(x*y)
+Result: -Sin(x*y)*y^2;
+In> Differentiate(x){Sin(x),Cos(x)}
+Result: {Cos(x),-Sin(x)};
 
 *SEE Integrate, Taylor, Diverge, Curl
 %/mathpiper_docs

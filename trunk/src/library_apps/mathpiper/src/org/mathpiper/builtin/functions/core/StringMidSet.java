@@ -84,8 +84,8 @@ a new changed copy.
 
 *E.G.
 
-	In> StringMidSet(3,"XY","abcdef")
-	Result: "abXYef";
+In> StringMidSet(3,"XY","abcdef")
+Result: "abXYef";
 
 *SEE StringMidGet, Length
 %/mathpiper_docs

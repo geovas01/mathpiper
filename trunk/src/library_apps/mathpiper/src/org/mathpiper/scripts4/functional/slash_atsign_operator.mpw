@@ -31,10 +31,10 @@ This operator can help the user to program in the style of functional programmin
 
 *E.G.
 
-	In> "Sin" /@ {a,b}
-	Result: {Sin(a),Sin(b)};
-	In> {{a},Sin(a)*a} /@ {a,b}
-	Result: {Sin(a)*a,Sin(b)*b};
+In> "Sin" /@ {a,b}
+Result: {Sin(a),Sin(b)};
+In> {{a},Sin(a)*a} /@ {a,b}
+Result: {Sin(a)*a,Sin(b)*b};
 
 *SEE MapSingle, Map, MapArgs
 %/mathpiper_docs

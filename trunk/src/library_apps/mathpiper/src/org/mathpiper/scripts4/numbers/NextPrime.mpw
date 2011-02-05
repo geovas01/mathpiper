@@ -32,8 +32,8 @@ where $n$ is an odd number (this generates the sequence 5, 7, 11, 13, 17,
 fact prime.
 
 *E.G.
-	In> NextPrime(5)
-	Result: 7;
+In> NextPrime(5)
+Result: 7;
 
 *SEE IsPrime
 %/mathpiper_docs

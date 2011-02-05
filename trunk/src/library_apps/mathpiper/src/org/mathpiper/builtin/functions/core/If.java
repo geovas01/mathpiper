@@ -84,19 +84,19 @@ sequence is used), the {If} expression returns {False}.
 
 The sign function is defined to be 1 if its argument is positive and
 -1 if its argument is negative. A possible implementation is
-	In> mysign(x) := If (IsPositiveReal(x), 1, -1);
-	Result: True;
-	In> mysign(Pi);
-	Result: 1;
-	In> mysign(-2.5);
-	Result: -1;
+In> mysign(x) := If (IsPositiveReal(x), 1, -1);
+Result: True;
+In> mysign(Pi);
+Result: 1;
+In> mysign(-2.5);
+Result: -1;
 Note that this will give incorrect results, if "x" cannot be
 numerically approximated.
-	In> mysign(a);
-	Result: -1;
+In> mysign(a);
+Result: -1;
 Hence a better implementation would be
-	In> mysign(_x)_IsNumber(N(x)) <-- If \
+In> mysign(_x)_IsNumber(N(x)) <-- If \
 	  (IsPositiveReal(x), 1, -1);
-	Result: True;
+Result: True;
 %/mathpiper_docs
 */

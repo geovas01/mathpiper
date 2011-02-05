@@ -65,9 +65,9 @@ can be useful in the {~/.MathPiperrc} file.
 
 *E.G.
 
-	In> HistorySize(200)
-	Result: True;
-	In> quit
+In> HistorySize(200)
+Result: True;
+In> quit
 
 *SEE quit
 %/mathpiper_docs

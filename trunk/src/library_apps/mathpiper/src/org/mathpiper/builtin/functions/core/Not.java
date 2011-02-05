@@ -69,12 +69,12 @@ expression with evaluated arguments.
 
 *E.G.
 
-	In> Not True
-	Result: False;
-	In> Not False
-	Result: True;
-	In> Not(a)
-	Result: Not a;
+In> Not True
+Result: False;
+In> Not False
+Result: True;
+In> Not(a)
+Result: Not a;
 
 *SEE And, Or
 %/mathpiper_docs

@@ -84,52 +84,52 @@ is not, if x is a given variable and a is a constant or does not involve x.
 
 *E.G.
 
-    In> IsRationalFunction(3,x)  
-    Result: False
-    In> IsRationalFunction(3)      
-    Result: False;
-    In> IsRationalFunction(3.5,x)
-    Result:  False
-    In> IsRationalFunction(3.5)
-    Result:  False 
-    In> IsRationalFunction(3/5,x)
-    Result:  False 
-    In> IsRationalFunction(3/5)
-    Result:  False 
-    In> IsRationalFunction(x,y)
-    Result:  False 
-    In> IsRationalFunction(x)
-    Result:  False 
-    In> IsRationalFunction(x/y,x)
-    Result:  False 
-    In> IsRationalFunction(x/y,y)
-    Result:  True
-    In> IsRationalFunction(x/y)
-    Result:  True 
-    In> IsRationalFunction(x/5,x)
-    Result:  False 
-    In> IsRationalFunction(x/5)
-    Result:  False 
-    In> IsRationalFunction(5/x,x)
-    Result:  True 
-    In> IsRationalFunction(-5/x,x)
-    Result:  True 
-    In> IsRationalFunction(5/x)
-    Result:  True 
-    In> IsRationalFunction(-5/x)
-    Result:  True 
-    In> IsRationalFunction(5/x,y)
-    Result:  False 
-    In> IsRationalFunction(5/x,{y})
-    Result:  False 
-    In> IsRationalFunction(5/x,{y,x})
-    Result:  False
-    In> IsRationalFunction(5/y)
-    Result:  True 
-    In> IsRationalFunction(1-1/x,x)
-    Result:  False 
-    In> IsRationalFunction(1-1/x)
-    Result:  False
+In> IsRationalFunction(3,x)  
+Result: False
+In> IsRationalFunction(3)      
+Result: False;
+In> IsRationalFunction(3.5,x)
+Result:  False
+In> IsRationalFunction(3.5)
+Result:  False 
+In> IsRationalFunction(3/5,x)
+Result:  False 
+In> IsRationalFunction(3/5)
+Result:  False 
+In> IsRationalFunction(x,y)
+Result:  False 
+In> IsRationalFunction(x)
+Result:  False 
+In> IsRationalFunction(x/y,x)
+Result:  False 
+In> IsRationalFunction(x/y,y)
+Result:  True
+In> IsRationalFunction(x/y)
+Result:  True 
+In> IsRationalFunction(x/5,x)
+Result:  False 
+In> IsRationalFunction(x/5)
+Result:  False 
+In> IsRationalFunction(5/x,x)
+Result:  True 
+In> IsRationalFunction(-5/x,x)
+Result:  True 
+In> IsRationalFunction(5/x)
+Result:  True 
+In> IsRationalFunction(-5/x)
+Result:  True 
+In> IsRationalFunction(5/x,y)
+Result:  False 
+In> IsRationalFunction(5/x,{y})
+Result:  False 
+In> IsRationalFunction(5/x,{y,x})
+Result:  False
+In> IsRationalFunction(5/y)
+Result:  True 
+In> IsRationalFunction(1-1/x,x)
+Result:  False 
+In> IsRationalFunction(1-1/x)
+Result:  False
 
 %/mathpiper_docs
 

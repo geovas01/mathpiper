@@ -29,8 +29,8 @@ A number $m$ is a "quadratic residue modulo $n$" if there exists a number $k$ su
 
 *E.G.
 
-	In> IsQuadraticResidue(9,13)
-	Result: True;
+In> IsQuadraticResidue(9,13)
+Result: True;
 
 *SEE Gcd, JacobiSymbol, LegendreSymbol
 %/mathpiper_docs

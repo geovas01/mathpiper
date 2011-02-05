@@ -24,10 +24,10 @@ If $A$ is a real matrix, it must be symmetric to be Hermitian.
 
 *E.G.
 
-	In> IsHermitian({{0,I},{-I,0}})
-	Result: True;
-	In> IsHermitian({{0,I},{2,0}})
-	Result: False;
+In> IsHermitian({{0,I},{-I,0}})
+Result: True;
+In> IsHermitian({{0,I},{2,0}})
+Result: False;
 
 *SEE IsUnitary
 %/mathpiper_docs

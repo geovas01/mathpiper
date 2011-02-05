@@ -114,13 +114,13 @@ with two arguments, and a macro {foo(a,b,c)} with three arguments.
 The following example defines a macro {myfor}, and shows one use, referencing
 a variable {a} from the calling environment.
 
-	In> DefMacroRulebase("myfor",{init,pred,inc,body})
-	Result: True;
-	In> myfor(_init,_pred,_inc,_body)<--[@init;While(@pred)[@body;@inc;];True;];
-	Result: True;
-	In> a:=10
-	Result: 10;
-	In> myfor(i:=1,i<10,i++,Echo(a*i))
+In> DefMacroRulebase("myfor",{init,pred,inc,body})
+Result: True;
+In> myfor(_init,_pred,_inc,_body)<--[@init;While(@pred)[@body;@inc;];True;];
+Result: True;
+In> a:=10
+Result: 10;
+In> myfor(i:=1,i<10,i++,Echo(a*i))
 	10
 	20
 	30
@@ -130,9 +130,9 @@ a variable {a} from the calling environment.
 	70
 	80
 	90
-	Result: True;
-	In> i
-	Result: 10;
+Result: True;
+In> i
+Result: 10;
 
 *SEE Rulebase, `, DefMacroRulebaseListed
 %/mathpiper_docs

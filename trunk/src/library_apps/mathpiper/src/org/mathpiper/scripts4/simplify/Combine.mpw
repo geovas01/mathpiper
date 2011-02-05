@@ -51,23 +51,23 @@ Until such time as we can make Combine() a part of MathPiper's automatic
 expression evaluation, this is the best workaround.
 
 *E.G.
-    In> e1:=3 + x/5 - 3
-    Result: x/5         (automatically simplified upon entry)
-    
-    In> e2:=3-x/5-3
-    Result: 3-x/5-3     (NOT automatically simplified upon entry)
-    
-    In> Simplify(e2)
-    Result: (-x)/5      (Simplify() does the job)
-    
-    In> e3:=3 + x/5 + x/5
-    Result: (2*x)/5+3
-    
-    In> Simplify(e3)
-    Result: (2*x+15)/5  (Simplify() does more than we want, here)
-    
-    In> Combine(e3)
-    Result: (2*x)/5+3   (Combine() does just enough -- not too much)
+In> e1:=3 + x/5 - 3
+Result: x/5         (automatically simplified upon entry)
+
+In> e2:=3-x/5-3
+Result: 3-x/5-3     (NOT automatically simplified upon entry)
+
+In> Simplify(e2)
+Result: (-x)/5      (Simplify() does the job)
+
+In> e3:=3 + x/5 + x/5
+Result: (2*x)/5+3
+
+In> Simplify(e3)
+Result: (2*x+15)/5  (Simplify() does more than we want, here)
+
+In> Combine(e3)
+Result: (2*x)/5+3   (Combine() does just enough -- not too much)
     
 *SEE Simplify, TrigSimpCombine, RadSimp
 %/mathpiper_docs

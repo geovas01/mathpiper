@@ -23,10 +23,10 @@ and are given explicitly by $$ Sum(j,0,k+1,(-1)^j*BinomialCoefficient(n+1,j)*(k-
 
 *E.G.
 
-	In> Eulerian(6,2)
-	Result: 302;
-	In> Eulerian(10,9)
-	Result: 1;
+In> Eulerian(6,2)
+Result: 302;
+In> Eulerian(10,9)
+Result: 1;
 
 *SEE BinomialCoefficient
 %/mathpiper_docs

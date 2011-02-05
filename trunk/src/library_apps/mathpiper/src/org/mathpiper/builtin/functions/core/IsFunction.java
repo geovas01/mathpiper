@@ -58,10 +58,10 @@ atom. This includes not only obvious functions such as {f(x)}, but also expressi
 
 *E.G.
 
-	In> IsFunction(x+5);
-	Result: True;
-	In> IsFunction(x);
-	Result: False;
+In> IsFunction(x+5);
+Result: True;
+In> IsFunction(x);
+Result: False;
 
 *SEE IsAtom, IsList, Type
 %/mathpiper_docs

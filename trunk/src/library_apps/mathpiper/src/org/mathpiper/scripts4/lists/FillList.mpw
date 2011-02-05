@@ -32,8 +32,8 @@ the expression "expr" and returns this list.
 
 *E.G.
 
-	In> FillList(x, 5);
-	Result: {x,x,x,x,x};
+In> FillList(x, 5);
+Result: {x,x,x,x,x};
 
 *SEE MakeVector, ZeroVector, RandomIntegerList
 %/mathpiper_docs

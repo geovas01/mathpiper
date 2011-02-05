@@ -50,12 +50,12 @@ The function {Version()} returns a string representing the version of the curren
 
 *E.G. notest
 
-	In> Version()
-	Result: "1.0.48rev3";
-	In> IsLessThan(Version(), "1.0.47")
-	Result: False;
-	In> GreaterThan(Version(), "1.0.47")
-	Result: True;
+In> Version()
+Result: "1.0.48rev3";
+In> IsLessThan(Version(), "1.0.47")
+Result: False;
+In> GreaterThan(Version(), "1.0.47")
+Result: True;
 
 The last two calls show that the {IsLessThan} and {GreaterThan}
 functions can be used for comparing version numbers. This

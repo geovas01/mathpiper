@@ -135,10 +135,10 @@ functions with polynomials can be integrated.
 
 *E.G.
 
-	In> Integrate(x,a,b) Cos(x)
-	Result: Sin(b)-Sin(a);
-	In> Integrate(x) Cos(x)
-	Result: Sin(x);
+In> Integrate(x,a,b) Cos(x)
+Result: Sin(b)-Sin(a);
+In> Integrate(x) Cos(x)
+Result: Sin(x);
 
 *SEE Differentiate, UniqueConstant
 %/mathpiper_docs

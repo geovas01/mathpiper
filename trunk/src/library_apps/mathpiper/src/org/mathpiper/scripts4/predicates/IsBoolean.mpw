@@ -26,12 +26,12 @@ functions that return a boolean result, e.g.
 
 *E.G.
 
-	In> IsBoolean(a)
-	Result: False;
-	In> IsBoolean(True)
-	Result: True;
-	In> IsBoolean(a And b)
-	Result: True;
+In> IsBoolean(a)
+Result: False;
+In> IsBoolean(True)
+Result: True;
+In> IsBoolean(a And b)
+Result: True;
 
 *SEE True, False
 %/mathpiper_docs

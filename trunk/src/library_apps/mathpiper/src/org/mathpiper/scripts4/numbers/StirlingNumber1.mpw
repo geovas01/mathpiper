@@ -29,10 +29,10 @@ $0$.
 
 *E.G.
 
-	In> StirlingNumber1(10,5)
-	Result: -269325;
-	In> StirlingNumber1(3,6)
-	Result: 0;
+In> StirlingNumber1(10,5)
+Result: -269325;
+In> StirlingNumber1(3,6)
+Result: 0;
 
 *SEE StirlingNumber2
 %/mathpiper_docs

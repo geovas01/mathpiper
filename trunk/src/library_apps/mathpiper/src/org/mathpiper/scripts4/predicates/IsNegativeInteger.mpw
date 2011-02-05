@@ -24,10 +24,10 @@ negative. The negative integers are -1, -2, -3, -4, -5, etc. If
 
 *E.G.
 
-	In> IsNegativeInteger(31);
-	Result: False;
-	In> IsNegativeInteger(-2);
-	Result: True;
+In> IsNegativeInteger(31);
+Result: False;
+In> IsNegativeInteger(-2);
+Result: True;
 
 *SEE IsPositiveInteger, IsNonZeroInteger, IsNegativeNumber
 %/mathpiper_docs

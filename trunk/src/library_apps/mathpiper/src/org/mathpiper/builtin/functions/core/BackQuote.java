@@ -87,26 +87,26 @@ This example defines a function that automatically evaluates to a number as
 soon as the argument is a number (a lot of functions  do this only when inside
 a {N(...)} section).
 
-	In> Decl(f1,f2) := \
-	In>   `(@f1(x_IsNumber) <-- N(@f2(x)));
-	Result: True;
-	In> Decl(nSin,Sin)
-	Result: True;
-	In> Sin(1)
-	Result: Sin(1);
-	In> nSin(1)
-	Result: 0.8414709848;
+In> Decl(f1,f2) := \
+In>   `(@f1(x_IsNumber) <-- N(@f2(x)));
+Result: True;
+In> Decl(nSin,Sin)
+Result: True;
+In> Sin(1)
+Result: Sin(1);
+In> nSin(1)
+Result: 0.8414709848;
 
 This example assigns the expression {func(value)} to variable {var}. Normally
 the first argument of {Bind} would be unevaluated.
 
-	In> SetF(var,func,value) := \
-	In>     `(Bind(@var,@func(@value)));
-	Result: True;
-	In> SetF(a,Sin,x)
-	Result: True;
-	In> a
-	Result: Sin(x);
+In> SetF(var,func,value) := \
+In>     `(Bind(@var,@func(@value)));
+Result: True;
+In> SetF(a,Sin,x)
+Result: True;
+In> a
+Result: Sin(x);
 
 
 *SEE MacroBind, MacroLocal, MacroRulebase, Hold, HoldArgument, DefMacroRulebase, MacroExpand

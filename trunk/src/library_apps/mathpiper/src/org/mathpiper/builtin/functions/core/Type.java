@@ -70,12 +70,12 @@ the result is the empty string {""}.
 
 *E.G.
 
-	In> Type({a,b,c});
-	Result: "List";
-	In> Type(a*(b+c));
-	Result: "*";
-	In> Type(123);
-	Result: "";
+In> Type({a,b,c});
+Result: "List";
+In> Type(a*(b+c));
+Result: "*";
+In> Type(123);
+Result: "";
 
 *SEE IsAtom, ArgumentsCount
 %/mathpiper_docs

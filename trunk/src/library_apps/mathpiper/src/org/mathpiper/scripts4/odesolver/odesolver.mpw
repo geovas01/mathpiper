@@ -312,14 +312,14 @@ may be entered as {y(n)}, where {n} is any integer.
 
 *E.G.
 
-	In> OdeSolve( y'' + y == 0 )
-	Result: C42*Sin(x)+C43*Cos(x);
-	In> OdeSolve( 2*y'' + 3*y' + 5*y == 0 )
-	Result: Exp(((-3)*x)/4)*(C78*Sin(Sqrt(31/16)*x)+C79*Cos(Sqrt(31/16)*x));
-	In> OdeSolve( y'' - 4*y == 0 )
-	Result: C132*Exp((-2)*x)+C136*Exp(2*x);
-	In> OdeSolve( y'' +2*y' + y == 0 )
-	Result: (C183+C184*x)*Exp(-x);
+In> OdeSolve( y'' + y == 0 )
+Result: C42*Sin(x)+C43*Cos(x);
+In> OdeSolve( 2*y'' + 3*y' + 5*y == 0 )
+Result: Exp(((-3)*x)/4)*(C78*Sin(Sqrt(31/16)*x)+C79*Cos(Sqrt(31/16)*x));
+In> OdeSolve( y'' - 4*y == 0 )
+Result: C132*Exp((-2)*x)+C136*Exp(2*x);
+In> OdeSolve( y'' +2*y' + y == 0 )
+Result: (C183+C184*x)*Exp(-x);
 
 *SEE Solve, RootsWithMultiples
 %/mathpiper_docs
@@ -345,10 +345,10 @@ on a function.
 
 *E.G.
 
-	In> OdeTest(y''+y,Sin(x)+Cos(x))
-	Result: 0;
-	In> OdeTest(y''+2*y,Sin(x)+Cos(x))
-	Result: Sin(x)+Cos(x);
+In> OdeTest(y''+y,Sin(x)+Cos(x))
+Result: 0;
+In> OdeTest(y''+2*y,Sin(x)+Cos(x))
+Result: Sin(x)+Cos(x);
 
 *SEE OdeSolve
 %/mathpiper_docs
@@ -371,12 +371,12 @@ order of the highest derivative. If no derivatives appear, zero is returned.
 
 *E.G.
 
-	In> OdeOrder(y'' + 2*y' == 0)
-	Result: 2;
-	In> OdeOrder(Sin(x)*y(5) + 2*y' == 0)
-	Result: 5;
-	In> OdeOrder(2*y + Sin(y) == 0)
-	Result: 0;
+In> OdeOrder(y'' + 2*y' == 0)
+Result: 2;
+In> OdeOrder(Sin(x)*y(5) + 2*y' == 0)
+Result: 5;
+In> OdeOrder(2*y + Sin(y) == 0)
+Result: 0;
 
 *SEE OdeSolve
 %/mathpiper_docs

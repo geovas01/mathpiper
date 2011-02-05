@@ -26,7 +26,7 @@ output. The result is always True.
 
 *E.G. notest
 
-	In> Space(5);
+In> Space(5);
 	     Result: True;
 
 *SEE Echo, Write, NewLine

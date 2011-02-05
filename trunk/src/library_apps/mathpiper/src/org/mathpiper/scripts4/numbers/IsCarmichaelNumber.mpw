@@ -50,11 +50,11 @@ it has recently been proven that there are infinitely many of them.
 
 *E.G. notest
 
-	In> IsCarmichaelNumber(561)
-	Result: True;
-	In> EchoTime() Select(1 .. 10000, IsCarmichaelNumber)
+In> IsCarmichaelNumber(561)
+Result: True;
+In> EchoTime() Select(1 .. 10000, IsCarmichaelNumber)
 	504.19 seconds taken
-	Result: {561,1105,1729,2465,2821,6601,8911};
+Result: {561,1105,1729,2465,2821,6601,8911};
 
 *SEE IsSquareFree, IsComposite
 %/mathpiper_docs

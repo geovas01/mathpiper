@@ -111,12 +111,12 @@ Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)=Length(x[1]);
 Something is considered to be a scalar if it's not a list.
 
 *E.G.
-	In> IsScalar(7)
-	Result: True;
-	In> IsScalar(Sin(x)+x)
-	Result: True;
-	In> IsScalar({x,y})
-	Result: False;
+In> IsScalar(7)
+Result: True;
+In> IsScalar(Sin(x)+x)
+Result: True;
+In> IsScalar({x,y})
+Result: False;
 
 *SEE IsList, IsVector, IsMatrix
 %/mathpiper_docs
@@ -147,14 +147,14 @@ predicate test {pred} returns {True} when applied to every element of
 the vector {expr}, {False} otherwise.
 
 *E.G.
-	In> IsVector({a,b,c})
-	Result: True;
-	In> IsVector({a,{b},c})
-	Result: False;
-	In> IsVector(IsInteger,{1,2,3})
-	Result: True;
-	In> IsVector(IsInteger,{1,2.5,3})
-	Result: False;
+In> IsVector({a,b,c})
+Result: True;
+In> IsVector({a,{b},c})
+Result: False;
+In> IsVector(IsInteger,{1,2,3})
+Result: True;
+In> IsVector(IsInteger,{1,2.5,3})
+Result: False;
 
 *SEE IsList, IsScalar, IsMatrix
 %/mathpiper_docs
@@ -186,16 +186,16 @@ the matrix {expr}, {False} otherwise.
 
 *E.G.
 
-	In> IsMatrix(1)
-	Result: False;
-	In> IsMatrix({1,2})
-	Result: False;
-	In> IsMatrix({{1,2},{3,4}})
-	Result: True;
-	In> IsMatrix(IsRational,{{1,2},{3,4}})
-	Result: False;
-	In> IsMatrix(IsRational,{{1/2,2/3},{3/4,4/5}})
-	Result: True;
+In> IsMatrix(1)
+Result: False;
+In> IsMatrix({1,2})
+Result: False;
+In> IsMatrix({{1,2},{3,4}})
+Result: True;
+In> IsMatrix(IsRational,{{1,2},{3,4}})
+Result: False;
+In> IsMatrix(IsRational,{{1/2,2/3},{3/4,4/5}})
+Result: True;
 
 *SEE IsList, IsVector
 %/mathpiper_docs
@@ -227,14 +227,14 @@ element of the matrix {expr}, {False} otherwise.
 
 *E.G.
 
-	In> IsSquareMatrix({{1,2},{3,4}});
-	Result: True;
-	In> IsSquareMatrix({{1,2,3},{4,5,6}});
-	Result: False;
-	In> IsSquareMatrix(IsBoolean,{{1,2},{3,4}});
-	Result: False;
-	In> IsSquareMatrix(IsBoolean,{{True,False},{False,True}});
-	Result: True;
+In> IsSquareMatrix({{1,2},{3,4}});
+Result: True;
+In> IsSquareMatrix({{1,2,3},{4,5,6}});
+Result: False;
+In> IsSquareMatrix(IsBoolean,{{1,2},{3,4}});
+Result: False;
+In> IsSquareMatrix(IsBoolean,{{True,False},{False,True}});
+Result: True;
 
 *SEE IsMatrix
 %/mathpiper_docs

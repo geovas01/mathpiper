@@ -38,17 +38,17 @@ product of two vectors yields a matrix.
 
 *E.G.
 
-	In> Outer({1,2},{3,4,5})
-	Result: {{3,4,5},{6,8,10}};
-	In> Outer({a,b},{c,d})
-	Result: {{a*c,a*d},{b*c,b*d}};
+In> Outer({1,2},{3,4,5})
+Result: {{3,4,5},{6,8,10}};
+In> Outer({a,b},{c,d})
+Result: {{a*c,a*d},{b*c,b*d}};
 
 	Or, using the "o"-Operator:
 
-	In> {1,2} o {3,4,5}
-	Result: {{3,4,5},{6,8,10}};
-	In> {a,b} o {c,d}
-	Result: {{a*c,a*d},{b*c,b*d}};
+In> {1,2} o {3,4,5}
+Result: {{3,4,5},{6,8,10}};
+In> {a,b} o {c,d}
+Result: {{a*c,a*d},{b*c,b*d}};
 
 
 *SEE InProduct, Dot, Cross

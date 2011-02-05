@@ -29,10 +29,10 @@ resulting expression, and returns the result.
 
 *E.G.
 
-	In> Subst(Cos(b), c) (Sin(a)+Cos(b)^2/c)
-	Result: Sin(a)+c^2/c;
-	In> Eliminate(Cos(b), c, Sin(a)+Cos(b)^2/c)
-	Result: Sin(a)+c;
+In> Subst(Cos(b), c) (Sin(a)+Cos(b)^2/c)
+Result: Sin(a)+c^2/c;
+In> Eliminate(Cos(b), c, Sin(a)+Cos(b)^2/c)
+Result: Sin(a)+c;
 
 *SEE SuchThat, Subst, Simplify
 %/mathpiper_docs

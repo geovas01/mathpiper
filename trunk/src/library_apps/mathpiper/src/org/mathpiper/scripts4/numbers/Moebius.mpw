@@ -40,14 +40,14 @@ is not square-free) and is $(-1)^r$ if $n$ has $r$ distinct factors. Also,
 $Moebius(1)==1$.
 
 *E.G.
-	In> Moebius(10)
-	Result: 1;
-	In> Moebius(11)
-	Result: -1;
-	In> Moebius(12)
-	Result: 0;
-	In> Moebius(13)
-	Result: -1;
+In> Moebius(10)
+Result: 1;
+In> Moebius(11)
+Result: -1;
+In> Moebius(12)
+Result: 0;
+In> Moebius(13)
+Result: -1;
 
 *SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, MoebiusDivisorsList
 %/mathpiper_docs

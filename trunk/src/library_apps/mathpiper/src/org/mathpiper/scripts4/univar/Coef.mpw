@@ -48,13 +48,13 @@ coefficients.
 
 *E.G.
 
-	In> e := Expand((a+x)^4,x)
-	Result: x^4+4*a*x^3+(a^2+(2*a)^2+a^2)*x^2+
+In> e := Expand((a+x)^4,x)
+Result: x^4+4*a*x^3+(a^2+(2*a)^2+a^2)*x^2+
 	(a^2*2*a+2*a^3)*x+a^4;
-	In> Coef(e,a,2)
-	Result: 6*x^2;
-	In> Coef(e,a,0 .. 4)
-	Result: {x^4,4*x^3,6*x^2,4*x,1};
+In> Coef(e,a,2)
+Result: 6*x^2;
+In> Coef(e,a,0 .. 4)
+Result: {x^4,4*x^3,6*x^2,4*x,1};
 
 *SEE Expand, Degree, LeadingCoef
 %/mathpiper_docs

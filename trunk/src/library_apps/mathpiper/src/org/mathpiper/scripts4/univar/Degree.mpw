@@ -72,20 +72,20 @@ call {Degree(expr,var)} will correctly identify the "degree" of
 this non-polynomial.
 
 *E.G.
-    In> Degree(x^5+x-1)
-    Result: 5
-    
-    In> Degree(a+b*x^3, a)
-    Result: 1
-    
-    In> Degree(a+b*x^3, x)
-    Result: 3
-    
-    In> Degree(x^-2+x-1)
-    Result: Degree(x^(-2)+x-1)
-    
-    In> Degree( (Sqrt(2)*x^2*(x+3))^(1/3),x)
-    Result: 1
+In> Degree(x^5+x-1)
+Result: 5
+
+In> Degree(a+b*x^3, a)
+Result: 1
+
+In> Degree(a+b*x^3, x)
+Result: 3
+
+In> Degree(x^-2+x-1)
+Result: Degree(x^(-2)+x-1)
+
+In> Degree( (Sqrt(2)*x^2*(x+3))^(1/3),x)
+Result: 1
 
 *SEE Expand, Coef
 %/mathpiper_docs

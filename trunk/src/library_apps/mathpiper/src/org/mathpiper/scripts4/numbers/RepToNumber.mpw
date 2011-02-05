@@ -115,20 +115,20 @@ The best way to {consistently} deal with precision and rounding issues is by mak
 of the information given by the representation (or "rep" for short)..
 
 *E.G.
-    In> RepToNumber({12345678,8,5})
-    Result: 123.45678
-    
-    In> RepToNumber({34700,5})
-    Result: 34700
-    
-    In> RepToNumber({{150,3,2},{675,3,2}})
-    Result: Complex(1.50,6.75)
-    
-    In> RepToNumber({12345678,8,15})
-    Result: 0.000000012345678   :   BETTER WOULD BE 123.45678E-10
-    
-    In> RepToNumber({12345678,8,-5})
-    Result: 1234567800000       :   BETTER WOULD BE 123.45678E+10
+In> RepToNumber({12345678,8,5})
+Result: 123.45678
+
+In> RepToNumber({34700,5})
+Result: 34700
+
+In> RepToNumber({{150,3,2},{675,3,2}})
+Result: Complex(1.50,6.75)
+
+In> RepToNumber({12345678,8,15})
+Result: 0.000000012345678   :   BETTER WOULD BE 123.45678E-10
+
+In> RepToNumber({12345678,8,-5})
+Result: 1234567800000       :   BETTER WOULD BE 123.45678E+10
     
 *SEE NumberToRep, DumpNumber
 %/mathpiper_docs

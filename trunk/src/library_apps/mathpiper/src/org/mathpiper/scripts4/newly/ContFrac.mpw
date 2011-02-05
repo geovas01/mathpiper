@@ -57,7 +57,7 @@ calculated using a continued fraction expansion.
 
 *E.G.
 
-	In> PrettyForm(ContFrac(N(Pi)))
+In> PrettyForm(ContFrac(N(Pi)))
 	
 	             1
 	--------------------------- + 3
@@ -71,8 +71,8 @@ calculated using a continued fraction expansion.
 	-------- + 292
 	rest + 1
 
-	Result: True;
-	In> PrettyForm(ContFrac(x^2+x+1, 3))
+Result: True;
+In> PrettyForm(ContFrac(x^2+x+1, 3))
 	
 	       x
 	---------------- + 1
@@ -82,7 +82,7 @@ calculated using a continued fraction expansion.
 	    -------- + 1
 	    rest + 1
 	
-	Result: True;
+Result: True;
 
 *SEE PAdicExpand, N
 %/mathpiper_docs

@@ -64,8 +64,8 @@ The abovementioned proposition would be represented by the following expression,
 MathPiper can prove that is correct by applying {CanProve}
 to it:
 
-	In> CanProve(( (a=>b) And (b=>c) ) => (a=>c))
-	Result: True;
+In> CanProve(( (a=>b) And (b=>c) ) => (a=>c))
+Result: True;
 
 It does this in the following way: in order to prove a proposition $p$, it
 suffices to prove that  $Not p$ is false. It continues to simplify  $Not p$
@@ -102,16 +102,16 @@ added advantage of simplifying the expression further.
 
 *E.G.
 
-	In> CanProve(a  Or   Not a)
-	Result: True;
-	In> CanProve(True  Or  a)
-	Result: True;
-	In> CanProve(False  Or  a)
-	Result: a;
-	In> CanProve(a  And   Not a)
-	Result: False;
-	In> CanProve(a  Or b Or (a And b))
-	Result: a Or b;
+In> CanProve(a  Or   Not a)
+Result: True;
+In> CanProve(True  Or  a)
+Result: True;
+In> CanProve(False  Or  a)
+Result: a;
+In> CanProve(a  And   Not a)
+Result: False;
+In> CanProve(a  Or b Or (a And b))
+Result: a Or b;
 	
 
 *SEE True, False, And, Or, Not

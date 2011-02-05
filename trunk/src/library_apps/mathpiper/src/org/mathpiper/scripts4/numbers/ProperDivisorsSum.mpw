@@ -26,10 +26,10 @@ since {n} is not counted.
 {n} is prime if and only if {ProperDivisorsSum(n)==1}.
 
 *E.G.
-	In> ProperDivisorsSum(180)
-	Result: 366;
-	In> ProperDivisorsSum(37)
-	Result: 1;
+In> ProperDivisorsSum(180)
+Result: 366;
+In> ProperDivisorsSum(37)
+Result: 1;
 
 
 *SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius

@@ -61,12 +61,12 @@ a certain expression.
 
 *E.G. notest
 
-	In> LispForm(a+b+c);
+In> LispForm(a+b+c);
 	(+ (+ a b )c )
-	Result: a+b+c;
-	In> LispForm(2*I*b^2);
+Result: a+b+c;
+In> LispForm(2*I*b^2);
 	(* (Complex 0 2 )(^ b 2 ))
-	Result: Complex(0,2)*b^2;
+Result: Complex(0,2)*b^2;
 
 The first example shows how the expression {a+b+c} is
 internally represented. In the second example, {2*I} is

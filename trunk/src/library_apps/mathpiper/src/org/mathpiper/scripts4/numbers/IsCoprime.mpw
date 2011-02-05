@@ -27,10 +27,10 @@ share no common factors.
 
 *E.G.
 
-	In> IsCoprime({3,4,5,8})
-	Result: False;
-	In> IsCoprime(15,17)
-	Result: True;
+In> IsCoprime({3,4,5,8})
+Result: False;
+In> IsCoprime(15,17)
+Result: True;
 
 *SEE Prime
 %/mathpiper_docs

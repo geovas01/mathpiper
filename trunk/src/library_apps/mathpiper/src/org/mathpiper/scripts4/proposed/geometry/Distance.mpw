@@ -34,14 +34,14 @@ distance formula.
 
 *E.G.
 
-	In> PointA := Point(2,3)
-	Result> {2,3}
+In> PointA := Point(2,3)
+Result: {2,3}
 	
-	In> PointB := Point(6,8)
-	Result> {6,8}
+In> PointB := Point(6,8)
+Result: {6,8}
 	
-	In> Distance(PointA, PointB)
-	Result> Sqrt(41)
+In> Distance(PointA, PointB)
+Result: Sqrt(41)
 
 *SEE IsPoint, Point, Midpoint, Slope, Segment
 %/mathpiper_docs

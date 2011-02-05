@@ -71,18 +71,18 @@ same type.
 
 *E.G.
 
-	In> PrettyForm(PAdicExpand(1234, 10));
+In> PrettyForm(PAdicExpand(1234, 10));
 	
 	               2     3
 	3 * 10 + 2 * 10  + 10  + 4
 	
-	Result: True;
-	In> PrettyForm(PAdicExpand(x^3, x-1));
+Result: True;
+In> PrettyForm(PAdicExpand(x^3, x-1));
 	
 	                             2            3
 	3 * ( x - 1 ) + 3 * ( x - 1 )  + ( x - 1 )  + 1
 	
-	Result: True;
+Result: True;
 
 *SEE Mod, ContFrac, FromBase, ToBase
 %/mathpiper_docs

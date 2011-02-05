@@ -53,14 +53,14 @@ division of integers.
 
 *E.G.
     
-	In> Rationalize(-1.2)
-	Result: (-6)/5
-	In> Rationalize(1.3+7.43*x)
-	Result: 743/100*x+13/10
-	In> {1.2,3.123,4.5}
-	Result: {1.2,3.123,4.5};
-	In> Rationalize(%)
-	Result: {6/5,3123/1000,9/2};
+In> Rationalize(-1.2)
+Result: (-6)/5
+In> Rationalize(1.3+7.43*x)
+Result: 743/100*x+13/10
+In> {1.2,3.123,4.5}
+Result: {1.2,3.123,4.5};
+In> Rationalize(%)
+Result: {6/5,3123/1000,9/2};
 
 *SEE IsRational
 

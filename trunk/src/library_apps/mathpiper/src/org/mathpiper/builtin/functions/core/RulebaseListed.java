@@ -80,26 +80,26 @@ The definitions
 	30 # f(_a,_b,_c) <-- Echo({"three args",a,b,c});
 give the following interaction:
 
-	In> f(A)
-	Result: f(A);
-	In> f(A,B)
-	Result: f(A,B);
-	In> f(A,B,C)
+In> f(A)
+Result: f(A);
+In> f(A,B)
+Result: f(A,B);
+In> f(A,B,C)
 	three args A B C
-	Result: True;
-	In> f(A,B,C,D)
+Result: True;
+In> f(A,B,C,D)
 	four args A B C D
-	Result: True;
-	In> f(A,B,C,D,E)
+Result: True;
+In> f(A,B,C,D,E)
 	more than four args A B {C,D,E}
-	Result: True;
-	In> f(A,B,C,D,E,E)
+Result: True;
+In> f(A,B,C,D,E,E)
 	more than four args A B {C,D,E,E}
-	Result: True;
+Result: True;
 
 The function {f} now appears to occupy all arities greater than 3:
 
-	In> Rulebase("f", {x,y,z,t});
+In> Rulebase("f", {x,y,z,t});
 	CommandLine(1) : Rule base with this arity
 	  already defined
 

@@ -22,7 +22,7 @@ Return the norm (i.e., the magnitude, or length) of vector {v}
 
 *E.G.
 
-	In> Norm({3,4})
+In> Norm({3,4})
     Result: 5
 
 *SEE InProduct, CrossProduct, Normalize

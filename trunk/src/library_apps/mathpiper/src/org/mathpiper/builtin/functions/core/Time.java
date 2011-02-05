@@ -80,8 +80,8 @@ The result is the "user time" as reported by the OS, not the real ("wall clock")
 Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {Time}.
 
 *E.G.
-	In> Time() Simplify((a*b)/(b*a))
-	Result: 0.09;
+In> Time() Simplify((a*b)/(b*a))
+Result: 0.09;
 
 *SEE EchoTime, SystemTimer
 

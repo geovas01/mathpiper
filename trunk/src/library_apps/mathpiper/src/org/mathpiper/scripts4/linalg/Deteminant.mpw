@@ -42,8 +42,8 @@ Returns the determinant of a matrix M.
 
 *E.G.
 
-	In> A:=DiagonalMatrix(1 .. 4)
-	Result: {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
-	In> Determinant(A)
-	Result: 24;
+In> A:=DiagonalMatrix(1 .. 4)
+Result: {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
+In> Determinant(A)
+Result: 24;
 %/mathpiper_docs

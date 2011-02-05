@@ -32,8 +32,8 @@ where {n} is the length of the lists "vector" and
 
 *E.G.
 
-	In> Diverge({x*y,x*y,x*y},{x,y,z})
-	Result: y+x;
+In> Diverge({x*y,x*y,x*y},{x,y,z})
+Result: y+x;
 
 *SEE D, Curl
 %/mathpiper_docs

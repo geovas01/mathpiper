@@ -55,7 +55,7 @@ equivalent to {init; While(pred) [body; incr;]}.
 
 *E.G. notest
 
-	In> For (i:=1, i<=10, i++) Echo({i, i!});
+In> For (i:=1, i<=10, i++) Echo({i, i!});
 	 1  1
 	 2  2
 	 3  6
@@ -66,7 +66,7 @@ equivalent to {init; While(pred) [body; incr;]}.
 	 8  40320
 	 9  362880
 	 10  3628800
-	Result: True;
+Result: True;
 
 *SEE While, Until, ForEach, Break, Continue
 %/mathpiper_docs

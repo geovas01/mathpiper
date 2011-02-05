@@ -80,17 +80,17 @@ A {Monomial} is defined to be a single term, consisting of a product of numbers
 and variables.
 
 *E.G.
-    In> IsMonomial(24)
-    Result: True
-    
-    In> IsMonomial(24*a*x^2*y^3)
-    Result: True
-    
-    In> IsMonomial(24*a*x^2*y^3/15)
-    Result: True
-    
-    In> IsMonomial(24*a*x^2*y^3/15+1)
-    Result: False
+In> IsMonomial(24)
+Result: True
+
+In> IsMonomial(24*a*x^2*y^3)
+Result: True
+
+In> IsMonomial(24*a*x^2*y^3/15)
+Result: True
+
+In> IsMonomial(24*a*x^2*y^3/15+1)
+Result: False
     
 %/mathpiper_docs
 
@@ -126,20 +126,20 @@ NOTE: numerical factors are not decomposed into their prime factorization.
 
 *E.G.
 
-    In> FactorsMonomial(24)
-    Result: {{24,1}}
-    
-    In> FactorsMonomial(24/15)
-    Result: {{8/5,1}}
-    
-    In> FactorsMonomial(24*a*x^2*y^3)
-    Result: {{24,1},{a,1},{x,2},{y,3}}
-    
-    In> FactorsMonomial(24*a*x^2*y^3/15)
-    Result: {{8/5,1},{a,1},{x,2},{y,3}}
-    
-    In> FactorsMonomial(24*a*x^2*y^3/15+1)
-    Result: FactorsMonomial((24*a*x^2*y^3)/15+1)
+In> FactorsMonomial(24)
+Result: {{24,1}}
+
+In> FactorsMonomial(24/15)
+Result: {{8/5,1}}
+
+In> FactorsMonomial(24*a*x^2*y^3)
+Result: {{24,1},{a,1},{x,2},{y,3}}
+
+In> FactorsMonomial(24*a*x^2*y^3/15)
+Result: {{8/5,1},{a,1},{x,2},{y,3}}
+
+In> FactorsMonomial(24*a*x^2*y^3/15+1)
+Result: FactorsMonomial((24*a*x^2*y^3)/15+1)
     
 %/mathpiper_docs
 

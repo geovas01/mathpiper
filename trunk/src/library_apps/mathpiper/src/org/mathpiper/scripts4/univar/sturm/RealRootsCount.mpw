@@ -29,10 +29,10 @@ The polynomial must use the variable {x} and no other variables.
 
 *E.G.
 
-	In> RealRootsCount(x^2-1)
-	Result: 2;
-	In> RealRootsCount(x^2+1)
-	Result: 0;
+In> RealRootsCount(x^2-1)
+Result: 2;
+In> RealRootsCount(x^2+1)
+Result: 0;
 
 *SEE FindRealRoots, SquareFree, MinimumBound, MaximumBound, Factor
 %/mathpiper_docs

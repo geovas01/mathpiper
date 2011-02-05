@@ -69,7 +69,7 @@ in the environment it is used in.
 
 *E.G. notest
 
-	In> TraceRule(x+y) 2+3*5+4;
+In> TraceRule(x+y) 2+3*5+4;
 	    TrEnter(2+3*5+4);
 	      TrEnter(2+3*5);
 	          TrArg(2, 2);
@@ -78,7 +78,7 @@ in the environment it is used in.
 	        TrArg(2+3*5, 17);
 	        TrArg(4, 4);
 	    TrLeave(2+3*5+4, 21);
-	Result: 21;
+Result: 21;
 
 *SEE TraceStack, TraceExp
 %/mathpiper_docs

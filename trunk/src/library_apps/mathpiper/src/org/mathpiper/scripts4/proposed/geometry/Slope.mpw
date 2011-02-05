@@ -51,20 +51,20 @@ segment using the slope formula.
 
 *E.G.
 
-	In> PointA := Point(2,3)
-	Result> {2,3}
+In> PointA := Point(2,3)
+Result: {2,3}
 	
-	In> PointB := Point(6,8)
-	Result> {6,8}
+In> PointB := Point(6,8)
+Result: {6,8}
 	
-	In> Slope(PointA,PointB)
-	Result> 5/4
+In> Slope(PointA,PointB)
+Result: 5/4
 
-	In> s := Segment(PointA,PointB)
-	Result: {{2,3},{6,8}}
+In> s := Segment(PointA,PointB)
+Result: {{2,3},{6,8}}
 	
-	In> Slope(s)
-	Result: 5/4
+In> Slope(s)
+Result: 5/4
 
 *SEE IsPoint, Point, Distance, Midpoint, Segment
 %/mathpiper_docs
