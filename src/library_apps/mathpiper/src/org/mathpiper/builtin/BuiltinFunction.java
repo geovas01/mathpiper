@@ -24,7 +24,7 @@ import java.util.List;
 import org.mathpiper.builtin.functions.core.Abs;
 import org.mathpiper.builtin.functions.core.Add;
 import org.mathpiper.builtin.functions.core.And;
-import org.mathpiper.builtin.functions.core.ApplyPure;
+import org.mathpiper.builtin.functions.core.ApplyFast;
 import org.mathpiper.builtin.functions.core.ArrayCreate;
 import org.mathpiper.builtin.functions.core.ArrayGet;
 import org.mathpiper.builtin.functions.core.ArraySet;
@@ -815,8 +815,8 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new Factorial(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "MathFac");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new ApplyPure(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "ApplyPure");
+		        new BuiltinFunctionEvaluator(new ApplyFast(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+		        "ApplyFast");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new PrettyReaderSet(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
 		        "PrettyReaderSet");

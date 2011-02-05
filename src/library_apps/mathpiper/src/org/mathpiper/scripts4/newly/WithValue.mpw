@@ -3,10 +3,10 @@
 TemplateFunction("WithValue",{var,val,expr})
 [
   If(IsList(var),
-     ApplyPure("MacroLocal",var),
+     ApplyFast("MacroLocal",var),
      MacroLocal(var)
     );
-  ApplyPure(":=",{var,val});
+  ApplyFast(":=",{var,val});
   Eval(expr);
 ];
 

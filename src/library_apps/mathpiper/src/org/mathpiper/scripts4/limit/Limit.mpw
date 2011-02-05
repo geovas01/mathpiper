@@ -34,7 +34,7 @@
      (infx And infy)
      );
 ] )
-<-- Lim(var, tar, dir, ApplyPure("Differentiate", {var, x})/ApplyPure("Differentiate", {var, y}));
+<-- Lim(var, tar, dir, ApplyFast("Differentiate", {var, x})/ApplyFast("Differentiate", {var, y}));
 
 /*  Special limit #6: null denominator  */
 /*  Probably there are still some problems.  */
@@ -45,8 +45,8 @@ Dir(Left) <-- -1;
 /*  To get the sign of the denominator on one side:  */
 Sign(_var, _tar, _dir, _exp, _n)
 <-- [
-  Local(der, coef); der := ApplyPure("Differentiate", {var, exp});
-  coef := Eval(ApplyPure("Subst", {var, tar, der}));
+  Local(der, coef); der := ApplyFast("Differentiate", {var, exp});
+  coef := Eval(ApplyFast("Subst", {var, tar, der}));
   If ( coef = 0,
        Sign(var, tar, dir, der, n+1),
        (Sign(coef)*Dir(dir)) ^ n
@@ -56,7 +56,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 /*  To avoid infinite recursion (with 1/Exp(-x) for instance)  */
 310 # Lim(_var, _tar, _dir, _x / _y)_
 (IsInfinity(tar) And IsZero(Lim(var, tar, dir, y)))
-<-- Sign(Lim(var, tar, dir, x))*Sign(Lim(var, tar, dir, ApplyPure("Differentiate", {var, y})))*tar;
+<-- Sign(Lim(var, tar, dir, x))*Sign(Lim(var, tar, dir, ApplyFast("Differentiate", {var, y})))*tar;
 
 320 # Lim(_var, _tar, _dir, _x / _y)_IsZero(Lim(var, tar, dir, y))
 <-- Sign(Lim(var, tar, dir, x))*Sign(var, tar, dir, y, 1)*Infinity;
@@ -84,7 +84,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 410 # Lim(_var, _tar, _dir, _x * _y)_
 ((IsZero(Lim(var, tar, dir, x)) And IsInfinity(Lim(var, tar, dir, y)))
   Or (IsInfinity(Lim(var, tar, dir, x)) And IsZero(Lim(var, tar, dir, y))))
-<-- Lim(var, tar, dir, Simplify(ApplyPure("Differentiate", {var, y})/ApplyPure("Differentiate",
+<-- Lim(var, tar, dir, Simplify(ApplyFast("Differentiate", {var, y})/ApplyFast("Differentiate",
 {var, 1/x})));
 
 /*  Default rule  */
@@ -134,7 +134,7 @@ LimitArgs(_arg) <-- Lim(var,tar,dir,arg);
 UnFence("LimitArgs",1); /* Allow LimitArgs to have access to the local variables of the caller. */
 
 701 # Lim(_var, _tar, _dir, _exp)
-<-- Eval(ApplyPure("Subst", {var, tar, exp}));
+<-- Eval(ApplyFast("Subst", {var, tar, exp}));
 
 
 /*  Limit without direction  */

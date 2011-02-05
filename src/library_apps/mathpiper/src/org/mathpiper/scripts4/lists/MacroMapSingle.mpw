@@ -9,7 +9,7 @@ TemplateFunction("MacroMapSingle",{func,list})
   ForEach(mapsingleitem,list)
   [
     DestructiveInsert(mapsingleresult,1,
-      `ApplyPure(func,{Hold(Hold(@mapsingleitem))}));
+      `ApplyFast(func,{Hold(Hold(@mapsingleitem))}));
   ];
   DestructiveReverse(mapsingleresult);
 ];

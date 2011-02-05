@@ -11,7 +11,7 @@ Rulebase("Sum",{sumvar'arg,sumfrom'arg,sumto'arg,sumbody'arg});
 10  # Sum(_sumvar,sumfrom_IsNumber,sumto_IsNumber,_sumbody)_(sumfrom>sumto) <-- 0;
 
 20 # Sum(_sumvar,sumfrom_IsNumber,sumto_IsNumber,_sumbody)_(sumto<sumfrom) <--
-     ApplyPure("Sum",{sumvar,sumto,sumfrom,sumbody});
+     ApplyFast("Sum",{sumvar,sumto,sumfrom,sumbody});
 30 # Sum(_sumvar,sumfrom_IsNumber,sumto_IsNumber,_sumbody) <--
 LocalSymbols(sumi,sumsum)[
    Local(sumi,sumsum);

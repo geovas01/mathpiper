@@ -1,9 +1,9 @@
 %mathpiper,def="Apply"
 
-10 # Apply(_applyoper,_applyargs) _ (Or(IsString(applyoper), IsList(applyoper))) <-- ApplyPure(applyoper,applyargs);
-20 # Apply(applyoper_IsAtom,_applyargs) <-- ApplyPure(ToString(applyoper),applyargs);
+10 # Apply(_applyoper,_applyargs) _ (Or(IsString(applyoper), IsList(applyoper))) <-- ApplyFast(applyoper,applyargs);
+20 # Apply(applyoper_IsAtom,_applyargs) <-- ApplyFast(ToString(applyoper),applyargs);
 
-30 # Apply(Lambda(_args,_body),_applyargs) <-- `ApplyPure(Hold({@args,@body}),applyargs);
+30 # Apply(Lambda(_args,_body),_applyargs) <-- `ApplyFast(Hold({@args,@body}),applyargs);
 UnFence("Apply",2);
 
 %/mathpiper

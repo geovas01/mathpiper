@@ -14,13 +14,13 @@ UnFence("MacroSubstitute",3);
 Rulebase("MacroSubstitute",{body});
 UnFence("MacroSubstitute",1);
 
-Rule("MacroSubstitute",1,1,`ApplyPure(predicate,{Hold(Hold(@body))}) = True)
+Rule("MacroSubstitute",1,1,`ApplyFast(predicate,{Hold(Hold(@body))}) = True)
 [
-  `ApplyPure(change,{Hold(Hold(@body))});
+  `ApplyFast(change,{Hold(Hold(@body))});
 ];
 Rule("MacroSubstitute",1,2,`IsFunction(Hold(@body)))
 [
-  `ApplyPure("MacroMapArgs",{Hold(Hold(@body)),"MacroSubstitute"});
+  `ApplyFast("MacroMapArgs",{Hold(Hold(@body)),"MacroSubstitute"});
 ];
 Rule("MacroSubstitute",1,3,True)
 [
