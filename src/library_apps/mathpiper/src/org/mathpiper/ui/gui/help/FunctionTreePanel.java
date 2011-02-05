@@ -837,7 +837,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                 if(line.endsWith(".mpw"))
                 {
                 		
-                	html.append("<a href=\"file://" + line + "\">View source code.</a>\n");
+                	html.append("<a href=\"file://" + line + "\">View source code (" + line + ").</a>\n");
                 }
                 else
                 {
