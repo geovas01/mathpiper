@@ -98,19 +98,19 @@ Verify(Solve(-3*x^3+10*x^2-11*x+4==0, x),{x==1,x==4/3});
 Verify(TrigSimpCombine(ExpandBrackets((2*x^2-x+3)-(2*x^2-x+3))),0);
 
 //Issue 67(a)
-//Factor(Rationalize(x^2+0.5*x+0.5));
+Verify(Factor(Rationalize(x^2+0.5*x+0.5)), Hold(1/2*(2*x^2+x+1)));
 
 //Issue 67(b)
-//Factor(Rationalize(x^2+0.5*x-0.5));
+Verify(Factor(Rationalize(x^2+0.5*x-0.5)), Hold(1/2*(x+1)*(2*x-1)));
 
 //Issue 67(c)
-//Factor(Rationalize(x^2-0.5*x-0.5));
+Verify(Factor(Rationalize(x^2-0.5*x-0.5)), Hold(1/2*(x-1)*(2*x+1)));
 
 //Issue 67(d)
-//Factor(Rationalize(x^2-0.5*x+0.5));
+Verify(Factor(Rationalize(x^2-0.5*x+0.5), Hold(1/2*(2*x^2-x+1))));
 
 //Issue 68
-//Factor(Rationalize(x^2-0.7*x-2.6));
+Verify(Factor(Rationalize(x^2-0.7*x-2.6)), Hold(1/10*(x-2)*(10*x+13)));
 
 //Issue 80
 Verify(Solve((-((10 * c) + (3)))/(2 * ((4 * (c)^(2)) - (9))) == (-1)/(2 * ((2 * c) - (3))), c), {c==0});
