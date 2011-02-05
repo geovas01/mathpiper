@@ -58,3 +58,34 @@ public class ApplyFast extends BuiltinFunction
         }
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="ApplyFast",categories="User Functions;Functional Operators",access="private"
+*CMD ApplyFast --- a fast built-in version of the Apply function
+*CALL
+	ApplyFast(fn, arglist)
+
+*PARMS
+
+{fn} -- function to apply
+
+{arglist} -- list of arguments
+
+*DESC
+This function is a fast built-in version of the Apply function.
+
+*E.G.
+In> ApplyFast("+", {5,9});
+Result: 14
+
+In> ApplyFast({{x,y}, x-y^2}, {Cos(a), Sin(a)});
+Result: Cos(a)-Sin(a)^2
+
+In>  ApplyFast(Lambda({x,y}, x-y^2), {Cos(a), Sin(a)});
+Result: Cos(a)-Sin(a)^2
+
+*SEE Apply
+%/mathpiper_docs
+*/

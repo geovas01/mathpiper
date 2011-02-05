@@ -2,13 +2,36 @@ The following functions and .mpw files need to be documented
 (functions that start with * and are indented have already had documentation
 added to them):
 
-  *ArithmeticGeometricMean.mpw
-AddGaussianFactor.mpw
+
+  
+  
 AddTerm.mpw
 AddTerms.mpw
+DivTermList.mpw
+MultiDivTerm.mpw
+MultiplySingleTerm.mpw
+MultiplyTerms.mpw
+SubtractTerms.mpw
+
+
 AntiDeriv.mpw
+
+
+//Tensor functions.
 ApplyDelta.mpw
-ApplyPure.java
+MoveDeltas.mpw
+Delta.mpw
+TD.mpw
+TExplicitSum.mpw
+TList.mpw
+TRun.mpw
+TSimplify.mpw
+TSum.mpw
+TSumRest.mpw
+TSumSimplify.mpw
+X.mpw
+
+
 ApproxInfSum.mpw
 ArcCosh.mpw
 ArcCot.mpw
@@ -74,7 +97,7 @@ DebugFile.java
 DebugLine.java
 DefLoadFunction.java
 DefaultPrint.mpw
-Delta.mpw
+
 Deriv.mpw
 DestructiveAppendList.mpw
 Digamma.mpw
@@ -85,7 +108,6 @@ DirichletBeta.mpw
 DirichletEta.mpw
 DirichletLambda.mpw
 DivPoly.mpw
-DivTermList.mpw
 DoUnitSubsumptionAndResolution.mpw
 DropEndZeroes.mpw
 EqualAsSets.mpw
@@ -204,14 +226,10 @@ MathSign.java
 MathSqrtFloat.mpw
 MatrixRowAndColumnOps.mpw
 Maxima.java
-MoveDeltas.mpw
-MultiDivTerm.mpw
 MultiDivide.mpw
 MultiGcd.mpw
 MultiNomial.mpw
 MultiSimp.mpw
-MultiplySingleTerm.mpw
-MultiplyTerms.mpw
 NN.mpw
 NewtonLn.mpw
 NextPseudoPrime.mpw
@@ -280,16 +298,7 @@ SturmSequence.mpw
 SturmVariations.mpw
 Substitute.mpw
 Subsumes.mpw
-SubtractTerms.mpw
 SumFunc.mpw
-TD.mpw
-TExplicitSum.mpw
-TList.mpw
-TRun.mpw
-TSimplify.mpw
-TSum.mpw
-TSumRest.mpw
-TSumSimplify.mpw
 TanNum.mpw
 Tanh.mpw
 Taylor2.mpw
@@ -312,7 +321,7 @@ ViewSimulator.java
 WilkinsonMatrix.mpw
 WriteDataItem.mpw
 WriteN.mpw
-X.mpw
+
 backends.mpw
 equals_greaterthan_operator.mpw
 expthreshold.mpw
@@ -348,7 +357,7 @@ zeta.mpw
 
 
 
-The following functions have documentation, but they have not been categorized:
+The following functions have been categorized and have had documentation added to them.
 
   *IntLog.mpw
   *IntNthRoot.mpw
@@ -360,8 +369,8 @@ The following functions have documentation, but they have not been categorized:
   *numeric.mpw InNumericMode, NonN
   *Remove.mpw
   *SumTaylorNum.mpw
-
-
+  *ArithmeticGeometricMean.mpw
+  *ApplyFast.java
 
 
 
