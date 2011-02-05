@@ -93,19 +93,19 @@ $$ S = T / (B*Q) $$.
 
 Compute the series for $e=Exp(1)$ using binary splitting.
 (We start from $n=1$ to simplify the coefficient functions.)
-	In> BuiltinPrecisionSet(21)
-	Result: True;
-	In>  BinSplitNum(1,21, {{k},1},
+In> BuiltinPrecisionSet(21)
+Result: True;
+In>  BinSplitNum(1,21, {{k},1},
 	  {{k},1},{{k},1},{{k},k})
-	Result: 1.718281828459045235359;
-	In> N(Exp(1)-1)
-	Result: 1.71828182845904523536;
-	In>  BinSplitData(1,21, {{k},1},
+Result: 1.718281828459045235359;
+In> N(Exp(1)-1)
+Result: 1.71828182845904523536;
+In>  BinSplitData(1,21, {{k},1},
 	  {{k},1},{{k},1},{{k},k})
-	Result: {1,51090942171709440000,1,
+Result: {1,51090942171709440000,1,
 	  87788637532500240022};
-	In> BinSplitFinal(%)
-	Result: 1.718281828459045235359;
+In> BinSplitFinal(%)
+Result: 1.718281828459045235359;
 
 *SEE SumTaylorNum
 %/mathpiper_docs

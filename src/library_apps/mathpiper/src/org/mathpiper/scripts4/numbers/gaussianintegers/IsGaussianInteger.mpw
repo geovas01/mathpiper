@@ -30,12 +30,12 @@ of integers into the complex plane. A complex number $a+b*I$ is a Gaussian
 integer if and only if $a$ and $b$ are integers.
 
 *E.G.
-	In> IsGaussianInteger(5)
-	Result: True;
-	In> IsGaussianInteger(5+6*I)
-	Result: True;
-	In> IsGaussianInteger(1+2.5*I)
-	Result: False;
+In> IsGaussianInteger(5)
+Result: True;
+In> IsGaussianInteger(5+6*I)
+Result: True;
+In> IsGaussianInteger(1+2.5*I)
+Result: False;
 
 *SEE  IsGaussianUnit, IsGaussianPrime
 %/mathpiper_docs

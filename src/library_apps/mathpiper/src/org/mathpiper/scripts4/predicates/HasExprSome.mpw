@@ -41,10 +41,10 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 
 *E.G.
 
-	In> HasExprSome({a+b*2,c/d},c/d,{List})
-	Result: True;
-	In> HasExprSome({a+b*2,c/d},c,{List})
-	Result: False;
+In> HasExprSome({a+b*2,c/d},c/d,{List})
+Result: True;
+In> HasExprSome({a+b*2,c/d},c,{List})
+Result: False;
 
 *SEE HasExpr, HasExprArith, FuncList, VarList, HasFunc
 %/mathpiper_docs

@@ -35,16 +35,16 @@ MathPiper and type {make test}.
 
 *E.G.
 
-	In> KnownFailure(Verify(1,2))
+In> KnownFailure(Verify(1,2))
 	Known failure:
 	******************
 	 1 evaluates to  1 which differs from  2
 	******************
-	Result: False;
-	In> KnownFailure(Verify(1,1))
+Result: False;
+In> KnownFailure(Verify(1,1))
 	Known failure:
 	Failure resolved!
-	Result: True;
+Result: True;
 
 *SEE Verify, TestMathPiper, LogicVerify, LogicTest
 

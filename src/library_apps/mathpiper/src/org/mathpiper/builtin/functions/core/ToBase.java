@@ -94,8 +94,8 @@ Non-integer arguments are not supported.
 
 Write the (decimal) number {255} in hexadecimal notation:
 
-	In> ToBase(16,255)
-	Result: "ff";
+In> ToBase(16,255)
+Result: "ff";
 
 *SEE PAdicExpand,FromBase
 %/mathpiper_docs

@@ -61,8 +61,8 @@ an empty string if the default pretty printer is used.
 
 *E.G.
 
-	In> PrettyPrinterGet()
-	Result> ""
+In> PrettyPrinterGet()
+Result: ""
 
 *SEE PrettyForm, Write, TeXForm, CForm, OMForm, PrettyReaderSet, PrettyReaderGet, PrettyPrinterSet
 %/mathpiper_docs

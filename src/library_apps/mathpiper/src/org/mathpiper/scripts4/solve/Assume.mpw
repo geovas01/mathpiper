@@ -125,27 +125,27 @@ functions are being modified to make use of assumptions where appropriate.
 *E.G.
 
 
-    In> Assume(x->real)
-    Result: {{x,real}}
-    In> AssumptionsGet()
-    Result: {{x,real}}
-    In> IsAssumed(x,real)
-    Result: True
-    In> IsAssumed(z,complex)
-    Result: False
+In> Assume(x->real)
+Result: {{x,real}}
+In> AssumptionsGet()
+Result: {{x,real}}
+In> IsAssumed(x,real)
+Result: True
+In> IsAssumed(z,complex)
+Result: False
     
-    In> Assume({x->positive,y->positive})
-    Result: {{x,real},{x,positive},{y,positive}}
-    In> AssumptionsGet()
-    Result: {{x,real},{x,positive},{y,positive}}
-    In> AssumptionsAbout(x)
-    Result: {real,positive}
-    In> UnAssume(x)
-    Result: True
-    In> AssumptionsAbout(x)
-    Result: {}
-    In> AssumptionsGet()
-    Result: {{y,positive}}
+In> Assume({x->positive,y->positive})
+Result: {{x,real},{x,positive},{y,positive}}
+In> AssumptionsGet()
+Result: {{x,real},{x,positive},{y,positive}}
+In> AssumptionsAbout(x)
+Result: {real,positive}
+In> UnAssume(x)
+Result: True
+In> AssumptionsAbout(x)
+Result: {}
+In> AssumptionsGet()
+Result: {{y,positive}}
 *SEE Solve, Integrate
 %/mathpiper_docs
 

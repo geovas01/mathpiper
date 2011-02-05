@@ -31,12 +31,12 @@ Instead we check for all prime numbers $r=2$, $3$, ... that the $r$-th root of $
 
 *E.G.
 
-	In> IsPrimePower(9)
-	Result: True;
-	In> IsPrimePower(10)
-	Result: False;
-	In> Select(1 .. 50, "IsPrimePower")
-	Result: {2,3,4,5,7,8,9,11,13,16,17,19,23,25,27,
+In> IsPrimePower(9)
+Result: True;
+In> IsPrimePower(10)
+Result: False;
+In> Select(1 .. 50, "IsPrimePower")
+Result: {2,3,4,5,7,8,9,11,13,16,17,19,23,25,27,
 	  29,31,32,37,41,43,47,49};
 
 *SEE IsPrime, Factors

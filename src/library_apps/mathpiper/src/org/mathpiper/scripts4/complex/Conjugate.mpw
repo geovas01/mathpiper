@@ -28,10 +28,10 @@ unbound variables are real.
 
 *E.G.
 
-	In> Conjugate(2)
-	Result: 2;
-	In> Conjugate(Complex(a,b))
-	Result: Complex(a,-b);
+In> Conjugate(2)
+Result: 2;
+In> Conjugate(Complex(a,b))
+Result: Complex(a,-b);
 
 *SEE Complex, Re, Im
 %/mathpiper_docs

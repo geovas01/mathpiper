@@ -42,10 +42,10 @@ This function returns $Ceil(x)$, the smallest integer larger than or equal to $x
 
 *E.G.
 
-	In> Ceil(1.1)
-	Result: 2;
-	In> Ceil(-1.1)
-	Result: -1;
+In> Ceil(1.1)
+Result: 2;
+In> Ceil(-1.1)
+Result: -1;
 
 *SEE Floor, Round
 %/mathpiper_docs

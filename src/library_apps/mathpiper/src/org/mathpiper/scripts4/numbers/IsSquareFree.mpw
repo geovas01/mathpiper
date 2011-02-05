@@ -24,14 +24,14 @@ numbers are trivially square-free.
 
 *E.G.
 
-	In> IsSquareFree(37)
-	Result: True;
-	In> IsSquareFree(4)
-	Result: False;
-	In> IsSquareFree(16)
-	Result: False;
-	In> IsSquareFree(18)
-	Result: False;
+In> IsSquareFree(37)
+Result: True;
+In> IsSquareFree(4)
+Result: False;
+In> IsSquareFree(16)
+Result: False;
+In> IsSquareFree(18)
+Result: False;
 
 *SEE Moebius, SquareFreeDivisorsList
 %/mathpiper_docs

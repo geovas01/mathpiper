@@ -25,8 +25,8 @@ $2^(2^n) + 1$.
 
 *E.G.
 
-	In> FermatNumber(7)
-	Result: 340282366920938463463374607431768211457;
+In> FermatNumber(7)
+Result: 340282366920938463463374607431768211457;
 
 *SEE	Factor
 %/mathpiper_docs

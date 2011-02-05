@@ -79,20 +79,20 @@ this operation.
 
 *E.G.
 
-    In> P:=Expand(x^2-1)
-    Result: x^2-1
-    
-    In> Q:=Expand((x+1)^2)
-    Result: x^2+2*x+1
-    
-    In> F:=P/Q
-    Result: (x^2-1)/(x^2+2*x+1)
-    
-    In> Factor(F)
-    Result: ((x-1)*(x+1))/(x+1)^2
-    
-    In> FactorCancel(F)
-    Result: (x-1)/(x+1)
+In> P:=Expand(x^2-1)
+Result: x^2-1
+
+In> Q:=Expand((x+1)^2)
+Result: x^2+2*x+1
+
+In> F:=P/Q
+Result: (x^2-1)/(x^2+2*x+1)
+
+In> Factor(F)
+Result: ((x-1)*(x+1))/(x+1)^2
+
+In> FactorCancel(F)
+Result: (x-1)/(x+1)
 
     
 *SEE Factor,Factors

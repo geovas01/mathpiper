@@ -211,10 +211,10 @@ large group of simple nonlinear equations.
 
 *E.G.
 
-	In> OldSolve(a+x*y==z,x)
-	Result: (z-a)/y;
-	In> OldSolve({a*x+y==0,x+z==0},{x,y})
-	Result: {{-z,z*a}};
+In> OldSolve(a+x*y==z,x)
+Result: (z-a)/y;
+In> OldSolve({a*x+y==0,x+z==0},{x,y})
+Result: {{-z,z*a}};
 
 This means that "x = (z-a)/y" is a solution of the first equation
 and that "x = -z", "y = z*a" is a solution of the systems of
@@ -222,8 +222,8 @@ equations in the second command.
 
 An example which {OldSolve} cannot solve:
 
-	In> OldSolve({x^2-x == y^2-y,x^2-x == y^3+y},{x,y});
-	Result: {};
+In> OldSolve({x^2-x == y^2-y,x^2-x == y^3+y},{x,y});
+Result: {};
 
 *SEE Solve, SuchThat, Eliminate, PSolve, ==
 %/mathpiper_docs

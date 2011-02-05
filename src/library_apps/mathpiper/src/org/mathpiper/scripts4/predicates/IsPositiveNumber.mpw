@@ -23,10 +23,10 @@ if $n>0$. If {n} is not a number the function returns {False}.
 
 *E.G.
 
-	In> IsPositiveNumber(6);
-	Result: True;
-	In> IsPositiveNumber(-2.5);
-	Result: False;
+In> IsPositiveNumber(6);
+Result: True;
+In> IsPositiveNumber(-2.5);
+Result: False;
 
 *SEE IsNumber, IsNegativeNumber, IsNotZero, IsPositiveInteger, IsPositiveReal
 %/mathpiper_docs

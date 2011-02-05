@@ -75,41 +75,41 @@ together constitute a foundation for the analysis of polynomials and -- more
 generally -- any expressions which can be regarded as sum or difference of terms.
 
 *E.G.
-    In> uu:=ExpandBrackets((x+1)^4)
-    Result: x^4+4*x^3+6*x^2+4*x+1
-    
-    In> DisassembleExpression(uu)
-    Result: {{x},{{4},{3},{2},{1},{0}},{1,4,6,4,1}}
-        clear signature of binomial expansion in coefficients list
-    
-    In> vv:=ExpandBrackets((x+y)^4)
-    Result: x^4+4*x^3*y+6*x^2*y^2+4*x*y^3+y^4
-    
-    In> DisassembleExpression(vv)
-    Result: {{x,y},{{4,0},{3,1},{2,2},{1,3},{0,4}},{1,4,6,4,1}}
-        same signature
-    
-    In> vv:=ExpandBrackets((a*x+b*y)^4)
-    Result: a^4*x^4+4*a^3*x^3*b*y+6*a^2*x^2*b^2*y^2+4*a*x*b^3*y^3+b^4*y^4
-    
-    In> DisassembleExpression(vv)
-    Result: {{a,x,b,y},{{4,4,0,0},{3,3,1,1},{2,2,2,2},{1,1,3,3},{0,0,4,4}},{1,4,6,4,1}}
-        parameters {a,b} mistaken for variables, but binomial signature still visible
-    
-    In> DisassembleExpression(vv,{x,y})
-    Result: {{x,y},{{4,0},{3,1},{2,2},{1,3},{0,4}},{a^4,4*b*a^3,6*b^2*a^2,4*b^3*a,b^4}}
-        user guidance helps distinguish parameters from variables, 
-        but binomial signature still visible
-    
-    In> ww:=x+2*Sqrt(x)+1
-    Result: x+2*Sqrt(x)+1
-    
-    In> DisassembleExpression(ww)
-    Result: {{x,Sqrt(x)},{{1,0},{0,1},{0,0}},{1,2,1}}
-        {MultiExpressionList} identified as "variables" both {x} and
-        {Sqrt(x)} -- we call the latter a {quasi-variable}.  See documentation for
-        {ReassembleListTerms} for an example of how this can be used to perform
-        automatic substitution of variables.
+In> uu:=ExpandBrackets((x+1)^4)
+Result: x^4+4*x^3+6*x^2+4*x+1
+
+In> DisassembleExpression(uu)
+Result: {{x},{{4},{3},{2},{1},{0}},{1,4,6,4,1}}
+    clear signature of binomial expansion in coefficients list
+
+In> vv:=ExpandBrackets((x+y)^4)
+Result: x^4+4*x^3*y+6*x^2*y^2+4*x*y^3+y^4
+
+In> DisassembleExpression(vv)
+Result: {{x,y},{{4,0},{3,1},{2,2},{1,3},{0,4}},{1,4,6,4,1}}
+    same signature
+
+In> vv:=ExpandBrackets((a*x+b*y)^4)
+Result: a^4*x^4+4*a^3*x^3*b*y+6*a^2*x^2*b^2*y^2+4*a*x*b^3*y^3+b^4*y^4
+
+In> DisassembleExpression(vv)
+Result: {{a,x,b,y},{{4,4,0,0},{3,3,1,1},{2,2,2,2},{1,1,3,3},{0,0,4,4}},{1,4,6,4,1}}
+    parameters {a,b} mistaken for variables, but binomial signature still visible
+
+In> DisassembleExpression(vv,{x,y})
+Result: {{x,y},{{4,0},{3,1},{2,2},{1,3},{0,4}},{a^4,4*b*a^3,6*b^2*a^2,4*b^3*a,b^4}}
+    user guidance helps distinguish parameters from variables,
+    but binomial signature still visible
+
+In> ww:=x+2*Sqrt(x)+1
+Result: x+2*Sqrt(x)+1
+
+In> DisassembleExpression(ww)
+Result: {{x,Sqrt(x)},{{1,0},{0,1},{0,0}},{1,2,1}}
+    {MultiExpressionList} identified as "variables" both {x} and
+    {Sqrt(x)} -- we call the latter a {quasi-variable}.  See documentation for
+    {ReassembleListTerms} for an example of how this can be used to perform
+    automatic substitution of variables.
 
 *SEE MultiExpressionList, ReassembleListTerms,MM
 %/mathpiper_docs

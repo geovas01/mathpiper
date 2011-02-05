@@ -22,14 +22,14 @@ Tests if a value is a point.
 
 *E.G.
 
-	In> p := Point(2,3)
-	Result> {2,3}
+In> p := Point(2,3)
+Result: {2,3}
 	
-	In> IsPoint(p)
-	Result> True
+In> IsPoint(p)
+Result: True
 	
-	In> IsPoint(4)
-	Result> False
+In> IsPoint(4)
+Result: False
 	
 *SEE Point, Midpoint, Distance, Slope, Segment
 %/mathpiper_docs

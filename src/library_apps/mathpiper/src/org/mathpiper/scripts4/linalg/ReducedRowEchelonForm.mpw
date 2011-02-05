@@ -174,35 +174,35 @@ for the remaining variables.
 
 *E.G.
 
-    In> AM := {{2,-3,2,3},{4,8,1,2},{1,7,-3,-14}};
-    Result: {{2,-3,2,3},{4,8,1,2},{1,7,-3,-14}}
-    
-    In> ReducedRowEchelonForm(AM)
-    Result: {{1,0,0,-3},{0,1,0,1},{0,0,1,6}}
-    
-    NOTE:  This is fully solved.  The solution is
-           {{x==-3},{y==1},{z==6}}
-           
-    In> AM := {{2,-1,3},{6,-3,9}};
-    Result: {{2,-1,3},{6,-3,9}}
-    
-    In> ReducedRowEchelonForm(AM)
-    Result: {{1,(-1)/2,3/2},{0,0,0}}
-    
-    NOTE:  This is a "dependent" set of equations.
-           The presence of a row of zeros at the bottom of the result
-           shows that the solution is
-           {{x==x},{y==2*x-3}} for any real x.
-           
-    In> AM := {{2,-4,6,5},{-1,3,-2,-1},{1,-2,3,1}};
-    Result: {{2,-4,6,5},{-1,3,-2,-1},{1,-2,3,1}}
-    
-    In> ReducedRowEchelonForm(AM)
-    Result: {{1,-2,3,5/2},{0,1,1,3/2},{0,0,0,(-3)/2}}
-    
-    NOTE:  This is an "inconsistent" set of equations.
-           The last row, which states that 0==-3/2, shows
-           that there is no solution.
+In> AM := {{2,-3,2,3},{4,8,1,2},{1,7,-3,-14}};
+Result: {{2,-3,2,3},{4,8,1,2},{1,7,-3,-14}}
+
+In> ReducedRowEchelonForm(AM)
+Result: {{1,0,0,-3},{0,1,0,1},{0,0,1,6}}
+
+NOTE:  This is fully solved.  The solution is
+       {{x==-3},{y==1},{z==6}}
+
+In> AM := {{2,-1,3},{6,-3,9}};
+Result: {{2,-1,3},{6,-3,9}}
+
+In> ReducedRowEchelonForm(AM)
+Result: {{1,(-1)/2,3/2},{0,0,0}}
+
+NOTE:  This is a "dependent" set of equations.
+       The presence of a row of zeros at the bottom of the result
+       shows that the solution is
+       {{x==x},{y==2*x-3}} for any real x.
+
+In> AM := {{2,-4,6,5},{-1,3,-2,-1},{1,-2,3,1}};
+Result: {{2,-4,6,5},{-1,3,-2,-1},{1,-2,3,1}}
+
+In> ReducedRowEchelonForm(AM)
+Result: {{1,-2,3,5/2},{0,1,1,3/2},{0,0,0,(-3)/2}}
+
+NOTE:  This is an "inconsistent" set of equations.
+       The last row, which states that 0==-3/2, shows
+       that there is no solution.
 %/mathpiper_docs
 
     %output,preserve="false"

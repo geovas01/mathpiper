@@ -23,14 +23,14 @@ A lower triangular matrix is a square matrix which has all zero entries below th
 {IsLowerTriangular(A)} returns {True} if {A} is a lower triangular matrix and {False} otherwise.
 
 *E.G.
-	In> IsLowerTriangular(Identity(5))
-	Result: True;
-	In> IsLowerTriangular({{1,2},{0,1}})
-	Result: False;
+In> IsLowerTriangular(Identity(5))
+Result: True;
+In> IsLowerTriangular({{1,2},{0,1}})
+Result: False;
 
 A non-square matrix cannot be triangular:
-	In> IsLowerTriangular({{1,2,3},{0,1,2}})
-	Result: False;
+In> IsLowerTriangular({{1,2,3},{0,1,2}})
+Result: False;
 
 *SEE IsUpperTriangle, IsDiagonal
 %/mathpiper_docs

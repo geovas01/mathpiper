@@ -87,19 +87,19 @@ specifically name the variable.  See the example below.
 
 *E.G.
 
-	In> Quotient(5,3)
-	Result: 1;
-	In> Modulo(5,3)
-	Result: 2;
+In> Quotient(5,3)
+Result: 1;
+In> Modulo(5,3)
+Result: 2;
 	
-	In> Modulo(x^2-5*x+2,x-1)
-	Result: -2
+In> Modulo(x^2-5*x+2,x-1)
+Result: -2
 	
-	In> Modulo(x^2-5*x+2,x-k)
-	Result: x^2-5*x+2          
+In> Modulo(x^2-5*x+2,x-k)
+Result: x^2-5*x+2          
 	    NOTE: answer is INCORRECT
-	In> Modulo(x^2-5*x+2,x-k,{x})
-	Result: (k-5)*k+2
+In> Modulo(x^2-5*x+2,x-k,{x})
+Result: (k-5)*k+2
 	    NOTE: answer is now CORRECT
 
 *SEE Gcd, Lcm, Quotient

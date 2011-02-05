@@ -33,7 +33,7 @@ entries lie between "from" and "to", including the boundaries, and
 are uniformly distributed in this interval.
 
 *E.G.
-	In> PrettyForm( RandomIntegerMatrix(5,5,-2^10,2^10) )
+In> PrettyForm( RandomIntegerMatrix(5,5,-2^10,2^10) )
 
 	/                                               \
 	| ( -506 ) ( 749 )  ( -574 ) ( -674 ) ( -106 )  |

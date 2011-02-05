@@ -25,12 +25,12 @@ This function returns the real part of the complex number "x".
 
 *E.G.
 
-	In> Re(5)
-	Result: 5;
-	In> Re(I)
-	Result: 0;
-	In> Re(Complex(3,4))
-	Result: 3;
+In> Re(5)
+Result: 5;
+In> Re(I)
+Result: 0;
+In> Re(Complex(3,4))
+Result: 3;
 
 *SEE Complex, Im
 %/mathpiper_docs

@@ -26,10 +26,10 @@ equivalent to the fact that the columns of $A$ build an orthonormal system
 
 *E.G.
 
-	In> IsUnitary({{0,I},{-I,0}})
-	Result: True;
-	In> IsUnitary({{0,I},{2,0}})
-	Result: False;
+In> IsUnitary({{0,I},{-I,0}})
+Result: True;
+In> IsUnitary({{0,I},{2,0}})
+Result: False;
 
 *SEE IsHermitian, IsSymmetric
 %/mathpiper_docs

@@ -547,16 +547,16 @@ complex than a simple number.
 
 *E.G.
 
-	In> Taylor(x,0,9)Sin(x)
-	Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880;
-	In> PrettyForm(%)
+In> Taylor(x,0,9)Sin(x)
+Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880;
+In> PrettyForm(%)
 	
 	     3    5      7       9
 	    x    x      x       x
 	x - -- + --- - ---- + ------
 	    6    120   5040   362880
 	
-	Result: True;
+Result: True;
 
 *SEE EvalFormula, PrettyPrinterSet
 %/mathpiper_docs
@@ -580,7 +580,7 @@ to show 'input = output'.
 
 *E.G.
 
-	In> EvalFormula(Taylor(x,0,7)Sin(x))
+In> EvalFormula(Taylor(x,0,7)Sin(x))
 	
 	                                      3    5
 	                                     x    x  

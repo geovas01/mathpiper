@@ -30,10 +30,10 @@ number, the function returns {False}.
 
 *E.G.
 
-	In> IsNotZero(3.25);
-	Result: True;
-	In> IsNotZero(0);
-	Result: False;
+In> IsNotZero(3.25);
+Result: True;
+In> IsNotZero(0);
+Result: False;
 
 *SEE IsNumber, IsPositiveNumber, IsNegativeNumber, IsNonZeroInteger
 %/mathpiper_docs

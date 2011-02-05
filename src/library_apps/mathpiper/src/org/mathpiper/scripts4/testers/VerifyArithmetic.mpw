@@ -45,8 +45,8 @@ The results should be exactly equal.
 
 *E.G.
 
-	In> VerifyArithmetic(100,50,60)
-	Result: True;
+In> VerifyArithmetic(100,50,60)
+Result: True;
 
 *SEE Verify, VerifyArithmetic, RandVerifyArithmetic, VerifyDiv, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest
 

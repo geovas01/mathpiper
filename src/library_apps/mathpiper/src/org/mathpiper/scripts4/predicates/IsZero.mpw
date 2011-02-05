@@ -32,12 +32,12 @@
 
 *E.G.
 
-	In> IsZero(3.25)
-	Result: False;
-	In> IsZero(0)
-	Result: True;
-	In> IsZero(x)
-	Result: False;
+In> IsZero(3.25)
+Result: False;
+In> IsZero(0)
+Result: True;
+In> IsZero(x)
+Result: False;
 
 *SEE IsNumber, IsNotZero
 %/mathpiper_docs

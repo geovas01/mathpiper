@@ -231,11 +231,11 @@ is returned as {{{p1,n1}, ..., {p9,n9}}}.
 Programmer: Yacas Team + Sherm Ostrowsky
 
 *E.G.
-    In> YacasFactors(24)
-    Result: {{2,3},{3,1}}
-    
-    In> YacasFactors(32*x^3+32*x^2-70*x-75)
-    Result: {{4*x+5,2},{2*x-3,1}}
+In> YacasFactors(24)
+Result: {{2,3},{3,1}}
+
+In> YacasFactors(32*x^3+32*x^2-70*x-75)
+Result: {{4*x+5,2},{2*x-3,1}}
 
 *SEE YacasFactor, xFactors, IsPrime, GaussianFactors
 %/mathpiper_docs

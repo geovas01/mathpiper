@@ -48,12 +48,12 @@ digits.
 
 *E.G.
 
-	In> 2*Internal'Pi()
-	Result: 6.283185307;
-	In> TruncRadian(6.28)
-	Result: 6.28;
-	In> TruncRadian(6.29)
-	Result: 0.0068146929;
+In> 2*Internal'Pi()
+Result: 6.283185307;
+In> TruncRadian(6.28)
+Result: 6.28;
+In> TruncRadian(6.29)
+Result: 0.0068146929;
 
 *SEE Sin, Cos, Tan
 

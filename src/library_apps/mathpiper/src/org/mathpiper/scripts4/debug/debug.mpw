@@ -290,7 +290,7 @@ probably more useful  for all but very simple expressions.
 
 *E.G. notest
 
-	In> TraceExp(2+3);
+In> TraceExp(2+3);
 	  TrEnter(2+3);
 	    TrEnter(2);
 	    TrLeave(2, 2);
@@ -313,7 +313,7 @@ probably more useful  for all but very simple expressions.
 	      TrLeave(y, 3);
 	    TrLeave(MathAdd(x,y),5);
 	  TrLeave(2+3, 5);
-	Result: 5;
+Result: 5;
 
 *SEE TraceStack, TraceRule
 %/mathpiper_docs
@@ -338,9 +338,9 @@ The result is the "user time" as reported by the OS, not the real ("wall clock")
 Therefore, any CPU-intensive processes running alongside MathPiper will not significantly affect the result of {EchoTime}.
 
 *E.G. notest
-	In> EchoTime() N(MathLog(1000),40)
+In> EchoTime() N(MathLog(1000),40)
 	0.34 seconds taken
-	Result: 6.9077552789821370520539743640530926228033;
+Result: 6.9077552789821370520539743640530926228033;
 
 *SEE Time, SystemTimer
 %/mathpiper_docs

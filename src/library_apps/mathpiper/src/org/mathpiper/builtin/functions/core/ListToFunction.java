@@ -67,14 +67,14 @@ formed, but the resulting expression is left unevaluated. The functions {ListToF
 
 *E.G.
 
-	In> ListToFunction({Cos, x});
-	Result: Cos(x);
-	In> ListToFunction({f});
-	Result: f();
-	In> ListToFunction({Taylor,x,0,5,Cos(x)});
-	Result: Taylor(x,0,5)Cos(x);
-	In> Eval(%);
-	Result: 1-x^2/2+x^4/24;
+In> ListToFunction({Cos, x});
+Result: Cos(x);
+In> ListToFunction({f});
+Result: f();
+In> ListToFunction({Taylor,x,0,5,Cos(x)});
+Result: Taylor(x,0,5)Cos(x);
+In> Eval(%);
+Result: 1-x^2/2+x^4/24;
 
 *SEE List, FunctionToList, Hold
 %/mathpiper_docs

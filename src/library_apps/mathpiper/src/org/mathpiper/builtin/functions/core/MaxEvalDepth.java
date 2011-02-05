@@ -71,9 +71,9 @@ the pair of definitions {f(x) := g(x)} and {g(x) := f(x)}, will be caught.
 An example of an infinite recursion, caught because the maximum
 evaluation depth is reached.
 
-	In> f(x) := f(x)
-	Result: True;
-	In> f(x)
+In> f(x) := f(x)
+Result: True;
+In> f(x)
 	Error on line 1 in file [CommandLine]
 	Max evaluation stack depth reached.
 	Please use MaxEvalDepth to increase the stack
@@ -82,21 +82,21 @@ evaluation depth is reached.
 However, a long calculation may cause the maximum evaluation depth to
 be reached without the presence of infinite recursion. The function {MaxEvalDepth} is meant for these cases.
 
-	In> 10 # g(0) <-- 1;
-	Result: True;
-	In> 20 # g(n_IsPositiveInteger) <-- \
+In> 10 # g(0) <-- 1;
+Result: True;
+In> 20 # g(n_IsPositiveInteger) <-- \
 	  2 * g(n-1);
-	Result: True;
-	In> g(1001);
+Result: True;
+In> g(1001);
 	Error on line 1 in file [CommandLine]
 	Max evaluation stack depth reached.
 	Please use MaxEvalDepth to increase the stack
 	size as needed.
 
-	In> MaxEvalDepth(10000);
-	Result: True;
-	In> g(1001);
-	Result: 21430172143725346418968500981200036211228096234
+In> MaxEvalDepth(10000);
+Result: True;
+In> g(1001);
+Result: 21430172143725346418968500981200036211228096234
 	1106721488750077674070210224987224498639675763139171
 	6255189345835106293650374290571384628087196915514939
 	7149607869135549648461970842149210124742283755908364

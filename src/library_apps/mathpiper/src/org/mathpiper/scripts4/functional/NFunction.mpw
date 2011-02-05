@@ -62,36 +62,36 @@ This operator can help the user to program in the style of functional programmin
 
 
 *E.G. notest
-	In> f(x) := N(Sin(x));
-	Result: True;
-	In> NFunction("f1", "f", {x});
-	Result: True;
-	In> f1(a);
-	Result: f1(a);
-	In> f1(0);
-	Result: 0;
+In> f(x) := N(Sin(x));
+Result: True;
+In> NFunction("f1", "f", {x});
+Result: True;
+In> f1(a);
+Result: f1(a);
+In> f1(0);
+Result: 0;
 Suppose we need to define a complicated function {t(x)} which cannot be evaluated unless {x} is a number:
 
-	In> t(x) := If(x<=0.5, 2*x, 2*(1-x));
-	Result: True;
-	In> t(0.2);
-	Result: 0.4;
-	In> t(x);
+In> t(x) := If(x<=0.5, 2*x, 2*(1-x));
+Result: True;
+In> t(0.2);
+Result: 0.4;
+In> t(x);
 	In function "If" :
 	bad argument number 1 (counting from 1)
 	CommandLine(1) : Invalid argument
 Then, we can use {NFunction()} to define a wrapper {t1(x)} around {t(x)} which will not try to evaluate {t(x)} unless {x} is a number.
 
-	In> NFunction("t1", "t", {x})
-	Result: True;
-	In> t1(x);
-	Result: t1(x);
-	In> t1(0.2);
-	Result: 0.4;
+In> NFunction("t1", "t", {x})
+Result: True;
+In> t1(x);
+Result: t1(x);
+In> t1(0.2);
+Result: 0.4;
 Now we can plot the function.
 
-	In> Plot2D(t1(x), -0.1: 1.1)
-	Result: True;
+In> Plot2D(t1(x), -0.1: 1.1)
+Result: True;
 
 *SEE MacroRule
 %/mathpiper_docs

@@ -26,14 +26,14 @@ so-called incomplete types.
 
 *E.G.
 
-	In> a := Object("IsNumber", x);
-	Result: Object("IsNumber",x);
-	In> Eval(a);
-	Result: Object("IsNumber",x);
-	In> x := 5;
-	Result: 5;
-	In> Eval(a);
-	Result: 5;
+In> a := Object("IsNumber", x);
+Result: Object("IsNumber",x);
+In> Eval(a);
+Result: Object("IsNumber",x);
+In> x := 5;
+Result: 5;
+In> Eval(a);
+Result: 5;
 
 *SEE IsNonObject
 %/mathpiper_docs

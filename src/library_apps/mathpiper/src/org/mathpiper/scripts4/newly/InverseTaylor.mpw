@@ -39,25 +39,25 @@ up to order "order". It uses the function {ReversePoly} to perform the task.
 
 *E.G.
 
-	In> PrettyPrinterSet("PrettyForm")
+In> PrettyPrinterSet("PrettyForm")
 	
 	True
 	
-	In> exp1 := Taylor(x,0,7) Sin(x)
+In> exp1 := Taylor(x,0,7) Sin(x)
 	
 	     3    5      7
 	    x    x      x
 	x - -- + --- - ----
 	    6    120   5040
 	
-	In> exp2 := InverseTaylor(x,0,7) ArcSin(x)
+In> exp2 := InverseTaylor(x,0,7) ArcSin(x)
 	
 	 5      7     3
 	x      x     x
 	--- - ---- - -- + x
 	120   5040   6
 	
-	In> Simplify(exp1-exp2)
+In> Simplify(exp1-exp2)
 	
 	0
 

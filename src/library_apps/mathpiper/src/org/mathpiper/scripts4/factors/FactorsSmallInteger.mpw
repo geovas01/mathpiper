@@ -54,8 +54,8 @@ is returned as {{{p1,n1}, ..., {p9,n9}}}.
 Programmer: Yacas Team + Sherm Ostrowsky
 
 *E.G.
-    In> FactorsSmallInteger(24)
-    Result: {{2,3},{3,1}}
+In> FactorsSmallInteger(24)
+Result: {{2,3},{3,1}}
 
 *SEE Factors, IsPrime, FactorizeInt
 %/mathpiper_docs

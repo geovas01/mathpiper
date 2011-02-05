@@ -25,12 +25,12 @@ expression. {Pi} is considered a constant.
 
 *E.G.
 
-	In> IsConstant(Cos(x))
-	Result: False;
-	In> IsConstant(Cos(2))
-	Result: True;
-	In> IsConstant(Cos(2+x))
-	Result: False;
+In> IsConstant(Cos(x))
+Result: False;
+In> IsConstant(Cos(2))
+Result: True;
+In> IsConstant(Cos(2+x))
+Result: False;
 
 *SEE IsNumber, IsInteger, VarList
 %/mathpiper_docs

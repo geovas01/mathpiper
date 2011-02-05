@@ -67,12 +67,12 @@ list, the function is applied to all entries in the list.
 
 *E.G.
 
-	In> Tan(1)
-	Result: Tan(1);
-	In> N(Tan(1),20)
-	Result: 1.5574077246549022305;
-	In> Tan(Pi/4)
-	Result: 1;
+In> Tan(1)
+Result: Tan(1);
+In> N(Tan(1),20)
+Result: 1.5574077246549022305;
+In> Tan(Pi/4)
+Result: 1;
 
 *SEE Sin, Cos, ArcSin, ArcCos, ArcTan, N, Pi
 %/mathpiper_docs

@@ -39,14 +39,14 @@ list, the function is applied to all entries in the list.
 
 *E.G.
 
-	In> Sign(2)
-	Result: 1;
-	In> Sign(-3)
-	Result: -1;
-	In> Sign(0)
-	Result: 1;
-	In> Sign(-3) * Abs(-3)
-	Result: -3;
+In> Sign(2)
+Result: 1;
+In> Sign(-3)
+Result: -1;
+In> Sign(0)
+Result: 1;
+In> Sign(-3) * Abs(-3)
+Result: -3;
 
 *SEE Arg, Abs
 %/mathpiper_docs

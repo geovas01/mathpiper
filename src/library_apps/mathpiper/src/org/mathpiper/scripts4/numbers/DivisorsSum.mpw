@@ -42,10 +42,10 @@
 
 *E.G.
 
-	In> DivisorsSum(180)
-	Result: 546;
-	In> DivisorsSum(37)
-	Result: 38;
+In> DivisorsSum(180)
+Result: 546;
+In> DivisorsSum(37)
+Result: 38;
 
 *SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius
 %/mathpiper_docs

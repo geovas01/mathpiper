@@ -98,8 +98,8 @@ expression is <I>equivalent</I> to  a correct answer after evaluation.
 It returns {True} or {False}.
 
 *E.G.
-	In> TestMathPiper(x*(1+x),x^2+x)
-	Result: True;
+In> TestMathPiper(x*(1+x),x^2+x)
+Result: True;
 
 
 *SEE Simplify, CanProve, KnownFailure, Verify, LogicVerify, LogicTest

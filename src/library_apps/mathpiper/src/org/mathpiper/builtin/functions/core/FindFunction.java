@@ -96,10 +96,10 @@ This means that functions that are not listed in {.def} files will not be found 
 
 *E.G.
 
-	In> FindFunction("Sum")
-	Result: "sums.rep/code.ys";
-	In> FindFunction("Integrate")
-	Result: "integrate.rep/code.ys";
+In> FindFunction("Sum")
+Result: "sums.rep/code.ys";
+In> FindFunction("Integrate")
+Result: "integrate.rep/code.ys";
 
 *SEE Vi
 %/mathpiper_docs

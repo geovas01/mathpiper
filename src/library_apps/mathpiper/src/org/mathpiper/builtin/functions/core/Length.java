@@ -95,10 +95,10 @@ This function also works on strings and arrays.
 
 *E.G.
 
-	In> Length({a,b,c})
-	Result: 3;
-	In> Length("abcdef");
-	Result: 6;
+In> Length({a,b,c})
+Result: 3;
+In> Length("abcdef");
+Result: 6;
 
 *SEE First, Rest, Nth, Count
 %/mathpiper_docs

@@ -107,27 +107,27 @@ can be defined by adding more rules.
 *E.G. notest
 
 This will declare a new function with two or more arguments, but define no rules for it. This is equivalent to {Rulebase ("f1", {x, y, ...})}.
-	In> Function() f1(x,y,...);
-	Result: True;
-	In> Function() f1(x,y);
-	Result: False;
+In> Function() f1(x,y,...);
+Result: True;
+In> Function() f1(x,y);
+Result: False;
 
 This defines a function {FirstOf} which returns the
 first element of a list. Equivalent definitions would be
 {FirstOf(_list) <-- list[1]} or {FirstOf(list) := list[1]}.
-	In> Function("FirstOf", {list})  list[1];
-	Result: True;
-	In> FirstOf({a,b,c});
-	Result: a;
+In> Function("FirstOf", {list})  list[1];
+Result: True;
+In> FirstOf({a,b,c});
+Result: a;
 
 The following function will print all arguments to a string:
-	In> Function("PrintAll",{x, ...}) If(IsList(x),
+In> Function("PrintAll",{x, ...}) If(IsList(x),
 	  PrintList(x), PipeToString()Write(x));
-	Result: True;
-	In> PrintAll(1):
-	Result: " 1";
-	In> PrintAll(1,2,3);
-	Result: " 1 2 3";
+Result: True;
+In> PrintAll(1):
+Result: " 1";
+In> PrintAll(1,2,3);
+Result: " 1 2 3";
 
 *SEE TemplateFunction, Rule, Rulebase,  RulebaseListed, :=, Retract
 %/mathpiper_docs

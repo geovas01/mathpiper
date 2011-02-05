@@ -98,8 +98,8 @@ to being built-in). This means that they can be extended by the user.
 
 *E.G.
 
-	In> 2-3
-	Result: -1;
-	In> - 3
-	Result: -3;
+In> 2-3
+Result: -1;
+In> - 3
+Result: -3;
 %/mathpiper_docs

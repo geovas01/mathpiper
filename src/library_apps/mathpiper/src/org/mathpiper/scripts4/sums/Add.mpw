@@ -38,8 +38,8 @@ number of arguments. The arguments can be also passed as a list.
 
 *E.G.
 
-	In> Add(1,4,9);
-	Result: 14;
-	In> Add(1 .. 10);
-	Result: 55;
+In> Add(1,4,9);
+Result: 14;
+In> Add(1 .. 10);
+Result: 55;
 %/mathpiper_docs

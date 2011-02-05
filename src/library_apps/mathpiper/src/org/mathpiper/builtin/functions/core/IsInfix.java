@@ -57,8 +57,8 @@ Check whether the function with given name {"op"} has been declared as a
 
 *E.G.
 
-	In> IsInfix("+");
-	Result: True;
+In> IsInfix("+");
+Result: True;
 
 *SEE Bodied, PrecedenceGet,IsBodied,IsPostfix,IsPrefix
 %/mathpiper_docs

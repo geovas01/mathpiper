@@ -43,16 +43,16 @@ A {Monomial} is defined to be a single term, consisting of a product of numbers
 and variables.
 
 *E.G.
-    In> IsMonomial(24)
-    Result: True
-    
-    In> IsMonomial(24*a*x^2*y^3)
-    Result: True
-    
-    In> IsMonomial(24*a*x^2*y^3/15)
-    Result: True
-    
-    In> IsMonomial(24*a*x^2*y^3/15+1)
-    Result: False
+In> IsMonomial(24)
+Result: True
+
+In> IsMonomial(24*a*x^2*y^3)
+Result: True
+
+In> IsMonomial(24*a*x^2*y^3/15)
+Result: True
+
+In> IsMonomial(24*a*x^2*y^3/15+1)
+Result: False
     
 %/mathpiper_docs

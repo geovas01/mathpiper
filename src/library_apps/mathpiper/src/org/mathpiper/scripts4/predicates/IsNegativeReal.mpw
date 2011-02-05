@@ -30,12 +30,12 @@ results.
 
 *E.G.
 
-	In> IsNegativeReal(Sin(1)-3/4);
-	Result: False;
-	In> IsNegativeReal(Sin(1)-6/7);
-	Result: True;
-	In> IsNegativeReal(Exp(x));
-	Result: False;
+In> IsNegativeReal(Sin(1)-3/4);
+Result: False;
+In> IsNegativeReal(Sin(1)-6/7);
+Result: True;
+In> IsNegativeReal(Exp(x));
+Result: False;
 
 The last result is because {Exp(x)} cannot be
 numerically approximated if {x} is not known. Hence

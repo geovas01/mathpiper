@@ -24,10 +24,10 @@ only zeroes and {False} otherwise.
 
 *E.G.
 
-	In> IsZeroVector({0, x, 0});
-	Result: False;
-	In> IsZeroVector({x-x, 1 - Differentiate(x) x});
-	Result: True;
+In> IsZeroVector({0, x, 0});
+Result: False;
+In> IsZeroVector({x-x, 1 - Differentiate(x) x});
+Result: True;
 
 *SEE IsList, ZeroVector
 %/mathpiper_docs

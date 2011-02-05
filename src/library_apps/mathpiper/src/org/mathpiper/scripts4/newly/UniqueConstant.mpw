@@ -25,10 +25,10 @@ appended to it.
 
 *E.G.
 
-	In> UniqueConstant()
-	Result: C9
-	In>  UniqueConstant()
-	Result: C10
+In> UniqueConstant()
+Result: C9
+In>  UniqueConstant()
+Result: C10
 
 *SEE LocalSymbols
 %/mathpiper_docs

@@ -56,14 +56,14 @@ ordinary prime and $Im(z):=Modulo(3,4)$.
 if and only if $Re(z)$ is an ordinary prime and $Re(z):=Modulo(3,4)$.
 
 *E.G.
-	In> IsGaussianPrime(13)
-	Result: False;
-	In> IsGaussianPrime(2+2*I)
-	Result: False;
-	In> IsGaussianPrime(2+3*I)
-	Result: True;
-	In> IsGaussianPrime(3)
-	Result: True;
+In> IsGaussianPrime(13)
+Result: False;
+In> IsGaussianPrime(2+2*I)
+Result: False;
+In> IsGaussianPrime(2+3*I)
+Result: True;
+In> IsGaussianPrime(3)
+Result: True;
 
 *SEE  IsGaussianInteger, GaussianFactors
 %/mathpiper_docs

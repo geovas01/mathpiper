@@ -71,10 +71,10 @@ For real arguments $x$, $W(x)$ is real if $x>= -Exp(-1)$.
 To compute the numeric value of the  principal branch of Lambert's $W$ function for real arguments $x>= -Exp(-1)$ to current precision, one can call {N(LambertW(x))} (where the function {N} tries to approximate its argument with a real value).
 
 *E.G.
-	In> LambertW(0)
-	Result: 0;
-	In> N(LambertW(-0.24/Sqrt(3*Pi)))
-	Result: -0.0851224014;
+In> LambertW(0)
+Result: 0;
+In> N(LambertW(-0.24/Sqrt(3*Pi)))
+Result: -0.0851224014;
 
 *SEE Exp
 %/mathpiper_docs

@@ -63,14 +63,14 @@ efficiency).
 The following shows a possible way to define a command that reverses a
 list nondestructively.
 
-	In> reverse(l_IsList) <-- DestructiveReverse \
+In> reverse(l_IsList) <-- DestructiveReverse \
 	  (FlatCopy(l));
-	Result: True;
-	In> lst := {a,b,c,d,e};
-	Result: {a,b,c,d,e};
-	In> reverse(lst);
-	Result: {e,d,c,b,a};
-	In> lst;
-	Result: {a,b,c,d,e};
+Result: True;
+In> lst := {a,b,c,d,e};
+Result: {a,b,c,d,e};
+In> reverse(lst);
+Result: {e,d,c,b,a};
+In> lst;
+Result: {a,b,c,d,e};
 %/mathpiper_docs
 */

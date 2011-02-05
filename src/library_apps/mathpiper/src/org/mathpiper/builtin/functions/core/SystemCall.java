@@ -75,24 +75,24 @@ The {SystemCall} function is not allowed in the body of the {Secure} command and
 
 In a UNIX environment, the command {SystemCall("ls")} would print the contents of the current directory.
 
-	In> SystemCall("ls")
+In> SystemCall("ls")
 	AUTHORS
 	COPYING
 	ChangeLog
 ... (truncated to save space)
-	Result: True;
+Result: True;
 
 The standard UNIX command {test} returns success or failure depending on conditions.
 For example, the following command will check if a directory exists:
 
-	In> SystemCall("test -d scripts/")
-	Result: True;
+In> SystemCall("test -d scripts/")
+Result: True;
 
 Check that a file exists:
-	In> SystemCall("test -f COPYING")
-	Result: True;
-	In> SystemCall("test -f nosuchfile.txt")
-	Result: False;
+In> SystemCall("test -f COPYING")
+Result: True;
+In> SystemCall("test -f nosuchfile.txt")
+Result: False;
 
 *SEE Secure
 %/mathpiper_docs

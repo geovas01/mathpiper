@@ -65,9 +65,9 @@ written to the standard default initial output (typically the screen). {PipeToSt
 
 *E.G.
 
-	In> PipeToString()[Echo("aaaa");PipeToStdout()Echo("bbbb");];
+In> PipeToString()[Echo("aaaa");PipeToStdout()Echo("bbbb");];
 	bbbb
-	Result: "aaaa
+Result: "aaaa
 	"
 
 *SEE PipeToString, PipeToFile

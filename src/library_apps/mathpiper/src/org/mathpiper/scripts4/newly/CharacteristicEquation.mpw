@@ -29,12 +29,12 @@ of the matrix, Det(matrix-I*var);
 
 *E.G.
 
-	In> A:=DiagonalMatrix({a,b,c})
-	Result: {{a,0,0},{0,b,0},{0,0,c}};
-	In> B:=CharacteristicEquation(A,x)
-	Result: (a-x)*(b-x)*(c-x);
-	In> Expand(B,x)
-	Result: (b+a+c)*x^2-x^3-((b+a)*c+a*b)*x+a*b*c;
+In> A:=DiagonalMatrix({a,b,c})
+Result: {{a,0,0},{0,b,0},{0,0,c}};
+In> B:=CharacteristicEquation(A,x)
+Result: (a-x)*(b-x)*(c-x);
+In> Expand(B,x)
+Result: (b+a+c)*x^2-x^3-((b+a)*c+a*b)*x+a*b*c;
 
 *SEE EigenValues, EigenVectors
 %/mathpiper_docs

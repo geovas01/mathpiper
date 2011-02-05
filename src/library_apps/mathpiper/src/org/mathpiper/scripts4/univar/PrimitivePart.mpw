@@ -28,14 +28,14 @@ polynomial.
 
 *E.G.
 
-	In> poly := 2*x^2 + 4*x;
-	Result: 2*x^2+4*x;
-	In> c := Content(poly);
-	Result: 2*x;
-	In> pp := PrimitivePart(poly);
-	Result: x+2;
-	In> Expand(pp*c);
-	Result: 2*x^2+4*x;
+In> poly := 2*x^2 + 4*x;
+Result: 2*x^2+4*x;
+In> c := Content(poly);
+Result: 2*x;
+In> pp := PrimitivePart(poly);
+Result: x+2;
+In> Expand(pp*c);
+Result: 2*x^2+4*x;
 
 *SEE Content
 %/mathpiper_docs

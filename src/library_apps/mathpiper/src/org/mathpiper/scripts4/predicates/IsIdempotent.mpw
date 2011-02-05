@@ -24,8 +24,8 @@ to any power is also equal to $A$.
 
 *E.G.
 
-	In> IsIdempotent(ZeroMatrix(10,10));
-	Result: True;
-	In> IsIdempotent(Identity(20))
-	Result: True;
+In> IsIdempotent(ZeroMatrix(10,10));
+Result: True;
+In> IsIdempotent(Identity(20))
+Result: True;
 %/mathpiper_docs

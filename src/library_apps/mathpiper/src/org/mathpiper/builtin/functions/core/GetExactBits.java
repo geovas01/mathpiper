@@ -73,17 +73,17 @@ For integer {x}, the function {GetExactBitsN} returns the bit count of {x}.
 
 *E.G.
 The default precision of 10 decimals corresponds to 33 bits:
-	In> GetExactBitsN(1000.123)
-	Result: 33;
-	In> x:=SetExactBits(10., 20)
-	Result: 10.;
-	In> GetExactBitsN(x)
-	Result: 20;
+In> GetExactBitsN(1000.123)
+Result: 33;
+In> x:=SetExactBits(10., 20)
+Result: 10.;
+In> GetExactBitsN(x)
+Result: 20;
 Prepare a "floating zero" representing an interval [-4, 4]:
-	In> x:=SetExactBits(0., -2)
-	Result: 0.;
-	In> x=0
-	Result: True;
+In> x:=SetExactBits(0., -2)
+Result: 0.;
+In> x=0
+Result: True;
 
 *SEE BuiltinPrecisionSet, BuiltinPrecisionGet, SetExactBitsN
 %/mathpiper_docs

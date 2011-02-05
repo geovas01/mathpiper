@@ -61,8 +61,8 @@ an empty string if the default pretty printer is used.
 
 *E.G.
 
-	In> PrettyReaderGet()
-	Result> ""
+In> PrettyReaderGet()
+Result: ""
 
 *SEE Read, LispRead, OMRead, PrettyPrinterSet, PrettyPrinterGet, PrettyReaderSet
 %/mathpiper_docs

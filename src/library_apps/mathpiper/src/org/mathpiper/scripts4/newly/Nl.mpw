@@ -25,10 +25,10 @@ case {L} (from "line").
 
 *E.G. notest
 
-	In> WriteString("First line" : Nl() : "Second line" : Nl());
+In> WriteString("First line" : Nl() : "Second line" : Nl());
 	First line
 	Second line
-	Result: True;
+Result: True;
 
 *SEE NewLine
 %/mathpiper_docs

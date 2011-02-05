@@ -78,8 +78,8 @@ Concatenates strings.
 
 *E.G.
 
-	In> ConcatStrings("a","b","c")
-	Result: "abc";
+In> ConcatStrings("a","b","c")
+Result: "abc";
 
 *SEE :
 %/mathpiper_docs

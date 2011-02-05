@@ -115,12 +115,12 @@ infix operators, so you can write {expr1 And expr}.
 
 *E.G.
 
-	In> True Or False
-	Result: True;
-	In> False Or a
-	Result: Or(a);
-	In> Or(False,a,b,True)
-	Result: True;
+In> True Or False
+Result: True;
+In> False Or a
+Result: Or(a);
+In> Or(False,a,b,True)
+Result: True;
 
 *SEE And, Not
 %/mathpiper_docs

@@ -31,6 +31,6 @@ just lists of lists, this is a useful operation too for lists.
 
 *E.G.
 
-	In> Transpose({{a,b}})
-	Result: {{a},{b}};
+In> Transpose({{a,b}})
+Result: {{a},{b}};
 %/mathpiper_docs

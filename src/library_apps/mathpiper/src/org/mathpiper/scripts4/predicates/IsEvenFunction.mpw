@@ -43,14 +43,14 @@ $$ f_odd(x) = (f(x)-f(-x))/2 $$
 
 *E.G.
 
-	In> IsEvenFunction(Cos(b*x),x)
-	Result: True
-	In> IsEvenFunction(Sin(b*x),x)
-	Result: False
-	In> IsEvenFunction(1/x^2,x)
-	Result: True
-	In> IsEvenFunction(1/x,x)
-	Result: False
+In> IsEvenFunction(Cos(b*x),x)
+Result: True
+In> IsEvenFunction(Sin(b*x),x)
+Result: False
+In> IsEvenFunction(1/x^2,x)
+Result: True
+In> IsEvenFunction(1/x,x)
+Result: False
 
 *SEE IsOddFunction, Sin, Cos
 %/mathpiper_docs

@@ -89,14 +89,14 @@ limit as "var" approaches "at".
 
 *E.G.
 
-	In> PrettyForm(Taylor(x,0,9) Sin(x))
+In> PrettyForm(Taylor(x,0,9) Sin(x))
 	
 	     3    5      7       9
 	    x    x      x       x
 	x - -- + --- - ---- + ------
 	    6    120   5040   362880
 	
-	Result: True;
+Result: True;
 
 *SEE D, InverseTaylor, ReversePoly, BigOh
 %/mathpiper_docs

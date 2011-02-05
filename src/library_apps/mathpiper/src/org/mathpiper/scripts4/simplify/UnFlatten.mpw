@@ -33,10 +33,10 @@ a+0=a). For multiplication the identity element would be 1.
 
 *E.G.
 
-	In> UnFlatten({a,b,c},"+",0)
-	Result: a+b+c;
-	In> UnFlatten({a,b,c},"*",1)
-	Result: a*b*c;
+In> UnFlatten({a,b,c},"+",0)
+Result: a+b+c;
+In> UnFlatten({a,b,c},"*",1)
+Result: a*b*c;
 
 *SEE Flatten
 %/mathpiper_docs

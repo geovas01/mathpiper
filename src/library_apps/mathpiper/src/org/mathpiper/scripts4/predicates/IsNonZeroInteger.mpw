@@ -23,10 +23,10 @@ not an integer, the result is {False}.
 
 *E.G.
 
-	In> IsNonZeroInteger(0)
-	Result: False;
-	In> IsNonZeroInteger(-2)
-	Result: True;
+In> IsNonZeroInteger(0)
+Result: False;
+In> IsNonZeroInteger(-2)
+Result: True;
 
 *SEE IsPositiveInteger, IsNegativeInteger, IsNotZero
 %/mathpiper_docs

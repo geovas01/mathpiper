@@ -27,10 +27,10 @@ An integer $n$ is prime if and only if it has 1 proper divisor.
 
 *E.G.
 
-	In> ProperDivisors(180)
-	Result: 17;
-	In> ProperDivisors(37)
-	Result: 1;
+In> ProperDivisors(180)
+Result: 17;
+In> ProperDivisors(37)
+Result: 1;
 
 *SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius
 %/mathpiper_docs

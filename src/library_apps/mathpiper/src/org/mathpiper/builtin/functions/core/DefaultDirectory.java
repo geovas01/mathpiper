@@ -76,8 +76,8 @@ can be useful in the {~/.MathPiperrc} file.
 
 *E.G.
 
-	In> DefaultDirectory("/home/user/myscripts/");
-	Result: True;
+In> DefaultDirectory("/home/user/myscripts/");
+Result: True;
 
 *SEE Load, Use, DefLoad, FindFile
 %/mathpiper_docs

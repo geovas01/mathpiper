@@ -32,8 +32,8 @@ are uniformly distributed in this interval.
 
 *E.G.
 
-	In> RandomIntegerList(4,-3,3)
-	Result: {0,3,2,-2};
+In> RandomIntegerList(4,-3,3)
+Result: {0,3,2,-2};
 
 *SEE Random, RandomPoly, RandomInteger, RandomIntegerMatrix
 %/mathpiper_docs

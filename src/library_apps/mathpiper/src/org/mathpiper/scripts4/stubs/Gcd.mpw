@@ -101,12 +101,12 @@ $$Gcd(a,b,c) = Gcd(Gcd(a,b),c)$$.
 
 *E.G.
 
-	In> Gcd(55,10)
-	Result: 5;
-	In> Gcd({60,24,120})
-	Result: 12;
-	In> Gcd( 7300 + 12*I, 2700 + 100*I)
-	Result: Complex(-4,4);
+In> Gcd(55,10)
+Result: 5;
+In> Gcd({60,24,120})
+Result: 12;
+In> Gcd( 7300 + 12*I, 2700 + 100*I)
+Result: Complex(-4,4);
 
 
 *SEE Lcm

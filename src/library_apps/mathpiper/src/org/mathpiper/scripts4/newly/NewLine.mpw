@@ -34,9 +34,9 @@ current output. The result is always True.
 
 *E.G. notest
 
-	In> NewLine();
+In> NewLine();
 	
-	Result: True;
+Result: True;
 
 *SEE Echo, Write, Space
 %/mathpiper_docs

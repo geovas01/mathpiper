@@ -63,10 +63,10 @@ characters (such as "+", ":" etc.).
 Precedence is optional (will be set to 0 by default).
 
 *E.G.
-	In> Infix("##", 5)
-	Result: True;
-	In> a ## b ## c
-	Result: a##b##c;
+In> Infix("##", 5)
+Result: True;
+In> a ## b ## c
+Result: a##b##c;
 
 *SEE IsBodied, PrecedenceGet, Bodied, Postfix, Prefix
 %/mathpiper_docs

@@ -61,17 +61,17 @@ matrices with positive elements and Hilbert matrices.
 
 *E.G.
 
-	In> A:={{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}}
-	Result: {{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}};
-	In> R:=Cholesky(A);
-	Result: {{2,-1,2,1},{0,3,0,-2},{0,0,2,1},{0,0,0,1}};
-	In> Transpose(R)*R = A
-	Result: True;
-	In> Cholesky(4*Identity(5))
-	Result: {{2,0,0,0,0},{0,2,0,0,0},{0,0,2,0,0},{0,0,0,2,0},{0,0,0,0,2}};
-	In> Cholesky(HilbertMatrix(3))
-	Result: {{1,1/2,1/3},{0,Sqrt(1/12),Sqrt(1/12)},{0,0,Sqrt(1/180)}};
-	In> Cholesky(ToeplitzMatrix({1,2,3}))
+In> A:={{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}}
+Result: {{4,-2,4,2},{-2,10,-2,-7},{4,-2,8,4},{2,-7,4,7}};
+In> R:=Cholesky(A);
+Result: {{2,-1,2,1},{0,3,0,-2},{0,0,2,1},{0,0,0,1}};
+In> Transpose(R)*R = A
+Result: True;
+In> Cholesky(4*Identity(5))
+Result: {{2,0,0,0,0},{0,2,0,0,0},{0,0,2,0,0},{0,0,0,2,0},{0,0,0,0,2}};
+In> Cholesky(HilbertMatrix(3))
+Result: {{1,1/2,1/3},{0,Sqrt(1/12),Sqrt(1/12)},{0,0,Sqrt(1/180)}};
+In> Cholesky(ToeplitzMatrix({1,2,3}))
 	In function "Check" :
 	CommandLine(1) : "Cholesky: Matrix is not positive definite"
 

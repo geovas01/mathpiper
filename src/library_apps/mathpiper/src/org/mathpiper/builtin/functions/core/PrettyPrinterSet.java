@@ -81,23 +81,23 @@ can be useful in the {~/.MathPiperrc} file.
 
 *E.G.
 
-	In> Taylor(x,0,5)Sin(x)
-	Result: x-x^3/6+x^5/120;
-	In> PrettyPrinterSet("PrettyForm");
+In> Taylor(x,0,5)Sin(x)
+Result: x-x^3/6+x^5/120;
+In> PrettyPrinterSet("PrettyForm");
 
 	True
 
-	In> Taylor(x,0,5)Sin(x)
+In> Taylor(x,0,5)Sin(x)
 
 	     3    5
 	    x    x
 	x - -- + ---
 	    6    120
 
-	In> PrettyPrinterSet();
-	Result: True;
-	In> Taylor(x,0,5)Sin(x)
-	Result: x-x^3/6+x^5/120;
+In> PrettyPrinterSet();
+Result: True;
+In> Taylor(x,0,5)Sin(x)
+Result: x-x^3/6+x^5/120;
 
 *SEE PrettyForm, Write, TeXForm, CForm, OMForm, PrettyReaderSet, PrettyReaderGet, PrettyPrinterGet
 %/mathpiper_docs

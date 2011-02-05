@@ -32,14 +32,14 @@ rounded upwards.
 
 *E.G.
 
-	In> Round(1.49)
-	Result: 1;
-	In> Round(1.51)
-	Result: 2;
-	In> Round(-1.49)
-	Result: -1;
-	In> Round(-1.51)
-	Result: -2;
+In> Round(1.49)
+Result: 1;
+In> Round(1.51)
+Result: 2;
+In> Round(-1.49)
+Result: -1;
+In> Round(-1.51)
+Result: -2;
 
 *SEE Floor, Ceil
 %/mathpiper_docs

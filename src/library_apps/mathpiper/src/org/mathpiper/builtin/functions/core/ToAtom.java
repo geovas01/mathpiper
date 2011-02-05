@@ -66,8 +66,8 @@ as the evaluated argument. Example: {ToAtom("foo");} returns
 
 *E.G.
 
-	In> ToAtom("a")
-	Result: a;
+In> ToAtom("a")
+Result: a;
 
 *SEE ToString, ExpressionToString
 %/mathpiper_docs

@@ -35,9 +35,9 @@ It also returns {False} if {lst} is not a list, or if {pred} is not a predicate.
 
 *E.G.
 
-    In> AllSatisfy("IsInteger",{1,0,-5})
-    Result> True 
-    In> AllSatisfy("IsPositiveInteger",{1,0,-5})
-    Result> False
+In> AllSatisfy("IsInteger",{1,0,-5})
+Result> True 
+In> AllSatisfy("IsPositiveInteger",{1,0,-5})
+Result> False
     
 %/mathpiper_docs

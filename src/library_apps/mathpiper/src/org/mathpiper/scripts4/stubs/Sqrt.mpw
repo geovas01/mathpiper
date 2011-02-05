@@ -49,16 +49,16 @@ list, the function is applied to all entries in the list.
 
 *E.G.
 
-	In> Sqrt(16)
-	Result: 4;
-	In> Sqrt(15)
-	Result: Sqrt(15);
-	In> N(Sqrt(15))
-	Result: 3.8729833462;
-	In> Sqrt(4/9)
-	Result: 2/3;
-	In> Sqrt(-1)
-	Result: Complex(0,1);
+In> Sqrt(16)
+Result: 4;
+In> Sqrt(15)
+Result: Sqrt(15);
+In> N(Sqrt(15))
+Result: 3.8729833462;
+In> Sqrt(4/9)
+Result: 2/3;
+In> Sqrt(-1)
+Result: Complex(0,1);
 
 *SEE Exp, ^, N
 %/mathpiper_docs

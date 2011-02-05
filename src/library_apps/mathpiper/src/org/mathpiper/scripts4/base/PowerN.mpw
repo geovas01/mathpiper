@@ -38,11 +38,11 @@ integer result is returned even if the calculation requires more digits than set
 the functions return a floating-point result which is correct only to the current precision.
 
 *E.G.
-	In> BuiltinPrecisionSet(10)
-	Result: True
-	In> PowerN(2,3)
-	Result: 8
-	In> PowerN(2,-3)
-	Result: 0.125
+In> BuiltinPrecisionSet(10)
+Result: True
+In> PowerN(2,3)
+Result: 8
+In> PowerN(2,-3)
+Result: 0.125
 
 %/mathpiper_docs

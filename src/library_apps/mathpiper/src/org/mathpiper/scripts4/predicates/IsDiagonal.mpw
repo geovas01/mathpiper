@@ -45,8 +45,8 @@ IsDiagonal(A_IsMatrix) <--
 {IsDiagonal(A)} returns {True} if {A} is a diagonal square matrix and {False} otherwise.
 
 *E.G.
-	In> IsDiagonal(Identity(5))
-	Result: True;
-	In> IsDiagonal(HilbertMatrix(5))
-	Result: False;
+In> IsDiagonal(Identity(5))
+Result: True;
+In> IsDiagonal(HilbertMatrix(5))
+Result: False;
 %/mathpiper_docs

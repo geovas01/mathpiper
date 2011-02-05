@@ -57,10 +57,10 @@ Check whether the function with given name {"op"} has been declared as a
 
 *E.G.
 
-	In> IsBodied("While");
-	Result: True;
-	In> IsBodied("Sin");
-	Result: False;
+In> IsBodied("While");
+Result: True;
+In> IsBodied("Sin");
+Result: False;
 
 *SEE Bodied, PrecedenceGet,IsInfix,IsPostfix,IsPrefix
 %/mathpiper_docs

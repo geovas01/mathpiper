@@ -24,10 +24,10 @@ even if it is divisible by two. Hence the even numbers are 0, 2, 4, 6,
 
 *E.G.
 
-	In> IsEven(4);
-	Result: True;
-	In> IsEven(-1);
-	Result: False;
+In> IsEven(4);
+Result: True;
+In> IsEven(-1);
+Result: False;
 
 *SEE IsOdd, IsInteger
 %/mathpiper_docs

@@ -113,6 +113,6 @@ to being built-in). This means that they can be extended by the user.
 
 *E.G.
 
-	In> 2^3
-	Result: 8;
+In> 2^3
+Result: 8;
 %/mathpiper_docs

@@ -96,16 +96,16 @@ object was found and deleted, and {False} otherwise.
 
 *E.G.
 
-	In> x:=1
-	Result: 1;
-	In> Assert("bad value", {x,"must be zero"}) x=0
-	Result: False;
-	In> GetError("bad value")
-	Result: {1, "must be zero"};
-	In> ClearError("bad value");
-	Result: True;
-	In> IsError()
-	Result: False;
+In> x:=1
+Result: 1;
+In> Assert("bad value", {x,"must be zero"}) x=0
+Result: False;
+In> GetError("bad value")
+Result: {1, "must be zero"};
+In> ClearError("bad value");
+Result: True;
+In> IsError()
+Result: False;
 
 *SEE IsError, Assert, Check, ClearErrors
 

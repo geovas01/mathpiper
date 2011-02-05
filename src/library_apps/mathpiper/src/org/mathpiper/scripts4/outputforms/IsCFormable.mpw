@@ -81,18 +81,18 @@ The second calling format of {IsCFormable} can be used to "allow" certain functi
 
 *E.G. notest
 
-	In> IsCFormable(Sin(a1)+2*Cos(b1))
-	Result: True;
-	In> V(IsCFormable(1+func123(b1)))
+In> IsCFormable(Sin(a1)+2*Cos(b1))
+Result: True;
+In> V(IsCFormable(1+func123(b1)))
 	IsCFormable: Info: unexportable function(s):
 	  func123
-	Result: False;
+Result: False;
 This returned {False} because the function {func123} is not available in C++. We can
 explicitly allow this function and then the expression will be considered
 exportable:
 
-	In> IsCFormable(1+func123(b1), {func123})
-	Result: True;
+In> IsCFormable(1+func123(b1), {func123})
+Result: True;
 
 *SEE CForm, V
 %/mathpiper_docs

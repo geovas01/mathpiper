@@ -38,21 +38,20 @@ contains {n+1} elements, where {n} is the highest power of {var} present in {exp
     
 
 *E.G.
-    In> CollectOn(x,2*x-2*y-a*x+x*y)
-    Result: {-2*y,2-a+y}
-       NOTE 1: This result indicates that the given expression could be rewritten in
-       the form  -2*y+(2-a+y)*x.
-       NOTE 2: If P is the list output by a call to CollectOn, this rewriting could
-       be done by evaluating Dot(P,FillList(var,Length(P))^(0 .. Length(P)-1)).
+In> CollectOn(x,2*x-2*y-a*x+x*y)
+Result: {-2*y,2-a+y}
+   NOTE 1: This result indicates that the given expression could be rewritten in
+   the form  -2*y+(2-a+y)*x.
+   NOTE 2: If P is the list output by a call to CollectOn, this rewriting could
+   be done by evaluating Dot(P,FillList(var,Length(P))^(0 .. Length(P)-1)).
     
-    In> CollectOn(y,2*x-2*y-a*x+x*y)
-    Result: {2*x-a*x,x-2}
-       NOTE 1: This result indicates that the given expression could be rewritten in
-       the form  (2*x-a*x)+(x-2)*y.
-       NOTE 2: The collection is ONLY made on the given variable; any other variable 
-       is not collected further.
+In> CollectOn(y,2*x-2*y-a*x+x*y)
+Result: {2*x-a*x,x-2}
+   NOTE 1: This result indicates that the given expression could be rewritten in
+   the form  (2*x-a*x)+(x-2)*y.
+   NOTE 2: The collection is ONLY made on the given variable; any other variable
+   is not collected further.
        
-
 *SEE 
 %/mathpiper_docs
 

@@ -45,8 +45,8 @@ the largest of these row sums.
 
 *E.G.
 
-    In> InfinityNorm({{3,5,7},{2,-6,4},{0,2,8}})
-    Result: 15
+In> InfinityNorm({{3,5,7},{2,-6,4},{0,2,8}})
+Result: 15
 
 %/mathpiper_docs
 

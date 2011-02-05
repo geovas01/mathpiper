@@ -87,38 +87,38 @@ use as a general tool.  Now it has been made available.
 
 *E.G.
 
-    In> VerifySolve(Solve(a+x*y==z,x),{x==(z-a)/y});
-    Result: True
+In> VerifySolve(Solve(a+x*y==z,x),{x==(z-a)/y});
+Result: True
 
-    In> VerifySolve(Solve(a+x*y==z,x),{x==(a-z)/y});
-    Result: False
-    Side Effects:
-    ******************
-    none: -1 
-    Solve(a+x*y==z,x)
-     evaluates to 
-    {x==-(a-z)/y}
-     which differs from 
-    {x==(a-z)/y}
-    ******************
+In> VerifySolve(Solve(a+x*y==z,x),{x==(a-z)/y});
+Result: False
+Side Effects:
+******************
+none: -1 
+Solve(a+x*y==z,x)
+ evaluates to
+{x==-(a-z)/y}
+ which differs from
+{x==(a-z)/y}
+******************
 
-    In> Verify(x*(1+x),x+x^2)
-    Result: False
-    Side Effects:
-    ******************
-    none: -1 
-    x*(1+x)
-     evaluates to 
-    x*(x+1)
-     which differs from 
-    x+x^2
-    ******************
+In> Verify(x*(1+x),x+x^2)
+Result: False
+Side Effects:
+******************
+none: -1 
+x*(1+x)
+ evaluates to
+x*(x+1)
+ which differs from
+x+x^2
+******************
 
-    In> VerifySolve(x*(1+x),x+x^2)
-    Result: True
-    
-    NOTE: Verify cannot see past the syntactical dissimilarity;  
-          VerifySolve can see the mathematical identity.
+In> VerifySolve(x*(1+x),x+x^2)
+Result: True
+
+NOTE: Verify cannot see past the syntactical dissimilarity;  
+      VerifySolve can see the mathematical identity.
 
 *SEE Verify, Simplify, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest
 

@@ -43,11 +43,11 @@ if "r" is negative or greater than "n"; {BinomialCoefficient(0,0)}=1.
 
 *E.G.
 
-        In> Combinations(10, 4)
-	Result: 210;
+In> Combinations(10, 4)
+Result: 210;
 
-	In> BinomialCoefficient(10, 4)
-	Result: 210;
+In> BinomialCoefficient(10, 4)
+Result: 210;
 
 
 *SEE CombinationsList, Permutations, PermutationsList, !, Eulerian

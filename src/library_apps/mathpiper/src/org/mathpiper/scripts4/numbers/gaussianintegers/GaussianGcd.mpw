@@ -27,11 +27,11 @@ integers, the greatest common divisor is only defined up to a Gaussian unit fact
 
 *E.G.
 
-	In> GaussianGcd(2+I,5)
-	Result: Complex(2,1);
+In> GaussianGcd(2+I,5)
+Result: Complex(2,1);
 The GCD of two mutually prime Gaussian integers might come out to be equal to some Gaussian unit instead of $1$:
-	In> GaussianGcd(2+I,3+I)
-	Result: -1;
+In> GaussianGcd(2+I,3+I)
+Result: -1;
 
 *SEE Gcd, Lcm, IsGaussianUnit
 %/mathpiper_docs

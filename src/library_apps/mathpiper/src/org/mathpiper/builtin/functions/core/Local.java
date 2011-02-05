@@ -86,18 +86,18 @@ local copy unless this is specifically allowed with {UnFence}.
 
 *E.G.
 
-	In> a := 3;
-	Result: 3;
+In> a := 3;
+Result: 3;
 
-	In> [ a := 4; a; ];
-	Result: 4;
-	In> a;
-	Result: 4;
+In> [ a := 4; a; ];
+Result: 4;
+In> a;
+Result: 4;
 
-	In> [ Local(a); a := 5; a; ];
-	Result: 5;
-	In> a;
-	Result: 4;
+In> [ Local(a); a := 5; a; ];
+Result: 5;
+In> a;
+Result: 4;
 
 In the car block, {a} is not declared local and
 hence defaults to be a global variable. Indeed, changing the variable

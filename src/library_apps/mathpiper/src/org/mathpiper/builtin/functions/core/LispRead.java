@@ -60,13 +60,13 @@ default.
 
 *E.G. notest
 
-	In> PipeFromString("(+ a b)") LispRead();
-	Result: a+b;
-	In> PipeFromString("(List (Sin x) (- (Cos x)))") \
+In> PipeFromString("(+ a b)") LispRead();
+Result: a+b;
+In> PipeFromString("(List (Sin x) (- (Cos x)))") \
 	  LispRead();
-	Result: {Sin(x),-Cos(x)};
-	In> PipeFromString("(+ a b)")LispRead()
-	Result: a+b;
+Result: {Sin(x),-Cos(x)};
+In> PipeFromString("(+ a b)")LispRead()
+Result: a+b;
 
 *SEE PipeFromFile, PipeFromString, Read, ReadToken, LispForm, LispReadListed
 %/mathpiper_docs

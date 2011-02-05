@@ -32,8 +32,8 @@ entry, which contains a 1.
 
 *E.G.
 
-	In> BaseVector(2,4)
-	Result: {0,1,0,0};
+In> BaseVector(2,4)
+Result: {0,1,0,0};
 
 *SEE ZeroVector, Identity
 %/mathpiper_docs

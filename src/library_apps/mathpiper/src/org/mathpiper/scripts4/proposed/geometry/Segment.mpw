@@ -33,14 +33,14 @@ This function returns a list which represents a segment by its endpoints.
 
 *E.G.
 
-	In> PointA := Point(2,3)
-	Result> {2,3}
+In> PointA := Point(2,3)
+Result: {2,3}
 	
-	In> PointB := Point(6,8)
-	Result> {6,8}
+In> PointB := Point(6,8)
+Result: {6,8}
 	
-	In> Segment(PointA,PointB)
-	Result> {{2,3},{6,8}}
+In> Segment(PointA,PointB)
+Result: {{2,3},{6,8}}
 
 *SEE IsPoint, Point, Distance, Slope
 %/mathpiper_docs

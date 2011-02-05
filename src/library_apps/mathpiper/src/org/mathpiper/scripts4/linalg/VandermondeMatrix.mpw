@@ -35,9 +35,9 @@ of a vector.
 The ($i$,$j$)-th element of the Vandermonde matrix is defined as $i^(j-1)$.
 
 *E.G.
-	In> VandermondeMatrix({1,2,3,4})
-	Result: {{1,1,1,1},{1,2,3,4},{1,4,9,16},{1,8,27,64}};
-	In>PrettyForm(%)
+In> VandermondeMatrix({1,2,3,4})
+Result: {{1,1,1,1},{1,2,3,4},{1,4,9,16},{1,8,27,64}};
+In>PrettyForm(%)
 
 	/                            \
 	| ( 1 ) ( 1 ) ( 1 )  ( 1 )   |

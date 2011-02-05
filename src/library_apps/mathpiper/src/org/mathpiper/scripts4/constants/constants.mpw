@@ -156,10 +156,10 @@ root of -1. It evaluates to {Complex(0,1)}.
 
 *E.G.
 
-	In> I
-	Result: Complex(0,1);
-	In> I = Sqrt(-1)
-	Result: True;
+In> I
+Result: Complex(0,1);
+In> I = Sqrt(-1)
+Result: True;
 
 *SEE Complex
 %/mathpiper_docs
@@ -184,12 +184,12 @@ This is a "cached constant" which is recalculated only when precision is increas
 
 *E.G.
 
-	In> Sin(3*Pi/2)
-	Result: -1;
-	In> Pi+1
-	Result: Pi+1;
-	In> N(Pi)
-	Result: 3.14159265358979323846;
+In> Sin(3*Pi/2)
+Result: -1;
+In> Pi+1
+Result: Pi+1;
+In> N(Pi)
+Result: 3.14159265358979323846;
 
 *SEE Sin, Cos, N, CachedConstant
 %/mathpiper_docs
@@ -218,17 +218,17 @@ The numerical value of the constant can also be obtained as {N(GoldenRatio)}.
 
 *E.G.
 
-	In> x:=GoldenRatio - 1
-	Result: GoldenRatio-1;
-	In> N(x)
-	Result: 0.6180339887;
-	In> N(1/GoldenRatio)
-	Result: 0.6180339887;
-	In> V(N(GoldenRatio,20));
+In> x:=GoldenRatio - 1
+Result: GoldenRatio-1;
+In> N(x)
+Result: 0.6180339887;
+In> N(1/GoldenRatio)
+Result: 0.6180339887;
+In> V(N(GoldenRatio,20));
 
 	CachedConstant: Info: constant GoldenRatio is
 	being recalculated at precision 20 
-	Result: 1.6180339887498948482;
+Result: 1.6180339887498948482;
 
 
 *SEE N, CachedConstant
@@ -254,15 +254,15 @@ The low-level numerical computations are performed by the routine {CatalanConstN
 
 *E.G.
 
-	In> N(Catalan)
-	Result: 0.9159655941;
-	In> DirichletBeta(2)
-	Result: Catalan;
-	In> V(N(Catalan,20))
+In> N(Catalan)
+Result: 0.9159655941;
+In> DirichletBeta(2)
+Result: Catalan;
+In> V(N(Catalan,20))
 
 	CachedConstant: Info: constant Catalan is
 	being recalculated at precision 20
-	Result: 0.91596559417721901505;
+Result: 0.91596559417721901505;
 
 
 *SEE N, CachedConstant
@@ -289,17 +289,17 @@ Note that Euler's Gamma function $Gamma(x)$ is the capitalized {Gamma} in MathPi
 
 *E.G.
 
-	In> gamma+Pi
-	Result: gamma+Pi;
-	In> N(gamma+Pi)
-	Result: 3.7188083184;
-	In> V(N(gamma,20))
+In> gamma+Pi
+Result: gamma+Pi;
+In> N(gamma+Pi)
+Result: 3.7188083184;
+In> V(N(gamma,20))
 	
 	CachedConstant: Info: constant gamma is being
 	  recalculated at precision 20 
 	GammaConstNum: Info: used 56 iterations at
 	  working precision 24 
-	Result: 0.57721566490153286061;
+Result: 0.57721566490153286061;
 
 *SEE Gamma, N, CachedConstant
 %/mathpiper_docs
@@ -347,16 +347,16 @@ After this, evaluating an expression such as {1/2+gamma} will call the function 
 
 *E.G. notest
 
-	In> CachedConstant( my'cache, Ln2, Internal'LnNum(2) )
-	Result: True;
-	In> Internal'Ln2()
-	Result: 0.6931471806;
-	In> V(N(Internal'Ln2(),20))
+In> CachedConstant( my'cache, Ln2, Internal'LnNum(2) )
+Result: True;
+In> Internal'Ln2()
+Result: 0.6931471806;
+In> V(N(Internal'Ln2(),20))
 	CachedConstant: Info: constant Ln2 is being
 	  recalculated at precision 20 
-	Result: 0.69314718055994530942;
-	In> my'cache
-	Result: {{"Ln2",20,0.69314718055994530942}};
+Result: 0.69314718055994530942;
+In> my'cache
+Result: {{"Ln2",20,0.69314718055994530942}};
 
 
 *SEE N, BuiltinPrecisionSet, Pi, GoldenRatio, Catalan, gamma

@@ -389,20 +389,20 @@ However, the {Random} function is slightly faster.
 
 *E.G.
 
-	In> r1:=RngCreate(seed->1,dist->gauss)
-	Result: {"GaussianRNGDist","RNGEngine'LCG'2",{1}}
-	In> Rng(r1)
-	Result: Complex(-1.6668466417,0.228904004);
-	In> Rng(r1);
-	Result: Complex(0.0279296109,-0.5382405341);
+In> r1:=RngCreate(seed->1,dist->gauss)
+Result: {"GaussianRNGDist","RNGEngine'LCG'2",{1}}
+In> Rng(r1)
+Result: Complex(-1.6668466417,0.228904004);
+In> Rng(r1);
+Result: Complex(0.0279296109,-0.5382405341);
 The second RNG gives a uniform distribution (default option) but uses a more complicated algorithm:
-	In> [r2:=RngCreate(engine->advanced);Rng(r2);]
-	Result: 0.3653615377;
+In> [r2:=RngCreate(engine->advanced);Rng(r2);]
+Result: 0.3653615377;
 The generator {r1} can be re-initialized with seed 1 again to obtain the same sequence:
-	In> RngSeed(r1, 1)
-	Result: True;
-	In> Rng(r1)
-	Result: Complex(-1.6668466417,0.228904004);
+In> RngSeed(r1, 1)
+Result: True;
+In> Rng(r1)
+Result: Complex(-1.6668466417,0.228904004);
 	
 
 *SEE Random, RandomInteger, RandomIntegerList, RandomIntegerMatrix

@@ -69,10 +69,10 @@ within quotes, e.g. {"duh"}.
 
 *E.G.
 
-	In> IsString("duh");
-	Result: True;
-	In> IsString(duh);
-	Result: False;
+In> IsString("duh");
+Result: True;
+In> IsString(duh);
+Result: False;
 
 *SEE IsAtom, IsNumber
 %/mathpiper_docs

@@ -74,12 +74,12 @@ not useful. One can call {Internal'LnGammaNum()} to evaluate logarithms of such 
 
 *E.G.
 
-	In> 5!
-	Result: 120;
-	In> 1 * 2 * 3 * 4 * 5
-	Result: 120;
-	In> (1/2)!
-	Result: Sqrt(Pi)/2;
+In> 5!
+Result: 120;
+In> 1 * 2 * 3 * 4 * 5
+Result: 120;
+In> (1/2)!
+Result: Sqrt(Pi)/2;
 
 *SEE BinomialCoefficient, Product, Gamma, !!, ***, Subfactorial
 %/mathpiper_docs

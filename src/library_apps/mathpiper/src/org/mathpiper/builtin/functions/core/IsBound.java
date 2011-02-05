@@ -68,12 +68,12 @@ it has been assigned a value. The argument "var" is not evaluated.
 
 *E.G.
 
-	In> IsBound(x);
-	Result: False;
-	In> x := 5;
-	Result: 5;
-	In> IsBound(x);
-	Result: True;
+In> IsBound(x);
+Result: False;
+In> x := 5;
+Result: 5;
+In> IsBound(x);
+Result: True;
 
 *SEE IsAtom
 %/mathpiper_docs

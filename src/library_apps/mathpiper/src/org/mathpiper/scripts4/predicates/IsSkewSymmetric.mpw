@@ -23,18 +23,18 @@ $A$ is skew symmetric iff $Transpose(A)$ =$-A$.
 
 *E.G.
 
-	In> A := {{0,-1},{1,0}}
-	Result: {{0,-1},{1,0}};
-	In> PrettyForm(%)
+In> A := {{0,-1},{1,0}}
+Result: {{0,-1},{1,0}};
+In> PrettyForm(%)
 
 	/               \
 	| ( 0 ) ( -1 )  |
 	|               |
 	| ( 1 ) ( 0 )   |
 	\               /
-	Result: True;
-	In> IsSkewSymmetric(A);
-	Result: True;
+Result: True;
+In> IsSkewSymmetric(A);
+Result: True;
 
 *SEE IsSymmetric, IsHermitian
 %/mathpiper_docs

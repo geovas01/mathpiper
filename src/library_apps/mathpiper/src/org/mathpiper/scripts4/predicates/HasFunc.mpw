@@ -34,10 +34,10 @@ Note that since the operators "{+}" and "{-}" are prefix as well as infix operat
 
 *E.G.
 
-	In> HasFunc(x+y*Cos(Ln(z)/z), Ln)
-	Result: True;
-	In> HasFunc(x+y*Cos(Ln(z)/z), Sin)
-	Result: False;
+In> HasFunc(x+y*Cos(Ln(z)/z), Ln)
+Result: True;
+In> HasFunc(x+y*Cos(Ln(z)/z), Sin)
+Result: False;
 
 *SEE HasFuncArith, HasFuncSome, FuncList, VarList, HasExpr
 %/mathpiper_docs

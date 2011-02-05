@@ -80,10 +80,10 @@ accessed using the {[]} operator.
 
 *E.G.
 
-	In> StringMidGet(3,2,"abcdef")
-	Result: "cd";
-	In> "abcdefg"[2 .. 4]
-	Result: "bcd";
+In> StringMidGet(3,2,"abcdef")
+Result: "cd";
+In> "abcdefg"[2 .. 4]
+Result: "bcd";
 
 *SEE StringMidSet, Length
 %/mathpiper_docs

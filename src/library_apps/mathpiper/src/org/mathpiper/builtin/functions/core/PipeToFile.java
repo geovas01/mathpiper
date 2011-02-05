@@ -129,7 +129,7 @@ Result> True;
 After this command the file {out} contains:
 
 
-	Result:
+Result:
 
 	     3    5      7       9
 	    x    x      x       x
