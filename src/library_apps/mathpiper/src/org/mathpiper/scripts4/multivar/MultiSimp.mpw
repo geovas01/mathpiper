@@ -68,7 +68,7 @@ MultiPrimitivePart(MultiNomial(vars_IsList,_terms))
 [
   Local(cont);
   Bind(cont,MultiContentTerm(MultiNomial(vars,terms)));
-  Bind(cont,CreateTerm(vars,{-cont[1],1/(cont[2])}));
+  Bind(cont,CreateTerm(vars,{-cont[1],1/Rationalize(cont[2])}));
   MultiNomialMultiply(MultiNomial(vars,terms), cont);
 ];
 
