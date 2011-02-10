@@ -17,9 +17,10 @@ Rule("YacasPSolve",1,1,IsUniVar(uni) And Degree(uni) = 2)
      a:=Coef(uni,2);
      d:=b*b-4*a*c;
      q:=Sqrt(d)/(2*a);
-     If(Im(q) != 0,
-         q := Complex(RadSimp(Re(q)), RadSimp(Im(q))),
-         q := RadSimp(q));
+     // Removed to avoid excessive time RadSimp takes for larger numbers
+     // If(Im(q) != 0,
+     //     q := Complex(RadSimp(Re(q)), RadSimp(Im(q))),
+     //     q := RadSimp(q));
      r:=-b/(2*a);
      If(InVerboseMode(),[ Tell("   ",{c,b,a,d}); Tell("   ",{q,r}); ]);
      {r+q,r-q};
