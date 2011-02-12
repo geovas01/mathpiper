@@ -1,0 +1,27 @@
+#Miscellaneous information about JReduce.
+
+== Make commands ==
+
+
+make jlisp.jar
+  Make just the lisp system.
+         
+make jlisp.img
+  Makes jlisp.img, and then
+  java -jar jlisp.jar -i jlisp.img
+  should run JUST a Lisp system. Small and simple for testing?
+  
+make reduce.img 
+     and then
+java -jar jlisp.jar -i reduce.img
+     should run Reduce. The "-w" option decides if it should try
+     to create its own window or run as a console mode app.
+
+make reduce.jar
+  Makes the lisp interpreter plus reduce.img and packages them into reduce.jar.
+
+make minireduce.jar
+  Makes the lisp interpreter plus a small version of the RLisp scripts.
+
+
+
