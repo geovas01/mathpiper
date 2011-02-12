@@ -145,7 +145,7 @@ Function("YacasPSolve",{uni,var}) [
                        (Denominator /@ coeffs) * coeffs);
          DestructiveReplace(u, 3, coeffs);
          factors := If(Degree(u)>0, 
-                        FactorsPolynomialOverIntegers(NormalForm(u),var), 
+                        Factors(NormalForm(u)), 
                         {NormalForm(u), 1});
      ], [
          factors := {{uni, 1}};

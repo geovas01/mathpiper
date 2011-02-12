@@ -89,7 +89,7 @@ Verify(Solve((2*x - 1)*(4*x + 3) == (8*x - 3)*(x + 4) - 3*(9*x + 1), x),{});
 Verify(Simplify(Ln(3)),Ln(3));
 
 //Issue 59
-Verify(Solve((x - 1)*(x - 2)*(x - 3)==0, x),{x==1,x==3,x==2});
+Verify(Solve((x - 1)*(x - 2)*(x - 3)==0, x),{x==3,x==2,x==1});
 
 //Issue 60
 Verify(Solve(-3*x^3+10*x^2-11*x+4==0, x),{x==1,x==4/3});
