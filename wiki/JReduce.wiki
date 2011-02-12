@@ -27,3 +27,8 @@ make minireduce.jar
 == Removing RLisp libraries ==
 
 To follow this up - to make a custom cut-down version you would edit trunk/packages/package.map and comment out some of the lines that mention modules not tagged a "core".  If would then be up to you to ensure you did not keep a package but remove something it depended on, and the term "core" is more because those things are needed in order to build the rest than because other bits are frivolous...
+
+== Links ==
+  * Standard Lisp family - http://www.softwarepreservation.org/projects/LISP/standard_lisp_family/
+  * Reduce information website - http://www.uni-koeln.de/REDUCE/
+  * Portable Standard Lisp user's manual - http://www.softwarepreservation.org/projects/LISP/utah/USCP-Portable_Standard_LISP_Users_Manual-TR_10-1984.pdf
