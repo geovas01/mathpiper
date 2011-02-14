@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project id="mpreduce" name="mpreduce" default="" basedir="." >
+	<description>
+		Build file for mpreduce.
+	</description>
+	
+	
+
+	<property name="compile.source" value="1.5" />
+	<property name="compile.target" value="1.5" />
+	<property name="src.dir" value="${basedir}/src/java" />
+	<property name="build.dir" value="${basedir}/build" />
+	<property name="lib.dir" value="${basedir}/lib" />
+	<property name="mpreduce.dir" value="${basedir}" />
+	
+	<path id="build_classpath">
+
+		<pathelement path="${lib.dir}/jlisp.jar" />
+	</path>
+	
+
+	
+
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	
+	
+	<target id="noop" name="noop" description="Do nothing." />
+	
+	<target id="clean" name="clean" 
+		description="Deletes the mpreduce build directory" >
+		
+		<echo message="Removing the build directory...." />
+		<delete dir="${build.dir}" />
+	</target>
+	
+	<target name="init" depends="clean">
+	    <condition property="IsUnix" value="true">
+		    <os family="unix" />
+	    </condition>
+
+		<tstamp>
+			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
+		</tstamp>
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+	
+	<target name="compile" depends="init"
+		description="Compiles the application" >
+		<!--<echo message="${compile.source}." />
+		<echo message="${src.dir}." />
+		<echo message="${build.classes.dir}." />-->
+	
+		<javac 
+			source="${compile.source}"
+			target="${compile.target}" 
+			srcdir="${src.dir}"
+			destdir="${build.classes.dir}"
+			debug="on"
+			deprecation="on"
+			optimize="off">
+			<classpath refid="build_classpath" />
+			<include name="**/*.java" />
+		</javac>
+		
+		
+		
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${lib.dir}/lisp_images" >
+				<include name="**/*.img" />
+			</fileset>
+		</copy>
+		
+	</target>
+	
+
+
+
+</project>
+
+
+
