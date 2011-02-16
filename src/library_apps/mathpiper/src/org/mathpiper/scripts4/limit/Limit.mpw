@@ -4,6 +4,9 @@
 /*  Limit operator rule base  */
 /*                            */
 
+/* Special case: limits of polynomials as x approaches infinity */
+100 # Lim(_var, _tar, _dir, _p)_(IsPolynomial(p, var) And Degree(p, var) > 0 And IsInfinity(tar))
+    <-- LeadingCoef(p,var) * Sign(tar)^Degree(p,var) * Infinity;
 
 /*  Exponentiation rules  */
 
