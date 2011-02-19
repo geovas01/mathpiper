@@ -142,3 +142,11 @@ Verify(Rationalize(Sqrt(6.1 - Sqrt(7.2))),Sqrt(61/10-Sqrt(36/5)));
 
 // Issue 113
 Verify(Simplify(TrigSimpCombine(FactorCancel((x) + (0.2 * x)))), (6*x)/5);
+
+// Issue 116
+Verify(a/3+2*a/3,a);
+Verify(a/3+(2*a)/3,a);
+Verify(a/2+3*a/2,2*a);
+Verify(a/2+(3*a)/2,2*a);
+Verify(1/(2*a)+3/(2*a),2/a);
+Verify(a/(2*b)+3*a/(2*b),(2*a)/b);
