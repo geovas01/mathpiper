@@ -1,6 +1,6 @@
 //
 // This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
 
 /**************************************************************************
@@ -253,6 +253,19 @@ public class LispSmallInteger extends LispInteger
         return valueOf(s);
     }
 
+    LispObject safeModRecip() throws Exception
+    {
+        if (value == 0) return Jlisp.nil;
+        int a = Jlisp.modulus, b = value, s = 0, t = 1;
+        while (b != 0)
+        {   int q = a/b;
+            int w = a - q*b; a = b; b = w;
+            w = s - q*t; s = t; t = w;
+        }
+        if (s < 0) s += Jlisp.modulus;
+        return valueOf(s);
+    }
+
     LispObject reduceMod() throws Exception
     {
         int r = value % Jlisp.modulus;
@@ -433,6 +446,11 @@ public class LispSmallInteger extends LispInteger
         return a.gcdSmallInteger(this);
     }
 
+    LispObject lcm(LispObject a) throws Exception
+    {
+        return a.lcmSmallInteger(this);
+    }
+
     LispObject modAdd(LispObject a) throws Exception
     {
         return a.modAddSmallInteger(this);
@@ -582,6 +600,12 @@ public class LispSmallInteger extends LispInteger
         return valueOf(a.value.gcd(BigInteger.valueOf((long)value)));
     }
 
+    LispObject lcmInteger(LispBigInteger a) throws Exception
+    {
+        return valueOf(LispBigInteger.biglcm(
+           a.value, BigInteger.valueOf((long)value)));
+    }
+
     boolean eqnInteger(LispBigInteger a) throws Exception
     {
         return (a.value.compareTo(BigInteger.valueOf((long)value)) == 0);
@@ -713,6 +737,14 @@ public class LispSmallInteger extends LispInteger
             q = r;
         }
         return valueOf(p);
+    }
+
+    LispObject lcmSmallInteger(LispSmallInteger a) throws Exception
+    {
+        return valueOf(
+            LispBigInteger.biglcm(
+                BigInteger.valueOf((long)a.value),
+                BigInteger.valueOf((long)value)));
     }
 
     LispObject modAddSmallInteger(LispSmallInteger a) throws Exception

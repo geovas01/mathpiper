@@ -1,6 +1,6 @@
 //
 // This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+// Copyright \u00a9 (C) Codemist Ltd, 1998-201.
 //
 
 // Fns2.java
@@ -153,6 +153,7 @@ class Fns2
         {"modular-plus",                new Modular_plusFn()},
         {"modular-quotient",            new Modular_quotientFn()},
         {"modular-reciprocal",          new Modular_reciprocalFn()},
+        {"safe-modular-reciprocal",     new Safe_modular_reciprocalFn()},
         {"modular-times",               new Modular_timesFn()},
         {"msd",                         new MsdFn()},
         {"numberp",                     new NumberpFn()},
@@ -1080,9 +1081,20 @@ class IzeropFn extends BuiltinFunction
 
 class LcmnFn extends BuiltinFunction
 {
-    public LispObject op1(LispObject arg1) throws Exception
+    public LispObject op0()
+    { return LispInteger.valueOf(1); }
+    public LispObject op1(LispInteger a1)
+    { return a1; }
+    public LispObject op2(LispObject arg1, LispObject arg2) throws Exception
     {
-        return error(name + " not yet implemented");
+        return arg1.lcm(arg2);
+    }
+    public LispObject opn(LispObject [] args) throws Exception
+    {
+        BigInteger r = args[0].bigIntValue();
+        for (int i=2; i<args.length; i++)
+            r = LispBigInteger.biglcm(r, args[i].bigIntValue());
+        return LispInteger.valueOf(r);
     }
 }
 
@@ -1334,6 +1346,14 @@ class Modular_reciprocalFn extends BuiltinFunction
     public LispObject op1(LispObject arg1) throws Exception
     {
         return arg1.modRecip();
+    }
+}
+
+class Safe_modular_reciprocalFn extends BuiltinFunction
+{
+    public LispObject op1(LispObject arg1) throws Exception
+    {
+        return arg1.safeModRecip();
     }
 }
 

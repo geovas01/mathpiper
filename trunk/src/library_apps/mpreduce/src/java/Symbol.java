@@ -1,6 +1,6 @@
 //
 // This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
 
 /**************************************************************************
@@ -55,6 +55,11 @@ public class Symbol extends LispObject
     String cacheString;      // .. printing when escape chare may be needed
     public LispFunction fn;         // function (if any)
     SpecialFunction special; // special fn (if any)
+
+
+    void completeName()      // needed to that gensyms can have delayed names
+    {
+    }
 
 // intern() looks up a Java String and find the Lisp
 // symbol with that name. It creates it if needbe. This version
@@ -131,6 +136,7 @@ public class Symbol extends LispObject
 
     String toPrint()
     {
+        completeName();
         if ((currentFlags & (printEscape | printLower | printUpper)) == 0)
             return pname;
         else if (currentFlags == cacheFlags) return cacheString;
@@ -142,7 +148,7 @@ public class Symbol extends LispObject
         else if ((currentFlags & printUpper) != 0) p = p.toUpperCase();
         char c = p.charAt(0);
         if ((currentFlags & printEscape) != 0)
-        {   if (Character.isLetter(c) || c == '_')
+        {   if (Character.isLetter(c))
             {   if (((Symbol)Jlisp.lit[Lit.lower]).car/*value*/ !=
                     Jlisp.nil)
                 {   if (Character.isUpperCase(c))
@@ -180,9 +186,9 @@ public class Symbol extends LispObject
                     }
                     cache.append((char)c);
                 } 
-                else if ((int)c < 32)
-                {   cache.append("\\x" + Integer.toHexString((int)c));
-                }
+//              else if ((int)c < 32)
+//              {   cache.append("\\x" + Integer.toHexString((int)c));
+//              }
                 else
                 {   cache.append((char)'!');
                     cache.append((char)c);
@@ -213,7 +219,8 @@ public class Symbol extends LispObject
     }
 
     public int lisphashCode()
-    { 
+    {
+        completeName();
         return 139*pname.hashCode() ^ 0x12345678; 
     }
 
