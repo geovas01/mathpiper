@@ -1,6 +1,6 @@
 //
 // This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
 
 /**************************************************************************
@@ -262,7 +262,8 @@ class Fns1
         {"list-to-symbol",              new List_to_symbolFn()},
         {"list2",                       new List2Fn()},
         {"list2*",                      new List2StarFn()},
-        {"list3",                       new List3Fn()}
+        {"list3",                       new List3Fn()},
+        {"resource-limit",              new ResourceLimitFn()}
     };
 
 
@@ -1278,7 +1279,9 @@ class Char_downcaseFn extends BuiltinFunction
     {
         char ch;
         if (arg1 instanceof Symbol)
+        {   ((Symbol)arg1).completeName();
             ch = ((Symbol)arg1).pname.charAt(0);
+        }
         else if (arg1 instanceof LispInteger)
             ch = (char)arg1.intValue();
         else if (arg1 instanceof LispString)
@@ -1295,7 +1298,9 @@ class Char_upcaseFn extends BuiltinFunction
     {
         char ch;
         if (arg1 instanceof Symbol)
+        {   ((Symbol)arg1).completeName();
             ch = ((Symbol)arg1).pname.charAt(0);
+        }
         else if (arg1 instanceof LispInteger)
             ch = (char)arg1.intValue();
         else if (arg1 instanceof LispString)
@@ -1402,37 +1407,37 @@ class CompressFn extends BuiltinFunction
         try
         {   Jlisp.lit[Lit.std_input].car/*value*/ = from;
             r = Jlisp.read();
-            int c = from.readChar();
+//-             int c = from.readChar();
             from.close();
-// The next section is a pretty shameless hack to make REDUCE a bit
-// more robust. If when I parse the input to COMPRESS I find something
-// left over, I will take that as an indication that what the user
-// intended was to have a symbol made up of all the characters in the
-// input data (except that "!" gets treated as an escape (which is no
-// longer needed, but which must be ignored)
-            if (c != -1) 
-            {   StringBuffer s = new StringBuffer();
-                boolean escaped = false;
-                while (!arg1.atom)
-                {   LispObject k = arg1.car;
-                    arg1 = arg1.cdr;
-                    char ch;
-                    if (k instanceof LispString)
-                        ch = ((LispString)k).string.charAt(0);
-                    else if (k instanceof LispInteger)
-                        ch = (char)k.intValue();
-                    else if (k instanceof Symbol)
-                        ch = ((Symbol)k).pname.charAt(0);
-                    else break;
-                    if (!escaped && ch == '!')
-                    {   escaped = true;
-                        continue;
-                    }
-                    escaped = false;
-                    s.append(ch);
-                }
-                return Symbol.intern(s.toString());
-            }
+//- // The next section is a pretty shameless hack to make REDUCE a bit
+//- // more robust. If when I parse the input to COMPRESS I find something
+//- // left over, I will take that as an indication that what the user
+//- // intended was to have a symbol made up of all the characters in the
+//- // input data (except that "!" gets treated as an escape (which is no
+//- // longer needed, but which must be ignored)
+//-             if (c != -1)
+//-             {   StringBuffer s = new StringBuffer();
+//-                 boolean escaped = false;
+//-                 while (!arg1.atom)
+//-                 {   LispObject k = arg1.car;
+//-                     arg1 = arg1.cdr;
+//-                     char ch;
+//-                     if (k instanceof LispString)
+//-                         ch = ((LispString)k).string.charAt(0);
+//-                     else if (k instanceof LispInteger)
+//-                         ch = (char)k.intValue();
+//-                     else if (k instanceof Symbol)
+//-                         ch = ((Symbol)k).pname.charAt(0);
+//-                     else break;
+//-                     if (!escaped && ch == '!')
+//-                     {   escaped = true;
+//-                         continue;
+//-                     }
+//-                     escaped = false;
+//-                     s.append(ch);
+//-                 }
+//-                 return Symbol.intern(s.toString());
+//-             }
         }
         catch (Exception e)
         {   Jlisp.errprintln(
@@ -1441,8 +1446,6 @@ class CompressFn extends BuiltinFunction
             LispStream ee = // @@@
                         (LispStream)Jlisp.lit[Lit.err_output].car/*value*/;
             e.printStackTrace(new PrintWriter(new WriterToLisp(ee)));
-
-
             r = Jlisp.nil;
         }
         finally
@@ -1657,7 +1660,10 @@ class Delete_fileFn extends BuiltinFunction
     public LispObject op1(LispObject arg1) throws Exception
     {
         String s;
-        if (arg1 instanceof Symbol) s = ((Symbol)arg1).pname;
+        if (arg1 instanceof Symbol)
+        {   ((Symbol)arg1).completeName();
+            s = ((Symbol)arg1).pname;
+        }
         else if (arg1 instanceof LispString) s = ((LispString)arg1).string;
         else return Jlisp.nil;
         return LispStream.fileDelete(s);
@@ -1698,6 +1704,7 @@ class DigitFn extends BuiltinFunction
     {
         if (!(arg1 instanceof Symbol)) return Jlisp.nil;
         Symbol s = (Symbol)arg1;
+        s.completeName();
         char ch = s.pname.charAt(0);
         if (Character.isDigit(ch)) return Jlisp.lispTrue;
         else return Jlisp.nil;
@@ -1992,6 +1999,82 @@ class ErrorsetFn extends BuiltinFunction
             Jlisp.backtrace = saveback;
         }
         return new Cons(form, Jlisp.nil);
+    }
+}
+
+/*
+ * (resource!-limit form time space io errors)
+ *   Evaluate the given form and if it succeeds return a
+ *   list whose first item is its value. If it fails in the ordinary manner
+ *   then its failure (error/throw/restart etc) gets passed back through
+ *   here in a transparent manner. But if it runs out of resources this
+ *   function catches that fact and returns an atomic value.
+ *   Resource limits are not precise, and are specified by the
+ *   subsequent arguments here:
+ *      time:  an integer giving a time allowance in seconds
+ *      space: an integer giving a measure of memory that may be used,
+ *             expressed in units of "megaconses". This may only be
+ *             checked for at garbage collection and so small values
+ *             will often be substantially overshot. This is space
+ *             allocated - the fact that memory gets recycled does not
+ *             get it discounted.
+ *      io:    an integer limiting the number of kilobytes of IO that may
+ *             be performed.
+ *      errors:an integer limiting the number of times traditional
+ *             Lisp errors can occur. Note that if errorset is used
+ *             you could have very many errors raised.
+ *   In each case specifying a negative limit means that that limit does
+ *   not apply. But at least one limit must be specified.
+ *   If calls to resource!-limit are nested the inner ones can only
+ *   reduce the resources available to their form.
+ *
+ *   On success set *resource* limit to a list showing the resources used.
+ *
+ * For now this ignores the limits!
+ */
+
+class ResourceLimitFn extends BuiltinFunction
+{
+    public LispObject op1(LispObject a1) throws Exception
+    {
+        return opn(new LispObject [] {a1});
+    }
+    public LispObject op2(LispObject a1, LispObject a2) throws Exception
+    {
+        return opn(new LispObject [] {a1, a2});
+    }
+    public LispObject opn(LispObject [] args) throws Exception
+    {
+        boolean ok = true;
+        if (args.length > 5 || args.length < 1) 
+            return error("resource-limit called with " + args.length + 
+                         " arguments when 1 to 5 expected");
+        LispObject form   = args[0];
+        LispObject time   = args[1];
+        LispObject space  = args[2];
+        LispObject io     = args[3];
+        LispObject errors = args[4];
+        int itime   = time.intValue();
+        int ispace  = space.intValue();
+        int iio     = io.intValue();
+        int ierrors = errors.intValue();
+        LispObject r = Jlisp.nil;
+// Right now this code does not actually do anything with the limits,
+// and the value it leaves in *resources*  is just its input values
+// re-packed. I will (maybe) update that behaviour later on.
+        try
+        {   r = form.eval();
+        }
+        catch (ResourceException e)
+        {   ok = false;
+        }
+        ((Symbol)(Jlisp.lit[Lit.resources])).car/*value*/ =
+            new Cons(new LispSmallInteger(itime),
+                new Cons(new LispSmallInteger(ispace),
+                    new Cons(new LispSmallInteger(iio),
+                        new Cons(new LispSmallInteger(ierrors), Jlisp.nil))));
+        if (ok) return new Cons(r, Jlisp.nil);
+        else return Jlisp.nil;
     }
 }
 
@@ -2343,7 +2426,10 @@ class FiledateFn extends BuiltinFunction
     public LispObject op1(LispObject arg1) throws Exception
     {
         String s;
-        if (arg1 instanceof Symbol) s = ((Symbol)arg1).pname;
+        if (arg1 instanceof Symbol)
+        {   ((Symbol)arg1).completeName();
+            s = ((Symbol)arg1).pname;
+        }
         else if (arg1 instanceof LispString) s = ((LispString)arg1).string;
         else return Jlisp.nil;
         return LispStream.fileDate(s);
@@ -2356,7 +2442,10 @@ class FilepFn extends BuiltinFunction
     {
 // use filedate(arg1) here.
         String s;
-        if (arg1 instanceof Symbol) s = ((Symbol)arg1).pname;
+        if (arg1 instanceof Symbol)
+        {   ((Symbol)arg1).completeName();
+            s = ((Symbol)arg1).pname;
+        }
         else if (arg1 instanceof LispString) s = ((LispString)arg1).string;
         else return Jlisp.nil;
         return LispStream.fileDate(s);
@@ -2540,7 +2629,7 @@ class GensymFn extends BuiltinFunction
 {
     public LispObject op0() throws Exception
     {
-        return new Gensym("G" + Fns.gensymCounter++);
+        return new Gensym("G");
     }
 }
 
@@ -2548,7 +2637,7 @@ class Gensym1Fn extends BuiltinFunction
 {
     public LispObject op1(LispObject arg1) throws Exception
     {
-        return new Gensym(((Symbol)arg1).pname + Fns.gensymCounter++);
+        return new Gensym(((Symbol)arg1).pname);
     }
 }
 
@@ -2556,6 +2645,7 @@ class Gensym2Fn extends BuiltinFunction
 {
     public LispObject op1(LispObject arg1) throws Exception
     {
+        ((Symbol)arg1).completeName();
         return new Gensym(((Symbol)arg1).pname);
     }
 }
@@ -2619,7 +2709,7 @@ class GetdFn extends BuiltinFunction
         {   LispObject body = ((Interpreted)fn).body;
             return new Cons(Jlisp.lit[Lit.expr], body);
         }
-        else return new Cons(Jlisp.lit[Lit.subr], fn);
+        else return new Cons(Jlisp.lit[Lit.expr], fn);
     }
 }
 
@@ -2628,7 +2718,10 @@ class GetenvFn extends BuiltinFunction
     public LispObject op1(LispObject arg1) throws Exception
     {
         String s;
-        if (arg1 instanceof Symbol) s = ((Symbol)arg1).pname;
+        if (arg1 instanceof Symbol)
+        {   ((Symbol)arg1).completeName();
+            s = ((Symbol)arg1).pname;
+        }
         else if (arg1 instanceof LispString) s = ((LispString)arg1).string;
         else return Jlisp.nil;
         try
@@ -2844,7 +2937,9 @@ class InternFn extends BuiltinFunction
         if (arg1 instanceof LispString)
             return Symbol.intern(((LispString)arg1).string);
         else if (arg1 instanceof Symbol)
+        {   ((Symbol)arg1).completeName();
             return Symbol.intern(((Symbol)arg1).pname);
+        }
         else return error(
             "Argument to intern should be a symbol or a string");
     }
@@ -3044,7 +3139,9 @@ class List_to_stringFn extends BuiltinFunction
             arg1 = c.cdr;
             LispObject ch = c.car;
             if (ch instanceof Symbol)
+            {   ((Symbol)ch).completeName();
                 s.append(((Symbol)ch).pname.charAt(0));
+            }
             else if (ch instanceof LispString)
                 s.append(((LispString)ch).string.charAt(0));
             else if (ch instanceof LispInteger)
@@ -3065,7 +3162,9 @@ class List_to_symbolFn extends BuiltinFunction
             arg1 = c.cdr;
             LispObject ch = c.car;
             if (ch instanceof Symbol)
+            {   ((Symbol)ch).completeName();
                 s.append(((Symbol)ch).pname.charAt(0));
+            }
             if (ch instanceof LispString)
                 s.append(((LispString)ch).string.charAt(0));
             else if (ch instanceof LispInteger)

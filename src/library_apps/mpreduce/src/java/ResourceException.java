@@ -5,6 +5,7 @@
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
+ *                            also contributions from Vijay Chauhan, 2002 *
  *                                                                        *
  * Redistribution and use in source and binary forms, with or without     *
  * modification, are permitted provided that the following conditions are *
@@ -32,100 +33,25 @@
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
 
-class AutoLoad extends LispFunction
+class ResourceException extends LispException
 {
-
-    Symbol name;
-    LispObject data;
     
-    AutoLoad(Symbol name, LispObject data)
+    ResourceException()
     {
-        this.name = name;
-	this.data = data;
+        this.message = "unknown"; 
+	this.details = Jlisp.nil;
     }
     
-    public LispObject op0() throws Exception
+    ResourceException(String message)
     {
-        name.completeName();
-        name.fn = new Undefined(name.pname);
-        Fasl.loadModule(data.car);
-        return name.fn.op0();
-    }
-
-    public LispObject op1(LispObject a1) throws Exception
-    {
-        name.completeName();
-        name.fn = new Undefined(name.pname);
-        Fasl.loadModule(data.car);
-        return name.fn.op1(a1);
-    }
-
-    public LispObject op2(LispObject a1, LispObject a2) throws Exception
-    {
-        name.completeName();
-        name.fn = new Undefined(name.pname);
-        Fasl.loadModule(data.car);
-        return name.fn.op2(a1, a2);
-    }
-
-    public LispObject opn(LispObject [] args) throws Exception
-    {
-        name.completeName();
-        name.fn = new Undefined(name.pname);
-        Fasl.loadModule(data.car);
-        return name.fn.opn(args);
-    }
-
-    void print()
-    {
-        name.completeName();
-        Jlisp.print("#Autoload<" + name.pname + ">");
-    }
-
-    void print(int n)
-    {
-        name.completeName();
-        Jlisp.print("#Autoload<" + name.pname + ">");
+        this.message=message;
+	this.details=null; 
     }
     
-    void scan()
+    ResourceException(String message, LispObject details)
     {
-        if (Jlisp.objects.contains(this)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(this))
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-	            Jlisp.nil); // value is junk at this stage
-	    }
-	}
-	else
-	{   Jlisp.objects.add(this);
-	    Jlisp.stack.push(name);
-	    Jlisp.stack.push(data);
-	}
+        this.message = message;
+	this.details = details; 
     }
-    
-    void dump() throws IOException
-    {
-        Object w = Jlisp.repeatedObjects.get(this);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w);
-	else
-	{   if (w != null)
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-		    new Integer(Jlisp.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-	    }
-	    Jlisp.odump.write(X_AUTOLOAD);
-	    Jlisp.stack.push(data);
-	    Jlisp.stack.push(name);
-	}
-    }
-    
 }
-
-// End of LispFunction.java
-
-

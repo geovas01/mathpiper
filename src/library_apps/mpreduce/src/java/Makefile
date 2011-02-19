@@ -41,8 +41,10 @@ jlisp.jar:	*.java jlisp_manifest jlisp.img
 	rm default.img
 
 
-JLISP   = java -jar jlisp.jar -i jlisp.img
-REDUCE	= java -jar jlisp.jar
+JLISP   = java -jar jlisp.jar
+MEM=300M
+STK=8M
+REDUCE	= java -Xmx$(MEM) -Xms$(MEM) -Xss$(STK) -jar reduce.jar
 
 
 ###########################################################################
@@ -78,6 +80,28 @@ minireduce.img:
 		-Dminireduce -D@srcdir="$(C)" -- reduce.log
 
 
+.PHONY:	testall
+testall:
+	mkdir -p testlogs
+	$(REDUCE) -w $(C)/testall.red -D@srcdir=$(C) -- testlogs/testreduce.log
+	$(REDUCE) -w $(C)/checkall.red -D@srcdir=$(C) -- testlogs/checkall.log
 
+.PHONY:	test1
+# Use:    make test1 which=modulename
+test1:
+	mkdir -p testlogs
+	$(REDUCE) -w -v $(C)/testall.red -D@srcdir=$(C) -Dwhich=$(which) -- testlogs/test$(which).log
+
+.PHONY:	debug1
+# Use:    make debug1 which=modulename
+#         as test1 but passes the "-g" flag that makes all backtraces noisy.
+debug1:
+	mkdir -p testlogs
+	$(REDUCE) -w -v -g $(C)/testall.red -D@srcdir=$(C) -Dwhich=$(which) -- testlogs/test$(which).log
+
+.PHONY:	checkall
+checkall:
+	mkdir -p testlogs
+	$(REDUCE) -w $(C)/checkall.red -D@srcdir=$(C) -- testlogs/checkall.log
 
 # end of Makefile

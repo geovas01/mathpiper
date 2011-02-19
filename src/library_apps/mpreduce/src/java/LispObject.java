@@ -1,6 +1,6 @@
 //
 // This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
 
 /**************************************************************************
@@ -413,6 +413,11 @@ public abstract class LispObject extends Object
         return Jlisp.error("Number needed", this);
     }
 
+    LispObject safeModRecip() throws Exception
+    {
+        return Jlisp.error("Number needed", this);
+    }
+
     LispObject reduceMod() throws Exception
     {
         return Jlisp.error("Number needed", this);
@@ -488,6 +493,11 @@ public abstract class LispObject extends Object
         return Jlisp.error("Number needed", this);
     }
 
+    LispObject lcm(LispObject a) throws Exception
+    {
+        return Jlisp.error("Number needed", this);
+    }
+
     LispObject modAdd(LispObject a) throws Exception
     {
         return Jlisp.error("Number needed", this);
@@ -515,14 +525,12 @@ public abstract class LispObject extends Object
 
     boolean eqn(LispObject a) throws Exception
     {
-        Jlisp.error("Number needed", this);
-        return false;
+        return (this == a);
     }
 
     boolean neqn(LispObject a) throws Exception
     {
-        Jlisp.error("Number needed", this);
-        return false;
+        return (this != a);
     }
 
     boolean ge(LispObject a) throws Exception
@@ -620,6 +628,11 @@ public abstract class LispObject extends Object
         return Jlisp.error("Number needed", this);
     }
 
+    LispObject lcmInteger(LispBigInteger a) throws Exception
+    {
+        return Jlisp.error("Number needed", this);
+    }
+
     LispObject modAddInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
@@ -642,14 +655,12 @@ public abstract class LispObject extends Object
 
     boolean eqnInteger(LispBigInteger a) throws Exception
     {
-        Jlisp.error("Number needed", this);
         return false;
     }
 
     boolean neqnInteger(LispBigInteger a) throws Exception
     {
-        Jlisp.error("Number needed", this);
-        return false;
+        return true;
     }
 
     boolean geInteger(LispBigInteger a) throws Exception
@@ -746,6 +757,11 @@ public abstract class LispObject extends Object
         return Jlisp.error("Number needed", this);
     }
 
+    LispObject lcmSmallInteger(LispSmallInteger a) throws Exception
+    {
+        return Jlisp.error("Number needed", this);
+    }
+
     LispObject modAddSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
@@ -768,14 +784,12 @@ public abstract class LispObject extends Object
 
     boolean eqnSmallInteger(LispSmallInteger a) throws Exception
     {
-        Jlisp.error("Number needed", this);
         return false;
     }
 
     boolean neqnSmallInteger(LispSmallInteger a) throws Exception
     {
-        Jlisp.error("Number needed", this);
-        return false;
+        return true;
     }
 
     boolean geSmallInteger(LispSmallInteger a) throws Exception

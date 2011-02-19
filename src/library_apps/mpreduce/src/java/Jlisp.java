@@ -10,7 +10,7 @@
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
 
 /**************************************************************************
@@ -231,6 +231,15 @@ static void startup1(String [] args)
     int undefineCount = 0;
     boolean noRestart = false;
     boolean batchSwitch = false;
+// I may need to display diagnostics before I have finshed setting up
+// streams etc in their proper final form, so I arrange a provisional
+// setting that directs early messages to the terminal.
+    lispIO = lispErr = new LispOutputStream();
+    lit[Lit.std_output] = lit[Lit.tr_output] =
+      lit[Lit.err_output] = lit[Lit.std_input] =
+      lit[Lit.terminal_io] = lit[Lit.debug_io] =
+      lit[Lit.query_io] = Symbol.intern("temp-stream");
+    standardStreams();
 
 // The options that I accept here are intended to match (as far as I can
 // reasonably make them) the ones used with the "CSL" Lisp implementation.
@@ -654,6 +663,7 @@ static void startup1(String [] args)
             if (!restarting)
                 lispIO.setReader("<stdin>", in, standAlone, true);
             standardStreams();
+System.out.printf("set up standard streams%n");
             try
             {   readEvalPrintLoop(noRestart);
                 throw new ProgEvent(ProgEvent.STOP, nil, "EOF");
@@ -712,8 +722,6 @@ static void startup1(String [] args)
                     catch (Exception e1)
                     {   System.out.println("Unexpected exception " + e1);
                     }
-// @@@ next line for debugging
-print("restart mode " + restartFn + " " + restartModule + " " + restartArg);
                     restarting = true;
                     continue;
             default:
@@ -781,8 +789,6 @@ print("restart mode " + restartFn + " " + restartModule + " " + restartArg);
                             catch (Exception e1)
                             {   System.out.println("Unexpected exception " + e);
                             }
-// @@@
-println("restart mode " + restartFn + " " + restartModule + " " + restartArg);
                             i = inputCount;
                             restarting = true;
                             break;
@@ -900,9 +906,9 @@ static Fns4 fns4 = new Fns4();
 static Specfn specfn = new Specfn();
 
 // I choose my initial oblist size so that REDUCE can run without need
-// for re-hashing at all often. The size must also be a prime, and 9001
+// for re-hashing at all often. The size must also be a prime, and 15013
 // seems to fit the bill.
-static int oblistSize = 9001;
+static int oblistSize = 15013;
 static int oblistCount = 0;
 static Symbol [] oblist = new Symbol[oblistSize];
 static LispVector obvector = new LispVector((LispObject [])oblist);
@@ -961,7 +967,7 @@ static void preserve(OutputStream dump) throws IOException
     int i;
     odump = dump;
     descendSymbols = true;
-    LispNumber g1 = LispInteger.valueOf(Fns.gensymCounter);
+    LispNumber g1 = LispInteger.valueOf(Gensym.gensymCounter);
     LispNumber g2 = LispInteger.valueOf(modulus);
     LispNumber g3 = LispInteger.valueOf(printprec);
     LispString gp = null;
@@ -1010,9 +1016,7 @@ static void preserve(OutputStream dump) throws IOException
         specialNil = true;
         writeObject(lispTrue);
         for (i=0; i<Lit.names.length; i++)
-{ print("lit[" + i + "] = "); println(lit[i]); // @@@
             writeObject(lit[i]);
-}
         for (i=0; i<oblistSize; i++)
         {   Symbol s = oblist[i];
             if (s!=null)
@@ -1150,7 +1154,7 @@ static void restore(InputStream dump) throws IOException
 // there and I start with an empty table so there are no deleted
 // items to worry about.
     while ((s = (Symbol)readObject()) != null)
-    {
+    {   s.completeName();
         String name = s.pname;
 //if (name.length() > 1) System.out.println("restore symbol <" + name + "> length " + name.length());
         int inc = name.hashCode();
@@ -1187,8 +1191,8 @@ static void restore(InputStream dump) throws IOException
     }
 
     w = readObject();
-    try { Fns.gensymCounter = w.intValue(); }
-    catch (Exception ee) { Fns.gensymCounter = 0; }
+    try { Gensym.gensymCounter = w.intValue(); }
+    catch (Exception ee) { Gensym.gensymCounter = 0; }
 
     w = readObject();
     try { modulus = w.intValue(); }
@@ -1215,7 +1219,6 @@ static boolean isPrime(int n)
 
 static void reHashOblist()
 {
-System.out.println("ReHashing");
     int n = ((3*oblistSize)/2) | 1;
     while (!isPrime(n)) n += 2;
     Symbol [] v = new Symbol[n];
@@ -1356,7 +1359,13 @@ static LispObject readObject() throws IOException
     case LispObject.X_GENSYMn:
             {   byte [] data = new byte[operand];
                 for (i=0; i<operand; i++) data[i] = (byte)idump.read();
-                Symbol ws = new Gensym(new String(data, "UTF8"));
+                int sequence = idump.read();
+                sequence = sequence | (idump.read()<<8);
+                sequence = sequence | (idump.read()<<16);
+                sequence = sequence | (idump.read()<<24);
+                Gensym ws = new Gensym(new String(data, "UTF8"));
+                ws.myNumber = sequence;
+                if (sequence != -1) ws.pname = ws.nameBase + sequence;
                 Symbol.symbolCount++;
                 if (setLabel)
                 {   shared[sharedIndex++] = ws;
@@ -1365,7 +1374,8 @@ static LispObject readObject() throws IOException
                 if (!descendSymbols)
                 {   ws.car/*value*/ = lit[Lit.undefined];
                     ws.cdr/*plist*/ = nil;
-                    ws.fn = new Undefined(ws.pname);
+                    if (ws.pname != null) ws.fn = new Undefined(ws.pname);
+                    else ws.fn = new Undefined(ws.nameBase);
                     ws.special = null;
                     w = ws;
                     break;
@@ -1956,7 +1966,7 @@ static void initSymbols()
 {
 //System.out.println("Beginning cold start: " + oblistCount);
     Fns.prompt = null;
-    Fns.gensymCounter = 1;
+    Gensym.gensymCounter = 0;
 
 // set up nil first since it is needed by Symbol.intern
     nil = Symbol.intern("nil");
