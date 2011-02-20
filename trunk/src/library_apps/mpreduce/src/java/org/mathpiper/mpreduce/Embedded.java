@@ -100,7 +100,6 @@ public class Embedded {
         myOutputStream.write(send.getBytes());
         myOutputStream.flush();
         
-        System.out.println("XXX 3.");
     }//end send.
 
 
@@ -153,6 +152,18 @@ public class Embedded {
     public static void main(String[] args) {
         Embedded mpreduce = new Embedded();
 
+        try
+        {
+            mpreduce.send("2+2;");
+            String result = mpreduce.getResponse();
+            System.out.println(result);
+        }
+        catch(Throwable t)
+        {
+            t.printStackTrace();
+        }
+
+        
 
     }
 
