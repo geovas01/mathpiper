@@ -730,6 +730,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				mpreduceWrapper.send(sendString);
 				
 				output_fold_type = "%output";
+				result = "Processing...";
 			
 					
 			}catch(java.io.IOException ioe) 
