@@ -64,5 +64,5 @@ Result: (b*a^3)/b-a^3;
 In> Simplify(a*b*a^2/b-a^3)
 Result: 0;
 
-*SEE TrigSimpCombine, RadSimp
+*SEE TrigSimpCombine, RadSimp, Combine
 %/mathpiper_docs

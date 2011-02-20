@@ -370,5 +370,5 @@ Result: {x==4};
 In> Solve(Sqrt(x) == -1, x);
 Result: {};
 
-*SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinterSet, PSolve, Where, ==
+*SEE Check, MatrixSolve, Newton, OldSolve, PrettyPrinterSet, PSolve, Where, AddTo, ==
 %/mathpiper_docs
