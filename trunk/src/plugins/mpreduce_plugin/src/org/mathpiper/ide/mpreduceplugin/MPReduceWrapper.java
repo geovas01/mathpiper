@@ -115,8 +115,9 @@ public class MPReduceWrapper implements Runnable, EBComponent
 	protected String getResponse() throws Throwable
 	{
 		
-
-		return mpreduce.getResponse();
+		String response = mpreduce.getResponse();
+		
+		return response;
 
 	}//end method
 
