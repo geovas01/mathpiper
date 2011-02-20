@@ -39,7 +39,7 @@ public class Embedded {
 
 
 
-            final String[] args = new String[]{"-i", "/home/tkosan/NetBeansProjects/lib/reduce.img"};
+            final String[] args = new String[0];
 
             new Thread(new Runnable() {
 
@@ -59,10 +59,13 @@ public class Embedded {
 
             responseBuffer = new StringBuffer();
             inputPromptPattern = Pattern.compile("\\n[0-9]+\\:");
+            
+          
             startMessage = getResponse();
+            
 
-            send("2+2;\n");
-            getResponse();
+            //send("2+2;\n");
+            //getResponse();
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -93,12 +96,15 @@ public class Embedded {
 
 
     public synchronized void send(String send) throws Throwable {
+    	send = send + ";\n";
         myOutputStream.write(send.getBytes());
         myOutputStream.flush();
+        
+        System.out.println("XXX 3.");
     }//end send.
 
 
-    protected String getResponse() throws Throwable {
+    public String getResponse() throws Throwable {
         boolean keepChecking = true;
 
         mainLoop:
