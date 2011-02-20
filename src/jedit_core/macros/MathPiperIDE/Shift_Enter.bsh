@@ -302,6 +302,10 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		{
 			fileExtension = ".input";
 		}
+		else if(foldType.equalsIgnoreCase("%reduce"))
+		{
+			fileExtension = ".red";
+		}
 		else
 		{
 			fileExtension = ".mpw_tmp";
@@ -681,6 +685,65 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 
 		
 
+		
+		///{{{ *** %reduce ***.
+		else if(foldType.equalsIgnoreCase("%reduce"))    
+		{		
+			
+			try 
+			{   
+				
+				//This section of code instantiates a ResponseListener object which listens for the response
+				// from the CAS.
+				org.mathpiperide.ResponseListener responseListener = new org.mathpiperide.ResponseListener() 
+				{
+					response(response)
+					{
+						//System.out.println("XXXXXXX " + response ); //Look for this output in the Activity Log at the lower left of the applicaiton.
+						
+						//The contents of "response" can be manipluated here before assigning it to "result".
+						
+						
+						result = response;//The variable "result" is what gets displayed in the output fold.
+						
+						displayResult();
+						
+					}//end method.
+					
+					remove()
+					{
+						return true;
+					}//end method.
+					
+				};
+	
+				
+				
+				mpreduceWrapper = org.mathpiper.ide.mpreduceplugin.MPReduceWrapper.getInstance();
+				
+				mpreduceWrapper.addResponseListener(responseListener);
+				
+				
+	
+				sendString = "IN \""+tempFile.getAbsolutePath() + "\"\n";
+				
+				mpreduceWrapper.send(sendString);
+				
+				output_fold_type = "%output";
+			
+					
+			}catch(java.io.IOException ioe) 
+			{
+				result = ioe.getMessage();
+				output_fold_type = "%error ";
+			}
+		
+		}//end if }}}		
+		
+		
+		
+		
+		
 		
 		///{{{ *** %lisp ***.
 		else if(foldType.equalsIgnoreCase("%lisp"))    

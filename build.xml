@@ -12,7 +12,7 @@
 	<property name="master.compile.target" value="1.5" />
 	<property name="master.compile.debug" value="false" />
 	<property environment="env" />
-	<property name="version" value=".79M" />
+	<property name="version" value=".79N" />
 	
 	
 	<!-- Set top directories -->
@@ -65,6 +65,7 @@
 		<pathelement path="${non_plugin.jars.dir}/log4j.jar" />
 		<pathelement path="${non_plugin.jars.dir}/jas.jar" />
 		<pathelement path="${non_plugin.jars.dir}/jdom.jar" />
+		<pathelement path="${non_plugin.jars.dir}/mpreduce.jar" />
 		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
 		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />  
 		-->
@@ -108,6 +109,18 @@
 		</ant>
 	</target>
 	
+	<target id="mpreduce_library" name="mpreduce_library" depends="init" >
+		<ant dir="${library_apps.src.dir}/mpreduce" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${library_apps.build.dir}/mpreduce"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${library_apps.src.dir}/mpreduce/src/java"/>
+			<property name="mpreduce.dir" value="${library_apps.src.dir}/mpreduce"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		<copy file="${library_apps.build.dir}/mpreduce/dist/mpreduce.jar" todir="${non_plugin.jars.dir}"/>
+	</target>
+	
 		<target id="piper_refactor_library" name="piper_refactor_library" depends="init" >
 		<ant dir="${library_apps.src.dir}/piper_refactor" target="${target}" inheritAll="false" inheritRefs="false" >
 			<property name="build.dir" value="${library_apps.build.dir}/piper_refactor"/>
@@ -115,7 +128,6 @@
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${library_apps.src.dir}/piper_refactor/src"/>
 			<property name="piper.dir" value="${library_apps.src.dir}/piper_refactor"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
 			<reference refid="build_classpath"/>
 		</ant>
 	</target>
@@ -413,9 +425,24 @@
 	
 	
 	
+	<target id="mpreduce_plugin" name="mpreduce_plugin" depends="mpreduce_library,mathpiperide_library" >
+		<ant dir="${plugins.src.dir}/mpreduce_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
+			<property name="build.dir" value="${plugins.build.dir}/mpreduce_plugin"/>
+			<property name="compile.source" value="${master.compile.source}"/>
+			<property name="compile.target" value="${master.compile.target}"/>
+			<property name="src.dir" value="${plugins.src.dir}/mpreduce_plugin/src"/>
+			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
+			<reference refid="build_classpath"/>
+		</ant>
+		
+		<copy file="${plugins.build.dir}/mpreduce_plugin/dist/mpreduce_plugin.jar" todir="${plugins.jars.dir}"/>
+	</target>
+	
+	
+	
 	<!-- -->
 	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, 
-		geogebra_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, hoteqn_plugin, fricas_plugin" />
+		geogebra_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, hoteqn_plugin, mpreduce_plugin" />
 	
 	
 	

@@ -1,0 +1,83 @@
+# Properties file for MPReduce plugin.
+
+
+#{{{ Must be in order.
+# jEdit only needs to load the plugin the first time the user accesses it
+# the presence of this property also tells jEdit the plugin is using the new API
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.activate=defer
+# we only have one dependency, jEdit 4.2, since we use the new plugin API
+# These two properties are required for all plugins
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.name=MPReduce
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.author=Ted Kosan
+
+# version number == jEdit version number
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.version=4.3
+
+# online help
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.docs=index.html
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.depend.0=jedit 04.02.01.00
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.2=plugin console.ConsolePlugin 4.3.5
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.longdescription=description.html
+#}}}
+
+
+
+
+mpreduce.shell.msg.info=\nMPReduce Shell \n\
+
+
+mpreduce.shell.msg.usage=See http://mpreduce.sourceforge.net for information on how to use MPReduce.
+
+
+
+# plugin menu
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.menu=mpreduce
+#	- \
+#	mpreduce.choose-file \
+#	mpreduce.save-file \
+#	mpreduce.copy-to-buffer
+
+# action labels for actions supplied by dockables.xml
+mpreduce.label=MPReduce
+
+# action labels for actions supplied by actions.xml
+mpreduce.choose-file.label=Choose notepad file
+mpreduce.save-file.label=Save notepad file
+mpreduce.copy-to-buffer.label=Copy notepad to buffer
+
+# plugin option pane
+plugin.org.mathpiper.ide.mpreduceplugin.MPReducePlugin.option-pane=mpreduce
+
+# Option pane activation BeanShell snippet
+options.mpreduce.code=new org.mathpiper.ide.mpreduceplugin.MPReduceOptionPane();
+
+# Option pane labels
+options.mpreduce.label=MPReduce
+options.mpreduce.file=File:
+options.mpreduce.choose-file=Choose
+options.mpreduce.choose-file.title=Choose a notepad file
+options.mpreduce.choose-font=Font:
+options.mpreduce.show-filepath.title=Display notepad file path
+
+# window title
+mpreduce.title=MPReduce
+
+# window toolbar buttons
+mpreduce.choose-file.icon=Open.png
+mpreduce.save-file.icon=Save.png
+mpreduce.copy-to-buffer.icon=CopyToBuffer.png
+
+# default settings
+options.mpreduce.show-filepath=true
+options.mpreduce.font=Monospaced
+options.mpreduce.fontstyle=0
+options.mpreduce.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.mpreduce.path=
+
+#mpreduce.path=/home/tkosan/checkouts/usr/local/bin/mpreduce
+
+# :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=1:
