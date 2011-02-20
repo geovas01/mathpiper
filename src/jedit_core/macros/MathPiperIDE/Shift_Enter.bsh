@@ -706,6 +706,20 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						result = response;//The variable "result" is what gets displayed in the output fold.
 						
+						//Todo:tk:for some reason the reduce fold needs this check because
+						//otherwise it periodically causes exceptions to be thrown which are
+						//caused by textArea not being editable.
+						while(textArea.isEditable() == false)
+						{
+							try
+							{
+								Thread.sleep(10);
+							}
+							catch(InterruptedException ie)
+							{
+							}
+						};
+						
 						displayResult();
 						
 					}//end method.
