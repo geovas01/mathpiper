@@ -8,6 +8,26 @@
 100 # Lim(_var, _tar, _dir, _p)_(IsPolynomial(p, var) And Degree(p, var) > 0 And IsInfinity(tar))
     <-- LeadingCoef(p,var) * Sign(tar)^Degree(p,var) * Infinity;
 
+/* Special case: limits of rational function as x approaches infinity */
+110 # Lim(_var, _tar, _dir, _r)_(IsRationalFunction(r, var) And IsInfinity(tar)) <-- 
+[
+    Local(p,q,pd,qd,pc,qc);
+
+    p:=Numerator(r);
+    q:=Denominator(r);
+
+    pd:=Degree(p,var);
+    qd:=Degree(q,var);
+
+    pc:=LeadingCoef(p,var);
+    qc:=LeadingCoef(q,var);
+
+    If(pd>qd,
+        pc/qc*tar,
+        If(pd=qd,pc/qc,0)
+    );
+];
+
 /*  Exponentiation rules  */
 
 /*  Special limit #1:  0 ^ 0;  #2:  1 ^ Infinity;  #3:  Infinity ^ 0  */
