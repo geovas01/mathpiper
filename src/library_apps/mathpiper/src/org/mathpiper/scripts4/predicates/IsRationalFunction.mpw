@@ -10,33 +10,17 @@
 
 15 # IsRationalFunction(_expr,var_IsAtom)_(Type(expr)="/" Or Type(-expr)="/") <-- 
 [
-    If(InVerboseMode(),
-      [
-         Tell(15,expr);
-         Tell("    ",var);
-         Tell(" ",Denominator(expr));
-      ]
-    );
-    If( Contains(VarList(Denominator(expr)),var),
-        True,
+    If (IsPolynomial(Numerator(expr),var) And IsPolynomial(Denominator(expr),var),
+        Contains(VarList(Denominator(expr)),var),
         False
     );
 ];
 
 20 # IsRationalFunction(_expr,vars_IsList)_(Type(expr)="/" Or Type(-expr)="/") <-- 
 [
-    If(InVerboseMode(),
-      [
-         Tell(20,expr);
-         Tell("    ",vars);
-         Tell(" ",Denominator(expr));
-      ]
-    );
-    Check(vars != {}, "Argument", "IsRationalFunction: Error: Empty variables list passed to IsRationalFunction");
-
-    If(Rest(vars) = {},
-        IsRationalFunction(expr,First(vars)),
-        IsRationalFunction(expr,First(vars)) Or IsRationalFunction(expr,Rest(vars))
+    If (IsPolynomial(Numerator(expr),vars) And IsPolynomial(Denominator(expr),vars),
+        Intersection(vars, VarList(expr)) != {},
+        False
     );
 ];
 
@@ -65,22 +49,11 @@
 
 *DESC
 
-This function tests whether the expression {expr} is (strictly) a
-Rational Function of the variable {var}.  
-If a list of variables {vars} is provided, the test is made w.r.t.
-all the variables in the list, and returns True if any one of them 
-succeeds.
-If {var} is omitted, the test is made w.r.t. the list VarList(expr).
-
-The strict definition of a"rational function" used here requires that
-(a) the {expr} has Type(expr) = "/",   or
-(b) the {expr} has Type(-expr) = "/",   and
-(c) the denominator (at least) of {expr} contains {var}.
-
-Note that this definition neither requires nor implies that the
-numerator and denominator be {polynomials}.
-Note also that a function like a/x is a rational function, but x/a
-is not, if x is a given variable and a is a constant or does not involve x.
+This function tests whether the expression {expr} is a Rational
+Function of the variable {var}.  If a list of variables {vars} is
+provided, the test is made w.r.t.  all the variables in the list, and
+returns True if any one of them succeeds.  If {var} is omitted, the
+test is made w.r.t. the list VarList(expr).
 
 *E.G.
 
