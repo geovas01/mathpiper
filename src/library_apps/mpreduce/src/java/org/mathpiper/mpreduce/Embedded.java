@@ -24,6 +24,8 @@ public class Embedded {
 
     public Embedded() {
 
+        System.out.println("MPReduce version .01");
+
         jlisp = new Jlisp();
 
         try {
