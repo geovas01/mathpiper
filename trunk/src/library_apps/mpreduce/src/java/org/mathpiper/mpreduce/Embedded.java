@@ -20,7 +20,7 @@ public class Embedded {
     private String response;
     private String startMessage;
     private String prompt;
-    private static Thread reduceThread;
+    private Thread reduceThread;
 
 
     public Embedded() {
@@ -49,8 +49,8 @@ public class Embedded {
                 public void run() {
                     try {
                         jlisp.startup(args,
-                                new InputStreamReader(jLispInputStream),
-                                new PrintWriter(jLispOutputStream),
+                                new InputStreamReader(new BufferedInputStream(jLispInputStream)),
+                                new PrintWriter(new BufferedOutputStream(jLispOutputStream)),
                                 true);
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -58,6 +58,8 @@ public class Embedded {
                 }
 
             });
+
+            reduceThread.setName("MPReduce");
 
             reduceThread.start();
 
@@ -70,7 +72,7 @@ public class Embedded {
             
 
             //Turn off interactive mode and turn on error continuation.
-            send("off int;on errcont;");
+            send("off int;on errcont;off nat");
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -170,12 +172,11 @@ public class Embedded {
 
 
             mpreduce.send("(X-Y)^100;");
+            //mpreduce.send("while 1 < 2 do 1;");
 
-            Thread.sleep(100);
+            Thread.sleep(1000);
             System.out.println("Interrupting reduce thread.");
-
             mpreduce.haltEvaluation();
-            
             result = mpreduce.getResponse();
             System.out.println(result);
 
