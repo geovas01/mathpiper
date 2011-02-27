@@ -61,7 +61,13 @@ public class Cons extends LispObject
 
 // Function calls are written as lists (fn a1 a2 ...)
     LispObject eval() throws Exception
-    {   int n = 0;
+    {
+        if(Jlisp.interruptEvaluation == true)
+        {
+                Jlisp.interruptEvaluation = false;
+                Jlisp.error("Evaluation Interrupted.");
+        }
+                int n = 0;
         try         // So I can display a backtrace of my own
         {   Symbol fname = null;
             if (car instanceof Symbol)
