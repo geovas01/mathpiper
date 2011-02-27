@@ -110,7 +110,7 @@ public class Embedded {
     }//end send.
 
 
-    public synchronized void haltEvaluation()
+    public void haltEvaluation()
     {
         jlisp.interruptEvaluation = true;
     }

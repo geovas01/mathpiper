@@ -110,6 +110,11 @@ public class MPReduceWrapper implements Runnable, EBComponent
 	{
 		keepRunning = false;
 	}//end method.
+	
+	public void haltEvaluation()
+	{
+		mpreduce.haltEvaluation();
+	}
 
 
 	protected String getResponse() throws Throwable

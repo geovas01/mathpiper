@@ -140,7 +140,7 @@ public class MPReduceShell extends Shell implements org.mathpiperide.ResponseLis
 
 	public void stop(Console console)
 	{
-
+		mpreduce.haltEvaluation();
 	}
 
 	public boolean waitFor(Console console)
