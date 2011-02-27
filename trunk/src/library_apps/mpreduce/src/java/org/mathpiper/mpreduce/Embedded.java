@@ -20,11 +20,12 @@ public class Embedded {
     private String response;
     private String startMessage;
     private String prompt;
+    private static Thread reduceThread;
 
 
     public Embedded() {
 
-        System.out.println("MPReduce version .01");
+        System.out.println("MPReduce version .02");
 
         jlisp = new Jlisp();
 
@@ -43,7 +44,7 @@ public class Embedded {
 
             final String[] args = new String[0];
 
-            new Thread(new Runnable() {
+            reduceThread = new Thread(new Runnable() {
 
                 public void run() {
                     try {
@@ -56,7 +57,9 @@ public class Embedded {
                     }
                 }
 
-            }).start();
+            });
+
+            reduceThread.start();
 
 
             responseBuffer = new StringBuffer();
@@ -66,8 +69,8 @@ public class Embedded {
             startMessage = getResponse();
             
 
-            //send("2+2;\n");
-            //getResponse();
+            //Turn off interactive mode and turn on error continuation.
+            send("off int;on errcont;");
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -103,6 +106,12 @@ public class Embedded {
         myOutputStream.flush();
         
     }//end send.
+
+
+    public synchronized void interruptEvaluation()
+    {
+        jlisp.interruptEvaluation = true;
+    }
 
 
     public String getResponse() throws Throwable {
@@ -154,11 +163,27 @@ public class Embedded {
     public static void main(String[] args) {
         Embedded mpreduce = new Embedded();
 
+        String result = "";
+
         try
         {
-            mpreduce.send("2+2;");
-            String result = mpreduce.getResponse();
+
+
+            mpreduce.send("(X-Y)^100;");
+
+            Thread.sleep(100);
+            System.out.println("Interrupting reduce thread.");
+
+            mpreduce.interruptEvaluation();
+            
+            result = mpreduce.getResponse();
             System.out.println(result);
+
+
+            mpreduce.send("2+2;");
+            result = mpreduce.getResponse();
+            System.out.println(result);
+
         }
         catch(Throwable t)
         {

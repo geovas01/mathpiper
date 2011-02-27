@@ -66,6 +66,8 @@ static boolean backtrace = true;
 static LispObject errorCode;
 static int verbosFlag = 1;
 
+public static boolean interruptEvaluation = false;
+
 static void print(String s)
 {
     ((LispStream)(lit[Lit.std_output].car/*value*/)).print(s);
