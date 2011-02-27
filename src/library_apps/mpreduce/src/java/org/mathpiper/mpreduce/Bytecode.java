@@ -61,6 +61,12 @@ Bytecode(int n)
 
 static StringBuffer sb = new StringBuffer();
 
+private void handleInterrupt() throws Exception
+{
+    Jlisp.interruptEvaluation = false;
+    Jlisp.error("Evaluation Interrupted.");
+}
+
 String printAs()
 {
     sb.setLength(0);
@@ -1099,26 +1105,50 @@ case CAARLOC3:
         a = a.car;
         continue;
 case CALL0:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
 	a = ((Symbol)env[arg]).fn.op0();
 	continue;
 case CALL1:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
 	a = ((Symbol)env[arg]).fn.op1(a);
 	continue;
 case CALL2:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
 	a = ((Symbol)env[arg]).fn.op2(b, a);
 	continue;
 case CALL2R:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
 	a = ((Symbol)env[arg]).fn.op2(a, b);
 	continue;
 case CALL3:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         a = ((Symbol)env[arg]).fn.opn(new LispObject [] {stack[sp--], b, a});
 	continue;
 case CALLN:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         switch (bytecodes[pc++] & 0xff)
         {
@@ -1229,48 +1259,108 @@ case CALLN:
             Jlisp.error("calls with over 20 args not supported in this Lisp");
         }
 case CALL0_0:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = op0();   // optimisation on call to self!
 	continue;
 case CALL0_1:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[1]).fn.op0();
 	continue;
 case CALL0_2:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[2]).fn.op0();
 	continue;
 case CALL0_3:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[3]).fn.op0();
 	continue;
 case CALL1_0:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = op1(a);   // call to self
 	continue;
 case CALL1_1:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[1]).fn.op1(a);
 	continue;
 case CALL1_2:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[2]).fn.op1(a);
 	continue;
 case CALL1_3:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[3]).fn.op1(a);
 	continue;
 case CALL1_4:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[4]).fn.op1(a);
 	continue;
 case CALL1_5:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[5]).fn.op1(a);
 	continue;
 case CALL2_0:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = op2(b, a);   // call to self
 	continue;
 case CALL2_1:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[1]).fn.op2(b, a);
 	continue;
 case CALL2_2:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[2]).fn.op2(b, a);
 	continue;
 case CALL2_3:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[3]).fn.op2(b, a);
 	continue;
 case CALL2_4:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
 	a = ((Symbol)env[4]).fn.op2(b, a);
 	continue;
 case BUILTIN0:
@@ -1333,6 +1423,10 @@ case APPLY4:
             new LispObject [] {stack[sp+2], stack[sp+3], b, a});
         continue;
 case JCALL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++];
         switch (arg & 0xe0)  // number of args
         {
@@ -1447,6 +1541,10 @@ case JCALL:
                                   Integer.toHexString(arg));
         }
 case JCALLN:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++];
         switch (bytecodes[pc++] & 0xff)  // number of args
         {
@@ -1590,13 +1688,25 @@ case JUMP:
         pc = pc + (bytecodes[pc] & 0xff) + 1;
         continue;
 case JUMP_B:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         pc = pc - (bytecodes[pc] & 0xff) + 1;
         continue;
 case JUMP_L:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         pc = pc + (arg << 8) + (bytecodes[pc] & 0xff) + 1;
         continue;
 case JUMP_BL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         pc = pc - ((arg << 8) + (bytecodes[pc] & 0xff)) + 1;
         continue;
@@ -1605,6 +1715,10 @@ case JUMPNIL:
         else pc++;
         continue;
 case JUMPNIL_B:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         if (a == Jlisp.nil) pc = pc - (bytecodes[pc] & 0xff) + 1;
         else pc++;
         continue;
@@ -1614,6 +1728,10 @@ case JUMPNIL_L:
         else pc++;
         continue;
 case JUMPNIL_BL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         if (a == Jlisp.nil) pc = pc - ((arg << 8) + (bytecodes[pc] & 0xff)) + 1;
         else pc++;
@@ -1623,6 +1741,10 @@ case JUMPT:
         else pc++;
         continue;
 case JUMPT_B:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         if (a != Jlisp.nil) pc = pc - (bytecodes[pc] & 0xff) + 1;
         else pc++;
         continue;
@@ -1632,6 +1754,10 @@ case JUMPT_L:
         else pc++;
         continue;
 case JUMPT_BL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         if (a != Jlisp.nil) pc = pc - ((arg << 8) + (bytecodes[pc] & 0xff)) + 1;
         else pc++;
@@ -1641,6 +1767,10 @@ case JUMPATOM:
         else pc++;
         continue;
 case JUMPATOM_B:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         if (a.atom) pc = pc - (bytecodes[pc] & 0xff) + 1;
         else pc++;
         continue;
@@ -1650,6 +1780,10 @@ case JUMPATOM_L:
         else pc++;
         continue;
 case JUMPATOM_BL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         if (a.atom) pc = pc - ((arg << 8) + (bytecodes[pc] & 0xff)) + 1;
         else pc++;
@@ -1659,6 +1793,10 @@ case JUMPNATOM:
         else pc++;
         continue;
 case JUMPNATOM_B:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         if (!a.atom) pc = pc - (bytecodes[pc] & 0xff) + 1;
         else pc++;
         continue;
@@ -1668,6 +1806,10 @@ case JUMPNATOM_L:
         else pc++;
         continue;
 case JUMPNATOM_BL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         if (!a.atom) pc = pc - ((arg << 8) + (bytecodes[pc] & 0xff)) + 1;
         else pc++;
@@ -1679,6 +1821,10 @@ case JUMPEQ:
         else pc++;
         continue;
 case JUMPEQ_B:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         if (a == b) pc = pc - (bytecodes[pc] & 0xff) + 1;
         else pc++;
         continue;
@@ -1688,6 +1834,10 @@ case JUMPEQ_L:
         else pc++;
         continue;
 case JUMPEQ_BL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         if (a == b) pc = pc - ((arg << 8) + (bytecodes[pc] & 0xff)) + 1;
         else pc++;
@@ -1697,6 +1847,10 @@ case JUMPNE:
         else pc++;
         continue;
 case JUMPNE_B:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         if (a != b) pc = pc - (bytecodes[pc] & 0xff) + 1;
         else pc++;
         continue;
@@ -1706,6 +1860,10 @@ case JUMPNE_L:
         else pc++;
         continue;
 case JUMPNE_BL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         if (a != b) pc = pc - ((arg << 8) + (bytecodes[pc] & 0xff)) + 1;
         else pc++;
@@ -1715,6 +1873,10 @@ case JUMPEQUAL:
         else pc++;
         continue;
 case JUMPEQUAL_B:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         if (a.lispequals(b)) pc = pc - (bytecodes[pc] & 0xff) + 1;
         else pc++;
         continue;
@@ -1724,6 +1886,10 @@ case JUMPEQUAL_L:
         else pc++;
         continue;
 case JUMPEQUAL_BL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         if (a.lispequals(b)) pc = pc - ((arg << 8) + (bytecodes[pc] & 0xff)) + 1;
         else pc++;
@@ -1733,6 +1899,10 @@ case JUMPNEQUAL:
         else pc++;
         continue;
 case JUMPNEQUAL_B:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         if (!a.lispequals(b)) pc = pc - (bytecodes[pc] & 0xff) + 1;
         else pc++;
         continue;
@@ -1742,6 +1912,10 @@ case JUMPNEQUAL_L:
         else pc++;
         continue;
 case JUMPNEQUAL_BL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         arg = bytecodes[pc++] & 0xff;
         if (!a.lispequals(b)) pc = pc - ((arg << 8) + (bytecodes[pc] & 0xff)) + 1;
         else pc++;
@@ -2210,6 +2384,10 @@ case BIGSTACK:
 //          continue;
         }
 case BIGCALL:
+        if(Jlisp.interruptEvaluation == true)
+        {
+            handleInterrupt();
+        }
         iw = bytecodes[pc++] & 0xff;
         System.out.printf("BIGCALL %x%n", iw);
         fname = (bytecodes[pc++] & 0xff) + ((iw & 0xf) << 8);
