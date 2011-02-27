@@ -108,7 +108,7 @@ public class Embedded {
     }//end send.
 
 
-    public synchronized void interruptEvaluation()
+    public synchronized void haltEvaluation()
     {
         jlisp.interruptEvaluation = true;
     }
@@ -174,7 +174,7 @@ public class Embedded {
             Thread.sleep(100);
             System.out.println("Interrupting reduce thread.");
 
-            mpreduce.interruptEvaluation();
+            mpreduce.haltEvaluation();
             
             result = mpreduce.getResponse();
             System.out.println(result);
