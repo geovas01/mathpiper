@@ -25,7 +25,7 @@ public class Embedded {
 
     public Embedded() {
 
-        System.out.println("MPReduce version .02");
+        System.out.println("MPReduce version .03");
 
         jlisp = new Jlisp();
 
@@ -71,8 +71,8 @@ public class Embedded {
             startMessage = getResponse();
             
 
-            //Turn off interactive mode and turn on error continuation.
-            send("off int;on errcont;off nat");
+            //Initialize MPReduce.
+            send("off int; on errcont; off nat;");
 
         } catch (Throwable t) {
             t.printStackTrace();
