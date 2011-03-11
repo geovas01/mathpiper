@@ -1,6 +1,6 @@
 %mathpiper,title="RREF"
 
-Retract("RREF",*);
+//Retract("RREF",*);
 
 /*------------------------------------------------------------------------
  * RREF
@@ -32,7 +32,7 @@ Retract("RREF",*);
          [ 
             col := MatrixColumn(am,ic);
             If( cr > 1, col := Drop( col, {1,cr-1} ) );
-            Tell("         ",{ic,col});
+            //Tell("         ",{ic,col});
             If(Not IsZeroVector(col), [cnz := ic; Break();]); 
          ];
         cc := cnz;
@@ -112,10 +112,6 @@ Retract("RREF",*);
     am;
 ];  
 %/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
