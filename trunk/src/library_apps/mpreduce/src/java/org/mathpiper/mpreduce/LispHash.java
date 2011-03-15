@@ -50,7 +50,7 @@ public class LispHash extends LispObject
         this.flavour = n;  // 0 to 4, with only 0 and 2 used!
     }
 
-    void iprint()
+    public void iprint()
     {
         String s = "#<HashTable>";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -59,7 +59,7 @@ public class LispHash extends LispObject
         currentOutput.print(s);
     }
 
-    void blankprint()
+    public void blankprint()
     {
         String s = "#<HashTable>";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -69,7 +69,7 @@ public class LispHash extends LispObject
         currentOutput.print(s);
     }
 
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(this))

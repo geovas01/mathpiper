@@ -51,7 +51,7 @@ public class LispString extends LispObject
 
     static StringBuffer sb = new StringBuffer();
 
-    void iprint()
+    public void iprint()
     {
         String s;
         if ((currentFlags & printEscape) != 0) s = escapedPrint(); 
@@ -82,7 +82,7 @@ public class LispString extends LispObject
         return sb.toString();
     }
 
-    void blankprint()
+    public void blankprint()
     {
         String s;
         if ((currentFlags & printEscape) != 0) s = escapedPrint(); 
@@ -114,7 +114,7 @@ public class LispString extends LispObject
         return string.hashCode();
     }
 
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(string)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(string))

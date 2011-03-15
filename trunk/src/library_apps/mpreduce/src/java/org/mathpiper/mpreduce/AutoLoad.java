@@ -92,7 +92,7 @@ public class AutoLoad extends LispFunction
         Jlisp.print("#Autoload<" + name.pname + ">");
     }
     
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(this))

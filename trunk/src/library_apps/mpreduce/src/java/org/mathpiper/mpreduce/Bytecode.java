@@ -90,7 +90,7 @@ String printAs()
     return sb.toString();
 }
 
-void iprint()
+public void iprint()
 {
     String s = printAs();
     if ((currentFlags & noLineBreak) == 0 &&
@@ -99,7 +99,7 @@ void iprint()
     currentOutput.print(s);
 }
 
-void blankprint()
+public void blankprint()
 {
     String s = printAs();
     if ((currentFlags & noLineBreak) == 0 &&

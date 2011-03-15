@@ -57,7 +57,7 @@ FnWithEnv(LispObject [] env)
     nargs = 0;
 }
 
-void scan()
+public void scan()
 {
     if (Jlisp.objects.contains(this)) // seen before?
     {   if (!Jlisp.repeatedObjects.containsKey(this))

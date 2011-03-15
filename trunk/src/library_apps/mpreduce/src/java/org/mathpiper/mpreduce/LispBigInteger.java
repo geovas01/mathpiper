@@ -91,7 +91,7 @@ public class LispBigInteger extends LispInteger
             return value.toString(16);
     }
 
-    void iprint()
+    public void iprint()
     {
         String s = printAs();
         if ((currentFlags & noLineBreak) == 0 &&
@@ -100,7 +100,7 @@ public class LispBigInteger extends LispInteger
         currentOutput.print(s);
     }
 
-    void blankprint()
+    public void blankprint()
     {
         String s = printAs();
         if ((currentFlags & noLineBreak) == 0 &&
@@ -137,7 +137,7 @@ public class LispBigInteger extends LispInteger
         return value.hashCode();
     }
     
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(value)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(value))

@@ -106,7 +106,7 @@ default:return ((Symbol)body).fn.opn(
     }
 }
 
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(this))

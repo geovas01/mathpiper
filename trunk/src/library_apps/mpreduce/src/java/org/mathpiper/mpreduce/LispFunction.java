@@ -72,7 +72,7 @@ public abstract class LispFunction extends LispObject
         return Jlisp.error(s, a);
     }
 
-    void iprint()
+    public void iprint()
     {
         String s = "#Fn<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -81,7 +81,7 @@ public abstract class LispFunction extends LispObject
         currentOutput.print(s);
     }
 
-    void blankprint()
+    public void blankprint()
     {
         String s = "#Fn<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -91,7 +91,7 @@ public abstract class LispFunction extends LispObject
         currentOutput.print(s);
     }
 
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(this))

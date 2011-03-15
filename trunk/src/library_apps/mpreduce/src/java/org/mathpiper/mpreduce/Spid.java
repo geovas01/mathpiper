@@ -70,7 +70,7 @@ class Spid extends LispObject
         return this;
     }
 
-    void iprint()
+    public void iprint()
     {
         String s = "#SPID" + tag;
         if ((currentFlags & noLineBreak) == 0 &&
@@ -79,7 +79,7 @@ class Spid extends LispObject
         currentOutput.print(s);
     }
 
-    void blankprint()
+    public void blankprint()
     {
         String s = "#SPID" + tag;
         if ((currentFlags & noLineBreak) == 0 &&
@@ -89,7 +89,7 @@ class Spid extends LispObject
         currentOutput.print(s);
     }
 
-    void scan()
+    public void scan()
     {
         Object w = new Integer(tag);
         if (Jlisp.objects.contains(w)) // seen before?

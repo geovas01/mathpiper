@@ -48,7 +48,7 @@ abstract class SpecialFunction extends LispObject
         return Jlisp.error(s);
     }
 
-    void iprint()
+    public void iprint()
     {
         String s = "#Special<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -57,7 +57,7 @@ abstract class SpecialFunction extends LispObject
         currentOutput.print(s);
     }
     
-    void blankprint()
+    public void blankprint()
     {
         String s = "#Special<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -67,7 +67,7 @@ abstract class SpecialFunction extends LispObject
         currentOutput.print(s);
     }
 
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(this))
