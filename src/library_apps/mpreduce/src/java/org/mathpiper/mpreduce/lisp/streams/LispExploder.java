@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce.lisp;
+package org.mathpiper.mpreduce.lisp.streams;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -36,50 +36,59 @@ package org.mathpiper.mpreduce.lisp;
  *************************************************************************/
 
 
-import java.math.*;
+import org.mathpiper.mpreduce.lisp.numbers.LispInteger;
 import java.io.*;
-import java.util.*;
+import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Symbol;
+import org.mathpiper.mpreduce.lisp.LispObject;
 
-public abstract class LispInteger extends LispNumber
+public class LispExploder extends LispStream
 {
 
-    public static LispInteger valueOf(int value)
+    boolean asSymbols;
+
+    public LispExploder(boolean n) // builds a list of all characters
+                            // n true for symbols, false for numeric codes
     {
-        if (value <= LispSmallInteger.MAX &&
-            value >= LispSmallInteger.MIN)
-            return LispSmallInteger.preAllocated[value - LispSmallInteger.MIN];
-        else if (value <= 0x3fffffff &&
-            value >= -0x40000000) return new LispSmallInteger(value);
-        else return new LispBigInteger(BigInteger.valueOf((long)value));
+        super("<exploder>");
+        asSymbols = n;
+        exploded = Jlisp.nil;
     }
 
-    public static LispInteger valueOf(long value)
+    public void flush()
     {
-        if (value <= LispSmallInteger.MAX &&
-            value >= LispSmallInteger.MIN)
-            return LispSmallInteger.preAllocated[
-                       (int)(value - LispSmallInteger.MIN)];
-        else if (value <= 0x3fffffffL &&
-            value >= -0x40000000L) return new LispSmallInteger((int)value);
-        else return new LispBigInteger(BigInteger.valueOf(value));
     }
 
-    public static LispInteger valueOf(BigInteger value)
+    public void close()
     {
-        if (value.bitLength() <= 31)
-        {   int n = value.intValue();
-            if (n <= LispSmallInteger.MAX &&
-                n >= LispSmallInteger.MIN)
-                return LispSmallInteger.preAllocated[n - LispSmallInteger.MIN];
-            else if (n <= 0x3fffffff &&
-                     n >= -0x40000000) return new LispSmallInteger(n);
+        exploded = Jlisp.nil;
+    }
+
+    public void print(String s)
+    {
+        char [] v = s.toCharArray();
+        for (int i=0; i<v.length; i++)
+        {   char c = v[i];
+            LispObject w;
+            if (asSymbols)
+            {   if ((int)c < 128) w = Jlisp.chars[(int)c];
+                else w = Symbol.intern(String.valueOf(c));
+            }
+            else w = LispInteger.valueOf((int)c);
+            exploded = new Cons(w, exploded);
         }
-        return new LispBigInteger(value);
     }
 
+    public void println(String s)
+    {
+        print(s);
+        if (asSymbols) exploded = new Cons(Jlisp.chars['\n'], exploded);
+        else exploded = new Cons(LispInteger.valueOf('\n'), exploded);
+    }
 
 }
 
-// End of LispInteger.java
+// end of LispExploder.java
 
 

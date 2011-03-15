@@ -40,7 +40,7 @@ import java.util.*;
 import org.mathpiper.mpreduce.Cons;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.lisp.LispObject;
-import org.mathpiper.mpreduce.lisp.LispStream;
+import org.mathpiper.mpreduce.lisp.streams.LispStream;
 import org.mathpiper.mpreduce.lisp.LispString;
 
 // This class (and PDSInputStream & PDSOutputStream) support a crude

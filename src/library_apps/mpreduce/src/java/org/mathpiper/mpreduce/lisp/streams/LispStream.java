@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce.lisp;
+package org.mathpiper.mpreduce.lisp.streams;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,6 +35,8 @@ package org.mathpiper.mpreduce.lisp;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.numbers.LispFloat;
+import org.mathpiper.mpreduce.lisp.numbers.LispInteger;
 import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
 import java.math.*;
@@ -44,6 +46,8 @@ import java.security.*;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.Lit;
 import org.mathpiper.mpreduce.Symbol;
+import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.lisp.LispString;
 
 public class LispStream extends LispObject
 {

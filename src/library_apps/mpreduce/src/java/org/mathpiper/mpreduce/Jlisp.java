@@ -45,6 +45,7 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.streams.DoubleWriter;
 import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.ByteOpt;
 import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.Bytecode;
 import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.FnWithEnv;
@@ -55,19 +56,19 @@ import org.mathpiper.mpreduce.lisp.functions.AutoLoad;
 import org.mathpiper.mpreduce.lisp.functions.CallAs;
 import org.mathpiper.mpreduce.exceptions.ProgEvent;
 import org.mathpiper.mpreduce.exceptions.EOFException;
-import org.mathpiper.mpreduce.lisp.LispFloat;
-import org.mathpiper.mpreduce.lisp.LispStringReader;
+import org.mathpiper.mpreduce.lisp.numbers.LispFloat;
+import org.mathpiper.mpreduce.lisp.streams.LispStringReader;
 import org.mathpiper.mpreduce.lisp.LispString;
 import org.mathpiper.mpreduce.lisp.functions.LispFunction;
-import org.mathpiper.mpreduce.lisp.LispNumber;
-import org.mathpiper.mpreduce.lisp.LispSmallInteger;
+import org.mathpiper.mpreduce.lisp.numbers.LispNumber;
+import org.mathpiper.mpreduce.lisp.numbers.LispSmallInteger;
 import org.mathpiper.mpreduce.lisp.LispHash;
 import org.mathpiper.mpreduce.lisp.LispEqualHash;
 import org.mathpiper.mpreduce.lisp.LispException;
 import org.mathpiper.mpreduce.lisp.LispVector;
-import org.mathpiper.mpreduce.lisp.LispStream;
-import org.mathpiper.mpreduce.lisp.LispInteger;
-import org.mathpiper.mpreduce.lisp.LispOutputStream;
+import org.mathpiper.mpreduce.lisp.streams.LispStream;
+import org.mathpiper.mpreduce.lisp.numbers.LispInteger;
+import org.mathpiper.mpreduce.lisp.streams.LispOutputStream;
 import org.mathpiper.mpreduce.lisp.LispObject;
 import org.mathpiper.mpreduce.packagedatastore.PDS;
 import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;

@@ -7,9 +7,9 @@ import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.Spid;
 import org.mathpiper.mpreduce.Symbol;
 import org.mathpiper.mpreduce.lisp.LispVector;
-import org.mathpiper.mpreduce.lisp.LispInteger;
+import org.mathpiper.mpreduce.lisp.numbers.LispInteger;
 import org.mathpiper.mpreduce.lisp.functions.LispFunction;
-import org.mathpiper.mpreduce.lisp.LispNumber;
+import org.mathpiper.mpreduce.lisp.numbers.LispNumber;
 import org.mathpiper.mpreduce.lisp.LispObject;
 import org.mathpiper.mpreduce.builtin.Fns;
 

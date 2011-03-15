@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce.lisp;
+package org.mathpiper.mpreduce.lisp.streams;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,15 +35,30 @@ package org.mathpiper.mpreduce.lisp;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
 
-public class LispCounter extends LispStream
+import java.io.*;
+import java.security.*;
+import org.mathpiper.mpreduce.Jlisp;
+
+public class LispDigester extends LispStream
 {
 
-    public LispCounter()
+    public LispDigester()
     {
-        super("<character counter>");
-        column = 0;
+        super("<md5 digester>");
+        try
+        {   md = MessageDigest.getInstance("MD5", "SUN");
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            Jlisp.errprintln("No MD5 available: " + e.getMessage());
+            md = null;
+        }
+        catch (NoSuchProviderException e)
+        {
+            Jlisp.errprintln("No provider: " + e.getMessage());
+            md = null;
+        }
     }
 
     public void flush()
@@ -52,20 +67,36 @@ public class LispCounter extends LispStream
 
     public void close()
     {
+        md = null;
     }
 
     public void print(String s)
     {
-        column += s.length();
+        if (md == null) return;
+        char [] v = s.toCharArray();
+// It *MAY* be better to use getChars here and move data into a pre-allocated
+// array of characters.
+        for (int i=0; i<v.length; i++)
+        {   char c = v[i];
+// characters are in general 16-bits wide (even though all the charcters that
+// I will normally use in the UK are only 7 bits) so I pass them to the
+// message digest process as two bytes each.
+            md.update((byte)(c >> 8));
+            md.update((byte)c);
+        }
     }
 
     public void println(String s)
     {
-        column += s.length() + 1;
+        print(s);
+        if (md != null)
+        {   md.update((byte)0);
+            md.update((byte)'\n');
+        }
     }
 
 }
 
-// end of LispCounter.java
+// end of LispDigester.java
 
 

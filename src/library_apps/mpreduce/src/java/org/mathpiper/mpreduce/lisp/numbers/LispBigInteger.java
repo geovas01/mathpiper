@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce.lisp;
+package org.mathpiper.mpreduce.lisp.numbers;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -41,6 +41,7 @@ import java.io.*;
 import java.util.*;
 import org.mathpiper.mpreduce.Cons;
 import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.lisp.LispObject;
 
 public class LispBigInteger extends LispInteger
 {
