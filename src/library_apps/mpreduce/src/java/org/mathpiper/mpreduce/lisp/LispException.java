@@ -1,10 +1,12 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
-//NOT USED ...SEE JavaFn.java instead
-// LispJavaFuncion.java 
-// created 27/02/02
-// classes I create will be subclasses of LispJavaFunction
-// just to provide a level to put more mess later on
+//
+
+import org.mathpiper.mpreduce.Jlisp;
+
+// This file is part of the Jlisp implementation of Standard Lisp
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+//
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -37,7 +39,26 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-abstract class LispJavaFunction extends LispFunction
+public class LispException extends Exception
 {
-	LispObject[] constants;
+    public LispObject details;
+    public String message;
+    
+    public LispException()
+    {
+        this.message = "unknown"; 
+	this.details = Jlisp.nil;
+    }
+    
+    public LispException(String message)
+    {
+        this.message=message;
+	this.details=null; 
+    }
+    
+    public LispException(String message, LispObject details)
+    {
+        this.message = message;
+	this.details = details; 
+    }
 }

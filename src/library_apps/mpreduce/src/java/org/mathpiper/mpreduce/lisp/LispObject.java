@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -43,6 +43,8 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 import java.math.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Lit;
 
 public abstract class LispObject extends Object
 {
@@ -93,8 +95,8 @@ public abstract class LispObject extends Object
 // real printing will usually be done by iprint where the current output
 // stream and format flags can be accessed via static variables.
 
-    static LispStream currentOutput;
-    static int currentFlags;
+    public static LispStream currentOutput;
+    public static int currentFlags;
 
     abstract public void iprint();
     abstract public void blankprint(); // print but with whitespace before it
@@ -208,7 +210,7 @@ public abstract class LispObject extends Object
         else putPrefix(n, X_REF);
     }
 
-    void putPrefix2(int n, int code1, int code2) throws IOException
+    public void putPrefix2(int n, int code1, int code2) throws IOException
     {
         if (n < 16)
 	{   Jlisp.odump.write(code1+n);
@@ -216,7 +218,7 @@ public abstract class LispObject extends Object
 	else putPrefix(n, code2);
     }
 
-    void putPrefix(int n, int code) throws IOException
+    public void putPrefix(int n, int code) throws IOException
     {
 	if ((n & 0xffffff00) == 0)
 	{   Jlisp.odump.write(code);
@@ -257,7 +259,7 @@ public abstract class LispObject extends Object
         return this;
     }
 
-    int lisphashCode()
+    public int lisphashCode()
     {
         return this.hashCode();
     }

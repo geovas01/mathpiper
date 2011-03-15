@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -36,142 +36,131 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
 
-public class LispVector extends LispObject
+public class LispString extends LispObject
 {
-    public LispObject [] vec;
 
-    public LispVector(int n)
+    public static int stringCount = 0;
+
+    public String string;
+
+    public LispString(String s)
     {
-        vec = new LispObject [n];
-        for (int i=0; i<n; i++) vec[i] = Jlisp.nil;
+        this.string = s;
     }
 
-    public LispVector(LispObject [] v)
-    {
-        vec = v;
-    }
-
-    public LispObject eval()
-    { 
-        return this; 
-    }
+    static StringBuffer sb = new StringBuffer();
 
     public void iprint()
     {
+        String s;
+        if ((currentFlags & printEscape) != 0) s = escapedPrint(); 
+        else s = string;
         if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + 1 > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print("[");
-        if (vec.length == 0)
-	{   if ((currentFlags & noLineBreak) == 0 &&
-                currentOutput.column + 1 > currentOutput.lineLength)
-                currentOutput.println();
-            currentOutput.print("]");
-            return;
-        }
-        if (vec[0] == null)
-        {   if ((currentFlags & noLineBreak) == 0 &&
-                currentOutput.column + 1 > currentOutput.lineLength)
-                currentOutput.println();
-            currentOutput.print(".");
-        }
-        else vec[0].iprint();
-        for (int i=1; i<vec.length; i++)
-	{   if (vec[i] == null)
-            {   if ((currentFlags & noLineBreak) == 0 &&
-                    currentOutput.column + 1 >= currentOutput.lineLength)
-                    currentOutput.println();
-                else currentOutput.print(" ");
-                currentOutput.print(".");
+            currentOutput.column + s.length() > currentOutput.lineLength)
+            currentOutput.println(); 
+        currentOutput.print(s);
+    }
+
+    String escapedPrint()
+    {
+        sb.setLength(0);
+        sb.append("\"");
+        int n = string.indexOf('"');
+        if (n == -1) sb.append(string);
+        else
+        {   int s = 0;
+            while (n != -1)
+            {   sb.append(string.substring(s, n+1));
+                sb.append("\"");
+                s = n+1;
+                n = string.indexOf('"', s);
             }
-            else vec[i].blankprint();
+            sb.append(string.substring(s, string.length()));
         }
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + 1 > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print("]");
+        sb.append("\"");
+        return sb.toString();
     }
 
     public void blankprint()
     {
+        String s;
+        if ((currentFlags & printEscape) != 0) s = escapedPrint(); 
+        else s = string;
         if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + 1 >= currentOutput.lineLength)
+            currentOutput.column + s.length() >= currentOutput.lineLength)
             currentOutput.println();
         else currentOutput.print(" ");
-        iprint();
+        currentOutput.print(s);
     }
 
     public boolean lispequals(Object b)
-    {
-        if (!(b instanceof LispVector)) return false;
-        if (b == this) return true;
-        else if (this == Jlisp.obvector || b == Jlisp.obvector) return false;
-        LispVector vb = (LispVector)b;
-        if (vec.length != vb.vec.length) return false;
-        for (int i=0; i<vec.length; i++)
-            if (!vec[i].lispequals(vb.vec[i])) return false;
-        return true;
+    {   if (!(b instanceof LispString)) return false;
+        return string.equals(((LispString)b).string);
+    }
+
+    public boolean equals(Object b)
+    {   if (!(b instanceof LispString)) return false;
+        return string.equals(((LispString)b).string);
     }
 
     public int lisphashCode()
     {
-        return lisphashCode(100);
+        return string.hashCode();
     }
-
-    int lisphashCode(int n)
+    
+    public int hashCode()
     {
-        int r = 19937;
-        for (int i=0; i<vec.length; i++) 
-	{   LispObject b = vec[i];
-            if (b == null) r = 54321*r;
-            else if (!b.atom)
-                r = 169*r + ((Cons)b).lisphashCode(b, n-10);
-            else r = 0x8040201*r + b.lisphashCode();
-        }
-        return r;  
+        return string.hashCode();
     }
 
     public void scan()
     {
-        if (this == Jlisp.obvector) return;
-        if (Jlisp.objects.contains(this)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(this))
+        if (Jlisp.objects.contains(string)) // seen before?
+	{   if (!Jlisp.repeatedObjects.containsKey(string))
 	    {   Jlisp.repeatedObjects.put(
-	            this,
+	            string,
 	            Jlisp.nil); // value is junk at this stage
 	    }
 	}
-	else Jlisp.objects.add(this);
-	for (int i=0; i<vec.length; i++)
-	    Jlisp.stack.push(vec[i]);
+	else Jlisp.objects.add(string);
     }
     
     public void dump() throws IOException
     {
-        if (this == Jlisp.obvector)
-        {   Jlisp.odump.write(X_OBLIST);
-            return;
-        }
-        Object w = Jlisp.repeatedObjects.get(this);
+        Object w = Jlisp.repeatedObjects.get(string);
 	if (w != null &&
 	    w instanceof Integer) putSharedRef(w); // processed before
 	else
 	{   if (w != null) // will be used again sometime
 	    {   Jlisp.repeatedObjects.put(
-	            this,
+	            string,
 		    new Integer(Jlisp.sharedIndex++));
 		Jlisp.odump.write(X_STORE);
             }
-	    int length = vec.length;
-	    putPrefix(length, X_VEC);
+// The next line turns the string into bytes using the platform's default
+// encoding. I would LIKE to use a representation guaranteed to be available
+// and to behave consistently everywhere... 
+	    byte [] rep = string.getBytes("UTF8");
+	    int length = rep.length;
+	    putPrefix2(length, X_STRn, X_STR);
 	    for (int i=0; i<length; i++)
-	        Jlisp.stack.push(vec[i]);
+	    {   Jlisp.odump.write(rep[i]);
+            }
 	}
+    }
+
+    private void readObject(ObjectInputStream stream)
+                 throws ClassNotFoundException, IOException
+    {
+        stream.defaultReadObject();
+        stringCount++;
     }
 
 
 }
 
-// end of LispVector.java
+
+// end of LispString.java
 

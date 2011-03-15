@@ -45,6 +45,20 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.LispFloat;
+import org.mathpiper.mpreduce.lisp.LispStringReader;
+import org.mathpiper.mpreduce.lisp.LispString;
+import org.mathpiper.mpreduce.lisp.LispFunction;
+import org.mathpiper.mpreduce.lisp.LispNumber;
+import org.mathpiper.mpreduce.lisp.LispSmallInteger;
+import org.mathpiper.mpreduce.lisp.LispHash;
+import org.mathpiper.mpreduce.lisp.LispEqualHash;
+import org.mathpiper.mpreduce.lisp.LispException;
+import org.mathpiper.mpreduce.lisp.LispVector;
+import org.mathpiper.mpreduce.lisp.LispStream;
+import org.mathpiper.mpreduce.lisp.LispInteger;
+import org.mathpiper.mpreduce.lisp.LispOutputStream;
+import org.mathpiper.mpreduce.lisp.LispObject;
 import org.mathpiper.mpreduce.packagedatastore.PDS;
 import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
 import org.mathpiper.mpreduce.packagedatastore.PDSOutputStream;
@@ -171,11 +185,11 @@ public static void main(String [] args)
 }
 
 static Reader in;
-static PrintWriter out;
+public static PrintWriter out;
 
 public static boolean standAlone;
 
-static Vector openOutputFiles = null;
+public static Vector openOutputFiles = null;
 
 public static boolean restarting = false;
 static String  restartModule = null;
@@ -924,7 +938,7 @@ static Specfn specfn = new Specfn();
 public static int oblistSize = 15013;
 static int oblistCount = 0;
 public static Symbol [] oblist = new Symbol[oblistSize];
-static LispVector obvector = new LispVector((LispObject [])oblist);
+public static LispVector obvector = new LispVector((LispObject [])oblist);
 
 public static Symbol [] chars  = new Symbol[128];  // to speed up READCH
 static LispObject [] spine = new LispObject[17]; // for PRESERVE
@@ -938,7 +952,7 @@ public static InputStream  idump;
 public static HashSet objects;
 public static HashMap repeatedObjects;
 public static int sharedIndex;
-static Stack stack;
+public static Stack stack;
 public static boolean specialNil, descendSymbols;
 
 static public void scanObject(LispObject a)

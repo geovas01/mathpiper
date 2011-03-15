@@ -1,9 +1,10 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
-//
-// This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
-//
+//NOT USED ...SEE JavaFn.java instead
+// LispJavaFuncion.java 
+// created 27/02/02
+// classes I create will be subclasses of LispJavaFunction
+// just to provide a level to put more mess later on
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -35,39 +36,8 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
-import java.math.*;
-import java.util.*;
-import java.text.*;
-import java.security.*;
 
-class LispStringReader extends LispStream
+abstract class LispJavaFunction extends LispFunction
 {
-
-    int pos;
-
-    LispStringReader(String data)
-    {
-        super("<read from string>");
-        stringData = data;
-        pos = 0;
-        needsPrompt = false;
-        escaped = false;
-        this.allowOctal = allowOctal;
-        nextChar = -2;
-    }
-
-    int read()
-    {
-        if (pos >= stringData.length()) return -1;
-        else return (int)stringData.charAt(pos++);
-    }
-
-    public void close()
-    {
-        stringData = null;
-    }
-
+	LispObject[] constants;
 }
-
-// end of LispStringReader.java

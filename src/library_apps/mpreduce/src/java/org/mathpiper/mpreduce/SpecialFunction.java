@@ -35,6 +35,7 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.LispObject;
 import java.io.*;
 
 abstract class SpecialFunction extends LispObject

@@ -4,9 +4,9 @@ package org.mathpiper.mpreduce.builtin;
 
 import org.mathpiper.mpreduce.Cons;
 import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.LispObject;
-import org.mathpiper.mpreduce.LispOutputString;
-import org.mathpiper.mpreduce.LispStream;
+import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.lisp.LispOutputString;
+import org.mathpiper.mpreduce.lisp.LispStream;
 import org.mathpiper.mpreduce.Lit;
 import org.mathpiper.mpreduce.Specfn;
 import org.mathpiper.mpreduce.Symbol;

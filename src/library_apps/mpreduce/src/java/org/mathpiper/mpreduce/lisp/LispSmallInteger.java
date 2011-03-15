@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -39,6 +39,8 @@ package org.mathpiper.mpreduce;
 import java.math.*;
 import java.io.*;
 import java.util.*;
+import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.Jlisp;
 
 public class LispSmallInteger extends LispInteger
 {
@@ -55,7 +57,7 @@ public class LispSmallInteger extends LispInteger
     static final int MAX = 1000;
     static LispSmallInteger [] preAllocated = new LispSmallInteger[MAX-MIN+1];
 
-    static void preAllocate()
+    public static void preAllocate()
     {
         for (int i=MIN; i<=MAX; i++)
             preAllocated[i-MIN] = new LispSmallInteger(i);

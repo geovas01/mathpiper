@@ -5,6 +5,8 @@ package org.mathpiper.mpreduce;
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
 
+import org.mathpiper.mpreduce.lisp.LispFunction;
+import org.mathpiper.mpreduce.lisp.LispObject;
 import java.io.*;
 
 /**************************************************************************

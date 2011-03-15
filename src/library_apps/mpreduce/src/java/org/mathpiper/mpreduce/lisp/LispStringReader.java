@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -36,36 +36,38 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 import java.io.*;
+import java.math.*;
+import java.util.*;
+import java.text.*;
+import java.security.*;
 
-public class LispCounter extends LispStream
+public class LispStringReader extends LispStream
 {
 
-    public LispCounter()
+    int pos;
+
+    public LispStringReader(String data)
     {
-        super("<character counter>");
-        column = 0;
+        super("<read from string>");
+        stringData = data;
+        pos = 0;
+        needsPrompt = false;
+        escaped = false;
+        this.allowOctal = allowOctal;
+        nextChar = -2;
     }
 
-    public void flush()
+    public int read()
     {
+        if (pos >= stringData.length()) return -1;
+        else return (int)stringData.charAt(pos++);
     }
 
     public void close()
     {
-    }
-
-    public void print(String s)
-    {
-        column += s.length();
-    }
-
-    public void println(String s)
-    {
-        column += s.length() + 1;
+        stringData = null;
     }
 
 }
 
-// end of LispCounter.java
-
-
+// end of LispStringReader.java

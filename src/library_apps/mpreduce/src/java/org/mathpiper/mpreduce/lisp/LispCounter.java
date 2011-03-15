@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,28 +35,37 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import java.io.*;
 
-import java.util.*;
-
-public class LispEqualHash extends HashMap
+public class LispCounter extends LispStream
 {
 
-    public Object put(Object key, Object value)
+    public LispCounter()
     {
-        super.put(new LispEqualObject(key), value);
-        return value;
+        super("<character counter>");
+        column = 0;
     }
 
-    public Object get(Object key)
+    public void flush()
     {
-        return super.get(new LispEqualObject(key));
     }
 
-    public Object remove(Object key)
+    public void close()
     {
-        return super.remove(new LispEqualObject(key));
+    }
+
+    public void print(String s)
+    {
+        column += s.length();
+    }
+
+    public void println(String s)
+    {
+        column += s.length() + 1;
     }
 
 }
 
-// end of LispEqualHash.java
+// end of LispCounter.java
+
+

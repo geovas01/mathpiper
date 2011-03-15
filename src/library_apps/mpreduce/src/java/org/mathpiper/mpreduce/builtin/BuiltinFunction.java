@@ -36,7 +36,7 @@ package org.mathpiper.mpreduce.builtin;
  *************************************************************************/
 import java.io.*;
 import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.LispFunction;
+import org.mathpiper.mpreduce.lisp.LispFunction;
 
 public abstract class BuiltinFunction extends LispFunction
 {

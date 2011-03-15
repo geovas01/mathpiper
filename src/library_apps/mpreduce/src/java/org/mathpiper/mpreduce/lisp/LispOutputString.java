@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,20 +35,15 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-
 import java.io.*;
 
-public class LispExploder extends LispStream
+public class LispOutputString extends LispStream
 {
 
-    boolean asSymbols;
-
-    public LispExploder(boolean n) // builds a list of all characters
-                            // n true for symbols, false for numeric codes
+    public LispOutputString()
     {
-        super("<exploder>");
-        asSymbols = n;
-        exploded = Jlisp.nil;
+        super("<string output>");
+        sb = new StringBuffer();
     }
 
     public void flush()
@@ -57,33 +52,22 @@ public class LispExploder extends LispStream
 
     public void close()
     {
-        exploded = Jlisp.nil;
+        sb = null;
     }
 
     public void print(String s)
     {
-        char [] v = s.toCharArray();
-        for (int i=0; i<v.length; i++)
-        {   char c = v[i];
-            LispObject w;
-            if (asSymbols)
-            {   if ((int)c < 128) w = Jlisp.chars[(int)c];
-                else w = Symbol.intern(String.valueOf(c));
-            }
-            else w = LispInteger.valueOf((int)c);
-            exploded = new Cons(w, exploded);
-        }
+        sb.append(s);
     }
 
     public void println(String s)
     {
-        print(s);
-        if (asSymbols) exploded = new Cons(Jlisp.chars['\n'], exploded);
-        else exploded = new Cons(LispInteger.valueOf('\n'), exploded);
+        sb.append(s);
+        sb.append("\n");
     }
 
 }
 
-// end of LispExploder.java
+// end of LispOutputString.java
 
 

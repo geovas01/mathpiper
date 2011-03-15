@@ -39,9 +39,9 @@ import java.io.*;
 import java.util.*;
 import org.mathpiper.mpreduce.Cons;
 import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.LispObject;
-import org.mathpiper.mpreduce.LispStream;
-import org.mathpiper.mpreduce.LispString;
+import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.lisp.LispStream;
+import org.mathpiper.mpreduce.lisp.LispString;
 
 // This class (and PDSInputStream & PDSOutputStream) support a crude
 // version of a file-system-within-a-file.  No sub-directoried are

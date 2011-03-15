@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -39,6 +39,7 @@ package org.mathpiper.mpreduce;
 import java.io.*;
 import java.util.*;
 import java.math.*;
+import org.mathpiper.mpreduce.Jlisp;
 
 public class LispFloat extends LispNumber
 {

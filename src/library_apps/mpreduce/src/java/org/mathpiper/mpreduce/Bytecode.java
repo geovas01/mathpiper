@@ -2,6 +2,11 @@ package org.mathpiper.mpreduce;
 
 //
 
+import org.mathpiper.mpreduce.lisp.LispVector;
+import org.mathpiper.mpreduce.lisp.LispInteger;
+import org.mathpiper.mpreduce.lisp.LispFunction;
+import org.mathpiper.mpreduce.lisp.LispNumber;
+import org.mathpiper.mpreduce.lisp.LispObject;
 import org.mathpiper.mpreduce.builtin.Fns;
 
 // This file is part of the Jlisp implementation of Standard Lisp

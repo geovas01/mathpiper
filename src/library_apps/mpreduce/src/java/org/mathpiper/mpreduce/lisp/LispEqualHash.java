@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -36,50 +36,27 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-import java.math.*;
-import java.io.*;
 import java.util.*;
 
-public abstract class LispInteger extends LispNumber
+public class LispEqualHash extends HashMap
 {
 
-    public static LispInteger valueOf(int value)
+    public Object put(Object key, Object value)
     {
-        if (value <= LispSmallInteger.MAX &&
-            value >= LispSmallInteger.MIN)
-            return LispSmallInteger.preAllocated[value - LispSmallInteger.MIN];
-        else if (value <= 0x3fffffff &&
-            value >= -0x40000000) return new LispSmallInteger(value);
-        else return new LispBigInteger(BigInteger.valueOf((long)value));
+        super.put(new LispEqualObject(key), value);
+        return value;
     }
 
-    public static LispInteger valueOf(long value)
+    public Object get(Object key)
     {
-        if (value <= LispSmallInteger.MAX &&
-            value >= LispSmallInteger.MIN)
-            return LispSmallInteger.preAllocated[
-                       (int)(value - LispSmallInteger.MIN)];
-        else if (value <= 0x3fffffffL &&
-            value >= -0x40000000L) return new LispSmallInteger((int)value);
-        else return new LispBigInteger(BigInteger.valueOf(value));
+        return super.get(new LispEqualObject(key));
     }
 
-    public static LispInteger valueOf(BigInteger value)
+    public Object remove(Object key)
     {
-        if (value.bitLength() <= 31)
-        {   int n = value.intValue();
-            if (n <= LispSmallInteger.MAX &&
-                n >= LispSmallInteger.MIN)
-                return LispSmallInteger.preAllocated[n - LispSmallInteger.MIN];
-            else if (n <= 0x3fffffff &&
-                     n >= -0x40000000) return new LispSmallInteger(n);
-        }
-        return new LispBigInteger(value);
+        return super.remove(new LispEqualObject(key));
     }
-
 
 }
 
-// End of LispInteger.java
-
-
+// end of LispEqualHash.java
