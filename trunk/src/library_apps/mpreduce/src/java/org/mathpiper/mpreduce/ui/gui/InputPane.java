@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.ui.gui;
 
 //
 // InputPane.java                           Copyright A C Norman, 2000

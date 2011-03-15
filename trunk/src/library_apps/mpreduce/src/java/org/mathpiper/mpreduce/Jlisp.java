@@ -45,6 +45,7 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.ui.gui.CWin;
 import org.mathpiper.mpreduce.builtin.Fns;
 import org.mathpiper.mpreduce.builtin.Fns1;
 import org.mathpiper.mpreduce.builtin.Fns2;

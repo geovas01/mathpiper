@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.ui.gui;
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -334,6 +334,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
+import org.mathpiper.mpreduce.Jlisp;
 
 public class CWin extends JApplet
 {
@@ -348,7 +349,7 @@ public class CWin extends JApplet
 // source and suitable steps will have to be taken to grant it
 // authority to perform these security-impinging actions.
 
-static boolean isApplet;
+public static boolean isApplet;
 String [] args = new String [0];
 
 public static void main(String [] args)
