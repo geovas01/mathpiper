@@ -39,6 +39,8 @@ package org.mathpiper.mpreduce;
 // A "cons" is an ordered pair. In ML terms it would be
 // a bit like ('a * 'b)
 
+import org.mathpiper.mpreduce.lisp.functions.Macro;
+import org.mathpiper.mpreduce.exceptions.ProgEvent;
 import org.mathpiper.mpreduce.lisp.LispVector;
 import org.mathpiper.mpreduce.lisp.LispObject;
 import org.mathpiper.mpreduce.builtin.Fns;

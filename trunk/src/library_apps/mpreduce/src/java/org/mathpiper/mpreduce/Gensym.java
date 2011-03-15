@@ -5,6 +5,7 @@ package org.mathpiper.mpreduce;
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
 
+import org.mathpiper.mpreduce.lisp.functions.Undefined;
 import java.io.*;
 
 /**************************************************************************

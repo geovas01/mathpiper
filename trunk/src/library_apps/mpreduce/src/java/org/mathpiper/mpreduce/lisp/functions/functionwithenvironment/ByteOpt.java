@@ -1,7 +1,10 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp.functions.functionwithenvironment;
 
 //
 
+import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Spid;
 import org.mathpiper.mpreduce.lisp.LispObject;
 
 // This file is part of the Jlisp implementation of Standard Lisp

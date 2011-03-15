@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce.lisp;
+package org.mathpiper.mpreduce.lisp.functions;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -36,62 +36,60 @@ package org.mathpiper.mpreduce.lisp;
  *************************************************************************/
 
 
+// A Lisp macro is really very much like an ordinary
+// function with exactly one argument. It is the way that the
+// interpreted processes it that makes it different. Well actually because
+// of views on Common Lisp compatibility the function that is a macro
+// has one essential argument and one optional one (which I never use!)
+
+import org.mathpiper.mpreduce.lisp.functions.LispFunction;
+import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
+import org.mathpiper.mpreduce.Cons;
 import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Lit;
 
-public abstract class LispFunction extends LispObject
+public class Macro extends LispFunction
 {
-    public String name = "unknown-function";
-
-    public LispObject op0() throws Exception
-    {
-        return error("undefined " + name + " with 0 args");
-    }
-
-    public LispObject op1(LispObject a1) throws Exception
-    {
-        return error("undefined " + name + " with 1 arg");
-    }
-
-    public LispObject op2(LispObject a1, LispObject a2) throws Exception
-    {
-        return error("undefined " + name + " with 2 args");
-    }
-
-    public LispObject opn(LispObject [] args) throws Exception
-    {
-        return error("undefined " + name + " with " + args.length + " args");
-    }
-
-    public LispObject error(String s) throws Exception
-    {
-        return Jlisp.error(s);
-    }
-
-    public LispObject error(String s, LispObject a) throws Exception
-    {
-        return Jlisp.error(s, a);
-    }
+    public LispObject body;
 
     public void iprint()
     {
-        String s = "#Fn<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() > currentOutput.lineLength)
+            currentOutput.column + 7 > currentOutput.lineLength)
             currentOutput.println();
-        currentOutput.print(s);
+        currentOutput.print("[Macro:");
+        body.blankprint();
+        if ((currentFlags & noLineBreak) == 0 &&
+            currentOutput.column + 1 > currentOutput.lineLength)
+            currentOutput.println();
+        currentOutput.print("]");
     }
-
+											    
     public void blankprint()
     {
-        String s = "#Fn<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() >= currentOutput.lineLength)
+            currentOutput.column + 7 >= currentOutput.lineLength)
             currentOutput.println();
         else currentOutput.print(" ");
-        currentOutput.print(s);
+        currentOutput.print("[Macro:");
+        body.blankprint();
+        if ((currentFlags & noLineBreak) == 0 &&
+            currentOutput.column + 1 > currentOutput.lineLength)
+            currentOutput.println();
+        currentOutput.print("]");
     }
-
+											    
+    public Macro()
+    {
+    }
+    
+    public Macro(LispObject def) throws Exception
+    {
+        body = new Cons(Jlisp.lit[Lit.lambda], def);
+    }
+    
     public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
@@ -102,11 +100,40 @@ public abstract class LispFunction extends LispObject
 	    }
 	}
 	else Jlisp.objects.add(this);
+        Jlisp.stack.push(body);
     }
     
+    public void dump() throws IOException
+    {
+        Object w = Jlisp.repeatedObjects.get(this);
+	if (w != null &&
+	    w instanceof Integer) putSharedRef(w); // processed before
+	else
+	{   if (w != null) // will be used again sometime
+	    {   Jlisp.repeatedObjects.put(
+	            this,
+		    new Integer(Jlisp.sharedIndex++));
+		Jlisp.odump.write(X_STORE);
+            }
+            Jlisp.odump.write(X_MACRO);
+            Jlisp.stack.push(body);
+	}
+    }
+    
+    public LispObject op1(LispObject arg1) throws Exception
+    {
+        Fns.args[0] = arg1;
+        return Fns.applyInner(body, 1);
+    }
+
+    public LispObject op2(LispObject arg1, LispObject arg2) throws Exception
+    {
+        Fns.args[0] = arg1;
+        Fns.args[1] = arg2;
+        return Fns.applyInner(body, 2);
+    }
 
 }
 
-// End of LispFunction.java
-
+// End of Macro.java
 

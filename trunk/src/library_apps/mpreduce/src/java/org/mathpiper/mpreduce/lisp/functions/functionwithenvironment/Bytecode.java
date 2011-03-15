@@ -1,10 +1,14 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp.functions.functionwithenvironment;
 
 //
 
+import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Spid;
+import org.mathpiper.mpreduce.Symbol;
 import org.mathpiper.mpreduce.lisp.LispVector;
 import org.mathpiper.mpreduce.lisp.LispInteger;
-import org.mathpiper.mpreduce.lisp.LispFunction;
+import org.mathpiper.mpreduce.lisp.functions.LispFunction;
 import org.mathpiper.mpreduce.lisp.LispNumber;
 import org.mathpiper.mpreduce.lisp.LispObject;
 import org.mathpiper.mpreduce.builtin.Fns;
@@ -236,7 +240,7 @@ static int BIbatchp, BIdate, BIeject, BIerror1, BIgctime,
     BIerrorset, BIlist2STAR, BIlist3, BIputprop, BIputv,
     BIputv_char, BIsubst, BIapply2, BIacons;
 
-static void setupBuiltins()
+public static void setupBuiltins()
 {
     builtin0 = new LispFunction[15];
     builtin1 = new LispFunction[114];

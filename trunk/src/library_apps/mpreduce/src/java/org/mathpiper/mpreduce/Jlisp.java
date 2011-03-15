@@ -45,10 +45,20 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.ByteOpt;
+import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.Bytecode;
+import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.FnWithEnv;
+import org.mathpiper.mpreduce.lisp.functions.Interpreted;
+import org.mathpiper.mpreduce.lisp.functions.Macro;
+import org.mathpiper.mpreduce.lisp.functions.Undefined;
+import org.mathpiper.mpreduce.lisp.functions.AutoLoad;
+import org.mathpiper.mpreduce.lisp.functions.CallAs;
+import org.mathpiper.mpreduce.exceptions.ProgEvent;
+import org.mathpiper.mpreduce.exceptions.EOFException;
 import org.mathpiper.mpreduce.lisp.LispFloat;
 import org.mathpiper.mpreduce.lisp.LispStringReader;
 import org.mathpiper.mpreduce.lisp.LispString;
-import org.mathpiper.mpreduce.lisp.LispFunction;
+import org.mathpiper.mpreduce.lisp.functions.LispFunction;
 import org.mathpiper.mpreduce.lisp.LispNumber;
 import org.mathpiper.mpreduce.lisp.LispSmallInteger;
 import org.mathpiper.mpreduce.lisp.LispHash;
@@ -1116,7 +1126,7 @@ static int istacklimit;
 static int [] istack;
 static int sharedSize;
 static LispObject [] shared;
-static HashMap builtinFunctions, builtinSpecials;
+public static HashMap builtinFunctions, builtinSpecials;
 
 
 public static void preRestore() throws IOException

@@ -1,10 +1,9 @@
-package org.mathpiper.mpreduce.lisp;
+package org.mathpiper.mpreduce.lisp.functions;
 
-//NOT USED ...SEE JavaFn.java instead
-// LispJavaFuncion.java 
-// created 27/02/02
-// classes I create will be subclasses of LispJavaFunction
-// just to provide a level to put more mess later on
+//
+// This file is part of the Jlisp implementation of Standard Lisp
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+//
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -37,7 +36,78 @@ package org.mathpiper.mpreduce.lisp;
  *************************************************************************/
 
 
-abstract class LispJavaFunction extends LispFunction
+import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.lisp.LispObject;
+
+public abstract class LispFunction extends LispObject
 {
-	LispObject[] constants;
+    public String name = "unknown-function";
+
+    public LispObject op0() throws Exception
+    {
+        return error("undefined " + name + " with 0 args");
+    }
+
+    public LispObject op1(LispObject a1) throws Exception
+    {
+        return error("undefined " + name + " with 1 arg");
+    }
+
+    public LispObject op2(LispObject a1, LispObject a2) throws Exception
+    {
+        return error("undefined " + name + " with 2 args");
+    }
+
+    public LispObject opn(LispObject [] args) throws Exception
+    {
+        return error("undefined " + name + " with " + args.length + " args");
+    }
+
+    public LispObject error(String s) throws Exception
+    {
+        return Jlisp.error(s);
+    }
+
+    public LispObject error(String s, LispObject a) throws Exception
+    {
+        return Jlisp.error(s, a);
+    }
+
+    public void iprint()
+    {
+        String s = "#Fn<" + name + ">";
+        if ((currentFlags & noLineBreak) == 0 &&
+            currentOutput.column + s.length() > currentOutput.lineLength)
+            currentOutput.println();
+        currentOutput.print(s);
+    }
+
+    public void blankprint()
+    {
+        String s = "#Fn<" + name + ">";
+        if ((currentFlags & noLineBreak) == 0 &&
+            currentOutput.column + s.length() >= currentOutput.lineLength)
+            currentOutput.println();
+        else currentOutput.print(" ");
+        currentOutput.print(s);
+    }
+
+    public void scan()
+    {
+        if (Jlisp.objects.contains(this)) // seen before?
+	{   if (!Jlisp.repeatedObjects.containsKey(this))
+	    {   Jlisp.repeatedObjects.put(
+	            this,
+	            Jlisp.nil); // value is junk at this stage
+	    }
+	}
+	else Jlisp.objects.add(this);
+    }
+    
+
 }
+
+// End of LispFunction.java
+
+
