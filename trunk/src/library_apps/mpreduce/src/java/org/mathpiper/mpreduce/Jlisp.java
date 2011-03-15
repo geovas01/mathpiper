@@ -45,6 +45,9 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.packagedatastore.PDS;
+import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
+import org.mathpiper.mpreduce.packagedatastore.PDSOutputStream;
 import org.mathpiper.mpreduce.ui.gui.CWin;
 import org.mathpiper.mpreduce.builtin.Fns;
 import org.mathpiper.mpreduce.builtin.Fns1;
@@ -64,7 +67,7 @@ public class Jlisp
 // directly. Elsewhere they should ONLY be accessed via the Lisp
 // variables that point towards them. The direct access here is in
 // cases where the Lisp world may not have been fully set up.
-static LispStream lispIO, lispErr;
+public static LispStream lispIO, lispErr;
 public static boolean interactivep = false;
 public static boolean debugFlag = false;
 public static boolean headline = true;

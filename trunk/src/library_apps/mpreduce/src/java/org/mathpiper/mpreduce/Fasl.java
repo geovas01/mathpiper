@@ -34,6 +34,8 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
+import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
+import org.mathpiper.mpreduce.packagedatastore.PDSOutputStream;
 import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
 import java.math.*;
