@@ -37,22 +37,22 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class LispVector extends LispObject
+public class LispVector extends LispObject
 {
-    LispObject [] vec;
+    public LispObject [] vec;
 
-    LispVector(int n)
+    public LispVector(int n)
     {
         vec = new LispObject [n];
         for (int i=0; i<n; i++) vec[i] = Jlisp.nil;
     }
 
-    LispVector(LispObject [] v)
+    public LispVector(LispObject [] v)
     {
         vec = v;
     }
 
-    LispObject eval()
+    public LispObject eval()
     { 
         return this; 
     }
@@ -147,7 +147,7 @@ class LispVector extends LispObject
 	    Jlisp.stack.push(vec[i]);
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         if (this == Jlisp.obvector)
         {   Jlisp.odump.write(X_OBLIST);

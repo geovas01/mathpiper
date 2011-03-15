@@ -36,10 +36,10 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-class LispException extends Exception
+public class LispException extends Exception
 {
-    LispObject details;
-    String message;
+    public LispObject details;
+    public String message;
     
     LispException()
     {

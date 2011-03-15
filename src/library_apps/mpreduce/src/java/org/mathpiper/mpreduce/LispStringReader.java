@@ -63,7 +63,7 @@ class LispStringReader extends LispStream
         else return (int)stringData.charAt(pos++);
     }
 
-    void close()
+    public void close()
     {
         stringData = null;
     }

@@ -42,10 +42,10 @@ import java.math.*;
 // overflow and accuracy, but are not striving for the very best 
 // least-significant-bit results.
 
-class MyMath
+public class MyMath
 {
 
-static double acosh(double a)
+public static double acosh(double a)
 {
     double a1 = a - 1.0;
     if (a1 == 0.0) return 1.0;
@@ -71,33 +71,33 @@ static double acosh(double a)
     else return Math.log(a + Math.sqrt(a*a - 1.0));
 }
 
-static double acoth(double a)
+public static double acoth(double a)
 {
     return atanh(1.0/a);
 }
 
-static double acsch(double a)
+public static double acsch(double a)
 {
     return asinh(1.0/a);
 }
 
-static double asech(double a)
+public static double asech(double a)
 {
     return acosh(1.0/a);
 }
 
-static double asinh(double a)
+public static double asinh(double a)
 {
     if (a >= 0.0) return Math.log(a + Math.sqrt(1.0 + a*a));
     else return -Math.log(-a + Math.sqrt(1.0 + a*a));
 }
 
-static double atanh(double a)
+public static double atanh(double a)
 {
     return 0.5*Math.log((1.0+a)/(1.0-a)); 
 }
 
-static double cosh(double a)
+public static double cosh(double a)
 {
     if (a < 0.0) a = -a;
 // no cancellation worries for small argument
@@ -111,22 +111,22 @@ static double cosh(double a)
     else return Math.exp(a - Math.log(2.0));
 }
 
-static double coth(double a)
+public static double coth(double a)
 {
     return 1.0/tanh(a);
 }
 
-static double csch(double a)
+public static double csch(double a)
 {
     return 1.0/sinh(a);
 }
 
-static double sech(double a)
+public static double sech(double a)
 {
     return 1.0/cosh(a);
 }
 
-static double sinh(double a)
+public static double sinh(double a)
 {
 // for small arguments I use the series expansion to avoid cancellation
     double aa = Math.abs(a);
@@ -146,7 +146,7 @@ static double sinh(double a)
     else return aa;
 }
 
-static double tanh(double a)
+public static double tanh(double a)
 {
     double aa = Math.abs(a);
 // for small argument I will first range reduce and then use a simple

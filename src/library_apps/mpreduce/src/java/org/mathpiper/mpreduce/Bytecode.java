@@ -1,6 +1,9 @@
 package org.mathpiper.mpreduce;
 
 //
+
+import org.mathpiper.mpreduce.builtin.Fns;
+
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
@@ -34,24 +37,24 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-class Bytecode extends FnWithEnv
+public class Bytecode extends FnWithEnv
 {
 
-Bytecode()
+public Bytecode()
 {
     env = new LispObject [0];
     bytecodes = null;
     nargs = 0;
 }
 
-Bytecode(LispObject [] env)
+public Bytecode(LispObject [] env)
 {
     this.env = env;
     bytecodes = null;
     nargs = 0;
 }
 
-Bytecode(int n)
+public Bytecode(int n)
 {
     env = new LispObject [0];
     bytecodes = new byte [n];

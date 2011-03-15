@@ -36,7 +36,7 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-class ResourceException extends LispException
+public class ResourceException extends LispException
 {
     
     ResourceException()

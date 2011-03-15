@@ -38,7 +38,7 @@ package org.mathpiper.mpreduce;
 
 import java.util.*;
 
-class LispEqualHash extends HashMap
+public class LispEqualHash extends HashMap
 {
 
     public Object put(Object key, Object value)

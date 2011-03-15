@@ -36,13 +36,13 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class AutoLoad extends LispFunction
+public class AutoLoad extends LispFunction
 {
 
     Symbol name;
     LispObject data;
     
-    AutoLoad(Symbol name, LispObject data)
+    public AutoLoad(Symbol name, LispObject data)
     {
         this.name = name;
 	this.data = data;
@@ -80,13 +80,13 @@ class AutoLoad extends LispFunction
         return name.fn.opn(args);
     }
 
-    void print()
+    public void print()
     {
         name.completeName();
         Jlisp.print("#Autoload<" + name.pname + ">");
     }
 
-    void print(int n)
+    public void print(int n)
     {
         name.completeName();
         Jlisp.print("#Autoload<" + name.pname + ">");
@@ -108,7 +108,7 @@ class AutoLoad extends LispFunction
 	}
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

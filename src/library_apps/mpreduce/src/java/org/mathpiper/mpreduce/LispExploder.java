@@ -38,12 +38,12 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class LispExploder extends LispStream
+public class LispExploder extends LispStream
 {
 
     boolean asSymbols;
 
-    LispExploder(boolean n) // builds a list of all characters
+    public LispExploder(boolean n) // builds a list of all characters
                             // n true for symbols, false for numeric codes
     {
         super("<exploder>");
@@ -51,16 +51,16 @@ class LispExploder extends LispStream
         exploded = Jlisp.nil;
     }
 
-    void flush()
+    public void flush()
     {
     }
 
-    void close()
+    public void close()
     {
         exploded = Jlisp.nil;
     }
 
-    void print(String s)
+    public void print(String s)
     {
         char [] v = s.toCharArray();
         for (int i=0; i<v.length; i++)
@@ -75,7 +75,7 @@ class LispExploder extends LispStream
         }
     }
 
-    void println(String s)
+    public void println(String s)
     {
         print(s);
         if (asSymbols) exploded = new Cons(Jlisp.chars['\n'], exploded);

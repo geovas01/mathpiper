@@ -39,8 +39,8 @@ import java.io.*;
 public class FnWithEnv extends LispFunction
 {
 
-int nargs;           // integer field saved in image file
-byte [] bytecodes;   // can be null if not needed (never shared?)
+public int nargs;           // integer field saved in image file
+public byte [] bytecodes;   // can be null if not needed (never shared?)
 public LispObject [] env;   // vector of lisp objects, eg literals
 
 FnWithEnv()
@@ -71,7 +71,7 @@ void scan()
         Jlisp.stack.push(env[i]);
 }
 
-void dump() throws IOException
+public void dump() throws IOException
 {
     Object w = Jlisp.repeatedObjects.get(this);
     if (w != null &&

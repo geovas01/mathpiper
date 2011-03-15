@@ -1,8 +1,6 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.javacompiler;
 
-// amended 01/02/02
-// 16/02/02 IGNORE SOURCEFILE_ATTRIBUTE since OPTIONAL
-// associated code in ClassDescription has been commented out
+//created 02/02/02
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -33,21 +31,44 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-
 import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
 
-public class SourceFile_attribute extends Attribute_info
+public class CONSTANT_Methodref_info extends Cp_info
 {
-    //attribute_length for SourceFile must always be 2        
-    
-    void setSource(short name_index, short sf_index)
+    public static void main(String[] args) throws IOException
     {
-        attribute_name_index = name_index;
-        info = ByteArray.shortToByteArray(sf_index);
-        attribute_length = 2;
+        short cidx = (short)0x4;
+        short ntidx = (short)0xf;
+        CONSTANT_Methodref_info cm = new CONSTANT_Methodref_info(cidx, ntidx);
+        cm.printBytes(cm.dumpBytes());
+        Jlisp.println("\n");
+                
+        short cidx2 = (short)0x3;
+        short ntidx2 = (short)0x10;
+        CONSTANT_Methodref_info cm2 = new CONSTANT_Methodref_info(cidx2, ntidx2);
+        cm2.printBytes(cm2.dumpBytes());
+        Jlisp.println("\n");
     }
-    
+        
+    short class_index;
+    short name_and_type_index;
+                
+
+    //constructor
+    CONSTANT_Methodref_info(short classIndex, short ntIndex)
+        throws IOException
+    {   tag = CONSTANT_Methodref;        
+        class_index = classIndex;
+        name_and_type_index = ntIndex;
+        //below is the toInfo() method of Code_Attribute.java
+        byte[][] infoTemp = new byte[2][0];
+        infoTemp[0] = shortToByteArray(class_index);
+        infoTemp[1] = shortToByteArray(name_and_type_index);
+                                
+        info = new byte[4];
+        info = flatBytes(infoTemp);
+    }
 }
 
-// end of SourceFile_attribute.java
-
+// end of CONSTANT_Methodref_info.java

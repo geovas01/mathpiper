@@ -1,6 +1,16 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.builtin;
 
 //
+
+import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.LispOutputString;
+import org.mathpiper.mpreduce.LispStream;
+import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.Specfn;
+import org.mathpiper.mpreduce.Symbol;
+
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
@@ -42,11 +52,11 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-class Fns
+public class Fns
 {
-    static String prompt = null;
+    public static String prompt = null;
 
-    static LispObject put(Symbol name, LispObject key, LispObject value)
+    public static LispObject put(Symbol name, LispObject key, LispObject value)
     {
         LispObject plist = name.cdr/*plist*/;
         while (!plist.atom)
@@ -62,7 +72,7 @@ class Fns
         return value;
     }
 
-    static void fluid(LispObject a)
+    public static void fluid(LispObject a)
     {
         Symbol s = (Symbol)a;
         put(s, Jlisp.lit[Lit.special], Jlisp.lispTrue);
@@ -106,7 +116,7 @@ class Fns
         return new Cons(a, new Cons(b, Jlisp.nil));
     }
 
-    static LispObject reversip(LispObject arg1)
+    public static LispObject reversip(LispObject arg1)
     {
         LispObject r = Jlisp.nil;
         while (!arg1.atom)
@@ -128,21 +138,21 @@ class Fns
 // function-object). Life is much nastier then one might have dreamt
 // because I want to cope with &optional and &rest. However I will
 // NOT (at first?) support supplied-p etc information
-    static LispObject [] args = new LispObject[20];
+    public static LispObject [] args = new LispObject[20];
     static int argspassed;
 
-    static LispObject apply0(LispObject fn) throws Exception
+    public static LispObject apply0(LispObject fn) throws Exception
     {
         return applyInner(fn, 0);
     }
 
-    static LispObject apply1(LispObject fn, LispObject a1) throws Exception
+    public static LispObject apply1(LispObject fn, LispObject a1) throws Exception
     {
         args[0] = a1;
         return applyInner(fn, 1);
     }
 
-    static LispObject apply2(LispObject fn, LispObject a1,
+    public static LispObject apply2(LispObject fn, LispObject a1,
                              LispObject a2) throws Exception
     {
         args[0] = a1;
@@ -150,7 +160,7 @@ class Fns
         return applyInner(fn, 2);
     }
 
-    static LispObject apply3(LispObject fn, LispObject a1,
+    public static LispObject apply3(LispObject fn, LispObject a1,
                              LispObject a2, LispObject a3) throws Exception
     {
         args[0] = a1;
@@ -159,13 +169,13 @@ class Fns
         return applyInner(fn, 3);
     }
 
-    static LispObject applyn(LispObject fn, LispObject [] a) throws Exception
+    public static LispObject applyn(LispObject fn, LispObject [] a) throws Exception
     {
         for (int i=0; i<a.length; i++) args[i] = a[i];
         return applyInner(fn, a.length);
     }
 
-    static LispObject applyInner(LispObject fn, int passed) throws Exception
+    public static LispObject applyInner(LispObject fn, int passed) throws Exception
     {
         if (fn.atom ||
             fn.car != Jlisp.lit[Lit.lambda])
@@ -229,7 +239,7 @@ class Fns
         return r;
     }
 
-    static String explodeToString(LispObject arg1) throws Exception
+    public static String explodeToString(LispObject arg1) throws Exception
     {
         LispStream f = new LispOutputString();
         LispObject save = Jlisp.lit[Lit.std_output].car/*value*/;

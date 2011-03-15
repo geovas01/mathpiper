@@ -1,7 +1,9 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.javacompiler;
 
-//created 20/02/02 since it wasn't needed for Trivial.java
-// exactly same as CONSTANT_Methodref_info with "Method" replaced by "Field"
+// Convert basic datatypes into byte arrays etc
+
+import org.mathpiper.mpreduce.javacompiler.Attribute_info;
+
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -32,43 +34,93 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import java.io.*;
 
-public class CONSTANT_Fieldref_info extends Cp_info
+public abstract class ByteArray
 {
-    public static void main(String[] args) throws IOException
-    {
-        short cidx = (short)0x4;
-        short ntidx = (short)0xf;
-        CONSTANT_Fieldref_info cm = new CONSTANT_Fieldref_info(cidx, ntidx);
-        cm.printBytes(cm.dumpBytes());
-        Jlisp.println("\n");
-                
-        short cidx2 =        (short)0x3;
-        short ntidx2 = (short)0x10;
-        CONSTANT_Fieldref_info cm2 = new CONSTANT_Fieldref_info(cidx2, ntidx2);
-        cm2.printBytes(cm2.dumpBytes());
-        Jlisp.println("\n");
-    }
-        
-    short class_index;
-    short name_and_type_index;
-                
 
-    //constructor
-    CONSTANT_Fieldref_info(short classIndex, short ntIndex)
-        throws IOException
-    {   tag = CONSTANT_Fieldref;        
-        class_index = classIndex;
-        name_and_type_index = ntIndex;
-        //below is the toInfo() method of Code_Attribute.java
-        byte[][] infoTemp = new byte[2][0];
-        infoTemp[0] = shortToByteArray(class_index);
-        infoTemp[1] = shortToByteArray(name_and_type_index);
-                                
-        info = new byte[4];
-        info = flatBytes(infoTemp);
-    }
+static int totalArraySize(byte[][] Bytes)
+{
+    int k=0;
+    for (int i=0; i<Bytes.length; i++)
+        k+=Bytes[i].length;
+    return k;
 }
 
-// end of CONSTANT_Fieldref_info.java
+static byte[] flatBytes(byte[][] array_2d)
+{
+    byte[] array_1d = new byte[totalArraySize(array_2d)];
+    int k=0;
+    for (int i=0; i<array_2d.length; i++)
+    {
+        for (int j=0; j<array_2d[i].length; j++)
+            array_1d[k++] = array_2d[i][j];
+    }
+    return array_1d;
+}
+
+static void printBytes(byte[] Bytes)
+{
+    for (int i=0; i<Bytes.length; i++)
+    {   int n = Bytes[i] & 0xff;
+        if (n < 16) System.out.print("0" + Integer.toHexString(n));
+        else System.out.print(Integer.toHexString(n));
+        if (i%4 == 3) System.out.println();
+        else System.out.print(" ");
+    }
+    System.out.println();
+}
+
+static byte[] intToByteArray(int a)
+{
+    return new byte[] 
+        {(byte)(a>>24), (byte)(a>>16), (byte)(a>>8), (byte)a};
+//      {(byte)a, (byte)(a>>8), (byte)(a>>16), (byte)(a>>24)};
+}
+
+static byte[] shortToByteArray(short s)
+{
+    return new byte[]
+        {(byte)(s>>8), (byte)s};
+}
+
+static byte[] byteToByteArray(byte b)
+{
+    return new byte[] {b};
+}
+
+static byte[] attToByteArray(Attribute_info[] ai)
+{
+    byte[][] byteDArray = new byte[ai.length][];
+    for (int i=0; i<ai.length; i++)
+        byteDArray[i] = ai[i].dumpBytes();
+    return flatBytes(byteDArray);
+}
+
+static byte[] cpToByteArray(Cp_info[] cpi)
+{
+    byte[][] byteDArray = new byte[cpi.length][];
+    for (int i=0; i<cpi.length; i++)
+        byteDArray[i] = cpi[i].dumpBytes();
+    return flatBytes(byteDArray);
+}
+
+static byte[] miToByteArray(Method_info[] mi)
+{
+    byte[][] byteDArray = new byte[mi.length][];
+    for (int i=0; i<mi.length; i++)
+        byteDArray[i] = mi[i].dumpBytes();
+    return flatBytes(byteDArray);
+}
+
+static byte[] fiToByteArray(Field_info[] fi)
+{
+    byte[][] byteDArray = new byte[fi.length][];
+    for (int i=0; i<fi.length; i++)
+        byteDArray[i] = fi[i].dumpBytes();
+    return flatBytes(byteDArray);
+}
+
+
+}
+
+// end of ByteArray.java

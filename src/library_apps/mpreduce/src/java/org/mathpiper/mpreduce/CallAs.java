@@ -36,19 +36,19 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 import java.io.*;
 
-class CallAs extends LispFunction
+public class CallAs extends LispFunction
 {
 
 LispObject body;
 int nargs;
 
-CallAs(int nIn, LispObject target, int nPass)
+public CallAs(int nIn, LispObject target, int nPass)
 {
     body = target;
     nargs = (nIn<<4) + nPass;
 }
 
-CallAs(int packed)
+public CallAs(int packed)
 {
     nargs = packed;
 }
@@ -119,7 +119,7 @@ default:return ((Symbol)body).fn.opn(
         Jlisp.stack.push(body);
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

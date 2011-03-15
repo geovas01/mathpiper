@@ -37,13 +37,13 @@ import java.io.*;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-class Gensym extends Symbol
+public class Gensym extends Symbol
 {
     String nameBase = "G";
     static int gensymCounter = 0;
     int myNumber = -1;
 
-    Gensym(String name)
+    public Gensym(String name)
     {
         pname = null;
         nameBase = name;
@@ -54,12 +54,12 @@ class Gensym extends Symbol
         myNumber = -1;
     }
 
-    void completeName()
+    public void completeName()
     {   if (pname != null) return;
         pname = nameBase + (myNumber = gensymCounter++);
     }
 
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

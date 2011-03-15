@@ -37,7 +37,7 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class Undefined extends LispFunction
+public class Undefined extends LispFunction
 {
 
     public Undefined(String name)
@@ -45,7 +45,7 @@ class Undefined extends LispFunction
         this.name = name;
     }
 
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

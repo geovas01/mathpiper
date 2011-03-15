@@ -39,6 +39,7 @@ package org.mathpiper.mpreduce;
 // A "cons" is an ordered pair. In ML terms it would be
 // a bit like ('a * 'b)
 
+import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
 
 public class Cons extends LispObject
@@ -60,7 +61,7 @@ public class Cons extends LispObject
     }
 
 // Function calls are written as lists (fn a1 a2 ...)
-    LispObject eval() throws Exception
+    public LispObject eval() throws Exception
     {
         if(Jlisp.interruptEvaluation == true)
         {
@@ -198,7 +199,7 @@ public class Cons extends LispObject
         iprint();
     }
 
-    LispObject copy()
+    public LispObject copy()
     {
         LispObject a = this;
         LispObject r = Jlisp.nil;
@@ -280,7 +281,7 @@ public class Cons extends LispObject
         }
     }
 
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
         if (w != null &&

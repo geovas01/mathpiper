@@ -1,4 +1,6 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.javacompiler;
+
+// created 02/02/02
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -29,24 +31,30 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
+import java.io.*;
 
-public class Attribute_info
+public class CONSTANT_Class_info extends Cp_info
 {
-    static short attributes_count;
-
-    short attribute_name_index;
-    int   attribute_length;
-    byte  info[];    //should be [attribute_length]
-
-    byte[] dumpBytes()
+    public static void main(String[] args) throws IOException
     {
-        byte[][] Bytes = new byte[3][0];
-        Bytes[0] = ByteArray.shortToByteArray(attribute_name_index);
-        Bytes[1] = ByteArray.intToByteArray(attribute_length);
-        Bytes[2] = info;
-        return ByteArray.flatBytes(Bytes);
+        short index = (short)0x11;
+        CONSTANT_Class_info ci = new CONSTANT_Class_info(index);
+        ci.printBytes(ci.dumpBytes());
+                
+        short index2 = (short)0x12;
+        CONSTANT_Class_info ci2 = new CONSTANT_Class_info(index2);
+        ci2.printBytes(ci2.dumpBytes());
     }
-
+        
+    short name_index;
+        
+    //constructor
+    CONSTANT_Class_info(short nameIndex)throws IOException
+    {   tag = CONSTANT_Class;        
+        name_index = nameIndex;
+        info = shortToByteArray(name_index);
+    }
+                
 }
 
-// end of Attribute_info.java
+// end of CONSTANT_Class_info.java

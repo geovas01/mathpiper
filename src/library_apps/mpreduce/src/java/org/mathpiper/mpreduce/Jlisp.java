@@ -45,6 +45,11 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.builtin.Fns;
+import org.mathpiper.mpreduce.builtin.Fns1;
+import org.mathpiper.mpreduce.builtin.Fns2;
+import org.mathpiper.mpreduce.builtin.Fns3;
+import org.mathpiper.mpreduce.javacompiler.Fns4;
 import java.io.*;
 import java.math.*;
 import java.util.*;
@@ -59,72 +64,72 @@ public class Jlisp
 // variables that point towards them. The direct access here is in
 // cases where the Lisp world may not have been fully set up.
 static LispStream lispIO, lispErr;
-static boolean interactivep = false;
-static boolean debugFlag = false;
-static boolean headline = true;
-static boolean backtrace = true;
-static LispObject errorCode;
-static int verbosFlag = 1;
+public static boolean interactivep = false;
+public static boolean debugFlag = false;
+public static boolean headline = true;
+public static boolean backtrace = true;
+public static LispObject errorCode;
+public static int verbosFlag = 1;
 
 public static boolean interruptEvaluation = false;
 
-static void print(String s)
+public static void print(String s)
 {
     ((LispStream)(lit[Lit.std_output].car/*value*/)).print(s);
 }
 
-static void println(String s)
+public static void println(String s)
 {
     ((LispStream)(lit[Lit.std_output].car/*value*/)).println(s);
 }
 
-static void print(LispObject s)
+public static void print(LispObject s)
 {
     if (s==null) print("<null>"); else s.print();
 }
 
-static void println(LispObject s)
+public static void println(LispObject s)
 {
     if (s==null) print("<null>"); else s.print();
     ((LispStream)(lit[Lit.std_output].car/*value*/)).println();
 }
 
-static void println()
+public static void println()
 {
     ((LispStream)(lit[Lit.std_output].car/*value*/)).println();
 }
 
-static void errprint(String s)
+public static void errprint(String s)
 {
     ((LispStream)(lit[Lit.err_output].car/*value*/)).print(s);
 }
 
-static void errprintln(String s)
+public static void errprintln(String s)
 {
     ((LispStream)(lit[Lit.err_output].car/*value*/)).println(s);
 }
 
-static void errprintln()
+public static void errprintln()
 {
     ((LispStream)(lit[Lit.err_output].car/*value*/)).println();
 }
 
-static void traceprint(String s)
+public static void traceprint(String s)
 {
     ((LispStream)(lit[Lit.tr_output].car/*value*/)).print(s);
 }
 
-static void traceprintln(String s)
+public static void traceprintln(String s)
 {
     ((LispStream)(lit[Lit.tr_output].car/*value*/)).println(s);
 }
 
-static void traceprintln()
+public static void traceprintln()
 {
     ((LispStream)(lit[Lit.tr_output].car/*value*/)).println();
 }
 
-static LispObject error(String s) throws LispException
+public static LispObject error(String s) throws LispException
 {
     if (headline)
     {   errprintln();
@@ -133,7 +138,7 @@ static LispObject error(String s) throws LispException
     throw new LispException(s);
 }
 
-static LispObject error(String s, LispObject a) throws LispException
+public static LispObject error(String s, LispObject a) throws LispException
 {
     if (headline)
     {   errprintln();
@@ -147,9 +152,9 @@ static LispObject error(String s, LispObject a) throws LispException
 
 // The main parts of this file relate to system startup options
 
-static PDS [] images = new PDS[10];
-static int outputImagePos;
-static int imageCount;
+public static PDS [] images = new PDS[10];
+public static int outputImagePos;
+public static int imageCount;
 
 static String [] imageFile = new String[10];
 
@@ -164,11 +169,11 @@ public static void main(String [] args)
 static Reader in;
 static PrintWriter out;
 
-static boolean standAlone;
+public static boolean standAlone;
 
 static Vector openOutputFiles = null;
 
-static boolean restarting = false;
+public static boolean restarting = false;
 static String  restartModule = null;
 static String  restartFn = null;
 static String  restartArg = null;
@@ -845,7 +850,7 @@ static void standardStreams()
 }
 
 
-static void preserve(LispObject arg1, LispObject arg2)
+public static void preserve(LispObject arg1, LispObject arg2)
 {
     PDS imagePDS = images[outputImagePos];
     if (imagePDS == null)
@@ -897,11 +902,11 @@ static void preserve(LispObject arg1, LispObject arg2)
 // it is nicer to have enerything in one top-level class
 
 public static Symbol nil, lispTrue;
-static LispObject [] lit = new LispObject[Lit.names.length];
+public static LispObject [] lit = new LispObject[Lit.names.length];
 
-static int modulus = 1;
-static BigInteger bigModulus = BigInteger.ONE;
-static int printprec = 15;
+public static int modulus = 1;
+public static BigInteger bigModulus = BigInteger.ONE;
+public static int printprec = 15;
 
 static Fns1 fns1 = new Fns1();
 static Fns2 fns2 = new Fns2();
@@ -912,25 +917,25 @@ static Specfn specfn = new Specfn();
 // I choose my initial oblist size so that REDUCE can run without need
 // for re-hashing at all often. The size must also be a prime, and 15013
 // seems to fit the bill.
-static int oblistSize = 15013;
+public static int oblistSize = 15013;
 static int oblistCount = 0;
-static Symbol [] oblist = new Symbol[oblistSize];
+public static Symbol [] oblist = new Symbol[oblistSize];
 static LispVector obvector = new LispVector((LispObject [])oblist);
 
-static Symbol [] chars  = new Symbol[128];  // to speed up READCH
+public static Symbol [] chars  = new Symbol[128];  // to speed up READCH
 static LispObject [] spine = new LispObject[17]; // for PRESERVE
 
 
 static int inputType;
 
-static OutputStream odump;
-static InputStream  idump;
+public static OutputStream odump;
+public static InputStream  idump;
 
-static HashSet objects;
-static HashMap repeatedObjects;
-static int sharedIndex;
+public static HashSet objects;
+public static HashMap repeatedObjects;
+public static int sharedIndex;
 static Stack stack;
-static boolean specialNil, descendSymbols;
+public static boolean specialNil, descendSymbols;
 
 static void scanObject(LispObject a)
 {
@@ -1046,7 +1051,7 @@ static void preserve(OutputStream dump) throws IOException
 
 }
 
-static void dumpTree(LispObject a, OutputStream dump) throws IOException
+public static void dumpTree(LispObject a, OutputStream dump) throws IOException
 {
     int i;
     odump = dump;
@@ -1096,7 +1101,7 @@ static LispObject [] shared;
 static HashMap builtinFunctions, builtinSpecials;
 
 
-static void preRestore() throws IOException
+public static void preRestore() throws IOException
 {
     sharedIndex = 0;
     sharedSize = idump.read();
@@ -1109,7 +1114,7 @@ static void preRestore() throws IOException
     stack.push(new Cons()); // to make "peek()" valid even when empty
 }
 
-static void postRestore()
+public static void postRestore()
 {
     istack = null;
     stack = null;
@@ -1248,7 +1253,7 @@ static void reHashOblist()
     obvector.vec = v;
 }
 
-static LispObject readObject() throws IOException
+public static LispObject readObject() throws IOException
 {
 // Reloading an image uses an explicit stack to manage the recusion that
 // it needs. It controls this stack using a finite-state control. The states
@@ -1848,7 +1853,7 @@ static LispObject readObject() throws IOException
 
 static LispStream readIn;
 
-static LispObject read() throws Exception
+public static LispObject read() throws Exception
 {
     LispObject r;
     r = lit[Lit.std_input].car/*value*/;
@@ -2043,7 +2048,7 @@ static void initSymbols()
 //System.out.println("After cold start: " + oblistCount);
 }
 
-static void readEvalPrintLoop(boolean noRestart) throws ProgEvent
+public static void readEvalPrintLoop(boolean noRestart) throws ProgEvent
 {
 // If the user had set a restart-function when an image was preserved
 // then I will run that now unless the command-line had gone "-n" (for

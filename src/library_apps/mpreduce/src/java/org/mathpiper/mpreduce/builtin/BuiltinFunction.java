@@ -1,10 +1,13 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.builtin;
 
-//created 02/02/02
+
+//
+// This file is part of the Jlisp implementation of Standard Lisp
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+//
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
- *                            also contributions from Vijay Chauhan, 2002 *
  *                                                                        *
  * Redistribution and use in source and binary forms, with or without     *
  * modification, are permitted provided that the following conditions are *
@@ -32,42 +35,49 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispFunction;
 
-public class CONSTANT_Methodref_info extends Cp_info
+public abstract class BuiltinFunction extends LispFunction
 {
-    public static void main(String[] args) throws IOException
+    void scan()
     {
-        short cidx = (short)0x4;
-        short ntidx = (short)0xf;
-        CONSTANT_Methodref_info cm = new CONSTANT_Methodref_info(cidx, ntidx);
-        cm.printBytes(cm.dumpBytes());
-        Jlisp.println("\n");
-                
-        short cidx2 = (short)0x3;
-        short ntidx2 = (short)0x10;
-        CONSTANT_Methodref_info cm2 = new CONSTANT_Methodref_info(cidx2, ntidx2);
-        cm2.printBytes(cm2.dumpBytes());
-        Jlisp.println("\n");
+        if (Jlisp.objects.contains(this)) // seen before?
+	{   if (!Jlisp.repeatedObjects.containsKey(this))
+	    {   Jlisp.repeatedObjects.put(
+	            this,
+	            Jlisp.nil); // value is junk at this stage
+	    }
+	}
+	else Jlisp.objects.add(this);
     }
-        
-    short class_index;
-    short name_and_type_index;
-                
+    
+    public void dump() throws IOException
+    {
+        Object w = Jlisp.repeatedObjects.get(this);
+	if (w != null &&
+	    w instanceof Integer) putSharedRef(w); // processed before
+	else
+	{   if (w != null) // will be used again sometime
+	    {   Jlisp.repeatedObjects.put(
+	            this,
+		    new Integer(Jlisp.sharedIndex++));
+		Jlisp.odump.write(X_STORE);
+            }
+	    byte [] rep = name.getBytes("UTF8");
+	    int length = rep.length;
+	    if (length <= 0xff)
+	    {   Jlisp.odump.write(X_FNAME);
+	        Jlisp.odump.write(length);
+	    }
+	    else throw new IOException("overlong name for a function");
+	    for (int i=0; i<length; i++)
+	        Jlisp.odump.write(rep[i]);
+	}
+    }
 
-    //constructor
-    CONSTANT_Methodref_info(short classIndex, short ntIndex)
-        throws IOException
-    {   tag = CONSTANT_Methodref;        
-        class_index = classIndex;
-        name_and_type_index = ntIndex;
-        //below is the toInfo() method of Code_Attribute.java
-        byte[][] infoTemp = new byte[2][0];
-        infoTemp[0] = shortToByteArray(class_index);
-        infoTemp[1] = shortToByteArray(name_and_type_index);
-                                
-        info = new byte[4];
-        info = flatBytes(infoTemp);
-    }
 }
 
-// end of CONSTANT_Methodref_info.java
+// End of BuiltinFunction.java
+
+

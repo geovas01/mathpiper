@@ -1,9 +1,6 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.javacompiler;
 
-// amended 02/02/02 so that it actually does something
-// a lot of code simply copied over from Attribute_info
-// maybe an idea to make all infos inherit from somewhere=>no copying
-// maybe more efficient code that way, no duplicates of same code
+//created 02/02/02
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -34,36 +31,14 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-
 import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
 
-public class Cp_info
+public class CONSTANT_Utf8_info extends Cp_info
 {
-    public static void main(String[] args) throws IOException,
-                                                  UnsupportedEncodingException
+    public static void main(String[] args)
+                       throws IOException, UnsupportedEncodingException
     {
-        short cidx =    (short)0x4;
-        short ntidx = (short)0xf;
-        CONSTANT_Methodref_info cm = new CONSTANT_Methodref_info(cidx, ntidx);
-        cm.printBytes(cm.dumpBytes());
-        Jlisp.println("\n");
-        
-        short cidx2 =    (short)0x3;
-        short ntidx2 = (short)0x10;
-        CONSTANT_Methodref_info cm2 = new CONSTANT_Methodref_info(cidx2, ntidx2);
-        cm2.printBytes(cm2.dumpBytes());
-        Jlisp.println("\n");
-        
-        short index = (short)0x11;
-        CONSTANT_Class_info ci = new CONSTANT_Class_info(index);
-        ci.printBytes(ci.dumpBytes());
-        Jlisp.println("\n");
-        
-        short index2 = (short)0x12;
-        CONSTANT_Class_info ci2 = new CONSTANT_Class_info(index2);
-        ci2.printBytes(ci2.dumpBytes());
-        Jlisp.println("\n");
-        
         String s = "<init>";
         CONSTANT_Utf8_info cu = new CONSTANT_Utf8_info(s);
         cu.printBytes(cu.dumpBytes());
@@ -113,19 +88,7 @@ public class Cp_info
         CONSTANT_Utf8_info cu9 = new CONSTANT_Utf8_info(s9);
         cu9.printBytes(cu9.dumpBytes());
         Jlisp.println("\n");
-        
-        short nidx =    (short)0x5;
-        short didx =    (short)0x6;
-        CONSTANT_NameAndType_info cnt = new CONSTANT_NameAndType_info(nidx,didx);
-        cnt.printBytes(cnt.dumpBytes());
-        Jlisp.println("\n");
-        
-        short nidx2 =    (short)0xb;
-        short didx2 = (short)0xc;
-        CONSTANT_NameAndType_info cnt2 = new CONSTANT_NameAndType_info(nidx2,didx2);
-        cnt2.printBytes(cnt2.dumpBytes());
-        Jlisp.println("\n");
-        
+            
         String s10 = "Trivial";
         CONSTANT_Utf8_info cu10 = new CONSTANT_Utf8_info(s10);
         cu10.printBytes(cu10.dumpBytes());
@@ -135,99 +98,28 @@ public class Cp_info
         CONSTANT_Utf8_info cu11 = new CONSTANT_Utf8_info(s11);
         cu11.printBytes(cu11.dumpBytes());
         Jlisp.println("\n");
-    }
-    
-    
-    
-    static final byte CONSTANT_Class                = 0x07;
-    static final byte CONSTANT_Fieldref             = 0x09;
-    static final byte CONSTANT_Methodref            = 0x0a;
-    static final byte CONSTANT_InterfaceMethodref   = 0x0b;
-    static final byte CONSTANT_String               = 0x08;
-    static final byte CONSTANT_Integer              = 0x03;
-    static final byte CONSTANT_Float                = 0x04;
-    static final byte CONSTANT_Long                 = 0x05;
-    static final byte CONSTANT_Double               = 0x06;
-    static final byte CONSTANT_NameAndType          = 0x0c;
-    static final byte CONSTANT_Utf8                 = 0x01;
-
-    byte tag;
-    byte info[];
         
-    byte[] dumpBytes()
-    {
-        byte[][] Bytes = new byte[2][0];
+    }
         
-        byte[] tagarray = new byte[1];
-        tagarray[0]     = tag;
-        Bytes[0]        = tagarray;
-        Bytes[1]        = info;
-            
+    
+    short length;
+    byte bytes[];    //should be [length]
+    
+    //constructor
+    CONSTANT_Utf8_info(String s)
+        throws IOException, UnsupportedEncodingException
+    {   tag = CONSTANT_Utf8;
+        bytes = s.getBytes("UTF-8");
+        length = (short)bytes.length;
         
-        int size = totalArraySize(Bytes);
-        byte[] FlatBytes = new byte[size];
-        return flatBytes(Bytes);
-    }
-    
-    byte[] flatBytes(byte[][] DArray)
-    {            
-        byte[] FlatBytes = new byte[totalArraySize(DArray)];
+        byte[][] infoTemp = new byte[2][0];
+        infoTemp[0] = shortToByteArray(length);
+        infoTemp[1] = bytes;
         
-        int k=0;    
-        for (int i=0; i<DArray.length; i++)
-        {
-            for (int j=0; j<DArray[i].length; j++)
-                FlatBytes[k++] = DArray[i][j];
-        }
-        return FlatBytes;
+        info = new byte[totalArraySize(infoTemp)];
+        info = flatBytes(infoTemp);
     }
-    
-    int totalArraySize(byte[][] Bytes)
-    {
-        int k=0;
-        for (int i=0; i<Bytes.length; i++)
-            k+=Bytes[i].length;
-        return k;
-    }
-    
-    
-    public void printBytes(byte[] Bytes)
-    {
-        for (int i=0; i<Bytes.length; i++)
-        {    
-            int b = Bytes[i] & 0xff;
-            if ((i+1)%8==0) //prints four bytes per line
-                Jlisp.println(Integer.toHexString(b));
-            else 
-                Jlisp.print(Integer.toHexString(b)+ " ");
-        }
-    }
-    
-    byte[] intToByteArray(int a)
-    {    
-        byte[] byteArray = new byte[4];
-                
-        for (int i=3; i>=0; i--)
-        {
-            byte b = (byte)(a >>> (8*(3-i)));
-            byteArray[i] = b;
-        }
-        return byteArray;
-    }
-    
-    byte[] shortToByteArray(short s)
-    {    
-        byte[] byteArray = new byte[2];
-        
-        for (int i=1; i>=0; i--)
-        {
-            byte b = (byte)(s >>> (8*(1-i)));
-            byteArray[i] = b;
-        }
-        return byteArray;
-    }        
-    
     
 }
 
-// end of Cp_info.java
+// end of CONSTANT_Utf8_info.java

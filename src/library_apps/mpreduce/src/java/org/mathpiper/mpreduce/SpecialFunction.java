@@ -79,7 +79,7 @@ abstract class SpecialFunction extends LispObject
 	else Jlisp.objects.add(this);
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

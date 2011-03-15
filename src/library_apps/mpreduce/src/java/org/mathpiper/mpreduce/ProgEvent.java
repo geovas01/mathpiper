@@ -35,19 +35,19 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-class ProgEvent extends LispException
+public class ProgEvent extends LispException
 {
-    static final int STOP     = 2;
-    static final int RESTART  = 3;
-    static final int THROW    = 4;
-    static final int PRESERVE = 5;
+    public static final int STOP     = 2;
+    public static final int RESTART  = 3;
+    public static final int THROW    = 4;
+    public static final int PRESERVE = 5;
     
     LispObject details;
     LispObject extras;
     String message;
-    int type;
+    public int type;
 
-    ProgEvent(int type, LispObject details, String message)
+    public ProgEvent(int type, LispObject details, String message)
     {
         this.type = type;
         this.details = details;
@@ -55,7 +55,7 @@ class ProgEvent extends LispException
         this.message = message; 
     }
 
-    ProgEvent(int type, LispObject details, LispObject extras, String message)
+    public ProgEvent(int type, LispObject details, LispObject extras, String message)
     {
         this.type = type;
         this.details = details;

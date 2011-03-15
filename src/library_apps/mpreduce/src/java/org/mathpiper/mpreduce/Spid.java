@@ -65,7 +65,7 @@ class Spid extends LispObject
         this.data = data;
     }
 
-    LispObject eval()
+    public LispObject eval()
     {
         return this;
     }
@@ -102,7 +102,7 @@ class Spid extends LispObject
 	else Jlisp.objects.add(w);
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object d = new Integer(tag);
         Object w = Jlisp.repeatedObjects.get(d);

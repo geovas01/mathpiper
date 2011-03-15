@@ -1,10 +1,8 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.javacompiler;
 
-//04/03/02 for adding java/lang/Exception to Method_info
-//note if more exceptions need adding...
-//make a ByteArray.shortArrayToByteArray() for infotemp[1]
-
-//Exceptions_attribute.java
+// amended 01/02/02
+// 16/02/02 IGNORE SOURCEFILE_ATTRIBUTE since OPTIONAL
+// associated code in ClassDescription has been commented out
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -36,36 +34,21 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.javacompiler.Attribute_info;
 import java.io.*;
 
-public class Exceptions_attribute extends Attribute_info
+public class SourceFile_attribute extends Attribute_info
 {
-   // short attribute_name_index;
-   // int   attribute_length;
-   // byte  info[];    //should be [attribute_length]
-
-  short   number_of_exceptions = (short)1; //only ONE exception
-	short[] exception_index_table = new short[number_of_exceptions];   
-   
-    void toInfo() throws IOException
+    //attribute_length for SourceFile must always be 2        
+    
+    void setSource(short name_index, short sf_index)
     {
-        byte[][] infoTemp = new byte[2][0];
-        infoTemp[0] = ByteArray.shortToByteArray(number_of_exceptions);
-        infoTemp[1] = ByteArray.shortToByteArray(exception_index_table[0]);
-        //assume only one entry in exception_table
-        
-        info = ByteArray.flatBytes(infoTemp);
-        attribute_length = info.length;
+        attribute_name_index = name_index;
+        info = ByteArray.shortToByteArray(sf_index);
+        attribute_length = 2;
     }
+    
 }
 
-// end of Exceptions_attribute.java
+// end of SourceFile_attribute.java
 
-
-	
-	
-	
-	
-	
-	
-	

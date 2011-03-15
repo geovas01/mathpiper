@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.builtin;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -40,15 +40,46 @@ package org.mathpiper.mpreduce;
 // Each built-in function is created wrapped in a class
 // that is derived from BuiltinFunction.
 
+import org.mathpiper.mpreduce.builtin.BuiltinFunction;
 import java.io.*;
 import java.util.*;
 import java.text.*;
 import java.math.BigInteger;
 import java.lang.reflect.*;
+import org.mathpiper.mpreduce.Bytecode;
+import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.Fasl;
+import org.mathpiper.mpreduce.Gensym;
+import org.mathpiper.mpreduce.Interpreted;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispCounter;
+import org.mathpiper.mpreduce.LispEqualObject;
+import org.mathpiper.mpreduce.LispException;
+import org.mathpiper.mpreduce.LispExploder;
+import org.mathpiper.mpreduce.LispFloat;
+import org.mathpiper.mpreduce.LispFunction;
+import org.mathpiper.mpreduce.LispHash;
+import org.mathpiper.mpreduce.LispInteger;
+import org.mathpiper.mpreduce.LispNumber;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.LispSmallInteger;
+import org.mathpiper.mpreduce.LispStream;
+import org.mathpiper.mpreduce.LispString;
+import org.mathpiper.mpreduce.LispVector;
+import org.mathpiper.mpreduce.ListReader;
+import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.Macro;
+import org.mathpiper.mpreduce.PDS;
+import org.mathpiper.mpreduce.ProgEvent;
+import org.mathpiper.mpreduce.ResourceException;
+import org.mathpiper.mpreduce.Specfn;
+import org.mathpiper.mpreduce.Symbol;
+import org.mathpiper.mpreduce.Undefined;
+import org.mathpiper.mpreduce.WriterToLisp;
 
-class Fns1
+public class Fns1
 {
-    Object [][] builtins = 
+    public Object [][] builtins =
     {
         {"userjava",                    new UserJavaFn()},
         {"acons",                       new AconsFn()},

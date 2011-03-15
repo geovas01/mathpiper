@@ -40,7 +40,7 @@ import java.io.*;
 
 public abstract class LispFunction extends LispObject
 {
-    String name = "unknown-function";
+    public String name = "unknown-function";
 
     public LispObject op0() throws Exception
     {
@@ -62,12 +62,12 @@ public abstract class LispFunction extends LispObject
         return error("undefined " + name + " with " + args.length + " args");
     }
 
-    LispObject error(String s) throws Exception
+    public LispObject error(String s) throws Exception
     {
         return Jlisp.error(s);
     }
 
-    LispObject error(String s, LispObject a) throws Exception
+    public LispObject error(String s, LispObject a) throws Exception
     {
         return Jlisp.error(s, a);
     }
