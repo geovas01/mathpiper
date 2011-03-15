@@ -34,21 +34,22 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
+import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
 import java.math.*;
 import java.util.zip.*;
 
-class Fasl
+public class Fasl
 {
-    static OutputStream writer = null;
-    static InputStream  reader = null;
+    public static OutputStream writer = null;
+    public static InputStream  reader = null;
 
     static LispObject [] recent = null;
     static int recentp, recentn;
 
     static String moduleName = "";
 
-    static LispObject startModule(LispObject arg1) throws LispException
+    public static LispObject startModule(LispObject arg1) throws LispException
     {
         if (arg1 == Jlisp.nil) // terminate file
         {   if (writer != null)
@@ -106,7 +107,7 @@ class Fasl
         return Jlisp.lispTrue;
     }
 
-    static void defineInModule(int n) throws IOException
+    public static void defineInModule(int n) throws IOException
     {
 // here I expect n to be in the range -1 to 0x3ffff
         n++;   // work with an offset number so that valid range includes "-1"
@@ -126,14 +127,14 @@ class Fasl
         }
     }
 
-    static void faslWrite(LispObject arg1) throws Exception
+    public static void faslWrite(LispObject arg1) throws Exception
     {
         Jlisp.dumpTree(arg1, writer);
     }
     
     static String name;
 
-    static boolean openModule(LispObject arg1) throws LispException
+    public static boolean openModule(LispObject arg1) throws LispException
     {
         name = "unknown";
         if (arg1 instanceof Symbol)
@@ -168,7 +169,7 @@ class Fasl
         return false;
     }
 
-    static LispObject loadModule(LispObject arg1) throws Exception
+    public static LispObject loadModule(LispObject arg1) throws Exception
     {
         InputStream readerSave = reader;
         LispObject [] recentSave = recent;

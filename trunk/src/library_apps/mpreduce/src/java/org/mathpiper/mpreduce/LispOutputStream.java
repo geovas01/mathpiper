@@ -37,12 +37,12 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class LispOutputStream extends LispStream
+public class LispOutputStream extends LispStream
 {
 
     boolean closeMe;
 
-    LispOutputStream(String n) throws IOException // to a named file
+    public LispOutputStream(String n) throws IOException // to a named file
     {
         super(n);
         wr = new BufferedWriter(new FileWriter(nameConvert(n)));
@@ -50,7 +50,7 @@ class LispOutputStream extends LispStream
         Jlisp.openOutputFiles.add(this);
     }
 
-    LispOutputStream(File n) throws IOException // to a named file
+    public LispOutputStream(File n) throws IOException // to a named file
     {
         super(n.getName());
         wr = new BufferedWriter(new FileWriter(n));
@@ -58,7 +58,7 @@ class LispOutputStream extends LispStream
         Jlisp.openOutputFiles.add(this);
     }
 
-    LispOutputStream(String n, boolean appendp) throws IOException
+    public LispOutputStream(String n, boolean appendp) throws IOException
     // to a file, but with an "append" option
     {
         super(n);
@@ -67,7 +67,7 @@ class LispOutputStream extends LispStream
         Jlisp.openOutputFiles.add(this);
     }
 
-    LispOutputStream() // uses standard input, no extra buffering.
+    public LispOutputStream() // uses standard input, no extra buffering.
                        // but note that I have made it a Writer already...
     {
         super("<stdout>");
@@ -76,7 +76,7 @@ class LispOutputStream extends LispStream
         Jlisp.openOutputFiles.add(this);
     }
 
-    void flush()
+    public void flush()
     {
         try
         {   wr.flush();
@@ -85,7 +85,7 @@ class LispOutputStream extends LispStream
         {}
     }
 
-    void close()
+    public void close()
     {
         Jlisp.openOutputFiles.removeElement(this);
         try
@@ -96,7 +96,7 @@ class LispOutputStream extends LispStream
         {}
     }
 
-    void print(String s)
+    public void print(String s)
     {
         if (s == null) s = "null";
         char [] v = s.toCharArray();
@@ -133,7 +133,7 @@ class LispOutputStream extends LispStream
         {}
     }
 
-    void println(String s)
+    public void println(String s)
     {
         if (s == null) s = "null";
         char [] v = s.toCharArray();

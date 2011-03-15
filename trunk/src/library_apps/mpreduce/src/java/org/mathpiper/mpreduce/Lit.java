@@ -35,7 +35,7 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-class Lit
+public class Lit
 {
     static String [] names =
     {
@@ -104,59 +104,59 @@ class Lit
 // The names listed here MUST be in the same order as entries in the
 // above table.
 
-    static final int restart    = 0;
-    static final int banner     = 1;
-    static final int hashtab    = 2;
-    static final int birthday   = 3;
-    static final int spareV     = 4;
+    public static final int restart    = 0;
+    public static final int banner     = 1;
+    public static final int hashtab    = 2;
+    public static final int birthday   = 3;
+    public static final int spareV     = 4;
  
-    static final int undefined  = 5; 
-    static final int lambda     = 6; 
-    static final int quote      = 7; 
-    static final int comma      = 8; 
-    static final int commaAt    = 9; 
-    static final int cons       = 10;
-    static final int append     = 11;
-    static final int special    = 12;
-    static final int global     = 13;
-    static final int expr       = 14;
-    static final int subr       = 15;
-    static final int macro      = 16;
-    static final int fexpr      = 17;
-    static final int input      = 18;
-    static final int output     = 19;
-    static final int noncom     = 20;
-    static final int eof        = 21;
-    static final int space      = 22;
-    static final int newline    = 23;
-    static final int backspace  = 24;
-    static final int tab        = 25;
-    static final int formFeed   = 26;
-    static final int cr         = 27;
-    static final int rubout     = 28;
-    static final int escape     = 29;
-    static final int lispsystem = 30;
-    static final int raise      = 31;
-    static final int lower      = 32;
-    static final int starcomp   = 33;
-    static final int compile    = 34;
-    static final int commonLisp = 35;
-    static final int starecho   = 36;
-    static final int optional   = 37;
-    static final int rest       = 38;
-    static final int savedef    = 39;
-    static final int starpackage= 40;
-    static final int terminal_io= 41;
-    static final int std_output = 42;
-    static final int std_input  = 43;
-    static final int err_output = 44;
-    static final int tr_output  = 45;
-    static final int debug_io   = 46;
-    static final int query_io   = 47;
-    static final int redefmsg   = 48;
-    static final int resources  = 49;
-    static final int spare2     = 50;
-    static final int spare1     = 51;
+    public static final int undefined  = 5;
+    public static final int lambda     = 6;
+    public static final int quote      = 7;
+    public static final int comma      = 8;
+    public static final int commaAt    = 9;
+    public static final int cons       = 10;
+    public static final int append     = 11;
+    public static final int special    = 12;
+    public static final int global     = 13;
+    public static final int expr       = 14;
+    public static final int subr       = 15;
+    public static final int macro      = 16;
+    public static final int fexpr      = 17;
+    public static final int input      = 18;
+    public static final int output     = 19;
+    public static final int noncom     = 20;
+    public static final int eof        = 21;
+    public static final int space      = 22;
+    public static final int newline    = 23;
+    public static final int backspace  = 24;
+    public static final int tab        = 25;
+    public static final int formFeed   = 26;
+    public static final int cr         = 27;
+    public static final int rubout     = 28;
+    public static final int escape     = 29;
+    public static final int lispsystem = 30;
+    public static final int raise      = 31;
+    public static final int lower      = 32;
+    public static final int starcomp   = 33;
+    public static final int compile    = 34;
+    public static final int commonLisp = 35;
+    public static final int starecho   = 36;
+    public static final int optional   = 37;
+    public static final int rest       = 38;
+    public static final int savedef    = 39;
+    public static final int starpackage= 40;
+    public static final int terminal_io= 41;
+    public static final int std_output = 42;
+    public static final int std_input  = 43;
+    public static final int err_output = 44;
+    public static final int tr_output  = 45;
+    public static final int debug_io   = 46;
+    public static final int query_io   = 47;
+    public static final int redefmsg   = 48;
+    public static final int resources  = 49;
+    public static final int spare2     = 50;
+    public static final int spare1     = 51;
 }
 
 // end of Lit.java

@@ -37,29 +37,29 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class LispCounter extends LispStream
+public class LispCounter extends LispStream
 {
 
-    LispCounter()
+    public LispCounter()
     {
         super("<character counter>");
         column = 0;
     }
 
-    void flush()
+    public void flush()
     {
     }
 
-    void close()
+    public void close()
     {
     }
 
-    void print(String s)
+    public void print(String s)
     {
         column += s.length();
     }
 
-    void println(String s)
+    public void println(String s)
     {
         column += s.length() + 1;
     }

@@ -37,13 +37,13 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class TracedFunction extends LispFunction
+public class TracedFunction extends LispFunction
 {
     Symbol name;
-    LispFunction fn;
+    public LispFunction fn;
     static int traceDepth = 0;
         
-    TracedFunction(Symbol name, LispFunction fn)
+    public TracedFunction(Symbol name, LispFunction fn)
     {
         this.name = name;
         this.fn = fn;
@@ -126,13 +126,13 @@ class TracedFunction extends LispFunction
         return r;
     }
 
-    void print()
+    public void print()
     {
         Jlisp.print("Traced:");
 	name.print();
     }
 
-    void print(int n)
+    public void print(int n)
     {
         Jlisp.print("Traced:");
 	name.print(n);
@@ -149,7 +149,7 @@ class TracedFunction extends LispFunction
         fn.scan();
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         fn.dump();
     }

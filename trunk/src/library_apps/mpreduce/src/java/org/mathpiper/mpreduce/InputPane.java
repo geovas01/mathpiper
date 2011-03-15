@@ -36,6 +36,7 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
 import java.awt.*;
 import java.awt.event.*;

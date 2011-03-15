@@ -1,10 +1,6 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.javacompiler;
 
-// 16/02/02 actually made to do something
-// almost exactly identical to Method_info so may consider making a superclass
-// and then subclassing Method_info and Field_info from it?
-
-import java.io.*;
+//created 02/02/02
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -35,45 +31,49 @@ import java.io.*;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-public class Field_info
-{
-    static short fields_count;
+import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
 
-    short access_flags;
+public class CONSTANT_NameAndType_info extends Cp_info
+{
+    public static void main(String[] args) throws IOException
+    {
+        short nidx = (short)0x5;
+        short didx = (short)0x6;
+        CONSTANT_NameAndType_info cnt =
+            new CONSTANT_NameAndType_info(nidx,didx);
+        cnt.printBytes(cnt.dumpBytes());
+        Jlisp.println("\n");
+        
+        short nidx2 = (short)0xb;
+        short didx2 = (short)0xc;
+        CONSTANT_NameAndType_info cnt2 =
+            new CONSTANT_NameAndType_info(nidx2,didx2);
+        cnt2.printBytes(cnt2.dumpBytes());
+        Jlisp.println("\n");
+        
+    }
+    
     short name_index;
     short descriptor_index;
-    short attributes_count;
-    Attribute_info attributes[];    // should be [attributes_count]
+    
 
-    byte[] fieldName;
-    byte[] descriptor;
-
-    void setAccess(short access)
-    {
-        access_flags = access;
+    //constructor
+    CONSTANT_NameAndType_info(short nameIndex, short desIndex)
+                             throws IOException
+    {    tag = CONSTANT_NameAndType;    
+        name_index = nameIndex;
+        descriptor_index = desIndex;
+        //below is the toInfo() method of Code_Attribute.java
+        byte[][] infoTemp = new byte[2][0];
+        infoTemp[0] = shortToByteArray(name_index);
+        infoTemp[1] = shortToByteArray(descriptor_index);
+                
+        info = new byte[4];
+        info = flatBytes(infoTemp);
     }
-
-    void setName(String s) throws UnsupportedEncodingException
-    {
-        fieldName = s.getBytes("UTF-8");
-    }
-
-    void setDescriptor(String s) throws UnsupportedEncodingException
-    {
-        descriptor = s.getBytes("UTF-8");
-    }
-
-    byte[] dumpBytes()
-    {
-        byte[][] Bytes = new byte[5][0];
-        Bytes[0] = ByteArray.shortToByteArray(access_flags);
-        Bytes[1] = ByteArray.shortToByteArray(name_index);
-        Bytes[2] = ByteArray.shortToByteArray(descriptor_index);
-        Bytes[3] = ByteArray.shortToByteArray(attributes_count);
-        Bytes[4] = ByteArray.attToByteArray(attributes);
-        return ByteArray.flatBytes(Bytes);
-    }
-
+    
 }
 
-// end of Field_info.java
+
+// end of CONSTANT_NameAndType_info.java

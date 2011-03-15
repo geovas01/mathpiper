@@ -35,23 +35,15 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-
-import java.io.*;
-import java.math.*;
-import java.util.*;
-import java.text.*;
-
-// Support for "special functions"
-
-class Specfn
+public class Specfn
 {
 
-    static int        progEvent = 0;
-    static LispObject progData  = null;
+    public static int        progEvent = 0;
+    public static LispObject progData  = null;
 
-    static final int NONE   = 0;
-    static final int GOTO   = 1;
-    static final int RETURN = 2;
+    public static final int NONE   = 0;
+    public static final int GOTO   = 1;
+    public static final int RETURN = 2;
 
 
     Object [][] specials = 

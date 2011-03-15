@@ -35,17 +35,18 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
 import java.math.*;
 import java.util.*;
 import java.text.*;
 import java.security.*;
 
-class LispStream extends LispObject
+public class LispStream extends LispObject
 {
     String name;
 
-    LispStream(String name)
+    public LispStream(String name)
     {
         this.name = name;
     }
@@ -54,8 +55,8 @@ class LispStream extends LispObject
 // ouput. So I defined the fields & methods used for each here even though
 // they only get activated in sub-classes.
 
-    int lineLength = 80;  // for linelength() and wrapping
-    int column;           // for posn(), lengthc()
+    public int lineLength = 80;  // for linelength() and wrapping
+    public int column;           // for posn(), lengthc()
 
 // Making end-of-line behave in a properly platform-specific manner is
 // something I had just expected to happen for me as part of the Unicode
@@ -68,29 +69,29 @@ class LispStream extends LispObject
 // all the options here to start with but will consider moving some down
 // the class hierarchy later on when I have things more complete!
 
-    LispObject exploded;  // for explode() and friends
-    StringBuffer sb;      // for explodeToString()
-    MessageDigest md;     // for md5 checksumming
+    public LispObject exploded;  // for explode() and friends
+    public StringBuffer sb;      // for explodeToString()
+    public MessageDigest md;     // for md5 checksumming
     Writer wr;            // for ordinary printing!
 
-    void print(String s)
+    public void print(String s)
     { // attempting to print to (eg) an input stream has no effect at all
     }
 
-    void println(String s)
+    public void println(String s)
     {
     }
 
-    void println()
+    public void println()
     {
         print("\n");
     }
 
-    void flush()
+    public void flush()
     {
     }
 
-    void close()
+    public void close()
     {
         if (reader != null)
         {   try
@@ -160,7 +161,7 @@ class LispStream extends LispObject
 // this constructor, or I can add input capability to an existing
 // (output) stream using setReader().
 
-    LispStream(String name, Reader reader, boolean np, boolean allowOctal)
+    public LispStream(String name, Reader reader, boolean np, boolean allowOctal)
     {
         this.name = name;
         setReader(name, reader, np, allowOctal);
@@ -234,7 +235,7 @@ class LispStream extends LispObject
         prevChar = nextChar = c;
     }
     
-    int readChar() throws Exception // gets one character
+    public int readChar() throws Exception // gets one character
     {
         if (nextChar == -2) getNext();
         int c = nextChar;
@@ -675,7 +676,7 @@ class LispStream extends LispObject
         currentOutput.print(s);
     }
 
-    LispObject eval()
+    public LispObject eval()
     {
         return this;
     }
@@ -690,7 +691,7 @@ class LispStream extends LispObject
 // of a lisp variable called $xxx. If the variable concerned does not have
 // as string as its value I put in "." as the expansion, and hope that that
 // refers to the current directory.
-    static String nameConvert(String a)
+    public static String nameConvert(String a)
     {
         if (a.charAt(0) != '$') return a;
         int n = a.indexOf('/');
@@ -712,10 +713,10 @@ class LispStream extends LispObject
         return prefix + tail;
     }
 
-    static SimpleDateFormat dFormat =
+    public static SimpleDateFormat dFormat =
         new SimpleDateFormat("yyyy.MM.dd:HH.mm.ss:SSS");
 
-    static LispObject fileDate(String s)
+    public static LispObject fileDate(String s)
     {
         try
         {   File f = new File(nameConvert(s));
@@ -729,7 +730,7 @@ class LispStream extends LispObject
         }
     }
     
-    static LispObject fileDelete(String s)
+    public static LispObject fileDelete(String s)
     {
         try
         {   File f = new File(nameConvert(s));
@@ -741,7 +742,7 @@ class LispStream extends LispObject
         }
     }
     
-    static LispObject fileRename(String s, String s1)
+    public static LispObject fileRename(String s, String s1)
     {
         try
         {   File f = new File(nameConvert(s));
@@ -766,7 +767,7 @@ class LispStream extends LispObject
 	else Jlisp.objects.add(this);
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

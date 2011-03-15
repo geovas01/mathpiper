@@ -61,7 +61,7 @@ class DoubleWriter extends LispStream
         Jlisp.openOutputFiles.add(this);
     }
 
-    void flush()
+    public void flush()
     {
         try
         {   wr.flush();
@@ -71,7 +71,7 @@ class DoubleWriter extends LispStream
         {}
     }
 
-    void close()
+    public void close()
     {
         Jlisp.openOutputFiles.removeElement(this);
         try
@@ -84,7 +84,7 @@ class DoubleWriter extends LispStream
         {}
     }
 
-    void print(String s)
+    public void print(String s)
     {
         if (s == null) s = "null";
         char [] v = s.toCharArray();
@@ -118,7 +118,7 @@ class DoubleWriter extends LispStream
         {}
     }
 
-    void println(String s)
+    public void println(String s)
     {
         if (s == null) s = "null";
         char [] v = s.toCharArray();

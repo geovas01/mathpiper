@@ -40,27 +40,27 @@ import java.io.*;
 import java.util.*;
 import java.math.*;
 
-class LispFloat extends LispNumber
+public class LispFloat extends LispNumber
 {
-    double value;
+    public double value;
 
-    LispFloat(int value)
+    public LispFloat(int value)
     {
         this.value = (double)value;
     }
 
-    LispFloat(String value)
+    public LispFloat(String value)
     {
         Double d = Double.valueOf(value);
         this.value = d.doubleValue();
     }
 
-    LispFloat(double value)
+    public LispFloat(double value)
     {
         this.value = value;
     }
 
-    LispObject eval()
+    public LispObject eval()
     {
         return this;
     }
@@ -228,7 +228,7 @@ class LispFloat extends LispNumber
         return r.toString();
     }
 
-    double doubleValue()
+    public double doubleValue()
     {
         return value;
     }
@@ -267,7 +267,7 @@ class LispFloat extends LispNumber
 	else Jlisp.objects.add(w);
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object d = new Double(value);
         Object w = Jlisp.repeatedObjects.get(d);
@@ -342,32 +342,32 @@ class LispFloat extends LispNumber
         return (value <= a.doubleValue() ? this : a);
     }
 
-    boolean eqn(LispObject a) throws Exception
+    public boolean eqn(LispObject a) throws Exception
     {
         return (value == a.doubleValue());
     }
 
-    boolean neqn(LispObject a) throws Exception
+    public boolean neqn(LispObject a) throws Exception
     {
         return (value != a.doubleValue());
     }
 
-    boolean ge(LispObject a) throws Exception
+    public boolean ge(LispObject a) throws Exception
     {
         return (value > a.doubleValue());
     }
 
-    boolean geq(LispObject a) throws Exception
+    public boolean geq(LispObject a) throws Exception
     {
         return (value >= a.doubleValue());
     }
 
-    boolean le(LispObject a) throws Exception
+    public boolean le(LispObject a) throws Exception
     {
         return (value < a.doubleValue());
     }
 
-    boolean leq(LispObject a) throws Exception
+    public boolean leq(LispObject a) throws Exception
     {
         return (value <= a.doubleValue());
     }
@@ -457,146 +457,146 @@ class LispFloat extends LispNumber
         return (value == 1.0) ? Jlisp.lispTrue : Jlisp.nil;
     }
 
-    LispObject addInteger(LispBigInteger a) throws Exception
+    public LispObject addInteger(LispBigInteger a) throws Exception
     {
         return new LispFloat(a.value.doubleValue() + value);
     }
 
-    LispObject subtractInteger(LispBigInteger a) throws Exception
+    public LispObject subtractInteger(LispBigInteger a) throws Exception
     {
         return new LispFloat(a.value.doubleValue() - value);
     }
 
-    LispObject multiplyInteger(LispBigInteger a) throws Exception
+    public LispObject multiplyInteger(LispBigInteger a) throws Exception
     {
         return new LispFloat(a.value.doubleValue() * value);
     }
 
-    LispObject divideInteger(LispBigInteger a) throws Exception
+    public LispObject divideInteger(LispBigInteger a) throws Exception
     {
         return new LispFloat(a.value.doubleValue() / value);
     }
 
-    LispObject remainderInteger(LispBigInteger a) throws Exception
+    public LispObject remainderInteger(LispBigInteger a) throws Exception
     {
         return new LispFloat(a.value.doubleValue() % value);
     }
 
-    LispObject maxInteger(LispBigInteger a) throws Exception
+    public LispObject maxInteger(LispBigInteger a) throws Exception
     {
         if (a.value.doubleValue() >= value) return a;
         else return this;
     }
 
-    LispObject exptInteger(LispBigInteger a) throws Exception
+    public LispObject exptInteger(LispBigInteger a) throws Exception
     {
         return new LispFloat(Math.pow(a.doubleValue(), value));
     }
 
-    LispObject minInteger(LispBigInteger a) throws Exception
+    public LispObject minInteger(LispBigInteger a) throws Exception
     {
         if (a.value.doubleValue() <= value) return a;
         else return this;
     }
 
-    boolean eqnInteger(LispBigInteger a) throws Exception
+    public boolean eqnInteger(LispBigInteger a) throws Exception
     {
         return (a.value.doubleValue() == value);
     }
 
-    boolean neqnInteger(LispBigInteger a) throws Exception
+    public boolean neqnInteger(LispBigInteger a) throws Exception
     {
         return (a.value.doubleValue() != value);
     }
 
-    boolean geInteger(LispBigInteger a) throws Exception
+    public boolean geInteger(LispBigInteger a) throws Exception
     {
         return (a.value.doubleValue() > value);
     }
 
-    boolean geqInteger(LispBigInteger a) throws Exception
+    public boolean geqInteger(LispBigInteger a) throws Exception
     {
         return (a.value.doubleValue() >= value);
     }
 
-    boolean leInteger(LispBigInteger a) throws Exception
+    public boolean leInteger(LispBigInteger a) throws Exception
     {
         return (a.value.doubleValue() < value);
     }
 
-    boolean leqInteger(LispBigInteger a) throws Exception
+    public boolean leqInteger(LispBigInteger a) throws Exception
     {
         return (a.value.doubleValue() <= value);
     }
 
-    LispObject addSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject addSmallInteger(LispSmallInteger a) throws Exception
     {
         return new LispFloat((double)a.value + value);
     }
 
-    LispObject subtractSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject subtractSmallInteger(LispSmallInteger a) throws Exception
     {
         return new LispFloat((double)a.value - value);
     }
 
-    LispObject multiplySmallInteger(LispSmallInteger a) throws Exception
+    public LispObject multiplySmallInteger(LispSmallInteger a) throws Exception
     {
         return new LispFloat((double)a.value * value);
     }
 
-    LispObject divideSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject divideSmallInteger(LispSmallInteger a) throws Exception
     {
         return new LispFloat((double)a.value / value);
     }
 
-    LispObject remainderSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject remainderSmallInteger(LispSmallInteger a) throws Exception
     {
         return new LispFloat((double)a.value % value);
     }
 
-    LispObject maxSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject maxSmallInteger(LispSmallInteger a) throws Exception
     {
         if ((double)a.value >= value) return a;
         else return this;
     }
 
-    LispObject exptSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject exptSmallInteger(LispSmallInteger a) throws Exception
     {
         return new LispFloat(Math.pow(a.doubleValue(), value));
     }
 
-    LispObject minSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject minSmallInteger(LispSmallInteger a) throws Exception
     {
         if ((double)a.value <= value) return a;
         else return this;
     }
 
-    boolean eqnSmallInteger(LispSmallInteger a) throws Exception
+    public boolean eqnSmallInteger(LispSmallInteger a) throws Exception
     {
         return ((double)a.value == value);
     }
 
-    boolean neqnSmallInteger(LispSmallInteger a) throws Exception
+    public boolean neqnSmallInteger(LispSmallInteger a) throws Exception
     {
         return ((double)a.value != value);
     }
 
-    boolean geSmallInteger(LispSmallInteger a) throws Exception
+    public boolean geSmallInteger(LispSmallInteger a) throws Exception
     {
         return ((double)a.value > value);
     }
 
-    boolean geqSmallInteger(LispSmallInteger a) throws Exception
+    public boolean geqSmallInteger(LispSmallInteger a) throws Exception
     {
         return ((double)a.value >= value);
     }
 
-    boolean leSmallInteger(LispSmallInteger a) throws Exception
+    public boolean leSmallInteger(LispSmallInteger a) throws Exception
     {
         return ((double)a.value < value);
     }
 
-    boolean leqSmallInteger(LispSmallInteger a) throws Exception
+    public boolean leqSmallInteger(LispSmallInteger a) throws Exception
     {
         return ((double)a.value <= value);
     }

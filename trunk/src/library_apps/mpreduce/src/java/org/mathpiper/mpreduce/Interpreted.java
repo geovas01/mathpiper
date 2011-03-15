@@ -41,11 +41,12 @@ package org.mathpiper.mpreduce;
 // associated function is this job, which knows how to
 // extract the saved definition and activate it.
 
+import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
 
-class Interpreted extends LispFunction
+public class Interpreted extends LispFunction
 {
-    LispObject body;
+    public LispObject body;
 
     void iprint()
     {
@@ -61,7 +62,7 @@ class Interpreted extends LispFunction
     {
     }
     
-    Interpreted(LispObject def)
+    public Interpreted(LispObject def)
     {
         body = new Cons(Jlisp.lit[Lit.lambda], def);
     }
@@ -81,7 +82,7 @@ class Interpreted extends LispFunction
         }
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

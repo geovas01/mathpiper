@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.javacompiler;
 
 //    Date: 09/02/02
 //    Name: Vijay P. Chauhan
@@ -45,6 +45,7 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.javacompiler.Code_attribute;
 import java.util.*;
 import java.io.*;
 import java.lang.reflect.*;
@@ -84,8 +85,8 @@ public class ClassDescription
     short interfaces[];               //should be [interfaces_count]
     short fields_count = 0;
     Field_info fields[];              //should be [fields_count]
-    short methods_count = 0;
-    Method_info methods[]; //should be [methods_count]
+    public short methods_count = 0;
+    public Method_info methods[]; //should be [methods_count]
     short attributes_count = 0;       //LineNumberTable, SourceFile not implmtd
     Attribute_info attributes[] ;     //should be [attributes_count]
 
@@ -97,31 +98,31 @@ public class ClassDescription
     String code = "Code";
     String exceptions_attribute = "Exceptions";
     String exception = "java/lang/Exception";
-    short this_Utf8, super_Utf8, code_Utf8;
+    public short this_Utf8, super_Utf8, code_Utf8;
     short globalIndex;
     short initNAT, initref;    //for holding reference to methodref_info for <init>
-    Exceptions_attribute ea = new Exceptions_attribute();
+    public Exceptions_attribute ea = new Exceptions_attribute();
     
     byte[] ClassBytes;
     
 // note from ACN to VPC. There is a Java tradition of naming little
 // methods that just set a field xxx as setxxx.
 
-    void mNumber(int a)    //number of methods defined in the class
+    public void mNumber(int a)    //number of methods defined in the class
     //N.B. which is NOT necessarily equal to number of methodref_infos
     {   methods = new Method_info[a];
     }
 
-    void setAccess(short access)
+    public void setAccess(short access)
     {   access_flags = access;
     }
 
-    void addCode() throws IOException
+    public void addCode() throws IOException
     {   addUtf8(code);
         code_Utf8 = globalIndex;
     }    //put "Code" for Code_attribute in cp[1] since cp[0] is null   
     
-    void addExceptions() throws IOException
+    public void addExceptions() throws IOException
     {   addUtf8(exceptions_attribute);
         //put "Exceptions" for Exceptions_attribute in cp[2]
         ea.attribute_name_index = globalIndex;
@@ -132,7 +133,7 @@ public class ClassDescription
         ea.toInfo();
     }   
         
-    void setThis(String thisName)
+    public void setThis(String thisName)
         throws UnsupportedEncodingException,
                IOException
     {   thisString = thisName;
@@ -143,7 +144,7 @@ public class ClassDescription
         // put thisName in ConstantPool and then set this_class
     }
 
-    void setSuper() throws UnsupportedEncodingException, IOException
+    public void setSuper() throws UnsupportedEncodingException, IOException
     {   addUtf8(superString); //add CONSTANT_Utf8_info
         super_Utf8 = globalIndex;
         addCInfo(super_Utf8); //add CONSTANT_Class_info
@@ -151,7 +152,7 @@ public class ClassDescription
         //if no argument given then default superclass is java.lang.Object
     }
 
-    void setSuper(String superName)
+    public void setSuper(String superName)
         throws UnsupportedEncodingException, IOException
     {   superString = superName;
         addUtf8(superString); //add CONSTANT_Utf8_info
@@ -161,7 +162,7 @@ public class ClassDescription
         // put superString in ConstantPool
     }
 
-    void addInit(Method_info m1) throws IOException
+    public void addInit(Method_info m1) throws IOException
     // how to add <init>, ()V since needed for every class
     {
         m1.setAccess((short)ACC_PUBLIC); // ACC_PUBLIC in some cases?
@@ -210,7 +211,7 @@ public class ClassDescription
         methods[methods_count++] = m1;
     }
 
-    void addMethod(Method_info m3, String methodName, String methodDesc)
+    public void addMethod(Method_info m3, String methodName, String methodDesc)
         throws IOException
     // makes Methodref_info irrespective -> see other addMethod(...,boolean b)
     {
@@ -226,7 +227,7 @@ public class ClassDescription
         addCMInfo(this_class, globalIndex);
     }
 
-    void addMethod(Method_info m3,
+    public void addMethod(Method_info m3,
                    String methodName,
                    String methodDesc,
                    boolean b) throws IOException
@@ -246,7 +247,7 @@ public class ClassDescription
     //process of incrementing takes time (see Java 2-Ivor Horton, pg 410).
     //possible optimisation HERE
 
-   void addMethodref(String cl, String nm, String des) throws IOException
+   public void addMethodref(String cl, String nm, String des) throws IOException
     {   short nmidx;
         short desidx;
 
@@ -284,7 +285,7 @@ public class ClassDescription
         cinfoIndex = 0; // before anyone else uses this value again
     }
     
-    void addFieldref(String cl, String nm, String des) throws IOException
+    public void addFieldref(String cl, String nm, String des) throws IOException
     {   short nmidx;
         short desidx;
 
@@ -322,7 +323,7 @@ public class ClassDescription
         cinfoIndex = 0; // before anyone else uses this value again
     }
 
-    void addClassInfo(String cl)throws IOException
+    public void addClassInfo(String cl)throws IOException
     {   Code_attribute ca = new Code_attribute();
         lookupCinfo(cl,ca,false);
         if (cinfoIndex == 0)      // if no class entry by this name..
@@ -381,7 +382,7 @@ public class ClassDescription
     Vector labelToLookup = new Vector();
     Vector positionToPut = new Vector();
 
-    void setLabel(String label, Code_attribute ca)
+    public void setLabel(String label, Code_attribute ca)
     {
       labels.add(label);
         Integer pointer = new Integer(ca.code.length);
@@ -390,7 +391,7 @@ public class ClassDescription
       mcountsL.add(methodIndex);
     }
 
-    void lookupLabel(String label, Code_attribute ca)
+    public void lookupLabel(String label, Code_attribute ca)
     {
       labelToLookup.add(label);
       Integer pointer = new Integer(ca.code.length+1);
@@ -420,8 +421,8 @@ public class ClassDescription
       }
     }
     
-    short refIndex = (short)0;    //check when these indexes change
-    short cinfoIndex = (short)0;
+    public short refIndex = (short)0;    //check when these indexes change
+    public short cinfoIndex = (short)0;
     short utf8Index = (short)0;
     short nameAndTypeIndex =(short)0;
     short mfRefIndex = (short)0;
@@ -533,7 +534,7 @@ public class ClassDescription
         else utf8Index = index;
     }
 
-    void lookupCinfo(String classname, Code_attribute ca, boolean b)
+    public void lookupCinfo(String classname, Code_attribute ca, boolean b)
     // just like lookupRef
         throws UnsupportedEncodingException, IOException
     {   Vector cptemp1 = cptemp;
@@ -599,7 +600,7 @@ public class ClassDescription
 
 
 
-    void lookupRef(String name, Code_attribute ca)
+    public void lookupRef(String name, Code_attribute ca)
     //works for field_info as well as method_info (I hope)
         throws UnsupportedEncodingException, IOException
     {   Vector cptemp1 = cptemp;
@@ -728,7 +729,7 @@ public class ClassDescription
           ;
     }
 
-    void printCP() //prints out contents of final CP entries
+    public void printCP() //prints out contents of final CP entries
         //makes use of lookup...() technology
         throws UnsupportedEncodingException, IOException
     {   Vector cptemp1 = cptemp;
@@ -837,7 +838,7 @@ public class ClassDescription
         //Vector of strings to resolve, with index of where to update in code.
     }
 
-    void resolveAll() throws IOException, UnsupportedEncodingException
+    public void resolveAll() throws IOException, UnsupportedEncodingException
     {
         //System.out.println("*****NUMBER OF REFS TO RESOLVE IS: "+toResolve.size());
         for (int i=0; i<toResolve.size(); i++)
@@ -873,7 +874,7 @@ public class ClassDescription
     //NEED RESOLVE TO DEAL WITH CLASSINFO too:
 
 
-    void makeCP() throws UnsupportedEncodingException
+    public void makeCP() throws UnsupportedEncodingException
     {
         cptemp.trimToSize();    //no need for this? capacity vs. size
         constant_pool_count = (short)(cptemp.size()+1);

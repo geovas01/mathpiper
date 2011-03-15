@@ -41,10 +41,10 @@ import java.util.*;
 import java.text.*;
 import java.security.*;
 
-class ListReader extends LispStream
+public class ListReader extends LispStream
 {
 
-    ListReader(LispObject data)
+    public ListReader(LispObject data)
     {
         super("<read from list>");
         inputData = data;
@@ -68,7 +68,7 @@ class ListReader extends LispStream
         else return -1;
     }
 
-    void close()
+    public void close()
     {
         inputData = Jlisp.nil;
     }

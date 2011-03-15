@@ -52,14 +52,14 @@ public class Symbol extends LispObject
 //  LispObject value;        // shallow-binding         use .car instead!
 //  LispObject plist;        // property list           use .cdr instead!
 
-    String pname;            // print name
+    public String pname;            // print name
     int cacheFlags;          // used with cacheString to speed up..
     String cacheString;      // .. printing when escape chare may be needed
     public LispFunction fn;         // function (if any)
-    SpecialFunction special; // special fn (if any)
+    public SpecialFunction special; // special fn (if any)
 
 
-    void completeName()      // needed to that gensyms can have delayed names
+    public void completeName()      // needed to that gensyms can have delayed names
     {
     }
 
@@ -103,7 +103,7 @@ public class Symbol extends LispObject
     }
 
 // now the version of intern() for normal use
-    static Symbol intern(String name)
+    public static Symbol intern(String name)
     {
         Symbol p;
         int inc = name.hashCode();
@@ -130,7 +130,7 @@ public class Symbol extends LispObject
         return p;
     }
 
-    LispObject eval()
+    public LispObject eval()
     {   return car/*value*/;
     }
 
@@ -246,7 +246,7 @@ public class Symbol extends LispObject
         }
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
         if (w != null &&

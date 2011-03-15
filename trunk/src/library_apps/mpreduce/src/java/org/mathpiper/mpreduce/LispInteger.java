@@ -40,10 +40,10 @@ import java.math.*;
 import java.io.*;
 import java.util.*;
 
-abstract class LispInteger extends LispNumber
+public abstract class LispInteger extends LispNumber
 {
 
-    static LispInteger valueOf(int value)
+    public static LispInteger valueOf(int value)
     {
         if (value <= LispSmallInteger.MAX &&
             value >= LispSmallInteger.MIN)
@@ -53,7 +53,7 @@ abstract class LispInteger extends LispNumber
         else return new LispBigInteger(BigInteger.valueOf((long)value));
     }
 
-    static LispInteger valueOf(long value)
+    public static LispInteger valueOf(long value)
     {
         if (value <= LispSmallInteger.MAX &&
             value >= LispSmallInteger.MIN)
@@ -64,7 +64,7 @@ abstract class LispInteger extends LispNumber
         else return new LispBigInteger(BigInteger.valueOf(value));
     }
 
-    static LispInteger valueOf(BigInteger value)
+    public static LispInteger valueOf(BigInteger value)
     {
         if (value.bitLength() <= 31)
         {   int n = value.intValue();

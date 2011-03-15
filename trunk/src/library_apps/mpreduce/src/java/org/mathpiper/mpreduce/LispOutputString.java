@@ -37,30 +37,30 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class LispOutputString extends LispStream
+public class LispOutputString extends LispStream
 {
 
-    LispOutputString()
+    public LispOutputString()
     {
         super("<string output>");
         sb = new StringBuffer();
     }
 
-    void flush()
+    public void flush()
     {
     }
 
-    void close()
+    public void close()
     {
         sb = null;
     }
 
-    void print(String s)
+    public void print(String s)
     {
         sb.append(s);
     }
 
-    void println(String s)
+    public void println(String s)
     {
         sb.append(s);
         sb.append("\n");

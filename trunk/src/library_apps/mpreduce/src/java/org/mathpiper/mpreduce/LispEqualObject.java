@@ -40,11 +40,11 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-class LispEqualObject extends Object
+public class LispEqualObject extends Object
 {
-    LispObject value;
+    public LispObject value;
 
-    LispEqualObject(Object a)
+    public LispEqualObject(Object a)
     {   this.value = (LispObject)a;
     }
 

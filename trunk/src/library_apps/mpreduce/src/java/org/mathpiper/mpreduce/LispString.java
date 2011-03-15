@@ -42,9 +42,9 @@ public class LispString extends LispObject
 
     static int stringCount = 0;
 
-    String string;
+    public String string;
 
-    LispString(String s)
+    public LispString(String s)
     {
         this.string = s;
     }
@@ -126,7 +126,7 @@ public class LispString extends LispObject
 	else Jlisp.objects.add(string);
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(string);
 	if (w != null &&

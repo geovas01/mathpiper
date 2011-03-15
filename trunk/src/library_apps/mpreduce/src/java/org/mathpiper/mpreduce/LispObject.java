@@ -50,7 +50,7 @@ public abstract class LispObject extends Object
     public LispObject car; // car and cdr fields to reduce number of expensive casts!
     public LispObject cdr;
 
-    LispObject()
+    public LispObject()
     {
         car = cdr = null;
         atom = true;
@@ -60,30 +60,30 @@ public abstract class LispObject extends Object
 //       super(car, cdr);
 // in the constructor for the "Cons" sub-class.
 
-    LispObject(LispObject car, LispObject cdr)
+    public LispObject(LispObject car, LispObject cdr)
     {
         atom = false;
         this.car = car; 
         this.cdr = cdr;
     }
 
-    static final int printEscape      = 1; // flags to pass to print(n)
-    static final int printBinary      = 2;
+    public static final int printEscape      = 1; // flags to pass to print(n)
+    public static final int printBinary      = 2;
     // (decimal is the default)       = 4
-    static final int printOctal       = 8;
-    static final int printHex         = 16;
-    static final int printLower       = 32;
-    static final int printUpper       = 64;
-    static final int noLineBreak      = 128;
+    public static final int printOctal       = 8;
+    public static final int printHex         = 16;
+    public static final int printLower       = 32;
+    public static final int printUpper       = 64;
+    public static final int noLineBreak      = 128;
 
-    void print()
+    public void print()
     {
         currentOutput = (LispStream)Jlisp.lit[Lit.std_output].car/*value*/;
         currentFlags = 0;
         iprint();
     }
 
-    void print(int flags)
+    public void print(int flags)
     {
         currentOutput = (LispStream)Jlisp.lit[Lit.std_output].car/*value*/;
         currentFlags = flags;
@@ -99,7 +99,7 @@ public abstract class LispObject extends Object
     abstract void iprint();
     abstract void blankprint(); // print but with whitespace before it
 
-    void errPrint() // print to error output stream
+    public void errPrint() // print to error output stream
     {
         currentOutput = (LispStream)Jlisp.lit[Lit.err_output].car/*value*/;
         currentFlags = printEscape;
@@ -160,38 +160,38 @@ public abstract class LispObject extends Object
 // be followed by 8 bytes that represent a double-precision floating point
 // value. X_FNAME is followed by a single length byte (n) then n characters.
 
-    static final int X_NULL     = 0xe0; // empty cell (ie Java null)
-    static final int X_DOUBLE   = 0xe1; // double-precision number
-    static final int X_STREAM   = 0xe2; // an open file (not dumpable)
-    static final int X_FNAME    = 0xe3; // built-in function
-    static final int X_SPECFN   = 0xe4; // built-in special form
-    static final int X_STORE    = 0xe5; // the next item will be re-used
-    static final int X_HASH     = 0xe6; // EQ hash
-    static final int X_HASH1    = 0xe7; // EQL hash (not used)
-    static final int X_HASH2    = 0xe8; // EQUAL hash
-    static final int X_HASH3    = 0xe9; // EQUALS hash (not used)
-    static final int X_HASH4    = 0xea; // EQUALP hash (not used)
-    static final int X_ENDHASH  = 0xeb; // end of data for hash table
-    static final int X_AUTOLOAD = 0xec; // autoloading fn def
-    static final int X_SPID     = 0xed; // internal marker
-    static final int X_DEFINMOD = 0xee; // "define-in-module" in fasl files
-    static final int X_INTERP   = 0xef; // interpreted code
-    static final int X_MACRO    = 0xf0; // interpreted macro
-    static final int X_CALLAS   = 0xf1; // simple tail-call object
-    static final int X_RECENT   = 0xf2; // used in FASL but not checkpoints
-    static final int X_RECENT1  = 0xf3; // used in FASL but not checkpoints
-    static final int X_OBLIST   = 0xf4; // oblist vector
+    public static final int X_NULL     = 0xe0; // empty cell (ie Java null)
+    public static final int X_DOUBLE   = 0xe1; // double-precision number
+    public static final int X_STREAM   = 0xe2; // an open file (not dumpable)
+    public static final int X_FNAME    = 0xe3; // built-in function
+    public static final int X_SPECFN   = 0xe4; // built-in special form
+    public static final int X_STORE    = 0xe5; // the next item will be re-used
+    public static final int X_HASH     = 0xe6; // EQ hash
+    public static final int X_HASH1    = 0xe7; // EQL hash (not used)
+    public static final int X_HASH2    = 0xe8; // EQUAL hash
+    public static final int X_HASH3    = 0xe9; // EQUALS hash (not used)
+    public static final int X_HASH4    = 0xea; // EQUALP hash (not used)
+    public static final int X_ENDHASH  = 0xeb; // end of data for hash table
+    public static final int X_AUTOLOAD = 0xec; // autoloading fn def
+    public static final int X_SPID     = 0xed; // internal marker
+    public static final int X_DEFINMOD = 0xee; // "define-in-module" in fasl files
+    public static final int X_INTERP   = 0xef; // interpreted code
+    public static final int X_MACRO    = 0xf0; // interpreted macro
+    public static final int X_CALLAS   = 0xf1; // simple tail-call object
+    public static final int X_RECENT   = 0xf2; // used in FASL but not checkpoints
+    public static final int X_RECENT1  = 0xf3; // used in FASL but not checkpoints
+    public static final int X_OBLIST   = 0xf4; // oblist vector
 
 // 0xf2 to 0xff spare at present...
 
     abstract void scan();
-    abstract void dump() throws IOException;
+    public abstract void dump() throws IOException;
 
 // dealing with references to shared structure has the most complicated
 // treatment here because it appears to be an especially heavily used
 // case and one where special cases may make some real difference.
 
-    void putSharedRef(Object w) throws IOException
+    public void putSharedRef(Object w) throws IOException
     {
         int n = ((Integer)w).intValue();
         if (n < 48)
@@ -247,12 +247,12 @@ public abstract class LispObject extends Object
         return this.equals(a);
     }
 
-    LispObject eval() throws Exception
+    public LispObject eval() throws Exception
     {
         return this;
     }
 
-    LispObject copy()
+    public LispObject copy()
     {
         return this;
     }
@@ -262,19 +262,19 @@ public abstract class LispObject extends Object
         return this.hashCode();
     }
 
-    double doubleValue() throws Exception
+    public double doubleValue() throws Exception
     {
         Jlisp.error("Number needed", this);
         return 0.0;  // never reached!
     }
 
-    int intValue() throws Exception
+    public int intValue() throws Exception
     {
         Jlisp.error("Number needed", this);
         return 0;    // never reached!
     }
 
-    BigInteger bigIntValue() throws Exception
+    public BigInteger bigIntValue() throws Exception
     {
         Jlisp.error("Number needed", this);
         return null;    // never reached!
@@ -325,7 +325,7 @@ public abstract class LispObject extends Object
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject truncate() throws Exception
+    public LispObject truncate() throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
@@ -400,27 +400,27 @@ public abstract class LispObject extends Object
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject not() throws Exception
+    public LispObject not() throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modMinus() throws Exception
+    public LispObject modMinus() throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modRecip() throws Exception
+    public LispObject modRecip() throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject safeModRecip() throws Exception
+    public LispObject safeModRecip() throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject reduceMod() throws Exception
+    public LispObject reduceMod() throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
@@ -485,334 +485,334 @@ public abstract class LispObject extends Object
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject xor(LispObject a) throws Exception
+    public LispObject xor(LispObject a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject gcd(LispObject a) throws Exception
+    public LispObject gcd(LispObject a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject lcm(LispObject a) throws Exception
+    public LispObject lcm(LispObject a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modAdd(LispObject a) throws Exception
+    public LispObject modAdd(LispObject a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modSubtract(LispObject a) throws Exception
+    public LispObject modSubtract(LispObject a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modMultiply(LispObject a) throws Exception
+    public LispObject modMultiply(LispObject a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modDivide(LispObject a) throws Exception
+    public LispObject modDivide(LispObject a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modExpt(int n) throws Exception
+    public LispObject modExpt(int n) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    boolean eqn(LispObject a) throws Exception
+    public boolean eqn(LispObject a) throws Exception
     {
         return (this == a);
     }
 
-    boolean neqn(LispObject a) throws Exception
+    public boolean neqn(LispObject a) throws Exception
     {
         return (this != a);
     }
 
-    boolean ge(LispObject a) throws Exception
+    public boolean ge(LispObject a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
-    boolean geq(LispObject a) throws Exception
+    public boolean geq(LispObject a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
-    boolean le(LispObject a) throws Exception
+    public boolean le(LispObject a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
-    boolean leq(LispObject a) throws Exception
+    public boolean leq(LispObject a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
 
-    LispObject addInteger(LispBigInteger a) throws Exception
+    public LispObject addInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject subtractInteger(LispBigInteger a) throws Exception
+    public LispObject subtractInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject multiplyInteger(LispBigInteger a) throws Exception
+    public LispObject multiplyInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject divideInteger(LispBigInteger a) throws Exception
+    public LispObject divideInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject remainderInteger(LispBigInteger a) throws Exception
+    public LispObject remainderInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject quotientAndRemainderInteger(LispBigInteger a) throws Exception
+    public LispObject quotientAndRemainderInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modInteger(LispBigInteger a) throws Exception
+    public LispObject modInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject exptInteger(LispBigInteger a) throws Exception
+    public LispObject exptInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject maxInteger(LispBigInteger a) throws Exception
+    public LispObject maxInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject minInteger(LispBigInteger a) throws Exception
+    public LispObject minInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject andInteger(LispBigInteger a) throws Exception
+    public LispObject andInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject orInteger(LispBigInteger a) throws Exception
+    public LispObject orInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject xorInteger(LispBigInteger a) throws Exception
+    public LispObject xorInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject gcdInteger(LispBigInteger a) throws Exception
+    public LispObject gcdInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject lcmInteger(LispBigInteger a) throws Exception
+    public LispObject lcmInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modAddInteger(LispBigInteger a) throws Exception
+    public LispObject modAddInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modSubtractInteger(LispBigInteger a) throws Exception
+    public LispObject modSubtractInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modMultiplyInteger(LispBigInteger a) throws Exception
+    public LispObject modMultiplyInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modDivideInteger(LispBigInteger a) throws Exception
+    public LispObject modDivideInteger(LispBigInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    boolean eqnInteger(LispBigInteger a) throws Exception
+    public boolean eqnInteger(LispBigInteger a) throws Exception
     {
         return false;
     }
 
-    boolean neqnInteger(LispBigInteger a) throws Exception
+    public boolean neqnInteger(LispBigInteger a) throws Exception
     {
         return true;
     }
 
-    boolean geInteger(LispBigInteger a) throws Exception
+    public boolean geInteger(LispBigInteger a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
-    boolean geqInteger(LispBigInteger a) throws Exception
+    public boolean geqInteger(LispBigInteger a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
-    boolean leInteger(LispBigInteger a) throws Exception
+    public boolean leInteger(LispBigInteger a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
-    boolean leqInteger(LispBigInteger a) throws Exception
+    public boolean leqInteger(LispBigInteger a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
-    LispObject addSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject addSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject subtractSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject subtractSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject multiplySmallInteger(LispSmallInteger a) throws Exception
+    public LispObject multiplySmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject divideSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject divideSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject remainderSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject remainderSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject quotientAndRemainderSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject quotientAndRemainderSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject modSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject exptSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject exptSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject maxSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject maxSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject minSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject minSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject andSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject andSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject orSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject orSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject xorSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject xorSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject gcdSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject gcdSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject lcmSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject lcmSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modAddSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject modAddSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modSubtractSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject modSubtractSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modMultiplySmallInteger(LispSmallInteger a) throws Exception
+    public LispObject modMultiplySmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    LispObject modDivideSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject modDivideSmallInteger(LispSmallInteger a) throws Exception
     {
         return Jlisp.error("Number needed", this);
     }
 
-    boolean eqnSmallInteger(LispSmallInteger a) throws Exception
+    public boolean eqnSmallInteger(LispSmallInteger a) throws Exception
     {
         return false;
     }
 
-    boolean neqnSmallInteger(LispSmallInteger a) throws Exception
+    public boolean neqnSmallInteger(LispSmallInteger a) throws Exception
     {
         return true;
     }
 
-    boolean geSmallInteger(LispSmallInteger a) throws Exception
+    public boolean geSmallInteger(LispSmallInteger a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
-    boolean geqSmallInteger(LispSmallInteger a) throws Exception
+    public boolean geqSmallInteger(LispSmallInteger a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
-    boolean leSmallInteger(LispSmallInteger a) throws Exception
+    public boolean leSmallInteger(LispSmallInteger a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;
     }
 
-    boolean leqSmallInteger(LispSmallInteger a) throws Exception
+    public boolean leqSmallInteger(LispSmallInteger a) throws Exception
     {
         Jlisp.error("Number needed", this);
         return false;

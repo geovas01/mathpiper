@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.builtin;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -43,14 +43,24 @@ package org.mathpiper.mpreduce;
 //         fix/float/round/ceiling
 //         hyperbolic functions
 
+import org.mathpiper.mpreduce.builtin.BuiltinFunction;
 import java.io.*;
 import java.util.*;
 import java.text.*;
 import java.math.*;
+import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispBigInteger;
+import org.mathpiper.mpreduce.LispFloat;
+import org.mathpiper.mpreduce.LispInteger;
+import org.mathpiper.mpreduce.LispNumber;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.LispSmallInteger;
+import org.mathpiper.mpreduce.MyMath;
 
-class Fns2
+public class Fns2
 {
-    Object [][] builtins = 
+    public Object [][] builtins =
     {
         {"abs",                         new AbsFn()},
         {"acos",                        new AcosFn()},

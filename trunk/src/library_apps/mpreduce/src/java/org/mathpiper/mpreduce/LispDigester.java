@@ -39,10 +39,10 @@ package org.mathpiper.mpreduce;
 import java.io.*;
 import java.security.*;
 
-class LispDigester extends LispStream
+public class LispDigester extends LispStream
 {
 
-    LispDigester()
+    public LispDigester()
     {
         super("<md5 digester>");
         try
@@ -60,16 +60,16 @@ class LispDigester extends LispStream
         }
     }
 
-    void flush()
+    public void flush()
     {
     }
 
-    void close()
+    public void close()
     {
         md = null;
     }
 
-    void print(String s)
+    public void print(String s)
     {
         if (md == null) return;
         char [] v = s.toCharArray();
@@ -85,7 +85,7 @@ class LispDigester extends LispStream
         }
     }
 
-    void println(String s)
+    public void println(String s)
     {
         print(s);
         if (md != null)

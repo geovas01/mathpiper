@@ -37,11 +37,11 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class WriterToLisp extends Writer
+public class WriterToLisp extends Writer
 {
     LispStream stream;
 
-    WriterToLisp(LispStream s)
+    public WriterToLisp(LispStream s)
     {
         stream = s;
     }

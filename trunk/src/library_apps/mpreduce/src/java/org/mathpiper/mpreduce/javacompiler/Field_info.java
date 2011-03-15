@@ -1,13 +1,16 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.javacompiler;
 
+// 16/02/02 actually made to do something
+// almost exactly identical to Method_info so may consider making a superclass
+// and then subclassing Method_info and Field_info from it?
 
-//
-// This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
-//
+import org.mathpiper.mpreduce.javacompiler.ByteArray;
+import org.mathpiper.mpreduce.javacompiler.Attribute_info;
+import java.io.*;
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
+ *                            also contributions from Vijay Chauhan, 2002 *
  *                                                                        *
  * Redistribution and use in source and binary forms, with or without     *
  * modification, are permitted provided that the following conditions are *
@@ -34,48 +37,45 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import java.io.*;
-
-abstract class BuiltinFunction extends LispFunction
+public class Field_info
 {
-    void scan()
+    static short fields_count;
+
+    short access_flags;
+    short name_index;
+    short descriptor_index;
+    short attributes_count;
+    Attribute_info attributes[];    // should be [attributes_count]
+
+    byte[] fieldName;
+    byte[] descriptor;
+
+    void setAccess(short access)
     {
-        if (Jlisp.objects.contains(this)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(this))
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-	            Jlisp.nil); // value is junk at this stage
-	    }
-	}
-	else Jlisp.objects.add(this);
+        access_flags = access;
     }
-    
-    void dump() throws IOException
+
+    void setName(String s) throws UnsupportedEncodingException
     {
-        Object w = Jlisp.repeatedObjects.get(this);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-		    new Integer(Jlisp.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-	    byte [] rep = name.getBytes("UTF8");
-	    int length = rep.length;
-	    if (length <= 0xff)
-	    {   Jlisp.odump.write(X_FNAME);
-	        Jlisp.odump.write(length);
-	    }
-	    else throw new IOException("overlong name for a function");
-	    for (int i=0; i<length; i++)
-	        Jlisp.odump.write(rep[i]);
-	}
+        fieldName = s.getBytes("UTF-8");
+    }
+
+    void setDescriptor(String s) throws UnsupportedEncodingException
+    {
+        descriptor = s.getBytes("UTF-8");
+    }
+
+    byte[] dumpBytes()
+    {
+        byte[][] Bytes = new byte[5][0];
+        Bytes[0] = ByteArray.shortToByteArray(access_flags);
+        Bytes[1] = ByteArray.shortToByteArray(name_index);
+        Bytes[2] = ByteArray.shortToByteArray(descriptor_index);
+        Bytes[3] = ByteArray.shortToByteArray(attributes_count);
+        Bytes[4] = ByteArray.attToByteArray(attributes);
+        return ByteArray.flatBytes(Bytes);
     }
 
 }
 
-// End of BuiltinFunction.java
-
-
+// end of Field_info.java

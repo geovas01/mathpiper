@@ -39,12 +39,12 @@ package org.mathpiper.mpreduce;
 import java.util.*;
 import java.io.*;
 
-class LispHash extends LispObject
+public class LispHash extends LispObject
 {
-    HashMap hash;
-    int flavour;
+    public HashMap hash;
+    public int flavour;
     
-    LispHash(HashMap hash, int n)
+    public LispHash(HashMap hash, int n)
     {
         this.hash = hash; 
         this.flavour = n;  // 0 to 4, with only 0 and 2 used!
@@ -91,7 +91,7 @@ class LispHash extends LispObject
 	}
     }
   
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

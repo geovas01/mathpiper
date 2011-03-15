@@ -34,7 +34,7 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-class ByteOpt extends Bytecode
+public class ByteOpt extends Bytecode
 {
 
 // nargs is inherited from Bytecode.
@@ -47,14 +47,14 @@ class ByteOpt extends Bytecode
 // The code here seems pretty messy and sordid. Perhaps I can think
 // harder some-time and write a cleaned up version!
 
-ByteOpt(byte [] b, LispObject [] e, int w, int o, int fg)
+public ByteOpt(byte [] b, LispObject [] e, int w, int o, int fg)
 {
     bytecodes = b;
     env = e;
     nargs = w + (o<<8) + (fg<<16);
 }
 
-ByteOpt(int packed)
+public ByteOpt(int packed)
 {
     bytecodes = null;
     env = new LispObject [0];

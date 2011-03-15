@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.javacompiler;
 
 // amended 03/02/02 so that it actually does something
 
@@ -32,6 +32,7 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.javacompiler.Attribute_info;
 import java.io.*;
 
 public class Method_info
@@ -39,23 +40,23 @@ public class Method_info
     short access_flags;
     short name_index;
     short descriptor_index;
-    short attributes_count = (short)1; //change to 2 if "Exceptions" included
-    Attribute_info attributes[]; //should be [attributes_count]
+    public short attributes_count = (short)1; //change to 2 if "Exceptions" included
+    public Attribute_info attributes[]; //should be [attributes_count]
 
     byte[] methodName;
     byte[] descriptor;
 
-    void setAccess(short access)
+    public void setAccess(short access)
     {
         access_flags = access;
     }
 
-    void setName(String s) throws UnsupportedEncodingException
+    public void setName(String s) throws UnsupportedEncodingException
     {
         methodName = s.getBytes("UTF-8");
     }
 
-    void setDescriptor(String s) throws UnsupportedEncodingException
+    public void setDescriptor(String s) throws UnsupportedEncodingException
     {
         descriptor = s.getBytes("UTF-8");
     }

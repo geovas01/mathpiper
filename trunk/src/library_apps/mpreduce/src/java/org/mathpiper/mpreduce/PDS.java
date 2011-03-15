@@ -69,7 +69,7 @@ import java.util.*;
 // It might also be better to have two sub-classes of PDS for the versions
 // that read from a file and from in-store data?
 
-class PDS
+public class PDS
 {
 
 String name;
@@ -167,7 +167,7 @@ long length() throws IOException
 
 int memberData, memberStart;
 
-void print() // print to Java standard output (for debugging)
+public void print() // print to Java standard output (for debugging)
 {
     Jlisp.println("PDS " + this + " " + name +
                           " W=" + writeable + " U=" + untidy);
@@ -198,7 +198,7 @@ void print() // print to Java standard output (for debugging)
 }
 
 
-LispObject members()
+public LispObject members()
 {
     LispObject r = Jlisp.nil;
     if (directory != null)
@@ -517,7 +517,7 @@ void addToDirectory(String member) throws IOException
     f.seek(f.length());
 }
 
-LispObject modulep(String s)
+public LispObject modulep(String s)
 {
     Object d = directory.get(s);
     if (d == null) return Jlisp.nil;

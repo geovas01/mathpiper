@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.javacompiler;
 
 //    Date: 09/02/02
 //    Name: Vijay P. Chauhan
@@ -42,20 +42,21 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
-import java.util.*;
-import java.util.zip.*;
-import java.text.*;
-import java.math.*;
+import org.mathpiper.mpreduce.Gensym;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.LispSmallInteger;
+import org.mathpiper.mpreduce.LispString;
+import org.mathpiper.mpreduce.builtin.BuiltinFunction;
 
-class Fns4
+public class Fns4
 {
     ClassDescription cd = new ClassDescription();
     Code_attribute ca = new Code_attribute();
     Method_info mi = new Method_info();
     // make sure same ca and mi are not used for additional methods
 
-    Object [][] builtins = 
+    public Object [][] builtins =
     {
         {"make-java-class",      new MakeJavaClassFn()},
         {"method-number",        new MethodNumberFn()},

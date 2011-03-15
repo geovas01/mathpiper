@@ -61,22 +61,22 @@ public class LispSmallInteger extends LispInteger
             preAllocated[i-MIN] = new LispSmallInteger(i);
     }
 
-    LispSmallInteger(int n)
+    public LispSmallInteger(int n)
     {
         value = n;
     }
 
-    int intValue()
+    public int intValue()
     {
         return value;
     }
 
-    BigInteger bigIntValue()
+    public BigInteger bigIntValue()
     {
         return BigInteger.valueOf((long)value);
     }
 
-    LispObject eval()
+    public LispObject eval()
     {
         return this;
     }
@@ -112,7 +112,7 @@ public class LispSmallInteger extends LispInteger
         currentOutput.print(s);
     }
 
-    double doubleValue()
+    public double doubleValue()
     {
         return (double)value;
     }
@@ -152,7 +152,7 @@ public class LispSmallInteger extends LispInteger
 	else Jlisp.objects.add(w);
     }
     
-    void dump() throws IOException
+    public void dump() throws IOException
     {
         Object d = new Integer(value);
         Object w = Jlisp.repeatedObjects.get(d);
@@ -230,18 +230,18 @@ public class LispSmallInteger extends LispInteger
         return valueOf(r);
     }
 
-    LispObject not() throws Exception
+    public LispObject not() throws Exception
     {
         return valueOf(~value);
     }
 
-    LispObject modMinus() throws Exception
+    public LispObject modMinus() throws Exception
     {
         if (value == 0) return this;
         else return valueOf(Jlisp.modulus - value);
     }
 
-    LispObject modRecip() throws Exception
+    public LispObject modRecip() throws Exception
     {
         if (value == 0) 
             return Jlisp.error("attempt to take modular recip of zero");
@@ -255,7 +255,7 @@ public class LispSmallInteger extends LispInteger
         return valueOf(s);
     }
 
-    LispObject safeModRecip() throws Exception
+    public LispObject safeModRecip() throws Exception
     {
         if (value == 0) return Jlisp.nil;
         int a = Jlisp.modulus, b = value, s = 0, t = 1;
@@ -268,7 +268,7 @@ public class LispSmallInteger extends LispInteger
         return valueOf(s);
     }
 
-    LispObject reduceMod() throws Exception
+    public LispObject reduceMod() throws Exception
     {
         int r = value % Jlisp.modulus;
         if (r < 0) r += Jlisp.modulus;
@@ -290,7 +290,7 @@ public class LispSmallInteger extends LispInteger
         return this;
     }
 
-    LispObject truncate() throws Exception
+    public LispObject truncate() throws Exception
     {
         return this;
     }
@@ -438,42 +438,42 @@ public class LispSmallInteger extends LispInteger
         return a.orSmallInteger(this);
     }
 
-    LispObject xor(LispObject a) throws Exception
+    public LispObject xor(LispObject a) throws Exception
     {
         return a.xorSmallInteger(this);
     }
 
-    LispObject gcd(LispObject a) throws Exception
+    public LispObject gcd(LispObject a) throws Exception
     {
         return a.gcdSmallInteger(this);
     }
 
-    LispObject lcm(LispObject a) throws Exception
+    public LispObject lcm(LispObject a) throws Exception
     {
         return a.lcmSmallInteger(this);
     }
 
-    LispObject modAdd(LispObject a) throws Exception
+    public LispObject modAdd(LispObject a) throws Exception
     {
         return a.modAddSmallInteger(this);
     }
 
-    LispObject modSubtract(LispObject a) throws Exception
+    public LispObject modSubtract(LispObject a) throws Exception
     {
         return a.modSubtractSmallInteger(this);
     }
 
-    LispObject modMultiply(LispObject a) throws Exception
+    public LispObject modMultiply(LispObject a) throws Exception
     {
         return a.modMultiplySmallInteger(this);
     }
 
-    LispObject modDivide(LispObject a) throws Exception
+    public LispObject modDivide(LispObject a) throws Exception
     {
         return a.modDivideSmallInteger(this);
     }
 
-    LispObject modExpt(int a) throws Exception
+    public LispObject modExpt(int a) throws Exception
     {
         long r = 1;
         long w = value;
@@ -486,32 +486,32 @@ public class LispSmallInteger extends LispInteger
         return valueOf(r);
     }
 
-    boolean eqn(LispObject a) throws Exception
+    public boolean eqn(LispObject a) throws Exception
     {
         return a.eqnSmallInteger(this);
     }
 
-    boolean neqn(LispObject a) throws Exception
+    public boolean neqn(LispObject a) throws Exception
     {
         return a.neqnSmallInteger(this);
     }
 
-    boolean ge(LispObject a) throws Exception
+    public boolean ge(LispObject a) throws Exception
     {
         return a.geSmallInteger(this);
     }
 
-    boolean geq(LispObject a) throws Exception
+    public boolean geq(LispObject a) throws Exception
     {
         return a.geqSmallInteger(this);
     }
 
-    boolean le(LispObject a) throws Exception
+    public boolean le(LispObject a) throws Exception
     {
         return a.leSmallInteger(this);
     }
 
-    boolean leq(LispObject a) throws Exception
+    public boolean leq(LispObject a) throws Exception
     {
         return a.leqSmallInteger(this);
     }
@@ -521,47 +521,47 @@ public class LispSmallInteger extends LispInteger
 // LispSmallInteger cases and to cope with that I will suppose that
 // they always return small integers if they can.
 
-    LispObject addInteger(LispBigInteger a) throws Exception
+    public LispObject addInteger(LispBigInteger a) throws Exception
     {
         return valueOf(a.value.add(BigInteger.valueOf((long)value)));
     }
 
-    LispObject subtractInteger(LispBigInteger a) throws Exception
+    public LispObject subtractInteger(LispBigInteger a) throws Exception
     {
         return valueOf(a.value.subtract(BigInteger.valueOf((long)value)));
     }
 
-    LispObject multiplyInteger(LispBigInteger a) throws Exception
+    public LispObject multiplyInteger(LispBigInteger a) throws Exception
     {
         return valueOf(a.value.multiply(BigInteger.valueOf((long)value)));
     }
 
-    LispObject divideInteger(LispBigInteger a) throws Exception
+    public LispObject divideInteger(LispBigInteger a) throws Exception
     {
         if (value == 0) return Jlisp.error("attempt to divide by zero");
         return valueOf(a.value.divide(BigInteger.valueOf((long)value)));
     }
 
-    LispObject remainderInteger(LispBigInteger a) throws Exception
+    public LispObject remainderInteger(LispBigInteger a) throws Exception
     {
         if (value == 0) return Jlisp.error("attempt to divide by zero");
         return valueOf(a.value.remainder(BigInteger.valueOf((long)value)));
     }
 
-    LispObject quotientAndRemainderInteger(LispBigInteger a) throws Exception
+    public LispObject quotientAndRemainderInteger(LispBigInteger a) throws Exception
     {
         if (value == 0) return Jlisp.error("attempt to divide by zero");
         BigInteger [] r = a.value.divideAndRemainder(BigInteger.valueOf((long)value));
         return new Cons(valueOf(r[0]), valueOf(r[1]));
     }
 
-    LispObject modInteger(LispBigInteger a) throws Exception
+    public LispObject modInteger(LispBigInteger a) throws Exception
     {
         if (value == 0) return Jlisp.error("attempt to divide by zero");
         return valueOf(a.value.mod(BigInteger.valueOf((long)value)));
     }
 
-    LispObject exptInteger(LispBigInteger a) throws Exception
+    public LispObject exptInteger(LispBigInteger a) throws Exception
     {
         if (value < 0) return valueOf(0);
         else if (value == 0) return valueOf(1);
@@ -570,70 +570,70 @@ public class LispSmallInteger extends LispInteger
         else return valueOf(a.value.pow(value));
     }
 
-    LispObject maxInteger(LispBigInteger a) throws Exception
+    public LispObject maxInteger(LispBigInteger a) throws Exception
     {
         if (a.value.compareTo(BigInteger.valueOf((long)value)) >= 0) return a;
         else return this;
     }
 
-    LispObject minInteger(LispBigInteger a) throws Exception
+    public LispObject minInteger(LispBigInteger a) throws Exception
     {
         if (a.value.compareTo(BigInteger.valueOf((long)value)) <= 0) return a;
         else return this;
     }
 
-    LispObject andInteger(LispBigInteger a) throws Exception
+    public LispObject andInteger(LispBigInteger a) throws Exception
     {
         return valueOf(a.value.and(BigInteger.valueOf((long)value)));
     }
 
-    LispObject orInteger(LispBigInteger a) throws Exception
+    public LispObject orInteger(LispBigInteger a) throws Exception
     {
         return valueOf(a.value.or(BigInteger.valueOf((long)value)));
     }
 
-    LispObject xorInteger(LispBigInteger a) throws Exception
+    public LispObject xorInteger(LispBigInteger a) throws Exception
     {
         return valueOf(a.value.xor(BigInteger.valueOf((long)value)));
     }
 
-    LispObject gcdInteger(LispBigInteger a) throws Exception
+    public LispObject gcdInteger(LispBigInteger a) throws Exception
     {
         return valueOf(a.value.gcd(BigInteger.valueOf((long)value)));
     }
 
-    LispObject lcmInteger(LispBigInteger a) throws Exception
+    public LispObject lcmInteger(LispBigInteger a) throws Exception
     {
         return valueOf(LispBigInteger.biglcm(
            a.value, BigInteger.valueOf((long)value)));
     }
 
-    boolean eqnInteger(LispBigInteger a) throws Exception
+    public boolean eqnInteger(LispBigInteger a) throws Exception
     {
         return (a.value.compareTo(BigInteger.valueOf((long)value)) == 0);
     }
 
-    boolean neqnInteger(LispBigInteger a) throws Exception
+    public boolean neqnInteger(LispBigInteger a) throws Exception
     {
         return (a.value.compareTo(BigInteger.valueOf((long)value)) != 0);
     }
 
-    boolean geInteger(LispBigInteger a) throws Exception
+    public boolean geInteger(LispBigInteger a) throws Exception
     {
         return (a.value.compareTo(BigInteger.valueOf((long)value)) > 0);
     }
 
-    boolean geqInteger(LispBigInteger a) throws Exception
+    public boolean geqInteger(LispBigInteger a) throws Exception
     {
         return (a.value.compareTo(BigInteger.valueOf((long)value)) >= 0);
     }
 
-    boolean leInteger(LispBigInteger a) throws Exception
+    public boolean leInteger(LispBigInteger a) throws Exception
     {
         return (a.value.compareTo(BigInteger.valueOf((long)value)) < 0);
     }
 
-    boolean leqInteger(LispBigInteger a) throws Exception
+    public boolean leqInteger(LispBigInteger a) throws Exception
     {
         return (a.value.compareTo(BigInteger.valueOf((long)value)) <= 0);
     }
@@ -641,41 +641,41 @@ public class LispSmallInteger extends LispInteger
 // Finally versions that know they have 2 small integer args. Here I need
 // to worry about overflow and promote to a LispBigInteger in suitable cases.
 
-    LispObject addSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject addSmallInteger(LispSmallInteger a) throws Exception
     {
         return valueOf(a.value + value);
     }
 
-    LispObject subtractSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject subtractSmallInteger(LispSmallInteger a) throws Exception
     {
         return valueOf(a.value - value);
     }
 
-    LispObject multiplySmallInteger(LispSmallInteger a) throws Exception
+    public LispObject multiplySmallInteger(LispSmallInteger a) throws Exception
     {
         return valueOf((long)a.value * (long)value);
     }
 
-    LispObject divideSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject divideSmallInteger(LispSmallInteger a) throws Exception
     {
         if (value == 0) return Jlisp.error("attempt to divide by zero");
         return valueOf(a.value / value);
     }
 
-    LispObject remainderSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject remainderSmallInteger(LispSmallInteger a) throws Exception
     {
         if (value == 0) return Jlisp.error("attempt to divide by zero");
         return valueOf(a.value % value);
     }
 
-    LispObject quotientAndRemainderSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject quotientAndRemainderSmallInteger(LispSmallInteger a) throws Exception
     {
         if (value == 0) return Jlisp.error("attempt to divide by zero");
         return new Cons(valueOf(a.value / value),
                         valueOf(a.value % value));
     }
 
-    LispObject modSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject modSmallInteger(LispSmallInteger a) throws Exception
     {
         if (value == 0) return Jlisp.error("attempt to divide by zero");
         int r = a.value % value;
@@ -686,7 +686,7 @@ public class LispSmallInteger extends LispInteger
         return valueOf(r);
     }
 
-    LispObject exptSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject exptSmallInteger(LispSmallInteger a) throws Exception
     {
         if (value < 0) return valueOf(0);
         else if (value == 0) return valueOf(1);
@@ -696,34 +696,34 @@ public class LispSmallInteger extends LispInteger
                         BigInteger.valueOf((long)a.value).pow(value));
     }
 
-    LispObject maxSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject maxSmallInteger(LispSmallInteger a) throws Exception
     {
         if (a.value >= value) return a;
         else return this;
     }
 
-    LispObject minSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject minSmallInteger(LispSmallInteger a) throws Exception
     {
         if (a.value <= value) return a;
         else return this;
     }
 
-    LispObject andSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject andSmallInteger(LispSmallInteger a) throws Exception
     {
         return valueOf(a.value & value);
     }
 
-    LispObject orSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject orSmallInteger(LispSmallInteger a) throws Exception
     {
         return valueOf(a.value | value);
     }
 
-    LispObject xorSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject xorSmallInteger(LispSmallInteger a) throws Exception
     {
         return valueOf(a.value ^ value);
     }
 
-    LispObject gcdSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject gcdSmallInteger(LispSmallInteger a) throws Exception
     {
         int p = a.value;
         int q = value;
@@ -741,7 +741,7 @@ public class LispSmallInteger extends LispInteger
         return valueOf(p);
     }
 
-    LispObject lcmSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject lcmSmallInteger(LispSmallInteger a) throws Exception
     {
         return valueOf(
             LispBigInteger.biglcm(
@@ -749,27 +749,27 @@ public class LispSmallInteger extends LispInteger
                 BigInteger.valueOf((long)value)));
     }
 
-    LispObject modAddSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject modAddSmallInteger(LispSmallInteger a) throws Exception
     {
         int n = a.value + value;
         if (n >= Jlisp.modulus) n -= Jlisp.modulus;
         return valueOf(n);
     }
 
-    LispObject modSubtractSmallInteger(LispSmallInteger a) throws Exception
+    public LispObject modSubtractSmallInteger(LispSmallInteger a) throws Exception
     {
         int n = a.value - value;
         if (n < 0) n += Jlisp.modulus;
         return valueOf(n);
     }
 
-    LispObject modMultiplySmallInteger(LispSmallInteger a) throws Exception
+    public LispObject modMultiplySmallInteger(LispSmallInteger a) throws Exception
     {
         long n = (long)a.value * (long)value;
         return valueOf(n % Jlisp.modulus);
     }
 
-    LispObject modDivideSmallInteger(LispSmallInteger arg) throws Exception
+    public LispObject modDivideSmallInteger(LispSmallInteger arg) throws Exception
     {
         if (value == 0) 
             return Jlisp.error("attempt to divide by (modular) zero");
@@ -783,32 +783,32 @@ public class LispSmallInteger extends LispInteger
         return valueOf(((long)s * (long)arg.value) % Jlisp.modulus);
     }
 
-    boolean eqnSmallInteger(LispSmallInteger a) throws Exception
+    public boolean eqnSmallInteger(LispSmallInteger a) throws Exception
     {
         return (a.value == value);
     }
 
-    boolean neqnSmallInteger(LispSmallInteger a) throws Exception
+    public boolean neqnSmallInteger(LispSmallInteger a) throws Exception
     {
         return (a.value != value);
     }
 
-    boolean geSmallInteger(LispSmallInteger a) throws Exception
+    public boolean geSmallInteger(LispSmallInteger a) throws Exception
     {
         return (a.value > value);
     }
 
-    boolean geqSmallInteger(LispSmallInteger a) throws Exception
+    public boolean geqSmallInteger(LispSmallInteger a) throws Exception
     {
         return (a.value >= value);
     }
 
-    boolean leSmallInteger(LispSmallInteger a) throws Exception
+    public boolean leSmallInteger(LispSmallInteger a) throws Exception
     {
         return (a.value < value);
     }
 
-    boolean leqSmallInteger(LispSmallInteger a) throws Exception
+    public boolean leqSmallInteger(LispSmallInteger a) throws Exception
     {
         return (a.value <= value);
     }

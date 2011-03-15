@@ -37,10 +37,10 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class EOFException extends IOException
+public class EOFException extends IOException
 {
 
-EOFException()
+public EOFException()
 {
 }
 
