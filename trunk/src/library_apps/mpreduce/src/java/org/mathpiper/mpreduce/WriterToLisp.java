@@ -35,6 +35,7 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.LispStream;
 import java.io.*;
 
 public class WriterToLisp extends Writer

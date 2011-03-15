@@ -36,6 +36,7 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.LispStream;
 import java.io.*;
 
 class DoubleWriter extends LispStream

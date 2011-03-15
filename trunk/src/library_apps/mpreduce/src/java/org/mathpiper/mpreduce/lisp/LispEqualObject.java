@@ -1,9 +1,13 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
+
+// This class exists just so that I can hash LispObjects using an EQUAL
+// test. I do so by wrapping them up as LispEqualObjects at which stage the
+// relevant methods emerge.
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -36,76 +40,24 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-import java.io.*;
-
-public abstract class LispFunction extends LispObject
+public class LispEqualObject extends Object
 {
-    public String name = "unknown-function";
+    public LispObject value;
 
-    public LispObject op0() throws Exception
-    {
-        return error("undefined " + name + " with 0 args");
+    public LispEqualObject(Object a)
+    {   this.value = (LispObject)a;
     }
 
-    public LispObject op1(LispObject a1) throws Exception
+    public boolean equals(Object b)
     {
-        return error("undefined " + name + " with 1 arg");
+        if (!(b instanceof LispEqualObject)) return false;
+	return value.lispequals(((LispEqualObject)b).value);
     }
 
-    public LispObject op2(LispObject a1, LispObject a2) throws Exception
-    {
-        return error("undefined " + name + " with 2 args");
+    public int hashCode()
+    {   return value.lisphashCode();
     }
-
-    public LispObject opn(LispObject [] args) throws Exception
-    {
-        return error("undefined " + name + " with " + args.length + " args");
-    }
-
-    public LispObject error(String s) throws Exception
-    {
-        return Jlisp.error(s);
-    }
-
-    public LispObject error(String s, LispObject a) throws Exception
-    {
-        return Jlisp.error(s, a);
-    }
-
-    public void iprint()
-    {
-        String s = "#Fn<" + name + ">";
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print(s);
-    }
-
-    public void blankprint()
-    {
-        String s = "#Fn<" + name + ">";
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() >= currentOutput.lineLength)
-            currentOutput.println();
-        else currentOutput.print(" ");
-        currentOutput.print(s);
-    }
-
-    public void scan()
-    {
-        if (Jlisp.objects.contains(this)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(this))
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-	            Jlisp.nil); // value is junk at this stage
-	    }
-	}
-	else Jlisp.objects.add(this);
-    }
-    
 
 }
 
-// End of LispFunction.java
-
-
+// end of LispEqualObject.java

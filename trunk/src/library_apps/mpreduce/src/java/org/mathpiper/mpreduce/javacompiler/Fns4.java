@@ -44,9 +44,9 @@ package org.mathpiper.mpreduce.javacompiler;
 
 import org.mathpiper.mpreduce.Gensym;
 import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.LispObject;
-import org.mathpiper.mpreduce.LispSmallInteger;
-import org.mathpiper.mpreduce.LispString;
+import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.lisp.LispSmallInteger;
+import org.mathpiper.mpreduce.lisp.LispString;
 import org.mathpiper.mpreduce.builtin.BuiltinFunction;
 
 public class Fns4

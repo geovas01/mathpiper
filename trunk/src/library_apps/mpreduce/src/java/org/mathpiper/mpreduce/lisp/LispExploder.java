@@ -1,13 +1,9 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
-
-// This class exists just so that I can hash LispObjects using an EQUAL
-// test. I do so by wrapping them up as LispEqualObjects at which stage the
-// relevant methods emerge.
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -40,24 +36,57 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-public class LispEqualObject extends Object
+import java.io.*;
+import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Symbol;
+
+public class LispExploder extends LispStream
 {
-    public LispObject value;
 
-    public LispEqualObject(Object a)
-    {   this.value = (LispObject)a;
-    }
+    boolean asSymbols;
 
-    public boolean equals(Object b)
+    public LispExploder(boolean n) // builds a list of all characters
+                            // n true for symbols, false for numeric codes
     {
-        if (!(b instanceof LispEqualObject)) return false;
-	return value.lispequals(((LispEqualObject)b).value);
+        super("<exploder>");
+        asSymbols = n;
+        exploded = Jlisp.nil;
     }
 
-    public int hashCode()
-    {   return value.lisphashCode();
+    public void flush()
+    {
+    }
+
+    public void close()
+    {
+        exploded = Jlisp.nil;
+    }
+
+    public void print(String s)
+    {
+        char [] v = s.toCharArray();
+        for (int i=0; i<v.length; i++)
+        {   char c = v[i];
+            LispObject w;
+            if (asSymbols)
+            {   if ((int)c < 128) w = Jlisp.chars[(int)c];
+                else w = Symbol.intern(String.valueOf(c));
+            }
+            else w = LispInteger.valueOf((int)c);
+            exploded = new Cons(w, exploded);
+        }
+    }
+
+    public void println(String s)
+    {
+        print(s);
+        if (asSymbols) exploded = new Cons(Jlisp.chars['\n'], exploded);
+        else exploded = new Cons(LispInteger.valueOf('\n'), exploded);
     }
 
 }
 
-// end of LispEqualObject.java
+// end of LispExploder.java
+
+

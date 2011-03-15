@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -41,6 +41,9 @@ import java.math.*;
 import java.util.*;
 import java.text.*;
 import java.security.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.Symbol;
 
 public class LispStream extends LispObject
 {
@@ -62,7 +65,7 @@ public class LispStream extends LispObject
 // something I had just expected to happen for me as part of the Unicode
 // conversion fun, but it seems not to. So I do it by steam here. Ugh!
 
-    static String eol = System.getProperty("line.separator");
+    public static String eol = System.getProperty("line.separator");
 
 // Various classes derived from this generic LispStream will direct
 // output to one or the other of the following destinations. I include
@@ -72,7 +75,7 @@ public class LispStream extends LispObject
     public LispObject exploded;  // for explode() and friends
     public StringBuffer sb;      // for explodeToString()
     public MessageDigest md;     // for md5 checksumming
-    Writer wr;            // for ordinary printing!
+    public Writer wr;            // for ordinary printing!
 
     public void print(String s)
     { // attempting to print to (eg) an input stream has no effect at all
@@ -107,10 +110,10 @@ public class LispStream extends LispObject
 // something packaged up via a Reader. But a sub-class will be able to
 // cause input to be taken from a list (for compress()).
 
-    boolean inputValid;
-    LispObject inputData;
+    public boolean inputValid;
+    public LispObject inputData;
     String stringData;
-    Reader reader = null;
+    public Reader reader = null;
 
 
 // This will behave somewhat like the regular Java StreamTokenizer class
@@ -122,20 +125,20 @@ public class LispStream extends LispObject
 // set to show what sort of thing is there and value will hold extended
 // data.
 
-    static final int TT_EOF    = -1;
-    static final int TT_NUMBER = -2;
-    static final int TT_WORD   = -3;
-    static final int TT_STRING = -4;
+    public static final int TT_EOF    = -1;
+    public static final int TT_NUMBER = -2;
+    public static final int TT_WORD   = -3;
+    public static final int TT_STRING = -4;
     int ttype;
 
-    LispObject value; // symbol, number, whatever
+    public LispObject value; // symbol, number, whatever
 
-    int nextChar, prevChar = '\n';
+    public int nextChar, prevChar = '\n';
     StringBuffer s = new StringBuffer();
-    boolean needsPrompt;
-    boolean escaped;
+    public boolean needsPrompt;
+    public boolean escaped;
 
-    boolean allowOctal;
+    public boolean allowOctal;
 
     static BigInteger [] digits = // to avoid repeated re-construction
     {   BigInteger.valueOf(0),
@@ -167,7 +170,7 @@ public class LispStream extends LispObject
         setReader(name, reader, np, allowOctal);
     }
 
-    void setReader(String name, Reader reader, boolean np, boolean allowOctal)
+    public void setReader(String name, Reader reader, boolean np, boolean allowOctal)
     {
         this.name = name;
         this.reader = reader;
@@ -204,7 +207,7 @@ public class LispStream extends LispObject
         Jlisp.lispIO.flush();
     }
     
-    int read() throws Exception
+    public int read() throws Exception
     {
         if (reader == null) return -1;
         int c;
@@ -222,7 +225,7 @@ public class LispStream extends LispObject
         return c;
     }
 
-    void getNext() throws Exception
+    public void getNext() throws Exception
     {
         if (prevChar == '\n') prompt();
         int c = read();
@@ -244,7 +247,7 @@ public class LispStream extends LispObject
         return c;
     }
     
-    int nextToken() throws Exception
+    public int nextToken() throws Exception
     {
         int i;
         for (;;)
@@ -650,7 +653,7 @@ public class LispStream extends LispObject
         }
     } 
 
-    void tidyup(LispObject a)
+    public void tidyup(LispObject a)
     {
         value = a;
         inputData = a;

@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -36,89 +36,67 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-import java.util.*;
 import java.io.*;
+import java.security.*;
+import org.mathpiper.mpreduce.Jlisp;
 
-public class LispHash extends LispObject
+public class LispDigester extends LispStream
 {
-    public HashMap hash;
-    public int flavour;
-    
-    public LispHash(HashMap hash, int n)
+
+    public LispDigester()
     {
-        this.hash = hash; 
-        this.flavour = n;  // 0 to 4, with only 0 and 2 used!
+        super("<md5 digester>");
+        try
+        {   md = MessageDigest.getInstance("MD5", "SUN");
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            Jlisp.errprintln("No MD5 available: " + e.getMessage());
+            md = null;
+        }
+        catch (NoSuchProviderException e)
+        {
+            Jlisp.errprintln("No provider: " + e.getMessage());
+            md = null;
+        }
     }
 
-    public void iprint()
+    public void flush()
     {
-        String s = "#<HashTable>";
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print(s);
     }
 
-    public void blankprint()
+    public void close()
     {
-        String s = "#<HashTable>";
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() >= currentOutput.lineLength)
-            currentOutput.println();
-        else currentOutput.print(" ");
-        currentOutput.print(s);
+        md = null;
     }
 
-    public void scan()
+    public void print(String s)
     {
-        if (Jlisp.objects.contains(this)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(this))
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-	            Jlisp.nil); // value is junk at this stage
-	    }
-	}
-	else 
-	{   Jlisp.objects.add(this);
-            for (Iterator e = hash.keySet().iterator();
-                 e.hasNext();
-	        )
-            {   Object k = e.next();
-                Object v = hash.get(k);
-		Jlisp.stack.push(v);
-		Jlisp.stack.push(k);
-	    }
-	}
-    }
-  
-    public void dump() throws IOException
-    {
-        Object w = Jlisp.repeatedObjects.get(this);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-		    new Integer(Jlisp.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-	    Jlisp.odump.write(X_HASH + flavour);
-	    for (Iterator e = hash.keySet().iterator();
-	         e.hasNext();
-		)
-            {   Object k = e.next();
-	        Object v = hash.get(k);
-		Jlisp.stack.push(v);
-		Jlisp.stack.push(k);
-            }
-	    Jlisp.odump.write(X_ENDHASH);
-	}
+        if (md == null) return;
+        char [] v = s.toCharArray();
+// It *MAY* be better to use getChars here and move data into a pre-allocated
+// array of characters.
+        for (int i=0; i<v.length; i++)
+        {   char c = v[i];
+// characters are in general 16-bits wide (even though all the charcters that
+// I will normally use in the UK are only 7 bits) so I pass them to the
+// message digest process as two bytes each.
+            md.update((byte)(c >> 8));
+            md.update((byte)c);
+        }
     }
 
+    public void println(String s)
+    {
+        print(s);
+        if (md != null)
+        {   md.update((byte)0);
+            md.update((byte)'\n');
+        }
+    }
 
 }
 
+// end of LispDigester.java
 
-// end of LispHash.java
 

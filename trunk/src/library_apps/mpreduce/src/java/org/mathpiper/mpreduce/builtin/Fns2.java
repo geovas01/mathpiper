@@ -50,12 +50,12 @@ import java.text.*;
 import java.math.*;
 import org.mathpiper.mpreduce.Cons;
 import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.LispBigInteger;
-import org.mathpiper.mpreduce.LispFloat;
-import org.mathpiper.mpreduce.LispInteger;
-import org.mathpiper.mpreduce.LispNumber;
-import org.mathpiper.mpreduce.LispObject;
-import org.mathpiper.mpreduce.LispSmallInteger;
+import org.mathpiper.mpreduce.lisp.LispBigInteger;
+import org.mathpiper.mpreduce.lisp.LispFloat;
+import org.mathpiper.mpreduce.lisp.LispInteger;
+import org.mathpiper.mpreduce.lisp.LispNumber;
+import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.lisp.LispSmallInteger;
 import org.mathpiper.mpreduce.MyMath;
 
 public class Fns2

@@ -1,5 +1,7 @@
 package org.mathpiper.mpreduce;
 
+import org.mathpiper.mpreduce.lisp.LispObject;
+
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *

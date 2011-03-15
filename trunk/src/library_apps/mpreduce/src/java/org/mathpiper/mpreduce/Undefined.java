@@ -35,6 +35,7 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.LispFunction;
 import java.io.*;
 
 public class Undefined extends LispFunction

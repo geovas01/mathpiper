@@ -35,6 +35,10 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.LispStream;
+import org.mathpiper.mpreduce.lisp.LispString;
+import org.mathpiper.mpreduce.lisp.LispInteger;
+import org.mathpiper.mpreduce.lisp.LispObject;
 import java.io.*;
 import java.math.*;
 import java.util.*;
@@ -54,7 +58,7 @@ public class ListReader extends LispStream
         nextChar = -2;
     }
 
-    int read() throws Exception
+    public int read() throws Exception
     {
         if (inputData.atom) return -1;
         LispObject w = inputData.car;

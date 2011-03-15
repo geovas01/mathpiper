@@ -41,6 +41,8 @@ package org.mathpiper.mpreduce;
 // associated function is this job, which knows how to
 // extract the saved definition and activate it.
 
+import org.mathpiper.mpreduce.lisp.LispFunction;
+import org.mathpiper.mpreduce.lisp.LispObject;
 import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
 

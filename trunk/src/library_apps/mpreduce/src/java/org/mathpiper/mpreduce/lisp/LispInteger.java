@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -36,26 +36,50 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-public class LispException extends Exception
+import java.math.*;
+import java.io.*;
+import java.util.*;
+
+public abstract class LispInteger extends LispNumber
 {
-    public LispObject details;
-    public String message;
-    
-    LispException()
+
+    public static LispInteger valueOf(int value)
     {
-        this.message = "unknown"; 
-	this.details = Jlisp.nil;
+        if (value <= LispSmallInteger.MAX &&
+            value >= LispSmallInteger.MIN)
+            return LispSmallInteger.preAllocated[value - LispSmallInteger.MIN];
+        else if (value <= 0x3fffffff &&
+            value >= -0x40000000) return new LispSmallInteger(value);
+        else return new LispBigInteger(BigInteger.valueOf((long)value));
     }
-    
-    LispException(String message)
+
+    public static LispInteger valueOf(long value)
     {
-        this.message=message;
-	this.details=null; 
+        if (value <= LispSmallInteger.MAX &&
+            value >= LispSmallInteger.MIN)
+            return LispSmallInteger.preAllocated[
+                       (int)(value - LispSmallInteger.MIN)];
+        else if (value <= 0x3fffffffL &&
+            value >= -0x40000000L) return new LispSmallInteger((int)value);
+        else return new LispBigInteger(BigInteger.valueOf(value));
     }
-    
-    LispException(String message, LispObject details)
+
+    public static LispInteger valueOf(BigInteger value)
     {
-        this.message = message;
-	this.details = details; 
+        if (value.bitLength() <= 31)
+        {   int n = value.intValue();
+            if (n <= LispSmallInteger.MAX &&
+                n >= LispSmallInteger.MIN)
+                return LispSmallInteger.preAllocated[n - LispSmallInteger.MIN];
+            else if (n <= 0x3fffffff &&
+                     n >= -0x40000000) return new LispSmallInteger(n);
+        }
+        return new LispBigInteger(value);
     }
+
+
 }
+
+// End of LispInteger.java
+
+

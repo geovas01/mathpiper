@@ -39,6 +39,8 @@ package org.mathpiper.mpreduce;
 // A "cons" is an ordered pair. In ML terms it would be
 // a bit like ('a * 'b)
 
+import org.mathpiper.mpreduce.lisp.LispVector;
+import org.mathpiper.mpreduce.lisp.LispObject;
 import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
 
@@ -249,7 +251,7 @@ public class Cons extends LispObject
         return lisphashCode(this, 100);
     }
 
-    int lisphashCode(LispObject a, int n)
+    public int lisphashCode(LispObject a, int n)
     {   int r = 9990;
         while (n >= 0 && !a.atom)
         {   n--;

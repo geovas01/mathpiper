@@ -34,6 +34,8 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.LispFunction;
+import org.mathpiper.mpreduce.lisp.LispObject;
 import java.io.*;
 
 public class AutoLoad extends LispFunction
