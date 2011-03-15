@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.packagedatastore;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -37,6 +37,11 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 import java.util.*;
+import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.LispStream;
+import org.mathpiper.mpreduce.LispString;
 
 // This class (and PDSInputStream & PDSOutputStream) support a crude
 // version of a file-system-within-a-file.  No sub-directoried are
@@ -211,7 +216,7 @@ public LispObject members()
 }
 
 
-PDS(InputStream is) throws IOException
+public PDS(InputStream is) throws IOException
 {
     name = "Resource image data";
     data = new Vector(500, 500);
@@ -248,7 +253,7 @@ PDS(InputStream is) throws IOException
 }
 
 
-PDS(String name, boolean writeable) throws IOException
+public PDS(String name, boolean writeable) throws IOException
 {
     this.name = name;
     this.writeable = writeable;

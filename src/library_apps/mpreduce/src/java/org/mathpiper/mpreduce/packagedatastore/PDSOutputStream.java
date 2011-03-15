@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.packagedatastore;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -37,63 +37,66 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 import java.util.*;
+import org.mathpiper.mpreduce.Jlisp;
 
-class PDSEntry implements Comparable
+public class PDSOutputStream extends OutputStream
 {
-    String name; // name of this member
-    int loc;     // location within the PDS (only 32 bits boo hiss!)
-    int len;     // size of this member (also only 32 bits)
-    long date;   // time last updated (64 bits)
 
-    static final int orderName = 0;
-    static final int orderLoc  = 1;
-    static final int orderSize = 2;
-    static final int orderDate = 3;
-// The STATIC field here controls what ordering will be applied
-// if I make an array of PDSEntry values and go Arrays.sort() on it.
-    static int ordering = orderName;
+PDS pds;
+String member;
+int length;
 
-public int compareTo(Object aa)
+long savedPosition;
+
+public PDSOutputStream(PDS pds, String member) throws IOException
 {
-    if (!(aa instanceof PDSEntry)) return -1;
-    PDSEntry a = (PDSEntry)aa;
-    int r;
-    switch (ordering)
-    {
-case orderName:
-default:
-        r = name.compareTo(a.name);
-        if (r != 0) return r;
-        else break;
-case orderLoc:
-        if (loc != a.loc) return a.loc - loc;
-        else break;
-case orderSize:
-        if (len != a.len) return a.len - len;
-        else break;
-case orderDate:
-        if (date != a.date) return (a.date < date) ? -1 : 1;
-        else break;
-    }
-// If the primary key does not distinguish I will try the others in
-// order to apply at least some ordering.
-    r = name.compareTo(a.name);
-    if (r != 0) return r;
-    if (date != a.date) return (a.date < date) ? -1 : 1;
-    if (len != a.len) return a.len - len;
-    if (loc != a.loc) return a.loc - loc;
-    return 0;
+    this.pds = pds;
+    this.member = member;
+    if (pds.f != null) savedPosition = pds.f.getFilePointer();
+    else savedPosition = -1;
+    if (pds.memberData != 0)
+        throw new IOException("Attempt to have two output files open in one PDS");
+    pds.addToDirectory(member);
+    length = 0;
 }
 
-PDSEntry(String name, int loc, int len, long date)
+public void close() throws IOException
 {
-    this.name = name;
-    this.loc = loc;
-    this.len = len;
-    this.date = date;
+    if (pds == null) return;
+Jlisp.println("at close member: length = " + length + " memberData = " + pds.memberData);
+    pds.f.seek(pds.memberData);
+    pds.f.write(pds.memberStart >> 24);
+    pds.f.write(pds.memberStart >> 16);
+    pds.f.write(pds.memberStart >> 8);
+    pds.f.write(pds.memberStart);
+    pds.f.write(length >> 24);
+    pds.f.write(length >> 16);
+    pds.f.write(length >> 8);
+    pds.f.write(length);
+    long date = new Date().getTime();
+    pds.f.write((int)(date >> 56));
+    pds.f.write((int)(date >> 48));
+    pds.f.write((int)(date >> 40));
+    pds.f.write((int)(date >> 32));
+    pds.f.write((int)(date >> 24));
+    pds.f.write((int)(date >> 16));
+    pds.f.write((int)(date >> 8));
+    pds.f.write((int)date);
+    pds.memberData = 0;
+    pds.directory.put(member,
+        new PDSEntry(member, pds.memberStart, length, date));
+    if (savedPosition >= 0) pds.f.seek(savedPosition);
+    pds = null;
+}
+
+public void write(int c) throws IOException
+{
+    pds.f.write(c);
+    length++;
 }
 
 }
 
-// end of PDSEntry.java
+// end of PDSInputStream.java
+
 

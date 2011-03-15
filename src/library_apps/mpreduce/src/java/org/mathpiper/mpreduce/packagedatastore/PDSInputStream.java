@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.packagedatastore;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -37,7 +37,7 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 
-class PDSInputStream extends InputStream
+public class PDSInputStream extends InputStream
 {
 
 PDS pds;
@@ -45,7 +45,7 @@ PDS pds;
 long savedPosition;
 int left;
 
-PDSInputStream(PDS pds, String member) throws IOException
+public PDSInputStream(PDS pds, String member) throws IOException
 {
     this.pds = pds;
     if (pds == null || (pds.f == null && pds.data == null))
