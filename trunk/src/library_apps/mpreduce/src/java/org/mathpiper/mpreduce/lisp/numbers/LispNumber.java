@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp.numbers;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,35 +35,12 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.lisp.streams.LispStream;
-import java.io.*;
+import java.math.*;
+import org.mathpiper.mpreduce.lisp.LispObject;
 
-public class WriterToLisp extends Writer
+public abstract class LispNumber extends LispObject
 {
-    LispStream stream;
-
-    public WriterToLisp(LispStream s)
-    {
-        stream = s;
-    }
-
-    public void close()
-    {
-        stream.close();
-    }
-
-    public void flush()
-    {
-        stream.flush();
-    }
-
-    public void write(char [] buffer, int off, int len)
-    {
-        stream.print(new String(buffer, off, len));
-    }
-
 }
 
-// end of WriterToLisp.java
-
+// end of LispNumber.java
 

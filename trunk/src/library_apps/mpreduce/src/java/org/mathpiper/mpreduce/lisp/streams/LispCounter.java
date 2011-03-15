@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp.streams;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,48 +35,37 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.lisp.LispStream;
-import org.mathpiper.mpreduce.lisp.LispString;
-import org.mathpiper.mpreduce.lisp.LispInteger;
-import org.mathpiper.mpreduce.lisp.LispObject;
 import java.io.*;
-import java.math.*;
-import java.util.*;
-import java.text.*;
-import java.security.*;
 
-public class ListReader extends LispStream
+public class LispCounter extends LispStream
 {
 
-    public ListReader(LispObject data)
+    public LispCounter()
     {
-        super("<read from list>");
-        inputData = data;
-        needsPrompt = false;
-        escaped = false;
-        this.allowOctal = allowOctal;
-        nextChar = -2;
+        super("<character counter>");
+        column = 0;
     }
 
-    public int read() throws Exception
+    public void flush()
     {
-        if (inputData.atom) return -1;
-        LispObject w = inputData.car;
-        inputData = inputData.cdr;
-        if (w instanceof LispString)
-            return (int)((LispString)w).string.charAt(0);
-        else if (w instanceof Symbol)
-            return (int)((Symbol)w).pname.charAt(0);
-        else if (w instanceof LispInteger)
-            return w.intValue();
-        else return -1;
     }
 
     public void close()
     {
-        inputData = Jlisp.nil;
+    }
+
+    public void print(String s)
+    {
+        column += s.length();
+    }
+
+    public void println(String s)
+    {
+        column += s.length() + 1;
     }
 
 }
 
-// end of ListReader.java
+// end of LispCounter.java
+
+

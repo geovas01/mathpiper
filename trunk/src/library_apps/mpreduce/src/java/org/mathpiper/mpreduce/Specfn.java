@@ -5,7 +5,7 @@ package org.mathpiper.mpreduce;
 import org.mathpiper.mpreduce.lisp.functions.Interpreted;
 import org.mathpiper.mpreduce.lisp.functions.Macro;
 import org.mathpiper.mpreduce.lisp.functions.Undefined;
-import org.mathpiper.mpreduce.lisp.LispInteger;
+import org.mathpiper.mpreduce.lisp.numbers.LispInteger;
 import org.mathpiper.mpreduce.lisp.LispObject;
 
 // This file is part of the Jlisp implementation of Standard Lisp

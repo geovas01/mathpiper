@@ -45,6 +45,9 @@ import java.io.*;
 import java.math.*;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.lisp.numbers.LispBigInteger;
+import org.mathpiper.mpreduce.lisp.numbers.LispSmallInteger;
+import org.mathpiper.mpreduce.lisp.streams.LispStream;
 
 public abstract class LispObject extends Object
 {

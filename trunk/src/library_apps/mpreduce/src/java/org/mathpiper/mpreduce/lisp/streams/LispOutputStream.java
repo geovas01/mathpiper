@@ -1,5 +1,4 @@
-package org.mathpiper.mpreduce;
-
+package org.mathpiper.mpreduce.lisp.streams;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -36,28 +35,44 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.lisp.LispStream;
 import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
 
-class DoubleWriter extends LispStream
+public class LispOutputStream extends LispStream
 {
-    Writer log;
+
     boolean closeMe;
 
-    DoubleWriter(String n, Writer log) throws IOException // to a named file
+    public LispOutputStream(String n) throws IOException // to a named file
     {
         super(n);
         wr = new BufferedWriter(new FileWriter(nameConvert(n)));
-        this.log = log;
         closeMe = true;
         Jlisp.openOutputFiles.add(this);
     }
 
-    DoubleWriter(Writer log) // uses standard input, no extra buffering.
+    public LispOutputStream(File n) throws IOException // to a named file
+    {
+        super(n.getName());
+        wr = new BufferedWriter(new FileWriter(n));
+        closeMe = true;
+        Jlisp.openOutputFiles.add(this);
+    }
+
+    public LispOutputStream(String n, boolean appendp) throws IOException
+    // to a file, but with an "append" option
+    {
+        super(n);
+        wr = new BufferedWriter(new FileWriter(nameConvert(n), appendp));
+        closeMe = true;
+        Jlisp.openOutputFiles.add(this);
+    }
+
+    public LispOutputStream() // uses standard input, no extra buffering.
+                       // but note that I have made it a Writer already...
     {
         super("<stdout>");
         wr = Jlisp.out;
-        this.log = log;
         closeMe = false;
         Jlisp.openOutputFiles.add(this);
     }
@@ -66,7 +81,6 @@ class DoubleWriter extends LispStream
     {
         try
         {   wr.flush();
-            log.flush();
         }
         catch (IOException e)
         {}
@@ -77,9 +91,7 @@ class DoubleWriter extends LispStream
         Jlisp.openOutputFiles.removeElement(this);
         try
         {   wr.flush();
-            log.flush();
             if (closeMe) wr.close();
-            log.close();
         }
         catch (IOException e)
         {}
@@ -95,25 +107,28 @@ class DoubleWriter extends LispStream
         {   int p = 0;
             for (int i=0; i<v.length; i++)
             {   char c = v[i];
-// See commentary if LispOutputStream.java
+// In counting columns here I do not take any account of
+//   (a) tab
+//   (b) backspace
+//   (c) '\p' and any other oddities
+// in fact I just count anything apart from '\n' as one character position.
                 if (c == '\n') 
                 {   wr.write(v, p, i-p);
                     wr.write(eol);
-                    log.write(v, p, i-p);
-                    log.write(eol);
                     p = i+1;
                     column = 0;
                 }
+// There is a delicacy here. If the user issues ('\r' '\n') rather than
+// just '\n' I need to take action. What I do is to ignore the '\r' and
+// map the '\n' onto a platform-specific end-of-line.
                 else if (c == '\r')
                 {   wr.write(v, p, i-p);
-                    log.write(v, p, i-p);
                     p = i+1;
                     column = 0;
                 }
                 else column++;
             }
             wr.write(v, p, v.length-p);
-            log.write(v, p, v.length-p);
         }
         catch (IOException e)
         {}
@@ -130,20 +145,15 @@ class DoubleWriter extends LispStream
                 if (c == '\n') 
                 {   wr.write(v, p, i-p);
                     wr.write(eol);
-                    log.write(v, p, i-p);
-                    log.write(eol);
                     p = i+1;
                 }
                 else if (c == '\r')
                 {   wr.write(v, p, i-p);
-                    log.write(v, p, i-p);
                     p = i+1;
                 }
             }
             wr.write(v, p, v.length-p);
             wr.write(eol);
-            log.write(v, p, v.length-p);
-            log.write(eol);
         }
         catch (IOException e)
         {}
@@ -152,6 +162,6 @@ class DoubleWriter extends LispStream
 
 }
 
-// end of DoubleWriter.java
+// end of LispOutputStream.java
 
 

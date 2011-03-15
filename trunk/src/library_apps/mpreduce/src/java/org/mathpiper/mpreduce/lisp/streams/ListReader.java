@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce.lisp;
+package org.mathpiper.mpreduce.lisp.streams;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,11 +35,50 @@ package org.mathpiper.mpreduce.lisp;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.lisp.streams.LispStream;
+import org.mathpiper.mpreduce.lisp.LispString;
+import org.mathpiper.mpreduce.lisp.numbers.LispInteger;
+import org.mathpiper.mpreduce.lisp.LispObject;
+import java.io.*;
 import java.math.*;
+import java.util.*;
+import java.text.*;
+import java.security.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Symbol;
 
-public abstract class LispNumber extends LispObject
+public class ListReader extends LispStream
 {
+
+    public ListReader(LispObject data)
+    {
+        super("<read from list>");
+        inputData = data;
+        needsPrompt = false;
+        escaped = false;
+        this.allowOctal = allowOctal;
+        nextChar = -2;
+    }
+
+    public int read() throws Exception
+    {
+        if (inputData.atom) return -1;
+        LispObject w = inputData.car;
+        inputData = inputData.cdr;
+        if (w instanceof LispString)
+            return (int)((LispString)w).string.charAt(0);
+        else if (w instanceof Symbol)
+            return (int)((Symbol)w).pname.charAt(0);
+        else if (w instanceof LispInteger)
+            return w.intValue();
+        else return -1;
+    }
+
+    public void close()
+    {
+        inputData = Jlisp.nil;
+    }
+
 }
 
-// end of LispNumber.java
-
+// end of ListReader.java

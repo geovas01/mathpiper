@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce.lisp;
+package org.mathpiper.mpreduce.lisp.streams;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,58 +35,39 @@ package org.mathpiper.mpreduce.lisp;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-
 import java.io.*;
-import org.mathpiper.mpreduce.Cons;
-import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.Symbol;
+import java.math.*;
+import java.util.*;
+import java.text.*;
+import java.security.*;
 
-public class LispExploder extends LispStream
+public class LispStringReader extends LispStream
 {
 
-    boolean asSymbols;
+    int pos;
 
-    public LispExploder(boolean n) // builds a list of all characters
-                            // n true for symbols, false for numeric codes
+    public LispStringReader(String data)
     {
-        super("<exploder>");
-        asSymbols = n;
-        exploded = Jlisp.nil;
+        super("<read from string>");
+        stringData = data;
+        pos = 0;
+        needsPrompt = false;
+        escaped = false;
+        this.allowOctal = allowOctal;
+        nextChar = -2;
     }
 
-    public void flush()
+    public int read()
     {
+        if (pos >= stringData.length()) return -1;
+        else return (int)stringData.charAt(pos++);
     }
 
     public void close()
     {
-        exploded = Jlisp.nil;
-    }
-
-    public void print(String s)
-    {
-        char [] v = s.toCharArray();
-        for (int i=0; i<v.length; i++)
-        {   char c = v[i];
-            LispObject w;
-            if (asSymbols)
-            {   if ((int)c < 128) w = Jlisp.chars[(int)c];
-                else w = Symbol.intern(String.valueOf(c));
-            }
-            else w = LispInteger.valueOf((int)c);
-            exploded = new Cons(w, exploded);
-        }
-    }
-
-    public void println(String s)
-    {
-        print(s);
-        if (asSymbols) exploded = new Cons(Jlisp.chars['\n'], exploded);
-        else exploded = new Cons(LispInteger.valueOf('\n'), exploded);
+        stringData = null;
     }
 
 }
 
-// end of LispExploder.java
-
-
+// end of LispStringReader.java

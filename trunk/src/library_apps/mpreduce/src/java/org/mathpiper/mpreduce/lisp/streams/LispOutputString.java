@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce.lisp;
+package org.mathpiper.mpreduce.lisp.streams;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp

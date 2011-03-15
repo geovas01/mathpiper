@@ -1,4 +1,5 @@
-package org.mathpiper.mpreduce.lisp;
+package org.mathpiper.mpreduce.lisp.streams;
+
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,68 +36,123 @@ package org.mathpiper.mpreduce.lisp;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-
+import org.mathpiper.mpreduce.lisp.streams.LispStream;
 import java.io.*;
-import java.security.*;
 import org.mathpiper.mpreduce.Jlisp;
 
-public class LispDigester extends LispStream
+public class DoubleWriter extends LispStream
 {
+    Writer log;
+    boolean closeMe;
 
-    public LispDigester()
+    public DoubleWriter(String n, Writer log) throws IOException // to a named file
     {
-        super("<md5 digester>");
-        try
-        {   md = MessageDigest.getInstance("MD5", "SUN");
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            Jlisp.errprintln("No MD5 available: " + e.getMessage());
-            md = null;
-        }
-        catch (NoSuchProviderException e)
-        {
-            Jlisp.errprintln("No provider: " + e.getMessage());
-            md = null;
-        }
+        super(n);
+        wr = new BufferedWriter(new FileWriter(nameConvert(n)));
+        this.log = log;
+        closeMe = true;
+        Jlisp.openOutputFiles.add(this);
+    }
+
+    public DoubleWriter(Writer log) // uses standard input, no extra buffering.
+    {
+        super("<stdout>");
+        wr = Jlisp.out;
+        this.log = log;
+        closeMe = false;
+        Jlisp.openOutputFiles.add(this);
     }
 
     public void flush()
     {
+        try
+        {   wr.flush();
+            log.flush();
+        }
+        catch (IOException e)
+        {}
     }
 
     public void close()
     {
-        md = null;
+        Jlisp.openOutputFiles.removeElement(this);
+        try
+        {   wr.flush();
+            log.flush();
+            if (closeMe) wr.close();
+            log.close();
+        }
+        catch (IOException e)
+        {}
     }
 
     public void print(String s)
     {
-        if (md == null) return;
+        if (s == null) s = "null";
         char [] v = s.toCharArray();
 // It *MAY* be better to use getChars here and move data into a pre-allocated
 // array of characters.
-        for (int i=0; i<v.length; i++)
-        {   char c = v[i];
-// characters are in general 16-bits wide (even though all the charcters that
-// I will normally use in the UK are only 7 bits) so I pass them to the
-// message digest process as two bytes each.
-            md.update((byte)(c >> 8));
-            md.update((byte)c);
+        try
+        {   int p = 0;
+            for (int i=0; i<v.length; i++)
+            {   char c = v[i];
+// See commentary if LispOutputStream.java
+                if (c == '\n') 
+                {   wr.write(v, p, i-p);
+                    wr.write(eol);
+                    log.write(v, p, i-p);
+                    log.write(eol);
+                    p = i+1;
+                    column = 0;
+                }
+                else if (c == '\r')
+                {   wr.write(v, p, i-p);
+                    log.write(v, p, i-p);
+                    p = i+1;
+                    column = 0;
+                }
+                else column++;
+            }
+            wr.write(v, p, v.length-p);
+            log.write(v, p, v.length-p);
         }
+        catch (IOException e)
+        {}
     }
 
     public void println(String s)
     {
-        print(s);
-        if (md != null)
-        {   md.update((byte)0);
-            md.update((byte)'\n');
+        if (s == null) s = "null";
+        char [] v = s.toCharArray();
+        try
+        {   int p = 0;
+            for (int i=0; i<v.length; i++)
+            {   char c = v[i];
+                if (c == '\n') 
+                {   wr.write(v, p, i-p);
+                    wr.write(eol);
+                    log.write(v, p, i-p);
+                    log.write(eol);
+                    p = i+1;
+                }
+                else if (c == '\r')
+                {   wr.write(v, p, i-p);
+                    log.write(v, p, i-p);
+                    p = i+1;
+                }
+            }
+            wr.write(v, p, v.length-p);
+            wr.write(eol);
+            log.write(v, p, v.length-p);
+            log.write(eol);
         }
+        catch (IOException e)
+        {}
+        column = 0;
     }
 
 }
 
-// end of LispDigester.java
+// end of DoubleWriter.java
 
 
