@@ -1,9 +1,14 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp.functions;
 
-//
-// This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
-//
+//NOT USED ...SEE JavaFn.java instead
+
+import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.lisp.functions.LispFunction;
+
+// LispJavaFuncion.java 
+// created 27/02/02
+// classes I create will be subclasses of LispJavaFunction
+// just to provide a level to put more mess later on
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -35,16 +40,8 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
 
-public class EOFException extends IOException
+abstract class LispJavaFunction extends LispFunction
 {
-
-public EOFException()
-{
+	LispObject[] constants;
 }
-
-}
-
-// end of EOFException.java
-

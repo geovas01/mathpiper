@@ -42,7 +42,7 @@ import java.util.*;
 // This is an object that the user should NEVER get directly hold of
 // but which may be used internally as a marker.
 
-class Spid extends LispObject
+public class Spid extends LispObject
 {
     int tag;
     int data;   // NB NB NB   the field not saved in checkpoint files
@@ -51,16 +51,16 @@ class Spid extends LispObject
     static final int NOARG    = 2;  // "no argument" after &opt
     static final int DEFINMOD = 3;  // introduces bytecode def in fasl file
 
-    static final Spid fbind = new Spid(FBIND);
-    static final Spid noarg = new Spid(NOARG);
+    public static final Spid fbind = new Spid(FBIND);
+    public static final Spid noarg = new Spid(NOARG);
 
-    Spid(int tag)
+    public Spid(int tag)
     {
         this.tag = tag & 0xff;
         data = 0;
     }
 
-    Spid(int tag, int data)
+    public Spid(int tag, int data)
     {
         this.tag = tag & 0xff;
         this.data = data;

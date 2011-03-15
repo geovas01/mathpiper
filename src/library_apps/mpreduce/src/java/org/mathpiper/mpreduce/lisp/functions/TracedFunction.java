@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp.functions;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,9 +35,11 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.lisp.LispFunction;
+import org.mathpiper.mpreduce.lisp.functions.LispFunction;
 import org.mathpiper.mpreduce.lisp.LispObject;
 import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Symbol;
 
 public class TracedFunction extends LispFunction
 {

@@ -1,7 +1,10 @@
-package org.mathpiper.mpreduce;
-
+package org.mathpiper.mpreduce.exceptions;
 
 //
+
+import org.mathpiper.mpreduce.lisp.LispException;
+import org.mathpiper.mpreduce.lisp.LispObject;
+
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
@@ -36,100 +39,32 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-
-// If a symbol has an interpreted definition its
-// associated function is this job, which knows how to
-// extract the saved definition and activate it.
-
-import org.mathpiper.mpreduce.lisp.LispFunction;
-import org.mathpiper.mpreduce.lisp.LispObject;
-import org.mathpiper.mpreduce.builtin.Fns;
-import java.io.*;
-
-public class Interpreted extends LispFunction
+public class ProgEvent extends LispException
 {
-    public LispObject body;
+    public static final int STOP     = 2;
+    public static final int RESTART  = 3;
+    public static final int THROW    = 4;
+    public static final int PRESERVE = 5;
+    
+    public LispObject details;
+    public LispObject extras;
+    public String message;
+    public int type;
 
-    public void iprint()
+    public ProgEvent(int type, LispObject details, String message)
     {
-        body.iprint();	
-    }
-    
-    public void blankprint()
-    {
-        body.blankprint();	
-    }
-    
-    Interpreted()
-    {
-    }
-    
-    public Interpreted(LispObject def)
-    {
-        body = new Cons(Jlisp.lit[Lit.lambda], def);
-    }
-    
-    public void scan()
-    {
-        if (Jlisp.objects.contains(this)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(this))
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-	            Jlisp.nil); // value is junk at this stage
-	    }
-	}
-	else 
-	{   Jlisp.objects.add(this);
-            Jlisp.stack.push(body);
-        }
-    }
-    
-    public void dump() throws IOException
-    {
-        Object w = Jlisp.repeatedObjects.get(this);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-		    new Integer(Jlisp.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-	    Jlisp.odump.write(X_INTERP);
-            Jlisp.stack.push(body);
-	}
-    }
-    
-
-// All interpreted function calls check that the number of arguments
-// actually passed agrees with the number expected. Shallow binding is
-// used for all variables.
-
-    public LispObject op0() throws Exception
-    {
-        return Fns.applyInner(body, 0);
+        this.type = type;
+        this.details = details;
+        this.extras = null;
+        this.message = message; 
     }
 
-    public LispObject op1(LispObject arg1) throws Exception
+    public ProgEvent(int type, LispObject details, LispObject extras, String message)
     {
-        Fns.args[0] = arg1;
-        return Fns.applyInner(body, 1);
+        this.type = type;
+        this.details = details;
+        this.extras = extras;
+        this.message = message; 
     }
 
-    public LispObject op2(LispObject arg1, LispObject arg2) throws Exception
-    {
-        Fns.args[0] = arg1;
-        Fns.args[1] = arg2;
-        return Fns.applyInner(body, 2);
-    }
-
-    public LispObject opn(LispObject [] actual) throws Exception
-    {
-        int n = actual.length;
-        for (int i=0; i<n; i++) Fns.args[i] = actual[i];
-        return Fns.applyInner(body, n);
-    }
 }
-
-// End of Interpreted.java

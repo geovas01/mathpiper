@@ -1,13 +1,12 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp.functions;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
- *                            also contributions from Vijay Chauhan, 2002 *
  *                                                                        *
  * Redistribution and use in source and binary forms, with or without     *
  * modification, are permitted provided that the following conditions are *
@@ -34,80 +33,70 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import org.mathpiper.mpreduce.lisp.LispFunction;
+
+import org.mathpiper.mpreduce.lisp.functions.LispFunction;
 import org.mathpiper.mpreduce.lisp.LispObject;
 import java.io.*;
+import org.mathpiper.mpreduce.Fasl;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Symbol;
 
-public class CallAs extends LispFunction
+public class AutoLoad extends LispFunction
 {
 
-LispObject body;
-int nargs;
-
-public CallAs(int nIn, LispObject target, int nPass)
-{
-    body = target;
-    nargs = (nIn<<4) + nPass;
-}
-
-public CallAs(int packed)
-{
-    nargs = packed;
-}
-
-public void print()
-{
-    print(0);
-}
-
-public void print(int fg)
-{   Jlisp.print("#CALL" + (nargs & 0xf) + "as" +
-                          ((nargs>>4) & 0xf) + "<");
-    body.print(fg);
-    Jlisp.print(">");
-}
-
-public LispObject op0() throws Exception
-{
-    if (((nargs>>4) & 0xf) != 0)
-        error("Call with wrong number of arguments", body);
-    return ((Symbol)body).fn.op0();
-}
-
-public LispObject op1(LispObject a1) throws Exception
-{
-    if (((nargs>>4) & 0xf) != 1)
-        error("Call with wrong number of arguments", body);
-    if ((nargs & 0xf) == 0) return ((Symbol)body).fn.op0();
-    else return ((Symbol)body).fn.op1(a1);
-}
-
-public LispObject op2(LispObject a1, LispObject a2) throws Exception
-{
-    if (((nargs>>4) & 0xf) != 2)
-        error("Call with wrong number of arguments", body);
-    switch ((nargs & 0xf))
+    public Symbol name;
+    public LispObject data;
+    
+    public AutoLoad(Symbol name, LispObject data)
     {
-case 0: return ((Symbol)body).fn.op0();
-case 1: return ((Symbol)body).fn.op1(a1);
-default:return ((Symbol)body).fn.op2(a1, a2);
+        this.name = name;
+	this.data = data;
     }
-}
-
-public LispObject opn(LispObject [] args) throws Exception
-{
-    if (((nargs>>4) & 0xf) != args.length) 
-        error("Call with wrong number of arguments", body);
-    switch ((nargs & 0xf))
+    
+    public LispObject op0() throws Exception
     {
-case 0: return ((Symbol)body).fn.op0();
-case 1: return ((Symbol)body).fn.op1(args[0]);
-case 2: return ((Symbol)body).fn.op2(args[0], args[1]);
-default:return ((Symbol)body).fn.opn(
-            new LispObject [] { args[0], args[1], args[2] });
+        name.completeName();
+        name.fn = new Undefined(name.pname);
+        Fasl.loadModule(data.car);
+        return name.fn.op0();
     }
-}
 
+    public LispObject op1(LispObject a1) throws Exception
+    {
+        name.completeName();
+        name.fn = new Undefined(name.pname);
+        Fasl.loadModule(data.car);
+        return name.fn.op1(a1);
+    }
+
+    public LispObject op2(LispObject a1, LispObject a2) throws Exception
+    {
+        name.completeName();
+        name.fn = new Undefined(name.pname);
+        Fasl.loadModule(data.car);
+        return name.fn.op2(a1, a2);
+    }
+
+    public LispObject opn(LispObject [] args) throws Exception
+    {
+        name.completeName();
+        name.fn = new Undefined(name.pname);
+        Fasl.loadModule(data.car);
+        return name.fn.opn(args);
+    }
+
+    public void print()
+    {
+        name.completeName();
+        Jlisp.print("#Autoload<" + name.pname + ">");
+    }
+
+    public void print(int n)
+    {
+        name.completeName();
+        Jlisp.print("#Autoload<" + name.pname + ">");
+    }
+    
     public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
@@ -117,29 +106,33 @@ default:return ((Symbol)body).fn.opn(
 	            Jlisp.nil); // value is junk at this stage
 	    }
 	}
-	else Jlisp.objects.add(this);
-        Jlisp.stack.push(body);
+	else
+	{   Jlisp.objects.add(this);
+	    Jlisp.stack.push(name);
+	    Jlisp.stack.push(data);
+	}
     }
     
     public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
+	    w instanceof Integer) putSharedRef(w);
 	else
-	{   if (w != null) // will be used again sometime
+	{   if (w != null)
 	    {   Jlisp.repeatedObjects.put(
 	            this,
 		    new Integer(Jlisp.sharedIndex++));
 		Jlisp.odump.write(X_STORE);
-            }
-            Jlisp.odump.write(X_CALLAS);
-            Jlisp.odump.write(nargs);
-            Jlisp.stack.push(body);
+	    }
+	    Jlisp.odump.write(X_AUTOLOAD);
+	    Jlisp.stack.push(data);
+	    Jlisp.stack.push(name);
 	}
     }
     
 }
 
-// End of CallAs.java
+// End of LispFunction.java
+
 

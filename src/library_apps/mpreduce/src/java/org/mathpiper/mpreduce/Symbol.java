@@ -38,7 +38,8 @@ package org.mathpiper.mpreduce;
 
 // Class to represent Lisp symbols
 
-import org.mathpiper.mpreduce.lisp.LispFunction;
+import org.mathpiper.mpreduce.lisp.functions.Undefined;
+import org.mathpiper.mpreduce.lisp.functions.LispFunction;
 import org.mathpiper.mpreduce.lisp.LispObject;
 import java.io.*;
 

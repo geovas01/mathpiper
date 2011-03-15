@@ -1,4 +1,5 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.lisp.functions;
+
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -36,53 +37,37 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-// A Lisp macro is really very much like an ordinary
-// function with exactly one argument. It is the way that the
-// interpreted processes it that makes it different. Well actually because
-// of views on Common Lisp compatibility the function that is a macro
-// has one essential argument and one optional one (which I never use!)
+// If a symbol has an interpreted definition its
+// associated function is this job, which knows how to
+// extract the saved definition and activate it.
 
-import org.mathpiper.mpreduce.lisp.LispFunction;
+import org.mathpiper.mpreduce.lisp.functions.LispFunction;
 import org.mathpiper.mpreduce.lisp.LispObject;
 import org.mathpiper.mpreduce.builtin.Fns;
 import java.io.*;
+import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Lit;
 
-public class Macro extends LispFunction
+public class Interpreted extends LispFunction
 {
     public LispObject body;
 
     public void iprint()
     {
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + 7 > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print("[Macro:");
-        body.blankprint();
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + 1 > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print("]");
+        body.iprint();	
     }
-											    
+    
     public void blankprint()
     {
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + 7 >= currentOutput.lineLength)
-            currentOutput.println();
-        else currentOutput.print(" ");
-        currentOutput.print("[Macro:");
-        body.blankprint();
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + 1 > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print("]");
+        body.blankprint();	
     }
-											    
-    Macro()
+    
+    public Interpreted()
     {
     }
     
-    Macro(LispObject def) throws Exception
+    public Interpreted(LispObject def)
     {
         body = new Cons(Jlisp.lit[Lit.lambda], def);
     }
@@ -96,8 +81,10 @@ public class Macro extends LispFunction
 	            Jlisp.nil); // value is junk at this stage
 	    }
 	}
-	else Jlisp.objects.add(this);
-        Jlisp.stack.push(body);
+	else 
+	{   Jlisp.objects.add(this);
+            Jlisp.stack.push(body);
+        }
     }
     
     public void dump() throws IOException
@@ -112,11 +99,21 @@ public class Macro extends LispFunction
 		    new Integer(Jlisp.sharedIndex++));
 		Jlisp.odump.write(X_STORE);
             }
-            Jlisp.odump.write(X_MACRO);
+	    Jlisp.odump.write(X_INTERP);
             Jlisp.stack.push(body);
 	}
     }
     
+
+// All interpreted function calls check that the number of arguments
+// actually passed agrees with the number expected. Shallow binding is
+// used for all variables.
+
+    public LispObject op0() throws Exception
+    {
+        return Fns.applyInner(body, 0);
+    }
+
     public LispObject op1(LispObject arg1) throws Exception
     {
         Fns.args[0] = arg1;
@@ -130,7 +127,12 @@ public class Macro extends LispFunction
         return Fns.applyInner(body, 2);
     }
 
+    public LispObject opn(LispObject [] actual) throws Exception
+    {
+        int n = actual.length;
+        for (int i=0; i<n; i++) Fns.args[i] = actual[i];
+        return Fns.applyInner(body, n);
+    }
 }
 
-// End of Macro.java
-
+// End of Interpreted.java
