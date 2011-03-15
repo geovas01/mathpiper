@@ -144,7 +144,7 @@ public class Cons extends LispObject
 // just a ")" at the end, otherwise the final atom is
 // shown after a "."
 
-    void iprint()
+    public void iprint()
     {
         LispObject x = this;
         if ((currentFlags & noLineBreak) == 0 &&
@@ -191,7 +191,7 @@ public class Cons extends LispObject
         currentOutput.print(")");
     }
 
-    void blankprint()
+    public void blankprint()
     {
         if (currentOutput.column + 1 >= currentOutput.lineLength)
             currentOutput.println();
@@ -265,7 +265,7 @@ public class Cons extends LispObject
         else return a.lisphashCode()*0xDe5ade + r;
     }
 
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
         {   if (!Jlisp.repeatedObjects.containsKey(this))

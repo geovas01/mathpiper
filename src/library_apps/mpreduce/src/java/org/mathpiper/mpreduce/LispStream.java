@@ -657,7 +657,7 @@ public class LispStream extends LispObject
         exploded = a;
     }
     
-    void iprint()
+    public void iprint()
     {
         String s = "#Stream<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -666,7 +666,7 @@ public class LispStream extends LispObject
         currentOutput.print(s);
     }
 
-    void blankprint()
+    public void blankprint()
     {
         String s = "#Stream<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -755,7 +755,7 @@ public class LispStream extends LispObject
         }
     }
     
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(this))

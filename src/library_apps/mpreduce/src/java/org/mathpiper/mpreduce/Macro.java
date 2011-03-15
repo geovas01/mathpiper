@@ -49,7 +49,7 @@ public class Macro extends LispFunction
 {
     public LispObject body;
 
-    void iprint()
+    public void iprint()
     {
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + 7 > currentOutput.lineLength)
@@ -62,7 +62,7 @@ public class Macro extends LispFunction
         currentOutput.print("]");
     }
 											    
-    void blankprint()
+    public void blankprint()
     {
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + 7 >= currentOutput.lineLength)
@@ -85,7 +85,7 @@ public class Macro extends LispFunction
         body = new Cons(Jlisp.lit[Lit.lambda], def);
     }
     
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(this))

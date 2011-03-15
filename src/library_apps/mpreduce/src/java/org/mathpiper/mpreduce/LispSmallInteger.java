@@ -93,7 +93,7 @@ public class LispSmallInteger extends LispInteger
             return Integer.toHexString(value);
     }
 
-    void iprint()
+    public void iprint()
     {
         String s = printAs();
         if ((currentFlags & noLineBreak) == 0 &&
@@ -102,7 +102,7 @@ public class LispSmallInteger extends LispInteger
         currentOutput.print(s);
     }
 
-    void blankprint()
+    public void blankprint()
     {
         String s = printAs();
         if ((currentFlags & noLineBreak) == 0 &&
@@ -139,7 +139,7 @@ public class LispSmallInteger extends LispInteger
         return value*696969;
     }
     
-    void scan()
+    public void scan()
     {
         Object w = new Integer(value);
         if (Jlisp.objects.contains(w)) // seen before?

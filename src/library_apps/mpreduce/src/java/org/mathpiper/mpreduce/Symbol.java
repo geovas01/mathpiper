@@ -201,7 +201,7 @@ public class Symbol extends LispObject
         cacheString = cache.toString();
         return cacheString;
     }
-    void iprint()
+    public void iprint()
     {
         String s = toPrint();
         if ((currentFlags & noLineBreak) == 0 &&
@@ -210,7 +210,7 @@ public class Symbol extends LispObject
         currentOutput.print(s);
     }
 
-    void blankprint()
+    public void blankprint()
     {
         String s = toPrint();
         if ((currentFlags & noLineBreak) == 0 &&
@@ -226,7 +226,7 @@ public class Symbol extends LispObject
         return 139*pname.hashCode() ^ 0x12345678; 
     }
 
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
         {   if (!Jlisp.repeatedObjects.containsKey(this))

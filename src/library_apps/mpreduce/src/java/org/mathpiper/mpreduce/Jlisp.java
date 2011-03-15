@@ -938,7 +938,7 @@ public static int sharedIndex;
 static Stack stack;
 public static boolean specialNil, descendSymbols;
 
-static void scanObject(LispObject a)
+static public void scanObject(LispObject a)
 {
     if (a == null) return;
     stack.push(a);

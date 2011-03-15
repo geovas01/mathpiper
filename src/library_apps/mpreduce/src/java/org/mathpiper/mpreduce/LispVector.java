@@ -57,7 +57,7 @@ public class LispVector extends LispObject
         return this; 
     }
 
-    void iprint()
+    public void iprint()
     {
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + 1 > currentOutput.lineLength)
@@ -93,7 +93,7 @@ public class LispVector extends LispObject
         currentOutput.print("]");
     }
 
-    void blankprint()
+    public void blankprint()
     {
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + 1 >= currentOutput.lineLength)
@@ -132,7 +132,7 @@ public class LispVector extends LispObject
         return r;  
     }
 
-    void scan()
+    public void scan()
     {
         if (this == Jlisp.obvector) return;
         if (Jlisp.objects.contains(this)) // seen before?

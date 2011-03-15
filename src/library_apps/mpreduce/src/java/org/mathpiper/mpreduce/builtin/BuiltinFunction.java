@@ -40,7 +40,7 @@ import org.mathpiper.mpreduce.LispFunction;
 
 public abstract class BuiltinFunction extends LispFunction
 {
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(this))

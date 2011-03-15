@@ -48,12 +48,12 @@ public class Interpreted extends LispFunction
 {
     public LispObject body;
 
-    void iprint()
+    public void iprint()
     {
         body.iprint();	
     }
     
-    void blankprint()
+    public void blankprint()
     {
         body.blankprint();	
     }
@@ -67,7 +67,7 @@ public class Interpreted extends LispFunction
         body = new Cons(Jlisp.lit[Lit.lambda], def);
     }
     
-    void scan()
+    public void scan()
     {
         if (Jlisp.objects.contains(this)) // seen before?
 	{   if (!Jlisp.repeatedObjects.containsKey(this))

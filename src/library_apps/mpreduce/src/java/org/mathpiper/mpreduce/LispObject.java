@@ -96,8 +96,8 @@ public abstract class LispObject extends Object
     static LispStream currentOutput;
     static int currentFlags;
 
-    abstract void iprint();
-    abstract void blankprint(); // print but with whitespace before it
+    abstract public void iprint();
+    abstract public void blankprint(); // print but with whitespace before it
 
     public void errPrint() // print to error output stream
     {
@@ -106,7 +106,7 @@ public abstract class LispObject extends Object
         iprint();
     }
 
-    void tracePrint() // print to trace output stream
+    public void tracePrint() // print to trace output stream
     {
         currentOutput = (LispStream)Jlisp.lit[Lit.tr_output].car/*value*/;
         currentFlags = printEscape;
@@ -118,42 +118,42 @@ public abstract class LispObject extends Object
 // I make special provision for references to 64 things. I will use
 // this for the first 48 things used at all and the 16 most recent ones.
 
-    static final int X_REFn     = 0x00;
+    public static final int X_REFn     = 0x00;
 
-    static final int X_BREAK1   = 0x40;
+    public static final int X_BREAK1   = 0x40;
 
 // The next bunch are optimisations for common cases when the
 // length code is short. The length code is folded into the main byte. Thus
 // (eg) symbols whose name is from 0 to 15 characters long are dealt with
 // especially neatly.
 
-    static final int X_SYMn     = 0x40; // symbol with 0 to 15 chars
-    static final int X_UNDEFn   = 0x50; // symbol (0-15), not a function
-    static final int X_GENSYMn  = 0x60; // gensym with 0 to 15 bytes
-    static final int X_LIST     = 0x70; // list with 0 to 15 items: (LIST) = NIL
-    static final int X_LISTX    = 0x80; // like (LIST* ..) with 1-16 items then tail
-    static final int X_INTn     = 0x90; // integer with 0 to 15 bytes
-    static final int X_STRn     = 0xa0; // string, 0 to 15 chars
+    public static final int X_SYMn     = 0x40; // symbol with 0 to 15 chars
+    public static final int X_UNDEFn   = 0x50; // symbol (0-15), not a function
+    public static final int X_GENSYMn  = 0x60; // gensym with 0 to 15 bytes
+    public static final int X_LIST     = 0x70; // list with 0 to 15 items: (LIST) = NIL
+    public static final int X_LISTX    = 0x80; // like (LIST* ..) with 1-16 items then tail
+    public static final int X_INTn     = 0x90; // integer with 0 to 15 bytes
+    public static final int X_STRn     = 0xa0; // string, 0 to 15 chars
 
-    static final int X_BREAK2   = 0xb0;
+    public static final int X_BREAK2   = 0xb0;
 
-    static final int X_REF      = 0xb0; // refer to a previously mentioned item
-    static final int X_REFBACK  = 0xb4; // (only 1 and 2 byte versions used)
-    static final int X_INT      = 0xb8; // LispBigInteger represented by an array
-    static final int X_STR      = 0xbc; // Strings
-    static final int X_SYM      = 0xc0; // Symbol with given name
-    static final int X_UNDEF    = 0xc4; // Symbol (not a function)
-    static final int X_UNDEF1   = 0xc8; // disembodied undefined function
-    static final int X_GENSYM   = 0xcc; // a gensym or other uninterned name
-    static final int X_BPS      = 0xd0; // "binary code" ha ha ha.
-    static final int X_VEC      = 0xd4; // a Lisp vector
+    public static final int X_REF      = 0xb0; // refer to a previously mentioned item
+    public static final int X_REFBACK  = 0xb4; // (only 1 and 2 byte versions used)
+    public static final int X_INT      = 0xb8; // LispBigInteger represented by an array
+    public static final int X_STR      = 0xbc; // Strings
+    public static final int X_SYM      = 0xc0; // Symbol with given name
+    public static final int X_UNDEF    = 0xc4; // Symbol (not a function)
+    public static final int X_UNDEF1   = 0xc8; // disembodied undefined function
+    public static final int X_GENSYM   = 0xcc; // a gensym or other uninterned name
+    public static final int X_BPS      = 0xd0; // "binary code" ha ha ha.
+    public static final int X_VEC      = 0xd4; // a Lisp vector
 // perhaps X_INT with a short-enough operand could be used for X_FIXNUM
 // as a rationalisation here.
-    static final int X_FIXNUM   = 0xd8; // 1, 2, 3 or 4-byte small integer
+    public static final int X_FIXNUM   = 0xd8; // 1, 2, 3 or 4-byte small integer
 
 //  0xdc spare at present
 
-    static final int X_BREAK3   = 0xe0;
+    public static final int X_BREAK3   = 0xe0;
 
 // The final collection of codes are all one-byte incidental ones and
 // the amount of any associated data is implicit in them. Eg X_DOUBLE will
@@ -184,7 +184,7 @@ public abstract class LispObject extends Object
 
 // 0xf2 to 0xff spare at present...
 
-    abstract void scan();
+    abstract public void scan();
     public abstract void dump() throws IOException;
 
 // dealing with references to shared structure has the most complicated

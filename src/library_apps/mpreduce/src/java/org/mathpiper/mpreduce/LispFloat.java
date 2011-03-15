@@ -65,7 +65,7 @@ public class LispFloat extends LispNumber
         return this;
     }
 
-    void iprint()
+    public void iprint()
     {
         String s = trimTo(Jlisp.printprec);
         if ((currentFlags & noLineBreak) == 0 &&
@@ -74,7 +74,7 @@ public class LispFloat extends LispNumber
         currentOutput.print(s);
     }
     
-    void blankprint()
+    public void blankprint()
     {
         String s = trimTo(Jlisp.printprec);
         if ((currentFlags & noLineBreak) == 0 &&
@@ -254,7 +254,7 @@ public class LispFloat extends LispNumber
         return (new Double(value)).hashCode();
     }
     
-    void scan()
+    public void scan()
     {
         Object w = new Double(value);
         if (Jlisp.objects.contains(w)) // seen before?

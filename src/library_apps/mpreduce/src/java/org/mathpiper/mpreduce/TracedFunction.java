@@ -144,7 +144,7 @@ public class TracedFunction extends LispFunction
 // saved trace info if I had wanted but this is MARGINALLY easier and
 // perhaps in some ways nicer?
     
-    void scan()
+    public void scan()
     {
         fn.scan();
     }
