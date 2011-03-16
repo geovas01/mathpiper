@@ -45,39 +45,45 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.lisp.streams.DoubleWriter;
-import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.ByteOpt;
-import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.Bytecode;
-import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.FnWithEnv;
-import org.mathpiper.mpreduce.lisp.functions.Interpreted;
-import org.mathpiper.mpreduce.lisp.functions.Macro;
-import org.mathpiper.mpreduce.lisp.functions.Undefined;
-import org.mathpiper.mpreduce.lisp.functions.AutoLoad;
-import org.mathpiper.mpreduce.lisp.functions.CallAs;
+import org.mathpiper.mpreduce.symbols.Gensym;
+import org.mathpiper.mpreduce.symbols.Symbol;
+import org.mathpiper.mpreduce.special.SpecialFunction;
+import org.mathpiper.mpreduce.special.Specfn;
+import org.mathpiper.mpreduce.io.Fasl;
+import org.mathpiper.mpreduce.io.streams.WriterToLisp;
+import org.mathpiper.mpreduce.datatypes.Cons;
+import org.mathpiper.mpreduce.io.streams.DoubleWriter;
+import org.mathpiper.mpreduce.functions.functionwithenvironment.ByteOpt;
+import org.mathpiper.mpreduce.functions.functionwithenvironment.Bytecode;
+import org.mathpiper.mpreduce.functions.functionwithenvironment.FnWithEnv;
+import org.mathpiper.mpreduce.functions.lisp.Interpreted;
+import org.mathpiper.mpreduce.functions.lisp.Macro;
+import org.mathpiper.mpreduce.functions.lisp.Undefined;
+import org.mathpiper.mpreduce.functions.lisp.AutoLoad;
+import org.mathpiper.mpreduce.functions.lisp.CallAs;
 import org.mathpiper.mpreduce.exceptions.ProgEvent;
 import org.mathpiper.mpreduce.exceptions.EOFException;
-import org.mathpiper.mpreduce.lisp.numbers.LispFloat;
-import org.mathpiper.mpreduce.lisp.streams.LispStringReader;
-import org.mathpiper.mpreduce.lisp.LispString;
-import org.mathpiper.mpreduce.lisp.functions.LispFunction;
-import org.mathpiper.mpreduce.lisp.numbers.LispNumber;
-import org.mathpiper.mpreduce.lisp.numbers.LispSmallInteger;
-import org.mathpiper.mpreduce.lisp.LispHash;
-import org.mathpiper.mpreduce.lisp.LispEqualHash;
-import org.mathpiper.mpreduce.lisp.LispException;
-import org.mathpiper.mpreduce.lisp.LispVector;
-import org.mathpiper.mpreduce.lisp.streams.LispStream;
-import org.mathpiper.mpreduce.lisp.numbers.LispInteger;
-import org.mathpiper.mpreduce.lisp.streams.LispOutputStream;
-import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.numbers.LispFloat;
+import org.mathpiper.mpreduce.io.streams.LispStringReader;
+import org.mathpiper.mpreduce.datatypes.LispString;
+import org.mathpiper.mpreduce.functions.lisp.LispFunction;
+import org.mathpiper.mpreduce.numbers.LispNumber;
+import org.mathpiper.mpreduce.numbers.LispSmallInteger;
+import org.mathpiper.mpreduce.datatypes.LispHash;
+import org.mathpiper.mpreduce.datatypes.LispEqualHash;
+import org.mathpiper.mpreduce.exceptions.LispException;
+import org.mathpiper.mpreduce.datatypes.LispVector;
+import org.mathpiper.mpreduce.io.streams.LispStream;
+import org.mathpiper.mpreduce.numbers.LispInteger;
+import org.mathpiper.mpreduce.io.streams.LispOutputStream;
 import org.mathpiper.mpreduce.packagedatastore.PDS;
 import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
 import org.mathpiper.mpreduce.packagedatastore.PDSOutputStream;
 import org.mathpiper.mpreduce.ui.gui.CWin;
-import org.mathpiper.mpreduce.builtin.Fns;
-import org.mathpiper.mpreduce.builtin.Fns1;
-import org.mathpiper.mpreduce.builtin.Fns2;
-import org.mathpiper.mpreduce.builtin.Fns3;
+import org.mathpiper.mpreduce.functions.builtin.Fns;
+import org.mathpiper.mpreduce.functions.builtin.Fns1;
+import org.mathpiper.mpreduce.functions.builtin.Fns2;
+import org.mathpiper.mpreduce.functions.builtin.Fns3;
 import org.mathpiper.mpreduce.javacompiler.Fns4;
 import java.io.*;
 import java.math.*;
@@ -947,12 +953,12 @@ static Specfn specfn = new Specfn();
 // for re-hashing at all often. The size must also be a prime, and 15013
 // seems to fit the bill.
 public static int oblistSize = 15013;
-static int oblistCount = 0;
+public static int oblistCount = 0;
 public static Symbol [] oblist = new Symbol[oblistSize];
 public static LispVector obvector = new LispVector((LispObject [])oblist);
 
 public static Symbol [] chars  = new Symbol[128];  // to speed up READCH
-static LispObject [] spine = new LispObject[17]; // for PRESERVE
+public static LispObject [] spine = new LispObject[17]; // for PRESERVE
 
 
 static int inputType;
@@ -1255,7 +1261,7 @@ static boolean isPrime(int n)
     return true;
 }
 
-static void reHashOblist()
+public static void reHashOblist()
 {
     int n = ((3*oblistSize)/2) | 1;
     while (!isPrime(n)) n += 2;

@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.symbols;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -38,15 +38,19 @@ package org.mathpiper.mpreduce;
 
 // Class to represent Lisp symbols
 
-import org.mathpiper.mpreduce.lisp.functions.Undefined;
-import org.mathpiper.mpreduce.lisp.functions.LispFunction;
-import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.special.SpecialFunction;
+import org.mathpiper.mpreduce.io.Fasl;
+import org.mathpiper.mpreduce.functions.lisp.Undefined;
+import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.Lit;
 
 public class Symbol extends LispObject
 {
 
-    static int symbolCount = 0;
+    public static int symbolCount = 0;
 
 // ALL LispObjects have car and cdr fields, which can contain other
 // LispObjects. So I might as well use those for the fields I would otherwise
@@ -71,7 +75,7 @@ public class Symbol extends LispObject
 // always sets the (pre-defined) function call of this symbol. It is
 // only used from cold-start code.
 
-    static Symbol intern(String name, 
+    public static Symbol intern(String name,
                          LispFunction fn, 
                          SpecialFunction special)
     {

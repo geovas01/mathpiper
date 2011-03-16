@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.datatypes;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -39,17 +39,20 @@ package org.mathpiper.mpreduce;
 // A "cons" is an ordered pair. In ML terms it would be
 // a bit like ('a * 'b)
 
-import org.mathpiper.mpreduce.lisp.functions.Macro;
+import org.mathpiper.mpreduce.functions.lisp.Macro;
 import org.mathpiper.mpreduce.exceptions.ProgEvent;
-import org.mathpiper.mpreduce.lisp.LispVector;
-import org.mathpiper.mpreduce.lisp.LispObject;
-import org.mathpiper.mpreduce.builtin.Fns;
+import org.mathpiper.mpreduce.datatypes.LispVector;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.functions.builtin.Fns;
 import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.special.Specfn;
+import org.mathpiper.mpreduce.symbols.Symbol;
 
 public class Cons extends LispObject
 {
 
-    static int consCount = 0;
+    public static int consCount = 0;
 
 // The left and right parts of a pair are called
 //                CAR and CDR

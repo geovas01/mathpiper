@@ -42,12 +42,12 @@ package org.mathpiper.mpreduce.javacompiler;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.Gensym;
+import org.mathpiper.mpreduce.symbols.Gensym;
 import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.lisp.LispObject;
-import org.mathpiper.mpreduce.lisp.numbers.LispSmallInteger;
-import org.mathpiper.mpreduce.lisp.LispString;
-import org.mathpiper.mpreduce.builtin.BuiltinFunction;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.numbers.LispSmallInteger;
+import org.mathpiper.mpreduce.datatypes.LispString;
+import org.mathpiper.mpreduce.functions.builtin.BuiltinFunction;
 
 public class Fns4
 {

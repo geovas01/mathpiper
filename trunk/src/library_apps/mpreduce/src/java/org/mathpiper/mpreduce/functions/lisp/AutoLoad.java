@@ -1,13 +1,12 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.functions.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
- *                            also contributions from Vijay Chauhan, 2002 *
  *                                                                        *
  * Redistribution and use in source and binary forms, with or without     *
  * modification, are permitted provided that the following conditions are *
@@ -35,94 +34,105 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.functions.lisp.LispFunction;
+import org.mathpiper.mpreduce.LispObject;
 import java.io.*;
-import java.util.*;
+import org.mathpiper.mpreduce.io.Fasl;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.symbols.Symbol;
 
-// This is an object that the user should NEVER get directly hold of
-// but which may be used internally as a marker.
-
-public class Spid extends LispObject
+public class AutoLoad extends LispFunction
 {
-    public int tag;
-    public int data;   // NB NB NB   the field not saved in checkpoint files
 
-    public static final int FBIND    = 1;  // free bindings on stack in bytecode
-    public static final int NOARG    = 2;  // "no argument" after &opt
-    public static final int DEFINMOD = 3;  // introduces bytecode def in fasl file
-
-    public static final Spid fbind = new Spid(FBIND);
-    public static final Spid noarg = new Spid(NOARG);
-
-    public Spid(int tag)
+    public Symbol name;
+    public LispObject data;
+    
+    public AutoLoad(Symbol name, LispObject data)
     {
-        this.tag = tag & 0xff;
-        data = 0;
+        this.name = name;
+	this.data = data;
+    }
+    
+    public LispObject op0() throws Exception
+    {
+        name.completeName();
+        name.fn = new Undefined(name.pname);
+        Fasl.loadModule(data.car);
+        return name.fn.op0();
     }
 
-    public Spid(int tag, int data)
+    public LispObject op1(LispObject a1) throws Exception
     {
-        this.tag = tag & 0xff;
-        this.data = data;
+        name.completeName();
+        name.fn = new Undefined(name.pname);
+        Fasl.loadModule(data.car);
+        return name.fn.op1(a1);
     }
 
-    public LispObject eval()
+    public LispObject op2(LispObject a1, LispObject a2) throws Exception
     {
-        return this;
+        name.completeName();
+        name.fn = new Undefined(name.pname);
+        Fasl.loadModule(data.car);
+        return name.fn.op2(a1, a2);
     }
 
-    public void iprint()
+    public LispObject opn(LispObject [] args) throws Exception
     {
-        String s = "#SPID" + tag;
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print(s);
+        name.completeName();
+        name.fn = new Undefined(name.pname);
+        Fasl.loadModule(data.car);
+        return name.fn.opn(args);
     }
 
-    public void blankprint()
+    public void print()
     {
-        String s = "#SPID" + tag;
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() >= currentOutput.lineLength)
-            currentOutput.println();
-        else currentOutput.print(" ");
-        currentOutput.print(s);
+        name.completeName();
+        Jlisp.print("#Autoload<" + name.pname + ">");
     }
 
+    public void print(int n)
+    {
+        name.completeName();
+        Jlisp.print("#Autoload<" + name.pname + ">");
+    }
+    
     public void scan()
     {
-        Object w = new Integer(tag);
-        if (Jlisp.objects.contains(w)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(w))
+        if (Jlisp.objects.contains(this)) // seen before?
+	{   if (!Jlisp.repeatedObjects.containsKey(this))
 	    {   Jlisp.repeatedObjects.put(
-	            w,
+	            this,
 	            Jlisp.nil); // value is junk at this stage
 	    }
 	}
-	else Jlisp.objects.add(w);
+	else
+	{   Jlisp.objects.add(this);
+	    Jlisp.stack.push(name);
+	    Jlisp.stack.push(data);
+	}
     }
     
     public void dump() throws IOException
     {
-        Object d = new Integer(tag);
-        Object w = Jlisp.repeatedObjects.get(d);
+        Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
+	    w instanceof Integer) putSharedRef(w);
 	else
-	{   if (w != null) // will be used again sometime
+	{   if (w != null)
 	    {   Jlisp.repeatedObjects.put(
-	            d,
+	            this,
 		    new Integer(Jlisp.sharedIndex++));
 		Jlisp.odump.write(X_STORE);
-            }
-	    Jlisp.odump.write(X_SPID);
-	    Jlisp.odump.write(tag);
-// NOTE that I do NOT dump and restore the data field here. That is because
-// I only use it in cases to do with reading FASL files and the relevant
-// objects should NEVER need saving in a heap.
+	    }
+	    Jlisp.odump.write(X_AUTOLOAD);
+	    Jlisp.stack.push(data);
+	    Jlisp.stack.push(name);
 	}
     }
-
-
+    
 }
+
+// End of LispFunction.java
+
 

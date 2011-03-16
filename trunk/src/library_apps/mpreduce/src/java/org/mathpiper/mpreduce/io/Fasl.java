@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.io;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -34,30 +34,35 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.ByteOpt;
-import org.mathpiper.mpreduce.lisp.functions.functionwithenvironment.Bytecode;
-import org.mathpiper.mpreduce.lisp.functions.CallAs;
-import org.mathpiper.mpreduce.lisp.LispException;
-import org.mathpiper.mpreduce.lisp.streams.LispStream;
-import org.mathpiper.mpreduce.lisp.LispVector;
-import org.mathpiper.mpreduce.lisp.LispString;
-import org.mathpiper.mpreduce.lisp.numbers.LispInteger;
-import org.mathpiper.mpreduce.lisp.functions.LispFunction;
-import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.io.streams.WriterToLisp;
+import org.mathpiper.mpreduce.functions.functionwithenvironment.ByteOpt;
+import org.mathpiper.mpreduce.functions.functionwithenvironment.Bytecode;
+import org.mathpiper.mpreduce.functions.lisp.CallAs;
+import org.mathpiper.mpreduce.exceptions.LispException;
+import org.mathpiper.mpreduce.io.streams.LispStream;
+import org.mathpiper.mpreduce.datatypes.LispVector;
+import org.mathpiper.mpreduce.datatypes.LispString;
+import org.mathpiper.mpreduce.numbers.LispInteger;
+import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
 import org.mathpiper.mpreduce.packagedatastore.PDSOutputStream;
-import org.mathpiper.mpreduce.builtin.Fns;
+import org.mathpiper.mpreduce.functions.builtin.Fns;
 import java.io.*;
 import java.math.*;
 import java.util.zip.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.Spid;
+import org.mathpiper.mpreduce.symbols.Symbol;
 
 public class Fasl
 {
     public static OutputStream writer = null;
     public static InputStream  reader = null;
 
-    static LispObject [] recent = null;
-    static int recentp, recentn;
+    public static LispObject [] recent = null;
+    public static int recentp, recentn;
 
     static String moduleName = "";
 

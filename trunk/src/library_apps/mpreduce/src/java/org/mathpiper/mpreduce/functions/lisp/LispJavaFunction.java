@@ -1,12 +1,14 @@
-package org.mathpiper.mpreduce.exceptions;
+package org.mathpiper.mpreduce.functions.lisp;
 
-//
+//NOT USED ...SEE JavaFn.java instead
 
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 
-// This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
-//
+// LispJavaFuncion.java 
+// created 27/02/02
+// classes I create will be subclasses of LispJavaFunction
+// just to provide a level to put more mess later on
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -38,32 +40,8 @@ import org.mathpiper.mpreduce.LispObject;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-public class ProgEvent extends LispException
+
+abstract class LispJavaFunction extends LispFunction
 {
-    public static final int STOP     = 2;
-    public static final int RESTART  = 3;
-    public static final int THROW    = 4;
-    public static final int PRESERVE = 5;
-    
-    public LispObject details;
-    public LispObject extras;
-    public String message;
-    public int type;
-
-    public ProgEvent(int type, LispObject details, String message)
-    {
-        this.type = type;
-        this.details = details;
-        this.extras = null;
-        this.message = message; 
-    }
-
-    public ProgEvent(int type, LispObject details, LispObject extras, String message)
-    {
-        this.type = type;
-        this.details = details;
-        this.extras = extras;
-        this.message = message; 
-    }
-
+	LispObject[] constants;
 }

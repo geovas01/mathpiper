@@ -1,9 +1,6 @@
-package org.mathpiper.mpreduce.exceptions;
+package org.mathpiper.mpreduce.io.streams;
 
 //
-
-import org.mathpiper.mpreduce.LispObject;
-
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
@@ -38,32 +35,60 @@ import org.mathpiper.mpreduce.LispObject;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-public class ProgEvent extends LispException
-{
-    public static final int STOP     = 2;
-    public static final int RESTART  = 3;
-    public static final int THROW    = 4;
-    public static final int PRESERVE = 5;
-    
-    public LispObject details;
-    public LispObject extras;
-    public String message;
-    public int type;
 
-    public ProgEvent(int type, LispObject details, String message)
+import org.mathpiper.mpreduce.numbers.LispInteger;
+import java.io.*;
+import org.mathpiper.mpreduce.datatypes.Cons;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.symbols.Symbol;
+import org.mathpiper.mpreduce.LispObject;
+
+public class LispExploder extends LispStream
+{
+
+    boolean asSymbols;
+
+    public LispExploder(boolean n) // builds a list of all characters
+                            // n true for symbols, false for numeric codes
     {
-        this.type = type;
-        this.details = details;
-        this.extras = null;
-        this.message = message; 
+        super("<exploder>");
+        asSymbols = n;
+        exploded = Jlisp.nil;
     }
 
-    public ProgEvent(int type, LispObject details, LispObject extras, String message)
+    public void flush()
     {
-        this.type = type;
-        this.details = details;
-        this.extras = extras;
-        this.message = message; 
+    }
+
+    public void close()
+    {
+        exploded = Jlisp.nil;
+    }
+
+    public void print(String s)
+    {
+        char [] v = s.toCharArray();
+        for (int i=0; i<v.length; i++)
+        {   char c = v[i];
+            LispObject w;
+            if (asSymbols)
+            {   if ((int)c < 128) w = Jlisp.chars[(int)c];
+                else w = Symbol.intern(String.valueOf(c));
+            }
+            else w = LispInteger.valueOf((int)c);
+            exploded = new Cons(w, exploded);
+        }
+    }
+
+    public void println(String s)
+    {
+        print(s);
+        if (asSymbols) exploded = new Cons(Jlisp.chars['\n'], exploded);
+        else exploded = new Cons(LispInteger.valueOf('\n'), exploded);
     }
 
 }
+
+// end of LispExploder.java
+
+

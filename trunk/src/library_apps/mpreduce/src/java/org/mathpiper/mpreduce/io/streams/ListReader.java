@@ -1,9 +1,6 @@
-package org.mathpiper.mpreduce.exceptions;
+package org.mathpiper.mpreduce.io.streams;
 
 //
-
-import org.mathpiper.mpreduce.LispObject;
-
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
@@ -38,32 +35,50 @@ import org.mathpiper.mpreduce.LispObject;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-public class ProgEvent extends LispException
-{
-    public static final int STOP     = 2;
-    public static final int RESTART  = 3;
-    public static final int THROW    = 4;
-    public static final int PRESERVE = 5;
-    
-    public LispObject details;
-    public LispObject extras;
-    public String message;
-    public int type;
+import org.mathpiper.mpreduce.io.streams.LispStream;
+import org.mathpiper.mpreduce.datatypes.LispString;
+import org.mathpiper.mpreduce.numbers.LispInteger;
+import org.mathpiper.mpreduce.LispObject;
+import java.io.*;
+import java.math.*;
+import java.util.*;
+import java.text.*;
+import java.security.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.symbols.Symbol;
 
-    public ProgEvent(int type, LispObject details, String message)
+public class ListReader extends LispStream
+{
+
+    public ListReader(LispObject data)
     {
-        this.type = type;
-        this.details = details;
-        this.extras = null;
-        this.message = message; 
+        super("<read from list>");
+        inputData = data;
+        needsPrompt = false;
+        escaped = false;
+        this.allowOctal = allowOctal;
+        nextChar = -2;
     }
 
-    public ProgEvent(int type, LispObject details, LispObject extras, String message)
+    public int read() throws Exception
     {
-        this.type = type;
-        this.details = details;
-        this.extras = extras;
-        this.message = message; 
+        if (inputData.atom) return -1;
+        LispObject w = inputData.car;
+        inputData = inputData.cdr;
+        if (w instanceof LispString)
+            return (int)((LispString)w).string.charAt(0);
+        else if (w instanceof Symbol)
+            return (int)((Symbol)w).pname.charAt(0);
+        else if (w instanceof LispInteger)
+            return w.intValue();
+        else return -1;
+    }
+
+    public void close()
+    {
+        inputData = Jlisp.nil;
     }
 
 }
+
+// end of ListReader.java

@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.functions.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,94 +35,40 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import java.io.*;
-import java.util.*;
+import org.mathpiper.mpreduce.Jlisp;
 
-// This is an object that the user should NEVER get directly hold of
-// but which may be used internally as a marker.
-
-public class Spid extends LispObject
+public class Undefined extends LispFunction
 {
-    public int tag;
-    public int data;   // NB NB NB   the field not saved in checkpoint files
 
-    public static final int FBIND    = 1;  // free bindings on stack in bytecode
-    public static final int NOARG    = 2;  // "no argument" after &opt
-    public static final int DEFINMOD = 3;  // introduces bytecode def in fasl file
-
-    public static final Spid fbind = new Spid(FBIND);
-    public static final Spid noarg = new Spid(NOARG);
-
-    public Spid(int tag)
+    public Undefined(String name)
     {
-        this.tag = tag & 0xff;
-        data = 0;
+        this.name = name;
     }
 
-    public Spid(int tag, int data)
-    {
-        this.tag = tag & 0xff;
-        this.data = data;
-    }
-
-    public LispObject eval()
-    {
-        return this;
-    }
-
-    public void iprint()
-    {
-        String s = "#SPID" + tag;
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print(s);
-    }
-
-    public void blankprint()
-    {
-        String s = "#SPID" + tag;
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() >= currentOutput.lineLength)
-            currentOutput.println();
-        else currentOutput.print(" ");
-        currentOutput.print(s);
-    }
-
-    public void scan()
-    {
-        Object w = new Integer(tag);
-        if (Jlisp.objects.contains(w)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(w))
-	    {   Jlisp.repeatedObjects.put(
-	            w,
-	            Jlisp.nil); // value is junk at this stage
-	    }
-	}
-	else Jlisp.objects.add(w);
-    }
-    
     public void dump() throws IOException
     {
-        Object d = new Integer(tag);
-        Object w = Jlisp.repeatedObjects.get(d);
+        Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&
 	    w instanceof Integer) putSharedRef(w); // processed before
 	else
 	{   if (w != null) // will be used again sometime
 	    {   Jlisp.repeatedObjects.put(
-	            d,
+	            this,
 		    new Integer(Jlisp.sharedIndex++));
 		Jlisp.odump.write(X_STORE);
             }
-	    Jlisp.odump.write(X_SPID);
-	    Jlisp.odump.write(tag);
-// NOTE that I do NOT dump and restore the data field here. That is because
-// I only use it in cases to do with reading FASL files and the relevant
-// objects should NEVER need saving in a heap.
+	    byte [] rep = name.getBytes("UTF8");
+	    int length = rep.length;
+	    putPrefix(length, X_UNDEF1);
+	    for (int i=0; i<length; i++)
+	        Jlisp.odump.write(rep[i]);
 	}
     }
 
 
 }
+
+// end of Undefined.java
 

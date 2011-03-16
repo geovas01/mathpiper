@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.functions.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,44 +35,48 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+
 import java.io.*;
-import java.util.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispObject;
 
-// This is an object that the user should NEVER get directly hold of
-// but which may be used internally as a marker.
-
-public class Spid extends LispObject
+public abstract class LispFunction extends LispObject
 {
-    public int tag;
-    public int data;   // NB NB NB   the field not saved in checkpoint files
+    public String name = "unknown-function";
 
-    public static final int FBIND    = 1;  // free bindings on stack in bytecode
-    public static final int NOARG    = 2;  // "no argument" after &opt
-    public static final int DEFINMOD = 3;  // introduces bytecode def in fasl file
-
-    public static final Spid fbind = new Spid(FBIND);
-    public static final Spid noarg = new Spid(NOARG);
-
-    public Spid(int tag)
+    public LispObject op0() throws Exception
     {
-        this.tag = tag & 0xff;
-        data = 0;
+        return error("undefined " + name + " with 0 args");
     }
 
-    public Spid(int tag, int data)
+    public LispObject op1(LispObject a1) throws Exception
     {
-        this.tag = tag & 0xff;
-        this.data = data;
+        return error("undefined " + name + " with 1 arg");
     }
 
-    public LispObject eval()
+    public LispObject op2(LispObject a1, LispObject a2) throws Exception
     {
-        return this;
+        return error("undefined " + name + " with 2 args");
+    }
+
+    public LispObject opn(LispObject [] args) throws Exception
+    {
+        return error("undefined " + name + " with " + args.length + " args");
+    }
+
+    public LispObject error(String s) throws Exception
+    {
+        return Jlisp.error(s);
+    }
+
+    public LispObject error(String s, LispObject a) throws Exception
+    {
+        return Jlisp.error(s, a);
     }
 
     public void iprint()
     {
-        String s = "#SPID" + tag;
+        String s = "#Fn<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + s.length() > currentOutput.lineLength)
             currentOutput.println();
@@ -81,7 +85,7 @@ public class Spid extends LispObject
 
     public void blankprint()
     {
-        String s = "#SPID" + tag;
+        String s = "#Fn<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + s.length() >= currentOutput.lineLength)
             currentOutput.println();
@@ -91,38 +95,19 @@ public class Spid extends LispObject
 
     public void scan()
     {
-        Object w = new Integer(tag);
-        if (Jlisp.objects.contains(w)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(w))
+        if (Jlisp.objects.contains(this)) // seen before?
+	{   if (!Jlisp.repeatedObjects.containsKey(this))
 	    {   Jlisp.repeatedObjects.put(
-	            w,
+	            this,
 	            Jlisp.nil); // value is junk at this stage
 	    }
 	}
-	else Jlisp.objects.add(w);
+	else Jlisp.objects.add(this);
     }
     
-    public void dump() throws IOException
-    {
-        Object d = new Integer(tag);
-        Object w = Jlisp.repeatedObjects.get(d);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   Jlisp.repeatedObjects.put(
-	            d,
-		    new Integer(Jlisp.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-	    Jlisp.odump.write(X_SPID);
-	    Jlisp.odump.write(tag);
-// NOTE that I do NOT dump and restore the data field here. That is because
-// I only use it in cases to do with reading FASL files and the relevant
-// objects should NEVER need saving in a heap.
-	}
-    }
-
 
 }
+
+// End of LispFunction.java
+
 
