@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.functions.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -34,95 +34,114 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-
+import org.mathpiper.mpreduce.functions.lisp.LispFunction;
+import org.mathpiper.mpreduce.LispObject;
 import java.io.*;
-import java.util.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.symbols.Symbol;
 
-// This is an object that the user should NEVER get directly hold of
-// but which may be used internally as a marker.
-
-public class Spid extends LispObject
+public class CallAs extends LispFunction
 {
-    public int tag;
-    public int data;   // NB NB NB   the field not saved in checkpoint files
 
-    public static final int FBIND    = 1;  // free bindings on stack in bytecode
-    public static final int NOARG    = 2;  // "no argument" after &opt
-    public static final int DEFINMOD = 3;  // introduces bytecode def in fasl file
+public LispObject body;
+int nargs;
 
-    public static final Spid fbind = new Spid(FBIND);
-    public static final Spid noarg = new Spid(NOARG);
+public CallAs(int nIn, LispObject target, int nPass)
+{
+    body = target;
+    nargs = (nIn<<4) + nPass;
+}
 
-    public Spid(int tag)
+public CallAs(int packed)
+{
+    nargs = packed;
+}
+
+public void print()
+{
+    print(0);
+}
+
+public void print(int fg)
+{   Jlisp.print("#CALL" + (nargs & 0xf) + "as" +
+                          ((nargs>>4) & 0xf) + "<");
+    body.print(fg);
+    Jlisp.print(">");
+}
+
+public LispObject op0() throws Exception
+{
+    if (((nargs>>4) & 0xf) != 0)
+        error("Call with wrong number of arguments", body);
+    return ((Symbol)body).fn.op0();
+}
+
+public LispObject op1(LispObject a1) throws Exception
+{
+    if (((nargs>>4) & 0xf) != 1)
+        error("Call with wrong number of arguments", body);
+    if ((nargs & 0xf) == 0) return ((Symbol)body).fn.op0();
+    else return ((Symbol)body).fn.op1(a1);
+}
+
+public LispObject op2(LispObject a1, LispObject a2) throws Exception
+{
+    if (((nargs>>4) & 0xf) != 2)
+        error("Call with wrong number of arguments", body);
+    switch ((nargs & 0xf))
     {
-        this.tag = tag & 0xff;
-        data = 0;
+case 0: return ((Symbol)body).fn.op0();
+case 1: return ((Symbol)body).fn.op1(a1);
+default:return ((Symbol)body).fn.op2(a1, a2);
     }
+}
 
-    public Spid(int tag, int data)
+public LispObject opn(LispObject [] args) throws Exception
+{
+    if (((nargs>>4) & 0xf) != args.length) 
+        error("Call with wrong number of arguments", body);
+    switch ((nargs & 0xf))
     {
-        this.tag = tag & 0xff;
-        this.data = data;
+case 0: return ((Symbol)body).fn.op0();
+case 1: return ((Symbol)body).fn.op1(args[0]);
+case 2: return ((Symbol)body).fn.op2(args[0], args[1]);
+default:return ((Symbol)body).fn.opn(
+            new LispObject [] { args[0], args[1], args[2] });
     }
-
-    public LispObject eval()
-    {
-        return this;
-    }
-
-    public void iprint()
-    {
-        String s = "#SPID" + tag;
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print(s);
-    }
-
-    public void blankprint()
-    {
-        String s = "#SPID" + tag;
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() >= currentOutput.lineLength)
-            currentOutput.println();
-        else currentOutput.print(" ");
-        currentOutput.print(s);
-    }
+}
 
     public void scan()
     {
-        Object w = new Integer(tag);
-        if (Jlisp.objects.contains(w)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(w))
+        if (Jlisp.objects.contains(this)) // seen before?
+	{   if (!Jlisp.repeatedObjects.containsKey(this))
 	    {   Jlisp.repeatedObjects.put(
-	            w,
+	            this,
 	            Jlisp.nil); // value is junk at this stage
 	    }
 	}
-	else Jlisp.objects.add(w);
+	else Jlisp.objects.add(this);
+        Jlisp.stack.push(body);
     }
     
     public void dump() throws IOException
     {
-        Object d = new Integer(tag);
-        Object w = Jlisp.repeatedObjects.get(d);
+        Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&
 	    w instanceof Integer) putSharedRef(w); // processed before
 	else
 	{   if (w != null) // will be used again sometime
 	    {   Jlisp.repeatedObjects.put(
-	            d,
+	            this,
 		    new Integer(Jlisp.sharedIndex++));
 		Jlisp.odump.write(X_STORE);
             }
-	    Jlisp.odump.write(X_SPID);
-	    Jlisp.odump.write(tag);
-// NOTE that I do NOT dump and restore the data field here. That is because
-// I only use it in cases to do with reading FASL files and the relevant
-// objects should NEVER need saving in a heap.
+            Jlisp.odump.write(X_CALLAS);
+            Jlisp.odump.write(nargs);
+            Jlisp.stack.push(body);
 	}
     }
-
-
+    
 }
+
+// End of CallAs.java
 

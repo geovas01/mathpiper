@@ -37,11 +37,11 @@ package org.mathpiper.mpreduce.packagedatastore;
 
 import java.io.*;
 import java.util.*;
-import org.mathpiper.mpreduce.Cons;
+import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.lisp.LispObject;
-import org.mathpiper.mpreduce.lisp.streams.LispStream;
-import org.mathpiper.mpreduce.lisp.LispString;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.io.streams.LispStream;
+import org.mathpiper.mpreduce.datatypes.LispString;
 
 // This class (and PDSInputStream & PDSOutputStream) support a crude
 // version of a file-system-within-a-file.  No sub-directoried are

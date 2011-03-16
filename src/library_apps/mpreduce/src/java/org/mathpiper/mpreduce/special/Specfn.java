@@ -1,12 +1,16 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.special;
 
 //
 
-import org.mathpiper.mpreduce.lisp.functions.Interpreted;
-import org.mathpiper.mpreduce.lisp.functions.Macro;
-import org.mathpiper.mpreduce.lisp.functions.Undefined;
-import org.mathpiper.mpreduce.lisp.numbers.LispInteger;
-import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.symbols.Symbol;
+import org.mathpiper.mpreduce.datatypes.Cons;
+import org.mathpiper.mpreduce.functions.lisp.Interpreted;
+import org.mathpiper.mpreduce.functions.lisp.Macro;
+import org.mathpiper.mpreduce.functions.lisp.Undefined;
+import org.mathpiper.mpreduce.numbers.LispInteger;
 
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
@@ -53,7 +57,7 @@ public class Specfn
     public static final int RETURN = 2;
 
 
-    Object [][] specials = 
+    public Object [][] specials =
     {
         {"cond",     new CondSpecial()},
         {"quote",    new QuoteSpecial()},
@@ -86,7 +90,7 @@ public class Specfn
 
 class QuoteSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args)
+    public LispObject op(LispObject args)
     {
         if (args.atom) return Jlisp.nil;
         else return args.car;
@@ -100,7 +104,7 @@ class QuoteSpecial extends SpecialFunction
 
 class FunctionSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args)
+    public LispObject op(LispObject args)
     {
         if (args.atom) return Jlisp.nil;
         else return args.car;
@@ -111,7 +115,7 @@ class FunctionSpecial extends SpecialFunction
 
 class LambdaSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args)
+    public LispObject op(LispObject args)
     {
         return new Cons(Jlisp.lit[Lit.lambda], args);
     }
@@ -124,7 +128,7 @@ class LambdaSpecial extends SpecialFunction
 
 class CondSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {   while (!args.atom)
         {   LispObject a = args;  // ((p1 e1) ...) 
             LispObject x = a.car; // (p1 e1)
@@ -151,7 +155,7 @@ class CondSpecial extends SpecialFunction
 
 class IfSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         if (args.atom) return Jlisp.nil;
         LispObject c1 = args;     // car is the predicate
@@ -177,7 +181,7 @@ class IfSpecial extends SpecialFunction
 
 class WhenSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         if (args.atom) return Jlisp.nil;
         LispObject c = args;
@@ -197,7 +201,7 @@ class WhenSpecial extends SpecialFunction
 
 class UnlessSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         if (args.atom) return Jlisp.nil;
         LispObject c = args;
@@ -219,7 +223,7 @@ class UnlessSpecial extends SpecialFunction
 
 class DefunSpecial extends SpecialFunction
 {
-    LispObject op(LispObject a) throws Exception
+    public LispObject op(LispObject a) throws Exception
     {
         if (a.atom) return Jlisp.nil;  // (de) with no args at all!
         Symbol name = (Symbol)(a.car);
@@ -235,7 +239,7 @@ class DefunSpecial extends SpecialFunction
 
 class DmSpecial extends SpecialFunction
 {
-    LispObject op(LispObject a) throws Exception
+    public LispObject op(LispObject a) throws Exception
     {
         if (a.atom) return Jlisp.nil;
         Symbol name = (Symbol)a.car;
@@ -251,7 +255,7 @@ class DmSpecial extends SpecialFunction
 
 class SetqSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         LispObject value = Jlisp.nil;
         Symbol name;
@@ -272,21 +276,21 @@ class SetqSpecial extends SpecialFunction
 
 class BlockSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {    return error("BLOCK not implemented yet");
     }
 }
 
 class LetSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {    return error("LET not implemented yet");
     }
 }
 
 class LetStarSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {    return error("LET* not implemented yet");
     }
 }
@@ -294,7 +298,7 @@ class LetStarSpecial extends SpecialFunction
 
 class GoSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {    
         if (args.atom) 
             return error("go called without an argument");
@@ -306,7 +310,7 @@ class GoSpecial extends SpecialFunction
 
 class ProgSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         if (args.atom) return Jlisp.nil; // (PROG)
         LispObject bvl = args.car;
@@ -387,7 +391,7 @@ class ProgSpecial extends SpecialFunction
 
 class AndSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         LispObject r = Jlisp.lispTrue;
         while (!args.atom)
@@ -401,7 +405,7 @@ class AndSpecial extends SpecialFunction
 
 class OrSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         LispObject r = Jlisp.nil;
         while (!args.atom)
@@ -415,7 +419,7 @@ class OrSpecial extends SpecialFunction
 
 class PlusSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         if (args.atom) return LispInteger.valueOf(0);
         LispObject r = args.car.eval();
@@ -430,7 +434,7 @@ class PlusSpecial extends SpecialFunction
 
 class TimesSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         if (args.atom) return LispInteger.valueOf(1);
         LispObject r = args.car.eval();
@@ -445,7 +449,7 @@ class TimesSpecial extends SpecialFunction
 
 class ListSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         LispObject r = Jlisp.nil;
         while (!args.atom)
@@ -465,7 +469,7 @@ class ListSpecial extends SpecialFunction
 
 class ListStarSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args) throws Exception
+    public LispObject op(LispObject args) throws Exception
     {
         if (args.atom) return error("list* with no args");
         LispObject r = Jlisp.nil;
@@ -489,7 +493,7 @@ class ListStarSpecial extends SpecialFunction
 
 class DeclareSpecial extends SpecialFunction
 {
-    LispObject op(LispObject args)
+    public LispObject op(LispObject args)
     {
         return Jlisp.nil;
     }

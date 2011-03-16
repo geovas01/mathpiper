@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.functions.lisp;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,94 +35,105 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+
+// A Lisp macro is really very much like an ordinary
+// function with exactly one argument. It is the way that the
+// interpreted processes it that makes it different. Well actually because
+// of views on Common Lisp compatibility the function that is a macro
+// has one essential argument and one optional one (which I never use!)
+
+import org.mathpiper.mpreduce.functions.lisp.LispFunction;
+import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.functions.builtin.Fns;
 import java.io.*;
-import java.util.*;
+import org.mathpiper.mpreduce.datatypes.Cons;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Lit;
 
-// This is an object that the user should NEVER get directly hold of
-// but which may be used internally as a marker.
-
-public class Spid extends LispObject
+public class Macro extends LispFunction
 {
-    public int tag;
-    public int data;   // NB NB NB   the field not saved in checkpoint files
-
-    public static final int FBIND    = 1;  // free bindings on stack in bytecode
-    public static final int NOARG    = 2;  // "no argument" after &opt
-    public static final int DEFINMOD = 3;  // introduces bytecode def in fasl file
-
-    public static final Spid fbind = new Spid(FBIND);
-    public static final Spid noarg = new Spid(NOARG);
-
-    public Spid(int tag)
-    {
-        this.tag = tag & 0xff;
-        data = 0;
-    }
-
-    public Spid(int tag, int data)
-    {
-        this.tag = tag & 0xff;
-        this.data = data;
-    }
-
-    public LispObject eval()
-    {
-        return this;
-    }
+    public LispObject body;
 
     public void iprint()
     {
-        String s = "#SPID" + tag;
         if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() > currentOutput.lineLength)
+            currentOutput.column + 7 > currentOutput.lineLength)
             currentOutput.println();
-        currentOutput.print(s);
+        currentOutput.print("[Macro:");
+        body.blankprint();
+        if ((currentFlags & noLineBreak) == 0 &&
+            currentOutput.column + 1 > currentOutput.lineLength)
+            currentOutput.println();
+        currentOutput.print("]");
     }
-
+											    
     public void blankprint()
     {
-        String s = "#SPID" + tag;
         if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() >= currentOutput.lineLength)
+            currentOutput.column + 7 >= currentOutput.lineLength)
             currentOutput.println();
         else currentOutput.print(" ");
-        currentOutput.print(s);
+        currentOutput.print("[Macro:");
+        body.blankprint();
+        if ((currentFlags & noLineBreak) == 0 &&
+            currentOutput.column + 1 > currentOutput.lineLength)
+            currentOutput.println();
+        currentOutput.print("]");
     }
-
+											    
+    public Macro()
+    {
+    }
+    
+    public Macro(LispObject def) throws Exception
+    {
+        body = new Cons(Jlisp.lit[Lit.lambda], def);
+    }
+    
     public void scan()
     {
-        Object w = new Integer(tag);
-        if (Jlisp.objects.contains(w)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(w))
+        if (Jlisp.objects.contains(this)) // seen before?
+	{   if (!Jlisp.repeatedObjects.containsKey(this))
 	    {   Jlisp.repeatedObjects.put(
-	            w,
+	            this,
 	            Jlisp.nil); // value is junk at this stage
 	    }
 	}
-	else Jlisp.objects.add(w);
+	else Jlisp.objects.add(this);
+        Jlisp.stack.push(body);
     }
     
     public void dump() throws IOException
     {
-        Object d = new Integer(tag);
-        Object w = Jlisp.repeatedObjects.get(d);
+        Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&
 	    w instanceof Integer) putSharedRef(w); // processed before
 	else
 	{   if (w != null) // will be used again sometime
 	    {   Jlisp.repeatedObjects.put(
-	            d,
+	            this,
 		    new Integer(Jlisp.sharedIndex++));
 		Jlisp.odump.write(X_STORE);
             }
-	    Jlisp.odump.write(X_SPID);
-	    Jlisp.odump.write(tag);
-// NOTE that I do NOT dump and restore the data field here. That is because
-// I only use it in cases to do with reading FASL files and the relevant
-// objects should NEVER need saving in a heap.
+            Jlisp.odump.write(X_MACRO);
+            Jlisp.stack.push(body);
 	}
     }
+    
+    public LispObject op1(LispObject arg1) throws Exception
+    {
+        Fns.args[0] = arg1;
+        return Fns.applyInner(body, 1);
+    }
 
+    public LispObject op2(LispObject arg1, LispObject arg2) throws Exception
+    {
+        Fns.args[0] = arg1;
+        Fns.args[1] = arg2;
+        return Fns.applyInner(body, 2);
+    }
 
 }
+
+// End of Macro.java
 

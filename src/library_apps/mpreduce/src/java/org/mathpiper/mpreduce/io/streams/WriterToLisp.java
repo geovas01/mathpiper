@@ -1,9 +1,6 @@
-package org.mathpiper.mpreduce.exceptions;
+package org.mathpiper.mpreduce.io.streams;
 
 //
-
-import org.mathpiper.mpreduce.LispObject;
-
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
@@ -38,32 +35,35 @@ import org.mathpiper.mpreduce.LispObject;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-public class ProgEvent extends LispException
-{
-    public static final int STOP     = 2;
-    public static final int RESTART  = 3;
-    public static final int THROW    = 4;
-    public static final int PRESERVE = 5;
-    
-    public LispObject details;
-    public LispObject extras;
-    public String message;
-    public int type;
+import org.mathpiper.mpreduce.io.streams.LispStream;
+import java.io.*;
 
-    public ProgEvent(int type, LispObject details, String message)
+public class WriterToLisp extends Writer
+{
+    LispStream stream;
+
+    public WriterToLisp(LispStream s)
     {
-        this.type = type;
-        this.details = details;
-        this.extras = null;
-        this.message = message; 
+        stream = s;
     }
 
-    public ProgEvent(int type, LispObject details, LispObject extras, String message)
+    public void close()
     {
-        this.type = type;
-        this.details = details;
-        this.extras = extras;
-        this.message = message; 
+        stream.close();
+    }
+
+    public void flush()
+    {
+        stream.flush();
+    }
+
+    public void write(char [] buffer, int off, int len)
+    {
+        stream.print(new String(buffer, off, len));
     }
 
 }
+
+// end of WriterToLisp.java
+
+

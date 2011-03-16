@@ -1,9 +1,6 @@
-package org.mathpiper.mpreduce.exceptions;
+package org.mathpiper.mpreduce.io.streams;
 
 //
-
-import org.mathpiper.mpreduce.LispObject;
-
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
@@ -38,32 +35,39 @@ import org.mathpiper.mpreduce.LispObject;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-public class ProgEvent extends LispException
-{
-    public static final int STOP     = 2;
-    public static final int RESTART  = 3;
-    public static final int THROW    = 4;
-    public static final int PRESERVE = 5;
-    
-    public LispObject details;
-    public LispObject extras;
-    public String message;
-    public int type;
+import java.io.*;
+import java.math.*;
+import java.util.*;
+import java.text.*;
+import java.security.*;
 
-    public ProgEvent(int type, LispObject details, String message)
+public class LispStringReader extends LispStream
+{
+
+    int pos;
+
+    public LispStringReader(String data)
     {
-        this.type = type;
-        this.details = details;
-        this.extras = null;
-        this.message = message; 
+        super("<read from string>");
+        stringData = data;
+        pos = 0;
+        needsPrompt = false;
+        escaped = false;
+        this.allowOctal = allowOctal;
+        nextChar = -2;
     }
 
-    public ProgEvent(int type, LispObject details, LispObject extras, String message)
+    public int read()
     {
-        this.type = type;
-        this.details = details;
-        this.extras = extras;
-        this.message = message; 
+        if (pos >= stringData.length()) return -1;
+        else return (int)stringData.charAt(pos++);
+    }
+
+    public void close()
+    {
+        stringData = null;
     }
 
 }
+
+// end of LispStringReader.java

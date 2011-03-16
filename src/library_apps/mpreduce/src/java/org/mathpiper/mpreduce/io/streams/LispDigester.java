@@ -1,12 +1,9 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.io.streams;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
-
-import org.mathpiper.mpreduce.lisp.functions.Undefined;
-import java.io.*;
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -38,60 +35,68 @@ import java.io.*;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-public class Gensym extends Symbol
+
+import java.io.*;
+import java.security.*;
+import org.mathpiper.mpreduce.Jlisp;
+
+public class LispDigester extends LispStream
 {
-    String nameBase = "G";
-    static int gensymCounter = 0;
-    int myNumber = -1;
 
-    public Gensym(String name)
+    public LispDigester()
     {
-        pname = null;
-        nameBase = name;
-        car/*value*/ = Jlisp.lit[Lit.undefined];
-        cdr/*plist*/ = Jlisp.nil;
-        fn = new Undefined(name);
-        special = null;
-        myNumber = -1;
+        super("<md5 digester>");
+        try
+        {   md = MessageDigest.getInstance("MD5", "SUN");
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            Jlisp.errprintln("No MD5 available: " + e.getMessage());
+            md = null;
+        }
+        catch (NoSuchProviderException e)
+        {
+            Jlisp.errprintln("No provider: " + e.getMessage());
+            md = null;
+        }
     }
 
-    public void completeName()
-    {   if (pname != null) return;
-        pname = nameBase + (myNumber = gensymCounter++);
+    public void flush()
+    {
     }
 
-    public void dump() throws IOException
+    public void close()
     {
-        Object w = Jlisp.repeatedObjects.get(this);
-	if (w != null &&
-	    w instanceof Integer)
-	    putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-		    new Integer(Jlisp.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-	    byte [] rep = nameBase.getBytes("UTF8");
-	    int length = rep.length;
-	    putPrefix2(length, X_GENSYMn, X_GENSYM);
-	    for (int i=0; i<length; i++)
-	        Jlisp.odump.write(rep[i]);
-            Jlisp.odump.write(myNumber & 0xff);
-            Jlisp.odump.write((myNumber >> 8) & 0xff);
-            Jlisp.odump.write((myNumber >> 16) & 0xff);
-            Jlisp.odump.write((myNumber >> 24) & 0xff);
-	    if (Jlisp.descendSymbols)	
-	    {   Jlisp.stack.push(car/*value*/);
-	        Jlisp.stack.push(cdr/*plist*/);
-	        Jlisp.stack.push(special);
-	        Jlisp.stack.push(fn);
-	    }
-	}
+        md = null;
+    }
+
+    public void print(String s)
+    {
+        if (md == null) return;
+        char [] v = s.toCharArray();
+// It *MAY* be better to use getChars here and move data into a pre-allocated
+// array of characters.
+        for (int i=0; i<v.length; i++)
+        {   char c = v[i];
+// characters are in general 16-bits wide (even though all the charcters that
+// I will normally use in the UK are only 7 bits) so I pass them to the
+// message digest process as two bytes each.
+            md.update((byte)(c >> 8));
+            md.update((byte)c);
+        }
+    }
+
+    public void println(String s)
+    {
+        print(s);
+        if (md != null)
+        {   md.update((byte)0);
+            md.update((byte)'\n');
+        }
     }
 
 }
 
-// end of Gensym.java
+// end of LispDigester.java
+
 

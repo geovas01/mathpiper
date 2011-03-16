@@ -1,7 +1,9 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.datatypes;
 
-import org.mathpiper.mpreduce.lisp.LispObject;
-
+//
+// This file is part of the Jlisp implementation of Standard Lisp
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+//
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -34,14 +36,28 @@ import org.mathpiper.mpreduce.lisp.LispObject;
  *************************************************************************/
 
 
-public class StaticFns 
+import java.util.*;
+import org.mathpiper.mpreduce.LispEqualObject;
+
+public class LispEqualHash extends HashMap
 {
-	static LispObject cons(LispObject a, LispObject b)
-	{
-		return new Cons(a, b);
-	}
-	static LispObject cons3(LispObject a, LispObject b, LispObject c)
-	{
-		return new Cons(a, new Cons(b, c));
-	}
+
+    public Object put(Object key, Object value)
+    {
+        super.put(new LispEqualObject(key), value);
+        return value;
+    }
+
+    public Object get(Object key)
+    {
+        return super.get(new LispEqualObject(key));
+    }
+
+    public Object remove(Object key)
+    {
+        return super.remove(new LispEqualObject(key));
+    }
+
 }
+
+// end of LispEqualHash.java

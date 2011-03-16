@@ -3,8 +3,7 @@ package org.mathpiper.mpreduce.exceptions;
 //
 
 import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.lisp.LispException;
-import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.LispObject;
 
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2011.

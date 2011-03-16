@@ -1,9 +1,6 @@
-package org.mathpiper.mpreduce.exceptions;
+package org.mathpiper.mpreduce.numbers;
 
 //
-
-import org.mathpiper.mpreduce.LispObject;
-
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
@@ -38,32 +35,51 @@ import org.mathpiper.mpreduce.LispObject;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-public class ProgEvent extends LispException
+
+import java.math.*;
+import java.io.*;
+import java.util.*;
+
+public abstract class LispInteger extends LispNumber
 {
-    public static final int STOP     = 2;
-    public static final int RESTART  = 3;
-    public static final int THROW    = 4;
-    public static final int PRESERVE = 5;
-    
-    public LispObject details;
-    public LispObject extras;
-    public String message;
-    public int type;
 
-    public ProgEvent(int type, LispObject details, String message)
+    public static LispInteger valueOf(int value)
     {
-        this.type = type;
-        this.details = details;
-        this.extras = null;
-        this.message = message; 
+        if (value <= LispSmallInteger.MAX &&
+            value >= LispSmallInteger.MIN)
+            return LispSmallInteger.preAllocated[value - LispSmallInteger.MIN];
+        else if (value <= 0x3fffffff &&
+            value >= -0x40000000) return new LispSmallInteger(value);
+        else return new LispBigInteger(BigInteger.valueOf((long)value));
     }
 
-    public ProgEvent(int type, LispObject details, LispObject extras, String message)
+    public static LispInteger valueOf(long value)
     {
-        this.type = type;
-        this.details = details;
-        this.extras = extras;
-        this.message = message; 
+        if (value <= LispSmallInteger.MAX &&
+            value >= LispSmallInteger.MIN)
+            return LispSmallInteger.preAllocated[
+                       (int)(value - LispSmallInteger.MIN)];
+        else if (value <= 0x3fffffffL &&
+            value >= -0x40000000L) return new LispSmallInteger((int)value);
+        else return new LispBigInteger(BigInteger.valueOf(value));
     }
+
+    public static LispInteger valueOf(BigInteger value)
+    {
+        if (value.bitLength() <= 31)
+        {   int n = value.intValue();
+            if (n <= LispSmallInteger.MAX &&
+                n >= LispSmallInteger.MIN)
+                return LispSmallInteger.preAllocated[n - LispSmallInteger.MIN];
+            else if (n <= 0x3fffffff &&
+                     n >= -0x40000000) return new LispSmallInteger(n);
+        }
+        return new LispBigInteger(value);
+    }
+
 
 }
+
+// End of LispInteger.java
+
+

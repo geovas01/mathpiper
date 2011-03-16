@@ -2,6 +2,7 @@ package org.mathpiper.mpreduce.exceptions;
 
 //
 
+import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
 
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -38,32 +39,27 @@ import org.mathpiper.mpreduce.LispObject;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-public class ProgEvent extends LispException
+
+public class LispException extends Exception
 {
-    public static final int STOP     = 2;
-    public static final int RESTART  = 3;
-    public static final int THROW    = 4;
-    public static final int PRESERVE = 5;
-    
     public LispObject details;
-    public LispObject extras;
     public String message;
-    public int type;
-
-    public ProgEvent(int type, LispObject details, String message)
+    
+    public LispException()
     {
-        this.type = type;
-        this.details = details;
-        this.extras = null;
-        this.message = message; 
+        this.message = "unknown"; 
+	this.details = Jlisp.nil;
     }
-
-    public ProgEvent(int type, LispObject details, LispObject extras, String message)
+    
+    public LispException(String message)
     {
-        this.type = type;
-        this.details = details;
-        this.extras = extras;
-        this.message = message; 
+        this.message=message;
+	this.details=null; 
     }
-
+    
+    public LispException(String message, LispObject details)
+    {
+        this.message = message;
+	this.details = details; 
+    }
 }

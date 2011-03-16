@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.datatypes;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -36,52 +36,59 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 import java.io.*;
-import java.util.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispObject;
 
-// This is an object that the user should NEVER get directly hold of
-// but which may be used internally as a marker.
-
-public class Spid extends LispObject
+public class LispString extends LispObject
 {
-    public int tag;
-    public int data;   // NB NB NB   the field not saved in checkpoint files
 
-    public static final int FBIND    = 1;  // free bindings on stack in bytecode
-    public static final int NOARG    = 2;  // "no argument" after &opt
-    public static final int DEFINMOD = 3;  // introduces bytecode def in fasl file
+    public static int stringCount = 0;
 
-    public static final Spid fbind = new Spid(FBIND);
-    public static final Spid noarg = new Spid(NOARG);
+    public String string;
 
-    public Spid(int tag)
+    public LispString(String s)
     {
-        this.tag = tag & 0xff;
-        data = 0;
+        this.string = s;
     }
 
-    public Spid(int tag, int data)
-    {
-        this.tag = tag & 0xff;
-        this.data = data;
-    }
-
-    public LispObject eval()
-    {
-        return this;
-    }
+    static StringBuffer sb = new StringBuffer();
 
     public void iprint()
     {
-        String s = "#SPID" + tag;
+        String s;
+        if ((currentFlags & printEscape) != 0) s = escapedPrint(); 
+        else s = string;
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + s.length() > currentOutput.lineLength)
-            currentOutput.println();
+            currentOutput.println(); 
         currentOutput.print(s);
+    }
+
+    String escapedPrint()
+    {
+        sb.setLength(0);
+        sb.append("\"");
+        int n = string.indexOf('"');
+        if (n == -1) sb.append(string);
+        else
+        {   int s = 0;
+            while (n != -1)
+            {   sb.append(string.substring(s, n+1));
+                sb.append("\"");
+                s = n+1;
+                n = string.indexOf('"', s);
+            }
+            sb.append(string.substring(s, string.length()));
+        }
+        sb.append("\"");
+        return sb.toString();
     }
 
     public void blankprint()
     {
-        String s = "#SPID" + tag;
+        String s;
+        if ((currentFlags & printEscape) != 0) s = escapedPrint(); 
+        else s = string;
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + s.length() >= currentOutput.lineLength)
             currentOutput.println();
@@ -89,40 +96,72 @@ public class Spid extends LispObject
         currentOutput.print(s);
     }
 
+    public boolean lispequals(Object b)
+    {   if (!(b instanceof LispString)) return false;
+        return string.equals(((LispString)b).string);
+    }
+
+    public boolean equals(Object b)
+    {   if (!(b instanceof LispString)) return false;
+        return string.equals(((LispString)b).string);
+    }
+
+    public int lisphashCode()
+    {
+        return string.hashCode();
+    }
+    
+    public int hashCode()
+    {
+        return string.hashCode();
+    }
+
     public void scan()
     {
-        Object w = new Integer(tag);
-        if (Jlisp.objects.contains(w)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(w))
+        if (Jlisp.objects.contains(string)) // seen before?
+	{   if (!Jlisp.repeatedObjects.containsKey(string))
 	    {   Jlisp.repeatedObjects.put(
-	            w,
+	            string,
 	            Jlisp.nil); // value is junk at this stage
 	    }
 	}
-	else Jlisp.objects.add(w);
+	else Jlisp.objects.add(string);
     }
     
     public void dump() throws IOException
     {
-        Object d = new Integer(tag);
-        Object w = Jlisp.repeatedObjects.get(d);
+        Object w = Jlisp.repeatedObjects.get(string);
 	if (w != null &&
 	    w instanceof Integer) putSharedRef(w); // processed before
 	else
 	{   if (w != null) // will be used again sometime
 	    {   Jlisp.repeatedObjects.put(
-	            d,
+	            string,
 		    new Integer(Jlisp.sharedIndex++));
 		Jlisp.odump.write(X_STORE);
             }
-	    Jlisp.odump.write(X_SPID);
-	    Jlisp.odump.write(tag);
-// NOTE that I do NOT dump and restore the data field here. That is because
-// I only use it in cases to do with reading FASL files and the relevant
-// objects should NEVER need saving in a heap.
+// The next line turns the string into bytes using the platform's default
+// encoding. I would LIKE to use a representation guaranteed to be available
+// and to behave consistently everywhere... 
+	    byte [] rep = string.getBytes("UTF8");
+	    int length = rep.length;
+	    putPrefix2(length, X_STRn, X_STR);
+	    for (int i=0; i<length; i++)
+	    {   Jlisp.odump.write(rep[i]);
+            }
 	}
+    }
+
+    private void readObject(ObjectInputStream stream)
+                 throws ClassNotFoundException, IOException
+    {
+        stream.defaultReadObject();
+        stringCount++;
     }
 
 
 }
+
+
+// end of LispString.java
 

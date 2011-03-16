@@ -36,7 +36,7 @@ package org.mathpiper.mpreduce.ui.gui;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.builtin.Fns;
+import org.mathpiper.mpreduce.functions.builtin.Fns;
 import java.io.*;
 import java.awt.*;
 import java.awt.event.*;

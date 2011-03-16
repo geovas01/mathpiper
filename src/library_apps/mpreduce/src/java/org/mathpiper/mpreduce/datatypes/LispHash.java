@@ -1,4 +1,4 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.datatypes;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -35,44 +35,26 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
+
 import java.util.*;
+import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.LispObject;
 
-// This is an object that the user should NEVER get directly hold of
-// but which may be used internally as a marker.
-
-public class Spid extends LispObject
+public class LispHash extends LispObject
 {
-    public int tag;
-    public int data;   // NB NB NB   the field not saved in checkpoint files
-
-    public static final int FBIND    = 1;  // free bindings on stack in bytecode
-    public static final int NOARG    = 2;  // "no argument" after &opt
-    public static final int DEFINMOD = 3;  // introduces bytecode def in fasl file
-
-    public static final Spid fbind = new Spid(FBIND);
-    public static final Spid noarg = new Spid(NOARG);
-
-    public Spid(int tag)
+    public HashMap hash;
+    public int flavour;
+    
+    public LispHash(HashMap hash, int n)
     {
-        this.tag = tag & 0xff;
-        data = 0;
-    }
-
-    public Spid(int tag, int data)
-    {
-        this.tag = tag & 0xff;
-        this.data = data;
-    }
-
-    public LispObject eval()
-    {
-        return this;
+        this.hash = hash; 
+        this.flavour = n;  // 0 to 4, with only 0 and 2 used!
     }
 
     public void iprint()
     {
-        String s = "#SPID" + tag;
+        String s = "#<HashTable>";
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + s.length() > currentOutput.lineLength)
             currentOutput.println();
@@ -81,7 +63,7 @@ public class Spid extends LispObject
 
     public void blankprint()
     {
-        String s = "#SPID" + tag;
+        String s = "#<HashTable>";
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + s.length() >= currentOutput.lineLength)
             currentOutput.println();
@@ -91,38 +73,54 @@ public class Spid extends LispObject
 
     public void scan()
     {
-        Object w = new Integer(tag);
-        if (Jlisp.objects.contains(w)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(w))
+        if (Jlisp.objects.contains(this)) // seen before?
+	{   if (!Jlisp.repeatedObjects.containsKey(this))
 	    {   Jlisp.repeatedObjects.put(
-	            w,
+	            this,
 	            Jlisp.nil); // value is junk at this stage
 	    }
 	}
-	else Jlisp.objects.add(w);
+	else 
+	{   Jlisp.objects.add(this);
+            for (Iterator e = hash.keySet().iterator();
+                 e.hasNext();
+	        )
+            {   Object k = e.next();
+                Object v = hash.get(k);
+		Jlisp.stack.push(v);
+		Jlisp.stack.push(k);
+	    }
+	}
     }
-    
+  
     public void dump() throws IOException
     {
-        Object d = new Integer(tag);
-        Object w = Jlisp.repeatedObjects.get(d);
+        Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&
 	    w instanceof Integer) putSharedRef(w); // processed before
 	else
 	{   if (w != null) // will be used again sometime
 	    {   Jlisp.repeatedObjects.put(
-	            d,
+	            this,
 		    new Integer(Jlisp.sharedIndex++));
 		Jlisp.odump.write(X_STORE);
             }
-	    Jlisp.odump.write(X_SPID);
-	    Jlisp.odump.write(tag);
-// NOTE that I do NOT dump and restore the data field here. That is because
-// I only use it in cases to do with reading FASL files and the relevant
-// objects should NEVER need saving in a heap.
+	    Jlisp.odump.write(X_HASH + flavour);
+	    for (Iterator e = hash.keySet().iterator();
+	         e.hasNext();
+		)
+            {   Object k = e.next();
+	        Object v = hash.get(k);
+		Jlisp.stack.push(v);
+		Jlisp.stack.push(k);
+            }
+	    Jlisp.odump.write(X_ENDHASH);
 	}
     }
 
 
 }
+
+
+// end of LispHash.java
 

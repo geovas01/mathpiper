@@ -1,12 +1,8 @@
-package org.mathpiper.mpreduce.exceptions;
-
-//
+package org.mathpiper.mpreduce.functions;
 
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.datatypes.Cons;
 
-// This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
-//
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -38,32 +34,15 @@ import org.mathpiper.mpreduce.LispObject;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-public class ProgEvent extends LispException
+
+public class StaticFns 
 {
-    public static final int STOP     = 2;
-    public static final int RESTART  = 3;
-    public static final int THROW    = 4;
-    public static final int PRESERVE = 5;
-    
-    public LispObject details;
-    public LispObject extras;
-    public String message;
-    public int type;
-
-    public ProgEvent(int type, LispObject details, String message)
-    {
-        this.type = type;
-        this.details = details;
-        this.extras = null;
-        this.message = message; 
-    }
-
-    public ProgEvent(int type, LispObject details, LispObject extras, String message)
-    {
-        this.type = type;
-        this.details = details;
-        this.extras = extras;
-        this.message = message; 
-    }
-
+	static LispObject cons(LispObject a, LispObject b)
+	{
+		return new Cons(a, b);
+	}
+	static LispObject cons3(LispObject a, LispObject b, LispObject c)
+	{
+		return new Cons(a, new Cons(b, c));
+	}
 }

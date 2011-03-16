@@ -1,9 +1,14 @@
-package org.mathpiper.mpreduce;
+package org.mathpiper.mpreduce.symbols;
 
 //
 // This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
+// Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
+
+import org.mathpiper.mpreduce.functions.lisp.Undefined;
+import java.io.*;
+import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.Lit;
 
 /**************************************************************************
  * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
@@ -35,56 +40,34 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.lisp.LispObject;
-import java.io.*;
-
-abstract class SpecialFunction extends LispObject
+public class Gensym extends Symbol
 {
-    String name;
+    public String nameBase = "G";
+    public static int gensymCounter = 0;
+    public int myNumber = -1;
 
-    abstract LispObject op(LispObject args) throws Exception;
-
-    LispObject error(String s) throws Exception
+    public Gensym(String name)
     {
-        return Jlisp.error(s);
+        pname = null;
+        nameBase = name;
+        car/*value*/ = Jlisp.lit[Lit.undefined];
+        cdr/*plist*/ = Jlisp.nil;
+        fn = new Undefined(name);
+        special = null;
+        myNumber = -1;
     }
 
-    public void iprint()
-    {
-        String s = "#Special<" + name + ">";
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() > currentOutput.lineLength)
-            currentOutput.println();
-        currentOutput.print(s);
-    }
-    
-    public void blankprint()
-    {
-        String s = "#Special<" + name + ">";
-        if ((currentFlags & noLineBreak) == 0 &&
-            currentOutput.column + s.length() >= currentOutput.lineLength)
-            currentOutput.println();
-        else currentOutput.print(" ");
-        currentOutput.print(s);
+    public void completeName()
+    {   if (pname != null) return;
+        pname = nameBase + (myNumber = gensymCounter++);
     }
 
-    public void scan()
-    {
-        if (Jlisp.objects.contains(this)) // seen before?
-	{   if (!Jlisp.repeatedObjects.containsKey(this))
-	    {   Jlisp.repeatedObjects.put(
-	            this,
-	            Jlisp.nil); // value is junk at this stage
-	    }
-	}
-	else Jlisp.objects.add(this);
-    }
-    
     public void dump() throws IOException
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
+	    w instanceof Integer)
+	    putSharedRef(w); // processed before
 	else
 	{   if (w != null) // will be used again sometime
 	    {   Jlisp.repeatedObjects.put(
@@ -92,19 +75,25 @@ abstract class SpecialFunction extends LispObject
 		    new Integer(Jlisp.sharedIndex++));
 		Jlisp.odump.write(X_STORE);
             }
-	    byte [] rep = name.getBytes("UTF8");
+	    byte [] rep = nameBase.getBytes("UTF8");
 	    int length = rep.length;
-	    if (length <= 0xff)
-	    {   Jlisp.odump.write(X_SPECFN);
-	        Jlisp.odump.write(length);
-	    }
-	    else throw new IOException("overlong name for a function");
+	    putPrefix2(length, X_GENSYMn, X_GENSYM);
 	    for (int i=0; i<length; i++)
 	        Jlisp.odump.write(rep[i]);
+            Jlisp.odump.write(myNumber & 0xff);
+            Jlisp.odump.write((myNumber >> 8) & 0xff);
+            Jlisp.odump.write((myNumber >> 16) & 0xff);
+            Jlisp.odump.write((myNumber >> 24) & 0xff);
+	    if (Jlisp.descendSymbols)	
+	    {   Jlisp.stack.push(car/*value*/);
+	        Jlisp.stack.push(cdr/*plist*/);
+	        Jlisp.stack.push(special);
+	        Jlisp.stack.push(fn);
+	    }
 	}
     }
 
 }
 
-// End of SpecialFunction.java
+// end of Gensym.java
 

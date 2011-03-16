@@ -1,7 +1,7 @@
 package org.mathpiper.mpreduce;
 
-import org.mathpiper.mpreduce.lisp.LispString;
-import org.mathpiper.mpreduce.lisp.LispObject;
+import org.mathpiper.mpreduce.datatypes.Cons;
+import org.mathpiper.mpreduce.datatypes.LispString;
 
 
 // This is to demonstrate how user Java code can be called from Jlisp.
