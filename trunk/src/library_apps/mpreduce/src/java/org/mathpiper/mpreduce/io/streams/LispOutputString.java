@@ -66,6 +66,12 @@ public class LispOutputString extends LispStream
         sb.append("\n");
     }
 
+
+    public String toString()
+    {
+        return sb.toString();
+    }
+
 }
 
 // end of LispOutputString.java

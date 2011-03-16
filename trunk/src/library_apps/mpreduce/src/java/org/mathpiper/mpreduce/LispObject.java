@@ -43,8 +43,7 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 import java.math.*;
-import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.io.streams.LispOutputString;
 import org.mathpiper.mpreduce.numbers.LispBigInteger;
 import org.mathpiper.mpreduce.numbers.LispSmallInteger;
 import org.mathpiper.mpreduce.io.streams.LispStream;
@@ -822,6 +821,24 @@ public abstract class LispObject extends Object
         Jlisp.error("Number needed", this);
         return false;
     }
+
+
+    public String toString()
+    {
+         LispStream originalOutput = this.currentOutput;
+
+         LispStream stringStream = new LispOutputString();
+
+         this.currentOutput = stringStream;
+
+         //Print object information into a string.
+         iprint();
+
+         this.currentOutput = originalOutput;
+
+         return stringStream.toString();
+
+    }//end method.
 
 }
 
