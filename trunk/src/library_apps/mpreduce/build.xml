@@ -24,6 +24,9 @@
 	
 
 	<property name="build.classes.dir" value="${build.dir}/classes" />
+	<property name="build.images.dir" value="${build.dir}/images" />
+	<property name="build.test.dir" value="${build.dir}/test" />
+	<property name="library.dir" value="${mpreduce.dir}/lib" />
 	
 	
 	<target id="noop" name="noop" description="Do nothing." />
@@ -35,7 +38,8 @@
 		<delete dir="${build.dir}" />
 	</target>
 	
-	<target name="init" depends="clean">
+	
+	<target name="init" >
 	    <condition property="IsUnix" value="true">
 		    <os family="unix" />
 	    </condition>
@@ -45,7 +49,11 @@
 		</tstamp>
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${build.classes.dir}" />
+		
+		<mkdir dir="${build.images.dir}" />
+		<mkdir dir="${build.test.dir}" />
 	</target>
+	
 	
 	<target name="compile" depends="init"
 		description="Compiles the application" >
@@ -77,15 +85,16 @@
 	</target>
 	
 
-	<target id="dist" name="dist" depends="compile" >
-	
-
+	<target id="dist" name="dist" depends="clean, compile" >
 		
-
 		<copy file="${mpreduce.dir}/lib/lisp_images/reduce.img" todir="${build.classes.dir}"/>
+		
 		<move file="${build.classes.dir}/reduce.img" tofile="${build.classes.dir}/default.img"/>
-
-
+		
+		
+		<!-- <move file="${build.images.dir}/reduce.img" tofile="${build.classes.dir}/default.img"/> -->
+		
+		
 	
 		<mkdir dir="${build.dir}/dist" />
 		
@@ -100,6 +109,73 @@
 			<include name="**/*" />
 			<!--<exclude name="**/*.bat,**/*.sh" />-->
 		</jar> 
+		
+		<copy file="${build.dir}/dist/mpreduce.jar" todir="${non_plugin.jars.dir}"/>
+	</target>
+	
+	
+	
+	
+	<target id="jlisp.img" name="jlisp.img" depends="compile">
+	
+	 	<delete file="${build.images.dir}/jlisp.img" />
+
+	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	
+	 		<arg line="-w -v -z -o ${build.images.dir}/jlisp.img ${library.dir}/buildcsl.lsp -D@cslbase=${library.dir} -- ${build.images.dir}/jlispimg.log"  />
+	 		
+	 	</java>
+
+	</target>
+	
+	
+	
+	<target id="reduce.img" name="reduce.img" depends="compile">
+	
+	 	<delete file="${build.images.dir}/reduce.img" />
+
+	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	
+	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
+	 		
+	 		<arg line="-w -v -z -o ${build.images.dir}/reduce.img ${library.dir}/buildreduce.lsp -D@srcdir=${library.dir} -- ${build.images.dir}/reduceimg.log"  />
+	 		
+	 	</java>
+
+	</target>
+	
+	
+	
+	<target id="minireduce.img" name="minireduce.img" depends="compile">
+	
+	 	<delete file="${build.images.dir}/minireduce.img" />
+
+	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	
+	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
+	 		
+	 		<arg line="-w -v -z -o ${build.images.dir}/minireduce.img ${library.dir}/buildreduce.lsp -Dminireduce -D@srcdir=${library.dir} -- ${build.images.dir}/minireduceimg.log"  />
+	 		
+	 	</java>
+
+	</target>
+	
+	
+	
+	<target id="testall" name="testall" depends="">
+	
+	 	<copy file="${build.images.dir}/reduce.img" todir="${build.classes.dir}"/>
+	 	
+	 	<move file="${build.classes.dir}/reduce.img" tofile="${build.classes.dir}/default.img"/>
+
+	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	
+	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
+	 		
+	 		<arg line="-w -D@srcdir=${library.dir} ${library.dir}/testall.red  -D@log=${build.test.dir} -- ${build.test.dir}/testreduce.log" />
+	 		
+	 	</java>
+
 	</target>
 
 
