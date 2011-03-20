@@ -1976,6 +1976,12 @@ class ErrorsetFn extends BuiltinFunction
             }
             catch (Exception e) 
             {
+            	if(Jlisp.trapExceptions == false)
+            	{
+            		//System.out.println(e.getMessage());
+            		e.printStackTrace();
+            	}
+            	
                 if (e instanceof ProgEvent)
                 {   ProgEvent ep = (ProgEvent)e;
                     switch (ep.type)

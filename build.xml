@@ -116,9 +116,10 @@
 			<property name="compile.target" value="${master.compile.target}"/>
 			<property name="src.dir" value="${library_apps.src.dir}/mpreduce/src/java"/>
 			<property name="mpreduce.dir" value="${library_apps.src.dir}/mpreduce"/>
+			<property name="non_plugin.jars.dir" value="${non_plugin.jars.dir}" />
 			<reference refid="build_classpath"/>
 		</ant>
-		<copy file="${library_apps.build.dir}/mpreduce/dist/mpreduce.jar" todir="${non_plugin.jars.dir}"/>
+		
 	</target>
 	
 		<target id="piper_refactor_library" name="piper_refactor_library" depends="init" >

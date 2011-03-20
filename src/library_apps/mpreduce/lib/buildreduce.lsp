@@ -10,7 +10,7 @@
 %
 %
 %           bootstrapreduce -z buildreduce.lsp -D@srcdir=<DIR>
-%
+%                                                                                                                                                                                                        
 % Builds a system "bootstrapreduce.img" that does not depend on any
 % custom C code. The main use of this slow system is for profiling
 % REDUCE and then compiling the hot-spots into C. Once that has been
@@ -55,66 +55,66 @@
                  (go top))))
               name))))
 
-   (rdf "$srcdir/../../cslbuild/generated-c/u01.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u02.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u03.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u04.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u05.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u06.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u07.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u08.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u09.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u10.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u11.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u12.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u13.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u14.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u15.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u16.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u17.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u18.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u19.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u20.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u21.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u22.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u23.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u24.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u25.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u26.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u27.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u28.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u29.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u30.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u31.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u32.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u33.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u34.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u35.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u36.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u37.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u38.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u39.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u40.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u41.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u42.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u43.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u44.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u45.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u46.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u47.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u48.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u49.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u50.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u51.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u52.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u53.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u54.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u55.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u56.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u57.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u58.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u59.lsp")
-   (rdf "$srcdir/../../cslbuild/generated-c/u60.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u01.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u02.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u03.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u04.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u05.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u06.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u07.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u08.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u09.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u10.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u11.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u12.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u13.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u14.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u15.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u16.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u17.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u18.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u19.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u20.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u21.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u22.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u23.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u24.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u25.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u26.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u27.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u28.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u29.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u30.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u31.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u32.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u33.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u34.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u35.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u36.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u37.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u38.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u39.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u40.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u41.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u42.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u43.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u44.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u45.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u46.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u47.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u48.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u49.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u50.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u51.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u52.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u53.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u54.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u55.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u56.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u57.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u58.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u59.lsp")
+   (rdf "$srcdir/../src/../cslbuild/generated-c/u60.lsp")
     )))
 
 (rdf "$srcdir/fastgets.lsp")
@@ -445,7 +445,7 @@ a     (setq hold (nconc hold (list (xread1 nil))))
 
 (begin2)
 
-!@reduce := concat(!@srcdir, "/../..");
+!@reduce := concat(!@srcdir, "/../src");
 
 rds(xxx := open("$reduce/packages/support/build.red",'input));
 
@@ -585,7 +585,7 @@ load!-module "user";
 
 !#endif
 
-!@reduce := concat(!@srcdir, "/../..");
+!@reduce := concat(!@srcdir, "/../src");
 
 in "$reduce/packages/support/remake.red"$
 
@@ -601,10 +601,10 @@ symbolic procedure get_configuration_data();
   begin
     scalar i, w, e;
 % Configuration information is held in a file called something like
-% "package.map".
+% "package.map".                                                              
     if boundp 'minireduce and symbol!-value 'minireduce then
-        i := "package.map"
-    else i := "$srcdir/../../packages/package.map";
+        i := "$srcdir/../src/packages/minipackage.map"
+    else i := "$srcdir/../src/packages/package.map";
     i := open(i, 'input);
     i := rds i;
     e := !*echo;
@@ -627,9 +627,9 @@ symbolic procedure get_configuration_data();
             member('csl, cddr x) then list car x else nil;
     for each x in w do
        if member('csl, cddr x) then put(car x, 'folder, cadr x);
-%   princ "reduce_base_modules: "; print reduce_base_modules;
-%   princ "reduce_extra_modules: "; print reduce_extra_modules;
-%   princ "reduce_test_cases: "; print reduce_test_cases;
+ %  princ "reduce_base_modules: "; print reduce_base_modules;
+ %  princ "reduce_extra_modules: "; print reduce_extra_modules;
+ %  princ "reduce_test_cases: "; print reduce_test_cases;
     return;
   end;
 
@@ -644,6 +644,8 @@ symbolic procedure build_reduce_modules names;
     make!-special '!*native_code;
     !*native_code := nil;
     get_configuration_data();
+    
+    
     window!-heading list!-to!-string explodec car names;
 !#if !*savedef
 % When building the bootstrap version I want to record what switches
@@ -705,7 +707,7 @@ symbolic procedure test_a_package names;
        princ date(); princ " run on "; printc cdr assoc('name, lispsystem!*);
        load!-package packge;
        if get(packge,'folder) then packge := get(packge,'folder);
-       packge := concat("$srcdir/../../packages/",
+       packge := concat("$srcdir/../src/packages/",
                    concat(packge,
                      concat("/",
                        concat(car names,".tst"))));
@@ -813,7 +815,7 @@ symbolic procedure report_incomplete_tests names;
     for each packge in names do <<
        tfile := packge;
        if get(packge,'folder) then tfile := get(packge,'folder);
-       tfile := concat("$srcdir/../../packages/",
+       tfile := concat("$srcdir/../src/packages/",
                    concat(tfile,
                       concat("/",
                         concat(packge,".tst"))));
@@ -847,7 +849,7 @@ symbolic procedure complete_tests names;
 top:
     tfile := packge := car names;
     if get(tfile,'folder) then tfile := get(tfile,'folder);
-    tfile := concat("$srcdir/../../packages/",
+    tfile := concat("$srcdir/../src/packages/",
                 concat(tfile,
                   concat("/",
                     concat(packge,".tst"))));
@@ -956,7 +958,7 @@ symbolic procedure profile_a_package names;
     load!-package packge;
     get_configuration_data();
     if get(packge,'folder) then packge := get(packge,'folder);
-    packge := concat("$srcdir/../../packages/",
+    packge := concat("$srcdir/../src/packages/",
                 concat(packge,
                   concat("/",
                     concat(car names,".tst"))));
@@ -1404,7 +1406,7 @@ symbolic procedure check_a_package;
        mylogname := concat(logname, concat("/", concat(packge, ".rlg")));
        if get(packge,'folder) then p1 := get(packge,'folder)
        else p1 := packge;
-       reflogname := concat("$srcdir/../../packages/",
+       reflogname := concat("$srcdir/../src/packages/",
                        concat(p1,
                          concat("/",
                            concat(packge,".rlg"))));
@@ -1479,7 +1481,7 @@ load!-module 'remake;
 load!-module 'user;
 !#endif
 
-!@reduce := concat(!@srcdir, "/../..");
+!@reduce := concat(!@srcdir, "/../src");
 
 get_configuration_data();
 
@@ -1579,7 +1581,7 @@ symbolic restart!-csl nil;
 
 (load!-package 'entry)
 
-% (write!-help!-module "$srcdir/../util/reduce.inf" nil)
+% (write!-help!-module "$srcdir/../src/util/reduce.inf" nil)
 %
 % (load!-module 'cslhelp)
 
