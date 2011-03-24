@@ -6,7 +6,7 @@
             <name>mpreduce</name>
             <source-roots>
                 <root id="src.java.dir"/>
-                <root id="src.reduce_packages.dir"/>
+                <root id="src.packages.dir"/>
             </source-roots>
             <test-roots/>
         </data>
