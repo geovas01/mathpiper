@@ -76,7 +76,7 @@
 		
 		
 		<!--<copy todir="${build.classes.dir}">
-			<fileset dir="${lib.dir}/lisp_images" >
+			<fileset dir="${lib.dir}/images" >
 				<include name="**/*.img" />
 			</fileset>
 		</copy>
@@ -87,7 +87,7 @@
 
 	<target id="dist" name="dist" depends="clean, compile" >
 		
-		<copy file="${mpreduce.dir}/lib/lisp_images/reduce.img" todir="${build.classes.dir}"/>
+		<copy file="${mpreduce.dir}/lib/images/reduce.img" todir="${build.classes.dir}"/>
 		
 		<move file="${build.classes.dir}/reduce.img" tofile="${build.classes.dir}/default.img"/>
 		
