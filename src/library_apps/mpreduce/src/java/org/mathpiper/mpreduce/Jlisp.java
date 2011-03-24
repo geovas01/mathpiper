@@ -84,7 +84,7 @@ import org.mathpiper.mpreduce.functions.builtin.Fns;
 import org.mathpiper.mpreduce.functions.builtin.Fns1;
 import org.mathpiper.mpreduce.functions.builtin.Fns2;
 import org.mathpiper.mpreduce.functions.builtin.Fns3;
-import org.mathpiper.mpreduce.javacompiler.Fns4;
+//import org.mathpiper.mpreduce.javacompiler.Fns4;
 import java.io.*;
 import java.math.*;
 import java.util.*;
@@ -506,11 +506,11 @@ public class Jlisp
 			        (String)fns3.builtins[i][0];
 			builtinFunctions.put(fns3.builtins[i][0], fns3.builtins[i][1]);
 		}
-		for (i=0; i<fns4.builtins.length; i++)
+		/*for (i=0; i<fns4.builtins.length; i++)
 		{   ((LispFunction)fns4.builtins[i][1]).name =
 			        (String)fns4.builtins[i][0];
 			builtinFunctions.put(fns4.builtins[i][0], fns4.builtins[i][1]);
-		}
+		}*/
 		for (i=0; i<specfn.specials.length; i++)
 		{   ((SpecialFunction)specfn.specials[i][1]).name =
 			        (String)specfn.specials[i][0];
@@ -655,7 +655,7 @@ public class Jlisp
 			}
 			else
 			{   // System.out.println("Bodge here...");
-				initfns(fns4.builtins);
+				//initfns(fns4.builtins);
 			}
 			lispIO.tidyup(nil);
 			lispErr.tidyup(nil);
@@ -973,7 +973,7 @@ public class Jlisp
 	static Fns1 fns1 = new Fns1();
 	static Fns2 fns2 = new Fns2();
 	static Fns3 fns3 = new Fns3();
-	static Fns4 fns4 = new Fns4();
+	//static Fns4 fns4 = new Fns4();
 	static Specfn specfn = new Specfn();
 
 	// I choose my initial oblist size so that REDUCE can run without need
@@ -2087,7 +2087,7 @@ public class Jlisp
 		initfns(fns1.builtins);
 		initfns(fns2.builtins);
 		initfns(fns3.builtins);
-		initfns(fns4.builtins);
+		//initfns(fns4.builtins);
 		// initfns(fns5.builtins);
 		// initfns(fns6.builtins);
 
