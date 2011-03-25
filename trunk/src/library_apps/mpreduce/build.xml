@@ -86,7 +86,7 @@
 
 	<target id="dist" name="dist" depends="clean, compile" >
 		
-		<copy file="${mpreduce.dir}/lib/images/reduce.img" todir="${build.classes.dir}"/>
+		<copy file="${lib.dir}/images/reduce.img" todir="${build.classes.dir}"/>
 		
 		<move file="${build.classes.dir}/reduce.img" tofile="${build.classes.dir}/default.img"/>
 		

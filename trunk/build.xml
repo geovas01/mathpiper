@@ -117,6 +117,8 @@
 			<property name="src.dir" value="${library_apps.src.dir}/mpreduce/src/java"/>
 			<property name="mpreduce.dir" value="${library_apps.src.dir}/mpreduce"/>
 			<property name="non_plugin.jars.dir" value="${non_plugin.jars.dir}" />
+			<property name="lib.dir" value="${master.lib.dir}/mpreduce" />
+			
 			<reference refid="build_classpath"/>
 		</ant>
 		
