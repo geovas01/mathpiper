@@ -90,6 +90,7 @@ import java.math.*;
 import java.util.*;
 import java.util.zip.*;
 import java.text.*;
+import org.mathpiper.mpreduce.functions.builtin.MPReduceFunctions;
 
 public class Jlisp
 {
@@ -505,6 +506,11 @@ public class Jlisp
 		{   ((LispFunction)fns3.builtins[i][1]).name =
 			        (String)fns3.builtins[i][0];
 			builtinFunctions.put(fns3.builtins[i][0], fns3.builtins[i][1]);
+		}
+		for (i=0; i<mpreduceFunctions.builtins.length; i++)
+		{   ((LispFunction)mpreduceFunctions.builtins[i][1]).name =
+			        (String)mpreduceFunctions.builtins[i][0];
+			builtinFunctions.put(mpreduceFunctions.builtins[i][0], mpreduceFunctions.builtins[i][1]);
 		}
 		/*for (i=0; i<fns4.builtins.length; i++)
 		{   ((LispFunction)fns4.builtins[i][1]).name =
@@ -973,6 +979,7 @@ public class Jlisp
 	static Fns1 fns1 = new Fns1();
 	static Fns2 fns2 = new Fns2();
 	static Fns3 fns3 = new Fns3();
+        static MPReduceFunctions mpreduceFunctions = new MPReduceFunctions();
 	//static Fns4 fns4 = new Fns4();
 	static Specfn specfn = new Specfn();
 
@@ -2087,6 +2094,7 @@ public class Jlisp
 		initfns(fns1.builtins);
 		initfns(fns2.builtins);
 		initfns(fns3.builtins);
+                initfns(mpreduceFunctions.builtins);
 		//initfns(fns4.builtins);
 		// initfns(fns5.builtins);
 		// initfns(fns6.builtins);
@@ -2284,6 +2292,7 @@ public class Jlisp
 
 				if(lispIO != null)
 				{
+                                        lispIO.print("1:");
 					lispIO.flush();
 					lispIO.close();
 				}
@@ -2303,7 +2312,29 @@ public class Jlisp
 			System.exit(1);
 
 
-		}//end if.
+		}else
+			try
+			{
+				if(transcript != null)
+				{
+					transcript.flush();
+				}
+
+				if(lispIO != null)
+				{
+					lispIO.flush();
+				}
+
+				if(lispErr != null)
+				{
+					lispErr.flush();
+				}
+
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		
 	}//end method.
 
