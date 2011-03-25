@@ -1,6 +1,5 @@
 package org.mathpiper.mpreduce;
 
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.*;
@@ -9,10 +8,10 @@ import java.io.*;
  *
  *
  */
-public class Embedded {
+public class Interpreter {
 
     Jlisp jlisp;
-    private static Embedded JlispCASInstance = null;
+    private static Interpreter JlispCASInstance = null;
     private StringBuffer responseBuffer;
     private Pattern inputPromptPattern;
     private PipedInputStream myInputStream;
@@ -21,11 +20,12 @@ public class Embedded {
     private String startMessage;
     private String prompt;
     private Thread reduceThread;
+    private boolean evaluationHalted = false;
 
 
-    public Embedded() {
+    public Interpreter() {
 
-        System.out.println("MPReduce version .03");
+        System.out.println("MPReduce version .04");
 
         jlisp = new Jlisp();
 
@@ -66,13 +66,13 @@ public class Embedded {
 
             responseBuffer = new StringBuffer();
             inputPromptPattern = Pattern.compile("\\n[0-9]+\\:");
-            
-          
+
+
             startMessage = getResponse();
-            
+
 
             //Initialize MPReduce.
-            send("off int; on errcont; off nat;");
+            evaluate("off int; on errcont; off nat;");
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -94,25 +94,32 @@ public class Embedded {
     }//end method.
 
 
-    public static Embedded getInstance() throws Throwable {
+    public static Interpreter getInstance() throws Throwable {
         if (JlispCASInstance == null) {
-            JlispCASInstance = new Embedded();
+            JlispCASInstance = new Interpreter();
         }
         return JlispCASInstance;
     }//end method.
 
 
-    public synchronized void send(String send) throws Throwable {
-    	send = send + ";\n";
+    public synchronized void evaluate(String send) throws Throwable {
+        send = send + ";\n";
         myOutputStream.write(send.getBytes());
         myOutputStream.flush();
-        
-    }//end send.
+
+    }//end evaluate.
 
 
-    public void haltEvaluation()
-    {
-        jlisp.interruptEvaluation = true;
+    public void interruptEvaluation() {
+        try {
+            evaluate(""); //Needed to make sure the next evaluation after the interruption works okay.
+
+            jlisp.interruptEvaluation = true;
+
+            evaluationHalted = true;
+        } catch (Throwable e) {
+            //Each excpetion.
+        }
     }
 
 
@@ -149,7 +156,7 @@ public class Embedded {
                 response = response.substring(0, promptIndex);
 
                 response = response.trim();
-                 
+
 
                 keepChecking = false;
 
@@ -157,41 +164,54 @@ public class Embedded {
 
         }//end while.
 
+
+        //Obtain the exceptin message from the input stream.
+        if (this.evaluationHalted == true) { 
+            int serialAvailable;
+            while ((serialAvailable = myInputStream.available()) != 0) {
+                byte[] bytes = new byte[serialAvailable];
+                myInputStream.read(bytes, 0, serialAvailable);
+                response = response + new String(bytes);
+            }
+            evaluationHalted = false;
+        }
+
         return response;
 
     }//end method
 
 
     public static void main(String[] args) {
-        Embedded mpreduce = new Embedded();
+        Interpreter mpreduce = new Interpreter();
 
         String result = "";
 
-        try
-        {
+        try {
 
 
-            mpreduce.send("(X-Y)^100;");
-            //mpreduce.send("while 1 < 2 do 1;");
+            mpreduce.evaluate("(X-Y)^100;");
+            //mpreduce.evaluate("while 1 < 2 do 1;");
 
-            Thread.sleep(1000);
+            Thread.sleep(500);
             System.out.println("Interrupting reduce thread.");
-            mpreduce.haltEvaluation();
+            mpreduce.interruptEvaluation();
             result = mpreduce.getResponse();
             System.out.println(result);
 
 
-            mpreduce.send("2+2;");
+            mpreduce.evaluate("2 + 2;");
             result = mpreduce.getResponse();
             System.out.println(result);
 
-        }
-        catch(Throwable t)
-        {
+            mpreduce.evaluate("3 + 3;");
+            result = mpreduce.getResponse();
+            System.out.println(result);
+
+        } catch (Throwable t) {
             t.printStackTrace();
         }
 
-        
+
 
     }
 
