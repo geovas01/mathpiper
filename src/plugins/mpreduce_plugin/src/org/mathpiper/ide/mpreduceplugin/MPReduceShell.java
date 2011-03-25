@@ -114,7 +114,7 @@ public class MPReduceShell extends Shell implements org.mathpiperide.ResponseLis
 				{
 					mpreduce.addResponseListener(this);
 
-					mpreduce.send(command);
+					mpreduce.evaluate(command);
 					
 
 
@@ -140,7 +140,7 @@ public class MPReduceShell extends Shell implements org.mathpiperide.ResponseLis
 
 	public void stop(Console console)
 	{
-		mpreduce.haltEvaluation();
+		mpreduce.interruptEvaluation();
 	}
 
 	public boolean waitFor(Console console)
