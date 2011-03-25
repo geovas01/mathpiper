@@ -37,7 +37,7 @@ public class MPReduceWrapper implements Runnable, EBComponent
 {
 
 	private static MPReduceWrapper mpreduceInstance = null;
-	private org.mathpiper.mpreduce.Embedded mpreduce = null;
+	private org.mathpiper.mpreduce.Interpreter mpreduce = null;
 	private boolean keepRunning = true;
 	private ArrayList<ResponseListener> responseListeners;
 	private ArrayList<ResponseListener> removeListeners;
@@ -49,7 +49,7 @@ public class MPReduceWrapper implements Runnable, EBComponent
 	{
 		responseListeners = new ArrayList<ResponseListener>();
 		removeListeners = new ArrayList<ResponseListener>();
-		mpreduce = new org.mathpiper.mpreduce.Embedded();
+		mpreduce = new org.mathpiper.mpreduce.Interpreter();
 		
 		new Thread(this,"reduce").start();
 
@@ -75,9 +75,9 @@ public class MPReduceWrapper implements Runnable, EBComponent
 
 
 
-	public synchronized void send(String send) throws Throwable
+	public synchronized void evaluate(String expression) throws Throwable
 	{
-		mpreduce.send(send);
+		mpreduce.evaluate(expression);
 
 	}//end send.
 
@@ -111,9 +111,9 @@ public class MPReduceWrapper implements Runnable, EBComponent
 		keepRunning = false;
 	}//end method.
 	
-	public void haltEvaluation()
+	public void interruptEvaluation()
 	{
-		mpreduce.haltEvaluation();
+		mpreduce.interruptEvaluation();
 	}
 
 
@@ -174,7 +174,7 @@ public class MPReduceWrapper implements Runnable, EBComponent
 			{
 				try
 				{
-					mpreduce.send("bye;");
+					mpreduce.evaluate("bye;");
 				}
 				catch(Throwable t)
 				{
