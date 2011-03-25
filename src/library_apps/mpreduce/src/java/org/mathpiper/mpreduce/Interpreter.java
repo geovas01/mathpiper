@@ -25,7 +25,7 @@ public class Interpreter {
 
     public Interpreter() {
 
-        System.out.println("MPReduce version .04");
+        System.out.println("MPReduce version .05");
 
         jlisp = new Jlisp();
 
@@ -143,6 +143,15 @@ public class Interpreter {
             myInputStream.read(bytes, 0, serialAvailable);
             responseBuffer.append(new String(bytes));
             response = responseBuffer.toString();
+
+            //Check for an error response.
+            if(response.indexOf("*****") != -1)
+            {
+                responseBuffer.delete(0, responseBuffer.length());
+                response = response.trim();
+                keepChecking = false;
+            }
+
             //System.out.println("SSSSS " + response);
             Matcher matcher = inputPromptPattern.matcher(response);
             if (matcher.find()) {
@@ -200,6 +209,11 @@ public class Interpreter {
 
 
             mpreduce.evaluate("2 + 2;");
+            result = mpreduce.getResponse();
+            System.out.println(result);
+
+
+            mpreduce.evaluate("operator a$y := (for i := 0:n sum a(a) * x^i)");
             result = mpreduce.getResponse();
             System.out.println(result);
 
