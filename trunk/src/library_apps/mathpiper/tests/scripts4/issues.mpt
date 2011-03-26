@@ -150,3 +150,6 @@ Verify(a/2+3*a/2,2*a);
 Verify(a/2+(3*a)/2,2*a);
 Verify(1/(2*a)+3/(2*a),2/a);
 Verify(a/(2*b)+3*a/(2*b),(2*a)/b);
+
+// Issue 117
+Verify(Differentiate(x, 1) ArcSin(Sin(x)), Cos(x)/Sqrt(1-Sin(x)^2));
