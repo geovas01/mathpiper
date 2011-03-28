@@ -54,7 +54,7 @@ public class Interpreter {
 
     public Interpreter() {
 
-        System.out.println("MPReduce version .06");
+
 
         jlisp = new Jlisp();
 
@@ -94,14 +94,19 @@ public class Interpreter {
 
 
             responseBuffer = new StringBuffer();
-            inputPromptPattern = Pattern.compile("([0-9]+\\:)+");
+            inputPromptPattern = Pattern.compile("[0-9]+\\:");
 
 
             startMessage = getResponse();
 
+            evaluate("on errcont; off nat;");
+            String switchSetResponce = getResponse();
+
 
             //Initialize MPReduce.
-            evaluate("off int; on errcont; off nat;");
+            evaluate("symbolic procedure update!_prompt; begin setpchar \"f179eb\" end;;");
+
+            inputPromptPattern = Pattern.compile("(f179eb)+");
 
             getResponse();
 
@@ -252,7 +257,6 @@ public class Interpreter {
         String result = "";
 
         try {
-
 
             mpreduce.evaluate("(X+Y+Z)^2;");
             result = mpreduce.getResponse();
