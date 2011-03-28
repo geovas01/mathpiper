@@ -54,7 +54,7 @@ public class Interpreter {
 
     public Interpreter() {
 
-        System.out.println("MPReduce version .05");
+        System.out.println("MPReduce version .06");
 
         jlisp = new Jlisp();
 
@@ -94,7 +94,7 @@ public class Interpreter {
 
 
             responseBuffer = new StringBuffer();
-            inputPromptPattern = Pattern.compile("\\n[0-9]+\\:");
+            inputPromptPattern = Pattern.compile("([0-9]+\\:)+");
 
 
             startMessage = getResponse();
@@ -102,6 +102,8 @@ public class Interpreter {
 
             //Initialize MPReduce.
             evaluate("off int; on errcont; off nat;");
+
+            getResponse();
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -132,9 +134,29 @@ public class Interpreter {
 
 
     public synchronized void evaluate(String send) throws Throwable {
-        send = send + ";\n";
+
+        send = send.trim();
+
+        if(((send.endsWith(";")) || (send.endsWith("$"))) != true)
+        {
+            send = send + ";\n"; 
+        }
+
+        while(send.endsWith(";;"))
+        {
+            send = send.substring(0,send.length()-1);
+        }
+
+        while(send.endsWith("$"))
+        {
+            send = send.substring(0,send.length()-1);
+        }
+
+        send = send + "\n";
+
         myOutputStream.write(send.getBytes());
         myOutputStream.flush();
+        
 
     }//end evaluate.
 
@@ -214,6 +236,11 @@ public class Interpreter {
             evaluationHalted = false;
         }
 
+        if(! response.endsWith("$"))
+        {
+            response = response + "$";
+        }
+
         return response;
 
     }//end method
@@ -226,10 +253,14 @@ public class Interpreter {
 
         try {
 
+
             mpreduce.evaluate("(X+Y+Z)^2;");
             result = mpreduce.getResponse();
             System.out.println(result + "\n");
 
+            mpreduce.evaluate("on nat;");
+            result = mpreduce.getResponse();
+            System.out.println(result + "\n");
 
             //An example which shows how to interrupt an evaluation.
             mpreduce.evaluate("(X-Y)^100;");
