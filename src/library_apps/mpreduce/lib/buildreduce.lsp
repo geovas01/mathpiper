@@ -1608,7 +1608,8 @@ symbolic restart!-csl nil;
 (fluid '(!*native_code))
 (setq !*native_code nil)   % Try T if you are VERY keen...
 
-(checkpoint 'begin (bldmsg "%w, %w ..." version!* date!*))
+%(checkpoint 'begin (bldmsg "%w, %w ..." version!* date!*))
+(checkpoint 'begin (bldmsg ""))
 
 (setq no_init_file t)
 
