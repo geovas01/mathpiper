@@ -94,7 +94,7 @@ import org.mathpiper.mpreduce.functions.builtin.MPReduceFunctions;
 
 public class Jlisp
 {
-        private static String version = ".08";
+        private static String version = ".009";
 
 	// Within this file I will often reference lispIO and lispErr
 	// directly. Elsewhere they should ONLY be accessed via the Lisp
@@ -2293,7 +2293,7 @@ public class Jlisp
 
 				if(lispIO != null)
 				{
-                                        lispIO.print("\nf179eb");
+                                        lispIO.print("f179eb");
 					lispIO.flush();
 					lispIO.close();
 				}
