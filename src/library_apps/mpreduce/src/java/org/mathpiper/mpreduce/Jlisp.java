@@ -94,6 +94,7 @@ import org.mathpiper.mpreduce.functions.builtin.MPReduceFunctions;
 
 public class Jlisp
 {
+        private static String version = ".06";
 
 	// Within this file I will often reference lispIO and lispErr
 	// directly. Elsewhere they should ONLY be accessed via the Lisp
@@ -729,7 +730,7 @@ public class Jlisp
 				if (!restarting)
 					lispIO.setReader("<stdin>", in, standAlone, true);
 				standardStreams();
-				System.out.printf("set up standard streams%n");
+				//System.out.printf("set up standard streams%n");
 				try
 				{   readEvalPrintLoop(noRestart);
 					throw new ProgEvent(ProgEvent.STOP, nil, "EOF");
@@ -2127,8 +2128,8 @@ public class Jlisp
 		LispObject r = lit[Lit.restart];
 		LispObject a = null;
 		//@
-		println("restart mode in read eval print loop " + restartFn + " " +
-		        restartModule + " " + restartArg);
+		//println("restart mode in read eval print loop " + restartFn + " " + restartModule + " " + restartArg);
+                println("MPReduce version " + Jlisp.version);
 		if (restarting && restartFn != null)
 		{   r = Symbol.intern(restartFn);
 			if (restartArg != null)
@@ -2292,7 +2293,7 @@ public class Jlisp
 
 				if(lispIO != null)
 				{
-                                        lispIO.print("1:");
+                                        lispIO.print("f179eb");
 					lispIO.flush();
 					lispIO.close();
 				}
