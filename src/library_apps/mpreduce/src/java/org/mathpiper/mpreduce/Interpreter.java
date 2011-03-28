@@ -106,7 +106,7 @@ public class Interpreter {
             //Initialize MPReduce.
             evaluate("symbolic procedure update!_prompt; begin setpchar \"f179eb\" end;;");
 
-            inputPromptPattern = Pattern.compile("(f179eb)+");
+            inputPromptPattern = Pattern.compile("\n*f179eb");
 
             getResponse();
 
@@ -204,7 +204,7 @@ public class Interpreter {
             if(response.indexOf("*****") != -1)
             {
                 responseBuffer.delete(0, responseBuffer.length());
-                response = response.trim();
+                //response = response.trim();
                 keepChecking = false;
             }
 
@@ -217,10 +217,11 @@ public class Interpreter {
 
                 int promptIndex = matcher.start();
 
-                prompt = response.substring(promptIndex, response.length());
+                prompt = response.substring(promptIndex, response.length()).trim();
                 response = response.substring(0, promptIndex);
 
-                response = response.trim();
+                //response = response.trim();
+
 
 
                 keepChecking = false;
@@ -263,6 +264,10 @@ public class Interpreter {
             System.out.println(result + "\n");
 
             mpreduce.evaluate("on nat;");
+            result = mpreduce.getResponse();
+            System.out.println(result + "\n");
+
+            mpreduce.evaluate("x^2;");
             result = mpreduce.getResponse();
             System.out.println(result + "\n");
 
