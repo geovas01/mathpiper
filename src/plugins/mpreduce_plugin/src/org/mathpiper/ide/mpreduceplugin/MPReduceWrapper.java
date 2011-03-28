@@ -62,7 +62,7 @@ public class MPReduceWrapper implements Runnable, EBComponent
 
 	public String getPrompt()
 	{
-		return mpreduce.getPrompt();
+		return "\nIn> ";
 	}//end method.
 
 	public static MPReduceWrapper getInstance() throws Throwable
