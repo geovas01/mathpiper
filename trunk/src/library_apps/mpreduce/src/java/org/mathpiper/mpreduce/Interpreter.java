@@ -99,16 +99,16 @@ public class Interpreter {
 
             startMessage = getResponse();
 
-            evaluate("on errcont; off nat;");
-            String switchSetResponce = getResponse();
-
 
             //Initialize MPReduce.
             evaluate("symbolic procedure update!_prompt; begin setpchar \"f179eb\" end;;");
-
-            inputPromptPattern = Pattern.compile("\n*f179eb");
-
+            inputPromptPattern = Pattern.compile("\n*(f179eb)+");
             getResponse();
+
+
+            evaluate("off int; on errcont; off nat;");
+            String switchSetResponce = getResponse();
+
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -259,11 +259,7 @@ public class Interpreter {
 
         try {
 
-            mpreduce.evaluate("(X+Y+Z)^2;");
-            result = mpreduce.getResponse();
-            System.out.println(result + "\n");
-
-            mpreduce.evaluate("on nat;");
+            mpreduce.evaluate("off nat;");
             result = mpreduce.getResponse();
             System.out.println(result + "\n");
 
@@ -273,7 +269,7 @@ public class Interpreter {
 
             //An example which shows how to interrupt an evaluation.
             mpreduce.evaluate("(X-Y)^100;");
-            Thread.sleep(200);
+            Thread.sleep(100);
             System.out.println("Interrupting mpreduce evaluation.");
             mpreduce.interruptEvaluation();
             result = mpreduce.getResponse();
@@ -298,4 +294,5 @@ public class Interpreter {
     }
 
 }//end class.
+
 
