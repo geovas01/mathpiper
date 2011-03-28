@@ -94,7 +94,7 @@ public class Interpreter {
 
 
             responseBuffer = new StringBuffer();
-            inputPromptPattern = Pattern.compile("[0-9]+\\:");
+            inputPromptPattern = Pattern.compile("\n*[0-9]+\\:");
 
 
             startMessage = getResponse();
