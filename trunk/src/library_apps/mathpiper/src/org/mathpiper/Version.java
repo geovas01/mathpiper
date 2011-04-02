@@ -22,6 +22,6 @@ package org.mathpiper;
 public class Version
 {
 
-   public  static final String version = ".81d";
+   public  static final String version = ".81e";
     
 }//end class.

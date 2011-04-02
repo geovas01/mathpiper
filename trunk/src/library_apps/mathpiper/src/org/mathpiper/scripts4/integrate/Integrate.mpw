@@ -7,6 +7,19 @@
     <-- Map("Integrate",{FillList(var,Length(expr)),expr});
 20 # (Integrate(_var)(_expr)) <-- IntSub(var,expr,AntiDeriv(var,IntClean(var,expr)));
 
+20 # (Integrate(_var, optionsList_IsList)(_expr)) <--
+[
+    Local(result);
+
+    optionsList := OptionsToAssociativeList(optionsList);
+
+    result := Integrate(var) expr;
+
+    If( optionsList["logAbs"] = "True", result := ( result /: {Ln(_x) <- Ln(Abs(x))}) );
+
+    result;
+];
+
 
 10 # IntSub(_var,_expr,Integrate(_var)(_expr2)) <--
      `Hold(Integrate(@var)(@expr));
@@ -35,11 +48,11 @@
 
 10 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from = -to And IsOddFunction(expr,var)) <-- 0;
 
-// We need to define this case (integrating from 0 to 0 over an even function) 
+// We need to define this case (integrating from 0 to 0 over an even function)
 // explicitly, otherwise the integration ends up going in to infinite recursion.
-// Extended it a little bit more, since if you are integrating from A to A, 
+// Extended it a little bit more, since if you are integrating from A to A,
 // then the result is obviously zero. There are perhaps situations where
-// this does not work, where we need to simplify (to-from) first. A naive 
+// this does not work, where we need to simplify (to-from) first. A naive
 // implementation caused a test to fail.
 
 10 # defIntegrate(_var,_from,_from,_expr,_a,_b) <-- 0;
@@ -109,10 +122,13 @@
 *CALL
 	Integrate(var, x1, x2) expr
 	Integrate(var) expr
+        Integrate(var, {optionsList}) expr
 
 *PARMS
 
 {var} -- atom, variable to integrate over
+
+{optionsList} -- a list which contains options that affect integration
 
 {x1} -- first point of definite integration
 
@@ -133,12 +149,27 @@ trigonometric functions and their inverses, hyperbolic functions
 and their inverses, {Exp}, and {Ln}, and products of these
 functions with polynomials can be integrated.
 
+
+
+{Options}:
+
+{logArg} -- For indefinite integration where logs are generated, the answer is given in terms of Ln(Abs(...))
+if logAbs is True, but in terms of Ln(...) if logAbs is not set or is set to anything other than True.
+
+
 *E.G.
 
 In> Integrate(x,a,b) Cos(x)
 Result: Sin(b)-Sin(a);
+
 In> Integrate(x) Cos(x)
 Result: Sin(x);
+
+In> Integrate(x) 1/x;
+Result> Ln(x)
+
+In> Integrate(x, {logAbs -> True}) 1/x;
+Result> Ln(Abs(x))
 
 *SEE Differentiate, UniqueConstant
 %/mathpiper_docs
