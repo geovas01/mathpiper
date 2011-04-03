@@ -97,6 +97,11 @@ Verify(Solve(-3*x^3+10*x^2-11*x+4==0, x),{x==1,x==4/3});
 //Issue 61
 Verify(TrigSimpCombine(ExpandBrackets((2*x^2-x+3)-(2*x^2-x+3))),0);
 
+//Issue 65
+KnownFailure(Limit(x, Infinity) ((x)^(2) * ((3) + (x)))^(1/3)/x = 1);
+Verify(Limit(x, Infinity) (((x)^(2)) + (1))/(Sqrt(3) * x)/x, Sqrt(1/3));
+Verify(Limit(x, Infinity) ((Sqrt(2) * (x)^(2)) + (1))/(3 * x)/x, Sqrt(2/9));
+
 //Issue 67(a)
 Verify(Factor(Rationalize(x^2+0.5*x+0.5)), Hold(1/2*(2*x^2+x+1)));
 
