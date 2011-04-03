@@ -44,6 +44,81 @@ Testing("Limits");
 Verify( Limit(x,0,Right) Ln(x)*Sin(x), 0 ); f();
 KnownFailure( Limit(k,Infinity) ((k-phi)/k)^(k+1/2) = Exp(-phi) ); f();
 
+// tests adapted from mpreduce
+
+Verify(Limit(x,0)Sin(x)/x, 1);
+Verify(Limit(x,0)Sin(x)^2/x, 0);
+Verify(Limit(x,1)Sin(x)/x, Sin(1));
+/* This is actually a tricky one - for complex it should bring 
+   infinity but for real it's undefined. BTW, reduce seems 
+   to get it wrong */
+Verify(Limit(x,0)1/x, Undefined); 
+Verify(Limit(x,0)(Sin(x)-x)/x^3, -1/6);
+Verify(Limit(x,Infinity)x*Sin(1/x), 1);
+/* reduce seems to get it wrong */
+Verify(Limit(x,0)Sin(x)/x^2, Undefined);
+Verify(Limit(x,Infinity)x^2*Sin(1/x), Infinity);
+
+// tests adapted from mpreduce
+
+Verify(Limit(x,2)x^2-6*x+4,-4);
+Verify(Limit(x,-1)(x+3)*(2*x-1)/(x^2+3*x-2), 3/2);
+Verify(Limit(h,0)(Sqrt(4+h)-2)/h, 1/4);
+Verify(Limit(x,4)(Sqrt(x)-2)/(4-x), -1/4);
+Verify(Limit(x,2)(x^2-4)/(x-2), 4);
+Verify(Limit(x,-1)1/(2*x-5), -1/7);
+Verify(Limit(x,1)Sqrt(x)/(x+1), 1/2);
+Verify(Limit(x,Infinity)(2*x+5)/(3*x-2), 2/3);
+Verify(Limit(x,1)(1/(x+3)-2/(3*x+5))/(x-1), 1/32);
+Verify(Limit(x,0)Sin(3*x)/x, 3);
+Verify(Limit(x,0)(1-Cos(x))/x^2, 1/2);
+Verify(Limit(x,0)(6*x-Sin(2*x))/(2*x+3*Sin(4*x)), 2/7);
+Verify(Limit(x,0)(1-2*Cos(x)+Cos(2*x))/x^2, -1);
+Verify(Simplify(Limit(x,0)(3*Sin(Pi*x) - Sin(3*Pi*x))/x^3), 4*Pi^3);
+Verify(Limit(x,0)(Cos(a*x)-Cos(b*x))/x^2, (-a^2 + b^2)/2);
+Verify(Limit(x,0)(Exp(x)-1)/x, 1);
+Verify(Limit(x,0)(a^x-b^x)/x, Ln(a) - Ln(b));
+
+// tests adapted from mpreduce
+
+Verify(Limit(x,0)Sinh(2*x)^2/Ln(1+x^2), 4);
+// The limit seems to hang mathpiper
+//Verify(Limit(x,Infinity)x^2*(Exp(1/x)-1)*(Ln(x+2)-Ln(x)),2);
+// another tricky problem with the result depending on the sign of 
+// alpha; I'm not sure how we should deal with it
+//Limit(x,Infinity)x^alpha*Ln(x+1)^2/Ln(x);
+Verify(Limit(x,0)(2*Cosh(x)-2-x^2)/Ln(1+x^2)^2, 1/12);
+Verify(Limit(x,0)(x*Sinh(x)-2+2*Cosh(x))/(x^4+2*x^2), 1);
+Verify(Limit(x,0)(2*Sinh(x)-Tanh(x))/(Exp(x)-1), 1);
+Verify(Limit(x,0)x*Tanh(x)/(Sqrt(1-x^2)-1), -2);
+Verify(Limit(x,0)(2*Ln(1+x)+x^2-2*x)/x^3, 2/3);
+Verify(Limit(x,0)(Exp(5*x)-2*x)^(1/x), Exp(3));
+Verify(Limit(x,Infinity)Ln(Ln(x))/Ln(x)^2, 0);
+
+// tests adapted from mpreduce
+
+Verify(Limit(x,0)(Exp(x)-1)/x, 1);
+Verify(Limit(x,1)((1-x)/Ln(x))^2, 1);
+Verify(Limit(x,0)x/(Exp(x)-1), 1);
+Verify(Limit(x,0)x/Ln(x), 0);
+Verify(Limit(x,Infinity)Ln(1+x)/Ln(x), 1);
+Verify(Limit(x,Infinity)Ln(x)/Sqrt(x), 0);
+Verify(Limit(x,0,Right)Sqrt(x)/Sin(x), Infinity);
+Verify(Limit(x,0)x*Ln(x), 0);
+Verify(Limit(x,0)Ln(x)/Ln(2*x), 1);
+Verify(Limit(x,0)x*Ln(x)*(1+x), 0);
+Verify(Limit(x,Infinity)Ln(x)/x,0);
+Verify(Limit(x,Infinity)Ln(x)/Sqrt(x),0);
+Verify(Limit(x,Infinity)Ln(x), Infinity);
+Verify(Limit(x,0)Ln(x+1)/Sin(x), 1);
+// Seems to hang mathpiper
+//Verify(Limit(x,0)Ln(x+1/x)*Sin(x), 0);
+Verify(Limit(x,0)-Ln(1+x)*(x+2)/Sin(x), -2);
+Verify(Limit(x,Infinity)Ln(x+1)^2/Sqrt(x), 0);
+Verify(Limit(x,Infinity)(Ln(x+1)-Ln(x)), 0);
+Verify(Limit(x,Infinity)-Ln(x+1)^2/Ln(Ln(x)), -Infinity);
+
+
 [
   Local(z);
   // This function satisfies Laplaces eqn: Differentiate(x,2)z + Differentiate(y,2)z = 0
