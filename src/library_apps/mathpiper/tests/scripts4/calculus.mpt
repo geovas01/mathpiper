@@ -48,11 +48,8 @@ KnownFailure( Limit(k,Infinity) ((k-phi)/k)^(k+1/2) = Exp(-phi) ); f();
   Local(z);
   // This function satisfies Laplaces eqn: Differentiate(x,2)z + Differentiate(y,2)z = 0
   z:= ArcTan((2*x*y)/(x^2 - y^2)); f();
-  //TODO, this test is disabled, should it be re-enabled?
-  // Hangs
-  // Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 );
+  Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 );
 ];
-
 
 
 Testing("Pslq");
