@@ -38,11 +38,12 @@ package org.mathpiper.mpreduce.symbols;
 
 // Class to represent Lisp symbols
 
+import java.io.IOException;
 import org.mathpiper.mpreduce.special.SpecialFunction;
 import org.mathpiper.mpreduce.io.Fasl;
 import org.mathpiper.mpreduce.functions.lisp.Undefined;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
-import java.io.*;
+
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.Lit;

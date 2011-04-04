@@ -3,7 +3,6 @@ package org.mathpiper.mpreduce.functions.lisp;
 //NOT USED ...SEE JavaFn.java instead
 
 import org.mathpiper.mpreduce.LispObject;
-import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 
 // LispJavaFuncion.java 
 // created 27/02/02

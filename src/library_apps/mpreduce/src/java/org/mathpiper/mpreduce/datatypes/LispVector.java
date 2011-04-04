@@ -35,7 +35,8 @@ package org.mathpiper.mpreduce.datatypes;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
+
+import java.io.IOException;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.exceptions.ResourceException;

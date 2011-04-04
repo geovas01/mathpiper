@@ -39,11 +39,12 @@ package org.mathpiper.mpreduce.datatypes;
 // A "cons" is an ordered pair. In ML terms it would be
 // a bit like ('a * 'b)
 
+import java.io.IOException;
 import org.mathpiper.mpreduce.functions.lisp.Macro;
 import org.mathpiper.mpreduce.exceptions.ProgEvent;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
-import java.io.*;
+
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.special.Specfn;

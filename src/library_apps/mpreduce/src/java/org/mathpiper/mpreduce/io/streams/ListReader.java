@@ -35,15 +35,10 @@ package org.mathpiper.mpreduce.io.streams;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.io.streams.LispStream;
 import org.mathpiper.mpreduce.datatypes.LispString;
 import org.mathpiper.mpreduce.numbers.LispInteger;
 import org.mathpiper.mpreduce.LispObject;
-import java.io.*;
-import java.math.*;
-import java.util.*;
-import java.text.*;
-import java.security.*;
+
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.symbols.Symbol;
 

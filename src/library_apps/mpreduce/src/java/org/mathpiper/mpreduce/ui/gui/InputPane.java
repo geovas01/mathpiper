@@ -36,15 +36,37 @@ package org.mathpiper.mpreduce.ui.gui;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Event;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Vector;
+import javax.swing.text.AttributeSet;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultCaret;
+import javax.swing.text.Element;
+import javax.swing.text.Keymap;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import javax.swing.text.StyledEditorKit;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.datatransfer.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.text.*;
-import java.util.*;
+
+
+
 
 
 class InputPane extends JTextPane

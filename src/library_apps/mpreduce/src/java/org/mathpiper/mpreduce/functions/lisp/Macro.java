@@ -42,9 +42,10 @@ package org.mathpiper.mpreduce.functions.lisp;
 // of views on Common Lisp compatibility the function that is a macro
 // has one essential argument and one optional one (which I never use!)
 
+import java.io.IOException;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
-import java.io.*;
+
 import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.Lit;

@@ -35,11 +35,6 @@ package org.mathpiper.mpreduce.io.streams;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
-import java.math.*;
-import java.util.*;
-import java.text.*;
-import java.security.*;
 
 public class LispStringReader extends LispStream
 {
