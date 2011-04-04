@@ -38,7 +38,6 @@ package org.mathpiper.mpreduce.symbols;
 
 // Class to represent Lisp symbols
 
-import java.io.IOException;
 import org.mathpiper.mpreduce.special.SpecialFunction;
 import org.mathpiper.mpreduce.io.Fasl;
 import org.mathpiper.mpreduce.functions.lisp.Undefined;
@@ -255,7 +254,7 @@ public class Symbol extends LispObject
         }
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
         if (w != null &&

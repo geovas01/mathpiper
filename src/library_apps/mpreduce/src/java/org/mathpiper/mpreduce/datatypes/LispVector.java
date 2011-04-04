@@ -36,7 +36,6 @@ package org.mathpiper.mpreduce.datatypes;
  *************************************************************************/
 
 
-import java.io.IOException;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.exceptions.ResourceException;
@@ -151,7 +150,7 @@ public class LispVector extends LispObject
 	    Jlisp.stack.push(vec[i]);
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         if (this == Jlisp.obvector)
         {   Jlisp.odump.write(X_OBLIST);

@@ -116,7 +116,7 @@ import org.mathpiper.mpreduce.functions.builtin.MPReduceFunctions;
 
 public class Jlisp
 {
-        private static String version = ".011";
+        private static String version = ".012";
 
 	// Within this file I will often reference lispIO and lispErr
 	// directly. Elsewhere they should ONLY be accessed via the Lisp
@@ -288,8 +288,8 @@ public class Jlisp
 		try
 		{   startup1(args);
 		}
-                catch (ResourceException e)
- 	  	{}
+                catch (Exception e)
+ 	  	{e.printStackTrace();}
 		finally
 		{
 			lispIO = null;
@@ -308,7 +308,7 @@ public class Jlisp
 		if (!CWin.isApplet) System.exit(0);
 	}
 
-	static void startup1(String [] args) throws ResourceException
+	static void startup1(String [] args) throws Exception
 	{
 		long startTime = System.currentTimeMillis();
 		String [] inputFile = new String [10];
@@ -956,7 +956,7 @@ public class Jlisp
 	}
 
 
-	public static void preserve(LispObject arg1, LispObject arg2) throws ResourceException
+	public static void preserve(LispObject arg1, LispObject arg2) throws Exception
 	{
 		PDS imagePDS = images[outputImagePos];
 		if (imagePDS == null)
@@ -1059,7 +1059,7 @@ public class Jlisp
 		}
 	}
 
-	static void writeObject(LispObject a) throws IOException
+	static void writeObject(LispObject a) throws Exception
 	{
 		if (a == null)
 		{   odump.write(LispObject.X_NULL);
@@ -1078,7 +1078,7 @@ public class Jlisp
 		}
 	}
 
-	static void preserve(OutputStream dump) throws IOException
+	static void preserve(OutputStream dump) throws Exception
 	{
 		int i;
 		odump = dump;
@@ -1158,7 +1158,7 @@ public class Jlisp
 
 	}
 
-	public static void dumpTree(LispObject a, OutputStream dump) throws IOException
+	public static void dumpTree(LispObject a, OutputStream dump) throws Exception
 	{
 		int i;
 		odump = dump;

@@ -131,7 +131,7 @@ public class LispString extends LispObject
 	else Jlisp.objects.add(string);
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(string);
 	if (w != null &&

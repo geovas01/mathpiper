@@ -1372,7 +1372,7 @@ class CheckpointFn extends BuiltinFunction
         return op2(arg1, Jlisp.nil);
     }
     
-    public LispObject op2(LispObject arg1, LispObject arg2) throws ResourceException
+    public LispObject op2(LispObject arg1, LispObject arg2) throws Exception
     {
         Jlisp.preserve(arg1, arg2);
         return Jlisp.nil;

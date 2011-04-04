@@ -53,7 +53,7 @@ public abstract class BuiltinFunction extends LispFunction
 	else Jlisp.objects.add(this);
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&
@@ -71,7 +71,7 @@ public abstract class BuiltinFunction extends LispFunction
 	    {   Jlisp.odump.write(X_FNAME);
 	        Jlisp.odump.write(length);
 	    }
-	    else throw new IOException("overlong name for a function");
+	    else throw new Exception("overlong name for a function");
 	    for (int i=0; i<length; i++)
 	        Jlisp.odump.write(rep[i]);
 	}

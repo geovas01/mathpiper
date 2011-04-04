@@ -39,7 +39,6 @@ package org.mathpiper.mpreduce.datatypes;
 // A "cons" is an ordered pair. In ML terms it would be
 // a bit like ('a * 'b)
 
-import java.io.IOException;
 import org.mathpiper.mpreduce.functions.lisp.Macro;
 import org.mathpiper.mpreduce.exceptions.ProgEvent;
 import org.mathpiper.mpreduce.LispObject;
@@ -308,7 +307,7 @@ public class Cons extends LispObject
         }
     }
 
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
         if (w != null &&

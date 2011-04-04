@@ -41,7 +41,6 @@ package org.mathpiper.mpreduce.functions.lisp;
 // associated function is this job, which knows how to
 // extract the saved definition and activate it.
 
-import java.io.IOException;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
 
@@ -88,7 +87,7 @@ public class Interpreted extends LispFunction
         }
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

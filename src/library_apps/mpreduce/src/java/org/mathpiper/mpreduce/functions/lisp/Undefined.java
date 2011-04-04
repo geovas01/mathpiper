@@ -35,7 +35,6 @@ package org.mathpiper.mpreduce.functions.lisp;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.IOException;
 
 import org.mathpiper.mpreduce.Jlisp;
 
@@ -47,7 +46,7 @@ public class Undefined extends LispFunction
         this.name = name;
     }
 
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

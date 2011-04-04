@@ -38,7 +38,6 @@ package org.mathpiper.mpreduce.datatypes;
 
 
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import org.mathpiper.mpreduce.Jlisp;
@@ -97,7 +96,7 @@ public class LispHash extends LispObject
 	}
     }
   
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

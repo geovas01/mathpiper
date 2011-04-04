@@ -36,7 +36,6 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 
-import java.io.IOException;
 import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 // This is an object that the user should NEVER get directly hold of
@@ -103,7 +102,7 @@ public class Spid extends LispObject
 	else Jlisp.objects.add(w);
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object d = new Integer(tag);
         Object w = Jlisp.repeatedObjects.get(d);

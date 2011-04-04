@@ -35,7 +35,6 @@ package org.mathpiper.mpreduce.functions.lisp;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.IOException;
 import org.mathpiper.mpreduce.LispObject;
 
 import org.mathpiper.mpreduce.Jlisp;
@@ -154,7 +153,7 @@ public class TracedFunction extends LispFunction
         fn.scan();
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         fn.dump();
     }

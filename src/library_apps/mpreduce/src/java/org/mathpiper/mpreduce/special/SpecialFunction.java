@@ -36,7 +36,6 @@ package org.mathpiper.mpreduce.special;
  *************************************************************************/
 
 
-import java.io.IOException;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.exceptions.ResourceException;
@@ -83,7 +82,7 @@ public abstract class SpecialFunction extends LispObject
 	else Jlisp.objects.add(this);
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&
@@ -101,7 +100,7 @@ public abstract class SpecialFunction extends LispObject
 	    {   Jlisp.odump.write(X_SPECFN);
 	        Jlisp.odump.write(length);
 	    }
-	    else throw new IOException("overlong name for a function");
+	    else throw new Exception("overlong name for a function");
 	    for (int i=0; i<length; i++)
 	        Jlisp.odump.write(rep[i]);
 	}

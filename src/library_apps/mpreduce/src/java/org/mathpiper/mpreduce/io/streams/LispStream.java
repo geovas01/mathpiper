@@ -779,7 +779,7 @@ public class LispStream extends LispObject
 	else Jlisp.objects.add(this);
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

@@ -42,7 +42,6 @@ package org.mathpiper.mpreduce.functions.lisp;
 // of views on Common Lisp compatibility the function that is a macro
 // has one essential argument and one optional one (which I never use!)
 
-import java.io.IOException;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
 
@@ -104,7 +103,7 @@ public class Macro extends LispFunction
         Jlisp.stack.push(body);
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

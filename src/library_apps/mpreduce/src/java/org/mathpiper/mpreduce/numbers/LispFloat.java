@@ -37,7 +37,6 @@ package org.mathpiper.mpreduce.numbers;
 
 
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
@@ -270,7 +269,7 @@ public class LispFloat extends LispNumber
 	else Jlisp.objects.add(w);
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object d = new Double(value);
         Object w = Jlisp.repeatedObjects.get(d);

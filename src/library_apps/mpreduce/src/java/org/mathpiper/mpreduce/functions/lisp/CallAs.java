@@ -34,7 +34,6 @@ package org.mathpiper.mpreduce.functions.lisp;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import java.io.IOException;
 import org.mathpiper.mpreduce.LispObject;
 
 import org.mathpiper.mpreduce.Jlisp;
@@ -124,7 +123,7 @@ default:return ((Symbol)body).fn.opn(
         Jlisp.stack.push(body);
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&
