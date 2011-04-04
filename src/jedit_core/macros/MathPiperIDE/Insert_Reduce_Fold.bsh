@@ -36,7 +36,7 @@ void insert_reduce_fold()
 		--offset;
 	}
 
-	text = "%reduce,title=\"\"\n\n%/reduce\n\n";
+	text = "%reduce,title=\"\"\nOFF ECHO$\n\n\n\nEND$\n%/reduce\n\n";
 
 	buffer.insert(offset, text);
 	

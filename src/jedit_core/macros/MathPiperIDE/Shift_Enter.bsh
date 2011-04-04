@@ -737,9 +737,9 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				
 				mpreduceWrapper.addResponseListener(responseListener);
 	
-				//expressionString = "IN \""+tempFile.getAbsolutePath() + "\"\n";
+				expressionString = "IN \""+tempFile.getAbsolutePath() + "\"\n";
 				
-				expressionString = codeText.trim();
+				//expressionString = codeText.trim();
 				
 				mpreduceWrapper.evaluate(expressionString);
 				
