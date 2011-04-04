@@ -42,19 +42,19 @@ package org.mathpiper.mpreduce.functions.lisp;
 // of views on Common Lisp compatibility the function that is a macro
 // has one essential argument and one optional one (which I never use!)
 
-import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
 import java.io.*;
 import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class Macro extends LispFunction
 {
     public LispObject body;
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + 7 > currentOutput.lineLength)
@@ -67,7 +67,7 @@ public class Macro extends LispFunction
         currentOutput.print("]");
     }
 											    
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + 7 >= currentOutput.lineLength)

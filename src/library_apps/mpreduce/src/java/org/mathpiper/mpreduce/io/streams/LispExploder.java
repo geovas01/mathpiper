@@ -37,11 +37,11 @@ package org.mathpiper.mpreduce.io.streams;
 
 
 import org.mathpiper.mpreduce.numbers.LispInteger;
-import java.io.*;
 import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class LispExploder extends LispStream
 {
@@ -65,7 +65,7 @@ public class LispExploder extends LispStream
         exploded = Jlisp.nil;
     }
 
-    public void print(String s)
+    public void print(String s) throws ResourceException
     {
         char [] v = s.toCharArray();
         for (int i=0; i<v.length; i++)
@@ -80,7 +80,7 @@ public class LispExploder extends LispStream
         }
     }
 
-    public void println(String s)
+    public void println(String s) throws ResourceException
     {
         print(s);
         if (asSymbols) exploded = new Cons(Jlisp.chars['\n'], exploded);

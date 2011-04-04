@@ -34,11 +34,11 @@ package org.mathpiper.mpreduce.functions.lisp;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.LispObject;
 import java.io.*;
 import org.mathpiper.mpreduce.io.Fasl;
 import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.symbols.Symbol;
 
 public class AutoLoad extends LispFunction
@@ -85,13 +85,13 @@ public class AutoLoad extends LispFunction
         return name.fn.opn(args);
     }
 
-    public void print()
+    public void print() throws ResourceException
     {
         name.completeName();
         Jlisp.print("#Autoload<" + name.pname + ">");
     }
 
-    public void print(int n)
+    public void print(int n) throws ResourceException
     {
         name.completeName();
         Jlisp.print("#Autoload<" + name.pname + ">");

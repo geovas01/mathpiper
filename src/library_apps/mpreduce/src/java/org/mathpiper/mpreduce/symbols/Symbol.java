@@ -46,6 +46,7 @@ import java.io.*;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class Symbol extends LispObject
 {
@@ -208,7 +209,7 @@ public class Symbol extends LispObject
         cacheString = cache.toString();
         return cacheString;
     }
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         String s = toPrint();
         if ((currentFlags & noLineBreak) == 0 &&
@@ -217,7 +218,7 @@ public class Symbol extends LispObject
         currentOutput.print(s);
     }
 
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         String s = toPrint();
         if ((currentFlags & noLineBreak) == 0 &&

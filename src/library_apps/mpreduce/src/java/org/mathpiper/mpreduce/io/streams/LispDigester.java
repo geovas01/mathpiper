@@ -36,14 +36,14 @@ package org.mathpiper.mpreduce.io.streams;
  *************************************************************************/
 
 
-import java.io.*;
 import java.security.*;
 import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class LispDigester extends LispStream
 {
 
-    public LispDigester()
+    public LispDigester() throws ResourceException
     {
         super("<md5 digester>");
         try

@@ -38,10 +38,10 @@ package org.mathpiper.mpreduce.numbers;
 
 import java.math.*;
 import java.io.*;
-import java.util.*;
 import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class LispBigInteger extends LispInteger
 {
@@ -94,7 +94,7 @@ public class LispBigInteger extends LispInteger
             return value.toString(16);
     }
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         String s = printAs();
         if ((currentFlags & noLineBreak) == 0 &&
@@ -103,7 +103,7 @@ public class LispBigInteger extends LispInteger
         currentOutput.print(s);
     }
 
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         String s = printAs();
         if ((currentFlags & noLineBreak) == 0 &&

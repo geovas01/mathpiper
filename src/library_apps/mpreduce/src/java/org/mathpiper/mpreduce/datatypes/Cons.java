@@ -41,11 +41,11 @@ package org.mathpiper.mpreduce.datatypes;
 
 import org.mathpiper.mpreduce.functions.lisp.Macro;
 import org.mathpiper.mpreduce.exceptions.ProgEvent;
-import org.mathpiper.mpreduce.datatypes.LispVector;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
 import java.io.*;
 import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.special.Specfn;
 import org.mathpiper.mpreduce.symbols.Symbol;
 
@@ -53,6 +53,7 @@ public class Cons extends LispObject
 {
 
     public static int consCount = 0;
+    static int consCountDown = 1000000;
 
 // The left and right parts of a pair are called
 //                CAR and CDR
@@ -62,9 +63,21 @@ public class Cons extends LispObject
         super(null, null);
     }
 
-    public Cons(LispObject car, LispObject cdr)
-    {
+    public Cons(LispObject car, LispObject cdr) throws ResourceException {
         super(car, cdr);
+        consCount++;
+        if (--consCountDown < 0) {
+            consCountDown = 1000000;
+            ResourceException.space_now++;
+            if (ResourceException.space_limit > 0
+                    && ResourceException.space_limit < ResourceException.space_now)
+                         {   if (Jlisp.headline)
+ 	  	                 {   Jlisp.errprintln();
+ 	  	                     Jlisp.errprintln("+++ space usage limit exceeded");
+ 	  	                 }
+                throw new ResourceException("space");
+            }
+        }
     }
 
 // Function calls are written as lists (fn a1 a2 ...)
@@ -151,7 +164,7 @@ public class Cons extends LispObject
 // just a ")" at the end, otherwise the final atom is
 // shown after a "."
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         LispObject x = this;
         if ((currentFlags & noLineBreak) == 0 &&
@@ -198,7 +211,7 @@ public class Cons extends LispObject
         currentOutput.print(")");
     }
 
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         if (currentOutput.column + 1 >= currentOutput.lineLength)
             currentOutput.println();
@@ -210,8 +223,14 @@ public class Cons extends LispObject
     {
         LispObject a = this;
         LispObject r = Jlisp.nil;
-        while (!a.atom)
-        {   r = new Cons(a.car.copy(), r);
+        while (!a.atom) {
+            int re = ResourceException.space_limit;
+            ResourceException.space_limit = -1;
+            try {
+                r = new Cons(a.car.copy(), r);
+            } catch (ResourceException e) {   // Because I reset space_limit this can never happen!
+            }
+            ResourceException.space_limit = re;
             a = a.cdr;
         }
         while (!r.atom)

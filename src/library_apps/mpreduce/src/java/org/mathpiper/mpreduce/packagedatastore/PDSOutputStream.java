@@ -38,6 +38,7 @@ package org.mathpiper.mpreduce.packagedatastore;
 import java.io.*;
 import java.util.*;
 import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class PDSOutputStream extends OutputStream
 {
@@ -48,7 +49,7 @@ int length;
 
 long savedPosition;
 
-public PDSOutputStream(PDS pds, String member) throws IOException
+public PDSOutputStream(PDS pds, String member) throws IOException, ResourceException
 {
     this.pds = pds;
     this.member = member;
@@ -63,7 +64,7 @@ public PDSOutputStream(PDS pds, String member) throws IOException
 public void close() throws IOException
 {
     if (pds == null) return;
-Jlisp.println("at close member: length = " + length + " memberData = " + pds.memberData);
+
     pds.f.seek(pds.memberData);
     pds.f.write(pds.memberStart >> 24);
     pds.f.write(pds.memberStart >> 16);

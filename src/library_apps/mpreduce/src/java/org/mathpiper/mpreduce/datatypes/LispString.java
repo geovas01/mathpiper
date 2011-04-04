@@ -38,6 +38,7 @@ package org.mathpiper.mpreduce.datatypes;
 import java.io.*;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class LispString extends LispObject
 {
@@ -53,7 +54,7 @@ public class LispString extends LispObject
 
     static StringBuffer sb = new StringBuffer();
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         String s;
         if ((currentFlags & printEscape) != 0) s = escapedPrint(); 
@@ -84,7 +85,7 @@ public class LispString extends LispObject
         return sb.toString();
     }
 
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         String s;
         if ((currentFlags & printEscape) != 0) s = escapedPrint(); 

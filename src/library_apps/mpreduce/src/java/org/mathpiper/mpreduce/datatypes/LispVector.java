@@ -36,9 +36,9 @@ package org.mathpiper.mpreduce.datatypes;
  *************************************************************************/
 
 import java.io.*;
-import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class LispVector extends LispObject
 {
@@ -60,7 +60,7 @@ public class LispVector extends LispObject
         return this; 
     }
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + 1 > currentOutput.lineLength)
@@ -96,7 +96,7 @@ public class LispVector extends LispObject
         currentOutput.print("]");
     }
 
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         if ((currentFlags & noLineBreak) == 0 &&
             currentOutput.column + 1 >= currentOutput.lineLength)

@@ -36,9 +36,9 @@ package org.mathpiper.mpreduce.functions.lisp;
  *************************************************************************/
 
 
-import java.io.*;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public abstract class LispFunction extends LispObject
 {
@@ -74,7 +74,7 @@ public abstract class LispFunction extends LispObject
         return Jlisp.error(s, a);
     }
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         String s = "#Fn<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -83,7 +83,7 @@ public abstract class LispFunction extends LispObject
         currentOutput.print(s);
     }
 
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         String s = "#Fn<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&

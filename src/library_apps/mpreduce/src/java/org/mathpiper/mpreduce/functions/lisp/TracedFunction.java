@@ -35,10 +35,10 @@ package org.mathpiper.mpreduce.functions.lisp;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.LispObject;
 import java.io.*;
 import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.symbols.Symbol;
 
 public class TracedFunction extends LispFunction
@@ -53,7 +53,7 @@ public class TracedFunction extends LispFunction
         this.fn = fn;
     }
     
-    void indent()
+    void indent() throws ResourceException
     {
         for (int i=0; i<traceDepth; i++)
 	    Jlisp.traceprint(" ");
@@ -130,13 +130,13 @@ public class TracedFunction extends LispFunction
         return r;
     }
 
-    public void print()
+    public void print() throws ResourceException
     {
         Jlisp.print("Traced:");
 	name.print();
     }
 
-    public void print(int n)
+    public void print(int n) throws ResourceException
     {
         Jlisp.print("Traced:");
 	name.print(n);

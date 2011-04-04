@@ -90,11 +90,12 @@ import java.math.*;
 import java.util.*;
 import java.util.zip.*;
 import java.text.*;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.functions.builtin.MPReduceFunctions;
 
 public class Jlisp
 {
-        private static String version = ".009";
+        private static String version = ".010";
 
 	// Within this file I will often reference lispIO and lispErr
 	// directly. Elsewhere they should ONLY be accessed via the Lisp
@@ -112,58 +113,58 @@ public class Jlisp
 
 	public static boolean interruptEvaluation = false;
 
-	public static void print(String s)
+	public static void print(String s) throws ResourceException
 	{
 		((LispStream)(lit[Lit.std_output].car/*value*/)).print(s);
 	}
 
-	public static void println(String s)
+	public static void println(String s) throws ResourceException
 	{
 		((LispStream)(lit[Lit.std_output].car/*value*/)).println(s);
 	}
 
-	public static void print(LispObject s)
+	public static void print(LispObject s) throws ResourceException
 	{
 		if (s==null) print("<null>"); else s.print();
 	}
 
-	public static void println(LispObject s)
+	public static void println(LispObject s) throws ResourceException
 	{
 		if (s==null) print("<null>"); else s.print();
 		((LispStream)(lit[Lit.std_output].car/*value*/)).println();
 	}
 
-	public static void println()
+	public static void println() throws ResourceException
 	{
 		((LispStream)(lit[Lit.std_output].car/*value*/)).println();
 	}
 
-	public static void errprint(String s)
+	public static void errprint(String s) throws ResourceException
 	{
 		((LispStream)(lit[Lit.err_output].car/*value*/)).print(s);
 	}
 
-	public static void errprintln(String s)
+	public static void errprintln(String s) throws ResourceException
 	{
 		((LispStream)(lit[Lit.err_output].car/*value*/)).println(s);
 	}
 
-	public static void errprintln()
+	public static void errprintln() throws ResourceException
 	{
 		((LispStream)(lit[Lit.err_output].car/*value*/)).println();
 	}
 
-	public static void traceprint(String s)
+	public static void traceprint(String s) throws ResourceException
 	{
 		((LispStream)(lit[Lit.tr_output].car/*value*/)).print(s);
 	}
 
-	public static void traceprintln(String s)
+	public static void traceprintln(String s) throws ResourceException
 	{
 		((LispStream)(lit[Lit.tr_output].car/*value*/)).println(s);
 	}
 
-	public static void traceprintln()
+	public static void traceprintln() throws ResourceException
 	{
 		((LispStream)(lit[Lit.tr_output].car/*value*/)).println();
 	}
@@ -174,6 +175,12 @@ public class Jlisp
 		{   errprintln();
 			errprintln("++++ " + s);
 		}
+                	     ResourceException.errors_now++;
+ 	  	     if (ResourceException.errors_limit > 0 &&
+ 	  	         ResourceException.errors_now > ResourceException.errors_limit)
+                         {   if (headline) errprintln("++++ Error count resource exceeded");
+                            throw new ResourceException("error count");
+                         }
 
 		     checkExit(s);
 
@@ -190,6 +197,13 @@ public class Jlisp
 			a.errPrint();
 			errprintln();
 		}
+
+                     ResourceException.errors_now++;
+ 	  	     if (ResourceException.errors_limit > 0 &&
+ 	  	         ResourceException.errors_now > ResourceException.errors_limit)
+                         {   if (headline) errprintln("++++ Error count resource exceeded");
+                            throw new ResourceException("error count");
+                        }
 
 		
 
@@ -253,6 +267,8 @@ public class Jlisp
 		try
 		{   startup1(args);
 		}
+                catch (ResourceException e)
+ 	  	{}
 		finally
 		{
 			lispIO = null;
@@ -271,7 +287,7 @@ public class Jlisp
 		if (!CWin.isApplet) System.exit(0);
 	}
 
-	static void startup1(String [] args)
+	static void startup1(String [] args) throws ResourceException
 	{
 		long startTime = System.currentTimeMillis();
 		String [] inputFile = new String [10];
@@ -919,7 +935,7 @@ public class Jlisp
 	}
 
 
-	public static void preserve(LispObject arg1, LispObject arg2)
+	public static void preserve(LispObject arg1, LispObject arg2) throws ResourceException
 	{
 		PDS imagePDS = images[outputImagePos];
 		if (imagePDS == null)
@@ -1192,7 +1208,7 @@ public class Jlisp
 	}
 
 
-	static void restore(InputStream dump) throws IOException
+	static void restore(InputStream dump) throws IOException, ResourceException
 	{
 		idump = dump;
 		preRestore();
@@ -1323,7 +1339,7 @@ public class Jlisp
 		obvector.vec = v;
 	}
 
-	public static LispObject readObject() throws IOException
+	public static LispObject readObject() throws IOException, ResourceException
 	{
 		// Reloading an image uses an explicit stack to manage the recusion that
 		// it needs. It controls this stack using a finite-state control. The states
@@ -1647,7 +1663,7 @@ public class Jlisp
 				if (operand == 0) break;
 				for (i=0; i<operand; i++)
 					w = new Cons(nil, w);
-				Cons.consCount += operand;
+				//Cons.consCount += operand;
 				if (setLabel)
 				{   shared[sharedIndex++] = w;
 					setLabel = false;
@@ -1661,7 +1677,7 @@ public class Jlisp
 				{   LispObject w1 = w;
 					for (i=0; i<operand; i++)
 						w = new Cons(nil, w);
-					Cons.consCount += operand+1;
+					//Cons.consCount += operand+1;
 					if (setLabel)
 					{   shared[sharedIndex++] = w;
 						setLabel = false;
@@ -2006,7 +2022,7 @@ public class Jlisp
 		}
 	}
 
-	static LispObject expandBackquote(LispObject a)
+	static LispObject expandBackquote(LispObject a)throws ResourceException
 	{
 		if (a == nil) return a;
 		else if (a.atom)
@@ -2041,7 +2057,7 @@ public class Jlisp
 
 	}
 
-	static void initSymbols()
+	static void initSymbols() throws ResourceException
 	{
 		//System.out.println("Beginning cold start: " + oblistCount);
 		Fns.prompt = null;
@@ -2119,7 +2135,7 @@ public class Jlisp
 		//System.out.println("After cold start: " + oblistCount);
 	}
 
-	public static void readEvalPrintLoop(boolean noRestart) throws ProgEvent
+	public static void readEvalPrintLoop(boolean noRestart) throws ProgEvent, ResourceException
 	{
 		// If the user had set a restart-function when an image was preserved
 		// then I will run that now unless the command-line had gone "-n" (for
