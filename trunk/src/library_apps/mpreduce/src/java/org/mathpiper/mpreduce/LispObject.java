@@ -41,8 +41,9 @@ package org.mathpiper.mpreduce;
 // numbers, strings and lists. Here I give just a few
 // methods (eg print and eval) that may be used on anything.
 
-import java.io.*;
-import java.math.*;
+
+import java.io.IOException;
+import java.math.BigInteger;
 import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.io.streams.LispOutputString;
 import org.mathpiper.mpreduce.numbers.LispBigInteger;

@@ -36,8 +36,8 @@ package org.mathpiper.mpreduce.numbers;
  *************************************************************************/
 
 
-import java.math.*;
-import java.io.*;
+import java.io.IOException;
+import java.math.BigInteger;
 import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;

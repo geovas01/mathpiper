@@ -328,12 +328,32 @@ package org.mathpiper.mpreduce.ui.gui;
 // alpha, beta and so on. Then using the delete key has to repair things
 // in a witty manner.
 
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.text.*;
+
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.CharArrayWriter;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
+import javax.swing.ButtonGroup;
+import javax.swing.JApplet;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
+import javax.swing.Timer;
 import org.mathpiper.mpreduce.Jlisp;
 
 public class CWin extends JApplet

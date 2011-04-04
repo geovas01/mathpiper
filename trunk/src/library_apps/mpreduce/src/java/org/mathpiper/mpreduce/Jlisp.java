@@ -45,6 +45,30 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.math.BigInteger;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.EmptyStackException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Stack;
+import java.util.TimeZone;
+import java.util.Vector;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 import org.mathpiper.mpreduce.symbols.Gensym;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.special.SpecialFunction;
@@ -85,17 +109,14 @@ import org.mathpiper.mpreduce.functions.builtin.Fns1;
 import org.mathpiper.mpreduce.functions.builtin.Fns2;
 import org.mathpiper.mpreduce.functions.builtin.Fns3;
 //import org.mathpiper.mpreduce.javacompiler.Fns4;
-import java.io.*;
-import java.math.*;
-import java.util.*;
-import java.util.zip.*;
-import java.text.*;
+
+
 import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.functions.builtin.MPReduceFunctions;
 
 public class Jlisp
 {
-        private static String version = ".010";
+        private static String version = ".011";
 
 	// Within this file I will often reference lispIO and lispErr
 	// directly. Elsewhere they should ONLY be accessed via the Lisp

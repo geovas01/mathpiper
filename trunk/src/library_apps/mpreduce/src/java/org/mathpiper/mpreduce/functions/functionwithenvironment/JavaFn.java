@@ -36,7 +36,7 @@ package org.mathpiper.mpreduce.functions.functionwithenvironment;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
+
 
 public class JavaFn extends FnWithEnv
 {

@@ -35,7 +35,8 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
+
+import java.io.IOException;
 import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 // This is an object that the user should NEVER get directly hold of

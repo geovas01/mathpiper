@@ -5,9 +5,10 @@ package org.mathpiper.mpreduce.functions.functionwithenvironment;
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
 
+import java.io.IOException;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.LispObject;
-import java.io.*;
+
 import org.mathpiper.mpreduce.Jlisp;
 
 /**************************************************************************

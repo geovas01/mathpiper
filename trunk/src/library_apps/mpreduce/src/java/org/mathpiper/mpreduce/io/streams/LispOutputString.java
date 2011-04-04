@@ -35,7 +35,7 @@ package org.mathpiper.mpreduce.io.streams;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
+
 
 public class LispOutputString extends LispStream
 {

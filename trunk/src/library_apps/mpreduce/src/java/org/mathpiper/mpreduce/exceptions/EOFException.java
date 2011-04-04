@@ -1,6 +1,9 @@
 package org.mathpiper.mpreduce.exceptions;
 
 //
+
+import java.io.IOException;
+
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
@@ -35,7 +38,7 @@ package org.mathpiper.mpreduce.exceptions;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
+
 
 public class EOFException extends IOException
 {

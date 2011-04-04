@@ -5,8 +5,9 @@ package org.mathpiper.mpreduce.symbols;
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
 
+import java.io.IOException;
 import org.mathpiper.mpreduce.functions.lisp.Undefined;
-import java.io.*;
+
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.Lit;
 

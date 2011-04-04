@@ -40,10 +40,23 @@ package org.mathpiper.mpreduce.functions.builtin;
 // Each built-in function is created wrapped in a class
 // that is derived from BuiltinFunction.
 
-import java.io.*;
-import java.util.*;
-import java.util.zip.*;
-import java.math.*;
+
+
+
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 import org.mathpiper.mpreduce.functions.lisp.AutoLoad;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.ByteOpt;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.Bytecode;

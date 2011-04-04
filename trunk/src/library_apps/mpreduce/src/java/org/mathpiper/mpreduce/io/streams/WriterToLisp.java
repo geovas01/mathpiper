@@ -35,7 +35,8 @@ package org.mathpiper.mpreduce.io.streams;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
+
+import java.io.Writer;
 import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class WriterToLisp extends Writer

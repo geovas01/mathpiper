@@ -36,8 +36,6 @@ package org.mathpiper.mpreduce.functions.builtin;
  *************************************************************************/
 
 
-import java.math.*;
-
 // The implementations here are intended to avoid total stupidity about
 // overflow and accuracy, but are not striving for the very best 
 // least-significant-bit results.

@@ -35,7 +35,6 @@ package org.mathpiper.mpreduce.numbers;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.math.*;
 import org.mathpiper.mpreduce.LispObject;
 
 public abstract class LispNumber extends LispObject

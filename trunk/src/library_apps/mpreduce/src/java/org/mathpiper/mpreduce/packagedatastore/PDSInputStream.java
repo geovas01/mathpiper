@@ -1,6 +1,10 @@
 package org.mathpiper.mpreduce.packagedatastore;
 
 //
+
+import java.io.IOException;
+import java.io.InputStream;
+
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
@@ -35,7 +39,7 @@ package org.mathpiper.mpreduce.packagedatastore;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.*;
+
 
 public class PDSInputStream extends InputStream
 {

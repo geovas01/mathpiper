@@ -34,8 +34,9 @@ package org.mathpiper.mpreduce.functions.lisp;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
+import java.io.IOException;
 import org.mathpiper.mpreduce.LispObject;
-import java.io.*;
+
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.symbols.Symbol;

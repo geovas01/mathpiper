@@ -36,8 +36,9 @@ package org.mathpiper.mpreduce.numbers;
  *************************************************************************/
 
 
-import java.io.*;
-import java.math.*;
+
+import java.io.IOException;
+import java.math.BigDecimal;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.exceptions.ResourceException;

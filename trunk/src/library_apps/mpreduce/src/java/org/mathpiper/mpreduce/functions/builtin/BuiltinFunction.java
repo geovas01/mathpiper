@@ -34,7 +34,8 @@ package org.mathpiper.mpreduce.functions.builtin;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import java.io.*;
+
+import java.io.IOException;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 

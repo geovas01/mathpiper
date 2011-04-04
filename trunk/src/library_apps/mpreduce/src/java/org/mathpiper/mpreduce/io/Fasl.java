@@ -34,6 +34,14 @@ package org.mathpiper.mpreduce.io;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 import org.mathpiper.mpreduce.io.streams.WriterToLisp;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.ByteOpt;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.Bytecode;
@@ -47,9 +55,9 @@ import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
 import org.mathpiper.mpreduce.packagedatastore.PDSOutputStream;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
-import java.io.*;
-import java.math.*;
-import java.util.zip.*;
+
+
+
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.Lit;
