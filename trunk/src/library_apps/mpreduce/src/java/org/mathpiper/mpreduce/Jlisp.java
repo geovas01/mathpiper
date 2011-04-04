@@ -116,7 +116,7 @@ import org.mathpiper.mpreduce.functions.builtin.MPReduceFunctions;
 
 public class Jlisp
 {
-        private static String version = ".012";
+        private static String version = ".013";
 
 	// Within this file I will often reference lispIO and lispErr
 	// directly. Elsewhere they should ONLY be accessed via the Lisp

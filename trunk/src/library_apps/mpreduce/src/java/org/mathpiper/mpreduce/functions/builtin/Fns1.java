@@ -42,7 +42,6 @@ package org.mathpiper.mpreduce.functions.builtin;
 
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
 
 
 
@@ -87,7 +86,7 @@ public class Fns1
 {
     public Object [][] builtins =
     {
-        {"userjava",                    new UserJavaFn()},
+        //{"userjava",                    new UserJavaFn()},
         {"acons",                       new AconsFn()},
         {"append",                      new AppendFn()},
         {"apply",                       new ApplyFn()},
@@ -307,9 +306,10 @@ public class Fns1
 
     };
 
-
+/*
 static Class c = null;
 static Method m0 = null, m1 = null, m2 = null, mn = null;
+
 
 class UserJavaFn extends BuiltinFunction
 {
@@ -385,6 +385,7 @@ class UserJavaFn extends BuiltinFunction
         return (LispObject)mn.invoke(this, (Object)a);
     }
 }
+*/
 
 class AconsFn extends BuiltinFunction
 {
