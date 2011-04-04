@@ -35,8 +35,8 @@ package org.mathpiper.mpreduce.io.streams;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import org.mathpiper.mpreduce.io.streams.LispStream;
 import java.io.*;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class WriterToLisp extends Writer
 {
@@ -59,7 +59,11 @@ public class WriterToLisp extends Writer
 
     public void write(char [] buffer, int off, int len)
     {
-        stream.print(new String(buffer, off, len));
+         try
+         {   stream.print(new String(buffer, off, len));
+         }
+         catch (ResourceException e)
+         {} // This LOSES the exception....
     }
 
 }

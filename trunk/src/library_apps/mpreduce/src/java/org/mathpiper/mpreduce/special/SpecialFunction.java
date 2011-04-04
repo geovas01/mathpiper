@@ -38,6 +38,7 @@ package org.mathpiper.mpreduce.special;
 import java.io.*;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public abstract class SpecialFunction extends LispObject
 {
@@ -50,7 +51,7 @@ public abstract class SpecialFunction extends LispObject
         return Jlisp.error(s);
     }
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         String s = "#Special<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -59,7 +60,7 @@ public abstract class SpecialFunction extends LispObject
         currentOutput.print(s);
     }
     
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         String s = "#Special<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&

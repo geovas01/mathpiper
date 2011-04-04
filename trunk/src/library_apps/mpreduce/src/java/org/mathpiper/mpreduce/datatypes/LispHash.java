@@ -40,6 +40,7 @@ import java.util.*;
 import java.io.*;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class LispHash extends LispObject
 {
@@ -52,7 +53,7 @@ public class LispHash extends LispObject
         this.flavour = n;  // 0 to 4, with only 0 and 2 used!
     }
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         String s = "#<HashTable>";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -61,7 +62,7 @@ public class LispHash extends LispObject
         currentOutput.print(s);
     }
 
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         String s = "#<HashTable>";
         if ((currentFlags & noLineBreak) == 0 &&

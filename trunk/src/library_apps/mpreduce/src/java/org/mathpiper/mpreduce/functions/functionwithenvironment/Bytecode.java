@@ -11,6 +11,7 @@ import org.mathpiper.mpreduce.numbers.LispInteger;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.numbers.LispNumber;
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
 
 // This file is part of the Jlisp implementation of Standard Lisp
@@ -99,7 +100,7 @@ String printAs()
     return sb.toString();
 }
 
-public void iprint()
+public void iprint() throws ResourceException
 {
     String s = printAs();
     if ((currentFlags & noLineBreak) == 0 &&
@@ -108,7 +109,7 @@ public void iprint()
     currentOutput.print(s);
 }
 
-public void blankprint()
+public void blankprint() throws ResourceException
 {
     String s = printAs();
     if ((currentFlags & noLineBreak) == 0 &&
@@ -189,7 +190,7 @@ public LispObject opn(LispObject [] args) throws Exception
 
 static LispFunction builtin0[], builtin1[], builtin2[], builtin3[];
 
-static LispFunction lookupBuiltin(String s)
+static LispFunction lookupBuiltin(String s) throws ResourceException
 {
     LispFunction r = (LispFunction)Jlisp.builtinFunctions.get(s);
     if (r == null) Jlisp.println("Function " + s + " not found");
@@ -240,7 +241,7 @@ static int BIbatchp, BIdate, BIeject, BIerror1, BIgctime,
     BIerrorset, BIlist2STAR, BIlist3, BIputprop, BIputv,
     BIputv_char, BIsubst, BIapply2, BIacons;
 
-public static void setupBuiltins()
+public static void setupBuiltins() throws ResourceException
 {
     builtin0 = new LispFunction[15];
     builtin1 = new LispFunction[114];
@@ -803,9 +804,31 @@ static final int SPARE2        =     0xff - 0x100;
 static int stack_size = 5000;
 static LispObject [] stack = new LispObject[stack_size];
 static int sp = 0;
+static int poll_time_countdown = 0;
+
+static long last_clock = -1;
 
 LispObject interpret(int pc) throws Exception
 {
+    if (--poll_time_countdown < 0) {
+        poll_time_countdown = 10000;
+        long t = System.currentTimeMillis();
+        if (last_clock < 0) {
+            last_clock = t;
+        } else {
+            while (t - last_clock > 1000) {
+                last_clock += 1000;
+                ResourceException.time_now++;
+                if (ResourceException.time_limit > 0
+                        && ResourceException.time_now > ResourceException.time_limit) {
+                    if (Jlisp.headline) {
+                        Jlisp.errprint("\n+++ Time limit exceeded\n");
+                    }
+                    throw new ResourceException("time limit exceeded");
+                }
+            }
+        }
+    }
     int spsave = sp;
     int arg;
     LispObject a = Jlisp.nil, b = Jlisp.nil, w;

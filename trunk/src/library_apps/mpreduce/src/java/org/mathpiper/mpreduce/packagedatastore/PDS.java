@@ -42,6 +42,7 @@ import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.io.streams.LispStream;
 import org.mathpiper.mpreduce.datatypes.LispString;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 // This class (and PDSInputStream & PDSOutputStream) support a crude
 // version of a file-system-within-a-file.  No sub-directoried are
@@ -172,7 +173,7 @@ long length() throws IOException
 
 int memberData, memberStart;
 
-public void print() // print to Java standard output (for debugging)
+public void print() throws ResourceException // print to Java standard output (for debugging)
 {
     Jlisp.println("PDS " + this + " " + name +
                           " W=" + writeable + " U=" + untidy);
@@ -203,7 +204,7 @@ public void print() // print to Java standard output (for debugging)
 }
 
 
-public LispObject members()
+public LispObject members() throws ResourceException
 {
     LispObject r = Jlisp.nil;
     if (directory != null)
@@ -253,7 +254,7 @@ public PDS(InputStream is) throws IOException
 }
 
 
-public PDS(String name, boolean writeable) throws IOException
+public PDS(String name, boolean writeable) throws IOException, ResourceException
 {
     this.name = name;
     this.writeable = writeable;
@@ -313,7 +314,7 @@ public PDS(String name, boolean writeable) throws IOException
     }
 }
 
-void close() throws IOException
+void close() throws IOException, ResourceException
 {
     Jlisp.lispErr.println("Closing the PDS");
     writeable = false;
@@ -388,7 +389,7 @@ void readDirectory() throws IOException
     } while (p != 0);
 }
 
-void addToDirectory(String member) throws IOException
+void addToDirectory(String member) throws IOException, ResourceException
 {
     if (!writeable)
         throw new IOException("Attempt to update a read-only image file");

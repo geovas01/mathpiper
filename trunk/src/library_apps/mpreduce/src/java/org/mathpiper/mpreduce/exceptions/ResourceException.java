@@ -42,20 +42,23 @@ import org.mathpiper.mpreduce.LispObject;
 
 public class ResourceException extends LispException
 {
+    	 public static int time_base = 0,   space_base = 0,   io_base = 0,   errors_base = 0;
+         public static int time_now = 0,    space_now = 0,    io_now = 0,    errors_now = 0;
+         public static int time_limit = -1, space_limit = -1, io_limit = -1, errors_limit = -1;
     
-    ResourceException()
+    public ResourceException()
     {
         this.message = "unknown"; 
 	this.details = Jlisp.nil;
     }
     
-    ResourceException(String message)
+    public ResourceException(String message)
     {
         this.message=message;
 	this.details=null; 
     }
     
-    ResourceException(String message, LispObject details)
+    public ResourceException(String message, LispObject details)
     {
         this.message = message;
 	this.details = details; 

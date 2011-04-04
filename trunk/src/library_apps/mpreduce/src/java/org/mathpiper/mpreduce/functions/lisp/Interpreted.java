@@ -41,24 +41,24 @@ package org.mathpiper.mpreduce.functions.lisp;
 // associated function is this job, which knows how to
 // extract the saved definition and activate it.
 
-import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
 import java.io.*;
 import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class Interpreted extends LispFunction
 {
     public LispObject body;
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         body.iprint();	
     }
     
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         body.blankprint();	
     }
@@ -67,7 +67,7 @@ public class Interpreted extends LispFunction
     {
     }
     
-    public Interpreted(LispObject def)
+    public Interpreted(LispObject def) throws ResourceException
     {
         body = new Cons(Jlisp.lit[Lit.lambda], def);
     }

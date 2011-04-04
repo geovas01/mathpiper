@@ -8,6 +8,7 @@ import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.io.streams.LispOutputString;
 import org.mathpiper.mpreduce.io.streams.LispStream;
 import org.mathpiper.mpreduce.Lit;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.special.Specfn;
 import org.mathpiper.mpreduce.symbols.Symbol;
 
@@ -56,7 +57,7 @@ public class Fns
 {
     public static String prompt = null;
 
-    public static LispObject put(Symbol name, LispObject key, LispObject value)
+    public static LispObject put(Symbol name, LispObject key, LispObject value) throws ResourceException
     {
         LispObject plist = name.cdr/*plist*/;
         while (!plist.atom)
@@ -72,7 +73,7 @@ public class Fns
         return value;
     }
 
-    public static void fluid(LispObject a)
+    public static void fluid(LispObject a) throws ResourceException
     {
         Symbol s = (Symbol)a;
         put(s, Jlisp.lit[Lit.special], Jlisp.lispTrue);
@@ -111,7 +112,7 @@ public class Fns
         return Jlisp.nil;
     }
 
-    static LispObject list2(LispObject a, LispObject b)
+    static LispObject list2(LispObject a, LispObject b) throws ResourceException
     {
         return new Cons(a, new Cons(b, Jlisp.nil));
     }

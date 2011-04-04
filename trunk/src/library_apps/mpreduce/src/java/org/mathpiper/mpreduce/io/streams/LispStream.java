@@ -48,6 +48,7 @@ import org.mathpiper.mpreduce.Lit;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.datatypes.LispString;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class LispStream extends LispObject
 {
@@ -81,15 +82,15 @@ public class LispStream extends LispObject
     public MessageDigest md;     // for md5 checksumming
     public Writer wr;            // for ordinary printing!
 
-    public void print(String s)
+    public void print(String s) throws ResourceException
     { // attempting to print to (eg) an input stream has no effect at all
     }
 
-    public void println(String s)
+    public void println(String s) throws ResourceException
     {
     }
 
-    public void println()
+    public void println() throws ResourceException
     {
         print("\n");
     }
@@ -202,7 +203,7 @@ public class LispStream extends LispObject
     static final int sym    = 12;
     static final int signed = 13;
 
-    void prompt()
+    void prompt() throws ResourceException
     {
         if (!needsPrompt) return;
 // here I want to print to the standard output regardless of any stream
@@ -664,7 +665,7 @@ public class LispStream extends LispObject
         exploded = a;
     }
     
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         String s = "#Stream<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&
@@ -673,7 +674,7 @@ public class LispStream extends LispObject
         currentOutput.print(s);
     }
 
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         String s = "#Stream<" + name + ">";
         if ((currentFlags & noLineBreak) == 0 &&

@@ -7,6 +7,7 @@ import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.Lit;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.datatypes.Cons;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.functions.lisp.Interpreted;
 import org.mathpiper.mpreduce.functions.lisp.Macro;
 import org.mathpiper.mpreduce.functions.lisp.Undefined;
@@ -115,7 +116,7 @@ class FunctionSpecial extends SpecialFunction
 
 class LambdaSpecial extends SpecialFunction
 {
-    public LispObject op(LispObject args)
+    public LispObject op(LispObject args) throws ResourceException
     {
         return new Cons(Jlisp.lit[Lit.lambda], args);
     }

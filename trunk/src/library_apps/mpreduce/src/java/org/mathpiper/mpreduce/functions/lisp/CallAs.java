@@ -34,10 +34,10 @@ package org.mathpiper.mpreduce.functions.lisp;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.LispObject;
 import java.io.*;
 import org.mathpiper.mpreduce.Jlisp;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.symbols.Symbol;
 
 public class CallAs extends LispFunction
@@ -57,12 +57,12 @@ public CallAs(int packed)
     nargs = packed;
 }
 
-public void print()
+public void print() throws ResourceException
 {
     print(0);
 }
 
-public void print(int fg)
+public void print(int fg) throws ResourceException
 {   Jlisp.print("#CALL" + (nargs & 0xf) + "as" +
                           ((nargs>>4) & 0xf) + "<");
     body.print(fg);

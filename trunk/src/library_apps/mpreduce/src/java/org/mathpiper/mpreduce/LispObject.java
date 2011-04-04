@@ -43,6 +43,7 @@ package org.mathpiper.mpreduce;
 
 import java.io.*;
 import java.math.*;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.io.streams.LispOutputString;
 import org.mathpiper.mpreduce.numbers.LispBigInteger;
 import org.mathpiper.mpreduce.numbers.LispSmallInteger;
@@ -80,14 +81,14 @@ public abstract class LispObject extends Object
     public static final int printUpper       = 64;
     public static final int noLineBreak      = 128;
 
-    public void print()
+    public void print() throws ResourceException
     {
         currentOutput = (LispStream)Jlisp.lit[Lit.std_output].car/*value*/;
         currentFlags = 0;
         iprint();
     }
 
-    public void print(int flags)
+    public void print(int flags) throws ResourceException
     {
         currentOutput = (LispStream)Jlisp.lit[Lit.std_output].car/*value*/;
         currentFlags = flags;
@@ -100,17 +101,17 @@ public abstract class LispObject extends Object
     public static LispStream currentOutput;
     public static int currentFlags;
 
-    abstract public void iprint();
-    abstract public void blankprint(); // print but with whitespace before it
+    abstract public void iprint() throws ResourceException;
+    abstract public void blankprint() throws ResourceException; // print but with whitespace before it
 
-    public void errPrint() // print to error output stream
+    public void errPrint() throws ResourceException // print to error output stream
     {
         currentOutput = (LispStream)Jlisp.lit[Lit.err_output].car/*value*/;
         currentFlags = printEscape;
         iprint();
     }
 
-    public void tracePrint() // print to trace output stream
+    public void tracePrint() throws ResourceException // print to trace output stream
     {
         currentOutput = (LispStream)Jlisp.lit[Lit.tr_output].car/*value*/;
         currentFlags = printEscape;
@@ -831,8 +832,15 @@ public abstract class LispObject extends Object
 
          this.currentOutput = stringStream;
 
+         try
+         {
          //Print object information into a string.
          iprint();
+        }
+         catch(ResourceException e)
+         {
+             
+         }
 
          this.currentOutput = originalOutput;
 

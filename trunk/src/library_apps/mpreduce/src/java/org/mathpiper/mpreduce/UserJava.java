@@ -2,6 +2,7 @@ package org.mathpiper.mpreduce;
 
 import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.datatypes.LispString;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 
 // This is to demonstrate how user Java code can be called from Jlisp.
@@ -56,17 +57,17 @@ public class UserJava
         return new LispString("Sample");
     }
 
-    public static LispObject op1(LispObject a)
+    public static LispObject op1(LispObject a) throws ResourceException
     {
         return new Cons(a, a);
     }
 
-    public static LispObject op2(LispObject a, LispObject b)
+    public static LispObject op2(LispObject a, LispObject b) throws ResourceException
     {
         return new Cons(b, a);
     }
 
-    public static LispObject opn(LispObject [] a)
+    public static LispObject opn(LispObject [] a) throws ResourceException
     {
         LispObject r = Jlisp.nil;
         for (int i=0; i<a.length; i++)

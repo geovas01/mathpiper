@@ -37,10 +37,10 @@ package org.mathpiper.mpreduce.numbers;
 
 
 import java.io.*;
-import java.util.*;
 import java.math.*;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class LispFloat extends LispNumber
 {
@@ -67,7 +67,7 @@ public class LispFloat extends LispNumber
         return this;
     }
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         String s = trimTo(Jlisp.printprec);
         if ((currentFlags & noLineBreak) == 0 &&
@@ -76,7 +76,7 @@ public class LispFloat extends LispNumber
         currentOutput.print(s);
     }
     
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         String s = trimTo(Jlisp.printprec);
         if ((currentFlags & noLineBreak) == 0 &&

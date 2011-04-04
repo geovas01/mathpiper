@@ -36,7 +36,7 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 
 import java.io.*;
-import java.util.*;
+import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 // This is an object that the user should NEVER get directly hold of
 // but which may be used internally as a marker.
@@ -70,7 +70,7 @@ public class Spid extends LispObject
         return this;
     }
 
-    public void iprint()
+    public void iprint() throws ResourceException
     {
         String s = "#SPID" + tag;
         if ((currentFlags & noLineBreak) == 0 &&
@@ -79,7 +79,7 @@ public class Spid extends LispObject
         currentOutput.print(s);
     }
 
-    public void blankprint()
+    public void blankprint() throws ResourceException
     {
         String s = "#SPID" + tag;
         if ((currentFlags & noLineBreak) == 0 &&
