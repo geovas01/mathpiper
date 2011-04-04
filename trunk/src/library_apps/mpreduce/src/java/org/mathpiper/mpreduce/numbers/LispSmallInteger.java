@@ -37,7 +37,6 @@ package org.mathpiper.mpreduce.numbers;
 
 
 
-import java.io.IOException;
 import java.math.BigInteger;
 import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.Jlisp;
@@ -156,7 +155,7 @@ public class LispSmallInteger extends LispInteger
 	else Jlisp.objects.add(w);
     }
     
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object d = new Integer(value);
         Object w = Jlisp.repeatedObjects.get(d);

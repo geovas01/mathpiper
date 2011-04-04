@@ -5,7 +5,6 @@ package org.mathpiper.mpreduce.symbols;
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
 
-import java.io.IOException;
 import org.mathpiper.mpreduce.functions.lisp.Undefined;
 
 import org.mathpiper.mpreduce.Jlisp;
@@ -63,7 +62,7 @@ public class Gensym extends Symbol
         pname = nameBase + (myNumber = gensymCounter++);
     }
 
-    public void dump() throws IOException
+    public void dump() throws Exception
     {
         Object w = Jlisp.repeatedObjects.get(this);
 	if (w != null &&

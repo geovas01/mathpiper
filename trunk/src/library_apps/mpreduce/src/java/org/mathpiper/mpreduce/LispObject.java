@@ -42,7 +42,6 @@ package org.mathpiper.mpreduce;
 // methods (eg print and eval) that may be used on anything.
 
 
-import java.io.IOException;
 import java.math.BigInteger;
 import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.io.streams.LispOutputString;
@@ -191,13 +190,13 @@ public abstract class LispObject extends Object
 // 0xf2 to 0xff spare at present...
 
     abstract public void scan();
-    public abstract void dump() throws IOException;
+    public abstract void dump() throws Exception;
 
 // dealing with references to shared structure has the most complicated
 // treatment here because it appears to be an especially heavily used
 // case and one where special cases may make some real difference.
 
-    public void putSharedRef(Object w) throws IOException
+    public void putSharedRef(Object w) throws Exception
     {
         int n = ((Integer)w).intValue();
         if (n < 48)
@@ -214,7 +213,7 @@ public abstract class LispObject extends Object
         else putPrefix(n, X_REF);
     }
 
-    public void putPrefix2(int n, int code1, int code2) throws IOException
+    public void putPrefix2(int n, int code1, int code2) throws Exception
     {
         if (n < 16)
 	{   Jlisp.odump.write(code1+n);
@@ -222,7 +221,7 @@ public abstract class LispObject extends Object
 	else putPrefix(n, code2);
     }
 
-    public void putPrefix(int n, int code) throws IOException
+    public void putPrefix(int n, int code) throws Exception
     {
 	if ((n & 0xffffff00) == 0)
 	{   Jlisp.odump.write(code);

@@ -5,7 +5,6 @@ package org.mathpiper.mpreduce.functions.functionwithenvironment;
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
 //
 
-import java.io.IOException;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.LispObject;
 
@@ -75,7 +74,7 @@ public void scan()
         Jlisp.stack.push(env[i]);
 }
 
-public void dump() throws IOException
+public void dump() throws Exception
 {
     Object w = Jlisp.repeatedObjects.get(this);
     if (w != null &&
