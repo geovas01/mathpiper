@@ -84,7 +84,7 @@
 	</target>
 	
 
-	<target id="dist" name="dist" depends="clean, compile" >
+	<target id="jar" name="jar" depends="compile" >
 		
 		<copy file="${lib.dir}/images/reduce.img" todir="${build.classes.dir}"/>
 		
@@ -99,9 +99,9 @@
 		
 		<jar jarfile="${build.dir}/dist/mpreduce.jar"
 			basedir="${build.classes.dir}" update="true" >
-			<!--manifest="${mathpiper.dir}/resources/MANIFEST.MF">--> 
+			<!--manifest="${mpreduce.dir}/resources/MANIFEST.MF">--> 
 			<!--<manifest> 
-				<section name="mathpiper" >
+				<section name="mpreduce" >
 					<attribute name="Build-Date" value="${build.time}"/>
 				</section>
 			</manifest>-->
@@ -114,12 +114,17 @@
 	
 	
 	
+	<target id="dist" name="dist" depends="clean, jar" >
+	</target>
+	
+	
+	
 	
 	<target id="jlisp.img" name="jlisp.img" depends="compile">
 	
 	 	<delete file="${build.images.dir}/jlisp.img" />
 
-	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	<java fork="true" failonerror="yes" classname="org.mpreduce.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
 	 	
 	 		<arg line="-w -v -z -o ${build.images.dir}/jlisp.img ${library.dir}/buildcsl.lsp -D@cslbase=${library.dir} -- ${build.images.dir}/jlispimg.log"  />
 	 		
@@ -133,7 +138,7 @@
 	
 	 	<delete file="${build.images.dir}/reduce.img" />
 
-	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	<java fork="true" failonerror="yes" classname="org.mpreduce.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
 	 	
 	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
 	 		
@@ -149,7 +154,7 @@
 	
 	 	<delete file="${build.images.dir}/minireduce.img" />
 
-	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	<java fork="true" failonerror="yes" classname="org.mpreduce.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
 	 	
 	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
 	 		
@@ -167,7 +172,7 @@
 	 	
 	 	<move file="${build.classes.dir}/reduce.img" tofile="${build.classes.dir}/default.img"/>
 
-	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	<java fork="true" failonerror="yes" classname="org.mpreduce.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
 	 	
 	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
 	 		
@@ -176,6 +181,53 @@
 	 	</java>
 
 	</target>
+	
+	
+	
+	<target id="gwt_dist" name="gwt_dist" depends="">
+	
+		<delete dir="${build.dir}/gwt_dist/src" />
+	
+		<!--<copy todir="${build.classes.dir}">
+			<fileset dir="${mpreduce.dir}/scripts" >
+				<include name="**/*" />
+			</fileset>
+		</copy>-->
+		
+
+		
+
+		<mkdir dir="${build.dir}/gwt_dist" />
+		<mkdir dir="${build.dir}/gwt_dist/src" />
+
+		
+
+		
+
+		
+		
+		<copy todir="${build.dir}/gwt_dist/src">
+			<fileset dir="${mpreduce.dir}/src/java/" >
+				<include name="org/mathpiper/mpreduce/Interpreter.java" />
+				<include name="org/mathpiper/mpreduce/Jlisp.java" />
+				<include name="org/mathpiper/mpreduce/LispEqualObject.java" />
+				<include name="org/mathpiper/mpreduce/LispObject.java" />
+				<include name="org/mathpiper/mpreduce/Lit.java" />
+				<include name="org/mathpiper/mpreduce/Spid.java" />
+				<include name="org/mathpiper/mpreduce/datatypes/" />
+				<include name="org/mathpiper/mpreduce/exceptions/" />
+				<include name="org/mathpiper/mpreduce/functions/" />
+				<include name="org/mathpiper/mpreduce/io/" />
+				<include name="org/mathpiper/mpreduce/numbers/" />
+				<include name="org/mathpiper/mpreduce/packagedatastore/" />
+				<include name="org/mathpiper/mpreduce/special/" />
+				<include name="org/mathpiper/mpreduce/symbols/" />
+
+			</fileset>
+		</copy>
+		
+	</target>
+
 
 
 </project>
