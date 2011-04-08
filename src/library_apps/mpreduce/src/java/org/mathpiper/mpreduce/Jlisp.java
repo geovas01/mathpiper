@@ -103,7 +103,6 @@ import org.mathpiper.mpreduce.io.streams.LispOutputStream;
 import org.mathpiper.mpreduce.packagedatastore.PDS;
 import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
 import org.mathpiper.mpreduce.packagedatastore.PDSOutputStream;
-import org.mathpiper.mpreduce.ui.gui.CWin;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
 import org.mathpiper.mpreduce.functions.builtin.Fns1;
 import org.mathpiper.mpreduce.functions.builtin.Fns2;
@@ -305,7 +304,7 @@ public class Jlisp
 		}
 		// If I was run as an application not an applet (via any route!) I am
 		// permitted to exit.
-		if (!CWin.isApplet) System.exit(0);
+		// if (!CWin.isApplet) System.exit(0);
 	}
 
 	static void startup1(String [] args) throws Exception
