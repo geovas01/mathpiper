@@ -580,6 +580,17 @@ public class Jlisp
 					// This may well be the .jar file I am using...
 					ClassLoader cl = lispIO.getClass().getClassLoader();
 					InputStream is = cl.getResourceAsStream("default.img");
+
+                                        if(is == null)
+                                        {
+                                            is = cl.getResourceAsStream("reduce.img");
+                                        }
+                                        
+                                        if(is == null)
+                                        {
+                                            is = cl.getResourceAsStream("minireduce.img");
+                                        }
+
 					if (is != null) images[i] = new PDS(is);
 				}
 				else images[i] = new PDS(imageFile[i], i==outputImagePos);
