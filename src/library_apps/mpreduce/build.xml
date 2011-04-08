@@ -124,7 +124,7 @@
 	
 	 	<delete file="${build.images.dir}/jlisp.img" />
 
-	 	<java fork="true" failonerror="yes" classname="org.mpreduce.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
 	 	
 	 		<arg line="-w -v -z -o ${build.images.dir}/jlisp.img ${library.dir}/buildcsl.lsp -D@cslbase=${library.dir} -- ${build.images.dir}/jlispimg.log"  />
 	 		
@@ -138,7 +138,7 @@
 	
 	 	<delete file="${build.images.dir}/reduce.img" />
 
-	 	<java fork="true" failonerror="yes" classname="org.mpreduce.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
 	 	
 	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
 	 		
@@ -154,7 +154,7 @@
 	
 	 	<delete file="${build.images.dir}/minireduce.img" />
 
-	 	<java fork="true" failonerror="yes" classname="org.mpreduce.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
 	 	
 	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
 	 		
@@ -172,7 +172,7 @@
 	 	
 	 	<move file="${build.classes.dir}/reduce.img" tofile="${build.classes.dir}/default.img"/>
 
-	 	<java fork="true" failonerror="yes" classname="org.mpreduce.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
 	 	
 	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
 	 		
