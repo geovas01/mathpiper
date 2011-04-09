@@ -29,15 +29,11 @@
 package org.mathpiper.mpreduce;
 
 import java.applet.Applet;
-import java.awt.Graphics;
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
 
-/**
- *
- *
- */
+
 public class Interpreter2 extends Applet {
 
     Jlisp jlisp;
@@ -60,9 +56,8 @@ public class Interpreter2 extends Applet {
         try {
 
             in = new InterpreterReader(this);
+
             out = new PrintWriter(new InterpreterWriter(), false);
-
-
 
             final String[] args = new String[0];
 
@@ -83,19 +78,13 @@ public class Interpreter2 extends Applet {
 
             reduceThread.start();
 
-
             startMessage = evaluate(";");
 
 
             //Initialize MPReduce.
-            String s = evaluate("symbolic procedure update!_prompt; begin setpchar \"\" end;;");
-            //inputPromptPattern = Pattern.compile("\n*(f179eb)+");
-            //getResponse();
+            String initializationResponse = evaluate("symbolic procedure update!_prompt; begin setpchar \"\" end;;");
 
-
-            s = evaluate("off int; on errcont; off nat;");
-            //String switchSetResponce = getResponse();
-            int xx = 9;
+            initializationResponse = evaluate("off int; on errcont; off nat;");
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -112,6 +101,7 @@ public class Interpreter2 extends Applet {
     }//end method.
 
 
+
     public static Interpreter2 getInstance() throws Throwable {
         if (JlispCASInstance == null) {
             JlispCASInstance = new Interpreter2();
@@ -119,6 +109,7 @@ public class Interpreter2 extends Applet {
         return JlispCASInstance;
     }//end method.
 
+    
 
     public synchronized String evaluate(String send) throws Throwable {
 
@@ -155,8 +146,8 @@ public class Interpreter2 extends Applet {
 
         return responseString;
 
-
     }//end evaluate.
+
 
 
     public void interruptEvaluation() {
@@ -170,21 +161,8 @@ public class Interpreter2 extends Applet {
     }
 
 
-    public String test() {
-        return "alive";
-    }
 
-
-    public void paint(Graphics g) {
-
-        g.drawString("Hey hey hey", 20, 20);
-        g.drawString("Hello World", 20, 40);
-
-    }
-
-
-    
-//His in, my out.
+    //Lisp in, my out.
     class InterpreterReader extends Reader {
 
         Interpreter2 interpreter;
@@ -256,26 +234,26 @@ public class Interpreter2 extends Applet {
 
     }
 
-//His out, my in.
+
+    
+    //Lisp out, my in.
     class InterpreterWriter extends CharArrayWriter {
 
         InterpreterWriter() {
             super(8000);      // nice big buffer by default;
         }
 
-
         public void close() {
             flush();
         }
-
 
         public void flush() {
             super.flush();
             if (size() != 0) // mild optimisation, I suppose!
             {
-// The write-up of the Writer class recommends to lock this way in sub-classes.
-// Here we MUST ensure that if I do the toString() that I do the reset()
-// before anybody adds any more characters to this stream.
+        // The JavaDocs of the Writer class recommends to lock this way in sub-classes.
+        // Here we MUST ensure that if we do the toString() that we do the reset()
+        // before anybody adds any more characters to this stream.
                 synchronized (lock) {
                     Interpreter2.this.inputBuffer.append(toString());
                     reset();
@@ -300,14 +278,6 @@ public class Interpreter2 extends Applet {
             result = mpreduce.evaluate("x^2;");
             System.out.println(result + "\n");
 
-            /* //An example which shows how to interrupt an evaluation.
-            mpreduce.evaluate("(X-Y)^100;");
-            Thread.sleep(100);
-            System.out.println("Interrupting mpreduce evaluation.");
-            mpreduce.interruptEvaluation();
-
-            System.out.println(result+ "\n");*/
-
             result = mpreduce.evaluate("(X-Y)^100;");
             System.out.println(result + "\n");
 
@@ -321,7 +291,10 @@ public class Interpreter2 extends Applet {
 
         } catch (Throwable t) {
             t.printStackTrace();
+        } finally {
+            System.exit(0);
         }
+
 
 
 
