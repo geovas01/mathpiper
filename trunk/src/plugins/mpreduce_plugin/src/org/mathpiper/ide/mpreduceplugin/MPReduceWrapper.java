@@ -37,10 +37,11 @@ public class MPReduceWrapper implements Runnable, EBComponent
 {
 
 	private static MPReduceWrapper mpreduceInstance = null;
-	private org.mathpiper.mpreduce.Interpreter mpreduce = null;
+	private org.mathpiper.mpreduce.Interpreter2 mpreduce = null;
 	private boolean keepRunning = true;
 	private ArrayList<ResponseListener> responseListeners;
 	private ArrayList<ResponseListener> removeListeners;
+	private String expression = null;
 
 
 
@@ -49,8 +50,8 @@ public class MPReduceWrapper implements Runnable, EBComponent
 	{
 		responseListeners = new ArrayList<ResponseListener>();
 		removeListeners = new ArrayList<ResponseListener>();
-		mpreduce = new org.mathpiper.mpreduce.Interpreter();
-		
+		mpreduce = new org.mathpiper.mpreduce.Interpreter2();
+
 		new Thread(this,"reduce").start();
 
 	}//end constructor.
@@ -77,7 +78,7 @@ public class MPReduceWrapper implements Runnable, EBComponent
 
 	public synchronized void evaluate(String expression) throws Throwable
 	{
-		mpreduce.evaluate(expression);
+		this.expression = expression;
 
 	}//end send.
 
@@ -86,15 +87,34 @@ public class MPReduceWrapper implements Runnable, EBComponent
 	{
 		keepRunning = true;
 
-		String response;
+		String response = null;
 
-		while(keepRunning == true)
+		while(keepRunning == true) 
 		{
 			try
 			{
-				response = getResponse();
-				notifyListeners(response);
-			}catch(IOException ioe)
+				if(expression != null)
+				{
+					response = mpreduce.evaluate(expression);
+					
+					expression = null;
+				}
+				
+				if(response != null)
+				{
+					notifyListeners(response);
+					
+					response = null;
+				}
+				
+				Thread.sleep(100);
+
+
+			}
+			catch(InterruptedException ioe)
+			{
+			}
+			catch(IOException ioe)
 			{
 				notifyListeners(ioe.toString());
 			}
@@ -110,21 +130,14 @@ public class MPReduceWrapper implements Runnable, EBComponent
 	{
 		keepRunning = false;
 	}//end method.
-	
+
 	public void interruptEvaluation()
 	{
 		mpreduce.interruptEvaluation();
 	}
 
 
-	protected String getResponse() throws Throwable
-	{
-		
-		String response = mpreduce.getResponse();
-		
-		return response;
 
-	}//end method
 
 	public void addResponseListener(ResponseListener listener)
 	{
