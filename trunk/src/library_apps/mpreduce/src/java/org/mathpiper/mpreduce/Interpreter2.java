@@ -161,7 +161,6 @@ public class Interpreter2 extends Applet {
 
     public void interruptEvaluation() {
         try {
-            evaluate(""); //Needed to make sure the next evaluation after the interruption works okay.
 
             jlisp.interruptEvaluation = true;
 
