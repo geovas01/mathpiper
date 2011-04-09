@@ -25,6 +25,7 @@
 	<property name="build.images.dir" value="${build.dir}/images" />
 	<property name="build.test.dir" value="${build.dir}/test" />
 	<property name="library.dir" value="${mpreduce.dir}/lib" />
+	<property name="build.scripts.dir" value="${mpreduce.dir}/lib/build_scripts" />
 	
 	
 	<target id="noop" name="noop" description="Do nothing." />
@@ -126,7 +127,7 @@
 
 	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
 	 	
-	 		<arg line="-w -v -z -o ${build.images.dir}/jlisp.img ${library.dir}/buildcsl.lsp -D@cslbase=${library.dir} -- ${build.images.dir}/jlispimg.log"  />
+	 		<arg line="-w -v -z -o ${build.images.dir}/jlisp.img ${build.scripts.dir}/buildcsl.lsp -D@cslbase=${build.scripts.dir} -- ${build.images.dir}/jlispimg.log"  />
 	 		
 	 	</java>
 
@@ -142,7 +143,7 @@
 	 	
 	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
 	 		
-	 		<arg line="-w -v -z -o ${build.images.dir}/reduce.img ${library.dir}/buildreduce.lsp -D@srcdir=${library.dir} -- ${build.images.dir}/reduceimg.log"  />
+	 		<arg line="-w -v -z -o ${build.images.dir}/reduce.img ${build.scripts.dir}/buildreduce.lsp -D@srcdir=${build.scripts.dir} -- ${build.images.dir}/reduceimg.log"  />
 	 		
 	 	</java>
 
@@ -158,7 +159,7 @@
 	 	
 	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
 	 		
-	 		<arg line="-w -v -z -o ${build.images.dir}/minireduce.img ${library.dir}/buildreduce.lsp -Dminireduce -D@srcdir=${library.dir} -- ${build.images.dir}/minireduceimg.log"  />
+	 		<arg line="-w -v -z -o ${build.images.dir}/minireduce.img ${build.scripts.dir}/buildreduce.lsp -Dminireduce -D@srcdir=${build.scripts.dir} -- ${build.images.dir}/minireduceimg.log"  />
 	 		
 	 	</java>
 
@@ -170,13 +171,13 @@
 	
 	 	<copy file="${build.images.dir}/reduce.img" todir="${build.classes.dir}"/>
 	 	
-	 	<move file="${build.classes.dir}/reduce.img" tofile="${build.classes.dir}/default.img"/>
+	 	<!--<move file="${build.classes.dir}/reduce.img" tofile="${build.classes.dir}/default.img"/> -->
 
 	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
 	 	
 	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
 	 		
-	 		<arg line="-w -D@srcdir=${library.dir} ${library.dir}/testall.red  -D@log=${build.test.dir} -- ${build.test.dir}/testreduce.log" />
+	 		<arg line="-w -D@srcdir=${build.scripts.dir} ${build.scripts.dir}/testall.red  -D@log=${build.test.dir} -- ${build.test.dir}/testreduce.log" />
 	 		
 	 	</java>
 
@@ -199,16 +200,14 @@
 
 		<mkdir dir="${build.dir}/gwt_dist" />
 		<mkdir dir="${build.dir}/gwt_dist/src" />
-
-		
-
+		<mkdir dir="${build.dir}/gwt_dist/war" />
 		
 
 		
 		
 		<copy todir="${build.dir}/gwt_dist/src">
 			<fileset dir="${mpreduce.dir}/src/java/" >
-				<include name="org/mathpiper/mpreduce/Interpreter.java" />
+				<include name="org/mathpiper/mpreduce/Interpreter2.java" />
 				<include name="org/mathpiper/mpreduce/Jlisp.java" />
 				<include name="org/mathpiper/mpreduce/LispEqualObject.java" />
 				<include name="org/mathpiper/mpreduce/LispObject.java" />
@@ -226,6 +225,23 @@
 			</fileset>
 		</copy>
 		
+		
+
+		
+		<copy file="${library.dir}/google_web_toolkit/module.gwt.xml" todir="${build.dir}/gwt_dist/src/org/mathpiper"/>
+		
+		<copy todir="${build.dir}/gwt_dist/src/org/mathpiper/jre">
+		   <fileset dir="${library.dir}/google_web_toolkit/jre"/>
+		</copy>
+		
+		<copy todir="${build.dir}/gwt_dist/">
+		   <fileset dir="${library.dir}/google_web_toolkit">
+		     <include name="*.jar" />
+		     <include name="compile.sh" />
+		   </fileset>
+		</copy>
+
+
 	</target>
 
 
