@@ -64,6 +64,13 @@
 100 # _x /  1 <-- x;
 100 # (_x / y_IsNegativeNumber) <-- -x/(-y);
 100 # (_x / - _y) <-- -x/y;
+
+150 # (_x) / (_x) ^ (n_IsConstant) <-- x^(1-n);
+150 # (_x) ^ (n_IsConstant) * (_x) <-- x^(n-1);
+150 # Sqrt(_x) / (_x) ^ (n_IsConstant) <-- x^(1/2-n);
+150 # (_x) ^ (n_IsConstant) / Sqrt(_x) <-- x^(n-1/2);
+150 # (_x) / Sqrt(_x) <-- Sqrt(x);
+
 // fractions
 200 # (_x / _y)/ _z <-- x/(y*z);
 230 # _x / (_y / _z) <-- (x*z)/y;
