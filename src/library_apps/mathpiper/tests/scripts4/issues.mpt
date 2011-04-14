@@ -158,3 +158,6 @@ Verify(a/(2*b)+3*a/(2*b),(2*a)/b);
 
 // Issue 117
 Verify(Differentiate(x, 1) ArcSin(Sin(x)), Cos(x)/Sqrt(1-Sin(x)^2));
+
+// Issue 118
+Verify(Factor(a^2 - a*f + f^2), a^2-a*f+f^2);

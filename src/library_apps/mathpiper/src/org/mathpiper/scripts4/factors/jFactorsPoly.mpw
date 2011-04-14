@@ -213,6 +213,7 @@ UnFence("jFactorsPrimitivePart",1);
         DestructiveReplace(lst,1,dis[1]);
         DestructiveAppend(lst[2][1],0);
         DestructiveAppend(lst[2][2],1);
+        If(Length(lst[2])=3, DestructiveAppend(lst[2][3],2));
         If(InVerboseMode(),Tell("               ",lst));
         preassem  := Sum(ReassembleListTerms(lst)) ;
         If(InVerboseMode(),Tell("               ",preassem));
