@@ -142,6 +142,12 @@ Verify(0*(-Infinity), Undefined);
 Verify(Infinity*0, Undefined);
 Verify((-Infinity)*0, Undefined);
 
+// Issue 106
+Verify(ExpandBrackets(-(2*x+2*y)), Hold(-2*x-2*y));
+
+// Issue 107
+Verify(ExpandBrackets(1/4 * (x+1)), Hold(x/4+1/4));
+
 // Issue 108
 Verify(CForm(2.), "2.");
 
