@@ -1,18 +1,49 @@
 %mathpiper,def="ExpandBrackets"
 
-//Retract("ExpandBrackets",*);
+LocalSymbols(AssembleTerms, AssembleTermsRecursive)
+[
+
+    AssembleTerms(list) :=
+    [
+        Check(IsList(list), "Argument", "The argument must be a list.");
+
+        If(Length(list) = 1, 
+            First(list),
+            AssembleTermsRecursive(Reverse(list)) 
+        );
+    ];
+
+
+    AssembleTermsRecursive(list) :=
+    [
+        If(Type(list[1]) = "-" Or IsNegativeNumber(list[1]) Or Type(list[1]) = "/" And (Type(Numerator(list[1])) = "-" Or IsNegativeNumber(Numerator(list[1]))),
+            If(Length(list) = 2,
+                ListToFunction({ToAtom("-"), list[2], -list[1]} ),
+                ListToFunction({ToAtom("-"), AssembleTermsRecursive(Rest(list)), -First(list)} )
+            ),
+            If(Length(list) = 2,
+                ListToFunction({ToAtom("+"), list[2], list[1]} ),
+                ListToFunction({ToAtom("+"), AssembleTermsRecursive(Rest(list)), First(list)} )
+            )
+        );
+    ];
+
 
 10 # ExpandBrackets(xx_IsZero) <-- 0;
 
-20 # ExpandBrackets(xx_IsRationalFunction) <-- 
+20 # ExpandBrackets(_xx)_(Type(xx)="/" Or Type(-xx)="/") <-- 
 [
-    Local(N,D);
-    N := Add(ReassembleListTerms(DisassembleExpression(Numerator(xx))));
-    D := Add(ReassembleListTerms(DisassembleExpression(Denominator(xx))));
-    (N/D);
+    Local(N,D,t);
+    N := ReassembleListTerms(DisassembleExpression(Numerator(xx)));
+    D := ExpandBrackets(Denominator(xx));
+    AssembleTerms(MapSingle({{t}, t / D}, N));
 ];
 
-30 # ExpandBrackets(_xx) <--  Add(ReassembleListTerms(DisassembleExpression(xx)));
+
+30 # ExpandBrackets(_xx) <-- AssembleTerms(ReassembleListTerms(DisassembleExpression(xx)));
+
+];
+
 
 
 //ExpandBrackets(_xx) <-- SimpExpand(SimpImplode(SimpFlatten(xx)));

@@ -36,7 +36,7 @@ ExpandBrackets(x*(a+b)*y*z)
 
 Verify(
 ExpandBrackets(ExpandFrac((x+1)/(x-1)+1/x))
-, (x^2+2*x-1)/(x^2-x)
+, Hold(x^2/(x^2-x)+(2*x)/(x^2-x)-1/(x^2-x))
 );
 
 // these used to fail. Added by Serge, resolved by Ayal
