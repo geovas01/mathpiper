@@ -49,6 +49,10 @@ Verify(Limit(x,Infinity)((1)/(x)) * (Sin(x)), 0);
 //Issue 28
 Verify(Limit(x,Infinity)(Sin(x))/(x), 0);
 
+// Issue 30
+KnownFailure(Limit(x,-Infinity)(Sin(1/x)*x^2-x*Cos(1/x))/x^2 = 0);
+Verify(Limit(x,Infinity)(Sqrt((4 * (x)^(2)) - (2 * x))) - (2 * x), 0);
+
 //Issue 37
 Verify(Solve((x) * (Ln(x)) == 0, x), {x==1});
 
