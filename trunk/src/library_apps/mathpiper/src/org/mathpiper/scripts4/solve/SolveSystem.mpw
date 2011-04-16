@@ -84,6 +84,8 @@
 
 10 # SolveLinearSystem( polys_IsList, vars_IsList ) <--
 [
+    Local(A, E);
+
     If(InVerboseMode(),Tell("   SolveLinearSystem",{polys,vars}));
     // note  Coef(polys[1],vars[1],1) etc, to create matrix of coefficients
     Local(lhs,rhs,zeros);
@@ -94,7 +96,10 @@
     If(InVerboseMode(),Tell("       ",rhs));
     
     //SolveMatrix(lhs,rhs);
-    MatrixSolve(lhs,rhs);
+    //MatrixSolve(lhs,rhs);
+    A := Transpose(Concat(Transpose(lhs),{rhs}));
+    E := RREF(A);
+    MatrixColumn(E, Length(Transpose(E)));
 ];
 
 
