@@ -136,6 +136,9 @@ TestEquivalent(Factor((9 * (a)^(2)) - (3 * a * b)),3*a*(3*a-b));
 //Issue 90
 Verify(Sum(i, 0, n-1, r^i), (1-r^(n-1+1))/(1-r));
 
+// Issue 93
+Verify(Solve({x + y == 2, 2*y+2*x==4}, {x, y}), {x==2-y,y==y});
+
 // Issue 98
 Verify(Simplify(3.15 * 3), 9.45);
 

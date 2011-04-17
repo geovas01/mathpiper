@@ -99,7 +99,8 @@
     //MatrixSolve(lhs,rhs);
     A := Transpose(Concat(Transpose(lhs),{rhs}));
     E := RREF(A);
-    MatrixColumn(E, Length(Transpose(E)));
+    
+    MatrixColumn(E,Dimensions(E)[2]) - (ExtractSubMatrix(E, 1, 1, Length(E), Length(E)) - Identity(Length(E))) * vars;
 ];
 
 
