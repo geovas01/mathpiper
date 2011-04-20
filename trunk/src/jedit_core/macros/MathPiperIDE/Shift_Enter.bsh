@@ -305,6 +305,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		else if(foldType.equalsIgnoreCase("%reduce"))
 		{
 			fileExtension = ".red";
+			codeText = "OFF ECHO$\n" + codeText + "END$\n";
 		}
 		else
 		{
@@ -705,6 +706,8 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						
 						result = response;//The variable "result" is what gets displayed in the output fold.
+						
+						result = result.replace("OFF ECHO$\n\n", "");
 						
 						//Todo:tk:for some reason the reduce fold needs this check because
 						//otherwise it periodically causes exceptions to be thrown which are

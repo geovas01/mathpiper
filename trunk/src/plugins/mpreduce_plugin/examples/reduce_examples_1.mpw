@@ -6,11 +6,9 @@ the MPReduce console.
 
 
 %reduce,title=""
-OFF ECHO$
 
 3^1000;
 
-END$
 %/reduce
 
 
@@ -18,11 +16,9 @@ END$
 
 
 %reduce,title=""
-OFF ECHO$
 
 (X+Y+Z)^2;
 
-END$
 %/reduce
 
 
@@ -31,11 +27,9 @@ END$
 
 
 %reduce,title="Long running calculation."
-OFF ECHO$
 
 (X-Y)^100;
 
-END$
 %/reduce
 
 
