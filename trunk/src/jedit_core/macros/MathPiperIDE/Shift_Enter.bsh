@@ -707,7 +707,46 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						result = response;//The variable "result" is what gets displayed in the output fold.
 						
-						result = result.replace("OFF ECHO$\n\n", "");
+						result = result.replace("OFF ECHO$", "");
+						
+						
+						//Strip leading and trailing carriage returns and linefeeds.
+						characterIndex = 0;
+						
+						if(result.length() > 0)
+						{
+							try
+							{
+								while(result.charAt(characterIndex) == '\n' || result.charAt(characterIndex) == '\r')
+								{
+									characterIndex++;
+								}
+								
+								result = result.substring(characterIndex, result.length());
+								
+								
+								if(result.length() > 0)
+								{
+									characterIndex = result.length() - 1;
+									
+									while(characterIndex > 0 && Character.isWhitespace(result.charAt(characterIndex)))
+									{	
+										characterIndex--;
+									}
+									
+									result = result.substring(0, characterIndex+1);
+								}
+								
+							}
+							catch(Exception ioe)
+							{
+								ioe.printStackTrace();
+							}
+						}
+						
+						
+						
+						
 						
 						//Todo:tk:for some reason the reduce fold needs this check because
 						//otherwise it periodically causes exceptions to be thrown which are
