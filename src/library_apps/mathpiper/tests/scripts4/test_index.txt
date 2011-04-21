@@ -1,6 +1,7 @@
 arithmetic.mpt
 binaryfactors.mpt
 calculus.mpt
+calendar.mpt
 canprove.mpt
 comments.mpt
 complex.mpt
