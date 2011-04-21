@@ -17,6 +17,8 @@ on nat;
 
     %output,preserve="false"
       
+      
+      
 .   %/output
 
 
@@ -28,14 +30,12 @@ on nat;
 
 load ineq$
 
-ineq_solve((x-1)/(x+2) > 0,x);
+ineq_solve((x - 1)/(x + 2) > 0,x);
                  
 %/reduce  
 
     %output,preserve="false"
-      
       {x<-2,x>1}
-      
 .   %/output
 
 
@@ -47,14 +47,12 @@ ineq_solve((x-1)/(x+2) > 0,x);
 
 load ineq$
 
-ineq_solve((x-3)/(x+4) >= 2,x);
+ineq_solve((x - 3)/(x + 4) >= 2,x);
 
 %/reduce
 
     %output,preserve="false"
-      
       x=(-11 .. -4)
-      
 .   %/output
 
 
@@ -76,7 +74,6 @@ ineq_solve((x-3)/(x+4) >= 2,x);
 %/reduce
 
     %output,preserve="false"
-      
        5
       ---
        7
@@ -108,7 +105,6 @@ ineq_solve((x-3)/(x+4) >= 2,x);
        200
       -----
        513
-      
 .   %/output
 
 
@@ -132,7 +128,6 @@ ineq_solve((x-3)/(x+4) >= 2,x);
 %/reduce
 
     %output,preserve="false"
-      
         - 1
       ------
         12
@@ -168,7 +163,6 @@ ineq_solve((x-3)/(x+4) >= 2,x);
         - 22
       -------
         105
-      
 .   %/output
 
 
@@ -189,7 +183,6 @@ ineq_solve((x-3)/(x+4) >= 2,x);
 %/reduce
 
     %output,preserve="false"
-      
        3
       ---
        8
@@ -213,7 +206,6 @@ ineq_solve((x-3)/(x+4) >= 2,x);
        1
       ---
        6
-      
 .   %/output
 
 
@@ -240,12 +232,11 @@ ineq_solve((x-3)/(x+4) >= 2,x);
 (7/2)/(7/4);
 11/(-x/4);
 
-solve(2/3 * miles = 3/8 * miles/hour * t, t);
+solve(2/3 miles = 3/8 miles/hour * t, t);
 
 %/reduce
 
     %output,preserve="false"
-      
         1
       -----
        100
@@ -299,7 +290,6 @@ solve(2/3 * miles = 3/8 * miles/hour * t, t);
           16*hour
       {t=---------}
              9
-      
 .   %/output
 
 
@@ -315,14 +305,13 @@ on rationalize;
 1/sqrt(2);
 7/sqrt(15);
 12/(2-sqrt(5));
-(5*y)/(2*sqrt(y)-5);
+(5y)/(2*sqrt(y)-5);
 
 off rationalize;
 
 %/reduce
 
     %output,preserve="false"
-      
        sqrt(2)
       ---------
           2
@@ -336,7 +325,6 @@ off rationalize;
        5*y*(2*sqrt(y) + 5)
       ---------------------
             4*y - 25
-      
 .   %/output
 
 
@@ -349,18 +337,17 @@ off rationalize;
 
 3/6;
 8/24;
-(9*x + 3)/(12*x + 4);
-(x^2 - 9)/(5*x + 15);
+(9x + 3)/(12x + 4);
+(x^2 - 9)/(5x + 15);
 
 on factor;
-(x^2 + 6*x + 5)/(x^2 - x - 2);
-(3*x^2 + 3*x - 18)/(2*x^2 + 5*x - 3);
+(x^2 + 6x + 5)/(x^2 - x - 2);
+(3x^2 + 3x - 18)/(2x^2 + 5x - 3);
 off factor;
 
 %/reduce
 
     %output,preserve="false"
-      
        1
       ---
        2
@@ -384,8 +371,292 @@ off factor;
        3*(x - 2)
       -----------
         2*x - 1
-      
 .   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions?playlist=Algebra%201
+
+((a^2 + 2*a*b + b^2)/(a*b^2 - a^2*b))/(a + b);
+
+on factor;
+
+((x^2 + 8x + 16)/(7x^2 + 9x + 2))/((7x + 2)/(x^2 + 4x));
+
+off factor;
+
+%/reduce
+
+    %output,preserve="false"
+        - (a + b)
+      -------------
+       a*b*(a - b)
+      
+                  3
+           (x + 4) *x
+      --------------------
+                2
+       (7*x + 2) *(x + 1)
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/adding-rational-expressions-example-1?playlist=Algebra%201
+
+
+((-x^2)/(x^2 - 7x + 6)) + (x - 4);
+
+
+%/reduce
+
+    %output,preserve="false"
+        3       2
+       x  - 12*x  + 34*x - 24
+      ------------------------
+             2
+            x  - 7*x + 6
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/adding-rational-expressions-example-2?playlist=Algebra%201
+
+off factor;
+
+zz := (1/(x^2 - 9)) + (2/(x^2 + 5x + 6))$
+
+on factor;
+
+zz;
+
+off factor;
+
+solve(den(zz) = 0, x);
+
+%/reduce
+
+    %output,preserve="false"
+               3*x - 4
+      -------------------------
+       (x + 3)*(x + 2)*(x - 3)
+      
+      {x=3,x=-2,x=-3}
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/adding-rational-expressions-example-3?playlist=Algebra%201
+
+on factor;
+
+(4/(9x^2 - 49)) - (1/(3x^2 + 5x - 28));
+
+off factor;
+
+%/reduce
+
+    %output,preserve="false"
+                  x + 9
+      -----------------------------
+       (3*x + 7)*(3*x - 7)*(x + 4)
+.   %/output
+
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/solving-rational-equations?playlist=Algebra%201
+
+solve(5/(3x - 4) = (2/(x + 1)),x);
+
+solve( ((-x)/(x - 2)) + ((3x - 1)/(x + 4)) = (1/(x^2 + 2x - 8)) );
+
+%/reduce
+
+    %output,preserve="false"
+      {x=13}
+      
+      Unknown: x
+      
+          sqrt(113) + 11      - sqrt(113) + 11
+      {x=----------------,x=-------------------}
+                4                    4
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/two-more-examples-of-solving-rational-equations?playlist=Algebra%201
+
+solve(x + 1/x = 2, x);
+
+solve( 2/(x^2 + 4x + 3) = 2 + ((x - 2)/(x + 3)),x);
+
+
+%/reduce
+
+    %output,preserve="false"
+      {x=1}
+      
+           - 1
+      {x=------,x=-2}
+           3
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/ca-algebra-i--rational-expressions?playlist=California%20Standards%20Test:%20Algebra%20I
+
+on factor; 
+
+(x^2 - 4x + 4)/(x^2 - 3x + 2);
+
+(12a^3 - 20a^2)/(16a^2 + 8a);
+
+
+((7z^2 + 7z)/(4z + 8)) * ((z^2 - 4)/(z^3 + 2z^2 + z));
+
+off factor;
+
+((x + 5)/(3x + 2)) * ((2x - 3)/(x - 5));
+
+on factor;
+
+((x^2 + 8x + 16)/(x + 3)) / ((2x + 8)/(x^2 - 9));
+
+off factor;
+
+%/reduce
+
+    %output,preserve="false"
+       x - 2
+      -------
+       x - 1
+      
+       (3*a - 5)*a
+      -------------
+       2*(2*a + 1)
+      
+       7*(z - 2)
+      -----------
+       4*(z + 1)
+      
+          2
+       2*x  + 7*x - 15
+      ------------------
+          2
+       3*x  - 13*x - 10
+      
+       (x + 4)*(x - 3)
+      -----------------
+              2
+.   %/output
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/simplifying-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
+
+on factor;
+
+(a^2 - 9)/(a^2 + 6a - 27);
+
+off factor;
+
+%/reduce
+
+    %output,preserve="false"
+       a + 3
+      -------
+       a + 9
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/simplifying-rational-expressions-2?playlist=Algebra%20I%20Worked%20Examples
+
+off factor;
+
+zz := (2x^2 + 13x + 20) / (2x^2 + 17x + 30)$
+
+on factor;
+
+zz;
+
+off factor;
+
+solve(den(zz) = 0, x);
+
+%/reduce
+
+    %output,preserve="false"
+       x + 4
+      -------
+       x + 6
+      
+           - 5
+      {x=------,x=-6}
+           2
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+%THIS PROBLEM IS STILL BEING WORKED ON.
+
+% http://www.khanacademy.org/video/simplifying-rational-expressions-3?playlist=Algebra%20I%20Worked%20Examples
+
+off factor;
+
+zz := (x^2 - 36) / (6 - x);
+
+on factor;
+
+
+%/reduce
+
+    %output,preserve="false"
+      zz :=  - x - 6
+.   %/output
+
+
+
+
 
 
 
@@ -404,15 +675,11 @@ off factor;
 
 
 
-% http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions?playlist=Algebra%201
-% http://www.khanacademy.org/video/adding-rational-expressions-example-1?playlist=Algebra%201
-% http://www.khanacademy.org/video/adding-rational-expressions-example-2?playlist=Algebra%201
-% http://www.khanacademy.org/video/adding-rational-expressions-example-3?playlist=Algebra%201
-% http://www.khanacademy.org/video/solving-rational-equations?playlist=Algebra%201
-% http://www.khanacademy.org/video/two-more-examples-of-solving-rational-equations?playlist=Algebra%201
-% http://www.khanacademy.org/video/ca-algebra-i--rational-expressions?playlist=California%20Standards%20Test:%20Algebra%20I
-% http://www.khanacademy.org/video/simplifying-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/simplifying-rational-expressions-2?playlist=Algebra%20I%20Worked%20Examples
+
+
+
+
+
 % http://www.khanacademy.org/video/simplifying-rational-expressions-3?playlist=Algebra%20I%20Worked%20Examples
 % http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
 % http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions-2?playlist=Algebra%20I%20Worked%20Examples
