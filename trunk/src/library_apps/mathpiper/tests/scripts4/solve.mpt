@@ -7,6 +7,11 @@ VerifySolve(Solve(a+x*y==z,x),{x==(z-a)/y});
 // level of simple back-substitutions
 VerifySolve(Solve({a+x*y==z},{x}),{{x==(z-a)/y}});
 
+// check linear systems
+VerifySolve(Solve({2*x-2*y+z==(-7),3*x+y+2*z==(-2),5*x+3*y-3*z==(-7)}, {x,y,z}), {x==(-2),y==2,z==1});
+VerifySolve(Solve({3*x-2*y+z==1,x-y-z==2,6*x-4*y+2*z==3}, {x,y,z}), {});
+VerifySolve(Solve({2*x+3*y==6,4*x+6*y==12}, {x,y}), {x==3-(3*y)/2,y==y});
+
 [
   Local(eq,res);
   eq:={a-b==c,b==c};
