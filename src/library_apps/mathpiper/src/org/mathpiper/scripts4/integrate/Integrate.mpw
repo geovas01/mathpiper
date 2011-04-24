@@ -39,6 +39,20 @@
 20 # (Integrate(_var,_from,_to)(_expr))
     <-- defIntegrate(var,from,to,expr,a,b);
 
+
+20 # (Integrate(_var,_from,_to,optionsList_IsList)(_expr)) <--
+[
+    Local(result);
+
+    optionsList := OptionsToAssociativeList(optionsList);
+
+    result := Integrate(var,from,to) expr;
+
+    If( optionsList["logAbs"] = "True", result := ( result /: {Ln(_x) <- Ln(Abs(x))}) );
+
+    result;
+];
+
 ////////////////////////////////////////////////
 //
 // separate rules can be added here for specific integrals
@@ -123,6 +137,7 @@
 	Integrate(var, x1, x2) expr
 	Integrate(var) expr
         Integrate(var, {optionsList}) expr
+        Integrate(var, x1, x2, {optionsList}) expr
 
 *PARMS
 
@@ -153,12 +168,11 @@ functions with polynomials can be integrated.
 
 {Options}:
 
-{logArg} -- For indefinite integration where logs are generated, the answer is given in terms of Ln(Abs(...))
+{logAbs} -- For results which contain logs, the result is given in terms of Ln(Abs(...))
 if logAbs is True, but in terms of Ln(...) if logAbs is not set or is set to anything other than True.
 
 
 *E.G.
-
 In> Integrate(x,a,b) Cos(x)
 Result: Sin(b)-Sin(a);
 
@@ -170,6 +184,9 @@ Result> Ln(x)
 
 In> Integrate(x, {logAbs -> True}) 1/x;
 Result> Ln(Abs(x))
+
+In> Integrate(x, a, b, {logAbs -> True})1/x;
+Result> Ln(Abs(b))-Ln(Abs(a))
 
 *SEE Differentiate, UniqueConstant
 %/mathpiper_docs
