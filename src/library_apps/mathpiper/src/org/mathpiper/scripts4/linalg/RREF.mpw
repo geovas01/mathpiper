@@ -25,6 +25,8 @@
     
     While( cr <= mRows )  // iterating over successively lower submatrices
     [
+        Local(ic);
+
         // STEP 1:  Locate first (sub)column that is NOT all zeros
         If(iDebug, Tell("  STEP 1"));
         cnz := 0;   //  column number of first non-zero column in submatrix
