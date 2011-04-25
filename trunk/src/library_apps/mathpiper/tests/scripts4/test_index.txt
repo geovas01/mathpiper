@@ -10,6 +10,7 @@ cyclotomic.mpt
 deriv.mpt
 dimensions.mpt
 dot.mpt
+factor.mpt
 GaussianIntegers.mpt
 integrate.mpt
 issues.mpt
