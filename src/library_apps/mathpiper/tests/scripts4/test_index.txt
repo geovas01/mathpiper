@@ -43,7 +43,6 @@ solve.mpt
 sturm.mpt
 sums.mpt
 tensors.mpt
-test-yacas-c-version
 trace.mpt
 transforms.mpt
 
