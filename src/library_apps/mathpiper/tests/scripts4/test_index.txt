@@ -19,7 +19,6 @@ linalg.mpt
 lists.mpt
 logic_simplify_test.mpt
 macro.mpt
-mathpiper_tests.log
 matrixpower.mpt
 multivar.mpt
 nthroot.mpt
@@ -30,7 +29,6 @@ ode.mpt
 openmath.mpt
 orthopoly.mpt
 outer.mpt
-piper_test.bat
 plots.mpt
 poly.mpt
 predicates.mpt
@@ -45,4 +43,3 @@ sums.mpt
 tensors.mpt
 trace.mpt
 transforms.mpt
-
