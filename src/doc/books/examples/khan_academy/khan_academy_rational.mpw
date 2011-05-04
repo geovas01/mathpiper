@@ -1,8 +1,8 @@
-v.10.
+v.11.
 
 The purpose of this worksheet is to experiment with using the 
 mpreduce CAS to solve various problems in Khan Academy videos which 
-contain rational functions.
+contain rational expressions.
 
 
 
@@ -35,7 +35,7 @@ ineq_solve((x - 1)/(x + 2) > 0,x);
 %/reduce  
 
     %output,preserve="false"
-      {x<-2,x>1}
+      {x<-2,x>1}$
 .   %/output
 
 
@@ -481,7 +481,6 @@ off factor;
 
 
 
-
 %reduce,title=""
 
 % http://www.khanacademy.org/video/solving-rational-equations?playlist=Algebra%201
@@ -511,6 +510,7 @@ solve( ((-x)/(x - 2)) + ((3x - 1)/(x + 4)) = (1/(x^2 + 2x - 8)) );
 % http://www.khanacademy.org/video/two-more-examples-of-solving-rational-equations?playlist=Algebra%201
 
 solve(x + 1/x = 2, x);
+
 
 solve( 2/(x^2 + 4x + 3) = 2 + ((x - 2)/(x + 3)),x);
 
@@ -581,9 +581,13 @@ off factor;
 
 
 
+
 %reduce,title=""
 
 % http://www.khanacademy.org/video/simplifying-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
+
+% Given a rectangle with length a^2 + 6a - 27 and width a^2-9, write the ratio of the width
+% of the rectangle to its length as a simplified rational expression.
 
 on factor;
 
@@ -607,6 +611,8 @@ off factor;
 
 % http://www.khanacademy.org/video/simplifying-rational-expressions-2?playlist=Algebra%20I%20Worked%20Examples
 
+% Simplify the rational expression and state the domain.
+
 off factor;
 
 zz := (2x^2 + 13x + 20) / (2x^2 + 17x + 30)$
@@ -622,13 +628,9 @@ solve(den(zz) = 0, x);
 %/reduce
 
     %output,preserve="false"
-       x + 4
-      -------
-       x + 6
+      (x + 4)/(x + 6)$
       
-           - 5
-      {x=------,x=-6}
-           2
+      {x=( - 5)/2,x=-6}$
 .   %/output
 
 
@@ -637,15 +639,19 @@ solve(den(zz) = 0, x);
 
 %reduce,title=""
 
-%THIS PROBLEM IS STILL BEING WORKED ON.
+% Note:tk:this problem is still being worked on. The expression needs to be held from being automatically simplified.
 
 % http://www.khanacademy.org/video/simplifying-rational-expressions-3?playlist=Algebra%20I%20Worked%20Examples
+
+% Simplify the rational expression and state the domain..
 
 off factor;
 
 zz := (x^2 - 36) / (6 - x);
 
 on factor;
+
+off factor;
 
 
 %/reduce
@@ -658,6 +664,447 @@ on factor;
 
 
 
+%reduce,title=""
+
+% http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
+
+% Multiply and express as a simplified rational. State the domain.
+
+on factor;
+
+((3x^2*y)/(2a*b)) * ((14a^2*b)/(18x*y^2));
+
+off factor;
+
+
+solve(((2a*b)*(18x*y^2)) = 0);
+
+
+%/reduce
+
+    %output,preserve="false"
+       7*a*x
+      -------
+        6*y
+      
+      Unknowns: {a,b,x,y}
+      
+      {{a=arbcomplex(31),
+      
+        b=0,
+      
+        x=arbcomplex(32),
+      
+        y=arbcomplex(33)},
+      
+       {a=arbcomplex(28),
+      
+        b=arbcomplex(29),
+      
+        x=0,
+      
+        y=arbcomplex(30)},
+      
+       {a=arbcomplex(25),
+      
+        b=arbcomplex(26),
+      
+        x=arbcomplex(27),
+      
+        y=0},
+      
+       {a=0,
+      
+        b=arbcomplex(34),
+      
+        x=arbcomplex(35),
+      
+        y=arbcomplex(36)}}
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions-2?playlist=Algebra%20I%20Worked%20Examples
+
+% Multiply as a simplifed rational and state the domain.
+
+on factor;
+
+((a^2 - 4)/(a^2 - 1) * (a + 1)/(a + 2));
+
+
+off factor;
+
+solve((a^2 - 1) * (a + 2) = 0);
+
+
+%/reduce
+
+    %output,preserve="false"
+       a - 2
+      -------
+       a - 1
+      
+      Unknown: a
+      
+      {a=1,a=-1,a=-2}
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions-3?playlist=Algebra%20I%20Worked%20Examples
+
+% Divide and express as a simplified rational. State the domain.
+
+on factor;
+
+((2p + 6)/(p + 5)) / (10/(4p + 20));
+
+off factor;
+
+%/reduce
+
+    %output,preserve="false"
+       4*(p + 3)
+      -----------
+           5
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/adding-and-subtracting-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
+
+% Find the perimeter of a rectangle with the length and width given below. Express
+% your answer as a simplified rational expression and state the domain.
+% State the domain.
+
+on factor;
+
+(2*((2*x + 5*y)/(x + 4))) + (2*((x - 3*y)/(x + 4)));
+
+off factor;
+
+%/reduce
+
+    %output,preserve="false"
+       2*(3*x + 2*y)
+      ---------------
+           x + 4
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/adding-and-subtracting-rational-expressions-2?playlist=Algebra%20I%20Worked%20Examples
+
+% Find the sum. Express the answer as a simplified rational expression and state the domain.
+% State the domain.
+
+on factor;
+
+((5/(6*x^4))) + (7/(3*x^2));
+
+off factor;
+%/reduce
+
+    %output,preserve="false"
+           2
+       14*x  + 5
+      -----------
+            4
+         6*x
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/adding-and-subtracting-rational-expressions-3?playlist=Algebra%20I%20Worked%20Examples
+
+% Find the difference. Express the answer as a simplified rational expression and
+% state the domain.
+
+on factor;
+
+((a - 2)/(a + 2)) - ((a - 3)/(a^2 + 4*a + 4));
+
+off factor;
+
+
+%/reduce
+
+    %output,preserve="false"
+        2
+       a  - a - 1
+      ------------
+               2
+        (a + 2)
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/solving-rational-equations-1?playlist=Algebra%20I%20Worked%20Examples
+
+% Solve the following equation. x != -3 and a != 1.
+
+solve(5/(x - 1) = 3/(x + 3), x);
+
+%/reduce
+
+    %output,preserve="false"
+      {x=-9}
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/solving-rational-equations-2?playlist=Algebra%20I%20Worked%20Examples
+
+% Solve the following equation. x != 0.
+
+solve( 5/(2*x) - 4/(3*x) = 7/18,x);
+
+%/reduce
+
+    %output,preserve="false"
+      {x=3}
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/solving-rational-equations-3?playlist=Algebra%20I%20Worked%20Examples
+
+% Solve the following equation. x != 2.
+
+solve( x^2 - (x^2 - 4) / (x - 2) = 4, x);
+
+%/reduce
+
+    %output,preserve="false"
+      {x=3,x=-2}
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/applying-rational-equations-1?playlist=Algebra%20I%20Worked%20Examples
+
+% Ian can rake a lawn and bag the leaves in 5 hours. Kyandre can rake the same
+% lawn and bag the leaves in 3 hours. Working together, how long would it take
+% them to rake the lawn and bag the leaves?
+
+solve( 1/5 + 1/3 = 1/t, t);
+
+
+%/reduce
+
+    %output,preserve="false"
+          15
+      {t=----}
+          8
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/applying-rational-equations-1-extra-commentary?playlist=Algebra%20I%20Worked%20Examples
+
+% This video is no longer around error.
+
+
+%/reduce
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/applying-rational-equations-2?playlist=Algebra%20I%20Worked%20Examples
+
+% Working together, Anya and Bill stained a large porch
+% deck in 8 hours. Last year, Anya stained the deck by
+% herself. The year before, Bill painted it by himself, but
+% took twice as long as Anya did. How long did Anya and
+% Bill take, when each was painting alone?
+
+solve( 1/A + 1/(2*A) = 1/8, A);
+
+
+%/reduce
+
+    %output,preserve="false"
+      {a=12}
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/applying-rational-equations-3?playlist=Algebra%20I%20Worked%20Examples
+
+solve( 1/f + 1/(f + 10) = 1/12, f);
+
+% The -6 is not used.
+
+
+%/reduce
+
+    %output,preserve="false"
+      {f=20,f=-6}
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/ca-algebra-i--rational-expressions?playlist=California%20Standards%20Test:%20Algebra%20I
+
+on factor;
+
+(x^2 - 4*x + 4) / (x^2 - 3*x + 2);
+
+(12*a^3 - 20*a^2) / (16*a^2 + 8*a);
+
+((7*z^2 + 7*z) / (4*z + 8)) * ((z^2 - 4) / (z^3 + 2*z^2 + z));
+
+off factor;
+
+((x + 5) / (3*x + 2)) * ((2*x - 3) / ( x - 5));
+
+on factor;
+
+((x^2 + 8*x + 16) / (x + 3)) / ((2*x + 8) / (x^2 - 9));
+
+off factor;
+
+
+%/reduce
+
+    %output,preserve="false"
+       x - 2
+      -------
+       x - 1
+      
+       (3*a - 5)*a
+      -------------
+       2*(2*a + 1)
+      
+       7*(z - 2)
+      -----------
+       4*(z + 1)
+      
+          2
+       2*x  + 7*x - 15
+      ------------------
+          2
+       3*x  - 13*x - 10
+      
+       (x + 4)*(x - 3)
+      -----------------
+              2
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/simplifying-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
+
+on factor;
+
+(a^2 - 9) / (a^2 + 6*a - 27);
+
+% a != -9 and a != 3/
+
+off factor;
+
+%/reduce
+
+    %output,preserve="false"
+       a + 3
+      -------
+       a + 9
+.   %/output
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/adding-and-subtracting-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
+
+% Find the perimeter of a rectangle with the length and width given below. Express
+% your answer as a simplified rational expression and state the domain.
+
+P := 2*l + 2*w$
+
+l := (2*x + 5*y) / (x + 4);
+
+w := (x - 3*y) / (x + 4);
+
+on factor;
+
+P;
+
+off factor;
+
+%/reduce
+
+    %output,preserve="false"
+            2*x + 5*y
+      l := -----------
+              x + 4
+      
+            x - 3*y
+      w := ---------
+             x + 4
+      
+       2*(3*x + 2*y)
+      ---------------
+           x + 4
+.   %/output
 
 
 
@@ -666,43 +1113,12 @@ on factor;
 
 
 
-
+These videos still need to be studied.
 
 % http://www.khanacademy.org/video/integers-and-rational-numbers?playlist=Algebra%201 
 % http://www.khanacademy.org/video/asymptotes-of-rational-functions?playlist=Algebra%201
 % http://www.khanacademy.org/video/another-rational-function-graph-example?playlist=Algebra%201
 % http://www.khanacademy.org/video/a-third-example-of-graphing-a-rational-function?playlist=Algebra%201
-
-
-
-
-
-
-
-
-% http://www.khanacademy.org/video/simplifying-rational-expressions-3?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions-2?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions-3?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/adding-and-subtracting-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/adding-and-subtracting-rational-expressions-2?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/adding-and-subtracting-rational-expressions-3?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/solving-rational-equations-1?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/solving-rational-equations-2?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/solving-rational-equations-3?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/applying-rational-equations-1?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/applying-rational-equations-1-extra-commentary?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/applying-rational-equations-2?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/applying-rational-equations-3?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/ca-algebra-i--rational-expressions?playlist=California%20Standards%20Test:%20Algebra%20I
-% http://www.khanacademy.org/video/debt-loops-rationale-and-effects?playlist=Currency
-% http://www.khanacademy.org/video/simplifying-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/adding-and-subtracting-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
-% http://www.khanacademy.org/video/applying-rational-equations-1?playlist=Algebra%20I%20Worked%20Examples
-
-
-
-                    
  
 
 
