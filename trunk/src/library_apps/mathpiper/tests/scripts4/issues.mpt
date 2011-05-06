@@ -180,3 +180,6 @@ Verify(Differentiate(x, 1) ArcSin(Sin(x)), Cos(x)/Sqrt(1-Sin(x)^2));
 
 // Issue 118
 Verify(Factor(a^2 - a*f + f^2), a^2-a*f+f^2);
+
+// Issue 119
+Verify(Integrate(x) 1/(4 * x^2 + 1), ArcTan(2*x)/2);
