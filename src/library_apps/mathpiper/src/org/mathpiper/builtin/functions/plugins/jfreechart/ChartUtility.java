@@ -63,26 +63,25 @@ public class ChartUtility {
         if (Utility.isNestedList(aEnvironment, aStackTop, dataListPointer)) {
 
             List dataSeriesList = new ArrayList();
-            List seriesTotalList = new ArrayList();
             dataListPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
             int seriesIndex = 1;
+            int dataSize = 0;
             while (dataListPointer.getCons() != null) {
                 double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (ConsPointer) dataListPointer.car());
+                if (dataValues.length > dataSize)
+                    dataSize = dataValues.length;
                 String seriesTitle = "";
                 if (userOptions.containsKey("series" + seriesIndex + "Title")) {
                     seriesTitle = (String) userOptions.get("series" + seriesIndex + "Title");
                 }
                 dataSeriesList.add(seriesTitle);
                 dataSeriesList.add(dataValues);
-                int index = 0;
-                while (index < dataValues.length) {
-                    seriesTotalList.add(dataValues[index++]);
-                }//end while
                 seriesIndex++;
                 dataListPointer.goNext(aStackTop, aEnvironment);
             }//end while.
 
-            int numberOfBins = 15;
+            int numberOfBins = Math.max((int) Math.sqrt(dataSize), 5);
+
             if (userOptions.get("numberOfBins") != null) {
                 numberOfBins = (int) ((Double)userOptions.get("numberOfBins")).doubleValue();
             }
@@ -102,20 +101,17 @@ public class ChartUtility {
             }//end while.
 
         } else {//Just a single series.
-            int numberOfBins = 15;
+            double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, dataListPointer);
+
+            int numberOfBins = Math.max((int) Math.sqrt(dataValues.length),5);
             Double numberOfBinsDouble = (Double) userOptions.get("numberOfBins");
             if (numberOfBinsDouble != null) {
                 numberOfBins = (int) numberOfBinsDouble.doubleValue();
             }//end if.
 
 
-            double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, dataListPointer);
-
-
             Double binMinimum = (Double) userOptions.get("binMinimum");
             Double binMaximum = (Double) userOptions.get("binMaximum");
-
-
 
             if (binMinimum != null && binMaximum != null) {
                 dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, numberOfBins, binMinimum, binMaximum);
