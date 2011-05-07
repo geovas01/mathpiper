@@ -1,0 +1,76 @@
+This worksheet contains experimental code for generating random algebraic expressions.
+The integer that is passed to randomExpression specifies how complex the
+generated expression should be.
+
+In> zz := randomExpression(3)
+Result: (y-a)*(1-c)
+
+In> zz := randomExpression(4)
+Result: (a+y)/(a-1)+2+a+2/3
+
+In> zz := randomExpression(6)
+Result: (-y/c-(1/2+y+x))/((5-5+4/x)*(a-a)*(-c))+(3/3*3*c-(a+3-x/3))/((4-5)/(-2)+c*y-2*1)
+
+
+
+%mathpiper,title=""
+
+productions := {};
+
+terminals := Flatten({a,b,c,x,y,1 .. 8}, "List");
+
+randomExpression(p) :=
+[
+    Local(f);
+    
+    p--;
+    
+    f := productions[RandomInteger(Length(productions))];
+    
+    If(p = 0, RandomInteger(9), f[2] @ {p});
+    
+    If(p = 0, RandomPick(terminals), f[2] @ {p});
+
+];
+
+
+
+productions["minus"] := {{p},
+Hold([
+    ListToFunction({ToAtom("-"), randomExpression(p)}); 
+])};
+
+
+productions["product"] := {{p},
+Hold([
+    ListToFunction({ToAtom("*"), randomExpression(p), randomExpression(p)});
+])};
+
+
+productions["quotient"] := {{p},
+Hold([
+    ListToFunction({ToAtom("/"), randomExpression(p), randomExpression(p)});
+])};
+
+
+productions["sum"] := {{p}, 
+Hold([
+    ListToFunction({ToAtom("+"), randomExpression(p), randomExpression(p)});
+])};
+
+
+productions["difference"] := {{p}, 
+Hold([
+    ListToFunction({ToAtom("-"), randomExpression(p), randomExpression(p)});
+])};
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
