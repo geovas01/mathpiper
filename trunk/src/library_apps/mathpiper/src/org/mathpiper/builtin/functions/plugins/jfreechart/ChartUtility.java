@@ -82,28 +82,22 @@ public class ChartUtility {
                 dataListPointer.goNext(aStackTop, aEnvironment);
             }//end while.
 
-            double minimumValue = Double.MAX_VALUE;
-            double maximumValue = Double.MIN_VALUE;
-            int index = 0;
-            while (index < seriesTotalList.size()) {
-                Double value = (Double) seriesTotalList.get(index);
-                if (value < minimumValue) {
-                    minimumValue = value;
-                }
-                if (value > maximumValue) {
-                    maximumValue = value;
-                }
-                index++;
-            }//end while
-            minimumValue = Math.floor(minimumValue) - .5;
-            maximumValue = Math.floor(maximumValue) + .5;
+            int numberOfBins = 15;
+            if (userOptions.get("numberOfBins") != null) {
+                numberOfBins = (int) ((Double)userOptions.get("numberOfBins")).doubleValue();
+            }
 
+            Double binMinimum = (Double) userOptions.get("binMinimum");
+            Double binMaximum = (Double) userOptions.get("binMaximum");
 
             int seriesIndex2 = 0;
             while (seriesIndex > 1) {
                 String seriesTitle = (String) dataSeriesList.get(seriesIndex2++);
                 double[] dataValues = (double[]) dataSeriesList.get(seriesIndex2++);
-                dataSet.addSeries(seriesTitle, dataValues, 15, minimumValue, maximumValue);
+                if (binMinimum != null && binMaximum != null)
+                    dataSet.addSeries(seriesTitle, dataValues, numberOfBins, binMinimum, binMaximum);
+                else
+                    dataSet.addSeries(seriesTitle, dataValues, numberOfBins);
                 seriesIndex--;
             }//end while.
 
