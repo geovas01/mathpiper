@@ -658,11 +658,20 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
     public void response(EvaluationResponse response) {
 
+        resultHolder = new ResultHolder("Error in GraphicConsole.", "Error in GraphicConsole.", fontSize + resultHolderAdjustment);
+
+        Object responseObject = response.getObject();
+
         if (response.isExceptionThrown()) {
             resultHolder = new ResultHolder("Exception", "Exception", fontSize + resultHolderAdjustment);
+        }
+        else if (responseObject instanceof java.awt.Component)
+        {
+            String className = responseObject.getClass().toString();
+
+            resultHolder = new ResultHolder(className.replace(" ", "\\vspace{20 mm"), className, fontSize + resultHolderAdjustment);
         } else {
 
-            Object responseObject = response.getObject();
             if (responseObject == null && response.getResultList() != null) {
 
 
