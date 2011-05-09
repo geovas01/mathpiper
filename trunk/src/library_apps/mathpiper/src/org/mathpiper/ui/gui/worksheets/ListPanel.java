@@ -1,4 +1,4 @@
-package org.mathpiper.ui.gui.worksheets; // ViewList({{a},{b}})
+package org.mathpiper.ui.gui.worksheets;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -20,19 +20,17 @@ import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
 public class ListPanel extends JPanel implements ViewPanel {
 
     private ConsNode headNode;
-
     protected double viewScale = 1;
-    
     private Queue<ConsNode> levelQueue = new LinkedList();
-    
     private Stack<ConsXHolder> sequenceStack = new Stack();
-
     private boolean paintedOnce = false;
-
     private int largestX = 0;
-
     private int largestY = 0;
 
+    /*
+        The code in this constructor rearranges the cons cells that are in a Lisp list into a row-oriented data
+        structure that more closely reflects the way the list will be displayed graphically.
+     */
 
     public ListPanel(Environment aEnvironment, int aStackTop, ConsPointer consPointer, double viewScale) {
         super();
@@ -42,176 +40,124 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         String sublistName = "(   )";
 
-        //int startX = 0; //10;
-        //int xStep = 1; //60;
+        int startY = 0;
 
-        int startY = 0; //10;
-        int yStep = 1; //40;
-
+        int yStep = 1;
 
         try {
-
 
             Cons headCons = consPointer.getCons();
 
             headNode = new ConsNode();
-            if(headCons instanceof SublistCons)
-            {
+            if (headCons instanceof SublistCons) {
                 headNode.setName(sublistName);
-            }
-            else
-            {
+            } else {
                 headNode.setName(headCons.car().toString());
             }
-            //headNode.setX(startX);
+
             headNode.setY(startY);
 
-            if(headCons == null)
-            {
+            if (headCons == null) {
                 throw new Exception("Null cons.");
             }
 
 
-            if(!(headCons instanceof SublistCons))
-            {
-                //Display a single non-list cons.
-                /*headNode = new ConsNode();
-                headNode.setName(headCons.car().toString());
-                headNode.setX(startX);
-                headNode.setY(startY);
-                 * */
-            }
-            else
-            {
-                ConsXHolder consXHolder = new ConsXHolder(headCons, headNode);
-                sequenceStack.push(consXHolder);
+            ConsXHolder consXHolder = new ConsXHolder(headCons.copy(aEnvironment, false), headNode);
 
-                ConsNode currentNode = null;
+            sequenceStack.push(consXHolder);
 
-                while(!sequenceStack.empty())
-                {
-                    consXHolder = sequenceStack.pop();
-                    
-                    //Remove rest because it has already been processed.
-                    consXHolder.getCons().cdr().setCons(null);
+            ConsNode currentNode = null;
 
-                    ConsPointer currentConsPointer = new ConsPointer(consXHolder.getCons());
+            while (!sequenceStack.empty()) {
+                consXHolder = sequenceStack.pop();
 
-                    currentNode = consXHolder.getConsNode();
+                //Remove rest because it has already been processed.
+                consXHolder.getCons().cdr().setCons(null);
 
-                    if(currentConsPointer.getCons() == headCons)
-                    {
-                        //If this is the head cons, create the head node.
-                        /*headNode = new ConsNode();
-                        currentNode = headNode;
-                        currentNode.setX(startX);
-                        currentNode.setY(startY);*/
-                    }//end if.
+                ConsPointer currentConsPointer = new ConsPointer(consXHolder.getCons());
 
-                    while(currentConsPointer.cdr().getCons() != null || (currentConsPointer.car() instanceof ConsPointer && ((ConsPointer)currentConsPointer.car()).getCons() != null))
-                    {
-                        if(currentConsPointer.cdr().getCons() != null)
-                        {
-                            //Go next.
-                            currentConsPointer.goNext(aStackTop, aEnvironment);
-                            ConsNode newNode = new ConsNode();
-                            if(! (currentConsPointer.getCons() instanceof SublistCons))
-                            {
-                                String name = currentConsPointer.getCons().toString();
-                                newNode.setName(name);
-                            }
-                            else
-                            {
-                                newNode.setName(sublistName);
-                            }
-                            //newNode.setX(currentNode.getX() + xStep);
+                currentNode = consXHolder.getConsNode();
 
-                            /*if(newNode.getX() > largestX)
-                            {
-                                largestX = newNode.getX();
-                            }*/
+                while (currentConsPointer.cdr().getCons() != null || (currentConsPointer.car() instanceof ConsPointer && ((ConsPointer) currentConsPointer.car()).getCons() != null)) {
 
-                            currentNode.setCdr(newNode);
-                            currentNode = newNode;
+                    if (currentConsPointer.cdr().getCons() != null) {
 
-                            if(currentConsPointer.getCons() instanceof SublistCons)
-                            {
-                                sequenceStack.push(new ConsXHolder(currentConsPointer.getCons(), currentNode));
+                        currentConsPointer.goNext(aStackTop, aEnvironment);
 
-                                if(currentConsPointer.getCons().cdr().getCons() == null)
-                                {
-                                    break;
-                                }//end if.
+                        ConsNode newNode = new ConsNode();
 
-                            }//end if.
-
+                        if (!(currentConsPointer.getCons() instanceof SublistCons)) {
+                            String name = currentConsPointer.getCons().toString();
+                            newNode.setName(name);
+                        } else {
+                            newNode.setName(sublistName);
                         }
-                        else
-                        {
-                            if((currentConsPointer.car() instanceof ConsPointer && ((ConsPointer)currentConsPointer.car()).getCons() == null))//! (currentConsPointer.getCons() instanceof SublistCons)) //(ConsPointer)currentConsPointer.car()).getCons() == null
-                            {
+
+                        currentNode.setCdr(newNode);
+
+                        currentNode = newNode;
+
+                        if (currentConsPointer.getCons() instanceof SublistCons) {
+                            sequenceStack.push(new ConsXHolder(currentConsPointer.getCons().copy(aEnvironment, false), currentNode));
+
+                            if (currentConsPointer.getCons().cdr().getCons() == null) {
                                 break;
-                            }
-
-                            //GoSub.
-                            currentConsPointer.goSub(aStackTop, aEnvironment);
-
-                            if(currentConsPointer.getCons() instanceof SublistCons)
-                            {
-                                sequenceStack.push(new ConsXHolder(currentConsPointer.getCons(), currentNode)); //currentNode.getX()));
                             }//end if.
 
-                            ConsNode newNode = new ConsNode();
+                        }//end if.
 
-                            if(! (currentConsPointer.getCons() instanceof SublistCons))
-                            {
-                                String name = currentConsPointer.getCons().toString();
-                                newNode.setName(name);
-                            }
-                            else
-                            {
-                                newNode.setName(sublistName);
-                            }
+                    } else {
+                        if ((currentConsPointer.car() instanceof ConsPointer && ((ConsPointer) currentConsPointer.car()).getCons() == null))//! (currentConsPointer.getCons() instanceof SublistCons)) //(ConsPointer)currentConsPointer.car()).getCons() == null
+                        {
+                            break;
+                        }
 
-                            //newNode.setX(currentNode.getX()); //currentNode.getX());
+                        currentConsPointer.goSub(aStackTop, aEnvironment);
 
-                            currentNode.setCar(newNode);
+                        if (currentConsPointer.getCons() instanceof SublistCons) {
+                            sequenceStack.push(new ConsXHolder(currentConsPointer.getCons().copy(aEnvironment, false), currentNode)); //currentNode.getX()));
+                        }//end if.
 
-                            currentNode = newNode;
+                        ConsNode newNode = new ConsNode();
 
-                            levelQueue.add(currentNode);
+                        if (!(currentConsPointer.getCons() instanceof SublistCons)) {
+                            String name = currentConsPointer.getCons().toString();
+                            newNode.setName(name);
+                        } else {
+                            newNode.setName(sublistName);
+                        }
 
-                        }//end else.
+                        currentNode.setCar(newNode);
 
-                    }//end goNext while.
+                        currentNode = newNode;
 
-                }//end while.
+                        levelQueue.add(currentNode);
 
-                
-                int y = startY;
+                    }//end else.
 
-                while(levelQueue.peek() != null)
-                {
-                    ConsNode consNode = levelQueue.poll();
-                    consNode.setY(y += yStep);
+                }//end goNext while.
 
-                    if(consNode.getY() > largestY)
-                    {
-                        largestY = consNode.getY();
-                    }
+            }//end while.
+
+
+            int y = startY;
+
+            while (levelQueue.peek() != null) {
+                ConsNode consNode = levelQueue.poll();
+                consNode.setY(y += yStep);
+
+                if (consNode.getY() > largestY) {
+                    largestY = consNode.getY();
                 }
-
-            }//end else.
-
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
-
-
         }
 
 
     }
+
 
     public void paint(Graphics g) {
         super.paint(g);
@@ -227,23 +173,25 @@ public class ListPanel extends JPanel implements ViewPanel {
         int height = ScaledGraphics.fontForSize(1);
         sg.setFontSize(height);
 
-        if(headNode != null)
-        {   
+        if (headNode != null) {
             drawBox(headNode, 0, sg);
 
         }//end if
 
-        if(paintedOnce == false)
-        {
+        if (paintedOnce == false) {
             super.revalidate();
-            
+
             paintedOnce = true;
         }
 
     }//end method.
 
-    private void drawBox(ConsNode currentNode, double previousRightX, ScaledGraphics sg)
-    {
+
+    private void drawBox(ConsNode currentNode, double previousRightX, ScaledGraphics sg) {
+        /*
+        This method displays the cons cells which are in the row-oriented
+        data structure that was created in the constructor.
+         */
 
         int height = 25;
         int xGap = 10;
@@ -251,27 +199,23 @@ public class ListPanel extends JPanel implements ViewPanel {
         int textOffset = 0;
 
 
-
-        if(currentNode == null)
-        {
+        if (currentNode == null) {
             return;
         }
 
- 
+
         double x = previousRightX + xGap;
 
         int y = currentNode.getY() * (height + yGap) + yGap;
 
-        String name = currentNode.getName() ;
+        String name = currentNode.getName();
+
         double textWidth = sg.getScaledTextWidth(name);
 
-        if(textWidth < 25)
-        {
-            textOffset = ((int) (25 - textWidth)/2) + 1;
+        if (textWidth < 25) {
+            textOffset = ((int) (25 - textWidth) / 2) + 1;
             textWidth = 25;
-        }
-        else
-        {
+        } else {
             textOffset = 3;
             textWidth += 5;
         }
@@ -284,31 +228,27 @@ public class ListPanel extends JPanel implements ViewPanel {
         sg.drawLine(x + textWidth, y, x + textWidth, y + height);
 
 
-        if(name != null)
-        {
+        if (name != null) {
             sg.setColor(Color.BLUE);
             sg.drawscaledText(name, x + textOffset, y + 15, 1.0);
             sg.setColor(Color.BLACK);
         }
 
-        if(currentNode.getCdr() != null)
-        {
+        if (currentNode.getCdr() != null) {
             currentNode.getCdr().setY(currentNode.getY());
 
-            sg.drawLine(x + boxWidth - 12, y + 12, x + boxWidth + xGap , y + 12);
+            sg.drawLine(x + boxWidth - 12, y + 12, x + boxWidth + xGap, y + 12);
         }
 
-        
-        if(largestX < (int) (x + boxWidth + xGap))
-        {
+
+        if (largestX < (int) (x + boxWidth + xGap)) {
             largestX = (int) (x + boxWidth + xGap);
         }
-        
 
 
-        if(currentNode.getCar() != null)
-        {
-            sg.drawLine(x + 13, y + 12, x + 13 , currentNode.getCar().getY() * (height + yGap) + yGap);
+
+        if (currentNode.getCar() != null) {
+            sg.drawLine(x + 13, y + 12, x + 13, currentNode.getCar().getY() * (height + yGap) + yGap);
         }
 
         drawBox(currentNode.getCdr(), x + boxWidth, sg);
@@ -318,21 +258,20 @@ public class ListPanel extends JPanel implements ViewPanel {
 
     }//end method.
 
-        public Dimension getPreferredSize() {
-           if(paintedOnce)
-           {
-                Bounds maxBounds = new Bounds(0, (largestY + 1) * (25 + 10) + 10, 0, largestX);
 
-                Dimension scaledDimension = maxBounds.getScaledDimension(this.viewScale);
+    public Dimension getPreferredSize() {
+        if (paintedOnce) {
+            Bounds maxBounds = new Bounds(0, (largestY + 1) * (25 + 10) + 10, 0, largestX);
 
-                return scaledDimension;
-           }
-           else
-           {
-                return new Dimension(700,600);
-           }
+            Dimension scaledDimension = maxBounds.getScaledDimension(this.viewScale);
 
-        }//end method.
+            return scaledDimension;
+        } else {
+            return new Dimension(700, 600);
+        }
+
+    }//end method.
+
 
     public void setViewScale(double viewScale) {
         this.viewScale = viewScale;
@@ -340,13 +279,13 @@ public class ListPanel extends JPanel implements ViewPanel {
         this.repaint();
     }
 
-
     private class ConsNode {
 
         private ConsNode car;
         private ConsNode cdr;
         private String name = "";
         private int y;
+
 
         public ConsNode() {
         }
@@ -356,29 +295,36 @@ public class ListPanel extends JPanel implements ViewPanel {
             return car;
         }
 
+
         public void setCar(ConsNode down) {
             this.car = down;
         }
+
 
         public ConsNode getCdr() {
             return cdr;
         }
 
+
         public void setCdr(ConsNode right) {
             this.cdr = right;
         }
+
 
         public String getName() {
             return name;
         }
 
+
         public void setName(String name) {
             this.name = name;
         }
 
+
         public int getY() {
             return y;
         }
+
 
         public void setY(int y) {
             this.y = y;
@@ -386,35 +332,37 @@ public class ListPanel extends JPanel implements ViewPanel {
 
     }//end class.
 
-
     private class ConsXHolder {
 
         private Cons cons;
         private ConsNode consNode;
 
-        public ConsXHolder(Cons cons, ConsNode consNode){
+
+        public ConsXHolder(Cons cons, ConsNode consNode) {
             this.cons = cons;
 
             this.consNode = consNode;
         }
+
 
         public Cons getCons() {
             return cons;
         }
 
+
         public void setCons(Cons cons) {
             this.cons = cons;
         }
+
 
         public ConsNode getConsNode() {
             return consNode;
         }
 
+
         public void setConsNode(ConsNode consNode) {
             this.consNode = consNode;
         }
-
-
 
     }//end class.
 
