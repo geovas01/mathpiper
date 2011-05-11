@@ -36,28 +36,27 @@ package org.mathpiper.mpreduce.io.streams;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintStream;
 
 import org.mathpiper.mpreduce.Jlisp;
 
 public class DoubleWriter extends LispStream
 {
-    Writer log;
+    PrintStream log;
     boolean closeMe;
 
-    public DoubleWriter(String n, Writer log) throws IOException // to a named file
+    public DoubleWriter(String n, PrintStream log) throws IOException // to a named file
     {
         super(n);
-        wr = new BufferedWriter(new FileWriter(nameConvert(n)));
+        wr = new PrintStream(new FileOutputStream(nameConvert(n)));
         this.log = log;
         closeMe = true;
         Jlisp.openOutputFiles.add(this);
     }
 
-    public DoubleWriter(Writer log) // uses standard input, no extra buffering.
+    public DoubleWriter(PrintStream log) // uses standard input, no extra buffering.
     {
         super("<stdout>");
         wr = Jlisp.out;
@@ -68,43 +67,36 @@ public class DoubleWriter extends LispStream
 
     public void flush()
     {
-        try
-        {   wr.flush();
+    wr.flush();
             log.flush();
-        }
-        catch (IOException e)
-        {}
+
     }
 
     public void close()
     {
         Jlisp.openOutputFiles.removeElement(this);
-        try
-        {   wr.flush();
+   wr.flush();
             log.flush();
             if (closeMe) wr.close();
             log.close();
-        }
-        catch (IOException e)
-        {}
+
     }
 
     public void print(String s)
     {
         if (s == null) s = "null";
-        char [] v = s.toCharArray();
+        byte [] v = s.getBytes();
 // It *MAY* be better to use getChars here and move data into a pre-allocated
 // array of characters.
-        try
-        {   int p = 0;
+   int p = 0;
             for (int i=0; i<v.length; i++)
-            {   char c = v[i];
+            {   byte c = v[i];
 // See commentary if LispOutputStream.java
                 if (c == '\n') 
                 {   wr.write(v, p, i-p);
-                    wr.write(eol);
+                    wr.print(eol);
                     log.write(v, p, i-p);
-                    log.write(eol);
+                    log.print(eol);
                     p = i+1;
                     column = 0;
                 }
@@ -118,24 +110,21 @@ public class DoubleWriter extends LispStream
             }
             wr.write(v, p, v.length-p);
             log.write(v, p, v.length-p);
-        }
-        catch (IOException e)
-        {}
+
     }
 
     public void println(String s)
     {
         if (s == null) s = "null";
-        char [] v = s.toCharArray();
-        try
-        {   int p = 0;
+        byte [] v = s.getBytes();
+   int p = 0;
             for (int i=0; i<v.length; i++)
-            {   char c = v[i];
+            {   byte c = v[i];
                 if (c == '\n') 
                 {   wr.write(v, p, i-p);
-                    wr.write(eol);
+                    wr.print(eol);
                     log.write(v, p, i-p);
-                    log.write(eol);
+                    log.print(eol);
                     p = i+1;
                 }
                 else if (c == '\r')
@@ -145,12 +134,10 @@ public class DoubleWriter extends LispStream
                 }
             }
             wr.write(v, p, v.length-p);
-            wr.write(eol);
+            wr.print(eol);
             log.write(v, p, v.length-p);
-            log.write(eol);
-        }
-        catch (IOException e)
-        {}
+            log.print(eol);
+
         column = 0;
     }
 

@@ -207,10 +207,12 @@
 		
 		<copy todir="${build.dir}/gwt_dist/src">
 			<fileset dir="${mpreduce.dir}/src/java/" >
+				<include name="org/mathpiper/mpreduce/Environment.java" />
 				<include name="org/mathpiper/mpreduce/Interpreter2.java" />
 				<include name="org/mathpiper/mpreduce/Jlisp.java" />
 				<include name="org/mathpiper/mpreduce/LispEqualObject.java" />
 				<include name="org/mathpiper/mpreduce/LispObject.java" />
+				<include name="org/mathpiper/mpreduce/LispReader.java" />
 				<include name="org/mathpiper/mpreduce/Lit.java" />
 				<include name="org/mathpiper/mpreduce/Spid.java" />
 				<include name="org/mathpiper/mpreduce/datatypes/" />
