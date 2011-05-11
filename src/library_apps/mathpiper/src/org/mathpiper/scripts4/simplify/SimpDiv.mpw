@@ -1,5 +1,0 @@
-%mathpiper,def="SimpDiv"
-
-Rulebase("SimpDiv",{x,y});
-
-%/mathpiper

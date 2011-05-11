@@ -1,3 +1,0 @@
-MathPiperIDE README
-
-In development.

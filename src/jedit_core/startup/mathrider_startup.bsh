@@ -1,8 +1,0 @@
-bsi = new org.gjt.sp.jedit.bsh.Interpreter();
-//bsi.eval("import geogebra.GeoGebraApplet;");
-//ggb = org.mathpiper.ide.geogebraplugin.Geogebra.getGeoGebraApplet();
-//bsi.set("ggb",ggb);
-bsi.source("jars/scripts/startup/mathpiperide_functions.bsh");
-//globalMethods = bsi.getNameSpace().getMethods();
-//	for( method : globalMethods )
-//	    print(method);

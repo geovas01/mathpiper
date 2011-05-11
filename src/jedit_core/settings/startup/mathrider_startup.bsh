@@ -1,3 +1,0 @@
-//This prevents the plugin docking menu from being drawn behind heavyweight components.
-javax.swing.JPopupMenu.setDefaultLightWeightPopupEnabled(false);
-
