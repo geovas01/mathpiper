@@ -28,13 +28,11 @@
  *************************************************************************/
 package org.mathpiper.mpreduce;
 
-import java.applet.Applet;
-import java.io.CharArrayWriter;
-import java.io.PrintWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.io.Reader;
 
-
-public class Interpreter2 extends Applet {
+public class Interpreter2 {
 
     Jlisp jlisp;
     private static Interpreter2 JlispCASInstance = null;
@@ -44,7 +42,7 @@ public class Interpreter2 extends Applet {
     private String sendString = null;
     private StringBuffer inputBuffer = new StringBuffer();
     Reader in;
-    PrintWriter out;
+    PrintStream out;
 
 
     public Interpreter2() {
@@ -57,7 +55,7 @@ public class Interpreter2 extends Applet {
 
             in = new InterpreterReader(this);
 
-            out = new PrintWriter(new InterpreterWriter(), false);
+            out = new PrintStream(new InterpreterWriter(), false);
 
             final String[] args = new String[0];
 
@@ -101,7 +99,6 @@ public class Interpreter2 extends Applet {
     }//end method.
 
 
-
     public static Interpreter2 getInstance() throws Throwable {
         if (JlispCASInstance == null) {
             JlispCASInstance = new Interpreter2();
@@ -109,7 +106,6 @@ public class Interpreter2 extends Applet {
         return JlispCASInstance;
     }//end method.
 
-    
 
     public synchronized String evaluate(String send) throws Throwable {
 
@@ -149,7 +145,6 @@ public class Interpreter2 extends Applet {
     }//end evaluate.
 
 
-
     public void interruptEvaluation() {
         try {
 
@@ -159,8 +154,6 @@ public class Interpreter2 extends Applet {
             //Each excpetion.
         }
     }
-
-
 
     //Lisp in, my out.
     class InterpreterReader extends Reader {
@@ -234,30 +227,32 @@ public class Interpreter2 extends Applet {
 
     }
 
-
-    
     //Lisp out, my in.
-    class InterpreterWriter extends CharArrayWriter {
+    class InterpreterWriter extends ByteArrayOutputStream {
 
         InterpreterWriter() {
-            super(8000);      // nice big buffer by default;
+            super(1000);
         }
+
 
         public void close() {
             flush();
         }
 
+
         public void flush() {
-            super.flush();
-            if (size() != 0) // mild optimisation, I suppose!
-            {
-        // The JavaDocs of the Writer class recommends to lock this way in sub-classes.
-        // Here we MUST ensure that if we do the toString() that we do the reset()
-        // before anybody adds any more characters to this stream.
-                synchronized (lock) {
+
+            try {
+                super.flush();
+                if (size() != 0) // mild optimisation, I suppose!
+                {
+
                     Interpreter2.this.inputBuffer.append(toString());
                     reset();
+
                 }
+            } catch (Exception ioe) {
+                ioe.printStackTrace();
             }
 
         }

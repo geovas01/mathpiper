@@ -39,7 +39,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.PrintStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 import org.mathpiper.mpreduce.Environment;
@@ -241,7 +241,7 @@ public class Fasl
                     {   Jlisp.errprintln(
                             "+++ Ignoring error in loaded file");
                         if (Jlisp.backtrace)
-                        {   e.printStackTrace(new PrintWriter(
+                        {   e.printStackTrace(new PrintStream(
                               new WriterToLisp(
                                 (LispStream)Jlisp.lit[Lit.err_output].car
                                     /*value*/)));

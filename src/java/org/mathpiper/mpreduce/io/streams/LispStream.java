@@ -37,8 +37,8 @@ package org.mathpiper.mpreduce.io.streams;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.Reader;
-import java.io.Writer;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
@@ -86,7 +86,7 @@ public class LispStream extends LispObject
     public LispObject exploded;  // for explode() and friends
     public StringBuffer sb;      // for explodeToString()
     public MessageDigest md;     // for md5 checksumming
-    public Writer wr;            // for ordinary printing!
+    public PrintStream wr;            // for ordinary printing!
 
     public void print(String s) throws ResourceException
     { // attempting to print to (eg) an input stream has no effect at all
