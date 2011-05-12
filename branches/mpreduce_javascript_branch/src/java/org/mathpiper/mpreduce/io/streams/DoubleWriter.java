@@ -38,25 +38,24 @@ package org.mathpiper.mpreduce.io.streams;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 
 import org.mathpiper.mpreduce.Jlisp;
 
 public class DoubleWriter extends LispStream
 {
-    PrintStream log;
+    LispPrintStream log;
     boolean closeMe;
 
-    public DoubleWriter(String n, PrintStream log) throws IOException // to a named file
+    public DoubleWriter(String n, LispPrintStream log) throws IOException // to a named file
     {
         super(n);
-        wr = new PrintStream(new FileOutputStream(nameConvert(n)));
+        wr = new LispPrintStream(new FileOutputStream(nameConvert(n)));
         this.log = log;
         closeMe = true;
         Jlisp.openOutputFiles.add(this);
     }
 
-    public DoubleWriter(PrintStream log) // uses standard input, no extra buffering.
+    public DoubleWriter(LispPrintStream log) // uses standard input, no extra buffering.
     {
         super("<stdout>");
         wr = Jlisp.out;

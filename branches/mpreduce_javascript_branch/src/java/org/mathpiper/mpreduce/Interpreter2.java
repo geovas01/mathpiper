@@ -29,8 +29,8 @@
 package org.mathpiper.mpreduce;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.Reader;
+import java.io.InputStream;
+import org.mathpiper.mpreduce.io.streams.LispPrintStream;
 
 public class Interpreter2 {
 
@@ -41,8 +41,8 @@ public class Interpreter2 {
     private Thread reduceThread;
     private String sendString = null;
     private StringBuffer inputBuffer = new StringBuffer();
-    Reader in;
-    PrintStream out;
+    InputStream in;
+    LispPrintStream out;
 
 
     public Interpreter2() {
@@ -55,7 +55,7 @@ public class Interpreter2 {
 
             in = new InterpreterReader(this);
 
-            out = new PrintStream(new InterpreterWriter(), false);
+            out = new LispPrintStream(new InterpreterWriter());
 
             final String[] args = new String[0];
 
@@ -156,7 +156,7 @@ public class Interpreter2 {
     }
 
     //Lisp in, my out.
-    class InterpreterReader extends Reader {
+    class InterpreterReader extends InputStream {
 
         Interpreter2 interpreter;
         int pos, len;
@@ -231,7 +231,6 @@ public class Interpreter2 {
     class InterpreterWriter extends ByteArrayOutputStream {
 
         InterpreterWriter() {
-            super(1000);
         }
 
 
@@ -244,13 +243,10 @@ public class Interpreter2 {
 
             try {
                 super.flush();
-                if (size() != 0) // mild optimisation, I suppose!
-                {
 
-                    Interpreter2.this.inputBuffer.append(toString());
-                    reset();
 
-                }
+                Interpreter2.this.inputBuffer.append(toString());
+
             } catch (Exception ioe) {
                 ioe.printStackTrace();
             }
@@ -287,7 +283,7 @@ public class Interpreter2 {
         } catch (Throwable t) {
             t.printStackTrace();
         } finally {
-            System.exit(0);
+
         }
 
 

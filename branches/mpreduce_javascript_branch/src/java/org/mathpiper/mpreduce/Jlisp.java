@@ -48,15 +48,11 @@ package org.mathpiper.mpreduce;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.Reader;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Date;
@@ -96,10 +92,11 @@ import org.mathpiper.mpreduce.functions.builtin.Fns;
 
 
 import org.mathpiper.mpreduce.exceptions.ResourceException;
+import org.mathpiper.mpreduce.io.streams.LispPrintStream;
 
 public class Jlisp extends Environment
 {
-        private static String version = ".001";
+        private static String version = ".002";
 
 	// Within this file I will often reference lispIO and lispErr
 	// directly. Elsewhere they should ONLY be accessed via the Lisp
@@ -113,7 +110,7 @@ public class Jlisp extends Environment
 	public static LispObject errorCode;
 	public static int verbosFlag = 1;
 	public static boolean trapExceptions = true;
-	private static PrintStream transcript = null;
+	private static LispPrintStream transcript = null;
 
 	public static boolean interruptEvaluation = false;
 
@@ -230,13 +227,13 @@ public class Jlisp extends Environment
 	public static void main(String [] args)
 	{
 		startup(args,
-		        new InputStreamReader(System.in),
-		        new PrintStream(System.out),
+		        System.in,
+		        new LispPrintStream(System.out),
 		        true);
 	}
 
-	static Reader in;
-	public static PrintStream out;
+	static InputStream in;
+	public static LispPrintStream out;
 
 	public static boolean standAlone;
 
@@ -250,7 +247,7 @@ public class Jlisp extends Environment
 	static boolean finishingUp = false;
 
 	public static void startup(String [] args,
-	                           Reader Xin, PrintStream Xout,
+	                           InputStream Xin, LispPrintStream Xout,
 	                           boolean standAloneFlag)
 	{
 		in = Xin;
@@ -461,7 +458,7 @@ public class Jlisp extends Environment
 		// destination (which may have been adjusted using "-- file").
 		if (logFile != null)
 			{   try
-			{   transcript =  new PrintStream(new FileOutputStream(LispStream.nameConvert(logFile)));
+			{   transcript =  new LispPrintStream(new FileOutputStream(LispStream.nameConvert(logFile)));
 			}
 			catch (IOException e)
 			{   transcript = null;
@@ -661,7 +658,7 @@ public class Jlisp extends Environment
 					                    imageFile[0] + "<HeapImage>\"");
 					// The next two lines are for debugging at least
 					lispErr.println(e.getMessage());
-					e.printStackTrace(new PrintStream(new WriterToLisp(lispErr)));
+					e.printStackTrace(new LispPrintStream(new WriterToLisp(lispErr)));
 					loaded = false;
 				}
 				finally
@@ -841,11 +838,7 @@ public class Jlisp extends Environment
 				for (i=0; i<inputCount; i++)
 					{   try
 						{   if (!restarting)
-							lispIO.setReader(
-							        inputFile[i],
-							        new BufferedReader(
-							                new FileReader(inputFile[i])),
-							        false, true);
+							lispIO.setReader( inputFile[i], new FileInputStream(inputFile[i]), false, true);
 						standardStreams();
 						try
 						{   readEvalPrintLoop(noRestart);
@@ -1205,7 +1198,7 @@ public class Jlisp extends Environment
 			catch (Exception e)
 			{   errprintln(
 				        "Error while reading: " + e.getMessage());
-				e.printStackTrace(new PrintStream(new WriterToLisp(
+				e.printStackTrace(new LispPrintStream(new WriterToLisp(
 				                                          ((LispStream)Jlisp.lit[Lit.err_output].car/*value*/))));
 				break;
 			}
@@ -1249,7 +1242,7 @@ public class Jlisp extends Environment
 					errprintln("+++++ Error: " +
 					           e.getMessage());
 				}
-				e.printStackTrace(new PrintStream(new WriterToLisp(
+				e.printStackTrace(new LispPrintStream(new WriterToLisp(
 				                                          ((LispStream)Jlisp.lit[Lit.err_output].car/*value*/))));
 			}
 		}

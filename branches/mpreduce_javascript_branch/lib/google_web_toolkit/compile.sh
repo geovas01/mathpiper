@@ -1,1 +1,1 @@
-java -cp gwt-dev.jar:gwt-user.jar:./src com.google.gwt.dev.Compiler -logLevel ALL org.mathpiper.module
+java -cp ../../../lib/gwt-dev.jar:../../../lib/gwt-user.jar:./src com.google.gwt.dev.Compiler -logLevel ALL org.mathpiper.module

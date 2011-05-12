@@ -37,6 +37,7 @@ package org.mathpiper.mpreduce.io.streams;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.math.BigInteger;
@@ -86,7 +87,7 @@ public class LispStream extends LispObject
     public LispObject exploded;  // for explode() and friends
     public StringBuffer sb;      // for explodeToString()
     public MessageDigest md;     // for md5 checksumming
-    public PrintStream wr;            // for ordinary printing!
+    public LispPrintStream wr;            // for ordinary printing!
 
     public void print(String s) throws ResourceException
     { // attempting to print to (eg) an input stream has no effect at all
@@ -124,7 +125,7 @@ public class LispStream extends LispObject
     public boolean inputValid;
     public LispObject inputData;
     String stringData;
-    public Reader reader = null;
+    public InputStream reader = null;
 
 
 // This will behave somewhat like the regular Java StreamTokenizer class
@@ -175,13 +176,13 @@ public class LispStream extends LispObject
 // this constructor, or I can add input capability to an existing
 // (output) stream using setReader().
 
-    public LispStream(String name, Reader reader, boolean np, boolean allowOctal)
+    public LispStream(String name, InputStream reader, boolean np, boolean allowOctal)
     {
         this.name = name;
         setReader(name, reader, np, allowOctal);
     }
 
-    public void setReader(String name, Reader reader, boolean np, boolean allowOctal)
+    public void setReader(String name, InputStream reader, boolean np, boolean allowOctal)
     {
         this.name = name;
         this.reader = reader;

@@ -1,9 +1,14 @@
 package java.io;
 
 
-public class OutputStream {
+public class ByteArrayOutputStream extends OutputStream{
 
-    public OutputStream()
+    public ByteArrayOutputStream()
+    {
+        
+    }
+
+    ByteArrayOutputStream(int size)
     {
         
     }

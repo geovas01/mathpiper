@@ -36,7 +36,6 @@ package org.mathpiper.mpreduce.io.streams;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import org.mathpiper.mpreduce.Jlisp;
 
 public class LispOutputStream extends LispStream {
@@ -47,7 +46,7 @@ public class LispOutputStream extends LispStream {
     public LispOutputStream(String n) throws IOException // to a named file
     {
         super(n);
-        wr = new PrintStream(new FileOutputStream(nameConvert(n)));
+        wr = new LispPrintStream(new FileOutputStream(nameConvert(n)));
         closeMe = true;
         Jlisp.openOutputFiles.add(this);
     }
@@ -56,7 +55,7 @@ public class LispOutputStream extends LispStream {
     public LispOutputStream(File n) throws IOException // to a named file
     {
         super(n.getName());
-        wr = new PrintStream(new FileOutputStream(n));
+        wr = new LispPrintStream(new FileOutputStream(n));
         closeMe = true;
         Jlisp.openOutputFiles.add(this);
     }
@@ -65,7 +64,7 @@ public class LispOutputStream extends LispStream {
     public LispOutputStream(String n, boolean appendp) throws IOException // to a file, but with an "append" option
     {
         super(n);
-        wr = new PrintStream(new FileOutputStream(nameConvert(n), appendp));
+        wr = new LispPrintStream(new FileOutputStream(nameConvert(n), appendp));
         closeMe = true;
         Jlisp.openOutputFiles.add(this);
     }

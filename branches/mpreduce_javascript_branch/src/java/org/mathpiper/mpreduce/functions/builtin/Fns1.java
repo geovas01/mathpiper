@@ -41,7 +41,6 @@ package org.mathpiper.mpreduce.functions.builtin;
 // that is derived from BuiltinFunction.
 
 import java.io.InputStream;
-import java.io.PrintStream;
 
 
 
@@ -82,6 +81,7 @@ import org.mathpiper.mpreduce.exceptions.ResourceException;
 import org.mathpiper.mpreduce.special.Specfn;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.functions.lisp.Undefined;
+import org.mathpiper.mpreduce.io.streams.LispPrintStream;
 import org.mathpiper.mpreduce.io.streams.WriterToLisp;
 
 public class Fns1
@@ -1489,7 +1489,7 @@ class CompressFn extends BuiltinFunction
 
             LispStream ee = // @@@
                         (LispStream)Jlisp.lit[Lit.err_output].car/*value*/;
-            e.printStackTrace(new PrintStream(new WriterToLisp(ee)));
+            e.printStackTrace(new LispPrintStream(new WriterToLisp(ee)));
             r = Environment.nil;
         }
         finally
@@ -2033,7 +2033,7 @@ class ErrorsetFn extends BuiltinFunction
                 if (back)
                 {   LispStream ee = 
                         (LispStream)Jlisp.lit[Lit.err_output].car/*value*/;
-                    e.printStackTrace(new PrintStream(new WriterToLisp(ee)));
+                    e.printStackTrace(new LispPrintStream(new WriterToLisp(ee)));
                 }
                 if (e instanceof ResourceException) throw e;
 // I will return the atom that was the first argument in a user call to
