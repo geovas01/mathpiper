@@ -125,23 +125,6 @@ default:return ((Symbol)body).fn.opn(
         LispReader.stack.push(body);
     }
     
-    public void dump() throws Exception
-    {
-        Object w = LispReader.repeatedObjects.get(this);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   LispReader.repeatedObjects.put(
-	            this,
-		    new Integer(LispReader.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-            Jlisp.odump.write(X_CALLAS);
-            Jlisp.odump.write(nargs);
-            LispReader.stack.push(body);
-	}
-    }
     
 }
 

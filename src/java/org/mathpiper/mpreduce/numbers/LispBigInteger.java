@@ -153,30 +153,6 @@ public class LispBigInteger extends LispInteger
 	else LispReader.objects.add(value);
     }
     
-    public void dump() throws Exception
-    {
-        Object w = LispReader.repeatedObjects.get(value);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   LispReader.repeatedObjects.put(
-	            value,
-		    new Integer(LispReader.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-// Now this is the first time I see this integer while writing a dump
-// file. I will put out a byte that says "here comes an integer", then
-// the number of bytes used to represent it, and finally the set of bytes
-// concerned. To save a little space I have variants to cope with the
-// various possible sizes of length-code needed.
-	    byte [] rep = value.toByteArray();
-	    int length = rep.length;
-	    putPrefix2(length, X_INTn, X_INT);
-	    for (int i=0; i<length; i++)
-	        Jlisp.odump.write(rep[i]);
-	}
-    }
 
     public LispObject negate() throws Exception
     {

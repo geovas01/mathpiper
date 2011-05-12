@@ -102,26 +102,6 @@ public class Spid extends LispObject
 	else LispReader.objects.add(w);
     }
     
-    public void dump() throws Exception
-    {
-        Object d = new Integer(tag);
-        Object w = LispReader.repeatedObjects.get(d);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   LispReader.repeatedObjects.put(
-	            d,
-		    new Integer(LispReader.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-	    Jlisp.odump.write(X_SPID);
-	    Jlisp.odump.write(tag);
-// NOTE that I do NOT dump and restore the data field here. That is because
-// I only use it in cases to do with reading FASL files and the relevant
-// objects should NEVER need saving in a heap.
-	}
-    }
 
 
 }

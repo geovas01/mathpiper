@@ -309,43 +309,7 @@ public class Cons extends LispObject
         }
     }
 
-    public void dump() throws Exception
-    {
-        Object w = LispReader.repeatedObjects.get(this);
-        if (w != null &&
-            w instanceof Integer) putSharedRef(w); // processed before
-        else
-        {   if (w != null) // will be used again sometime
-            {   LispReader.repeatedObjects.put(
-                    this,
-                    new Integer(LispReader.sharedIndex++));
-                Jlisp.odump.write(X_STORE);
-            }
-            int n = 1;
-            boolean starred = false;
-            LispObject l = cdr;
-            LispReader.spine[0] = car;
-            while (n < 16 &&
-                   !l.atom &&
-                   LispReader.repeatedObjects.get(l) == null)
-            {   LispReader.spine[n++] = l.car;
-                l = l.cdr;
-            }
-            if (n < 16 &&
-                Jlisp.specialNil && // ha ha be careful here
-                l == Environment.nil)     // especially common case!
-            {   Jlisp.odump.write(X_LIST+n);
-            }
-            else
-            {   Jlisp.odump.write(X_LISTX+n-1);
-                starred = true;
-            }
-            for (int i=0; i<n; i++)
-            {   LispReader.stack.push(LispReader.spine[i]);
-            }
-            if (starred) LispReader.stack.push(l);
-        }
-    }
+
 
 }
 

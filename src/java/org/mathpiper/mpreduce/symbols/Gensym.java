@@ -64,36 +64,7 @@ public class Gensym extends Symbol
         pname = nameBase + (myNumber = gensymCounter++);
     }
 
-    public void dump() throws Exception
-    {
-        Object w = LispReader.repeatedObjects.get(this);
-	if (w != null &&
-	    w instanceof Integer)
-	    putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   LispReader.repeatedObjects.put(
-	            this,
-		    new Integer(LispReader.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-	    byte [] rep = nameBase.getBytes("UTF8");
-	    int length = rep.length;
-	    putPrefix2(length, X_GENSYMn, X_GENSYM);
-	    for (int i=0; i<length; i++)
-	        Jlisp.odump.write(rep[i]);
-            Jlisp.odump.write(myNumber & 0xff);
-            Jlisp.odump.write((myNumber >> 8) & 0xff);
-            Jlisp.odump.write((myNumber >> 16) & 0xff);
-            Jlisp.odump.write((myNumber >> 24) & 0xff);
-	    if (Jlisp.descendSymbols)	
-	    {   LispReader.stack.push(car/*value*/);
-	        LispReader.stack.push(cdr/*plist*/);
-	        LispReader.stack.push(special);
-	        LispReader.stack.push(fn);
-	    }
-	}
-    }
+
 
 }
 

@@ -133,29 +133,7 @@ public class LispString extends LispObject
 	else LispReader.objects.add(string);
     }
     
-    public void dump() throws Exception
-    {
-        Object w = LispReader.repeatedObjects.get(string);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   LispReader.repeatedObjects.put(
-	            string,
-		    new Integer(LispReader.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-// The next line turns the string into bytes using the platform's default
-// encoding. I would LIKE to use a representation guaranteed to be available
-// and to behave consistently everywhere... 
-	    byte [] rep = string.getBytes("UTF8");
-	    int length = rep.length;
-	    putPrefix2(length, X_STRn, X_STR);
-	    for (int i=0; i<length; i++)
-	    {   Jlisp.odump.write(rep[i]);
-            }
-	}
-    }
+
 
     private void readObject(ObjectInputStream stream)
                  throws ClassNotFoundException, IOException

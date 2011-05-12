@@ -157,28 +157,6 @@ public class LispSmallInteger extends LispInteger
 	else LispReader.objects.add(w);
     }
     
-    public void dump() throws Exception
-    {
-        Object d = new Integer(value);
-        Object w = LispReader.repeatedObjects.get(d);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   LispReader.repeatedObjects.put(
-	            d,
-		    new Integer(LispReader.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-// Note whacky coding with sign bit in bottom bit position. The intent
-// of this is that numbers that ar esmall in absolute value will be
-// packed into rather few bytes.
-	    putPrefix(value == 0x80000000 ? 1 :
-                      value < 0 ? 1 + ((-value)<<1) :
-                      value<<1,
-                      X_FIXNUM);
-	}
-    }
 
     public LispObject negate() throws Exception
     {

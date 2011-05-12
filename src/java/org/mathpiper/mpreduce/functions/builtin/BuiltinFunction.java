@@ -53,30 +53,6 @@ public abstract class BuiltinFunction extends LispFunction
 	}
 	else LispReader.objects.add(this);
     }
-    
-    public void dump() throws Exception
-    {
-        Object w = LispReader.repeatedObjects.get(this);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   LispReader.repeatedObjects.put(
-	            this,
-		    new Integer(LispReader.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-	    byte [] rep = name.getBytes("UTF8");
-	    int length = rep.length;
-	    if (length <= 0xff)
-	    {   Jlisp.odump.write(X_FNAME);
-	        Jlisp.odump.write(length);
-	    }
-	    else throw new Exception("overlong name for a function");
-	    for (int i=0; i<length; i++)
-	        Jlisp.odump.write(rep[i]);
-	}
-    }
 
 }
 

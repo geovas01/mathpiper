@@ -156,7 +156,7 @@ public class Fasl
 
     public static void faslWrite(LispObject arg1) throws Exception
     {
-        LispReader.dumpTree(arg1, writer);
+        throw new Exception("FaslWrite not supported.");
     }
     
     static String name;

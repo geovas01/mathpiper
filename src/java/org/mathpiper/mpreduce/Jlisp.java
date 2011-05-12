@@ -47,12 +47,10 @@ package org.mathpiper.mpreduce;
 
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Date;
@@ -60,7 +58,6 @@ import java.util.HashMap;
 import java.util.TimeZone;
 import java.util.Vector;
 import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 import org.mathpiper.mpreduce.symbols.Gensym;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.special.SpecialFunction;
@@ -86,7 +83,6 @@ import org.mathpiper.mpreduce.numbers.LispInteger;
 import org.mathpiper.mpreduce.io.streams.LispOutputStream;
 import org.mathpiper.mpreduce.packagedatastore.PDS;
 import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
-import org.mathpiper.mpreduce.packagedatastore.PDSOutputStream;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
 //import org.mathpiper.mpreduce.javacompiler.Fns4;
 
@@ -96,7 +92,7 @@ import org.mathpiper.mpreduce.io.streams.LispPrintStream;
 
 public class Jlisp extends Environment
 {
-        private static String version = ".002";
+        private static String version = ".003";
 
 	// Within this file I will often reference lispIO and lispErr
 	// directly. Elsewhere they should ONLY be accessed via the Lisp
@@ -936,7 +932,7 @@ public class Jlisp extends Environment
 
 
 
-	public static OutputStream odump;
+	//public static OutputStream odump;
 	public static InputStream  idump;
 
 

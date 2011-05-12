@@ -1035,51 +1035,12 @@ public class LispReader {
     }
 
 
-    static void writeObject(LispObject a) throws Exception {
-        if (a == null) {
-            Jlisp.odump.write(LispObject.X_NULL);
-            return;
-        }
-        stack.push(a);
-        try // keep going until the stack empties.
-        {
-            for (;;) {
-                LispObject w = (LispObject) stack.pop();
-                if (w == null) {
-                    Jlisp.odump.write(LispObject.X_NULL);
-                } else {
-                    w.dump();
-                }
-            }
-        } catch (EmptyStackException e) {
-        }
-    }
 
 
 
 
-    public static void dumpTree(LispObject a, OutputStream dump) throws Exception {
-        int i;
-        Jlisp.odump = dump;
-        Environment.descendSymbols = false;
-        try {
-            objects = new HashSet();
-            repeatedObjects = new HashMap();
-            stack = new Stack();
-            sharedIndex = 0;
-            scanObject(a);
-            i = repeatedObjects.size();
-            Jlisp.odump.write(i >> 16);
-            Jlisp.odump.write(i >> 8);
-            Jlisp.odump.write(i);
-            writeObject(a);
-        } finally {
-            objects = null;
-            repeatedObjects = null;
-            stack = null;
-        }
 
-    }
+
 
 }//End class.
 

@@ -152,28 +152,6 @@ public class LispVector extends LispObject
 	    LispReader.stack.push(vec[i]);
     }
     
-    public void dump() throws Exception
-    {
-        if (this == LispReader.obvector)
-        {   Jlisp.odump.write(X_OBLIST);
-            return;
-        }
-        Object w = LispReader.repeatedObjects.get(this);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   LispReader.repeatedObjects.put(
-	            this,
-		    new Integer(LispReader.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-	    int length = vec.length;
-	    putPrefix(length, X_VEC);
-	    for (int i=0; i<length; i++)
-	        LispReader.stack.push(vec[i]);
-	}
-    }
 
 
 }
