@@ -105,22 +105,6 @@ public class Macro extends LispFunction
         LispReader.stack.push(body);
     }
     
-    public void dump() throws Exception
-    {
-        Object w = LispReader.repeatedObjects.get(this);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   LispReader.repeatedObjects.put(
-	            this,
-		    new Integer(LispReader.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-            Jlisp.odump.write(X_MACRO);
-            LispReader.stack.push(body);
-	}
-    }
     
     public LispObject op1(LispObject arg1) throws Exception
     {

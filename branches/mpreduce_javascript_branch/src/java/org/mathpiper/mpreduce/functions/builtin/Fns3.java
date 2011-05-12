@@ -1258,22 +1258,7 @@ class SaveObjectFn extends BuiltinFunction
 
     public LispObject op2(LispObject arg1, LispObject arg2) throws Exception
     {
-        String name = ((LispString)arg1).string;
-        GZIPOutputStream dump = null;
-        try
-        {   dump = new GZIPOutputStream(
-                       new BufferedOutputStream(
-                           new FileOutputStream(name),
-                           32768));
-            LispReader.dumpTree(arg2, dump);
-        }
-        catch (IOException e)
-        {   Jlisp.errprintln("IO error on dump file: " + e.getMessage());
-        }
-        finally
-        {   if (dump != null) dump.close();
-        }
-        return Environment.nil;
+        throw new Exception("SaveObject not supported.");
     }
 }
 

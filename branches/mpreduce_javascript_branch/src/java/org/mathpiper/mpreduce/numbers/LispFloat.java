@@ -271,26 +271,6 @@ public class LispFloat extends LispNumber
 	else LispReader.objects.add(w);
     }
     
-    public void dump() throws Exception
-    {
-        Object d = new Double(value);
-        Object w = LispReader.repeatedObjects.get(d);
-	if (w != null &&
-	    w instanceof Integer) putSharedRef(w); // processed before
-	else
-	{   if (w != null) // will be used again sometime
-	    {   LispReader.repeatedObjects.put(
-	            d,
-		    new Integer(LispReader.sharedIndex++));
-		Jlisp.odump.write(X_STORE);
-            }
-	    long rep = Double.doubleToLongBits(value);
-	    Jlisp.odump.write(X_DOUBLE);
-	    for (int i=0; i<8; i++)
-	    {   Jlisp.odump.write((int)(rep >> (56-8*i)));
-	    }
-	}
-    }
 
     public LispObject negate() throws Exception
     {

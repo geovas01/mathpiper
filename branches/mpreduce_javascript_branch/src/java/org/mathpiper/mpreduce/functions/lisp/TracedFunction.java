@@ -153,10 +153,6 @@ public class TracedFunction extends LispFunction
         fn.scan();
     }
     
-    public void dump() throws Exception
-    {
-        fn.dump();
-    }
 
 }
 

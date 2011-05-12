@@ -76,42 +76,7 @@ public void scan()
         LispReader.stack.push(env[i]);
 }
 
-public void dump() throws Exception
-{
-    Object w = LispReader.repeatedObjects.get(this);
-    if (w != null &&
-        w instanceof Integer) putSharedRef(w); // processed before
-    else
-    {   if (w != null) // will be used again sometime
-        {   LispReader.repeatedObjects.put(
-                this,
-                new Integer(LispReader.sharedIndex++));
-            Jlisp.odump.write(X_STORE);
-        }
-        int length;
-        if (bytecodes == null) length = 0;
-        else length = bytecodes.length;
-        putPrefix(length, X_BPS);
-        int n = nargs;
-// nargs can be up to 22 bits, ie 0x003fffff (7+7+8 bits)
-        if (n <= 0x7f) Jlisp.odump.write(n);
-        else
-        {   Jlisp.odump.write(n | 0x80);
-            n = n >> 7;
-            if (n <= 0x7f) Jlisp.odump.write(n);
-            else
-            {   Jlisp.odump.write(n | 0x80);
-                Jlisp.odump.write(n >> 7);
-            }
-        }
-        for (int i=0; i<length; i++)
-            Jlisp.odump.write(bytecodes[i]);
-        length = env.length;
-        putPrefix(length, X_VEC);  // context after BPS decodes this case!
-        for (int i=0; i<length; i++)
-            LispReader.stack.push(env[i]);
-    }
-}
+
 
 
 }

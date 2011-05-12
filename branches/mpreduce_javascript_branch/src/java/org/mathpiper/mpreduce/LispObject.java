@@ -190,62 +190,11 @@ public abstract class LispObject extends Object
 // 0xf2 to 0xff spare at present...
 
     abstract public void scan();
-    public abstract void dump() throws Exception;
 
-// dealing with references to shared structure has the most complicated
-// treatment here because it appears to be an especially heavily used
-// case and one where special cases may make some real difference.
 
-    public void putSharedRef(Object w) throws Exception
-    {
-        int n = ((Integer)w).intValue();
-        if (n < 48)
-        {   Jlisp.odump.write(X_REFn + n);
-            return;
-        }
-	int n1 = LispReader.sharedIndex - n;
-        if (n1 < 17)  // range 1 to 16 is possible here (0 can not arise)
-        {   Jlisp.odump.write(X_REFn + n1 - 1 + 48);
-            return;
-        }
-	if (n >= 0x100 && n1 < 0x100 ||
-	    n >= 0x10000 && n1 < 0x10000) putPrefix(n1, X_REFBACK);
-        else putPrefix(n, X_REF);
-    }
 
-    public void putPrefix2(int n, int code1, int code2) throws Exception
-    {
-        if (n < 16)
-	{   Jlisp.odump.write(code1+n);
-	}
-	else putPrefix(n, code2);
-    }
 
-    public void putPrefix(int n, int code) throws Exception
-    {
-	if ((n & 0xffffff00) == 0)
-	{   Jlisp.odump.write(code);
-            Jlisp.odump.write(n);
-        }
-        else if ((n & 0xffff0000) == 0)
-        {   Jlisp.odump.write(code+1);
-            Jlisp.odump.write(n >> 8);
-            Jlisp.odump.write(n);
-        }
-	else if ((n & 0xff000000) == 0)
-	{   Jlisp.odump.write(code+2);
-	    Jlisp.odump.write(n >> 16);
-	    Jlisp.odump.write(n >> 8);
-	    Jlisp.odump.write(n);
-	}
-        else
-        {   Jlisp.odump.write(code+3);
-            Jlisp.odump.write(n >> 24);
-            Jlisp.odump.write(n >> 16);
-            Jlisp.odump.write(n >> 8);
-            Jlisp.odump.write(n);
-        }
-    }
+
 
     public boolean lispequals(Object a)
     {
