@@ -1377,8 +1377,7 @@ class CheckpointFn extends BuiltinFunction
     
     public LispObject op2(LispObject arg1, LispObject arg2) throws Exception
     {
-        Jlisp.preserve(arg1, arg2);
-        return Environment.nil;
+        throw new Exception("PRESERVE not supported.");
     }
 }
 
