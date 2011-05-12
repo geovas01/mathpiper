@@ -846,8 +846,7 @@ class OpenFn extends BuiltinFunction
             try
             {   r = new LispStream(
                     name,
-                    new BufferedReader(
-                        new FileReader(LispStream.nameConvert(name))),
+                    new FileInputStream(LispStream.nameConvert(name)),
                     false, true);
             }
             catch (FileNotFoundException e)
@@ -998,8 +997,7 @@ class InternalOpenFn extends BuiltinFunction
             try
             {   r = new LispStream(
                     name,
-                    new BufferedReader(
-                        new FileReader(f)),
+                    new FileInputStream(f),
                     false, true);
             }
             catch (FileNotFoundException e) // should not happen!
@@ -1671,8 +1669,7 @@ class RdfFn extends BuiltinFunction
         {   Jlisp.lit[Lit.std_input].car/*value*/ =
                 new LispStream(
                     name,
-                    new BufferedReader(
-                        new FileReader(LispStream.nameConvert(name))),
+                    new FileInputStream(LispStream.nameConvert(name)),
                     false, true);
             try
             {   Jlisp.println();

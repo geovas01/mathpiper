@@ -1,13 +1,5 @@
-package org.mathpiper.mpreduce.io.streams;
-
-//
-// This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
-//
-
 /**************************************************************************
- * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
- *                            also contributions from Vijay Chauhan, 2002 *
+ * Copyright (C) 2011 Ted Kosan                                           *
  *                                                                        *
  * Redistribution and use in source and binary forms, with or without     *
  * modification, are permitted provided that the following conditions are *
@@ -35,49 +27,22 @@ package org.mathpiper.mpreduce.io.streams;
  * DAMAGE.                                                                *
  *************************************************************************/
 
+package org.mathpiper.mpreduce.io.streams;
 
-import java.io.ByteArrayOutputStream;
-import org.mathpiper.mpreduce.exceptions.ResourceException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
-public class WriterToLisp extends ByteArrayOutputStream
-{
-    LispStream stream;
 
-    public WriterToLisp(LispStream s)
+public class LispPrintStream extends PrintStream{
+
+    public LispPrintStream(OutputStream out)
     {
-        stream = s;
-    }
-
-    public void close()
-    {
-        stream.close();
+        super(out);
     }
 
     public void flush()
     {
-        stream.flush();
-    }
-
-    public void write(char [] buffer, int off, int len)
-    {
-         try
-         {   stream.print(new String(buffer, off, len));
-         }
-         catch (ResourceException e)
-         {} // This LOSES the exception....
-    }
-
-    public void write(int val)
-    {
-         try
-         {   stream.print(val);
-         }
-         catch (ResourceException e)
-         {} // This LOSES the exception....
+        super.flush();
     }
 
 }
-
-// end of WriterToLisp.java
-
-
