@@ -773,10 +773,7 @@ public class Jlisp extends Environment
 						restarting = false;
 						break;
 					case ProgEvent.PRESERVE:
-						Cons w = (Cons)e.details;
-						preserve(w.car, w.cdr);
-						restarting = false;
-						break;
+						throw new Exception("PRESERVE not supported");
 					case ProgEvent.RESTART:
 						println();
 						println("Restart Lisp...");
@@ -854,11 +851,7 @@ public class Jlisp extends Environment
 								i = inputCount;
 								break;
 							case ProgEvent.PRESERVE:
-								Cons w = (Cons)e.details;
-								preserve(w.car, w.cdr);
-								i = inputCount;
-								restarting = false;
-								break;
+								throw new Exception("PRESERVE not supported.");
 							case ProgEvent.RESTART:
 								println();
 								println("Restart Lisp...");
@@ -939,53 +932,6 @@ public class Jlisp extends Environment
 		lit[Lit.terminal_io].car/*value*/ = lispIO;
 		lit[Lit.debug_io].car/*value*/    = lispIO;
 		lit[Lit.query_io].car/*value*/    = lispIO;
-	}
-
-        //Checkpoint calls this function.
-	public static void preserve(LispObject arg1, LispObject arg2) throws Exception
-	{
-		PDS imagePDS = images[outputImagePos];
-		if (imagePDS == null)
-		{   errprintln("no output image file available");
-			return;
-		}
-		LispObject save1 = lit[Lit.restart];
-		LispObject save2 = lit[Lit.banner];
-		lit[Lit.restart] = arg1;
-		lit[Lit.banner] = arg2;
-
-		LispObject oldBirthday = lit[Lit.birthday];
-		// I want the new image file to have a fresh date
-		DateFormat df = DateFormat.getInstance();
-		df.setTimeZone(TimeZone.getDefault());
-		lit[Lit.birthday] =
-		        new LispString(df.format(new Date()));
-
-		GZIPOutputStream dump = null;
-		try
-		{   dump = new GZIPOutputStream(
-			                   new BufferedOutputStream(
-			                           new PDSOutputStream(imagePDS, "HeapImage"),
-			                           32768));
-			LispReader.preserve(dump);
-			println();
-			println("Image written");
-		}
-		catch (IOException e)
-		{   errprintln("IO error on dump file: " + e.getMessage());
-		}
-		finally
-			{   if (dump != null)
-				try
-				{   dump.close();
-				}
-				catch (IOException e)
-				{
-				}
-			lit[Lit.birthday] = oldBirthday;
-			lit[Lit.restart] = save1;
-			lit[Lit.banner] = save2;
-		}
 	}
 
 
