@@ -1553,34 +1553,7 @@ class Copy_moduleFn extends BuiltinFunction
 {
     public LispObject op1(LispObject arg1) throws Exception
     {
-        if (arg1==Environment.nil) return arg1;
-        Fasl.startModule(arg1);  // set up for output...
-        InputStream readerSave = Fasl.reader;
-        if (Fasl.openModule(arg1))
-        {   try
-            {   Fasl.writer.close();
-            }
-            finally
-            {   Fasl.writer = null;
-                Fasl.reader = readerSave;
-            }
-            return Environment.nil;
-        }
-        int c;
-        while ((c = Fasl.reader.read()) != -1) Fasl.writer.write(c);
-        try
-        {   Fasl.reader.close();
-        }
-        catch (Exception e)
-        {}
-        try
-        {   Fasl.writer.close();
-        }
-        finally
-        {   Fasl.writer = null;
-            Fasl.reader = readerSave;
-        }
-        return Jlisp.lispTrue;
+        throw new Exception("Copy_module not supported.");
     }
 }
 
@@ -1639,10 +1612,7 @@ class Define_in_moduleFn extends BuiltinFunction
 {
     public LispObject op1(LispObject arg1) throws Exception
     {
-        int n = arg1.intValue();
-        if (n < -1 || n > 0x3ffff) error("bad arg to define-in-module");
-        Fasl.defineInModule(n);
-        return Environment.nil;
+        throw new Exception("Define_in_module not supported.");
     }
 }
 
