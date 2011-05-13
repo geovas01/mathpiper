@@ -45,4 +45,9 @@ public class LispPrintStream extends PrintStream{
         super.flush();
     }
 
+    public void write(byte[] buf, int off, int len)
+    {
+        super.write(buf,off,len);
+    }
+
 }

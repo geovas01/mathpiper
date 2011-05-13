@@ -35,12 +35,9 @@ package org.mathpiper.mpreduce.io;
  * DAMAGE.                                                                *
  *************************************************************************/
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 import org.mathpiper.mpreduce.Environment;
 import org.mathpiper.mpreduce.io.streams.WriterToLisp;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.ByteOpt;
@@ -53,7 +50,6 @@ import org.mathpiper.mpreduce.datatypes.LispString;
 import org.mathpiper.mpreduce.numbers.LispInteger;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
-import org.mathpiper.mpreduce.packagedatastore.PDSOutputStream;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
 
 
@@ -68,7 +64,7 @@ import org.mathpiper.mpreduce.symbols.Symbol;
 
 public class Fasl
 {
-    public static OutputStream writer = null;
+    //public static OutputStream writer = null;
     public static InputStream  reader = null;
 
     public static LispObject [] recent = null;
@@ -76,83 +72,7 @@ public class Fasl
 
     static String moduleName = "";
 
-    public static LispObject startModule(LispObject arg1) throws LispException
-    {
-        if (arg1 == Environment.nil) // terminate file
-        {   if (writer != null)
-            {   try
-                {   writer.write(0);
-                    writer.write(0);
-                    writer.write(0); // repeated object count for NULL!
-                    writer.write(LispObject.X_NULL);
-                    writer.close();
-                }
-                catch (IOException e)
-                {   writer = null;
-                    Jlisp.errprintln(
-                        "+++ IO error on FASL file: " +
-                        e.getMessage());
-                    return Environment.nil;
-                }
-                writer = null;
-                recent = null;
-                Jlisp.println("+++ FASLEND " + moduleName);
-                moduleName = "";
-                return Jlisp.lispTrue;
-            }
-            else return arg1;
-        }
-        if (Jlisp.outputImagePos < 0 ||
-            Jlisp.images[Jlisp.outputImagePos] == null)
-            return Jlisp.error("no output image available");
-        String name;
-        if (arg1 instanceof Symbol)
-        {   ((Symbol)arg1).completeName();
-            name = ((Symbol)arg1).pname;
-        }
-        else if (arg1 instanceof LispString) name = ((LispString)arg1).string;
-        else return Jlisp.error("start-module needs a symbol or string");
-        name = name + ".fasl";
-        moduleName = name;
-        try
-        {   writer =
-                new GZIPOutputStream(
-                    new BufferedOutputStream(
-                        new PDSOutputStream(
-                            Jlisp.images[Jlisp.outputImagePos],
-                            name),
-                        32768));
-        }
-        catch (IOException e)
-        {   Jlisp.errprintln(
-                "+++ Trouble with file \"" + name +
-                "\": " + e.getMessage());
-            return Environment.nil;
-        }
-        recent = new LispObject [512];
-        recentp = recentn = 0;
-        return Jlisp.lispTrue;
-    }
 
-    public static void defineInModule(int n) throws IOException
-    {
-// here I expect n to be in the range -1 to 0x3ffff
-        n++;   // work with an offset number so that valid range includes "-1"
-        writer.write(0); writer.write(0); writer.write(1); // sharedSize!
-        writer.write(LispObject.X_DEFINMOD);
-        int n1 = n >> 7;
-        if (n1 == 0) writer.write(n);
-        else
-        {   writer.write(n | 0x80);
-            n = n1;
-            n1 = n >> 7;
-            if (n1 == 0) writer.write(n);
-            else
-            {   writer.write(n | 0x80);
-                writer.write(n >> 7);
-            }
-        }
-    }
 
     public static void faslWrite(LispObject arg1) throws Exception
     {

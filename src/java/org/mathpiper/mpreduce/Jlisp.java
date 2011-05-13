@@ -92,7 +92,7 @@ import org.mathpiper.mpreduce.io.streams.LispPrintStream;
 
 public class Jlisp extends Environment
 {
-        private static String version = ".003";
+        private static String version = ".004";
 
 	// Within this file I will often reference lispIO and lispErr
 	// directly. Elsewhere they should ONLY be accessed via the Lisp

@@ -2194,7 +2194,7 @@ class Start_moduleFn extends BuiltinFunction
 {
     public LispObject op1(LispObject arg1) throws Exception
     {
-        return Fasl.startModule(arg1);
+        throw new Exception("Start_module is not supported.");
     }
 }
 
@@ -2851,10 +2851,7 @@ class Write_moduleFn extends BuiltinFunction
 {
     public LispObject op1(LispObject arg1) throws Exception
     {
-        if (Fasl.writer == null)
-            return error("no FASL file active in write-module");
-        Fasl.faslWrite(arg1);
-        return Environment.nil;
+        throw new Exception("Write_module not exported.");
     }
 }
 

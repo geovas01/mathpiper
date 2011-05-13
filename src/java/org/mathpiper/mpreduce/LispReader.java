@@ -6,8 +6,6 @@ package org.mathpiper.mpreduce;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.math.BigInteger;
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -34,7 +32,6 @@ import org.mathpiper.mpreduce.io.Fasl;
 import org.mathpiper.mpreduce.io.streams.LispStream;
 import org.mathpiper.mpreduce.numbers.LispFloat;
 import org.mathpiper.mpreduce.numbers.LispInteger;
-import org.mathpiper.mpreduce.numbers.LispNumber;
 import org.mathpiper.mpreduce.special.SpecialFunction;
 import org.mathpiper.mpreduce.symbols.Gensym;
 import org.mathpiper.mpreduce.symbols.Symbol;
@@ -916,8 +913,7 @@ public class LispReader {
             //System.out.println("first probe = " + hash + " " + inc);
             while (oblist[hash] != null) {
                 if (oblist[hash].pname.equals(name)) {
-                    System.out.println("Two symbols called <" + name + "> "
-                            + Integer.toHexString((int) name.charAt(0)));
+                    System.out.println("Two symbols called <" + name + "> " + Integer.toHexString((int) name.charAt(0)));
                 }
                 hash += inc;
                 if (hash >= oblistSize) {
