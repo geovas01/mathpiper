@@ -92,7 +92,6 @@ String name;
 boolean writeable;
 boolean untidy;
 
-RandomAccessFile f;
 Vector data;
 HashMap directory;
 
@@ -106,8 +105,7 @@ private boolean bufferValid;
 
 void seek(long n) throws IOException
 {
-    if (f != null) f.seek(n);
-    else if (data != null)
+    if (data != null)
     {   pos = n;
         long newBufferPos = n & ~bufferMask;
         if (newBufferPos != bufferPos)
@@ -122,11 +120,8 @@ int readCount = 0;
 int read() throws IOException
 {
     int c;
-    if (f != null)
-    {   c = f.read();
-        return c;
-    }
-    else if (data != null)
+
+    if (data != null)
     {   if (!bufferValid)
         {   // unpack a new chunk of data...
             buffer = (byte [])data.get((int)(bufferPos >> bufferShift));
@@ -146,8 +141,8 @@ int read() throws IOException
 int read(byte [] b, int off, int len) throws IOException
 {
     int c;
-    if (f != null) return f.read(b, off, len);
-    else if (data != null)
+
+    if (data != null)
     {   if (!bufferValid)
         {   // unpack a new chunk of data...
             buffer = (byte [])data.get((int)(bufferPos >> bufferShift));
@@ -170,14 +165,12 @@ int read(byte [] b, int off, int len) throws IOException
 
 long getFilePointer() throws IOException
 {
-    if (f != null) return f.getFilePointer();
-    else return pos;
+    return pos;
 }
 
 long length() throws IOException
 {
-    if (f != null) return f.length();
-    else if (data != null) return bufferSize*data.size();
+    if (data != null) return bufferSize*data.size();
     else return 0;
 }
 
@@ -185,9 +178,8 @@ int memberData, memberStart;
 
 public void print() throws ResourceException // print to Java standard output (for debugging)
 {
-    Jlisp.println("PDS " + this + " " + name +
-                          " W=" + writeable + " U=" + untidy);
-    Jlisp.println("f = " + f + " memberData = " + memberData);
+    Jlisp.println("PDS " + this + " " + name + " W=" + writeable + " U=" + untidy);
+
     if (directory != null)
     {   Vector v = new Vector(10, 10);
         for (Iterator k = directory.keySet().iterator(); k.hasNext();)
@@ -247,7 +239,7 @@ public PDS(InputStream is) throws IOException
     is.close();
     pos = 0;
     bufferValid = false;
-    f = null;
+
     writeable = false;
     untidy = false;
     memberData = 0;
@@ -264,75 +256,13 @@ public PDS(InputStream is) throws IOException
 }
 
 
-public PDS(String name, boolean writeable) throws IOException, ResourceException
-{
-    this.name = name;
-    this.writeable = writeable;
-    data = null;
-    untidy = false;
-    memberData = 0;
-    memberStart = 0;
-    directory = new HashMap();
-    if (writeable)
-    {   File ff = new File(name);
-        if (ff.exists())
-        {   Jlisp.lispErr.println("File exists already");
-            if (ff.canWrite())
-            {   Jlisp.lispErr.println("Can write to file OK");
-                f = new RandomAccessFile(ff, "rw");
-                Jlisp.lispErr.println("f = " + f);
-            }
-            else
-            {   f = new RandomAccessFile(ff, "r");
-                Jlisp.lispErr.println("Falling back to read-only access");
-                writeable = false;  // fall back to read-only access
-            }
-            try
-            {   readDirectory();
-                Jlisp.lispErr.println("index read");
-            }
-            catch (IOException e)
-            {   Jlisp.lispErr.println("IO error reading index " + e.getMessage());
-                if (writeable)
-                {   try
-                    {   f.close();
-                    }
-                    catch (IOException e1)
-                    {
-                    }
-                    f = null; // create it later if really needed
-                }
-                else
-                {   f = null;
-                    directory = null;
-                    throw e;
-                }
-            }
-        }
-        else f = null;  // must create it on demand!
-    }
-    else 
-    {   f = new RandomAccessFile(name, "r");
-        try
-        {   readDirectory();
-        }
-        catch (IOException e)
-        {   f = null;
-            directory = null;
-            throw e;
-        }
-    }
-}
+
 
 void close() throws IOException, ResourceException
 {
     Jlisp.lispErr.println("Closing the PDS");
     writeable = false;
-    if (f != null)
-    {   RandomAccessFile f1 = f;
-        f = null;
-        f1.close();
-    }
+
     data = null;
 }
 
@@ -399,139 +329,7 @@ void readDirectory() throws IOException
     } while (p != 0);
 }
 
-void addToDirectory(String member) throws IOException, ResourceException
-{
-    if (!writeable)
-        throw new IOException("Attempt to update a read-only image file");
-    Jlisp.println("Image member " + member + " being created");
-    long p = 0;
-    int n, i;
-    byte [] buffer = new byte[DirectoryBlockSize];
-    if (f == null)
-    {   f = new RandomAccessFile(name, "rw"); // create it now
-        f.write('J');
-        f.write('L');
-        for (i=2; i<buffer.length; i++)
-            f.write(0);   // empty directory. 
-    }
-    long loc = f.length();   // end of the file - where new module will go
-    if (directory.get(member) != null)
-    {
-// Need to replace an existing member. Must set p to the address in the
-// RandomAccessFile for the block of directory involved, and n to the
-// offset within that block (pre-loaded into buffer) where the address
-// information must go.
-        boolean found = false;
-        do
-        {   long p1;
-            seek(p);
-            for (i=0; i<buffer.length; i++)
-                buffer[i] = (byte)read();
-// The first two bytes of any index block are expected to contain the
-// characters JL as at least minimal identification.
-            if ((buffer[0] & 0xff) != ('J' & 0xff) ||
-                (buffer[1] & 0xff) != ('L' & 0xff)) 
-                throw new IOException("Not a Jlisp image file (header)");
-            p1 = 0;
-            for (i=0; i<4; i++) p1 = (p1<<8) + (buffer[i+2] & 0xff);
-// The chaining should refer to a place within the file!
-            if (p1 > f.length()-buffer.length)
-                throw new IOException("Not a Jlisp image file (chaining)");
-            n = 6;
-            int l;
-            for (;;)
-            {   l = buffer[n++] & 0xff; // length code
-                if (l == 0) break;      // end of what is packed into this chunk
-                if ((n + l + 16) > buffer.length)
-                    throw new IOException(
-                        "Not a Jlisp image file (name length)");
-                byte [] name = new byte[l];
-                for (i=0; i<l; i++) name[i] = buffer[n++];
-                String nn = new String(name, "UTF8");
-                if (member.equals(nn))
-                {   found = true;
-                    break;
-                }
-                n += 16; // skip position, length and date info
-            }
-            if (found) break;
-            p = p1;
-        } while (p != 0);
-        if (!found) throw new IOException("member not found in PDS");
-        untidy = true;
-    }
-    else
-    {   
-// I have a genuine new member to add.
-// First I search to find the final index block.
-        for (int kk=0;;)
-        {   seek(p);
-            Jlisp.println("Seeking to " + p);
-            if (kk++ > 100)
-            {   Jlisp.println("Looping...");
-                throw new IOException("Sorry - mangled image file");
-            }
-            for (i=0; i<buffer.length; i++)
-                buffer[i] = (byte)read();
-            int p1 = 0;
-            for (i=0; i<4; i++) p1 = (p1 << 8) + (buffer[i+2] & 0xff);
-            if (p1==0) break;   // have found last block
-            p = p1;
-        }
-// Now scan down the block to find the last entry in it.
-        n = 6;
-        int l;
-        for (;;)
-        {   l = buffer[n++] & 0xff;
-            if (l == 0) break; // end of data in this chunk
-            n += l + 16;
-        }
-        Jlisp.println("Found the end");
-// Next check to see if there is space in the block to add the entry that
-// is wanted here.
-        byte [] nb = member.getBytes("UTF8");
-        int nbl = nb.length;
-// Two things limit the length of a module name: firstly I want a one-byte
-// length code to suffice (eg 256 bytes). Secondly (and less stringently)
-// I require that a name can fit within a single index block. NB the 256
-// byte limit is on the byte-length of the data, not the number of
-// characters (inclusion of non-ASCII chars may call for more than 1 byte
-// being needed per char).
-        if (nbl >= 0x100)
-            throw new IOException("Name " + member +
-                                  " for PSD member is too long");
-        if (n + nbl + 16 >= buffer.length) 
-// Would overflow this chunk, so chain on another one.
-        {   long end = loc;
-            loc = loc + DirectoryBlockSize;   // allow for the index block
-            Jlisp.println("end = " + end);
-            f.seek(p+2);
-            f.write((int)(end >> 24));
-            f.write((int)(end >> 16));
-            f.write((int)(end >> 8));
-            f.write((int)end);
-            p = end;
-            for (i=0; i<buffer.length; i++) buffer[i] = 0;
-            buffer[0] = (byte)'J';
-            buffer[1] = (byte)'L';
-            // bytes 2,3,4,5 are now all zero
-            n = 7; // as if the termination has just been read
-        }
-// Now append the new entry within the current chunk.
-        buffer[n-1] = (byte)nbl;
-        for (i=0; i<nbl; i++) buffer[n++] = nb[i]; // copy name across
-    }
-// new chunk will go on end of file
-    memberData = (int)(p + n); // fill data in when member is closed
-    Jlisp.println("p=" + p + " n = " + n + " mD = " + memberData);
-    memberStart = (int)loc;    // suppose that 32-bit offsets are enough
-    for (int j=0; j<16; j++)   // put in zeros for data (at this stage)
-        buffer[n++] = 0;
-// Write the updated block back into the file.
-    f.seek(p);
-    for (i=0; i<buffer.length; i++) f.write(buffer[i]);
-    f.seek(f.length());
-}
+
 
 public LispObject modulep(String s)
 {
