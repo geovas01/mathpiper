@@ -63,7 +63,7 @@ public class Interpreter2 {
 
                 public void run() {
                     try {
-                        jlisp.startup(args, in, out, false);
+                        jlisp.startup(args, in, out);
                         out.flush();
                     } catch (Exception ex) {
                         ex.printStackTrace();
