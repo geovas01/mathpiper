@@ -52,7 +52,7 @@ int left;
 public PDSInputStream(PDS pds, String member) throws IOException
 {
     this.pds = pds;
-    if (pds == null || (pds.f == null && pds.data == null))
+    if (pds == null || pds.data == null)
         throw new IOException("PDS member " + member + " not found"); 
     Object on = pds.directory.get(member);
     if (on == null)

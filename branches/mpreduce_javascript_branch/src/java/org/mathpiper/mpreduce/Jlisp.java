@@ -76,7 +76,7 @@ import org.mathpiper.mpreduce.io.streams.LispPrintStream;
 
 public class Jlisp extends Environment {
 
-    private static String version = ".005";
+    private static String version = ".006";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
@@ -259,7 +259,7 @@ public class Jlisp extends Environment {
         imageCount = 0;
         outputImagePos = -1;
 
-        boolean coldStart = true;
+        boolean coldStart = false;
 
         boolean verbose = false;
         boolean copyrightRequest = false;
@@ -444,8 +444,6 @@ public class Jlisp extends Environment {
                     if (is != null) {
                         images[i] = new PDS(is);
                     }
-                } else {
-                    images[i] = new PDS(imageFile[i], i == outputImagePos);
                 }
             } catch (IOException e) {
             }
