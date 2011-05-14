@@ -1,15 +1,5 @@
 package org.mathpiper.mpreduce;
 
-// Jlisp
-//
-// Standard Lisp system coded in Java. Actually this goes
-// way beyond the Standard Lisp Report and includes a large fraction
-// of that which is present in the CSL Lisp system.
-//
-// The purpose of this implementation is to support
-// REDUCE. Early versions of jlisp were amazingly slow but
-// performance is gradually improving!
-//
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2011.
 //
@@ -183,8 +173,6 @@ public class Jlisp extends Environment {
 
         checkExit(s);
 
-
-
         throw new LispException(s);
     }
 
@@ -220,14 +208,6 @@ public class Jlisp extends Environment {
     public static int outputImagePos;
     public static int imageCount;
     static String[] imageFile = new String[10];
-
-
-    public static void main(String[] args) {
-        startup(args,
-                System.in,
-                new LispPrintStream(System.out));
-    }
-
     static InputStream in;
     public static LispPrintStream out;
     public static boolean standAlone;
@@ -239,8 +219,8 @@ public class Jlisp extends Environment {
     static boolean finishingUp = false;
 
 
-    public static void startup(String[] args,
-            InputStream Xin, LispPrintStream Xout) {
+    public static void startup(String[] args, InputStream Xin, LispPrintStream Xout) {
+
         in = Xin;
         out = Xout;
         lispIO = null;
@@ -278,8 +258,8 @@ public class Jlisp extends Environment {
         int inputCount = 0;
         imageCount = 0;
         outputImagePos = -1;
-        boolean coldStart = false;
-        //String mainOutput = null;
+
+        boolean coldStart = true;
 
         boolean verbose = false;
         boolean copyrightRequest = false;
@@ -318,52 +298,23 @@ public class Jlisp extends Environment {
                     case 'b': // flips batchp() result
                         batchSwitch = true;
                         continue;
-                    case 'c': // display copyright notice
-                        copyrightRequest = true;
-                        continue;
-                    case 'd': // define symbol
-                        break;
-                    case 'e': // "experiment" control
-                        continue;
-                    case 'f': // serve on a socket
-                        break;
                     case 'g': // enhance debugging
                         debugFlag = true;
                         continue;
                     case 'i': // specify (input) image or library
                         break;
-                    case 'k': // indicate amount of memory to use
-                        break;
-                    case 'm': // (memory trace control)
-                        continue;
                     case 'n': // ignore restart function in image
                         noRestart = true;
-                        continue;
-                    case 'o': // output image
-                        break;
-                    case 'p': // profile option
                         continue;
                     case 'q': // quiet mode
                         verbose = false;
                         continue;
-                    case 'r': // initial random seed
-                        break;
-                    case 's': // view machine code from any compilation
-                        continue;
-                    case 't': // inspect time-stamp on a module
-                        continue;
-                    case 'u': // undefined symbol
-                        break;
                     case 'v': // verbose mode
                         verbose = true;
-                        continue;
-                    case 'w': // run in windowed mode
                         continue;
                     case 'x': // less trapping of possibly internal errors
                         System.out.println("JVM exit on error set.");
                         trapExceptions = false;
-                        continue;
-                    case 'y': // ignore restart-function in saved image
                         continue;
                     case 'z': // cold start mode
                         coldStart = true;
@@ -391,39 +342,13 @@ public class Jlisp extends Environment {
                 }
                 // Now arg is the initial key and arg1 is the follow-up.
                 switch (key) {
-                    case 'd': // define a symbol
-                        if (defineCount < defineSymbol.length) {
-                            defineSymbol[defineCount++] = arg1;
-                        }
-                        break;
-                    case 'f': // serve on a socket
-                        break;
+
                     case 'i': // specify (input) image or library
                         if (imageCount < imageFile.length) {
                             imageFile[imageCount++] = arg1;
                         }
                         break;
-                    case 'k': // indicate amount of memory to use
-                        break;
-                    case 'o': // output image
-                        // If the user specifies an output image then I will make it available
-                        // as an input image too, in the place in the search-list that it
-                        // appears on the command-line: eg
-                        //    -i file1.img -o file2.img -i file3.img
-                        // will scan in order file1/file2/file3 when loading files, and will
-                        // write to file2.
-                        if (imageCount < imageFile.length) {
-                            outputImagePos = imageCount;
-                            imageFile[imageCount++] = arg1;
-                        }
-                        break;
-                    case 'r': // initial random seed
-                        break;
-                    case 'u': // undefined symbol
-                        if (undefineCount < undefineSymbol.length) {
-                            undefineSymbol[undefineCount++] = arg1;
-                        }
-                        break;
+
                 }
             } else {
                 inputFile[inputCount++] = arg;
@@ -536,6 +461,7 @@ public class Jlisp extends Environment {
         for (;;) // loop here is for the oddly named RESTART-CSL function
         {
             loaded = false;
+
             // The next section is a sort of admission of confusion. When I restart the
             // whole of the old word ought to get discarded: Java garbage collection
             // ought to reap it. However that seems not to happen anything like as well
