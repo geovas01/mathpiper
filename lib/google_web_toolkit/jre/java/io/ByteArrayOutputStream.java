@@ -31,6 +31,10 @@ public class ByteArrayOutputStream extends OutputStream{
 
     public void write(int b) {
     }
+    
+    public void reset()
+    {
+    }
 
 }
 

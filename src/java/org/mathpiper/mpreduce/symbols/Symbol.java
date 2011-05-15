@@ -40,7 +40,6 @@ package org.mathpiper.mpreduce.symbols;
 
 import org.mathpiper.mpreduce.Environment;
 import org.mathpiper.mpreduce.special.SpecialFunction;
-import org.mathpiper.mpreduce.io.Fasl;
 import org.mathpiper.mpreduce.functions.lisp.Undefined;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 

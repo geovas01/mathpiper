@@ -70,9 +70,8 @@ public class Interpreter2 {
                     }
                 }
 
-            });
+            }, "MPReduce");
 
-            reduceThread.setName("MPReduce");
 
             reduceThread.start();
 

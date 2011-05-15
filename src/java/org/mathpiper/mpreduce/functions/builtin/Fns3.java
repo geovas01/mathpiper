@@ -701,10 +701,9 @@ class ModulepFn extends BuiltinFunction
         else if (arg1 instanceof LispString) s = ((LispString)arg1).string;
         else return error("illegal arg to modulep", arg1);
         s = s + ".fasl";
-        for (int i=0; i<Jlisp.imageCount; i++)
-        {   arg1 = Jlisp.images[i].modulep(s);
+           arg1 = Jlisp.images.modulep(s);
             if (arg1 != Environment.nil) return arg1;
-        }
+        
         return Environment.nil;
     }
 }
@@ -1244,12 +1243,9 @@ class PreserveFn extends BuiltinFunction
 // variables are put back to their top level values. If I checkpointed
 // the system more directly various local bindings might be captured, and
 // I think that would be undesirable.
-        if (Jlisp.outputImagePos < 0)
-            return Jlisp.error("No output image available");
-        Jlisp.backtrace = false;
-        throw new ProgEvent(ProgEvent.PRESERVE,
-            new Cons(arg1, arg2),
-            "preserve");
+
+        throw new Exception("No output image available");
+
     }
 }
 

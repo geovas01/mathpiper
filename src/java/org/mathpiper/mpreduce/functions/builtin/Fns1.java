@@ -1687,10 +1687,7 @@ class Library_membersFn extends BuiltinFunction
 {
     public LispObject op0() throws Exception
     {
-        if (Jlisp.outputImagePos < 0) return Environment.nil;
-        PDS z = Jlisp.images[Jlisp.outputImagePos];
-        if (z != null) return z.members();
-        return Environment.nil;
+        throw new Exception("Function not supported.");
     }
 }
 
@@ -3208,10 +3205,9 @@ class List_modulesFn extends BuiltinFunction
 {
     public LispObject op0() throws Exception
     {
-        for (int i=0; i<Jlisp.imageCount; i++)
-        {   PDS z = Jlisp.images[i];
+        PDS z = Jlisp.images;
             if (z != null) z.print();
-        }
+        
         return Environment.nil;
     }
 }
