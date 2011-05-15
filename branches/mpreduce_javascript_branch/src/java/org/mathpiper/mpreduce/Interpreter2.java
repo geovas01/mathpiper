@@ -247,6 +247,8 @@ public class Interpreter2 {
 
                 Interpreter2.this.inputBuffer.append(toString());
 
+                this.reset();
+
             } catch (Exception ioe) {
                 ioe.printStackTrace();
             }
