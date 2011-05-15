@@ -32,18 +32,13 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.TimeZone;
 import java.util.Vector;
 import java.util.zip.GZIPInputStream;
-import org.mathpiper.mpreduce.symbols.Gensym;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.special.SpecialFunction;
 import org.mathpiper.mpreduce.special.Specfn;
@@ -59,11 +54,8 @@ import org.mathpiper.mpreduce.datatypes.LispString;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.numbers.LispSmallInteger;
 import org.mathpiper.mpreduce.datatypes.LispHash;
-import org.mathpiper.mpreduce.datatypes.LispEqualHash;
 import org.mathpiper.mpreduce.exceptions.LispException;
-import org.mathpiper.mpreduce.datatypes.LispVector;
 import org.mathpiper.mpreduce.io.streams.LispStream;
-import org.mathpiper.mpreduce.numbers.LispInteger;
 import org.mathpiper.mpreduce.io.streams.LispOutputStream;
 import org.mathpiper.mpreduce.packagedatastore.PDS;
 import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
@@ -204,10 +196,9 @@ public class Jlisp extends Environment {
     }
 
     // The main parts of this file relate to system startup options
-    public static PDS[] images = new PDS[10];
-    public static int outputImagePos;
-    public static int imageCount;
-    static String[] imageFile = new String[10];
+    public static PDS images;
+
+    static String imageFile;
     static InputStream in;
     public static LispPrintStream out;
     public static boolean standAlone;
@@ -256,8 +247,7 @@ public class Jlisp extends Environment {
         long startTime = System.currentTimeMillis();
         String[] inputFile = new String[10];
         int inputCount = 0;
-        imageCount = 0;
-        outputImagePos = -1;
+
 
         boolean coldStart = false;
 
@@ -344,9 +334,8 @@ public class Jlisp extends Environment {
                 switch (key) {
 
                     case 'i': // specify (input) image or library
-                        if (imageCount < imageFile.length) {
-                            imageFile[imageCount++] = arg1;
-                        }
+                        imageFile = arg1;
+                        
                         break;
 
                 }
@@ -413,19 +402,11 @@ public class Jlisp extends Environment {
         }
         Bytecode.setupBuiltins();
 
-        // I open all the image files that the user had mentioned...
-        if (imageCount == 0) {
-            if (verbose) {
-                lispErr.println(
-                        "Image file defaulting to in-store data");
-            }
-            imageFile[0] = "-";
-            imageCount = 1;
-        }
-        for (i = 0; i < imageCount; i++) {
-            images[i] = null;
+        imageFile = "-";
+
+            images = null;
             try {
-                if (imageFile[0].equals("-")) {
+                if (imageFile.equals("-")) {
                     // I get the ClassLoader for LispStream as a randomish convenient
                     // class that is part of my code. Then I can access my image as
                     // a resource, searching for it wherever I loaded my classes from.
@@ -442,12 +423,12 @@ public class Jlisp extends Environment {
                     }
 
                     if (is != null) {
-                        images[i] = new PDS(is);
+                        images = new PDS(is);
                     }
                 }
             } catch (IOException e) {
             }
-        }
+        
 
         // The next stage is either to create an initial Lisp heap or to
         // re-load one that had been saved from a previous session. Things are
@@ -509,21 +490,18 @@ public class Jlisp extends Environment {
                 PDSInputStream ii = null;
                 // I will re-load from the first checkpoint file in the list that has
                 // a HeapImage stored in it.
-                for (i = 0; i < imageCount; i++) {
+
                     try {
-                        ii = new PDSInputStream(images[i], "HeapImage");
+                        ii = new PDSInputStream(images, "HeapImage");
                     } catch (IOException e) {
                     }
-                    if (ii != null) {
-                        break;
-                    }
-                }
+
+                
                 try {
                     if (ii == null) {
                         throw new IOException("No valid checkpoint file found");
                     }
-                    image = new GZIPInputStream(
-                            new BufferedInputStream(ii, 32768));
+                    image = new GZIPInputStream(ii, 32768);
                     Symbol.symbolCount =
                             Cons.consCount =
                             LispString.stringCount = 0;
@@ -531,7 +509,7 @@ public class Jlisp extends Environment {
                     loaded = true;
                 } catch (Exception e) {
                     lispErr.println("Failed to load image \""
-                            + imageFile[0] + "<HeapImage>\"");
+                            + imageFile + "<HeapImage>\"");
                     // The next two lines are for debugging at least
                     lispErr.println(e.getMessage());
                     e.printStackTrace(new LispPrintStream(new WriterToLisp(lispErr)));
@@ -552,17 +530,8 @@ public class Jlisp extends Environment {
                 }
             }
 
-            // If no image file was available I will fall back to a cold start. This is
-            // probably not what is wanted in the long run but will be useful while
-            // testing.
-            if (!loaded) {
-                initSymbols();
-                DateFormat df = DateFormat.getInstance();
-                df.setTimeZone(TimeZone.getDefault());
-                lit[Lit.birthday] = new LispString(df.format(new Date()));
-            } else {   // System.out.println("Bodge here...");
-                //initfns(fns4.builtins);
-            }
+
+
             lispIO.tidyup(nil);
             lispErr.tidyup(nil);
 
@@ -837,83 +806,6 @@ public class Jlisp extends Environment {
     }
 
 
-    static void initSymbols() throws ResourceException {
-        //System.out.println("Beginning cold start: " + oblistCount);
-        Fns.prompt = null;
-        Gensym.gensymCounter = 0;
-
-        // set up nil first since it is needed by Symbol.intern
-        nil = Symbol.intern("nil");
-        nil.cdr/*plist*/ = nil;
-        nil.car/*value*/ = nil;
-        nil.car = nil.cdr = nil;
-
-        // next set up "undefined" and "t" which both have themselves as value
-        lit[Lit.undefined] = Symbol.intern("*undefined-value*");
-        ((Symbol) lit[Lit.undefined]).car/*value*/ = lit[Lit.undefined];
-        lispTrue = Symbol.intern("t");
-        lispTrue.car/*value*/ = lispTrue;
-
-        // Now the remaining literals. It does not matter that undefined gets
-        // looked up again here, since the version already created will be found.
-        for (int i = 0; i < Lit.names.length; i++) {
-            lit[i] = Symbol.intern(Lit.names[i]);
-        }
-
-        // The object list has a funny treatment to make it agree with CSL
-        lit[Lit.starpackage].car/*value*/ =
-                new LispVector(new LispObject[]{nil, LispReader.obvector});
-
-        ((Symbol) lit[Lit.raise]).car/*value*/ = nil;
-        ((Symbol) lit[Lit.lower]).car/*value*/ = lispTrue;
-        ((Symbol) lit[Lit.redefmsg]).car/*value*/ = lispTrue;
-
-        // The things put in lispsystem* must include various ones relied upon
-        // by the REDUCE build scripts!
-        ((Symbol) lit[Lit.lispsystem]).car/*value*/ =
-                new Cons(new Cons(Symbol.intern("c-code"), LispInteger.valueOf(0)),
-                new Cons(new Cons(Symbol.intern("name"), new LispString("java")),
-                new Cons(Symbol.intern("csl"), // a lie, in some sense!
-                new Cons(Symbol.intern("jlisp"),
-                new Cons(Symbol.intern("embedded"),
-                nil)))));
-
-        Fns.fluid(nil);
-        Fns.fluid(lispTrue);
-        Fns.fluid(lit[Lit.lispsystem]);
-        Fns.fluid(lit[Lit.raise]);
-        Fns.fluid(lit[Lit.lower]);
-        Fns.fluid(lit[Lit.starcomp]);
-        Fns.fluid(lit[Lit.commonLisp]);
-        Fns.fluid(lit[Lit.redefmsg]);
-
-        initfns(fns1.builtins);
-        initfns(fns2.builtins);
-        initfns(fns3.builtins);
-        initfns(mpreduceFunctions.builtins);
-        //initfns(fns4.builtins);
-        // initfns(fns5.builtins);
-        // initfns(fns6.builtins);
-
-        {
-            Object[][] specials = specfn.specials;
-            for (int i = 0; i < specials.length; i++) {
-                Object[] s = specials[i];
-                String name = (String) s[0];
-                SpecialFunction fn = (SpecialFunction) s[1];
-                fn.name = name;
-                Symbol.intern(name, null, fn);
-            }
-        }
-
-        lit[Lit.restart] = nil;
-        lit[Lit.hashtab] = new LispHash(new LispEqualHash(), 2);
-        lit[Lit.banner] = new LispString("Jlisp");
-
-        modulus = 1;
-        bigModulus = BigInteger.valueOf(modulus);
-        //System.out.println("After cold start: " + oblistCount);
-    }
 
 
     public static void readEvalPrintLoop(boolean noRestart) throws ProgEvent, ResourceException {

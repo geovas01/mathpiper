@@ -93,15 +93,14 @@ public class Fasl
         name = name + ".fasl";
         try 
         {   PDSInputStream ff = null;
-            for (int i=0; i<Jlisp.imageCount; i++)
-            {   try
-                {   ff = new PDSInputStream(Jlisp.images[i], name);
+                try
+                {   ff = new PDSInputStream(Jlisp.images, name);
                 }
                 catch (IOException e)
                 {
                 }
-                if (ff != null) break;
-            }
+
+            
             if (ff == null) throw new IOException("module not found");
             reader =
                 new GZIPInputStream(
