@@ -1,0 +1,15 @@
+#summary Miscellaneous ideas which are related to MathPiper's graphical user interface.
+
+---------------------------------
+From Frans Morville (Oct 17, 2010):
+
+There is a thing I have been wanting, and maybe it is included in your
+plans:
+
+As output after an input "In> ..."
+you can now get a "Result: "  nicely formatted and you can get some
+text as "Side Effects:  ...  using Echo in the program.
+
+It would be nice, if you could have mixtures of text and formatted
+formulas in the "Side Effects".  E.g. One line of text, one line with a formula, two lines of text, one formula etc. Using Prettyform, you get it, but without the nice Latex formatting.
+---------------------------------
