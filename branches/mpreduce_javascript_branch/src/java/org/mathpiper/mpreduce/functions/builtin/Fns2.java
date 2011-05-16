@@ -753,7 +753,7 @@ class FrexpFn extends BuiltinFunction
     {
         double d = ((LispFloat)arg1).value;
         if (d == 0.0) return new Cons(LispInteger.valueOf(0), arg1);
-	long l = Double.doubleToLongBits(d);
+	long l = Fns.doubleToLongBits(d);
 	long x = (l >> 52) & 0x7ff;
 // NaN and infinity do not normalise a lot
         if (x == 0x7ff) return new Cons(LispInteger.valueOf(0), arg1);
@@ -768,7 +768,7 @@ class FrexpFn extends BuiltinFunction
         x = x - 0x3fe;
 	l = (l & 0x800fffffffffffffL) | 0x3fe0000000000000L;
 	return new Cons(LispInteger.valueOf((int)x),
-	                new LispFloat(Double.longBitsToDouble(l)));
+	                new LispFloat(Fns.longBitsToDouble(l)));
     }
 }
 
@@ -1474,10 +1474,10 @@ class Safe_fp_plusFn extends BuiltinFunction
         if (a1 == 0.0) return arg2;
         else if (a2 == 0.0) return arg1; // adding 0.0 never hurts!
         else if (a1 == -a2) return new LispFloat(0.0);
-        long d1 = Double.doubleToLongBits(a1);
+        long d1 = Fns.doubleToLongBits(a1);
         int x1 = (int)(d1 >> 52) & 0x7ff;
         double r = a1+a2;
-        long r1 = Double.doubleToLongBits(r);
+        long r1 = Fns.doubleToLongBits(r);
         int x = (int)(r1 >> 52) & 0x7ff;
 // I return nil if either the result overflows, or if it becomes a denorm,
 // or if it is smaller than one of the inputs by 40 places. This last
@@ -1503,7 +1503,7 @@ class Safe_fp_timesFn extends BuiltinFunction
         double r = a1*a2;
 // form tha product in the ordinary way and then see if the result is
 // denormalised or infinite.
-        long r1 = Double.doubleToLongBits(r);
+        long r1 = Fns.doubleToLongBits(r);
         int x = (int)(r1 >> 52) & 0x7ff;
         if (x == 0x7ff || x == 0) return Environment.nil;
         return new LispFloat(r);
@@ -1519,7 +1519,7 @@ class Safe_fp_quotFn extends BuiltinFunction
         if (a2 == 0.0) return Environment.nil;
         else if (a1 == 0.0) return new LispFloat(0.0);
         double r = a1/a2;
-        long r1 = Double.doubleToLongBits(r);
+        long r1 = Fns.doubleToLongBits(r);
         int x = (int)(r1 >> 52) & 0x7ff;
         if (x == 0x7ff || x == 0) return Environment.nil;
         return new LispFloat(r);

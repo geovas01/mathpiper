@@ -254,6 +254,18 @@ public class Fns
         }
         return f.sb.toString();
     }
+
+
+    public static long doubleToLongBits(double a1)
+    {
+        return 123456L;
+    }
+
+
+    public static double longBitsToDouble(long bits)
+    {
+        return 123456.0;
+    }
 }
 
 // end of Fns.java

@@ -472,7 +472,7 @@ public class LispReader {
                     for (i = 0; i < 7; i++) {
                         v = (v << 8) | Jlisp.idump.read();
                     }
-                    w = new LispFloat(Double.longBitsToDouble(v));
+                    w = new LispFloat(Fns.longBitsToDouble(v));
                 }
                 break;
                 case LispObject.X_SPID:
