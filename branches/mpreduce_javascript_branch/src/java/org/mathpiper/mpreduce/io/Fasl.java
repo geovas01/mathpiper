@@ -34,7 +34,6 @@ package org.mathpiper.mpreduce.io;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
@@ -103,8 +102,7 @@ public class Fasl
             
             if (ff == null) throw new IOException("module not found");
             reader =
-                new GZIPInputStream(
-                    new BufferedInputStream(ff, 32768));
+                new GZIPInputStream(ff, 32768);
         }
         catch (IOException e)
         {   Jlisp.errprintln(
