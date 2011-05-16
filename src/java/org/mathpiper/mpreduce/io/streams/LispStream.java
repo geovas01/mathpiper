@@ -38,11 +38,8 @@ package org.mathpiper.mpreduce.io.streams;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintStream;
-import java.io.Reader;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.mathpiper.mpreduce.Environment;
 import org.mathpiper.mpreduce.numbers.LispFloat;
@@ -728,8 +725,6 @@ public class LispStream extends LispObject
         return prefix + tail;
     }
 
-    public static SimpleDateFormat dFormat =
-        new SimpleDateFormat("yyyy.MM.dd:HH.mm.ss:SSS");
 
     public static LispObject fileDate(String s)
     {
@@ -737,7 +732,7 @@ public class LispStream extends LispObject
         {   File f = new File(nameConvert(s));
             long n = f.lastModified();
             if (n == 0) return Environment.nil;
-            s = dFormat.format(new Date(n));
+            s = new Date(n).toString();
             return new LispString(s);
         }
         catch (Exception e)

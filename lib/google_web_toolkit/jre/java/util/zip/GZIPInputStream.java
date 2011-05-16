@@ -2,6 +2,7 @@
 package java.util.zip;
 
 import java.io.InputStream;
+import java.io.IOException;
 
 public class GZIPInputStream extends InputStream
 {
@@ -17,7 +18,7 @@ public class GZIPInputStream extends InputStream
  
  
 
- public void close()
+ public void close() throws IOException
  {
  }
  
