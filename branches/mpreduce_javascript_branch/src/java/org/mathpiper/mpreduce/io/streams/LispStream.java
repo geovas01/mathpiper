@@ -84,7 +84,7 @@ public class LispStream extends LispObject
     public LispObject exploded;  // for explode() and friends
     public StringBuffer sb;      // for explodeToString()
     public MessageDigest md;     // for md5 checksumming
-    public LispPrintStream wr;            // for ordinary printing!
+    public LispStream wr;            // for ordinary printing!
 
     public void print(String s) throws ResourceException
     { // attempting to print to (eg) an input stream has no effect at all
@@ -94,6 +94,22 @@ public class LispStream extends LispObject
     {
     }
 
+    public void write(int i) throws IOException
+    {
+        sb.append((char)i);
+    }
+
+    public void write(byte[] b, int off, int len) throws IOException
+    {
+        if(b != null)
+        {
+            for(int index = off; index < b.length; index++)
+            {
+                write(b[index]);
+            }
+        }
+    }
+
     public void println() throws ResourceException
     {
         print("\n");
@@ -101,6 +117,7 @@ public class LispStream extends LispObject
 
     public void flush()
     {
+        int xx = 3;
     }
 
     public void close()

@@ -35,6 +35,7 @@ package org.mathpiper.mpreduce;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Vector;
@@ -64,11 +65,10 @@ import org.mathpiper.mpreduce.functions.builtin.Fns;
 
 
 import org.mathpiper.mpreduce.exceptions.ResourceException;
-import org.mathpiper.mpreduce.io.streams.LispPrintStream;
 
 public class Jlisp extends Environment {
 
-    private static String version = ".007";
+    private static String version = ".008";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
@@ -199,7 +199,7 @@ public class Jlisp extends Environment {
     public static PDS images;
     static String imageFile;
     static InputStream in;
-    public static LispPrintStream out;
+    public static LispStream out;
     public static boolean standAlone;
     public static Vector openOutputFiles = null;
     public static boolean restarting = false;
@@ -209,7 +209,7 @@ public class Jlisp extends Environment {
     static boolean finishingUp = false;
 
 
-    public static void startup(String[] args, InputStream Xin, LispPrintStream Xout) {
+    public static void startup(String[] args, InputStream Xin, LispStream Xout) {
 
         in = Xin;
         out = Xout;
@@ -498,7 +498,7 @@ public class Jlisp extends Environment {
                             + imageFile + "<HeapImage>\"");
                     // The next two lines are for debugging at least
                     lispErr.println(e.getMessage());
-                    e.printStackTrace(new LispPrintStream(new WriterToLisp(lispErr)));
+                    new PrintStream(new WriterToLisp(lispErr)).print(e.getMessage());
                     loaded = false;
                 } finally {
                     if (image != null) {
@@ -882,8 +882,8 @@ public class Jlisp extends Environment {
             } catch (Exception e) {
                 errprintln(
                         "Error while reading: " + e.getMessage());
-                e.printStackTrace(new LispPrintStream(new WriterToLisp(
-                        ((LispStream) Jlisp.lit[Lit.err_output].car/*value*/))));
+
+                new PrintStream(new WriterToLisp((LispStream) Jlisp.lit[Lit.err_output].car/*value*/)).print(e.getMessage());
                 break;
             }
             try {
@@ -922,8 +922,8 @@ public class Jlisp extends Environment {
                     errprintln("+++++ Error: "
                             + e.getMessage());
                 }
-                e.printStackTrace(new LispPrintStream(new WriterToLisp(
-                        ((LispStream) Jlisp.lit[Lit.err_output].car/*value*/))));
+
+                new PrintStream(new WriterToLisp((LispStream) Jlisp.lit[Lit.err_output].car/*value*/)).print(e.getMessage());
             }
         }
         return;
