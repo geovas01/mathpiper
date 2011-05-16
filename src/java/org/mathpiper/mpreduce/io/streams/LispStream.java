@@ -74,7 +74,7 @@ public class LispStream extends LispObject
 // something I had just expected to happen for me as part of the Unicode
 // conversion fun, but it seems not to. So I do it by steam here. Ugh!
 
-    public static String eol = System.getProperty("line.separator");
+    public static String eol = "\n"; //System.getProperty("line.separator");
 
 // Various classes derived from this generic LispStream will direct
 // output to one or the other of the following destinations. I include
