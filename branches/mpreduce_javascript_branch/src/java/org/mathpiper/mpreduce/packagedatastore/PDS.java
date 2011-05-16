@@ -37,10 +37,8 @@ package org.mathpiper.mpreduce.packagedatastore;
 
 
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -50,7 +48,6 @@ import org.mathpiper.mpreduce.Environment;
 import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.Jlisp;
 import org.mathpiper.mpreduce.LispObject;
-import org.mathpiper.mpreduce.io.streams.LispStream;
 import org.mathpiper.mpreduce.datatypes.LispString;
 import org.mathpiper.mpreduce.exceptions.ResourceException;
 
@@ -198,7 +195,7 @@ public void print() throws ResourceException // print to Java standard output (f
             while (sb.length() < 38) sb.append(" ");
             sb.append("len: " + val.len);
             while (sb.length() < 50) sb.append(" ");
-            sb.append(LispStream.dFormat.format(new Date(val.date)));
+            sb.append(new Date(val.date).toString());
             Jlisp.println(sb.toString());
         }
     }
@@ -337,7 +334,7 @@ public LispObject modulep(String s)
     if (d == null) return Environment.nil;
     long date = ((PDSEntry)d).date;
     if (date == 0) return Environment.nil;
-    return new LispString(LispStream.dFormat.format(new Date(date)));
+    return new LispString(new Date(date).toString());
 }
 
 }

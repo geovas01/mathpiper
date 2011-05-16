@@ -40,20 +40,16 @@ package org.mathpiper.mpreduce.functions.builtin;
 // Each built-in function is created wrapped in a class
 // that is derived from BuiltinFunction.
 
-import java.io.InputStream;
 
 
 
 import java.math.BigInteger;
-import java.text.DateFormat;
-import java.text.ParsePosition;
 import java.util.Date;
 import java.util.Iterator;
 import org.mathpiper.mpreduce.Environment;
 
 import org.mathpiper.mpreduce.functions.functionwithenvironment.Bytecode;
 import org.mathpiper.mpreduce.datatypes.Cons;
-import org.mathpiper.mpreduce.io.Fasl;
 import org.mathpiper.mpreduce.symbols.Gensym;
 import org.mathpiper.mpreduce.functions.lisp.Interpreted;
 import org.mathpiper.mpreduce.Jlisp;
@@ -1570,7 +1566,7 @@ class DateFn extends BuiltinFunction
     public LispObject op0()
     {
         Date now = new Date();
-        String s = DateFormat.getDateTimeInstance().format(now);
+        String s = now.toString();
         return new LispString(s);
     }
 }
@@ -1590,11 +1586,19 @@ class DatelesspFn extends BuiltinFunction
         String s1, s2;
         s1 = ((LispString)a1).string;
         s2 = ((LispString)a2).string;
-        Date d1, d2;
-        d1 = LispStream.dFormat.parse(s1, new ParsePosition(0));
-        d2 = LispStream.dFormat.parse(s2, new ParsePosition(0));
-        if (d1 == null || d2 == null) error("badly formatted date");
-        boolean res = d1.getTime() < d2.getTime();
+        long d1=0, d2=0;
+        try
+        {
+            d1 = Date.parse(s1);
+            d2 = Date.parse(s2);
+        }
+        catch(Exception ex)
+        {
+            error("badly formatted date");
+        }
+
+ 
+        boolean res = d1 < d2;
         return res ? Jlisp.lispTrue : Environment.nil;
     }
 }
