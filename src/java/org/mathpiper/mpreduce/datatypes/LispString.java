@@ -135,13 +135,6 @@ public class LispString extends LispObject
     
 
 
-    private void readObject(ObjectInputStream stream)
-                 throws ClassNotFoundException, IOException
-    {
-        stream.defaultReadObject();
-        stringCount++;
-    }
-
 
 }
 
