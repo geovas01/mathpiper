@@ -44,19 +44,12 @@ package org.mathpiper.mpreduce.functions.builtin;
 
 
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 import org.mathpiper.mpreduce.Environment;
 import org.mathpiper.mpreduce.functions.lisp.AutoLoad;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.ByteOpt;
@@ -968,67 +961,7 @@ class InternalOpenFn extends BuiltinFunction
 {
     public LispObject op2(LispObject arg1, LispObject arg2) throws Exception
     {
-        if (!(arg1 instanceof LispString)) 
-            return error("argument 1 to ~open must be a string");
-        String name = ((LispString)arg1).string;
-        int bits = ((LispSmallInteger)arg2).value;
-        if ((bits & 0x100) != 0) return openPipe(name, bits);
-        String localName = LispStream.nameConvert(name);
-        File f = new File(localName);
-        boolean x = f.exists();
-        LispObject r;
-        switch (bits & 3)
-        {
-    case 0: // probe
-            if (x) return Jlisp.lispTrue;
-            else return Environment.nil;
-    case 1: // read
-            if (!x)
-            {   switch (bits & 0x60)
-                {
-            case 0x00: return Environment.nil;
-            case 0x40: return Jlisp.error("File does not exist: " + name);
-            default:   return Jlisp.error("File open mode unknown " +
-                              Integer.toHexString(bits));
-                }
-            }
-            r = Environment.nil;
-            try
-            {   r = new LispStream(
-                    name,
-                    new FileInputStream(f),
-                    false, true);
-            }
-            catch (FileNotFoundException e) // should not happen!
-            {   return error("File " + name + " not found");
-            }
-            return r;
-    case 2: // write
-            r = Environment.nil;
-            try
-            {   if (x)
-                {   switch (bits & 0x1c)
-                    {
-                case 0x00: return Environment.nil;
-                case 0x14: // new version: treat as overwrite...
-                case 0x04: return new LispOutputStream(f);
-// the "append" option seems to have to be opened based on a String not a File
-                case 0x08: return new LispOutputStream(localName, true);
-                case 0x10: return error("File already exists: " + name);
-                default:   return error("Unsupported file open mode: " +
-                                        Integer.toHexString(bits));
-                    }
-                }
-                else r = new LispOutputStream(f);
-            }
-            catch (IOException e)
-            {   return Environment.nil;
-            }
-            return r;
-    case 3: // input and output
-            return error("simultaneous input+output mode files not supported");
-        }
-        return Environment.nil;
+       throw new Exception("Operation not supported.");
     }
 
     public LispObject openPipe(String name, int bits) throws Exception
@@ -1276,9 +1209,8 @@ class RestoreObjectFn extends BuiltinFunction
         try
         {   GZIPInputStream dump = 
                 new GZIPInputStream(
-                    new BufferedInputStream(
                         new FileInputStream(name),
-                        32768));
+                        32768);
             Jlisp.idump = dump;
             LispReader.preRestore();
             Jlisp.descendSymbols = false;

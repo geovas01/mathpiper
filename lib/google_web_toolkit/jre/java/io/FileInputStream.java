@@ -3,7 +3,7 @@ package java.io;
 
 public class FileInputStream extends InputStream{
 
-    public FileInputStream(String fileName) {
+    public FileInputStream(String fileName) throws FileNotFoundException {
     }
 
 
