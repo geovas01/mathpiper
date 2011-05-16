@@ -47,7 +47,6 @@ package org.mathpiper.mpreduce.functions.builtin;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.zip.GZIPInputStream;
 import org.mathpiper.mpreduce.Environment;
@@ -61,7 +60,6 @@ import org.mathpiper.mpreduce.io.Fasl;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.FnWithEnv;
 import org.mathpiper.mpreduce.functions.lisp.Interpreted;
 import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.io.streams.LispDigester;
 import org.mathpiper.mpreduce.datatypes.LispEqualHash;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.datatypes.LispHash;
@@ -508,17 +506,7 @@ class Md5Fn extends BuiltinFunction
 {
     public LispObject op1(LispObject arg1) throws Exception
     {
-        LispStream f = new LispDigester();
-        LispObject save = Jlisp.lit[Lit.std_output].car/*value*/;
-        try
-        {   Jlisp.lit[Lit.std_output].car/*value*/ = f;
-            arg1.print(LispObject.noLineBreak+LispObject.printEscape);
-        }
-        finally
-        {   Jlisp.lit[Lit.std_output].car/*value*/ = save;
-        }
-        byte [] res = f.md.digest();
-        return LispInteger.valueOf(new BigInteger(res));
+        throw new Exception("Operation not supported.");
     }
 }
 
@@ -526,17 +514,7 @@ class Md60Fn extends BuiltinFunction
 {
     public LispObject op1(LispObject arg1) throws Exception
     {
-        LispStream f = new LispDigester();
-        LispObject save = Jlisp.lit[Lit.std_output].car/*value*/;
-        try
-        {   Jlisp.lit[Lit.std_output].car/*value*/ = f;
-            arg1.print(LispObject.noLineBreak+LispObject.printEscape);
-        }
-        finally
-        {   Jlisp.lit[Lit.std_output].car/*value*/ = save;
-        }
-        byte [] res = f.md.digest();
-        return LispInteger.valueOf(new BigInteger(res).shiftRight(68));
+        throw new Exception("Operation not supported.");
     }
 }
 
@@ -2248,17 +2226,7 @@ class SxhashFn extends BuiltinFunction
 { // use md60 here...
     public LispObject op1(LispObject arg1) throws Exception
     {
-        LispStream f = new LispDigester();
-        LispObject save = Jlisp.lit[Lit.std_output].car/*value*/;
-        try
-        {   Jlisp.lit[Lit.std_output].car/*value*/ = f;
-            arg1.print(LispObject.noLineBreak+LispObject.printEscape);
-        }
-        finally
-        {   Jlisp.lit[Lit.std_output].car/*value*/ = save;
-        }
-        byte [] res = f.md.digest();
-        return LispInteger.valueOf(new BigInteger(res).shiftRight(68));
+        throw new Exception("Operation not supported.");
     }
 }
 
