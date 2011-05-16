@@ -67,7 +67,6 @@ import org.mathpiper.mpreduce.numbers.LispInteger;
 import org.mathpiper.mpreduce.numbers.LispNumber;
 import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.LispReader;
-import org.mathpiper.mpreduce.io.streams.LispOutputStream;
 import org.mathpiper.mpreduce.numbers.LispSmallInteger;
 import org.mathpiper.mpreduce.io.streams.LispStream;
 import org.mathpiper.mpreduce.datatypes.LispString;
@@ -808,45 +807,9 @@ class OpenFn extends BuiltinFunction
 {
     public LispObject op2(LispObject arg1, LispObject arg2) throws Exception
     {
-        if (!(arg1 instanceof LispString)) 
-            return error("argument 1 to open must be a string");
-        String name = ((LispString)arg1).string;
-        if (arg2 == Jlisp.lit[Lit.input])
-        {   LispObject r = Environment.nil;
-            try
-            {   r = new LispStream(
-                    name,
-                    new FileInputStream(LispStream.nameConvert(name)),
-                    false, true);
-            }
-            catch (FileNotFoundException e)
-            {   return error("File " + name + " not found");
-            }
-            return r;
-        }
-        else if (arg2 == Jlisp.lit[Lit.output]) 
-        {   LispObject r = Environment.nil;
-            try
-            {   r = new LispOutputStream(name);
-            }
-            catch (IOException e)
-            {   return error("File " + name + " can not be opened for output");
-            }
-            return r;
-        }
-        else if (arg2 == Jlisp.lit[Lit.append]) 
-        {   LispObject r = Environment.nil;
-            try
-            {   r = new LispOutputStream(name, true);
-            }
-            catch (IOException e)
-            {   return error("File " + name + " can not be opened for output");
-            }
-            return r;
-        }
-        else return error(
-            "argument 2 to open should be input, output or append");
+        throw new Exception("Operation not supported.");
     }
+
 }
 
 
