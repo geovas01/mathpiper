@@ -3,7 +3,7 @@ package java.util.zip;
 
 import java.io.InputStream;
 
-public class GZIPInputStream
+public class GZIPInputStream extends InputStream
 {
 
  public GZIPInputStream(InputStream in)

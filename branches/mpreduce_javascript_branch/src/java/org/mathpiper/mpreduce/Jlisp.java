@@ -68,7 +68,7 @@ import org.mathpiper.mpreduce.io.streams.LispPrintStream;
 
 public class Jlisp extends Environment {
 
-    private static String version = ".006";
+    private static String version = ".007";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
@@ -197,7 +197,6 @@ public class Jlisp extends Environment {
 
     // The main parts of this file relate to system startup options
     public static PDS images;
-
     static String imageFile;
     static InputStream in;
     public static LispPrintStream out;
@@ -335,7 +334,7 @@ public class Jlisp extends Environment {
 
                     case 'i': // specify (input) image or library
                         imageFile = arg1;
-                        
+
                         break;
 
                 }
@@ -404,31 +403,18 @@ public class Jlisp extends Environment {
 
         imageFile = "-";
 
-            images = null;
-            try {
-                if (imageFile.equals("-")) {
-                    // I get the ClassLoader for LispStream as a randomish convenient
-                    // class that is part of my code. Then I can access my image as
-                    // a resource, searching for it wherever I loaded my classes from.
-                    // This may well be the .jar file I am using...
-                    ClassLoader cl = lispIO.getClass().getClassLoader();
-                    InputStream is = cl.getResourceAsStream("default.img");
+        images = null;
+        try {
 
-                    if (is == null) {
-                        is = cl.getResourceAsStream("reduce.img");
-                    }
+            InputStream is = new FileInputStream("default.img");
 
-                    if (is == null) {
-                        is = cl.getResourceAsStream("minireduce.img");
-                    }
-
-                    if (is != null) {
-                        images = new PDS(is);
-                    }
-                }
-            } catch (IOException e) {
+            if (is != null) {
+                images = new PDS(is);
             }
-        
+
+        } catch (IOException e) {
+        }
+
 
         // The next stage is either to create an initial Lisp heap or to
         // re-load one that had been saved from a previous session. Things are
@@ -491,12 +477,12 @@ public class Jlisp extends Environment {
                 // I will re-load from the first checkpoint file in the list that has
                 // a HeapImage stored in it.
 
-                    try {
-                        ii = new PDSInputStream(images, "HeapImage");
-                    } catch (IOException e) {
-                    }
+                try {
+                    ii = new PDSInputStream(images, "HeapImage");
+                } catch (IOException e) {
+                }
 
-                
+
                 try {
                     if (ii == null) {
                         throw new IOException("No valid checkpoint file found");
@@ -806,8 +792,6 @@ public class Jlisp extends Environment {
     }
 
 
-
-
     public static void readEvalPrintLoop(boolean noRestart) throws ProgEvent, ResourceException {
         // If the user had set a restart-function when an image was preserved
         // then I will run that now unless the command-line had gone "-n" (for
@@ -967,8 +951,8 @@ public class Jlisp extends Environment {
                 e.printStackTrace();
             }
 
-            System.exit(1);
-
+            //System.exit(1);
+            System.out.println("SYSTEM EXIT SHOULD BE HERE.");
 
         } else {
             try {
@@ -988,40 +972,5 @@ public class Jlisp extends Environment {
 
     }//end method.
 
-}
-
-class FlushOutputThread extends Thread {
-
-    public void run() {
-        for (;;) {
-            try {
-                sleep(2500);
-            } catch (InterruptedException e) {
-            }
-            if (Jlisp.finishingUp) {
-                return;
-            }
-            // The only stream that I flush regularly is the main output one, since
-            // others should be directed to files (not the screen).
-            if (Jlisp.lispIO != null) {
-                Jlisp.lispIO.flush();
-            }
-            // Well maybe I will flush the one that is currently selected if that
-            // is different...
-            LispObject a = Jlisp.lit[Lit.std_output];
-            if (a != null
-                    && a instanceof Symbol) {
-                a = a.car/*value*/;
-            }
-            if (a != null
-                    && a != Jlisp.lispIO
-                    && a instanceof LispStream) {
-                ((LispStream) a).flush();
-            }
-        }
-    }
-
-}
-
-// End of Jlisp.java
+} // End of Jlisp.java
 
