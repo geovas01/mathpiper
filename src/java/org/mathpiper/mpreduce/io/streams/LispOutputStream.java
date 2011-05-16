@@ -33,9 +33,6 @@ package org.mathpiper.mpreduce.io.streams;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import org.mathpiper.mpreduce.Jlisp;
 
 public class LispOutputStream extends LispStream {
@@ -43,31 +40,6 @@ public class LispOutputStream extends LispStream {
     boolean closeMe;
 
 
-    public LispOutputStream(String n) throws IOException // to a named file
-    {
-        super(n);
-        wr = new LispPrintStream(new FileOutputStream(nameConvert(n)));
-        closeMe = true;
-        Jlisp.openOutputFiles.add(this);
-    }
-
-
-    public LispOutputStream(File n) throws IOException // to a named file
-    {
-        super(n.getName());
-        wr = new LispPrintStream(new FileOutputStream(n));
-        closeMe = true;
-        Jlisp.openOutputFiles.add(this);
-    }
-
-
-    public LispOutputStream(String n, boolean appendp) throws IOException // to a file, but with an "append" option
-    {
-        super(n);
-        wr = new LispPrintStream(new FileOutputStream(nameConvert(n), appendp));
-        closeMe = true;
-        Jlisp.openOutputFiles.add(this);
-    }
 
 
     public LispOutputStream() // uses standard input, no extra buffering.
