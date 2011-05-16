@@ -33,6 +33,7 @@ package org.mathpiper.mpreduce.io.streams;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
+import java.io.IOException;
 import org.mathpiper.mpreduce.Jlisp;
 
 public class LispOutputStream extends LispStream {
@@ -52,78 +53,83 @@ public class LispOutputStream extends LispStream {
     }
 
 
-    public void flush() {
+    public void flush()
+    {
         wr.flush();
 
     }
 
 
-    public void close() {
+    public void close()
+    {
         Jlisp.openOutputFiles.removeElement(this);
+
         wr.flush();
-        if (closeMe) {
-            wr.close();
-        }
+        if (closeMe) wr.close();
 
     }
 
-
-    public void print(String s) {
-        if (s == null) {
-            s = "null";
-        }
-        byte[] v = s.getBytes();
+    public void print(String s)
+    {
+        if (s == null) s = "null";
+        byte [] v = s.getBytes();
 // It *MAY* be better to use getChars here and move data into a pre-allocated
 // array of characters.
-        int p = 0;
-        for (int i = 0; i < v.length; i++) {
-            byte c = v[i];
+        try
+        {   int p = 0;
+            for (int i=0; i<v.length; i++)
+            {   byte c = v[i];
 // In counting columns here I do not take any account of
 //   (a) tab
 //   (b) backspace
 //   (c) '\p' and any other oddities
 // in fact I just count anything apart from '\n' as one character position.
-            if (c == '\n') {
-                wr.write(v, p, i - p);
-                wr.print(eol);
-                p = i + 1;
-                column = 0;
-            } // There is a delicacy here. If the user issues ('\r' '\n') rather than
-            // just '\n' I need to take action. What I do is to ignore the '\r' and
-            // map the '\n' onto a platform-specific end-of-line.
-            else if (c == '\r') {
-                wr.write(v, p, i - p);
-                p = i + 1;
-                column = 0;
-            } else {
-                column++;
+                if (c == '\n')
+                {   wr.write(v, p, i-p);
+                    wr.write(eol.charAt(0));
+                    p = i+1;
+                    column = 0;
+                }
+// There is a delicacy here. If the user issues ('\r' '\n') rather than
+// just '\n' I need to take action. What I do is to ignore the '\r' and
+// map the '\n' onto a platform-specific end-of-line.
+                else if (c == '\r')
+                {   wr.write(v, p, i-p);
+                    p = i+1;
+                    column = 0;
+                }
+                else column++;
             }
+            wr.write(v, p, v.length-p);
         }
-        wr.write(v, p, v.length - p);
-
+        catch (IOException e)
+        {}
     }
 
 
-    public void println(String s) {
-        if (s == null) {
-            s = "null";
-        }
+    public void println(String s)
+    {
+        if (s == null) s = "null";
         byte[] v = s.getBytes();
-        int p = 0;
-        for (int i = 0; i < v.length; i++) {
-            byte c = v[i];
-            if (c == '\n') {
-                wr.write(v, p, i - p);
-                wr.print(eol);
-                p = i + 1;
-            } else if (c == '\r') {
-                wr.write(v, p, i - p);
-                p = i + 1;
+        try
+        {   int p = 0;
+            for (int i=0; i<v.length; i++)
+            {   byte c = v[i];
+                if (c == '\n')
+                {   wr.write(v, p, i-p);
+                    wr.write(eol.charAt(0));
+                    p = i+1;
+                }
+                else if (c == '\r')
+                {   wr.write(v, p, i-p);
+                    p = i+1;
+                }
             }
+            wr.write(v, p, v.length-p);
+            wr.write(eol.charAt(0));
         }
-        wr.write(v, p, v.length - p);
-        wr.print(eol);
-
+        catch (IOException e)
+        {}
         column = 0;
     }
 

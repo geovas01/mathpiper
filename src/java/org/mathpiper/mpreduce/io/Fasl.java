@@ -36,6 +36,7 @@ package org.mathpiper.mpreduce.io;
  *************************************************************************/
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.zip.GZIPInputStream;
 import org.mathpiper.mpreduce.Environment;
 import org.mathpiper.mpreduce.io.streams.WriterToLisp;
@@ -58,7 +59,6 @@ import org.mathpiper.mpreduce.LispObject;
 import org.mathpiper.mpreduce.LispReader;
 import org.mathpiper.mpreduce.Lit;
 import org.mathpiper.mpreduce.Spid;
-import org.mathpiper.mpreduce.io.streams.LispPrintStream;
 import org.mathpiper.mpreduce.symbols.Symbol;
 
 public class Fasl
@@ -158,10 +158,8 @@ public class Fasl
                     {   Jlisp.errprintln(
                             "+++ Ignoring error in loaded file");
                         if (Jlisp.backtrace)
-                        {   e.printStackTrace(new LispPrintStream(
-                              new WriterToLisp(
-                                (LispStream)Jlisp.lit[Lit.err_output].car
-                                    /*value*/)));
+                        {
+                            new PrintStream(new WriterToLisp((LispStream)Jlisp.lit[Lit.err_output].car /*value*/)).print(e.getMessage());
                         }
                     }
                 }

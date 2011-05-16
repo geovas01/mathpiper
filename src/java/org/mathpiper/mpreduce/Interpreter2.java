@@ -28,9 +28,9 @@
  *************************************************************************/
 package org.mathpiper.mpreduce;
 
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import org.mathpiper.mpreduce.io.streams.LispPrintStream;
+import org.mathpiper.mpreduce.io.streams.LispOutputString;
+import org.mathpiper.mpreduce.io.streams.LispStream;
 
 public class Interpreter2 {
 
@@ -40,9 +40,10 @@ public class Interpreter2 {
     private String prompt;
     private Thread reduceThread;
     private String sendString = null;
-    private StringBuffer inputBuffer = new StringBuffer();
     InputStream in;
-    LispPrintStream out;
+
+    //Lisp out, my in.
+    LispStream out;
 
 
     public Interpreter2() {
@@ -53,9 +54,11 @@ public class Interpreter2 {
 
         try {
 
-            in = new InterpreterReader(this);
+            in = new InterpreterInputStream(this);
 
-            out = new LispPrintStream(new InterpreterWriter());
+            //out = new LispPrintStream(new InterpreterOutputStream());
+
+            out = new LispOutputString();
 
             final String[] args = new String[0];
 
@@ -135,9 +138,9 @@ public class Interpreter2 {
         }
 
 
-        String responseString = this.inputBuffer.toString();
+        String responseString = out.toString();
 
-        inputBuffer.delete(0, inputBuffer.length());
+        out.flush();
 
         return responseString;
 
@@ -155,13 +158,13 @@ public class Interpreter2 {
     }
 
     //Lisp in, my out.
-    class InterpreterReader extends InputStream {
+    class InterpreterInputStream extends InputStream {
 
         Interpreter2 interpreter;
         int pos, len;
 
 
-        InterpreterReader(Interpreter2 interpreter) {
+        InterpreterInputStream(Interpreter2 interpreter) {
             this.interpreter = interpreter;
             sendString = null;
         }
@@ -187,7 +190,7 @@ public class Interpreter2 {
 
         public int read() {
             if (sendString == null) {
-                interpreter.out.flush();
+                //interpreter.out.flush();
 
                 try {
                     while (sendString == null) {
@@ -226,35 +229,7 @@ public class Interpreter2 {
 
     }
 
-    //Lisp out, my in.
-    class InterpreterWriter extends ByteArrayOutputStream {
 
-        InterpreterWriter() {
-        }
-
-
-        public void close() {
-            flush();
-        }
-
-
-        public void flush() {
-
-            try {
-                super.flush();
-
-
-                Interpreter2.this.inputBuffer.append(toString());
-
-                this.reset();
-
-            } catch (Exception ioe) {
-                ioe.printStackTrace();
-            }
-
-        }
-
-    }
 
 
     public static void main(String[] args) {
