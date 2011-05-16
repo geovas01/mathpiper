@@ -2453,17 +2453,7 @@ class SystemFn extends BuiltinFunction
 {
     public LispObject op1(LispObject arg1) throws Exception
     {
-        try
-        {   Runtime r = Runtime.getRuntime();
-            r.exec(((LispString)arg1).string);
-        }
-        catch (IOException e)
-        {   return Environment.nil;
-        }
-        catch (SecurityException e)
-        {   return Environment.nil;
-        }
-        return Jlisp.lispTrue;
+        throw new Exception("Operation not supported.");
     }
 }
 
