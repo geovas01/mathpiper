@@ -222,9 +222,10 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         double boxWidth = textWidth + 25;
 
-
+        //Draw cons cell rectangle.
         sg.drawRectangle(x, y, boxWidth, height);
 
+        //Draw cons cell dividing line.
         sg.drawLine(x + textWidth, y, x + textWidth, y + height);
 
 
@@ -234,10 +235,16 @@ public class ListPanel extends JPanel implements ViewPanel {
             sg.setColor(Color.BLACK);
         }
 
-        if (currentNode.getCdr() != null) {
+        if (currentNode.getCdr() != null)
+        {
             currentNode.getCdr().setY(currentNode.getY());
 
             sg.drawLine(x + boxWidth - 12, y + 12, x + boxWidth + xGap, y + 12);
+        }
+        else
+        {
+            //Draw cdr diagonal line nil symbol.
+            sg.drawLine(x + textWidth, y + height, x + boxWidth, y);
         }
 
 
@@ -246,11 +253,15 @@ public class ListPanel extends JPanel implements ViewPanel {
         }
 
 
-
         if (currentNode.getCar() != null) {
             sg.drawLine(x + 13, y + 12, x + 13, currentNode.getCar().getY() * (height + yGap) + yGap);
         }
+        else
+        {
+            //Draw car diagonal line nil symbol code goes here.
+        }
 
+        
         drawBox(currentNode.getCdr(), x + boxWidth, sg);
 
         drawBox(currentNode.getCar(), previousRightX, sg);
