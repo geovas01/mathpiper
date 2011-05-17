@@ -32,6 +32,8 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +41,6 @@ import java.io.PrintStream;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Vector;
-import java.util.zip.GZIPInputStream;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.special.SpecialFunction;
 import org.mathpiper.mpreduce.special.Specfn;
@@ -65,6 +66,7 @@ import org.mathpiper.mpreduce.functions.builtin.Fns;
 
 
 import org.mathpiper.mpreduce.exceptions.ResourceException;
+import org.mathpiper.mpreduce.zip.Gzip;
 
 public class Jlisp extends Environment {
 
@@ -472,7 +474,8 @@ public class Jlisp extends Environment {
                 errorCode = null;
             }
             if (!coldStart) {
-                GZIPInputStream image = null;
+                InputStream istream = null;
+
                 PDSInputStream ii = null;
                 // I will re-load from the first checkpoint file in the list that has
                 // a HeapImage stored in it.
@@ -487,11 +490,17 @@ public class Jlisp extends Environment {
                     if (ii == null) {
                         throw new IOException("No valid checkpoint file found");
                     }
-                    image = new GZIPInputStream(ii, 32768);
+
+                    ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+
+                    Gzip.gunzip(ii, ostream );
+
+                    istream = new ByteArrayInputStream(ostream.toByteArray());
+
                     Symbol.symbolCount =
                             Cons.consCount =
                             LispString.stringCount = 0;
-                    LispReader.restore(image);
+                    LispReader.restore(istream);
                     loaded = true;
                 } catch (Exception e) {
                     lispErr.println("Failed to load image \""
@@ -501,9 +510,9 @@ public class Jlisp extends Environment {
                     new PrintStream(new WriterToLisp(lispErr)).print(e.getMessage());
                     loaded = false;
                 } finally {
-                    if (image != null) {
+                    if (istream != null) {
                         try {
-                            image.close();
+                            istream.close();
                         } catch (IOException e) {
                             lispErr.println("Failed to load image");
                             loaded = false;
