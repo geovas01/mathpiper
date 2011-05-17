@@ -35,12 +35,10 @@ package org.mathpiper.mpreduce.io.streams;
  * DAMAGE.                                                                *
  *************************************************************************/
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.util.Date;
 import org.mathpiper.mpreduce.Environment;
 import org.mathpiper.mpreduce.numbers.LispFloat;
 import org.mathpiper.mpreduce.numbers.LispInteger;
@@ -117,7 +115,6 @@ public class LispStream extends LispObject
 
     public void flush()
     {
-        int xx = 3;
     }
 
     public void close()
@@ -282,7 +279,7 @@ public class LispStream extends LispObject
             {   nextChar = -1;
                 return TT_EOF;
             }
-            if (Character.isWhitespace((char)nextChar))
+            if (((char)nextChar) == ' ' || ((char)nextChar) == '\n' || ((char)nextChar) == '\t' || ((char)nextChar) == '\r' )
             {   nextChar = -2;
                 continue;
             }
@@ -745,7 +742,7 @@ public class LispStream extends LispObject
 
     public static LispObject fileDate(String s)
     {
-        try
+        /*try
         {   File f = new File(nameConvert(s));
             long n = f.lastModified();
             if (n == 0) return Environment.nil;
@@ -754,24 +751,28 @@ public class LispStream extends LispObject
         }
         catch (Exception e)
         {   return Environment.nil;
-        }
+        }*/
+        
+        return new LispString("Operation is not supported.");
     }
     
     public static LispObject fileDelete(String s)
     {
-        try
+        /*try
         {   File f = new File(nameConvert(s));
             f.delete();
             return Jlisp.lispTrue;
         }
         catch (Exception e)
         {   return Environment.nil;
-        }
+        }*/
+
+        return Environment.nil; //Operation is not supported.
     }
     
     public static LispObject fileRename(String s, String s1)
     {
-        try
+        /*try
         {   File f = new File(nameConvert(s));
             File f1 = new File(nameConvert(s1));
             f.renameTo(f1);
@@ -779,7 +780,9 @@ public class LispStream extends LispObject
         }
         catch (Exception e)
         {   return Environment.nil;
-        }
+        }*/
+
+        return Environment.nil; //Operation not supported.
     }
     
     public void scan()
