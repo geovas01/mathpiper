@@ -223,6 +223,7 @@
 				<include name="org/mathpiper/mpreduce/packagedatastore/" />
 				<include name="org/mathpiper/mpreduce/special/" />
 				<include name="org/mathpiper/mpreduce/symbols/" />
+				<include name="org/mathpiper/mpreduce/zip/" />
 
 			</fileset>
 		</copy>
