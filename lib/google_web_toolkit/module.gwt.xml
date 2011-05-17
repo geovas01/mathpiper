@@ -3,7 +3,7 @@
     <inherits name="com.google.gwt.user.User" />
     <source path="mpreduce" />
     <super-source path="jre" />
-    <entry-point class="org.mathpiper.mpreduce.Interpreter2" />
+    <entry-point class="org.mathpiper.mpreduce.Interpreter" />
  </module>
  
  

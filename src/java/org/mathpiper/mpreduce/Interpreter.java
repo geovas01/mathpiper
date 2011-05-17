@@ -38,24 +38,24 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 import org.mathpiper.mpreduce.io.streams.LispOutputString;
 import org.mathpiper.mpreduce.io.streams.LispStream;
 
-public class Interpreter2 implements EntryPoint {
+public class Interpreter implements EntryPoint {
 
     Jlisp jlisp;
-    private static Interpreter2 JlispCASInstance = null;
+    private static Interpreter JlispCASInstance = null;
     private String startMessage;
     private String prompt;
-    private Thread reduceThread;
     private String sendString = null;
     InputStream in;
-
     //Lisp out, my in.
     LispStream out;
 
 
-    public Interpreter2() {
+    public Interpreter() {
 
 
 
@@ -65,35 +65,12 @@ public class Interpreter2 implements EntryPoint {
 
             in = new InterpreterInputStream(this);
 
-            //out = new LispPrintStream(new InterpreterOutputStream());
-
             out = new LispOutputString();
 
             final String[] args = new String[0];
 
-            reduceThread = new Thread(new Runnable() {
+            jlisp.startup(args, in, out);
 
-                public void run() {
-                    try {
-                        jlisp.startup(args, in, out);
-                        out.flush();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
-
-            }, "MPReduce");
-
-
-            reduceThread.start();
-
-            startMessage = evaluate(";");
-
-
-            //Initialize MPReduce.
-            String initializationResponse = evaluate("symbolic procedure update!_prompt; begin setpchar \"\" end;;");
-
-            initializationResponse = evaluate("off int; on errcont; off nat;");
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -110,15 +87,15 @@ public class Interpreter2 implements EntryPoint {
     }//end method.
 
 
-    public static Interpreter2 getInstance() throws Throwable {
+    public static Interpreter getInstance() throws Throwable {
         if (JlispCASInstance == null) {
-            JlispCASInstance = new Interpreter2();
+            JlispCASInstance = new Interpreter();
         }
         return JlispCASInstance;
     }//end method.
 
 
-    public synchronized String evaluate(String send) throws Throwable {
+    public void evaluate(String send) throws Throwable {
 
         send = send.trim();
 
@@ -138,21 +115,6 @@ public class Interpreter2 implements EntryPoint {
 
         this.sendString = send;
 
-
-        try {
-            while (sendString != null) {
-                Thread.sleep(100);
-            }
-        } catch (InterruptedException ioe) {
-        }
-
-
-        String responseString = out.toString();
-
-        out.flush();
-
-        return responseString;
-
     }//end evaluate.
 
 
@@ -169,13 +131,30 @@ public class Interpreter2 implements EntryPoint {
     //Lisp in, my out.
     class InterpreterInputStream extends InputStream {
 
-        Interpreter2 interpreter;
-        int pos, len;
+        private ArrayList expressions = new ArrayList();
+        private Iterator expressionsIterator;
+        private Interpreter interpreter;
+        private int pos, len;
+        private String result;
 
 
-        InterpreterInputStream(Interpreter2 interpreter) {
+        InterpreterInputStream(Interpreter interpreter) {
             this.interpreter = interpreter;
             sendString = null;
+
+            expressions.add("symbolic procedure update!_prompt; begin setpchar \"\" end;;");
+            expressions.add(";");
+            expressions.add("off int; on errcont; off nat;");
+            expressions.add("off nat;");
+            expressions.add("x^2;");
+            expressions.add("(X-Y)^100;");
+            expressions.add("2 + 2;");
+            expressions.add("Factorize(100);");
+            expressions.add("quit;");
+
+            expressionsIterator = expressions.iterator();
+
+
         }
 
 
@@ -199,14 +178,30 @@ public class Interpreter2 implements EntryPoint {
 
         public int read() {
             if (sendString == null) {
-                //interpreter.out.flush();
+
+
+                if (out.sb.length() != 0) {
+                    result = out.toString();
+
+                    out.flush();
+
+                    System.out.println(result + "\n");
+                }
 
                 try {
-                    while (sendString == null) {
-                        Thread.sleep(100);
+
+                    if (expressionsIterator.hasNext()) {
+                        String expression = (String) expressionsIterator.next();
+                        evaluate(expression);
+
+                    } else {
+                        throw new Exception("There was a problem during system shutdown.");
                     }
-                } catch (InterruptedException ioe) {
+                } catch (Throwable t) {
+                    System.out.println(t.getMessage());
                 }
+
+
                 pos = 0;
                 len = sendString.length();
             }
@@ -239,56 +234,52 @@ public class Interpreter2 implements EntryPoint {
     }
 
 
+    @Override
+    public void onModuleLoad() {
+        Label label = new Label("Hello GWT !!!");
+        Button button = new Button("Say something");
+        button.addClickHandler(new ClickHandler() {
 
+            @Override
+            public void onClick(ClickEvent event) {
+                Window.alert("Hello, again");
+            }
 
-    	@Override
-	public void onModuleLoad() {
-		Label label = new Label("Hello GWT !!!");
-		Button button = new Button("Say something");
-		button.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Window.alert("Hello, again");
-			}
-		});
+        });
 
-		RootPanel.get().add(label);
-		RootPanel.get().add(button);
-	}
-
-
-
+        RootPanel.get().add(label);
+        RootPanel.get().add(button);
+    }
 
 
     public static void main(String[] args) {
-        Interpreter2 mpreduce = new Interpreter2();
+        Interpreter mpreduce = new Interpreter();
 
-        String result = "";
+        /*String result = "";
 
         try {
 
-            result = mpreduce.evaluate("off nat;");
-            System.out.println(result + "\n");
+        result = mpreduce.evaluate("off nat;");
+        System.out.println(result + "\n");
 
-            result = mpreduce.evaluate("x^2;");
-            System.out.println(result + "\n");
+        result = mpreduce.evaluate("x^2;");
+        System.out.println(result + "\n");
 
-            result = mpreduce.evaluate("(X-Y)^100;");
-            System.out.println(result + "\n");
-
-
-            result = mpreduce.evaluate("2 + 2;");
-            System.out.println(result + "\n");
+        result = mpreduce.evaluate("(X-Y)^100;");
+        System.out.println(result + "\n");
 
 
-            result = mpreduce.evaluate("Factorize(100);");
-            System.out.println(result + "\n");
+        result = mpreduce.evaluate("2 + 2;");
+        System.out.println(result + "\n");
+
+
+        result = mpreduce.evaluate("Factorize(100);");
+        System.out.println(result + "\n");
 
         } catch (Throwable t) {
-            t.printStackTrace();
+        t.printStackTrace();
         } finally {
-
-        }
+        }*/
 
 
 

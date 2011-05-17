@@ -68,7 +68,7 @@ import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class Jlisp extends Environment {
 
-    private static String version = ".009";
+    private static String version = ".010";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
@@ -406,7 +406,7 @@ public class Jlisp extends Environment {
         images = null;
         try {
 
-            InputStream is = new FileInputStream("default.img");
+            InputStream is = new FileInputStream("minireduce.img");
 
             if (is != null) {
                 images = new PDS(is);
@@ -841,7 +841,7 @@ public class Jlisp extends Environment {
             try {
                 if (a == null) {
                     if (r instanceof Symbol) {
-                        ((Symbol) r).fn.op0();
+                        ((Symbol) r).fn.op0(); //Call Lisp "begin" function here.
                     } else if (r instanceof LispFunction) {
                         ((LispFunction) r).op0();
                     } else {
