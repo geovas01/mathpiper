@@ -32,7 +32,7 @@ package org.mathpiper.mpreduce.zip;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import org.mathpiper.mpreduce.zip.GZIPInputStream.SimpleOutputStream;
 
 class ZStream {
 
@@ -115,9 +115,9 @@ class ZStream {
   // Output stream
   //---------------------------------------------------------------------------
 
-  private OutputStream out;
+  private SimpleOutputStream out;
 
-  public ZStream(OutputStream output, boolean keepCrc, int bitsCircularBuffer) {
+  public ZStream(SimpleOutputStream output, boolean keepCrc, int bitsCircularBuffer) {
     this(keepCrc, bitsCircularBuffer);
     this.out = output;
   }

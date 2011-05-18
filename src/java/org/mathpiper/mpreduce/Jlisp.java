@@ -32,8 +32,6 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,11 +64,11 @@ import org.mathpiper.mpreduce.functions.builtin.Fns;
 
 
 import org.mathpiper.mpreduce.exceptions.ResourceException;
-import org.mathpiper.mpreduce.zip.Gzip;
+import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Jlisp extends Environment {
 
-    private static String version = ".010";
+    private static String version = ".011";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
@@ -474,7 +472,6 @@ public class Jlisp extends Environment {
                 errorCode = null;
             }
             if (!coldStart) {
-                InputStream istream = null;
 
                 PDSInputStream ii = null;
                 // I will re-load from the first checkpoint file in the list that has
@@ -485,36 +482,29 @@ public class Jlisp extends Environment {
                 } catch (IOException e) {
                 }
 
+                GZIPInputStream gzip = null;
 
                 try {
                     if (ii == null) {
                         throw new IOException("No valid checkpoint file found");
                     }
 
-                    ByteArrayOutputStream ostream = new ByteArrayOutputStream();
 
-                    Gzip gzip = new Gzip(ii, ostream);
+                    gzip = new GZIPInputStream(ii);
                     
-                    gzip.gunzip();
+ 
 
-                    istream = new ByteArrayInputStream(ostream.toByteArray());
+                    Symbol.symbolCount = Cons.consCount = LispString.stringCount = 0;
 
-                    Symbol.symbolCount =
-                            Cons.consCount =
-                            LispString.stringCount = 0;
-                    LispReader.restore(istream);
+                    LispReader.restore(gzip);
+                    
                     loaded = true;
                 } catch (Exception e) {
-                    lispErr.println("Failed to load image \""
-                            + imageFile + "<HeapImage>\"");
-                    // The next two lines are for debugging at least
-                    lispErr.println(e.getMessage());
-                    new PrintStream(new WriterToLisp(lispErr)).print(e.getMessage());
-                    loaded = false;
+                    throw e;
                 } finally {
-                    if (istream != null) {
+                    if (gzip != null) {
                         try {
-                            istream.close();
+                            gzip.close();
                         } catch (IOException e) {
                             lispErr.println("Failed to load image");
                             loaded = false;

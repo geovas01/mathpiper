@@ -31,7 +31,7 @@ package org.mathpiper.mpreduce.zip;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import org.mathpiper.mpreduce.zip.GZIPInputStream.SimpleOutputStream;
 
 public class Gzip {
 
@@ -42,15 +42,15 @@ public class Gzip {
     private int[] distTree;
     private ZStream in;
     private ZStream out;
-    public boolean huffmanMode = false;
-    public boolean chooseBlockMode = false;
+    public boolean chooseBlockMode = true;
+    private boolean finalBlock;
 
 
     private Gzip() {
     }
 
 
-    public Gzip(InputStream in, OutputStream out) {
+    public Gzip(InputStream in, SimpleOutputStream out) {
         this.in = new ZStream(in, false, 0);
         this.out = new ZStream(out, true, INFLATE_WINDOW_BITS);
     }
@@ -95,11 +95,15 @@ public class Gzip {
     }
 
 
-    void inflateHuffman() throws IOException {
+    void inflateNextStep() throws IOException {
+        litLenCode = Huffman.decodeSymbol(in, litLenTree);
 
-        litLenCode = 0;
+        if(litLenCode == Huffman.END_OF_BLOCK_CODE)
+        {
+            this.chooseBlockMode = true;
+            return;
+        }
 
-        while ((litLenCode = Huffman.decodeSymbol(in, litLenTree)) != Huffman.END_OF_BLOCK_CODE) {
             if (litLenCode < Huffman.END_OF_BLOCK_CODE) {
                 out.write(litLenCode);
             } else {
@@ -111,8 +115,20 @@ public class Gzip {
                 int distance = Huffman.decodeDistance(distCode, in);
                 //System.out.println("d=" + distance + ",l=" + length);
                 out.copyFromEnd(distance, length);
+
+                
             }
-        }//End while
+
+    }
+
+
+    private void inflateHuffman() throws IOException {
+
+        litLenCode = 0;
+
+        this.chooseBlockMode = false;
+
+
     }
 
 
@@ -144,29 +160,34 @@ public class Gzip {
     }
 
 
-    private long inflate() throws IOException {
-        boolean finalBlock = false;
-        do {
-            finalBlock = in.readBits(1) != 0;
-            int blockType = in.readBits(2);
-            switch (blockType) {
-                case BTYPE_NO_COMPRESSION:
-                    in.alignInputBytes(); // Discard the rest of header.
-                    inflateRawBlock();
-                    break;
-                case BTYPE__HUFFMAN:
-                    litLenTree = Huffman.CANONICAL_LITLENS_TREE;
-                    distTree = Huffman.CANONICAL_DISTANCES_TREE;
-                    inflateHuffman();
-                    break;
-                case BTYPE_DYNAMIC_HUFFMAN:
-                    inflateDynamicHuffman();
-                    break;
-                default:
-                case BTYPE_RESERVED:
-                    throw new IOException("Invalid block.");
-            }
-        } while (!finalBlock);
+    boolean inflateBlockStep() throws IOException {
+
+        finalBlock = in.readBits(1) != 0;
+        int blockType = in.readBits(2);
+        switch (blockType) {
+            case BTYPE_NO_COMPRESSION:
+                in.alignInputBytes(); // Discard the rest of header.
+                inflateRawBlock();
+                break;
+            case BTYPE__HUFFMAN:
+                litLenTree = Huffman.CANONICAL_LITLENS_TREE;
+                distTree = Huffman.CANONICAL_DISTANCES_TREE;
+                inflateHuffman();
+                break;
+            case BTYPE_DYNAMIC_HUFFMAN:
+                inflateDynamicHuffman();
+                break;
+            default:
+            case BTYPE_RESERVED:
+                throw new IOException("Invalid block.");
+        }
+
+        return finalBlock;
+    }
+
+
+    public long endInflate() throws IOException {
+
         in.alignInputBytes();
         return out.getSize();
     }
@@ -229,19 +250,10 @@ public class Gzip {
         }
     }
 
-    void resetCrc()
-    {
+
+    void resetCrc() {
         this.out.resetCrc();
     }
 
 
-    public Gzip gunzip() throws IOException {
-
-        Gzip gzip = readHeader();
-        this.out.resetCrc();
-        long size = inflate();
-        readFooter();
-        return gzip;
-    }
-
-}
+}//end class.
