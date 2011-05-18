@@ -27,7 +27,6 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-
 package org.mathpiper.mpreduce.zip;
 
 import java.io.IOException;
@@ -36,200 +35,213 @@ import java.io.OutputStream;
 
 public class Gzip {
 
-  private String filename;
-  private String comment;
+    private String filename;
+    private String comment;
+    private int litLenCode = 0;
+    private int[] litLenTree;
+    private int[] distTree;
+    private ZStream in;
+    private ZStream out;
+    public boolean huffmanMode = false;
+    public boolean chooseBlockMode = false;
 
-  public Gzip(String file, String comment) {
-    this.filename = file;
-    this.comment = comment;
-  }
 
-  public Gzip() {
-  }
-
-  public String getFilename() {
-    return filename;
-  }
-
-  public String getComment() {
-    return comment;
-  }
-
-  //---------------------------------------------------------------------------
-  // Inflate specific.
-  //---------------------------------------------------------------------------
-
-  private static final byte BTYPE_NO_COMPRESSION = 0x00;
-  private static final byte BTYPE_STATIC_HUFFMAN = 0x01;
-  private static final byte BTYPE_DYNAMIC_HUFFMAN = 0x02;
-  private static final byte BTYPE_RESERVED = 0x03;
-
-  private static final int INFLATE_WINDOW_BITS = 15;
-
-  static final int DEFLATE_HASH_SIZE = 1 << 11;
-  private static final int DEFLATE_WINDOW_BITS = 11;
-  static final int MAX_DEFLATE_DISTANCE = 1 << DEFLATE_WINDOW_BITS;
-  static final int MAX_DEFLATE_LENGTH = 256;
-
-  private static void inflateRawBlock(ZStream in, ZStream out)
-      throws IOException {
-    int len = in.readLittleEndian(2);
-    int nlen = in.readLittleEndian(2);
-    if ((len ^ nlen) != 0xFFFF) {
-      throw new IOException("Invalid block.");
+    private Gzip() {
     }
-    while (len-- > 0) {
-      int ch = in.read();
-      if (ch < 0) {
-        throw new IOException("Unexpected EOF.");
-      }
-      out.write(ch);
-    }
-  }
 
-  private static void inflateHuffman(ZStream in, ZStream out, int[] litLenTree,
-      int[] distTree) throws IOException {
-    int litLenCode = 0;
-    while ((litLenCode = Huffman.decodeSymbol(in, litLenTree)) != Huffman.END_OF_BLOCK_CODE) {
-      if (litLenCode < Huffman.END_OF_BLOCK_CODE) {
-        out.write(litLenCode);
-      } else {
-        if (distTree == null) {
-          throw new IOException("no distance tree");
+
+    public Gzip(InputStream in, OutputStream out) {
+        this.in = new ZStream(in, false, 0);
+        this.out = new ZStream(out, true, INFLATE_WINDOW_BITS);
+    }
+
+
+    public String getFilename() {
+        return filename;
+    }
+
+
+    public String getComment() {
+        return comment;
+    }
+
+    //---------------------------------------------------------------------------
+    // Inflate specific.
+    //---------------------------------------------------------------------------
+    private final byte BTYPE_NO_COMPRESSION = 0x00;
+    private final byte BTYPE__HUFFMAN = 0x01;
+    private final byte BTYPE_DYNAMIC_HUFFMAN = 0x02;
+    private final byte BTYPE_RESERVED = 0x03;
+    private final int INFLATE_WINDOW_BITS = 15;
+    final int DEFLATE_HASH_SIZE = 1 << 11;
+    private final int DEFLATE_WINDOW_BITS = 11;
+    final int MAX_DEFLATE_DISTANCE = 1 << DEFLATE_WINDOW_BITS;
+    final int MAX_DEFLATE_LENGTH = 256;
+
+
+    private void inflateRawBlock() throws IOException {
+        int len = in.readLittleEndian(2);
+        int nlen = in.readLittleEndian(2);
+        if ((len ^ nlen) != 0xFFFF) {
+            throw new IOException("Invalid block.");
         }
-        int length = Huffman.decodeLength(litLenCode, in);
-        int distCode = Huffman.decodeSymbol(in, distTree);
-        int distance = Huffman.decodeDistance(distCode, in);
-        //System.out.println("d=" + distance + ",l=" + length);
-        out.copyFromEnd(distance, length);
-      }
+        while (len-- > 0) {
+            int ch = in.read();
+            if (ch < 0) {
+                throw new IOException("Unexpected EOF.");
+            }
+            out.write(ch);
+        }
     }
-  }
 
-  private static void inflateDynamicHuffman(ZStream in, ZStream out)
-      throws IOException {
-    int hlit = in.readBits(5) + 257;
-    int hdist = in.readBits(5) + 1;
-    int hclen = in.readBits(4) + 4;
 
-    // Build tree which will be used to decode lengths for nodes of
-    // literal/length and distance trees.
-    // Will read 4-19 items. Each item ranges from 0 to 7 (3 bits).
-    char[] hcLengths = new char[19];
-    for (int i = 0; i < hclen; i++) {
-      hcLengths[Huffman.HC_PERM[i]] = (char) in.readBits(3);
+    void inflateHuffman() throws IOException {
+
+        litLenCode = 0;
+
+        while ((litLenCode = Huffman.decodeSymbol(in, litLenTree)) != Huffman.END_OF_BLOCK_CODE) {
+            if (litLenCode < Huffman.END_OF_BLOCK_CODE) {
+                out.write(litLenCode);
+            } else {
+                if (distTree == null) {
+                    throw new IOException("no distance tree");
+                }
+                int length = Huffman.decodeLength(litLenCode, in);
+                int distCode = Huffman.decodeSymbol(in, distTree);
+                int distance = Huffman.decodeDistance(distCode, in);
+                //System.out.println("d=" + distance + ",l=" + length);
+                out.copyFromEnd(distance, length);
+            }
+        }//End while
     }
-    int[] hcTree = Huffman.buildCodeTree(7, hcLengths);
 
-    char[] litCodeLens = Huffman.readLengths(in, hcTree, hlit);
-    int[] litLenTree = Huffman.buildCodeTree(15, litCodeLens);
 
-    char[] distCodeLens = Huffman.readLengths(in, hcTree, hdist);
-    int[] distTree = null;
-    // Check corner case where there are only literals and no lengths.
-    if (distCodeLens.length != 1 || distCodeLens[0] != 0) {
-      distTree = Huffman.buildCodeTree(15, distCodeLens);
+    private void inflateDynamicHuffman()
+            throws IOException {
+        int hlit = in.readBits(5) + 257;
+        int hdist = in.readBits(5) + 1;
+        int hclen = in.readBits(4) + 4;
+
+        // Build tree which will be used to decode lengths for nodes of
+        // literal/length and distance trees.
+        // Will read 4-19 items. Each item ranges from 0 to 7 (3 bits).
+        char[] hcLengths = new char[19];
+        for (int i = 0; i < hclen; i++) {
+            hcLengths[Huffman.HC_PERM[i]] = (char) in.readBits(3);
+        }
+        int[] hcTree = Huffman.buildCodeTree(7, hcLengths);
+
+        char[] litCodeLens = Huffman.readLengths(in, hcTree, hlit);
+        litLenTree = Huffman.buildCodeTree(15, litCodeLens);
+
+        char[] distCodeLens = Huffman.readLengths(in, hcTree, hdist);
+        distTree = null;
+        // Check corner case where there are only literals and no lengths.
+        if (distCodeLens.length != 1 || distCodeLens[0] != 0) {
+            distTree = Huffman.buildCodeTree(15, distCodeLens);
+        }
+        inflateHuffman();
     }
-    inflateHuffman(in, out, litLenTree, distTree);
-  }
-
-  private static long inflate(ZStream in, ZStream out) throws IOException {
-    boolean finalBlock = false;
-    do {
-      finalBlock = in.readBits(1) != 0;
-      int blockType = in.readBits(2);
-      switch (blockType) {
-      case BTYPE_NO_COMPRESSION:
-        in.alignInputBytes(); // Discard the rest of header.
-        inflateRawBlock(in, out);
-        break;
-      case BTYPE_STATIC_HUFFMAN:
-        inflateHuffman(in, out, Huffman.CANONICAL_LITLENS_TREE,
-            Huffman.CANONICAL_DISTANCES_TREE);
-        break;
-      case BTYPE_DYNAMIC_HUFFMAN:
-        inflateDynamicHuffman(in, out);
-        break;
-      default:
-      case BTYPE_RESERVED:
-        throw new IOException("Invalid block.");
-      }
-    } while (!finalBlock);
-    in.alignInputBytes();
-    return out.getSize();
-  }
-
-  public static long inflate(InputStream in, OutputStream out)
-      throws IOException {
-    ZStream outStream = new ZStream(out, true, INFLATE_WINDOW_BITS);
-    return inflate(new ZStream(in, false, 0), outStream);
-  }
 
 
-
-  //---------------------------------------------------------------------------
-  // Gunzip specific.
-  //---------------------------------------------------------------------------
-
-  private static Gzip readHeader(ZStream in) throws IOException {
-    Gzip gzip = new Gzip();
-    in.resetCrc();
-    if (in.readLittleEndian(2) != ZStream.GZIP_MAGIC_NUMBER) {
-      throw new IOException("Bad magic number");
+    private long inflate() throws IOException {
+        boolean finalBlock = false;
+        do {
+            finalBlock = in.readBits(1) != 0;
+            int blockType = in.readBits(2);
+            switch (blockType) {
+                case BTYPE_NO_COMPRESSION:
+                    in.alignInputBytes(); // Discard the rest of header.
+                    inflateRawBlock();
+                    break;
+                case BTYPE__HUFFMAN:
+                    litLenTree = Huffman.CANONICAL_LITLENS_TREE;
+                    distTree = Huffman.CANONICAL_DISTANCES_TREE;
+                    inflateHuffman();
+                    break;
+                case BTYPE_DYNAMIC_HUFFMAN:
+                    inflateDynamicHuffman();
+                    break;
+                default:
+                case BTYPE_RESERVED:
+                    throw new IOException("Invalid block.");
+            }
+        } while (!finalBlock);
+        in.alignInputBytes();
+        return out.getSize();
     }
-    if (in.readLittleEndian(1) != ZStream.CM_DEFLATE) {
-      throw new IOException("Unsupported compression method");
-    }
-    int flg = in.readLittleEndian(1);
-    // mtime=4, xfl=1, os=1
-    in.skipBytes(6);
-    if ((flg & ZStream.FEXTRA) != 0) {
-      int xlen = in.readLittleEndian(2);
-      while (xlen-- > 0) {
-        in.read();
-      }
-    }
-    if ((flg & ZStream.FNAME) != 0) {
-      gzip.filename = in.readZeroTerminatedString();
-    }
-    if ((flg & ZStream.FCOMMENT) != 0) {
-      gzip.comment = in.readZeroTerminatedString();
-    }
-    if ((flg & ZStream.FHCRC) != 0) {
-      int headerCrc16 = in.getCrc() & 0xFFFF;
-      int expectedHeaderCrc16 = in.readLittleEndian(2);
-      if (expectedHeaderCrc16 != headerCrc16) {
-        throw new IOException("Header CRC check failed.");
-      }
-    }
-    in.setKeepCrc(false);
-    return gzip;
-  }
 
-  private static void readFooter(ZStream in, ZStream out) throws IOException {
-    int actualCrc = out.getCrc();
-    int expectedCrc = in.readLittleEndian(4);
-    if (expectedCrc != actualCrc) {
-      throw new IOException("CRC check failed.");
-    }
-    int actualSize = out.getSize();
-    int expectedSize = in.readLittleEndian(4);
-    if ((actualSize & 0xFFFFFFFF) != expectedSize) {
-      throw new IOException("Size mismatches.");
-    }
-  }
 
-  private static Gzip gunzip(ZStream in, ZStream out) throws IOException {
-    Gzip gzip = readHeader(in);
-    out.resetCrc();
-    inflate(in, out);
-    readFooter(in, out);
-    return gzip;
-  }
+    /*public  long inflate(InputStream in, OutputStream out) throws IOException {
+    Gzip.in = new ZStream(in, false, 0);
+    Gzip.out = new ZStream(out, true, INFLATE_WINDOW_BITS);
+    return inflate();
+    }*/
+    //---------------------------------------------------------------------------
+    // Gunzip specific.
+    //---------------------------------------------------------------------------
+    Gzip readHeader() throws IOException {
+        Gzip gzip = new Gzip();
+        in.resetCrc();
+        if (in.readLittleEndian(2) != ZStream.GZIP_MAGIC_NUMBER) {
+            throw new IOException("Bad magic number");
+        }
+        if (in.readLittleEndian(1) != ZStream.CM_DEFLATE) {
+            throw new IOException("Unsupported compression method");
+        }
+        int flg = in.readLittleEndian(1);
+        // mtime=4, xfl=1, os=1
+        in.skipBytes(6);
+        if ((flg & ZStream.FEXTRA) != 0) {
+            int xlen = in.readLittleEndian(2);
+            while (xlen-- > 0) {
+                in.read();
+            }
+        }
+        if ((flg & ZStream.FNAME) != 0) {
+            gzip.filename = in.readZeroTerminatedString();
+        }
+        if ((flg & ZStream.FCOMMENT) != 0) {
+            gzip.comment = in.readZeroTerminatedString();
+        }
+        if ((flg & ZStream.FHCRC) != 0) {
+            int headerCrc16 = in.getCrc() & 0xFFFF;
+            int expectedHeaderCrc16 = in.readLittleEndian(2);
+            if (expectedHeaderCrc16 != headerCrc16) {
+                throw new IOException("Header CRC check failed.");
+            }
+        }
+        in.setKeepCrc(false);
+        return gzip;
+    }
 
-  public static Gzip gunzip(InputStream in, OutputStream out)
-      throws IOException {
-    return gunzip(new ZStream(in, false, 0), new ZStream(out, true,
-        INFLATE_WINDOW_BITS));
-  }
+
+    void readFooter() throws IOException {
+        int actualCrc = out.getCrc();
+        int expectedCrc = in.readLittleEndian(4);
+        if (expectedCrc != actualCrc) {
+            throw new IOException("CRC check failed.");
+        }
+        int actualSize = out.getSize();
+        int expectedSize = in.readLittleEndian(4);
+        if ((actualSize & 0xFFFFFFFF) != expectedSize) {
+            throw new IOException("Size mismatches.");
+        }
+    }
+
+    void resetCrc()
+    {
+        this.out.resetCrc();
+    }
+
+
+    public Gzip gunzip() throws IOException {
+
+        Gzip gzip = readHeader();
+        this.out.resetCrc();
+        long size = inflate();
+        readFooter();
+        return gzip;
+    }
+
 }
