@@ -187,7 +187,7 @@
 	
 	<target id="gwt_dist" name="gwt_dist" depends="">
 	
-		<delete dir="${build.dir}/gwt_dist/src" />
+		<delete dir="${build.dir}/gwt_dist" />
 	
 		<!--<copy todir="${build.classes.dir}">
 			<fileset dir="${mpreduce.dir}/scripts" >
@@ -243,6 +243,8 @@
 		     <include name="compile.sh" />
 		   </fileset>
 		</copy>
+		
+		<copy file="${library.dir}/google_web_toolkit/mpreduce.html" todir="${build.dir}/gwt_dist/war"/>
 
 
 	</target>
