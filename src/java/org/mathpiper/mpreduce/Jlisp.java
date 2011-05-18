@@ -493,7 +493,9 @@ public class Jlisp extends Environment {
 
                     ByteArrayOutputStream ostream = new ByteArrayOutputStream();
 
-                    Gzip.gunzip(ii, ostream );
+                    Gzip gzip = new Gzip(ii, ostream);
+                    
+                    gzip.gunzip();
 
                     istream = new ByteArrayInputStream(ostream.toByteArray());
 
