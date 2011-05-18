@@ -35,9 +35,19 @@ import java.io.OutputStream;
 public class GZIPInputStream extends InputStream {
 
     private Gzip gzip;
+    private byte[] buffer;
+    private int tail;
+    private int head;
 
 
     public GZIPInputStream(InputStream input) {
+
+        buffer = new byte[3000];
+        tail = 0;
+        head = 0;
+
+
+
         gzip = new Gzip(input, new SimpleOutputStream());
 
         try {
@@ -50,14 +60,79 @@ public class GZIPInputStream extends InputStream {
 
 
     public int read() throws IOException {
-        return 0;
-    }
 
-    class SimpleOutputStream extends OutputStream {
 
-        public void write(int b) throws IOException {
+        if(tail != head)
+        {
+            return getByte() & 0xff;
         }
 
+
+        if (gzip.chooseBlockMode == true) {
+            gzip.inflateBlockStep();
+        }
+
+        gzip.inflateNextStep();
+
+        if (gzip.chooseBlockMode == true ) {
+            gzip.inflateBlockStep();
+            gzip.inflateNextStep();
+        }
+
+
+        int nextByte = getByte() & 0xff;
+
+        return nextByte;
     }
 
-}
+
+    public void addByte(byte toAdd) throws IOException
+    {
+        if (head != (tail - 1)) {
+            buffer[head++] = toAdd;
+        } else {
+            throw new IOException("Buffer overflow.");
+        }
+        head = head % buffer.length;
+    }
+
+
+    private byte getByte() throws IOException
+    {
+        byte t = 0;
+        int adjTail = tail > head ? tail - buffer.length : tail;
+        if (adjTail < head) {
+            t = buffer[tail++];
+            tail = tail % buffer.length;
+        } else {
+            throw new IOException("Buffer underflow.");
+        }
+        return t;
+    }
+
+    
+    public void close() throws IOException
+    {
+        gzip.endInflate();
+    }
+
+    
+    public class SimpleOutputStream extends OutputStream {
+
+        public void write(int b) throws IOException {
+            addByte((byte) b);
+        }
+
+        public void flush()
+        {
+            
+        }
+
+    }//End class SimpleOutputStream.
+
+
+
+
+
+
+}//End class GZIPInputStream.

@@ -37,7 +37,6 @@ package org.mathpiper.mpreduce.io;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.zip.GZIPInputStream;
 import org.mathpiper.mpreduce.Environment;
 import org.mathpiper.mpreduce.io.streams.WriterToLisp;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.ByteOpt;
@@ -60,6 +59,7 @@ import org.mathpiper.mpreduce.LispReader;
 import org.mathpiper.mpreduce.Lit;
 import org.mathpiper.mpreduce.Spid;
 import org.mathpiper.mpreduce.symbols.Symbol;
+import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Fasl
 {
@@ -102,7 +102,7 @@ public class Fasl
             
             if (ff == null) throw new IOException("module not found");
             reader =
-                new GZIPInputStream(ff, 32768);
+                new GZIPInputStream(ff);
         }
         catch (IOException e)
         {   Jlisp.errprintln(

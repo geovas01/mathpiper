@@ -48,7 +48,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.zip.GZIPInputStream;
 import org.mathpiper.mpreduce.Environment;
 import org.mathpiper.mpreduce.functions.lisp.AutoLoad;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.ByteOpt;
@@ -79,6 +78,7 @@ import org.mathpiper.mpreduce.special.Specfn;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.functions.lisp.TracedFunction;
 import org.mathpiper.mpreduce.functions.lisp.Undefined;
+import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Fns3
 {
@@ -1150,8 +1150,7 @@ class RestoreObjectFn extends BuiltinFunction
         try
         {   GZIPInputStream dump = 
                 new GZIPInputStream(
-                        new FileInputStream(name),
-                        32768);
+                        new FileInputStream(name));
             Jlisp.idump = dump;
             LispReader.preRestore();
             Jlisp.descendSymbols = false;
