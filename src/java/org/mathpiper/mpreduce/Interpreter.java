@@ -59,6 +59,13 @@ public class Interpreter implements EntryPoint {
 
 
 
+    }//end constructor.
+
+
+    public void start()
+    {
+
+
         jlisp = new Jlisp();
 
         try {
@@ -76,10 +83,7 @@ public class Interpreter implements EntryPoint {
             t.printStackTrace();
 
         }
-
-
-
-    }//end constructor.
+    }
 
 
     public String getStartMessage() {
@@ -236,13 +240,16 @@ public class Interpreter implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-        Label label = new Label("Hello GWT !!!");
-        Button button = new Button("Say something");
+
+
+        Label label = new Label("mpreduce test");
+        Button button = new Button("Start mpreduce");
         button.addClickHandler(new ClickHandler() {
 
             @Override
             public void onClick(ClickEvent event) {
-                Window.alert("Hello, again");
+                start();
+                Window.alert("mpreduce started");
             }
 
         });
@@ -254,6 +261,8 @@ public class Interpreter implements EntryPoint {
 
     public static void main(String[] args) {
         Interpreter mpreduce = new Interpreter();
+
+        mpreduce.start();
 
         /*String result = "";
 
