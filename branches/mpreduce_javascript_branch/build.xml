@@ -215,6 +215,7 @@
 				<include name="org/mathpiper/mpreduce/LispReader.java" />
 				<include name="org/mathpiper/mpreduce/Lit.java" />
 				<include name="org/mathpiper/mpreduce/Spid.java" />
+				<include name="org/mathpiper/mpreduce/base64/Base64.java" />
 				<include name="org/mathpiper/mpreduce/datatypes/" />
 				<include name="org/mathpiper/mpreduce/exceptions/" />
 				<include name="org/mathpiper/mpreduce/functions/" />
@@ -224,6 +225,7 @@
 				<include name="org/mathpiper/mpreduce/special/" />
 				<include name="org/mathpiper/mpreduce/symbols/" />
 				<include name="org/mathpiper/mpreduce/zip/" />
+				<include name="org/mathpiper/mpreduce/ReduceImageInputStream.java" />
 
 			</fileset>
 		</copy>
@@ -241,6 +243,7 @@
 		   <fileset dir="${library.dir}/google_web_toolkit">
 		     <include name="*.jar" />
 		     <include name="compile.sh" />
+		     <include name="debug.sh" />
 		   </fileset>
 		</copy>
 		
