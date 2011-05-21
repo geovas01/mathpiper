@@ -183,3 +183,6 @@ Verify(Factor(a^2 - a*f + f^2), a^2-a*f+f^2);
 
 // Issue 119
 Verify(Integrate(x) 1/(4 * x^2 + 1), ArcTan(2*x)/2);
+
+// Issue 120
+Verify(Simplify(x^2*(1/x)^2+1), 2);
