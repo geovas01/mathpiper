@@ -68,7 +68,7 @@ import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Jlisp extends Environment {
 
-    private static String version = ".011";
+    private static String version = ".012";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
@@ -406,7 +406,9 @@ public class Jlisp extends Environment {
         images = null;
         try {
 
-            InputStream is = new FileInputStream("minireduce.img");
+            //InputStream is = new FileInputStream("minireduce.img");
+
+            InputStream is = new ReduceImageInputStream();
 
             if (is != null) {
                 images = new PDS(is);
