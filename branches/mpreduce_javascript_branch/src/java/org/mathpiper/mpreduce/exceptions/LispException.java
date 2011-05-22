@@ -43,23 +43,22 @@ import org.mathpiper.mpreduce.LispObject;
 public class LispException extends Exception
 {
     public LispObject details;
-    public String message;
     
     public LispException()
     {
-        this.message = "unknown"; 
+        super("unknown");
 	this.details = Environment.nil;
     }
     
     public LispException(String message)
     {
-        this.message=message;
+        super(message);
 	this.details=null; 
     }
     
     public LispException(String message, LispObject details)
     {
-        this.message = message;
+        super(message);
 	this.details = details; 
     }
 }

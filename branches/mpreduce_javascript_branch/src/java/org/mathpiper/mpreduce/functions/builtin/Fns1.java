@@ -1983,7 +1983,7 @@ class ErrorsetFn extends BuiltinFunction
                 if (e instanceof LispException)
                 {   LispException e1 = (LispException)e;
                     if (head)
-                    {   Jlisp.errprint("+++++ Error: " + e1.message);
+                    {   Jlisp.errprint("+++++ Error: " + e1.getMessage());
                         if (e1.details != null)
                         {   Jlisp.errprint(": ");
                             e1.details.errPrint();
