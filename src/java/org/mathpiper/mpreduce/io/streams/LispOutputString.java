@@ -49,7 +49,6 @@ public class LispOutputString extends LispStream
     public void flush()
     {
         sb.delete(0, sb.length());
-        int xx = 1;
     }
 
     public void close()
