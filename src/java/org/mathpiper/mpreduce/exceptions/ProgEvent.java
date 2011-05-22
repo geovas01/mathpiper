@@ -47,23 +47,24 @@ public class ProgEvent extends LispException
     
     public LispObject details;
     public LispObject extras;
-    public String message;
+
     public int type;
 
     public ProgEvent(int type, LispObject details, String message)
     {
+        super(message);
         this.type = type;
         this.details = details;
         this.extras = null;
-        this.message = message; 
+
     }
 
     public ProgEvent(int type, LispObject details, LispObject extras, String message)
     {
+        super(message);
         this.type = type;
         this.details = details;
-        this.extras = extras;
-        this.message = message; 
+        this.extras = extras; 
     }
 
 }

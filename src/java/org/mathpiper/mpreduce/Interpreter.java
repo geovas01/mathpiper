@@ -185,7 +185,7 @@ public class Interpreter implements EntryPoint {
                 if (out.sb.length() != 0) {
                     result = out.toString();
 
-                    out.flush();
+                    out.flush(); //Clear the StringBuffer.
 
                     System.out.println(result + "\n");
                 }
@@ -261,6 +261,14 @@ public class Interpreter implements EntryPoint {
         Interpreter mpreduce = new Interpreter();
 
         mpreduce.start();
+
+        try{
+            mpreduce.jlisp.readEvalPrintLoop(true);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
 
         /*String result = "";
 

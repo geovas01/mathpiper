@@ -32,28 +32,18 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintStream;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Vector;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.special.SpecialFunction;
-import org.mathpiper.mpreduce.special.Specfn;
-import org.mathpiper.mpreduce.io.Fasl;
-import org.mathpiper.mpreduce.io.streams.WriterToLisp;
 import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.Bytecode;
-import org.mathpiper.mpreduce.functions.lisp.Undefined;
 import org.mathpiper.mpreduce.exceptions.ProgEvent;
-import org.mathpiper.mpreduce.exceptions.EOFException;
-import org.mathpiper.mpreduce.io.streams.LispStringReader;
 import org.mathpiper.mpreduce.datatypes.LispString;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.numbers.LispSmallInteger;
-import org.mathpiper.mpreduce.datatypes.LispHash;
 import org.mathpiper.mpreduce.exceptions.LispException;
 import org.mathpiper.mpreduce.io.streams.LispStream;
 import org.mathpiper.mpreduce.io.streams.LispOutputStream;
@@ -68,7 +58,7 @@ import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Jlisp extends Environment {
 
-    private static String version = ".012";
+    private static String version = ".013";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
@@ -425,54 +415,9 @@ public class Jlisp extends Environment {
 
         boolean loaded;
 
-        for (;;) // loop here is for the oddly named RESTART-CSL function
-        {
             loaded = false;
 
-            // The next section is a sort of admission of confusion. When I restart the
-            // whole of the old word ought to get discarded: Java garbage collection
-            // ought to reap it. However that seems not to happen anything like as well
-            // as I intended, with BAD effects on total storage use in restarted systems
-            // (most of the old as well as most of the new heap remains!). This could
-            // well be MY fault with some valid Lisp root not being restored, but
-            // right now I can not find it and it COULD also be a consequence of
-            // a conservative GC strategy in the Java world. Anyway to reduce the pain as
-            // much as possible I will destroy a lot of connectivity in the old heap
-            // now so that even if bits of it are still referred to that will only lead
-            // to a small memory loss not a huge one.
-            if (restarting) {
-                for (i = 0; i < LispReader.chars.length; i++) {
-                    LispReader.chars[i] = null;
-                }
-                for (i = 0; i < LispReader.oblist.length; i++) {
-                    nil = LispReader.oblist[i];
-                    // Do a radical clean-up of all existing symbols
-                    if (nil != null) {
-                        nil.car/*value*/ = null;
-                        nil.cdr/*plist*/ = null;
-                        nil.fn = null;
-                        nil.special = null;
-                    }
-                    LispReader.oblist[i] = null;
-                }
-                LispReader.oblistCount = 0;
-                ((LispHash) lit[Lit.hashtab]).hash.clear();
-                for (i = 0; i < lit.length; i++) {
-                    lit[i] = null;
-                }
-                for (i = 0; i < LispReader.spine.length; i++) {
-                    LispReader.spine[i] = null;
-                }
-                lispIO.tidyup(null);
-                lispErr.tidyup(null);
-                nil = null;
-                lispTrue = null;
-                modulus = 1;
-                bigModulus = BigInteger.valueOf(modulus);
-                Specfn.progData = null;
-                Specfn.progEvent = Specfn.NONE;
-                errorCode = null;
-            }
+
             if (!coldStart) {
 
                 PDSInputStream ii = null;
@@ -493,13 +438,13 @@ public class Jlisp extends Environment {
 
 
                     gzip = new GZIPInputStream(ii);
-                    
- 
+
+
 
                     Symbol.symbolCount = Cons.consCount = LispString.stringCount = 0;
 
                     LispReader.restore(gzip);
-                    
+
                     loaded = true;
                 } catch (Exception e) {
                     throw e;
@@ -590,178 +535,15 @@ public class Jlisp extends Environment {
                     lispIO.setReader("<stdin>", in, standAlone, true);
                 }
                 standardStreams();
-                //System.out.printf("set up standard streams%n");
-                try {
-                    readEvalPrintLoop(noRestart);
-                    throw new ProgEvent(ProgEvent.STOP, nil, "EOF");
-                } catch (ProgEvent e) {
-                    checkExit(e.getMessage());
 
 
-                    switch (e.type) {
-                        case ProgEvent.STOP:
-                            restarting = false;
-                            break;
-                        case ProgEvent.PRESERVE:
-                            throw new Exception("PRESERVE not supported");
-                        case ProgEvent.RESTART:
-                            println();
-                            println("Restart Lisp...");
-                            // the RESTART event has (details/extra) as Lisp items carried
-                            // with it.
-                            //    If details=nil it asks for a cold start
-                            //    If details=t   it asks for a normal start using the default
-                            //                   restart-action from the image
-                            //    if details=f   it does a warm restart but then calls function f
-                            //                   (this is any atomic f not nil or t)
-                            //    if details=(m f) it does a warm start, then loads module m and
-                            //                   finally calls function f
-                            // In the two latter cases (ie details other than nil/t) if extra is provided
-                            // it is passed on as an argument to the user-specified restart function f.
-                            //
-                            // This elaborate behaviour is as grew up piecemeal in CSL and it is expected
-                            // that this function is only used when setting up scripts to rebuild major
-                            // bits of software so MAYBE the fact that it is a bit obscure is not too
-                            // much of a problem.
-                            restartFn = null;
-                            restartModule = null;
-                            restartArg = null;
-                            if (e.details == nil) {
-                                coldStart = true;
-                            } else {
-                                try {
-                                    coldStart = false;
-                                    if (e.details != lispTrue) {
-                                        if (e.details.atom) {
-                                            restartFn = Fns.explodeToString(e.details);
-                                        } else {
-                                            restartModule =
-                                                    Fns.explodeToString(e.details.car);
-                                            LispObject w1 = e.details.cdr;
-                                            if (!w1.atom) {
-                                                w1 = w1.car;
-                                            }
-                                            restartFn = Fns.explodeToString(w1);
-                                        }
-                                        if (e.extras != null) {
-                                            restartArg = Fns.explodeToString(e.extras);
-                                        }
-                                    }
-                                } catch (Exception e1) {
-                                    System.out.println("Unexpected exception " + e1);
-                                }
-                            }
-                            restarting = true;
-                            continue;
-                        default:
-                            errprintln();
-                            errprintln("Stopping because of " + e.message);
-                            restarting = false;
-                            break;
-                    }
-                }
-                if (restarting) {
-                    continue;
-                } else {
-                    break;
-                }
-            } else {
-                interactivep = batchSwitch;
-                if (restarting) {
-                    inputCount = 1;
-                }
-                for (i = 0; i < inputCount; i++) {
-                    try {
-                        if (!restarting) {
-                            lispIO.setReader(inputFile[i], new FileInputStream(inputFile[i]), false, true);
-                        }
-                        standardStreams();
-                        try {
-                            readEvalPrintLoop(noRestart);
-                        } catch (ProgEvent e) {
-                            checkExit(e.getMessage());
-
-                            switch (e.type) {
-                                case ProgEvent.STOP:
-                                    restarting = false;
-                                    i = inputCount;
-                                    break;
-                                case ProgEvent.PRESERVE:
-                                    throw new Exception("PRESERVE not supported.");
-                                case ProgEvent.RESTART:
-                                    println();
-                                    println("Restart Lisp...");
-                                    restartFn = null;
-                                    restartModule = null;
-                                    restartArg = null;
-                                    if (e.details == nil) {
-                                        coldStart = true;
-                                    } else {
-                                        try {
-                                            coldStart = false;
-                                            if (e.details != lispTrue) {
-                                                if (e.details.atom) {
-                                                    restartFn = Fns.explodeToString(e.details);
-                                                } else {
-                                                    restartModule =
-                                                            Fns.explodeToString(e.details.car);
-                                                    LispObject w1 = e.details.cdr;
-                                                    if (!w1.atom) {
-                                                        w1 = w1.car;
-                                                    }
-                                                    restartFn = Fns.explodeToString(w1);
-                                                }
-                                                if (e.extras != null) {
-                                                    restartArg = Fns.explodeToString(e.extras);
-                                                }
-                                            }
-                                        } catch (Exception e1) {
-                                            System.out.println("Unexpected exception " + e);
-                                        }
-                                    }
-                                    i = inputCount;
-                                    restarting = true;
-                                    break;
-                                default:
-                                    errprintln();
-                                    errprintln(
-                                            "Stopping because of " + e.message);
-                                    i = inputCount;
-                                    restarting = false;
-                                    break;
-                            }
-                        } finally {
-                            if (!restarting) {
-                                lispIO.reader.close();
-                            }
-                        }
-                    } catch (IOException e) {
-
-                        checkExit(e.getMessage());
-
-                        errprintln("Failed to read from \""
-                                + inputFile[i] + "\"");
-                    }
-                }
             }
-            if (restarting) {
-                continue;
-            } else {
-                break; // loop to do with RESTART-CSL calls
-            }
-        }
-        if (verbose) {
-            long endTime = System.currentTimeMillis();
-            long elapsed = endTime - startTime;
-            long secs = elapsed / 1000;
-            long millis = elapsed % 1000;
-            long tenths = millis / 100;
-            long hunds = (millis % 100) / 10;
-            lispIO.println("End of Lisp run after "
-                    + secs + "." + tenths + hunds + " seconds");
-        }
 
-        lispIO.close();
+
+
+
+            lispIO.close();
+
 
     }
 
@@ -805,131 +587,42 @@ public class Jlisp extends Environment {
         //@
         //println("restart mode in read eval print loop " + restartFn + " " + restartModule + " " + restartArg);
         println("MPReduceJS version " + Jlisp.version);
-        if (restarting && restartFn != null) {
-            r = Symbol.intern(restartFn);
-            if (restartArg != null) {
-                LispObject save = lit[Lit.std_input].car/*value*/;
-                try {
-                    lit[Lit.std_input].car/*value*/ =
-                            new LispStringReader(restartArg);
-                    a = LispReader.read();
-                    ((LispStream) lit[Lit.std_input].car/*value*/).close();
-                } catch (Exception e) {
-                    a = null;
-                    System.out.println("Unexpected exception " + e);
-                } finally {
-                    lit[Lit.std_input].car/*value*/ = save;
+
+        try {
+            if (a == null) {
+                if (r instanceof Symbol) {
+                    ((Symbol) r).fn.op0(); //Call Lisp "begin" function here.
+                } else if (r instanceof LispFunction) {
+                    ((LispFunction) r).op0();
+                } else {
+                    Fns.apply0(r);
+                }
+            } else {
+                if (r instanceof Symbol) {
+                    ((Symbol) r).fn.op1(a);
+                } else if (r instanceof LispFunction) {
+                    ((LispFunction) r).op1(a);
+                } else {
+                    Fns.apply1(r, a);
                 }
             }
-            if (restartModule != null) {
-                try {
-                    Fasl.loadModule(new LispString(restartModule));
-                } catch (Exception ex) {
-                    System.out.println("Unexpected exception " + ex);
-                }
-            }
-            restartFn = null;
-            restartArg = null;
-            restartModule = null;
-        }
-        if (noRestart
-                || (r instanceof Symbol
-                && ((Symbol) r).fn instanceof Undefined)
-                || (r instanceof Undefined)
-                || (!r.atom && r.car != lit[Lit.lambda])
-                || !(r instanceof Symbol || r instanceof Cons
-                || r instanceof LispFunction)) {
-        } // cases when the restart object looks wrong
-        else {
-            try {
-                if (a == null) {
-                    if (r instanceof Symbol) {
-                        ((Symbol) r).fn.op0(); //Call Lisp "begin" function here.
-                    } else if (r instanceof LispFunction) {
-                        ((LispFunction) r).op0();
-                    } else {
-                        Fns.apply0(r);
-                    }
+        } catch (Exception e) {
+            if (trapExceptions == true) {
+                if (e instanceof ProgEvent) {
+                    throw ((ProgEvent) e);
                 } else {
-                    if (r instanceof Symbol) {
-                        ((Symbol) r).fn.op1(a);
-                    } else if (r instanceof LispFunction) {
-                        ((LispFunction) r).op1(a);
-                    } else {
-                        Fns.apply1(r, a);
-                    }
-                }
-            } catch (Exception e) {
-                if (trapExceptions == true) {
-                    if (e instanceof ProgEvent) {
-                        throw ((ProgEvent) e);
-                    } else {
 
-                        // ignore all other exceptions
-                        System.err.println("Stopping because of error: "
-                                + e.getMessage());
-                    }
-                } else {
-                    checkExit(e.getMessage());
-                }
-            }//end try/catch.
-
-            return;
-        }
-        // Otherwise I will run a simple READ-EVAL-PRINT loop
-        for (;;) {
-            try {
-                r = LispReader.read();
-            } catch (EOFException e) {
-                break;
-            } catch (Exception e) {
-                errprintln(
-                        "Error while reading: " + e.getMessage());
-
-                new PrintStream(new WriterToLisp((LispStream) Jlisp.lit[Lit.err_output].car/*value*/)).print(e.getMessage());
-                break;
-            }
-            try {
-                LispObject v = r.eval();
-                if (Specfn.progEvent != Specfn.NONE) {
-                    Specfn.progEvent = Specfn.NONE;
-                    error("GO or RETURN out of context");
-                }
-                println();
-                print("Value: ");
-                v.print(LispObject.printEscape);
-                println();
-            } catch (Exception e) {
-                if (e instanceof LispException) {
-                    if (e instanceof ProgEvent) {
-                        ProgEvent ep = (ProgEvent) e;
-                        switch (ep.type) {
-                            case ProgEvent.STOP:
-                            case ProgEvent.PRESERVE:
-                            case ProgEvent.RESTART:
-                                throw ep;
-                            default:
-                                break;
-                        }
-                    }
-                    LispException e1 = (LispException) e;
-                    errprintln();
-                    errprint("+++++ Error: " + e1.message);
-                    if (e1.details != null) {
-                        errprint(": ");
-                        e1.details.errPrint();
-                    }
-                    errprintln();
-                } else {
-                    errprintln();
-                    errprintln("+++++ Error: "
+                    // ignore all other exceptions
+                    System.err.println("Stopping because of error: "
                             + e.getMessage());
                 }
-
-                new PrintStream(new WriterToLisp((LispStream) Jlisp.lit[Lit.err_output].car/*value*/)).print(e.getMessage());
+            } else {
+                checkExit(e.getMessage());
             }
-        }
+        }//end try/catch.
+
         return;
+
     }//end method.
 
 
@@ -940,7 +633,6 @@ public class Jlisp extends Environment {
             try {
 
                 if (lispIO != null) {
-                    lispIO.print("f179eb");
                     lispIO.flush();
                     lispIO.close();
                 }

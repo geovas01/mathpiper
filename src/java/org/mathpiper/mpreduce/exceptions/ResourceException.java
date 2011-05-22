@@ -48,19 +48,19 @@ public class ResourceException extends LispException
     
     public ResourceException()
     {
-        this.message = "unknown"; 
+        super("unknown");
 	this.details = Environment.nil;
     }
     
     public ResourceException(String message)
     {
-        this.message=message;
+        super(message);
 	this.details=null; 
     }
     
     public ResourceException(String message, LispObject details)
     {
-        this.message = message;
+        super(message);
 	this.details = details; 
     }
 }
