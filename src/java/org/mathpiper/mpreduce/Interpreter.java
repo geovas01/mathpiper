@@ -56,12 +56,10 @@ public class Interpreter implements EntryPoint {
 
 
     public Interpreter() {
-
     }//end constructor.
 
 
-    public void start()
-    {
+    public void start() {
 
 
         jlisp = new Jlisp();
@@ -136,7 +134,7 @@ public class Interpreter implements EntryPoint {
         private ArrayList expressions = new ArrayList();
         private Iterator expressionsIterator;
         private Interpreter interpreter;
-        private int pos, len;
+        public int pos, len;
         private String result;
 
 
@@ -144,7 +142,12 @@ public class Interpreter implements EntryPoint {
             this.interpreter = interpreter;
             sendString = null;
 
-            expressions.add("symbolic procedure update!_prompt; begin setpchar \"\" end;;");
+            //expressions.add("!*mode := 'algebraic;;");
+            
+            expressions.add("2;");
+
+
+            /*expressions.add("symbolic procedure update!_prompt; begin setpchar \"\" end;;");
             expressions.add(";");
             expressions.add("off int; on errcont; off nat;");
             expressions.add("off nat;");
@@ -152,7 +155,7 @@ public class Interpreter implements EntryPoint {
             expressions.add("(X-Y)^100;");
             expressions.add("2 + 2;");
             expressions.add("Factorize(100);");
-            expressions.add("quit;");
+            expressions.add("quit;");*/
 
             expressionsIterator = expressions.iterator();
 
@@ -169,7 +172,11 @@ public class Interpreter implements EntryPoint {
         }
 
 
-        public void close() {
+
+        public void close()
+        {
+            pos = 0;
+            len = sendString.length();
         }
 
 
@@ -179,58 +186,14 @@ public class Interpreter implements EntryPoint {
 
 
         public int read() {
-            if (sendString == null) {
 
-
-                if (out.sb.length() != 0) {
-                    result = out.toString();
-
-                    out.flush(); //Clear the StringBuffer.
-
-                    System.out.println(result + "\n");
-                }
-
-                try {
-
-                    if (expressionsIterator.hasNext()) {
-                        String expression = (String) expressionsIterator.next();
-                        evaluate(expression);
-
-                    } else {
-                        throw new Exception("There was a problem during system shutdown.");
-                    }
-                } catch (Throwable t) {
-                    System.out.println(t.getMessage());
-                }
-
-
-                pos = 0;
-                len = sendString.length();
-            }
             if (pos == len) {
                 sendString = null;
-                return (int) ' ';
+                return (int)-1;
             } else {
-                return (int) sendString.charAt(pos++);
+                int i = (int) sendString.charAt(pos++);
+                return i;
             }
-        }
-
-
-        public int read(char[] b) {
-            if (b.length == 0) {
-                return 0;
-            }
-            b[0] = (char) read();
-            return 1;
-        }
-
-
-        public int read(char[] b, int off, int len) {
-            if (b.length == 0 || len == 0) {
-                return 0;
-            }
-            b[off] = (char) read();
-            return 1;
         }
 
     }
@@ -262,14 +225,46 @@ public class Interpreter implements EntryPoint {
 
         mpreduce.start();
 
-        try{
-            mpreduce.jlisp.readEvalPrintLoop(true);
-        }
-        catch(Exception e)
-        {
+        mpreduce.jlisp.initialize();
+
+        //mpreduce.jlisp.setAlgebraicModeOn();
+
+        try {
+
+            
+            mpreduce.sendString = "off int; on errcont; off nat;(X-Y)^100;end;\n"; //";off int; on errcont; off nat;(X-Y)^100;"; //(X-Y)^100;";
+            mpreduce.in.close();
+            mpreduce.jlisp.evaluate();
+
+
+
+            mpreduce.sendString = "3;end;\n";
+            mpreduce.in.close();
+            mpreduce.jlisp.evaluate();
+
+            /*mpreduce.sendString = ";(X-Y)^100;end;\n"; //";off int; on errcont; off nat;(X-Y)^100;"; //(X-Y)^100;";
+            mpreduce.in.close();
+            mpreduce.jlisp.simpleEvaluate();
+            mpreduce.jlisp.simpleEvaluate();*/
+            
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
+        String result;
+        if (mpreduce.out.sb.length() != 0) {
+            result = mpreduce.out.toString();
+
+            mpreduce.out.flush(); //Clear the StringBuffer.
+
+            System.out.println(result + "\n");
+        }
+
+
+
+
+
+        
         /*String result = "";
 
         try {
