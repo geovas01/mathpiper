@@ -34,6 +34,7 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Vector;
 import org.mathpiper.mpreduce.symbols.Symbol;
@@ -42,6 +43,7 @@ import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.Bytecode;
 import org.mathpiper.mpreduce.exceptions.ProgEvent;
 import org.mathpiper.mpreduce.datatypes.LispString;
+import org.mathpiper.mpreduce.exceptions.EOFException;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.numbers.LispSmallInteger;
 import org.mathpiper.mpreduce.exceptions.LispException;
@@ -54,6 +56,8 @@ import org.mathpiper.mpreduce.functions.builtin.Fns;
 
 
 import org.mathpiper.mpreduce.exceptions.ResourceException;
+import org.mathpiper.mpreduce.io.streams.WriterToLisp;
+import org.mathpiper.mpreduce.special.Specfn;
 import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Jlisp extends Environment {
@@ -65,9 +69,13 @@ public class Jlisp extends Environment {
     // cases where the Lisp world may not have been fully set up.
     public static LispStream lispIO, lispErr;
     public static boolean interactivep = false;
+
     public static boolean debugFlag = false;
+
     public static boolean headline = true;
+
     public static boolean backtrace = true;
+
     public static LispObject errorCode;
     public static int verbosFlag = 1;
     public static boolean trapExceptions = true;
@@ -415,134 +423,134 @@ public class Jlisp extends Environment {
 
         boolean loaded;
 
-            loaded = false;
+        loaded = false;
 
 
-            if (!coldStart) {
+        if (!coldStart) {
 
-                PDSInputStream ii = null;
-                // I will re-load from the first checkpoint file in the list that has
-                // a HeapImage stored in it.
+            PDSInputStream ii = null;
+            // I will re-load from the first checkpoint file in the list that has
+            // a HeapImage stored in it.
 
-                try {
-                    ii = new PDSInputStream(images, "HeapImage");
-                } catch (IOException e) {
+            try {
+                ii = new PDSInputStream(images, "HeapImage");
+            } catch (IOException e) {
+            }
+
+            GZIPInputStream gzip = null;
+
+            try {
+                if (ii == null) {
+                    throw new IOException("No valid checkpoint file found");
                 }
 
-                GZIPInputStream gzip = null;
 
-                try {
-                    if (ii == null) {
-                        throw new IOException("No valid checkpoint file found");
+                gzip = new GZIPInputStream(ii);
+
+
+
+                Symbol.symbolCount = Cons.consCount = LispString.stringCount = 0;
+
+                LispReader.restore(gzip);
+
+                loaded = true;
+            } catch (Exception e) {
+                throw e;
+            } finally {
+                if (gzip != null) {
+                    try {
+                        gzip.close();
+                    } catch (IOException e) {
+                        lispErr.println("Failed to load image");
+                        loaded = false;
                     }
-
-
-                    gzip = new GZIPInputStream(ii);
-
-
-
-                    Symbol.symbolCount = Cons.consCount = LispString.stringCount = 0;
-
-                    LispReader.restore(gzip);
-
-                    loaded = true;
-                } catch (Exception e) {
-                    throw e;
-                } finally {
-                    if (gzip != null) {
-                        try {
-                            gzip.close();
-                        } catch (IOException e) {
-                            lispErr.println("Failed to load image");
-                            loaded = false;
-                        }
-                    }
-                }
-                if (restarting && !loaded) {
-                    lispIO.println("+++ No image file when restarting");
-                    return;
                 }
             }
+            if (restarting && !loaded) {
+                lispIO.println("+++ No image file when restarting");
+                return;
+            }
+        }
 
 
 
-            lispIO.tidyup(nil);
-            lispErr.tidyup(nil);
+        lispIO.tidyup(nil);
+        lispErr.tidyup(nil);
 
-            // Having set up an image I optionally display a banner.
-            if (verbose) {
-                lispIO.println("Jlisp 0.93a ... "
-                        + ((LispString) lit[Lit.birthday]).string);
-                if (loaded) {
-                    lispIO.println("Sym    = " + Symbol.symbolCount);
-                    lispIO.println("Cons   = " + Cons.consCount);
-                    lispIO.println("String = " + LispString.stringCount);
+        // Having set up an image I optionally display a banner.
+        if (verbose) {
+            lispIO.println("Jlisp 0.93a ... "
+                    + ((LispString) lit[Lit.birthday]).string);
+            if (loaded) {
+                lispIO.println("Sym    = " + Symbol.symbolCount);
+                lispIO.println("Cons   = " + Cons.consCount);
+                lispIO.println("String = " + LispString.stringCount);
+            }
+            if (copyrightRequest) {
+                lispIO.println("Copyright \u00a9 (C) Codemist Ltd, 1998-2000");
+            }
+        }
+
+        // If the user specifed -Dxxx, -Dxxx=yyy or -Uxxx on the command
+        // line I process that here. I will perform all the "undefine"
+        // operations before any of the "define" ones, but otherwise
+        // proceed left to right
+        for (i = 0; i < undefineCount; i++) {
+            Symbol s = Symbol.intern(undefineSymbol[i]);
+            s.car/*value*/ = lit[Lit.undefined];
+            s = null;
+        }
+        for (i = 0; i < defineCount; i++) {
+            String name = defineSymbol[i];
+            LispObject value;
+            int eqPos = name.indexOf('=');
+            // Just -Dname without an "=" sets the name to T
+            if (eqPos == -1) {
+                value = lispTrue;
+            } else {
+                String v = name.substring(eqPos + 1);
+                name = name.substring(0, eqPos);
+                int lv = v.length();
+                // If the value specified was enclosed in double quotes I strip those
+                // off. Thus -Dname=xxx and -Dname="xxx" both set name to a string "xxx".
+                // Note that -Dname= will set name to the empty string "" which is non-nil
+                // so is OK for "true".
+                if (lv != 0
+                        && v.charAt(0) == '\"'
+                        && v.charAt(lv - 1) == '\"') {
+                    v = v.substring(1, lv - 1);
                 }
-                if (copyrightRequest) {
-                    lispIO.println("Copyright \u00a9 (C) Codemist Ltd, 1998-2000");
-                }
+                value = new LispString(v);
             }
+            Symbol s = Symbol.intern(name);
+            s.car/*value*/ = value;
+            s = null;
+            value = null;
+        }
 
-            // If the user specifed -Dxxx, -Dxxx=yyy or -Uxxx on the command
-            // line I process that here. I will perform all the "undefine"
-            // operations before any of the "define" ones, but otherwise
-            // proceed left to right
-            for (i = 0; i < undefineCount; i++) {
-                Symbol s = Symbol.intern(undefineSymbol[i]);
-                s.car/*value*/ = lit[Lit.undefined];
-                s = null;
+        for (i = 0; i < 128; i++) // To speed up readch()
+        {
+            LispReader.chars[i] = Symbol.intern(String.valueOf((char) i));
+        }
+
+        // If no input files had been specified I will read from the standard
+        // input - often the keyboard. Otherwise I will process each file that
+        // is given. This seems a bulky bit of code because of Java's
+        // insistence on exception processing. I do not work too hard on that!
+        if (inputCount == 0) {
+            interactivep = !batchSwitch;
+            if (!restarting) {
+                lispIO.setReader("<stdin>", in, standAlone, true);
             }
-            for (i = 0; i < defineCount; i++) {
-                String name = defineSymbol[i];
-                LispObject value;
-                int eqPos = name.indexOf('=');
-                // Just -Dname without an "=" sets the name to T
-                if (eqPos == -1) {
-                    value = lispTrue;
-                } else {
-                    String v = name.substring(eqPos + 1);
-                    name = name.substring(0, eqPos);
-                    int lv = v.length();
-                    // If the value specified was enclosed in double quotes I strip those
-                    // off. Thus -Dname=xxx and -Dname="xxx" both set name to a string "xxx".
-                    // Note that -Dname= will set name to the empty string "" which is non-nil
-                    // so is OK for "true".
-                    if (lv != 0
-                            && v.charAt(0) == '\"'
-                            && v.charAt(lv - 1) == '\"') {
-                        v = v.substring(1, lv - 1);
-                    }
-                    value = new LispString(v);
-                }
-                Symbol s = Symbol.intern(name);
-                s.car/*value*/ = value;
-                s = null;
-                value = null;
-            }
-
-            for (i = 0; i < 128; i++) // To speed up readch()
-            {
-                LispReader.chars[i] = Symbol.intern(String.valueOf((char) i));
-            }
-
-            // If no input files had been specified I will read from the standard
-            // input - often the keyboard. Otherwise I will process each file that
-            // is given. This seems a bulky bit of code because of Java's
-            // insistence on exception processing. I do not work too hard on that!
-            if (inputCount == 0) {
-                interactivep = !batchSwitch;
-                if (!restarting) {
-                    lispIO.setReader("<stdin>", in, standAlone, true);
-                }
-                standardStreams();
+            standardStreams();
 
 
-            }
+        }
 
 
 
 
-            lispIO.close();
+        lispIO.close();
 
 
     }
@@ -578,34 +586,21 @@ public class Jlisp extends Environment {
 
 
     public static void readEvalPrintLoop(boolean noRestart) throws ProgEvent, ResourceException {
-        // If the user had set a restart-function when an image was preserved
-        // then I will run that now unless the command-line had gone "-n" (for
-        // "ignore restart function". That option is only intended for allowing
-        // experts to recover when an image is a bit mangled!
+
         LispObject r = lit[Lit.restart];
-        LispObject a = null;
-        //@
-        //println("restart mode in read eval print loop " + restartFn + " " + restartModule + " " + restartArg);
+
         println("MPReduceJS version " + Jlisp.version);
 
         try {
-            if (a == null) {
-                if (r instanceof Symbol) {
-                    ((Symbol) r).fn.op0(); //Call Lisp "begin" function here.
-                } else if (r instanceof LispFunction) {
-                    ((LispFunction) r).op0();
-                } else {
-                    Fns.apply0(r);
-                }
+
+            if (r instanceof Symbol) {
+                ((Symbol) r).fn.op0(); //Call Lisp "begin" function here.
+            } else if (r instanceof LispFunction) {
+                ((LispFunction) r).op0();
             } else {
-                if (r instanceof Symbol) {
-                    ((Symbol) r).fn.op1(a);
-                } else if (r instanceof LispFunction) {
-                    ((LispFunction) r).op1(a);
-                } else {
-                    Fns.apply1(r, a);
-                }
+                Fns.apply0(r);
             }
+
         } catch (Exception e) {
             if (trapExceptions == true) {
                 if (e instanceof ProgEvent) {
@@ -624,6 +619,139 @@ public class Jlisp extends Environment {
         return;
 
     }//end method.
+
+
+    public static void evaluate() throws ProgEvent, ResourceException {
+
+        LispObject r = Symbol.intern("mpreduceeval");
+
+
+        println("MPReduceJS version " + Jlisp.version);
+
+        try {
+
+            if (r instanceof Symbol) {
+                ((Symbol) r).fn.op0(); //Call Lisp "begin" function here.
+            } else if (r instanceof LispFunction) {
+                ((LispFunction) r).op0();
+            } else {
+                Fns.apply0(r);
+            }
+
+        } catch (Exception e) {
+            if (trapExceptions == true) {
+                if (e instanceof ProgEvent) {
+                    throw ((ProgEvent) e);
+                } else {
+
+                    // ignore all other exceptions
+                    System.err.println("Stopping because of error: "
+                            + e.getMessage());
+                }
+            } else {
+                checkExit(e.getMessage());
+            }
+        }//end try/catch.
+
+        return;
+
+    }//end method.
+
+
+    public static void simpleEvaluate() throws Exception {
+
+        //LispObject resetParser = Symbol.intern("resetparser");
+        LispObject xRead = Symbol.intern("expread");
+
+
+
+        LispObject result = null;
+        try {
+            //result = ((Symbol) resetParser).fn.op0();
+            result = ((Symbol) xRead).fn.op0();
+        } catch (EOFException e) {
+            //break;
+        } catch (Exception e) {
+            errprintln(
+                    "Error while reading: " + e.getMessage());
+            e.printStackTrace(new PrintWriter(new WriterToLisp(
+                    ((LispStream) Jlisp.lit[Lit.err_output].car/*value*/))));
+            //break;
+        }
+        try {
+
+            LispObject reval = Symbol.intern("reval");
+            LispObject v = ((Symbol) reval).fn.op1(result);
+
+            //LispObject v = result.eval();
+            if (Specfn.progEvent != Specfn.NONE) {
+                Specfn.progEvent = Specfn.NONE;
+                error("GO or RETURN out of context");
+            }
+            //println();
+            //print("Value: ");
+            v.print(LispObject.printEscape);
+
+            if (!v.toString().equals("nil")) {
+                LispObject rprint = Symbol.intern("mathprint");//mathprint prints 2d math.
+                LispObject rp = ((Symbol) rprint).fn.op1(result);
+
+                int xx = 1;
+            }
+
+            //println();
+        } catch (Exception e) {
+            if (e instanceof LispException) {
+                if (e instanceof ProgEvent) {
+                    ProgEvent ep = (ProgEvent) e;
+                    switch (ep.type) {
+                        case ProgEvent.STOP:
+                        case ProgEvent.PRESERVE:
+                        case ProgEvent.RESTART:
+                            throw ep;
+                        default:
+                            break;
+                    }
+                }
+                LispException e1 = (LispException) e;
+                errprintln();
+                errprint("+++++ Error: " + e1.getMessage());
+                if (e1.details != null) {
+                    errprint(": ");
+                    e1.details.errPrint();
+                }
+                errprintln();
+            } else {
+                errprintln();
+                errprintln("+++++ Error: "
+                        + e.getMessage());
+            }
+            e.printStackTrace(new PrintWriter(new WriterToLisp(
+                    ((LispStream) Jlisp.lit[Lit.err_output].car/*value*/))));
+        }
+    }//end method.
+
+
+    public static void initialize() {
+        try {
+            LispObject reval = Symbol.intern("beginmpreduce");
+            LispObject v = ((Symbol) reval).fn.op0();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*LispObject r = Symbol.intern("*mode");
+        Symbol value = new Symbol();
+        value.pname = "algebraic";
+        r.car = value;
+
+        r = Symbol.intern("cursym*");
+        value = new Symbol();
+        value.pname = "*semicol*";
+        r.car = value;*/
+
+
+    }
 
 
     private static void checkExit(String errorMessage) {
