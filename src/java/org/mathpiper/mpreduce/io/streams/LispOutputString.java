@@ -39,6 +39,7 @@ package org.mathpiper.mpreduce.io.streams;
 
 public class LispOutputString extends LispStream
 {
+    private String toStringValue = "";
 
     public LispOutputString()
     {
@@ -48,7 +49,11 @@ public class LispOutputString extends LispStream
 
     public void flush()
     {
-        sb.delete(0, sb.length());
+        if(sb.length() != 0)
+        {
+            toStringValue = sb.toString();
+            sb.delete(0, sb.length());
+        }
     }
 
     public void close()
@@ -70,7 +75,7 @@ public class LispOutputString extends LispStream
 
     public String toString()
     {
-        return sb.toString();
+        return toStringValue;
     }
 
 }

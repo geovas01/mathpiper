@@ -34,7 +34,6 @@ package org.mathpiper.mpreduce;
  *************************************************************************/
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Vector;
 import org.mathpiper.mpreduce.symbols.Symbol;
@@ -43,12 +42,10 @@ import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.Bytecode;
 import org.mathpiper.mpreduce.exceptions.ProgEvent;
 import org.mathpiper.mpreduce.datatypes.LispString;
-import org.mathpiper.mpreduce.exceptions.EOFException;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.numbers.LispSmallInteger;
 import org.mathpiper.mpreduce.exceptions.LispException;
 import org.mathpiper.mpreduce.io.streams.LispStream;
-import org.mathpiper.mpreduce.io.streams.LispOutputStream;
 import org.mathpiper.mpreduce.packagedatastore.PDS;
 import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
@@ -56,26 +53,20 @@ import org.mathpiper.mpreduce.functions.builtin.Fns;
 
 
 import org.mathpiper.mpreduce.exceptions.ResourceException;
-import org.mathpiper.mpreduce.io.streams.WriterToLisp;
-import org.mathpiper.mpreduce.special.Specfn;
 import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Jlisp extends Environment {
 
-    private static String version = ".013";
+    private static String version = ".015";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
     // cases where the Lisp world may not have been fully set up.
     public static LispStream lispIO, lispErr;
     public static boolean interactivep = false;
-
     public static boolean debugFlag = false;
-
     public static boolean headline = true;
-
     public static boolean backtrace = true;
-
     public static LispObject errorCode;
     public static int verbosFlag = 1;
     public static boolean trapExceptions = true;
@@ -84,12 +75,14 @@ public class Jlisp extends Environment {
 
 
     public static void print(String s) throws ResourceException {
-        ((LispStream) (lit[Lit.std_output].car/*value*/)).print(s);
+        LispStream lispStream = (LispStream) (lit[Lit.std_output].car/*value*/);
+        lispStream.print(s);
     }
 
 
     public static void println(String s) throws ResourceException {
-        ((LispStream) (lit[Lit.std_output].car/*value*/)).println(s);
+        LispStream lispStream = (LispStream) (lit[Lit.std_output].car/*value*/);
+        lispStream.println(s);
     }
 
 
@@ -108,42 +101,50 @@ public class Jlisp extends Environment {
         } else {
             s.print();
         }
-        ((LispStream) (lit[Lit.std_output].car/*value*/)).println();
+        LispStream lispStream = (LispStream) (lit[Lit.std_output].car/*value*/);
+        lispStream.println();
     }
 
 
     public static void println() throws ResourceException {
-        ((LispStream) (lit[Lit.std_output].car/*value*/)).println();
+        LispStream lispStream = (LispStream) (lit[Lit.std_output].car/*value*/);
+        lispStream.println();
     }
 
 
     public static void errprint(String s) throws ResourceException {
-        ((LispStream) (lit[Lit.err_output].car/*value*/)).print(s);
+        LispStream lispStream = (LispStream) (lit[Lit.err_output].car/*value*/);
+        lispStream.print(s);
     }
 
 
     public static void errprintln(String s) throws ResourceException {
-        ((LispStream) (lit[Lit.err_output].car/*value*/)).println(s);
+        LispStream lispStream = (LispStream) (lit[Lit.err_output].car/*value*/);
+        lispStream.println(s);
     }
 
 
     public static void errprintln() throws ResourceException {
-        ((LispStream) (lit[Lit.err_output].car/*value*/)).println();
+        LispStream lispStream = (LispStream) (lit[Lit.err_output].car/*value*/);
+        lispStream.println();
     }
 
 
     public static void traceprint(String s) throws ResourceException {
-        ((LispStream) (lit[Lit.tr_output].car/*value*/)).print(s);
+        LispStream lispStream = (LispStream) (lit[Lit.tr_output].car/*value*/);
+        lispStream.print(s);
     }
 
 
     public static void traceprintln(String s) throws ResourceException {
-        ((LispStream) (lit[Lit.tr_output].car/*value*/)).println(s);
+        LispStream lispStream = (LispStream) (lit[Lit.tr_output].car/*value*/);
+        lispStream.println(s);
     }
 
 
     public static void traceprintln() throws ResourceException {
-        ((LispStream) (lit[Lit.tr_output].car/*value*/)).println();
+        LispStream lispStream = (LispStream) (lit[Lit.tr_output].car/*value*/);
+        lispStream.println();
     }
 
 
@@ -189,7 +190,6 @@ public class Jlisp extends Environment {
         checkExit(s);
 
 
-
         throw new LispException(s);
     }
 
@@ -211,7 +211,7 @@ public class Jlisp extends Environment {
 
         in = Xin;
         out = Xout;
-        lispIO = null;
+        lispIO = lispErr = out;
 
         // I am pretty keen that all output files should be closed (and in the
         // process they should be flushed) so that data is never lost. So I keep
@@ -258,14 +258,17 @@ public class Jlisp extends Environment {
         int undefineCount = 0;
         boolean noRestart = false;
         boolean batchSwitch = false;
+
         // I may need to display diagnostics before I have finshed setting up
         // streams etc in their proper final form, so I arrange a provisional
         // setting that directs early messages to the terminal.
-        lispIO = lispErr = new LispOutputStream();
+        //lispIO = lispErr = new LispOutputStream();
+
         lit[Lit.std_output] = lit[Lit.tr_output] =
                 lit[Lit.err_output] = lit[Lit.std_input] =
                 lit[Lit.terminal_io] = lit[Lit.debug_io] =
                 lit[Lit.query_io] = Symbol.intern("temp-stream");
+
         standardStreams();
 
         // The options that I accept here are intended to match (as far as I can
@@ -345,11 +348,11 @@ public class Jlisp extends Environment {
         // output.
 
 
-        lispIO = new LispOutputStream();
+        //lispIO = new LispOutputStream();
 
 
 
-        lispErr = lispIO; // lispErr sent to spool file if lispIO is...
+        //lispErr = lispIO; // lispErr sent to spool file if lispIO is...
         // now I have Java variables that refer to the output streams I need
         // to establish.
 
@@ -477,19 +480,7 @@ public class Jlisp extends Environment {
         lispIO.tidyup(nil);
         lispErr.tidyup(nil);
 
-        // Having set up an image I optionally display a banner.
-        if (verbose) {
-            lispIO.println("Jlisp 0.93a ... "
-                    + ((LispString) lit[Lit.birthday]).string);
-            if (loaded) {
-                lispIO.println("Sym    = " + Symbol.symbolCount);
-                lispIO.println("Cons   = " + Cons.consCount);
-                lispIO.println("String = " + LispString.stringCount);
-            }
-            if (copyrightRequest) {
-                lispIO.println("Copyright \u00a9 (C) Codemist Ltd, 1998-2000");
-            }
-        }
+
 
         // If the user specifed -Dxxx, -Dxxx=yyy or -Uxxx on the command
         // line I process that here. I will perform all the "undefine"
@@ -539,9 +530,11 @@ public class Jlisp extends Environment {
         // insistence on exception processing. I do not work too hard on that!
         if (inputCount == 0) {
             interactivep = !batchSwitch;
+
             if (!restarting) {
                 lispIO.setReader("<stdin>", in, standAlone, true);
             }
+
             standardStreams();
 
 
@@ -550,7 +543,7 @@ public class Jlisp extends Environment {
 
 
 
-        lispIO.close();
+        //lispIO.close();
 
 
     }
@@ -625,9 +618,6 @@ public class Jlisp extends Environment {
 
         LispObject r = Symbol.intern("mpreduceeval");
 
-
-        println("MPReduceJS version " + Jlisp.version);
-
         try {
 
             if (r instanceof Symbol) {
@@ -658,7 +648,7 @@ public class Jlisp extends Environment {
     }//end method.
 
 
-    public static void simpleEvaluate() throws Exception {
+    /*public static void simpleEvaluate() throws Exception {
 
         //LispObject resetParser = Symbol.intern("resetparser");
         LispObject xRead = Symbol.intern("expread");
@@ -675,7 +665,7 @@ public class Jlisp extends Environment {
             errprintln(
                     "Error while reading: " + e.getMessage());
             e.printStackTrace(new PrintWriter(new WriterToLisp(
-                    ((LispStream) Jlisp.lit[Lit.err_output].car/*value*/))));
+                    ((LispStream) Jlisp.lit[Lit.err_output].car))));
             //break;
         }
         try {
@@ -727,12 +717,15 @@ public class Jlisp extends Environment {
                         + e.getMessage());
             }
             e.printStackTrace(new PrintWriter(new WriterToLisp(
-                    ((LispStream) Jlisp.lit[Lit.err_output].car/*value*/))));
+                    ((LispStream) Jlisp.lit[Lit.err_output].car))));
         }
-    }//end method.
+    }//end method. */
 
 
-    public static void initialize() {
+    public static void initialize() throws Exception {
+
+        println("MPReduceJS version " + Jlisp.version);
+
         try {
             LispObject reval = Symbol.intern("beginmpreduce");
             LispObject v = ((Symbol) reval).fn.op0();

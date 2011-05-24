@@ -31,10 +31,13 @@ package org.mathpiper.mpreduce;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
 
 
 import java.io.InputStream;
@@ -56,11 +59,17 @@ public class Interpreter implements EntryPoint {
 
 
     public Interpreter() {
+
+        JlispCASInstance = this;
+
+        start();
+
+        initialize();
+
     }//end constructor.
 
 
     public void start() {
-
 
         jlisp = new Jlisp();
 
@@ -82,12 +91,27 @@ public class Interpreter implements EntryPoint {
     }
 
 
+    public void initialize() {
+        try {
+            jlisp.initialize();
+
+            String result = evaluate("off int; on errcont;");
+
+            System.out.println(result);
+        } catch (Throwable t) {
+            t.printStackTrace();
+
+        }
+
+    }
+
+
     public String getStartMessage() {
         return startMessage;
     }//end method.
 
 
-    public static Interpreter getInstance() throws Throwable {
+    public static Interpreter getInstance() {
         if (JlispCASInstance == null) {
             JlispCASInstance = new Interpreter();
         }
@@ -95,25 +119,45 @@ public class Interpreter implements EntryPoint {
     }//end method.
 
 
-    public void evaluate(String send) throws Throwable {
+    public String evaluate(String send) {
 
         send = send.trim();
 
-        if (((send.endsWith(";")) || (send.endsWith("$"))) != true) {
-            send = send + ";\n";
+        if (send.equals("")) {
+            return ("No Input Sumbitted.");
         }
 
         while (send.endsWith(";;")) {
             send = send.substring(0, send.length() - 1);
         }
 
-        while (send.endsWith("$")) {
-            send = send.substring(0, send.length() - 1);
+        if (!send.endsWith(";") && !send.endsWith("$")) {
+            send = send + ";";
         }
 
-        send = send + "\n";
+        send = send + "end;";
 
-        this.sendString = send;
+
+        try {
+
+            sendString = send;
+
+            in.close();
+
+            jlisp.evaluate();
+
+        } catch (Throwable t) {
+            out.println();
+            out.println(t.getMessage());
+        } finally {
+            String result;
+
+            out.flush();
+
+            result = out.toString();
+
+            return result;
+        }
 
     }//end evaluate.
 
@@ -140,26 +184,8 @@ public class Interpreter implements EntryPoint {
 
         InterpreterInputStream(Interpreter interpreter) {
             this.interpreter = interpreter;
+
             sendString = null;
-
-            //expressions.add("!*mode := 'algebraic;;");
-            
-            expressions.add("2;");
-
-
-            /*expressions.add("symbolic procedure update!_prompt; begin setpchar \"\" end;;");
-            expressions.add(";");
-            expressions.add("off int; on errcont; off nat;");
-            expressions.add("off nat;");
-            expressions.add("x^2;");
-            expressions.add("(X-Y)^100;");
-            expressions.add("2 + 2;");
-            expressions.add("Factorize(100);");
-            expressions.add("quit;");*/
-
-            expressionsIterator = expressions.iterator();
-
-
         }
 
 
@@ -172,9 +198,7 @@ public class Interpreter implements EntryPoint {
         }
 
 
-
-        public void close()
-        {
+        public void close() {
             pos = 0;
             len = sendString.length();
         }
@@ -189,82 +213,116 @@ public class Interpreter implements EntryPoint {
 
             if (pos == len) {
                 sendString = null;
-                return (int)-1;
+                return (int) -1;
             } else {
                 int i = (int) sendString.charAt(pos++);
                 return i;
             }
         }
 
+    }//end method.
+
+
+    private String test() {
+        String result = "";
+
+        try {
+
+            result = evaluate("(X-Y)^100");
+
+
+
+        } catch (Throwable t) {
+            System.out.println(t.getMessage());
+        }
+
+        return result;
+
+
+
+    }//end method.
+
+
+    //For use by JavaScript code.
+    public static String eval(String send) {
+        return JlispCASInstance.evaluate(send);
     }
 
 
+    //public static native void exportStaticMethod() /*-{
+    //   $wnd.mpreduceEval =
+    //     $entry(@org.mathpiper.mpreduce.Interpreter::eval(Ljava/lang/String;)(send));
+    //}-*/;
     @Override
     public void onModuleLoad() {
 
 
-        Label label = new Label("mpreduce test");
-        Button button = new Button("Start mpreduce");
-        button.addClickHandler(new ClickHandler() {
+        final TextBox inputTextBox = new TextBox();
+        inputTextBox.setVisibleLength(20);
 
-            @Override
-            public void onClick(ClickEvent event) {
-                start();
-                Window.alert("mpreduce started");
+        final TextArea outputTextArea = new TextArea();
+        outputTextArea.setVisibleLines(40);
+        outputTextArea.setCharacterWidth(100);
+
+
+        inputTextBox.addKeyPressHandler(new KeyPressHandler() {
+
+            public void onKeyPress(KeyPressEvent event) {
+                if (event.getCharCode() == '\n') {
+                    String result = evaluate(inputTextBox.getText());
+
+                    outputTextArea.setText(result);
+                }
             }
 
         });
 
-        RootPanel.get().add(label);
+
+
+        Button button = new Button("Evaluate");
+
+        button.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                String result = evaluate(inputTextBox.getText());
+
+                outputTextArea.setText(result);
+            }
+
+        });
+
+
+
+        Button testButton = new Button("Test mpreduce");
+        testButton.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+
+                Window.alert(test());
+            }
+
+        });
+
+
+        RootPanel.get().add(inputTextBox);
         RootPanel.get().add(button);
+        RootPanel.get().add(testButton);
+        RootPanel.get().add(outputTextArea);
     }
 
 
     public static void main(String[] args) {
-        Interpreter mpreduce = new Interpreter();
 
-        mpreduce.start();
+        Interpreter mpreduce = Interpreter.getInstance();
 
-        mpreduce.jlisp.initialize();
-
-        //mpreduce.jlisp.setAlgebraicModeOn();
-
-        try {
-
-            
-            mpreduce.sendString = "off int; on errcont; off nat;(X-Y)^100;end;\n"; //";off int; on errcont; off nat;(X-Y)^100;"; //(X-Y)^100;";
-            mpreduce.in.close();
-            mpreduce.jlisp.evaluate();
-
-
-
-            mpreduce.sendString = "3;end;\n";
-            mpreduce.in.close();
-            mpreduce.jlisp.evaluate();
-
-            /*mpreduce.sendString = ";(X-Y)^100;end;\n"; //";off int; on errcont; off nat;(X-Y)^100;"; //(X-Y)^100;";
-            mpreduce.in.close();
-            mpreduce.jlisp.simpleEvaluate();
-            mpreduce.jlisp.simpleEvaluate();*/
-            
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        String result;
-        if (mpreduce.out.sb.length() != 0) {
-            result = mpreduce.out.toString();
-
-            mpreduce.out.flush(); //Clear the StringBuffer.
-
-            System.out.println(result + "\n");
-        }
+        System.out.println(mpreduce.test());
 
 
 
 
 
-        
         /*String result = "";
 
         try {
