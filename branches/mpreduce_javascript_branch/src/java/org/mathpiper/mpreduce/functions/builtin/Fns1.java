@@ -2813,7 +2813,7 @@ class GetenvFn extends BuiltinFunction
         else if (arg1 instanceof LispString) s = ((LispString)arg1).string;
         else return Environment.nil;
 
-        String s2 = "Not Supported."; //System.getProperty(s);
+        String s2 = null; //System.getProperty(s);
         if (s2 == null) return Environment.nil;
         else return new LispString(s2);
         
