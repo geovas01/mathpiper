@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Vector;
+import net.sourceforge.htmlunit.corejs.classfile.ByteCode;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.special.SpecialFunction;
 import org.mathpiper.mpreduce.datatypes.Cons;
@@ -618,10 +619,19 @@ public class Jlisp extends Environment {
 
         LispObject r = Symbol.intern("mpreduceeval");
 
+
         try {
 
             if (r instanceof Symbol) {
-                ((Symbol) r).fn.op0(); //Call Lisp "begin" function here.
+                //((Symbol) r).fn.B
+                LispFunction lispFunction = ((Symbol) r).fn;
+
+                if (lispFunction instanceof Bytecode) {
+                    Bytecode byteCode = (Bytecode) lispFunction;
+                    byteCode.op0();
+                } else {
+                    throw new Exception("Error during execution of mpreduceeval");
+                }
             } else if (r instanceof LispFunction) {
                 ((LispFunction) r).op0();
             } else {
@@ -650,87 +660,105 @@ public class Jlisp extends Environment {
 
     /*public static void simpleEvaluate() throws Exception {
 
-        //LispObject resetParser = Symbol.intern("resetparser");
-        LispObject xRead = Symbol.intern("expread");
+    //LispObject resetParser = Symbol.intern("resetparser");
+    LispObject xRead = Symbol.intern("expread");
 
 
 
-        LispObject result = null;
-        try {
-            //result = ((Symbol) resetParser).fn.op0();
-            result = ((Symbol) xRead).fn.op0();
-        } catch (EOFException e) {
-            //break;
-        } catch (Exception e) {
-            errprintln(
-                    "Error while reading: " + e.getMessage());
-            e.printStackTrace(new PrintWriter(new WriterToLisp(
-                    ((LispStream) Jlisp.lit[Lit.err_output].car))));
-            //break;
-        }
-        try {
+    LispObject result = null;
+    try {
+    //result = ((Symbol) resetParser).fn.op0();
+    result = ((Symbol) xRead).fn.op0();
+    } catch (EOFException e) {
+    //break;
+    } catch (Exception e) {
+    errprintln(
+    "Error while reading: " + e.getMessage());
+    e.printStackTrace(new PrintWriter(new WriterToLisp(
+    ((LispStream) Jlisp.lit[Lit.err_output].car))));
+    //break;
+    }
+    try {
 
-            LispObject reval = Symbol.intern("reval");
-            LispObject v = ((Symbol) reval).fn.op1(result);
+    LispObject reval = Symbol.intern("reval");
+    LispObject v = ((Symbol) reval).fn.op1(result);
 
-            //LispObject v = result.eval();
-            if (Specfn.progEvent != Specfn.NONE) {
-                Specfn.progEvent = Specfn.NONE;
-                error("GO or RETURN out of context");
-            }
-            //println();
-            //print("Value: ");
-            v.print(LispObject.printEscape);
+    //LispObject v = result.eval();
+    if (Specfn.progEvent != Specfn.NONE) {
+    Specfn.progEvent = Specfn.NONE;
+    error("GO or RETURN out of context");
+    }
+    //println();
+    //print("Value: ");
+    v.print(LispObject.printEscape);
 
-            if (!v.toString().equals("nil")) {
-                LispObject rprint = Symbol.intern("mathprint");//mathprint prints 2d math.
-                LispObject rp = ((Symbol) rprint).fn.op1(result);
+    if (!v.toString().equals("nil")) {
+    LispObject rprint = Symbol.intern("mathprint");//mathprint prints 2d math.
+    LispObject rp = ((Symbol) rprint).fn.op1(result);
 
-                int xx = 1;
-            }
+    int xx = 1;
+    }
 
-            //println();
-        } catch (Exception e) {
-            if (e instanceof LispException) {
-                if (e instanceof ProgEvent) {
-                    ProgEvent ep = (ProgEvent) e;
-                    switch (ep.type) {
-                        case ProgEvent.STOP:
-                        case ProgEvent.PRESERVE:
-                        case ProgEvent.RESTART:
-                            throw ep;
-                        default:
-                            break;
-                    }
-                }
-                LispException e1 = (LispException) e;
-                errprintln();
-                errprint("+++++ Error: " + e1.getMessage());
-                if (e1.details != null) {
-                    errprint(": ");
-                    e1.details.errPrint();
-                }
-                errprintln();
-            } else {
-                errprintln();
-                errprintln("+++++ Error: "
-                        + e.getMessage());
-            }
-            e.printStackTrace(new PrintWriter(new WriterToLisp(
-                    ((LispStream) Jlisp.lit[Lit.err_output].car))));
-        }
+    //println();
+    } catch (Exception e) {
+    if (e instanceof LispException) {
+    if (e instanceof ProgEvent) {
+    ProgEvent ep = (ProgEvent) e;
+    switch (ep.type) {
+    case ProgEvent.STOP:
+    case ProgEvent.PRESERVE:
+    case ProgEvent.RESTART:
+    throw ep;
+    default:
+    break;
+    }
+    }
+    LispException e1 = (LispException) e;
+    errprintln();
+    errprint("+++++ Error: " + e1.getMessage());
+    if (e1.details != null) {
+    errprint(": ");
+    e1.details.errPrint();
+    }
+    errprintln();
+    } else {
+    errprintln();
+    errprintln("+++++ Error: "
+    + e.getMessage());
+    }
+    e.printStackTrace(new PrintWriter(new WriterToLisp(
+    ((LispStream) Jlisp.lit[Lit.err_output].car))));
+    }
     }//end method. */
-
-
     public static void initialize() throws Exception {
 
         println("MPReduceJS version " + Jlisp.version);
 
         try {
             LispObject reval = Symbol.intern("beginmpreduce");
-            LispObject v = ((Symbol) reval).fn.op0();
+
+            LispFunction lispFunction = ((Symbol) reval).fn;
+
+            if (lispFunction instanceof Bytecode) {
+                Bytecode byteCode = (Bytecode) lispFunction;
+                byteCode.op0();
+            } else {
+                throw new Exception("Error during execution of beginmpreduce");
+            }
+
         } catch (Exception e) {
-            e.printStackTrace();
+            if (trapExceptions == true) {
+                if (e instanceof ProgEvent) {
+                    throw ((ProgEvent) e);
+                } else {
+
+                    // ignore all other exceptions
+                    System.err.println("Stopping because of error: "
+                            + e.getMessage());
+                }
+            } else {
+                checkExit(e.getMessage());
+            }
         }
 
         /*LispObject r = Symbol.intern("*mode");
