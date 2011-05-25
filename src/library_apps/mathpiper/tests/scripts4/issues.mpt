@@ -186,3 +186,6 @@ Verify(Integrate(x) 1/(4 * x^2 + 1), ArcTan(2*x)/2);
 
 // Issue 120
 Verify(Simplify(x^2*(1/x)^2+1), 2);
+
+// Issue 121
+Verify(Limit(x, Infinity) ((x)^(2)) + (Sin(x)), Infinity);
