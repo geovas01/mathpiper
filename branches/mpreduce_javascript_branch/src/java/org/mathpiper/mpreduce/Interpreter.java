@@ -60,12 +60,6 @@ public class Interpreter implements EntryPoint {
 
     public Interpreter() {
 
-        JlispCASInstance = this;
-
-        start();
-
-        initialize();
-
     }//end constructor.
 
 
@@ -95,9 +89,9 @@ public class Interpreter implements EntryPoint {
         try {
             jlisp.initialize();
 
-            String result = evaluate("off int; on errcont;");
+            //String result = evaluate("off int; on errcont;");
 
-            System.out.println(result);
+            //System.out.println(result);
         } catch (Throwable t) {
             t.printStackTrace();
 
@@ -228,9 +222,9 @@ public class Interpreter implements EntryPoint {
 
         try {
 
+            //result = evaluate("2+2");
+
             result = evaluate("(X-Y)^100");
-
-
 
         } catch (Throwable t) {
             System.out.println(t.getMessage());
@@ -244,15 +238,16 @@ public class Interpreter implements EntryPoint {
 
 
     //For use by JavaScript code.
-    public static String eval(String send) {
-        return JlispCASInstance.evaluate(send);
-    }
-
-
+    //public static String eval(String send) {
+    //    return JlispCASInstance.evaluate(send);
+    //}
     //public static native void exportStaticMethod() /*-{
     //   $wnd.mpreduceEval =
     //     $entry(@org.mathpiper.mpreduce.Interpreter::eval(Ljava/lang/String;)(send));
     //}-*/;
+
+
+    
     @Override
     public void onModuleLoad() {
 
@@ -300,7 +295,23 @@ public class Interpreter implements EntryPoint {
             @Override
             public void onClick(ClickEvent event) {
 
+                Window.alert("Before start()");
+
+                start();
+
+                Window.alert("After start()");
+
+                initialize();
+
+                Window.alert("After initialize()");
+
+                String result = evaluate("off int; on errcont;");
+
+                Window.alert("After off_int.  " + result);
+
                 Window.alert(test());
+
+                Window.alert("After test()");
             }
 
         });
@@ -315,9 +326,21 @@ public class Interpreter implements EntryPoint {
 
     public static void main(String[] args) {
 
-        Interpreter mpreduce = Interpreter.getInstance();
+        Interpreter mpreduce = new Interpreter();
 
-        System.out.println(mpreduce.test());
+        try {
+            mpreduce.start();
+
+            mpreduce.initialize();
+
+            String result = mpreduce.evaluate("off int; on errcont;");
+
+            System.out.println(result);
+
+            System.out.println(mpreduce.test());
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
 
 
 
