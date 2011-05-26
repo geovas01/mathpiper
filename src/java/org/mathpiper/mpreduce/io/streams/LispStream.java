@@ -36,7 +36,7 @@ package org.mathpiper.mpreduce.io.streams;
  *************************************************************************/
 
 import java.io.IOException;
-import java.io.InputStream;
+import org.mathpiper.mpreduce.io.streams.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import org.mathpiper.mpreduce.Environment;

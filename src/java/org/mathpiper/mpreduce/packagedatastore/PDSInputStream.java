@@ -3,7 +3,7 @@ package org.mathpiper.mpreduce.packagedatastore;
 //
 
 import java.io.IOException;
-import java.io.InputStream;
+import org.mathpiper.mpreduce.io.streams.InputStream;
 
 // This file is part of the Jlisp implementation of Standard Lisp
 // Copyright \u00a9 (C) Codemist Ltd, 1998-2000.

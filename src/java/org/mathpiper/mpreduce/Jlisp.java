@@ -33,10 +33,9 @@ package org.mathpiper.mpreduce;
  * DAMAGE.                                                                *
  *************************************************************************/
 import java.io.IOException;
-import java.io.InputStream;
+import org.mathpiper.mpreduce.io.streams.InputStream;
 import java.util.HashMap;
 import java.util.Vector;
-import net.sourceforge.htmlunit.corejs.classfile.ByteCode;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.special.SpecialFunction;
 import org.mathpiper.mpreduce.datatypes.Cons;
@@ -58,7 +57,7 @@ import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Jlisp extends Environment {
 
-    private static String version = ".015";
+    private static String version = ".016";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in

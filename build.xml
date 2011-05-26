@@ -236,10 +236,6 @@
 		
 		<copy file="${library.dir}/google_web_toolkit/module.gwt.xml" todir="${build.dir}/gwt_dist/src/org/mathpiper"/>
 		
-		<copy todir="${build.dir}/gwt_dist/src/org/mathpiper/jre">
-		   <fileset dir="${library.dir}/google_web_toolkit/jre"/>
-		</copy>
-		
 		<copy todir="${build.dir}/gwt_dist/">
 		   <fileset dir="${library.dir}/google_web_toolkit">
 		     <include name="*.jar" />

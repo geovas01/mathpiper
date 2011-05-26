@@ -35,7 +35,7 @@ package org.mathpiper.mpreduce.io;
  * DAMAGE.                                                                *
  *************************************************************************/
 import java.io.IOException;
-import java.io.InputStream;
+import org.mathpiper.mpreduce.io.streams.InputStream;
 import java.io.PrintStream;
 import org.mathpiper.mpreduce.Environment;
 import org.mathpiper.mpreduce.io.streams.WriterToLisp;
