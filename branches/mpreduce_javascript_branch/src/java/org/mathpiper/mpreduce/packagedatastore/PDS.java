@@ -38,7 +38,7 @@ package org.mathpiper.mpreduce.packagedatastore;
 
 
 import java.io.IOException;
-import java.io.InputStream;
+import org.mathpiper.mpreduce.io.streams.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -320,7 +320,7 @@ void readDirectory() throws IOException
             for (i=0; i<4; i++) len = (len<<8) + (buffer[n++] & 0xff);
             long date = 0;
             for (i=0; i<8; i++) date = (date<<8) + (buffer[n++] & 0xff);
-            String nn = new String(name, "UTF8");
+            String nn = new String(name);
             directory.put(nn, new PDSEntry(nn, loc, len, date));
         }
     } while (p != 0);

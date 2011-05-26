@@ -40,7 +40,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
 
-import java.io.InputStream;
+import org.mathpiper.mpreduce.io.streams.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.mathpiper.mpreduce.io.streams.LispOutputString;
@@ -60,6 +60,8 @@ public class Interpreter implements EntryPoint {
 
     public Interpreter() {
 
+        start();
+
     }//end constructor.
 
 
@@ -77,6 +79,8 @@ public class Interpreter implements EntryPoint {
 
             jlisp.startup(args, in, out);
 
+            initialize();
+
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -85,13 +89,13 @@ public class Interpreter implements EntryPoint {
     }
 
 
-    public void initialize() {
+    private void initialize() {
         try {
             jlisp.initialize();
 
-            //String result = evaluate("off int; on errcont;");
+            String result = evaluate("off int; on errcont;");
 
-            //System.out.println(result);
+            System.out.println(result);
         } catch (Throwable t) {
             t.printStackTrace();
 
@@ -245,9 +249,6 @@ public class Interpreter implements EntryPoint {
     //   $wnd.mpreduceEval =
     //     $entry(@org.mathpiper.mpreduce.Interpreter::eval(Ljava/lang/String;)(send));
     //}-*/;
-
-
-    
     @Override
     public void onModuleLoad() {
 
@@ -263,7 +264,7 @@ public class Interpreter implements EntryPoint {
         inputTextBox.addKeyPressHandler(new KeyPressHandler() {
 
             public void onKeyPress(KeyPressEvent event) {
-                if (event.getCharCode() == '\n') {
+                if (event.getCharCode() == '\n') { 
                     String result = evaluate(inputTextBox.getText());
 
                     outputTextArea.setText(result);
@@ -294,24 +295,8 @@ public class Interpreter implements EntryPoint {
 
             @Override
             public void onClick(ClickEvent event) {
-
-                Window.alert("Before start()");
-
-                start();
-
-                Window.alert("After start()");
-
-                initialize();
-
-                Window.alert("After initialize()");
-
-                String result = evaluate("off int; on errcont;");
-
-                Window.alert("After off_int.  " + result);
-
+                       
                 Window.alert(test());
-
-                Window.alert("After test()");
             }
 
         });
@@ -329,14 +314,6 @@ public class Interpreter implements EntryPoint {
         Interpreter mpreduce = new Interpreter();
 
         try {
-            mpreduce.start();
-
-            mpreduce.initialize();
-
-            String result = mpreduce.evaluate("off int; on errcont;");
-
-            System.out.println(result);
-
             System.out.println(mpreduce.test());
         } catch (Throwable t) {
             t.printStackTrace();

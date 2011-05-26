@@ -29,7 +29,7 @@
 package org.mathpiper.mpreduce.zip;
 
 import java.io.IOException;
-import java.io.InputStream;
+import org.mathpiper.mpreduce.io.streams.InputStream;
 import java.io.OutputStream;
 
 public class GZIPInputStream extends InputStream {

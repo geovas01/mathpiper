@@ -1,20 +1,7 @@
-package org.mathpiper.mpreduce.functions.functionwithenvironment;
-
-//
-// This file is part of the Jlisp implementation of Standard Lisp
-// Copyright \u00a9 (C) Codemist Ltd, 1998-2000.
-//
-
-import org.mathpiper.mpreduce.Environment;
-import org.mathpiper.mpreduce.functions.lisp.LispFunction;
-import org.mathpiper.mpreduce.LispObject;
-
-import org.mathpiper.mpreduce.Jlisp;
-import org.mathpiper.mpreduce.LispReader;
+package org.mathpiper.mpreduce.io.streams;
 
 /**************************************************************************
- * Copyright (C) 1998-2011, Codemist Ltd.                A C Norman       *
- *                            also contributions from Vijay Chauhan, 2002 *
+ * Copyright (C) 2011 Ted Kosan                                           *
  *                                                                        *
  * Redistribution and use in source and binary forms, with or without     *
  * modification, are permitted provided that the following conditions are *
@@ -41,46 +28,80 @@ import org.mathpiper.mpreduce.LispReader;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-public class FnWithEnv extends LispFunction
-{
 
-public int nargs;           // integer field saved in image file
-public byte [] bytecodes;   // can be null if not needed (never shared?)
-public LispObject [] env;   // vector of lisp objects, eg literals
+import java.io.IOException;
 
-public FnWithEnv()
-{
-    env = new LispObject[0];
-    bytecodes = null;
-    nargs = 0;
-}
 
-public FnWithEnv(LispObject [] env)
-{
-    this.env = env;
-    bytecodes = null;
-    nargs = 0;
-}
 
-public void scan()
-{
-    if (LispReader.objects.contains(this)) // seen before?
-    {   if (!LispReader.repeatedObjects.containsKey(this))
-        {   LispReader.repeatedObjects.put(
-                this,
-                Environment.nil); // value is junk at this stage
-        }
+public abstract class InputStream extends Object {
+
+
+    public InputStream() {
     }
-    else LispReader.objects.add(this);
-    for (int i=0; i<env.length; i++)
-        LispReader.stack.push(env[i]);
-}
+
+
+    public int available() throws IOException {
+        return 0;
+    }
+
+
+    public void close() throws IOException {
+    }
+
+
+    public void mark(int readlimit) {
+    }
+
+
+    public boolean markSupported() {
+        return false;
+    }
+
+
+    public abstract int read() throws IOException;
+
+    public int read(byte b[]) throws IOException {
+        return read(b, 0, b.length);
+    }
+
+
+    public int read(byte b[], int offset, int length) throws IOException {
+
+        if (offset > b.length || offset < 0) {
+            throw new ArrayIndexOutOfBoundsException("Illegal offset.");
+        }
+        if (length < 0 || length > b.length - offset) {
+            throw new ArrayIndexOutOfBoundsException("Illegal length.");
+        }
+        for (int index = 0; index < length; index++) {
+            int character;
+            try {
+                if ((character = read()) == -1) {
+                    if(index == 0)
+                    {
+                        return -1;
+                    }
+                    else
+                    {
+                        return(index);
+                    }
+                }
+            } catch (IOException e) {
+                if (index != 0) {
+                    return index;
+                }
+                throw e;
+            }
+            b[offset + index] = (byte) character;
+        }
+        return length;
+    }
+
+
+    public synchronized void reset() throws IOException {
+        throw new IOException();
+    }
 
 
 
-
-}
-
-
-// End of FnWithEnv.java
-
+}//end class.

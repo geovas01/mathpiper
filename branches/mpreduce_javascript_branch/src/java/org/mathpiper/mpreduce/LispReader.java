@@ -5,7 +5,7 @@
 package org.mathpiper.mpreduce;
 
 import java.io.IOException;
-import java.io.InputStream;
+import org.mathpiper.mpreduce.io.streams.InputStream;
 import java.math.BigInteger;
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -193,7 +193,7 @@ public class LispReader {
                     for (i = 0; i < operand; i++) {
                         data[i] = (byte) Jlisp.idump.read();
                     }
-                    w = new LispString(new String(data, "UTF8"));
+                    w = new LispString(new String(data));
                     LispString.stringCount++;
                 }
                 break;
@@ -207,7 +207,7 @@ public class LispReader {
                     sequence = sequence | (Jlisp.idump.read() << 8);
                     sequence = sequence | (Jlisp.idump.read() << 16);
                     sequence = sequence | (Jlisp.idump.read() << 24);
-                    Gensym ws = new Gensym(new String(data, "UTF8"));
+                    Gensym ws = new Gensym(new String(data));
                     ws.myNumber = sequence;
                     if (sequence != -1) {
                         ws.pname = ws.nameBase + sequence;
@@ -246,7 +246,7 @@ public class LispReader {
                     if (Jlisp.descendSymbols) {
                         Symbol ws = new Symbol();
                         Symbol.symbolCount++;
-                        ws.pname = new String(data, "UTF8");
+                        ws.pname = new String(data);
                         stack.push(ws);
                         istack[sp++] = state;
                         if (opcode == LispObject.X_SYMn) {
@@ -261,7 +261,7 @@ public class LispReader {
                         }
                         continue;
                     } else {
-                        w = Symbol.intern(new String(data, "UTF8"));
+                        w = Symbol.intern(new String(data));
                         Fasl.recent[Fasl.recentp++ & 0x1ff] = w;
                         break;
                     }
@@ -307,7 +307,7 @@ public class LispReader {
                     for (i = 0; i < operand; i++) {
                         data[i] = (byte) Jlisp.idump.read();
                     }
-                    w = new Undefined(new String(data, "UTF8"));
+                    w = new Undefined(new String(data));
                 }
                 break;
                 case LispObject.X_MACRO: {
@@ -506,7 +506,7 @@ public class LispReader {
                     for (i = 0; i < operand; i++) {
                         data[i] = (byte) Jlisp.idump.read();
                     }
-                    String s = new String(data, "UTF8");
+                    String s = new String(data);
                     w = (LispObject) Jlisp.builtinFunctions.get(s);
                     if (w == null) {
                         Jlisp.lispErr.println(s + " not found");
@@ -519,7 +519,7 @@ public class LispReader {
                     for (i = 0; i < operand; i++) {
                         data[i] = (byte) Jlisp.idump.read();
                     }
-                    String s = new String(data, "UTF8");
+                    String s = new String(data);
                     w = (LispObject) Jlisp.builtinSpecials.get(s);
                     if (w == null) {
                         Jlisp.lispErr.println(s + " not found");
@@ -875,7 +875,7 @@ public class LispReader {
             for (i = 0; i < n; i++) {
                 b[i] = (byte) Jlisp.idump.read();
             }
-            Jlisp.lispIO.println(new String(b, "UTF8"));
+            Jlisp.lispIO.println(new String(b));
             Jlisp.lispIO.flush();
         }
 

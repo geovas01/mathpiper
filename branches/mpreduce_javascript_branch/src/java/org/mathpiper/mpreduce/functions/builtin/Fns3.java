@@ -44,8 +44,6 @@ package org.mathpiper.mpreduce.functions.builtin;
 
 
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import org.mathpiper.mpreduce.Environment;
@@ -78,7 +76,6 @@ import org.mathpiper.mpreduce.special.Specfn;
 import org.mathpiper.mpreduce.symbols.Symbol;
 import org.mathpiper.mpreduce.functions.lisp.TracedFunction;
 import org.mathpiper.mpreduce.functions.lisp.Undefined;
-import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Fns3
 {
@@ -1142,30 +1139,7 @@ class RestoreObjectFn extends BuiltinFunction
     
     public LispObject op2(LispObject arg1, LispObject arg2) throws Exception
     {
-        String name = ((LispString)arg1).string;
-// read item number n from the file concerned. Used to debug!
-        int n = ((LispSmallInteger)arg2).value;
-        LispObject r = Environment.nil;
-        Jlisp.idump = null;
-        try
-        {   GZIPInputStream dump = 
-                new GZIPInputStream(
-                        new FileInputStream(name));
-            Jlisp.idump = dump;
-            LispReader.preRestore();
-            Jlisp.descendSymbols = false;
-            for (int i=0; i<n; i++)
-                r = LispReader.readObject();
-        }
-        catch (IOException e)
-        {   Jlisp.errprintln("IO error on dump file: " + e.getMessage());
-        }
-        finally
-        {   if (Jlisp.idump != null) Jlisp.idump.close();
-            LispReader.postRestore();
-        }
-        if (r == null) return new LispString("<null>");
-        else return r;
+        throw new Exception("Operation not supported.");
     }
 }
 
@@ -1514,36 +1488,7 @@ class RdfFn extends BuiltinFunction
 {
     public LispObject op1(LispObject arg1) throws Exception
     {
-        if (!(arg1 instanceof LispString))
-            return error("argument for rdf should be a string");
-        String name = ((LispString)arg1).string;
-        LispObject save = Jlisp.lit[Lit.std_input].car/*value*/;
-        try
-        {   Jlisp.lit[Lit.std_input].car/*value*/ =
-                new LispStream(
-                    name,
-                    new FileInputStream(LispStream.nameConvert(name)),
-                    false, true);
-            try
-            {   Jlisp.println();
-                // here I really want the simple READ-EVAL-PRINT
-                // without any messing with any restart function.
-                Jlisp.restarting = false; // just to be ultra-careful!
-                Jlisp.readEvalPrintLoop(true);
-            }
-            finally
-            {   ((LispStream)Jlisp.lit[Lit.std_input].car/*value*/).close();
-            }
-        }
-        catch (FileNotFoundException e)
-        {   return error("Unable to read from \"" +
-                         name + "\"");
-        }
-        finally
-        {   Jlisp.lit[Lit.std_input].car/*value*/ = save;
-            Jlisp.println("+++ end of reading " + name);
-        }
-        return Environment.nil;
+        throw new Exception("Operation not supported.");
     }
 }
 
