@@ -4,6 +4,22 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>mpreduce</title>
     <script type="text/javascript" language="javascript" src="org.mathpiper.module/org.mathpiper.module.nocache.js"></script>
+    <script type="text/javascript" language="javascript">
+        function CASEvaluate(expression, form)
+	{
+		var casResult = window.casEval(expression);
+		
+		appendText('casResultTextArea', casResult);
+		
+		form.resultTextArea.scrollTop = form.resultTextArea.scrollHeight; 
+	}
+	
+	function appendText(input, text) {
+		var obj=document.getElementById(input)
+		obj.value+=text
+	}
+	
+     </script>
   </head>
   <body bgcolor="white"> 
     <noscript>
@@ -12,6 +28,24 @@
         in order for this application to display correctly.
       </div>
     </noscript>
+    
+
+    
+	<FORM NAME="calc" METHOD="post">
+	
+	<p><textarea NAME="resultTextArea" id="casResultTextArea" rows="25" cols="80"  wrap='off'>  </textarea> </p>
+	
+	<P>Enter an expression: <INPUT TYPE=TEXT NAME="input_text_field" SIZE=40 value="(x + y)^100" /></P>
+	
+	<P><INPUT TYPE="button" VALUE="Evaluate" name="AddButton" onClick="CASEvaluate(this.form.input_text_field.value, this.form);"></P>
+	
+	<P><INPUT TYPE="button" VALUE="Clear Result Text Area" name="ClearResultButton" onClick="form.resultTextArea.value=''"></P>
+
+
+
+	</FORM>    
+    
+    
   </body>
 </html>
 

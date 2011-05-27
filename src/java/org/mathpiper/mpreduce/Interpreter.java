@@ -60,6 +60,8 @@ public class Interpreter implements EntryPoint {
 
     public Interpreter() {
 
+        JlispCASInstance = this;
+
         start();
 
     }//end constructor.
@@ -108,13 +110,6 @@ public class Interpreter implements EntryPoint {
         return startMessage;
     }//end method.
 
-
-    public static Interpreter getInstance() {
-        if (JlispCASInstance == null) {
-            JlispCASInstance = new Interpreter();
-        }
-        return JlispCASInstance;
-    }//end method.
 
 
     public String evaluate(String send) {
@@ -241,71 +236,24 @@ public class Interpreter implements EntryPoint {
     }//end method.
 
 
-    //For use by JavaScript code.
-    //public static String eval(String send) {
-    //    return JlispCASInstance.evaluate(send);
-    //}
-    //public static native void exportStaticMethod() /*-{
-    //   $wnd.mpreduceEval =
-    //     $entry(@org.mathpiper.mpreduce.Interpreter::eval(Ljava/lang/String;)(send));
-    //}-*/;
+    public static String casEvaluate(String send)
+    {
+        return JlispCASInstance.evaluate(send);
+    }
+
+
+    public static native void exportStaticMethod() /*-{
+       $wnd.casEval = function(send){
+         return @org.mathpiper.mpreduce.Interpreter::casEvaluate(Ljava/lang/String;)(send);
+       }
+    }-*/;
+
+
     @Override
     public void onModuleLoad() {
 
+        exportStaticMethod();
 
-        final TextBox inputTextBox = new TextBox();
-        inputTextBox.setVisibleLength(20);
-
-        final TextArea outputTextArea = new TextArea();
-        outputTextArea.setVisibleLines(40);
-        outputTextArea.setCharacterWidth(100);
-
-
-        inputTextBox.addKeyPressHandler(new KeyPressHandler() {
-
-            public void onKeyPress(KeyPressEvent event) {
-                if (event.getCharCode() == '\n') { 
-                    String result = evaluate(inputTextBox.getText());
-
-                    outputTextArea.setText(result);
-                }
-            }
-
-        });
-
-
-
-        Button button = new Button("Evaluate");
-
-        button.addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent event) {
-                String result = evaluate(inputTextBox.getText());
-
-                outputTextArea.setText(result);
-            }
-
-        });
-
-
-
-        Button testButton = new Button("Test mpreduce");
-        testButton.addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent event) {
-                       
-                Window.alert(test());
-            }
-
-        });
-
-
-        RootPanel.get().add(inputTextBox);
-        RootPanel.get().add(button);
-        RootPanel.get().add(testButton);
-        RootPanel.get().add(outputTextArea);
     }
 
 
