@@ -35,9 +35,11 @@
 	
 	<p><textarea NAME="resultTextArea" id="casResultTextArea" rows="25" cols="80"  wrap='off'>  </textarea> </p>
 	
-	<P>Enter an expression: <INPUT TYPE=TEXT NAME="input_text_field" SIZE=40 value="(x + y)^100" /></P>
+	<P>Enter an expression: <INPUT TYPE=TEXT NAME="inputTextField" SIZE=40 value="(x + y)^100" /></P>
 	
-	<P><INPUT TYPE="button" VALUE="Evaluate" name="AddButton" onClick="CASEvaluate(this.form.input_text_field.value, this.form);"></P>
+	<P><INPUT TYPE="button" VALUE="Evaluate" name="AddButton" onClick="CASEvaluate(this.form.inputTextField.value, this.form);"></P>
+	
+	<P><INPUT TYPE="button" VALUE="Clear Input Text Area" name="ClearInputButton" onClick="form.inputTextField.value=''"></P>
 	
 	<P><INPUT TYPE="button" VALUE="Clear Result Text Area" name="ClearResultButton" onClick="form.resultTextArea.value=''"></P>
 
