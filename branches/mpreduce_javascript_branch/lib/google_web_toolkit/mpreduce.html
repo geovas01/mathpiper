@@ -2,16 +2,20 @@
   <head>
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>mpreduce</title>
+    
+    <title>CAS Test</title>
+    
     <script type="text/javascript" language="javascript" src="org.mathpiper.module/org.mathpiper.module.nocache.js"></script>
+    
     <script type="text/javascript" language="javascript">
-        function CASEvaluate(expression, form)
+    
+        function CASEvaluate(expression, aForm)
 	{
 		var casResult = window.casEval(expression);
 		
 		appendText('casResultTextArea', casResult);
 		
-		form.resultTextArea.scrollTop = form.resultTextArea.scrollHeight; 
+		aForm.resultTextArea.scrollTop = aForm.resultTextArea.scrollHeight; 
 	}
 	
 	function appendText(input, text) {
@@ -20,8 +24,11 @@
 	}
 	
      </script>
+     
   </head>
+  
   <body bgcolor="white"> 
+  
     <noscript>
       <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color:white; border: 1px solid red; padding: 4px; font-family: sans-serif">
         Your web browser must have JavaScript enabled
@@ -31,23 +38,21 @@
     
 
     
-	<FORM NAME="calc" METHOD="post">
+	<FORM NAME="calc" METHOD="post" onSubmit="return false" >
 	
-	<p><textarea NAME="resultTextArea" id="casResultTextArea" rows="25" cols="80"  wrap='off'>  </textarea> </p>
-	
-	<P>Enter an expression: <INPUT TYPE=TEXT NAME="inputTextField" SIZE=40 value="(x + y)^100" /></P>
-	
-	<P><INPUT TYPE="button" VALUE="Evaluate" name="AddButton" onClick="CASEvaluate(this.form.inputTextField.value, this.form);"></P>
-	
-	<P><INPUT TYPE="button" VALUE="Clear Input Text Area" name="ClearInputButton" onClick="form.inputTextField.value=''"></P>
-	
-	<P><INPUT TYPE="button" VALUE="Clear Result Text Area" name="ClearResultButton" onClick="form.resultTextArea.value=''"></P>
-
-
+		<p><textarea NAME="resultTextArea" id="casResultTextArea" rows="25" cols="80"  wrap='off'>  </textarea> </p>
+		
+		<P>Enter an expression: <INPUT TYPE=TEXT NAME="inputTextField" SIZE=40 value="(x + y)^100"   /></P>
+		
+		<P><INPUT TYPE="button" VALUE="Evaluate" name="AddButton" onClick="CASEvaluate(this.form.inputTextField.value, this.form);"></P>
+		
+		<P><INPUT TYPE="button" VALUE="Clear Input Text Area" name="ClearInputButton" onClick="form.inputTextField.value=''"></P>
+		
+		<P><INPUT TYPE="button" VALUE="Clear Result Text Area" name="ClearResultButton" onClick="form.resultTextArea.value=''"></P>
 
 	</FORM>    
     
-    
   </body>
+  
 </html>
 
