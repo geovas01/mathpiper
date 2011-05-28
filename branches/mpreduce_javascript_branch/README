@@ -1,90 +1,35 @@
 INTRODUCTION ==================================================================
 
-MPReduce is an experimental version of JReduce. JReduce is part of the Reduce
+MPReduceJS is an experimental version of JReduce. JReduce is part of the Reduce
 project which is at http://reduce-algebra.sourceforge.net/.
 
 
 
 BUILDING INSTRUCTIONS =========================================================
 
-You can check out mpreduce using subversion using the following command:
+1) Check out the mpreduce_javascript_branch from the MathPiper project repository:
+svn checkout http://mathpiper.googlecode.com/svn/branches/mpreduce_javascript_branch mpreducejs
 
-svn checkout https://mathpiper.googlecode.com/svn/trunk/src/library_apps/mpreduce mpreduce-read-only
+2) Place a copy of http://206.21.94.61/misc/ReduceImageInputStream.java into the
+org.mathpiper.mpreduce package.
 
+3) Obtain a copy of the Google Web Toolkit GWT2.4.0.beta SDK from here:
+http://code.google.com/p/google-web-toolkit/downloads/list
 
-Apache Ant is used to build mpreduce and you need to change into the 
-mpreduce-read-only directory to execute the ant tasks which are in the build.xml
-file.
+4) See /home/tkosan/NetBeansProjects/mpreduce_javascript_branch/lib/google_web_toolkit/compile.sh
+for where to put copies of the gwt-dev.jar and gwt-user.jar files from GWT2.4.0.beta.
 
-The mpreduce system consists of a Lisp interpreter which is written in Java and
-a large number of packages which are written in the Reduce RLisp language. The
-packages are compiled and placed into a .img file which is accessed by the
-Lisp interpreter during runtime.
+5) Execute "ant gwt_dist". A "build" directory will be created and inside of it
+will be a directory called "gwt_dist".
 
-The following tasks are used to compile the interpreter and create .img files.
+6) Change into the build/gwt_dist directory.
 
-------------------------------
+7) Execute the compile.sh script with "sh compile.sh".
 
-Delete the build directory:
+8) After the application finishes compiling, the CAS can be launched by opening
+the build/gwt_dist/war/mpreduce.html file in a browser.
 
-ant clean
-
-------------------------------
-
-Compile the Java-based Lisp interpreter and place the compiled code into
-build/classes:
-
-ant compile
-
-------------------------------
-
-Run the compile task. Then, create a reduce.img file which contains a compiled
-version of all of the reduced packages and place it into build/image:
-
-ant reduce.img
-
-------------------------------
-
-Run the compile task. Then, create a minireduce.img file which contains a 
-compiled version of a subset of the reduced packages and place it into 
-build/image:
-
-ant minireduce.img
-
-------------------------------
-
-
-
-RUNNING INSTRUCTIONS ==========================================================
-
-When the mpreduce interpreter is run, it needs to be able to access a .img file
-or it will throw an exception. If any .img file (such as reduce.img or
-minireduce.img) is renamed to default.img and then placed on the classpath,
-the interpreter will be able to find it. The following example shows how a .img
-file can be renamed while being copied into the classes directory before running 
-mpreduce:
-
-cd build/classes
-cp ../images/reduce.img ./default.img
-
-
-To run the mpreduce command line interface, change into build/classes directory
-and execute the following command (use ctrl-c to exit):
-
-java org.mathpiper.mpreduce.Jlisp
-
-
-To run the mpreduce GUI interface, execute the following command:
-
-java org.mathpiper.mpreduce.ui.gui.CWin
-
-
-
-USING THE INTERPRETER FROM JAVA ===============================================
-
-The org/mathpiper/mpreduce/Interpreter.java class can be used to access the 
-mpreduce interpreter from Java. The main method in this class contains some 
-examples of how to do this.
+Note: The CAS does not run properly in IE 8 yet.
 
 
 
