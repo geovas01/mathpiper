@@ -602,7 +602,9 @@ symbolic procedure get_configuration_data();
     scalar i, w, e;
 % Configuration information is held in a file called something like
 % "package.map".                                                              
-    if boundp 'minireduce and symbol!-value 'minireduce then
+    if boundp 'microreduce and symbol!-value 'microreduce then
+        i := "$srcdir/../../src/packages/micropackage.map"
+    else if boundp 'minireduce and symbol!-value 'minireduce then
         i := "$srcdir/../../src/packages/minipackage.map"
     else i := "$srcdir/../../src/packages/package.map";
     i := open(i, 'input);
