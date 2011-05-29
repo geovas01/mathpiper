@@ -167,6 +167,21 @@
 	</target>
 	
 	
+	<target id="microreduce.img" name="microreduce.img" depends="compile">
+	
+	 	<delete file="${build.images.dir}/microreduce.img" />
+
+	 	<java fork="true" failonerror="yes" classname="org.mathpiper.mpreduce.Jlisp" classpath="${build.classes.dir}" >  
+	 	
+	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
+	 		
+	 		<arg line="-w -v -z -o ${build.images.dir}/microreduce.img ${build.scripts.dir}/buildreduce.lsp -Dmicroreduce -D@srcdir=${build.scripts.dir} -- ${build.images.dir}/microreduceimg.log"  />
+	 		
+	 	</java>
+
+	</target>
+	
+	
 	
 	<target id="testall" name="testall" depends="">
 	
