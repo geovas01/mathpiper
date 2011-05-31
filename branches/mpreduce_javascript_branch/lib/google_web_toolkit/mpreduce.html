@@ -3,31 +3,65 @@
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     
-    <title>CAS Test</title>
+    <title>CAS Test</title>  
     
     <script type="text/javascript" language="javascript" src="org.mathpiper.module/org.mathpiper.module.nocache.js"></script>
     
     <script type="text/javascript" language="javascript">
+   
+    	//Called by the CAS after it has been completely loaded and initialized.
+        window.casLoaded = function casLoaded()
+        {
+        	inidicateCasLoaded();
+        }
     
-        function CASEvaluate(expression, aForm)
+        function CASEvaluate(expression)
 	{
 		var casResult = window.casEval(expression);
 		
-		appendText('casResultTextArea', casResult);
+		appendText(casResult);
 		
-		aForm.resultTextArea.scrollTop = aForm.resultTextArea.scrollHeight; 
+		document.getElementById("casResultTextArea").scrollTop = document.getElementById("casResultTextArea").scrollHeight; 
 	}
 	
-	function appendText(input, text) {
-		var obj=document.getElementById(input)
-		obj.value+=text
+	function appendText(text) {
+		var obj=document.getElementById("casResultTextArea");
+		obj.value+=text;
+	}
+	
+	function inidicateCasLoaded()
+	{
+		document.getElementById("casResultTextArea").value=''; 
+		
+		document.getElementById("casEvaluateButton").removeAttribute("disabled");
+		
+		var casVersion = window.casVersion();
+        	
+        	appendText(casVersion + "\r");
 	}
 	
      </script>
      
+     
+     
+     <script>
+        //Initialize the CAS after the web page has been completely loaded. 
+     	(function() {
+	function casInitialize(){
+		setTimeout('window.casInitialize()',150);
+	}
+        if (window.attachEvent)
+	    window.attachEvent('onload', casInitialize);
+        else
+	    window.addEventListener('load', casInitialize, false);
+	})();
+      </script>
+     
+     
+     
   </head>
   
-  <body bgcolor="white"> 
+  <body body  bgcolor="white">   
   
     <noscript>
       <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color:white; border: 1px solid red; padding: 4px; font-family: sans-serif">
@@ -36,21 +70,22 @@
       </div>
     </noscript>
     
-
     
-	<FORM NAME="calc" METHOD="post" onSubmit="return false" >
+    
+	<FORM NAME="casForm" METHOD="post" onSubmit="return false" >
 	
-		<p><textarea NAME="resultTextArea" id="casResultTextArea" rows="25" cols="80"  wrap='off'>  </textarea> </p>
+		<p><textarea NAME="casResultTextArea" id="casResultTextArea" rows="25" cols="80"  wrap='off'>Loading...</textarea> </p>
 		
 		<P>Enter an expression: <INPUT TYPE=TEXT NAME="inputTextField" SIZE=40 value="(x + y)^100"   /></P>
 		
-		<P><INPUT TYPE="button" VALUE="Evaluate" name="AddButton" onClick="CASEvaluate(this.form.inputTextField.value, this.form);"></P>
+		<P><INPUT disabled TYPE="button" VALUE="Evaluate" name="casEvaluateButton" id="casEvaluateButton" onClick="CASEvaluate(this.form.inputTextField.value);"></P>
 		
-		<P><INPUT TYPE="button" VALUE="Clear Input Text Box" name="ClearInputButton" onClick="form.inputTextField.value=''"></P>
+		<P><INPUT TYPE="button" VALUE="Clear Input Text Box" name="clearInputButton" onClick="this.form.inputTextField.value=''"></P>
 		
-		<P><INPUT TYPE="button" VALUE="Clear Result Text Area" name="ClearResultButton" onClick="form.resultTextArea.value=''"></P>
+		<P><INPUT TYPE="button" VALUE="Clear Result Text Area" name="clearResultButton" onClick="this.form.casResultTextArea.value=''"></P>
 
 	</FORM>    
+
     
   </body>
   

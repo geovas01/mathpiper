@@ -57,7 +57,7 @@ import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Jlisp extends Environment {
 
-    private static String version = ".017";
+    public static String version = ".018";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
