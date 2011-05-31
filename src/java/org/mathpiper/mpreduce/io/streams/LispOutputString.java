@@ -58,7 +58,7 @@ public class LispOutputString extends LispStream
 
     public void close()
     {
-        sb = null;
+        toStringValue = "";
     }
 
     public void print(String s)

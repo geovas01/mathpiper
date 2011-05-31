@@ -29,15 +29,6 @@
 package org.mathpiper.mpreduce;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
 
 
 import org.mathpiper.mpreduce.io.streams.InputStream;
@@ -62,12 +53,12 @@ public class Interpreter implements EntryPoint {
 
         JlispCASInstance = this;
 
-        start();
-
     }//end constructor.
 
 
-    public void start() {
+    public String initialize() {
+
+        String result = "";
 
         jlisp = new Jlisp();
 
@@ -81,29 +72,25 @@ public class Interpreter implements EntryPoint {
 
             jlisp.startup(args, in, out);
 
-            initialize();
-
-
-        } catch (Throwable t) {
-            t.printStackTrace();
-
-        }
-    }
-
-
-    private void initialize() {
-        try {
             jlisp.initialize();
 
-            String result = evaluate("off int; on errcont;");
+            result = evaluate("off int; on errcont;");
 
-            System.out.println(result);
+
         } catch (Throwable t) {
             t.printStackTrace();
 
-        }
+            result = t.getMessage();
 
+        }
+        finally
+        {
+            return result;
+        }
     }
+
+
+
 
 
     public String getStartMessage() {
@@ -148,6 +135,8 @@ public class Interpreter implements EntryPoint {
             out.flush();
 
             result = out.toString();
+
+            out.close();
 
             return result;
         }
@@ -236,30 +225,76 @@ public class Interpreter implements EntryPoint {
     }//end method.
 
 
+
+    public static String casVersion()
+    {
+        return "MPReduceJS version " + JlispCASInstance.version();
+    }
+
+    public static native void exportCasVersionMethod() /*-{
+       $wnd.casVersion = function(){
+         return @org.mathpiper.mpreduce.Interpreter::casVersion()();
+       }
+    }-*/;
+
+
+
     public static String casEvaluate(String send)
     {
         return JlispCASInstance.evaluate(send);
     }
 
-
-    public static native void exportStaticMethod() /*-{
+    public static native void exportEvaluateMethod() /*-{
        $wnd.casEval = function(send){
          return @org.mathpiper.mpreduce.Interpreter::casEvaluate(Ljava/lang/String;)(send);
        }
     }-*/;
 
 
+
+    public static String casInitialize()
+    {
+        String result = JlispCASInstance.initialize();
+
+        callCasLoaded();
+
+        return result;
+    }
+
+    public static native void exportInitializeMethod() /*-{
+       $wnd.casInitialize = function(){
+         return @org.mathpiper.mpreduce.Interpreter::casInitialize()();
+       }
+    }-*/;
+
+
+    public static native void callCasLoaded() /*-{
+       $wnd.casLoaded();
+    }-*/;
+
+
     @Override
     public void onModuleLoad() {
 
-        exportStaticMethod();
+        exportCasVersionMethod();
 
+        exportInitializeMethod();
+
+        exportEvaluateMethod();
     }
 
 
+    public static String version()
+    {
+        return Jlisp.version;
+    }
+
+
+    
     public static void main(String[] args) {
 
         Interpreter mpreduce = new Interpreter();
+        String result = mpreduce.initialize();
 
         try {
             System.out.println(mpreduce.test());
