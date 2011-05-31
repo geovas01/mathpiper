@@ -29,13 +29,27 @@
 package org.mathpiper.mpreduce;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import java.io.IOException;
 
 
 import org.mathpiper.mpreduce.io.streams.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import org.mathpiper.mpreduce.datatypes.Cons;
+import org.mathpiper.mpreduce.datatypes.LispString;
+import org.mathpiper.mpreduce.functions.functionwithenvironment.Bytecode;
+import org.mathpiper.mpreduce.functions.lisp.LispFunction;
 import org.mathpiper.mpreduce.io.streams.LispOutputString;
 import org.mathpiper.mpreduce.io.streams.LispStream;
+import org.mathpiper.mpreduce.numbers.LispSmallInteger;
+import org.mathpiper.mpreduce.packagedatastore.PDS;
+import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
+import org.mathpiper.mpreduce.special.SpecialFunction;
+import org.mathpiper.mpreduce.symbols.Symbol;
+import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Interpreter implements EntryPoint {
 
@@ -82,21 +96,15 @@ public class Interpreter implements EntryPoint {
 
             result = t.getMessage();
 
-        }
-        finally
-        {
+        } finally {
             return result;
         }
     }
 
 
-
-
-
     public String getStartMessage() {
         return startMessage;
     }//end method.
-
 
 
     public String evaluate(String send) {
@@ -225,35 +233,31 @@ public class Interpreter implements EntryPoint {
     }//end method.
 
 
-
-    public static String casVersion()
-    {
+    public static String casVersion() {
         return "MPReduceJS version " + JlispCASInstance.version();
     }
 
+
     public static native void exportCasVersionMethod() /*-{
-       $wnd.casVersion = function(){
-         return @org.mathpiper.mpreduce.Interpreter::casVersion()();
-       }
+    $wnd.casVersion = function(){
+    return @org.mathpiper.mpreduce.Interpreter::casVersion()();
+    }
     }-*/;
 
 
-
-    public static String casEvaluate(String send)
-    {
+    public static String casEvaluate(String send) {
         return JlispCASInstance.evaluate(send);
     }
 
+
     public static native void exportEvaluateMethod() /*-{
-       $wnd.casEval = function(send){
-         return @org.mathpiper.mpreduce.Interpreter::casEvaluate(Ljava/lang/String;)(send);
-       }
+    $wnd.casEval = function(send){
+    return @org.mathpiper.mpreduce.Interpreter::casEvaluate(Ljava/lang/String;)(send);
+    }
     }-*/;
 
 
-
-    public static String casInitialize()
-    {
+    public static String casInitialize() {
         String result = JlispCASInstance.initialize();
 
         callCasLoaded();
@@ -261,15 +265,16 @@ public class Interpreter implements EntryPoint {
         return result;
     }
 
+
     public static native void exportInitializeMethod() /*-{
-       $wnd.casInitialize = function(){
-         return @org.mathpiper.mpreduce.Interpreter::casInitialize()();
-       }
+    $wnd.casInitialize = function(){
+    return @org.mathpiper.mpreduce.Interpreter::casInitialize()();
+    }
     }-*/;
 
 
     public static native void callCasLoaded() /*-{
-       $wnd.casLoaded();
+    $wnd.casLoaded();
     }-*/;
 
 
@@ -284,20 +289,146 @@ public class Interpreter implements EntryPoint {
     }
 
 
-    public static String version()
-    {
+    public static String version() {
         return Jlisp.version;
     }
 
 
-    
+    private void loadImageSetup() throws Exception {
+
+        LispSmallInteger.preAllocate();  // some small integers treated specially
+
+        // For use while I am re-loading images and also to assist the
+        // custom Lisp bytecoded stuff I build a table of all the functions
+        // that I have built into this Lisp.
+        //
+        Jlisp.builtinFunctions = new HashMap();
+        Jlisp.builtinSpecials = new HashMap();
+        for (int i = 0; i < Jlisp.fns1.builtins.length; i++) {
+            ((LispFunction) Jlisp.fns1.builtins[i][1]).name =
+                    (String) Jlisp.fns1.builtins[i][0];
+            Jlisp.builtinFunctions.put(Jlisp.fns1.builtins[i][0], Jlisp.fns1.builtins[i][1]);
+        }
+        for (int i = 0; i < Jlisp.fns2.builtins.length; i++) {
+            ((LispFunction) Jlisp.fns2.builtins[i][1]).name =
+                    (String) Jlisp.fns2.builtins[i][0];
+            Jlisp.builtinFunctions.put(Jlisp.fns2.builtins[i][0], Jlisp.fns2.builtins[i][1]);
+        }
+        for (int i = 0; i < Jlisp.fns3.builtins.length; i++) {
+            ((LispFunction) Jlisp.fns3.builtins[i][1]).name =
+                    (String) Jlisp.fns3.builtins[i][0];
+            Jlisp.builtinFunctions.put(Jlisp.fns3.builtins[i][0], Jlisp.fns3.builtins[i][1]);
+        }
+        for (int i = 0; i < Jlisp.mpreduceFunctions.builtins.length; i++) {
+            ((LispFunction) Jlisp.mpreduceFunctions.builtins[i][1]).name =
+                    (String) Jlisp.mpreduceFunctions.builtins[i][0];
+            Jlisp.builtinFunctions.put(Jlisp.mpreduceFunctions.builtins[i][0], Jlisp.mpreduceFunctions.builtins[i][1]);
+        }
+        /*for (i=0; i<fns4.builtins.length; i++)
+        {   ((LispFunction)fns4.builtins[i][1]).name =
+        (String)fns4.builtins[i][0];
+        builtinFunctions.put(fns4.builtins[i][0], fns4.builtins[i][1]);
+        }*/
+        for (int i = 0; i < Jlisp.specfn.specials.length; i++) {
+            ((SpecialFunction) Jlisp.specfn.specials[i][1]).name =
+                    (String) Jlisp.specfn.specials[i][0];
+            Jlisp.builtinSpecials.put(Jlisp.specfn.specials[i][0], Jlisp.specfn.specials[i][1]);
+        }
+        Bytecode.setupBuiltins();
+
+        // I may need to display diagnostics before I have finshed setting up
+        // streams etc in their proper final form, so I arrange a provisional
+        // setting that directs early messages to the terminal.
+        //lispIO = lispErr = new LispOutputStream();
+
+        Jlisp.lit[Lit.std_output] = Jlisp.lit[Lit.tr_output] =
+                Jlisp.lit[Lit.err_output] = Jlisp.lit[Lit.std_input] =
+                Jlisp.lit[Lit.terminal_io] = Jlisp.lit[Lit.debug_io] =
+                Jlisp.lit[Lit.query_io] = Symbol.intern("temp-stream");
+
+        Jlisp.standardStreams();
+
+        Jlisp.images = null;
+        try {
+
+            //InputStream is = new FileInputStream("minireduce.img");
+
+            InputStream is = new ReduceImageInputStream();
+
+            if (is != null) {
+                Jlisp.images = new PDS(is);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // The next stage is either to create an initial Lisp heap or to
+        // re-load one that had been saved from a previous session. Things are
+        // made MUCH more complicated here because a running Lisp can (under program
+        // control) get itself restarted either in cold or warm-start mode.
+
+
+
+        PDSInputStream ii = null;
+        // I will re-load from the first checkpoint file in the list that has
+        // a HeapImage stored in it.
+
+        try {
+            ii = new PDSInputStream(Jlisp.images, "HeapImage");
+        } catch (IOException e) {
+        }
+
+
+
+        try {
+            if (ii == null) {
+                throw new IOException("No valid checkpoint file found");
+            }
+
+
+            gzip = new GZIPInputStream(ii);
+
+
+
+            Symbol.symbolCount = Cons.consCount = LispString.stringCount = 0;
+
+            LispReader.getInstance().incrementalRestore(gzip);
+
+
+        } catch (Exception e) {
+            throw e;
+        }
+
+    }
+
+    GZIPInputStream gzip = null;
+
+
     public static void main(String[] args) {
 
         Interpreter mpreduce = new Interpreter();
-        String result = mpreduce.initialize();
 
         try {
+            mpreduce.loadImageSetup();
+
+            LispReader lispReader = LispReader.getInstance();
+
+
+            while (lispReader.execute() == true) {
+            }
+
+
+            LispReader.getInstance().afterIncrementalRestore();
+
+            String result = mpreduce.initialize();
+
             System.out.println(mpreduce.test());
+
+            if (mpreduce.gzip != null) {
+
+                mpreduce.gzip.close();
+
+            }
         } catch (Throwable t) {
             t.printStackTrace();
         }

@@ -217,10 +217,10 @@ public class Fasl
     static LispObject faslRead() throws Exception
     {
         Jlisp.idump = reader;
-        LispReader.preRestore();
+        LispReader.getInstance().preRestore();
         Jlisp.descendSymbols = false;
-        LispObject r = LispReader.readObject();
-        LispReader.postRestore();
+        LispObject r = LispReader.getInstance().readObject();
+        LispReader.getInstance().postRestore();
         return r;
     }
 

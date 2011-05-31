@@ -32,32 +32,26 @@ package org.mathpiper.mpreduce;
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH   *
  * DAMAGE.                                                                *
  *************************************************************************/
-import java.io.IOException;
 import org.mathpiper.mpreduce.io.streams.InputStream;
 import java.util.HashMap;
 import java.util.Vector;
 import org.mathpiper.mpreduce.symbols.Symbol;
-import org.mathpiper.mpreduce.special.SpecialFunction;
-import org.mathpiper.mpreduce.datatypes.Cons;
 import org.mathpiper.mpreduce.functions.functionwithenvironment.Bytecode;
 import org.mathpiper.mpreduce.exceptions.ProgEvent;
 import org.mathpiper.mpreduce.datatypes.LispString;
 import org.mathpiper.mpreduce.functions.lisp.LispFunction;
-import org.mathpiper.mpreduce.numbers.LispSmallInteger;
 import org.mathpiper.mpreduce.exceptions.LispException;
 import org.mathpiper.mpreduce.io.streams.LispStream;
 import org.mathpiper.mpreduce.packagedatastore.PDS;
-import org.mathpiper.mpreduce.packagedatastore.PDSInputStream;
 import org.mathpiper.mpreduce.functions.builtin.Fns;
 //import org.mathpiper.mpreduce.javacompiler.Fns4;
 
 
 import org.mathpiper.mpreduce.exceptions.ResourceException;
-import org.mathpiper.mpreduce.zip.GZIPInputStream;
 
 public class Jlisp extends Environment {
 
-    public static String version = ".018";
+    public static String version = ".019";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
@@ -259,221 +253,15 @@ public class Jlisp extends Environment {
         boolean noRestart = false;
         boolean batchSwitch = false;
 
-        // I may need to display diagnostics before I have finshed setting up
-        // streams etc in their proper final form, so I arrange a provisional
-        // setting that directs early messages to the terminal.
-        //lispIO = lispErr = new LispOutputStream();
-
-        lit[Lit.std_output] = lit[Lit.tr_output] =
-                lit[Lit.err_output] = lit[Lit.std_input] =
-                lit[Lit.terminal_io] = lit[Lit.debug_io] =
-                lit[Lit.query_io] = Symbol.intern("temp-stream");
-
-        standardStreams();
-
-        // The options that I accept here are intended to match (as far as I can
-        // reasonably make them) the ones used with the "CSL" Lisp implementation.
-        // I scan the command line to decode them. Note that until this has
-        // been completed I can not do proper Lisp output because I will not have
-        // seen redirection requests.
-        int i;
-        for (i = 0; i < args.length; i++) {
-            String arg = args[i];
-            String arg1;
-            if (arg.length() >= 2 && arg.charAt(0) == '-') {
-                char key = Character.toLowerCase(arg.charAt(1));
-                switch (key) {
-                    case '-': // redirect all output
-                        break;
-                    case 'b': // flips batchp() result
-                        batchSwitch = true;
-                        continue;
-                    case 'g': // enhance debugging
-                        debugFlag = true;
-                        continue;
-                    case 'i': // specify (input) image or library
-                        break;
-                    case 'n': // ignore restart function in image
-                        noRestart = true;
-                        continue;
-                    case 'q': // quiet mode
-                        verbose = false;
-                        continue;
-                    case 'v': // verbose mode
-                        verbose = true;
-                        continue;
-                    case 'x': // less trapping of possibly internal errors
-                        System.out.println("JVM exit on error set.");
-                        trapExceptions = false;
-                        continue;
-                    case 'z': // cold start mode
-                        coldStart = true;
-                        continue;
-                    default:
-                        if (errCount < errs.length) {
-                            errs[errCount++] =
-                                    "Invalid option \"" + arg + "\"";
-                        }
-                        continue;
-                }
-                // In many cases an option takes an argument. I permit either -Ixx or -I xx
-                // and separate off xxx here.
-                if (arg.length() > 2) {
-                    arg1 = arg.substring(2);
-                } else if (i + 1 < args.length) {
-                    arg1 = args[++i];
-                } else {
-                    if (errCount < errs.length) {
-                        errs[errCount++] =
-                                "Option \"" + arg
-                                + "\" invalid as final option";
-                    }
-                    continue;
-                }
-                // Now arg is the initial key and arg1 is the follow-up.
-                switch (key) {
-
-                    case 'i': // specify (input) image or library
-                        imageFile = arg1;
-
-                        break;
-
-                }
-            } else {
-                inputFile[inputCount++] = arg;
-            }
-        }
-        // Now I have finished decoding the command line. The first parts I
-        // process are those relating to the intended destination for
-        // output.
-
-
-        //lispIO = new LispOutputStream();
 
 
 
-        //lispErr = lispIO; // lispErr sent to spool file if lispIO is...
-        // now I have Java variables that refer to the output streams I need
-        // to establish.
 
-        // Now I am in a position to display any errors relating to
-        // command line options.
-        for (i = 0; i < errCount; i++) {
-            lispErr.println(errs[i]);
-        }
-
-        LispSmallInteger.preAllocate();  // some small integers treated specially
-
-        // For use while I am re-loading images and also to assist the
-        // custom Lisp bytecoded stuff I build a table of all the functions
-        // that I have built into this Lisp.
-        //
-        builtinFunctions = new HashMap();
-        builtinSpecials = new HashMap();
-        for (i = 0; i < fns1.builtins.length; i++) {
-            ((LispFunction) fns1.builtins[i][1]).name =
-                    (String) fns1.builtins[i][0];
-            builtinFunctions.put(fns1.builtins[i][0], fns1.builtins[i][1]);
-        }
-        for (i = 0; i < fns2.builtins.length; i++) {
-            ((LispFunction) fns2.builtins[i][1]).name =
-                    (String) fns2.builtins[i][0];
-            builtinFunctions.put(fns2.builtins[i][0], fns2.builtins[i][1]);
-        }
-        for (i = 0; i < fns3.builtins.length; i++) {
-            ((LispFunction) fns3.builtins[i][1]).name =
-                    (String) fns3.builtins[i][0];
-            builtinFunctions.put(fns3.builtins[i][0], fns3.builtins[i][1]);
-        }
-        for (i = 0; i < mpreduceFunctions.builtins.length; i++) {
-            ((LispFunction) mpreduceFunctions.builtins[i][1]).name =
-                    (String) mpreduceFunctions.builtins[i][0];
-            builtinFunctions.put(mpreduceFunctions.builtins[i][0], mpreduceFunctions.builtins[i][1]);
-        }
-        /*for (i=0; i<fns4.builtins.length; i++)
-        {   ((LispFunction)fns4.builtins[i][1]).name =
-        (String)fns4.builtins[i][0];
-        builtinFunctions.put(fns4.builtins[i][0], fns4.builtins[i][1]);
-        }*/
-        for (i = 0; i < specfn.specials.length; i++) {
-            ((SpecialFunction) specfn.specials[i][1]).name =
-                    (String) specfn.specials[i][0];
-            builtinSpecials.put(specfn.specials[i][0], specfn.specials[i][1]);
-        }
-        Bytecode.setupBuiltins();
-
-        imageFile = "-";
-
-        images = null;
-        try {
-
-            //InputStream is = new FileInputStream("minireduce.img");
-
-            InputStream is = new ReduceImageInputStream();
-
-            if (is != null) {
-                images = new PDS(is);
-            }
-
-        } catch (IOException e) {
-        }
-
-
-        // The next stage is either to create an initial Lisp heap or to
-        // re-load one that had been saved from a previous session. Things are
-        // made MUCH more complicated here because a running Lisp can (under program
-        // control) get itself restarted either in cold or warm-start mode.
-
-        boolean loaded;
-
-        loaded = false;
-
-
-        if (!coldStart) {
-
-            PDSInputStream ii = null;
-            // I will re-load from the first checkpoint file in the list that has
-            // a HeapImage stored in it.
-
-            try {
-                ii = new PDSInputStream(images, "HeapImage");
-            } catch (IOException e) {
-            }
-
-            GZIPInputStream gzip = null;
-
-            try {
-                if (ii == null) {
-                    throw new IOException("No valid checkpoint file found");
-                }
-
-
-                gzip = new GZIPInputStream(ii);
+        //LispReater.restore() code was moved to Interpreter.
 
 
 
-                Symbol.symbolCount = Cons.consCount = LispString.stringCount = 0;
 
-                LispReader.restore(gzip);
-
-                loaded = true;
-            } catch (Exception e) {
-                throw e;
-            } finally {
-                if (gzip != null) {
-                    try {
-                        gzip.close();
-                    } catch (IOException e) {
-                        lispErr.println("Failed to load image");
-                        loaded = false;
-                    }
-                }
-            }
-            if (restarting && !loaded) {
-                lispIO.println("+++ No image file when restarting");
-                return;
-            }
-        }
 
 
 
@@ -486,12 +274,12 @@ public class Jlisp extends Environment {
         // line I process that here. I will perform all the "undefine"
         // operations before any of the "define" ones, but otherwise
         // proceed left to right
-        for (i = 0; i < undefineCount; i++) {
+        for (int i = 0; i < undefineCount; i++) {
             Symbol s = Symbol.intern(undefineSymbol[i]);
             s.car/*value*/ = lit[Lit.undefined];
             s = null;
         }
-        for (i = 0; i < defineCount; i++) {
+        for (int i = 0; i < defineCount; i++) {
             String name = defineSymbol[i];
             LispObject value;
             int eqPos = name.indexOf('=');
@@ -519,7 +307,7 @@ public class Jlisp extends Environment {
             value = null;
         }
 
-        for (i = 0; i < 128; i++) // To speed up readch()
+        for (int i = 0; i < 128; i++) // To speed up readch()
         {
             LispReader.chars[i] = Symbol.intern(String.valueOf((char) i));
         }

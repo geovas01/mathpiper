@@ -1513,7 +1513,7 @@ class ReadFn extends BuiltinFunction
     {
         LispObject w = Jlisp.lit[Lit.eof];
         try
-        {   w = LispReader.read();
+        {   w = LispReader.getInstance().read();
         }
         catch (EOFException e)
         {   return Jlisp.lit[Lit.eof];

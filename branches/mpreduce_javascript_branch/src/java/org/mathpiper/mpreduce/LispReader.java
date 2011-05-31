@@ -4,6 +4,7 @@
  */
 package org.mathpiper.mpreduce;
 
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import java.io.IOException;
 import org.mathpiper.mpreduce.io.streams.InputStream;
 import java.math.BigInteger;
@@ -36,8 +37,9 @@ import org.mathpiper.mpreduce.special.SpecialFunction;
 import org.mathpiper.mpreduce.symbols.Gensym;
 import org.mathpiper.mpreduce.symbols.Symbol;
 
-public class LispReader {
+public class LispReader implements RepeatingCommand {
 
+    private static LispReader lispReader = null;
     static int istacklimit;
     static int[] istack;
     public static int sharedIndex;
@@ -73,7 +75,21 @@ public class LispReader {
     static final int S_CADR = -100;  // +0 to +15 offsets from this used
 
 
-    public static LispObject readObject() throws IOException, ResourceException {
+    private LispReader() {
+        super();
+    }
+
+
+    public static LispReader getInstance() {
+        if (lispReader == null) {
+            lispReader = new LispReader();
+        }
+
+        return lispReader;
+    }
+
+
+    public LispObject readObject() throws IOException, ResourceException {
         // Reloading an image uses an explicit stack to manage the recusion that
         // it needs. It controls this stack using a finite-state control. The states
         // are identified here as constants S_xxx.
@@ -720,7 +736,7 @@ public class LispReader {
     static LispStream readIn;
 
 
-    public static LispObject read() throws Exception {
+    public LispObject read() throws Exception {
         LispObject r;
         r = Jlisp.lit[Lit.std_input].car/*value*/;
         if (r instanceof LispStream) {
@@ -780,7 +796,7 @@ public class LispReader {
     }
 
 
-    static LispObject readTail() throws Exception {
+    LispObject readTail() throws Exception {
         LispObject r;
         if (!readIn.inputValid) {
             inputType = readIn.nextToken();
@@ -810,7 +826,7 @@ public class LispReader {
     }
 
 
-    static LispObject expandBackquote(LispObject a) throws ResourceException {
+    LispObject expandBackquote(LispObject a) throws ResourceException {
         if (a == Environment.nil) {
             return a;
         } else if (a.atom) {
@@ -835,7 +851,7 @@ public class LispReader {
     }
 
 
-    public static void preRestore() throws IOException {
+    public void preRestore() throws IOException {
         sharedIndex = 0;
         sharedSize = Jlisp.idump.read();
         sharedSize = (sharedSize << 8) + Jlisp.idump.read();
@@ -848,14 +864,14 @@ public class LispReader {
     }
 
 
-    public static void postRestore() {
+    public void postRestore() {
         istack = null;
         stack = null;
         shared = null;
     }
 
 
-    static void restore(InputStream dump) throws IOException, ResourceException {
+    void incrementalRestore(InputStream dump) throws IOException, ResourceException {
         Jlisp.idump = dump;
         preRestore();
         Jlisp.descendSymbols = true;
@@ -893,44 +909,26 @@ public class LispReader {
             oblist[i] = null;
         }
         oblistCount = 0;
-        Symbol s;
+
+
+
         // When restoring a heap image my oblist handling can be fairly
         // simple: I should NEVER get any attempt to insert an item that is already
         // there and I start with an empty table so there are no deleted
         // items to worry about.
-        while ((s = (Symbol) readObject()) != null) {
-            s.completeName();
-            String name = s.pname;
-            //if (name.length() > 1) System.out.println("restore symbol <" + name + "> length " + name.length());
-            int inc = name.hashCode();
-            //System.out.println("raw hash = " + Integer.toHexString(inc));
-            // I want my hash addresses and the increment to be positive...
-            // and Java tells me what the hash algorithm for strings is. What I do here
-            // ensures that strings that differ only in their final character get placed
-            // some multiple of 169 apart (is not quite adjacant).
-            int hash = ((169 * inc) & 0x7fffffff) % oblistSize;
-            inc = 1 + ((inc & 0x7fffffff) % (oblistSize - 1)); // never zero
-            //System.out.println("first probe = " + hash + " " + inc);
-            while (oblist[hash] != null) {
-                if (oblist[hash].pname.equals(name)) {
-                    System.out.println("Two symbols called <" + name + "> " + Integer.toHexString((int) name.charAt(0)));
-                }
-                hash += inc;
-                if (hash >= oblistSize) {
-                    hash -= oblistSize;
-                }
-                //System.out.println("next probe = " + hash);
-            }
-            //System.out.println("Put <" + name + "> at " + hash + " " + inc);
-            oblist[hash] = s;
-            oblistCount++;
-            // I will permit the hash table loading to reach 0.75, but then I take action
-            if (4 * oblistCount > 3 * oblistSize) {
-                reHashOblist();
-            }
-        }
+
+
+
+
+
         //System.out.println("termination of oblist found : " + oblistCount);
 
+
+    }//end method
+
+
+    public void afterIncrementalRestore() throws Exception
+    {
         LispObject w;
 
         if (Jlisp.idump.read() == 0) {
@@ -964,6 +962,62 @@ public class LispReader {
 
 
         postRestore();
+    }//end method.
+
+
+    private boolean readObjects() throws IOException, ResourceException {
+        Symbol s;
+        if ((s = (Symbol) readObject()) != null) {
+            s.completeName();
+            String name = s.pname;
+            if (name.length() > 1) {
+                System.out.println("restore symbol <" + name + "> length " + name.length());
+            }
+            int inc = name.hashCode();
+            //System.out.println("raw hash = " + Integer.toHexString(inc));
+            // I want my hash addresses and the increment to be positive...
+            // and Java tells me what the hash algorithm for strings is. What I do here
+            // ensures that strings that differ only in their final character get placed
+            // some multiple of 169 apart (is not quite adjacant).
+            int hash = ((169 * inc) & 0x7fffffff) % oblistSize;
+            inc = 1 + ((inc & 0x7fffffff) % (oblistSize - 1)); // never zero
+            //System.out.println("first probe = " + hash + " " + inc);
+            while (oblist[hash] != null) {
+                if (oblist[hash].pname.equals(name)) {
+                    System.out.println("Two symbols called <" + name + "> " + Integer.toHexString((int) name.charAt(0)));
+                }
+                hash += inc;
+                if (hash >= oblistSize) {
+                    hash -= oblistSize;
+                }
+                //System.out.println("next probe = " + hash);
+            }
+            //System.out.println("Put <" + name + "> at " + hash + " " + inc);
+            oblist[hash] = s;
+            oblistCount++;
+            // I will permit the hash table loading to reach 0.75, but then I take action
+            if (4 * oblistCount > 3 * oblistSize) {
+                reHashOblist();
+            }
+
+            return true;
+        }//end if.
+        else {
+            return false;
+        }
+    }//end method.
+
+
+    public boolean execute() {
+        boolean continueFlag = false;
+
+        try {
+            continueFlag = readObjects();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return continueFlag;
+        }
     }
 
 
@@ -1015,7 +1069,7 @@ public class LispReader {
     }
 
 
-    static public void scanObject(LispObject a) {
+    public void scanObject(LispObject a) {
         if (a == null) {
             return;
         }
@@ -1029,14 +1083,6 @@ public class LispReader {
         } catch (EmptyStackException e) {
         }
     }
-
-
-
-
-
-
-
-
 
 }//End class.
 

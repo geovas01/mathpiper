@@ -1445,7 +1445,7 @@ class CompressFn extends BuiltinFunction
         LispObject r = Environment.nil;
         try
         {   Jlisp.lit[Lit.std_input].car/*value*/ = from;
-            r = LispReader.read();
+            r = LispReader.getInstance().read();
 //-             int c = from.readChar();
             from.close();
 //- // The next section is a pretty shameless hack to make REDUCE a bit
