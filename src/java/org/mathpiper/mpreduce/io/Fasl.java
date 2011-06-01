@@ -93,7 +93,7 @@ public class Fasl
         try 
         {   PDSInputStream ff = null;
                 try
-                {   ff = new PDSInputStream(Jlisp.images, name);
+                {   ff = new PDSInputStream(Jlisp.image, name);
                 }
                 catch (IOException e)
                 {

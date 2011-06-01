@@ -63,11 +63,13 @@ public class Interpreter implements EntryPoint {
     //Lisp out, my in.
     LispStream out;
 
+
     public Interpreter() {
 
         InterpreterInstance = this;
 
     }//end constructor.
+
 
     public String initialize() {
 
@@ -100,9 +102,11 @@ public class Interpreter implements EntryPoint {
         }
     }
 
+
     public String getStartMessage() {
         return startMessage;
     }//end method.
+
 
     public String evaluate(String send) {
 
@@ -148,6 +152,7 @@ public class Interpreter implements EntryPoint {
 
     }//end evaluate.
 
+
     public void interruptEvaluation() {
         try {
 
@@ -167,11 +172,13 @@ public class Interpreter implements EntryPoint {
         public int pos, len;
         private String result;
 
+
         InterpreterInputStream(Interpreter interpreter) {
             this.interpreter = interpreter;
 
             sendString = null;
         }
+
 
         public int available() {
             if (sendString != null) {
@@ -181,14 +188,17 @@ public class Interpreter implements EntryPoint {
             }
         }
 
+
         public void close() {
             pos = 0;
             len = sendString.length();
         }
 
+
         public boolean markSupported() {
             return false;
         }
+
 
         public int read() {
 
@@ -200,7 +210,9 @@ public class Interpreter implements EntryPoint {
                 return i;
             }
         }
+
     }//end method.
+
 
     private String test() {
         String result = "";
@@ -222,9 +234,11 @@ public class Interpreter implements EntryPoint {
     }//end method.
 
 //---------
+
     public static String casVersion() {
         return "MPReduceJS version " + InterpreterInstance.version();
     }
+
 
     public static native void exportCasVersionMethod() /*-{
     $wnd.casVersion = function(){
@@ -233,9 +247,11 @@ public class Interpreter implements EntryPoint {
     }-*/;
 
 //---------
+
     public static String casEvaluate(String send) {
         return InterpreterInstance.evaluate(send);
     }
+
 
     public static native void exportEvaluateMethod() /*-{
     $wnd.casEval = function(send){
@@ -244,6 +260,7 @@ public class Interpreter implements EntryPoint {
     }-*/;
 
 //---------
+
     public static String casInitialize() {
         String result = InterpreterInstance.initialize();
 
@@ -252,6 +269,7 @@ public class Interpreter implements EntryPoint {
         return result;
     }
 
+
     public static native void exportInitializeMethod() /*-{
     $wnd.casInitialize = function(){
     return @org.mathpiper.mpreduce.Interpreter::casInitialize()();
@@ -259,11 +277,14 @@ public class Interpreter implements EntryPoint {
     }-*/;
 
 //---------
+
     public static native void callCasLoaded() /*-{
     $wnd.casLoaded();
     }-*/;
     //---------
+
     static JavaScriptObject callBackFunction = null;
+
 
     public static void casLoadImage() {
         try {
@@ -277,17 +298,20 @@ public class Interpreter implements EntryPoint {
         }
     }
 
+
     public static native void exportloadImageMethod() /*-{
     $wnd.casLoadImage = function(){
     return @org.mathpiper.mpreduce.Interpreter::casLoadImage()();
     }
     }-*/;
 
+
     public static native void callImageLoadedCallback() /*-{
     callBackFunction();
     }-*/;
 
 //---------
+
     @Override
     public void onModuleLoad() {
 
@@ -300,9 +324,11 @@ public class Interpreter implements EntryPoint {
         exportloadImageMethod();
     }
 
+
     public static String version() {
         return Jlisp.version;
     }
+
 
     public RepeatingCommand getInitializationExecutor() {
         RepeatingCommand repeatingCommand = new RepeatingCommand() {
@@ -310,10 +336,11 @@ public class Interpreter implements EntryPoint {
             int counter = 0;
             private int loopIndex = 1;
 
+
             public boolean execute() {
 
                 boolean returnValue = false;
-                // For use while I am re-loading images and also to assist the
+                // For use while I am re-loading image and also to assist the
                 // custom Lisp bytecoded stuff I build a table of all the functions
                 // that I have built into this Lisp.
                 //
@@ -389,10 +416,12 @@ public class Interpreter implements EntryPoint {
                 return returnValue;
 
             }//end execute
+
         };
 
         return repeatingCommand;
     }//end method.
+
 
     private void loadImageSetup() throws Exception {
 
@@ -412,7 +441,7 @@ public class Interpreter implements EntryPoint {
 
         Jlisp.standardStreams();
 
-        Jlisp.images = null;
+        Jlisp.image = null;
         try {
 
             //InputStream is = new FileInputStream("minireduce.img");
@@ -420,7 +449,7 @@ public class Interpreter implements EntryPoint {
             InputStream is = new ReduceImageInputStream();
 
             if (is != null) {
-                Jlisp.images = new PDS(is);
+                Jlisp.image = new PDS(is);
             }
 
         } catch (IOException e) {
@@ -438,7 +467,7 @@ public class Interpreter implements EntryPoint {
         // a HeapImage stored in it.
 
         try {
-            ii = new PDSInputStream(Jlisp.images, "HeapImage");
+            ii = new PDSInputStream(Jlisp.image, "HeapImage");
         } catch (IOException e) {
         }
 
@@ -464,7 +493,24 @@ public class Interpreter implements EntryPoint {
         }
 
     }
+
+
+    private String getPDSFunctionEnteries() {
+        String result;
+        try {
+            Jlisp.image.print();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            out.flush();
+            result = out.toString();
+            out.close();
+            return result;
+        }
+    }//end method.
+
     GZIPInputStream gzip = null;
+
 
     public static void main(String[] args) {
 
@@ -487,6 +533,12 @@ public class Interpreter implements EntryPoint {
 
             System.out.println(mpreduce.test());
 
+
+            //Uncomment the following line to list the compiled functions that are in the package data store.
+            //System.out.println(mpreduce.getPDSFunctionEnteries());
+
+
+            
             if (mpreduce.gzip != null) {
 
                 mpreduce.gzip.close();
@@ -530,5 +582,6 @@ public class Interpreter implements EntryPoint {
 
 
     }
+
 }//end class.
 

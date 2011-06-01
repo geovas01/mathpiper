@@ -51,7 +51,7 @@ import org.mathpiper.mpreduce.exceptions.ResourceException;
 
 public class Jlisp extends Environment {
 
-    public static String version = ".019";
+    public static String version = ".020";
     // Within this file I will often reference lispIO and lispErr
     // directly. Elsewhere they should ONLY be accessed via the Lisp
     // variables that point towards them. The direct access here is in
@@ -188,7 +188,7 @@ public class Jlisp extends Environment {
     }
 
     // The main parts of this file relate to system startup options
-    public static PDS images;
+    public static PDS image;
     static String imageFile;
     static InputStream in;
     public static LispStream out;

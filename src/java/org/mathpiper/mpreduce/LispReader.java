@@ -971,6 +971,7 @@ public class LispReader implements RepeatingCommand {
             s.completeName();
             String name = s.pname;
 
+        //Uncomment the following line of code to print the contents of the heap.
         //if (name.length() > 1) { System.out.println("restore symbol <" + name + "> length " + name.length()); }
             
             int inc = name.hashCode();
