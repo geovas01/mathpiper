@@ -668,7 +668,7 @@ class ModulepFn extends BuiltinFunction
         else if (arg1 instanceof LispString) s = ((LispString)arg1).string;
         else return error("illegal arg to modulep", arg1);
         s = s + ".fasl";
-           arg1 = Jlisp.images.modulep(s);
+           arg1 = Jlisp.image.modulep(s);
             if (arg1 != Environment.nil) return arg1;
         
         return Environment.nil;
@@ -2619,7 +2619,7 @@ class Startup_bannerFn extends BuiltinFunction
     public LispObject op1(LispObject a) throws Exception
     {
         // reset message displayed when Jlisp starts up @@@@
-        // compressed heap images make this harder. I need to worry!
+        // compressed heap image make this harder. I need to worry!
         return Environment.nil;
     }
 }

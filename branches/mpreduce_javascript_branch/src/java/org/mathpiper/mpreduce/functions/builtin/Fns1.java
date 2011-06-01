@@ -3206,7 +3206,7 @@ class List_modulesFn extends BuiltinFunction
 {
     public LispObject op0() throws Exception
     {
-        PDS z = Jlisp.images;
+        PDS z = Jlisp.image;
             if (z != null) z.print();
         
         return Environment.nil;
