@@ -31,6 +31,7 @@ package org.mathpiper.mpreduce;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import java.io.IOException;
 
 
@@ -54,7 +55,7 @@ import org.mathpiper.mpreduce.zip.GZIPInputStream;
 public class Interpreter implements EntryPoint {
 
     Jlisp jlisp;
-    private static Interpreter JlispCASInstance = null;
+    private static Interpreter InterpreterInstance = null;
     private String startMessage;
     private String prompt;
     private String sendString = null;
@@ -62,13 +63,11 @@ public class Interpreter implements EntryPoint {
     //Lisp out, my in.
     LispStream out;
 
-
     public Interpreter() {
 
-        JlispCASInstance = this;
+        InterpreterInstance = this;
 
     }//end constructor.
-
 
     public String initialize() {
 
@@ -101,11 +100,9 @@ public class Interpreter implements EntryPoint {
         }
     }
 
-
     public String getStartMessage() {
         return startMessage;
     }//end method.
-
 
     public String evaluate(String send) {
 
@@ -151,7 +148,6 @@ public class Interpreter implements EntryPoint {
 
     }//end evaluate.
 
-
     public void interruptEvaluation() {
         try {
 
@@ -171,13 +167,11 @@ public class Interpreter implements EntryPoint {
         public int pos, len;
         private String result;
 
-
         InterpreterInputStream(Interpreter interpreter) {
             this.interpreter = interpreter;
 
             sendString = null;
         }
-
 
         public int available() {
             if (sendString != null) {
@@ -187,17 +181,14 @@ public class Interpreter implements EntryPoint {
             }
         }
 
-
         public void close() {
             pos = 0;
             len = sendString.length();
         }
 
-
         public boolean markSupported() {
             return false;
         }
-
 
         public int read() {
 
@@ -209,9 +200,7 @@ public class Interpreter implements EntryPoint {
                 return i;
             }
         }
-
     }//end method.
-
 
     private String test() {
         String result = "";
@@ -232,12 +221,10 @@ public class Interpreter implements EntryPoint {
 
     }//end method.
 
-
 //---------
     public static String casVersion() {
-        return "MPReduceJS version " + JlispCASInstance.version();
+        return "MPReduceJS version " + InterpreterInstance.version();
     }
-
 
     public static native void exportCasVersionMethod() /*-{
     $wnd.casVersion = function(){
@@ -245,12 +232,10 @@ public class Interpreter implements EntryPoint {
     }
     }-*/;
 
-
 //---------
     public static String casEvaluate(String send) {
-        return JlispCASInstance.evaluate(send);
+        return InterpreterInstance.evaluate(send);
     }
-
 
     public static native void exportEvaluateMethod() /*-{
     $wnd.casEval = function(send){
@@ -258,17 +243,14 @@ public class Interpreter implements EntryPoint {
     }
     }-*/;
 
-
-
 //---------
     public static String casInitialize() {
-        String result = JlispCASInstance.initialize();
+        String result = InterpreterInstance.initialize();
 
         callCasLoaded();
 
         return result;
     }
-
 
     public static native void exportInitializeMethod() /*-{
     $wnd.casInitialize = function(){
@@ -276,35 +258,24 @@ public class Interpreter implements EntryPoint {
     }
     }-*/;
 
-
-
 //---------
     public static native void callCasLoaded() /*-{
     $wnd.casLoaded();
     }-*/;
-
-
-
- //---------
-
+    //---------
     static JavaScriptObject callBackFunction = null;
 
     public static void casLoadImage() {
-        try{
-            //Interpreter.callBackFunction = callBackFunction;
+        try {
 
-            JlispCASInstance.loadImageSetup();
+            Scheduler.get().scheduleIncremental(InterpreterInstance.getInitializationExecutor());
 
-            LispReader lispReader = LispReader.getInstance();
 
-            Scheduler.get().scheduleIncremental(lispReader);
-        }
-        catch(Exception e)
-        {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     public static native void exportloadImageMethod() /*-{
     $wnd.casLoadImage = function(){
@@ -312,21 +283,11 @@ public class Interpreter implements EntryPoint {
     }
     }-*/;
 
-
-
     public static native void callImageLoadedCallback() /*-{
-       callBackFunction();
+    callBackFunction();
     }-*/;
 
-
-
 //---------
-
-
-
-
-
-
     @Override
     public void onModuleLoad() {
 
@@ -339,53 +300,105 @@ public class Interpreter implements EntryPoint {
         exportloadImageMethod();
     }
 
-
     public static String version() {
         return Jlisp.version;
     }
 
+    public RepeatingCommand getInitializationExecutor() {
+        RepeatingCommand repeatingCommand = new RepeatingCommand() {
+
+            int counter = 0;
+            private int loopIndex = 1;
+
+            public boolean execute() {
+
+                boolean returnValue = false;
+                // For use while I am re-loading images and also to assist the
+                // custom Lisp bytecoded stuff I build a table of all the functions
+                // that I have built into this Lisp.
+                //
+                try {
+                    switch (loopIndex++) {
+                        case 1:
+                            LispSmallInteger.preAllocate();  // some small integers treated specially.
+                            returnValue = true;
+                            break;
+                        case 2:
+                            Jlisp.builtinFunctions = new HashMap();
+                            Jlisp.builtinSpecials = new HashMap();
+                            for (int i = 0; i < Jlisp.fns1.builtins.length; i++) {
+                                ((LispFunction) Jlisp.fns1.builtins[i][1]).name =
+                                        (String) Jlisp.fns1.builtins[i][0];
+                                Jlisp.builtinFunctions.put(Jlisp.fns1.builtins[i][0], Jlisp.fns1.builtins[i][1]);
+                            }
+                            returnValue = true;
+                            break;
+
+                        case 3:
+                            for (int i = 0; i < Jlisp.fns2.builtins.length; i++) {
+                                ((LispFunction) Jlisp.fns2.builtins[i][1]).name =
+                                        (String) Jlisp.fns2.builtins[i][0];
+                                Jlisp.builtinFunctions.put(Jlisp.fns2.builtins[i][0], Jlisp.fns2.builtins[i][1]);
+                            }
+                            returnValue = true;
+                            break;
+                        case 4:
+                            for (int i = 0; i < Jlisp.fns3.builtins.length; i++) {
+                                ((LispFunction) Jlisp.fns3.builtins[i][1]).name =
+                                        (String) Jlisp.fns3.builtins[i][0];
+                                Jlisp.builtinFunctions.put(Jlisp.fns3.builtins[i][0], Jlisp.fns3.builtins[i][1]);
+                            }
+                            returnValue = true;
+                            break;
+                        case 5:
+                            for (int i = 0; i < Jlisp.mpreduceFunctions.builtins.length; i++) {
+                                ((LispFunction) Jlisp.mpreduceFunctions.builtins[i][1]).name =
+                                        (String) Jlisp.mpreduceFunctions.builtins[i][0];
+                                Jlisp.builtinFunctions.put(Jlisp.mpreduceFunctions.builtins[i][0], Jlisp.mpreduceFunctions.builtins[i][1]);
+                            }
+                            returnValue = true;
+                            break;
+
+                        case 6:
+                            for (int i = 0; i < Jlisp.specfn.specials.length; i++) {
+                                ((SpecialFunction) Jlisp.specfn.specials[i][1]).name =
+                                        (String) Jlisp.specfn.specials[i][0];
+                                Jlisp.builtinSpecials.put(Jlisp.specfn.specials[i][0], Jlisp.specfn.specials[i][1]);
+                            }
+                            returnValue = true;
+                            break;
+                        case 7:
+                            Bytecode.setupBuiltins();
+
+                            returnValue = true;
+                            break;
+                        case 8:
+                            loadImageSetup();
+
+                            returnValue = true;
+                            break;
+                        default:
+                            returnValue = LispReader.getInstance().execute();
+                            break;
+
+                    }//end switch.
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                return returnValue;
+
+            }//end execute
+        };
+
+        return repeatingCommand;
+    }//end method.
 
     private void loadImageSetup() throws Exception {
 
-        LispSmallInteger.preAllocate();  // some small integers treated specially
 
-        // For use while I am re-loading images and also to assist the
-        // custom Lisp bytecoded stuff I build a table of all the functions
-        // that I have built into this Lisp.
-        //
-        Jlisp.builtinFunctions = new HashMap();
-        Jlisp.builtinSpecials = new HashMap();
-        for (int i = 0; i < Jlisp.fns1.builtins.length; i++) {
-            ((LispFunction) Jlisp.fns1.builtins[i][1]).name =
-                    (String) Jlisp.fns1.builtins[i][0];
-            Jlisp.builtinFunctions.put(Jlisp.fns1.builtins[i][0], Jlisp.fns1.builtins[i][1]);
-        }
-        for (int i = 0; i < Jlisp.fns2.builtins.length; i++) {
-            ((LispFunction) Jlisp.fns2.builtins[i][1]).name =
-                    (String) Jlisp.fns2.builtins[i][0];
-            Jlisp.builtinFunctions.put(Jlisp.fns2.builtins[i][0], Jlisp.fns2.builtins[i][1]);
-        }
-        for (int i = 0; i < Jlisp.fns3.builtins.length; i++) {
-            ((LispFunction) Jlisp.fns3.builtins[i][1]).name =
-                    (String) Jlisp.fns3.builtins[i][0];
-            Jlisp.builtinFunctions.put(Jlisp.fns3.builtins[i][0], Jlisp.fns3.builtins[i][1]);
-        }
-        for (int i = 0; i < Jlisp.mpreduceFunctions.builtins.length; i++) {
-            ((LispFunction) Jlisp.mpreduceFunctions.builtins[i][1]).name =
-                    (String) Jlisp.mpreduceFunctions.builtins[i][0];
-            Jlisp.builtinFunctions.put(Jlisp.mpreduceFunctions.builtins[i][0], Jlisp.mpreduceFunctions.builtins[i][1]);
-        }
-        /*for (i=0; i<fns4.builtins.length; i++)
-        {   ((LispFunction)fns4.builtins[i][1]).name =
-        (String)fns4.builtins[i][0];
-        builtinFunctions.put(fns4.builtins[i][0], fns4.builtins[i][1]);
-        }*/
-        for (int i = 0; i < Jlisp.specfn.specials.length; i++) {
-            ((SpecialFunction) Jlisp.specfn.specials[i][1]).name =
-                    (String) Jlisp.specfn.specials[i][0];
-            Jlisp.builtinSpecials.put(Jlisp.specfn.specials[i][0], Jlisp.specfn.specials[i][1]);
-        }
-        Bytecode.setupBuiltins();
+
+//Initialize builtin functions code was here.
 
         // I may need to display diagnostics before I have finshed setting up
         // streams etc in their proper final form, so I arrange a provisional
@@ -451,25 +464,26 @@ public class Interpreter implements EntryPoint {
         }
 
     }
-
     GZIPInputStream gzip = null;
-
 
     public static void main(String[] args) {
 
         Interpreter mpreduce = new Interpreter();
 
         try {
+
+            RepeatingCommand builtinFunctionExecutor = mpreduce.getInitializationExecutor();
+            while (builtinFunctionExecutor.execute() == true) {
+            }
+
             mpreduce.loadImageSetup();
 
+
             LispReader lispReader = LispReader.getInstance();
-
-
             while (lispReader.execute() == true) {
             }
 
 
-            //String result = mpreduce.initialize();
 
             System.out.println(mpreduce.test());
 
@@ -487,26 +501,26 @@ public class Interpreter implements EntryPoint {
 
 
         /*String result = "";
-
+        
         try {
-
+        
         result = mpreduce.evaluate("off nat;");
         System.out.println(result + "\n");
-
+        
         result = mpreduce.evaluate("x^2;");
         System.out.println(result + "\n");
-
+        
         result = mpreduce.evaluate("(X-Y)^100;");
         System.out.println(result + "\n");
-
-
+        
+        
         result = mpreduce.evaluate("2 + 2;");
         System.out.println(result + "\n");
-
-
+        
+        
         result = mpreduce.evaluate("Factorize(100);");
         System.out.println(result + "\n");
-
+        
         } catch (Throwable t) {
         t.printStackTrace();
         } finally {
@@ -516,6 +530,5 @@ public class Interpreter implements EntryPoint {
 
 
     }
-
 }//end class.
 
