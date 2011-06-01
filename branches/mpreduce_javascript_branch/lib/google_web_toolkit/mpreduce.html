@@ -12,7 +12,7 @@
     	//Called by the CAS after it has been completely loaded and initialized.
         window.casLoaded = function casLoaded()
         {
-        	inidicateCasLoaded();
+        		inidicateCasLoaded();
         }
     
         function CASEvaluate(expression)
@@ -42,26 +42,21 @@
 	
      </script>
      
-     
-     
-    <!-- <script>
-        //Initialize the CAS after the web page has been completely loaded. 
-     	(function() {
-	function casInitialize(){
-		setTimeout('window.casLoadImage()',150);
+      
+     <script type="text/javascript">
+	//Initialize the CAS after the web page has been completely loaded.  window.casLoadImage()
+	window.onload = function()
+	{
+	      setTimeout('window.casLoadImage()',500);
 	}
-        if (window.attachEvent)
-	    window.attachEvent('onload', casInitialize);
-        else
-	    window.addEventListener('load', casInitialize, false);
-	})();
-      </script> -->
+     </script>
+
      
      
      
   </head>
   
-  <body onload="window.casLoadImage()"  bgcolor="white">   
+  <body bgcolor="white">   
   
     <noscript>
       <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color:white; border: 1px solid red; padding: 4px; font-family: sans-serif">

@@ -28,6 +28,20 @@
 	<property name="build.scripts.dir" value="${mpreduce.dir}/lib/build_scripts" />
 	
 	
+	  <condition property="isMac">
+	  	<os family="mac" />
+	  </condition>
+
+	  <condition property="isWindows">
+	  	<os family="windows" />
+	  </condition>
+
+	  <condition property="isUnix">
+	  	<os family="unix" />
+	  </condition>
+
+	
+	
 	<target id="noop" name="noop" description="Do nothing." />
 	
 	<target id="clean" name="clean" 
@@ -239,14 +253,32 @@
 		<copy todir="${build.dir}/gwt_dist/">
 		   <fileset dir="${library.dir}/google_web_toolkit">
 		     <include name="*.jar" />
-		     <include name="compile.sh" />
-		     <include name="debug.sh" />
+		     <include name="compile.sh" if="isUnix" />
+		     <include name="debug.sh" if="isUnix" />
+		     <include name="compile.bat" if="isWindows" />
+		     <include name="debug.bat" if="isWindows" />
 		   </fileset>
 		</copy>
+		
+		<antcall target="chmod-unix-launch-script">
+		</antcall>
 		
 		<copy file="${library.dir}/google_web_toolkit/mpreduce.html" todir="${build.dir}/gwt_dist/war"/>
 
 
+	</target>
+	
+	
+	<target  id="chmod-unix-launch-script" name="chmod-unix-launch-script" if="IsUnix">
+		<echo message="Making unix launch script executable."/>
+		<exec executable="chmod">
+				<arg value="+x" />
+				<arg value="${build.dir}/gwt_dist/compile.sh" />
+		</exec>
+		<exec executable="chmod">
+				<arg value="+x" />
+				<arg value="${build.dir}/gwt_dist/debug.sh" />
+		</exec>
 	</target>
 
 
