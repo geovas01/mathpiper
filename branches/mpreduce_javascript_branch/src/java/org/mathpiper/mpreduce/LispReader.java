@@ -965,14 +965,14 @@ public class LispReader implements RepeatingCommand {
     }//end method.
 
 
-    private boolean readObjects() throws IOException, ResourceException {
+    private boolean readObjects() throws Exception {
         Symbol s;
         if ((s = (Symbol) readObject()) != null) {
             s.completeName();
             String name = s.pname;
-            if (name.length() > 1) {
-                System.out.println("restore symbol <" + name + "> length " + name.length());
-            }
+
+        //if (name.length() > 1) { System.out.println("restore symbol <" + name + "> length " + name.length()); }
+            
             int inc = name.hashCode();
             //System.out.println("raw hash = " + Integer.toHexString(inc));
             // I want my hash addresses and the increment to be positive...
@@ -1003,6 +1003,10 @@ public class LispReader implements RepeatingCommand {
             return true;
         }//end if.
         else {
+            afterIncrementalRestore();
+
+            Interpreter.casInitialize();
+
             return false;
         }
     }//end method.

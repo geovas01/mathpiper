@@ -29,7 +29,7 @@
 package org.mathpiper.mpreduce;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
 import java.io.IOException;
 
@@ -233,6 +233,7 @@ public class Interpreter implements EntryPoint {
     }//end method.
 
 
+//---------
     public static String casVersion() {
         return "MPReduceJS version " + JlispCASInstance.version();
     }
@@ -245,6 +246,7 @@ public class Interpreter implements EntryPoint {
     }-*/;
 
 
+//---------
     public static String casEvaluate(String send) {
         return JlispCASInstance.evaluate(send);
     }
@@ -257,6 +259,8 @@ public class Interpreter implements EntryPoint {
     }-*/;
 
 
+
+//---------
     public static String casInitialize() {
         String result = JlispCASInstance.initialize();
 
@@ -273,9 +277,54 @@ public class Interpreter implements EntryPoint {
     }-*/;
 
 
+
+//---------
     public static native void callCasLoaded() /*-{
     $wnd.casLoaded();
     }-*/;
+
+
+
+ //---------
+
+    static JavaScriptObject callBackFunction = null;
+
+    public static void casLoadImage() {
+        try{
+            //Interpreter.callBackFunction = callBackFunction;
+
+            JlispCASInstance.loadImageSetup();
+
+            LispReader lispReader = LispReader.getInstance();
+
+            Scheduler.get().scheduleIncremental(lispReader);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static native void exportloadImageMethod() /*-{
+    $wnd.casLoadImage = function(){
+    return @org.mathpiper.mpreduce.Interpreter::casLoadImage()();
+    }
+    }-*/;
+
+
+
+    public static native void callImageLoadedCallback() /*-{
+       callBackFunction();
+    }-*/;
+
+
+
+//---------
+
+
+
+
 
 
     @Override
@@ -286,6 +335,8 @@ public class Interpreter implements EntryPoint {
         exportInitializeMethod();
 
         exportEvaluateMethod();
+
+        exportloadImageMethod();
     }
 
 
@@ -418,9 +469,7 @@ public class Interpreter implements EntryPoint {
             }
 
 
-            LispReader.getInstance().afterIncrementalRestore();
-
-            String result = mpreduce.initialize();
+            //String result = mpreduce.initialize();
 
             System.out.println(mpreduce.test());
 
