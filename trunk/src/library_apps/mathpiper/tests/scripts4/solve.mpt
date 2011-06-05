@@ -143,6 +143,10 @@ Verify(Simplify(x[1]-4*x[2]+x[3] Where (Solve({x[1]-4*x[2]+x[3]==0},{x[2]}))),{0
 
 /*TODO MatrixSolve */
 
+// moved from xSingle_test_solve.mpw
+VerifySolve(Solve(3/(x^2+x-2)-1/(x^2-1)-7/(2*(x^2+3*x+2))==0, x), {x==3});
+VerifySolve(Solve(3/(x^2+x-2)-1/(x^2-1)==7/(2*(x^2+3*x+2)), x), {x==3});
+
 // moved from xTestSolve.mpw
 
 // Tricky one; the solution should depend on a being 0
