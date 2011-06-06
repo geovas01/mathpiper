@@ -74,11 +74,9 @@ public class LispReader implements RepeatingCommand {
     static final int S_CALLAS_BODY = -13;
     static final int S_CADR = -100;  // +0 to +15 offsets from this used
 
-
     private LispReader() {
         super();
     }
-
 
     public static LispReader getInstance() {
         if (lispReader == null) {
@@ -87,7 +85,6 @@ public class LispReader implements RepeatingCommand {
 
         return lispReader;
     }
-
 
     public LispObject readObject() throws IOException, ResourceException {
         // Reloading an image uses an explicit stack to manage the recusion that
@@ -719,7 +716,6 @@ public class LispReader implements RepeatingCommand {
             }
         }
     }
-
     // read a single parenthesised expression.
     // Supports  'xx as a short-hand for (quote xx)
     // which is what most Lisps do.
@@ -734,7 +730,6 @@ public class LispReader implements RepeatingCommand {
     //         => . read )
     //         => read readtail
     static LispStream readIn;
-
 
     public LispObject read() throws Exception {
         LispObject r;
@@ -795,7 +790,6 @@ public class LispReader implements RepeatingCommand {
         }
     }
 
-
     LispObject readTail() throws Exception {
         LispObject r;
         if (!readIn.inputValid) {
@@ -825,7 +819,6 @@ public class LispReader implements RepeatingCommand {
         }
     }
 
-
     LispObject expandBackquote(LispObject a) throws ResourceException {
         if (a == Environment.nil) {
             return a;
@@ -850,7 +843,6 @@ public class LispReader implements RepeatingCommand {
                 new Cons(expandBackquote(aa.cdr), Environment.nil)));
     }
 
-
     public void preRestore() throws IOException {
         sharedIndex = 0;
         sharedSize = Jlisp.idump.read();
@@ -863,72 +855,93 @@ public class LispReader implements RepeatingCommand {
         stack.push(new Cons()); // to make "peek()" valid even when empty
     }
 
-
     public void postRestore() {
         istack = null;
         stack = null;
         shared = null;
     }
+    private int loopIndex = 1;
+    private int i = 0;
+
+    boolean incrementalRestore() throws IOException, ResourceException {
+
+        boolean returnValue = true;
+
+        switch (loopIndex) {
+            case 1:
+                Jlisp.descendSymbols = true;
+                // First I will read and display the banner...
+                // I would like to be able to update JUST this banner in a heap image. To
+                // support that I will (sometime!) change my heap format to put the
+                // banner as an initial chunk of bytes in the PDS outside the compressed
+                // data that represents the main heap image. One natural place to put it
+                // will be as part of the directory entry for the initial image, and another
+                // would be at the very start of the whole image file.
+                int n;
+
+                n = Jlisp.idump.read();
+                n = (n << 8) + Jlisp.idump.read();
+                n = (n << 8) + Jlisp.idump.read();
+                if (n != 0) {
+                    byte[] b = new byte[n];
+                    for (i = 0; i < n; i++) {
+                        b[i] = (byte) Jlisp.idump.read();
+                    }
+                    Jlisp.lispIO.println(new String(b));
+                    Jlisp.lispIO.flush();
+                }
+
+                Environment.nil = (Symbol) readObject();
+
+                Jlisp.lispTrue = (Symbol) readObject();
+
+                loopIndex++;
+
+                break;
 
 
-    void incrementalRestore(InputStream dump) throws IOException, ResourceException {
-        Jlisp.idump = dump;
-        preRestore();
-        Jlisp.descendSymbols = true;
-        // First I will read and display the banner...
-        // I would like to be able to update JUST this banner in a heap image. To
-        // support that I will (sometime!) change my heap format to put the
-        // banner as an initial chunk of bytes in the PDS outside the compressed
-        // data that represents the main heap image. One natural place to put it
-        // will be as part of the directory entry for the initial image, and another
-        // would be at the very start of the whole image file.
-        int n, i;
-        n = Jlisp.idump.read();
-        n = (n << 8) + Jlisp.idump.read();
-        n = (n << 8) + Jlisp.idump.read();
-        if (n != 0) {
-            byte[] b = new byte[n];
-            for (i = 0; i < n; i++) {
-                b[i] = (byte) Jlisp.idump.read();
-            }
-            Jlisp.lispIO.println(new String(b));
-            Jlisp.lispIO.flush();
-        }
+            case 2:
+                if (i < Lit.names.length) {
+                    Jlisp.lit[i] = readObject();
+                    i++;
+                    //      System.out.println("literal " + i + " restored");
+                    //      if (lit[i] instanceof Symbol) System.out.println("= " + ((Symbol)lit[i]).pname);
+                } else {
+                    loopIndex++;
+                }
 
-        Environment.nil = (Symbol) readObject();
+                break;
 
-        Jlisp.lispTrue = (Symbol) readObject();
+            case 3:
 
-        for (i = 0; i < Lit.names.length; i++) {
-            Jlisp.lit[i] = readObject();
-            //      System.out.println("literal " + i + " restored");
-            //      if (lit[i] instanceof Symbol) System.out.println("= " + ((Symbol)lit[i]).pname);
-        }
-
-        for (i = 0; i < oblistSize; i++) {
-            oblist[i] = null;
-        }
-        oblistCount = 0;
+                for (i = 0; i < oblistSize; i++) {
+                    oblist[i] = null;
+                }
+                oblistCount = 0;
 
 
 
-        // When restoring a heap image my oblist handling can be fairly
-        // simple: I should NEVER get any attempt to insert an item that is already
-        // there and I start with an empty table so there are no deleted
-        // items to worry about.
+                // When restoring a heap image my oblist handling can be fairly
+                // simple: I should NEVER get any attempt to insert an item that is already
+                // there and I start with an empty table so there are no deleted
+                // items to worry about.
 
+                //System.out.println("termination of oblist found : " + oblistCount);
 
+                loopIndex++;
 
+                break;
 
+            default:
+                returnValue = false;
+                break;
+        }//end switch;
 
-        //System.out.println("termination of oblist found : " + oblistCount);
-
+        return returnValue;
 
     }//end method
 
-
-    public void afterIncrementalRestore() throws Exception
-    {
+    public void afterIncrementalRestore() throws Exception {
         LispObject w;
 
         if (Jlisp.idump.read() == 0) {
@@ -964,16 +977,15 @@ public class LispReader implements RepeatingCommand {
         postRestore();
     }//end method.
 
-
     private boolean readObjects() throws Exception {
         Symbol s;
         if ((s = (Symbol) readObject()) != null) {
             s.completeName();
             String name = s.pname;
 
-        //Uncomment the following line of code to print the contents of the heap.
-        //if (name.length() > 1) { System.out.println("restore symbol <" + name + "> length " + name.length()); }
-            
+            //Uncomment the following line of code to print the contents of the heap.
+            //if (name.length() > 1) { System.out.println("restore symbol <" + name + "> length " + name.length()); }
+
             int inc = name.hashCode();
             //System.out.println("raw hash = " + Integer.toHexString(inc));
             // I want my hash addresses and the increment to be positive...
@@ -1010,7 +1022,6 @@ public class LispReader implements RepeatingCommand {
         }
     }//end method.
 
-
     public boolean execute() {
         boolean continueFlag = false;
 
@@ -1023,7 +1034,6 @@ public class LispReader implements RepeatingCommand {
         }
     }
 
-
     static boolean isPrime(int n) {
         // the input must be odd and fairly large here... so the case of even
         // numbers is not important, as is the status of the number 1.
@@ -1034,7 +1044,6 @@ public class LispReader implements RepeatingCommand {
         }
         return true;
     }
-
 
     public static void reHashOblist() {
         int n = ((3 * oblistSize) / 2) | 1;
@@ -1071,7 +1080,6 @@ public class LispReader implements RepeatingCommand {
         obvector.vec = v;
     }
 
-
     public void scanObject(LispObject a) {
         if (a == null) {
             return;
@@ -1086,6 +1094,5 @@ public class LispReader implements RepeatingCommand {
         } catch (EmptyStackException e) {
         }
     }
-
 }//End class.
 
