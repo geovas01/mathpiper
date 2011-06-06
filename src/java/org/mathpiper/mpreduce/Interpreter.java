@@ -412,8 +412,9 @@ public class Interpreter implements EntryPoint {
 
 
                                 Symbol.symbolCount = Cons.consCount = LispString.stringCount = 0;
-
-                                LispReader.getInstance().incrementalRestore(gzip);
+                                
+                                        Jlisp.idump = gzip;
+                                        LispReader.getInstance().preRestore();
 
 
                             } catch (Exception e) {
@@ -423,6 +424,12 @@ public class Interpreter implements EntryPoint {
                             loopIndex++;
                             break;
                         case 11:
+                            if(LispReader.getInstance().incrementalRestore() == false)
+                            {
+                                loopIndex++;
+                            }
+                            break;
+                        case 12:
                             if (LispReader.getInstance().execute() == false) {
                                 loopIndex++;
                             }
