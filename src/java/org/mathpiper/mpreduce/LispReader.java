@@ -85,25 +85,41 @@ public class LispReader implements RepeatingCommand {
 
         return lispReader;
     }
+    private int state = S_START;
+    private int sp = 0;
+    private LispObject w = null;
+    private boolean setLabel = false;
+    private int index;
+
+    public void readObjectReset() {
+        state = S_START;
+        sp = 0;
+        w = null;
+        setLabel = false;
+
+    }
 
     public LispObject readObject() throws IOException, ResourceException {
+        readObjectReset();
+
+        while (readObjectIncrement() == true) {
+        }
+        return w;
+    }
+
+    public boolean readObjectIncrement() throws IOException, ResourceException {
         // Reloading an image uses an explicit stack to manage the recusion that
         // it needs. It controls this stack using a finite-state control. The states
         // are identified here as constants S_xxx.
 
-        int state = S_START;
-        int sp = 0;
 
-        LispObject w = null;
-        boolean setLabel = false;
-        int i;
 
         for (;;) {
             if (sp >= istacklimit - 2) // grow integer stack if needbe.
             {
                 int[] newistack = new int[2 * istacklimit];
-                for (i = 0; i < istacklimit; i++) {
-                    newistack[i] = istack[i];
+                for (index = 0; index < istacklimit; index++) {
+                    newistack[index] = istack[index];
                 }
                 istack = newistack;
                 istacklimit = 2 * istacklimit;
@@ -182,8 +198,8 @@ public class LispReader implements RepeatingCommand {
                 case LispObject.X_INT:       // a LispInteger
                 case LispObject.X_INTn: {
                     byte[] data = new byte[operand];
-                    for (i = 0; i < operand; i++) {
-                        data[i] = (byte) Jlisp.idump.read();
+                    for (index = 0; index < operand; index++) {
+                        data[index] = (byte) Jlisp.idump.read();
                     }
                     w = LispInteger.valueOf(new BigInteger(data));
                 }
@@ -203,8 +219,8 @@ public class LispReader implements RepeatingCommand {
                 case LispObject.X_STR:
                 case LispObject.X_STRn: {
                     byte[] data = new byte[operand];
-                    for (i = 0; i < operand; i++) {
-                        data[i] = (byte) Jlisp.idump.read();
+                    for (index = 0; index < operand; index++) {
+                        data[index] = (byte) Jlisp.idump.read();
                     }
                     w = new LispString(new String(data));
                     LispString.stringCount++;
@@ -213,8 +229,8 @@ public class LispReader implements RepeatingCommand {
                 case LispObject.X_GENSYM:
                 case LispObject.X_GENSYMn: {
                     byte[] data = new byte[operand];
-                    for (i = 0; i < operand; i++) {
-                        data[i] = (byte) Jlisp.idump.read();
+                    for (index = 0; index < operand; index++) {
+                        data[index] = (byte) Jlisp.idump.read();
                     }
                     int sequence = Jlisp.idump.read();
                     sequence = sequence | (Jlisp.idump.read() << 8);
@@ -253,8 +269,8 @@ public class LispReader implements RepeatingCommand {
                 case LispObject.X_UNDEF:
                 case LispObject.X_UNDEFn: {
                     byte[] data = new byte[operand];
-                    for (i = 0; i < operand; i++) {
-                        data[i] = (byte) Jlisp.idump.read();
+                    for (index = 0; index < operand; index++) {
+                        data[index] = (byte) Jlisp.idump.read();
                     }
                     if (Jlisp.descendSymbols) {
                         Symbol ws = new Symbol();
@@ -317,8 +333,8 @@ public class LispReader implements RepeatingCommand {
                     break;
                 case LispObject.X_UNDEF1: {
                     byte[] data = new byte[operand];
-                    for (i = 0; i < operand; i++) {
-                        data[i] = (byte) Jlisp.idump.read();
+                    for (index = 0; index < operand; index++) {
+                        data[index] = (byte) Jlisp.idump.read();
                     }
                     w = new Undefined(new String(data));
                 }
@@ -384,8 +400,8 @@ public class LispReader implements RepeatingCommand {
                         data = null;
                     } else {
                         data = new byte[operand];
-                        for (i = 0; i < operand; i++) {
-                            data[i] = (byte) Jlisp.idump.read();
+                        for (index = 0; index < operand; index++) {
+                            data[index] = (byte) Jlisp.idump.read();
                         }
                     }
                     FnWithEnv ws;
@@ -444,7 +460,7 @@ public class LispReader implements RepeatingCommand {
                     if (operand == 0) {
                         break;
                     }
-                    for (i = 0; i < operand; i++) {
+                    for (index = 0; index < operand; index++) {
                         w = new Cons(Environment.nil, w);
                     }
                     //Cons.consCount += operand;
@@ -459,7 +475,7 @@ public class LispReader implements RepeatingCommand {
                 case LispObject.X_LISTX:
                     w = new Cons(Environment.nil, Environment.nil); {
                     LispObject w1 = w;
-                    for (i = 0; i < operand; i++) {
+                    for (index = 0; index < operand; index++) {
                         w = new Cons(Environment.nil, w);
                     }
                     //Cons.consCount += operand+1;
@@ -482,7 +498,7 @@ public class LispReader implements RepeatingCommand {
                     break;
                 case LispObject.X_DOUBLE: {
                     long v = Jlisp.idump.read();
-                    for (i = 0; i < 7; i++) {
+                    for (index = 0; index < 7; index++) {
                         v = (v << 8) | Jlisp.idump.read();
                     }
                     w = new LispFloat(Fns.longBitsToDouble(v));
@@ -516,8 +532,8 @@ public class LispReader implements RepeatingCommand {
                 case LispObject.X_FNAME:
                     operand = Jlisp.idump.read(); {
                     byte[] data = new byte[operand];
-                    for (i = 0; i < operand; i++) {
-                        data[i] = (byte) Jlisp.idump.read();
+                    for (index = 0; index < operand; index++) {
+                        data[index] = (byte) Jlisp.idump.read();
                     }
                     String s = new String(data);
                     w = (LispObject) Jlisp.builtinFunctions.get(s);
@@ -529,8 +545,8 @@ public class LispReader implements RepeatingCommand {
                 case LispObject.X_SPECFN:
                     operand = Jlisp.idump.read(); {
                     byte[] data = new byte[operand];
-                    for (i = 0; i < operand; i++) {
-                        data[i] = (byte) Jlisp.idump.read();
+                    for (index = 0; index < operand; index++) {
+                        data[index] = (byte) Jlisp.idump.read();
                     }
                     String s = new String(data);
                     w = (LispObject) Jlisp.builtinSpecials.get(s);
@@ -585,7 +601,7 @@ public class LispReader implements RepeatingCommand {
                 } else {
                     switch (state) {
                         case S_START:
-                            return w;
+                            return false;
                         case S_CADR + 16:
                             y = y.cdr;
                         case S_CADR + 15:
@@ -713,9 +729,14 @@ public class LispReader implements RepeatingCommand {
                 }
                 break;    // so "break" in the switch corresponds to
                 // requesting a SHIFT, while "continue" is a REDUCE.
-            }
-        }
-    }
+            }//end for.
+
+            break;
+        }//end for.
+
+        return true;
+    }//end method.
+    //===================================================================================================================================
     // read a single parenthesised expression.
     // Supports  'xx as a short-hand for (quote xx)
     // which is what most Lisps do.
@@ -899,20 +920,33 @@ public class LispReader implements RepeatingCommand {
 
                 break;
 
-
             case 2:
+                readObjectReset();
+                loopIndex++;
+                break;
+            case 3:
                 if (i < Lit.names.length) {
-                    Jlisp.lit[i] = readObject();
-                    i++;
-                    //      System.out.println("literal " + i + " restored");
-                    //      if (lit[i] instanceof Symbol) System.out.println("= " + ((Symbol)lit[i]).pname);
+                    if (readObjectIncrement() == true) {
+                        break;
+                    } else {
+                        Jlisp.lit[i] = w;
+
+                        /*
+                        System.out.println("literal " + i + " restored");
+                        if (Jlisp.lit[i] instanceof Symbol) {
+                            System.out.println("= " + ((Symbol) Jlisp.lit[i]).pname);
+                        }
+                         */
+                        
+                        i++;
+                    }
                 } else {
                     loopIndex++;
                 }
 
                 break;
 
-            case 3:
+            case 4:
 
                 for (i = 0; i < oblistSize; i++) {
                     oblist[i] = null;
