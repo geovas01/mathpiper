@@ -64,13 +64,11 @@ public class Interpreter implements EntryPoint {
     //Lisp out, my in.
     LispStream out;
 
-
     public Interpreter() {
 
         InterpreterInstance = this;
 
     }//end constructor.
-
 
     public String initialize() {
 
@@ -103,11 +101,9 @@ public class Interpreter implements EntryPoint {
         }
     }
 
-
     public String getStartMessage() {
         return startMessage;
     }//end method.
-
 
     public String evaluate(String send) {
 
@@ -153,7 +149,6 @@ public class Interpreter implements EntryPoint {
 
     }//end evaluate.
 
-
     public void interruptEvaluation() {
         try {
 
@@ -173,13 +168,11 @@ public class Interpreter implements EntryPoint {
         public int pos, len;
         private String result;
 
-
         InterpreterInputStream(Interpreter interpreter) {
             this.interpreter = interpreter;
 
             sendString = null;
         }
-
 
         public int available() {
             if (sendString != null) {
@@ -189,17 +182,14 @@ public class Interpreter implements EntryPoint {
             }
         }
 
-
         public void close() {
             pos = 0;
             len = sendString.length();
         }
 
-
         public boolean markSupported() {
             return false;
         }
-
 
         public int read() {
 
@@ -211,9 +201,7 @@ public class Interpreter implements EntryPoint {
                 return i;
             }
         }
-
     }//end method.
-
 
     private String test() {
         String result = "";
@@ -235,11 +223,9 @@ public class Interpreter implements EntryPoint {
     }//end method.
 
 //---------
-
     public static String casVersion() {
         return "MPReduceJS version " + InterpreterInstance.version();
     }
-
 
     public static native void exportCasVersionMethod() /*-{
     $wnd.casVersion = function(){
@@ -248,11 +234,9 @@ public class Interpreter implements EntryPoint {
     }-*/;
 
 //---------
-
     public static String casEvaluate(String send) {
         return InterpreterInstance.evaluate(send);
     }
-
 
     public static native void exportEvaluateMethod() /*-{
     $wnd.casEval = function(send){
@@ -261,7 +245,6 @@ public class Interpreter implements EntryPoint {
     }-*/;
 
 //---------
-
     public static String casInitialize() {
         String result = InterpreterInstance.initialize();
 
@@ -270,7 +253,6 @@ public class Interpreter implements EntryPoint {
         return result;
     }
 
-
     public static native void exportInitializeMethod() /*-{
     $wnd.casInitialize = function(){
     return @org.mathpiper.mpreduce.Interpreter::casInitialize()();
@@ -278,26 +260,22 @@ public class Interpreter implements EntryPoint {
     }-*/;
 
 //---------
-
     public static native void callCasLoaded() /*-{
     $wnd.casLoaded();
     }-*/;
     //---------
-
     static JavaScriptObject callBackFunction = null;
-
 
     public static void casLoadImage() {
         try {
 
             Scheduler.get().scheduleIncremental(InterpreterInstance.getInitializationExecutor());
-            
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     public static native void exportloadImageMethod() /*-{
     $wnd.casLoadImage = function(){
@@ -305,13 +283,11 @@ public class Interpreter implements EntryPoint {
     }
     }-*/;
 
-
     public static native void callImageLoadedCallback() /*-{
     callBackFunction();
     }-*/;
 
 //---------
-
     @Override
     public void onModuleLoad() {
 
@@ -322,22 +298,19 @@ public class Interpreter implements EntryPoint {
         exportEvaluateMethod();
 
         exportloadImageMethod();
-        
-        
-    }
 
+
+    }
 
     public static String version() {
         return Jlisp.version;
     }
-
 
     public RepeatingCommand getInitializationExecutor() {
         RepeatingCommand repeatingCommand = new RepeatingCommand() {
 
             int counter = 0;
             private int loopIndex = 1;
-
 
             public boolean execute() {
 
@@ -407,23 +380,62 @@ public class Interpreter implements EntryPoint {
                             loopIndex++;
                             break;
                         case 9:
-                            if(LispReader.getInstance().execute() == false)
-                            {
+                            if (Jlisp.image.execute() == false) {
+                                loopIndex++;
+                            }
+                            break;
+                        case 10:
+                            // The next stage is either to create an initial Lisp heap or to
+                            // re-load one that had been saved from a previous session. Things are
+                            // made MUCH more complicated here because a running Lisp can (under program
+                            // control) get itself restarted either in cold or warm-start mode.
+
+                            PDSInputStream ii = null;
+                            // I will re-load from the first checkpoint file in the list that has
+                            // a HeapImage stored in it.
+
+                            try {
+                                ii = new PDSInputStream(Jlisp.image, "HeapImage");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            try {
+                                if (ii == null) {
+                                    throw new IOException("No valid checkpoint file found");
+                                }
+
+
+                                gzip = new GZIPInputStream(ii);
+
+
+
+                                Symbol.symbolCount = Cons.consCount = LispString.stringCount = 0;
+
+                                LispReader.getInstance().incrementalRestore(gzip);
+
+
+                            } catch (Exception e) {
+                                throw e;
+                            }
+                            
+                            loopIndex++;
+                            break;
+                        case 11:
+                            if (LispReader.getInstance().execute() == false) {
                                 loopIndex++;
                             }
                             break;
                         default:
-                            if(GWT.isClient())
-                            {
+                            if (GWT.isClient()) {
                                 casInitialize();
+                            } else {
+                                initialize();
                             }
-                            else
-                            {
-                                initialize();     
-                            }
-                            
+
                             returnValue = false;
-                            
+
                             break;
 
                     }//end switch.
@@ -434,12 +446,10 @@ public class Interpreter implements EntryPoint {
                 return returnValue;
 
             }//end execute
-
         };
 
         return repeatingCommand;
     }//end method.
-
 
     private void loadImageSetup() throws Exception {
 
@@ -460,58 +470,19 @@ public class Interpreter implements EntryPoint {
         Jlisp.standardStreams();
 
         Jlisp.image = null;
-        try {
 
-            //InputStream is = new FileInputStream("minireduce.img");
+        InputStream is = new ReduceImageInputStream();
 
-            InputStream is = new ReduceImageInputStream();
-
-            if (is != null) {
-                Jlisp.image = new PDS(is);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // The next stage is either to create an initial Lisp heap or to
-        // re-load one that had been saved from a previous session. Things are
-        // made MUCH more complicated here because a running Lisp can (under program
-        // control) get itself restarted either in cold or warm-start mode.
-
-
-
-        PDSInputStream ii = null;
-        // I will re-load from the first checkpoint file in the list that has
-        // a HeapImage stored in it.
-
-        try {
-            ii = new PDSInputStream(Jlisp.image, "HeapImage");
-        } catch (IOException e) {
+        if (is != null) {
+            Jlisp.image = new PDS(is);
+        } else {
+            throw new Exception("Problem loading image.");
         }
 
 
 
-        try {
-            if (ii == null) {
-                throw new IOException("No valid checkpoint file found");
-            }
-
-
-            gzip = new GZIPInputStream(ii);
-
-
-
-            Symbol.symbolCount = Cons.consCount = LispString.stringCount = 0;
-
-            LispReader.getInstance().incrementalRestore(gzip);
-
-
-        } catch (Exception e) {
-            throw e;
-        }
 
     }
-
 
     private String getPDSFunctionEnteries() {
         String result;
@@ -526,9 +497,7 @@ public class Interpreter implements EntryPoint {
             return result;
         }
     }//end method.
-
     GZIPInputStream gzip = null;
-
 
     public static void main(String[] args) {
 
@@ -539,7 +508,7 @@ public class Interpreter implements EntryPoint {
             RepeatingCommand builtinFunctionExecutor = mpreduce.getInitializationExecutor();
             while (builtinFunctionExecutor.execute() == true) {
             }
-            
+
 
 
             System.out.println(mpreduce.test());
@@ -549,7 +518,7 @@ public class Interpreter implements EntryPoint {
             //System.out.println(mpreduce.getPDSFunctionEnteries());
 
 
-            
+
             if (mpreduce.gzip != null) {
 
                 mpreduce.gzip.close();
@@ -593,6 +562,5 @@ public class Interpreter implements EntryPoint {
 
 
     }
-
 }//end class.
 
