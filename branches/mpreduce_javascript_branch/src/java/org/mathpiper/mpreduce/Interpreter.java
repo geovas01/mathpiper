@@ -29,6 +29,7 @@
 package org.mathpiper.mpreduce;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
@@ -290,8 +291,7 @@ public class Interpreter implements EntryPoint {
         try {
 
             Scheduler.get().scheduleIncremental(InterpreterInstance.getInitializationExecutor());
-
-
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -322,6 +322,8 @@ public class Interpreter implements EntryPoint {
         exportEvaluateMethod();
 
         exportloadImageMethod();
+        
+        
     }
 
 
@@ -339,16 +341,16 @@ public class Interpreter implements EntryPoint {
 
             public boolean execute() {
 
-                boolean returnValue = false;
+                boolean returnValue = true;
                 // For use while I am re-loading image and also to assist the
                 // custom Lisp bytecoded stuff I build a table of all the functions
                 // that I have built into this Lisp.
                 //
                 try {
-                    switch (loopIndex++) {
+                    switch (loopIndex) {
                         case 1:
                             LispSmallInteger.preAllocate();  // some small integers treated specially.
-                            returnValue = true;
+                            loopIndex++;
                             break;
                         case 2:
                             Jlisp.builtinFunctions = new HashMap();
@@ -358,7 +360,7 @@ public class Interpreter implements EntryPoint {
                                         (String) Jlisp.fns1.builtins[i][0];
                                 Jlisp.builtinFunctions.put(Jlisp.fns1.builtins[i][0], Jlisp.fns1.builtins[i][1]);
                             }
-                            returnValue = true;
+                            loopIndex++;
                             break;
 
                         case 3:
@@ -367,7 +369,7 @@ public class Interpreter implements EntryPoint {
                                         (String) Jlisp.fns2.builtins[i][0];
                                 Jlisp.builtinFunctions.put(Jlisp.fns2.builtins[i][0], Jlisp.fns2.builtins[i][1]);
                             }
-                            returnValue = true;
+                            loopIndex++;
                             break;
                         case 4:
                             for (int i = 0; i < Jlisp.fns3.builtins.length; i++) {
@@ -375,7 +377,7 @@ public class Interpreter implements EntryPoint {
                                         (String) Jlisp.fns3.builtins[i][0];
                                 Jlisp.builtinFunctions.put(Jlisp.fns3.builtins[i][0], Jlisp.fns3.builtins[i][1]);
                             }
-                            returnValue = true;
+                            loopIndex++;
                             break;
                         case 5:
                             for (int i = 0; i < Jlisp.mpreduceFunctions.builtins.length; i++) {
@@ -383,7 +385,7 @@ public class Interpreter implements EntryPoint {
                                         (String) Jlisp.mpreduceFunctions.builtins[i][0];
                                 Jlisp.builtinFunctions.put(Jlisp.mpreduceFunctions.builtins[i][0], Jlisp.mpreduceFunctions.builtins[i][1]);
                             }
-                            returnValue = true;
+                            loopIndex++;
                             break;
 
                         case 6:
@@ -392,20 +394,36 @@ public class Interpreter implements EntryPoint {
                                         (String) Jlisp.specfn.specials[i][0];
                                 Jlisp.builtinSpecials.put(Jlisp.specfn.specials[i][0], Jlisp.specfn.specials[i][1]);
                             }
-                            returnValue = true;
+                            loopIndex++;
                             break;
                         case 7:
                             Bytecode.setupBuiltins();
 
-                            returnValue = true;
+                            loopIndex++;
                             break;
                         case 8:
                             loadImageSetup();
 
-                            returnValue = true;
+                            loopIndex++;
+                            break;
+                        case 9:
+                            if(LispReader.getInstance().execute() == false)
+                            {
+                                loopIndex++;
+                            }
                             break;
                         default:
-                            returnValue = LispReader.getInstance().execute();
+                            if(GWT.isClient())
+                            {
+                                casInitialize();
+                            }
+                            else
+                            {
+                                initialize();     
+                            }
+                            
+                            returnValue = false;
+                            
                             break;
 
                     }//end switch.
@@ -521,14 +539,7 @@ public class Interpreter implements EntryPoint {
             RepeatingCommand builtinFunctionExecutor = mpreduce.getInitializationExecutor();
             while (builtinFunctionExecutor.execute() == true) {
             }
-
-            mpreduce.loadImageSetup();
-
-
-            LispReader lispReader = LispReader.getInstance();
-            while (lispReader.execute() == true) {
-            }
-
+            
 
 
             System.out.println(mpreduce.test());

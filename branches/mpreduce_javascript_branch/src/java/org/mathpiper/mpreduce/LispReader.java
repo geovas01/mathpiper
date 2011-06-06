@@ -1006,8 +1006,6 @@ public class LispReader implements RepeatingCommand {
         else {
             afterIncrementalRestore();
 
-            Interpreter.casInitialize();
-
             return false;
         }
     }//end method.
