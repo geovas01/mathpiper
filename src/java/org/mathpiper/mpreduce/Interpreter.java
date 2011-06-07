@@ -253,11 +253,6 @@ public class Interpreter implements EntryPoint {
         return result;
     }
 
-    public static native void exportInitializeMethod() /*-{
-    $wnd.casInitialize = function(){
-    return @org.mathpiper.mpreduce.Interpreter::casInitialize()();
-    }
-    }-*/;
 
 //---------
     public static native void callCasLoaded() /*-{
@@ -277,11 +272,6 @@ public class Interpreter implements EntryPoint {
         }
     }
 
-    public static native void exportloadImageMethod() /*-{
-    $wnd.casLoadImage = function(){
-    return @org.mathpiper.mpreduce.Interpreter::casLoadImage()();
-    }
-    }-*/;
 
     public static native void callImageLoadedCallback() /*-{
     callBackFunction();
@@ -293,12 +283,9 @@ public class Interpreter implements EntryPoint {
 
         exportCasVersionMethod();
 
-        exportInitializeMethod();
-
         exportEvaluateMethod();
-
-        exportloadImageMethod();
-
+        
+        casLoadImage();
 
     }
 
