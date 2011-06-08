@@ -1,0 +1,107 @@
+%mathpiper,def="TestMathPiper"
+
+/* Testing MathPiper functionality by checking expressions against correct
+   answer.
+   Use with algebraic expressions only, since we need Simplify() for that to work.
+ */
+
+/*
+Macro ("TestMathPiper", {expr, ans})
+[
+	Local(diff,exprEval, ansEval);
+  exprEval:= @expr;
+  ansEval:= @ans;
+
+	diff := Simplify(exprEval - ansEval);
+		If (Simplify(diff)=0, True,
+			[
+			  WriteString("******************");
+			  NewLine();
+			  ShowLine();
+			  Write(Hold(@expr));
+			  WriteString(" evaluates to ");
+			  NewLine();
+			  Write(exprEval);
+			  NewLine();
+			  WriteString(" which differs from ");
+			  NewLine();
+			  Write(ansEval);
+			  NewLine();
+			  WriteString(" by ");
+			  NewLine();
+			  Write(diff);
+			  NewLine();
+			  WriteString("******************");
+			  NewLine();
+			  False;
+			 ]
+			);
+];
+*/
+
+
+
+Function ("TestMathPiper", {expr, ans})
+[
+	Local(diff);
+	diff := Simplify(Eval(expr)-Eval(ans));
+		If (Simplify(diff)=0, True,
+			[
+			  WriteString("******************");
+			  NewLine();
+			  ShowLine();
+			  Write(expr);
+			  WriteString(" evaluates to ");
+			  NewLine();
+			  Write(Eval(expr));
+			  NewLine();
+			  WriteString(" which differs from ");
+			  NewLine();
+			  Write(Eval(ans));
+			  NewLine();
+			  WriteString(" by ");
+			  NewLine();
+			  Write(diff);
+			  NewLine();
+			  WriteString("******************");
+			  NewLine();
+			  False;
+			 ]
+			);
+];
+
+HoldArgument("TestMathPiper", expr);
+HoldArgument("TestMathPiper", ans);
+
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="TestMathPiper",categories="Programmer Functions;Testing"
+*CMD TestMathPiper --- verifying equivalence of two expressions
+*STD
+*CALL
+	TestMathPiper(question,answer)
+
+*PARMS
+
+{question} -- expression to check for
+
+{answer} -- expected result after evaluation
+
+*DESC
+
+The command {TestMathPiper} can be used to verify that an
+expression is <I>equivalent</I> to  a correct answer after evaluation.
+It returns {True} or {False}.
+
+*E.G.
+In> TestMathPiper(x*(1+x),x^2+x)
+Result: True;
+
+
+*SEE Simplify, CanProve, KnownFailure, Verify, LogicVerify, LogicTest
+
+%/mathpiper_docs

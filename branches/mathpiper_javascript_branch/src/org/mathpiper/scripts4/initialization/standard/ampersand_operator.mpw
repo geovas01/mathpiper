@@ -1,0 +1,32 @@
+%mathpiper,def="&"
+
+a_IsNonNegativeInteger & b_IsNonNegativeInteger <-- BitAnd(a,b);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="&",categories="Operators"
+*CMD  --- bitwise AND operator
+*STD
+*CALL
+    a & b
+
+*PARMS
+
+{a} -- non negative integer
+
+{b} -- non negative integer
+
+*DESC
+
+This operator performs a bitwise AND on two integers.
+
+*E.G.
+
+In> 15 & 4
+Result: 4
+
+*SEE |
+%/mathpiper_docs

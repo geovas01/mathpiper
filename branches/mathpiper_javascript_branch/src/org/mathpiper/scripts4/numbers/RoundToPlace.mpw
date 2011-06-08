@@ -1,0 +1,149 @@
+%mathpiper,def="RoundToPlace"
+
+//Retract("RoundToPlace",*);
+
+10 # RoundToPlace( N_IsDecimal, place_IsInteger ) <--
+[
+    //If(InVerboseMode(),Tell("RoundToPlace_D",{N,place}));
+    Local(rep,sgn,oldInt,oldPrec,oldScale,oldPlaces,strOInt,LS);
+    Local(newInt,newScale,newRep,ans);
+    sgn      := Sign(N);
+    rep      := NumberToRep( Abs(N) );
+    oldInt   := rep[1];
+    oldPrec  := rep[2];
+    oldScale := rep[3];
+    oldPlaces:= oldPrec - oldScale;
+    strOInt  := ExpressionToString(oldInt);
+    LS       := Length(strOInt);
+    //If(InVerboseMode(),
+    //   [
+    //    Tell("   ",rep);
+    //    Tell("         ",oldInt);
+    //    Tell("         ",strOInt);
+    //    Tell("         ",LS);
+    //    Tell("         ",{place,oldPrec});
+    //    Tell("         ",oldPlaces);
+    //   ]
+    //);
+    If(oldPlaces+place>0,
+        ans := RoundToPrecision(N,oldPlaces+place),
+        ans := 0.
+    );
+    ans;
+];
+
+
+15 # RoundToPlace( N_IsInteger, place_IsInteger )_(place <= 0) <--
+[
+    //If(InVerboseMode(),Tell("RoundToPlace_I",{N,place}));
+    Local(oldRep,oldPrec,decN,newDecN,ans);
+    oldRep   := NumberToRep(N);
+    oldPrec  := oldRep[2];
+    decN     := N*1.0;
+    newDecN  := RoundToPlace( decN, place );
+    //If(InVerboseMode(),Tell("    ",oldRep));
+    //If(InVerboseMode(),Tell("   ",oldPrec));
+    //If(InVerboseMode(),Tell("   ",place));
+    //If(InVerboseMode(),Tell("   ",newDecN));
+    If( place <= oldPrec, 
+        ans := Round(newDecN),
+        ans := Round(newDecN*10^(place-oldPrec))
+    );
+    ans;
+];
+
+
+
+20 # RoundToPlace( N_IsComplex, place_IsInteger )_(Not IsInteger(N)) <--
+[
+    //If(InVerboseMode(),Tell("RoundToPlace_C",{N,place}));
+    Local(rr,ii);
+    rr := Re(N);
+    ii := Im(N);
+    Complex(RoundToPlace(rr,place),RoundToPlace(ii,place));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+    
+
+
+
+%mathpiper_docs,name="RoundToPlace",categories="Programmer Functions;Numerical (Arbitrary Precision)"
+*CMD RoundToPlace --- Rounds or Sets a number to the specified "decimal place"
+*STD
+*CALL
+	RoundToPlace(number,place)
+*PARMS
+{number} -- a number (Decimal, Integer, or Complex) whose precision is to be changed
+{place}  -- the decimal place to which to round
+
+
+*DESC
+This function rounds an {arbitrary-precision number} (A.P.N.) to the given
+decimal place.  The variable {place} is an integer counting from the current
+position of the decimal point in {number}.  If {place} is positive, the
+number will be rounded to the position that many places to the right of
+the current decimal point.  If {place} is negative, the number will be rounded
+to the position that many places to the left of the current decimal point. 
+
+The examples shown below will hopefully clarify the above description.
+
+See the documentation for the related function {RoundToPrecision} for a
+detailed description of the way MathPiper internally represents A.P.N.s.
+
+NOTE:  It is important to recognize the distinction (often misused or misunderstood)
+between rounding "to a specified decimal place" (which this function does) and 
+rounding "to a specified precision", which in MathPiper is accomplished by
+the function {RoundToPrecision} (q.v.).  
+
+For Decimal numbers and Decimal Complex numbers, the concept of Rounding to a 
+given decimal place to the left or right of the current decimal point is well 
+understood. It makes no sense to try to round further to the left than the first 
+digit of the number, and this function will return zero if you try.  To "round"
+further to the right than the last decimal place of the number just adds 
+trailing zeros.
+
+For Integers and Complex Integers (Gaussian Integers), the concept of
+Rounding to a decimal position {within} the integer (place < 0 ) makes sense,
+and will be accomplished by this function.  Digits between the rounding digit
+and the end of the integer will be replaced by zeros. 
+However, it makes no sense to try to round an integer to a decimal place
+{outside} the integer, and this function will return unevaluated if place > 0.
+*E.G.
+In> dec:=123.45678
+Result: 123.45678
+    
+In> dec2:=RoundToPlace(dec,1)
+Result: 123.5
+    
+In> dec3:=RoundToPlace(dec,-1)
+Result: 120
+    
+In> dec3:=RoundToPlace(dec,-4)
+Result: 0.
+    
+In> dec3:=RoundToPlace(dec,6)
+Result: 123.456780
+    
+In> int:=12345678
+Result: 12345678
+    
+In> int2:=RoundToPlace(int,-2)
+Result: 12345700
+    
+In> int2:=RoundToPlace(int,2)
+Result: RoundToPlace(12345678,2
+*SEE RoundToPrecision, RoundToN, NumberToRep, DumpNumber
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

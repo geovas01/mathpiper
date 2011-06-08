@@ -1,0 +1,19 @@
+%mathpiper,def="ArrayToList"
+
+ArrayToList(array):= (array[1 .. ArraySize(array) ]);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="ArrayToList",categories="Programmer Functions;Native Objects"
+*CMD ArrayToList --- convert array to list
+*CORE
+*CALL
+	ArrayToList(array)
+
+*DESC
+Creates a list from the contents of the array passed in.
+
+%/mathpiper_docs

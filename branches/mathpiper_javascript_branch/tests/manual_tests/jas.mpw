@@ -1,0 +1,40 @@
+%mathpiper,title=""
+
+/*
+I renamed your program JasAccess so that it can be used as the 
+primary class which MathPiper will use to access JAS (for now,
+at least.).
+*/
+
+jas := JavaNew("org.mathpiper.builtin.library.jas.JasAccess");
+
+//Note: debug output is sent to the Activity Log.
+JavaCall(jas,"setDebug",True);
+
+resultSet := JavaCall(jas,"factorPolyInt","x**2-9", "x");
+
+iterator := JavaCall(resultSet,"iterator");
+
+While(JavaValue(JavaCall(iterator,"hasNext")) = True)
+[
+    entrySet := JavaCall(iterator,"next");
+    
+    factor := JavaValue(JavaCall(entrySet,"getKey"));
+    
+    multiplicity := JavaValue(JavaCall(entrySet,"getValue"));
+    
+    Echo(factor, multiplicity);
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      x - 3 1 
+      x + 3 1 
+      
+.   %/output
+
+

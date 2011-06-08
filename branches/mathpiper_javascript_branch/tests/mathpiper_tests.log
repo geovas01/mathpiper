@@ -1,0 +1,551 @@
+Turning stack tracing on: Result: True
+
+Side Effects:
+Stack tracing is on.
+
+***** Mon Jan 10 09:55:07 PST 2011 *****
+***** MathPiper version: .81c *****
+
+===========================
+arithmetic.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Test arithmetic : 
+
+Test suite for Basic calculations : 
+
+Test suite for Testing math stuff : 
+--IntegerOperations
+--PowerN
+--Rounding
+--Bases
+--Factorization
+
+===========================
+binaryfactors.mpt: 
+
+Result: True
+
+===========================
+calculus.mpt: 
+
+Result: True
+
+Side Effects:
+--UnaryFunctionInverses
+--Derivatives
+--Limits
+Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=Exp(-phi) 
+--Pslq
+
+===========================
+canprove.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Propositional logic theorem prover : 
+
+===========================
+comments.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Checking comment syntax supported : 
+
+===========================
+complex.mpt: 
+
+Result: True
+
+Side Effects:
+Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=0 
+
+===========================
+c_tex_form.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for TeXForm()... : 
+--IsCFormable
+
+===========================
+cyclotomic.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Cyclotomic Polynomials : 
+
+===========================
+deriv.mpt: 
+
+Result: True
+
+===========================
+dimensions.mpt: 
+
+Result: True
+
+Side Effects:
+---- Dimensions (Tensor Rank)
+
+===========================
+dot.mpt: 
+
+Result: True
+
+Side Effects:
+---- Dot
+
+===========================
+GaussianIntegers.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Gaussian Integers : 
+
+===========================
+includetestfiles: is not a MathPiper test file.
+
+===========================
+integrate.mpt: 
+
+Result: True
+
+===========================
+issues.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Problems reported as Issues : 
+
+===========================
+io.mpt: 
+
+Result: True
+
+Side Effects:
+--Error reporting
+
+===========================
+journal.mpt: 
+
+Result: True
+
+===========================
+linalg.mpt: 
+
+Result: True
+
+Side Effects:
+--LeviCivita
+--VectorProducts
+
+Test suite for Inproduct : 
+
+Test suite for Identity matrices : 
+
+Test suite for Check linear algebra : 
+--Normalize
+--DiagonalMatrix
+--ZeroMatrix
+--Transpose
+--Determinant
+--CoFactor
+--Minor
+--Inverse
+--SolveMatrix
+--Trace
+
+===========================
+lists.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for VarList : 
+--BubbleSort
+--HeapSort
+--ListOperations
+--Length
+--Nth
+--Concat
+--Binary searching
+--AssocDelete
+---- Arithmetic Operations
+
+===========================
+logic_simplify_test.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for CNF : 
+
+===========================
+macro.mpt: 
+
+Result: True
+
+===========================
+mathpiper_tests.log: is not a MathPiper test file.
+
+===========================
+matrixpower.mpt: 
+
+Result: True
+
+Side Effects:
+---- MatrixPower
+
+===========================
+multivar.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Test arithmetic : 
+
+===========================
+nthroot.mpt: 
+
+Result: True
+
+Side Effects:
+---- NthRoot
+
+===========================
+numbers.mpt: 
+
+Result: True
+
+Side Effects:
+--Integer logarithms and roots
+--Factorial
+--Random numbers
+
+===========================
+numerics.mpt: 
+
+Result: True
+
+Side Effects:
+******************
+tests/scripts4/numerics.mpt: 193 
+
+newrepL[1]-newrepR[1]
+ evaluates to 
+-53768446116670492691
+ which differs from 
+0
+******************
+******************
+tests/scripts4/numerics.mpt: 195 
+
+newrepL[1]-newrepR[1]
+ evaluates to 
+-6282627216144394152
+ which differs from 
+0
+******************
+******************
+tests/scripts4/numerics.mpt: 282 
+
+newrepL[1]-newrepR[1]
+ evaluates to 
+-3357578071772547517286808
+ which differs from 
+0
+******************
+******************
+tests/scripts4/numerics.mpt: 287 
+
+newrepL[1]-newrepR[1]
+ evaluates to 
+406993831
+ which differs from 
+0
+******************
+--Gamma constant
+******************
+tests/scripts4/numerics.mpt: 318 
+
+newrepL[1]-newrepR[1]
+ evaluates to 
+2
+ which differs from 
+0
+******************
+
+===========================
+nummethods.mpt: 
+
+Result: True
+
+===========================
+ode.mpt: 
+
+Result: True
+
+Side Effects:
+**** THE ODE TEST HAS BEEN TEMPORARILY REMOVED BECAUSE IT CAUSED AN INFINITE RECURSION ****
+
+===========================
+openmath.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Converting to and from OpenMath expressions : 
+
+===========================
+orthopoly.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Testing orthogonal polynomials : 
+
+===========================
+outer.mpt: 
+
+Result: True
+
+Side Effects:
+---- Outer
+
+===========================
+piper_test.bat: is not a MathPiper test file.
+
+===========================
+plots.mpt: 
+
+Result: True
+
+Side Effects:
+******************
+tests/scripts4/plots.mpt: 6 
+
+PipeToString()Write(Plot2D(a,-1:1,output->data,points->4,depth->0))
+ evaluates to 
+"{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
+ which differs from 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
+******************
+******************
+tests/scripts4/plots.mpt: 7 
+
+PipeToString()Write(Plot2D(b,b->-1:1,output->data,points->4))
+ evaluates to 
+"{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
+ which differs from 
+"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
+******************
+******************
+tests/scripts4/plots.mpt: 14 
+
+PipeToString()Write(Plot3DS(a,-1:1,-1:1,output->data,points->2))
+ evaluates to 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}"
+ which differs from 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
+******************
+******************
+tests/scripts4/plots.mpt: 14 
+
+PipeToString()Write(Plot3DS(x1,x1->-1:1,x2->-1:1,output->data,points->2))
+ evaluates to 
+"{{{-1,-1,0.1011417762},{-1,0,0.1011417762},{-1,1,0.1011417762},{0,-1,0.1011417762},{0,0,0.1011417762},{0,1,0.1011417762},{1,-1,0.1011417762},{1,0,0.1011417762},{1,1,0.1011417762}}}"
+ which differs from 
+"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
+******************
+
+===========================
+poly.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Polynomials : 
+
+===========================
+predicates.mpt: 
+
+Result: True
+
+Side Effects:
+--Predicates
+--Boolean Operations
+--NumberCompares
+--comparisons in exponential notation
+--Matrix predicates
+******************
+tests/scripts4/predicates.mpt: 123 
+
+HasFuncArith(a*b+f({b,c}),List)
+ evaluates to 
+True
+ which differs from 
+False
+******************
+--IsConstant
+---- IsScalar
+---- IsVector
+---- IsVector(IsNumber)
+---- Matrix Predicates
+------ IsMatrix
+------ IsMatrix(IsInteger)
+------ IsSquareMatrix
+
+===========================
+programming.mpt: 
+
+Result: True
+
+Side Effects:
+--Apply
+--ThreadingListables
+--MapSingle
+--Function definitions
+--LocalVariables
+
+===========================
+radsimp.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Testing simplifying nested radicals : 
+
+===========================
+regress.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Regression on bug reports : 
+******************
+tests/scripts4/regress.mpt: 328 
+
+(Integrate(x,a,b)Cos(x)^2)-((b-Sin((-2)*b)/2)/2-(a-Sin((-2)*a)/2)/2)
+ evaluates to 
+(Sin(2*b)/2+b)/2-(Sin(2*a)/2+a)/2-((b-(-Sin(2*b))/2)/2-(a-(-Sin(2*a))/2)/2)
+ which differs from 
+0
+******************
+Known failure: (Limit(x,Infinity)x^n/Ln(x))=Infinity 
+Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=a 
+Known failure: Gcd(10,3.3)!=3.3 And Gcd(10,3.3)!=1 
+Known failure: (Differentiate(z)Conjugate(z))=Undefined 
+Known failure: ArcCos(Cos(beta))!=beta 
+Known failure: (Limit(n,Infinity)n^5/2^n)=0 
+Known failure: RoundTo(RoundTo(N(Cot(2),9),9),N(Cot(2),9),9)=0 
+
+===========================
+scopestack.mpt: 
+
+Result: True
+
+===========================
+simplify.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Simplify : 
+
+===========================
+solve.mpt: 
+
+Result: True
+
+Side Effects:
+--Solve
+--PSolve
+--     Linear
+--     Quadratic
+--     Cubic
+--     Quartic
+
+===========================
+sturm.mpt: 
+
+Result: True
+
+===========================
+sums.mpt: 
+
+Result: True
+
+Side Effects:
+--Taylor
+******************
+tests/scripts4/sums.mpt: 339 
+
+$pp2187
+ evaluates to 
+Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
+ which differs from 
+Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))
+******************
+
+===========================
+tensors.mpt: 
+
+Result: True
+
+Side Effects:
+
+Test suite for Tensors : 
+
+===========================
+test-yacas-c-version: is not a MathPiper test file.
+
+===========================
+trace.mpt: 
+
+Result: True
+
+Side Effects:
+---- Trace
+
+===========================
+transforms.mpt: 
+
+Result: True
+
+===========================
+: is not a MathPiper test file.
+
+
+***** Tests complete *****
+
+Exception Count: 0
+
+GlobalVariables: Result: True
+
+Side Effects:
+{$a73,$a994,$assumptions78,$b73,$b994,$bernoulli1Threshold56,$CacheOfConstantsN1,$CFormAllFunctions63,$cformMathFunctions61,$cformRegularOps60,$cindent62,$ClearScreenString40,$complexReduce54,$Debug'FileLines40,$Debug'FileLoaded40,$Debug'NrLines40,$ErrorTableau59,$formulaMaxWidth68,$GlobalStack19,$intpred72,$knownOrthoPoly71,$knownRNGDists50,$knownRNGEngines50,$lastcoef48,$LocResult74,$mathExpThreshold52,$mNum33,$n'max58,$nNum33,$NthRoot'Table162,$numericMode2,$omindent65,$omsymbol67,$omsymbolreverse67,$omtoken66,$options989,$p02187,$p12187,$p22187,$p32187,$p42,$p42187,$p993,$pc242187,$pc352187,$pc462187,$pc572187,$pc682187,$pj2187,$pj402187,$pj502187,$pj512187,$pj522187,$pj532187,$pj542187,$pju02187,$pp2187,$RandSeed51,$res36,$res79,$rFormMathFunctions45,$rFormRegularOps44,$RIndent46,$simple994,$st1011,$TeXFormGreekLetters69,$TeXFormMathFunctions270,$TeXFormMathFunctions70,$TeXFormRegularOps69,$TeXFormRegularPrefixOps69,$TeXFormSpecialNames69,$Verbose41,%,I,LoadResult} 

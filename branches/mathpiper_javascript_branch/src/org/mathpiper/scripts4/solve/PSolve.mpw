@@ -1,0 +1,7 @@
+%mathpiper,def="PSolve"
+
+PSolve( _uni ) <-- YacasPSolve( uni );
+
+PSolve( _uni, _var ) <-- YacasPSolve( uni, var );
+
+%/mathpiper

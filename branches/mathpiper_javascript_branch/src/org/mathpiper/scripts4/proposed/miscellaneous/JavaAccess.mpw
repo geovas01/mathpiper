@@ -1,0 +1,32 @@
+%mathpiper,title=""
+
+//Retract("JavaAccess",*);
+
+RulebaseListed("JavaAccess",{object, method, parameters});
+
+//Handle no option call.
+5 # JavaAccess(_object, _method) <-- JavaAccess(object, method, {});
+
+
+//Main routine.  It will automatically accept 2 or more option calls because the
+//options come in a list.
+10 # JavaAccess(_object, _method, parameters_IsList) <--
+[   
+    JavaCall(object, method, parameters);
+    
+    
+];
+
+
+//Handle a single option call because the option does not come in a list for some reason.
+20 # JavaAccess(_object, _method, _singleParameter) <-- JavaAccess(object, method, {singleParameter});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+

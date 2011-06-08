@@ -1,0 +1,65 @@
+%mathpiper,def="IsPolynomial"
+
+//Retract("IsPolynomial",*);
+
+10 # IsPolynomial(expr_IsFunction) <-- 
+[
+    Local(x,vars);
+    vars := VarList(expr);
+    If(Length(vars)>1,vars:=HeapSort(vars,"IsGreaterThan"));    
+    x := vars[1];
+    IsPolynomial(expr,x);
+];
+
+15 # IsPolynomial(_expr) <-- False;
+
+
+10 # IsPolynomial(_expr,_var)_(CanBeUni(var,expr)) <-- True;
+
+15 # IsPolynomial(_expr,_var) <-- False;
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="IsPolynomial",categories="Programmer Functions;Predicates"
+
+*CMD IsPolynomial --- Check if {expr} is a polynomial in variable {var} if {var} is specified.
+
+*STD
+*CALL
+    IsPolynomial(expr,var)
+or
+    IsPolynomial(expr)
+
+*PARMS
+
+{expr} -- an algebraic expression which may be a polynomial
+
+{var}  -- a variable name which might be used in {expr}
+
+*DESC
+
+The command {IsPolynomial} returns {True} if {expr} is (or could be) a polynomial in {var}.
+If {var} is not specified, a heuristic algorithm (which may be wrong!) is used to select a
+likely variable name from among the list of "variables" returned by VarList(expr).
+If you would rather not have an algorithm selecting the variable name, specify it as an
+argument to the function.
+It returns {False} if {expr} is not likely to be a polynomial in {var}.
+
+*E.G.
+
+In> IsPolynomial(2*x^3-3*x^2+5*x-14,x)
+Result: True 
+
+In> IsPolynomial(2*x^3-3*x^2+5*x-14)
+Result: False
+
+In> IsPolynomial(y^2-4)
+Result: True
+        NOTE: if variable name is omitted, a reasonable default is taken.
+
+%/mathpiper_docs
+
+

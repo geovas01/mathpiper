@@ -1,0 +1,246 @@
+%mathpiper,def="YacasFactors"
+
+//Retract("YacasFactors",*);
+//Retract("FactorsMultivariateSpecialCases",*);
+//Retract("FactorsSomethingElse",*);
+//Retract("CombineNumericalFactors",*);
+
+/*
+ * This is the fundamental factorization algorithm as created for Yacas, with
+ * a few improvements.
+ * It works for integers, rational numbers, Gaussian integers, and polynomials
+ * When the argument is an integer, FactorizeInt() does the heavy lifting.
+ * When the argument is a polynomial, BinaryFactors() is the workhorse.
+ */
+ 
+
+10 # YacasFactors(p_IsPositiveInteger) <--  FactorizeInt(p);
+
+11 # YacasFactors(p_IsInteger) <-- FactorizeInt(p);
+
+12 # YacasFactors(p_IsRational)_(Denominator(p) != 1) <-- {{YacasFactor(Numerator(p)) /YacasFactor(Denominator(p)) , 1}}; 
+     //Added to handle rational numbers with denominators that are not 1
+
+14 # YacasFactors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+
+20 # YacasFactors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  
+[
+    Local(x,d,coeffs,nterms,factorsList,result);
+    x := VarList(p)[1];
+    d := Degree(p,x);
+    /*  p is the polynomial, x is its (only) variable.  It IS Univariate */
+    /*  Let's find out how many terms this polynomial has.               */
+    coeffs := Coef(p,x,0 .. Degree(p,x));
+    nterms := Length(Select(coeffs, "IsNotZero"));
+    /*  If nterms = 2, it is a binomial, and might be most easily
+     *  factored by some special-purpose algorithms                      */
+    If( nterms = 2 And d > 2, 
+      [  result := FactorsBinomials(p);  ],    
+      [  // nterms != 2, so try other techniques
+        factorsList := BinaryFactors(p);
+           // BinaryFactors is the internal MathPiper function that
+           // creates a double list of factors and their multiplicities
+        /*
+         *  Now we check whether the input polynomial is "over the 
+         *  integers", by examining all its coefficients
+         */
+        If( AllSatisfy("IsInteger",coeffs),
+          [
+              // Yes -- all integer coefficients
+              result := FactorsPolynomialOverIntegers(p,x);
+          ],
+          [
+              // No -- at least one non-integer coefficient
+              // Check for FLOAT or RATIONAL coefficients
+              Local(notInt,rat,dd,lcm,newCoeffs,NewPoly,facs);
+              notInt := Select(coeffs, Lambda({i},Not IsInteger(i)));
+              rat := Rationalize(coeffs);            
+              dd  := MapSingle("Denominator",rat);
+              lcm := Lcm(dd);
+              newCoeffs := lcm * rat;
+              newPoly := NormalForm(UniVariate(x,0,newCoeffs));
+              facs := FactorsPolynomialOverIntegers(newPoly);
+              If( InVerboseMode(), [
+                  Echo("coeffs ",coeffs);
+                  Echo("notInt ",notInt);
+                  Echo("rat ",rat);
+                  Echo("dd  ",dd);
+                  Echo("lcm ",lcm);
+                  Echo("newCoeffs ",newCoeffs);
+                  Echo("newPoly ",newPoly);
+                  Echo("facs ",facs);
+                 ]
+              );
+              result := {(1/lcm),1}:facs;
+              //NOT FINISHED YET
+        ]
+      );
+    ]
+   );
+      CombineNumericalFactors( result );
+];
+
+
+30 # YacasFactors(p_CanBeUni) <--  
+[
+    /* 
+     * This may be a multi-variate polynomial, or it may be something else.
+     * Original YT function Factors() did not attempt to factor such.
+     *    If it is a multivariate polynomial, we will try certain
+     * Special cases which we can relatively easily factor.
+     *    If it is "something else", we will have to check, on a
+     * case-by-case basis.
+     */
+    Local(vl,nvars,coeffs,result);
+    vl     := VarList(p);
+    nvars  := Length(vl);
+    coeffs := Coef(p,x,0 .. 8);
+    If(InVerboseMode(),Tell("CBU",{vl,nvars,coeffs}));
+    If (nvars > 1, 
+         [
+            If( InVerboseMode(), Echo(" special ",p));
+            result := FactorsMultivariateSpecialCases(p);
+         ], 
+            result := FactorsSomethingElse(p) 
+       );
+       CombineNumericalFactors( result );
+];
+
+
+40 # YacasFactors(_p) <--
+[
+    /*
+     * This may may be a polynomial with non-integer exponents.  Let's check.
+     */
+     If( InVerboseMode(), Echo("Possibly trying to factor polynomial with non-integral exponents") );
+     Local( result);
+     //Echo(40,p);
+     //  NOT IMPLEMENTED YET
+     result := {{p,1}};
+     CombineNumericalFactors( result );
+     
+];
+
+//------------------------------------------------------------------------
+//                    S P E C I A L     C A S E S
+//------------------------------------------------------------------------
+
+10 # FactorsMultivariateSpecialCases(-_expr) <-- {-1,1}:FactorsMultivariateSpecialCases(expr);
+
+10 # FactorsMultivariateSpecialCases(x_IsAtom + y_IsAtom) <-- [If(InVerboseMode(),Tell(1));{{x+y,1}};];
+
+10 # FactorsMultivariateSpecialCases(x_IsAtom - y_IsAtom) <-- [If(InVerboseMode(),Tell(2));{{x-y,1}};];
+
+10 # FactorsMultivariateSpecialCases(_n*_x^p_IsInteger + _n*_y) <-- [If(InVerboseMode(),Tell(3));{n,1}:FactorsMultivariateSpecialCases(x+y);];
+
+10 # FactorsMultivariateSpecialCases(_n*_x^p_IsInteger - _n*_y) <-- [If(InVerboseMode(),Tell(4));{n,1}:FactorsMultivariateSpecialCases(x-y);];
+
+10 # FactorsMultivariateSpecialCases(n_IsInteger*_x + m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
+
+10 # FactorsMultivariateSpecialCases(n_IsInteger*_x - m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x-m*y)/Gcd(n,m))),1}};
+
+10 # FactorsMultivariateSpecialCases(_n*_x + _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x+y);
+
+10 # FactorsMultivariateSpecialCases(_n*_x - _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x-y);
+
+10 # FactorsMultivariateSpecialCases(_x^n_IsInteger - _y) <-- FactorsBinomials(x^n - y); 
+
+10 # FactorsMultivariateSpecialCases(_x^n_IsInteger + _y) <-- FactorsBinomials(x^n + y); 
+
+20 # FactorsSomethingElse(_p) <-- 
+  [
+      If( InVerboseMode(),
+          [
+              ECHO("   *** FactorsSomethingElse: NOT IMPLEMENTED YET ***");
+          ]
+      );
+      p;
+  ];
+
+//------------------------------------------------------------------------
+
+
+10 # CombineNumericalFactors( factrs_IsList ) <--
+  [
+      If( InVerboseMode(), Tell("Combine",factrs) );
+      Local(q,a,b,t,f,err);
+      err := False;
+      t   := 1;
+      f   := {};
+      ForEach(q,factrs)
+      [
+          If( InVerboseMode(), Tell(1,q) );
+          If( IsList(q) And Length(q)=2,
+              [
+                  {a,b} := q;
+                  If( InVerboseMode(), Echo("     ",{a,b}) );
+                  If( IsNumericList( {a,b} ),
+                      t := t * a^b,
+                      f := {a,b}:f
+                  );
+              ],
+              err := True
+          );
+      ];
+      If( InVerboseMode(),
+        [
+            Echo("      t = ",t);
+            Echo("      f = ",f);
+            Echo("    err = ",err);
+        ]
+      );
+      If(Not err And t != 1, {t,1}:Reverse(f), factrs);
+  ];
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="YacasFactors",categories="User Functions;Number Theory"
+*CMD YacasFactors --- factorization
+*STD
+*CALL
+	YacasFactors(x)
+
+*PARMS
+
+{x} -- integer or univariate polynomial
+
+*DESC
+
+This is mostly the original Yacas version of the function Factors(),
+slightly modified for Mathpiper to improve some of its capabilities.
+It has now been superceeded in MathPiper by the function xFactors(),
+which has a large number of improvements.
+
+This function decomposes the integer number {x} into a product of
+numbers. 
+Alternatively, if {x} is a univariate polynomial, it is
+decomposed into irreducible polynomials.  If {x} is a polynomial
+"over the integers", the irreducible polynomial factors will also
+be returned in the (unique) form with integer coefficients.
+
+The factorization is returned as a list of pairs. The first member of
+each pair is the factor, while the second member denotes the power to
+which this factor should be raised. So the factorization
+$x = p1^n1 * ... * p9^n9$
+is returned as {{{p1,n1}, ..., {p9,n9}}}.
+
+Programmer: Yacas Team + Sherm Ostrowsky
+
+*E.G.
+In> YacasFactors(24)
+Result: {{2,3},{3,1}}
+
+In> YacasFactors(32*x^3+32*x^2-70*x-75)
+Result: {{4*x+5,2},{2*x-3,1}}
+
+*SEE YacasFactor, xFactors, IsPrime, GaussianFactors
+%/mathpiper_docs
+
+
+
+
+

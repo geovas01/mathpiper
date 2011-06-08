@@ -1,0 +1,16 @@
+%mathpiper,def="NewtonLn"
+
+/// low-level numerical calculations of elementary functions.
+/// These are only called if InNumericMode() returns True
+
+NewtonLn(x) :=
+	LocalSymbols(y)
+[
+// we need ExpN instead of Exp to avoid N() which is used in the definition of Exp.
+// and we need ExpNum() instead of ExpN so that it is faster for large arguments and to avoid the error generated when core functions like ExpN are called on symbolic arguments.
+	NewtonNum({{y}, 4*x/(ExpNum(y)+x)-2+y},
+	// initial guess is obtained as Ln(x^2)/Ln(2) * (Ln(2)/2)
+		DivideN(794*IntLog(Floor(x*x), 2), 2291), 10, 3);
+];
+
+%/mathpiper

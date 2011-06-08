@@ -1,0 +1,133 @@
+%mathpiper,def="VerifyNumeric"
+
+VerifyNumeric(expression1, expression2, optionsList) :=
+[
+    Local(variablesList1, variablesList2, numericValue1, numericValue2, numericDifference, optionsVariableNamesList, optionsValuesList, associativeList);
+ 
+    variablesList1 := VarList(expression1);
+    
+    variablesList2 := VarList(expression2);
+    
+    if(Length(variablesList1) = 0 And Length(variablesList2) = 0)
+    [
+        numericValue1 := N(expression1);
+        
+        numericValue2 := N(expression2);
+    ]
+    else
+    [
+        optionsList := HeapSort(optionsList, Lambda({x,y},IsLessThan(x[1],y[1])));
+        
+        associativeList := OptionsToAssociativeList(optionsList);
+        
+        optionsVariableNamesList := MapSingle("ToAtom", AssocIndices(associativeList));
+        
+        optionsValuesList := MapSingle("ToAtom", AssocValues(associativeList));
+        
+        variablesList1 := HeapSort(variablesList1,"IsLessThan");
+        
+        variablesList2 := HeapSort(variablesList2,"IsLessThan");
+        
+        Check(variablesList1 = variablesList2 And variablesList1 = optionsVariableNamesList, "Argument", "Both expressions and the options list must have the same variable names and the same number of variables.");
+        
+        numericValue1 := N(WithValue(variablesList1, optionsValuesList, expression1));
+        
+        numericValue2 := N(WithValue(variablesList2, optionsValuesList, expression2 ));
+        
+        Echo(Map("->",{variablesList1, optionsValuesList}));
+        
+        NewLine();
+    ];
+    
+    Echo(expression1, "-> ", numericValue1);
+    
+    NewLine();
+    
+    Echo(expression2, "-> ", numericValue2);
+    
+    numericDifference := N(numericValue1 - numericValue2);
+        
+    NewLine();
+    
+    Echo("Difference between the numeric values: ", numericDifference);
+    
+    numericDifference;
+];
+
+
+
+
+VerifyNumeric(expression1, expression2) :=
+[
+    VerifyNumeric(expression1, expression2, {});
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+%mathpiper_docs,name="VerifyNumeric",categories="Programmer Functions;Testing",access="experimental"
+*CMD VerifyNumeric --- numerically evaluates two expressions to indicate if they may be equivalent or not
+*STD
+*CALL
+	Verify(symbolicExpression1,symbolicExpression2,variableAssignmentList)
+    
+    Verify(numericExpression1,numericExpression2)
+
+*PARMS
+{symbolicExpression1} -- a symbolic expression
+
+{symbolicExpression2} -- a symbolic expression
+
+{variableAssignmentList} -- a list which contains variable assignments in the form {b->7,a->4}
+
+{numericExpression1} -- a numeric expression
+
+{numericExpression2} -- a numeric expression
+
+*DESC
+The symbolic expression version of this function numerically evaluates two symbolic expressions to indicate if
+they may be equivalent or not.  The values to set the variables to are contained in {variableAssignmentList}.
+
+The numeric expression version of this function evaluates two numeric expressions to indicate if they are
+equivalent or not.
+
+*E.G.
+In> VerifyNumeric((72*a^3*b^5)^(1/2), 6*a*b^2*(2*a*b)^(1/2), {b->7,a->4})
+Result: 0.000000
+Side Effects:
+a->4 b->7 
+
+Sqrt(72*a^3*b^5) -> 8800.378174 
+
+6*a*b^2*Sqrt(2*a*b) -> 8800.378174 
+
+Difference between the numeric values: 0.000000 
+
+
+
+In> VerifyNumeric(.5,1/2)
+Result: 0.0
+Side Effects:
+.5 -> 0.5 
+
+1/2 -> 0.5 
+
+Difference between the numeric values: 0.0 
+
+
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

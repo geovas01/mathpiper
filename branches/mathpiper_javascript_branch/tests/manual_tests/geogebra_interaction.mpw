@@ -1,0 +1,117 @@
+
+%*
+Create 3 points A, B and C in GeoGebra.
+*/
+
+
+%mathpiper,title=""
+
+/*
+The GeoGebra() function is used to tell the system which GeoGebra objects
+should be inserted into the MathPiper environment.  The names of the
+objects are sent to the GeoGebra() function in a comma separated list.
+*/
+GeoGebra()["updateObjects"] := "A,B,C,f,g";
+
+
+/*
+GeoGebraPoint() is an experimental function which directly places points
+into GeoGebra.  The first parameter is the name of the point, the second
+parameter is its x coordinate, and the third parameter is the name of
+its y coordinate.
+*/
+GeoGebraPoint("A",1,2);
+
+GeoGebraPoint("B",2,2);
+
+GeoGebraPoint("C",1,1);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: java.lang.Boolean
+.   %/output
+
+
+%mathpiper, output="latex"
+ax := A["coords"]["x"];
+ay := A["coords"]["y"];
+bx := B["coords"]["x"];
+by := B["coords"]["y"];
+cx := C["coords"]["x"];
+cy := C["coords"]["y"];
+
+%/mathpiper
+
+    %hoteqn,preserve="false"
+      Result: 1.0
+.   %/hoteqn
+
+
+
+%mathpiper, output="geogebra"
+bez1(a,b,r) := a*(1-r)+b*r;
+bez2(a,b,c,r) := bez1(a,b,r)*(1-r) + bez1(b,c,r)*r;
+f(x) := Expand(bez2(ax,bx,cx,x));
+f(x);
+%/mathpiper
+
+    %geogebra,preserve="false"
+      Result: 2.0*x-2.0*x^2+1
+.   %/geogebra
+
+        %output,preserve="false"
+          GeoGebra updated.
+.       %/output
+
+
+
+
+
+
+
+%mathpiper, output="geogebra"
+g(x) := Expand(bez2(ay,by,cy,x));
+g(x);
+%/mathpiper
+
+    %geogebra,preserve="false"
+      Result: 2.0-x^2
+.   %/geogebra
+
+        %output,preserve="false"
+          GeoGebra updated.
+.       %/output
+
+
+
+
+
+
+%geogebra, clear="false"
+curve : curve[f(t),g(t),t,0,1]
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+.   %/output
+
+
+
+%mathpiper, output="latex"
+{f(x), g(x)};
+%/mathpiper
+
+    %hoteqn,preserve="false"
+      Result: \left(2x-2x^{2}+1,2-x^{2}\right)
+.   %/hoteqn
+
+        %output,preserve="false"
+          HotEqn updated.
+.       %/output
+
+
+
+
+
+

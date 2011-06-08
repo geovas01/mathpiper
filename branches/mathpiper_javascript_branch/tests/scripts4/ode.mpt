@@ -1,0 +1,5 @@
+
+Echo("**** THE ODE TEST HAS BEEN TEMPORARILY REMOVED BECAUSE IT CAUSED AN INFINITE RECURSION ****");
+//Verify( OdeTest(y''+y,       OdeSolve(y''+y==0)     ), 0 );
+//Verify( OdeTest(y'/5-Sin(x), OdeSolve(y'/5==Sin(x)) ), 0 );
+//Verify( OdeTest(x*y' - 1,    OdeSolve(x*y'==1)	    ), 0 );

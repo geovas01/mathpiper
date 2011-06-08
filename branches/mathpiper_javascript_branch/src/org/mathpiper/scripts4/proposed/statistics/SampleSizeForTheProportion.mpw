@@ -1,0 +1,50 @@
+%mathpiper,def="SampleSizeForTheProportion"
+
+//Retract("SampleSizeForTheProportion",*);
+
+SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError) :=
+[
+    Check(probabilityOfSuccess >=0 And probabilityOfSuccess <= 1, "Argument", "The first argument must be between 0 and 1.");
+
+    Local(minimumSampleSize,zScore);
+    
+    zScore := ConfidenceLevelToZScore(confidenceLevel);
+    
+    minimumSampleSize := N(probabilityOfSuccess*(1 - probabilityOfSuccess)*(zScore/marginOfError)^2);
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="SampleSizeForTheProportion",categories="User Functions;Statistics & Probability",access="experimental"
+*CMD SampleSizeForTheProportion --- calculates the sample size for the proportion
+*STD
+*CALL
+	SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError)
+*PARMS
+{probabilityOfSuccess} -- the probability of success for the sample
+{confidenceLevel} -- the desired confidence level
+{marginOfError} -- the desired margin of error
+
+*DESC
+This function calculates the minimum sample size for the proportion to provide
+a specific margin of error for a given confidence level.
+
+*E.G.
+In> SampleSizeForTheProportion(.5,.99,.06)
+Result: 460.7567390
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

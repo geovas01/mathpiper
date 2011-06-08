@@ -1,0 +1,31 @@
+%mathpiper,def="X"
+
+x X y := CrossProduct(x,y);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="X",categories="Operators"
+*CMD X --- todo
+*CALL
+	x X y
+
+*PARMS
+todo
+
+*DESC
+todo
+
+*E.G.
+todo
+
+*SEE CrossProduct
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
