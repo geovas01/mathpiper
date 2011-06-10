@@ -664,10 +664,10 @@ public class Build {
 
 
         java.io.FileWriter pluginsListFile = null;
-        if(!directoryPath.endsWith("core"))
-        {
-            pluginsListFile = new java.io.FileWriter(outputDirectoryPath + "/" + pluginFilePath + "/plugins_list.txt");
-        }
+        //if(!directoryPath.endsWith("core"))
+        //{
+        //    pluginsListFile = new java.io.FileWriter(outputDirectoryPath + "/" + pluginFilePath + "/plugins_list.txt");
+        //}
 
 
         if (builtinFunctionsSourceDir.exists()) {
