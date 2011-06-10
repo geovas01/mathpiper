@@ -336,7 +336,13 @@ public class Build {
                     throw new Exception("Opening fold tag missing in " + fileName + ".");
                 }
 
-                Fold fold = new Fold(foldHeader, foldContents.toString());
+                String foldContentsString = foldContents.toString();
+                //See http://ostermiller.org/findcomment.html
+                String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)","");
+                foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", " ");
+                foldContentsStringNoComments = foldContentsStringNoComments.replace("  ", " ");
+                foldContentsStringNoComments = foldContentsStringNoComments.replace("\n\n", "\n");
+                Fold fold = new Fold(foldHeader, foldContentsStringNoComments);
                 foldContents.delete(0, foldContents.length());
                 folds.add(fold);
                 inFold = false;
