@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.cons.AtomCons;
@@ -425,8 +424,8 @@ class SynchronousInterpreter implements Interpreter {
                     String loadResultString = string_out.toString();
                     evaluationResponse.setResult(loadResultString);
                     if (loadResult.type() == Utility.OBJECT) {
-                        JavaObject javaObject = (JavaObject) loadResult.car();
-                        evaluationResponse.setObject(javaObject.getObject());
+                        //JavaObject javaObject = (JavaObject) loadResult.car();
+                        //evaluationResponse.setObject(javaObject.getObject());
                     }//end if.
                 }//if.
             }//end if

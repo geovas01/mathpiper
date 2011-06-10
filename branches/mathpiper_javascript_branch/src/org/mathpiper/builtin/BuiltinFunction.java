@@ -95,7 +95,6 @@ import org.mathpiper.builtin.functions.core.LispForm;
 import org.mathpiper.builtin.functions.core.GarbageCollect;
 import org.mathpiper.builtin.functions.core.Gcd;
 import org.mathpiper.builtin.functions.core.GenericTypeName;
-import org.mathpiper.builtin.functions.core.ExceptionGet;
 import org.mathpiper.builtin.functions.core.GetExactBits;
 import org.mathpiper.builtin.functions.core.IsGreaterThan;
 import org.mathpiper.builtin.functions.core.HistorySize;
@@ -217,10 +216,6 @@ import org.mathpiper.builtin.functions.core.FastCos;
 import org.mathpiper.builtin.functions.core.FastSin;
 import org.mathpiper.builtin.functions.core.FastTan;
 import org.mathpiper.builtin.functions.core.GlobalVariablesGet;
-import org.mathpiper.builtin.functions.core.JavaAccess;
-import org.mathpiper.builtin.functions.core.JavaCall;
-import org.mathpiper.builtin.functions.core.JavaNew;
-import org.mathpiper.builtin.functions.core.JavaToValue;
 import org.mathpiper.builtin.functions.core.StringToUnicode;
 
 public abstract class BuiltinFunction {
@@ -469,9 +464,6 @@ public abstract class BuiltinFunction {
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new ExceptionCatch(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "ExceptionCatch");
-		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new ExceptionGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "ExceptionGet");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new Prefix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "Prefix");
@@ -940,18 +932,6 @@ public abstract class BuiltinFunction {
                 aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new GlobalVariablesGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "GlobalVariablesGet");
-                aEnvironment.getBuiltinFunctions().setAssociation(
-                        new BuiltinFunctionEvaluator(new JavaAccess(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                        "JavaAccess");
-                aEnvironment.getBuiltinFunctions().setAssociation(
-                    new BuiltinFunctionEvaluator(new JavaCall(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                    "JavaCall");
-                aEnvironment.getBuiltinFunctions().setAssociation(
-                    new BuiltinFunctionEvaluator(new JavaNew(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                    "JavaNew");
-                aEnvironment.getBuiltinFunctions().setAssociation(
-                    new BuiltinFunctionEvaluator(new JavaToValue(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                    "JavaToValue");
                 aEnvironment.getBuiltinFunctions().setAssociation(
                     new BuiltinFunctionEvaluator(new Delay(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                     "Delay");

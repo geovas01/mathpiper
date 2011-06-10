@@ -32,7 +32,6 @@ import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.io.InputDirectories;
 import org.mathpiper.lisp.behaviours.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
@@ -45,7 +44,6 @@ import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
-import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 import org.mathpiper.lisp.parametermatchers.PatternParameterMatcher;
@@ -1436,7 +1434,7 @@ public class Utility {
             }
             else
             {
-                consPointer.getCons().cdr().setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(object)));
+                throw new Exception("Operation not supported.");
             }
 
             consPointer.goNext(aStackTop, aEnvironment);
