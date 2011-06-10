@@ -220,61 +220,6 @@ import org.mathpiper.builtin.functions.core.StringToUnicode;
 
 public abstract class BuiltinFunction {
 
-	public static synchronized List addOptionalFunctions(Environment aEnvironment, String functionsPath) {
-
-		List failList = new ArrayList();
-
-		try {
-			String[] listing = getResourceListing(BuiltinFunction.class, functionsPath);
-			for (int x = 0; x < listing.length; x++) {
-
-				String fileName = listing[x];
-
-				if (!fileName.toLowerCase().endsWith(".class")) {
-					continue;
-				}
-
-
-				fileName = fileName.substring(0, fileName.length() - 6);
-				fileName = functionsPath + fileName;
-				fileName = fileName.replace("/", ".");
-
-				//System.out.println(fileName);
-
-				try {
-					Class functionClass = Class.forName(fileName, true, BuiltinFunction.class.getClassLoader());
-
-					//System.out.println("CLASS :" + functionClass.toString() + "   CLASSLOADER: " + BuiltinFunction.class.getClassLoader().toString());
-
-					Object functionObject = functionClass.newInstance();
-					if (functionObject instanceof BuiltinFunction) {
-						BuiltinFunction function = (BuiltinFunction) functionObject;
-						function.plugIn(aEnvironment);
-					}//end if.
-				} catch (ClassNotFoundException cnfe) {
-					System.out.println("Class not found: " + fileName);
-				} catch (InstantiationException ie) {
-					System.out.println("Can not instantiate class: " + fileName);
-				} catch (IllegalAccessException iae) {
-					System.out.println("Illegal access of class: " + fileName);
-				} catch (NoClassDefFoundError ncdfe) {
-					//System.out.println("Class not found: " + fileName);
-					failList.add(fileName);
-				}
-
-			}//end for.
-
-
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-
-
-
-		return failList;
-	}//end method.
 
 	public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
 

@@ -78,9 +78,9 @@ class SynchronousInterpreter implements Interpreter {
 
             BuiltinFunction.addCoreFunctions(iEnvironment);
 
-            if (!Utility.scriptsPath.contains("geogebra")) {
-                List failList = BuiltinFunction.addOptionalFunctions(iEnvironment, "org/mathpiper/builtin/functions/optional/");
-            }
+            //if (!Utility.scriptsPath.contains("geogebra")) {
+            //    List failList = BuiltinFunction.addOptionalFunctions(iEnvironment, "org/mathpiper/builtin/functions/optional/");
+            //}
 
             iEnvironment.pushLocalFrame(true, "<START>");
 
