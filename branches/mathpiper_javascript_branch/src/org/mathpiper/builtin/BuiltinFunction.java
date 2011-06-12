@@ -16,10 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin;
 
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 import org.mathpiper.builtin.functions.core.Abs;
 import org.mathpiper.builtin.functions.core.Add;
@@ -208,7 +204,6 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
-import java.io.*;
 import org.mathpiper.builtin.functions.core.Delay;
 import org.mathpiper.builtin.functions.core.FastArcCos;
 import org.mathpiper.builtin.functions.core.FastArcTan;
@@ -886,120 +881,6 @@ public abstract class BuiltinFunction {
 
 
 
-	public static String[] getResourceListing(Class loadedClass, String path) throws URISyntaxException, IOException {
-
-            InputStream inputStream = loadedClass.getClassLoader().getResourceAsStream(path + "plugins_list.txt");
-
-            if(inputStream == null)
-            {
-                return null;
-            }
-
-            BufferedReader pluginListFileReader =  new BufferedReader(new InputStreamReader(inputStream));
-
-
-
-            java.util.Set<String> result = new HashSet<String>();
-
-            String name = null;
-            while ((name = pluginListFileReader.readLine()) != null) {
-                    name = name.trim();
-                    result.add(name);
-            }
-            return result.toArray(new String[result.size()]);
-
-
-
-
-/*		URL dirURL = loadedClass.getClassLoader().getResource(path);
-		if (dirURL != null && dirURL.getProtocol().equals("file")) {
-
-			return new File(dirURL.toURI()).list();
-		}
-
-		if (dirURL == null) {
-
-			String loadedClassName = loadedClass.getName().replace(".", "/") + ".class";
-			dirURL = loadedClass.getClassLoader().getResource(loadedClassName);
-		}
-
-
-		if (dirURL.getProtocol().equals("jar")) {
-
-			String jarPath = dirURL.getPath().substring(5, dirURL.getPath().indexOf("!"));
-
-			JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
-
-			Enumeration<JarEntry> entries = jar.entries();
-
-			java.util.Set<String> result = new HashSet<String>();
-
-			while (entries.hasMoreElements()) {
-				String name = entries.nextElement().getName();
-				if (name.startsWith(path)) {
-					String entry = name.substring(path.length());
-					int checkSubdirectory = entry.indexOf("/");
-					if (checkSubdirectory >= 0) {
-
-						entry = entry.substring(0, checkSubdirectory);
-					}
-					result.add(entry);
-				}
-			}
-			return result.toArray(new String[result.size()]);
-		}//end if.
-
-		if (dirURL.getProtocol().equals("jeditresource")) {
-
-			try {
-
-				Class jEditJARClassLoaderClass = BuiltinFunction.class.getClassLoader().getClass();
-
-				if (jEditJARClassLoaderClass != null) {
-
-					Method method = jEditJARClassLoaderClass.getMethod("getZipFile", new java.lang.Class[0]);
-
-					ZipFile zipFile = (ZipFile) method.invoke(BuiltinFunction.class.getClassLoader(), new Object[0]);
-
-					Enumeration entries = zipFile.entries();
-
-					java.util.Set<String> result = new HashSet<String>();
-
-					while (entries.hasMoreElements()) {
-						ZipEntry zipEntry = (ZipEntry) entries.nextElement();
-						String name =  zipEntry.getName();
-						if (name.startsWith(path)) {
-							String entry = name.substring(path.length());
-							int checkSubdirectory = entry.indexOf("/");
-							if (checkSubdirectory >= 0) {
-
-								entry = entry.substring(0, checkSubdirectory);
-							}
-							result.add(entry);
-						}
-					}
-					return result.toArray(new String[result.size()]);
-
-				}//end if.
-
-
-			} catch (NoSuchMethodException nsme) {
-				nsme.printStackTrace();
-			} catch (IllegalAccessException iae) {
-				iae.printStackTrace();
-			} catch(java.lang.reflect.InvocationTargetException ite){
-				ite.printStackTrace();
-			}catch (NoClassDefFoundError ncdfe) {
-				ncdfe.printStackTrace();
-			}
-
-
-		}//end if.
-
-
-		throw new UnsupportedOperationException("Cannot list files for URL " + dirURL);
- * */
-	}//end method.
 
 
 }//end class.
