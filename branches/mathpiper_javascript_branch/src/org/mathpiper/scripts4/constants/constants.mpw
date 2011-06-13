@@ -1,4 +1,4 @@
-%mathpiper,def="I;CachedConstant;AssignCachedConstants;ClearCachedConstants"
+%mathpiper,def="I;CachedConstant;AssignCachedConstantsN;ClearCachedConstantsN"
 
 /* def file definitions.
 I

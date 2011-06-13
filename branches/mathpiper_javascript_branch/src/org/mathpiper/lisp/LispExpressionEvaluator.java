@@ -19,6 +19,7 @@ package org.mathpiper.lisp;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
+import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
@@ -180,15 +181,21 @@ public class LispExpressionEvaluator extends Evaluator {
 
     SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
         Cons head = subList.getCons();
+
+        LispError.check(head.car() instanceof String,  "No function name specified.", "INTERNAL", aStackTop, aEnvironment);
+
+        String functionName = (String) head.car();
+
         SingleArityRulebase userFunc = null;
 
-        userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
         if (userFunc != null) {
             return userFunc;
-        } else if (head.car() instanceof String) {
-            MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, (String) head.car(), true);
-            if (multiUserFunc.iFileToOpen != null) {
-                DefFile def = multiUserFunc.iFileToOpen;
+
+        } else if (functionName != null) {
+            MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, functionName, true);
+
+            if (multiUserFunc.iIsFunctionRead == false) {
+                //DefFile def = multiUserFunc.iIsFunctionRead;
 
                 if (DEBUG) {
                     /*Show loading... */
@@ -202,19 +209,28 @@ public class LispExpressionEvaluator extends Evaluator {
                         #endif
                         aEnvironment.write(buf);*/
                         if (TRACE_TO_STANDARD_OUT) {
-                            System.out.print("Debug> Loading file" + def.iFileName + " for function " + head.car() + "\n");
+                            System.out.print("Debug> Reading function " + functionName + "\n");
                         } else {
-                            aEnvironment.write("Debug> Loading file" + def.iFileName + " for function " + head.car() + "\n");
+                            aEnvironment.write("Debug> Reading function " + functionName + "\n");
                         }
 
                         int debugBreakpoint = 0;
                     }
                 }
 
+                String scriptCode = aEnvironment.scripts.getScript(functionName);
 
+                LispError.check(scriptCode != null,  "Problem with function name: " + functionName, "INTERNAL", aStackTop, aEnvironment);
 
-                multiUserFunc.iFileToOpen = null;
-                Utility.loadScriptOnce(aEnvironment, aStackTop, def.iFileName);
+                StringInputStream functionInputStream = new StringInputStream(scriptCode, aEnvironment.iInputStatus);
+
+                Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
+
+                userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
+
+                multiUserFunc.iIsFunctionRead = true;
+
+                //Utility.loadScriptOnce(aEnvironment, aStackTop, def.iFileName);
 
                 if (DEBUG) {
                     //extern int VERBOSE_DEBUG;
@@ -228,16 +244,20 @@ public class LispExpressionEvaluator extends Evaluator {
                         #endif*/
 
                         if (TRACE_TO_STANDARD_OUT) {
-                            System.out.print("Debug> Finished loading file " + def.iFileName + "\n");
+                            System.out.print("Debug> Finished reading " + functionName + "\n");
                         } else {
-                            aEnvironment.write("Debug> Finished loading file " + def.iFileName + "\n");
+                            aEnvironment.write("Debug> Finished reading " + functionName + "\n");
                         }
 
                     }
                 }
-            }
+                
+            }//end if.
+
+            
             userFunc = aEnvironment.getRulebase(aStackTop, subList);
-        }
+        }//end if.
+
         return userFunc;
     }//end method.
     /*

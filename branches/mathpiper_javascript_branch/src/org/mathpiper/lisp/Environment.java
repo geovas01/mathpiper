@@ -18,8 +18,8 @@
 package org.mathpiper.lisp;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import org.mathpiper.Scripts;
 import org.mathpiper.lisp.stacks.ArgumentStack;
 import org.mathpiper.lisp.collections.DefFileMap;
 import org.mathpiper.lisp.collections.MathPiperMap;
@@ -30,7 +30,6 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.tokenizers.XmlTokenizer;
 import org.mathpiper.io.InputStatus;
 
@@ -105,6 +104,7 @@ public final class Environment {
     public InputDirectories iInputDirectories = new InputDirectories();
     public String iPrettyReaderName = null;
     public String iPrettyPrinterName = null;
+    public Scripts scripts = new Scripts();
 
     public Environment(MathPiperOutputStream aCurrentOutput/*TODO FIXME*/) throws Exception {
         iCurrentTokenizer = iDefaultTokenizer;

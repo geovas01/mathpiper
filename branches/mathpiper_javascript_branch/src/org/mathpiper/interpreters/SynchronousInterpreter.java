@@ -31,10 +31,8 @@ import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.printers.LispPrinter;
 
-import org.mathpiper.io.CachedStandardFileInputStream;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.io.StringOutput;
@@ -90,95 +88,22 @@ class SynchronousInterpreter implements Interpreter {
             printer = new MathPiperPrinter(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
 
 
-            iEnvironment.iCurrentInput = new CachedStandardFileInputStream(iEnvironment.iInputStatus);
-
-
-            if (docBase != null) {
-
-
-                if (docBase.substring(0, 4).equals("file")) {
-                    int pos = docBase.lastIndexOf("/");
-                    String zipFileName = docBase.substring(0, pos + 1) + "mathpiper.jar";
-                    //zipFileName = zipFileName.substring(6,zipFileName.length());
-                    //zipFileName = "file://" + zipFileName.substring(5,zipFileName.length());
-                    zipFileName = zipFileName.substring(5, zipFileName.length());
-
-                    try {
-                        java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(zipFileName));
-                        //System.out.println("XXXX " + z);
-                        Utility.zipFile = z; //todo:tk:a better way needs to be found to do this.
-                    } catch (Exception e) {
-                        System.out.println("Failed to find mathpiper.jar");
-                        System.out.println("" + zipFileName + " : \n");
-                        System.out.println(e.toString());
-                    }
-                }
-                if (docBase.startsWith("http")) {
-                    //jar:http://www.xs4all.nl/~apinkus/interpreter.jar!/
-                    int pos = docBase.lastIndexOf("/");
-                    String scriptBase = "jar:" + docBase.substring(0, pos + 1) + "mathpiper.jar!/";
-
-
-                    evaluate("DefaultDirectory(\"" + scriptBase + "\");");
-
-
-                } else if (docBase.startsWith("jar:")) {
-                    // used by GeoGebra
-                    //eg docBase = "jar:http://www.geogebra.org/webstart/alpha/geogebra_cas.jar!/";
-                    evaluate("DefaultDirectory(\"" + docBase + "\");");
-
-                }//end if.
-
-            }//end if.
+            //iEnvironment.iCurrentInput = new CachedStandardFileInputStream(iEnvironment.iInputStatus);
 
 
 
-            /*  java.net.URL detectURL = java.lang.ClassLoader.getSystemResource("initialization.rep/mathpiperinit.mpi");
-
-            //StdFileInput.setPath(pathParent + File.separator);
-
-
-            if (detectURL != null)
-            {
-            detect = detectURL.getPath(); // file:/home/av/src/lib/piper.jar!/piperinit.mpi
-
-            if (detect.indexOf('!') != -1)
-            {
-            archive = detect.substring(0, detect.lastIndexOf('!')); // file:/home/av/src/lib/piper.jar
-
-            try
-            {
-            String zipFileName = archive;//"file:/Users/ayalpinkus/projects/JavaMathPiper/piper.jar";
-
-            java.util.zip.ZipFile z = new java.util.zip.ZipFile(new File(new java.net.URI(zipFileName)));
-            Utility.zipFile = z;
-            inZipFile = true;
-            } catch (Exception e)
-            {
-            System.out.println("Failed to find mathpiper.jar" + e.toString());
-            }
-            } else
-            {
-            pathParent = new File(detectURL.getPath()).getParent();
-            addScriptsDirectory(pathParent);
-            }
-            } else
-            {
-            System.out.println("Cannot find org/mathpiper/assembledscripts/initialization.rep/mathpiperinit.mpi.");
-            }*/
-
-
-            EvaluationResponse initializationEvaluationResponse = evaluate("LoadScript(\"initialization.rep/mathpiperinit.mpi\");");
-
+            //EvaluationResponse initializationEvaluationResponse = evaluate("LoadScript(\"initialization.rep/mathpiperinit.mpi\");");
+            EvaluationResponse initializationEvaluationResponse = evaluate("MathPiperInitLoad();");
             if (initializationEvaluationResponse.isExceptionThrown()) {
                 throw new Exception("Error during system script initialization.");
             }
 
+            /*
             initializationEvaluationResponse = evaluate("LoadScript(\"/mathpiper_user_initialization.mpi\");");
-
             if (!initializationEvaluationResponse.isExceptionThrown()) {
                 System.out.println("The initialization file mathpiper_user_initialization.mpi was evaluated.");
             }
+             */
 
 
 
@@ -260,7 +185,7 @@ class SynchronousInterpreter implements Interpreter {
                 inp.append(inputExpression);
                 InputStatus oldstatus = iEnvironment.iInputStatus;
                 iEnvironment.iInputStatus.setTo("String");
-                StringInputStream newInput = new StringInputStream(new StringBuffer(inputExpression), iEnvironment.iInputStatus);
+                StringInputStream newInput = new StringInputStream(inputExpression, iEnvironment.iInputStatus);
 
                 MathPiperInputStream previous = iEnvironment.iCurrentInput;
                 iEnvironment.iCurrentInput = newInput;
@@ -290,7 +215,7 @@ class SynchronousInterpreter implements Interpreter {
                 StringBuffer inp = new StringBuffer();
                 inp.append(inputExpression);
                 inp.append(";");
-                StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
+                StringInputStream inputExpressionBuffer = new StringInputStream(inp.toString(), someStatus);
 
                 Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
                 infixParser.parse(-1, inputExpressionPointer);

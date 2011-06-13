@@ -22,7 +22,6 @@ import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -32,14 +31,11 @@ import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.io.InputDirectories;
 import org.mathpiper.lisp.behaviours.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
-import org.mathpiper.io.JarFileInputStream;
-import org.mathpiper.io.StandardFileInputStream;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.io.StringOutputStream;
@@ -623,7 +619,7 @@ public class Utility {
         return "\"" + aOriginal + "\"";
     }
 
-    private static void doInternalLoad(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
+    public static void doInternalLoad(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
         try {
             aEnvironment.iCurrentInput = aInput;
@@ -655,7 +651,7 @@ public class Utility {
 
 
         } catch (Exception e) {
-            //e.printStackTrace(); //todo:tk:uncomment for debugging.
+            System.out.println(e.getMessage()); e.printStackTrace(); //todo:tk:uncomment for debugging.
 
             EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
             throw ee;
@@ -664,68 +660,7 @@ public class Utility {
         }
     }
 
-    /**
-     * Searches for a file on the classpath then in the default directories.  If the file is found, it is loaded.
-     * @param aEnvironment
-     * @param aFileName
-     * @throws java.lang.Exception
-     */
-    public static void loadScript(Environment aEnvironment, int aStackTop, String aFileName) throws Exception {
-        String oper = toNormalString(aEnvironment, aStackTop, aFileName);
 
-        String hashedname = (String) aEnvironment.getTokenHash().lookUp(oper);
-
-        InputStatus oldstatus = new InputStatus(aEnvironment.iInputStatus);
-        aEnvironment.iInputStatus.setTo(hashedname);
-
-        MathPiperInputStream newInput = null;
-
-        String path = Utility.scriptsPath + oper;
-
-        //Try to find script on classpath + scriptspath.
-        java.io.InputStream inputStream = Utility.class.getResourceAsStream(path);
-
-        //Try to find script on classpath.
-        if(inputStream == null)
-        {
-            inputStream = Utility.class.getResourceAsStream(oper);
-        }
-
-
-        if (inputStream != null) //File is on the classpath.
-        {
-            newInput = new StandardFileInputStream(new InputStreamReader(inputStream), aEnvironment.iInputStatus);
-            LispError.check(aEnvironment, aStackTop, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
-            doInternalLoad(aEnvironment, aStackTop, newInput);
-
-        } else { //File may be in the filesystem.
-            try {
-                // Open file
-                newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
-                        openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
-
-                LispError.check(aEnvironment, aStackTop, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
-                doInternalLoad(aEnvironment, aStackTop, newInput);
-            } catch (Exception e) {
-                throw e;
-            } finally {
-                aEnvironment.iInputStatus.restoreFrom(oldstatus);
-            }
-        }//end else.*/
-
-
-        aEnvironment.iInputStatus.restoreFrom(oldstatus);
-
-
-    }
-
-    public static void loadScriptOnce(Environment aEnvironment, int aStackTop, String aFileName) throws Exception {
-        DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
-        if (!def.isLoaded()) {
-            def.setLoaded();
-            loadScript(aEnvironment, aStackTop, aFileName);
-        }
-    }
 
     public static void doPatchString(String unpatchedString, MathPiperOutputStream aOutput, Environment aEnvironment, int aStackTop) throws Exception
     {
@@ -736,10 +671,9 @@ public class Utility {
                 if (tag.length > 1) {
                     aOutput.write(tag[0]);
                     String scriptCode = tag[1].trim();
-                    StringBuffer scriptCodeBuffer = 
-                        new StringBuffer(scriptCode);
+
                     StringInputStream scriptStream = 
-                        new StringInputStream(scriptCodeBuffer, aEnvironment.iInputStatus);
+                        new StringInputStream(scriptCode, aEnvironment.iInputStatus);
                     MathPiperOutputStream previous = 
                         aEnvironment.iCurrentOutput;
                     try {
@@ -798,133 +732,10 @@ public class Utility {
         return out.toString();
     }
 
-    public static MathPiperInputStream openInputFile(String aFileName, InputStatus aInputStatus) throws Exception {//Note:tk:primary method for file opening.
-
-        try {
-            if (zipFile != null) {
-                java.util.zip.ZipEntry e = zipFile.getEntry(aFileName);
-                if (e != null) {
-                    java.io.InputStream s = zipFile.getInputStream(e);
-                    return new StandardFileInputStream(new InputStreamReader(s), aInputStatus);
-                }
-            }
-
-            if (aFileName.substring(0, 4).equals("jar:")) {
-                return new JarFileInputStream(aFileName, aInputStatus);
-            } else {
-                return new StandardFileInputStream(aFileName, aInputStatus);
-            }
-        } catch (Exception e) {
-            //MathPiper eats this exception because returning null indicates to higher level code that the file was not found.
-        }
-        return null;
-
-        //return new StandardFileInputStream(aFileName, aInputStatus);
-    }
-
-    public static MathPiperInputStream openInputFile(Environment aEnvironment,
-            InputDirectories aInputDirectories, String aFileName,
-            InputStatus aInputStatus) throws Exception {
-        String othername = aFileName;
-        int i = 0;
-        MathPiperInputStream f = openInputFile(othername, aInputStatus);
-        while (f == null && i < aInputDirectories.size()) {
-            othername = ((String) aInputDirectories.get(i)) + aFileName;
-            f = openInputFile(othername, aInputStatus);
-            i++;
-        }
-        return f;
-    }
-
-    public static String findFile(String aFileName, InputDirectories aInputDirectories) throws Exception {
-        InputStatus inputStatus = new InputStatus();
-        String othername = aFileName;
-        int i = 0;
-        MathPiperInputStream f = openInputFile(othername, inputStatus);
-        if (f != null) {
-            return othername;
-        }
-        while (i < aInputDirectories.size()) {
-            othername = ((String) aInputDirectories.get(i)) + aFileName;
-            f = openInputFile(othername, inputStatus);
-            if (f != null) {
-                return othername;
-            }
-            i++;
-        }
-        return "";
-    }
-
-    private static void doLoadDefFile(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, DefFile def) throws Exception {
-        MathPiperInputStream previous = aEnvironment.iCurrentInput;
-        try {
-            aEnvironment.iCurrentInput = aInput;
-            String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
-            String end = (String) aEnvironment.getTokenHash().lookUp("}");
-            boolean endoffile = false;
-
-            MathPiperTokenizer tok = new MathPiperTokenizer();
-
-            while (!endoffile) {
-                // Read expression
-                String token = tok.nextToken(aEnvironment, aStackTop, aEnvironment.iCurrentInput, aEnvironment.getTokenHash());
-
-                // check for end of file
-                if (token.equals(eof) || token.equals(end)) {
-                    endoffile = true;
-                } // Else evaluate
-                else {
-                    String str = token;
-                    MultipleArityRulebase multiUser = aEnvironment.getMultipleArityRulebase(aStackTop, str, true);
-                    if (multiUser.iFileToOpen != null) {
-                        throw new EvaluationException("[" + str + "]" + "] : def file already chosen: " + multiUser.iFileToOpen.iFileName, aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
-                    }
-                    multiUser.iFileToOpen = def;
-                    multiUser.iFileLocation = def.fileName();
-                }
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            aEnvironment.iCurrentInput = previous;
-        }
-    }
-
-    public static void loadDefFile(Environment aEnvironment, int aStackTop, String aFileName) throws Exception {
-        LispError.lispAssert(aFileName != null, aEnvironment, aStackTop);
-
-        String flatfile = toNormalString(aEnvironment, aStackTop, aFileName) + ".def";
-        DefFile def = aEnvironment.iDefFiles.getFile(aFileName);
-
-        String hashedname = (String) aEnvironment.getTokenHash().lookUp(flatfile);
-
-        InputStatus oldstatus = aEnvironment.iInputStatus;
-        aEnvironment.iInputStatus.setTo(hashedname);
 
 
-        MathPiperInputStream newInput = null;
 
-        String path = Utility.scriptsPath + flatfile;
-
-        java.io.InputStream inputStream = Utility.class.getResourceAsStream(path);
-
-
-        if (inputStream != null) //File is on the classpath.
-        {
-            newInput = new StandardFileInputStream(new InputStreamReader(inputStream), aEnvironment.iInputStatus);
-            LispError.check(aEnvironment, aStackTop, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
-            doLoadDefFile(aEnvironment, aStackTop, newInput, def);
-
-        } else //File may be in the filesystem.
-        {
-            newInput = // new StandardFileInputStream(hashedname, aEnvironment.iInputStatus);
-                    openInputFile(aEnvironment, aEnvironment.iInputDirectories, hashedname, aEnvironment.iInputStatus);
-            LispError.check(aEnvironment, aStackTop, newInput != null, LispError.FILE_NOT_FOUND, "INTERNAL");
-            doLoadDefFile(aEnvironment, aStackTop, newInput, def);
-        }
-
-        aEnvironment.iInputStatus.restoreFrom(oldstatus);
-    }
+    
     //////////////////////////////////////////////////
     ///// bits_to_digits and digits_to_bits implementation
     //////////////////////////////////////////////////
@@ -1454,7 +1265,7 @@ public class Utility {
         StringBuffer inp = new StringBuffer();
         inp.append(inputExpression);
         inp.append(";");
-        StringInputStream inputExpressionBuffer = new StringInputStream(inp, someStatus);
+        StringInputStream inputExpressionBuffer = new StringInputStream(inp.toString(), someStatus);
 
         Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
         infixParser.parse(aStackTop, inputExpressionPointer);

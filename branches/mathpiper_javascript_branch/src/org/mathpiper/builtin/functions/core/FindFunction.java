@@ -52,7 +52,7 @@ public class FindFunction extends BuiltinFunction
         
         if (multiUserFunc != null )
         {
-            /*DefFile def = multiUserFunc.iFileToOpen;
+            /*DefFile def = multiUserFunc.iIsFunctionRead;
             if (def != null)
             {
                 getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, def.iFileName));

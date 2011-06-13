@@ -46,7 +46,7 @@ public class PipeFromString extends BuiltinFunction
 
         InputStatus oldstatus = aEnvironment.iInputStatus;
         aEnvironment.iInputStatus.setTo("String");
-        StringInputStream newInput = new StringInputStream(new StringBuffer(oper), aEnvironment.iInputStatus);
+        StringInputStream newInput = new StringInputStream(oper, aEnvironment.iInputStatus);
 
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
         aEnvironment.iCurrentInput = newInput;

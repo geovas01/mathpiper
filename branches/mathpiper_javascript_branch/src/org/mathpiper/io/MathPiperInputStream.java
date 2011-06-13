@@ -60,7 +60,7 @@ public abstract class MathPiperInputStream
 	 * the whole file should be in memory for the whole period the file
 	 * is being read.
 	 */
-	public abstract StringBuffer startPtr();
+	public abstract String startPtr();
 	public abstract int position();
 	public abstract void setPosition(int aPosition);
 

@@ -488,7 +488,7 @@ public class Build {
                 //    System.out.println("XXXXXXXXxx " + mpwFile.getPath());
                 //}
 
-                    scriptsJavaFile.write("        scriptString = \"" + foldContents.replace("\"", "\\\"") +"\";\n");
+                    scriptsJavaFile.write("\n        scriptString = \"" + foldContents.replace("\"", "\\\"") +"\";\n");
 
                     if (fold.getAttributes().containsKey("def")) {
                         String defAttribute = (String) fold.getAttributes().get("def");

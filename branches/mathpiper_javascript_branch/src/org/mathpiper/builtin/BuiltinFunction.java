@@ -53,8 +53,6 @@ import org.mathpiper.builtin.functions.core.CustomEvalResult;
 import org.mathpiper.builtin.functions.core.CustomEvalStop;
 import org.mathpiper.builtin.functions.core.DebugFile;
 import org.mathpiper.builtin.functions.core.DebugLine;
-import org.mathpiper.builtin.functions.core.DefLoad;
-import org.mathpiper.builtin.functions.core.DefLoadFunction;
 import org.mathpiper.builtin.functions.core.DefMacroRulebase;
 import org.mathpiper.builtin.functions.core.DefMacroRulebaseListed;
 import org.mathpiper.builtin.functions.core.DefaultDirectory;
@@ -78,14 +76,11 @@ import org.mathpiper.builtin.functions.core.FastArcSin;
 import org.mathpiper.builtin.functions.core.FastIsPrime;
 import org.mathpiper.builtin.functions.core.FastLog;
 import org.mathpiper.builtin.functions.core.FastPower;
-import org.mathpiper.builtin.functions.core.FileSize;
-import org.mathpiper.builtin.functions.core.FindFile;
 import org.mathpiper.builtin.functions.core.FindFunction;
 import org.mathpiper.builtin.functions.core.First;
 import org.mathpiper.builtin.functions.core.FlatCopy;
 import org.mathpiper.builtin.functions.core.Floor;
 import org.mathpiper.builtin.functions.core.FromBase;
-import org.mathpiper.builtin.functions.core.PipeFromFile;
 import org.mathpiper.builtin.functions.core.PipeFromString;
 import org.mathpiper.builtin.functions.core.LispForm;
 import org.mathpiper.builtin.functions.core.GarbageCollect;
@@ -120,7 +115,6 @@ import org.mathpiper.builtin.functions.core.IsLessThan;
 import org.mathpiper.builtin.functions.core.LispRead;
 import org.mathpiper.builtin.functions.core.LispReadListed;
 import org.mathpiper.builtin.functions.core.FunctionToList;
-import org.mathpiper.builtin.functions.core.LoadScript;
 import org.mathpiper.builtin.functions.core.Local;
 import org.mathpiper.builtin.functions.core.LocalSymbols;
 import org.mathpiper.builtin.functions.core.MacroRulePattern;
@@ -146,7 +140,6 @@ import org.mathpiper.builtin.functions.core.LeftPrecedenceGet;
 import org.mathpiper.builtin.functions.core.PrecedenceGet;
 import org.mathpiper.builtin.functions.core.RightPrecedenceGet;
 import org.mathpiper.builtin.functions.core.Or;
-import org.mathpiper.builtin.functions.core.PatchLoad;
 import org.mathpiper.builtin.functions.core.PatchString;
 import org.mathpiper.builtin.functions.core.PatternCreate;
 import org.mathpiper.builtin.functions.core.PatternMatches;
@@ -185,7 +178,6 @@ import org.mathpiper.builtin.functions.core.Subtract;
 import org.mathpiper.builtin.functions.core.SystemCall;
 import org.mathpiper.builtin.functions.core.TellUser;
 import org.mathpiper.builtin.functions.core.ToBase;
-import org.mathpiper.builtin.functions.core.PipeToFile;
 import org.mathpiper.builtin.functions.core.PipeToStdout;
 import org.mathpiper.builtin.functions.core.PipeToString;
 import org.mathpiper.builtin.functions.core.TraceRule;
@@ -193,7 +185,6 @@ import org.mathpiper.builtin.functions.core.TraceStack;
 import org.mathpiper.builtin.functions.core.ExceptionCatch;
 import org.mathpiper.builtin.functions.core.UnFence;
 import org.mathpiper.builtin.functions.core.ListToFunction;
-import org.mathpiper.builtin.functions.core.LoadScriptOnce;
 import org.mathpiper.builtin.functions.core.While;
 import org.mathpiper.builtin.functions.core.Write;
 import org.mathpiper.builtin.functions.core.WriteString;
@@ -279,9 +270,6 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new DefaultDirectory(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "DefaultDirectory");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new PipeFromFile(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-		        "PipeFromFile");
-		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new PipeFromString(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "PipeFromString");
 		aEnvironment.getBuiltinFunctions().setAssociation(
@@ -291,17 +279,11 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new ReadToken(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "ReadToken");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new PipeToFile(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-		        "PipeToFile");
-		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new PipeToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "PipeToString");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new PipeToStdout(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "PipeToStdout");
-		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new LoadScript(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "LoadScript");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new Bind(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "Bind");
@@ -603,12 +585,6 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new MaxEvalDepth(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "MaxEvalDepth");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new DefLoad(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "DefLoad");
-		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new LoadScriptOnce(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "LoadScriptOnce");
-		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new RightAssociativeSet(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "RightAssociativeSet");
 		aEnvironment.getBuiltinFunctions().setAssociation(
@@ -653,9 +629,6 @@ public abstract class BuiltinFunction {
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new Secure(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "Secure");
-		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new FindFile(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "FindFile");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new FindFunction(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "FindFunction");
@@ -723,9 +696,6 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new RulebaseDefined(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "RulebaseDefined");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new DefLoadFunction(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "DefLoadFunction");
-		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new RulebaseArgumentsList(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "RulebaseArgumentsList");
 		aEnvironment.getBuiltinFunctions().setAssociation(
@@ -767,9 +737,6 @@ public abstract class BuiltinFunction {
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new SetGlobalLazyVariable(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "SetGlobalLazyVariable");
-		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new PatchLoad(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "PatchLoad");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new PatchString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "PatchString");
@@ -851,9 +818,6 @@ public abstract class BuiltinFunction {
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Time(aEnvironment), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "Time");
-		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new FileSize(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "FileSize");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.SystemTimer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "SystemTimer");

@@ -1,0 +1,45 @@
+%mathpiper,def="Defun"
+
+/* Set of functions to define very simple functions. There are scripts that can
+   be compiled to plugins. So MathPiper either loads the plugin, or loads the
+   scripts at this point. The functions in these plugins need to be defined with
+   these "Defun" functions.
+ */
+DefMacroRulebase("Defun",{func,args,body});
+Rule("Defun",3,0,True)
+[
+  Local(nrargs);
+  Bind(nrargs,Length(@args));
+  Retract(@func, `(@nrargs));
+  Rulebase(@func,@args);
+  Local(fn,bd);
+  Bind(fn,Hold(@func)); Bind(bd,Hold(@body));
+  `Rule(@fn, @nrargs, 0,True)(@bd);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Function",categories="Programmer Functions;Programming;Built In"
+*CMD Function --- declare or define a function
+*CALL
+	Defun(function, args) body
+
+*PARMS
+
+{function} -- A function name
+
+{{arglist}} -- list of atoms, formal arguments to the function
+
+{body} -- expression comprising the body of the function
+
+*DESC
+
+Defun function.
+
+*E.G. notest
+
+In>
+
+%/mathpiper_docs

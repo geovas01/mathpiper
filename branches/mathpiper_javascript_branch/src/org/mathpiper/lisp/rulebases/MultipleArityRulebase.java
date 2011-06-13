@@ -29,12 +29,12 @@ public class MultipleArityRulebase {
     /// Set of SingleArityRulebase's provided by this MultipleArityRulebase.
     List<SingleArityRulebase> iFunctions = new ArrayList();//
     /// File to read for the definition of this function.
-    public DefFile iFileToOpen;
+    public boolean iIsFunctionRead;
     public String iFileLocation;
 
 
     public MultipleArityRulebase() {
-        iFileToOpen = null;
+        iIsFunctionRead = false;
     }
 
 

@@ -21,10 +21,10 @@ public class StringInputStream
         extends MathPiperInputStream {
 
     int iCurrent;
-    StringBuffer iString;
+    String iString;
 
 
-    public StringInputStream(StringBuffer aString, InputStatus aStatus) {
+    public StringInputStream(String aString, InputStatus aStatus) {
         super(aStatus);
         iString = aString;
         iCurrent = 0;
@@ -67,7 +67,7 @@ public class StringInputStream
     }
 
 
-    public StringBuffer startPtr() {
+    public String startPtr() {
 
         return iString;
     }
