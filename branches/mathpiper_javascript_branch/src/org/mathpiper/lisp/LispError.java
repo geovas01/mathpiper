@@ -169,13 +169,13 @@ public class LispError {
         if (!hastobetrue) {
             String errorMessage = errorString(aError);// + " In function " + functionName + ". ";
 
-            check(hastobetrue, errorMessage, functionName, aStackTop, aEnvironment);
+            check(aEnvironment, aStackTop, hastobetrue, errorMessage, functionName);
 
         }
     }//end method.
 
 
-    public static void check(boolean predicate, String aErrorMessage, String functionName, int aStackTop, Environment aEnvironment) throws Exception {
+    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, String aErrorMessage, String functionName) throws Exception {
         if (!predicate) {
             String stackTrace = "";
 
@@ -208,7 +208,7 @@ public class LispError {
 
 
     public static void raiseError(String errorMessage, String functionName, int aStackTop, Environment aEnvironment) throws Exception {
-        check(false, errorMessage, functionName, aStackTop, aEnvironment);
+        check( aEnvironment, aStackTop, false, errorMessage, functionName);
         //throw new EvaluationException(errorMessage + " In function " + functionName + ". ","none",-1);
     }
 
@@ -297,7 +297,7 @@ public class LispError {
     public static void lispAssert(boolean aPredicate, Environment aEnvironment, int aStackTop) throws Exception {
         if (!aPredicate) {
             //throw new EvaluationException("Assertion failed.","none",-1);
-            check(aPredicate, "Assertion error.", "", aStackTop, aEnvironment);
+            check(aEnvironment, aStackTop, aPredicate, "Assertion error.", "");
         }
     }
 

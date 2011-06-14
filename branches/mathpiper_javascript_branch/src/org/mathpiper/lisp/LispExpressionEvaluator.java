@@ -182,7 +182,7 @@ public class LispExpressionEvaluator extends Evaluator {
     SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
         Cons head = subList.getCons();
 
-        LispError.check(head.car() instanceof String,  "No function name specified.", "INTERNAL", aStackTop, aEnvironment);
+        LispError.check(aEnvironment, aStackTop,head.car() instanceof String,  "No function name specified.", "INTERNAL");
 
         String functionName = (String) head.car();
 
@@ -220,7 +220,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
                 String scriptCode = aEnvironment.scripts.getScript(functionName);
 
-                LispError.check(scriptCode != null,  "Problem with function name: " + functionName, "INTERNAL", aStackTop, aEnvironment);
+                LispError.check(aEnvironment, aStackTop,scriptCode != null,  "Problem with function name: " + functionName, "INTERNAL");
 
                 StringInputStream functionInputStream = new StringInputStream(scriptCode, aEnvironment.iInputStatus);
 

@@ -176,7 +176,7 @@ public class ParametersPatternMatcher {
 
 
         for (i = 0; i < iParamMatchers.size(); i++) {
-            LispError.check(i < aArguments.length, "Listed function definitions need at least two parameters.", "INTERNAL", aStackTop, aEnvironment);
+            LispError.check(aEnvironment, aStackTop,i < aArguments.length, "Listed function definitions need at least two parameters.", "INTERNAL");
             PatternParameterMatcher patternParameter = (PatternParameterMatcher) iParamMatchers.get(i);
             ConsPointer argument = aArguments[i];
             if (!patternParameter.argumentMatches(aEnvironment, aStackTop, argument, arguments)) {
