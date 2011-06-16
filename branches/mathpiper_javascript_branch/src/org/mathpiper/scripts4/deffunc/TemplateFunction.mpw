@@ -2,8 +2,6 @@
 
 Rulebase("TemplateFunction",{oper,args,body});
 
-Bodied("TemplateFunction",60000);
-
 HoldArgument("TemplateFunction",oper);
 
 HoldArgument("TemplateFunction",args);

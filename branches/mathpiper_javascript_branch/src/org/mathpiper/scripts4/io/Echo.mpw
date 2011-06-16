@@ -1,4 +1,4 @@
-%mathpiper,def="Echo"
+%mathpiper,def="Echo;EchoInternal"
 
 //Retract("EchoInternal",*);
 

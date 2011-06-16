@@ -120,6 +120,12 @@ Rule(StandardOperatorsLoad, 0, 1, True)
     // Defining very simple functions, in scripts that can be converted to plugin.
     Bodied("Defun",0);
 
+    Bodied("TemplateFunction",60000);
+
+    Bodied("HtmlAnchor",60000);
+
+    Bodied("Taylor3'TaylorCoefs",0);
+
 ];
 
 

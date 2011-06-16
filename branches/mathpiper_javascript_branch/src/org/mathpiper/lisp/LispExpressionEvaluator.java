@@ -186,6 +186,11 @@ public class LispExpressionEvaluator extends Evaluator {
 
         String functionName = (String) head.car();
 
+        if(functionName.equals("Echo")  )
+        {
+            int xx = 4;
+        }
+
         SingleArityRulebase userFunc = null;
 
         if (userFunc != null) {
@@ -194,7 +199,13 @@ public class LispExpressionEvaluator extends Evaluator {
         } else if (functionName != null) {
             MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, functionName, true);
 
-            if (multiUserFunc.iIsFunctionRead == false) {
+            String[] scriptCode = aEnvironment.scripts.getScript(functionName);
+
+
+            LispError.check(aEnvironment, aStackTop, scriptCode != null,  "No script returned for function: " + functionName + ".", "INTERNAL");
+
+
+            if (scriptCode[0].equals("not-loaded")) {
                 //DefFile def = multiUserFunc.iIsFunctionRead;
 
                 if (DEBUG) {
@@ -218,17 +229,17 @@ public class LispExpressionEvaluator extends Evaluator {
                     }
                 }
 
-                String scriptCode = aEnvironment.scripts.getScript(functionName);
+                
 
-                LispError.check(aEnvironment, aStackTop,scriptCode != null,  "Problem with function name: " + functionName, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop,scriptCode[1] != null,  "Problem with function name: " + functionName, "INTERNAL");
 
-                StringInputStream functionInputStream = new StringInputStream(scriptCode, aEnvironment.iInputStatus);
+                StringInputStream functionInputStream = new StringInputStream(scriptCode[1], aEnvironment.iInputStatus);
+
+                scriptCode[0] = "is-loaded";
 
                 Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
 
                 userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
-
-                multiUserFunc.iIsFunctionRead = true;
 
                 //Utility.loadScriptOnce(aEnvironment, aStackTop, def.iFileName);
 

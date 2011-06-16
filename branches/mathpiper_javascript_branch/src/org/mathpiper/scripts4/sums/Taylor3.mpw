@@ -29,7 +29,6 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
 ];
 
 
-Bodied("Taylor3'TaylorCoefs",0);
 10 # (Taylor3'TaylorCoefs(_var,_degree)(_var)) <--
 [
   Local(result);

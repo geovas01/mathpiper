@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -33,7 +32,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 /**
  *
@@ -92,7 +90,6 @@ public class Build {
     }//end method.
 
 
-
     public void setOutputDirectory(String outputDirectory) throws Exception {
         this.outputDirectory = outputDirectory;
 
@@ -102,6 +99,7 @@ public class Build {
 
 
     }//end method.
+
 
     public void setBaseDirectory(String baseDirectory) {
         this.sourceDirectory = baseDirectory + "src/";
@@ -120,16 +118,16 @@ public class Build {
         scriptsJavaFile = new java.io.FileWriter(sourceDirectory + "org/mathpiper/Scripts.java");
 
         String topOfClass =
-          "package org.mathpiper;\n"
-        + "\n"
-        + "import java.util.HashMap;\n"
-        + "\n"
-        + "public class Scripts {\n"
-        + "\n"
-        + "    private HashMap scriptMap = null;\n\n"
-        + "    public Scripts() {\n\n"
-        + "        scriptMap = new HashMap();\n\n"
-        + "        String scriptString;\n\n";
+                "package org.mathpiper;\n"
+                + "\n"
+                + "import java.util.HashMap;\n"
+                + "\n"
+                + "public class Scripts {\n"
+                + "\n"
+                + "    private HashMap scriptMap = null;\n\n"
+                + "    public Scripts() {\n\n"
+                + "        scriptMap = new HashMap();\n\n"
+                + "        String[] scriptString;\n\n";
 
         scriptsJavaFile.write(topOfClass);
 
@@ -147,7 +145,6 @@ public class Build {
                         return (true);
                     }
                 }
-
 
             });
 
@@ -196,7 +193,6 @@ public class Build {
                             }
                         }
 
-
                     });
 
                     Arrays.sort(packageDirectoryContentsArray);
@@ -207,13 +203,13 @@ public class Build {
                         File scriptFileOrSubdirectoy = packageDirectoryContentsArray[x2];
 
                         if (scriptFileOrSubdirectoy.getName().toLowerCase().endsWith(".mrw")) {
-                            throw new Exception("The .mrw file extension has been deprecated ( " + scriptFileOrSubdirectoy.getName() +" ).");
+                            throw new Exception("The .mrw file extension has been deprecated ( " + scriptFileOrSubdirectoy.getName() + " ).");
                         }
 
                         if (scriptFileOrSubdirectoy.getName().toLowerCase().endsWith(".mpw")) {
                             //Process a .mpw files that is in a top-level package. ************************************************************************
-                            
-                            System.out.print("    " + scriptFileOrSubdirectoy.getName() +" -> ");
+
+                            System.out.print("    " + scriptFileOrSubdirectoy.getName() + " -> ");
 
                             documentedFunctionsCount++;
 
@@ -233,7 +229,6 @@ public class Build {
                                         return (true);
                                     }
                                 }
-
 
                             });
 
@@ -286,11 +281,11 @@ public class Build {
             }//end for.
 
             if (documentationFile != null) {
-            	    
+
                 processBuiltinDocs(sourceDirectory, outputDirectory, "org/mathpiper/builtin/functions/core");
-                
+
                 processBuiltinDocs(sourceDirectory, outputDirectory, "org/mathpiper/builtin/functions/optional");
-                
+
                 processBuiltinDocs(sourceDirectory, outputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
             }
 
@@ -309,12 +304,12 @@ public class Build {
 
 
         String bottomOfClass =
-          "    }\n\n"
-        + "    public String getScript(String functionName)\n"
-        + "    {\n"
-        + "        return (String) scriptMap.get(functionName);\n"
-        + "    }\n"
-        + "}\n";
+                "    }\n\n"
+                + "    public String[] getScript(String functionName)\n"
+                + "    {\n"
+                + "        return (String[]) scriptMap.get(functionName);\n"
+                + "    }\n"
+                + "}\n";
         scriptsJavaFile.write(bottomOfClass);
         scriptsJavaFile.close();
 
@@ -342,7 +337,7 @@ public class Build {
         //Uncomment for debugging.
         /*
         if (fileName.equals("Factors.mpw")) {
-            int xxx = 1;
+        int xxx = 1;
         }//end if.*/
 
         List<Fold> folds = new ArrayList();
@@ -368,12 +363,16 @@ public class Build {
                 }
 
                 String foldContentsString = foldContents.toString();
+             //String foldContentsStringNoComments = foldContentsString;
                 //See http://ostermiller.org/findcomment.html
-                String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)","");
+                String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
                 foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
                 foldContentsStringNoComments = foldContentsStringNoComments.replaceAll(" +", " ");
-                foldContentsStringNoComments = foldContentsStringNoComments.replace("\n", "");
                 foldContentsStringNoComments = foldContentsStringNoComments.replace("\\", "\\\\");
+                foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "");
+                //foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "\\\\n");
+                //foldContentsStringNoComments = foldContentsStringNoComments.replace("\n", "\\n");
+
                 Fold fold = new Fold(foldHeader, foldContentsStringNoComments);
                 foldContents.delete(0, foldContents.length());
                 folds.add(fold);
@@ -405,7 +404,6 @@ public class Build {
         return folds;
 
     }//end.
-
 
     class Fold {
 
@@ -451,7 +449,6 @@ public class Build {
             return type;
         }
 
-
     }//end inner class.
 
 
@@ -483,12 +480,13 @@ public class Build {
                     mpiFileOut.write(foldContents);
 
 
-                //if(foldContents.equals(""))
-                //{
-                //    System.out.println("XXXXXXXXxx " + mpwFile.getPath());
-                //}
-
-                    scriptsJavaFile.write("\n        scriptString = \"" + foldContents.replace("\"", "\\\"") +"\";\n");
+                    //if(foldContents.equals(""))
+                    //{
+                    //    System.out.println("XXXXXXXXxx " + mpwFile.getPath());  scriptString = new String[2];
+                    //}
+                    scriptsJavaFile.write("\n        scriptString = new String[2];");
+                    scriptsJavaFile.write("\n        scriptString[0] = \"not-loaded\";");
+                    scriptsJavaFile.write("\n        scriptString[1] = \"" + foldContents.replace("\"", "\\\"") + "\";\n");
 
                     if (fold.getAttributes().containsKey("def")) {
                         String defAttribute = (String) fold.getAttributes().get("def");
@@ -524,9 +522,7 @@ public class Build {
         if (!hasDocs) {
             System.out.println("**** Does not contain docs ****");
             this.undocumentedMPWFileCount++;
-        }
-        else
-        {
+        } else {
             System.out.println();
         }
     }//end method.
@@ -534,7 +530,7 @@ public class Build {
 
     private void processMathPiperDocsFold(Fold fold, String mpwFilePath) throws Exception {
         if (documentationFile != null) {
-        	
+
             mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator)); //"/org/mathpiper/";
 
             String functionNamesString = "";
@@ -586,16 +582,14 @@ public class Build {
 
 
                         int commandIndex = contents.indexOf("*CMD");
-                        if(commandIndex == -1)
-                        {
+                        if (commandIndex == -1) {
                             throw new Exception("Missing *CMD tag.");
                         }
                         String descriptionLine = contents.substring(commandIndex, contents.indexOf("\n", commandIndex));
                         String description = descriptionLine.substring(descriptionLine.lastIndexOf("--") + 2);
                         description = description.trim();
 
-                        if(description.contains(","))
-                        {
+                        if (description.contains(",")) {
                             description = "\"" + description + "\"";
                         }
 
@@ -643,9 +637,7 @@ public class Build {
 
                         functionCategoriesList.add(categoryEntry);
 
-                    }
-                    else
-                    {
+                    } else {
                         System.out.print(functionName + ": **** Uncategorized ****, ");
                     }
                 }//end for.
@@ -665,7 +657,6 @@ public class Build {
         System.out.println("Destination directory: " + this.outputScriptsDirectory);
         compileScripts();
     }//end method.
-
 
     private class CategoryEntry implements Comparable {
 
@@ -700,7 +691,6 @@ public class Build {
             return categoryName + "," + functionName + "," + access + "," + description + "," + categories;
         }//end method.
 
-
     }//end class.
 
 
@@ -708,8 +698,8 @@ public class Build {
         // try {
         System.out.println("\n***** Processing built in docs *****");
 
-        File builtinFunctionsSourceDir = new java.io.File(sourceDirectoryPath + pluginFilePath );
-        
+        File builtinFunctionsSourceDir = new java.io.File(sourceDirectoryPath + pluginFilePath);
+
         String directoryPath = builtinFunctionsSourceDir.getPath();
 
 
@@ -731,7 +721,6 @@ public class Build {
                     }
                 }
 
-
             });
 
             Arrays.sort(javaFilesDirectory);
@@ -741,9 +730,8 @@ public class Build {
                 File javaFile = javaFilesDirectory[x];
                 String javaFileName = javaFile.getName();
 
-                if(pluginsListFile != null)
-                {
-                    pluginsListFile.append( javaFileName.substring(0,javaFileName.length() - 4) + "class" + "\n");
+                if (pluginsListFile != null) {
+                    pluginsListFile.append(javaFileName.substring(0, javaFileName.length() - 4) + "class" + "\n");
                 }
 
 
@@ -772,9 +760,7 @@ public class Build {
                 if (!hasDocs) {
                     System.out.println("**** Does not contain docs ****");// + javaFileName);
                     this.undocumentedMPWFileCount++;
-                }
-                else
-                {
+                } else {
                     System.out.println();
                 }
 
@@ -783,8 +769,7 @@ public class Build {
 
             }//end for
 
-            if(pluginsListFile != null)
-            {
+            if (pluginsListFile != null) {
                 pluginsListFile.close();
             }
 
@@ -795,6 +780,19 @@ public class Build {
         }*/
 
 
+    }//end method.
+
+
+    private String replaceNewline(String str) {
+
+        StringBuilder stringBuilder = new StringBuilder(str);
+        for (int i = 0; i < stringBuilder.length(); i++) {
+            if (stringBuilder.charAt(i) == '\n') {
+                stringBuilder.replace(i, i, "\\");
+                stringBuilder.insert(i, "n");
+            }
+        }
+        return stringBuilder.toString();
     }//end method.
 
 
@@ -820,7 +818,7 @@ public class Build {
 
         File outputDocsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper/ui/gui/help/data/");
         outputDocsDirectory.mkdirs();
-        
+
         File pluginsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper/builtin/functions/optional/");
         pluginsDirectory.mkdirs();
 
@@ -832,7 +830,7 @@ public class Build {
 
         try {
 
-            Build scripts = new Build(sourceScriptsDirectory, outputScriptsDirectory,  outputScriptsDirectory + "documentation/");
+            Build scripts = new Build(sourceScriptsDirectory, outputScriptsDirectory, outputScriptsDirectory + "documentation/");
 
             scripts.setBaseDirectory("/home/tkosan/NetBeansProjects/mathpiper/");
 

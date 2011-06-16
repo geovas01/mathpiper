@@ -29,12 +29,10 @@ public class MultipleArityRulebase {
     /// Set of SingleArityRulebase's provided by this MultipleArityRulebase.
     List<SingleArityRulebase> iFunctions = new ArrayList();//
     /// File to read for the definition of this function.
-    public boolean iIsFunctionRead;
     public String iFileLocation;
 
 
     public MultipleArityRulebase() {
-        iIsFunctionRead = false;
     }
 
 
@@ -82,8 +80,8 @@ public class MultipleArityRulebase {
         for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
             LispError.lispAssert(((SingleArityRulebase) iFunctions.get(ruleIndex)) != null, aEnvironment, aStackTop);
             LispError.lispAssert(aNewFunction != null, aEnvironment, aStackTop);
-            LispError.check(aEnvironment, aStackTop, !((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()), LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
-            LispError.check(aEnvironment, aStackTop, !aNewFunction.isArity(((SingleArityRulebase) iFunctions.get(ruleIndex)).arity()), LispError.ARITY_ALREADY_DEFINED, "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, !((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aNewFunction.arity()), "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName, "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, !aNewFunction.isArity(((SingleArityRulebase) iFunctions.get(ruleIndex)).arity()), "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName, "INTERNAL");
         }
         iFunctions.add(aNewFunction);
     }//end method.
