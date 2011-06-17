@@ -1,0 +1,8 @@
+ <!-- java -cp gwt-dev.jar:gwt-user.jar:./src com.google.gwt.dev.Compiler -logLevel ALL org.mathpiper.module -->
+ <module >
+    <inherits name="com.google.gwt.user.User" />
+    <source path="mathpiper" />
+    <entry-point class="org.mathpiper.interpreters.SynchronousInterpreter" />
+ </module>
+ 
+ 
