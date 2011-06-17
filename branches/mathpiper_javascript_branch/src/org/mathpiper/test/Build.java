@@ -39,6 +39,7 @@ public class Build {
     private java.io.File scriptsDir;
     //private java.io.FileWriter packagesFile;
     private java.io.FileWriter scriptsJavaFile;
+    private java.io.FileWriter testsJavaFile;
     private String sourceScriptsDirectory = null;
     private String outputScriptsDirectory = null;
     private String outputDirectory = null;
@@ -110,7 +111,6 @@ public class Build {
 
 
         scriptsJavaFile = new java.io.FileWriter(sourceDirectory + "org/mathpiper/Scripts.java");
-
         String topOfClass =
                 "package org.mathpiper;\n"
                 + "\n"
@@ -122,8 +122,25 @@ public class Build {
                 + "    public Scripts() {\n\n"
                 + "        scriptMap = new HashMap();\n\n"
                 + "        String[] scriptString;\n\n";
-
         scriptsJavaFile.write(topOfClass);
+
+
+
+        testsJavaFile = new java.io.FileWriter(sourceDirectory + "org/mathpiper/Tests.java");
+        topOfClass =
+                "package org.mathpiper;\n"
+                + "\n"
+                + "import java.util.HashMap;\n"
+                + "\n"
+                + "import java.util.Map;\n"
+                + "\n"
+                + "public class Tests {\n"
+                + "\n"
+                + "    private HashMap testsMap = null;\n\n"
+                + "    public Tests() {\n\n"
+                + "        testsMap = new HashMap();\n\n"
+                + "        String[] testString;\n\n";
+        testsJavaFile.write(topOfClass);
 
 
 
@@ -268,6 +285,25 @@ public class Build {
         scriptsJavaFile.write(bottomOfClass);
         scriptsJavaFile.close();
 
+
+
+        bottomOfClass =
+                "    }\n\n"
+                + "    public String[] getScript(String testName)\n"
+                + "    {\n"
+                + "        return (String[]) testsMap.get(testName);\n"
+                + "    }\n"
+                + "\n"
+                + "    public Map getMap()\n"
+                + "    {\n"
+                + "        return testsMap;\n"
+                + "    }\n"
+                + "}\n";
+        testsJavaFile.write(bottomOfClass);
+        testsJavaFile.close();
+
+
+
         if (documentationFile != null) {
 
             documentationFile.close();
@@ -318,7 +354,7 @@ public class Build {
                 }
 
                 String foldContentsString = foldContents.toString();
-             //String foldContentsStringNoComments = foldContentsString;
+                //String foldContentsStringNoComments = foldContentsString;
                 //See http://ostermiller.org/findcomment.html
                 String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
                 foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
@@ -414,6 +450,7 @@ public class Build {
         boolean hasDocs = false;
 
         String scopeAttribute = "public";
+        String subType = "";
         //String scope = "public";
 
         for (Fold fold : folds) {
@@ -427,33 +464,48 @@ public class Build {
                     scopeAttribute = (String) fold.getAttributes().get("scope");
                 }
 
+                if (fold.getAttributes().containsKey("subtype")) {
+                    subType = (String) fold.getAttributes().get("subtype");
+                }
+
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
 
                     String foldContents = fold.getContents();
 
 
+                    if (subType.equalsIgnoreCase("automatic_test")) {
 
-                    //if(foldContents.equals(""))
-                    //{
-                    //    System.out.println("XXXXXXXXxx " + mpwFile.getPath());  scriptString = new String[2];
-                    //}
-                    scriptsJavaFile.write("\n        scriptString = new String[2];");
-                    scriptsJavaFile.write("\n        scriptString[0] = \"not-loaded\";");
-                    scriptsJavaFile.write("\n        scriptString[1] = \"" + foldContents.replace("\"", "\\\"") + "\";\n");
+                        testsJavaFile.write("\n        testString = new String[2];");
+                        testsJavaFile.write("\n        testString[0] = \"\";");
+                        testsJavaFile.write("\n        testString[1] = \"" + foldContents.replace("\"", "\\\"") + "\";\n");
 
-                    if (fold.getAttributes().containsKey("def")) {
-                        String defAttribute = (String) fold.getAttributes().get("def");
-                        if (!defAttribute.equalsIgnoreCase("")) {
-
-                            String[] defFunctionNames = defAttribute.split(";");
-
-                            for (int x = 0; x < defFunctionNames.length; x++) {
-                                scriptsJavaFile.write("        scriptMap.put(\"" + defFunctionNames[x] + "\"," + "scriptString" + ");\n");
+                        if (fold.getAttributes().containsKey("name")) {
+                            String nameAttribute = (String) fold.getAttributes().get("name");
+                            if (!nameAttribute.equalsIgnoreCase("")) {
+                                    testsJavaFile.write("        testsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
                             }//end if.
                         }//end if.
-                    }//end if.
 
-                    //scope = scopeAttribute;
+                    } else {
+
+                        scriptsJavaFile.write("\n        scriptString = new String[2];");
+                        scriptsJavaFile.write("\n        scriptString[0] = \"not-loaded\";");
+                        scriptsJavaFile.write("\n        scriptString[1] = \"" + foldContents.replace("\"", "\\\"") + "\";\n");
+
+                        if (fold.getAttributes().containsKey("def")) {
+                            String defAttribute = (String) fold.getAttributes().get("def");
+                            if (!defAttribute.equalsIgnoreCase("")) {
+
+                                String[] defFunctionNames = defAttribute.split(";");
+
+                                for (int x = 0; x < defFunctionNames.length; x++) {
+                                    scriptsJavaFile.write("        scriptMap.put(\"" + defFunctionNames[x] + "\"," + "scriptString" + ");\n");
+                                }//end if.
+                            }//end if.
+                        }//end if.
+
+                    }//end else.
+
                 }//end if.
 
 

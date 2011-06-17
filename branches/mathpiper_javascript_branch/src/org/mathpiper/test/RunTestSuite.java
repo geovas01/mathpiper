@@ -17,88 +17,91 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import org.mathpiper.Tests;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 public class RunTestSuite {
 
     private Interpreter mathPiper;
-    private java.io.File testDirectory;
     private EvaluationResponse evaluationResponse;
     private java.io.FileWriter logFile;
-    private String scriptsDirectory = "scripts4";
     private int exceptionCount = 0;
+
 
     public RunTestSuite() {
         super();
 
     }//end constructor.
 
+
     public void test() {
         try {
 
             logFile = new java.io.FileWriter("./tests/mathpiper_tests.log");
-            
+
+            Tests tests = new Tests();
 
 
-            BufferedReader scriptNames = new BufferedReader(new InputStreamReader(RunTestSuite.class.getClassLoader().getSystemResource("tests/" + scriptsDirectory + "/test_index.txt").openStream()));
-            if (scriptNames != null) //File is on the classpath.
-            {
-                String output;
+            String output;
 
-                mathPiper = Interpreters.newSynchronousInterpreter();
+            mathPiper = Interpreters.newSynchronousInterpreter();
 
 
-                //Initialization code.
-                evaluationResponse = mathPiper.evaluate("StackTraceOn();");
-                output = evaluationResponse(evaluationResponse);
-                System.out.println("Turning stack tracing on: " + output);
-                logFile.write("Turning stack tracing on: " + output);
+            //Initialization code.
+            evaluationResponse = mathPiper.evaluate("StackTraceOn();");
+            output = evaluationResponse(evaluationResponse);
+            System.out.println("Turning stack tracing on: " + output);
+            logFile.write("Turning stack tracing on: " + output);
 
 
-                output = "\n\n***** Beginning of tests. *****\n";
-                output = "\n***** " + new java.util.Date() + " *****\n";
-                //output += "***** Using a new interpreter instance for each test file. *****\n";
-                output += "***** MathPiper version: " + org.mathpiper.Version.version + " *****\n";
+            output = "\n\n***** Beginning of tests. *****\n";
+            output = "\n***** " + new java.util.Date() + " *****\n";
+            //output += "***** Using a new interpreter instance for each test file. *****\n";
+            output += "***** MathPiper version: " + org.mathpiper.Version.version + " *****\n";
+            System.out.print(output);
+            logFile.write(output);
+
+            Map testsMap = tests.getMap();
+
+            Set keySet = testsMap.keySet();
+
+            Iterator keyIterator = keySet.iterator();
+
+
+
+            while (keyIterator.hasNext()) {
+
+
+                String testName = (String) keyIterator.next();
+
+                String[] testScriptArray = (String[]) testsMap.get(testName);
+
+                String testScript = (String) testScriptArray[1];
+
+
+                output = "\n===========================\n" + testName + ": \n\n";
                 System.out.print(output);
                 logFile.write(output);
 
-                while (scriptNames.ready()) {
+                evaluationResponse = mathPiper.evaluate(testScript);
 
 
-                    String scriptName = scriptNames.readLine();
-
-                    if (scriptName.endsWith(".mpt")) {
-
-                        output = "\n===========================\n" + scriptName + ": \n\n";
-                        System.out.print(output);
-                        logFile.write(output);
-
-                        evaluationResponse = mathPiper.evaluate("LoadScript(\"tests/" + scriptsDirectory + "/" + scriptName + "\");");
+                output = evaluationResponse(evaluationResponse);
 
 
-                        output = evaluationResponse(evaluationResponse);
+                System.out.println(output);
+                logFile.write(output);
 
 
-                        System.out.println(output);
-                        logFile.write(output);
-                    } else {
-                        output = "\n===========================\n" + scriptName + ": is not a MathPiper test file.\n";
-                        System.out.print(output);
-                        logFile.write(output);
+            }//end while.
 
-                    }
 
-                }//end while.
-
-            } else {
-                System.out.println("\nProblem finding test scripts.\n");
-            }
-
-            String output = "\n\n***** Tests complete *****\n\nException Count: " + exceptionCount + "\n\n";
+            output = "\n\n***** Tests complete *****\n\nException Count: " + exceptionCount + "\n\n";
             System.out.print(output);
             logFile.write(output);
 
@@ -118,6 +121,7 @@ public class RunTestSuite {
 
     }//end method.
 
+
     private String evaluationResponse(EvaluationResponse evaluationResponse) {
 
         String result = "Result: " + evaluationResponse.getResult() + "\n";
@@ -135,6 +139,7 @@ public class RunTestSuite {
         return result;
     }
 
+
     public static void main(String[] args) {
 
         RunTestSuite pt = new RunTestSuite();
@@ -142,5 +147,4 @@ public class RunTestSuite {
 
     }//end main
 }//end class.
-
 
