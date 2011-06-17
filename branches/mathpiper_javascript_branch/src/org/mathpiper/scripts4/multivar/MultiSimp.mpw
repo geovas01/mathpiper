@@ -1,4 +1,4 @@
-%mathpiper,def="MultiSimp"
+%mathpiper,def="MultiSimp;MultiSimp2"
 
 MultiSimp(_expr) <--
 [

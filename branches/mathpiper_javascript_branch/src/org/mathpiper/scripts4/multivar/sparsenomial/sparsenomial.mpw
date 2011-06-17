@@ -1,11 +1,11 @@
-%mathpiper,def=""
+%mathpiper,def="CreateTerm;MultiNomialAdd;MultiNomialNegate;MultiNomialMultiply"
 
 
 /* Implementation of MultiNomials based on sparse representation
    in the sparsetree.mpi code. This is the real driver, using
    the sparse trees just for representation.
  */
-LoadScriptOnce("multivar.rep/sparsetree.mpi");
+//LoadScriptOnce("multivar.rep/sparsetree.mpi");
 
 LocalSymbols(NormalMultiNomial) [
 

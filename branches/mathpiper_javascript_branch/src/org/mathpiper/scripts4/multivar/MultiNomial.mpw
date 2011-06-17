@@ -7,11 +7,12 @@ Rulebase("MultiNomial",{vars,terms});
 //LoadScriptOnce("multivar.rep/sparsenomial.mpi");
 //LoadScriptOnce("multivar.rep/partialdensenomial.mpi");
 
-If(IsBound(MultiNomialDriver),
+/*If(IsBound(MultiNomialDriver),
   `LoadScriptOnce(@MultiNomialDriver),
   LoadScriptOnce("multivar.rep/sparsenomial.mpi"));
+*/
 
 // Code that can build the internal representation of a multivariate polynomial
-LoadScriptOnce("multivar.rep/makemulti.mpi");
+//LoadScriptOnce("multivar.rep/makemulti.mpi");
 
 %/mathpiper

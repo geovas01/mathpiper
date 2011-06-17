@@ -121,6 +121,11 @@ public class LispExpressionEvaluator extends Evaluator {
 
                         functionName = (String) head.car();
 
+                        if(functionName.contains("Muaddterm"))
+                        {
+                            int xx = 2;
+                        }
+
                         //Built-in function handler.
                         BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp(functionName);
                         if (builtinInFunctionEvaluator != null) {
@@ -186,12 +191,11 @@ public class LispExpressionEvaluator extends Evaluator {
 
         String functionName = (String) head.car();
 
-        if(functionName.equals("Echo")  )
-        {
-            int xx = 4;
-        }
-
         SingleArityRulebase userFunc = null;
+
+        userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
+
+    //System.out.println(functionName);
 
         if (userFunc != null) {
             return userFunc;

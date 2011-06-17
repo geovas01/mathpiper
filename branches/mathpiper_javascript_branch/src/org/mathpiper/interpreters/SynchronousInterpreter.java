@@ -44,7 +44,7 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *
  */
-class SynchronousInterpreter implements Interpreter  {
+class SynchronousInterpreter implements Interpreter {
 
     private ArrayList<ResponseListener> removeListeners;
     private ArrayList<ResponseListener> responseListeners;
@@ -96,10 +96,16 @@ class SynchronousInterpreter implements Interpreter  {
                 throw new Exception("Error during system script initialization.");
             }
 
+            //todo:tk:temporary hack to initialize the arithmetic functions.
+            initializationEvaluationResponse = evaluate("-1*1/1+1^1-1;");
+            if (initializationEvaluationResponse.isExceptionThrown()) {
+                throw new Exception("Error during system script initialization.");
+            }
+
             /*
             initializationEvaluationResponse = evaluate("LoadScript(\"/mathpiper_user_initialization.mpi\");");
             if (!initializationEvaluationResponse.isExceptionThrown()) {
-                System.out.println("The initialization file mathpiper_user_initialization.mpi was evaluated.");
+            System.out.println("The initialization file mathpiper_user_initialization.mpi was evaluated.");
             }
              */
 
@@ -409,9 +415,8 @@ class SynchronousInterpreter implements Interpreter  {
 
     public void haltEvaluation() {
         //synchronized (iEnvironment) {
-            //iEnvironment.iEvalDepth = iEnvironment.iMaxEvalDepth + 100; //Deprecated.
-
-            //evaluationThread.interrupt();
+        //iEnvironment.iEvalDepth = iEnvironment.iMaxEvalDepth + 100; //Deprecated.
+        //evaluationThread.interrupt();
         //}
     }
 
@@ -424,8 +429,6 @@ class SynchronousInterpreter implements Interpreter  {
     {
     return Utility.zipFile;
     }//end method.*/
-
-
 
     public void addResponseListener(ResponseListener listener) {
         responseListeners.add(listener);
@@ -459,7 +462,6 @@ class SynchronousInterpreter implements Interpreter  {
         removeListeners.clear();
 
     }//end method.
-
 
 }// end class.
 
