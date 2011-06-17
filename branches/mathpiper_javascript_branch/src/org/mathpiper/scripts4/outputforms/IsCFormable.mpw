@@ -96,3 +96,32 @@ Result: True;
 
 *SEE CForm, V
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsCFormable",subtype="automatic_test"
+Testing("IsCFormable");
+Verify(
+IsCFormable(e+Pi*Cos(A-B)/3-Floor(3.14)*2)
+, True
+);
+Verify(
+IsCFormable(e+Pi*Cos(A-B)/3-Floor(3.14)*2+bad'func(x+y))
+, False
+);
+Verify(
+IsCFormable(e+Pi*Cos(A-B)/3-Floor(3.14)*2+bad'func(x+y), {bad'func})
+, True
+);
+Verify(
+IsCFormable([i:=0;While(i<10)[i++; a:=a+i;];])
+, True
+);
+Verify(
+IsCFormable([i:=0;While(i<10)[i++; a:=a+i; {};];])
+, False
+);
+
+%/mathpiper

@@ -17,6 +17,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -69,8 +71,12 @@ public class RunTestSuite {
             Map testsMap = tests.getMap();
 
             Set keySet = testsMap.keySet();
+            
+            ArrayList keyArray = new ArrayList(keySet);
 
-            Iterator keyIterator = keySet.iterator();
+            Collections.sort(keyArray, String.CASE_INSENSITIVE_ORDER);
+
+            Iterator keyIterator = keyArray.iterator();
 
 
 

@@ -92,3 +92,25 @@ Result: {Cos(x),-Sin(x)};
       
 .   %/output
 
+
+
+
+
+%mathpiper,name="Differentiate",subtype="automatic_test"
+
+Testing("Derivatives");
+Verify(Differentiate(x) a,0); f();
+Verify(Differentiate(x) x,1); f();
+Verify(Differentiate(x) (x+x),2); f();
+Verify(Differentiate(x) (x*x),2*x); f();
+Verify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x)); f();
+
+
+[
+  Local(z);
+  // This function satisfies Laplaces eqn: Differentiate(x,2)z + Differentiate(y,2)z = 0
+  z:= ArcTan((2*x*y)/(x^2 - y^2)); f();
+  Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 );
+];
+
+%/mathpiper

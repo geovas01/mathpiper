@@ -1,0 +1,33 @@
+%mathpiper,name="miscellaneous",subtype="automatic_test"
+
+Testing("From: calculus.mpt");
+f():=[];//Echo(CurrentFile()," line ",CurrentLine());
+Testing("UnaryFunctionInverses");
+Verify(Sin(ArcSin(a)),a);  f();
+Verify(Cos(ArcCos(a)),a);  f();
+//TODO ??? Verify(Tan(ArcTan(a)),a);
+//TODO ??? this is not always the correct answer! Verify(ArcTan(Tan(a)),a);
+Verify(Tan(Pi/2),Infinity); f();
+Verify(Tan(Pi),0); f();
+Verify( Sin(x)/Cos(x), Tan(x) ); f();
+Verify( TrigSimpCombine(Sin(x)^2 + Cos(x)^2), 1 ); f();
+
+Verify( Sinh(x)-Cosh(x), Exp(-x)); f();
+Verify( Sinh(x)+Cosh(x), Exp(x) ); f();
+Verify( Sinh(x)/Cosh(x), Tanh(x) ); f();
+Verify( Sinh(Infinity), Infinity); f();
+Verify( Sinh(x)*Csch(x), 1); f();
+Verify( 1/Coth(x), Tanh(x) ); f();
+Verify(2+I*3,Complex(2,3)); f();
+Verify(Magnitude(I+1),Sqrt(2)); f();
+Verify(Re(2+I*3),2); f();
+Verify(Im(2+I*3),3); f();
+// Shouldn't these be in linalg.yts?
+Verify(ZeroVector(3),{0,0,0}); f();
+Verify(BaseVector(2,3),{0,1,0}); f();
+Verify(Identity(3),{{1,0,0},{0,1,0},{0,0,1}}); f();
+
+
+
+
+%/mathpiper
