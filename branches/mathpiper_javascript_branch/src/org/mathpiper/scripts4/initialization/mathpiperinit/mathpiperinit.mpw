@@ -30,7 +30,9 @@ Rule(MathPiperInitLoad, 0, 1, True)
 
     //LoadScriptOnce("constants.rep/code.mpi");
     //LoadScriptOnce("initialization.rep/standard.mpi");
+
     //LoadScriptOnce("initialization.rep/stdarith.mpi");
+    //Standard arithmetic is now initialized in SynchronousInterpreter.java.
 
     // at this point arithmetic can be used
 

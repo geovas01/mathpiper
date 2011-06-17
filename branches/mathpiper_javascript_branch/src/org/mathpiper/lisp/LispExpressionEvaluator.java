@@ -173,9 +173,6 @@ public class LispExpressionEvaluator extends Evaluator {
 
                     return;
 
-
-
-
                 }
             }
             aResult.setCons(aExpression.getCons().copy(aEnvironment, false));
@@ -191,16 +188,14 @@ public class LispExpressionEvaluator extends Evaluator {
 
         String functionName = (String) head.car();
 
-        SingleArityRulebase userFunc = null;
-
-        userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
+        SingleArityRulebase userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
 
     //System.out.println(functionName);
 
         if (userFunc != null) {
             return userFunc;
 
-        } else if (functionName != null) {
+        } else {
             MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, functionName, true);
 
             String[] scriptCode = aEnvironment.scripts.getScript(functionName);

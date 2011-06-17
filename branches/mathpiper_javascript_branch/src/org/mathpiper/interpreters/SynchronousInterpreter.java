@@ -96,7 +96,11 @@ class SynchronousInterpreter implements Interpreter {
                 throw new Exception("Error during system script initialization.");
             }
 
-            //todo:tk:temporary hack to initialize the arithmetic functions.
+            /*
+                 Load the core arithmetic operator definitions because these operators are defined in various
+                .mpw files (such as in Complex.mpw) and if the core definitions are not loaded here, only
+                a partial set of arithmetic rules will be active.
+             */
             initializationEvaluationResponse = evaluate("-1*1/1+1^1-1;");
             if (initializationEvaluationResponse.isExceptionThrown()) {
                 throw new Exception("Error during system script initialization.");
