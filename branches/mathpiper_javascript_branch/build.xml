@@ -118,6 +118,7 @@
 				<include name="org/mathpiper/interpreters/" />
 				<include name="org/mathpiper/io/" />
 				<include name="org/mathpiper/lisp/" />
+				<include name="org/mathpiper/JavaScript.java" />
 				<include name="org/mathpiper/Scripts.java" />
 				<include name="org/mathpiper/Version.java" />
 			</fileset>

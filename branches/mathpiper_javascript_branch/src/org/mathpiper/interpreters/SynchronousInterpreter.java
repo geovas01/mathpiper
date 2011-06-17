@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.interpreters;
 
-import com.google.gwt.core.client.EntryPoint;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.io.InputStatus;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
@@ -32,7 +31,6 @@ import org.mathpiper.lisp.parsers.Parser;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.printers.LispPrinter;
 
-import java.io.*;
 import java.util.ArrayList;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
@@ -46,7 +44,7 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *
  */
-class SynchronousInterpreter implements Interpreter, EntryPoint  {
+class SynchronousInterpreter implements Interpreter  {
 
     private ArrayList<ResponseListener> removeListeners;
     private ArrayList<ResponseListener> responseListeners;
@@ -462,13 +460,6 @@ class SynchronousInterpreter implements Interpreter, EntryPoint  {
 
     }//end method.
 
-
-
-
-    public void onModuleLoad() {
-
-
-    }//end method.
 
 }// end class.
 
