@@ -36,7 +36,7 @@ public class ExceptionCatch extends BuiltinFunction
         } catch (Throwable exception)
         {   //Return the second argument.
             //e.printStackTrace();
-            Boolean interrupted = Thread.currentThread().interrupted(); //Clear interrupted condition.
+            //Boolean interrupted = Thread.currentThread().interrupted(); //Clear interrupted condition.
             aEnvironment.iException = exception;
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
             aEnvironment.iException = null;

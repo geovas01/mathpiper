@@ -70,7 +70,7 @@ public class LispExpressionEvaluator extends Evaluator {
     public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aExpression) throws Exception {
 
         LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
-        synchronized (aEnvironment) {
+
             aEnvironment.iEvalDepth++;
             if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
                 /* if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
@@ -80,10 +80,10 @@ public class LispExpressionEvaluator extends Evaluator {
                 // }
             }
 
-            if (Thread.interrupted()) {
-                LispError.raiseError("User halted calculation.", "", aStackTop, aEnvironment);
-            }
-        }
+            //if (Thread.interrupted()) {
+            //    LispError.raiseError("User halted calculation.", "", aStackTop, aEnvironment);
+            //}
+  
 
 
 

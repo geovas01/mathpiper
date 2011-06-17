@@ -33,7 +33,6 @@ import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.behaviours.Substitute;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
-import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.io.StringInputStream;
@@ -94,7 +93,7 @@ public class Utility {
         4.9541963103868752088061235991755544235489,
         5.
     };
-    public static java.util.zip.ZipFile zipFile = null;
+
     public static String scriptsPath = null;
 
     public static boolean isNumber(String ptr, boolean aAllowFloat) {
@@ -1146,7 +1145,7 @@ public class Utility {
             }
 
             dumpResult.append("Precedence: " + precedence + ", ");
-            dumpResult.append("\n" + "Rule Type: " + rule.getClass().getSimpleName() + ", ");
+            dumpResult.append("\n" + "Rule Type: " + rule.getClass().getName() + ", ");
             dumpResult.append("\n" + "Arity: " + userFunction.arity() + ", ");
             dumpResult.append("\n" + "Parameters: " + parameters + ", ");
             dumpResult.append("\n" + "Predicates: " + predicate + ",    ");

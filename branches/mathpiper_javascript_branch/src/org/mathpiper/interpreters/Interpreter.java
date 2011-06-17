@@ -59,14 +59,6 @@ public interface Interpreter
      */
     public void haltEvaluation();
 
-    //java.util.zip.ZipFile getScriptsZip();
-
-    /**
-     * Adds a path to the paths which are searched when locating MathPiper scripts.
-     *
-     * @param directoryPath the path to a directory which contains MathPiper scripts
-     */
-    public void addScriptsDirectory(String directoryPath);
    
     /**
      * Allows asynchrnous interpreter clients to add themselves to the list of listeners which

@@ -31,7 +31,7 @@ public class SystemTimer extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        long currentTime = System.nanoTime();
+        long currentTime = System.currentTimeMillis();
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + currentTime));
     }//end method.

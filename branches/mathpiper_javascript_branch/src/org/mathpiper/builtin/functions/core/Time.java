@@ -43,13 +43,13 @@ public class Time extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        BigDecimal startTime = new BigDecimal(System.nanoTime());
+        BigDecimal startTime = new BigDecimal(System.currentTimeMillis());
 
         ConsPointer res = new ConsPointer();
 
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, res, getArgumentPointer(aEnvironment, aStackTop, 1));
 
-        BigDecimal endTime = new BigDecimal(System.nanoTime());
+        BigDecimal endTime = new BigDecimal(System.currentTimeMillis());
 
         BigDecimal timeDiff;
 

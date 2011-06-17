@@ -61,7 +61,6 @@ class SynchronousInterpreter implements Interpreter, EntryPoint  {
     boolean inZipFile = false;
     MathPiperOutputStream sideEffectsStream;
     private static SynchronousInterpreter singletonInstance;
-    private Thread evaluationThread;
 
 
     private SynchronousInterpreter(String docBase) {
@@ -147,7 +146,7 @@ class SynchronousInterpreter implements Interpreter, EntryPoint  {
     }
 
 
-    public synchronized EvaluationResponse evaluate(String inputExpression) {
+    public EvaluationResponse evaluate(String inputExpression) {
         return this.evaluate(inputExpression, false);
     }//end method.
 
@@ -159,9 +158,8 @@ class SynchronousInterpreter implements Interpreter, EntryPoint  {
     @param notifyEvaluationListeners
     @return
      */
-    public synchronized EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners) {
+    public EvaluationResponse evaluate(String inputExpression, boolean notifyEvaluationListeners) {
 
-        evaluationThread = Thread.currentThread();
 
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
         if (inputExpression.length() == 0) {
@@ -237,7 +235,7 @@ class SynchronousInterpreter implements Interpreter, EntryPoint  {
     }//end method.
 
 
-    public synchronized EvaluationResponse evaluate(ConsPointer inputExpressionPointer) {
+    public EvaluationResponse evaluate(ConsPointer inputExpressionPointer) {
         return evaluate(inputExpressionPointer, false);
     }
 
@@ -249,9 +247,8 @@ class SynchronousInterpreter implements Interpreter, EntryPoint  {
     @param notifyEvaluationListeners
     @return
      */
-    public synchronized EvaluationResponse evaluate(ConsPointer inputExpressionPointer, boolean notifyEvaluationListeners) {
+    public EvaluationResponse evaluate(ConsPointer inputExpressionPointer, boolean notifyEvaluationListeners) {
 
-        evaluationThread = Thread.currentThread();
 
         //return this.evaluate(inputExpression, false);
         EvaluationResponse evaluationResponse = EvaluationResponse.newInstance();
@@ -413,11 +410,11 @@ class SynchronousInterpreter implements Interpreter, EntryPoint  {
 
 
     public void haltEvaluation() {
-        synchronized (iEnvironment) {
+        //synchronized (iEnvironment) {
             //iEnvironment.iEvalDepth = iEnvironment.iMaxEvalDepth + 100; //Deprecated.
 
-            evaluationThread.interrupt();
-        }
+            //evaluationThread.interrupt();
+        //}
     }
 
 
@@ -430,12 +427,6 @@ class SynchronousInterpreter implements Interpreter, EntryPoint  {
     return Utility.zipFile;
     }//end method.*/
 
-    public void addScriptsDirectory(String directory) {
-        String toEvaluate = "DefaultDirectory(\"" + directory + File.separator + "\");";
-
-        evaluate(toEvaluate);  //Note:tk:some exception handling needs to happen here..
-
-    }//addScriptsDirectory.
 
 
     public void addResponseListener(ResponseListener listener) {

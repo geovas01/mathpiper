@@ -34,7 +34,7 @@ public class Delay extends BuiltinFunction
     {
         BigNumber milliseconds = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-        Thread.sleep(milliseconds.toLong());
+        //Thread.sleep(milliseconds.toLong());
 
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }

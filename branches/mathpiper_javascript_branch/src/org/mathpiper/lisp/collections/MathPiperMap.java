@@ -17,8 +17,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.collections;
 
-import java.util.Collections;
-
 /** MathPiperMap allows you to associate arbitrary
  * information with a string in the above hash table. You can
  * specify what type of information to link to the string, and
@@ -31,7 +29,7 @@ import java.util.Collections;
 public class MathPiperMap
 {
     //java.util.Hashtable iMap = new java.util.Hashtable();
-    java.util.Map iMap = Collections.synchronizedMap(new java.util.HashMap());
+    java.util.Map iMap = new java.util.HashMap();
 
     /**
      * Find the data associated to \a aString.

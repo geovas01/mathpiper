@@ -25,7 +25,6 @@ import org.mathpiper.builtin.functions.core.ArrayCreate;
 import org.mathpiper.builtin.functions.core.ArrayGet;
 import org.mathpiper.builtin.functions.core.ArraySet;
 import org.mathpiper.builtin.functions.core.ArraySize;
-import org.mathpiper.builtin.functions.core.AskUser;
 import org.mathpiper.builtin.functions.core.ToAtom;
 import org.mathpiper.builtin.functions.core.BackQuote;
 import org.mathpiper.builtin.functions.core.BitAnd;
@@ -68,7 +67,6 @@ import org.mathpiper.builtin.functions.core.Divide;
 import org.mathpiper.builtin.functions.core.DumpNumber;
 import org.mathpiper.builtin.functions.core.IsEqual;
 import org.mathpiper.builtin.functions.core.Eval;
-import org.mathpiper.builtin.functions.core.Exit;
 import org.mathpiper.builtin.functions.core.ExitRequested;
 import org.mathpiper.builtin.functions.core.ExpressionToString;
 import org.mathpiper.builtin.functions.core.Factorial;
@@ -165,6 +163,7 @@ import org.mathpiper.builtin.functions.core.RulebaseDefined;
 import org.mathpiper.builtin.functions.core.RulebaseListed;
 import org.mathpiper.builtin.functions.core.Secure;
 import org.mathpiper.builtin.functions.core.Bind;
+import org.mathpiper.builtin.functions.core.ExceptionCatch;
 import org.mathpiper.builtin.functions.core.SetExactBits;
 import org.mathpiper.builtin.functions.core.SetGlobalLazyVariable;
 import org.mathpiper.builtin.functions.core.ShiftLeft;
@@ -175,14 +174,11 @@ import org.mathpiper.builtin.functions.core.StringMidSet;
 import org.mathpiper.builtin.functions.core.ToString;
 import org.mathpiper.builtin.functions.core.Subst;
 import org.mathpiper.builtin.functions.core.Subtract;
-import org.mathpiper.builtin.functions.core.SystemCall;
-import org.mathpiper.builtin.functions.core.TellUser;
 import org.mathpiper.builtin.functions.core.ToBase;
 import org.mathpiper.builtin.functions.core.PipeToStdout;
 import org.mathpiper.builtin.functions.core.PipeToString;
 import org.mathpiper.builtin.functions.core.TraceRule;
 import org.mathpiper.builtin.functions.core.TraceStack;
-import org.mathpiper.builtin.functions.core.ExceptionCatch;
 import org.mathpiper.builtin.functions.core.UnFence;
 import org.mathpiper.builtin.functions.core.ListToFunction;
 import org.mathpiper.builtin.functions.core.While;
@@ -190,12 +186,12 @@ import org.mathpiper.builtin.functions.core.Write;
 import org.mathpiper.builtin.functions.core.WriteString;
 import org.mathpiper.builtin.functions.core.XmlExplodeTag;
 import org.mathpiper.builtin.functions.core.XmlTokenizer;
+import org.mathpiper.builtin.functions.core.Delay;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
-import org.mathpiper.builtin.functions.core.Delay;
 import org.mathpiper.builtin.functions.core.FastArcCos;
 import org.mathpiper.builtin.functions.core.FastArcTan;
 import org.mathpiper.builtin.functions.core.FastCos;
@@ -543,9 +539,6 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new Gcd(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "GcdN");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new SystemCall(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "SystemCall");
-		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new FastSin(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "FastSin");
 		aEnvironment.getBuiltinFunctions().setAssociation(
@@ -795,9 +788,6 @@ public abstract class BuiltinFunction {
 		        new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Version(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "Version");
 		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new Exit(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "Exit");
-		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new ExitRequested(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "IsExitRequested");
 		aEnvironment.getBuiltinFunctions().setAssociation(
@@ -809,12 +799,6 @@ public abstract class BuiltinFunction {
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new IsPromptShown(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
 		        "IsPromptShown");
-		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new AskUser(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "AskUser");
-		aEnvironment.getBuiltinFunctions().setAssociation(
-		        new BuiltinFunctionEvaluator(new TellUser(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-		        "TellUser");
 		aEnvironment.getBuiltinFunctions().setAssociation(
 		        new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Time(aEnvironment), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
 		        "Time");

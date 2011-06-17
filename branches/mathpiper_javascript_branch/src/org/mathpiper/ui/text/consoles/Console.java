@@ -41,10 +41,6 @@ public class Console {
     }
 
 
-    void addDirectory(String directory) {
-        interpreter.addScriptsDirectory(directory);
-    }
-
 
     String readLine(InputStreamReader aStream) {
         StringBuffer line = new StringBuffer();
@@ -175,10 +171,6 @@ public class Console {
             i++;
         }
 
-        //Change the default directory. tk.
-        if (defaultDirectory != null) {
-            console.addDirectory(defaultDirectory);
-        }
 
         if (i < argv.length) {
             for (; i < argv.length; ++i) {
