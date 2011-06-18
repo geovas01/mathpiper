@@ -1,8 +1,6 @@
 %mathpiper,def="Nl"
 
-Nl():=
-"
-";
+Nl():= UnicodeToString(10);
 
 %/mathpiper
 
