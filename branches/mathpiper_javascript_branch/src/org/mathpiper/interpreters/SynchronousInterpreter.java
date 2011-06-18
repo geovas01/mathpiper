@@ -97,9 +97,9 @@ class SynchronousInterpreter implements Interpreter {
             }
 
             /*
-                 Load the core arithmetic operator definitions because these operators are defined in various
-                .mpw files (such as in Complex.mpw) and if the core definitions are not loaded here, only
-                a partial set of arithmetic rules will be active.
+            Load the core arithmetic operator definitions because these operators are defined in various
+            .mpw files (such as in Complex.mpw) and if the core definitions are not loaded here, only
+            a partial set of arithmetic rules will be active.
              */
             initializationEvaluationResponse = evaluate("-1*1/1+1^1-1;");
             if (initializationEvaluationResponse.isExceptionThrown()) {
@@ -175,7 +175,11 @@ class SynchronousInterpreter implements Interpreter {
             evaluationResponse.setResult("Empty Input");
             return evaluationResponse;
         }
-        String resultString = "";
+
+        InputStatus oldstatus = iEnvironment.iInputStatus;
+
+        MathPiperInputStream previous = iEnvironment.iCurrentInput;
+
         try {
             iEnvironment.iEvalDepth = 0;
 
@@ -186,45 +190,20 @@ class SynchronousInterpreter implements Interpreter {
             //iException = null;
 
             ConsPointer inputExpressionPointer = new ConsPointer();
-            if (iEnvironment.iPrettyReaderName != null) {
-                InputStatus someStatus = new InputStatus();
-                StringBuilder inp = new StringBuilder();
-                inp.append(inputExpression);
-                InputStatus oldstatus = iEnvironment.iInputStatus;
-                iEnvironment.iInputStatus.setTo("String");
-                StringInputStream newInput = new StringInputStream(inputExpression, iEnvironment.iInputStatus);
 
-                MathPiperInputStream previous = iEnvironment.iCurrentInput;
-                iEnvironment.iCurrentInput = newInput;
-                try {
-                    ConsPointer args = new ConsPointer();
-                    Utility.applyString(iEnvironment, -1, inputExpressionPointer,
-                            iEnvironment.iPrettyReaderName,
-                            args);
-                } catch (Exception exception) {
-                    if (exception instanceof EvaluationException) {
-                        EvaluationException mpe = (EvaluationException) exception;
-                        int errorLineNumber = mpe.getLineNumber();
-                        evaluationResponse.setLineNumber(errorLineNumber);
-                    }
-                    evaluationResponse.setException(exception);
-                    evaluationResponse.setExceptionMessage(exception.getMessage());
+            iEnvironment.iInputStatus.setTo("String");
 
-                } finally {
-                    iEnvironment.iCurrentInput = previous;
-                    iEnvironment.iInputStatus.restoreFrom(oldstatus);
-                }
-            } else //Else not PrettyPrinter.
+            StringInputStream newInput = new StringInputStream(inputExpression + ";", iEnvironment.iInputStatus);
+
+            iEnvironment.iCurrentInput = newInput;
+
+            if (iEnvironment.iPrettyReaderName != null)
             {
-
-                InputStatus someStatus = new InputStatus();
-
-                StringBuffer inp = new StringBuffer();
-                inp.append(inputExpression);
-                inp.append(";");
-                StringInputStream inputExpressionBuffer = new StringInputStream(inp.toString(), someStatus);
-
-                Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
+                ConsPointer args = new ConsPointer();
+                Utility.applyString(iEnvironment, -1, inputExpressionPointer, iEnvironment.iPrettyReaderName, args);
+            } else //Else not PrettyReader.
+            {
+                Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
                 infixParser.parse(-1, inputExpressionPointer);
             }
 
@@ -232,6 +211,9 @@ class SynchronousInterpreter implements Interpreter {
 
         } catch (Exception exception) {
             this.handleException(exception, evaluationResponse);
+        } finally {
+            iEnvironment.iCurrentInput = previous;
+            iEnvironment.iInputStatus.restoreFrom(oldstatus);
         }
 
         if (notifyEvaluationListeners) {
