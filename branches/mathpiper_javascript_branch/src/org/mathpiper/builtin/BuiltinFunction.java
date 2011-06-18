@@ -186,6 +186,7 @@ import org.mathpiper.builtin.functions.core.WriteString;
 import org.mathpiper.builtin.functions.core.XmlExplodeTag;
 import org.mathpiper.builtin.functions.core.XmlTokenizer;
 import org.mathpiper.builtin.functions.core.Delay;
+import org.mathpiper.builtin.functions.core.ExceptionGet;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -392,6 +393,9 @@ public abstract class BuiltinFunction {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new ExceptionCatch(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "ExceptionCatch");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new ExceptionGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "ExceptionGet");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Prefix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Prefix");

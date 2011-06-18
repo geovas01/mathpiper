@@ -1,6 +1,0 @@
-Testing("-- Easter");
-
-Verify(Easter(1777), {3, 30});
-Verify(Easter(1961), {4, 2});
-Verify(Easter(2009), {4, 12});
-Verify(Easter(2011), {4, 24});

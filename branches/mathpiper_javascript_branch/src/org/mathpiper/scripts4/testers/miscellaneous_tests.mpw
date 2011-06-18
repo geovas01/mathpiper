@@ -1,5 +1,5 @@
 %mathpiper,name="miscellaneous",subtype="automatic_test"
-
+[
 Testing("From: calculus.mpt");
 f():=[];//Echo(CurrentFile()," line ",CurrentLine());
 Testing("UnaryFunctionInverses");
@@ -11,7 +11,6 @@ Verify(Tan(Pi/2),Infinity); f();
 Verify(Tan(Pi),0); f();
 Verify( Sin(x)/Cos(x), Tan(x) ); f();
 Verify( TrigSimpCombine(Sin(x)^2 + Cos(x)^2), 1 ); f();
-
 Verify( Sinh(x)-Cosh(x), Exp(-x)); f();
 Verify( Sinh(x)+Cosh(x), Exp(x) ); f();
 Verify( Sinh(x)/Cosh(x), Tanh(x) ); f();
@@ -28,6 +27,23 @@ Verify(BaseVector(2,3),{0,1,0}); f();
 Verify(Identity(3),{{1,0,0},{0,1,0},{0,0,1}}); f();
 
 
+Testing("Checking comment syntax supported");
+[
+  Local(a);
+  /* something here */
+  a:= 3;
+  // test 1
+
+  // /* test2 */
+
+  /* // test3 */
+
+  //Echo({a, Nl()});
+
+  // Check parsing
+  a==-b; // This would generate a parse error in Yacas versions 1.0.54 and earlier
+];
 
 
+];
 %/mathpiper

@@ -371,6 +371,7 @@ Result: Infinity;
 
 
 %mathpiper,name="Limit",subtype="automatic_test"
+[
 Testing("Limits");
 
 Verify( Limit(x,Infinity) Sin(x), Undefined ); f();
@@ -457,5 +458,5 @@ Verify(Limit(x,Infinity)Ln(x+1)^2/Sqrt(x), 0);
 Verify(Limit(x,Infinity)(Ln(x+1)-Ln(x)), 0);
 Verify(Limit(x,Infinity)-Ln(x+1)^2/Ln(Ln(x)), -Infinity);
 
-
+];
 %/mathpiper

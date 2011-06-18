@@ -353,18 +353,7 @@ public class Build {
                     throw new Exception("Opening fold tag missing in " + fileName + ".");
                 }
 
-                String foldContentsString = foldContents.toString();
-                //String foldContentsStringNoComments = foldContentsString;
-                //See http://ostermiller.org/findcomment.html
-                String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
-                foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
-                foldContentsStringNoComments = foldContentsStringNoComments.replaceAll(" +", " ");
-                foldContentsStringNoComments = foldContentsStringNoComments.replace("\\", "\\\\");
-                foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "");
-                //foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "\\\\n");
-                //foldContentsStringNoComments = foldContentsStringNoComments.replace("\n", "\\n");
-
-                Fold fold = new Fold(foldHeader, foldContentsStringNoComments);
+                Fold fold = new Fold(foldHeader, foldContents.toString());
                 foldContents.delete(0, foldContents.length());
                 folds.add(fold);
                 inFold = false;
@@ -450,7 +439,7 @@ public class Build {
         boolean hasDocs = false;
 
         String scopeAttribute = "public";
-        String subType = "";
+        String subTypeAttribute = "";
         //String scope = "public";
 
         for (Fold fold : folds) {
@@ -465,7 +454,7 @@ public class Build {
                 }
 
                 if (fold.getAttributes().containsKey("subtype")) {
-                    subType = (String) fold.getAttributes().get("subtype");
+                    subTypeAttribute = (String) fold.getAttributes().get("subtype");
                 }
 
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
@@ -473,24 +462,24 @@ public class Build {
                     String foldContents = fold.getContents();
 
 
-                    if (subType.equalsIgnoreCase("automatic_test")) {
+                    if (subTypeAttribute.equalsIgnoreCase("automatic_test")) {
 
-                        testsJavaFile.write("\n        testString = new String[2];");
-                        testsJavaFile.write("\n        testString[0] = \"\";");
-                        testsJavaFile.write("\n        testString[1] = \"" + foldContents.replace("\"", "\\\"") + "\";\n");
-
-                        if (fold.getAttributes().containsKey("name")) {
-                            String nameAttribute = (String) fold.getAttributes().get("name");
-                            if (!nameAttribute.equalsIgnoreCase("")) {
-                                    testsJavaFile.write("        testsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
-                            }//end if.
-                        }//end if.
+                        processAutomaticTestFold(fold);
 
                     } else {
 
+                        String foldContentsString = foldContents.toString();
+                        //String foldContentsStringNoComments = foldContentsString;
+                        //See http://ostermiller.org/findcomment.html
+                        String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
+                        foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
+                        foldContentsStringNoComments = foldContentsStringNoComments.replaceAll(" +", " ");
+                        foldContentsStringNoComments = foldContentsStringNoComments.replace("\\", "\\\\");
+                        foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "");
+
                         scriptsJavaFile.write("\n        scriptString = new String[2];");
                         scriptsJavaFile.write("\n        scriptString[0] = \"not-loaded\";");
-                        scriptsJavaFile.write("\n        scriptString[1] = \"" + foldContents.replace("\"", "\\\"") + "\";\n");
+                        scriptsJavaFile.write("\n        scriptString[1] = \"" + foldContentsStringNoComments.replace("\"", "\\\"") + "\";\n");
 
                         if (fold.getAttributes().containsKey("def")) {
                             String defAttribute = (String) fold.getAttributes().get("def");
@@ -646,11 +635,27 @@ public class Build {
                 }//end for.
             }//end if.
 
-
-
-
         }//end if.
     }//end method
+
+
+    private void processAutomaticTestFold(Fold fold) throws Exception {
+        
+        String foldContents = fold.getContents();
+
+        foldContents = foldContents.replace("\n", "\\n");
+
+        testsJavaFile.write("\n        testString = new String[2];");
+        testsJavaFile.write("\n        testString[0] = \"\";");
+        testsJavaFile.write("\n        testString[1] = \"" + foldContents.replace("\"", "\\\"") + "\";\n");
+
+        if (fold.getAttributes().containsKey("name")) {
+            String nameAttribute = (String) fold.getAttributes().get("name");
+            if (!nameAttribute.equalsIgnoreCase("")) {
+                testsJavaFile.write("        testsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+            }//end if.
+        }//end if.
+    }//end method.
 
 
     public void execute() throws Exception {
@@ -703,14 +708,8 @@ public class Build {
 
         File builtinFunctionsSourceDir = new java.io.File(sourceDirectoryPath + pluginFilePath);
 
-        String directoryPath = builtinFunctionsSourceDir.getPath();
-
 
         java.io.FileWriter pluginsListFile = null;
-        //if(!directoryPath.endsWith("core"))
-        //{
-        //    pluginsListFile = new java.io.FileWriter(outputDirectoryPath + "/" + pluginFilePath + "/plugins_list.txt");
-        //}
 
 
         if (builtinFunctionsSourceDir.exists()) {
@@ -746,6 +745,9 @@ public class Build {
 
                 boolean hasDocs = false;
 
+                String scopeAttribute = "public";
+                String subTypeAttribute = "";
+
                 for (Fold fold : folds) {
 
                     String foldType = fold.getType();
@@ -756,7 +758,25 @@ public class Build {
 
                         processMathPiperDocsFold(fold, javaFile.getPath());
 
-                    }//end if.
+                    } else if (foldType.equalsIgnoreCase("%mathpiper")) {
+                        if (fold.getAttributes().containsKey("scope")) {
+                            scopeAttribute = (String) fold.getAttributes().get("scope");
+                        }
+
+                        if (fold.getAttributes().containsKey("subtype")) {
+                            subTypeAttribute = (String) fold.getAttributes().get("subtype");
+                        }
+
+                        if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
+
+                            String foldContents = fold.getContents();
+
+
+                            if (subTypeAttribute.equalsIgnoreCase("automatic_test")) {
+                                this.processAutomaticTestFold(fold);
+                            }//end if.
+                        }//end if.
+                    }//end else.
 
                 }//end for
 
@@ -783,19 +803,6 @@ public class Build {
         }*/
 
 
-    }//end method.
-
-
-    private String replaceNewline(String str) {
-
-        StringBuilder stringBuilder = new StringBuilder(str);
-        for (int i = 0; i < stringBuilder.length(); i++) {
-            if (stringBuilder.charAt(i) == '\n') {
-                stringBuilder.replace(i, i, "\\");
-                stringBuilder.insert(i, "n");
-            }
-        }
-        return stringBuilder.toString();
     }//end method.
 
 

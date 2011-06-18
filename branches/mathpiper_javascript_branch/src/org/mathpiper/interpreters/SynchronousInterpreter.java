@@ -101,7 +101,7 @@ class SynchronousInterpreter implements Interpreter {
             .mpw files (such as in Complex.mpw) and if the core definitions are not loaded here, only
             a partial set of arithmetic rules will be active.
              */
-            initializationEvaluationResponse = evaluate("-1*1/1+1^1-1;");
+            initializationEvaluationResponse = evaluate("-1*1/1+1^1-1+ -Sqrt(8)/2;");
             if (initializationEvaluationResponse.isExceptionThrown()) {
                 throw new Exception("Error during system script initialization.");
             }

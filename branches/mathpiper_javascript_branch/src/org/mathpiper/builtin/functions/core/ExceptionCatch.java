@@ -155,4 +155,20 @@ Echo("Message: ", caughtException["message"]);
 *SEE Check, ExceptionGet
 
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="ExceptionCatch",subtype="automatic_test"
+
+[
+  //Test ExceptionCatch and ExceptionGet.
+  Local(exception);
+  exception := False;
+  ExceptionCatch(Check(False, "Unspecified", "some error"), exception := ExceptionGet());
+  Verify(exception = False, False);
+];
+
+%/mathpiper
 */

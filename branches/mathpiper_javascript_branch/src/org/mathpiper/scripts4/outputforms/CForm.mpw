@@ -38,7 +38,7 @@ CFormDoublePrecisionNumber(x_IsNumber) <--
     For(i := 1, i <= n, i++)
     [
         If(s[i] = "e" Or s[i] = ".", f := True);
-    ];
+    ];"BinaryFactors
     If(f, s, s : ".");
 ];
 
@@ -269,6 +269,7 @@ Result: "sin(a1) + 2 * cos(b1)";
 
 
 %mathpiper,name="CForm",subtype="automatic_test"
+[
 Verify(
 CForm(Hold(Cos(A-B)*Sin(a)*func(b,c,d*(e+Pi))*Sqrt(Abs(C)+D)-(g(a+b)^(c+d))^(c+d)))
 ,"cos(A - B) * sin(a) * func(b, c, d * ( e + Pi) ) * sqrt(fabs(C) + D) - pow(pow(g(a + b), c + d), c + d)"
@@ -304,4 +305,5 @@ CForm(Hold([i:=0.;While(i<10.)[i++; a:=a+Floor(i);];]))
   }
 "
 );
+];
 %/mathpiper

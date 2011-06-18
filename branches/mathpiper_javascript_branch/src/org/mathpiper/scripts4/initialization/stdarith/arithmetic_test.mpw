@@ -1,5 +1,5 @@
 %mathpiper,name="arithmetic",subtype="automatic_test"
-
+[
 NextTest("Test arithmetic");
 
 NextTest("Basic calculations");
@@ -164,4 +164,5 @@ Verify(Gcd(-Sqrt(2),-Sqrt(2)),Sqrt(2));
 Verify(Gcd(Sqrt(2),-Sqrt(2)),Sqrt(2));
 Verify(Gcd(-Sqrt(2),Sqrt(2)),Sqrt(2));
 
+];
 %/mathpiper

@@ -97,6 +97,7 @@ Result: {Cos(x),-Sin(x)};
 
 
 %mathpiper,name="Differentiate",subtype="automatic_test"
+[
 
 Testing("Derivatives");
 Verify(Differentiate(x) a,0); f();
@@ -113,4 +114,5 @@ Verify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x)); f();
   Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 );
 ];
 
+];
 %/mathpiper

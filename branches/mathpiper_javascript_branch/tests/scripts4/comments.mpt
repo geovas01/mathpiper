@@ -17,11 +17,6 @@ NextTest("Checking comment syntax supported");
 ];
 
 
-[ //Test ExceptionCatch and ExceptionGet.
-  Local(exception);
-  exception := False;
-  ExceptionCatch(Check(False, "Unspecified", "some error"), exception := ExceptionGet());
-  Verify(exception = False, False);
-];
+
 
 

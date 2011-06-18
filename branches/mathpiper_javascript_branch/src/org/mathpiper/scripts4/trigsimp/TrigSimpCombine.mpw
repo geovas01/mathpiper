@@ -388,12 +388,12 @@ FLog("sassoc",sassoc);
 //Echo({sassoc});
   ForEach(item,cassoc)
   [
-Log("item",item);
+FLog("item",item);
     result:=result+Expand(FUnTrig(FFromInternal(item[2])))*Cos(item[1]);
   ];
   ForEach(item,sassoc)
   [
-Log("item",item);
+FLog("item",item);
     result:=result+Expand(FUnTrig(FFromInternal(item[2])))*Sin(item[1]);
   ];
 
