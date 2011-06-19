@@ -1,61 +1,19 @@
 %mathpiper,title="jFactorsPoly"
 
-//Retract("jFactorsPoly",*);
-//Retract("HasRealCoefficients",*);      
-//Retract("RealToRationalConvert",*);
-//Retract("HasRationalCoefficients",*);   
-//Retract("RationalToIntegerConvert",*);
-//Retract("jFactorsPrimitivePart",*);
-//Retract("jFactorsBivariateBinomial",*);
-//Retract("jFactorsHomogeneousBivariate",*);
-
-//Retract("jFB",*);
-//Retract("jFac",*);
-
-//Retract("FixUpMonicFactors",*);
-//Retract("CombineNumericalFactors",*);
-//Retract("IsPureRational",*);
-
 /* -------------    POLYNOMIALS -- CAN BE UNI   --------------*/
 
 50 # jFactorsPoly( poly_CanBeUni ) <--
 [
     If(InVerboseMode(),Tell("jFactorsPoly_100612",poly));
     Local(content,pp,ppFactors,monomialFactors,result,moreDetails);
-    Local(vars,nvars,disassem,degrees,mpoly,nterms,allCoeffs,allPowers);
-    Local(hasRealCoefficients,hasRationalCoefficients,isHomogeneous);
+    Local(vars,nvars,nterms);
+    Local(isHomogeneous);
     Local(extraFactor);
     
     moreDetails := False;
-    disassem  := DisassembleExpression(poly);
-    allCoeffs := disassem[3];
 
-    //  First, check to see if the polynomial has any REAL coefficients.
-    //  If so, convert to approximate integers (with divisor).
-    hasRealCoefficients := HasRealCoefficients(poly);
-    If( hasRealCoefficients, 
-      [
-         Local(realPoly);
-         realPoly  := poly;   //  just in case -- save original form
-         allPowers := Flatten(disassem[2],"List");
-         poly      := RealToRationalConvert(poly);
-         // From now on we operate on a polynomial over Integers
-         hasRealCoefficients := False;          ]
-    );
-    
-    //  Also, check to see if the polynomial has Rational coeffs
-    hasRationalCoefficients := HasRationalCoefficients(poly);
-    If(hasRationalCoefficients, 
-      [
-         Local(rationalPoly);
-         rationalPoly  := poly;   //  just in case -- save original form
-         If(InVerboseMode(),Tell("   RATIONAL",rationalPoly));
-         // convert to equivalent polynomial over Integers
-         poly := RationalToIntegerConvert(poly);
-         // From now on we operate on a polynomial over Integers
-         hasRationalCoefficients := False;    
-      ]
-    );
+    If(HasRealCoefficients(poly), poly := RealToRationalConvert(poly));
+    If(HasRationalCoefficients(poly), poly := RationalToIntegerConvert(poly));
 
     // Now: get Content and Primitive Part
     content := xContent( poly );
@@ -65,18 +23,15 @@
     //If(IsConstant(pp) And Length(VarList(content))>0,{content,pp}:={pp,content});
     If( Length(VarList(pp))=0, result := {{pp*content,1}},
       [
+         Local(disassem);
          //If(InVerboseMode(),Tell("  ",{content,pp}));
          vars     := VarList(pp);
          nvars    := Length(vars);
          disassem := DisassembleExpression(pp);
          nterms   := Length(disassem[3]);
-         degrees  := {};
-         allCoeffs         := disassem[3];
-         allPowers         := Flatten(disassem[2],"List");
+
          If(nvars > 0,
            [
-             ForEach(v,vars)
-                [ DestructiveAppend(degrees,Degree(pp,v)); ];
              isHomogeneous     := [
                  // A polynomial is homogeneous of degree n 
                  // if all terms have degree n.   
@@ -90,6 +45,13 @@
     
          If(InVerboseMode() And moreDetails,
            [
+             Local(degrees, allCoeffs, allPowers);
+
+             degrees := {};
+             ForEach(v,vars) [ DestructiveAppend(degrees,Degree(pp,v)); ];
+             allCoeffs := disassem[3];
+             allPowers := Flatten(disassem[2],"List");
+
              Tell("               ",vars);
              Tell("              ",nvars);
              Tell("             ",nterms);
@@ -124,7 +86,6 @@
          // Next, include the factors of the Content, if any
          If( monomialFactors[1][1] = 1,
              result := ppFactors,        
-             //result := Concat(monomialFactors,{ppFactors})    // hso 100801
              result := Concat(monomialFactors,ppFactors)      // hso 100803
          );
       ]
@@ -231,15 +192,18 @@ UnFence("jFactorsHomogeneousBivariate",1);
     // If the polynomial has REAL coefficients, convert them to
     // approximate RATIONALS
     If(InVerboseMode(),[NewLine();Tell("  REAL",poly);]);
-    Local(coeffs,gcd,lcm);
-    coeffs := Rationalize /@ (allCoeffs);
-    If(InVerboseMode(),[Tell("      to-Q",coeffs);Tell("      to-Z",coeffs);]);
-    Local(gcd,lcm);
-    gcd    := Gcd(Numerator /@ coeffs);
-    lcm    := Lcm(Denominator /@ coeffs);
-    If(InVerboseMode(),[Tell("       ",gcd);Tell("       ",lcm);]);
+    Local(disassem,coeffs);
+    disassem := DisassembleExpression(poly);
+    coeffs := Rationalize /@ disassem[3];
+    If(InVerboseMode(), [
+        Local(gcd,lcm);
+        gcd    := Gcd(Numerator /@ coeffs);
+        lcm    := Lcm(Denominator /@ coeffs);
+        Tell("      to-Q",coeffs);
+        Tell("       ",gcd);
+        Tell("       ",lcm);
+    ]);
     disassem[3] := coeffs;
-    allCoeffs   := coeffs;
     poly        := Sum(ReassembleListTerms(disassem));
     If(InVerboseMode(),Tell("   new",poly));
     poly;
@@ -252,7 +216,7 @@ UnFence("RealToRationalConvert",1);
     // If the polynomial has RATIONAL coefficients, convert to
     // approximate INTEGER
     Local(coeffs,gcd,lcm);
-    coeffs := allCoeffs;
+    coeffs := DisassembleExpression(poly)[3];
     If(InVerboseMode(),Tell("  ",coeffs));
     lcm         := Lcm(Denominator /@ coeffs);
     extraFactor := lcm;
@@ -503,14 +467,7 @@ UnFence("jFac",3);
             lcm     := Lcm( Denominator /@ cc );
             uni[3]  := lcm * cc;
             fnew    := NormalForm(uni);
-            If( hasRationalCoefficients,
-              [
-                 DestructiveAppend(factrsnew,f);
-              ],
-              [ 
-                 DestructiveAppend(factrsnew,{fnew,f[2]});
-              ]
-            );
+            DestructiveAppend(factrsnew,{fnew,f[2]});
           ]
         );
         If( Degree(f[1])=2,
