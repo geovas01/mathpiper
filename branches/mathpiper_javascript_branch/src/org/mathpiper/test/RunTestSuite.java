@@ -55,10 +55,10 @@ public class RunTestSuite {
 
 
             //Initialization code.
-            //evaluationResponse = mathPiper.evaluate("StackTraceOn();");
-            //output = evaluationResponse(evaluationResponse);
-            //System.out.println("Turning stack tracing on: " + output);
-            //logFile.write("Turning stack tracing on: " + output);
+            evaluationResponse = mathPiper.evaluate("StackTraceOn();");
+            output = evaluationResponse(evaluationResponse);
+            System.out.println("Turning stack tracing on: " + output);
+            logFile.write("Turning stack tracing on: " + output);
 
 
             output = "\n\n***** Beginning of tests. *****\n";

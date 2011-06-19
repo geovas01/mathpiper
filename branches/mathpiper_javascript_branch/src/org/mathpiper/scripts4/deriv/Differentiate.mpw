@@ -100,6 +100,7 @@ Result: {Cos(x),-Sin(x)};
 [
 
 Testing("Derivatives");
+f():=[];
 Verify(Differentiate(x) a,0); f();
 Verify(Differentiate(x) x,1); f();
 Verify(Differentiate(x) (x+x),2); f();

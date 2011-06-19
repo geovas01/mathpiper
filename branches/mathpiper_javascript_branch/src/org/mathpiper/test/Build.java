@@ -29,6 +29,20 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.mathpiper.exceptions.EvaluationException;
+import org.mathpiper.interpreters.Interpreters;
+import org.mathpiper.io.StringInputStream;
+import org.mathpiper.interpreters.Interpreter;
+import org.mathpiper.io.InputStatus;
+import org.mathpiper.io.MathPiperInputStream;
+import org.mathpiper.io.MathPiperOutputStream;
+import org.mathpiper.io.StringOutputStream;
+import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.parsers.MathPiperParser;
+import org.mathpiper.lisp.printers.MathPiperPrinter;
+import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 /**
  *
@@ -51,6 +65,7 @@ public class Build {
     private List<CategoryEntry> functionCategoriesList = new ArrayList<CategoryEntry>();
     private int documentedFunctionsCount = 0;
     private int undocumentedMPWFileCount = 0;
+    private Interpreter mathpiper = Interpreters.newSynchronousInterpreter();
 
 
     public Build() {
@@ -442,7 +457,7 @@ public class Build {
         String subTypeAttribute = "";
         //String scope = "public";
 
-        for (Fold fold : folds) {
+       FoldLoop: for (Fold fold : folds) {
 
             String foldType = fold.getType();
 
@@ -459,6 +474,17 @@ public class Build {
 
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
 
+
+                String[] blacklist = {"CForm","IsCFormable"};
+                for(String fileName:blacklist)
+                {
+                    fileName = fileName + ".mpw";
+                    if(fileName.equalsIgnoreCase(mpwFile.getName()))
+                    {
+                        continue FoldLoop;
+                    }
+                }
+
                     String foldContents = fold.getContents();
 
 
@@ -467,23 +493,42 @@ public class Build {
                         processAutomaticTestFold(fold);
 
                     } else {
+                        InputStatus inputStatus = new InputStatus();
+                        inputStatus.setTo(mpwFile.getName());
+                        StringInputStream functionInputStream = new StringInputStream(foldContents, inputStatus);
 
-                        String foldContentsString = foldContents.toString();
-                        //String foldContentsStringNoComments = foldContentsString;
-                        //See http://ostermiller.org/findcomment.html
-                        String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
-                        foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
-                        foldContentsStringNoComments = foldContentsStringNoComments.replaceAll(" +", " ");
-                        foldContentsStringNoComments = foldContentsStringNoComments.replace("\\", "\\\\");
-                        foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "");
 
-                        scriptsJavaFile.write("\n        scriptString = new String[2];");
-                        scriptsJavaFile.write("\n        scriptString[0] = \"not-loaded\";");
-                        scriptsJavaFile.write("\n        scriptString[1] = \"" + foldContentsStringNoComments.replace("\"", "\\\"") + "\";\n");
+                        //String foldContentsString = foldContents.toString();
+                        ////String foldContentsStringNoComments = foldContentsString;
+                       // //See http://ostermiller.org/findcomment.html
+                        //String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
+                        //foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
+                        //foldContentsStringNoComments = foldContentsStringNoComments.replaceAll(" +", " ");
+                        //foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "");
+                        //foldContentsStringNoComments = foldContentsStringNoComments.replace("\\", "\\\\");
+                        //foldContentsStringNoComments = foldContentsStringNoComments.replace("\"", "\\\"");
+                        //String processedScript = foldContentsStringNoComments;
+
+    if(mpwFile.getName().equalsIgnoreCase("NormalForm.mpw"))
+    {
+        int xx = 2;
+    }
+                        String processedScript = "";
+                        try {
+                            processedScript = parsePrintScript(mathpiper.getEnvironment(), -1, functionInputStream);
+                        } catch (Exception e) {
+                            System.out.println(inputStatus.fileName() + ": Line: " + inputStatus.lineNumber());
+                            throw (e);
+                        }
+
 
                         if (fold.getAttributes().containsKey("def")) {
                             String defAttribute = (String) fold.getAttributes().get("def");
                             if (!defAttribute.equalsIgnoreCase("")) {
+
+                                scriptsJavaFile.write("\n        scriptString = new String[2];");
+                                scriptsJavaFile.write("\n        scriptString[0] = \"not-loaded\";");
+                                scriptsJavaFile.write("\n        scriptString[1] = \"" + processedScript + "\";\n");
 
                                 String[] defFunctionNames = defAttribute.split(";");
 
@@ -640,7 +685,7 @@ public class Build {
 
 
     private void processAutomaticTestFold(Fold fold) throws Exception {
-        
+
         String foldContents = fold.getContents();
 
         foldContents = foldContents.replace("\n", "\\n");
@@ -806,6 +851,59 @@ public class Build {
     }//end method.
 
 
+    public static String parsePrintScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
+
+        StringBuffer printedScriptStringBuffer = new StringBuffer();
+
+        MathPiperInputStream previous = aEnvironment.iCurrentInput;
+        try {
+            aEnvironment.iCurrentInput = aInput;
+            // TODO make "EndOfFile" a global thing
+            // read-parse-evaluate to the end of file
+            String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
+            boolean endoffile = false;
+            MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(),
+                    aEnvironment.iCurrentInput, aEnvironment,
+                    aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
+                    aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+            ConsPointer readIn = new ConsPointer();
+            while (!endoffile) {
+                // Read expression
+                parser.parse(aStackTop, readIn);
+
+                LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "INTERNAL");
+                // check for end of file
+                if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
+                    endoffile = true;
+                } // Else evaluate
+                else {
+                    printExpression(printedScriptStringBuffer, aEnvironment, readIn);
+                }
+            }//end while.
+
+            return printedScriptStringBuffer.toString();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace(); //todo:tk:uncomment for debugging.
+
+            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
+            throw ee;
+        } finally {
+            aEnvironment.iCurrentInput = previous;
+        }
+    }
+
+
+    public static void printExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
+        MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators, false);
+
+        MathPiperOutputStream stream = new StringOutputStream(outString);
+        infixprinter.print(-1, aExpression, stream, aEnvironment);
+
+    }//end method.
+
+
     public static void main(String[] args) {
 
         String sourceScriptsDirectory;
@@ -813,7 +911,7 @@ public class Build {
         if (args.length > 0) {
             sourceScriptsDirectory = args[0];
         } else {
-            sourceScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/scripts4/";
+            sourceScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/scripts4/";
         }
 
         String outputScriptsDirectory = "/home/tkosan/NetBeansProjects/scripts/";
@@ -826,10 +924,10 @@ public class Build {
         File newInitializationDirectory = new File(outputScriptsDirectory + "initialization.rep/");
         newInitializationDirectory.mkdirs();
 
-        File outputDocsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper/ui/gui/help/data/");
+        File outputDocsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper_javascript_branch/ui/gui/help/data/");
         outputDocsDirectory.mkdirs();
 
-        File pluginsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper/builtin/functions/optional/");
+        File pluginsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper_javascript_branch/builtin/functions/optional/");
         pluginsDirectory.mkdirs();
 
         pluginsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper/builtin/functions/plugins/jfreechart/");
@@ -842,11 +940,12 @@ public class Build {
 
             Build scripts = new Build(sourceScriptsDirectory, outputScriptsDirectory, outputScriptsDirectory + "documentation/");
 
-            scripts.setBaseDirectory("/home/tkosan/NetBeansProjects/mathpiper/");
+            scripts.setBaseDirectory("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/");
 
 
             scripts.compileScripts();
 
+            /*
             Map functionDocs = new HashMap();
 
             BufferedReader documentationIndex = new BufferedReader(new FileReader(outputDocsDirectory.getPath() + "/documentation_index.txt"));
@@ -867,6 +966,7 @@ public class Build {
             }//end while.
 
             documentationIndex.close();
+             */
 
         } catch (Exception e) {
             e.printStackTrace();

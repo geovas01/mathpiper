@@ -122,9 +122,9 @@ Rule(StandardOperatorsLoad, 0, 1, True)
 
     Bodied("TemplateFunction",60000);
 
-    Bodied("HtmlAnchor",60000);
-
     Bodied("Taylor3'TaylorCoefs",0);
+
+    Infix(":*:",3);
 
 ];
 

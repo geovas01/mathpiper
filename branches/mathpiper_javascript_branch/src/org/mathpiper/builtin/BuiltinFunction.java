@@ -198,6 +198,7 @@ import org.mathpiper.builtin.functions.core.FastCos;
 import org.mathpiper.builtin.functions.core.FastSin;
 import org.mathpiper.builtin.functions.core.FastTan;
 import org.mathpiper.builtin.functions.core.GlobalVariablesGet;
+import org.mathpiper.builtin.functions.core.RulebaseDump;
 import org.mathpiper.builtin.functions.core.StackTrace;
 import org.mathpiper.builtin.functions.core.StackTraceOff;
 import org.mathpiper.builtin.functions.core.StackTraceOn;
@@ -860,6 +861,9 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new TraceSome(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "TraceSome");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceSome");
+                aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new RulebaseDump(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "RulebaseDump");
 
     }//end method.
 

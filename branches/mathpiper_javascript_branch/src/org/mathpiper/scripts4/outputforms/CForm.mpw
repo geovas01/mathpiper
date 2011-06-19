@@ -38,7 +38,7 @@ CFormDoublePrecisionNumber(x_IsNumber) <--
     For(i := 1, i <= n, i++)
     [
         If(s[i] = "e" Or s[i] = ".", f := True);
-    ];"BinaryFactors
+    ];
     If(f, s, s : ".");
 ];
 

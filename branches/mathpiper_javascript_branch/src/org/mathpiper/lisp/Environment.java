@@ -19,7 +19,7 @@ package org.mathpiper.lisp;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.mathpiper.Scripts;
+import org.mathpiper.Scripts3;
 import org.mathpiper.lisp.stacks.ArgumentStack;
 import org.mathpiper.lisp.collections.DefFileMap;
 import org.mathpiper.lisp.collections.MathPiperMap;
@@ -104,13 +104,13 @@ public final class Environment {
     public InputDirectories iInputDirectories = new InputDirectories();
     public String iPrettyReaderName = null;
     public String iPrettyPrinterName = null;
-    public Scripts scripts = new Scripts();
+    public Scripts3 scripts = new Scripts3();
 
     public Environment(MathPiperOutputStream aCurrentOutput/*TODO FIXME*/) throws Exception {
         iCurrentTokenizer = iDefaultTokenizer;
         iInitialOutput = aCurrentOutput;
         iCurrentOutput = aCurrentOutput;
-        iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
+        iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators, true);
 
         iTrueAtom = new AtomCons((String)getTokenHash().lookUp("True"));
         iTrueString = (String) iTrueAtom.car();

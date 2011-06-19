@@ -47,7 +47,8 @@ public class MathPiperTokenizer {
             }
 
             streamCharacter = aInput.next();
-            //printf("%c",c);
+
+         //System.out.println(streamCharacter);
 
             //Parse brackets
             if (streamCharacter == '(') {

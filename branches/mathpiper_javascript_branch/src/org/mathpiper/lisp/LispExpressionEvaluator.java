@@ -16,11 +16,11 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+import org.mathpiper.Scripts3;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.io.StringInputStream;
-import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
@@ -193,7 +193,9 @@ public class LispExpressionEvaluator extends Evaluator {
         } else {
             //MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, functionName, true);
 
-            String[] scriptCode = aEnvironment.scripts.getScript(functionName);
+            Scripts3 scripts = aEnvironment.scripts;
+
+            String[] scriptCode = scripts.getScript(functionName);
 
 
             LispError.check(aEnvironment, aStackTop, scriptCode != null,  "No script returned for function: " + functionName + ".", "INTERNAL");

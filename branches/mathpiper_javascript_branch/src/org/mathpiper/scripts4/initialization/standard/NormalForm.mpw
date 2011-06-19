@@ -1,7 +1,6 @@
-%mathpiper,def="NormalForm"
+%mathpiper,def=""
 
-Rulebase("NormalForm",{expression});
-Rule("NormalForm",1,1000,True) expression;
+//This rule has been moved to sparsenomial.mpw.
 
 %/mathpiper
 

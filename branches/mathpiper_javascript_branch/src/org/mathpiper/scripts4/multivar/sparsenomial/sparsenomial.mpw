@@ -1,4 +1,4 @@
-%mathpiper,def="CreateTerm;MultiNomialAdd;MultiNomialNegate;MultiNomialMultiply"
+%mathpiper,def="CreateTerm;MultiNomialAdd;MultiNomialNegate;MultiNomialMultiply;NormalForm"
 
 
 /* Implementation of MultiNomials based on sparse representation
@@ -45,9 +45,18 @@ UnFence("muadm",2);
 /* NormalForm: done as an explicit loop in stead of using SparseTreeScan
    for speed. This routine is a lot faster!
  */
+
+Rulebase("NormalForm",{expression});
+Rule("NormalForm",1,1000,True) expression;
+0 # NormalForm(UniVariate(_var,_first,_coefs)) <--
+    ExpandUniVariate(var,first,coefs);
 10 # NormalForm(x_IsMulti/y_IsMulti) <-- NormalForm(x)/NormalForm(y);
 20 # NormalForm(MultiNomial(_vars,_list) )
     <-- NormalMultiNomial(vars,list,1);
+
+
+
+
 10 # NormalMultiNomial({},_term,_prefact) <-- prefact*term;
 20 # NormalMultiNomial(_vars,_list,_prefact)
     <--

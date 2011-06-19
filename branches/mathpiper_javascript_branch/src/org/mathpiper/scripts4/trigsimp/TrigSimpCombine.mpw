@@ -33,7 +33,6 @@
 Rulebase("FSin",{f,x});
 Rulebase("FCos",{f,x});
 Rulebase(":*:",{x,y});
-Infix(":*:",3);
 
 
 IsTrig(f) := (Type(f) = "Sin" Or Type(f) = "Cos");

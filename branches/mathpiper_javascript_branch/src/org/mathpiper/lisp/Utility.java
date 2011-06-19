@@ -702,7 +702,8 @@ public class Utility {
         MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators,
                 aEnvironment.iInfixOperators,
                 aEnvironment.iPostfixOperators,
-                aEnvironment.iBodiedOperators);
+                aEnvironment.iBodiedOperators,
+                true);
         infixprinter.print(aStackTop, aExpression, newOutput, aEnvironment);
         if (aMaxChars > 0 && result.length() > aMaxChars) {
             result.delete(aMaxChars, result.length());
