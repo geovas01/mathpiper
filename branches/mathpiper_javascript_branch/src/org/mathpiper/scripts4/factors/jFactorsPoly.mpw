@@ -1,4 +1,4 @@
-%mathpiper,title="jFactorsPoly"
+%mathpiper,def="jFactorsPoly"
 
 //Retract("jFactorsPoly",*);
 //Retract("HasRealCoefficients",*);      

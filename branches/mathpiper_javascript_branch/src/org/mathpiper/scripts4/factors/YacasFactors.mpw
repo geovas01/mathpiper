@@ -1,9 +1,5 @@
-%mathpiper,def="YacasFactors"
+%mathpiper,def="Factors"
 
-//Retract("YacasFactors",*);
-//Retract("FactorsMultivariateSpecialCases",*);
-//Retract("FactorsSomethingElse",*);
-//Retract("CombineNumericalFactors",*);
 
 /*
  * This is the fundamental factorization algorithm as created for Yacas, with
@@ -14,16 +10,16 @@
  */
  
 
-10 # YacasFactors(p_IsPositiveInteger) <--  FactorizeInt(p);
+10 # Factors(p_IsPositiveInteger) <--  FactorizeInt(p);
 
-11 # YacasFactors(p_IsInteger) <-- FactorizeInt(p);
+11 # Factors(p_IsInteger) <-- FactorizeInt(p);
 
-12 # YacasFactors(p_IsRational)_(Denominator(p) != 1) <-- {{YacasFactor(Numerator(p)) /YacasFactor(Denominator(p)) , 1}}; 
+12 # Factors(p_IsRational)_(Denominator(p) != 1) <-- {{YacasFactor(Numerator(p)) /YacasFactor(Denominator(p)) , 1}};
      //Added to handle rational numbers with denominators that are not 1
 
-14 # YacasFactors(p_IsGaussianInteger)	<-- GaussianFactors(p);
+14 # Factors(p_IsGaussianInteger)	<-- GaussianFactors(p);
 
-20 # YacasFactors(p_CanBeUni)_(Length(VarList(p)) = 1) <--  
+20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--
 [
     Local(x,d,coeffs,nterms,factorsList,result);
     x := VarList(p)[1];
@@ -81,7 +77,7 @@
 ];
 
 
-30 # YacasFactors(p_CanBeUni) <--  
+30 # Factors(p_CanBeUni) <--
 [
     /* 
      * This may be a multi-variate polynomial, or it may be something else.
@@ -107,7 +103,7 @@
 ];
 
 
-40 # YacasFactors(_p) <--
+40 # Factors(_p) <--
 [
     /*
      * This may may be a polynomial with non-integer exponents.  Let's check.
@@ -198,11 +194,11 @@
 
 
 
-%mathpiper_docs,name="YacasFactors",categories="User Functions;Number Theory"
-*CMD YacasFactors --- factorization
+%mathpiper_docs,name="Factors",categories="User Functions;Number Theory"
+*CMD Factors --- factorization
 *STD
 *CALL
-	YacasFactors(x)
+	Factors(x)
 
 *PARMS
 
@@ -231,10 +227,10 @@ is returned as {{{p1,n1}, ..., {p9,n9}}}.
 Programmer: Yacas Team + Sherm Ostrowsky
 
 *E.G.
-In> YacasFactors(24)
+In> Factors(24)
 Result: {{2,3},{3,1}}
 
-In> YacasFactors(32*x^3+32*x^2-70*x-75)
+In> Factors(32*x^3+32*x^2-70*x-75)
 Result: {{4*x+5,2},{2*x-3,1}}
 
 *SEE YacasFactor, xFactors, IsPrime, GaussianFactors
@@ -242,5 +238,40 @@ Result: {{4*x+5,2},{2*x-3,1}}
 
 
 
+
+%mathpiper,name="Factors",subtype="automatic_test"
+
+Testing("UnivariatePolynomialFactorization");
+
+Verify(Factors(x^2-4),{{x-2,1},{x+2,1}});
+Verify(Factors(x^2+2*x+1),{{x+1,2}});
+Verify(Factors(-9*x^2+45*x-36),{{-9,1},{x-4,1},{x-1,1}});
+Verify(Factors(9*x^2-1),{{3*x-1,1},{3*x+1,1}});
+Verify(Factors(4*x^3+12*x^2-40*x),{{4,1},{x,1},{x-2,1},{x+5,1}});
+Verify(Factors(32*x^3+32*x^2-70*x-75),{{2*x-3,1},{4*x+5,2}});
+Verify(Factors(3*x^3-12*x^2-2*x+8),{{x-4,1},{3*x^2-2,1}});
+Verify(Factors(x^3+3*x^2-25*x-75),{{x-5,1},{x+3,1},{x+5,1}});
+Verify(Factors(2*x^3-30*x^2+12*x^4),{{2,1},{x,2},{2*x-3,1},{3*x+5,1}});
+Verify(Factors(5*x^7-20*x^6+25*x^5-20*x^4+25*x^3-20*x^2+20*x),{{5,1},{x,1},{x-2,2},{x^2-x+1,1},{x^2+x+1,1}});
+Verify(Factors((2/5)*x^2-2*x-(12/5)), {{2/5,1},{x-6,1},{x+1,1}});
+//Verify(Factors(.4*x^2-2*x-2.4), {{2/5,1},{x-6,1},{x+1,1}}); //Hangs.
+Verify(Factors(x^3+1), {{x+1,1},{x^2-x+1,1}});
+Verify(Factors(x^4-1), {{x-1,1},{x+1,1},{x^2+1,1}});
+Verify(Factors(x^5-1), {{x-1,1},{x^4+x^3+x^2+x+1,1}});
+Verify(Factors(x^5+1), {{x+1,1},{x^4-x^3+x^2-x+1,1}});
+
+
+Testing("BivariatePolynomialFactorization");
+
+Verify(Factors(-7*x-14*y),{{-7,1},{2*y+x,1}});
+Verify(Factors(x^2-a^2),{{x-a,1},{a+x,1}});
+Verify(Factors(a^2+2*a*b+b^2),{{a+b,2}});
+Verify(Factors(x^3-y^3),{{x-y,1},{y^2+y*x+x^2,1}});
+Verify(Factors(x^3+a^3),{{a+x,1},{a^2-a*x+x^2,1}});
+Verify(Factors(x^6-a^6),{{x-a,1},{a+x,1},{a^2-a*x+x^2,1},{a^2+a*x+x^2,1}});
+Verify(Factors(3*x^2-x*y-10*y^2),{{3*x+5*y,1},{x-2*y,1}});
+
+
+%/mathpiper
 
 

@@ -1,4 +1,4 @@
-%mathpiper,def="Factor"
+%mathpiper,def=""
 
 //Retract("Factor",*);
 
@@ -79,7 +79,7 @@
 
 
 
-%mathpiper_docs,name="Factor",categories="User Functions;Polynomials (Operations);Number Theory"
+%mathpiper_docs,name="",categories="User Functions;Polynomials (Operations);Number Theory"
 *CMD Factor -- Factorization of almost anything factorable
 *CALL
 Factor( expr )

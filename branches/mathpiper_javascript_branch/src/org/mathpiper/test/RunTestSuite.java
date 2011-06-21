@@ -20,7 +20,6 @@ package org.mathpiper.test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 import org.mathpiper.Tests;
 import org.mathpiper.exceptions.EvaluationException;
@@ -44,23 +43,28 @@ public class RunTestSuite {
     private EvaluationResponse evaluationResponse;
     private java.io.FileWriter logFile;
     private int exceptionCount = 0;
+    private Tests tests;
+    private String output;
 
 
     public RunTestSuite() {
         super();
 
+        tests = new Tests();
+
+
     }//end constructor.
 
 
     public void test() {
+        test(null);
+    }
+
+
+    public void test(String nameOfSingleFunctionToTest) {
         try {
 
             logFile = new java.io.FileWriter("./tests/mathpiper_tests.log");
-
-            Tests tests = new Tests();
-
-
-            String output;
 
             mathPiper = Interpreters.newSynchronousInterpreter();
 
@@ -79,9 +83,9 @@ public class RunTestSuite {
             System.out.print(output);
             logFile.write(output);
 
-            Map testsMap = tests.getMap();
 
-            Set keySet = testsMap.keySet();
+
+            Set keySet = tests.getMap().keySet();
 
             ArrayList keyArray = new ArrayList(keySet);
 
@@ -90,41 +94,18 @@ public class RunTestSuite {
             Iterator keyIterator = keyArray.iterator();
 
 
+            if (nameOfSingleFunctionToTest == null) {
 
-            while (keyIterator.hasNext()) {
+                while (keyIterator.hasNext()) {
 
+                    String testName = (String) keyIterator.next();
 
-                String testName = (String) keyIterator.next();
+                    runSingleTest(testName);
 
-                String[] testScriptArray = (String[]) testsMap.get(testName);
-
-                String testScript = (String) testScriptArray[1];
-
-
-                output = "\n===========================\n" + testName + ": \n\n";
-                System.out.print(output);
-                logFile.write(output);
-
-                //evaluationResponse = mathPiper.evaluate(testScript);
-                //output = evaluationResponse(evaluationResponse);
-
-                try {
-
-                    evaluateTestScript(mathPiper.getEnvironment(), -1, new StringInputStream(testScript, mathPiper.getEnvironment().iInputStatus), true, false);
-
-                } catch (Exception e) {
-                    exceptionCount++;
-
-                    System.out.println(e.getMessage());
-                    logFile.write(e.getMessage());
-                }
-
-
-                //System.out.println(output);
-                //logFile.write(output);
-
-
-            }//end while.
+                }//end while.
+            } else {
+                runSingleTest(nameOfSingleFunctionToTest);
+            }
 
 
             output = "\n\n***** Tests complete *****\n\nException Count: " + exceptionCount + "\n\n";
@@ -140,12 +121,43 @@ public class RunTestSuite {
 
             logFile.close();
 
-        } catch (java.io.IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
 
     }//end method.
+
+
+    private void runSingleTest(String testName) throws Exception {
+        String[] testScriptArray = (String[]) tests.getMap().get(testName);
+
+        if(testScriptArray == null)
+        {
+            throw new Exception("Test does not exist.");
+        }
+
+        String testScript = (String) testScriptArray[1];
+
+
+        output = "\n===========================\n" + testName + ": \n\n";
+        System.out.print(output);
+        logFile.write(output);
+
+        //evaluationResponse = mathPiper.evaluate(testScript);
+        //output = evaluationResponse(evaluationResponse);
+
+        try {
+
+            evaluateTestScript(mathPiper.getEnvironment(), -1, new StringInputStream(testScript, mathPiper.getEnvironment().iInputStatus), true, true);
+
+        } catch (Exception e) {
+            exceptionCount++;
+
+            System.out.println(e.getMessage());
+            logFile.write(e.getMessage());
+        }
+    }
 
 
     private String evaluationResponse(EvaluationResponse evaluationResponse) {
@@ -216,13 +228,13 @@ public class RunTestSuite {
                         ConsPointer result = new ConsPointer();
                         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
 
-                        if(outputStringBuffer.length() > 0)
-                        {
+                        if (outputStringBuffer.length() > 0) {
                             String sideEffectOutputString = outputStringBuffer.toString();
                             System.out.println(sideEffectOutputString);
                             logFile.append(sideEffectOutputString);
-                            outputStringBuffer.delete(0,outputStringBuffer.length());
-                        };
+                            outputStringBuffer.delete(0, outputStringBuffer.length());
+                        }
+                        ;
                     }
 
                 }
@@ -256,7 +268,7 @@ public class RunTestSuite {
     public static void main(String[] args) {
 
         RunTestSuite pt = new RunTestSuite();
-        pt.test();
+        pt.test("Factors");
 
     }//end main
 }//end class.

@@ -1,14 +1,14 @@
-%mathpiper,def="YacasFactor"
+%mathpiper,def="Factor"
 
 // This is so YacasFactor(Sin(x)) doesn't return FWatom(Sin(x))
-//YacasFactor(_p) <-- FW(YacasFactors(p));
-10 # YacasFactor(p_CanBeUni) <-- FW(YacasFactors(p));
+//Factor(_p) <-- FW(Factors(p));
+10 # Factor(p_CanBeUni) <-- FW(Factors(p));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="YacasFactor",categories="User Functions;Number Theory"
+%mathpiper_docs,name="Factor",categories="User Functions;Number Theory"
 *CMD Factor --- factorization (in pretty form)
 *STD
 *CALL
@@ -23,7 +23,7 @@
 This is the original Yacas version of the Factor() function.  It has
 b een superceeded in MathPiper by the function xFactor().
 
-This function factorizes "x", similarly to {YacasFactors}, but
+This function factorizes "x", similarly to {Factors}, but
 it shows the result in a more human-readable format.
 
 *E.G.

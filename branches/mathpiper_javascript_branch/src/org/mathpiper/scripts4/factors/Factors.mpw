@@ -1,4 +1,4 @@
-%mathpiper,def="Factors"
+%mathpiper,def=""
 
 /*------------------------------------------------------------------------
  *    Started 091222
@@ -144,7 +144,7 @@
 
 
 
-%mathpiper_docs,name="Factors",categories="User Functions;Number Theory"
+%mathpiper_docs,name="",categories="User Functions;Number Theory"
 *CMD Factors --- factorization
 *STD
 *CALL
