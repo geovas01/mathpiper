@@ -16,7 +16,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
-import org.mathpiper.Scripts3;
+
+import org.mathpiper.Scripts;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
@@ -183,9 +184,13 @@ public class LispExpressionEvaluator extends Evaluator {
 
         String functionName = (String) head.car();
 
+        if(functionName.equals(":="))
+        {
+            int xx = 1;
+        }
+
         SingleArityRulebase userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
 
-    //System.out.println(functionName);
 
         if (userFunc != null) {
             return userFunc;
@@ -193,7 +198,9 @@ public class LispExpressionEvaluator extends Evaluator {
         } else {
             //MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, functionName, true);
 
-            Scripts3 scripts = aEnvironment.scripts;
+            //System.out.println(functionName);
+
+            Scripts scripts = aEnvironment.scripts;
 
             String[] scriptCode = scripts.getScript(functionName);
 
@@ -228,6 +235,8 @@ public class LispExpressionEvaluator extends Evaluator {
                 
 
                 LispError.check(aEnvironment, aStackTop,scriptCode[1] != null,  "Problem with function name: " + functionName, "INTERNAL");
+
+                aEnvironment.iInputStatus.setTo(functionName);
 
                 StringInputStream functionInputStream = new StringInputStream(scriptCode[1], aEnvironment.iInputStatus);
 

@@ -138,7 +138,7 @@ public class MathPiperParser extends Parser
                 // Match closing bracket
                 if (iLookAhead != iEnvironment.iProgCloseAtom.car())
                 {
-                    LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead + " instead.", "[INTERNAL]", aStackTop, aEnvironment);
+                    LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead + " instead." + " Function name: " + iInput.iStatus.fileName() + ", " + " Line number: " + iInput.iStatus.lineNumber() + ", " + " Line index: " + iInput.position() + ". ", "[INTERNAL]", aStackTop, aEnvironment);
                     return;
                 }
                 matchToken(aStackTop, iLookAhead);
@@ -155,7 +155,7 @@ public class MathPiperParser extends Parser
                     if(iLookAhead.equals(""))
                     {
 
-                       LispError.raiseError("Expression must end with a semi-colon (;)", "[INTERNAL]", aStackTop, aEnvironment);
+                       LispError.raiseError("Expression must end with a semi-colon (;) " + " Function name: " + iInput.iStatus.fileName() + ", " + " Line number: " + iInput.iStatus.lineNumber() + ", " + " Line index: " + iInput.position() + ". ", "[INTERNAL]", aStackTop, aEnvironment);
                         return;
                     }
                     if (MathPiperTokenizer.isSymbolic(iLookAhead.charAt(0)))
@@ -259,7 +259,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead);
                 } else if (iLookAhead != iEnvironment.iListCloseAtom.car())
                 {
-                    LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead + " instead.", "[INTERNAL]", aStackTop, aEnvironment);
+                    LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead + " instead." + " Function name: " + iInput.iStatus.fileName() + ", " + " Line number: " + iInput.iStatus.lineNumber() + ", " + " Line index: " + iInput.position() + ". ", "[INTERNAL]", aStackTop, aEnvironment);
                     return;
                 }
             }
@@ -284,7 +284,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead);
                 } else
                 {
-                    LispError.raiseError("Expecting ; end of statement in program block, but got " + iLookAhead + " instead.", "[INTERNAL]", aStackTop, aEnvironment);
+                    LispError.raiseError("Expecting ; end of statement in program block, but got " + iLookAhead + " instead." + " Function name: " + iInput.iStatus.fileName() + ", " + " Line number: " + iInput.iStatus.lineNumber() + ", " + " Line index: " + iInput.position() + ". ", "[INTERNAL]", aStackTop, aEnvironment);
                     return;
                 }
             }
@@ -314,7 +314,7 @@ public class MathPiperParser extends Parser
                         matchToken(aStackTop, iLookAhead);
                     } else if (iLookAhead != iEnvironment.iBracketCloseAtom.car())
                     {
-                        LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead + " instead.", "[INTERNAL]", aStackTop, aEnvironment);
+                        LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead + " instead. " + " Function name: " + iInput.iStatus.fileName() + ", " + " Line number: " + iInput.iStatus.lineNumber() + ", " + " Line index: " + iInput.position() + ". ", "[INTERNAL]", aStackTop, aEnvironment);
                         return;
                     }
                 }
@@ -394,8 +394,8 @@ public class MathPiperParser extends Parser
         iError = true;
         if (iLookAhead != null)
         {
-            LispError.raiseError("Error parsing expression, near token " + iLookAhead + ".", "[INTERNAL]", aStackTop, iEnvironment);
+            LispError.raiseError("Error parsing expression, near token " + iLookAhead + " Function name: " + iInput.iStatus.fileName() + ", " + " Line number: " + iInput.iStatus.lineNumber() + ", " + " Line index: " + iInput.position() + ". ", "[INTERNAL]", aStackTop, iEnvironment);
         }
-        LispError.raiseError("Error parsing expression.", "[INTERNAL]", aStackTop, iEnvironment);
+        LispError.raiseError("Error parsing expression." + " Function name: " + iInput.iStatus.fileName() + ", " + " Line number: " + iInput.iStatus.lineNumber() + ", " + " Line index: " + iInput.position() + ". ", "[INTERNAL]", aStackTop, iEnvironment);
     }
 };

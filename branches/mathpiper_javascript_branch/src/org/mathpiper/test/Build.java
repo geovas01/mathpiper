@@ -21,7 +21,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -457,7 +458,8 @@ public class Build {
         String subTypeAttribute = "";
         //String scope = "public";
 
-       FoldLoop: for (Fold fold : folds) {
+        FoldLoop:
+        for (Fold fold : folds) {
 
             String foldType = fold.getType();
 
@@ -475,15 +477,13 @@ public class Build {
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
 
 
-                String[] blacklist = {"CForm","IsCFormable"};
-                for(String fileName:blacklist)
-                {
-                    fileName = fileName + ".mpw";
-                    if(fileName.equalsIgnoreCase(mpwFile.getName()))
-                    {
-                        continue FoldLoop;
+                    String[] blacklist = {"CForm", "IsCFormable"};
+                    for (String fileName : blacklist) {
+                        fileName = fileName + ".mpw";
+                        if (fileName.equalsIgnoreCase(mpwFile.getName())) {
+                            continue FoldLoop;
+                        }
                     }
-                }
 
                     String foldContents = fold.getContents();
 
@@ -500,7 +500,7 @@ public class Build {
 
                         //String foldContentsString = foldContents.toString();
                         ////String foldContentsStringNoComments = foldContentsString;
-                       // //See http://ostermiller.org/findcomment.html
+                        // //See http://ostermiller.org/findcomment.html
                         //String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
                         //foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
                         //foldContentsStringNoComments = foldContentsStringNoComments.replaceAll(" +", " ");
@@ -509,10 +509,9 @@ public class Build {
                         //foldContentsStringNoComments = foldContentsStringNoComments.replace("\"", "\\\"");
                         //String processedScript = foldContentsStringNoComments;
 
-    if(mpwFile.getName().equalsIgnoreCase("NormalForm.mpw"))
-    {
-        int xx = 2;
-    }
+                        if (mpwFile.getName().equalsIgnoreCase("NormalForm.mpw")) {
+                            int xx = 2;
+                        }
                         String processedScript = "";
                         try {
                             processedScript = parsePrintScript(mathpiper.getEnvironment(), -1, functionInputStream);
@@ -900,43 +899,120 @@ public class Build {
 
         MathPiperOutputStream stream = new StringOutputStream(outString);
         infixprinter.print(-1, aExpression, stream, aEnvironment);
+        outString.append(";");
 
     }//end method.
 
 
-    public static void main(String[] args) {
+    public static void fileCopy(String from_name, String to_name) throws IOException {
+        File from_file = new File(from_name); // Get File objects from Strings
+        File to_file = new File(to_name);
 
-        String sourceScriptsDirectory;
-
-        if (args.length > 0) {
-            sourceScriptsDirectory = args[0];
-        } else {
-            sourceScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/scripts4/";
+        if (!from_file.exists()) {
+            abort("no such source file: " + from_name);
+        }
+        if (!from_file.isFile()) {
+            abort("can't copy directory: " + from_name);
+        }
+        if (!from_file.canRead()) {
+            abort("source file is unreadable: " + from_name);
         }
 
-        String outputScriptsDirectory = "/home/tkosan/NetBeansProjects/scripts/";
-        File newScriptsDirectory = new File(outputScriptsDirectory);
-        Boolean directoryCreated = newScriptsDirectory.mkdirs();
+        if (to_file.isDirectory()) {
+            to_file = new File(to_file, from_file.getName());
+        }
+
+
+        String parent = to_file.getParent(); // The destination directory
+        if (parent == null) // If none, use the current directory
+        {
+            parent = System.getProperty("user.dir");
+        }
+        File dir = new File(parent); // Convert it to a file.
+        if (!dir.exists()) {
+            abort("destination directory doesn't exist: " + parent);
+        }
+        if (dir.isFile()) {
+            abort("destination is not a directory: " + parent);
+        }
+        if (!dir.canWrite()) {
+            abort("destination directory is unwriteable: " + parent);
+        }
 
 
 
-
-        File newInitializationDirectory = new File(outputScriptsDirectory + "initialization.rep/");
-        newInitializationDirectory.mkdirs();
-
-        File outputDocsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper_javascript_branch/ui/gui/help/data/");
-        outputDocsDirectory.mkdirs();
-
-        File pluginsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper_javascript_branch/builtin/functions/optional/");
-        pluginsDirectory.mkdirs();
-
-        pluginsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper/builtin/functions/plugins/jfreechart/");
-        pluginsDirectory.mkdirs();
-
-
-        //String outputDirectory = "/home/tkosan/temp/mathpiper/org/mathpiper/assembledscripts/";
-
+        FileInputStream from = null; // Stream to read from source
+        FileOutputStream to = null; // Stream to write to destination
         try {
+            from = new FileInputStream(from_file); // Create input stream
+            to = new FileOutputStream(to_file); // Create output stream
+            byte[] buffer = new byte[4096]; // To hold file contents
+            int bytes_read; // How many bytes in buffer
+
+            while ((bytes_read = from.read(buffer)) != -1) // Read until EOF
+            {
+                to.write(buffer, 0, bytes_read); // write
+            }
+        } finally {
+            if (from != null) {
+                try {
+                    from.close();
+                } catch (IOException e) {
+                    ;
+                }
+            }
+            if (to != null) {
+                try {
+                    to.close();
+                } catch (IOException e) {
+                    ;
+                }
+            }
+        }
+    }
+
+
+    private static void abort(String msg) throws IOException {
+        throw new IOException("FileCopy: " + msg);
+    }
+
+
+    public static void main(String[] args) {
+        try {
+            fileCopy("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/test/Scripts.java", "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/Scripts.java");
+
+
+            String sourceScriptsDirectory;
+
+            if (args.length > 0) {
+                sourceScriptsDirectory = args[0];
+            } else {
+                sourceScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/scripts4/";
+            }
+
+            String outputScriptsDirectory = "/home/tkosan/NetBeansProjects/scripts/";
+            File newScriptsDirectory = new File(outputScriptsDirectory);
+            Boolean directoryCreated = newScriptsDirectory.mkdirs();
+
+
+
+
+            File newInitializationDirectory = new File(outputScriptsDirectory + "initialization.rep/");
+            newInitializationDirectory.mkdirs();
+
+            File outputDocsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper_javascript_branch/ui/gui/help/data/");
+            outputDocsDirectory.mkdirs();
+
+            File pluginsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper_javascript_branch/builtin/functions/optional/");
+            pluginsDirectory.mkdirs();
+
+            pluginsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper/builtin/functions/plugins/jfreechart/");
+            pluginsDirectory.mkdirs();
+
+
+            //String outputDirectory = "/home/tkosan/temp/mathpiper/org/mathpiper/assembledscripts/";
+
+
 
             Build scripts = new Build(sourceScriptsDirectory, outputScriptsDirectory, outputScriptsDirectory + "documentation/");
 
@@ -953,16 +1029,16 @@ public class Build {
             String line;
             while ((line = documentationIndex.readLine()) != null) {
 
-                String[] values = line.split(",");
+            String[] values = line.split(",");
 
-                if (values[0].indexOf(";") != -1) {
-                    String[] functionNames = values[0].split(";");
-                    for (String name : functionNames) {
-                        functionDocs.put(name, values[1] + "," + values[2]);
-                    }//end for.
-                } else {
-                    functionDocs.put(values[0], values[1] + "," + values[2]);
-                }//end else.
+            if (values[0].indexOf(";") != -1) {
+            String[] functionNames = values[0].split(";");
+            for (String name : functionNames) {
+            functionDocs.put(name, values[1] + "," + values[2]);
+            }//end for.
+            } else {
+            functionDocs.put(values[0], values[1] + "," + values[2]);
+            }//end else.
             }//end while.
 
             documentationIndex.close();
