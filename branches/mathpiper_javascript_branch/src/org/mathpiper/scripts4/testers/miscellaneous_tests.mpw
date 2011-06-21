@@ -1,5 +1,5 @@
 %mathpiper,name="miscellaneous",subtype="automatic_test"
-[
+
 Testing("From: calculus.mpt");
 f():=[];//Echo(CurrentFile()," line ",CurrentLine());
 Testing("UnaryFunctionInverses");
@@ -45,5 +45,5 @@ Testing("Checking comment syntax supported");
 ];
 
 
-];
+
 %/mathpiper

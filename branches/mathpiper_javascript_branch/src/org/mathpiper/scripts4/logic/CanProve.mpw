@@ -122,7 +122,7 @@ Result: a Or b;
 
 
 %mathpiper,name="CanProve",subtype="automatic_test"
-[
+
 
 NextTest("Propositional logic theorem prover");
 
@@ -157,5 +157,5 @@ Verify(CanProve(	/* 1. CCCpqrCCrpCsp */
 Verify(CanProve(	/* 2. CCpCqrCqCpr */
      (p => (q=>r)) => (q => (p=>r))
      ), True);
-];
+
 %/mathpiper

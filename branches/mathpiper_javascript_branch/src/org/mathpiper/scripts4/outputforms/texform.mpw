@@ -424,7 +424,7 @@ Result: "\$\sin a_{1} + 2 \cos b_{1}\$";
 
 
 %mathpiper,name="TeXForm",subtype="automatic_test"
-[
+
 NextTest("TeXForm()...");
 
 /* it worketh no more...
@@ -508,5 +508,5 @@ TeXForm()
 );
 */
 
-];
+
 %/mathpiper

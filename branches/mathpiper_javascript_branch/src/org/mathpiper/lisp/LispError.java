@@ -167,7 +167,7 @@ public class LispError {
 
     public static void check(Environment aEnvironment, int aStackTop, boolean hastobetrue, int aError, String functionName) throws Exception {
         if (!hastobetrue) {
-            String errorMessage = errorString(aError);// + " In function " + functionName + ". ";
+            String errorMessage = errorString(aError);
 
             check(aEnvironment, aStackTop, hastobetrue, errorMessage, functionName);
 
@@ -200,7 +200,7 @@ public class LispError {
                 }
 
 
-                throw new EvaluationException(aErrorMessage /*+ " In function " + functionName + ". " */ + stackTrace, "none", -1);
+                throw new EvaluationException(aErrorMessage + stackTrace, "none", -1);
 
             }
         }
@@ -209,7 +209,6 @@ public class LispError {
 
     public static void raiseError(String errorMessage, String functionName, int aStackTop, Environment aEnvironment) throws Exception {
         check( aEnvironment, aStackTop, false, errorMessage, functionName);
-        //throw new EvaluationException(errorMessage + " In function " + functionName + ". ","none",-1);
     }
 
 
@@ -234,7 +233,7 @@ public class LispError {
             throw new EvaluationException("Error in compiled code." + stackTrace, "none", -1);
         } else {
             //TODO FIXME      ShowStack(aEnvironment);
-            String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed + /*" in function " + functionName +*/ ". ";
+            String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed + ". ";
             throw new EvaluationException(error + stackTrace, "none", -1);
 
             /*TODO FIXME
@@ -258,7 +257,7 @@ public class LispError {
         } else {
             String string = (String) aArguments.car();
             if (string != null) {
-                return "In function \"" + string + "\" : ";
+                return "In function \"" + string + "\" : " + aEnvironment.iInputStatus.fileName() + ", " + " Line number: " + aEnvironment.iInputStatus.lineNumber() + ", " + " Line index: " + aEnvironment.iCurrentInput.position() + ". ";
             }
         }
         return "[Atom]";

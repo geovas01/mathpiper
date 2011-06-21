@@ -22,7 +22,25 @@ import org.mathpiper.io.MathPiperOutputStream;
 
 public class LispPrinter {
 
+    String newLineCharacter;
+    String spaceCharacter;
+    boolean pretty;
+
+
+    public LispPrinter(boolean pretty) {
+        this.pretty = pretty;
+
+        if (pretty) {
+            newLineCharacter = "\n";
+            spaceCharacter = "  ";
+        } else {
+            newLineCharacter = "";
+            spaceCharacter = "";
+        }
+    }
+
     //private List<Cons> visitedLists = new ArrayList<Cons>();
+
     public void print(int aStackTop, ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
         printExpression(aExpression, aOutput, aEnvironment, 0);
 
@@ -42,9 +60,24 @@ public class LispPrinter {
         while (consWalker.getCons() != null) {
 
             if (consWalker.car() instanceof String) {
-                String string = (String) consWalker.car();
-                aOutput.write(string);
-                aOutput.putChar(' ');
+                String atom = (String) consWalker.car();
+
+                if (atom.startsWith("\"")) //String atom.
+                {
+                    if (!pretty) {
+                        if (atom.contains("\n")) {
+                            int xx = 1;
+                        }
+                        atom = atom.replace("\\", "\\\\");
+                        atom = atom.replace("\"", "\\\"");
+                        atom = atom.replace("\n", "\\n");
+                    }
+                }
+
+
+                aOutput.write(atom);
+
+
             } // else print "(", print sublist, and print ")"
             else if (consWalker.car() instanceof ConsPointer) {
                 if (item != 0) {
@@ -72,18 +105,26 @@ public class LispPrinter {
             } else {
                 aOutput.write("[BuiltinObject]");
             }
+
             consWalker = (consWalker.cdr()); // print rest element
+            
+            if(consWalker.getCons() != null)
+            {
+               aOutput.putChar(' ');
+            }
+
             item++;
+
         }//end while.
 
     }//end method.
 
 
     void indent(MathPiperOutputStream aOutput, int aDepth) throws Exception {
-        aOutput.write("\n");
+        aOutput.write(newLineCharacter);
         int i;
         for (i = aDepth; i > 0; i--) {
-            aOutput.write("  ");
+            aOutput.write(spaceCharacter);
         }
     }
 

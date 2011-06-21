@@ -37,11 +37,9 @@ public class MathPiperPrinter extends LispPrinter {
     OperatorMap iBodiedOperators;
     char iPrevLastChar;
     Environment iCurrentEnvironment;
-    String newLineCharacter;
-    String spaceCharacter;
+
     String infixSpaces;
     String bracketSpaces;
-    boolean pretty = true;
 
     //private List<Cons> visitedLists = new ArrayList<Cons>();
 
@@ -50,22 +48,21 @@ public class MathPiperPrinter extends LispPrinter {
             OperatorMap aPostfixOperators,
             OperatorMap aBodiedOperators,
             boolean pretty) {
+
+        super(pretty);
+        
         iPrefixOperators = aPrefixOperators;
         iInfixOperators = aInfixOperators;
         iPostfixOperators = aPostfixOperators;
         iBodiedOperators = aBodiedOperators;
         iPrevLastChar = 0;
 
-        this.pretty = pretty;
+
 
         if (pretty) {
-            newLineCharacter = "\n";
-            spaceCharacter = " ";
             infixSpaces = "  ";
             bracketSpaces = "    ";
         } else {
-            newLineCharacter = "";
-            spaceCharacter = "";
             infixSpaces = " ";
             bracketSpaces = "";
         }
@@ -188,17 +185,12 @@ public class MathPiperPrinter extends LispPrinter {
 
                 if (left != null) {
 
-                    if (atom.equals("/") && Utility.functionType(left).equals("/")) {
-                        //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
-                        writeToken(aOutput, "(");
-                    }//end if.
+                    writeToken(aOutput, "(");
 
                     Print(aEnvironment, aStackTop, left, aOutput, operator.iLeftPrecedence);
 
-                    if (atom.equals("/") && Utility.functionType(left).equals("/")) {
-                        //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
-                        writeToken(aOutput, ")");
-                    }//end if.
+                    writeToken(aOutput, ")");
+                    
                 }
 
                 boolean addSpaceAroundInfixOperator =

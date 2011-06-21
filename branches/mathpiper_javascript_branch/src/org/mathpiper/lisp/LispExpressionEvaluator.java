@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
-
 import org.mathpiper.Scripts;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
@@ -72,19 +71,19 @@ public class LispExpressionEvaluator extends Evaluator {
 
         LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
 
-            aEnvironment.iEvalDepth++;
-            if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
-                /* if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
-                LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.USER_INTERRUPT, "INTERNAL");
-                } else {*/
-                LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "INTERNAL");
-                // }
-            }
+        aEnvironment.iEvalDepth++;
+        if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
+            /* if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
+            LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.USER_INTERRUPT, "INTERNAL");
+            } else {*/
+            LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "INTERNAL");
+            // }
+        }
 
-            //if (Thread.interrupted()) {
-            //    LispError.raiseError("User halted calculation.", "", aStackTop, aEnvironment);
-            //}
-  
+        //if (Thread.interrupted()) {
+        //    LispError.raiseError("User halted calculation.", "", aStackTop, aEnvironment);
+        //}
+
 
 
 
@@ -155,11 +154,11 @@ public class LispExpressionEvaluator extends Evaluator {
 
                     /*  todo:tk: This code is for experimenting with having non-existent functions throw an exception when they are called.
                     if (functionName.equals("_")) {
-                        Utility.returnUnEvaluated(aStackTop, aResult, subList, aEnvironment);
-                        aEnvironment.iEvalDepth--;
-                        return;
+                    Utility.returnUnEvaluated(aStackTop, aResult, subList, aEnvironment);
+                    aEnvironment.iEvalDepth--;
+                    return;
                     } else {
-                        LispError.raiseError("The function " + functionName + " is not defined.\n", null, aStackTop, aEnvironment );
+                    LispError.raiseError("The function " + functionName + " is not defined.\n", null, aStackTop, aEnvironment );
                     }*/
 
 
@@ -180,12 +179,11 @@ public class LispExpressionEvaluator extends Evaluator {
     SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
         Cons head = subList.getCons();
 
-        LispError.check(aEnvironment, aStackTop,head.car() instanceof String,  "No function name specified.", "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, head.car() instanceof String, "No function name specified.", "INTERNAL");
 
         String functionName = (String) head.car();
 
-        if(functionName.equals(":="))
-        {
+        if (functionName.equals(":=")) {
             int xx = 1;
         }
 
@@ -205,7 +203,7 @@ public class LispExpressionEvaluator extends Evaluator {
             String[] scriptCode = scripts.getScript(functionName);
 
 
-            LispError.check(aEnvironment, aStackTop, scriptCode != null,  "No script returned for function: " + functionName + ".", "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, scriptCode != null, "No script returned for function: " + functionName + ".", "INTERNAL");
 
 
             if (scriptCode[0].equals("not-loaded")) {
@@ -232,13 +230,29 @@ public class LispExpressionEvaluator extends Evaluator {
                     }
                 }
 
-                
 
-                LispError.check(aEnvironment, aStackTop,scriptCode[1] != null,  "Problem with function name: " + functionName, "INTERNAL");
+
+                LispError.check(aEnvironment, aStackTop, scriptCode[1] != null, "Problem with function name: " + functionName, "INTERNAL");
 
                 aEnvironment.iInputStatus.setTo(functionName);
 
-                StringInputStream functionInputStream = new StringInputStream(scriptCode[1], aEnvironment.iInputStatus);
+                String scriptString = scriptCode[1];
+
+                /*
+                //Gzip + base64.
+                byte[] bytes = (new BASE64Decoder()).decodeBuffer(scriptCode[1]);
+                BufferedReader in = new BufferedReader(new InputStreamReader(
+                        new GZIPInputStream(new ByteArrayInputStream(bytes))));
+                StringBuffer buffer = new StringBuffer();
+                char[] charBuffer = new char[1024];
+                while (in.read(charBuffer) != -1) {
+                    buffer.append(charBuffer);
+                }
+                scriptString = buffer.toString();
+                */
+
+
+                StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.iInputStatus);
 
                 scriptCode[0] = "is-loaded";
 
@@ -267,10 +281,10 @@ public class LispExpressionEvaluator extends Evaluator {
 
                     }
                 }
-                
+
             }//end if.
 
-            
+
             userFunc = aEnvironment.getRulebase(aStackTop, subList);
         }//end if.
 

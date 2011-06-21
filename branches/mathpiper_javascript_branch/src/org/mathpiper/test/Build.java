@@ -477,7 +477,7 @@ public class Build {
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
 
 
-                    String[] blacklist = {"CForm", "IsCFormable"};
+                    String[] blacklist = {"CForm", "IsCFormable", "TeXForm"};
                     for (String fileName : blacklist) {
                         fileName = fileName + ".mpw";
                         if (fileName.equalsIgnoreCase(mpwFile.getName())) {
@@ -493,33 +493,57 @@ public class Build {
                         processAutomaticTestFold(fold);
 
                     } else {
+
+
+
+
+                        //Uses regular expressions to process scripts.
+                        String foldContentsString = foldContents.toString();
+                        // //See http://ostermiller.org/findcomment.html
+                        String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
+                        foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
+                        foldContentsStringNoComments = foldContentsStringNoComments.replaceAll(" +", " ");
+                        foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "");
+                        foldContentsStringNoComments = foldContentsStringNoComments.replace("\\", "\\\\");
+                        foldContentsStringNoComments = foldContentsStringNoComments.replace("\"", "\\\"");
+                        String processedScript = foldContentsStringNoComments;
+
+
+
+
+                        /*
+                        //Uses the parser and the printer to process scripts.
+                        String processedScript = "";
                         InputStatus inputStatus = new InputStatus();
                         inputStatus.setTo(mpwFile.getName());
                         StringInputStream functionInputStream = new StringInputStream(foldContents, inputStatus);
-
-
-                        //String foldContentsString = foldContents.toString();
-                        ////String foldContentsStringNoComments = foldContentsString;
-                        // //See http://ostermiller.org/findcomment.html
-                        //String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
-                        //foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
-                        //foldContentsStringNoComments = foldContentsStringNoComments.replaceAll(" +", " ");
-                        //foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "");
-                        //foldContentsStringNoComments = foldContentsStringNoComments.replace("\\", "\\\\");
-                        //foldContentsStringNoComments = foldContentsStringNoComments.replace("\"", "\\\"");
-                        //String processedScript = foldContentsStringNoComments;
-
-                        if (mpwFile.getName().equalsIgnoreCase("NormalForm.mpw")) {
-                            int xx = 2;
-                        }
-                        String processedScript = "";
                         try {
-                            processedScript = parsePrintScript(mathpiper.getEnvironment(), -1, functionInputStream);
+                            processedScript = parsePrintScript(mathpiper.getEnvironment(), -1, functionInputStream, false);
                         } catch (Exception e) {
                             System.out.println(inputStatus.fileName() + ": Line: " + inputStatus.lineNumber());
                             throw (e);
                         }
+                        */
 
+
+                        /*
+                        //Gzip + base64.
+                        StringReader input = new StringReader(processedScript);
+                        ByteArrayOutputStream out = new ByteArrayOutputStream();
+                        OutputStreamWriter writer = new OutputStreamWriter(new GZIPOutputStream(out));
+                        char[] charBuffer = new char[1024];
+                        while (input.read(charBuffer) != -1) {
+                            writer.write(charBuffer);
+                        }
+                        writer.close();
+                        processedScript = (new BASE64Encoder()).encode(out.toByteArray());
+                        processedScript = processedScript.replace("\n", "\\n");
+                         */
+
+
+                        if (mpwFile.getName().equalsIgnoreCase("NormalForm.mpw")) {
+                            int xx = 2;
+                        }
 
                         if (fold.getAttributes().containsKey("def")) {
                             String defAttribute = (String) fold.getAttributes().get("def");
@@ -528,6 +552,7 @@ public class Build {
                                 scriptsJavaFile.write("\n        scriptString = new String[2];");
                                 scriptsJavaFile.write("\n        scriptString[0] = \"not-loaded\";");
                                 scriptsJavaFile.write("\n        scriptString[1] = \"" + processedScript + "\";\n");
+
 
                                 String[] defFunctionNames = defAttribute.split(";");
 
@@ -850,7 +875,7 @@ public class Build {
     }//end method.
 
 
-    public static String parsePrintScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
+    public static String parsePrintScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Exception {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
 
@@ -874,9 +899,14 @@ public class Build {
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
-                } // Else evaluate
+                } // Else print and maybe evaluate
                 else {
                     printExpression(printedScriptStringBuffer, aEnvironment, readIn);
+
+                    if (evaluate == true) {
+                        ConsPointer result = new ConsPointer();
+                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
+                    }
                 }
             }//end while.
 
@@ -895,10 +925,11 @@ public class Build {
 
 
     public static void printExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
-        MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators, false);
+        MathPiperPrinter printer = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators, false);
+        //LispPrinter printer = new LispPrinter(false);
 
         MathPiperOutputStream stream = new StringOutputStream(outString);
-        infixprinter.print(-1, aExpression, stream, aEnvironment);
+        printer.print(-1, aExpression, stream, aEnvironment);
         outString.append(";");
 
     }//end method.
@@ -979,7 +1010,7 @@ public class Build {
 
     public static void main(String[] args) {
         try {
-            fileCopy("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/test/Scripts.java", "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/Scripts.java");
+           //fileCopy("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/test/Scripts.java", "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/Scripts.java"); if(1==1) return;
 
 
             String sourceScriptsDirectory;
@@ -1021,6 +1052,10 @@ public class Build {
 
             scripts.compileScripts();
 
+
+
+
+
             /*
             Map functionDocs = new HashMap();
 
@@ -1042,7 +1077,9 @@ public class Build {
             }//end while.
 
             documentationIndex.close();
-             */
+            // */
+
+
 
         } catch (Exception e) {
             e.printStackTrace();

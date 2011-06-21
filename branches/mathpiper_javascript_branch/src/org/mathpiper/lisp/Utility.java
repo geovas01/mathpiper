@@ -626,10 +626,10 @@ public class Utility {
             // read-parse-evaluate to the end of file
             String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
             boolean endoffile = false;
-            MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(),
-                    aEnvironment.iCurrentInput, aEnvironment,
-                    aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
-                    aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+
+            MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(),  aEnvironment.iCurrentInput, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+            //Parser parser = new Parser(new MathPiperTokenizer(), aEnvironment.iCurrentInput, aEnvironment);
+
             ConsPointer readIn = new ConsPointer();
             while (!endoffile) {
                 // Read expression
@@ -723,7 +723,7 @@ public class Utility {
 
         StringOutput out = new StringOutput();
 
-        LispPrinter printer = new LispPrinter();
+        LispPrinter printer = new LispPrinter(true);
 
         printer.print(aStackTop, aExpression, out, aEnvironment);
 
