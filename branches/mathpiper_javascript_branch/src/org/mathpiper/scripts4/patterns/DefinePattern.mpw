@@ -1,4 +1,4 @@
-%mathpiper,def="DefinePattern",private="true"
+%mathpiper,def="DefinePattern;_",private="true"
 
 Rulebase("DefinePattern",{leftOperand, rightOperand, rulePrecedence, postPredicate});
 

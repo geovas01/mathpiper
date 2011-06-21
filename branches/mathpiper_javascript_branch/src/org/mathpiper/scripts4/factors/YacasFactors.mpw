@@ -48,7 +48,7 @@
           [
               // No -- at least one non-integer coefficient
               // Check for FLOAT or RATIONAL coefficients
-              Local(notInt,rat,dd,lcm,newCoeffs,NewPoly,facs);
+              Local(notInt,rat,dd,lcm,newCoeffs,newPoly,facs);
               notInt := Select(coeffs, Lambda({i},Not IsInteger(i)));
               rat := Rationalize(coeffs);            
               dd  := MapSingle("Denominator",rat);

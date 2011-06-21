@@ -149,7 +149,7 @@ public class RunTestSuite {
 
         try {
 
-            evaluateTestScript(mathPiper.getEnvironment(), -1, new StringInputStream(testScript, mathPiper.getEnvironment().iInputStatus), true, true);
+            evaluateTestScript(mathPiper.getEnvironment(), -1, new StringInputStream(testScript, mathPiper.getEnvironment().iInputStatus), true, false);
 
         } catch (Exception e) {
             exceptionCount++;
@@ -268,7 +268,7 @@ public class RunTestSuite {
     public static void main(String[] args) {
 
         RunTestSuite pt = new RunTestSuite();
-        pt.test("Factors");
+        pt.test("Integrate");
 
     }//end main
 }//end class.

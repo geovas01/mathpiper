@@ -1,4 +1,4 @@
-%mathpiper,def="MatchLinear;MatchPureSquared"
+%mathpiper,def="MatchLinear;MatchPureSquared;Matched'a;Matched'b"
 
 /*
 todo:tk:MatchPureSquared() is in this file because it is grouped with MatchLinear in a
