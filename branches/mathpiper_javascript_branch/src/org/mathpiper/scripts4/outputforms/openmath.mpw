@@ -14,6 +14,9 @@ OMEchoEscape
 // Written by Alberto González Palomo and Ayal Pinkus.
 ////////////////////////
 
+Rulebase("OMError", {x,y});
+Rulebase("OMError", {x,y,z});
+
 /* The read-eval-print loop */
 /* It can take one parameter, that is the evaluation count. If it is greater
    than zero, only that number of iterations will be performed before
@@ -697,17 +700,260 @@ OMDef( "^" ,  "arith1", "power"  );
 OMDef( "*" ,  "arith1", "times"  );
 
 
-LoadScriptOnce("constants.rep/om.mpi");
-LoadScriptOnce("stdfuncs.rep/om.mpi");
-LoadScriptOnce("stubs.rep/om.mpi");
-LoadScriptOnce("logic.rep/om.mpi");
-LoadScriptOnce("complex.rep/om.mpi");
-LoadScriptOnce("integrate.rep/om.mpi");
-LoadScriptOnce("sums.rep/om.mpi");
-LoadScriptOnce("limit.rep/om.mpi");
-//LoadScriptOnce("numbers.rep/om.mpi");// Sqrt is loaded before (stubs.rep) than IntNthRoot.
-LoadScriptOnce("functional.rep/om.mpi");
+//LoadScriptOnce("constants.rep/om.mpi");
+OMDef( "I", "nums1", "i" );
+OMDef( "CachedConstant",        mathpiper, "CachedConstant"        );
+OMDef( "AssignCachedConstants", mathpiper, "AssignCachedConstants" );
+OMDef( "ClearCachedConstants",  mathpiper, "ClearCachedConstants"  );
+OMDef( "Pi", "nums1", "pi" );
 
+
+//LoadScriptOnce("stdfuncs.rep/om.mpi");
+/// coded by Serge Winitzki. See essays documentation for algorithms.
+OMDef( "ArcSin" , "transc1","arcsin"  );
+OMDef( "ArcCos" , "transc1","arccos"  );
+OMDef( "ArcTan" , "transc1","arctan"  );
+OMDef( "ArcSec" , "transc1","arcsec"  );
+OMDef( "ArcCsc" , "transc1","arccsc"  );
+OMDef( "ArcCot" , "transc1","arccot"  );
+OMDef( "ArcSinh", "transc1","arcsinh" );
+OMDef( "ArcCosh", "transc1","arccosh" );
+OMDef( "ArcTanh", "transc1","arctanh" );
+OMDef( "ArcSech", "transc1","arcsech" );
+OMDef( "ArcCsch", "transc1","arccsch" );
+OMDef( "ArcCoth", "transc1","arccoth" );
+OMDef( "Sin"    , "transc1","sin"     );
+OMDef( "Cos"    , "transc1","cos"     );
+OMDef( "Tan"    , "transc1","tan"     );
+OMDef( "Sec"    , "transc1","sec"     );
+OMDef( "Csc"    , "transc1","csc"     );
+OMDef( "Cot"    , "transc1","cot"     );
+OMDef( "Sinh"   , "transc1","sinh"    );
+OMDef( "Cosh"   , "transc1","cosh"    );
+OMDef( "Tanh"   , "transc1","tanh"    );
+OMDef( "Sech"   , "transc1","sech"    );
+OMDef( "Csch"   , "transc1","csch"    );
+OMDef( "Coth"   , "transc1","coth"    );
+OMDef( "Exp"    , "transc1","exp"     );
+OMDef( "Ln"     , "transc1","ln"      );
+// Related OM symbols not yet defined in MathPiper:
+//     "log"    , "transc1","log"
+
+
+//LoadScriptOnce("stubs.rep/om.mpi");
+OMDef( "Not", "logic1","not" );
+OMDef( "=" , "relation1","eq"  );
+OMDef( ">=", "relation1","geq" );
+OMDef( ">" , "relation1","gt"  );
+OMDef( "<=", "relation1","leq" );
+OMDef( "<" , "relation1","lt"  );
+OMDef( "!=", "relation1","neq" );
+OMDef( "Gcd", "arith1","gcd" );
+OMDef( "Sqrt", "arith1","root", { $, _1, 2 }, $(_1)_(_2=2) | (_1^(1/_2)) );
+// Test [result: Sqrt(16)]:
+// PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
+// Test [result: IntNthRoot(16,3))]:
+// PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>3</OMI></OMA></OMOBJ> ")OMRead()
+OMDef( "Abs", "arith1","abs" );
+OMDef( "Lcm", "arith1","lcm" );
+OMDef( "Floor", "rounding1","floor"   );
+OMDef( "Ceil" , "rounding1","ceiling" );
+OMDef( "Round", "rounding1","round"   );
+OMDef( "Quotient"   , mathpiper,"div"    );
+OMDef( "Modulo"   , mathpiper,"mod"    );
+OMDef( "Expand", mathpiper,"expand" );
+OMDef( "Object", mathpiper,"object" );
+OMDef( "Sign"  , mathpiper,"sign"   );
+
+
+//LoadScriptOnce("logic.rep/om.mpi");
+OMDef( "=>" , "logic1","implies" );
+OMDef( "CNF"          ,          mathpiper,"cnf"                      );
+OMDef( "LogicSimplify",          mathpiper,"logic_simplify"           );
+OMDef( "CanProve"     ,          mathpiper,"can_prove"                );
+OMDef( "LogicRemoveTautologies", mathpiper,"logic_remove_tautologies" );
+OMDef( "Subsumes"     ,          mathpiper,"subsumes"                 );
+// The following appear in the def file, but commented out:
+//     "~",  mathpiper, "Not"
+//     "|",  mathpiper, "Or"
+//     "&",  mathpiper, "And"
+
+//LoadScriptOnce("complex.rep/om.mpi");
+OMDef( "Complex"  , "complex1","complex_cartesian" );
+OMDef( "Re"       , "complex1","real"              );
+OMDef( "Im"       , "complex1","imaginary"         );
+OMDef( "Conjugate", "complex1","conjugate"         );
+OMDef( "Arg"      , "complex1","argument"          );
+OMDef( "IsComplex", mathpiper,"is_complex"         );
+
+
+//LoadScriptOnce("integrate.rep/om.mpi");
+OMDef( "Integrate", "calculus1","defint", // Same argument reordering as Sum.
+       { $, _2 .. _3, OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) },
+       { $, _{2,2,1}, _{1,1}, _{1,2}, _{2,3} }
+      );
+OMDef( "AntiDeriv", mathpiper,"AntiDeriv" );
+
+
+//LoadScriptOnce("sums.rep/om.mpi");
+// [2005-12-28 matmota]: I have to implement some better solution for the
+// MathPiper -> OM mapping for these symbols.
+OMDef( "Minimum", "minmax1","min",
+       { "<OMA>", "<OMS cd=\"set1\" name=\"set\"/>",
+         1,2,3,4,5,6,7,8,9,10,11,12,13,14,
+         "</OMS>", "</OMA>" },
+       ($):_1 );
+OMDef( "Maximum", "minmax1","max",
+       { "<OMA>", "<OMS cd=\"set1\" name=\"set\"/>",
+         1,2,3,4,5,6,7,8,9,10,11,12,13,14,
+         "</OMS>", "</OMA>" },
+       ($):_1 );
+OMDef( "!", "integer1","factorial" );
+OMDef( "BinomialCoefficient", "combinat1","binomial" );
+OMDef( "!!",  mathpiper,"double_factorial" );
+OMDef( "***", mathpiper,"partial_factorial" );
+OMDef( "Add", mathpiper,"Add" );
+OMDef( "Sum", "arith1","sum", // Same argument reordering as Integrate.
+       { $, _2 .. _3, OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) },
+       { $, _{2,2,1}, _{1,1}, _{1,2}, _{2,3} }
+      );
+OMDef( "Product", mathpiper,"Product" );
+OMDef( "Taylor",    mathpiper,"Taylor" );
+OMDef( "Subfactorial", mathpiper,"Subfactorial" );
+
+
+//LoadScriptOnce("limit.rep/om.mpi");
+OMDef("Limit", "limit1","limit",
+      {  _0, _2, OMS("limit1", "under"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Left)
+      |{ _0, _2, OMS("limit1", "above"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Right)
+      |{ _0, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) },
+      { _0, _{3,2,1}, _1, Left,  _{3,3}}_(_2=OMS("limit1", "below"))
+      |{_0, _{3,2,1}, _1, Right, _{3,3}}_(_2=OMS("limit1", "above"))
+      |{_0, _{3,2,1}, _1, _{3,3}}
+     );
+// Test [result Limit(x,0,Right)1/x]: PipeFromString(PipeToString()OMForm(Limit(x,0,Right) 1/x))OMRead()
+
+// As explained in the manual, "limit1:both_sides" and "fns1:lambda" will
+// be handled as OMS("limit1", "both_sides") and OMS("fns1", "lambda"), so
+// we don't need to define bogus mappings for them:
+// OMDef("OMSymbolLimit1BothSides", "limit1", "both_sides");
+// OMDef("OMSymbolLambda", "fns1", "lambda");
+// The same applies to "Left" and "Right", which are undefined symbols
+// that are used only inside limit expressions, so they don't need a mapping
+// of their own.
+// We could define them as follows:
+//OMDef("Left",  "limit1","below");
+//OMDef("Right", "limit1","above");
+// and then use the following rules instead:
+//      {  _0, _2, Left,  OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Left)
+//      |{ _0, _2, Right, OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Right)
+//      |{ _0, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) },
+//      { _0, _{3,2,1}, _1, _2, _{3,3}}_(_2=Left Or _2=Right)
+//      |{_0, _{3,2,1}, _1, _{3,3}}
+// The result is exactly the same. The only difference is when producing the
+// OMForm of the symbols themselves, outside the limit expression.
+
+
+//LoadScriptOnce("numbers.rep/om.mpi");// Sqrt is loaded before (stubs.rep) than IntNthRoot.
+OMDef( "BellNumber",      mathpiper,"BellNumber" );
+OMDef( "CatalanNumber",   mathpiper,"CatalanNumber" );
+OMDef( "DigitalRoot",     mathpiper,"DigitalRoot" );
+OMDef( "Divisors",        mathpiper,"Divisors" );
+OMDef( "DivisorsSum",     mathpiper,"DivisorsSum" );
+OMDef( "Euler",           mathpiper,"Euler" );
+OMDef( "EulerArray",      mathpiper,"EulerArray" );
+OMDef( "Eulerian",        mathpiper,"Eulerian" );
+OMDef( "FermatNumber",    mathpiper,"FermatNumber" );
+OMDef( "GetPrimePower",   mathpiper,"GetPrimePower" );
+OMDef( "HarmonicNumber",  mathpiper,"HarmonicNumber" );
+OMDef( "IntLog",          mathpiper,"IntLog" );
+OMDef( "IntNthRoot",      mathpiper,"IntNthRoot" );
+OMDef( "IsAmicablePair",  mathpiper,"IsAmicablePair" );
+OMDef( "IsCarmichaelNumber", mathpiper,"IsCarmichaelNumber" );
+OMDef( "IsComposite",     mathpiper,"IsComposite" );
+OMDef( "IsCoprime",       mathpiper,"IsCoprime" );
+OMDef( "IsIrregularPrime", mathpiper,"IsIrregularPrime" );
+OMDef( "IsPerfect",       mathpiper,"IsPerfect" );
+OMDef( "IsPrime",         mathpiper,"IsPrime" );
+OMDef( "IsPrimePower",    mathpiper,"IsPrimePower" );
+OMDef( "IsQuadraticResidue", mathpiper,"IsQuadraticResidue" );
+OMDef( "IsSmallPrime",    mathpiper,"IsSmallPrime" );
+OMDef( "IsSquareFree",    mathpiper,"IsSquareFree" );
+OMDef( "IsTwinPrime",     mathpiper,"IsTwinPrime" );
+OMDef( "LegendreSymbol",  mathpiper,"LegendreSymbol" );
+OMDef( "Moebius",         mathpiper,"Moebius" );
+OMDef( "NextPrime",       mathpiper,"NextPrime" );
+OMDef( "NextPseudoPrime", mathpiper,"NextPseudoPrime" );
+OMDef( "PartitionsP",     mathpiper,"PartitionsP" );
+OMDef( "ProductPrimesTo257", mathpiper,"ProductPrimesTo257" );
+OMDef( "ProperDivisors",  mathpiper,"ProperDivisors" );
+OMDef( "ProperDivisorsSum", mathpiper,"ProperDivisorsSum" );
+OMDef( "Repunit",         mathpiper,"Repunit" );
+OMDef( "StirlingNumber1", mathpiper,"StirlingNumber1" );
+OMDef( "StirlingNumber2", mathpiper,"StirlingNumber2" );
+OMDef( "Totient",         mathpiper,"Totient" );
+
+// From GaussianIntegers.mpi.def
+OMDef( "IsGaussianUnit",    mathpiper,"IsGaussianUnit" );
+OMDef( "IsGaussianInteger", mathpiper,"IsGaussianInteger" );
+OMDef( "IsGaussianPrime",   mathpiper,"IsGaussianPrime" );
+OMDef( "GaussianFactorPrime", mathpiper,"GaussianFactorPrime" );
+OMDef( "GaussianNorm",      mathpiper,"GaussianNorm" );
+OMDef( "GaussianMod",       mathpiper,"GaussianMod" );
+OMDef( "GaussianFactors",   mathpiper,"GaussianFactors" );
+OMDef( "AddGaussianFactor", mathpiper,"AddGaussianFactor" );
+OMDef( "FactorGaussianInteger", mathpiper,"FactorGaussianInteger" );
+OMDef( "GaussianGcd",       mathpiper,"GaussianGcd" );
+
+// From nthroot.mpi.def
+OMDef( "NthRoot",      mathpiper,"NthRoot" );
+OMDef( "NthRoot'Calc", mathpiper,"NthRoot'Calc" );
+OMDef( "NthRoot'List", mathpiper,"NthRoot'List" );
+OMDef( "NthRoot'Save", mathpiper,"NthRoot'Save" );
+OMDef( "NthRoot'Restore", mathpiper,"NthRoot'Restore" );
+OMDef( "NthRoot'Clear", mathpiper,"NthRoot'Clear" );
+
+// From NumberTheory.mpi.def
+OMDef( "DivisorsList", mathpiper,"DivisorsList" );
+OMDef( "SquareFreeDivisorsList", mathpiper,"SquareFreeDivisorsList" );
+OMDef( "MoebiusDivisorsList",    mathpiper,"MoebiusDivisorsList" );
+OMDef( "SumForDivisors", mathpiper,"SumForDivisors" );
+OMDef( "RamanujanSum",   mathpiper,"RamanujanSum" );
+OMDef( "JacobiSymbol",   mathpiper,"JacobiSymbol" );
+
+
+//LoadScriptOnce("functional.rep/om.mpi");
+OMDef( ":"        , "mathpiper","prepend"    );
+OMDef( "@"        , "mathpiper","apply"      );
+OMDef( "/@"       , "mathpiper","list_apply" );
+OMDef( ".."       , "interval1","integer_interval" );
+OMDef( "NFunction", "mathpiper","NFunction" );
+
+
+//LoadScriptOnce("specfunc.rep/om.mpi");
+OMDef( "Gamma", "nums1", "gamma" );
+OMDef( "LnGamma"        , mathpiper, "LnGamma" );
+OMDef( "Zeta"           , mathpiper, "Zeta" );
+OMDef( "Bernoulli"      , mathpiper, "Bernoulli" );
+OMDef( "ApproxInfSum"   , mathpiper, "ApproxInfSum" );
+OMDef( "BesselJ"        , mathpiper, "BesselJ" );
+OMDef( "BesselI"        , mathpiper, "BesselI" );
+OMDef( "BesselY"        , mathpiper, "BesselY" );
+OMDef( "Erf"            , mathpiper, "Erf" );
+OMDef( "Erfc"           , mathpiper, "Erfc" );
+OMDef( "Erfi"           , mathpiper, "Erfi" );
+OMDef( "FresnelSin"     , mathpiper, "FresnelSin" );
+OMDef( "FresnelCos"     , mathpiper, "FresnelCos" );
+OMDef( "LambertW"       , mathpiper, "LambertW" );
+OMDef( "Beta"           , mathpiper, "Beta" );
+OMDef( "DirichletEta"   , mathpiper, "DirichletEta" );
+OMDef( "DirichletLambda", mathpiper, "DirichletLambda" );
+OMDef( "DirichletBeta"  , mathpiper, "DirichletBeta" );
+OMDef( "Sinc"           , mathpiper, "Sinc" );
+OMDef( "PolyLog"        , mathpiper, "PolyLog" );
+OMDef( "CatalanConstNum", mathpiper, "CatalanConstNum" );
+OMDef( "Digamma"        , mathpiper, "Digamma" );
+OMDef( "DawsonIntegral" , mathpiper, "DawsonIntegral" );
 
 %/mathpiper
 
@@ -942,3 +1188,23 @@ Result: Infinity
 %/mathpiper_docs
 
 
+
+
+
+%mathpiper,name="open_math",subtype="automatic_test"
+
+//Converting to and from OpenMath expressions".
+
+Macro(OMTest1,{expr})
+[
+  Local(string,result);
+  string:=PipeToString() OMForm(@expr);
+  result:=PipeFromString(string)OMRead();
+//  Echo(Hold(@expr),`Hold(@result));
+  Verify(Hold(@expr),`Hold(@result));
+];
+
+OMTest1(2+3);
+OMTest1(2*a+3*Sin(Cos(a*x+b)));
+
+%/mathpiper

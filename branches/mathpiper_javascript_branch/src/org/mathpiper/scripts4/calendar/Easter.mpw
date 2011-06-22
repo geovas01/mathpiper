@@ -59,8 +59,6 @@ Result: {4,24}
 
 %mathpiper,name="Easter",subtype="automatic_test"
 
-Testing("-- Easter");
-
 Verify(Easter(1777), {3, 30});
 Verify(Easter(1961), {4, 2});
 Verify(Easter(2009), {4, 12});

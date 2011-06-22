@@ -110,7 +110,6 @@ Result: 281487861809153;
 
 %mathpiper,name="IntNthRoot",subtype="automatic_test"
 
-Testing("IntNthRoot");
 Verify(IntNthRoot(65537^33, 11), 281487861809153);
 
 %/mathpiper

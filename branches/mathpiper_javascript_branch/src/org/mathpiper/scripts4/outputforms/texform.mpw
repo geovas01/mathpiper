@@ -425,8 +425,6 @@ Result: "\$\sin a_{1} + 2 \cos b_{1}\$";
 
 %mathpiper,name="TeXForm",subtype="automatic_test"
 
-NextTest("TeXForm()...");
-
 /* it worketh no more...
 Testing("Realistic example");
 f:=Exp(I*lambda*eta)*w(T*(k+k1+lambda));

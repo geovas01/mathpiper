@@ -67,7 +67,6 @@ Result: False
 
 %mathpiper,name="LogicTest",subtype="automatic_test"
 
-Testing("LogicTest");
 LogicTest({A},A And A,      A);
 LogicTest({A},A And True,   A);
 LogicTest({A},A And False,  False);

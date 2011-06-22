@@ -98,8 +98,6 @@ LocalSymbols(var,var2,a,b,y)[
 
 %mathpiper,name="Deriv",subtype="automatic_test"
 
-Testing("Deriv");
-
 TestMathPiper(Deriv(x)Ln(x),1/x);
 TestMathPiper(Deriv(x)Exp(x),Exp(x));
 TestMathPiper(Deriv(x)(x^4+x^3+x^2+x+1),4*x^3+3*x^2+2*x+1);

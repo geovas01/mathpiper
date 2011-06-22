@@ -518,12 +518,12 @@ public class Build {
                         inputStatus.setTo(mpwFile.getName());
                         StringInputStream functionInputStream = new StringInputStream(foldContents, inputStatus);
                         try {
-                            processedScript = parsePrintScript(mathpiper.getEnvironment(), -1, functionInputStream, false);
+                        processedScript = parsePrintScript(mathpiper.getEnvironment(), -1, functionInputStream, false);
                         } catch (Exception e) {
-                            System.out.println(inputStatus.fileName() + ": Line: " + inputStatus.lineNumber());
-                            throw (e);
+                        System.out.println(inputStatus.fileName() + ": Line: " + inputStatus.lineNumber());
+                        throw (e);
                         }
-                        */
+                         */
 
 
                         /*
@@ -533,7 +533,7 @@ public class Build {
                         OutputStreamWriter writer = new OutputStreamWriter(new GZIPOutputStream(out));
                         char[] charBuffer = new char[1024];
                         while (input.read(charBuffer) != -1) {
-                            writer.write(charBuffer);
+                        writer.write(charBuffer);
                         }
                         writer.close();
                         processedScript = (new BASE64Encoder()).encode(out.toByteArray());
@@ -714,17 +714,26 @@ public class Build {
 
         foldContents = foldContents.replace("\\", "\\\\");
         foldContents = foldContents.replace("\n", "\\n");
+        foldContents = foldContents.replace("\"", "\\\"") ;
 
-        testsJavaFile.write("\n        testString = new String[2];");
-        testsJavaFile.write("\n        testString[0] = \"\";");
-        testsJavaFile.write("\n        testString[1] = \"" + foldContents.replace("\"", "\\\"") + "\";\n");
+        String nameAttribute = "";
 
-        if (fold.getAttributes().containsKey("name")) {
-            String nameAttribute = (String) fold.getAttributes().get("name");
-            if (!nameAttribute.equalsIgnoreCase("")) {
-                testsJavaFile.write("        testsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
-            }//end if.
-        }//end if.
+        if (fold.getAttributes().containsKey("name") && !(nameAttribute = (String) fold.getAttributes().get("name")).equals("")) {
+
+            foldContents =  ("Testing(\\\"" + nameAttribute + "\\\");" + foldContents);
+            testsJavaFile.write("\n        testString = new String[2];");
+            testsJavaFile.write("\n        testString[0] = \"\";");
+            testsJavaFile.write("\n        testString[1] = \"" + foldContents + "\";\n");
+
+            testsJavaFile.write("        testsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+
+        } else {
+            throw new Exception("The following test code has no name: " + foldContents);
+        }
+
+
+
+
     }//end method.
 
 
@@ -1011,7 +1020,7 @@ public class Build {
 
     public static void main(String[] args) {
         try {
-           //fileCopy("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/test/Scripts.java", "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/Scripts.java"); if(1==1) return;
+            //fileCopy("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/test/Scripts.java", "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/Scripts.java"); if(1==1) return;
 
 
             String sourceScriptsDirectory;

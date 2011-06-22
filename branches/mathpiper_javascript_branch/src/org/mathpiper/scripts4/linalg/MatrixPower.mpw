@@ -65,8 +65,6 @@ Result: {{-59/4,27/4},{81/8,-37/8}};
 
 %mathpiper,name="MatrixPower",subtype="automatic_test"
 
-Testing("-- MatrixPower");
-
 //Verify(MatrixPower(,),);
 Verify(MatrixPower(a,0),Hold(MatrixPower(a,0)));
 Verify(MatrixPower(a,n),Hold(MatrixPower(a,n)));

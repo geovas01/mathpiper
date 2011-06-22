@@ -372,8 +372,6 @@ Result: Infinity;
 
 %mathpiper,name="Limit",subtype="automatic_test"
 
-Testing("Limits");
-
 Verify( Limit(x,Infinity) Sin(x), Undefined ); f();
 Verify( Limit(x,Infinity) Cos(x), Undefined ); f();
 Verify( Limit(x,Infinity) Tan(x), Undefined ); f();

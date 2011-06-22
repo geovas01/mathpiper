@@ -47,8 +47,6 @@ error we are interested in. It returns {True} if any errors of the given class
 
 %mathpiper,name="error_reporting",subtype="automatic_test"
 
-Testing("Error reporting");
-
 // generate no errors
 Verify(IsError(), False);
 Verify(IsError("testing"), False);

@@ -80,8 +80,6 @@ Result: 804;
 
 %mathpiper,name="IntLog",subtype="automatic_test"
 
-Testing("IntLog");
-
 Verify(IntLog(23^45, 67), 33);
 Verify(IntLog(1, 67), 0);
 Verify(IntLog(2, 67), 0);

@@ -229,3 +229,15 @@ Result: 1;
 
 *SEE Taylor
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="SumTaylorNum",subtype="automatic_test"
+
+BuiltinPrecisionSet(22);
+NumericEqual(RoundTo(SumTaylorNum(1, {{k},1/k!}, {{k},1/k}, 21),21), 2.718281828459045235359,21);
+NumericEqual(RoundTo(SumTaylorNum(1, {{k},1/k!}, 21),21), 2.718281828459045235359,21);
+
+%/mathpiper

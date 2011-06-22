@@ -108,8 +108,6 @@ Result: {{19,22},{43,50}};
 
 %mathpiper,name="Dot",subtype="automatic_test"
 
-Testing("-- Dot");
-
 // vector . vector
 Verify(Dot({},{}),0);
 Verify(Dot({},a),Hold(Dot({},a)));

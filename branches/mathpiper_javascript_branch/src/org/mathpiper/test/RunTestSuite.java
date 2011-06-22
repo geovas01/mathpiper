@@ -268,7 +268,7 @@ public class RunTestSuite {
     public static void main(String[] args) {
 
         RunTestSuite pt = new RunTestSuite();
-        pt.test("numerics");
+        pt.test("open_math");
 
     }//end main
 }//end class.

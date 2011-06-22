@@ -82,7 +82,7 @@ Result: {2}
 
 %mathpiper,name="Dimensions",subtype="automatic_test"
 
-Testing("-- Dimensions (Tensor Rank)");
+//Dimensions (Tensor Rank).
 
 Verify(Dimensions(a),{});
 Verify(Dimensions({}),{0});

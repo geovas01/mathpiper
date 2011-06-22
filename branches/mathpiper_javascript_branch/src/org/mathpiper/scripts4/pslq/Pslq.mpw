@@ -373,8 +373,6 @@ $1 * (2*Pi+3*e) + (-2) * Pi + (-3) * e = 0$.
 
 %mathpiper,name="Pslq",subtype="automatic_test"
 
-Testing("Pslq");
-
 VerifyPslq(left,right):=
 [
   If(left=right,

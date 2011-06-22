@@ -184,8 +184,6 @@ Result: {12,1884};
 
 %mathpiper,name="NthRoot",subtype="automatic_test"
 
-Testing("-- NthRoot");
-
 // you need to use ListToFunction for this one as -1 is actually -(1), eg. a unary function (minus)
 // applied to a positive integer (1). ListToFunction evaluates its arguments, resulting in a negative
 // integer (-1).

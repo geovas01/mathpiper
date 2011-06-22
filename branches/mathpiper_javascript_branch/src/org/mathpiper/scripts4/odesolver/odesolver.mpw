@@ -12,6 +12,8 @@ OdeOrder
  3) Done: documentation for OdeSolve and OdeTest
  */
 
+Rulebase("yyy",{x});
+
 10 # OdeLeftHandSideEq(_l == _r) <-- (l-r);
 20 # OdeLeftHandSideEq(_e) <-- e;
 
@@ -380,3 +382,15 @@ Result: 0;
 
 *SEE OdeSolve
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="OdeSolve",subtype="automatic_test"
+
+Verify( OdeTest(y''+y,       OdeSolve(y''+y==0)     ), 0 );
+Verify( OdeTest(y'/5-Sin(x), OdeSolve(y'/5==Sin(x)) ), 0 );
+Verify( OdeTest(x*y' - 1,    OdeSolve(x*y'==1) ), 0 );
+
+%/mathpiper
