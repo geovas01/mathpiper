@@ -272,8 +272,8 @@ y1	11  31  21
 */
 	If(
 		// condition for the values not to oscillate too rapidly
-		sign'change(f11,f13,f12) + sign'change(f13,f12,f32) + sign'change(f12,f32,f22) <= 2 And sign'change(f22,f23,f21) + sign'change(f23,f21,f31) + sign'change(f21,f31,f11) <= 2
-		And
+		sign'change(f11,f13,f12) + sign'change(f13,f12,f32) + sign'change(f12,f32,f22) <= 2 And sign'change(f22,f23,f21) + sign'change(f23,f21,f31) + sign'change(f21,f31,f11) <= 2 And 
+		
 		// condition for the values not to change too rapidly
 		N(Eval(Abs( (f11-f23)/2-(f12-f21)/3+(f22-f13)/6+2*(f32-f33)/3 )))
 			<= N(Eval( epsilon*(	// the expression here will be nonnegative because we subtract the minimum value
@@ -414,3 +414,21 @@ Result: True;
 
 *SEE V, NFunction, Plot2D
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Plot3DS",subtype="automatic_test"
+
+/* I stringified the results for now, as that is what the tests used to mean. The correct way to deal with this
+ * would be to compare the resulting numbers to accepted precision.
+ */
+[
+  Local(result);
+  result:="{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}";
+  Verify(PipeToString()Write(Plot3DS(a,-1:1,-1:1,output->data,points->2)), result);
+  Verify(PipeToString()Write(Plot3DS(x1,x1 -> -1:1,x2 -> -1:1,output->data,points->2)), result);
+];
+
+%/mathpiper

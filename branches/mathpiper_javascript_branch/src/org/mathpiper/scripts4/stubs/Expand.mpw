@@ -68,3 +68,13 @@ In> Expand((1+x-y)^2, {x,y});
 
 *SEE ExpandBrackets
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Expand",subtype="automatic_test"
+
+TestMathPiper(Expand((1+x)^2),x^2+2*x+1);
+
+%/mathpiper

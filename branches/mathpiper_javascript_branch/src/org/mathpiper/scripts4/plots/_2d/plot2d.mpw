@@ -326,8 +326,16 @@ singularities.)
 *SEE V, NFunction, Plot3DS
 %/mathpiper_docs
 
-    %output,preserve="false"
-      
-.   %/output
 
 
+
+
+%mathpiper,name="Plot2D",subtype="automatic_test"
+
+/* I stringified the results for now, as that is what the tests used to mean. The correct way to deal with this
+ * would be to compare the resulting numbers to accepted precision.
+ */
+Verify(PipeToString()Write(Plot2D(a,-1:1,output->data,points->4,depth->0)), "{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}");
+Verify(PipeToString()Write(Plot2D(b,b-> -1:1,output->data,points->4)), "{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}");
+
+%/mathpiper
