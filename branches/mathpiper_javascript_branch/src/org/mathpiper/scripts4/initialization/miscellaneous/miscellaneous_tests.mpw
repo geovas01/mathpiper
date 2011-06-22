@@ -46,4 +46,23 @@ Testing("Checking comment syntax supported");
 
 
 
+
+Testing("Yacas tutorials and journal entries.");
+Verify(1+1,2);
+Verify("This text","This text");
+Verify(2+3,5);
+Verify(3*4,12);
+Verify(-(3*4),-12);
+Verify(2+3*4,14);
+Verify(6/3,2);
+Verify(1/3,1/3);
+Verify(IsNumber(N(1/3)),True);
+Verify(Sin(Pi),0);
+Verify(Minimum(5,1,3,-5,10),-5);
+Verify(Sqrt(2),Sqrt(2));
+Verify({1,2,3},{1,2,3});
+Verify({a,b,c}[2],b);
+Verify("abc"[2],"b");
+Verify(x^(1/2),Sqrt(x));
+
 %/mathpiper

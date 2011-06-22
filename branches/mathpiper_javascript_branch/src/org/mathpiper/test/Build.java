@@ -477,7 +477,7 @@ public class Build {
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
 
 
-                    String[] blacklist = {"CForm", "IsCFormable", "TeXForm"};
+                    String[] blacklist = {"CForm", "IsCFormable", "TeXForm", "issues"};
                     for (String fileName : blacklist) {
                         fileName = fileName + ".mpw";
                         if (fileName.equalsIgnoreCase(mpwFile.getName())) {

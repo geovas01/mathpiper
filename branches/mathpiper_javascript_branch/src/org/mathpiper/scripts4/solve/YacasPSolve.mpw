@@ -1,4 +1,4 @@
-%mathpiper,def="YacasYacasPSolve"
+%mathpiper,def="YacasPSolve"
 
 Rulebase("YacasPSolve",{uni});
 

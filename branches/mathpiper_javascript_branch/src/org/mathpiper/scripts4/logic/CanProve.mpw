@@ -124,7 +124,7 @@ Result: a Or b;
 %mathpiper,name="CanProve",subtype="automatic_test"
 
 
-NextTest("Propositional logic theorem prover");
+NextTest("Propositional logic theorem prover: CanProve");
 
 Verify(CanProve(( (a=>b) And (b=>c) => (a=>c) )),True);
 Verify(CanProve((((a=>b) And (b=>c))=> (a=>c) )),True);
@@ -157,5 +157,19 @@ Verify(CanProve(	/* 1. CCCpqrCCrpCsp */
 Verify(CanProve(	/* 2. CCpCqrCqCpr */
      (p => (q=>r)) => (q => (p=>r))
      ), True);
+
+
+Verify(CanProve((A Or B) And Not A),            B And Not A);
+Verify(CanProve((A Or B) And (Not A Or C)),     (A Or B) And (C Or Not A));
+Verify(CanProve((B Or A) And (Not A Or C)),     (A Or B) And (C Or Not A));
+Verify(CanProve( A And (A Or B Or C)),       A);
+Verify(CanProve( A And (Not A Or B Or C)),  A And (B Or C));
+
+// this is a test of contradication, A==3 should kick A==2 out as they're contradictory
+Verify(CanProve( A==3 And (A==2 Or B Or C)),  A-3==0 And (B Or C));
+//TODO Verify(CanProve( A==3 And (A<2  Or B Or C)),  A-3==0 And (B Or C));
+//TODO Verify(CanProve( A==3 And (A>2  Or B Or C)),  (A-3==0) And (((A-2) > 0) Or B Or C));
+
+Verify(CanProve(Not(Not (p_2-NULL==0))Or Not(p_2-NULL==0)), True);
 
 %/mathpiper

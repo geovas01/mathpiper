@@ -1,4 +1,4 @@
-
+%mathpiper,name="linear_algebra",subtype="automatic_test"
 
 Testing("LeviCivita");
 Verify(LeviCivita({1,2,3}),1);
@@ -74,7 +74,7 @@ Verify(Transpose({{a,b},{c,d}}),{{a,c},{b,d}});
 /* Determinant */
 Testing("Determinant");
 Verify(Determinant({{2,3},{3,1}}),-7);
-Verity( Determinant(ToeplitzMatrix(1 .. 10)), -2816 );
+Verify( Determinant(ToeplitzMatrix(1 .. 10)), -2816 );
 // check that Determinant gives correct symbolic result
 TestMathPiper(Determinant({{a,b},{c,d}}),a*d-b*c);
 
@@ -109,11 +109,11 @@ TestMathPiper(Determinant({{a,b},{c,d}}),a*d-b*c);
 
 [
   Local(A);
-  Verify( IsSymmetric(Identity(10)), True ); 
+  Verify( IsSymmetric(Identity(10)), True );
   Verify( IsOrthogonal(2*Identity(10)), False );
   A := {{1,2,2},{2,1,-2},{-2,2,-1}};
   Verify( IsOrthogonal(A/3), True );
-  Verity( IsSymmetric(Identity(10)), True );
+  Verify( IsSymmetric(Identity(10)), True );
   Verify( IsSymmetric({{1}}),True );
   A := {{1,0,0,0,1},{0,2,0,0,0},{0,0,3,0,0},{0,0,0,4,0},{1,0,0,0,5}};
   Verify( IsSymmetric(A),True );
@@ -143,7 +143,7 @@ Verify( Norm({1,2,3}), Sqrt(14) );
 
 Verify( OrthogonalBasis({{1,1,0},{2,0,1},{2,2,1}}) , {{1,1,0},{1,-1,1},{-1/3,1/3,2/3}} );
 Verify( OrthogonalBasis({{1,0,1,0},{1,1,1,0},{0,1,0,1}}), {{1,0,1,0},{0,1,0,0},{0,0,0,1}} );
-Verify( OrthonormalBasis({{1,0,1,0},{1,1,1,0},{0,1,0,1}}), 
+Verify( OrthonormalBasis({{1,0,1,0},{1,1,1,0},{0,1,0,1}}),
 	{{Sqrt(1/2),0,Sqrt(1/2),0},{0,1,0,0},{0,0,0,1}} );
 Verify( OrthonormalBasis({{1,1,1},{0,1,1},{0,0,1}}),
 	{{Sqrt(1/3),Sqrt(1/3),Sqrt(1/3)},
@@ -174,3 +174,5 @@ Verify( OrthonormalBasis({{1,1,1},{0,1,1},{0,0,1}}),
   {L,U} := LU(A);
   Verify( L*U, A );
 ];
+
+%/mathpiper

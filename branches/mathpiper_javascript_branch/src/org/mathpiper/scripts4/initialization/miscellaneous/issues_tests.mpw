@@ -1,3 +1,5 @@
+%mathpiper,name="issues",subtype="automatic_test"
+
 NextTest("Problems reported as Issues");
 
 //Issue02
@@ -29,7 +31,7 @@ Verify(Solve({x + y == 2, y == x}, {x, y}), {x==1,y==1} );          //  OK
 //Issue11
 Verify(Solve(x^3==x,x), {x==0,x==1,x==(-1)});
 Verify(Solve(x^3==x^2,x), {x==0,x==1} );
-Verify(Solve(x^4==x^2,x), {x==0,x==1,x==(-1)});        // OK 
+Verify(Solve(x^4==x^2,x), {x==0,x==1,x==(-1)});        // OK
 
 //Issue12
 Verify(Factor( t^2-9 ), (t-3)*(t+3));       // OK
@@ -189,3 +191,5 @@ Verify(Simplify(x^2*(1/x)^2+1), 2);
 
 // Issue 121
 Verify(Limit(x, Infinity) ((x)^(2)) + (Sin(x)), Infinity);
+
+%/mathpiper

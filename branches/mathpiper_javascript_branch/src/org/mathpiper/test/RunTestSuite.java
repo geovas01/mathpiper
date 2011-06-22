@@ -134,7 +134,7 @@ public class RunTestSuite {
 
         if(testScriptArray == null)
         {
-            throw new Exception("Test does not exist.");
+            throw new Exception("The test named " + testName + " does not exist.");
         }
 
         String testScript = (String) testScriptArray[1];
@@ -149,7 +149,7 @@ public class RunTestSuite {
 
         try {
 
-            evaluateTestScript(mathPiper.getEnvironment(), -1, new StringInputStream(testScript, mathPiper.getEnvironment().iInputStatus), true, false);
+            evaluateTestScript(mathPiper.getEnvironment(), -1, new StringInputStream(testScript, mathPiper.getEnvironment().iInputStatus), true, true);
 
         } catch (Exception e) {
             exceptionCount++;
@@ -268,7 +268,7 @@ public class RunTestSuite {
     public static void main(String[] args) {
 
         RunTestSuite pt = new RunTestSuite();
-        pt.test("Integrate");
+        pt.test("MatrixPower");
 
     }//end main
 }//end class.
