@@ -42,7 +42,7 @@ public abstract class Evaluator {
 	UserStackInformation iBasicInfo = new UserStackInformation();
 
 	public static void showExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
-		MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators, true);
+		MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 		// Print out the current expression
 		//StringOutput stream(outString);
 		MathPiperOutputStream stream = new StringOutputStream(outString);

@@ -83,7 +83,7 @@ public class ConsPointer {
     @Override
     public String toString() {
         StringOutput out = new StringOutput();
-        LispPrinter printer = new LispPrinter(true);
+        LispPrinter printer = new LispPrinter();
         try {
             printer.print(-1, this, out, null);
         } catch (Exception e) {

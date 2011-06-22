@@ -35,3 +35,15 @@ Result: {4,6,8,9,10,12,14,15,16,18,20};
 
 *SEE IsPrime
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsComposite",subtype="automatic_test"
+
+Verify( IsComposite(100), True );
+Verify( IsComposite(1), False );
+Verify( IsComposite(37), False );
+
+%/mathpiper

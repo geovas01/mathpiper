@@ -8,3 +8,13 @@ Repunit(n_IsPositiveInteger) <--
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper,name="Repunit",subtype="automatic_test"
+
+Verify(Repunit(3), 111 );
+
+%/mathpiper

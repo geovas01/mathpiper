@@ -61,3 +61,24 @@ Result: {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,
 
 *SEE IsPrimePower, Factors
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsPrime",subtype="automatic_test"
+
+Verify(IsPrime(65539),True);
+Verify(IsPrime(0),False);
+Verify(IsPrime(-1),False);
+Verify(IsPrime(1),False);
+Verify(IsPrime(2),True);
+Verify(IsPrime(3),True);
+Verify(IsPrime(4),False);
+Verify(IsPrime(5),True);
+Verify(IsPrime(6),False);
+Verify(IsPrime(7),True);
+Verify(IsPrime(-60000000000),False);
+Verify(IsPrime(6.1),False); 
+
+%/mathpiper

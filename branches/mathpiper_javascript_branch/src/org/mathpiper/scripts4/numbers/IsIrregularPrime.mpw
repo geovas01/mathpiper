@@ -51,3 +51,16 @@ Result: {37,59,67};
 
 *SEE IsPrime
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsIrregularPrime",subtype="automatic_test"
+
+Verify( IsIrregularPrime(37), True );
+Verify( IsIrregularPrime(59), True );
+Verify( IsIrregularPrime(1), False );
+Verify( IsIrregularPrime(11), False );
+
+%/mathpiper

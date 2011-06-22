@@ -74,7 +74,7 @@ public class SublistCons extends Cons {
     @Override
     public String toString() {
         StringOutput out = new StringOutput();
-        LispPrinter printer = new LispPrinter(true);
+        LispPrinter printer = new LispPrinter();
         try {
             printer.print(-1, new ConsPointer(this), out, null);
         } catch (Exception e) {

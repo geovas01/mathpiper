@@ -179,7 +179,14 @@ RabinMiller(n_IsPositiveInteger) <--
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
+
+
+
+%mathpiper,name="RabinMiller",subtype="automatic_test"
+
+Verify(RabinMiller(1037),False);
+Verify(RabinMiller(1038),False);
+Verify(RabinMiller(1039),True);
+
+%/mathpiper

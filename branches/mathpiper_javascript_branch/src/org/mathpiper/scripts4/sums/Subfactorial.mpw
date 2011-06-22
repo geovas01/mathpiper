@@ -34,7 +34,13 @@ Result: 1334961;
 *SEE BinomialCoefficient, Product, Gamma, ,! !!, ***,
 %/mathpiper_docs
 
-    %output,preserve="false"
-      
-.   %/output
 
+
+
+
+%mathpiper,name="Subfactorial",subtype="automatic_test"
+
+Verify( Subfactorial(0), 1 );
+Verify( Subfactorial(21), 18795307255050944540 );
+
+%/mathpiper

@@ -159,3 +159,36 @@ MultiTermLess({_deg1,_fact1},{_deg2,_fact2}) <--
 
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="NormalForm",categories="User Functions;Lists (Operations)"
+*CMD NormalForm --- return expression in normal form
+*STD
+*CALL
+	NormalForm(expression)
+
+*PARMS
+
+{expression} -- an expression
+
+*DESC
+
+This function returns an expression in normal form.
+
+
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="NormalForm",subtype="automatic_test"
+
+NextTest("Test arithmetic: NormalForm");
+
+TestMathPiper(NormalForm(MM((x+y)^5)),y^5+5*x*y^4+10*x^2*y^3+10*x^3*y^2+5*x^4*y+x^5);
+
+%/mathpiperiper

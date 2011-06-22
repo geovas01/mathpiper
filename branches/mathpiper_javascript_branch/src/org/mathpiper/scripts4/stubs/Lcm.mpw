@@ -55,3 +55,13 @@ Result: 315;
 *SEE Gcd
 
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Lcm",subtype="automatic_test"
+
+Verify( Lcm({7,11,13,17}), 7*11*13*17 );
+
+%/mathpiper

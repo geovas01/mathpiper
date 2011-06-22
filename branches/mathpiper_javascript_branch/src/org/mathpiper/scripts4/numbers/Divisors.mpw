@@ -46,3 +46,13 @@ Result: 2;
 
 *SEE DivisorsSum, ProperDivisors, ProperDivisorsSum, Moebius
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Divisors",subtype="automatic_test"
+
+Verify( Divisors(180), 18 );
+
+%/mathpiper

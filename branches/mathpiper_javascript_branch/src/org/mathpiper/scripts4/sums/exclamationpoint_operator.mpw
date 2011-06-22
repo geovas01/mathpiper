@@ -83,3 +83,15 @@ Result: Sqrt(Pi)/2;
 
 *SEE BinomialCoefficient, Product, Gamma, !!, ***, Subfactorial
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Factorial",subtype="automatic_test"
+
+Testing("Factorial");
+Verify(261! - 261*260!, 0);
+Verify(300! / 250!, 251***300);
+
+%/mathpiper

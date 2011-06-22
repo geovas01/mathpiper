@@ -46,3 +46,12 @@ Result: 2035/1728;
 
 *SEE Sum
 %/mathpiper_docs
+
+
+
+
+%mathpiper,name="HarmonicNumber",subtype="automatic_test"
+
+Verify(HarmonicNumber(5), 137/60 );
+
+%/mathpiper

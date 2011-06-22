@@ -702,8 +702,7 @@ public class Utility {
         MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators,
                 aEnvironment.iInfixOperators,
                 aEnvironment.iPostfixOperators,
-                aEnvironment.iBodiedOperators,
-                true);
+                aEnvironment.iBodiedOperators);
         infixprinter.print(aStackTop, aExpression, newOutput, aEnvironment);
         if (aMaxChars > 0 && result.length() > aMaxChars) {
             result.delete(aMaxChars, result.length());
@@ -723,7 +722,7 @@ public class Utility {
 
         StringOutput out = new StringOutput();
 
-        LispPrinter printer = new LispPrinter(true);
+        LispPrinter printer = new LispPrinter();
 
         printer.print(aStackTop, aExpression, out, aEnvironment);
 

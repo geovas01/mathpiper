@@ -31,3 +31,14 @@ Result: True;
 
 *SEE ProperDivisorsSum
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsAmicablePair",subtype="automatic_test"
+
+Verify( IsAmicablePair(200958394875 ,209194708485 ), True );
+Verify( IsAmicablePair(220,284),True );
+
+%/mathpiper

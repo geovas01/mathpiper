@@ -37,3 +37,15 @@ Result: 7;
 
 *SEE IsPrime
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="NextPrime",subtype="automatic_test"
+
+Verify(NextPrime(65537), 65539);
+Verify(NextPrime(97192831),97192841);
+Verify(NextPrime(14987234876128361),14987234876128369);
+
+%/mathpiper

@@ -34,3 +34,15 @@ Result: True;
 
 *SEE Prime
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsCoprime",subtype="automatic_test"
+
+Verify( IsCoprime(11,13), True );
+Verify( IsCoprime(1 .. 10), False );
+Verify( IsCoprime({9,40}), True );
+
+%/mathpiper

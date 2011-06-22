@@ -30,3 +30,15 @@ Result: {3,5,11,17,29,41,59,71};
 
 *SEE IsPrime
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsTwinPrime",subtype="automatic_test"
+
+Verify( IsTwinPrime(71), True );
+Verify( IsTwinPrime(1), False );
+Verify( IsTwinPrime(22), False );
+
+%/mathpiper

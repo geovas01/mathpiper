@@ -22,21 +22,11 @@ import org.mathpiper.io.MathPiperOutputStream;
 
 public class LispPrinter {
 
-    String newLineCharacter;
-    String spaceCharacter;
-    boolean pretty;
+    String newLineCharacter = "\n";
+    String spaceCharacter = "  ";
 
+    public LispPrinter() {
 
-    public LispPrinter(boolean pretty) {
-        this.pretty = pretty;
-
-        if (pretty) {
-            newLineCharacter = "\n";
-            spaceCharacter = "  ";
-        } else {
-            newLineCharacter = "";
-            spaceCharacter = "";
-        }
     }
 
     //private List<Cons> visitedLists = new ArrayList<Cons>();
@@ -61,20 +51,7 @@ public class LispPrinter {
 
             if (consWalker.car() instanceof String) {
                 String atom = (String) consWalker.car();
-
-                if (atom.startsWith("\"")) //String atom.
-                {
-                    if (!pretty) {
-                        if (atom.contains("\n")) {
-                            int xx = 1;
-                        }
-                        atom = atom.replace("\\", "\\\\");
-                        atom = atom.replace("\"", "\\\"");
-                        atom = atom.replace("\n", "\\n");
-                    }
-                }
-
-
+                
                 aOutput.write(atom);
 
 

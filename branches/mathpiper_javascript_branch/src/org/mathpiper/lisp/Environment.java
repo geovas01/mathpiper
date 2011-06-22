@@ -110,7 +110,7 @@ public final class Environment {
         iCurrentTokenizer = iDefaultTokenizer;
         iInitialOutput = aCurrentOutput;
         iCurrentOutput = aCurrentOutput;
-        iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators, true);
+        iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
         iTrueAtom = new AtomCons((String)getTokenHash().lookUp("True"));
         iTrueString = (String) iTrueAtom.car();

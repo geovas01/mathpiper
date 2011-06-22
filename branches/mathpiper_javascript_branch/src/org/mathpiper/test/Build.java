@@ -477,7 +477,7 @@ public class Build {
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
 
 
-                    String[] blacklist = {"CForm", "IsCFormable", "TeXForm", "issues"};
+                    String[] blacklist = {"CForm", "IsCFormable", "issues"};
                     for (String fileName : blacklist) {
                         fileName = fileName + ".mpw";
                         if (fileName.equalsIgnoreCase(mpwFile.getName())) {
@@ -712,6 +712,7 @@ public class Build {
 
         String foldContents = fold.getContents();
 
+        foldContents = foldContents.replace("\\", "\\\\");
         foldContents = foldContents.replace("\n", "\\n");
 
         testsJavaFile.write("\n        testString = new String[2];");
@@ -925,7 +926,7 @@ public class Build {
 
 
     public static void printExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
-        MathPiperPrinter printer = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators, false);
+        MathPiperPrinter printer = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
         //LispPrinter printer = new LispPrinter(false);
 
         MathPiperOutputStream stream = new StringOutputStream(outString);

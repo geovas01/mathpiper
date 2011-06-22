@@ -83,7 +83,7 @@ class SynchronousInterpreter implements Interpreter {
 
 
             tokenizer = new MathPiperTokenizer();
-            printer = new MathPiperPrinter(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators, true);
+            printer = new MathPiperPrinter(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
 
 
             //iEnvironment.iCurrentInput = new CachedStandardFileInputStream(iEnvironment.iInputStatus);

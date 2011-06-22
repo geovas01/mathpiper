@@ -112,3 +112,31 @@ Result: Complex(-4,4);
 *SEE Lcm
 %/mathpiper_docs
 
+
+
+
+
+%mathpiper,name="Gcd",subtype="automatic_test"
+
+Verify( Gcd( 324 + 1608*I, -11800 + 7900*I ),Complex(-52,16) );
+// I changed from Complex(-4,4) to Complex(4,4) as the GaussianGcd algorithm suddenly returned this instead.
+// However, as it turned out it was a bug in FloorN, introduced when
+// we moved to the new number classes (so the numbers did not get converted
+// to string and back any more). The number got prematurely truncated with
+// this test case (regression test added to regress.yts also).
+//TODO we can expand this with randomized tests
+Verify( Gcd( 7300 + 12*I, 2700 + 100*I), Complex(-4,4) );
+
+VerifyGaussianGcd(x,y):=
+[
+  Local(gcd);
+  gcd:=Gcd(x,y);
+//  Echo(x/gcd);
+//  Echo(y/gcd);
+  Verify(IsGaussianInteger(x/gcd) And IsGaussianInteger(y/gcd),True);
+];
+VerifyGaussianGcd(324 + 1608*I, -11800 + 7900*I);
+VerifyGaussianGcd(7300 + 12*I, 2700 + 100*I);
+VerifyGaussianGcd(120-I*200,-336+50*I);
+
+%/mathpiper

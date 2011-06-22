@@ -177,3 +177,32 @@ Result: {12,1884};
 
 *SEE IntNthRoot, Factors, PowerN
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="NthRoot",subtype="automatic_test"
+
+Testing("-- NthRoot");
+
+// you need to use ListToFunction for this one as -1 is actually -(1), eg. a unary function (minus)
+// applied to a positive integer (1). ListToFunction evaluates its arguments, resulting in a negative
+// integer (-1).
+Verify(NthRoot(-1,2),ListToFunction({NthRoot,-1,2}));
+
+Verify(NthRoot(2,1),Hold(NthRoot(2,1)));
+Verify(NthRoot(2,2),{1,2});
+Verify(NthRoot(12,2),{2,3});
+Verify(NthRoot(12,3),{1,12});
+Verify(NthRoot(27,3),{3,1});
+Verify(NthRoot(17*13,2),{1,17*13});
+Verify(NthRoot(17*17*13,2),{17,13});
+Verify(NthRoot(17*17*17*13,2),{17,17*13});
+Verify(NthRoot(17*17*17*13,3),{17,13});
+Verify(NthRoot(17*17*17*17*13*13,2),{17*17*13,1});
+Verify(NthRoot(17*17*17*17*13*13,3),{17,17*13*13});
+Verify(NthRoot(17*17*17*17*13*13,4),{17,13*13});
+Verify(NthRoot(17*17*17*17*13*13,5),{1,17*17*17*17*13*13});
+
+%/mathpiper

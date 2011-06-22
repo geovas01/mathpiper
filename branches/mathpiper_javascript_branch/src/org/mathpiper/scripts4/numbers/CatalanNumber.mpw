@@ -32,3 +32,15 @@ Result: 42;
 
 *SEE BinomialCoefficient
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="CatalanNumber",subtype="automatic_test"
+
+Testing("CatalanNumber");
+Verify( CatalanNumber(6), 132 );
+Verify( CatalanNumber(10), 16796 );
+
+%/mathpiper
