@@ -32,6 +32,10 @@ import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.printers.LispPrinter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import org.mathpiper.Scripts;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.io.StringOutput;
@@ -70,17 +74,14 @@ class SynchronousInterpreter implements Interpreter {
         Utility.scriptsPath = "/org/mathpiper/assembledscripts/";
 
         try {
+            System.out.println("Initializing...");
+
             iEnvironment = new Environment(sideEffectsStream);
 
             BuiltinFunction.addCoreFunctions(iEnvironment);
 
-            //if (!Utility.scriptsPath.contains("geogebra")) {
-            //    List failList = BuiltinFunction.addOptionalFunctions(iEnvironment, "org/mathpiper/builtin/functions/optional/");
-            //}
 
             iEnvironment.pushLocalFrame(true, "<START>");
-
-
 
             tokenizer = new MathPiperTokenizer();
             printer = new MathPiperPrinter(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
@@ -96,24 +97,42 @@ class SynchronousInterpreter implements Interpreter {
                 throw new Exception("Error during system script initialization.");
             }
 
-            /*
-            Load the core arithmetic operator definitions because these operators are defined in various
-            .mpw files (such as in Complex.mpw) and if the core definitions are not loaded here, only
-            a partial set of arithmetic rules will be active.
-             */
-            initializationEvaluationResponse = evaluate("-1*1/1+1^1-1+ -Sqrt(8)/2;");
-            if (initializationEvaluationResponse.isExceptionThrown()) {
-                throw new Exception("Error during system script initialization.");
-            }
 
-            /*
-            initializationEvaluationResponse = evaluate("LoadScript(\"/mathpiper_user_initialization.mpi\");");
-            if (!initializationEvaluationResponse.isExceptionThrown()) {
-            System.out.println("The initialization file mathpiper_user_initialization.mpi was evaluated.");
-            }
-             */
+            Scripts scripts = iEnvironment.scripts;
+
+            Map scriptsMap = scripts.getMap();
+
+            Set keysSet = scriptsMap.keySet();
+
+            Iterator keyIterator = keysSet.iterator();
+
+            while (keyIterator.hasNext()) {
 
 
+                String functionName = (String) keyIterator.next();
+
+                String[] scriptCode = scripts.getScript(functionName);
+
+                if (scriptCode[0] == null) {
+
+
+                    iEnvironment.iInputStatus.setTo(functionName);
+
+                    String scriptString = scriptCode[1];
+
+                    StringInputStream functionInputStream = new StringInputStream(scriptString, iEnvironment.iInputStatus);
+
+                    scriptCode[0] = "+";
+
+                    Utility.doInternalLoad(iEnvironment, -1, functionInputStream);
+
+                } else {
+                    //System.out.println("Already loaded.");
+                }
+
+            }//end while.
+
+            iEnvironment.scripts = null;
 
         } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
         {
@@ -197,8 +216,7 @@ class SynchronousInterpreter implements Interpreter {
 
             iEnvironment.iCurrentInput = newInput;
 
-            if (iEnvironment.iPrettyReaderName != null)
-            {
+            if (iEnvironment.iPrettyReaderName != null) {
                 ConsPointer args = new ConsPointer();
                 Utility.applyString(iEnvironment, -1, inputExpressionPointer, iEnvironment.iPrettyReaderName, args);
             } else //Else not PrettyReader.

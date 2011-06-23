@@ -193,7 +193,7 @@ public class LispExpressionEvaluator extends Evaluator {
         if (userFunc != null) {
             return userFunc;
 
-        } else {
+        } else if(aEnvironment.scripts != null) {
             //MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, functionName, true);
 
             //System.out.println(functionName);
@@ -206,7 +206,7 @@ public class LispExpressionEvaluator extends Evaluator {
             LispError.check(aEnvironment, aStackTop, scriptCode != null, "No script returned for function: " + functionName + ".", "INTERNAL");
 
 
-            if (scriptCode[0].equals("not-loaded")) {
+            if (scriptCode[0] == null) {
                 //DefFile def = multiUserFunc.iIsFunctionRead;
 
                 if (DEBUG) {
@@ -254,7 +254,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
                 StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.iInputStatus);
 
-                scriptCode[0] = "is-loaded";
+                scriptCode[0] = "+";
 
                 Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
 

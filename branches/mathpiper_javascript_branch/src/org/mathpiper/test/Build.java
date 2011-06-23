@@ -66,7 +66,7 @@ public class Build {
     private List<CategoryEntry> functionCategoriesList = new ArrayList<CategoryEntry>();
     private int documentedFunctionsCount = 0;
     private int undocumentedMPWFileCount = 0;
-    private Interpreter mathpiper = Interpreters.newSynchronousInterpreter();
+    //private Interpreter mathpiper = Interpreters.newSynchronousInterpreter();
 
 
     public Build() {
@@ -131,6 +131,8 @@ public class Build {
                 "package org.mathpiper;\n"
                 + "\n"
                 + "import java.util.HashMap;\n"
+                + "\n"
+                + "import java.util.Map;\n"
                 + "\n"
                 + "public class Scripts {\n"
                 + "\n"
@@ -296,6 +298,11 @@ public class Build {
                 + "    public String[] getScript(String functionName)\n"
                 + "    {\n"
                 + "        return (String[]) scriptMap.get(functionName);\n"
+                + "    }\n"
+                + "\n"
+                + "    public Map getMap()\n"
+                + "    {\n"
+                + "        return  scriptMap;\n"
                 + "    }\n"
                 + "}\n";
         scriptsJavaFile.write(bottomOfClass);
@@ -550,7 +557,7 @@ public class Build {
                             if (!defAttribute.equalsIgnoreCase("")) {
 
                                 scriptsJavaFile.write("\n        scriptString = new String[2];");
-                                scriptsJavaFile.write("\n        scriptString[0] = \"not-loaded\";");
+                                scriptsJavaFile.write("\n        scriptString[0] = null;");
                                 scriptsJavaFile.write("\n        scriptString[1] = \"" + processedScript + "\";\n");
 
 
