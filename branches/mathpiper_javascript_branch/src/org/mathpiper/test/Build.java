@@ -484,7 +484,14 @@ public class Build {
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
 
 
-                    String[] blacklist = {"CForm", "IsCFormable", "issues"};
+                    String[] blacklist = {"CForm","IsCFormable","issues","debug","TrialFactorize","jFactorsPoly","jasFactorsInt",
+                    "xContent","xFactor","xFactors","xFactorsBinomial","xFactorsResiduals","xPrimitivePart","html","odesolver",
+                    "orthopoly","openmath","ManipEquations","Manipulate","SolveSetEqns","ControlChart","GeoGebra","GeoGebraHistogram",
+                    "GeoGebraPlot","GeoGebraPoint","ggbLine","HighschoolForm","jas_test","JFreeChartHistogram","JavaAccess","RForm",
+                    "xCheckSolution","xSolve","xSolvePoly","xSolveRational","xSolveReduce","xSolveSqrts","xSolveSystem","xTerms",
+
+                    
+                    };
                     for (String fileName : blacklist) {
                         fileName = fileName + ".mpw";
                         if (fileName.equalsIgnoreCase(mpwFile.getName())) {
