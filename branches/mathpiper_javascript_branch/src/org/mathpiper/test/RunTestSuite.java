@@ -268,7 +268,7 @@ public class RunTestSuite {
     public static void main(String[] args) {
 
         RunTestSuite pt = new RunTestSuite();
-        pt.test("Expand");
+        pt.test("IsList");
 
     }//end main
 }//end class.

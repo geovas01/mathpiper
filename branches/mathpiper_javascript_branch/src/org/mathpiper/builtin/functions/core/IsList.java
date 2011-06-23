@@ -65,4 +65,15 @@ Result: False;
 
 *SEE IsFunction
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsList",subtype="automatic_test"
+
+Verify(IsList({a,b,c}),True);
+Verify(IsList(a),False);
+
+%/mathpiper
 */

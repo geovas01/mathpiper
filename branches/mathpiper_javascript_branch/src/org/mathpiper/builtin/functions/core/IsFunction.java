@@ -65,4 +65,15 @@ Result: False;
 
 *SEE IsAtom, IsList, Type
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsFunction",subtype="automatic_test"
+
+Verify(IsFunction(a(b)),True);
+Verify(IsFunction(a),False);
+
+%/mathpiper
 */
