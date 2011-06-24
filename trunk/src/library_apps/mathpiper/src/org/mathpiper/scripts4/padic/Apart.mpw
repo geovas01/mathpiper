@@ -13,9 +13,9 @@ Apart(_f,_var) <--
      [
        rat:={Coef(rat[1],var,0),Coef(rat[2],var,0)};
        Local(summed,add);
-       summed := Eval(PartFracExpand(Rem(rat[1],rat[2]),rat[2]));
-       add:=(rat[1]/rat[2] - summed);
-       add + summed;
+       summed := PartFracExpand(Rem(rat[1],rat[2]),rat[2]);
+       add:=(rat[1]/rat[2] - Eval(summed));
+       If(IsZero(add), summed, ListToFunction({ToAtom("+"), add, summed}));
      ]
      ,
      [
