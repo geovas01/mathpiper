@@ -1,7 +1,5 @@
 %mathpiper,def="PAdicExpand"
 
-Expand(x); /* TODO no idea why this is needed! Mod/Div/UniVariate thing :-( */
-
 10 # PAdicExpand(_x,_y) <--
 [
   Local(coefs);
