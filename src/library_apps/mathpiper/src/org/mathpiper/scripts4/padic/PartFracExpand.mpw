@@ -5,17 +5,8 @@ PartFracExpand(_g,_f) <--
 [
   Local(mlist,vlist,res);
 
-/* Echo({"factors = ",Factors(f)}); */
-
   mlist:=Map("^",Transpose(Factors(f)));
-
-/* Echo({"mlist = ",mlist}); */
-
   vlist:=Map("Rem",{FillList(g,Length(mlist)),mlist});
-
-
-/* Echo({"g = ",g}); */
-/* Echo({"vlist = ",vlist}); */
 
   If(IsInteger(f),
     [
@@ -66,10 +57,7 @@ PartFracExpand(_g,_f) <--
     ]
   );
 
-
-/* Echo({res,mlist});  */
   Local(result,divlist);
-
 
   divlist:=Map("/",{res,mlist});
 
