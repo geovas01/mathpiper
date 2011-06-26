@@ -140,7 +140,8 @@ public class Build {
                 //Process each package directory.************************************************************************
                 File packageDirectoryFile = packagesDirectory[x];
                 String packageDirectoryFileName = packageDirectoryFile.getName();
-                System.out.println(packageDirectoryFileName);
+
+                System.out.println(packageDirectoryFile.getPath() + "/");
 
                 //Create package directory
                 String dirNameRep = packageDirectoryFileName;
@@ -202,7 +203,7 @@ public class Build {
                         } else {
                             //Process a subdirectory.***********************************************************************************************
 
-                            System.out.println("    " + scriptFileOrSubdirectoy.getName());
+                            System.out.println("    " + scriptFileOrSubdirectoy + "/");
 
                             java.io.File[] packageSubDirectoryContentsArray = scriptFileOrSubdirectoy.listFiles(new java.io.FilenameFilter() {
 
@@ -661,6 +662,8 @@ public class Build {
         File builtinFunctionsSourceDir = new java.io.File(sourceDirectoryPath + pluginFilePath );
         
         String directoryPath = builtinFunctionsSourceDir.getPath();
+        
+        System.out.println(directoryPath + "/");
 
 
         java.io.FileWriter pluginsListFile = null;
@@ -697,7 +700,7 @@ public class Build {
                 }
 
 
-                System.out.print(javaFileName + " -> ");
+                System.out.print("    " + javaFileName + " -> ");
 
                 this.documentedFunctionsCount++;
 
