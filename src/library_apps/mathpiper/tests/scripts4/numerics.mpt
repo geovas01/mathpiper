@@ -94,7 +94,7 @@ RoundToPrecision(N(Sqrt(25.3)), 50)
 
 // this failed due to broken RoundToPrecision()
 NumericEqual(
-RoundToPrecisionN(PowerN(13, -23), 50)
+RoundToPrecision(PowerN(13, -23), 50)
 , 0.23949855470974885180294666343025235387321690490245e-25
 , 50);f();
 
@@ -106,12 +106,12 @@ Verify(Newton(x^2+1,x,1,0.1,-3,3), Fail); f();
 NumericEqual(Newton(x^2-1,x,1,0.1,-3,3), 1,BuiltinPrecisionGet()); f();
 
 NumericEqual(
-RoundToPrecisionN(N(ArcSin(0.32)), 49)
+RoundToPrecision(N(ArcSin(0.32)), 49)
 , 0.3257294872946301593103199105324500784354180998122808003
 ,49); f();
 
 NumericEqual(
-RoundToPrecisionN(N(Sin(N(ArcSin(0.1234567)))), 49)
+RoundToPrecision(N(Sin(N(ArcSin(0.1234567)))), 49)
 , 0.1234567
 ,49); f();
 
@@ -133,12 +133,12 @@ RoundToPrecision(N(ArcCos(0.32)), 49)
 , 49); f();
 
 NumericEqual(
-RoundToPrecisionN(N(ArcTan(0.32)), 49)
+RoundToPrecision(N(ArcTan(0.32)), 49)
 , 0.3097029445424561999173808103924156700884366304804
 , 49); f();
 
 NumericEqual(
-RoundToPrecisionN(N(Cos(N(ArcCos(0.1234567)))), 49)
+RoundToPrecision(N(Cos(N(ArcCos(0.1234567)))), 49)
 , 0.1234567
 , 49);f();
 
@@ -201,7 +201,7 @@ NumericEqual(RoundToPrecision(N( Gamma(10.5) ), 13), 1133278.3889487855673, 13);
 
 
 NumericEqual(	// lost 2 digits b/c of imprecise arithmetic
-RoundToPrecisionN(N( Zeta(-11.5) ), 18)
+RoundToPrecision(N( Zeta(-11.5) ), 18)
 , 0.020396978715942792
 ,18);f();
 
