@@ -33,24 +33,43 @@ void save_geogebra_to_fold()
 			Macros.error(view, "This file is read only.");
 			return;
 		}
+		
+		currentCaretPosition = textArea.getCaretPosition();
 		line = textArea.getCaretLine();
 		
-		offset = textArea.getLineEndOffset(line);
-	    
-	    
+		    
+		textArea.selectFold();
 		
-		if(line == textArea.getLineCount() - 1)
+		
+		if(textArea.getSelectionCount() != 0)
 		{
-			--offset;
+		    fold  = textArea.getSelection();
+		    
+		    fold = fold[0];
+		    
+		    foldStartIndex = fold.getStart();
+		    foldEndIndex = fold.getEnd();
+		    foldStartLine = fold.getStartLine();
+		    foldEndLine = fold.getEndLine();
+		    foldStartLineText = textArea.getLineText(foldStartLine);
+		    if(foldStartLineText.trim().startsWith("%geogebra_xml"))
+		    {
+			textArea.setSelectedText("");
+			line = textArea.getCaretLine();
+		    }
+		    else
+		    {
+			textArea.setCaretPosition(currentCaretPosition);
+		    }
 		}
 		
+		offset = textArea.getLineStartOffset(line);
 		
-		indent = textArea.getLineText(line);
-		text =  indent + "%geogebra_xml,title=\"\"\n" + geogebraXML + "\n" + indent + "%/geogebra_xml\n\n";
+		text =  "%geogebra_xml,title=\"\",clear=\"true\"\n" + geogebraXML + "\n%/geogebra_xml\n\n";
 	
 		buffer.insertIndented(offset, text);
 		
-		textArea.setCaretPosition(offset + indent.length() + 22);
+		textArea.setCaretPosition(offset + 35);
 	}
 	else
 	{
