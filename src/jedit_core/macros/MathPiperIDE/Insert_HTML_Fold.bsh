@@ -27,15 +27,9 @@ void insert_html_fold()
 		return;
 	}
 	line = textArea.getCaretLine();
-	offset = textArea.getLineEndOffset(line);
-    
-    
 	
-	if(line == textArea.getLineCount() - 1)
-	{
-		--offset;
-	}
-
+	offset = textArea.getLineStartOffset(line);
+    
 	text = "%html,title=\"\"\n\n%/html\n\n";
 
 	buffer.insert(offset, text);

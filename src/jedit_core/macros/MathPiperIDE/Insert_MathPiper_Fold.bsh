@@ -28,22 +28,13 @@ void insert_mathpiper_fold()
 	}
 	line = textArea.getCaretLine();
 	
-	offset = textArea.getLineEndOffset(line);
-    
-    
+	offset = textArea.getLineStartOffset(line);
 	
-	if(line == textArea.getLineCount() - 1)
-	{
-		--offset;
-	}
-	
-	
-	indent = textArea.getLineText(line);
-	text =  indent + "%mathpiper,title=\"\"\n" + indent + "\n" + indent + "%/mathpiper\n\n";
+	text =  "%mathpiper,title=\"\"\n\n%/mathpiper\n\n";
 
-	buffer.insertIndented(offset, text);
+	buffer.insert(offset, text);
 	
-    textArea.setCaretPosition(offset + indent.length() + 19);
+    textArea.setCaretPosition(offset + 19);
 }
 
 insert_mathpiper_fold();

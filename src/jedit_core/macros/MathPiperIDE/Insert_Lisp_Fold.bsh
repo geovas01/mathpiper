@@ -27,10 +27,9 @@ void insert_lisp_fold()
 		return;
 	}
 	line = textArea.getCaretLine();
-	offset = textArea.getLineEndOffset(line);
-    
-    
 	
+	offset = textArea.getLineStartOffset(line);
+    
 	if(line == textArea.getLineCount() - 1)
 	{
 		--offset;

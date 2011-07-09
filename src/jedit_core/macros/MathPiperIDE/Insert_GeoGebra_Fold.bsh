@@ -28,22 +28,13 @@ void insert_group_fold()
 	}
 	line = textArea.getCaretLine();
 	
-	offset = textArea.getLineEndOffset(line);
+	offset = textArea.getLineStartOffset(line);
     
-    
-	
-	if(line == textArea.getLineCount() - 1)
-	{
-		--offset;
-	}
-	
-	
-	indent = textArea.getLineText(line);
-	text =  indent + "%geogebra,title=\"\"\n" + indent + "\n" + indent + "%/geogebra\n\n";
+	text =  "%geogebra,title=\"\"\n\n%/geogebra\n\n";
 
 	buffer.insertIndented(offset, text);
 	
-    textArea.setCaretPosition(offset + indent.length() + 18);
+    textArea.setCaretPosition(offset + 18);
 }
 
 insert_group_fold();
