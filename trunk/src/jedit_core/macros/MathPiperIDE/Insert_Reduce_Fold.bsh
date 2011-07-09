@@ -27,14 +27,8 @@ void insert_reduce_fold()
 		return;
 	}
 	line = textArea.getCaretLine();
-	offset = textArea.getLineEndOffset(line);
-    
-    
 	
-	if(line == textArea.getLineCount() - 1)
-	{
-		--offset;
-	}
+	offset = textArea.getLineStartOffset(line);
 
 	text = "%reduce,title=\"\"\n\n%/reduce\n\n";
 
