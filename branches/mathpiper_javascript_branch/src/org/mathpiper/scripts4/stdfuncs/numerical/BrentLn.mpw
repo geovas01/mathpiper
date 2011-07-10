@@ -5,7 +5,7 @@
 
 /* The BrentLn() algorithm is currently slower in internal math but should be asymptotically faster. */
 
-CachedConstant(Ln2, Internal'LnNum(2));	// this is only useful for BrentLn
+CachedConstant(BrentCacheOfConstantsN, Ln2, Internal'LnNum(2));	// this is only useful for BrentLn
 
 // compute Ln(x_IsInteger) using the AGM sequence. See: Brent paper rpb028 (1975).
 // this is currently faster than LogN(n) for precision > 40 digits
