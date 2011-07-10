@@ -275,7 +275,7 @@ NearRational(N(Pi))
 );f();
 
 // Lambert's W function
-BuiltinPrecisionSet(20);
+BuiltinPrecisionSet(10);
 
 NumericEqual(
 N(LambertW(-0.24),BuiltinPrecisionGet())
