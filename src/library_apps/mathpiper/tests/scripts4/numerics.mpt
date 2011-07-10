@@ -189,19 +189,19 @@ Gamma(-7/2)
 , (16*Sqrt(Pi))/105
 );f();
 
-NumericEqual(RoundToPrecision(N( Internal'GammaNum(10.5) ), 13), 1133278.3889487855673, 13);f();
+NumericEqual(RoundToPlace(N( Internal'GammaNum(10.5) ), 13), 1133278.3889487855673, 13);f();
 
-NumericEqual(RoundToPrecision(N( Internal'GammaNum(-11.5) ), 20), 0.00000002295758104824, 20);f();//gamma wrong
+NumericEqual(RoundToPlace(N( Internal'GammaNum(-11.5) ), 20), 0.00000002295758104824, 20);f();
 
-NumericEqual(RoundToPrecision(N( Internal'GammaNum(-12.5) ), 20), -0.00000000183660648386, 20);f();//gamma wrong
+NumericEqual(RoundToPlace(N( Internal'GammaNum(-12.5) ), 20), -0.00000000183660648386, 20);f();
 
 // Check for one example that N(Gamma(x)) returns the same as Internal'GammaNum
-NumericEqual(RoundToPrecision(N( Gamma(10.5) ), 13), 1133278.3889487855673, 13);f();
+NumericEqual(RoundToPlace(N( Gamma(10.5) ), 13), 1133278.3889487855673, 13);f();
 
 
 
 NumericEqual(	// lost 2 digits b/c of imprecise arithmetic
-RoundToPrecision(N( Zeta(-11.5) ), 18)
+RoundToPlace(N( Zeta(-11.5) ), 18)
 , 0.020396978715942792
 ,18);f();
 
