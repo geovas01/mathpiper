@@ -45,6 +45,10 @@ public class Interpreter2 extends Applet {
     private StringBuffer inputBuffer = new StringBuffer();
     Reader in;
     PrintWriter out;
+    
+    // Communication with the reduce core uses busy-waiting.
+    // This variable defines how long the waiting intervals between polls lasts (in ms).
+    private final static long POLLING_INTERVAL_MS = 10;
 
 
     public Interpreter2() {
@@ -128,13 +132,15 @@ public class Interpreter2 extends Applet {
         }
 
         send = send + "\n";
+        
+        // System.err.println("Expression for MPReduce "+send);
 
         this.sendString = send;
 
 
         try {
             while (sendString != null) {
-                Thread.sleep(100);
+                Thread.sleep(POLLING_INTERVAL_MS);
             }
         } catch (InterruptedException ioe) {
         }
@@ -143,6 +149,8 @@ public class Interpreter2 extends Applet {
         String responseString = this.inputBuffer.toString();
 
         inputBuffer.delete(0, inputBuffer.length());
+        
+        // System.err.println(responseString);
 
         return responseString;
 
@@ -199,7 +207,7 @@ public class Interpreter2 extends Applet {
 
                 try {
                     while (sendString == null) {
-                        Thread.sleep(100);
+                        Thread.sleep(POLLING_INTERVAL_MS);
                     }
                 } catch (InterruptedException ioe) {
                 }
