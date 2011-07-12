@@ -280,7 +280,7 @@ public class RunTestSuite {
 
         RunTestSuite pt = new RunTestSuite();
         
-        pt.test("ConcatStrings");
+        pt.test("RadSimp");
 
         //pt.test();
 
