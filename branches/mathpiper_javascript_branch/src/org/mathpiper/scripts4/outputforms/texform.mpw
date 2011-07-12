@@ -1,4 +1,4 @@
-%mathpiper,def="TeXForm;TeXFormNth"
+%mathpiper,def="TeXForm"
 
 /* def file definitions
 TeXForm
@@ -359,6 +359,7 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
 100 # TeXForm(_x [ _i ], _p) <-- ConcatStrings(TeXForm(x, TeXFormMaxPrec()), " _{", TeXForm(i, TeXFormMaxPrec()), "}");
 */
 /* Need to introduce auxiliary function, or else have trouble with arguments of Nth being lists */
+Rulebase("TeXFormNth",{x,y});
 100 # TeXForm(Nth(Nth(_x, i_IsList), _j), _p) <-- TeXForm(TeXFormNth(x, Append(i,j)), p);
 100 # TeXForm(TeXFormNth(Nth(_x, i_IsList), _j), _p) <-- TeXForm(TeXFormNth(x, Append(i,j)), p);
 110 # TeXForm(Nth(Nth(_x, _i), _j), _p) <-- TeXForm(TeXFormNth(x, List(i,j)), p);
@@ -447,11 +448,14 @@ TeXForm(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d)))
 ,"$\\cos ( A - B)  \\cdot \\sin a \\cdot f( b, c, d \\cdot ( e + 1) )  \\cdot \\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$"
 );
 
+
+/* This test is commented out because it throws an exception when orthopoly.mpw is removed from the build process.
 // testing latest features: \\cdot, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH
 Verify(
 TeXForm(3*2^n+Hold(x*10!) + (x/y)^2 + BinomialCoefficient(x,y) + BesselI(n,x) + Maximum(a,b) + OrthoH(n,x))
 , "$3\\cdot 2 ^{n} + x\\cdot 10! + ( \\frac{x}{y} )  ^{2} + {x \\choose y} + I _{n}( x)  + \\max ( a, b)  + H _{n}( x) $"
 );
+*/
 
 /* this fails because of a bug that Differentiate(x) f(y) does not go to 0 */ /*
 Verify(

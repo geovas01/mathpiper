@@ -59,4 +59,22 @@ Result: True;
 
 *SEE IsGreaterThan, IsEqual
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsLessThan",subtype="automatic_test"
+
+Verify(IsLessThan(2,3),True);
+Verify(IsLessThan(3,2),False);
+
+Verify(IsLessThan(-1e-115, 0), True);
+Verify(IsLessThan(-1e-15, 0), True);
+Verify(IsLessThan(-1e-10, 0), True);
+Verify(IsLessThan(-1e-5, 0), True);
+Verify(IsLessThan(-1e-1, 0), True);
+
+%/mathpiper
+
 */

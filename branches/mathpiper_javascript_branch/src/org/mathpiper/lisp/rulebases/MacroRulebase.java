@@ -41,7 +41,7 @@ public class MacroRulebase extends SingleArityRulebase {
                 LispError.check(aEnvironment, aStackTop, parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION, "INTERNAL");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
-                    throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, this.functionName);
+                    throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, this.functionName);
                 } else {
                     throw ex;
                 }
@@ -118,7 +118,7 @@ public class MacroRulebase extends SingleArityRulebase {
             }
         } catch (EvaluationException ex) {
             if (ex.getFunctionName() == null) {
-                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, this.functionName);
+                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, -1, this.functionName);
             } else {
                 throw ex;
             }

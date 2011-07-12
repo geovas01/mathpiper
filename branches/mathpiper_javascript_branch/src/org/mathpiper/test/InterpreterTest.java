@@ -54,7 +54,7 @@ public class InterpreterTest implements ResponseListener
 
         //timer.cancel();
         
-        System.out.println("Load test: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage() + "   File: " + response.getSourceFileName() + "  Line number: " + response.getLineNumber());
+        System.out.println("Load test: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage() + "   File: " + response.getSourceFileName() + "  Line number: " + response.getLineNumber()  + " Line index: " + response.getLineIndex());
         
        /* response = interpreter.evaluate("3+3;");
          System.out.println("Straight: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());

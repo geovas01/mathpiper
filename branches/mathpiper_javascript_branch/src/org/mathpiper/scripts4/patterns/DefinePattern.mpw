@@ -1,5 +1,8 @@
 %mathpiper,def="DefinePattern;_",private="true"
 
+Rulebase("_",{a});
+Rulebase("_",{a,b});
+
 Rulebase("DefinePattern",{leftOperand, rightOperand, rulePrecedence, postPredicate});
 
 

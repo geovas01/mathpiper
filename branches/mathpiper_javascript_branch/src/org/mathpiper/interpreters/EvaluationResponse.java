@@ -18,6 +18,7 @@ public class EvaluationResponse {
     private boolean exceptionThrown = false;
     private Exception exception = null;
     private int lineNumber;
+    private int lineIndex;
     private String sourceFileName = "";
     private Object object = null;
     private ConsPointer resultList = null;
@@ -74,6 +75,26 @@ public class EvaluationResponse {
     public void setLineNumber(int lineNumber)
     {
         this.lineNumber = lineNumber;
+    }
+
+    /**
+     * Returns the line index near where an error occurred.
+     *
+     * @return the line index near where an error occurred
+     */
+    public int getLineIndex()
+    {
+        return lineIndex;
+    }
+
+    /**
+     * Sets the line index near where an error occurred.
+     *
+     * @param  lineIndex the line index near where an error occurred
+     */
+    public void setLineIndex(int lineIndex)
+    {
+        this.lineIndex = lineIndex;
     }
 
     /**

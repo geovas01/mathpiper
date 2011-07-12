@@ -130,4 +130,18 @@ Result: b And a;
 
 *SEE Or, Not
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="And",subtype="automatic_test"
+
+Verify(False And False,False);
+Verify(True And False,False);
+Verify(False And True,False);
+Verify(True And True,True);
+
+%/mathpiper
+
 */

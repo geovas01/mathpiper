@@ -60,4 +60,18 @@ the same, and "False" otherwise.
 *SEE GreaterThan, IsLessThan
 
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsEqual",subtype="automatic_test"
+
+Verify(IsEqual(a,b),False);
+Verify(IsEqual(a,a),True);
+Verify(IsEqual({a,b},{a}),False);
+Verify(IsEqual({a,b},{a,b}),True);
+
+%/mathpiper
+
 */

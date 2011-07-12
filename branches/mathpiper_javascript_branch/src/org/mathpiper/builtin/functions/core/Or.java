@@ -124,4 +124,18 @@ Result: True;
 
 *SEE And, Not
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Or",subtype="automatic_test"
+
+Verify(False Or False,False);
+Verify(True Or False,True);
+Verify(False Or True,True);
+Verify(True Or True,True);
+
+%/mathpiper
+
 */

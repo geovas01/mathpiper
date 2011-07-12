@@ -36,15 +36,15 @@ public class PatchString extends BuiltinFunction {
             (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, unpatchedString != null, 2, "PatchString");
         
-        InputStatus oldStatus = new InputStatus(aEnvironment.iInputStatus);
-        aEnvironment.iInputStatus.setTo("STRING");
+        InputStatus oldStatus = new InputStatus(aEnvironment.iCurrentInput.iStatus);
+        aEnvironment.iCurrentInput.iStatus.setTo("STRING");
         
         StringBuffer resultBuffer = new StringBuffer();
         StringOutputStream resultStream = new StringOutputStream(resultBuffer);
         
         Utility.doPatchString(unpatchedString, resultStream, aEnvironment, aStackTop);
         
-        aEnvironment.iInputStatus.restoreFrom(oldStatus);
+        aEnvironment.iCurrentInput.iStatus.restoreFrom(oldStatus);
         
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, resultBuffer.toString()));
     }

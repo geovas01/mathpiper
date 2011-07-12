@@ -650,9 +650,11 @@ public class Utility {
 
 
         } catch (Exception e) {
-            System.out.println(e.getMessage()); e.printStackTrace(); //todo:tk:uncomment for debugging.
+            //System.out.println(e.getMessage()); e.printStackTrace(); //todo:tk:uncomment for debugging.
 
-            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
+            //System.out.println( aEnvironment.iCurrentInput.iStatus.toString());
+
+            EvaluationException ee = new EvaluationException(e.getMessage(),  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
             throw ee;
         } finally {
             aEnvironment.iCurrentInput = previous;
@@ -672,7 +674,7 @@ public class Utility {
                     String scriptCode = tag[1].trim();
 
                     StringInputStream scriptStream = 
-                        new StringInputStream(scriptCode, aEnvironment.iInputStatus);
+                        new StringInputStream(scriptCode, aEnvironment.iCurrentInput.iStatus);
                     MathPiperOutputStream previous = 
                         aEnvironment.iCurrentOutput;
                     try {
@@ -750,7 +752,7 @@ public class Utility {
         if (n <= log2_table_size && n >= 2) {
             return log2_table[n - 1];
         } else {
-            throw new EvaluationException("log2_table_lookup: error: invalid argument " + n, "none", -1);
+            throw new EvaluationException("log2_table_lookup: error: invalid argument " + n, "none", -1, -1);
         }
     }
 

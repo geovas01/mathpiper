@@ -65,4 +65,16 @@ Result: True;
 
 *SEE IsFunction, IsNumber, IsString
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsAtom",subtype="automatic_test"
+
+Verify(IsAtom({a,b,c}),False);
+Verify(IsAtom(a),True);
+Verify(IsAtom(123),True);
+
+%/mathpiper
 */

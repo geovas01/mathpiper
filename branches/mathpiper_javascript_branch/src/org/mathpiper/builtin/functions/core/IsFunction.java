@@ -72,7 +72,9 @@ Result: False;
 
 %mathpiper,name="IsFunction",subtype="automatic_test"
 
+Rulebase("a", {b});
 Verify(IsFunction(a(b)),True);
+Retract("a", 1);
 Verify(IsFunction(a),False);
 
 %/mathpiper

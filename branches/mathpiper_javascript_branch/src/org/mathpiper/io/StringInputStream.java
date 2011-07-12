@@ -39,6 +39,7 @@ public class StringInputStream
         }
 
         iCurrent++;
+        iStatus.nextCharacter();
 
         char c = iString.charAt(iCurrent - 1);
 

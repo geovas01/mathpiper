@@ -49,3 +49,24 @@ Result: False;
 
 *SEE HasExprArith, HasExprSome, FuncList, VarList, HasFunc
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="HasExpr",subtype="automatic_test"
+
+Verify(HasExpr(a*b+1,1),True);
+Verify(HasExpr(a+Sin(b*c),c),True);
+Verify(HasExpr(a*b+1,2),False);
+Verify(HasExprArith(a*b+1,ToAtom("+")),False);
+Verify(HasExprArith(a*b+1,1),True);
+Verify(HasExprArith(a+Sin(b*c),c),False);
+Verify(HasExprArith(a+Sin(b*c),Sin(b*c)),True);
+
+Rulebase("f",{a});
+Verify(HasExpr(a*b+f({b,c}),f),False);
+Verify(HasExprArith(a*b+f({b,c}),c),False);
+Retract("f",1);
+
+%/mathpiper

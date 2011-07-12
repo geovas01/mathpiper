@@ -310,3 +310,64 @@ Result: True;
 
 
 
+
+%mathpiper,name="<",subtype="automatic_test"
+
+Verify(.1<2,True);
+Verify(0.1<2,True);
+Verify(.3<2,True);
+Verify(2<.1,False);
+Verify(2<0.1,False);
+Verify(2<.3,False);
+Verify(1e-5 < 1, True);
+Verify(1e-5 < 2e-5, True);
+Verify(1e-1 < 2e-1, True);
+Verify(1e-15 < 2e-15, True);
+Verify(1e-5 < 1e-10, False);
+Verify(1e-5 < 1e-2, True);
+Verify(-1e-5 < 1e-5, True);
+Verify(-1e-5 < 1e-6, True);
+
+BuiltinPrecisionSet(32);
+Verify(0.999999999999999999999999999992 < 1, True);
+BuiltinPrecisionSet(10);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name=">",subtype="automatic_test"
+
+Verify(.1>2,False);
+Verify(0.1>2,False);
+Verify(.3>2,False);
+Verify(2>.1,True);
+Verify(2>0.1,True);
+Verify(2>.3,True);
+Verify(1e-15 > 0, True);
+Verify(1e-5 > 0, True);
+Verify(1e-4 > 0, True);
+Verify(1e-3 > 0, True);
+Verify(1e-2 > 0, True);
+Verify(1e-1 > 0, True);
+Verify(1e5 > 0, True);
+
+BuiltinPrecisionSet(32);
+Verify(1.0000000000000000000000000000111 > 1, True);
+BuiltinPrecisionSet(10);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="=",subtype="automatic_test"
+
+Verify(1e-5 = 2e-5, False);
+Verify(1e-5 = 1e-6, False);
+
+%/mathpiper
+

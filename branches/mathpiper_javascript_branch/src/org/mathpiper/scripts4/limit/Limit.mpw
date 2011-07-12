@@ -372,15 +372,15 @@ Result: Infinity;
 
 %mathpiper,name="Limit",subtype="automatic_test"
 
-Verify( Limit(x,Infinity) Sin(x), Undefined ); f();
-Verify( Limit(x,Infinity) Cos(x), Undefined ); f();
-Verify( Limit(x,Infinity) Tan(x), Undefined ); f();
-Verify( Limit(x,Infinity) Gamma(x), Infinity ); f();
-Verify( Limit(x,Infinity) Abs(x), Infinity ); f();
-Verify( Limit(x,Infinity) x!, Infinity); f();
+Verify( Limit(x,Infinity) Sin(x), Undefined );
+Verify( Limit(x,Infinity) Cos(x), Undefined );
+Verify( Limit(x,Infinity) Tan(x), Undefined );
+Verify( Limit(x,Infinity) Gamma(x), Infinity );
+Verify( Limit(x,Infinity) Abs(x), Infinity );
+Verify( Limit(x,Infinity) x!, Infinity);
 
-Verify( Limit(x,0,Right) Ln(x)*Sin(x), 0 ); f();
-KnownFailure( Limit(k,Infinity) ((k-phi)/k)^(k+1/2) = Exp(-phi) ); f();
+Verify( Limit(x,0,Right) Ln(x)*Sin(x), 0 );
+KnownFailure( Limit(k,Infinity) ((k-phi)/k)^(k+1/2) = Exp(-phi) );
 
 // tests adapted from mpreduce
 

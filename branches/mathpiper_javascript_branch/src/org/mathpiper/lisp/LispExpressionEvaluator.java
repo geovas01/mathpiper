@@ -111,8 +111,8 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
             if (aExpression.car() instanceof ConsPointer) {
-                ConsPointer subList = (ConsPointer) aExpression.car();
-                Cons head = subList.getCons();
+                ConsPointer functionAndArgumentsList = (ConsPointer) aExpression.car();
+                Cons head = functionAndArgumentsList.getCons();
                 if (head != null) {
 
                     String functionName;
@@ -124,27 +124,37 @@ public class LispExpressionEvaluator extends Evaluator {
                         //Built-in function handler.
                         BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp(functionName);
                         if (builtinInFunctionEvaluator != null) {
-                            builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, aResult, subList);
+                            builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, aResult, functionAndArgumentsList);
                             aEnvironment.iEvalDepth--;
                             return;
                         }
 
                         //User function handler.
                         SingleArityRulebase userFunction;
-                        userFunction = getUserFunction(aEnvironment, aStackTop, subList);
+                        userFunction = getUserFunction(aEnvironment, aStackTop, functionAndArgumentsList);
                         if (userFunction != null) {
-                            userFunction.evaluate(aEnvironment, aStackTop, aResult, subList);
+                            userFunction.evaluate(aEnvironment, aStackTop, aResult, functionAndArgumentsList);
                             aEnvironment.iEvalDepth--;
                             return;
                         }
+                        
+                        if (functionName.equals("IsFreeOf")) {
+                            Utility.returnUnEvaluated(aStackTop, aResult, functionAndArgumentsList, aEnvironment);
+
+                            aEnvironment.iEvalDepth--;
+
+                            return;
+                        }
+
+                            LispError.raiseError("Function <" + functionName + ">  " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) +" <arity " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + "> not defined.", "[Internal]", aStackTop, aEnvironment);
 
 
                     } else {
                         //Pure function handler.
                         ConsPointer operator = new ConsPointer();
                         ConsPointer args2 = new ConsPointer();
-                        operator.setCons(subList.getCons());
-                        args2.setCons(subList.cdr().getCons());
+                        operator.setCons(functionAndArgumentsList.getCons());
+                        args2.setCons(functionAndArgumentsList.cdr().getCons());
                         Utility.applyPure(aStackTop, operator, args2, aResult, aEnvironment);
                         aEnvironment.iEvalDepth--;
                         return;
@@ -162,11 +172,11 @@ public class LispExpressionEvaluator extends Evaluator {
                     }*/
 
 
-                    Utility.returnUnEvaluated(aStackTop, aResult, subList, aEnvironment);
+                    //Utility.returnUnEvaluated(aStackTop, aResult, subList, aEnvironment);
 
-                    aEnvironment.iEvalDepth--;
+                    //aEnvironment.iEvalDepth--;
 
-                    return;
+                    //return;
 
                 }
             }
@@ -183,11 +193,13 @@ public class LispExpressionEvaluator extends Evaluator {
 
         String functionName = (String) head.car();
 
-        if (functionName.equals(":=")) {
-            int xx = 1;
-        }
+
 
         SingleArityRulebase userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
+
+        //if (userFunc == null && functionName.equals("f")) {
+        //    int xx = 1;
+        //}
 
 
         if (userFunc != null) {
@@ -203,7 +215,7 @@ public class LispExpressionEvaluator extends Evaluator {
             String[] scriptCode = scripts.getScript(functionName);
 
 
-            LispError.check(aEnvironment, aStackTop, scriptCode != null, "No script returned for function: " + functionName + ".", "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, scriptCode != null, "No script returned for function: " + functionName + " from Scripts.java.", "INTERNAL");
 
 
             if (scriptCode[0] == null) {
@@ -232,9 +244,9 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
 
-                LispError.check(aEnvironment, aStackTop, scriptCode[1] != null, "Problem with function name: " + functionName, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, scriptCode[1] != null, "No script returned for function: " + functionName + " from Scripts.java.", "INTERNAL");
 
-                aEnvironment.iInputStatus.setTo(functionName);
+                aEnvironment.iCurrentInput.iStatus.setTo(functionName);
 
                 String scriptString = scriptCode[1];
 
@@ -252,7 +264,7 @@ public class LispExpressionEvaluator extends Evaluator {
                 */
 
 
-                StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.iInputStatus);
+                StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.iCurrentInput.iStatus);
 
                 scriptCode[0] = "+";
 
@@ -282,13 +294,18 @@ public class LispExpressionEvaluator extends Evaluator {
                     }
                 }
 
-            }//end if.
+            }
+            else
+            {
+               userFunc = null;
+            }
 
+            //userFunc = aEnvironment.getRulebase(aStackTop, subList);
+        }
 
-            userFunc = aEnvironment.getRulebase(aStackTop, subList);
-        }//end if.
 
         return userFunc;
+
     }//end method.
     /*
     void TracedStackEvaluator::PushFrame()

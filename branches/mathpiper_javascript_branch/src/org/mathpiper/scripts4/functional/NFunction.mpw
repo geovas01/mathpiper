@@ -111,5 +111,6 @@ NumericEqual(RoundToN(f(3),BuiltinPrecisionGet()), 0.6666666667,BuiltinPrecision
 NFunction("f1", "f", {x});
 Verify(f1(0), Undefined);
 NumericEqual(RoundToN(f1(3),BuiltinPrecisionGet()), 0.6666666667,BuiltinPrecisionGet());
-
+Retract("f",1);
+Retract("f1",1);
 %/mathpiper

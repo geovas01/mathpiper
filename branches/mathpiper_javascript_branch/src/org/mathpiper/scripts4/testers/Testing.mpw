@@ -2,8 +2,9 @@
 
 Function("Testing",{aLeft})
 [
- WriteString("--");
- WriteString(aLeft); NewLine();
+    NewLine();
+    WriteString("--");
+    WriteString(aLeft);
 ];
 
 %/mathpiper

@@ -3,3 +3,15 @@
 IsPerfect(n_IsPositiveInteger) <-- ProperDivisorsSum(n)=n;
 
 %/mathpiper
+
+
+
+
+
+%mathpiper,name="IsPerfect",subtype="automatic_test"
+
+Verify(IsPerfect(2305843008139952128), True );
+Verify(IsPerfect(137438691328),True );
+Verify(IsPerfect(234325),False );
+
+%/mathpiper

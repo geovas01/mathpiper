@@ -81,4 +81,18 @@ Result: False;
 
 *SEE IsString, IsAtom, IsInteger, IsDecimal, IsPositiveNumber, IsNegativeNumber, IsNumber
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsInteger",subtype="automatic_test"
+
+Verify(IsInteger(123),True);
+Verify(IsInteger(123.123),False);
+Verify(IsInteger(a),False);
+Verify(IsInteger({a}),False);
+
+%/mathpiper
+ 
 */

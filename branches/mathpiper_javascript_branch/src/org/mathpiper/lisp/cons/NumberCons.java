@@ -104,7 +104,7 @@ public class NumberCons extends Cons {
         if (iCarStringNumber == null) {
             //LispError.lispAssert(iCarBigNumber != null, aEnvironment, aStackTop);  // either the string is null or the number but not both.
 
-            if(iCarBigNumber == null) throw new EvaluationException("Internal error in NumberCons.","",-1);
+            if(iCarBigNumber == null) throw new EvaluationException("Internal error in NumberCons.","",-1,-1);
 
             iCarStringNumber = iCarBigNumber.numToString(0/*TODO FIXME*/, 10);
         // export the current number to string and store it as NumberCons::iString
@@ -140,7 +140,7 @@ public class NumberCons extends Cons {
             
             //LispError.lispAssert(iCarStringNumber != null, aEnvironment, aStackTop);
 
-            if(iCarStringNumber == null) throw new EvaluationException("Internal error in NumberCons.","",-1);
+            if(iCarStringNumber == null) throw new EvaluationException("Internal error in NumberCons.","",-1,-1);
 
             String str;
             str = iCarStringNumber;

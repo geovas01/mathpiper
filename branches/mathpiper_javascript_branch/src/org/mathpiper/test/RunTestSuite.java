@@ -39,10 +39,11 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 public class RunTestSuite {
 
+    private boolean printExpression = false;
+
     private Interpreter mathPiper;
     private EvaluationResponse evaluationResponse;
     private java.io.FileWriter logFile;
-    private int exceptionCount = 0;
     private Tests tests;
     private String output;
 
@@ -108,7 +109,7 @@ public class RunTestSuite {
             }
 
 
-            output = "\n\n***** Tests complete *****\n\nException Count: " + exceptionCount + "\n\n";
+            output = "\n\n***** Tests complete *****\n\n";
             System.out.print(output);
             logFile.write(output);
 
@@ -137,10 +138,14 @@ public class RunTestSuite {
             throw new Exception("The test named " + testName + " does not exist.");
         }
 
-        String testScript = (String) testScriptArray[1];
+        String testFilePath = testScriptArray[0];
+
+        String testScript = testScriptArray[1];
+
+        mathPiper.getEnvironment().iInputStatus.setTo(testFilePath);
 
 
-        output = "\n===========================\n" + testName + ": \n\n";
+        output = "\n===========================\nTesting " + testName + " in file <" + testFilePath + ">: \n\n";
         System.out.print(output);
         logFile.write(output);
 
@@ -149,13 +154,18 @@ public class RunTestSuite {
 
         try {
 
-            evaluateTestScript(mathPiper.getEnvironment(), -1, new StringInputStream(testScript, mathPiper.getEnvironment().iInputStatus), true, true);
+            evaluateTestScript(mathPiper.getEnvironment(), -1, new StringInputStream(testScript, mathPiper.getEnvironment().iInputStatus), true);
 
         } catch (Exception e) {
-            exceptionCount++;
 
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             logFile.write(e.getMessage());
+
+            logFile.flush();
+
+            logFile.close();
+
+            throw e;
         }
     }
 
@@ -170,15 +180,14 @@ public class RunTestSuite {
 
 
         if (evaluationResponse.isExceptionThrown()) {
-            result = result + "\nException:" + evaluationResponse.getExceptionMessage() + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber();
-            exceptionCount++;
+            result = result + "\nException:" + evaluationResponse.getExceptionMessage() + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber() + " Line index: " + evaluationResponse.getLineIndex();
         }
 
         return result;
     }
 
 
-    public String evaluateTestScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate, boolean print) throws Exception {
+    public String evaluateTestScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Exception {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
 
@@ -187,6 +196,8 @@ public class RunTestSuite {
         StringBuffer outputStringBuffer = new StringBuffer();
         MathPiperOutputStream previousOutput = aEnvironment.iCurrentOutput;
         aEnvironment.iCurrentOutput = new StringOutputStream(outputStringBuffer);
+
+
 
 
 
@@ -214,7 +225,7 @@ public class RunTestSuite {
                 } // Else print and maybe evaluate
                 else {
 
-                    if (print == true) {
+                    if (printExpression == true) {
                         printExpression(printedScriptStringBuffer, aEnvironment, readIn);
 
                         String expression = printedScriptStringBuffer.toString();
@@ -244,9 +255,9 @@ public class RunTestSuite {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            e.printStackTrace(); //todo:tk:uncomment for debugging.
+            //e.printStackTrace(); //todo:tk:uncomment for debugging.
 
-            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
+            EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineNumber());
             throw ee;
         } finally {
             aEnvironment.iCurrentInput = previousInput;
@@ -268,7 +279,11 @@ public class RunTestSuite {
     public static void main(String[] args) {
 
         RunTestSuite pt = new RunTestSuite();
-        pt.test("IsList");
+        
+        //pt.test("Factors");
+
+        pt.test();
+
 
     }//end main
 }//end class.

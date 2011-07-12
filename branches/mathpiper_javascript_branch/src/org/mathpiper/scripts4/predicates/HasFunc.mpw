@@ -41,3 +41,19 @@ Result: False;
 
 *SEE HasFuncArith, HasFuncSome, FuncList, VarList, HasExpr
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="HasFunc",subtype="automatic_test"
+
+Verify(HasFunc(a*b+1,*),True);
+Verify(HasFunc(a+Sin(b*c),*),True);
+Verify(HasFunc(a*b+1,List),False);
+
+Rulebase("f",{a});
+Verify(HasFunc(a*b+f({b,c}),List),True);
+Retract("f",1);
+
+%/mathpiper

@@ -34,3 +34,19 @@ Result: False;
 
 *SEE HasExpr, HasExprSome, FuncList, VarList, HasFunc
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="HasFuncArith",subtype="automatic_test"
+
+Verify(HasFuncArith(a*b+1,ToAtom("+")),True);
+Verify(HasFuncArith(a+Sin(b*c),*),False);
+Verify(HasFuncArith(a+Sin(b*c),Sin),True);
+
+Rulebase("f",{a});
+Verify(HasFuncArith(a*b+f({b,c}),List),False);
+Retract("f",1);
+
+%/mathpiper

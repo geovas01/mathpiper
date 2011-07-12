@@ -350,7 +350,7 @@ public class Build {
 
         //Uncomment for debugging.
         /*
-        if (fileName.equals("Factors.mpw")) {
+        if (getFileName.equals("Factors.mpw")) {
         int xxx = 1;
         }//end if.*/
 
@@ -484,7 +484,7 @@ public class Build {
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
 
 
-                    String[] blacklist = {"CForm","IsCFormable","issues","debug","TrialFactorize","jFactorsPoly","jasFactorsInt",
+                    String[] blacklist = {"CForm","IsCFormable","issues","debug","jFactorsPoly","jasFactorsInt",
                     "xContent","xFactor","xFactors","xFactorsBinomial","xFactorsResiduals","xPrimitivePart","html","odesolver",
                     "orthopoly","openmath","ManipEquations","Manipulate","SolveSetEqns","ControlChart","GeoGebra","GeoGebraHistogram",
                     "GeoGebraPlot","GeoGebraPoint","ggbLine","HighschoolForm","jas_test","JFreeChartHistogram","JavaAccess","RForm",
@@ -504,7 +504,7 @@ public class Build {
 
                     if (subTypeAttribute.equalsIgnoreCase("automatic_test")) {
 
-                        processAutomaticTestFold(fold);
+                        processAutomaticTestFold(fold, mpwFile.getPath());
 
                     } else {
 
@@ -534,7 +534,7 @@ public class Build {
                         try {
                         processedScript = parsePrintScript(mathpiper.getEnvironment(), -1, functionInputStream, false);
                         } catch (Exception e) {
-                        System.out.println(inputStatus.fileName() + ": Line: " + inputStatus.lineNumber());
+                        System.out.println(inputStatus.getFileName() + ": Line: " + inputStatus.getLineNumber());
                         throw (e);
                         }
                          */
@@ -722,7 +722,7 @@ public class Build {
     }//end method
 
 
-    private void processAutomaticTestFold(Fold fold) throws Exception {
+    private void processAutomaticTestFold(Fold fold, String filePath) throws Exception {
 
         String foldContents = fold.getContents();
 
@@ -734,9 +734,11 @@ public class Build {
 
         if (fold.getAttributes().containsKey("name") && !(nameAttribute = (String) fold.getAttributes().get("name")).equals("")) {
 
-            foldContents =  ("Testing(\\\"" + nameAttribute + "\\\");" + foldContents);
+            filePath = filePath.substring(filePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator));
+
+            //foldContents =  ("Testing(\\\"" + nameAttribute + "\\\");" + foldContents);
             testsJavaFile.write("\n        testString = new String[2];");
-            testsJavaFile.write("\n        testString[0] = \"\";");
+            testsJavaFile.write("\n        testString[0] = \"" + filePath + "\";");
             testsJavaFile.write("\n        testString[1] = \"" + foldContents + "\";\n");
 
             testsJavaFile.write("        testsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
@@ -866,7 +868,7 @@ public class Build {
 
 
                             if (subTypeAttribute.equalsIgnoreCase("automatic_test")) {
-                                this.processAutomaticTestFold(fold);
+                                this.processAutomaticTestFold(fold, javaFile.getPath());
                             }//end if.
                         }//end if.
                     }//end else.
@@ -940,7 +942,7 @@ public class Build {
             System.out.println(e.getMessage());
             e.printStackTrace(); //todo:tk:uncomment for debugging.
 
-            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
+            EvaluationException ee = new EvaluationException(e.getMessage(),  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineNumber());
             throw ee;
         } finally {
             aEnvironment.iCurrentInput = previous;

@@ -13,60 +13,96 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.io;
 
+public class InputStatus {
 
-public class InputStatus
-{
-	String iFileName;
-	private int  iLineNumber;
+    private String iFileName;
+    private int iLineNumber;
+    private int iLineIndex;
+    //private List functionLoadSequence = new ArrayList();
 
-	public InputStatus()
-	{
-		iFileName = "none";
-		iLineNumber = -1;
-	}
 
-	public InputStatus(InputStatus aPreviousStatus)
-	{
-		iFileName = aPreviousStatus.iFileName;
-		iLineNumber = aPreviousStatus.iLineNumber;
-		//System.out.println("InputStatus construct to "+iFileName);
-	}
+    public InputStatus() {
+        iFileName = "none";
+        iLineNumber = -1;
+        iLineIndex = -1;
+    }
 
-	public void setTo(String aFileName)
-	{
-		//System.out.println("InputStatus set to "+aFileName);
-		iFileName = aFileName;
-		iLineNumber = 0;
-	}
 
-	public void restoreFrom(InputStatus aPreviousStatus)
-	{
-		iFileName = aPreviousStatus.iFileName;
-		iLineNumber = aPreviousStatus.iLineNumber;
+    public InputStatus(InputStatus aPreviousStatus) {
+        iFileName = aPreviousStatus.iFileName;
+        iLineNumber = aPreviousStatus.iLineNumber;
+        iLineIndex = aPreviousStatus.iLineIndex;
+        //System.out.println("InputStatus construct to "+iFileName);
+    }
 
-		//System.out.println("InputStatus restore to "+iFileName);
 
-	}
+    public void setTo(String aFileName) {
+        //System.out.println("InputStatus set to "+aFileName);
 
-	public int lineNumber()
-	{
-		return iLineNumber;
-	}
+        //functionLoadSequence.add(new InputStatus(this));
+        
+        iFileName = aFileName;
+        iLineNumber = 0;
+        iLineIndex = 0;
+    }
 
-	public String fileName()
-	{
-		return iFileName;
-	}
 
-	public  void nextLine()
-	{
-		iLineNumber++;
-	}
+    public void restoreFrom(InputStatus aPreviousStatus) {
+        iFileName = aPreviousStatus.iFileName;
+        iLineNumber = aPreviousStatus.iLineNumber;
+        iLineIndex = aPreviousStatus.iLineIndex;
+        //System.out.println("InputStatus restore to "+iFileName);
+
+    }
+
+
+    public int getLineNumber() {
+        return iLineNumber;
+    }
+
+
+    public String getFileName() {
+        return iFileName;
+    }
+
+
+    public int getLineIndex() {
+        return iLineIndex;
+    }
+
+
+    public void nextLine() {
+        iLineNumber++;
+        iLineIndex = 0;
+    }
+
+
+    public void nextCharacter() {
+        iLineIndex++;
+    }
+
+
+    /*public String toString()
+    {
+        int index = 1;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        Iterator iterator = functionLoadSequence.iterator();
+
+        while(iterator.hasNext())
+        {
+            InputStatus inputStatus = (InputStatus) iterator.next();
+            stringBuilder.append("Index: " + index++ + ", Filename: " + inputStatus.getFileName() + ", Line Number: " + inputStatus.getLineNumber() + ", Line Index: " + inputStatus.getLineIndex() + "\n");
+        }
+
+        stringBuilder.append("Index: " + index++ + ", Filename: " + iFileName + ", Line Number: " + iLineNumber + ", Line Index: " + iLineIndex + "\n");
+
+        return stringBuilder.toString();
+
+    }
+     */
 
 };
-

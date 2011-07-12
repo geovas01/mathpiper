@@ -61,7 +61,7 @@ public class LispError {
         //lispAssert(aError >= 0 && aError < MAXIMUM_NUMBER_OF_ERRORS, aEnvironment, aStackTop);
 
         if (aError < 0 || aError >= MAXIMUM_NUMBER_OF_ERRORS) {
-            throw new EvaluationException("Maximum number of errors exceeded.", "", -1);
+            throw new EvaluationException("Maximum number of errors exceeded.", "", -1, -1);
         }
 
 
@@ -187,20 +187,20 @@ public class LispError {
 
 
             if (aStackTop == -1) {
-                throw new EvaluationException("Error encountered during initialization or parsing: " + aErrorMessage + stackTrace, "none", -1);
+                throw new EvaluationException("Error encountered during initialization or parsing: " + aErrorMessage + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
             } else if (aStackTop == -2) {
-                throw new EvaluationException("Error: " + aErrorMessage + stackTrace, "none", -1);
+                throw new EvaluationException("Error: " + aErrorMessage + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
             } else {
                 ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
                 if (arguments.getCons() == null) {
-                    throw new EvaluationException("Error in compiled code." + stackTrace, "none", -1);
+                    throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
                 } else {
                     //TODO FIXME          ShowStack(aEnvironment);
                     aErrorMessage = aErrorMessage + " " + showFunctionError(arguments, aEnvironment) + "internal.";
                 }
 
 
-                throw new EvaluationException(aErrorMessage + stackTrace, "none", -1);
+                throw new EvaluationException(aErrorMessage + stackTrace, aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
 
             }
         }
@@ -230,11 +230,11 @@ public class LispError {
         }
 
         if (aArguments.getCons() == null) {
-            throw new EvaluationException("Error in compiled code." + stackTrace, "none", -1);
+            throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
         } else {
             //TODO FIXME      ShowStack(aEnvironment);
             String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed + ". ";
-            throw new EvaluationException(error + stackTrace, "none", -1);
+            throw new EvaluationException(error + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
 
             /*TODO FIXME
             LispChar str[20];
@@ -257,7 +257,7 @@ public class LispError {
         } else {
             String string = (String) aArguments.car();
             if (string != null) {
-                return "In function \"" + string + "\" : " + aEnvironment.iInputStatus.fileName() + ", " + " Line number: " + aEnvironment.iInputStatus.lineNumber() + ", " + " Line index: " + aEnvironment.iCurrentInput.position() + ". ";
+                return "In function \"" + string + "\" : " + aEnvironment.iCurrentInput.iStatus.getFileName() + ", " + " Line number: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ", " + " Line index: " + aEnvironment.iCurrentInput.position() + ". ";
             }
         }
         return "[Atom]";
@@ -276,17 +276,17 @@ public class LispError {
             }
 
             if (aStackTop == -1) {
-                throw new EvaluationException("Error encountered during initialization: " + errorString(errNo) + stackTrace, "none", -1);
+                throw new EvaluationException("Error encountered during initialization: " + errorString(errNo) + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
             } else if (aStackTop == -2) {
-                throw new EvaluationException("Error: " + errorString(errNo) + stackTrace, "none", -1);
+                throw new EvaluationException("Error: " + errorString(errNo) + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
             } else {
                 ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
                 if (arguments.getCons() == null) {
-                    throw new EvaluationException("Error in compiled code." + stackTrace, "none", -1);
+                    throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
                 } else {
                     String error = "";
                     error = error + showFunctionError(arguments, aEnvironment) + "internal.";
-                    throw new EvaluationException(error + stackTrace, "none", -1);
+                    throw new EvaluationException(error + stackTrace, aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
                 }
             }
         }
@@ -328,7 +328,7 @@ public class LispError {
 
             ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
             if (arguments.getCons() == null) {
-                throw new EvaluationException("Error in compiled code." + stackTrace, "none", -1);
+                throw new EvaluationException("Error in compiled code." + stackTrace, aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
             } else {
                 String error = "";
                 error = error + showFunctionError(arguments, aEnvironment) + "\nbad argument number " + aArgNr + "(counting from 1) : \n" + aErrorDescription + "\n";
@@ -346,7 +346,7 @@ public class LispError {
                 error = error + strout;
                 error = error + "\n";
 
-                throw new EvaluationException(error + stackTrace, "none", -1);
+                throw new EvaluationException(error + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
             }//end else.
         }
     }

@@ -21,32 +21,39 @@ public class EvaluationException extends Exception //Note:tk: made this class pu
 {
 
     private int lineNumber = -1;
+    private int lineIndex = -1;
     private String fileName = null;
     private String functionName = null;
     private String type = null;
 
 
-    public EvaluationException(String message, String fileName, int lineNumber, String functionName) {
-        this("Unspecified", message, fileName, lineNumber, functionName);
+    public EvaluationException(String message, String fileName, int lineNumber, int lineIndex, String functionName) {
+        this("Unspecified", message, fileName, lineNumber, lineIndex, functionName);
     }
 
 
 
-    public EvaluationException(String type, String message, String fileName, int lineNumber, String functionName) {
+    public EvaluationException(String type, String message, String fileName, int lineNumber, int lineIndex, String functionName) {
         super(message);
         this.type = type;
         this.fileName = fileName;
         this.lineNumber = lineNumber;
+        this.lineIndex = lineIndex;
         this.functionName = functionName;
     }
 
-    public EvaluationException(String message, String fileName, int lineNumber) {
-        this( message,  fileName,  lineNumber, null);
+    public EvaluationException(String message, String fileName, int lineNumber, int lineIndex) {
+        this( message,  fileName,  lineNumber, lineIndex, null);
     }
 
 
     public int getLineNumber() {
         return lineNumber;
+    }
+
+    
+    public int getLineIndex() {
+        return lineIndex;
     }
 
 

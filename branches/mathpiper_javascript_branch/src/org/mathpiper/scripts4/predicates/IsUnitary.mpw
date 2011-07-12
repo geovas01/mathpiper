@@ -33,3 +33,15 @@ Result: False;
 
 *SEE IsHermitian, IsSymmetric
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsUnitary",subtype="automatic_test"
+
+Verify(IsUnitary({{0,I},{-I,0}}),True);
+Verify(IsUnitary({{0,I},{-I,1}}),False);
+Verify(IsUnitary({{0,I},{-2*I,0}}),False);
+
+%/mathpiper

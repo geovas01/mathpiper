@@ -95,4 +95,24 @@ Result: False;
 
 *SEE IsAtom, IsString, IsInteger, IsDecimal, IsPositiveNumber, IsNegativeNumber, Complex
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsNumber",subtype="automatic_test"
+
+Verify(IsNumber(123),True);
+Verify(IsNumber(123.123),True);
+Verify(IsNumber(a),False);
+Verify(IsNumber({a}),False);
+
+%/mathpiper
+ 
 */
+
+
+
+
+
+

@@ -34,3 +34,18 @@ Result: False;
 
 *SEE IsNumber, IsInteger, VarList
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsConstant",subtype="automatic_test"
+
+Verify(IsConstant(Pi), True);
+Verify(IsConstant(Exp(1)+Sqrt(3)), True);
+Verify(IsConstant(x), False);
+Verify(IsConstant(Infinity), True);
+Verify(IsConstant(-Infinity), True);
+Verify(IsConstant(Undefined), True);
+
+%/mathpiper

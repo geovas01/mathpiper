@@ -44,9 +44,9 @@ public class PipeFromString extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "PipeFromString");
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
-        InputStatus oldstatus = aEnvironment.iInputStatus;
-        aEnvironment.iInputStatus.setTo("String");
-        StringInputStream newInput = new StringInputStream(oper, aEnvironment.iInputStatus);
+        InputStatus oldstatus = aEnvironment.iCurrentInput.iStatus;
+        aEnvironment.iCurrentInput.iStatus.setTo("String");
+        StringInputStream newInput = new StringInputStream(oper, aEnvironment.iCurrentInput.iStatus);
 
         MathPiperInputStream previous = aEnvironment.iCurrentInput;
         aEnvironment.iCurrentInput = newInput;
@@ -60,7 +60,7 @@ public class PipeFromString extends BuiltinFunction
         } finally
         {
             aEnvironment.iCurrentInput = previous;
-            aEnvironment.iInputStatus.restoreFrom(oldstatus);
+            aEnvironment.iCurrentInput.iStatus.restoreFrom(oldstatus);
         }
 
     //Return the getTopOfStackPointer

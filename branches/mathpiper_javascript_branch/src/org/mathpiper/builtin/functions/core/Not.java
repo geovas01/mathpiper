@@ -78,4 +78,16 @@ Result: Not a;
 
 *SEE And, Or
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Not",subtype="automatic_test"
+
+Verify(Not(True),False);
+Verify(Not(False),True);
+
+%/mathpiper
+
 */

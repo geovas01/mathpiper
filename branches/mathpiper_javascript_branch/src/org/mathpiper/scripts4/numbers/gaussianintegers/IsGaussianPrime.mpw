@@ -67,3 +67,17 @@ Result: True;
 
 *SEE  IsGaussianInteger, GaussianFactors
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsGaussianPrime",subtype="automatic_test"
+
+Verify(IsGaussianPrime(5+2*I),True );
+Verify(IsGaussianPrime(13), False );
+Verify(IsGaussianPrime(0), False );
+Verify(IsGaussianPrime(3.5), False );
+Verify(IsGaussianPrime(2+3.1*I), False );
+
+%/mathpiper

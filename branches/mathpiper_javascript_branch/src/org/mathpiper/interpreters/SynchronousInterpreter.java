@@ -136,8 +136,17 @@ class SynchronousInterpreter implements Interpreter {
 
         } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
         {
+            if(e instanceof EvaluationException)
+            {
+                EvaluationException ee = (EvaluationException) e;
+                System.out.println("Exception: " + ee.getMessage() + " Filename: " + ee.getFileName() + ", Line Number: " + ee.getLineNumber() + ", Line Index: " + ee.getLineIndex());
+            }
+            else
+            {
+                System.out.println(e.toString());
+            }
             e.printStackTrace();
-            System.out.println(e.toString());
+            
         }
     }//end constructor.
 
@@ -389,27 +398,35 @@ class SynchronousInterpreter implements Interpreter {
 
         if (exception instanceof EvaluationException) {
             EvaluationException mpe = (EvaluationException) exception;
+            
             int errorLineNumber = mpe.getLineNumber();
+            int errorLineIndex = mpe.getLineIndex();
+
             if (errorLineNumber == -1) {
-                errorLineNumber = iEnvironment.iInputStatus.lineNumber();
+                errorLineNumber = iEnvironment.iInputStatus.getLineNumber();
+                errorLineIndex = iEnvironment.iInputStatus.getLineIndex();
                 if (errorLineNumber == -1) {
                     errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
                 }
                 evaluationResponse.setLineNumber(errorLineNumber);
-                evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.fileName());
+                evaluationResponse.setLineNumber(errorLineIndex);
+                evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.getFileName());
             } else {
                 evaluationResponse.setLineNumber(mpe.getLineNumber());
+                evaluationResponse.setLineNumber(errorLineIndex);
                 evaluationResponse.setSourceFileName(mpe.getFileName());
             }
 
 
         } else {
-            int errorLineNumber = iEnvironment.iInputStatus.lineNumber();
-            if (errorLineNumber == -1) {
-                errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
-            }
+            int errorLineNumber = iEnvironment.iInputStatus.getLineNumber();
+            int errorLineIndex = iEnvironment.iInputStatus.getLineIndex();
+            //if (errorLineNumber == -1) {
+            //    errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
+            //}
             evaluationResponse.setLineNumber(errorLineNumber);
-            evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.fileName());
+            evaluationResponse.setLineNumber(errorLineIndex);
+            evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.getFileName());
         }
 
         evaluationResponse.setException(exception);

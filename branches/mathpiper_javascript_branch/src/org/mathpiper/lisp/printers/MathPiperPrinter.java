@@ -161,8 +161,8 @@ public class MathPiperPrinter extends LispPrinter {
                     }//end if.
                 }
 
-                boolean addSpaceAroundInfixOperator = false; //Todo:tk:perhaps a more general way should be found to place a space after a prefix operator.
-                if(functionOrOperatorName.equals("And"))
+                boolean addSpaceAroundInfixOperator = false; //Todo:tk:perhaps a more general way should be found to place a space around operators which are words.
+                if(functionOrOperatorName.equals("And") || functionOrOperatorName.equals("Or"))
                 {
                     addSpaceAroundInfixOperator = true;
                 }
@@ -249,6 +249,8 @@ public class MathPiperPrinter extends LispPrinter {
                     // }//end else.
                 } else if (functionOrOperatorName == iCurrentEnvironment.iProgAtom.car()) // Program block brackets.
                 {
+                    aOutput.write("\n" + spaces.toString());
+
                     WriteToken(aOutput, "[");
                     aOutput.write("\n");
                     spaces.append("    ");
@@ -261,9 +263,11 @@ public class MathPiperPrinter extends LispPrinter {
                         aOutput.write("\n");
                     }
 
-                    WriteToken(aOutput, "]");
-                    aOutput.write("\n");
                     spaces.delete(0, 4);
+                    aOutput.write(spaces.toString());
+                    WriteToken(aOutput, "]");
+                    //aOutput.write("\n");
+
                 } else if (functionOrOperatorName == iCurrentEnvironment.iNthAtom.car()) {
                     Print(aEnvironment, aStackTop, consTraverser.getPointer(), aOutput, 0);
                     consTraverser.goNext(aStackTop);

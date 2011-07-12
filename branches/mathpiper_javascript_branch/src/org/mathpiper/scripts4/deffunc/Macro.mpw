@@ -169,6 +169,7 @@ Result: 10;
 
 [
   Local(x,y,z);
+  Rulebase("@",{x});
   y:=x;
   Verify(`{@x,@y},{x,x});
   z:=u;
@@ -179,6 +180,7 @@ Result: 10;
 
   Verify(`{@x,@y},{x,{u,u}});
   Verify(`{@x,`(@y)},{x,{u,u}});
+  Retract("@",1);
 ];
 
 // check that a macro can reach a local from the calling environment.

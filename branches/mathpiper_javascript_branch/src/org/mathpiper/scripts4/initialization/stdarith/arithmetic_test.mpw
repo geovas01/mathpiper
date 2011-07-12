@@ -68,7 +68,7 @@ Testing("PowerN");
 Verify(PowerN(19, 0), 1);
 Verify(PowerN(1, -1), 1);
 Verify(PowerN(1, -2), 1);
-Verify(IsZero(PowerN(10, -2)- 0.01));
+Verify(IsZero(PowerN(10, -2)- 0.01),True);
 Verify(PowerN(2, 3), 8);
 NumericEqual(PowerN(2, -3), 0.125,BuiltinPrecisionGet());
 

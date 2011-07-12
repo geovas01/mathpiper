@@ -39,3 +39,15 @@ Result: False;
 
 *SEE  IsGaussianUnit, IsGaussianPrime
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsGaussianInteger",subtype="automatic_test"
+
+Verify(IsGaussianInteger(3+4*I),True );
+Verify(IsGaussianInteger(5),True);
+Verify(IsGaussianInteger(1.1), False );
+
+%/mathpiper

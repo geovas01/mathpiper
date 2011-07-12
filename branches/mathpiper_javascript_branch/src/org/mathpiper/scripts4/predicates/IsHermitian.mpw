@@ -31,3 +31,15 @@ Result: False;
 
 *SEE IsUnitary
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsHermitian",subtype="automatic_test"
+
+Verify(IsHermitian({{0,I},{-I,0}}),True);
+Verify(IsHermitian({{0,I},{-I,1}}),True);
+Verify(IsHermitian({{0,I},{-2*I,0}}),False);
+
+%/mathpiper

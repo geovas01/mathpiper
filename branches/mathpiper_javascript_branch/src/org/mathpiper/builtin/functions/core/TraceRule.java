@@ -33,7 +33,7 @@ public class TraceRule extends BuiltinFunction
     {
         aEnvironment.write("Function not yet implemented : LispTraceRule");////TODO fixme
 
-        throw new EvaluationException("Function not yet supported",aEnvironment.iInputStatus.fileName(), aEnvironment.iCurrentInput.iStatus.lineNumber());
+        throw new EvaluationException("Function not yet supported",aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
     }
 }
 
