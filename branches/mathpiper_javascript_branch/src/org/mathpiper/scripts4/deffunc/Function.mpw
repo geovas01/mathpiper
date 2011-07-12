@@ -131,3 +131,28 @@ Result: " 1 2 3";
 
 *SEE TemplateFunction, Rule, Rulebase,  RulebaseListed, :=, Retract
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Function",subtype="automatic_test"
+
+Function("count",{from,to})
+[
+   Local(i);
+   Local(sum);
+   Bind(sum,0);
+   For(i:=from,i<to,i:=i+1)
+   [
+     Bind(sum,sum+i);
+   ];
+   sum;
+];
+
+Testing("Function definitions");
+Verify(count(1,11),55);
+
+Retract("count",2);
+
+%/mathpiper

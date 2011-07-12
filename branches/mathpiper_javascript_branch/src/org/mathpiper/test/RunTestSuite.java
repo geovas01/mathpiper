@@ -145,7 +145,7 @@ public class RunTestSuite {
         mathPiper.getEnvironment().iInputStatus.setTo(testFilePath);
 
 
-        output = "\n===========================\nTesting " + testName + " in file <" + testFilePath + ">: \n\n";
+        output = "\n================================================================\nTesting " + testName + " in file <" + testFilePath + ">: \n\n";
         System.out.print(output);
         logFile.write(output);
 
@@ -280,9 +280,9 @@ public class RunTestSuite {
 
         RunTestSuite pt = new RunTestSuite();
         
-        //pt.test("Factors");
+        pt.test("ConcatStrings");
 
-        pt.test();
+        //pt.test();
 
 
     }//end main

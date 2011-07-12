@@ -50,3 +50,13 @@ Result: {a^2,4,c^2};
 
 *SEE Map, MapArgs, /@, Apply
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="MapSingle",subtype="automatic_test"
+
+Verify(MapSingle("!",{1,2,3,4}),{1,2,6,24});
+
+%/mathpiper

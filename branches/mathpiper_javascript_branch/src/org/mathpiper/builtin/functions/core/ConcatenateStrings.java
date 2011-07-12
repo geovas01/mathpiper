@@ -83,4 +83,14 @@ Result: "abc";
 
 *SEE :
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="ConcatStrings",subtype="automatic_test"
+
+Verify(ConcatStrings("a","b","c"),"abc");
+
+%/mathpiper
 */

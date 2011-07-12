@@ -71,4 +71,14 @@ Result: a;
 
 *SEE ToString, ExpressionToString
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="ToAtom",subtype="automatic_test"
+
+ Verify(ToAtom("a"),a);
+
+%/mathpiper
 */

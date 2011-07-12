@@ -127,4 +127,22 @@ Make sure that the arguments of {Macro}... commands evaluate to expressions that
 
 *SEE Bind, Unbind, Local, Rulebase, Rule, `, MacroBind, MacroUnbind, MacroRulebase, MacroRulebaseListed, MacroRule
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Local",subtype="automatic_test"
+
+[
+  Verify(IsBound({}),False);
+  Local(a);
+  Verify(IsBound(a),False);
+  a:=1;
+  Verify(IsBound(a),True);
+  Unbind(a);
+  Verify(IsBound(a),False);
+];
+
+%/mathpiper
 */

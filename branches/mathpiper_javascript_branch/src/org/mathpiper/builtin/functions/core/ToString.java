@@ -79,4 +79,14 @@ Result: "a";
 
 *SEE ToAtom, ExpressionToString
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="ToString",subtype="automatic_test"
+
+ Verify(ToString(a),"a");
+
+%/mathpiper
 */
