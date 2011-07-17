@@ -38,6 +38,9 @@ public class Retract extends BuiltinFunction
 
         LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "Retract");
         String orig = (String) evaluated.car();
+
+        orig = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, orig);
+        
         LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "Retract");
         String oper = Utility.getSymbolName(aEnvironment, orig);
 
