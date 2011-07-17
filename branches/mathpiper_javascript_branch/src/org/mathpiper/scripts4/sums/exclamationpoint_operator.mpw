@@ -93,4 +93,9 @@ Result: Sqrt(Pi)/2;
 Verify(261! - 261*260!, 0);
 Verify(300! / 250!, 251***300);
 
+// Verify that postfix operators can be applied one after the other
+// without brackets
+Verify((3!) !, 720);
+Verify(3! !, 720);
+
 %/mathpiper

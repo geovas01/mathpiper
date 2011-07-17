@@ -280,9 +280,9 @@ public class RunTestSuite {
 
         RunTestSuite pt = new RunTestSuite();
         
-        pt.test("RadSimp");
+        //pt.test("%");
 
-        //pt.test();
+        pt.test();
 
 
     }//end main

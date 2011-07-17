@@ -510,3 +510,14 @@ In> TrigSimpCombine(Cos(a)^2*Sin(b))
 
 *SEE Simplify, Integrate, Expand, Sin, Cos, Tan
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="TrigSimpCombine",subtype="automatic_test"
+
+TestMathPiper(TrigSimpCombine(Exp(A*X)),Exp(A*X));
+TestMathPiper(TrigSimpCombine(x^Sin(a*x+b)),x^Sin(a*x+b));
+
+%/mathpiper

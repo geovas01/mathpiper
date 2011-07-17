@@ -380,7 +380,7 @@ VerifyPslq(left,right):=
     `Verify(@left,-(@right)));
 ];
 
-VerifyPslq(Pslq({ Pi+2*Exp(1) , Pi , Exp(1) },20),{1,-1,-2}); f();
-VerifyPslq(Pslq({ 2*Pi+3*Exp(1) , Pi , Exp(1) },20),{1,-2,-3}); f();
+VerifyPslq(Pslq({ Pi+2*Exp(1) , Pi , Exp(1) },20),{1,-1,-2});
+VerifyPslq(Pslq({ 2*Pi+3*Exp(1) , Pi , Exp(1) },20),{1,-2,-3});
 
 %/mathpiper

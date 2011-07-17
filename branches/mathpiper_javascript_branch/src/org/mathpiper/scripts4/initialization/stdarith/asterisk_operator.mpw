@@ -132,3 +132,15 @@ to being built-in). This means that they can be extended by the user.
 In> 2*3
 Result: 6;
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="*",subtype="automatic_test"
+
+Verify((-2)*Infinity,-Infinity);
+
+Verify(Infinity*0,Undefined);
+
+%/mathpiper

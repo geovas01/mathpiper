@@ -105,8 +105,19 @@ Result: (k-5)*k+2
 *SEE Gcd, Lcm, Quotient
 %/mathpiper_docs
 
-    %output,preserve="false"
-      
-.   %/output
 
 
+
+
+%mathpiper,name="Modulo",subtype="automatic_test"
+
+// Modulo generated a stack overflow on floats.
+Verify(Modulo(1.2,3.4),6/5);
+
+//TODO I need to understand why we need to put Eval here. Modulo(-1.2,3.4)-2.2 returns 0/5 where the 0 is not an integer according to the system. Round-off error?
+NumericEqual(N(Eval(Modulo(-1.2,3.4))),2.2,BuiltinPrecisionGet());
+
+Verify(Modulo(-12/10,34/10),11/5);
+// just a test to see if Verify still gives correct error Verify(N(Modulo(-12/10,34/10)),11/5);
+
+%/mathpiper

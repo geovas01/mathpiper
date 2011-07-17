@@ -82,3 +82,13 @@ Result: Sqrt(2)/2;
 
 *SEE Cos, Tan, ArcSin, ArcCos, ArcTan, N, Pi
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Sin",subtype="automatic_test"
+
+Verify(N(Sin(a)),Sin(a));
+
+%/mathpiper

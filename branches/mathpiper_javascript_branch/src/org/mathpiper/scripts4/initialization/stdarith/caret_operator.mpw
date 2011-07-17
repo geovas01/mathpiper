@@ -116,3 +116,19 @@ to being built-in). This means that they can be extended by the user.
 In> 2^3
 Result: 8;
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="^",subtype="automatic_test"
+
+Verify(1^Infinity,Undefined);
+
+// Matrix operations failed: a^2 performed the squaring on each element.
+Verify({{1,2},{3,4}}^2,{{7,10},{15,22}});
+
+// Check that raising powers still works on lists/vectors (dotproduct?) correctly.
+Verify({2,3}^2,{4,9});
+
+%/mathpiper

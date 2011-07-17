@@ -14,3 +14,13 @@ Internal'LnNum(x_IsNumber)_(x>=1) <-- NewtonLn(x);
 Internal'LnNum(x_IsNumber)_(0<x And x<1) <-- - Internal'LnNum(DivideN(1,x));
 
 %/mathpiper
+
+
+
+
+
+%mathpiper,name="Internal'LnNum",subtype="automatic_test"
+
+Verify(Internal'LnNum(1), 0);
+
+%/mathpiper

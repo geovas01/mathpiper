@@ -70,3 +70,17 @@ Result: 24;
 
 *SEE Sum, Apply
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Product",subtype="automatic_test"
+
+// Product didn't check for correct input
+Verify(Product(10), Product(10));
+Verify(Product(-1), Product(-1));
+Verify(Product(Infinity), Product(Infinity));
+Verify(Product(1 .. 10),3628800);
+
+%/mathpiper

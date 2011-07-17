@@ -127,6 +127,15 @@ Verify( Gcd( 324 + 1608*I, -11800 + 7900*I ),Complex(-52,16) );
 //TODO we can expand this with randomized tests
 Verify( Gcd( 7300 + 12*I, 2700 + 100*I), Complex(-4,4) );
 
+
+// Bug was found: gcd sometimes returned 0! Very bad, since the
+// value returned by gcd is usually used to divide out greatest
+// common divisors, and dividing by zero is not a good idea.
+Verify(Gcd(0,0),1);
+Verify(Gcd({0}),1);
+
+
+
 VerifyGaussianGcd(x,y):=
 [
   Local(gcd);

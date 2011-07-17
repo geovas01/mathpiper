@@ -34,3 +34,13 @@ Function("CanBeUni",{expression}) CanBeUni(UniVarList(expression),expression);
 1001 # CanBeUni(_var,_f) <-- True;
 
 %/mathpiper
+
+
+
+
+
+%mathpiper,name="CanBeUni",subtype="automatic_test"
+
+Verify(CanBeUni(x^(-1)),False);
+
+%/mathpiper

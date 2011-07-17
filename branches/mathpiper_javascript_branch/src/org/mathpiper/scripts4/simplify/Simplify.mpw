@@ -66,3 +66,45 @@ Result: 0;
 
 *SEE TrigSimpCombine, RadSimp, Combine
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Simplify",subtype="automatic_test"
+
+Verify([Local(a);a:=0.1;Simplify((a*b*c)/(a*c*b));],1);
+
+
+LocalSymbols(p,a,x)
+[
+  p := a+2-(a+1);
+  Verify(Simplify(x^p),x);
+];
+
+
+LocalSymbols(f,p,a,b,x,n,simple,u,v)
+[
+  simple := {
+            Exp(_a)*Exp(_b) <- Exp(a+b),
+            Exp(_a)*_u*Exp(_b) <- u*Exp(a+b),
+            _u*Exp(_a)*Exp(_b) <- u*Exp(a+b),
+            Exp(_a)*Exp(_b)*_u <- u*Exp(a+b),
+            _u*Exp(_a)*_v*Exp(_b) <- u*v*Exp(a+b),
+            Exp(_a)*_u*Exp(_b)*_v <- u*v*Exp(a+b),
+            _u*Exp(_a)*Exp(_b)*_v <- u*v*Exp(a+b),
+            _u*Exp(_a)*_v*Exp(_b)*_w <- u*v*w*Exp(a+b)
+          };
+
+  a := Simplify(Exp(x)*(Differentiate(x) x*Exp(-x)));
+  b := Exp(x)*Exp(-x)-Exp(x)*x*Exp(-x);
+
+  a:= (a /: simple);
+  b:= (b /: simple);
+
+  Verify(Simplify(a-(1-x)),0);
+  Verify(Simplify(b-(1-x)),0);
+
+];
+
+%/mathpiper

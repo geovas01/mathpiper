@@ -52,3 +52,13 @@ Result: 210;
 
 *SEE CombinationsList, Permutations, PermutationsList, !, Eulerian
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="BinomialCoefficient",subtype="automatic_test"
+
+Verify(BinomialCoefficient(0,0),1 );
+
+%/mathpiper

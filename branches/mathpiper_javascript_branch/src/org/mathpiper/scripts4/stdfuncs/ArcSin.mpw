@@ -75,3 +75,16 @@ Result: 0.7499999477;
 
 *SEE Sin, Cos, Tan, N, Pi, Ln, ArcCos, ArcTan
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="ArcSin",subtype="automatic_test"
+
+NumericEqual(
+RoundToN(N(ArcSin(0.0000000321232123),50),50)
+, 0.000000032123212300000005524661243020493367846793163005802
+,50);
+
+%/mathpiper

@@ -30,3 +30,13 @@ Result: 7
 
 *SEE &
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="|",subtype="automatic_test"
+
+Verify(0|1, 1);
+
+%/mathpiper

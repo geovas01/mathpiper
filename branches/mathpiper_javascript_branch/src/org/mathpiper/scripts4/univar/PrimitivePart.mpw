@@ -39,3 +39,15 @@ Result: 2*x^2+4*x;
 
 *SEE Content
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="PrimitivePart",subtype="automatic_test"
+
+TestMathPiper(PrimitivePart(1/2*x+1/2),x+1);
+
+TestMathPiper(PrimitivePart(1/2*x+1/3),3*x+2);
+
+%/mathpiper

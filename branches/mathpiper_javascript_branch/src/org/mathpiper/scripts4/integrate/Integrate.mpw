@@ -268,8 +268,9 @@ LocalSymbols(TestMatchLinearTrue,TestMatchLinearFalse) [
   TestMatchLinearTrue(x,a*x+b,{a,b});
   TestMatchLinearFalse(x,Sin(x)*x+(T-1));
   TestMatchLinearFalse(x,x+Sin(x));
-
 ];
 
+Verify(Integrate(x) z^100, z^100*x );
+Verify(Integrate(x) x^(-1),Ln(x) );
 
 %/mathpiper

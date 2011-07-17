@@ -42,3 +42,13 @@ Result: Pi/4;
 
 *SEE Abs, Sign
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Arg",subtype="automatic_test"
+
+TestMathPiper(Arg(Exp(2*I*Pi/3)),2*Pi/3);
+
+%/mathpiper

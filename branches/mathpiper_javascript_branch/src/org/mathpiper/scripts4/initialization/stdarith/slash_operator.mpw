@@ -134,3 +134,13 @@ Result: 3;
 
 *SEE %_v1
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="/",subtype="automatic_test"
+
+Verify(Infinity/Infinity,Undefined);
+
+%/mathpiper

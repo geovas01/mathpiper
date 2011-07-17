@@ -379,6 +379,22 @@ Verify( Limit(x,Infinity) Gamma(x), Infinity );
 Verify( Limit(x,Infinity) Abs(x), Infinity );
 Verify( Limit(x,Infinity) x!, Infinity);
 
+Verify(Limit(x,Infinity) (-x^2+1)/(x+2),-Infinity);
+Verify(Limit(x,-Infinity)Exp(2*x),0);
+Verify(Limit(x,Infinity)(1+1/x)^x,Exp(1));
+Verify(Limit(x,Infinity)(1+2/x)^x,Exp(2));
+Verify(Limit(x,Infinity)(1+1/x)^(2*x),Exp(2));
+Verify(Limit(x,Infinity)-2*x,-Infinity);
+Verify(Limit(x,Infinity)(x^2+1)/(-x^3+1),0);
+Verify(Limit(x,0)1/x,Undefined);
+Verify(Limit(x,0,Right)1/x,Infinity);
+Verify(Limit(x,0,Left)1/x,-Infinity);
+
+Verify( Limit(n, Infinity) (n+1)/(2*n+3)*I, Complex(0,1/2) );
+Verify( Limit(x, Infinity) x*I, Complex(0,Infinity) ); //Changed Ayal: I didn't like the old definition
+
+Verify( Limit(n,Infinity) n*I^n, Undefined );
+
 Verify( Limit(x,0,Right) Ln(x)*Sin(x), 0 );
 KnownFailure( Limit(k,Infinity) ((k-phi)/k)^(k+1/2) = Exp(-phi) );
 
@@ -417,22 +433,29 @@ Verify(Limit(x,0)(Cos(a*x)-Cos(b*x))/x^2, (-a^2 + b^2)/2);
 Verify(Limit(x,0)(Exp(x)-1)/x, 1);
 Verify(Limit(x,0)(a^x-b^x)/x, Ln(a) - Ln(b));
 
+
+
 // tests adapted from mpreduce
 
-/* todo:tk:one of the following tests was hanging MathPiper.
+
 Verify(Limit(x,0)Sinh(2*x)^2/Ln(1+x^2), 4);
 // The limit seems to hang mathpiper
 //Verify(Limit(x,Infinity)x^2*(Exp(1/x)-1)*(Ln(x+2)-Ln(x)),2);
 // another tricky problem with the result depending on the sign of
 // alpha; I'm not sure how we should deal with it
 //Limit(x,Infinity)x^alpha*Ln(x+1)^2/Ln(x);
-Verify(Limit(x,0)(2*Cosh(x)-2-x^2)/Ln(1+x^2)^2, 1/12);
+
+
+//Seems to hang mathpiper: Verify(Limit(x,0)(2*Cosh(x)-2-x^2)/Ln(1+x^2)^2, 1/12);
 Verify(Limit(x,0)(x*Sinh(x)-2+2*Cosh(x))/(x^4+2*x^2), 1);
 Verify(Limit(x,0)(2*Sinh(x)-Tanh(x))/(Exp(x)-1), 1);
-Verify(Limit(x,0)x*Tanh(x)/(Sqrt(1-x^2)-1), -2);
+//This test passes, but it takes a long time to do so: Verify(Limit(x,0)x*Tanh(x)/(Sqrt(1-x^2)-1), -2);
 Verify(Limit(x,0)(2*Ln(1+x)+x^2-2*x)/x^3, 2/3);
+
 Verify(Limit(x,0)(Exp(5*x)-2*x)^(1/x), Exp(3));
 Verify(Limit(x,Infinity)Ln(Ln(x))/Ln(x)^2, 0);
+
+
 
 // tests adapted from mpreduce
 
@@ -450,13 +473,38 @@ Verify(Limit(x,Infinity)Ln(x)/x,0);
 Verify(Limit(x,Infinity)Ln(x)/Sqrt(x),0);
 Verify(Limit(x,Infinity)Ln(x), Infinity);
 Verify(Limit(x,0)Ln(x+1)/Sin(x), 1);
-// Seems to hang mathpiper
-//Verify(Limit(x,0)Ln(x+1/x)*Sin(x), 0);
+//Seems to hang mathpiper: Verify(Limit(x,0)Ln(x+1/x)*Sin(x), 0);
 Verify(Limit(x,0)-Ln(1+x)*(x+2)/Sin(x), -2);
 Verify(Limit(x,Infinity)Ln(x+1)^2/Sqrt(x), 0);
 Verify(Limit(x,Infinity)(Ln(x+1)-Ln(x)), 0);
 Verify(Limit(x,Infinity)-Ln(x+1)^2/Ln(Ln(x)), -Infinity);
 
-*/
+
+/* Regression on bug reports from docs/bugs.txt */
+/* Bug #1 */
+/* Can't test: 'Limit(x,0)Differentiate(x,2)Sin(x)/x' never terminates */
+
+/* Bug #2 */
+KnownFailure((Limit(x,Infinity) x^n/Ln(x)) = Infinity);
+KnownFailure((Limit(x,0,Right) x^(Ln(a)/(1+Ln(x)))) = a);
+Verify((Limit(x,0) (x+1)^(Ln(a)/x)), a);
+/* Note paren's around bodied operators like Limit, D, Integrate;
+   otherwise it's parsed as Limit (... = ...) */
+
+/* Bug #5 */
+/* How can we test for this? */
+/* Bug says: Limit(n,Infinity) Sqrt(n+1)-Sqrt(n) floods stack */
+/* but 'MaxEvalDepth reached' exits Yacas, even inside ExceptionCatch */
+
+/* Bug #12 */
+KnownFailure((Limit(n, Infinity) n^5/2^n) = 0);
+
+/* Bug #14 */
+Verify((Limit(x,Infinity) Zeta(x)), 1);
+// Actually, I changed the Factorial(x) to (x!)
+Verify((Limit(x,Infinity) (x!)), Infinity);
+
+
+
 
 %/mathpiper

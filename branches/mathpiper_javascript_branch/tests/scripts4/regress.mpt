@@ -1,206 +1,4 @@
 
-NextTest("Regression on bug reports");
-
-Verify(N(Sin(a)),Sin(a));
-LogicVerify(CanProve(P Or (Not P And Not Q)),P Or Not Q);
-Verify(Cos(0),1);
-Verify(Infinity/Infinity,Undefined);
-Verify(Sqrt(Infinity),Infinity);
-Verify(1^Infinity,Undefined);
-Verify((-2)*Infinity,-Infinity);
-Verify(Infinity*0,Undefined);
-Verify(Limit(x,Infinity) (-x^2+1)/(x+2),-Infinity);
-Verify(Limit(x,-Infinity)Exp(2*x),0);
-Verify(Limit(x,Infinity)(1+1/x)^x,Exp(1));
-Verify(Limit(x,Infinity)(1+2/x)^x,Exp(2));
-Verify(Limit(x,Infinity)(1+1/x)^(2*x),Exp(2));
-Verify(Limit(x,Infinity)-2*x,-Infinity);
-Verify(Limit(x,Infinity)(x^2+1)/(-x^3+1),0);
-
-Verify(Limit(x,0)1/x,Undefined);
-Verify(Limit(x,0,Right)1/x,Infinity);
-Verify(Limit(x,0,Left)1/x,-Infinity);
-
-Verify([Local(a);a:=0.1;Simplify((a*b*c)/(a*c*b));],1);
-
-LogicVerify(CanProve(P Or (Not P And Not Q)),P Or Not Q);
-LogicVerify(CanProve(A>0 And A<=0),False);
-LogicVerify(CanProve(A>0 Or A<=0),True);
-Verify(A<0,A<0);
-Verify(A>0,A>0);
-TestMathPiper(Arg(Exp(2*I*Pi/3)),2*Pi/3);
-
-TestMathPiper(Content(1/2*x+1/2),1/2);
-TestMathPiper(PrimitivePart(1/2*x+1/2),x+1);
-TestMathPiper(Content(1/2*x+1/3),1/6);
-TestMathPiper(PrimitivePart(1/2*x+1/3),3*x+2);
-
-// Mod generated a stack overflow on floats.
-Verify(Modulo(1.2,3.4),6/5);
-//TODO I need to understand why we need to put Eval here. Modulo(-1.2,3.4)-2.2 returns 0/5 where the 0 is not an integer according to the system. Round-off error?
-NumericEqual(N(Eval(Modulo(-1.2,3.4))),2.2,BuiltinPrecisionGet());
-Verify(Modulo(-12/10,34/10),11/5);
-// just a test to see if Verify still gives correct error Verify(N(Modulo(-12/10,34/10)),11/5);
-
-
-// some reports:
-
-LocalSymbols(f,p,a,b,x,n)
-[
-  f(_n) <-- Apply("Differentiate",{x,n, x^n});
-  Verify(f(10)-(10!));
-
-  p := a+2-(a+1);
-  Verify(Simplify(x^p),x);
-];
-
-LocalSymbols(f,p,a,b,x,n,simple,u,v)
-[
-  simple := {
-            Exp(_a)*Exp(_b) <- Exp(a+b), 
-            Exp(_a)*_u*Exp(_b) <- u*Exp(a+b),
-            _u*Exp(_a)*Exp(_b) <- u*Exp(a+b),
-            Exp(_a)*Exp(_b)*_u <- u*Exp(a+b),
-            _u*Exp(_a)*_v*Exp(_b) <- u*v*Exp(a+b),
-            Exp(_a)*_u*Exp(_b)*_v <- u*v*Exp(a+b),
-            _u*Exp(_a)*Exp(_b)*_v <- u*v*Exp(a+b),
-            _u*Exp(_a)*_v*Exp(_b)*_w <- u*v*w*Exp(a+b)
-          };
-
-  a := Simplify(Exp(x)*(Differentiate(x) x*Exp(-x)));
-  b := Exp(x)*Exp(-x)-Exp(x)*x*Exp(-x);
-
-  a:= (a /: simple);
-  b:= (b /: simple);
-  
-  Verify(Simplify(a-(1-x)),0);
-  Verify(Simplify(b-(1-x)),0);
-
-];
-
-// Verify that postfix operators can be applied one after the other
-// without brackets
-Verify((3!) !, 720);
-Verify(3! !, 720);
-
-TestMathPiper(TrigSimpCombine(Exp(A*X)),Exp(A*X));
-TestMathPiper(TrigSimpCombine(x^Sin(a*x+b)),x^Sin(a*x+b));
-Verify(CanBeUni(x^(-1)),False);
-
-
-f(x):=Eval(Factor(x))=x;
-Verify(f(703), True);
-Verify(f(485), True);
-Verify(f(170410240), True);
-
-
-
-
-
-/* bug reported by Jonathan:
-   All functions that do not have Taylor Expansions about
-   the given point go into infinite loops.
- */
-
-Verify(Taylor(x,0,5) Ln(x),Undefined);
-Verify(Taylor(x,0,5) 1/x,Undefined);
-Verify(Taylor(x,0,5) 1/Sin(x),Undefined);
-
-// Yacas used to not simplify the following, due to Pi being
-// considered constant. The expression was thus not expanded
-// as a univariate polynomial in Pi
-TestMathPiper(2*Pi/3,(Pi-Pi/3));
-
-TestMathPiper(( a*(Sqrt(Pi))^2/2), (a*Pi)/2);
-TestMathPiper(( 3*(Sqrt(Pi))^2/2), (3*Pi)/2); 
-TestMathPiper(( a*(Sqrt(b ))^2/2), (a*b)/2);
-
-// Bug was found: gcd sometimes returned 0! Very bad, since the 
-// value returned by gcd is usually used to divide out greatest
-// common divisors, and dividing by zero is not a good idea.
-Verify(Gcd(0,0),1);
-Verify(Gcd({0}),1);
-
-// Product didn't check for correct input
-Verify(Product(10), Product(10));
-Verify(Product(-1), Product(-1));
-Verify(Product(Infinity), Product(Infinity));
-Verify(Product(1 .. 10),3628800);
-
-//
-TestMathPiper(Sin(Pi-22),-Sin(22-Pi));
-TestMathPiper(Cos(Pi-22), Cos(22-Pi));
-
-// Verify that some matrix functions accept only positive
-// integer arguments. Regression test for the fact that the functions
-// in org/mathpiper/scripts/linalg.rep/ didn't check their arguments.
-
-// Note: Jonathan, perhaps some functions could return something
-// useful if the argument passed in is just a number? I'd imagine
-// Inverse(-2) <-- -1/2 would not be inconsistent?
-
-Verify(ZeroMatrix(-2,-2),ZeroMatrix(-2,-2));
-Verify(Identity(-2),Identity(-2));
-//Verify(LeviCivita(2),LeviCivita(2));
-//Verify(Permutations(2),Permutations(2));
-//Verify(InProduct(-2,-2),InProduct(-2,-2));
-//Verify(CrossProduct(-2,-2),CrossProduct(-2,-2));
-//Verify(BaseVector(-2,-2),BaseVector(-2,-2));
-//Verify(DiagonalMatrix(-2),DiagonalMatrix(-2));
-//Verify(Normalize(-2),Normalize(-2));
-//Verify(Transpose(-2),Transpose(-2));
-//Verify(Determinant(-2),Determinant(-2));
-//Verify(CoFactor(-2,-2,-2),CoFactor(-2,-2,-2));
-//Verify(Inverse(-2),Inverse(-2));
-//Verify(Trace(-2),Trace(-2));
-//Verify(SylvesterMatrix(-2,-2,-2),SylvesterMatrix(-2,-2,-2));
-Verify(ZeroVector(-2),ZeroVector(-2));
-
-Verify(Sech(x),1/Cosh(x));
-Verify(Cot(x),1/Tan(x));
-
-// Matrix operations failed: a^2 performed the squaring on each element
-Verify({{1,2},{3,4}}^2,{{7,10},{15,22}});
-// And check that raising powers still works on lists/vectors (dotproduct?) correctly
-Verify({2,3}^2,{4,9});
-
-Verify( Differentiate(x,0) Sin(x), Sin(x) );
-
-Verify( 2/3 >= 1/3, True);
-
-Verify( Infinity + I, Complex(Infinity,1) );
-Verify( Infinity - I, Complex(Infinity,-1) );
-Verify( I - Infinity,Complex(-Infinity,1) );
-Verify( I + Infinity, Complex(Infinity,1) );
-Verify( I*Infinity,Complex(0,Infinity)); //Changed Ayal: I didn't like the old definition
-Verify(-I*Infinity,Complex(0,-Infinity)); //Changed Ayal: I didn't like the old definition
-Verify( Infinity*I,Complex(0,Infinity)); //Changed Ayal: I didn't like the old definition
-Verify(  Infinity^I,Undefined);//Changed Ayal: I didn't like the old definition (it is undefined, right?)
-Verify( (2*I)^Infinity, Infinity );
-Verify( Infinity/I,Infinity );
-Verify( Sign(Infinity), 1 );
-Verify( Sign(-Infinity), -1 );
-
-Verify( Limit(n, Infinity) (n+1)/(2*n+3)*I, Complex(0,1/2) );
-Verify( Limit(x, Infinity) x*I, Complex(0,Infinity) ); //Changed Ayal: I didn't like the old definition
-
-Verify(Integrate(x) z^100, z^100*x );
-Verify(Integrate(x) x^(-1),Ln(x) );
-
-BuiltinPrecisionSet(50);
-
-NumericEqual(
-RoundToN(N(ArcSin(0.0000000321232123),50),50)
-, 0.000000032123212300000005524661243020493367846793163005802
-,50);
-
-Verify(Internal'LnNum(1), 0);
-
-Verify(BinomialCoefficient(0,0),1 );
-
-Verify(0|1, 1);
-Verify(0&1, 0);
-Verify(0%1, 0);
 
 Verify(0.0/Sqrt(2),0);
 Verify(0.0000000000/Sqrt(2),0);
@@ -251,7 +49,7 @@ Verify( (-1/2)^(-10), 1024);
 
 Verify( I^(Infinity), Undefined );
 Verify( I^(-Infinity), Undefined );
-Verify( Limit(n,Infinity) n*I^n, Undefined );
+
 
 Verify(1 <= 1.0, True);
 Verify(-1 <= -1.0, True);
@@ -383,17 +181,6 @@ Verify(FloatIsInt(3.1415926535e20), True);
 Verify(FloatIsInt(0.3e20), True);
 
 /* Regression on bug reports from docs/bugs.txt */
-
-/* Bug #1 */
-/* Can't test: 'Limit(x,0)Differentiate(x,2)Sin(x)/x' never terminates */
-
-/* Bug #2 */
-KnownFailure((Limit(x,Infinity) x^n/Ln(x)) = Infinity);
-KnownFailure((Limit(x,0,Right) x^(Ln(a)/(1+Ln(x)))) = a);
-Verify((Limit(x,0) (x+1)^(Ln(a)/x)), a);
-/* Note paren's around bodied operators like Limit, D, Integrate;
-   otherwise it's parsed as Limit (... = ...) */
-
 /* Bug #3 */
 KnownFailure(Gcd(10,3.3) != 3.3 And Gcd(10,3.3) != 1);
 /* I don't know what the answer should be, but buth 1 and 3.3 seem */
@@ -405,10 +192,7 @@ Verify(Gcd(0, -10), 10);
 /* How can we test for this? */
 /* Bug says: at startup, 2^Infinity does not simplify to Infinity */
 
-/* Bug #5 */
-/* How can we test for this? */
-/* Bug says: Limit(n,Infinity) Sqrt(n+1)-Sqrt(n) floods stack */
-/* but 'MaxEvalDepth reached' exits Yacas, even inside ExceptionCatch */
+
 
 /* Bug #6 */
 KnownFailure((Differentiate(z) Conjugate(z)) = Undefined);
@@ -428,16 +212,12 @@ Verify(Simplify(x^(-2)/(1-x)^3) != 0);
 /* Bug #11 */
 Verify(ArcCos(Cos(beta)) != beta);
 
-/* Bug #12 */
-KnownFailure((Limit(n, Infinity) n^5/2^n) = 0);
+
 
 /* Bug #13 */
 /* Cannot test; TrigSimpCombine(x^500) floods stack */
 
-/* Bug #14 */
-Verify((Limit(x,Infinity) Zeta(x)), 1);
-// Actually, I changed the Factorial(x) to (x!)
-Verify((Limit(x,Infinity) (x!)), Infinity);
+
 
 /* Bug #15 */
 Verify(PowerN(0,0.55), 0);

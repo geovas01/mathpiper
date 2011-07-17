@@ -95,3 +95,13 @@ Result: Sqrt(1/2);
 
 *SEE Sin, Tan, ArcSin, ArcCos, ArcTan, N, Pi
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Cos",subtype="automatic_test"
+
+Verify(Cos(0),1);
+
+%/mathpiper

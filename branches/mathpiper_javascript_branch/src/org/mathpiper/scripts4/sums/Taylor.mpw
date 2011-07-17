@@ -98,5 +98,21 @@ In> PrettyForm(Taylor(x,0,9) Sin(x))
 	
 Result: True;
 
-*SEE D, InverseTaylor, ReversePoly, BigOh
+*SEE Differentiate, InverseTaylor, ReversePoly, BigOh
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Taylor",subtype="automatic_test"
+
+/* bug reported by Jonathan:
+   All functions that do not have Taylor Expansions about
+   the given point go into infinite loops.
+ */
+Verify(Taylor(x,0,5) Ln(x),Undefined);
+Verify(Taylor(x,0,5) 1/x,Undefined);
+Verify(Taylor(x,0,5) 1/Sin(x),Undefined);
+
+%/mathpiper

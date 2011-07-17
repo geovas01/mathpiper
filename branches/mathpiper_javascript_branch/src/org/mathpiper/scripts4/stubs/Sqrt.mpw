@@ -62,3 +62,13 @@ Result: Complex(0,1);
 
 *SEE Exp, ^, N
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Sqrt",subtype="automatic_test"
+
+Verify(Sqrt(Infinity),Infinity);
+
+%/mathpiper

@@ -148,9 +148,6 @@ Result: 3.1415926535897932385
 *SEE Pi, InNumericMode, NonN
 %/mathpiper_docs
 
-    %output,preserve="false"
-      
-.   %/output
 
 
 

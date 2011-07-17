@@ -1,30 +1,30 @@
 %mathpiper,name="miscellaneous",subtype="automatic_test"
 
 Testing("From: calculus.mpt");
-f():=[];//Echo(CurrentFile()," line ",CurrentLine());
+
 Testing("UnaryFunctionInverses");
-Verify(Sin(ArcSin(a)),a);  f();
-Verify(Cos(ArcCos(a)),a);  f();
+Verify(Sin(ArcSin(a)),a);
+Verify(Cos(ArcCos(a)),a);
 //TODO ??? Verify(Tan(ArcTan(a)),a);
 //TODO ??? this is not always the correct answer! Verify(ArcTan(Tan(a)),a);
-Verify(Tan(Pi/2),Infinity); f();
-Verify(Tan(Pi),0); f();
-Verify( Sin(x)/Cos(x), Tan(x) ); f();
-Verify( TrigSimpCombine(Sin(x)^2 + Cos(x)^2), 1 ); f();
-Verify( Sinh(x)-Cosh(x), Exp(-x)); f();
-Verify( Sinh(x)+Cosh(x), Exp(x) ); f();
-Verify( Sinh(x)/Cosh(x), Tanh(x) ); f();
-Verify( Sinh(Infinity), Infinity); f();
-Verify( Sinh(x)*Csch(x), 1); f();
-Verify( 1/Coth(x), Tanh(x) ); f();
-Verify(2+I*3,Complex(2,3)); f();
-Verify(Magnitude(I+1),Sqrt(2)); f();
-Verify(Re(2+I*3),2); f();
-Verify(Im(2+I*3),3); f();
+Verify(Tan(Pi/2),Infinity);
+Verify(Tan(Pi),0);
+Verify( Sin(x)/Cos(x), Tan(x) );
+Verify( TrigSimpCombine(Sin(x)^2 + Cos(x)^2), 1 );
+Verify( Sinh(x)-Cosh(x), Exp(-x));
+Verify( Sinh(x)+Cosh(x), Exp(x) );
+Verify( Sinh(x)/Cosh(x), Tanh(x) );
+Verify( Sinh(Infinity), Infinity);
+Verify( Sinh(x)*Csch(x), 1);
+Verify( 1/Coth(x), Tanh(x) );
+Verify(2+I*3,Complex(2,3));
+Verify(Magnitude(I+1),Sqrt(2));
+Verify(Re(2+I*3),2);
+Verify(Im(2+I*3),3);
 // Shouldn't these be in linalg.yts?
-Verify(ZeroVector(3),{0,0,0}); f();
-Verify(BaseVector(2,3),{0,1,0}); f();
-Verify(Identity(3),{{1,0,0},{0,1,0},{0,0,1}}); f();
+Verify(ZeroVector(3),{0,0,0});
+Verify(BaseVector(2,3),{0,1,0});
+Verify(Identity(3),{{1,0,0},{0,1,0},{0,0,1}});
 
 
 Testing("Checking comment syntax supported");
@@ -64,5 +64,31 @@ Verify({1,2,3},{1,2,3});
 Verify({a,b,c}[2],b);
 Verify("abc"[2],"b");
 Verify(x^(1/2),Sqrt(x));
+
+
+// Yacas used to not simplify the following, due to Pi being
+// considered constant. The expression was thus not expanded
+// as a univariate polynomial in Pi
+TestMathPiper(2*Pi/3,(Pi-Pi/3));
+TestMathPiper(( a*(Sqrt(Pi))^2/2), (a*Pi)/2);
+TestMathPiper(( 3*(Sqrt(Pi))^2/2), (3*Pi)/2);
+TestMathPiper(( a*(Sqrt(b ))^2/2), (a*b)/2);
+
+TestMathPiper(Sin(Pi-22),-Sin(22-Pi));
+TestMathPiper(Cos(Pi-22), Cos(22-Pi));
+
+
+Verify( Infinity + I, Complex(Infinity,1) );
+Verify( Infinity - I, Complex(Infinity,-1) );
+Verify( I - Infinity,Complex(-Infinity,1) );
+Verify( I + Infinity, Complex(Infinity,1) );
+Verify( I*Infinity,Complex(0,Infinity)); //Changed Ayal: I didn't like the old definition
+Verify( -I*Infinity,Complex(0,-Infinity)); //Changed Ayal: I didn't like the old definition
+Verify( Infinity*I,Complex(0,Infinity)); //Changed Ayal: I didn't like the old definition
+Verify( Infinity^I,Undefined);//Changed Ayal: I didn't like the old definition (it is undefined, right?)
+Verify( (2*I)^Infinity, Infinity );
+Verify( Infinity/I,Infinity );
+Verify( Sign(Infinity), 1 );
+Verify( Sign(-Infinity), -1 );
 
 %/mathpiper

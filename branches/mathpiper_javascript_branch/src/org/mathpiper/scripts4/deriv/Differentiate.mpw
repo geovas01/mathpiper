@@ -104,7 +104,6 @@ Verify(Differentiate(x) (x+x),2);
 Verify(Differentiate(x) (x*x),2*x);
 Verify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x));
 
-
 [
   Local(z);
   // This function satisfies Laplaces eqn: Differentiate(x,2)z + Differentiate(y,2)z = 0
@@ -112,5 +111,6 @@ Verify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x));
   Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 );
 ];
 
+Verify( Differentiate(x,0) Sin(x), Sin(x) );
 
 %/mathpiper
