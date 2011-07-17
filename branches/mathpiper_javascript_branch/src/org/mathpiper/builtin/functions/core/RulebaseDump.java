@@ -37,6 +37,9 @@ public class RulebaseDump extends BuiltinFunction {
         MultipleArityRulebase rulebase = aEnvironment.getMultipleArityRulebase(aStackTop, rulebaseName, false);
 
         if (rulebase != null) {
+
+            aEnvironment.write("Rulebase: " + rulebaseName + "\n\n");
+            
             Iterator multipleArityUserFunctionIterator = rulebase.getFunctions();
 
             while (multipleArityUserFunctionIterator.hasNext()) {
