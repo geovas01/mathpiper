@@ -70,4 +70,26 @@ Result: {*,3,a};
 
 *SEE List, ListToFunction, IsAtom
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="FunctionToList",subtype="automatic_test"
+
+// FunctionToList and ListToFunction coredumped when their arguments were invalid.
+Verify(FunctionToList(Cos(x)),{Cos,x});
+
+[
+  Local(exception);
+
+  exception := False;
+  ExceptionCatch(FunctionToList(1.2), exception := ExceptionGet());
+  Verify(exception = False, False);
+];
+
+%/mathpiper
 */
+
+
+

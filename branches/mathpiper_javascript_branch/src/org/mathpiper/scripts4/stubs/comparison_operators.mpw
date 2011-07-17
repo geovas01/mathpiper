@@ -379,9 +379,30 @@ Verify(A>0,A>0);
 
 
 
+%mathpiper,name="!=",subtype="automatic_test"
+
+Verify((1==1) != True, True);
+Verify((a==a) != True, True);
+Verify((1==2) != False, True);
+Verify((a==2) != False, True);
+
+%/mathpiper
+
+
+
+
+
 %mathpiper,name="<",subtype="automatic_test"
 
 Verify(A<0,A<0);
+Verify(Undefined<1, False);
+
+Verify(500 < 0e-1,False);
+
+//Bug reported by Adrian Vontobel: comparison operators should coerce
+//to a real value as much as possible before trying the comparison.
+Verify(0.2*Pi < 0.7, True);
+Verify(0.2*Pi < 0.6, False);
 
 %/mathpiper
 
@@ -392,6 +413,13 @@ Verify(A<0,A<0);
 %mathpiper,name=">",subtype="automatic_test"
 
 Verify(A>0,A>0);
+Verify(Undefined>Undefined, False);
+Verify(Undefined>1, False);
+
+//Bug reported by Adrian Vontobel: comparison operators should coerce
+//to a real value as much as possible before trying the comparison.
+Verify(0.2*Pi > 0.5, True);
+Verify(0.2*Pi > 0.7, False);
 
 %/mathpiper
 
@@ -402,5 +430,24 @@ Verify(A>0,A>0);
 %mathpiper,name=">=",subtype="automatic_test"
 
 Verify( 2/3 >= 1/3, True);
+Verify(1 >= 1.0, True);
+Verify(-1 >= -1.0, True);
+Verify(0 >= 0.0, True);
+Verify(0.0 >= 0, True);
+Verify(Undefined >= -4, False);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="<=",subtype="automatic_test"
+
+Verify(1 <= 1.0, True);
+Verify(-1 <= -1.0, True);
+Verify(0 <= 0.0, True);
+Verify(0.0 <= 0, True);
+Verify(Undefined <= -4, False);
 
 %/mathpiper

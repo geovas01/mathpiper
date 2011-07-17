@@ -35,3 +35,14 @@ Result: Complex(a,-b);
 
 *SEE Complex, Re, Im
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Conjugate",subtype="automatic_test"
+
+// the following broke evaluation (dr)
+Verify(Conjugate({a}),{a});
+
+%/mathpiper

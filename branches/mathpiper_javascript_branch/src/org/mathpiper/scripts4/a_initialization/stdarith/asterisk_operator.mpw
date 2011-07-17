@@ -143,4 +143,13 @@ Verify((-2)*Infinity,-Infinity);
 
 Verify(Infinity*0,Undefined);
 
+// The following is a classical error: 0*x=0 is only true if
+// x is a number! In this case, it is checked for that the
+// multiplication of 0 with a vector returns a zero vector.
+// This would automatically be caught with type checking.
+// More tests of this ilk are possible: 0*matrix, etcetera.
+Verify(0*{a,b,c},{0,0,0});
+
+Verify(Undefined*0,Undefined);
+
 %/mathpiper

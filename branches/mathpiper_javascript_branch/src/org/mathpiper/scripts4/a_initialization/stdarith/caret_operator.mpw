@@ -131,4 +131,14 @@ Verify({{1,2},{3,4}}^2,{{7,10},{15,22}});
 // Check that raising powers still works on lists/vectors (dotproduct?) correctly.
 Verify({2,3}^2,{4,9});
 
+Verify(0.0000^(24),0);
+
+// expansion of negative powers of fractions
+Verify( (-1/2)^(-10), 1024);
+
+Verify( I^(Infinity), Undefined );
+Verify( I^(-Infinity), Undefined );
+
+Verify( 2^(-10), 1/1024 );
+
 %/mathpiper

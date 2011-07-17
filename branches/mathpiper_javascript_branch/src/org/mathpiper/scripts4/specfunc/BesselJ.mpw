@@ -35,6 +35,15 @@ ApproxInfSum((-1)^k*(x/2)^(2*k+c[1])/(k! * Gamma(k+c[1]+1) ),0,x,{n} );
 
 //50 # BesselJ(_n_IsPositiveNumber,_z_IsComplex) <-- BesselJN(n,z);
 
+%/mathpiper
 
+
+
+
+
+%mathpiper,name="BesselJ",subtype="automatic_test"
+
+// should return unevaluaed
+Verify( BesselJ(0,x), BesselJ(0,x) );
 
 %/mathpiper

@@ -280,11 +280,12 @@ public class RunTestSuite {
 
         RunTestSuite pt = new RunTestSuite();
         
-        //pt.test("%");
+        //pt.test("Newton");
 
         pt.test();
 
 
     }//end main
+    
 }//end class.
 

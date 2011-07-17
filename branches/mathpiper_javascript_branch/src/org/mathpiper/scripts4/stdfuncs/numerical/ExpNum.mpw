@@ -23,3 +23,14 @@
 //CachedConstant(Exp1, ExpN(1));	// Exp1 is useless so far
 
 %/mathpiper
+
+
+
+
+
+%mathpiper,name="ExpNum",subtype="automatic_test"
+
+Verify(ExpNum(0),1);
+NumericEqual(ExpNum(0e-1),1,BuiltinPrecisionGet());
+
+%/mathpiper

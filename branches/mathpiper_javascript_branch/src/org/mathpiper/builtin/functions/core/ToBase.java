@@ -99,4 +99,14 @@ Result: "ff";
 
 *SEE PAdicExpand,FromBase
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="ToBase",subtype="automatic_test"
+
+Verify(ToBase(16,30),"1e");
+
+%/mathpiper
  */

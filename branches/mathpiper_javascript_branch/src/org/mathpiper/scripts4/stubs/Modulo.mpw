@@ -120,4 +120,10 @@ NumericEqual(N(Eval(Modulo(-1.2,3.4))),2.2,BuiltinPrecisionGet());
 Verify(Modulo(-12/10,34/10),11/5);
 // just a test to see if Verify still gives correct error Verify(N(Modulo(-12/10,34/10)),11/5);
 
+
+// Make sure Mod works threaded
+Verify(Modulo(2,Infinity),2);
+Verify(Modulo({2,1},{2,2}),{0,1});
+Verify(Modulo({5,1},4),{1,1});
+
 %/mathpiper

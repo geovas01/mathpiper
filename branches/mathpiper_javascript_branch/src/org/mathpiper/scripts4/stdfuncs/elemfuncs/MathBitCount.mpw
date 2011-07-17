@@ -40,3 +40,42 @@
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper,name="MathBitCount",subtype="automatic_test"
+
+/* Here follow some tests for MathBitCount. These were written while creating
+   the Java version, fixing BitCount in the process.
+ */
+Verify(MathBitCount(3),2);
+Verify(MathBitCount(3.0),2);
+
+Verify(MathBitCount(4),3);
+Verify(MathBitCount(4.0),3);
+
+Verify(MathBitCount(0),0);
+Verify(MathBitCount(0.0),0);
+
+Verify(MathBitCount(0.5),0);
+Verify(MathBitCount(0.25),-1);
+Verify(MathBitCount(0.125),-2);
+Verify(MathBitCount(0.0125),-6);
+
+Verify(MathBitCount(-3),2);
+Verify(MathBitCount(-3.0),2);
+
+Verify(MathBitCount(-4),3);
+Verify(MathBitCount(-4.0),3);
+
+Verify(MathBitCount(-0),0);
+Verify(MathBitCount(-0.0),0);
+
+Verify(MathBitCount(-0.5),0);
+Verify(MathBitCount(-0.25),-1);
+Verify(MathBitCount(-0.125),-2);
+Verify(MathBitCount(-0.0125),-6);
+
+%/mathpiper

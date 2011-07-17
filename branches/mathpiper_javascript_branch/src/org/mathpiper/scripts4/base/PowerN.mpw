@@ -46,3 +46,17 @@ In> PowerN(2,-3)
 Result: 0.125
 
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="PowerN",subtype="automatic_test"
+
+/* Bug #15 */
+Verify(PowerN(0,0.55), 0);
+// LogN(-1) locks up in gmpnumbers.cpp, will be fixed in scripts
+//FIXME this test should be uncommented eventually
+// Verify(ExceptionCatch(PowerN(-1,-0.5), error), error);
+
+%/mathpiper

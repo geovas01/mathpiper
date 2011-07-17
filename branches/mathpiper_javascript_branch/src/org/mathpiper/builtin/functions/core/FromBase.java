@@ -105,4 +105,14 @@ Result: 63;
 
 *SEE PAdicExpand,ToBase
 %/mathpiper_docs
- */
+
+
+
+
+
+%mathpiper,name="FromBase",subtype="automatic_test"
+
+Verify(FromBase(16,"1e"),30);
+
+%/mathpiper
+*/

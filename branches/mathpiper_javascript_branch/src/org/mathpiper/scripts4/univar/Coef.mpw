@@ -58,3 +58,16 @@ Result: {x^4,4*x^3,6*x^2,4*x,1};
 
 *SEE Expand, Degree, LeadingCoef
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Coef",subtype="automatic_test"
+
+// Coef accepted non-integer arguments as second argument, and
+// crashed on it.
+Verify(Coef(3*Pi,Pi),Coef(3*Pi,Pi));
+Verify(Coef(3*Pi,x), Coef(3*Pi,x));
+
+%/mathpiper

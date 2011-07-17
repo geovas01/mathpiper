@@ -37,3 +37,14 @@ Result: y+x;
 
 *SEE D, Curl
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Diverge",subtype="automatic_test"
+
+/* One place where we forgot to change Sum to Add */
+TestMathPiper(Diverge({x*y,x*y,x*y},{x,y,z}),x+y);
+
+%/mathpiper

@@ -148,4 +148,13 @@ VerifyGaussianGcd(324 + 1608*I, -11800 + 7900*I);
 VerifyGaussianGcd(7300 + 12*I, 2700 + 100*I);
 VerifyGaussianGcd(120-I*200,-336+50*I);
 
+/* Bug #3 */
+KnownFailure(Gcd(10,3.3) != 3.3 And Gcd(10,3.3) != 1);
+/* I don't know what the answer should be, but buth 1 and 3.3 seem */
+/* certainly wrong. */
+Verify(Gcd(-10, 0), 10);
+Verify(Gcd(0, -10), 10);
+
+
+
 %/mathpiper

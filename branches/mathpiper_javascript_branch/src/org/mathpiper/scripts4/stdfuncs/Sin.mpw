@@ -91,4 +91,8 @@ Result: Sqrt(2)/2;
 
 Verify(N(Sin(a)),Sin(a));
 
+Verify(Sin(2*Pi), 0);
+Verify(Sin(3*Pi/2)+1, 0);
+Verify(Sin(Pi/2), 1);
+
 %/mathpiper

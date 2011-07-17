@@ -90,5 +90,86 @@ Verify( (2*I)^Infinity, Infinity );
 Verify( Infinity/I,Infinity );
 Verify( Sign(Infinity), 1 );
 Verify( Sign(-Infinity), -1 );
+// bugs with complex numbers
+Verify((1+I)^0, 1);
+Verify((-I)^0, 1);
+Verify((2*I)^(-10), -1/1024);
+Verify((-I)^(-10), -1);
+Verify((1-I)^(-10), Complex(0,1/32));
+Verify((1-I)^(+10), Complex(0,-32));
+Verify((1+2*I)^(-10), Complex(237/9765625,3116/9765625));
+Verify((1+2*I)^(+10), Complex(237,-3116));
+
+
+// - and ! operators didn't get handled correctly in the
+// parser/pretty printer (did you fix this, Serge?)
+Verify(PipeToString()Write((-x)!),"(-x)!");
+
+
+// some interesting interaction between the rules...
+Verify(x*x*x,x^3,);
+Verify(x+x+x,3*x);
+Verify(x+x-x+x,2*x);
+
+
+// numbers are too small because of wrong precision handling
+Local(OriginalPrecision);
+OriginalPrecision := BuiltinPrecisionGet();
+BuiltinPrecisionSet(30);
+Verify(0.00000000000000000005421010862 = 0, False);	// 2^(-64)
+Verify(0.00000000000000000005421010862 / 1 = 0, False);
+Verify(0.00000000000000000005421010862 / 2 = 0, False);
+Verify(0.00000000000000000001 = 0, False);
+Verify(0.00000000000000000001 / 2 = 0, False);
+Verify(0.00000000000000000000000000001 = 0, False);
+Verify(0.000000000000000000000000000001 = 0, False);
+Verify((0.0000000000000000000000000000000000000001 = 0), False);
+// I added another one, the code will currently say that 0.0000...00001=0 is True
+// for a sufficient amount of zeroes, regardless of precision. Either that is good
+// or that is bad, but the above tests didn't go far enough. This one makes it
+// more explicit, unless we move over to a 128-bits system ;-)
+Verify((0.0000000000000000000000000000000000000000000000001 = 0), False);
+BuiltinPrecisionSet(OriginalPrecision);
+
+
+/* Bug #4 */
+/* How can we test for this? */
+/* Bug says: at startup, 2^Infinity does not simplify to Infinity */
+
+
+/* Bug #13 */
+/* Cannot test; TrigSimpCombine(x^500) floods stack */
+
+
+// With the changes in numerics, RoundTo seems to have been broken. This line demonstrates the problem.
+// The last digit is suddenly rounded down (it used to be 4, correctly, and then gets rounded down to 3).
+// KnownFailure(RoundTo(RoundTo(N(Cot(2),9),9),N(Cot(2),9),9)=0);
+
+
+// Bug that was introduced when going to the new numeric setup where
+// numbers were not converted to strings any more. In the situation
+// -n*10^-m where n and m positive integers, the number got truncated
+// prematurely, resulting in a wrong rounding.
+[
+  Local(n,m,nkeep,lcl);
+  n:=7300 + 12*I;
+  m:=2700 + 100*I;
+  nkeep:=n;
+  n:=m;
+  m:=nkeep - m*Round(nkeep/m);
+  lcl:=Re(N(n/m))+0.5;
+  Verify(FloorN(lcl),-3);
+];
+
+
+/* Bug reported by Adrian Vontobel. */
+[
+  Local(A1,A2);
+  A1:=Pi*20^2; // 400*Pi
+  A2:=Pi*18^2; // 324*Pi
+  Verify(Minimum(A1,A2), 324*Pi);
+  Verify(Maximum(A1,A2), 400*Pi);
+];
+
 
 %/mathpiper

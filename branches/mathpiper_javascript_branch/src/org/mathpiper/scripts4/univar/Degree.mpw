@@ -90,8 +90,17 @@ Result: 1
 *SEE Expand, Coef
 %/mathpiper_docs
 
-    %output,preserve="false"
-      
-.   %/output
+
+
+
+
+%mathpiper,name="Degree",subtype="automatic_test"
+
+// Univariates in Pi did not get handled well, due to Pi being
+// considered a constant, non-variable.
+Verify(Degree(Pi,Pi),1);
+Verify(Degree(2*Pi,Pi),1);
+
+%/mathpiper
 
 

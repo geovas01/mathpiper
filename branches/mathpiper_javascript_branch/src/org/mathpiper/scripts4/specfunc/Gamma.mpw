@@ -53,3 +53,13 @@ Result: 0.88622692545275801364908374167;
 
 *SEE !, N, gamma
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Gamma",subtype="automatic_test"
+
+Verify(Gamma(1/2), Sqrt(Pi));
+
+%/mathpiper

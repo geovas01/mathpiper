@@ -773,7 +773,7 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new XmlTokenizer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "XmlTokenizer");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new XmlExplodeTag(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                new BuiltinFunctionEvaluator(new XmlExplodeTag(aEnvironment), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "XmlExplodeTag");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new BuiltinAssoc(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),

@@ -74,3 +74,14 @@ Result: 0.75
 *SEE Sin, Cos, Tan, N, Pi, Ln, ArcSin, ArcTan
 
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="ArcCos",subtype="automatic_test"
+
+/* Bug #11 */
+Verify(ArcCos(Cos(beta)) != beta, True);
+
+%/mathpiper

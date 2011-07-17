@@ -195,4 +195,7 @@ Verify(f(485), True);
 Verify(f(170410240), True);
 Retract("f",1);
 
+// This was returning FWatom(Sin(x))
+Verify( Factor(Sin(x)), Factor(Sin(x)) );
+
 %/mathpiper

@@ -99,3 +99,15 @@ Hold((a + b) * (1 + 2) * (2 + 1) * (1/2 + c) * (3/4 + d) ) /:
 .   %/output
 
 */
+
+
+
+
+
+%mathpiper,name="/:",subtype="automatic_test"
+
+Rulebase("sin", {x});
+Verify(a[2]*Sin(x)/:{Sin(_x) <- sin(x)},a[2]*sin(x));
+Retract("sin", 1);
+
+%/mathpiper

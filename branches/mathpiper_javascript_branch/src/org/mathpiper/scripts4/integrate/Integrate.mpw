@@ -273,4 +273,26 @@ LocalSymbols(TestMatchLinearTrue,TestMatchLinearFalse) [
 Verify(Integrate(x) z^100, z^100*x );
 Verify(Integrate(x) x^(-1),Ln(x) );
 
+Verify( Integrate(x) x^5000, x^5001/5001 );
+
+Verify( Integrate(x) Sin(x)/2, (-Cos(x))/2 );
+
+Verify((Integrate(x,a,b)Cos(x)^2) - ((b-Sin((-2)*b)/2)/2-(a-Sin((-2)*a)/2)/2), 0);
+
+/* Bug #9 */
+Verify((Integrate(x,-1,1) 1/x), 0); /* or maybe Undefined? */
+Verify((Integrate(x,-1,1) 1/x^2), Infinity);
+
+/* Bug #18 */
+//Changed, see next line TestMathPiper(Integrate(x) x^(1/2), 2/3*x^(3/2));
+TestMathPiper(Integrate(x) x^(1/2), (2/3)*Sqrt(x)^(3));
+
+// This one ended in an infinite loop because 1 is an even function, and the indefinite integrator
+// then kept on calling itself because the left and right boundaries were equal to zero.
+Verify(Integrate(x,0,0)1,0);
+
+// This code verifies that if integrating over a zero domain, the result
+// is zero.
+Verify(Integrate(x,1,1)Sin(Exp(x^2)),0);
+
 %/mathpiper

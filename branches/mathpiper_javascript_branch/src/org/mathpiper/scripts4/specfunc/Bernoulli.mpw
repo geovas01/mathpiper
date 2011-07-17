@@ -65,3 +65,13 @@ Result: ((x-2)*x+1)*x^2-1/30;
 
 *SEE Gamma, Zeta
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Bernoulli",subtype="automatic_test"
+
+Verify(Bernoulli(24), -236364091/2730);
+
+%/mathpiper

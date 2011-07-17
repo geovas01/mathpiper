@@ -21,3 +21,17 @@ FloatIsInt(_x) <--
 //  
 
 %/mathpiper
+
+
+
+
+
+%mathpiper,name="FloatIsInt",subtype="automatic_test"
+
+// Problem with FloatIsInt and gmp
+Verify(FloatIsInt(3.1415926535e9), False);
+Verify(FloatIsInt(3.1415926535e10), True);
+Verify(FloatIsInt(3.1415926535e20), True);
+Verify(FloatIsInt(0.3e20), True);
+
+%/mathpiper

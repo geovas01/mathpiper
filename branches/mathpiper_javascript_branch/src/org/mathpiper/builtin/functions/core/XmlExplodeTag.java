@@ -18,6 +18,7 @@
 
 package org.mathpiper.builtin.functions.core;
 
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
@@ -33,6 +34,22 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
  */
 public class XmlExplodeTag extends BuiltinFunction
 {
+    private XmlExplodeTag()
+    {
+
+    }
+    
+    public XmlExplodeTag(Environment aEnvironment)
+    {
+        try
+        {
+        Utility.lispEvaluate(aEnvironment, -1, "Rulebase(\"XmlTag\",{x,y,z});");
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
@@ -201,4 +218,16 @@ Result: XmlTag("BR",{},"OpenClose");
 
 *SEE XmlTokenizer
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="XmlExplodeTag",subtype="automatic_test"
+
+// Reported by Serge: xml tokenizer not general enough
+Verify(XmlExplodeTag("<p/>"),   XmlTag("P",{},"OpenClose"));
+Verify(XmlExplodeTag("<p / >"), XmlTag("P",{},"OpenClose"));
+
+%/mathpiper
 */

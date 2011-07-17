@@ -44,3 +44,14 @@ Result: True;
 
 *SEE YacasFactors, xFactor, IsPrime, PrettyForm
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Factor",subtype="automatic_test"
+
+// Factoring 2*x^2 used to generate an error
+Verify(Factor(2*x^2),2*x^2);
+
+%/mathpiper

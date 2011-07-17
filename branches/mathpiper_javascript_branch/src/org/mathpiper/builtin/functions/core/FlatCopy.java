@@ -73,4 +73,18 @@ Result: {e,d,c,b,a};
 In> lst;
 Result: {a,b,c,d,e};
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="FlatCopy",subtype="automatic_test"
+
+//Reverse and FlatCopy (and some friends) would segfault in the past if passed a string as argument.
+//I am not opposed to overloading these functions to also work on strings per se, but for now just
+//check that they return an error in stead of segfaulting.
+//
+Verify(ExceptionCatch(FlatCopy("abc"),"Exception"), "Exception");
+
+%/mathpiper
 */

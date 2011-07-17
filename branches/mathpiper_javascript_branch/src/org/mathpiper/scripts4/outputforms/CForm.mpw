@@ -307,3 +307,19 @@ CForm(Hold([i:=0.;While(i<10.)[i++; a:=a+Floor(i);];]))
 );
 
 %/mathpiper
+
+
+
+
+
+%mathpiper,name="CForm",subtype="automatic_test"
+
+/* Jitse's bug report, extended with the changes that do not coerce integers to floats automatically
+   any more (just enter a dot and the number becomes float if that is what is intended).
+ */
+Verify(CForm(4), "4");
+Verify(CForm(4.), "4.");
+Verify(CForm(0), "0");
+Verify(CForm(0.), "0.");
+
+%/mathpiper

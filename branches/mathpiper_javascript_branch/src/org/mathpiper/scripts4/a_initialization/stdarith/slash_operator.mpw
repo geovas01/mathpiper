@@ -142,5 +142,7 @@ Result: 3;
 %mathpiper,name="/",subtype="automatic_test"
 
 Verify(Infinity/Infinity,Undefined);
+Verify(0.0/Sqrt(2),0);
+Verify(0.0000000000/Sqrt(2),0);
 
 %/mathpiper

@@ -37,3 +37,13 @@ In>
 Result:
 
 %/mathpiper_docs
+
+
+
+
+%mathpiper,name="LogN",subtype="automatic_test"
+
+// LogN used to hang on *all* input
+Verify(LogN(2)!=0,True);
+
+%/mathpiper

@@ -47,3 +47,17 @@ Result: {{1,0,0,0},{0,2,0,0},{0,0,3,0},{0,0,0,4}};
 In> Determinant(A)
 Result: 24;
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Determinant",subtype="automatic_test"
+
+// There was a bug, reported by Sebastian Ferraro, which caused the determinant
+// to return "Undefined" when one of the elements of the diagonal of a matrix
+// was zero. This was due to the numeric determinant algorithm applying
+// Gaussian elimination, but taking the elements on the diagonal as pivot points.
+Verify(IsZero(Determinant( {{1,-1,0,0},{0,0,-1,1},{1,0,0,1},{0,1,1,0}} )),True);
+
+%/mathpiper

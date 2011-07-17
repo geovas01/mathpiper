@@ -104,4 +104,8 @@ Result: Sqrt(1/2);
 
 Verify(Cos(0),1);
 
+Verify(Cos(2*Pi), 1);
+Verify(Cos(4*Pi), 1);
+NumericEqual(N(Cos(Pi*.5),BuiltinPrecisionGet()), 0,BuiltinPrecisionGet());
+
 %/mathpiper

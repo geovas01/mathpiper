@@ -522,5 +522,8 @@ TeXForm()
 );
 */
 
+/* Bug report from Michael Borcherds. The brackets were missing. */
+Verify(TeXForm(Hold(2*x*(-2))), "$2 \\cdot x \\cdot (  - 2) $");
+
 
 %/mathpiper

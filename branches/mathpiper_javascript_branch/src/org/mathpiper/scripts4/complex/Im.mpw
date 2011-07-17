@@ -34,3 +34,15 @@ Result: 4;
 
 *SEE Complex, Re
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Im",subtype="automatic_test"
+
+/* Bug #7 */
+Verify(Im(3+I*Infinity), Infinity); /* resolved */
+Verify(Im(3+I*Undefined), Undefined);
+
+%/mathpiper
