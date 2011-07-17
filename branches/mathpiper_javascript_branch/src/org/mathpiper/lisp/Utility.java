@@ -971,7 +971,8 @@ public class Utility {
         String functionName = null;
 
         LispError.checkArgument(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "INTERNAL");
-        functionName = (String) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        ConsPointer argumentPointer =  BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1);
+        functionName = (String) argumentPointer.car();
         LispError.checkArgument(aEnvironment, aStackTop, functionName != null, 1, "INTERNAL");
         argsPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
