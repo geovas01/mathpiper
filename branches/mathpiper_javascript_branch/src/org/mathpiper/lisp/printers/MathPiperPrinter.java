@@ -97,7 +97,7 @@ public class MathPiperPrinter extends LispPrinter {
 
         ConsPointer subList = (ConsPointer) aExpression.car();
 
-        LispError.check(aEnvironment, aStackTop, subList != null, LispError.UNPRINTABLE_TOKEN, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, subList != null, LispError.UNPRINTABLE_TOKEN, "","INTERNAL");
 
         if (subList.getCons() == null) {
             WriteToken(aOutput, "( )");

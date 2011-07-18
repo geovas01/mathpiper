@@ -20,28 +20,29 @@ package org.mathpiper.io;
 public class StringInputStream
         extends MathPiperInputStream {
 
-    int iCurrent;
+    int iCurrentPosition;
     String iString;
 
 
     public StringInputStream(String aString, InputStatus aStatus) {
         super(aStatus);
         iString = aString;
-        iCurrent = 0;
+        iCurrentPosition = 0;
     }
 
 
     public char next()
             throws Exception {
 
-        if (iCurrent == iString.length()) {
+        if (iCurrentPosition == iString.length()) {
             return '\0';
         }
 
-        iCurrent++;
+        iCurrentPosition++;
+        
         iStatus.nextCharacter();
 
-        char c = iString.charAt(iCurrent - 1);
+        char c = iString.charAt(iCurrentPosition - 1);
 
         if (c == '\n') {
             iStatus.nextLine();
@@ -54,17 +55,17 @@ public class StringInputStream
     public char peek()
             throws Exception {
 
-        if (iCurrent == iString.length()) {
+        if (iCurrentPosition == iString.length()) {
             return '\0';
         }
 
-        return iString.charAt(iCurrent);
+        return iString.charAt(iCurrentPosition);
     }
 
 
     public boolean endOfStream() {
 
-        return (iCurrent == iString.length());
+        return (iCurrentPosition == iString.length());
     }
 
 
@@ -76,12 +77,12 @@ public class StringInputStream
 
     public int position() {
 
-        return iCurrent;
+        return iCurrentPosition;
     }
 
 
     public void setPosition(int aPosition) {
-        iCurrent = aPosition;
+        iCurrentPosition = aPosition;
     }
 
 }

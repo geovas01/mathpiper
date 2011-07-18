@@ -31,13 +31,7 @@ public class StackTrace extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         String dump = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
-
-         aEnvironment.write(dump);
-
-         dump = aEnvironment.dumpLocalVariablesFrame(aStackTop);
-
-         aEnvironment.write(dump);
+         aEnvironment.dumpStacks(aEnvironment, aStackTop);
          
          Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
 
@@ -114,7 +108,7 @@ Side Effects:
 12: StackTrace
 ========================================= End Of Built In Function Stack Trace
 
-
+****** THE PROBLEM IS EITHER IMMEDIATELY ABOVE THIS LINE OR IMMEDIATELY BELOW THIS LINE ******
 
 ========================================= Start Of User Function Stack Trace
 0: Prog

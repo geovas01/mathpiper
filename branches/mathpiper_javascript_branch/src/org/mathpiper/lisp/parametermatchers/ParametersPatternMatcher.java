@@ -370,16 +370,14 @@ public class ParametersPatternMatcher {
             boolean isTrue = Utility.isTrue(aEnvironment, resultPredicate, aStackTop);
             if (!isTrue) {
                 //TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
-                String strout;
-                aEnvironment.write("The predicate\n\t");
-                strout = Utility.printMathPiperExpression(aStackTop, ((ConsPointer) iPredicates.get(i)), aEnvironment, 60);
-                aEnvironment.write(strout);
-                aEnvironment.write("\nevaluated to\n\t");
-                strout = Utility.printMathPiperExpression(aStackTop, resultPredicate, aEnvironment, 60);
-                aEnvironment.write(strout);
-                aEnvironment.write("\n");
+                String errorMessage =  "The predicate " +
+                Utility.printMathPiperExpression(aStackTop, ((ConsPointer) iPredicates.get(i)), aEnvironment, 60) +
+                " evaluated to " +
+                Utility.printMathPiperExpression(aStackTop, resultPredicate, aEnvironment, 60) +
+                ".";
 
-                LispError.check(aEnvironment, aStackTop, isTrue, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, "INTERNAL");
+
+                LispError.check(aEnvironment, aStackTop, isTrue, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, errorMessage, "INTERNAL");
             }
         }
         return true;

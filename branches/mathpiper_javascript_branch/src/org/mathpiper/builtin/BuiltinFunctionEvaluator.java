@@ -121,7 +121,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
             for (i = 0; i < numberOfArguments; i++) {
                 //Push all arguments on the stack.
-                LispError.check(aEnvironment, aStackTop, argumentsConsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, argumentsConsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments, "INTERNAL");
 
                 if (isTraced() && argumentsResultPointerArray != null && showFlag) {
                     argumentsResultPointerArray[i] = new ConsPointer();
@@ -142,8 +142,8 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         } else {//This is a function, not a macro.
 
             for (i = 0; i < numberOfArguments; i++) {
-                LispError.check(aEnvironment, aStackTop, argumentsConsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
-                LispError.check(aEnvironment, aStackTop, argumentsConsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, argumentsConsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, argumentsConsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments, "INTERNAL");
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentResultPointer, argumentsConsTraverser);
 
                 if (isTraced() && argumentsResultPointerArray != null && showFlag) {

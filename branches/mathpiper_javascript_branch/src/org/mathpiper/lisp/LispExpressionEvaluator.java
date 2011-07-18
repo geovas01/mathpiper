@@ -76,7 +76,7 @@ public class LispExpressionEvaluator extends Evaluator {
             /* if (aEnvironment.iEvalDepth > aEnvironment.iMaxEvalDepth + 20) {
             LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.USER_INTERRUPT, "INTERNAL");
             } else {*/
-            LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "Maximum recursed depth set to " + aEnvironment.iMaxEvalDepth + ".","INTERNAL");
             // }
         }
 

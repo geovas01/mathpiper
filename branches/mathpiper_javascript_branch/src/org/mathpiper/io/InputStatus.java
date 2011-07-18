@@ -45,8 +45,8 @@ public class InputStatus {
         //functionLoadSequence.add(new InputStatus(this));
         
         iFileName = aFileName;
-        iLineNumber = 0;
-        iLineIndex = 0;
+        iLineNumber = 1;
+        iLineIndex = 1;
     }
 
 
@@ -76,7 +76,7 @@ public class InputStatus {
 
     public void nextLine() {
         iLineNumber++;
-        iLineIndex = 0;
+        iLineIndex = 1;
     }
 
 

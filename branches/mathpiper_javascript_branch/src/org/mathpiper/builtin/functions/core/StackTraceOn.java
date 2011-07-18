@@ -89,7 +89,7 @@ StackTraceOff();
          6: -> 3
       ========================================= End Of Built In Function Stack Trace
 
-
+      ****** THE PROBLEM IS EITHER IMMEDIATELY ABOVE THIS LINE OR IMMEDIATELY BELOW THIS LINE ******
 
       ========================================= Start Of User Function Stack Trace
       0: Prog

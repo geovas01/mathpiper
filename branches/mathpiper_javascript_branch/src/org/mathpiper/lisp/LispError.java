@@ -165,9 +165,14 @@ public class LispError {
     }
 
 
-    public static void check(Environment aEnvironment, int aStackTop, boolean hastobetrue, int aError, String functionName) throws Exception {
+    public static void check(Environment aEnvironment, int aStackTop, boolean hastobetrue, int aError, String aErrorMessage, String functionName) throws Exception {
         if (!hastobetrue) {
-            String errorMessage = errorString(aError);
+
+            if(aError == LispError.INVALID_ARGUMENT)
+            {
+                aErrorMessage = "The bad argument is <" + aErrorMessage + ">";
+            }
+            String errorMessage = errorString(aError) + " Extra information: <" + aErrorMessage + ">.";
 
             check(aEnvironment, aStackTop, hastobetrue, errorMessage, functionName);
 
@@ -180,9 +185,7 @@ public class LispError {
             String stackTrace = "";
 
             if (Evaluator.isStackTraced() && aStackTop >= 0) {
-                stackTrace = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
-
-                stackTrace = stackTrace + aEnvironment.dumpLocalVariablesFrame(aStackTop);
+                stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
             }
 
 
@@ -224,9 +227,7 @@ public class LispError {
         String stackTrace = "";
 
         if (Evaluator.isStackTraced() && aStackTop >= 0) {
-            stackTrace = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
-
-            stackTrace = stackTrace + aEnvironment.dumpLocalVariablesFrame(aStackTop);
+            stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
         }
 
         if (aArguments.getCons() == null) {
@@ -257,7 +258,7 @@ public class LispError {
         } else {
             String string = (String) aArguments.car();
             if (string != null) {
-                return "In function \"" + string + "\" : " + aEnvironment.iCurrentInput.iStatus.getFileName() + ", " + " Line number: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ", " + " Line index: " + aEnvironment.iCurrentInput.position() + ". ";
+                return "In function \"" + string + "\" : " + aEnvironment.iCurrentInput.iStatus.getFileName() + ", " + " Line number: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ", " + " Line index: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ". ";
             }
         }
         return "[Atom]";
@@ -270,9 +271,7 @@ public class LispError {
             String stackTrace = "";
 
             if (Evaluator.isStackTraced() && aStackTop >= 0) {
-                stackTrace = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
-
-                stackTrace = stackTrace + aEnvironment.dumpLocalVariablesFrame(aStackTop);
+                stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
             }
 
             if (aStackTop == -1) {
@@ -321,9 +320,7 @@ public class LispError {
             String stackTrace = "";
 
             if (Evaluator.isStackTraced() && aStackTop >= 0) {
-                stackTrace = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
-
-                stackTrace = stackTrace + aEnvironment.dumpLocalVariablesFrame(aStackTop);
+                stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
             }
 
             ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);

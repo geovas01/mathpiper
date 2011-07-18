@@ -71,7 +71,7 @@ public class SingleArityRulebase extends Evaluator {
         while (parameterPointer.getCons() != null) {
 
             try {
-                LispError.check(aEnvironment, aStackTop, parameterPointer.car() instanceof String, LispError.CREATING_USER_FUNCTION, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, parameterPointer.car() instanceof String, LispError.CREATING_USER_FUNCTION, functionName,"INTERNAL");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
                     throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, -1, this.functionName);
@@ -269,7 +269,7 @@ public class SingleArityRulebase extends Evaluator {
 
             argumentsResultPointerArray[parameterIndex] = new ConsPointer();
 
-            LispError.check(aEnvironment, aStackTop, argumentsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, argumentsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
 
             if (((ParameterName) iParameters.get(parameterIndex)).iHold) {
                 //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
@@ -278,7 +278,7 @@ public class SingleArityRulebase extends Evaluator {
                 //If the parameter is not on hold:
 
                 //Verify that the pointer to the arguments is not null.
-                LispError.check(aEnvironment, aStackTop, argumentsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, argumentsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
 
                 //Evaluate each argument and place the result into argumentsResultPointerArray[i];
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsResultPointerArray[parameterIndex], argumentsTraverser);
@@ -358,7 +358,7 @@ public class SingleArityRulebase extends Evaluator {
     public void defineSometimesTrueRule(int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         // New branching rule.
         PredicateRule newRule = new PredicateRule(iEnvironment, aPrecedence, aPredicate, aBody);
-        LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
+        //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
 
         insertRule(aPrecedence, newRule);
     }
@@ -375,7 +375,7 @@ public class SingleArityRulebase extends Evaluator {
     public void defineAlwaysTrueRule(int aStackTop, int aPrecedence, ConsPointer aBody) throws Exception {
         // New branching rule.
         PredicateRule newRule = new TrueRule(iEnvironment, aPrecedence, aBody);
-        LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
+        //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
 
         insertRule(aPrecedence, newRule);
     }
@@ -393,7 +393,7 @@ public class SingleArityRulebase extends Evaluator {
     public void definePattern(int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
         // New branching rule.
         PatternRule newRule = new PatternRule(iEnvironment, aStackTop, aPrecedence, aPredicate, aBody);
-        LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
+        //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
 
         insertRule(aPrecedence, newRule);
     }

@@ -50,7 +50,7 @@ public class XmlTokenizer
 
             while (c != '>') {
                 c = aInput.next();
-                LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "Last character read was <" + c + ">.","INTERNAL");
             }
         } else {
 

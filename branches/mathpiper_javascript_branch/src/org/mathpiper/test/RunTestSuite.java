@@ -39,7 +39,10 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 public class RunTestSuite {
 
-    private boolean printExpression = false;
+    private boolean printExpression = true;
+    private boolean stackTrace = true;
+
+
 
     private Interpreter mathPiper;
     private EvaluationResponse evaluationResponse;
@@ -65,16 +68,18 @@ public class RunTestSuite {
     public void test(String nameOfSingleFunctionToTest) {
         try {
 
-            logFile = new java.io.FileWriter("./tests/mathpiper_tests.log");
+            logFile = new java.io.FileWriter("mathpiper_tests.log"); //"./tests/mathpiper_tests.log"
 
             mathPiper = Interpreters.newSynchronousInterpreter();
 
 
-            //Initialization code.
-            //evaluationResponse = mathPiper.evaluate("StackTraceOn();");
-            //output = evaluationResponse(evaluationResponse);
-            //System.out.println("Turning stack tracing on: " + output);
-            //logFile.write("Turning stack tracing on: " + output);
+            if(this.stackTrace == true)
+            {
+                evaluationResponse = mathPiper.evaluate("StackTraceOn();");
+                output = evaluationResponse(evaluationResponse);
+                System.out.println("Stack tracing is on: " + output);
+                logFile.write("Stack tracing is on: " + output);
+            }
 
 
             output = "\n\n***** Beginning of tests. *****\n";
@@ -124,6 +129,8 @@ public class RunTestSuite {
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.flush();
+            System.err.flush();
 
         }
 
@@ -218,7 +225,7 @@ public class RunTestSuite {
                 // Read expression
                 parser.parse(aStackTop, readIn);
 
-                LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "","INTERNAL");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
@@ -231,7 +238,7 @@ public class RunTestSuite {
                         String expression = printedScriptStringBuffer.toString();
 
                         System.out.println(expression);
-                        logFile.append(expression);
+                        logFile.append(expression + "\n");
                         printedScriptStringBuffer.delete(0, printedScriptStringBuffer.length());
                     }
 
@@ -242,7 +249,7 @@ public class RunTestSuite {
                         if (outputStringBuffer.length() > 0) {
                             String sideEffectOutputString = outputStringBuffer.toString();
                             System.out.println(sideEffectOutputString);
-                            logFile.append(sideEffectOutputString);
+                            logFile.append(sideEffectOutputString + "\n");
                             outputStringBuffer.delete(0, outputStringBuffer.length());
                         }
                         ;
@@ -280,9 +287,9 @@ public class RunTestSuite {
 
         RunTestSuite pt = new RunTestSuite();
         
-        //pt.test("Newton");
+        pt.test("PSolve");
 
-        pt.test();
+        //pt.test();
 
 
     }//end main

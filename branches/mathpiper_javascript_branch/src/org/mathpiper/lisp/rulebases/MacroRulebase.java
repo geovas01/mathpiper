@@ -38,7 +38,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
             //LispError.check(parameterTraverser.car() != null, LispError.CREATING_USER_FUNCTION);
             try {
-                LispError.check(aEnvironment, aStackTop, parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION, "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION, "","INTERNAL");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
                     throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, this.functionName);

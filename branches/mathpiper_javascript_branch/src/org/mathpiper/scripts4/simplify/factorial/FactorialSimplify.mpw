@@ -295,3 +295,32 @@ Result: 2
 
 *SEE Simplify, !, BinomialCoefficient
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="FactorialSimplify",subtype="automatic_test"
+
+TestMathPiper(FactorialSimplify((n+1)! / n!),n+1);
+TestMathPiper(FactorialSimplify((n-k+2)! / (n-k)!),(n-k+2)*(n-k+1));
+TestMathPiper(FactorialSimplify(2^(n+2)/2^n),4);
+TestMathPiper(FactorialSimplify((-1)^(n+1)/(-1)^n),-1);
+TestMathPiper(FactorialSimplify((n+1)! / n! + (n-k+2)! / (n-k)!),n+1 + (n-k+2)*(n-k+1));
+
+TestMathPiper(FactorialSimplify((n+1)! / n! + (-1)^(n+1)/(-1)^n),n);
+
+/* And now for the piece de resistance: an example from
+   the book "A=B"
+ */
+
+TestMathPiper(FactorialSimplify(
+  (
+    (n+1)! / (2*k! *(n+1-k)!) -
+    n! / (k! * (n-k)!)        +
+    n! / (2*k! * (n-k)!)      -
+    n! / (2*(k-1)! * (n-k+1)!)
+  )*(k! *(n+1-k)!)/(n!)
+),0);
+
+%/mathpiper
