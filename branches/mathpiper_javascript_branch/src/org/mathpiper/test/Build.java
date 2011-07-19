@@ -21,8 +21,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,20 +28,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.mathpiper.exceptions.EvaluationException;
-import org.mathpiper.interpreters.Interpreters;
-import org.mathpiper.io.StringInputStream;
-import org.mathpiper.interpreters.Interpreter;
-import org.mathpiper.io.InputStatus;
-import org.mathpiper.io.MathPiperInputStream;
-import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.io.StringOutputStream;
-import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.parsers.MathPiperParser;
-import org.mathpiper.lisp.printers.MathPiperPrinter;
-import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 /**
  *
@@ -56,8 +40,8 @@ public class Build {
     private java.io.FileWriter scriptsJavaFile;
     private java.io.FileWriter testsJavaFile;
     private String sourceScriptsDirectory = null;
-    private String outputScriptsDirectory = null;
-    private String outputDirectory = null;
+    //private String outputScriptsDirectory = null;
+    private String documentationOutputDirectory = null;
     private String sourceDirectory = null;
     private java.io.DataOutputStream documentationFile;
     private java.io.FileWriter documentationIndexFile;
@@ -69,55 +53,48 @@ public class Build {
     //private Interpreter mathpiper = Interpreters.newSynchronousInterpreter();
 
 
-    public Build() {
+    private Build() {
     }//end constructor.
 
 
-    public Build(String sourceScriptsDirectory, String outputScriptsDirectory) {
-        this.sourceScriptsDirectory = sourceScriptsDirectory;
-        this.outputScriptsDirectory = outputScriptsDirectory;
-    }//end constructor.
 
+    public Build(String baseDirectory) throws Exception {
+        documentationOutputDirectory = baseDirectory + "/build/";
+        sourceDirectory = baseDirectory + "/src/";
+        sourceScriptsDirectory = sourceDirectory + "org/mathpiper/scripts4/";
 
-    public Build(String sourceScriptsDirectory, String outputScriptsDirectory, String outputDirectory) throws Exception {
-        this(sourceScriptsDirectory, outputScriptsDirectory);
-
-        this.outputDirectory = outputDirectory;
-
-
-        documentationFile = new DataOutputStream(new java.io.FileOutputStream(outputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt"));
-        documentationIndexFile = new java.io.FileWriter(outputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
-        functionCategoriesFile = new java.io.FileWriter(outputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
+        this.initializeFiles();
 
 
 
     }
 
 
-    public void setSourceScriptsDirectory(String scriptsDirectory) {
-        this.sourceScriptsDirectory = scriptsDirectory;
-    }//end method.
 
 
-    public void setOutputScriptsDirectory(String outputDirectory) {
-        this.outputScriptsDirectory = outputDirectory;
-    }//end method.
+    public void initializeFiles() throws Exception
+    {
+        File file;
+        
+        file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt");
+        if(file.exists())
+        {
+            documentationFile = new DataOutputStream(new java.io.FileOutputStream(file));
+        }
+
+        file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
+        if(file.exists())
+        {
+            documentationIndexFile = new java.io.FileWriter(file);
+        }
+        file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
+        if(file.exists())
+        {
+            functionCategoriesFile = new java.io.FileWriter(file);
+        }
+    }
 
 
-    public void setOutputDirectory(String outputDirectory) throws Exception {
-        this.outputDirectory = outputDirectory;
-
-        documentationFile = new DataOutputStream(new java.io.FileOutputStream(outputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt"));
-        documentationIndexFile = new java.io.FileWriter(outputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
-        functionCategoriesFile = new java.io.FileWriter(outputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
-
-
-    }//end method.
-
-
-    public void setBaseDirectory(String baseDirectory) {
-        this.sourceDirectory = baseDirectory + "src/";
-    }//end method.
 
 
     public void compileScripts() throws Exception {
@@ -274,11 +251,11 @@ public class Build {
 
             if (documentationFile != null) {
 
-                processBuiltinDocs(sourceDirectory, outputDirectory, "org/mathpiper/builtin/functions/core");
+                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/core");
 
-                processBuiltinDocs(sourceDirectory, outputDirectory, "org/mathpiper/builtin/functions/optional");
+                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/optional");
 
-                processBuiltinDocs(sourceDirectory, outputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
+                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
             }
 
             Collections.sort(functionCategoriesList);
@@ -288,7 +265,7 @@ public class Build {
 
 
         } else {
-            System.out.println("\nDirectory " + sourceScriptsDirectory + "does not exist.\n");
+            System.out.println("\nDirectory " + sourceScriptsDirectory + " does not exist.\n");
         }
 
 
@@ -757,7 +734,7 @@ public class Build {
         //execute() method is needed by ant to run this class.
         System.out.println("****************** Compiling scripts *******");
         System.out.println("Source directory: " + this.sourceScriptsDirectory);
-        System.out.println("Destination directory: " + this.outputScriptsDirectory);
+  
         compileScripts();
     }//end method.
 
@@ -901,6 +878,8 @@ public class Build {
     }//end method.
 
 
+    /*
+
     public static String parsePrintScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Exception {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
@@ -1034,52 +1013,22 @@ public class Build {
     }
 
 
+    */
+
     public static void main(String[] args) {
         try {
             //fileCopy("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/test/Scripts.java", "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/Scripts.java"); if(1==1) return;
 
-
-            String sourceScriptsDirectory;
+            String baseDirectory = "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch";
 
             if (args.length > 0) {
-                sourceScriptsDirectory = args[0];
-            } else {
-                sourceScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/scripts4/";
+                baseDirectory = args[0];
             }
 
-            String outputScriptsDirectory = "/home/tkosan/NetBeansProjects/scripts/";
-            File newScriptsDirectory = new File(outputScriptsDirectory);
-            Boolean directoryCreated = newScriptsDirectory.mkdirs();
+            Build build = new Build(baseDirectory);
 
 
-
-
-            File newInitializationDirectory = new File(outputScriptsDirectory + "initialization.rep/");
-            newInitializationDirectory.mkdirs();
-
-            File outputDocsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper_javascript_branch/ui/gui/help/data/");
-            outputDocsDirectory.mkdirs();
-
-            File pluginsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper_javascript_branch/builtin/functions/optional/");
-            pluginsDirectory.mkdirs();
-
-            pluginsDirectory = new File(outputScriptsDirectory + "documentation/org/mathpiper/builtin/functions/plugins/jfreechart/");
-            pluginsDirectory.mkdirs();
-
-
-            //String outputDirectory = "/home/tkosan/temp/mathpiper/org/mathpiper/assembledscripts/";
-
-
-
-            Build scripts = new Build(sourceScriptsDirectory, outputScriptsDirectory, outputScriptsDirectory + "documentation/");
-
-            scripts.setBaseDirectory("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/");
-
-
-            scripts.compileScripts();
-
-
-
+            build.compileScripts();
 
 
             /*

@@ -73,8 +73,15 @@
     -->
     
 	<target name="buildscripts4" depends="init">
-		<taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"/>
-		<buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts4/"  outputDirectory="${basedir}/build/classes/" baseDirectory="${basedir}/"/>
+		<!--<taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"/>
+		<buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts4/"  outputDirectory="${basedir}/build/classes/" baseDirectory="${basedir}/"/>-->
+	    <java fork="true" failonerror="yes" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}" >  
+	 	
+	 		<jvmarg line="-Xmx300M -Xms300M -Xss8M" />
+	 		
+	 		<arg line="${basedir}/"  />
+	 		
+	 	</java>
 	</target>
 	
 	
