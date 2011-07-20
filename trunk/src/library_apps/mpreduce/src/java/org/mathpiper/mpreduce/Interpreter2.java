@@ -297,6 +297,10 @@ public class Interpreter2 extends Applet {
             result = mpreduce.evaluate("Factorize(100);");
             System.out.println(result + "\n");
 
+
+            result = mpreduce.evaluate("Hold((x + x) / x);");
+            System.out.println(result + "\n");
+
         } catch (Throwable t) {
             t.printStackTrace();
         } finally {
