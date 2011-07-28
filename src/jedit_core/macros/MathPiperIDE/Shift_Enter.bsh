@@ -106,6 +106,9 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 {
 	//buffer.setMode("mathpiperide");
 	currentCaretPosition = textArea.getCaretPosition();
+	
+	userSelection = textArea.getSelection();
+	
 	textArea.selectFold();
 	fold  = textArea.getSelection()[0];
 	foldStartIndex = fold.getStart();
@@ -137,8 +140,9 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 	//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
   //System.out.println("YYYY allFoldText: " + allFoldText); 
 
+
 	textArea.setSelection(null);
-	
+
 	
 		//{{{ Fold information.
 		
@@ -181,7 +185,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			//Obtain fold type.
 			typeText = foldStartLineText.substring(foldStartLineText.indexOf("%"));
 			
-			//Remove // commenf from line if present.
+			//Remove // comment from line if present.
 			if((commentIndex = typeText.indexOf("//")) != -1)
 			{
 				//System.out.println("XXXXXXX " + typeText);
@@ -257,6 +261,22 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 	}//end if/else
 	
 	
+	if(userSelection.length != 0)
+	{
+		textArea.setSelection(userSelection[0]);
+		
+		codeText = textArea.getSelectedText();
+		
+		textArea.setSelection(null);
+	}
+	
+	
+	//Remove the rest of the fold text starting at \\ if present.
+	cutIndex = codeText.indexOf("\\\\");
+	if(cutIndex != -1)
+	{
+		codeText = codeText.substring(0,cutIndex);
+	}
 	
 /*	
 	//Do not include subfold as code.
@@ -1815,6 +1835,13 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						}//end if.
 						
 						
+						
+						if(userSelection.length != 0)
+						{
+						   textArea.setSelection(userSelection[0]);
+						}
+
+									
 
 						buffer.save(view,null);
 						
