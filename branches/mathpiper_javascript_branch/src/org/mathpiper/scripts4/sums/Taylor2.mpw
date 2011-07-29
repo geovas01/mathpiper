@@ -1,4 +1,4 @@
-%mathpiper,def="Taylor2"
+%mathpiper,def="Taylor2;Taylor'LPS;Taylor'LPS'NormalizeExpr;Taylor'LPS'Construct;Taylor'LPS'PowerSeries;Taylor'LPS'Coeffs;Taylor'LPS'Inverse;Taylor'LPS'Add;Taylor'LPS'Multiply;Taylor'LPS'ScalarMult;Taylor'LPS'Compose"
 
 /*
  * Taylor(x,a,n) y  ---  ENTRY POINT
@@ -62,6 +62,13 @@
  *
  */
 
+Rulebase("Taylor'LPS",{order, coeffs, var, expr});
+Rulebase("Taylor'LPS'Inverse",{lps});
+Rulebase("Taylor'LPS'Add",{lps1,lps2});
+Rulebase("Taylor'LPS'Multiply",{lps1,lps2});
+Rulebase("Taylor'LPS'ScalarMult",{a,lps});
+Rulebase("Taylor'LPS'Compose",{lps1,lps2});
+
 /* For the moment, the function is called Taylor2. */
 
 /* HELP: Is this the correct mechanism to signal incorrect input? */
@@ -113,8 +120,7 @@ Taylor'LPS'Param1() := 15;
  */
 
 10 # Taylor'LPS'Construct(_var, _expr)
-   <-- Taylor'LPS(Undefined, {}, var,
-                  Taylor'LPS'NormalizeExpr(var, expr));
+   <-- Taylor'LPS(Undefined, {}, var, Taylor'LPS'NormalizeExpr(var, expr));
 
 /**********************************************************************
  *

@@ -43,3 +43,27 @@ Result: 14;
 In> Add(1 .. 10);
 Result: 55;
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Add",subtype="automatic_test"
+
+Verify(Add({1,2,3,4}), 10);
+Verify(Add({1}), 1);
+Verify(Add({}), 0);
+Verify(Add(1,2,3,4), 10);
+Verify(Add(1), 1);
+
+[
+  Local(list);
+  list:={1,2,3,4,5};
+  Verify(Add(list)/Length(list), 3);
+  list:={0};
+  Verify(Add(list)/Length(list), 0);
+  list:={};
+  Verify(Add(list)/Length(list), Undefined);
+];
+
+%/mathpiper
