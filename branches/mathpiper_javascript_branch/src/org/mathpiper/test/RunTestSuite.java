@@ -287,7 +287,7 @@ public class RunTestSuite {
 
         RunTestSuite pt = new RunTestSuite();
         
-        pt.test("Taylor");
+        pt.test("tensors");
 
         //pt.test();
 
