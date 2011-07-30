@@ -1,4 +1,4 @@
-%mathpiper,def="X"
+%mathpiper,def=""
 //todo:tk:this conflicts with "linalg.rep/code.mpi" when published as a def file.
 /* Tensor package. This code intends to simplify tensorial expressions.
  */

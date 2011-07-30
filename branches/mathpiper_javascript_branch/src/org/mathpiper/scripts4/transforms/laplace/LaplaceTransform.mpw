@@ -107,3 +107,18 @@ Result: LaplaceTransform(t,s,Exp(t^2));
 In> LaplaceTransform(p,q,Ln(p))
 Result: -(gamma+Ln(q))/q;
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="LaplaceTransform",subtype="automatic_test"
+
+Verify( LaplaceTransform(t,s,1), 1/s );
+Verify( LaplaceTransform(t,s,t^3), 6/s^4);
+Verify( LaplaceTransform(t,s,t), 1/s^2 );
+Verify( LaplaceTransform(t,s,t*Exp(4*t)), 1/(4*(s/4-1))^2 );
+Verify( LaplaceTransform(t,s,Exp(4*t)*Cos(4*t)), (s-4)/(16*(((s-4)/4)^2+1)) );
+Verify( LaplaceTransform(t,s,t^3*Cosh(t)) Where s==2, 82/27 );
+
+%/mathpiper

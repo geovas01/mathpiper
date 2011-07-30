@@ -37,6 +37,7 @@ UnFence("TSum",2);
 %mathpiper,name="tensors",subtype="automatic_test"
 
 Rulebase("v",{x}); //A function for testing purposes. It is retracted at the end of the testing code.
+Rulebase("X",{x}); //A function for testing purposes. It is retracted at the end of the testing code.
 
 TestMathPiper(TSimplify( TSum({j}) Delta(i,j)*v(j) ),v(i));
 TestMathPiper(TSimplify( TSum({j,i}) Delta(i,j)*Delta(i,j) ), Ndim);
@@ -61,6 +62,7 @@ TestMathPiper(TSimplify(TSum({i})TD(i)(X(i)*X(j)*X(j))),  Ndim*X(j)^2+2*X(j)^2);
 TestMathPiper(TSimplify(TSum({i,j,k})TD(i)TD(j)TD(k)(X(i)*X(j)*X(k))),  3*Ndim^2+2*Ndim+Ndim^3);
 
 
-Retract("v",*);
+Retract("v",1);
+Retract("X",1);
 
 %/mathpiper
