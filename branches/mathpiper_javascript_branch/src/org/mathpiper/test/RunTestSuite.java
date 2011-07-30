@@ -41,15 +41,11 @@ public class RunTestSuite {
 
     private boolean printExpression = true;
     private boolean stackTrace = true;
-
-
-
     private Interpreter mathPiper;
     private EvaluationResponse evaluationResponse;
     private java.io.FileWriter logFile;
     private Tests tests;
     private String output;
-
 
     public RunTestSuite() {
         super();
@@ -59,22 +55,57 @@ public class RunTestSuite {
 
     }//end constructor.
 
+    private ArrayList getKeyArray() {
+        Set keySet = tests.getMap().keySet();
 
-    public void test() {
-        test(null);
+        ArrayList keyArray = new ArrayList(keySet);
+
+        Collections.sort(keyArray, String.CASE_INSENSITIVE_ORDER);
+
+        return keyArray;
     }
 
+    public void test() {
+        test(getKeyArray());
+    }
 
-    public void test(String nameOfSingleFunctionToTest) {
+    public void testExcept(String except) {
+        ArrayList keyArray = getKeyArray();
+
+        String[] functionNamesArray = except.split(",");
+
+        for (String name : functionNamesArray) {
+            keyArray.remove(name);
+        }
+
+        test(keyArray);
+    }
+
+    public void testSome(String some) {
+
+        ArrayList keyArray = new ArrayList();
+
+        String[] functionNamesArray = some.split(",");
+
+        for (String name : functionNamesArray) {
+            keyArray.add(name);
+        }
+
+        test(keyArray);
+    }
+
+    public void test(ArrayList keyArray) {
         try {
+
+
+
 
             logFile = new java.io.FileWriter("mathpiper_tests.log"); //"./tests/mathpiper_tests.log"
 
             mathPiper = Interpreters.newSynchronousInterpreter();
 
 
-            if(this.stackTrace == true)
-            {
+            if (this.stackTrace == true) {
                 evaluationResponse = mathPiper.evaluate("StackTraceOn();");
                 output = evaluationResponse(evaluationResponse);
                 System.out.println("Stack tracing is on: " + output);
@@ -90,28 +121,16 @@ public class RunTestSuite {
             logFile.write(output);
 
 
-
-            Set keySet = tests.getMap().keySet();
-
-            ArrayList keyArray = new ArrayList(keySet);
-
-            Collections.sort(keyArray, String.CASE_INSENSITIVE_ORDER);
-
             Iterator keyIterator = keyArray.iterator();
 
+            while (keyIterator.hasNext()) {
 
-            if (nameOfSingleFunctionToTest == null) {
+                String testName = (String) keyIterator.next();
 
-                while (keyIterator.hasNext()) {
+                runSingleTest(testName);
 
-                    String testName = (String) keyIterator.next();
+            }//end while.
 
-                    runSingleTest(testName);
-
-                }//end while.
-            } else {
-                runSingleTest(nameOfSingleFunctionToTest);
-            }
 
 
             output = "\n\n***** Tests complete *****\n\n";
@@ -136,12 +155,10 @@ public class RunTestSuite {
 
     }//end method.
 
-
     private void runSingleTest(String testName) throws Exception {
         String[] testScriptArray = (String[]) tests.getMap().get(testName);
 
-        if(testScriptArray == null)
-        {
+        if (testScriptArray == null) {
             throw new Exception("The test named " + testName + " does not exist.");
         }
 
@@ -176,7 +193,6 @@ public class RunTestSuite {
         }
     }
 
-
     private String evaluationResponse(EvaluationResponse evaluationResponse) {
 
         String result = "Result: " + evaluationResponse.getResult() + "\n";
@@ -192,7 +208,6 @@ public class RunTestSuite {
 
         return result;
     }
-
 
     public String evaluateTestScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Exception {
 
@@ -225,7 +240,7 @@ public class RunTestSuite {
                 // Read expression
                 parser.parse(aStackTop, readIn);
 
-                LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "","INTERNAL");
+                LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "", "INTERNAL");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
@@ -272,7 +287,6 @@ public class RunTestSuite {
         }
     }
 
-
     public static void printExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
         MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 
@@ -282,17 +296,15 @@ public class RunTestSuite {
 
     }//end method.
 
-
     public static void main(String[] args) {
 
         RunTestSuite pt = new RunTestSuite();
-        
-        pt.test("tensors");
 
-        //pt.test();
+        //pt.testSome("LaplaceTransform,PSolve");
+
+        pt.testExcept("PSolve,Solve");
 
 
     }//end main
-    
 }//end class.
 
