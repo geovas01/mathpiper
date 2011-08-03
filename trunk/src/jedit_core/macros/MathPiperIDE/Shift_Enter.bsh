@@ -263,7 +263,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 	
 	if(userSelection.length != 0)
 	{
-		textArea.setSelection(userSelection[0]);
+		textArea.setSelection(userSelection);
 		
 		codeText = textArea.getSelectedText();
 		
@@ -1738,6 +1738,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					// to wait for the buffer to be saved (which was requested earlier).
 					void run()
 					{
+						textArea.setSelection(null);
 						
 						boolean isLastFold = true;
 						buffer = textArea.getBuffer();
@@ -1814,6 +1815,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						indentAmountPeriod = indentAmount.toString().replaceFirst(" ",".");
 						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + ",preserve=\"false\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
 						
+						//textArea.setSelection(null);
 						//("\n\n     " + output_fold_type + "\n      "+ result + "\n     %end\n",false);
 				 
 						/*//If fold type was blank, set it to the default fold type.
@@ -1838,7 +1840,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 						
 						if(userSelection.length != 0)
 						{
-						   textArea.setSelection(userSelection[0]);
+						   textArea.setSelection(userSelection);
 						}
 
 									
