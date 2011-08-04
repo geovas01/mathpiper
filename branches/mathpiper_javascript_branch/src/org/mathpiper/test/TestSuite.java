@@ -37,17 +37,28 @@ import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
-public class RunTestSuite {
+public class TestSuite {
 
-    private boolean printExpression = true;
-    private boolean stackTrace = true;
+    private boolean printExpression = false;
+    private boolean stackTrace = false;
     private Interpreter mathPiper;
     private EvaluationResponse evaluationResponse;
     private java.io.FileWriter logFile;
+    private String logFileName = "mathpiper_tests.log";
     private Tests tests;
     private String output;
+    //-------------------
+    private static String[] argumentErrors = new String[10];
+    private static int argumentErrorCount = 0;
+    private static String testTypeArgs = "";
 
-    public RunTestSuite() {
+    private static enum TestType {
+
+        ALL, NONE, SOME, EXCEPT
+    }
+    private static TestType testType = TestType.ALL;
+
+    public TestSuite() {
         super();
 
         tests = new Tests();
@@ -97,10 +108,7 @@ public class RunTestSuite {
     public void test(ArrayList keyArray) {
         try {
 
-
-
-
-            logFile = new java.io.FileWriter("mathpiper_tests.log"); //"./tests/mathpiper_tests.log"
+            logFile = new java.io.FileWriter(logFileName); //"./tests/mathpiper_tests.log"
 
             mathPiper = Interpreters.newSynchronousInterpreter();
 
@@ -296,13 +304,137 @@ public class RunTestSuite {
 
     }//end method.
 
+    public boolean isPrintExpression() {
+        return printExpression;
+    }
+
+    public void setPrintExpression(boolean printExpression) {
+        this.printExpression = printExpression;
+    }
+
+    public boolean isStackTrace() {
+        return stackTrace;
+    }
+
+    public void setStackTrace(boolean stackTrace) {
+        this.stackTrace = stackTrace;
+    }
+
+    public String getLogFileName() {
+        return logFileName;
+    }
+
+    public void setLogFileName(String logFileName) {
+        this.logFileName = logFileName;
+    }
+
     public static void main(String[] args) {
+        TestSuite testSuite = new TestSuite();
 
-        RunTestSuite pt = new RunTestSuite();
+        int argIndex;
+        for (argIndex = 0; argIndex < args.length; argIndex++) {
+            String arg = args[argIndex];
 
-        //pt.testSome("LaplaceTransform,PSolve");
+            String value;
 
-        pt.testExcept("PSolve,Solve");
+            if (arg.length() >= 2 && arg.charAt(0) == '-') {
+                char key = Character.toLowerCase(arg.charAt(1));
+                switch (key) {
+                    case 'h':
+                        String usageMessage =
+                                "-s test,test,... (Run only some of the tests, the ones that are listed).)\n"
+                                + "-e test,test,... (Run all of the tests, except for the ones that are listed.)\n"
+                                + "-f <file name> (Specifies the name and path of the log file.)\n"
+                                + "-t (Include a stack trace when an exception is thrown.)\n"
+                                + "-p (Print each test just before it is evaluated.)\n";
+
+                        System.out.println(usageMessage);
+
+                        testType = TestType.NONE;
+                        continue;
+                    case 's':
+                        break;
+                    case 'e':
+                        break;
+                    case 'f':
+                        break;
+                    case 't':
+                        testSuite.setStackTrace(true);
+                        continue;
+                    case 'p':
+                        testSuite.setPrintExpression(true);
+                        continue;
+                    default:
+                        if (argumentErrorCount < argumentErrors.length) {
+                            argumentErrors[argumentErrorCount++] =
+                                    "Invalid option \"" + arg + "\"";
+                        }
+                        continue;
+                }//end switch.
+
+
+
+
+                //Process options that have values.
+                if (arg.length() > 2) {
+                    value = arg.substring(2);
+                } else if (argIndex + 1 < args.length) {
+                    value = args[++argIndex];
+                } else {
+                    if (argumentErrorCount < argumentErrors.length) {
+                        argumentErrors[argumentErrorCount++] =
+                                "Option \"" + arg
+                                + "\" invalid.";
+                    }
+                    continue;
+                }
+
+
+                switch (key) {
+                    case 's':
+                        testType = TestType.SOME;
+                        testTypeArgs = value;
+                        break;
+                    case 'e':
+                        testType = TestType.EXCEPT;
+                        testTypeArgs = value;
+                        break;
+                    case 'f':
+                        testSuite.setLogFileName(value);
+                        break;
+
+                }//end switch.
+
+            }//end if.
+
+            //Place error message here.
+        }//end for.
+
+        if (argumentErrorCount > 0) {
+            //Print all of the argument errors (if any).
+            for (int i = 0; i < argumentErrorCount; i++) {
+                System.out.println(argumentErrors[i]);
+            }
+        } else {
+            //Run test.
+            switch (testType) {
+                case ALL:
+                    testSuite.test();
+                    break;
+
+                case SOME:
+                    testSuite.testSome(testTypeArgs);
+                    break;
+
+                case EXCEPT:
+                    testSuite.testExcept(testTypeArgs);
+                    break;
+
+                case NONE:
+                    break;
+
+            }//end switch.
+        }//end else.
 
 
     }//end main
