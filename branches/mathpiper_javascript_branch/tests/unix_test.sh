@@ -1,1 +1,1 @@
-java -cp . org.mathpiper.test.RunTestSuite
+java -cp . org.mathpiper.test.TestSuite
