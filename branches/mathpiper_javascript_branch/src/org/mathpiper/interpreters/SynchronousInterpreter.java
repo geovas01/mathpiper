@@ -74,7 +74,7 @@ class SynchronousInterpreter implements Interpreter {
         Utility.scriptsPath = "/org/mathpiper/assembledscripts/";
 
         try {
-            System.out.println("Initializing...");
+            System.out.print("Initializing CAS... ");
 
             iEnvironment = new Environment(sideEffectsStream);
 
@@ -115,7 +115,6 @@ class SynchronousInterpreter implements Interpreter {
 
                 if (scriptCode[0] == null) {
 
-
                     iEnvironment.iInputStatus.setTo(functionName);
 
                     String scriptString = scriptCode[1];
@@ -133,6 +132,8 @@ class SynchronousInterpreter implements Interpreter {
             }//end while.
 
             iEnvironment.scripts = null;
+
+            System.out.print("done. \n");
 
         } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
         {
@@ -230,7 +231,7 @@ class SynchronousInterpreter implements Interpreter {
                 Utility.applyString(iEnvironment, -1, inputExpressionPointer, iEnvironment.iPrettyReaderName, args);
             } else //Else not PrettyReader.
             {
-                Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
+                Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators, null);
                 infixParser.parse(-1, inputExpressionPointer);
             }
 
