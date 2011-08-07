@@ -35,6 +35,7 @@ import java.util.Map;
  */
 public class Build {
 
+    private boolean strip = false;
     private java.io.File scriptsDir;
     //private java.io.FileWriter packagesFile;
     private java.io.FileWriter scriptsJavaFile;
@@ -52,11 +53,8 @@ public class Build {
     private int undocumentedMPWFileCount = 0;
     //private Interpreter mathpiper = Interpreters.newSynchronousInterpreter();
 
-
     private Build() {
     }//end constructor.
-
-
 
     public Build(String baseDirectory) throws Exception {
         documentationOutputDirectory = baseDirectory + "/build/";
@@ -69,33 +67,23 @@ public class Build {
 
     }
 
-
-
-
-    public void initializeFiles() throws Exception
-    {
+    public void initializeFiles() throws Exception {
         File file;
-        
+
         file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt");
-        if(file.exists())
-        {
+        if (file.exists()) {
             documentationFile = new DataOutputStream(new java.io.FileOutputStream(file));
         }
 
         file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
-        if(file.exists())
-        {
+        if (file.exists()) {
             documentationIndexFile = new java.io.FileWriter(file);
         }
         file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
-        if(file.exists())
-        {
+        if (file.exists()) {
             functionCategoriesFile = new java.io.FileWriter(file);
         }
     }
-
-
-
 
     public void compileScripts() throws Exception {
 
@@ -151,7 +139,6 @@ public class Build {
                         return (true);
                     }
                 }
-
             });
 
             Arrays.sort(packagesDirectory);
@@ -180,7 +167,6 @@ public class Build {
                                 return (true);
                             }
                         }
-
                     });
 
                     Arrays.sort(packageDirectoryContentsArray);
@@ -217,7 +203,6 @@ public class Build {
                                         return (true);
                                     }
                                 }
-
                             });
 
                             Arrays.sort(packageSubDirectoryContentsArray);
@@ -319,7 +304,6 @@ public class Build {
 
     }//end method.
 
-
     List scanSourceFile(File sourceFile) throws Exception {
 
 
@@ -391,13 +375,11 @@ public class Build {
         private String contents;
         private Map<String, String> attributes = new HashMap();
 
-
         public Fold(String header, String contents) {
             scanHeader(header);
 
             this.contents = contents;
         }//end inner class.
-
 
         private void scanHeader(String header) {
             String[] headerParts = header.trim().split(",");
@@ -414,23 +396,18 @@ public class Build {
 
         }//end method.
 
-
         public Map getAttributes() {
             return attributes;
         }
-
 
         public String getContents() {
             return contents;
         }
 
-
         public String getType() {
             return type;
         }
-
     }//end inner class.
-
 
     private void processMPWFile(File mpwFile) throws Exception {
 
@@ -461,15 +438,13 @@ public class Build {
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
 
 
-                    String[] blacklist = {"CForm","IsCFormable","issues","debug","jFactorsPoly","jasFactorsInt",
-                    "xContent","xFactor","xFactors","xFactorsBinomial","xFactorsResiduals","xPrimitivePart","html","odesolver",
-                    "orthopoly","openmath","ManipEquations","Manipulate","SolveSetEqns","ControlChart","GeoGebra","GeoGebraHistogram",
-                    "GeoGebraPlot","GeoGebraPoint","ggbLine","HighschoolForm","jas_test","JFreeChartHistogram","JavaAccess","RForm",
-                    "xCheckSolution","xSolve","xSolvePoly","xSolveRational","xSolveReduce","xSolveSqrts","xSolveSystem","xTerms",
-
+                    String[] functionsNotToBuild = {"CForm", "IsCFormable", "issues", "debug", "jFactorsPoly", "jasFactorsInt",
+                        "xContent", "xFactor", "xFactors", "xFactorsBinomial", "xFactorsResiduals", "xPrimitivePart", "html", "odesolver",
+                        "orthopoly", "openmath", "ManipEquations", "Manipulate", "SolveSetEqns", "ControlChart", "GeoGebra", "GeoGebraHistogram",
+                        "GeoGebraPlot", "GeoGebraPoint", "ggbLine", "HighschoolForm", "jas_test", "JFreeChartHistogram", "JavaAccess", "RForm",
+                        "xCheckSolution", "xSolve", "xSolvePoly", "xSolveRational", "xSolveReduce", "xSolveSqrts", "xSolveSystem", "xTerms",};
                     
-                    };
-                    for (String fileName : blacklist) {
+                    for (String fileName : functionsNotToBuild) {
                         fileName = fileName + ".mpw";
                         if (fileName.equalsIgnoreCase(mpwFile.getName())) {
                             continue FoldLoop;
@@ -486,18 +461,22 @@ public class Build {
                     } else {
 
 
-
-
-                        //Uses regular expressions to process scripts.
-                        String foldContentsString = foldContents.toString();
-                        // //See http://ostermiller.org/findcomment.html
-                        String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
-                        foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
-                        foldContentsStringNoComments = foldContentsStringNoComments.replaceAll(" +", " ");
-                        foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "");
-                        foldContentsStringNoComments = foldContentsStringNoComments.replace("\\", "\\\\");
-                        foldContentsStringNoComments = foldContentsStringNoComments.replace("\"", "\\\"");
-                        String processedScript = foldContentsStringNoComments;
+                        String processedScript;
+                        if (this.strip == false) {
+                            //Uses regular expressions to process scripts.
+                            String foldContentsString = foldContents.toString();
+                            // //See http://ostermiller.org/findcomment.html
+                            String foldContentsStringNoComments = foldContentsString.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
+                            foldContentsStringNoComments = foldContentsStringNoComments.replace("\t", "");
+                            foldContentsStringNoComments = foldContentsStringNoComments.replaceAll(" +", " ");
+                            foldContentsStringNoComments = foldContentsStringNoComments.replaceAll("\\n+", "");
+                            foldContentsStringNoComments = foldContentsStringNoComments.replace("\\", "\\\\");
+                            foldContentsStringNoComments = foldContentsStringNoComments.replace("\"", "\\\"");
+                            processedScript = foldContentsStringNoComments;
+                        } else {
+                            processedScript = foldContents.toString();
+                            ;
+                        }
 
 
 
@@ -532,9 +511,9 @@ public class Build {
                          */
 
 
-                        if (mpwFile.getName().equalsIgnoreCase("NormalForm.mpw")) {
-                            int xx = 2;
-                        }
+                        //if (mpwFile.getName().equalsIgnoreCase("NormalForm.mpw")) {
+                        //    int xx = 2;
+                        //}
 
                         if (fold.getAttributes().containsKey("def")) {
                             String defAttribute = (String) fold.getAttributes().get("def");
@@ -578,7 +557,6 @@ public class Build {
             System.out.println();
         }
     }//end method.
-
 
     private void processMathPiperDocsFold(Fold fold, String mpwFilePath) throws Exception {
         if (documentationFile != null) {
@@ -698,14 +676,13 @@ public class Build {
         }//end if.
     }//end method
 
-
     private void processAutomaticTestFold(Fold fold, String filePath) throws Exception {
 
         String foldContents = fold.getContents();
 
         foldContents = foldContents.replace("\\", "\\\\");
         foldContents = foldContents.replace("\n", "\\n");
-        foldContents = foldContents.replace("\"", "\\\"") ;
+        foldContents = foldContents.replace("\"", "\\\"");
 
         String nameAttribute = "";
 
@@ -729,12 +706,11 @@ public class Build {
 
     }//end method.
 
-
     public void execute() throws Exception {
         //execute() method is needed by ant to run this class.
         System.out.println("****************** Compiling scripts *******");
         System.out.println("Source directory: " + this.sourceScriptsDirectory);
-  
+
         compileScripts();
     }//end method.
 
@@ -746,7 +722,6 @@ public class Build {
         private String description;
         private String categories;
 
-
         public CategoryEntry(String categoryName, String functionName, String access, String description, String categories) {
             this.categoryName = categoryName;
             this.functionName = functionName;
@@ -755,24 +730,19 @@ public class Build {
             this.categories = categories;
         }
 
-
         public int compareTo(Object o) {
             CategoryEntry categoryEntry = (CategoryEntry) o;
             return this.functionName.compareToIgnoreCase(categoryEntry.getFunctionName());
         }//end method.
 
-
         public String getFunctionName() {
             return this.functionName;
         }//end method.
 
-
         public String toString() {
             return categoryName + "," + functionName + "," + access + "," + description + "," + categories;
         }//end method.
-
     }//end class.
-
 
     private void processBuiltinDocs(String sourceDirectoryPath, String outputDirectoryPath, String pluginFilePath) throws Exception {
         // try {
@@ -794,7 +764,6 @@ public class Build {
                         return false;
                     }
                 }
-
             });
 
             Arrays.sort(javaFilesDirectory);
@@ -882,139 +851,138 @@ public class Build {
 
     public static String parsePrintScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Exception {
 
-        StringBuffer printedScriptStringBuffer = new StringBuffer();
+    StringBuffer printedScriptStringBuffer = new StringBuffer();
 
-        MathPiperInputStream previous = aEnvironment.iCurrentInput;
-        try {
-            aEnvironment.iCurrentInput = aInput;
-            // TODO make "EndOfFile" a global thing
-            // read-parse-evaluate to the end of file
-            String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
-            boolean endoffile = false;
-            MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(),
-                    aEnvironment.iCurrentInput, aEnvironment,
-                    aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
-                    aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-            ConsPointer readIn = new ConsPointer();
-            while (!endoffile) {
-                // Read expression
-                parser.parse(aStackTop, readIn);
+    MathPiperInputStream previous = aEnvironment.iCurrentInput;
+    try {
+    aEnvironment.iCurrentInput = aInput;
+    // TODO make "EndOfFile" a global thing
+    // read-parse-evaluate to the end of file
+    String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
+    boolean endoffile = false;
+    MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(),
+    aEnvironment.iCurrentInput, aEnvironment,
+    aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
+    aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+    ConsPointer readIn = new ConsPointer();
+    while (!endoffile) {
+    // Read expression
+    parser.parse(aStackTop, readIn);
 
-                LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "","INTERNAL");
-                // check for end of file
-                if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
-                    endoffile = true;
-                } // Else print and maybe evaluate
-                else {
-                    printExpression(printedScriptStringBuffer, aEnvironment, readIn);
+    LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "","INTERNAL");
+    // check for end of file
+    if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
+    endoffile = true;
+    } // Else print and maybe evaluate
+    else {
+    printExpression(printedScriptStringBuffer, aEnvironment, readIn);
 
-                    if (evaluate == true) {
-                        ConsPointer result = new ConsPointer();
-                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
-                    }
-                }
-            }//end while.
+    if (evaluate == true) {
+    ConsPointer result = new ConsPointer();
+    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
+    }
+    }
+    }//end while.
 
-            return printedScriptStringBuffer.toString();
+    return printedScriptStringBuffer.toString();
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace(); //todo:tk:uncomment for debugging.
+    } catch (Exception e) {
+    System.out.println(e.getMessage());
+    e.printStackTrace(); //todo:tk:uncomment for debugging.
 
-            EvaluationException ee = new EvaluationException(e.getMessage(),  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineNumber());
-            throw ee;
-        } finally {
-            aEnvironment.iCurrentInput = previous;
-        }
+    EvaluationException ee = new EvaluationException(e.getMessage(),  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineNumber());
+    throw ee;
+    } finally {
+    aEnvironment.iCurrentInput = previous;
+    }
     }
 
 
     public static void printExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
-        MathPiperPrinter printer = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-        //LispPrinter printer = new LispPrinter(false);
+    MathPiperPrinter printer = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+    //LispPrinter printer = new LispPrinter(false);
 
-        MathPiperOutputStream stream = new StringOutputStream(outString);
-        printer.print(-1, aExpression, stream, aEnvironment);
-        outString.append(";");
+    MathPiperOutputStream stream = new StringOutputStream(outString);
+    printer.print(-1, aExpression, stream, aEnvironment);
+    outString.append(";");
 
     }//end method.
 
 
     public static void fileCopy(String from_name, String to_name) throws IOException {
-        File from_file = new File(from_name); // Get File objects from Strings
-        File to_file = new File(to_name);
+    File from_file = new File(from_name); // Get File objects from Strings
+    File to_file = new File(to_name);
 
-        if (!from_file.exists()) {
-            abort("no such source file: " + from_name);
-        }
-        if (!from_file.isFile()) {
-            abort("can't copy directory: " + from_name);
-        }
-        if (!from_file.canRead()) {
-            abort("source file is unreadable: " + from_name);
-        }
+    if (!from_file.exists()) {
+    abort("no such source file: " + from_name);
+    }
+    if (!from_file.isFile()) {
+    abort("can't copy directory: " + from_name);
+    }
+    if (!from_file.canRead()) {
+    abort("source file is unreadable: " + from_name);
+    }
 
-        if (to_file.isDirectory()) {
-            to_file = new File(to_file, from_file.getName());
-        }
-
-
-        String parent = to_file.getParent(); // The destination directory
-        if (parent == null) // If none, use the current directory
-        {
-            parent = System.getProperty("user.dir");
-        }
-        File dir = new File(parent); // Convert it to a file.
-        if (!dir.exists()) {
-            abort("destination directory doesn't exist: " + parent);
-        }
-        if (dir.isFile()) {
-            abort("destination is not a directory: " + parent);
-        }
-        if (!dir.canWrite()) {
-            abort("destination directory is unwriteable: " + parent);
-        }
+    if (to_file.isDirectory()) {
+    to_file = new File(to_file, from_file.getName());
+    }
 
 
+    String parent = to_file.getParent(); // The destination directory
+    if (parent == null) // If none, use the current directory
+    {
+    parent = System.getProperty("user.dir");
+    }
+    File dir = new File(parent); // Convert it to a file.
+    if (!dir.exists()) {
+    abort("destination directory doesn't exist: " + parent);
+    }
+    if (dir.isFile()) {
+    abort("destination is not a directory: " + parent);
+    }
+    if (!dir.canWrite()) {
+    abort("destination directory is unwriteable: " + parent);
+    }
 
-        FileInputStream from = null; // Stream to read from source
-        FileOutputStream to = null; // Stream to write to destination
-        try {
-            from = new FileInputStream(from_file); // Create input stream
-            to = new FileOutputStream(to_file); // Create output stream
-            byte[] buffer = new byte[4096]; // To hold file contents
-            int bytes_read; // How many bytes in buffer
 
-            while ((bytes_read = from.read(buffer)) != -1) // Read until EOF
-            {
-                to.write(buffer, 0, bytes_read); // write
-            }
-        } finally {
-            if (from != null) {
-                try {
-                    from.close();
-                } catch (IOException e) {
-                    ;
-                }
-            }
-            if (to != null) {
-                try {
-                    to.close();
-                } catch (IOException e) {
-                    ;
-                }
-            }
-        }
+
+    FileInputStream from = null; // Stream to read from source
+    FileOutputStream to = null; // Stream to write to destination
+    try {
+    from = new FileInputStream(from_file); // Create input stream
+    to = new FileOutputStream(to_file); // Create output stream
+    byte[] buffer = new byte[4096]; // To hold file contents
+    int bytes_read; // How many bytes in buffer
+
+    while ((bytes_read = from.read(buffer)) != -1) // Read until EOF
+    {
+    to.write(buffer, 0, bytes_read); // write
+    }
+    } finally {
+    if (from != null) {
+    try {
+    from.close();
+    } catch (IOException e) {
+    ;
+    }
+    }
+    if (to != null) {
+    try {
+    to.close();
+    } catch (IOException e) {
+    ;
+    }
+    }
+    }
     }
 
 
     private static void abort(String msg) throws IOException {
-        throw new IOException("FileCopy: " + msg);
+    throw new IOException("FileCopy: " + msg);
     }
 
 
-    */
-
+     */
     public static void main(String[] args) {
         try {
             //fileCopy("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/test/Scripts.java", "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/Scripts.java"); if(1==1) return;
