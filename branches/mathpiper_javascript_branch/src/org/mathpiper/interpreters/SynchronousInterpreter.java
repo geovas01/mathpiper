@@ -231,7 +231,7 @@ class SynchronousInterpreter implements Interpreter {
                 Utility.applyString(iEnvironment, -1, inputExpressionPointer, iEnvironment.iPrettyReaderName, args);
             } else //Else not PrettyReader.
             {
-                Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators, null);
+                Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
                 infixParser.parse(-1, inputExpressionPointer);
             }
 
