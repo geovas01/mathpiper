@@ -668,11 +668,15 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     public static String textToHtml(String scriptCode) {
 //s = "*CMD D --- take derivative of expression with respect to variable\n*STD\n*CALL\n	D(variable) expression\n	D(list) expression\n	D(variable,n) expression\n\n*PARMS\n\n{variable} -- variable\n\n{list} -- a list of variables\n\n{expression} -- expression to take derivatives of\n\n{n} -- order of derivative\n\n*DESC\n\nThis function calculates the derivative of the expression {expr} with\nrespect to the variable {var} and returns it. If the third calling\nformat is used, the {n}-th derivative is determined. Yacas knows\nhow to differentiate standard functions such as {Ln}\nand {Sin}.\n\nThe {D} operator is threaded in both {var} and\n{expr}. This means that if either of them is a list, the function is\napplied to each entry in the list. The results are collected in\nanother list which is returned. If both {var} and {expr} are a\nlist, their lengths should be equal. In this case, the first entry in\nthe list {expr} is differentiated with respect to the first entry in\nthe list {var}, the second entry in {expr} is differentiated with\nrespect to the second entry in {var}, and so on.\n\nThe {D} operator returns the original function if $n=0$, a common\nmathematical idiom that simplifies many formulae.\n\n*E.G.\n\n	In> D(x)Sin(x*y)\n	Result: y*Cos(x*y);\n	In> D({x,y,z})Sin(x*y)\n	Result: {y*Cos(x*y),x*Cos(x*y),0};\n	In> D(x,2)Sin(x*y)\n	Result: -Sin(x*y)*y^2;\n	In> D(x){Sin(x),Cos(x)}\n	Result: {Cos(x),-Sin(x)};\n\n*SEE Integrate, Taylor, Diverge, Curl\n";
 
-        scriptCode = scriptCode.replace("&", "&amp;");
-        scriptCode = scriptCode.replace("<", "&lt;");
-        scriptCode = scriptCode.replace(">", "&gt;");
+        String convertedScriptCode = scriptCode;
 
-        String[] lines = scriptCode.split("\n");
+        //convertedScriptCode = convertedScriptCode.replaceAll("\\$.*\\$", "\b");
+
+        convertedScriptCode = convertedScriptCode.replace("&", "&amp;");
+        convertedScriptCode = convertedScriptCode.replace("<", "&lt;");
+        convertedScriptCode = convertedScriptCode.replace(">", "&gt;");
+
+        String[] lines = convertedScriptCode.split("\n");
 
         StringBuilder html = new StringBuilder();
 
@@ -856,8 +860,25 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         }//end for.
 
         html.append("</html>\n");
+        
+        
+        Pattern p = Pattern.compile("\\$.*\\$");
+        Matcher originalCodeMatcher = p.matcher(scriptCode);
+        Matcher htmlMatcher = p.matcher(html); // get a matcher object
+        StringBuffer convertedCodeStringBuffer = new StringBuffer();
+        
+        while(htmlMatcher.find()){
+            originalCodeMatcher.find();
+            String latexCode = originalCodeMatcher.group();
+            latexCode = latexCode.replace("\\", "\\\\");
+            latexCode = latexCode.replace("$", "\\$");
+            htmlMatcher.appendReplacement(convertedCodeStringBuffer,latexCode);
+        }
+        htmlMatcher.appendTail(convertedCodeStringBuffer);
 
-        return html.toString();
+        String convertedCode = convertedCodeStringBuffer.toString();
+
+        return convertedCode;
 
     }//end method.
 
