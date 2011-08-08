@@ -761,7 +761,7 @@ public class Build {
             sourceScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper/src/org/mathpiper/scripts4/";
         }
 
-        String outputScriptsDirectory = "/home/tkosan/NetBeansProjects/scripts/";
+        String outputScriptsDirectory = "/home/tkosan/NetBeansProjects/mathpiper/build/classes/org/mathpiper/assembledscripts/"; //"/home/tkosan/NetBeansProjects/scripts/";
         File newScriptsDirectory = new File(outputScriptsDirectory);
         Boolean directoryCreated = newScriptsDirectory.mkdirs();
 
@@ -783,9 +783,11 @@ public class Build {
 
         //String outputDirectory = "/home/tkosan/temp/mathpiper/org/mathpiper/assembledscripts/";
 
+        String outputDirectory = "/home/tkosan/NetBeansProjects/mathpiper/build/classes/";
+
         try {
 
-            Build scripts = new Build(sourceScriptsDirectory, outputScriptsDirectory,  outputScriptsDirectory + "documentation/");
+            Build scripts = new Build(sourceScriptsDirectory, outputScriptsDirectory,  outputDirectory);
 
             scripts.setBaseDirectory("/home/tkosan/NetBeansProjects/mathpiper/");
 
