@@ -94,7 +94,7 @@ HtmlAnchor(name):=
   anchor["name"]:=name;
   HtmlTag(anchor,"");
 ];
-Bodied("HtmlAnchor",60000);
+//Bodied("HtmlAnchor",60000);
 
 HtmlTable(cellpadding,width,body):=
 [
