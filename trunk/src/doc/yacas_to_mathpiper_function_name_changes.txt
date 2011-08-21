@@ -29,6 +29,8 @@ GetErrorTableau -> GetErrorTable
 IsError -> TrapException
 GetError -> GetException
 RulebaseDefined -> IsRulebaseDefined
+BuiltinPrecisionSet -> PrecisionSet
+BuiltinPrecisionGet -> PrecisionGet
 
 
 
