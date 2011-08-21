@@ -35,7 +35,7 @@ import java.util.Map;
  */
 public class Build {
 
-    private boolean strip = false;
+    private boolean strip = true;
     private java.io.File scriptsDir;
     //private java.io.FileWriter packagesFile;
     private java.io.FileWriter scriptsJavaFile;
@@ -411,6 +411,9 @@ public class Build {
 
     private void processMPWFile(File mpwFile) throws Exception {
 
+        String mpwFilePath = mpwFile.getAbsolutePath();
+        mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator)); //"/org/mathpiper/";
+
         List<Fold> folds = scanSourceFile(mpwFile);
 
         boolean hasDocs = false;
@@ -443,7 +446,7 @@ public class Build {
                         "orthopoly", "openmath", "ManipEquations", "Manipulate", "SolveSetEqns", "ControlChart", "GeoGebra", "GeoGebraHistogram",
                         "GeoGebraPlot", "GeoGebraPoint", "ggbLine", "HighschoolForm", "jas_test", "JFreeChartHistogram", "JavaAccess", "RForm",
                         "xCheckSolution", "xSolve", "xSolvePoly", "xSolveRational", "xSolveReduce", "xSolveSqrts", "xSolveSystem", "xTerms",};
-                    
+
                     for (String fileName : functionsNotToBuild) {
                         fileName = fileName + ".mpw";
                         if (fileName.equalsIgnoreCase(mpwFile.getName())) {
@@ -462,7 +465,7 @@ public class Build {
 
 
                         String processedScript;
-                        if (this.strip == false) {
+                        if (this.strip == true) {
                             //Uses regular expressions to process scripts.
                             String foldContentsString = foldContents.toString();
                             // //See http://ostermiller.org/findcomment.html
@@ -475,7 +478,9 @@ public class Build {
                             processedScript = foldContentsStringNoComments;
                         } else {
                             processedScript = foldContents.toString();
-                            ;
+                            processedScript = processedScript.replace("\\", "\\\\");
+                            processedScript = processedScript.replace("\"", "\\\"");
+                            processedScript = processedScript.replace("\n", "\\n");
                         }
 
 
@@ -519,9 +524,23 @@ public class Build {
                             String defAttribute = (String) fold.getAttributes().get("def");
                             if (!defAttribute.equalsIgnoreCase("")) {
 
-                                scriptsJavaFile.write("\n        scriptString = new String[2];");
+                                if (strip == true) {
+                                    scriptsJavaFile.write("\n        scriptString = new String[2];");
+                                } else {
+                                    scriptsJavaFile.write("\n        scriptString = new String[3];");
+                                }
+
+
                                 scriptsJavaFile.write("\n        scriptString[0] = null;");
+
+
                                 scriptsJavaFile.write("\n        scriptString[1] = \"" + processedScript + "\";\n");
+
+                                if (strip == false) {
+
+
+                                    scriptsJavaFile.write("\n        scriptString[2] = \"" + mpwFilePath + "\";");
+                                }
 
 
                                 String[] defFunctionNames = defAttribute.split(";");
@@ -541,8 +560,6 @@ public class Build {
                 //System.out.println("        **** Contains docs *****");
                 hasDocs = true;
 
-                String mpwFilePath = mpwFile.getPath();
-
                 processMathPiperDocsFold(fold, mpwFilePath);
 
             }//end if.
@@ -560,8 +577,6 @@ public class Build {
 
     private void processMathPiperDocsFold(Fold fold, String mpwFilePath) throws Exception {
         if (documentationFile != null) {
-
-            mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator)); //"/org/mathpiper/";
 
             String functionNamesString = "";
             if (fold.getAttributes().containsKey("name")) {

@@ -17,6 +17,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.parsers;
 
+import java.util.ArrayList;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 import org.mathpiper.lisp.Utility;
@@ -44,6 +45,8 @@ public class MathPiperParser extends Parser
     boolean iEndOfFile;
     String iLookAhead;
     public ConsPointer iSExpressionResult = new ConsPointer();
+    private String locateFunctionOrOperatorName = null;
+    private ArrayList functionOrOperatorLocationsList;
 
     public MathPiperParser(MathPiperTokenizer aTokenizer,
             MathPiperInputStream aInput,
@@ -70,6 +73,19 @@ public class MathPiperParser extends Parser
     {
         parse(aStackTop);
         aResult.setCons(iSExpressionResult.getCons());
+    }
+
+
+    public ArrayList parseAndFind(int aStackTop, ConsPointer aResult, String functionOrOperatorName) throws Exception
+    {
+
+        locateFunctionOrOperatorName = functionOrOperatorName;
+
+        functionOrOperatorLocationsList = new ArrayList();
+
+        parse(aStackTop, aResult);
+
+        return functionOrOperatorLocationsList;
     }
 
     public void parse(int aStackTop) throws Exception
@@ -125,6 +141,13 @@ public class MathPiperParser extends Parser
     void readExpression(Environment aEnvironment,int aStackTop, int depth) throws Exception
     {
         readAtom(aEnvironment, aStackTop);
+
+        //If requested,
+        if(locateFunctionOrOperatorName != null && locateFunctionOrOperatorName.equals(iLookAhead))
+        {
+            functionOrOperatorLocationsList.add(iLookAhead + " " + (iInput.iStatus.getLineNumber()+1) + ":" + (iInput.iStatus.getLineIndex()));
+        }
+
 
         for (;;)
         {
