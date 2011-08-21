@@ -9,7 +9,7 @@ Outer(t1_IsVector, t2_IsVector) <--
    result:=ZeroMatrix(n,m);
    For(i:=1,i<=n,i++)
       For(j:=1,j<=m,j++)
-	 result[i][j]:=t1[i]*t2[j];
+         result[i][j]:=t1[i]*t2[j];
    result;
 ];
 
@@ -21,8 +21,8 @@ Outer(t1_IsVector, t2_IsVector) <--
 *CMD Outer, o --- get outer tensor product
 *STD
 *CALL
-	Outer(t1,t2)
-	t1 o t2
+        Outer(t1,t2)
+        t1 o t2
 Precedence:
 *EVAL PrecedenceGet("o")
 
@@ -43,7 +43,7 @@ Result: {{3,4,5},{6,8,10}};
 In> Outer({a,b},{c,d})
 Result: {{a*c,a*d},{b*c,b*d}};
 
-	Or, using the "o"-Operator:
+        Or, using the "o"-Operator:
 
 In> {1,2} o {3,4,5}
 Result: {{3,4,5},{6,8,10}};

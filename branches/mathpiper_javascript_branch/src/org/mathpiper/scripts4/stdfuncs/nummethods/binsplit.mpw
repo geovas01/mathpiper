@@ -41,7 +41,7 @@ BinSplitCombine({_P1, _Q1, _B1, _T1}, {_P2, _Q2, _B2, _T2}) <-- {P1*P2, Q1*Q2, B
 // main recursion step
 20 # BinSplitData(_m, _n, _a, _b, _p, _q) <--
 [
-	BinSplitCombine(BinSplitData(m,(m+n)>>1, a,b,p,q), BinSplitData(1+((m+n)>>1),n, a,b,p,q));
+        BinSplitCombine(BinSplitData(m,(m+n)>>1, a,b,p,q), BinSplitData(1+((m+n)>>1),n, a,b,p,q));
 ];
 
 
@@ -55,9 +55,9 @@ BinSplitCombine({_P1, _Q1, _B1, _T1}, {_P2, _Q2, _B2, _T2}) <-- {P1*P2, Q1*Q2, B
 *CMD BinSplitFinal --- computations of series by the binary splitting method
 *STD
 *CALL
-	BinSplitNum(n1, n2, a, b, c, d)
-	BinSplitData(n1,n2, a, b, c, d)
-	BinSplitFinal({P,Q,B,T})
+        BinSplitNum(n1, n2, a, b, c, d)
+        BinSplitData(n1,n2, a, b, c, d)
+        BinSplitFinal({P,Q,B,T})
 
 *PARMS
 
@@ -96,14 +96,14 @@ Compute the series for $e=Exp(1)$ using binary splitting.
 In> BuiltinPrecisionSet(21)
 Result: True;
 In>  BinSplitNum(1,21, {{k},1},
-	  {{k},1},{{k},1},{{k},k})
+          {{k},1},{{k},1},{{k},k})
 Result: 1.718281828459045235359;
 In> N(Exp(1)-1)
 Result: 1.71828182845904523536;
 In>  BinSplitData(1,21, {{k},1},
-	  {{k},1},{{k},1},{{k},k})
+          {{k},1},{{k},1},{{k},k})
 Result: {1,51090942171709440000,1,
-	  87788637532500240022};
+          87788637532500240022};
 In> BinSplitFinal(%)
 Result: 1.718281828459045235359;
 

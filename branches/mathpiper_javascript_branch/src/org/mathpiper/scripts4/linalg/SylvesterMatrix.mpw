@@ -49,7 +49,7 @@ Function("SylvesterMatrix",{poly1, poly2, var})
 *CMD SylvesterMatrix --- calculate the Sylvester matrix of two polynomials
 *STD
 *CALL
-	SylvesterMatrix(poly1,poly2,variable)
+        SylvesterMatrix(poly1,poly2,variable)
 
 *PARMS
 
@@ -76,7 +76,7 @@ In> ex2:= x^2+a*x-4
 Result: x^2+a*x-4;
 In> A:=SylvesterMatrix(ex1,ex2,x)
 Result: {{1,2,-a,0},{0,1,2,-a},
-	  {1,a,-4,0},{0,1,a,-4}};
+          {1,a,-4,0},{0,1,a,-4}};
 In> B:=Determinant(A)
 Result: 16-a^2*a- -8*a-4*a+a^2- -2*a^2-16-4*a;
 In> Simplify(B)

@@ -68,7 +68,7 @@ RandomPickWeighted(list) :=
 *CMD RandomPickWeighted --- randomly pick an element from a list using a given weight
 *STD
 *CALL
-	RandomPickWeighted(list)
+        RandomPickWeighted(list)
 
 *PARMS
 

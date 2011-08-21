@@ -18,7 +18,7 @@ Transpose(matrix_IsList)_(Length(Dimensions(matrix))>1) <--
 *CMD Transpose --- get transpose of a matrix
 *STD
 *CALL
-	Transpose(M)
+        Transpose(M)
 
 *PARMS
 

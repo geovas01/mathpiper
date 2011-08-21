@@ -92,7 +92,7 @@ SuchThat(_function,_var) <-- SuchThat(function,0,var);
 *CMD SuchThat --- special purpose solver
 *STD
 *CALL
-	SuchThat(expr, var)
+        SuchThat(expr, var)
 
 *PARMS
 

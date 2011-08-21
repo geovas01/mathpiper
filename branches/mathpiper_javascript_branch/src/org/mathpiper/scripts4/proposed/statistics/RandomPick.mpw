@@ -28,7 +28,7 @@ RandomPick(list) :=
 *CMD RandomPick --- randomly pick an element from a list
 *STD
 *CALL
-	RandomPick(list)
+        RandomPick(list)
 
 *PARMS
 

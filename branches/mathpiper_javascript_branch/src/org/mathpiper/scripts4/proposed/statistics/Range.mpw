@@ -19,7 +19,7 @@ Range(list) :=
 *CMD Range --- calculates the Range of a list of values
 *STD
 *CALL
-	Range(list)
+        Range(list)
 
 *PARMS
 

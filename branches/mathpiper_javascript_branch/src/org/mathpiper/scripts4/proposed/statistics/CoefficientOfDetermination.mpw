@@ -24,7 +24,7 @@ CoefficientOfDetermination(x,y) :=
 *CMD CoefficientOfDetermination --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL
-	CoefficientOfDetermination(xList,yList)
+        CoefficientOfDetermination(xList,yList)
 
 *PARMS
 

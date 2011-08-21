@@ -32,7 +32,7 @@ StandardErrorOfTheSlope(xList,yList) :=
 *CMD StandardErrorOfTheSlope --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL
-	StandardErrorOfTheSlope(xList,yList)
+        StandardErrorOfTheSlope(xList,yList)
 
 *PARMS
 

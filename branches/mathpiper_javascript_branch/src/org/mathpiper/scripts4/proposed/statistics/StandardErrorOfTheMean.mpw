@@ -21,7 +21,7 @@ StandardErrorOfTheMean(sigma, sampleSize) :=
 *CMD StandardErrorOfTheMean --- calculates the standard error of the mean
 *STD
 *CALL
-	StandardErrorOfTheMean(sigma,sampleSize)
+        StandardErrorOfTheMean(sigma,sampleSize)
 
 *PARMS
 {sigma} -- the standard deviation of the population

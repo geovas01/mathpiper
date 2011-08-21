@@ -60,21 +60,21 @@ Rule("xPSolve",1,1,IsUniVar(uni) And Degree(uni) = 2)
       r = b0/b3  and  q = b1/b3.
       
     Let x = a + b, so
-	   a^3 + b^3 + 3 (a^2 b + b^2 a) + q (a + b) + r = 0
-	   a^3 + b^3 + (3 a b + q) x + r = 0
+           a^3 + b^3 + 3 (a^2 b + b^2 a) + q (a + b) + r = 0
+           a^3 + b^3 + (3 a b + q) x + r = 0
 
-	Let 3 a b + q = 0. This is permissible, for we can still find a+b == x
+        Let 3 a b + q = 0. This is permissible, for we can still find a+b == x
 
-	a^3 + b^3 = -r
-	(a b)^3 = -q^3/27
+        a^3 + b^3 = -r
+        (a b)^3 = -q^3/27
 
         So a^3 and b^3 are the roots of t^2 + r t - q^3/27 = 0
 
-	Let
+        Let
                 a^3 = -r/2 + Sqrt(q^3/27+ r^2/4)
                 b^3 = -r/2 - Sqrt(q^3/27+ r^2/4)
-	Therefore there are three values for each of a and b.
-	Clearly if ab = -q/3 is true then (wa)(w^2b) == (wb)(w^2a) == -q/3
+        Therefore there are three values for each of a and b.
+        Clearly if ab = -q/3 is true then (wa)(w^2b) == (wb)(w^2a) == -q/3
 */
 
 Rule("xPSolve",1,1,IsUniVar(uni) And Degree(uni) = 3 )
@@ -364,7 +364,7 @@ UnFence("xPSolveCubic",1);
 *CMD xPSolve --- solve a polynomial equation
 *STD
 *CALL
-	xPSolve(poly, var)
+        xPSolve(poly, var)
 
 *PARMS
 
@@ -387,7 +387,7 @@ In> xPSolve(b*x+a,x)
 Result: -a/b;
 In> xPSolve(c*x^2+b*x+a,x)
 Result: {(Sqrt(b^2-4*c*a)-b)/(2*c),(-(b+
-	Sqrt(b^2-4*c*a)))/(2*c)};
+        Sqrt(b^2-4*c*a)))/(2*c)};
 
 *SEE Solve, Factor
 %/mathpiper_docs

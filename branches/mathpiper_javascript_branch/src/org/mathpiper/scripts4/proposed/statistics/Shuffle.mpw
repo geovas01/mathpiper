@@ -47,7 +47,7 @@ Shuffle(list) :=
 *CMD Shuffle --- randomly shuffles the elements in a list
 *STD
 *CALL
-	Shuffle(list)
+        Shuffle(list)
 
 *PARMS
 

@@ -10,7 +10,7 @@
 100 # n_IsConstant*(_x) - _x   <-- (n-1)*x;
 
 110 # - (_x - _y) <-- y-x;
-111 # - (x_IsNumber / _y) <-- (-x)/y;	
+111 # - (x_IsNumber / _y) <-- (-x)/y;        
 LocalSymbols(x)
 [
   200 # - (x_IsList) <-- MapSingle("-",x);
@@ -76,13 +76,13 @@ LocalSymbols(x,y,xarg,yarg)
 *STD
 *CALL
 
-	x-y
+        x-y
 Precedence: left-side:
 *EVAL PrecedenceGet("-")
 , right-side:
 *EVAL RightPrecedenceGet("-")
 
-	-x
+        -x
 
 *PARMS
 

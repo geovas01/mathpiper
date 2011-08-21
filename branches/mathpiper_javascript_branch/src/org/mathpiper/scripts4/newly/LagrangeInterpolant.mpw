@@ -29,7 +29,7 @@ LagrangeInterpolant(list_IsList,_values,_var) <--
 *CMD LagrangeInterpolant --- polynomial interpolation
 *STD
 *CALL
-	LagrangeInterpolant(xlist, ylist, var)
+        LagrangeInterpolant(xlist, ylist, var)
 
 *PARMS
 
@@ -57,7 +57,7 @@ polynomial.
 *E.G.
 
 In> f := LagrangeInterpolant({0,1,2}, \
-	  {0,1,1}, x);
+          {0,1,1}, x);
 Result: (x*(x-1))/2-x*(x-2);
 In> Eval(Subst(x,0) f);
 Result: 0;
@@ -65,24 +65,24 @@ In> Eval(Subst(x,1) f);
 Result: 1;
 In> Eval(Subst(x,2) f);
 Result: 1;
-	
+        
 In> PrettyPrinterSet("PrettyForm");
-	
-	True
-	
+        
+        True
+        
 In> LagrangeInterpolant({x1,x2,x3}, {y1,y2,y3}, x)
-	
-	y1 * ( x - x2 ) * ( x - x3 ) 
-	---------------------------- 
-	 ( x1 - x2 ) * ( x1 - x3 )   
-	
-	  y2 * ( x - x1 ) * ( x - x3 )
-	+ ----------------------------
-	   ( x2 - x1 ) * ( x2 - x3 )
-	
-	  y3 * ( x - x1 ) * ( x - x2 )
-	+ ----------------------------
-	   ( x3 - x1 ) * ( x3 - x2 )
+        
+        y1 * ( x - x2 ) * ( x - x3 ) 
+        ---------------------------- 
+         ( x1 - x2 ) * ( x1 - x3 )   
+        
+          y2 * ( x - x1 ) * ( x - x3 )
+        + ----------------------------
+           ( x2 - x1 ) * ( x2 - x3 )
+        
+          y3 * ( x - x1 ) * ( x - x2 )
+        + ----------------------------
+           ( x3 - x1 ) * ( x3 - x2 )
 
 
 *SEE Subst

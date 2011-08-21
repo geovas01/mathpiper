@@ -12,7 +12,7 @@ BinomialDistributionMean(probability,numberOfTrials) :=
     
     numberOfTrials * probability;
 ];
-	
+        
 
 %/mathpiper
 
@@ -24,7 +24,7 @@ BinomialDistributionMean(probability,numberOfTrials) :=
 *CMD BinomialDistributionMean --- the mean of a binomial distribution
 *STD
 *CALL
-	BinomialDistributionMean(p,n)
+        BinomialDistributionMean(p,n)
 
 *PARMS
 {p} -- number, the probability of a success in a single trial

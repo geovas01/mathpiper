@@ -15,7 +15,7 @@ StringToNumber( str_IsString ) <-- FromBase(10,str);
 *CMD StringToNumber --- Convert a base-10 number in string form to its numeric value
 *STD
 *CALL
-	StringToNumber(numberString)
+        StringToNumber(numberString)
 
 *PARMS
 

@@ -43,7 +43,7 @@
 
 *STD
 *CALL
-	Quotient(x,y)
+        Quotient(x,y)
 
 *PARMS
 

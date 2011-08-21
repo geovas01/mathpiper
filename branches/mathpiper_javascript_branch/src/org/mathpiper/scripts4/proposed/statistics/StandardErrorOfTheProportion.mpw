@@ -22,7 +22,7 @@ StandardErrorOfTheProportion(meanOfSampleProportions, sampleSize) :=
 *CMD StandardErrorOfTheProportion --- calculates the standard error of the proportion
 *STD
 *CALL
-	StandardErrorOfTheProportion(meanOfSampleProportions,sampleSize)
+        StandardErrorOfTheProportion(meanOfSampleProportions,sampleSize)
 
 *PARMS
 {meanOfSampleProportions} -- the mean of the sample proportions

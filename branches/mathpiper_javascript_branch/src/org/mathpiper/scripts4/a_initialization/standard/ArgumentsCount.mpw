@@ -11,7 +11,7 @@ Function("ArgumentsCount",{aLeft}) Length(FunctionToList(aLeft))-1;
 *CMD ArgumentsCount --- return number of top-level arguments
 *STD
 *CALL
-	ArgumentsCount(expr)
+        ArgumentsCount(expr)
 
 *PARMS
 

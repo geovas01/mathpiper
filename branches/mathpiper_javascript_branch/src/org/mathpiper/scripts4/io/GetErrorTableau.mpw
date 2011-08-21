@@ -31,13 +31,13 @@ LocalSymbols(ErrorTableau) [
 /// obtain error object
 GetError(error'class_IsString) <--
 [
-	Local(error);
-	error := GetErrorTableau()[error'class];
-	If(
-		error != Empty,
-		error,
-		False
-	);
+        Local(error);
+        error := GetErrorTableau()[error'class];
+        If(
+                error != Empty,
+                error,
+                False
+        );
 ];
 
 
@@ -53,7 +53,7 @@ ClearError(error'class_IsString) <-- AssocDelete(GetErrorTableau(), error'class)
 *CMD ClearErrors --- simple error handlers
 *STD
 *CALL
-	ClearErrors()
+        ClearErrors()
 
 *DESC
 
@@ -72,9 +72,9 @@ ClearError(error'class_IsString) <-- AssocDelete(GetErrorTableau(), error'class)
 *CMD GetErrorTableau --- custom errors handlers
 *STD
 *CALL
-	GetError("str")
-	ClearError("str")
-	GetErrorTableau()
+        GetError("str")
+        ClearError("str")
+        GetErrorTableau()
 
 *PARMS
 

@@ -12,8 +12,8 @@ Point(x,y,z) := List(x,y,z);
 *CMD Point --- return a list which contains a point
 *STD
 *CALL
-	Point(x, y)
-	Point(x, y, z)
+        Point(x, y)
+        Point(x, y, z)
 *PARMS
 
 {x} -- x coordinate of the point

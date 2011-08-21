@@ -65,7 +65,7 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
 *CMD Taylor --- univariate Taylor series expansion
 *STD
 *CALL
-	Taylor(var, at, order) expr
+        Taylor(var, at, order) expr
 
 *PARMS
 
@@ -90,12 +90,12 @@ limit as "var" approaches "at".
 *E.G.
 
 In> PrettyForm(Taylor(x,0,9) Sin(x))
-	
-	     3    5      7       9
-	    x    x      x       x
-	x - -- + --- - ---- + ------
-	    6    120   5040   362880
-	
+        
+             3    5      7       9
+            x    x      x       x
+        x - -- + --- - ---- + ------
+            6    120   5040   362880
+        
 Result: True;
 
 *SEE Differentiate, InverseTaylor, ReversePoly, BigOh
@@ -402,14 +402,14 @@ Verify(pp, Taylor'LPS(0, {1,1,1,2/3,1/2}, x, Taylor'LPS'Multiply(pp1, pp2))
 Verify(Taylor'LPS'Construct(x, Ln(Sin(x))),
        Taylor'LPS(Undefined, {}, x, Taylor'LPS'Compose(pp1,pp2))
        Where {pp1 == Taylor'LPS(Undefined, {}, x, Ln(x)),
-	      pp2 == Taylor'LPS(1, {}, x, Sin(x))});
+              pp2 == Taylor'LPS(1, {}, x, Sin(x))});
 
 Verify(Taylor'LPS'Construct(x, Ln(Cos(x))),
        Taylor'LPS(Undefined, {}, x, Taylor'LPS'Compose(pp1,pp2))
        Where {pp1 == Taylor'LPS(Undefined, {}, x, Ln(1+x)),
-	      pp2 == Taylor'LPS(Undefined, {}, x, Taylor'LPS'Add(pp3,pp4)),
-	      pp3 == Taylor'LPS(0, {1}, x, Cos(x)),
-	      pp4 == Taylor'LPS(Undefined, {}, x, -1)});
+              pp2 == Taylor'LPS(Undefined, {}, x, Taylor'LPS'Add(pp3,pp4)),
+              pp3 == Taylor'LPS(0, {1}, x, Cos(x)),
+              pp4 == Taylor'LPS(Undefined, {}, x, -1)});
 
 pp := Taylor'LPS(Undefined, {}, x,
                  Taylor'LPS'Compose(FlatCopy(p1), FlatCopy(p2)));

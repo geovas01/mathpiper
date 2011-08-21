@@ -144,7 +144,7 @@
 *CMD Factors --- factorization of univariate polynomials over the integers 
 *STD
 *CALL
-	FactorsPolynomialOverIntegers(poly,x)
+        FactorsPolynomialOverIntegers(poly,x)
 
 *PARMS
 

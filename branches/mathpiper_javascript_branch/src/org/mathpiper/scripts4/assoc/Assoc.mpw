@@ -15,7 +15,7 @@ Function("Assoc",{key,list})  Builtin'Assoc(key,list);
 *CMD Assoc --- return element stored in association list
 *STD
 *CALL
-	Assoc(key, alist)
+        Assoc(key, alist)
 
 *PARMS
 

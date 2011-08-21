@@ -45,7 +45,7 @@
 *CMD Simplify --- try to simplify an expression
 *STD
 *CALL
-	Simplify(expr)
+        Simplify(expr)
 
 *PARMS
 

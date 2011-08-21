@@ -12,7 +12,7 @@
 
 //{BisectSqrt(N)} computes the integer part of $ Sqrt(N) $ for integer $N$.
 // BisectSqrt() works only on integers
-	//sqrt(1) = 1, sqrt(0) = 0
+        //sqrt(1) = 1, sqrt(0) = 0
 10 # BisectSqrt(0) <-- 0;
 10 # BisectSqrt(1) <-- 1;
 
@@ -37,7 +37,7 @@
   // Now for each lower bit:
   While( l2 != 0 )
   [
- 	 l2--;
+          l2--;
      // Get that bit in v, and v2 == v^2.
       v  := 1<<l2;
       v2 := v<<l2;
@@ -57,8 +57,8 @@
       // add v to u.
       if( n <= N )
       [
-	u  := u+v;  // u <- u+v
-	u2 := n;    // u^2 <- u^2 + 2*u*v + v^2
+        u  := u+v;  // u <- u+v
+        u2 := n;    // u^2 <- u^2 + 2*u*v + v^2
       ];
     ];
     u; // return result, accumulated in u.

@@ -30,7 +30,7 @@ EigenVectors(_matrix,_eigenvalues) <--
 *CMD EigenVectors --- get eigenvectors of a matrix
 *STD
 *CALL
-	EigenVectors(A,eigenvalues)
+        EigenVectors(A,eigenvalues)
 
 *PARMS
 

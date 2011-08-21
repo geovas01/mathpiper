@@ -27,9 +27,9 @@ UnFence(":",2);
 *STD
 *CALL
     list : item
-	item : list
+        item : list
     item : item : list
-	string1 : string2
+        string1 : string2
     
 Precedence = 70
 

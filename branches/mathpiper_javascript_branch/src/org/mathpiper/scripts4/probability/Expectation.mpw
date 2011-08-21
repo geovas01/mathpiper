@@ -40,7 +40,7 @@
 *CMD Expectation --- expectation function
 *STD
 *CALL
-	Expectation(p)
+        Expectation(p)
         Expectation(p,n)
 
 *PARMS

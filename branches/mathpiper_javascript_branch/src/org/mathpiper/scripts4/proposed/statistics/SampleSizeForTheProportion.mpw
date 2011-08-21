@@ -28,7 +28,7 @@ SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError) :
 *CMD SampleSizeForTheProportion --- calculates the sample size for the proportion
 *STD
 *CALL
-	SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError)
+        SampleSizeForTheProportion(probabilityOfSuccess,confidenceLevel,marginOfError)
 *PARMS
 {probabilityOfSuccess} -- the probability of success for the sample
 {confidenceLevel} -- the desired confidence level

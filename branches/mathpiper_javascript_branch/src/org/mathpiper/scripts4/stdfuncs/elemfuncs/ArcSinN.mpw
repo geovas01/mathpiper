@@ -4,13 +4,13 @@
 Defun("ArcSinN",{int1})
 [
   Local(result,eps);
-	Bind(result,FastArcSin(int1));
+        Bind(result,FastArcSin(int1));
   Local(x,q,s,c);
   Bind(q,SubtractN(SinN(result),int1));
   Bind(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
   While(IsGreaterThan(AbsN(q),eps))
   [
-	Bind(s,SubtractN(int1,SinN(result)));
+        Bind(s,SubtractN(int1,SinN(result)));
     Bind(c,CosN(result));
     Bind(q,DivideN(s,c));
     Bind(result,AddN(result,q));
@@ -32,7 +32,7 @@ ArcSinN(x) :=
 %mathpiper_docs,name="ArcSinN",categories="User Functions;Numeric;Trigonometry (Numeric)"
 *CMD ArcSinN --- inverse sine (arbitrary-precision math function)
 *CALL
-	ArcSinN(x)
+        ArcSinN(x)
 
 *DESC
 

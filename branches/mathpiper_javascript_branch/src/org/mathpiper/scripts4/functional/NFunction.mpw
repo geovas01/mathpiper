@@ -7,18 +7,18 @@ only when all arguments are numbers and will return unevaluated
 LocalSymbols(NFunction'Numberize)
 [
 NFunction(new'name_IsString, old'name_IsString, arg'list_IsList) <-- [
-	MacroRulebase(new'name, arg'list);
-	MacroRule(new'name, Length(arg'list), 0,	// check whether all args are numeric
-		ListToFunction({IsNumericList, arg'list})
-	)
+        MacroRulebase(new'name, arg'list);
+        MacroRule(new'name, Length(arg'list), 0,        // check whether all args are numeric
+                ListToFunction({IsNumericList, arg'list})
+        )
 
-		/* this is the rule defined for the new function.
-		// this expression should evaluate to the body of the rule.
-		// the body looks like this:
-		// NFunction'Numberize(old'name(arg'list))
-		*/
-			NFunction'Numberize(ListToFunction({ToAtom("@"), old'name, arg'list}));
-			// cannot use bare '@' b/c get a syntax error
+                /* this is the rule defined for the new function.
+                // this expression should evaluate to the body of the rule.
+                // the body looks like this:
+                // NFunction'Numberize(old'name(arg'list))
+                */
+                        NFunction'Numberize(ListToFunction({ToAtom("@"), old'name, arg'list}));
+                        // cannot use bare '@' b/c get a syntax error
 
 ];
 
@@ -28,7 +28,7 @@ NFunction(new'name_IsString, old'name_IsString, arg'list_IsList) <-- [
 20 # NFunction'Numberize(x_IsAtom) <-- Undefined;
 // do nothing unless given an atom
 
-];	// LocalSymbols()
+];        // LocalSymbols()
 
 %/mathpiper
 
@@ -38,7 +38,7 @@ NFunction(new'name_IsString, old'name_IsString, arg'list_IsList) <-- [
 *CMD NFunction --- make wrapper for numeric functions
 *STD
 *CALL
-	NFunction("newname","funcname", {arglist})
+        NFunction("newname","funcname", {arglist})
 
 *PARMS
 {"newname"} -- name of new function
@@ -77,9 +77,9 @@ Result: True;
 In> t(0.2);
 Result: 0.4;
 In> t(x);
-	In function "If" :
-	bad argument number 1 (counting from 1)
-	CommandLine(1) : Invalid argument
+        In function "If" :
+        bad argument number 1 (counting from 1)
+        CommandLine(1) : Invalid argument
 Then, we can use {NFunction()} to define a wrapper {t1(x)} around {t(x)} which will not try to evaluate {t(x)} unless {x} is a number.
 
 In> NFunction("t1", "t", {x})

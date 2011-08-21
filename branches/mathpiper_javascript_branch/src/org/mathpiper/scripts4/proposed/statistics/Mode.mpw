@@ -35,7 +35,7 @@ Mode(list) :=
 *CMD Mode --- calculates the mode of a list of values
 *STD
 *CALL
-	Mode(list)
+        Mode(list)
 
 *PARMS
 

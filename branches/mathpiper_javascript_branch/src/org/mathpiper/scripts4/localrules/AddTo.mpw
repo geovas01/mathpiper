@@ -25,7 +25,7 @@
 *CMD AddTo --- add an equation to a set of equations or set of set of equations
 *STD
 *CALL
-	eq1 AddTo eq2
+        eq1 AddTo eq2
 
 *PARMS
 
@@ -39,10 +39,10 @@ multiple sets of equations into one.
 A list {a,b} means that a is a solution, OR b is a solution.
 AddTo then acts as a AND operation:
 
-	(a or b) and (c or d) => 
-	(a or b) Addto (c or d) => 
-	(a and c) or (a and d) or (b and c)
-	  or (b and d)
+        (a or b) and (c or d) => 
+        (a or b) Addto (c or d) => 
+        (a and c) or (a and d) or (b and c)
+          or (b and d)
 
 This function is useful for adding an identity to an already
 existing set of equations. Suppose a solve command returned

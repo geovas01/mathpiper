@@ -25,7 +25,7 @@ Function("MatrixColumn",{matrix,col})
 *CMD MatrixColumn --- obtain the column of a matrix
 *STD
 *CALL
-	MatrixColumn(matrix,column)
+        MatrixColumn(matrix,column)
 
 *PARMS
 {matrix} -- a matrix

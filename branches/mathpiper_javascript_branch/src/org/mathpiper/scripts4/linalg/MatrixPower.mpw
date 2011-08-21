@@ -29,7 +29,7 @@ MatrixPower(x_IsSquareMatrix, n_IsNegativeInteger) <--
 *CMD MatrixPower --- get nth power of a square matrix
 *STD
 *CALL
-	MatrixPower(mat,n)
+        MatrixPower(mat,n)
 
 *PARMS
 

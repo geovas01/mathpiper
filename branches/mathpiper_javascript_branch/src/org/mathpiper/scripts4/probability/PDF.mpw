@@ -55,7 +55,7 @@
 *CMD PDF --- probability density function
 *STD
 *CALL
-	PDF(dist,x)
+        PDF(dist,x)
 
 *PARMS
 {dist} -- a distribution type

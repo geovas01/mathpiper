@@ -1,7 +1,7 @@
 %mathpiper,def="RandomIntegerMatrix"
 
 RandomIntegerMatrix(_rows,_cols,_coefmin,_coefmax) <--
-	GenMatrix({{i,j}, FloorN(coefmin+Random()*(coefmax+1-coefmin))}, rows, cols );
+        GenMatrix({{i,j}, FloorN(coefmin+Random()*(coefmax+1-coefmin))}, rows, cols );
 
 %/mathpiper
 
@@ -14,7 +14,7 @@ RandomIntegerMatrix(_rows,_cols,_coefmin,_coefmax) <--
 *STD
 
 *CALL
-	RandomIntegerMatrix(rows,cols,from,to)
+        RandomIntegerMatrix(rows,cols,from,to)
 
 *PARMS
 
@@ -35,17 +35,17 @@ are uniformly distributed in this interval.
 *E.G.
 In> PrettyForm( RandomIntegerMatrix(5,5,-2^10,2^10) )
 
-	/                                               \
-	| ( -506 ) ( 749 )  ( -574 ) ( -674 ) ( -106 )  |
-	|                                               |
-	| ( 301 )  ( 151 )  ( -326 ) ( -56 )  ( -277 )  |
-	|                                               |
-	| ( 777 )  ( -761 ) ( -161 ) ( -918 ) ( -417 )  |
-	|                                               |
-	| ( -518 ) ( 127 )  ( 136 )  ( 797 )  ( -406 )  |
-	|                                               |
-	| ( 679 )  ( 854 )  ( -78 )  ( 503 )  ( 772 )   |
-	\                                               /
+        /                                               \
+        | ( -506 ) ( 749 )  ( -574 ) ( -674 ) ( -106 )  |
+        |                                               |
+        | ( 301 )  ( 151 )  ( -326 ) ( -56 )  ( -277 )  |
+        |                                               |
+        | ( 777 )  ( -761 ) ( -161 ) ( -918 ) ( -417 )  |
+        |                                               |
+        | ( -518 ) ( 127 )  ( 136 )  ( 797 )  ( -406 )  |
+        |                                               |
+        | ( 679 )  ( 854 )  ( -78 )  ( 503 )  ( 772 )   |
+        \                                               /
 
 *SEE RandomPoly, Random, RandomInteger, RandomIntegerList
 %/mathpiper_docs

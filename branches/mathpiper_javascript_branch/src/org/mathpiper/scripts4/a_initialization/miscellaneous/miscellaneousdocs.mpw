@@ -5,8 +5,8 @@
 *CMD restart --- restart MathPiper (to start with a clean slate)
 *CORE
 *CALL
-	quit
-	restart
+        quit
+        restart
 
 *DESC
 
@@ -27,7 +27,7 @@ This command is not a function but a special directive that only applies while r
 
 To be effective, the directive must be typed immediately after the prompt:
 In> quit
-	Quitting...
+        Quitting...
 We can use variables named {quit}:
 In> 1+quit
 Result: quit+1;
@@ -45,7 +45,7 @@ Result: restart;
 *CMD % --- previous result
 *CORE
 *CALL
-	%
+        %
 
 *DESC
 
@@ -63,10 +63,10 @@ In> Taylor(x,0,5)Sin(x)
 Result: x-x^3/6+x^5/120;
 In> PrettyForm(%)
 
-	     3    5
-	    x    x
-	x - -- + ---
-	    6    120
+             3    5
+            x    x
+        x - -- + ---
+            6    120
 
 
 
@@ -83,8 +83,8 @@ In> PrettyForm(%)
 *CMD False --- boolean constant representing false
 *CORE
 *CALL
-	True
-	False
+        True
+        False
 
 *DESC
 
@@ -103,7 +103,7 @@ of boolean expressions such as {2 < 3} or {True And False}.
 *CMD EndOfFile --- end-of-file marker
 *CORE
 *CALL
-	EndOfFile
+        EndOfFile
 
 *DESC
 
@@ -121,7 +121,7 @@ operation will stop reading the file at that point.
 *CMD Infinity --- constant representing mathematical infinity
 *STD
 *CALL
-	Infinity
+        Infinity
 
 *DESC
 
@@ -147,7 +147,7 @@ Result: True;
 *CMD Undefined --- constant signifying an undefined result
 *STD
 *CALL
-	Undefined
+        Undefined
 
 *DESC
 
@@ -174,13 +174,13 @@ Result: Undefined;
 
 
 %mathpiper_docs,name="/*;*/;//",categories="Operators"
-*CMD	/* --- Start of comment
-*CMD	*/ --- end of comment
-*CMD	// --- Beginning of one-line comment
+*CMD        /* --- Start of comment
+*CMD        */ --- end of comment
+*CMD        // --- Beginning of one-line comment
 *CORE
 *CALL
-	/* comment */
-	// comment
+        /* comment */
+        // comment
 
 *DESC
 
@@ -189,8 +189,8 @@ Introduce a comment block in a source file, similar to C++ comments.
 
 *E.G.
 
-	a+b; // get result
-	a + /* add them */ b;
+        a+b; // get result
+        a + /* add them */ b;
 %/mathpiper_docs
 
 
@@ -202,7 +202,7 @@ Introduce a comment block in a source file, similar to C++ comments.
 *CORE
 *CALL
 
-	[ statement1; statement2; ... ]
+        [ statement1; statement2; ... ]
 
 *PARMS
 

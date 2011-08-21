@@ -27,7 +27,7 @@ RandomPickVector(list, count) :=
 *CMD RandomPickVector --- returns a given number of randomly picked elements from a given list
 *STD
 *CALL
-	RandomPickVector(list,count)
+        RandomPickVector(list,count)
 
 *PARMS
 

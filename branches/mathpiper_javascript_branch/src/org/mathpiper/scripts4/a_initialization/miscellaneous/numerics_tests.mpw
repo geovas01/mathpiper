@@ -5,7 +5,7 @@
 BuiltinPrecisionSet(10); //Echo("BIP set to ",10);
 
 NumericEqual(N(Sqrt(2),6), 1.41421,6);
-NumericEqual(N(N(1+Pi,20)-Pi,20),1,20);		// "N" should have "HoldArgument" in some way, so inner "N" is evaluated with outer precision 20
+NumericEqual(N(N(1+Pi,20)-Pi,20),1,20);                // "N" should have "HoldArgument" in some way, so inner "N" is evaluated with outer precision 20
 
 /* Got the first digits of Pi from the following page:
    http://www.cecm.sfu.ca/projects/ISC/dataB/isc/C/pi10000.txt
@@ -148,7 +148,7 @@ RoundToPrecision(N(ArcCos(N(Cos(1.234567)))), 49)
 , 49);
 
 NumericEqual(
-RoundToPrecision(N(Tan(N(ArcTan(20)))), 46)	// large roundoff error on Tan() calculation due to subtraction from Pi/2 -- unavoidable loss of precision
+RoundToPrecision(N(Tan(N(ArcTan(20)))), 46)        // large roundoff error on Tan() calculation due to subtraction from Pi/2 -- unavoidable loss of precision
 , 20
 , 46);
 //KnownFailure(
@@ -200,7 +200,7 @@ NumericEqual(RoundToPrecision(N( Gamma(10.5) ), 13), 1133278.3889487855673, 13);
 
 
 
-NumericEqual(	// lost 2 digits b/c of imprecise arithmetic
+NumericEqual(        // lost 2 digits b/c of imprecise arithmetic
 RoundToPrecision(N( Zeta(-11.5) ), 18)
 , 0.020396978715942792
 ,18);

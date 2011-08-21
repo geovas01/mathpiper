@@ -14,7 +14,7 @@ RandomPoly(_var,_degree,_coefmin,_coefmax) <--
 *CMD RandomPoly --- construct a random polynomial
 *STD
 *CALL
-	RandomPoly(var,deg,coefmin,coefmax)
+        RandomPoly(var,deg,coefmin,coefmax)
 
 *PARMS
 

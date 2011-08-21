@@ -21,7 +21,7 @@ ValueToZScore(value,mean,standardDeviation) :=
 *CMD ValueToZScore --- calculates the z-score of a numerical value
 *STD
 *CALL
-	ValueToZScore(numericalValue,mean,standardDeviation)
+        ValueToZScore(numericalValue,mean,standardDeviation)
 
 *PARMS
 

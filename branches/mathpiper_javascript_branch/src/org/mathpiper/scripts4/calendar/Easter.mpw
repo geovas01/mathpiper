@@ -36,7 +36,7 @@ Easter(year) := [
 %mathpiper_docs,name="Easter",categories="User Functions"
 *CMD Easter --- solve an equation
 *CALL
-	Easter(year)
+        Easter(year)
 
 *PARMS
 

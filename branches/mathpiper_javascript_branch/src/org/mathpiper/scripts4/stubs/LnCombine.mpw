@@ -77,7 +77,7 @@ LnCombine(_a) <-- DoLnCombine(CanonicalAdd(a));
 *CMD LnCombine --- combine logarithmic expressions using standard logarithm rules
 *STD
 *CALL
-	LnCombine(expr)
+        LnCombine(expr)
 
 *PARMS
 

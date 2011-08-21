@@ -10,7 +10,7 @@ Function("IsZeroVector",{aList}) aList = ZeroVector(Length(aList));
 *CMD IsZeroVector --- test whether list contains only zeroes
 *STD
 *CALL
-	IsZeroVector(list)
+        IsZeroVector(list)
 
 *PARMS
 

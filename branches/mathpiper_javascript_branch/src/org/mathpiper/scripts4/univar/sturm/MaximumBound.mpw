@@ -26,7 +26,7 @@
 *CMD MaximumBound --- return upper bounds on the absolute values of real roots of a polynomial
 *STD
 *CALL
-	MaximumBound(p)
+        MaximumBound(p)
 
 *PARMS
 

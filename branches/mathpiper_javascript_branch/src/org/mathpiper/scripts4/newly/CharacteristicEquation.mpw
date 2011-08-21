@@ -12,7 +12,7 @@ HoldArgument("CharacteristicEquation",var);
 *CMD CharacteristicEquation --- get characteristic polynomial of a matrix
 *STD
 *CALL
-	CharacteristicEquation(matrix,var)
+        CharacteristicEquation(matrix,var)
 
 *PARMS
 

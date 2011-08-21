@@ -57,7 +57,7 @@ Echo() := NewLine();
 *CMD Echo --- high-level printing routine
 *STD
 *CALL
-	Echo(item,item,item,...)
+        Echo(item,item,item,...)
 
 *PARMS
 

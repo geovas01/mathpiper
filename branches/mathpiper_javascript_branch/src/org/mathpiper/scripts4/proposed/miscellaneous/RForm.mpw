@@ -12,15 +12,15 @@ Rulebase("RForm",{expression, precedence});
 
 Function ("RFormBracketIf", {predicate, string})
 [
-	Check(IsBoolean(predicate) And IsString(string), "Argument", "RForm internal error: non-boolean and/or non-string argument of RFormBracketIf");
-	If(predicate, ConcatStrings("( ", string, ") "), string);
+        Check(IsBoolean(predicate) And IsString(string), "Argument", "RForm internal error: non-boolean and/or non-string argument of RFormBracketIf");
+        If(predicate, ConcatStrings("( ", string, ") "), string);
 ];
 
 /* Proceed just like TeXForm()
 */
 
 // RFormMaxPrec should perhaps only be used from within this file, it is thus not in the .def file.
-RFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is equal to KMaxPrec */
+RFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It is equal to KMaxPrec */
 
 100 # RForm(_x) <-- RForm(x, RFormMaxPrec());
 
@@ -117,15 +117,15 @@ LocalSymbols(rFormMathFunctions) [
 
 /* This is the template for "regular" binary infix operators:
 100 # RForm(_x + _y, _p) <-- RFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(RForm(x, LeftPrecedenceGet("+")), " + ", RForm(y, RightPrecedenceGet("+")) ) );
-	*/
+        */
 
-	/* unary addition */
+        /* unary addition */
 100 # RForm(+ _y, _p) <-- RFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(" + ", RForm(y, RightPrecedenceGet("+")) ) );
 
-	/* unary subtraction */
+        /* unary subtraction */
 100 # RForm(- _y, _p) <-- RFormBracketIf(p<PrecedenceGet("-"), ConcatStrings(" - ", RForm(y, RightPrecedenceGet("-")) ) );
 
-	/* power's argument is never bracketed but it must be put in braces. */
+        /* power's argument is never bracketed but it must be put in braces. */
 100 # RForm(_x ^ _y, _p) <-- RFormBracketIf(p <= PrecedenceGet("^"), ConcatStrings(RForm(x, RFormMaxPrec()), "^", RForm(y, RFormMaxPrec())) );
 
 100 # RForm(if(_pred)_body, _p) <-- "if (":RForm(pred,60000):") ":RForm(body);
@@ -229,15 +229,15 @@ RFormStatement(_x) <-- RForm(x) : ";" : RNlIndented();
 
 120 # RForm(For(_from,_to,_step)_body,_p) <--
   "for(" : RForm(from,RFormMaxPrec()) : ";"
-	: RForm(to,RFormMaxPrec()) : ";"
-	: RForm(step,RFormMaxPrec()) : ")"
-	: RIndent() : RNlIndented()
-	: RFormStatement(body) : RUndent();
+        : RForm(to,RFormMaxPrec()) : ";"
+        : RForm(step,RFormMaxPrec()) : ")"
+        : RIndent() : RNlIndented()
+        : RFormStatement(body) : RUndent();
 
 120 # RForm(While(_pred)_body, _p) <--
-	"while(" : RForm(pred,RFormMaxPrec()) : ")"
-	: RIndent() : RNlIndented()
-	: RFormStatement(body) : RUndent();
+        "while(" : RForm(pred,RFormMaxPrec()) : ")"
+        : RIndent() : RNlIndented()
+        : RFormStatement(body) : RUndent();
 
 %/mathpiper
 
@@ -251,7 +251,7 @@ RFormStatement(_x) <-- RForm(x) : ";" : RNlIndented();
 *CMD RForm --- export expression to R code
 *STD
 *CALL
-	RForm(expr)
+        RForm(expr)
 
 *PARMS
 
@@ -281,29 +281,29 @@ http://code.google.com/p/ryacas/source/browse/trunk/R/OpenMath2R.R
 OpenMath2R <- function(x) {
  out <- c()
  recurse <- function( x ) {
-	if ("name" %in% names(xmlAttrs(x))) {
-		out <<- c(out, trans(xmlAttrs(x)[["name"]], from="OM", to="R"), " ")
-	}
-	if (xmlName(x) == "text") out <<- c(out, xmlValue(x), " ")
-	if (xmlName(x) == "OMF") out <<- c(out, xmlAttrs(x)[["dec"]], " ")
-	if (xmlName(x) == "OMS") {
-	if (xmlAttrs(x)[["cd"]] == "logic1" && "name" %in% names(xmlAttrs(x))
-		&& xmlAttrs(x)[["name"]] %in% c("true", "false")) {}
-	   else if ((xmlAttrs(x)[["cd"]] != "nums1") ||
-				(xmlAttrs(x)[["name"]] == "rational")) 
-			out <<- c(out, xmlValue(x), "(")
-	}
-	# if (xmlName(x) == "OMS") out <<- c(out, "(")
-	if (xmlName(x) == "OMSTR") {
-	# out <<- c(out, sQuote(gsub("'", "\\\\'", xmlValue(x))))
-	out <<- c(out, paste("'", gsub("'", "\\\\'", xmlValue(x)), "'", sep=""))
-	} else if ( length( xmlChildren(x) ) > 0 )
-		for( i in seq( along = xmlChildren(x) ) ) {
-			Recall( x[[i]] )
-			if (i > 1 && i < length(xmlChildren(x))) 
-				out <<- c(out, ",")
-		}
-	if (xmlName(x) == "OMA" || xmlName(x) == "OMBIND") out <<- c(out, xmlValue(x), ")")
+        if ("name" %in% names(xmlAttrs(x))) {
+                out <<- c(out, trans(xmlAttrs(x)[["name"]], from="OM", to="R"), " ")
+        }
+        if (xmlName(x) == "text") out <<- c(out, xmlValue(x), " ")
+        if (xmlName(x) == "OMF") out <<- c(out, xmlAttrs(x)[["dec"]], " ")
+        if (xmlName(x) == "OMS") {
+        if (xmlAttrs(x)[["cd"]] == "logic1" && "name" %in% names(xmlAttrs(x))
+                && xmlAttrs(x)[["name"]] %in% c("true", "false")) {}
+           else if ((xmlAttrs(x)[["cd"]] != "nums1") ||
+                                (xmlAttrs(x)[["name"]] == "rational")) 
+                        out <<- c(out, xmlValue(x), "(")
+        }
+        # if (xmlName(x) == "OMS") out <<- c(out, "(")
+        if (xmlName(x) == "OMSTR") {
+        # out <<- c(out, sQuote(gsub("'", "\\\\'", xmlValue(x))))
+        out <<- c(out, paste("'", gsub("'", "\\\\'", xmlValue(x)), "'", sep=""))
+        } else if ( length( xmlChildren(x) ) > 0 )
+                for( i in seq( along = xmlChildren(x) ) ) {
+                        Recall( x[[i]] )
+                        if (i > 1 && i < length(xmlChildren(x))) 
+                                out <<- c(out, ",")
+                }
+        if (xmlName(x) == "OMA" || xmlName(x) == "OMBIND") out <<- c(out, xmlValue(x), ")")
  }
  x <- paste(x, "\n", collapse = "")
  x <- xmlTreeParse(x, asText = TRUE)
@@ -320,79 +320,79 @@ trans <- function(x, ttab=transtab, from, to) {
 }
 
 transtab <- matrix( c(
-	#R			OM			yacas
-	"pi",		"pi",		"Pi",
-	
-	"+",		"plus",		"+",
-	"-",		"minus",	"-",
-	"*",		"times",	"*",
-	"/",		"divide",	"/",
-	"/",		"rational",	"/",
-	"^",		"power",	"^",
-	"%%",		"mod",		"Modulo",
-	"%/%",		"div",		"Quotient",
-	"root",		"root",		"NthRoot",
-	"Inf",		"infinity",	"Infinite",
-	"NaN",		"undefined","Undefined",
-	
-	"sin",		"Sin",		"Sin",
-	"cos",		"Cos",		"Cos",
-	"tan",		"Tan",		"Tan",
-	
-	"asin",		"arcsin",	"ArcSin",
-	"acos",		"arccos",	"ArcCos",
-	"atan", 	"arctan", 	"ArcTan",
-	"asinh", 	"arcsinh", 	"ArcSinh", 
-	"acosh", 	"arccosh", 	"ArcCosh", 
-	"atanh", 	"arctanh", 	"ArcTanh",
-	
-	"acsc",		"arccsc",	"ArcCsc",
-	"acsch",	"arccsch",	"ArcCsch",
-	
-	"asec",		"arcsec",	"ArcSec",
-	"asech",	"arcsech",	"ArcSech",
-	
-	"acot",		"arccot",	"ArcCot",
-	"acoth",	"arccoth",	"ArcCoth",
-	
-	"exp", 		"exp", 		"Exp",
-	"log", 		"ln", 		"Ln",
-	"sqrt", 	"sqrt", 	"Sqrt",
-	"choose", 	"bin", 		"Bin",
-	"gamma", 	"gamma", 	"Gamma",
-	
-	"!",		"not",		"Not",
-	"==",		"eq",		"=",
-	"==",		"equivalent","=",
-	">=",		"geq",		">=",
-	">", 		"gt",		">",
-	"<=", 		"leq",		"<=",
-	"<", 		"lt",		"<",
-	"!=", 		"neq",		"!=",
-	":", 		"seq",		"sequence",
-	":", 		"seq",		"..",
-	
-	"factorial","factorial","factorial",
-	"factorial","factorial","!",
-	"limit", 	"lim", 		"Limit",
-	"deriv", 	"deriv", 	"Deriv",
-	"integrate","integrate","Integrate",
-	"?",		"taylor",	"Taylor",
+        #R                        OM                        yacas
+        "pi",                "pi",                "Pi",
+        
+        "+",                "plus",                "+",
+        "-",                "minus",        "-",
+        "*",                "times",        "*",
+        "/",                "divide",        "/",
+        "/",                "rational",        "/",
+        "^",                "power",        "^",
+        "%%",                "mod",                "Modulo",
+        "%/%",                "div",                "Quotient",
+        "root",                "root",                "NthRoot",
+        "Inf",                "infinity",        "Infinite",
+        "NaN",                "undefined","Undefined",
+        
+        "sin",                "Sin",                "Sin",
+        "cos",                "Cos",                "Cos",
+        "tan",                "Tan",                "Tan",
+        
+        "asin",                "arcsin",        "ArcSin",
+        "acos",                "arccos",        "ArcCos",
+        "atan",         "arctan",         "ArcTan",
+        "asinh",         "arcsinh",         "ArcSinh", 
+        "acosh",         "arccosh",         "ArcCosh", 
+        "atanh",         "arctanh",         "ArcTanh",
+        
+        "acsc",                "arccsc",        "ArcCsc",
+        "acsch",        "arccsch",        "ArcCsch",
+        
+        "asec",                "arcsec",        "ArcSec",
+        "asech",        "arcsech",        "ArcSech",
+        
+        "acot",                "arccot",        "ArcCot",
+        "acoth",        "arccoth",        "ArcCoth",
+        
+        "exp",                 "exp",                 "Exp",
+        "log",                 "ln",                 "Ln",
+        "sqrt",         "sqrt",         "Sqrt",
+        "choose",         "bin",                 "Bin",
+        "gamma",         "gamma",         "Gamma",
+        
+        "!",                "not",                "Not",
+        "==",                "eq",                "=",
+        "==",                "equivalent","=",
+        ">=",                "geq",                ">=",
+        ">",                 "gt",                ">",
+        "<=",                 "leq",                "<=",
+        "<",                 "lt",                "<",
+        "!=",                 "neq",                "!=",
+        ":",                 "seq",                "sequence",
+        ":",                 "seq",                "..",
+        
+        "factorial","factorial","factorial",
+        "factorial","factorial","!",
+        "limit",         "lim",                 "Limit",
+        "deriv",         "deriv",         "Deriv",
+        "integrate","integrate","Integrate",
+        "?",                "taylor",        "Taylor",
 
-	"list",		"List", 	"List",
-	"TRUE",		"true", 	"True",
-	"<-",		"?",		":=",
-	"Expr",		"?",		"",
-	"Exprq", 	"?",		"",
-	"expression", 	"?", 		""
-	
+        "list",                "List",         "List",
+        "TRUE",                "true",         "True",
+        "<-",                "?",                ":=",
+        "Expr",                "?",                "",
+        "Exprq",         "?",                "",
+        "expression",         "?",                 ""
+        
 ), byrow = TRUE, ncol = 3)
 colnames(transtab) <- c("R", "OM", "yacas")
 
 # Used for expressions not handled by R
 
 root <- function(x, y) {
-	(x)^(1/(y))
+        (x)^(1/(y))
 }
 
 

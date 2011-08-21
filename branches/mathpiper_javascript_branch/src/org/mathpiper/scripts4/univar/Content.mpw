@@ -11,7 +11,7 @@
 *CMD Content --- content of a univariate polynomial
 *STD
 *CALL
-	Content(expr)
+        Content(expr)
 
 *PARMS
 

@@ -19,7 +19,7 @@ Function("InverseTaylor",{var,val,degree,func})
 *CMD InverseTaylor --- Taylor expansion of inverse
 *STD
 *CALL
-	InverseTaylor(var, at, order) expr
+        InverseTaylor(var, at, order) expr
 
 *PARMS
 
@@ -40,26 +40,26 @@ up to order "order". It uses the function {ReversePoly} to perform the task.
 *E.G.
 
 In> PrettyPrinterSet("PrettyForm")
-	
-	True
-	
+        
+        True
+        
 In> exp1 := Taylor(x,0,7) Sin(x)
-	
-	     3    5      7
-	    x    x      x
-	x - -- + --- - ----
-	    6    120   5040
-	
+        
+             3    5      7
+            x    x      x
+        x - -- + --- - ----
+            6    120   5040
+        
 In> exp2 := InverseTaylor(x,0,7) ArcSin(x)
-	
-	 5      7     3
-	x      x     x
-	--- - ---- - -- + x
-	120   5040   6
-	
+        
+         5      7     3
+        x      x     x
+        --- - ---- - -- + x
+        120   5040   6
+        
 In> Simplify(exp1-exp2)
-	
-	0
+        
+        0
 
 
 *SEE ReversePoly, Taylor, BigOh

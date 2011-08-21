@@ -10,7 +10,7 @@ Function("/@",{func,lst}) Apply("MapSingle",{func,lst});
 *CMD /@ --- apply a function to all entries in a list
 *STD
 *CALL
-	fn /@ list
+        fn /@ list
 Precedence:
 *EVAL PrecedenceGet("/@")
 

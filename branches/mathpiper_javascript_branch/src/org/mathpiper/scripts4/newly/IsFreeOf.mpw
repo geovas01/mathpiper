@@ -23,8 +23,8 @@
 *CMD IsFreeOf --- test whether expression depends on variable
 *STD
 *CALL
-	IsFreeOf(var, expr)
-	IsFreeOf({var, ...}, expr)
+        IsFreeOf(var, expr)
+        IsFreeOf({var, ...}, expr)
 
 *PARMS
 

@@ -93,7 +93,7 @@ ZScoreToProbability(zScore) :=
 *CMD ZScoreToProbability --- calculates the probability of a given z-score
 *STD
 *CALL
-	ZScoreToProbability(z_score)
+        ZScoreToProbability(z_score)
 
 *PARMS
 

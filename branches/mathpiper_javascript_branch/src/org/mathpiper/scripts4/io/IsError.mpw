@@ -3,15 +3,15 @@
 /// check for errors
 IsError() <--
 [
-	CheckErrorTableau();
-	Length(GetErrorTableau())>0;
+        CheckErrorTableau();
+        Length(GetErrorTableau())>0;
 ];
 
 /// check for errors of a given kind
 IsError(error'class_IsString) <--
 [
-	CheckErrorTableau();
-	GetErrorTableau()[error'class] != Empty;
+        CheckErrorTableau();
+        GetErrorTableau()[error'class] != Empty;
 ];
 
 %/mathpiper
@@ -23,8 +23,8 @@ IsError(error'class_IsString) <--
 *CMD IsError --- check for custom error
 *STD
 *CALL
-	IsError()
-	IsError("str")
+        IsError()
+        IsError("str")
 
 *PARMS
 

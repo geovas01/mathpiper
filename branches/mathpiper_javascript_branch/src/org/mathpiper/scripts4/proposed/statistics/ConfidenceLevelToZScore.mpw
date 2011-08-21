@@ -24,7 +24,7 @@ ConfidenceLevelToZScore(probability) :=
 *CMD ConfidenceLevelToZScore --- calculates the z-score for a given confidence level
 *STD
 *CALL
-	ConfidenceLevelToZScore(probability)
+        ConfidenceLevelToZScore(probability)
 
 *PARMS
 

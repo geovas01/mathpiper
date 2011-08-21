@@ -66,7 +66,7 @@
 *CMD IsMonomial --- determine if {expr} is a Monomial
 *STD
 *CALL
-	IsMonomial(expr)
+        IsMonomial(expr)
 
 *PARMS
 
@@ -100,7 +100,7 @@ Result: False
 *CMD FactorsMonomial --- factorization of a monomial expression
 *STD
 *CALL
-	FactorsMonomial(expr)
+        FactorsMonomial(expr)
 
 *PARMS
 

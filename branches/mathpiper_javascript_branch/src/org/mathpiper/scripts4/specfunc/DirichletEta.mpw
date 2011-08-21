@@ -2,6 +2,6 @@
 
 //Jonathan Leto
 
-10 # DirichletEta(_z)	<-- (1-2/2^z)*Zeta(z);
+10 # DirichletEta(_z)        <-- (1-2/2^z)*Zeta(z);
 
 %/mathpiper

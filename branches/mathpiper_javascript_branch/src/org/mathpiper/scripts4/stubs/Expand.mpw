@@ -16,9 +16,9 @@
 *CMD Expand --- transform a polynomial to an expanded form
 *STD
 *CALL
-	Expand(expr)
-	Expand(expr, var)
-	Expand(expr, varlist)
+        Expand(expr)
+        Expand(expr, var)
+        Expand(expr, varlist)
 
 *PARMS
 
@@ -47,24 +47,24 @@ so on.
 *E.G.
 
 In> PrettyPrinterSet("PrettyForm");
-	
-	True
+        
+        True
 
 In> Expand((1+x)^5);
-	
-	 5        4         3         2
-	x  + 5 * x  + 10 * x  + 10 * x  + 5 * x + 1
+        
+         5        4         3         2
+        x  + 5 * x  + 10 * x  + 10 * x  + 5 * x + 1
 
 In> Expand((1+x-y)^2, x);
-	
-	 2                                2
-	x  + 2 * ( 1 - y ) * x + ( 1 - y )
+        
+         2                                2
+        x  + 2 * ( 1 - y ) * x + ( 1 - y )
 
 In> Expand((1+x-y)^2, {x,y});
-	
-	 2                         2
-	x  + ( -2 * y + 2 ) * x + y  - 2 * y + 1
-	
+        
+         2                         2
+        x  + ( -2 * y + 2 ) * x + y  - 2 * y + 1
+        
 
 *SEE ExpandBrackets
 %/mathpiper_docs

@@ -11,7 +11,7 @@ Rule("Object",2,0,Apply(pred,{x})=True) x;
 *CMD Object --- create an incomplete type
 *STD
 *CALL
-	Object("pred", exp)
+        Object("pred", exp)
 
 *PARMS
 

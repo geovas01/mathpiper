@@ -28,10 +28,10 @@ ContFracEval(list_IsList) <-- ContFracEval(list, 0);
 *CMD ContFracEval --- manipulate continued fractions
 *STD
 *CALL
-	ContFracList(frac)
-	ContFracList(frac, depth)
-	ContFracEval(list)
-	ContFracEval(list, rest)
+        ContFracList(frac)
+        ContFracList(frac, depth)
+        ContFracEval(list)
+        ContFracEval(list, rest)
 
 *PARMS
 
@@ -58,6 +58,6 @@ In> ContFracEval(Take(A, 5))
 Result: 33/7;
 In> ContFracEval(Take(A,3), remainder)
 Result: 1/(1/(remainder+2)+1)+4;
-	
+        
 *SEE ContFrac, GuessRational
 %/mathpiper_docs

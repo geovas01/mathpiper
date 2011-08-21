@@ -48,10 +48,10 @@ UnFence("Where",2);
 *CMD Where --- substitute result into expression
 *STD
 *CALL
-	expr Where x==v
-	expr Where x1==v1 And x2==v2 And ...
-	expr Where {x1==v1 And x2==v2,x1==v3
-	  And x2==v4,...}
+        expr Where x==v
+        expr Where x1==v1 And x2==v2 And ...
+        expr Where {x1==v1 And x2==v2,x1==v3
+          And x2==v4,...}
 
 *PARMS
 
@@ -66,12 +66,12 @@ UnFence("Where",2);
 The operator {Where} fills in values for variables, in its simplest form.
 It accepts sets of variable/value pairs defined as 
 
-	var1==val1 And var2==val2 And ...
+        var1==val1 And var2==val2 And ...
 
 and fills in the corresponding values. Lists of value pairs are
 also possible, as:
 
-	{var1==val1 And var2==val2, var1==val3 And var2==val4}
+        {var1==val1 And var2==val2, var1==val3 And var2==val4}
 
 These values might be obtained through {Solve}.
 

@@ -111,7 +111,7 @@ Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
 *STD
 
 *CALL
-	RandomInteger(upper_bound)
+        RandomInteger(upper_bound)
         RandomInteger(lower_bound, upper_bound)
 
 *PARMS

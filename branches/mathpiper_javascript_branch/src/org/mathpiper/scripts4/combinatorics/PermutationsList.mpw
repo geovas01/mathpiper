@@ -38,7 +38,7 @@ Function("PermutationsList",{list})
 *CMD PermutationsList --- return all permutations of a list
 *STD
 *CALL
-	PermutationsList(list)
+        PermutationsList(list)
 
 *PARMS
 
@@ -53,7 +53,7 @@ the elements in the original list.
 
 In> PermutationsList({a,b,c})
 Result: {{a,b,c},{a,c,b},{c,a,b},{b,a,c},
-	{b,c,a},{c,b,a}};
+        {b,c,a},{c,b,a}};
 
 *SEE Permutations, Combinations, CombinationsList, LeviCivita
 %/mathpiper_docs

@@ -74,7 +74,7 @@ ProbabilityToZScore(probability) :=
 *CMD ProbabilityToZScore --- calculates the z-score for a given probability
 *STD
 *CALL
-	ProbabilityToZScore(probability)
+        ProbabilityToZScore(probability)
 
 *PARMS
 

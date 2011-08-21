@@ -12,7 +12,7 @@ Rule("@",2,2,True       ) Apply(func,{arg});
 *CMD @ --- apply a function
 *STD
 *CALL
-	fn @ arglist
+        fn @ arglist
 Precedence:
 *EVAL PrecedenceGet("@")
 

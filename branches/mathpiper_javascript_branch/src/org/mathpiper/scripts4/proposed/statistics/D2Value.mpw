@@ -52,7 +52,7 @@ D2Value(k,n) :=
 *CMD D2Value --- converts average range $\bar{R}$ into estimated standard deviation $\hat{\sigma}_x$
 *STD
 *CALL
-	D2Value(k,n)
+        D2Value(k,n)
 
 *PARMS
 

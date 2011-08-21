@@ -39,7 +39,7 @@ Function("LeviCivita",{indices})
 *CMD LeviCivita --- totally anti-symmetric Levi-Civita symbol
 *STD
 *CALL
-	LeviCivita(list)
+        LeviCivita(list)
 
 *PARMS
 

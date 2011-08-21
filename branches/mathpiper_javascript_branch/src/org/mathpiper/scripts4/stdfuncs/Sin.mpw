@@ -27,7 +27,7 @@
 6 # (Sin(x_IsConstant))_(IsNegativeNumber(N(Eval(x))))   <-- -Sin(-x);
 
 // must prevent it from looping
-6 # Sin(x_IsInfinity) 		<-- Undefined;
+6 # Sin(x_IsInfinity)                 <-- Undefined;
 6 # Sin(Undefined) <-- Undefined;
 
 110 # Sin(Complex(_r,_i)) <--
@@ -51,7 +51,7 @@ Sin(xlist_IsList) <-- MapSingle("Sin",xlist);
 *CMD Sin --- trigonometric sine function
 *STD
 *CALL
-	Sin(x)
+        Sin(x)
 
 *PARMS
 

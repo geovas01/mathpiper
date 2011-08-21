@@ -106,8 +106,8 @@ LocalSymbols(numericMode)
 *CMD N --- try to determine an numerical approximation of expression
 
 *CALL
-	N(expression)
-	N(expression, precision)
+        N(expression)
+        N(expression, precision)
 *PARMS
 
 {expression} -- expression to evaluate
@@ -156,7 +156,7 @@ Result: 3.1415926535897932385
 *CMD InNumericMode --- determine if currently in numeric mode
 
 *CALL
-	InNumericMode()
+        InNumericMode()
 
 *DESC
 
@@ -169,7 +169,7 @@ return {True} while {expr} is being evaluated.
 that defines how to get a numeric approximation of some expression. One
 could define a transformation rule
 
-	f(_x)_InNumericMode() <- [... some code to get a numeric approximation of f(x) ... ];
+        f(_x)_InNumericMode() <- [... some code to get a numeric approximation of f(x) ... ];
 
 {InNumericMode()} usually returns {False}, so transformation rules that check for this
 predicate are usually left alone.
@@ -192,7 +192,7 @@ Result: True
 *CMD NonN --- calculate part in non-numeric mode
 
 *CALL
-	NonN(expr)
+        NonN(expr)
 
 *PARMS
 {expr} -- expression to evaluate

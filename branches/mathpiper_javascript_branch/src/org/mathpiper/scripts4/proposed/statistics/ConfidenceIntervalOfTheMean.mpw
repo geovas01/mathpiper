@@ -77,7 +77,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
 *CMD ConfidenceIntervalOfTheMean --- calculates a confidence interval
 *STD
 *CALL
-	ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel)
+        ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnown,sampleSize,confidenceLevel)
 *PARMS
 {sampleMean} -- the mean of the sample
 {standardDeviation} -- the standard deviation of the sample

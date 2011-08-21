@@ -80,7 +80,7 @@ HoldArgumentNumber("Repeat",1,1);
 *CMD Repeat --- loop a specified number of times or loop indefinitely
 *STD
 *CALL
-	Repeat(count) body
+        Repeat(count) body
         Repeat() body
 
 *PARMS

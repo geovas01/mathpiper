@@ -414,16 +414,16 @@ LocalSymbols(x)
  */
 
 10 # xSolve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And HasExpr(e2, var)
-		And Not (HasExpr(Simplify(1 + (e2/e1)), e1)
-		      Or HasExpr(Simplify(1 + (e2/e1)), e2))) <--
+                And Not (HasExpr(Simplify(1 + (e2/e1)), e1)
+                      Or HasExpr(Simplify(1 + (e2/e1)), e2))) <--
      [
          If(iDebug,Tell("xSolve71aDivide",{e1,e2,var}));
          xSolve(1 + (e2/e1), var);
      ];
                                            
 10 # xSolve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And HasExpr(e2, var)
-		And Not (HasExpr(Simplify(1 - (e2/e1)), e1)
-		      Or HasExpr(Simplify(1 - (e2/e1)), e2))) <--
+                And Not (HasExpr(Simplify(1 - (e2/e1)), e1)
+                      Or HasExpr(Simplify(1 - (e2/e1)), e2))) <--
      [
          If(iDebug,Tell("xSolve71bDivide",{e1,e2,var}));
          xSolve(1 - (e2/e1), var);
@@ -449,7 +449,7 @@ LocalSymbols(x)
 *CMD Solve --- solve an equation or set of linear equations
 *STD
 *CALL
-	xSolve(eq, var)
+        xSolve(eq, var)
 
 *PARMS
 
@@ -470,23 +470,23 @@ empty List is returned.
 
 The current implementation is far from perfect. In particular, the
 user should keep the following points in mind:
-*	{xSolve} cannot solve all equations. If it is given a equation
+*        {xSolve} cannot solve all equations. If it is given a equation
 it can not solve, it raises an error via {Check}. Unfortunately, this
 is not displayed by the inline pretty-printer; call {PrettyPrinterSet} to
 change this. If an equation cannot be solved analytically, you may
 want to call {Newton} to get a numerical solution.
-*	Systems of linear equations are handled, but the methods have not
+*        Systems of linear equations are handled, but the methods have not
 yet been thoroughly checked-out.  Systems with one or more non-linear
 equations are not handled yet. The old version of {Solve}, with the name
 {OldSolve} might be able to solve some nonlinear systems of equations.
-*	The periodicity of the trigonometric functions {Sin}, {Cos},
+*        The periodicity of the trigonometric functions {Sin}, {Cos},
 and {Tan} is not taken into account. The same goes for the (imaginary)
 periodicity of {Exp}. This causes {xSolve} to miss solutions.
-*	It is assumed that all denominators are nonzero. Hence, a
+*        It is assumed that all denominators are nonzero. Hence, a
 solution reported by {xSolve} may in fact fail to be a solution because
 a denominator vanishes.  The function {xCheckSolution} should be
 able to eliminate these false "solutions".
-*	In general, it is wise not to have blind trust in the results
+*        In general, it is wise not to have blind trust in the results
 returned by {xSolve}. A good strategy is to substitute the solutions
 back in the equation.
 
@@ -509,7 +509,7 @@ If one tries to solve the equation $Exp(x) == Sin(x)$, one finds that
 In> PrettyPrinterSet("DefaultPrint");
 Result: True;
 In> xSolve(Exp(x) == Sin(x), x);
-	Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
+        Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
 Result: {};
 
 The equation $Cos(x) == 1/2$ has an infinite number of solutions,
@@ -532,7 +532,7 @@ $x == a^2$. However, this is not true for eg. $a == -1$.
 In> PrettyPrinterSet("DefaultPrint");
 Result: True;
 In> xSolve(Sqrt(x) == a, x);
-	Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
+        Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
 Result: {};
 In> xSolve(Sqrt(x) == 2, x);
 Result: {x==4};

@@ -31,7 +31,7 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 *CMD Sqrt --- square root
 *STD
 *CALL
-	Sqrt(x)
+        Sqrt(x)
 
 *PARMS
 

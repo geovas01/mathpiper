@@ -11,13 +11,13 @@
    integer power.
 
    You can invoke it by calling TrigSimpCombine(f). Examples:
-	TrigSimpCombine(Cos(a)*Sin(a^2+b)^2)
-	TrigSimpCombine(Cos(a)*Sin(a)^2)
-	TrigSimpCombine(Cos(a)^3*Sin(a)^2)
-	TrigSimpCombine(d*Cos(a)^3*Sin(a)^2)
-	TrigSimpCombine(Cos(a)^3*Sin(a)^2)
-	TrigSimpCombine(Cos(a)*Sin(a))
-	TrigSimpCombine(Cos(a)*Sin(b)*Cos(c))
+        TrigSimpCombine(Cos(a)*Sin(a^2+b)^2)
+        TrigSimpCombine(Cos(a)*Sin(a)^2)
+        TrigSimpCombine(Cos(a)^3*Sin(a)^2)
+        TrigSimpCombine(d*Cos(a)^3*Sin(a)^2)
+        TrigSimpCombine(Cos(a)^3*Sin(a)^2)
+        TrigSimpCombine(Cos(a)*Sin(a))
+        TrigSimpCombine(Cos(a)*Sin(b)*Cos(c))
 
  */
 
@@ -432,7 +432,7 @@ SinAdd(t):=
        look:=Assoc(arg,sassoc);
        If(look = Empty,
          DestructiveInsert(sassoc,1,{arg,-(t[1])}),
-	 look[2]:=look[2]-(t[1])
+         look[2]:=look[2]-(t[1])
          );
      ]
      ,
@@ -466,7 +466,7 @@ Out( 6 ) = Complex(Cos(a)*Cos(b)+Sin(a)*Sin(b),Sin(a)*Cos(b)-Cos(a)*Sin(b));
 *CMD TrigSimpCombine --- combine products of trigonometric functions
 *STD
 *CALL
-	TrigSimpCombine(expr)
+        TrigSimpCombine(expr)
 
 *PARMS
 
@@ -486,27 +486,27 @@ integrated easily.
 *E.G.
 
 In> PrettyPrinterSet("PrettyForm");
-	
-	True
-	
+        
+        True
+        
 In> TrigSimpCombine(Cos(a)^2+Sin(a)^2)
-	
-	1
-	
+        
+        1
+        
 In> TrigSimpCombine(Cos(a)^2-Sin(a)^2)
-	
-	Cos( -2 * a )
-	
+        
+        Cos( -2 * a )
+        
 Result:
 In> TrigSimpCombine(Cos(a)^2*Sin(b))
-	
-	Sin( b )   Sin( -2 * a + b ) 
-	-------- + ----------------- 
-	   2               4         
-	
-	    Sin( -2 * a - b )
-	  - -----------------
-	            4
+        
+        Sin( b )   Sin( -2 * a + b ) 
+        -------- + ----------------- 
+           2               4         
+        
+            Sin( -2 * a - b )
+          - -----------------
+                    4
 
 *SEE Simplify, Integrate, Expand, Sin, Cos, Tan
 %/mathpiper_docs

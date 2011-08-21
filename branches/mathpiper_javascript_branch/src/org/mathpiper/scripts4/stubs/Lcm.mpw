@@ -5,9 +5,9 @@
 
 10 # Lcm(list_IsList)_(Length(list)>2) <--
 [
-	Local(first);
-	first:=Lcm(list[1],list[2]);
-	Lcm(first:Rest(Rest(list)));
+        Local(first);
+        first:=Lcm(list[1],list[2]);
+        Lcm(first:Rest(Rest(list)));
 ];
 
 10 # Lcm(list_IsList)_(Length(list)=2) <-- Lcm(list[1],list[2]);
@@ -24,13 +24,13 @@
 *CMD Lcm --- least common multiple
 *STD
 *CALL
-	Lcm(n,m)
-	Lcm(list)
+        Lcm(n,m)
+        Lcm(list)
 
 *PARMS
 
 {n}, {m} -- integers or univariate polynomials
-{list}	 -- list of integers
+{list}         -- list of integers
 
 *DESC
 

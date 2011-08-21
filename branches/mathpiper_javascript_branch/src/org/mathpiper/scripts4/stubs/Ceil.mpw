@@ -30,7 +30,7 @@
 *CMD Ceil --- round a number upwards
 *STD
 *CALL
-	Ceil(x)
+        Ceil(x)
 
 *PARMS
 

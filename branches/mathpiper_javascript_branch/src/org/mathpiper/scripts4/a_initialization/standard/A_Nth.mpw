@@ -63,7 +63,7 @@ Rule("Nth",2,40,IsEqual(IsString(aindex),True))
 *CMD Nth --- return the $n$-th element of a list
 *CORE
 *CALL
-	Nth(list, n)
+        Nth(list, n)
 
 *PARMS
 

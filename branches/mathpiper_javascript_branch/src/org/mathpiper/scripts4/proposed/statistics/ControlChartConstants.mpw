@@ -59,7 +59,7 @@ ControlChartConstants(n) :=
 *CMD ControlChartConstants --- returns the control chart constants A2 d2 D3 D4
 *STD
 *CALL
-	ControlChartConstants(n)
+        ControlChartConstants(n)
 
 *PARMS
 

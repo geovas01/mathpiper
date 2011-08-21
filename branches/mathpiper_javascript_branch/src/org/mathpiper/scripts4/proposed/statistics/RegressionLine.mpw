@@ -51,7 +51,7 @@ RegressionLine(x,y) :=
 *CMD RegressionLine --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL
-	RegressionLine(xList,yList)
+        RegressionLine(xList,yList)
 
 *PARMS
 

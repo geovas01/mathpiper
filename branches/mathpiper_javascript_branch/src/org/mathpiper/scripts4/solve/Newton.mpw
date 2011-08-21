@@ -1,7 +1,7 @@
 %mathpiper,def="Newton"
 
 Function("Newton",{function,variable,initial,accuracy})
-[	// since we call a function with HoldArgument(), we need to evaluate some variables by hand
+[        // since we call a function with HoldArgument(), we need to evaluate some variables by hand
   `Newton(@function,@variable,initial,accuracy,-Infinity,Infinity);
 ];
 
@@ -39,8 +39,8 @@ Function("Newton",{function,variable,initial,accuracy,min,max})
 *CMD Newton --- solve an equation numerically with Newton's method
 *STD
 *CALL
-	Newton(expr, var, initial, accuracy)
-	Newton(expr, var, initial, accuracy,min,max)
+        Newton(expr, var, initial, accuracy)
+        Newton(expr, var, initial, accuracy,min,max)
 
 *PARMS
 

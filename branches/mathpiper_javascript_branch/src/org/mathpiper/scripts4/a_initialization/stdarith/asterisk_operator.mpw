@@ -95,7 +95,7 @@
  * matrices, since they are lists also.
  */
 230 # (aLeft_IsList * aRight_IsList)_(Length(aLeft)=Length(aRight)) <--
-	 Map("*",{aLeft,aRight});
+         Map("*",{aLeft,aRight});
 // fractions
 242 # (x_IsInteger / y_IsInteger) * (v_IsInteger / w_IsInteger) <-- (x*v)/(y*w);
 243 #  x_IsInteger * (y_IsInteger / z_IsInteger) <--  (x*y)/z;
@@ -111,7 +111,7 @@
 *STD
 *CALL
 
-	x*y
+        x*y
 Precedence:
 *EVAL PrecedenceGet("*")
 

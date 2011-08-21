@@ -41,7 +41,7 @@
 *CMD jSolveUniPoly --- solve (find the roots of) a strictly univariate polynomial using JAS
 *STD
 *CALL
-	jSolveUniPoly(eq, var)
+        jSolveUniPoly(eq, var)
 
 *PARMS
 

@@ -32,7 +32,7 @@
 *CMD CheckSolution --- Check the validity of solutions returned by the {Solve} function.
 *STD
 *CALL
-	CheckSolution(expr,var,solution)
+        CheckSolution(expr,var,solution)
 
 *PARMS
 

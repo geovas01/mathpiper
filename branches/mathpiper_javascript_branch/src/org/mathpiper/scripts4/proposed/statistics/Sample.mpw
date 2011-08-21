@@ -23,7 +23,7 @@ Sample(list, sampleSize) :=
 *CMD Sample --- takes a random sample of elements from a list
 *STD
 *CALL
-	Sample(list,sampleSize)
+        Sample(list,sampleSize)
 
 *PARMS
 {list} -- a list of elements

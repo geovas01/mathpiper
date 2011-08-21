@@ -81,7 +81,7 @@ CombinationsList(inputList, r) :=
 %mathpiper_docs,name="CombinationsList",categories="User Functions;Combinatorics",access="experimental"
 *CMD CombinationsList --- return all of the combinations from a given list taken r at a time
 *CALL
-	CombinationsList(list,r)
+        CombinationsList(list,r)
 
 *PARMS
 {list} -- a list of elements

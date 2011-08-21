@@ -28,7 +28,7 @@
 *CMD PadLeft --- converts a number into a string which has a specified width
 *STD
 *CALL
-	PadLeft(number,string_width)
+        PadLeft(number,string_width)
 
 *PARMS
 

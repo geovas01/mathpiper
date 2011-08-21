@@ -24,22 +24,22 @@ can be found to uncomment it.
 
 10 # GcdN(x_IsInteger, y_IsInteger) <--
 [
-	Local(z);
-	While(x!=y)
-	[
-		While(x<y)
-		[
-			y:=y-x;
-			While((y&1) = 0)
-			[
-				y := ShiftRight(y,1);
-			];
-		];
-		z:=x;
-		x:=y;
-		y:=z;
-	];
-	x;
+        Local(z);
+        While(x!=y)
+        [
+                While(x<y)
+                [
+                        y:=y-x;
+                        While((y&1) = 0)
+                        [
+                                y := ShiftRight(y,1);
+                        ];
+                ];
+                z:=x;
+                x:=y;
+                y:=z;
+        ];
+        x;
 ];
  */
 

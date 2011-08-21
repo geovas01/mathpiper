@@ -19,7 +19,7 @@ Function("Normalize",{vector})
 *CMD Normalize --- normalize a vector
 *STD
 *CALL
-	Normalize(v)
+        Normalize(v)
 
 *PARMS
 

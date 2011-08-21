@@ -112,7 +112,7 @@ N(NumberLineZoom(0,1,8,5), 50);
 *CMD NumberLinePrintZoom --- zooms into the number line
 *STD
 *CALL
-	NumberLinePrintZoom(low_number, high_number, divisions, depth)
+        NumberLinePrintZoom(low_number, high_number, divisions, depth)
 
 *PARMS
 

@@ -2,7 +2,7 @@
 
 Function("Subfactorial",{n})
 [
-	n! * Sum(k,0,n,(-1)^(k)/k!);
+        n! * Sum(k,0,n,(-1)^(k)/k!);
 ];
 
 30 # Subfactorial(n_IsList) <-- MapSingle("Subfactorial",n);
@@ -14,7 +14,7 @@ Function("Subfactorial",{n})
 %mathpiper_docs,name="Subfactorial",categories="User Functions;Combinatorics"
 *CMD Subfactorial  --- factorial and related functions
 *CALL
-	Subfactorial(m)
+        Subfactorial(m)
 
 *PARMS
 {m} -- integer

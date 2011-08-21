@@ -22,7 +22,7 @@ ZScoreToValue(zScore) :=
 *CMD ZScoreToValue --- calculates the numerical value for a given z-score
 *STD
 *CALL
-	ZScoreToValue(zScore,mean,standardDeviation)
+        ZScoreToValue(zScore,mean,standardDeviation)
 
 *PARMS
 

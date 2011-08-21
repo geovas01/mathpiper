@@ -40,7 +40,7 @@
 *CMD ExtractSubMatrix --- Extract a submatrix from a given matrix
 *STD
 *CALL
-	ExtractSubMatrix(matrix,row1,col1,row2,col2)
+        ExtractSubMatrix(matrix,row1,col1,row2,col2)
 
 *PARMS
 {matrix} -- matrix from which to extract a submatrix

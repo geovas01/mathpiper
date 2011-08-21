@@ -11,7 +11,7 @@ x X y := CrossProduct(x,y);
 %mathpiper_docs,name="X",categories="Operators"
 *CMD X --- todo
 *CALL
-	x X y
+        x X y
 
 *PARMS
 todo

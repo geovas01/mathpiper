@@ -14,7 +14,7 @@ HoldArgument("->",left);
 %mathpiper_docs,name="->",categories="Operators"
 *CMD -> --- options operator
 *CALL
-	option -> value
+        option -> value
 
 *PARMS
 {option} -- an option name

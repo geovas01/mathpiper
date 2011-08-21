@@ -16,9 +16,9 @@
 // iterate x := x + Cos(x) + 1/6 *Cos(x)^3 + ... to converge to x=Pi/2
 MathPi() :=
 [
-	Local(result, delta, deltasq, k, order, prec, curprec);
-	order := 13;	// order of approximation
-	prec := BuiltinPrecisionGet();
+        Local(result, delta, deltasq, k, order, prec, curprec);
+        order := 13;        // order of approximation
+        prec := BuiltinPrecisionGet();
   N([
     /* initial approximation */
     curprec := 20;
@@ -27,14 +27,14 @@ MathPi() :=
     // find optimal initial precision
     For(k:=prec, k>=curprec, k:=Quotient(k,order)+2) True;
     If(k<5, curprec:=5, curprec:=k);
-  //	Echo("initial precision", curprec);
+  //        Echo("initial precision", curprec);
     // now k is the iteration counter
     For(k:=0, curprec < prec, k := k+1) [
     // at this iteration we know the result to curprec digits
-      curprec := Minimum(prec, curprec * order-2);	// 2 guard digits
+      curprec := Minimum(prec, curprec * order-2);        // 2 guard digits
       BuiltinPrecisionSet(curprec+2);
-  //		Echo("Iteration ", k, " setting precision to ", BuiltinPrecisionGet());
-  //		Echo("old result=", CosN(result));
+  //                Echo("Iteration ", k, " setting precision to ", BuiltinPrecisionGet());
+  //                Echo("old result=", CosN(result));
       /*EchoTime()*/[
       delta := CosN(result);
       ];
@@ -43,9 +43,9 @@ MathPi() :=
       ];
       result := /*EchoTime()*/result + delta*(1 + deltasq*(1/6 + deltasq*(3/40 + deltasq*(5/112 + deltasq*(35/1152 + (deltasq*63)/2816)))));
     ];
-  //	Echo({"Method 3, using Pi/2 and order", order, ":", k, "iterations"});
+  //        Echo({"Method 3, using Pi/2 and order", order, ":", k, "iterations"});
   ]);
-	result*2;
+        result*2;
 ];
 
 %/mathpiper
@@ -59,7 +59,7 @@ MathPi() :=
 %mathpiper_docs,name="MathPi",categories="User Functions;Numeric",access="experimental"
 *CMD MathPi --- The constant Pi.
 *CALL
-	MathPi()
+        MathPi()
 
 *DESC
 

@@ -49,7 +49,7 @@
 *CMD FactorsMonomial --- factorization of a monomial expression
 *STD
 *CALL
-	FactorsMonomial(expr)
+        FactorsMonomial(expr)
 
 *PARMS
 

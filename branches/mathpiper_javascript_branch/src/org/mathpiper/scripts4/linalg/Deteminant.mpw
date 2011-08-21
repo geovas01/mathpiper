@@ -2,11 +2,11 @@
 
 10 # Determinant(_matrix)_(IsUpperTriangular(matrix) Or IsLowerTriangular(matrix)) <--
 [
-	Local(result);
-	result:=1;
-	ForEach(i, Diagonal(matrix) )
-		result:=result*i;
-	result;
+        Local(result);
+        result:=1;
+        ForEach(i, Diagonal(matrix) )
+                result:=result*i;
+        result;
 ];
 
 //
@@ -30,7 +30,7 @@
 *CMD Determinant --- determinant of a matrix
 *STD
 *CALL
-	Determinant(M)
+        Determinant(M)
 
 *PARMS
 

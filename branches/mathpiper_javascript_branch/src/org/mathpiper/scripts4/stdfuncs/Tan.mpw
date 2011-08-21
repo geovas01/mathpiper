@@ -45,7 +45,7 @@ Tan(xlist_IsList) <-- MapSingle("Tan",xlist);
 *CMD Tan --- trigonometric tangent function
 *STD
 *CALL
-	Tan(x)
+        Tan(x)
 
 *PARMS
 

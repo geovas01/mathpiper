@@ -20,7 +20,7 @@ Function("MatrixRow",{matrix,row})
 *CMD MatrixRow --- obtain the row of a matrix
 *STD
 *CALL
-	MatrixRow(matrix,row)
+        MatrixRow(matrix,row)
 
 *PARMS
 {matrix} -- a matrix

@@ -23,7 +23,7 @@
 *CMD MinimumBound --- return lower bounds on the absolute values of real roots of a polynomial
 *STD
 *CALL
-	MinimumBound(p)
+        MinimumBound(p)
 
 *PARMS
 

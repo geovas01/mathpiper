@@ -18,7 +18,7 @@ Trace(matrix_IsList) <--
    [
       aux:=matrix[i];
       For(j:=2,j<=r,j++)
-	 aux:=aux[i];
+         aux:=aux[i];
       result:=result+aux;
    ];
    result;
@@ -36,7 +36,7 @@ Trace(matrix_IsList) <--
 *CMD Trace --- trace of a matrix
 *STD
 *CALL
-	Trace(M)
+        Trace(M)
 
 *PARMS
 

@@ -166,8 +166,8 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 *CMD OldSolve --- old version of {Solve}
 *STD
 *CALL
-	OldSolve(eq, var)
-	OldSolve(eqlist, varlist)
+        OldSolve(eq, var)
+        OldSolve(eqlist, varlist)
 
 *PARMS
 

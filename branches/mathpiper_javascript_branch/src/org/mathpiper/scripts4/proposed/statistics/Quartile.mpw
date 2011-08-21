@@ -43,7 +43,7 @@ Quartile(list) :=
 *CMD Quartile --- returns all of the quartiles and the interquartile range of a list of values
 *STD
 *CALL
-	Quartile(list)
+        Quartile(list)
 
 *PARMS
 

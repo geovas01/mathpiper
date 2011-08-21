@@ -5,13 +5,13 @@
 WriteDataItem(tuple_IsList, _options'hash) <--
 [
   Local(item);
-  If(	// do not write anything if one of the items is not a number
-  	IsNumericList(tuple),
-	ForEach(item,tuple)
-	[
-		Write(item);
-		Space();
-	]
+  If(        // do not write anything if one of the items is not a number
+          IsNumericList(tuple),
+        ForEach(item,tuple)
+        [
+                Write(item);
+                Space();
+        ]
   );
   NewLine();
 ];

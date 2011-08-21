@@ -16,7 +16,7 @@ RealRootsCount(_p) <--
 *CMD RealRootsCount --- return the number of real roots of a polynomial
 *STD
 *CALL
-	RealRootsCount(p)
+        RealRootsCount(p)
 
 *PARMS
 

@@ -15,7 +15,7 @@
 *CMD BigOh --- drop all terms of a certain order in a polynomial
 *STD
 *CALL
-	BigOh(poly, var, degree)
+        BigOh(poly, var, degree)
 
 *PARMS
 

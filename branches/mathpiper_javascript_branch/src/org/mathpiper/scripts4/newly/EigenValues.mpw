@@ -14,7 +14,7 @@
 *CMD EigenValues --- get eigenvalues of a matrix
 *STD
 *CALL
-	EigenValues(matrix)
+        EigenValues(matrix)
 
 *PARMS
 

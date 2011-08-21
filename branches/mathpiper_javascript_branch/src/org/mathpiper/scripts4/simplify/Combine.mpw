@@ -24,7 +24,7 @@
 *CMD Combine --- try to simplify an expression by combining terms or factors that cancel
 *STD
 *CALL
-	Combine(expr)
+        Combine(expr)
 
 *PARMS
 

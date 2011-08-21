@@ -39,17 +39,17 @@ JavaCall("java.lang.reflect.Array","setDouble",doubleArray, 0, 33.2);
 
 JavaCall("java.lang.reflect.Array","newInstance","java.lang.Double","3");
 
- 	private static IntervalXYDataset createDataset() {
-		HistogramDataset dataset = new HistogramDataset();
-		String samplesString = "16.375,16.375,17.125,16,14.375,17.25,16.625,16,17,17.25,17,15.875,16.625,16.125,17.125,16.875,16.375,16.375,16.875,17.125,17,16.75,17.25,17.125,15.375";
-		String[] samples = samplesString.split(",");
-		double[] values = new double[samples.length];
-		int i = 0;
-		for (String sample:samples) {
-			values[i] = Float.parseFloat(sample);
-			i++;
-		}
-		dataset.addSeries("Pile E", values, 20, 14.0, 20.0);
+         private static IntervalXYDataset createDataset() {
+                HistogramDataset dataset = new HistogramDataset();
+                String samplesString = "16.375,16.375,17.125,16,14.375,17.25,16.625,16,17,17.25,17,15.875,16.625,16.125,17.125,16.875,16.375,16.375,16.875,17.125,17,16.75,17.25,17.125,15.375";
+                String[] samples = samplesString.split(",");
+                double[] values = new double[samples.length];
+                int i = 0;
+                for (String sample:samples) {
+                        values[i] = Float.parseFloat(sample);
+                        i++;
+                }
+                dataset.addSeries("Pile E", values, 20, 14.0, 20.0);
   
   
   

@@ -29,7 +29,7 @@ ArcCos(xlist_IsList) <-- MapSingle("ArcCos",xlist);
 *CMD ArcCos --- inverse trigonometric function arc-cosine
 *STD
 *CALL
-	ArcCos(x)
+        ArcCos(x)
 
 *PARMS
 

@@ -19,8 +19,8 @@
 *CMD ZeroMatrix --- make a zero matrix
 *STD
 *CALL
-	ZeroMatrix(n)
-	ZeroMatrix(n, m)
+        ZeroMatrix(n)
+        ZeroMatrix(n, m)
 
 *PARMS
 

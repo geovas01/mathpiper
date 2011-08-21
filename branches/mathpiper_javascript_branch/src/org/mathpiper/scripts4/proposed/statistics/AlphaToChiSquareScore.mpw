@@ -95,7 +95,7 @@ AlphaToChiSquareScore(p, df) :=
 *CMD AlphaToChiSquareScore --- calculates the chi square score of a given alpha probability
 *STD
 *CALL
-	AlphaToChiSquareScore(alphaProbability, degreesOfFreedom)
+        AlphaToChiSquareScore(alphaProbability, degreesOfFreedom)
 
 *PARMS
 {alphaProbability} -- an alpha probability

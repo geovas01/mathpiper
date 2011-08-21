@@ -36,8 +36,8 @@
 *CMD Slope --- returns the slope of a line which is represented by two points
 *STD
 *CALL
-	Slope(p1, p2)
-	Slope(Segment(p1, p2))
+        Slope(p1, p2)
+        Slope(Segment(p1, p2))
 *PARMS
 
 {p1} -- the first point
@@ -53,16 +53,16 @@ segment using the slope formula.
 
 In> PointA := Point(2,3)
 Result: {2,3}
-	
+        
 In> PointB := Point(6,8)
 Result: {6,8}
-	
+        
 In> Slope(PointA,PointB)
 Result: 5/4
 
 In> s := Segment(PointA,PointB)
 Result: {{2,3},{6,8}}
-	
+        
 In> Slope(s)
 Result: 5/4
 

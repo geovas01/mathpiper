@@ -23,7 +23,7 @@ Function("CoFactor",{matrix,ii,jj})
 *CMD CoFactor --- cofactor of a matrix
 *STD
 *CALL
-	CoFactor(M,i,j)
+        CoFactor(M,i,j)
 
 *PARMS
 
@@ -42,14 +42,14 @@ $(-1)^(i+j)$.
 In> A := {{1,2,3}, {4,5,6}, {7,8,9}};
 Result: {{1,2,3},{4,5,6},{7,8,9}};
 In> PrettyForm(A);
-	
-	/                    \
-	| ( 1 ) ( 2 ) ( 3 )  |
-	|                    |
-	| ( 4 ) ( 5 ) ( 6 )  |
-	|                    |
-	| ( 7 ) ( 8 ) ( 9 )  |
-	\                    /
+        
+        /                    \
+        | ( 1 ) ( 2 ) ( 3 )  |
+        |                    |
+        | ( 4 ) ( 5 ) ( 6 )  |
+        |                    |
+        | ( 7 ) ( 8 ) ( 9 )  |
+        \                    /
 Result: True;
 In> CoFactor(A,1,2);
 Result: 6;

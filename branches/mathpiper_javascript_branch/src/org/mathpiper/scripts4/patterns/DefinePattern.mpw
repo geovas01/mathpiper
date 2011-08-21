@@ -55,7 +55,7 @@ DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
 *CMD DefinePattern --- defines a rule which uses a pattern as its predicate
 
 *CALL
-	DefinePattern("operator", arity, precedence, pattern) body
+        DefinePattern("operator", arity, precedence, pattern) body
 *PARMS
 
 {"operator"} -- string, name of function

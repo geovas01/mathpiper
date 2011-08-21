@@ -11,9 +11,9 @@
 LocalSymbols(options)
 [
     options  := {
-	{"default", "data"},
-	{"data", "Plot2DData"},
-	{"java", "Plot2DJava"},
+        {"default", "data"},
+        {"data", "Plot2DData"},
+        {"java", "Plot2DJava"},
     {"geogebra", "Plot2DGeoGebra"},
     {"jfreechart", "Plot2DJFreeChart"},
 };
@@ -24,14 +24,14 @@ Plot2DOutputs() := options;
 ];
 
 /*
-	How backends work:
-	Plot2D'<backend>(values, optionsHash)
-	optionsHash is a hash that contains all plotting options:
-	["xrange"] - a list of {x1, x2}, ["xname"] - name of the variable to plot, ["yname"] - array of string representations of the function(s), and perhaps other options relevant to the particular backend.
-	{values} is a list of lists of pairs of the form {{{x1, y1}, {x2, y2}, ...}, {{x1, z1}, {x2, z2}, ...}, ...} corresponding to the functions y(x), z(x), ... to be plotted. The abscissa points x[i] are not the same for all functions.
-	The backend should prepare the graph of the function(s). The "datafile" backend Plot2D'datafile(values, optionsHash) may be used to output all data to file(s), in which case the file name should be given by the value optionsHash["filename"]. Multiple files are created with names obtained by appending numbers to the filename.
-	Note that the "data" backend does not do anything and simply returns the data.
-	The backend Plot2D'datafile takes care not to write "Infinity" or "Undefined" data points (it just ignores them). Custom backends should either use Plot2D'datafile or take care of this themselves.
+        How backends work:
+        Plot2D'<backend>(values, optionsHash)
+        optionsHash is a hash that contains all plotting options:
+        ["xrange"] - a list of {x1, x2}, ["xname"] - name of the variable to plot, ["yname"] - array of string representations of the function(s), and perhaps other options relevant to the particular backend.
+        {values} is a list of lists of pairs of the form {{{x1, y1}, {x2, y2}, ...}, {{x1, z1}, {x2, z2}, ...}, ...} corresponding to the functions y(x), z(x), ... to be plotted. The abscissa points x[i] are not the same for all functions.
+        The backend should prepare the graph of the function(s). The "datafile" backend Plot2D'datafile(values, optionsHash) may be used to output all data to file(s), in which case the file name should be given by the value optionsHash["filename"]. Multiple files are created with names obtained by appending numbers to the filename.
+        Note that the "data" backend does not do anything and simply returns the data.
+        The backend Plot2D'datafile takes care not to write "Infinity" or "Undefined" data points (it just ignores them). Custom backends should either use Plot2D'datafile or take care of this themselves.
 */
 
 /// trivial backend: return data list (do not confuse with Plot2D'get'data() defined in the main code which is the middle-level plotting routine)

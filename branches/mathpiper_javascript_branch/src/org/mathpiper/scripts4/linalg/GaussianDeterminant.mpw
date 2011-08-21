@@ -4,7 +4,7 @@ GaussianDeterminant(matrix):=
 [
   Local(n,s,result);
   n:=Length(matrix);
-	result:=1;
+        result:=1;
 
   [
     matrix:=FlatCopy(matrix);
@@ -32,7 +32,7 @@ GaussianDeterminant(matrix):=
 
 //Echo("mat: ",matrix);
 //Echo("diagmat: ",Diagonal(matrix));
-	// now upper triangular
+        // now upper triangular
   ForEach(i, Diagonal(matrix) )
     result:=result*i;
   result;
@@ -47,7 +47,7 @@ GaussianDeterminant(matrix):=
 %mathpiper_docs,name="GaussianDeterminant",categories="User Functions;Linear Algebra"
 *CMD GaussianDeterminant --- todo
 *CALL
-	GaussianDeterminant(matrix)
+        GaussianDeterminant(matrix)
 
 *PARMS
 {matrix} -- a matrix

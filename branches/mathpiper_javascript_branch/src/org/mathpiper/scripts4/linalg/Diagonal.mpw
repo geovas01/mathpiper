@@ -5,14 +5,14 @@
 //
 Function("Diagonal",{A})
 [
-	Local(result,i,n);
-	n:=Length(A);
-	result:=ZeroVector(n);
-	For(i:=1,i<=n,i++)
-	[
-		result[i] := A[i][i];
-	];
-	result;
+        Local(result,i,n);
+        n:=Length(A);
+        result:=ZeroVector(n);
+        For(i:=1,i<=n,i++)
+        [
+                result[i] := A[i][i];
+        ];
+        result;
 ];
 
 %/mathpiper
@@ -23,7 +23,7 @@ Function("Diagonal",{A})
 *CMD Diagonal --- extract the diagonal from a matrix
 *STD
 *CALL
-	Diagonal(A)
+        Diagonal(A)
 
 *PARMS
 

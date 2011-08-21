@@ -60,7 +60,7 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
 *CMD ExpandBrackets --- expand all brackets
 *STD
 *CALL
-	ExpandBrackets(expr)
+        ExpandBrackets(expr)
 
 *PARMS
 

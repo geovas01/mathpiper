@@ -122,27 +122,27 @@ LocalSymbols(x)
        If(CanBeUni(var2, expr2) And (Degree(expr2, var2) = 0 Or (Degree(expr2, var2) = 1 And Coef(expr2, var2, 1) = 1)),
           res := Failed, /* to prevent infinite recursion */
           [
-    	    sol2 := Solve(expr2, var2);
-	    If(IsError("Solve'Fails"),
-	       [
-	         ClearError("Solve'Fails");
-		 res := Failed;
+                sol2 := Solve(expr2, var2);
+            If(IsError("Solve'Fails"),
+               [
+                 ClearError("Solve'Fails");
+                 res := Failed;
                ],
-    	       [
-    		 res := {};
-    		 i := 1;
-    		 While(i <= Length(sol2) And res != Failed) [
-    		   sol := Solve(context == (var2 Where sol2[i]), var);
-	           If(IsError("Solve'Fails"),
-		      [
-		        ClearError("Solve'Fails");
-		        res := Failed;
+                   [
+                     res := {};
+                     i := 1;
+                     While(i <= Length(sol2) And res != Failed) [
+                       sol := Solve(context == (var2 Where sol2[i]), var);
+                   If(IsError("Solve'Fails"),
+                      [
+                        ClearError("Solve'Fails");
+                        res := Failed;
                       ],
-    		      res := Union(res, sol));
-    		   i++;
-    		 ];
-    	       ]);
-      	   ]);
+                          res := Union(res, sol));
+                       i++;
+                     ];
+                   ]);
+                 ]);
      ]);
   res;
 ];
@@ -172,9 +172,9 @@ LocalSymbols(x)
        i := 2;
        While(i <= Length(lst) And context != False) [
          res := Solve'Context(lst[i], var);
-	 If(res != {} And context != {} And res != context, context := False);
-	 If(res != {} And context = {}, context := res);
-	 i++;
+         If(res != {} And context != {} And res != context, context := False);
+         If(res != {} And context = {}, context := res);
+         i++;
        ];
      ]);
   context;
@@ -262,12 +262,12 @@ LocalSymbols(x)
  */
 
 10 # Solve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And HasExpr(e2, var)
-		And Not (HasExpr(Simplify(1 + (e2/e1)), e1)
-		      Or HasExpr(Simplify(1 + (e2/e1)), e2)))
+                And Not (HasExpr(Simplify(1 + (e2/e1)), e1)
+                      Or HasExpr(Simplify(1 + (e2/e1)), e2)))
                                            <-- Solve(1 + (e2/e1), var);
 10 # Solve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And HasExpr(e2, var)
-		And Not (HasExpr(Simplify(1 - (e2/e1)), e1)
-		      Or HasExpr(Simplify(1 - (e2/e1)), e2)))
+                And Not (HasExpr(Simplify(1 - (e2/e1)), e1)
+                      Or HasExpr(Simplify(1 - (e2/e1)), e2)))
                                            <-- Solve(1 - (e2/e1), var);
 
 20 # Solve'Divide(_e, _v) <-- Failed;
@@ -285,7 +285,7 @@ LocalSymbols(x)
 *CMD Solve --- solve an equation
 *STD
 *CALL
-	Solve(eq, var)
+        Solve(eq, var)
 
 *PARMS
 
@@ -305,21 +305,21 @@ unable to find any, then an empty list is returned.
 
 The current implementation is far from perfect. In particular, the
 user should keep the following points in mind:
-*	{Solve} cannot solve all equations. If it is given a equation
+*        {Solve} cannot solve all equations. If it is given a equation
 it can not solve, it raises an error via {Check}. Unfortunately, this
 is not displayed by the inline pretty-printer; call {PrettyPrinterSet} to
 change this. If an equation cannot be solved analytically, you may
 want to call {Newton} to get a numerical solution.
-*	Systems of equations are not handled yet. For linear systems,
+*        Systems of equations are not handled yet. For linear systems,
 {MatrixSolve} can be used. The old version of {Solve}, with the name
 {OldSolve} might be able to solve nonlinear systems of equations.
-*	The periodicity of the trigonometric functions {Sin}, {Cos},
+*        The periodicity of the trigonometric functions {Sin}, {Cos},
 and {Tan} is not taken into account. The same goes for the (imaginary)
 periodicity of {Exp}. This causes {Solve} to miss solutions.
-*	It is assumed that all denominators are nonzero. Hence, a
+*        It is assumed that all denominators are nonzero. Hence, a
 solution reported by {Solve} may in fact fail to be a solution because
 a denominator vanishes.
-*	In general, it is wise not to have blind trust in the results
+*        In general, it is wise not to have blind trust in the results
 returned by {Solve}. A good strategy is to substitute the solutions
 back in the equation.
 
@@ -342,7 +342,7 @@ If one tries to solve the equation $Exp(x) == Sin(x)$, one finds that
 In> PrettyPrinterSet("DefaultPrint");
 Result: True;
 In> Solve(Exp(x) == Sin(x), x);
-	Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
+        Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
 Result: {};
 
 The equation $Cos(x) == 1/2$ has an infinite number of solutions,
@@ -364,7 +364,7 @@ $x == a^2$. However, this is not true for eg. $a == -1$.
 In> PrettyPrinterSet("DefaultPrint");
 Result: True;
 In> Solve(Sqrt(x) == a, x);
-	Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
+        Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
 Result: {};
 In> Solve(Sqrt(x) == 2, x);
 Result: {x==4};

@@ -52,8 +52,8 @@ Function() Maximum(l1, l2, l3, ...);
 *CMD Maximum --- maximum of a number of values
 *STD
 *CALL
-	Maximum(x,y)
-	Maximum(list)
+        Maximum(x,y)
+        Maximum(list)
 
 *PARMS
 

@@ -48,7 +48,7 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
 *CMD RegressionLineConfidenceInterval --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL
-	RegressionLineConfidenceInterval(xList,yList,xValue,confidenceLevel)
+        RegressionLineConfidenceInterval(xList,yList,xValue,confidenceLevel)
 
 *PARMS
 

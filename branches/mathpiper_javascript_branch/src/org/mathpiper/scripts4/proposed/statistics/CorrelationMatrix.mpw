@@ -51,7 +51,7 @@ CorrelationMatrix(dataLists) :=
 *CMD CorrelationMatrix --- creates a correlation matrix
 *STD
 *CALL
-	CorrelationMatrix(listOfLists)
+        CorrelationMatrix(listOfLists)
 
 *PARMS
 

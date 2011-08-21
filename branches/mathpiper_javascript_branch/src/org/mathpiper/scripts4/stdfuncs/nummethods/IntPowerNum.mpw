@@ -10,23 +10,23 @@
 5 # IntPowerNum(_x, 0, _func, _unity) <-- unity;
 10 # IntPowerNum(_x, n_IsInteger, _func, _unity) <--
 [
-	// use binary method
-	Local(result);
-	// unity might be of non-scalar type, avoid assignment
-	While(n > 0)
-	[
-		If(
-			(n&1) = 1,
-			If(
-				IsBound(result), // if result is already assigned
-				result := Apply(func, {result,x}),
-				result := x, // avoid multiplication
-			)
-		);
-		x := Apply(func, {x,x});
-		n := n>>1;
-	];
-	result;
+        // use binary method
+        Local(result);
+        // unity might be of non-scalar type, avoid assignment
+        While(n > 0)
+        [
+                If(
+                        (n&1) = 1,
+                        If(
+                                IsBound(result), // if result is already assigned
+                                result := Apply(func, {result,x}),
+                                result := x, // avoid multiplication
+                        )
+                );
+                x := Apply(func, {x,x});
+                n := n>>1;
+        ];
+        result;
 ];
 
 %/mathpiper
@@ -37,7 +37,7 @@
 *CMD IntPowerNum --- optimized computation of integer powers
 *STD
 *CALL
-	IntPowerNum(x, n, mult, unity)
+        IntPowerNum(x, n, mult, unity)
 
 *PARMS
 
@@ -65,7 +65,7 @@ In the current implementation, the {unity} argument is only used when the given 
 For efficient numerical calculations, the {MathMultiply} function can be passed:
 In> IntPowerNum(3, 3, MathMultiply,1)
 Result: 27;
-	
+        
 Otherwise, the usual {*} operator suffices:
 In> IntPowerNum(3+4*I, 3, *,1)
 Result: Complex(-117,44);

@@ -15,7 +15,7 @@ mathpiper_docs,name=".",categories="Operators"
 *CMD . --- get dot product of tensors
 *STD
 *CALL
-	t1 . t2
+        t1 . t2
 Precedence:
 *EVAL PrecedenceGet(".")
 
@@ -31,7 +31,7 @@ See the {Dot} function for more information.
 /mathpiper_docs
 
 
-	Or, using the "."-Operator:
+        Or, using the "."-Operator:
 
 In> {1,2} . {3,4}
 Result: 11;

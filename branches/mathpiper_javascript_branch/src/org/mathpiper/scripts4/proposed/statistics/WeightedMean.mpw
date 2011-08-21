@@ -40,7 +40,7 @@ WeightedMean(list) :=
 *CMD WeightedMean --- weighted mean
 *STD
 *CALL 
-	WeightedMean({{value, weight},...})
+        WeightedMean({{value, weight},...})
 
 *PARMS
 

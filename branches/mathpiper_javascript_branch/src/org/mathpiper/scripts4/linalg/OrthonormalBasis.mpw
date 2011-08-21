@@ -2,12 +2,12 @@
 
 // Like orthogonalization, only normalize all vectors
 Function("OrthonormalBasis",{W})[
-	Local(i);
-	W:=OrthogonalBasis(W);
-	For(i:=1,i<=Length(W),i++)[
-		W[i]:=W[i]/Norm(W[i]);
-	];
-	W;
+        Local(i);
+        W:=OrthogonalBasis(W);
+        For(i:=1,i<=Length(W),i++)[
+                W[i]:=W[i]/Norm(W[i]);
+        ];
+        W;
 ];
 
 %/mathpiper
@@ -18,7 +18,7 @@ Function("OrthonormalBasis",{W})[
 *CMD OrthonormalBasis --- create an orthonormal basis 
 *STD
 *CALL
-	OrthonormalBasis(W)
+        OrthonormalBasis(W)
 
 *PARMS
 
@@ -35,7 +35,7 @@ magnitude, so as the give them unit length.
 
 In> OrthonormalBasis({{1,1,0},{2,0,1},{2,2,1}})
 Result: {{Sqrt(1/2),Sqrt(1/2),0},{Sqrt(1/3),-Sqrt(1/3),Sqrt(1/3)},
-		{-Sqrt(1/6),Sqrt(1/6),Sqrt(2/3)}};
+                {-Sqrt(1/6),Sqrt(1/6),Sqrt(2/3)}};
 
 *SEE OrthogonalBasis, InProduct, Normalize
 %/mathpiper_docs

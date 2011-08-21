@@ -20,7 +20,7 @@ HoldArgument("++",aVar);
 *CMD ++ --- increment variable
 *STD
 *CALL
-	var++
+        var++
 
 *PARMS
 

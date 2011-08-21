@@ -20,7 +20,7 @@ HoldArgument("--",aVar);
 *CMD -- --- decrement variable
 *STD
 *CALL
-	var--
+        var--
 
 *PARMS
 

@@ -189,7 +189,7 @@ ScheffeStatistic(xBarA,nA,xBarB,nB,ssw,k,countsList) :=
 *CMD ScheffeTest --- performs a Scheffe pairwise analysis
 
 *CALL
-	ScheffeTest(listOfLists,alpha)
+        ScheffeTest(listOfLists,alpha)
 
 *PARMS
 {listOfLists} -- a list which contains lists which contain the data to be analyzed

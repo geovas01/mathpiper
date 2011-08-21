@@ -7,7 +7,7 @@
 
 /// User visible functions: Gamma(x), LnGamma(x)
 
-5 # Gamma(Infinity)	<-- Infinity;
+5 # Gamma(Infinity)        <-- Infinity;
 
 10 # Gamma(_n)_(IsInteger(n) And n<=0) <-- Infinity;
 
@@ -26,7 +26,7 @@
 *CMD Gamma --- Euler's Gamma function
 *STD
 *CALL
-	Gamma(x)
+        Gamma(x)
 
 *PARMS
 

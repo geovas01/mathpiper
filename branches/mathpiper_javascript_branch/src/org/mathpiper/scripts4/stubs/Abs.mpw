@@ -1,6 +1,6 @@
 %mathpiper,def="Abs"
 
-10 # Abs(Infinity) 	<-- Infinity; //Note:tk:moved here from stdfuncts.
+10 # Abs(Infinity)         <-- Infinity; //Note:tk:moved here from stdfuncts.
 
 10 # Abs(n_IsNumber) <-- AbsN(n);
 10 # Abs(n_IsPositiveNumber/m_IsPositiveNumber) <-- n/m;
@@ -25,7 +25,7 @@
 *CMD Abs --- absolute value or modulus of complex number
 *STD
 *CALL
-	Abs(x)
+        Abs(x)
 
 *PARMS
 

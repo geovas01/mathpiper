@@ -16,7 +16,7 @@
 *CMD Numerator --- numerator of an expression
 *STD
 *CALL
-	Numerator(expr)
+        Numerator(expr)
 
 *PARMS
 

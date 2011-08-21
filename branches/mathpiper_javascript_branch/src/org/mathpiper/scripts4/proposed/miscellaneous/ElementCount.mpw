@@ -33,7 +33,7 @@ ElementCount(list) :=
 %mathpiper_docs,name="ElementCount",categories="User Functions;Lists (Operations)",access="experimental"
 *CMD ElementCount --- counts the number of elements in a list or nested list
 *CALL
-	ElementCount(list)
+        ElementCount(list)
 
 *PARMS
 {list} -- a list or nested list

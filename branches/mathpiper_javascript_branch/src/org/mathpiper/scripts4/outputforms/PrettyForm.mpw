@@ -533,7 +533,7 @@ HoldArgument("EvalFormula",f);
 *CMD PrettyForm --- print an expression nicely with ASCII art
 *STD
 *CALL
-	PrettyForm(expr)
+        PrettyForm(expr)
 
 *PARMS
 
@@ -550,12 +550,12 @@ complex than a simple number.
 In> Taylor(x,0,9)Sin(x)
 Result: x-x^3/6+x^5/120-x^7/5040+x^9/362880;
 In> PrettyForm(%)
-	
-	     3    5      7       9
-	    x    x      x       x
-	x - -- + --- - ---- + ------
-	    6    120   5040   362880
-	
+        
+             3    5      7       9
+            x    x      x       x
+        x - -- + --- - ---- + ------
+            6    120   5040   362880
+        
 Result: True;
 
 *SEE EvalFormula, PrettyPrinterSet
@@ -567,7 +567,7 @@ Result: True;
 *CMD EvalFormula --- print an evaluation nicely with ASCII art
 *STD
 *CALL
-	EvalFormula(expr)
+        EvalFormula(expr)
 
 *PARMS
 
@@ -581,11 +581,11 @@ to show 'input = output'.
 *E.G.
 
 In> EvalFormula(Taylor(x,0,7)Sin(x))
-	
-	                                      3    5
-	                                     x    x  
-	Taylor( x , 0 , 5 , Sin( x ) ) = x - -- + ---
-	                                     6    120
+        
+                                              3    5
+                                             x    x  
+        Taylor( x , 0 , 5 , Sin( x ) ) = x - -- + ---
+                                             6    120
 
 
 *SEE PrettyForm

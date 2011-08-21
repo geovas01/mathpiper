@@ -39,7 +39,7 @@
 *CMD SquareFree --- return the square-free part of a univariate polynomial
 *STD
 *CALL
-	SquareFree(p)
+        SquareFree(p)
 
 *PARMS
 

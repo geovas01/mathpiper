@@ -28,7 +28,7 @@ intlabels(y1,y2,tnumint) := [
     If (xx > 100, breakLoop := True);
   ];
   L[i] = yy;
-	L;
+        L;
 ];
 
 
@@ -55,10 +55,10 @@ intervals(diff, NumCats) := [
     if (A[i] <= 25) [
       if (A[i] > 2) [
       XX := AbsN(NumCats - A[i]);
-	if (XX < D) [
+        if (XX < D) [
         D := XX;
-	  index = i+1;
-	];
+          index = i+1;
+        ];
       ];
     ];
   ];
@@ -82,20 +82,20 @@ stemandleaf(x) :=
   else 
     [
       if (N < 100) 
-	[
-	  tNumInt := 10;
-	] 
+        [
+          tNumInt := 10;
+        ] 
       else 
-	[
-	  if (N < 150) 
-	    [
-	      tNumInt := 15;
-	    ] 
-	  else
-	    [
-	      tNumInt := 20;
-	    ];
-	];
+        [
+          if (N < 150) 
+            [
+              tNumInt := 15;
+            ] 
+          else
+            [
+              tNumInt := 20;
+            ];
+        ];
     ];
    theMax := x[N-1];
    theMin := x[0];
@@ -113,9 +113,9 @@ stemandleaf(x) :=
   ]
   else 
     [
-      	ratio := 1;
+              ratio := 1;
     ];
-   zcount := 0; 	
+   zcount := 0;         
   theMin := x[0];
    abMin := Math.abs(theMin);
   theMax := x[N-1];
@@ -130,15 +130,15 @@ stemandleaf(x) :=
   else 
     [
       if(indexA=3) 
-	[
-	  Y := Y * 2;
-	   ncats := 2;
-	] 
+        [
+          Y := Y * 2;
+           ncats := 2;
+        ] 
       else 
-	[
-	   ncats := 1;
-	   newz := 0; 
-	];
+        [
+           ncats := 1;
+           newz := 0; 
+        ];
     ];
 
    cutoffs := intlabels(x[0], x[N-1], tNumInt);
@@ -154,18 +154,18 @@ stemandleaf(x) :=
     [
       nc++;
       While(Y > AbsN(theMax)) 
-	[
-	  xx8++;
-	  if(xx8>100)[break;];
-	  if (nc > Length(cutoffs)) 
-	    [
-	       temp := cutoffs[nc-2] - cutoffs[nc - 3];
-	      temp := temp + cutoffs[nc-2];
-	      cutoffs[nc-1] := temp;
-	    ];
-	  theMax := cutoffs[nc-1];
-	  nc++;
-	];
+        [
+          xx8++;
+          if(xx8>100)[break;];
+          if (nc > Length(cutoffs)) 
+            [
+               temp := cutoffs[nc-2] - cutoffs[nc - 3];
+              temp := temp + cutoffs[nc-2];
+              cutoffs[nc-1] := temp;
+            ];
+          theMax := cutoffs[nc-1];
+          nc++;
+        ];
     ];
    base := trunc(theMax/Y);
    leftover := Round(theMax - base * Y);
@@ -181,47 +181,47 @@ stemandleaf(x) :=
   if (indexA = 2) 
     [
       if (leftover >= 8)
-	[
-	   newz := 1;
-	]
+        [
+           newz := 1;
+        ]
     else 
       [
-	if (leftover >= 6)  
-	  [
-	     newz := 0;
-	  ]
-	else 
-	  [
-	    if (leftover >= 4) 
-	      [
-		 newz := 4;
-	      ] 
-	    else 
-	      [
-		if (leftover >= 2) 
-		  [
-		     newz := 3;
-		  ] 
-		else 
-		  [
-		     newz := 2; 
-		  ];
-	      ];
-	  ];
+        if (leftover >= 6)  
+          [
+             newz := 0;
+          ]
+        else 
+          [
+            if (leftover >= 4) 
+              [
+                 newz := 4;
+              ] 
+            else 
+              [
+                if (leftover >= 2) 
+                  [
+                     newz := 3;
+                  ] 
+                else 
+                  [
+                     newz := 2; 
+                  ];
+              ];
+          ];
       ];
     ]
   else 
     [
     if (indexA = 3) 
       [
-	if (leftover >=5) 
-	  [
-	     newz := 1;
-	  ] 
-	else 
-	  [
-	     newz := 0;
-	  ];
+        if (leftover >=5) 
+          [
+             newz := 1;
+          ] 
+        else 
+          [
+             newz := 0;
+          ];
       ];
     ];
    start := False;
@@ -245,11 +245,11 @@ stemandleaf(x) :=
     leftover := AbsN(Round(L/t3));
     While (leftover >= 10)
       [
-	    leftover := Round(leftover/10);
+            leftover := Round(leftover/10);
       ];
     if (it >=0) 
       [
-	     tt := t3;
+             tt := t3;
       ]
     else 
       [
@@ -260,7 +260,7 @@ stemandleaf(x) :=
      
     if (it<0)
       [
-	    if (xz > 0 ) 
+            if (xz > 0 ) 
           [
             xz := xz * -1;
           ];
@@ -269,13 +269,13 @@ stemandleaf(x) :=
       
     if (xz<cur) 
     [
-	    newline := True;
+            newline := True;
         While (xz<cur)
          [
-	          LN ++;
+                  LN ++;
               if (start) 
               [
-	              LN2++;
+                      LN2++;
                   leaves  := Append(leaves, "");
               ];
               temp := trunc(LN/ncats);
@@ -299,7 +299,7 @@ stemandleaf(x) :=
             base2 := base2 - 1;
                 ];
           ];
-	
+        
           count := count - 1;
           
           if (count < 0)
@@ -313,7 +313,7 @@ stemandleaf(x) :=
           
           if (base2 = 0)
           [
-	            zcount ++;
+                    zcount ++;
                 if ( ((indexA = 2) And (zcount >=6)) Or ((indexA = 3) And (zcount >=3)) Or ((indexA = 1) And (zcount >1)) Or ((indexA = 4) And (zcount >1))) 
                  [
                     stems := Append(stems,"-" : ToString(base2));
@@ -325,10 +325,10 @@ stemandleaf(x) :=
           ] 
           else 
           [
-	            stems := Append(stems, ToString(base2));
+                    stems := Append(stems, ToString(base2));
           ];
-	
-	   ];//end While.
+        
+           ];//end While.
       
       
       ];//end if
@@ -370,8 +370,8 @@ stemandleaf(x) :=
   
 ];
 
-	
-	
+        
+        
 %/mathpiper
 
     %output,preserve="false"
@@ -434,18 +434,18 @@ function ParseString(string)
     {
       c=string.charAt(i);
       while((c == Delimiters[0] ||  c == Delimiters[1] || c == Delimiters[2] || c == Delimiters[3] || c == Delimiters[4]) && i<string.length)
-	{
-	  i++;
-	  c=string.charAt(i);
-	}
+        {
+          i++;
+          c=string.charAt(i);
+        }
       temp="";
       while(c != Delimiters[0] &&  c != Delimiters[1] && c !=
-	    Delimiters[2] && c != Delimiters[3] && c != Delimiters[4] && i<string.length)
-	{ 
-	  temp =temp+c;
-	  i++;
-	  c=string.charAt(i);
-	}     
+            Delimiters[2] && c != Delimiters[3] && c != Delimiters[4] && i<string.length)
+        { 
+          temp =temp+c;
+          i++;
+          c=string.charAt(i);
+        }     
       x[ii]=temp;
       ii++;
     }
@@ -474,7 +474,7 @@ function intlabels(y1,y2,tnumint){
     if (xx > 100) {break};
   }
   L[i] = yy;
-	return L;
+        return L;
 }
 function intervals(diff, NumCats) {
   var t4 = trunc(Math.log(diff) * 0.4342945);
@@ -487,18 +487,18 @@ function intervals(diff, NumCats) {
   var A = new Array(4);
   
   for (i = 0;i < 4; i++) {
-		A[i] = trunc(diff/T[i]) +1;
+                A[i] = trunc(diff/T[i]) +1;
   }
   var D = Math.abs(10 - A[0]);
   index = 1;
   for (i = 1; i < 4; i++) {
     if (A[i] <= 25) {
       if (A[i] > 2) {
-	XX = Math.abs(NumCats - A[i]);
-	if (XX < D) {
-	  D = XX;
-	  index = i+1;
-	}
+        XX = Math.abs(NumCats - A[i]);
+        if (XX < D) {
+          D = XX;
+          index = i+1;
+        }
       }
     }
   }
@@ -518,20 +518,20 @@ function stemandleaf(x)
   else 
     {
       if (N < 100) 
-	{
-	  tNumInt = 10;
-	} 
+        {
+          tNumInt = 10;
+        } 
       else 
-	{
-	  if (N < 150) 
-	    {
-	      tNumInt = 15;
-	    } 
-	  else
-	    {
-	      tNumInt = 20;
-	    }
-	}
+        {
+          if (N < 150) 
+            {
+              tNumInt = 15;
+            } 
+          else
+            {
+              tNumInt = 20;
+            }
+        }
     }
   var theMax = x[N-1];
   var theMin = x[0];
@@ -543,14 +543,14 @@ function stemandleaf(x)
     ratio = Math.pow(10,ratio);
     for (var i = 0; i < N ; i++) 
       {
-	x[i] *= ratio;
+        x[i] *= ratio;
       }
   } 
   else 
     {
-      var	ratio = 1;
+      var        ratio = 1;
     }
-  var zcount = 0; 	
+  var zcount = 0;         
   theMin = x[0];
   var abMin = Math.abs(theMin);
   theMax = x[N-1];
@@ -565,15 +565,15 @@ function stemandleaf(x)
   else 
     {
       if(indexA==3) 
-	{
-	  Y *= 2;
-	  var ncats = 2;
-	} 
+        {
+          Y *= 2;
+          var ncats = 2;
+        } 
       else 
-	{
-	  var ncats = 1;
-	  var newz = 0; 
-	}
+        {
+          var ncats = 1;
+          var newz = 0; 
+        }
     }
 
   var cutoffs = intlabels(x[0], x[N-1], tNumInt);
@@ -589,18 +589,18 @@ function stemandleaf(x)
     {
       nc++;
       while(Y > Math.abs(theMax)) 
-	{
-	  xx8++;
-	  if(xx8>100){break;}
-	  if (nc > cutoffs.length) 
-	    {
-	      var temp = cutoffs[nc-2] - cutoffs[nc - 3];
-	      temp += cutoffs[nc-2];
-	      cutoffs[nc-1] = temp;
-	    }
-	  theMax = cutoffs[nc-1];
-	  nc++;
-	}
+        {
+          xx8++;
+          if(xx8>100){break;}
+          if (nc > cutoffs.length) 
+            {
+              var temp = cutoffs[nc-2] - cutoffs[nc - 3];
+              temp += cutoffs[nc-2];
+              cutoffs[nc-1] = temp;
+            }
+          theMax = cutoffs[nc-1];
+          nc++;
+        }
     }
   var base = trunc(theMax/Y);
   var leftover = Math.round(theMax - base * Y);
@@ -616,47 +616,47 @@ function stemandleaf(x)
   if (indexA == 2) 
     {
       if (leftover >= 8)
-	{
-	  var newz = 1;
-	}
+        {
+          var newz = 1;
+        }
     else 
       {
-	if (leftover >= 6)  
-	  {
-	    var newz = 0;
-	  }
-	else 
-	  {
-	    if (leftover >= 4) 
-	      {
-		var newz = 4;
-	      } 
-	    else 
-	      {
-		if (leftover >= 2) 
-		  {
-		    var newz = 3;
-		  } 
-		else 
-		  {
-		    var newz = 2; 
-		  }
-	      }
-	  }
+        if (leftover >= 6)  
+          {
+            var newz = 0;
+          }
+        else 
+          {
+            if (leftover >= 4) 
+              {
+                var newz = 4;
+              } 
+            else 
+              {
+                if (leftover >= 2) 
+                  {
+                    var newz = 3;
+                  } 
+                else 
+                  {
+                    var newz = 2; 
+                  }
+              }
+          }
       }
     }
   else 
     {
     if (indexA == 3) 
       {
-	if (leftover >=5) 
-	  {
-	    var newz = 1;
-	  } 
-	else 
-	  {
-	    var newz = 0;
-	  }
+        if (leftover >=5) 
+          {
+            var newz = 1;
+          } 
+        else 
+          {
+            var newz = 0;
+          }
       }
     }
   var start = false;
@@ -681,11 +681,11 @@ function stemandleaf(x)
     leftover = Math.abs(Math.round(L/t3));
     while (leftover >= 10)
       {
-	leftover = Math.round(leftover/10);
+        leftover = Math.round(leftover/10);
       }
     if (it >=0) 
       {
-	var tt = t3;
+        var tt = t3;
       }
     else 
       {
@@ -694,70 +694,70 @@ function stemandleaf(x)
     var xz = b * t4 + leftover * tt;
     if (it<0)
       {
-	if (xz > 0 ) 
-	  {
-	    xz = xz * -1;
-	  }
-	xz -= .00001;
+        if (xz > 0 ) 
+          {
+            xz = xz * -1;
+          }
+        xz -= .00001;
       }
     if (xz<cur) 
       {
-	newline = true;
+        newline = true;
       while (xz<cur)
-	{
-	  LN ++;
-	  if (start) 
-	    {
-	      LN2++;
-	      leaves[LN2] = "";
-	    }
-	  var temp = trunc(LN/ncats);
-	  temp = LN - temp*ncats;
-	if(temp == newz)
-	  {
-	  if (base2 == 0) 
-	    {
-	    if (didzero)
-	      {
-		base2 -= 1;
-	      } 
-	    else 
-	      {
-		didzero = 1;
-	      }
-	  } 
-	  else 
-	    {
-	      base2 -= 1;
-	    }
-	  }
-	
-	count -= 1;
-	if (count < 0)
-	  {
-	    cur = xz -1000;
-	  } 
-	else 
-	  {
-   	    cur = cutoffs[count];
-	  }
-	if (base2 == 0)
-	  {
-	    zcount ++;
-	    if ( ((indexA == 2) && (zcount >=6)) || ((indexA == 3) && (zcount >=3)) || ((indexA == 1) && (zcount >1)) || ((indexA == 4) && (zcount >1))) {
-	      stems[LN2] = "-" + base2;
-	    } 
-	    else 
-	      {
-		stems[LN2] = base2;
-	      }
-	  } 
-	else 
-	  {
-	    stems[LN2] = base2;
-	  }
-	
-	}
+        {
+          LN ++;
+          if (start) 
+            {
+              LN2++;
+              leaves[LN2] = "";
+            }
+          var temp = trunc(LN/ncats);
+          temp = LN - temp*ncats;
+        if(temp == newz)
+          {
+          if (base2 == 0) 
+            {
+            if (didzero)
+              {
+                base2 -= 1;
+              } 
+            else 
+              {
+                didzero = 1;
+              }
+          } 
+          else 
+            {
+              base2 -= 1;
+            }
+          }
+        
+        count -= 1;
+        if (count < 0)
+          {
+            cur = xz -1000;
+          } 
+        else 
+          {
+               cur = cutoffs[count];
+          }
+        if (base2 == 0)
+          {
+            zcount ++;
+            if ( ((indexA == 2) && (zcount >=6)) || ((indexA == 3) && (zcount >=3)) || ((indexA == 1) && (zcount >1)) || ((indexA == 4) && (zcount >1))) {
+              stems[LN2] = "-" + base2;
+            } 
+            else 
+              {
+                stems[LN2] = base2;
+              }
+          } 
+        else 
+          {
+            stems[LN2] = base2;
+          }
+        
+        }
       
       
       }
@@ -771,7 +771,7 @@ function stemandleaf(x)
       }
     else 
       {
-	leaves[LN2] = leaves[LN2] + "" + leftover;
+        leaves[LN2] = leaves[LN2] + "" + leftover;
       }
     }
   
@@ -784,7 +784,7 @@ function stemandleaf(x)
     for (i=0;i<leaves.length; i++){
       var test = " " + stems[i];
       while (test.length < 8) {
-	test = " " + test}
+        test = " " + test}
       test += "|";
       nw.document.write(test +  leaves[i] + "<br>");
       
@@ -796,8 +796,8 @@ function stemandleaf(x)
   
 }
 
-	
-	
+        
+        
 function bsort(x) 
 {
   var N = x.length -1;
@@ -806,15 +806,15 @@ function bsort(x)
     {
       done = true;
       for (i=0; i<N; i++) 
-	{
-	  if (x[i] > x[i+1]) 
-	    {
-	      var t = x[i];
-	      x[i] = x[i+1];
-	      x[i+1] = t;
-	      done = false;
-	    }
-	}
+        {
+          if (x[i] > x[i+1]) 
+            {
+              var t = x[i];
+              x[i] = x[i+1];
+              x[i+1] = t;
+              done = false;
+            }
+        }
       N--;
     }
   

@@ -64,7 +64,7 @@ Cos(xlist_IsList) <-- MapSingle("Cos",xlist);
 *CMD Cos --- trigonometric cosine function
 *STD
 *CALL
-	Cos(x)
+        Cos(x)
 
 *PARMS
 

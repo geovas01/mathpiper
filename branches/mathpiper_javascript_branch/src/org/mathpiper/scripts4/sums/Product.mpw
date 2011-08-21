@@ -35,8 +35,8 @@ Product(sumlist_IsList) <--
 *CMD Product --- product of a list of values
 *STD
 *CALL
-	Product(list)
-	Product(var, from, to, body)
+        Product(list)
+        Product(var, from, to, body)
 
 *PARMS
 

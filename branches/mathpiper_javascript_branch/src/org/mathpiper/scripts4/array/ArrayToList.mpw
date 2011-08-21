@@ -11,7 +11,7 @@ ArrayToList(array):= (array[1 .. ArraySize(array) ]);
 *CMD ArrayToList --- convert array to list
 *CORE
 *CALL
-	ArrayToList(array)
+        ArrayToList(array)
 
 *DESC
 Creates a list from the contents of the array passed in.

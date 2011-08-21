@@ -22,8 +22,8 @@ Function() Add(val, ...);
 *CMD Add --- find sum of a list of values
 *STD
 *CALL
-	Add(val1, val2, ...)
-	Add({list})
+        Add(val1, val2, ...)
+        Add({list})
 
 *PARMS
 

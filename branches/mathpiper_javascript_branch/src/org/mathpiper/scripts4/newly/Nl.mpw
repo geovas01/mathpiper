@@ -10,7 +10,7 @@ Nl():= UnicodeToString(10);
 *CMD Nl --- the newline character
 *STD
 *CALL
-	Nl()
+        Nl()
 
 *DESC
 
@@ -24,8 +24,8 @@ case {L} (from "line").
 *E.G. notest
 
 In> WriteString("First line" : Nl() : "Second line" : Nl());
-	First line
-	Second line
+        First line
+        Second line
 Result: True;
 
 *SEE NewLine

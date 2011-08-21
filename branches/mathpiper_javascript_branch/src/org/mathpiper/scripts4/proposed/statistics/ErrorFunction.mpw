@@ -57,7 +57,7 @@ ErrorFunction(x) :=
 *CMD ErrorFunction --- a special function which occurs in probability statistics and partial differential equations
 *STD
 *CALL
-	ErrorFunction(a)
+        ErrorFunction(a)
 
 *PARMS
 

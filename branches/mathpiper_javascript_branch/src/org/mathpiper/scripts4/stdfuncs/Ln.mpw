@@ -24,7 +24,7 @@ Ln(xlist_IsList) <-- MapSingle("Ln",xlist);
 *CMD Ln --- natural logarithm
 *STD
 *CALL
-	Ln(x)
+        Ln(x)
 
 *PARMS
 

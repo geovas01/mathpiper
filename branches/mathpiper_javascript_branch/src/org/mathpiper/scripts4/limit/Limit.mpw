@@ -326,8 +326,8 @@ UnFence("Limit",3);
 *CMD Limit --- limit of an expression
 *STD
 *CALL
-	Limit(var, val) expr
-	Limit(var, val, dir) expr
+        Limit(var, val) expr
+        Limit(var, val, dir) expr
 
 *PARMS
 

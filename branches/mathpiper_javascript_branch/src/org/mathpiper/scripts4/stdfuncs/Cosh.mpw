@@ -1,6 +1,6 @@
 %mathpiper,def="Cosh"
 
-5   # Cosh(- _x)	<-- Cosh(x);
+5   # Cosh(- _x)        <-- Cosh(x);
 
 // this is never activated
 
@@ -8,9 +8,9 @@
 
 100 # Cosh(_x)*Sech(_x) <-- 1;
 
-200 # Cosh(0)		<-- 1;
-200 # Cosh(Infinity)	<-- Infinity;
-200 # Cosh(-Infinity)	<-- Infinity;
+200 # Cosh(0)                <-- 1;
+200 # Cosh(Infinity)        <-- Infinity;
+200 # Cosh(-Infinity)        <-- Infinity;
 200 # Cosh(ArcCosh(_x)) <-- x;
 200 # Cosh(ArcSinh(_x)) <-- Sqrt(1+x^2);
 200 # Cosh(ArcTanh(_x)) <-- 1/Sqrt(1-x^2);

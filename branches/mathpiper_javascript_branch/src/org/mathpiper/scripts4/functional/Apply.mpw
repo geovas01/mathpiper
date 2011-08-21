@@ -14,7 +14,7 @@ UnFence("Apply",2);
 *CMD Apply --- apply a function to arguments
 *STD
 *CALL
-	Apply(fn, arglist)
+        Apply(fn, arglist)
 
 *PARMS
 

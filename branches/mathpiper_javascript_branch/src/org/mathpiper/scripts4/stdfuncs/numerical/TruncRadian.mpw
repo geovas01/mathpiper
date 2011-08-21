@@ -27,7 +27,7 @@ HoldArgument("TruncRadian",r);
 *CMD TruncRadian --- remainder modulo $2*Pi$
 *STD
 *CALL
-	TruncRadian(r)
+        TruncRadian(r)
 
 *PARMS
 

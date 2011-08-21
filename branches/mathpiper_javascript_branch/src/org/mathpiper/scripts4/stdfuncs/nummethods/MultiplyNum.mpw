@@ -17,21 +17,21 @@ Function() MultiplyNum(x);
 
 10 # MultiplyNum(x_IsRational, y_IsRationalOrNumber) <--
 [
-	If(
+        If(
         Type(y) = "/",  // IsRational(y), changed by Nobbi before redefinition of IsRational
-		DivideN(Numerator(x)*Numerator(y), Denominator(x)*Denominator(y)),
-		// y is floating-point
-		// avoid multiplication or division by 1
-		If(
-			Numerator(x)=1,
-			DivideN(y, Denominator(x)),
-			If(
-				Denominator(x)=1,
-				MultiplyN(y, Numerator(x)),
-				DivideN(MultiplyN(y, Numerator(x)), Denominator(x))
-			)
-		)
-	);
+                DivideN(Numerator(x)*Numerator(y), Denominator(x)*Denominator(y)),
+                // y is floating-point
+                // avoid multiplication or division by 1
+                If(
+                        Numerator(x)=1,
+                        DivideN(y, Denominator(x)),
+                        If(
+                                Denominator(x)=1,
+                                MultiplyN(y, Numerator(x)),
+                                DivideN(MultiplyN(y, Numerator(x)), Denominator(x))
+                        )
+                )
+        );
 ];
 
 20 # MultiplyNum(x_IsNumber, y_IsRational) <-- MultiplyNum(y, x);
@@ -56,9 +56,9 @@ Function() MultiplyNum(x);
 *CMD MultiplyNum --- optimized numerical multiplication
 *STD
 *CALL
-	MultiplyNum(x,y)
-	MultiplyNum(x,y,z,...)
-	MultiplyNum({x,y,z,...})
+        MultiplyNum(x,y)
+        MultiplyNum(x,y,z,...)
+        MultiplyNum({x,y,z,...})
 
 *PARMS
 

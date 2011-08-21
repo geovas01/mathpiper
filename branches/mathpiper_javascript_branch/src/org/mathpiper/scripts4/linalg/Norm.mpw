@@ -10,7 +10,7 @@
 *CMD Norm --- the norm (magnitude or length) of a vector
 *STD
 *CALL
-	Norm(v)
+        Norm(v)
 
 *PARMS
 

@@ -23,7 +23,7 @@ Rule("MakeVector",2,1,True)
 *CMD MakeVector --- vector of uniquely numbered variable names
 *STD
 *CALL
-	MakeVector(var,n)
+        MakeVector(var,n)
 
 *PARMS
 

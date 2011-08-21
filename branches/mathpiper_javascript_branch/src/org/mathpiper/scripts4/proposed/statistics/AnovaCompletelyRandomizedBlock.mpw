@@ -272,7 +272,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
 *CMD AnovaCompleteRandomizedBlock --- performs an ANOVA completely randomized block analysis
 
 *CALL
-	AnovaCompletelyRandomizedBlock(2dMatrix,alpha)
+        AnovaCompletelyRandomizedBlock(2dMatrix,alpha)
 
 *PARMS
 {2dMatrix} -- a two dimensional matrix which contain the data to be analyzed

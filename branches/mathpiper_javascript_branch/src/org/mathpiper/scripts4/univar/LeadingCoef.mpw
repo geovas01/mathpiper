@@ -24,8 +24,8 @@
 *CMD LeadingCoef --- leading coefficient of a polynomial
 *STD
 *CALL
-	LeadingCoef(poly)
-	LeadingCoef(poly, var)
+        LeadingCoef(poly)
+        LeadingCoef(poly, var)
 
 *PARMS
 
@@ -52,12 +52,12 @@ In> m := Monic(poly);
 Result: x^2+2*x;
 In> Expand(lc*m);
 Result: 2*x^2+4*x;
-	
+        
 In> LeadingCoef(2*a^2 + 3*a*b^2 + 5, a);
 Result: 2;
 In> LeadingCoef(2*a^2 + 3*a*b^2 + 5, b);
 Result: 3*a;
-	
+        
 *SEE Coef, Monic
 
 %/mathpiper_docs

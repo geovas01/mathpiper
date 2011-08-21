@@ -33,7 +33,7 @@
 210 # (x_IsNumber / v_IsNumber) + (y_IsNumber / z_IsNumber) <--(x*z+y*v)/(v*z);
 
 
-//  220 # + x_IsList          <-- MapSingle("+",x);	// this rule is never active
+//  220 # + x_IsList          <-- MapSingle("+",x);        // this rule is never active
 
 220 # (xlist_IsList + ylist_IsList)_(Length(xlist)=Length(ylist)) <-- Map("+",{xlist,ylist});
 
@@ -70,8 +70,8 @@ SumListSide(_x, y_IsList) <--
 *STD
 *CALL
 
-	x+y
-	+x
+        x+y
+        +x
 Precedence:
 *EVAL PrecedenceGet("+")
 

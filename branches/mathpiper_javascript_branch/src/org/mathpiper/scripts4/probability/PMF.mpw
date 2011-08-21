@@ -65,7 +65,7 @@
 *CMD PMF --- probability mass function
 *STD
 *CALL
-	PMF(dist,x)
+        PMF(dist,x)
 
 *PARMS
 {dist} -- a distribution type

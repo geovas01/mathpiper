@@ -18,8 +18,8 @@ TemplateFunction("WithValue",{var,val,expr})
 *CMD WithValue --- temporary assignment during an evaluation
 *STD
 *CALL
-	WithValue(var, val, expr)
-	WithValue({var,...}, {val,...}, expr)
+        WithValue(var, val, expr)
+        WithValue({var,...}, {val,...}, expr)
 
 *PARMS
 

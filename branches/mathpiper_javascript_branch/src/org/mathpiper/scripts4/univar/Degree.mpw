@@ -44,8 +44,8 @@ Rule("Degree",1,0, IsUniVar(expr))
 *CMD Degree --- degree of a polynomial
 *STD
 *CALL
-	Degree(expr)
-	Degree(expr, var)
+        Degree(expr)
+        Degree(expr, var)
 
 *PARMS
 

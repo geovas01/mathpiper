@@ -13,8 +13,8 @@ Macro("Tell",{id,x})  [Echo(<<,@id,>>,Hold(@x),": ",Eval(@x));];
 
 *STD
 *CALL
-	Tell(ID)
-	Tell(ID,list)
+        Tell(ID)
+        Tell(ID,list)
 
 *PARMS
 
@@ -50,20 +50,20 @@ In> var3:=Sin(x)+Exp(x)
 Result: Sin(x)+Exp(x)
 In> Tell(ID1)
 Result: True
-	Side Effects>
-	<< ID1 >>
+        Side Effects>
+        << ID1 >>
 In> Tell(ID2,{var1})
 Result: True
-	Side Effects>
-	<< ID2 >> {var1} :  {123} 
+        Side Effects>
+        << ID2 >> {var1} :  {123} 
 In> Tell(ID3,{var1,var2})
 Result: True
-	Side Effects>
-	<< ID3 >> {var1,var2} {123,"a string"} 
+        Side Effects>
+        << ID3 >> {var1,var2} {123,"a string"} 
 In> Tell(ID4,{var1,var2,var3})
 Result: True
-	Side Effects>
-	<< ID4 >> {var1,var2,var3} :  {123,"a string",Sin(x)+Exp(x)} 
+        Side Effects>
+        << ID4 >> {var1,var2,var3} :  {123,"a string",Sin(x)+Exp(x)} 
 
 
 *SEE Show

@@ -13,30 +13,30 @@ HoldArgument(SumFunc,summand);
 // Difference code does not work
 SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum) <--
 [
-	// Take the given answer and create 2 rules, one for an exact match
-	// for sumfrom, and one which will catch sums starting at a different
-	// index and subtract off the difference
+        // Take the given answer and create 2 rules, one for an exact match
+        // for sumfrom, and one which will catch sums starting at a different
+        // index and subtract off the difference
 
-	`(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody )	<-- Eval(@sum) );
-	`(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody)_(p > @sumfrom)
-	     <--
-	     [
-	          Local(sub);
-		  (sub := Eval(ListToFunction({Sum,sumvar'arg,@sumfrom,p-1,sumbody'arg})));
-		  Simplify(Eval(@sum) - sub );
+        `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody )        <-- Eval(@sum) );
+        `(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody)_(p > @sumfrom)
+             <--
+             [
+                  Local(sub);
+                  (sub := Eval(ListToFunction({Sum,sumvar'arg,@sumfrom,p-1,sumbody'arg})));
+                  Simplify(Eval(@sum) - sub );
              ]);
 ];
 
 SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum,_condition) <--
 [
 
-	`(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody)_(@condition)    <-- Eval(@sum) );
-	`(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody )_(@condition And p > @sumfrom)
-	     <--
-	     [
-	          Local(sub);
-		  `(sub := Eval(ListToFunction({Sum,sumvar'arg,@sumfrom,p-1,sumbody'arg})));
-		  Simplify(Eval(@sum) - sub );
+        `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody)_(@condition)    <-- Eval(@sum) );
+        `(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody )_(@condition And p > @sumfrom)
+             <--
+             [
+                  Local(sub);
+                  `(sub := Eval(ListToFunction({Sum,sumvar'arg,@sumfrom,p-1,sumbody'arg})));
+                  Simplify(Eval(@sum) - sub );
              ]);
 ];
 

@@ -66,8 +66,8 @@
 *CMD Gcd --- greatest common divisor
 *STD
 *CALL
-	Gcd(n,m)
-	Gcd(list)
+        Gcd(n,m)
+        Gcd(list)
 
 *PARMS
 
@@ -84,12 +84,12 @@ also known as the highest common factor (hcf).  The library code calls
 function implements the "binary Euclidean algorithm" for determining the
 greatest common divisor:
 
-*HEAD	Routine for calculating {Gcd(n,m)}
-	
-*	1. if $n = m$ then return $n$
-*	2. if both $n$ and $m$ are even then return $2*Gcd(n/2,m/2)$
-*	3. if exactly one of $n$ or $m$ (say $n$) is even then return $Gcd(n/2,m)$
-*	4. if both $n$ and $m$ are odd and, say, $n>m$ then return $Gcd((n-m)/2,m)$
+*HEAD        Routine for calculating {Gcd(n,m)}
+        
+*        1. if $n = m$ then return $n$
+*        2. if both $n$ and $m$ are even then return $2*Gcd(n/2,m/2)$
+*        3. if exactly one of $n$ or $m$ (say $n$) is even then return $Gcd(n/2,m)$
+*        4. if both $n$ and $m$ are odd and, say, $n>m$ then return $Gcd((n-m)/2,m)$
 
 This is a rather fast algorithm on computers that can efficiently shift
 integers. When factoring Gaussian integers, a slower recursive algorithm is used.

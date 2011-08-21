@@ -85,7 +85,7 @@ CyclotomicDivisorsList(n_IsPositiveInteger) <--
     [
       oldresult := result;
         ForEach (x,oldresult)
-	  result:=Append(result,{x[1]*f[1],x[2]*f[1],-x[3]});
+          result:=Append(result,{x[1]*f[1],x[2]*f[1],-x[3]});
     ];
   result;
 ];
@@ -124,22 +124,22 @@ CyclotomicFactor(_a,_b) <--
       Local(k,m,result,p,t);
        k := 1;
        m := n;
-	While(IsEven(m))
+        While(IsEven(m))
        [
-	k := k*2;
+        k := k*2;
         m := m/2;
        ];
        k := k/2 ;
        If(m>1, [
-	         p:= InternalCyclotomic(m,x)[2];
+                 p:= InternalCyclotomic(m,x)[2];
                  // Substitute x by -x^k
                  result:={};
                  ForEach(t,p)
                     DestructiveAppend(result, {t[1]*k,If(IsEven(t[1]),t[2],-t[2])});
                ],
-	         result := {{k,1},{0,1}} // x^k+1
+                 result := {{k,1},{0,1}} // x^k+1
         );
-	SparseUniVar(x,result);
+        SparseUniVar(x,result);
      ];
 
 
@@ -194,7 +194,7 @@ CyclotomicFactor(_a,_b) <--
 *CMD Cyclotomic --- construct the cyclotomic polynomial
 *STD
 *CALL
-	Cyclotomic(n,x)
+        Cyclotomic(n,x)
 
 *PARMS
 

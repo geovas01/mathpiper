@@ -18,8 +18,8 @@ n_IsInteger >> m_IsInteger <-- ShiftRight(n,m);
 *CMD >> --- binary shift right operator
 *STD
 *CALL
-	n<<m
-	n>>m
+        n<<m
+        n>>m
 
 *PARMS
 

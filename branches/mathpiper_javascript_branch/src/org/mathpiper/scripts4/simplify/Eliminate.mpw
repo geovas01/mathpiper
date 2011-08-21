@@ -10,7 +10,7 @@ Eliminate(_var,_replace,_function) <-- Simplify(Subst(var,replace)function);
 *CMD Eliminate --- substitute and simplify
 *STD
 *CALL
-	Eliminate(var, value, expr)
+        Eliminate(var, value, expr)
 
 *PARMS
 

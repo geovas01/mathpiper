@@ -12,7 +12,7 @@ HankelMatrix(m,n):=GenMatrix({{i,j}, If(i+j-1>n,0,i+j-1)}, m,n );
 %mathpiper_docs,name="HankelMatrix",categories="User Functions;Matrices (Special)"
 *CMD HankelMatrix --- todo
 *CALL
-	HankelMatrix(matrix)
+        HankelMatrix(matrix)
 
 *PARMS
 {n} -- todo

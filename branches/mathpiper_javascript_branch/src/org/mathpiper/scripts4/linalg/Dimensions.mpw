@@ -15,14 +15,14 @@ LocalSymbols(x,i,n,m,aux,dim,result)
       If(Length(x)>0 And Length(Select(x, IsList))=Length(x),
         [
           n:=Length(x);
-	      dim:=MapSingle(Dimensions,x);
-	      m:=Minimum(MapSingle(Length,dim));
-	      For(i:=1,i<=m,i++)
-	      [
-	        aux:=Table(dim[j][i],j,1,n,1);
-	        If(Minimum(aux)=Maximum(aux),
-	           result:=DestructiveAppend(result,dim[1][i]),
-	           i:=m+1
+              dim:=MapSingle(Dimensions,x);
+              m:=Minimum(MapSingle(Length,dim));
+              For(i:=1,i<=m,i++)
+              [
+                aux:=Table(dim[j][i],j,1,n,1);
+                If(Minimum(aux)=Maximum(aux),
+                   result:=DestructiveAppend(result,dim[1][i]),
+                   i:=m+1
             );
           ];
         ]
@@ -45,7 +45,7 @@ LocalSymbols(x,i,n,m,aux,dim,result)
 *CMD Dimensions --- dimensions (number of rows and columns etc) of input Matrix
 *STD
 *CALL
-	Dimensions(Matrix)
+        Dimensions(Matrix)
 
 *PARMS
 

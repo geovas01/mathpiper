@@ -24,7 +24,7 @@ Function("InProduct",{aLeft,aRight})
 *CMD InProduct --- inner product of vectors (deprecated)
 *STD
 *CALL
-	InProduct(a,b)
+        InProduct(a,b)
 
 *PARMS
 

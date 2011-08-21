@@ -42,8 +42,8 @@ Midpoint(segment_IsSegment) <--
 *CMD Midpoint --- returns a Point which represents the midpoint between two points
 *STD
 *CALL
-	Midpoint(p1, p2)
-	Midpoint(s)
+        Midpoint(p1, p2)
+        Midpoint(s)
 *PARMS
 
 {p1} -- the first point
@@ -61,10 +61,10 @@ midpoint formula.
 
 In> PointA := Point(2,3)
 Result: {2,3}
-	
+        
 In> PointB := Point(6,8)
 Result: {6,8}
-	
+        
 In> Midpoint(PointA, PointB)
 Result: {4,11/2}
 

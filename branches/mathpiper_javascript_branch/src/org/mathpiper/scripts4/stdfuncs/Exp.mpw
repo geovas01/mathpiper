@@ -18,7 +18,7 @@ Exp(xlist_IsList) <-- MapSingle("Exp",xlist);
 *CMD Exp --- exponential function
 *STD
 *CALL
-	Exp(x)
+        Exp(x)
 
 *PARMS
 

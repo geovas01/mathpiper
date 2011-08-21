@@ -6,16 +6,16 @@
 // TODO: This function does not check if the input vectors are LI, it
 // only checks for zero vectors
 Function("OrthogonalBasis",{W})[
-	Local(V,j,k);
+        Local(V,j,k);
 
-	V:=ZeroMatrix(Length(W),Length(W[1]) );
+        V:=ZeroMatrix(Length(W),Length(W[1]) );
 
-	V[1]:=W[1];
-	For(k:=2,k<=Length(W),k++)[
-		Check(Not IsZero(Norm(W[k])), "Argument", "OrthogonalBasis: Input vectors must be linearly independent");
-		V[k]:=W[k]-Sum(j,1,k-1,InProduct(W[k],V[j])*V[j]/Norm(V[j])^2);
-	];
-	V;
+        V[1]:=W[1];
+        For(k:=2,k<=Length(W),k++)[
+                Check(Not IsZero(Norm(W[k])), "Argument", "OrthogonalBasis: Input vectors must be linearly independent");
+                V[k]:=W[k]-Sum(j,1,k-1,InProduct(W[k],V[j])*V[j]/Norm(V[j])^2);
+        ];
+        V;
 ];
 
 %/mathpiper
@@ -26,7 +26,7 @@ Function("OrthogonalBasis",{W})[
 *CMD OrthogonalBasis --- create an orthogonal basis 
 *STD
 *CALL
-	OrthogonalBasis(W)
+        OrthogonalBasis(W)
 
 *PARMS
 

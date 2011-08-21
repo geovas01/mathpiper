@@ -20,7 +20,7 @@ Distance(PointA_IsPoint,PointB_IsPoint) <--
 *CMD Distance --- returns the distance between two points
 *STD
 *CALL
-	Distance(p1, p2)
+        Distance(p1, p2)
 *PARMS
 
 {p1} -- the first point
@@ -36,10 +36,10 @@ distance formula.
 
 In> PointA := Point(2,3)
 Result: {2,3}
-	
+        
 In> PointB := Point(6,8)
 Result: {6,8}
-	
+        
 In> Distance(PointA, PointB)
 Result: Sqrt(41)
 

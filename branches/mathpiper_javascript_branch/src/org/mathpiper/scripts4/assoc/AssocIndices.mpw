@@ -11,7 +11,7 @@ AssocIndices(associndiceslist_IsList) <--
 *CMD AssocIndices --- return the keys in an association list
 *STD
 *CALL
-	AssocIndices(alist)
+        AssocIndices(alist)
 
 *PARMS
 

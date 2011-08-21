@@ -5,19 +5,19 @@
 /* version 0.3 */
 
 /* Changelog
-	0.1	CForm() derived from TeXForm() v0.4. Have basic functionality. Do not allow list manipulation, unevaluated derivatives, set operations, limits, integrals, Infinity, explicit matrices. Complex numbers and expressions are handled just like real ones. Indexed symbols are assumed to be arrays and handled literally. No declarations or prototypes are supplied. Function definitions are not handled. Sum() is left as is (can be defined as a C function).
-	0.2 Fix for extra parens in Sin() and other functions; fixes for Exp(), Abs() and inverse trig functions
-	0.3 Fix for indexed expressions: support a[2][3][4]
-	0.3.1 Fix for CForm(integer): add a decimal point
-	0.4 Support While()[]. Added IsCFormable. Use Concat() instead of Union() on lists.
-	0.4.1 Support False, True
+        0.1        CForm() derived from TeXForm() v0.4. Have basic functionality. Do not allow list manipulation, unevaluated derivatives, set operations, limits, integrals, Infinity, explicit matrices. Complex numbers and expressions are handled just like real ones. Indexed symbols are assumed to be arrays and handled literally. No declarations or prototypes are supplied. Function definitions are not handled. Sum() is left as is (can be defined as a C function).
+        0.2 Fix for extra parens in Sin() and other functions; fixes for Exp(), Abs() and inverse trig functions
+        0.3 Fix for indexed expressions: support a[2][3][4]
+        0.3.1 Fix for CForm(integer): add a decimal point
+        0.4 Support While()[]. Added IsCFormable. Use Concat() instead of Union() on lists.
+        0.4.1 Support False, True
   0.4.2 Changed it so that integers are not coerced to floats any more automatically (one can coerce integers to floats manually nowadays by adding a decimal point to the string representation, eg. 1. instead of 1).
 */
 
 /* To do:
-	0. Find and fix bugs.
-	1. Chop strings that are longer than 80 chars?
-	2. Optimization of C code?
+        0. Find and fix bugs.
+        1. Chop strings that are longer than 80 chars?
+        2. Optimization of C code?
 */
 
 Rulebase("CForm",{expression});
@@ -25,8 +25,8 @@ Rulebase("CForm",{expression, precedence});
 
 Function ("CFormBracketIf", {predicate, string})
 [
-	Check(IsBoolean(predicate) And IsString(string), "Argument", "CForm internal error: non-boolean and/or non-string argument of CFormBracketIf");
-	If(predicate, ConcatStrings("( ", string, ") "), string);
+        Check(IsBoolean(predicate) And IsString(string), "Argument", "CForm internal error: non-boolean and/or non-string argument of CFormBracketIf");
+        If(predicate, ConcatStrings("( ", string, ") "), string);
 ];
 
 CFormDoublePrecisionNumber(x_IsNumber) <--
@@ -46,7 +46,7 @@ CFormDoublePrecisionNumber(x_IsNumber) <--
 */
 
 // CFormMaxPrec should perhaps only be used from within this file, it is thus not in the .def file.
-CFormMaxPrec() := 60000;	 /* This precedence will never be bracketed. It is equal to KMaxPrec */
+CFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It is equal to KMaxPrec */
 
 100 # CForm(_x) <-- CForm(x, CFormMaxPrec());
 
@@ -82,17 +82,17 @@ LocalSymbols(cformRegularOps) [
   CFormRegularOps() := cformRegularOps;
 ]; // LocalSymbols(cformRegularOps)
 
-	/* This is the template for "regular" binary infix operators:
+        /* This is the template for "regular" binary infix operators:
 100 # CForm(_x + _y, _p) <-- CFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(CForm(x, LeftPrecedenceGet("+")), " + ", CForm(y, RightPrecedenceGet("+")) ) );
-	*/
+        */
 
-	/* unary addition */
+        /* unary addition */
 100 # CForm(+ _y, _p) <-- CFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(" + ", CForm(y, RightPrecedenceGet("+")) ) );
 
-	/* unary subtraction */
+        /* unary subtraction */
 100 # CForm(- _y, _p) <-- CFormBracketIf(p<PrecedenceGet("-"), ConcatStrings(" - ", CForm(y, RightPrecedenceGet("-")) ) );
 
-	/* power's argument is never bracketed but it must be put in braces. */
+        /* power's argument is never bracketed but it must be put in braces. */
 100 # CForm(_x ^ _y, _p) <-- CFormBracketIf(p<=PrecedenceGet("^"), ConcatStrings("pow(", CForm(x, CFormMaxPrec()), ", ", CForm(y, CFormMaxPrec()), ")" ) );
 
 100 # CForm(if(_pred)_body, _p) <-- "if (":CForm(pred,60000):") ":CForm(body);
@@ -227,15 +227,15 @@ CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 
 120 # CForm(For(_from,_to,_step)_body,_p) <--
   "for(" : CForm(from,CFormMaxPrec()) : ";"
-	: CForm(to,CFormMaxPrec()) : ";"
-	: CForm(step,CFormMaxPrec()) : ")"
-	: CIndent() : NlIndented()
-	: CFormStatement(body) : CUndent();
+        : CForm(to,CFormMaxPrec()) : ";"
+        : CForm(step,CFormMaxPrec()) : ")"
+        : CIndent() : NlIndented()
+        : CFormStatement(body) : CUndent();
 
 120 # CForm(While(_pred)_body, _p) <--
-	"while(" : CForm(pred,CFormMaxPrec()) : ")"
-	: CIndent() : NlIndented()
-	: CFormStatement(body) : CUndent();
+        "while(" : CForm(pred,CFormMaxPrec()) : ")"
+        : CIndent() : NlIndented()
+        : CFormStatement(body) : CUndent();
 
 %/mathpiper
 
@@ -245,8 +245,8 @@ CFormStatement(_x) <-- CForm(x) : ";" : NlIndented();
 *CMD CForm --- export expression to C++ code
 *STD
 *CALL
-	CForm(expr)
-	
+        CForm(expr)
+        
 *PARMS
 
 {expr} -- expression to be exported

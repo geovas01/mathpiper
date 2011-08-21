@@ -21,7 +21,7 @@ Function("Flatten",{body,flattenoper})
 *CMD Flatten --- flatten expression w.r.t. some operator
 *STD
 *CALL
-	Flatten(expression,operator)
+        Flatten(expression,operator)
 
 *PARMS
 

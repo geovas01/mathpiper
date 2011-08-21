@@ -14,23 +14,23 @@ Random number generators implemented in an object-oriented manner.
 
 Old interface (still works):
 
-	RandomSeed(123);
-	Random(); Random();
+        RandomSeed(123);
+        Random(); Random();
 
 It provides only one global RNG with a globally assigned seed.
 
 New interface allows creating many RNG objects:
 
-	r1:=RngCreate();	// create a default RNG object, assign structure to r1
-	r2:=RngCreate(12345);	// create RNG object with given seed
-	r3:=RngCreate(seed->0, engine->advanced, dist->gauss); 	// extended options: specify seed, type of RNG engine and the type of statistical distribution
-	Rng(r1); Rng(r1); Rng(r2);	// generate some floating-point numbers
-	RngSeed(r1, 12345);	// r1 is re-initialized with given seed, r2 is unaffected
+        r1:=RngCreate();        // create a default RNG object, assign structure to r1
+        r2:=RngCreate(12345);        // create RNG object with given seed
+        r3:=RngCreate(seed->0, engine->advanced, dist->gauss);         // extended options: specify seed, type of RNG engine and the type of statistical distribution
+        Rng(r1); Rng(r1); Rng(r2);        // generate some floating-point numbers
+        RngSeed(r1, 12345);        // r1 is re-initialized with given seed, r2 is unaffected
 
 More "RNG engines" and "RNG distribution adaptors" can be defined later (at run time).
 
 RngCreate() will return an object of the following structure:
-	{SomeDist, SomeEngine, state }
+        {SomeDist, SomeEngine, state }
 
 here SomeEngine is a function atom that describes the RNG engine,
 SomeDist is a function atom that specifies the distribution adaptor,
@@ -40,11 +40,11 @@ RngSeed(r1, seed) expects an integer seed.
 It will re-initialize the RNG object r1 with the given seed.
 
 The "RNG engine API": calling RngCreate with engine->SomeEngine expects that:
-	SomeEngine(seed_IsInteger) will create and initialize a state object with given seed and return the new state object (a list). SomeEngine can assume that "seed" is a positive integer.
-	SomeEngine(state1_IsList) will update the RNG state object state1 and return the pair {new state object, new number}.
+        SomeEngine(seed_IsInteger) will create and initialize a state object with given seed and return the new state object (a list). SomeEngine can assume that "seed" is a positive integer.
+        SomeEngine(state1_IsList) will update the RNG state object state1 and return the pair {new state object, new number}.
 
 The "RNG distribution adaptor API": calling RngCreate with distribution->SomeDist expects that:
-	SomeDist(r1) will update the RNG object r1 and return the pair {new state object, new number}. r1 is a full RNG object, not just a state object.
+        SomeDist(r1) will update the RNG object r1 and return the pair {new state object, new number}. r1 is a full RNG object, not just a state object.
 
 
 */
@@ -66,7 +66,7 @@ LocalSymbols(knownRNGEngines, knownRNGDists) [
   {
     {"default", "FlatRNGDist"},
     {"flat", "FlatRNGDist"},
-  //	{"uniform", "FlatRNGDist"},	// we probably don't need this alias...
+  //        {"uniform", "FlatRNGDist"},        // we probably don't need this alias...
     {"gauss", "GaussianRNGDist"},
   };
 
@@ -81,7 +81,7 @@ LocalSymbols(knownRNGEngines, knownRNGDists) [
 
 Function() RngCreate();
 Function() RngCreate(seed, ...);
-//HoldArgument("RngCreate", seed);	// this is needed to prevent evaluation of = and also to prevent substitution of variables, e.g. if "seed" is defined
+//HoldArgument("RngCreate", seed);        // this is needed to prevent evaluation of = and also to prevent substitution of variables, e.g. if "seed" is defined
 //UnFence("RngCreate", 0);
 //UnFence("RngCreate", 1);
 Function() RngSeed(r, seed);
@@ -101,49 +101,49 @@ RngCreate() <-- RngCreate(0);
 // expect a list of options
 30 # RngCreate(options_IsList) <--
 [
-	options := OptionsListToHash @ {options};
+        options := OptionsListToHash @ {options};
 
-	// check options and assign defaults
-	If(
-		options["seed"] = Empty Or options["seed"] <= 0,
-		options["seed"] := 76544321	// some default seed out of the blue sky
-	);
-	If(
-		options["engine"] = Empty Or Not (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] != Empty),
-		options["engine"] := "default"
-	);
-	If(
-		options["dist"] = Empty Or Not (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] != Empty),
-		options["dist"] := "default"
-	);
+        // check options and assign defaults
+        If(
+                options["seed"] = Empty Or options["seed"] <= 0,
+                options["seed"] := 76544321        // some default seed out of the blue sky
+        );
+        If(
+                options["engine"] = Empty Or Not (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] != Empty),
+                options["engine"] := "default"
+        );
+        If(
+                options["dist"] = Empty Or Not (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] != Empty),
+                options["dist"] := "default"
+        );
 
-	// construct a new RNG object
-	// a RNG object has the form {"SomeDist", "SomeEngine", {state}}
-	{
-		KnownRNGDists()[options["dist"] ], KnownRNGEngines()[options["engine"] ],
-		// initialize object with given seed using "SomeEngine"(seed)
-		KnownRNGEngines()[options["engine"] ] @ { options["seed"] }
-	};
+        // construct a new RNG object
+        // a RNG object has the form {"SomeDist", "SomeEngine", {state}}
+        {
+                KnownRNGDists()[options["dist"] ], KnownRNGEngines()[options["engine"] ],
+                // initialize object with given seed using "SomeEngine"(seed)
+                KnownRNGEngines()[options["engine"] ] @ { options["seed"] }
+        };
 ];
 
 /// accessor function: will call SomeDist(r) and update r
 Rng(_r) <--
 [
-	Local(state, result);
-	{state, result} := (r[1] @ {r});	// this calls SomeDist(r)
-	DestructiveReplace(r, 3, state);	// update RNG object
-	result;	// return floating-point number
+        Local(state, result);
+        {state, result} := (r[1] @ {r});        // this calls SomeDist(r)
+        DestructiveReplace(r, 3, state);        // update RNG object
+        result;        // return floating-point number
 ];
 
 /// set seed: will call SomeEngine(r, seed) and update r
 RngSeed(_r, seed_IsInteger) <--
 [
-	Local(state);
-	(Assert("warning", {"RngSeed: seed must be positive", seed}) seed > 0
-	) Or (seed:=76544321);
-	state := (r[2] @ {seed});	// this calls SomeEngine(r)
-	DestructiveReplace(r, 3, state);	// update object
-	True;
+        Local(state);
+        (Assert("warning", {"RngSeed: seed must be positive", seed}) seed > 0
+        ) Or (seed:=76544321);
+        state := (r[2] @ {seed});        // this calls SomeEngine(r)
+        DestructiveReplace(r, 3, state);        // update object
+        True;
 ];
 
 //////////////////////////////////////////////////
@@ -158,7 +158,7 @@ ApplyFast("LCG'2", {r[3]}) do not actually modify r[3].
 */
 
 // return pair {state, number}
-FlatRNGDist(_r) <-- (r[2] @ {r[3]});	// this calls SomeEngine(state)
+FlatRNGDist(_r) <-- (r[2] @ {r[3]});        // this calls SomeEngine(state)
 
 /// Gaussian distribution adaptor, returns a complex number with normal distribution with unit variance, i.e. Re and Im are independent and both have unit variance
 /* Gaussian random number, Using the Box-Muller transform, from Knuth,
@@ -167,21 +167,21 @@ FlatRNGDist(_r) <-- (r[2] @ {r[3]});	// this calls SomeEngine(state)
  */
 GaussianRNGDist(_rng) <--
 [
-	// a Gaussian distributed complex number p + I*q is made up of two uniformly distributed numbers x,y according to the formula:
-	// a:=2*x-1, b:=2*y-1, m:=a^2+b^2; p = a*Sqrt(-2*Ln(m)/m); q:=b*Sqrt(-2*Ln(m)/m);
-	// here we need to make sure that m is nonzero and strictly less than 1.
-	Local(a,b,m, new'state, rnumber);
-	new'state := rng[3];	// this will be updated at the end
-	m:=0;
-	While(m=0 Or m>=1)	// repeat generating new x,y  - should not take more than one iteration really
-	[
-		{new'state, rnumber} := (rng[2] @ {new'state});
-		a:=2*rnumber-1;
-		{new'state, rnumber} := (rng[2] @ {new'state});
-		b:=2*rnumber-1;
-		m:=a*a+b*b;
-	];
-	{new'state, (a+I*b)*SqrtN(-2*DivideN(Internal'LnNum(m),m))};
+        // a Gaussian distributed complex number p + I*q is made up of two uniformly distributed numbers x,y according to the formula:
+        // a:=2*x-1, b:=2*y-1, m:=a^2+b^2; p = a*Sqrt(-2*Ln(m)/m); q:=b*Sqrt(-2*Ln(m)/m);
+        // here we need to make sure that m is nonzero and strictly less than 1.
+        Local(a,b,m, new'state, rnumber);
+        new'state := rng[3];        // this will be updated at the end
+        m:=0;
+        While(m=0 Or m>=1)        // repeat generating new x,y  - should not take more than one iteration really
+        [
+                {new'state, rnumber} := (rng[2] @ {new'state});
+                a:=2*rnumber-1;
+                {new'state, rnumber} := (rng[2] @ {new'state});
+                b:=2*rnumber-1;
+                m:=a*a+b*b;
+        ];
+        {new'state, (a+I*b)*SqrtN(-2*DivideN(Internal'LnNum(m),m))};
 ];
 
 
@@ -221,8 +221,8 @@ LCG'4(state) := RandomLCG(state, 18014398509481984,2783377640906189,0);
 // state is a list with one element
 RandomLCG(_state, _im, _ia, _ic) <--
 {
-	DestructiveReplace(state,1, ModuloN(state[1]*ia+ic,im)),
-	DivideN(state[1], im)	// division should never give 1
+        DestructiveReplace(state,1, ModuloN(state[1]*ia+ic,im)),
+        DivideN(state[1], im)        // division should never give 1
 };
 
 /// Advanced RNG engine due to L'Ecuyer et al.
@@ -232,35 +232,35 @@ RandomLCG(_state, _im, _ia, _ic) <--
 // first method: initialize a state object with given seed
 RNGEngine'L'Ecuyer(a'seed_IsInteger) <--
 [
-	// use LCG'2 as auxiliary RNG to fill the seeds
-	Local(rng'aux, result);
-	rng'aux := (RngCreate @ {a'seed});
-	// this will be the state vector
-	result:=ZeroVector(6);
-	// fill the state object with random numbers
-	Local(i);
-	For(i:=1, i<=6, i++)
-	[
-		Rng(rng'aux);
-		result[i] := rng'aux[3][1];	// hack to get the integer part
-	];
-	// return the state object
-	result;
+        // use LCG'2 as auxiliary RNG to fill the seeds
+        Local(rng'aux, result);
+        rng'aux := (RngCreate @ {a'seed});
+        // this will be the state vector
+        result:=ZeroVector(6);
+        // fill the state object with random numbers
+        Local(i);
+        For(i:=1, i<=6, i++)
+        [
+                Rng(rng'aux);
+                result[i] := rng'aux[3][1];        // hack to get the integer part
+        ];
+        // return the state object
+        result;
 ];
 
 // second method: update state object and return a new random number (floating-point)
 RNGEngine'L'Ecuyer(state_IsList) <--
 [
-	Local(new'state, result);
-	new'state := {
-		Modulo(1403580*state[2]-810728*state[3], 4294967087), state[1], state[2],
-		Modulo(527612*state[4]-1370589*state[6], 4294944433), state[4], state[5]
-	};
-	result:=Modulo(state[1]-state[4], 4294967087);
-	{
-		new'state,
-		DivideN(If(result=0, 4294967087, result), 4294967088)
-	};
+        Local(new'state, result);
+        new'state := {
+                Modulo(1403580*state[2]-810728*state[3], 4294967087), state[1], state[2],
+                Modulo(527612*state[4]-1370589*state[6], 4294944433), state[4], state[5]
+        };
+        result:=Modulo(state[1]-state[4], 4294967087);
+        {
+                new'state,
+                DivideN(If(result=0, 4294967087, result), 4294967088)
+        };
 ];
 
 //////////////////////////////////////////////////
@@ -283,7 +283,7 @@ LocalSymbols(RandSeed) [
   RandomLCG(_im, _ia, _ic) <--
   [
     RandSeed:=ModuloN(RandSeed*ia+ic,im);
-    DivideN(RandSeed,im);	// should never give 1
+    DivideN(RandSeed,im);        // should never give 1
   ];
 ]; // LocalSymbols(RandSeed)
 
@@ -310,8 +310,8 @@ Function("Random",{}) Random3();
 *CMD Random, RandomSeed --- (pseudo-) random number generator
 *STD
 *CALL
-	Random()
-	RandomSeed(init)
+        Random()
+        RandomSeed(init)
 
 *PARAMS
 {init} -- positive integer, initial random seed
@@ -338,12 +338,12 @@ Each seed value will result in the same sequence of pseudo-random numbers.
 *CMD Rng --- manipulate random number generators as objects
 *STD
 *CALL
-	RngCreate()
-	RngCreate(init)
-	RngCreate(option->value,...)
-	RngSeed(r, init)
-	Rng(r)
-	
+        RngCreate()
+        RngCreate(init)
+        RngCreate(option->value,...)
+        RngSeed(r, init)
+        Rng(r)
+        
 *PARMS
 {init} -- integer, initial seed value
 
@@ -368,9 +368,9 @@ The seed value should be a positive integer.
 The {RngCreate} function accepts several options as arguments.
 Currently the following options are available:
 
-*	{seed} -- specify initial seed value, must be a positive integer
-*	{dist} -- specify the distribution of the random number; currently {flat} and {gauss} are implemented, and the default is the flat (uniform) distribution
-*	{engine} -- specify the RNG engine; currently {default} and {advanced} are available ("advanced" is slower but has much longer period)
+*        {seed} -- specify initial seed value, must be a positive integer
+*        {dist} -- specify the distribution of the random number; currently {flat} and {gauss} are implemented, and the default is the flat (uniform) distribution
+*        {engine} -- specify the RNG engine; currently {default} and {advanced} are available ("advanced" is slower but has much longer period)
 
 If the initial seed is not specified, the value of 76544321 will be used.
 
@@ -403,7 +403,7 @@ In> RngSeed(r1, 1)
 Result: True;
 In> Rng(r1)
 Result: Complex(-1.6668466417,0.228904004);
-	
+        
 
 *SEE Random, RandomInteger, RandomIntegerList, RandomIntegerMatrix
 %/mathpiper_docs

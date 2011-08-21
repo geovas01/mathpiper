@@ -28,7 +28,7 @@ CorrelationCoefficient(x,y) :=
 *CMD CorrelationCoefficient --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL
-	CorrelationCoefficient(xList,yList)
+        CorrelationCoefficient(xList,yList)
 
 *PARMS
 

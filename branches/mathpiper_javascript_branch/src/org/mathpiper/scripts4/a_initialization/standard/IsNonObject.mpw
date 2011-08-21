@@ -13,7 +13,7 @@
 *CMD IsNonObject --- test whether argument is not an {Object()}
 *STD
 *CALL
-	IsNonObject(expr)
+        IsNonObject(expr)
 
 *PARMS
 

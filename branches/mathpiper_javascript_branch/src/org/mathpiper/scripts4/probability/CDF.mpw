@@ -48,13 +48,13 @@
 10 # CDF(ChiSquareDistribution(_m), _x) <-- IncompleteGamma(m/2,x/2)/Gamma(x/2);
 10 # CDF(DiscreteDistribution( dom_IsList, prob_IsList), _x)   <--
       [
-	 Local(i,cdf,y);
+         Local(i,cdf,y);
 
-	 i := 1;
-	 cdf:=0;
-	 y:=dom[i];
-	 While(y<x) [cdf:=cdf+prob[i];i++;];
-	 cdf;
+         i := 1;
+         cdf:=0;
+         y:=dom[i];
+         While(y<x) [cdf:=cdf+prob[i];i++;];
+         cdf;
       ];
 
 10 # CDF(HypergeometricDistribution( N_IsNumber, M_IsNumber, n_IsNumber), x_IsNumber)_(M <= N And n <= N) <-- 
@@ -80,7 +80,7 @@
 *CMD CDF --- cumulative distribution function
 *STD
 *CALL
-	CDF(dist,x)
+        CDF(dist,x)
 
 *PARMS
 {dist} -- a distribution type

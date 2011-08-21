@@ -28,7 +28,7 @@
 *CMD RecursiveDeterminant --- computes a determinant recursively
 *STD
 *CALL
-	RecursiveDeterminant(matrix)
+        RecursiveDeterminant(matrix)
 
 *PARMS
 {matrix} -- a matrix

@@ -67,7 +67,7 @@
 *CMD xCheckSolution --- Check the validity of solutions returned by the {xSolve} function.
 *STD
 *CALL
-	xCheckSolution(expr,var,solution)
+        xCheckSolution(expr,var,solution)
 
 *PARMS
 

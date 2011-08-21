@@ -12,7 +12,7 @@ BinomialDistributionStandardDeviation(probability,numberOfTrials) :=
     
     SqrtN(numberOfTrials * probability * (1 - probability));
 ];
-	
+        
 
 %/mathpiper
 
@@ -28,7 +28,7 @@ BinomialDistributionStandardDeviation(probability,numberOfTrials) :=
 *CMD BinomialDistributionStandardDeviation --- the standard deviation of a binomial distribution
 *STD
 *CALL
-	BinomialDistributionStandardDeviation(p,n)
+        BinomialDistributionStandardDeviation(p,n)
 
 *PARMS
 {p} -- number, the probability of a success in a single trial

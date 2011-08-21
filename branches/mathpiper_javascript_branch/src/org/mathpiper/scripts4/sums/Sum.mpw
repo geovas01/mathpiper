@@ -50,7 +50,7 @@ HoldArgument("Sum",sumbody'arg);
 *STD
 *CALL
         Sum(list)
-	Sum(var, from, to, body)
+        Sum(var, from, to, body)
 
 *PARMS
 

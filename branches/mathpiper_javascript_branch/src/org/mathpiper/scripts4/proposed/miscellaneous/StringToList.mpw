@@ -32,7 +32,7 @@
 *CMD StringToList --- converts a string into a list
 *STD
 *CALL
-	StringToList(string)
+        StringToList(string)
 
 *PARMS
 

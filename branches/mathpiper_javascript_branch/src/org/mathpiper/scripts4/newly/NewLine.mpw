@@ -19,8 +19,8 @@
 *CMD NewLine --- print one or more newline characters
 *STD
 *CALL
-	NewLine()
-	NewLine(nr)
+        NewLine()
+        NewLine(nr)
 
 *PARMS
 
@@ -35,7 +35,7 @@ current output. The result is always True.
 *E.G. notest
 
 In> NewLine();
-	
+        
 Result: True;
 
 *SEE Echo, Write, Space

@@ -15,7 +15,7 @@
 *CMD Denominator --- denominator of an expression
 *STD
 *CALL
-	Denominator(expr)
+        Denominator(expr)
 
 *PARMS
 

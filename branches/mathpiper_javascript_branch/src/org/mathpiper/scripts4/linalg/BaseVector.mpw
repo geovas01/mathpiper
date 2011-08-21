@@ -16,7 +16,7 @@ Function("BaseVector",{row,n})
 *CMD BaseVector --- base vector
 *STD
 *CALL
-	BaseVector(k, n)
+        BaseVector(k, n)
 
 *PARMS
 

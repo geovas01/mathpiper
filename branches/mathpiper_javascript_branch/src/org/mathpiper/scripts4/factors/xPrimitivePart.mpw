@@ -41,7 +41,7 @@ Macro("xPrimitivePart",{poly,xcont})
 *CMD xPrimitivePart --- primitive part of a polynomial
 *STD
 *CALL
-	PrimitivePart(expr)
+        PrimitivePart(expr)
     PrimitivePart(expr,cont)
 
 *PARMS

@@ -25,7 +25,7 @@ Horner(_e,_v) <--
 *CMD Horner --- convert a polynomial into the Horner form
 *STD
 *CALL
-	Horner(expr, var)
+        Horner(expr, var)
 
 *PARMS
 

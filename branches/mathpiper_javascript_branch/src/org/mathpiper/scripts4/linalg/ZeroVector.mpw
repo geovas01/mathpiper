@@ -19,7 +19,7 @@ Function("ZeroVector",{n})
 *CMD ZeroVector --- create a vector with all zeroes
 *STD
 *CALL
-	ZeroVector(n)
+        ZeroVector(n)
 
 *PARMS
 

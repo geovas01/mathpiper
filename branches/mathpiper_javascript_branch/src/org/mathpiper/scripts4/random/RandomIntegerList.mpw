@@ -14,7 +14,7 @@ RandomIntegerList(_count,_coefmin,_coefmax) <--
 *STD
 
 *CALL
-	RandomIntegerList(nr, from, to)
+        RandomIntegerList(nr, from, to)
 
 *PARMS
 

@@ -89,7 +89,7 @@ Function("!=",{aLeft,aRight}) Not(aLeft=aRight);
 *CMD < --- test for "less than"
 *STD
 *CALL
-	e1 < e2
+        e1 < e2
 Precedence:
 *EVAL PrecedenceGet("<")
 
@@ -125,7 +125,7 @@ Result: True;
 *CMD > --- test for "greater than"
 *STD
 *CALL
-	e1 > e2
+        e1 > e2
 Precedence:
 *EVAL PrecedenceGet(">")
 
@@ -162,7 +162,7 @@ Result: False
 *CMD <= --- test for "less or equal"
 *STD
 *CALL
-	e1 <= e2
+        e1 <= e2
 Precedence:
 *EVAL PrecedenceGet("<=")
 
@@ -200,7 +200,7 @@ Result: True
 *CMD >= --- test for "greater or equal"
 *STD
 *CALL
-	e1 >= e2
+        e1 >= e2
 Precedence:
 *EVAL PrecedenceGet(">=")
 
@@ -238,7 +238,7 @@ Result: False
 *CMD != --- test for "not equal"
 *STD
 *CALL
-	e1 != e2
+        e1 != e2
 Precedence:
 *EVAL PrecedenceGet("!=")
 
@@ -271,7 +271,7 @@ Result: False;
 *CMD = --- test for equality of expressions
 *STD
 *CALL
-	e1 = e2
+        e1 = e2
 Precedence:
 *EVAL PrecedenceGet("=")
 
@@ -298,7 +298,7 @@ In> e1 := (x+1) * (x-1);
 Result: (x+1)*(x-1);
 In> e2 := x^2 - 1;
 Result: x^2-1;
-	
+        
 In> e1 = e2;
 Result: False;
 In> Expand(e1) = e2;

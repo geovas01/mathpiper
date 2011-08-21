@@ -21,18 +21,18 @@ Function("BesselNsmall",{n,x,modified})
         result:=0;
         While( Abs(term) >= eps )[
                 term:=x^(2*k+n);
-		// The only difference between BesselJ and BesselI
-		// is an alternating term
-		If( k%2=1 And modified=0 , term:=term*-1 );
-		term:=N(term/(2^(2*k+n)* k! * Gamma(k+n+1) ));
+                // The only difference between BesselJ and BesselI
+                // is an alternating term
+                If( k%2=1 And modified=0 , term:=term*-1 );
+                term:=N(term/(2^(2*k+n)* k! * Gamma(k+n+1) ));
                 //Echo({"term is ",term});
                 result:=result+term;
                 k:=k+1;
         ];
         BuiltinPrecisionSet(prec);
-	// This should not round, only truncate
-	// some outputs will be off by one in the last digit
-	RoundTo(result,prec);
+        // This should not round, only truncate
+        // some outputs will be off by one in the last digit
+        RoundTo(result,prec);
 
 ];
 

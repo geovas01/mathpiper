@@ -34,7 +34,7 @@
 *CMD Content --- content of a polynomial
 *STD
 *CALL
-	Content(expr)
+        Content(expr)
 
 *PARMS
 

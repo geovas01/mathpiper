@@ -27,7 +27,7 @@ OptionsToAssociativeList(optionList) :=
 %mathpiper_docs,name="OptionsToAssociativeList",categories="User Functions;Lists (Operations)",access="experimental"
 *CMD OptionsToAssociativeList --- converts an options list into an associative list
 *CALL
-	OptionsToAssociativeList(optionsList)
+        OptionsToAssociativeList(optionsList)
 
 *PARMS
 {optionsList} -- an options list to be converted into an associative list

@@ -13,8 +13,8 @@ Macro("Show",{id,x})  [SysOut("<< ",@id," >> ",Hold(@x),": ",Eval(@x));];
 
 *STD
 *CALL
-	Show(ID)
-	Show(ID,list)
+        Show(ID)
+        Show(ID,list)
 
 *PARMS
 
@@ -53,20 +53,20 @@ In> var3:=Sin(x)+Exp(x)
 Result: Sin(x)+Exp(x)
 In> Show(ID1)
 Result: True
-	Side Effects>
-	<< ID1 >>
+        Side Effects>
+        << ID1 >>
 In> Show(ID2,{var1})
 Result: True
-	Side Effects>
-	<< ID2 >> {var1}:  {123}
+        Side Effects>
+        << ID2 >> {var1}:  {123}
 In> Show(ID3,{var1,var2})
 Result: True
-	Side Effects>
-	<< ID3 >> {var1,var2}:  {123,a string}
+        Side Effects>
+        << ID3 >> {var1,var2}:  {123,a string}
 In> Show(ID4,{var1,var2,var3})
 Result: True
-	Side Effects>
-	<< ID4 >> {var1,var2,var3}:  {123,a string,Sin(x)+Exp(x)}
+        Side Effects>
+        << ID4 >> {var1,var2,var3}:  {123,a string,Sin(x)+Exp(x)}
 
 *SEE Tell
 %/mathpiper_docs

@@ -33,8 +33,8 @@ UnFence("V",1);
 *CMD V, InVerboseMode --- set verbose output mode
 *STD
 *CALL
-	V(expression)
-	InVerboseMode()
+        V(expression)
+        InVerboseMode()
 
 *PARMS
 
@@ -54,10 +54,10 @@ it will return {False}.
 In> OldSolve({x+2==0},{x})
 Result: {{-2}};
 In> V(OldSolve({x+2==0},{x}))
-	Entering OldSolve
-	From  x+2==0  it follows that  x  = -2
-	   x+2==0  simplifies to  True
-	Leaving OldSolve
+        Entering OldSolve
+        From  x+2==0  it follows that  x  = -2
+           x+2==0  simplifies to  True
+        Leaving OldSolve
 Result: {{-2}};
 In> InVerboseMode()
 Result: False

@@ -26,7 +26,7 @@ SampleSizeForTheMean(standardDeviation,confidenceLevel,marginOfError) :=
 *CMD SampleSizeForTheMean --- calculates the sample size for the mean
 *STD
 *CALL
-	SampleSizeForTheMean(standardDeviation,confidenceLevel,marginOfError)
+        SampleSizeForTheMean(standardDeviation,confidenceLevel,marginOfError)
 *PARMS
 {standardDeviation} -- the standard deviation of the sample
 {confidenceLevel} -- the desired level of confidence

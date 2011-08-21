@@ -75,12 +75,12 @@ assumptions := {};
 *CMD Assume --- a suite of functions for specifying and testing "assumptions" about unbound variables
 *STD
 *CALL
-	Assume(v -> prop)
-	Assume({v1 -> prop1, v2 -> prop2}}
-	UnAssume(v)
-	AssumptionsGet()
-	AssumptionsAbout(v)
-	IsAssumed(v,prop)
+        Assume(v -> prop)
+        Assume({v1 -> prop1, v2 -> prop2}}
+        UnAssume(v)
+        AssumptionsGet()
+        AssumptionsAbout(v)
+        IsAssumed(v,prop)
 
 *PARMS
 

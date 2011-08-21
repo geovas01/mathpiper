@@ -2,15 +2,15 @@
 
 Function("Sparsity",{matrix})
 [
-	Local(rows,cols,nonzero);
-	nonzero:=0;
-	rows:=Length(matrix);
-	cols:=Length(matrix[1]);
-	ForEach(i, 1 .. rows )
-		ForEach(j, 1 .. cols )
-			If(matrix[i][j] != 0, nonzero:=nonzero+1 );
+        Local(rows,cols,nonzero);
+        nonzero:=0;
+        rows:=Length(matrix);
+        cols:=Length(matrix[1]);
+        ForEach(i, 1 .. rows )
+                ForEach(j, 1 .. cols )
+                        If(matrix[i][j] != 0, nonzero:=nonzero+1 );
 
-	N(1 - nonzero/(rows*cols));
+        N(1 - nonzero/(rows*cols));
 ];
 
 %/mathpiper
@@ -21,7 +21,7 @@ Function("Sparsity",{matrix})
 *CMD Sparsity --- get the sparsity of a matrix
 *STD
 *CALL
-	Sparsity(matrix)
+        Sparsity(matrix)
 *PARMS
 
 {matrix} -- a matrix

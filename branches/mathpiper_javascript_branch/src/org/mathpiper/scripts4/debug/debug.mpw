@@ -209,9 +209,9 @@ Macro(Profile,{expression})
 /// Measure the time taken by evaluation and print results.
 Macro(EchoTime,{expression})
 [
-	Local(result);
-	Echo(Time()Bind(result, @expression), "seconds taken.");
-	result;
+        Local(result);
+        Echo(Time()Bind(result, @expression), "seconds taken.");
+        result;
 ];
 
 
@@ -268,7 +268,7 @@ DebugShowCode():=
 *CMD TraceExp --- evaluate with tracing enabled
 *CORE
 *CALL
-	TraceExp(expr)
+        TraceExp(expr)
 
 *PARMS
 
@@ -291,28 +291,28 @@ probably more useful  for all but very simple expressions.
 *E.G. notest
 
 In> TraceExp(2+3);
-	  TrEnter(2+3);
-	    TrEnter(2);
-	    TrLeave(2, 2);
-	    TrEnter(3);
-	    TrLeave(3, 3);
-	    TrEnter(IsNumber(x));
-	      TrEnter(x);
-	      TrLeave(x, 2);
-	    TrLeave(IsNumber(x),True);
-	    TrEnter(IsNumber(y));
-	      TrEnter(y);
-	      TrLeave(y, 3);
-	    TrLeave(IsNumber(y),True);
-	    TrEnter(True);
-	    TrLeave(True, True);
-	    TrEnter(MathAdd(x,y));
-	      TrEnter(x);
-	      TrLeave(x, 2);
-	      TrEnter(y);
-	      TrLeave(y, 3);
-	    TrLeave(MathAdd(x,y),5);
-	  TrLeave(2+3, 5);
+          TrEnter(2+3);
+            TrEnter(2);
+            TrLeave(2, 2);
+            TrEnter(3);
+            TrLeave(3, 3);
+            TrEnter(IsNumber(x));
+              TrEnter(x);
+              TrLeave(x, 2);
+            TrLeave(IsNumber(x),True);
+            TrEnter(IsNumber(y));
+              TrEnter(y);
+              TrLeave(y, 3);
+            TrLeave(IsNumber(y),True);
+            TrEnter(True);
+            TrLeave(True, True);
+            TrEnter(MathAdd(x,y));
+              TrEnter(x);
+              TrLeave(x, 2);
+              TrEnter(y);
+              TrLeave(y, 3);
+            TrLeave(MathAdd(x,y),5);
+          TrLeave(2+3, 5);
 Result: 5;
 
 *SEE TraceStack, TraceRule
@@ -325,7 +325,7 @@ Result: 5;
 *CMD EchoTime --- measure the time taken by a function and echos it
 *STD
 *CALL
-	EchoTime()expr
+        EchoTime()expr
 *PARMS
 {expr} -- any expression
 *DESC
@@ -339,7 +339,7 @@ Therefore, any CPU-intensive processes running alongside MathPiper will not sign
 
 *E.G. notest
 In> EchoTime() N(MathLog(1000),40)
-	0.34 seconds taken
+        0.34 seconds taken
 Result: 6.9077552789821370520539743640530926228033;
 
 *SEE Time, SystemTimer

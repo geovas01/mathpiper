@@ -12,7 +12,7 @@
 *CMD Factor --- factorization (in pretty form)
 *STD
 *CALL
-	YacasFactor(x)
+        YacasFactor(x)
 
 *PARMS
 
@@ -29,17 +29,17 @@ it shows the result in a more human-readable format.
 *E.G.
 
 In> PrettyForm(YacasFactor(24));
-	
-	 3
-	2  * 3
-	
+        
+         3
+        2  * 3
+        
 Result: True;
 In> PrettyForm(YacasFactor(2*x^3 + 3*x^2 - 1));
-	
-	             2   /     1 \
-	2 * ( x + 1 )  * | x - - |
-	                 \     2 /
-	
+        
+                     2   /     1 \
+        2 * ( x + 1 )  * | x - - |
+                         \     2 /
+        
 Result: True;
 
 *SEE YacasFactors, xFactor, IsPrime, PrettyForm

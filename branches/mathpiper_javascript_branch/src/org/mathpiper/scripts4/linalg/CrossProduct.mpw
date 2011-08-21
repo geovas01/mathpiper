@@ -30,8 +30,8 @@ Function("CrossProduct",{aLeft,aRight})
 *CMD CrossProduct --- outer product of vectors
 *STD
 *CALL
-	CrossProduct(a,b)
-	a X b
+        CrossProduct(a,b)
+        a X b
 Precedence:
 *EVAL PrecedenceGet("X")
 

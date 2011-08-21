@@ -19,7 +19,7 @@
 *CMD Sign --- sign of a number
 *STD
 *CALL
-	Sign(x)
+        Sign(x)
 
 *PARMS
 

@@ -78,7 +78,7 @@ VerifyNumeric(expression1, expression2) :=
 *CMD VerifyNumeric --- numerically evaluates two expressions to indicate if they may be equivalent or not
 *STD
 *CALL
-	Verify(symbolicExpression1,symbolicExpression2,variableAssignmentList)
+        Verify(symbolicExpression1,symbolicExpression2,variableAssignmentList)
     
     Verify(numericExpression1,numericExpression2)
 

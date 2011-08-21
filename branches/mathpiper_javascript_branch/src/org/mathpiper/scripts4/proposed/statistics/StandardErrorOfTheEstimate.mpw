@@ -34,7 +34,7 @@ StandardErrorOfTheEstimate(xList,yList) :=
 *CMD StandardErrorOfTheEstimate --- calculates the correlation coefficient between two lists of values
 *STD
 *CALL
-	StandardErrorOfTheEstimate(xList,yList)
+        StandardErrorOfTheEstimate(xList,yList)
 
 *PARMS
 

@@ -11,7 +11,7 @@ ToeplitzMatrix(N):=GenMatrix({{i,j},N[Abs(i-j)+1]}, Length(N), Length(N) );
 *CMD ToeplitzMatrix --- create a Toeplitz matrix
 *STD
 *CALL
-	ToeplitzMatrix(N)
+        ToeplitzMatrix(N)
 *PARMS
 
 {N} -- an $n$-dimensional row vector
@@ -26,15 +26,15 @@ all diagonal columns, from upper left to lower right.
 
 In> PrettyForm(ToeplitzMatrix({1,2,3,4,5}))
 
-	/                                \
-	| ( 1 ) ( 2 ) ( 3 ) ( 4 ) ( 5 )  |
-	|                                |
-	| ( 2 ) ( 1 ) ( 2 ) ( 3 ) ( 4 )  |
-	|                                |
-	| ( 3 ) ( 2 ) ( 1 ) ( 2 ) ( 3 )  |
-	|                                |
-	| ( 4 ) ( 3 ) ( 2 ) ( 1 ) ( 2 )  |
-	|                                |
-	| ( 5 ) ( 4 ) ( 3 ) ( 2 ) ( 1 )  |
-	\                                /
+        /                                \
+        | ( 1 ) ( 2 ) ( 3 ) ( 4 ) ( 5 )  |
+        |                                |
+        | ( 2 ) ( 1 ) ( 2 ) ( 3 ) ( 4 )  |
+        |                                |
+        | ( 3 ) ( 2 ) ( 1 ) ( 2 ) ( 3 )  |
+        |                                |
+        | ( 4 ) ( 3 ) ( 2 ) ( 1 ) ( 2 )  |
+        |                                |
+        | ( 5 ) ( 4 ) ( 3 ) ( 2 ) ( 1 )  |
+        \                                /
 %/mathpiper_docs

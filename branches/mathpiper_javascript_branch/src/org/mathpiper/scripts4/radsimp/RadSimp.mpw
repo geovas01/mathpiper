@@ -59,7 +59,7 @@ RadSimpTry(_n,_result,_current,_max)<--
 /* Echo({"Full-try ",test}); */
 
         Bind(new,RadSimpTry(n,test,i,max));
-	if (CheckRadicals(n,new))
+        if (CheckRadicals(n,new))
         [
           Bind(result,new);
           Bind(i,AddN(max,1));
@@ -83,7 +83,7 @@ RadSimpTry(_n,_result,_current,_max)<--
 *CMD RadSimp --- simplify expression with nested radicals
 *STD
 *CALL
-	RadSimp(expr)
+        RadSimp(expr)
 
 *PARMS
 
@@ -114,10 +114,10 @@ big so the evaluation may take very long.
 In> RadSimp(Sqrt(9+4*Sqrt(2)))
 Result: Sqrt(8)+1;
 In> RadSimp(Sqrt(5+2*Sqrt(6)) \
-	  +Sqrt(5-2*Sqrt(6)))
+          +Sqrt(5-2*Sqrt(6)))
 Result: Sqrt(12);
 In> RadSimp(Sqrt(14+3*Sqrt(3+2
-	*Sqrt(5-12*Sqrt(3-2*Sqrt(2))))))
+        *Sqrt(5-12*Sqrt(3-2*Sqrt(2))))))
 Result: Sqrt(2)+3;
 
 But this command may yield incorrect results:

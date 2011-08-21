@@ -208,7 +208,7 @@ AnovaSingleFactor(levelsList, alpha) :=
 *CMD AnovaSingleFactor --- performs an ANOVA single factor analysis
 
 *CALL
-	AnovaSingleFactor(listOfLists,alpha)
+        AnovaSingleFactor(listOfLists,alpha)
 
 *PARMS
 {listOfLists} -- a list which contains lists which contain the data to be analyzed

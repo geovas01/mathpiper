@@ -33,7 +33,7 @@ ArcTan(xlist_IsList) <-- MapSingle("ArcTan",xlist);
 *CMD ArcTan --- inverse trigonometric function arc-tangent
 *STD
 *CALL
-	ArcTan(x)
+        ArcTan(x)
 
 *PARMS
 

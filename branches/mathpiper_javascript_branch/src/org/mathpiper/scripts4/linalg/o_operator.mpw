@@ -10,7 +10,7 @@ _x o _y <-- Outer(x,y);
 *CMD o --- get outer tensor product
 *STD
 *CALL
-	t1 o t2
+        t1 o t2
 
 *PARMS
 

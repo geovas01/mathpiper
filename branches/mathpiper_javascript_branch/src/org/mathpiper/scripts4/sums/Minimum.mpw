@@ -46,8 +46,8 @@ Function() Minimum(l1, l2, l3, ...);
 *CMD Minimum --- minimum of a number of values
 *STD
 *CALL
-	Minimum(x,y)
-	Minimum(list)
+        Minimum(x,y)
+        Minimum(list)
 
 *PARMS
 

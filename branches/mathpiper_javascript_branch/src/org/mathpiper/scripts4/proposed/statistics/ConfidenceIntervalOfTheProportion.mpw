@@ -55,7 +55,7 @@ ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) 
 *CMD ConfidenceIntervalOfTheProportion --- calculates a confidence interval for a proportion
 *STD
 *CALL
-	ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel)
+        ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel)
 *PARMS
 {numberOfSuccesses} -- the number of successes in the sample
 {sampleSize} -- the size of the sample

@@ -74,7 +74,7 @@ DecimalMatches(_reversed,_period) <--
 *CMD Decimal --- decimal representation of a rational
 *STD
 *CALL
-	Decimal(frac)
+        Decimal(frac)
 
 *PARMS
 

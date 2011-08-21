@@ -2,7 +2,7 @@
 
 //Jonathan Leto
 
-10 # BesselI(0,0)	<-- 1;
+10 # BesselI(0,0)        <-- 1;
 
 10 # BesselI(_n,0)_(n>0) <-- 0;
 
@@ -13,7 +13,7 @@
 10 # BesselI(_n,0)_(n<0 And Not IsInteger(n)) <-- Infinity;
 
 
-20 # BesselI(1/2,_x)	<-- Sqrt(2/(x*Pi))*Sinh(x);
+20 # BesselI(1/2,_x)        <-- Sqrt(2/(x*Pi))*Sinh(x);
 
 
 20 # BesselI(3/2,_x)    <-- Sqrt(2/(x*Pi))*(Cosh(x) - Sinh(x)/x);

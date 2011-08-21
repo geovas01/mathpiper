@@ -18,7 +18,7 @@ Dot(t1_IsMatrix,t2_IsVector)_(Length(t1[1])=Length(t2)) <--
    m:=Length(t2);
    result:=List();
    For(i:=1,i<=n,i++)
-	DestructiveInsert(result,1,Dot0(t1[i],t2,m));
+        DestructiveInsert(result,1,Dot0(t1[i],t2,m));
    DestructiveReverse(result);
 ];
 
@@ -74,7 +74,7 @@ Dot1(_t1,_t2,_m,_n) <--
 *CMD Dot --- get dot product of tensors
 *STD
 *CALL
-	Dot(t1,t2)
+        Dot(t1,t2)
 
 *PARMS
 

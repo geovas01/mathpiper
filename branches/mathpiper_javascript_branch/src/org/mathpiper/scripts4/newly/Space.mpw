@@ -11,8 +11,8 @@ Space(n):= WriteN(" ",n);
 *CMD Space --- print one or more spaces
 *STD
 *CALL
-	Space()
-	Space(nr)
+        Space()
+        Space(nr)
 
 *PARMS
 
@@ -27,7 +27,7 @@ output. The result is always True.
 *E.G. notest
 
 In> Space(5);
-	     Result: True;
+             Result: True;
 
 *SEE Echo, Write, NewLine
 %/mathpiper_docs

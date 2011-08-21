@@ -20,7 +20,7 @@ Function("TableForm",{list})
 *CMD TableForm --- print each entry in a list on a line
 *STD
 *CALL
-	TableForm(list)
+        TableForm(list)
 
 *PARMS
 
@@ -35,16 +35,16 @@ printing every element in the list on a separate line.
 
 In> TableForm(Table(i!, i, 1, 10, 1));
 
-	1
-	 2
-	 6
-	 24
-	 120
-	 720
-	 5040
-	 40320
-	 362880
-	 3628800
+        1
+         2
+         6
+         24
+         120
+         720
+         5040
+         40320
+         362880
+         3628800
 Result: True;
 
 *SEE PrettyForm, Echo, Table

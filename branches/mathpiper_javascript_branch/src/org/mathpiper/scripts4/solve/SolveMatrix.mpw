@@ -37,7 +37,7 @@ Function("SolveMatrix",{matrix,vector})
 *CMD SolveMatrix --- solve a linear system
 *STD
 *CALL
-	SolveMatrix(M,v)
+        SolveMatrix(M,v)
 
 *PARMS
 

@@ -12,7 +12,7 @@
 *CMD UnFlatten --- inverse operation of Flatten
 *STD
 *CALL
-	UnFlatten(list,operator,identity)
+        UnFlatten(list,operator,identity)
 
 *PARMS
 

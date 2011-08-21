@@ -5,8 +5,8 @@
 10 # 0! <-- 1;
 10 # (Infinity)! <-- Infinity;
 20 # ((n_IsPositiveInteger)!) <-- [
-	Check(n <= 65535, "Argument", "Factorial: Error: the argument " : ( PipeToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
-	MathFac(n);
+        Check(n <= 65535, "Argument", "Factorial: Error: the argument " : ( PipeToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
+        MathFac(n);
 ];
 
 25 # ((x_IsConstant)!)_(FloatIsInt(x) And x>0) <-- (Round(x)!);
@@ -21,21 +21,21 @@
 (-(2*z+1)/2)! = Sqrt(Pi)*(-1)^z*z!*2^(2*z) / (2*z)! for z >= 0
 
 Double factorials are more efficient:
-	(2*n-1)!! := 1*3*...*(2*n-1) = (2*n)! / (2^n*n!)
-	(2*n)!! := 2*4*...*(2*n) = 2^n*n!
+        (2*n-1)!! := 1*3*...*(2*n-1) = (2*n)! / (2^n*n!)
+        (2*n)!! := 2*4*...*(2*n) = 2^n*n!
 
 */
 /* // old version - not using double factorials
 HalfIntegerFactorial(n_IsOdd) _ (n>0) <--
-	Sqrt(Pi) * ( n! / ( 2^n*((n-1)/2)! ) );
+        Sqrt(Pi) * ( n! / ( 2^n*((n-1)/2)! ) );
 HalfIntegerFactorial(n_IsOdd) _ (n<0)  <--
-	Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^(-n-1)*((-n-1)/2)! / (-n-1)! );
+        Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^(-n-1)*((-n-1)/2)! / (-n-1)! );
 */
 // new version using double factorials
 HalfIntegerFactorial(n_IsOdd) _ (n>0) <--
-	Sqrt(Pi) * ( n!! / 2^((n+1)/2) );
+        Sqrt(Pi) * ( n!! / 2^((n+1)/2) );
 HalfIntegerFactorial(n_IsOdd) _ (n<0)  <--
-	Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^((-n-1)/2) / (-n-2)!! );
+        Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^((-n-1)/2) / (-n-2)!! );
 //HalfIntegerFactorial(n_IsOdd) _ (n= -1)  <-- Sqrt(Pi);
 
 /* Want to also compute (2.5)! */
@@ -50,9 +50,9 @@ HalfIntegerFactorial(n_IsOdd) _ (n<0)  <--
 *CMD !  --- factorial
 
 *CALL
-	n!
-	n!!
-	
+        n!
+        n!!
+        
 *PARMS
 {n} -- integer, half-integer, or list
 

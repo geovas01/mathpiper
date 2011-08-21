@@ -20,7 +20,7 @@ Function("DiagonalMatrix",{list})
 *CMD DiagonalMatrix --- construct a diagonal matrix
 *STD
 *CALL
-	DiagonalMatrix(d)
+        DiagonalMatrix(d)
 
 *PARMS
 
