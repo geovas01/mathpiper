@@ -54,18 +54,20 @@ void save_geogebra_to_fold()
 		    foldStartLineText = textArea.getLineText(foldStartLine);
 		    if(foldStartLineText.trim().startsWith("%geogebra_xml"))
 		    {
-			textArea.setSelectedText("");
-			line = textArea.getCaretLine();
+		        foldHeader = foldStartLineText + "\n";
+                textArea.setSelectedText("");
+                line = textArea.getCaretLine();
 		    }
 		    else
 		    {
-			textArea.setCaretPosition(currentCaretPosition);
+		        foldHeader = "%geogebra_xml,title=\"\",clear=\"true\"\n";
+		        textArea.setCaretPosition(currentCaretPosition);
 		    }
 		}
 		
 		offset = textArea.getLineStartOffset(line);
 		
-		text =  "%geogebra_xml,title=\"\",clear=\"true\"\n" + geogebraXML + "\n%/geogebra_xml\n\n";
+		text =  foldHeader + geogebraXML + "\n%/geogebra_xml\n\n";
 	
 		buffer.insertIndented(offset, text);
 		
