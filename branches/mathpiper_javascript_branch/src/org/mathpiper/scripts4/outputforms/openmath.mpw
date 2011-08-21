@@ -616,7 +616,7 @@ LocalSymbols(omsymbol, omsymbolreverse) [
   OMSymbol() := omsymbol;
   OMSymbolReverse() := omsymbolreverse;
 
-]; // LocalSymbols(omsymbol, omsymbolreverse)
+]; // LocalSymbols(omsymbol, omsymbolreverse)OMDef
 
 OMDef(_piperform, omcd_IsString, omname_IsString, _directMapping, _reverseMapping) <--
 [
@@ -677,11 +677,12 @@ OMDef( "Undefined",  "nums1", "NaN"      );
 OMDef( "And"   ,  "logic1", "and"        );
 OMDef( "=="    ,  "logic1", "equivalent" );
 OMDef( "!=="   ,  "logic1", "not",
-                { "<OMA><OMS cd=\"logic1\" name=\"equivalent\"/>",
-                  1,
-                  2,
-                  "</OMA>"
-                }
+        { "<OMA><OMS cd=\"logic1\" name=\"equivalent\"/>",
+          1,
+          2,
+          "</OMA>"
+        },
+        {}
       );
 OMDef( "False",  "logic1", "false" );
 OMDef( "Or"   ,  "logic1", "or"    );
