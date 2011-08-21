@@ -1,254 +1,883 @@
-Turning stack tracing on: Result: True
+Sat Aug 20 23:30:05 EDT 2011.
+MathPiper version: js.024.
+Running all tests except the following: PSolve,Solve.
+Beginning of tests:
 
-Side Effects:
-Stack tracing is on.
+================================================================
+Testing != in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
 
-***** Mon Jan 10 09:55:07 PST 2011 *****
-***** MathPiper version: .81c *****
 
-===========================
-arithmetic.mpt: 
+================================================================
+Testing % in file </org/mathpiper/scripts4/a_initialization/standard/percent_operator.mpw>: 
 
-Result: True
 
-Side Effects:
+================================================================
+Testing & in file </org/mathpiper/scripts4/a_initialization/standard/ampersand_operator.mpw>: 
+
+
+================================================================
+Testing * in file </org/mathpiper/scripts4/a_initialization/stdarith/asterisk_operator.mpw>: 
+
+
+================================================================
+Testing / in file </org/mathpiper/scripts4/a_initialization/stdarith/slash_operator.mpw>: 
+
+
+================================================================
+Testing /: in file </org/mathpiper/scripts4/localrules/slash_colon_operator.mpw>: 
+
+
+================================================================
+Testing < in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing <= in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing = in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing > in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing >= in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+
+
+================================================================
+Testing ^ in file </org/mathpiper/scripts4/a_initialization/stdarith/caret_operator.mpw>: 
+
+
+================================================================
+Testing Abs in file </org/mathpiper/scripts4/stubs/Abs.mpw>: 
+
+
+================================================================
+Testing Add in file </org/mathpiper/scripts4/sums/Add.mpw>: 
+
+
+================================================================
+Testing Apply in file </org/mathpiper/scripts4/functional/Apply.mpw>: 
+
+
+================================================================
+Testing ArcCos in file </org/mathpiper/scripts4/stdfuncs/ArcCos.mpw>: 
+
+
+================================================================
+Testing ArcSin in file </org/mathpiper/scripts4/stdfuncs/ArcSin.mpw>: 
+
+
+================================================================
+Testing Arg in file </org/mathpiper/scripts4/complex/Arg.mpw>: 
+
+
+================================================================
+Testing arithmetic in file </org/mathpiper/scripts4/a_initialization/stdarith/arithmetic_test.mpw>: 
+
 
 Test suite for Test arithmetic : 
 
+
 Test suite for Basic calculations : 
 
+
 Test suite for Testing math stuff : 
+
 --IntegerOperations
+
 --PowerN
+
 --Rounding
+
 --Bases
+
 --Factorization
 
-===========================
-binaryfactors.mpt: 
 
-Result: True
+================================================================
+Testing Bernoulli in file </org/mathpiper/scripts4/specfunc/Bernoulli.mpw>: 
 
-===========================
-calculus.mpt: 
 
-Result: True
+================================================================
+Testing BesselJ in file </org/mathpiper/scripts4/specfunc/BesselJ.mpw>: 
 
-Side Effects:
---UnaryFunctionInverses
---Derivatives
---Limits
-Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=Exp(-phi) 
---Pslq
 
-===========================
-canprove.mpt: 
+================================================================
+Testing BinaryFactors in file </org/mathpiper/scripts4/factors/BinaryFactors.mpw>: 
 
-Result: True
 
-Side Effects:
+================================================================
+Testing BinomialCoefficient in file </org/mathpiper/scripts4/combinatorics/Combinations.mpw>: 
 
-Test suite for Propositional logic theorem prover : 
 
-===========================
-comments.mpt: 
+================================================================
+Testing CanBeUni in file </org/mathpiper/scripts4/univar/CanBeUni.mpw>: 
 
-Result: True
 
-Side Effects:
+================================================================
+Testing CanProve in file </org/mathpiper/scripts4/logic/CanProve.mpw>: 
 
-Test suite for Checking comment syntax supported : 
 
-===========================
-complex.mpt: 
+Test suite for Propositional logic theorem prover: CanProve : 
 
-Result: True
 
-Side Effects:
+================================================================
+Testing CatalanNumber in file </org/mathpiper/scripts4/numbers/CatalanNumber.mpw>: 
+
+
+================================================================
+Testing CNF in file </org/mathpiper/scripts4/logic/CNF.mpw>: 
+
+
+Test suite for CNF : 
+
+
+================================================================
+Testing Coef in file </org/mathpiper/scripts4/univar/Coef.mpw>: 
+
+
+================================================================
+Testing Complex in file </org/mathpiper/scripts4/complex/Complex.mpw>: 
+
 Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=0 
 
-===========================
-c_tex_form.mpt: 
 
-Result: True
+================================================================
+Testing Conjugate in file </org/mathpiper/scripts4/complex/Conjugate.mpw>: 
 
-Side Effects:
 
-Test suite for TeXForm()... : 
---IsCFormable
+================================================================
+Testing Content in file </org/mathpiper/scripts4/univar/Content.mpw>: 
 
-===========================
-cyclotomic.mpt: 
 
-Result: True
+================================================================
+Testing Cos in file </org/mathpiper/scripts4/stdfuncs/Cos.mpw>: 
 
-Side Effects:
+******************
+File: /org/mathpiper/scripts4/stdfuncs/Cos.mpw, Line: 6 
+
+newrepI[1]-newrepD[1]
+ evaluates to 
+205103028659724
+ which differs from 
+0
+******************
+
+
+================================================================
+Testing Cot in file </org/mathpiper/scripts4/stdfuncs/Cot.mpw>: 
+
+
+================================================================
+Testing Cyclotomic in file </org/mathpiper/scripts4/univar/cyclotomic/Cyclotomic.mpw>: 
+
 
 Test suite for Cyclotomic Polynomials : 
 
-===========================
-deriv.mpt: 
 
-Result: True
+================================================================
+Testing Degree in file </org/mathpiper/scripts4/univar/Degree.mpw>: 
 
-===========================
-dimensions.mpt: 
 
-Result: True
+================================================================
+Testing Deriv in file </org/mathpiper/scripts4/deriv/Deriv.mpw>: 
 
-Side Effects:
----- Dimensions (Tensor Rank)
 
-===========================
-dot.mpt: 
+================================================================
+Testing Determinant in file </org/mathpiper/scripts4/linalg/Deteminant.mpw>: 
 
-Result: True
 
-Side Effects:
----- Dot
+================================================================
+Testing Differentiate in file </org/mathpiper/scripts4/deriv/Differentiate.mpw>: 
 
-===========================
-GaussianIntegers.mpt: 
+Known failure: (Differentiate(z)Conjugate(z))=Undefined 
 
-Result: True
 
-Side Effects:
+================================================================
+Testing DigitalRoot in file </org/mathpiper/scripts4/numbers/DigitalRoot.mpw>: 
+
+
+================================================================
+Testing Dimensions in file </org/mathpiper/scripts4/linalg/Dimensions.mpw>: 
+
+
+================================================================
+Testing Diverge in file </org/mathpiper/scripts4/deriv/Diverge.mpw>: 
+
+
+================================================================
+Testing Divisors in file </org/mathpiper/scripts4/numbers/Divisors.mpw>: 
+
+
+================================================================
+Testing Dot in file </org/mathpiper/scripts4/linalg/Dot.mpw>: 
+
+
+================================================================
+Testing Easter in file </org/mathpiper/scripts4/calendar/Easter.mpw>: 
+
+
+================================================================
+Testing error_reporting in file </org/mathpiper/scripts4/io/IsError.mpw>: 
+
+
+================================================================
+Testing Expand in file </org/mathpiper/scripts4/stubs/Expand.mpw>: 
+
+
+================================================================
+Testing ExpNum in file </org/mathpiper/scripts4/stdfuncs/numerical/ExpNum.mpw>: 
+
+
+================================================================
+Testing Factor in file </org/mathpiper/scripts4/factors/YacasFactor.mpw>: 
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactor.mpw, Line: 3 
+
+Factor(2*x^2)
+ evaluates to 
+x^2
+ which differs from 
+2*x^2
+******************
+
+
+================================================================
+Testing Factorial in file </org/mathpiper/scripts4/sums/exclamationpoint_operator.mpw>: 
+
+
+================================================================
+Testing FactorialSimplify in file </org/mathpiper/scripts4/simplify/factorial/FactorialSimplify.mpw>: 
+
+
+================================================================
+Testing Factors in file </org/mathpiper/scripts4/factors/YacasFactors.mpw>: 
+
+--UnivariatePolynomialFactorization
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 6 
+
+Factors(-9*x^2+45*x-36)
+ evaluates to 
+{{-9,1},{x-1,1},{x-4,1}}
+ which differs from 
+{{-9,1},{x-4,1},{x-1,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 7 
+
+Factors(9*x^2-1)
+ evaluates to 
+{{3,1},{x+1/3,1},{3*x-1,1}}
+ which differs from 
+{{3*x-1,1},{3*x+1,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 9 
+
+Factors(32*x^3+32*x^2-70*x-75)
+ evaluates to 
+{{32,1},{x-3/2,1},{x+5/4,2}}
+ which differs from 
+{{2*x-3,1},{4*x+5,2}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 11 
+
+Factors(x^3+3*x^2-25*x-75)
+ evaluates to 
+{{x+3,1},{x+5,1},{x-5,1}}
+ which differs from 
+{{x-5,1},{x+3,1},{x+5,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 12 
+
+Factors(2*x^3-30*x^2+12*x^4)
+ evaluates to 
+{{12,1},{x,2},{x-3/2,1},{x+5/3,1}}
+ which differs from 
+{{2,1},{x,2},{2*x-3,1},{3*x+5,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 13 
+
+Factors(5*x^7-20*x^6+25*x^5-20*x^4+25*x^3-20*x^2+20*x)
+ evaluates to 
+{{5,1},{x,1},{x-2,2},{x^2+x+1,1},{x^2-x+1,1}}
+ which differs from 
+{{5,1},{x,1},{x-2,2},{x^2-x+1,1},{x^2+x+1,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 14 
+
+Factors(2/5*x^2-2*x-12/5)
+ evaluates to 
+{{2/5,1},{x+1,1},{x-6,1}}
+ which differs from 
+{{2/5,1},{x-6,1},{x+1,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 17 
+
+Factors(x^4-1)
+ evaluates to 
+{x^4-1,1}
+ which differs from 
+{{x-1,1},{x+1,1},{x^2+1,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 18 
+
+Factors(x^5-1)
+ evaluates to 
+{x^5-1,1}
+ which differs from 
+{{x-1,1},{x^4+x^3+x^2+x+1,1}}
+******************
+
+--BivariatePolynomialFactorization
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 24 
+
+Factors(-7*x-14*y)
+ evaluates to 
+{{-7,1},{x+2*y,1}}
+ which differs from 
+{{-7,1},{2*y+x,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 25 
+
+Factors(x^2-a^2)
+ evaluates to 
+{x^2-a^2,1}
+ which differs from 
+{{x-a,1},{a+x,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 26 
+
+Factors(a^2+2*a*b+b^2)
+ evaluates to 
+CombineNumericalFactors(FactorsMultivariateSpecialCases(a^2+2*a*b+b^2))
+ which differs from 
+{{a+b,2}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 27 
+
+Factors(x^3-y^3)
+ evaluates to 
+{x^3-y^3,1}
+ which differs from 
+{{x-y,1},{y^2+y*x+x^2,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 28 
+
+Factors(x^3+a^3)
+ evaluates to 
+{{x+a,1},{x^2-a*x+a^2,1}}
+ which differs from 
+{{a+x,1},{a^2-a*x+x^2,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 29 
+
+Factors(x^6-a^6)
+ evaluates to 
+{x^6-a^6,1}
+ which differs from 
+{{x-a,1},{a+x,1},{a^2-a*x+x^2,1},{a^2+a*x+x^2,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 30 
+
+Factors(3*x^2-x*y-10*y^2)
+ evaluates to 
+CombineNumericalFactors(FactorsMultivariateSpecialCases(3*x^2-x*y-10*y^2))
+ which differs from 
+{{3*x+5*y,1},{x-2*y,1}}
+******************
+
+******************
+File: /org/mathpiper/scripts4/factors/YacasFactors.mpw, Line: 33 
+
+Assoc(x-1,Factors(x^6-1))[2]
+ evaluates to 
+Empty[2]
+ which differs from 
+1
+******************
+
+
+================================================================
+Testing FloatIsInt in file </org/mathpiper/scripts4/predicates/FloatIsInt.mpw>: 
+
+******************
+File: /org/mathpiper/scripts4/predicates/FloatIsInt.mpw, Line: 3 
+
+FloatIsInt(3.1415926535e9)
+ evaluates to 
+True
+ which differs from 
+False
+******************
+
+
+================================================================
+Testing Floor in file </org/mathpiper/scripts4/stubs/Floor.mpw>: 
+
+
+================================================================
+Testing Function in file </org/mathpiper/scripts4/deffunc/Function.mpw>: 
+
+--Function definitions
+
+
+================================================================
+Testing Gamma in file </org/mathpiper/scripts4/specfunc/Gamma.mpw>: 
+
+
+================================================================
+Testing GaussianFactors in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianFactors.mpw>: 
+
 
 Test suite for Gaussian Integers : 
 
-===========================
-includetestfiles: is not a MathPiper test file.
 
-===========================
-integrate.mpt: 
+================================================================
+Testing Gcd in file </org/mathpiper/scripts4/stubs/Gcd.mpw>: 
 
-Result: True
+Known failure: Gcd(10,3.3)!=3.3 And Gcd(10,3.3)!=1 
 
-===========================
-issues.mpt: 
 
-Result: True
+================================================================
+Testing Groebner in file </org/mathpiper/scripts4/multivar/Groebner.mpw>: 
 
-Side Effects:
 
-Test suite for Problems reported as Issues : 
+================================================================
+Testing HarmonicNumber in file </org/mathpiper/scripts4/numbers/HarmonicNumber.mpw>: 
 
-===========================
-io.mpt: 
 
-Result: True
+================================================================
+Testing HasExpr in file </org/mathpiper/scripts4/predicates/HasExpr.mpw>: 
 
-Side Effects:
---Error reporting
 
-===========================
-journal.mpt: 
+================================================================
+Testing HasFunc in file </org/mathpiper/scripts4/predicates/HasFunc.mpw>: 
 
-Result: True
 
-===========================
-linalg.mpt: 
+================================================================
+Testing HasFuncArith in file </org/mathpiper/scripts4/predicates/HasExprArith.mpw>: 
 
-Result: True
 
-Side Effects:
+================================================================
+Testing Im in file </org/mathpiper/scripts4/complex/Im.mpw>: 
+
+
+================================================================
+Testing Integrate in file </org/mathpiper/scripts4/integrate/Integrate.mpw>: 
+
+******************
+File: /org/mathpiper/scripts4/integrate/Integrate.mpw, Line: 82 
+
+(Integrate(x,a,b)Cos(x)^2)-((b-Sin((-2)*b)/2)/2-(a-Sin((-2)*a)/2)/2)
+ evaluates to 
+(Sin(2*b)/2+b)/2-(Sin(2*a)/2+a)/2-((b-(-Sin(2*b))/2)/2-(a-(-Sin(2*a))/2)/2)
+ which differs from 
+0
+******************
+
+
+================================================================
+Testing Internal'LnNum in file </org/mathpiper/scripts4/stdfuncs/numerical/Internal'LnNum.mpw>: 
+
+
+================================================================
+Testing IntLog in file </org/mathpiper/scripts4/numbers/IntLog.mpw>: 
+
+
+================================================================
+Testing IntNthRoot in file </org/mathpiper/scripts4/numbers/IntNthRoot.mpw>: 
+
+
+================================================================
+Testing IntPowerNum in file </org/mathpiper/scripts4/stdfuncs/nummethods/IntPowerNum.mpw>: 
+
+
+================================================================
+Testing IsAmicablePair in file </org/mathpiper/scripts4/numbers/IsAmicablePair.mpw>: 
+
+
+================================================================
+Testing IsCarmichaelNumber in file </org/mathpiper/scripts4/numbers/IsCarmichaelNumber.mpw>: 
+
+
+================================================================
+Testing IsComposite in file </org/mathpiper/scripts4/numbers/IsComposite.mpw>: 
+
+
+================================================================
+Testing IsConstant in file </org/mathpiper/scripts4/predicates/IsConstant.mpw>: 
+
+
+================================================================
+Testing IsCoprime in file </org/mathpiper/scripts4/numbers/IsCoprime.mpw>: 
+
+
+================================================================
+Testing IsGaussianInteger in file </org/mathpiper/scripts4/numbers/gaussianintegers/IsGaussianInteger.mpw>: 
+
+
+================================================================
+Testing IsGaussianPrime in file </org/mathpiper/scripts4/numbers/gaussianintegers/IsGaussianPrime.mpw>: 
+
+
+================================================================
+Testing IsHermitian in file </org/mathpiper/scripts4/predicates/IsHermitian.mpw>: 
+
+
+================================================================
+Testing IsIrregularPrime in file </org/mathpiper/scripts4/numbers/IsIrregularPrime.mpw>: 
+
+
+================================================================
+Testing IsMatrix in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+------ IsMatrix(IsInteger)
+
+
+================================================================
+Testing IsPerfect in file </org/mathpiper/scripts4/numbers/IsPerfect.mpw>: 
+
+
+================================================================
+Testing IsPrime in file </org/mathpiper/scripts4/numbers/IsPrime.mpw>: 
+
+
+================================================================
+Testing IsScalar in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+
+================================================================
+Testing IsSmallPrime in file </org/mathpiper/scripts4/numbers/IsSmallPrime.mpw>: 
+
+
+================================================================
+Testing IsSquareMatrix in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+
+================================================================
+Testing IsTwinPrime in file </org/mathpiper/scripts4/numbers/IsTwinPrime.mpw>: 
+
+
+================================================================
+Testing IsUnitary in file </org/mathpiper/scripts4/predicates/IsUnitary.mpw>: 
+
+
+================================================================
+Testing IsVariable in file </org/mathpiper/scripts4/predicates/IsVariable.mpw>: 
+
+
+================================================================
+Testing IsVector in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+---- IsVector(IsNumber)
+
+
+================================================================
+Testing LaplaceTransform in file </org/mathpiper/scripts4/transforms/laplace/LaplaceTransform.mpw>: 
+
+
+================================================================
+Testing Lcm in file </org/mathpiper/scripts4/stubs/Lcm.mpw>: 
+
+
+================================================================
+Testing Limit in file </org/mathpiper/scripts4/limit/Limit.mpw>: 
+
+Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=Exp(-phi) 
+
+Known failure: (Limit(x,Infinity)x^n/Ln(x))=Infinity 
+
+Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=a 
+
+Known failure: (Limit(n,Infinity)n^5/2^n)=0 
+
+
+================================================================
+Testing linear_algebra in file </org/mathpiper/scripts4/linalg/linear_algebra_tests.mpw>: 
+
 --LeviCivita
+
 --VectorProducts
+
 
 Test suite for Inproduct : 
 
+
 Test suite for Identity matrices : 
 
+
 Test suite for Check linear algebra : 
+
 --Normalize
+
 --DiagonalMatrix
+
 --ZeroMatrix
+
 --Transpose
+
 --Determinant
+
 --CoFactor
 --Minor
 --Inverse
 --SolveMatrix
 --Trace
 
-===========================
-lists.mpt: 
 
-Result: True
+================================================================
+Testing lists in file </org/mathpiper/scripts4/lists/lists_tests.mpw>: 
 
-Side Effects:
 
 Test suite for VarList : 
+
 --BubbleSort
+
 --HeapSort
+
 --ListOperations
+
 --Length
+
 --Nth
+
 --Concat
+
 --Binary searching
+
 --AssocDelete
+
 ---- Arithmetic Operations
 
-===========================
-logic_simplify_test.mpt: 
 
-Result: True
+================================================================
+Testing LogicTest in file </org/mathpiper/scripts4/testers/LogicTest.mpw>: 
 
-Side Effects:
 
-Test suite for CNF : 
+================================================================
+Testing LogN in file </org/mathpiper/scripts4/stdfuncs/numerical/LogN.mpw>: 
 
-===========================
-macro.mpt: 
 
-Result: True
+================================================================
+Testing Macro in file </org/mathpiper/scripts4/deffunc/Macro.mpw>: 
 
-===========================
-mathpiper_tests.log: is not a MathPiper test file.
 
-===========================
-matrixpower.mpt: 
+================================================================
+Testing MapSingle in file </org/mathpiper/scripts4/lists/MapSingle.mpw>: 
 
-Result: True
 
-Side Effects:
----- MatrixPower
+================================================================
+Testing MathBitCount in file </org/mathpiper/scripts4/stdfuncs/elemfuncs/MathBitCount.mpw>: 
 
-===========================
-multivar.mpt: 
 
-Result: True
+================================================================
+Testing MatrixPower in file </org/mathpiper/scripts4/linalg/MatrixPower.mpw>: 
 
-Side Effects:
 
-Test suite for Test arithmetic : 
+================================================================
+Testing Minimum in file </org/mathpiper/scripts4/sums/Minimum.mpw>: 
 
-===========================
-nthroot.mpt: 
 
-Result: True
+================================================================
+Testing miscellaneous in file </org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw>: 
 
-Side Effects:
----- NthRoot
+--From: calculus.mpt
 
-===========================
-numbers.mpt: 
+--UnaryFunctionInverses
 
-Result: True
+--Checking comment syntax supported
 
-Side Effects:
---Integer logarithms and roots
---Factorial
---Random numbers
+--Yacas tutorials and journal entries.
 
-===========================
-numerics.mpt: 
+--From: sturm.mpt
 
-Result: True
-
-Side Effects:
 ******************
-tests/scripts4/numerics.mpt: 193 
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 297 
+
+Maximum(Abs(coefs))<=MaximumBound(p)
+ evaluates to 
+False
+ which differs from 
+True
+******************
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 297 
+
+Dot(px,px)<0.01
+ evaluates to 
+Dot(225*x+266*x^2+329*x^3+444*x^4+551*x^5+330,225*x+266*x^2+329*x^3+444*x^4+551*x^5+330)<0.01
+ which differs from 
+True
+******************
+
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 299 
+
+Maximum(Abs(coefs))<=MaximumBound(p)
+ evaluates to 
+False
+ which differs from 
+True
+******************
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 299 
+
+Dot(px,px)<0.01
+ evaluates to 
+Dot(182*x+504*x^2+725*x^3+13*x^4+988*x^5+101,182*x+504*x^2+725*x^3+13*x^4+988*x^5+101)<0.01
+ which differs from 
+True
+******************
+
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 301 
+
+Maximum(Abs(coefs))<=MaximumBound(p)
+ evaluates to 
+False
+ which differs from 
+True
+******************
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 301 
+
+Dot(px,px)<0.01
+ evaluates to 
+Dot(261*x+237*x^2+535*x^3+502*x^4+280*x^5+495,261*x+237*x^2+535*x^3+502*x^4+280*x^5+495)<0.01
+ which differs from 
+True
+******************
+
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 303 
+
+Maximum(Abs(coefs))<=MaximumBound(p)
+ evaluates to 
+False
+ which differs from 
+True
+******************
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 303 
+
+Dot(px,px)<0.01
+ evaluates to 
+Dot(141*x+444*x^2+407*x^3+137*x^4+687*x^5+259,141*x+444*x^2+407*x^3+137*x^4+687*x^5+259)<0.01
+ which differs from 
+True
+******************
+
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 305 
+
+Maximum(Abs(coefs))<=MaximumBound(p)
+ evaluates to 
+False
+ which differs from 
+True
+******************
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 305 
+
+Dot(px,px)<0.01
+ evaluates to 
+Dot(348*x+600*x^2+717*x^3+320*x^4+923*x^5+688,348*x+600*x^2+717*x^3+320*x^4+923*x^5+688)<0.01
+ which differs from 
+True
+******************
+
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 307 
+
+Maximum(Abs(coefs))<=MaximumBound(p)
+ evaluates to 
+False
+ which differs from 
+True
+******************
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 307 
+
+Dot(px,px)<0.01
+ evaluates to 
+Dot(343*x+778*x^2+324*x^3+531*x^4+743*x^5+671,343*x+778*x^2+324*x^3+531*x^4+743*x^5+671)<0.01
+ which differs from 
+True
+******************
+
+
+================================================================
+Testing Modulo in file </org/mathpiper/scripts4/stubs/Modulo.mpw>: 
+
+
+================================================================
+Testing Newton in file </org/mathpiper/scripts4/solve/Newton.mpw>: 
+
+
+================================================================
+Testing NewtonNum in file </org/mathpiper/scripts4/stdfuncs/nummethods/NewtonNum.mpw>: 
+
+
+================================================================
+Testing NextPrime in file </org/mathpiper/scripts4/numbers/NextPrime.mpw>: 
+
+
+================================================================
+Testing NFunction in file </org/mathpiper/scripts4/functional/NFunction.mpw>: 
+
+
+================================================================
+Testing NormalForm in file </org/mathpiper/scripts4/multivar/sparsenomial/sparsenomial.mpw>: 
+
+
+Test suite for Test arithmetic: NormalForm : 
+
+
+================================================================
+Testing NthRoot in file </org/mathpiper/scripts4/numbers/NthRoot.mpw>: 
+
+
+================================================================
+Testing numerics in file </org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw>: 
+
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 193 
 
 newrepL[1]-newrepR[1]
  evaluates to 
@@ -256,8 +885,9 @@ newrepL[1]-newrepR[1]
  which differs from 
 0
 ******************
+
 ******************
-tests/scripts4/numerics.mpt: 195 
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 195 
 
 newrepL[1]-newrepR[1]
  evaluates to 
@@ -265,8 +895,19 @@ newrepL[1]-newrepR[1]
  which differs from 
 0
 ******************
+
 ******************
-tests/scripts4/numerics.mpt: 282 
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 205 
+
+newrepL[1]-newrepR[1]
+ evaluates to 
+-467315088652157285
+ which differs from 
+0
+******************
+
+******************
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 282 
 
 newrepL[1]-newrepR[1]
  evaluates to 
@@ -274,8 +915,9 @@ newrepL[1]-newrepR[1]
  which differs from 
 0
 ******************
+
 ******************
-tests/scripts4/numerics.mpt: 287 
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 287 
 
 newrepL[1]-newrepR[1]
  evaluates to 
@@ -283,9 +925,11 @@ newrepL[1]-newrepR[1]
  which differs from 
 0
 ******************
+
 --Gamma constant
+
 ******************
-tests/scripts4/numerics.mpt: 318 
+File: /org/mathpiper/scripts4/a_initialization/miscellaneous/numerics_tests.mpw, Line: 318 
 
 newrepL[1]-newrepR[1]
  evaluates to 
@@ -294,258 +938,124 @@ newrepL[1]-newrepR[1]
 0
 ******************
 
-===========================
-nummethods.mpt: 
 
-Result: True
+================================================================
+Testing Outer in file </org/mathpiper/scripts4/linalg/Outer.mpw>: 
 
-===========================
-ode.mpt: 
 
-Result: True
+================================================================
+Testing Plot2D in file </org/mathpiper/scripts4/plots/_2d/plot2d.mpw>: 
 
-Side Effects:
-**** THE ODE TEST HAS BEEN TEMPORARILY REMOVED BECAUSE IT CAUSED AN INFINITE RECURSION ****
 
-===========================
-openmath.mpt: 
+================================================================
+Testing Plot3DS in file </org/mathpiper/scripts4/plots/_3d/plot3ds.mpw>: 
 
-Result: True
 
-Side Effects:
+================================================================
+Testing PowerN in file </org/mathpiper/scripts4/base/PowerN.mpw>: 
 
-Test suite for Converting to and from OpenMath expressions : 
 
-===========================
-orthopoly.mpt: 
+================================================================
+Testing PrimitivePart in file </org/mathpiper/scripts4/univar/PrimitivePart.mpw>: 
 
-Result: True
 
-Side Effects:
+================================================================
+Testing Product in file </org/mathpiper/scripts4/sums/Product.mpw>: 
 
-Test suite for Testing orthogonal polynomials : 
 
-===========================
-outer.mpt: 
+================================================================
+Testing Pslq in file </org/mathpiper/scripts4/pslq/Pslq.mpw>: 
 
-Result: True
 
-Side Effects:
----- Outer
+================================================================
+Testing RabinMiller in file </org/mathpiper/scripts4/rabinmiller/RabinMiller.mpw>: 
 
-===========================
-piper_test.bat: is not a MathPiper test file.
 
-===========================
-plots.mpt: 
+================================================================
+Testing RadSimp in file </org/mathpiper/scripts4/radsimp/RadSimp.mpw>: 
 
-Result: True
-
-Side Effects:
-******************
-tests/scripts4/plots.mpt: 6 
-
-PipeToString()Write(Plot2D(a,-1:1,output->data,points->4,depth->0))
- evaluates to 
-"{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
- which differs from 
-"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
-******************
-******************
-tests/scripts4/plots.mpt: 7 
-
-PipeToString()Write(Plot2D(b,b->-1:1,output->data,points->4))
- evaluates to 
-"{{{-1,-1},{-0.5,-0.5},{0.0,0.0},{0.5,0.5},{1,1}}}"
- which differs from 
-"{{{-1,-1},{-0.5,-0.5},{0,0},{0.5,0.5},{1.,1.}}}"
-******************
-******************
-tests/scripts4/plots.mpt: 14 
-
-PipeToString()Write(Plot3DS(a,-1:1,-1:1,output->data,points->2))
- evaluates to 
-"{{{-1,-1,-1},{-1,0,-1},{-1,1,-1},{0,-1,0},{0,0,0},{0,1,0},{1,-1,1},{1,0,1},{1,1,1}}}"
- which differs from 
-"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
-******************
-******************
-tests/scripts4/plots.mpt: 14 
-
-PipeToString()Write(Plot3DS(x1,x1->-1:1,x2->-1:1,output->data,points->2))
- evaluates to 
-"{{{-1,-1,0.1011417762},{-1,0,0.1011417762},{-1,1,0.1011417762},{0,-1,0.1011417762},{0,0,0.1011417762},{0,1,0.1011417762},{1,-1,0.1011417762},{1,0,0.1011417762},{1,1,0.1011417762}}}"
- which differs from 
-"{{{-1,-1,-1},{-1,0,-1},{-1,1.,-1},{0,-1,0},{0,0,0},{0,1.,0},{1.,-1,1.},{1.,0,1.},{1.,1.,1.}}}"
-******************
-
-===========================
-poly.mpt: 
-
-Result: True
-
-Side Effects:
-
-Test suite for Polynomials : 
-
-===========================
-predicates.mpt: 
-
-Result: True
-
-Side Effects:
---Predicates
---Boolean Operations
---NumberCompares
---comparisons in exponential notation
---Matrix predicates
-******************
-tests/scripts4/predicates.mpt: 123 
-
-HasFuncArith(a*b+f({b,c}),List)
- evaluates to 
-True
- which differs from 
-False
-******************
---IsConstant
----- IsScalar
----- IsVector
----- IsVector(IsNumber)
----- Matrix Predicates
------- IsMatrix
------- IsMatrix(IsInteger)
------- IsSquareMatrix
-
-===========================
-programming.mpt: 
-
-Result: True
-
-Side Effects:
---Apply
---ThreadingListables
---MapSingle
---Function definitions
---LocalVariables
-
-===========================
-radsimp.mpt: 
-
-Result: True
-
-Side Effects:
 
 Test suite for Testing simplifying nested radicals : 
 
-===========================
-regress.mpt: 
 
-Result: True
+================================================================
+Testing Repunit in file </org/mathpiper/scripts4/numbers/Repunit.mpw>: 
 
-Side Effects:
 
-Test suite for Regression on bug reports : 
+================================================================
+Testing Reverse in file </org/mathpiper/scripts4/lists/Reverse.mpw>: 
+
+
+================================================================
+Testing scopestack in file </org/mathpiper/scripts4/lists/scopestack/scopestack.mpw>: 
+
+
+================================================================
+Testing Sech in file </org/mathpiper/scripts4/stdfuncs/Sech.mpw>: 
+
+
+================================================================
+Testing Simplify in file </org/mathpiper/scripts4/simplify/Simplify.mpw>: 
+
+
+================================================================
+Testing Sin in file </org/mathpiper/scripts4/stdfuncs/Sin.mpw>: 
+
+
+================================================================
+Testing Sqrt in file </org/mathpiper/scripts4/stubs/Sqrt.mpw>: 
+
+
+================================================================
+Testing Subfactorial in file </org/mathpiper/scripts4/sums/Subfactorial.mpw>: 
+
+
+================================================================
+Testing Sum in file </org/mathpiper/scripts4/sums/Sum.mpw>: 
+
+
+================================================================
+Testing SumTaylorNum in file </org/mathpiper/scripts4/stdfuncs/nummethods/SumTaylorNum.mpw>: 
+
+
+================================================================
+Testing Taylor in file </org/mathpiper/scripts4/sums/Taylor.mpw>: 
+
 ******************
-tests/scripts4/regress.mpt: 328 
+File: /org/mathpiper/scripts4/sums/Taylor.mpw, Line: 311 
 
-(Integrate(x,a,b)Cos(x)^2)-((b-Sin((-2)*b)/2)/2-(a-Sin((-2)*a)/2)/2)
- evaluates to 
-(Sin(2*b)/2+b)/2-(Sin(2*a)/2+a)/2-((b-(-Sin(2*b))/2)/2-(a-(-Sin(2*a))/2)/2)
- which differs from 
-0
-******************
-Known failure: (Limit(x,Infinity)x^n/Ln(x))=Infinity 
-Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=a 
-Known failure: Gcd(10,3.3)!=3.3 And Gcd(10,3.3)!=1 
-Known failure: (Differentiate(z)Conjugate(z))=Undefined 
-Known failure: ArcCos(Cos(beta))!=beta 
-Known failure: (Limit(n,Infinity)n^5/2^n)=0 
-Known failure: RoundTo(RoundTo(N(Cot(2),9),9),N(Cot(2),9),9)=0 
-
-===========================
-scopestack.mpt: 
-
-Result: True
-
-===========================
-simplify.mpt: 
-
-Result: True
-
-Side Effects:
-
-Test suite for Simplify : 
-
-===========================
-solve.mpt: 
-
-Result: True
-
-Side Effects:
---Solve
---PSolve
---     Linear
---     Quadratic
---     Cubic
---     Quartic
-
-===========================
-sturm.mpt: 
-
-Result: True
-
-===========================
-sums.mpt: 
-
-Result: True
-
-Side Effects:
---Taylor
-******************
-tests/scripts4/sums.mpt: 339 
-
-$pp2187
+$pp1980
  evaluates to 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-1,Taylor'LPS(1,{2,0,(-1)/3,0},t,Taylor'LPS'ScalarMult(2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))))
  which differs from 
 Taylor'LPS(1,{-2,0,1/3,0},t,Taylor'LPS'ScalarMult(-2,Taylor'LPS(1,{1,0,(-1)/6,0},t,Sin(t))))
 ******************
 
-===========================
-tensors.mpt: 
 
-Result: True
+================================================================
+Testing tensors in file </org/mathpiper/scripts4/tensor/TSum.mpw>: 
 
-Side Effects:
 
-Test suite for Tensors : 
+================================================================
+Testing TeXForm in file </org/mathpiper/scripts4/outputforms/texform.mpw>: 
 
-===========================
-test-yacas-c-version: is not a MathPiper test file.
 
-===========================
-trace.mpt: 
+================================================================
+Testing Trace in file </org/mathpiper/scripts4/linalg/Trace.mpw>: 
 
-Result: True
 
-Side Effects:
----- Trace
+================================================================
+Testing TrigSimpCombine in file </org/mathpiper/scripts4/trigsimp/TrigSimpCombine.mpw>: 
 
-===========================
-transforms.mpt: 
 
-Result: True
+================================================================
+Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_bar_operator.mpw>: 
 
-===========================
-: is not a MathPiper test file.
 
 
 ***** Tests complete *****
 
-Exception Count: 0
-
 GlobalVariables: Result: True
 
 Side Effects:
-{$a73,$a994,$assumptions78,$b73,$b994,$bernoulli1Threshold56,$CacheOfConstantsN1,$CFormAllFunctions63,$cformMathFunctions61,$cformRegularOps60,$cindent62,$ClearScreenString40,$complexReduce54,$Debug'FileLines40,$Debug'FileLoaded40,$Debug'NrLines40,$ErrorTableau59,$formulaMaxWidth68,$GlobalStack19,$intpred72,$knownOrthoPoly71,$knownRNGDists50,$knownRNGEngines50,$lastcoef48,$LocResult74,$mathExpThreshold52,$mNum33,$n'max58,$nNum33,$NthRoot'Table162,$numericMode2,$omindent65,$omsymbol67,$omsymbolreverse67,$omtoken66,$options989,$p02187,$p12187,$p22187,$p32187,$p42,$p42187,$p993,$pc242187,$pc352187,$pc462187,$pc572187,$pc682187,$pj2187,$pj402187,$pj502187,$pj512187,$pj522187,$pj532187,$pj542187,$pju02187,$pp2187,$RandSeed51,$res36,$res79,$rFormMathFunctions45,$rFormRegularOps44,$RIndent46,$simple994,$st1011,$TeXFormGreekLetters69,$TeXFormMathFunctions270,$TeXFormMathFunctions70,$TeXFormRegularOps69,$TeXFormRegularPrefixOps69,$TeXFormSpecialNames69,$Verbose41,%,I,LoadResult} 
+{$a1076,$a12,$assumptions55,$b1076,$b12,$bernoulli1Threshold63,$BrentCacheOfConstantsN45,$CacheOfConstantsN10,$complexReduce30,$ErrorTableau15,$formulaMaxWidth61,$GlobalStack41,$intpred39,$knownRNGDists42,$knownRNGEngines42,$lastcoef62,$LoadResult,$LocResult27,$mathExpThreshold48,$mNum5,$n'max37,$nNum5,$NthRoot'Table14,$numericMode6,$options49,$p01980,$p1075,$p11980,$p21980,$p31980,$p38,$p41980,$pc241980,$pc351980,$pc461980,$pc571980,$pc681980,$pj1980,$pj401980,$pj501980,$pj511980,$pj521980,$pj531980,$pj541980,$pju01980,$pp1980,$RandSeed43,$res28,$simple1076,$st1074,$TeXFormGreekLetters69,$TeXFormMathFunctions270,$TeXFormMathFunctions70,$TeXFormRegularOps69,$TeXFormRegularPrefixOps69,$TeXFormSpecialNames69,$Verbose11,%,I,iDebug} 

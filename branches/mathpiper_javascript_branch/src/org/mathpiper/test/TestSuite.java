@@ -46,14 +46,14 @@ public class TestSuite {
     private java.io.FileWriter logFile;
     private String logFileName = "mathpiper_tests.log";
     private Tests tests;
-    private String output;
+    private String output = "";
     //-------------------
     private static String[] argumentErrors = new String[10];
     private static int argumentErrorCount = 0;
     private static String testTypeArgs = "";
+    private static String testTypeMessage = "";
 
     private static enum TestType {
-
         ALL, NONE, SOME, EXCEPT
     }
     private static TestType testType = TestType.ALL;
@@ -108,7 +108,7 @@ public class TestSuite {
     public void test(ArrayList keyArray) {
         try {
 
-            logFile = new java.io.FileWriter(logFileName); //"./tests/mathpiper_tests.log"
+            logFile = new java.io.FileWriter("./tests/" + logFileName); //"./tests/mathpiper_tests.log"
 
             mathPiper = Interpreters.newSynchronousInterpreter();
 
@@ -121,10 +121,11 @@ public class TestSuite {
             }
 
 
-            output = "\n\n***** Beginning of tests. *****\n";
-            output = "\n***** " + new java.util.Date() + " *****\n";
+            output += new java.util.Date() + ".\n";
             //output += "***** Using a new interpreter instance for each test file. *****\n";
-            output += "***** MathPiper version: " + org.mathpiper.Version.version + " *****\n";
+            output += "MathPiper version: " + org.mathpiper.Version.version + ".\n";
+            output += testTypeMessage + ".\n";
+            output += "Beginning of tests:\n";
             System.out.print(output);
             logFile.write(output);
 
@@ -419,14 +420,17 @@ public class TestSuite {
             //Run test.
             switch (testType) {
                 case ALL:
+                    testTypeMessage = "Running all tests.";
                     testSuite.test();
                     break;
 
                 case SOME:
+                    testTypeMessage = "Running only the following tests: " + testTypeArgs;
                     testSuite.testSome(testTypeArgs);
                     break;
 
                 case EXCEPT:
+                    testTypeMessage = "Running all tests except the following: " + testTypeArgs;
                     testSuite.testExcept(testTypeArgs);
                     break;
 
