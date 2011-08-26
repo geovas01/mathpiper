@@ -17,7 +17,7 @@ Function("IsScalar",{x}) Not(IsList(x));
 // test for a vector
 Function("IsVector",{x})
    If(IsList(x),
-   Length(Select(x, IsList))=0,
+   Length(Select(x, IsList))=?0,
    False);
 
 // test for a vector w/ element test p
@@ -31,8 +31,8 @@ Function("IsVector",{p,x})
       result:=True;
       While(i<=n And result)
       [
-	 result:=Apply(p,{x[i]});
-	 i++;
+         result:=Apply(p,{x[i]});
+         i++;
       ];
       result;
    ],
@@ -45,8 +45,8 @@ If(IsList(x) And Length(x)>0,
 [
    Local(n);
    n:=Length(x);
-   If(Length(Select(x, IsVector))=n,
-   MapSingle(Length,x)=Length(x[1])+ZeroVector(n),
+   If(Length(Select(x, IsVector))=?n,
+   MapSingle(Length,x)=?Length(x[1])+ZeroVector(n),
    False);
 ],
 False);
@@ -79,14 +79,14 @@ IsSquareMatrix(_x) <--
 [
    Local(d);
    d:=Dimensions(x);
-   Length(d)=2 And d[1]=d[2];
+   Length(d)=2 And d[1]=?d[2];
 ];
 */
 
 // test for a square matrix (dr)
-Function("IsSquareMatrix",{x}) IsMatrix(x) And Length(x)=Length(x[1]);
+Function("IsSquareMatrix",{x}) IsMatrix(x) And Length(x)=?Length(x[1]);
 // test for a square matrix w/ element test p (dr)
-Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)=Length(x[1]);
+Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)=?Length(x[1]);
 
 ]; // LocalSymbols(p,x)
 
@@ -99,7 +99,7 @@ Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)=Length(x[1]);
 *STD
 *CALL
 
-	IsScalar(expr)
+        IsScalar(expr)
 
 *PARMS
 
@@ -128,9 +128,9 @@ Result: False;
 *STD
 *CALL
 
-	IsVector(expr)
+        IsVector(expr)
 
-	IsVector(pred,expr)
+        IsVector(pred,expr)
 
 *PARMS
 
@@ -165,9 +165,9 @@ Result: False;
 *CMD IsMatrix --- test for a matrix
 *STD
 *CALL
-	IsMatrix(expr)
+        IsMatrix(expr)
 
-	IsMatrix(pred,expr)
+        IsMatrix(pred,expr)
 
 *PARMS
 
@@ -206,9 +206,9 @@ Result: True;
 *CMD IsSquareMatrix --- test for a square matrix
 *STD
 *CALL
-	IsSquareMatrix(expr)
+        IsSquareMatrix(expr)
 
-	IsSquareMatrix(pred,expr)
+        IsSquareMatrix(pred,expr)
 
 *PARMS
 

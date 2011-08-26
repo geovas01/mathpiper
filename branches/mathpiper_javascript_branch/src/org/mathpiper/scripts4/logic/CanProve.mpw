@@ -35,7 +35,7 @@ CanProve(_proposition)      <-- CanProveAux( proposition );
 *CMD CanProve --- try to prove statement
 *STD
 *CALL
-	CanProve(proposition)
+        CanProve(proposition)
 
 *PARMS
 
@@ -59,7 +59,7 @@ a implies c". MathPiper supports the following logical operations:
 
 The abovementioned proposition would be represented by the following expression,
 
-	( (a=>b) And (b=>c) ) => (a=>c)
+        ( (a=>b) And (b=>c) ) => (a=>c)
 
 MathPiper can prove that is correct by applying {CanProve}
 to it:
@@ -71,29 +71,29 @@ It does this in the following way: in order to prove a proposition $p$, it
 suffices to prove that  $Not p$ is false. It continues to simplify  $Not p$
 using the rules:
 
-	Not  ( Not x)      --> x
+        Not  ( Not x)      --> x
 (eliminate double negation),
-	x=>y  -->  Not x  Or  y
+        x=>y  -->  Not x  Or  y
 (eliminate implication),
-	Not (x And y)  -->  Not x  Or  Not y
+        Not (x And y)  -->  Not x  Or  Not y
 (De Morgan's law),
-	Not (x Or y) -->  Not x  And  Not y
+        Not (x Or y) -->  Not x  And  Not y
 (De Morgan's law),
-	(x And y) Or z --> (x Or z) And (y Or z)
+        (x And y) Or z --> (x Or z) And (y Or z)
 (distribution),
-	x Or (y And z) --> (x Or y) And (x Or z)
+        x Or (y And z) --> (x Or y) And (x Or z)
 (distribution),
 and the obvious other rules, such as,
-	True Or x --> True
+        True Or x --> True
 etc.
 The above rules will translate a proposition into a form
 
-	(p1  Or  p2  Or  ...)  And  (q1  Or  q2
-	   Or  ...)  And ...
+        (p1  Or  p2  Or  ...)  And  (q1  Or  q2
+           Or  ...)  And ...
 If any of the clauses is false, the entire expression will be false.
 In the next step, clauses are scanned for situations of the form:
 
-	(p Or Y)  And  ( Not p Or Z) --> (Y Or Z)
+        (p Or Y)  And  ( Not p Or Z) --> (Y Or Z)
 If this combination {(Y Or Z)} is empty, it is false, and
 thus the entire proposition is false.
 
@@ -112,7 +112,7 @@ In> CanProve(a  And   Not a)
 Result: False;
 In> CanProve(a  Or b Or (a And b))
 Result: a Or b;
-	
+        
 
 *SEE True, False, And, Or, Not
 %/mathpiper_docs
@@ -151,10 +151,10 @@ Verify(CanProve(a Or b Or (a And b))               ,a Or b  );
  * 2. Meredith, David, "On a Property of Certain Propositional Formulae,"
  *    Notre Dame Journal of Formal Logic, vol. XIV, No. 1, January 1973.
  */
-Verify(CanProve(	/* 1. CCCpqrCCrpCsp */
+Verify(CanProve(        /* 1. CCCpqrCCrpCsp */
      ((p=>q) => r) => ((r=>p) => (s=>p))
      ), True);
-Verify(CanProve(	/* 2. CCpCqrCqCpr */
+Verify(CanProve(        /* 2. CCpCqrCqCpr */
      (p => (q=>r)) => (q => (p=>r))
      ), True);
 

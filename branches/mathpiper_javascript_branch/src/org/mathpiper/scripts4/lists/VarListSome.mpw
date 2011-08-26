@@ -11,12 +11,12 @@
 // a function in the looking list - traverse its arguments
 30 # VarListSome(expr_IsFunction, look'list_IsList) <--
 RemoveDuplicates(
-		[	// obtain a list of functions, considering only functions in look'list
-			Local(item, result);
-			result := {};
-			ForEach(item, expr) result := Concat(result, VarListSome(item, look'list));
-			result;
-		]
+                [        // obtain a list of functions, considering only functions in look'list
+                        Local(item, result);
+                        result := {};
+                        ForEach(item, expr) result := Concat(result, VarListSome(item, look'list));
+                        result;
+                ]
 );
 
 %/mathpiper
@@ -29,9 +29,9 @@ RemoveDuplicates(
 *CMD VarListSome --- list of variables appearing in an expression
 *STD
 *CALL
-	VarList(expr)
-	VarListArith(expr)
-	VarListSome(expr, list)
+        VarList(expr)
+        VarListArith(expr)
+        VarListSome(expr, list)
 
 *PARMS
 

@@ -20,7 +20,7 @@
     //If(InVerboseMode(),[ Tell("   ",assoc); Tell("   ",sgn); ]);
     typ := Assoc("type",assoc)[2];
     //If(InVerboseMode(),Tell("   ",typ));
-    If( typ = "BigDecimal",
+    If( typ =? "BigDecimal",
        [
           rep := { sgn*Assoc("unscaledValue",assoc)[2],
                    Assoc("precision",    assoc)[2],
@@ -65,8 +65,8 @@
 *CMD NumberToRep --- returns a List showing MathPiper's internal representation of a number
 *STD
 *CALL
-	NumberToRep(number)
-	
+        NumberToRep(number)
+        
 *PARMS
 
 {number} -- an Integer, Decimal, or Complex number

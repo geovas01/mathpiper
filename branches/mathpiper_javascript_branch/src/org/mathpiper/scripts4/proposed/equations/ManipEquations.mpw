@@ -14,7 +14,7 @@
 [
     Local(EL,res);
     EL  := FunctionToList(expr);
-    res := (EL[1] = == ); 
+    res := (EL[1] =? == );
 ];
 
 10 # *==(_num,eqn_IsEquation) <-- 

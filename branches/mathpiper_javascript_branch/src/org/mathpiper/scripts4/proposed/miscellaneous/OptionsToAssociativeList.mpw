@@ -7,7 +7,7 @@ OptionsToAssociativeList(optionList) :=
     
     ForEach(option, optionList)
     [
-        If(option[0] = ->,
+        If(option[0] =? ->,
         [
             If(IsString(option[1]), key := option[1], key := ToString(option[1]));
             If(IsString(option[2]), value := option[2], value := ToString(option[2]));

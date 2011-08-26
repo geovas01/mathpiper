@@ -1,6 +1,6 @@
 %mathpiper,def="IsOddFunction"
 
-IsOddFunction(f,x):= (f = Eval(-Subst(x,-x)f));
+IsOddFunction(f,x):= (f =? Eval(-Subst(x,-x)f));
 
 %/mathpiper
 
@@ -11,7 +11,7 @@ IsOddFunction(f,x):= (f = Eval(-Subst(x,-x)f));
 
 *STD
 *CALL
-	IsOddFunction(expression,variable)
+        IsOddFunction(expression,variable)
 
 *PARMS
 

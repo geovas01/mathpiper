@@ -1,9 +1,9 @@
 %mathpiper,def="Euler"
 
-5  # Euler(0)		<-- 1;
-10 # Euler(n_IsOdd)	<-- 0;
-10 # Euler(n_IsEven)	<-- - Sum(r,0,n/2-1,BinomialCoefficient(n,2*r)*Euler(2*r));
-10 # Euler(n_IsNonNegativeInteger,_x)	<-- Sum(i,0,Round(n/2),BinomialCoefficient(n,2*i)*Euler(2*i)*(x-1/2)^(n-2*i)/2^(2*i));
+5  # Euler(0)                <-- 1;
+10 # Euler(n_IsOdd)        <-- 0;
+10 # Euler(n_IsEven)        <-- - Sum(r,0,n/2-1,BinomialCoefficient(n,2*r)*Euler(2*r));
+10 # Euler(n_IsNonNegativeInteger,_x)        <-- Sum(i,0,Round(n/2),BinomialCoefficient(n,2*i)*Euler(2*i)*(x-1/2)^(n-2*i)/2^(2*i));
 
 %/mathpiper
 
@@ -13,8 +13,8 @@
 *CMD Euler --- Euler numbers and polynomials
 *STD
 *CALL
-	Euler(index)
-	Euler(index,x)
+        Euler(index)
+        Euler(index,x)
 
 *PARMS
 

@@ -1,6 +1,6 @@
 %mathpiper,def="IsAmicablePair"
 
-IsAmicablePair(m_IsPositiveInteger,n_IsPositiveInteger) <-- ( ProperDivisorsSum(m)=n And ProperDivisorsSum(n)=m );
+IsAmicablePair(m_IsPositiveInteger,n_IsPositiveInteger) <-- ( ProperDivisorsSum(m)=?n And ProperDivisorsSum(n)=?m );
 
 %/mathpiper
 
@@ -10,7 +10,7 @@ IsAmicablePair(m_IsPositiveInteger,n_IsPositiveInteger) <-- ( ProperDivisorsSum(
 *CMD IsAmicablePair --- test for a pair of amicable numbers
 *STD
 *CALL
-	IsAmicablePair(m,n)
+        IsAmicablePair(m,n)
 
 *PARMS
 

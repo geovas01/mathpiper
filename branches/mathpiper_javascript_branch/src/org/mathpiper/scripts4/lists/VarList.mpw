@@ -18,9 +18,9 @@ Function("VarList",{expr,filter})
 *CMD VarListSome --- list of variables appearing in an expression
 *STD
 *CALL
-	VarList(expr)
-	VarListArith(expr)
-	VarListSome(expr, list)
+        VarList(expr)
+        VarListArith(expr)
+        VarListSome(expr, list)
 
 *PARMS
 

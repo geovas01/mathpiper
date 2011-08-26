@@ -13,7 +13,7 @@ Function("DestructiveAppend",{list,element})
 *CMD DestructiveAppend --- destructively append an entry to a list
 *STD
 *CALL
-	DestructiveAppend(list, expr)
+        DestructiveAppend(list, expr)
 
 *PARMS
 

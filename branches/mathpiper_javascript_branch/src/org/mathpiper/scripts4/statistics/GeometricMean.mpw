@@ -16,7 +16,7 @@ GeometricMean(list) :=
 *CMD GeometricMean --- calculates the mean of a list of values
 *STD
 *CALL
-	GeometricMean(list)
+        GeometricMean(list)
 
 *PARMS
 

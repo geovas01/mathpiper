@@ -53,7 +53,7 @@ LocalSymbols(rFormRegularOps) [
     {"/","/"},
     {"/","/"},
     {"^","^"},
-    {"=","=="},
+    {"=?","=="},
     {">=",">="},
     {">",">"},
     {"<=","<="},
@@ -134,14 +134,14 @@ LocalSymbols(rFormMathFunctions) [
 /* Precedence of 120 because we'd like to process some special functions like pow() first */
 
 
-120 # RForm(expr_IsFunction, _p)_(ArgumentsCount(expr)=2 And Contains(AssocIndices(RFormRegularOps()), Type(expr)) ) <--
+120 # RForm(expr_IsFunction, _p)_(ArgumentsCount(expr)=?2 And Contains(AssocIndices(RFormRegularOps()), Type(expr)) ) <--
       RFormBracketIf(p<PrecedenceGet(Type(expr)), ConcatStrings(RForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), RFormRegularOps()[Type(expr)], RForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
 
 120 # RForm(expr_IsFunction, _p) _
-      (ArgumentsCount(expr)=1 And Contains(AssocIndices(RFormMathFunctions()), Type(expr)) ) <--
+      (ArgumentsCount(expr)=?1 And Contains(AssocIndices(RFormMathFunctions()), Type(expr)) ) <--
       ConcatStrings(RFormMathFunctions()[Type(expr)], "(", RForm( FunctionToList(expr)[2], RFormMaxPrec()),")" );
 
 /* functions */
@@ -215,7 +215,7 @@ LocalSymbols(RIndent) [
 
 RFormStatement(_x) <-- RForm(x) : ";" : RNlIndented();
 
-120 # RForm(_x,_p)_(Type(x) = "Prog") <--
+120 # RForm(_x,_p)_(Type(x) =? "Prog") <--
 [
   Local(result);
   result:=RIndent():"{":RNlIndented();
@@ -362,8 +362,8 @@ transtab <- matrix( c(
         "gamma",         "gamma",         "Gamma",
         
         "!",                "not",                "Not",
-        "==",                "eq",                "=",
-        "==",                "equivalent","=",
+        "==",                "eq",                "=?",
+        "==",                "equivalent","=?",
         ">=",                "geq",                ">=",
         ">",                 "gt",                ">",
         "<=",                 "leq",                "<=",

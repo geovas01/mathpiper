@@ -2,9 +2,9 @@
 
 Rulebase("else",{ifthen,otherwise});
 
-0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) = True) <-- Eval(body);
+0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) =? True) <-- Eval(body);
 
-0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) = False) <-- Eval(otherwise);
+0 # (if (_predicate) _body else _otherwise)_(Eval(predicate) =? False) <-- Eval(otherwise);
 
 1 # (if (_predicate) _body else _otherwise) <--
     ListToFunction({ToAtom("else"),

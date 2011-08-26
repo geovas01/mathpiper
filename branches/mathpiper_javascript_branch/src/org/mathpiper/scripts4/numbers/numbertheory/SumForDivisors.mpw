@@ -35,7 +35,7 @@ HoldArgument("SumForDivisors",sumbody);
 *CMD SumForDivisors --- loop over divisors
 *STD
 *CALL
-	SumForDivisors(var,n,expr)
+        SumForDivisors(var,n,expr)
 *PARMS
 
 {var} -- atom, variable name

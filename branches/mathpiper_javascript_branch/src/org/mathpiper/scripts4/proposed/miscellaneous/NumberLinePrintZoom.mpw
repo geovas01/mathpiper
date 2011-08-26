@@ -40,7 +40,7 @@ LocalSymbols(ZoomInOnce)
             
             randomZoomNumber := Sum(Take(zoomIndexes, randomStep));
             
-            If(randomStep = 1, nextZoomIndex := randomZoomNumber + 1, nextZoomIndex := 3*(randomStep-1) + randomZoomNumber + 1);
+            If(randomStep =? 1, nextZoomIndex := randomZoomNumber + 1, nextZoomIndex := 3*(randomStep-1) + randomZoomNumber + 1);
          
             If(iteration > 1, Echo(ListToString(FillList("-", outputWidth-3)))); 
             

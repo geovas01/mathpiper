@@ -14,7 +14,7 @@ ExponentialDistribution(l_IsRationalOrNumber)_(l<0) <-- Undefined;
 *CMD ExponentialDistribution --- Exponential distribution
 *STD
 *CALL
-	ExponentialDistribution(lambda)
+        ExponentialDistribution(lambda)
 
 *PARMS
 

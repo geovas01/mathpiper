@@ -1,6 +1,6 @@
 %mathpiper,def="EquationLeft"
 
-EquationLeft(_symbolicEquation)_(Type(symbolicEquation) = "==")  <--
+EquationLeft(_symbolicEquation)_(Type(symbolicEquation) =? "==")  <--
 [
     Local(listForm);
     
@@ -17,8 +17,8 @@ EquationLeft(_symbolicEquation)_(Type(symbolicEquation) = "==")  <--
 *CMD EquationLeft --- return the left side of a symbolic equation
 *STD
 *CALL
-	EquationLeft(equation)
-	
+        EquationLeft(equation)
+        
 *PARMS
 
 {equation} -- symbolic equation.

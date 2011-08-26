@@ -18,7 +18,7 @@
 *CMD HasFunc --- check for expression containing a function
 *STD
 *CALL
-	HasFunc(expr, func)
+        HasFunc(expr, func)
 
 *PARMS
 

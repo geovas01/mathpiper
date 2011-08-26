@@ -16,7 +16,7 @@ Rule("Take", 2, 1, IsList(range))
     Take( Drop(lst, range[1] -1), range[2] - range[1] + 1);
 
 Rule("Take", 2, 2, range >= 0)
-    If( Length(lst)=0 Or range=0, {},
+    If( Length(lst)=?0 Or range=?0, {},
         Concat({First(lst)}, Take(Rest(lst), range-1)));
 
 Rule("Take", 2, 2, range < 0)
@@ -30,9 +30,9 @@ Rule("Take", 2, 2, range < 0)
 *CMD Take --- take a sublist from a list (dropping the rest)
 *STD
 *CALL
-	Take(list, n)
-	Take(list, -n)
-	Take(list, {m,n})
+        Take(list, n)
+        Take(list, -n)
+        Take(list, {m,n})
 
 *PARMS
 

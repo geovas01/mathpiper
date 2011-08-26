@@ -44,7 +44,7 @@
 2 # (Deriv(_var)(Sign(_x))) <-- 0;
 
 2 # (Deriv(_var)(if(_cond)(_body))) <--
-	ListToFunction({ToAtom("if"),cond,Deriv(var)body});
+        ListToFunction({ToAtom("if"),cond,Deriv(var)body});
 2 # (Deriv(_var)((_left) else (_right))) <--
         ListToFunction({ToAtom("else"), (Deriv(var)left), (Deriv(var)right) } );
 
@@ -69,7 +69,7 @@ LocalSymbols(var,var2,a,b,y)[
    3 # (Deriv(_var)Integrate(_var2,_a,_b)(_y)) <--
          (Deriv(var)b)*(y Where var2 == b) -
          (Deriv(var)a)*(y Where var2 == a) +
- 	Integrate(var2,a,b) Deriv(var) y;
+         Integrate(var2,a,b) Deriv(var) y;
  ];
 
 

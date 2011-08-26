@@ -16,7 +16,7 @@ DefMacroRulebase("Lambda",{args,body});
 *CMD Lambda --- a form of pure function that can be passed to functions like Apply and Select
 *STD
 *CALL
-	Lambda(arglist, function body)
+        Lambda(arglist, function body)
 
 *PARMS
 

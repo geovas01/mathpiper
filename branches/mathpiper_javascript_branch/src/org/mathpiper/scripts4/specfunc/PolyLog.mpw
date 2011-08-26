@@ -11,7 +11,7 @@
 // this is nicer than -Ln(1/2)
 10 # PolyLog(1,1/2)             <-- Ln(2);
 10 # PolyLog(_n,1)                <-- Zeta(n);
-10 # PolyLog(_n,_m)_(m= -1)        <-- DirichletEta(n);
+10 # PolyLog(_n,_m)_(m=? -1)        <-- DirichletEta(n);
 10 # PolyLog(_n,_x)_(n< 0)        <-- (1/((1-x)^(-n+1)))*Sum(i,0,-n,Eulerian(-n,i)*x^(-n-i) );
 //10 # PolyLog(_n,_x)_(n= -3)        <-- x*(x^2 + 4*x + 1)/(x-1)^4;
 //10 # PolyLog(_n,_x)_(n= -2)        <-- x*(x+1)/(1-x)^3;

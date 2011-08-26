@@ -49,7 +49,7 @@
 16 # xFactors(p_IsGaussianInteger)        <-- GaussianFactors(p);
 
 
-18 # xFactors(_p)_(Length(VarList(p))=0) <-- {{p,1}};
+18 # xFactors(_p)_(Length(VarList(p))=?0) <-- {{p,1}};
 
 
 
@@ -136,7 +136,7 @@
     If(InVerboseMode(),NewLine());
     monomialFactors := FactorsMonomial(content);
     If(InVerboseMode(),[Tell("  ",monomialFactors);]);
-    If( monomialFactors[1][1] = 1,
+    If( monomialFactors[1][1] =? 1,
         result := ppFactors,        
         result := Concat(monomialFactors,ppFactors)
     );
@@ -150,7 +150,7 @@
 // -----------------  FACTOR PRIMITIVE PART  -----------------
 
      //  special case: binomials
-10 # xFactorsPrimitivePart( _pp )_(nterms=2) <--
+10 # xFactorsPrimitivePart( _pp )_(nterms=?2) <--
 [
     If(InVerboseMode(),Tell("Binomial"));
     Local(ppFactors);
@@ -160,7 +160,7 @@ UnFence("xFactorsPrimitivePart",1);
 
 
      //  special case: homogeneous bivariates
-12 # xFactorsPrimitivePart( _pp )_(isHomogeneous And nvars=2) <--
+12 # xFactorsPrimitivePart( _pp )_(isHomogeneous And nvars=?2) <--
 [
     If(InVerboseMode(),Tell("Homogeneous and Bivariate"));
     Local(ppFactors);
@@ -170,7 +170,7 @@ UnFence("xFactorsPrimitivePart",1);
 
 
      //  special case:  no variables in pp!
-14 # xFactorsPrimitivePart( _pp )_(nvars=0) <--
+14 # xFactorsPrimitivePart( _pp )_(nvars=?0) <--
 [
     Local(ppFactors);
     ppfactors := {};
@@ -178,7 +178,7 @@ UnFence("xFactorsPrimitivePart",1);
 
 
      //  general case: univariate
-16 # xFactorsPrimitivePart( _pp )_(nvars=1) <--  xFactorsUnivariate(pp); 
+16 # xFactorsPrimitivePart( _pp )_(nvars=?1) <--  xFactorsUnivariate(pp);
 UnFence("xFactorsPrimitivePart",1);
 
 
@@ -195,7 +195,7 @@ UnFence("xFactorsPrimitivePart",1);
 
 // ----------------------  UNIVARIATE POLYNOMIALS  -----------------------
 
-30 # xFactorsUnivariate( poly_CanBeUni )_(Length(VarList(poly))=1) <--
+30 # xFactorsUnivariate( poly_CanBeUni )_(Length(VarList(poly))=?1) <--
 [
     Local(factrs,coeffs,deg,X,residuals,factrsnew);
 
@@ -252,7 +252,7 @@ UnFence("xFactorsUnivariate",1);
     Local(factrs);
     
     If(InVerboseMode(),[NewLine();Tell("xFactorsMultivariate",poly);]);
-    If( nterms = 2, 
+    If( nterms =? 2,
       [
         If(InVerboseMode(),Tell("   Is Binomial"));
         factrs := xFactorsBinomial(poly); 
@@ -320,7 +320,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
         If(InVerboseMode(),Tell("   ",dis));
         Local(var);
         var := dis[1][1];
-        if ( dis[2]={{4},{2},{0}} And dis[3]={1,1,1} )
+        if ( dis[2]=?{{4},{2},{0}} And dis[3]=?{1,1,1} )
             [
                 Local(new1,new2);
                 new1 := {var^2-var+1,mult};
@@ -374,7 +374,7 @@ UnFence("ApproximateRealCoefficients",1);
       ForEach(q,factrs)
       [
           If( InVerboseMode(), Tell(1,q) );
-          If( IsList(q) And Length(q)=2,
+          If( IsList(q) And Length(q)=?2,
             [
                 {a,b} := q;
                 If( InVerboseMode(), Echo("     ",{a,b}) );
@@ -431,7 +431,7 @@ UnFence("ApproximateRealCoefficients",1);
 
 // ----------   POSSIBLE NON-INTEGER EXPONENTS  ----------
 
-200 # xFactors( _expr )_(Length(VarList(expr)) = 1) <--
+200 # xFactors( _expr )_(Length(VarList(expr)) =? 1) <--
 [
     If(InVerboseMode(),[NewLine();Tell("Some other kind of expression",expr);]);
     Local(dis,X,pows);
@@ -495,7 +495,7 @@ UnFence("ApproximateRealCoefficients",1);
         If(InVerboseMode(),Tell("               ",f));
         uni := MakeUni(f[1]);
         If(InVerboseMode(),Tell("                    ",uni));
-        If( Degree(f[1])=1,
+        If( Degree(f[1])=?1,
           [
             Local(cc,lcm,fnew);
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
@@ -514,7 +514,7 @@ UnFence("ApproximateRealCoefficients",1);
             );
           ]
         );
-        If( Degree(f[1])=2,
+        If( Degree(f[1])=?2,
           [
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             Local(pq);
@@ -538,7 +538,7 @@ UnFence("ApproximateRealCoefficients",1);
 ];
 UnFence("FixUpMonicFactors",1);
 
-10 # IsIrreducible( poly_IsPolynomial )_(Length(VarList(poly))=1) <--
+10 # IsIrreducible( poly_IsPolynomial )_(Length(VarList(poly))=?1) <--
 [
     //  If these tests return True, the polynomial IS irreducible..
     //  If they return False, the reducibility of the polynomial is
@@ -557,7 +557,7 @@ UnFence("FixUpMonicFactors",1);
     [
         res := N(Subst(x,ii) poly);
         //Tell("      ",{ii,res,IsPrime(res)});
-        If(Abs(res)=1 Or IsPrime(res), nprimes := nprimes + 1, );
+        If(Abs(res)=?1 Or IsPrime(res), nprimes := nprimes + 1, );
     ];
     Tell("   ",nprimes);
     If(nprimes > 2*deg, True, False );

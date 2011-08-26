@@ -14,7 +14,7 @@ DiscreteDistribution( dom_IsRationalOrNumber , prob_IsRationalOrNumber) <-- Unde
 *CMD ContinuousUniformDistribution --- Discrete uniform distribution
 *STD
 *CALL
-	DiscreteDistribution(dom, prob)
+        DiscreteDistribution(dom, prob)
 
 *PARMS
 

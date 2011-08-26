@@ -21,7 +21,7 @@ LocalSymbols(f1,f2)
 *CMD VerifyArithmetic --- Special purpose arithmetic verifiers
 *STD
 *CALL
-	VerifyArithmetic(x,n,m)
+        VerifyArithmetic(x,n,m)
 
 *PARMS
 

@@ -16,7 +16,7 @@
 *CMD ListHasFunc --- test for one of the elements of a list to contain a function
 *STD
 *CALL
-	ListHasFunc( list, func )
+        ListHasFunc( list, func )
 
 *PARMS
 

@@ -33,7 +33,7 @@ UnFence("Table",5);
 *CMD Table --- evaluate while some variable ranges over interval
 *STD
 *CALL
-	Table(body, var, from, to, step)
+        Table(body, var, from, to, step)
 
 *PARMS
 

@@ -25,7 +25,7 @@ LocalSymbols(func,lists,mapsingleresult,mapsingleitem)
 *CMD Map --- apply an $n$-ary function to all entries in a list
 *STD
 *CALL
-	Map(fn, list)
+        Map(fn, list)
 
 *PARMS
 

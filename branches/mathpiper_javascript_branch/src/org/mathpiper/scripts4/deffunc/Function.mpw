@@ -9,13 +9,13 @@ Rulebase("Function",{oper,args,body});
 
 // function with variable number of arguments: Function("func",{x,y, ...})body;
 Rule("Function",3,2047,
-	And(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") ))
+        And(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") ))
 )
 [
-  DestructiveDelete(args,Length(args));	// remove trailing "..."
+  DestructiveDelete(args,Length(args));        // remove trailing "..."
   Retract(oper,Length(args));
   MacroRulebaseListed(oper,args);
-  MacroRule(oper,Length(args),1025,True) body;	// at precedence 1025, for flexibility
+  MacroRule(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
 ];
 
 // function with a fixed number of arguments
@@ -31,30 +31,30 @@ Rule("Function",3,2048,True)
 Rulebase("Function",{oper});
 // function with variable number of arguments: Function() f(x,y, ...)
 Rule("Function",1,2047,
-	And(IsFunction(oper), IsGreaterThan(Length(oper), 1), IsEqual( MathNth(oper, Length(oper)), ToAtom("...") ))
+        And(IsFunction(oper), IsGreaterThan(Length(oper), 1), IsEqual( MathNth(oper, Length(oper)), ToAtom("...") ))
 )
 [
-	Local(args);
-	Bind(args,Rest(FunctionToList(oper)));
-	DestructiveDelete(args,Length(args));	// remove trailing "..."
-	If(RulebaseDefined(Type(oper),Length(args)),
-		False,	// do nothing
-		MacroRulebaseListed(Type(oper),args)
-	);
+        Local(args);
+        Bind(args,Rest(FunctionToList(oper)));
+        DestructiveDelete(args,Length(args));        // remove trailing "..."
+        If(RulebaseDefined(Type(oper),Length(args)),
+                False,        // do nothing
+                MacroRulebaseListed(Type(oper),args)
+        );
 ];
 
 
 // function with a fixed number of arguments
 Rule("Function",1,2048,
-	And(IsFunction(oper))
+        And(IsFunction(oper))
 )
 [
-	Local(args);
-	Bind(args,Rest(FunctionToList(oper)));
-	If(RulebaseDefined(Type(oper),Length(args)),
-		False,	// do nothing
-		MacroRulebase(Type(oper),args)
-	);
+        Local(args);
+        Bind(args,Rest(FunctionToList(oper)));
+        If(RulebaseDefined(Type(oper),Length(args)),
+                False,        // do nothing
+                MacroRulebase(Type(oper),args)
+        );
 ];
 
 
@@ -70,10 +70,10 @@ HoldArgument("Function",body);
 *CMD Function --- declare or define a function
 *STD
 *CALL
-	Function() func(arglist)
-	Function() func(arglist, ...)
-	Function("op", {arglist}) body
-	Function("op", {arglist, ...}) body
+        Function() func(arglist)
+        Function() func(arglist, ...)
+        Function("op", {arglist}) body
+        Function("op", {arglist, ...}) body
 
 *PARMS
 
@@ -122,7 +122,7 @@ Result: a;
 
 The following function will print all arguments to a string:
 In> Function("PrintAll",{x, ...}) If(IsList(x),
-	  PrintList(x), PipeToString()Write(x));
+          PrintList(x), PipeToString()Write(x));
 Result: True;
 In> PrintAll(1):
 Result: " 1";

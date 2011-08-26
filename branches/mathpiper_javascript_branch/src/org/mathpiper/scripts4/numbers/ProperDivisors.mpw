@@ -3,7 +3,7 @@
 10 # ProperDivisors(_n) <--
 [
         Check(IsPositiveInteger(n), "Argument", "ProperDivisors: argument must be positive integer");
-	Divisors(n)-1;
+        Divisors(n)-1;
 ];
 
 %/mathpiper
@@ -14,7 +14,7 @@
 *CMD ProperDivisors --- the number of proper divisors
 *STD
 *CALL
-	ProperDivisors(n)
+        ProperDivisors(n)
 *PARMS
 
 {n}     -- positive integer

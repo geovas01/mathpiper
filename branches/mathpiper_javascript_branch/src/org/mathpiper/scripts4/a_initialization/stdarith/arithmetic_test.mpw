@@ -5,7 +5,7 @@ NextTest("Test arithmetic");
 NextTest("Basic calculations");
 Verify(3 + 2 , 5);
 Verify(3-7, -4);
-Verify(1 = 2 , 0 = -1);
+Verify(1 =? 2 , 0 =? -1);
 Verify(5 ^ 2 , 25);
 
 Verify(IsZero(0.000),True);

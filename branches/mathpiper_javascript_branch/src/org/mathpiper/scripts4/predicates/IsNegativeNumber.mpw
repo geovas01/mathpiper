@@ -10,7 +10,7 @@ IsNegativeNumber(x):= IsNumber(x) And x < 0;
 *CMD IsNegativeNumber --- test for a negative number
 *STD
 *CALL
-	IsNegativeNumber(n)
+        IsNegativeNumber(n)
 
 *PARMS
 

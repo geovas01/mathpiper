@@ -22,7 +22,7 @@ Function("Contains",{list,element})
 *CMD Contains --- test whether a list contains a certain element
 *STD
 *CALL
-	Contains(list, expr)
+        Contains(list, expr)
 
 *PARMS
 

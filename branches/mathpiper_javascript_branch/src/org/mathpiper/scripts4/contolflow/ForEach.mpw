@@ -59,7 +59,7 @@ HoldArgumentNumber("ForEach",3,3);
 *CMD ForEach --- loop over all entries in a list or a string
 *STD
 *CALL
-	ForEach(var, list_or_string) body
+        ForEach(var, list_or_string) body
 
 *PARMS
 

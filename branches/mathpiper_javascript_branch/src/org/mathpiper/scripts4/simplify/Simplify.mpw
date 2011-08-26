@@ -19,13 +19,13 @@
 25 # Simplify(_a else _b) <-- "else" @ {Simplify(a), Simplify(b)};
 
 // otherwise
-40 # Simplify(_expr)_(Type(expr)="Ln") <--
+40 # Simplify(_expr)_(Type(expr)=?"Ln") <--
 [
     //If(InVerboseMode(),Tell("Simplify_Ln",expr));
     LnCombine(expr);
 ];
 
-40 # Simplify(_expr)_(Type(expr)="Exp") <--
+40 # Simplify(_expr)_(Type(expr)=?"Exp") <--
 [
     //If(InVerboseMode(),Tell("Simplify_Exp",expr));
     expr;

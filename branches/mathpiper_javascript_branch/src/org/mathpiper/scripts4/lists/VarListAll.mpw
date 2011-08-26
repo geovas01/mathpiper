@@ -8,7 +8,7 @@
 
 VarListAll(_expr) <-- VarListAll(expr,"IsVariable");
 
-10 # VarListAll(_expr,_filter)_(Apply(filter,{expr}) = True) <--
+10 # VarListAll(_expr,_filter)_(Apply(filter,{expr}) =? True) <--
      {expr};
 
 /* Otherwise check all leafs of a function. */

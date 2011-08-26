@@ -3,7 +3,7 @@
 LocalSymbols(a,x)
 [
 Function("Conjugate",{a})
-  Substitute(a,{{x},Type(x)="Complex"},{{x},Complex(x[1],-(x[2]))});
+  Substitute(a,{{x},Type(x)=?"Complex"},{{x},Complex(x[1],-(x[2]))});
 ]; // LocalSymbols(a,x)
 
 %/mathpiper
@@ -14,7 +14,7 @@ Function("Conjugate",{a})
 *CMD Conjugate --- complex conjugate
 *STD
 *CALL
-	Conjugate(x)
+        Conjugate(x)
 
 *PARMS
 

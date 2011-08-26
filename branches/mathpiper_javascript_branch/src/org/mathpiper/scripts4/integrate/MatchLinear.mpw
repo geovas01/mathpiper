@@ -25,8 +25,8 @@ LocalSymbols(a,b)[
   Check(IsUniVar(expr), "Argument", PipeToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
 
 //TODO if I enable these checks, then integration fails (only users of this function any way). Can this be removed? Where are these variables cleared any way?
-//  Check(a = Hold(a), "Argument", PipeToString()(Echo({"Found bound variable a which should have been unbound, in MatchLinear: ", a, "=", Eval(a)})));
-//  Check(b = Hold(b), "Argument", PipeToString()(Echo({"Found bound variable b which should have been unbound, in MatchLinear: ", b, "=", Eval(b)})));
+//  Check(a = Hold(a), "Argument", PipeToString()(Echo({"Found bound variable a which should have been unbound, in MatchLinear: ", a, "=?", Eval(a)})));
+//  Check(b = Hold(b), "Argument", PipeToString()(Echo({"Found bound variable b which should have been unbound, in MatchLinear: ", b, "=?", Eval(b)})));
 
   a := Coef(expr,1);
   b := Coef(expr,0);
@@ -46,13 +46,13 @@ UnFence("MatchLinear",2);
 ];
 20 # MatchPureSquared(_var,_sign2,_sign0,_expr) <-- False;
 
-10 # MatchPureSquared(_expr,_sign2,_sign0)_(Degree(expr,var)=2 And
-                                    Coef(expr,1) = 0 And
-				    IsNumber(Coef(expr,0)) And
-				    IsNumber(Coef(expr,2)) And
-				    Coef(expr,0)*sign0 > 0 And
-				    Coef(expr,2)*sign2 > 0
-				    ) <--
+10 # MatchPureSquared(_expr,_sign2,_sign0)_(Degree(expr,var)=?2 And
+                                    Coef(expr,1) =? 0 And
+                                    IsNumber(Coef(expr,0)) And
+                                    IsNumber(Coef(expr,2)) And
+                                    Coef(expr,0)*sign0 > 0 And
+                                    Coef(expr,2)*sign2 > 0
+                                    ) <--
 [
   Check(IsUniVar(expr), "Argument", PipeToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
 //TODO if I enable these checks, then integration fails (only users of this function any way). Can this be removed? Where are these variables cleared any way?
@@ -82,7 +82,7 @@ Matched'b() := b;
 *CMD MatchLinear --- match an expression to a polynomial of degree one in a variable
 *STD
 *CALL
-	MatchLinear(x,expr)
+        MatchLinear(x,expr)
 
 *PARMS
 
@@ -109,6 +109,6 @@ In> {a,b};
 Result: {R+1,T-1};
 In> MatchLinear(x,Sin(x)*x+(T-1))
 Result: False;
-	
+        
 *SEE Integrate
 %/mathpiper_docs

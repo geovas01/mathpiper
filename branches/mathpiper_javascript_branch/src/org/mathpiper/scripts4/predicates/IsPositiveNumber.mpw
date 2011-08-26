@@ -10,7 +10,7 @@ IsPositiveNumber(x):= IsNumber(x) And x > 0;
 *CMD IsPositiveNumber --- test for a positive number
 *STD
 *CALL
-	IsPositiveNumber(n)
+        IsPositiveNumber(n)
 
 *PARMS
 

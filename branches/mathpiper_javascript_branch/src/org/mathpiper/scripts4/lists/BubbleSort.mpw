@@ -31,7 +31,7 @@ Function("BubbleSort",{list,compare})
 *CMD BubbleSort --- sort a list
 *STD
 *CALL
-	BubbleSort(list, compare)
+        BubbleSort(list, compare)
 
 *PARMS
 

@@ -42,14 +42,14 @@
 //Note:tk:moved here from univariate.rep.
 0 # Modulo(n_IsUniVar,m_IsUniVar)_(Degree(n) < Degree(m)) <-- n;
 1 # Modulo(n_IsUniVar,m_IsUniVar)_
-    (n[1] = m[1] And Degree(n) >= Degree(m)) <--
+    (n[1] =? m[1] And Degree(n) >= Degree(m)) <--
 [
     UniVariate(n[1],0,
                UniDivide(Concat(ZeroVector(n[2]),n[3]),
                          Concat(ZeroVector(m[2]),m[3]))[2]);
 ];
 
-10 # Modulo(n_CanBeUni, m_CanBeUni, vars_IsList)_(Length(vars)=1) <--
+10 # Modulo(n_CanBeUni, m_CanBeUni, vars_IsList)_(Length(vars)=?1) <--
 [
     NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));
 ];

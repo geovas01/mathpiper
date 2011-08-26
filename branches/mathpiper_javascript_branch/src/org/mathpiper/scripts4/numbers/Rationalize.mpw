@@ -9,12 +9,12 @@
     Local(result,n,d);
     result:=Substitute(aNumber,{{x},IsNumber(x) And Not(IsInteger(x))},"RationalizeNumber");
     If(InVerboseMode(),Tell("",result));
-    If(Length(VarList(aNumber))=0,
+    If(Length(VarList(aNumber))=?0,
       [
         n:=Numerator(result);
-        If(Type(n)="Numerator",n:=result);
+        If(Type(n)=?"Numerator",n:=result);
         d:=Denominator(result);
-        If(Type(d)="Denominator",d:=1);
+        If(Type(d)=?"Denominator",d:=1);
         result := n*(1/d);
       ]
     );
@@ -31,7 +31,7 @@
 *CMD Rationalize --- convert floating point numbers to fractions
 *STD
 *CALL
-	Rationalize(expr)
+        Rationalize(expr)
 
 *PARMS
 

@@ -22,7 +22,7 @@ Variance(list) :=
 *CMD Variance --- calculates the variance of a list of values
 *STD
 *CALL
-	Variance(list)
+        Variance(list)
 
 *PARMS
 

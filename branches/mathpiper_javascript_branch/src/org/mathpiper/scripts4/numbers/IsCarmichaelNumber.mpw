@@ -1,25 +1,25 @@
 %mathpiper,def="IsCarmichaelNumber"
 
 // Carmichael numbers are odd,squarefree and have at least 3 prime factors
-5  # IsCarmichaelNumber(n_IsEven)		<-- False;
-5  # IsCarmichaelNumber(_n)_(n<561)		<-- False;
-10 # IsCarmichaelNumber(n_IsPositiveInteger)	<--
+5  # IsCarmichaelNumber(n_IsEven)                <-- False;
+5  # IsCarmichaelNumber(_n)_(n<561)                <-- False;
+10 # IsCarmichaelNumber(n_IsPositiveInteger)        <--
 [
-	Local(i,factors,length,carmichael);
+        Local(i,factors,length,carmichael);
 
-	factors:=Factors(n);
-	carmichael:=True;
-	length:=Length(factors);
-	if( length < 3)[
-		 carmichael:=False;
-	] else [
-		For(i:=1,i<=length And carmichael,i++)[
-			//Echo( n-1,"%",factors[i][1]-1,"=", Modulo(n-1,factors[i][1]-1) );
-			If( Modulo(n-1,factors[i][1]-1) != 0, carmichael:=False );
-			If(factors[i][2]>1,carmichael:=False);	// squarefree
-		];
-	];
-	carmichael;
+        factors:=Factors(n);
+        carmichael:=True;
+        length:=Length(factors);
+        if( length < 3)[
+                 carmichael:=False;
+        ] else [
+                For(i:=1,i<=length And carmichael,i++)[
+                        //Echo( n-1,"%",factors[i][1]-1,"=?", Modulo(n-1,factors[i][1]-1) );
+                        If( Modulo(n-1,factors[i][1]-1) != 0, carmichael:=False );
+                        If(factors[i][2]>1,carmichael:=False);        // squarefree
+                ];
+        ];
+        carmichael;
 ];
 
 IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
@@ -32,7 +32,7 @@ IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
 *CMD IsCarmichaelNumber --- test for a Carmichael number
 *STD
 *CALL
-	IsCarmichaelNumber(n)
+        IsCarmichaelNumber(n)
 
 *PARMS
 
@@ -53,7 +53,7 @@ it has recently been proven that there are infinitely many of them.
 In> IsCarmichaelNumber(561)
 Result: True;
 In> EchoTime() Select(1 .. 10000, IsCarmichaelNumber)
-	504.19 seconds taken
+        504.19 seconds taken
 Result: {561,1105,1729,2465,2821,6601,8911};
 
 *SEE IsSquareFree, IsComposite

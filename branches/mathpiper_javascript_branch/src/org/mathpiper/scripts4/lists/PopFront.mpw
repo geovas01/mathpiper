@@ -10,7 +10,7 @@ Function("PopFront",{stack}) Pop(stack,1);
 *CMD PopFront --- remove an element from the top of a stack
 *STD
 *CALL
-	PopFront(stack)
+        PopFront(stack)
 
 *PARMS
 

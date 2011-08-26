@@ -24,7 +24,7 @@ HoldArgumentNumber("For",4,4);
 *CMD For --- C-style {for} loop
 *STD
 *CALL
-	For(init, pred, incr) body
+        For(init, pred, incr) body
 
 *PARMS
 
@@ -56,16 +56,16 @@ equivalent to {init; While(pred) [body; incr;]}.
 *E.G. notest
 
 In> For (i:=1, i<=10, i++) Echo({i, i!});
-	 1  1
-	 2  2
-	 3  6
-	 4  24
-	 5  120
-	 6  720
-	 7  5040
-	 8  40320
-	 9  362880
-	 10  3628800
+         1  1
+         2  2
+         3  6
+         4  24
+         5  120
+         6  720
+         7  5040
+         8  40320
+         9  362880
+         10  3628800
 Result: True;
 
 *SEE While, Until, ForEach, Break, Continue

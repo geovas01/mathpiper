@@ -13,7 +13,7 @@
 *CMD Re --- real part of a complex number
 *STD
 *CALL
-	Re(x)
+        Re(x)
 
 *PARMS
 

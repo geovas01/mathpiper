@@ -28,7 +28,7 @@ MultiExpressionList(_expr) <-- VarList(expr,"IsMultiExpression");
 
 //TODO: shouldn't this be more global? The problem right now is
 // that IsConstant/IsVariable take Pi to be a constant...
-IsMultiConstant(_n) <-- (VarList(n,"IsVr")={});
+IsMultiConstant(_n) <-- (VarList(n,"IsVr")=?{});
 10 # IsVr(n_IsNumber) <-- False;
 10 # IsVr(n_IsFunction) <-- False;
 10 # IsVr(n_IsString) <-- False;
@@ -91,7 +91,7 @@ LocalSymbols(x,y,z,vars,gcd,a,a)  [
 
 
 MultiNomial(_vars,_x) + MultiNomial(_vars,_y) <--
-	   MultiNomialAdd(MultiNomial(vars,x), MultiNomial(vars,y));
+           MultiNomialAdd(MultiNomial(vars,x), MultiNomial(vars,y));
 MultiNomial(_vars,_x) * MultiNomial(_vars,_y) <--
            MultiNomialMultiply(MultiNomial(vars,x), MultiNomial(vars,y));
 MultiNomial(_vars,_x) - MultiNomial(_vars,_y) <--
@@ -109,7 +109,7 @@ LocalSymbols(x,n,vars)  [
         Local(mult,result);
         Bind(mult,MakeMultiNomial(x,vars));
         Bind(result,MakeMultiNomial(1,vars));
-	While(n>0)
+        While(n>0)
         [
           If(n&1 != 0, Bind(result, MultiNomialMultiply(result,mult)));
           Bind(n,n>>1);
@@ -127,7 +127,7 @@ LocalSymbols(x,n,vars)  [
           If(IsInteger(n),
             MultiSingleFactor(vars,x,n),
             MultiSingleFactor(vars,x^n,1)
-  	    );
+              );
         ];
 ];
 

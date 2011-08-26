@@ -10,7 +10,7 @@ IsNonZeroInteger(x) := (IsInteger(x) And x != 0);
 *CMD IsNonZeroInteger --- test for a nonzero integer
 *STD
 *CALL
-	IsNonZeroInteger(n)
+        IsNonZeroInteger(n)
 
 *PARMS
 

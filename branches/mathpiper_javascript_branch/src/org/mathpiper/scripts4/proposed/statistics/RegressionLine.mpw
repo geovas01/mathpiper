@@ -6,7 +6,7 @@ RegressionLine(x,y) :=
     
     Check(IsList(y), "Argument", "The second argument must be a list.");
     
-    Check(Length(x) = Length(y), "Argument", "The lists for argument 1 and argument 2 must have the same length.");
+    Check(Length(x) =? Length(y), "Argument", "The lists for argument 1 and argument 2 must have the same length.");
     
     Local(n,a,b,xMean,yMean,line,result);
     

@@ -15,7 +15,7 @@ IsPositiveReal(_r) <--
 *CMD IsPositiveReal --- test for a numerically positive value
 *STD
 *CALL
-	IsPositiveReal(expr)
+        IsPositiveReal(expr)
 
 *PARMS
 

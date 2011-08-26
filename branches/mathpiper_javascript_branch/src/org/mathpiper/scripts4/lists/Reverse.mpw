@@ -11,7 +11,7 @@ Reverse(list):=DestructiveReverse(FlatCopy(list));
 *CMD Reverse --- return the reversed list (without touching the original)
 *STD
 *CALL
-	Reverse(list)
+        Reverse(list)
 
 *PARMS
 

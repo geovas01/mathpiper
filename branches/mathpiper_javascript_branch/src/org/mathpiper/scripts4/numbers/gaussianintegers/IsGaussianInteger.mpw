@@ -1,13 +1,13 @@
 %mathpiper,def="IsGaussianInteger"
 
-5  # IsGaussianInteger(x_IsList)	<-- False;
+5  # IsGaussianInteger(x_IsList)        <-- False;
 
 // ?????? why is the following rule needed?
-// 5  # IsGaussianInteger(ProductPrimesTo257)	<-- False;
+// 5  # IsGaussianInteger(ProductPrimesTo257)        <-- False;
 
-10 # IsGaussianInteger(x_IsComplex)  	<-- (IsInteger(Re(x)) And IsInteger(Im(x)));
+10 # IsGaussianInteger(x_IsComplex)          <-- (IsInteger(Re(x)) And IsInteger(Im(x)));
 // to catch IsGaussianInteger(x+2) from Apart
-15 # IsGaussianInteger(_x)	<-- False;
+15 # IsGaussianInteger(_x)        <-- False;
 
 %/mathpiper
 
@@ -17,10 +17,10 @@
 *CMD IsGaussianInteger ---  test for a Gaussian integer
 *STD
 *CALL
-	IsGaussianInteger(z)
+        IsGaussianInteger(z)
 *PARMS
 
-{z} -- a complex or real number	
+{z} -- a complex or real number        
 
 *DESC
 

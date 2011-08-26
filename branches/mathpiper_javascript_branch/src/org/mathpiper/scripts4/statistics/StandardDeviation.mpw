@@ -17,7 +17,7 @@ StandardDeviation(list) :=
 *CMD StandardDeviation --- calculates the standard deviation of a list of values
 *STD
 *CALL
-	StandardDeviation(list)
+        StandardDeviation(list)
 
 *PARMS
 

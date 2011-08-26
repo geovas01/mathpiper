@@ -17,7 +17,7 @@ WeightedMean(list) :=
     [        
         Check(IsList(element), "Argument", "Values and their associated weights must be in a list.");
         
-        Check(Length(element) = 2, "Argument", "Each value and its associated weight must be in a two element list.");
+        Check(Length(element) =? 2, "Argument", "Each value and its associated weight must be in a two element list.");
         
         values := values : element[1];
 

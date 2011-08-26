@@ -116,19 +116,19 @@ Verify(x+x-x+x,2*x);
 Local(OriginalPrecision);
 OriginalPrecision := BuiltinPrecisionGet();
 BuiltinPrecisionSet(30);
-Verify(0.00000000000000000005421010862 = 0, False);        // 2^(-64)
-Verify(0.00000000000000000005421010862 / 1 = 0, False);
-Verify(0.00000000000000000005421010862 / 2 = 0, False);
-Verify(0.00000000000000000001 = 0, False);
-Verify(0.00000000000000000001 / 2 = 0, False);
-Verify(0.00000000000000000000000000001 = 0, False);
-Verify(0.000000000000000000000000000001 = 0, False);
-Verify((0.0000000000000000000000000000000000000001 = 0), False);
+Verify(0.00000000000000000005421010862 =? 0, False);        // 2^(-64)
+Verify(0.00000000000000000005421010862 / 1 =? 0, False);
+Verify(0.00000000000000000005421010862 / 2 =? 0, False);
+Verify(0.00000000000000000001 =? 0, False);
+Verify(0.00000000000000000001 / 2 =? 0, False);
+Verify(0.00000000000000000000000000001 =? 0, False);
+Verify(0.000000000000000000000000000001 =? 0, False);
+Verify((0.0000000000000000000000000000000000000001 =? 0), False);
 // I added another one, the code will currently say that 0.0000...00001=0 is True
 // for a sufficient amount of zeroes, regardless of precision. Either that is good
 // or that is bad, but the above tests didn't go far enough. This one makes it
 // more explicit, unless we move over to a 128-bits system ;-)
-Verify((0.0000000000000000000000000000000000000000000000001 = 0), False);
+Verify((0.0000000000000000000000000000000000000000000000001 =? 0), False);
 BuiltinPrecisionSet(OriginalPrecision);
 
 
@@ -223,8 +223,8 @@ Echo("maximum ",MaximumBound(p));
 Echo("bounds ",BoundRealRoots(p));
   roots:=FindRealRoots(p);
 Echo("roots ",roots);
-  Verify(Length(roots) = Length(coefs));
-  Verify(Length(RemoveDuplicates(roots)) = Length(coefs));
+  Verify(Length(roots) =? Length(coefs));
+  Verify(Length(RemoveDuplicates(roots)) =? Length(coefs));
   px := (p Where x==x);
   Verify(Dot(px, px) < 0.01, True);
 ];

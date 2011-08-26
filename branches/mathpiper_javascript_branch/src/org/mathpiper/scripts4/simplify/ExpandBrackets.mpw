@@ -7,7 +7,7 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
     [
         Check(IsList(list), "Argument", "The argument must be a list.");
 
-        If(Length(list) = 1, 
+        If(Length(list) =? 1,
             First(list),
             AssembleTermsRecursive(Reverse(list)) 
         );
@@ -16,12 +16,12 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
 
     AssembleTermsRecursive(list) :=
     [
-        If(Type(list[1]) = "-" Or IsNegativeNumber(list[1]) Or Type(list[1]) = "/" And (Type(Numerator(list[1])) = "-" Or IsNegativeNumber(Numerator(list[1]))),
-            If(Length(list) = 2,
+        If(Type(list[1]) =? "-" Or IsNegativeNumber(list[1]) Or Type(list[1]) =? "/" And (Type(Numerator(list[1])) =? "-" Or IsNegativeNumber(Numerator(list[1]))),
+            If(Length(list) =? 2,
                 ListToFunction({ToAtom("-"), list[2], -list[1]} ),
                 ListToFunction({ToAtom("-"), AssembleTermsRecursive(Rest(list)), -First(list)} )
             ),
-            If(Length(list) = 2,
+            If(Length(list) =? 2,
                 ListToFunction({ToAtom("+"), list[2], list[1]} ),
                 ListToFunction({ToAtom("+"), AssembleTermsRecursive(Rest(list)), First(list)} )
             )
@@ -31,7 +31,7 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
 
 10 # ExpandBrackets(xx_IsZero) <-- 0;
 
-20 # ExpandBrackets(_xx)_(Type(xx)="/" Or Type(-xx)="/") <-- 
+20 # ExpandBrackets(_xx)_(Type(xx)=?"/" Or Type(-xx)=?"/") <--
 [
     Local(N,D,t);
     N := ReassembleListTerms(DisassembleExpression(Numerator(xx)));

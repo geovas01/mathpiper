@@ -18,7 +18,7 @@
 
 *STD
 *CALL
-	AllSatisfy(pred,lst)
+        AllSatisfy(pred,lst)
 
 *PARMS
 

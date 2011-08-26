@@ -19,7 +19,7 @@ Mean(list) :=
 *CMD Mean --- calculates the mean of a list of values
 *STD
 *CALL
-	Mean(list)
+        Mean(list)
 
 *PARMS
 

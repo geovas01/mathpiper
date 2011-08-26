@@ -3,7 +3,7 @@
 //Retract("CanBeMonomial",*);
 //Retract("IsMonomial",*);
 
-10 # CanBeMonomial(_expr)_(Type(expr)="UniVariate") <-- False;
+10 # CanBeMonomial(_expr)_(Type(expr)=?"UniVariate") <-- False;
 
 10 # CanBeMonomial(_expr)<--Not (HasFunc(expr,ToAtom("+")) Or HasFunc(expr,ToAtom("-")));
 
@@ -11,7 +11,7 @@
 [
     Local(r);
     If( IsRationalFunction(expr),
-        r := (VarList(Denominator(expr)) = {}),
+        r := (VarList(Denominator(expr)) =? {}),
         r := True
     );
 ];
@@ -31,7 +31,7 @@
 *CMD IsMonomial --- determine if {expr} is a Monomial
 *STD
 *CALL
-	IsMonomial(expr)
+        IsMonomial(expr)
 
 *PARMS
 {expr} -- an expression

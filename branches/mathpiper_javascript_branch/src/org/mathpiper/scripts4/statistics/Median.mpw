@@ -12,7 +12,7 @@ Median(list) :=
     
     n2 := (n>>1);
     
-    If(Modulo(n,2) = 1, sx[n2+1], (sx[n2]+sx[n2+1])/2);
+    If(Modulo(n,2) =? 1, sx[n2+1], (sx[n2]+sx[n2+1])/2);
 ];
 
 %/mathpiper
@@ -27,7 +27,7 @@ Median(list) :=
 *CMD Median --- calculates the median of a list of values
 *STD
 *CALL
-	Median(list)
+        Median(list)
 
 *PARMS
 

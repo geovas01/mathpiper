@@ -16,7 +16,7 @@
 
 *STD
 *CALL
-	NoneSatisfy(pred,lst)
+        NoneSatisfy(pred,lst)
 
 *PARMS
 

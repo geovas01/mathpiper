@@ -17,7 +17,7 @@ Mode(list) :=
     
     sortedList := HeapSort(countsList,Lambda({x,y},x[1] > y[1]));
     
-    highestCountsList := Select(sortedList, Lambda({x},x[1] = sortedList[1][1]));
+    highestCountsList := Select(sortedList, Lambda({x},x[1] =? sortedList[1][1]));
     
     resultList := MapSingle(Lambda({x},x[2]), highestCountsList);
 

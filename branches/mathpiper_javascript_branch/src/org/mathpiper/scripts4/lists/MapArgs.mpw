@@ -18,7 +18,7 @@ HoldArgument("MapArgs",oper);
 *CMD MapArgs --- apply a function to all top-level arguments
 *STD
 *CALL
-	MapArgs(expr, fn)
+        MapArgs(expr, fn)
 
 *PARMS
 

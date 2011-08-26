@@ -16,13 +16,13 @@ See the Algo book for documentation.
 
 30 # JacobiSymbol(a_IsEven, b_IsOdd) <--
 [
-	Local(c, s);
-	// compute c,s where a=c*2^s and c is odd
-	{c,s}:=FindPrimeFactorSimple(a, 2);	// use the "Simple" function because we don't expect a worst case here
-	If(Modulo(s,2)=1 And Abs(Modulo(b,8)-4)=1, -1, 1) * JacobiSymbol(c,b);
+        Local(c, s);
+        // compute c,s where a=c*2^s and c is odd
+        {c,s}:=FindPrimeFactorSimple(a, 2);        // use the "Simple" function because we don't expect a worst case here
+        If(Modulo(s,2)=?1 And Abs(Modulo(b,8)-4)=?1, -1, 1) * JacobiSymbol(c,b);
 ];
 
-40 # JacobiSymbol(a_IsOdd, b_IsOdd) <-- If(Modulo(a,4)=3 And Modulo(b,4)=3, -1, 1) * JacobiSymbol(b,a);
+40 # JacobiSymbol(a_IsOdd, b_IsOdd) <-- If(Modulo(a,4)=?3 And Modulo(b,4)=?3, -1, 1) * JacobiSymbol(b,a);
 
 %/mathpiper
 
@@ -32,7 +32,7 @@ See the Algo book for documentation.
 *CMD JacobiSymbol --- functions related to finite groups
 *STD
 *CALL
-	JacobiSymbol(m,n)
+        JacobiSymbol(m,n)
 
 *PARMS
 {m}, {n} -- integers, $n$ must be odd and positive

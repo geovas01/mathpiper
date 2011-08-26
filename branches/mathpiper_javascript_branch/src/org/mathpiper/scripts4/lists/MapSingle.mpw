@@ -23,7 +23,7 @@ HoldArgument("MapSingle",func);
 *CMD MapSingle --- apply a unary function to all entries in a list
 *STD
 *CALL
-	MapSingle(fn, list)
+        MapSingle(fn, list)
 
 *PARMS
 

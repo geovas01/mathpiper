@@ -9,26 +9,26 @@ LocalSymbols(GlobalStack, x)
 [
   GlobalStack := {};
 
-	GlobalPop(x_IsAtom) <--
-	[
-		Check(Length(GlobalStack)>0, "Invariant", "GlobalPop: Error: empty GlobalStack");
-		MacroBind(x, PopFront(GlobalStack));
-		Eval(x);
-	];
+        GlobalPop(x_IsAtom) <--
+        [
+                Check(Length(GlobalStack)>0, "Invariant", "GlobalPop: Error: empty GlobalStack");
+                MacroBind(x, PopFront(GlobalStack));
+                Eval(x);
+        ];
 
-	HoldArgumentNumber("GlobalPop", 1, 1);
+        HoldArgumentNumber("GlobalPop", 1, 1);
 
-	GlobalPop() <--
-	[
-		Check(Length(GlobalStack)>0, "Invariant", "GlobalPop: Error: empty GlobalStack");
-		PopFront(GlobalStack);
-	];
+        GlobalPop() <--
+        [
+                Check(Length(GlobalStack)>0, "Invariant", "GlobalPop: Error: empty GlobalStack");
+                PopFront(GlobalStack);
+        ];
 
-	GlobalPush(_x) <--
-	[
-		Push(GlobalStack, x);
-		x;
-	];
+        GlobalPush(_x) <--
+        [
+                Push(GlobalStack, x);
+                x;
+        ];
 ];
 
 %/mathpiper
@@ -40,9 +40,9 @@ LocalSymbols(GlobalStack, x)
 *CMD GlobalPush --- save variables using a global stack
 *STD
 *CALL
-	GlobalPop(var)
-	GlobalPop()
-	GlobalPush(expr)
+        GlobalPop(var)
+        GlobalPop()
+        GlobalPush(expr)
 
 *PARMS
 

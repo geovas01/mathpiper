@@ -32,7 +32,7 @@ Rule("AssignArray",3,1,IsString(setlistindex))
 [
   Local(item);
   item:=Assoc(setlistindex,setlistterm);
-  If(item = Empty,
+  If(item =? Empty,
      DestructiveInsert(setlistterm,1,{setlistindex,setlistresult}),
      DestructiveReplace(item,2,setlistresult)
      );
@@ -57,7 +57,7 @@ Rule("AssignArray",3,2,True)
 ];
 
 // a[x] := ... assigns to an array element
-Rule(":=",2,10,IsFunction(aLeftAssign) And (First(FunctionToList(aLeftAssign)) = Nth))
+Rule(":=",2,10,IsFunction(aLeftAssign) And (First(FunctionToList(aLeftAssign)) =? Nth))
 [
  Local(frst,scnd);
 
@@ -80,20 +80,20 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(IsEqual(aLeftAssign[0], ToAtom(":
   Bind(oper,ToString(aLeftAssign[0]));
   Bind(args,Rest(FunctionToList(aLeftAssign)));
   If(
-	And(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") )),
-	// function with variable number of arguments
-	[
-	  DestructiveDelete(args,Length(args));	// remove trailing "..."
-	  Bind(arity,Length(args));
-	  Retract(oper,arity);
-	  MacroRulebaseListed(oper, args);
-	],
-	// function with a fixed number of arguments
-	[
-	  Bind(arity,Length(args));
-	  Retract(oper,arity);
-	  MacroRulebase(oper, args);
-	]
+        And(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") )),
+        // function with variable number of arguments
+        [
+          DestructiveDelete(args,Length(args));        // remove trailing "..."
+          Bind(arity,Length(args));
+          Retract(oper,arity);
+          MacroRulebaseListed(oper, args);
+        ],
+        // function with a fixed number of arguments
+        [
+          Bind(arity,Length(args));
+          Retract(oper,arity);
+          MacroRulebase(oper, args);
+        ]
   );
   Unholdable(aRightAssign);
   MacroRule(oper,arity,1025,True) aRightAssign;
@@ -107,10 +107,10 @@ Rule(":=",2,30,IsFunction(aLeftAssign) And Not(IsEqual(aLeftAssign[0], ToAtom(":
 *CMD := --- assign a variable or a list; define a function
 *STD
 *CALL
-	var := expr
-	{var1, var2, ...} := {expr1, expr2, ...}
-	var[i] := expr
-	fn(arg1, arg2, ...) := expr
+        var := expr
+        {var1, var2, ...} := {expr1, expr2, ...}
+        var[i] := expr
+        fn(arg1, arg2, ...) := expr
 Precedence:
 *EVAL PrecedenceGet(":=")
 

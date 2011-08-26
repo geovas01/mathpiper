@@ -16,7 +16,7 @@ Function("HoldArgumentNumber",{function,arity,index})
 *CMD HoldArgumentNumber --- specify argument as not evaluated
 *STD
 *CALL
-	HoldArgumentNumber("function", arity, argNum)
+        HoldArgumentNumber("function", arity, argNum)
 
 *PARMS
 {"function"} -- string, function name

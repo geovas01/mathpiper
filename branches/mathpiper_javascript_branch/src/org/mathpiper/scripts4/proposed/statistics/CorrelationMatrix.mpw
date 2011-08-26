@@ -28,7 +28,7 @@ CorrelationMatrix(dataLists) :=
             [
                 correlationMatrix[rowIndex][columnIndex] := N(CorrelationCoefficient(dataLists[rowIndex - 1],dataLists[columnIndex - 1]),2);
             ]
-            else if(rowIndex = 1)
+            else if(rowIndex =? 1)
             [
                 correlationMatrix[rowIndex][columnIndex] := namesList[columnIndex];
             ]

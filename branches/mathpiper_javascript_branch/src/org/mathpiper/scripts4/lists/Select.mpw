@@ -24,7 +24,7 @@ LocalSymbols(predicate,list,result,item)
 *CMD Select --- select entries satisfying some predicate
 *STD
 *CALL
-	Select(list, pred)
+        Select(list, pred)
 
 *PARMS
 

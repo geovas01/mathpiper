@@ -21,7 +21,7 @@ MoebiusDivisorsList(n_IsPositiveInteger) <--
     [
       oldresult := result;
         ForEach (x,oldresult)
-	  result:=Append(result,{x[1]*f[1],-x[2]});
+          result:=Append(result,{x[1]*f[1],-x[2]});
     ];
   result;
 ];
@@ -34,7 +34,7 @@ MoebiusDivisorsList(n_IsPositiveInteger) <--
 *CMD MoebiusDivisorsList --- the list of divisors and Moebius values
 *STD
 *CALL
-	MoebiusDivisorsList(n)
+        MoebiusDivisorsList(n)
 *PARMS
 
 {n} -- positive integer

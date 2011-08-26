@@ -1,6 +1,6 @@
 %mathpiper,def="IsGaussianUnit"
 
-IsGaussianUnit(z_IsGaussianInteger) <-- GaussianNorm(z)=1;
+IsGaussianUnit(z_IsGaussianInteger) <-- GaussianNorm(z)=?1;
 
 %/mathpiper
 
@@ -10,10 +10,10 @@ IsGaussianUnit(z_IsGaussianInteger) <-- GaussianNorm(z)=1;
 *CMD IsGaussianUnit ---  test for a Gaussian unit
 *STD
 *CALL
-	IsGaussianUnit(z)
+        IsGaussianUnit(z)
 *PARMS
 
-{z} -- a Gaussian integer	
+{z} -- a Gaussian integer        
 
 *DESC
 
@@ -23,7 +23,7 @@ any other element.
 
 There are four "units" in the ring of Gaussian integers, which are 
 $1$, $-1$, $I$, and $-I$.
-	
+        
 *E.G.
 In> IsGaussianInteger(I)
 Result: True;

@@ -8,7 +8,7 @@
   Local(nLists,L0,L1,ii,result,LI);
   nLists := Length(LoL);
   //Tell("  ",nLists);
-  If( nLists = 1,
+  If( nLists =? 1,
     [
         result := LoL[1];
     ],
@@ -63,7 +63,7 @@
 *CMD Intersection --- return the Intersection of two or more lists
 *STD
 *CALL
-	Intersection(L1, L2)
+        Intersection(L1, L2)
 or
     Intersection( ListOfLists )
 

@@ -19,7 +19,7 @@ HoldArgument("Manipulate",symbolicEquation);
     left := EquationLeft(equation);
     right := EquationRight(equation);
     
-    If(operandIndex = 3, [ leftOrder := `({left,operand});rightOrder := `({right,operand});],  [leftOrder := `({operand,left}); rightOrder := `({operand,right});]);
+    If(operandIndex =? 3, [ leftOrder := `({left,operand});rightOrder := `({right,operand});],  [leftOrder := `({operand,left}); rightOrder := `({operand,right});]);
     
     
     leftManipulated := ExpandBrackets(Simplify(Apply(ToString(operator), leftOrder)));

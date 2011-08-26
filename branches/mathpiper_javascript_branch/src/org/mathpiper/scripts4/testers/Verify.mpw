@@ -4,8 +4,8 @@
 Macro("Verify",{aLeft,aRight})
 [
 
-	Local(result);
-	result := @aLeft;	// to save time
+        Local(result);
+        result := @aLeft;        // to save time
   If (Not(IsEqual(result,@aRight)),
     [
       WriteString("******************");
@@ -16,8 +16,8 @@ Macro("Verify",{aLeft,aRight})
       NewLine();
       WriteString(" evaluates to ");
       NewLine();
-	  Write(result);
-	  WriteString(" which differs from ");
+          Write(result);
+          WriteString(" which differs from ");
       NewLine();
       Write(Hold(@aRight));
       NewLine();
@@ -34,8 +34,8 @@ Macro("Verify",{aLeft,aRight})
 Function("Verify",{aLeft,aRight})
 [
 
-	Local(result);
-	result := Eval(aLeft);	// to save time
+        Local(result);
+        result := Eval(aLeft);        // to save time
   If (Not(IsEqual(result,aRight)),
     [
       WriteString("******************");
@@ -46,9 +46,9 @@ Function("Verify",{aLeft,aRight})
       NewLine();
       WriteString(" evaluates to ");
       NewLine();
-	  Write(result);
+          Write(result);
       NewLine();
-	  WriteString(" which differs from ");
+          WriteString(" which differs from ");
       NewLine();
       Write(aRight);
       NewLine();
@@ -67,8 +67,8 @@ HoldArgument("Verify",aRight);
 
 Macro("Verify", {a,b,message})
 [
-	Echo("test ", @message);
-	Verify(@a, @b);
+        Echo("test ", @message);
+        Verify(@a, @b);
 ];
 
 
@@ -83,7 +83,7 @@ Macro("Verify", {a,b,message})
 *CMD Verify --- verifying equivalence of two expressions
 *STD
 *CALL
-	Verify(question,answer)
+        Verify(question,answer)
 
 *PARMS
 
@@ -111,36 +111,36 @@ this problem by having domain-specific comparisons.
 
 The comparison commands do the following comparison types:
 
-*	{Verify} -- verify for literal equality.
+*        {Verify} -- verify for literal equality.
 This is the fastest and simplest comparison, and can be
 used, for example, to test that an expression evaluates to $ 2 $.
-*	{TestMathPiper} -- compare two expressions after simplification as
+*        {TestMathPiper} -- compare two expressions after simplification as
 multivariate polynomials. If the two arguments are equivalent
 multivariate polynomials, this test succeeds. {TestMathPiper} uses {Simplify}. Note: {TestMathPiper} currently should not be used to test equality of lists.
-*	{LogicVerify} -- Perform a test by using {CanProve} to verify that from
+*        {LogicVerify} -- Perform a test by using {CanProve} to verify that from
 {question} the expression {answer} follows. This test command is
 used for testing the logic theorem prover in MathPiper.
-*	{LogicTest} -- Generate a truth table for the two expressions and compare these two tables. They should be the same if the two expressions are logically the same.
+*        {LogicTest} -- Generate a truth table for the two expressions and compare these two tables. They should be the same if the two expressions are logically the same.
 
 *E.G.
 In> Verify(1+2,3)
 Result: True;
 
 In> Verify(x*(1+x),x^2+x)
-	******************
-	x*(x+1) evaluates to x*(x+1) which differs
-	  from x^2+x
-	******************
+        ******************
+        x*(x+1) evaluates to x*(x+1) which differs
+          from x^2+x
+        ******************
 Result: False;
 
 In> TestMathPiper(x*(1+x),x^2+x)
 Result: True;
 
 In> Verify(a And c Or b And Not c,a Or b)
-	******************
-	 a And c Or b And Not c evaluates to  a And c
-	  Or b And Not c which differs from  a Or b
-	******************
+        ******************
+         a And c Or b And Not c evaluates to  a And c
+          Or b And Not c which differs from  a Or b
+        ******************
 Result: False;
 
 In> LogicVerify(a And c Or b And Not c,a Or b)
@@ -153,15 +153,15 @@ In> LogicTest({A,B,C},Not((Not A) And (Not B)),A Or B)
 Result: True
 
 In> LogicTest({A,B,C},Not((Not A) And (Not B)),A Or C)
-	******************
-	CommandLine: 1
+        ******************
+        CommandLine: 1
 
-	TrueFalse4({A,B,C},Not(Not A And Not B))
-	 evaluates to
-	{{{False,False},{True,True}},{{True,True},{True,True}}}
-	 which differs from
-	{{{False,True},{False,True}},{{True,True},{True,True}}}
-	******************
+        TrueFalse4({A,B,C},Not(Not A And Not B))
+         evaluates to
+        {{{False,False},{True,True}},{{True,True},{True,True}}}
+         which differs from
+        {{{False,True},{False,True}},{{True,True},{True,True}}}
+        ******************
 Result: False
 
 *SEE Simplify, CanProve, KnownFailure, TestMathPiper, LogicVerify, LogicTest

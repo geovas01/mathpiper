@@ -21,7 +21,7 @@ HoldArgumentNumber("Until",2,2);
 *CMD Until --- loop until a condition is met
 *STD
 *CALL
-	Until(pred) body
+        Until(pred) body
 
 *PARMS
 
@@ -52,17 +52,17 @@ construct in the programming language C.
 In> x := 0;
 Result: 0;
 In> Until (x! > 10^6) \
-	  [ Echo({x, x!}); x++; ];
-	 0  1
-	 1  1
-	 2  2
-	 3  6
-	 4  24
-	 5  120
-	 6  720
-	 7  5040
-	 8  40320
-	 9  362880
+          [ Echo({x, x!}); x++; ];
+         0  1
+         1  1
+         2  2
+         3  6
+         4  24
+         5  120
+         6  720
+         7  5040
+         8  40320
+         9  362880
 Result: True;
 
 *SEE While, For, ForEach, Break, Continue

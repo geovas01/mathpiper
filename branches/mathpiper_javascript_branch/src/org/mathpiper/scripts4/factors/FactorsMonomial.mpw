@@ -19,7 +19,7 @@
   If(InVerboseMode(),Tell("     ",{num,den}));
   Ns  := Select(num, "IsComplex");
   If(InVerboseMode(),Tell("     ",Ns));
-  If( Ns = {},
+  If( Ns =? {},
        If( den != 1, DestructiveInsert(num,1,1/den)),
        DestructiveReplace(num,Find(num,Ns[1]),Ns[1]/den)
   );

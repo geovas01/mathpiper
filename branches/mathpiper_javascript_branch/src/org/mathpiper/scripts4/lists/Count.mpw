@@ -16,7 +16,7 @@ Function("Count",{list,element})
 *CMD Count --- count the number of occurrences of an expression
 *STD
 *CALL
-	Count(list, expr)
+        Count(list, expr)
 
 *PARMS
 

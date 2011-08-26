@@ -18,6 +18,8 @@
 package org.mathpiper.lisp.parsers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 import org.mathpiper.lisp.Utility;
@@ -46,7 +48,7 @@ public class MathPiperParser extends Parser
     String iLookAhead;
     public ConsPointer iSExpressionResult = new ConsPointer();
     private String locateFunctionOrOperatorName = null;
-    private ArrayList functionOrOperatorLocationsList;
+    private ArrayList<Map> functionOrOperatorLocationsList;
 
     public MathPiperParser(MathPiperTokenizer aTokenizer,
             MathPiperInputStream aInput,
@@ -145,7 +147,12 @@ public class MathPiperParser extends Parser
         //If requested,
         if(locateFunctionOrOperatorName != null && locateFunctionOrOperatorName.equals(iLookAhead))
         {
-            functionOrOperatorLocationsList.add(iLookAhead + " " + (iInput.iStatus.getLineNumber()+1) + ":" + (iInput.iStatus.getLineIndex()));
+            Map locationInformation = new HashMap();
+
+            locationInformation.put("operatorOrFunctionName", iLookAhead);
+            locationInformation.put("lineNumber", (iInput.iStatus.getLineNumber()));
+            locationInformation.put("lineIndex", (iInput.iStatus.getLineIndex()));
+            functionOrOperatorLocationsList.add(locationInformation);
         }
 
 

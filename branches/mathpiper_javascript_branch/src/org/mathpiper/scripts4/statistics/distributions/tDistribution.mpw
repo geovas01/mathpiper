@@ -13,7 +13,7 @@ tDistribution(m_IsRationalOrNumber)_(Not IsPositiveInteger(m)) <-- Undefined;
 *CMD tDistribution --- Student's $t$ distribution
 *STD
 *CALL
-	{tDistribution}(m)
+        {tDistribution}(m)
 
 *PARMS 
 {m} -- integer, number of degrees of freedom

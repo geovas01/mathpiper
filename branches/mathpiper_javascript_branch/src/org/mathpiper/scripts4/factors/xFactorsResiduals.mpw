@@ -74,7 +74,7 @@ UnFence("xFactorsResiduals",1);
             Local(f1,f2);
             f1 := sqf;
             f2 := Simplify(resid[1]/sqf);
-            If( f2 = f1,
+            If( f2 =? f1,
                  factrsnew := Concat({{f1,2*resid[2]}},factrsnew),
                  factrsnew := Concat({{f1,resid[2]},{f2,resid[2]}},factrsnew)
             );
@@ -116,9 +116,9 @@ UnFence("trySQF",1);
         If( nrr > 0, rr := FindRealRoots(resid[1]), rr := {} );
         processRealRoots(rr);
         
-        If( nrr = 2,
+        If( nrr =? 2,
           [
-             If( nrr = 0,
+             If( nrr =? 0,
                [
                   //  OhOh - no real solutions -- have to try something else
                   If(InVerboseMode(),
@@ -132,7 +132,7 @@ UnFence("trySQF",1);
                   Local(u,X);
                   u := MakeUni(resid[1]);
                   X := u[1];
-                  If( u[2]=0 And u[3]={1,0,1,0,1},
+                  If( u[2]=?0 And u[3]=?{1,0,1,0,1},
                     [ 
                        DestructiveAppend(residOut,{X^2-X+1,1});
                        DestructiveAppend(residOut,{X^2+X+1,1});
@@ -173,15 +173,15 @@ UnFence("trySQF",1);
                     ]
                   );
                ]
-             );  //   if nrr=0
+             );  //   if nrr=?0
           ]
-        );  //  if nrr=2
+        );  //  if nrr=?2
      ];  
 ];
 UnFence("tryRealRoots",1);
 
 
-10 # processRealRoots( rr_IsNumericList )_(Length(rr) = 1) <--
+10 # processRealRoots( rr_IsNumericList )_(Length(rr) =? 1) <--
 [
     //  Only one real root, so it will probably be of no help
     //  in factoring, unless it is integer or small rational
@@ -206,7 +206,7 @@ UnFence("tryRealRoots",1);
 UnFence("processRealRoots",1);
 
 
-10 # processRealRoots( rr_IsNumericList )_(Length(rr) = 2) <--
+10 # processRealRoots( rr_IsNumericList )_(Length(rr) =? 2) <--
 [
     // a pair of real solutions -- probably form a quadratic
     ptry  := Expand((x-rr[1])*(x-rr[2]));

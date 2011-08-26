@@ -35,10 +35,10 @@ its integer prime factors.
   gfactors := {};
   ForEach(p,ifactors)
   [
-     If (p[1]=2, [ DestructiveAppend(gfactors,{1+I,p[2]});
+     If (p[1]=?2, [ DestructiveAppend(gfactors,{1+I,p[2]});
                    DestructiveAppend(gfactors,{1-I,p[2]}); ]);
-     If (Modulo(p[1],4)=3, DestructiveAppend(gfactors,p));
-     If (Modulo(p[1],4)=1, [ alpha := GaussianFactorPrime(p[1]);
+     If (Modulo(p[1],4)=?3, DestructiveAppend(gfactors,p));
+     If (Modulo(p[1],4)=?1, [ alpha := GaussianFactorPrime(p[1]);
                           DestructiveAppend(gfactors,{alpha,p[2]});
                           DestructiveAppend(gfactors,{Conjugate(alpha),p[2]});
                         ]);
@@ -59,9 +59,9 @@ by factoring its norm
   nfactors := Factors(n);
   ForEach(p,nfactors)
   [
-   If (p[1]=2, [ AddGaussianFactor(gfactors,z,1+I);]);
-   If (Modulo(p[1],4)=3, AddGaussianFactor(gfactors,z,p[1]));
-   If (Modulo(p[1],4)=1, [ Local(alpha);
+   If (p[1]=?2, [ AddGaussianFactor(gfactors,z,1+I);]);
+   If (Modulo(p[1],4)=?3, AddGaussianFactor(gfactors,z,p[1]));
+   If (Modulo(p[1],4)=?1, [ Local(alpha);
                         alpha := GaussianFactorPrime(p[1]);
                         AddGaussianFactor(gfactors,z,alpha);
                         AddGaussianFactor(gfactors,z,Conjugate(alpha));
@@ -82,7 +82,7 @@ by factoring its norm
 *CMD GaussianFactors --- factorization in Gaussian integers
 *STD
 *CALL
-	GaussianFactors(z)
+        GaussianFactors(z)
 
 *PARMS
 
@@ -151,10 +151,10 @@ TestGaussianFactors(17);
 TestGaussianFactors(41);
 
 Verify(GaussianFactors(157+28*I), {{Complex(5,2),1},{Complex(-29,6),1}});
-Verify(GaussianFactors(1), {});	// is this the correct behavior? why not {{}} or {{1,1}}?
-Verify(GaussianFactors(-1), {});	// is this the correct behavior?
-Verify(GaussianFactors(I), {});	// is this the correct behavior?
-Verify(GaussianFactors(0), {});	// is this the correct behavior?
+Verify(GaussianFactors(1), {});        // is this the correct behavior? why not {{}} or {{1,1}}?
+Verify(GaussianFactors(-1), {});        // is this the correct behavior?
+Verify(GaussianFactors(I), {});        // is this the correct behavior?
+Verify(GaussianFactors(0), {});        // is this the correct behavior?
 Verify(GaussianFactors(2), {{Complex(1,1),1},{Complex(1,-1),1}});
 Verify(GaussianFactors(-2), {{Complex(1,1),1},{Complex(1,-1),1}});
 Verify(GaussianFactors(3), {{3,1}});

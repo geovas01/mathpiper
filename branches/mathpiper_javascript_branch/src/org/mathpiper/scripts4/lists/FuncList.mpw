@@ -8,12 +8,12 @@
 10 # FuncList(expr_IsAtom) <-- {};
 20 # FuncList(expr_IsFunction) <--
 RemoveDuplicates(
-	Concat(
-		{First(FunctionToList(expr))},
-		Apply("Concat",
-			MapSingle("FuncList", Rest(FunctionToList(expr)))
-		)
-	)
+        Concat(
+                {First(FunctionToList(expr))},
+                Apply("Concat",
+                        MapSingle("FuncList", Rest(FunctionToList(expr)))
+                )
+        )
 );
 
 /*
@@ -26,16 +26,16 @@ This is like FuncList except only looks at arguments of a given list of function
 // a function in the looking list - traverse its arguments
 30 # FuncList(expr_IsFunction, look'list_IsList) <--
 RemoveDuplicates(
-	Concat(
-		{First(FunctionToList(expr))},
-		[	// gave up trying to do it using Map and MapSingle... so writing a loop now.
-			// obtain a list of functions, considering only functions in look'list
-			Local(item, result);
-			result := {};
-			ForEach(item, expr) result := Concat(result, FuncList(item, look'list));
-			result;
-		]
-	)
+        Concat(
+                {First(FunctionToList(expr))},
+                [        // gave up trying to do it using Map and MapSingle... so writing a loop now.
+                        // obtain a list of functions, considering only functions in look'list
+                        Local(item, result);
+                        result := {};
+                        ForEach(item, expr) result := Concat(result, FuncList(item, look'list));
+                        result;
+                ]
+        )
 );
 
 HoldArgumentNumber("FuncList", 1, 1);
@@ -51,9 +51,9 @@ HoldArgumentNumber("FuncList", 2, 1);
 *CMD FuncListSome --- list of functions used in an expression
 *STD
 *CALL
-	FuncList(expr)
-	FuncListArith(expr)
-	FuncListSome(expr, list)
+        FuncList(expr)
+        FuncListArith(expr)
+        FuncListSome(expr, list)
 
 *PARMS
 

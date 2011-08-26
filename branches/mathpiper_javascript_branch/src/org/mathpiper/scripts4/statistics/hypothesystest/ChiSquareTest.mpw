@@ -19,7 +19,7 @@ Retract(ChiSquareTest,*);
     
     Check(Length(expectedFrequenciesList) > 0, "Argument", "The second argument must be a nonempty matrix.");
     
-    Check(Length(expectedFrequenciesList) = Length(expectedFrequenciesList), "Argument", "The matrices must be of equal length.");
+    Check(Length(expectedFrequenciesList) =? Length(expectedFrequenciesList), "Argument", "The matrices must be of equal length.");
 
     Local( numerator, chi2, pValue, categoriesCount, degreesOfFreedom, resultList);
    
@@ -53,7 +53,7 @@ Retract(ChiSquareTest,*);
     
     Check(Length(expectedFrequenciesList) > 0, "Argument", "The second argument must be a nonempty list.");
     
-    Check(Length(expectedFrequenciesList) = Length(expectedFrequenciesList), "Argument", "The lists must be of equal length.");
+    Check(Length(expectedFrequenciesList) =? Length(expectedFrequenciesList), "Argument", "The lists must be of equal length.");
 
     Local( numerator, chi2, pValue, categoriesCount, degreesOfFreedom, resultList);
    
@@ -91,7 +91,7 @@ Retract(ChiSquareTest,*);
 *STD
 
 *CALL
-	ChiSquareTest(observed,expected)
+        ChiSquareTest(observed,expected)
 
 *PARMS
 {observed} -- list of observed frequencies

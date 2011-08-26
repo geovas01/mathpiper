@@ -16,9 +16,10 @@
 package org.mathpiper.test;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import org.mathpiper.Scripts;
+import org.mathpiper.Tests;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -33,39 +34,45 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 public class AnalyzeScripts {
 
-    private Scripts scripts;
+    private Tests scripts;
     private Interpreter cas;
+    private List uniqueValues = new ArrayList();
 
     public AnalyzeScripts() {
-        scripts = new Scripts();
+        scripts = new Tests();//Scripts();
         cas = Interpreters.getSynchronousInterpreter();
+        cas.evaluate("StackTraceOn()");
 
     }
 
     public void findOperator(String functionOrOperatorName) throws Exception {
         Map scriptsMap = scripts.getMap();
 
-        Set<String> functionNames = scriptsMap.keySet();
+        Collection values = scriptsMap.values();
 
-        for (String name : functionNames) {
+        for (Object value : values) {
 
-      //name = "PermutationsList";
-            String[] scriptCodeArray = (String[]) scriptsMap.get(name);
+            if (!this.uniqueValues.contains(value)) {
+                
+                uniqueValues.add(value);
 
-            String scriptCode = scriptCodeArray[1];
+                String[] scriptCodeArray = (String[]) value;
 
-            InputStatus inputStatus = new InputStatus();
-            inputStatus.setTo(scriptCodeArray[2]);
+                String scriptCode = scriptCodeArray[1];
 
-            StringInputStream stringInputStream = new StringInputStream(scriptCode, inputStatus);
+                InputStatus inputStatus = new InputStatus();
+                inputStatus.setTo(scriptCodeArray[2]);
 
-            System.out.println(inputStatus.getFileName());
+                StringInputStream stringInputStream = new StringInputStream(scriptCode, inputStatus);
 
-            analyzeScript(cas.getEnvironment(), -1, stringInputStream, functionOrOperatorName, false);
+                System.out.println(inputStatus.getFileName());
+
+                analyzeScript(cas.getEnvironment(), -1, stringInputStream, functionOrOperatorName, scriptCodeArray[0], false);
+            }
         }
     }
 
-    public static String analyzeScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, String functionOrOperatorName, boolean evaluate) throws Exception {
+    public static String analyzeScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, String functionOrOperatorName, String startLineNumber, boolean evaluate) throws Exception {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
 
@@ -85,11 +92,22 @@ public class AnalyzeScripts {
 
             while (!endoffile) {
                 // Read expression
-                ArrayList<String> functionOrOperatorLocationsList = parser.parseAndFind(aStackTop, readIn, "=");
+                ArrayList<Map> functionOrOperatorLocationsList = parser.parseAndFind(aStackTop, readIn, "=");
 
-                for(String location: functionOrOperatorLocationsList)
-                {
-                    System.out.println("    " + location);
+                for (Map location : functionOrOperatorLocationsList) {
+
+                    String operatorOrFunctionName = (String) location.get("operatorOrFunctionName");
+
+                    int lineNumber = (Integer) location.get("lineNumber");
+
+                    int lineIndex = (Integer) location.get("lineIndex");
+
+                    if(startLineNumber != null)
+                    {
+                        lineNumber = lineNumber + Integer.parseInt(startLineNumber);
+                    }
+                    
+                    System.out.println("    " + operatorOrFunctionName + " " + lineNumber + ":" + lineIndex);
                 }
 
                 LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "", "INTERNAL");
@@ -101,13 +119,11 @@ public class AnalyzeScripts {
                     //printExpression(printedScriptStringBuffer, aEnvironment, readIn);
 
                     /*
-                     if (evaluate == true) {
-                        ConsPointer result = new ConsPointer();
-                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
+                    if (evaluate == true) {
+                    ConsPointer result = new ConsPointer();
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
                     }  
                      */
-
-
                 }
             }//end while.
 

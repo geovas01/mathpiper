@@ -17,7 +17,7 @@ Function("RemoveDuplicates",{list})
 *CMD RemoveDuplicates --- remove any duplicates from a list
 *STD
 *CALL
-	RemoveDuplicates(list)
+        RemoveDuplicates(list)
 
 *PARMS
 

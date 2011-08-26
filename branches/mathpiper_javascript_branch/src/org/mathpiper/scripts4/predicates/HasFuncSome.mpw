@@ -21,7 +21,7 @@
 *CMD HasFuncSome --- check for expression containing a function
 *STD
 *CALL
-	HasFuncSome(expr, func, list)
+        HasFuncSome(expr, func, list)
 
 *PARMS
 

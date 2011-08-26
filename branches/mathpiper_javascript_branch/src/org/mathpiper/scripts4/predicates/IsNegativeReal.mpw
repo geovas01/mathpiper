@@ -16,7 +16,7 @@ IsNegativeReal(_r) <--
 *CMD IsNegativeReal --- test for a numerically negative value
 *STD
 *CALL
-	IsNegativeReal(expr)
+        IsNegativeReal(expr)
 
 *PARMS
 

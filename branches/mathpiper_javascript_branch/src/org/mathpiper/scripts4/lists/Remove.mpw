@@ -17,7 +17,7 @@ Remove(list, expression) :=
 *CMD Remove --- remove all occurrences of an expression from a list
 *STD
 *CALL
-	Remove(list, expr)
+        Remove(list, expr)
 
 *PARMS
 

@@ -13,7 +13,7 @@ Function("Union",{list1,list2})
 *CMD Union --- return the union of two lists
 *STD
 *CALL
-	Union(l1, l2)
+        Union(l1, l2)
 
 *PARMS
 

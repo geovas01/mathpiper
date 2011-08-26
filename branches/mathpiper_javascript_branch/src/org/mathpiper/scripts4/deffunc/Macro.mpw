@@ -7,13 +7,13 @@ HoldArgument("Macro",body);
 
 // macro with variable number of arguments: Macro("func",{x,y, ...})body;
 Rule("Macro",3,2047,
-	And(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") ))
+        And(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") ))
 )
 [
-  DestructiveDelete(args,Length(args));	// remove trailing "..."
+  DestructiveDelete(args,Length(args));        // remove trailing "..."
   Retract(oper,Length(args));
   `DefMacroRulebaseListed(@oper,@args);
-  MacroRule(oper,Length(args),1025,True) body;	// at precedence 1025, for flexibility
+  MacroRule(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
 ];
 
 // macro with a fixed number of arguments
@@ -27,32 +27,32 @@ Rule("Macro",3,2048,True)
 Rulebase("Macro",{oper});
 // macro with variable number of arguments: Macro() f(x,y, ...)
 Rule("Macro",1,2047,
-	And(IsFunction(oper), IsGreaterThan(Length(oper), 1), IsEqual( MathNth(oper, Length(oper)), ToAtom("...") ))
+        And(IsFunction(oper), IsGreaterThan(Length(oper), 1), IsEqual( MathNth(oper, Length(oper)), ToAtom("...") ))
 )
 [
-	Local(args,name);
-	Bind(args,Rest(FunctionToList(oper)));
-	DestructiveDelete(args,Length(args));	// remove trailing "..."
+        Local(args,name);
+        Bind(args,Rest(FunctionToList(oper)));
+        DestructiveDelete(args,Length(args));        // remove trailing "..."
   Bind(name,Type(oper));
-	If(RulebaseDefined(Type(oper),Length(args)),
-		False,	// do nothing
-		`DefMacroRulebaseListed(@name,@args)
-	);
+        If(RulebaseDefined(Type(oper),Length(args)),
+                False,        // do nothing
+                `DefMacroRulebaseListed(@name,@args)
+        );
 ];
 // macro with a fixed number of arguments
 Rule("Macro",1,2048,
-	And(IsFunction(oper))
+        And(IsFunction(oper))
 )
 [
-	Local(args,name);
-	Bind(args,Rest(FunctionToList(oper)));
+        Local(args,name);
+        Bind(args,Rest(FunctionToList(oper)));
   Bind(name,Type(oper));
-	If(RulebaseDefined(Type(oper),Length(args)),
-		False,	// do nothing
-		[
+        If(RulebaseDefined(Type(oper),Length(args)),
+                False,        // do nothing
+                [
       `DefMacroRulebase(@name,@args);
     ]
-	);
+        );
 ];
 
 %/mathpiper
@@ -63,10 +63,10 @@ Rule("Macro",1,2048,
 *CMD Macro --- declare or define a macro
 *STD
 *CALL
-	Macro() func(arglist)
-	Macro() func(arglist, ...)
-	Macro("op", {arglist}) body
-	Macro("op", {arglist, ...}) body
+        Macro() func(arglist)
+        Macro() func(arglist, ...)
+        Macro("op", {arglist}) body
+        Macro("op", {arglist, ...}) body
 
 *PARMS
 
@@ -98,15 +98,15 @@ Here this new macro {myfor} is used to loop, using a variable {a} from the
 calling environment.
 
 In> myfor(i:=1,i<10,i++,Echo(a*i))
-	10 
-	20 
-	30 
-	40 
-	50 
-	60 
-	70 
-	80 
-	90 
+        10 
+        20 
+        30 
+        40 
+        50 
+        60 
+        70 
+        80 
+        90 
 Result: True;
 In> i
 Result: 10;

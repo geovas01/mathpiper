@@ -16,7 +16,7 @@ Function("Pop",{stack,index})
 *CMD Pop --- remove an element from a stack
 *STD
 *CALL
-	Pop(stack, n)
+        Pop(stack, n)
 
 *PARMS
 

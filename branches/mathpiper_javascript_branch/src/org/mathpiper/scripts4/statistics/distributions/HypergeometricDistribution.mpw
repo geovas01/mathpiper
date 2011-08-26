@@ -15,7 +15,7 @@ HypergeometricDistribution(N_IsRationalOrNumber, M_IsRationalOrNumber, n_IsRatio
 *CMD HypergeometricDistribution --- Hypergeometric distribution
 *STD
 *CALL
-	HypergeometricDistribution(N, M, n)
+        HypergeometricDistribution(N, M, n)
 
 *PARMS
 

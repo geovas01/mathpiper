@@ -171,7 +171,7 @@ public class TestSuite {
             throw new Exception("The test named " + testName + " does not exist.");
         }
 
-        String testFilePath = testScriptArray[0];
+        String testFilePath = testScriptArray[2];
 
         String testScript = testScriptArray[1];
 

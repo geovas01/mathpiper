@@ -39,7 +39,7 @@ assumptions := {};
 10 # AssumptionsAbout(_key) <--
 [
     Local(props);
-    props := Select(assumptions,Lambda({X},X[1]=key));
+    props := Select(assumptions,Lambda({X},X[1]=?key));
     If( Length(props) > 0, Transpose(props)[2], {} );
 ];
 

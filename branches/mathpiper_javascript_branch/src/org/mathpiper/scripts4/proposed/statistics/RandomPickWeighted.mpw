@@ -25,7 +25,7 @@ RandomPickWeighted(list) :=
         probabilities := probabilities + probability;
     ];
     
-    Check(probabilities = 1, "Argument", "The probabilities must sum to 1.");
+    Check(probabilities =? 1, "Argument", "The probabilities must sum to 1.");
     
     
     

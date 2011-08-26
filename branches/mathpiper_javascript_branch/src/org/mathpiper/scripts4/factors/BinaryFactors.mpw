@@ -52,7 +52,7 @@ Function(AddFoundSolutionSingle,{p})
 
       rem:={-root,1};
       {newlist,rem}:=MkfactD(poly,rem);
-      While (rem = {})
+      While (rem =? {})
       [
         count++;
         Bind(poly,newlist);
@@ -115,7 +115,7 @@ Function(Fct,{poly,var})
     Local(i);
     Bind(i,1);
     Bind(lowestcoef,Abs(poly[i]));
-    While (lowestcoef = 0 And i<=Length(poly))
+    While (lowestcoef =? 0 And i<=Length(poly))
     [
       Bind(i,i+1);
       Bind(lowestcoef,Abs(poly[i]));
@@ -319,7 +319,7 @@ TestPoly(poly,requiredResult):=
   ForEach(item1,requiredResult)
     ForEach(item2,realResult)
     [
-      If(Simplify(item1-item2) = {0,0},
+      If(Simplify(item1-item2) =? {0,0},
         intersection := (item1:intersection));
     ];
   Verify(Length(realResult),Length(intersection/*Intersection(requiredResult,realResult)*/));

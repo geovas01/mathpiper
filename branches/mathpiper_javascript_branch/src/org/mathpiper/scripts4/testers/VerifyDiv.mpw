@@ -18,7 +18,7 @@ VerifyDiv(_u,_v) <--
 *CMD VerifyDiv --- Special purpose arithmetic verifiers
 *STD
 *CALL
-	VerifyDiv(u,v)
+        VerifyDiv(u,v)
 
 *PARMS
 

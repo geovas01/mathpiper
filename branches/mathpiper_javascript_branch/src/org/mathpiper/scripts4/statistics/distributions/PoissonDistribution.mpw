@@ -15,7 +15,7 @@ PoissonDistribution(l_IsRationalOrNumber)_(l<=0) <-- Undefined;
 *CMD PoissonDistribution --- Poisson distribution
 *STD
 *CALL
-	PoissonDistribution(lambda)
+        PoissonDistribution(lambda)
 
 *PARMS
 {lambda} -- number, the expected number of occurrences that occur during the given interval

@@ -21,7 +21,7 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
       MacroBind(taylorvariable, taylorat);
       result:=Eval(taylorfunction);
     ];
-    If(result=Undefined,
+    If(result=?Undefined,
     [
       result:=Apply("Limit",{taylorvariable,taylorat,taylorfunction});
     ]);
@@ -42,7 +42,7 @@ Function("Taylor1",{taylorvariable,taylorat,taylororder,taylorfunction})
       MacroBind(taylorvariable, taylorat);
       term:=Eval(dif);
     ];
-    If(term=Undefined,
+    If(term=?Undefined,
     [
       term:=Apply("Limit",{taylorvariable,taylorat,dif});
     ]);

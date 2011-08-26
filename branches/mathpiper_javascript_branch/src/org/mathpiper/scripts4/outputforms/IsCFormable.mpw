@@ -17,7 +17,7 @@ LocalSymbols(CFormAllFunctions) [
   [
     Local(bad'functions);
     bad'functions := Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));
-    If(Length(bad'functions)=0,
+    If(Length(bad'functions)=?0,
       True,
       [
         If(InVerboseMode(),
@@ -58,9 +58,9 @@ LocalSymbols(CFormAllFunctions) [
 *CMD IsCFormable --- check possibility to export expression to C++ code
 *STD
 *CALL
-	IsCFormable(expr)
-	IsCFormable(expr, funclist)
-	
+        IsCFormable(expr)
+        IsCFormable(expr, funclist)
+        
 *PARMS
 
 {expr} -- expression to be exported (this argument is not evaluated)
@@ -84,8 +84,8 @@ The second calling format of {IsCFormable} can be used to "allow" certain functi
 In> IsCFormable(Sin(a1)+2*Cos(b1))
 Result: True;
 In> V(IsCFormable(1+func123(b1)))
-	IsCFormable: Info: unexportable function(s):
-	  func123
+        IsCFormable: Info: unexportable function(s):
+          func123
 Result: False;
 This returned {False} because the function {func123} is not available in C++. We can
 explicitly allow this function and then the expression will be considered

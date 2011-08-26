@@ -26,7 +26,7 @@ Function("Difference",{list1,list2})
 *CMD Difference --- return the difference of two lists
 *STD
 *CALL
-	Difference(l1, l2)
+        Difference(l1, l2)
 
 *PARMS
 

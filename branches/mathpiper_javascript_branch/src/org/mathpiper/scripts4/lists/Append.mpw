@@ -16,7 +16,7 @@ Function("Append",{list,element})
 *CMD Append --- append an entry at the end of a list
 *STD
 *CALL
-	Append(list, expr)
+        Append(list, expr)
 
 *PARMS
 

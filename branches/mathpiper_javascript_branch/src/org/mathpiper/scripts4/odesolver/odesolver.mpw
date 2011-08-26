@@ -118,11 +118,11 @@ OdeTermFail() <-- OdeTerm(Error,FillList(Error,10));
 // should check if it is linear...
 OdeAuxiliaryEquation(_e) <--
 [
-	// extra conversion that should be optimized away later
-	e:=OdeNormalForm(e);
-	e:=OdeSubstitute(e,{{n},aaa^n*Exp(aaa*x)});
-	e:=Subst(Exp(aaa*x),1)e;
-	Simplify(Subst(aaa,x)e);
+        // extra conversion that should be optimized away later
+        e:=OdeNormalForm(e);
+        e:=OdeSubstitute(e,{{n},aaa^n*Exp(aaa*x)});
+        e:=Subst(Exp(aaa*x),1)e;
+        Simplify(Subst(aaa,x)e);
 ];
 
 /* Solving a Homogeneous linear differential equation
@@ -157,7 +157,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     /* Return results */
     //Sum(consts * Exp(roots*x));
     Add( consts * Exp(roots*x) );
-  ] else if ( Degree(auxeqn,x) = 2 ) [
+  ] else if ( Degree(auxeqn,x) =? 2 ) [
     // we can solve second order equations without RootsWithMultiples
     Local(a,b,c,roots);
     roots:=ZeroVector(2);
@@ -175,11 +175,11 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     // RootsWithMultiples (hopefully) catches those, except for
     // the case b,c=0
 
-    if( b=0 And c=0 )[
-	Add(OdeConstantList(2)*{1,x});
+    if( b=?0 And c=?0 )[
+        Add(OdeConstantList(2)*{1,x});
     ] else if( IsNumber(N(roots[1])) )[
-	If(InVerboseMode(),Echo("OdeSolve: Real roots"));
-	Add(OdeConstantList(2)*{Exp(roots[1]*x),Exp(roots[2]*x)});
+        If(InVerboseMode(),Echo("OdeSolve: Real roots"));
+        Add(OdeConstantList(2)*{Exp(roots[1]*x),Exp(roots[2]*x)});
     ] else [
       If(InVerboseMode(),Echo("OdeSolve: Complex conjugate pair roots"));
       Local(alpha,beta);
@@ -195,26 +195,26 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 
 // this croaks on Sin(x)*y'' because OdeMakeTerm does
 10 # OdeOrder(_e) <-- [
-	Local(h,i,coefs);
+        Local(h,i,coefs);
 
-	coefs:=ZeroVector(10); //ugly
-	e:=OdeNormalForm(e);
+        coefs:=ZeroVector(10); //ugly
+        e:=OdeNormalForm(e);
 
-	If(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
-	h:=OdeFlatTerm(OdeCoefList(e));
-	If(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
+        If(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
+        h:=OdeFlatTerm(OdeCoefList(e));
+        If(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
 
-	// get the list of coefficients of the derivatives
-	// in decreasing order
-	coefs:=Reverse(FunctionToList(h)[3]);
-	While( First(coefs) = 0 )[
-		coefs:=Rest(coefs);
-	];
-	Length(coefs)-1;
+        // get the list of coefficients of the derivatives
+        // in decreasing order
+        coefs:=Reverse(FunctionToList(h)[3]);
+        While( First(coefs) =? 0 )[
+                coefs:=Rest(coefs);
+        ];
+        Length(coefs)-1;
 ];
 
 
-10 # OdeSolve(_expr)_(OdeOrder(expr)=0)	    <-- Echo("OdeSolve: Not a differential equation");
+10 # OdeSolve(_expr)_(OdeOrder(expr)=?0)            <-- Echo("OdeSolve: Not a differential equation");
 
 // Solve the ever lovable seperable equation
 
@@ -228,10 +228,10 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 // only works for low order equations
 10 # OdeSolve(y'==_expr)_(IsFreeOf({y,y',y''},expr)) <--
 [
-	If(InVerboseMode(),Echo("OdeSolve: Integral in disguise!"));
-	If(InVerboseMode(),Echo("OdeSolve: Attempting to integrate ",expr));
+        If(InVerboseMode(),Echo("OdeSolve: Integral in disguise!"));
+        If(InVerboseMode(),Echo("OdeSolve: Attempting to integrate ",expr));
 
-	(Integrate(x) expr)+UniqueConstant();
+        (Integrate(x) expr)+UniqueConstant();
 ];
 
 50 # OdeSolve(_e) <--
@@ -249,7 +249,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     OdeUnsolved(e);
 ];
 
-10 # OdeSolveLinear(_e,OdeTerm(0,_list))_(Length(VarList(list)) = 0) <--
+10 # OdeSolveLinear(_e,OdeTerm(0,_list))_(Length(VarList(list)) =? 0) <--
 [
   OdeSolveLinearHomogeneousConstantCoefficients(OdeNormalForm(e));
 ];
@@ -294,7 +294,7 @@ OdeTest(_e,_solution) <--
 *CMD OdeSolve --- general ODE solver
 *STD
 *CALL
-	OdeSolve(expr1==expr2)
+        OdeSolve(expr1==expr2)
 *PARMS
 
 {expr1,expr2} -- expressions containing a function to solve for
@@ -332,7 +332,7 @@ Result: (C183+C184*x)*Exp(-x);
 *CMD OdeTest --- test the solution of an ODE
 *STD
 *CALL
-	OdeTest(eqn,testsol)
+        OdeTest(eqn,testsol)
 *PARMS
 
 {eqn} -- equation to test
@@ -361,7 +361,7 @@ Result: Sin(x)+Cos(x);
 *CMD OdeOrder --- return order of an ODE
 *STD
 *CALL
-	OdeOrder(eqn)
+        OdeOrder(eqn)
 *PARMS
 
 {eqn} -- equation 

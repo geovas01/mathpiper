@@ -36,7 +36,7 @@ ZScoreToProbability(zScore) :=
     
     ZMAX := 6; // Maximum �z value
     
-    if(zScore = 0.0)
+    if(zScore =? 0.0)
     [
         x := 0.0;
     ]

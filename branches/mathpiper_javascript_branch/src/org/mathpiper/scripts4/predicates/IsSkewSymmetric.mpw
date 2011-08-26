@@ -1,6 +1,6 @@
 %mathpiper,def="IsSkewSymmetric"
 
-IsSkewSymmetric(A_IsMatrix) <-- (Transpose(A)=(-1*A));
+IsSkewSymmetric(A_IsMatrix) <-- (Transpose(A)=?(-1*A));
 
 %/mathpiper
 
@@ -10,7 +10,7 @@ IsSkewSymmetric(A_IsMatrix) <-- (Transpose(A)=(-1*A));
 *CMD IsSkewSymmetric --- test for a skew-symmetric matrix
 *STD
 *CALL
-	IsSkewSymmetric(A)
+        IsSkewSymmetric(A)
 
 *PARMS
 
@@ -27,11 +27,11 @@ In> A := {{0,-1},{1,0}}
 Result: {{0,-1},{1,0}};
 In> PrettyForm(%)
 
-	/               \
-	| ( 0 ) ( -1 )  |
-	|               |
-	| ( 1 ) ( 0 )   |
-	\               /
+        /               \
+        | ( 0 ) ( -1 )  |
+        |               |
+        | ( 1 ) ( 0 )   |
+        \               /
 Result: True;
 In> IsSkewSymmetric(A);
 Result: True;

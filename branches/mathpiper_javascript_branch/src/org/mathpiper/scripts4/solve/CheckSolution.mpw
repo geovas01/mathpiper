@@ -13,7 +13,7 @@
       ForEach(s,solution) 
         [
             r := ( expr0 Where s );
-            If(r=0,Push(result,s));
+            If(r=?0,Push(result,s));
         ];
         Reverse(result);
   ];

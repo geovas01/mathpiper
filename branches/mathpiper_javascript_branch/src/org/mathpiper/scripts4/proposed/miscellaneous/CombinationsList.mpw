@@ -27,7 +27,7 @@ CombinationsList(inputList, r) :=
     [
         combination := {};
       
-        if(combinationsLeft = totalCombinations) 
+        if(combinationsLeft =? totalCombinations)
         [ 
           combinationsLeft := combinationsLeft - 1;
           
@@ -37,7 +37,7 @@ CombinationsList(inputList, r) :=
         [
             i := r;
         
-            While(manipulatedIndexes[i] = n - r + i) 
+            While(manipulatedIndexes[i] =? n - r + i)
             [
               i--;
             ];

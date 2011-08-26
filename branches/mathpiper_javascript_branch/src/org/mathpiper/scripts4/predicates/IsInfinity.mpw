@@ -17,7 +17,7 @@
 *CMD IsInfinity --- test for an infinity
 *STD
 *CALL
-	IsInfinity(expr)
+        IsInfinity(expr)
 
 *PARMS
 

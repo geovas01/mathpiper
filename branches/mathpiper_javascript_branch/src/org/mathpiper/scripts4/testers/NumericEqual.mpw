@@ -27,7 +27,7 @@
 15 # NumericEqual(left_IsInteger, right_IsInteger, precision_IsPositiveInteger) <--
 [
     If(InVerboseMode(),Tell("NumericEqualInt",{left,right}));
-    left = right;
+    left =? right;
 ];
 
 

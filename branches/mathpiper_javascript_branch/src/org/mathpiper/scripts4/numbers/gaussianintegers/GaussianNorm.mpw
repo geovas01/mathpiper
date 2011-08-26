@@ -10,7 +10,7 @@ GaussianNorm(z_IsGaussianInteger) <-- Re(z)^2+Im(z)^2;
 *CMD GaussianNorm --- norm of a Gaussian integer
 *STD
 *CALL
-	GaussianNorm(z)
+        GaussianNorm(z)
 
 *PARMS
 

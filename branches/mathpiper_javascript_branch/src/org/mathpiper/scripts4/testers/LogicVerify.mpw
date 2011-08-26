@@ -15,7 +15,7 @@ Function("LogicVerify",{aLeft,aRight})
 *CMD LogicVerify --- verifying equivalence of two expressions
 *STD
 *CALL
-	LogicVerify(question,answer)
+        LogicVerify(question,answer)
 
 *PARMS
 

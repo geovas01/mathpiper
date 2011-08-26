@@ -28,7 +28,7 @@
     nn := (m-1)/2;
     qq := ((y/c)^(1/m));
     If(InVerboseMode(),Tell("  FBinsum.1b",{nn,qq}));
-    If( c=1,
+    If( c=?1,
           r := {{x+qq,1},{Sum(k,0,m-1,(-1)^k*qq^k*x^(m-1-k)),1}},
           r := {{c,1},{x+qq,1},{Sum(k,0,m-1,(-1)^k*qq^k*x^(m-1-k)),1}}
     );  
@@ -44,15 +44,15 @@
     If(IsNumber(y),qq:=GuessRational(N(qq)));
     If(InVerboseMode(),Tell("  FBindif.1",{pp,qq}));
     
-    if      (m = 2)
+    if      (m =? 2)
         [
             L := FunctionToList(y);
-            If(And(L[1]=ToAtom("^"),L[3]=2),qq:=L[2]);
+            If(And(L[1]=?ToAtom("^"),L[3]=?2),qq:=L[2]);
             r := {{x+qq,1},{x-qq,1}};
         ]
-    else if (m = 4)
+    else if (m =? 4)
         [r := {{x+qq,1},{x-qq,1},{x^2+qq^2,1}};]
-    else if (m = 6)
+    else if (m =? 6)
         [r := {{x+qq,1},{x-qq,1},{x^2+x*qq+qq^2,1},{x^2-x*qq+qq^2,1}};]
     else
         [r := {{x-qq,1},{Sum(k,0,pp,qq^k*x^(pp-k)),1}};];

@@ -2,13 +2,13 @@
 
 //Retract("IsRationalFunction",*);
 
-10 # IsRationalFunction(_expr)_(Length(VarList(expr))=0) <-- False;
+10 # IsRationalFunction(_expr)_(Length(VarList(expr))=?0) <-- False;
 
 15 # IsRationalFunction(_expr) <-- IsRationalFunction(expr,VarList(expr));
 
 10 # IsRationalFunction(expr_IsRationalOrNumber,_var) <-- False;
 
-15 # IsRationalFunction(_expr,var_IsAtom)_(Type(expr)="/" Or Type(-expr)="/") <-- 
+15 # IsRationalFunction(_expr,var_IsAtom)_(Type(expr)=?"/" Or Type(-expr)=?"/") <--
 [
     If (IsPolynomial(Numerator(expr),var) And IsPolynomial(Denominator(expr),var),
         Contains(VarList(Denominator(expr)),var),
@@ -16,7 +16,7 @@
     );
 ];
 
-20 # IsRationalFunction(_expr,vars_IsList)_(Type(expr)="/" Or Type(-expr)="/") <-- 
+20 # IsRationalFunction(_expr,vars_IsList)_(Type(expr)=?"/" Or Type(-expr)=?"/") <--
 [
     If (IsPolynomial(Numerator(expr),vars) And IsPolynomial(Denominator(expr),vars),
         Intersection(vars, VarList(expr)) != {},
@@ -37,9 +37,9 @@
 *CMD IsRationalFunction --- test for a Rational Function
 *STD
 *CALL
-	IsRationalFunction(expr)
-	IsRationalFunction(expr,var)
-	IsRationalFunction(expr,vars)
+        IsRationalFunction(expr)
+        IsRationalFunction(expr,var)
+        IsRationalFunction(expr,vars)
 
 *PARMS
 

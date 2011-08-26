@@ -24,7 +24,7 @@
     strBI     := ExpressionToString(Abs(bigInt));
     LS        := Length(strBI);
     //If(InVerboseMode(),[Tell("   ",{bigInt,precision,scale,sgn});Tell("   ",strBI);]);
-    If( Length(rep)=2, 
+    If( Length(rep)=?2,
        [ numStr := strBI; ],
        [
            index := precision-scale;
@@ -75,8 +75,8 @@
 *CMD RepToNumber --- Given a List representing a number as MathPiper stores it, returns the number
 *STD
 *CALL
-	RepToNumber(rep)
-	
+        RepToNumber(rep)
+        
 *PARMS
 
 {rep} -- A list representing MathPiper's internal structure for a number

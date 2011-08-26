@@ -29,7 +29,7 @@ IsRationalOrNumber(_x) <-- (IsNumber(x) Or IsRationalNumeric(x));
 *CMD IsRational --- test whether argument is a rational
 *STD
 *CALL
-	IsRational(expr)
+        IsRational(expr)
 
 *PARMS
 

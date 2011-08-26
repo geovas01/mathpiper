@@ -319,6 +319,8 @@ public class Build {
         StringBuilder foldContents = new StringBuilder();
         String foldHeader = "";
         boolean inFold = false;
+        int lineCounter = 0;
+        int startLineNumber = -1;
 
 
         FileInputStream fstream = new FileInputStream(sourceFile);
@@ -330,6 +332,7 @@ public class Build {
         while ((line = br.readLine()) != null) {
             //line = line.trim();
             //System.out.println(line);
+            lineCounter++;
 
             if (line.startsWith("%/")) {
 
@@ -337,7 +340,7 @@ public class Build {
                     throw new Exception("Opening fold tag missing in " + fileName + ".");
                 }
 
-                Fold fold = new Fold(foldHeader, foldContents.toString());
+                Fold fold = new Fold(startLineNumber, foldHeader, foldContents.toString());
                 foldContents.delete(0, foldContents.length());
                 folds.add(fold);
                 inFold = false;
@@ -348,6 +351,7 @@ public class Build {
                     throw new Exception("Closing fold tag missing in " + fileName + ".");
                 }
 
+                startLineNumber = lineCounter;
                 foldHeader = line;
                 inFold = true;
             } else if (inFold == true) {
@@ -371,11 +375,15 @@ public class Build {
 
     class Fold {
 
+        private int startLineNumber;
         private String type;
         private String contents;
         private Map<String, String> attributes = new HashMap();
 
-        public Fold(String header, String contents) {
+        public Fold(int startLineNumber, String header, String contents) {
+
+            this.startLineNumber = startLineNumber;
+
             scanHeader(header);
 
             this.contents = contents;
@@ -407,6 +415,12 @@ public class Build {
         public String getType() {
             return type;
         }
+
+        public int getStartLineNumber()
+        {
+            return this.startLineNumber;
+        }
+        
     }//end inner class.
 
     private void processMPWFile(File mpwFile) throws Exception {
@@ -441,11 +455,13 @@ public class Build {
                 if (!scopeAttribute.equalsIgnoreCase("nobuild")) {
 
 
-                    String[] functionsNotToBuild = {"CForm", "IsCFormable", "issues", "debug", "jFactorsPoly", "jasFactorsInt",
+                    String[] functionsNotToBuild = {""};
+
+                    /*{"CForm", "IsCFormable", "issues", "debug", "jFactorsPoly", "jasFactorsInt",
                         "xContent", "xFactor", "xFactors", "xFactorsBinomial", "xFactorsResiduals", "xPrimitivePart", "html", "odesolver",
                         "orthopoly", "openmath", "ManipEquations", "Manipulate", "SolveSetEqns", "ControlChart", "GeoGebra", "GeoGebraHistogram",
                         "GeoGebraPlot", "GeoGebraPoint", "ggbLine", "HighschoolForm", "jas_test", "JFreeChartHistogram", "JavaAccess", "RForm",
-                        "xCheckSolution", "xSolve", "xSolvePoly", "xSolveRational", "xSolveReduce", "xSolveSqrts", "xSolveSystem", "xTerms",};
+                        "xCheckSolution", "xSolve", "xSolvePoly", "xSolveRational", "xSolveReduce", "xSolveSqrts", "xSolveSystem", "xTerms",};*/
 
                     for (String fileName : functionsNotToBuild) {
                         fileName = fileName + ".mpw";
@@ -534,7 +550,7 @@ public class Build {
                                 scriptsJavaFile.write("\n        scriptString[0] = null;");
 
 
-                                scriptsJavaFile.write("\n        scriptString[1] = \"" + processedScript + "\";\n");
+                                scriptsJavaFile.write("\n        scriptString[1] = \"" + processedScript + "\";");
 
                                 if (strip == false) {
 
@@ -542,7 +558,8 @@ public class Build {
                                     scriptsJavaFile.write("\n        scriptString[2] = \"" + mpwFilePath + "\";");
                                 }
 
-
+                                scriptsJavaFile.write("\n");
+                                
                                 String[] defFunctionNames = defAttribute.split(";");
 
                                 for (int x = 0; x < defFunctionNames.length; x++) {
@@ -706,10 +723,10 @@ public class Build {
             filePath = filePath.substring(filePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator));
 
             //foldContents =  ("Testing(\\\"" + nameAttribute + "\\\");" + foldContents);
-            testsJavaFile.write("\n        testString = new String[2];");
-            testsJavaFile.write("\n        testString[0] = \"" + filePath + "\";");
-            testsJavaFile.write("\n        testString[1] = \"" + foldContents + "\";\n");
-
+            testsJavaFile.write("\n        testString = new String[3];");
+            testsJavaFile.write("\n        testString[0] = \"" + fold.getStartLineNumber() + "\";");
+            testsJavaFile.write("\n        testString[1] = \"" + foldContents + "\";");
+            testsJavaFile.write("\n        testString[2] = \"" + filePath + "\";\n");
             testsJavaFile.write("        testsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
 
         } else {

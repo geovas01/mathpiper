@@ -19,7 +19,7 @@
         small'powers := {n}        // pretend we had run TrialFactorize without success
   );
   n := small'powers[1];        // remainder
-  If(n=1, Rest(small'powers),
+  If(n=?1, Rest(small'powers),
   // if n!=1, need to factorize the remainder with Pollard Rho algorithm
           [
                   //If(InVerboseMode(), Echo({"FactorizeInt: Info: remaining number ", n}));

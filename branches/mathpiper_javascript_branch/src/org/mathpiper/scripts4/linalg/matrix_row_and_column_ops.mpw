@@ -7,7 +7,7 @@
 //Retract("MatrixColumnSwap",*);
 //Retract("MatrixColumnAugment",*);
 
-MatrixRowReplace( M_IsMatrix, iRow_IsPositiveInteger, v_IsVector )_(Length(v)=Length(M[1])) <--
+MatrixRowReplace( M_IsMatrix, iRow_IsPositiveInteger, v_IsVector )_(Length(v)=?Length(M[1])) <--
 [
     If( Not IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixRowReplace,{M,iRow,v}) );
@@ -34,7 +34,7 @@ MatrixRowSwap( M_IsMatrix, iRow1_IsPositiveInteger, iRow2_IsPositiveInteger )_
 ];
 
 
-MatrixRowStack( M_IsMatrix, v_IsVector )_(Length(v)=Dimensions(M)[1]) <--
+MatrixRowStack( M_IsMatrix, v_IsVector )_(Length(v)=?Dimensions(M)[1]) <--
 [
     If( Not IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixRowStack,{M,v}) );
@@ -48,7 +48,7 @@ MatrixRowStack( M_IsMatrix, v_IsVector )_(Length(v)=Dimensions(M)[1]) <--
 ];
 
 
-MatrixColumnReplace( M_IsMatrix, jCol_IsPositiveInteger, v_IsVector )_(Length(v)=Dimensions(M)[2]) <--
+MatrixColumnReplace( M_IsMatrix, jCol_IsPositiveInteger, v_IsVector )_(Length(v)=?Dimensions(M)[2]) <--
 [
     If( Not IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixColumnReplace,{M,jCol,v}) );
@@ -73,7 +73,7 @@ MatrixColumnSwap( M_IsMatrix, jCol1_IsPositiveInteger, jCol2_IsPositiveInteger )
 ];
 
 
-MatrixColumnAugment( M_IsMatrix, v_IsVector )_(Length(v)=Dimensions(M)[2]) <--
+MatrixColumnAugment( M_IsMatrix, v_IsVector )_(Length(v)=?Dimensions(M)[2]) <--
 [
     If( Not IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixColumnAugment,{M,v}) );

@@ -15,7 +15,7 @@
 
     result := Integrate(var) expr;
 
-    If( optionsList["logAbs"] = "True", result := ( result /: {Ln(_x) <- Ln(Abs(x))}) );
+    If( optionsList["logAbs"] =? "True", result := ( result /: {Ln(_x) <- Ln(Abs(x))}) );
 
     result;
 ];
@@ -23,7 +23,7 @@
 
 10 # IntSub(_var,_expr,Integrate(_var)(_expr2)) <--
      `Hold(Integrate(@var)(@expr));
-20 # IntSub(_var,_expr,_result) <-- result;	// + UniqueConstant();
+20 # IntSub(_var,_expr,_result) <-- result;        // + UniqueConstant();
 
 ////////////////////////////////////////////////
 //
@@ -33,7 +33,7 @@
 10# (Integrate(_var,_from,_to)(expr_IsList))
     <-- Map("Integrate",{FillList(var,Length(expr)),
                          FillList(from,Length(expr)),
-			 FillList(to,Length(expr)),
+                         FillList(to,Length(expr)),
                          expr});
 
 20 # (Integrate(_var,_from,_to)(_expr))
@@ -48,7 +48,7 @@
 
     result := Integrate(var,from,to) expr;
 
-    If( optionsList["logAbs"] = "True", result := ( result /: {Ln(_x) <- Ln(Abs(x))}) );
+    If( optionsList["logAbs"] =? "True", result := ( result /: {Ln(_x) <- Ln(Abs(x))}) );
 
     result;
 ];
@@ -60,7 +60,7 @@
 //
 ////////////////////////////////////////////////
 
-10 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from = -to And IsOddFunction(expr,var)) <-- 0;
+10 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from =? -to And IsOddFunction(expr,var)) <-- 0;
 
 // We need to define this case (integrating from 0 to 0 over an even function)
 // explicitly, otherwise the integration ends up going in to infinite recursion.
@@ -71,7 +71,7 @@
 
 10 # defIntegrate(_var,_from,_from,_expr,_a,_b) <-- 0;
 
-12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from = -to And IsEvenFunction(expr,var))
+12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from =? -to And IsEvenFunction(expr,var))
         <-- 2*defIntegrate(var,0,to,expr,a,b);
 
 100 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(Type(AntiDeriv(var,IntClean(var,expr))) != "AntiDeriv")
@@ -116,13 +116,13 @@
 ////////////////////////////////////////////////
 10 # IntClean(_var,_expr) <--
 [
-	if( IsFreeOf(var,expr) Or IsSumOfTerms(var,expr) )[
-		expr;
-	] else if ( HasFunc(expr,Sin) Or HasFunc(expr,Cos) )[
-		Simplify(TrigSimpCombine(expr));
-	] else [
-		Simplify(expr);
-	];
+        if( IsFreeOf(var,expr) Or IsSumOfTerms(var,expr) )[
+                expr;
+        ] else if ( HasFunc(expr,Sin) Or HasFunc(expr,Cos) )[
+                Simplify(TrigSimpCombine(expr));
+        ] else [
+                Simplify(expr);
+        ];
 ];
 
 %/mathpiper
@@ -134,8 +134,8 @@
 
 *STD
 *CALL
-	Integrate(var, x1, x2) expr
-	Integrate(var) expr
+        Integrate(var, x1, x2) expr
+        Integrate(var) expr
         Integrate(var, {optionsList}) expr
         Integrate(var, x1, x2, {optionsList}) expr
 
@@ -206,7 +206,7 @@ Verify(Integrate(x    )Exp(Sin(x)),Integrate(x    )Exp(Sin(x)));
 // Yacas needs to return the integration unevaluated, or
 // return a correct answer (if it happens to be able to do
 // these integrals in the future).
-TestNonIntegrable(_expr) <-- Verify(Type(expr) = "Integrate",True);
+TestNonIntegrable(_expr) <-- Verify(Type(expr) =? "Integrate",True);
 
 // The following two used to get the interpreter into an infinite
 // loop. Fixed in version 1.0.51

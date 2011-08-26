@@ -6,22 +6,22 @@
 //2# NextPseudoPrime(3) <-- 5;
 3# NextPseudoPrime(i_IsOdd) <--
 [
-	// this sequence generates numbers not divisible by 2 or 3
-	i := i+2;
-	If(Modulo(i,3)=0, i:=i+2, i);
+        // this sequence generates numbers not divisible by 2 or 3
+        i := i+2;
+        If(Modulo(i,3)=?0, i:=i+2, i);
 /* commented out because it slows things down without a real advantage
 // this works only for odd i>=5
-	i := If(
-		Modulo(-i,3)=0,
-		i + 2,
-		i + 2*Modulo(-i, 3)
-	);
-	// now check if divisible by 5
-	If(
-		Modulo(i,5)=0,
-		NextPseudoPrime(i),
-		i
-	);
+        i := If(
+                Modulo(-i,3)=0,
+                i + 2,
+                i + 2*Modulo(-i, 3)
+        );
+        // now check if divisible by 5
+        If(
+                Modulo(i,5)=0,
+                NextPseudoPrime(i),
+                i
+        );
 */
 ];
 // this works only for even i>=4

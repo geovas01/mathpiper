@@ -22,7 +22,7 @@
 *CMD HasExpr --- check for expression containing a subexpression
 *STD
 *CALL
-	HasExpr(expr, x)
+        HasExpr(expr, x)
 
 *PARMS
 

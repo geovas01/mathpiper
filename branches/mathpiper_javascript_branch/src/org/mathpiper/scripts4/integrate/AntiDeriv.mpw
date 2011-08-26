@@ -41,7 +41,7 @@
 
 10 # AntiDeriv(_var,_x/c_IsFreeOf(var) )_(HasExpr(x,var)) <-- AntiDeriv(var,x)/c;
 10 # AntiDeriv(_var,c_IsFreeOf(var)/_x )_(HasExpr(x,var) And c!= 1)
-	<-- c*AntiDeriv(var,1/x);
+        <-- c*AntiDeriv(var,1/x);
 
 
 ////////////////////////////////////////////////
@@ -87,8 +87,8 @@
      ];
 
 11 # IntRat(_var,_exy / _exx,_exyu,_exxu)_
-        (Degree(exxu,var) > 1 And LeadingCoef(exxu)=1 And
-	 IsNumericList(Coef(exxu,var,0 .. Degree(exxu)))) <--
+        (Degree(exxu,var) > 1 And LeadingCoef(exxu)=?1 And
+         IsNumericList(Coef(exxu,var,0 .. Degree(exxu)))) <--
 [
   Local(ee);
   ee:=Apart(exy/exx,var);
@@ -241,7 +241,7 @@ IntFunc(x,1/Cosh(_x)^2,Tanh(x));
 //IntFunc(x,1/Sech(_x)*Coth(_x),-1/Sinh(x));
 IntFunc(x,1/Tanh(_x),Ln(Sinh(x)));
 
-IntFunc(x,Abs(_x),Abs(x)*x/2);	// not 2*a
+IntFunc(x,Abs(_x),Abs(x)*x/2);        // not 2*a
 
 IntFunc(x,ArcTan(_x),x*ArcTan(x) - Ln(x^2 + 1)/2);
 //IntFunc(x,ArcSin(_x),(x*ArcSin(x)) + Sqrt(1-x^2) );

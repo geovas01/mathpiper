@@ -24,7 +24,7 @@ Function("Find",{list,element})
 *CMD Find --- get the index at which a certain element occurs
 *STD
 *CALL
-	Find(list, expr)
+        Find(list, expr)
 
 *PARMS
 

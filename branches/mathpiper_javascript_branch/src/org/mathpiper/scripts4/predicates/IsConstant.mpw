@@ -1,6 +1,6 @@
 %mathpiper,def="IsConstant"
 
-IsConstant(_n) <-- (VarList(n) = {});
+IsConstant(_n) <-- (VarList(n) =? {});
 
 %/mathpiper
 
@@ -10,7 +10,7 @@ IsConstant(_n) <-- (VarList(n) = {});
 *CMD IsConstant --- test for a constant
 *STD
 *CALL
-	IsConstant(expr)
+        IsConstant(expr)
 
 *PARMS
 

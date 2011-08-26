@@ -1,8 +1,8 @@
 %mathpiper,def="FermatNumber"
 
 Function("FermatNumber",{n})[
-	Check(IsPositiveInteger(n), "Argument", "FermatNumber: argument must be a positive integer");
-	2^(2^n)+1;
+        Check(IsPositiveInteger(n), "Argument", "FermatNumber: argument must be a positive integer");
+        2^(2^n)+1;
 ];
 
 %/mathpiper
@@ -13,7 +13,7 @@ Function("FermatNumber",{n})[
 *CMD FermatNumber --- return the {n}th Fermat Number
 *STD
 *CALL
-	FermatNumber(n)
+        FermatNumber(n)
 *PARMS  
 
 {n}     -- positive integer
@@ -28,5 +28,5 @@ $2^(2^n) + 1$.
 In> FermatNumber(7)
 Result: 340282366920938463463374607431768211457;
 
-*SEE	Factor
+*SEE        Factor
 %/mathpiper_docs

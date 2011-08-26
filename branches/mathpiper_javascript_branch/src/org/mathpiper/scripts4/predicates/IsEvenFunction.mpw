@@ -1,6 +1,6 @@
 %mathpiper,def="IsEvenFunction"
 
-IsEvenFunction(f,x):= (f = Eval(Subst(x,-x)f));
+IsEvenFunction(f,x):= (f =? Eval(Subst(x,-x)f));
 
 %/mathpiper
 
@@ -11,7 +11,7 @@ IsEvenFunction(f,x):= (f = Eval(Subst(x,-x)f));
 
 *STD
 *CALL
-	IsEvenFunction(expression,variable)
+        IsEvenFunction(expression,variable)
 
 *PARMS
 

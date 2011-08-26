@@ -97,7 +97,7 @@
       foundVarP := False;
       i := 2;
       While(i <= Length(lst) And Not foundVarP) [
-          foundVarP := (lst[i] = var);
+          foundVarP := (lst[i] =? var);
           i++;
       ];
       If(iDebug,Tell(" 42bContext",{foundVarP,expr}));

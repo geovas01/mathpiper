@@ -16,9 +16,9 @@ HoldArgumentNumber("FuncListArith", 1, 1);
 *CMD FuncListSome --- list of functions used in an expression
 *STD
 *CALL
-	FuncList(expr)
-	FuncListArith(expr)
-	FuncListSome(expr, list)
+        FuncList(expr)
+        FuncListArith(expr)
+        FuncListSome(expr, list)
 
 *PARMS
 

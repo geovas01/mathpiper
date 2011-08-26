@@ -13,7 +13,7 @@ HasExprArith(expr, atom) := HasExprSome(expr, atom, {ToAtom("+"), ToAtom("-"), *
 *CMD HasExprArith --- check for expression containing a subexpression
 *STD
 *CALL
-	HasExprArith(expr, x)
+        HasExprArith(expr, x)
 
 *PARMS
 

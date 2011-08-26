@@ -4,9 +4,9 @@
    Anti-nominalism */
 
 BinomialDistribution(_p, _n)_
-	(If(IsRationalOrNumber(p),p<0 Or p>1, False)
-	 Or (IsConstant(n) And Not IsPositiveInteger(n)) )
-	<-- Undefined;
+        (If(IsRationalOrNumber(p),p<0 Or p>1, False)
+         Or (IsConstant(n) And Not IsPositiveInteger(n)) )
+        <-- Undefined;
 
 %/mathpiper
 
@@ -16,7 +16,7 @@ BinomialDistribution(_p, _n)_
 *CMD BinomialDistribution --- binomial distribution
 *STD
 *CALL
-	BinomialDistribution(p,n)
+        BinomialDistribution(p,n)
 
 *PARMS
 {p} -- number, probability to observe an event in single trial

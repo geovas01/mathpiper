@@ -11,7 +11,7 @@ Rule(StandardOperatorsLoad, 0, 1, True)
      * function hasn't been defined yet.
      */
 
-    Infix("=",90);
+    Infix("=?",90);
     Infix("And",1000);
     RightAssociativeSet("And");
     Infix("Or", 1010);
@@ -105,8 +105,8 @@ Rule(StandardOperatorsLoad, 0, 1, True)
     Infix("<-",10000);
 
     /* Operators used for manual layout */
-    Infix("<>", PrecedenceGet("="));
-    Infix("<=>", PrecedenceGet("="));
+    Infix("<>", PrecedenceGet("=?"));
+    Infix("<=>", PrecedenceGet("=?"));
 
     /* Operators for Solve: Where and AddTo */
     Infix("Where", 11000);

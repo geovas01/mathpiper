@@ -27,7 +27,7 @@
     //);
     
     Local(first,secnd,rem,ad);
-    if ( newPrec = oldPrec )
+    if ( newPrec =? oldPrec )
         [ ans := N; ]
     else if ( newPrec < oldPrec )
         [
@@ -106,7 +106,7 @@
 *CMD RoundToPrecision --- Rounds or Sets a number to the specified precision
 *STD
 *CALL
-	RoundToPrecision(number,precision)
+        RoundToPrecision(number,precision)
 *PARMS
 {number} -- a number (Decimal, Integer, or Complex) whose precision is to be changed
 {precision} -- the new precision to be used

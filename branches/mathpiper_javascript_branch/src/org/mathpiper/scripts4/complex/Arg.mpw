@@ -17,7 +17,7 @@
 *CMD Arg --- argument of a complex number
 *STD
 *CALL
-	Arg(x)
+        Arg(x)
 
 *PARMS
 

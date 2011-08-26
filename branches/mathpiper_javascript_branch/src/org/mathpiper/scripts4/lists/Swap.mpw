@@ -17,7 +17,7 @@ Function("Swap",{list,index1,index2})
 *CMD Swap --- swap two elements in a list
 *STD
 *CALL
-	Swap(list, i1, i2)
+        Swap(list, i1, i2)
 
 *PARMS
 

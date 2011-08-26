@@ -7,11 +7,11 @@
 10 # PrintList(list_IsList) <-- PrintList(list, ", ");
 10 # PrintList({}, padding_IsString) <-- "";
 20 # PrintList(list_IsList, padding_IsString) <-- PipeToString() [
-	Local(i);
-	ForEach(i, list) [
-		If(Not(IsEqual(i, First(list))), WriteString(padding));
-		If (IsString(i), WriteString(i), If(IsList(i), WriteString("{" : PrintList(i, padding) : "}"), Write(i)));
-	];
+        Local(i);
+        ForEach(i, list) [
+                If(Not(IsEqual(i, First(list))), WriteString(padding));
+                If (IsString(i), WriteString(i), If(IsList(i), WriteString("{" : PrintList(i, padding) : "}"), Write(i)));
+        ];
 ];
 
 %/mathpiper
@@ -22,8 +22,8 @@
 *CMD PrintList --- print list with padding
 *STD
 *CALL
-	PrintList(list)
-	PrintList(list, padding);
+        PrintList(list)
+        PrintList(list, padding);
 
 *PARMS
 

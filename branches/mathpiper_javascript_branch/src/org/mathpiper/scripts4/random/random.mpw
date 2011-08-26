@@ -105,15 +105,15 @@ RngCreate() <-- RngCreate(0);
 
         // check options and assign defaults
         If(
-                options["seed"] = Empty Or options["seed"] <= 0,
+                options["seed"] =? Empty Or options["seed"] <= 0,
                 options["seed"] := 76544321        // some default seed out of the blue sky
         );
         If(
-                options["engine"] = Empty Or Not (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] != Empty),
+                options["engine"] =? Empty Or Not (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] != Empty),
                 options["engine"] := "default"
         );
         If(
-                options["dist"] = Empty Or Not (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] != Empty),
+                options["dist"] =? Empty Or Not (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] != Empty),
                 options["dist"] := "default"
         );
 
@@ -152,8 +152,8 @@ RngSeed(_r, seed_IsInteger) <--
 
 /// trivial distribution adaptor: flat distribution, simply calls SomeEngine(r)
 /* we have to return whole objects; we can't use references b/c the core
-function ApplyFast will not work properly on references, i.e. if r = {"", "", {1}} so that
-r[3] = {1}, then LCG'2(r[3]) modifies r[3], but LCG'2 @ r[3] or
+function ApplyFast will not work properly on references, i.e. if r =? {"", "", {1}} so that
+r[3] =? {1}, then LCG'2(r[3]) modifies r[3], but LCG'2 @ r[3] or
 ApplyFast("LCG'2", {r[3]}) do not actually modify r[3].
 */
 
@@ -168,12 +168,12 @@ FlatRNGDist(_r) <-- (r[2] @ {r[3]});        // this calls SomeEngine(state)
 GaussianRNGDist(_rng) <--
 [
         // a Gaussian distributed complex number p + I*q is made up of two uniformly distributed numbers x,y according to the formula:
-        // a:=2*x-1, b:=2*y-1, m:=a^2+b^2; p = a*Sqrt(-2*Ln(m)/m); q:=b*Sqrt(-2*Ln(m)/m);
+        // a:=2*x-1, b:=2*y-1, m:=a^2+b^2; p =? a*Sqrt(-2*Ln(m)/m); q:=b*Sqrt(-2*Ln(m)/m);
         // here we need to make sure that m is nonzero and strictly less than 1.
         Local(a,b,m, new'state, rnumber);
         new'state := rng[3];        // this will be updated at the end
         m:=0;
-        While(m=0 Or m>=1)        // repeat generating new x,y  - should not take more than one iteration really
+        While(m=?0 Or m>=1)        // repeat generating new x,y  - should not take more than one iteration really
         [
                 {new'state, rnumber} := (rng[2] @ {new'state});
                 a:=2*rnumber-1;
@@ -259,7 +259,7 @@ RNGEngine'L'Ecuyer(state_IsList) <--
         result:=Modulo(state[1]-state[4], 4294967087);
         {
                 new'state,
-                DivideN(If(result=0, 4294967087, result), 4294967088)
+                DivideN(If(result=?0, 4294967087, result), 4294967088)
         };
 ];
 

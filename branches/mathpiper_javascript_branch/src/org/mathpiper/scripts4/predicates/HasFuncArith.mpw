@@ -12,7 +12,7 @@ HasFuncArith(expr, atom) := HasFuncSome(expr, atom, {ToAtom("+"), ToAtom("-"), *
 *CMD HasFuncArith --- check for expression containing a function
 *STD
 *CALL
-	HasFuncArith(expr, func)
+        HasFuncArith(expr, func)
 
 *PARMS
 

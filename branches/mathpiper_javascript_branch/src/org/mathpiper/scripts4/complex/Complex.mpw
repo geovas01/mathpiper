@@ -24,11 +24,11 @@
 110 # Complex(_r1,_i1) * Complex(_r2,_i2) <-- Complex(r1*r2-i1*i2,r1*i2+r2*i1);
 /* right now this is slower than above
 110 # Complex(_r1,_i1) * Complex(_r2,_i2) <--
-[	// the Karatsuba trick
-	Local(A,B);
-	A:=r1*r2;
-	B:=i1*i2;
-	Complex(A-B,(r1+i1)*(r2+i2)-A-B);
+[        // the Karatsuba trick
+        Local(A,B);
+        A:=r1*r2;
+        B:=i1*i2;
+        Complex(A-B,(r1+i1)*(r2+i2)-A-B);
 ];
 */
 
@@ -65,28 +65,28 @@
 
 123 # Complex(_r, _i) ^ n_IsNegativeInteger <-- 1/Complex(r, i)^(-n);
 
-124 # Complex(_r, _i) ^ (p_IsZero) <-- 1;	// cannot have Complex(0,0) here
+124 # Complex(_r, _i) ^ (p_IsZero) <-- 1;        // cannot have Complex(0,0) here
 
 125 # Complex(_r, _i) ^ n_IsPositiveInteger <--
 [
-	// use binary method
-	Local(result, x);
-	x:=Complex(r,i);
-	result:=1;
-	While(n > 0)
-	[
-		if ((n&1) = 1)
-		[
-		  result := result*x;
-		];
-		x := x*x;
-		n := n>>1;
-	];
-	result;
+        // use binary method
+        Local(result, x);
+        x:=Complex(r,i);
+        result:=1;
+        While(n > 0)
+        [
+                if ((n&1) =? 1)
+                [
+                  result := result*x;
+                ];
+                x := x*x;
+                n := n>>1;
+        ];
+        result;
 ];
 
 
-/*[	// this method is disabled b/c it suffers from severe roundoff errors
+/*[        // this method is disabled b/c it suffers from severe roundoff errors
   Local(rr,ii,count,sign);
   rr:=r^n;
   ii:=0;
@@ -108,7 +108,7 @@
 *CMD Complex --- construct a complex number
 *STD
 *CALL
-	Complex(r, c)
+        Complex(r, c)
 
 *PARMS
 
@@ -146,7 +146,7 @@ Result: -2;
 %mathpiper,name="Complex",subtype="automatic_test"
 
 Verify( Limit(z,2*I) (I*z^4+3*z^2-10*I), Complex(-12,6) );
-KnownFailure( (Limit(n,Infinity) (n^2*I^n)/(n^3+1)) = 0 );
+KnownFailure( (Limit(n,Infinity) (n^2*I^n)/(n^3+1)) =? 0 );
 Verify( Limit(n,Infinity) n*I^n, Undefined );
 
 Verify(1/I, -I);

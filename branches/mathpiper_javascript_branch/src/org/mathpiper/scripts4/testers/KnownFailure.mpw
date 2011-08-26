@@ -18,7 +18,7 @@ HoldArgument("KnownFailure",expr);
 *CMD KnownFailure --- Mark a test as a known failure
 *STD
 *CALL
-	KnownFailure(test)
+        KnownFailure(test)
 
 *PARMS
 
@@ -36,14 +36,14 @@ MathPiper and type {make test}.
 *E.G.
 
 In> KnownFailure(Verify(1,2))
-	Known failure:
-	******************
-	 1 evaluates to  1 which differs from  2
-	******************
+        Known failure:
+        ******************
+         1 evaluates to  1 which differs from  2
+        ******************
 Result: False;
 In> KnownFailure(Verify(1,1))
-	Known failure:
-	Failure resolved!
+        Known failure:
+        Failure resolved!
 Result: True;
 
 *SEE Verify, TestMathPiper, LogicVerify, LogicTest

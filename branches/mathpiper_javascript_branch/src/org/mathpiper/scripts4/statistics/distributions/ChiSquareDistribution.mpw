@@ -13,7 +13,7 @@ ChiSquareDistribution(m_IsRationalOrNumber)_(m<=0) <-- Undefined;
 *CMD ChiSquareDistribution --- Chi square distribution
 *STD
 *CALL
-	ChiSquareDistribution(p)
+        ChiSquareDistribution(p)
 
 *PARMS
 

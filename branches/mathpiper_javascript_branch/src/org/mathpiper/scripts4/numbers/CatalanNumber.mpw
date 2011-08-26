@@ -2,8 +2,8 @@
 
 CatalanNumber(_n) <--
 [
-	Check( IsPositiveInteger(n), "Argument", "CatalanNumber: Error: argument must be positive" );
-	BinomialCoefficient(2*n,n)/(n+1);
+        Check( IsPositiveInteger(n), "Argument", "CatalanNumber: Error: argument must be positive" );
+        BinomialCoefficient(2*n,n)/(n+1);
 ];
 
 %/mathpiper
@@ -14,10 +14,10 @@ CatalanNumber(_n) <--
 *CMD CatalanNumber --- return the {n}th Catalan Number
 *STD
 *CALL
-	CatalanNumber(n)
+        CatalanNumber(n)
 *PARMS
 
-{n}	-- positive integer
+{n}        -- positive integer
 
 *DESC
 

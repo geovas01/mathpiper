@@ -4,9 +4,9 @@ Rulebase("Differentiate",{aVar,aFunc});
 Rulebase("Differentiate",{aVar,aCount,aFunc});
 
 Rule("Differentiate",2,1,IsList(aVar) And Not(IsList(aFunc)))
-	Map("Differentiate",{aVar,FillList(aFunc, Length(aVar))});
+        Map("Differentiate",{aVar,FillList(aFunc, Length(aVar))});
 Rule("Differentiate",2,1,IsList(aVar) And IsList(aFunc))
-	Map("Differentiate",{aVar,aFunc});
+        Map("Differentiate",{aVar,aFunc});
 
 Rule("Differentiate",2,3,True)
 [
@@ -15,11 +15,11 @@ Rule("Differentiate",2,3,True)
 ];
 
 Rule("Differentiate",3,1,IsList(aVar) And Not(IsList(aFunc)))
-	Map("Differentiate",{aVar,
+        Map("Differentiate",{aVar,
                  FillList(aCount, Length(aVar)),
                  FillList(aFunc, Length(aVar))});
 Rule("Differentiate",3,1,IsList(aVar) And IsList(aFunc))
-	Map("Differentiate",{aVar,
+        Map("Differentiate",{aVar,
                  FillList(aCount, Length(aVar)),
                  aFunc});
 Rule("Differentiate",3,3,True)
@@ -40,9 +40,9 @@ HoldArgument("Differentiate",aFunc);
 *CMD Differentiate --- take derivative of expression with respect to variable
 *STD
 *CALL
-	Differentiate(variable) expression
-	Differentiate(list) expression
-	Differentiate(variable,n) expression
+        Differentiate(variable) expression
+        Differentiate(list) expression
+        Differentiate(variable,n) expression
 
 *PARMS
 
@@ -119,6 +119,6 @@ Retract("f",2);
 
 
 /* Bug #6 */
-KnownFailure((Differentiate(z) Conjugate(z)) = Undefined);
+KnownFailure((Differentiate(z) Conjugate(z)) =? Undefined);
 
 %/mathpiper

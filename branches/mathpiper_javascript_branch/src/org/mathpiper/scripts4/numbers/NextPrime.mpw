@@ -3,8 +3,8 @@
 /// obtain the real next prime number -- use primality testing
 1# NextPrime(_i) <--
 [
-	Until(IsPrime(i)) i := NextPseudoPrime(i);
-	i;
+        Until(IsPrime(i)) i := NextPseudoPrime(i);
+        i;
 ];
 
 %/mathpiper
@@ -15,7 +15,7 @@
 *CMD NextPrime --- generate a prime following a number
 *STD
 *CALL
-	NextPrime(i)
+        NextPrime(i)
 
 *PARMS
 

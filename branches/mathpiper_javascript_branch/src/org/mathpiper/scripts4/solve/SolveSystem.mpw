@@ -27,7 +27,7 @@
 ];
 */
 
-10 # SolveSystem( eqns_IsList, vars_IsList )_(Length(eqns)=1 And Length(vars)=1) <--
+10 # SolveSystem( eqns_IsList, vars_IsList )_(Length(eqns)=?1 And Length(vars)=?1) <--
 [
     {Solve(eqns[1],vars[1])};
 ];
@@ -50,7 +50,7 @@
     // are all polynomials linear in given variables?
     VaD := VarsAndDegs(exprns,vars);
     If(InVerboseMode(),Tell(" ",VaD));
-    isLinearSet := Maximum(Flatten(VaD,"List"))=1;
+    isLinearSet := Maximum(Flatten(VaD,"List"))=?1;
     If(InVerboseMode(),Tell(" ",isLinearSet));
     
     If( isLinearSet,

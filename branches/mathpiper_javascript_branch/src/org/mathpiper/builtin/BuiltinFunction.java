@@ -465,7 +465,7 @@ public abstract class BuiltinFunction {
                 "IsEqual");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new IsEqual(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "="); //Alias.
+                "=?"); //Alias.
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new IsLessThan(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "IsLessThan");

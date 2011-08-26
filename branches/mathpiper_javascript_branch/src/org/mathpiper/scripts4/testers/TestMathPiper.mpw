@@ -8,34 +8,34 @@
 /*
 Macro ("TestMathPiper", {expr, ans})
 [
-	Local(diff,exprEval, ansEval);
+        Local(diff,exprEval, ansEval);
   exprEval:= @expr;
   ansEval:= @ans;
 
-	diff := Simplify(exprEval - ansEval);
-		If (Simplify(diff)=0, True,
-			[
-			  WriteString("******************");
-			  NewLine();
-			  ShowLine();
-			  Write(Hold(@expr));
-			  WriteString(" evaluates to ");
-			  NewLine();
-			  Write(exprEval);
-			  NewLine();
-			  WriteString(" which differs from ");
-			  NewLine();
-			  Write(ansEval);
-			  NewLine();
-			  WriteString(" by ");
-			  NewLine();
-			  Write(diff);
-			  NewLine();
-			  WriteString("******************");
-			  NewLine();
-			  False;
-			 ]
-			);
+        diff := Simplify(exprEval - ansEval);
+                If (Simplify(diff)=0, True,
+                        [
+                          WriteString("******************");
+                          NewLine();
+                          ShowLine();
+                          Write(Hold(@expr));
+                          WriteString(" evaluates to ");
+                          NewLine();
+                          Write(exprEval);
+                          NewLine();
+                          WriteString(" which differs from ");
+                          NewLine();
+                          Write(ansEval);
+                          NewLine();
+                          WriteString(" by ");
+                          NewLine();
+                          Write(diff);
+                          NewLine();
+                          WriteString("******************");
+                          NewLine();
+                          False;
+                         ]
+                        );
 ];
 */
 
@@ -43,31 +43,31 @@ Macro ("TestMathPiper", {expr, ans})
 
 Function ("TestMathPiper", {expr, ans})
 [
-	Local(diff);
-	diff := Simplify(Eval(expr)-Eval(ans));
-		If (Simplify(diff)=0, True,
-			[
-			  WriteString("******************");
-			  NewLine();
-			  ShowLine();
-			  Write(expr);
-			  WriteString(" evaluates to ");
-			  NewLine();
-			  Write(Eval(expr));
-			  NewLine();
-			  WriteString(" which differs from ");
-			  NewLine();
-			  Write(Eval(ans));
-			  NewLine();
-			  WriteString(" by ");
-			  NewLine();
-			  Write(diff);
-			  NewLine();
-			  WriteString("******************");
-			  NewLine();
-			  False;
-			 ]
-			);
+        Local(diff);
+        diff := Simplify(Eval(expr)-Eval(ans));
+                If (Simplify(diff)=?0, True,
+                        [
+                          WriteString("******************");
+                          NewLine();
+                          ShowLine();
+                          Write(expr);
+                          WriteString(" evaluates to ");
+                          NewLine();
+                          Write(Eval(expr));
+                          NewLine();
+                          WriteString(" which differs from ");
+                          NewLine();
+                          Write(Eval(ans));
+                          NewLine();
+                          WriteString(" by ");
+                          NewLine();
+                          Write(diff);
+                          NewLine();
+                          WriteString("******************");
+                          NewLine();
+                          False;
+                         ]
+                        );
 ];
 
 HoldArgument("TestMathPiper", expr);
@@ -83,7 +83,7 @@ HoldArgument("TestMathPiper", ans);
 *CMD TestMathPiper --- verifying equivalence of two expressions
 *STD
 *CALL
-	TestMathPiper(question,answer)
+        TestMathPiper(question,answer)
 
 *PARMS
 

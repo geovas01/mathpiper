@@ -5,40 +5,40 @@
 /// Use variable steps to speed up operation for large numbers x
 20 # IntLog(_x, _base) <--
 [
-	Local(result, step, old'step, factor, old'factor);
-	result := 0;
-	old'step := step := 1;
-	old'factor := factor := base;
-	// first loop: increase step
-	While (x >= factor)
-	[
-		old'factor := factor;
-		factor := factor*factor;
-		old'step := step;
-		step := step*2;
-	];
-	If(x >= base,
-	  [
-		step := old'step;
-		result := step;
-		x := Quotient(x, old'factor);
-	  ],
-	  step := 0
-	);
-	// second loop: decrease step
-	While (step > 0 And x != 1)
-	[
-		step := Quotient(step,2);	// for each step size down to 1, divide by factor if x is up to it
-		factor := base^step;
-		If(
-			x >= factor,
-			[
-				x:=Quotient(x, factor);
-				result := result + step;
-			]
-		);
-	];
-	result;
+        Local(result, step, old'step, factor, old'factor);
+        result := 0;
+        old'step := step := 1;
+        old'factor := factor := base;
+        // first loop: increase step
+        While (x >= factor)
+        [
+                old'factor := factor;
+                factor := factor*factor;
+                old'step := step;
+                step := step*2;
+        ];
+        If(x >= base,
+          [
+                step := old'step;
+                result := step;
+                x := Quotient(x, old'factor);
+          ],
+          step := 0
+        );
+        // second loop: decrease step
+        While (step > 0 And x != 1)
+        [
+                step := Quotient(step,2);        // for each step size down to 1, divide by factor if x is up to it
+                factor := base^step;
+                If(
+                        x >= factor,
+                        [
+                                x:=Quotient(x, factor);
+                                result := result + step;
+                        ]
+                );
+        ];
+        result;
 ];
 
 %/mathpiper
@@ -49,7 +49,7 @@
 *CMD IntLog --- integer part of logarithm
 *STD
 *CALL
-	IntLog(n, base)
+        IntLog(n, base)
 
 *PARMS
 

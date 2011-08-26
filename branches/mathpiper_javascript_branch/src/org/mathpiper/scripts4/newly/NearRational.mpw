@@ -33,7 +33,7 @@
     
         // find where the continued fractions for "x1" and "x2" differ
         // prepare result in "x1" and length of result in "i"
-        For (i:=1, i<=Length(x1) And i<=Length(x2) And x1[i]=x2[i], i++ ) True;
+        For (i:=1, i<=Length(x1) And i<=Length(x2) And x1[i]=?x2[i], i++ ) True;
         If(
                 i>Length(x1),
                 // "x1" ended but matched, so use "x2" as "x1"
@@ -51,7 +51,7 @@
         //Ayal added this line, i could become bigger than Length(x1)!
         //If(InVerboseMode(), Echo({"NearRational: using ", i, "terms of the continued fraction"}));
         If(i>Length(x1),i:=Length(x1));
-        x1[i] := x1[i] + If(i=Length(x1), 0, 1);
+        x1[i] := x1[i] + If(i=?Length(x1), 0, 1);
         BuiltinPrecisionSet(old'prec);
         ContFracEval(Take(x1, i));
 ];

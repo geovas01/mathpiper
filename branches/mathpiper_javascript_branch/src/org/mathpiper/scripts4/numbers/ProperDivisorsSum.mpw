@@ -14,7 +14,7 @@
 *CMD ProperDivisorsSum --- the sum of proper divisors
 *STD 
 *CALL
-	ProperDivisorsSum(n)
+        ProperDivisorsSum(n)
 *PARMS  
 
 {n}     -- positive integer

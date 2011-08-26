@@ -34,8 +34,8 @@
 
 *STD
 *CALL
-	DisassembleExpression(expr)
-	DisassembleExpression(expr,vars)
+        DisassembleExpression(expr)
+        DisassembleExpression(expr,vars)
 
 *PARMS
 

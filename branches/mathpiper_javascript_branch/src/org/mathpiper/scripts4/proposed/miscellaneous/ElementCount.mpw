@@ -1,11 +1,10 @@
-
 %mathpiper,def="ElementCount"
 
 //Retract("ElementCount",*);
 
 ElementCount(list) :=
 [   
-    if(Length(list) = 0)
+    if(Length(list) =? 0)
     [
         0;
     ]

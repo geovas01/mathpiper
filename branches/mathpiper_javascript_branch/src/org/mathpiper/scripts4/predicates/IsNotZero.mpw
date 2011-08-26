@@ -17,7 +17,7 @@
 *CMD IsNotZero --- test for a nonzero number
 *STD
 *CALL
-	IsNotZero(n)
+        IsNotZero(n)
 
 *PARMS
 

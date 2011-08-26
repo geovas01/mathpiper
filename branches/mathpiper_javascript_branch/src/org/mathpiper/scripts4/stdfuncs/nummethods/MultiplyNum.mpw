@@ -18,15 +18,15 @@ Function() MultiplyNum(x);
 10 # MultiplyNum(x_IsRational, y_IsRationalOrNumber) <--
 [
         If(
-        Type(y) = "/",  // IsRational(y), changed by Nobbi before redefinition of IsRational
+        Type(y) =? "/",  // IsRational(y), changed by Nobbi before redefinition of IsRational
                 DivideN(Numerator(x)*Numerator(y), Denominator(x)*Denominator(y)),
                 // y is floating-point
                 // avoid multiplication or division by 1
                 If(
-                        Numerator(x)=1,
+                        Numerator(x)=?1,
                         DivideN(y, Denominator(x)),
                         If(
-                                Denominator(x)=1,
+                                Denominator(x)=?1,
                                 MultiplyN(y, Numerator(x)),
                                 DivideN(MultiplyN(y, Numerator(x)), Denominator(x))
                         )
@@ -46,7 +46,7 @@ Function() MultiplyNum(x);
 
 /// more than 2 operands
 30 # MultiplyNum(x_IsRationalOrNumber, y_IsNumericList)_(Length(y)>1) <-- MultiplyNum(MultiplyNum(x, First(y)), Rest(y));
-40 # MultiplyNum(x_IsRationalOrNumber, y_IsNumericList)_(Length(y)=1) <-- MultiplyNum(x, First(y));
+40 # MultiplyNum(x_IsRationalOrNumber, y_IsNumericList)_(Length(y)=?1) <-- MultiplyNum(x, First(y));
 
 %/mathpiper
 

@@ -4,11 +4,11 @@
 // Elementary Number Theory, David M. Burton
 // Definition 9.2 p191
 
-10 # LegendreSymbol(_a,_p)	<--
+10 # LegendreSymbol(_a,_p)        <--
 [
         Check( IsInteger(a) And IsInteger(p) And p>2 And IsCoprime(a,p) And IsPrime(p),
                 "Argument", "LegendreSymbol: Invalid arguments");
-	If(IsQuadraticResidue(a,p), 1, -1 );
+        If(IsQuadraticResidue(a,p), 1, -1 );
 ];
 
 %/mathpiper
@@ -19,7 +19,7 @@
 *CMD LegendreSymbol --- functions related to finite groups
 *STD
 *CALL
-	LegendreSymbol(m,n)
+        LegendreSymbol(m,n)
 
 *PARMS
 {m}, {n} -- integers, $n$ must be odd and positive

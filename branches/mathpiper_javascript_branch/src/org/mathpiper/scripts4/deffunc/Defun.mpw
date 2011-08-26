@@ -24,7 +24,7 @@ Rule("Defun",3,0,True)
 %mathpiper_docs,name="Function",categories="Programmer Functions;Programming;Built In"
 *CMD Function --- declare or define a function
 *CALL
-	Defun(function, args) body
+        Defun(function, args) body
 
 *PARMS
 

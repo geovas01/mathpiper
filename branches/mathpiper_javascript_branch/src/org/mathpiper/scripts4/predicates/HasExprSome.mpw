@@ -23,7 +23,7 @@ HasExprSome(_expr, _atom, _look'list) _ IsEqual(expr, atom) <-- True;
 *CMD HasExprSome --- check for expression containing a subexpression
 *STD
 *CALL
-	HasExprSome(expr, x, list)
+        HasExprSome(expr, x, list)
 
 *PARMS
 

@@ -82,7 +82,7 @@
         If(iDebug And cr <= mRows, [NewLine();Tell(" ",cr);]);
         //Tell("   ",cr);
         //Tell("   ",am[cr]);
-        If( cr=mRows And IsZeroVector(am[cr]), Break() );
+        If( cr=?mRows And IsZeroVector(am[cr]), Break() );
     ];   // end while cr <= mRows
     
     // STEP 6:  convert to unique reduced row-echelon form

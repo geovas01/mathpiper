@@ -27,7 +27,7 @@ LocalSymbols(TrueFalse)
 *CMD LogicTest --- verifying equivalence of two expressions
 *STD
 *CALL
-	LogicTest(variables,expr1,expr2)
+        LogicTest(variables,expr1,expr2)
 
 *PARMS
 
@@ -47,15 +47,15 @@ It returns {True} or {False}.
 In> LogicTest({A,B,C},Not((Not A) And (Not B)),A Or B)
 Result: True
 In> LogicTest({A,B,C},Not((Not A) And (Not B)),A Or C)
-	******************
-	CommandLine: 1
+        ******************
+        CommandLine: 1
 
-	$TrueFalse4({A,B,C},Not(Not A And Not B))
-	 evaluates to
-	{{{False,False},{True,True}},{{True,True},{True,True}}}
-	 which differs from
-	{{{False,True},{False,True}},{{True,True},{True,True}}}
-	******************
+        $TrueFalse4({A,B,C},Not(Not A And Not B))
+         evaluates to
+        {{{False,False},{True,True}},{{True,True},{True,True}}}
+         which differs from
+        {{{False,True},{False,True}},{{True,True},{True,True}}}
+        ******************
 Result: False
 
 *SEE Simplify, CanProve, KnownFailure, Verify, TestMathPiper, LogicVerify

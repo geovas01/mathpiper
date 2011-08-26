@@ -2,7 +2,7 @@
 
 10 # GaussianGcd(n_IsGaussianInteger,m_IsGaussianInteger) <--
 [
-	If(N(Abs(m))=0,n, GaussianGcd(m,n - m*Round(n/m) ) );
+        If(N(Abs(m))=?0,n, GaussianGcd(m,n - m*Round(n/m) ) );
 ];
 
 %/mathpiper
@@ -13,7 +13,7 @@
 *CMD GaussianGcd --- greatest common divisor in Gaussian integers
 *STD
 *CALL
-	GaussianGcd(z,w)
+        GaussianGcd(z,w)
 
 *PARMS
 

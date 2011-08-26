@@ -1,4 +1,4 @@
-Sun Aug 21 12:56:19 EDT 2011.
+Fri Aug 26 00:32:22 EDT 2011.
 MathPiper version: js.024.
 Running all tests except the following: PSolve,Solve.
 Beginning of tests:
@@ -36,7 +36,7 @@ Testing <= in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>:
 
 
 ================================================================
-Testing = in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+Testing =? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
 
 
 ================================================================
@@ -147,7 +147,7 @@ Testing Coef in file </org/mathpiper/scripts4/univar/Coef.mpw>:
 ================================================================
 Testing Complex in file </org/mathpiper/scripts4/complex/Complex.mpw>: 
 
-Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=0 
+Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=?0 
 
 
 ================================================================
@@ -198,7 +198,7 @@ Testing Determinant in file </org/mathpiper/scripts4/linalg/Deteminant.mpw>:
 ================================================================
 Testing Differentiate in file </org/mathpiper/scripts4/deriv/Differentiate.mpw>: 
 
-Known failure: (Differentiate(z)Conjugate(z))=Undefined 
+Known failure: (Differentiate(z)Conjugate(z))=?Undefined 
 
 
 ================================================================
@@ -627,13 +627,13 @@ Testing Lcm in file </org/mathpiper/scripts4/stubs/Lcm.mpw>:
 ================================================================
 Testing Limit in file </org/mathpiper/scripts4/limit/Limit.mpw>: 
 
-Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=Exp(-phi) 
+Known failure: Limit(k,Infinity)((k-phi)/k)^(k+1/2)=?Exp(-phi) 
 
-Known failure: (Limit(x,Infinity)x^n/Ln(x))=Infinity 
+Known failure: (Limit(x,Infinity)x^n/Ln(x))=?Infinity 
 
-Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=a 
+Known failure: (Limit(x,0,Right)x^(Ln(a)/(1+Ln(x))))=?a 
 
-Known failure: (Limit(n,Infinity)n^5/2^n)=0 
+Known failure: (Limit(n,Infinity)n^5/2^n)=?0 
 
 
 ================================================================
@@ -749,7 +749,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(431*x+223*x^2+218*x^3+492*x^4+270*x^5+354,431*x+223*x^2+218*x^3+492*x^4+270*x^5+354)<0.01
+Dot(343*x+579*x^2+458*x^3+690*x^4+802*x^5+186,343*x+579*x^2+458*x^3+690*x^4+802*x^5+186)<0.01
  which differs from 
 True
 ******************
@@ -768,7 +768,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(753*x+901*x^2+266*x^3+749*x^4+849*x^5+657,753*x+901*x^2+266*x^3+749*x^4+849*x^5+657)<0.01
+Dot(645*x+260*x^2+684*x^3+853*x^4+65*x^5+461,645*x+260*x^2+684*x^3+853*x^4+65*x^5+461)<0.01
  which differs from 
 True
 ******************
@@ -787,7 +787,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(500*x+31*x^2+885*x^3+828*x^4+94*x^5+252,500*x+31*x^2+885*x^3+828*x^4+94*x^5+252)<0.01
+Dot(535*x+752*x^2+61*x^3+122*x^4+309*x^5+758,535*x+752*x^2+61*x^3+122*x^4+309*x^5+758)<0.01
  which differs from 
 True
 ******************
@@ -806,7 +806,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(745*x+825*x^2+726*x^3+85*x^4+14*x^5+928,745*x+825*x^2+726*x^3+85*x^4+14*x^5+928)<0.01
+Dot(557*x+562*x^2+672*x^3+161*x^4+474*x^5+840,557*x+562*x^2+672*x^3+161*x^4+474*x^5+840)<0.01
  which differs from 
 True
 ******************
@@ -825,7 +825,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(707*x+408*x^2+553*x^3+880*x^4+273*x^5+58,707*x+408*x^2+553*x^3+880*x^4+273*x^5+58)<0.01
+Dot(57*x+342*x^2+769*x^3+857*x^4+963*x^5+132,57*x+342*x^2+769*x^3+857*x^4+963*x^5+132)<0.01
  which differs from 
 True
 ******************
@@ -844,7 +844,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(264*x+105*x^2+916*x^3+200*x^4+669*x^5+810,264*x+105*x^2+916*x^3+200*x^4+669*x^5+810)<0.01
+Dot(203*x+861*x^2+191*x^3+957*x^4+836*x^5+276,203*x+861*x^2+191*x^3+957*x^4+836*x^5+276)<0.01
  which differs from 
 True
 ******************

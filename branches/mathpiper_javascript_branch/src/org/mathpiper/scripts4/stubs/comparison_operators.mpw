@@ -71,7 +71,7 @@ LocalSymbols(nNum,mNum)
 40 # (Sqrt(_x))_(x < 0) >= 0      <--  False;
 
 // Deal with negated terms
-50 # -(_x) < 0 <-- Not((x<0) Or (x=0));
+50 # -(_x) < 0 <-- Not((x<0) Or (x=?0));
 
 // Define each of {>,<=,>=} in terms of <
 50 # _n >  _m <-- m < n;
@@ -79,7 +79,7 @@ LocalSymbols(nNum,mNum)
 50 # _n >= _m <-- Not(n<m);
 
 
-Function("!=",{aLeft,aRight}) Not(aLeft=aRight);
+Function("!=",{aLeft,aRight}) Not(aLeft=?aRight);
 
 %/mathpiper
 
@@ -267,13 +267,13 @@ Result: False;
 
 
 
-%mathpiper_docs,name="=",categories="Operators"
+%mathpiper_docs,name="=?",categories="Operators"
 *CMD = --- test for equality of expressions
 *STD
 *CALL
         e1 = e2
 Precedence:
-*EVAL PrecedenceGet("=")
+*EVAL PrecedenceGet("=?")
 
 
 *PARMS
@@ -364,10 +364,10 @@ BuiltinPrecisionSet(10);
 
 
 
-%mathpiper,name="=",subtype="automatic_test"
+%mathpiper,name="=?",subtype="automatic_test"
 
-Verify(1e-5 = 2e-5, False);
-Verify(1e-5 = 1e-6, False);
+Verify(1e-5 =? 2e-5, False);
+Verify(1e-5 =? 1e-6, False);
 
 Verify(A<0,A<0);
 

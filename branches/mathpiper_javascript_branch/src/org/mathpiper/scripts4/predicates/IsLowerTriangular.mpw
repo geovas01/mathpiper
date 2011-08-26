@@ -10,7 +10,7 @@ IsLowerTriangular(A_IsMatrix) <-- (IsUpperTriangular(Transpose(A)));
 *CMD IsLowerTriangular --- test for a lower triangular matrix
 *STD
 *CALL
-	IsLowerTriangular(A)
+        IsLowerTriangular(A)
 
 *PARMS
 

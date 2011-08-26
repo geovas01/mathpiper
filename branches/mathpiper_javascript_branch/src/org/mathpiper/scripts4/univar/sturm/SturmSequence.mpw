@@ -19,9 +19,9 @@
   result;
 ];
 
-20 # SturmSequence(_p)_(Length(VarList(p))=1) <-- SturmSequence(p,VarList(p)[1]);
+20 # SturmSequence(_p)_(Length(VarList(p))=?1) <-- SturmSequence(p,VarList(p)[1]);
 
-30 # SturmSequence(_p) <-- Check(Length(VarList(p))=1,"Argument","Input must be Univariate Polynomial. ");
+30 # SturmSequence(_p) <-- Check(Length(VarList(p))=?1,"Argument","Input must be Univariate Polynomial. ");
 
 
 %/mathpiper

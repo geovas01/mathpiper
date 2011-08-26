@@ -15,7 +15,7 @@ DiscreteUniformDistribution(a_IsRationalOrNumber, b_IsRationalOrNumber)_(a>=b)
 *CMD DiscreteUniformDistribution --- Discrete uniform distribution
 *STD
 *CALL
-	DiscreteUniformDistribution(a, b)
+        DiscreteUniformDistribution(a, b)
 
 *PARMS
 

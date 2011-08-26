@@ -4,7 +4,7 @@
 
 10 # IsEquation(expr_IsAtom) <-- False;
 
-12 # IsEquation(_expr) <-- FunctionToList(expr)[1] = == ; 
+12 # IsEquation(_expr) <-- FunctionToList(expr)[1] =? == ;
 
 %/mathpiper
 
@@ -17,7 +17,7 @@
 
 *STD
 *CALL
-	IsEquation(expr)
+        IsEquation(expr)
 
 *PARMS
 

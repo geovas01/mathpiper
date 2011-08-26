@@ -6,7 +6,7 @@ RegressionLineConfidenceInterval(x,y,xValue,confidenceLevel) :=
     
     Check(IsList(y), "Argument", "The second argument must be a list.");
     
-    Check(Length(x) = Length(y), "Argument", "The lists for argument 1 and argument 2 must have the same length.");
+    Check(Length(x) =? Length(y), "Argument", "The lists for argument 1 and argument 2 must have the same length.");
     
     Check(confidenceLevel >=0 And confidenceLevel <=1, "Argument", "The confidence level must be >= 0 and <= 1.");
     

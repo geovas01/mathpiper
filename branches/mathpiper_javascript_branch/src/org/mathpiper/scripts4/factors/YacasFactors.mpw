@@ -19,7 +19,7 @@
 
 14 # Factors(p_IsGaussianInteger)        <-- GaussianFactors(p);
 
-20 # Factors(p_CanBeUni)_(Length(VarList(p)) = 1) <--
+20 # Factors(p_CanBeUni)_(Length(VarList(p)) =? 1) <--
 [
     Local(x,d,coeffs,nterms,factorsList,result);
     x := VarList(p)[1];
@@ -30,7 +30,7 @@
     nterms := Length(Select(coeffs, "IsNotZero"));
     /*  If nterms = 2, it is a binomial, and might be most easily
      *  factored by some special-purpose algorithms                      */
-    If( nterms = 2 And d > 2, 
+    If( nterms =? 2 And d > 2,
       [  result := FactorsBinomials(p);  ],    
       [  // nterms != 2, so try other techniques
         factorsList := BinaryFactors(p);
@@ -166,7 +166,7 @@
       ForEach(q,factrs)
       [
           If( InVerboseMode(), Tell(1,q) );
-          If( IsList(q) And Length(q)=2,
+          If( IsList(q) And Length(q)=?2,
               [
                   {a,b} := q;
                   If( InVerboseMode(), Echo("     ",{a,b}) );

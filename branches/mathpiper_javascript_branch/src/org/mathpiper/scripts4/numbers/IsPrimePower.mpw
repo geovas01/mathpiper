@@ -14,7 +14,7 @@
 *CMD IsPrimePower --- test for a power of a prime number
 *STD
 *CALL
-	IsPrimePower(n)
+        IsPrimePower(n)
 
 *PARMS
 
@@ -37,7 +37,7 @@ In> IsPrimePower(10)
 Result: False;
 In> Select(1 .. 50, "IsPrimePower")
 Result: {2,3,4,5,7,8,9,11,13,16,17,19,23,25,27,
-	  29,31,32,37,41,43,47,49};
+          29,31,32,37,41,43,47,49};
 
 *SEE IsPrime, Factors
 %/mathpiper_docs

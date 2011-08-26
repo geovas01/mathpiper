@@ -14,7 +14,7 @@ UnFence("MacroSubstitute",3);
 Rulebase("MacroSubstitute",{body});
 UnFence("MacroSubstitute",1);
 
-Rule("MacroSubstitute",1,1,`ApplyFast(predicate,{Hold(Hold(@body))}) = True)
+Rule("MacroSubstitute",1,1,`ApplyFast(predicate,{Hold(Hold(@body))}) =? True)
 [
   `ApplyFast(change,{Hold(Hold(@body))});
 ];

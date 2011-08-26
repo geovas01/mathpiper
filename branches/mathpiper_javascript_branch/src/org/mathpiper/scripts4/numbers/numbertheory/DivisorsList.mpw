@@ -15,7 +15,7 @@ DivisorsList(n_IsPositiveInteger) <--
       oldresult := result;
       For (k:=1,k<=f[2],k++)
         ForEach (x,oldresult)
-	  result:=Append(result,x*f[1]^k);
+          result:=Append(result,x*f[1]^k);
     ];
   result;
 ];
@@ -28,7 +28,7 @@ DivisorsList(n_IsPositiveInteger) <--
 *CMD DivisorsList --- the list of divisors
 *STD
 *CALL
-	DivisorsList(n)
+        DivisorsList(n)
 *PARMS
 
 {n} -- positive integer
@@ -38,7 +38,7 @@ DivisorsList(n_IsPositiveInteger) <--
 {DivisorsList} creates a list of the divisors of $n$.
 This is useful for loops like
 
-	ForEach(d,DivisorsList(n))
+        ForEach(d,DivisorsList(n))
 
 *E.G.
 

@@ -7,7 +7,7 @@
    jSolveUniPoly(lhs-rhs,var);
 ];
 
-15 # jSolveUniPoly( poly_IsPolynomial, var_IsAtom )_(Length(VarList(poly))=1) <--
+15 # jSolveUniPoly( poly_IsPolynomial, var_IsAtom )_(Length(VarList(poly))=?1) <--
 [
    If(InVerboseMode(),Tell(jSolveUniPoly,{poly,var}));
    Local(factorList,f,fac,mult,ii,answer);

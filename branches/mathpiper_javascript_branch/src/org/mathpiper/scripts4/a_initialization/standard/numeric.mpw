@@ -51,7 +51,7 @@ LocalSymbols(numericMode)
 
     BuiltinPrecisionSet(previousPrecision);
 
-    Check(exception = False, exception["type"], exception["message"]);
+    Check(exception =? False, exception["type"], exception["message"]);
 
     numericResult;
 

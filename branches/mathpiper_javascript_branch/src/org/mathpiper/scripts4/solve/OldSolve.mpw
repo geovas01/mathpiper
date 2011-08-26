@@ -64,14 +64,14 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 //Echo("varlist = ",vlist);
 //Echo();
 
-      If(Count(vlist,var[i]) = 1,
+      If(Count(vlist,var[i]) =? 1,
          [
            sub := FunctionToList(eq[j]);
            sub := sub[2]-sub[3];
 //Echo("using ",sub);
            sub:=SuchThat(sub,var[i]);
            If(InVerboseMode(), Echo({"From ",eq[j]," it follows that ",var[i]," = ",sub}));
-           If(SolveFullSimplify=True,
+           If(SolveFullSimplify=?True,
              result:=Simplify(Subst(var[i],sub)result),
              result[1][i]:=sub
              );
@@ -87,13 +87,13 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
              Local(original);
              original:=eq[k];
              eq[k]:=Subst(var[i],sub)eq[k];
-             If(Simplify(Simplify(eq[k])) = (0 == 0),
+             If(Simplify(Simplify(eq[k])) =? (0 == 0),
                eq[k] := (0 == 0),
                Solve'SimpleBackSubstitution'FindAlternativeForms(eq[k])
                );
 //             eq[k]:=Simplify(eq[k]);
 //             eq[k]:=Simplify(eq[k]); //@@@??? TODO I found one example where simplifying twice gives a different result from simplifying once!
-             If(original!=(0==0) And eq[k] = (0 == 0),reset:=True);
+             If(original!=(0==0) And eq[k] =? (0 == 0),reset:=True);
              If(InVerboseMode(), Echo({"   ",original," simplifies to ",eq[k]}));
            ]);
            nreq:=Length(eq);
@@ -126,7 +126,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 
     Echo(eqSimplified);
 
-    If(eqSimplified = zeroeq,
+    If(eqSimplified =? zeroeq,
     [
       DestructiveAppend(tested,Map("==",{var,item}));
     ]);

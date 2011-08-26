@@ -1,6 +1,6 @@
 %mathpiper,def="IsSquareFree"
 
-IsSquareFree(n_IsInteger)	<-- ( Moebius(n) != 0 );
+IsSquareFree(n_IsInteger)        <-- ( Moebius(n) != 0 );
 
 %/mathpiper
 
@@ -10,7 +10,7 @@ IsSquareFree(n_IsInteger)	<-- ( Moebius(n) != 0 );
 *CMD IsSquareFree --- test for a square-free number
 *STD
 *CALL
-	IsSquareFree(n)
+        IsSquareFree(n)
 
 *PARMS
 

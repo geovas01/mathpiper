@@ -13,7 +13,7 @@ SquareFreeDivisorsList(n_IsPositiveInteger) <--
     [
       oldresult := result;
         ForEach (x,oldresult)
-	  result:=Append(result,x*f[1]);
+          result:=Append(result,x*f[1]);
     ];
   result;
 ];
@@ -26,7 +26,7 @@ SquareFreeDivisorsList(n_IsPositiveInteger) <--
 *CMD SquareFreeDivisorsList --- the list of square-free divisors
 *STD
 *CALL
-	SquareFreeDivisorsList(n)
+        SquareFreeDivisorsList(n)
 *PARMS
 
 {n} -- positive integer
