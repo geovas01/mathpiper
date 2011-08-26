@@ -128,7 +128,7 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
         [
           Local(result);
           result:= Deriv(var)ListToFunction({ToAtom(any),var});
-          Type(result) != "Deriv";
+          Type(result) !=? "Deriv";
         ]
       )           <--
       [

@@ -18,7 +18,7 @@
 15 # Determinant(_matrix)_(Length(Select(Diagonal(matrix), "IsZero")) > 0) <-- SymbolicDeterminant(matrix);
 
 // Not numeric entries, so lets treat it symbolically.
-16 # Determinant(_matrix)_(VarList(matrix) != {}) <-- SymbolicDeterminant(matrix);
+16 # Determinant(_matrix)_(VarList(matrix) !=? {}) <-- SymbolicDeterminant(matrix);
 
 20 # Determinant(_matrix) <-- GaussianDeterminant(matrix);
 

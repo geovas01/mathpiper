@@ -58,7 +58,7 @@
         ans:=SolveNonlinearSystem( exprns, vars )
     );
 
-    If(ans != {}, ans := Map("==",{vars,ans}));
+    If(ans !=? {}, ans := Map("==",{vars,ans}));
 
     If(InVerboseMode(),Tell("",ans));
 

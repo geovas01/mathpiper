@@ -5,7 +5,7 @@ Remove(list, expression) :=
    Local(result);
    Bind(result,{});
    ForEach(item,list)
-   If(item != expression, DestructiveAppend(result,item));
+   If(item !=? expression, DestructiveAppend(result,item));
    result;
 ];
 

@@ -30,7 +30,7 @@ Groebner(f_IsList) <--
   For(j:=i+1,j<=nr,j++)
   [
     r := (MultiDivide(MultiS(f[i],f[j],f[i]),f)[2]);
-    If(NormalForm(r) != 0, S:= r:S);
+    If(NormalForm(r) !=? 0, S:= r:S);
     f:=Concat(f,S);
     S:={};
     nr:=Length(f);

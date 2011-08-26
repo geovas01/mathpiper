@@ -46,7 +46,7 @@ LocalSymbols(ZoomInOnce)
             
             Echo(numbersString);
             
-            If(iteration != depth,[Space(nextZoomIndex);Echo("|");]);
+            If(iteration !=? depth,[Space(nextZoomIndex);Echo("|");]);
             
             lowValue := numbers[randomStep];
             

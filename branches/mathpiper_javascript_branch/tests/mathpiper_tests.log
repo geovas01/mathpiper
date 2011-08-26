@@ -1,10 +1,10 @@
-Fri Aug 26 00:32:22 EDT 2011.
+Fri Aug 26 01:48:54 EDT 2011.
 MathPiper version: js.024.
 Running all tests except the following: PSolve,Solve.
 Beginning of tests:
 
 ================================================================
-Testing != in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+Testing !=? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
 
 
 ================================================================
@@ -78,12 +78,9 @@ Testing Arg in file </org/mathpiper/scripts4/complex/Arg.mpw>:
 ================================================================
 Testing arithmetic in file </org/mathpiper/scripts4/a_initialization/stdarith/arithmetic_test.mpw>: 
 
-
 Test suite for Test arithmetic : 
 
-
 Test suite for Basic calculations : 
-
 
 Test suite for Testing math stuff : 
 
@@ -121,7 +118,6 @@ Testing CanBeUni in file </org/mathpiper/scripts4/univar/CanBeUni.mpw>:
 ================================================================
 Testing CanProve in file </org/mathpiper/scripts4/logic/CanProve.mpw>: 
 
-
 Test suite for Propositional logic theorem prover: CanProve : 
 
 
@@ -135,7 +131,6 @@ Testing CForm in file </org/mathpiper/scripts4/outputforms/CForm.mpw>:
 
 ================================================================
 Testing CNF in file </org/mathpiper/scripts4/logic/CNF.mpw>: 
-
 
 Test suite for CNF : 
 
@@ -178,7 +173,6 @@ Testing Cot in file </org/mathpiper/scripts4/stdfuncs/Cot.mpw>:
 
 ================================================================
 Testing Cyclotomic in file </org/mathpiper/scripts4/univar/cyclotomic/Cyclotomic.mpw>: 
-
 
 Test suite for Cyclotomic Polynomials : 
 
@@ -468,14 +462,13 @@ Testing Gamma in file </org/mathpiper/scripts4/specfunc/Gamma.mpw>:
 ================================================================
 Testing GaussianFactors in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianFactors.mpw>: 
 
-
 Test suite for Gaussian Integers : 
 
 
 ================================================================
 Testing Gcd in file </org/mathpiper/scripts4/stubs/Gcd.mpw>: 
 
-Known failure: Gcd(10,3.3)!=3.3 And Gcd(10,3.3)!=1 
+Known failure: Gcd(10,3.3)!=?3.3 And Gcd(10,3.3)!=?1 
 
 
 ================================================================
@@ -643,12 +636,9 @@ Testing linear_algebra in file </org/mathpiper/scripts4/linalg/linear_algebra_te
 
 --VectorProducts
 
-
 Test suite for Inproduct : 
 
-
 Test suite for Identity matrices : 
-
 
 Test suite for Check linear algebra : 
 
@@ -671,7 +661,6 @@ Test suite for Check linear algebra :
 
 ================================================================
 Testing lists in file </org/mathpiper/scripts4/lists/lists_tests.mpw>: 
-
 
 Test suite for VarList : 
 
@@ -749,7 +738,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(343*x+579*x^2+458*x^3+690*x^4+802*x^5+186,343*x+579*x^2+458*x^3+690*x^4+802*x^5+186)<0.01
+Dot(670*x+271*x^2+336*x^3+819*x^4+321*x^5+16,670*x+271*x^2+336*x^3+819*x^4+321*x^5+16)<0.01
  which differs from 
 True
 ******************
@@ -768,7 +757,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(645*x+260*x^2+684*x^3+853*x^4+65*x^5+461,645*x+260*x^2+684*x^3+853*x^4+65*x^5+461)<0.01
+Dot(163*x+647*x^2+42*x^3+284*x^4+204*x^5+698,163*x+647*x^2+42*x^3+284*x^4+204*x^5+698)<0.01
  which differs from 
 True
 ******************
@@ -787,7 +776,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(535*x+752*x^2+61*x^3+122*x^4+309*x^5+758,535*x+752*x^2+61*x^3+122*x^4+309*x^5+758)<0.01
+Dot(45*x+753*x^2+203*x^3+292*x^4+643*x^5+728,45*x+753*x^2+203*x^3+292*x^4+643*x^5+728)<0.01
  which differs from 
 True
 ******************
@@ -806,7 +795,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(557*x+562*x^2+672*x^3+161*x^4+474*x^5+840,557*x+562*x^2+672*x^3+161*x^4+474*x^5+840)<0.01
+Dot(941*x+786*x^2+251*x^3+632*x^4+898*x^5+806,941*x+786*x^2+251*x^3+632*x^4+898*x^5+806)<0.01
  which differs from 
 True
 ******************
@@ -825,7 +814,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(57*x+342*x^2+769*x^3+857*x^4+963*x^5+132,57*x+342*x^2+769*x^3+857*x^4+963*x^5+132)<0.01
+Dot(579*x+872*x^2+568*x^3+198*x^4+293*x^5+963,579*x+872*x^2+568*x^3+198*x^4+293*x^5+963)<0.01
  which differs from 
 True
 ******************
@@ -844,7 +833,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(203*x+861*x^2+191*x^3+957*x^4+836*x^5+276,203*x+861*x^2+191*x^3+957*x^4+836*x^5+276)<0.01
+Dot(183*x+527*x^2+213*x^3+682*x^4+498*x^5+949,183*x+527*x^2+213*x^3+682*x^4+498*x^5+949)<0.01
  which differs from 
 True
 ******************
@@ -872,7 +861,6 @@ Testing NFunction in file </org/mathpiper/scripts4/functional/NFunction.mpw>:
 
 ================================================================
 Testing NormalForm in file </org/mathpiper/scripts4/multivar/sparsenomial/sparsenomial.mpw>: 
-
 
 Test suite for Test arithmetic: NormalForm : 
 
@@ -958,7 +946,6 @@ Testing open_math in file </org/mathpiper/scripts4/outputforms/openmath.mpw>:
 ================================================================
 Testing ortho_poly in file </org/mathpiper/scripts4/orthopoly/orthopoly.mpw>: 
 
-
 Test suite for Testing orthogonal polynomials : 
 
 
@@ -996,7 +983,6 @@ Testing RabinMiller in file </org/mathpiper/scripts4/rabinmiller/RabinMiller.mpw
 
 ================================================================
 Testing RadSimp in file </org/mathpiper/scripts4/radsimp/RadSimp.mpw>: 
-
 
 Test suite for Testing simplifying nested radicals : 
 
@@ -1081,5 +1067,4 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 GlobalVariables: Result: True
 
 Side Effects:
-Warning: the mapping for logic1:not was already defined as !==, but is redefined now as Not
-{$a1094,$a15,$assumptions65,$b1094,$b15,$bernoulli1Threshold77,$BrentCacheOfConstantsN56,$CacheOfConstantsN13,$CFormAllFunctions39,$cformMathFunctions2,$cformRegularOps1,$cindent3,$ClearScreenString23,$complexReduce41,$Debug'FileLines23,$Debug'FileLoaded23,$Debug'NrLines23,$ErrorTableau24,$formulaMaxWidth75,$GlobalStack52,$intpred50,$knownOrthoPoly36,$knownRNGDists53,$knownRNGEngines53,$lastcoef76,$LoadResult,$LocResult37,$mathExpThreshold58,$mNum8,$n'max48,$nNum8,$NthRoot'Table22,$numericMode9,$omindent18,$omsymbol20,$omsymbolreverse20,$omtoken19,$options59,$options66,$p01998,$p1093,$p11998,$p21998,$p31998,$p41998,$p49,$pc241998,$pc351998,$pc461998,$pc571998,$pc681998,$pj1998,$pj401998,$pj501998,$pj511998,$pj521998,$pj531998,$pj541998,$pju01998,$pp1998,$RandSeed54,$res38,$rFormMathFunctions71,$rFormRegularOps70,$RIndent72,$simple1094,$st1092,$TeXFormGreekLetters83,$TeXFormMathFunctions284,$TeXFormMathFunctions84,$TeXFormRegularOps83,$TeXFormRegularPrefixOps83,$TeXFormSpecialNames83,$Verbose14,%,anchor,bullet,bullets,button,caption,form,frame,frameset,htmldir,I,iDebug,link,newline,site,table,textarea,textfield} 
+{$a1094,$a15,$assumptions65,$b1094,$b15,$bernoulli1Threshold77,$BrentCacheOfConstantsN55,$CacheOfConstantsN13,$CFormAllFunctions38,$cformMathFunctions2,$cformRegularOps1,$cindent3,$ClearScreenString22,$complexReduce40,$Debug'FileLines22,$Debug'FileLoaded22,$Debug'NrLines22,$ErrorTableau23,$formulaMaxWidth75,$GlobalStack51,$intpred49,$knownOrthoPoly35,$knownRNGDists52,$knownRNGEngines52,$lastcoef76,$LoadResult,$LocResult36,$mathExpThreshold58,$mNum8,$n'max47,$nNum8,$NthRoot'Table21,$numericMode9,$omindent18,$omsymbol20,$omsymbolreverse20,$omtoken19,$options59,$options66,$p01998,$p1093,$p11998,$p21998,$p31998,$p41998,$p48,$pc241998,$pc351998,$pc461998,$pc571998,$pc681998,$pj1998,$pj401998,$pj501998,$pj511998,$pj521998,$pj531998,$pj541998,$pju01998,$pp1998,$RandSeed53,$res37,$rFormMathFunctions71,$rFormRegularOps70,$RIndent72,$simple1094,$st1092,$TeXFormGreekLetters83,$TeXFormMathFunctions284,$TeXFormMathFunctions84,$TeXFormRegularOps83,$TeXFormRegularPrefixOps83,$TeXFormSpecialNames83,$Verbose14,%,anchor,bullet,bullets,button,caption,form,frame,frameset,htmldir,I,iDebug,link,newline,site,table,textarea,textfield} 

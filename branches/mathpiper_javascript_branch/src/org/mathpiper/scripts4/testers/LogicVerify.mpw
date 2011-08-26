@@ -2,7 +2,7 @@
 
 Function("LogicVerify",{aLeft,aRight})
 [
-  If(aLeft != aRight,
+  If(aLeft !=? aRight,
     Verify(CanProve(aLeft => aRight),True)
   );
 ];

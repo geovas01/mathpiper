@@ -10,7 +10,7 @@
   Bind(patterns, LocProcess(patterns));
   Bind(old, expression);
   Bind(expression, MacroSubstitute(expression,"LocPredicate","LocChange"));
-  While (expression != old)
+  While (expression !=? old)
   [
     Bind(old, expression);
     Bind(expression, MacroSubstitute(expression,"LocPredicate","LocChange"));

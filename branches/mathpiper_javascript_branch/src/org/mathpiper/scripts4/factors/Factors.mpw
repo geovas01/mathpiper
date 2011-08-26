@@ -38,7 +38,7 @@
 ];
 
 
-20 # Factors(p_IsRational)_(Denominator(p) != 1) <-- 
+20 # Factors(p_IsRational)_(Denominator(p) !=? 1) <-- 
 [
     If(InVerboseMode(),Tell("Factors_ratNum",p));
     Local(sgn,num,den,fn,fd,f,ans);
@@ -97,7 +97,7 @@
         );
     ];
     If(InVerboseMode(),Tell("   ",{newRes,accum}));
-    If(accum != 1, DestructiveInsert(newRes,1,{accum,1}));
+    If(accum !=? 1, DestructiveInsert(newRes,1,{accum,1}));
     newRes;
 ];
 

@@ -7,7 +7,7 @@ Function("DivTermList",{a,b})
  Local(q,nq,t,c,begining);
  q := {};
  // a[1][1] is the degree of a, b[1][1] is the degree of b
- While ((a!={}) And a[1][1]>=b[1][1])
+ While ((a!=?{}) And a[1][1]>=b[1][1])
   [
      begining := 1;
      If(InVerboseMode(),Echo("degree=",a[1][1]));

@@ -11,7 +11,7 @@ IsError() <--
 IsError(error'class_IsString) <--
 [
         CheckErrorTableau();
-        GetErrorTableau()[error'class] != Empty;
+        GetErrorTableau()[error'class] !=? Empty;
 ];
 
 %/mathpiper

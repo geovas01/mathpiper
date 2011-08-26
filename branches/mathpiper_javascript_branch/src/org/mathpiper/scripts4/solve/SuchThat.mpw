@@ -7,7 +7,7 @@
   Local(result,args);
   result:=False;
   args:=Rest(FunctionToList(body));
-  While(args != {})
+  While(args !=? {})
   [
     result:=ContainsExpression(First(args),expr);
     args:=Rest(args);

@@ -34,7 +34,7 @@ GetError(error'class_IsString) <--
         Local(error);
         error := GetErrorTableau()[error'class];
         If(
-                error != Empty,
+                error !=? Empty,
                 error,
                 False
         );

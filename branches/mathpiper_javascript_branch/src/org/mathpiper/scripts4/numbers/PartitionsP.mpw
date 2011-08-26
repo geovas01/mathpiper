@@ -108,7 +108,7 @@
 - 2*Pi*I*h*n/k );
                                            ];
                            ];
-                           If(A!=0, term:= N(A*Sqrt(k)*(Deriv(m) Sinh(C*lambda)/lambda) Where m==n ),term:=0 );
+                           If(A!=?0, term:= N(A*Sqrt(k)*(Deriv(m) Sinh(C*lambda)/lambda) Where m==n ),term:=0 );
 //                           Echo("Term ",k,"is ",N(term/(Pi*Sqrt(2))));
                            pa:=pa+term;
 //                           Echo("result", N(pa/(Pi*Sqrt(2))));

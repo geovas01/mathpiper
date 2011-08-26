@@ -170,7 +170,7 @@ FSimpFactor(flist):=
   Local(rlist);
   rlist:={{},{}};
   /* Loop over each term */
-  While(flist != {})
+  While(flist !=? {})
   [
     Local(term);
 FLog("simpfact",flist);

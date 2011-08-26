@@ -1,4 +1,4 @@
-%mathpiper,def="<;>;<=;>=;!="
+%mathpiper,def="<;>;<=;>=;!=?"
 
 /* def file definitions
 =
@@ -6,7 +6,7 @@
 >
 <=
 >=
-!=
+!=?
 
 */
 
@@ -42,8 +42,8 @@ LocalSymbols(nNum,mNum)
 20 #  (_n < -Infinity)_(Not(IsInfinity(n))) <-- False;
 
 // Lots of known identities go here
-30 # (_n1/_n2) < 0  <--  (n1 < 0) != (n2 < 0);
-30 # (_n1*_n2) < 0  <--  (n1 < 0) != (n2 < 0);
+30 # (_n1/_n2) < 0  <--  (n1 < 0) !=? (n2 < 0);
+30 # (_n1*_n2) < 0  <--  (n1 < 0) !=? (n2 < 0);
 
 // This doesn't sadly cover the case where a and b have opposite signs
 30 # ((_n1+_n2) < 0)_((n1 < 0) And (n2 < 0))  <--  True;
@@ -65,8 +65,8 @@ LocalSymbols(nNum,mNum)
 // Functions that need special treatment with more than one of the comparison
 // operators as they always return true or false.  For these we must define
 // both the `<' and `>=' operators.
-40 # (Complex(_a,_b) <  0)_(b!=0) <--  False;
-40 # (Complex(_a,_b) >= 0)_(b!=0) <--  False;
+40 # (Complex(_a,_b) <  0)_(b!=?0) <--  False;
+40 # (Complex(_a,_b) >= 0)_(b!=?0) <--  False;
 40 # (Sqrt(_x))_(x < 0) <  0      <--  False;
 40 # (Sqrt(_x))_(x < 0) >= 0      <--  False;
 
@@ -79,7 +79,7 @@ LocalSymbols(nNum,mNum)
 50 # _n >= _m <-- Not(n<m);
 
 
-Function("!=",{aLeft,aRight}) Not(aLeft=?aRight);
+Function("!=?",{aLeft,aRight}) Not(aLeft=?aRight);
 
 %/mathpiper
 
@@ -234,13 +234,13 @@ Result: False
 
 
 
-%mathpiper_docs,name="!=",categories="Operators"
-*CMD != --- test for "not equal"
+%mathpiper_docs,name="!=?",categories="Operators"
+*CMD !=? --- test for "not equal"
 *STD
 *CALL
-        e1 != e2
+        e1 !=? e2
 Precedence:
-*EVAL PrecedenceGet("!=")
+*EVAL PrecedenceGet("!=?")
 
 
 *PARMS
@@ -253,13 +253,13 @@ Both expressions are evaluated and compared. If they turn out to be
 equal, the result is {False}. Otherwise, the result
 is {True}.
 
-The expression {e1 != e2} is equivalent to {Not(e1 = e2)}.
+The expression {e1 !=? e2} is equivalent to {Not(e1 = e2)}.
 
 *E.G.
 
-In> 1 != 2;
+In> 1 !=? 2;
 Result: True;
-In> 1 != 1;
+In> 1 !=? 1;
 Result: False;
 
 *SEE =
@@ -304,7 +304,7 @@ Result: False;
 In> Expand(e1) = e2;
 Result: True;
 
-*SEE !=, Equals
+*SEE !=?, Equals
 %/mathpiper_docs
 
 
@@ -379,12 +379,12 @@ Verify(A>0,A>0);
 
 
 
-%mathpiper,name="!=",subtype="automatic_test"
+%mathpiper,name="!=?",subtype="automatic_test"
 
-Verify((1==1) != True, True);
-Verify((a==a) != True, True);
-Verify((1==2) != False, True);
-Verify((a==2) != False, True);
+Verify((1==1) !=? True, True);
+Verify((a==a) !=? True, True);
+Verify((1==2) !=? False, True);
+Verify((a==2) !=? False, True);
 
 %/mathpiper
 

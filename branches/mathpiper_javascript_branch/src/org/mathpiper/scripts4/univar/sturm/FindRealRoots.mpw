@@ -46,7 +46,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
         If(iDebug,Tell("         ",{a,b,c}));
         r := Fail;
         If(iDebug,Tell("         newt1",`Hold(Newton(@p,x,@c,@prec,@a,@b))));
-        if (a != b) [r := `Newton(@p,x,@c,prec,a,b);];
+        if (a !=? b) [r := `Newton(@p,x,@c,prec,a,b);];
         If(iDebug,Tell("         newt2",r));
         if (r =? Fail)
           [

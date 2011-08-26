@@ -28,7 +28,7 @@ UnFence("Where",2);
      <--
      [
        Local(head,rest);
-       While (list != {})
+       While (list !=? {})
        [
           head:=First(list);
           body := `(@body Where @head);

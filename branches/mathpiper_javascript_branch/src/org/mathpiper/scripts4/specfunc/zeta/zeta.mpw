@@ -79,7 +79,7 @@ Zeta3() :=
       old'result := -1;
       term := 1;
     ],
-    old'result!=result,
+    old'result!=?result,
     k++
     )
     [

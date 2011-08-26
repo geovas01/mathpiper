@@ -19,7 +19,7 @@
   result:={};
   from:=Minimum(curl,curr);
 
-  While(curl<curr And left != {})
+  While(curl<curr And left !=? {})
   [
     DestructiveAppend(result,First(left));
     left:=Rest(left);
@@ -30,7 +30,7 @@
     DestructiveAppend(result,0);
     curl++;
   ];
-  While(curr<curl And right != {})
+  While(curr<curl And right !=? {})
   [
     DestructiveAppend(result,-First(right));
     right:=Rest(right);
@@ -41,7 +41,7 @@
     DestructiveAppend(result,0);
     curr++;
   ];
-  While(left != {} And right != {})
+  While(left !=? {} And right !=? {})
   [
     DestructiveAppend(result,First(left)-First(right));
     left  := Rest(left);
@@ -49,12 +49,12 @@
   ];
 
 
-  While(left != {})
+  While(left !=? {})
   [
     DestructiveAppend(result,First(left));
     left  := Rest(left);
   ];
-  While(right != {})
+  While(right !=? {})
   [
     DestructiveAppend(result,-First(right));
     right := Rest(right);

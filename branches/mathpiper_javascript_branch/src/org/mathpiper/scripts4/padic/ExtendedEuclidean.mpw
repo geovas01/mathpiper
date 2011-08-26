@@ -30,7 +30,7 @@ ExtendedEuclidean(_f,_g) <--
 
    Local(q,newr,news,newt);
    newr:=1;
-   While(newr != 0)
+   While(newr !=? 0)
    [
      newr:=Rem(r[i],r[i+1]);
      q   :=Quotient(r[i],r[i+1]);

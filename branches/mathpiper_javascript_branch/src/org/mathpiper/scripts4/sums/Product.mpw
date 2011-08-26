@@ -4,7 +4,7 @@ Function("Product",{sumvar,sumfrom,sumto,sumbody})
 [
    Local(sumi,sumsum);
    sumsum:=1;
-   For(sumi:=sumfrom,sumi<=sumto And sumsum!=0,sumi++)
+   For(sumi:=sumfrom,sumi<=sumto And sumsum!=?0,sumi++)
        [
         MacroLocal(sumvar);
         MacroBind(sumvar,sumi);

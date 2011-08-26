@@ -44,6 +44,6 @@ Result:
 %mathpiper,name="LogN",subtype="automatic_test"
 
 // LogN used to hang on *all* input
-Verify(LogN(2)!=0,True);
+Verify(LogN(2)!=?0,True);
 
 %/mathpiper

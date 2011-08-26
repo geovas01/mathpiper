@@ -23,7 +23,7 @@ DoUnitSubsumptionAndResolution(_list) <--
           // found a unit clause, {x}, not use it to modify other clauses
           For(j:=1, (Not isFalse And Not isTrue) And j <= Length(list), j++)
           [
-              If(i !=j, [
+              If(i !=?j, [
                 Local(deletedClause); Bind(deletedClause, False);
                 For(k:=1, (Not isFalse And Not isTrue And Not deletedClause) And k <= Length(list[j]),  k++)
                 [

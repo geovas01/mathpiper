@@ -24,7 +24,7 @@ MatrixRowSwap( M_IsMatrix, iRow1_IsPositiveInteger, iRow2_IsPositiveInteger )_
     If( Not IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixRowSwap,{M,iRow1,iRow2}) );
     Local(row1,row2);
-    If( iRow1 != iRow2, 
+    If( iRow1 !=? iRow2, 
        [ 
          row1 := MatrixRow(M,iRow1);         row2 := MatrixRow(M,iRow2);
          DestructiveReplace(M,iRow1,row2);   DestructiveReplace(M,iRow2,row1);

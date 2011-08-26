@@ -133,7 +133,7 @@ Macro(DebugEnter,{})
   [
     Local(file,line);
     file := DebugFile(CustomEval'Expression());
-    If(filebreakpoints[file] != Empty,
+    If(filebreakpoints[file] !=? Empty,
     [
       line := DebugLine(CustomEval'Expression());
       If(Not(file =? debugstepoverfile And line =? debugstepoverline) And

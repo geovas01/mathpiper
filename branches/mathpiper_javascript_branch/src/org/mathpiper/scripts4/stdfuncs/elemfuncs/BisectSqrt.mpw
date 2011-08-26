@@ -35,7 +35,7 @@
   u2 := u << l2;
 
   // Now for each lower bit:
-  While( l2 != 0 )
+  While( l2 !=? 0 )
   [
           l2--;
      // Get that bit in v, and v2 == v^2.

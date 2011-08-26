@@ -142,7 +142,7 @@ Function(Fct,{poly,var})
     Local(q,r,next);
     q:=poly;
     r:=deriv;
-    While(r != {})
+    While(r !=? {})
     [
 //Echo(q,r);
       next := MkfactD(q,r)[2];
@@ -227,7 +227,7 @@ Function(Fct,{poly,var})
   Bind(poly,gcd*anmul*poly);
   //TODO had to add this if statement, what was andiv again, and why would it become zero? This happens with for example Factor(2*x^2)
   If(Not IsZero(unrat * andiv ),Bind(poly,poly/(unrat * andiv )));
-  If(poly != {1},
+  If(poly !=? {1},
   [
     result:={(Add(poly*var^(0 .. (Length(poly)-1)))),1}:result;
   ]);

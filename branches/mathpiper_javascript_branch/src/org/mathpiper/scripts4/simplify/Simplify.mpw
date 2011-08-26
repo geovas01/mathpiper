@@ -163,7 +163,7 @@ Verify( Simplify((a^2+b^2)/(2*a)), (a^2+b^2)/(2*a) );
 
 
 /* Bug #10: I don't know what we want to return, but '0' is definitely wrong! */
-Verify(Simplify(x^(-2)/(1-x)^3) != 0, True);
+Verify(Simplify(x^(-2)/(1-x)^3) !=? 0, True);
 
 
 /* In MatchLinear and MatchPureSquare, the matched coefficients were

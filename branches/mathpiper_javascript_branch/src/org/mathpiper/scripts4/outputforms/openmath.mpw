@@ -93,13 +93,13 @@ LocalSymbols(omindent) [
 10 # OMFormExpression(i_IsString)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
 11 # OMFormExpression(i_IsInteger) <-- OMEcho("<OMI>":ToString(i):"</OMI>");
 12 # OMFormExpression(i_IsNumber)  <-- OMEcho("<OMF dec=\"":ToString(i):"\"/>");
-13 # OMFormExpression(i_IsConstant)_(OMSymbol()[ ToString(i) ] != Empty)
+13 # OMFormExpression(i_IsConstant)_(OMSymbol()[ ToString(i) ] !=? Empty)
      <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
                 :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
                 );
 14 # OMFormExpression(i_IsConstant)// Should we rather evaluate it?
      <-- OMEcho("<OMV name=\"":ToString(i):"\"/>");
-15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ ToString(i) ] != Empty)
+15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ ToString(i) ] !=? Empty)
      <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
                 :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
                 );
@@ -180,7 +180,7 @@ LocalSymbols(omindent) [
      OMEcho("<OMS cd=\"piper\" name=\"":Type(function):"\"/>");
      If(arity > 0, ForEach(arg, function) OMFormExpression(arg));
      ];
-10 # OMFormFunction(function_IsFunction)_(OMSymbol()[ Type(function) ] != Empty)
+10 # OMFormFunction(function_IsFunction)_(OMSymbol()[ Type(function) ] !=? Empty)
      <--
      [
      Local(symbolDef);
@@ -349,7 +349,7 @@ PipeFromString(str:" EndOfFile")
   Local(result);
   XmlTokenizer();
   OMNextToken();
-  While(OMToken() != "EndOfFile")
+  While(OMToken() !=? "EndOfFile")
   [
     Echo("Exploded ",OMToken());
     OMNextToken();
@@ -428,7 +428,7 @@ PipeFromString(str:" EndOfFile")
   Local(result, new);
   result:={};
   OMNextToken();
-  While (OMToken() != XmlTag("OMA",{},"Close"))
+  While (OMToken() !=? XmlTag("OMA",{},"Close"))
   [
     new:=ReadOMOBJ(OMToken());
     DestructiveAppend(result,new);
@@ -442,7 +442,7 @@ PipeFromString(str:" EndOfFile")
   Local(result, new);
   result:={};
   OMNextToken();
-  While (OMToken() != XmlTag("OMBIND",{},"Close"))
+  While (OMToken() !=? XmlTag("OMBIND",{},"Close"))
   [
     new:=ReadOMOBJ(OMToken());
     DestructiveAppend(result,new);
@@ -455,7 +455,7 @@ PipeFromString(str:" EndOfFile")
   Local(result, new);
   result:={};
   OMNextToken();
-  While (OMToken() != XmlTag("OMBVAR",{},"Close"))
+  While (OMToken() !=? XmlTag("OMBVAR",{},"Close"))
   [
     new:=ReadOMOBJ(OMToken());
     DestructiveAppend(result,new);
@@ -465,7 +465,7 @@ PipeFromString(str:" EndOfFile")
 ];
 
 10 # OMApplyReverseMapping(piperExp_IsFunction) <-- piperExp;
-10 # OMApplyReverseMapping(piperExp_IsFunction)_(OMSymbol()[ Type(piperExp) ] != Empty)
+10 # OMApplyReverseMapping(piperExp_IsFunction)_(OMSymbol()[ Type(piperExp) ] !=? Empty)
      <--
      [
      Local(symbolDef, result);
@@ -559,7 +559,7 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
      [
      Local(cdTable, piperform);
      cdTable := OMSymbolReverse()[ omcd ];
-     If(cdTable != Empty, piperform := cdTable[ omname ]);
+     If(cdTable !=? Empty, piperform := cdTable[ omname ]);
      // We can not optimize here by checking first whether the CD is mathpiper
      // and avoiding the table lookup then, because for some symbols the
      // OM name have to be different from the MathPiper name (e.g. "/@").
@@ -594,7 +594,7 @@ OMGetCoreError():=
 [
   Local(result);
   result := ExceptionGet(); //todo:tk:verify that ExceptionCheck works properly with the soft error handling functions.
-  If(result != False,
+  If(result !=? False,
      If( IsError("omErrorObject"),
         [result := GetError("omErrorObject");                     ],
         [result := OMError({"moreerrors", "unexpected"}, result); ])
@@ -633,7 +633,7 @@ OMDef(_piperform, omcd_IsString, omname_IsString, _directMapping, _reverseMappin
        If(oldMathPiperform =? Empty,
           cdTable[ omname ] := piperform,
           [
-          If(oldMathPiperform != piperform,
+          If(oldMathPiperform !=? piperform,
              [
              cdTable[ omname ] := piperform;
              Echo("Warning: the mapping for ", omcd, ":", omname,
@@ -677,7 +677,7 @@ OMDef( "Undefined",  "nums1", "NaN"      );
 OMDef( "And"   ,  "logic1", "and"        );
 OMDef( "=="    ,  "logic1", "equivalent" );
 /*Note:tk:when I had fixed the syntax error in this code, a redefinition error was created.
-OMDef( "!=="   ,  "logic1", "not",
+OMDef( "!=?="   ,  "logic1", "not",
         { "<OMA><OMS cd=\"logic1\" name=\"equivalent\"/>",
           1,
           2,
@@ -750,7 +750,7 @@ OMDef( ">=", "relation1","geq" );
 OMDef( ">" , "relation1","gt"  );
 OMDef( "<=", "relation1","leq" );
 OMDef( "<" , "relation1","lt"  );
-OMDef( "!=", "relation1","neq" );
+OMDef( "!=?", "relation1","neq" );
 OMDef( "Gcd", "arith1","gcd" );
 OMDef( "Sqrt", "arith1","root", { $, _1, 2 }, $(_1)_(_2=?2) | (_1^(1/_2)) );
 // Test [result: Sqrt(16)]:

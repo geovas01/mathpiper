@@ -68,7 +68,7 @@
     If( InVerboseMode(),Tell("   ",fac1));
     
     // now convert factorization back to actual variable if required
-    If( Y != 1,
+    If( Y !=? 1,
       [
           Local(f,d);
           For(ii:=1,ii<=Length(fac1),ii++)
@@ -233,7 +233,7 @@ UnFence("xFB1",3);
     
     // now convert factorization back to actual variables if required
 
-    If( Y != 1,
+    If( Y !=? 1,
       [
           Local(f,d);
           For(ii:=1,ii<=Length(fac2),ii++)

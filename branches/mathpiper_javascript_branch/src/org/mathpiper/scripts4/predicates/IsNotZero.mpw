@@ -1,7 +1,7 @@
 %mathpiper,def="IsNotZero"
 
 /*
-10 # IsNotZero(x_IsNumber)       <-- ( RoundTo(x,BuiltinPrecisionGet()) != 0);
+10 # IsNotZero(x_IsNumber)       <-- ( RoundTo(x,BuiltinPrecisionGet()) !=? 0);
 */
 
 

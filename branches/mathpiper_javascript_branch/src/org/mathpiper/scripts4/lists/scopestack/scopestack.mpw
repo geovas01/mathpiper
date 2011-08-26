@@ -58,7 +58,7 @@ AddToStack(stack,element)  :=
 DropOneFrame(_stack) <-- {Rest(stack[1]),Rest(stack[2])};
 
 10 # IsOnStack({{},{}},_element) <-- False;
-11 # IsOnStack(_stack,_element)_(stack[1][1][element] != Empty) <-- True;
+11 # IsOnStack(_stack,_element)_(stack[1][1][element] !=? Empty) <-- True;
 20 # IsOnStack(_stack,_element)_(StackDepth(stack)>0 And stack[2][1] =? True)
    <-- IsOnStack(DropOneFrame(stack),element);
 30 # IsOnStack(_stack,_element) <--
@@ -67,7 +67,7 @@ DropOneFrame(_stack) <-- {Rest(stack[1]),Rest(stack[2])};
 //Echo(stack[2][1]);
 False;
 ];
-10 # FindOnStack(_stack,_element)_(stack[1][1][element] != Empty)
+10 # FindOnStack(_stack,_element)_(stack[1][1][element] !=? Empty)
    <-- stack[1][1][element];
 20 # FindOnStack(_stack,_element)_(StackDepth(stack)>0 And stack[2][1] =? True)
    <-- FindOnStack(DropOneFrame(stack),element);

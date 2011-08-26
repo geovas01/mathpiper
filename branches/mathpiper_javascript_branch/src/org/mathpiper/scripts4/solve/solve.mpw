@@ -40,7 +40,7 @@ LocalSymbols(res)
   41  # Solve(a_IsConstant, _var) <-- {};
   42  # Solve(_expr, _var)_(Not HasExpr(expr,var)) <--
         [ Assert("Solve", "expression ":(PipeToString() Write(expr)):" does not depend on ":PipeToString() Write(var)) False; {}; ];
-  50  # Solve(_expr, _var)_((res := Solve'Poly(expr, var)) != Failed) <-- res;
+  50  # Solve(_expr, _var)_((res := Solve'Poly(expr, var)) !=? Failed) <-- res;
   60  # Solve(_e1 * _e2, _var) <-- [
       Local(t,u,s);
       t := Union(Solve(e1,var), Solve(e2,var));
@@ -65,14 +65,14 @@ LocalSymbols(res)
           );
       t;
   ];
-  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And (res := Solve'Simple(e1,-e2,var)) != Failed) <-- res;
-  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And (res := Solve'Simple(e2,-e1,var)) != Failed) <-- res;
-  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And (res := Solve'Simple(e1,e2,var)) != Failed) <-- res;
-  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And (res := Solve'Simple(e2,e1,var)) != Failed) <-- res;
-  85  # Solve(_expr, _var)_((res := Solve'Simple(expr, 0, var)) != Failed) <-- res;
-  90  # Solve(_expr, _var)_((res := Solve'Reduce(expr, var)) != Failed) <-- res;
-  95  # Solve(_expr, _var)_((res := Solve'Divide(expr, var)) != Failed) <-- res;
-  100 # Solve(_expr, _var)_((res := Simplify(expr)) != expr) <-- Solve(res, var);
+  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And (res := Solve'Simple(e1,-e2,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And (res := Solve'Simple(e2,-e1,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And (res := Solve'Simple(e1,e2,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And (res := Solve'Simple(e2,e1,var)) !=? Failed) <-- res;
+  85  # Solve(_expr, _var)_((res := Solve'Simple(expr, 0, var)) !=? Failed) <-- res;
+  90  # Solve(_expr, _var)_((res := Solve'Reduce(expr, var)) !=? Failed) <-- res;
+  95  # Solve(_expr, _var)_((res := Solve'Divide(expr, var)) !=? Failed) <-- res;
+  100 # Solve(_expr, _var)_((res := Simplify(expr)) !=? expr) <-- Solve(res, var);
   110 # Solve(_expr, _var) <--
         [ Assert("Solve'Fails", "cannot solve equation ":(PipeToString() Write(expr)):" for ":PipeToString() Write(var)) False; {}; ];
 ];
@@ -131,7 +131,7 @@ LocalSymbols(x)
                    [
                      res := {};
                      i := 1;
-                     While(i <= Length(sol2) And res != Failed) [
+                     While(i <= Length(sol2) And res !=? Failed) [
                        sol := Solve(context == (var2 Where sol2[i]), var);
                    If(IsError("Solve'Fails"),
                       [
@@ -170,10 +170,10 @@ LocalSymbols(x)
      [
        context := {};
        i := 2;
-       While(i <= Length(lst) And context != False) [
+       While(i <= Length(lst) And context !=? False) [
          res := Solve'Context(lst[i], var);
-         If(res != {} And context != {} And res != context, context := False);
-         If(res != {} And context =? {}, context := res);
+         If(res !=? {} And context !=? {} And res !=? context, context := False);
+         If(res !=? {} And context =? {}, context := res);
          i++;
        ];
      ]);
@@ -216,7 +216,7 @@ LocalSymbols(x)
 ];
 
 20 # Solve'Simple(_e1 ^ _e2, _rhs, _var)
-     _ (IsPositiveReal(e1) And e1 != 0 And e2 =? var And IsPositiveReal(rhs) And rhs != 0)
+     _ (IsPositiveReal(e1) And e1 !=? 0 And e2 =? var And IsPositiveReal(rhs) And rhs !=? 0)
      <-- { var == Ln(rhs)/Ln(e1) };
 
 /* Note: These rules do not take the periodicity of the trig. functions into account */
@@ -241,10 +241,10 @@ LocalSymbols(x)
 /* The range of Sqrt is the set of (complex) numbers with either
  * positive real part, together with the pure imaginary numbers with
  * nonnegative real part. */
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And IsPositiveReal(Re(rhs)) And Re(rhs) != 0) <-- { var == rhs^2 };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And IsPositiveReal(Re(rhs)) And Re(rhs) !=? 0) <-- { var == rhs^2 };
 20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And Re(rhs)=?0 And IsPositiveReal(Im(rhs))) <-- { var == rhs^2 };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And Re(rhs)=?0 And IsNegativeReal(Im(rhs)) And Im(rhs) != 0) <-- { };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And IsNegativeReal(Re(rhs)) And Re(rhs) != 0) <-- { };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And Re(rhs)=?0 And IsNegativeReal(Im(rhs)) And Im(rhs) !=? 0) <-- { };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And IsNegativeReal(Re(rhs)) And Re(rhs) !=? 0) <-- { };
 
 30 # Solve'Simple(_lhs, _rhs, _var) <-- Failed;
 

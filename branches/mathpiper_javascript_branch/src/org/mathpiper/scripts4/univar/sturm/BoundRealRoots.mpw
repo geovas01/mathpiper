@@ -41,7 +41,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
   ];
 
 //Echo("Work start = ",work);
-    While(work != {})
+    While(work !=? {})
     [
       {a,b,Va,Vb} := First(work);
       work := Rest(work);

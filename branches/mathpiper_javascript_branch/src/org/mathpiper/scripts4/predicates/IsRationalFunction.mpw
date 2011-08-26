@@ -19,7 +19,7 @@
 20 # IsRationalFunction(_expr,vars_IsList)_(Type(expr)=?"/" Or Type(-expr)=?"/") <--
 [
     If (IsPolynomial(Numerator(expr),vars) And IsPolynomial(Denominator(expr),vars),
-        Intersection(vars, VarList(expr)) != {},
+        Intersection(vars, VarList(expr)) !=? {},
         False
     );
 ];

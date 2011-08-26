@@ -18,17 +18,17 @@ Echo({});
 
    Local(q,newr,news,newt,newrho);
    newr:=r[2];
-   While(newr != 0)
+   While(newr !=? 0)
    [
      q   :=Quotient(r[i],r[i+1]);
      newr:=Modulo(r[i],r[i+1]);
      newrho:=LeadingCoef(newr);
 
 
-     If (newr != 0, newr:=Monic(newr));
+     If (newr !=? 0, newr:=Monic(newr));
      news  :=(s[i]-q*s[i+1]);
      newt  :=(t[i]-q*t[i+1]);
-     If(newrho != 0,
+     If(newrho !=? 0,
        [
          news:=news/newrho;
          newt:=newt/newrho;

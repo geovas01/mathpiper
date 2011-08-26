@@ -100,7 +100,7 @@ ColumnFilled(charfield,column):=
   len:=Length(charfield);
   For(Bind(i, 1),(result =? False) And (i<=len),Bind(i,AddN(i,1)))
   [
-    If(StringMidGet(column,1,charfield[i]) != " ",result:=True);
+    If(StringMidGet(column,1,charfield[i]) !=? " ",result:=True);
   ];
   result;
 ];

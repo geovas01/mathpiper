@@ -21,7 +21,7 @@ Function("SolveMatrix",{matrix,vector})
            If(item[j] =? i,vector[j ],matrix[j][item[j] ]))*lc;
         ];
   ];
-  Check(det != 0, "Math", "Zero determinant");
+  Check(det !=? 0, "Math", "Zero determinant");
   (1/det)*inv;
 ];
 

@@ -7,7 +7,7 @@ Horner(_e,_v) <--
   coefs:=DestructiveReverse(uni[3]);
   result:=0;
 
-  While(coefs != {})
+  While(coefs !=? {})
   [
     result := result*v;
     result := result+First(coefs);

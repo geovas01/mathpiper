@@ -21,7 +21,7 @@
       Local(newclause);
       //newclause := BubbleSort(LogicRemoveTautologies(Flatten(clause, "Or")), LessThan);
       Bind(newclause, LogicRemoveTautologies(Flatten(clause, "Or")));
-      If(newclause != {True}, DestructiveAppend(clauses, newclause));
+      If(newclause !=? {True}, DestructiveAppend(clauses, newclause));
     ];
 
     /*
@@ -31,7 +31,7 @@
     */
     Bind(clauses, RemoveDuplicates(clauses));
 
-    If(IsEqual(level, 3) And (Length(clauses) != 0), [
+    If(IsEqual(level, 3) And (Length(clauses) !=? 0), [
         Bind(clauses, DoUnitSubsumptionAndResolution(clauses));
         Bind(clauses, LogicCombine(clauses));
     ]);

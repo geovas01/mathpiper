@@ -45,7 +45,7 @@
         If(iDebug, Tell("  STEP 2"));
         For( ir:=cr, ir<=mRows,ir++ )
          [  
-            If( am[ir][cc] != 0 And ir != 1, 
+            If( am[ir][cc] !=? 0 And ir !=? 1, 
               [
                 {am[ir],am[cr]} := {am[cr],am[ir]};
                 If(iDebug, Tell("   swapping rows ",{cr,ir}));
@@ -66,7 +66,7 @@
         If(iDebug, Tell("  STEP 4"));
         For(ir:=cr+1,ir<=mRows,ir++)
          [
-           If( am[ir][cc] != 0, 
+           If( am[ir][cc] !=? 0, 
              [
                 am[ir] := am[ir] - am[ir][cc]*am[cr];
              ]
@@ -103,7 +103,7 @@
                 [
                    For(jr:=ir-1,jr>=1,jr--)
                     [
-                       If(am[jr][pc]!=0, am[jr]:=am[jr]-am[jr][pc]*am[ir]);
+                       If(am[jr][pc]!=?0, am[jr]:=am[jr]-am[jr][pc]*am[ir]);
                        If(iDebug,[NewLine();TableForm(am);]);
                     ];
                 ]

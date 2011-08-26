@@ -22,7 +22,7 @@ Rulebase("yyy",{x});
 25 # OdeNormChange(y') <-- yyy(1);
 25 # OdeNormChange(y'') <-- yyy(2);
 30 # OdeNormChange(_e) <-- e;
-OdeNormPred(_e) <-- (e != OdeNormChange(e));
+OdeNormPred(_e) <-- (e !=? OdeNormChange(e));
 
 
 OdeNormalForm(_e) <--
@@ -45,7 +45,7 @@ OdeNormalForm(_e) <--
 
 10 # OdeChange(yyy(n_IsInteger)) <-- Apply(yn,{n});
 30 # OdeChange(_e) <-- e;
-OdePred(_e) <-- (e != OdeChange(e));
+OdePred(_e) <-- (e !=? OdeChange(e));
 UnFence("OdeChange",1);
 UnFence("OdePred",1);
 OdeSubstitute(_e,_yn) <--

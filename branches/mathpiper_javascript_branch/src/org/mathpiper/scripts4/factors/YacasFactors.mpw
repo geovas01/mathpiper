@@ -14,7 +14,7 @@
 
 11 # Factors(p_IsInteger) <-- FactorizeInt(p);
 
-12 # Factors(p_IsRational)_(Denominator(p) != 1) <-- {{YacasFactor(Numerator(p)) /YacasFactor(Denominator(p)) , 1}};
+12 # Factors(p_IsRational)_(Denominator(p) !=? 1) <-- {{YacasFactor(Numerator(p)) /YacasFactor(Denominator(p)) , 1}};
      //Added to handle rational numbers with denominators that are not 1
 
 14 # Factors(p_IsGaussianInteger)        <-- GaussianFactors(p);
@@ -32,7 +32,7 @@
      *  factored by some special-purpose algorithms                      */
     If( nterms =? 2 And d > 2,
       [  result := FactorsBinomials(p);  ],    
-      [  // nterms != 2, so try other techniques
+      [  // nterms !=? 2, so try other techniques
         factorsList := BinaryFactors(p);
            // BinaryFactors is the internal MathPiper function that
            // creates a double list of factors and their multiplicities
@@ -185,7 +185,7 @@
             Echo("    err = ",err);
         ]
       );
-      If(Not err And t != 1, {t,1}:Reverse(f), factrs);
+      If(Not err And t !=? 1, {t,1}:Reverse(f), factrs);
   ];
 
 %/mathpiper

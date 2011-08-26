@@ -14,7 +14,7 @@ AddGaussianFactor(L_IsList,z_IsGaussianInteger,p_IsGaussianInteger) <--
  Local(e);
  e :=0;
  While (IsGaussianInteger(z:= z/p)) e++;
- If (e != 0, DestructiveAppend(L,{p,e}));
+ If (e !=? 0, DestructiveAppend(L,{p,e}));
 ];
 
 

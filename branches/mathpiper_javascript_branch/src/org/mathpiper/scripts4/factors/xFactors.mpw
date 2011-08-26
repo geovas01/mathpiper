@@ -42,7 +42,7 @@
 12 # xFactors(p_IsNegativeInteger) <-- xFactors(-p);
 
 
-14 # xFactors(p_IsRational)_(Denominator(p) != 1) <-- 
+14 # xFactors(p_IsRational)_(Denominator(p) !=? 1) <-- 
              { {xFactor(Numerator(p)) / xFactor(Denominator(p) ) , 1} }; 
              
 
@@ -393,8 +393,8 @@ UnFence("ApproximateRealCoefficients",1);
             Echo("    err = ",err);
         ]
       );
-      ff := If(Not err And t != 1, {t,1}:Reverse(f), factrs);
-      ff := Select(Lambda({x},x!={1,1}),ff);
+      ff := If(Not err And t !=? 1, {t,1}:Reverse(f), factrs);
+      ff := Select(Lambda({x},x!=?{1,1}),ff);
       If(ff[1]<0,ff[1]:=-ff[1]);
 ];
 

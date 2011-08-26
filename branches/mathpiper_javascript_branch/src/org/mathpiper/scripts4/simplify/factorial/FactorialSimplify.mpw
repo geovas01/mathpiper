@@ -193,7 +193,7 @@ LocalSymbols(n,d,c)
 //Echo("terms is ",terms);
     common := First(terms);
     tail:=Rest(terms);
-    While (tail != {})
+    While (tail !=? {})
     [
       Local(n,d,c);
       {n,d,c} := FactorialDivideTerms(common,First(tail));
@@ -240,7 +240,7 @@ LocalSymbols(n,d,c)
       terms:=f2;
 
       For(i:=1,i<=Length(common),i++)
-      If(i != j,
+      If(i !=? j,
         [
           {f1,f2}:=CommonFactors(common[j],common[i]);
           common[j]:=f1;

@@ -111,9 +111,9 @@ LocalSymbols(x,n,vars)  [
         Bind(result,MakeMultiNomial(1,vars));
         While(n>0)
         [
-          If(n&1 != 0, Bind(result, MultiNomialMultiply(result,mult)));
+          If(n&1 !=? 0, Bind(result, MultiNomialMultiply(result,mult)));
           Bind(n,n>>1);
-          If(n!=0,Bind(mult,MultiNomialMultiply(mult,mult)));
+          If(n!=?0,Bind(mult,MultiNomialMultiply(mult,mult)));
         ];
         result;
       ];

@@ -148,7 +148,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
    /* Case 2: Coefficients are already computed */
 
-   If (Not finished And lps[1] != Undefined And n2 < lps[1]+Length(lps[2]),
+   If (Not finished And lps[1] !=? Undefined And n2 < lps[1]+Length(lps[2]),
    [
       If (n1 >= lps[1],
           res := Take(lps[2], {n1-lps[1]+1, n2-lps[1]+1}),
@@ -316,7 +316,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
       [
          /* normalization: remove initial zeros from lps[2] */
 
-         While (lps[2] != {} And lps[2][1] =? 0)
+         While (lps[2] !=? {} And lps[2][1] =? 0)
          [
             lps[1] := lps[1] + 1;
             lps[2] := Rest(lps[2]);
@@ -454,7 +454,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
  * which is seriously inefficient.
  */
 10 # Taylor'LPS'NormalizeExpr(_var, _e1 ^ (n_IsPositiveInteger))
-   _ (e1 != var)
+   _ (e1 !=? var)
    <-- Taylor'LPS'Multiply(Taylor'LPS'Construct(var, e1),
                            Taylor'LPS'Construct(var, e1^(n-1)));
 
@@ -470,7 +470,7 @@ _[
     Local(c, lps1, lps2, lps3, success);
     success := True;
     If (IsAtom(e1), success := False);
-    If (success And Length(e1) != 1, success := False);
+    If (success And Length(e1) !=? 1, success := False);
     If (success And IsAtom(e1[1]), success := False);
     If (success And CanBeUni(var, e1[1]) And Degree(e1[1], var) =? 1,
     [
@@ -553,15 +553,15 @@ _[
 /* Sqrt */
 
 50 # Taylor'LPS'CompOrder(_x, Sqrt(_y))
-   _ (CanBeUni(x,y) And Degree(y,x) =? 1 And Coef(y,x,0) != 0)
+   _ (CanBeUni(x,y) And Degree(y,x) =? 1 And Coef(y,x,0) !=? 0)
    <-- 0;
 
 50 # Taylor'LPS'CompCoeff(_x, Sqrt(_y), 0)
-   _ (CanBeUni(x,y) And Degree(y,x) =? 1 And Coef(y,x,0) != 0)
+   _ (CanBeUni(x,y) And Degree(y,x) =? 1 And Coef(y,x,0) !=? 0)
    <-- Sqrt(Coef(y,x,0));
 
 51 # Taylor'LPS'CompCoeff(_x, Sqrt(_y), _n)
-   _ (CanBeUni(x,y) And Degree(y,x) =? 1 And Coef(y,x,0) != 0) <--
+   _ (CanBeUni(x,y) And Degree(y,x) =? 1 And Coef(y,x,0) !=? 0) <--
 [
    Local(j);
    Coef(y,x,0)^(1/2-n) * Product(j,0,n-1,1/2-j) * Coef(y,x,1)^n/n!;
@@ -620,7 +620,7 @@ _[
 Taylor'LPS'AcceptDeriv(_expr) <--
         (Contains({"ArcTan"},Type(expr)));
 /*
-        ( Type(Deriv(x)(expr)) != "Deriv"
+        ( Type(Deriv(x)(expr)) !=? "Deriv"
          And Not Contains({
           "/","+","*","^","-","Sin","Cos","Sqrt","Ln","Exp","Tan"
           },Type(expr)));
@@ -673,8 +673,8 @@ Echo(expr," ",n," ",result);
  */
 
 20 # Taylor'LPS'GetOrder(Taylor'LPS(_order, _coeffs, _var, _expr))
-   _ (order != Undefined)
-   <-- {order, coeffs != {}};
+   _ (order !=? Undefined)
+   <-- {order, coeffs !=? {}};
 
 40 # Taylor'LPS'GetOrder(_lps) <--
 [

@@ -21,7 +21,7 @@
     LE := Length(eqns);
     LV := Length(vars);
     E  := Assert() LE=LV;
-    Check(E, "Argument", "Number of equations != Number of variables");
+    Check(E, "Argument", "Number of equations !=? Number of variables");
     
     LHS := {};
     RHS := {};
@@ -57,7 +57,7 @@
     LE := Length(eqns);
     LV := Length(vars);
     E  := Assert() LE=LV;
-    Check(E, "Argument", "Number of equations != Number of variables");
+    Check(E, "Argument", "Number of equations !=? Number of variables");
     
     If(InVerboseMode(),Tell(0,{LE,LV,E}));
     s  := Solve( eqns, vars )[1];

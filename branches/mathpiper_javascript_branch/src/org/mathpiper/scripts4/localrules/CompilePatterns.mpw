@@ -8,7 +8,7 @@ LocalSymbols(LocResult) [
     Local(tr,result);
     tr:=patterns;
     result:=False;
-    While (tr != {})
+    While (tr !=? {})
     [
       If (First(First(tr)) =? exp,
       [
@@ -28,7 +28,7 @@ LocalSymbols(LocResult) [
     Local(tr,result,head);
     tr:=patterns;
     result:=False;
-    While (tr != {})
+    While (tr !=? {})
     [
       Bind(head, First(First(tr)));
       If (Not(IsAtom(head)) And exp[0]=?head[1] And PatternMatches(head[2], exp),

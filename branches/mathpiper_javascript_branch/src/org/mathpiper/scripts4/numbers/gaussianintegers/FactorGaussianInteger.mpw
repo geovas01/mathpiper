@@ -42,7 +42,7 @@ Function("FactorGaussianInteger",{x}) [
                                 ];
                         ];
                 ];
-                If( re != 1 Or im != 0, Echo(Complex(re,im)) );
+                If( re !=? 1 Or im !=? 0, Echo(Complex(re,im)) );
         ] else [
                 Echo(Complex(re,im));
         ];

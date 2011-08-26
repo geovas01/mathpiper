@@ -8,7 +8,7 @@ MatrixPower(x_IsSquareMatrix, n_IsNonNegativeInteger) <--
 [
    Local(result);
    result:=Identity(Length(x));
-   While(n != 0)
+   While(n !=? 0)
    [
       If(IsOdd(n),
          result:=Dot(result,x));

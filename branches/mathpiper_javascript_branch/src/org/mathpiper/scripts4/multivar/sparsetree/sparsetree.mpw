@@ -98,16 +98,16 @@ UnFence("SparseTreeScan", 3);
   Bind(i,1);
   Bind(t2,y);
   Bind(inspt,{});
-  While(t1 != {} And t2 != {})
+  While(t1 !=? {} And t2 !=? {})
   [
     Muaddterm(First(t1),First(t2));
   ];
-  While(t2 != {})
+  While(t2 !=? {})
   [
     Bind(x,DestructiveAppend(x,First(t2)));
     Bind(t2,Rest(t2));
   ];
-  While(inspt != {})
+  While(inspt !=? {})
   [
     Bind(i,First(inspt));
     Bind(x,DestructiveInsert(x,i[2],i[1]));
@@ -145,18 +145,18 @@ UnFence("SparseTreeScan", 3);
   Bind(i,1);
   Bind(t2,y);
   Bind(inspt,{});
-  While(t1 != {} And t2 != {})
+  While(t1 !=? {} And t2 !=? {})
   [
     MuMuaddterm(First(t1),First(t2),coefs);
   ];
 
-  While(t2 != {})
+  While(t2 !=? {})
   [
     Bind(term,First(t2));
     Bind(x,DestructiveAppend(x,meradd(First(t2),coefs)));
     Bind(t2,Rest(t2));
   ];
-  While(inspt != {})
+  While(inspt !=? {})
   [
     Bind(i,First(inspt));
     Bind(x,DestructiveInsert(x,i[2],i[1]));

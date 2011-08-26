@@ -10,9 +10,9 @@ Solve'System(_eqns, _vars) <-- Solve'SimpleBackSubstitution(eqns,vars);
 [
   Local(newEq);
   newEq := (Simplify(lx) == Simplify(rx));
-  If (newEq != (lx == rx) And newEq != (0==0),DestructiveAppend(eq,newEq));
+  If (newEq !=? (lx == rx) And newEq !=? (0==0),DestructiveAppend(eq,newEq));
   newEq := (Simplify(lx - rx) == 0);
-  If (newEq != (lx == rx) And newEq != (0==0),DestructiveAppend(eq,newEq));
+  If (newEq !=? (lx == rx) And newEq !=? (0==0),DestructiveAppend(eq,newEq));
 ];
 20 # Solve'SimpleBackSubstitution'FindAlternativeForms(_equation) <--
 [
@@ -93,7 +93,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
                );
 //             eq[k]:=Simplify(eq[k]);
 //             eq[k]:=Simplify(eq[k]); //@@@??? TODO I found one example where simplifying twice gives a different result from simplifying once!
-             If(original!=(0==0) And eq[k] =? (0 == 0),reset:=True);
+             If(original!=?(0==0) And eq[k] =? (0 == 0),reset:=True);
              If(InVerboseMode(), Echo({"   ",original," simplifies to ",eq[k]}));
            ]);
            nreq:=Length(eq);

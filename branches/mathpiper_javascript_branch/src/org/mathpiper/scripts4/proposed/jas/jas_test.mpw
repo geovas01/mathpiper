@@ -51,7 +51,7 @@ g := a-2;
 
 IsJas(atom) :=
 [
-    If(MetaGet(atom,"jas") != Empty, True, False);
+    If(MetaGet(atom,"jas") !=? Empty, True, False);
 
 ];
 

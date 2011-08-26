@@ -11,7 +11,7 @@ Function("MultiplySingleTerm",{termlist,term})
 [
  Local(result,t);
  result:={};
- If(term[2]!=0,
+ If(term[2]!=?0,
        ForEach (t,termlist)
          DestructiveAppend(result,{t[1]+term[1],t[2]*term[2]}) );
  result;

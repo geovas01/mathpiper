@@ -22,7 +22,7 @@
 5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_(MultiLM(MultiNomial(vars,terms)) =? MultiLM(g))
      <-- CreateTerm(vars,{FillList(0,Length(vars)),1});
 
-5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_( Select(MultiLM(MultiNomial(vars,terms))-MultiLM(g), {{n},n<0} ) != {})
+5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_( Select(MultiLM(MultiNomial(vars,terms))-MultiLM(g), {{n},n<0} ) !=? {})
      <-- CreateTerm(vars,{FillList(0,Length(vars)),1});
 
 5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_(NormalForm(g) =? 0)
@@ -35,7 +35,7 @@
     Bind(g,Subst(a,a)g);
   ];
   Local(new);
-  While(g != 0)
+  While(g !=? 0)
   [
 //Echo("before f",f,NormalForm(f));
 //Echo("before g",g,NormalForm(g));

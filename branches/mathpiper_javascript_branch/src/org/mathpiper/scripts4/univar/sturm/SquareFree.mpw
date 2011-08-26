@@ -3,7 +3,7 @@
 //Retract("SquareFree",*);
 
 
-10 # SquareFree(_p)_(Length(VarList(p))!=1) <-- Check(False,"Argument","Input must be Univariate");
+10 # SquareFree(_p)_(Length(VarList(p))!=?1) <-- Check(False,"Argument","Input must be Univariate");
 
 12 # SquareFree(_p) <-- SquareFree(p,VarList(p)[1]);
 

@@ -58,7 +58,7 @@
 
 
 20 # NearRational(_z, prec_IsInteger)_
-      (And(Im(z)!=0,IsRationalOrNumber(Im(z)),IsRationalOrNumber(Re(z)))) <--
+      (And(Im(z)!=?0,IsRationalOrNumber(Im(z)),IsRationalOrNumber(Re(z)))) <--
 [
     Local(rr,ii);
     rr := Re(z);
