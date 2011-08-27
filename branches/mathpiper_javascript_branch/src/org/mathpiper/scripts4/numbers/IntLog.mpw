@@ -10,14 +10,14 @@
         old'step := step := 1;
         old'factor := factor := base;
         // first loop: increase step
-        While (x >= factor)
+        While (x >=? factor)
         [
                 old'factor := factor;
                 factor := factor*factor;
                 old'step := step;
                 step := step*2;
         ];
-        If(x >= base,
+        If(x >=? base,
           [
                 step := old'step;
                 result := step;
@@ -31,7 +31,7 @@
                 step := Quotient(step,2);        // for each step size down to 1, divide by factor if x is up to it
                 factor := base^step;
                 If(
-                        x >= factor,
+                        x >=? factor,
                         [
                                 x:=Quotient(x, factor);
                                 result := result + step;

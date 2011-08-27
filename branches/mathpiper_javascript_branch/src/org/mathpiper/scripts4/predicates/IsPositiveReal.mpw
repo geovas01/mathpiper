@@ -4,7 +4,7 @@
 IsPositiveReal(_r) <--
 [
   r:=N(Eval(r));
-  (IsNumber(r) And r >= 0);
+  (IsNumber(r) And r >=? 0);
 ];
 
 %/mathpiper

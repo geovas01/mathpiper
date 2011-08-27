@@ -5,7 +5,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
 [
     Check(IsMatrix(levelsList), "Argument", "The first argument must be a list of equal-length lists.");
     
-    Check(alpha >= 0 And alpha <=? 1, "Argument", "The second argument must be a number between 0 and 1.");
+    Check(alpha >=? 0 And alpha <=? 1, "Argument", "The second argument must be a number between 0 and 1.");
     
     Local(
         topOfSummary,

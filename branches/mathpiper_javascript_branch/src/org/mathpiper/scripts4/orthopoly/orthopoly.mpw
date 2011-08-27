@@ -52,17 +52,17 @@ Usage:
 
 /* Plain polynomials */
 // some are computed by general routines, and some are replaced by more efficient routines below
-OrthoP(n_IsInteger, _x)_(n>=0) <-- OrthoP(n, 0, 0, x);
-OrthoP(n_IsInteger, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(n>=0 And a> -1 And b> -1) <-- OrthoPoly("Jacobi", n, {a, b}, x);
+OrthoP(n_IsInteger, _x)_(n>=?0) <-- OrthoP(n, 0, 0, x);
+OrthoP(n_IsInteger, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(n>=?0 And a> -1 And b> -1) <-- OrthoPoly("Jacobi", n, {a, b}, x);
 
-OrthoG(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=0 And a> -1/2) <-- OrthoPoly("Gegenbauer", n, {a}, x);
+OrthoG(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And a> -1/2) <-- OrthoPoly("Gegenbauer", n, {a}, x);
 
-OrthoH(n_IsInteger, _x)_(n>=0) <-- OrthoPoly("Hermite", n, {}, x);
+OrthoH(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Hermite", n, {}, x);
 
-OrthoL(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=0 And a> -1) <-- OrthoPoly("Laguerre", n, {a}, x);
+OrthoL(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And a> -1) <-- OrthoPoly("Laguerre", n, {a}, x);
 
-OrthoT(n_IsInteger, _x)_(n>=0) <-- OrthoPoly("Tscheb1", n, {}, x);
-OrthoU(n_IsInteger, _x)_(n>=0) <-- OrthoPoly("Tscheb2", n, {}, x);
+OrthoT(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb1", n, {}, x);
+OrthoU(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb2", n, {}, x);
 
 /* Sums of series of orthogonal polynomials */
 
@@ -175,7 +175,7 @@ OrthoPolySumNumeric(name_IsString, c_IsList, p_IsList, _x) <-- [
         value2 := 0;
         index := Length(c) - 1;
         /* value1, value2, value3 is the same as X_{n+2}, X_{n+1}, X_n where n = index */
-        While(index>=1) [
+        While(index>=?1) [
                 ruleCoeffs := Apply(KnownOrthoPoly()[name], {index+1, p})[2];
                 ruleCoeffs1 := Apply(KnownOrthoPoly()[name], {index+2, p})[2];
                 value3 := (ruleCoeffs[1] + x*ruleCoeffs[2])*value2 + ruleCoeffs1[3]*value1 + c[index+1];
@@ -268,7 +268,7 @@ OrthoPolySumCoeffs(name_IsString, c_IsList, p_IsList) <-- [
         tmpCoeffs := tmpCoeffsA;
         /* Invariant: answer ready in "newCoeffs" at value of index */
         /* main loop */
-        For(index:=n, index >= 1, index:=index-1) [
+        For(index:=n, index >=? 1, index:=index-1) [
                 /* Echo({"index ", index}); */ /* in case this is slow */
                 ruleCoeffs := Apply(KnownOrthoPoly()[name], {index+1, p})[2];
                 ruleCoeffs1 := Apply(KnownOrthoPoly()[name], {index+2, p})[2];
@@ -438,7 +438,7 @@ OrthoPolyCoeffs("Laguerre", n_IsInteger, {_k}) <--
         Local(i, result);
         result := ZeroVector(n+1);
         result[n+1] := (-1)^n/n!;        // coefficient at x^n
-        For(i:=n,i>=1,i--)        // prepare coefficient at x^(i-1) now
+        For(i:=n,i>=?1,i--)        // prepare coefficient at x^(i-1) now
                 result[i] := -(result[i+1]*i*(k+i))/(n-i+1);
         result;
 ];

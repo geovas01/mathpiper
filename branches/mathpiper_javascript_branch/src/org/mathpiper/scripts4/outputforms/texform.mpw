@@ -173,7 +173,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     {"=?"," = "},
     {"!=?","\\neq "},
     {"<=?","\\leq "},
-    {">=","\\geq "},
+    {">=?","\\geq "},
     {"<"," < "},
     {">"," > "},
     {"And","\\wedge "},
@@ -213,7 +213,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     If (Contains(TeXFormGreekLetters, string), ConcatStrings("\\", string, " "),
     If (Contains(AssocIndices(TeXFormRegularOps), string), TeXFormRegularOps[string],
     If (Contains(AssocIndices(TeXFormRegularPrefixOps), string), TeXFormRegularPrefixOps[string],
-    If (Length(string) >= 2 And IsNumber(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), "_{", StringMidGet(2, Length(string)-1, string), "}"),
+    If (Length(string) >=? 2 And IsNumber(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), "_{", StringMidGet(2, Length(string)-1, string), "}"),
     If (Length(string) > 2, ConcatStrings("\\mathrm{ ", string, " }"),
     string
     ))))));
@@ -472,7 +472,7 @@ TeXForm(Hold(Differentiate(x)f(x)))
 Retract("f",1);
 
 Verify(
-TeXForm(Hold(Not (c<0) And (a+b)*c>= -d^e And (c<=?0 Or b+1>0) Or a!=?0 And Not (p=?q)))
+TeXForm(Hold(Not (c<0) And (a+b)*c>=? -d^e And (c<=?0 Or b+1>0) Or a!=?0 And Not (p=?q)))
 ,"$ \\neg c < 0\\wedge ( a + b)  \\cdot c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
 );
 

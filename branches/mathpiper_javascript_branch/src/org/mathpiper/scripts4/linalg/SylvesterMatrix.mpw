@@ -12,9 +12,9 @@ Function("SylvesterMatrix",{poly1, poly2, var})
   q:={};
   result:=ZeroMatrix(m,m);
 
-  For(i:=y,i>=0,i--)
+  For(i:=y,i>=?0,i--)
     DestructiveAppend(p,Coef(poly1,var,i));
-  For(i:=z,i>=0,i--)
+  For(i:=z,i>=?0,i--)
     DestructiveAppend(q,Coef(poly2,var,i));
 
   For(i:=1,i<=?z,i++)

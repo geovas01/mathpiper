@@ -150,9 +150,9 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
    If (Not finished And lps[1] !=? Undefined And n2 < lps[1]+Length(lps[2]),
    [
-      If (n1 >= lps[1],
+      If (n1 >=? lps[1],
           res := Take(lps[2], {n1-lps[1]+1, n2-lps[1]+1}),
-          If (n2 >= lps[1],
+          If (n2 >=? lps[1],
               res := Concat(FillList(0, lps[1]-n1),
                              Take(lps[2], n2-lps[1]+1)),
               res := FillList(0, n2-n1+1)));
@@ -299,7 +299,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
       If (Not finished And lps[4][0] =? Taylor'LPS'Compose,
       [
          j := Taylor'LPS'GetOrder(lps[4][1])[1];
-         Check(j >= 0, "Math", "Expansion of f(g(x)) where f has a"
+         Check(j >=? 0, "Math", "Expansion of f(g(x)) where f has a"
                        : "singularity is not implemented");
          k := Taylor'LPS'GetOrder(lps[4][2])[1];
          c1 := {j, Taylor'LPS'Coeffs(lps[4][1], j, n2)};
@@ -361,7 +361,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
  */
 
 10 # Taylor'TPS'GetCoeff({_n,_c}, _k) _ (k < n) <-- 0;
-10 # Taylor'TPS'GetCoeff({_n,_c}, _k) _ (k >= n+Length(c)) <-- Undefined;
+10 # Taylor'TPS'GetCoeff({_n,_c}, _k) _ (k >=? n+Length(c)) <-- Undefined;
 20 # Taylor'TPS'GetCoeff({_n,_c}, _k) <-- c[k-n+1];
 
 
@@ -642,7 +642,7 @@ Taylor'LPS'AcceptDeriv(_expr) <--
       n;
     ];
 200 # Taylor'LPS'CompCoeff(_x, (_expr), _n)_
-      (Taylor'LPS'AcceptDeriv(expr) And n>=0 ) <--
+      (Taylor'LPS'AcceptDeriv(expr) And n>=?0 ) <--
     [
     // This routine is written out for debugging purposes
       Local(result);

@@ -2,7 +2,7 @@
 
 /// Find one Bernoulli number for large index
 /// compute Riemann's zeta function and combine with the fractional part
-Bernoulli1(n_IsEven)_(n>=2) <-- [
+Bernoulli1(n_IsEven)_(n>=?2) <-- [
         Local(B, prec);
         prec := BuiltinPrecisionGet();
         // estimate the size of B[n] using Stirling formula

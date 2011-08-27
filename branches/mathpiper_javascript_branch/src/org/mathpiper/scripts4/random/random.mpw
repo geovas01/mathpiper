@@ -173,7 +173,7 @@ GaussianRNGDist(_rng) <--
         Local(a,b,m, new'state, rnumber);
         new'state := rng[3];        // this will be updated at the end
         m:=0;
-        While(m=?0 Or m>=1)        // repeat generating new x,y  - should not take more than one iteration really
+        While(m=?0 Or m>=?1)        // repeat generating new x,y  - should not take more than one iteration really
         [
                 {new'state, rnumber} := (rng[2] @ {new'state});
                 a:=2*rnumber-1;

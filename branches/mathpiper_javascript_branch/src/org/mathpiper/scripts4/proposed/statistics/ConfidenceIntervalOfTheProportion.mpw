@@ -4,9 +4,9 @@
 
 ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) :=
 [
-    Check(IsInteger(numberOfSuccesses) And numberOfSuccesses >= 0, "Argument", "The first argument must be an integer which is >=0");
+    Check(IsInteger(numberOfSuccesses) And numberOfSuccesses >=? 0, "Argument", "The first argument must be an integer which is >=?0");
     
-    Check(IsInteger(sampleSize) And sampleSize >= 0, "Argument", "The second argument must be an integer which is >=0");
+    Check(IsInteger(sampleSize) And sampleSize >=? 0, "Argument", "The second argument must be an integer which is >=?0");
     
     Local(criticalZScore,approximateStandardErrorOfTheProportion,upperLimit,lowerLimit,resultList,proportion);
     

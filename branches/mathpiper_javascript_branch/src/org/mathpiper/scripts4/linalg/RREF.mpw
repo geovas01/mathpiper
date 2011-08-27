@@ -101,7 +101,7 @@
               pc := Find(am[ir],1);  // find leading 1 in row
               If(pc > 0, 
                 [
-                   For(jr:=ir-1,jr>=1,jr--)
+                   For(jr:=ir-1,jr>=?1,jr--)
                     [
                        If(am[jr][pc]!=?0, am[jr]:=am[jr]-am[jr][pc]*am[ir]);
                        If(iDebug,[NewLine();TableForm(am);]);

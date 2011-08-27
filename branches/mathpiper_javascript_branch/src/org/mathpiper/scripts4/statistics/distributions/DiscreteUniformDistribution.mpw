@@ -3,7 +3,7 @@
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-DiscreteUniformDistribution(a_IsRationalOrNumber, b_IsRationalOrNumber)_(a>=b)
+DiscreteUniformDistribution(a_IsRationalOrNumber, b_IsRationalOrNumber)_(a>=?b)
    <-- Undefined;
 
 %/mathpiper

@@ -34,7 +34,7 @@
         BuiltinPrecisionSet(prec);
         RoundTo(N(result),prec);
 ];
-20 # PolyLog(_n,_x)_(InNumericMode() And x>= -1 And x < 0 ) <-- [
+20 # PolyLog(_n,_x)_(InNumericMode() And x>=? -1 And x < 0 ) <-- [
         // this makes the domain [-1,0) into [0,1],
         // so if the summation representation is used, it is monotone
         Local(prec,result);

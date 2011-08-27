@@ -38,7 +38,7 @@ AlphaToChiSquareScore(p, df) :=
     
     p := N(p);
     
-    if( p <=? 0.0 Or p >= 1.0)
+    if( p <=? 0.0 Or p >=? 1.0)
     [
     
         if (p <=? 0.0) 
@@ -47,7 +47,7 @@ AlphaToChiSquareScore(p, df) :=
         ] 
         else 
         [
-            if (p >= 1.0) 
+            if (p >=? 1.0) 
             [
                 result := 0.0;
             ];

@@ -169,7 +169,7 @@ Macro(DebugEnter,{})
 ];
 Macro(DebugLeave,{})
 [
-  If(debugging =? False And debugstopdepth >= 0 And Length(debugcallstack) =? debugstopdepth,
+  If(debugging =? False And debugstopdepth >=? 0 And Length(debugcallstack) =? debugstopdepth,
   [
     debugstepoverline := -1;
     debugging := True;

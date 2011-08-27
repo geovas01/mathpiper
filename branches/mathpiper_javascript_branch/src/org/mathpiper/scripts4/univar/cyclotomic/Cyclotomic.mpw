@@ -100,7 +100,7 @@ CyclotomicDivisorsList(n_IsPositiveInteger) <--
 CyclotomicFactor(_a,_b) <--
 [
  Local(coef,p,i,j,result); p := a/b; result:= {{b*(p-1),1}}; For (i:=
- p-2,i>=0,i--)
+ p-2,i>=?0,i--)
    DestructiveAppend(result,{b*i,1});
  result;
 ];

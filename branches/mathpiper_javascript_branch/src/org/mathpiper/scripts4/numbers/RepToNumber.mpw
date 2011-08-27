@@ -39,9 +39,9 @@
                            //If(InVerboseMode(),Tell("   index < precision "));
                            numStr := ConcatStrings(first,".",secnd,"E",third);
                        ]
-                   else if ( index >= precision )
+                   else if ( index >=? precision )
                        [
-                           //If(InVerboseMode(),Tell("   index >= precision "));
+                           //If(InVerboseMode(),Tell("   index >=? precision "));
                            numStr := ConcatStrings(first,".",secnd,"E+",third);
                        ];
                ]

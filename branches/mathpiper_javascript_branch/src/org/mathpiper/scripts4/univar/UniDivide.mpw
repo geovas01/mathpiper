@@ -10,10 +10,10 @@ Function("UniDivide",{u,v})
   While (n>0 And IsZero(v[n+1])) n--;
   q := ZeroVector(m-n+1);
   r := FlatCopy(u);  /*  (m should be >= n) */
-  For(k:=m-n,k>=0,k--)
+  For(k:=m-n,k>=?0,k--)
   [
     q[k+1] := r[n+k+1]/v[n+1];
-    For (j:=n+k-1,j>=k,j--)
+    For (j:=n+k-1,j>=?k,j--)
     [
       r[j+1] := r[j+1] - q[k+1]*v[j-k+1];
     ];

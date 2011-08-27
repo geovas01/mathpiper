@@ -233,7 +233,7 @@ UnFence("processRealRoots",1);
 
 
 
-10 # processRealRoots( rr_IsNumericList )_(Length(rr) >= 4) <--
+10 # processRealRoots( rr_IsNumericList )_(Length(rr) >=? 4) <--
 [
      //  more than 2 real solutions -- have to do a bit more work
      If(InVerboseMode(),Tell("    ",rr));

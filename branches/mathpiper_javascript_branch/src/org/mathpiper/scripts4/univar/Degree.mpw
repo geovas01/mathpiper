@@ -10,7 +10,7 @@ Rule("Degree",1,0, IsUniVar(expr))
   min:=expr[2];
   max:=min+Length(expr[3]);
   i:=max;
-  While(i >= min And IsZero(Coef(expr,i))) i--;
+  While(i >=? min And IsZero(Coef(expr,i))) i--;
   i;
 ];
 

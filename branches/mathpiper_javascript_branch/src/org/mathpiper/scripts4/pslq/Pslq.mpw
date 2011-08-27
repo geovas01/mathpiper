@@ -138,7 +138,7 @@ Echo("************** H[i][j] = ",H[i][j]);
 
   For (i:=2,i<=?n,i++)
   [
-    For (j:=i-1,j>= 1,j--)
+    For (j:=i-1,j>=? 1,j--)
     [
 //Echo("5.1...");
       t:=Round(H[i][j]/H[j][j]);
@@ -234,7 +234,7 @@ Echo("************** H[i][j] = ",H[i][j]);
 //Echo("8...");
     For (i:= 1,i<=? n,i++)
     [
-      For (j := Minimum(i-1, m + 1),j>= 1,j--)
+      For (j := Minimum(i-1, m + 1),j>=? 1,j--)
       [
         t:=Round(H[i][ j]/H[j][ j]);
 //Echo("MATRIX",H[i][ j]," ",H[j][ j]);

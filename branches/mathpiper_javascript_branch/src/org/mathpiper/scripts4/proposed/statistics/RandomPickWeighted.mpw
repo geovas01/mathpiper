@@ -46,7 +46,7 @@ RandomPickWeighted(list) :=
     
     ForEach(itemData,items)
     [
-        If(randomNumber >= itemData[2][1] And randomNumber <=? itemData[2][2], result := itemData[1] );
+        If(randomNumber >=? itemData[2][1] And randomNumber <=? itemData[2][2], result := itemData[1] );
     ];
     
     

@@ -1,11 +1,11 @@
-%mathpiper,def="<;>;<=?;>=;!=?"
+%mathpiper,def="<;>;<=?;>=?;!=?"
 
 /* def file definitions
 =
 <
 >
 <=?
->=
+>=?
 !=?
 
 */
@@ -18,11 +18,11 @@
 1 # Undefined <  _x  <--  False;
 1 # Undefined <=? _x  <--  False;
 1 # Undefined >  _x  <--  False;
-1 # Undefined >= _x  <--  False;
+1 # Undefined >=? _x  <--  False;
 1 # _x <  Undefined  <--  False;
 1 # _x <=? Undefined  <--  False;
 1 # _x >  Undefined  <--  False;
-1 # _x >= Undefined  <--  False;
+1 # _x >=? Undefined  <--  False;
 
 
 // If n and m are numbers, use the standard LessThan function immediately
@@ -64,19 +64,19 @@ LocalSymbols(nNum,mNum)
 
 // Functions that need special treatment with more than one of the comparison
 // operators as they always return true or false.  For these we must define
-// both the `<' and `>=' operators.
+// both the `<' and `>=?' operators.
 40 # (Complex(_a,_b) <  0)_(b!=?0) <--  False;
-40 # (Complex(_a,_b) >= 0)_(b!=?0) <--  False;
+40 # (Complex(_a,_b) >=? 0)_(b!=?0) <--  False;
 40 # (Sqrt(_x))_(x < 0) <  0      <--  False;
-40 # (Sqrt(_x))_(x < 0) >= 0      <--  False;
+40 # (Sqrt(_x))_(x < 0) >=? 0      <--  False;
 
 // Deal with negated terms
 50 # -(_x) < 0 <-- Not((x<0) Or (x=?0));
 
-// Define each of {>,<=?,>=} in terms of <
+// Define each of {>,<=?,>=?} in terms of <
 50 # _n >  _m <-- m < n;
-50 # _n <=? _m <-- m >= n;
-50 # _n >= _m <-- Not(n<m);
+50 # _n <=? _m <-- m >=? n;
+50 # _n >=? _m <-- Not(n<m);
 
 
 Function("!=?",{aLeft,aRight}) Not(aLeft=?aRight);
@@ -196,13 +196,13 @@ Result: True
 
 
 
-%mathpiper_docs,name=">=",categories="Operators"
-*CMD >= --- test for "greater or equal"
+%mathpiper_docs,name=">=?",categories="Operators"
+*CMD >=? --- test for "greater or equal"
 *STD
 *CALL
-        e1 >= e2
+        e1 >=? e2
 Precedence:
-*EVAL PrecedenceGet(">=")
+*EVAL PrecedenceGet(">=?")
 
 
 *PARMS
@@ -224,9 +224,9 @@ coerce the arguments passed to this comparison operator to a real value before m
 
 *E.G.
 
-In> 2 >= 5;
+In> 2 >=? 5;
 Result: False;
-In> Cos(1) >= 5;
+In> Cos(1) >=? 5;
 Result: False
 
 *SEE IsNumber, IsInfinity, N
@@ -427,14 +427,14 @@ Verify(0.2*Pi > 0.7, False);
 
 
 
-%mathpiper,name=">=",subtype="automatic_test"
+%mathpiper,name=">=?",subtype="automatic_test"
 
-Verify( 2/3 >= 1/3, True);
-Verify(1 >= 1.0, True);
-Verify(-1 >= -1.0, True);
-Verify(0 >= 0.0, True);
-Verify(0.0 >= 0, True);
-Verify(Undefined >= -4, False);
+Verify( 2/3 >=? 1/3, True);
+Verify(1 >=? 1.0, True);
+Verify(-1 >=? -1.0, True);
+Verify(0 >=? 0.0, True);
+Verify(0.0 >=? 0, True);
+Verify(Undefined >=? -4, False);
 
 %/mathpiper
 

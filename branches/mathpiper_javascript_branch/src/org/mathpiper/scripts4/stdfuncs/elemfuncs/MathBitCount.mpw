@@ -30,7 +30,7 @@
                 ];
         ],
         [        // need to divide by 2
-                While(value>=1)
+                While(value>=?1)
                 [
                         nbits++;
                         value := MathMul2Exp(value, -1);

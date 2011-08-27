@@ -10,7 +10,7 @@ ConfidenceIntervalOfTheMean(sampleMean,standardDeviation,standardDeviationIsKnow
     
     resultList := {};
     
-    If(sampleSize >= 30 Or standardDeviationIsKnown =? True,
+    If(sampleSize >=? 30 Or standardDeviationIsKnown =? True,
     [
         criticalZScore := N(ConfidenceLevelToZScore(confidenceLevel));
         

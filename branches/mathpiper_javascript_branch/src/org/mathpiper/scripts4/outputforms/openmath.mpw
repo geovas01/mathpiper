@@ -527,14 +527,14 @@ PipeFromString(str:" EndOfFile")
 
 11 # OMPathSelect(path_IsNumber, _expression) <--
 [
-  If(path >= 0 And path <=? Length(expression),
+  If(path >=? 0 And path <=? Length(expression),
      expression[path],
      Undefined);
 ];
 11 # OMPathSelect(path_IsList, _expression) <--
 [
   ForEach(i, path)
-    If(IsFunction(expression) And i >= 0 And i <=? Length(expression),
+    If(IsFunction(expression) And i >=? 0 And i <=? Length(expression),
        expression := expression[i],
        Undefined);
   expression;
@@ -746,7 +746,7 @@ OMDef( "Ln"     , "transc1","ln"      );
 //LoadScriptOnce("stubs.rep/om.mpi");
 OMDef( "Not", "logic1","not" );
 OMDef( "=?" , "relation1","eq"  );
-OMDef( ">=", "relation1","geq" );
+OMDef( ">=?", "relation1","geq" );
 OMDef( ">" , "relation1","gt"  );
 OMDef( "<=?", "relation1","leq" );
 OMDef( "<" , "relation1","lt"  );

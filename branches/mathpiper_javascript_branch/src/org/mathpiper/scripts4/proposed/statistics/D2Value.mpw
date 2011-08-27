@@ -2,9 +2,9 @@
 
 D2Value(k,n) :=
 [
-    Check(k >= 0 And k <=? 15, "Argument", "The first argument k must be 0 <=? k <=? 15.");
+    Check(k >=? 0 And k <=? 15, "Argument", "The first argument k must be 0 <=? k <=? 15.");
     
-    Check(n >= 2 And n <=? 15, "Argument", "The second argument n must be 2 <=? n <=? 15.");
+    Check(n >=? 2 And n <=? 15, "Argument", "The second argument n must be 2 <=? n <=? 15.");
     
     n--;
     

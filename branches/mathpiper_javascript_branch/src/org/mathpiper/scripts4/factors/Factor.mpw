@@ -8,7 +8,7 @@
     Local(fs,num,den,dent,n,d);
     fs := Factors(p);
     If(InVerboseMode(),Tell("   ",fs));
-    num := Select(fs,Lambda({X},X[2]>=0));
+    num := Select(fs,Lambda({X},X[2]>=?0));
     den := Select(fs,Lambda({X},X[2]<0));
     If(InVerboseMode(),Tell("   ",{num,den}));
     dent := Transpose(den);
@@ -38,7 +38,7 @@
     Local(fs,num,den,dent,n,d);
     fs := Factors( p );
     If(InVerboseMode(),Tell("  ",fs));
-    num := Select(fs,Lambda({X},X[2]>=0));
+    num := Select(fs,Lambda({X},X[2]>=?0));
     den := Select(fs,Lambda({X},X[2]<0));
     If(InVerboseMode(),Tell("   ",{num,den}));
     dent := Transpose(den);

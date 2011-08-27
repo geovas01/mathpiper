@@ -34,7 +34,7 @@
             first    := StringMidGet(1, newPrec, strOInt); 
             secnd    := StringMidGet(newPrec+1, LS-newPrec, strOInt);
             rem      := ToAtom(ConcatStrings(".",secnd));
-            ad       := If(rem>=0.5, 1, 0 );
+            ad       := If(rem>=?0.5, 1, 0 );
             newInt   := sgn * ( ToAtom(first) + ad );
             newScale := oldScale - ( oldPrec - newPrec ); 
             newRep   := {newInt,newPrec,newScale};

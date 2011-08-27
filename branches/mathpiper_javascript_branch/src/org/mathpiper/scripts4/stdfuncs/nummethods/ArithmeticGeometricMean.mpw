@@ -22,7 +22,7 @@ ArithmeticGeometricMean(a, b, eps) :=
         If(InVerboseMode(), Echo("ArithmeticGeometricMean: Info: at prec. ", BuiltinPrecisionGet()));
         
         // AGM main loop
-        While(Abs(a-b)>=eps)
+        While(Abs(a-b)>=?eps)
         [
                 a1 := DivideN(a+b, 2);
                 b1 := SqrtN(MultiplyN(a, b));        // avoid Sqrt() which uses N() inside it

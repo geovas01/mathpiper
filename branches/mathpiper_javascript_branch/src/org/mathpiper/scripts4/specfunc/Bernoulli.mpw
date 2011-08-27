@@ -29,7 +29,7 @@ Bernoulli(n_IsInteger, _x) <-- [
         Local(B, i, result);
         B := Internal'BernoulliArray(n);
         result := B[1];
-        For(i:=n-1, i>=0, i--) [
+        For(i:=n-1, i>=?0, i--) [
                 result := result * x + B[n-i+1]*BinomialCoefficient(n,i);
         ];
         result;

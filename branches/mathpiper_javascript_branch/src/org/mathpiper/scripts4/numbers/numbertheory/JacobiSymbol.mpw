@@ -12,7 +12,7 @@ See the Algo book for documentation.
 15 # JacobiSymbol(0, _b) <-- 0;
 18 # JacobiSymbol(_a, _b) _ (Gcd(a,b)>1) <-- 0;
 
-20 # JacobiSymbol(_a, b_IsOdd)_(a>=Abs(b) Or a<0) <-- JacobiSymbol(Modulo(a,Abs(b)),Abs(b));
+20 # JacobiSymbol(_a, b_IsOdd)_(a>=?Abs(b) Or a<0) <-- JacobiSymbol(Modulo(a,Abs(b)),Abs(b));
 
 30 # JacobiSymbol(a_IsEven, b_IsOdd) <--
 [

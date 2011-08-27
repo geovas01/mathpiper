@@ -75,7 +75,7 @@ CatalanConstNum2() :=
         BuiltinPrecisionSet(prec+2);        // 2 guard digits
 
         result1 := 0;
-        While(n>=0)
+        While(n>=?0)
         [
                 result1 := DivideN(result1, 16)+N(
                         +1/(8*n+1)^2 -1/(8*n+2)^2 +1/2/(8*n+3)^2 -1/4/(8*n+5)^2 +1/4/(8*n+6)^2 -1/8/(8*n+7)^2
@@ -89,7 +89,7 @@ CatalanConstNum2() :=
         BuiltinPrecisionSet(prec+2);        // 2 guard digits
 
         result2 := 0;
-        While(n>=0)
+        While(n>=?0)
         [
                 result2 := DivideN(result2, 4096)+N(
                         +1/(8*n+1)^2 +1/2/(8*n+2)^2 +1/8/(8*n+3)^2 -1/64/(8*n+5)^2 -1/128/(8*n+6)^2 -1/512/(8*n+7)^2

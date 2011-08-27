@@ -19,7 +19,7 @@ Rule(StandardOperatorsLoad, 0, 1, True)
     Infix("<",90);
     Infix(">",90);
     Infix("<=?",90);
-    Infix(">=",90);
+    Infix(">=?",90);
     Infix("!=?",90);
 
     Infix(":=",10000);

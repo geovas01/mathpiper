@@ -27,7 +27,7 @@ Function("ApproxInfSum",{expr,start,x,c})
         term:=1;
         k:=start;
         result:=0;
-        While( N(Abs(term) >= eps) )[
+        While( N(Abs(term) >=? eps) )[
                 term:=N(Eval(expr));
                 //Echo({"term is ",term});
                 k:=k+1;

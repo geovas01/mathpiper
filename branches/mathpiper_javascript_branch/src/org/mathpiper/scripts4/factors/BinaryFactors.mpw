@@ -267,7 +267,7 @@ MkfactD(numer,denom):=
   Bind(i,1);
   If(ld>0,
   [
-    While(Length(numer)>=Length(denom))
+    While(Length(numer)>=?Length(denom))
     [
       Bind(nq,numer[1]/denom[1]);
       q[ln-(Length(numer)-ld)] := nq;

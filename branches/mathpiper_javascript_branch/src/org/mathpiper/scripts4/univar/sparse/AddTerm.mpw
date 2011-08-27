@@ -24,7 +24,7 @@ Function("AddTerm",{termlist,term,begining})
  [
   i:=begining;
 // Fix-me: search by using binary search ?
-  If (l>=1, While ((i<=?l) And (term[1]<termlist[i][1])) i++);
+  If (l>=?1, While ((i<=?l) And (term[1]<termlist[i][1])) i++);
   If  (i>l, [DestructiveAppend(termlist,term);i++;],
           If (term[1]=?termlist[i][1],
              [ Local(nc);

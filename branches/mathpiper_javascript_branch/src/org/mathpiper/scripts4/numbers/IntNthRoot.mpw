@@ -31,16 +31,16 @@ IntNthRoot1(_n, s_IsInteger) <--
         x1 := Modulo(x1, s)/s;        // this is kept as a fraction
         // now assign the initial interval, x1 <=? root <=? x2
         {x1, x2} := If(
-                x1 >= 263/290,        // > Ln(15/8)/Ln(2)
+                x1 >=? 263/290,        // > Ln(15/8)/Ln(2)
                 Quotient({15,16}*2^x2, 8),
                 If(
-                x1 >= 373/462,        // > Ln(7/4)/Ln(2)
+                x1 >=? 373/462,        // > Ln(7/4)/Ln(2)
                 Quotient({7,8}*2^x2, 4),
                 If(
-                x1 >= 179/306,        // > Ln(3/2)/Ln(2)
+                x1 >=? 179/306,        // > Ln(3/2)/Ln(2)
                 Quotient({6,7}*2^x2, 4),
                 If(
-                x1 >= 113/351,        // > Ln(5/4)/Ln(2)
+                x1 >=? 113/351,        // > Ln(5/4)/Ln(2)
                 Quotient({5,6}*2^x2, 4),
                 Quotient({4,5}*2^x2, 4)        // between x1 and (5/4)*x1
         ))));

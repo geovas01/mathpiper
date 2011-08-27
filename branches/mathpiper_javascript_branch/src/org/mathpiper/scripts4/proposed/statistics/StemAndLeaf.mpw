@@ -180,25 +180,25 @@ stemandleaf(x) :=
    t3 := t4/10;
   if (indexA = 2) 
     [
-      if (leftover >= 8)
+      if (leftover >=? 8)
         [
            newz := 1;
         ]
     else 
       [
-        if (leftover >= 6)  
+        if (leftover >=? 6)  
           [
              newz := 0;
           ]
         else 
           [
-            if (leftover >= 4) 
+            if (leftover >=? 4) 
               [
                  newz := 4;
               ] 
             else 
               [
-                if (leftover >= 2) 
+                if (leftover >=? 2) 
                   [
                      newz := 3;
                   ] 
@@ -214,7 +214,7 @@ stemandleaf(x) :=
     [
     if (indexA = 3) 
       [
-        if (leftover >=5) 
+        if (leftover >=?5) 
           [
              newz := 1;
           ] 
@@ -236,18 +236,18 @@ stemandleaf(x) :=
    leaves := {""};
 
  
-  For ( i := nn-1, i >= 0 , i--) 
+  For ( i := nn-1, i >=? 0 , i--) 
     [
      it := x[i];
      dd := Round(it/t3) * t3;
      b := trunc(dd/t4);
      L := dd-t4*b;
     leftover := AbsN(Round(L/t3));
-    While (leftover >= 10)
+    While (leftover >=? 10)
       [
             leftover := Round(leftover/10);
       ];
-    if (it >=0) 
+    if (it >=?0) 
       [
              tt := t3;
       ]
@@ -314,7 +314,7 @@ stemandleaf(x) :=
           if (base2 = 0)
           [
                     zcount ++;
-                if ( ((indexA = 2) And (zcount >=6)) Or ((indexA = 3) And (zcount >=3)) Or ((indexA = 1) And (zcount >1)) Or ((indexA = 4) And (zcount >1))) 
+                if ( ((indexA = 2) And (zcount >=?6)) Or ((indexA = 3) And (zcount >=?3)) Or ((indexA = 1) And (zcount >1)) Or ((indexA = 4) And (zcount >1))) 
                  [
                     stems := Append(stems,"-" : ToString(base2));
                  ] 
@@ -336,7 +336,7 @@ stemandleaf(x) :=
     start := True;
     leftover := ToString(leftover);
     
-    if (it>=0) 
+    if (it>=?0) 
       [
      
   leaves[LN2] := leftover : "" : leaves[LN2];
@@ -615,25 +615,25 @@ function stemandleaf(x)
   var t3 = t4/10;
   if (indexA == 2) 
     {
-      if (leftover >= 8)
+      if (leftover >=? 8)
         {
           var newz = 1;
         }
     else 
       {
-        if (leftover >= 6)  
+        if (leftover >=? 6)  
           {
             var newz = 0;
           }
         else 
           {
-            if (leftover >= 4) 
+            if (leftover >=? 4) 
               {
                 var newz = 4;
               } 
             else 
               {
-                if (leftover >= 2) 
+                if (leftover >=? 2) 
                   {
                     var newz = 3;
                   } 
@@ -649,7 +649,7 @@ function stemandleaf(x)
     {
     if (indexA == 3) 
       {
-        if (leftover >=5) 
+        if (leftover >=?5) 
           {
             var newz = 1;
           } 
@@ -672,18 +672,18 @@ function stemandleaf(x)
   stems[0] = base2;
   leaves[0] = "";
  
-  for (var i = nn-1; i >= 0 ; i--) 
+  for (var i = nn-1; i >=? 0 ; i--) 
     {
     var it = x[i];
     var dd = Math.round(it/t3) * t3;
     var b = trunc(dd/t4);
     var L = dd-t4*b;
     leftover = Math.abs(Math.round(L/t3));
-    while (leftover >= 10)
+    while (leftover >=? 10)
       {
         leftover = Math.round(leftover/10);
       }
-    if (it >=0) 
+    if (it >=?0) 
       {
         var tt = t3;
       }
@@ -744,7 +744,7 @@ function stemandleaf(x)
         if (base2 == 0)
           {
             zcount ++;
-            if ( ((indexA == 2) && (zcount >=6)) || ((indexA == 3) && (zcount >=3)) || ((indexA == 1) && (zcount >1)) || ((indexA == 4) && (zcount >1))) {
+            if ( ((indexA == 2) && (zcount >=?6)) || ((indexA == 3) && (zcount >=?3)) || ((indexA == 1) && (zcount >1)) || ((indexA == 4) && (zcount >1))) {
               stems[LN2] = "-" + base2;
             } 
             else 
@@ -763,7 +763,7 @@ function stemandleaf(x)
       }
     start = true;
     leftover += "";
-    if (it>=0) 
+    if (it>=?0) 
       {
      
       leaves[LN2] = leftover + "" + leaves[LN2];

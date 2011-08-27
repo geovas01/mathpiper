@@ -31,7 +31,7 @@ NewtonNum(_func, _x0, _prec0) <-- NewtonNum(func, x0, prec0, 2);
 // x0 must be close enough so that x1 has a few common digits with x0 after at most 5 iterations.
 NewtonNum(_func, _x'init, _prec0, _order) <--
 [
-        Check(prec0>=4, "Argument", "NewtonNum: Error: initial precision must be at least 4");
+        Check(prec0>=?4, "Argument", "NewtonNum: Error: initial precision must be at least 4");
         Check(IsInteger(order) And order>1, "Argument", "NewtonNum: Error: convergence order must be an integer and at least 2");
         Local(x0, x1, prec, exact'digits, int'part, initial'tries);
   N([
@@ -55,7 +55,7 @@ NewtonNum(_func, _x'init, _prec0, _order) <--
     // need to check that the initial precision is achieved
     If(
       Assert("value", {"NewtonNum: Error: need a more accurate initial value than", x'init})
-        exact'digits >= 1,
+        exact'digits >=? 1,
     [
     exact'digits :=Minimum(exact'digits, prec0+2);
     // run until get prec/order exact digits

@@ -13,7 +13,7 @@
 ];
 
 
-10 # DirichletBeta(x_IsRationalOrNumber)_(InNumericMode() And x>=1 ) <-- [
+10 # DirichletBeta(x_IsRationalOrNumber)_(InNumericMode() And x>=?1 ) <-- [
         Local(prec,eps,term,result,k);
         prec:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(prec+3);
