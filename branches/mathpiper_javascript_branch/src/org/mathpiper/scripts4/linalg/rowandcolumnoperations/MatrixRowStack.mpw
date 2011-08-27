@@ -1,0 +1,16 @@
+%mathpiper,def="MatrixRowStack"
+
+MatrixRowStack( M_IsMatrix, v_IsVector )_(Length(v)=?Dimensions(M)[1]) <--
+[
+    If( Not IsBound(iDebug), iDebug := False );
+    If( iDebug, Tell(MatrixRowStack,{M,v}) );
+    Local(mRows,nCols,newMat,ir);
+    {mRows,nCols} := Dimensions(M);
+    newMat        := ZeroMatrix(mRows+1,nCols);
+    For(ir:=1,ir<mRows+1,ir++)
+       [  MatrixRowReplace(newMat,ir,MatrixRow(M,ir));  ];
+    MatrixRowReplace(newMat,mRows+1,v);
+    newMat;
+];
+
+%/MathPiper
