@@ -170,7 +170,7 @@ Echo("************** H[i][j] = ",H[i][j]);
     [
       gami:=gami*gam;
       tmp:=N(gami*Abs(H[i][i]));
-      if (maxi < tmp)
+      if (maxi <? tmp)
       [
         maxi:=tmp;
 //Echo("maxi 3...",maxi);
@@ -200,7 +200,7 @@ Echo("************** H[i][j] = ",H[i][j]);
       H[m][ i]:=tmp;
     ];
 //Echo("7...");
-    if (m < n-1)
+    if (m <? n-1)
     [
       t0:=N(Eval(Sqrt(H[m][ m]^2 + H[m][ m + 1]^2)));
 
@@ -266,7 +266,7 @@ Echo("************** H[i][j] = ",H[i][j]);
 //Echo("9.1...");
       tmp:=N(Dot(H[j], H[j]),10);
 //Echo("9.2...");
-      if (maxi < tmp) [ maxi:=tmp; ];
+      if (maxi <? tmp) [ maxi:=tmp; ];
 //Echo("maxi 5...",maxi);
 //Echo("9.3...");
     ];
@@ -282,7 +282,7 @@ Echo("************** H[i][j] = ",H[i][j]);
     For (j:=2,j<=?n,j++)
     [
       tmp:=N(Eval(Abs(y[j])));
-      if (tmp < mini)
+      if (tmp <? mini)
       [
         mini:=tmp;
         m:=j;
@@ -292,7 +292,7 @@ Echo("************** H[i][j] = ",H[i][j]);
     ];
     /* following line may be commented */
 //Echo({"Norm bound:",norme," Min=",mini," Conf=",mini/maxi," required ",Confidence});
-    if ((mini/maxi) < Confidence) /*prefered to : if mini < 10^(- precision) then*/
+    if ((mini/maxi) <? Confidence) /*prefered to : if mini <? 10^(- precision) then*/
     [
     /* following line may be commented */
 /*      Echo({"Found with Confidence ",mini/maxi}); */
@@ -310,7 +310,7 @@ Echo("************** H[i][j] = ",H[i][j]);
         [
 //Echo("j = ",j," n = ",n);
           tmp:=Abs(A[i][ j]);
-          if (maxi < tmp) [ maxi:=tmp;];
+          if (maxi <? tmp) [ maxi:=tmp;];
         ];
       ];
 //Echo("maxi = ",maxi);

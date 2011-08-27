@@ -59,9 +59,9 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
              [
                  pc:=(p Where x==c);
                  If(iDebug,Tell("              ",{a,b,c}));
-                 if (Abs(pc) < prec)
+                 if (Abs(pc) <? prec)
                    [ a:=c; b:=c; ]
-                 else if (pa*pc < 0)
+                 else if (pa*pc <? 0)
                    [ b:=c; pb:=pc; ]
                  else
                    [ a:=c; pa:=pc; ];

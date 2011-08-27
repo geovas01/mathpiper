@@ -67,7 +67,7 @@ UnFence("xFactorsResiduals",1);
              Tell("            ",sqf);
           ]
         );
-        If(Degree(sqf) < Degree(resid[1]),
+        If(Degree(sqf) <? Degree(resid[1]),
           [
             If(InVerboseMode(),Tell("               sqf helps factor resid"));
             sqfGood := True;
@@ -153,7 +153,7 @@ UnFence("trySQF",1);
                   If(InVerboseMode(),Tell("    ",rr));
                   // try them pairwise
                   goodptry := {};
-                  For(ii:=1,ii<nrr,ii++)
+                  For(ii:=1,ii<?nrr,ii++)
                       For(jj:=ii+1,jj<=?nrr,jj++)
                       [
                           If(InVerboseMode(),Tell("   ",{ii,jj}));
@@ -162,7 +162,7 @@ UnFence("trySQF",1);
                           uptry[3] := "NearRational" /@ uptry[3];
                           If(InVerboseMode(),Tell("    rat",uptry[3]));
                           If(InVerboseMode(),Tell("  ",Maximum(Denominator /@ uptry[3])));
-                          If( Maximum(Denominator /@ uptry[3]) < 100,
+                          If( Maximum(Denominator /@ uptry[3]) <? 100,
                             [ DestructiveAppend(goodptry,NormalForm(uptry)); ]    );
                       ];
                   If(InVerboseMode(),Tell("    ",goodptry));
@@ -198,7 +198,7 @@ UnFence("tryRealRoots",1);
           Local(rroot);
           rroot := NearRational(root);
           If(InVerboseMode(),Tell("    rational ",rroot));
-          If(Denominator(rroot) < 100, [root := rroot; rrGood:=True;] );
+          If(Denominator(rroot) <? 100, [root := rroot; rrGood:=True;] );
       ]
     );
     
@@ -215,7 +215,7 @@ UnFence("processRealRoots",1);
     uptry[3] := "NearRational" /@ uptry[3];
     ptry     := NormalForm(uptry);
     If(InVerboseMode(),Tell("    ",ptry));
-    If( Abs(Lcm(uptry[3])) < 100,
+    If( Abs(Lcm(uptry[3])) <? 100,
       [
          //  looks OK -- try to use it
          Local(f1,f2,new);
@@ -239,7 +239,7 @@ UnFence("processRealRoots",1);
      If(InVerboseMode(),Tell("    ",rr));
      // try them pairwise
      goodptry := {};
-     For(ii:=1,ii<nrr,ii++)
+     For(ii:=1,ii<?nrr,ii++)
          For(jj:=ii+1,jj<=?nrr,jj++)
          [
              If(InVerboseMode(),Tell("   ",{ii,jj}));
@@ -248,7 +248,7 @@ UnFence("processRealRoots",1);
              uptry[3] := "NearRational" /@ uptry[3];
              If(InVerboseMode(),Tell("    rat",uptry[3]));
              If(InVerboseMode(),Tell("  ",Maximum(Denominator /@ uptry[3])));
-             If( Maximum(Denominator /@ uptry[3]) < 100,
+             If( Maximum(Denominator /@ uptry[3]) <? 100,
                [ DestructiveAppend(goodptry,NormalForm(uptry)); ]    );
          ];
          If(InVerboseMode(),Tell("    ",goodptry));

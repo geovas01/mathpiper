@@ -9,7 +9,7 @@
     Local(newInt,newScale,newRep,ans);
     BIP0     := BuiltinPrecisionGet();
     sgn      := Sign(N);
-    rep      := NumberToRep( If(sgn<0,-N,N) );
+    rep      := NumberToRep( If(sgn<?0,-N,N) );
     oldInt   := rep[1];
     oldPrec  := rep[2];
     oldScale := rep[3];
@@ -29,7 +29,7 @@
     Local(first,secnd,rem,ad);
     if ( newPrec =? oldPrec )
         [ ans := N; ]
-    else if ( newPrec < oldPrec )
+    else if ( newPrec <? oldPrec )
         [
             first    := StringMidGet(1, newPrec, strOInt); 
             secnd    := StringMidGet(newPrec+1, LS-newPrec, strOInt);

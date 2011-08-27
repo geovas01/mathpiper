@@ -22,7 +22,7 @@
 5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_(MultiLM(MultiNomial(vars,terms)) =? MultiLM(g))
      <-- CreateTerm(vars,{FillList(0,Length(vars)),1});
 
-5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_( Select(MultiLM(MultiNomial(vars,terms))-MultiLM(g), {{n},n<0} ) !=? {})
+5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_( Select(MultiLM(MultiNomial(vars,terms))-MultiLM(g), {{n},n<?0} ) !=? {})
      <-- CreateTerm(vars,{FillList(0,Length(vars)),1});
 
 5  # MultiGcd(MultiNomial(_vars,_terms),g_IsMulti)_(NormalForm(g) =? 0)

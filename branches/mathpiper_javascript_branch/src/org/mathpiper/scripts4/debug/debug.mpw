@@ -226,7 +226,7 @@ WriteLines(filename,lines,from,nrlines,breakpoints,current):=
   nr:=Length(lines);
   WriteString(ClearScreenString);
   Echo("File ",filename," at line ",current);
-  For(i:=from,i<from+nrlines And i<nr,i++)
+  For(i:=from,i<?from+nrlines And i<?nr,i++)
   [
 
     if (current =? i)

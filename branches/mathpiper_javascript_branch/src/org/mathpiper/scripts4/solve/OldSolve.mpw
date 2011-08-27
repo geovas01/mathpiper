@@ -52,11 +52,11 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 
 /* Echo({eq});  */
 
-  For(j:=1,j<=?nreq And nrSet < nrvar,j++)
+  For(j:=1,j<=?nreq And nrSet <? nrvar,j++)
   [
     Local(vlist);
     vlist:=VarListAll(eq[j],`Lambda({pt},Contains(@var,pt)));
-    For(i:=1,i<=?nrvar And nrSet < nrvar,i++)
+    For(i:=1,i<=?nrvar And nrSet <? nrvar,i++)
     [
 
 //Echo("eq[",j,"] = ",eq[j]);
@@ -81,7 +81,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 //Echo("current result is ",result);
            Local(k,reset);
            reset:=False;
-           For(k:=1,k<=?nreq  And nrSet < nrvar,k++)
+           For(k:=1,k<=?nreq  And nrSet <? nrvar,k++)
            If(Contains(VarListAll(eq[k],`Lambda({pt},Contains(@var,pt))),var[i]),
            [
              Local(original);

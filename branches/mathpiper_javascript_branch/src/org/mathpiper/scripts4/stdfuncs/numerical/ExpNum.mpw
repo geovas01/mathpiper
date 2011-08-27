@@ -15,7 +15,7 @@
 
 ];
 // large negative x
-20 # ExpNum(x_IsNumber) _ (2*x < -MathExpThreshold()) <-- DivideN(1, ExpNum(-x));
+20 # ExpNum(x_IsNumber) _ (2*x <? -MathExpThreshold()) <-- DivideN(1, ExpNum(-x));
 // other values of x
 30 # ExpNum(x_IsNumber) <-- ExpN(x);
 

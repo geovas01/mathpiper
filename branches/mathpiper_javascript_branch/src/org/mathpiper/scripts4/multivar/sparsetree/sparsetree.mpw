@@ -124,7 +124,7 @@ UnFence("SparseTreeScan", 3);
     [ t1[1][2] := AddSparseTrees(AddN(depth,-1),list1,list2);];
   Bind(t2,Rest(t2));
 ];
-20 # Muaddterm(_h1,_h2)_(h1[1]<h2[1]) <--
+20 # Muaddterm(_h1,_h2)_(h1[1]<?h2[1]) <--
 [
   Bind(inspt,{h2,i}:inspt);
   Bind(t2,Rest(t2));
@@ -200,7 +200,7 @@ UnFence("SparseTreeScan", 3);
     ];
   Bind(t2,Rest(t2));
 ];
-20 # MuMuaddterm(_h1,_h2,_coefs)_(h1[1]<h2[1]+coefs[1]) <--
+20 # MuMuaddterm(_h1,_h2,_coefs)_(h1[1]<?h2[1]+coefs[1]) <--
 [
 //Echo({"inspt ",h1,h2,coefs});
   Bind(inspt,{meradd(First(t2),coefs),i}:inspt);

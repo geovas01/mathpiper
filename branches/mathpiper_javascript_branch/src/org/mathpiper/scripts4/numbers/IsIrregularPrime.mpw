@@ -2,7 +2,7 @@
 
 5  # IsIrregularPrime(p_IsComposite)        <-- False;
 // First irregular prime is 37
-5  # IsIrregularPrime(_p)_(p<37)        <-- False;
+5  # IsIrregularPrime(_p)_(p<?37)        <-- False;
 
 // an odd prime p is irregular iff p divides the numerator of a Bernoulli number B(2*n) with
 // 2*n+1<p
@@ -13,7 +13,7 @@
         i:=1;
         irregular:=False;
 
-        While( 2*i + 1 < p And (irregular =? False) )[
+        While( 2*i + 1 <? p And (irregular =? False) )[
                 If( Abs(Numerator(Bernoulli(2*i))) % p =? 0, irregular:=True );
                 i++;
         ];

@@ -12,7 +12,7 @@
 
 3 # Ln(Complex(_r,_i)) <-- Complex(Ln(Abs(Complex(r,i))), Arg(Complex(r,i)));
 4 # Ln(x_IsNegativeNumber) <-- Complex(Ln(-x), Pi);
-5 # Ln(x_IsNumber)_(InNumericMode() And x<1) <-- - Internal'LnNum(DivideN(1, x));
+5 # Ln(x_IsNumber)_(InNumericMode() And x<?1) <-- - Internal'LnNum(DivideN(1, x));
 
 Ln(xlist_IsList) <-- MapSingle("Ln",xlist);
 

@@ -17,7 +17,7 @@
               ndiff := Abs(N(diff,prec+1));
               ncomp := N(10^(-prec),prec);
               If(iDebug=True,Tell("  ce2",{ndiff,ncomp,ndiff/ncomp}));
-              If(ndiff/ncomp<1,result:=True,result:=False);
+              If(ndiff/ncomp<?1,result:=True,result:=False);
           ]
       );
       result;

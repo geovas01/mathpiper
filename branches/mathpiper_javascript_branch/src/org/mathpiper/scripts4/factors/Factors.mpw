@@ -24,7 +24,7 @@
 
 10 # Factors(n_IsPositiveInteger) <--  
 [
-    If( n < 1600, FactorsSmallInteger(n), FactorizeInt(n) );
+    If( n <? 1600, FactorsSmallInteger(n), FactorizeInt(n) );
 ];
 
 
@@ -34,7 +34,7 @@
     If(InVerboseMode(),Tell("Factors_negInt",n));
     Local(en,ans);
     en  := -n;
-    ans := {-1,1}:If( en < 1600, FactorsSmallInteger(en), FactorizeInt(en) );
+    ans := {-1,1}:If( en <? 1600, FactorsSmallInteger(en), FactorizeInt(en) );
 ];
 
 
@@ -43,11 +43,11 @@
     If(InVerboseMode(),Tell("Factors_ratNum",p));
     Local(sgn,num,den,fn,fd,f,ans);
     sgn := 1;
-    If(p < 0, [p := -p; sgn := -1;]);
+    If(p <? 0, [p := -p; sgn := -1;]);
     num := Numerator(p);
     den := Denominator(p);
     fn := FactorizeInt(num);
-    If(sgn < 0, fn := {-1,1}:fn );
+    If(sgn <? 0, fn := {-1,1}:fn );
     fd := FactorizeInt(den);
     If(InVerboseMode(),Tell("  ",{fn,fd}));
     ForEach(f,fd)

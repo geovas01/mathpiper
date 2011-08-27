@@ -11,11 +11,11 @@
   [
     uni:=MakeUni(item[1]);
     deg:=Degree(uni);
-    If(deg > 0 And deg < 3,
+    If(deg > 0 And deg <? 3,
       [
         root:= PSolve(uni);
         If(Not IsList(root),root:={root});
-        For(i:=0,i<item[2],i++)
+        For(i:=0,i<?item[2],i++)
           result:= Concat(root, result);
       ]
       );

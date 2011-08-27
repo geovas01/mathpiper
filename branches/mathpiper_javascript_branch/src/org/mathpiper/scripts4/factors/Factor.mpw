@@ -9,7 +9,7 @@
     fs := Factors(p);
     If(InVerboseMode(),Tell("   ",fs));
     num := Select(fs,Lambda({X},X[2]>=?0));
-    den := Select(fs,Lambda({X},X[2]<0));
+    den := Select(fs,Lambda({X},X[2]<?0));
     If(InVerboseMode(),Tell("   ",{num,den}));
     dent := Transpose(den);
     dent[2] := -1 * dent[2];
@@ -39,7 +39,7 @@
     fs := Factors( p );
     If(InVerboseMode(),Tell("  ",fs));
     num := Select(fs,Lambda({X},X[2]>=?0));
-    den := Select(fs,Lambda({X},X[2]<0));
+    den := Select(fs,Lambda({X},X[2]<?0));
     If(InVerboseMode(),Tell("   ",{num,den}));
     dent := Transpose(den);
     dent[2] := -1 * dent[2];

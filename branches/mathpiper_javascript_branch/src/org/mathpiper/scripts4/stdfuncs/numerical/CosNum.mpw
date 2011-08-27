@@ -5,7 +5,7 @@
 
 CosNum(x) :=
 [
-  If(x<0 Or 113*x>710, x:=TruncRadian(x));
+  If(x<?0 Or 113*x>710, x:=TruncRadian(x));
   CosN(x);
 ];
 

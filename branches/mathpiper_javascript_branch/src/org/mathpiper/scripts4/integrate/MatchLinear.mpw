@@ -20,7 +20,7 @@ LocalSymbols(a,b)[
 ];
 20 # MatchLinear(_var,_expr) <-- False;
 
-10 # MatchLinear(_expr)_(Degree(expr,var)<2) <--
+10 # MatchLinear(_expr)_(Degree(expr,var)<?2) <--
 [
   Check(IsUniVar(expr), "Argument", PipeToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));
 

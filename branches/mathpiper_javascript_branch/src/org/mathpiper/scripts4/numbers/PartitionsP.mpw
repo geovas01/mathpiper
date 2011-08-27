@@ -15,7 +15,7 @@
 5  # PartitionsP(0)        <-- 1;
 5  # PartitionsP(1)        <-- 1;
 // decide which algorithm to use
-10 # PartitionsP(n_IsInteger)_(n<250) <-- PartitionsP'recur(n);
+10 # PartitionsP(n_IsInteger)_(n<?250) <-- PartitionsP'recur(n);
 20 # PartitionsP(n_IsInteger) <-- PartitionsP'HR(n);
 
 /// Calculation using the Hardy-Ramanujan series.
@@ -127,7 +127,7 @@ PartitionsP'recur(number_IsPositiveInteger) <--
         Local(sign, cache, n, k, pentagonal, P);
         cache:=ArrayCreate(number+1,1);        // cache[n] = PartitionsP(n-1)
         n := 1;
-        While(n<number)        // this will never execute if number=1
+        While(n<?number)        // this will never execute if number=1
         [
                 n++;
                 // compute PartitionsP(n) now

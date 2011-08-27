@@ -189,7 +189,7 @@ LocalSymbols(omindent) [
      // probably obsolete. I'll think about removing it.
      symbolDef := OMSymbol()[ OMSignature(function) ];
      If(symbolDef =? Empty, symbolDef := OMSymbol()[ Type(function) ] );
-     If(symbolDef =? Empty Or Length(symbolDef) < 3 Or symbolDef[3] =? {},
+     If(symbolDef =? Empty Or Length(symbolDef) <? 3 Or symbolDef[3] =? {},
         [
         OMEcho("<OMS cd=\"":symbolDef[1]:"\" name=\"":symbolDef[2]:"\"/>");
         ForEach(arg, function) OMFormExpression(arg);
@@ -749,7 +749,7 @@ OMDef( "=?" , "relation1","eq"  );
 OMDef( ">=?", "relation1","geq" );
 OMDef( ">" , "relation1","gt"  );
 OMDef( "<=?", "relation1","leq" );
-OMDef( "<" , "relation1","lt"  );
+OMDef( "<?" , "relation1","lt"  );
 OMDef( "!=?", "relation1","neq" );
 OMDef( "Gcd", "arith1","gcd" );
 OMDef( "Sqrt", "arith1","root", { $, _1, 2 }, $(_1)_(_2=?2) | (_1^(1/_2)) );
@@ -1126,7 +1126,7 @@ In> OMForm(Sqrt(3))
           </OMA>
         </OMOBJ>
 Result: True
-In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
+In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><?OMI>16</OMI><OMI>2</OMI></OMA></OMOBJ> ")OMRead()
 Result: Sqrt(16)
 In> PipeFromString("<OMOBJ><OMA><OMS cd=\"arith1\" name=\"root\"/><OMI>16</OMI><OMI>3</OMI></OMA></OMOBJ> ")OMRead()
 Result: 16^(1/3)

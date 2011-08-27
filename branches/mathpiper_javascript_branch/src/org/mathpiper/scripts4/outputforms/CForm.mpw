@@ -73,7 +73,7 @@ LocalSymbols(cformRegularOps) [
   cformRegularOps := { {"+"," + "}, {"-"," - "}, {"*"," * "},
                        {"/"," / "}, {":="," = "}, {"=="," == "},
                        {"=?"," == "}, {"!=?"," != "}, {"<=?"," <=? "},
-                       {">=?"," >= "}, {"<"," < "}, {">"," > "},
+                       {">=?"," >= "}, {"<?"," < "}, {">"," > "},
                        {"And"," && "}, {"Or"," || "}, {">>", " >> "},
                        { "<<", " << " }, { "&", " & " }, { "|", " | " },
                        { "%", " % " }, { "^", " ^ " },
@@ -83,14 +83,14 @@ LocalSymbols(cformRegularOps) [
 ]; // LocalSymbols(cformRegularOps)
 
         /* This is the template for "regular" binary infix operators:
-100 # CForm(_x + _y, _p) <-- CFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(CForm(x, LeftPrecedenceGet("+")), " + ", CForm(y, RightPrecedenceGet("+")) ) );
+100 # CForm(_x + _y, _p) <-- CFormBracketIf(p<?PrecedenceGet("+"), ConcatStrings(CForm(x, LeftPrecedenceGet("+")), " + ", CForm(y, RightPrecedenceGet("+")) ) );
         */
 
         /* unary addition */
-100 # CForm(+ _y, _p) <-- CFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(" + ", CForm(y, RightPrecedenceGet("+")) ) );
+100 # CForm(+ _y, _p) <-- CFormBracketIf(p<?PrecedenceGet("+"), ConcatStrings(" + ", CForm(y, RightPrecedenceGet("+")) ) );
 
         /* unary subtraction */
-100 # CForm(- _y, _p) <-- CFormBracketIf(p<PrecedenceGet("-"), ConcatStrings(" - ", CForm(y, RightPrecedenceGet("-")) ) );
+100 # CForm(- _y, _p) <-- CFormBracketIf(p<?PrecedenceGet("-"), ConcatStrings(" - ", CForm(y, RightPrecedenceGet("-")) ) );
 
         /* power's argument is never bracketed but it must be put in braces. */
 100 # CForm(_x ^ _y, _p) <-- CFormBracketIf(p<=?PrecedenceGet("^"), ConcatStrings("pow(", CForm(x, CFormMaxPrec()), ", ", CForm(y, CFormMaxPrec()), ")" ) );
@@ -133,7 +133,7 @@ LocalSymbols(cformMathFunctions) [
 
 
 120 # CForm(expr_IsFunction, _p)_(ArgumentsCount(expr)=?2 And Contains(AssocIndices(CFormRegularOps()), Type(expr)) ) <--
-      CFormBracketIf(p<PrecedenceGet(Type(expr)), ConcatStrings(CForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), CFormRegularOps()[Type(expr)], CForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
+      CFormBracketIf(p<?PrecedenceGet(Type(expr)), ConcatStrings(CForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), CFormRegularOps()[Type(expr)], CForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
@@ -154,7 +154,7 @@ CFormArgs(list_IsList) <--
   For (i:=1,i<=?nr,i++)
   [
     result:=result:CForm(list[i]);
-    If (i<nr, result:=result:", ");
+    If (i<?nr, result:=result:", ");
   ];
   result;
 ];
@@ -174,7 +174,7 @@ CFormArgs(list_IsList) <--
 
 /* Some special functions: Mod */
 
-100 # CForm(Modulo(_x, _y), _p) <-- CFormBracketIf(p<PrecedenceGet("/"), ConcatStrings(CForm(x, PrecedenceGet("/")), " % ", CForm(y, PrecedenceGet("/")) ) )
+100 # CForm(Modulo(_x, _y), _p) <-- CFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings(CForm(x, PrecedenceGet("/")), " % ", CForm(y, PrecedenceGet("/")) ) )
 ;
 
 /* Indexed expressions are never bracketed */
@@ -193,7 +193,7 @@ LocalSymbols(cindent) [
 "
 ";
     Local(i);
-    For(i:=1,i<cindent,i++)
+    For(i:=1,i<?cindent,i++)
     [
       result:=result:"  ";
     ];
@@ -276,10 +276,10 @@ CForm(Hold(Cos(A-B)*Sin(a)*func(b,c,d*(e+Pi))*Sqrt(Abs(C)+D)-(g(a+b)^(c+d))^(c+d
 );
 
 Verify(
-CForm(Hold([i:=0;While(i<10)[i++; a:=a+Floor(i);];]))
+CForm(Hold([i:=0;While(i<?10)[i++; a:=a+Floor(i);];]))
 , "{
   i = 0;
-  while(i < 10)
+  while(i <? 10)
     {
       ++(i);
       a = a + floor(i);
@@ -292,10 +292,10 @@ CForm(Hold([i:=0;While(i<10)[i++; a:=a+Floor(i);];]))
 
 /* Check that we can still force numbers to be floats in stead of integers if we want to */
 Verify(
-CForm(Hold([i:=0.;While(i<10.)[i++; a:=a+Floor(i);];]))
+CForm(Hold([i:=0.;While(i<?10.)[i++; a:=a+Floor(i);];]))
 , "{
   i = 0.;
-  while(i < 10.)
+  while(i <? 10.)
     {
       ++(i);
       a = a + floor(i);

@@ -5,7 +5,7 @@ Function("Find",{list,element})
   Local(result,count);
   Bind(result, -1);
   Bind(count, 1);
-  While(And(result<0, Not(IsEqual(list, {}))))
+  While(And(result<?0, Not(IsEqual(list, {}))))
   [
     If(IsEqual(First(list), element),
       Bind(result, count)

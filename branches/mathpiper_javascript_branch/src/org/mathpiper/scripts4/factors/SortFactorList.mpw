@@ -3,7 +3,7 @@
 /// Sort the list of prime factors using HeapSort()
 LocalSymbols(a,b, list) [
 
-SortFactorList(list) := HeapSort(list, {{a,b}, a[1]<b[1]});
+SortFactorList(list) := HeapSort(list, {{a,b}, a[1]<?b[1]});
 
 ];
 

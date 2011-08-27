@@ -165,7 +165,7 @@ Plot2D'get'data(_func, _var, _x'init, _y'init, _delta'x, _options'hash) <--
         Local(i, a, fa, b, fb, c, fc, result);
         // initialize list by first points (later will always use Rest() to exclude first points of subintervals)
         result := { {c,fc} := {x'init, y'init} };
-        For(i:=0, i<options'hash["points"], i++)
+        For(i:=0, i<?options'hash["points"], i++)
         [
                 {a,fa} := {c, fc};        // this is to save time but here a = x'init + i*delta'x
                 // build subintervals

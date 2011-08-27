@@ -9,7 +9,7 @@ Function("BubbleSort",{list,compare})
 
   For (j:=length,j>1,j--)
   [
-    For(i:=1,i<j,i++)
+    For(i:=1,i<?j,i++)
     [
       left:=list[i];
       right:=list[i+1];
@@ -58,7 +58,7 @@ to $n^2$ where $n$ is the length of the list.
 In> BubbleSort({4,7,23,53,-2,1}, ">")
 Result: {53,23,7,4,1,-2}
 
-In> BubbleSort({3,5,2},Lambda({x,y},x<y))
+In> BubbleSort({3,5,2},Lambda({x,y},x<?y))
 Result: {2,3,5}
 
 *SEE HeapSort, Lambda

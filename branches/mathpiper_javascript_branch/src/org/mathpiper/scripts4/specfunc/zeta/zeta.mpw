@@ -57,7 +57,7 @@ Internal'ZetaNum2(s, limit) :=
 /// Compute coefficients e[j] (see Borwein -- excluding (-1)^j )
 Internal'ZetaNumCoeffEj(j,n) := [
         Local(k);
-        2^n-If(j<n,
+        2^n-If(j<?n,
                 0,
                 Sum(k,0,j-n,BinomialCoefficient(n,k))        // this is suboptimal but ok for now
         );
@@ -101,7 +101,7 @@ Zeta3() :=
         Local(n, prec, result);
         prec := BuiltinPrecisionGet();
         If(        // use identity if s<1/2 to replace with larger s. Also must be sn!=0 or else we get infinity * zero
-                N(Re(s)) < 0.5,
+                N(Re(s)) <? 0.5,
                 // call ourselves with a different argument
                 [
                         If(InVerboseMode(), Echo({"Internal'ZetaNum: using s->1-s identity, s=", s, ", precision ", prec}));

@@ -7,7 +7,7 @@
       histogramDataset := JavaNew("org.jfree.data.statistics.HistogramDataset");
       doubleArray := JavaCall("java.lang.reflect.Array","newInstance","java.lang.Double",ToString(Length(data)) );
       x := 0;
-      While(x < Length(data))
+      While(x <? Length(data))
       [
           JavaCall("java.lang.reflect.Array","setDouble",doubleArray, x, data[x+1] );
       ];

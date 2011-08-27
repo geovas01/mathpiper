@@ -34,7 +34,7 @@
            //If(InVerboseMode(),Tell("     ",{index,first,secnd,third}));
            if ( index > 0 )
                [
-                   if ( index < precision )
+                   if ( index <? precision )
                        [
                            //If(InVerboseMode(),Tell("   index < precision "));
                            numStr := ConcatStrings(first,".",secnd,"E",third);
@@ -45,7 +45,7 @@
                            numStr := ConcatStrings(first,".",secnd,"E+",third);
                        ];
                ]
-           else if ( index < 0 )
+           else if ( index <? 0 )
                [
                    //If(InVerboseMode(),Tell("   index < 0 "));
                    numStr := ConcatStrings(first,".",secnd,"E",third);

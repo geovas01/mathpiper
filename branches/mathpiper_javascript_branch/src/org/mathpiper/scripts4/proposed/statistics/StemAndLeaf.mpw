@@ -4,7 +4,7 @@
 
 trunc(x):= [
 
-  If(x < 0, s := -1, s := 1);
+  If(x <? 0, s := -1, s := 1);
 s* Floor(Abs(x));
 ];
 
@@ -20,7 +20,7 @@ intlabels(y1,y2,tnumint) := [
   //i = 0;
   xx = 0;
   breakLoop := False;
-  While (yy-x < y2 Or breakLoop = True) [
+  While (yy-x <? y2 Or breakLoop = True) [
       L := Append(L, yy);
     yy := yy + x;
     //i++;
@@ -43,19 +43,19 @@ intervals(diff, NumCats) := [
   
   A := [];
   
-  For (i := 0,i < 4, i++) [
+  For (i := 0,i <? 4, i++) [
       A := Append(A,trunc(diff/T[i]) +1);
   ];
   
   D := AbsN(10 - A[0]);
   
   index := 1;
-  For (i := 1, i < 4, i++) 
+  For (i := 1, i <? 4, i++) 
   [
     if (A[i] <=? 25) [
       if (A[i] > 2) [
       XX := AbsN(NumCats - A[i]);
-        if (XX < D) [
+        if (XX <? D) [
         D := XX;
           index = i+1;
         ];
@@ -75,19 +75,19 @@ stemandleaf(x) :=
   didzero := False;
    N := x.length;
   
-  if (N<20)
+  if (N<?20)
     [
       tNumInt := 5;
     ] 
   else 
     [
-      if (N < 100) 
+      if (N <? 100) 
         [
           tNumInt := 10;
         ] 
       else 
         [
-          if (N < 150) 
+          if (N <? 150) 
             [
               tNumInt := 15;
             ] 
@@ -100,13 +100,13 @@ stemandleaf(x) :=
    theMax := x[N-1];
    theMin := x[0];
   alldone := False;
-  if (theMax - theMin < 10) 
+  if (theMax - theMin <? 10) 
   [
      ratio := 1000/(theMax - theMin);
     ratio := Math.max(ratio,1000);
     ratio := trunc(Math.log(ratio) * 0.4342945);
     ratio := Math.pow(10,ratio);
-    For ( i := 0, i < N , i++) 
+    For ( i := 0, i <? N , i++) 
       [
             x[i] := x[i] * ratio;
       ];
@@ -258,7 +258,7 @@ stemandleaf(x) :=
       
      xz := b * t4 + leftover * tt;
      
-    if (it<0)
+    if (it<?0)
       [
             if (xz > 0 ) 
           [
@@ -267,10 +267,10 @@ stemandleaf(x) :=
           xz := xz - .00001;
       ];
       
-    if (xz<cur) 
+    if (xz<?cur) 
     [
             newline := True;
-        While (xz<cur)
+        While (xz<?cur)
          [
                   LN ++;
               if (start) 
@@ -302,7 +302,7 @@ stemandleaf(x) :=
         
           count := count - 1;
           
-          if (count < 0)
+          if (count <? 0)
           [
             cur := xz -1000;
           ] 
@@ -348,16 +348,16 @@ stemandleaf(x) :=
       ];
     ];
   
-  For ( i := 0, i < N , i++) [
+  For ( i := 0, i <? N , i++) [
     x[i] := x[i] / ratio;
   ];
   
 
   Echo("Stems Leaves");
-    For (i:=0, i<leaves.length, i++)[
+    For (i:=0, i<?leaves.length, i++)[
         test := " " : stems[i];
     
-      While (test.length < 8) 
+      While (test.length <? 8) 
        [
             test := " " : test;
        ];

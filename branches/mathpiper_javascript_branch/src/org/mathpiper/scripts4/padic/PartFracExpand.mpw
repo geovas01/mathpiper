@@ -29,7 +29,7 @@ PartFracExpand(_g,_f) <--
 
   divlist:=Map("/",{res,mlist});
 
-  If(Length(divlist)<2,
+  If(Length(divlist)<?2,
     Add(divlist),
     [
       result:=divlist[1];

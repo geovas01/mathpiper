@@ -31,27 +31,27 @@
 110 # IrrationalFunctionLeadingCoef(_expr^_p, _var)_(IsPolynomial(expr, var) And IsRationalOrNumber(p) And Not IsZero(p) And Not IsPositiveInteger(p)) <-- LeadingCoef(expr, var)^p;
 
 110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And IsIrrationalFunction(e2,var) And IrrationalFunctionDegree(e1,var) > IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var);
-110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And IsIrrationalFunction(e2,var) And IrrationalFunctionDegree(e1,var) < IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And IsIrrationalFunction(e2,var) And IrrationalFunctionDegree(e1,var) <? IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e2,var);
 110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And IsIrrationalFunction(e2,var) And IrrationalFunctionDegree(e1,var) =? IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) + IrrationalFunctionLeadingCoef(e2,var);
 
 110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And IsPolynomial(e2,var) And IrrationalFunctionDegree(e1,var) > Degree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var);
-110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And IsPolynomial(e2,var) And IrrationalFunctionDegree(e1,var) < Degree(e2,var)) <-- LeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And IsPolynomial(e2,var) And IrrationalFunctionDegree(e1,var) <? Degree(e2,var)) <-- LeadingCoef(e2,var);
 110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsIrrationalFunction(e1,var) And IsPolynomial(e2,var) And IrrationalFunctionDegree(e1,var) =? Degree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) + LeadingCoef(e2,var);
 
 110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsPolynomial(e1,var) And IsIrrationalFunction(e2,var) And Degree(e1,var) > IrrationalFunctionDegree(e2,var)) <-- LeadingCoef(e1,var);
-110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsPolynomial(e1,var) And IsIrrationalFunction(e2,var) And Degree(e1,var) < IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsPolynomial(e1,var) And IsIrrationalFunction(e2,var) And Degree(e1,var) <? IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e2,var);
 110 # IrrationalFunctionLeadingCoef(_e1 + _e2, _var)_(IsPolynomiaml(e1,var) And IsIrrationalFunction(e2,var) And Degree(e1,var) =? IrrationalFunctionDegree(e2,var)) <-- LeadingCoef(e1,var) + IrrationalFunctionLeadingCoef(e2,var);
 
 110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And IsIrrationalFunction(e2,var) And IrrationalFunctionDegree(e1,var) > IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var);
-110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And IsIrrationalFunction(e2,var) And IrrationalFunctionDegree(e1,var) < IrrationalFunctionDegree(e2,var)) <-- -IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And IsIrrationalFunction(e2,var) And IrrationalFunctionDegree(e1,var) <? IrrationalFunctionDegree(e2,var)) <-- -IrrationalFunctionLeadingCoef(e2,var);
 110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And IsIrrationalFunction(e2,var) And IrrationalFunctionDegree(e1,var) =? IrrationalFunctionDegree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) - IrrationalFunctionLeadingCoef(e2,var);
 
 110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And IsPolynomial(e2,var) And IrrationalFunctionDegree(e1,var) > Degree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var);
-110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And IsPolynomial(e2,var) And IrrationalFunctionDegree(e1,var) < Degree(e2,var)) <-- -LeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And IsPolynomial(e2,var) And IrrationalFunctionDegree(e1,var) <? Degree(e2,var)) <-- -LeadingCoef(e2,var);
 110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsIrrationalFunction(e1,var) And IsPolynomial(e2,var) And IrrationalFunctionDegree(e1,var) =? Degree(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) - LeadingCoef(e2,var);
 
 110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsPolynomial(e1,var) And IsIrrationalFunction(e2,var) And Degree(e1,var) > IrrationalFunctionDegree(e2,var)) <-- LeadingCoef(e1,var);
-110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsPolynomial(e1,var) And IsIrrationalFunction(e2,var) And Degree(e1,var) < IrrationalFunctionDegree(e2,var)) <-- -IrrationalFunctionLeadingCoef(e2,var);
+110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsPolynomial(e1,var) And IsIrrationalFunction(e2,var) And Degree(e1,var) <? IrrationalFunctionDegree(e2,var)) <-- -IrrationalFunctionLeadingCoef(e2,var);
 110 # IrrationalFunctionLeadingCoef(_e1 - _e2, _var)_(IsPolynomiaml(e1,var) And IsIrrationalFunction(e2,var) And Degree(e1,var) =? IrrationalFunctionDegree(e2,var)) <-- LeadingCoef(e1,var) - IrrationalFunctionLeadingCoef(e2,var);
 
 110 # IrrationalFunctionLeadingCoef(_e1 * _e2, _var)_(IsIrrationalFunction(e1,var) And IsIrrationalFunction(e2,var)) <-- IrrationalFunctionLeadingCoef(e1,var) * IrrationalFunctionLeadingCoef(e2,var);

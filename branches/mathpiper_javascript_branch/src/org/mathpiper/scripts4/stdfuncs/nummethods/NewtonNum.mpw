@@ -44,7 +44,7 @@ NewtonNum(_func, _x'init, _prec0, _order) <--
     // first, we get prec0 exact digits
     exact'digits := 0;
     initial'tries := 5;        // stop the loop the the initial value is not good
-    While(exact'digits*order < prec0 And initial'tries>0)
+    While(exact'digits*order <? prec0 And initial'tries>0)
     [
       initial'tries--;
       x0 := x1;

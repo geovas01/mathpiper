@@ -4,7 +4,7 @@
 
 Quartile(list) :=
 [
-    sortedList := HeapSort(list,"<");
+    sortedList := HeapSort(list,"<?");
     
     secondQuartile := Median(sortedList);
     

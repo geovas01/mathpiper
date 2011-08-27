@@ -302,7 +302,7 @@ FormulaBracket(f):=
   [
     thislength:=0;
     if(IsList(item)) [thislength:=Length(item);];
-    if (maxlength<thislength) [maxlength:=thislength;];
+    if (maxlength<?thislength) [maxlength:=thislength;];
   ];
 
   If(maxlength>0,

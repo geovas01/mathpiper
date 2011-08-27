@@ -157,7 +157,7 @@ OrthoPolyNumeric(name_IsString, n_IsInteger, p_IsList, _x) <-- [
         value2 := ruleCoeffs[1] + x*ruleCoeffs[2];
         index := 1;
         /* value1, value2, value3 is the same as P_{n-2}, P_{n-1}, P_n where n = index */
-        While(index<n) [
+        While(index<?n) [
                 index := index + 1;
                 ruleCoeffs := Apply(KnownOrthoPoly()[name], {index, p})[2];
                 value3 := (ruleCoeffs[1] + x*ruleCoeffs[2])*value2 + ruleCoeffs[3]*value1;
@@ -227,7 +227,7 @@ OrthoPolyCoeffs(name, n, p) returns the list of coefficients for orthogonal poly
         /* Invariant: answer ready in "newCoeffs" at value of index */
         index := 1;
         /* main loop */
-        While(index < n) [
+        While(index <? n) [
                 index := index + 1;
                 /* Echo({"index ", index}); */ /* in case this is slow */
                 ruleCoeffs := Apply(KnownOrthoPoly()[name], {index, p})[2];
@@ -327,8 +327,8 @@ BitList(n) := BitList(n, {});
 1 # FastOrthoU(1, _x) <-- 2*x;
 
 // guard against user errors
-2 # FastOrthoT(_n, _x) _ (IsInteger(n) And n<0) <-- Undefined;
-2 # FastOrthoU(_n, _x) _ (IsInteger(n) And n<0) <-- Undefined;
+2 # FastOrthoT(_n, _x) _ (IsInteger(n) And n<?0) <-- Undefined;
+2 # FastOrthoU(_n, _x) _ (IsInteger(n) And n<?0) <-- Undefined;
 
 // make T(), U() of even order more efficient: delegate gruntwork to odd order
 2 # FastOrthoT(n_IsEven, _x) <-- 2*FastOrthoT(Quotient(n,2), x)^2-1;

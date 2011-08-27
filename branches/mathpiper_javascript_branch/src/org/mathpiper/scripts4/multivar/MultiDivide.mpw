@@ -56,7 +56,7 @@
       if (MultiLM(glt) =? MultiLM(plt) Or MultiTermLess({MultiLM(glt),1}, {MultiLM(plt),1}))
       [
         //   corrected if-select statement  110708    hso
-        if (Select(MultiLM(plt)-MultiLM(glt),{{n},n<0}) =? {} )
+        if (Select(MultiLM(plt)-MultiLM(glt),{{n},n<?0}) =? {} )
         [
           Local(ff,ltbefore,ltafter);
           ff := CreateTerm(v,{MultiLM(plt)-MultiLM(glt),MultiLC(plt)/MultiLC(glt)});

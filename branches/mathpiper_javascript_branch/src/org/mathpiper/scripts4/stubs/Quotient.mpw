@@ -26,7 +26,7 @@
 
 
 //Note:tk:moved here from univariate.rep.
-0 # Quotient(n_IsUniVar,m_IsUniVar)_(Degree(n) < Degree(m)) <-- 0;
+0 # Quotient(n_IsUniVar,m_IsUniVar)_(Degree(n) <? Degree(m)) <-- 0;
 1 # Quotient(n_IsUniVar,m_IsUniVar)_
     (n[1] =? m[1] And Degree(n) >=? Degree(m)) <--
 [

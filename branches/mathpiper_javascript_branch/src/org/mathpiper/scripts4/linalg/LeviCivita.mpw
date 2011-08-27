@@ -9,7 +9,7 @@ Function("LeviCivita",{indices})
 
   For (j:=length,j>1,j--)
   [
-    For(i:=1,i<j,i++)
+    For(i:=1,i<?j,i++)
     [
       left:=indices[i];
       right:=indices[i+1];
@@ -17,7 +17,7 @@ Function("LeviCivita",{indices})
       If (IsEqual(left,right),
       [ factor := 0 ; ],
       [
-        If(Not(Apply("<",{left,right})),
+        If(Not(Apply("<?",{left,right})),
         [
 /*
           Swap(indices,i,i+1);

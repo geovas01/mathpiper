@@ -1,4 +1,4 @@
-Fri Aug 26 21:36:34 EDT 2011.
+Sat Aug 27 01:18:46 EDT 2011.
 MathPiper version: js.024.
 Running all tests except the following: PSolve,Solve.
 Beginning of tests:
@@ -28,11 +28,11 @@ Testing /: in file </org/mathpiper/scripts4/localrules/slash_colon_operator.mpw>
 
 
 ================================================================
-Testing < in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+Testing <=? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
 
 
 ================================================================
-Testing <=? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+Testing <? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
 
 
 ================================================================
@@ -747,9 +747,9 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 297 
 
-Dot(px,px)<0.01
+Dot(px,px)<?0.01
  evaluates to 
-Dot(342*x+655*x^2+229*x^3+453*x^4+877*x^5+350,342*x+655*x^2+229*x^3+453*x^4+877*x^5+350)<0.01
+Dot(235*x+757*x^2+529*x^3+203*x^4+607*x^5+349,235*x+757*x^2+529*x^3+203*x^4+607*x^5+349)<?0.01
  which differs from 
 True
 ******************
@@ -766,9 +766,9 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 299 
 
-Dot(px,px)<0.01
+Dot(px,px)<?0.01
  evaluates to 
-Dot(724*x+837*x^2+616*x^3+352*x^4+550*x^5+93,724*x+837*x^2+616*x^3+352*x^4+550*x^5+93)<0.01
+Dot(214*x+659*x^2+961*x^3+849*x^4+448*x^5+955,214*x+659*x^2+961*x^3+849*x^4+448*x^5+955)<?0.01
  which differs from 
 True
 ******************
@@ -785,9 +785,9 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 301 
 
-Dot(px,px)<0.01
+Dot(px,px)<?0.01
  evaluates to 
-Dot(86*x+733*x^2+72*x^3+28*x^4+485*x^5+880,86*x+733*x^2+72*x^3+28*x^4+485*x^5+880)<0.01
+Dot(98*x+877*x^2+962*x^3+835*x^4+318*x^5+64,98*x+877*x^2+962*x^3+835*x^4+318*x^5+64)<?0.01
  which differs from 
 True
 ******************
@@ -804,9 +804,9 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 303 
 
-Dot(px,px)<0.01
+Dot(px,px)<?0.01
  evaluates to 
-Dot(673*x+681*x^2+868*x^3+53*x^4+756*x^5+136,673*x+681*x^2+868*x^3+53*x^4+756*x^5+136)<0.01
+Dot(162*x+869*x^2+36*x^3+469*x^4+621*x^5+594,162*x+869*x^2+36*x^3+469*x^4+621*x^5+594)<?0.01
  which differs from 
 True
 ******************
@@ -823,9 +823,9 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 305 
 
-Dot(px,px)<0.01
+Dot(px,px)<?0.01
  evaluates to 
-Dot(763*x+442*x^2+79*x^3+15*x^4+605*x^5+807,763*x+442*x^2+79*x^3+15*x^4+605*x^5+807)<0.01
+Dot(306*x+190*x^2+961*x^3+670*x^4+344*x^5+407,306*x+190*x^2+961*x^3+670*x^4+344*x^5+407)<?0.01
  which differs from 
 True
 ******************
@@ -842,9 +842,9 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 307 
 
-Dot(px,px)<0.01
+Dot(px,px)<?0.01
  evaluates to 
-Dot(872*x+76*x^2+385*x^3+860*x^4+126*x^5+306,872*x+76*x^2+385*x^3+860*x^4+126*x^5+306)<0.01
+Dot(454*x+405*x^2+856*x^3+825*x^4+830*x^5+150,454*x+405*x^2+856*x^3+825*x^4+830*x^5+150)<?0.01
  which differs from 
 True
 ******************

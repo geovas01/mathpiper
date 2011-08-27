@@ -25,11 +25,11 @@
 //Retract("PDF", *);
 
 
-10 # PDF(ExponentialDistribution(_l), _x) <-- If(x<0,0,l*Exp(-l*x));
+10 # PDF(ExponentialDistribution(_l), _x) <-- If(x<?0,0,l*Exp(-l*x));
 
 10 # PDF(NormalDistribution(_m,_s),_x) <-- Exp(-(x-m)^2/(2*s^2))/Sqrt(2*Pi*s^2); //See http://en.wikipedia.org/wiki/Normal_distribution.
 
-10 # PDF(ContinuousUniformDistribution(_a,_b),x)_(a<b) <-- If(x<a Or x>b,0,1/(b-a));
+10 # PDF(ContinuousUniformDistribution(_a,_b),x)_(a<?b) <-- If(x<?a Or x>b,0,1/(b-a));
 
 10 # PDF(DiscreteDistribution( dom_IsList, prob_IsList), _x)_( Length(dom)=?Length(prob) And Simplify(Add(prob))=?1) <--
     [

@@ -1,8 +1,8 @@
-%mathpiper,def="<;>;<=?;>=?;!=?"
+%mathpiper,def="<?;>;<=?;>=?;!=?"
 
 /* def file definitions
 =
-<
+<?
 >
 <=?
 >=?
@@ -15,68 +15,68 @@
 */
 
 // Undefined is a very special case as we return False for everything
-1 # Undefined <  _x  <--  False;
+1 # Undefined <?  _x  <--  False;
 1 # Undefined <=? _x  <--  False;
 1 # Undefined >  _x  <--  False;
 1 # Undefined >=? _x  <--  False;
-1 # _x <  Undefined  <--  False;
+1 # _x <?  Undefined  <--  False;
 1 # _x <=? Undefined  <--  False;
 1 # _x >  Undefined  <--  False;
 1 # _x >=? Undefined  <--  False;
 
 
 // If n and m are numbers, use the standard LessThan function immediately
-5 # (n_IsNumber < m_IsNumber) <-- IsLessThan(n-m,0);
+5 # (n_IsNumber <? m_IsNumber) <-- IsLessThan(n-m,0);
 
 
 // If n and m are symbolic after a single evaluation, see if they can be coerced in to a real-valued number.
 LocalSymbols(nNum,mNum)
 [
-  10 # (_n < _m)_[nNum:=N(Eval(n)); mNum:=N(Eval(m));IsNumber(nNum) And IsNumber(mNum);] <-- IsLessThan(nNum-mNum,0);
+  10 # (_n <? _m)_[nNum:=N(Eval(n)); mNum:=N(Eval(m));IsNumber(nNum) And IsNumber(mNum);] <-- IsLessThan(nNum-mNum,0);
 ];
 
 // Deal with Infinity
-20 #  (Infinity < _n)_(Not(IsInfinity(n)))  <-- False;
-20 #  (-Infinity < _n)_(Not(IsInfinity(n))) <-- True;
-20 #  (_n < Infinity)_(Not(IsInfinity(n)))  <-- True;
-20 #  (_n < -Infinity)_(Not(IsInfinity(n))) <-- False;
+20 #  (Infinity <? _n)_(Not(IsInfinity(n)))  <-- False;
+20 #  (-Infinity <? _n)_(Not(IsInfinity(n))) <-- True;
+20 #  (_n <? Infinity)_(Not(IsInfinity(n)))  <-- True;
+20 #  (_n <? -Infinity)_(Not(IsInfinity(n))) <-- False;
 
 // Lots of known identities go here
-30 # (_n1/_n2) < 0  <--  (n1 < 0) !=? (n2 < 0);
-30 # (_n1*_n2) < 0  <--  (n1 < 0) !=? (n2 < 0);
+30 # (_n1/_n2) <? 0  <--  (n1 <? 0) !=? (n2 <? 0);
+30 # (_n1*_n2) <? 0  <--  (n1 <? 0) !=? (n2 <? 0);
 
 // This doesn't sadly cover the case where a and b have opposite signs
-30 # ((_n1+_n2) < 0)_((n1 < 0) And (n2 < 0))  <--  True;
-30 # ((_n1+_n2) < 0)_((n1 > 0) And (n2 > 0))  <--  False;
-30 #  _x^a_IsOdd  < 0  <--  x < 0;
-30 #  _x^a_IsEven < 0  <--  False; // This is wrong for complex x
+30 # ((_n1+_n2) <? 0)_((n1 <? 0) And (n2 <? 0))  <--  True;
+30 # ((_n1+_n2) <? 0)_((n1 > 0) And (n2 > 0))  <--  False;
+30 #  _x^a_IsOdd  <? 0  <--  x <? 0;
+30 #  _x^a_IsEven <? 0  <--  False; // This is wrong for complex x
 
 // Add other functions here!  Everything we can compare to 0 should be here.
-40 # (Sqrt(_x))_(x > 0) < 0          <--  False;
+40 # (Sqrt(_x))_(x > 0) <? 0          <--  False;
 
-40 # (Sin(_x) < 0)_(Not(IsEven(N(x/Pi))) And IsEven(N(Floor(x/Pi)))) <-- False;
-40 # (Sin(_x) < 0)_(Not(IsOdd (N(x/Pi))) And IsOdd (N(Floor(x/Pi)))) <-- True;
+40 # (Sin(_x) <? 0)_(Not(IsEven(N(x/Pi))) And IsEven(N(Floor(x/Pi)))) <-- False;
+40 # (Sin(_x) <? 0)_(Not(IsOdd (N(x/Pi))) And IsOdd (N(Floor(x/Pi)))) <-- True;
 
-40 # Cos(_x) < 0 <-- Sin(Pi/2-x) < 0;
+40 # Cos(_x) <? 0 <-- Sin(Pi/2-x) <? 0;
 
-40 # (Tan(_x) < 0)_(Not(IsEven(N(2*x/Pi))) And IsEven(N(Floor(2*x/Pi)))) <-- False;
-40 # (Tan(_x) < 0)_(Not(IsOdd (N(2*x/Pi))) And IsOdd (N(Floor(2*x/Pi)))) <-- True;
+40 # (Tan(_x) <? 0)_(Not(IsEven(N(2*x/Pi))) And IsEven(N(Floor(2*x/Pi)))) <-- False;
+40 # (Tan(_x) <? 0)_(Not(IsOdd (N(2*x/Pi))) And IsOdd (N(Floor(2*x/Pi)))) <-- True;
 
 // Functions that need special treatment with more than one of the comparison
 // operators as they always return true or false.  For these we must define
-// both the `<' and `>=?' operators.
-40 # (Complex(_a,_b) <  0)_(b!=?0) <--  False;
+// both the `<?' and `>=?' operators.
+40 # (Complex(_a,_b) <?  0)_(b!=?0) <--  False;
 40 # (Complex(_a,_b) >=? 0)_(b!=?0) <--  False;
-40 # (Sqrt(_x))_(x < 0) <  0      <--  False;
-40 # (Sqrt(_x))_(x < 0) >=? 0      <--  False;
+40 # (Sqrt(_x))_(x <? 0) <?  0      <--  False;
+40 # (Sqrt(_x))_(x <? 0) >=? 0      <--  False;
 
 // Deal with negated terms
-50 # -(_x) < 0 <-- Not((x<0) Or (x=?0));
+50 # -(_x) <? 0 <-- Not((x<?0) Or (x=?0));
 
-// Define each of {>,<=?,>=?} in terms of <
-50 # _n >  _m <-- m < n;
+// Define each of {>,<=?,>=?} in terms of <?
+50 # _n >  _m <-- m <? n;
 50 # _n <=? _m <-- m >=? n;
-50 # _n >=? _m <-- Not(n<m);
+50 # _n >=? _m <-- Not(n<?m);
 
 
 Function("!=?",{aLeft,aRight}) Not(aLeft=?aRight);
@@ -85,13 +85,13 @@ Function("!=?",{aLeft,aRight}) Not(aLeft=?aRight);
 
 
 
-%mathpiper_docs,name="<",categories="Operators"
-*CMD < --- test for "less than"
+%mathpiper_docs,name="<?",categories="Operators"
+*CMD <? --- test for "less than"
 *STD
 *CALL
-        e1 < e2
+        e1 <? e2
 Precedence:
-*EVAL PrecedenceGet("<")
+*EVAL PrecedenceGet("<?")
 
 *PARMS
 
@@ -111,9 +111,9 @@ coerce the arguments passed to this comparison operator to a real value before m
 
 *E.G.
 
-In> 2 < 5;
+In> 2 <? 5;
 Result: True;
-In> Cos(1) < 5;
+In> Cos(1) <? 5;
 Result: True;
 
 *SEE IsNumber, IsInfinity, N
@@ -311,25 +311,25 @@ Result: True;
 
 
 
-%mathpiper,name="<",subtype="automatic_test"
+%mathpiper,name="<?",subtype="automatic_test"
 
-Verify(.1<2,True);
-Verify(0.1<2,True);
-Verify(.3<2,True);
-Verify(2<.1,False);
-Verify(2<0.1,False);
-Verify(2<.3,False);
-Verify(1e-5 < 1, True);
-Verify(1e-5 < 2e-5, True);
-Verify(1e-1 < 2e-1, True);
-Verify(1e-15 < 2e-15, True);
-Verify(1e-5 < 1e-10, False);
-Verify(1e-5 < 1e-2, True);
-Verify(-1e-5 < 1e-5, True);
-Verify(-1e-5 < 1e-6, True);
+Verify(.1<?2,True);
+Verify(0.1<?2,True);
+Verify(.3<?2,True);
+Verify(2<?.1,False);
+Verify(2<?0.1,False);
+Verify(2<?.3,False);
+Verify(1e-5 <? 1, True);
+Verify(1e-5 <? 2e-5, True);
+Verify(1e-1 <? 2e-1, True);
+Verify(1e-15 <? 2e-15, True);
+Verify(1e-5 <? 1e-10, False);
+Verify(1e-5 <? 1e-2, True);
+Verify(-1e-5 <? 1e-5, True);
+Verify(-1e-5 <? 1e-6, True);
 
 BuiltinPrecisionSet(32);
-Verify(0.999999999999999999999999999992 < 1, True);
+Verify(0.999999999999999999999999999992 <? 1, True);
 BuiltinPrecisionSet(10);
 
 %/mathpiper
@@ -369,7 +369,7 @@ BuiltinPrecisionSet(10);
 Verify(1e-5 =? 2e-5, False);
 Verify(1e-5 =? 1e-6, False);
 
-Verify(A<0,A<0);
+Verify(A<?0,A<?0);
 
 Verify(A>0,A>0);
 
@@ -392,17 +392,17 @@ Verify((a==2) !=? False, True);
 
 
 
-%mathpiper,name="<",subtype="automatic_test"
+%mathpiper,name="<?",subtype="automatic_test"
 
-Verify(A<0,A<0);
-Verify(Undefined<1, False);
+Verify(A<?0,A<?0);
+Verify(Undefined<?1, False);
 
-Verify(500 < 0e-1,False);
+Verify(500 <? 0e-1,False);
 
 //Bug reported by Adrian Vontobel: comparison operators should coerce
 //to a real value as much as possible before trying the comparison.
-Verify(0.2*Pi < 0.7, True);
-Verify(0.2*Pi < 0.6, False);
+Verify(0.2*Pi <? 0.7, True);
+Verify(0.2*Pi <? 0.6, False);
 
 %/mathpiper
 

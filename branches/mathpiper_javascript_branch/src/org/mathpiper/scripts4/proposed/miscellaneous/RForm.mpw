@@ -57,7 +57,7 @@ LocalSymbols(rFormRegularOps) [
     {">=?",">="},
     {">",">"},
     {"<=?","<="},
-    {"<","<"},
+    {"<?","<"},
     {"!=","!="},
     {"..",":"},
     {"Not","!"},
@@ -116,14 +116,14 @@ LocalSymbols(rFormMathFunctions) [
 
 
 /* This is the template for "regular" binary infix operators:
-100 # RForm(_x + _y, _p) <-- RFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(RForm(x, LeftPrecedenceGet("+")), " + ", RForm(y, RightPrecedenceGet("+")) ) );
+100 # RForm(_x + _y, _p) <-- RFormBracketIf(p<?PrecedenceGet("+"), ConcatStrings(RForm(x, LeftPrecedenceGet("+")), " + ", RForm(y, RightPrecedenceGet("+")) ) );
         */
 
         /* unary addition */
-100 # RForm(+ _y, _p) <-- RFormBracketIf(p<PrecedenceGet("+"), ConcatStrings(" + ", RForm(y, RightPrecedenceGet("+")) ) );
+100 # RForm(+ _y, _p) <-- RFormBracketIf(p<?PrecedenceGet("+"), ConcatStrings(" + ", RForm(y, RightPrecedenceGet("+")) ) );
 
         /* unary subtraction */
-100 # RForm(- _y, _p) <-- RFormBracketIf(p<PrecedenceGet("-"), ConcatStrings(" - ", RForm(y, RightPrecedenceGet("-")) ) );
+100 # RForm(- _y, _p) <-- RFormBracketIf(p<?PrecedenceGet("-"), ConcatStrings(" - ", RForm(y, RightPrecedenceGet("-")) ) );
 
         /* power's argument is never bracketed but it must be put in braces. */
 100 # RForm(_x ^ _y, _p) <-- RFormBracketIf(p <=? PrecedenceGet("^"), ConcatStrings(RForm(x, RFormMaxPrec()), "^", RForm(y, RFormMaxPrec())) );
@@ -135,7 +135,7 @@ LocalSymbols(rFormMathFunctions) [
 
 
 120 # RForm(expr_IsFunction, _p)_(ArgumentsCount(expr)=?2 And Contains(AssocIndices(RFormRegularOps()), Type(expr)) ) <--
-      RFormBracketIf(p<PrecedenceGet(Type(expr)), ConcatStrings(RForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), RFormRegularOps()[Type(expr)], RForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
+      RFormBracketIf(p<?PrecedenceGet(Type(expr)), ConcatStrings(RForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), RFormRegularOps()[Type(expr)], RForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
@@ -156,7 +156,7 @@ RFormArgs(list_IsList) <--
   For (i:=1,i<=?nr,i++)
   [
     result:=result:RForm(list[i]);
-    If (i<nr, result:=result:", ");
+    If (i<?nr, result:=result:", ");
   ];
   result;
 ];
@@ -176,7 +176,7 @@ RFormArgs(list_IsList) <--
 
 /* Some special functions: Mod */
 
-100 # RForm(Modulo(_x, _y), _p) <-- RFormBracketIf(p<PrecedenceGet("/"), ConcatStrings(RForm(x, PrecedenceGet("/")), " % ", RForm(y, PrecedenceGet("/")) ) )
+100 # RForm(Modulo(_x, _y), _p) <-- RFormBracketIf(p<?PrecedenceGet("/"), ConcatStrings(RForm(x, PrecedenceGet("/")), " % ", RForm(y, PrecedenceGet("/")) ) )
 ;
 
 /* Indexed expressions are never bracketed */
@@ -195,7 +195,7 @@ LocalSymbols(RIndent) [
 "
 ";
     Local(i);
-    For(i:=1,i<RIndent,i++)
+    For(i:=1,i<?RIndent,i++)
     [
       result:=result:"  ";
     ];
@@ -300,7 +300,7 @@ OpenMath2R <- function(x) {
         } else if ( length( xmlChildren(x) ) > 0 )
                 for( i in seq( along = xmlChildren(x) ) ) {
                         Recall( x[[i]] )
-                        if (i > 1 && i < length(xmlChildren(x))) 
+                        if (i > 1 && i <? length(xmlChildren(x))) 
                                 out <<- c(out, ",")
                 }
         if (xmlName(x) == "OMA" || xmlName(x) == "OMBIND") out <<- c(out, xmlValue(x), ")")
@@ -367,7 +367,7 @@ transtab <- matrix( c(
         ">=",                "geq",                ">=?",
         ">",                 "gt",                ">",
         "<=",                 "leq",                "<=?",
-        "<",                 "lt",                "<",
+        "<",                 "lt",                "<?",
         "!=",                 "neq",                "!=?",
         ":",                 "seq",                "sequence",
         ":",                 "seq",                "..",

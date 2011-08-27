@@ -148,7 +148,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
    /* Case 2: Coefficients are already computed */
 
-   If (Not finished And lps[1] !=? Undefined And n2 < lps[1]+Length(lps[2]),
+   If (Not finished And lps[1] !=? Undefined And n2 <? lps[1]+Length(lps[2]),
    [
       If (n1 >=? lps[1],
           res := Take(lps[2], {n1-lps[1]+1, n2-lps[1]+1}),
@@ -263,7 +263,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
             order := Taylor'LPS'GetOrder(lps[4][1])[1];
             n := order;
             c1 := Taylor'LPS'Coeffs(lps[4][1], n, n)[1];
-            While (c1 =? 0 And n < order + Taylor'LPS'Param1())
+            While (c1 =? 0 And n <? order + Taylor'LPS'Param1())
             [
                n := n + 1;
                 c1 := Taylor'LPS'Coeffs(lps[4][1], n, n)[1];
@@ -360,7 +360,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
  * Similar for the other functions.
  */
 
-10 # Taylor'TPS'GetCoeff({_n,_c}, _k) _ (k < n) <-- 0;
+10 # Taylor'TPS'GetCoeff({_n,_c}, _k) _ (k <? n) <-- 0;
 10 # Taylor'TPS'GetCoeff({_n,_c}, _k) _ (k >=? n+Length(c)) <-- Undefined;
 20 # Taylor'TPS'GetCoeff({_n,_c}, _k) <-- c[k-n+1];
 
@@ -485,7 +485,7 @@ _[
           ClearErrors();
           success := False;
        ]);
-       If (success And Taylor'LPS'GetOrder(lps2)[1] < 0,
+       If (success And Taylor'LPS'GetOrder(lps2)[1] <? 0,
        [
           success := False;
        ],[
@@ -525,7 +525,7 @@ _[
  */
 
 5  # Taylor'LPS'CompCoeff(_var, _expr, _n)
-   _ (n < Taylor'LPS'CompOrder(var, expr))
+   _ (n <? Taylor'LPS'CompOrder(var, expr))
    <-- 0;
 
 /* Zero */
@@ -633,7 +633,7 @@ Taylor'LPS'AcceptDeriv(_expr) <--
 //      0; //generic case, assume zeroeth coefficient is non-zero.
       Local(n);
       n:=0;
-      While ((Limit(x,0)expr) =? 0 And n<Taylor'LPS'Param1())
+      While ((Limit(x,0)expr) =? 0 And n<?Taylor'LPS'Param1())
       [
         expr := Deriv(x)expr;
         n++;
@@ -739,7 +739,7 @@ Echo(expr," ",n," ",result);
             Local(c, n);
             n := res[1];
             c := Taylor'LPS'Coeffs(lps[4][1], res[1], res[1])[1];
-            While (c =? 0 And res[1] < n + Taylor'LPS'Param1())
+            While (c =? 0 And res[1] <? n + Taylor'LPS'Param1())
             [
                res[1] := res[1] + 1;
                 c := Taylor'LPS'Coeffs(lps[4][1], res[1], res[1])[1];
@@ -795,7 +795,7 @@ Echo(expr," ",n," ",result);
    [
       False;
    ],[
-      If (lps[1] < 0,
+      If (lps[1] <? 0,
       [
          Assert("singularity") False;
          Undefined;

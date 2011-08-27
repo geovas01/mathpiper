@@ -5,7 +5,7 @@
 /* Simplification of nested radicals.
 */
 
-10 # RadSimp(_n)_(Length(VarList(n))<1) <--
+10 # RadSimp(_n)_(Length(VarList(n))<?1) <--
 [
   Local(max, result);
   Bind(max, CeilN(N(Eval(n^2))));
@@ -25,9 +25,9 @@
 
 /*Echo({"Try ",test}); */
 
-CheckRadicals(_n,_test) <-- Abs(N(Eval(n-test),20)) < 0.000001;
+CheckRadicals(_n,_test) <-- Abs(N(Eval(n-test),20)) <? 0.000001;
 
-10 # ClampRadicals(_r)_(N(Eval(Abs(r)), 20)<0.000001) <-- 0;
+10 # ClampRadicals(_r)_(N(Eval(Abs(r)), 20)<?0.000001) <-- 0;
 20 # ClampRadicals(_r) <-- r;
 
 

@@ -27,7 +27,7 @@ can be found to uncomment it.
         Local(z);
         While(x!=?y)
         [
-                While(x<y)
+                While(x<?y)
                 [
                         y:=y-x;
                         While((y&1) = 0)

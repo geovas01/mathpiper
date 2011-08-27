@@ -30,7 +30,7 @@ LocalSymbols(BrentCacheOfConstantsN)
 15 # BrentLn(x_IsInteger)  <-- LogN(x);
 
 /// calculation of Ln(x) using Brent's AGM sequence - use precomputed Pi and Ln2.
-20 # BrentLn(_x)_(x<1) <-- -BrentLn(1/x);
+20 # BrentLn(_x)_(x<?1) <-- -BrentLn(1/x);
 
 // this is currently faster than LogN() for precision > 85 digits and numbers >2
 30 # BrentLn(_x)_(BuiltinPrecisionGet()>85) <--

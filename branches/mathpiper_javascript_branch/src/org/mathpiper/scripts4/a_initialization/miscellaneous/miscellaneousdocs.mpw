@@ -135,7 +135,7 @@ Thus {Infinity*2} will return {Infinity}, and {a < Infinity} will evaluate to {T
 
 In> 2*Infinity
 Result: Infinity;
-In> 2<Infinity
+In> 2<?Infinity
 Result: True;
 %/mathpiper_docs
 

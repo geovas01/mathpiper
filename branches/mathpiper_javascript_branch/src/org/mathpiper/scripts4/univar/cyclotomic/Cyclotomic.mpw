@@ -15,7 +15,7 @@ Function ("UniVariateBinomial",{x,q,a})
 [
 Local(L,i);
 L := {a};
-For (i:=1,i<q,i++)
+For (i:=1,i<?q,i++)
  DestructiveAppend(L,0);
 DestructiveAppend(L,1);
 UniVariate(x,0,L);
@@ -35,7 +35,7 @@ Function("SubstituteInUniVar",{p,k})
  ForEach(c,L) [
   // c is the coefficient of x^i in p
   // We append k-1 zeros
-  If (i<d, For (j:=1,j<k,j++) DestructiveAppend(NL,0));
+  If (i<?d, For (j:=1,j<?k,j++) DestructiveAppend(NL,0));
   // We append (-1)^i*c as the coefficient of x^(k*i)
   DestructiveAppend(NL,If(IsEven(i),c,-c));
   i--;

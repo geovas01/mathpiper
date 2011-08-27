@@ -26,10 +26,10 @@ MathPi() :=
     result := 3.14159265358979323846*0.5;
     // find optimal initial precision
     For(k:=prec, k>=?curprec, k:=Quotient(k,order)+2) True;
-    If(k<5, curprec:=5, curprec:=k);
+    If(k<?5, curprec:=5, curprec:=k);
   //        Echo("initial precision", curprec);
     // now k is the iteration counter
-    For(k:=0, curprec < prec, k := k+1) [
+    For(k:=0, curprec <? prec, k := k+1) [
     // at this iteration we know the result to curprec digits
       curprec := Minimum(prec, curprec * order-2);        // 2 guard digits
       BuiltinPrecisionSet(curprec+2);

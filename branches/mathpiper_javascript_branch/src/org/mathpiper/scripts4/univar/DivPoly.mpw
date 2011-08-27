@@ -21,7 +21,7 @@ DivPoly(_A,_B,_var,_deg) <--
   [
     Local(sum,j);
     sum:=0;
-    For(j:=0,j<i,j++)
+    For(j:=0,j<?i,j++)
     [
       sum := sum + c[j+1]*Coef(b,i-j);
     ];

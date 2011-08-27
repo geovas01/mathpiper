@@ -143,7 +143,7 @@ Function("count",{from,to})
    Local(i);
    Local(sum);
    Bind(sum,0);
-   For(i:=from,i<to,i:=i+1)
+   For(i:=from,i<?to,i:=i+1)
    [
      Bind(sum,sum+i);
    ];

@@ -11,7 +11,7 @@
 // x' := x - 2 * (Exp(x)-a) / (Exp(x)+a) = x-2+4*a/(Exp(x)+a)
 Internal'LnNum(x_IsNumber)_(x>=?1) <-- NewtonLn(x);
 
-Internal'LnNum(x_IsNumber)_(0<x And x<1) <-- - Internal'LnNum(DivideN(1,x));
+Internal'LnNum(x_IsNumber)_(0<?x And x<?1) <-- - Internal'LnNum(DivideN(1,x));
 
 %/mathpiper
 

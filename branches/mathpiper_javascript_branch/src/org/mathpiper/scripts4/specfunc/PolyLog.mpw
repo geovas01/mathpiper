@@ -12,7 +12,7 @@
 10 # PolyLog(1,1/2)             <-- Ln(2);
 10 # PolyLog(_n,1)                <-- Zeta(n);
 10 # PolyLog(_n,_m)_(m=? -1)        <-- DirichletEta(n);
-10 # PolyLog(_n,_x)_(n< 0)        <-- (1/((1-x)^(-n+1)))*Sum(i,0,-n,Eulerian(-n,i)*x^(-n-i) );
+10 # PolyLog(_n,_x)_(n<? 0)        <-- (1/((1-x)^(-n+1)))*Sum(i,0,-n,Eulerian(-n,i)*x^(-n-i) );
 //10 # PolyLog(_n,_x)_(n= -3)        <-- x*(x^2 + 4*x + 1)/(x-1)^4;
 //10 # PolyLog(_n,_x)_(n= -2)        <-- x*(x+1)/(1-x)^3;
 //10 # PolyLog(_n,_x)_(n= -1)        <-- x/(1-x)^2;
@@ -23,7 +23,7 @@
 10 # PolyLog(3,1/2)                <-- (4*Ln(2)^3 - 2*Pi^2*Ln(2)+21*Zeta(3))/24;
 10 # PolyLog(2,2)                <-- Pi^2/4 - Pi*I*Ln(2);
 
-20 # PolyLog(_n,_x)_(InNumericMode() And  x < -1 )  <-- [
+20 # PolyLog(_n,_x)_(InNumericMode() And  x <? -1 )  <-- [
         Local(prec,result);
         prec:=BuiltinPrecisionGet();
         BuiltinPrecisionSet(prec+5);
@@ -34,7 +34,7 @@
         BuiltinPrecisionSet(prec);
         RoundTo(N(result),prec);
 ];
-20 # PolyLog(_n,_x)_(InNumericMode() And x>=? -1 And x < 0 ) <-- [
+20 # PolyLog(_n,_x)_(InNumericMode() And x>=? -1 And x <? 0 ) <-- [
         // this makes the domain [-1,0) into [0,1],
         // so if the summation representation is used, it is monotone
         Local(prec,result);
@@ -68,7 +68,7 @@
 ];
 */
 
-20 # PolyLog(_n,_x)_(InNumericMode() And x > 0 And x < 1) <--
+20 # PolyLog(_n,_x)_(InNumericMode() And x > 0 And x <? 1) <--
 [        // use Taylor series x^(k+1)/(k+1)^n, converges for -1<x<1
         Local(prec, result, terms);
         prec:=BuiltinPrecisionGet();
@@ -76,7 +76,7 @@
         terms := Floor(-prec*Ln(10)/Ln(x));
         terms := Floor(-(prec*Ln(10)-(n-1)*Ln(terms))/Ln(x));
 //        Echo("used", terms, "terms");
-        If(terms < 4, terms := 4);
+        If(terms <? 4, terms := 4);
         BuiltinPrecisionSet(prec+2*IntLog(prec,10)+5);
         result := x*SumTaylorNum(x, {{k}, 1/(k+1)^n}, terms);
         BuiltinPrecisionSet(prec);

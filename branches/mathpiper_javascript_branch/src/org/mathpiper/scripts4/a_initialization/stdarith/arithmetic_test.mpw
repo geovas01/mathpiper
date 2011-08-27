@@ -148,7 +148,7 @@ Verify(IsZero(N(Sin(0.1e1)-Sin(1),30)),True);
 //Echo("diff = ",diff);
 //Echo("diff > -0.00001 = ",diff > -0.00001);
 //Echo("diff < 0.00001 = ",diff < 0.00001);
-  Verify(diff > -0.00001 And diff < 0.00001,True);
+  Verify(diff > -0.00001 And diff <? 0.00001,True);
 ];
 
 

@@ -70,7 +70,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
         [
           result:=Concat(result,{{c+M,b}});
         ];
-        if (Vb < Vcplus-1)
+        if (Vb <? Vcplus-1)
         [
           work:=Concat(work,{{c+M,b,Vcplus,Vb}});
         ];
@@ -89,7 +89,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
         [
           result:=Concat(result,{{c,b}});
         ];
-        if (Vb < Vc-1)
+        if (Vb <? Vc-1)
         [
           work:=Concat(work,{{c,b,Vc,Vb}});
         ];

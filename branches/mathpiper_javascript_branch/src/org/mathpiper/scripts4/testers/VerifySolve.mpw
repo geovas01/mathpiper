@@ -28,7 +28,7 @@ HoldArgumentNumber("VerifySolve", 2, 1);
   Local(i, found);
   found := False;
   i := 0;
-  While(i < Length(e2) And Not found) [
+  While(i <? Length(e2) And Not found) [
     i++;
     found := VerifySolve'Equal(First(e1), e2[i]);
   ];

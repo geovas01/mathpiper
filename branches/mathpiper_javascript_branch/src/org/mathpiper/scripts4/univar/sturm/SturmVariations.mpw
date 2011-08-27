@@ -37,7 +37,7 @@ SturmVariations(_S) <--
     [
       if(Not IsZero(item))
       [
-        if (prev*item < 0) [result++;];
+        if (prev*item <? 0) [result++;];
         prev:=item;
       ];
     ];

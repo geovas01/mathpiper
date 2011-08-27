@@ -187,7 +187,7 @@ Testing("From: sturm.mpt");
 
 BuiltinPrecisionSet(5);
 
-VerifyZero(x) := (Abs(x)<10^ -BuiltinPrecisionGet());
+VerifyZero(x) := (Abs(x)<?10^ -BuiltinPrecisionGet());
 
 
 TryRandomPoly(deg,coefmin,coefmax):=
@@ -204,7 +204,7 @@ TryRandomPoly(deg,coefmin,coefmax):=
   roots:=FindRealRoots(p);
 //Echo("roots ",roots);
   px := (p Where x==x);
-  Verify(Dot(px, px) < 0.01, True);
+  Verify(Dot(px, px) <? 0.01, True);
 ];
 
 
@@ -226,7 +226,7 @@ Echo("roots ",roots);
   Verify(Length(roots) =? Length(coefs));
   Verify(Length(RemoveDuplicates(roots)) =? Length(coefs));
   px := (p Where x==x);
-  Verify(Dot(px, px) < 0.01, True);
+  Verify(Dot(px, px) <? 0.01, True);
 ];
 
 

@@ -36,7 +36,7 @@ jasFactorsInt(poly_IsPolynomial) <--
         // convert factor string from "**" to "^" exponent notation
         Local(lst,ii,factor);
         lst   := StringToList(fact);
-        For(ii:=1,ii<Length(lst),ii++) [
+        For(ii:=1,ii<?Length(lst),ii++) [
              If(lst[ii]=?"*" And lst[ii+1]=?"*",
                 [ DestructiveReplace(lst,ii,"^"); DestructiveDelete(lst,ii+1); ]
              );

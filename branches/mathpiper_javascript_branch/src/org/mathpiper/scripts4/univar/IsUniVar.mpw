@@ -19,24 +19,24 @@
   result:={};
   from:=Minimum(curl,curr);
 
-  While(curl<curr And left !=? {})
+  While(curl<?curr And left !=? {})
   [
     DestructiveAppend(result,First(left));
     left:=Rest(left);
     curl++;
   ];
-  While(curl<curr)
+  While(curl<?curr)
   [
     DestructiveAppend(result,0);
     curl++;
   ];
-  While(curr<curl And right !=? {})
+  While(curr<?curl And right !=? {})
   [
     DestructiveAppend(result,-First(right));
     right:=Rest(right);
     curr++;
   ];
-  While(curr<curl)
+  While(curr<?curl)
   [
     DestructiveAppend(result,0);
     curr++;

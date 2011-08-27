@@ -17,7 +17,7 @@
 /// but current value of precision is used
 /// Note that we return LnGamma(z), not of z+1
 /// This function should not be used directly by applications
-10 # Internal'LnGammaNum(_z, _a)_(N(Re(z))<0) <-- [
+10 # Internal'LnGammaNum(_z, _a)_(N(Re(z))<?0) <-- [
         If (InVerboseMode(), Echo({"Internal'LnGammaNum: using 1-z identity"}));
         N(Ln(Pi/Sin(Pi*z)) - Internal'LnGammaNum(1-z, a));
 ];

@@ -13,7 +13,7 @@
     If(InVerboseMode(),[Tell("    ",first); Tell("   ",coeffs);]);
     termlist := {};
     lc       := Length(coeffs);
-    For(n:=0,n<lc,n++)
+    For(n:=0,n<?lc,n++)
     [
         c    := coeffs[n+1];
         term := {n+first,c};

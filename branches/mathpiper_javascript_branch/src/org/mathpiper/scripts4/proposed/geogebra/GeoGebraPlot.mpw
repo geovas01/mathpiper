@@ -46,7 +46,7 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
     //todo:tk: this does not seem to be working JavaCall(geogebra, "setRepaintingActive", "false");
     //JavaCall(geogebra, "setLayerVisible", "0", "False");
     
-    While(index < length+1)
+    While(index <? length+1)
     [
         x := list[index];
         index++;

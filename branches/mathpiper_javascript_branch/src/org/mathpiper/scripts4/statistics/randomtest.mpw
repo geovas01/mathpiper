@@ -15,14 +15,14 @@ Function("DoTest",{size})
   Local(arr,o'f,e'f,i,j,m);
 //  size:=200; // sample size
   arr := Table(Random(),i,1,size,1);
-  arr := HeapSort(arr,"<");
+  arr := HeapSort(arr,"<?");
   o'f := {};
   e'f :={};
   m:=1;
   For(i:=1, i<=?10 And m<=?size, i++)
    [
      j:=0;
-     While(arr[m]<i/10 And m<size)
+     While(arr[m]<?i/10 And m<?size)
      [
        j:=j+1;
        m:=m+1;

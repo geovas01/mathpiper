@@ -2,13 +2,13 @@
 
 //Retract("Modulo",*);
 
-0 # Modulo(_n,m_IsRationalOrNumber)_(m<0) <-- `Hold(Modulo(@n,@m));
+0 # Modulo(_n,m_IsRationalOrNumber)_(m<?0) <-- `Hold(Modulo(@n,@m));
 
 1 # Modulo(n_IsNegativeInteger,m_IsPositiveInteger) <--
 [
   Local(result);
   result := ModuloN(n,m);
-  If (result < 0,result := result + m);
+  If (result <? 0,result := result + m);
   result;
 ];
 1 # Modulo(n_IsPositiveInteger,m_IsPositiveInteger) <-- ModuloN(n,m);
@@ -40,7 +40,7 @@
 
 
 //Note:tk:moved here from univariate.rep.
-0 # Modulo(n_IsUniVar,m_IsUniVar)_(Degree(n) < Degree(m)) <-- n;
+0 # Modulo(n_IsUniVar,m_IsUniVar)_(Degree(n) <? Degree(m)) <-- n;
 1 # Modulo(n_IsUniVar,m_IsUniVar)_
     (n[1] =? m[1] And Degree(n) >=? Degree(m)) <--
 [

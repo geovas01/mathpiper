@@ -6,7 +6,7 @@ Median(list) :=
     
     Local(sx,n,n2); // s[orted]x
     
-    sx := HeapSort(list,"<");
+    sx := HeapSort(list,"<?");
     
     n := Length(list);
     

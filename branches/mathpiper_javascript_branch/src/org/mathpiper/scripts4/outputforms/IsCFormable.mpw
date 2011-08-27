@@ -116,11 +116,11 @@ IsCFormable(e+Pi*Cos(A-B)/3-Floor(3.14)*2+bad'func(x+y), {bad'func})
 , True
 );
 Verify(
-IsCFormable([i:=0;While(i<10)[i++; a:=a+i;];])
+IsCFormable([i:=0;While(i<?10)[i++; a:=a+i;];])
 , True
 );
 Verify(
-IsCFormable([i:=0;While(i<10)[i++; a:=a+i; {};];])
+IsCFormable([i:=0;While(i<?10)[i++; a:=a+i; {};];])
 , False
 );
 

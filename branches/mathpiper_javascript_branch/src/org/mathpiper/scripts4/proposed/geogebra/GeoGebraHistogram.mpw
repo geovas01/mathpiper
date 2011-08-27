@@ -19,7 +19,7 @@ GeoGebraHistogram(data) :=
 [
     Local(command, classBoundaries, noDuplicatesSorted, largestValue, smallestValue, x, numberOfUniqueValues);
     
-    noDuplicatesSorted := HeapSort(RemoveDuplicates(data), "<" );
+    noDuplicatesSorted := HeapSort(RemoveDuplicates(data), "<?" );
     
     smallestValue := Floor(noDuplicatesSorted[1]);
     

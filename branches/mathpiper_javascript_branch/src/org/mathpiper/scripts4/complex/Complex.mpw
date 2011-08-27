@@ -93,7 +93,7 @@
   For(count:=1,count<=?n,count:=count+2) [
     sign:=If(IsZero(Modulo(count-1,4)),1,-1);
     ii:=ii+sign*BinomialCoefficient(n,count)*i^count*r^(n-count);
-    If(count<n,
+    If(count<?n,
       rr:=rr-sign*BinomialCoefficient(n,count+1)*i^(count+1)*r^(n-count-1));
   ];
   Complex(rr,ii);

@@ -9,13 +9,13 @@ Verify(VarList(x^2+y^3) , {x , y});
 Verify(List(1,2,3),{1 , 2 , 3});
 
 Testing("BubbleSort");
-Verify(BubbleSort({2,3,1},"<"),{1,2,3});
+Verify(BubbleSort({2,3,1},"<?"),{1,2,3});
 Verify(BubbleSort({2,3,1},">"),{3,2,1});
 
 Testing("HeapSort");
-Verify(HeapSort({2,3,1},"<"),{1,2,3});
+Verify(HeapSort({2,3,1},"<?"),{1,2,3});
 Verify(HeapSort({2,1,3},">"),{3,2,1});
-Verify(HeapSort({7,3,1,2,6},"<"),{1,2,3,6,7});
+Verify(HeapSort({7,3,1,2,6},"<?"),{1,2,3,6,7});
 Verify(HeapSort({6,7,1,3,2},">"),{7,6,3,2,1});
 
 Verify(Type(Cos(x)),"Cos");
@@ -87,7 +87,7 @@ Verify(Difference(FuncList(a*b/c*d), {*,/}), {});
 Verify(Difference(FuncListArith(0*x*Sin(a/b)*Ln(Cos(y-z)+Sin(a))), {*,Ln,Sin}), {});
 Verify(Difference(VarListArith(x+a*y^2-1), {x,a,y^2}), {});
 
-Verify(Difference(FuncList(IsCFormable([i:=0;While(i<10)[i++; a--; a:=a+i; {};];])), {IsCFormable,Prog,:=,While,<,++,--,ToAtom("+"),List}), {});
+Verify(Difference(FuncList(IsCFormable([i:=0;While(i<?10)[i++; a--; a:=a+i; {};];])), {IsCFormable,Prog,:=,While,<?,++,--,ToAtom("+"),List}), {});
 Verify(FuncList({1,2,3}),{List});
 Verify(FuncList({{},{}}),{List});
 Verify(FuncList({}),{List});

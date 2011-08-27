@@ -25,7 +25,7 @@
     Collected Algorithms of the CACM 1963 p. 616
     Note:
     This routine has six digit accuracy, so it is only useful for absolute
-    z values <:= 6. For z values > to 6.0, poz() returns 1.0.
+    z values <?:= 6. For z values > to 6.0, poz() returns 1.0.
 */
 
 ZScoreToProbability(zScore) :=
@@ -48,7 +48,7 @@ ZScoreToProbability(zScore) :=
         [
             x := 1.0;
         ]
-        else if(y < 1.0)
+        else if(y <? 1.0)
         [
             w := y * y;
             x := ((((((((0.000124818987 * w

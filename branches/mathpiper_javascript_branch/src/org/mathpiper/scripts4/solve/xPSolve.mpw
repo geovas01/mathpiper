@@ -299,7 +299,7 @@ UnFence("xPSolveCubic",1);
     
 ];
 
-10 # xPSC2( xs_IsList )_(xs[4]<0 And xs[3]=?0) <--
+10 # xPSC2( xs_IsList )_(xs[4]<?0 And xs[3]=?0) <--
 [
     If( iDebug, Tell("        Type 3a",xs) );
     Local(f,g,h,j,p,r1,r2,r3,ans);
@@ -311,7 +311,7 @@ UnFence("xPSolveCubic",1);
     ans := {r1,r2,r3};
 ];
 
-10 # xPSC2( xs_IsList )_(xs[4]<0 And xs[3]>0) <--
+10 # xPSC2( xs_IsList )_(xs[4]<?0 And xs[3]>0) <--
 [
     If( iDebug, Tell("        Type 3b",xs) );
     Local(p,x,alpha,beta,gama,r1,r2,r3,ans);
@@ -335,7 +335,7 @@ UnFence("xPSolveCubic",1);
     ans   := {r1,r2,r3};
 ];
 
-10 # xPSC2( xs_IsList )_(xs[4]<0 And xs[3]<0) <--
+10 # xPSC2( xs_IsList )_(xs[4]<?0 And xs[3]<?0) <--
 [
     If( iDebug, Tell("        Type 3c",xs) );
     Local(f,g,h,j,p,k,alpha,beta,gama,r1,r2,r3,ans);

@@ -14,16 +14,16 @@
 /*  MathBitCount is now implemented through BigNumber::BitCount() */
 /*  so this stays here as a reference implementation */
 10 # MathBitCount(0) <-- 1;
-20 # MathBitCount(_x) _ (x<0) <-- MathBitCount(-x);
+20 # MathBitCount(_x) _ (x<?0) <-- MathBitCount(-x);
 
 30 # MathBitCount(_value) <--
 [
         Local(nbits);
         nbits:=0;
-          If(value<1,
-        [        // float value < 1, need to multiply by 2
+          If(value<?1,
+        [        // float value <? 1, need to multiply by 2
                 nbits := 1;
-                While(value<1)
+                While(value<?1)
                 [
                         nbits--;
                         value := MathMul2Exp(value,1);

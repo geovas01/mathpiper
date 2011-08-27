@@ -8,7 +8,7 @@
 59 # 1 ^ _n <-- 1;
 59 # x_IsZero ^ y_IsZero <-- Undefined;
 60 # (x_IsZero ^ n_IsRationalOrNumber)_(n>0) <-- 0;
-60 # (x_IsZero ^ n_IsRationalOrNumber)_(n<0) <-- Infinity;
+60 # (x_IsZero ^ n_IsRationalOrNumber)_(n<?0) <-- Infinity;
 // This is to fix:
 // In> 0.0000^2
 // Result: 0.0000^2;
@@ -67,17 +67,17 @@
 250 # ((-Infinity) ^ (n_IsNumber))_(IsEven(n)) <-- Infinity;
 250 # ((-Infinity) ^ (n_IsNumber))_(IsOdd(n)) <-- -Infinity;
 
-250 # (x_IsNumber ^ Infinity)_(x> -1 And x < 1) <-- 0;
+250 # (x_IsNumber ^ Infinity)_(x> -1 And x <? 1) <-- 0;
 250 # (x_IsNumber ^ Infinity)_(x> 1) <-- Infinity;
 
 // these Magnitude(x)s should probably be changed to Abs(x)s
 
 250 # (x_IsComplex ^ Infinity)_(Magnitude(x) > 1) <-- Infinity;
-250 # (x_IsComplex ^ Infinity)_(Magnitude(x) < -1) <-- -Infinity;
-250 # (x_IsComplex ^ Infinity)_(Magnitude(x) > -1 And Magnitude(x) < 1) <-- 0;
+250 # (x_IsComplex ^ Infinity)_(Magnitude(x) <? -1) <-- -Infinity;
+250 # (x_IsComplex ^ Infinity)_(Magnitude(x) > -1 And Magnitude(x) <? 1) <-- 0;
 
-250 # (x_IsNumber ^ -Infinity)_(x> -1 And x < 1) <-- Infinity;
-250 # (x_IsNumber ^ -Infinity)_(x< -1) <-- 0;
+250 # (x_IsNumber ^ -Infinity)_(x> -1 And x <? 1) <-- Infinity;
+250 # (x_IsNumber ^ -Infinity)_(x<? -1) <-- 0;
 250 # (x_IsNumber ^ -Infinity)_(x> 1) <-- 0;
 
 255 # (x_IsComplex ^ Infinity)_(Abs(x) =? 1) <-- Undefined;

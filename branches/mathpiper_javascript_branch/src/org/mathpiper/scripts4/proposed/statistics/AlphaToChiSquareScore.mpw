@@ -61,7 +61,7 @@ AlphaToChiSquareScore(p, df) :=
         /* fair first value */
         While ((maxchisq - minchisq) > ChiEpsilon) 
         [
-            if (ChiSquareScoreToAlpha(chisqval, df) < p) 
+            if (ChiSquareScoreToAlpha(chisqval, df) <? p) 
             [
                 maxchisq := chisqval;
             ] 

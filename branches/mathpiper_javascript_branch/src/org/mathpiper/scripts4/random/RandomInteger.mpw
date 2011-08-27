@@ -16,7 +16,7 @@
 [
     Check(IsInteger(lowerBoundInclusive) And IsInteger(upperBoundInclusive), "Argument", "Both arguments must be integers.");
 
-    Check(lowerBoundInclusive < upperBoundInclusive, "Argument", "The first argument must be less than the second argument.");
+    Check(lowerBoundInclusive <? upperBoundInclusive, "Argument", "The first argument must be less than the second argument.");
 
     FloorN(lowerBoundInclusive + Random() * (upperBoundInclusive + 1 - lowerBoundInclusive) );
 ];
