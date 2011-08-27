@@ -1,5 +1,5 @@
 %mathpiper,def="ExpN"
-
+// jak: This seems to be less accurute than MathExpTaylor0 for numbers which are greater than 1.
 /// ExpN(x). Algorithm: for x<0, divide 1 by ExpN(-x); for x>1, compute ExpN(x/2)^2 recursively; for 0<x<1, use the Taylor series.
 // (This is not optimal; it would be much better to use SumTaylorNum and DoublingMinus1 from elemfuncs.mpi. But this should be debugged for now, since ExpN is important for many algorithms.)
 /// TODO FIXME: No precision tracking yet. (i.e. the correct number of digits is not always there in the answer)
@@ -21,10 +21,14 @@ Defun("ExpN", {x})
 *CALL
         ExpN(x)
 
+	
+*PARMS	
+{X} -- a real number
+	
 *DESC
 
 This command performs the calculation of an elementary mathematical
-function.  The arguments <i>must</i> be numbers.  The reason for the
+function.  The arguments must be numbers.  The reason for the
 postfix {N} is that the library needs to define equivalent non-numerical
 functions for symbolic computations, such as {Exp}, {Sin}, etc.
 
@@ -37,7 +41,15 @@ integer result is returned even if the calculation requires more digits than set
 the functions return a floating-point result which is correct only to the current precision.
 
 *E.G.
-In>
-Result:
+In> ExpN(2)
+Result: 7.389056086
+
+In> ExpN(-.3)
+Result: 0.7408182204
+
+In> ExpN(0)
+Result: 1
 
 %/mathpiper_docs
+
+
