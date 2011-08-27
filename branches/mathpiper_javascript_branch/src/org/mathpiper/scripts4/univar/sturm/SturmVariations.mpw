@@ -4,7 +4,7 @@
 [
   Local(i,s);
   s:=FillList(0,Length(S));
-  For(i:=1,i<=Length(S),i++)
+  For(i:=1,i<=?Length(S),i++)
   [
     s[i] := LeadingCoef(S[i]);
   ];
@@ -15,7 +15,7 @@
 [
   Local(i,s);
   s:=FillList(0,Length(S));
-  For(i:=1,i<=Length(S),i++)
+  For(i:=1,i<=?Length(S),i++)
   [
     s[i] := ((-1)^Degree(S[i]))*LeadingCoef(S[i]);
   ];

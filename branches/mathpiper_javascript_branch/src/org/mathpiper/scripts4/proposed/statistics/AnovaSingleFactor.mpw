@@ -6,7 +6,7 @@ AnovaSingleFactor(levelsList, alpha) :=
 [
     Check(IsListOfLists(levelsList), "Argument", "The first argument must be a list of lists.");
     
-    Check(alpha >= 0 And alpha <= 1, "Argument", "The second argument must be a number between 0 and 1.");
+    Check(alpha >= 0 And alpha <=? 1, "Argument", "The second argument must be a number between 0 and 1.");
     
     Local(
         anovaTableRow1,
@@ -104,7 +104,7 @@ AnovaSingleFactor(levelsList, alpha) :=
     summaryTableRow := "<TR> <TD> <?Write(ToAtom(\"Level\":ToString(index)));?> </TD> <TD align=\"right\"> <?Write(lengthsList[index]);?> </TD> <TD> <?Write(sumsList[index]);?> </TD>  <TD> <?Write(meansList[index]);?> </TD> <TD> <?Write(variancesList[index]);?> </TD> </TR>":Nl();
     
     index := 1;
-    While(index <= Length(levelsList))
+    While(index <=? Length(levelsList))
     [
         summaryTableRows := summaryTableRows : PatchString(summaryTableRow);
     

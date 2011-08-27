@@ -11,7 +11,7 @@ Function("UniTaylor",{taylorfunction,taylorvariable,taylorat,taylororder})
   ];
   dif:=taylorfunction;
   polf:=(taylorvariable-taylorat);
-  For(n:=1,n<=taylororder,n++)
+  For(n:=1,n<=?taylororder,n++)
   [
     dif:= Deriv(taylorvariable) dif;
     MacroLocal(taylorvariable);

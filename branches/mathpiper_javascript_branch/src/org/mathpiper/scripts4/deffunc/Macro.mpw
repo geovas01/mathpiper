@@ -157,7 +157,7 @@ Result: 10;
     True;
   ];
   tot:=0;
-  forloop(i:=1,i<=10,i++,tot:=tot+a*i);
+  forloop(i:=1,i<=?10,i++,tot:=tot+a*i);
   Verify(i,11);
   Verify(tot,5500);
 ];

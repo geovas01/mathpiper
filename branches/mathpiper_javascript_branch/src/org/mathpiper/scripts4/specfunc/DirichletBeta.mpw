@@ -2,7 +2,7 @@
 
 //Jonathan Leto
 
-// This is really slow for x <= 3
+// This is really slow for x <=? 3
 5  # DirichletBeta(1)                <-- Pi/4;
 5  # DirichletBeta(2)                <-- Catalan;
 5  # DirichletBeta(3)                <-- Pi^3/32;

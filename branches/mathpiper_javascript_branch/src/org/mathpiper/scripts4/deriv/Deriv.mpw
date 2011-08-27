@@ -83,7 +83,7 @@ LocalSymbols(var,var2,a,b,y)[
   Local(result,m,i);
   result:=FlatCopy(coefs);
   m:=Length(result);
-  For(i:=1,i<=m,i++)
+  For(i:=1,i<=?m,i++)
   [
     result[i] := result[i] * (first+i-1);
   ];

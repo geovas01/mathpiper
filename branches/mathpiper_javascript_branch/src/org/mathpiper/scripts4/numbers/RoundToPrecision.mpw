@@ -76,7 +76,7 @@
     //If(InVerboseMode(),Tell("   ",oldPrec));
     //If(InVerboseMode(),Tell("   ",newPrec));
     //If(InVerboseMode(),Tell("   ",newDecN));
-    If( newPrec <= oldPrec, 
+    If( newPrec <=? oldPrec, 
         ans := Round(newDecN),
         ans := Round(newDecN*10^(newPrec-oldPrec))
     );

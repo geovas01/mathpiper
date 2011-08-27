@@ -52,7 +52,7 @@ intervals(diff, NumCats) := [
   index := 1;
   For (i := 1, i < 4, i++) 
   [
-    if (A[i] <= 25) [
+    if (A[i] <=? 25) [
       if (A[i] > 2) [
       XX := AbsN(NumCats - A[i]);
         if (XX < D) [
@@ -492,7 +492,7 @@ function intervals(diff, NumCats) {
   var D = Math.abs(10 - A[0]);
   index = 1;
   for (i = 1; i < 4; i++) {
-    if (A[i] <= 25) {
+    if (A[i] <=? 25) {
       if (A[i] > 2) {
         XX = Math.abs(NumCats - A[i]);
         if (XX < D) {

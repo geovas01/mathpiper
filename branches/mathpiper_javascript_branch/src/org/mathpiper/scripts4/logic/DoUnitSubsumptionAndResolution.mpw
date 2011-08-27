@@ -14,18 +14,18 @@ DoUnitSubsumptionAndResolution(_list) <--
     While(changed) [
       Bind(changed, False);
 
-      For(i:=1, (Not isFalse And Not isTrue) And i <= Length(list), i++)
+      For(i:=1, (Not isFalse And Not isTrue) And i <=? Length(list), i++)
       [
         If(Length(list[i]) =? 1, [
           Local(x); Bind(x, list[i][1]); //n := SimpleNegate(x);
           //Echo({"Unit clause ", x, Nl()});
 
           // found a unit clause, {x}, not use it to modify other clauses
-          For(j:=1, (Not isFalse And Not isTrue) And j <= Length(list), j++)
+          For(j:=1, (Not isFalse And Not isTrue) And j <=? Length(list), j++)
           [
               If(i !=?j, [
                 Local(deletedClause); Bind(deletedClause, False);
-                For(k:=1, (Not isFalse And Not isTrue And Not deletedClause) And k <= Length(list[j]),  k++)
+                For(k:=1, (Not isFalse And Not isTrue And Not deletedClause) And k <=? Length(list[j]),  k++)
                 [
                     // In both of these, if a clause becomes empty, the whole thing is False
 

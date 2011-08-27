@@ -55,7 +55,7 @@
       // sqrt(N)^2 is smaller than N, then the
       // bit l2 is set in the result, and
       // add v to u.
-      if( n <= N )
+      if( n <=? N )
       [
         u  := u+v;  // u <- u+v
         u2 := n;    // u^2 <- u^2 + 2*u*v + v^2

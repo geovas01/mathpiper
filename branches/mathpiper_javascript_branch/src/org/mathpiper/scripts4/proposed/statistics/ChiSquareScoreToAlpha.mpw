@@ -35,7 +35,7 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
     
     ISqrtPi := 0.5641895835477562869480795;   /* 1 / sqrt(pi) */
     
-    if(score <= 0.0 Or degreesOfFreedom < 1) 
+    if(score <=? 0.0 Or degreesOfFreedom < 1) 
     [
         result := 1.0;
     ]
@@ -62,7 +62,7 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
                 
                 c := LogN(a);
                 
-                While(z <= score) 
+                While(z <=? score) 
                 [
                     e := LogN(z) + e;
                     s := s + If(c * z - a - e < -20, 0, ExpN(c * z - a - e));
@@ -76,7 +76,7 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
                 
                 c := 0.0;
                 
-                While(z <= score) 
+                While(z <=? score) 
                 [
                     e := e * (a / z);
                     c := c + e;

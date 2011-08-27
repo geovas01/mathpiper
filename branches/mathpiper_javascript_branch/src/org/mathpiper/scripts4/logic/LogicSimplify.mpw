@@ -13,7 +13,7 @@
   // First get the CNF version of the proposition
   Bind(cnf, CNF(proposition));
 
-  If(level <= 1, cnf, [
+  If(level <=? 1, cnf, [
     Bind(list, Flatten(cnf, "And"));
     Bind(clauses, {});
     ForEach(clause, list)

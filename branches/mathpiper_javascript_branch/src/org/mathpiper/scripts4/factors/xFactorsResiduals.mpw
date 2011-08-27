@@ -154,7 +154,7 @@ UnFence("trySQF",1);
                   // try them pairwise
                   goodptry := {};
                   For(ii:=1,ii<nrr,ii++)
-                      For(jj:=ii+1,jj<=nrr,jj++)
+                      For(jj:=ii+1,jj<=?nrr,jj++)
                       [
                           If(InVerboseMode(),Tell("   ",{ii,jj}));
                           ptry     := Expand((x-rr[ii])*(x-rr[jj]));
@@ -240,7 +240,7 @@ UnFence("processRealRoots",1);
      // try them pairwise
      goodptry := {};
      For(ii:=1,ii<nrr,ii++)
-         For(jj:=ii+1,jj<=nrr,jj++)
+         For(jj:=ii+1,jj<=?nrr,jj++)
          [
              If(InVerboseMode(),Tell("   ",{ii,jj}));
              ptry     := Expand((x-rr[ii])*(x-rr[jj]));

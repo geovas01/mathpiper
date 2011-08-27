@@ -23,14 +23,14 @@
     cc := 1;               // initialize cc and cr to 1, to start with
     cr := 1;
     
-    While( cr <= mRows )  // iterating over successively lower submatrices
+    While( cr <=? mRows )  // iterating over successively lower submatrices
     [
         Local(ic);
 
         // STEP 1:  Locate first (sub)column that is NOT all zeros
         If(iDebug, Tell("  STEP 1"));
         cnz := 0;   //  column number of first non-zero column in submatrix
-        For(ic:=1,ic<=nCols,ic++)   
+        For(ic:=1,ic<=?nCols,ic++)   
          [ 
             col := MatrixColumn(am,ic);
             If( cr > 1, col := Drop( col, {1,cr-1} ) );
@@ -43,7 +43,7 @@
         // STEP 2::  Now, find the first row which does not have a zero in column cc,
         // and bring it to the top if necessary
         If(iDebug, Tell("  STEP 2"));
-        For( ir:=cr, ir<=mRows,ir++ )
+        For( ir:=cr, ir<=?mRows,ir++ )
          [  
             If( am[ir][cc] !=? 0 And ir !=? 1, 
               [
@@ -64,7 +64,7 @@
         // STEP 4:  Add suitable multiples of the top row to the rows below,
         // so that all entries below the leading 1 become zeros.
         If(iDebug, Tell("  STEP 4"));
-        For(ir:=cr+1,ir<=mRows,ir++)
+        For(ir:=cr+1,ir<=?mRows,ir++)
          [
            If( am[ir][cc] !=? 0, 
              [
@@ -79,11 +79,11 @@
         // entire matrix is in row-echelon form
         If(iDebug, Tell("  STEP 5"));
         cr := cr + 1;
-        If(iDebug And cr <= mRows, [NewLine();Tell(" ",cr);]);
+        If(iDebug And cr <=? mRows, [NewLine();Tell(" ",cr);]);
         //Tell("   ",cr);
         //Tell("   ",am[cr]);
         If( cr=?mRows And IsZeroVector(am[cr]), Break() );
-    ];   // end while cr <= mRows
+    ];   // end while cr <=? mRows
     
     // STEP 6:  convert to unique reduced row-echelon form
     //   Beginning with the last non-zero row, and working upward,

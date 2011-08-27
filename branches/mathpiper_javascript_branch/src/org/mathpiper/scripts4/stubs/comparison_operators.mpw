@@ -1,10 +1,10 @@
-%mathpiper,def="<;>;<=;>=;!=?"
+%mathpiper,def="<;>;<=?;>=;!=?"
 
 /* def file definitions
 =
 <
 >
-<=
+<=?
 >=
 !=?
 
@@ -16,11 +16,11 @@
 
 // Undefined is a very special case as we return False for everything
 1 # Undefined <  _x  <--  False;
-1 # Undefined <= _x  <--  False;
+1 # Undefined <=? _x  <--  False;
 1 # Undefined >  _x  <--  False;
 1 # Undefined >= _x  <--  False;
 1 # _x <  Undefined  <--  False;
-1 # _x <= Undefined  <--  False;
+1 # _x <=? Undefined  <--  False;
 1 # _x >  Undefined  <--  False;
 1 # _x >= Undefined  <--  False;
 
@@ -73,9 +73,9 @@ LocalSymbols(nNum,mNum)
 // Deal with negated terms
 50 # -(_x) < 0 <-- Not((x<0) Or (x=?0));
 
-// Define each of {>,<=,>=} in terms of <
+// Define each of {>,<=?,>=} in terms of <
 50 # _n >  _m <-- m < n;
-50 # _n <= _m <-- m >= n;
+50 # _n <=? _m <-- m >= n;
 50 # _n >= _m <-- Not(n<m);
 
 
@@ -158,13 +158,13 @@ Result: False
 
 
 
-%mathpiper_docs,name="<=",categories="Operators"
-*CMD <= --- test for "less or equal"
+%mathpiper_docs,name="<=?",categories="Operators"
+*CMD <=? --- test for "less or equal"
 *STD
 *CALL
-        e1 <= e2
+        e1 <=? e2
 Precedence:
-*EVAL PrecedenceGet("<=")
+*EVAL PrecedenceGet("<=?")
 
 
 *PARMS
@@ -186,9 +186,9 @@ coerce the arguments passed to this comparison operator to a real value before m
 
 *E.G.
 
-In> 2 <= 5;
+In> 2 <=? 5;
 Result: True;
-In> Cos(1) <= 5;
+In> Cos(1) <=? 5;
 Result: True
 
 *SEE IsNumber, IsInfinity, N
@@ -442,12 +442,12 @@ Verify(Undefined >= -4, False);
 
 
 
-%mathpiper,name="<=",subtype="automatic_test"
+%mathpiper,name="<=?",subtype="automatic_test"
 
-Verify(1 <= 1.0, True);
-Verify(-1 <= -1.0, True);
-Verify(0 <= 0.0, True);
-Verify(0.0 <= 0, True);
-Verify(Undefined <= -4, False);
+Verify(1 <=? 1.0, True);
+Verify(-1 <=? -1.0, True);
+Verify(0 <=? 0.0, True);
+Verify(0.0 <=? 0, True);
+Verify(Undefined <=? -4, False);
 
 %/mathpiper

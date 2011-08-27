@@ -131,7 +131,7 @@ LocalSymbols(x)
                    [
                      res := {};
                      i := 1;
-                     While(i <= Length(sol2) And res !=? Failed) [
+                     While(i <=? Length(sol2) And res !=? Failed) [
                        sol := Solve(context == (var2 Where sol2[i]), var);
                    If(IsError("Solve'Fails"),
                       [
@@ -161,7 +161,7 @@ LocalSymbols(x)
   lst := FunctionToList(expr);
   foundVarP := False;
   i := 2;
-  While(i <= Length(lst) And Not foundVarP) [
+  While(i <=? Length(lst) And Not foundVarP) [
     foundVarP := (lst[i] =? var);
     i++;
   ];
@@ -170,7 +170,7 @@ LocalSymbols(x)
      [
        context := {};
        i := 2;
-       While(i <= Length(lst) And context !=? False) [
+       While(i <=? Length(lst) And context !=? False) [
          res := Solve'Context(lst[i], var);
          If(res !=? {} And context !=? {} And res !=? context, context := False);
          If(res !=? {} And context =? {}, context := res);

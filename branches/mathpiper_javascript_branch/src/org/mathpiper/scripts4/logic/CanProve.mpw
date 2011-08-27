@@ -15,7 +15,7 @@ CanProve(a  And   Not a)                 <-- False
 CanProve(a  Or b Or (a And b))           <-- a Or b
  */
 
- // <==> LogicSimplify(expr, 3)
+ // <=?=> LogicSimplify(expr, 3)
 
 /* CanProve tries to prove that the negation of the negation of
    the proposition is true. Negating twice is just a trick to
@@ -175,7 +175,7 @@ Verify(CanProve(Not(Not (p_2-NULL==0))Or Not(p_2-NULL==0)), True);
 LogicVerify(CanProve(P Or (Not P And Not Q)),P Or Not Q);
 
 LogicVerify(CanProve(P Or (Not P And Not Q)),P Or Not Q);
-LogicVerify(CanProve(A>0 And A<=0),False);
-LogicVerify(CanProve(A>0 Or A<=0),True);
+LogicVerify(CanProve(A>0 And A<=?0),False);
+LogicVerify(CanProve(A>0 Or A<=?0),True);
 
 %/mathpiper

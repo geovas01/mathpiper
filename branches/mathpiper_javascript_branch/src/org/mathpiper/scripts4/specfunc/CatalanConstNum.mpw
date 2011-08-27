@@ -19,7 +19,7 @@ CatalanConstNum1() :=
         Aterm:=N(1/2);
   result:= Aterm;
   Bterm:=Aterm;
-  For(n:=1, n<=nterms, n++ )
+  For(n:=1, n<=?nterms, n++ )
         [
 /*
     Bterm := MultiplyNum(Bterm, n/(2*n+1));

@@ -9,7 +9,7 @@
     limit  := Ceil(SqrtN(n)); // upper bound for largest possible factor 
         prime  := 2;                  // first prime
     result := {};
-        While( prime <= limit And n > 1 And prime*prime <= n )
+        While( prime <=? limit And n > 1 And prime*prime <=? n )
         [        // find the max power of prime which divides n
                 {n, power} := FindPrimeFactor(n, prime);
                 If(        power > 0,        DestructiveAppend(result, {prime,power}) );

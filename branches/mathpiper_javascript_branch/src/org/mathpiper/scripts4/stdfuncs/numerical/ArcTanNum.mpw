@@ -28,11 +28,11 @@ Sign(x) *
         // use identities to improve convergence -- see essays book
         If(
                 y>1,
-                y:=1/y        // now y <= 1
+                y:=1/y        // now y <=? 1
         // we shall know that the first identity was used because Abs(x) > 1 still
         );
         // use the second identity
-        y := y/(1+Sqrt(1+y^2));        // now y <= Sqrt(2)-1
+        y := y/(1+Sqrt(1+y^2));        // now y <=? Sqrt(2)-1
         // find the required number of terms in the continued fraction
         nterms := 1/y;        // this needs to be calculated at full precision
         // see essays book on the choice of the number of terms (added 2 "guard terms").

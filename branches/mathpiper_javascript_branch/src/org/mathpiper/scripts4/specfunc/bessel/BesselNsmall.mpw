@@ -2,7 +2,7 @@
 
 /// coded by Jonathan Leto
 
-// When x is <= 1, the series is monotonely decreasing from the
+// When x is <=? 1, the series is monotonely decreasing from the
 // start, so we don't have to worry about loss of precision from the
 // series definition.
 // When {n} is an integer, this is fast.

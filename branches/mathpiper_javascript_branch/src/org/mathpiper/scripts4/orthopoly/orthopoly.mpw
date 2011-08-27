@@ -233,7 +233,7 @@ OrthoPolyCoeffs(name, n, p) returns the list of coefficients for orthogonal poly
                 ruleCoeffs := Apply(KnownOrthoPoly()[name], {index, p})[2];
                 tmpCoeffs[1] := ruleCoeffs[1]*newCoeffs[1] + ruleCoeffs[3]*prevCoeffs[1];
                 /* The polynomial tmpCoeffs must have (index+1) coefficients now */
-                For(jndex:=2, jndex <= index, jndex:=jndex+1) [
+                For(jndex:=2, jndex <=? index, jndex:=jndex+1) [
                         tmpCoeffs[jndex] := ruleCoeffs[1]*newCoeffs[jndex] + ruleCoeffs[3]*prevCoeffs[jndex] + ruleCoeffs[2]*newCoeffs[jndex-1];
                 ];
                 tmpCoeffs[index+1] := ruleCoeffs[2]*newCoeffs[index];
@@ -274,7 +274,7 @@ OrthoPolySumCoeffs(name_IsString, c_IsList, p_IsList) <-- [
                 ruleCoeffs1 := Apply(KnownOrthoPoly()[name], {index+2, p})[2];
                 tmpCoeffs[1] := c[index+1] + ruleCoeffs[1]*newCoeffs[1] + ruleCoeffs1[3]*prevCoeffs[1];
                 /* The polynomial tmpCoeffs must have (n-index+1) coefficients now */
-                For(jndex:=2, jndex <= n-index, jndex:=jndex+1) [
+                For(jndex:=2, jndex <=? n-index, jndex:=jndex+1) [
                         tmpCoeffs[jndex] := ruleCoeffs[1]*newCoeffs[jndex] + ruleCoeffs1[3]*prevCoeffs[jndex] + ruleCoeffs[2]*newCoeffs[jndex-1];
                 ];
                 If(n-index>0, tmpCoeffs[n-index+1] := ruleCoeffs[2]*newCoeffs[n-index]);
@@ -294,7 +294,7 @@ OrthoPolySumCoeffs(name_IsString, c_IsList, p_IsList) <-- [
         ruleCoeffs1 := Apply(KnownOrthoPoly()[name], {index+2, p})[2];
         tmpCoeffs[1] := c[index+1] + ruleCoeffs[1]*newCoeffs[1] + ruleCoeffs1[3]*prevCoeffs[1];
         /* The polynomial tmpCoeffs must have (n-index+1) coefficients now */
-        For(jndex:=2, jndex <= n-index, jndex:=jndex+1) [
+        For(jndex:=2, jndex <=? n-index, jndex:=jndex+1) [
                 tmpCoeffs[jndex] := ruleCoeffs[1]*newCoeffs[jndex] + ruleCoeffs1[3]*prevCoeffs[jndex] + ruleCoeffs[2]*newCoeffs[jndex-1];
         ];
         tmpCoeffs[n-index+1] := ruleCoeffs[2]*newCoeffs[n-index];
@@ -392,7 +392,7 @@ BitList(n) := BitList(n, {});
         result := ZeroVector(n+1);
         result[n+1] := (2*n-1)!! /n!;        // coefficient at x^n
         i := 1;
-        While(2*i<=n)
+        While(2*i<=?n)
         [        // prepare coefficient at x^(n-2*i) now
                 result[n+1-2*i] := -(result[n+3-2*i]*(n-2*i+1)*(n-2*i+2)) / ((2*n-2*i+1)*2*i);
                 i++;
@@ -413,7 +413,7 @@ HermiteCoeffs(n_IsEven)_(n>0) <--
         k := Quotient(n,2);
         result := ZeroVector(n+1);
         result[1] := (-2)^k*(n-1)!!;        // coefficient at x^0
-        For(i:=1,i<=k,i++)        // prepare coefficient at x^(2*i) now
+        For(i:=1,i<=?k,i++)        // prepare coefficient at x^(2*i) now
                 result[2*i+1] := Quotient(-2*result[2*i-1] * (k-i+1), (2*i-1)*i);        // this division is always integer but faster with Quotient()
         result;
 ];
@@ -423,7 +423,7 @@ HermiteCoeffs(n_IsOdd)_(n>0) <--
         k := Quotient(n,2);
         result := ZeroVector(n+1);
         result[2] := 2*(-2)^k*(n!!);        // coefficient at x^1
-        For(i:=1,i<=k,i++)        // prepare coefficient at x^(2*i+1) now
+        For(i:=1,i<=?k,i++)        // prepare coefficient at x^(2*i+1) now
                 result[2*i+2] := Quotient(-2*result[2*i] * (k-i+1), i*(2*i+1));        // this division is always integer but faster with Quotient()
         result;
 ];
@@ -458,7 +458,7 @@ OrthoPolyCoeffs("Tscheb2", n_IsInteger, {}) <-- ChebUCoeffs(n);
         result := ZeroVector(n+1);
         result[n+1] := 2^(n-1);        // coefficient at x^n
         i := 1;
-        While(2*i<=n)
+        While(2*i<=?n)
         [        // prepare coefficient at x^(n-2*i) now
                 result[n+1-2*i] := -(result[n+3-2*i]*(n-2*i+2)*(n-2*i+1)) / ((n-i)*4*i);
                 i++;
@@ -473,7 +473,7 @@ OrthoPolyCoeffs("Tscheb2", n_IsInteger, {}) <-- ChebUCoeffs(n);
         result := ZeroVector(n+1);
         result[n+1] := 2^n;        // coefficient at x^n
         i := 1;
-        While(2*i<=n)
+        While(2*i<=?n)
         [        // prepare coefficient at x^(n-2*i) now
                 result[n+1-2*i] := -(result[n+3-2*i]*(n-2*i+2)*(n-2*i+1)) / ((n-i+1)*4*i);
                 i++;

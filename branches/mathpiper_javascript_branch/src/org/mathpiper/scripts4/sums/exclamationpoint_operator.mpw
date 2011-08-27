@@ -5,7 +5,7 @@
 10 # 0! <-- 1;
 10 # (Infinity)! <-- Infinity;
 20 # ((n_IsPositiveInteger)!) <-- [
-        Check(n <= 65535, "Argument", "Factorial: Error: the argument " : ( PipeToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
+        Check(n <=? 65535, "Argument", "Factorial: Error: the argument " : ( PipeToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
         MathFac(n);
 ];
 

@@ -3,7 +3,7 @@
 WriteN(string,n) :=
 [
   Local(i);
-  For(i:=1,i<=n,i++) WriteString(string);
+  For(i:=1,i<=?n,i++) WriteString(string);
   True;
 ];
 

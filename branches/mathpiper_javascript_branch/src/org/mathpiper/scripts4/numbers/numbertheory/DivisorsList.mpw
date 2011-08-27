@@ -13,7 +13,7 @@ DivisorsList(n_IsPositiveInteger) <--
  ForEach (f,nFactors)
     [
       oldresult := result;
-      For (k:=1,k<=f[2],k++)
+      For (k:=1,k<=?f[2],k++)
         ForEach (x,oldresult)
           result:=Append(result,x*f[1]^k);
     ];

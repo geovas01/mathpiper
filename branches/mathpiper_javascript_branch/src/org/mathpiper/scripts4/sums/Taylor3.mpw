@@ -53,7 +53,7 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
      Local(result,add,i);
      Bind(result,Taylor3'TaylorCoefs(var,degree)(X));
      Bind(add, Taylor3'TaylorCoefs(var,degree)(Y));
-     For(i:=1,i<=degree+1,i++)
+     For(i:=1,i<=?degree+1,i++)
      [
        ArraySet(result,i,ArrayGet(result,i)+ArrayGet(add,i));
      ];
@@ -66,7 +66,7 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
      Local(result,add,i);
      Bind(result,Taylor3'TaylorCoefs(var,degree)(X));
      Bind(add, Taylor3'TaylorCoefs(var,degree)(Y));
-     For(i:=1,i<=degree+1,i++)
+     For(i:=1,i<=?degree+1,i++)
      [
        ArraySet(result,i,ArrayGet(result,i)-ArrayGet(add,i));
      ];
@@ -78,7 +78,7 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
    [
      Local(result,add,i);
      Bind(result,Taylor3'TaylorCoefs(var,degree)(Y));
-     For(i:=1,i<=degree+1,i++)
+     For(i:=1,i<=?degree+1,i++)
      [
        ArraySet(result,i,-ArrayGet(result,i));
      ];
@@ -149,7 +149,7 @@ Taylor3'FuncCoefs(_fname,_degree) <--
 [
   Local(sins,i);
   Bind(sins, ArrayCreate(degree+1,0));
-  For (i:=0,i<=degree,Bind(i,i+1))
+  For (i:=0,i<=?degree,Bind(i,i+1))
   [
     ArraySet(sins,i+1, Taylor3'CompCoeff(fname,i));
   ];
@@ -171,11 +171,11 @@ Taylor3'FuncCoefs(_fname,_degree) <--
   ArraySet(result,1, ArrayGet(sins,1));
   xx:=expr;
 //Echo("8...",sins,expr);
-  For (i:=2,i<=degree+1,i++)
+  For (i:=2,i<=?degree+1,i++)
   [
     Bind(sinfact,sins[i]);
 //Echo("8.1..",i," ",j);
-    For (j:=1,j<=degree+1,j++)
+    For (j:=1,j<=?degree+1,j++)
     [
       ArraySet(result,j,ArrayGet(result,j) + (ArrayGet(xx,j) * sinfact));
     ];

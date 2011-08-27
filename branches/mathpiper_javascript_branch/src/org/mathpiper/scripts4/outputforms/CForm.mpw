@@ -35,7 +35,7 @@ CFormDoublePrecisionNumber(x_IsNumber) <--
     s := ToString(x);
     n := Length(s);
     f := False;
-    For(i := 1, i <= n, i++)
+    For(i := 1, i <=? n, i++)
     [
         If(s[i] =? "e" Or s[i] =? ".", f := True);
     ];
@@ -72,7 +72,7 @@ CFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It 
 LocalSymbols(cformRegularOps) [
   cformRegularOps := { {"+"," + "}, {"-"," - "}, {"*"," * "},
                        {"/"," / "}, {":="," = "}, {"=="," == "},
-                       {"=?"," == "}, {"!=?"," != "}, {"<="," <= "},
+                       {"=?"," == "}, {"!=?"," != "}, {"<=?"," <=? "},
                        {">="," >= "}, {"<"," < "}, {">"," > "},
                        {"And"," && "}, {"Or"," || "}, {">>", " >> "},
                        { "<<", " << " }, { "&", " & " }, { "|", " | " },
@@ -93,7 +93,7 @@ LocalSymbols(cformRegularOps) [
 100 # CForm(- _y, _p) <-- CFormBracketIf(p<PrecedenceGet("-"), ConcatStrings(" - ", CForm(y, RightPrecedenceGet("-")) ) );
 
         /* power's argument is never bracketed but it must be put in braces. */
-100 # CForm(_x ^ _y, _p) <-- CFormBracketIf(p<=PrecedenceGet("^"), ConcatStrings("pow(", CForm(x, CFormMaxPrec()), ", ", CForm(y, CFormMaxPrec()), ")" ) );
+100 # CForm(_x ^ _y, _p) <-- CFormBracketIf(p<=?PrecedenceGet("^"), ConcatStrings("pow(", CForm(x, CFormMaxPrec()), ", ", CForm(y, CFormMaxPrec()), ")" ) );
 
 100 # CForm(if(_pred)_body, _p) <-- "if (":CForm(pred,60000):") ":CForm(body);
 100 # CForm(_left else _right, _p) <-- CForm(left):" else ":CForm(right);
@@ -151,7 +151,7 @@ CFormArgs(list_IsList) <--
   Local(i,nr,result);
   result:="";
   nr:=Length(list);
-  For (i:=1,i<=nr,i++)
+  For (i:=1,i<=?nr,i++)
   [
     result:=result:CForm(list[i]);
     If (i<nr, result:=result:", ");

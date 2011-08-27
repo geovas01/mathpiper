@@ -7,12 +7,12 @@ IsUpperTriangular(A_IsMatrix) <--
         n:=Length(A[1]);
         i:=2;
         result:=(m=?n);
-        While(i<=m And result)
+        While(i<=?m And result)
         [
                 j:=1;
-                While(j<=n And result)
+                While(j<=?n And result)
                 [
-                        result:= (i<=j Or A[i][j] =? 0);
+                        result:= (i<=?j Or A[i][j] =? 0);
                         j++;
                 ];
                 i++;

@@ -12,7 +12,7 @@ LagrangeInterpolant(list_IsList,_values,_var) <--
   Local(i,nr,sublist);
   nr:=Length(list);
   result:=0;
-  For(i:=1,i<=nr,i++)
+  For(i:=1,i<=?nr,i++)
   [
     sublist:=FlatCopy(list);
     DestructiveDelete(sublist,i);

@@ -18,7 +18,7 @@ Rulebase("TSum",{indices,body});
       index:=indices[1];
       sum:=0;
       MacroLocal(index);
-      For(i:=1,i<=Ndim,i++)
+      For(i:=1,i<=?Ndim,i++)
       [
         MacroBind(index,i);
         sum:=sum+Eval(TSum(Rest(indices))body);

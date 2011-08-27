@@ -56,7 +56,7 @@ LocalSymbols(rFormRegularOps) [
     {"=?","=="},
     {">=",">="},
     {">",">"},
-    {"<=","<="},
+    {"<=?","<="},
     {"<","<"},
     {"!=","!="},
     {"..",":"},
@@ -126,7 +126,7 @@ LocalSymbols(rFormMathFunctions) [
 100 # RForm(- _y, _p) <-- RFormBracketIf(p<PrecedenceGet("-"), ConcatStrings(" - ", RForm(y, RightPrecedenceGet("-")) ) );
 
         /* power's argument is never bracketed but it must be put in braces. */
-100 # RForm(_x ^ _y, _p) <-- RFormBracketIf(p <= PrecedenceGet("^"), ConcatStrings(RForm(x, RFormMaxPrec()), "^", RForm(y, RFormMaxPrec())) );
+100 # RForm(_x ^ _y, _p) <-- RFormBracketIf(p <=? PrecedenceGet("^"), ConcatStrings(RForm(x, RFormMaxPrec()), "^", RForm(y, RFormMaxPrec())) );
 
 100 # RForm(if(_pred)_body, _p) <-- "if (":RForm(pred,60000):") ":RForm(body);
 100 # RForm(_left else _right, _p) <-- RForm(left):" else ":RForm(right);
@@ -153,7 +153,7 @@ RFormArgs(list_IsList) <--
   Local(i,nr,result);
   result:="";
   nr:=Length(list);
-  For (i:=1,i<=nr,i++)
+  For (i:=1,i<=?nr,i++)
   [
     result:=result:RForm(list[i]);
     If (i<nr, result:=result:", ");
@@ -366,7 +366,7 @@ transtab <- matrix( c(
         "==",                "equivalent",        "=?",
         ">=",                "geq",                ">=",
         ">",                 "gt",                ">",
-        "<=",                 "leq",                "<=",
+        "<=",                 "leq",                "<=?",
         "<",                 "lt",                "<",
         "!=",                 "neq",                "!=?",
         ":",                 "seq",                "sequence",

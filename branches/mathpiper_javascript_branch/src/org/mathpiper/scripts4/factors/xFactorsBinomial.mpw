@@ -71,7 +71,7 @@
     If( Y !=? 1,
       [
           Local(f,d);
-          For(ii:=1,ii<=Length(fac1),ii++)
+          For(ii:=1,ii<=?Length(fac1),ii++)
           [
               f := fac1[ii][1];
               d := Degree(f,var);
@@ -236,7 +236,7 @@ UnFence("xFB1",3);
     If( Y !=? 1,
       [
           Local(f,d);
-          For(ii:=1,ii<=Length(fac2),ii++)
+          For(ii:=1,ii<=?Length(fac2),ii++)
           [
               f := fac2[ii][1];
               d := Degree(f,vars[1]);
@@ -274,7 +274,7 @@ IsPowerOf2( n_IsPositiveInteger ) <-- [ Count(StringToList(ToBase(2,n)),"1") = 1
     Tell("Test Binomial Dif, 1 Variable");
     a := 2;
     b := 3;
-    For(n:=2,n<=12,n++)
+    For(n:=2,n<=?12,n++)
     [
         poly   := ExpandBrackets(a^n*x^n-b^n);
         result := xFactorsBinomial(poly);
@@ -300,7 +300,7 @@ IsPowerOf2( n_IsPositiveInteger ) <-- [ Count(StringToList(ToBase(2,n)),"1") = 1
     Tell("Test Binomial Sum, 1 Variable");
     a := 2;
     b := 3;
-    For(n:=2,n<=12,n++)
+    For(n:=2,n<=?12,n++)
     [
         poly   := ExpandBrackets(a^n*x^n+b^n);
         result := xFactorsBinomial(poly);

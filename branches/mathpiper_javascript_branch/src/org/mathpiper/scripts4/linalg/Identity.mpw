@@ -4,7 +4,7 @@ Identity(n_IsNonNegativeInteger) <--
 [
     Local(i,result);
     result:={};
-    For(i:=1,i<=n,i++)
+    For(i:=1,i<=?n,i++)
     [
       DestructiveAppend(result,BaseVector(i,n));
     ];

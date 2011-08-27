@@ -33,7 +33,7 @@
 ];
 
 
-15 # RoundToPlace( N_IsInteger, place_IsInteger )_(place <= 0) <--
+15 # RoundToPlace( N_IsInteger, place_IsInteger )_(place <=? 0) <--
 [
     //If(InVerboseMode(),Tell("RoundToPlace_I",{N,place}));
     Local(oldRep,oldPrec,decN,newDecN,ans);
@@ -45,7 +45,7 @@
     //If(InVerboseMode(),Tell("   ",oldPrec));
     //If(InVerboseMode(),Tell("   ",place));
     //If(InVerboseMode(),Tell("   ",newDecN));
-    If( place <= oldPrec, 
+    If( place <=? oldPrec, 
         ans := Round(newDecN),
         ans := Round(newDecN*10^(place-oldPrec))
     );

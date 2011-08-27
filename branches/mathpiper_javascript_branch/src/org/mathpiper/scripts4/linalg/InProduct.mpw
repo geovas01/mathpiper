@@ -9,7 +9,7 @@ Function("InProduct",{aLeft,aRight})
   Local(result);
   result:=0;
   Local(i);
-  For(i:=1,i<=length,i++)
+  For(i:=1,i<=?length,i++)
   [
     result := result + aLeft[i] * aRight[i];
   ];

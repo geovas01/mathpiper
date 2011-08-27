@@ -7,7 +7,7 @@
 [
         Local(result, k);
         GlobalPush(BuiltinPrecisionGet());
-        // find integer k such that 2^k <= n^(1/s) < 2^(k+1)
+        // find integer k such that 2^k <=? n^(1/s) < 2^(k+1)
         k := Quotient(IntLog(n, 2), s);
         // therefore we need k*Ln(2)/Ln(10) digits for the floating-point calculation
         BuiltinPrecisionSet(2+Quotient(k*3361, 11165));        // 643/2136 < Ln(2)/Ln(10) < 3361/11165
@@ -29,7 +29,7 @@ IntNthRoot1(_n, s_IsInteger) <--
         // note that if the answer is 1, the initial guess must also be 1 (not 0)
         x2 := Quotient(x1, s);        // save these values for the next If()
         x1 := Modulo(x1, s)/s;        // this is kept as a fraction
-        // now assign the initial interval, x1 <= root <= x2
+        // now assign the initial interval, x1 <=? root <=? x2
         {x1, x2} := If(
                 x1 >= 263/290,        // > Ln(15/8)/Ln(2)
                 Quotient({15,16}*2^x2, 8),
@@ -61,7 +61,7 @@ IntNthRoot1(_n, s_IsInteger) <--
                         x'new < Quotient(x1+x2, 2),
                         // x'new did not reach the midpoint, need to check progress
                         If(
-                                Quotient(x1+x2, 2)^s <= n,
+                                Quotient(x1+x2, 2)^s <=? n,
                                 // Newton's iteration is not making good progress, so leave x2 in place and update x1 by bisection
                                 x'new := Quotient(x1+x2, 2),
                                 // Newton's iteration knows what it is doing. Update x2 by bisection

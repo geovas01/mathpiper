@@ -8,10 +8,10 @@ IsDiagonal(A_IsMatrix) <--
         result := (m=?n);    //    must be a square matrix
         
         i:=2;
-    While(i<=m And result)
+    While(i<=?m And result)
      [
              j:=1;
-             While(j<=n And result)
+             While(j<=?n And result)
              [
                      result:= (i=?j Or A[i][j] =? 0);
                      j++;

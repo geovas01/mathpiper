@@ -60,7 +60,7 @@ NewtonNum(_func, _x'init, _prec0, _order) <--
     exact'digits :=Minimum(exact'digits, prec0+2);
     // run until get prec/order exact digits
     int'part := IntLog(Ceil(Abs(x1)), 10);        // how many extra digits for numbers like 100.2223
-    While(exact'digits*order <= prec)
+    While(exact'digits*order <=? prec)
     [
       exact'digits := exact'digits*order;
       BuiltinPrecisionSet(2+Minimum(exact'digits, Quotient(prec,order)+1)-int'part);

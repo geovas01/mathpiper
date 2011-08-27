@@ -69,7 +69,7 @@ Rule("FReplace",1,2,IsPow(f))
   Bind(trm,Substitute(f[1]));
   Bind(n,f[2]);
   Bind(res,trm);
-  For(i:=2,i<=n,i++)
+  For(i:=2,i<=?n,i++)
   [
     Bind(res,res :*: trm);
   ];

@@ -22,7 +22,7 @@
 [
   Local(result,i);
   result:=FlatCopy(coefs);
-  For(i:=1,i<=Length(result),i++)
+  For(i:=1,i<=?Length(result),i++)
   [
     result[i]:= result[i]/(first+i);
   ];

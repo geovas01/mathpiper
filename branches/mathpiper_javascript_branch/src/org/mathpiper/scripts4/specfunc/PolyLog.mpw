@@ -47,7 +47,7 @@
 
 ];
 /* this is very slow at high precision
-20 # PolyLog(_n,_x)_(InNumericMode() And x > 0 And x <= 1) <-- [
+20 # PolyLog(_n,_x)_(InNumericMode() And x > 0 And x <=? 1) <-- [
         Local(result,prec,term,k,eps);
         prec:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(prec+5);

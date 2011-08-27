@@ -96,7 +96,7 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
 //Echo("c1 = ",var,f1,c1);
 //Echo("c2 = ",var,f2,c2);
   Bind(n,Length(c1));
-  For(i:=1,i<=n,i++)
+  For(i:=1,i<=?n,i++)
   [
 //Echo("before = ",result);
 //Echo("parms = ",var,c1,c2,f1,f2,f1+i-1);

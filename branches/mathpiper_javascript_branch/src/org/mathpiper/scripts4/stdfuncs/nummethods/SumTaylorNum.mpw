@@ -69,7 +69,7 @@ If(
   ]);
   NonN([
     delta := 1;
-    For(k:=1, k<=n'terms And delta !=? 0, k++)
+    For(k:=1, k<=?n'terms And delta !=? 0, k++)
     [
       term := MultiplyNum(term, next'term'factor @ {k}, x);        // want to keep exact fractions here, but the result is floating-point
       delta := sum;
@@ -121,7 +121,7 @@ SumTaylorNum1(x, nth'term'func, next'term'factor, n'terms) :=
     For(i:=0, i<cols, i++)
     [
       // add i'th term to each row
-      For(j:=0, j<rows And (i<cols-1 Or i*rows+j<=n'terms), j++)        // do this unless we are beyond the last term in the last column
+      For(j:=0, j<rows And (i<cols-1 Or i*rows+j<=?n'terms), j++)        // do this unless we are beyond the last term in the last column
       [
         // if we are using next'term'factor, then term'tmp is x^(rows*i)*a[rows*i]
         // if we are not using it, then term'tmp is x^(rows*i)

@@ -13,13 +13,13 @@ MatrixRowReplace( M_IsMatrix, iRow_IsPositiveInteger, v_IsVector )_(Length(v)=?L
     If( iDebug, Tell(MatrixRowReplace,{M,iRow,v}) );
     Local(mRows,nCols);
     {mRows,nCols} := Dimensions(M);
-    If( iRow <= mRows, DestructiveReplace(M,iRow,v) );
+    If( iRow <=? mRows, DestructiveReplace(M,iRow,v) );
     M;
 ];
 
 
 MatrixRowSwap( M_IsMatrix, iRow1_IsPositiveInteger, iRow2_IsPositiveInteger )_
-                          (And(iRow1<=Dimensions(M)[1],iRow2<=Dimensions(M)[1])) <--
+                          (And(iRow1<=?Dimensions(M)[1],iRow2<=?Dimensions(M)[1])) <--
 [
     If( Not IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixRowSwap,{M,iRow1,iRow2}) );
@@ -54,7 +54,7 @@ MatrixColumnReplace( M_IsMatrix, jCol_IsPositiveInteger, v_IsVector )_(Length(v)
     If( iDebug, Tell(MatrixColumnReplace,{M,jCol,v}) );
     Local(mRows,nCols,MT);
     {mRows,nCols} := Dimensions(M);
-    If( jCol <= nCols, 
+    If( jCol <=? nCols, 
        [ MT:=Transpose(M); DestructiveReplace(MT,jCol,v); M:=Transpose(MT); ]
     ); 
     M;
@@ -62,7 +62,7 @@ MatrixColumnReplace( M_IsMatrix, jCol_IsPositiveInteger, v_IsVector )_(Length(v)
 
 
 MatrixColumnSwap( M_IsMatrix, jCol1_IsPositiveInteger, jCol2_IsPositiveInteger )_
-                          (And(jCol1<=Dimensions(M)[2],jCol2<=Dimensions(M)[2])) <--
+                          (And(jCol1<=?Dimensions(M)[2],jCol2<=?Dimensions(M)[2])) <--
 [
     If( Not IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixColumnSwap,{M,jCol1,jCol2}) );

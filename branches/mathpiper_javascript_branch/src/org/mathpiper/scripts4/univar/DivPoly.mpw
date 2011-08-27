@@ -17,7 +17,7 @@ DivPoly(_A,_B,_var,_deg) <--
   a:=MakeUni(A,var);
 
   c:=FillList(0,deg+1);
-  For(i:=0,i<=deg,i++)
+  For(i:=0,i<=?deg,i++)
   [
     Local(sum,j);
     sum:=0;

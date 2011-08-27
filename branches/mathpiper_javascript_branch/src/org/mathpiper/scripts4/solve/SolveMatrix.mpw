@@ -14,7 +14,7 @@ Function("SolveMatrix",{matrix,vector})
     Local(i,lc);
     lc := LeviCivita(item);
     det:=det+Product(i,1,n,matrix[i][item[i] ])* lc;
-    For(i:=1,i<=n,i++)
+    For(i:=1,i<=?n,i++)
         [
          inv[i] := inv[i]+
            Product(j,1,n,

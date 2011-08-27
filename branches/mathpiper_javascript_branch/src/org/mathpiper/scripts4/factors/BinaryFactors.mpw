@@ -25,7 +25,7 @@ OrdBuild(vector,q):=
   Bind(i,2);
   Bind(result, 0);
   Bind(n, Length(vector));
-  While (i<=n)
+  While (i<=?n)
   [
     Bind(result,result+(i-1)*vector[i]*p^(i-2));
     Bind(i, i+2);
@@ -115,7 +115,7 @@ Function(Fct,{poly,var})
     Local(i);
     Bind(i,1);
     Bind(lowestcoef,Abs(poly[i]));
-    While (lowestcoef =? 0 And i<=Length(poly))
+    While (lowestcoef =? 0 And i<=?Length(poly))
     [
       Bind(i,i+1);
       Bind(lowestcoef,Abs(poly[i]));
@@ -131,7 +131,7 @@ Function(Fct,{poly,var})
   deriv:=Rest(poly);
   [
     Local(i);
-    For (i:=1,i<=Length(deriv),i++)
+    For (i:=1,i<=?Length(deriv),i++)
     [
       deriv[i] := deriv[i]*i;
     ];
@@ -184,7 +184,7 @@ Function(Fct,{poly,var})
   Bind(q,twoq);
   Bind(twoq,MultiplyN(q,2));
   Bind(mask,AddN(twoq,MathNegate(1)));
-  While(Length(result)<maxNrRoots And Length(accu)>0 And q<=Abs(testpoly[1]))
+  While(Length(result)<maxNrRoots And Length(accu)>0 And q<=?Abs(testpoly[1]))
   [
     Local(newaccu);
     Bind(newaccu,{});
@@ -271,7 +271,7 @@ MkfactD(numer,denom):=
     [
       Bind(nq,numer[1]/denom[1]);
       q[ln-(Length(numer)-ld)] := nq;
-      For(j:=1,j<=Length(denom),j++)
+      For(j:=1,j<=?Length(denom),j++)
       [
         numer[j] := (numer[j] - nq*denom[j]);
       ];

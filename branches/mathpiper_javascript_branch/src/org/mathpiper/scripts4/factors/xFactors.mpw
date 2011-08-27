@@ -278,7 +278,7 @@ UnFence("xFactorsMultivariate",1);
     If(InVerboseMode(),Tell("   ",poly1));
     ppFactors := BinaryFactors(poly1);
     {ppFactors,residuals} := FixUpMonicFactors(ppFactors);
-    For(ii:=1,ii<=Length(ppFactors),ii++)
+    For(ii:=1,ii<=?Length(ppFactors),ii++)
     [
         f := ppFactors[ii];
         If(InVerboseMode(),Tell("          ",f[1]));
@@ -311,7 +311,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
     Local(LL,ii,fact,mult,dis,new);
     new := {};
     LL  := Length(final);
-    For(ii:=1,ii<=LL,ii++)
+    For(ii:=1,ii<=?LL,ii++)
     [
         fact := final[ii][1];
         mult := final[ii][2];
@@ -553,7 +553,7 @@ UnFence("FixUpMonicFactors",1);
     If(InVerboseMode(),Tell("   ",deg));
     Local(ii,res,nprimes);
     nprimes := 0;
-    For(ii:=-3*deg,ii<=3*deg,ii:=ii+3)
+    For(ii:=-3*deg,ii<=?3*deg,ii:=ii+3)
     [
         res := N(Subst(x,ii) poly);
         //Tell("      ",{ii,res,IsPrime(res)});

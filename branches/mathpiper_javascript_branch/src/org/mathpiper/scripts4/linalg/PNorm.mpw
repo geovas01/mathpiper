@@ -7,7 +7,7 @@ Function("PNorm",{v,p})
         Check(p>=1, "Argument", "PNorm: p must be >= 1");
 
         result:=0;
-        For(i:=1,i<=Length(v),i++)[
+        For(i:=1,i<=?Length(v),i++)[
                 result:=result+Abs(v[i])^p;
         ];
 

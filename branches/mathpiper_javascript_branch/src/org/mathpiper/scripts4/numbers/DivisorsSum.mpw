@@ -14,7 +14,7 @@
         factors:=Factors(n);
         len:=Length(factors);
         sum:=1;
-        For(i:=1,i<=len,i++)[
+        For(i:=1,i<=?len,i++)[
                 p:=factors[i][1];
                 k:=factors[i][2];
                 sum:=sum*(p^(k+1)-1)/(p-1);

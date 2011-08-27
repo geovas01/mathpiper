@@ -33,7 +33,7 @@ Function("UniGcd",{u,v})
   m := Length(mod);
 
 /* Echo({"v,mod = ",v,mod}); */
-/*  If(m <= 1, */
+/*  If(m <=? 1, */
   If(m =? 0,
      v,
 /*     v/v[Length(v)], */

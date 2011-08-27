@@ -13,7 +13,7 @@ Function("Inverse",{matrix})
     Local(i,lc);
     lc := LeviCivita(item);
     det:=det+Product(i,1,n,matrix[i][item[i] ])* lc;
-    For(i:=1,i<=n,i++)
+    For(i:=1,i<=?n,i++)
         [
          inv[item[i] ][i] := inv[item[i] ][i]+
            Product(j,1,n,

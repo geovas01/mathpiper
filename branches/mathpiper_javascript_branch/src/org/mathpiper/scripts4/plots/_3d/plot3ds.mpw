@@ -136,7 +136,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
         [
                 // obtain name of variable
                 var := VarList(func);        // variable names in a list
-            Check(Length(var)<=2, "Argument", "Plot3DS: Error: expression is not a function of at most two variables: "
+            Check(Length(var)<=?2, "Argument", "Plot3DS: Error: expression is not a function of at most two variables: "
                         :(PipeToString()Write(func))
                 );
                 // Allow plotting of constant functions
@@ -167,7 +167,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                         :"'"
                 );
                 // compute all other data points
-                DestructiveAppend(all'values, RemoveRepeated(HeapSort( Plot3DS'get'data(func, var, {cx, cy, fc}, {xdelta, ydelta}, options'hash), Hold({{x,y},x[1]<y[1] Or x[1] =? y[1] And x[2] <= y[2] } ) )) );
+                DestructiveAppend(all'values, RemoveRepeated(HeapSort( Plot3DS'get'data(func, var, {cx, cy, fc}, {xdelta, ydelta}, options'hash), Hold({{x,y},x[1]<y[1] Or x[1] =? y[1] And x[2] <=? y[2] } ) )) );
                 If(InVerboseMode(), Echo({"Plot3DS: using ", Length(all'values[Length(all'values)]), " points for function ", func}), True);
                 If(InVerboseMode(), Echo({"Plot3DS: max. used ", 2^(options'hash["depth"] - options'hash["used depth"]), "subdivisions for ", func}), True);
         ];
@@ -194,14 +194,14 @@ Plot3DS'get'data(_func, _var, _init'values, _deltas, _options'hash) <--
         // then, go in the y direction and compute the 1th row; call the adaptive routine and add all points it gives along the way. update the row cache along the way.
         // in cases when depth=0, the adaptive routine gives no extra points, and we must make sure that the "result" array contains the grid in exact order
         row'cache := {init'values};
-        For(i:=1, i<=options'hash["ypoints"], i++)
+        For(i:=1, i<=?options'hash["ypoints"], i++)
         [
                 ya := N(Eval(init'values[2]+i*deltas[2]));
                 DestructiveAppend(row'cache, {init'values[1], ya, N(Eval(Apply({var, func}, {init'values[1], ya})))});
         ];
         result := row'cache;
         // now loop over the x direction
-        For(i:=1, i<=options'hash["xpoints"], i++)
+        For(i:=1, i<=?options'hash["xpoints"], i++)
         [
                 // start the next row
                 // the 0th point
@@ -210,7 +210,7 @@ Plot3DS'get'data(_func, _var, _init'values, _deltas, _options'hash) <--
                 fa := N(Eval(Apply({var, func}, {xa, ya})));
                 DestructiveAppend(result, {xa, ya, fa});
                 // now loop at each grid point in y direction
-                For(j:=1, j<=options'hash["ypoints"], j++)
+                For(j:=1, j<=?options'hash["ypoints"], j++)
                 [        // now we need to plot the data inside the following square:
                         //        p  b
                         //        r  a
@@ -272,11 +272,11 @@ y1        11  31  21
 */
         If(
                 // condition for the values not to oscillate too rapidly
-                sign'change(f11,f13,f12) + sign'change(f13,f12,f32) + sign'change(f12,f32,f22) <= 2 And sign'change(f22,f23,f21) + sign'change(f23,f21,f31) + sign'change(f21,f31,f11) <= 2 And 
+                sign'change(f11,f13,f12) + sign'change(f13,f12,f32) + sign'change(f12,f32,f22) <=? 2 And sign'change(f22,f23,f21) + sign'change(f23,f21,f31) + sign'change(f21,f31,f11) <=? 2 And 
                 
                 // condition for the values not to change too rapidly
                 N(Eval(Abs( (f11-f23)/2-(f12-f21)/3+(f22-f13)/6+2*(f32-f33)/3 )))
-                        <= N(Eval( epsilon*(        // the expression here will be nonnegative because we subtract the minimum value
+                        <=? N(Eval( epsilon*(        // the expression here will be nonnegative because we subtract the minimum value
                         // cubature normalized to 1
                 (f11 + f12 + f21 + f22)/12 + 2*f33/3
                 - Minimum({f11, f12, f21, f22, f13, f31, f33, f32, f23}) ) ) )

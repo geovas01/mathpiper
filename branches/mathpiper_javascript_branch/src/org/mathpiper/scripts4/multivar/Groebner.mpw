@@ -21,13 +21,13 @@ Groebner(f_IsList) <--
   Local(vars,i,j,S,nr,r);
   nr:=Length(f);
   vars:=VarList(f);
-  For(i:=1,i<=nr,i++)
+  For(i:=1,i<=?nr,i++)
   [
     f[i] := MakeMultiNomial(f[i],vars);
   ];
   S:={};
   For(i:=1,i<nr,i++)
-  For(j:=i+1,j<=nr,j++)
+  For(j:=i+1,j<=?nr,j++)
   [
     r := (MultiDivide(MultiS(f[i],f[j],f[i]),f)[2]);
     If(NormalForm(r) !=? 0, S:= r:S);

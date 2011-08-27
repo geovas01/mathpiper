@@ -17,7 +17,7 @@ LocalSymbols(x,i,n,m,aux,dim,result)
           n:=Length(x);
               dim:=MapSingle(Dimensions,x);
               m:=Minimum(MapSingle(Length,dim));
-              For(i:=1,i<=m,i++)
+              For(i:=1,i<=?m,i++)
               [
                 aux:=Table(dim[j][i],j,1,n,1);
                 If(Minimum(aux)=?Maximum(aux),

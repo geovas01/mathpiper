@@ -49,7 +49,7 @@
                              If(iDebug,Tell(" 31hReduce",sol2));
                                      res := {};
                                      i := 1;
-                                     While(i <= Length(sol2) And res !=? Failed) 
+                                     While(i <=? Length(sol2) And res !=? Failed) 
                              [
                                          sol := Solve(context == (var2 Where sol2[i]), var);
                                  If(iDebug,Tell(" 31iReduce",{i,sol}));
@@ -96,7 +96,7 @@
       If(iDebug,Tell(" 42aContext",lst));
       foundVarP := False;
       i := 2;
-      While(i <= Length(lst) And Not foundVarP) [
+      While(i <=? Length(lst) And Not foundVarP) [
           foundVarP := (lst[i] =? var);
           i++;
       ];
@@ -109,7 +109,7 @@
           [
               context := {};
               i := 2;
-              While(i <= Length(lst) And context !=? False) [
+              While(i <=? Length(lst) And context !=? False) [
                   res := xSolve'Context(lst[i], var);
                       If(res !=? {} And context !=? {} And res !=? context, [context := False;If(iDebug,Tell("  42caContext",res));]);
                       If(res !=? {} And context = {}, [context := res;If(iDebug,Tell("  42cbContext",context));]);

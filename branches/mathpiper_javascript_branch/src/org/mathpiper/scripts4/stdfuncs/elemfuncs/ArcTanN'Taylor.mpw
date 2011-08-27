@@ -15,7 +15,7 @@ ArcTanN'Taylor(x) :=
 [
         Local(num'terms);
         num'terms := QuotientN(BuiltinPrecisionGet()*1068, -643*MathBitCount(x))+1;
-        // (P*Ln(10))/(-2*Ln(x)); use Ln(x)<=B(x)*Ln(2), only good for |x|<1/2
+        // (P*Ln(10))/(-2*Ln(x)); use Ln(x)<=?B(x)*Ln(2), only good for |x|<1/2
         // here -Ln(x) must be positive
         x*SumTaylorNum(-MultiplyN(x,x), {{k}, 1/(2*k+1)}, num'terms);
 ];

@@ -51,7 +51,7 @@ RadSimpTry(_n,_result,_current,_max)<--
     // Otherwise, search for another solution
     if (IsLessThan(N(Eval(result-n)), 0))
     [
-      For (Bind(i,current),i<=max,Bind(i,AddN(i,1)))
+      For (Bind(i,current),i<=?max,Bind(i,AddN(i,1)))
       [
         Local(new, test);
         Bind(test,result+Sqrt(i));

@@ -12,7 +12,7 @@
   Local(m,b);
   Bind(m,1);
   Bind(b,1);
-  While(m<=n) Bind(m,(ShiftLeft(m,1)));
+  While(m<=?n) Bind(m,(ShiftLeft(m,1)));
   Bind(m, ShiftRight(m,1));
   While(m>0)
   [

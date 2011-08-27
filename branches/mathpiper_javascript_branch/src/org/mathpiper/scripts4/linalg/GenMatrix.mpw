@@ -5,8 +5,8 @@ Function("GenMatrix",{func,m,n})
   Local(i,j,result);
   result:=ZeroMatrix(m,n);
 
-  For(i:=1,i<=m,i++)
-    For(j:=1,j<=n,j++)
+  For(i:=1,i<=?m,i++)
+    For(j:=1,j<=?n,j++)
           result[i][j]:=ApplyFast(func,{i,j});
 
   result;

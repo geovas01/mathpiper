@@ -50,7 +50,7 @@ LocalSymbols(x,y,xarg,yarg)
 [
    Local(i,result);
    result:={};
-   For(i:=1,i<=Length(y),i++)
+   For(i:=1,i<=?Length(y),i++)
    [ DestructiveInsert(result,i,x - y[i]); ];
    result;
 ];

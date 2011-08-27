@@ -8,7 +8,7 @@
 20 # ApplyDelta(_result,(_x) ^ (n_IsInteger))_(n>0) <--
     [
       Local(i);
-      For(i:=1,i<=n,i++)
+      For(i:=1,i<=?n,i++)
       [
         ApplyDelta(result,x);
       ];

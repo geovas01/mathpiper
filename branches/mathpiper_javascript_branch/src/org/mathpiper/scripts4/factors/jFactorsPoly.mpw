@@ -199,7 +199,7 @@ UnFence("jFactorsPrimitivePart",1);
     If(InVerboseMode(),Tell("   ",poly1));
     ppFactors := BinaryFactors(poly1);
     {ppFactors,residuals} := FixUpMonicFactors(ppFactors);
-    For(ii:=1,ii<=Length(ppFactors),ii++)
+    For(ii:=1,ii<=?Length(ppFactors),ii++)
     [
         f := ppFactors[ii];
         If(InVerboseMode(),Tell("          ",f[1]));
@@ -416,7 +416,7 @@ UnFence("jFactorsBivariateBinomial",1);
     If( Y !=? 1,
       [
           Local(f,d,fs);
-          For(ii:=1,ii<=Length(fac),ii++)
+          For(ii:=1,ii<=?Length(fac),ii++)
           [
               f := fac[ii][1];
               d := Degree(f,x);

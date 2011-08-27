@@ -6,7 +6,7 @@ This function came from http://www.johndcook.com/blog/2009/01/19/stand-alone-err
 "This problem is typical in two ways: Abramowitz & Stegun has a solution, and 
 you've got to know a little background before you can use it.
 
-The formula given in Abramowitz & Stegun is only good for x <= 0. That's no problem if you 
+The formula given in Abramowitz & Stegun is only good for x <=? 0. That's no problem if you 
 know that the error function is an odd function, i.e. erf(-x) = -erf(x). 
 But if you're an engineer who has never heard of the error function but 
 needs to use it, it may take a while to figure out how to handle negative inputs.

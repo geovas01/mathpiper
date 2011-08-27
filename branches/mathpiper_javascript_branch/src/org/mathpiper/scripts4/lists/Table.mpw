@@ -13,7 +13,7 @@ TemplateFunction("Table",{body,var,count'from,count'to,step})
     result:={};
     nr := (count'to - count'from) / step;
     ii := 0;
-    While( ii <= nr )
+    While( ii <=? nr )
       [
        MacroBind( var, count'from + ii * step );
        DestructiveInsert( result,1,Eval(body) );

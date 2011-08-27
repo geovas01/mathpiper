@@ -6,11 +6,11 @@ Function("MatrixColumn",{matrix,col})
   m:=matrix[1];
 
   Check(col > 0, "Argument", "MatrixColumn: column index out of range");
-  Check(col <= Length(m), "Argument", "MatrixColumn: column index out of range");
+  Check(col <=? Length(m), "Argument", "MatrixColumn: column index out of range");
 
   Local(i,result);
   result:={};
-  For(i:=1,i<=Length(matrix),i++)
+  For(i:=1,i<=?Length(matrix),i++)
     DestructiveAppend(result,matrix[i][col]);
 
   result;

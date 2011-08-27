@@ -11,7 +11,7 @@
 20 # Simplify((_xex) > (_yex)) <-- (Simplify(xex-yex) > 0);
 20 # Simplify((_xex) < (_yex)) <-- (Simplify(xex-yex) < 0);
 20 # Simplify((_xex) >= (_yex)) <-- (Simplify(xex-yex) >= 0);
-20 # Simplify((_xex) <= (_yex)) <-- (Simplify(xex-yex) <= 0);
+20 # Simplify((_xex) <=? (_yex)) <-- (Simplify(xex-yex) <=? 0);
 20 # Simplify((_xex) !== (_yex)) <-- (Simplify(xex-yex) !== 0);
 
 // conditionals

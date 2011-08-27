@@ -14,9 +14,9 @@
 [
    Local(i,j,k,row,result);
    result:=ZeroMatrix(Length(x),Length(y[1]));
-   For(i:=1,i<=Length(x),i++)
-   For(j:=1,j<=Length(y),j++)
-   For(k:=1,k<=Length(y[1]),k++)
+   For(i:=1,i<=?Length(x),i++)
+   For(j:=1,j<=?Length(y),j++)
+   For(k:=1,k<=?Length(y[1]),k++)
    [
      row:=result[i];
      row[k]:= row[k]+x[i][j]*y[j][k];
@@ -29,7 +29,7 @@
 [
    Local(i,result);
    result:={};
-   For(i:=1,i<=Length(x),i++)
+   For(i:=1,i<=?Length(x),i++)
    [ DestructiveInsert(result,i,Dot(x[i], y)); ];
    result;
 ];
@@ -40,7 +40,7 @@
 [
    Local(i,result);
    result:={};
-   For(i:=1,i<=Length(y),i++)
+   For(i:=1,i<=?Length(y),i++)
    [ DestructiveInsert(result,i,x * y[i]); ];
    result;
 ];

@@ -198,7 +198,7 @@ TryRandomPoly(deg,coefmin,coefmax):=
   p:=Add(coefs*x^(0 .. deg));
   p:=Rationalize(p);
 //Echo("Test polynom ",p);
-  Verify(Maximum(Abs(coefs)) <= MaximumBound(p), True);
+  Verify(Maximum(Abs(coefs)) <=? MaximumBound(p), True);
   Verify(Minimum(Abs(coefs)) > MinimumBound(p), True);
 //Echo("bounds ",BoundRealRoots(p));
   roots:=FindRealRoots(p);

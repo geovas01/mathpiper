@@ -62,7 +62,7 @@ PollardRhoPolynomial(_x) <-- x^2+1;
                 );
 //                Echo({"debug PollardRho: gcd=",gcd," x=", x," y=", y});
            ];
-        If(InVerboseMode() And repeat<=0, Echo({"PollardRhoFactorize: Warning: stalled while factorizing ", n, "; counters ", x, y}));
+        If(InVerboseMode() And repeat<=?0, Echo({"PollardRhoFactorize: Warning: stalled while factorizing ", n, "; counters ", x, y}));
   ];
   Check(restarts>0, "Math", "PollardRhoFactorize: Error: failed to factorize " : ToString(n));
   If(InVerboseMode() And gcd > 1, Echo({"PollardRhoFactorize: Info: while factorizing ", n, " found factor ", gcd}));

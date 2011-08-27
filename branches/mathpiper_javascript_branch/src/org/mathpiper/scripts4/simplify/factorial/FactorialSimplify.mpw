@@ -146,8 +146,8 @@ LocalSymbols(n,d,c)
 
     Local(i,j,common);
     common:=1;
-    For(i:=1,i<=Length(x),i++)
-    For(j:=1,j<=Length(y),j++)
+    For(i:=1,i<=?Length(x),i++)
+    For(j:=1,j<=?Length(y),j++)
     [
       Local(n,d,c);
 //Echo("inp is ",x[i]," ",y[j]);
@@ -206,7 +206,7 @@ LocalSymbols(n,d,c)
 
 //  Echo("common is ",common);
 
-    For(j:=1,j<=Length(terms),j++)
+    For(j:=1,j<=?Length(terms),j++)
     [
       Local(n,d,c);
 //  Echo("IN = ",terms[j]," ",common);
@@ -232,14 +232,14 @@ LocalSymbols(n,d,c)
     terms:=Add(terms);
 
     common:=Flatten(common,"*");
-    For(j:=1,j<=Length(common),j++)
+    For(j:=1,j<=?Length(common),j++)
     [
       Local(f1,f2);
       {f1,f2}:=CommonFactors(common[j],terms);
       common[j]:=f1;
       terms:=f2;
 
-      For(i:=1,i<=Length(common),i++)
+      For(i:=1,i<=?Length(common),i++)
       If(i !=? j,
         [
           {f1,f2}:=CommonFactors(common[j],common[i]);

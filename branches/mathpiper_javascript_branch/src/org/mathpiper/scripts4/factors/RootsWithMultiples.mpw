@@ -16,7 +16,7 @@
       [
         root:= PSolve(uni);
         If(Not IsList(root),root:={root});
-        For(i:=1,i<=Length(root),i++)
+        For(i:=1,i<=?Length(root),i++)
           result:= Concat({{root[i],item[2]}}, result);
       ]
       );

@@ -14,7 +14,7 @@
         sum:=1;
         factors:=Factors(n);
         len:=Length(factors);
-        For(i:=1,i<=len,i++)[
+        For(i:=1,i<=?len,i++)[
                 sum:=sum*(factors[i][2]+1);
         ];
         sum;

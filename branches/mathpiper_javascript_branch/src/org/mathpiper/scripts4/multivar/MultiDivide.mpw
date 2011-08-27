@@ -23,7 +23,7 @@
   v  := MultiExpressionList(f+Sum(g));
   f  := MakeMultiNomial(f,v);
   nr := Length(g);
-  For(i:=1,i<=nr,i++)
+  For(i:=1,i<=?nr,i++)
   [
     g[i] := MakeMultiNomial(g[i],v);
   ];
@@ -49,7 +49,7 @@
   While (Not finished)
   [
     plt := MultiLT(p);  //  MultiLT computes the multi-LeadingTerm
-    For(i:=1,i<=nr,i++)
+    For(i:=1,i<=?nr,i++)
     [
       glt := MultiLT(g[i]);
 

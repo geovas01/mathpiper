@@ -35,7 +35,7 @@ LocalSymbols(index,nr)
     Local(@i);
     Bind(index,1);
     Bind(nr,Length(@A));
-    While(index<=nr)
+    While(index<=?nr)
     [
       Bind(@i,(@A)[index]);
       @B;

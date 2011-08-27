@@ -171,7 +171,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
          If (lps[1] =? Undefined,
          [
             lps[1] := order;
-            If (order <= n2,
+            If (order <=? n2,
             [
                lps[2] := Table(Taylor'LPS'CompCoeff(lps[3], lps[4], n),
                                n, order, n2, 1);
@@ -195,7 +195,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
             ClearError("dunno");
             ClearError("dunno");
          ],[
-               If (lps[1] <= n2,
+               If (lps[1] <=? n2,
             [
                c1 := Taylor'LPS'Coeffs(lps[4][1], lps[1] + Length(lps[2]), n2);
                c2 := Taylor'LPS'Coeffs(lps[4][2], lps[1] + Length(lps[2]), n2);
@@ -212,7 +212,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
          lps[1] := Minimum(Taylor'LPS'GetOrder(lps[4][2])[1], n2);
          If (Not ClearError("dunno"),
          [
-               If (lps[1] <= n2,
+               If (lps[1] <=? n2,
             [
                tmp := Taylor'LPS'Coeffs(lps[4][2],
                                         lps[1] + Length(lps[2]), n2);
@@ -234,7 +234,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
             ClearError("dunno");
             ClearError("dunno");
          ],[
-               If (lps[1] <= n2,
+               If (lps[1] <=? n2,
             [
                c1 := Taylor'LPS'Coeffs(lps[4][1], lps[4][1][1],
                                        n2 - lps[4][2][1]);
@@ -327,9 +327,9 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
          If (Not IsError("dunno") And Not IsError("div-by-zero")
              And Not IsError("maybe-div-by-zero"),
          [
-            If (lps[1] <= n1,
+            If (lps[1] <=? n1,
                 res := Take(lps[2], {n1-lps[1]+1, n2-lps[1]+1}),
-                If (lps[1] <= n2,
+                If (lps[1] <=? n2,
                     res := Concat(FillList(0, lps[1]-n1), lps[2]),
                     res := FillList(0, n2-n1+1)));
          ]);
@@ -381,7 +381,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 [
    Local(j,k,c);
    c := {};
-   For (k:=1, k<=Minimum(Length(c1), Length(c2)), k++)
+   For (k:=1, k<=?Minimum(Length(c1), Length(c2)), k++)
    [
       c := c : Sum(j, 1, k, c1[j]*c2[k+1-j]);
    ];
@@ -394,7 +394,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
    n := Minimum(n1+Length(c1)-1, n2+Length(c2)-1);
    tps := {0, 1 : FillList(0, n)}; // tps =? {n2,c2} ^ k
    res := Taylor'TPS'ScalarMult(Taylor'TPS'GetCoeff({n1,c1}, 0), tps);
-   For (k:=1, k<=n, k++)
+   For (k:=1, k<=?n, k++)
    [
       tps := Taylor'TPS'Multiply(tps, {n2,c2});
       tps2 := Taylor'TPS'ScalarMult(Taylor'TPS'GetCoeff({n1,c1}, k), tps);

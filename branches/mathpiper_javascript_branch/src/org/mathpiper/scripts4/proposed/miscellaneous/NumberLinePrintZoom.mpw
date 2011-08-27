@@ -14,7 +14,7 @@ LocalSymbols(ZoomInOnce)
         
         iteration := 1;
         
-        While(iteration <= depth)
+        While(iteration <=? depth)
         [
             {numbers, stepAmount} := ZoomInOnce(lowValue, highValue, divisions);
             
@@ -71,7 +71,7 @@ LocalSymbols(ZoomInOnce)
         
         numbers := {};
         
-        While(x <= highValue)
+        While(x <=? highValue)
         [
         
             numbers := Append(numbers, x);

@@ -17,7 +17,7 @@ Dot(t1_IsMatrix,t2_IsVector)_(Length(t1[1])=?Length(t2)) <--
    n:=Length(t1);
    m:=Length(t2);
    result:=List();
-   For(i:=1,i<=n,i++)
+   For(i:=1,i<=?n,i++)
         DestructiveInsert(result,1,Dot0(t1[i],t2,m));
    DestructiveReverse(result);
 ];
@@ -36,7 +36,7 @@ Dot(t1_IsMatrix,t2_IsMatrix)_(Length(t1[1])=?Length(t2)
    k:=Length(t2);
    l:=Length(t2[1]);
    result:=List();
-   For(i:=1,i<=n,i++)
+   For(i:=1,i<=?n,i++)
       DestructiveInsert(result,1,Dot1(t1[i],t2,k,l));
    DestructiveReverse(result);
 ];
@@ -46,7 +46,7 @@ Dot0(_t1,_t2,_n) <--
 [
    Local(i,result);
    result:=0;
-   For(i:=1,i<=n,i++)
+   For(i:=1,i<=?n,i++)
       result:=result+t1[i]*t2[i];
    result;
 ];
@@ -58,8 +58,8 @@ Dot1(_t1,_t2,_m,_n) <--
 [
    Local(i,j,result);
    result:=ZeroVector(n);
-   For(i:=1,i<=n,i++)
-      For(j:=1,j<=m,j++)
+   For(i:=1,i<=?n,i++)
+      For(j:=1,j<=?m,j++)
          result[i]:=result[i]+t1[j]*t2[j][i];
    result;
 ];

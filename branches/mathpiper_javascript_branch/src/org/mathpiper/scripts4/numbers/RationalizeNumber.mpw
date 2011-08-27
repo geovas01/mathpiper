@@ -8,7 +8,7 @@ Function("RationalizeNumber",{x})
   i   := 0;
   bip := BuiltinPrecisionGet();
   // We can not take for granted that the internal representation is rounded properly...
-  While(i<=bip And Not(FloatIsInt(x)))
+  While(i<=?bip And Not(FloatIsInt(x)))
   [
     n := n*10; 
     x := x*10;

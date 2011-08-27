@@ -15,11 +15,12 @@
  */ //}}}
 package org.mathpiper.test;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import org.mathpiper.Tests;
+import org.mathpiper.Scripts;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -34,12 +35,12 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
 public class AnalyzeScripts {
 
-    private Tests scripts;
+    private Scripts scripts;
     private Interpreter cas;
     private List uniqueValues = new ArrayList();
 
     public AnalyzeScripts() {
-        scripts = new Tests();//Scripts();
+        scripts = new Scripts();//Scripts();
         cas = Interpreters.getSynchronousInterpreter();
         cas.evaluate("StackTraceOn()");
 
@@ -92,7 +93,7 @@ public class AnalyzeScripts {
 
             while (!endoffile) {
                 // Read expression
-                ArrayList<Map> functionOrOperatorLocationsList = parser.parseAndFind(aStackTop, readIn, "=");
+                ArrayList<Map> functionOrOperatorLocationsList = parser.parseAndFind(aStackTop, readIn, functionOrOperatorName);
 
                 for (Map location : functionOrOperatorLocationsList) {
 
@@ -145,7 +146,7 @@ public class AnalyzeScripts {
         AnalyzeScripts analyze = new AnalyzeScripts();
 
         try {
-            analyze.findOperator("=");
+            analyze.findOperator("<=");
         } catch (Exception e) {
             e.printStackTrace();
         }

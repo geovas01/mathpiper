@@ -21,7 +21,7 @@ TemplateFunction("ForEach",{item,listOrString,body})
           stringLength := Length(listOrString);
           
           index := 1;
-          While(index <= stringLength )
+          While(index <=? stringLength )
           [
              MacroBind(item,listOrString[index] );
              

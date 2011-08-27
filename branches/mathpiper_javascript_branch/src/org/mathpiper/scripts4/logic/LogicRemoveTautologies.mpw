@@ -29,7 +29,7 @@ LogicRemoveTautologies(_e) <--
   //Echo(e);
   e := BubbleSort(e, "LocalCmp");
 
-  For(Bind(i, 1), (i <= len) And (Not negationfound), i++)
+  For(Bind(i, 1), (i <=? len) And (Not negationfound), i++)
   [
     Local(x, n, j);
     // we can register other simplification rules for expressions
@@ -38,7 +38,7 @@ LogicRemoveTautologies(_e) <--
     Bind(n, SimpleNegate(x));                    /* this is all we have to do because of
                                                 the kind of expressions we can have coming in */
 
-    For(Bind(j, i+1), (j <= len) And (Not negationfound), j++) [
+    For(Bind(j, i+1), (j <=? len) And (Not negationfound), j++) [
         Local(y);
         Bind(y, MathNth(e,j));
 

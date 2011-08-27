@@ -24,7 +24,7 @@ Internal'ZetaNum(_s, n_IsInteger) <-- [
         If (InVerboseMode(), Echo({"Internal'ZetaNum: Borwein's method, precision ", BuiltinPrecisionGet(), ", n = ", n}));
         result := 0;
         sign := 1;        // flipping sign
-        For(j:=0, j<=2*n-1, j++)
+        For(j:=0, j<=?2*n-1, j++)
         [        // this is suboptimal b/c we can compute the coefficients a lot faster in this same loop, but ok for now
                 result := N(result + sign*Internal'ZetaNumCoeffEj(j,n)/(1+j)^s );
                 sign := -sign;
@@ -38,7 +38,7 @@ Internal'ZetaNum1(s, limit) := [
         If (InVerboseMode(), Echo({"Internal'ZetaNum: direct method (sum), precision ", BuiltinPrecisionGet(), ", N = ", limit}));
         sum := 0;
         limit := Ceil(N(limit));
-        For(i:=2, i<=limit, i++) sum := sum+N(1/PowerN(i, s));
+        For(i:=2, i<=?limit, i++) sum := sum+N(1/PowerN(i, s));
 //        sum := sum + ( N( 1/PowerN(limit, s-1)) + N(1/PowerN(limit+1, s-1)) )/2/(s-1);          // these extra terms don't seem to help much
         sum+1;        // add small terms together and then add 1
 ];
@@ -49,7 +49,7 @@ Internal'ZetaNum2(s, limit) :=
         If (InVerboseMode(), Echo({"Internal'ZetaNum: direct method (product), precision ", BuiltinPrecisionGet(), ", N = ", limit}));
         prod := N( (1-1/PowerN(2, s))*(1-1/PowerN(3,s)) );
         limit := Ceil(N(limit));
-        For(i:=5, i<=limit, i:= NextPrime(i))
+        For(i:=5, i<=?limit, i:= NextPrime(i))
                 prod := prod*N(1-1/PowerN(i, s));
         1/prod;
 ];

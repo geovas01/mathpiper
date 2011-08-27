@@ -5,7 +5,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
 [
     Check(IsMatrix(levelsList), "Argument", "The first argument must be a list of equal-length lists.");
     
-    Check(alpha >= 0 And alpha <= 1, "Argument", "The second argument must be a number between 0 and 1.");
+    Check(alpha >= 0 And alpha <=? 1, "Argument", "The second argument must be a number between 0 and 1.");
     
     Local(
         topOfSummary,
@@ -80,7 +80,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     
     index := 1;
     
-    While(index <= Length(First(levelsList)) )
+    While(index <=? Length(First(levelsList)) )
     [
         row := MatrixColumn(levelsList, index);
         
@@ -144,7 +144,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
     //Data summary.
     index := 1;
     
-    While(index <= Length(levelsList))
+    While(index <=? Length(levelsList))
     [
         summaryTableRows := summaryTableRows : PatchString(summaryTableRow);
     
@@ -158,7 +158,7 @@ AnovaCompletelyRandomizedBlock(levelsList, alpha) :=
 
     index := 1;
     
-    While(index <= Length(First(levelsList)) )
+    While(index <=? Length(First(levelsList)) )
     [
         row := MatrixColumn(levelsList, index);
         

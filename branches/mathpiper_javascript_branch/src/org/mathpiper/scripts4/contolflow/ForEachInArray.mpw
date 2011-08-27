@@ -8,7 +8,7 @@ LocalSymbols(i,nr)
     MacroLocal(item);
     Bind(i,1);
     Bind(nr,Length(list));
-    While(i<=nr)
+    While(i<=?nr)
     [
       MacroBind(item,list[i]);
       Eval(body);

@@ -37,7 +37,7 @@ FindRealRoots(_p,_Mmin,_Mmax) <--
     BuiltinPrecisionSet(BuiltinPrecisionGet()+4);
     prec:=10^-(requiredPrec+1);
 
-    For(i:=1,i<=Length(bounds),i++)
+    For(i:=1,i<=?Length(bounds),i++)
     [
         If(iDebug,Tell(i));
         Local(a,b,c,r);

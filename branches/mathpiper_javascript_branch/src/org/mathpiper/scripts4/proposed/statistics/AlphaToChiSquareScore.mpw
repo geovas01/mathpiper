@@ -38,10 +38,10 @@ AlphaToChiSquareScore(p, df) :=
     
     p := N(p);
     
-    if( p <= 0.0 Or p >= 1.0)
+    if( p <=? 0.0 Or p >= 1.0)
     [
     
-        if (p <= 0.0) 
+        if (p <=? 0.0) 
         [
             result := maxchisq;
         ] 

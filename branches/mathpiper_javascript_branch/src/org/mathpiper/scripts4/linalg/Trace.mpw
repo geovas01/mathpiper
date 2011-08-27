@@ -14,10 +14,10 @@ Trace(matrix_IsList) <--
    
    result:=0;
    
-   For(i:=1,i<=n,i++)
+   For(i:=1,i<=?n,i++)
    [
       aux:=matrix[i];
-      For(j:=2,j<=r,j++)
+      For(j:=2,j<=?r,j++)
          aux:=aux[i];
       result:=result+aux;
    ];

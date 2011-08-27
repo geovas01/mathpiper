@@ -50,11 +50,11 @@
         // this is a heuristic, because the next term error is expensive
         // to calculate and the theoretic bounds have arbitrary constants
         // use at most 5+Sqrt(n)/2 terms, stop when the term is nonzero and result stops to change at precision prec
-        For(k:=1, k<=5+Quotient(IntNthRoot(n,2),2) And (A=?0 Or Abs(term)>epsilon), k++)
+        For(k:=1, k<=?5+Quotient(IntNthRoot(n,2),2) And (A=?0 Or Abs(term)>epsilon), k++)
         [
                 // compute A(k,n)
                 A:=0;
-                For(l:=1,l<=k,l++)
+                For(l:=1,l<=?k,l++)
                 [
                         If(
                                 Gcd(l,k)=?1,
@@ -100,9 +100,9 @@
            term:=1;
            // this is a heuristic, because the next term error is expensive
            // to calculate and the theoretic bounds have arbitrary constants
-           For(k:=1,k<=5+Floor(SqrtN(n)*0.5) And ( term=?0 Or Abs(term)>0.1) ,k++)[
+           For(k:=1,k<=?5+Floor(SqrtN(n)*0.5) And ( term=?0 Or Abs(term)>0.1) ,k++)[
                            A:=0;
-                           For(h:=1,h<=k,h++)[
+                           For(h:=1,h<=?k,h++)[
                                            if( Gcd(h,k)=?1 )[
                                                            A:=A+Exp(I*Pi*Sum(j,1,k-1,(j/k)*((h*j)/k - Floor((h*j)/k) -1/2))
 - 2*Pi*I*h*n/k );
@@ -135,9 +135,9 @@ PartitionsP'recur(number_IsPositiveInteger) <--
                 k := 1;
                 pentagonal := 1;        // pentagonal is always equal to the first element in the k-th pair of the "pentagonal sequence" of pairs {k*(3*k-1)/2, k*(3*k+1)/2}
                 sign := 1;
-                While(pentagonal<=n)
+                While(pentagonal<=?n)
                 [
-                        P := P + (cache[n-pentagonal+1]+If(pentagonal+k<=n, cache[n-pentagonal-k+1], 0))*sign;
+                        P := P + (cache[n-pentagonal+1]+If(pentagonal+k<=?n, cache[n-pentagonal-k+1], 0))*sign;
                         pentagonal := pentagonal + 3*k+1;
                         k++;
                         sign := -sign;

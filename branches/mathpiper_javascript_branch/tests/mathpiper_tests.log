@@ -1,4 +1,4 @@
-Fri Aug 26 01:48:54 EDT 2011.
+Fri Aug 26 20:39:36 EDT 2011.
 MathPiper version: js.024.
 Running all tests except the following: PSolve,Solve.
 Beginning of tests:
@@ -32,7 +32,7 @@ Testing < in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>:
 
 
 ================================================================
-Testing <= in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
+Testing <=? in file </org/mathpiper/scripts4/stubs/comparison_operators.mpw>: 
 
 
 ================================================================
@@ -78,9 +78,12 @@ Testing Arg in file </org/mathpiper/scripts4/complex/Arg.mpw>:
 ================================================================
 Testing arithmetic in file </org/mathpiper/scripts4/a_initialization/stdarith/arithmetic_test.mpw>: 
 
+
 Test suite for Test arithmetic : 
 
+
 Test suite for Basic calculations : 
+
 
 Test suite for Testing math stuff : 
 
@@ -118,6 +121,7 @@ Testing CanBeUni in file </org/mathpiper/scripts4/univar/CanBeUni.mpw>:
 ================================================================
 Testing CanProve in file </org/mathpiper/scripts4/logic/CanProve.mpw>: 
 
+
 Test suite for Propositional logic theorem prover: CanProve : 
 
 
@@ -131,6 +135,7 @@ Testing CForm in file </org/mathpiper/scripts4/outputforms/CForm.mpw>:
 
 ================================================================
 Testing CNF in file </org/mathpiper/scripts4/logic/CNF.mpw>: 
+
 
 Test suite for CNF : 
 
@@ -173,6 +178,7 @@ Testing Cot in file </org/mathpiper/scripts4/stdfuncs/Cot.mpw>:
 
 ================================================================
 Testing Cyclotomic in file </org/mathpiper/scripts4/univar/cyclotomic/Cyclotomic.mpw>: 
+
 
 Test suite for Cyclotomic Polynomials : 
 
@@ -462,6 +468,7 @@ Testing Gamma in file </org/mathpiper/scripts4/specfunc/Gamma.mpw>:
 ================================================================
 Testing GaussianFactors in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianFactors.mpw>: 
 
+
 Test suite for Gaussian Integers : 
 
 
@@ -636,9 +643,12 @@ Testing linear_algebra in file </org/mathpiper/scripts4/linalg/linear_algebra_te
 
 --VectorProducts
 
+
 Test suite for Inproduct : 
 
+
 Test suite for Identity matrices : 
+
 
 Test suite for Check linear algebra : 
 
@@ -661,6 +671,7 @@ Test suite for Check linear algebra :
 
 ================================================================
 Testing lists in file </org/mathpiper/scripts4/lists/lists_tests.mpw>: 
+
 
 Test suite for VarList : 
 
@@ -727,7 +738,7 @@ Testing miscellaneous in file </org/mathpiper/scripts4/a_initialization/miscella
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 297 
 
-Maximum(Abs(coefs))<=MaximumBound(p)
+Maximum(Abs(coefs))<=?MaximumBound(p)
  evaluates to 
 False
  which differs from 
@@ -738,7 +749,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(670*x+271*x^2+336*x^3+819*x^4+321*x^5+16,670*x+271*x^2+336*x^3+819*x^4+321*x^5+16)<0.01
+Dot(690*x+806*x^2+519*x^3+703*x^4+955*x^5+43,690*x+806*x^2+519*x^3+703*x^4+955*x^5+43)<0.01
  which differs from 
 True
 ******************
@@ -746,7 +757,7 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 299 
 
-Maximum(Abs(coefs))<=MaximumBound(p)
+Maximum(Abs(coefs))<=?MaximumBound(p)
  evaluates to 
 False
  which differs from 
@@ -757,7 +768,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(163*x+647*x^2+42*x^3+284*x^4+204*x^5+698,163*x+647*x^2+42*x^3+284*x^4+204*x^5+698)<0.01
+Dot(845*x+113*x^2+515*x^3+342*x^4+804*x^5+636,845*x+113*x^2+515*x^3+342*x^4+804*x^5+636)<0.01
  which differs from 
 True
 ******************
@@ -765,7 +776,7 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 301 
 
-Maximum(Abs(coefs))<=MaximumBound(p)
+Maximum(Abs(coefs))<=?MaximumBound(p)
  evaluates to 
 False
  which differs from 
@@ -776,7 +787,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(45*x+753*x^2+203*x^3+292*x^4+643*x^5+728,45*x+753*x^2+203*x^3+292*x^4+643*x^5+728)<0.01
+Dot(835*x+912*x^2+138*x^3+811*x^4+876*x^5+105,835*x+912*x^2+138*x^3+811*x^4+876*x^5+105)<0.01
  which differs from 
 True
 ******************
@@ -784,7 +795,7 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 303 
 
-Maximum(Abs(coefs))<=MaximumBound(p)
+Maximum(Abs(coefs))<=?MaximumBound(p)
  evaluates to 
 False
  which differs from 
@@ -795,7 +806,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(941*x+786*x^2+251*x^3+632*x^4+898*x^5+806,941*x+786*x^2+251*x^3+632*x^4+898*x^5+806)<0.01
+Dot(322*x+802*x^2+113*x^3+945*x^4+969*x^5+995,322*x+802*x^2+113*x^3+945*x^4+969*x^5+995)<0.01
  which differs from 
 True
 ******************
@@ -803,7 +814,7 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 305 
 
-Maximum(Abs(coefs))<=MaximumBound(p)
+Maximum(Abs(coefs))<=?MaximumBound(p)
  evaluates to 
 False
  which differs from 
@@ -814,7 +825,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(579*x+872*x^2+568*x^3+198*x^4+293*x^5+963,579*x+872*x^2+568*x^3+198*x^4+293*x^5+963)<0.01
+Dot(400*x+634*x^2+316*x^3+767*x^4+224*x^5+700,400*x+634*x^2+316*x^3+767*x^4+224*x^5+700)<0.01
  which differs from 
 True
 ******************
@@ -822,7 +833,7 @@ True
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 307 
 
-Maximum(Abs(coefs))<=MaximumBound(p)
+Maximum(Abs(coefs))<=?MaximumBound(p)
  evaluates to 
 False
  which differs from 
@@ -833,7 +844,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<0.01
  evaluates to 
-Dot(183*x+527*x^2+213*x^3+682*x^4+498*x^5+949,183*x+527*x^2+213*x^3+682*x^4+498*x^5+949)<0.01
+Dot(277*x+969*x^2+734*x^3+19*x^4+648*x^5+446,277*x+969*x^2+734*x^3+19*x^4+648*x^5+446)<0.01
  which differs from 
 True
 ******************
@@ -861,6 +872,7 @@ Testing NFunction in file </org/mathpiper/scripts4/functional/NFunction.mpw>:
 
 ================================================================
 Testing NormalForm in file </org/mathpiper/scripts4/multivar/sparsenomial/sparsenomial.mpw>: 
+
 
 Test suite for Test arithmetic: NormalForm : 
 
@@ -946,6 +958,7 @@ Testing open_math in file </org/mathpiper/scripts4/outputforms/openmath.mpw>:
 ================================================================
 Testing ortho_poly in file </org/mathpiper/scripts4/orthopoly/orthopoly.mpw>: 
 
+
 Test suite for Testing orthogonal polynomials : 
 
 
@@ -983,6 +996,7 @@ Testing RabinMiller in file </org/mathpiper/scripts4/rabinmiller/RabinMiller.mpw
 
 ================================================================
 Testing RadSimp in file </org/mathpiper/scripts4/radsimp/RadSimp.mpw>: 
+
 
 Test suite for Testing simplifying nested radicals : 
 

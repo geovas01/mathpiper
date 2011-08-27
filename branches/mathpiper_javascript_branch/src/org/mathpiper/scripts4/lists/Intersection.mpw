@@ -14,7 +14,7 @@
     ],
     [
       L0 := FlatCopy(LoL[1]);
-      For( ii:=2,ii<=nLists,ii++)
+      For( ii:=2,ii<=?nLists,ii++)
       [
           L1 := FlatCopy(LoL[ii]);
           //If(InVerboseMode(),Tell("    ",{ii,L0,L1}));

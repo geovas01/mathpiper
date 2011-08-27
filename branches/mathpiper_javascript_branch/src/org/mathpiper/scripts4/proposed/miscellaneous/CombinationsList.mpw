@@ -13,7 +13,7 @@ CombinationsList(inputList, r) :=
     
     n := Length(inputList);
     
-    Check(r <= n , "Argument", "The second argument must be <= the length of the list.");
+    Check(r <=? n , "Argument", "The second argument must be <=? the length of the list.");
     
     manipulatedIndexes := 1 .. r; 
     
@@ -44,7 +44,7 @@ CombinationsList(inputList, r) :=
             
             manipulatedIndexes[i] := manipulatedIndexes[i] + 1;
             
-            For(j := i + 1, j <= r, j++) 
+            For(j := i + 1, j <=? r, j++) 
             [
               manipulatedIndexes[j] := manipulatedIndexes[i] + j - i;
             ];
@@ -54,7 +54,7 @@ CombinationsList(inputList, r) :=
             currentIndexes := manipulatedIndexes;
         ];
 
-        For(i := 1, i <= Length(currentIndexes), i++) 
+        For(i := 1, i <=? Length(currentIndexes), i++) 
         [
             combination := Append(combination,(inputList[currentIndexes[i]]));
         ];

@@ -16,7 +16,7 @@ Rulebase("Sum",{sumvar'arg,sumfrom'arg,sumto'arg,sumbody'arg});
 LocalSymbols(sumi,sumsum)[
    Local(sumi,sumsum);
    sumsum:=0;
-   For(sumi:=sumfrom,sumi<=sumto,sumi++)
+   For(sumi:=sumfrom,sumi<=?sumto,sumi++)
        [
         MacroLocal(sumvar);
         MacroBind(sumvar,sumi);

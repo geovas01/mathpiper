@@ -105,7 +105,7 @@ RngCreate() <-- RngCreate(0);
 
         // check options and assign defaults
         If(
-                options["seed"] =? Empty Or options["seed"] <= 0,
+                options["seed"] =? Empty Or options["seed"] <=? 0,
                 options["seed"] := 76544321        // some default seed out of the blue sky
         );
         If(
@@ -239,7 +239,7 @@ RNGEngine'L'Ecuyer(a'seed_IsInteger) <--
         result:=ZeroVector(6);
         // fill the state object with random numbers
         Local(i);
-        For(i:=1, i<=6, i++)
+        For(i:=1, i<=?6, i++)
         [
                 Rng(rng'aux);
                 result[i] := rng'aux[3][1];        // hack to get the integer part
