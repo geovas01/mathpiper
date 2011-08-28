@@ -5,7 +5,7 @@
 10 # BesselJ(0,0)         <-- 1;
 10 # BesselJ(_n,0)_(n>?0) <-- 0;
 10 # BesselJ(_n,0)_(n<?0 And? IsInteger(n)) <-- 0;
-10 # BesselJ(_n,0)_(n<?0 And? Not IsInteger(n)) <-- Infinity;
+10 # BesselJ(_n,0)_(n<?0 And? Not? IsInteger(n)) <-- Infinity;
 10 # BesselJ(0,Infinity)<-- 0;
 20 # BesselJ(1/2,_x)        <-- Sqrt(2/(x*Pi))*Sin(x);
 20 # BesselJ(-1/2,_x)        <-- Sqrt(2/(x*Pi))*Cos(x);

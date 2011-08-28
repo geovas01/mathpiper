@@ -35,8 +35,8 @@
 ];
 
 
-97 # (x_IsList * y_IsNonObject)_Not(IsList(y)) <-- y*x;
-98 # (x_IsNonObject * y_IsList)_Not(IsList(x)) <--
+97 # (x_IsList * y_IsNonObject)_Not?(IsList(y)) <-- y*x;
+98 # (x_IsNonObject * y_IsList)_Not?(IsList(x)) <--
 [
    Local(i,result);
    result:={};
@@ -66,7 +66,7 @@
 100 # _x * (_y / _z) <-- (x*y)/z;
 // fractions
 100 # (_y / _z) * _x <-- (x*y)/z;
-100 # (_x * y_IsNumber)_Not(IsNumber(x)) <-- y*x;
+100 # (_x * y_IsNumber)_Not?(IsNumber(x)) <-- y*x;
 
 100 # (_x) * (_x) ^ (n_IsConstant) <-- x^(n+1);
 100 # (_x) ^ (n_IsConstant) * (_x) <-- x^(n+1);

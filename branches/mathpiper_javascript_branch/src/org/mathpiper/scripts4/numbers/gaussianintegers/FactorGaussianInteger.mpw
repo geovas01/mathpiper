@@ -24,7 +24,7 @@ Function("FactorGaussianInteger",{x}) [
         if( IsComposite(norm) )[
                 For(i:=0, i^2 <=? norm, i++ )[        // real part
                         For(j:=0, i^2 + j^2 <=? norm, j++)[        // complex part
-                                if( Not( (i =? re And? j =? im) Or?
+                                if( Not?( (i =? re And? j =? im) Or?
                                          (i =? im And? j =? re) ) )[ // no associates
                                         d:=i^2+j^2;
                                         if( d >? 1 )[

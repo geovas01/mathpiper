@@ -36,10 +36,10 @@ LocalSymbols(nNum,mNum)
 ];
 
 // Deal with Infinity
-20 #  (Infinity <? _n)_(Not(IsInfinity(n)))  <-- False;
-20 #  (-Infinity <? _n)_(Not(IsInfinity(n))) <-- True;
-20 #  (_n <? Infinity)_(Not(IsInfinity(n)))  <-- True;
-20 #  (_n <? -Infinity)_(Not(IsInfinity(n))) <-- False;
+20 #  (Infinity <? _n)_(Not?(IsInfinity(n)))  <-- False;
+20 #  (-Infinity <? _n)_(Not?(IsInfinity(n))) <-- True;
+20 #  (_n <? Infinity)_(Not?(IsInfinity(n)))  <-- True;
+20 #  (_n <? -Infinity)_(Not?(IsInfinity(n))) <-- False;
 
 // Lots of known identities go here
 30 # (_n1/_n2) <? 0  <--  (n1 <? 0) !=? (n2 <? 0);
@@ -54,13 +54,13 @@ LocalSymbols(nNum,mNum)
 // Add other functions here!  Everything we can compare to 0 should be here.
 40 # (Sqrt(_x))_(x >? 0) <? 0          <--  False;
 
-40 # (Sin(_x) <? 0)_(Not(IsEven(N(x/Pi))) And? IsEven(N(Floor(x/Pi)))) <-- False;
-40 # (Sin(_x) <? 0)_(Not(IsOdd (N(x/Pi))) And? IsOdd (N(Floor(x/Pi)))) <-- True;
+40 # (Sin(_x) <? 0)_(Not?(IsEven(N(x/Pi))) And? IsEven(N(Floor(x/Pi)))) <-- False;
+40 # (Sin(_x) <? 0)_(Not?(IsOdd (N(x/Pi))) And? IsOdd (N(Floor(x/Pi)))) <-- True;
 
 40 # Cos(_x) <? 0 <-- Sin(Pi/2-x) <? 0;
 
-40 # (Tan(_x) <? 0)_(Not(IsEven(N(2*x/Pi))) And? IsEven(N(Floor(2*x/Pi)))) <-- False;
-40 # (Tan(_x) <? 0)_(Not(IsOdd (N(2*x/Pi))) And? IsOdd (N(Floor(2*x/Pi)))) <-- True;
+40 # (Tan(_x) <? 0)_(Not?(IsEven(N(2*x/Pi))) And? IsEven(N(Floor(2*x/Pi)))) <-- False;
+40 # (Tan(_x) <? 0)_(Not?(IsOdd (N(2*x/Pi))) And? IsOdd (N(Floor(2*x/Pi)))) <-- True;
 
 // Functions that need special treatment with more than one of the comparison
 // operators as they always return true or false.  For these we must define
@@ -71,15 +71,15 @@ LocalSymbols(nNum,mNum)
 40 # (Sqrt(_x))_(x <? 0) >=? 0      <--  False;
 
 // Deal with negated terms
-50 # -(_x) <? 0 <-- Not((x<?0) Or? (x=?0));
+50 # -(_x) <? 0 <-- Not?((x<?0) Or? (x=?0));
 
 // Define each of {>?,<=?,>=?} in terms of <?
 50 # _n >?  _m <-- m <? n;
 50 # _n <=? _m <-- m >=? n;
-50 # _n >=? _m <-- Not(n<?m);
+50 # _n >=? _m <-- Not?(n<?m);
 
 
-Function("!=?",{aLeft,aRight}) Not(aLeft=?aRight);
+Function("!=?",{aLeft,aRight}) Not?(aLeft=?aRight);
 
 %/mathpiper
 
@@ -253,7 +253,7 @@ Both expressions are evaluated and compared. If they turn out to be
 equal, the result is {False}. Otherwise, the result
 is {True}.
 
-The expression {e1 !=? e2} is equivalent to {Not(e1 = e2)}.
+The expression {e1 !=? e2} is equivalent to {Not?(e1 = e2)}.
 
 *E.G.
 

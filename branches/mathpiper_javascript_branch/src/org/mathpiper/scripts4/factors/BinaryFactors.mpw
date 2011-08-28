@@ -37,7 +37,7 @@ OrdBuild(vector,q):=
 Function(AddFoundSolutionSingle,{p})
 [
   Local(calc);
-//  If ( Not Contains(result,p),
+//  If ( Not? Contains(result,p),
 //  [
     Bind(calc, Eval(lastcoef));
     If (IsEqual(calc, 0),
@@ -226,7 +226,7 @@ Function(Fct,{poly,var})
   Bind(poly,poly*an^(0 .. (Length(poly)-1)));
   Bind(poly,gcd*anmul*poly);
   //TODO had to add this if statement, what was andiv again, and why would it become zero? This happens with for example Factor(2*x^2)
-  If(Not IsZero(unrat * andiv ),Bind(poly,poly/(unrat * andiv )));
+  If(Not? IsZero(unrat * andiv ),Bind(poly,poly/(unrat * andiv )));
   If(poly !=? {1},
   [
     result:={(Add(poly*var^(0 .. (Length(poly)-1)))),1}:result;

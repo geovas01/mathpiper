@@ -13,7 +13,7 @@ Function("BubbleSort",{list,compare})
     [
       left:=list[i];
       right:=list[i+1];
-      If(Not(Apply(compare,{left,right})),
+      If(Not?(Apply(compare,{left,right})),
         [
           DestructiveInsert(DestructiveDelete(list,i),i+1,left);
         ]

@@ -9,7 +9,7 @@ IsSubset(bigList, littleList) :=
     
     ForEach(element, littleList)
     [
-        If(Not Contains(bigList,element), result := False);
+        If(Not? Contains(bigList,element), result := False);
     ];
 
     result;

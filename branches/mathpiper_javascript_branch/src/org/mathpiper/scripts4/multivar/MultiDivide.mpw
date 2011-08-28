@@ -27,7 +27,7 @@
   [
     g[i] := MakeMultiNomial(g[i],v);
   ];
-  If(Not IsMulti(f),Break());
+  If(Not? IsMulti(f),Break());
   {q,r} := MultiDivide(f,g);
   q     := MapSingle("NormalForm",q);
   r     := NormalForm(r);
@@ -46,7 +46,7 @@
   p  := f;
   finished := MultiZero(p);
   Local(plt,glt);
-  While (Not finished)
+  While (Not? finished)
   [
     plt := MultiLT(p);  //  MultiLT computes the multi-LeadingTerm
     For(i:=1,i<=?nr,i++)

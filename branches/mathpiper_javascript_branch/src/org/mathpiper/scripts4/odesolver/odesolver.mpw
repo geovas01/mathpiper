@@ -214,7 +214,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 ];
 
 
-10 # OdeSolve(_expr)_(OdeOrder(expr)=?0)            <-- Echo("OdeSolve: Not a differential equation");
+10 # OdeSolve(_expr)_(OdeOrder(expr)=?0)            <-- Echo("OdeSolve: Not? a differential equation");
 
 // Solve the ever lovable seperable equation
 

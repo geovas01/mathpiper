@@ -2,7 +2,7 @@
 
 MatrixColumnAugment( M_IsMatrix, v_IsVector )_(Length(v)=?Dimensions(M)[2]) <--
 [
-    If( Not IsBound(iDebug), iDebug := False );
+    If( Not? IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixColumnAugment,{M,v}) );
     Local(mRows,nCols,newMat,ir);
     Local(MT,MA);

@@ -184,7 +184,7 @@ public class MathPiperPrinter extends LispPrinter {
                         WriteToken(aOutput, "(");
                     }//end if.
 
-                    if (functionOrOperatorName.equals("Not")) {//Todo:tk:perhaps a more general way should be found to place a space after a prefix operator.
+                    if (functionOrOperatorName.equals("Not?")) {//Todo:tk:perhaps a more general way should be found to place a space after a prefix operator.
                         WriteToken(aOutput, " ");
                     }//end if.
 

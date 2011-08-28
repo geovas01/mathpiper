@@ -6,7 +6,7 @@ Macro("Verify",{aLeft,aRight})
 
         Local(result);
         result := @aLeft;        // to save time
-  If (Not(IsEqual(result,@aRight)),
+  If (Not?(IsEqual(result,@aRight)),
     [
       WriteString("******************");
       NewLine();
@@ -36,7 +36,7 @@ Function("Verify",{aLeft,aRight})
 
         Local(result);
         result := Eval(aLeft);        // to save time
-  If (Not(IsEqual(result,aRight)),
+  If (Not?(IsEqual(result,aRight)),
     [
       WriteString("******************");
       NewLine();
@@ -136,27 +136,27 @@ Result: False;
 In> TestMathPiper(x*(1+x),x^2+x)
 Result: True;
 
-In> Verify(a And? c Or? b And? Not c,a Or? b)
+In> Verify(a And? c Or? b And? Not? c,a Or? b)
         ******************
-         a And? c Or? b And? Not c evaluates to  a And? c
-          Or? b And? Not c which differs from  a Or? b
+         a And? c Or? b And? Not? c evaluates to  a And? c
+          Or? b And? Not? c which differs from  a Or? b
         ******************
 Result: False;
 
-In> LogicVerify(a And? c Or? b And? Not c,a Or? b)
+In> LogicVerify(a And? c Or? b And? Not? c,a Or? b)
 Result: True;
 
-In> LogicVerify(a And? c Or? b And? Not c,b Or? a)
+In> LogicVerify(a And? c Or? b And? Not? c,b Or? a)
 Result: True;
 
-In> LogicTest({A,B,C},Not((Not A) And? (Not B)),A Or? B)
+In> LogicTest({A,B,C},Not?((Not? A) And? (Not? B)),A Or? B)
 Result: True
 
-In> LogicTest({A,B,C},Not((Not A) And? (Not B)),A Or? C)
+In> LogicTest({A,B,C},Not?((Not? A) And? (Not? B)),A Or? C)
         ******************
         CommandLine: 1
 
-        TrueFalse4({A,B,C},Not(Not A And? Not B))
+        TrueFalse4({A,B,C},Not?(Not? A And? Not? B))
          evaluates to
         {{{False,False},{True,True}},{{True,True},{True,True}}}
          which differs from

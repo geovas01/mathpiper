@@ -59,7 +59,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
   flag := (a =? 1 Or? a =? m);
   i := 1;
 
-  While (Not(flag) And? (i <? r))
+  While (Not?(flag) And? (i <? r))
   [
         root := a;        // this is the value of the root if flag becomes true now
     a := ModuloN(a*a, n);

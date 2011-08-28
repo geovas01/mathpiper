@@ -3,7 +3,7 @@
 MatrixRowSwap( M_IsMatrix, iRow1_IsPositiveInteger, iRow2_IsPositiveInteger )_
                           (And?(iRow1<=?Dimensions(M)[1],iRow2<=?Dimensions(M)[1])) <--
 [
-    If( Not IsBound(iDebug), iDebug := False );
+    If( Not? IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixRowSwap,{M,iRow1,iRow2}) );
     Local(row1,row2);
     If( iRow1 !=? iRow2,

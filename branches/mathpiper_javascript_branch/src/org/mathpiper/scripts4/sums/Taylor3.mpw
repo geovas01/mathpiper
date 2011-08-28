@@ -11,12 +11,12 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
   Bind(result, ArrayCreate(AddN(degree,1),0));
   Bind(i,1);
   Bind(ilimit,AddN(degree,2));
-  While (Not IsEqual(i,ilimit))
+  While (Not? IsEqual(i,ilimit))
   [
 //Echo(coefs1,coefs2);
     Bind(j,1);
     Bind(jlimit,AddN(degree,SubtractN(3,i)));
-    While (Not IsEqual(j,jlimit))
+    While (Not? IsEqual(j,jlimit))
     [
       Bind(jset,AddN(i,SubtractN(j,1)));
 //Echo("index = ",i+j-1);

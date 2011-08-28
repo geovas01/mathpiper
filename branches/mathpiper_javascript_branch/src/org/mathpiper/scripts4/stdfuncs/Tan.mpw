@@ -1,6 +1,6 @@
 %mathpiper,def="Tan"
 
-1 # TanMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Tan"),n*Pi});
+1 # TanMap( _n )_(Not?(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Tan"),n*Pi});
 2 # TanMap( _n )_(n<?0) <-- -TanMap(-n);
 2 # TanMap( _n )_(n>?1) <-- TanMap(Modulo(n,1));
 4 # TanMap( _n )_(n>?1/2) <-- -TanMap(1-n);
@@ -20,7 +20,7 @@
 4 # Tan(ArcTan(_x))           <-- x;
 4 # Tan(ArcSin(_x)) <-- x/Sqrt(1-x^2);
 4 # Tan(ArcCos(_x)) <-- Sqrt(1-x^2)/x;
-5 # Tan(- _x)_(Not IsConstant(x))                  <-- -Tan(x);
+5 # Tan(- _x)_(Not? IsConstant(x))                  <-- -Tan(x);
 6 # (Tan(x_IsConstant))_(IsNegativeNumber(N(Eval(x))))   <-- -Tan(-x);
 
 // must prevent it from looping
@@ -29,7 +29,7 @@
 
 110 # Tan(Complex(_r,_i)) <-- Sin(Complex(r,i))/Cos(Complex(r,i));
 
-200 # Tan(v_CanBeUni(Pi))_(Not(InNumericMode()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--
+200 # Tan(v_CanBeUni(Pi))_(Not?(InNumericMode()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--
       TanMap(Coef(v,Pi,1));
 
 100 # Tan(_x)/Sin(_x) <-- (1/Cos(x));

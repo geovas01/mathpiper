@@ -5,7 +5,7 @@
 20 # RemoveRepeated(list_IsList) <-- [
         Local(i, done);
         done := False;
-        For(i:=0, Not done, i++)
+        For(i:=0, Not? done, i++)
         [
                 While(i<?Length(list) And? list[i]=?list[i+1])
                         DestructiveDelete(list, i);

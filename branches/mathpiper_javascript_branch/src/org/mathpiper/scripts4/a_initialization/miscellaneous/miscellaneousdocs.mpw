@@ -91,7 +91,7 @@ In> PrettyForm(%)
 {True} and {False} are typically a result
 of boolean expressions such as {2 < 3} or {True And? False}.
 
-*SEE And?, Or?, Not
+*SEE And?, Or?, Not?
 %/mathpiper_docs
 
 

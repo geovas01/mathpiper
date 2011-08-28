@@ -110,7 +110,7 @@
          //  OK.  Now factor the PrimitivePart
          ppFactors := jFactorsPrimitivePart( pp );
          If(InVerboseMode(),Tell("                    ",ppFactors));
-         If( Not IsListOfLists(ppFactors), 
+         If( Not? IsListOfLists(ppFactors), 
            [
                Local(L,op,var,exp);
                L := If(IsAtom(ppFactors[1]), ppFactors, FunctionToList(ppFactors[1]) );
@@ -293,7 +293,7 @@ UnFence("RationalToIntegerConvert",1);
             Echo("    err = ",err);
         ]
       );
-      ff := If(Not err And? t !=? 1, {t,1}:Reverse(f), factrs);
+      ff := If(Not? err And? t !=? 1, {t,1}:Reverse(f), factrs);
       ff := Select(Lambda({x},x!=?{1,1}),ff);
       If(ff[1]<?0,ff[1]:=-ff[1]);
 ];
@@ -445,7 +445,7 @@ UnFence("jFB",1);
 UnFence("jFac",3);
 
 
-10 # IsPureRational( N_IsRational )_(Not IsInteger(N)) <-- True;
+10 # IsPureRational( N_IsRational )_(Not? IsInteger(N)) <-- True;
 
 12 # IsPureRational( _N ) <-- False;
 

@@ -20,7 +20,7 @@ ForEach(variable,gens)
     
     Echo(variableName);
     
-    If(Not IsNumber(variableName), MacroBind(variableName,MetaSet(variableName,"jas",variable)) );
+    If(Not? IsNumber(variableName), MacroBind(variableName,MetaSet(variableName,"jas",variable)) );
     
 ];
 

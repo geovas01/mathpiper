@@ -32,22 +32,22 @@ LocalSymbols(input,stringOut,result)
 Rule("OMREP",1,1,True)
 [
   Local(input,stringOut,result);
-  While(Not(IsExitRequested()))
+  While(Not?(IsExitRequested()))
   [
     Bind(errorObject, False);
     ExceptionCatch(Bind(input, PipeFromString(ConcatStrings(ReadCmdLineString("")," "))OMRead()), Bind(errorObject,OMGetCoreError()));
 
-    If(Not(errorObject =? False), errorObject); //todo:tk:check this code.
+    If(Not?(errorObject =? False), errorObject); //todo:tk:check this code.
 
-    If (Not(IsExitRequested()) And? errorObject =? False,
+    If (Not?(IsExitRequested()) And? errorObject =? False,
     [
       Bind(stringOut,"");
       Bind(result,False);
       ExceptionCatch(Bind(stringOut,PipeToString()[Secure(Bind(result,Eval(input)));]), Bind(errorObject,OMGetCoreError()));
 
-      If(Not(errorObject =? False), errorObject); //todo:tk:check this code.
+      If(Not?(errorObject =? False), errorObject); //todo:tk:check this code.
 
-      If(Not(stringOut =? ""), WriteString(stringOut));
+      If(Not?(stringOut =? ""), WriteString(stringOut));
       SetGlobalLazyVariable(%,result);
       If(PrettyPrinterGet()=?"",
       [
@@ -495,7 +495,7 @@ PipeFromString(str:" EndOfFile")
      [
      mapping := Flatten(mapping, "|");
      ForEach(rule, mapping)
-       If(Not ruleMatched,
+       If(Not? ruleMatched,
           [
           If(Type(rule) =? "_",
              If( Eval(rule[2]), [ result := rule[1]; ruleMatched := True; ] ),
@@ -579,7 +579,7 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
 
 Macro(OMCheck,{predicate,error})
 [
-  If(Not(@predicate),
+  If(Not?(@predicate),
   [
     Assert("omErrorObject", @error) False;
     Check(False, "Undefined", "omErrorObject");
@@ -744,7 +744,7 @@ OMDef( "Ln"     , "transc1","ln"      );
 
 
 //LoadScriptOnce("stubs.rep/om.mpi");
-OMDef( "Not", "logic1","not" );
+OMDef( "Not?", "logic1","not" );
 OMDef( "=?" , "relation1","eq"  );
 OMDef( ">=?", "relation1","geq" );
 OMDef( ">" , "relation1","gt"  );
@@ -777,7 +777,7 @@ OMDef( "CanProve"     ,          mathpiper,"can_prove"                );
 OMDef( "LogicRemoveTautologies", mathpiper,"logic_remove_tautologies" );
 OMDef( "Subsumes"     ,          mathpiper,"subsumes"                 );
 // The following appear in the def file, but commented out:
-//     "~",  mathpiper, "Not"
+//     "~",  mathpiper, "Not?"
 //     "|",  mathpiper, "Or?"
 //     "&",  mathpiper, "And?"
 

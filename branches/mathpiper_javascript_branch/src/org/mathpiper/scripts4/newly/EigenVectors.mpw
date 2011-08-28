@@ -14,7 +14,7 @@ EigenVectors(_matrix,_eigenvalues) <--
 /* Echo({"2..."}); */
 /* Echo({"2..."}); */
 
-    If(Not(IsZeroVector(possible)),
+    If(Not?(IsZeroVector(possible)),
       DestructiveAppend(result,possible)
       );
 /* Echo({"3..."}); */

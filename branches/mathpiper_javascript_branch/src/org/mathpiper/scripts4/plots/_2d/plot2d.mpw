@@ -34,7 +34,7 @@ Function() Plot2D(func, range, options, ...);
 3 # Plot2D(_func, _range, option_IsFunction) _ (Type(option) =? "->" )  <-- ("Plot2D" @ {func, range, {option}});
 
 /// Plot a single function
-5 # Plot2D(_func, _range, options'list_IsList)_(Not IsList(func)) <-- ("Plot2D" @ {{func}, range, options'list});
+5 # Plot2D(_func, _range, options'list_IsList)_(Not? IsList(func)) <-- ("Plot2D" @ {{func}, range, options'list});
 
 /// Top-level 2D plotting routine:
 /// plot several functions sharing the same xrange and other options

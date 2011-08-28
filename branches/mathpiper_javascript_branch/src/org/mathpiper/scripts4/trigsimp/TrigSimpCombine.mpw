@@ -283,12 +283,12 @@ Rule("FProcessTerm",1,1,Length(t)>?1 And? Type(t[2]) =? "+")
 
 
 /* Deal with a*FCos(1,b) ->FCos(a,0)*FCos(1,b) */
-Rule("FProcessTerm",1,2,Not(IsFTrig(t[1])) )
+Rule("FProcessTerm",1,2,Not?(IsFTrig(t[1])) )
 [
   t[1]:=FCos(t[1],0);
   DestructiveInsert(flist,1,t);
 ];
-Rule("FProcessTerm",1,2,Length(t)>?1 And? Not(IsFTrig(t[2])) )
+Rule("FProcessTerm",1,2,Length(t)>?1 And? Not?(IsFTrig(t[2])) )
 [
   t[2]:=FCos(t[2],0);
   DestructiveInsert(flist,1,t);

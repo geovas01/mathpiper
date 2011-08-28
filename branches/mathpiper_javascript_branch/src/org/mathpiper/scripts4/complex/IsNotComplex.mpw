@@ -1,5 +1,5 @@
 %mathpiper,def="IsNotComplex"
 
-IsNotComplex(x) := Not(IsComplex(x));
+IsNotComplex(x) := Not?(IsComplex(x));
 
 %/mathpiper

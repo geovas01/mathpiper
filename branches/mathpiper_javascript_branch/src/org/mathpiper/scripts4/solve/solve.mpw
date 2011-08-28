@@ -31,14 +31,14 @@ LocalSymbols(res)
   
   20  # Solve(_expr, _var)_(IsNumber(var) Or? IsString(var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
-  22  # Solve(_expr, _var)_(Not IsAtom(var) And? Not HasExpr(expr,var)) <--
+  22  # Solve(_expr, _var)_(Not? IsAtom(var) And? Not? HasExpr(expr,var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
   24  # Solve(False,_var) <-- Check(False, "Argument", "Bad input: possibly '=' instead of '==' ");
 
   30  # Solve(_lhs == _rhs, _var) <-- Solve(lhs - rhs, var);
   40  # Solve(0, _var) <-- {var == var};
   41  # Solve(a_IsConstant, _var) <-- {};
-  42  # Solve(_expr, _var)_(Not HasExpr(expr,var)) <--
+  42  # Solve(_expr, _var)_(Not? HasExpr(expr,var)) <--
         [ Assert("Solve", "expression ":(PipeToString() Write(expr)):" does not depend on ":PipeToString() Write(var)) False; {}; ];
   50  # Solve(_expr, _var)_((res := Solve'Poly(expr, var)) !=? Failed) <-- res;
   60  # Solve(_e1 * _e2, _var) <-- [
@@ -49,7 +49,7 @@ LocalSymbols(res)
          Local(v1,v2);
          v1 := WithValue(var, s[2], e1);
          v2 := WithValue(var, s[2], e2);
-         If(Not (IsInfinity(v1) Or? (v1 =? Undefined) Or?
+         If(Not? (IsInfinity(v1) Or? (v1 =? Undefined) Or?
                  IsInfinity(v2) Or? (v2 =? Undefined)),
              DestructiveAppend(u, s));
       ];
@@ -60,15 +60,15 @@ LocalSymbols(res)
       tn := Solve(e1, var);
       t := {};
       ForEach(s, tn)
-          If(Not(IsZero(WithValue(var, s[2], e2))), 
+          If(Not?(IsZero(WithValue(var, s[2], e2))), 
               DestructiveAppend(t, s)
           );
       t;
   ];
-  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And? (res := Solve'Simple(e1,-e2,var)) !=? Failed) <-- res;
-  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And? (res := Solve'Simple(e2,-e1,var)) !=? Failed) <-- res;
-  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And? (res := Solve'Simple(e1,e2,var)) !=? Failed) <-- res;
-  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And? (res := Solve'Simple(e2,e1,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 + _e2, _var)_(Not? HasExpr(e2,var) And? (res := Solve'Simple(e1,-e2,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 + _e2, _var)_(Not? HasExpr(e1,var) And? (res := Solve'Simple(e2,-e1,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 - _e2, _var)_(Not? HasExpr(e2,var) And? (res := Solve'Simple(e1,e2,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 - _e2, _var)_(Not? HasExpr(e1,var) And? (res := Solve'Simple(e2,e1,var)) !=? Failed) <-- res;
   85  # Solve(_expr, _var)_((res := Solve'Simple(expr, 0, var)) !=? Failed) <-- res;
   90  # Solve(_expr, _var)_((res := Solve'Reduce(expr, var)) !=? Failed) <-- res;
   95  # Solve(_expr, _var)_((res := Solve'Divide(expr, var)) !=? Failed) <-- res;
@@ -85,7 +85,7 @@ LocalSymbols(res)
 /* CanBeUni is not documented, but defined in univar.rep/code.mpi */
 /* It returns True iff 'expr' is a polynomial in 'var' */
 
-10 # Solve'Poly(_expr, _var)_(Not CanBeUni(var, expr)) <-- Failed;
+10 # Solve'Poly(_expr, _var)_(Not? CanBeUni(var, expr)) <-- Failed;
 
 /* The call to PSolve can have three kind of results
  *   1) PSolve returns a single root
@@ -161,7 +161,7 @@ LocalSymbols(x)
   lst := FunctionToList(expr);
   foundVarP := False;
   i := 2;
-  While(i <=? Length(lst) And? Not foundVarP) [
+  While(i <=? Length(lst) And? Not? foundVarP) [
     foundVarP := (lst[i] =? var);
     i++;
   ];
@@ -193,19 +193,19 @@ LocalSymbols(x)
  * Note: 'rhs' should not contain 'var'.
  */
 
-20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e1 =? var And? Not HasExpr(e2,var)) <-- { var == rhs-e2 };
-20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e2 =? var And? Not HasExpr(e1,var)) <-- { var == rhs-e1 };
+20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e1 =? var And? Not? HasExpr(e2,var)) <-- { var == rhs-e2 };
+20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e2 =? var And? Not? HasExpr(e1,var)) <-- { var == rhs-e1 };
 
-20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e1 =? var And? Not HasExpr(e2,var)) <-- { var == rhs+e2 };
-20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e2 =? var And? Not HasExpr(e1,var)) <-- { var == e1-rhs };
+20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e1 =? var And? Not? HasExpr(e2,var)) <-- { var == rhs+e2 };
+20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e2 =? var And? Not? HasExpr(e1,var)) <-- { var == e1-rhs };
 20 # Solve'Simple(-(_e1), _rhs, _var)_(e1 =? var) <-- { var == -rhs };
 
-20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e1 =? var And? Not HasExpr(e2,var)) <-- { var == rhs/e2 };
-20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e2 =? var And? Not HasExpr(e1,var)) <-- { var == rhs/e1 };
+20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e1 =? var And? Not? HasExpr(e2,var)) <-- { var == rhs/e2 };
+20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e2 =? var And? Not? HasExpr(e1,var)) <-- { var == rhs/e1 };
 
-20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e1 =? var And? Not HasExpr(e2,var)) <-- { var == rhs*e2 };
-10 # Solve'Simple(_e1 / _e2, 0,    _var)_(e2 =? var And? Not HasExpr(e1,var)) <-- { };
-20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e2 =? var And? Not HasExpr(e1,var)) <-- { var == e1/rhs };
+20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e1 =? var And? Not? HasExpr(e2,var)) <-- { var == rhs*e2 };
+10 # Solve'Simple(_e1 / _e2, 0,    _var)_(e2 =? var And? Not? HasExpr(e1,var)) <-- { };
+20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e2 =? var And? Not? HasExpr(e1,var)) <-- { var == e1/rhs };
 
 LocalSymbols(x)
 [
@@ -235,7 +235,7 @@ LocalSymbols(x)
 /* Note: Second rule neglects (2*I*Pi)-periodicity of Exp() */
 10 # Solve'Simple(Exp(_e1), 0,    _var)_(e1 =? var) <-- { };
 20 # Solve'Simple(Exp(_e1), _rhs, _var)_(e1 =? var) <-- { var == Ln(rhs) };
-20 # Solve'Simple(_b^_e1, _rhs, _var)_(e1 =? var And? IsFreeOf(var,b) And? Not IsZero(b)) <-- { var == Ln(rhs) / Ln(b) };
+20 # Solve'Simple(_b^_e1, _rhs, _var)_(e1 =? var And? IsFreeOf(var,b) And? Not? IsZero(b)) <-- { var == Ln(rhs) / Ln(b) };
 20 # Solve'Simple(Ln(_e1),  _rhs, _var)_(e1 =? var) <-- { var == Exp(rhs) };
 
 /* The range of Sqrt is the set of (complex) numbers with either
@@ -262,11 +262,11 @@ LocalSymbols(x)
  */
 
 10 # Solve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
-                And? Not (HasExpr(Simplify(1 + (e2/e1)), e1)
+                And? Not? (HasExpr(Simplify(1 + (e2/e1)), e1)
                       Or? HasExpr(Simplify(1 + (e2/e1)), e2)))
                                            <-- Solve(1 + (e2/e1), var);
 10 # Solve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
-                And? Not (HasExpr(Simplify(1 - (e2/e1)), e1)
+                And? Not? (HasExpr(Simplify(1 - (e2/e1)), e1)
                       Or? HasExpr(Simplify(1 - (e2/e1)), e2)))
                                            <-- Solve(1 - (e2/e1), var);
 

@@ -35,7 +35,7 @@ SturmVariations(_S) <--
     prev:=S[1];
     ForEach(item,Rest(S))
     [
-      if(Not IsZero(item))
+      if(Not? IsZero(item))
       [
         if (prev*item <? 0) [result++;];
         prev:=item;

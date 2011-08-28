@@ -1,7 +1,7 @@
 %mathpiper,def="Sin"
 
 
-1 # SinMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Sin"),n*Pi});
+1 # SinMap( _n )_(Not?(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Sin"),n*Pi});
 2 # SinMap( _n )_(n<?0) <-- -SinMap(-n);
 2 # SinMap( _n )_(n>?2) <-- SinMap(Modulo(n,2));
 3 # SinMap( _n )_(n>?1) <-- SinMap(n-2);
@@ -23,7 +23,7 @@
 4 # Sin(ArcSin(_x))           <-- x;
 4 # Sin(ArcCos(_x)) <-- Sqrt(1-x^2);
 4 # Sin(ArcTan(_x)) <-- x/Sqrt(1+x^2);
-5 # Sin(- _x)_(Not IsConstant(x))                 <-- -Sin(x);
+5 # Sin(- _x)_(Not? IsConstant(x))                 <-- -Sin(x);
 6 # (Sin(x_IsConstant))_(IsNegativeNumber(N(Eval(x))))   <-- -Sin(-x);
 
 // must prevent it from looping
@@ -33,7 +33,7 @@
 110 # Sin(Complex(_r,_i)) <--
     (Exp(I*Complex(r,i)) - Exp(- I*Complex(r,i))) / (I*2) ;
 
-200 # Sin(v_CanBeUni(Pi))_(Not(InNumericMode()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--
+200 # Sin(v_CanBeUni(Pi))_(Not?(InNumericMode()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--
 [
   SinMap(Coef(v,Pi,1));
 ];

@@ -66,7 +66,7 @@ Macro("TestEquivalent",{left,right})
       ]
     );
     If(InVerboseMode(),Tell("     Equivalence = ",isEquiv));
-    If ( Not isEquiv,
+    If ( Not? isEquiv,
       [
                   WriteString("******************");          NewLine();
                   WriteString("L.H.S. evaluates to: ");

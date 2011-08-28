@@ -60,7 +60,7 @@ LocalSymbols(rFormRegularOps) [
     {"<?","<"},
     {"!=","!="},
     {"..",":"},
-    {"Not","!"},
+    {"Not?","!"},
     {":=","<-"},
     {"sequence",":"},
     {"True","TRUE"},
@@ -361,7 +361,7 @@ transtab <- matrix( c(
         "choose",         "bin",                 "Bin",
         "gamma",         "gamma",         "Gamma",
         
-        "!",                "not",                "Not",
+        "!",                "not",                "Not?",
         "==",                "eq",                "=?",
         "==",                "equivalent",        "=?",
         ">=",                "geq",                ">=?",

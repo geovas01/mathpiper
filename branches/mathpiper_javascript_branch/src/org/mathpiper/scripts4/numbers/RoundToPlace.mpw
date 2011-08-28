@@ -54,7 +54,7 @@
 
 
 
-20 # RoundToPlace( N_IsComplex, place_IsInteger )_(Not IsInteger(N)) <--
+20 # RoundToPlace( N_IsComplex, place_IsInteger )_(Not? IsInteger(N)) <--
 [
     //If(InVerboseMode(),Tell("RoundToPlace_C",{N,place}));
     Local(rr,ii);

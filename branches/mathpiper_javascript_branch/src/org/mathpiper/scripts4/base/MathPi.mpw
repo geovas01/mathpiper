@@ -17,7 +17,7 @@ Defun("MathPi",{})
                 Bind(initialPrec, FloorN(DivideN(AddN(initialPrec,2),3)));
   ];
         Bind(curPrec, initialPrec);
-  While (Not(IsGreaterThan(curPrec, aPrecision)))
+  While (Not?(IsGreaterThan(curPrec, aPrecision)))
   [
                  // start of iteration code
     // Get Sin(result)

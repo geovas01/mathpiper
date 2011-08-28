@@ -56,7 +56,7 @@
      <-- IntByParts(var,exy*exx,AntiDeriv(var,exx));
 10 # IntByParts(_var,_exy * _exx,Integrate(_var)(_something)) <--
      `Hold(AntiDeriv(@var,((@exy)*(@exx))));
-20 # IntByParts(_var,_exy * _exx,_anti)_(Not IsFreeOf(anti,exx)) <--
+20 # IntByParts(_var,_exy * _exx,_anti)_(Not? IsFreeOf(anti,exx)) <--
      `Hold(AntiDeriv(@var,((@exy)*(@exx))));
 30 # IntByParts(_var,_exy * _exx,_anti) <--
      [

@@ -21,7 +21,7 @@ LocalSymbols(ErrorTableau) [
   /// aux function to check for corrupt tableau
   CheckErrorTableau() <--
   If(
-    Not IsList(ErrorTableau),
+    Not? IsList(ErrorTableau),
     Bind(ErrorTableau, {{"general", "corrupted ErrorTableau"}})
   );
 

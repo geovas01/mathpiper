@@ -10,7 +10,7 @@ HoldArgument(":=",aRightAssign);
 // assign a variable
 Rule(":=",2,0,IsAtom(aLeftAssign))
 [
-  Check( Not IsNumber(aLeftAssign), "Argument", "Only a variable can be placed on the left side of an := operator." );
+  Check( Not? IsNumber(aLeftAssign), "Argument", "Only a variable can be placed on the left side of an := operator." );
 
   MacroBind(aLeftAssign,Eval(aRightAssign));
 
@@ -72,9 +72,9 @@ Rule(":=",2,10,IsFunction(aLeftAssign) And? (First(FunctionToList(aLeftAssign)) 
 ];
 
 // f(x):=... defines a new function
-Rule(":=",2,30,IsFunction(aLeftAssign) And? Not(IsEqual(aLeftAssign[0], ToAtom(":="))) )
+Rule(":=",2,30,IsFunction(aLeftAssign) And? Not?(IsEqual(aLeftAssign[0], ToAtom(":="))) )
 [
-  Check( Not IsEqual(aLeftAssign[0], ToAtom("/")), "Argument", "Only a variable can be placed on the left side of an := operator." );
+  Check( Not? IsEqual(aLeftAssign[0], ToAtom("/")), "Argument", "Only a variable can be placed on the left side of an := operator." );
 
   Local(oper,args,arity);
   Bind(oper,ToString(aLeftAssign[0]));

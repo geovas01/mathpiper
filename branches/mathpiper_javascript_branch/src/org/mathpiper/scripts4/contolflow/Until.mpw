@@ -41,7 +41,7 @@ The main difference with {While} is that {Until} always evaluates the body at le
 meaning of the predicate is reversed: {While} stops
 if "pred" is {False} while {Until} stops if "pred" is {True}.
 The command
-{Until(pred) body;} is equivalent to {pred; While(Not pred) body;}. In fact, the
+{Until(pred) body;} is equivalent to {pred; While(Not? pred) body;}. In fact, the
 implementation of {Until} is based on the internal
 command {While}. The {Until}
 command can be compared to the {do ... while}

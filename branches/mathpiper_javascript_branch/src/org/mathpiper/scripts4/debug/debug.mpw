@@ -136,7 +136,7 @@ Macro(DebugEnter,{})
     If(filebreakpoints[file] !=? Empty,
     [
       line := DebugLine(CustomEval'Expression());
-      If(Not(file =? debugstepoverfile And? line =? debugstepoverline) And?
+      If(Not?(file =? debugstepoverfile And? line =? debugstepoverline) And?
          Contains(filebreakpoints[file],line),
          [
            debugging:=True;

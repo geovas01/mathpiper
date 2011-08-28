@@ -7,7 +7,7 @@
 110 # ArcSin(Complex(_r,_i)) <--
     (- I) * Ln((I*Complex(r,i)) + ((1-(Complex(r,i)^2))^(1/2)));
 
-150 # ArcSin(- _x)_(Not IsConstant(x))             <-- -ArcSin(x);
+150 # ArcSin(- _x)_(Not? IsConstant(x))             <-- -ArcSin(x);
 160 # (ArcSin(x_IsConstant))_(IsNegativeNumber(N(Eval(x)))) <-- -ArcSin(-x);
 
 200 # ArcSin(0) <-- 0;

@@ -31,7 +31,7 @@ Rule("DefinePattern",4,10,True)
       /*
             If the function does not exist, create it.
       */
-      If(Not(RulebaseDefined(patternOperator,arity)),
+      If(Not?(RulebaseDefined(patternOperator,arity)),
          [
           MacroRulebase(patternOperator,MakeVector(arg,arity));
          ]

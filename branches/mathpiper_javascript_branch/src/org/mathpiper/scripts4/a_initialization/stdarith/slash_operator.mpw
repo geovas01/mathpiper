@@ -79,7 +79,7 @@
          Map("/",{xlist,ylist});
 
 
-250 # (x_IsList / _y)_(Not(IsList(y))) <--
+250 # (x_IsList / _y)_(Not?(IsList(y))) <--
 [
    Local(i,result);
    result:={};
@@ -88,7 +88,7 @@
    result;
 ];
 
-250 # (_x / y_IsList)_(Not(IsList(x))) <--
+250 # (_x / y_IsList)_(Not?(IsList(x))) <--
 [
    Local(i,result);
    result:={};

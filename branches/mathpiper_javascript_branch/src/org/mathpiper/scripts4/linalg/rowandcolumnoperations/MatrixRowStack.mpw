@@ -2,7 +2,7 @@
 
 MatrixRowStack( M_IsMatrix, v_IsVector )_(Length(v)=?Dimensions(M)[1]) <--
 [
-    If( Not IsBound(iDebug), iDebug := False );
+    If( Not? IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixRowStack,{M,v}) );
     Local(mRows,nCols,newMat,ir);
     {mRows,nCols} := Dimensions(M);

@@ -49,7 +49,7 @@
               // No -- at least one non-integer coefficient
               // Check for FLOAT or RATIONAL coefficients
               Local(notInt,rat,dd,lcm,newCoeffs,newPoly,facs);
-              notInt := Select(coeffs, Lambda({i},Not IsInteger(i)));
+              notInt := Select(coeffs, Lambda({i},Not? IsInteger(i)));
               rat := Rationalize(coeffs);            
               dd  := MapSingle("Denominator",rat);
               lcm := Lcm(dd);
@@ -185,7 +185,7 @@
             Echo("    err = ",err);
         ]
       );
-      If(Not err And? t !=? 1, {t,1}:Reverse(f), factrs);
+      If(Not? err And? t !=? 1, {t,1}:Reverse(f), factrs);
   ];
 
 %/mathpiper

@@ -184,7 +184,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     {"%", "\\bmod "},
   };
 
-  TeXFormRegularPrefixOps := { {"+"," + "}, {"-"," - "}, {"Not"," \\neg "} };
+  TeXFormRegularPrefixOps := { {"+"," + "}, {"-"," - "}, {"Not?"," \\neg "} };
 
 
 
@@ -472,7 +472,7 @@ TeXForm(Hold(Differentiate(x)f(x)))
 Retract("f",1);
 
 Verify(
-TeXForm(Hold(Not (c<?0) And? (a+b)*c>=? -d^e And? (c<=?0 Or? b+1>?0) Or? a!=?0 And? Not (p=?q)))
+TeXForm(Hold(Not? (c<?0) And? (a+b)*c>=? -d^e And? (c<=?0 Or? b+1>?0) Or? a!=?0 And? Not? (p=?q)))
 ,"$ \\neg c < 0\\wedge ( a + b)  \\cdot c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
 );
 

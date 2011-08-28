@@ -7,7 +7,7 @@
 110 # ArcTan(Complex(_r,_i)) <--
      (- I*0.5)*Ln(Complex(1,Complex(r,i))/ Complex(1, - Complex(r,i)));
 
-150 # ArcTan(- _x)_(Not IsConstant(x))             <-- -ArcTan(x);
+150 # ArcTan(- _x)_(Not? IsConstant(x))             <-- -ArcTan(x);
 160 # (ArcTan(x_IsConstant))_(IsNegativeNumber(N(Eval(x)))) <-- -ArcTan(-x);
 
 200 # ArcTan(Sqrt(3)) <-- Pi/3;

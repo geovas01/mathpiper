@@ -10,7 +10,7 @@ IsSquareMatrix
 LocalSymbols(p,x)
 [
 // test for a scalar
-Function("IsScalar",{x}) Not(IsList(x));
+Function("IsScalar",{x}) Not?(IsList(x));
 
 
 

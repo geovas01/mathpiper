@@ -23,10 +23,10 @@
 // fractions
 150 # _n1 / _d + _n2 / _d <-- (n1+n2)/d;
 
-200 # (x_IsNumber + _y)_Not(IsNumber(y)) <-- y+x;
-200 # ((_y + x_IsNumber) + _z)_Not(IsNumber(y) Or? IsNumber(z)) <-- (y+z)+x;
-200 # ((x_IsNumber + _y) + z_IsNumber)_Not(IsNumber(y)) <-- y+(x+z);
-200 # ((_x + y_IsNumber) + z_IsNumber)_Not(IsNumber(x)) <-- x+(y+z);
+200 # (x_IsNumber + _y)_Not?(IsNumber(y)) <-- y+x;
+200 # ((_y + x_IsNumber) + _z)_Not?(IsNumber(y) Or? IsNumber(z)) <-- (y+z)+x;
+200 # ((x_IsNumber + _y) + z_IsNumber)_Not?(IsNumber(y)) <-- y+(x+z);
+200 # ((_x + y_IsNumber) + z_IsNumber)_Not?(IsNumber(x)) <-- x+(y+z);
 // fractions
 210 # x_IsNumber + (y_IsNumber / z_IsNumber) <--(x*z+y)/z;
 210 # (y_IsNumber / z_IsNumber) + x_IsNumber <--(x*z+y)/z;
@@ -46,8 +46,8 @@ SumListSide(_x, y_IsList) <--
    result;
 ];
 
-240 # (x_IsList + _y)_Not(IsList(y)) <-- SumListSide(y,x);
-241 # (_x + y_IsList)_Not(IsList(x)) <-- SumListSide(x,y);
+240 # (x_IsList + _y)_Not?(IsList(y)) <-- SumListSide(y,x);
+241 # (_x + y_IsList)_Not?(IsList(x)) <-- SumListSide(x,y);
 
 250 # z_IsInfinity + Complex(_x,_y) <-- Complex(x+z,y);
 250 # Complex(_x,_y) + z_IsInfinity <-- Complex(x+z,y);

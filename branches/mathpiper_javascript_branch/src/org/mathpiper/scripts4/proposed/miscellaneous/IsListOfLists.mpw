@@ -6,7 +6,7 @@ IsListOfLists(listOfLists) :=
     
     result := True;
     
-    if(Not IsList(listOfLists))
+    if(Not? IsList(listOfLists))
     [
         result := False;
     ]
@@ -14,7 +14,7 @@ IsListOfLists(listOfLists) :=
     [
         ForEach(list, listOfLists)
         [
-            If(Not IsList(list), result := False);
+            If(Not? IsList(list), result := False);
         ];
     ];
     

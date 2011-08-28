@@ -1,6 +1,6 @@
 %mathpiper,def="NoneSatisfy"
 
-10 # NoneSatisfy(pred_IsString,lst_IsList) <-- Not Apply("Or?",(MapSingle(pred,lst)));
+10 # NoneSatisfy(pred_IsString,lst_IsList) <-- Not? Apply("Or?",(MapSingle(pred,lst)));
 
 20 # NoneSatisfy(_pred,_lst) <-- True;
 

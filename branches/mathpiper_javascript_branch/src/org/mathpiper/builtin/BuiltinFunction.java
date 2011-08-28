@@ -447,7 +447,7 @@ public abstract class BuiltinFunction {
         "NotN");*/
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Not(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Not"); //Alias.
+                "Not?"); //Alias.
 		/*aEnvironment.getBuiltinFunctions().setAssociation(
         new BuiltinFunctionEvaluator(new And(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
         "AndN");*/

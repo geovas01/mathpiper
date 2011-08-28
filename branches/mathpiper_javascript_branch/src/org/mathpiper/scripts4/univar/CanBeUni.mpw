@@ -30,7 +30,7 @@ Function("CanBeUni",{expression}) CanBeUni(UniVarList(expression),expression);
 40 # CanBeUni(_var,_x ^ y_IsInteger)_(y >=? 0 And? CanBeUni(var,x)) <-- True;
 41 # CanBeUni(_var,(x_IsFreeOf(var)) ^ (y_IsFreeOf(var))) <-- True;
 50 # CanBeUni(_var,UniVariate(_var,_first,_coefs)) <-- True;
-1000 # CanBeUni(_var,_f)_(Not(IsFreeOf(var,f))) <-- False;
+1000 # CanBeUni(_var,_f)_(Not?(IsFreeOf(var,f))) <-- False;
 1001 # CanBeUni(_var,_f) <-- True;
 
 %/mathpiper

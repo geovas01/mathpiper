@@ -17,7 +17,7 @@
 
 LocalSymbols(bernoulli1Threshold) [
   /// Bernoulli1Threshold could in principle be set by the user
-  If(Not IsBound(bernoulli1Threshold), bernoulli1Threshold := 20);
+  If(Not? IsBound(bernoulli1Threshold), bernoulli1Threshold := 20);
 
   Bernoulli1Threshold() := bernoulli1Threshold;
   SetBernoulli1Threshold(threshold) := [ bernoulli1Threshold := threshold;];

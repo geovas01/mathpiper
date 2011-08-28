@@ -111,7 +111,7 @@
     If(InVerboseMode(),Tell("   ",{num,den}));
     fn  := Factors(num);
     fd  := Factors(den);
-    If(Not IsListOfLists(fd), fd := {fd});
+    If(Not? IsListOfLists(fd), fd := {fd});
     If(InVerboseMode(),Tell("       r ",{fn,fd}));
     ForEach(f,fd)
      [

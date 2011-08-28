@@ -31,7 +31,7 @@
     ForEach(root,rootsn) 
       [
             If(iDebug=True,Tell("     4",root));
-            If(Not Contains(rootsd,root),Push(result,root));
+            If(Not? Contains(rootsd,root),Push(result,root));
             If(iDebug=True,Tell("     5",result));
       ];
     If(iDebug=True,Tell("  6",result));

@@ -393,7 +393,7 @@ UnFence("ApproximateRealCoefficients",1);
             Echo("    err = ",err);
         ]
       );
-      ff := If(Not err And? t !=? 1, {t,1}:Reverse(f), factrs);
+      ff := If(Not? err And? t !=? 1, {t,1}:Reverse(f), factrs);
       ff := Select(Lambda({x},x!=?{1,1}),ff);
       If(ff[1]<?0,ff[1]:=-ff[1]);
 ];
@@ -448,7 +448,7 @@ UnFence("ApproximateRealCoefficients",1);
 
 
 
-10 # IsPureRational( N_IsRational )_(Not IsInteger(N)) <-- True;
+10 # IsPureRational( N_IsRational )_(Not? IsInteger(N)) <-- True;
 
 12 # IsPureRational( _N ) <-- False;
 

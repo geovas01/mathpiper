@@ -47,7 +47,7 @@ LocalSymbols(numericMode)
 
     numericMode := previousNumericMode;
 
-    If(Not numericMode, [ ClearCachedConstantsN(); ] );
+    If(Not? numericMode, [ ClearCachedConstantsN(); ] );
 
     BuiltinPrecisionSet(previousPrecision);
 

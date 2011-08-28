@@ -13,7 +13,7 @@
 
 10 # RREF( AM_IsMatrix ) <--
 [
-    If( Not IsBound(iDebug), iDebug := False );
+    If( Not? IsBound(iDebug), iDebug := False );
     If(iDebug,Tell("RREF",AM));
     Local(mRows,nCols,nVars,varVec,ir,jc,col,am,e,ii,pivot);
     {mRows,nCols} := Dimensions(AM);
@@ -35,7 +35,7 @@
             col := MatrixColumn(am,ic);
             If( cr >? 1, col := Drop( col, {1,cr-1} ) );
             //Tell("         ",{ic,col});
-            If(Not IsZeroVector(col), [cnz := ic; Break();]); 
+            If(Not? IsZeroVector(col), [cnz := ic; Break();]); 
          ];
         cc := cnz;
         If( iDebug, Tell("     first non-zero column is ",cc));
