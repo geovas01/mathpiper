@@ -9,7 +9,7 @@ FloatIsInt(_x) <--
      Local(prec,result,n);
      Bind(prec,BuiltinPrecisionGet());
      If(IsZero(x),Bind(n,2),
-     If(x>0,
+     If(x>?0,
        Bind(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
        Bind(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));

@@ -6,7 +6,7 @@
 [
     Local(x,vars);
     vars := VarList(expr);
-    If(Length(vars)>1,vars:=HeapSort(vars,"IsGreaterThan"));    
+    If(Length(vars)>?1,vars:=HeapSort(vars,"IsGreaterThan"));    
     x := vars[1];
     IsPolynomial(expr,x);
 ];

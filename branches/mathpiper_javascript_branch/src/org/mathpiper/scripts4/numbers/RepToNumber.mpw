@@ -20,7 +20,7 @@
     bigInt    := rep[1];
     precision := rep[2];
     sgn       := Sign(bigInt);
-    If( Length(rep) > 2, scale := rep[3] );
+    If( Length(rep) >? 2, scale := rep[3] );
     strBI     := ExpressionToString(Abs(bigInt));
     LS        := Length(strBI);
     //If(InVerboseMode(),[Tell("   ",{bigInt,precision,scale,sgn});Tell("   ",strBI);]);
@@ -32,7 +32,7 @@
            secnd := StringMidGet(2,LS-1,strBI);   
            third := ExpressionToString(index-1);
            //If(InVerboseMode(),Tell("     ",{index,first,secnd,third}));
-           if ( index > 0 )
+           if ( index >? 0 )
                [
                    if ( index <? precision )
                        [

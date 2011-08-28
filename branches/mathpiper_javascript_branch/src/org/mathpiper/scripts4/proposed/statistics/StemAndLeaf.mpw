@@ -25,7 +25,7 @@ intlabels(y1,y2,tnumint) := [
     yy := yy + x;
     //i++;
     xx++;
-    If (xx > 100, breakLoop := True);
+    If (xx >? 100, breakLoop := True);
   ];
   L[i] = yy;
         L;
@@ -53,7 +53,7 @@ intervals(diff, NumCats) := [
   For (i := 1, i <? 4, i++) 
   [
     if (A[i] <=? 25) [
-      if (A[i] > 2) [
+      if (A[i] >? 2) [
       XX := AbsN(NumCats - A[i]);
         if (XX <? D) [
         D := XX;
@@ -145,19 +145,19 @@ stemandleaf(x) :=
   theMax := ratio * Round(theMax);
    nc := cutoffs.length;
    xx8:=0;
-  While (cutoffs[nc-2] > theMax) 
+  While (cutoffs[nc-2] >? theMax) 
     [
       nc--;
     ];
   theMax := cutoffs[nc-2];
-  if (Y > AbsN(theMax)) 
+  if (Y >? AbsN(theMax)) 
     [
       nc++;
-      While(Y > AbsN(theMax)) 
+      While(Y >? AbsN(theMax)) 
         [
           xx8++;
-          if(xx8>100)[break;];
-          if (nc > Length(cutoffs)) 
+          if(xx8>?100)[break;];
+          if (nc >? Length(cutoffs)) 
             [
                temp := cutoffs[nc-2] - cutoffs[nc - 3];
               temp := temp + cutoffs[nc-2];
@@ -169,7 +169,7 @@ stemandleaf(x) :=
     ];
    base := trunc(theMax/Y);
    leftover := Round(theMax - base * Y);
-  While (AbsN(leftover) > 10) 
+  While (AbsN(leftover) >? 10) 
     [
       leftover := AbsN(Round(leftover/10));
     ];
@@ -260,7 +260,7 @@ stemandleaf(x) :=
      
     if (it<?0)
       [
-            if (xz > 0 ) 
+            if (xz >? 0 ) 
           [
             xz := xz * -1;
           ];
@@ -314,7 +314,7 @@ stemandleaf(x) :=
           if (base2 = 0)
           [
                     zcount ++;
-                if ( ((indexA = 2) And (zcount >=?6)) Or ((indexA = 3) And (zcount >=?3)) Or ((indexA = 1) And (zcount >1)) Or ((indexA = 4) And (zcount >1))) 
+                if ( ((indexA = 2) And (zcount >=?6)) Or ((indexA = 3) And (zcount >=?3)) Or ((indexA = 1) And (zcount >?1)) Or ((indexA = 4) And (zcount >?1))) 
                  [
                     stems := Append(stems,"-" : ToString(base2));
                  ] 

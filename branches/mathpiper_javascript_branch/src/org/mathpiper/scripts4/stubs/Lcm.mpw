@@ -3,7 +3,7 @@
 /* Least common multiple */
 5  # Lcm(a_IsInteger,b_IsInteger) <-- Quotient(a*b,Gcd(a,b));
 
-10 # Lcm(list_IsList)_(Length(list)>2) <--
+10 # Lcm(list_IsList)_(Length(list)>?2) <--
 [
         Local(first);
         first:=Lcm(list[1],list[2]);

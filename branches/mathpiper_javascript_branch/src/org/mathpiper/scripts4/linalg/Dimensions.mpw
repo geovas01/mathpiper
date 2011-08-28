@@ -12,7 +12,7 @@ LocalSymbols(x,i,n,m,aux,dim,result)
     [
       Local(i,n,m,aux,dim,result);
       result:=List(Length(x));
-      If(Length(x)>0 And Length(Select(x, IsList))=?Length(x),
+      If(Length(x)>?0 And Length(Select(x, IsList))=?Length(x),
         [
           n:=Length(x);
               dim:=MapSingle(Dimensions,x);

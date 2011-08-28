@@ -2,7 +2,7 @@
 
 Range(list) :=
 [
-    Check(Length(list) > 0 And IsNumericList(list), "Argument", "Argument must be a nonempty numeric list.");
+    Check(Length(list) >? 0 And IsNumericList(list), "Argument", "Argument must be a nonempty numeric list.");
     
     Maximum(list) - Minimum(list);
 ];

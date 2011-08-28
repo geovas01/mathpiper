@@ -90,7 +90,7 @@
     degrees  := {};
     allCoeffs         := disassem[3];
     allPowers         := Flatten(disassem[2],"List");
-    If(nvars > 0,
+    If(nvars >? 0,
       [
         ForEach(v,vars)
            [ DestructiveAppend(degrees,Degree(pp,v)); ];
@@ -183,7 +183,7 @@ UnFence("xFactorsPrimitivePart",1);
 
 
      //  general case: multivariate
-18 # xFactorsPrimitivePart( _pp )_(nvars>1) <-- xFactorsMultivariate(pp);
+18 # xFactorsPrimitivePart( _pp )_(nvars>?1) <-- xFactorsMultivariate(pp);
 UnFence("xFactorsPrimitivePart",1);
 
 
@@ -216,14 +216,14 @@ UnFence("xFactorsPrimitivePart",1);
     //    Now fix-up the (monic) factors found above, to express them
     // as linear in x with integer coefficients.  
     //    Also, separate out any 'residual' factors -- defined here as
-    // factors of degree > 2.
+    // factors of degree >? 2.
     
     {factrsnew,residuals} := FixUpMonicFactors(factrs);
     
     //  See if we can do something with the residuals
     Local(residOut);
     residOut := {};
-    If(Length(residuals) > 0, residOut := xFactorsResiduals( residuals ) );
+    If(Length(residuals) >? 0, residOut := xFactorsResiduals( residuals ) );
     
     If(InVerboseMode(),
       [
@@ -236,7 +236,7 @@ UnFence("xFactorsPrimitivePart",1);
     );   
     //  Finally, the output --------
     Local(final);
-    If(Length(Union(factrsnew,residOut)) > 0,
+    If(Length(Union(factrsnew,residOut)) >? 0,
         final := Concat(factrsnew,residOut),
         final := factrs
     );
@@ -247,7 +247,7 @@ UnFence("xFactorsUnivariate",1);
 
 // ----------------  MULTIVARIATE POLYNOMIALS  -----------------
 
-40 # xFactorsMultivariate( poly_CanBeUni )_(Length(VarList(poly))>1) <--
+40 # xFactorsMultivariate( poly_CanBeUni )_(Length(VarList(poly))>?1) <--
 [
     Local(factrs);
     
@@ -457,14 +457,14 @@ UnFence("ApproximateRealCoefficients",1);
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsDecimal")) > 0);
+    (Length(Select(disassem[3],"IsDecimal")) >? 0);
 ];
 
 10 # HasRealCoefficients( poly_IsMonomial ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsDecimal")) > 0);
+    (Length(Select(disassem[3],"IsDecimal")) >? 0);
 ];
 
 
@@ -473,14 +473,14 @@ UnFence("ApproximateRealCoefficients",1);
     Local(disassem);
     disassem := DisassembleExpression(poly);
     //Tell("              ",disassem);
-    (Length(Select(disassem[3],"IsPureRational")) > 0);
+    (Length(Select(disassem[3],"IsPureRational")) >? 0);
 ];
 
 10 # HasRationalCoefficients( poly_IsMonomial) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsPureRational")) > 0);
+    (Length(Select(disassem[3],"IsPureRational")) >? 0);
 ];
 
 
@@ -524,7 +524,7 @@ UnFence("ApproximateRealCoefficients",1);
         );
         //  If any factors have degree >=3, store them in a 'residuals' array
         //  for further analysis
-        If( Degree(f[1]) > 2,
+        If( Degree(f[1]) >? 2,
           [
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             Local(pq);
@@ -560,7 +560,7 @@ UnFence("FixUpMonicFactors",1);
         If(Abs(res)=?1 Or IsPrime(res), nprimes := nprimes + 1, );
     ];
     Tell("   ",nprimes);
-    If(nprimes > 2*deg, True, False );
+    If(nprimes >? 2*deg, True, False );
 ];
 
 

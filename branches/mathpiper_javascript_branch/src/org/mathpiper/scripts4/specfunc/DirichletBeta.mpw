@@ -20,7 +20,7 @@
         eps:=10^(-prec);
         result:=0;
         term:=1;
-        For(k:=0, Abs(term) > eps, k++ )[
+        For(k:=0, Abs(term) >? eps, k++ )[
                 term:=(-1)^k/(2*k+1)^x;
                 Echo("term is ",term);
                 result:=result+term;

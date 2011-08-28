@@ -24,12 +24,12 @@ Dot(t1_IsMatrix,t2_IsVector)_(Length(t1[1])=?Length(t2)) <--
 
 // vector . matrix
 Dot(t1_IsVector,t2_IsMatrix)_(Length(t1)=?Length(t2)
-                               And Length(t2[1])>0) <--
+                               And Length(t2[1])>?0) <--
    Dot1(t1,t2,Length(t1),Length(t2[1]));
 
 // matrix . matrix
 Dot(t1_IsMatrix,t2_IsMatrix)_(Length(t1[1])=?Length(t2)
-                                  And Length(t2[1])>0) <--
+                                  And Length(t2[1])>?0) <--
 [
    Local(i,n,k,l,result);
    n:=Length(t1);

@@ -139,7 +139,7 @@ Rng(_r) <--
 RngSeed(_r, seed_IsInteger) <--
 [
         Local(state);
-        (Assert("warning", {"RngSeed: seed must be positive", seed}) seed > 0
+        (Assert("warning", {"RngSeed: seed must be positive", seed}) seed >? 0
         ) Or (seed:=76544321);
         state := (r[2] @ {seed});        // this calls SomeEngine(r)
         DestructiveReplace(r, 3, state);        // update object

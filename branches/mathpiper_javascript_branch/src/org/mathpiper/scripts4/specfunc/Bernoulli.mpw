@@ -13,7 +13,7 @@
 
 /// numerical computations of Bernulli numbers use two different methods, one good for small numbers and one good only for very large numbers (using Zeta function)
 20 # Bernoulli(n_IsEven)_(n<=?Bernoulli1Threshold()) <-- Internal'BernoulliArray(n)[n+1];
-20 # Bernoulli(n_IsEven)_(n>Bernoulli1Threshold()) <-- Bernoulli1(n);
+20 # Bernoulli(n_IsEven)_(n>?Bernoulli1Threshold()) <-- Bernoulli1(n);
 
 LocalSymbols(bernoulli1Threshold) [
   /// Bernoulli1Threshold could in principle be set by the user

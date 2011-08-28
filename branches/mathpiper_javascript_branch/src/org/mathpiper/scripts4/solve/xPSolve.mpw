@@ -224,7 +224,7 @@ Function("xPSolve",{expr,var})
     If(iDebug,Tell("   ",{cc,pp}));
     solnpp := xPSolve(MakeUni(pp,var));
     If(iDebug,Tell("   ",solnpp));
-    If( Length(VarList(cc)) > 0 And Contains(VarList(cc),var ),
+    If( Length(VarList(cc)) >? 0 And Contains(VarList(cc),var ),
       [
          solncc := xPSolve(MakeUni(cc,var));
          If(iDebug,Tell("   ",solncc));
@@ -282,7 +282,7 @@ UnFence("xPSolveCubic",1);
     ans := {r1,r2,r3};
 ];
 
-10 # xPSC2( xs_IsList )_(xs[4]>0) <--
+10 # xPSC2( xs_IsList )_(xs[4]>?0) <--
 [
     If( iDebug, Tell("        Type 2",xs) ); 
     Local(f,g,h,j,k,l1,l2,m,n,r1,r2,r3,ans); 
@@ -311,7 +311,7 @@ UnFence("xPSolveCubic",1);
     ans := {r1,r2,r3};
 ];
 
-10 # xPSC2( xs_IsList )_(xs[4]<?0 And xs[3]>0) <--
+10 # xPSC2( xs_IsList )_(xs[4]<?0 And xs[3]>?0) <--
 [
     If( iDebug, Tell("        Type 3b",xs) );
     Local(p,x,alpha,beta,gama,r1,r2,r3,ans);

@@ -2,8 +2,8 @@
 
 1 # TanMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Tan"),n*Pi});
 2 # TanMap( _n )_(n<?0) <-- -TanMap(-n);
-2 # TanMap( _n )_(n>1) <-- TanMap(Modulo(n,1));
-4 # TanMap( _n )_(n>1/2) <-- -TanMap(1-n);
+2 # TanMap( _n )_(n>?1) <-- TanMap(Modulo(n,1));
+4 # TanMap( _n )_(n>?1/2) <-- -TanMap(1-n);
 
 5 # TanMap( 0 ) <-- 0;
 5 # TanMap( 1/6 ) <-- 1/3*Sqrt(3);

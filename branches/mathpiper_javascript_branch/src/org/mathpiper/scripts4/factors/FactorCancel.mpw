@@ -25,7 +25,7 @@
          [
             k := Sum(Transpose(s)[2]);
             If(InVerboseMode(),Tell("      ",{s,k}));
-            If( k > 0, DestructiveAppend(newn,{f,k}) );
+            If( k >? 0, DestructiveAppend(newn,{f,k}) );
             If( k <? 0, DestructiveAppend(newd,{f,-k}) );
          ],
          [

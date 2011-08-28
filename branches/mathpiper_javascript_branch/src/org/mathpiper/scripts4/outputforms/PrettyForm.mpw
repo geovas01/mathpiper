@@ -117,12 +117,12 @@ WriteCharField(charfield,width):=
   [
     Local(i,thiswidth);
     Bind(thiswidth, width);
-    If(thiswidth>(length-pos)+1,
+    If(thiswidth>?(length-pos)+1,
       [
         Bind(thiswidth, AddN(SubtractN(length,pos),1));
       ],
       [
-        While (thiswidth>1 And ColumnFilled(charfield,pos+thiswidth-1))
+        While (thiswidth>?1 And ColumnFilled(charfield,pos+thiswidth-1))
         [
           Bind(thiswidth,SubtractN(thiswidth,1));
         ];
@@ -265,7 +265,7 @@ FormulaBracket(f):=
   [
     Local(made);
     made := FormulaBracket(Formula(item));
-    If(made[4] > height,Bind(height,made[4]));
+    If(made[4] >? height,Bind(height,made[4]));
     DestructiveAppend(sub,made);
   ];
   MakeOper(0,0,0,height,"List",sub,height>>1);
@@ -290,7 +290,7 @@ FormulaBracket(f):=
     Local(made);
     made := FormulaArrayItem(item);
 
-    If(made[3] > width,Bind(width,made[3]));
+    If(made[3] >? width,Bind(width,made[3]));
     MoveOper(made,0,height);
     Bind(height,AddN(height,AddN(made[4],1)));
     DestructiveAppend(sub,made);
@@ -305,7 +305,7 @@ FormulaBracket(f):=
     if (maxlength<?thislength) [maxlength:=thislength;];
   ];
 
-  If(maxlength>0,
+  If(maxlength>?0,
   [
     Local(i,j);
     width:=0;
@@ -316,7 +316,7 @@ FormulaBracket(f):=
       For(i:=1,i<=?Length(sub),i++)
       [
         if (IsList(xx[i]) And j<=?Length(xx[i]))
-          If(sub[i][6][j][3] > w,w := sub[i][6][j][3]);
+          If(sub[i][6][j][3] >? w,w := sub[i][6][j][3]);
       ];
 
       For(i:=1,i<=?Length(sub),i++)
@@ -364,7 +364,7 @@ FormulaBracket(f):=
 Rulebase("BracketOn",{op,f,prec});
 
 Rule("BracketOn",3,1,IsFunction(f) And ArgumentsCount(f) =? 2
-     And IsInfix(Type(f)) And PrecedenceGet(Type(f)) > prec)
+     And IsInfix(Type(f)) And PrecedenceGet(Type(f)) >? prec)
 [
  FormulaBracket(op);
 ];
@@ -427,7 +427,7 @@ Rulebase("RenderFormula",{cf,f,x,y});
        \
 */
 
-Rule("RenderFormula",4,1,f[5] =? "ToAtom" And f[6] =? "(" And f[4] > 1)
+Rule("RenderFormula",4,1,f[5] =? "ToAtom" And f[6] =? "(" And f[4] >? 1)
 [
   Local(height,i);
   Bind(x, AddN(x,f[1]));
@@ -443,7 +443,7 @@ Rule("RenderFormula",4,1,f[5] =? "ToAtom" And f[6] =? "(" And f[4] > 1)
 
 
 
-Rule("RenderFormula",4,1,f[5] =? "ToAtom" And f[6] =? ")" And f[4] > 1)
+Rule("RenderFormula",4,1,f[5] =? "ToAtom" And f[6] =? ")" And f[4] >? 1)
 [
   Local(height,i);
   Bind(x, AddN(x,f[1]));

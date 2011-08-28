@@ -4,7 +4,7 @@
 
 10 # BesselI(0,0)        <-- 1;
 
-10 # BesselI(_n,0)_(n>0) <-- 0;
+10 # BesselI(_n,0)_(n>?0) <-- 0;
 
 10 # BesselI(_n,0)_(n<?0 And IsInteger(n)) <-- 0;
 

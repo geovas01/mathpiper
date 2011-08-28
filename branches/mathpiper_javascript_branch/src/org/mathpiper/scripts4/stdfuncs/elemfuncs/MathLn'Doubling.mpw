@@ -16,7 +16,7 @@ MathLn'Doubling(value, n) :=
         Local(shift, result);
         shift := n;
         result := value;
-        While (shift>0)        // lose 'shift' bits of precision here
+        While (shift>?0)        // lose 'shift' bits of precision here
         [
                 result := MultiplyN(result, result);
                 shift--;

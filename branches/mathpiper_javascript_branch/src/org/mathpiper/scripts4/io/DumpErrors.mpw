@@ -11,7 +11,7 @@ DumpErrors() <--
                         IsList(error'object),
                         [
                                 If( // special case: error class "warning"
-                                        Length(error'object) > 0 And error'object[1] =? "warning",
+                                        Length(error'object) >? 0 And error'object[1] =? "warning",
                                         [
                                                 error'word := "Warning";
                                                 error'object[1] := "";        // don't print the word "warning" again

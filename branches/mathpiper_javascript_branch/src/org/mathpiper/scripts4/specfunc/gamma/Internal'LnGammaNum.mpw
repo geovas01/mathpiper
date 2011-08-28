@@ -29,7 +29,7 @@
         k:=Ceil(a);        // prepare k=N+1; the k=N term is probably never significant but we don't win much by excluding it
         result := 0;        // prepare for last term
         // use Horner scheme to prevent loss of precision
-        While(k>1) [        // 'result' will accumulate just the sum for now
+        While(k>?1) [        // 'result' will accumulate just the sum for now
                 k:=k-1;
                 result := N( PowerN(a-k,k)/((z+k)*Sqrt(a-k))-result/(e*k) );
         ];

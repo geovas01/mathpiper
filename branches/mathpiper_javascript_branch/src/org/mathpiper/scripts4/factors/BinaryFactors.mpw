@@ -184,7 +184,7 @@ Function(Fct,{poly,var})
   Bind(q,twoq);
   Bind(twoq,MultiplyN(q,2));
   Bind(mask,AddN(twoq,MathNegate(1)));
-  While(Length(result)<?maxNrRoots And Length(accu)>0 And q<=?Abs(testpoly[1]))
+  While(Length(result)<?maxNrRoots And Length(accu)>?0 And q<=?Abs(testpoly[1]))
   [
     Local(newaccu);
     Bind(newaccu,{});
@@ -265,7 +265,7 @@ MkfactD(numer,denom):=
   Bind(r,FillList(0,ln));
 
   Bind(i,1);
-  If(ld>0,
+  If(ld>?0,
   [
     While(Length(numer)>=?Length(denom))
     [

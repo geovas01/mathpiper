@@ -33,7 +33,7 @@
         For(ic:=1,ic<=?nCols,ic++)   
          [ 
             col := MatrixColumn(am,ic);
-            If( cr > 1, col := Drop( col, {1,cr-1} ) );
+            If( cr >? 1, col := Drop( col, {1,cr-1} ) );
             //Tell("         ",{ic,col});
             If(Not IsZeroVector(col), [cnz := ic; Break();]); 
          ];
@@ -91,7 +91,7 @@
     //   introduce zeros above the leading 1's.
     If(iDebug, Tell("  STEP 6"));
     Local(pc,jr);
-    For(ir:=mRows,ir>1,ir--)
+    For(ir:=mRows,ir>?1,ir--)
      [ 
          
          If(iDebug,Tell("",{ir,am[ir]}));
@@ -99,7 +99,7 @@
            [If(iDebug,Tell("    trailing row of zeros:  row ",ir)); ir:=ir-1;Continue();],
            [
               pc := Find(am[ir],1);  // find leading 1 in row
-              If(pc > 0, 
+              If(pc >? 0, 
                 [
                    For(jr:=ir-1,jr>=?1,jr--)
                     [

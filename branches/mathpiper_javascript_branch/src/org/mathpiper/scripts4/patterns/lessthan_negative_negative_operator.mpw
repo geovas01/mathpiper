@@ -67,7 +67,7 @@ Now we come to the more complex line
 20 # f(n_IsIntegerGreaterThanZero) <-- n*f(n-1);
 
 We realize we need a function IsGreaterThanZero, so we define this function, with
-IsIntegerGreaterThanZero(_n) <-- (IsInteger(n) And n>0);
+IsIntegerGreaterThanZero(_n) <-- (IsInteger(n) And n>?0);
 
 You can verify that it works by trying f(5), which should return the same value as 5!.
 
@@ -122,7 +122,7 @@ room to insert new transformation rules later on.
 
 Predicates can be combined: for example, {IsIntegerGreaterThanZero()} could also
 have been defined as:
-10 # IsIntegerGreaterThanZero(n_IsInteger)_(n>0) <-- True;
+10 # IsIntegerGreaterThanZero(n_IsInteger)_(n>?0) <-- True;
 20 # IsIntegerGreaterThanZero(_n) <-- False;
 
 The first rule specifies that if n is an integer, and is greater than zero, the

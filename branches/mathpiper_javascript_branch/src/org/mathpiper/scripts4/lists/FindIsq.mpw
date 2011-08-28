@@ -8,14 +8,14 @@ FindIsq(max,f)  :=
   low:=1;
   high:=max+1;
   Bind(mid,((high+low)>>1));
-  While(high>low And mid>1)
+  While(high>?low And mid>?1)
   [
     Bind(mid,((high+low)>>1));
     Bind(current,Apply(f,{mid}));
 //Echo({low,high,current});
     If(current =? 0,
        high:=low-1,
-       If(current > 0,
+       If(current >? 0,
           Bind(high,mid),
           Bind(low,mid+1)
           )

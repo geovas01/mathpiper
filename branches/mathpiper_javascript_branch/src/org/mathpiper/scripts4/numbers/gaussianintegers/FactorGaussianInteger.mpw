@@ -27,7 +27,7 @@ Function("FactorGaussianInteger",{x}) [
                                 if( Not( (i =? re And j =? im) Or
                                          (i =? im And j =? re) ) )[ // no associates
                                         d:=i^2+j^2;
-                                        if( d > 1 )[
+                                        if( d >? 1 )[
                                                 a := re * i + im * j;
                                                 b := im * i - re * j;
                                                 While( (Modulo(a,d) =? 0) And  (Modulo(b,d) =? 0) ) [

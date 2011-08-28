@@ -8,8 +8,8 @@
 [
     Local(nrows,ncols,r,row,result);
     {nrows,ncols} := Dimensions( mat );
-    Check(And(row1>0,col1>0,row1<?nrows,col1<?ncols), "Math", "ERROR: UL out of range");
-    Check(And(row2>row1,col2>col1,row2<=?nrows,col2<=?ncols), "Math", "ERROR: LR out of range");
+    Check(And(row1>?0,col1>?0,row1<?nrows,col1<?ncols), "Math", "ERROR: UL out of range");
+    Check(And(row2>?row1,col2>?col1,row2<=?nrows,col2<=?ncols), "Math", "ERROR: LR out of range");
     result := {};
     For(r:=row1,r<=?row2,r++)
     [
@@ -25,7 +25,7 @@
 [
     Local(nrows,ncols);
     {nrows,ncols} := Dimensions( mat );
-    Check(And(row1>0,col1>0,row1<?nrows,col1<?ncols), "Math", "ERROR: UL out of range");
+    Check(And(row1>?0,col1>?0,row1<?nrows,col1<?ncols), "Math", "ERROR: UL out of range");
     ExtractSubMatrix( mat, row1, col1, nrows, ncols );
 ];
 

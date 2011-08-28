@@ -36,7 +36,7 @@ DoUnitSubsumptionAndResolution(_list) <--
                         // delete this clause
                         DestructiveDelete(list, j);
                         j--;
-                        If(i>j, i--);   // i also needs to be decremented
+                        If(i>?j, i--);   // i also needs to be decremented
                         Bind(deletedClause, True);
                         Bind(changed, True);
                         If(Length(list) =? 0, [Bind(isTrue, True);]);

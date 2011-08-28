@@ -3,7 +3,7 @@
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-HypergeometricDistribution(N_IsRationalOrNumber, M_IsRationalOrNumber, n_IsRationalOrNumber)_(M > N Or n > N)
+HypergeometricDistribution(N_IsRationalOrNumber, M_IsRationalOrNumber, n_IsRationalOrNumber)_(M >? N Or n >? N)
    <-- Undefined;
 
 %/mathpiper

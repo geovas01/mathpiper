@@ -21,7 +21,7 @@
         ForEach(i,1 .. n)[
                 For(k:=1,k<=?(i-1),k++)
                         matrix[i][i] := matrix[i][i] - matrix[k][i]^2;
-                Check( matrix[i][i] > 0, "Math", "Cholesky: Matrix is not positive definite");
+                Check( matrix[i][i] >? 0, "Math", "Cholesky: Matrix is not positive definite");
                 matrix[i][i] := Sqrt(matrix[i][i]);
                 //Echo({"matrix[",i,"][",i,"] = ", matrix[i][i] });
                 For(j:=i+1,j<=?n,j++)[
@@ -34,7 +34,7 @@
         // cholesky factorization is upper triangular
         ForEach(i,1 .. n)
                 ForEach(j,1 .. n)
-                        If(i>j,matrix[i][j] := 0);
+                        If(i>?j,matrix[i][j] := 0);
         matrix;
 ];
 

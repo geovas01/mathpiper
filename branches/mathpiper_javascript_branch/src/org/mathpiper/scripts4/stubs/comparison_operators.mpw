@@ -1,9 +1,9 @@
-%mathpiper,def="<?;>;<=?;>=?;!=?"
+%mathpiper,def="<?;>?;<=?;>=?;!=?"
 
 /* def file definitions
 =
 <?
->
+>?
 <=?
 >=?
 !=?
@@ -17,11 +17,11 @@
 // Undefined is a very special case as we return False for everything
 1 # Undefined <?  _x  <--  False;
 1 # Undefined <=? _x  <--  False;
-1 # Undefined >  _x  <--  False;
+1 # Undefined >?  _x  <--  False;
 1 # Undefined >=? _x  <--  False;
 1 # _x <?  Undefined  <--  False;
 1 # _x <=? Undefined  <--  False;
-1 # _x >  Undefined  <--  False;
+1 # _x >?  Undefined  <--  False;
 1 # _x >=? Undefined  <--  False;
 
 
@@ -47,12 +47,12 @@ LocalSymbols(nNum,mNum)
 
 // This doesn't sadly cover the case where a and b have opposite signs
 30 # ((_n1+_n2) <? 0)_((n1 <? 0) And (n2 <? 0))  <--  True;
-30 # ((_n1+_n2) <? 0)_((n1 > 0) And (n2 > 0))  <--  False;
+30 # ((_n1+_n2) <? 0)_((n1 >? 0) And (n2 >? 0))  <--  False;
 30 #  _x^a_IsOdd  <? 0  <--  x <? 0;
 30 #  _x^a_IsEven <? 0  <--  False; // This is wrong for complex x
 
 // Add other functions here!  Everything we can compare to 0 should be here.
-40 # (Sqrt(_x))_(x > 0) <? 0          <--  False;
+40 # (Sqrt(_x))_(x >? 0) <? 0          <--  False;
 
 40 # (Sin(_x) <? 0)_(Not(IsEven(N(x/Pi))) And IsEven(N(Floor(x/Pi)))) <-- False;
 40 # (Sin(_x) <? 0)_(Not(IsOdd (N(x/Pi))) And IsOdd (N(Floor(x/Pi)))) <-- True;
@@ -73,8 +73,8 @@ LocalSymbols(nNum,mNum)
 // Deal with negated terms
 50 # -(_x) <? 0 <-- Not((x<?0) Or (x=?0));
 
-// Define each of {>,<=?,>=?} in terms of <?
-50 # _n >  _m <-- m <? n;
+// Define each of {>?,<=?,>=?} in terms of <?
+50 # _n >?  _m <-- m <? n;
 50 # _n <=? _m <-- m >=? n;
 50 # _n >=? _m <-- Not(n<?m);
 
@@ -121,13 +121,13 @@ Result: True;
 
 
 
-%mathpiper_docs,name=">",categories="Operators"
-*CMD > --- test for "greater than"
+%mathpiper_docs,name=">?",categories="Operators"
+*CMD >? --- test for "greater than"
 *STD
 *CALL
-        e1 > e2
+        e1 >? e2
 Precedence:
-*EVAL PrecedenceGet(">")
+*EVAL PrecedenceGet(">?")
 
 
 *PARMS
@@ -148,9 +148,9 @@ coerce the arguments passed to this comparison operator to a real value before m
 
 *E.G.
 
-In> 2 > 5;
+In> 2 >? 5;
 Result: False;
-In> Cos(1) > 5;
+In> Cos(1) >? 5;
 Result: False
 
 *SEE IsNumber, IsInfinity, N
@@ -338,24 +338,24 @@ BuiltinPrecisionSet(10);
 
 
 
-%mathpiper,name=">",subtype="automatic_test"
+%mathpiper,name=">?",subtype="automatic_test"
 
-Verify(.1>2,False);
-Verify(0.1>2,False);
-Verify(.3>2,False);
-Verify(2>.1,True);
-Verify(2>0.1,True);
-Verify(2>.3,True);
-Verify(1e-15 > 0, True);
-Verify(1e-5 > 0, True);
-Verify(1e-4 > 0, True);
-Verify(1e-3 > 0, True);
-Verify(1e-2 > 0, True);
-Verify(1e-1 > 0, True);
-Verify(1e5 > 0, True);
+Verify(.1>?2,False);
+Verify(0.1>?2,False);
+Verify(.3>?2,False);
+Verify(2>?.1,True);
+Verify(2>?0.1,True);
+Verify(2>?.3,True);
+Verify(1e-15 >? 0, True);
+Verify(1e-5 >? 0, True);
+Verify(1e-4 >? 0, True);
+Verify(1e-3 >? 0, True);
+Verify(1e-2 >? 0, True);
+Verify(1e-1 >? 0, True);
+Verify(1e5 >? 0, True);
 
 BuiltinPrecisionSet(32);
-Verify(1.0000000000000000000000000000111 > 1, True);
+Verify(1.0000000000000000000000000000111 >? 1, True);
 BuiltinPrecisionSet(10);
 
 %/mathpiper
@@ -371,7 +371,7 @@ Verify(1e-5 =? 1e-6, False);
 
 Verify(A<?0,A<?0);
 
-Verify(A>0,A>0);
+Verify(A>?0,A>?0);
 
 %/mathpiper
 
@@ -410,16 +410,16 @@ Verify(0.2*Pi <? 0.6, False);
 
 
 
-%mathpiper,name=">",subtype="automatic_test"
+%mathpiper,name=">?",subtype="automatic_test"
 
-Verify(A>0,A>0);
-Verify(Undefined>Undefined, False);
-Verify(Undefined>1, False);
+Verify(A>?0,A>?0);
+Verify(Undefined>?Undefined, False);
+Verify(Undefined>?1, False);
 
 //Bug reported by Adrian Vontobel: comparison operators should coerce
 //to a real value as much as possible before trying the comparison.
-Verify(0.2*Pi > 0.5, True);
-Verify(0.2*Pi > 0.7, False);
+Verify(0.2*Pi >? 0.5, True);
+Verify(0.2*Pi >? 0.7, False);
 
 %/mathpiper
 

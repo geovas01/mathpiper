@@ -4,7 +4,7 @@ Function("ExpandUniVariate",{var,first,coefs})
 [
   Local(result,i);
   result:=0;
-  For(i:=Length(coefs),i>0,i--)
+  For(i:=Length(coefs),i>?0,i--)
   [
     Local(term);
     term:=NormalForm(coefs[i])*var^(first+i-1);

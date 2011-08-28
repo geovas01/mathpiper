@@ -2,7 +2,7 @@
 
 Mode(list) :=
 [
-    Check(Length(list) > 0 And IsNumericList(list), "Argument", "Argument must be a nonempty numeric list.");
+    Check(Length(list) >? 0 And IsNumericList(list), "Argument", "Argument must be a nonempty numeric list.");
     
     Local(noDuplicatesList, countsList, sortedList, highestCountsList, resultList);
     
@@ -15,7 +15,7 @@ Mode(list) :=
         countsList := Append(countsList, {Count(list, element), element} );
     ];
     
-    sortedList := HeapSort(countsList,Lambda({x,y},x[1] > y[1]));
+    sortedList := HeapSort(countsList,Lambda({x,y},x[1] >? y[1]));
     
     highestCountsList := Select(sortedList, Lambda({x},x[1] =? sortedList[1][1]));
     

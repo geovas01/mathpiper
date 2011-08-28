@@ -18,7 +18,7 @@ SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum) <--
         // index and subtract off the difference
 
         `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody )        <-- Eval(@sum) );
-        `(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody)_(p > @sumfrom)
+        `(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody)_(p >? @sumfrom)
              <--
              [
                   Local(sub);
@@ -31,7 +31,7 @@ SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum,_condition) <--
 [
 
         `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody)_(@condition)    <-- Eval(@sum) );
-        `(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody )_(@condition And p > @sumfrom)
+        `(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody )_(@condition And p >? @sumfrom)
              <--
              [
                   Local(sub);
@@ -53,7 +53,7 @@ SumFunc(_k,1,_n,_expr/_c,Eval(ListToFunction({Sum,sumvar'arg,1,n,expr})/c), IsFr
 // this only works when the index=1
 // If the limit of the general term is not zero, then the series diverges
 // We need something like IsUndefined(term), because this croaks when limit return Undefined
-//SumFunc(_k,1,Infinity,_expr,Infinity,Eval(Abs(ListToFunction({Limit,sumvar'arg,Infinity,expr})) > 0));
+//SumFunc(_k,1,Infinity,_expr,Infinity,Eval(Abs(ListToFunction({Limit,sumvar'arg,Infinity,expr})) >? 0));
 SumFunc(_k,1,Infinity,1/_k,Infinity);
 
 SumFunc(_k,1,_n,_c,c*n,IsFreeOf(k,c) );

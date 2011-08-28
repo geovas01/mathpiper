@@ -5,7 +5,7 @@
 
 SinNum(x) :=
 [
-  If(x<?0 Or 113*x>710, x:=TruncRadian(x));        // 710/113 is close to 2*Pi
+  If(x<?0 Or 113*x>?710, x:=TruncRadian(x));        // 710/113 is close to 2*Pi
   SinN(x);
 ];
 

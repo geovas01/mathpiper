@@ -41,7 +41,7 @@ Function("IsVector",{p,x})
 
 // test for a matrix (dr)
 Function("IsMatrix",{x})
-If(IsList(x) And Length(x)>0,
+If(IsList(x) And Length(x)>?0,
 [
    Local(n);
    n:=Length(x);

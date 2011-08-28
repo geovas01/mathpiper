@@ -43,7 +43,7 @@ IsMulF(f) := (Type(f) =? ":*:");
 IsPow(f):=
   (Type(f) =? "^" And
    IsInteger(f[2]) And
-   f[2] > 1
+   f[2] >? 1
   );
 
 
@@ -214,7 +214,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) =? "-" And ArgumentsCount(t[1]) =? 2)
   DestructiveInsert(flist,1,term2);
 ];
 
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) =? "-" And ArgumentsCount(t[2]) =? 2)
+Rule("FProcessTerm",1,1,Length(t)>?1 And Type(t[2]) =? "-" And ArgumentsCount(t[2]) =? 2)
 [
   Local(split,term1,term2);
   split:=t[2];
@@ -237,7 +237,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) =? ":*:")
   DestructiveInsert(flist,1,term);
 ];
 
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) =? ":*:")
+Rule("FProcessTerm",1,1,Length(t)>?1 And Type(t[2]) =? ":*:")
 [
   Local(split,term);
   split:=t[2];
@@ -256,7 +256,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) =? "-" And ArgumentsCount(t[1]) =? 1)
   DestructiveInsert(term,1,FCos(-1,0));
   DestructiveInsert(flist,1,term);
 ];
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) =? "-" And ArgumentsCount(t[2]) =? 1)
+Rule("FProcessTerm",1,1,Length(t)>?1 And Type(t[2]) =? "-" And ArgumentsCount(t[2]) =? 1)
 [
   Local(split,term);
   split:=t[2];
@@ -268,7 +268,7 @@ Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) =? "-" And ArgumentsCount(t[2
 
 
 /* Deal with (a*(b+c) -> a*b+a*c */
-Rule("FProcessTerm",1,1,Length(t)>1 And Type(t[2]) =? "+")
+Rule("FProcessTerm",1,1,Length(t)>?1 And Type(t[2]) =? "+")
 [
   Local(split,term1,term2);
   split:=t[2];
@@ -288,7 +288,7 @@ Rule("FProcessTerm",1,2,Not(IsFTrig(t[1])) )
   t[1]:=FCos(t[1],0);
   DestructiveInsert(flist,1,t);
 ];
-Rule("FProcessTerm",1,2,Length(t)>1 And Not(IsFTrig(t[2])) )
+Rule("FProcessTerm",1,2,Length(t)>?1 And Not(IsFTrig(t[2])) )
 [
   t[2]:=FCos(t[2],0);
   DestructiveInsert(flist,1,t);
@@ -308,7 +308,7 @@ Rule("FProcessTerm",1,4,Length(t)=?1 And Type(t[1]) =? "FSin")
    of the first two terms to an addition, adding two new terms to
    the pipe line.
  */
-Rule("FProcessTerm",1,5,Length(t)>1)
+Rule("FProcessTerm",1,5,Length(t)>?1)
 [
   Local(x,y,term1,term2,news);
   x:=t[1];

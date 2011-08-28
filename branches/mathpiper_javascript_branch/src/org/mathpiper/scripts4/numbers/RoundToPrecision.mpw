@@ -13,7 +13,7 @@
     oldInt   := rep[1];
     oldPrec  := rep[2];
     oldScale := rep[3];
-    If( newPrec > oldPrec, BuiltinPrecisionSet(newPrec) );
+    If( newPrec >? oldPrec, BuiltinPrecisionSet(newPrec) );
     strOInt  := ExpressionToString(oldInt);
     LS       := Length(strOInt);
     //If(InVerboseMode(),
@@ -50,7 +50,7 @@
         ]
     else
         [
-            //If(InVerboseMode(),Tell("   newPrec > oldPrec "));
+            //If(InVerboseMode(),Tell("   newPrec >? oldPrec "));
             Local(diffPrec);
             diffPrec := oldPrec - newPrec;
             newInt   := sgn * ToAtom(strOInt) * 10^(-diffPrec) ;

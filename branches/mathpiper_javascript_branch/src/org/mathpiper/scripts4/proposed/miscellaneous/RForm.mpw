@@ -55,7 +55,7 @@ LocalSymbols(rFormRegularOps) [
     {"^","^"},
     {"=?","=="},
     {">=?",">="},
-    {">",">"},
+    {">?",">"},
     {"<=?","<="},
     {"<?","<"},
     {"!=","!="},
@@ -297,10 +297,10 @@ OpenMath2R <- function(x) {
         if (xmlName(x) == "OMSTR") {
         # out <<- c(out, sQuote(gsub("'", "\\\\'", xmlValue(x))))
         out <<- c(out, paste("'", gsub("'", "\\\\'", xmlValue(x)), "'", sep=""))
-        } else if ( length( xmlChildren(x) ) > 0 )
+        } else if ( length( xmlChildren(x) ) >? 0 )
                 for( i in seq( along = xmlChildren(x) ) ) {
                         Recall( x[[i]] )
-                        if (i > 1 && i <? length(xmlChildren(x))) 
+                        if (i >? 1 && i <? length(xmlChildren(x))) 
                                 out <<- c(out, ",")
                 }
         if (xmlName(x) == "OMA" || xmlName(x) == "OMBIND") out <<- c(out, xmlValue(x), ")")
@@ -314,7 +314,7 @@ OpenMath2R <- function(x) {
 
 trans <- function(x, ttab=transtab, from, to) {
    idx <- match(x, ttab[,from], nomatch = 0)
-   res <- if (idx > 0) ttab[idx,to] else x
+   res <- if (idx >? 0) ttab[idx,to] else x
    if (tolower(substr(res, 1, 1)) %in% letters) res
    else paste('"', res, '"', sep="")
 }
@@ -365,7 +365,7 @@ transtab <- matrix( c(
         "==",                "eq",                "=?",
         "==",                "equivalent",        "=?",
         ">=",                "geq",                ">=?",
-        ">",                 "gt",                ">",
+        ">",                 "gt",                ">?",
         "<=",                 "leq",                "<=?",
         "<",                 "lt",                "<?",
         "!=",                 "neq",                "!=?",

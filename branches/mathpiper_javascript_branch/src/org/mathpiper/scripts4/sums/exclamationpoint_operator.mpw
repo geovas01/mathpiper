@@ -9,7 +9,7 @@
         MathFac(n);
 ];
 
-25 # ((x_IsConstant)!)_(FloatIsInt(x) And x>0) <-- (Round(x)!);
+25 # ((x_IsConstant)!)_(FloatIsInt(x) And x>?0) <-- (Round(x)!);
 
 30 # ((x_IsNumber)!)_InNumericMode() <-- Internal'GammaNum(x+1);
 
@@ -26,13 +26,13 @@ Double factorials are more efficient:
 
 */
 /* // old version - not using double factorials
-HalfIntegerFactorial(n_IsOdd) _ (n>0) <--
+HalfIntegerFactorial(n_IsOdd) _ (n>?0) <--
         Sqrt(Pi) * ( n! / ( 2^n*((n-1)/2)! ) );
 HalfIntegerFactorial(n_IsOdd) _ (n<?0)  <--
         Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^(-n-1)*((-n-1)/2)! / (-n-1)! );
 */
 // new version using double factorials
-HalfIntegerFactorial(n_IsOdd) _ (n>0) <--
+HalfIntegerFactorial(n_IsOdd) _ (n>?0) <--
         Sqrt(Pi) * ( n!! / 2^((n+1)/2) );
 HalfIntegerFactorial(n_IsOdd) _ (n<?0)  <--
         Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^((-n-1)/2) / (-n-2)!! );

@@ -30,7 +30,7 @@
     nterms := Length(Select(coeffs, "IsNotZero"));
     /*  If nterms = 2, it is a binomial, and might be most easily
      *  factored by some special-purpose algorithms                      */
-    If( nterms =? 2 And d > 2,
+    If( nterms =? 2 And d >? 2,
       [  result := FactorsBinomials(p);  ],    
       [  // nterms !=? 2, so try other techniques
         factorsList := BinaryFactors(p);
@@ -92,7 +92,7 @@
     nvars  := Length(vl);
     coeffs := Coef(p,x,0 .. 8);
     If(InVerboseMode(),Tell("CBU",{vl,nvars,coeffs}));
-    If (nvars > 1, 
+    If (nvars >? 1, 
          [
             If( InVerboseMode(), Echo(" special ",p));
             result := FactorsMultivariateSpecialCases(p);
@@ -131,9 +131,9 @@
 
 10 # FactorsMultivariateSpecialCases(_n*_x^p_IsInteger - _n*_y) <-- [If(InVerboseMode(),Tell(4));{n,1}:FactorsMultivariateSpecialCases(x-y);];
 
-10 # FactorsMultivariateSpecialCases(n_IsInteger*_x + m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
+10 # FactorsMultivariateSpecialCases(n_IsInteger*_x + m_IsInteger*_y)_(Gcd(n,m)>?1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
 
-10 # FactorsMultivariateSpecialCases(n_IsInteger*_x - m_IsInteger*_y)_(Gcd(n,m)>1) <-- {{Gcd(n,m),1},{(Simplify((n*x-m*y)/Gcd(n,m))),1}};
+10 # FactorsMultivariateSpecialCases(n_IsInteger*_x - m_IsInteger*_y)_(Gcd(n,m)>?1) <-- {{Gcd(n,m),1},{(Simplify((n*x-m*y)/Gcd(n,m))),1}};
 
 10 # FactorsMultivariateSpecialCases(_n*_x + _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x+y);
 

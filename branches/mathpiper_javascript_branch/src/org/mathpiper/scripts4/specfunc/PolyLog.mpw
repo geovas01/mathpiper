@@ -47,7 +47,7 @@
 
 ];
 /* this is very slow at high precision
-20 # PolyLog(_n,_x)_(InNumericMode() And x > 0 And x <=? 1) <-- [
+20 # PolyLog(_n,_x)_(InNumericMode() And x >? 0 And x <=? 1) <-- [
         Local(result,prec,term,k,eps);
         prec:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(prec+5);
@@ -59,7 +59,7 @@
         //BuiltinPrecisionSet( prec + Floor(N(Ln(6*terms)/Ln(10))) );
         //result:=SumTaylorNum(x, {{k}, x^(k+1)/(k+1)^n }, terms );
         term:=1;
-        For(k:=1,Abs(term)>eps,k++)[
+        For(k:=1,Abs(term)>?eps,k++)[
                 term:=N(x^k/k^n);
                 result:=result+term;
         ];
@@ -68,7 +68,7 @@
 ];
 */
 
-20 # PolyLog(_n,_x)_(InNumericMode() And x > 0 And x <? 1) <--
+20 # PolyLog(_n,_x)_(InNumericMode() And x >? 0 And x <? 1) <--
 [        // use Taylor series x^(k+1)/(k+1)^n, converges for -1<x<1
         Local(prec, result, terms);
         prec:=BuiltinPrecisionGet();

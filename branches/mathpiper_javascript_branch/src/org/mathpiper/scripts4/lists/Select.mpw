@@ -51,7 +51,7 @@ Result: {2,3,4};
 
 list := {1,-3,2,-6,-4,3};
 
-Select(list, Lambda({i}, i > 0 ));
+Select(list, Lambda({i}, i >? 0 ));
 
 /%/mathpiper
 

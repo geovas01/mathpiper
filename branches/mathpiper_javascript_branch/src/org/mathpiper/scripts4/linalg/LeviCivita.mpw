@@ -7,7 +7,7 @@ Function("LeviCivita",{indices})
   length:=Length(indices);
   factor:=1;
 
-  For (j:=length,j>1,j--)
+  For (j:=length,j>?1,j--)
   [
     For(i:=1,i<?j,i++)
     [

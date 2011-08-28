@@ -2,7 +2,7 @@
 
 Function("MatrixRow",{matrix,row})
 [
-  Check(row > 0, "Argument", "MatrixRow: row index out of range");
+  Check(row >? 0, "Argument", "MatrixRow: row index out of range");
   Check(row <=? Length(matrix), "Argument", "MatrixRow: row index out of range");
 
   Local(result);

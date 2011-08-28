@@ -23,7 +23,7 @@ CombinationsList(inputList, r) :=
     
     combinationsList := {};
     
-    While(combinationsLeft > 0)
+    While(combinationsLeft >? 0)
     [
         combination := {};
       

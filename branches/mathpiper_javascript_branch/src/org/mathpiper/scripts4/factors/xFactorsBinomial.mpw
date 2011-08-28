@@ -90,7 +90,7 @@ UnFence("xFB1",1);
     Local(ans,k);
     If(InVerboseMode(),[NewLine();Tell("   xFB1prime",{X,n,s});]);
     ans := {{X+s,1}};
-    If( n > 1, ans := Concat(ans,{{Sum(k,0,n-1,(-s)^k*X^(n-1-k)),1}}) );
+    If( n >? 1, ans := Concat(ans,{{Sum(k,0,n-1,(-s)^k*X^(n-1-k)),1}}) );
     If(InVerboseMode(),Tell("          ",ans));
     ans;
 ];
@@ -148,9 +148,9 @@ UnFence("xFB1",3);
     Local(ans,fn,mx,my);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1evensum",{X,n});]);
     fn    := {{1,1}};
-    If( n > 1, fn := FactorsSmallInteger(n) );
+    If( n >? 1, fn := FactorsSmallInteger(n) );
     If(Length(fn)=1 And IsOdd(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
-    If(Length(fn)>1,
+    If(Length(fn)>?1,
          ForEach(f,fn) [ If( IsOdd(f[1]), mx := f[1]^f[2] ); ]);
     my    := n/mx;
     If(InVerboseMode(),Tell("    ",{mx,my}));

@@ -15,7 +15,7 @@ assumptions := {};
     If(InVerboseMode(),Tell("AssumeLst",L));
     Local(len,s);
     len := Length(L);
-    If( len > 0, ForEach(s,L) [ Assume(s); ] );
+    If( len >? 0, ForEach(s,L) [ Assume(s); ] );
     assumptions;
 ];
 
@@ -40,7 +40,7 @@ assumptions := {};
 [
     Local(props);
     props := Select(assumptions,Lambda({X},X[1]=?key));
-    If( Length(props) > 0, Transpose(props)[2], {} );
+    If( Length(props) >? 0, Transpose(props)[2], {} );
 ];
 
 
@@ -52,10 +52,10 @@ assumptions := {};
     Local(lst,len,jj);
     lst := Lambda({X},If(IsList(X),X[1])) /@ assumptions;
     jj := Find(lst,x);
-    If( jj > 0, DestructiveDelete(assumptions,jj) );
+    If( jj >? 0, DestructiveDelete(assumptions,jj) );
     lst := Lambda({X},If(IsList(X),X[1])) /@ assumptions;
     jj := Find(lst,x);
-    If( jj > 0, UnAssume(x), True );
+    If( jj >? 0, UnAssume(x), True );
 ];
 
 ];  //  LocalSymbols

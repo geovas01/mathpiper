@@ -14,7 +14,7 @@
         result := Round(ExpN(DivideN(Internal'LnNum(DivideN(n, 2^(k*s))), s))*2^k);
         BuiltinPrecisionSet(GlobalPop());
         // result is rounded and so it may overshoot (we do not use Floor above because numerical calculations may undershoot)
-        If(result^s>n, result-1, result);
+        If(result^s>?n, result-1, result);
 ];
 
 /* algorithm using only integer arithmetic.

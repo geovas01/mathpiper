@@ -199,7 +199,7 @@ TryRandomPoly(deg,coefmin,coefmax):=
   p:=Rationalize(p);
 //Echo("Test polynom ",p);
   Verify(Maximum(Abs(coefs)) <=? MaximumBound(p), True);
-  Verify(Minimum(Abs(coefs)) > MinimumBound(p), True);
+  Verify(Minimum(Abs(coefs)) >? MinimumBound(p), True);
 //Echo("bounds ",BoundRealRoots(p));
   roots:=FindRealRoots(p);
 //Echo("roots ",roots);

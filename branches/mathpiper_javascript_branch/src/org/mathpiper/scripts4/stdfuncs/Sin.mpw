@@ -3,9 +3,9 @@
 
 1 # SinMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Sin"),n*Pi});
 2 # SinMap( _n )_(n<?0) <-- -SinMap(-n);
-2 # SinMap( _n )_(n>2) <-- SinMap(Modulo(n,2));
-3 # SinMap( _n )_(n>1) <-- SinMap(n-2);
-4 # SinMap( _n )_(n>1/2) <-- SinMap(1-n);
+2 # SinMap( _n )_(n>?2) <-- SinMap(Modulo(n,2));
+3 # SinMap( _n )_(n>?1) <-- SinMap(n-2);
+4 # SinMap( _n )_(n>?1/2) <-- SinMap(1-n);
 
 5 # SinMap( n_IsInteger ) <-- 0;
 5 # SinMap( 1/6 ) <-- 1/2;

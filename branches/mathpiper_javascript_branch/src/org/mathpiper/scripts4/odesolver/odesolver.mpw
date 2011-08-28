@@ -149,7 +149,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
   e := RemoveDuplicates(e);
 
   /* Generate dummy constants */
-  if( Length(e) > 0 )[
+  if( Length(e) >? 0 )[
     roots:=Transpose(e);
     consts:= MapSingle(Hold({{nn},Add(OdeConstantList(nn)*(x^(0 .. (nn-1))))}),roots[2]);
     roots:=roots[1];
@@ -279,7 +279,7 @@ OdeBoundaries(_solution,bounds_IsList) <--
 OdeTest(_e,_solution) <--
 [
   Local(s);
-  s:= `Lambda({n},if (n>0)(Differentiate(x,n)(@solution)) else (@solution));
+  s:= `Lambda({n},if (n>?0)(Differentiate(x,n)(@solution)) else (@solution));
   e:=OdeNormalForm(e);
   e:=Apply("OdeSubstitute",{e,s});
   e:=Simplify(e);

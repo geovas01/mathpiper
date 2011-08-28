@@ -7,7 +7,7 @@ Function("BubbleSort",{list,compare})
   list:=FlatCopy(list);
   length:=Length(list);
 
-  For (j:=length,j>1,j--)
+  For (j:=length,j>?1,j--)
   [
     For(i:=1,i<?j,i++)
     [
@@ -55,7 +55,7 @@ implement, though it is not particularly fast. The sorting time is proportional
 to $n^2$ where $n$ is the length of the list.
 
 *E.G.
-In> BubbleSort({4,7,23,53,-2,1}, ">")
+In> BubbleSort({4,7,23,53,-2,1}, ">?")
 Result: {53,23,7,4,1,-2}
 
 In> BubbleSort({3,5,2},Lambda({x,y},x<?y))

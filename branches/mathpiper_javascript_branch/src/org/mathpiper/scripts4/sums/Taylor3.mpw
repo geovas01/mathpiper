@@ -99,7 +99,7 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
   result:=ArrayCreate(degree+1,0);
   result[1] := 1;
   //TODO@@@ optimize
-  While(N>0)
+  While(N>?0)
   [
     result:=Taylor3'MultiplyCoefs(result,factor,degree);
     N--;

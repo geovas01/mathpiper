@@ -14,7 +14,7 @@
   Bind(b,1);
   While(m<=?n) Bind(m,(ShiftLeft(m,1)));
   Bind(m, ShiftRight(m,1));
-  While(m>0)
+  While(m>?0)
   [
     Bind(b,b*b);
     If (Not(IsEqual(BitAnd(m,n), 0)),Bind(b,b*a));

@@ -39,7 +39,7 @@
     ForEach(item,list1)
     [
         Bind(index, Find(l2,item));
-        If(index>0,
+        If(index>?0,
           [
              DestructiveDelete(l2,index);
              DestructiveInsert(result,1,item);

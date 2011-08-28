@@ -6,7 +6,7 @@ StandardErrorOfTheProportion(meanOfSampleProportions, sampleSize) :=
 [
     Check(IsRationalOrNumber(meanOfSampleProportions), "Argument", "The first argument must be a number.");
     
-    Check(IsInteger(sampleSize) And sampleSize > 0, "Argument", "The second argument must be an integer which is greater than 0.");
+    Check(IsInteger(sampleSize) And sampleSize >? 0, "Argument", "The second argument must be an integer which is greater than 0.");
     
     Sqrt((meanOfSampleProportions*(1 - meanOfSampleProportions))/sampleSize);
 ];

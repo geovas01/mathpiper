@@ -9,7 +9,7 @@
 20 # LogicSimplify(_proposition, _level) <--
 [
   Local(cnf, list, clauses);
-  Check(level > 1, "Argument", "Wrong level");
+  Check(level >? 1, "Argument", "Wrong level");
   // First get the CNF version of the proposition
   Bind(cnf, CNF(proposition));
 

@@ -31,11 +31,11 @@ TrialFactorize(n, limit) :=
         Local(power, prime, result);
         result := {n};        // first element of result will be replaced by the final value of n
         prime := 2;        // first prime
-        While(prime <=? limit And n>1 And prime*prime <=? n)
+        While(prime <=? limit And n>?1 And prime*prime <=? n)
         [        // find the max power of prime which divides n
                 {n, power} := FindPrimeFactor(n, prime);
                 If(
-                        power>0,
+                        power>?0,
                         DestructiveAppend(result, {prime,power})
                 );
                 prime := NextPseudoPrime(prime);        // faster than NextPrime and we don't need real primes here

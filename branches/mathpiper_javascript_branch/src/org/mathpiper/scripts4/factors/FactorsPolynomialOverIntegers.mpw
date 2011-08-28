@@ -91,12 +91,12 @@
     ForEach(r,result) [
         d := Degree(r[1],var);
         g := Gcd(Coef(r[1],var,0 .. d));
-        If( g > 1,   //  need to remove common numerical factor
+        If( g >? 1,   //  need to remove common numerical factor
                [ gtotal:=g*gtotal; 
                  r[1]:=Simplify(r[1]/g);
                ]
           );
-        If(d > 2,
+        If(d >? 2,
             [
                 //  polynomial is NOT irreducible, but can we reduce it?
                 rr := TryToReduceSpecialPolynomial(r[1]);
@@ -105,7 +105,7 @@
                 If( r !=? {1,1}, newResult := r:newResult )
           );
     ];  
-    If(gtotal>1,newResult:={gtotal,1}:newResult);    
+    If(gtotal>?1,newResult:={gtotal,1}:newResult);
     newResult;
 ];
 

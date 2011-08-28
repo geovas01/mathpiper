@@ -15,9 +15,9 @@ Retract(ChiSquareTest,*);
     
     expectedFrequenciesList := Flatten(expectedFrequenciesMatrix,"List");
     
-    Check(Length(observedFrequenciesList) > 0, "Argument", "The first argument must be a nonempty matrix.");
+    Check(Length(observedFrequenciesList) >? 0, "Argument", "The first argument must be a nonempty matrix.");
     
-    Check(Length(expectedFrequenciesList) > 0, "Argument", "The second argument must be a nonempty matrix.");
+    Check(Length(expectedFrequenciesList) >? 0, "Argument", "The second argument must be a nonempty matrix.");
     
     Check(Length(expectedFrequenciesList) =? Length(expectedFrequenciesList), "Argument", "The matrices must be of equal length.");
 
@@ -49,9 +49,9 @@ Retract(ChiSquareTest,*);
 
 20 # ChiSquareTest( observedFrequenciesList_IsList, expectedFrequenciesList_IsList) <--
 [
-    Check(Length(observedFrequenciesList) > 0, "Argument", "The first argument must be a nonempty list.");
+    Check(Length(observedFrequenciesList) >? 0, "Argument", "The first argument must be a nonempty list.");
     
-    Check(Length(expectedFrequenciesList) > 0, "Argument", "The second argument must be a nonempty list.");
+    Check(Length(expectedFrequenciesList) >? 0, "Argument", "The second argument must be a nonempty list.");
     
     Check(Length(expectedFrequenciesList) =? Length(expectedFrequenciesList), "Argument", "The lists must be of equal length.");
 

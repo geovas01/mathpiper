@@ -40,11 +40,11 @@ ProbabilityToZScore(probability) :=
     
     zValue := 0.0;
 
-    While ((maximumZ - minimumZ) > ZEPSILON) 
+    While ((maximumZ - minimumZ) >? ZEPSILON) 
     [
         probabilityValue := ZScoreToProbability(zValue);
         
-        if (probabilityValue > probability) 
+        if (probabilityValue >? probability) 
         [
             maximumZ := zValue;
         ] 

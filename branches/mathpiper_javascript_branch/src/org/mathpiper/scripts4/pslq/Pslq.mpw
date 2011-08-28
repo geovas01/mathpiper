@@ -287,7 +287,7 @@ Echo("************** H[i][j] = ",H[i][j]);
         mini:=tmp;
         m:=j;
       ];
-      if (tmp > maxi) [ maxi:=tmp; ];
+      if (tmp >? maxi) [ maxi:=tmp; ];
 //Echo("maxi 7...",maxi);
     ];
     /* following line may be commented */
@@ -314,7 +314,7 @@ Echo("************** H[i][j] = ",H[i][j]);
         ];
       ];
 //Echo("maxi = ",maxi);
-      if (maxi > 10^(precision))
+      if (maxi >? 10^(precision))
       [
         BuiltinPrecisionSet(ndigits);
         result:=Fail;

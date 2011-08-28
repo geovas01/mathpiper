@@ -39,18 +39,18 @@ LocalSymbols(n'max, k)
                 And (
                         [        // strongest condition: the exp(-x^2) asymptotic is already good
                                 n'max := 0;
-                                Re(x^2) > BuiltinPrecisionGet()*3295/1431+0.121;
+                                Re(x^2) >? BuiltinPrecisionGet()*3295/1431+0.121;
                         ]
                         Or
                         [        // next condition: the exp(-x^2) helps but we need a few terms of the series too
                                 n'max := N(Minimum((BuiltinPrecisionGet()*3295/1431+0.121)/Internal'LnNum(Abs(x)), 2*Internal'LnNum(Abs(x))), 10);
-                                2*Abs(x)+Re(x^2) > BuiltinPrecisionGet()*3295/1431+0.121;
+                                2*Abs(x)+Re(x^2) >? BuiltinPrecisionGet()*3295/1431+0.121;
                         ]
                         Or
                         [        // worst case: exp(-x^2) does not help and we need the full series
         // hack: save a value computed in the predicate to use in the body of rule
                                 n'max := N(({{k}, k+Internal'LnNum(k)} @ BuiltinPrecisionGet()*3295/1431)/2 - 3/2, 10);
-                                Abs(x) > n'max+3/2;
+                                Abs(x) >? n'max+3/2;
                         ]
                 )
         ) <-- If(Re(x)!=?0, Sign(Re(x)), 0) - Exp(-x^2)/x/SqrtN(Internal'Pi())

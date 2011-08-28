@@ -4,7 +4,7 @@
 IsError() <--
 [
         CheckErrorTableau();
-        Length(GetErrorTableau())>0;
+        Length(GetErrorTableau())>?0;
 ];
 
 /// check for errors of a given kind

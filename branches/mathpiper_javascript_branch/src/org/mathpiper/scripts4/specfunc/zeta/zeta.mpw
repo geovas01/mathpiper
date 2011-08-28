@@ -108,7 +108,7 @@ Zeta3() :=
                         result :=  2*Exp(Internal'LnGammaNum(1-s)-(1-s)*Ln(2*Internal'Pi()))*Sin(Internal'Pi()*s/2) * Internal'ZetaNum(1-s);
                 ],
                 // choose between methods
-                If (N(Re(s)) > N(1+(prec*Ln(10))/(Ln(prec)+0.1), 6),
+                If (N(Re(s)) >? N(1+(prec*Ln(10))/(Ln(prec)+0.1), 6),
                         [        // use direct summation
                                 n:= N(10^(prec/(s-1)), 6)+2;        // 2 guard terms
                                 BuiltinPrecisionSet(prec+2);        // 2 guard digits

@@ -140,11 +140,11 @@ Function("YacasPSolve",{uni,var}) [
      If(Type(u) =? "UniVariate" And (And @ (Lambda({x}, IsNumber(x) Or IsRational(x)) /@ u[3])), [
          Local(coeffs);
          coeffs := Rationalize(u[3]);
-         coeffs := If(Length(coeffs) > 1, 
+         coeffs := If(Length(coeffs) >? 1, 
                        Lcm(Denominator /@ coeffs) * coeffs, 
                        (Denominator /@ coeffs) * coeffs);
          DestructiveReplace(u, 3, coeffs);
-         factors := If(Degree(u)>0, 
+         factors := If(Degree(u)>?0, 
                         Factors(NormalForm(u)), 
                         {NormalForm(u), 1});
      ], [

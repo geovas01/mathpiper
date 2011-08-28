@@ -21,7 +21,7 @@
         m := m/2;
        ];
        k := k/2 ;
-       If(m>1, [
+       If(m>?1, [
                  p := OldInternalCyclotomic(m,x,False);
                  If (WantNormalForm, SubstituteAndExpandInUniVar(p,k),SubstituteInUniVar(p,k));
                ],
@@ -29,7 +29,7 @@
         );
      ];
 
-20 # OldInternalCyclotomic(n_IsOdd,_x,WantNormalForm_IsBoolean)_(n>1) <--
+20 # OldInternalCyclotomic(n_IsOdd,_x,WantNormalForm_IsBoolean)_(n>?1) <--
 [
  Local(divisors,poly1,poly2,q,d,f,result);
  divisors := MoebiusDivisorsList(n);

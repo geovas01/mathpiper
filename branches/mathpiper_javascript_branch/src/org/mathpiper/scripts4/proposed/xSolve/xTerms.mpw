@@ -51,8 +51,8 @@ xTerms(_expr) <--
     stack := qs * stack;
     If(qs>0,nTerms:=topLevelPM+1,nTerms:=topLevelPM);
     If(InVerboseMode(),Echo("==========================  stack = ",stack));
-    If( nTerms > Length(stack), Echo("  >>>> RESULT should be one term longer"));
-    //If(firstH != ToAtom("+") And  firstH != ToAtom("-") And tlpm >0,Echo("  >>>> RESULT should be one term shorter"));
+    If( nTerms >? Length(stack), Echo("  >>>> RESULT should be one term longer"));
+    //If(firstH != ToAtom("+") And  firstH != ToAtom("-") And tlpm >?0,Echo("  >>>> RESULT should be one term shorter"));
     stack;
 ];
 

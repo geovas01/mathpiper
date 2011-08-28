@@ -50,8 +50,8 @@ UnFence("MatchLinear",2);
                                     Coef(expr,1) =? 0 And
                                     IsNumber(Coef(expr,0)) And
                                     IsNumber(Coef(expr,2)) And
-                                    Coef(expr,0)*sign0 > 0 And
-                                    Coef(expr,2)*sign2 > 0
+                                    Coef(expr,0)*sign0 >? 0 And
+                                    Coef(expr,2)*sign2 >? 0
                                     ) <--
 [
   Check(IsUniVar(expr), "Argument", PipeToString()Echo({"Incorrect argument ",expr," passed to MatchLinear"}));

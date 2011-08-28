@@ -23,13 +23,13 @@ Rulebase("Repeat",{iterations,body});
   Retract correctly.
 */
 
-Rule("Repeat",2,10,IsInteger(iterations) And iterations > 0)
+Rule("Repeat",2,10,IsInteger(iterations) And iterations >? 0)
 [
     Local(count);
 
     count := 0;
 
-    While (iterations > 0)
+    While (iterations >? 0)
     [
         Eval(body);
         iterations--;

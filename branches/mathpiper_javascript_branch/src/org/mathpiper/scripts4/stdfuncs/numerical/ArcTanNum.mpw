@@ -7,7 +7,7 @@ ArcTanNum(x) :=
 [
         // using trigonometric identities is faster for now
         If(
-                Abs(x)>1,
+                Abs(x)>?1,
                 Sign(x)*(Internal'Pi()/2-ArcSin(1/Sqrt(x^2+1))),
                 ArcSin(x/Sqrt(x^2+1))
         );
@@ -27,7 +27,7 @@ Sign(x) *
         y := Abs(x);
         // use identities to improve convergence -- see essays book
         If(
-                y>1,
+                y>?1,
                 y:=1/y        // now y <=? 1
         // we shall know that the first identity was used because Abs(x) > 1 still
         );
@@ -40,7 +40,7 @@ Sign(x) *
         // the value of x should not be greater than 1 here!
         nterms := 2 + Ceil( N(Hold(Ln(10)/(Ln(4)+2*Ln(nterms))), 5) * BuiltinPrecisionGet() );
         If(        // call the actual routine
-                Abs(x)>1,
+                Abs(x)>?1,
                 Pi/2-2*MyArcTan(y, nterms),        // this is for |x|>1
                 2*MyArcTan(y, nterms)
                 // MyArcTan(x, nterms)

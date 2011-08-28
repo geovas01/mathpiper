@@ -62,7 +62,7 @@
     pp      := Simplify( poly / content );
     If(IsBound(extraFactor),content := content / extraFactor);
     If(InVerboseMode(),Tell("   ",{content,pp}));
-    //If(IsConstant(pp) And Length(VarList(content))>0,{content,pp}:={pp,content});
+    //If(IsConstant(pp) And Length(VarList(content))>?0,{content,pp}:={pp,content});
     If( Length(VarList(pp))=?0, result := {{pp*content,1}},
       [
          //If(InVerboseMode(),Tell("  ",{content,pp}));
@@ -73,7 +73,7 @@
          degrees  := {};
          allCoeffs         := disassem[3];
          allPowers         := Flatten(disassem[2],"List");
-         If(nvars > 0,
+         If(nvars >? 0,
            [
              ForEach(v,vars)
                 [ DestructiveAppend(degrees,Degree(pp,v)); ];
@@ -158,7 +158,7 @@ UnFence("jFactorsPrimitivePart",1);
 
 
      //  special case: homogeneous bivariates
-65 # jFactorsPrimitivePart( _pp )_(isHomogeneous And nterms>1 And nvars=?2) <--
+65 # jFactorsPrimitivePart( _pp )_(isHomogeneous And nterms>?1 And nvars=?2) <--
 [
     If(InVerboseMode(),Tell("Homogeneous and Bivariate"));
     Local(ppFactors);
@@ -453,14 +453,14 @@ UnFence("jFac",3);
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsDecimal")) > 0);
+    (Length(Select(disassem[3],"IsDecimal")) >? 0);
 ];
 
 10 # HasRealCoefficients( poly_IsMonomial ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsDecimal")) > 0);
+    (Length(Select(disassem[3],"IsDecimal")) >? 0);
 ];
 
 
@@ -470,7 +470,7 @@ UnFence("jFac",3);
     If(InVerboseMode(),Tell("  HasRationalCoefficients",poly));
     disassem := DisassembleExpression(poly);
     //Tell("              ",disassem);
-    answer := (Length(Select(disassem[3],"IsPureRational")) > 0);
+    answer := (Length(Select(disassem[3],"IsPureRational")) >? 0);
     If(InVerboseMode(),Tell("   ",answer));
     answer;
 ];
@@ -479,7 +479,7 @@ UnFence("jFac",3);
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsPureRational")) > 0);
+    (Length(Select(disassem[3],"IsPureRational")) >? 0);
 ];
 
 
@@ -523,7 +523,7 @@ UnFence("jFac",3);
         );
         //  If any factors have degree >=3, store them in a 'residuals' array
         //  for further analysis
-        If( Degree(f[1]) > 2,
+        If( Degree(f[1]) >? 2,
           [
             If(InVerboseMode(),Tell("                          ",Degree(f[1])));
             Local(pq);

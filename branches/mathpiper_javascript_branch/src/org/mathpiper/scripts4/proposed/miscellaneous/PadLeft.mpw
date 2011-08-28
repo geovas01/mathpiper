@@ -10,7 +10,7 @@
     
     padAmount := totalDigits - Length(integerString);
     
-    If(padAmount > 0,
+    If(padAmount >? 0,
         resultString := ListToString(FillList(0, padAmount)) : integerString,
         resultString := integerString );
 ];

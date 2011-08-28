@@ -16,7 +16,7 @@
                 For(i:=1,i<=?length And carmichael,i++)[
                         //Echo( n-1,"%",factors[i][1]-1,"=?", Modulo(n-1,factors[i][1]-1) );
                         If( Modulo(n-1,factors[i][1]-1) !=? 0, carmichael:=False );
-                        If(factors[i][2]>1,carmichael:=False);        // squarefree
+                        If(factors[i][2]>?1,carmichael:=False);        // squarefree
                 ];
         ];
         carmichael;

@@ -76,7 +76,7 @@
      IntRat(var,exy/exx,MakeUni(exy,var),MakeUni(exx,var));
 
 10 # IntRat(_var,_exy / _exx,_exyu,_exxu)_
-     (Degree(exyu) > Degree(exxu) Or Degree(Gcd(exyu,exxu)) > 0) <--
+     (Degree(exyu) >? Degree(exxu) Or Degree(Gcd(exyu,exxu)) >? 0) <--
      [
      Local(gcd);
      gcd:=Gcd(exxu,exyu);
@@ -87,7 +87,7 @@
      ];
 
 11 # IntRat(_var,_exy / _exx,_exyu,_exxu)_
-        (Degree(exxu,var) > 1 And LeadingCoef(exxu)=?1 And
+        (Degree(exxu,var) >? 1 And LeadingCoef(exxu)=?1 And
          IsNumericList(Coef(exxu,var,0 .. Degree(exxu)))) <--
 [
   Local(ee);

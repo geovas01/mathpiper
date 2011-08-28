@@ -102,7 +102,7 @@ UnFence("trySQF",1);
 
 
 
-10 # tryRealRoots(residualList_IsList)_(Length(residualList)>0) <--
+10 # tryRealRoots(residualList_IsList)_(Length(residualList)>?0) <--
 [
     //--- See if there are any REAL roots to factor out
     If(InVerboseMode(),[NewLine(); Tell("tryRealRoots",residualList);]);
@@ -113,7 +113,7 @@ UnFence("trySQF",1);
         If(InVerboseMode(),
           [ Tell("            this ",resid[1]); Tell("            ",nrr); ]
         );
-        If( nrr > 0, rr := FindRealRoots(resid[1]), rr := {} );
+        If( nrr >? 0, rr := FindRealRoots(resid[1]), rr := {} );
         processRealRoots(rr);
         
         If( nrr =? 2,
@@ -166,7 +166,7 @@ UnFence("trySQF",1);
                             [ DestructiveAppend(goodptry,NormalForm(uptry)); ]    );
                       ];
                   If(InVerboseMode(),Tell("    ",goodptry));
-                  If(Length(goodptry) > 0,
+                  If(Length(goodptry) >? 0,
                     [
                        ForEach(pt,goodptry)
                          [ DestructiveAppend(residOut,{pt,1}); ];
@@ -252,7 +252,7 @@ UnFence("processRealRoots",1);
                [ DestructiveAppend(goodptry,NormalForm(uptry)); ]    );
          ];
          If(InVerboseMode(),Tell("    ",goodptry));
-         If(Length(goodptry) > 0,
+         If(Length(goodptry) >? 0,
            [
                ForEach(pt,goodptry)
                [ DestructiveAppend(residOut,{pt,1}); ];

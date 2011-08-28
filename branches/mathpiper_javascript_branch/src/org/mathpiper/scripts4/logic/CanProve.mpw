@@ -168,14 +168,14 @@ Verify(CanProve( A And (Not A Or B Or C)),  A And (B Or C));
 // this is a test of contradication, A==3 should kick A==2 out as they're contradictory
 Verify(CanProve( A==3 And (A==2 Or B Or C)),  A-3==0 And (B Or C));
 //TODO Verify(CanProve( A==3 And (A<?2  Or B Or C)),  A-3==0 And (B Or C));
-//TODO Verify(CanProve( A==3 And (A>2  Or B Or C)),  (A-3==0) And (((A-2) > 0) Or B Or C));
+//TODO Verify(CanProve( A==3 And (A>?2  Or B Or C)),  (A-3==0) And (((A-2) >? 0) Or B Or C));
 
 Verify(CanProve(Not(Not (p_2-NULL==0))Or Not(p_2-NULL==0)), True);
 
 LogicVerify(CanProve(P Or (Not P And Not Q)),P Or Not Q);
 
 LogicVerify(CanProve(P Or (Not P And Not Q)),P Or Not Q);
-LogicVerify(CanProve(A>0 And A<=?0),False);
-LogicVerify(CanProve(A>0 Or A<=?0),True);
+LogicVerify(CanProve(A>?0 And A<=?0),False);
+LogicVerify(CanProve(A>?0 Or A<=?0),True);
 
 %/mathpiper

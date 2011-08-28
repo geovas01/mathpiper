@@ -4,7 +4,7 @@
 3 # IsPrime(n_IsInteger)_(n<=?FastIsPrime(0)) <-- IsSmallPrime(n);
 
 /* Fast pseudoprime testing: if n is a prime, then 24 divides (n^2-1) */
-5 # IsPrime(n_IsPositiveInteger)_(n > 4 And Modulo(n^2-1,24)!=?0) <-- False;
+5 # IsPrime(n_IsPositiveInteger)_(n >? 4 And Modulo(n^2-1,24)!=?0) <-- False;
 
 /* Determine if a number is prime, using Rabin-Miller primality
    testing. Code submitted by Christian Obrecht

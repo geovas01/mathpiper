@@ -10,10 +10,10 @@ LocalSymbols(hash, key, element, hash'expr)
         Local(index);
         index := Find(hash, element);
         If(
-                index > 0,
+                index >? 0,
                 DestructiveDelete(hash, index)
         );
-        index>0;        // return False if nothing found
+        index>?0;        // return False if nothing found
 
 ];
 

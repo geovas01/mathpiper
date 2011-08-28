@@ -18,7 +18,7 @@ FastModularPower(a_IsPositiveInteger, b_IsPositiveInteger, n_IsPositiveInteger) 
   j := b;
   r := 1;
 
-  While (j > 0)
+  While (j >? 0)
     [
       If (IsOdd(j), r := ModuloN(r*p, n));
       p := ModuloN(p*p, n);
@@ -131,15 +131,15 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
   b := 1;
   prime := True;
   roots'of'minus1 := {0};        // accumulate the set of roots of -1 modulo n
-  While (prime And k>0)
+  While (prime And k>?0)
     [
       b := NextPseudoPrime(b);        // use only prime bases, as suggested by Davenport; weak pseudo-primes are good enough
       {root, prime} := IsStronglyProbablyPrime(b, n);
           If(prime, roots'of'minus1 := Union(roots'of'minus1, {root}));
-          If(Length(roots'of'minus1)>3, prime := False);
+          If(Length(roots'of'minus1)>?3, prime := False);
           //If(InVerboseMode() And prime, Echo("RabinMiller: Info: ", n, "is spp base", b));
           If( // this whole If() clause is only working when InVerboseMode() is in effect and the test is terminated in the unusual way
-                  InVerboseMode() And Length(roots'of'minus1)>3,
+                  InVerboseMode() And Length(roots'of'minus1)>?3,
                   [        // we can actually find a factor of n now
                         Local(factor);
                         roots'of'minus1 := Difference(roots'of'minus1,{0});

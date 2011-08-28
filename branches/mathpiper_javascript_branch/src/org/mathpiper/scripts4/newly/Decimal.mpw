@@ -17,7 +17,7 @@
 
 10 # Decimal(_result , _n , _d,_count ) <--
 [
-  While(count>0)
+  While(count>?0)
   [
     DestructiveAppend(result,Quotient(10*n,d));
     n:=Modulo(10*n,d);
@@ -44,7 +44,7 @@ DecimalFindPeriod(_list) <--
   ];
 
   first:=Length(list)-period;
-  While(first>1 And list[first] =? list[first+period]) first--;
+  While(first>?1 And list[first] =? list[first+period]) first--;
   first++;
 
   {first,period};

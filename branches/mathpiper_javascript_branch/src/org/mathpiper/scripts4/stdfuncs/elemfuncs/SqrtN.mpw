@@ -33,7 +33,7 @@ SqrtN(x) := MathSqrt1(x);        // to have another function is easier for debug
                         // check whether increased precision would be at all necessary
 //                        Echo("checking integer case");
                         GlobalPush(BuiltinPrecisionGet());
-                        If(MathBitCount(x)+3>DigitsToBits(BuiltinPrecisionGet(), 10),
+                        If(MathBitCount(x)+3>?DigitsToBits(BuiltinPrecisionGet(), 10),
                           BuiltinPrecisionSet(BitsToDigits(MathBitCount(x), 10)+1));
                                 // need one more digit to decide whether Sqrt(x) is integer
                         // otherwise the current precision is sufficient

@@ -281,7 +281,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
                                     lps[4][1][1]+n2-lps[1]);
             tmp := lps[2];
             If (tmp =? {}, tmp := {1/c1[1]});
-            If (Length(c1)>1,
+            If (Length(c1)>?1,
             [
                ForEach(k, (Length(tmp)+1) .. Length(c1))
                [

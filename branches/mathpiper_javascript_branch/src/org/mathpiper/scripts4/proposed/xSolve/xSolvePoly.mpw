@@ -43,7 +43,7 @@
       If(Type(roots) = "List",
           [
               If(iDebug=True,Tell("   sp4_is_list",Length(roots)));
-              If(Length(roots) > 1, 
+              If(Length(roots) >? 1, 
                   [Tell("      >1"); result := MapSingle({{t},var==t}, roots);],
                   If( Type(roots[1]) = "List",
                       [Tell("        List"); result := MapSingle({{t},var==t}, roots[1]);],

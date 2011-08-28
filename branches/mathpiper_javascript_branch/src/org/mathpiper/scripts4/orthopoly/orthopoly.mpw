@@ -53,13 +53,13 @@ Usage:
 /* Plain polynomials */
 // some are computed by general routines, and some are replaced by more efficient routines below
 OrthoP(n_IsInteger, _x)_(n>=?0) <-- OrthoP(n, 0, 0, x);
-OrthoP(n_IsInteger, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(n>=?0 And a> -1 And b> -1) <-- OrthoPoly("Jacobi", n, {a, b}, x);
+OrthoP(n_IsInteger, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(n>=?0 And a>? -1 And b>? -1) <-- OrthoPoly("Jacobi", n, {a, b}, x);
 
-OrthoG(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And a> -1/2) <-- OrthoPoly("Gegenbauer", n, {a}, x);
+OrthoG(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And a>? -1/2) <-- OrthoPoly("Gegenbauer", n, {a}, x);
 
 OrthoH(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Hermite", n, {}, x);
 
-OrthoL(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And a> -1) <-- OrthoPoly("Laguerre", n, {a}, x);
+OrthoL(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And a>? -1) <-- OrthoPoly("Laguerre", n, {a}, x);
 
 OrthoT(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb1", n, {}, x);
 OrthoU(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb2", n, {}, x);
@@ -67,13 +67,13 @@ OrthoU(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb2", n, {}, x);
 /* Sums of series of orthogonal polynomials */
 
 OrthoPSum(c_IsList, _x) <-- OrthoP(c, 0, 0, x);
-OrthoPSum(c_IsList, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(a> -1 And b> -1) <-- OrthoPolySum("Jacobi", c, {a, b}, x);
+OrthoPSum(c_IsList, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(a>? -1 And b>? -1) <-- OrthoPolySum("Jacobi", c, {a, b}, x);
 
-OrthoGSum(c_IsList, a_IsRationalOrNumber, _x)_(a> -1/2) <-- OrthoPolySum("Gegenbauer", c, {a}, x);
+OrthoGSum(c_IsList, a_IsRationalOrNumber, _x)_(a>? -1/2) <-- OrthoPolySum("Gegenbauer", c, {a}, x);
 
 OrthoHSum(c_IsList, _x) <-- OrthoPolySum("Hermite", c, {}, x);
 
-OrthoLSum(c_IsList, a_IsRationalOrNumber, _x)_(a> -1) <-- OrthoPolySum("Laguerre", c, {a}, x);
+OrthoLSum(c_IsList, a_IsRationalOrNumber, _x)_(a>? -1) <-- OrthoPolySum("Laguerre", c, {a}, x);
 
 OrthoTSum(c_IsList, _x) <-- OrthoPolySum("Tscheb1", c, {}, x);
 OrthoUSum(c_IsList, _x) <-- OrthoPolySum("Tscheb2", c, {}, x);
@@ -83,7 +83,7 @@ Orthogonal polynomials are evaluated using a general routine OrthoPolyCoeffs tha
 
 The recurrence relations start with n=0 and n=1 (the n=0 polynomial is always identically 1) and continue for n>=2. Note that the n=1 polynomial is not always given by the n=1 recurrence formula if we assume P_{-1}=0, so the recurrence should be considered undefined at n=1.
 
-        For Legendre/Jacobi polynomials: (a>-1, b>-1)
+        For Legendre/Jacobi polynomials: (a>?-1, b>?-1)
 P(0,a,b,x):=1
 P(1,a,b,x):=(a-b)/2+x*(1+(a+b)/2)
 P(n,a,b,x):=(2*n+a+b-1)*(a^2-b^2+x*(2*n+a+b-2)*(2*n+a+b))/(2*n*(n+a+b)*(2*n+a+b-2))*P(n-1,a,b,x)-(n+a-1)*(n+b-1)*(2*n+a+b)/(n*(n+a+b)*(2*n+a+b-2))*P(n-2,a,b,x)
@@ -93,12 +93,12 @@ H(0,x):=1
 H(1,x):=2*x
 H(n,x):=2*x*H(n-1,x)-2*(n-1)*H(n-2,x)
 
-        For Gegenbauer polynomials: (a>-1/2)
+        For Gegenbauer polynomials: (a>?-1/2)
 G(0,a,x):=1
 G(1,a,x):=2*a*x
 G(n,a,x):=2*(1+(a-1)/n)*x*G(n-1,a,x)-(1+2*(a-2)/n)*G(n-2,a,x)
 
-        For Laguerre polynomials: (a>-1)
+        For Laguerre polynomials: (a>?-1)
 L(0,a,x):=1
 L(1,a,x):=a+1-x
 L(n,a,x):=(2+(a-1-x)/n)*L(n-1,a,x)-(1+(a-1)/n)*L(n-2,a,x)
@@ -198,7 +198,7 @@ OrthoPolyCoeffs(name, n, p) returns the list of coefficients for orthogonal poly
 10 # OrthoPolyCoeffs(name_IsString, 1, p_IsList) <-- Apply(KnownOrthoPoly()[name], {1, p})[1];
 
 /* Simple implementation, very slow, for testing only: recursive rule matches, no loops
-20 # OrthoPolyCoeffs(name_IsString, n_IsInteger, p_IsList)_(n>1) <-- [
+20 # OrthoPolyCoeffs(name_IsString, n_IsInteger, p_IsList)_(n>?1) <-- [
         Local(ruleCoeffs, newCoeffs);
         ruleCoeffs := Apply(KnownOrthoPoly()[name], {n, p})[2];
         newCoeffs := OrthoPolyCoeffs(name, n-1, p);
@@ -209,7 +209,7 @@ OrthoPolyCoeffs(name, n, p) returns the list of coefficients for orthogonal poly
 /* A fast implementation that works directly with lists and saves memory. Same recurrence as in OrthoPolyNumeric() */
 /* note: here we pass "name" instead of "KnownOrthoPoly()[name]" for efficiency, but strictly speaking we don't need to use this global constant */
 
-20 # OrthoPolyCoeffs(name_IsString, n_IsInteger, p_IsList)_(n>1) <-- [
+20 # OrthoPolyCoeffs(name_IsString, n_IsInteger, p_IsList)_(n>?1) <-- [
         Local(ruleCoeffs, tmpCoeffs, newCoeffs, prevCoeffs, index, jndex, tmptmpCoeffs, prevCoeffsA, newCoeffsA, tmpCoeffsA);
         /* For speed, allocate all lists now. Length is n+1 */
         prevCoeffsA := ZeroVector(n+1);
@@ -277,7 +277,7 @@ OrthoPolySumCoeffs(name_IsString, c_IsList, p_IsList) <-- [
                 For(jndex:=2, jndex <=? n-index, jndex:=jndex+1) [
                         tmpCoeffs[jndex] := ruleCoeffs[1]*newCoeffs[jndex] + ruleCoeffs1[3]*prevCoeffs[jndex] + ruleCoeffs[2]*newCoeffs[jndex-1];
                 ];
-                If(n-index>0, tmpCoeffs[n-index+1] := ruleCoeffs[2]*newCoeffs[n-index]);
+                If(n-index>?0, tmpCoeffs[n-index+1] := ruleCoeffs[2]*newCoeffs[n-index]);
 /*
                 prevCoeffs := FlatCopy(newCoeffs);
                 newCoeffs := FlatCopy(tmpCoeffs);
@@ -407,7 +407,7 @@ BitList(n) := BitList(n, {});
 OrthoPolyCoeffs("Hermite", n_IsInteger, {}) <-- HermiteCoeffs(n);
 
 /// Return the list of coefficiets of Hermite polynomials.
-HermiteCoeffs(n_IsEven)_(n>0) <--
+HermiteCoeffs(n_IsEven)_(n>?0) <--
 [
         Local(i, k, result);
         k := Quotient(n,2);
@@ -417,7 +417,7 @@ HermiteCoeffs(n_IsEven)_(n>0) <--
                 result[2*i+1] := Quotient(-2*result[2*i-1] * (k-i+1), (2*i-1)*i);        // this division is always integer but faster with Quotient()
         result;
 ];
-HermiteCoeffs(n_IsOdd)_(n>0) <--
+HermiteCoeffs(n_IsOdd)_(n>?0) <--
 [
         Local(i, k, result);
         k := Quotient(n,2);

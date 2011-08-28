@@ -2,7 +2,7 @@
 
 RandVerifyArithmetic(_n)<--
 [
- While(n>0)
+ While(n>?0)
  [
    n--;
    VerifyArithmetic(FloorN(300*Random()),FloorN(80*Random()),FloorN(90*Random()));

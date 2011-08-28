@@ -3,7 +3,7 @@
 //Jonathan Leto
 
 10 # BesselJ(0,0)         <-- 1;
-10 # BesselJ(_n,0)_(n>0) <-- 0;
+10 # BesselJ(_n,0)_(n>?0) <-- 0;
 10 # BesselJ(_n,0)_(n<?0 And IsInteger(n)) <-- 0;
 10 # BesselJ(_n,0)_(n<?0 And Not IsInteger(n)) <-- Infinity;
 10 # BesselJ(0,Infinity)<-- 0;
@@ -16,7 +16,7 @@
 
 
 // Forward recursion, works great, but really slow when n << x
-30 # BesselJ(_n,_x)_(IsConstant(x) And IsInteger(n) And N(Abs(x) > 2*Gamma(n))) <-- N((2*(n+1)/x)*BesselJ(n+1,x) - BesselJ(n+2,x));
+30 # BesselJ(_n,_x)_(IsConstant(x) And IsInteger(n) And N(Abs(x) >? 2*Gamma(n))) <-- N((2*(n+1)/x)*BesselJ(n+1,x) - BesselJ(n+2,x));
 
 30 # BesselJ(_n,_z)_(n<?0 And IsInteger(n) ) <-- (-1)^n*BesselJ(-n,z);
 

@@ -14,7 +14,7 @@ Bernoulli1(n_IsEven)_(n>=?2) <-- [
         If (InVerboseMode(), Echo({"Bernoulli: using zeta funcion, precision ", BuiltinPrecisionSet(), ", n = ", n}));
         B := Floor(N(        // compute integer part of B
                 If(        // use different methods to compute Zeta function
-                        n>250,        // threshold is roughly right for internal math
+                        n>?250,        // threshold is roughly right for internal math
                         Internal'ZetaNum2(n, n/17+1),        // with this method, a single Bernoulli number n is computed in O(n*M(P)) operations where P = O(n*Ln(n)) is the required precision
                         // Brent's method requires n^2*P+n*M(P)
                         // simple array method requires

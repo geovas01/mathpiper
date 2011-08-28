@@ -59,7 +59,7 @@ AlphaToChiSquareScore(p, df) :=
         chisqval := N(df / SqrtN(p));
         
         /* fair first value */
-        While ((maxchisq - minchisq) > ChiEpsilon) 
+        While ((maxchisq - minchisq) >? ChiEpsilon) 
         [
             if (ChiSquareScoreToAlpha(chisqval, df) <? p) 
             [

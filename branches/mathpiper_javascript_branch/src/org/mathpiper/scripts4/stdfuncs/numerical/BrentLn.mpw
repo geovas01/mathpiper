@@ -12,7 +12,7 @@ LocalSymbols(BrentCacheOfConstantsN)
 
 // compute Ln(x_IsInteger) using the AGM sequence. See: Brent paper rpb028 (1975).
 // this is currently faster than LogN(n) for precision > 40 digits
-10 # BrentLn(x_IsInteger)_(BuiltinPrecisionGet()>40) <--
+10 # BrentLn(x_IsInteger)_(BuiltinPrecisionGet()>?40) <--
 [
         Local(y, n, k, eps);
         n := BuiltinPrecisionGet();        // decimal digits
@@ -33,7 +33,7 @@ LocalSymbols(BrentCacheOfConstantsN)
 20 # BrentLn(_x)_(x<?1) <-- -BrentLn(1/x);
 
 // this is currently faster than LogN() for precision > 85 digits and numbers >2
-30 # BrentLn(_x)_(BuiltinPrecisionGet()>85) <--
+30 # BrentLn(_x)_(BuiltinPrecisionGet()>?85) <--
 [
         Local(y, n, n1, k, eps);
   N([

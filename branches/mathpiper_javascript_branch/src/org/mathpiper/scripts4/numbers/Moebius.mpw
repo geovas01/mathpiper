@@ -14,7 +14,7 @@
         factors:=Factors(n);
         len:=Length(factors);
         For(i:=1,i<=?len,i++)[
-                If(factors[i][2]>1,repeat:=1);
+                If(factors[i][2]>?1,repeat:=1);
         ];
         If(repeat=?0,(-1)^len,0);
 

@@ -54,7 +54,7 @@ Rule("OMREP",1,1,True)
         Apply("OMForm",{result});
       ],
       Apply(PrettyPrinterGet(),{result}));
-      If(count > 0 And (count:=count-1) =? 0, Exit());
+      If(count >? 0 And (count:=count-1) =? 0, Exit());
     ]);
   ];
 ];
@@ -178,7 +178,7 @@ LocalSymbols(omindent) [
      Local(arity);
      arity := Length(function);
      OMEcho("<OMS cd=\"piper\" name=\"":Type(function):"\"/>");
-     If(arity > 0, ForEach(arg, function) OMFormExpression(arg));
+     If(arity >? 0, ForEach(arg, function) OMFormExpression(arg));
      ];
 10 # OMFormFunction(function_IsFunction)_(OMSymbol()[ Type(function) ] !=? Empty)
      <--

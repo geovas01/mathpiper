@@ -31,7 +31,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
   [
     result:={{-Mmax,Mmax}};
   ];
-  if (N>1)
+  if (N>?1)
   [
     work :=
     {
@@ -62,7 +62,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
         [
           result:=Concat(result,{{a,c-M}});
         ];
-        if (Va > Vcmin+1)
+        if (Va >? Vcmin+1)
         [
           work:=Concat(work,{{a,c-M,Va,Vcmin}});
         ];
@@ -81,7 +81,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
         [
           result:=Concat(result,{{a,c}});
         ];
-        if (Va > Vc+1)
+        if (Va >? Vc+1)
         [
           work:=Concat(work,{{a,c,Va,Vc}});
         ];

@@ -25,7 +25,7 @@
     //    Tell("         ",oldPlaces);
     //   ]
     //);
-    If(oldPlaces+place>0,
+    If(oldPlaces+place>?0,
         ans := RoundToPrecision(N,oldPlaces+place),
         ans := 0.
     );

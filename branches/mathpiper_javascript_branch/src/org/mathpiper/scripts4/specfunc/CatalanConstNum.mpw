@@ -47,7 +47,7 @@ CatalanConstNum() :=
         BuiltinPrecisionSet(prec+2);        // 2 guard digits
 
         result := N(1/(2*n+1));
-        While(n>0)
+        While(n>?0)
         [
 /*
                 result := MultiplyNum(result, n/(4*n+2))+N(1/(2*n-1));

@@ -4,7 +4,7 @@
 10 # Sign(n_IsZero) <-- 0;
 20 # Sign(n_IsNumber) <-- -1;
 15 # Sign(n_IsInfinity)_(n <? 0) <-- -1;
-15 # Sign(n_IsInfinity)_(n > 0) <-- 1;
+15 # Sign(n_IsInfinity)_(n >? 0) <-- 1;
 15 # Sign(n_IsNumber/m_IsNumber) <-- Sign(n)*Sign(m);
 20 # Sign(n_IsList) <-- MapSingle("Sign",n);
 

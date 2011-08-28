@@ -31,7 +31,7 @@
     [
         i1 := RandomInteger(10);
         i2 := RandomInteger(-10,10);
-        If( i1 > 1, i2 := i1*i2 );
+        If( i1 >? 1, i2 := i1*i2 );
         p[ii] := NormalForm(UniVariate(var,0,{i2,i1}));
     ];
     quadPoly := ExpandBrackets(p[1]*p[2]);
@@ -85,14 +85,14 @@
         [
           i1 := RandomInteger(2);
           i2 := RandomInteger(-10,10);
-          If( i1 > 1, i2 := i1*i2 );
+          If( i1 >? 1, i2 := i1*i2 );
           p[ii] := NormalForm(UniVariate(var,0,{i2,i1}));
         ];
       ],
       [
           i1 := RandomInteger(2);
           i2 := RandomInteger(-10,10);
-          If( i1 > 1, i2 := i1*i2 );
+          If( i1 >? 1, i2 := i1*i2 );
           p[1] := NormalForm(UniVariate(var,0,{i2,i1}));
           p[2] := RandomIrreducibleQuadratic(var);
       ]
@@ -110,7 +110,7 @@
           p[1] := NewRandomPoly(3,x);
           i1 := RandomInteger(2);
           i2 := RandomInteger(-10,10);
-          If( i1 > 1, i2 := i1*i2 );
+          If( i1 >? 1, i2 := i1*i2 );
           p[2] := NormalForm(UniVariate(var,0,{i2,i1}));
       ],
       [
@@ -133,7 +133,7 @@
 ];
 
 
-11 # NewRandomPoly( deg_IsPositiveInteger, _var )_(deg > 5) <--
+11 # NewRandomPoly( deg_IsPositiveInteger, _var )_(deg >? 5) <--
 [
     Local(p,n,m);
     p := {};
@@ -146,7 +146,7 @@
         m := m - n;
     ];
     Tell("      ",m);
-    If( m > 0, Push(p,NewRandomPoly(m,x)));
+    If( m >? 0, Push(p,NewRandomPoly(m,x)));
     Expand(Product(p));
 ];
 

@@ -8,7 +8,7 @@ Function("Difference",{list1,list2})
   ForEach(item,list1)
   [
     Bind(index,Find(l2,item));
-    If(index>0,
+    If(index>?0,
       [
         DestructiveDelete(l2,index);
         DestructiveDelete(result,Find(result,item));

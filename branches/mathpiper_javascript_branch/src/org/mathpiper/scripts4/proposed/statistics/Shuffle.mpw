@@ -17,7 +17,7 @@ Shuffle(list) :=
     
     index := Length(list);
     
-    While(index > 1)
+    While(index >? 1)
     [
         randomIndex := RandomInteger(1,index);
         

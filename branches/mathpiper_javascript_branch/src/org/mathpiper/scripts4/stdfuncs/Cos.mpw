@@ -2,9 +2,9 @@
 
 1 # CosMap( _n )_(Not(IsRationalOrNumber(n))) <-- ListToFunction({ToAtom("Cos"),n*Pi});
 2 # CosMap( _n )_(n<?0) <-- CosMap(-n);
-2 # CosMap( _n )_(n>2) <-- CosMap(Modulo(n,2));
-3 # CosMap( _n )_(n>1) <-- CosMap(2-n);
-4 # CosMap( _n )_(n>1/2) <-- -CosMap(1-n);
+2 # CosMap( _n )_(n>?2) <-- CosMap(Modulo(n,2));
+3 # CosMap( _n )_(n>?1) <-- CosMap(2-n);
+4 # CosMap( _n )_(n>?1/2) <-- -CosMap(1-n);
 
 5 # CosMap( 0 ) <-- 1;
 5 # CosMap( 1/6 ) <-- Sqrt(3)/2;

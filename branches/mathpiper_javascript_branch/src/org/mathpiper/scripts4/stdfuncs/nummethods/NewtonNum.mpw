@@ -16,7 +16,7 @@ Common'digits(x,y) :=
         If(
                 diff=?0,
                 Infinity,
-                // use approximation Ln(2)/Ln(10) > 351/1166
+                // use approximation Ln(2)/Ln(10) >? 351/1166
                 Quotient(IntLog(FloorN(DivideN(Maximum(Abs(x), Abs(y)), diff)), 2)*351, 1166)
         );         // this many decimal digits in common
 ];
@@ -32,7 +32,7 @@ NewtonNum(_func, _x0, _prec0) <-- NewtonNum(func, x0, prec0, 2);
 NewtonNum(_func, _x'init, _prec0, _order) <--
 [
         Check(prec0>=?4, "Argument", "NewtonNum: Error: initial precision must be at least 4");
-        Check(IsInteger(order) And order>1, "Argument", "NewtonNum: Error: convergence order must be an integer and at least 2");
+        Check(IsInteger(order) And order>?1, "Argument", "NewtonNum: Error: convergence order must be an integer and at least 2");
         Local(x0, x1, prec, exact'digits, int'part, initial'tries);
   N([
     x0 := x'init;
@@ -44,7 +44,7 @@ NewtonNum(_func, _x'init, _prec0, _order) <--
     // first, we get prec0 exact digits
     exact'digits := 0;
     initial'tries := 5;        // stop the loop the the initial value is not good
-    While(exact'digits*order <? prec0 And initial'tries>0)
+    While(exact'digits*order <? prec0 And initial'tries>?0)
     [
       initial'tries--;
       x0 := x1;
@@ -87,7 +87,7 @@ Exp(x/2)-a*Exp(-x/2)=0:
 
 x' := x - 2 * (Exp(x)-a) / (Exp(x)+a)
 
-LN(x_IsNumber)_(x>1 ) <--
+LN(x_IsNumber)_(x>?1 ) <--
         LocalSymbols(y)
 [
 // initial guess is obtained as Ln(x^2)/Ln(2) * (Ln(2)/2)
