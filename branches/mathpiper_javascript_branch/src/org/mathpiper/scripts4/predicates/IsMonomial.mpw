@@ -5,7 +5,7 @@
 
 10 # CanBeMonomial(_expr)_(Type(expr)=?"UniVariate") <-- False;
 
-10 # CanBeMonomial(_expr)<--Not (HasFunc(expr,ToAtom("+")) Or HasFunc(expr,ToAtom("-")));
+10 # CanBeMonomial(_expr)<--Not (HasFunc(expr,ToAtom("+")) Or? HasFunc(expr,ToAtom("-")));
 
 10 # IsMonomial(expr_CanBeMonomial) <-- 
 [

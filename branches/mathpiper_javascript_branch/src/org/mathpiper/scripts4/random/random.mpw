@@ -105,15 +105,15 @@ RngCreate() <-- RngCreate(0);
 
         // check options and assign defaults
         If(
-                options["seed"] =? Empty Or options["seed"] <=? 0,
+                options["seed"] =? Empty Or? options["seed"] <=? 0,
                 options["seed"] := 76544321        // some default seed out of the blue sky
         );
         If(
-                options["engine"] =? Empty Or Not (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] !=? Empty),
+                options["engine"] =? Empty Or? Not (Assert("warning", {"RngCreate: invalid engine", options["engine"]}) KnownRNGEngines()[options["engine"] ] !=? Empty),
                 options["engine"] := "default"
         );
         If(
-                options["dist"] =? Empty Or Not (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] !=? Empty),
+                options["dist"] =? Empty Or? Not (Assert("warning", {"RngCreate: invalid distribution", options["dist"]}) KnownRNGDists()[options["dist"] ] !=? Empty),
                 options["dist"] := "default"
         );
 
@@ -140,7 +140,7 @@ RngSeed(_r, seed_IsInteger) <--
 [
         Local(state);
         (Assert("warning", {"RngSeed: seed must be positive", seed}) seed >? 0
-        ) Or (seed:=76544321);
+        ) Or? (seed:=76544321);
         state := (r[2] @ {seed});        // this calls SomeEngine(r)
         DestructiveReplace(r, 3, state);        // update object
         True;
@@ -173,7 +173,7 @@ GaussianRNGDist(_rng) <--
         Local(a,b,m, new'state, rnumber);
         new'state := rng[3];        // this will be updated at the end
         m:=0;
-        While(m=?0 Or m>=?1)        // repeat generating new x,y  - should not take more than one iteration really
+        While(m=?0 Or? m>=?1)        // repeat generating new x,y  - should not take more than one iteration really
         [
                 {new'state, rnumber} := (rng[2] @ {new'state});
                 a:=2*rnumber-1;

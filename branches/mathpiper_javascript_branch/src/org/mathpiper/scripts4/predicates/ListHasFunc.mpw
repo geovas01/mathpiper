@@ -5,7 +5,7 @@
 /// i.e. ListHasFunc({1,2,3}, List)=False and ListHasFunc({1,2,{3}}, List)=True.
 // need to exclude the List atom itself, so don't use FunctionToList
 19 # ListHasFunc({}, _atom) <-- False;
-20 # ListHasFunc(expr_IsList, atom_IsAtom) <-- HasFunc(First(expr), atom) Or ListHasFunc(Rest(expr), atom);
+20 # ListHasFunc(expr_IsList, atom_IsAtom) <-- HasFunc(First(expr), atom) Or? ListHasFunc(Rest(expr), atom);
 
 %/mathpiper
 

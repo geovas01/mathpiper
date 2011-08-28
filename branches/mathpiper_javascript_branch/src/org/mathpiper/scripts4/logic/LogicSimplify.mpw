@@ -19,8 +19,8 @@
     ForEach(clause, list)
     [
       Local(newclause);
-      //newclause := BubbleSort(LogicRemoveTautologies(Flatten(clause, "Or")), LessThan);
-      Bind(newclause, LogicRemoveTautologies(Flatten(clause, "Or")));
+      //newclause := BubbleSort(LogicRemoveTautologies(Flatten(clause, "Or?")), LessThan);
+      Bind(newclause, LogicRemoveTautologies(Flatten(clause, "Or?")));
       If(newclause !=? {True}, DestructiveAppend(clauses, newclause));
     ];
 
@@ -44,7 +44,7 @@
         Bind(result, True);
         ForEach(item,clauses)
         [
-            Bind(result, result And? UnFlatten(item, "Or", False));
+            Bind(result, result And? UnFlatten(item, "Or?", False));
         ];
 
         result;

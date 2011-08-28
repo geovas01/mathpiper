@@ -71,7 +71,7 @@ LocalSymbols(nNum,mNum)
 40 # (Sqrt(_x))_(x <? 0) >=? 0      <--  False;
 
 // Deal with negated terms
-50 # -(_x) <? 0 <-- Not((x<?0) Or (x=?0));
+50 # -(_x) <? 0 <-- Not((x<?0) Or? (x=?0));
 
 // Define each of {>?,<=?,>=?} in terms of <?
 50 # _n >?  _m <-- m <? n;

@@ -14,7 +14,7 @@ Rule(StandardOperatorsLoad, 0, 1, True)
     Infix("=?",90);
     Infix("And?",1000);
     RightAssociativeSet("And?");
-    Infix("Or", 1010);
+    Infix("Or?", 1010);
     Prefix("Not", 100);
     Infix("<?",90);
     Infix(">?",90);

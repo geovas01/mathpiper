@@ -14,7 +14,7 @@ Rulebase("UniVariate",{var,first,coefs});
 
 Rule("UniVariate",3,10,Length(coefs)>?0 And? coefs[1]=?0)
   UniVariate(var,first+1,Rest(coefs));
-Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
+Rule("UniVariate",3,1000,IsComplex(var) Or? IsList(var))
     ExpandUniVariate(var,first,coefs);
 
 500 # UniVariate(_var,_f1,_c1) + UniVariate(_var,_f2,_c2) <--

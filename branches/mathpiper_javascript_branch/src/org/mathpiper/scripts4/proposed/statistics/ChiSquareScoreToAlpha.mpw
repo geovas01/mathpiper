@@ -35,7 +35,7 @@ ChiSquareScoreToAlpha(score, degreesOfFreedom) :=
     
     ISqrtPi := 0.5641895835477562869480795;   /* 1 / sqrt(pi) */
     
-    if(score <=? 0.0 Or degreesOfFreedom <? 1) 
+    if(score <=? 0.0 Or? degreesOfFreedom <? 1) 
     [
         result := 1.0;
     ]

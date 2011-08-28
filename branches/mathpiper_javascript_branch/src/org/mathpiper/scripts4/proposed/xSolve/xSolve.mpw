@@ -34,7 +34,7 @@ LocalSymbols(res)
         xSolve'System(expr, var);
     ];
   
-  20  # xSolve(_expr, _var)_(Not IsAtom(var) Or IsNumber(var) Or IsString(var)) <--
+  20  # xSolve(_expr, _var)_(Not IsAtom(var) Or? IsNumber(var) Or? IsString(var)) <--
     [ 
         If(iDebug=True,Tell("xSolve2",{expr,var}));
         Assert("xSolve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; 
@@ -415,7 +415,7 @@ LocalSymbols(x)
 
 10 # xSolve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
                 And? Not (HasExpr(Simplify(1 + (e2/e1)), e1)
-                      Or HasExpr(Simplify(1 + (e2/e1)), e2))) <--
+                      Or? HasExpr(Simplify(1 + (e2/e1)), e2))) <--
      [
          If(iDebug,Tell("xSolve71aDivide",{e1,e2,var}));
          xSolve(1 + (e2/e1), var);
@@ -423,7 +423,7 @@ LocalSymbols(x)
                                            
 10 # xSolve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
                 And? Not (HasExpr(Simplify(1 - (e2/e1)), e1)
-                      Or HasExpr(Simplify(1 - (e2/e1)), e2))) <--
+                      Or? HasExpr(Simplify(1 - (e2/e1)), e2))) <--
      [
          If(iDebug,Tell("xSolve71bDivide",{e1,e2,var}));
          xSolve(1 - (e2/e1), var);

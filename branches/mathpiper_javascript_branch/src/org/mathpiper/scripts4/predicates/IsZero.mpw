@@ -4,7 +4,7 @@
 
 // these should be calls to MathSign() and the math library should do this. Or it should be just MathEquals(x,0).
 // for now, avoid underflow and avoid IsZero(10^(-BuiltinPrecisionGet())) returning True.
-10 # IsZero(x_IsNumber) <-- ( MathSign(x) =? 0 Or AbsN(x)  <? PowerN(10, -BuiltinPrecisionGet()));
+10 # IsZero(x_IsNumber) <-- ( MathSign(x) =? 0 Or? AbsN(x)  <? PowerN(10, -BuiltinPrecisionGet()));
 60000 # IsZero(_x) <-- False;
 
 //Note:tk:moved here from univariate.rep.

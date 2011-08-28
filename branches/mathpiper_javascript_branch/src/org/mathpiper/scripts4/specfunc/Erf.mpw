@@ -16,7 +16,7 @@
 
 LocalSymbols(k)
 [
-        40 # Erf(_x)_(InNumericMode() And? (IsNumber(x) Or IsComplex(x)) And? Abs(x) <=? 1) <--
+        40 # Erf(_x)_(InNumericMode() And? (IsNumber(x) Or? IsComplex(x)) And? Abs(x) <=? 1) <--
 [
   Local(prec);
   prec := BuiltinPrecisionGet(); // N(...) modifies the precision
@@ -35,18 +35,18 @@ LocalSymbols(k)
 LocalSymbols(n'max, k)
 [
 
-        50 # Erf(_x)_(InNumericMode() And? (IsNumber(x) Or IsComplex(x))
+        50 # Erf(_x)_(InNumericMode() And? (IsNumber(x) Or? IsComplex(x))
                 And? (
                         [        // strongest condition: the exp(-x^2) asymptotic is already good
                                 n'max := 0;
                                 Re(x^2) >? BuiltinPrecisionGet()*3295/1431+0.121;
                         ]
-                        Or
+                        Or?
                         [        // next condition: the exp(-x^2) helps but we need a few terms of the series too
                                 n'max := N(Minimum((BuiltinPrecisionGet()*3295/1431+0.121)/Internal'LnNum(Abs(x)), 2*Internal'LnNum(Abs(x))), 10);
                                 2*Abs(x)+Re(x^2) >? BuiltinPrecisionGet()*3295/1431+0.121;
                         ]
-                        Or
+                        Or?
                         [        // worst case: exp(-x^2) does not help and we need the full series
         // hack: save a value computed in the predicate to use in the body of rule
                                 n'max := N(({{k}, k+Internal'LnNum(k)} @ BuiltinPrecisionGet()*3295/1431)/2 - 3/2, 10);

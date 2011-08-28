@@ -35,8 +35,8 @@ Rulebase("FCos",{f,x});
 Rulebase(":*:",{x,y});
 
 
-IsTrig(f) := (Type(f) =? "Sin" Or Type(f) =? "Cos");
-IsFTrig(f) := (Type(f) =? "FSin" Or Type(f) =? "FCos");
+IsTrig(f) := (Type(f) =? "Sin" Or? Type(f) =? "Cos");
+IsFTrig(f) := (Type(f) =? "FSin" Or? Type(f) =? "FCos");
 IsMul(f) := (Type(f) =? "*");
 IsMulF(f) := (Type(f) =? ":*:");
 
@@ -78,7 +78,7 @@ Rule("FReplace",1,2,IsPow(f))
 */
 
 Rule("FReplace",1,3,IsTrig(f)) TrigChange(f);
-FTest(f):=(IsMul(f) Or IsPow(f) Or IsTrig(f));
+FTest(f):=(IsMul(f) Or? IsPow(f) Or? IsTrig(f));
 
 /* Central function that converts to internal format */
 FToInternal(f):=Substitute(f,"FTest","FReplace");

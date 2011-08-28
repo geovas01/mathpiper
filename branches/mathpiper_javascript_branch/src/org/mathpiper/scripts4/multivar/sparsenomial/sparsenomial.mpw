@@ -145,7 +145,7 @@ MultiTermLess({_deg1,_fact1},{_deg2,_fact2}) <--
     Bind(deg, deg1-deg2);
     While(deg !=? {} And? First(deg) =? 0) [ Bind(deg, Rest(deg));];
 
-    ((deg =? {}) And? (fact1-fact2 <? 0)) Or
+    ((deg =? {}) And? (fact1-fact2 <? 0)) Or?
     ((deg !=? {}) And? (deg[1] <? 0));
   ];
 

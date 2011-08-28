@@ -29,7 +29,7 @@ LocalSymbols(res)
   12  # Solve(_expr, var_IsList)_(Length(var)=?1) <--
         [ {Solve(expr,var[1])}; ];
   
-  20  # Solve(_expr, _var)_(IsNumber(var) Or IsString(var)) <--
+  20  # Solve(_expr, _var)_(IsNumber(var) Or? IsString(var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
   22  # Solve(_expr, _var)_(Not IsAtom(var) And? Not HasExpr(expr,var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
@@ -49,8 +49,8 @@ LocalSymbols(res)
          Local(v1,v2);
          v1 := WithValue(var, s[2], e1);
          v2 := WithValue(var, s[2], e2);
-         If(Not (IsInfinity(v1) Or (v1 =? Undefined) Or
-                 IsInfinity(v2) Or (v2 =? Undefined)),
+         If(Not (IsInfinity(v1) Or? (v1 =? Undefined) Or?
+                 IsInfinity(v2) Or? (v2 =? Undefined)),
              DestructiveAppend(u, s));
       ];
       u;
@@ -119,7 +119,7 @@ LocalSymbols(x)
      res := Failed,
      [
        expr2 := Eval(Subst(context, var2) expr);
-       If(CanBeUni(var2, expr2) And? (Degree(expr2, var2) =? 0 Or (Degree(expr2, var2) =? 1 And? Coef(expr2, var2, 1) =? 1)),
+       If(CanBeUni(var2, expr2) And? (Degree(expr2, var2) =? 0 Or? (Degree(expr2, var2) =? 1 And? Coef(expr2, var2, 1) =? 1)),
           res := Failed, /* to prevent infinite recursion */
           [
                 sol2 := Solve(expr2, var2);
@@ -263,11 +263,11 @@ LocalSymbols(x)
 
 10 # Solve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
                 And? Not (HasExpr(Simplify(1 + (e2/e1)), e1)
-                      Or HasExpr(Simplify(1 + (e2/e1)), e2)))
+                      Or? HasExpr(Simplify(1 + (e2/e1)), e2)))
                                            <-- Solve(1 + (e2/e1), var);
 10 # Solve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
                 And? Not (HasExpr(Simplify(1 - (e2/e1)), e1)
-                      Or HasExpr(Simplify(1 - (e2/e1)), e2)))
+                      Or? HasExpr(Simplify(1 - (e2/e1)), e2)))
                                            <-- Solve(1 - (e2/e1), var);
 
 20 # Solve'Divide(_e, _v) <-- Failed;

@@ -24,7 +24,7 @@ HeapSort(list, compare) := HeapSort(list, ArrayCreate(Length(list), 0), 1, Lengt
                 // the smallest element of the right half is at iright
                 // the smallest element of the left half is at ileft, access through tmplist
         If(        // we copy an element from ileft either if it is smaller or if the right half is finished; it is unnecessary to copy the remainder of the right half since the right half stays in the "list"
-                iright>?last Or Apply(compare,{tmplist[ileft],list[iright]}),
+                iright>?last Or? Apply(compare,{tmplist[ileft],list[iright]}),
                 [        // take element from ileft
                         list[pleft] := tmplist[ileft];
                         ileft++;

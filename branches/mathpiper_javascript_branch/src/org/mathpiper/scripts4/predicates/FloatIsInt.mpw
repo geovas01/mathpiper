@@ -14,7 +14,7 @@ FloatIsInt(_x) <--
        Bind(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
        ));
      BuiltinPrecisionSet(n+prec);
-     Bind(result,IsZero(RoundTo(x-Floor(x),prec)) Or IsZero(RoundTo(x-Ceil(x),prec)));
+     Bind(result,IsZero(RoundTo(x-Floor(x),prec)) Or? IsZero(RoundTo(x-Ceil(x),prec)));
      BuiltinPrecisionSet(prec);
      result;
    ];

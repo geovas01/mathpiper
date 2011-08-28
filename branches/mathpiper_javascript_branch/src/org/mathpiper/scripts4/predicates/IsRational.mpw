@@ -8,7 +8,7 @@ Function("IsRationalNumeric",{aLeft})
     IsNumber(aLeft[1]) And?
     IsNumber(aLeft[2]);
 
-IsRationalOrNumber(_x) <-- (IsNumber(x) Or IsRationalNumeric(x));
+IsRationalOrNumber(_x) <-- (IsNumber(x) Or? IsRationalNumeric(x));
 
 10 # IsRationalOrInteger(x_IsInteger) <-- True;
 10 # IsRationalOrInteger(x_IsInteger / y_IsInteger) <-- True;

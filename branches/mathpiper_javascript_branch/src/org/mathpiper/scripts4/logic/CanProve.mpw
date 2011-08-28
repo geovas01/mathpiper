@@ -8,11 +8,11 @@
  *
  * Examples:
 CanProve(( (a=>b) And? (b=>c)=>(a=>c) ))  <-- True
-CanProve(a  Or   Not a)                  <-- True
-CanProve(True  Or  a)                    <-- True
-CanProve(False  Or  a)                   <-- a
+CanProve(a  Or?   Not a)                  <-- True
+CanProve(True  Or?  a)                    <-- True
+CanProve(False  Or?  a)                   <-- a
 CanProve(a  And?   Not a)                 <-- False
-CanProve(a  Or b Or (a And? b))           <-- a Or b
+CanProve(a  Or? b Or? (a And? b))           <-- a Or? b
  */
 
  // <=?=> LogicSimplify(expr, 3)
@@ -53,7 +53,7 @@ a implies c". MathPiper supports the following logical operations:
 
 {And?}  :   conjunction, read as "and"
 
-{Or}  :   disjunction, read as "or"
+{Or?}  :   disjunction, read as "or"
 
 {=>}  : implication, read as "implies"
 
@@ -73,28 +73,28 @@ using the rules:
 
         Not  ( Not x)      --> x
 (eliminate double negation),
-        x=>y  -->  Not x  Or  y
+        x=>y  -->  Not x  Or?  y
 (eliminate implication),
-        Not (x And? y)  -->  Not x  Or  Not y
+        Not (x And? y)  -->  Not x  Or?  Not y
 (De Morgan's law),
-        Not (x Or y) -->  Not x  And?  Not y
+        Not (x Or? y) -->  Not x  And?  Not y
 (De Morgan's law),
-        (x And? y) Or z --> (x Or z) And? (y Or z)
+        (x And? y) Or? z --> (x Or? z) And? (y Or? z)
 (distribution),
-        x Or (y And? z) --> (x Or y) And? (x Or z)
+        x Or? (y And? z) --> (x Or? y) And? (x Or? z)
 (distribution),
 and the obvious other rules, such as,
-        True Or x --> True
+        True Or? x --> True
 etc.
 The above rules will translate a proposition into a form
 
-        (p1  Or  p2  Or  ...)  And?  (q1  Or  q2
-           Or  ...)  And? ...
+        (p1  Or?  p2  Or?  ...)  And?  (q1  Or?  q2
+           Or?  ...)  And? ...
 If any of the clauses is false, the entire expression will be false.
 In the next step, clauses are scanned for situations of the form:
 
-        (p Or Y)  And?  ( Not p Or Z) --> (Y Or Z)
-If this combination {(Y Or Z)} is empty, it is false, and
+        (p Or? Y)  And?  ( Not p Or? Z) --> (Y Or? Z)
+If this combination {(Y Or? Z)} is empty, it is false, and
 thus the entire proposition is false.
 
 As a last step, the algorithm negates the result again. This has the
@@ -102,19 +102,19 @@ added advantage of simplifying the expression further.
 
 *E.G.
 
-In> CanProve(a  Or   Not a)
+In> CanProve(a  Or?   Not a)
 Result: True;
-In> CanProve(True  Or  a)
+In> CanProve(True  Or?  a)
 Result: True;
-In> CanProve(False  Or  a)
+In> CanProve(False  Or?  a)
 Result: a;
 In> CanProve(a  And?   Not a)
 Result: False;
-In> CanProve(a  Or b Or (a And? b))
-Result: a Or b;
+In> CanProve(a  Or? b Or? (a And? b))
+Result: a Or? b;
         
 
-*SEE True, False, And?, Or, Not
+*SEE True, False, And?, Or?, Not
 %/mathpiper_docs
 
 
@@ -128,16 +128,16 @@ NextTest("Propositional logic theorem prover: CanProve");
 
 Verify(CanProve(( (a=>b) And? (b=>c) => (a=>c) )),True);
 Verify(CanProve((((a=>b) And? (b=>c))=> (a=>c) )),True);
-Verify(CanProve(( (a=>b) And?((b=>c) => (a=>c)))),((Not a Or b)And?(Not a Or (b Or c))) );
+Verify(CanProve(( (a=>b) And?((b=>c) => (a=>c)))),((Not a Or? b)And?(Not a Or? (b Or? c))) );
 //KnownFailure(BadOutput + WhenPreviousLine + IsUncommented);
 //And *my* previous line (the KnownFailure) aborts.  (witnessed by no report from next line).
 Verify(CanProve( True ),True);
 
-Verify(CanProve(a Or Not a)                   ,True);
-Verify(CanProve(True Or a)                 ,True);
-Verify(CanProve(False Or a)                ,a   );
+Verify(CanProve(a Or? Not a)                   ,True);
+Verify(CanProve(True Or? a)                 ,True);
+Verify(CanProve(False Or? a)                ,a   );
 Verify(CanProve(a And? Not a)                   ,False);
-Verify(CanProve(a Or b Or (a And? b))               ,a Or b  );
+Verify(CanProve(a Or? b Or? (a And? b))               ,a Or? b  );
 
 /* Two theorems from the Pure Implicational Calculus (PIC), in which the
  * only operator is [material] implication.  From the first, all other
@@ -159,23 +159,23 @@ Verify(CanProve(        /* 2. CCpCqrCqCpr */
      ), True);
 
 
-Verify(CanProve((A Or B) And? Not A),            B And? Not A);
-Verify(CanProve((A Or B) And? (Not A Or C)),     (A Or B) And? (C Or Not A));
-Verify(CanProve((B Or A) And? (Not A Or C)),     (A Or B) And? (C Or Not A));
-Verify(CanProve( A And? (A Or B Or C)),       A);
-Verify(CanProve( A And? (Not A Or B Or C)),  A And? (B Or C));
+Verify(CanProve((A Or? B) And? Not A),            B And? Not A);
+Verify(CanProve((A Or? B) And? (Not A Or? C)),     (A Or? B) And? (C Or? Not A));
+Verify(CanProve((B Or? A) And? (Not A Or? C)),     (A Or? B) And? (C Or? Not A));
+Verify(CanProve( A And? (A Or? B Or? C)),       A);
+Verify(CanProve( A And? (Not A Or? B Or? C)),  A And? (B Or? C));
 
 // this is a test of contradication, A==3 should kick A==2 out as they're contradictory
-Verify(CanProve( A==3 And? (A==2 Or B Or C)),  A-3==0 And? (B Or C));
-//TODO Verify(CanProve( A==3 And? (A<?2  Or B Or C)),  A-3==0 And? (B Or C));
-//TODO Verify(CanProve( A==3 And? (A>?2  Or B Or C)),  (A-3==0) And? (((A-2) >? 0) Or B Or C));
+Verify(CanProve( A==3 And? (A==2 Or? B Or? C)),  A-3==0 And? (B Or? C));
+//TODO Verify(CanProve( A==3 And? (A<?2  Or? B Or? C)),  A-3==0 And? (B Or? C));
+//TODO Verify(CanProve( A==3 And? (A>?2  Or? B Or? C)),  (A-3==0) And? (((A-2) >? 0) Or? B Or? C));
 
-Verify(CanProve(Not(Not (p_2-NULL==0))Or Not(p_2-NULL==0)), True);
+Verify(CanProve(Not(Not (p_2-NULL==0))Or? Not(p_2-NULL==0)), True);
 
-LogicVerify(CanProve(P Or (Not P And? Not Q)),P Or Not Q);
+LogicVerify(CanProve(P Or? (Not P And? Not Q)),P Or? Not Q);
 
-LogicVerify(CanProve(P Or (Not P And? Not Q)),P Or Not Q);
+LogicVerify(CanProve(P Or? (Not P And? Not Q)),P Or? Not Q);
 LogicVerify(CanProve(A>?0 And? A<=?0),False);
-LogicVerify(CanProve(A>?0 Or A<=?0),True);
+LogicVerify(CanProve(A>?0 Or? A<=?0),True);
 
 %/mathpiper

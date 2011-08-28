@@ -162,7 +162,7 @@ public class MathPiperPrinter extends LispPrinter {
                 }
 
                 boolean addSpaceAroundInfixOperator = false; //Todo:tk:perhaps a more general way should be found to place a space around operators which are words.
-                if(functionOrOperatorName.equals("And?") || functionOrOperatorName.equals("Or"))
+                if(functionOrOperatorName.equals("And?") || functionOrOperatorName.equals("Or?"))
                 {
                     addSpaceAroundInfixOperator = true;
                 }

@@ -1,6 +1,6 @@
 %mathpiper,def="Determinant"
 
-10 # Determinant(_matrix)_(IsUpperTriangular(matrix) Or IsLowerTriangular(matrix)) <--
+10 # Determinant(_matrix)_(IsUpperTriangular(matrix) Or? IsLowerTriangular(matrix)) <--
 [
         Local(result);
         result:=1;

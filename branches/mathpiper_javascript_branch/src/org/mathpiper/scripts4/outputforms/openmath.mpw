@@ -189,7 +189,7 @@ LocalSymbols(omindent) [
      // probably obsolete. I'll think about removing it.
      symbolDef := OMSymbol()[ OMSignature(function) ];
      If(symbolDef =? Empty, symbolDef := OMSymbol()[ Type(function) ] );
-     If(symbolDef =? Empty Or Length(symbolDef) <? 3 Or symbolDef[3] =? {},
+     If(symbolDef =? Empty Or? Length(symbolDef) <? 3 Or? symbolDef[3] =? {},
         [
         OMEcho("<OMS cd=\"":symbolDef[1]:"\" name=\"":symbolDef[2]:"\"/>");
         ForEach(arg, function) OMFormExpression(arg);
@@ -554,7 +554,7 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
   Local(omcd, omname);
   omcd   := attributes["CD"];
   omname := attributes["NAME"];
-  If(omcd =? Empty Or omname =? Empty,
+  If(omcd =? Empty Or? omname =? Empty,
      OMCheck(False, "Argument", OMError({"moreerrors", "encodingError"}, PipeToString()Echo("missing \"cd\" or \"name\" attribute: ",attributes))),
      [
      Local(cdTable, piperform);
@@ -687,7 +687,7 @@ OMDef( "!=?="   ,  "logic1", "not",
       );
 */
 OMDef( "False",  "logic1", "false" );
-OMDef( "Or"   ,  "logic1", "or"    );
+OMDef( "Or?"   ,  "logic1", "or"    );
 OMDef( "True" ,  "logic1", "true"  );
 //[20010916 AGP ] Xor is not available in MathPiper.
 //     "Xor"  ,  "logic1", "xor"   );
@@ -778,7 +778,7 @@ OMDef( "LogicRemoveTautologies", mathpiper,"logic_remove_tautologies" );
 OMDef( "Subsumes"     ,          mathpiper,"subsumes"                 );
 // The following appear in the def file, but commented out:
 //     "~",  mathpiper, "Not"
-//     "|",  mathpiper, "Or"
+//     "|",  mathpiper, "Or?"
 //     "&",  mathpiper, "And?"
 
 //LoadScriptOnce("complex.rep/om.mpi");
@@ -851,7 +851,7 @@ OMDef("Limit", "limit1","limit",
 //      {  _0, _2, Left,  OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Left)
 //      |{ _0, _2, Right, OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _4) }_(_3=Right)
 //      |{ _0, _2, OMS("limit1", "both_sides"), OMBIND(OMS("fns1", "lambda"), OMBVAR(_1), _3) },
-//      { _0, _{3,2,1}, _1, _2, _{3,3}}_(_2=Left Or _2=Right)
+//      { _0, _{3,2,1}, _1, _2, _{3,3}}_(_2=Left Or? _2=Right)
 //      |{_0, _{3,2,1}, _1, _{3,3}}
 // The result is exactly the same. The only difference is when producing the
 // OMForm of the symbols themselves, outside the limit expression.

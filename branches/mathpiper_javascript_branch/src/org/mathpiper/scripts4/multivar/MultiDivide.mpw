@@ -53,7 +53,7 @@
     [
       glt := MultiLT(g[i]);
 
-      if (MultiLM(glt) =? MultiLM(plt) Or MultiTermLess({MultiLM(glt),1}, {MultiLM(plt),1}))
+      if (MultiLM(glt) =? MultiLM(plt) Or? MultiTermLess({MultiLM(glt),1}, {MultiLM(plt),1}))
       [
         //   corrected if-select statement  110708    hso
         if (Select(MultiLM(plt)-MultiLM(glt),{{n},n<?0}) =? {} )

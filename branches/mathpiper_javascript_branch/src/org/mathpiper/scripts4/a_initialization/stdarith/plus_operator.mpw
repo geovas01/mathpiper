@@ -24,7 +24,7 @@
 150 # _n1 / _d + _n2 / _d <-- (n1+n2)/d;
 
 200 # (x_IsNumber + _y)_Not(IsNumber(y)) <-- y+x;
-200 # ((_y + x_IsNumber) + _z)_Not(IsNumber(y) Or IsNumber(z)) <-- (y+z)+x;
+200 # ((_y + x_IsNumber) + _z)_Not(IsNumber(y) Or? IsNumber(z)) <-- (y+z)+x;
 200 # ((x_IsNumber + _y) + z_IsNumber)_Not(IsNumber(y)) <-- y+(x+z);
 200 # ((_x + y_IsNumber) + z_IsNumber)_Not(IsNumber(x)) <-- x+(y+z);
 // fractions

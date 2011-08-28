@@ -56,7 +56,7 @@ Macro("TestEquivalent",{left,right})
                                  Tell("    ",diff);
                               ]
                             );
-                            isEquiv   := ( IsZero(diff) Or IsZeroVector(diff) );
+                            isEquiv   := ( IsZero(diff) Or? IsZeroVector(diff) );
                         ]
                       );
                    ]

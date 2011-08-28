@@ -56,7 +56,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
   ];
 
   a := FastModularPower(b, q, n);
-  flag := (a =? 1 Or a =? m);
+  flag := (a =? 1 Or? a =? m);
   i := 1;
 
   While (Not(flag) And? (i <? r))

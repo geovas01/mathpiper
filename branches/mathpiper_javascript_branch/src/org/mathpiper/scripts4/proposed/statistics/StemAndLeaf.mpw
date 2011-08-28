@@ -20,7 +20,7 @@ intlabels(y1,y2,tnumint) := [
   //i = 0;
   xx = 0;
   breakLoop := False;
-  While (yy-x <? y2 Or breakLoop = True) [
+  While (yy-x <? y2 Or? breakLoop = True) [
       L := Append(L, yy);
     yy := yy + x;
     //i++;
@@ -314,7 +314,7 @@ stemandleaf(x) :=
           if (base2 = 0)
           [
                     zcount ++;
-                if ( ((indexA = 2) And? (zcount >=?6)) Or ((indexA = 3) And? (zcount >=?3)) Or ((indexA = 1) And? (zcount >?1)) Or ((indexA = 4) And? (zcount >?1))) 
+                if ( ((indexA = 2) And? (zcount >=?6)) Or? ((indexA = 3) And? (zcount >=?3)) Or? ((indexA = 1) And? (zcount >?1)) Or? ((indexA = 4) And? (zcount >?1))) 
                  [
                     stems := Append(stems,"-" : ToString(base2));
                  ] 

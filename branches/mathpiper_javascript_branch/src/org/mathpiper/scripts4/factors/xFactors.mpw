@@ -557,7 +557,7 @@ UnFence("FixUpMonicFactors",1);
     [
         res := N(Subst(x,ii) poly);
         //Tell("      ",{ii,res,IsPrime(res)});
-        If(Abs(res)=?1 Or IsPrime(res), nprimes := nprimes + 1, );
+        If(Abs(res)=?1 Or? IsPrime(res), nprimes := nprimes + 1, );
     ];
     Tell("   ",nprimes);
     If(nprimes >? 2*deg, True, False );
