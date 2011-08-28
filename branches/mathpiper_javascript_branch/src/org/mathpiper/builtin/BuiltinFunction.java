@@ -453,7 +453,7 @@ public abstract class BuiltinFunction {
         "AndN");*/
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new And(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "And"); //Alias.
+                "And?"); //Alias.
 		/*aEnvironment.getBuiltinFunctions().setAssociation(
         new BuiltinFunctionEvaluator(new Or(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
         "OrN");*/

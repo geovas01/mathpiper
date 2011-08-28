@@ -7,7 +7,7 @@ GuessRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
         Local(denom'estimate, cf, i);
         denom'estimate := 1;
         cf := ContFracList(x);
-        For(i:=2, i<=?Length(cf) And denom'estimate <? 10^prec, i++)
+        For(i:=2, i<=?Length(cf) And? denom'estimate <? 10^prec, i++)
                 [        // estimate the denominator
                         denom'estimate := denom'estimate * If(
                                 cf[i] =? 1,

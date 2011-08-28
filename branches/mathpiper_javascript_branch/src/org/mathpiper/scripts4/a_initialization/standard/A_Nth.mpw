@@ -3,7 +3,7 @@
 /* Implementation of Nth that allows extending. */
 Rulebase("Nth",{alist,aindex});
 Rule("Nth",2,10,
-    And(IsEqual(IsFunction(alist),True),
+    And?(IsEqual(IsFunction(alist),True),
             IsEqual(IsInteger(aindex),True),
             Not(IsEqual(First(FunctionToList(alist)),Nth))
             ))
@@ -13,7 +13,7 @@ Rule("Nth",2,10,
 
 
 Rule("Nth",2,14,
-     And(IsEqual(IsString(alist),True),IsList(aindex))
+     And?(IsEqual(IsString(alist),True),IsList(aindex))
     )
 [
   Local(result);
@@ -34,7 +34,7 @@ Rule("Nth",2,20,IsEqual(IsList(aindex),True))
 ];
 
 Rule("Nth",2,30,
-   And(
+   And?(
            IsEqual(IsGeneric(alist),True),
            IsEqual(GenericTypeName(alist),"Array"),
            IsEqual(IsInteger(aindex),True)

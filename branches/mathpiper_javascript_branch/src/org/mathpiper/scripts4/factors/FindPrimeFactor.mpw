@@ -23,7 +23,7 @@ FindPrimeFactor(n, prime) :=
         n := Quotient(n, factor);
         // second loop: decrease step
         step := Quotient(power,2);
-        While(step>?0 And n >? 1)
+        While(step>?0 And? n >? 1)
         [
                 factor := prime^step;
                 If(

@@ -59,7 +59,7 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
         
         JavaCall(geogebra,"evalXML",code);
         
-        If(options["lines"] =? "True" And labelIndex >? 1,
+        If(options["lines"] =? "True" And? labelIndex >? 1,
         [
             
             command := PatchString("a<?Write(labelIndex-1);?> = Segment[A<?Write(labelIndex-1);?>,A<?Write(labelIndex);?>]");

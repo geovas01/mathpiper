@@ -6,7 +6,7 @@
 /*
    Simplify a boolean expression. CNF is responsible
    for converting an expression to the following form:
-        (p1  Or  p2  Or  ...)  And  (q1  Or  q2  Or  ...)  And ...
+        (p1  Or  p2  Or  ...)  And?  (q1  Or  q2  Or  ...)  And? ...
    That is, a conjunction of disjunctions.
 */
 
@@ -14,10 +14,10 @@
 // Trivial simplifications
 10  # CNF( Not  True)                  <-- False;
 11  # CNF( Not  False)                 <-- True;
-12  # CNF(True   And  (_x))            <-- CNF(x);
-13  # CNF(False  And  (_x))            <-- False;
-14  # CNF(_x   And  True)              <-- CNF(x);
-15  # CNF(_x  And  False)              <-- False;
+12  # CNF(True   And?  (_x))            <-- CNF(x);
+13  # CNF(False  And?  (_x))            <-- False;
+14  # CNF(_x   And?  True)              <-- CNF(x);
+15  # CNF(_x  And?  False)              <-- False;
 16  # CNF(True   Or  (_x))             <-- True;
 17  # CNF(False  Or  (_x))             <-- CNF(x);
 18  # CNF((_x)  Or  True )             <-- True;
@@ -25,20 +25,20 @@
 
 // A bit more complext
 21  # CNF(_x  Or  _x)                  <-- CNF(x);
-22  # CNF(_x  And  _x)                 <-- CNF(x);
+22  # CNF(_x  And?  _x)                 <-- CNF(x);
 23  # CNF(_x  Or Not (_x))             <-- True;
 14  # CNF(Not (_x)  Or _x)             <-- True;
-25  # CNF(_x  And Not (_x))            <-- False;
-26  # CNF(Not (_x)  And _x)            <-- False;
+25  # CNF(_x  And? Not (_x))            <-- False;
+26  # CNF(Not (_x)  And? _x)            <-- False;
 
 // Simplifications that deal with (in)equalities
 25  # CNF(((_x) == (_y))   Or  ((_x) !== (_y)))   <-- True;
 25  # CNF(((_x) !== (_y))  Or  ((_x) == (_y)))    <-- True;
-26  # CNF(((_x) == (_y))   And ((_x) !== (_y)))   <-- False;
-26  # CNF(((_x) !== (_y))  And ((_x) == (_y)))    <-- False;
+26  # CNF(((_x) == (_y))   And? ((_x) !== (_y)))   <-- False;
+26  # CNF(((_x) !== (_y))  And? ((_x) == (_y)))    <-- False;
 
-27  # CNF(((_x) >=? (_y))   And ((_x) <? (_y)))     <-- False;
-27  # CNF(((_x) <? (_y))    And ((_x) >=? (_y)))    <-- False;
+27  # CNF(((_x) >=? (_y))   And? ((_x) <? (_y)))     <-- False;
+27  # CNF(((_x) <? (_y))    And? ((_x) >=? (_y)))    <-- False;
 28  # CNF(((_x) >=? (_y))   Or  ((_x) <? (_y)))     <-- True;
 28  # CNF(((_x) <? (_y))    Or  ((_x) >=? (_y)))    <-- True;
 
@@ -55,21 +55,21 @@
 40 # CNF( Not ( Not  (_x)))           <-- CNF(x);                           // eliminate double negation
 45 # CNF((_x)=>(_y))                  <-- CNF((Not (x))  Or  (y));              // eliminate implication
 
-50 # CNF( Not ((_x)  And  (_y)))      <-- CNF((Not x) Or (Not y));          // De Morgan's law
-60 # CNF( Not ((_x)  Or  (_y)))       <-- CNF(Not (x)) And CNF(Not (y));        // De Morgan's law
+50 # CNF( Not ((_x)  And?  (_y)))      <-- CNF((Not x) Or (Not y));          // De Morgan's law
+60 # CNF( Not ((_x)  Or  (_y)))       <-- CNF(Not (x)) And? CNF(Not (y));        // De Morgan's law
 
 /*
-70 # CNF((_x) And ((_y)  Or  (_z)))   <-- CNF(x And y) Or CNF(x And z);
-70 # CNF(((_x) Or (_y)) And (_z))     <-- CNF(x And z) Or CNF(y And z);
+70 # CNF((_x) And? ((_y)  Or  (_z)))   <-- CNF(x And? y) Or CNF(x And? z);
+70 # CNF(((_x) Or (_y)) And? (_z))     <-- CNF(x And? z) Or CNF(y And? z);
 
-80 # CNF((_x)  Or  ((_y)  And  (_z))) <-- CNF(x Or y) And CNF(x Or z);
-80 # CNF(((_x)  And  (_y)) Or (_z))   <-- CNF(x Or z) And CNF(y Or z);
+80 # CNF((_x)  Or  ((_y)  And?  (_z))) <-- CNF(x Or y) And? CNF(x Or z);
+80 # CNF(((_x)  And?  (_y)) Or (_z))   <-- CNF(x Or z) And? CNF(y Or z);
 */
 
-70 # CNF(((_x)  And  (_y))  Or  (_z)) <-- CNF(x Or z) And CNF(y Or z);      // Distributing Or over And
-80 # CNF((_x)  Or  ((_y)  And  (_z))) <-- CNF(x Or y) And CNF(x Or z);
+70 # CNF(((_x)  And?  (_y))  Or  (_z)) <-- CNF(x Or z) And? CNF(y Or z);      // Distributing Or over And?
+80 # CNF((_x)  Or  ((_y)  And?  (_z))) <-- CNF(x Or y) And? CNF(x Or z);
 
-90 # CNF((_x)  And  (_y))             <-- CNF(x) And CNF(y);                // Transform subexpression
+90 # CNF((_x)  And?  (_y))             <-- CNF(x) And? CNF(y);                // Transform subexpression
 
 101 # CNF( (_x) <? (_y) )              <-- Not CNFInEq(x >=?  y);
 102 # CNF( (_x) >? (_y) )              <-- CNFInEq(x >?   y);
@@ -107,21 +107,21 @@ NextTest("CNF");
     The main point is that CNF should return an answer in CNF, that is,
     as a conjunction of disjuncts.
 */
-Verify(CNF(A And A),      A);
-Verify(CNF(A And True),   A);
+Verify(CNF(A And? A),      A);
+Verify(CNF(A And? True),   A);
 
 
-Verify(CNF(A And False),  False);
+Verify(CNF(A And? False),  False);
 Verify(CNF(A Or  True),   True);
 Verify(CNF(A Or  False),  A);
 Verify(CNF(A Or  Not A),  True);
-Verify(CNF(A And Not A),  False);
+Verify(CNF(A And? Not A),  False);
 
 
-Verify(CNF((A And B) Or (A And B)),             A And B);
-Verify(CNF(A Or (A And B)),                     A And(A Or B));
-Verify(CNF((A => B) And A),                     (Not A Or B)And A);
-Verify(CNF((A And B) And A),                    (A And B) And A);
-Verify(CNF(Not (A And B) And A),                (Not A Or Not B) And A);
+Verify(CNF((A And? B) Or (A And? B)),             A And? B);
+Verify(CNF(A Or (A And? B)),                     A And?(A Or B));
+Verify(CNF((A => B) And? A),                     (Not A Or B)And? A);
+Verify(CNF((A And? B) And? A),                    (A And? B) And? A);
+Verify(CNF(Not (A And? B) And? A),                (Not A Or Not B) And? A);
 
 %/mathpiper

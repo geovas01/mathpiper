@@ -5,7 +5,7 @@
 /*TODO remove? Not yet. If the code above (ForEachExperimental) can be made to work we can do away with this version. */
 TemplateFunction("ForEach",{item,listOrString,body})
 [
-  If(And(IsEqual(IsGeneric(listOrString),True),
+  If(And?(IsEqual(IsGeneric(listOrString),True),
          IsEqual(GenericTypeName(listOrString),"Array")
          ),
     `ForEachInArray(@item,listOrString,@body),

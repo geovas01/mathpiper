@@ -53,13 +53,13 @@ Usage:
 /* Plain polynomials */
 // some are computed by general routines, and some are replaced by more efficient routines below
 OrthoP(n_IsInteger, _x)_(n>=?0) <-- OrthoP(n, 0, 0, x);
-OrthoP(n_IsInteger, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(n>=?0 And a>? -1 And b>? -1) <-- OrthoPoly("Jacobi", n, {a, b}, x);
+OrthoP(n_IsInteger, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(n>=?0 And? a>? -1 And? b>? -1) <-- OrthoPoly("Jacobi", n, {a, b}, x);
 
-OrthoG(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And a>? -1/2) <-- OrthoPoly("Gegenbauer", n, {a}, x);
+OrthoG(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And? a>? -1/2) <-- OrthoPoly("Gegenbauer", n, {a}, x);
 
 OrthoH(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Hermite", n, {}, x);
 
-OrthoL(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And a>? -1) <-- OrthoPoly("Laguerre", n, {a}, x);
+OrthoL(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And? a>? -1) <-- OrthoPoly("Laguerre", n, {a}, x);
 
 OrthoT(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb1", n, {}, x);
 OrthoU(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb2", n, {}, x);
@@ -67,7 +67,7 @@ OrthoU(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb2", n, {}, x);
 /* Sums of series of orthogonal polynomials */
 
 OrthoPSum(c_IsList, _x) <-- OrthoP(c, 0, 0, x);
-OrthoPSum(c_IsList, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(a>? -1 And b>? -1) <-- OrthoPolySum("Jacobi", c, {a, b}, x);
+OrthoPSum(c_IsList, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(a>? -1 And? b>? -1) <-- OrthoPolySum("Jacobi", c, {a, b}, x);
 
 OrthoGSum(c_IsList, a_IsRationalOrNumber, _x)_(a>? -1/2) <-- OrthoPolySum("Gegenbauer", c, {a}, x);
 
@@ -327,8 +327,8 @@ BitList(n) := BitList(n, {});
 1 # FastOrthoU(1, _x) <-- 2*x;
 
 // guard against user errors
-2 # FastOrthoT(_n, _x) _ (IsInteger(n) And n<?0) <-- Undefined;
-2 # FastOrthoU(_n, _x) _ (IsInteger(n) And n<?0) <-- Undefined;
+2 # FastOrthoT(_n, _x) _ (IsInteger(n) And? n<?0) <-- Undefined;
+2 # FastOrthoU(_n, _x) _ (IsInteger(n) And? n<?0) <-- Undefined;
 
 // make T(), U() of even order more efficient: delegate gruntwork to odd order
 2 # FastOrthoT(n_IsEven, _x) <-- 2*FastOrthoT(Quotient(n,2), x)^2-1;

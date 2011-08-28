@@ -148,7 +148,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
    /* Case 2: Coefficients are already computed */
 
-   If (Not finished And lps[1] !=? Undefined And n2 <? lps[1]+Length(lps[2]),
+   If (Not finished And? lps[1] !=? Undefined And? n2 <? lps[1]+Length(lps[2]),
    [
       If (n1 >=? lps[1],
           res := Take(lps[2], {n1-lps[1]+1, n2-lps[1]+1}),
@@ -186,7 +186,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       /* Subcase 3b: Addition */
 
-      If (Not finished And lps[4][0] =? Taylor'LPS'Add,
+      If (Not finished And? lps[4][0] =? Taylor'LPS'Add,
       [
          lps[1] := Minimum(Taylor'LPS'GetOrder(lps[4][1])[1],
                        Taylor'LPS'GetOrder(lps[4][2])[1], n2);
@@ -207,7 +207,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       /* Subcase 3c: Scalar multiplication */
 
-      If (Not finished And lps[4][0] =? Taylor'LPS'ScalarMult,
+      If (Not finished And? lps[4][0] =? Taylor'LPS'ScalarMult,
       [
          lps[1] := Minimum(Taylor'LPS'GetOrder(lps[4][2])[1], n2);
          If (Not ClearError("dunno"),
@@ -225,7 +225,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       /* Subcase 3d: Multiplication */
 
-      If (Not finished And lps[4][0] =? Taylor'LPS'Multiply,
+      If (Not finished And? lps[4][0] =? Taylor'LPS'Multiply,
       [
          lps[1] := Taylor'LPS'GetOrder(lps[4][1])[1]
                    + Taylor'LPS'GetOrder(lps[4][2])[1];
@@ -251,19 +251,19 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       /* Subcase 3e: Inversion */
 
-      If (Not finished And lps[4][0] =? Taylor'LPS'Inverse,
+      If (Not finished And? lps[4][0] =? Taylor'LPS'Inverse,
       [
          If (lps[4][1][1] =? Infinity,
          [
             Assert("div-by-zero") False;
             finished := True;
          ]);
-         If (Not finished And lps[2] =? {},
+         If (Not finished And? lps[2] =? {},
          [
             order := Taylor'LPS'GetOrder(lps[4][1])[1];
             n := order;
             c1 := Taylor'LPS'Coeffs(lps[4][1], n, n)[1];
-            While (c1 =? 0 And n <? order + Taylor'LPS'Param1())
+            While (c1 =? 0 And? n <? order + Taylor'LPS'Param1())
             [
                n := n + 1;
                 c1 := Taylor'LPS'Coeffs(lps[4][1], n, n)[1];
@@ -296,7 +296,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       /* Subcase 3f: Composition */
 
-      If (Not finished And lps[4][0] =? Taylor'LPS'Compose,
+      If (Not finished And? lps[4][0] =? Taylor'LPS'Compose,
       [
          j := Taylor'LPS'GetOrder(lps[4][1])[1];
          Check(j >=? 0, "Math", "Expansion of f(g(x)) where f has a"
@@ -316,7 +316,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
       [
          /* normalization: remove initial zeros from lps[2] */
 
-         While (lps[2] !=? {} And lps[2][1] =? 0)
+         While (lps[2] !=? {} And? lps[2][1] =? 0)
          [
             lps[1] := lps[1] + 1;
             lps[2] := Rest(lps[2]);
@@ -324,8 +324,8 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
          /* get result */
 
-         If (Not IsError("dunno") And Not IsError("div-by-zero")
-             And Not IsError("maybe-div-by-zero"),
+         If (Not IsError("dunno") And? Not IsError("div-by-zero")
+             And? Not IsError("maybe-div-by-zero"),
          [
             If (lps[1] <=? n1,
                 res := Take(lps[2], {n1-lps[1]+1, n2-lps[1]+1}),
@@ -470,9 +470,9 @@ _[
     Local(c, lps1, lps2, lps3, success);
     success := True;
     If (IsAtom(e1), success := False);
-    If (success And Length(e1) !=? 1, success := False);
-    If (success And IsAtom(e1[1]), success := False);
-    If (success And CanBeUni(var, e1[1]) And Degree(e1[1], var) =? 1,
+    If (success And? Length(e1) !=? 1, success := False);
+    If (success And? IsAtom(e1[1]), success := False);
+    If (success And? CanBeUni(var, e1[1]) And? Degree(e1[1], var) =? 1,
     [
        success := False;
     ]);
@@ -485,7 +485,7 @@ _[
           ClearErrors();
           success := False;
        ]);
-       If (success And Taylor'LPS'GetOrder(lps2)[1] <? 0,
+       If (success And? Taylor'LPS'GetOrder(lps2)[1] <? 0,
        [
           success := False;
        ],[
@@ -553,15 +553,15 @@ _[
 /* Sqrt */
 
 50 # Taylor'LPS'CompOrder(_x, Sqrt(_y))
-   _ (CanBeUni(x,y) And Degree(y,x) =? 1 And Coef(y,x,0) !=? 0)
+   _ (CanBeUni(x,y) And? Degree(y,x) =? 1 And? Coef(y,x,0) !=? 0)
    <-- 0;
 
 50 # Taylor'LPS'CompCoeff(_x, Sqrt(_y), 0)
-   _ (CanBeUni(x,y) And Degree(y,x) =? 1 And Coef(y,x,0) !=? 0)
+   _ (CanBeUni(x,y) And? Degree(y,x) =? 1 And? Coef(y,x,0) !=? 0)
    <-- Sqrt(Coef(y,x,0));
 
 51 # Taylor'LPS'CompCoeff(_x, Sqrt(_y), _n)
-   _ (CanBeUni(x,y) And Degree(y,x) =? 1 And Coef(y,x,0) !=? 0) <--
+   _ (CanBeUni(x,y) And? Degree(y,x) =? 1 And? Coef(y,x,0) !=? 0) <--
 [
    Local(j);
    Coef(y,x,0)^(1/2-n) * Product(j,0,n-1,1/2-j) * Coef(y,x,1)^n/n!;
@@ -572,10 +572,10 @@ _[
 60 # Taylor'LPS'CompOrder(_x, Exp(_x))     <-- 0;
 60 # Taylor'LPS'CompCoeff(_x, Exp(_x), _n) <-- 1/n!;
 
-70 # Taylor'LPS'CompOrder(_x, Exp(_y))_(CanBeUni(x,y) And Degree(y,x) =? 1)
+70 # Taylor'LPS'CompOrder(_x, Exp(_y))_(CanBeUni(x,y) And? Degree(y,x) =? 1)
    <-- 0;
 
-70 # Taylor'LPS'CompCoeff(_x, Exp(_y), _n)_(CanBeUni(x,y) And Degree(y,x) =? 1)
+70 # Taylor'LPS'CompCoeff(_x, Exp(_y), _n)_(CanBeUni(x,y) And? Degree(y,x) =? 1)
    <-- Exp(Coef(y,x,0)) * Coef(y,x,1)^n / n!;
 
 /* Ln */
@@ -621,7 +621,7 @@ Taylor'LPS'AcceptDeriv(_expr) <--
         (Contains({"ArcTan"},Type(expr)));
 /*
         ( Type(Deriv(x)(expr)) !=? "Deriv"
-         And Not Contains({
+         And? Not Contains({
           "/","+","*","^","-","Sin","Cos","Sqrt","Ln","Exp","Tan"
           },Type(expr)));
 */
@@ -633,7 +633,7 @@ Taylor'LPS'AcceptDeriv(_expr) <--
 //      0; //generic case, assume zeroeth coefficient is non-zero.
       Local(n);
       n:=0;
-      While ((Limit(x,0)expr) =? 0 And n<?Taylor'LPS'Param1())
+      While ((Limit(x,0)expr) =? 0 And? n<?Taylor'LPS'Param1())
       [
         expr := Deriv(x)expr;
         n++;
@@ -642,7 +642,7 @@ Taylor'LPS'AcceptDeriv(_expr) <--
       n;
     ];
 200 # Taylor'LPS'CompCoeff(_x, (_expr), _n)_
-      (Taylor'LPS'AcceptDeriv(expr) And n>=?0 ) <--
+      (Taylor'LPS'AcceptDeriv(expr) And? n>=?0 ) <--
     [
     // This routine is written out for debugging purposes
       Local(result);
@@ -688,7 +688,7 @@ Echo(expr," ",n," ",result);
       computed := True;
    ]);
 
-   If (Not computed And lps[4][0] =? Taylor'LPS'Add,
+   If (Not computed And? lps[4][0] =? Taylor'LPS'Add,
    [
       res1 := Taylor'LPS'GetOrder(lps[4][1]);
       If (Not ClearError("dunno"),
@@ -703,13 +703,13 @@ Echo(expr," ",n," ",result);
       ]);
    ]);
 
-   If (Not computed And lps[4][0] =? Taylor'LPS'ScalarMult,
+   If (Not computed And? lps[4][0] =? Taylor'LPS'ScalarMult,
    [
       res := Taylor'LPS'GetOrder(lps[4][2]);
       If (Not ClearError("dunno"), computed := True);
    ]);
 
-   If (Not computed And lps[4][0] =? Taylor'LPS'Multiply,
+   If (Not computed And? lps[4][0] =? Taylor'LPS'Multiply,
    [
       res1 := Taylor'LPS'GetOrder(lps[4][1]);
       If (Not ClearError("dunno"),
@@ -717,13 +717,13 @@ Echo(expr," ",n," ",result);
          res2 := Taylor'LPS'GetOrder(lps[4][2]);
          If (Not ClearError("dunno"),
          [
-            res := {res1[1]+res2[1], res1[1] And res2[1]};
+            res := {res1[1]+res2[1], res1[1] And? res2[1]};
             computed := True;
          ]);
       ]);
    ]);
 
-   If (Not computed And lps[4][0] =? Taylor'LPS'Inverse,
+   If (Not computed And? lps[4][0] =? Taylor'LPS'Inverse,
    [
       res := Taylor'LPS'GetOrder(lps[4][1]);
       If (Not ClearError("dunno"),
@@ -734,12 +734,12 @@ Echo(expr," ",n," ",result);
             Assert("div-by-zero") False;
             computed := True;
          ]);
-         If (Not computed And res[2] =? False,
+         If (Not computed And? res[2] =? False,
          [
             Local(c, n);
             n := res[1];
             c := Taylor'LPS'Coeffs(lps[4][1], res[1], res[1])[1];
-            While (c =? 0 And res[1] <? n + Taylor'LPS'Param1())
+            While (c =? 0 And? res[1] <? n + Taylor'LPS'Param1())
             [
                res[1] := res[1] + 1;
                 c := Taylor'LPS'Coeffs(lps[4][1], res[1], res[1])[1];
@@ -759,7 +759,7 @@ Echo(expr," ",n," ",result);
       ]);
    ]);
 
-   If (Not computed And lps[4][0] =? Taylor'LPS'Compose,
+   If (Not computed And? lps[4][0] =? Taylor'LPS'Compose,
    [
       res1 := Taylor'LPS'GetOrder(lps[4][1]);
       If (Not ClearError("dunno"),
@@ -767,7 +767,7 @@ Echo(expr," ",n," ",result);
          res2 := Taylor'LPS'GetOrder(lps[4][2]);
          If (Not ClearError("dunno"),
          [
-            res := {res1[1]*res2[1], res1[1] And res2[1]};
+            res := {res1[1]*res2[1], res1[1] And? res2[1]};
             computed := True;
          ]);
       ]);

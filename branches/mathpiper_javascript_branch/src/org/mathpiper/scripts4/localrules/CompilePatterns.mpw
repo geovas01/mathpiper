@@ -31,7 +31,7 @@ LocalSymbols(LocResult) [
     While (tr !=? {})
     [
       Bind(head, First(First(tr)));
-      If (Not(IsAtom(head)) And exp[0]=?head[1] And PatternMatches(head[2], exp),
+      If (Not(IsAtom(head)) And? exp[0]=?head[1] And? PatternMatches(head[2], exp),
       [
         Bind(LocResult,Eval(First(Rest(First(tr)))));
         Bind(result, True);

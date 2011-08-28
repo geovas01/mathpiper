@@ -98,7 +98,7 @@ UnFence("SparseTreeScan", 3);
   Bind(i,1);
   Bind(t2,y);
   Bind(inspt,{});
-  While(t1 !=? {} And t2 !=? {})
+  While(t1 !=? {} And? t2 !=? {})
   [
     Muaddterm(First(t1),First(t2));
   ];
@@ -145,7 +145,7 @@ UnFence("SparseTreeScan", 3);
   Bind(i,1);
   Bind(t2,y);
   Bind(inspt,{});
-  While(t1 !=? {} And t2 !=? {})
+  While(t1 !=? {} And? t2 !=? {})
   [
     MuMuaddterm(First(t1),First(t2),coefs);
   ];

@@ -15,7 +15,7 @@
     disassem := DisassembleExpression(poly);
     gcdCoefs := Gcd(disassem[3]);
     lc       := LeadingCoef(poly);
-    If(IsNegativeNumber(lc) And gcdCoefs >? 0, gcdCoefs:=-gcdCoefs);
+    If(IsNegativeNumber(lc) And? gcdCoefs >? 0, gcdCoefs:=-gcdCoefs);
     //minExpts := Minimum /@ Transpose(disassem[2]);
     //gcdCoefs * Product(disassem[1]^minExpts);
     gcdCoefs;

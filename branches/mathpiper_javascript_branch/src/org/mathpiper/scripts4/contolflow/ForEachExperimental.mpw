@@ -26,7 +26,7 @@ LocalSymbols(foreachtail)
 
 LocalSymbols(index,nr)
 [
-  20 # ForEachRest(_i,_A,_B)_(   And(
+  20 # ForEachRest(_i,_A,_B)_(   And?(
             IsEqual(IsGeneric(A),True),
             IsEqual(GenericTypeName(A),"Array")
             )) <--

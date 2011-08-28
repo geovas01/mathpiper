@@ -29,7 +29,7 @@ Function("IsVector",{p,x})
       n:=Length(x);
       i:=1;
       result:=True;
-      While(i<=?n And result)
+      While(i<=?n And? result)
       [
          result:=Apply(p,{x[i]});
          i++;
@@ -41,7 +41,7 @@ Function("IsVector",{p,x})
 
 // test for a matrix (dr)
 Function("IsMatrix",{x})
-If(IsList(x) And Length(x)>?0,
+If(IsList(x) And? Length(x)>?0,
 [
    Local(n);
    n:=Length(x);
@@ -60,10 +60,10 @@ If(IsMatrix(x),
    n:=Length(x[1]);
    i:=1;
    result:=True;
-   While(i<=?m And result)
+   While(i<=?m And? result)
    [
       j:=1;
-      While(j<=?n And result)
+      While(j<=?n And? result)
       [
          result:=Apply(p,{x[i][j]});
          j++;
@@ -79,14 +79,14 @@ IsSquareMatrix(_x) <--
 [
    Local(d);
    d:=Dimensions(x);
-   Length(d)=2 And d[1]=?d[2];
+   Length(d)=2 And? d[1]=?d[2];
 ];
 */
 
 // test for a square matrix (dr)
-Function("IsSquareMatrix",{x}) IsMatrix(x) And Length(x)=?Length(x[1]);
+Function("IsSquareMatrix",{x}) IsMatrix(x) And? Length(x)=?Length(x[1]);
 // test for a square matrix w/ element test p (dr)
-Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And Length(x)=?Length(x[1]);
+Function("IsSquareMatrix",{p,x}) IsMatrix(p,x) And? Length(x)=?Length(x[1]);
 
 ]; // LocalSymbols(p,x)
 

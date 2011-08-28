@@ -50,7 +50,7 @@
         // this is a heuristic, because the next term error is expensive
         // to calculate and the theoretic bounds have arbitrary constants
         // use at most 5+Sqrt(n)/2 terms, stop when the term is nonzero and result stops to change at precision prec
-        For(k:=1, k<=?5+Quotient(IntNthRoot(n,2),2) And (A=?0 Or Abs(term)>?epsilon), k++)
+        For(k:=1, k<=?5+Quotient(IntNthRoot(n,2),2) And? (A=?0 Or Abs(term)>?epsilon), k++)
         [
                 // compute A(k,n)
                 A:=0;
@@ -100,7 +100,7 @@
            term:=1;
            // this is a heuristic, because the next term error is expensive
            // to calculate and the theoretic bounds have arbitrary constants
-           For(k:=1,k<=?5+Floor(SqrtN(n)*0.5) And ( term=?0 Or Abs(term)>?0.1) ,k++)[
+           For(k:=1,k<=?5+Floor(SqrtN(n)*0.5) And? ( term=?0 Or Abs(term)>?0.1) ,k++)[
                            A:=0;
                            For(h:=1,h<=?k,h++)[
                                            if( Gcd(h,k)=?1 )[

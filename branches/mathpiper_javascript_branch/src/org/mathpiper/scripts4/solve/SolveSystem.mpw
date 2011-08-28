@@ -27,7 +27,7 @@
 ];
 */
 
-10 # SolveSystem( eqns_IsList, vars_IsList )_(Length(eqns)=?1 And Length(vars)=?1) <--
+10 # SolveSystem( eqns_IsList, vars_IsList )_(Length(eqns)=?1 And? Length(vars)=?1) <--
 [
     {Solve(eqns[1],vars[1])};
 ];

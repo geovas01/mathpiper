@@ -31,7 +31,7 @@ SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum,_condition) <--
 [
 
         `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody)_(@condition)    <-- Eval(@sum) );
-        `(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody )_(@condition And p >? @sumfrom)
+        `(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody )_(@condition And? p >? @sumfrom)
              <--
              [
                   Local(sub);

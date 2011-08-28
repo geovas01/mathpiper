@@ -75,7 +75,7 @@
          Tell("  ",{iiL,iiR});
       ]
     );
-    ans := (NumericEqual(rrL,rrR,precision) And NumericEqual(iiL,iiR,precision));
+    ans := (NumericEqual(rrL,rrR,precision) And? NumericEqual(iiL,iiR,precision));
 ];
 
 %/mathpiper

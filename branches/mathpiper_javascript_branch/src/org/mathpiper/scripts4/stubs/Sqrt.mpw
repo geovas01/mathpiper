@@ -21,7 +21,7 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 400 # Sqrt(y_IsRationalOrNumber) / Sqrt(x_IsRationalOrNumber)  <-- Sqrt(y/x);
 400 # Sqrt(y_IsRationalOrNumber) * Sqrt(x_IsRationalOrNumber)  <-- Sqrt(y*x);
 400 # Sqrt(x_IsInteger)_IsInteger(SqrtN(x)) <-- SqrtN(x);
-400 # Sqrt(x_IsInteger/y_IsInteger)_(IsInteger(SqrtN(x)) And IsInteger(SqrtN(y))) <-- SqrtN(x)/SqrtN(y);
+400 # Sqrt(x_IsInteger/y_IsInteger)_(IsInteger(SqrtN(x)) And? IsInteger(SqrtN(y))) <-- SqrtN(x)/SqrtN(y);
 
 %/mathpiper
 

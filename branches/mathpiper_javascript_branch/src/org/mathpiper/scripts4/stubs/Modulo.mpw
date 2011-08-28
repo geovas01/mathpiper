@@ -17,7 +17,7 @@
 3 # Modulo(n_IsInteger,m_IsInteger) <-- ModuloN(n,m);
 4 # Modulo(n_IsNumber,m_IsNumber) <-- NonN(Modulo(Rationalize(n),Rationalize(m)));
 
-5 # Modulo(n_IsRationalOrNumber,m_IsRationalOrNumber)/*_(n>?0 And m>?0)*/ <--
+5 # Modulo(n_IsRationalOrNumber,m_IsRationalOrNumber)/*_(n>?0 And? m>?0)*/ <--
 [
   Local(n1,n2,m1,m2);
   n1:=Numerator(n);
@@ -42,7 +42,7 @@
 //Note:tk:moved here from univariate.rep.
 0 # Modulo(n_IsUniVar,m_IsUniVar)_(Degree(n) <? Degree(m)) <-- n;
 1 # Modulo(n_IsUniVar,m_IsUniVar)_
-    (n[1] =? m[1] And Degree(n) >=? Degree(m)) <--
+    (n[1] =? m[1] And? Degree(n) >=? Degree(m)) <--
 [
     UniVariate(n[1],0,
                UniDivide(Concat(ZeroVector(n[2]),n[3]),

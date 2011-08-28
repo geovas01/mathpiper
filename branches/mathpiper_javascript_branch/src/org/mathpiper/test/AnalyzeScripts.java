@@ -146,7 +146,7 @@ public class AnalyzeScripts {
         AnalyzeScripts analyze = new AnalyzeScripts();
 
         try {
-            analyze.findOperator(">");
+            analyze.findOperator("And");
         } catch (Exception e) {
             e.printStackTrace();
         }

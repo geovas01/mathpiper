@@ -23,7 +23,7 @@
 10 # PolyLog(3,1/2)                <-- (4*Ln(2)^3 - 2*Pi^2*Ln(2)+21*Zeta(3))/24;
 10 # PolyLog(2,2)                <-- Pi^2/4 - Pi*I*Ln(2);
 
-20 # PolyLog(_n,_x)_(InNumericMode() And  x <? -1 )  <-- [
+20 # PolyLog(_n,_x)_(InNumericMode() And?  x <? -1 )  <-- [
         Local(prec,result);
         prec:=BuiltinPrecisionGet();
         BuiltinPrecisionSet(prec+5);
@@ -34,7 +34,7 @@
         BuiltinPrecisionSet(prec);
         RoundTo(N(result),prec);
 ];
-20 # PolyLog(_n,_x)_(InNumericMode() And x>=? -1 And x <? 0 ) <-- [
+20 # PolyLog(_n,_x)_(InNumericMode() And? x>=? -1 And? x <? 0 ) <-- [
         // this makes the domain [-1,0) into [0,1],
         // so if the summation representation is used, it is monotone
         Local(prec,result);
@@ -47,7 +47,7 @@
 
 ];
 /* this is very slow at high precision
-20 # PolyLog(_n,_x)_(InNumericMode() And x >? 0 And x <=? 1) <-- [
+20 # PolyLog(_n,_x)_(InNumericMode() And? x >? 0 And? x <=? 1) <-- [
         Local(result,prec,term,k,eps);
         prec:=BuiltinPrecisionGet();
   BuiltinPrecisionSet(prec+5);
@@ -68,7 +68,7 @@
 ];
 */
 
-20 # PolyLog(_n,_x)_(InNumericMode() And x >? 0 And x <? 1) <--
+20 # PolyLog(_n,_x)_(InNumericMode() And? x >? 0 And? x <? 1) <--
 [        // use Taylor series x^(k+1)/(k+1)^n, converges for -1<x<1
         Local(prec, result, terms);
         prec:=BuiltinPrecisionGet();

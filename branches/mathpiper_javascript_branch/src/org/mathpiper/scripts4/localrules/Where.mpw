@@ -6,7 +6,7 @@ Rulebase("Where",{left,right});
 UnFence("Where",2);
 10 # (_body Where var_IsAtom == _value)
      <-- `[Local(@var);@var := @value;@body;];
-20 # (_body Where (_a And _b))
+20 # (_body Where (_a And? _b))
      <--
 [
   Bind(body,`(@body Where @a));
@@ -49,9 +49,9 @@ UnFence("Where",2);
 *STD
 *CALL
         expr Where x==v
-        expr Where x1==v1 And x2==v2 And ...
-        expr Where {x1==v1 And x2==v2,x1==v3
-          And x2==v4,...}
+        expr Where x1==v1 And? x2==v2 And? ...
+        expr Where {x1==v1 And? x2==v2,x1==v3
+          And? x2==v4,...}
 
 *PARMS
 
@@ -66,12 +66,12 @@ UnFence("Where",2);
 The operator {Where} fills in values for variables, in its simplest form.
 It accepts sets of variable/value pairs defined as 
 
-        var1==val1 And var2==val2 And ...
+        var1==val1 And? var2==val2 And? ...
 
 and fills in the corresponding values. Lists of value pairs are
 also possible, as:
 
-        {var1==val1 And var2==val2, var1==val3 And var2==val4}
+        {var1==val1 And? var2==val2, var1==val3 And? var2==val4}
 
 These values might be obtained through {Solve}.
 
@@ -80,11 +80,11 @@ This operator can help the user to program in the style of functional programmin
 *E.G.
 In> x^2+y^2 Where x==2
 Result: y^2+4;
-In> x^2+y^2 Where x==2 And y==3
+In> x^2+y^2 Where x==2 And? y==3
 Result: 13;
-In> x^2+y^2 Where {x==2 And y==3}
+In> x^2+y^2 Where {x==2 And? y==3}
 Result: {13};
-In> x^2+y^2 Where {x==2 And y==3,x==4 And y==5}
+In> x^2+y^2 Where {x==2 And? y==3,x==4 And? y==5}
 Result: {13,41};
 
 *SEE Solve, AddTo

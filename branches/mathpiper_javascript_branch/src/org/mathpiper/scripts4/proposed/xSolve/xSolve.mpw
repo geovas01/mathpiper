@@ -132,25 +132,25 @@ LocalSymbols(res)
         xSolve(e1, var);
     ];
   
-  80  # xSolve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And (res := xSolve'Simple(e1,-e2,var)) !=? Failed) <-- 
+  80  # xSolve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And? (res := xSolve'Simple(e1,-e2,var)) !=? Failed) <-- 
     [
         If(iDebug=True,Tell(10,{e1,e2,var,res}));
         res;
     ];
   
-  80  # xSolve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And (res := xSolve'Simple(e2,-e1,var)) !=? Failed) <-- 
+  80  # xSolve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And? (res := xSolve'Simple(e2,-e1,var)) !=? Failed) <-- 
     [
         If(iDebug=True,Tell(11,{e1,e2,var,res}));
         res;
     ];
   
-  80  # xSolve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And (res := xSolve'Simple(e1,e2,var)) !=? Failed) <-- 
+  80  # xSolve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And? (res := xSolve'Simple(e1,e2,var)) !=? Failed) <-- 
     [
         If(iDebug=True,Tell(12,{e1,e2,var,res}));
         res;
     ];
   
-  80  # xSolve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And (res := xSolve'Simple(e2,e1,var)) !=? Failed) <-- 
+  80  # xSolve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And? (res := xSolve'Simple(e2,e1,var)) !=? Failed) <-- 
     [
         If(iDebug=True,Tell(13,{e1,e2,var,res}));
         res;
@@ -200,25 +200,25 @@ LocalSymbols(res)
  * Note: 'rhs' should not contain 'var'.
  */
 
-20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
+20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e1 = var And? Not HasExpr(e2,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve51aSimple",{e1,e2,rhs,var}));
       { var == rhs-e2 };
   ];
   
-20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
+20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e2 = var And? Not HasExpr(e1,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve51bSimple",{e1,e2,rhs,var}));
       { var == rhs-e1 };
   ];
 
-20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
+20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e1 = var And? Not HasExpr(e2,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve52aSimple",{e1,e2,rhs,var}));
       { var == rhs+e2 };
   ];
 
-20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
+20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e2 = var And? Not HasExpr(e1,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve52bSimple",{e1,e2,rhs,var}));
       { var == e1-rhs };
@@ -230,31 +230,31 @@ LocalSymbols(res)
       { var == -rhs };
   ];
 
-20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
+20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e1 = var And? Not HasExpr(e2,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve54aSimple",{e1,e2,rhs,var}));
       { var == rhs/e2 };
   ];
 
-20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
+20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e2 = var And? Not HasExpr(e1,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve54bSimple",{e1,e2,rhs,var}));
       { var == rhs/e1 };
   ];
 
-20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e1 = var And Not HasExpr(e2,var)) <-- 
+20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e1 = var And? Not HasExpr(e2,var)) <-- 
   [
       If(iDebug,Tell("xSolve55aSimple",{e1,e2,rhs,var}));
       { var == rhs*e2 };
   ];
 
-10 # xSolve'Simple(_e1 / _e2, 0,    _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
+10 # xSolve'Simple(_e1 / _e2, 0,    _var)_(e2 = var And? Not HasExpr(e1,var)) <-- 
   [
       If(iDebug,Tell("xSolve55bSimple",{e1,e2,var}));
       { };
   ];
 
-20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e2 = var And Not HasExpr(e1,var)) <-- 
+20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e2 = var And? Not HasExpr(e1,var)) <-- 
   [
       If(iDebug,Tell("xSolve55cSimple",{e1,e2,rhs,var}));
       { var == e1/rhs };
@@ -262,13 +262,13 @@ LocalSymbols(res)
 
 LocalSymbols(x)
 [
-  20 # xSolve'Simple(_e1 ^ _n, _rhs, _var)_(e1 = var And IsPositiveInteger(n)) <--
+  20 # xSolve'Simple(_e1 ^ _n, _rhs, _var)_(e1 = var And? IsPositiveInteger(n)) <--
      [
          If(iDebug,Tell("xSolve56aSimple",{e1,n,rhs,var}));
          MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. n)/n));
      ];
        
-  20 # xSolve'Simple(_e1 ^ _n, _rhs, _var)_(e1 = var And IsNegativeInteger(n)) <--
+  20 # xSolve'Simple(_e1 ^ _n, _rhs, _var)_(e1 = var And? IsNegativeInteger(n)) <--
      [
          If(iDebug,Tell("xSolve56bSimple",{e1,n,rhs,var}));
          MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. (-n))/(-n)));
@@ -277,7 +277,7 @@ LocalSymbols(x)
 ];
 
 20 # xSolve'Simple(_e1 ^ _e2, _rhs, _var)
-     _ (IsPositiveReal(e1) And e1 !=? 0 And e2 = var And IsPositiveReal(rhs) And rhs !=? 0)
+     _ (IsPositiveReal(e1) And? e1 !=? 0 And? e2 = var And? IsPositiveReal(rhs) And? rhs !=? 0)
      <-- [
              If(iDebug,Tell("xSolve57Simple",{e1,e2,rhs,var}));
              { var == Ln(rhs)/Ln(e1) };
@@ -291,7 +291,7 @@ LocalSymbols(x)
       { var == 1/2*Pi };
   ];
   
-10 # xSolve'Simple(Sin(_e1), _rhs, _var)_(e1 = var And rhs = -1) <-- 
+10 # xSolve'Simple(Sin(_e1), _rhs, _var)_(e1 = var And? rhs = -1) <-- 
   [
       If(iDebug=True,Tell("xSolve61bSimple",{e1,rhs,var}));
       { var == 3/2*Pi };
@@ -309,7 +309,7 @@ LocalSymbols(x)
       { var == 0 };
   ];
 
-10 # xSolve'Simple(Cos(_e1), _rhs, _var)_(e1 = var And rhs = -1) <-- 
+10 # xSolve'Simple(Cos(_e1), _rhs, _var)_(e1 = var And? rhs = -1) <-- 
   [
       If(iDebug,Tell("xSolve62bSimple",{e1,rhs,var}));
       { var == Pi };
@@ -369,25 +369,25 @@ LocalSymbols(x)
  * positive real part, together with the pure imaginary numbers with
  * nonnegative real part. */
  
-20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And IsPositiveReal(Re(rhs)) And Re(rhs) !=? 0) <-- 
+20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And? IsPositiveReal(Re(rhs)) And? Re(rhs) !=? 0) <-- 
   [
       If(iDebug,Tell("xSolve65aSimple",{e1,rhs,var}));
       { var == rhs^2 };
   ];
 
-20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And Re(rhs)=0 And IsPositiveReal(Im(rhs))) <-- 
+20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And? Re(rhs)=0 And? IsPositiveReal(Im(rhs))) <-- 
   [
       If(iDebug,Tell("xSolve65bSimple",{e1,rhs,var}));
       { var == rhs^2 };
   ];
 
-20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And Re(rhs)=0 And IsNegativeReal(Im(rhs)) And Im(rhs) !=? 0) <-- 
+20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And? Re(rhs)=0 And? IsNegativeReal(Im(rhs)) And? Im(rhs) !=? 0) <-- 
   [
       If(iDebug,Tell("xSolve65cSimple",{e1,rhs,var}));
       { };
   ];
 
-20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And IsNegativeReal(Re(rhs)) And Re(rhs) !=? 0) <-- 
+20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And? IsNegativeReal(Re(rhs)) And? Re(rhs) !=? 0) <-- 
   [
       If(iDebug,Tell("xSolve65dSimple",{e1,rhs,var}));
       { };
@@ -413,16 +413,16 @@ LocalSymbols(x)
  * steps long.  I can't think of any ways this can happen though :)
  */
 
-10 # xSolve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And HasExpr(e2, var)
-                And Not (HasExpr(Simplify(1 + (e2/e1)), e1)
+10 # xSolve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
+                And? Not (HasExpr(Simplify(1 + (e2/e1)), e1)
                       Or HasExpr(Simplify(1 + (e2/e1)), e2))) <--
      [
          If(iDebug,Tell("xSolve71aDivide",{e1,e2,var}));
          xSolve(1 + (e2/e1), var);
      ];
                                            
-10 # xSolve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And HasExpr(e2, var)
-                And Not (HasExpr(Simplify(1 - (e2/e1)), e1)
+10 # xSolve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
+                And? Not (HasExpr(Simplify(1 - (e2/e1)), e1)
                       Or HasExpr(Simplify(1 - (e2/e1)), e2))) <--
      [
          If(iDebug,Tell("xSolve71bDivide",{e1,e2,var}));

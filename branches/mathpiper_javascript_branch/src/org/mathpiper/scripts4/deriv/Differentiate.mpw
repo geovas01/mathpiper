@@ -3,9 +3,9 @@
 Rulebase("Differentiate",{aVar,aFunc});
 Rulebase("Differentiate",{aVar,aCount,aFunc});
 
-Rule("Differentiate",2,1,IsList(aVar) And Not(IsList(aFunc)))
+Rule("Differentiate",2,1,IsList(aVar) And? Not(IsList(aFunc)))
         Map("Differentiate",{aVar,FillList(aFunc, Length(aVar))});
-Rule("Differentiate",2,1,IsList(aVar) And IsList(aFunc))
+Rule("Differentiate",2,1,IsList(aVar) And? IsList(aFunc))
         Map("Differentiate",{aVar,aFunc});
 
 Rule("Differentiate",2,3,True)
@@ -14,11 +14,11 @@ Rule("Differentiate",2,3,True)
   Apply("Deriv",{aVar,1,aFunc});
 ];
 
-Rule("Differentiate",3,1,IsList(aVar) And Not(IsList(aFunc)))
+Rule("Differentiate",3,1,IsList(aVar) And? Not(IsList(aFunc)))
         Map("Differentiate",{aVar,
                  FillList(aCount, Length(aVar)),
                  FillList(aFunc, Length(aVar))});
-Rule("Differentiate",3,1,IsList(aVar) And IsList(aFunc))
+Rule("Differentiate",3,1,IsList(aVar) And? IsList(aFunc))
         Map("Differentiate",{aVar,
                  FillList(aCount, Length(aVar)),
                  aFunc});

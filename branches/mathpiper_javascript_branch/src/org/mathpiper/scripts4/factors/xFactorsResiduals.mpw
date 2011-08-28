@@ -132,7 +132,7 @@ UnFence("trySQF",1);
                   Local(u,X);
                   u := MakeUni(resid[1]);
                   X := u[1];
-                  If( u[2]=?0 And u[3]=?{1,0,1,0,1},
+                  If( u[2]=?0 And? u[3]=?{1,0,1,0,1},
                     [ 
                        DestructiveAppend(residOut,{X^2-X+1,1});
                        DestructiveAppend(residOut,{X^2+X+1,1});

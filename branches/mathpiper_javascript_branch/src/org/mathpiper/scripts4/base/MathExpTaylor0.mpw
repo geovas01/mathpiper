@@ -3,7 +3,7 @@
 // simple Taylor expansion, use only for 0<=x<1
 Defun("MathExpTaylor0",{x})
 [
-  Check(x<=?1 And x>=?0,""," Argument must be between 0 and 1 inclusive.");
+  Check(x<=?1 And? x>=?0,""," Argument must be between 0 and 1 inclusive.");
   Local(i,aResult,term,eps);
   // Exp(x)=Sum(i=0 to Inf)  x^(i) /(i)!
   // Which incrementally becomes the algorithm:

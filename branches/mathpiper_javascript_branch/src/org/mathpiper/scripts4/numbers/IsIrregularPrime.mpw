@@ -13,7 +13,7 @@
         i:=1;
         irregular:=False;
 
-        While( 2*i + 1 <? p And (irregular =? False) )[
+        While( 2*i + 1 <? p And? (irregular =? False) )[
                 If( Abs(Numerator(Bernoulli(2*i))) % p =? 0, irregular:=True );
                 i++;
         ];

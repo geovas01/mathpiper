@@ -1,6 +1,6 @@
 %mathpiper,def="ArcSin"
 
-2 # ArcSin(x_IsNumber)_(InNumericMode() And Abs(x)<=?1) <-- ArcSinNum(x);
+2 # ArcSin(x_IsNumber)_(InNumericMode() And? Abs(x)<=?1) <-- ArcSinNum(x);
 /// complex ArcSin
 3 # ArcSin(x_IsNumber)_InNumericMode() <-- Sign(x)*(Pi/2+I*ArcCosh(x));
 

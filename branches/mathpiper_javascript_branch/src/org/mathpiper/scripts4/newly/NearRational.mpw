@@ -33,7 +33,7 @@
     
         // find where the continued fractions for "x1" and "x2" differ
         // prepare result in "x1" and length of result in "i"
-        For (i:=1, i<=?Length(x1) And i<=?Length(x2) And x1[i]=?x2[i], i++ ) True;
+        For (i:=1, i<=?Length(x1) And? i<=?Length(x2) And? x1[i]=?x2[i], i++ ) True;
         If(
                 i>?Length(x1),
                 // "x1" ended but matched, so use "x2" as "x1"
@@ -58,7 +58,7 @@
 
 
 20 # NearRational(_z, prec_IsInteger)_
-      (And(Im(z)!=?0,IsRationalOrNumber(Im(z)),IsRationalOrNumber(Re(z)))) <--
+      (And?(Im(z)!=?0,IsRationalOrNumber(Im(z)),IsRationalOrNumber(Re(z)))) <--
 [
     Local(rr,ii);
     rr := Re(z);

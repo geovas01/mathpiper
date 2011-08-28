@@ -47,12 +47,12 @@ xTerms(_expr) <--
                 ]
             );    
         ];
-    If( (Not IsFunction(f)) And (Length(stack)=0), stack := {f});
+    If( (Not IsFunction(f)) And? (Length(stack)=0), stack := {f});
     stack := qs * stack;
     If(qs>0,nTerms:=topLevelPM+1,nTerms:=topLevelPM);
     If(InVerboseMode(),Echo("==========================  stack = ",stack));
     If( nTerms >? Length(stack), Echo("  >>>> RESULT should be one term longer"));
-    //If(firstH != ToAtom("+") And  firstH != ToAtom("-") And tlpm >?0,Echo("  >>>> RESULT should be one term shorter"));
+    //If(firstH != ToAtom("+") And?  firstH != ToAtom("-") And? tlpm >?0,Echo("  >>>> RESULT should be one term shorter"));
     stack;
 ];
 

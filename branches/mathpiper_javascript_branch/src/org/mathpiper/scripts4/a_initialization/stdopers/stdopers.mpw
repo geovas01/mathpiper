@@ -10,10 +10,10 @@ Rule(StandardOperatorsLoad, 0, 1, True)
      * parse expressions containing these operators, even though the
      * function hasn't been defined yet.
      */
-Infix(">",90);
+
     Infix("=?",90);
-    Infix("And",1000);
-    RightAssociativeSet("And");
+    Infix("And?",1000);
+    RightAssociativeSet("And?");
     Infix("Or", 1010);
     Prefix("Not", 100);
     Infix("<?",90);

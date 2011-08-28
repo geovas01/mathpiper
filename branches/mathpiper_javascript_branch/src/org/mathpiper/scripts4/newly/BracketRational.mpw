@@ -13,7 +13,7 @@ BracketRational(r,eps):=
         r1 := ContFracEval(Take(cflist,n));
         r2 := -r1;
         // find two successive approximations and check that they differ by less than |eps*r|
-        While (n<?Length(cflist) And ( Abs(N(Eval(r2-r1))) >? Abs(N(Eval(eps*r)) ) ) )
+        While (n<?Length(cflist) And? ( Abs(N(Eval(r2-r1))) >? Abs(N(Eval(eps*r)) ) ) )
         [
                 r2 := r1;
                 n++;

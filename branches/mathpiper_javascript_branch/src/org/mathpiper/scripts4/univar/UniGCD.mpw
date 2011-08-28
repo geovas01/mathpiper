@@ -14,7 +14,7 @@ Function("UniGcd",{u,v})
       u:=v;
       v:=swap;
     ] );
-  If(Length(u)=Length(v) And v[Length(v)] >? u[Length(u)],
+  If(Length(u)=Length(v) And? v[Length(v)] >? u[Length(u)],
     [
       Locap(swap);
       swap:=u;

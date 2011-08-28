@@ -28,7 +28,7 @@ HoldArgumentNumber("VerifySolve", 2, 1);
   Local(i, found);
   found := False;
   i := 0;
-  While(i <? Length(e2) And Not found) [
+  While(i <? Length(e2) And? Not found) [
     i++;
     found := VerifySolve'Equal(First(e1), e2[i]);
   ];
@@ -36,7 +36,7 @@ HoldArgumentNumber("VerifySolve", 2, 1);
 ];
 
 40 # VerifySolve'Equal(_l1 == _r1, _l2 == _r2) 
-<-- IsEqual(l1,l2) And Simplify(r1-r2)=?0;
+<-- IsEqual(l1,l2) And? Simplify(r1-r2)=?0;
 
 50 # VerifySolve'Equal(_e1, _e2) <-- Simplify(e1-e2) =? 0;
 

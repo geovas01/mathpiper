@@ -31,7 +31,7 @@ LocalSymbols(res)
   
   20  # Solve(_expr, _var)_(IsNumber(var) Or IsString(var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
-  22  # Solve(_expr, _var)_(Not IsAtom(var) And Not HasExpr(expr,var)) <--
+  22  # Solve(_expr, _var)_(Not IsAtom(var) And? Not HasExpr(expr,var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
   24  # Solve(False,_var) <-- Check(False, "Argument", "Bad input: possibly '=' instead of '==' ");
 
@@ -65,10 +65,10 @@ LocalSymbols(res)
           );
       t;
   ];
-  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And (res := Solve'Simple(e1,-e2,var)) !=? Failed) <-- res;
-  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And (res := Solve'Simple(e2,-e1,var)) !=? Failed) <-- res;
-  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And (res := Solve'Simple(e1,e2,var)) !=? Failed) <-- res;
-  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And (res := Solve'Simple(e2,e1,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e2,var) And? (res := Solve'Simple(e1,-e2,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 + _e2, _var)_(Not HasExpr(e1,var) And? (res := Solve'Simple(e2,-e1,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e2,var) And? (res := Solve'Simple(e1,e2,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 - _e2, _var)_(Not HasExpr(e1,var) And? (res := Solve'Simple(e2,e1,var)) !=? Failed) <-- res;
   85  # Solve(_expr, _var)_((res := Solve'Simple(expr, 0, var)) !=? Failed) <-- res;
   90  # Solve(_expr, _var)_((res := Solve'Reduce(expr, var)) !=? Failed) <-- res;
   95  # Solve(_expr, _var)_((res := Solve'Divide(expr, var)) !=? Failed) <-- res;
@@ -119,7 +119,7 @@ LocalSymbols(x)
      res := Failed,
      [
        expr2 := Eval(Subst(context, var2) expr);
-       If(CanBeUni(var2, expr2) And (Degree(expr2, var2) =? 0 Or (Degree(expr2, var2) =? 1 And Coef(expr2, var2, 1) =? 1)),
+       If(CanBeUni(var2, expr2) And? (Degree(expr2, var2) =? 0 Or (Degree(expr2, var2) =? 1 And? Coef(expr2, var2, 1) =? 1)),
           res := Failed, /* to prevent infinite recursion */
           [
                 sol2 := Solve(expr2, var2);
@@ -131,7 +131,7 @@ LocalSymbols(x)
                    [
                      res := {};
                      i := 1;
-                     While(i <=? Length(sol2) And res !=? Failed) [
+                     While(i <=? Length(sol2) And? res !=? Failed) [
                        sol := Solve(context == (var2 Where sol2[i]), var);
                    If(IsError("Solve'Fails"),
                       [
@@ -161,7 +161,7 @@ LocalSymbols(x)
   lst := FunctionToList(expr);
   foundVarP := False;
   i := 2;
-  While(i <=? Length(lst) And Not foundVarP) [
+  While(i <=? Length(lst) And? Not foundVarP) [
     foundVarP := (lst[i] =? var);
     i++;
   ];
@@ -170,10 +170,10 @@ LocalSymbols(x)
      [
        context := {};
        i := 2;
-       While(i <=? Length(lst) And context !=? False) [
+       While(i <=? Length(lst) And? context !=? False) [
          res := Solve'Context(lst[i], var);
-         If(res !=? {} And context !=? {} And res !=? context, context := False);
-         If(res !=? {} And context =? {}, context := res);
+         If(res !=? {} And? context !=? {} And? res !=? context, context := False);
+         If(res !=? {} And? context =? {}, context := res);
          i++;
        ];
      ]);
@@ -193,38 +193,38 @@ LocalSymbols(x)
  * Note: 'rhs' should not contain 'var'.
  */
 
-20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e1 =? var And Not HasExpr(e2,var)) <-- { var == rhs-e2 };
-20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e2 =? var And Not HasExpr(e1,var)) <-- { var == rhs-e1 };
+20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e1 =? var And? Not HasExpr(e2,var)) <-- { var == rhs-e2 };
+20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e2 =? var And? Not HasExpr(e1,var)) <-- { var == rhs-e1 };
 
-20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e1 =? var And Not HasExpr(e2,var)) <-- { var == rhs+e2 };
-20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e2 =? var And Not HasExpr(e1,var)) <-- { var == e1-rhs };
+20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e1 =? var And? Not HasExpr(e2,var)) <-- { var == rhs+e2 };
+20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e2 =? var And? Not HasExpr(e1,var)) <-- { var == e1-rhs };
 20 # Solve'Simple(-(_e1), _rhs, _var)_(e1 =? var) <-- { var == -rhs };
 
-20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e1 =? var And Not HasExpr(e2,var)) <-- { var == rhs/e2 };
-20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e2 =? var And Not HasExpr(e1,var)) <-- { var == rhs/e1 };
+20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e1 =? var And? Not HasExpr(e2,var)) <-- { var == rhs/e2 };
+20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e2 =? var And? Not HasExpr(e1,var)) <-- { var == rhs/e1 };
 
-20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e1 =? var And Not HasExpr(e2,var)) <-- { var == rhs*e2 };
-10 # Solve'Simple(_e1 / _e2, 0,    _var)_(e2 =? var And Not HasExpr(e1,var)) <-- { };
-20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e2 =? var And Not HasExpr(e1,var)) <-- { var == e1/rhs };
+20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e1 =? var And? Not HasExpr(e2,var)) <-- { var == rhs*e2 };
+10 # Solve'Simple(_e1 / _e2, 0,    _var)_(e2 =? var And? Not HasExpr(e1,var)) <-- { };
+20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e2 =? var And? Not HasExpr(e1,var)) <-- { var == e1/rhs };
 
 LocalSymbols(x)
 [
-  20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 =? var And IsPositiveInteger(n))
+  20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? IsPositiveInteger(n))
        <-- MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. n)/n));
-  20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 =? var And IsNegativeInteger(n))
+  20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? IsNegativeInteger(n))
        <-- MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. (-n))/(-n)));
 ];
 
 20 # Solve'Simple(_e1 ^ _e2, _rhs, _var)
-     _ (IsPositiveReal(e1) And e1 !=? 0 And e2 =? var And IsPositiveReal(rhs) And rhs !=? 0)
+     _ (IsPositiveReal(e1) And? e1 !=? 0 And? e2 =? var And? IsPositiveReal(rhs) And? rhs !=? 0)
      <-- { var == Ln(rhs)/Ln(e1) };
 
 /* Note: These rules do not take the periodicity of the trig. functions into account */
 10 # Solve'Simple(Sin(_e1), 1,    _var)_(e1 =? var) <-- { var == 1/2*Pi };
-10 # Solve'Simple(Sin(_e1), _rhs, _var)_(e1 =? var And rhs =? -1) <-- { var == 3/2*Pi };
+10 # Solve'Simple(Sin(_e1), _rhs, _var)_(e1 =? var And? rhs =? -1) <-- { var == 3/2*Pi };
 20 # Solve'Simple(Sin(_e1), _rhs, _var)_(e1 =? var) <-- { var == ArcSin(rhs), var == Pi-ArcSin(rhs) };
 10 # Solve'Simple(Cos(_e1), 1,    _var)_(e1 =? var) <-- { var == 0 };
-10 # Solve'Simple(Cos(_e1), _rhs, _var)_(e1 =? var And rhs =? -1) <-- { var == Pi };
+10 # Solve'Simple(Cos(_e1), _rhs, _var)_(e1 =? var And? rhs =? -1) <-- { var == Pi };
 20 # Solve'Simple(Cos(_e1), _rhs, _var)_(e1 =? var) <-- { var == ArcCos(rhs), var == -ArcCos(rhs) };
 20 # Solve'Simple(Tan(_e1), _rhs, _var)_(e1 =? var) <-- { var == ArcTan(rhs) };
 
@@ -235,16 +235,16 @@ LocalSymbols(x)
 /* Note: Second rule neglects (2*I*Pi)-periodicity of Exp() */
 10 # Solve'Simple(Exp(_e1), 0,    _var)_(e1 =? var) <-- { };
 20 # Solve'Simple(Exp(_e1), _rhs, _var)_(e1 =? var) <-- { var == Ln(rhs) };
-20 # Solve'Simple(_b^_e1, _rhs, _var)_(e1 =? var And IsFreeOf(var,b) And Not IsZero(b)) <-- { var == Ln(rhs) / Ln(b) };
+20 # Solve'Simple(_b^_e1, _rhs, _var)_(e1 =? var And? IsFreeOf(var,b) And? Not IsZero(b)) <-- { var == Ln(rhs) / Ln(b) };
 20 # Solve'Simple(Ln(_e1),  _rhs, _var)_(e1 =? var) <-- { var == Exp(rhs) };
 
 /* The range of Sqrt is the set of (complex) numbers with either
  * positive real part, together with the pure imaginary numbers with
  * nonnegative real part. */
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And IsPositiveReal(Re(rhs)) And Re(rhs) !=? 0) <-- { var == rhs^2 };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And Re(rhs)=?0 And IsPositiveReal(Im(rhs))) <-- { var == rhs^2 };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And Re(rhs)=?0 And IsNegativeReal(Im(rhs)) And Im(rhs) !=? 0) <-- { };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And IsNegativeReal(Re(rhs)) And Re(rhs) !=? 0) <-- { };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? IsPositiveReal(Re(rhs)) And? Re(rhs) !=? 0) <-- { var == rhs^2 };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? Re(rhs)=?0 And? IsPositiveReal(Im(rhs))) <-- { var == rhs^2 };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? Re(rhs)=?0 And? IsNegativeReal(Im(rhs)) And? Im(rhs) !=? 0) <-- { };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? IsNegativeReal(Re(rhs)) And? Re(rhs) !=? 0) <-- { };
 
 30 # Solve'Simple(_lhs, _rhs, _var) <-- Failed;
 
@@ -261,12 +261,12 @@ LocalSymbols(x)
  * steps long.  I can't think of any ways this can happen though :)
  */
 
-10 # Solve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And HasExpr(e2, var)
-                And Not (HasExpr(Simplify(1 + (e2/e1)), e1)
+10 # Solve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
+                And? Not (HasExpr(Simplify(1 + (e2/e1)), e1)
                       Or HasExpr(Simplify(1 + (e2/e1)), e2)))
                                            <-- Solve(1 + (e2/e1), var);
-10 # Solve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And HasExpr(e2, var)
-                And Not (HasExpr(Simplify(1 - (e2/e1)), e1)
+10 # Solve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
+                And? Not (HasExpr(Simplify(1 - (e2/e1)), e1)
                       Or HasExpr(Simplify(1 - (e2/e1)), e2)))
                                            <-- Solve(1 - (e2/e1), var);
 

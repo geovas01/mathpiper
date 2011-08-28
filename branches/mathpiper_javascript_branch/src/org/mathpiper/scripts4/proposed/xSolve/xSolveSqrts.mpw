@@ -13,7 +13,7 @@
  */
   
  10 # xSolve'Sqrts(_expr1,_expr2,_var)_(Contains(VarList(expr1),var) 
-                               And Not Contains(VarList(expr2),var)) <--
+                               And? Not Contains(VarList(expr2),var)) <--
  [
     If(iDebug=True,Tell("xSolve'Sqrts - no var",{expr1,expr2,var}));
     Local(vars2,result);

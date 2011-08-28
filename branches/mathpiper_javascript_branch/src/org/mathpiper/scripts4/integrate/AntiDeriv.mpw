@@ -40,7 +40,7 @@
 10 # AntiDeriv(_var,   - _y) <--            - AntiDeriv(var,y);
 
 10 # AntiDeriv(_var,_x/c_IsFreeOf(var) )_(HasExpr(x,var)) <-- AntiDeriv(var,x)/c;
-10 # AntiDeriv(_var,c_IsFreeOf(var)/_x )_(HasExpr(x,var) And c!=? 1)
+10 # AntiDeriv(_var,c_IsFreeOf(var)/_x )_(HasExpr(x,var) And? c!=? 1)
         <-- c*AntiDeriv(var,1/x);
 
 
@@ -87,7 +87,7 @@
      ];
 
 11 # IntRat(_var,_exy / _exx,_exyu,_exxu)_
-        (Degree(exxu,var) >? 1 And LeadingCoef(exxu)=?1 And
+        (Degree(exxu,var) >? 1 And? LeadingCoef(exxu)=?1 And?
          IsNumericList(Coef(exxu,var,0 .. Degree(exxu)))) <--
 [
   Local(ee);

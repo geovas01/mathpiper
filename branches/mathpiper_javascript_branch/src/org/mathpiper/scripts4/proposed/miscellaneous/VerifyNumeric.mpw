@@ -8,7 +8,7 @@ VerifyNumeric(expression1, expression2, optionsList) :=
     
     variablesList2 := VarList(expression2);
     
-    if(Length(variablesList1) =? 0 And Length(variablesList2) =? 0)
+    if(Length(variablesList1) =? 0 And? Length(variablesList2) =? 0)
     [
         numericValue1 := N(expression1);
         
@@ -28,7 +28,7 @@ VerifyNumeric(expression1, expression2, optionsList) :=
         
         variablesList2 := HeapSort(variablesList2,"IsLessThan");
         
-        Check(variablesList1 =? variablesList2 And variablesList1 =? optionsVariableNamesList, "Argument", "Both expressions and the options list must have the same variable names and the same number of variables.");
+        Check(variablesList1 =? variablesList2 And? variablesList1 =? optionsVariableNamesList, "Argument", "Both expressions and the options list must have the same variable names and the same number of variables.");
         
         numericValue1 := N(WithValue(variablesList1, optionsValuesList, expression1));
         

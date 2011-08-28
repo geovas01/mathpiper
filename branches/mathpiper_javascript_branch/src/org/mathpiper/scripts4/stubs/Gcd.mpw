@@ -7,7 +7,7 @@
 2 # Gcd(_n,1) <-- 1;
 2 # Gcd(1,_m) <-- 1;
 2 # Gcd(n_IsInteger,m_IsInteger) <-- GcdN(n,m);
-3 # Gcd(_n,_m)_(IsGaussianInteger(m) And IsGaussianInteger(n) )<-- GaussianGcd(n,m);
+3 # Gcd(_n,_m)_(IsGaussianInteger(m) And? IsGaussianInteger(n) )<-- GaussianGcd(n,m);
 
 4 # Gcd(-(_n), (_m)) <-- Gcd(n,m);
 4 # Gcd( (_n),-(_m)) <-- Gcd(n,m);
@@ -48,10 +48,10 @@
 
 //Note:tk:moved here from univar.rep.
 0 # Gcd(n_IsUniVar,m_IsUniVar)_
-    (n[1] =? m[1] And Degree(n) <? Degree(m)) <-- Gcd(m,n);
+    (n[1] =? m[1] And? Degree(n) <? Degree(m)) <-- Gcd(m,n);
 
 1 # Gcd(nn_IsUniVar,mm_IsUniVar)_
-    (nn[1] =? mm[1] And Degree(nn) >=? Degree(mm)) <--
+    (nn[1] =? mm[1] And? Degree(nn) >=? Degree(mm)) <--
 [
    UniVariate(nn[1],0,
                 UniGcd(Concat(ZeroVector(nn[2]),nn[3]),
@@ -142,14 +142,14 @@ VerifyGaussianGcd(x,y):=
   gcd:=Gcd(x,y);
 //  Echo(x/gcd);
 //  Echo(y/gcd);
-  Verify(IsGaussianInteger(x/gcd) And IsGaussianInteger(y/gcd),True);
+  Verify(IsGaussianInteger(x/gcd) And? IsGaussianInteger(y/gcd),True);
 ];
 VerifyGaussianGcd(324 + 1608*I, -11800 + 7900*I);
 VerifyGaussianGcd(7300 + 12*I, 2700 + 100*I);
 VerifyGaussianGcd(120-I*200,-336+50*I);
 
 /* Bug #3 */
-KnownFailure(Gcd(10,3.3) !=? 3.3 And Gcd(10,3.3) !=? 1);
+KnownFailure(Gcd(10,3.3) !=? 3.3 And? Gcd(10,3.3) !=? 1);
 /* I don't know what the answer should be, but buth 1 and 3.3 seem */
 /* certainly wrong. */
 Verify(Gcd(-10, 0), 10);

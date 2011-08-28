@@ -41,8 +41,8 @@ IsMul(f) := (Type(f) =? "*");
 IsMulF(f) := (Type(f) =? ":*:");
 
 IsPow(f):=
-  (Type(f) =? "^" And
-   IsInteger(f[2]) And
+  (Type(f) =? "^" And?
+   IsInteger(f[2]) And?
    f[2] >? 1
   );
 
@@ -123,13 +123,13 @@ TrigNegate(f):=
 
 FUnTrig(result) := Substitute(result,"IsFTrig","TrigUnChange");
 
-Rule("FSimpTerm",2,1,Type(f) =? "-" And ArgumentsCount(f)=?1)
+Rule("FSimpTerm",2,1,Type(f) =? "-" And? ArgumentsCount(f)=?1)
 [
   Local(result);
   result:=FSimpTerm(f[1],{{},{}});
   Substitute(result,"IsFTrig","TrigNegate");
 ];
-Rule("FSimpTerm",2,1,Type(f) =? "-" And ArgumentsCount(f)=?2)
+Rule("FSimpTerm",2,1,Type(f) =? "-" And? ArgumentsCount(f)=?2)
 [
   Local(result1,result2);
   result1:=FSimpTerm(f[1],{{},{}});
@@ -201,7 +201,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) =? "+")
   DestructiveInsert(flist,1,term1);
   DestructiveInsert(flist,1,term2);
 ];
-Rule("FProcessTerm",1,1,Type(t[1]) =? "-" And ArgumentsCount(t[1]) =? 2)
+Rule("FProcessTerm",1,1,Type(t[1]) =? "-" And? ArgumentsCount(t[1]) =? 2)
 [
   Local(split,term1,term2);
   split:=t[1];
@@ -214,7 +214,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) =? "-" And ArgumentsCount(t[1]) =? 2)
   DestructiveInsert(flist,1,term2);
 ];
 
-Rule("FProcessTerm",1,1,Length(t)>?1 And Type(t[2]) =? "-" And ArgumentsCount(t[2]) =? 2)
+Rule("FProcessTerm",1,1,Length(t)>?1 And? Type(t[2]) =? "-" And? ArgumentsCount(t[2]) =? 2)
 [
   Local(split,term1,term2);
   split:=t[2];
@@ -237,7 +237,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) =? ":*:")
   DestructiveInsert(flist,1,term);
 ];
 
-Rule("FProcessTerm",1,1,Length(t)>?1 And Type(t[2]) =? ":*:")
+Rule("FProcessTerm",1,1,Length(t)>?1 And? Type(t[2]) =? ":*:")
 [
   Local(split,term);
   split:=t[2];
@@ -247,7 +247,7 @@ Rule("FProcessTerm",1,1,Length(t)>?1 And Type(t[2]) =? ":*:")
   DestructiveInsert(flist,1,term);
 ];
 
-Rule("FProcessTerm",1,1,Type(t[1]) =? "-" And ArgumentsCount(t[1]) =? 1)
+Rule("FProcessTerm",1,1,Type(t[1]) =? "-" And? ArgumentsCount(t[1]) =? 1)
 [
   Local(split,term);
   split:=t[1];
@@ -256,7 +256,7 @@ Rule("FProcessTerm",1,1,Type(t[1]) =? "-" And ArgumentsCount(t[1]) =? 1)
   DestructiveInsert(term,1,FCos(-1,0));
   DestructiveInsert(flist,1,term);
 ];
-Rule("FProcessTerm",1,1,Length(t)>?1 And Type(t[2]) =? "-" And ArgumentsCount(t[2]) =? 1)
+Rule("FProcessTerm",1,1,Length(t)>?1 And? Type(t[2]) =? "-" And? ArgumentsCount(t[2]) =? 1)
 [
   Local(split,term);
   split:=t[2];
@@ -268,7 +268,7 @@ Rule("FProcessTerm",1,1,Length(t)>?1 And Type(t[2]) =? "-" And ArgumentsCount(t[
 
 
 /* Deal with (a*(b+c) -> a*b+a*c */
-Rule("FProcessTerm",1,1,Length(t)>?1 And Type(t[2]) =? "+")
+Rule("FProcessTerm",1,1,Length(t)>?1 And? Type(t[2]) =? "+")
 [
   Local(split,term1,term2);
   split:=t[2];
@@ -288,18 +288,18 @@ Rule("FProcessTerm",1,2,Not(IsFTrig(t[1])) )
   t[1]:=FCos(t[1],0);
   DestructiveInsert(flist,1,t);
 ];
-Rule("FProcessTerm",1,2,Length(t)>?1 And Not(IsFTrig(t[2])) )
+Rule("FProcessTerm",1,2,Length(t)>?1 And? Not(IsFTrig(t[2])) )
 [
   t[2]:=FCos(t[2],0);
   DestructiveInsert(flist,1,t);
 ];
 
 
-Rule("FProcessTerm",1,4,Length(t)=?1 And Type(t[1]) =? "FCos")
+Rule("FProcessTerm",1,4,Length(t)=?1 And? Type(t[1]) =? "FCos")
 [
   DestructiveInsert(rlist[1],1,t[1]);
 ];
-Rule("FProcessTerm",1,4,Length(t)=?1 And Type(t[1]) =? "FSin")
+Rule("FProcessTerm",1,4,Length(t)=?1 And? Type(t[1]) =? "FSin")
 [
   DestructiveInsert(rlist[2],1,t[1]);
 ];
@@ -326,13 +326,13 @@ Rule("FProcessTerm",1,5,Length(t)>?1)
 
 /* TrigSimpCombineB : take two FSin/FCos factors, and write them out into two terms */
 Rulebase("TrigSimpCombineB",{x,y});
-Rule("TrigSimpCombineB",2,1,Type(x) =? "FCos" And Type(y) =? "FCos")
+Rule("TrigSimpCombineB",2,1,Type(x) =? "FCos" And? Type(y) =? "FCos")
      { FCos((x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) };
-Rule("TrigSimpCombineB",2,1,Type(x) =? "FSin" And Type(y) =? "FSin")
+Rule("TrigSimpCombineB",2,1,Type(x) =? "FSin" And? Type(y) =? "FSin")
      { FCos(-(x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) };
-Rule("TrigSimpCombineB",2,1,Type(x) =? "FSin" And Type(y) =? "FCos")
+Rule("TrigSimpCombineB",2,1,Type(x) =? "FSin" And? Type(y) =? "FCos")
      { FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin( (x[1]*y[1])/2,x[2]-y[2]) };
-Rule("TrigSimpCombineB",2,1,Type(x) =? "FCos" And Type(y) =? "FSin")
+Rule("TrigSimpCombineB",2,1,Type(x) =? "FCos" And? Type(y) =? "FSin")
      { FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin(-(x[1]*y[1])/2,x[2]-y[2]) };
 
 

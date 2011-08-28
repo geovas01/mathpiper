@@ -47,7 +47,7 @@
     if      (m =? 2)
         [
             L := FunctionToList(y);
-            If(And(L[1]=?ToAtom("^"),L[3]=?2),qq:=L[2]);
+            If(And?(L[1]=?ToAtom("^"),L[3]=?2),qq:=L[2]);
             r := {{x+qq,1},{x-qq,1}};
         ]
     else if (m =? 4)

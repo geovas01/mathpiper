@@ -37,7 +37,7 @@ Macro("TestEquivalent",{left,right})
                             dLHS := Simplify(EquationLeft(leftEval) - EquationLeft(rightEval));
                             dRHS := Simplify(EquationRight(leftEval) - EquationRight(rightEval));
                             If(InVerboseMode(),Tell("      ",{dLHS,dRHS}));
-                            isEquiv := dLHS=?0 And dRHS=?0;
+                            isEquiv := dLHS=?0 And? dRHS=?0;
                         ],
                         isEquiv := False
                       );
@@ -85,7 +85,7 @@ Macro("TestEquivalent",{left,right})
 10 # TestTwoLists( L1_IsList, L2_IsList ) <--
 [
     If(InVerboseMode(),[Tell("   TestTwoLists");Tell("     ",L1);Tell("     ",L2);]);
-    If(Length(L1)=?1 And Length(L2)=?1,
+    If(Length(L1)=?1 And? Length(L2)=?1,
       [
           TestEquivalent(L1[1],L2[1]);
       ],

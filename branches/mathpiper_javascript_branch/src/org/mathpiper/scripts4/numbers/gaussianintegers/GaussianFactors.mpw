@@ -137,10 +137,10 @@ TestGaussianFactors(z_IsGaussianInteger) <--
  ForEach(p,gfactors)
  [
   r  := r*p[1]^p[2];
-  Ok := Ok And IsGaussianPrime(p[1]);
+  Ok := Ok And? IsGaussianPrime(p[1]);
  ];
 // Echo(r);
- Ok := Ok And IsGaussianUnit(r/z);
+ Ok := Ok And? IsGaussianUnit(r/z);
  If(Ok,True,Echo("FAILED: GaussianFactors(", z, ")=", gfactors, " which is wrong."));
 ];
 

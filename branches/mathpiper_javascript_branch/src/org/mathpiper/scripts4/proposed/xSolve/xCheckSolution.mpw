@@ -8,7 +8,7 @@
       If(iDebug=True,Tell("CloseEnough",{expr1,expr2,prec}));
       Local(diff,ndiff,ncomp,result);
       diff := expr1 - expr2;
-      If(diff !=? 0 And HasFunc(expr1,Sqrt), diff := RadSimp(expr1-expr2));
+      If(diff !=? 0 And? HasFunc(expr1,Sqrt), diff := RadSimp(expr1-expr2));
       If(diff !=? 0, diff := Simplify(expr1-expr2));      
       If(iDebug=True,Tell("  ce1",diff));
       If(diff=0,

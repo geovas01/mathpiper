@@ -14,7 +14,7 @@ FindRealRoots(_p) <--
     pp   := PrimitivePart(p);
     If(iDebug,Tell("   ",{cc,pp}));
     vlcc := VarList(cc);
-    If(Length(vlcc)>?0 And Contains(vlcc,var), zeroRoot:=True,zeroRoot:=False);
+    If(Length(vlcc)>?0 And? Contains(vlcc,var), zeroRoot:=True,zeroRoot:=False);
     p:=SquareFree(Rationalize(pp));
     If(iDebug,Tell("   after sqf",p));
     minb := MinimumBound(p);

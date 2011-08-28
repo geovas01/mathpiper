@@ -160,7 +160,7 @@ UnFence("xFactorsPrimitivePart",1);
 
 
      //  special case: homogeneous bivariates
-12 # xFactorsPrimitivePart( _pp )_(isHomogeneous And nvars=?2) <--
+12 # xFactorsPrimitivePart( _pp )_(isHomogeneous And? nvars=?2) <--
 [
     If(InVerboseMode(),Tell("Homogeneous and Bivariate"));
     Local(ppFactors);
@@ -320,7 +320,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
         If(InVerboseMode(),Tell("   ",dis));
         Local(var);
         var := dis[1][1];
-        if ( dis[2]=?{{4},{2},{0}} And dis[3]=?{1,1,1} )
+        if ( dis[2]=?{{4},{2},{0}} And? dis[3]=?{1,1,1} )
             [
                 Local(new1,new2);
                 new1 := {var^2-var+1,mult};
@@ -374,7 +374,7 @@ UnFence("ApproximateRealCoefficients",1);
       ForEach(q,factrs)
       [
           If( InVerboseMode(), Tell(1,q) );
-          If( IsList(q) And Length(q)=?2,
+          If( IsList(q) And? Length(q)=?2,
             [
                 {a,b} := q;
                 If( InVerboseMode(), Echo("     ",{a,b}) );
@@ -393,7 +393,7 @@ UnFence("ApproximateRealCoefficients",1);
             Echo("    err = ",err);
         ]
       );
-      ff := If(Not err And t !=? 1, {t,1}:Reverse(f), factrs);
+      ff := If(Not err And? t !=? 1, {t,1}:Reverse(f), factrs);
       ff := Select(Lambda({x},x!=?{1,1}),ff);
       If(ff[1]<?0,ff[1]:=-ff[1]);
 ];
@@ -402,7 +402,7 @@ UnFence("ApproximateRealCoefficients",1);
 // ----------------  RATIONAL POLYNOMIALS  -----------------
 
 150 # xFactors( expr_IsRationalFunction )_
-        (IsPolynomial(Numerator(expr)) And IsPolynomial(Denominator(expr))) <--
+        (IsPolynomial(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Function",expr);]);
     Local(Numer,Denom,fNumer,fDenom);
@@ -416,7 +416,7 @@ UnFence("ApproximateRealCoefficients",1);
 
 
 152 # xFactors( expr_IsRationalFunction )_
-        (IsConstant(Numerator(expr)) And IsPolynomial(Denominator(expr))) <--
+        (IsConstant(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Denom",expr);]);
     Local(Numer,Denom,fNumer,fDenom);

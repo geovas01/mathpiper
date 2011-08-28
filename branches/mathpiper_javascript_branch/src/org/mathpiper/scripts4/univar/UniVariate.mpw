@@ -12,7 +12,7 @@ ShiftUniVar(UniVariate(_var,_first,_coefs),_fact,_shift)
 
 Rulebase("UniVariate",{var,first,coefs});
 
-Rule("UniVariate",3,10,Length(coefs)>?0 And coefs[1]=?0)
+Rule("UniVariate",3,10,Length(coefs)>?0 And? coefs[1]=?0)
   UniVariate(var,first+1,Rest(coefs));
 Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
     ExpandUniVariate(var,first,coefs);
@@ -29,7 +29,7 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
   Bind(result, {});
   Bind(from, Minimum(curl,curr));
 
-  While(And(IsLessThan(curl,curr),left !=? {}))
+  While(And?(IsLessThan(curl,curr),left !=? {}))
   [
     DestructiveAppend(result,First(left));
     Bind(left,Rest(left));
@@ -40,7 +40,7 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
     DestructiveAppend(result,0);
     Bind(curl,AddN(curl,1));
   ];
-  While(And(IsLessThan(curr,curl), right !=? {}))
+  While(And?(IsLessThan(curr,curl), right !=? {}))
   [
     DestructiveAppend(result,First(right));
     Bind(right,Rest(right));
@@ -51,7 +51,7 @@ Rule("UniVariate",3,1000,IsComplex(var) Or IsList(var))
     DestructiveAppend(result,0);
     Bind(curr,AddN(curr,1));
   ];
-  While(And(left !=? {}, right !=? {}))
+  While(And?(left !=? {}, right !=? {}))
   [
     DestructiveAppend(result,First(left)+First(right));
     Bind(left, Rest(left));

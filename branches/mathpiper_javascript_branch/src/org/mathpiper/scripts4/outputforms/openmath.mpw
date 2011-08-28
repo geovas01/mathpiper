@@ -39,7 +39,7 @@ Rule("OMREP",1,1,True)
 
     If(Not(errorObject =? False), errorObject); //todo:tk:check this code.
 
-    If (Not(IsExitRequested()) And errorObject =? False,
+    If (Not(IsExitRequested()) And? errorObject =? False,
     [
       Bind(stringOut,"");
       Bind(result,False);
@@ -54,7 +54,7 @@ Rule("OMREP",1,1,True)
         Apply("OMForm",{result});
       ],
       Apply(PrettyPrinterGet(),{result}));
-      If(count >? 0 And (count:=count-1) =? 0, Exit());
+      If(count >? 0 And? (count:=count-1) =? 0, Exit());
     ]);
   ];
 ];
@@ -527,14 +527,14 @@ PipeFromString(str:" EndOfFile")
 
 11 # OMPathSelect(path_IsNumber, _expression) <--
 [
-  If(path >=? 0 And path <=? Length(expression),
+  If(path >=? 0 And? path <=? Length(expression),
      expression[path],
      Undefined);
 ];
 11 # OMPathSelect(path_IsList, _expression) <--
 [
   ForEach(i, path)
-    If(IsFunction(expression) And i >=? 0 And i <=? Length(expression),
+    If(IsFunction(expression) And? i >=? 0 And? i <=? Length(expression),
        expression := expression[i],
        Undefined);
   expression;
@@ -674,7 +674,7 @@ OMDef( "List", "list1","list" );
 OMDef( "Infinity" ,  "nums1", "infinity" );
 OMDef( "Undefined",  "nums1", "NaN"      );
 // [20010916 AGP] From initialization.rep/stdopers.mpi:
-OMDef( "And"   ,  "logic1", "and"        );
+OMDef( "And?"   ,  "logic1", "and"        );
 OMDef( "=="    ,  "logic1", "equivalent" );
 /*Note:tk:when I had fixed the syntax error in this code, a redefinition error was created.
 OMDef( "!=?="   ,  "logic1", "not",
@@ -779,7 +779,7 @@ OMDef( "Subsumes"     ,          mathpiper,"subsumes"                 );
 // The following appear in the def file, but commented out:
 //     "~",  mathpiper, "Not"
 //     "|",  mathpiper, "Or"
-//     "&",  mathpiper, "And"
+//     "&",  mathpiper, "And?"
 
 //LoadScriptOnce("complex.rep/om.mpi");
 OMDef( "Complex"  , "complex1","complex_cartesian" );

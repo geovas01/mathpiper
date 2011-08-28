@@ -185,7 +185,7 @@ HtmlTag(tags,content):=
   result:="<" : tags["0"];
   ForEach(tag,AssocIndices(tags))
   [
-    If (tag !=? "0" And tags[tag] !=? "",
+    If (tag !=? "0" And? tags[tag] !=? "",
        result:= result : " " : tag : "=?" : "\"" : tags[tag] : "\""
        );
   ];

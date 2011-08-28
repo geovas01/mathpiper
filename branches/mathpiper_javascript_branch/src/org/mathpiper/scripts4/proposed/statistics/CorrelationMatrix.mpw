@@ -24,7 +24,7 @@ CorrelationMatrix(dataLists) :=
     [
         ForEach(columnIndex, 1 .. Length(dataLists) + 1)
         [
-            if(rowIndex >=? 2 And columnIndex >=? 2)
+            if(rowIndex >=? 2 And? columnIndex >=? 2)
             [
                 correlationMatrix[rowIndex][columnIndex] := N(CorrelationCoefficient(dataLists[rowIndex - 1],dataLists[columnIndex - 1]),2);
             ]

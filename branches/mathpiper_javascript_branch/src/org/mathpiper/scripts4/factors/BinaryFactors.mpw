@@ -115,7 +115,7 @@ Function(Fct,{poly,var})
     Local(i);
     Bind(i,1);
     Bind(lowestcoef,Abs(poly[i]));
-    While (lowestcoef =? 0 And i<=?Length(poly))
+    While (lowestcoef =? 0 And? i<=?Length(poly))
     [
       Bind(i,i+1);
       Bind(lowestcoef,Abs(poly[i]));
@@ -184,7 +184,7 @@ Function(Fct,{poly,var})
   Bind(q,twoq);
   Bind(twoq,MultiplyN(q,2));
   Bind(mask,AddN(twoq,MathNegate(1)));
-  While(Length(result)<?maxNrRoots And Length(accu)>?0 And q<=?Abs(testpoly[1]))
+  While(Length(result)<?maxNrRoots And? Length(accu)>?0 And? q<=?Abs(testpoly[1]))
   [
     Local(newaccu);
     Bind(newaccu,{});

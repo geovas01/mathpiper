@@ -28,7 +28,7 @@ SturmVariations(_S) <--
   Local(result,prev);
 //Echo("S = ",S);
   result:=0;
-  While(Length(S)>?0 And IsZero(S[1])) S:=Rest(S);
+  While(Length(S)>?0 And? IsZero(S[1])) S:=Rest(S);
 //Echo("S = ",S);
   if (Length(S)>?0)
   [

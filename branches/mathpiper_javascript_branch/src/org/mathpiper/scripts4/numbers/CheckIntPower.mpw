@@ -13,7 +13,7 @@ CheckIntPower(n, limit) :=
         // loop: check whether n^(1/s) is integer for all prime s up to s0
         root := 0;
         s := 0;
-        While(root =? 0 And NextPseudoPrime(s)<=?s0)        // root=0 while no root is found
+        While(root =? 0 And? NextPseudoPrime(s)<=?s0)        // root=0 while no root is found
         [
                 s := NextPseudoPrime(s);
                 root := IntNthRoot(n, s);

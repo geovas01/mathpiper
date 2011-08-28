@@ -37,7 +37,7 @@ jasFactorsInt(poly_IsPolynomial) <--
         Local(lst,ii,factor);
         lst   := StringToList(fact);
         For(ii:=1,ii<?Length(lst),ii++) [
-             If(lst[ii]=?"*" And lst[ii+1]=?"*",
+             If(lst[ii]=?"*" And? lst[ii+1]=?"*",
                 [ DestructiveReplace(lst,ii,"^"); DestructiveDelete(lst,ii+1); ]
              );
         ];

@@ -175,7 +175,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
     // RootsWithMultiples (hopefully) catches those, except for
     // the case b,c=0
 
-    if( b=?0 And c=?0 )[
+    if( b=?0 And? c=?0 )[
         Add(OdeConstantList(2)*{1,x});
     ] else if( IsNumber(N(roots[1])) )[
         If(InVerboseMode(),Echo("OdeSolve: Real roots"));

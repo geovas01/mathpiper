@@ -67,16 +67,16 @@
 250 # ((-Infinity) ^ (n_IsNumber))_(IsEven(n)) <-- Infinity;
 250 # ((-Infinity) ^ (n_IsNumber))_(IsOdd(n)) <-- -Infinity;
 
-250 # (x_IsNumber ^ Infinity)_(x>? -1 And x <? 1) <-- 0;
+250 # (x_IsNumber ^ Infinity)_(x>? -1 And? x <? 1) <-- 0;
 250 # (x_IsNumber ^ Infinity)_(x>? 1) <-- Infinity;
 
 // these Magnitude(x)s should probably be changed to Abs(x)s
 
 250 # (x_IsComplex ^ Infinity)_(Magnitude(x) >? 1) <-- Infinity;
 250 # (x_IsComplex ^ Infinity)_(Magnitude(x) <? -1) <-- -Infinity;
-250 # (x_IsComplex ^ Infinity)_(Magnitude(x) >? -1 And Magnitude(x) <? 1) <-- 0;
+250 # (x_IsComplex ^ Infinity)_(Magnitude(x) >? -1 And? Magnitude(x) <? 1) <-- 0;
 
-250 # (x_IsNumber ^ -Infinity)_(x>? -1 And x <? 1) <-- Infinity;
+250 # (x_IsNumber ^ -Infinity)_(x>? -1 And? x <? 1) <-- Infinity;
 250 # (x_IsNumber ^ -Infinity)_(x<? -1) <-- 0;
 250 # (x_IsNumber ^ -Infinity)_(x>? 1) <-- 0;
 

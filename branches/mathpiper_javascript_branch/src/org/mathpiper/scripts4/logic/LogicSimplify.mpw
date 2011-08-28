@@ -14,7 +14,7 @@
   Bind(cnf, CNF(proposition));
 
   If(level <=? 1, cnf, [
-    Bind(list, Flatten(cnf, "And"));
+    Bind(list, Flatten(cnf, "And?"));
     Bind(clauses, {});
     ForEach(clause, list)
     [
@@ -26,12 +26,12 @@
 
     /*
         Note that we sort each of the clauses so that they look the same,
-        i.e. if we have (A And B) And ( B And A), only the first one will
+        i.e. if we have (A And? B) And? ( B And? A), only the first one will
         persist.
     */
     Bind(clauses, RemoveDuplicates(clauses));
 
-    If(IsEqual(level, 3) And (Length(clauses) !=? 0), [
+    If(IsEqual(level, 3) And? (Length(clauses) !=? 0), [
         Bind(clauses, DoUnitSubsumptionAndResolution(clauses));
         Bind(clauses, LogicCombine(clauses));
     ]);
@@ -44,7 +44,7 @@
         Bind(result, True);
         ForEach(item,clauses)
         [
-            Bind(result, result And UnFlatten(item, "Or", False));
+            Bind(result, result And? UnFlatten(item, "Or", False));
         ];
 
         result;

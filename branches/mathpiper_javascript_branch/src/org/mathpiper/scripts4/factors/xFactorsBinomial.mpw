@@ -25,7 +25,7 @@
     Ar     := NearRational(N(A^(1/n),20));
     Br     := NearRational(N(B^(1/n),20));
     If(InVerboseMode(),[Tell("       ",{n,X,var,A,B}); Tell("       ",{Ar,Br,s});]);
-    If( IsInteger(Ar) And IsInteger(Br), xFB1(dis), {{poly,1}} );
+    If( IsInteger(Ar) And? IsInteger(Br), xFB1(dis), {{poly,1}} );
 ];
 
 
@@ -51,11 +51,11 @@
           Tell("       ",{Ar,Br,s});
       ]
     );
-    If( IsInteger(Ar) And IsInteger(Br), xFB2(dis), {{poly,1}} );
+    If( IsInteger(Ar) And? IsInteger(Br), xFB2(dis), {{poly,1}} );
 ];
 
 
-12 # xFB1( dis_IsList )_(Length(dis)=3 And Length(dis[3])=2) <--
+12 # xFB1( dis_IsList )_(Length(dis)=3 And? Length(dis[3])=2) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFB1",dis);]);
     Local(Y,y,ii,fac1);
@@ -149,7 +149,7 @@ UnFence("xFB1",3);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1evensum",{X,n});]);
     fn    := {{1,1}};
     If( n >? 1, fn := FactorsSmallInteger(n) );
-    If(Length(fn)=1 And IsOdd(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
+    If(Length(fn)=1 And? IsOdd(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
     If(Length(fn)>?1,
          ForEach(f,fn) [ If( IsOdd(f[1]), mx := f[1]^f[2] ); ]);
     my    := n/mx;
@@ -212,7 +212,7 @@ UnFence("xFB1",3);
 
 
 
-50 # xFB2( dis_IsList )_(Length(dis)=3 And Length(dis[3])=2) <--
+50 # xFB2( dis_IsList )_(Length(dis)=3 And? Length(dis[3])=2) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFB2",dis);]);
     Local(ns,ii,fn,mx,my,fac2);

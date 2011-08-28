@@ -45,7 +45,7 @@
         If(iDebug, Tell("  STEP 2"));
         For( ir:=cr, ir<=?mRows,ir++ )
          [  
-            If( am[ir][cc] !=? 0 And ir !=? 1, 
+            If( am[ir][cc] !=? 0 And? ir !=? 1, 
               [
                 {am[ir],am[cr]} := {am[cr],am[ir]};
                 If(iDebug, Tell("   swapping rows ",{cr,ir}));
@@ -79,10 +79,10 @@
         // entire matrix is in row-echelon form
         If(iDebug, Tell("  STEP 5"));
         cr := cr + 1;
-        If(iDebug And cr <=? mRows, [NewLine();Tell(" ",cr);]);
+        If(iDebug And? cr <=? mRows, [NewLine();Tell(" ",cr);]);
         //Tell("   ",cr);
         //Tell("   ",am[cr]);
-        If( cr=?mRows And IsZeroVector(am[cr]), Break() );
+        If( cr=?mRows And? IsZeroVector(am[cr]), Break() );
     ];   // end while cr <=? mRows
     
     // STEP 6:  convert to unique reduced row-echelon form

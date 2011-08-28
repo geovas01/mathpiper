@@ -67,7 +67,7 @@ Now we come to the more complex line
 20 # f(n_IsIntegerGreaterThanZero) <-- n*f(n-1);
 
 We realize we need a function IsGreaterThanZero, so we define this function, with
-IsIntegerGreaterThanZero(_n) <-- (IsInteger(n) And n>?0);
+IsIntegerGreaterThanZero(_n) <-- (IsInteger(n) And? n>?0);
 
 You can verify that it works by trying f(5), which should return the same value as 5!.
 

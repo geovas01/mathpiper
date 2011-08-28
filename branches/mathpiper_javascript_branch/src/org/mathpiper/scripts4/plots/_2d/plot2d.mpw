@@ -76,12 +76,12 @@ Function() Plot2D(func, range, options, ...);
                 options'hash["precision"] := 0.0001
         );
         If(
-                options'hash["output"] =? Empty Or IsString(options'hash["output"]) And Plot2DOutputs()[options'hash["output"]] =? Empty,
+                options'hash["output"] =? Empty Or IsString(options'hash["output"]) And? Plot2DOutputs()[options'hash["output"]] =? Empty,
                 options'hash["output"] := Plot2DOutputs()["default"]
         );
         // a "filename" parameter is required when using data file
         If(
-                options'hash["output"] =? "datafile" And options'hash["filename"] =? Empty,
+                options'hash["output"] =? "datafile" And? options'hash["filename"] =? Empty,
                 options'hash["filename"] := "output.data"
         );
     
@@ -98,7 +98,7 @@ Function() Plot2D(func, range, options, ...);
         delta := N(Eval( (range[2] - range[1]) / (options'hash["points"]) ));
     
         // check that the input parameters are valid (all numbers)
-        Check(IsNumber(range[1]) And IsNumber(range[2]) And IsNumber(options'hash["points"]) And IsNumber(options'hash["precision"]),
+        Check(IsNumber(range[1]) And? IsNumber(range[2]) And? IsNumber(options'hash["points"]) And? IsNumber(options'hash["precision"]),
                 "Argument",
                 "Plot2D: Error: plotting range '"
                 :(PipeToString()Write(range))
@@ -202,7 +202,7 @@ Plot2D'adaptive(_func, _var, {_a,_b,_c}, {_fa, _fb, _fc}, _depth, _epsilon) <--
                 (
                   // condition for the values not to oscillate too rapidly
                   sign'change(fa, fa1, fb) + sign'change(fa1, fb, fb1) + sign'change(fb, fb1, fc) <=? 2
-                  And
+                  And?
                   // condition for the values not to change too rapidly
                   N(Eval(Abs( (fa-5*fa1+9*fb-7*fb1+2*fc)/24 ) ))        // this is the Simpson quadrature for the (fb,fb1) subinterval (using points b,b1,c), subtracted from the 4-point Newton-Cotes quadrature for the (fb,fb1) subinterval (using points a, a1, b, b1)
                           <=? N(Eval( epsilon*(        // the expression here will be nonnegative because we subtract the minimum value
