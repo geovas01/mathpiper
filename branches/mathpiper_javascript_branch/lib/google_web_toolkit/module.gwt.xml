@@ -2,7 +2,7 @@
  <module >
     <inherits name="com.google.gwt.user.User" />
     <source path="mathpiper" />
-    <entry-point class="org.mathpiper.JavaScript" />
+    <entry-point class="org.mathpiper.interpreters.JavaScript" />
  </module>
  
  

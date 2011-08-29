@@ -198,6 +198,7 @@ import org.mathpiper.builtin.functions.core.FastCos;
 import org.mathpiper.builtin.functions.core.FastSin;
 import org.mathpiper.builtin.functions.core.FastTan;
 import org.mathpiper.builtin.functions.core.GlobalVariablesGet;
+import org.mathpiper.builtin.functions.core.LoadScript;
 import org.mathpiper.builtin.functions.core.RulebaseDump;
 import org.mathpiper.builtin.functions.core.StackTrace;
 import org.mathpiper.builtin.functions.core.StackTraceOff;
@@ -212,16 +213,13 @@ public abstract class BuiltinFunction {
 
     public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
 
-
     public static ConsPointer getTopOfStackPointer(Environment aEnvironment, int aStackTop) throws Exception {
         return aEnvironment.iArgumentStack.getElement(aStackTop, aStackTop, aEnvironment);
     }
 
-
     public static ConsPointer getArgumentPointer(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
         return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition, aStackTop, aEnvironment);
     }
-
 
     public static ConsPointer getArgumentPointer(Environment aEnvironment, int aStackTop, ConsPointer cur, int n) throws Exception {
         LispError.lispAssert(n >= 0, aEnvironment, aStackTop);
@@ -234,10 +232,8 @@ public abstract class BuiltinFunction {
         return loop;
     }
 
-
     public void plugIn(Environment aEnvironment) throws Exception {
     }//end method.
-
 
     public static void addCoreFunctions(Environment aEnvironment) {
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "While");
@@ -861,11 +857,13 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new TraceSome(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "TraceSome");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceSome");
-                aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new RulebaseDump(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "RulebaseDump");
+        aEnvironment.getBuiltinFunctions().setAssociation(
+                new BuiltinFunctionEvaluator(new LoadScript(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "LoadScript");
 
     }//end method.
-
 }//end class.
 

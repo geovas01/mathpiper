@@ -13,13 +13,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-package org.mathpiper;
+package org.mathpiper.interpreters;
 
 import com.google.gwt.core.client.EntryPoint;
-import org.mathpiper.interpreters.EvaluationResponse;
-import org.mathpiper.interpreters.Interpreter;
 
-import org.mathpiper.interpreters.Interpreters;
+
 
 public class JavaScript implements EntryPoint {
 
@@ -27,7 +25,7 @@ public class JavaScript implements EntryPoint {
 
 
     public JavaScript() {
-        interpreterInstance = Interpreters.getSynchronousInterpreter();
+        interpreterInstance = SynchronousInterpreter.getInstance();
     }
 
 
@@ -41,7 +39,7 @@ public class JavaScript implements EntryPoint {
 
     public static native void exportEvaluateMethod() /*-{
     $wnd.casEval = function(send){
-    return @org.mathpiper.JavaScript::casEvaluate(Ljava/lang/String;)(send);
+    return @org.mathpiper.interpreters.JavaScript::casEvaluate(Ljava/lang/String;)(send);
     }
     }-*/;
 
