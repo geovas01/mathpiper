@@ -16,6 +16,13 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.ConsPointer;
+
 public class JavaObject extends BuiltinContainer {
 
     private Object javaObject;
@@ -33,7 +40,55 @@ public class JavaObject extends BuiltinContainer {
         return javaObject;
     }//end method.
 
+    public static List lispListToJavaList(Environment aEnvironment, int aStackTop,ConsPointer lispList) throws Exception {
+        LispError.check(aEnvironment, aStackTop, Utility.isList(lispList), LispError.NOT_A_LIST, "", "INTERNAL");
 
+        lispList.goNext(aStackTop, aEnvironment);
+
+        ArrayList javaList = new ArrayList();
+
+        while (lispList.getCons() != null) {
+
+            Object item = lispList.car();
+            //item = narrow(item);
+            javaList.add(item);
+
+            lispList.goNext(aStackTop, aEnvironment);
+
+        }//end while.
+
+        return javaList;
+    }//end method.
+
+
+    public static double[] lispListToJavaDoubleArray(Environment aEnvironment, int aStackTop, ConsPointer lispListPointer) throws Exception {
+        LispError.check(aEnvironment, aStackTop, Utility.isList(lispListPointer), LispError.NOT_A_LIST, "", "INTERNAL");
+
+        lispListPointer.goNext(aStackTop, aEnvironment); //Remove List designator.
+
+        double[] values = new double[Utility.listLength(aEnvironment, aStackTop, lispListPointer)];
+
+        int index = 0;
+        while (lispListPointer.getCons() != null) {
+
+            Object item = lispListPointer.car();
+
+            LispError.check(aEnvironment, aStackTop, item instanceof String, LispError.INVALID_ARGUMENT, "", "INTERNAL");
+            String itemString = (String) item;
+
+            try {
+                values[index++] = Double.parseDouble(itemString);
+            } catch (NumberFormatException nfe) {
+                LispError.raiseError("Can not convert into a double." , "INTERNAL", aStackTop, aEnvironment);
+            }//end try/catch.
+
+            lispListPointer.goNext(aStackTop, aEnvironment);
+
+        }//end while.
+
+        return values;
+
+    }//end method.
  
 
 }//end class.
