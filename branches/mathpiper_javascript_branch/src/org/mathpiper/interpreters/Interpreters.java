@@ -18,6 +18,17 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.interpreters;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.lisp.Environment;
+
 /**
  * This class consists exclusively of static factory methods which return MathPiper interpreter instances.
  * These static methods are the only way to obtain instances of MathPiper interpeters.
@@ -142,4 +153,98 @@ public class Interpreters {
     public static Interpreter getAsynchronousInterpreter(String docBase) {
         return AsynchronousInterpreter.getInstance(docBase);
     }
+
+
+
+    //================================================
+    public static synchronized List addOptionalFunctions(Environment aEnvironment, String functionsPath) {
+
+        List failList = new ArrayList();
+
+        try {
+            String[] listing = getResourceListing(BuiltinFunction.class, functionsPath);
+            for (int x = 0; x < listing.length; x++) {
+
+                String fileName = listing[x];
+
+                if (!fileName.toLowerCase().endsWith(".class")) {
+                    continue;
+                }
+
+
+                fileName = fileName.substring(0, fileName.length() - 6);
+                fileName = functionsPath + fileName;
+                fileName = fileName.replace("/", ".");
+
+                //System.out.println(fileName);
+
+                try {
+                    Class functionClass = Class.forName(fileName, true, BuiltinFunction.class.getClassLoader());
+
+                    //System.out.println("CLASS :" + functionClass.toString() + "   CLASSLOADER: " + BuiltinFunction.class.getClassLoader().toString());
+
+                    Object functionObject = functionClass.newInstance();
+                    if (functionObject instanceof BuiltinFunction) {
+                        BuiltinFunction function = (BuiltinFunction) functionObject;
+                        function.plugIn(aEnvironment);
+                    }//end if.
+                } catch (ClassNotFoundException cnfe) {
+                    System.out.println("Class not found: " + fileName);
+                } catch (InstantiationException ie) {
+                    System.out.println("Can not instantiate class: " + fileName);
+                } catch (IllegalAccessException iae) {
+                    System.out.println("Illegal access of class: " + fileName);
+                } catch (NoClassDefFoundError ncdfe) {
+                    //System.out.println("Class not found: " + fileName);
+                    failList.add(fileName);
+                }
+
+            }//end for.
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return failList;
+    }//end method.
+
+    private static String[] getResourceListing(Class loadedClass, String path) throws URISyntaxException, IOException {
+
+        InputStream inputStream = loadedClass.getClassLoader().getResourceAsStream(path + "plugins_list.txt");
+
+        if (inputStream == null) {
+            return null;
+        }
+
+        BufferedReader pluginListFileReader = new BufferedReader(new InputStreamReader(inputStream));
+
+
+
+        java.util.Set<String> result = new HashSet<String>();
+
+        String name = null;
+        while ((name = pluginListFileReader.readLine()) != null) {
+            name = name.trim();
+            result.add(name);
+        }
+        return result.toArray(new String[result.size()]);
+
+    }//end method.
+
+    public static void main(String[] args) {
+
+        Interpreter interpreter = getSynchronousInterpreter();
+
+        Environment environment = interpreter.getEnvironment();
+
+        addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
+
+        interpreter.evaluate("ViewGraphicConsole();");
+
+    }
+
+
 }//end class.

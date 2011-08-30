@@ -57,7 +57,7 @@ public class Build {
     }//end constructor.
 
     public Build(String baseDirectory) throws Exception {
-        documentationOutputDirectory = baseDirectory + "/build/";
+        documentationOutputDirectory = baseDirectory + "/build/classes/";
         sourceDirectory = baseDirectory + "/src/";
         sourceScriptsDirectory = sourceDirectory + "org/mathpiper/scripts4/";
 
@@ -234,13 +234,14 @@ public class Build {
 
             }//end for.
 
+
             if (documentationFile != null) {
 
                 processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/core");
 
                 processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/optional");
 
-                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
+                //processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
             }
 
             Collections.sort(functionCategoriesList);
@@ -784,7 +785,12 @@ public class Build {
 
 
         java.io.FileWriter pluginsListFile = null;
+        if(!outputDirectoryPath.endsWith("core"))
+        {
+            pluginsListFile = new java.io.FileWriter(outputDirectoryPath + "/" + pluginFilePath + "/plugins_list.txt");
+        }
 
+        System.out.println(outputDirectoryPath + "/" + pluginFilePath + "/plugins_list.txt");
 
         if (builtinFunctionsSourceDir.exists()) {
             java.io.File[] javaFilesDirectory = builtinFunctionsSourceDir.listFiles(new java.io.FilenameFilter() {
