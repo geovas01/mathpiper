@@ -1,0 +1,160 @@
+%mathpiper,def="Gcd"
+
+0 # Gcd(0,0) <-- 1;
+1 # Gcd(0,_m) <-- Abs(m);
+1 # Gcd(_n,0) <-- Abs(n);
+1 # Gcd(_m,_m) <-- Abs(m);
+2 # Gcd(_n,1) <-- 1;
+2 # Gcd(1,_m) <-- 1;
+2 # Gcd(n_IsInteger,m_IsInteger) <-- GcdN(n,m);
+3 # Gcd(_n,_m)_(IsGaussianInteger(m) And? IsGaussianInteger(n) )<-- GaussianGcd(n,m);
+
+4 # Gcd(-(_n), (_m)) <-- Gcd(n,m);
+4 # Gcd( (_n),-(_m)) <-- Gcd(n,m);
+4 # Gcd(Sqrt(n_IsInteger),Sqrt(m_IsInteger)) <-- Sqrt(Gcd(n,m));
+4 # Gcd(Sqrt(n_IsInteger),m_IsInteger) <-- Sqrt(Gcd(n,m^2));
+4 # Gcd(n_IsInteger,Sqrt(m_IsInteger)) <-- Sqrt(Gcd(n^2,m));
+
+5 # Gcd(n_IsRational,m_IsRational) <--
+[
+  Gcd(Numerator(n),Numerator(m))/Lcm(Denominator(n),Denominator(m));
+];
+
+
+10 # Gcd(list_IsList)_(Length(list)>?2) <--
+    [
+      Local(first);
+      first:=Gcd(list[1],list[2]);
+      Gcd(first:Rest(Rest(list)));
+    ];
+14 # Gcd({0}) <-- 1;
+15 # Gcd({_head}) <-- head;
+
+20 # Gcd(list_IsList)_(Length(list)=?2) <-- Gcd(list[1],list[2]);
+
+30 # Gcd(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=?1) <--
+[
+  Local(vars);
+  vars:=VarList(n+m);
+  NormalForm(Gcd(MakeUni(n,vars),MakeUni(m,vars)));
+];
+
+100 # Gcd(n_IsConstant,m_IsConstant) <-- 1;
+110 # Gcd(_m,_n) <--
+[
+  Echo("Not simplified");
+];
+
+
+//Note:tk:moved here from univar.rep.
+0 # Gcd(n_IsUniVar,m_IsUniVar)_
+    (n[1] =? m[1] And? Degree(n) <? Degree(m)) <-- Gcd(m,n);
+
+1 # Gcd(nn_IsUniVar,mm_IsUniVar)_
+    (nn[1] =? mm[1] And? Degree(nn) >=? Degree(mm)) <--
+[
+   UniVariate(nn[1],0,
+                UniGcd(Concat(ZeroVector(nn[2]),nn[3]),
+                       Concat(ZeroVector(mm[2]),mm[3])));
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Gcd",categories="User Functions;Numbers (Operations)"
+*CMD Gcd --- greatest common divisor
+*STD
+*CALL
+        Gcd(n,m)
+        Gcd(list)
+
+*PARMS
+
+{n}, {m} -- integers or Gaussian integers or univariate polynomials
+
+{list} -- a list of all integers or all univariate polynomials
+
+*DESC
+
+This function returns the greatest common divisor of "n" and "m".
+The gcd is the largest number that divides "n" and "m".  It is
+also known as the highest common factor (hcf).  The library code calls
+{MathGcd}, which is an internal function.  This
+function implements the "binary Euclidean algorithm" for determining the
+greatest common divisor:
+
+*HEAD        Routine for calculating {Gcd(n,m)}
+        
+*        1. if $n = m$ then return $n$
+*        2. if both $n$ and $m$ are even then return $2*Gcd(n/2,m/2)$
+*        3. if exactly one of $n$ or $m$ (say $n$) is even then return $Gcd(n/2,m)$
+*        4. if both $n$ and $m$ are odd and, say, $n>m$ then return $Gcd((n-m)/2,m)$
+
+This is a rather fast algorithm on computers that can efficiently shift
+integers. When factoring Gaussian integers, a slower recursive algorithm is used.
+
+If the second calling form is used, {Gcd} will
+return the greatest common divisor of all the integers or polynomials
+in "list". It uses the identity
+$$Gcd(a,b,c) = Gcd(Gcd(a,b),c)$$.
+
+*E.G.
+
+In> Gcd(55,10)
+Result: 5;
+In> Gcd({60,24,120})
+Result: 12;
+In> Gcd( 7300 + 12*I, 2700 + 100*I)
+Result: Complex(-4,4);
+
+
+*SEE Lcm
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Gcd",subtype="automatic_test"
+
+Verify( Gcd( 324 + 1608*I, -11800 + 7900*I ),Complex(-52,16) );
+// I changed from Complex(-4,4) to Complex(4,4) as the GaussianGcd algorithm suddenly returned this instead.
+// However, as it turned out it was a bug in FloorN, introduced when
+// we moved to the new number classes (so the numbers did not get converted
+// to string and back any more). The number got prematurely truncated with
+// this test case (regression test added to regress.yts also).
+//TODO we can expand this with randomized tests
+Verify( Gcd( 7300 + 12*I, 2700 + 100*I), Complex(-4,4) );
+
+
+// Bug was found: gcd sometimes returned 0! Very bad, since the
+// value returned by gcd is usually used to divide out greatest
+// common divisors, and dividing by zero is not a good idea.
+Verify(Gcd(0,0),1);
+Verify(Gcd({0}),1);
+
+
+
+VerifyGaussianGcd(x,y):=
+[
+  Local(gcd);
+  gcd:=Gcd(x,y);
+//  Echo(x/gcd);
+//  Echo(y/gcd);
+  Verify(IsGaussianInteger(x/gcd) And? IsGaussianInteger(y/gcd),True);
+];
+VerifyGaussianGcd(324 + 1608*I, -11800 + 7900*I);
+VerifyGaussianGcd(7300 + 12*I, 2700 + 100*I);
+VerifyGaussianGcd(120-I*200,-336+50*I);
+
+/* Bug #3 */
+KnownFailure(Gcd(10,3.3) !=? 3.3 And? Gcd(10,3.3) !=? 1);
+/* I don't know what the answer should be, but buth 1 and 3.3 seem */
+/* certainly wrong. */
+Verify(Gcd(-10, 0), 10);
+Verify(Gcd(0, -10), 10);
+
+
+
+%/mathpiper

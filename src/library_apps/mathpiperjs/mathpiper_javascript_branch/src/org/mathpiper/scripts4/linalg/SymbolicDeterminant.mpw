@@ -1,0 +1,40 @@
+%mathpiper,def="SymbolicDeterminant"
+
+20 # SymbolicDeterminant(_matrix) <--
+[
+  Local(perms,indices,result);
+  Check((IsMatrix(matrix)), "Argument", "Determinant: Argument must be a matrix");
+  indices:=Table(i,i,1,Length(matrix),1);
+  perms:=PermutationsList(indices);
+  result:=0;
+  ForEach(item,perms)
+     result:=result+Product(i,1,Length(matrix),matrix[i][item[i] ])*
+                    LeviCivita(item);
+  result;
+];
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="SymbolicDeterminant",categories="User Functions;Linear Algebra"
+*CMD SymbolicDeterminant --- todo
+*CALL
+        SymbolicDeterminant(matrix)
+
+*PARMS
+{matrix} -- a matrix
+
+*DESC
+todo
+
+*E.G.
+todo
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+

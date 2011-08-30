@@ -1,0 +1,62 @@
+%mathpiper,def="PowerN"
+
+// power function that works for all real x, y
+/// FIXME: No precision tracking yet.
+
+/* Serge, as MathFloatPower cannot be defined yet, I made the "avoid PowerN(num,float) explicit :-)
+*/
+Defun("PowerN", {x,y})
+// avoid PowerN(0,float)
+        If(IsEqual(x,0),0, If(IsEqual(x,1),1,
+          If(IsInteger(y), MathIntPower(x,y), False/*MathFloatPower(x,y)*/)
+        ));
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="PowerN",categories="User Functions;Numeric"
+*CMD PowerN --- power x^y (arbitrary-precision math function)
+*CALL
+        PowerN(x,y)
+
+*DESC
+
+This command performs the calculation of an elementary mathematical
+function.  The arguments <i>must</i> be numbers.  The reason for the
+postfix {N} is that the library needs to define equivalent non-numerical
+functions for symbolic computations, such as {Exp}, {Sin}, etc.
+
+Note that all xxxN functions accept integers as well as floating-point numbers.
+The resulting values may be integers or floats.  If the mathematical result is an
+exact integer, then the integer is returned.  For example, {Sqrt(25)} returns
+the integer {5}, and {Power(2,3)} returns the integer {8}.  In such cases, the
+integer result is returned even if the calculation requires more digits than set by
+{BuiltinPrecisionSet}.  However, when the result is mathematically not an integer,
+the functions return a floating-point result which is correct only to the current precision.
+
+*E.G.
+In> BuiltinPrecisionSet(10)
+Result: True
+In> PowerN(2,3)
+Result: 8
+In> PowerN(2,-3)
+Result: 0.125
+
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="PowerN",subtype="automatic_test"
+
+/* Bug #15 */
+Verify(PowerN(0,0.55), 0);
+// LogN(-1) locks up in gmpnumbers.cpp, will be fixed in scripts
+//FIXME this test should be uncommented eventually
+// Verify(ExceptionCatch(PowerN(-1,-0.5), error), error);
+
+%/mathpiper

@@ -1,0 +1,156 @@
+%mathpiper,def="Assume"
+
+//Retract("Assume",*);
+//Retract("AssumptionsAbout",*);
+//Retract("UnAssume",*);
+//Retract("IsAssumed",*);
+//Retract("AssumptionsGet",*);
+
+LocalSymbols(assumptions) [
+
+assumptions := {};
+
+10 # Assume( L_IsList ) <--
+[
+    If(InVerboseMode(),Tell("AssumeLst",L));
+    Local(len,s);
+    len := Length(L);
+    If( len >? 0, ForEach(s,L) [ Assume(s); ] );
+    assumptions;
+];
+
+
+10 # Assume( _x -> _y ) <--
+[ 
+    If(InVerboseMode(),Tell("AssumeItem",{x,y}));
+    Local(key,value);
+    key   := Hold(x); 
+    value := Hold(y);
+    If(InVerboseMode(),Tell("       ",{key,value}));
+    
+    DestructiveAppend(assumptions,{Eval(key),Eval(value)});
+    assumptions;
+];
+
+
+10 # AssumptionsGet() <-- assumptions;
+
+
+10 # AssumptionsAbout(_key) <--
+[
+    Local(props);
+    props := Select(assumptions,Lambda({X},X[1]=?key));
+    If( Length(props) >? 0, Transpose(props)[2], {} );
+];
+
+
+10 # IsAssumed( _key, _valueExpected ) <-- Contains(AssumptionsAbout(key),valueExpected);
+
+
+10 # UnAssume( _x )_(Contains(AssocIndices(assumptions),x)) <--
+[
+    Local(lst,len,jj);
+    lst := Lambda({X},If(IsList(X),X[1])) /@ assumptions;
+    jj := Find(lst,x);
+    If( jj >? 0, DestructiveDelete(assumptions,jj) );
+    lst := Lambda({X},If(IsList(X),X[1])) /@ assumptions;
+    jj := Find(lst,x);
+    If( jj >? 0, UnAssume(x), True );
+];
+
+];  //  LocalSymbols
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper_docs,name="Assume",categories="User Functions;Solvers (Symbolic)"
+*CMD Assume --- a suite of functions for specifying and testing "assumptions" about unbound variables
+*STD
+*CALL
+        Assume(v -> prop)
+        Assume({v1 -> prop1, v2 -> prop2}}
+        UnAssume(v)
+        AssumptionsGet()
+        AssumptionsAbout(v)
+        IsAssumed(v,prop)
+
+*PARMS
+
+{v} -- an unbound variable or parameter
+    
+{v1,v2,...} -- different unbound variables or parameters
+
+{prop} -- a 'property' to be attached to a variable or parameter
+
+{prop1,prop2,...} -- different 'properties' to be attached to different variables
+
+{assumptions} -- a normally-hidden associative list which stores the assumptions*
+
+*DESC
+
+This is a suite of functions which permit the user to specify (or 'attach')
+{properties} to unbound variables or parameters to be used in the current
+MathPiper session.
+
+Once a property has been attached to a variable, the user, or some function 
+called by the user, can query or test a given variable to see what properties
+it has, or whether it has a specific property.  Actions may be taken based on
+the results of such query or test.
+
+Once Assume'd, properties remain associated with their variable until the
+session ends, or until the user specifically calls {UnAssume} on that variable.
+Once {UnAssume'd}, the variable thereafter has no properites, unless properties
+are later added using {AddAssumption} or {AddAssumptions}.
+
+Ordinarily, the user would specify all properties just once in a session.  However,
+s/he may call Assume() multiple times in a session, and each such call simply augments
+the 'hidden' list of assumptions by adding the new ones.  Note that new assumptions
+for a given variable are {added}, and nothing is {replaced}.  Therefore, it is the
+user's responsibility to avoid creating mutually-contradictory lists of properties.
+
+NOTE:  All assumptions are lost once the session ends.
+
+NOTE:  The user can employ these property lists as s/he sees fit.  Currently, none of
+MathPiper's functions make any use of assumptions.  However, these can be very useful
+especially in certain types of {Solve} or {Integrate} situations, so MathPiper's
+functions are being modified to make use of assumptions where appropriate.
+*E.G.
+
+
+In> Assume(x->real)
+Result: {{x,real}}
+In> AssumptionsGet()
+Result: {{x,real}}
+In> IsAssumed(x,real)
+Result: True
+In> IsAssumed(z,complex)
+Result: False
+    
+In> Assume({x->positive,y->positive})
+Result: {{x,real},{x,positive},{y,positive}}
+In> AssumptionsGet()
+Result: {{x,real},{x,positive},{y,positive}}
+In> AssumptionsAbout(x)
+Result: {real,positive}
+In> UnAssume(x)
+Result: True
+In> AssumptionsAbout(x)
+Result: {}
+In> AssumptionsGet()
+Result: {{y,positive}}
+*SEE Solve, Integrate
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

@@ -1,0 +1,128 @@
+%mathpiper,def="IsCFormable"
+
+//////////////////////////////////////////////////
+/// IsCFormable
+//////////////////////////////////////////////////
+
+LocalSymbols(CFormAllFunctions) [
+
+  /// predicate to test whether an expression can be successfully exported to C code
+
+  /// interface with empty extra function list
+  // need the backquote stuff b/c we have HoldArgument now
+  IsCFormable(_expr) <-- `IsCFormable(@expr, {});
+
+  // need to check that expr contains only allowed functions
+  IsCFormable(_expr, funclist_IsList) <--
+  [
+    Local(bad'functions);
+    bad'functions := Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));
+    If(Length(bad'functions)=?0,
+      True,
+      [
+        If(InVerboseMode(),
+          Echo(Concat({"IsCFormable: Info: unexportable function(s): "}, bad'functions))
+        );
+        False;
+      ]
+    );
+  ];
+  HoldArgumentNumber("IsCFormable", 1, 1);
+  HoldArgumentNumber("IsCFormable", 2, 1);
+
+  /// This is a list of all function atoms which CForm can safely handle
+  CFormAllFunctions := MapSingle(ToAtom, Concat(AssocIndices(CFormMathFunctions()), AssocIndices(CFormRegularOps()),
+  // list of "other" (non-math) functions supported by CForm: needs to be updated when CForm is extended to handle new functions
+  {
+    "For",
+    "While",
+    "Prog",
+    "Nth",
+    "Modulo",
+    "Complex",
+    "if",
+    "else",
+    "++",
+    "--",
+  }
+  ));
+
+
+]; // LocalSymbols(CFormAllFunctions)
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="IsCFormable",categories="User Functions;Input/Output;Predicates"
+*CMD IsCFormable --- check possibility to export expression to C++ code
+*STD
+*CALL
+        IsCFormable(expr)
+        IsCFormable(expr, funclist)
+        
+*PARMS
+
+{expr} -- expression to be exported (this argument is not evaluated)
+
+{funclist} -- list of "allowed" function atoms
+
+*DESC
+
+{IsCFormable} returns {True} if the MathPiper expression {expr} can be exported
+into C++ code. This is a check whether the C++ exporter {CForm} can be safely
+used on the expression.
+
+A MathPiper expression is considered exportable if it contains only functions that can be translated into C++ (e.g. {ListToFunction} cannot be exported). All variables and constants are considered exportable.
+
+The verbose option prints names of functions that are not exportable.
+
+The second calling format of {IsCFormable} can be used to "allow" certain function names that will be available in the C++ code.
+
+*E.G. notest
+
+In> IsCFormable(Sin(a1)+2*Cos(b1))
+Result: True;
+In> V(IsCFormable(1+func123(b1)))
+        IsCFormable: Info: unexportable function(s):
+          func123
+Result: False;
+This returned {False} because the function {func123} is not available in C++. We can
+explicitly allow this function and then the expression will be considered
+exportable:
+
+In> IsCFormable(1+func123(b1), {func123})
+Result: True;
+
+*SEE CForm, V
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="IsCFormable",subtype="automatic_test"
+
+Verify(
+IsCFormable(e+Pi*Cos(A-B)/3-Floor(3.14)*2)
+, True
+);
+Verify(
+IsCFormable(e+Pi*Cos(A-B)/3-Floor(3.14)*2+bad'func(x+y))
+, False
+);
+Verify(
+IsCFormable(e+Pi*Cos(A-B)/3-Floor(3.14)*2+bad'func(x+y), {bad'func})
+, True
+);
+Verify(
+IsCFormable([i:=0;While(i<?10)[i++; a:=a+i;];])
+, True
+);
+Verify(
+IsCFormable([i:=0;While(i<?10)[i++; a:=a+i; {};];])
+, False
+);
+
+
+%/mathpiper

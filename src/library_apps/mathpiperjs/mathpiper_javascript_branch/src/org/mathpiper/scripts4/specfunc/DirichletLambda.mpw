@@ -1,0 +1,7 @@
+%mathpiper,def="DirichletLambda"
+
+//Jonathan Leto
+
+10 # DirichletLambda(_z)<-- (1-1/2^z)*Zeta(z);
+
+%/mathpiper

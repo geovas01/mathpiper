@@ -1,0 +1,202 @@
+%mathpiper,def="NumberLinePrintZoom"
+
+//Retract("NumberLineZoom", *);
+
+//Retract("ZoomInOnce", *);
+
+LocalSymbols(ZoomInOnce)
+[
+
+    10 # NumberLinePrintZoom(_lowValue, _highValue, divisions_IsPositiveInteger, depth_IsPositiveInteger)_(lowValue <? highValue) <-- 
+    [
+    
+        Local(numbers, stepAmount, zoomIndexes, nextZoomIndex, outputWidth, numbersString, output, randomStep, randomZoomNumber, iteration);
+        
+        iteration := 1;
+        
+        While(iteration <=? depth)
+        [
+            {numbers, stepAmount} := ZoomInOnce(lowValue, highValue, divisions);
+            
+            zoomIndexes := {};
+            
+            outputWidth := 0;
+            
+            numbersString := "";
+            
+            ForEach(number, numbers)
+            [
+                output := PipeToString() Write(number);
+                
+                zoomIndexes := Append(zoomIndexes, Length(output));
+                
+                numbersString := numbersString : output : PipeToString() Space(3);
+                
+                outputWidth := outputWidth + Length(output) + 3;
+            
+            ];
+            
+            randomStep := RandomInteger(divisions);
+            
+            randomZoomNumber := Sum(Take(zoomIndexes, randomStep));
+            
+            If(randomStep =? 1, nextZoomIndex := randomZoomNumber + 1, nextZoomIndex := 3*(randomStep-1) + randomZoomNumber + 1);
+         
+            If(iteration >? 1, Echo(ListToString(FillList("-", outputWidth-3)))); 
+            
+            Echo(numbersString);
+            
+            If(iteration !=? depth,[Space(nextZoomIndex);Echo("|");]);
+            
+            lowValue := numbers[randomStep];
+            
+            highValue := numbers[randomStep+1];
+            
+            iteration++;
+            
+        ];
+    
+    ];
+    
+    
+    
+    
+    ZoomInOnce(_lowValue, _highValue, divisions_IsPositiveInteger)_(lowValue <? highValue) <--
+    [
+        Local(stepAmount, x, numbers);
+        
+        stepAmount := If(IsDecimal(lowValue) Or? IsDecimal(highValue), N((highValue-lowValue)/divisions), (highValue-lowValue)/divisions);
+        
+        x := lowValue;
+        
+        numbers := {};
+        
+        While(x <=? highValue)
+        [
+        
+            numbers := Append(numbers, x);
+            
+            x := x + stepAmount;
+        
+        ];
+        
+        {numbers, stepAmount};
+    
+    ];
+
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+N(NumberLineZoom(0,1,8,5), 50);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="NumberLinePrintZoom",categories="User Functions;Visualization",access="experimental"
+*CMD NumberLinePrintZoom --- zooms into the number line
+*STD
+*CALL
+        NumberLinePrintZoom(low_number, high_number, divisions, depth)
+
+*PARMS
+
+{low_value} -- lowest number in the zoom range
+
+{high_value} -- highest number in the zoom range
+
+{divisions} -- how many parts to divide the range into
+
+{depth} -- continue the zooming process to depth levels
+
+*DESC
+
+This function allows sections of the number line to be displayed.  If rational numbers are
+passed to low_number and high_number, rational numbers are displayed and if decimal
+numbers are passed to low_number and high_number, decimal numbers are displayed.
+
+*E.G. notest
+
+In> NumberLinePrintZoom(0/1,1/1,8,1)
+Result: True
+Side Effects:
+0   1/8   1/4   3/8   1/2   5/8   3/4   7/8   1
+
+In> NumberLinePrintZoom(0/1,1/1,10,1)
+Result: True
+Side Effects:
+0   1/10   1/5   3/10   2/5   1/2   3/5   7/10   4/5   9/10   1
+
+In> NumberLinePrintZoom(0/1,1/1,20,1)
+Result: True
+Side Effects:
+0   1/20   1/10   3/20   1/5   1/4   3/10   7/20   2/5   9/20   1/2   11/20   3/5   13/20   7/10   3/4   4/5   17/20   9/10   19/20   1
+
+In> NumberLinePrintZoom(0/1,1/1,8,4)
+Result: True
+Side Effects:
+0   1/8   1/4   3/8   1/2   5/8   3/4   7/8   1   
+                          |
+----------------------------------------------------------------
+1/2   33/64   17/32   35/64   9/16   37/64   19/32   39/64   5/8   
+    |
+--------------------------------------------------------------------------------
+1/2   257/512   129/256   259/512   65/128   261/512   131/256   263/512   33/64   
+                                                                         |
+--------------------------------------------------------------------------------------------------
+263/512   2105/4096   1053/2048   2107/4096   527/1024   2109/4096   1055/2048   2111/4096   33/64  
+
+
+
+In> NumberLinePrintZoom(0.0,1.0,8,1)
+Result: True
+Side Effects:
+0.0   0.125   0.250   0.375   0.500   0.625   0.750   0.875   1.000
+
+In> NumberLinePrintZoom(0.0,1.0,10,1)
+Result: True
+Side Effects:
+0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9   1.0
+
+In> NumberLinePrintZoom(0.0,1.0,20,1)
+Result: True
+Side Effects:
+0.0   0.05   0.10   0.15   0.20   0.25   0.30   0.35   0.40   0.45   0.50   0.55   0.60   0.65   0.70   0.75   0.80   0.85   0.90   0.95   1.00
+
+In> N(NumberLinePrintZoom(0.0,1.0,8,4),6)
+Result: True
+Side Effects:
+0.0   0.125   0.250   0.375   0.500   0.625   0.750   0.875   1.000   
+                                    |
+---------------------------------------------------------------------------------------------
+0.500   0.515625   0.531250   0.546875   0.562500   0.578125   0.593750   0.609375   0.625000   
+                                       |
+------------------------------------------------------------------------------------------------
+0.546875   0.548828   0.550781   0.552734   0.554687   0.556640   0.558593   0.560546   0.562499   
+                                                                           |
+------------------------------------------------------------------------------------------------
+0.558593   0.558837   0.559081   0.559325   0.559569   0.559813   0.560057   0.560301   0.560545
+
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
+

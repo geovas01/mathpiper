@@ -1,0 +1,118 @@
+%mathpiper,def="AlphaToChiSquareScore",access="experimental"
+
+/* 
+    This function was adapted from the Javascript version of function
+    that is located here:
+    
+    http://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.js
+    http://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.html
+    
+    The following JavaScript functions for calculating normal and
+    chi-square probabilities and critical values were adapted by
+    John Walker from C implementations
+    written by Gary Perlman of Wang Institute, Tyngsboro, MA
+    01879. Both the original C code and this JavaScript edition
+    are in the public domain. 
+*/
+
+
+
+/*  CRITCHI  --  Compute critical chi-square value to
+                     produce given p.  We just do a bisection
+                     search for a value within CHI_EPSILON,
+                     relying on the monotonicity of pochisq().  
+*/
+
+
+AlphaToChiSquareScore(p, df) :=
+[
+    Local(ChiEpsilon, ChiMax, minchisq, maxchisq, chisqval, result);
+    
+    ChiEpsilon := 0.000001;   /* Accuracy of critchi approximation */
+    
+    ChiMax := 99999.0;        /* Maximum chi-square value */
+    
+    minchisq := 0.0;
+    
+    maxchisq := ChiMax;
+    
+    p := N(p);
+    
+    if( p <=? 0.0 Or? p >=? 1.0)
+    [
+    
+        if (p <=? 0.0) 
+        [
+            result := maxchisq;
+        ] 
+        else 
+        [
+            if (p >=? 1.0) 
+            [
+                result := 0.0;
+            ];
+        ];
+    
+    ]
+    else
+    [
+        chisqval := N(df / SqrtN(p));
+        
+        /* fair first value */
+        While ((maxchisq - minchisq) >? ChiEpsilon) 
+        [
+            if (ChiSquareScoreToAlpha(chisqval, df) <? p) 
+            [
+                maxchisq := chisqval;
+            ] 
+            else 
+            [
+                minchisq := chisqval;
+            ];
+            chisqval := (maxchisq + minchisq) * 0.5;
+        ];
+        
+        result := chisqval;
+    
+    ];
+    
+    N(result);
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper_docs,name="AlphaToChiSquareScore",categories="User Functions;Statistics & Probability",access="experimental"
+*CMD AlphaToChiSquareScore --- calculates the chi square score of a given alpha probability
+*STD
+*CALL
+        AlphaToChiSquareScore(alphaProbability, degreesOfFreedom)
+
+*PARMS
+{alphaProbability} -- an alpha probability
+{degreesOfFreedom} -- the degrees of freedom
+
+*DESC
+This function calculates the chi square score of a given probability.
+
+*E.G.
+In> AlphaToChiSquareScore(.1,4)
+Result: 7.779440287
+
+*SEE ChiSquareScoreToProbability, ChiSquareTest
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

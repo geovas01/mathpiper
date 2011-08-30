@@ -1,0 +1,42 @@
+%mathpiper,def="NewLine"
+
+//Retract("NewLine",*);
+
+10 # NewLine()  <-- WriteN(Nl(),1);
+20 # NewLine(n_IsPositiveInteger) <--  WriteN(Nl(),n);
+30 # NewLine(_n) <-- Check(False, "Argument", "The argument must be a positive integer  ");
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="NewLine",categories="User Functions;Input/Output"
+*CMD NewLine --- print one or more newline characters
+*STD
+*CALL
+        NewLine()
+        NewLine(nr)
+
+*PARMS
+
+{nr} -- the number of newline characters to print
+
+*DESC
+
+The command {NewLine()} prints one newline character
+on the current output. The second form prints "nr" newlines on the
+current output. The result is always True.
+
+*E.G. notest
+
+In> NewLine();
+        
+Result: True;
+
+*SEE Echo, Write, Space
+%/mathpiper_docs

@@ -1,0 +1,44 @@
+%mathpiper,def="StandardErrorOfTheMean"
+
+//Retract("StandardErrorOfTheMean",*);
+
+StandardErrorOfTheMean(sigma, sampleSize) :=
+[
+    Check(sigma >? 0, "Argument", "The first argument must be a number which is greater than 0.");
+    
+    Check(IsInteger(sampleSize) And? sampleSize >? 0, "Argument", "The second argument must be an integer which is greater than 0.");
+    
+    sigma/Sqrt(sampleSize);
+];
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="StandardErrorOfTheMean",categories="User Functions;Statistics & Probability",access="experimental"
+*CMD StandardErrorOfTheMean --- calculates the standard error of the mean
+*STD
+*CALL
+        StandardErrorOfTheMean(sigma,sampleSize)
+
+*PARMS
+{sigma} -- the standard deviation of the population
+{sampleSize} -- the size of the sample
+
+*DESC
+This function calculates the standard error of the mean.
+
+*E.G.
+In> N(StandardErrorOfTheMean(1.44,2))
+Result: 1.018233765
+
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
+
