@@ -15,13 +15,13 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper;
+package org.mathpiper.ui.gui.worksheets.mathoutputlines;
 
-//$Revision$
-//$Id$
-public class Version
-{
+import java.awt.Graphics;
 
-   public  static final String version = "js.026";
-    
-}//end class.
+public abstract class MathOutputLine {
+
+    public abstract void draw(Graphics g, int x, int y);
+
+    public abstract int height(Graphics g);
+}

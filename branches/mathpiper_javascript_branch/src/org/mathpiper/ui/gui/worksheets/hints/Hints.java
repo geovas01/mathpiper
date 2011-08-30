@@ -15,13 +15,19 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper;
 
-//$Revision$
-//$Id$
-public class Version
+package org.mathpiper.ui.gui.worksheets.hints;
+
+
+public class Hints
 {
+	public  HintItem[] hintTexts = new HintItem[1024];
+	int[] hoffsets = new int[256];
 
-   public  static final String version = "js.026";
-    
-}//end class.
+	public  Hints()
+	{
+		nrHintTexts = 0;
+	}
+	public  int nrHintTexts;
+
+};

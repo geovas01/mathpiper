@@ -15,13 +15,34 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper;
+package org.mathpiper.ui.gui.worksheets.mathoutputlines;
 
-//$Revision$
-//$Id$
-public class Version
-{
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 
-   public  static final String version = "js.026";
-    
-}//end class.
+public class StringLine extends MathOutputLine {
+
+    StringLine(String aText, Font aFont, Color aColor) {
+        iText = aText;
+        iFont = aFont;
+        iColor = aColor;
+    }
+
+    public void draw(Graphics g, int x, int y) {
+        g.setColor(iColor);
+        g.setFont(iFont);
+        FontMetrics fontMetrics = g.getFontMetrics();
+        g.drawString(iText, x, y + fontMetrics.getHeight());
+    }
+
+    public int height(Graphics g) {
+        g.setFont(iFont);
+        FontMetrics fontMetrics = g.getFontMetrics();
+        return fontMetrics.getHeight();
+    }
+    private String iText;
+    private Font iFont;
+    private Color iColor;
+}

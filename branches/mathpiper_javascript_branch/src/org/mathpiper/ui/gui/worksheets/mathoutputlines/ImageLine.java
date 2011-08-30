@@ -13,15 +13,34 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper;
+package org.mathpiper.ui.gui.worksheets.mathoutputlines;
 
-//$Revision$
-//$Id$
-public class Version
-{
+import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 
-   public  static final String version = "js.026";
-    
-}//end class.
+public class ImageLine extends MathOutputLine {
+
+    Color bkColor = new Color(255, 255, 255); //TODO:tk:This variable was originally in ConsoleApplet.
+
+    public ImageLine(Image aImage, Applet aApplet) {
+        iImage = aImage;
+        iApplet = aApplet;
+    }
+
+    public void draw(Graphics g, int x, int y) {
+        if (iImage != null) {
+            Dimension d = iApplet.getSize();
+            g.drawImage(iImage, (d.width - iImage.getWidth(iApplet)) / 2, y, bkColor, iApplet);
+        }
+    }
+
+    public int height(Graphics g) {
+        return iImage.getHeight(iApplet);
+    }
+    Image iImage;
+    Applet iApplet;
+}
