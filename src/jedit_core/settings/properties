@@ -18,6 +18,7 @@ view.y=25
 view.x=2
 code2html.show-gutter=false
 buffer.encoding=UTF-8
+fallbackEncodings=ISO-8859-1
 buffer.noTabs=true
 view.fracFontMetrics=true
 search.skipHidden.toggle=true
