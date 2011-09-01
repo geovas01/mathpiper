@@ -1,4 +1,4 @@
-/*  v 1.14.
+/*  v 1.15.
     This is a MathPiperIDE worksheet file and it consists of folds which contain source
     code.  A fold starts with %<keyword> and ends with %/<keyword>.  Code is entered inside
     a fold and then executed by placing the cursor anywhere inside the code and
@@ -94,7 +94,7 @@ Press <shift><enter> on this fold to generate an interactive plot of
 a ball being thrown vertically.  Drag the point on the "time" slider
 left and right to dynamically change the plot.
 */
-%geogebra_xml,name="vertical ball throw",collapse="true",clear="true"
+%geogebra_xml,name="vertical ball throw",collapse="false",clear="true"
 <?xml version="1.0" encoding="utf-8"?>
 <geogebra format="3.2">
 <gui>
@@ -385,7 +385,7 @@ Sin(x) with a dynamic tangent line.  Drag the point at the intersection
 of the tangent line and the sin wage to move it.  Drag the points
 a, b, and c to change the sin wave.
 */
-%geogebra_xml,name="sine slope",collapse="true",clear="true"
+%geogebra_xml,name="sine slope",collapse="false",clear="true"
 <?xml version="1.0" encoding="utf-8"?>
 <geogebra format="2.7">
 <gui>
