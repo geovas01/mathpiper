@@ -272,11 +272,11 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 	
 	
 	//Remove the rest of the fold text starting at \\ if present.
-	cutIndex = codeText.indexOf("\\\\");
-	if(cutIndex != -1)
-	{
-		codeText = codeText.substring(0,cutIndex);
-	}
+	//cutIndex = codeText.indexOf("\\\\");
+	//if(cutIndex != -1)
+	//{
+	//	codeText = codeText.substring(0,cutIndex);
+	//}
 	
 /*	
 	//Do not include subfold as code.
@@ -422,7 +422,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 					result = result.replace("$\"","");
 					result = result.replace(" ","");
 					//result = evaluationResponse[0];
-					output_fold_type = "%hoteqn";
+					output_fold_type = "%latex";
 				}
 				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
 				{	
@@ -532,8 +532,12 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				catch(InterruptedException e)
 				{
 				}
-				    //System.out.println("XXXXXXXX " + codeText);
+				
+					//System.out.println("XXXXXXXX1 " + "LoadScript(\""+codeText+"\");");
+				    
+				    codeText = codeText.replace("\\","\\\\");
 					codeText = codeText.replace("\"","\\\"");
+					
 					asynchronousInterpreter.evaluate("LoadScript(\""+codeText+"\");", true);
 					System.out.println("<shift><enter> submitted evaluation request. ");
 				}//end run.
