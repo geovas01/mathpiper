@@ -59,7 +59,7 @@
 <!--<echo message="${compile.source}." />
         <echo message="${src.dir}." />
         <echo message="${build.classes.dir}." />-->
-        <javac source="${compile.source}" target="${compile.target}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="off" deprecation="on" optimize="off" includeantruntime="false" excludes="${exclude_files}">
+        <javac source="${compile.source}" target="${compile.target}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on" deprecation="on" optimize="off" includeantruntime="false" excludes="${exclude_files}">
             <classpath refid="build_classpath" />
 
             <include name="**/*.java" />
@@ -70,11 +70,14 @@
 <!--<echo message="${compile.source}." />
         <echo message="${src.dir}." />
         <echo message="${build.classes.dir}." />-->
-        <javac source="${compile.source}" target="${compile.target}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="off" deprecation="on" optimize="off" includeantruntime="false">
+        <javac source="${compile.source}" target="${compile.target}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on" deprecation="on" optimize="off" includeantruntime="false">
             <classpath refid="build_classpath" />
 
             <include name="org/mathpiper/test/Build.java" />
+            
         </javac>
+        
+        
     </target>
 
 <!--<target name="buildscripts4" >
@@ -90,10 +93,20 @@
         <buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts4/"  outputDirectory="${basedir}/build/classes/" baseDirectory="${basedir}/"/>
     </target>-->
     <target id="buildscripts" name="buildscripts" depends="init">
+    
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/ui/gui/help/data" />
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/core" />
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/optional" />
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/plugins/jfreechart" />
+    	<!--<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/documentation.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>
+    	<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/documentation_index.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>
+    	<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/function_categories.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>-->
+    
         <java fork="true" failonerror="yes" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}">
             <jvmarg line="-Xmx300M -Xms300M -Xss8M" />
-
-            <arg line="${basedir}/" />
+            <arg value="${src.dir}/" />
+            <arg value="${build.dir}/classes/" />
+            
         </java>
     </target>
 
@@ -101,17 +114,65 @@
         <property name="exclude_files" value="org/mathpiper/interpreters/JavaScript.java" />
     </target>
 
-    <target name="build" depends="init,compile_build_dot_java,buildscripts,exclude_files_from_compilation">
+    
+    
+    <target name="build" depends="init,compile_build_dot_java,buildscripts,exclude_files_from_compilation,compile">
         <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}/classes" />
 
         <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}/classes" />
     </target>
+    
+    
     
     <target name="buildjs" depends="clean,init,compile_build_dot_java,buildscripts,compile">
         <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}/classes" />
 
         <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}/classes" />
     </target>
+    
+    
+    
+	<target id="dist" name="dist" depends="build" >
+
+		
+		<copy file="${mathpiper.dir}/tests/win_test.bat" todir="${build.classes.dir}"/>
+		<copy file="${mathpiper.dir}/tests/unix_test.sh" todir="${build.classes.dir}"/>
+
+		<antcall target="chmod-unix-test-script"/>
+		
+		<!--<copy file="${mathpiper.dir}/mathpiper.properties" todir="${build.classes.dir}">
+			<filterset>
+	               
+		       	   <filter token="VERSION" value="${version}" />
+	               
+			 </filterset>
+		</copy>-->
+	
+		<mkdir dir="${build.dir}/dist" />
+		
+		<jar jarfile="${build.dir}/dist/mathpiper.jar"
+			basedir="${build.classes.dir}" update="true"
+			manifest="${mathpiper.dir}/resources/MANIFEST.MF">
+			<!--<manifest> 
+				<section name="mathpiper" >
+					<attribute name="Build-Date" value="${build.time}"/>
+				</section>
+			</manifest>-->
+			<include name="**/*" />
+			<exclude name="**/*.bat,**/*.sh" />
+		</jar> 
+	</target>
+	
+	<target  id="chmod-unix-test-script" name="chmod-unix-test-script" if="IsUnix">
+	    <echo message="Making unix test script executable."/>
+	    <exec executable="chmod">
+		    <arg value="+x" />
+		    <arg value="${build.classes.dir}/unix_test.sh" />
+	    </exec>
+	</target>
+  
+    
+    
 
     <target id="gwt_dist" name="gwt_dist" depends="">
         <delete dir="${build.dir}/gwt_dist" />

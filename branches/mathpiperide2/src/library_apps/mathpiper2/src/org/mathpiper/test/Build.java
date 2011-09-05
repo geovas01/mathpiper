@@ -56,9 +56,11 @@ public class Build {
     private Build() {
     }//end constructor.
 
-    public Build(String baseDirectory) throws Exception {
-        documentationOutputDirectory = baseDirectory + "/build/classes/";
-        sourceDirectory = baseDirectory + "/src/";
+    public Build(String sourceDirectory, String outputDirectory) throws Exception {
+    	    
+    	this.sourceDirectory = sourceDirectory;
+    	
+        documentationOutputDirectory = outputDirectory;
         sourceScriptsDirectory = sourceDirectory + "org/mathpiper/scripts4/";
 
         this.initializeFiles();
@@ -68,27 +70,19 @@ public class Build {
     }
 
     public void initializeFiles() throws Exception {
-        File file;
+  
+	    documentationFile = new DataOutputStream(new java.io.FileOutputStream(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt"));
+	
+	    documentationIndexFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
+	
+	    functionCategoriesFile = new java.io.FileWriter(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
 
-        file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation.txt");
-        if (file.exists()) {
-            documentationFile = new DataOutputStream(new java.io.FileOutputStream(file));
-        }
-
-        file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/documentation_index.txt");
-        if (file.exists()) {
-            documentationIndexFile = new java.io.FileWriter(file);
-        }
-        file = new File(documentationOutputDirectory + "org/mathpiper/ui/gui/help/data/function_categories.txt");
-        if (file.exists()) {
-            functionCategoriesFile = new java.io.FileWriter(file);
-        }
     }
 
     public void compileScripts() throws Exception {
 
 
-        //System.out.println("XXXXX " + outputDirectory);
+        //System.out.println("XXXXX " + sourceDirectory);
 
 
         scriptsJavaFile = new java.io.FileWriter(sourceDirectory + "org/mathpiper/Scripts.java");
@@ -1025,13 +1019,22 @@ public class Build {
         try {
             //fileCopy("/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/test/Scripts.java", "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch/src/org/mathpiper/Scripts.java"); if(1==1) return;
 
-            String baseDirectory = "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch";
+            //String baseDirectory = "/home/tkosan/NetBeansProjects/mathpiper_javascript_branch";
+            
+            String sourceDirectory = null;
+            
+            String outputDirectory = null;
 
-            if (args.length > 0) {
-                baseDirectory = args[0];
+            if (args.length == 2) {
+                sourceDirectory = args[0];
+                outputDirectory = args[1];
+            }
+            else
+            {
+            	    throw new Exception("Two arguments must be submitted to the main method.");
             }
 
-            Build build = new Build(baseDirectory);
+            Build build = new Build(sourceDirectory, outputDirectory);
 
 
             build.compileScripts();
