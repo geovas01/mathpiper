@@ -532,7 +532,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				catch(InterruptedException e)
 				{
 				}
-					asynchronousInterpreter.evaluate("LoadScript(\""+tempFilePath+"\");", true);
+					asynchronousInterpreter.evaluate("LoadScript(\""+codeText+"\");", true);
 					System.out.println("<shift><enter> submitted evaluation request. ");
 				}//end run.
 				

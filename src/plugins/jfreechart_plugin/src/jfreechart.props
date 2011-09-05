@@ -17,6 +17,7 @@ plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.version=4.3
 plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.docs=index.html
 plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.depend.0=jedit 04.02.01.00
 plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.depend.1=jdk 1.5
+plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.depend.6=plugin org.mathrider.mathpiperplugin.MathPiperPlugin 4.3
 plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.2=plugin console.ConsolePlugin 4.3.5
 #plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.jars=jfreechart-1.0.13.jar
 plugin.org.mathpiper.ide.jfreechartplugin.JFreeChartPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.

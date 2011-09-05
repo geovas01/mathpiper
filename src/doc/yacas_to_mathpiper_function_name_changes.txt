@@ -54,13 +54,7 @@ DefMacroRulebaseListed -> MacroRulebaseListedEvaluateArguments
 
 
 ----------------------------- Proposed predicate operator & function name changes:
-= -> =?    
-= -> DEPRECATE.
-!= -> !=?
-< -> <?
-> -> >?
-<= -> <=?
->= -> >=?
+
 
 @$, @&, @%
 
@@ -77,6 +71,14 @@ etc.
 
 
 ============================= Changes that have already been done.
+// Changed late August 2011.
+= -> =?    
+!= -> !=?
+< -> <?
+> -> >?
+<= -> <=?
+>= -> >=?
+
 
 //Newest changes (1/8/2010). 
 
