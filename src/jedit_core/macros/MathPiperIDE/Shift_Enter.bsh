@@ -510,9 +510,9 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			asynchronousInterpreter.addResponseListener(responseListener);
 			
-			tempFilePath = tempFile.getAbsolutePath();
+			//tempFilePath = tempFile.getAbsolutePath();
 				
-			tempFilePath = ChangeToForwardSlash(tempFilePath);
+			//tempFilePath = ChangeToForwardSlash(tempFilePath);
 			
 				//System.out.println(tempFilePath);
         	
@@ -532,6 +532,8 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				catch(InterruptedException e)
 				{
 				}
+				    //System.out.println("XXXXXXXX " + codeText);
+					codeText = codeText.replace("\"","\\\"");
 					asynchronousInterpreter.evaluate("LoadScript(\""+codeText+"\");", true);
 					System.out.println("<shift><enter> submitted evaluation request. ");
 				}//end run.
