@@ -1,0 +1,21 @@
+%mathpiper,def=""
+
+//Retract("HighschoolForm",*);
+
+HighschoolForm(expression) :=
+[
+    //Note: since := is at a higher precedence than :/, parentheses are needed.
+    expression := (expression /: { (x_IsNegativeNumber) / _y <- [Echo(x,/,y);]});
+    
+    expression := (expression  /: {_z^((x_IsNegativeInteger)/y_IsNumber) <- {z,x,y}});
+    
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+

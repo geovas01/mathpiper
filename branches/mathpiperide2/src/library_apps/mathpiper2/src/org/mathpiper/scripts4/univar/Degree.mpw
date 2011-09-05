@@ -1,0 +1,106 @@
+%mathpiper,def="Degree"
+
+//Retract("Degree",*);
+
+Rulebase("Degree",{expr});
+Rule("Degree",1,0, IsUniVar(expr))
+[
+
+  Local(i,min,max);
+  min:=expr[2];
+  max:=min+Length(expr[3]);
+  i:=max;
+  While(i >=? min And? IsZero(Coef(expr,i))) i--;
+  i;
+];
+
+10 # Degree(poly_CanBeUni)                           <-- Degree(MakeUni(poly));
+
+10 # Degree(_poly,_var)_(CanBeUni(var,poly))         <-- Degree(MakeUni(poly,var));
+
+20 # Degree(_poly,_var)_(Type(poly)=?"Sqrt")          <-- Degree(poly^2,var)/2;
+
+20 # Degree(_poly,_var)_(FunctionToList(poly)[1]=? ^) <--
+[
+    Local(ex,pwr,deg);
+    ex  := FunctionToList(poly)[3];
+    pwr := 1/ex;
+    //Tell("     ",{ex,pwr});
+    deg := Degree(poly^pwr,var);
+    //Tell("     ",deg);
+    deg*ex;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper_docs,name="Degree",categories="User Functions;Polynomials (Operations)"
+*CMD Degree --- degree of a polynomial
+*STD
+*CALL
+        Degree(expr)
+        Degree(expr, var)
+
+*PARMS
+
+{expr} -- a polynomial
+
+{var} -- a variable occurring in "expr"
+
+*DESC
+
+This command returns the degree of the polynomial "expr" with
+respect to the variable "var". The degree is the highest power of
+"var" occurring in the polynomial. If only one variable occurs in
+"expr", the first calling sequence can be used. Otherwise the user
+should use the second form in which the variable is explicitly
+mentioned.
+
+If {expr} is not a polynomial in the accepted sense of the word,
+this command will return unevaluated.  In particular, if {expr} 
+contains negative powers of the variable, it is not a polynomial.
+
+However, if {expr} is a simple root of a polynomial -- i.e., of 
+the form poly^(1/n), and {poly} is of degree n in {var}, then the
+call {Degree(expr,var)} will correctly identify the "degree" of 
+this non-polynomial.
+
+*E.G.
+In> Degree(x^5+x-1)
+Result: 5
+
+In> Degree(a+b*x^3, a)
+Result: 1
+
+In> Degree(a+b*x^3, x)
+Result: 3
+
+In> Degree(x^-2+x-1)
+Result: Degree(x^(-2)+x-1)
+
+In> Degree( (Sqrt(2)*x^2*(x+3))^(1/3),x)
+Result: 1
+
+*SEE Expand, Coef
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Degree",subtype="automatic_test"
+
+// Univariates in Pi did not get handled well, due to Pi being
+// considered a constant, non-variable.
+Verify(Degree(Pi,Pi),1);
+Verify(Degree(2*Pi,Pi),1);
+
+%/mathpiper
+
+

@@ -1,0 +1,46 @@
+%mathpiper,def="BinomialDistributionStandardDeviation"
+
+
+//Retract("BinomialDistributionStandardDeviation", *);
+
+BinomialDistributionStandardDeviation(probability,numberOfTrials) :=
+[
+
+    Check(IsRationalOrNumber(probability) And? p >=? 0 And? p <=? 1, "Argument", "The first argument must be a number between 0 and 1.");
+    
+    Check(IsInteger(numberOfTrials) And? numberOfTrials >=? 0, "Argument", "The second argument must be an integer which is greater than 0.");
+    
+    SqrtN(numberOfTrials * probability * (1 - probability));
+];
+        
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="BinomialDistributionStandardDeviation",categories="User Functions;Statistics & Probability",access="experimental"
+*CMD BinomialDistributionStandardDeviation --- the standard deviation of a binomial distribution
+*STD
+*CALL
+        BinomialDistributionStandardDeviation(p,n)
+
+*PARMS
+{p} -- number, the probability of a success in a single trial
+
+{n} -- number of trials
+
+*DESC
+This function calculates the standard deviation of a binomial distribution. 
+
+*E.G.
+In> BinomialDistributionStandardDeviation(.3,5)
+Result: 1.05
+
+*SEE BinomialDistributionMean
+%/mathpiper_docs

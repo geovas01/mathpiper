@@ -1,0 +1,29 @@
+%mathpiper,def="Norm"
+
+10 # Norm(_v) <-- PNorm(v,2);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Norm",categories="User Functions;Linear Algebra"
+*CMD Norm --- the norm (magnitude or length) of a vector
+*STD
+*CALL
+	Norm(v)
+
+*PARMS
+
+{v} -- a vector
+
+*DESC
+
+Return the norm (i.e., the magnitude, or length) of vector {v}
+
+*E.G.
+
+In> Norm({3,4})
+    Result: 5
+
+*SEE InProduct, CrossProduct, Normalize
+%/mathpiper_docs

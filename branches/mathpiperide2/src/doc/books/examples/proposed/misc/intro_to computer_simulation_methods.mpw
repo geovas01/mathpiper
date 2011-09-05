@@ -1,0 +1,174 @@
+%mathpiper,title="exercise 2.1 page 14"
+
+//Euler
+dx := .1;
+count := 0;
+y := 0;
+x := 0;
+domain1 := {};
+range1 := {};
+
+While(count < 100)
+[
+    domain1 := domain1 : x;
+    
+    y := y + 2*x * dx;
+    range1 := range1 : y;
+    
+    x := x + dx;
+    
+    count++;
+];
+
+
+
+//Analytic
+dx := .1;
+count := 0;
+y := 0;
+x := 0;
+domain2 := {};
+range2 := {};
+
+While(count < 100)
+[
+    domain2 := domain2 : x;
+    
+    y := x^2;
+    range2 := range2 : y;
+    
+    x := x + dx;
+    
+    count++;
+];
+
+
+ScatterPlot({domain1,range1,domain2,range2});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+.   %/output
+
+
+
+
+
+%mathpiper,title="Example program 2.1"
+
+y0 := 10;
+v0 := 0;
+t := 0;
+dt := 0.01;
+y := y0;
+v := v0;
+g := 9.8;
+
+For(n := 0, n < 1000, n++)
+[
+    y := y + v * dt;
+    //If(y <= 0, Break());
+    v := v - g * dt;
+    t := t + dt;
+];
+
+Echo("Results:");
+Echo("final time = ", t);
+Echo("y = ", y, "  v = ", v);
+
+yAnalytic := y0 + v0 - 0.5*g*t*t;
+vAnalytic := v0 - g*t;
+Echo("analytic y = ", yAnalytic, " v =", vAnalytic);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      Results:
+      final time = 1.43 
+      y = -0.09008   v = -14.014 
+      analytic y = -0.020010  v =-14.014
+.   %/output
+
+
+
+
+
+%mathpiper,title="Exercise 2.6a"
+
+sum := 0;
+
+m := 1;
+
+N := 1000;
+While(m <= N)
+[
+    sum := sum + 1/m^2;
+    
+    //Echo(sum);
+    
+    m++;
+];
+
+N(sum);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 1.643934567
+.   %/output
+
+    %output,preserve="true"
+      Result: 1.634983900
+.   %/output
+
+    %output,preserve="true"
+      Result: 1.549767731
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="Exercise 2.8"
+k := 1;
+
+t := 0;
+dt := .01;
+
+x := 1;
+
+v := 0;
+
+vList := {};
+
+xList := {};
+
+Repeat(800)
+[
+    v := v-k*x*dt;
+    x := x + v*dt;
+    t := t + dt;
+    
+    vList := vList:v;
+    
+    xList := xList:x;
+    
+    //Write(v,,);
+];
+
+domain := 1 .. Length(vList);
+
+LineChart({domain,vList,domain,xList}, xAxisLabel -> "Time", series1Title -> "v", series2Title -> "x");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: org.jfree.chart.ChartPanel
+.   %/output
+
+

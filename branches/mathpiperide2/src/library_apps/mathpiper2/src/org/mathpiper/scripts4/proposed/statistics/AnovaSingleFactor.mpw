@@ -1,0 +1,302 @@
+%mathpiper,def="AnovaSingleFactor"
+
+//Retract("AnovaSingleFactor",*);
+
+AnovaSingleFactor(levelsList, alpha) :=
+[
+    Check(IsListOfLists(levelsList), "Argument", "The first argument must be a list of lists.");
+    
+    Check(alpha >=? 0 And? alpha <=? 1, "Argument", "The second argument must be a number between 0 and 1.");
+    
+    Local(
+        anovaTableRow1,
+        anovaTableRow2,
+        anovaTableRow3,
+        anovaTableTotal,
+        bottomOfAnova,
+        bottomOfPage,
+        bottomOfSummary,
+        criticalFScore,
+        degreesOfFreedomBetween,
+        degreesOfFreedomWithin,
+        fScore,
+        grandMean,
+        htmlJavaString,
+        index,
+        lengthsList,
+        meansList,
+        meanSquareBetween,
+        meanSquareWithin,
+        result,
+        summaryTableRow,
+        summaryTableRows,
+        sumOfSquaresBetween,
+        sumOfSquaresTotal,
+        sumOfSquaresWithin,
+        sumsList,
+        topOfAnova,
+        topOfPage,
+        topOfSummary,
+        variancesList);
+
+    meansList := {};
+    
+    variancesList := {};
+    
+    sumsList := {};
+    
+    lengthsList := {};
+    
+    ForEach(levelList, levelsList)
+    [
+        meansList := meansList : N(Mean(levelList));
+        
+        variancesList := variancesList : N(UnbiasedVariance(levelList));
+        
+        sumsList := sumsList : N(Sum(levelList));
+
+        lengthsList := lengthsList : Length(levelList);
+    ];
+    
+    sumOfSquaresWithin := Sum((lengthsList - 1) * variancesList);
+
+    grandMean := N(Mean(Flatten(levelsList, "List")));
+    
+    sumOfSquaresBetween := Sum(lengthsList*(meansList - grandMean)^2);
+    
+    sumOfSquaresTotal := N(sumOfSquaresWithin + sumOfSquaresBetween);
+    
+    degreesOfFreedomBetween := (Length(levelsList)-1);
+    
+    degreesOfFreedomWithin := (ElementCount(levelsList) - Length(levelsList));
+    
+    meanSquareBetween := N(sumOfSquaresBetween/degreesOfFreedomBetween);
+    
+    meanSquareWithin := N(sumOfSquaresWithin/degreesOfFreedomWithin);
+    
+    fScore := N(meanSquareBetween/meanSquareWithin);
+    
+    criticalFScore := ProbabilityToFScore(degreesOfFreedomBetween, degreesOfFreedomWithin, 1-alpha);
+    
+    topOfPage :=
+"
+    <html>
+        <title>
+            Anova: Single Factor
+        </title>
+        
+        <body>
+";
+    
+    topOfSummary :=
+"
+            <h2>Anova: Single Factor</h2>
+            
+            <TABLE BORDER>
+                <CAPTION align=\"left\"> <h3>Summary</h3>  </CAPTION>
+                
+                <TR> <TH> Level </TH> <TH> Count</TH> <TH> Sum </TH> <TH> Mean </TH> <TH> Variance </TH> </TR>
+";
+
+    
+    summaryTableRows := "";
+    
+    summaryTableRow := "<TR> <TD> <?Write(ToAtom(\"Level\":ToString(index)));?> </TD> <TD align=\"right\"> <?Write(lengthsList[index]);?> </TD> <TD> <?Write(sumsList[index]);?> </TD>  <TD> <?Write(meansList[index]);?> </TD> <TD> <?Write(variancesList[index]);?> </TD> </TR>":Nl();
+    
+    index := 1;
+    While(index <=? Length(levelsList))
+    [
+        summaryTableRows := summaryTableRows : PatchString(summaryTableRow);
+    
+        index++;
+    ];
+    
+    
+    bottomOfSummary :=
+"
+            </TABLE>
+";
+    
+
+
+    topOfAnova :=
+"
+            <br \>
+            <br \>
+            
+            <TABLE BORDER>
+                <CAPTION align=\"left\"> <h3>ANOVA</h3>  </CAPTION>
+                
+                <TR> <TH> Source of Variation </TH> <TH> Sum of Squares </TH> <TH> Degrees of Freedom </TH> <TH> Mean Square Between </TH> <TH> F </TH> <TH> F Critical </TH> </TR>
+";
+
+    
+    
+    anovaTableRow1 := PatchString("<TR> <TD> <?Write(ToAtom(\"Between Levels\"));?> </TD> <TD > <?Write(sumOfSquaresBetween);?> </TD> <TD> <?Write(degreesOfFreedomBetween);?> </TD>   <TD > <?Write(meanSquareBetween);?> </TD><TD> <?Write(fScore);?> </TD> <TD> <?Write(criticalFScore);?> </TD> </TR>":Nl());
+    
+    anovaTableRow2 := PatchString("<TR> <TD> <?Write(ToAtom(\"Within Levels\"));?> </TD> <TD > <?Write(sumOfSquaresWithin);?> </TD> <TD> <?Write(degreesOfFreedomWithin);?> </TD>   <TD > <?Write(meanSquareWithin);?> </TD></TR>":Nl());
+    
+    anovaTableTotal := PatchString("<TR> <TD> Total </TD> <TD> <?Write(sumOfSquaresTotal);?> </TD> <TD> <?Write(degreesOfFreedomBetween + degreesOfFreedomWithin);?> </TD> </TR>");
+    
+    bottomOfAnova :=
+"
+            </TABLE>
+";
+
+
+    
+    bottomOfPage :=
+"
+        </body>         
+    </html>
+";
+    
+    htmlJavaString := JavaNew("java.lang.String",
+                topOfPage : 
+                topOfSummary : 
+                summaryTableRows : 
+                bottomOfSummary : 
+                topOfAnova : 
+                anovaTableRow1 : 
+                anovaTableRow2 : 
+                anovaTableTotal : 
+                bottomOfAnova : 
+                bottomOfPage);
+                
+                
+                
+     result := {};
+     
+     result["html"] := htmlJavaString;
+     
+     result["sumOfSquaresWithin"] := sumOfSquaresWithin;
+     
+     result["sumOfSquaresBetween"] := sumOfSquaresBetween;
+     
+     result["sumOfSquaresTotal"] := sumOfSquaresTotal;
+     
+     result["degreesOfFreedomBetween"] := degreesOfFreedomBetween;
+     
+     result["degreesOfFreedomWithin"] := degreesOfFreedomWithin;
+     
+     result["meanSquareBetween"] := meanSquareBetween;
+     
+     result["meanSquareWithin"] := meanSquareWithin;
+     
+     result["fScore"] := fScore;
+     
+     result["criticalFScore"] := criticalFScore;
+     
+     result;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+
+
+
+%mathpiper_docs,name="AnovaSingleFactor",categories="User Functions;Statistics & Probability",access="experimental"
+*CMD AnovaSingleFactor --- performs an ANOVA single factor analysis
+
+*CALL
+        AnovaSingleFactor(listOfLists,alpha)
+
+*PARMS
+{listOfLists} -- a list which contains lists which contain the data to be analyzed
+
+{alpha} -- the alpha value to use in the analysis.
+
+*DESC
+This function performs an ANOVA single factor analysis.  The various values that are
+calculated during the analysis are returned in an association list and these
+values are listed in the keys of the returned list (see the examples section).
+
+If the {html} key is passed to the {ViewHtml} function, the results of the analysis
+are displayed in a graphcs window as rendered HTML.
+
+*E.G.
+/%mathpiper,scope="nobuild",subtype="manual_test"
+
+alpha := .05;
+
+factor1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+
+factor2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+
+factor3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+
+Echo(anova := AnovaSingleFactor({factor1List,factor2List,factor3List}, alpha));
+
+NewLine();
+
+Echo("F-Score of the data: ", anova["fScore"]);
+
+ViewHtml(anova["html"]);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      {"criticalFScore",3.682320344} {"fScore",4.438993381} {"meanSquareWithin",1.22300000} 
+      {"meanSquareBetween",5.428888905} {"degreesOfFreedomWithin",15} {"degreesOfFreedomBetween",2} 
+      {"sumOfSquaresTotal",29.20277781} {"sumOfSquaresBetween",10.85777781} 
+      {"sumOfSquaresWithin",18.34500000} {"html",java.lang.String} 
+      
+      F-Score of the data: 4.438993381 
+      
+.   /%/output
+
+*SEE ViewHtml, ScheffeTest
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
+
+
+
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+alpha := .05;
+
+factor1List := {10.2,8.5,8.4,10.5,9.0,8.1};
+
+factor2List := {11.6,12.0,9.2,10.3,9.9,12.5};
+
+factor3List := {8.1,9.0,10.7,9.1,10.5,9.5};
+
+Echo(anova := AnovaSingleFactor({factor1List,factor2List,factor3List}, alpha));
+
+Echo("F-Score of the data: ", anova["fScore"]);
+
+ViewHtml(anova["html"]);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+      
+      Side Effects:
+      {"criticalFScore",3.682320344} {"fScore",4.438993381} {"meanSquareWithin",1.22300000} {"meanSquareBetween",5.428888905} {"degreesOfFreedomWithin",15} {"degreesOfFreedomBetween",2} {"sumOfSquaresTotal",29.20277781} {"sumOfSquaresBetween",10.85777781} {"sumOfSquaresWithin",18.34500000} {"html",java.lang.String} 
+      F-Score of the data: 4.438993381 
+      
+.   %/output
+
+

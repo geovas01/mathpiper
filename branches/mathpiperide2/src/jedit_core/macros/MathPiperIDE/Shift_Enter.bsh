@@ -1,0 +1,1877 @@
+// :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+//Copyright (C) 2008 Ted Kosan
+/* {{{ License.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */ //}}}
+
+
+import org.mathpiper.ide.mathpiperplugin.MathPiperInterpreter;
+import org.mathpiper.ide.pipermeplugin.PiperMEInterpreter;
+import org.mathpiper.ide.maximaplugin.MaximaWrapper;
+import org.mathpiper.ide.fricasplugin.FriCASWrapper;
+import java.io.File;
+import java.io.BufferedWriter;
+import org.gjt.sp.jedit.textarea.Selection.Range;
+import org.gjt.sp.jedit.textarea.Selection;
+import errorlist.*;
+import org.gjt.sp.jedit.bsh.EvalError;
+
+import org.apache.commons.collections15.Factory;
+	Factory edgeFactory = new Factory() 
+	{
+		int i=0;
+		public Integer create() {
+			return i++;
+		}};
+
+
+ChangeToForwardSlash(tempFilePath)
+{
+// 	//Remove Windows drive letter from the path.
+// 	if(tempFilePath.indexOf(":") != -1)
+// 	{
+// 		tempFilePath = tempFilePath.split(":")[1];
+// 			
+// 		//Change window's backslashes to forward slashes.
+// 		tempFilePath = tempFilePath.replace("\\","/");
+// 	}//end if
+//
+
+//Change window's backslashes to forward slashes.
+ 	tempFilePath = tempFilePath.replace("\\","/");
+
+	return tempFilePath;
+}//end method.
+
+//Note: This code needs to be moved to a Java object.
+//errorSource = new DefaultErrorSource("MathPiperIDE");
+//ErrorSource.registerErrorSource(errorSource);
+
+errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+errorSource.clear();
+					
+buffer.save(view,null);
+
+path = buffer.getPath();
+
+
+if(path.endsWith(".mpi")|| path.endsWith(".MPI") ){
+	
+	buffer.setMode("mathpiper");
+	
+	//Remove Windows drive letter from the path.
+	if(path.indexOf(":") != -1){
+		path = path.split(":")[1];
+		
+		//Chance window's backslashes to forward slashes.
+		path = path.replace("\\","/");
+		//System.out.println(path);
+	}
+		
+	runCommandInConsole(view,"MathPiper","LoadScript(\""+path+"\");");
+	//interpreter=PiperInterpreter.getInstance();
+	
+
+	//result = interpreter.evaluate("LoadScript(\""+path+"\");");
+	
+	//System.out.println(result);
+}
+else if (path.endsWith(".uasm")|| path.endsWith(".UASM") )
+{
+	buffer.setMode("uasm65");
+	
+	if ( asm == void )
+	{
+		asm = new org.mathpiper.ide.u6502.UASM65();
+	}
+	
+	asm.assemble(new File(path));
+	
+	org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"A .lst and a .s19 file have been successfully created\n in the same directory as the source .uasm file.");
+	
+}
+else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
+{
+	//buffer.setMode("mathpiperide");
+	currentCaretPosition = textArea.getCaretPosition();
+	
+	userSelection = textArea.getSelection();
+	
+	textArea.selectFold();
+	fold  = textArea.getSelection()[0];
+	foldStartIndex = fold.getStart();
+	foldEndIndex = fold.getEnd();
+	foldStartLine = fold.getStartLine();
+	foldEndLine = fold.getEndLine();
+	foldStartLineText = textArea.getLineText(foldStartLine);
+	if(!foldStartLineText.trim().startsWith("%"))
+	{
+		org.gjt.sp.jedit.Macros.message(jEdit.getActiveView(),"You must place the cursor inside of a fold to execute it with <shift><Enter>.");
+		textArea.selectNone();
+		textArea.setCaretPosition(currentCaretPosition);
+		return;
+	}
+	codeStartLine = foldStartLine+1;
+	codeEndLine = foldEndLine-1;
+	codeStartIndex = fold.getStart(textArea.getBuffer(),codeStartLine);
+	codeEndIndex = fold.getEnd(textArea.getBuffer(),codeEndLine);
+	codeSelection = new Range(codeStartIndex, codeEndIndex);
+
+	textArea.setSelection(codeSelection);
+	
+
+
+
+	//Remove the whitespace at the end of the selected fold text.
+	allFoldText = textArea.getSelectedText().replaceAll("\\s+$", "");
+	//replaceAll("^\\s+", "");Remove whitespace at end of string.
+	//replaceAll("\\s+$", "");Remove whitespace at beginning of string.
+  //System.out.println("YYYY allFoldText: " + allFoldText); 
+
+
+	textArea.setSelection(null);
+
+	
+		//{{{ Fold information.
+		
+
+			foldStartSelection = new Range(foldStartIndex, foldStartIndex + foldStartLineText.length());
+			
+			
+			//Determine the indent character and how much the fold is indented by.  Then, create a string
+			//that indents one more level for the output fold.
+			indentCharType = foldStartLineText.charAt(0);
+			indentAmount = new StringBuffer();
+			if(indentCharType == 9 || indentCharType == 32)
+			{
+				
+				for(indentCount = 0; foldStartLineText.charAt(indentCount) == indentCharType; indentCount++)
+				{
+					indentAmount.append(indentCharType);
+				}//end for.
+				
+				
+				if(indentCharType == 9)
+				{indentAmount.append("\t");
+				}
+				else
+				{
+					indentAmount.append("    ");
+				}//end if/else/
+			}//end if.
+			else
+			{
+				indentAmount.append("    ");
+			}//end else.
+				
+			
+			
+			getFoldProperties(startLine)
+			{
+			
+			foldStartLineText = textArea.getLineText(startLine);
+			//Obtain fold type.
+			typeText = foldStartLineText.substring(foldStartLineText.indexOf("%"));
+			
+			//Remove // comment from line if present.
+			if((commentIndex = typeText.indexOf("//")) != -1)
+			{
+				//System.out.println("XXXXXXX " + typeText);
+				typeText = typeText.substring(0,commentIndex);
+				
+			}//end if.
+			
+			foldTypePropertyStrings = typeText.split(",");
+			
+			foldType = foldTypePropertyStrings[0];
+			foldType = foldType.trim();
+			
+			properties = new java.util.Hashtable();
+			properties.put("type",foldType);
+			properties.put("preserve","true");
+			properties.put("input","");
+			properties.put("width","600");
+			properties.put("height","500");
+			properties.put("name","");
+			properties.put("output","output");
+			properties.put("collapse","false");
+			properties.put("clear","false");
+			properties.put("description","");
+			properties.put("pipe_to","");
+			properties.put("scope","local");
+			properties.put("ver","");
+			properties.put("truncate","");
+			
+			if(foldTypePropertyStrings.length != 1)
+			{
+				for(x = 1; x < foldTypePropertyStrings.length; x++)
+				{
+					property = foldTypePropertyStrings[x].split("=");
+					key = property[0].trim();
+					value = property[1].trim().replaceAll("\"","");
+					properties.put(key,value);
+				}//end for.
+			}//end if.
+			
+			return properties;
+			}//end function.
+			//}}}
+
+			foldProperties = getFoldProperties(foldStartLine);
+			foldType = foldProperties.get("type");
+			
+	
+/*	endDollarSignIndex = -1;
+	if(foldType.equalsIgnoreCase("%hoteqn"))
+	{
+		startDollarSignIndex = allFoldText.indexOf("$");
+		if(startDollarSignIndex != -1)
+		{
+			endDollarSignIndex = allFoldText.indexOf("$", startDollarSignIndex+1);
+		}//end if.
+
+	}//end if.
+	*/	
+
+	/* Used when output folds were inside of the parent fold.
+	foldSections = allFoldText.split("%piper|%maxima|%lisp|%output|%geogebra|%beanshell|%hoteqn|%error|%html|%group");
+	codeText = foldSections[0];
+	codeText = codeText.replaceAll("\\s+$", "");//Note:tk:verify that this is needed.
+	*/
+	
+	if(foldProperties.get("type").equalsIgnoreCase("%html"))
+	{
+		codeText = allFoldText.trim();
+	}
+	else
+	{
+		codeText = allFoldText;
+	}//end if/else
+	
+	
+	if(userSelection.length != 0)
+	{
+		textArea.setSelection(userSelection);
+		
+		codeText = textArea.getSelectedText();
+		
+		textArea.setSelection(null);
+	}
+	
+	
+	//Remove the rest of the fold text starting at \\ if present.
+	cutIndex = codeText.indexOf("\\\\");
+	if(cutIndex != -1)
+	{
+		codeText = codeText.substring(0,cutIndex);
+	}
+	
+/*	
+	//Do not include subfold as code.
+	if(endDollarSignIndex != -1)
+	{
+		subFoldIndex = allFoldText.indexOf("\u007b\u007b\u007b", endDollarSignIndex+1);
+	}
+	else
+	{
+		subFoldIndex = allFoldText.indexOf("\u007b\u007b\u007b");
+	}//end else.
+	
+	if(subFoldIndex != -1)
+	{
+		codeText = allFoldText.substring(0,subFoldIndex).replaceAll("\\s+$", "");
+	}
+	else
+	{
+		codeText = allFoldText;
+	}
+*/	
+   //System.out.println("YYYY: codeText " + codeText);
+
+//	noCrLf = text.replace("\n","").replace("\r","");
+	isolatedCodeLength = codeText.length();
+	isolatedCodeEndIndex = codeStartIndex + isolatedCodeLength;
+	
+	textArea.setCaretPosition(isolatedCodeEndIndex);
+
+	
+	try {
+        // Create temp file.
+		
+		if(foldType.equalsIgnoreCase("%maxima"))
+		{
+			fileExtension = ".mac";
+		}
+		else if(foldType.equalsIgnoreCase("%lisp"))
+		{
+			fileExtension = ".lisp";
+		}
+		else if(foldType.equalsIgnoreCase("%_fricas"))
+		{
+			fileExtension = ".input";
+		}
+		else if(foldType.equalsIgnoreCase("%reduce"))
+		{
+			fileExtension = ".red";
+			codeText = "OFF ECHO$\n" + codeText + "END$\n";
+		}
+		else
+		{
+			fileExtension = ".mpw_tmp";
+		}//end if/else.
+		
+        File tempFile = File.createTempFile("mathpiperide", fileExtension);
+    
+        // Delete temp file when program exits.
+        tempFile.deleteOnExit();
+    
+        // Write to temp file
+        BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
+        out.write(codeText);
+        out.close();
+		                                                                                        
+
+
+		
+
+		result = "";
+		output_fold_type = "";
+		collapseFold = foldProperties.get("collapse");
+		
+		///{{{ *** %mathpiper ***.
+		if(foldType.equalsIgnoreCase("%mathpiper"))    
+		{
+
+			//system = MathPiperInterpreter.getInstance();
+			asynchronousInterpreter = org.mathpiper.interpreters.Interpreters.getAsynchronousInterpreter();
+			synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+		
+			//org.mathpiper.ide.ResponseListener responseListener = new org.mathpiper.ide.ResponseListener() {
+			org.mathpiper.interpreters.ResponseListener responseListener = new org.mathpiper.interpreters.ResponseListener(){
+				
+			response (evaluationResponse)
+			{
+				
+			/*try  //todo:tk:This code is a hack to prevent a second fold update occurring before the first update is finished.
+			{
+				
+				Thread.sleep(400);
+			}
+			catch(InterruptedException e)
+			{
+			}*/
+			
+			System.out.println("<shift><enter> Received response.");
+			wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(false);
+				
+			//result = evaluationResponse[2];
+			result = evaluationResponse.getResult();//("load_result");
+		
+			if(evaluationResponse.isExceptionThrown())//containsKey("error_message")) //evaluationResponse[3] != null) //Error.
+			{
+				//result = evaluationResponse[3] + ";Error near line: " + evaluationResponse[4];
+				
+				output_fold_type = "%error";
+				
+				errorLineNumber = evaluationResponse.getLineNumber();//("line_number"); //evaluationResponse[4];
+				
+				errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+
+				adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 2);
+				
+				errorResult =  evaluationResponse.getExceptionMessage() + " Error near line " + adjustedErrorLineNumber;							
+				
+				filePath = textArea.getBuffer().getPath();
+			
+				errorSource.clear();
+			
+				errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber-1, 0, 0, errorResult ) );
+			
+				jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+				
+				if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
+				{
+					result = "Result: " + errorResult + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
+				}
+				else
+				{
+					result = "Result: " + errorResult ;
+				}
+
+			}
+			else
+			{
+				if(foldProperties.get("output").equalsIgnoreCase("latex") )
+				{
+		//System.out.println("XXXXXXXXX " +  evaluationResponse.getResult()  );
+					evaluationResponse = synchronousInterpreter.evaluate("TeXForm(Hold(" + evaluationResponse.getResult() + "));", false);
+		//System.out.println("MMMMMMM " +  evaluationResponse.getResult() );
+					result = evaluationResponse.getResult().replace("\"$","");
+					result = result.replace("$\"","");
+					result = result.replace(" ","");
+					//result = evaluationResponse[0];
+					output_fold_type = "%hoteqn";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("openmath") )
+				{	
+					evaluationResponse = synchronousInterpreter.evaluate("OMForm(" + evaluationResponse.getResult() + ");", false);
+					result = evaluationResponse.getResult();//("result");
+					output_fold_type = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("pretty") )
+				{	
+					evaluationResponse = synchronousInterpreter.evaluate("PrettyForm(Hold(" + evaluationResponse.getResult() + "));", false);
+					result = evaluationResponse.getResult();//("result");
+					output_fold_type = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("c") )
+				{	
+					evaluationResponse = synchronousInterpreter.evaluate("CForm(" + evaluationResponse.getResult() + ");", false);
+					result = evaluationResponse.getResult();
+					output_fold_type = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("lisp") )
+				{	
+					evaluationResponse = synchronousInterpreter.evaluate("LispForm(" + evaluationResponse.getResult() + ");", false);
+					result = evaluationResponse.getResult();//("result");
+					output_fold_type = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("table") )
+				{	
+					evaluationResponse = synchronousInterpreter.evaluate("TableForm(" + evaluationResponse.getResult() + ");", false);
+					result = evaluationResponse.getResult();//("result");
+					output_fold_type = "%output";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("geogebra") )
+				{
+					output_fold_type = "%geogebra";
+				}
+				else if(foldProperties.get("output").equalsIgnoreCase("trace") )
+				{
+					output_fold_type = "%mathpiper_trace";
+				}
+				else
+				{
+					output_fold_type = "%output";
+				}
+	//System.out.println("Out> " + evaluationResponse);
+				if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
+				{
+					result = "Result: " + evaluationResponse.getResult() + "\n\nSide Effects:\n" + evaluationResponse.getSideEffects();
+				}
+				else
+				{
+					result = "Result: " + result ;
+				}
+			}//end else.
+			//System.out.println("XTTXTXTXTT :" + result);
+			
+			//wm.addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
+			//wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).haltCurrentExecutionButton.setEnabled(false);
+			
+			
+
+			
+			
+			displayResult();
+			
+			//JFreeChart handler.
+			/*if(evaluationResponse.getObject() != null)
+			{
+				Object object = evaluationResponse.getObject();
+				if(object instanceof org.jfree.chart.ChartPanel)
+				{
+						jFreeChart = org.mathpiper.ide.jfreechartplugin.JFreeChart.getJFreeChart();
+						jFreeChart.removeAll();
+						jFreeChart.add(object);
+				}//end if.//
+			}//end if.*/
+
+				}//end method.
+				
+				remove()
+				{
+					return true;
+				}//end method.
+				
+			};//end interface implementation.
+			
+			asynchronousInterpreter.addResponseListener(responseListener);
+			
+			tempFilePath = tempFile.getAbsolutePath();
+				
+			tempFilePath = ChangeToForwardSlash(tempFilePath);
+			
+				//System.out.println(tempFilePath);
+        	
+				//Evaluation has been moved to the displayResult() method.
+				//asynchronousInterpreter.evaluate("LoadScript(\""+tempFilePath+"\");");
+				//System.out.println("XXXXX submitted evaluation.");
+				new Thread(new Runnable() {
+
+				public void run()
+				{
+					//Note:MathPiper evaluation was moved here to prevent late posting of "Processing..." output fold message.
+				try  
+				{
+					
+					Thread.sleep(200);
+				}
+				catch(InterruptedException e)
+				{
+				}
+					asynchronousInterpreter.evaluate("LoadScript(\""+tempFilePath+"\");", true);
+					System.out.println("<shift><enter> submitted evaluation request. ");
+				}//end run.
+				
+			}).start();
+				
+			//wm.addDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME);
+			wm.getDockableWindow(org.mathpiper.ide.mathpiperplugin.MathPiperPlugin.NAME).setHaltButtonState(true);
+			
+			output_fold_type = "%output";
+			result = "Processing...";
+
+					
+		}//end if }}}
+
+
+
+		///{{{ *** %maxima ***.
+		else if(foldType.equalsIgnoreCase("%maxima"))    
+		{
+			//Maxima section.			
+			
+
+			try 
+			{   
+				//tempFilePath = tempFile.getAbsolutePath();
+				
+				//tempFilePath = ChangeToForwardSlash(tempFilePath);
+			
+				
+				//Determine how many lines are in the result.
+				//numberOfLines = 0;
+				//charIndex = 0;
+				//while(charIndex != result.length()){
+				//	if(result.charAt(charIndex) == "\n"){
+				//		numberOfLines++;
+				//	}
+				//	charIndex++;
+				//}//end while
+				
+				
+				//Make room at the end of the current fold for output and place output there.
+				//currentCaretPosition = textArea.getCaretPosition();
+        	
+							
+				foldName = foldProperties.get("name");
+				
+				
+			//{{{
+			org.mathpiper.ide.ResponseListener responseListener = new org.mathpiperide.ResponseListener() {
+				response(response)
+				{
+					System.out.println("WWWW " + response );
+					result = response;
+					displayResult();
+					
+				}//end method.
+				
+				remove()
+				{
+					return true;
+				}//end method.
+				
+			};//end interface implementation.
+			//}}}
+				system = MaximaWrapper.getInstance();
+				system.addResponseListener(responseListener);
+				//System.out.println(tempFilePath);
+				tempFileName = tempFile.getName();
+				sendString = "load(\""+tempFileName+"\");\n";
+				system.send(sendString);//sendString
+				
+				//this.console.setShell("Maxima");o = console.getOutput();o.writeAttrs(null, "\n");
+				//runCommandInConsole(view,"Maxima","LoadScript(\""+path+"\");");
+				//runCommandInConsole(view,"Maxima",codeText + "\n");
+				
+				output_fold_type = "%output";
+				//System.out.println(
+								
+					
+			}catch(org.mathpiper.ide.maxima.MathPiperException ye) 
+			{
+				result = ye.getMessage();
+				output_fold_type = "%error ";
+			}
+			
+			
+
+					
+		}//end if }}}
+
+
+		
+		
+		///{{{ *** %_fricas ***.
+		else if(foldType.equalsIgnoreCase("%_fricas"))    
+		{		
+			
+			
+			try 
+			{   
+				
+				//This section of code instantiates a ResponseListener object which listens for the response
+				// from the CAS.
+				org.mathpiperide.ResponseListener responseListener = new org.mathpiperide.ResponseListener() 
+				{
+					response(response)
+					{
+						//System.out.println("XXXXXXX " + response ); //Look for this output in the Activity Log at the lower left of the applicaiton.
+						
+						//The contents of "response" can be manipluated here before assigning it to "result".
+						
+						
+						result = response;//The variable "result" is what gets displayed in the output fold.
+						
+						displayResult();
+						
+					}//end method.
+					
+					remove()
+					{
+						return true;
+					}//end method.
+					
+				};
+	
+				
+				
+				fricasWrapper = FriCASWrapper.getInstance();
+				
+				fricasWrapper.addResponseListener(responseListener);
+				
+				
+				//Handle the quiet property.
+				quietProperty = foldProperties.get("quiet");
+				quietCommand = " )quiet"; //Default to quiet output.
+				if(quietProperty == null)
+				{
+					//Default to quiet output.
+				}
+				else
+				{
+					if(quietProperty.equalsIgnoreCase("true"))
+					{
+						quietCommand = " )quiet";
+					}
+					else if (quietProperty.equalsIgnoreCase("false"))
+					{
+						quietCommand = "";
+					}
+					else
+					{
+						Macros.message(jEdit.getActiveView(), "The quiet property has been passed an invalid value: \"" + quietProperty + "\".\n Set it to either true or false.");
+					}
+				}//end else.
+	
+				
+				sendString = ")read "+tempFile.getAbsolutePath() + quietCommand + "\n";
+				
+				fricasWrapper.send(sendString);
+				
+				output_fold_type = "%output";
+			
+					
+			}catch(java.io.IOException ioe) 
+			{
+				result = ioe.getMessage();
+				output_fold_type = "%error ";
+			}
+		
+		}//end if }}}
+
+		
+
+		
+		///{{{ *** %reduce ***.
+		else if(foldType.equalsIgnoreCase("%reduce"))    
+		{		
+			
+			try 
+			{   
+				
+				//This section of code instantiates a ResponseListener object which listens for the response
+				// from the CAS.
+				org.mathpiperide.ResponseListener responseListener = new org.mathpiperide.ResponseListener() 
+				{
+					response(response)
+					{
+						//System.out.println("XXXXXXX " + response ); //Look for this output in the Activity Log at the lower left of the applicaiton.
+						
+						//The contents of "response" can be manipluated here before assigning it to "result".
+						
+						
+						result = response;//The variable "result" is what gets displayed in the output fold.
+						
+						result = result.replace("OFF ECHO$", "");
+						
+						
+						//Strip leading and trailing carriage returns and linefeeds.
+						characterIndex = 0;
+						
+						if(result.length() > 0)
+						{
+							try
+							{
+								while(result.charAt(characterIndex) == '\n' || result.charAt(characterIndex) == '\r')
+								{
+									characterIndex++;
+								}
+								
+								result = result.substring(characterIndex, result.length());
+								
+								
+								if(result.length() > 0)
+								{
+									characterIndex = result.length() - 1;
+									
+									while(characterIndex > 0 && Character.isWhitespace(result.charAt(characterIndex)))
+									{	
+										characterIndex--;
+									}
+									
+									result = result.substring(0, characterIndex+1);
+								}
+								
+							}
+							catch(Exception ioe)
+							{
+								ioe.printStackTrace();
+							}
+						}
+						
+						
+						
+						
+						
+						//Todo:tk:for some reason the reduce fold needs this check because
+						//otherwise it periodically causes exceptions to be thrown which are
+						//caused by textArea not being editable.
+						while(textArea.isEditable() == false)
+						{
+							try
+							{
+								Thread.sleep(10);
+							}
+							catch(InterruptedException ie)
+							{
+							}
+						};
+						
+						displayResult();
+						
+					}//end method.
+					
+					remove()
+					{
+						return true;
+					}//end method.
+					
+				};
+	
+				
+				
+				mpreduceWrapper = org.mathpiper.ide.mpreduceplugin.MPReduceWrapper.getInstance();
+				
+				mpreduceWrapper.addResponseListener(responseListener);
+	
+				expressionString = "IN \""+tempFile.getAbsolutePath() + "\"\n";
+				
+				//expressionString = codeText.trim();
+				
+				mpreduceWrapper.evaluate(expressionString);
+				
+				output_fold_type = "%output";
+				result = "Processing...";
+			
+					
+			}catch(java.io.IOException ioe) 
+			{
+				result = ioe.getMessage();
+				output_fold_type = "%error ";
+			}
+		
+		}//end if }}}		
+		
+		
+		
+		
+		
+		
+		///{{{ *** %lisp ***.
+		else if(foldType.equalsIgnoreCase("%lisp"))    
+		{
+						
+
+			try 
+			{   
+
+				abcl = org.mathpiper.ide.abclplugin.ABCLShell.getInterpreter();
+				
+				//tempFileName = tempFile.getName();
+				//System.out.println("******* " + tempFileName);
+				//sendString =("(load \"" + tempFileName + "\")");
+				//result = abcl.eval(sendString);
+				response = abcl.eval(codeText);
+				
+				if(response instanceof org.armedbear.lisp.LispObject)
+				{
+					org.armedbear.lisp.LispObject lispObject = (org.armedbear.lisp.LispObject) response;
+					String responseString = lispObject.writeToString();
+					responseString = responseString.replaceAll("ABCL-SCRIPT-USER::","");
+					result = responseString;
+				}
+				else
+				{
+					result=response.toString();
+				}
+				
+				output_fold_type = "%output";
+				
+			
+			}catch(Throwable e) 
+			{
+				result = e.getCondition().getMessage();
+				
+				output_fold_type = "%error ";
+			}
+			
+			
+
+					
+		}//end if }}}
+
+		
+		
+		
+	///{{{ *** %beanshell ***
+		else if(foldType.equalsIgnoreCase("%beanshell"))
+		{
+			ggbWraper()
+			{
+				if(org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI() == null)
+				{
+					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "geogebra" );
+				}
+				evalCommand(command)
+				{
+					org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI().evalCommand(command);
+				}
+				return this;
+			}
+
+			
+			scope = foldProperties.get("scope");
+			if(scope.equalsIgnoreCase("global"))
+			{
+				bshInterpreter = bsi;
+				ggb = org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI();
+				bshInterpreter.set("ggb",ggbWraper());
+				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
+				bshInterpreter.set("returnError","none");
+			}
+			else if(scope.equalsIgnoreCase("local"))
+			{
+
+				import bsh.Interpreter;
+				bshInterpreter = new Interpreter();
+				bshInterpreter.eval("import geogebra.GeoGebra;");
+				ggb = org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI();
+				bshInterpreter.set("ggb",ggbWraper());
+				//bshInterpreter.set("jEdit",jEdit); Note:tk: this stopped working for some reason.
+				bshInterpreter.set("returnError","none");
+				
+			
+			}else if(scope.equalsIgnoreCase("ide"))
+			{
+				bshInterpreter=this.interpreter;
+			}//end else/if.
+			
+			try 
+			{   
+				tempFilePath = tempFile.getAbsolutePath();
+
+				//System.out.println(tempFilePath);
+				
+				//foldOutput is for printing to %output fold.
+				bshInterpreter.set("foldOutput","");
+
+				bshInterpreter.source(tempFilePath);
+				
+				
+				//Print content of print statement if present. 
+				
+				
+				foldOutput = bshInterpreter.get("foldOutput");
+				//print("BBBB " + foldOutput);
+				if(foldOutput == void || foldOutput == "")
+				{
+					result = "";
+				}
+				else
+				{
+					if(foldOutput instanceof String)
+					{
+						result = foldOutput;
+					}
+					else
+					{
+						result = String.valueOf(foldOutput);
+					}//end else.
+					
+					foldOutput = "";
+				}
+				
+	//System.out.println("tempFilePath: " + tempFilePath);
+	            if(foldProperties.get("output").equalsIgnoreCase("html") )
+				{
+					output_fold_type = "%html ";
+				}
+				else
+				{
+				output_fold_type = "%output ";
+				}
+	//Sy	stem.out.println("Out> " + result);
+				
+					
+			}catch(Exception e) 
+			{
+				System.out.println(" XXXX ERROR: " + bshInterpreter.get("returnError"));
+				System.out.println(" XXX Beanshell Exception: " + e.getMessage());
+				
+				message = e.getMessage();
+				
+				//Note: ugly hack to work around EvalError object sometimes throwing null pointer exceptions 
+				// when either getErrorText() or getErrorLineNumber() is called. 
+				if(message.indexOf("line") == -1)
+				{
+					errorText = e.getErrorText();
+					errorLineNumber = e.getErrorLineNumber();
+				}
+				else
+				{
+					errorText = e.getMessage();
+					errorLineNumber = Integer.parseInt( errorText.substring(errorText.indexOf("line") + 5, errorText.indexOf(",")));
+				}
+				
+				
+
+
+				
+
+				output_fold_type = "%error ";
+							
+							errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+
+							adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 1);
+							result =  e.getMessage() + " " + errorText + " Line: " + adjustedErrorLineNumber;							
+							
+							filePath = textArea.getBuffer().getPath();
+				    	
+							errorSource.clear();
+            	    	
+							errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber-1, 0, 0, result ) );
+				    	
+							jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+
+			}
+		}//end else
+		// end %beanshell }}}
+	
+	///{{{ *** %geogebra ***
+		else if(foldType.startsWith("%geogebra")) //(foldStartLineText.indexOf("%geogebra") != -1)
+		{
+			
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "geogebra" );
+			
+			errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+			
+			import geogebra.GeoGebraApplet;
+			geogebra = org.mathpiper.ide.geogebraplugin.GeoGebra.getGeoGebraAPI();
+			
+		
+			if(foldProperties.get("clear").equalsIgnoreCase("true") )
+			{
+				//Clear geogebra.
+				geogebra.setXML("<?xml version=\"1.0\" encoding=\"utf-8\"?> <geogebra format=\"2.5\"> </geogebra>");
+				
+			}//end if.
+			
+			
+			
+			
+			result = "GeoGebra updated.";
+			output_fold_type = "%output";
+			if(foldType.endsWith("_xml"))
+			{
+				geogebra.setXML(codeText);
+				//System.out.println(codeText);
+			}
+			else
+			{
+				lines = codeText.split("\n");
+				
+				lineCount = lines.length;
+				lineIndex = 0;
+            	
+				
+				for(lineIndex = 0; lineIndex < lineCount; lineIndex++)
+				{
+					//System.out.println("YYYYY" + lines[lineIndex]);
+					
+					if(lines[lineIndex].trim().length() != 0 && ! lines[lineIndex].trim().startsWith("//"))
+					{
+						
+					    endOfLineCommentIndex = lines[lineIndex].indexOf("//");
+						if(endOfLineCommentIndex != -1)
+						{
+							currentLine = lines[lineIndex].split("//")[0];
+						}
+						else
+						{
+							currentLine = lines[lineIndex].trim();
+						}//end if.
+						
+						currentLine=currentLine.trim();
+						
+						
+						if(currentLine.startsWith("Result:"))
+						{
+							//continue;
+							
+							currentLine = currentLine.subSequence(7, currentLine.length());
+						}
+						else if(currentLine.startsWith("Side Effects:"))
+						{
+							continue;
+						}
+						
+						currentLine = currentLine.replace("==","=");
+						returnFlag = geogebra.evalCommand(currentLine);
+						
+						if(returnFlag == false)
+						{
+							errorLine = foldStartLine + lineIndex+2;
+							result = "Error on line " + errorLine + ".";
+							output_fold_type = "%error";
+							
+							filePath = textArea.getBuffer().getPath();
+				    	
+							errorSource.clear();
+            	    	
+							errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, 0, currentLine ) );
+				    	
+							jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+							
+							break;      
+						}//end if.
+					}//end if.
+				}//end for.
+
+			}//end else
+			
+			
+		}//end else
+		//end %geogebra }}}
+
+
+	///{{{ *** %jung ***
+		else if(foldType.startsWith("%jung")) //(foldStartLineText.indexOf("%geogebra") != -1)
+		{
+			
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "jung" );
+			
+			errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+			
+			
+
+			if(foldProperties.get("input").equalsIgnoreCase("facebook") )
+			{
+				//import edu.uci.ics.jung.graph.DelegateForest;
+				//import edu.uci.ics.jung.graph.DirectedGraph;
+				import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
+				graph = new DirectedSparseMultigraph();
+				//System.out.println("XXXXX " + codeText);
+				
+				lines = codeText.split("\n");
+				
+				
+				//line = lines.split(',');
+				
+				boolean firstLine = true;
+				
+				for(x=0;x < lines.length; x++)
+				{
+					line = lines[x].split(",");
+					
+					if(line[0].startsWith("*"))
+					{
+						friend = line[1];
+						if(firstLine)
+						{
+							graph.addVertex(friend);
+							firstLine = false;
+						}
+						
+					}
+					System.out.println("Friend: " + friend + " - " + line[1]);
+					if(!friend.equalsIgnoreCase(line[1]))
+					{
+						graph.addEdge(edgeFactory.create(), friend, line[1]);
+					}
+					
+				}
+				
+				
+				
+				
+				jung = org.mathpiper.ide.jungplugin.Jung.getJung();
+				jung.setGraph(graph);
+			}
+			else
+			{
+			
+				edu.uci.ics.jung.io.PajekNetReader pnr = new edu.uci.ics.jung.io.PajekNetReader(org.apache.commons.collections15.FactoryUtils.instantiateFactory(Object.class));
+				edu.uci.ics.jung.graph.Graph g = new edu.uci.ics.jung.graph.UndirectedSparseGraph();
+				
+				tempFilePath = tempFile.getAbsolutePath();
+				tempFilePath = ChangeToForwardSlash(tempFilePath);
+				
+				pnr.load(tempFilePath, g);
+				
+				jung = org.mathpiper.ide.jungplugin.Jung.getJung();
+				jung.setGraph(g);
+			
+			}
+			
+			result = "Jung updated.";
+			output_fold_type = "%output";
+
+
+			
+			
+		}//end else
+		//end %jung }}}
+
+
+		
+		
+		
+	///{{{ *** %hoteqn ***
+		else if(foldType.equalsIgnoreCase("%hoteqn")) //(foldStartLineText.indexOf("%geogebra") != -1)
+		{
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "hoteqn" );
+			
+			errorSource = MathPiperInterpreter.getErrorSource();
+			
+			hotEqn = org.mathpiper.ide.hoteqnplugin.HotEqn.getHotEqn();
+			
+		
+			if(foldProperties.get("clear").equalsIgnoreCase("true") )
+			{
+				hotEqn.setEquation("");
+			}//end if.
+			
+			
+			//lines = codeText.split("\n");
+			
+
+			
+			//lineCount = lines.length;
+			//lineIndex = 0;
+			
+			codeText = codeText.trim();
+			if(codeText.startsWith("Result:"))
+			{
+				codeText = codeText.replace("Result:","");
+			}
+
+			hotEqn.setEquation(codeText);
+			result = "HotEqn updated.";
+			output_fold_type = "%output";
+			
+					/*
+					if(returnFlag == false)
+					{
+						errorLine = foldStartLine + lineIndex+2;
+						result = "Error on line " + errorLine + ".";
+						output_fold_type = "%error";
+						
+						filePath = textArea.getBuffer().getPath();
+			    	
+						errorSource.clear();
+                	
+						errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, 0, "Hello" ) );
+			    	
+						jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+						
+						break;      
+					}//end if.
+					*/
+
+		}//end else
+		//end %hoteqn }}}
+
+	///{{{ *** %html ***
+		else if(foldType.equalsIgnoreCase("%html")) 
+		{
+			//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "piperdocs" );
+			
+			
+			result = "";
+			output_fold_type = "%output";
+			
+			try 
+			{   
+				//tempFilePath = tempFile.getAbsolutePath();
+				//tempFilePath = ChangeToForwardSlash(tempFilePath);
+				//tempFilePath = "file:///" + tempFilePath;
+				
+				htmlTextWithLatex = org.mathpiper.ui.gui.help.FunctionTreePanel.processLatex(codeText);
+				frame = new javax.swing.JFrame(); 
+				contentPane = frame.getContentPane();
+				contentPane.setLayout(new java.awt.BorderLayout());
+				JEditorPane editorPane = new JEditorPane();
+				editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+				JScrollPane editorScrollPane = new JScrollPane(editorPane);
+				editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				editorPane.setEditable(false);
+				//editorPane.setPage(tempFilePath);
+				editorPane.setText(htmlTextWithLatex);
+				contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
+				
+				
+				//{{{Experimental screen capture code.
+				button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
+				button.setToolTipText("Save image of this window.");
+				ActionListener actionListener = new java.awt.event.ActionListener() {
+					
+					public void actionPerformed(ActionEvent evt) 
+					{
+						String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
+				
+						if (paths != null ) 
+						{
+							String fileName = paths[0];
+							java.io.File exportImageFile = new File(fileName);
+							try
+							{
+								org.mathpiperide.library.ScreenCapture.createImage(editorPane, fileName);
+							}
+							catch (java.io.IOException ioe)
+							{
+								ioe.printStackTrace();
+							}//end try/catch.
+						}//end if.
+					}//end method.
+				};//end anonymous.
+        		
+				button.addActionListener( actionListener);
+				
+				
+				toolPanel = new javax.swing.JPanel();
+				toolPanel.add(button);
+				contentPane.add(toolPanel, java.awt.BorderLayout.NORTH);
+				
+				//}}}*/
+
+				
+				
+
+				frame.pack();
+				frame.setAlwaysOnTop(false);
+				frame.setTitle("MathPiperIDE");
+				xsize = Integer.parseInt(foldProperties.get("width"));
+				ysize = Integer.parseInt(foldProperties.get("height"));
+				frame.setSize(new Dimension(xsize, ysize));
+				frame.setResizable(true);
+				//frame.setPreferredSize(new Dimension(400, 400));
+				frame.setLocationRelativeTo(null);
+				frame.show();
+
+
+			}catch(Exception e) 
+			{
+				result = e.getMessage();
+				output_fold_type = "%error ";
+			}
+			
+
+		}//end else
+		//end %html }}}
+
+		
+	///{{{ *** %mathpiper_docs ***
+		else if(foldType.equalsIgnoreCase("%mathpiper_docs")) 
+		{
+			try 
+			{   			
+				result = "";
+				
+				htmlText = org.mathpiper.ui.gui.help.FunctionTreePanel.textToHtml(codeText);
+				
+				htmlText = org.mathpiper.ui.gui.help.FunctionTreePanel.processLatex(htmlText);
+				
+				if(foldProperties.get("output").equalsIgnoreCase("html") )
+				{
+					output_fold_type = "%html";
+					result = htmlText;
+				}	
+				else
+				{
+					output_fold_type = "%output";
+					
+					frame = new javax.swing.JFrame(); 
+					contentPane = frame.getContentPane();
+					contentPane.setLayout(new java.awt.BorderLayout());
+					JEditorPane editorPane = new JEditorPane();
+					editorPane.setEditorKit(new javax.swing.text.html.HTMLEditorKit());
+					JScrollPane editorScrollPane = new JScrollPane(editorPane);
+					editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+					editorPane.setEditable(false);
+					editorPane.setText(htmlText);
+					contentPane.add(editorScrollPane);//guiBox,BorderLayout.NORTH);
+					
+					
+					//{{{Experimental screen capture code.
+					button = new org.gjt.sp.jedit.gui.RolloverButton(GUIUtilities.loadIcon("Save.png"));
+					button.setToolTipText("Save image of this window.");
+					ActionListener actionListener = new java.awt.event.ActionListener() {
+						
+						public void actionPerformed(ActionEvent evt) 
+						{
+							String[] paths = org.gjt.sp.jedit.GUIUtilities.showVFSFileDialog(view, null, JFileChooser.SAVE_DIALOG, false);
+					
+							if (paths != null ) 
+							{
+								String fileName = paths[0];
+								java.io.File exportImageFile = new File(fileName);
+								try
+								{
+									org.mathpiper.ide.library.ScreenCapture.createImage(editorPane, fileName);
+								}
+								catch (java.io.IOException ioe)
+								{
+									ioe.printStackTrace();
+								}//end try/catch.
+							}//end if.
+						}//end method.
+					};//end anonymous.
+					
+					button.addActionListener( actionListener);
+					
+					
+					toolPanel = new javax.swing.JPanel();
+					toolPanel.add(button);
+					contentPane.add(toolPanel, java.awt.BorderLayout.NORTH);
+					
+					//}}}*/
+	
+					
+					
+	
+					frame.pack();
+					frame.setAlwaysOnTop(false);
+					frame.setTitle("MathPiperIDE");
+					xsize = Integer.parseInt(foldProperties.get("width"));
+					ysize = Integer.parseInt(foldProperties.get("height"));
+					frame.setSize(new Dimension(xsize, ysize));
+					frame.setResizable(true);
+					//frame.setPreferredSize(new Dimension(400, 400));
+					frame.setLocationRelativeTo(null);
+					frame.show();
+	
+	
+
+			
+				}//end else.
+			
+		    }catch(Exception e) 
+			{
+				result = e.getMessage();
+				output_fold_type = "%error ";
+			}
+
+		}//end else
+		//end %mathpiper_docs }}}
+
+		
+	///{{{ *** %uasm65 ***
+		else if(foldType.equalsIgnoreCase("%uasm65")) 
+		{
+			//jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "u6502" );
+			
+			if ( asm == void )
+			{
+				asm = new org.mathpiper.ide.u6502.UASM65();
+			}
+			
+
+			
+			try 
+			{   
+				results = asm.assemble(codeText + "\n"); //Add newline to prevent no CR after END error.
+				
+				//System.out.println("LLLLL " + results.size() + " " + results.get(0));
+				
+				lst_or_error = results.get(0);
+				if(results.size() > 1)
+				{
+					s19 = results.get(1);
+					symbolTable = results.get(2);
+					result = "*** List file ***\n" + lst_or_error + "\n\n";
+					//result = result + "*** Symbol table ***\n\n" + symbolTable + "\n\n";
+					s19 = s19.substring(0,s19.length()-1);
+					s19 = s19.replaceAll("\n","\n\t");
+					result = result + "*** Executable code ***\n\n"+ "%s19,descrption=\"Execute this fold to send program to U6502 monitor.\"\n\t" + s19 + "\n%/s19";
+					
+					output_fold_type = "%output ";
+				}
+				else
+				{
+					filePath = textArea.getBuffer().getPath();
+					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+					errorSource.clear();
+					java.util.Iterator errorEntries = lst_or_error.iterator();
+					
+					while(errorEntries.hasNext())
+					{
+							errorEntry = (java.util.Hashtable) errorEntries.next();
+							errorLine = foldStartLine + errorEntry.get("line_number") + 1;
+							errorIndex =  errorEntry.get("line_index");
+							errorMessage = errorEntry.get("error_message");
+							result = "Error on line " + errorLine + " : " + errorMessage ;
+							//output_fold_type = "%error";
+							
+							
+            	    	
+							errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, errorLine-1, 0, errorIndex, errorMessage) );
+				    	
+							jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+					
+					}
+					output_fold_type = "%error ";
+				}
+				
+				
+				
+					
+			}catch(java.io.IOException e) 
+			{
+				result = e.getMessage();
+				output_fold_type = "%error ";
+			}
+		}//end else
+		
+	///{{{ *** %s19 ***
+		else if(foldType.equalsIgnoreCase("%s19")) 
+		{
+			jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "u6502" );
+
+
+			
+			if(foldProperties.get("output").equalsIgnoreCase("array") )
+			{
+				sr = codeText;
+				 bytes = new ArrayList();
+    
+				startAddress = "";
+				firstAddress = 1;
+			  
+				  lines = sr.split("\n");
+				  
+				  for(int x=0;x<lines.length;x++)
+				  {
+					  line = lines[x];
+					  line = line.trim();
+					  
+					  recordType = line.charAt(1);
+					  byteCount = Integer.parseInt( line.substring(2,4), 16 );
+								
+					  if( recordType == '1' && byteCount > 3)
+					  {
+						  
+						  if(firstAddress == 1)
+						  {
+							  startaddress = line.substring(4,8);   
+							  firstaddress = 0;
+						  }
+						  
+						  
+						  index = 8;
+						  count = 0;
+						while(count <= byteCount-3-1)
+						{
+							aByte = line.substring(index,index+2);
+			
+							index = index + 2;
+							count = count + 1;
+							
+							parsedByte = Integer.parseInt(aByte,16 );
+							
+							bytes.add(parsedByte );
+							System.out.println(aByte);
+			
+						}
+						  
+					  }
+					  
+				  }
+				  
+				  sb = new StringBuffer();
+				  sb.append("{");
+				  for(int x=0; x < bytes.size(); x++)
+				  {
+					  sb.append(bytes.get(x) + ",");
+				  }
+				  
+				  sb.deleteCharAt(sb.length()-1);
+				  sb.append("};");
+				  
+				  output_fold_type = "%output";
+				  result = sb.toString();
+			}
+			else
+			{
+			
+			try 
+			{   
+				uart = org.mathpiper.ide.u6502.EMU6551.getInstance();
+				uart.send("L\n");
+				codeText = codeText.replaceAll(" ", "");
+				codeText = codeText.replaceAll("\t", "");
+				uart.send(codeText + "\n");
+				
+				output_fold_type = "%output";
+				
+			}catch(java.io.IOException e) 
+			{
+				result = e.getMessage();
+				output_fold_type = "%error ";
+			}
+			}//end if/else.
+			
+		}//end else
+		
+		//}}}
+		
+	///{{{ *** %clojure ***
+		else if(foldType.equalsIgnoreCase("%clojure")) 
+		{
+
+		try {
+			//new Binding<String>(script);
+			clojure.lang.Namespace ns = (clojure.lang.Namespace) clojure.lang.RT.CURRENT_NS.get();
+			clojure.lang.Associative mappings = clojure.lang.PersistentHashMap.EMPTY;
+			mappings = mappings.assoc(clojure.lang.RT.CURRENT_NS, clojure.lang.RT.CURRENT_NS.get());
+			//for (Entry<String, ? extends Object> e : bindings.entrySet()) {
+			//        String varName = e.getKey();
+			//        Symbol sym = Symbol.intern(varName);
+			//        Var var = Var.intern(ns, sym);
+			//        mappings = mappings.assoc(var, e.getValue());
+			//}
+			//Var.pushThreadBindings(mappings);
+	System.out.println("XXXX " + path);
+			ret = clojure.lang.Compiler.loadFile(tempFile.getAbsolutePath());
+			StringWriter writer = new StringWriter();
+			clojure.lang.RT.print(ret, writer);
+			result =  writer.toString();
+			output_fold_type = "%output";
+
+
+		}
+		catch(Exception e)
+		{
+			output_fold_type = "%error";
+			result = e.getMessage();
+			e.printStackTrace();
+		}
+		finally {
+			//Var.popThreadBindings();
+		}
+		}//end else
+		
+		//}}}
+		
+	///{{{ *** %clojure ***
+		else if(foldType.equalsIgnoreCase("%fortress")) 
+		{
+
+		try {
+			//new Binding<String>(script);
+			clojure.lang.Namespace ns = (clojure.lang.Namespace) clojure.lang.RT.CURRENT_NS.get();
+			clojure.lang.Associative mappings = clojure.lang.PersistentHashMap.EMPTY;
+			mappings = mappings.assoc(clojure.lang.RT.CURRENT_NS, clojure.lang.RT.CURRENT_NS.get());
+			//for (Entry<String, ? extends Object> e : bindings.entrySet()) {
+			//        String varName = e.getKey();
+			//        Symbol sym = Symbol.intern(varName);
+			//        Var var = Var.intern(ns, sym);
+			//        mappings = mappings.assoc(var, e.getValue());
+			//}
+			//Var.pushThreadBindings(mappings);
+	System.out.println("XXXX " + path);
+			ret = clojure.lang.Compiler.loadFile(tempFile.getAbsolutePath());
+			StringWriter writer = new StringWriter();
+			clojure.lang.RT.print(ret, writer);
+			result =  writer.toString();
+			output_fold_type = "%output";
+
+
+		}
+		catch(Exception e)
+		{
+			output_fold_type = "%error";
+			result = e.getMessage();
+			e.printStackTrace();
+		}
+		finally {
+			//Var.popThreadBindings();
+		}
+		}//end else
+		
+		//}}}		
+		
+		
+	///{{{ *** %latex ***
+		else if(foldType.equalsIgnoreCase("%latex")) 
+		{
+			
+			synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
+			
+			latexText = codeText.replace("\\","\\\\");
+			
+			evaluationResponse = synchronousInterpreter.evaluate("ViewLatex(\"" + latexText + "\");");
+			
+			
+			
+			result = evaluationResponse.getExceptionMessage();
+			
+			output_fold_type = "%output";
+			
+
+		}//end else
+		//end %latex }}}		
+		
+		
+	///{{{ *** %output ***
+		else if(foldType.equalsIgnoreCase("%output"))
+		{
+			return; //For now.
+		}
+		//end %uasm65 }}}
+		else
+		{
+			return;
+		}//end if/else
+
+//===================================================================================
+
+				
+				//Determine how many lines are in the result.
+				numberOfLines = 0;
+				charIndex = 0;
+				while(charIndex != result.length()){
+					if(result.charAt(charIndex) == "\n"){
+						numberOfLines++;
+					}
+					charIndex++;
+				}//end while
+				
+				
+
+        	
+        	
+
+				
+				result = result.trim();
+				
+				
+				//Send output to a macro if the macro is specified.
+				macro = foldProperties.get("pipe_to");
+				//print("YYYYY " + macro);
+				if(! macro.equalsIgnoreCase(""))
+				{
+					//bshInterpreter = PiperInterpreter.getBshInstance();
+					bshInterpreter = bsi;
+					//print("XXXX " + bshInterpreter.getNameSpace().getMethods());
+					globalMethods = bshInterpreter.getNameSpace().getMethods();
+					//for( method : globalMethods )
+					//	print(method);
+					
+					bshInterpreter.eval(macro+"(\"" + result + "\");");
+					//print("AAAA " + a);
+				    //bshInterpreter.invokeMethod(macro, new Object [] {result} );
+					
+				}//end if.
+				
+						
+				
+				
+				void displayResult()
+				{
+
+					//Buffer update needs to be done later in the AWT thread because of needing
+					// to wait for the buffer to be saved (which was requested earlier).
+					void run()
+					{
+						textArea.setSelection(null);
+						
+						boolean isLastFold = true;
+						buffer = textArea.getBuffer();
+						lineCount = buffer.getLineCount();
+						for(int i = foldEndLine; i < lineCount; i++)
+						{
+							if(buffer.isFoldStart(i))
+							{
+								isLastFold = false;
+								break;
+							}//end if.
+						}//end for.
+						
+						if(isLastFold == true)
+						{
+							//System.out.println("XXXXX isLastFold == true: " + foldEndLine + ",   " + lineCount);return;
+							if(foldEndLine == lineCount-1)
+							{
+								textArea.setCaretPosition(buffer.getLength());
+								textArea.insert("\n\n",false);
+							}//
+							else if(foldEndLine == lineCount-2)
+							{
+								textArea.setCaretPosition(buffer.getLength());
+								textArea.insert("\n",false);
+							}//
+								
+								
+							afterFoldIndex = textArea.getLineStartOffset(foldEndLine+1);
+							rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);//(isolatedCodeEndIndex, codeEndIndex);
+							textArea.setSelection(rangeSelection);
+							beforeNewlines = "\n";
+							afterNewlines = "\n\n";
+						}
+						else
+						{
+							textArea.goToNextFold(false);
+							nextFoldProperties = getFoldProperties(textArea.getCaretLine());
+							if(nextFoldProperties.get("preserve").equalsIgnoreCase("false"))//Delete next fold if set to preserve="false".
+							{
+								textArea.selectFold();
+								beforeNewlines = afterNewlines = "";
+								//textArea.setSelectedText("");
+								//textArea.deleteLine();
+								//textArea.deleteLine();
+							}//end if.
+							else if(nextFoldProperties.get("preserve").equalsIgnoreCase("true"))
+							{
+								afterFoldIndex = textArea.getLineStartOffset(foldEndLine+1);
+								rangeSelection = new Range(afterFoldIndex,afterFoldIndex+1);
+								textArea.setSelection(rangeSelection);
+								beforeNewlines = "\n";
+								afterNewlines = "\n\n";
+							}
+						}//end if/else.
+				
+						
+						
+					//System.out.println(result);
+						if(! foldProperties.get("truncate").equalsIgnoreCase("") )
+						{
+							truncateLength = Integer.parseInt(foldProperties.get("truncate"));
+							
+							if(result.length() >= truncateLength)
+							{
+							
+								result = result.substring(0, truncateLength);
+							}
+						}
+					
+						//result = result.trim();
+						result = result.replaceAll("\n","\n" + indentAmount + "  ");//("\n","\n      ");
+						result = indentAmount + "  " + result;
+						indentAmountPeriod = indentAmount.toString().replaceFirst(" ",".");
+						textArea.setSelectedText(beforeNewlines + indentAmount + output_fold_type + ",preserve=\"false\"\n" + result + "\n" + indentAmountPeriod + "%/" + output_fold_type.substring(1,output_fold_type.length() ) + afterNewlines, false);
+						
+						//textArea.setSelection(null);
+						//("\n\n     " + output_fold_type + "\n      "+ result + "\n     %end\n",false);
+				 
+						/*//If fold type was blank, set it to the default fold type.
+						if(foldStartSelection != null)
+						{
+							textArea.setSelection(foldStartSelection);
+							line = textArea.getSelectedText();
+							line = line.replaceFirst("\\{\\{\\{", "\u007b\u007b\u007b" + defaultFoldType);
+							textArea.setSelectedText(line);
+							textArea.setSelection(null);
+						}//end if
+						  */
+						
+						textArea.setCaretPosition(currentCaretPosition);
+						
+						if(collapseFold.equalsIgnoreCase("true"))
+						{
+							textArea.collapseFold();
+						}//end if.
+						
+						
+						
+						if(userSelection.length != 0)
+						{
+						   textArea.setSelection(userSelection);
+						}
+
+									
+
+						buffer.save(view,null);
+						
+
+					}//end run method.
+
+					VFSManager.runInAWTThread(this);
+					
+
+				
+				}//end method.
+				
+				displayResult();
+				
+
+							
+
+    } 
+	catch (IOException e) 
+	{
+		e.printStackTrace();
+    }
+	
+
+	
+
+}//end else if.
+
+
+
+

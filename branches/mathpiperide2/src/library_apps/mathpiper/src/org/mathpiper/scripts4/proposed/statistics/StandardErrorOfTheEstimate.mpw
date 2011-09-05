@@ -1,0 +1,66 @@
+%mathpiper,def="StandardErrorOfTheEstimate"
+
+StandardErrorOfTheEstimate(xList,yList) :=
+[   
+    Check(IsList(xList), "Argument", "The first argument must be a list.");
+    
+    Check(IsList(yList), "Argument", "The second argument must be a list.");
+    
+    Check(Length(xList) = Length(yList), "Argument", "The lists for argument 1 and argument 2 must have the same length.");
+    
+    Local(n,a,b,regressionLine);
+    
+    regressionLine := RegressionLine(xList,yList);
+    
+    n := regressionLine["count"];
+    
+    a := regressionLine["yIntercept"];
+    
+    b := regressionLine["slope"];
+        
+    N(Sqrt((Sum(yList^2) - a*Sum(yList) - b*Sum(xList*yList))/(n-2)));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper_docs,name="StandardErrorOfTheEstimate",categories="User Functions;Statistics & Probability",access="experimental"
+*CMD StandardErrorOfTheEstimate --- calculates the correlation coefficient between two lists of values
+*STD
+*CALL
+	StandardErrorOfTheEstimate(xList,yList)
+
+*PARMS
+
+{xList} -- the list of domain values
+{yList} -- the list of range values
+
+*DESC
+This function calculates the correlation coefficient between two lists of values.
+
+*E.G.
+/%mathpiper
+
+x := {4,3,5,2,3,4,3};
+y := {83,86,92,78,82,95,80};
+
+StandardErrorOfTheEstimate(x,y);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: 0.7766185090
+.   /%/output
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

@@ -1,0 +1,8 @@
+%mathpiper,def="IsRationalOrNumber"
+
+10 # IsRationalOrNumber(x_IsNumber) <-- True;
+10 # IsRationalOrNumber(x_IsNumber / y_IsNumber) <-- True;
+10 # IsRationalOrNumber(-(x_IsNumber / y_IsNumber)) <-- True;
+60000 # IsRationalOrNumber(_x) <-- False;
+
+%/mathpiper

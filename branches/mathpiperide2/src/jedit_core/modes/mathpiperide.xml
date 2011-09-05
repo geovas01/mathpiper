@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+
+<!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
+
+<!DOCTYPE MODE SYSTEM "xmode.dtd">
+
+<MODE>
+	<PROPS>
+		<PROPERTY NAME="commentStart" VALUE="/*" />
+		<PROPERTY NAME="commentEnd" VALUE="*/" />
+		<PROPERTY NAME="lineComment" VALUE="//" />
+
+	</PROPS>
+	
+	<RULES IGNORE_CASE="FALSE" >
+
+		<!-- Silly comment -->
+		<SEQ TYPE="COMMENT1">/**/</SEQ>
+
+
+		<!-- C style comment -->
+		<SPAN TYPE="COMMENT1">
+			<BEGIN>/*</BEGIN>
+			<END>*/</END>
+		</SPAN>
+        
+		<EOL_SPAN TYPE="COMMENT1">//</EOL_SPAN>
+        
+        <EOL_SPAN TYPE="COMMENT3">%group</EOL_SPAN>
+        <EOL_SPAN TYPE="COMMENT3">%/group</EOL_SPAN>
+
+
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiperdocs::MAIN">
+			<BEGIN>%mathpiper_docs[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/mathpiper_docs</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpipertrace::MAIN">
+			<BEGIN>%mathpiper_trace[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/mathpiper_trace</END>
+		</SPAN_REGEXP>
+
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
+			<BEGIN>%mathpiper[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/mathpiper</END>
+		</SPAN_REGEXP>
+
+		<SPAN_REGEXP  TYPE="MARKUP" DELEGATE="mathpiperideoutput::MAIN">
+			<BEGIN>%output[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/output</END>
+		</SPAN_REGEXP>
+        
+		<SPAN_REGEXP  TYPE="INVALID" >
+			<BEGIN>%error[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/error</END>
+		</SPAN_REGEXP>
+        
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="tex::MATH">
+			<BEGIN>%hoteqn[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/hoteqn</END>
+		</SPAN_REGEXP>
+
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
+			<BEGIN>%maxima[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/maxima</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
+			<BEGIN>%_fricas[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/_fricas</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
+			<BEGIN>%reduce[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/reduce</END>
+		</SPAN_REGEXP>
+
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="lisp::MAIN">
+			<BEGIN>%lisp[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/lisp</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="clojure::MAIN">
+			<BEGIN>%clojure[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/clojure</END>
+		</SPAN_REGEXP>
+
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="beanshell::MAIN">
+			<BEGIN>%beanshell[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/beanshell</END>
+		</SPAN_REGEXP>
+
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="html::MAIN">
+			<BEGIN>%html[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/html</END>
+		</SPAN_REGEXP>
+ 
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="xml::MAIN">
+			<BEGIN>%geogebra_xml[0-9a-zA-Z,;:=".()/'\- &amp;]*</BEGIN>
+			<END>%/geogebra_xml</END>
+		</SPAN_REGEXP>
+
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="mathpiper::MAIN">
+			<BEGIN>%geogebra[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/geogebra</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="uasm65::MAIN">
+			<BEGIN>%uasm65[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/uasm65</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="s19::MAIN">
+			<BEGIN>%s19[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/s19</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="pajek::MAIN">
+			<BEGIN>%jung[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/jung</END>
+		</SPAN_REGEXP>
+		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="latex::MAIN">
+			<BEGIN>%latex[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/latex</END>
+		</SPAN_REGEXP>
+
+	</RULES>
+    
+    <RULES IGNORE_CASE="FALSE" >
+    </RULES>
+
+
+</MODE>
+
+<!-- {{{ License.
+/*
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+ }}} -->

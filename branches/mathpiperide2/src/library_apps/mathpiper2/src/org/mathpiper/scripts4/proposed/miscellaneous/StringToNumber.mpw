@@ -1,0 +1,53 @@
+%mathpiper,def="StringToNumber"
+//Retract("StringToNumber",*);
+
+StringToNumber( str_IsString ) <-- FromBase(10,str);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="StringToNumber",categories="User Functions;String Manipulation",access="experimental"
+*CMD StringToNumber --- Convert a base-10 number in string form to its numeric value
+*STD
+*CALL
+        StringToNumber(numberString)
+
+*PARMS
+
+{numberString} -- a decimal (base-10) number represented as a string
+
+*DESC
+
+{StringToNumber} Converts the string representation of a number into the value of that number
+
+
+
+*E.G.
+
+In> IsNumber("1234")
+Result: False
+    
+In> StringToNumber("1234")
+Result: 1234
+    
+In> IsNumber(%)
+Result: True
+    
+In> StringToNumber("0.12345678")
+Result: 0.12345678
+    
+In> StringToNumber("0.12345678E4")
+Result: 1234.5678
+
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

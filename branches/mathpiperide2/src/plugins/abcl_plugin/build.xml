@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
+
+<project name="abcl_plugin" default="dist" basedir=".">
+	<description>
+		Build file for the ABCL plugin.
+	</description>
+	
+	<property name="version" value=".50" />
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	
+	
+	<target id="noop" name="noop" description="Do nothing." />
+	
+	<target name="init">
+		<tstamp>
+			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
+		</tstamp>
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+	
+	<target name="compile" depends="init"
+		description="Compiles the application" >
+
+		<!-- Two ways to print path information.
+		<property name="myclasspath" refid="build_classpath"/>
+		
+		<echo message="Classpath = ${myclasspath}"/>
+		
+		
+		<pathconvert pathsep="${line.separator}|   |- "
+			property="echo.path.compile"
+			refid="build_classpath">
+		</pathconvert>
+
+
+		<echo message="|- compile classpath"/>
+		<echo message="|   |"/>
+		<echo message="|   |- ${echo.path.compile}"/>
+		-->
+
+
+	
+		<javac 
+			source="${compile.source}"
+			target="${compile.target}" 
+			srcdir="${src.dir}"
+			destdir="${build.classes.dir}"
+			debug="off"
+			deprecation="on"
+			optimize="off">
+			<classpath refid="build_classpath" />
+			<include name="**/*.java" />
+		</javac>
+		
+	</target>
+	
+	
+	<target name="dist" depends="compile">
+	
+		<mkdir dir="${build.dir}/dist" />
+		
+		<copy todir="${build.dir}/classes">
+			<fileset dir="./src" >
+				<include name="**/*.props"/>
+				<include name="**/*.html"/>
+				<include name="**/*.gif"/>
+				<include name="actions.xml"/>
+				<include name="dockables.xml"/>
+				<include name="services.xml"/>
+			</fileset>
+		</copy>
+		
+		<jar jarfile="${build.dir}/dist/abcl_plugin.jar">
+			<fileset dir="${build.classes.dir}">
+				<include name="**/*.class"/>
+				<include name="**/*.props"/>
+				<include name="**/*.html"/>
+				<include name="**/*.gif"/>
+				<include name="actions.xml"/>
+				<include name="dockables.xml"/>
+				<include name="services.xml"/>
+			</fileset>
+			<manifest> 
+				<section name="abcl_plugin" >
+					<attribute name="Build-Date" value="${build.time}"/>
+				</section>
+			</manifest>
+		</jar>
+		
+		<mkdir dir="${examples.dir}/abcl" />
+		<copy todir="${examples.dir}/abcl">
+			<fileset dir="./examples" >
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
+	</target>
+	
+</project>
+
+<!-- {{{ License.
+/*
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+ }}} -->

@@ -1,0 +1,39 @@
+A fold can be executed by placing the cursor in a fold then pressing <shift><enter>.
+The Reduce console can be accessed by selecting Plugins->Console->Console and then 
+the MPReduce console.
+
+
+
+
+%reduce,title=""
+
+3^1000;
+
+%/reduce
+
+
+
+
+
+%reduce,title=""
+
+(X+Y+Z)^2;
+
+%/reduce
+
+
+
+
+
+
+%reduce,title="Long running calculation."
+
+(X-Y)^100;
+
+%/reduce
+
+
+
+
+
+

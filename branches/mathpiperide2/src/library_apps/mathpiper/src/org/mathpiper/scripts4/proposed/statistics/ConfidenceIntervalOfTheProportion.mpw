@@ -1,0 +1,80 @@
+%mathpiper,def="ConfidenceIntervalOfTheProportion"
+
+//Retract("ConfidenceIntervalOfTheProportion",*);
+
+ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel) :=
+[
+    Check(IsInteger(numberOfSuccesses) And numberOfSuccesses >= 0, "Argument", "The first argument must be an integer which is >=0");
+    
+    Check(IsInteger(sampleSize) And sampleSize >= 0, "Argument", "The second argument must be an integer which is >=0");
+    
+    Local(criticalZScore,approximateStandardErrorOfTheProportion,upperLimit,lowerLimit,resultList,proportion);
+    
+    resultList := {};
+    
+    criticalZScore := ConfidenceLevelToZScore(confidenceLevel);
+    
+    resultList["criticalZScore"] := criticalZScore;
+    
+    proportion := N(numberOfSuccesses/sampleSize);
+    
+    approximateStandardErrorOfTheProportion := Sqrt((proportion*(1 - proportion))/sampleSize);
+    
+    upperLimit := N(proportion + criticalZScore * approximateStandardErrorOfTheProportion);
+    
+    lowerLimit := N(proportion - criticalZScore * approximateStandardErrorOfTheProportion);
+    
+    If(InVerboseMode(),
+        [
+            Echo("Critical z-score: ", criticalZScore);
+            
+            Echo("Proportion: ", proportion);
+            
+            Echo("Standard error of the proportion: ", N(approximateStandardErrorOfTheProportion));
+        ]);
+    
+    resultList["upperLimit"] := upperLimit;
+    
+    resultList["lowerLimit"] := lowerLimit;
+    
+    resultList;
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="ConfidenceIntervalOfTheProportion",categories="User Functions;Statistics & Probability",access="experimental"
+*CMD ConfidenceIntervalOfTheProportion --- calculates a confidence interval for a proportion
+*STD
+*CALL
+	ConfidenceIntervalOfTheProportion(numberOfSuccesses,sampleSize,confidenceLevel)
+*PARMS
+{numberOfSuccesses} -- the number of successes in the sample
+{sampleSize} -- the size of the sample
+{confidenceLevel} -- the desired confidence level
+
+*DESC
+
+This function calculates a confidence interval for a proportion.  It returns an association list
+which contains the lower limit, the upper limit, and the critical Z score.
+
+*E.G.
+In> ConfidenceIntervalOfTheProportion(110,175,.90)
+Result: {{"lowerLimit",0.5684923463},{"upperLimit",0.6886505109},{"criticalZScore",1.644853952}}
+
+*SEE ConfidenceIntervalOfTheMean, V, Assoc
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

@@ -1,0 +1,140 @@
+%mathpiper,def="RepToNumber"
+
+//Retract("RepToNumber",*);
+
+
+10 # RepToNumber( rep_IsListOfLists ) <--
+[
+    //If(InVerboseMode(),[Tell(RepToNumberZ,rep); Tell("     complex");]);
+    RepToNumber(rep[1])+I*RepToNumber(rep[2]);
+];
+
+
+12 # RepToNumber( rep_IsList ) <--
+[
+    //If(InVerboseMode(),Tell(RepToNumber,rep));
+    Local(bigInt,precision,scale,strBI,sgn,index,ans);
+    Local(first,secnd,third,LS,numStr);
+    precision := rep[2];
+    scale     := 0;
+    bigInt    := rep[1];
+    precision := rep[2];
+    sgn       := Sign(bigInt);
+    If( Length(rep) >? 2, scale := rep[3] );
+    strBI     := ExpressionToString(Abs(bigInt));
+    LS        := Length(strBI);
+    //If(InVerboseMode(),[Tell("   ",{bigInt,precision,scale,sgn});Tell("   ",strBI);]);
+    If( Length(rep)=?2,
+       [ numStr := strBI; ],
+       [
+           index := precision-scale;
+           first := strBI[1];
+           secnd := StringMidGet(2,LS-1,strBI);   
+           third := ExpressionToString(index-1);
+           //If(InVerboseMode(),Tell("     ",{index,first,secnd,third}));
+           if ( index >? 0 )
+               [
+                   if ( index <? precision )
+                       [
+                           //If(InVerboseMode(),Tell("   index < precision "));
+                           numStr := ConcatStrings(first,".",secnd,"E",third);
+                       ]
+                   else if ( index >=? precision )
+                       [
+                           //If(InVerboseMode(),Tell("   index >=? precision "));
+                           numStr := ConcatStrings(first,".",secnd,"E+",third);
+                       ];
+               ]
+           else if ( index <? 0 )
+               [
+                   //If(InVerboseMode(),Tell("   index < 0 "));
+                   numStr := ConcatStrings(first,".",secnd,"E",third);
+               ]
+           else
+               [
+                   //If(InVerboseMode(),Tell("   index = 0 "));
+                   first  := "0." ; 
+                   secnd  := strBI;
+                   numStr := ConcatStrings(first,secnd);
+               ];
+        ]
+     );
+     ans := sgn * ToAtom(numStr);
+     //If(InVerboseMode(),Tell("     ",ans));
+     ans;
+];
+
+%/mathpiper
+
+
+
+
+
+
+%mathpiper_docs,name="RepToNumber",categories="Programmer Functions;Numerical (Arbitrary Precision)"
+*CMD RepToNumber --- Given a List representing a number as MathPiper stores it, returns the number
+*STD
+*CALL
+        RepToNumber(rep)
+        
+*PARMS
+
+{rep} -- A list representing MathPiper's internal structure for a number
+
+
+*DESC
+
+This function returns a Decimal, Integer, or Complex number, when given a data
+structure containing MathPiper's internal representation of the number.
+
+Internally, MathPiper represents {arbitrary precision} numbers as Java BigIntegers or
+BigDecimals.  Java code handles calculations using such numbers.
+
+All the information needed to correctly understand the precision attached to a number,
+and the rounding and comparison thereof, is contained in the Java structure.
+
+For a Decimal number (essentially anything with a decimal point), the representation
+consists of an arbitrary-precision integer containing {all} the significant digits of
+the number, and a {scale factor} telling where the implied decimal point is supposed to
+be placed with respect to the end of the integer.  The {precision} of the number is
+just the number of digits in the integer.
+
+The three components of the List representing a decimal number are, respectively,
+{{BigInteger (unscaled), Precision, ScaleFactor}}.
+Note that the second of these is redundent: only the BigInteger and the ScaleFactor
+are needed to completely define the number.
+
+For an Integer number, the integer is its own representation, and again, the number of
+its digits gives its precision, but the representation is still a list, with the number
+as first component and its precision as second.
+
+For a Complex number, the representation is a List of Lists,
+containing the representations of the Real and Imaginary parts of the number.
+
+The best way to {consistently} deal with precision and rounding issues is by making use
+of the information given by the representation (or "rep" for short)..
+
+*E.G.
+In> RepToNumber({12345678,8,5})
+Result: 123.45678
+
+In> RepToNumber({34700,5})
+Result: 34700
+
+In> RepToNumber({{150,3,2},{675,3,2}})
+Result: Complex(1.50,6.75)
+
+In> RepToNumber({12345678,8,15})
+Result: 0.000000012345678   :   BETTER WOULD BE 123.45678E-10
+
+In> RepToNumber({12345678,8,-5})
+Result: 1234567800000       :   BETTER WOULD BE 123.45678E+10
+    
+*SEE NumberToRep, DumpNumber
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

@@ -1,0 +1,12 @@
+%mathpiper,def="NextTest"
+
+Function("NextTest",{aLeft})
+[
+// curline++;
+WriteString("
+Test suite for ":aLeft:" : "
+           );
+  NewLine();
+];
+
+%/mathpiper

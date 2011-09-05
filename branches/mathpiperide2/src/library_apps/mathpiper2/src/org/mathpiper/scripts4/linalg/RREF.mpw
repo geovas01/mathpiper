@@ -1,0 +1,201 @@
+%mathpiper,def="RREF"
+
+//Retract("RREF",*);
+
+/*------------------------------------------------------------------------
+ * RREF
+ *    Takes an Augmented Matrix AM and convert it to Reduced Row Echelon
+ * Form (Row Canonical Form).
+ *
+ *    Algorithm based on Anton & Rorres, Elementary Linear Algebra, p 10ff
+ *
+ *------------------------------------------------------------------------*/
+
+10 # RREF( AM_IsMatrix ) <--
+[
+    If( Not? IsBound(iDebug), iDebug := False );
+    If(iDebug,Tell("RREF",AM));
+    Local(mRows,nCols,nVars,varVec,ir,jc,col,am,e,ii,pivot);
+    {mRows,nCols} := Dimensions(AM);
+    am            := FlatCopy(AM); //  so as not to mess with original matrix!
+    
+    Local(cc,cr,col,cnz);  // cc = current column,  cr = current row
+    cc := 1;               // initialize cc and cr to 1, to start with
+    cr := 1;
+    
+    While( cr <=? mRows )  // iterating over successively lower submatrices
+    [
+        Local(ic);
+
+        // STEP 1:  Locate first (sub)column that is NOT all zeros
+        If(iDebug, Tell("  STEP 1"));
+        cnz := 0;   //  column number of first non-zero column in submatrix
+        For(ic:=1,ic<=?nCols,ic++)   
+         [ 
+            col := MatrixColumn(am,ic);
+            If( cr >? 1, col := Drop( col, {1,cr-1} ) );
+            //Tell("         ",{ic,col});
+            If(Not? IsZeroVector(col), [cnz := ic; Break();]); 
+         ];
+        cc := cnz;
+        If( iDebug, Tell("     first non-zero column is ",cc));
+        
+        // STEP 2::  Now, find the first row which does not have a zero in column cc,
+        // and bring it to the top if necessary
+        If(iDebug, Tell("  STEP 2"));
+        For( ir:=cr, ir<=?mRows,ir++ )
+         [  
+            If( am[ir][cc] !=? 0 And? ir !=? 1, 
+              [
+                {am[ir],am[cr]} := {am[cr],am[ir]};
+                If(iDebug, Tell("   swapping rows ",{cr,ir}));
+                Break();
+              ]
+            );
+         ];
+        If(iDebug,[Tell("working matrix");TableForm(am);]);
+        
+        // STEP 3:  If the entry am[cr][cc] = a, then multiply row cr by 1/a
+        // in order to introduce a leading 1.
+        If(iDebug, Tell("  STEP 3"));
+        am[cr] := am[cr]/am[cr][cc];
+        If(iDebug,TableForm(am));
+        
+        // STEP 4:  Add suitable multiples of the top row to the rows below,
+        // so that all entries below the leading 1 become zeros.
+        If(iDebug, Tell("  STEP 4"));
+        For(ir:=cr+1,ir<=?mRows,ir++)
+         [
+           If( am[ir][cc] !=? 0, 
+             [
+                am[ir] := am[ir] - am[ir][cc]*am[cr];
+             ]
+           );
+         ];
+        If(iDebug,TableForm(am));
+        
+        // STEP 5:  Now cover the top row and begin again with STEP 1, 
+        // applied to the submatrix that remains.  Continue until the
+        // entire matrix is in row-echelon form
+        If(iDebug, Tell("  STEP 5"));
+        cr := cr + 1;
+        If(iDebug And? cr <=? mRows, [NewLine();Tell(" ",cr);]);
+        //Tell("   ",cr);
+        //Tell("   ",am[cr]);
+        If( cr=?mRows And? IsZeroVector(am[cr]), Break() );
+    ];   // end while cr <=? mRows
+    
+    // STEP 6:  convert to unique reduced row-echelon form
+    //   Beginning with the last non-zero row, and working upward,
+    //   add suitable multiples of each row to the rows above to 
+    //   introduce zeros above the leading 1's.
+    If(iDebug, Tell("  STEP 6"));
+    Local(pc,jr);
+    For(ir:=mRows,ir>?1,ir--)
+     [ 
+         
+         If(iDebug,Tell("",{ir,am[ir]}));
+         If(IsZeroVector(am[ir]),
+           [If(iDebug,Tell("    trailing row of zeros:  row ",ir)); ir:=ir-1;Continue();],
+           [
+              pc := Find(am[ir],1);  // find leading 1 in row
+              If(pc >? 0, 
+                [
+                   For(jr:=ir-1,jr>=?1,jr--)
+                    [
+                       If(am[jr][pc]!=?0, am[jr]:=am[jr]-am[jr][pc]*am[ir]);
+                       If(iDebug,[NewLine();TableForm(am);]);
+                    ];
+                ]
+              );
+           ]
+         );
+     ];
+    am;
+];  
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="RREF",categories="User Functions;Linear Algebra"
+*CMD RREF --- convert a system of equations to reduced row echelon form
+*STD
+*CALL
+        RREF(AugmentedMatrix)
+
+*PARMS
+
+{AugmentedMatrix} -- Augmented matrix describing the system of equations
+
+
+*DESC
+
+{RREF} solves a system of linear equations by using the Gauss-Jordan
+elimination method with partial pivoting, to convert the augmented matrix to the
+(unique) reduced row echelon form.  
+The original matrix is not modified.
+
+If the system of equations has a unique solution, this function returns a matrix in
+a form like
+[   1  0  0  a]
+[   0  1  0  b]
+[   0  0  1  c]
+where the diagonal form of the left submatrix indicates that the solution is unique
+and has been found, and the right-hand column is the vector of solutions.
+
+If the system of equations has {no} solution, this function returns a matrix in
+a form like
+[  1  0  0  a]
+[  0  1  0  b]
+[  0  0  0  c]
+where the presence of a row like {0 0 0 c} at the bottom indicates that the system is
+inconsistent and has no solution (0==c).
+
+If the system of equations is {dependent} and has a family of valid solutions, this
+function returns a matrix in a form like
+[  1  0  q  a]
+[  0  1  0  b]
+[  0  0  0  0]
+where the presence of a row (or several rows) of all zeros at the bottom indicates
+that the corresponding variables appear as parameters describing a family of solutions
+for the remaining variables.
+
+
+*E.G.
+
+In> AM := {{2,-3,2,3},{4,8,1,2},{1,7,-3,-14}};
+Result: {{2,-3,2,3},{4,8,1,2},{1,7,-3,-14}}
+
+In> RREF(AM)
+Result: {{1,0,0,-3},{0,1,0,1},{0,0,1,6}}
+
+NOTE:  This is fully solved.  The solution is
+       {{x==-3},{y==1},{z==6}}
+
+In> AM := {{2,-1,3},{6,-3,9}};
+Result: {{2,-1,3},{6,-3,9}}
+
+In> RREF(AM)
+Result: {{1,(-1)/2,3/2},{0,0,0}}
+
+NOTE:  This is a "dependent" set of equations.
+       The presence of a row of zeros at the bottom of the result
+       shows that the solution is
+       {{x==x},{y==2*x-3}} for any real x.
+
+In> AM := {{2,-4,6,5},{-1,3,-2,-1},{1,-2,3,1}};
+Result: {{2,-4,6,5},{-1,3,-2,-1},{1,-2,3,1}}
+
+In> RREF(AM)
+Result: {{1,0,5,0},{0,1,1,0},{0,0,0,1}}
+NOTE:  This is an "inconsistent" set of equations.
+       The last row, which states that 0==1, shows
+       that there is no solution.
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

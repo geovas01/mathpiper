@@ -1,0 +1,7 @@
+<!DOCTYPE SERVICES SYSTEM "services.dtd">
+
+<SERVICES>
+	<SERVICE CLASS="console.Shell" NAME="Fortress">
+                new org.mathpiper.ide.fortressplugin.FortressShell();
+        </SERVICE>
+</SERVICES>

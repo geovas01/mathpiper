@@ -1,0 +1,86 @@
+%mathpiper,title="Big Al's mob simulation. pp. 15-17"
+
+t := 1;
+
+MS := 0;
+NG := 0;
+TARGET := 50;
+
+msList := {};
+
+
+While(t <= 24)
+[
+    REC := N((TARGET - MS)/4);
+    ARR := MS * .05;
+    ESC := N(NG/10);
+
+    MS := MS + (REC - ARR) + ESC;
+    NG := NG + (ARR - ESC);
+    
+    msList := Append(msList, MS);
+    
+    Echo("Week: ",t,"   REC: ",N(REC,3),"   ARR: ", N(ARR,3),"   ESC: ",N(ESC,3),"   NG: ",N(NG,3),"   MS: ",N(MS,4));
+    
+
+    t++;
+    
+];
+
+
+BarChart({1 .. Length(msList), msList});
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: class org.jfree.chart.ChartPanel
+      
+      Side Effects:
+      Week: 1    REC: 12.5    ARR: 0.00    ESC: 0    NG: 0.00    MS: 12.50 
+      Week: 2    REC: 9.38    ARR: 0.625    ESC: 0    NG: 0.625    MS: 21.25 
+      Week: 3    REC: 7.19    ARR: 1.06    ESC: 0.0625    NG: 1.63    MS: 27.44 
+      Week: 4    REC: 5.64    ARR: 1.37    ESC: 0.163    NG: 2.84    MS: 31.87 
+      Week: 5    REC: 4.53    ARR: 1.59    ESC: 0.284    NG: 4.15    MS: 35.09 
+      Week: 6    REC: 3.73    ARR: 1.75    ESC: 0.415    NG: 5.49    MS: 37.48 
+      Week: 7    REC: 3.13    ARR: 1.87    ESC: 0.549    NG: 6.82    MS: 39.29 
+      Week: 8    REC: 2.68    ARR: 1.96    ESC: 0.682    NG: 8.10    MS: 40.69 
+      Week: 9    REC: 2.33    ARR: 2.03    ESC: 0.81    NG: 9.32    MS: 41.79 
+      Week: 10    REC: 2.05    ARR: 2.09    ESC: 0.932    NG: 10.5    MS: 42.69 
+      Week: 11    REC: 1.83    ARR: 2.13    ESC: 1.05    NG: 11.6    MS: 43.43 
+      Week: 12    REC: 1.64    ARR: 2.17    ESC: 1.16    NG: 12.6    MS: 44.06 
+      Week: 13    REC: 1.49    ARR: 2.20    ESC: 1.26    NG: 13.5    MS: 44.60 
+      Week: 14    REC: 1.35    ARR: 2.23    ESC: 1.35    NG: 14.4    MS: 45.07 
+      Week: 15    REC: 1.23    ARR: 2.25    ESC: 1.44    NG: 15.2    MS: 45.49 
+      Week: 16    REC: 1.13    ARR: 2.27    ESC: 1.52    NG: 16.0    MS: 45.86 
+      Week: 17    REC: 1.04    ARR: 2.29    ESC: 1.6    NG: 16.7    MS: 46.20 
+      Week: 18    REC: 0.95    ARR: 2.31    ESC: 1.67    NG: 17.3    MS: 46.51 
+      Week: 19    REC: 0.873    ARR: 2.33    ESC: 1.73    NG: 17.9    MS: 46.79 
+      Week: 20    REC: 0.803    ARR: 2.34    ESC: 1.79    NG: 18.4    MS: 47.04 
+      Week: 21    REC: 0.74    ARR: 2.35    ESC: 1.84    NG: 18.9    MS: 47.27 
+      Week: 22    REC: 0.683    ARR: 2.36    ESC: 1.89    NG: 19.4    MS: 47.48 
+      Week: 23    REC: 0.63    ARR: 2.37    ESC: 1.94    NG: 19.8    MS: 47.68 
+      Week: 24    REC: 0.58    ARR: 2.38    ESC: 1.98    NG: 20.2    MS: 47.86 
+      
+.   %/output
+
+
+
+
+
+
+
+%mathpiper,title=""
+data := Table(NormalDistributionValue(10.7, .13),x ,1 ,30, 1);
+
+Histogram(data);
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: class org.jfree.chart.ChartPanel
+.   %/output
+
+
+
+

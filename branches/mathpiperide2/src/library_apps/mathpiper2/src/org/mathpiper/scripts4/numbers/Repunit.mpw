@@ -1,0 +1,20 @@
+%mathpiper,def="Repunit"
+
+10 #         Repunit(0)        <-- 0;
+// Number consisting of n 1's
+Repunit(n_IsPositiveInteger) <--
+[
+        (10^n-1)/9;
+];
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="Repunit",subtype="automatic_test"
+
+Verify(Repunit(3), 111 );
+
+%/mathpiper

@@ -1,0 +1,67 @@
+%mathpiper,def="BinomialDistribution"
+
+/* Guard against distribution objects with senseless parameters
+   Anti-nominalism */
+
+BinomialDistribution(_p, _n)_
+        (If(IsRationalOrNumber(p),p<?0 Or? p>?1, False)
+         Or? (IsConstant(n) And? Not? IsPositiveInteger(n)) )
+        <-- Undefined;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="BinomialDistribution",categories="User Functions;Statistics & Probability"
+*CMD BinomialDistribution --- binomial distribution
+*STD
+*CALL
+        BinomialDistribution(p,n)
+
+*PARMS
+{p} -- number, probability to observe an event in single trial
+
+{n} -- number of trials
+
+*DESC
+Suppose we repeat a trial {n} times, the probability to observe an
+event in a single trial is {p} and outcomes in all trials are mutually
+independent. Then the number of trials when the event occurred
+is distributed according to the binomial distribution. The probability
+of that is {BinomialDistribution}{(p,n)}.
+
+Describes the number of successes for draws with replacement.
+
+Numerical value of {p} must satisfy $0<p<1$. Numerical value
+of {n} must be a positive integer. 
+
+*E.G.
+/%mathpiper,title=""
+
+PMF(BinomialDistribution(.1,15),0);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: 0.2058911321
+.   /%/output
+
+
+/%mathpiper,title=""
+
+//The argument 2 here means <=? 2 successes.
+CDF(BinomialDistribution(.1,15),2);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: 0.8159389308
+.   /%/output
+
+*SEE BernoulliDistribution, ChiSquareDistribution, DiscreteUniformDistribution, ExponentionalDistribution, GeometricDistribution, NormalDistribution, PoissonDistribution, tDistribution
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+

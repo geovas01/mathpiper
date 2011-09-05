@@ -1,0 +1,115 @@
+%mathpiper,title="xSolveSqrts"
+
+//Retract("xSolve'Sqrts",*);
+
+
+/************************* xSolve'Sqrts *************************/
+
+/* 
+ *    To get here, the user had to have called with something
+ * like  xSolve(Sqrt(_expr1) - _expr2,_var)  where  expr1  is a
+ * function of var, and expr2 can be anything.  Depending on the
+ * nature of expr2, appropriate sub-functions will be invoked. 
+ */
+  
+ 10 # xSolve'Sqrts(_expr1,_expr2,_var)_(Contains(VarList(expr1),var) 
+                               And Not Contains(VarList(expr2),var)) <--
+ [
+    If(iDebug=True,Tell("xSolve'Sqrts - no var",{expr1,expr2,var}));
+    Local(vars2,result);
+    vars2 := VarList(expr2);
+    If(iDebug=True,Tell("   1",vars2));
+    result := xSolve(expr1-expr2^2,var);
+    If(iDebug=True,Tell("   2",result));
+    Echo("HERE -- calling CheckSolution with   Sqrt(",expr1,")-",expr2,"   and  ",var,"   and   ",result);
+    CheckSolution(Sqrt(expr1)-expr2,var,result);
+ ];
+ 
+ 10 # xSolve'Sqrts(_expr1,const_IsConstant*_var,_var)_(Contains(VarList(expr1),var)) <--
+ [
+    If(iDebug=True,Tell("xSolve'Sqrts - c*var",{expr1,const,var}));
+    Local(rhs,result);
+    rhs := const*var;
+    If(iDebug=True,Tell("   3",rhs));
+    result := xSolve(expr1-rhs^2,var);
+    If(iDebug=True,Tell("   4",result));
+    CheckSolution(Sqrt(expr1)-rhs,var,result);
+ ];
+ 
+ 10 # xSolve'Sqrts(_expr1,-const_IsConstant*_var,_var)_(Contains(VarList(expr1),var)) <--
+ [
+    If(iDebug=True,Tell("xSolve'Sqrts + c*var",{expr1,const,var}));
+    Local(rhs,result);
+    rhs := -const*var;
+    If(iDebug=True,Tell("   5",rhs));
+    result := xSolve(expr1-rhs^2,var);
+    If(iDebug=True,Tell("   6",result));
+    CheckSolution(Sqrt(expr1)-rhs,var,result);
+ ];
+ 
+ 10 # xSolve'Sqrts(_expr1,_var,_var)_(Contains(VarList(expr1),var)) <--
+ [
+    If(iDebug=True,Tell("xSolve'Sqrts - var",{expr1,const,var}));
+    Local(rhs,result);
+    rhs := var;
+    If(iDebug=True,Tell("   7",rhs));
+    result := xSolve(expr1-rhs^2,var);
+    If(iDebug=True,Tell("   8",result));
+    CheckSolution(Sqrt(expr1)-rhs,var,result);
+ ];
+ 
+ 10 # xSolve'Sqrts(_expr1,-_var,_var)_(Contains(VarList(expr1),var)) <--
+ [
+    If(iDebug=True,Tell("xSolve'Sqrts + var",{expr1,const,var}));
+    Local(rhs,result);
+    rhs := -var;
+    If(iDebug=True,Tell("   9",rhs));
+    result := xSolve(expr1-rhs^2,var);
+    If(iDebug=True,Tell("   10",result));
+    CheckSolution(Sqrt(expr1)-rhs,var,result);
+ ];
+ 
+ 10 # xSolve'Sqrts(_expr1,_expr1,_var)_(Contains(VarList(expr1),var)) <--
+ [
+    If(iDebug=True,Tell("xSolve'Sqrts -expr1",{expr1,var}));
+    Local(rhs,result);
+    rhs := expr1;
+    If(iDebug=True,Tell("   11",rhs));
+    result := xSolve(Simplify(expr1-rhs^2),var);
+    If(iDebug=True,Tell("   12",result));
+    CheckSolution(Sqrt(expr1)-rhs,var,result);
+ ];
+ 
+ 10 # xSolve'Sqrts(_expr1,-_expr1,_var)_(Contains(VarList(expr1),var)) <--
+ [
+    If(iDebug=True,Tell("xSolve'Sqrts +expr1",{expr1,var}));
+    Local(rhs,result);
+    rhs := expr1;
+    If(iDebug=True,Tell("   13",rhs));
+    result := xSolve(Simplify(expr1-rhs^2),var);
+    If(iDebug=True,Tell("   14",result));
+    CheckSolution(Sqrt(expr1)-rhs,var,result);
+ ];
+
+10 # xSolve'Sqrts(_expr1,_expr2,_var)_(Contains(VarList(expr2),var)) <--
+ [
+    If(iDebug=True,Tell("xSolve'Sqrts xx",{expr1,expr2,var}));
+    Local(rhs,result);
+    rhs := expr2;
+    If(iDebug=True,Tell("   15",rhs));
+    result := xSolve(Simplify(expr1-rhs^2),var);
+    If(iDebug=True,Tell("   16",result));
+    CheckSolution(Sqrt(expr1)-rhs,var,result);
+ ];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+    %output,preserve="false"
+      Processing...
+.   %/output
+
+

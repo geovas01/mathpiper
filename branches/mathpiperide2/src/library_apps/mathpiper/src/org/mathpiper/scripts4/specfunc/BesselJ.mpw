@@ -1,0 +1,40 @@
+%mathpiper,def="BesselJ"
+
+//Jonathan Leto
+
+10 # BesselJ(0,0) 	<-- 1;
+10 # BesselJ(_n,0)_(n>0) <-- 0;
+10 # BesselJ(_n,0)_(n<0 And IsInteger(n)) <-- 0;
+10 # BesselJ(_n,0)_(n<0 And Not IsInteger(n)) <-- Infinity;
+10 # BesselJ(0,Infinity)<-- 0;
+20 # BesselJ(1/2,_x)	<-- Sqrt(2/(x*Pi))*Sin(x);
+20 # BesselJ(-1/2,_x)	<-- Sqrt(2/(x*Pi))*Cos(x);
+20 # BesselJ(3/2,_x)	<-- Sqrt(2/(x*Pi))*(Sin(x)/x - Cos(x));
+20 # BesselJ(-3/2,_x)	<-- Sqrt(2/(x*Pi))*(Cos(x)/x + Sin(x));
+20 # BesselJ(5/2,_x)	<-- Sqrt(2/(x*Pi))*((3/x^2 - 1)*Sin(x) - 3*Cos(x)/x );
+20 # BesselJ(-5/2,_x)      <-- Sqrt(2/(x*Pi))*( (3/x^2 -1)*Cos(x) + 3*Sin(x)/x );
+
+
+// Forward recursion, works great, but really slow when n << x
+30 # BesselJ(_n,_x)_(IsConstant(x) And IsInteger(n) And N(Abs(x) > 2*Gamma(n))) <-- N((2*(n+1)/x)*BesselJ(n+1,x) - BesselJ(n+2,x));
+
+30 # BesselJ(_n,_z)_(n<0 And IsInteger(n) ) <-- (-1)^n*BesselJ(-n,z);
+
+// When I put "And InNumericMode()" on the next rule, I lose precision. Why ?
+// Also, if I move the the "_IsComplex" to the end with "IsComplex(x)"
+// I lose precision.
+
+//40 # BesselJ(_n,x_IsComplex)_(Abs(x)<= 2*Gamma(n) )  <-- N(BesselNsmall(n,x,0));
+
+40 # BesselJ(_n,x_IsComplex)_(N(Abs(x)<= 2*Gamma(n)) )  <--
+[
+ApproxInfSum((-1)^k*(x/2)^(2*k+c[1])/(k! * Gamma(k+c[1]+1) ),0,x,{n} );
+];
+
+50 # BesselJ(0,x_IsComplex)_(InNumericMode()) <-- N(BesselJN0(x));
+
+//50 # BesselJ(_n_IsPositiveNumber,_z_IsComplex) <-- BesselJN(n,z);
+
+
+
+%/mathpiper

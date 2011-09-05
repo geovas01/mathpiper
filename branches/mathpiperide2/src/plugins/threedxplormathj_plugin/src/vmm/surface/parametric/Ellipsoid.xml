@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<exhibit-info>
+   <exhibit class="vmm.surface.parametric.UserSurfaceParametric" name="vmm.surface.parametric.Ellipsoid">
+      <parameter class="vmm.core.IntegerParam" name="vmm.surface.Surface.vPatchCount">
+         <value default="18" max="40" min="1" value="18"/>
+      </parameter>
+      <parameter class="vmm.core.IntegerParam" name="vmm.surface.Surface.uPatchCount">
+         <value default="18" max="40" min="1" value="18"/>
+      </parameter>
+      <parameter class="vmm.core.RealParamAnimateable" name="vmm.surface.parametric.SurfaceParametric.Vmax">
+         <value default="pi" value="pi"/>
+         <start default="pi" value="pi"/>
+         <end default="pi" value="pi"/>
+      </parameter>
+      <parameter class="vmm.core.RealParamAnimateable" name="vmm.surface.parametric.SurfaceParametric.Vmin">
+         <value default="0.001" value="0.001"/>
+         <start default="0.001" value="0.001"/>
+         <end default="-2.00.001" value="-2.00.001"/>
+      </parameter>
+      <parameter class="vmm.core.RealParamAnimateable" name="vmm.surface.parametric.SurfaceParametric.Umax">
+         <value default="2 * pi" value="2 * pi"/>
+         <start default="2 * pi" value="2 * pi"/>
+         <end default="2 * pi" value="2 * pi"/>
+      </parameter>
+      <parameter class="vmm.core.RealParamAnimateable" name="vmm.surface.parametric.SurfaceParametric.Umin">
+         <value default="0" value="0"/>
+         <start default="0" value="0"/>
+         <end default="0" value="0"/>
+      </parameter>
+      <property name="defaultOrientation" value="0"/>
+      <property name="defaultViewpoint" value="10.0 -10.0 10.0"/>
+      <property name="defaultWindow" value="-3.0 3.0 -2.5 2.5"/>
+      <property name="framesForMorphing" value="12"/>
+      <property name="useFilmstripForMorphing" value="true"/>
+      <userdata>
+         <functionParam class="vmm.core.VariableParamAnimateable" isAnimateable="yes" isComplex="no" name="a">
+            <value default="1" value="1"/>
+            <start default="1.5" value="1.5"/>
+            <end default="1.75" value="1.75"/>
+         </functionParam>
+         <functionParam class="vmm.core.VariableParamAnimateable" isAnimateable="yes" isComplex="no" name="b">
+            <value default="1.5" value="1.5"/>
+            <start default="0.3" value="0.3"/>
+            <end default="1.25" value="1.25"/>
+         </functionParam>
+         <functionParam class="vmm.core.VariableParamAnimateable" isAnimateable="yes" isComplex="no" name="c">
+            <value default="2.0" value="2.0"/>
+            <start default="2.5" value="2.5"/>
+            <end default="1.25" value="1.25"/>
+         </functionParam>
+         <function definition="a * cos(u) * sin(v)" name="x"/>
+         <function definition="b * sin(u) * sin(v)" name="y"/>
+         <function definition="c * cos(v)" name="z"/>
+         <property name="allowChangeUserDataCommand" value="false"/>
+         <property name="showWindow" value="true"/>
+         <property name="allowNewParameters" value="true"/>
+      </userdata>
+   </exhibit>
+   <view class="vmm.surface.SurfaceView">
+      <transform class="vmm.core3D.Transform3D">
+         <window limits="-3.0 3.0 -2.5 2.5"/>
+         <property name="viewPoint" value="10.0 -10.0 10.0"/>
+         <property name="imagePlaneYDirection" value="-0.40824829046386313 0.40824829046386313 0.8164965809277261"/>
+         <property name="clipDistance" value="4.330127018922194"/>
+         <property name="orthographicProjection" value="false"/>
+      </transform>
+      <light-settings>
+         <property name="specularRatio" value="0.3"/>
+         <property name="specularExponent" value="25"/>
+         <property name="light0" value="64 64 64"/>
+         <property name="ambientLight" value="26 26 26"/>
+         <light1 color="255 0 0" direction="-0.7071067811865476 0.0 -0.7071067811865476"/>
+         <light2 color="0 255 0" direction="-0.5773502691896257 -0.5773502691896257 -0.5773502691896257"/>
+         <light3 color="0 0 255" direction="0.0 -0.7071067811865476 -0.7071067811865476"/>
+      </light-settings>
+      <property name="showUGridLines" value="true"/>
+      <property name="showVGridLines" value="true"/>
+      <property name="gridSpacing" value="6"/>
+      <property name="renderingStyle" value="1"/>
+      <property name="orientation" value="0"/>
+      <property name="phongShading" value="false"/>
+      <property name="blackAndWhite" value="false"/>
+      <property name="lightingEnabled" value="true"/>
+      <property name="viewStyle" value="0"/>
+      <property name="enableThreeD" value="true"/>
+      <property name="applyGraphics2DTransform" value="true"/>
+      <property name="preserveAspect" value="true"/>
+      <property name="antialiased" value="true"/>
+      <property name="showAxes" value="false"/>
+      <property name="background" value="255 255 255"/>
+      <property name="foreground" value="0 0 0"/>
+   </view>
+   <gallery_3dxm name="3dxm.gallery.ParametricSurfaces"/>
+</exhibit-info>

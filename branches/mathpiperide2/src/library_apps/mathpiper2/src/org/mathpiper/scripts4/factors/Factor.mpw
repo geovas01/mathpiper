@@ -1,0 +1,201 @@
+%mathpiper,def=""
+
+//Retract("Factor",*);
+
+10 # Factor( p_IsRational )_(Denominator(p) !=? 1) <--
+[
+    If(InVerboseMode(),Tell("Factor_ratNum",p));
+    Local(fs,num,den,dent,n,d);
+    fs := Factors(p);
+    If(InVerboseMode(),Tell("   ",fs));
+    num := Select(fs,Lambda({X},X[2]>=?0));
+    den := Select(fs,Lambda({X},X[2]<?0));
+    If(InVerboseMode(),Tell("   ",{num,den}));
+    dent := Transpose(den);
+    dent[2] := -1 * dent[2];
+    den  := Transpose(dent);
+    If(InVerboseMode(),Tell("   ",{num,den}));
+    n  := FW(num);
+    d  := FW(den);
+    n/d;
+
+];
+
+
+12 # Factor( p_CanBeUni ) <-- 
+[
+    If(InVerboseMode(),Tell("Factor_uni",p));
+    Local(facList);
+    facList := Factors(p);
+    If(InVerboseMode(),[Tell("   ",facList);]);
+    FW(facList);
+];
+
+
+20 # Factor( p_IsRationalFunction ) <--
+[
+    If(InVerboseMode(),Tell("Factor_ratFunc",p));
+    Local(fs,num,den,dent,n,d);
+    fs := Factors( p );
+    If(InVerboseMode(),Tell("  ",fs));
+    num := Select(fs,Lambda({X},X[2]>=?0));
+    den := Select(fs,Lambda({X},X[2]<?0));
+    If(InVerboseMode(),Tell("   ",{num,den}));
+    dent := Transpose(den);
+    dent[2] := -1 * dent[2];
+    den  := Transpose(dent);
+    If(InVerboseMode(),Tell("   ",{num,den}));
+    n  := FW(num);
+    d  := FW(den);
+    n/d;
+];
+
+
+30 # Factor( L_IsList ) <-- 
+[
+    Local (result,x,f);
+    result := {};
+    ForEach(x,L)
+    [
+        f := Factors(x);
+        If( f = {}, f := 0, f := FW(f) );
+        DestructiveAppend(result,f);
+    ];
+    result;
+];
+
+
+
+40 # Factor( _expr ) <-- expr;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper_docs,name="",categories="User Functions;Polynomials (Operations);Number Theory"
+*CMD Factor -- Factorization of almost anything factorable
+*CALL
+Factor( expr )
+*PARMS
+{expr} -- An Integer, Rational number, Gaussian Integer, Polynomial, or Rational Function
+*DESC
+This function decomposes an integer number {expr} into a product of its prime factors. 
+    
+If {expr} is a Rational number (quotient of integers), it is decomposed into a
+quotient of prime factors divided by prime factors, in lowest terms.
+    
+If {expr} is a Gaussian integer (complex number whose Re and Im parts are integers),
+it is decomposed into a product of Gaussian primes.
+    
+If {expr} is a univariate polynomial, it is decomposed into a product of
+irreducible polynomials.  If the coefficients of {expr} are all Integers, the
+factors will be irreducible over the Integers.  If the coefficients of {expr}
+are Rational numbers, the factors will be irreducible over the Rationals.
+If any of the coefficients are in {R} but not in {Z} or {Q}, they will be 
+converted to approximate Rationals before factoring.
+    
+If {expr} is a multivariate polynomial, it may or may not be factorized by this
+function.  In general, {bivariate binomials} and {homogeneous bivariate polynomials}
+will be factored correctly.  Factoring of other types of multivariate polynomials
+is not yet fully implemented.
+    
+If {expr} is a Rational {function} (quotient of polynomials), it is decomposed into a
+quotient of irreducible factors divided by irreducible factors, but not in lowest terms.
+    
+*E.G.
+In> n:=2*2*5*7*11^2
+Result: 16940
+
+In> Factor(n)
+Result: 2^2*5*7*11^2
+
+In> m:=3*7*11
+Result: 231
+
+In> Factor(n/m)
+Result: (2^2*5*11)/3
+
+In> g:=Expand((-2+3*I)*(5-6*I))
+Result: Complex(8,27)
+
+In> Factor(g)
+Result: Complex(-2,3)*Complex(-5,6)
+
+In> f:=Expand(5*x*(x-2)^2*(x^2+x+1)*(x^2-x+1))
+Result: 5*x^7-20*x^6+25*x^5-20*x^4+25*x^3-20*x^2+20*x
+
+In> Factor(f)
+Result: 5*x*(x-2)^2*(x^2-x+1)*(x^2+x+1)
+
+In> P:=Expand(x^2-1)
+Result: x^2-1
+
+In> Q:=Expand((x+1)^2)
+Result: x^2+2*x+1
+
+In> F:=P/Q
+Result: (x^2-1)/(x^2+2*x+1)
+
+In> Factor(F)
+Result: ((x-1)*(x+1))/(x+1)^2
+
+In> f:=Expand((2*x)^6-(3)^6)
+Result: 64*x^6-729
+
+In> Factor(f)
+Result: (2*x+3)*(4*x^2-6*x+9)*(2*x-3)*(4*x^2+6*x+9)
+
+In> f:=Expand((2*x)^6-(3*y)^6)
+Result: 64*x^6-729*y^6
+
+In> Factor(f)
+Result: (3*y+2*x)*(9*y^2-6*y*x+4*x^2)*(2*x-3*y)*(9*y^2+6*y*x+4*x^2)
+
+In> f:=Expand((2*x-5*y)^2*(7*x+3*y))
+Result: 28*x^3-128*y*x^2+115*y^2*x+75*y^3
+
+In> Factor(f)
+Result: (2*x-5*y)^2*(7*x+3*y)
+
+In> f:=(a*x-a*y)/a
+Result: (a*x-a*y)/a
+
+In> Factor(f)
+Result: ((-1)*a*(y-x))/a
+
+NOTE:  If you want the result of Factor on a rational function to express
+the answer in lowest terms (i.e., with cancellation), then use the function
+FactorCancel() instead.
+
+In> FactorCancel(f)
+Result: x-y
+
+ 
+*SEE FactorCancel,Factors
+
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Factor",subtype="automatic_test"
+
+Rulebase("f",{x});
+f(x):=Eval(Factor(x))=x;
+Verify(f(703), True);
+Verify(f(485), True);
+Verify(f(170410240), True);
+Retract("f",1);
+
+// This was returning FWatom(Sin(x))
+Verify( Factor(Sin(x)), Factor(Sin(x)) );
+
+%/mathpiper

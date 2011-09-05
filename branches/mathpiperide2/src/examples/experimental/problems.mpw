@@ -1,0 +1,1508 @@
+
+
+%piper,output="geogebra"  //Note: make indent level of output one more level than the indent level of the fold.  
+        Write(2+2);
+        
+%/piper
+        
+
+
+
+%beanshell,scope="ide"
+p = view.getTextArea().getPainter();
+
+
+
+%/beanshell
+
+
+
+/*
+Drag the points to change the parameters of this domain and range
+demonstration.
+*/
+%geogebra_xml,name="domain_range",clear="true",collapse="true"
+<?xml version="1.0" encoding="utf-8"?>
+<geogebra format="2.7">
+<gui>
+	<show algebraView="false" auxiliaryObjects="true" algebraInput="true" cmdList="true"/>
+	<splitDivider loc="234" locVertical="400" horizontal="true"/>
+	<consProtColumns  col0="true" col1="true" col2="true" col3="false" col4="true" col5="false"/>
+	<consProtocol useColors="true" showOnlyBreakpoints="false"/>
+</gui>
+<euclidianView>
+	<coordSystem xZero="301.95833333333326" yZero="350" scale="29.99999999999999" yscale="29.99999999999999"/>
+	<evSettings axes="true" grid="true" pointCapturing="1" pointStyle="0"/>
+	<bgColor r="255" g="255" b="255"/>
+	<axesColor r="64" g="64" b="64"/>
+	<gridColor r="204" g="204" b="204"/>
+	<lineStyle axes="1" grid="20"/>
+	<axis id="0" label="" unitLabel="" showNumbers="true"/>
+	<axis id="1" label="" unitLabel="" showNumbers="true"/>
+</euclidianView>
+
+<kernel>
+	<decimals val="2"/>
+	<angleUnit val="degree"/>
+	<coordStyle val="0"/>
+</kernel>
+<construction title="Domain and Range of Rational Functions" author="Duke" date="11/11/06">
+	<worksheetText above="Find the domain and range for each of the square root functions that follow. Adjust the sliders to transform the general square root function f(x) = a (x - h)1/2 + k. &#10;" below="Journal Entry:&#10;Describe how the values of a, h, and k can be used to find the domain and range of a square root function in the form  f(x) = a (x - h)1/2 + k.      Compare the domain and range of  f(x) = a (x - h)1/2 + k to the domain and range of its parent function  f(x) = x1/2.  Which of the values a, h, or k have a role in determining the domain and range? Why? Use specific examples to support your claims."/>
+<element type="numeric" label="a">
+	<value val="1.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.1"/>
+	<labelOffset x="9" y="-1"/>
+	<labelMode val="1"/>
+	<slider min="-10.0" max="10.0" absoluteScreenLocation="true" width="100.0" x="10.0" y="40.0" fixed="true" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+</element>
+<element type="numeric" label="h">
+	<value val="0.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.1"/>
+	<labelOffset x="5" y="-1"/>
+	<labelMode val="1"/>
+	<slider min="-5.0" max="5.0" absoluteScreenLocation="true" width="100.0" x="13.0" y="84.0" fixed="true" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+</element>
+<element type="numeric" label="k">
+	<value val="0.0"/>
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="255" alpha="0.1"/>
+	<labelOffset x="8" y="1"/>
+	<labelMode val="1"/>
+	<slider min="-5.0" max="5.0" absoluteScreenLocation="true" width="100.0" x="10.0" y="126.0" fixed="true" horizontal="true"/>
+	<lineStyle thickness="2" type="0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+</element>
+<expression label="f" exp="f(x) = a / (x - h) + k" />
+<element type="function" label="f">
+	<show object="true" label="false"/>
+	<objColor r="0" g="0" b="255" alpha="0.0"/>
+	<labelOffset x="10" y="48"/>
+	<labelMode val="1"/>
+	<breakpoint val="false"/>
+	<lineStyle thickness="3" type="0"/>
+</element><expression label="b" exp="x = h" />
+
+<element type="line" label="b">
+	<show object="true" label="false"/>
+	<objColor r="51" g="255" b="0" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="1.0" y="0.0" z="-0.0"/>
+	<lineStyle thickness="2" type="30"/>
+	<eqnStyle style="implicit"/>
+</element>
+<expression label="c" exp="y = k" />
+<element type="line" label="c">
+	<show object="true" label="false"/>
+	<objColor r="51" g="255" b="0" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="1.0" z="-0.0"/>
+	<lineStyle thickness="2" type="30"/>
+	<eqnStyle style="explicit"/>
+</element>
+<command name="Intersect">
+	<input a0="b" a1="xAxis"/>
+	<output a0="A"/>
+</command>
+<element type="point" label="A">
+	<show object="true" label="false"/>
+	<objColor r="255" g="255" b="255" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="-0.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="4"/>
+</element>
+<command name="Intersect">
+	<input a0="c" a1="yAxis"/>
+	<output a0="B"/>
+</command>
+<element type="point" label="B">
+	<show object="true" label="false"/>
+	<objColor r="255" g="255" b="255" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="-0.0" y="0.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="4"/>
+</element>
+<command name="Point">
+	<input a0="xAxis"/>
+	<output a0="C"/>
+</command>
+<element type="point" label="C">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="40.0" y="0.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<command name="Point">
+	<input a0="yAxis"/>
+	<output a0="D"/>
+</command>
+
+<element type="point" label="D">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="40.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<command name="Point">
+	<input a0="xAxis"/>
+	<output a0="E"/>
+</command>
+<element type="point" label="E">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="-40.0" y="0.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<command name="Point">
+	<input a0="yAxis"/>
+	<output a0="F"/>
+</command>
+<element type="point" label="F">
+	<show object="false" label="true"/>
+	<objColor r="125" g="125" b="255" alpha="0.0"/>
+	<animation step="0.1"/>
+	<fixed val="false"/>
+	<breakpoint val="false"/>
+	<coords x="0.0" y="-40.0" z="1.0"/>
+	<coordStyle style="cartesian"/>
+	<pointSize val="3"/>
+</element>
+<command name="Ray">
+	<input a0="A" a1="C"/>
+	<output a0="d"/>
+</command>
+<element type="ray" label="d">
+	<show object="true" label="false"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="-0.0" y="40.0" z="0.0"/>
+	<lineStyle thickness="4" type="0"/>
+	<eqnStyle style="implicit"/>
+	<outlyingIntersections val="false"/>
+	<keepTypeOnTransform val="true"/>
+</element>
+<command name="Ray">
+	<input a0="B" a1="D"/>
+	<output a0="e"/>
+</command>
+<element type="ray" label="e">
+	<show object="true" label="false"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="-40.0" y="0.0" z="-0.0"/>
+	<lineStyle thickness="4" type="0"/>
+	<eqnStyle style="implicit"/>
+	<outlyingIntersections val="false"/>
+	<keepTypeOnTransform val="true"/>
+</element>
+<command name="Ray">
+	<input a0="A" a1="E"/>
+	<output a0="g"/>
+</command>
+<element type="ray" label="g">
+	<show object="true" label="false"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="-0.0" y="-40.0" z="0.0"/>
+	<lineStyle thickness="4" type="0"/>
+	<eqnStyle style="implicit"/>
+	<outlyingIntersections val="false"/>
+	<keepTypeOnTransform val="true"/>
+</element>
+<command name="Ray">
+	<input a0="B" a1="F"/>
+	<output a0="i"/>
+</command>
+<element type="ray" label="i">
+	<show object="true" label="false"/>
+	<objColor r="255" g="0" b="51" alpha="0.0"/>
+	<breakpoint val="false"/>
+	<coords x="40.0" y="0.0" z="0.0"/>
+	<lineStyle thickness="4" type="0"/>
+	<eqnStyle style="implicit"/>
+	<outlyingIntersections val="false"/>
+	<keepTypeOnTransform val="true"/>
+</element>
+<expression label="T1" exp="&quot;f(x)=\frac{&quot; + a + &quot;}{x-(&quot; + h + &quot;)} +(&quot; + k + &quot;)&quot;" />
+<element type="text" label="T1">
+	<show object="true" label="true"/>
+	<objColor r="0" g="0" b="0" alpha="0.0"/>
+	<fixed val="true"/>
+	<isLaTeX val="true"/>
+	<font serif="false" size="6" style="0"/>
+	<breakpoint val="false"/>
+	<absoluteScreenLocation  x="431" y="27"/>
+</element>
+
+
+</construction>
+
+</geogebra>
+
+%/geogebra_xml
+
+    %output,preserve="false"
+      GeoGebra updated.
+    %/output
+
+
+
+
+%beanshell
+import java.io.*;
+//Print the contents of the Piper script zip file.
+ instance = org.mathpiper.ide.jpiperplugin.JPiperInterpreter.getInstance();
+ scriptZip = instance.getScriptsZip();
+ entries = scriptZip.entries();
+ 
+ while( entries.hasMoreElements())
+ {
+    element = entries.nextElement();
+    System.out.println("XXXXX " + element);
+ }
+ 
+ entry = scriptZip.getEntry("assoc.rep/code.pi");
+ System.out.println("YYYYYY " + entry);
+ 
+ fis = scriptZip.getInputStream(entry);
+ //
+        entry = entry.toString().replaceAll("/","-");
+         // Create temp file.
+        File tempFile = File.createTempFile(entry, ".pi");
+    
+        // Delete temp file when program exits.
+        tempFile.deleteOnExit();
+    
+	//File originFile = new File("c:\\file1.txt");
+    //File destinationFile = new File("c:\\file1.txt");
+    //if (!originFile.exists() || destinationFile.exists()) {
+      //return;
+    //}
+    try {
+      byte[] readData = new byte[1024];
+      //FileInputStream fis = new FileInputStream(originFile);
+      FileOutputStream fos = new FileOutputStream(tempFile);
+      int i = fis.read(readData);
+
+      while (i != -1) {
+        fos.write(readData, 0, i);
+        i = fis.read(readData);
+      }
+      fis.close();
+      fos.flush();
+      fos.close();
+    } catch (IOException e) {
+      System.out.println(e);
+    }//end try/catch.
+    
+    
+    
+    //textArea = org.gjt.sp.jedit.jEdit.createTextArea();
+    
+    activeView = org.gjt.sp.jedit.jEdit.getActiveView();
+    
+    //buffer = org.gjt.sp.jedit.jEdit.openFile(activeView, tempFile.getAbsolutePath());
+    
+   // jf = new javax.swing.JFrame();
+   // cf = jf.getContentPane();
+   // cf.add(textArea);
+   // jf.show();
+   
+   
+				void delayDisplay()
+				{
+					//Buffer update needs to be done later in the AWT thread because of needing
+					// to wait for the buffer to be saved (which was requested earlier).
+					void run()
+					{
+						buffer = org.gjt.sp.jedit.jEdit.openFile(activeView, tempFile.getAbsolutePath());//
+
+					}
+					org.gjt.sp.jedit.io.VFSManager.runInAWTThread(this);
+				
+				}//end method.
+				
+	delayDisplay();
+
+
+
+%/beanshell
+
+
+%piper
+c := Sum(i,1,11,1/(i*(i+1)));
+Write(V(N(c)));
+
+f := 10/(10+1);
+Write(N(f));
+
+
+
+%/piper
+
+%piper
+k := 10;
+g := k/(k+1) + 1/((k+1) * ((k+1)+1));
+h := (k+1) / (k+1)+1;
+Write(g, h);
+
+
+%/piper
+
+%piper
+Set(e,2.71828182847786963038);
+f(x) = N((.6*10^-6)* D(x) 40*(e^(-15000*x))*Sin(30000*x));
+Write(f(x));
+
+
+
+%/piper
+
+
+%piper
+Set(e,Exp(1));
+a := (.6*10^-6) * N((.6*10^-6)* D(x) 40*(e^(-15000*x))*Sin(30000*x));
+Write(a);
+
+
+
+%/piper
+
+%piper
+Set(e,2.71828);
+df := D(x) 40*e^(-15000*x)*Sin(30000*x);
+Write(df);
+
+
+%/piper
+
+%piper
+Write(25!);
+
+
+%/piper
+
+%piper
+b := (6*a + 5) / (a + 2);
+Write(b);
+
+
+
+%/piper
+
+%piper
+c := 
+
+
+
+;
+d := k * e(k-1);
+%/piper
+
+
+
+%piper
+
+e := 2.71828;
+d(x) := N(Eval((0.6*10^-6) * D(x) 40*(e^(-15000*x))*Sin(30000*x) ));
+y := d(0);
+Write(y);
+
+
+
+%/piper
+
+
+
+
+
+
+
+%piper,pipe_to="P2D_GeoGebra"
+f(a) := (6*a + 5)/(a+2);
+b := 1;
+ForEach(x,1 .. 10)
+    [
+        c := f(b);
+        Write(N(Eval(c)));
+        b := c;
+    ];
+
+
+
+%/piper
+
+
+%beanshell,name="P2D_GeoGebra",scope="global"
+
+
+P2D_GeoGebra(str)
+{
+    //Note: show/initialize geogebra plugin before using.
+    vals = str.split(" ");
+    
+    x = 0;
+    for(val:vals)
+    {
+        ggb.evalCommand("(" + x++ +"," + val + ")");
+    }//end for.
+
+    output(str);
+    
+}
+
+data = "3.66666666666666666667 4.76470588235294117647 4.96521739130434782609 4.99500624219725343321 4.99928609673389255756 4.99989800341688553433 4.99998542884723967725 4.99999791840241548584 4.99999970262882806839 4.99999995751840220508";
+P2D_GeoGebra(data);
+
+
+
+%/beanshell
+
+    %output ,preserve="false"
+      3.66666666666666666667 4.76470588235294117647 4.96521739130434782609 4.99500624219725343321 4.99928609673389255756 4.99989800341688553433 4.99998542884723967725 4.99999791840241548584 4.99999970262882806839 4.99999995751840220508
+    %/output 
+
+    
+    
+    
+    
+
+%piper,output="latex"
+    /* This is a great example problem to use in MathPiperIDE.
+    1) Enter expression.
+    2) If it is a complicated expression, view it in LaTeX form to make sure it has been entered
+    correctly.  In this problem, if parentheses are not placed around the exponents then then the
+    expression is evaluated differently than if they are present.
+    3) Adjust the expression until it is correct.
+    */
+    
+    a :=((1-x^(2*k))/(1-x))*((1-x^(2*(k+1)))/(1-x));
+    Write(a);
+
+
+%/piper
+
+%piper, output="latex"
+
+Write(Simplify(a));
+
+    %hoteqn
+      $\frac{x ^{2 k + 2 \left( k + 1\right) } - x ^{2 \left( k + 1\right) } + 1 - x ^{2 k}}{x ^{2} - 2 x + 1} $
+
+
+
+    %/hoteqn
+
+%/piper
+
+
+
+%piper,output=""
+
+    
+    a := (((1-x^(2*k))/(1-x))*(1 + x^(2*(k+1)-1)));
+    Write(Simplify(a));
+
+
+
+%/piper
+
+
+
+%piper,output=""
+
+    
+    a := Hold(((1-x^(2^k))/(1-x))*(1 + x^(2^((k+1)-1))));
+    b := Hold((1-x^(2^(k+1)))/(1-x));
+    Write(a:Eval(a):Simplify(a));
+    //Write(TestPiper(a,b));
+
+
+%/piper
+
+
+
+%piper,output="latex"
+
+    
+    a :=  Hold((1+x^2^k) * (1-x^2^k) );
+    b := Hold( 1/2 *(k+1)*(k+2) );
+    Write(a:Simplify(a));
+
+
+
+%/piper
+
+%piper
+    a := (1-x^2^k) * (1+x^2^k);
+    Write(Simplify(FullForm(a)));
+
+
+%/piper
+
+%piper
+
+a := FromString("(* 
+          (- 1 
+            (^ x 
+              (^ 2 k )))
+          (+ 
+            (^ x 
+              (^ 2 k ))1 ))") LispRead();
+              
+Write(a);
+
+
+
+%/piper
+
+%piper
+
+a := FromString("(* 3 (MathSin 4))") LispRead();
+              
+Write(Eval(a));
+
+
+
+%/piper
+
+
+
+
+
+%piper
+//Why doesn't this work?
+a := FromString("(+ 5 .5 2.5  )") LispRead();
+              
+Write(Eval(a));
+
+
+%/piper
+
+
+%piper
+//Why doesn't this work?
+a := FromString("(+ 1 2 3)") LispRead();
+              
+Write(a);
+
+
+
+%/piper
+
+%piper,output="",mode="true"
+//Good example problem for newbies book.  From problem 19 in "Mathematical Reasoning".
+a(k) := (k+2)/(2*k+2);
+b(k) := ( ((k+1)/(2*k)) * (1-(1/(k+1)^2) ) );
+c(k) := (k+1)/(2*k) - (k+1)/(2*k*(k+1)^2);
+d(k) := (k^3+3*k^2+2*k)/(2*k^3+4*k^2+2*k);
+e(k) := (k^2+3*k+2)/(2*k^2+4*k+2);
+
+
+//Write(d(k));
+Write(TestPiper(a(k),e(k)));
+//Write(Together(c(k)));
+//Write(Simplify(c(k)));
+//Write(Factor(Numer(Together(c(k)))):Factor(Denom(Together(c(k)))));
+
+
+
+%/piper
+
+
+%beanshell
+ProcessBuilder pb = new ProcessBuilder("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
+ //Map<String, String> env = pb.environment();
+ //env.put("VAR1", "myValue");
+ //env.remove("OTHERVAR");
+ //env.put("VAR2", env.get("VAR1") + "suffix");
+ //pb.directory("myDir");
+ Process p = pb.start();
+%/beanshell
+
+
+%beanshell
+command = new java.util.ArrayList();
+command.add("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
+ProcessBuilder pb = new ProcessBuilder(command);
+ //Map<String, String> env = pb.environment();
+ //env.put("VAR1", "myValue");
+ //env.remove("OTHERVAR");
+ //env.put("VAR2", env.get("VAR1") + "suffix");
+ //pb.directory("myDir");
+ Process p = pb.start();
+ in = p.getInputStream();
+ out = p.getOutputStream();
+ sb = new StringBuffer();
+ //cv = s.read();
+ //s.read();
+while(in.available() == 0)
+{
+}
+
+ while(in.available() != 0)
+ {
+    cv = in.read();
+    ch = (char)cv;
+    //System.out.println("xxxx " + ch);
+    sb.append(ch);
+ }
+ 
+ System.out.println("xxxx " + sb.toString());
+ 
+ 
+//Write then read.
+sb.delete(0,sb.length());
+outmess = "2+2;\n".getBytes();
+out.write(outmess);
+out.flush();
+ while(in.available() == 0)
+{
+}
+
+ while(in.available() != 0)
+ {
+    cv = in.read();
+    ch = (char) cv;
+    //System.out.println("xxxx " + ch);
+    sb.append(ch);
+ }
+ 
+  System.out.println("xxxx " + sb.toString());
+
+
+%/beanshell
+
+
+
+%beanshell
+maxima() 
+{
+    command = new java.util.ArrayList();
+    command.add("C:\\Program Files\\Maxima-5.15.0\\bin\\maxima.bat");
+    pb = new ProcessBuilder(command);
+    //Map<String, String> env = pb.environment();
+    //env.put("VAR1", "myValue");
+    //env.remove("OTHERVAR");
+    //env.put("VAR2", env.get("VAR1") + "suffix");
+    //pb.directory("myDir");
+    Process p = pb.start();
+    inputStream = p.getInputStream();
+    outputStream = p.getOutputStream();
+    sb = new StringBuffer();
+    
+    keepRunning = true;
+    
+    
+    send(snd)
+    {
+    }
+    
+    run() 
+    {
+	
+		
+		while(keepRunning)
+        {
+
+			serialAvailable = inputStream.available();
+			if(serialAvailable > 0)
+            {
+				byte[] bytes = new byte[serialAvailable];
+				inputStream.read( bytes, 0, serialAvailable );
+                System.out.println("GGGGGGG " + new String( bytes));
+
+				//self.terminalOutputStream.write( bytes )
+				
+				//event = utility.DataEvent( self, bytes, self.packetMode )
+				
+				//self.notifyListeners( event )
+            }//end if.
+            
+            Thread.sleep( 30 );
+        }//end while.
+        
+    }//end run.
+    return this;
+    
+}//end maxima.
+
+max = maxima();
+
+new Thread( max ).start();
+
+
+
+%/beanshell
+
+
+
+
+%maxima,name="test"
+2+3;
+5+7;
+print("hello");
+
+%/maxima
+
+
+
+%beanshell,scope="ide"
+v = view;
+		dwm = v.getDockableWindowManager();
+		con = dwm.getDockable("console");
+        con.setShell("Maxima");
+
+
+
+%/beanshell
+
+%lisp
+(defun compress (x)
+    ;;If a cons was passed in then compress it.
+    (if (consp x)
+        (compr (car x) 1 (cdr x))
+        ;;Else just return what was passed in.
+        x))
+        
+;;; elt: element.  n: number in a sequence. lst: the rest of the list.
+(defun compr (elt n lst)
+    ;; If the rest of the list is null, then just call n-elts once.
+    (if (null lst)
+        (list (n-elts elt n))
+        
+        ;; If the rest of the list is not null then set the variable next to the next character in the list.
+        (let ((next (car lst)))
+        
+            ;; If element is the same as the next character in the list then compress again.
+            (if (eql next elt)
+                (compr elt (+ n 1) (cdr lst))
+            
+                ;; If element is not the same then 
+                (cons (n-elts elt n)
+                    (compr next 1 (cdr lst )))))))
+                
+(defun n-elts (elt n)
+    (if (> n 1)
+        (list n elt)
+        elt))
+
+
+
+%/lisp
+
+
+MAXIMA> (compress '(1 1 1))
+
+  1> (COMPRESS (1 1 1))
+    2> (COMPR 1 1 (1 1))
+      3> (COMPR 1 2 (1))
+        4> (COMPR 1 3 NIL)
+          5> (N-ELTS 1 3)
+          <5 (N-ELTS (3 1))
+        <4 (COMPR ((3 1)))
+      <3 (COMPR ((3 1)))
+    <2 (COMPR ((3 1)))
+  <1 (COMPRESS ((3 1)))
+((3 1))
+
+
+%lisp
+(defun our-nthcdr (n lst)
+    (if (zerop n)
+        lst
+        (our-nthcdr (- n 1) (cdr lst))))
+
+
+
+%/lisp
+
+MAXIMA> (our-nthcdr 2 '(a b c))
+
+  1> (OUR-NTHCDR 2 (A B C))
+    2> (OUR-NTHCDR 1 (B C))
+      3> (OUR-NTHCDR 0 (C))
+      <3 (OUR-NTHCDR (C))
+    <2 (OUR-NTHCDR (C))
+  <1 (OUR-NTHCDR (C))
+(C)
+
+
+
+
+
+
+
+
+
+
+
+
+%piper
+
+    Write("Hello World!");
+
+%/piper
+
+    %output,preserve="false"
+      "Hello World!"
+    %/output
+
+
+%beanshell,scope="ide"
+as = Macros.getMacroActionSet();
+
+foldOutput = as.getActions().toString();
+
+//as = jEdit.getActionSets();
+
+
+
+%/beanshell
+
+
+
+
+
+
+
+%piper,name="example_1",output="pretty"
+
+    a := x^2 + x/2 + 3;
+    Write(a);
+
+%/piper
+
+    %output,preserve="false"
+      True:
+      
+       2   x    
+      x  + - + 3
+           2
+    %/output
+
+
+
+
+
+
+%geogebra,clear="true"
+
+    //Plot a function.
+    f(x)=2*sin(x)
+    
+    //Add a tangent line to the function.
+    a = 2
+    (2,0)
+    t = Tangent[a, f]
+
+%/geogebra
+
+    %output,preserve="false"
+      GeoGebra updated.
+    %/output
+
+
+
+
+
+%geogebra_xml,description="Obtained from .ggb file"
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <geogebra format="3.0">
+    <gui>
+    	<show algebraView="true" auxiliaryObjects="true" algebraInput="true" cmdList="true"/>
+    	<splitDivider loc="196" locVertical="400" horizontal="true"/>
+    	<font  size="12"/>
+    </gui>
+    <euclidianView>
+    	<size  width="540" height="553"/>
+    	<coordSystem xZero="215.0" yZero="315.0" scale="50.0" yscale="50.0"/>
+    	<evSettings axes="true" grid="true" pointCapturing="3" pointStyle="0" rightAngleStyle="1"/>
+    	<bgColor r="255" g="255" b="255"/>
+    	<axesColor r="0" g="0" b="0"/>
+    	<gridColor r="192" g="192" b="192"/>
+    	<lineStyle axes="1" grid="10"/>
+    	<axis id="0" show="true" label="" unitLabel="" tickStyle="1" showNumbers="true"/>
+    	<axis id="1" show="true" label="" unitLabel="" tickStyle="1" showNumbers="true"/>
+    	<grid distX="0.5" distY="0.5"/>
+    </euclidianView>
+    <kernel>
+    	<continuous val="true"/>
+    	<decimals val="2"/>
+    	<angleUnit val="degree"/>
+    	<coordStyle val="0"/>
+    </kernel>
+    <construction title="" author="" date="">
+    <expression label ="f" exp="f(x) = 2 sin(x)"/>
+    <element type="function" label="f">
+    	<show object="true" label="true"/>
+    	<objColor r="0" g="0" b="255" alpha="0.0"/>
+    	<labelMode val="0"/>
+    	<animation step="0.1"/>
+    	<fixed val="false"/>
+    	<breakpoint val="false"/>
+    	<lineStyle thickness="2" type="0"/>
+    </element>
+    <element type="numeric" label="a">
+    	<value val="2.0"/>
+    	<show object="false" label="true"/>
+    	<objColor r="0" g="0" b="0" alpha="0.1"/>
+    	<labelMode val="1"/>
+    	<animation step="0.1"/>
+    	<fixed val="false"/>
+    	<breakpoint val="false"/>
+    </element>
+    <element type="point" label="A">
+    	<show object="true" label="true"/>
+    	<objColor r="0" g="0" b="255" alpha="0.0"/>
+    	<labelMode val="0"/>
+    	<animation step="0.1"/>
+    	<fixed val="false"/>
+    	<breakpoint val="false"/>
+    	<coords x="2.0" y="0.0" z="1.0"/>
+    	<coordStyle style="cartesian"/>
+    	<pointSize val="3"/>
+    </element>
+    <command name="Tangent">
+    	<input a0="a" a1="f"/>
+    	<output a0="t"/>
+    </command>
+    <element type="line" label="t">
+    	<show object="true" label="true"/>
+    	<objColor r="255" g="0" b="0" alpha="0.0"/>
+    	<labelMode val="0"/>
+    	<breakpoint val="false"/>
+    	<coords x="0.8322936730942848" y="1.0" z="-3.4831821998399333"/>
+    	<lineStyle thickness="2" type="0"/>
+    	<eqnStyle style="explicit"/>
+    </element>
+    </construction>
+    </geogebra>
+
+%/geogebra_xml
+
+    %output,preserve="false"
+      GeoGebra updated.
+    %/output
+    
+    
+
+
+    
+%beanshell
+//Save image as .png file.  Clipboard code works but is low resolution.
+he = new atp.sHotEqn();
+he.setFontsizes(18,18,18,18);
+he.setEquation("2^3");
+//global.image = he.getImage();
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+docker = org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager();
+frame = new javax.swing.JFrame();
+
+
+guiBox = new Box(BoxLayout.Y_AXIS);
+messageTextField = new JTextField();
+guiBox.add(messageTextField);
+button1 = new JButton("Grab image");
+button1.setBackground(Color.green);
+button1.addActionListener(this);
+guiBox.add(button1);
+button2 = new JButton("Close GeoGebra");
+button2.setBackground(Color.red);
+button2.addActionListener(this);
+guiBox.add(button2);
+contentPane = frame.getContentPane();
+contentPane.add(guiBox,BorderLayout.NORTH);
+//contentPane.add(he,BorderLayout.EAST);
+
+
+
+//ImageIcon icon = new ImageIcon(image);
+//JLabel label = new JLabel();
+//label.setIcon(icon);
+//panel.add(label);
+contentPane.add(he);
+frame.pack();
+frame.setAlwaysOnTop(true);
+frame.setTitle("MathPiperIDE");
+frame.setSize(new Dimension(250, 200));
+frame.setResizable(true);
+frame.setPreferredSize(new Dimension(250, 200));
+frame.setLocationRelativeTo(null); // added
+frame.show();
+//System.out.println("IIIIII" + image);
+
+
+
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.Toolkit;
+
+    
+imageSelection(Image i) 
+{
+    image = i;
+    
+    
+    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException
+    {
+        if (flavor.equals(DataFlavor.imageFlavor)) 
+        {
+            return image;
+        }
+        throw new UnsupportedFlavorException(flavor);
+    }
+    
+    public boolean isDataFlavorSupported(DataFlavor flavor) 
+    {
+        if (flavor.equals(DataFlavor.imageFlavor)) 
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public DataFlavor[] getTransferDataFlavors() 
+    {
+        return new DataFlavor[] {DataFlavor.imageFlavor};
+    }
+    return this;
+    
+}//end
+
+
+
+
+
+actionPerformed(event)
+{
+    src = event.getSource();
+
+    if (src == button1)
+    {
+      image = he.getImage();
+      System.out.println("IIIIIII " + image);
+      ImageIcon icon = new ImageIcon(image);
+      JLabel label = new JLabel();
+      label.setIcon(icon);
+      
+      contentPane.add(new javax.swing.JPanel().add(label),BorderLayout.SOUTH);
+      
+      frame.invalidate();
+      frame.validate();
+      frame.repaint();
+      
+      import java.io.*;
+      import java.awt.image.*;
+      import javax.imageio.*;
+      File myGifFile = new File("hoteqn.png");
+      
+      ImageIO.write(image,"png",myGifFile);
+      
+      
+      messageTextField.setText("Grabbed image");
+      
+      
+      temp = imageSelection(image);
+      clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+      clipboard.setContents(temp,temp);
+      
+      
+    }
+    else if (src == button2)
+    {
+      messageTextField.setText("GeoGebra closed.");
+      docker.hideDockableWindow( "geogebra" );
+    }
+
+}
+
+%/beanshell
+
+    %output ,preserve="false"
+      
+    %/output 
+
+    
+    
+
+%beanshell
+
+
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.Toolkit;
+public class ImageSelection implements Transferable
+{
+    private java.awt.Image image;
+    public ImageSelection(Image i) 
+    {
+        image = i;
+    }
+
+    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException
+    {
+        if (flavor.equals(DataFlavor.imageFlavor)) 
+        {
+            return image;
+        }
+        throw new UnsupportedFlavorException(flavor);
+    }
+
+    public boolean isDataFlavorSupported(DataFlavor flavor) 
+    {
+        if (flavor.equals(DataFlavor.imageFlavor)) 
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public DataFlavor[] getTransferDataFlavors() 
+    {
+        return new DataFlavor[] {DataFlavor.imageFlavor};
+    }
+}//end
+
+
+ImageSelection temp = new ImageSelection(my_graphics.offImage);
+Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+clipboard.setContents(temp,temp);
+    
+%/beanshell
+
+
+%hoteqn
+
+    2 x ^{3} + 14 x ^{2} +  \frac{24 x}{7}
+
+%/hoteqn
+
+    %output,preserve="false"
+      HotEqn updated.
+    %/output
+    
+    
+
+
+%piper,output="geogebra"
+
+    a := x^2;
+    Write(a);
+
+%/piper
+
+    %geogebra,preserve="false"
+      x^2
+    %/geogebra
+
+        %output,preserve="false"
+          GeoGebra updated.
+        %/output
+        
+        
+%piper,output="latex"
+
+    a := (((2*x)*(x+3)*(x+4))/9);
+    Write(a);
+
+%/piper
+
+    %error ,preserve="false"
+      Error parsing expression, near token Write
+    %/error 
+
+        %output,preserve="false"
+          HotEqn updated.
+        %/output
+
+        
+        
+        
+%piper,output="geogebra"
+a(x) := -4.472*(Sin(0.017453292519943295435676550206640875935524104*(2*x+86.56)) + 2*(Cos(0.0174532925199432954356765502066408759355241048*(2*x+86.56))));
+b(x) := 10 * Sin(0.017453292519943295435676550206640875935524104*(2*x -30));
+Echo(a(x));
+
+
+%/piper
+
+    %geogebra,preserve="false"
+      -4.472*(Sin(0.017453292519943295435676550206640875935524104*(2*x+86.56))+2*Cos(0.0174532925199432954356765502066408759355241048*(2*x+86.56)))
+    %/geogebra
+
+        %output,preserve="false"
+          GeoGebra updated.
+        %/output
+
+
+%piper
+m := a * Sin(T) + b * Cos(T);
+c := Solve(m,b);
+Write(c);
+%/piper
+
+    %output,preserve="false"
+      {b== -(a*Sin(T))/Cos(T)}
+    %/output
+
+    
+%piper
+an := Solve(Sin(v) + Cos(v) == Sin(w),w);
+Write(an);
+%/piper
+
+    %output,preserve="false"
+      {w==ArcSin(Sin(v)+Cos(v)),w==Pi-ArcSin(Sin(v)+Cos(v))}
+    %/output
+    
+    
+%piper
+a(x) := -4.472*(Sin(0.017453292519943295435676550206640875935524104*(2*x+86.56)) + 2*(Cos(0.0174532925199432954356765502066408759355241048*(2*x+86.56))));
+Write(a(x));
+%/piper
+
+    %output,preserve="false"
+      -4.472*(Sin(0.017453292519943295435676550206640875935524104*(2*x+86.56))+2*Cos(0.0174532925199432954356765502066408759355241048*(2*x+86.56)))
+    %/output
+
+	
+	
+    
+%piper
+a := {"69","6D","7D","79","61","71","29","2D","3D","39","21","31","0A","0E","1E","90","B0","F0","2C","30","D0","10","00","50","70","18","D8","58","B8","C9","CD","DD","D9","C1","D1","E0","EC","C0","CC","CE","DE","CA","88","49","4D","5D","59","41","51","EE","FE","E8","C8","4C","6C","20","A9","AD","BD","B9","A1","B1","A2","AE","BE","A0","AC","BC","4A","4E","5E","EA","09","0D","1D","19","01","11","48","08","68","28","2A","2E","3E","6A","6E","7E","40","60","E9","ED","FD","F9","E1","F1","38","F8","78","8D","9D","99","81","91","8E","8C","AA","A8","BA","8A","9A","98"};
+b := {};
+ForEach(x,a)
+    [
+        
+       c := FromBase(16,x);
+       d := ToBase(2,c);
+       If(Length(d) = 1, pre := "0000000");
+       If(Length(d) = 2, pre := "000000");
+       If(Length(d) = 3, pre := "00000");
+       If(Length(d) = 4, pre := "0000");
+       If(Length(d) = 5, pre := "000");
+       If(Length(d) = 6, pre := "00");
+       If(Length(d) = 7, pre := "0");
+       If(Length(d) = 8, pre := "");
+       e := ConcatStrings(pre,d);
+       Write(e);
+       NewLine();
+    ];
+
+%/piper 
+
+
+
+
+%piper
+a := {"01101","01101","01101","01101","01101","01101","00101","00101","00101","00101","00101","00101","00010","00010","00010","10000","10100","11100","00100","00100","11000","00000","00000","01000","01100","00000","11000","01000","10100","11001","11001","11001","11001","11001","11001","11100","11100","11000","11000","11010","11010","11010","10000","01001","01001","01001","01001","01001","01001","11110","11110","11100","11000","01000","01100","00100","10101","10101","10101","10101","10101","10101","10110","10110","10110","10100","10100","10100","01010","01010","01010","11110","00001","00001","00001","00001","00001","00001","01000","00000","01100","00100","00110","00110","00110","01110","01110","01110","01000","01100","11101","11101","11101","11101","11101","11101","00100","11100","01100","10001","10001","10001","10001","10001","10010","10000","10110","10100","10110","10010","10010","10000"};
+b := {};
+ForEach(x,a)
+    [
+        
+       c := FromBase(2,x);
+       d := ToBase(16,c);
+       If(Length(d) = 1, pre := "0", pre := "");
+       e := ConcatStrings("0x",pre,d);
+       Write(e);
+       NewLine();
+    ];
+
+%/piper
+
+
+%piper
+a := {"00","20","40","60","08","28","48","68","88","A8","C8","E8","18","38","58","78","98","B8","D8","F8","8A","9A","AA","BA","CA","EA"};
+b := {};
+ForEach(x,a)
+    [
+        
+       c := FromBase(16,x);
+       d := ToBase(2,c);
+       If(Length(d) = 1, pre := "0000000");
+       If(Length(d) = 2, pre := "000000");
+       If(Length(d) = 3, pre := "00000");
+       If(Length(d) = 4, pre := "0000");
+       If(Length(d) = 5, pre := "000");
+       If(Length(d) = 6, pre := "00");
+       If(Length(d) = 7, pre := "0");
+       If(Length(d) = 8, pre := "");
+       e := ConcatStrings(pre,d);
+       Write(e);
+       NewLine();
+    ];
+
+%/piper
+
+
+%piper
+/*
+
+Vectors and matrices:
+
+From http://heather.cs.ucdavis.edu/~matloff/yacas.html#vectors.
+
+Vectors are represented as lists, and matrices (in row-major order, a fact not explicitly mentioned in the documentation) as lists of lists, each individual list comprising one row of the matrix.
+
+One writes a row vector as a one-row matrix. The row vector (1,2,3), for instance, would be written as {{1,2,3}}. Be sure to note the extra set of braces. The inner set of braces is enclosing the one row of the matrix, and then the outer set makes it a one-row matrix.
+
+One can write a column vector as a multi-row, one-column matrix, or more simply as a list. For example, let's define the matrix m
+
+1 2
+3 4
+
+and multiply it with row and column vectors:
+
+In> m:={{1,2},{3,4}}
+Out> {{1,2},{3,4}};
+In> a:={{5,6}}
+Out> {{5,6}};
+In> b:={1,1}
+Out> {1,1};
+In> m*b
+Out> {3,7};
+In> a*m
+Out> {{23,34}};
+In> c:={{2},{2}}
+Out> {{2},{2}};
+In> m*c
+Out> {{6},{14}};
+
+Since a matrix is a list of lists, individual matrix elements are referred to using double-brackets notation:
+
+In> m[1][2];
+Out> 2;
+
+Again since a matrix is a list of lists, you can use the Length() function to find its number of rows and columns, e.g.:
+
+In> y:={{1,2,3},{4,5,6}};
+Out> {{1,2,3},{4,5,6}};
+In> Length(y);
+Out> 2;
+In> Length(y[1]);
+Out> 3;
+
+
+You can solve systems of linear equations using SolveMatrix(). For example:
+
+n> m:={{1,a},{0,1}}
+Out> {{1,a},{0,1}};
+In> t:={5,1}
+Out> {5,1};
+In> SolveMatrix(m,t)
+Out> {5-a,1};
+
+(I've put in the `a' here to illustrate the fact that SolveMatrix() works even with variable elements in the matrix.)
+
+The ZeroMatrix() and ZeroVector() functions are good for initializing large matrices. The main usefulness gained through them is dimensioning. Say for instance we wish to create a 5x5 matrix z. We could start with z = {}, then build it up by using Append() to add rows and thus establish that it is of dimension 5x5. But using ZeroMatrix() does this more more conveniently:
+
+In> z:=ZeroMatrix(5,5);
+Out> {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+
+*/
+m:={{2,10},{3,32}};
+Write(Determinant(m));
+
+%/piper
+
+
+
+%piper
+    //Write(LongFactorForm(2*3));
+    //Does not currently work for input like 3*2^3.
+
+    Retract("LongFactorForm",1);
+    
+    LongFactorForm(_a^_b) <-- 
+    [
+        Local(count,factors);
+        
+        factors := ToString()
+        [
+            count := 1;
+            While(count < b)
+            [
+                Write(a,*);
+                count := count + 1;
+            ];
+            Write(a);
+        ];
+        Atom(factors);
+    
+    ];
+    
+    
+    HoldArgNr("LongFactorForm",1,1);
+
+
+%/piper
+
+
+%piper,description="Generate numerals between 0 and 255."
+    nums := 0 .. 255;
+
+    ForEach(dec,nums)
+    [
+        
+       hex := ToBase(16,dec);
+       
+       bin := ToBase(2,dec);
+       
+       If(Length(bin) = 1, pre := "0000000");
+       If(Length(bin) = 2, pre := "000000");
+       If(Length(bin) = 3, pre := "00000");
+       If(Length(bin) = 4, pre := "0000");
+       If(Length(bin) = 5, pre := "000");
+       If(Length(bin) = 6, pre := "00");
+       If(Length(bin) = 7, pre := "0");
+       If(Length(bin) = 8, pre := "");
+       
+       binWithLeadingZeros := ConcatStrings(pre,bin);
+       
+       Echo(binWithLeadingZeros, dec, hex);
+       NewLine();
+    ];
+
+%/piper 
+
+
+     
+:indentSize=4:tabSize=4:wrap=none:

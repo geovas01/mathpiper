@@ -1,0 +1,43 @@
+%mathpiper,def="HasFunc"
+
+/// HasFunc --- test for an expression containing a function
+/// function name given as string.
+10 # HasFunc(_expr, string_IsString) <-- HasFunc(expr, ToAtom(string));
+/// function given as atom.
+// atom contains no functions
+10 # HasFunc(expr_IsAtom, atom_IsAtom) <-- False;
+// a list contains the function List so we test it together with functions
+// a function contains itself, or maybe an argument contains it
+20 # HasFunc(expr_IsFunction, atom_IsAtom) <-- IsEqual(First(FunctionToList(expr)), atom) Or ListHasFunc(Rest(FunctionToList(expr)), atom);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="HasFunc",categories="User Functions;Predicates"
+*CMD HasFunc --- check for expression containing a function
+*STD
+*CALL
+	HasFunc(expr, func)
+
+*PARMS
+
+{expr} -- an expression
+
+{func} -- a function atom to be found
+
+*DESC
+
+The command {HasFunc} returns {True} if the expression {expr} contains a function {func}. The expression is recursively traversed.
+
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+
+*E.G.
+
+In> HasFunc(x+y*Cos(Ln(z)/z), Ln)
+Result: True;
+In> HasFunc(x+y*Cos(Ln(z)/z), Sin)
+Result: False;
+
+*SEE HasFuncArith, HasFuncSome, FuncList, VarList, HasExpr
+%/mathpiper_docs

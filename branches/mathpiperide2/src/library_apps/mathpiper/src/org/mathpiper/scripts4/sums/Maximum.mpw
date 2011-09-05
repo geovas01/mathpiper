@@ -1,0 +1,80 @@
+%mathpiper,def="Maximum"
+
+/*  this is disabled because some functions seem to implicitly define Min / Max with a different number of args, and then MathPiper is confused if it hasn't loaded all the Function() declarations beforehand.
+FIXME
+/// Min, Max with many arguments
+*/
+
+//Retract("Maximum", 1);
+//Retract("Maximum", 2);
+//Retract("Maximum", 3);
+
+//Function() Maximum(list);
+
+//Function() Maximum(l1, l2);
+
+Function() Maximum(l1, l2, l3, ...);
+
+
+
+10 # Maximum(_l1, _l2, l3_IsList) <-- Maximum(Concat({l1, l2}, l3));
+20 # Maximum(_l1, _l2, _l3) <-- Maximum({l1, l2, l3});
+/**/
+
+10 # Maximum(l1_IsList,l2_IsList) <-- Map("Maximum",{l1,l2});
+
+
+20 # Maximum(l1_IsRationalOrNumber,l2_IsRationalOrNumber) <-- If(l1>l2,l1,l2);
+
+
+30 # Maximum(l1_IsConstant,l2_IsConstant) <-- If(N(Eval(l1-l2))>0,l1,l2);
+
+// Max on empty lists
+10 # Maximum({}) <-- Undefined;
+
+
+20 # Maximum(list_IsList) <--
+[
+  Local(result);
+  result:= list[1];
+  ForEach(item,Rest(list)) result:=Maximum(result,item);
+  result;
+];
+
+
+30 # Maximum(_x) <-- x;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Maximum",categories="User Functions;Numbers (Operations)"
+*CMD Maximum --- maximum of a number of values
+*STD
+*CALL
+	Maximum(x,y)
+	Maximum(list)
+
+*PARMS
+
+{x}, {y} -- pair of values to determine the maximum of
+
+{list} -- list of values from which the maximum is sought
+
+*DESC
+
+This function returns the maximum value of its argument(s). If the
+first calling sequence is used, the larger of "x" and "y" is
+returned. If one uses the second form, the largest of the entries in
+"list" is returned. In both cases, this function can only be used
+with numerical values and not with symbolic arguments.
+
+*E.G.
+
+In> Maximum(2,3);
+Result: 3;
+In> Maximum({5,8,4});
+Result: 8;
+
+*SEE Minimum, Sum
+%/mathpiper_docs

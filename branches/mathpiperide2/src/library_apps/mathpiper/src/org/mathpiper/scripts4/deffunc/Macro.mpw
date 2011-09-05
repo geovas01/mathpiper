@@ -1,0 +1,118 @@
+%mathpiper,def="Macro"
+
+Rulebase("Macro",{oper,args,body});
+HoldArgument("Macro",oper);
+HoldArgument("Macro",args);
+HoldArgument("Macro",body);
+
+// macro with variable number of arguments: Macro("func",{x,y, ...})body;
+Rule("Macro",3,2047,
+	And(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") ))
+)
+[
+  DestructiveDelete(args,Length(args));	// remove trailing "..."
+  Retract(oper,Length(args));
+  `DefMacroRulebaseListed(@oper,@args);
+  MacroRule(oper,Length(args),1025,True) body;	// at precedence 1025, for flexibility
+];
+
+// macro with a fixed number of arguments
+Rule("Macro",3,2048,True)
+[
+  Retract(oper,Length(args));
+  `DefMacroRulebase(@oper,@args);
+  MacroRule(oper,Length(args),1025,True) body;
+];
+
+Rulebase("Macro",{oper});
+// macro with variable number of arguments: Macro() f(x,y, ...)
+Rule("Macro",1,2047,
+	And(IsFunction(oper), IsGreaterThan(Length(oper), 1), IsEqual( MathNth(oper, Length(oper)), ToAtom("...") ))
+)
+[
+	Local(args,name);
+	Bind(args,Rest(FunctionToList(oper)));
+	DestructiveDelete(args,Length(args));	// remove trailing "..."
+  Bind(name,Type(oper));
+	If(RulebaseDefined(Type(oper),Length(args)),
+		False,	// do nothing
+		`DefMacroRulebaseListed(@name,@args)
+	);
+];
+// macro with a fixed number of arguments
+Rule("Macro",1,2048,
+	And(IsFunction(oper))
+)
+[
+	Local(args,name);
+	Bind(args,Rest(FunctionToList(oper)));
+  Bind(name,Type(oper));
+	If(RulebaseDefined(Type(oper),Length(args)),
+		False,	// do nothing
+		[
+      `DefMacroRulebase(@name,@args);
+    ]
+	);
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Macro",categories="Programmer Functions;Programming;Built In"
+*CMD Macro --- declare or define a macro
+*STD
+*CALL
+	Macro() func(arglist)
+	Macro() func(arglist, ...)
+	Macro("op", {arglist}) body
+	Macro("op", {arglist, ...}) body
+
+*PARMS
+
+{func(args)} -- function declaration, e.g. {f(x,y)}
+
+{"op"} -- string, name of the function
+
+{{arglist}} -- list of atoms, formal arguments to the function
+
+{...} -- literal ellipsis symbol "{...}" used to denote a variable number of arguments
+
+{body} -- expression comprising the body of the function
+
+*DESC
+
+This does the same as {Function}, but for macros. One can define a macro
+easily with this function, in stead of having to use {DefMacroRulebase}.
+
+*E.G. notest
+
+the following example defines a looping function.
+
+In> Macro("myfor",{init,pred,inc,body}) [@init;While(@pred)[@body;@inc;];True;];
+Result: True;
+In> a:=10
+Result: 10;
+
+Here this new macro {myfor} is used to loop, using a variable {a} from the
+calling environment.
+
+In> myfor(i:=1,i<10,i++,Echo(a*i))
+	10 
+	20 
+	30 
+	40 
+	50 
+	60 
+	70 
+	80 
+	90 
+Result: True;
+In> i
+Result: 10;
+
+*SEE Function, DefMacroRulebase
+%/mathpiper_docs
+
+
+

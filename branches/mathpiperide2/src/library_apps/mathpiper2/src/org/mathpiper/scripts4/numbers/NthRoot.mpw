@@ -1,0 +1,206 @@
+%mathpiper,def="NthRoot"
+
+/* def file definitions
+NthRoot
+NthRoot'Calc
+NthRoot'List
+NthRoot'Save
+NthRoot'Restore
+NthRoot'Clear
+
+*/
+
+//////
+// $Id: nthroot.mpi,v 1.5 2007/05/17 11:56:45 ayalpinkus Exp $
+// calculation/simplifaction of nth roots of nonnegative integers
+// NthRoot         - interface function
+// NthRoot'Calc    - actually calculate/simplifies
+// NthRoot'List    - list table entries for a given n
+// NthRoot'Restore - get a root from lookup table
+// NthRoot'Save    - save a root in lookup table
+// NthRoot'Clear   - clear lookup table
+//////
+
+// LocalSymbols(m,n,r,
+//                NthRoot'Table,
+//                NthRoot'Calc,
+//                NthRoot'List,
+//                NthRoot'Restore,
+//                NthRoot'Save,
+//                NthRoot'Clear)
+LocalSymbols(m,n,r,
+             NthRoot'Table)
+[
+
+// interface function for nth root of m
+// m>=0, n>1, integers
+// m^(1/n) --> f*(r^(1/n))
+NthRoot(m_IsNonNegativeInteger,n_IsInteger)_(n>?1) <--
+[
+   Local(r);
+   r:=NthRoot'Restore(m,n);
+   If(Length(r)=?0,
+   [
+      r:=NthRoot'Calc(m,n);
+      NthRoot'Save(m,n,r);
+   ]);
+   r;
+];
+
+// internal functions
+Function("NthRoot'Calc",{m,n})
+[
+   Local(i,j,f,r,in);
+   Bind(i,2);
+   Bind(j,Ceil(FastPower(m,N(1.0/n))+1));
+   Bind(f,1);
+   Bind(r,m);
+   // for large j (approx >4000)
+   // using Factors instead of the
+   // following.  would this be
+   // faster in general?
+//Echo("i j ",i," ",j);
+   While(IsLessThan(i,j))
+   [
+      Bind(in,PowerN(i,n));
+//Echo("r in mod ",r, " ",in," ",ModuloN(r,in));
+      While(IsEqual(ModuloN(r,in),0))
+      [
+         Bind(f,MultiplyN(f,i));
+         Bind(r,QuotientN(r,in));
+      ];
+      While(IsEqual(ModuloN(r,i),0))   //
+         Bind(r,QuotientN(r,i));         //
+      //Bind(i,NextPrime(i));
+      Bind(i,NextPseudoPrime(i));
+      Bind(j,Ceil(FastPower(r,N(1.0/n))+1));
+   ];
+   //List(f,r);
+   List(f,QuotientN(m,PowerN(f,n))); //
+];
+
+// lookup table utilities
+Function("NthRoot'List",{n})
+[
+   If(Length(NthRoot'Table)>?0,
+   [
+      Local(p,xx);
+      p:=Select(NthRoot'Table, {{xx},First(xx)=?n});
+      If(Length(p)=?1,Rest(p[1]),List());
+   ],
+   List());
+];
+
+Function("NthRoot'Restore",{m,n})
+[
+   Local(p);
+   p:=NthRoot'List(n);
+   If(Length(p)>?0,
+   [
+      Local(r,xx);
+      r:=Select(p, {{xx},First(xx)=?m});
+      If(Length(r)=?1,First(Rest(r[1])),List());
+   ],
+   List());
+];
+
+Function("NthRoot'Save",{m,n,r})
+[
+   Local(p);
+   p:=NthRoot'List(n);
+   If(Length(p)=?0,
+   // create power list and save root
+   DestructiveInsert(NthRoot'Table,1,List(n,List(m,r))),
+   [
+      Local(rr,xx);
+      rr:=Select(p, {{xx},First(xx)=?m});
+      If(Length(rr)=?0,
+      [
+         // save root only
+         DestructiveAppend(p,List(m,r));
+      ],
+      // already saved
+      False);
+   ]);
+];
+
+//TODO why is NthRoot'Table both lazy global and protected with LocalSymbols?
+Function("NthRoot'Clear",{}) SetGlobalLazyVariable(NthRoot'Table,List());
+
+// create empty table
+NthRoot'Clear();
+
+]; // LocalSymbols(m,n,r,NthRoot'Table);
+
+//////
+//////
+
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="NthRoot",categories="User Functions;Numbers (Operations)"
+*CMD NthRoot --- calculate/simplify nth root of an integer
+*STD
+*CALL
+        NthRoot(m,n)
+
+*PARMS
+
+{m} -- a non-negative integer ($m>0$)
+
+{n} -- a positive integer greater than 1 ($n>1$)
+
+*DESC
+
+{NthRoot(m,n)} calculates the integer part of the $n$-th root $m^(1/n)$ and
+returns a list {{f,r}}. {f} and {r} are both positive integers
+that satisfy $f^n*r$=$m$.
+In other words, $f$ is the largest integer such that $m$ divides $f^n$ and $r$ is the remaining factor.
+
+For large {m} and small {n}
+{NthRoot} may work quite slowly. Every result {{f,r}} for given
+{m}, {n} is saved in a lookup table, thus subsequent calls to
+{NthRoot} with the same values {m}, {n} will be executed quite
+fast.
+
+*E.G.
+In> NthRoot(12,2)
+Result: {2,3};
+In> NthRoot(81,3)
+Result: {3,3};
+In> NthRoot(3255552,2)
+Result: {144,157};
+In> NthRoot(3255552,3)
+Result: {12,1884};
+
+*SEE IntNthRoot, Factors, PowerN
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="NthRoot",subtype="automatic_test"
+
+// you need to use ListToFunction for this one as -1 is actually -(1), eg. a unary function (minus)
+// applied to a positive integer (1). ListToFunction evaluates its arguments, resulting in a negative
+// integer (-1).
+Verify(NthRoot(-1,2),ListToFunction({NthRoot,-1,2}));
+
+Verify(NthRoot(2,1),Hold(NthRoot(2,1)));
+Verify(NthRoot(2,2),{1,2});
+Verify(NthRoot(12,2),{2,3});
+Verify(NthRoot(12,3),{1,12});
+Verify(NthRoot(27,3),{3,1});
+Verify(NthRoot(17*13,2),{1,17*13});
+Verify(NthRoot(17*17*13,2),{17,13});
+Verify(NthRoot(17*17*17*13,2),{17,17*13});
+Verify(NthRoot(17*17*17*13,3),{17,13});
+Verify(NthRoot(17*17*17*17*13*13,2),{17*17*13,1});
+Verify(NthRoot(17*17*17*17*13*13,3),{17,17*13*13});
+Verify(NthRoot(17*17*17*17*13*13,4),{17,13*13});
+Verify(NthRoot(17*17*17*17*13*13,5),{1,17*17*17*17*13*13});
+
+%/mathpiper

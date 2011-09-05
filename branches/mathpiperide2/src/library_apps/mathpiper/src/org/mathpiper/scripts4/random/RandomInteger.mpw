@@ -1,0 +1,148 @@
+%mathpiper,def="RandomInteger"
+
+//Retract("RandomInteger", *);
+
+
+10 # RandomInteger(_n) <--
+[
+    Check(IsPositiveInteger(n), "Argument", "The argument must be a positive integer.");
+
+    CeilN(Random() * n);
+];
+
+
+
+10 # RandomInteger(_lowerBoundInclusive, _upperBoundInclusive) <--
+[
+    Check(IsInteger(lowerBoundInclusive) And IsInteger(upperBoundInclusive), "Argument", "Both arguments must be integers.");
+
+    Check(lowerBoundInclusive < upperBoundInclusive, "Argument", "The first argument must be less than the second argument.");
+
+    FloorN(lowerBoundInclusive + Random() * (upperBoundInclusive + 1 - lowerBoundInclusive) );
+];
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+===================== Tests ==========================================
+
+
+%mathpiper,scope="nobuild",subtype="manual_test",title="Test arguments."
+
+Verify(ExceptionCatch(RandomInteger(-1), "Exception"), "Exception");
+
+Verify(ExceptionCatch(RandomInteger(1.2, 4), "Exception"), "Exception");
+
+Verify(ExceptionCatch(RandomInteger(1, 4.2), "Exception"), "Exception");
+
+Verify(ExceptionCatch(RandomInteger(4, 1), "Exception"), "Exception");
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test",title="Chi-square test for two argument version of RandomInteger."
+[
+    /*
+        Test that the two argument version of RandomInteger produces a
+        discrete uniform distribution.
+    */
+
+
+    Local(randomNumbers, chiSquareTest, criticalChiSquareScore);
+
+    randomNumbers:= Table( RandomInteger(-2, 2),x,1,10000,1);
+
+    chiSquareTest := ChiSquareTest({
+                                Count(randomNumbers,-2),
+                                Count(randomNumbers,-1),
+                                Count(randomNumbers,0),
+                                Count(randomNumbers,1),
+                                Count(randomNumbers,2)},
+                                {2000,2000,2000,2000,2000});
+
+    criticalChiSquareScore := AlphaToChiSquareScore(.001, chiSquareTest["degreesOfFreedom"]);
+
+    Echo(chiSquareTest);
+
+    NewLine();
+
+    Echo("Calculated chi-squ value: ", chiSquareTest["chiSquareScore"]);
+
+    Echo("Critical chi-square value: ", criticalChiSquareScore);
+
+    Histogram(randomNumbers);
+
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: class org.jfree.chart.ChartPanel
+
+      Side Effects:
+      {{"chiSquareScore",3.357},{"pValue",0.6879909930},{"degreesOfFreedom",4}}
+
+      Calculated chi-squ value: 3.357
+      Critical chi-square value: 18.46682719
+
+.   %/output
+
+
+
+
+
+%mathpiper_docs,name="RandomInteger",categories="User Functions;Numbers (Random)"
+*CMD RandomInteger --- generate a random integer
+
+*STD
+
+*CALL
+	RandomInteger(upper_bound)
+        RandomInteger(lower_bound, upper_bound)
+
+*PARMS
+
+{lower_bound} -- the smallest integer that can be generated
+
+{upper_bound} -- the largest integer that can be generated
+
+
+*DESC
+
+The single argument version of this function generates a random integer between
+1 and the given upper bound integer (inclusive).  The two argument version of
+the function generates a random integer between a lower bound integer and an
+upper bound integer (both inclusive).
+
+*E.G.
+In> RandomInteger(5)
+Result> 4
+
+In> Repeat(10) Write(RandomInteger(5),,)
+Result> 10
+Side Effects>4,3,5,1,2,2,3,5,3,3,
+
+In> RandomInteger(5,10)
+Result: 5
+
+In> Repeat(10) Write(RandomInteger(5, 10),,)
+Result: 10
+Side Effects:
+8,9,9,5,6,8,9,10,8,7,
+
+*SEE Random, RandomPoly, RandomIntegerList, RandomIntegerMatrix
+%/mathpiper_docs

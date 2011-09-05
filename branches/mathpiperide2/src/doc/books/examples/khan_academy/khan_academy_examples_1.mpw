@@ -1,0 +1,43 @@
+
+
+%reduce,title=""
+
+on nat;
+
+%/reduce
+
+
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions-1?playlist=Algebra%20I%20Worked%20Examples
+
+(3*x^2*y)/(2*a*b) * (14*a^2*b)/(18*x*y^2);
+
+%/reduce
+
+
+
+
+
+
+
+
+%reduce,title=""
+
+% http://www.khanacademy.org/video/multiplying-and-dividing-rational-expressions-2?playlist=Algebra%20I%20Worked%20Examples
+
+(a^2 - 4)/(a^2 - 1) * (a + 1)/(a + 2);
+
+%/reduce
+
+
+
+
+
+
+

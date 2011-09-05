@@ -1,0 +1,155 @@
+%mathpiper,def="GeoGebraPlot"
+//Retract("GeoGebraPlot",*);
+
+RulebaseListed("GeoGebraPlot",{arg1,arg2});
+
+
+
+5 # GeoGebraPlot(_arg1) <-- GeoGebraPlot(arg1,{});  //Handle single argument call.
+
+
+20 # GeoGebraPlot(function_IsFunction, options_IsList)_(Not? IsList(function)) <--
+[
+    Local(command);
+    
+    function := (Subst(==,=) function);
+    
+    command := ConcatStrings(PipeToString()Write(function));
+    
+    JavaCall(geogebra,"evalCommand",command);
+];
+
+
+
+
+10 # GeoGebraPlot(list_IsList, _options)_(IsNumericList(list) )  <--
+[
+    If(IsList(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList({options}));
+
+    Local(length, index, labelIndex, pointTemplate, segmentCommandTemplate, segmentElementTemplate, command, code, x, y, pointSize);
+    
+    length := Length(list);
+    
+    If(IsOdd(length), list := Append(list,list[length])); //Make list even for line drawing.
+    
+    If(options["pointSize"] !=? Empty, pointSize := options["pointSize"], pointSize := "1");
+    
+    index := 1;
+    
+    labelIndex := 1;
+    
+    pointTemplate := "<element type=\"point\" label=\"A<?Write(labelIndex);?>\"> <show object=\"true\" label=\"false\"/>?<objColor r=\"0\" g=\"0\" b=\"255\" alpha=\"0.0\"/>        <layer val=\"0\"/>        <animation step=\"0.1\" speed=\"1\" type=\"0\" playing=\"false\"/>        <coords x=\"<?Write(x);?>\" y=\"<?Write(y);?>\" z=\"1.0\"/>        <pointSize val=\"<?Write(ToAtom(pointSize));?>\"/></element>";
+    segmentCommandTemplate := "<command name=\"Segment\"><input a0=\"A1\" a1=\"A2\"/><output a0=\"a\"/>";
+    segmentElementTemplate := "<element type=\"segment\" label=\"a<?Write(labelIndex-1);?>\"><lineStyle thickness=\"2\" type=\"0\"/><show object=\"true\" label=\"false\"/><layer val=\"0\"/><coords x=\"-1.0\" y=\"1.0\" z=\"0.0\"/><lineStyle thickness=\"2\" type=\"0\"/><eqnStyle style=\"implicit\"/><outlyingIntersections val=\"false\"/><keepTypeOnTransform val=\"true\"/></element>";
+    
+    
+    //todo:tk: this does not seem to be working JavaCall(geogebra, "setRepaintingActive", "false");
+    //JavaCall(geogebra, "setLayerVisible", "0", "False");
+    
+    While(index <? length+1)
+    [
+        x := list[index];
+        index++;
+        y := list[index];
+        index++;
+        
+        
+        code := PatchString(pointTemplate);
+
+        
+        JavaCall(geogebra,"evalXML",code);
+        
+        If(options["lines"] =? "True" And? labelIndex >? 1,
+        [
+            
+            command := PatchString("a<?Write(labelIndex-1);?> = Segment[A<?Write(labelIndex-1);?>,A<?Write(labelIndex);?>]");
+            JavaCall(geogebra, "evalCommand", command);
+
+            
+            code := PatchString(segmentElementTemplate);
+            JavaCall(geogebra,"evalXML",code);
+        ]
+        );
+       
+        labelIndex++;
+    ]; //end while.
+    
+     //todo:tk: this does not seem to be working  JavaCall(geogebra, "setRepaintingActive", "true");
+     //JavaCall(geogebra, "setLayerVisible", "0", "True");
+
+];
+
+
+5 # GeoGebraPlot(list_IsList, _options)_(IsMatrix(list)) <--
+[
+    Local(flatList);
+    
+    flatList := {};
+    
+    ForEach(subList,list)
+    [
+        DestructiveAppend(flatList,subList[1]);
+        DestructiveAppend(flatList, subList[2]);
+    ];
+    
+    GeoGebraPlot(flatList, options);
+
+];
+
+//HoldArgument("GeoGebraPlot",arg2);
+
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+%mathpiper,title="",scope="nobuild",subtype="manual_test"
+
+GeoGebraPlot({1,1,2,2,3,3,4,4,5,5,6,6}, lines -> True);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper,title="",scope="nobuild",subtype="manual_test"
+
+GeoGebraPlot({{0,0}, {0,-1},{0,-2},{1,-2},{1,-1},{2,-1},{3,-1},{4,-1},{4,-2},{5,-2},{6,-2},{6,-1},{6,-2},{7,-2},{7,-1},{8,-1},{8,0},{8,-1},{9,-1},{8,-1},{7,-1}},lines -> True, labels -> False);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+
+
+%mathpiper,title="",scope="nobuild",subtype="manual_test"
+GeoGebraPlot(Hold(f(x) = x^2));
+
+GeoGebraPlot(x^3);
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: true
+.   %/output
+
+
+
+
+
+
