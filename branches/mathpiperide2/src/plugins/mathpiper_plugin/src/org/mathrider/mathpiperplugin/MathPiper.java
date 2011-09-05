@@ -121,14 +121,6 @@ public class MathPiper extends JPanel
 		
 		//add(BorderLayout.CENTER, new org.mathpiper.ui.gui.calculator.CalculatorPanel() );
 		
-		org.mathpiper.interpreters.Interpreter interpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
-		
-		org.mathpiper.lisp.Environment environment = interpreter.getEnvironment();
-
-                org.mathpiper.interpreters.Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
-        
-                org.mathpiper.interpreters.Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/plugins/jfreechart/");
-		
 		console = new org.mathpiper.ui.gui.consoles.GraphicConsole();
 		
 		add(BorderLayout.CENTER, console );

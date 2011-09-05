@@ -60,8 +60,6 @@ public class JFreeChartPlugin extends EditPlugin implements EBComponent{
 			org.mathpiper.interpreters.Interpreter synchronousInterpreter = org.mathpiper.interpreters.Interpreters.getSynchronousInterpreter();
 			org.mathpiper.interpreters.EvaluationResponse response = synchronousInterpreter.evaluate("[Import(\"org/mathpiper/builtin/functions/plugins/jfreechart/\"); Plot2DOutputs()[\"default\"] := \"jfreechart\";];");
 			
-			System.out.println("XXXXXXXXXXXC: "+ response.getResult());
-			
 			if(response.isExceptionThrown())
 			{
 				System.out.println(response.getExceptionMessage());
@@ -71,13 +69,18 @@ public class JFreeChartPlugin extends EditPlugin implements EBComponent{
 		}//end consstructor
 			
 		public void response(org.mathpiper.interpreters.EvaluationResponse response)
-		{
+		{		
+			System.out.println("XXXXXXXXXXX JFC 0: "+ response + "  - " + response.getResult() + "   " + response.getObject() + "  " + response.getExceptionMessage());
 			//JFreeChart handler.
 			if(response.getObject() != null)
-			{
+			{		
 				Object object = response.getObject();
+				
+				System.out.println("XXXXXXXXXXX JFC 1: "+ object);
+				
 				if(object instanceof org.jfree.chart.ChartPanel)
 				{	
+			System.out.println("XXXXXXXXXXX JFC 2: "+ object);
 					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "jfreechart" );
 					JPanel newChart = (JPanel) object;
 					this.removeAll();
