@@ -6,7 +6,7 @@
 
 // an odd prime p is irregular iff p divides the numerator of a Bernoulli number B(2*n) with
 // 2*n+1<p
-10 # IsIrregularPrime(p_IsPositiveInteger) <--
+10 # IsIrregularPrime(p_PositiveInteger?) <--
 [
         Local(i,irregular);
 

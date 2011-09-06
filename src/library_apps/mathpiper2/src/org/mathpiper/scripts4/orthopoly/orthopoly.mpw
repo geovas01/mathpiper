@@ -335,7 +335,7 @@ BitList(n) := BitList(n, {});
 2 # FastOrthoU(n_Even?, _x) <-- 2*FastOrthoT(Quotient(n,2), x)*FastOrthoU(Quotient(n,2), x)-1;
 
 // FastOrthoT() of odd order
-3 # FastOrthoT(n_IsOdd, _x) <--
+3 # FastOrthoT(n_Odd?, _x) <--
 [
         Local(T1, T2, i);
         // first bit in the list is always 1, so initialize the pair
@@ -417,7 +417,7 @@ HermiteCoeffs(n_Even?)_(n>?0) <--
                 result[2*i+1] := Quotient(-2*result[2*i-1] * (k-i+1), (2*i-1)*i);        // this division is always integer but faster with Quotient()
         result;
 ];
-HermiteCoeffs(n_IsOdd)_(n>?0) <--
+HermiteCoeffs(n_Odd?)_(n>?0) <--
 [
         Local(i, k, result);
         k := Quotient(n,2);

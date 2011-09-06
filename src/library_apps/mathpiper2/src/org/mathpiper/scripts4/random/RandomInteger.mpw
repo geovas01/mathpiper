@@ -5,7 +5,7 @@
 
 10 # RandomInteger(_n) <--
 [
-    Check(IsPositiveInteger(n), "Argument", "The argument must be a positive integer.");
+    Check(PositiveInteger?(n), "Argument", "The argument must be a positive integer.");
 
     CeilN(Random() * n);
 ];

@@ -67,7 +67,7 @@
 
 124 # Complex(_r, _i) ^ (p_IsZero) <-- 1;        // cannot have Complex(0,0) here
 
-125 # Complex(_r, _i) ^ n_IsPositiveInteger <--
+125 # Complex(_r, _i) ^ n_PositiveInteger? <--
 [
         // use binary method
         Local(result, x);

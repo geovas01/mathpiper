@@ -29,7 +29,7 @@
         );
      ];
 
-20 # OldInternalCyclotomic(n_IsOdd,_x,WantNormalForm_Boolean?)_(n>?1) <--
+20 # OldInternalCyclotomic(n_Odd?,_x,WantNormalForm_Boolean?)_(n>?1) <--
 [
  Local(divisors,poly1,poly2,q,d,f,result);
  divisors := MoebiusDivisorsList(n);

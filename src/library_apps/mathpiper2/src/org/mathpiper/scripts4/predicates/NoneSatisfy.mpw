@@ -34,7 +34,7 @@ It also returns {True} if {lst} is not a list, or if {pred} is not a predicate.
 
 In> NoneSatisfy("NegativeInteger?",{1,0,5})
 Result: True
-In> NoneSatisfy("IsPositiveInteger",{-1,0,5})
+In> NoneSatisfy("PositiveInteger?",{-1,0,5})
 Result: False
     
 %/mathpiper_docs

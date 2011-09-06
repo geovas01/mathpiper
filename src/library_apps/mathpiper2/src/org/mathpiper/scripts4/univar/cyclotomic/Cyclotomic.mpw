@@ -75,7 +75,7 @@ Function("SubstituteAndExpandInUniVar",{p,k})
 // 3) m=Moebius(d1)
 // Addapted form: MoebiusDivisorsList
 
-CyclotomicDivisorsList(n_IsPositiveInteger) <--
+CyclotomicDivisorsList(n_PositiveInteger?) <--
 [
  Local(nFactors,f,result,oldresult,x);
  nFactors:= Factors(n);
@@ -158,7 +158,7 @@ CyclotomicFactor(_a,_b) <--
 // unnecesary polynomial divisions)
 
 
-20 # InternalCyclotomic(n_IsOdd,_x)_(n>?1) <--
+20 # InternalCyclotomic(n_Odd?,_x)_(n>?1) <--
 [
  Local(divisors,poly1,poly2,q,d,f,coef,i,j,result);
  divisors := CyclotomicDivisorsList(n);

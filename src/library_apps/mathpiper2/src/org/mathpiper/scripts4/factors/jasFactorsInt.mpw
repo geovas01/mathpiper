@@ -2,7 +2,7 @@
 
 //Retract("jasFactorsInt",*);
 
-jasFactorsInt(poly_IsPolynomial) <--
+jasFactorsInt(poly_Polynomial?) <--
 [
     If(InVerboseMode(),Tell(jasFactorsInt,poly));
     Local(polyStr,vars,strVars,ns,ringDescription,defaultPoly,jasI);

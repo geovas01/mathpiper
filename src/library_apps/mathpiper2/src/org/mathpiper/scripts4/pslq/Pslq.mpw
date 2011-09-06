@@ -60,7 +60,7 @@ Pslq(x, precision) :=
 //tmp:=DivideN(tmp,1.0);
 //Echo("tmp is ",tmp);
 //MathDebugInfo(tmp);
-/*If(Not? IsPositiveNumber(tmp),
+/*If(Not? PositiveNumber?(tmp),
   Echo("******** not a positive number: ",tmp)
 );
 If(Not? IsNumber(tmp),

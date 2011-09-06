@@ -5,7 +5,7 @@
 
 //---------------------------------------------------------------------------
 
-10 # FactorsPolynomialOverIntegers(_expr)_IsPolynomialOverIntegers(expr) <--
+10 # FactorsPolynomialOverIntegers(_expr)_PolynomialOverIntegers?(expr) <--
 [
     Local(x);
     x := VarList(expr)[1];
@@ -16,7 +16,7 @@
 15 # FactorsPolynomialOverIntegers(_expr) <-- expr;
 
 
-10 # FactorsPolynomialOverIntegers(_expr,_var)_(IsPolynomialOverIntegers(expr,var)) <--
+10 # FactorsPolynomialOverIntegers(_expr,_var)_(PolynomialOverIntegers?(expr,var)) <--
 [
     Local(factorsList,factListTransp,factrs,multiplicities,factrsUnMonic);
     Local(polyFactors,normalizations,normDivisor,polyFactors,factList);

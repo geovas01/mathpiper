@@ -9,7 +9,7 @@ LocalSymbols(NFunction'Numberize)
 NFunction(new'name_IsString, old'name_IsString, arg'list_IsList) <-- [
         MacroRulebase(new'name, arg'list);
         MacroRule(new'name, Length(arg'list), 0,        // check whether all args are numeric
-                ListToFunction({IsNumericList, arg'list})
+                ListToFunction({NumericList?, arg'list})
         )
 
                 /* this is the rule defined for the new function.

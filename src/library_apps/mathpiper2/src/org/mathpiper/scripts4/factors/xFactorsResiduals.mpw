@@ -181,7 +181,7 @@ UnFence("trySQF",1);
 UnFence("tryRealRoots",1);
 
 
-10 # processRealRoots( rr_IsNumericList )_(Length(rr) =? 1) <--
+10 # processRealRoots( rr_NumericList? )_(Length(rr) =? 1) <--
 [
     //  Only one real root, so it will probably be of no help
     //  in factoring, unless it is integer or small rational
@@ -206,7 +206,7 @@ UnFence("tryRealRoots",1);
 UnFence("processRealRoots",1);
 
 
-10 # processRealRoots( rr_IsNumericList )_(Length(rr) =? 2) <--
+10 # processRealRoots( rr_NumericList? )_(Length(rr) =? 2) <--
 [
     // a pair of real solutions -- probably form a quadratic
     ptry  := Expand((x-rr[1])*(x-rr[2]));
@@ -233,7 +233,7 @@ UnFence("processRealRoots",1);
 
 
 
-10 # processRealRoots( rr_IsNumericList )_(Length(rr) >=? 4) <--
+10 # processRealRoots( rr_NumericList? )_(Length(rr) >=? 4) <--
 [
      //  more than 2 real solutions -- have to do a bit more work
      If(InVerboseMode(),Tell("    ",rr));

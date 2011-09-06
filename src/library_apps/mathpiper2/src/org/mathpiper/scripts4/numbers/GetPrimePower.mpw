@@ -4,7 +4,7 @@
 /// This routine uses only integer arithmetic.
 /// Returns {p, s} where p is a prime and n=p^s.
 /// If no powers found, returns {n, 1}. Primality testing of n is not done.
-20 # GetPrimePower(n_IsPositiveInteger) <--
+20 # GetPrimePower(n_PositiveInteger?) <--
 [
         Local(s, factors, new'factors);
         // first, separate any small prime factors

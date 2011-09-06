@@ -4,7 +4,7 @@
 
 10 # 0! <-- 1;
 10 # (Infinity)! <-- Infinity;
-20 # ((n_IsPositiveInteger)!) <-- [
+20 # ((n_PositiveInteger?)!) <-- [
         Check(n <=? 65535, "Argument", "Factorial: Error: the argument " : ( PipeToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
         MathFac(n);
 ];
@@ -26,17 +26,17 @@ Double factorials are more efficient:
 
 */
 /* // old version - not using double factorials
-HalfIntegerFactorial(n_IsOdd) _ (n>?0) <--
+HalfIntegerFactorial(n_Odd?) _ (n>?0) <--
         Sqrt(Pi) * ( n! / ( 2^n*((n-1)/2)! ) );
-HalfIntegerFactorial(n_IsOdd) _ (n<?0)  <--
+HalfIntegerFactorial(n_Odd?) _ (n<?0)  <--
         Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^(-n-1)*((-n-1)/2)! / (-n-1)! );
 */
 // new version using double factorials
-HalfIntegerFactorial(n_IsOdd) _ (n>?0) <--
+HalfIntegerFactorial(n_Odd?) _ (n>?0) <--
         Sqrt(Pi) * ( n!! / 2^((n+1)/2) );
-HalfIntegerFactorial(n_IsOdd) _ (n<?0)  <--
+HalfIntegerFactorial(n_Odd?) _ (n<?0)  <--
         Sqrt(Pi) * ( (-1)^((-n-1)/2)*2^((-n-1)/2) / (-n-2)!! );
-//HalfIntegerFactorial(n_IsOdd) _ (n= -1)  <-- Sqrt(Pi);
+//HalfIntegerFactorial(n_Odd?) _ (n= -1)  <-- Sqrt(Pi);
 
 /* Want to also compute (2.5)! */
 40 # (n_IsRationalOrNumber)! _(Denominator(Rationalize(n))=?2) <-- HalfIntegerFactorial(Numerator(Rationalize(n)));

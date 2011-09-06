@@ -1,0 +1,39 @@
+%mathpiper,def="NotZero?"
+
+/*
+10 # NotZero?(x_IsNumber)       <-- ( RoundTo(x,BuiltinPrecisionGet()) !=? 0);
+*/
+
+
+10 # NotZero?(x_IsNumber) <-- ( AbsN(x)  >=? PowerN(10, -BuiltinPrecisionGet()));
+10 # NotZero?(x_Infinity?) <-- True;
+60000 # NotZero?(_x) <-- False;
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="NotZero?",categories="User Functions;Predicates"
+*CMD NotZero? --- test for a nonzero number
+*STD
+*CALL
+        NotZero?(n)
+
+*PARMS
+
+{n} -- number to test
+
+*DESC
+
+{NotZero?(n)} evaluates to {True} if {n} is not zero. In case {n} is not a
+number, the function returns {False}.
+
+*E.G.
+
+In> NotZero?(3.25);
+Result: True;
+In> NotZero?(0);
+Result: False;
+
+*SEE IsNumber, PositiveNumber?, NegativeNumber?, NonZeroInteger?
+%/mathpiper_docs

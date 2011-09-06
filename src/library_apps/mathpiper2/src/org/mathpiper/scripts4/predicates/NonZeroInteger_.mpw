@@ -1,0 +1,32 @@
+%mathpiper,def="NonZeroInteger?"
+
+NonZeroInteger?(x) := (IsInteger(x) And? x !=? 0);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="NonZeroInteger?",categories="User Functions;Predicates"
+*CMD NonZeroInteger? --- test for a nonzero integer
+*STD
+*CALL
+        NonZeroInteger?(n)
+
+*PARMS
+
+{n} -- integer to test
+
+*DESC
+
+This function tests whether the integer {n} is not zero. If {n} is
+not an integer, the result is {False}.
+
+*E.G.
+
+In> NonZeroInteger?(0)
+Result: False;
+In> NonZeroInteger?(-2)
+Result: True;
+
+*SEE PositiveInteger?, NegativeInteger?, NotZero?
+%/mathpiper_docs

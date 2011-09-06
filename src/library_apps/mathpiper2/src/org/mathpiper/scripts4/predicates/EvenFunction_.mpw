@@ -52,5 +52,5 @@ Result: True
 In> EvenFunction?(1/x,x)
 Result: False
 
-*SEE IsOddFunction, Sin, Cos
+*SEE OddFunction?, Sin, Cos
 %/mathpiper_docs

@@ -39,5 +39,5 @@ Result: True;
 In> IsZero(x)
 Result: False;
 
-*SEE IsNumber, IsNotZero
+*SEE IsNumber, NotZero?
 %/mathpiper_docs

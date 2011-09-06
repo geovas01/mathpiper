@@ -10,7 +10,7 @@
 
 15 # IsRationalFunction(_expr,var_IsAtom)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
 [
-    If (IsPolynomial(Numerator(expr),var) And? IsPolynomial(Denominator(expr),var),
+    If (Polynomial?(Numerator(expr),var) And? Polynomial?(Denominator(expr),var),
         Contains(VarList(Denominator(expr)),var),
         False
     );
@@ -18,7 +18,7 @@
 
 20 # IsRationalFunction(_expr,vars_IsList)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
 [
-    If (IsPolynomial(Numerator(expr),vars) And? IsPolynomial(Denominator(expr),vars),
+    If (Polynomial?(Numerator(expr),vars) And? Polynomial?(Denominator(expr),vars),
         Intersection(vars, VarList(expr)) !=? {},
         False
     );

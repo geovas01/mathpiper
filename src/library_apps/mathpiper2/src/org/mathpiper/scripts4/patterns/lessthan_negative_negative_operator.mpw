@@ -74,7 +74,7 @@ You can verify that it works by trying f(5), which should return the same value 
 In the above example we have first defined two "simplification rules" for a new
 function f(). Then we realized that we need to define a predicate IsIntegerGreaterThanZero().
 A predicate equivalent to IsIntegerGreaterThanZero() is actually already defined
-in the standard library and it's called IsPositiveInteger, so it was not necessary,
+in the standard library and it's called PositiveInteger?, so it was not necessary,
 strictly speaking, to define our own predicate to do the same thing. We did it here
 just for illustration purposes.
 
@@ -132,7 +132,7 @@ precedence 10 did not apply) the predicate returns False.
 In the above example, the expression n > 0 is added after the pattern and allows
 the pattern to match only if this predicate return True. This is a useful syntax
 for defining rules with complicated predicates. There is no difference between the
-rules F(n_IsPositiveInteger) <--... and F(_n)_(IsPositiveInteger(n)) <-- ... except
+rules F(n_PositiveInteger?) <--... and F(_n)_(PositiveInteger?(n)) <-- ... except
 that the first syntax is a little more concise.
 
 The left hand side of a rule expression has the following form:

@@ -4,16 +4,16 @@
 
 0 # Modulo(_n,m_IsRationalOrNumber)_(m<?0) <-- `Hold(Modulo(@n,@m));
 
-1 # Modulo(n_NegativeInteger?,m_IsPositiveInteger) <--
+1 # Modulo(n_NegativeInteger?,m_PositiveInteger?) <--
 [
   Local(result);
   result := ModuloN(n,m);
   If (result <? 0,result := result + m);
   result;
 ];
-1 # Modulo(n_IsPositiveInteger,m_IsPositiveInteger) <-- ModuloN(n,m);
+1 # Modulo(n_PositiveInteger?,m_PositiveInteger?) <-- ModuloN(n,m);
 2 # Modulo(0,_m) <-- 0;
-2 # Modulo(n_IsPositiveInteger,Infinity) <-- n;
+2 # Modulo(n_PositiveInteger?,Infinity) <-- n;
 3 # Modulo(n_IsInteger,m_IsInteger) <-- ModuloN(n,m);
 4 # Modulo(n_IsNumber,m_IsNumber) <-- NonN(Modulo(Rationalize(n),Rationalize(m)));
 

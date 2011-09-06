@@ -9,9 +9,9 @@
 /// compute the AGM sequence up to a given precision
 ArithmeticGeometricMean(a, b, eps) :=
 [
-    Check(IsPositiveReal(a) And? IsPositiveReal(b), "Argument", "The first two arguments must be positive real numbers.");
+    Check(PositiveReal?(a) And? PositiveReal?(b), "Argument", "The first two arguments must be positive real numbers.");
     
-    Check(IsPositiveInteger(eps), "Argument", "The precision argument must be a positive integer.");
+    Check(PositiveInteger?(eps), "Argument", "The precision argument must be a positive integer.");
     
     a := N(a, eps);
     

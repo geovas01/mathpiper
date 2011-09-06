@@ -8,7 +8,7 @@ Quartile(list) :=
     
     secondQuartile := Median(sortedList);
     
-    If(IsOdd(Length(sortedList)),
+    If(Odd?(Length(sortedList)),
     [   
         secondQuartileIndex := Find(sortedList, secondQuartile);
         
