@@ -231,9 +231,9 @@ In> IsSquareMatrix({{1,2},{3,4}});
 Result: True;
 In> IsSquareMatrix({{1,2,3},{4,5,6}});
 Result: False;
-In> IsSquareMatrix(IsBoolean,{{1,2},{3,4}});
+In> IsSquareMatrix(Boolean?,{{1,2},{3,4}});
 Result: False;
-In> IsSquareMatrix(IsBoolean,{{True,False},{False,True}});
+In> IsSquareMatrix(Boolean?,{{True,False},{False,True}});
 Result: True;
 
 *SEE IsMatrix

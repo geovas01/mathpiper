@@ -71,7 +71,7 @@
 
 10 # defIntegrate(_var,_from,_from,_expr,_a,_b) <-- 0;
 
-12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from =? -to And? IsEvenFunction(expr,var))
+12 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(from =? -to And? EvenFunction?(expr,var))
         <-- 2*defIntegrate(var,0,to,expr,a,b);
 
 100 # defIntegrate(_var,_from,_to,_expr,_a,_b)_(Type(AntiDeriv(var,IntClean(var,expr))) !=? "AntiDeriv")

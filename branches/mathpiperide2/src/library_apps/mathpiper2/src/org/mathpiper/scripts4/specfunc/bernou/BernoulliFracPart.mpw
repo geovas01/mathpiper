@@ -2,7 +2,7 @@
 
 /// Find the fractional part of Bernoulli number with even index >=2
 /// return negative if the sign of the Bernoulli number is negative
-BernoulliFracPart(n_IsEven)_(n>=?2) <-- [
+BernoulliFracPart(n_Even?)_(n>=?2) <-- [
         Local(p, sum);
         // always 2 and 3
         sum := 1/2+1/3;

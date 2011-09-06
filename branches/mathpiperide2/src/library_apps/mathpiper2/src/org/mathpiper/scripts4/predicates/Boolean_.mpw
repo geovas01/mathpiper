@@ -1,17 +1,17 @@
-%mathpiper,def="IsBoolean"
+%mathpiper,def="Boolean?"
 
-Function ("IsBoolean", {x})
+Function ("Boolean?", {x})
         (x=?True) Or? (x=?False) Or? IsFunction(x) And? Contains({"=?", ">?", "<?", ">=?", "<=?", "!=?", "And?", "Not?", "Or?"}, Type(x));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsBoolean",categories="User Functions;Predicates"
-*CMD IsBoolean --- test for a Boolean value
+%mathpiper_docs,name="Boolean?",categories="User Functions;Predicates"
+*CMD Boolean? --- test for a Boolean value
 *STD
 *CALL
-        IsBoolean(expression)
+        Boolean?(expression)
 
 *PARMS
 
@@ -19,18 +19,18 @@ Function ("IsBoolean", {x})
 
 *DESC
 
-IsBoolean returns True if the argument is of a boolean type.
+Boolean? returns True if the argument is of a boolean type.
 This means it has to be either True, False, or an expression involving
 functions that return a boolean result, e.g.
 {=?}, {>?}, {<?}, {>=?}, {<=?}, {!=?}, {And?}, {Not?}, {Or?}.
 
 *E.G.
 
-In> IsBoolean(a)
+In> Boolean?(a)
 Result: False;
-In> IsBoolean(True)
+In> Boolean?(True)
 Result: True;
-In> IsBoolean(a And? b)
+In> Boolean?(a And? b)
 Result: True;
 
 *SEE True, False

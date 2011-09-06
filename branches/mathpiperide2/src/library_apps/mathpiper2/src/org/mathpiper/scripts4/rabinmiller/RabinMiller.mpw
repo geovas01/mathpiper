@@ -49,7 +49,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
   q := m;
   r := 0;
   root := 0;        // will be the default return value of the "root"
-  While (IsEven(q))
+  While (Even?(q))
   [
     q := ShiftRight(q, 1);
     r++;
@@ -83,7 +83,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
 
 10 # RabinMillerSmall(2) <-- True;
 
-20 # RabinMillerSmall(n_IsEven) <-- False;
+20 # RabinMillerSmall(n_Even?) <-- False;
 
 20 # RabinMillerSmall(3) <-- True;
 
@@ -120,7 +120,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
 
 10 # RabinMillerProbabilistic(2, _p) <-- True;
 
-20 # RabinMillerProbabilistic(n_IsEven, _p) <-- False;
+20 # RabinMillerProbabilistic(n_Even?, _p) <-- False;
 
 20 # RabinMillerProbabilistic(3, _p) <-- True;
 

@@ -96,7 +96,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                 options'hash["precision"] := 0.0001
         );
         If(
-                options'hash["hidden"] =? Empty Or? Not? IsBoolean(options'hash["hidden"]),
+                options'hash["hidden"] =? Empty Or? Not? Boolean?(options'hash["hidden"]),
                 options'hash["hidden"] := True
         );
         If(

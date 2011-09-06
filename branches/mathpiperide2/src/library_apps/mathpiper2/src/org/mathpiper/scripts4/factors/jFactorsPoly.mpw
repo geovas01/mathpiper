@@ -62,7 +62,7 @@
     pp      := Simplify( poly / content );
     If(IsBound(extraFactor),content := content / extraFactor);
     If(InVerboseMode(),Tell("   ",{content,pp}));
-    //If(IsConstant(pp) And? Length(VarList(content))>?0,{content,pp}:={pp,content});
+    //If(Constant?(pp) And? Length(VarList(content))>?0,{content,pp}:={pp,content});
     If( Length(VarList(pp))=?0, result := {{pp*content,1}},
       [
          //If(InVerboseMode(),Tell("  ",{content,pp}));
@@ -151,7 +151,7 @@ UnFence("jFactorsPoly",1);
 [
     If(InVerboseMode(),Tell("Bivariate Binomial",pp));
     Local(ppFactors,isDiagonal);
-    isDiagonal := IsDiagonal(disassem[2]);   //  mod hso 10-11-25
+    isDiagonal := Diagonal?(disassem[2]);   //  mod hso 10-11-25
     ppFactors := If(isDiagonal,jFactorsBivariateBinomial(pp),jasFactorsInt(pp) );
 ];
 UnFence("jFactorsPrimitivePart",1);
@@ -316,7 +316,7 @@ UnFence("RationalToIntegerConvert",1);
 
 
 152 # jFactors( expr_IsRationalFunction )_
-        (IsConstant(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
+        (Constant?(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("jFactors_Rational_Denom",expr);]);
     Local(Numer,Denom,fNumer,fDenom);

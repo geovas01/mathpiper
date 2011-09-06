@@ -25,7 +25,7 @@
     CheckSolution(Sqrt(expr1)-expr2,var,result);
  ];
  
- 10 # xSolve'Sqrts(_expr1,const_IsConstant*_var,_var)_(Contains(VarList(expr1),var)) <--
+ 10 # xSolve'Sqrts(_expr1,const_Constant?*_var,_var)_(Contains(VarList(expr1),var)) <--
  [
     If(iDebug=True,Tell("xSolve'Sqrts - c*var",{expr1,const,var}));
     Local(rhs,result);
@@ -36,7 +36,7 @@
     CheckSolution(Sqrt(expr1)-rhs,var,result);
  ];
  
- 10 # xSolve'Sqrts(_expr1,-const_IsConstant*_var,_var)_(Contains(VarList(expr1),var)) <--
+ 10 # xSolve'Sqrts(_expr1,-const_Constant?*_var,_var)_(Contains(VarList(expr1),var)) <--
  [
     If(iDebug=True,Tell("xSolve'Sqrts + c*var",{expr1,const,var}));
     Local(rhs,result);

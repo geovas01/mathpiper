@@ -587,13 +587,13 @@ _[
 
 90 # Taylor'LPS'CompOrder(_x, Sin(_x))           <-- 1;
 90 # Taylor'LPS'CompCoeff(_x, Sin(_x), n_IsOdd)  <-- (-1)^((n-1)/2) / n!;
-90 # Taylor'LPS'CompCoeff(_x, Sin(_x), n_IsEven) <-- 0;
+90 # Taylor'LPS'CompCoeff(_x, Sin(_x), n_Even?) <-- 0;
 
 /* Cos */
 
 100 # Taylor'LPS'CompOrder(_x, Cos(_x))           <-- 0;
 100 # Taylor'LPS'CompCoeff(_x, Cos(_x), n_IsOdd)  <-- 0;
-100 # Taylor'LPS'CompCoeff(_x, Cos(_x), n_IsEven) <-- (-1)^(n/2) / n!;
+100 # Taylor'LPS'CompCoeff(_x, Cos(_x), n_Even?) <-- (-1)^(n/2) / n!;
 
 /* Inverse (not needed but speeds things up) */
 

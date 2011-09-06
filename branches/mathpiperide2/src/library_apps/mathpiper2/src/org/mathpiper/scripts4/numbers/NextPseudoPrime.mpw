@@ -25,6 +25,6 @@
 */
 ];
 // this works only for even i>=4
-4# NextPseudoPrime(i_IsEven) <-- NextPseudoPrime(i-1);
+4# NextPseudoPrime(i_Even?) <-- NextPseudoPrime(i-1);
 
 %/mathpiper

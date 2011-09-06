@@ -68,12 +68,12 @@
 100 # (_y / _z) * _x <-- (x*y)/z;
 100 # (_x * y_IsNumber)_Not?(IsNumber(x)) <-- y*x;
 
-100 # (_x) * (_x) ^ (n_IsConstant) <-- x^(n+1);
-100 # (_x) ^ (n_IsConstant) * (_x) <-- x^(n+1);
-100 # (_x * _y)* _x ^ n_IsConstant <-- y * x^(n+1);
-100 # (_y * _x)* _x ^ n_IsConstant <-- y * x^(n+1);
-100 # Sqrt(_x) * (_x) ^ (n_IsConstant) <-- x^(n+1/2);
-100 # (_x) ^ (n_IsConstant) * Sqrt(_x) <-- x^(n+1/2);
+100 # (_x) * (_x) ^ (n_Constant?) <-- x^(n+1);
+100 # (_x) ^ (n_Constant?) * (_x) <-- x^(n+1);
+100 # (_x * _y)* _x ^ n_Constant? <-- y * x^(n+1);
+100 # (_y * _x)* _x ^ n_Constant? <-- y * x^(n+1);
+100 # Sqrt(_x) * (_x) ^ (n_Constant?) <-- x^(n+1/2);
+100 # (_x) ^ (n_Constant?) * Sqrt(_x) <-- x^(n+1/2);
 100 # Sqrt(_x) * (_x) <-- x^(3/2);
 100 # (_x) * Sqrt(_x) <-- x^(3/2);
 

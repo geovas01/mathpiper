@@ -75,5 +75,5 @@ In> Cholesky(ToeplitzMatrix({1,2,3}))
         In function "Check" :
         CommandLine(1) : "Cholesky: Matrix is not positive definite"
 
-*SEE IsSymmetric, IsDiagonal, Diagonal
+*SEE IsSymmetric, Diagonal?, Diagonal
 %/mathpiper_docs

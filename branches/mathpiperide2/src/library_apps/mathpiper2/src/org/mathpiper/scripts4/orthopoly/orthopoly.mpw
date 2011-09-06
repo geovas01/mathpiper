@@ -331,8 +331,8 @@ BitList(n) := BitList(n, {});
 2 # FastOrthoU(_n, _x) _ (IsInteger(n) And? n<?0) <-- Undefined;
 
 // make T(), U() of even order more efficient: delegate gruntwork to odd order
-2 # FastOrthoT(n_IsEven, _x) <-- 2*FastOrthoT(Quotient(n,2), x)^2-1;
-2 # FastOrthoU(n_IsEven, _x) <-- 2*FastOrthoT(Quotient(n,2), x)*FastOrthoU(Quotient(n,2), x)-1;
+2 # FastOrthoT(n_Even?, _x) <-- 2*FastOrthoT(Quotient(n,2), x)^2-1;
+2 # FastOrthoU(n_Even?, _x) <-- 2*FastOrthoT(Quotient(n,2), x)*FastOrthoU(Quotient(n,2), x)-1;
 
 // FastOrthoT() of odd order
 3 # FastOrthoT(n_IsOdd, _x) <--
@@ -407,7 +407,7 @@ BitList(n) := BitList(n, {});
 OrthoPolyCoeffs("Hermite", n_IsInteger, {}) <-- HermiteCoeffs(n);
 
 /// Return the list of coefficiets of Hermite polynomials.
-HermiteCoeffs(n_IsEven)_(n>?0) <--
+HermiteCoeffs(n_Even?)_(n>?0) <--
 [
         Local(i, k, result);
         k := Quotient(n,2);

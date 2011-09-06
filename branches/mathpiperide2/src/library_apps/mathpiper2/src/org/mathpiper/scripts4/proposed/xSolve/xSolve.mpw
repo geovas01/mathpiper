@@ -73,7 +73,7 @@ LocalSymbols(res)
         {var == var};
     ];
   
-  41  # xSolve(a_IsConstant, _var) <-- 
+  41  # xSolve(a_Constant?, _var) <-- 
     [
         If(iDebug=True,Tell("xSolve5",{a,var}));
         {};

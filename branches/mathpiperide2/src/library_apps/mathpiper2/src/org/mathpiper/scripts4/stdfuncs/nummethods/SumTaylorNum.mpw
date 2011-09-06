@@ -61,7 +61,7 @@ If(
         Local(sum, k, term, delta);
   N([
     x:=Eval(x);        // x must be floating-point
-    If (IsConstant(nth'term'func),
+    If (Constant?(nth'term'func),
       term := nth'term'func,
       term := (nth'term'func @ {0}),
     );
@@ -110,7 +110,7 @@ SumTaylorNum1(x, nth'term'func, next'term'factor, n'terms) :=
       next'term'factor =? {},
       term'tmp := 1,
   //                term'tmp := (nth'term'func @ 0)        // floating-point
-      If (IsConstant(nth'term'func),
+      If (Constant?(nth'term'func),
         term'tmp := nth'term'func,
         term'tmp := (nth'term'func @ {0}),
       )

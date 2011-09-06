@@ -32,5 +32,5 @@ A non-square matrix cannot be triangular:
 In> IsLowerTriangular({{1,2,3},{0,1,2}})
 Result: False;
 
-*SEE IsUpperTriangle, IsDiagonal
+*SEE IsUpperTriangle, Diagonal?
 %/mathpiper_docs

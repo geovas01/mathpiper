@@ -37,7 +37,7 @@ LocalSymbols(res)
 
   30  # Solve(_lhs == _rhs, _var) <-- Solve(lhs - rhs, var);
   40  # Solve(0, _var) <-- {var == var};
-  41  # Solve(a_IsConstant, _var) <-- {};
+  41  # Solve(a_Constant?, _var) <-- {};
   42  # Solve(_expr, _var)_(Not? HasExpression?(expr,var)) <--
         [ Assert("Solve", "expression ":(PipeToString() Write(expr)):" does not depend on ":PipeToString() Write(var)) False; {}; ];
   50  # Solve(_expr, _var)_((res := Solve'Poly(expr, var)) !=? Failed) <-- res;

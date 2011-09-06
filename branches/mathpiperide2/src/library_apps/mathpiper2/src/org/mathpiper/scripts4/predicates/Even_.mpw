@@ -1,16 +1,16 @@
-%mathpiper,def="IsEven"
+%mathpiper,def="Even?"
 
-IsEven(n) := IsInteger(n) And? ( BitAnd(n,1)  =? 0 );
+Even?(n) := IsInteger(n) And? ( BitAnd(n,1)  =? 0 );
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsEven",categories="User Functions;Predicates"
-*CMD IsEven --- test for an even integer
+%mathpiper_docs,name="Even?",categories="User Functions;Predicates"
+*CMD Even? --- test for an even integer
 *STD
 *CALL
-        IsEven(n)
+        Even?(n)
 
 *PARMS
 
@@ -24,9 +24,9 @@ even if it is divisible by two. Hence the even numbers are 0, 2, 4, 6,
 
 *E.G.
 
-In> IsEven(4);
+In> Even?(4);
 Result: True;
-In> IsEven(-1);
+In> Even?(-1);
 Result: False;
 
 *SEE IsOdd, IsInteger

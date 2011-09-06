@@ -6,8 +6,8 @@
 51 # -Undefined <-- Undefined;
 54 # - (- _x)      <-- x;
 55 # (- (x_IsNumber)) <-- SubtractN(0,x);
-100 # _x - n_IsConstant*(_x)   <-- (1-n)*x;
-100 # n_IsConstant*(_x) - _x   <-- (n-1)*x;
+100 # _x - n_Constant?*(_x)   <-- (1-n)*x;
+100 # n_Constant?*(_x) - _x   <-- (n-1)*x;
 
 110 # - (_x - _y) <-- y-x;
 111 # - (x_IsNumber / _y) <-- (-x)/y;        

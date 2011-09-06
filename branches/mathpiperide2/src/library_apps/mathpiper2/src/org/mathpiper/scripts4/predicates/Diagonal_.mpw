@@ -1,6 +1,6 @@
-%mathpiper,def="IsDiagonal"
+%mathpiper,def="Diagonal?"
 
-IsDiagonal(A_IsMatrix) <--
+Diagonal?(A_IsMatrix) <--
 [
         Local(i,j,m,n,result);
         m      := Length(A);
@@ -30,11 +30,11 @@ IsDiagonal(A_IsMatrix) <--
 
 
 
-%mathpiper_docs,name="IsDiagonal",categories="User Functions;Matrices (Predicates);Predicates"
-*CMD IsDiagonal --- test for a diagonal matrix
+%mathpiper_docs,name="Diagonal?",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD Diagonal? --- test for a diagonal matrix
 *STD
 *CALL
-        IsDiagonal(A)
+        Diagonal?(A)
 
 *PARMS
 
@@ -42,11 +42,11 @@ IsDiagonal(A_IsMatrix) <--
 
 *DESC
 
-{IsDiagonal(A)} returns {True} if {A} is a diagonal square matrix and {False} otherwise.
+{Diagonal?(A)} returns {True} if {A} is a diagonal square matrix and {False} otherwise.
 
 *E.G.
-In> IsDiagonal(Identity(5))
+In> Diagonal?(Identity(5))
 Result: True;
-In> IsDiagonal(HilbertMatrix(5))
+In> Diagonal?(HilbertMatrix(5))
 Result: False;
 %/mathpiper_docs

@@ -116,11 +116,11 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
 
 90 # Taylor3'UniFunction("Sin")           <-- True;
 90 # Taylor3'CompCoeff("Sin", n_IsOdd)  <-- (-1)^((n-1)/2) / n!;
-90 # Taylor3'CompCoeff("Sin", n_IsEven) <-- 0;
+90 # Taylor3'CompCoeff("Sin", n_Even?) <-- 0;
 
 100 # Taylor3'UniFunction("Cos")           <-- True;
 100 # Taylor3'CompCoeff("Cos", n_IsOdd)  <-- 0;
-100 # Taylor3'CompCoeff("Cos", n_IsEven) <-- (-1)^(n/2) / n!;
+100 # Taylor3'CompCoeff("Cos", n_Even?) <-- (-1)^(n/2) / n!;
 
 
 210 # Taylor3'UniFunction(_any)_

@@ -39,7 +39,7 @@
   NormalForm(Gcd(MakeUni(n,vars),MakeUni(m,vars)));
 ];
 
-100 # Gcd(n_IsConstant,m_IsConstant) <-- 1;
+100 # Gcd(n_Constant?,m_Constant?) <-- 1;
 110 # Gcd(_m,_n) <--
 [
   Echo("Not simplified");
