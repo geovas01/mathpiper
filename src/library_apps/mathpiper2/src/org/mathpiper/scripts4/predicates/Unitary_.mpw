@@ -31,7 +31,7 @@ Result: True;
 In> Unitary?({{0,I},{2,0}})
 Result: False;
 
-*SEE IsHermitian, Symmetric?
+*SEE Hermitian?, Symmetric?
 %/mathpiper_docs
 
 

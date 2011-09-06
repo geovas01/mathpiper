@@ -1,16 +1,16 @@
-%mathpiper,def="IsHermitian"
+%mathpiper,def="Hermitian?"
 
-IsHermitian(A_IsMatrix) <-- (Conjugate(Transpose(A))=?A);
+Hermitian?(A_IsMatrix) <-- (Conjugate(Transpose(A))=?A);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsHermitian",categories="User Functions;Matrices (Predicates);Predicates"
-*CMD IsHermitian --- test for a Hermitian matrix
+%mathpiper_docs,name="Hermitian?",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD Hermitian? --- test for a Hermitian matrix
 *STD
 *CALL
-        IsHermitian(A)
+        Hermitian?(A)
 
 *PARMS
 
@@ -18,15 +18,15 @@ IsHermitian(A_IsMatrix) <-- (Conjugate(Transpose(A))=?A);
 
 *DESC
 
-IsHermitian(A) returns {True} if {A} is Hermitian and {False}
+Hermitian?(A) returns {True} if {A} is Hermitian and {False}
 otherwise. $A$ is a Hermitian matrix iff Conjugate( Transpose $A$ )=$A$.
 If $A$ is a real matrix, it must be symmetric to be Hermitian.
 
 *E.G.
 
-In> IsHermitian({{0,I},{-I,0}})
+In> Hermitian?({{0,I},{-I,0}})
 Result: True;
-In> IsHermitian({{0,I},{2,0}})
+In> Hermitian?({{0,I},{2,0}})
 Result: False;
 
 *SEE Unitary?
@@ -36,10 +36,10 @@ Result: False;
 
 
 
-%mathpiper,name="IsHermitian",subtype="automatic_test"
+%mathpiper,name="Hermitian?",subtype="automatic_test"
 
-Verify(IsHermitian({{0,I},{-I,0}}),True);
-Verify(IsHermitian({{0,I},{-I,1}}),True);
-Verify(IsHermitian({{0,I},{-2*I,0}}),False);
+Verify(Hermitian?({{0,I},{-I,0}}),True);
+Verify(Hermitian?({{0,I},{-I,1}}),True);
+Verify(Hermitian?({{0,I},{-2*I,0}}),False);
 
 %/mathpiper

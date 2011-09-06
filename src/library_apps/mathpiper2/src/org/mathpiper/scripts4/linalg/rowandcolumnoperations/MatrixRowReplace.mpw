@@ -2,7 +2,7 @@
 
 MatrixRowReplace( M_IsMatrix, iRow_PositiveInteger?, v_IsVector )_(Length(v)=?Length(M[1])) <--
 [
-    If( Not? IsBound(iDebug), iDebug := False );
+    If( Not? Bound?(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixRowReplace,{M,iRow,v}) );
     Local(mRows,nCols);
     {mRows,nCols} := Dimensions(M);
