@@ -42,7 +42,7 @@ In> PrettyForm(YacasFactor(2*x^3 + 3*x^2 - 1));
         
 Result: True;
 
-*SEE YacasFactors, xFactor, IsPrime, PrettyForm
+*SEE YacasFactors, xFactor, Prime?, PrettyForm
 %/mathpiper_docs
 
 

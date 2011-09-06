@@ -1,4 +1,4 @@
-Tue Sep 06 15:42:17 EDT 2011.
+Tue Sep 06 16:01:08 EDT 2011.
 MathPiper version: js.027.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
@@ -632,10 +632,6 @@ Testing IsPerfect in file </org/mathpiper/scripts4/numbers/IsPerfect.mpw>:
 
 
 ================================================================
-Testing IsPrime in file </org/mathpiper/scripts4/numbers/IsPrime.mpw>: 
-
-
-================================================================
 Testing IsScalar in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
 
 
@@ -798,7 +794,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(814*x+931*x^2+712*x^3+203*x^4+977*x^5+610,814*x+931*x^2+712*x^3+203*x^4+977*x^5+610)<?0.01
+Dot(731*x+99*x^2+744*x^3+894*x^4+605*x^5+131,731*x+99*x^2+744*x^3+894*x^4+605*x^5+131)<?0.01
  which differs from 
 True
 ******************
@@ -817,7 +813,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(293*x+637*x^2+707*x^3+504*x^4+998*x^5+887,293*x+637*x^2+707*x^3+504*x^4+998*x^5+887)<?0.01
+Dot(139*x+994*x^2+609*x^3+486*x^4+518*x^5+87,139*x+994*x^2+609*x^3+486*x^4+518*x^5+87)<?0.01
  which differs from 
 True
 ******************
@@ -836,7 +832,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(848*x+252*x^2+247*x^3+903*x^4+368*x^5+565,848*x+252*x^2+247*x^3+903*x^4+368*x^5+565)<?0.01
+Dot(972*x+972*x^2+865*x^3+574*x^4+892*x^5+736,972*x+972*x^2+865*x^3+574*x^4+892*x^5+736)<?0.01
  which differs from 
 True
 ******************
@@ -855,7 +851,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(144*x+959*x^2+942*x^3+568*x^4+206*x^5+437,144*x+959*x^2+942*x^3+568*x^4+206*x^5+437)<?0.01
+Dot(593*x+501*x^2+240*x^3+962*x^4+810*x^5+540,593*x+501*x^2+240*x^3+962*x^4+810*x^5+540)<?0.01
  which differs from 
 True
 ******************
@@ -874,7 +870,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(360*x+125*x^2+233*x^3+923*x^4+978*x^5+249,360*x+125*x^2+233*x^3+923*x^4+978*x^5+249)<?0.01
+Dot(828*x+289*x^2+440*x^3+444*x^4+580*x^5+261,828*x+289*x^2+440*x^3+444*x^4+580*x^5+261)<?0.01
  which differs from 
 True
 ******************
@@ -893,7 +889,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(770*x+705*x^2+782*x^3+796*x^4+519*x^5+609,770*x+705*x^2+782*x^3+796*x^4+519*x^5+609)<?0.01
+Dot(961*x+544*x^2+824*x^3+197*x^4+658*x^5+807,961*x+544*x^2+824*x^3+197*x^4+658*x^5+807)<?0.01
  which differs from 
 True
 ******************
@@ -1031,6 +1027,10 @@ Testing Plot3DS in file </org/mathpiper/scripts4/plots/_3d/plot3ds.mpw>:
 
 ================================================================
 Testing PowerN in file </org/mathpiper/scripts4/base/PowerN.mpw>: 
+
+
+================================================================
+Testing Prime? in file </org/mathpiper/scripts4/numbers/Prime_.mpw>: 
 
 
 ================================================================

@@ -49,7 +49,7 @@ Result: False;
 In> Select(1 .. 100, IsIrregularPrime)
 Result: {37,59,67};
 
-*SEE IsPrime
+*SEE Prime?
 %/mathpiper_docs
 
 

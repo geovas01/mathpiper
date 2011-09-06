@@ -9,7 +9,7 @@
 /// Resulting factors are automatically sorted.
 /// This function is not used any more.
 /*
-2# TrialFactorize(n_IsPrimePower) <-- {GetPrimePower(n)};
+2# TrialFactorize(n_PrimePower?) <-- {GetPrimePower(n)};
 3# TrialFactorize(n_Integer?) <--
 [
         Local(factorization);

@@ -1,6 +1,6 @@
 %mathpiper,def="IsTwinPrime"
 
-IsTwinPrime(n_PositiveInteger?)        <-- (IsPrime(n) And? IsPrime(n+2));
+IsTwinPrime(n_PositiveInteger?)        <-- (Prime?(n) And? Prime?(n+2));
 
 %/mathpiper
 
@@ -28,7 +28,7 @@ Result: False;
 In> Select(1 .. 100, IsTwinPrime)
 Result: {3,5,11,17,29,41,59,71};
 
-*SEE IsPrime
+*SEE Prime?
 %/mathpiper_docs
 
 

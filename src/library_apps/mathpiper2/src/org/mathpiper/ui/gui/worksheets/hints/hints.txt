@@ -245,7 +245,7 @@
 :IsMatrix:IsMatrix(expr):test for a matrix:
 :IsMatrix:IsMatrix(pred,expr)::
 :IsNegativeInteger:IsNegativeInteger(n):test for a negative integer:
-:IsNegativeNumber:IsNegativeNumber(n):test for a negative number:
+:NegativeNumber?:NegativeNumber?(n):test for a negative number:
 :IsNegativeReal:IsNegativeReal(expr):test for a numerically negative value:
 :IsNonObject:IsNonObject(expr):test whether argument is not an {Object()}:
 :IsNonZeroInteger:IsNonZeroInteger(n):test for a nonzero integer:
