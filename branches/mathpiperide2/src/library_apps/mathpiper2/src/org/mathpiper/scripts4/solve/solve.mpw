@@ -49,8 +49,8 @@ LocalSymbols(res)
          Local(v1,v2);
          v1 := WithValue(var, s[2], e1);
          v2 := WithValue(var, s[2], e2);
-         If(Not? (IsInfinity(v1) Or? (v1 =? Undefined) Or?
-                 IsInfinity(v2) Or? (v2 =? Undefined)),
+         If(Not? (Infinity?(v1) Or? (v1 =? Undefined) Or?
+                 Infinity?(v2) Or? (v2 =? Undefined)),
              DestructiveAppend(u, s));
       ];
       u;
@@ -211,7 +211,7 @@ LocalSymbols(x)
 [
   20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? IsPositiveInteger(n))
        <-- MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. n)/n));
-  20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? IsNegativeInteger(n))
+  20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? NegativeInteger?(n))
        <-- MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. (-n))/(-n)));
 ];
 
@@ -243,8 +243,8 @@ LocalSymbols(x)
  * nonnegative real part. */
 20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? IsPositiveReal(Re(rhs)) And? Re(rhs) !=? 0) <-- { var == rhs^2 };
 20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? Re(rhs)=?0 And? IsPositiveReal(Im(rhs))) <-- { var == rhs^2 };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? Re(rhs)=?0 And? IsNegativeReal(Im(rhs)) And? Im(rhs) !=? 0) <-- { };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? IsNegativeReal(Re(rhs)) And? Re(rhs) !=? 0) <-- { };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? Re(rhs)=?0 And? NegativeReal?(Im(rhs)) And? Im(rhs) !=? 0) <-- { };
+20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? NegativeReal?(Re(rhs)) And? Re(rhs) !=? 0) <-- { };
 
 30 # Solve'Simple(_lhs, _rhs, _var) <-- Failed;
 

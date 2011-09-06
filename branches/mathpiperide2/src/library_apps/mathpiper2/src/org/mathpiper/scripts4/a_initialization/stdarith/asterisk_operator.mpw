@@ -7,8 +7,8 @@
 100 # _x  *  1  <-- x;
 100 # (_f  * _x)_(f=? -1)  <-- -x;
 100 # (_x  * _f)_(f=? -1)  <-- -x;
-105 # (f_IsNegativeNumber * _x)  <-- -(-f)*x;
-105 # (_x * f_IsNegativeNumber)  <-- -(-f)*x;
+105 # (f_NegativeNumber? * _x)  <-- -(-f)*x;
+105 # (_x * f_NegativeNumber?)  <-- -(-f)*x;
 
 95 # x_IsMatrix * y_IsMatrix <--
 [
@@ -50,8 +50,8 @@
 50  # Undefined * _y <-- Undefined;
 
 
-100  # 0 * y_IsInfinity <-- Undefined;
-100  # x_IsInfinity * 0 <-- Undefined;
+100  # 0 * y_Infinity? <-- Undefined;
+100  # x_Infinity? * 0 <-- Undefined;
 
 101 # 0    * (_x) <-- 0;
 101 # (_x) *    0 <-- 0;
@@ -87,8 +87,8 @@
 107 # -( (_x)/(-(_y))) <-- x/y;
 
 
-250  # x_IsNumber * y_IsInfinity <-- Sign(x)*y;
-250  # x_IsInfinity * y_IsNumber <-- Sign(y)*x;
+250  # x_IsNumber * y_Infinity? <-- Sign(x)*y;
+250  # x_Infinity? * y_IsNumber <-- Sign(y)*x;
 
 
 /* Note: this rule MUST be past all the transformations on

@@ -35,7 +35,7 @@ LocalSymbols(m,n,r,
 // interface function for nth root of m
 // m>=0, n>1, integers
 // m^(1/n) --> f*(r^(1/n))
-NthRoot(m_IsNonNegativeInteger,n_IsInteger)_(n>?1) <--
+NthRoot(m_NonNegativeInteger?,n_IsInteger)_(n>?1) <--
 [
    Local(r);
    r:=NthRoot'Restore(m,n);

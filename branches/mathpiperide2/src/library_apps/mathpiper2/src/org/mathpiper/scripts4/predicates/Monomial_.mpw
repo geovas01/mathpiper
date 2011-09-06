@@ -1,13 +1,13 @@
-%mathpiper,def="IsMonomial"
+%mathpiper,def="Monomial?"
 
 //Retract("CanBeMonomial",*);
-//Retract("IsMonomial",*);
+//Retract("Monomial?",*);
 
 10 # CanBeMonomial(_expr)_(Type(expr)=?"UniVariate") <-- False;
 
 10 # CanBeMonomial(_expr)<--Not? (HasFunction?(expr,ToAtom("+")) Or? HasFunction?(expr,ToAtom("-")));
 
-10 # IsMonomial(expr_CanBeMonomial) <-- 
+10 # Monomial?(expr_CanBeMonomial) <-- 
 [
     Local(r);
     If( IsRationalFunction(expr),
@@ -16,7 +16,7 @@
     );
 ];
 
-15 # IsMonomial(_expr) <-- False;
+15 # Monomial?(_expr) <-- False;
 
 %/mathpiper
 
@@ -27,11 +27,11 @@
 
 
 
-%mathpiper_docs,name="IsMonomial",categories="User Functions;Predicates"
-*CMD IsMonomial --- determine if {expr} is a Monomial
+%mathpiper_docs,name="Monomial?",categories="User Functions;Predicates"
+*CMD Monomial? --- determine if {expr} is a Monomial
 *STD
 *CALL
-        IsMonomial(expr)
+        Monomial?(expr)
 
 *PARMS
 {expr} -- an expression
@@ -43,16 +43,16 @@ A {Monomial} is defined to be a single term, consisting of a product of numbers
 and variables.
 
 *E.G.
-In> IsMonomial(24)
+In> Monomial?(24)
 Result: True
 
-In> IsMonomial(24*a*x^2*y^3)
+In> Monomial?(24*a*x^2*y^3)
 Result: True
 
-In> IsMonomial(24*a*x^2*y^3/15)
+In> Monomial?(24*a*x^2*y^3/15)
 Result: True
 
-In> IsMonomial(24*a*x^2*y^3/15+1)
+In> Monomial?(24*a*x^2*y^3/15+1)
 Result: False
     
 %/mathpiper_docs

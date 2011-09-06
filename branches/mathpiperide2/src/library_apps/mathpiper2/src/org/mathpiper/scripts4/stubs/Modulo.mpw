@@ -4,7 +4,7 @@
 
 0 # Modulo(_n,m_IsRationalOrNumber)_(m<?0) <-- `Hold(Modulo(@n,@m));
 
-1 # Modulo(n_IsNegativeInteger,m_IsPositiveInteger) <--
+1 # Modulo(n_NegativeInteger?,m_IsPositiveInteger) <--
 [
   Local(result);
   result := ModuloN(n,m);

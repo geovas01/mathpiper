@@ -40,5 +40,5 @@ The last result is because {Exp(x)} cannot be
 numerically approximated if {x} is not known. Hence
 MathPiper can not determine the sign of this expression.
 
-*SEE IsNegativeReal, IsPositiveNumber, N
+*SEE NegativeReal?, IsPositiveNumber, N
 %/mathpiper_docs

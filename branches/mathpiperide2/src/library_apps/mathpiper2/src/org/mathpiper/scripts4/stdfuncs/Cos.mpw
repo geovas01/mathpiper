@@ -22,13 +22,13 @@
 4 # Cos(ArcSin(_x)) <-- Sqrt(1-x^2);
 4 # Cos(ArcTan(_x)) <-- 1/Sqrt(1+x^2);
 5 # Cos(- _x)_(Not? Constant?(x))                 <-- Cos(x);
-6 # (Cos(x_Constant?))_(IsNegativeNumber(N(Eval(x))))   <-- Cos(-x);
+6 # (Cos(x_Constant?))_(NegativeNumber?(N(Eval(x))))   <-- Cos(-x);
 // must prevent it from looping
 
 110 # Cos(Complex(_r,_i)) <--
     (Exp(I*Complex(r,i)) + Exp(- I*Complex(r,i))) / (2) ;
 
-6 # Cos(x_IsInfinity) <-- Undefined;
+6 # Cos(x_Infinity?) <-- Undefined;
 6 # Cos(Undefined) <-- Undefined;
 
 200 # Cos(v_CanBeUni(Pi))_(Not?(InNumericMode()) And? Degree(v,Pi) <? 2 And? Coef(v,Pi,0) =? 0) <--

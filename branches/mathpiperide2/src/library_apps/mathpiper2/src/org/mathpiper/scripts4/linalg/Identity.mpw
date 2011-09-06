@@ -1,6 +1,6 @@
 %mathpiper,def="Identity"
 
-Identity(n_IsNonNegativeInteger) <--
+Identity(n_NonNegativeInteger?) <--
 [
     Local(i,result);
     result:={};

@@ -1,23 +1,23 @@
-%mathpiper,def="IsInfinity"
+%mathpiper,def="Infinity?"
 
-10 # IsInfinity(Infinity) <-- True;
-10 # IsInfinity(-(_x)) <-- IsInfinity(x);
+10 # Infinity?(Infinity) <-- True;
+10 # Infinity?(-(_x)) <-- Infinity?(x);
 
 // This is just one example, we probably need to extend this further to include all
 // cases for f*Infinity where f can be guaranteed to not be zero
-11 # IsInfinity(Sign(_x)*y_IsInfinity) <-- True;
+11 # Infinity?(Sign(_x)*y_Infinity?) <-- True;
 
-60000 # IsInfinity(_x) <-- False;
+60000 # Infinity?(_x) <-- False;
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsInfinity",categories="User Functions;Predicates"
-*CMD IsInfinity --- test for an infinity
+%mathpiper_docs,name="Infinity?",categories="User Functions;Predicates"
+*CMD Infinity? --- test for an infinity
 *STD
 *CALL
-        IsInfinity(expr)
+        Infinity?(expr)
 
 *PARMS
 
@@ -30,9 +30,9 @@ case if {expr} is either {Infinity} or {-Infinity}.
 
 *E.G.
 
-In> IsInfinity(10^1000);
+In> Infinity?(10^1000);
 Result: False;
-In> IsInfinity(-Infinity);
+In> Infinity?(-Infinity);
 Result: True;
 
 *SEE Integer

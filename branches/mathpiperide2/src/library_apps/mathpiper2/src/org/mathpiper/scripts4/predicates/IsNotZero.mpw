@@ -6,7 +6,7 @@
 
 
 10 # IsNotZero(x_IsNumber) <-- ( AbsN(x)  >=? PowerN(10, -BuiltinPrecisionGet()));
-10 # IsNotZero(x_IsInfinity) <-- True;
+10 # IsNotZero(x_Infinity?) <-- True;
 60000 # IsNotZero(_x) <-- False;
 
 %/mathpiper
@@ -35,5 +35,5 @@ Result: True;
 In> IsNotZero(0);
 Result: False;
 
-*SEE IsNumber, IsPositiveNumber, IsNegativeNumber, IsNonZeroInteger
+*SEE IsNumber, IsPositiveNumber, NegativeNumber?, IsNonZeroInteger
 %/mathpiper_docs

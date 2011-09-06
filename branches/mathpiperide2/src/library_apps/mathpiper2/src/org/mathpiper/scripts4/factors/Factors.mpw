@@ -29,7 +29,7 @@
 
 
 
-15 # Factors(n_IsNegativeInteger) <--
+15 # Factors(n_NegativeInteger?) <--
 [
     If(InVerboseMode(),Tell("Factors_negInt",n));
     Local(en,ans);

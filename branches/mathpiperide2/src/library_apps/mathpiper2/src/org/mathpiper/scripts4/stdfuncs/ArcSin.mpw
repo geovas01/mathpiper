@@ -8,7 +8,7 @@
     (- I) * Ln((I*Complex(r,i)) + ((1-(Complex(r,i)^2))^(1/2)));
 
 150 # ArcSin(- _x)_(Not? Constant?(x))             <-- -ArcSin(x);
-160 # (ArcSin(x_Constant?))_(IsNegativeNumber(N(Eval(x)))) <-- -ArcSin(-x);
+160 # (ArcSin(x_Constant?))_(NegativeNumber?(N(Eval(x)))) <-- -ArcSin(-x);
 
 200 # ArcSin(0) <-- 0;
 200 # ArcSin(1/2) <-- Pi/6;

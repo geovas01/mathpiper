@@ -236,7 +236,7 @@
 :IsGaussianUnit:IsGaussianUnit(z):test for a Gaussian unit:
 :IsGeneric:IsGeneric(object):check for generic object:
 :IsHermitian:IsHermitian(A):test for a Hermitian matrix:
-:IsIdempotent:IsIdempotent(A):test for an idempotent matrix:
+:Idempotent?:Idempotent?(A):test for an idempotent matrix:
 :IsInfinity:IsInfinity(expr):test for an infinity:
 :IsInfix:IsInfix("op"):check for function syntax:
 :IsIrregularPrime:IsIrregularPrime(n):test for an irregular prime:
