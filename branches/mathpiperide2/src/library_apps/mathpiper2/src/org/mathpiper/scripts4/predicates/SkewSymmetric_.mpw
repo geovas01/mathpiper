@@ -36,5 +36,5 @@ Result: True;
 In> SkewSymmetric?(A);
 Result: True;
 
-*SEE Symmetric?, IsHermitian
+*SEE Symmetric?, Hermitian?
 %/mathpiper_docs

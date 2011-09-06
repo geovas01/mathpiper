@@ -51,11 +51,11 @@ public class IsBound extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsBound",categories="User Functions;Predicates;Built In"
-*CMD IsBound --- test for a bound variable
+%mathpiper_docs,name="Bound?",categories="User Functions;Predicates;Built In"
+*CMD Bound? --- test for a bound variable
 *CORE
 *CALL
-	IsBound(var)
+	Bound?(var)
 
 *PARMS
 
@@ -68,11 +68,11 @@ it has been assigned a value. The argument "var" is not evaluated.
 
 *E.G.
 
-In> IsBound(x);
+In> Bound?(x);
 Result: False;
 In> x := 5;
 Result: 5;
-In> IsBound(x);
+In> Bound?(x);
 Result: True;
 
 *SEE IsAtom

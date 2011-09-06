@@ -7,7 +7,7 @@ Rulebase("MultiNomial",{vars,terms});
 //LoadScriptOnce("multivar.rep/sparsenomial.mpi");
 //LoadScriptOnce("multivar.rep/partialdensenomial.mpi");
 
-/*If(IsBound(MultiNomialDriver),
+/*If(Bound?(MultiNomialDriver),
   `LoadScriptOnce(@MultiNomialDriver),
   LoadScriptOnce("multivar.rep/sparsenomial.mpi"));
 */

@@ -135,13 +135,13 @@ Make sure that the arguments of {Macro}... commands evaluate to expressions that
 %mathpiper,name="Local",subtype="automatic_test"
 
 [
-  Verify(IsBound({}),False);
+  Verify(Bound?({}),False);
   Local(a);
-  Verify(IsBound(a),False);
+  Verify(Bound?(a),False);
   a:=1;
-  Verify(IsBound(a),True);
+  Verify(Bound?(a),True);
   Unbind(a);
-  Verify(IsBound(a),False);
+  Verify(Bound?(a),False);
 ];
 
 %/mathpiper

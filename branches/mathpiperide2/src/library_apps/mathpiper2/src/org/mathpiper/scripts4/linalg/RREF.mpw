@@ -13,7 +13,7 @@
 
 10 # RREF( AM_IsMatrix ) <--
 [
-    If( Not? IsBound(iDebug), iDebug := False );
+    If( Not? Bound?(iDebug), iDebug := False );
     If(iDebug,Tell("RREF",AM));
     Local(mRows,nCols,nVars,varVec,ir,jc,col,am,e,ii,pivot);
     {mRows,nCols} := Dimensions(AM);

@@ -43,5 +43,5 @@ In> Symmetric?(A)
 Result: True;
                 
 
-*SEE IsHermitian, SkewSymmetric?
+*SEE Hermitian?, SkewSymmetric?
 %/mathpiper_docs
