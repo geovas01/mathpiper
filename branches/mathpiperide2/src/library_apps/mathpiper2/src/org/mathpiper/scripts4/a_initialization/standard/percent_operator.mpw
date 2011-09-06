@@ -1,6 +1,6 @@
 %mathpiper,def="%"
 
-a_NonNegativeInteger? % b_IsPositiveInteger <-- Modulo(a,b);
+a_NonNegativeInteger? % b_PositiveInteger? <-- Modulo(a,b);
 
 %/mathpiper
 

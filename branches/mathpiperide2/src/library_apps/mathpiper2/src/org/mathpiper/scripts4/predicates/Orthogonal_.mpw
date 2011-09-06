@@ -1,16 +1,16 @@
-%mathpiper,def="IsOrthogonal"
+%mathpiper,def="Orthogonal?"
 
-IsOrthogonal(A_IsMatrix) <-- (Transpose(A)*A=?Identity(Length(A)));
+Orthogonal?(A_IsMatrix) <-- (Transpose(A)*A=?Identity(Length(A)));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsOrthogonal",categories="User Functions;Matrices (Predicates);Predicates"
-*CMD IsOrthogonal --- test for an orthogonal matrix
+%mathpiper_docs,name="Orthogonal?",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD Orthogonal? --- test for an orthogonal matrix
 *STD
 *CALL
-        IsOrthogonal(A)
+        Orthogonal?(A)
 
 *PARMS
 
@@ -18,7 +18,7 @@ IsOrthogonal(A_IsMatrix) <-- (Transpose(A)*A=?Identity(Length(A)));
 
 *DESC
 
-{IsOrthogonal(A)} returns {True} if {A} is orthogonal and {False} 
+{Orthogonal?(A)} returns {True} if {A} is orthogonal and {False} 
 otherwise. $A$ is orthogonal iff $A$*Transpose($A$) = Identity, or
 equivalently Inverse($A$) = Transpose($A$).
 
@@ -42,6 +42,6 @@ In> PrettyForm(A/3)
         | \ 3  / \ 3 / \ 3  /  |
         \                      /
 Result: True;
-In> IsOrthogonal(A/3)
+In> Orthogonal?(A/3)
 Result: True;
 %/mathpiper_docs

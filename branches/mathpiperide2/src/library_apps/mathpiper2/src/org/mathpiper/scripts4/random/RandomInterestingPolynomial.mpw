@@ -7,7 +7,7 @@
 //Retract("RandomIrreducibleQuadraticWithRealRoots",*);
 
 
-10 # RandomInterestingPolynomial( deg_IsPositiveInteger, _var ) <--
+10 # RandomInterestingPolynomial( deg_PositiveInteger?, _var ) <--
 [
     RandomSeed( SystemTimer() );   //  randomize random number generator
     NewRandomPoly(deg,var);   
@@ -133,7 +133,7 @@
 ];
 
 
-11 # NewRandomPoly( deg_IsPositiveInteger, _var )_(deg >? 5) <--
+11 # NewRandomPoly( deg_PositiveInteger?, _var )_(deg >? 5) <--
 [
     Local(p,n,m);
     p := {};

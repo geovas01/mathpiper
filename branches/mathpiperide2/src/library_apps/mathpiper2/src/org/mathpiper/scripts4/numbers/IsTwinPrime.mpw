@@ -1,6 +1,6 @@
 %mathpiper,def="IsTwinPrime"
 
-IsTwinPrime(n_IsPositiveInteger)        <-- (IsPrime(n) And? IsPrime(n+2));
+IsTwinPrime(n_PositiveInteger?)        <-- (IsPrime(n) And? IsPrime(n+2));
 
 %/mathpiper
 

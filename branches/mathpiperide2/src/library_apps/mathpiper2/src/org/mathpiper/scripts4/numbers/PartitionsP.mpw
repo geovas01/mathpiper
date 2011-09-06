@@ -19,7 +19,7 @@
 20 # PartitionsP(n_IsInteger) <-- PartitionsP'HR(n);
 
 /// Calculation using the Hardy-Ramanujan series.
-10 # PartitionsP'HR(n_IsPositiveInteger) <--
+10 # PartitionsP'HR(n_PositiveInteger?) <--
 [
         Local(P0, A, lambda, mu, mu'k, result, term, j, k, l, prec, epsilon);
         result:=0;
@@ -88,7 +88,7 @@
 
 // old code for comparison
 
-10 # PartitionsP1(n_IsPositiveInteger) <--
+10 # PartitionsP1(n_PositiveInteger?) <--
  [
                  Local(C,A,lambda,m,pa,k,h,term);
            GlobalPush(BuiltinPrecisionGet());
@@ -121,7 +121,7 @@
 /// integer partitions by recurrence relation P(n) = Sum(k,1,n, (-1)^(k+1)*( P(n-k*(3*k-1)/2)+P(n-k*(3*k+1)/2) ) ) = P(n-1)+P(n-2)-P(n-5)-P(n-7)+...
 /// where 1, 2, 5, 7, ... is the "generalized pentagonal sequence"
 /// this method is faster with internal math for number<300 or so.
-PartitionsP'recur(number_IsPositiveInteger) <--
+PartitionsP'recur(number_PositiveInteger?) <--
 [
         // need storage of n values PartitionsP(k) for k=1,...,n
         Local(sign, cache, n, k, pentagonal, P);

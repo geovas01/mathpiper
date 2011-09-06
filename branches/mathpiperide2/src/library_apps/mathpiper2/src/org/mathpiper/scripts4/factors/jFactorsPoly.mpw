@@ -226,7 +226,7 @@ UnFence("jFactorsHomogeneousBivariate",1);
 
 // ---------------------   OTHER STUFF ------------------------
 
-10 # RealToRationalConvert( poly_IsPolynomial ) <--
+10 # RealToRationalConvert( poly_Polynomial? ) <--
 [
     // If the polynomial has REAL coefficients, convert them to
     // approximate RATIONALS
@@ -247,7 +247,7 @@ UnFence("jFactorsHomogeneousBivariate",1);
 UnFence("RealToRationalConvert",1);
 
 
-10 # RationalToIntegerConvert( poly_IsPolynomial ) <--
+10 # RationalToIntegerConvert( poly_Polynomial? ) <--
 [
     // If the polynomial has RATIONAL coefficients, convert to
     // approximate INTEGER
@@ -278,7 +278,7 @@ UnFence("RationalToIntegerConvert",1);
             [
                 {a,b} := q;
                 If( InVerboseMode(), Echo("     ",{a,b}) );
-                If( IsNumericList( {a,b} ),
+                If( NumericList?( {a,b} ),
                     t := t * a^b,
                     f := {a,b}:f
                 );
@@ -302,7 +302,7 @@ UnFence("RationalToIntegerConvert",1);
 // ----------------  RATIONAL POLYNOMIALS  -----------------
 
 150 # jFactors( expr_IsRationalFunction )_
-        (IsPolynomial(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
+        (Polynomial?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("jFactors_Rational_Function",expr);]);
     Local(Numer,Denom,fNumer,fDenom);
@@ -316,7 +316,7 @@ UnFence("RationalToIntegerConvert",1);
 
 
 152 # jFactors( expr_IsRationalFunction )_
-        (Constant?(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
+        (Constant?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("jFactors_Rational_Denom",expr);]);
     Local(Numer,Denom,fNumer,fDenom);
@@ -354,7 +354,7 @@ UnFence("RationalToIntegerConvert",1);
  *     factoring when degree is large.)
  *-------------------------------------------------------------------*/
 
-10 # jFactorsBivariateBinomial( poly_IsPolynomial )_(Length(VarList(poly))=?2)  <--
+10 # jFactorsBivariateBinomial( poly_Polynomial? )_(Length(VarList(poly))=?2)  <--
 [
     If(InVerboseMode(),Tell(jFactorsBivariateBinomial,poly));
     Local(dis,n,X,Y,vars,A,B,s,Ar,Br,Arr,Brr,DAr,DBr,result);
@@ -433,7 +433,7 @@ UnFence("jFB",1);
 
 
 
-60 # jFac( _var, n_IsPositiveInteger, s_IsInteger ) <--
+60 # jFac( _var, n_PositiveInteger?, s_IsInteger ) <--
 [
     //  Uses JAS to factor polynomial of form x^n � 1.
     If(InVerboseMode(),[NewLine();Tell("jFac",{var,n,s});]);
@@ -449,7 +449,7 @@ UnFence("jFac",3);
 
 12 # IsPureRational( _N ) <-- False;
 
-10 # HasRealCoefficients( poly_IsPolynomial ) <--
+10 # HasRealCoefficients( poly_Polynomial? ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
@@ -464,7 +464,7 @@ UnFence("jFac",3);
 ];
 
 
-10 # HasRationalCoefficients( poly_IsPolynomial ) <--
+10 # HasRationalCoefficients( poly_Polynomial? ) <--
 [
     Local(disassem,answer);
     If(InVerboseMode(),Tell("  HasRationalCoefficients",poly));

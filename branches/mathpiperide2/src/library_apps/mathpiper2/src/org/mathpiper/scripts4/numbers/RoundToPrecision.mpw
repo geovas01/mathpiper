@@ -2,7 +2,7 @@
 
 //Retract("RoundToPrecision",*);
 
-10 # RoundToPrecision( N_IsDecimal, newPrec_IsPositiveInteger ) <--
+10 # RoundToPrecision( N_IsDecimal, newPrec_PositiveInteger? ) <--
 [
     //If(InVerboseMode(),Tell("RoundToPrecision_D",{N,newPrec}));
     Local(rep,sgn,oldInt,oldPrec,oldScale,strOInt,LS,BIP0);
@@ -64,7 +64,7 @@
 ];
 
 
-15 # RoundToPrecision( N_IsInteger, newPrec_IsPositiveInteger ) <--
+15 # RoundToPrecision( N_IsInteger, newPrec_PositiveInteger? ) <--
 [
     //If(InVerboseMode(),Tell("RoundToPrecision_I",{N,newPrec}));
     Local(oldRep,oldPrec,decN,newDecN,ans);
@@ -84,7 +84,7 @@
 ];
 
 
-20 # RoundToPrecision( N_IsComplex, newPrec_IsPositiveInteger ) <--
+20 # RoundToPrecision( N_IsComplex, newPrec_PositiveInteger? ) <--
 [
     //If(InVerboseMode(),Tell("RoundToPrecision_C",{N,newPrec}));
     Local(rr,ii);

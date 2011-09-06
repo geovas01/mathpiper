@@ -22,7 +22,7 @@
 /* -------------    NUMBERS    --------------*/
 
 
-10 # Factors(n_IsPositiveInteger) <--  
+10 # Factors(n_PositiveInteger?) <--  
 [
     If( n <? 1600, FactorsSmallInteger(n), FactorizeInt(n) );
 ];

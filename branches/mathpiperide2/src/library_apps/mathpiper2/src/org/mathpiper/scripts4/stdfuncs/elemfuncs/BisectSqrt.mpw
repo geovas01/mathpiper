@@ -16,7 +16,7 @@
 10 # BisectSqrt(0) <-- 0;
 10 # BisectSqrt(1) <-- 1;
 
-20 # BisectSqrt(N_IsPositiveInteger) <--
+20 # BisectSqrt(N_PositiveInteger?) <--
 [
   Local(l2,u,v,u2,v2,uv2,n);
 

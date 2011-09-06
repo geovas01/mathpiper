@@ -28,5 +28,5 @@ Result: False;
 In> NegativeNumber?(-2.5);
 Result: True;
 
-*SEE IsNumber, IsPositiveNumber, IsNotZero, NegativeInteger?, NegativeReal?
+*SEE IsNumber, PositiveNumber?, NotZero?, NegativeInteger?, NegativeReal?
 %/mathpiper_docs

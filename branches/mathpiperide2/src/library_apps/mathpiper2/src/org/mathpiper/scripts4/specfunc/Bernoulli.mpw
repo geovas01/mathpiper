@@ -9,7 +9,7 @@
 10 # Bernoulli(0) <-- 1;
 10 # Bernoulli(1) <-- -1/2;
 15 # Bernoulli(n_IsInteger)_(n<?0) <-- Undefined;
-30 # Bernoulli(n_IsOdd) <-- 0;
+30 # Bernoulli(n_Odd?) <-- 0;
 
 /// numerical computations of Bernulli numbers use two different methods, one good for small numbers and one good only for very large numbers (using Zeta function)
 20 # Bernoulli(n_Even?)_(n<=?Bernoulli1Threshold()) <-- Internal'BernoulliArray(n)[n+1];

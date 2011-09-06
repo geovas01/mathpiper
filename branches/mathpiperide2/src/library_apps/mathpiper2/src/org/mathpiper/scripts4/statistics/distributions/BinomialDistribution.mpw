@@ -5,7 +5,7 @@
 
 BinomialDistribution(_p, _n)_
         (If(IsRationalOrNumber(p),p<?0 Or? p>?1, False)
-         Or? (Constant?(n) And? Not? IsPositiveInteger(n)) )
+         Or? (Constant?(n) And? Not? PositiveInteger?(n)) )
         <-- Undefined;
 
 %/mathpiper

@@ -29,5 +29,5 @@ Result: True;
 In> Even?(-1);
 Result: False;
 
-*SEE IsOdd, IsInteger
+*SEE Odd?, IsInteger
 %/mathpiper_docs

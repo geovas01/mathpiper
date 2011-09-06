@@ -4,7 +4,7 @@
 1# NextPseudoPrime(i_IsInteger)_(i<=?1) <-- 2;
 2# NextPseudoPrime(2) <-- 3;
 //2# NextPseudoPrime(3) <-- 5;
-3# NextPseudoPrime(i_IsOdd) <--
+3# NextPseudoPrime(i_Odd?) <--
 [
         // this sequence generates numbers not divisible by 2 or 3
         i := i+2;

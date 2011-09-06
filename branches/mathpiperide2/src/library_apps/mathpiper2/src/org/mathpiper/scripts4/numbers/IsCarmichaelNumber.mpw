@@ -3,7 +3,7 @@
 // Carmichael numbers are odd,squarefree and have at least 3 prime factors
 5  # IsCarmichaelNumber(n_Even?)                <-- False;
 5  # IsCarmichaelNumber(_n)_(n<?561)                <-- False;
-10 # IsCarmichaelNumber(n_IsPositiveInteger)        <--
+10 # IsCarmichaelNumber(n_PositiveInteger?)        <--
 [
         Local(i,factors,length,carmichael);
 

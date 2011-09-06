@@ -3,7 +3,7 @@
 10 # IsUniVar(UniVariate(_var,_first,_coefs)) <-- True;
 20 # IsUniVar(_anything) <-- False;
 
-200 # aLeft_IsUniVar ^ aRight_IsPositiveInteger <--
+200 # aLeft_IsUniVar ^ aRight_PositiveInteger? <--
       RepeatedSquaresMultiply(aLeft,aRight);
 
 

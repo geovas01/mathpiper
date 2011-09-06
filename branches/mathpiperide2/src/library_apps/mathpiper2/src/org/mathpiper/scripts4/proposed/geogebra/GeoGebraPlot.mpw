@@ -22,7 +22,7 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
 
 
 
-10 # GeoGebraPlot(list_IsList, _options)_(IsNumericList(list) )  <--
+10 # GeoGebraPlot(list_IsList, _options)_(NumericList?(list) )  <--
 [
     If(IsList(options), options := OptionsToAssociativeList(options), options := OptionsToAssociativeList({options}));
 
@@ -30,7 +30,7 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
     
     length := Length(list);
     
-    If(IsOdd(length), list := Append(list,list[length])); //Make list even for line drawing.
+    If(Odd?(length), list := Append(list,list[length])); //Make list even for line drawing.
     
     If(options["pointSize"] !=? Empty, pointSize := options["pointSize"], pointSize := "1");
     

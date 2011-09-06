@@ -1,6 +1,6 @@
 %mathpiper,def="IsPerfect"
 
-IsPerfect(n_IsPositiveInteger) <-- ProperDivisorsSum(n)=?n;
+IsPerfect(n_PositiveInteger?) <-- ProperDivisorsSum(n)=?n;
 
 %/mathpiper
 

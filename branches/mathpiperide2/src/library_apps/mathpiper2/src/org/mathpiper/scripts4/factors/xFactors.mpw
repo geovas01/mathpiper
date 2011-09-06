@@ -33,7 +33,7 @@
 /* -------------    NUMBERS    --------------*/
 
 
-10 # xFactors(p_IsPositiveInteger) <--  
+10 # xFactors(p_PositiveInteger?) <--  
 [
     If( p <? 1600, FactorsSmallInteger(p), FactorizeInt(p) );
 ];
@@ -343,7 +343,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
 // ---------------------   OTHER STUFF ------------------------
 
 
-10 # ApproximateRealCoefficients( poly_IsPolynomial ) <--
+10 # ApproximateRealCoefficients( poly_Polynomial? ) <--
 [
     // If the polynomial has REAL coefficients, convert them to
     // approximate integers
@@ -378,7 +378,7 @@ UnFence("ApproximateRealCoefficients",1);
             [
                 {a,b} := q;
                 If( InVerboseMode(), Echo("     ",{a,b}) );
-                If( IsNumericList( {a,b} ),
+                If( NumericList?( {a,b} ),
                     t := t * a^b,
                     f := {a,b}:f
                 );
@@ -402,7 +402,7 @@ UnFence("ApproximateRealCoefficients",1);
 // ----------------  RATIONAL POLYNOMIALS  -----------------
 
 150 # xFactors( expr_IsRationalFunction )_
-        (IsPolynomial(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
+        (Polynomial?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Function",expr);]);
     Local(Numer,Denom,fNumer,fDenom);
@@ -416,7 +416,7 @@ UnFence("ApproximateRealCoefficients",1);
 
 
 152 # xFactors( expr_IsRationalFunction )_
-        (Constant?(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
+        (Constant?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Denom",expr);]);
     Local(Numer,Denom,fNumer,fDenom);
@@ -453,7 +453,7 @@ UnFence("ApproximateRealCoefficients",1);
 12 # IsPureRational( _N ) <-- False;
 
 
-10 # HasRealCoefficients( poly_IsPolynomial ) <--
+10 # HasRealCoefficients( poly_Polynomial? ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
@@ -468,7 +468,7 @@ UnFence("ApproximateRealCoefficients",1);
 ];
 
 
-10 # HasRationalCoefficients( poly_IsPolynomial ) <--
+10 # HasRationalCoefficients( poly_Polynomial? ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
@@ -538,7 +538,7 @@ UnFence("ApproximateRealCoefficients",1);
 ];
 UnFence("FixUpMonicFactors",1);
 
-10 # IsIrreducible( poly_IsPolynomial )_(Length(VarList(poly))=?1) <--
+10 # IsIrreducible( poly_Polynomial? )_(Length(VarList(poly))=?1) <--
 [
     //  If these tests return True, the polynomial IS irreducible..
     //  If they return False, the reducibility of the polynomial is

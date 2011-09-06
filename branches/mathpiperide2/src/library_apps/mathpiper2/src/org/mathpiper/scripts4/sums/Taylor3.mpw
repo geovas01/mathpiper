@@ -91,7 +91,7 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
          Taylor3'TaylorCoefs(var,degree)(Y),
          degree);
 
-30 # (Taylor3'TaylorCoefs(_var,_degree)((_X) ^ N_IsPositiveInteger))
+30 # (Taylor3'TaylorCoefs(_var,_degree)((_X) ^ N_PositiveInteger?))
   <--
 [
   Local(result,factor);
@@ -115,11 +115,11 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
 81 # Taylor3'CompCoeff("Ln", _n) <-- (-1)^(n+1)/n;
 
 90 # Taylor3'UniFunction("Sin")           <-- True;
-90 # Taylor3'CompCoeff("Sin", n_IsOdd)  <-- (-1)^((n-1)/2) / n!;
+90 # Taylor3'CompCoeff("Sin", n_Odd?)  <-- (-1)^((n-1)/2) / n!;
 90 # Taylor3'CompCoeff("Sin", n_Even?) <-- 0;
 
 100 # Taylor3'UniFunction("Cos")           <-- True;
-100 # Taylor3'CompCoeff("Cos", n_IsOdd)  <-- 0;
+100 # Taylor3'CompCoeff("Cos", n_Odd?)  <-- 0;
 100 # Taylor3'CompCoeff("Cos", n_Even?) <-- (-1)^(n/2) / n!;
 
 

@@ -33,13 +33,13 @@ LapTranDef(_in,_out) <--
   //Echo("50 # LapTran(_t,_s,",in,") <-- ",out,";");
   `(50 # LapTran(_t,_s,@in) <-- @out );
 
-  i:=Subst(_t,c_IsPositiveInteger*_t) in;
+  i:=Subst(_t,c_PositiveInteger?*_t) in;
   o:=Subst(s,s/c) out;
 
   //Echo("50 # LapTran(_t,_s,",i,") <-- ",o/c,";");
   `(50 # LapTran(_t,_s,@i ) <-- @o/c );
 
-  i:=Subst(_t,_t/c_IsPositiveInteger) in;
+  i:=Subst(_t,_t/c_PositiveInteger?) in;
   o:=Subst(s,s*c) out;
 
   //Echo("50 # LapTran(_t,_s,",i,") <-- ",o/c,";");

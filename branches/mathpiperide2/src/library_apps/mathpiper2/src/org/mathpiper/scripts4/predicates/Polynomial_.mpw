@@ -1,37 +1,37 @@
-%mathpiper,def="IsPolynomial"
+%mathpiper,def="Polynomial?"
 
-//Retract("IsPolynomial",*);
+//Retract("Polynomial?",*);
 
-10 # IsPolynomial(expr_IsFunction) <-- 
+10 # Polynomial?(expr_IsFunction) <-- 
 [
     Local(x,vars);
     vars := VarList(expr);
     If(Length(vars)>?1,vars:=HeapSort(vars,"IsGreaterThan"));    
     x := vars[1];
-    IsPolynomial(expr,x);
+    Polynomial?(expr,x);
 ];
 
-15 # IsPolynomial(_expr) <-- False;
+15 # Polynomial?(_expr) <-- False;
 
 
-10 # IsPolynomial(_expr,_var)_(CanBeUni(var,expr)) <-- True;
+10 # Polynomial?(_expr,_var)_(CanBeUni(var,expr)) <-- True;
 
-15 # IsPolynomial(_expr,_var) <-- False;
+15 # Polynomial?(_expr,_var) <-- False;
 
 %/mathpiper
 
 
 
 
-%mathpiper_docs,name="IsPolynomial",categories="Programmer Functions;Predicates"
+%mathpiper_docs,name="Polynomial?",categories="Programmer Functions;Predicates"
 
-*CMD IsPolynomial --- Check if {expr} is a polynomial in variable {var} if {var} is specified.
+*CMD Polynomial? --- Check if {expr} is a polynomial in variable {var} if {var} is specified.
 
 *STD
 *CALL
-    IsPolynomial(expr,var)
+    Polynomial?(expr,var)
 or
-    IsPolynomial(expr)
+    Polynomial?(expr)
 
 *PARMS
 
@@ -41,7 +41,7 @@ or
 
 *DESC
 
-The command {IsPolynomial} returns {True} if {expr} is (or could be) a polynomial in {var}.
+The command {Polynomial?} returns {True} if {expr} is (or could be) a polynomial in {var}.
 If {var} is not specified, a heuristic algorithm (which may be wrong!) is used to select a
 likely variable name from among the list of "variables" returned by VarList(expr).
 If you would rather not have an algorithm selecting the variable name, specify it as an
@@ -50,13 +50,13 @@ It returns {False} if {expr} is not likely to be a polynomial in {var}.
 
 *E.G.
 
-In> IsPolynomial(2*x^3-3*x^2+5*x-14,x)
+In> Polynomial?(2*x^3-3*x^2+5*x-14,x)
 Result: True 
 
-In> IsPolynomial(2*x^3-3*x^2+5*x-14)
+In> Polynomial?(2*x^3-3*x^2+5*x-14)
 Result: False
 
-In> IsPolynomial(y^2-4)
+In> Polynomial?(y^2-4)
 Result: True
         NOTE: if variable name is omitted, a reasonable default is taken.
 

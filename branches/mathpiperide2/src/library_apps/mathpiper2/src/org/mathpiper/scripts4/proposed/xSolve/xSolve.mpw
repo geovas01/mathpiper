@@ -262,7 +262,7 @@ LocalSymbols(res)
 
 LocalSymbols(x)
 [
-  20 # xSolve'Simple(_e1 ^ _n, _rhs, _var)_(e1 = var And? IsPositiveInteger(n)) <--
+  20 # xSolve'Simple(_e1 ^ _n, _rhs, _var)_(e1 = var And? PositiveInteger?(n)) <--
      [
          If(iDebug,Tell("xSolve56aSimple",{e1,n,rhs,var}));
          MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. n)/n));
@@ -277,7 +277,7 @@ LocalSymbols(x)
 ];
 
 20 # xSolve'Simple(_e1 ^ _e2, _rhs, _var)
-     _ (IsPositiveReal(e1) And? e1 !=? 0 And? e2 = var And? IsPositiveReal(rhs) And? rhs !=? 0)
+     _ (PositiveReal?(e1) And? e1 !=? 0 And? e2 = var And? PositiveReal?(rhs) And? rhs !=? 0)
      <-- [
              If(iDebug,Tell("xSolve57Simple",{e1,e2,rhs,var}));
              { var == Ln(rhs)/Ln(e1) };
@@ -369,13 +369,13 @@ LocalSymbols(x)
  * positive real part, together with the pure imaginary numbers with
  * nonnegative real part. */
  
-20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And? IsPositiveReal(Re(rhs)) And? Re(rhs) !=? 0) <-- 
+20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And? PositiveReal?(Re(rhs)) And? Re(rhs) !=? 0) <-- 
   [
       If(iDebug,Tell("xSolve65aSimple",{e1,rhs,var}));
       { var == rhs^2 };
   ];
 
-20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And? Re(rhs)=0 And? IsPositiveReal(Im(rhs))) <-- 
+20 # xSolve'Simple(Sqrt(_e1), _rhs, _var)_(e1 = var And? Re(rhs)=0 And? PositiveReal?(Im(rhs))) <-- 
   [
       If(iDebug,Tell("xSolve65bSimple",{e1,rhs,var}));
       { var == rhs^2 };

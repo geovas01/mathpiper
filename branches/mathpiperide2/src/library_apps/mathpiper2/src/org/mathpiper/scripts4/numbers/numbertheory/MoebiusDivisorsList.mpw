@@ -12,7 +12,7 @@
    It can be useful in other computations based on
    Moebius inversion formula. */
 
-MoebiusDivisorsList(n_IsPositiveInteger) <--
+MoebiusDivisorsList(n_PositiveInteger?) <--
 [
  Local(nFactors,f,result,oldresult,x);
  nFactors:= Factors(n);

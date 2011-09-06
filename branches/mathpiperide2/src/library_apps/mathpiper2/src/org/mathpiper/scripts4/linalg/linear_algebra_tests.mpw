@@ -110,9 +110,9 @@ TestMathPiper(Determinant({{a,b},{c,d}}),a*d-b*c);
 [
   Local(A);
   Verify( IsSymmetric(Identity(10)), True );
-  Verify( IsOrthogonal(2*Identity(10)), False );
+  Verify( Orthogonal?(2*Identity(10)), False );
   A := {{1,2,2},{2,1,-2},{-2,2,-1}};
-  Verify( IsOrthogonal(A/3), True );
+  Verify( Orthogonal?(A/3), True );
   Verify( IsSymmetric(Identity(10)), True );
   Verify( IsSymmetric({{1}}),True );
   A := {{1,0,0,0,1},{0,2,0,0,0},{0,0,3,0,0},{0,0,0,4,0},{1,0,0,0,5}};

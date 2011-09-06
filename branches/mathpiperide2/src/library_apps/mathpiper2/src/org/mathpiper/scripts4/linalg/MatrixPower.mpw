@@ -10,7 +10,7 @@ MatrixPower(x_IsSquareMatrix, n_NonNegativeInteger?) <--
    result:=Identity(Length(x));
    While(n !=? 0)
    [
-      If(IsOdd(n),
+      If(Odd?(n),
          result:=Dot(result,x));
       x:=Dot(x,x);
       n:=n>>1;

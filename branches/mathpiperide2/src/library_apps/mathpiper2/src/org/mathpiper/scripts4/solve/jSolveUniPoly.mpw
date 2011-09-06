@@ -7,7 +7,7 @@
    jSolveUniPoly(lhs-rhs,var);
 ];
 
-15 # jSolveUniPoly( poly_IsPolynomial, var_IsAtom )_(Length(VarList(poly))=?1) <--
+15 # jSolveUniPoly( poly_Polynomial?, var_IsAtom )_(Length(VarList(poly))=?1) <--
 [
    If(InVerboseMode(),Tell(jSolveUniPoly,{poly,var}));
    Local(factorList,f,fac,mult,ii,answer);
@@ -25,7 +25,7 @@
     answer;
 ];
 
-20 # jSolveUniPoly( poly_IsPolynomial, var_IsAtom ) <-- Failed;
+20 # jSolveUniPoly( poly_Polynomial?, var_IsAtom ) <-- Failed;
 
 
 %/mathpiper

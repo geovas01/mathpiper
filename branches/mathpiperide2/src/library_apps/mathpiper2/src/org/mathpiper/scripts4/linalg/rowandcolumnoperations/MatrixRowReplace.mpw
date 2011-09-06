@@ -1,6 +1,6 @@
 %mathpiper,def="MatrixRowReplace"
 
-MatrixRowReplace( M_IsMatrix, iRow_IsPositiveInteger, v_IsVector )_(Length(v)=?Length(M[1])) <--
+MatrixRowReplace( M_IsMatrix, iRow_PositiveInteger?, v_IsVector )_(Length(v)=?Length(M[1])) <--
 [
     If( Not? IsBound(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixRowReplace,{M,iRow,v}) );

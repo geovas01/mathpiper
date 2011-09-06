@@ -1,20 +1,20 @@
-%mathpiper,def="IsPolynomialOverIntegers"
+%mathpiper,def="PolynomialOverIntegers?"
 
-//Retract("IsPolynomialOverIntegers",*);
+//Retract("PolynomialOverIntegers?",*);
 
-10 # IsPolynomialOverIntegers(expr_IsFunction) <-- 
+10 # PolynomialOverIntegers?(expr_IsFunction) <-- 
 [
     Local(x,vars);
     vars := VarList(expr);
     If(Length(vars)>?1,vars:=HeapSort(vars,"IsGreaterThan"));    
     x := vars[1];
-    IsPolynomialOverIntegers(expr,x);
+    PolynomialOverIntegers?(expr,x);
 ];
 
-15 # IsPolynomialOverIntegers(_expr) <-- False;
+15 # PolynomialOverIntegers?(_expr) <-- False;
 
 
-10 # IsPolynomialOverIntegers(_expr,_var)_(CanBeUni(var,expr)) <--
+10 # PolynomialOverIntegers?(_expr,_var)_(CanBeUni(var,expr)) <--
 [
     If( AllSatisfy?("IsInteger",Coef(expr,var,0 .. Degree(expr,var))),
         True,
@@ -22,7 +22,7 @@
       );
 ];
 
-15 # IsPolynomialOverIntegers(_expr,_var) <-- False;
+15 # PolynomialOverIntegers?(_expr,_var) <-- False;
 
 %/mathpiper
 
@@ -31,13 +31,13 @@
 .   %/output
 
 
-%mathpiper_docs,name="IsPolynomialOverIntegers",categories="Programmer Functions;Predicates"
+%mathpiper_docs,name="PolynomialOverIntegers?",categories="Programmer Functions;Predicates"
 
-*CMD IsPolynomialOverIntegers --- Check if {expr} is a polynomial in variable {var} all of whose coefficients are integers
+*CMD PolynomialOverIntegers? --- Check if {expr} is a polynomial in variable {var} all of whose coefficients are integers
 
 *STD
 *CALL
-    IsPolynomialOverIntegers(expr,var)
+    PolynomialOverIntegers?(expr,var)
 
 *PARMS
 
@@ -47,24 +47,24 @@
 
 *DESC
 
-The command {IsPolynomialOverIntegers} returns {True} if {expr} is a polynomial in {var} and all of its coefficients are integers.
+The command {PolynomialOverIntegers?} returns {True} if {expr} is a polynomial in {var} and all of its coefficients are integers.
 It returns {False} if {expr} is not a polynomial in {var} or if any of its coefficients are not integers.
 
 This can be important, since many factoring theorems are applicable to such polynomials but not others.
 
 *E.G.
 
-In> IsPolynomialOverIntegers(2*x^3-3*x^2+5*x-14,x)
+In> PolynomialOverIntegers?(2*x^3-3*x^2+5*x-14,x)
 Result: True 
 
-In> IsPolynomialOverIntegers(2.0*x^3-3*x^2+5*x-14,x)
+In> PolynomialOverIntegers?(2.0*x^3-3*x^2+5*x-14,x)
 Result: False
 
-In> IsPolynomialOverIntegers(y^2-4)
+In> PolynomialOverIntegers?(y^2-4)
 Result: True
         NOTE: if variable name is omitted, a reasonable default is taken.
 
-In> IsPolynomialOverIntegers(x^2-a^2)
+In> PolynomialOverIntegers?(x^2-a^2)
 Result: False
         NOTE: the unbound variable 'a' need not be an integer.
 

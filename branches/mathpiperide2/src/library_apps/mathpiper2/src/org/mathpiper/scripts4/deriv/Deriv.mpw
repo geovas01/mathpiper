@@ -3,7 +3,7 @@
 
 5 # (Deriv(_var,1)_func) <-- Deriv(var)func;
 5 # (Deriv(_var,0)_func) <-- func;
-10 # (Deriv(_var,n_IsPositiveInteger)_func) <-- Deriv(var)Deriv(var,n-1)func;
+10 # (Deriv(_var,n_PositiveInteger?)_func) <-- Deriv(var)Deriv(var,n-1)func;
 10 # (Deriv(_var,n_NegativeInteger?)_func) <-- Check(0, "Math", "Negative derivative");
 
 

@@ -1,17 +1,17 @@
-%mathpiper,def="IsOddFunction"
+%mathpiper,def="OddFunction?"
 
-IsOddFunction(f,x):= (f =? Eval(-Subst(x,-x)f));
+OddFunction?(f,x):= (f =? Eval(-Subst(x,-x)f));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsOddFunction",categories="User Functions;Predicates"
-*CMD IsOddFunction --- Return true if function is an odd function (False otherwise)
+%mathpiper_docs,name="OddFunction?",categories="User Functions;Predicates"
+*CMD OddFunction? --- Return true if function is an odd function (False otherwise)
 
 *STD
 *CALL
-        IsOddFunction(expression,variable)
+        OddFunction?(expression,variable)
 
 *PARMS
 
@@ -42,13 +42,13 @@ $$ f_odd(x) = (f(x)-f(-x))/2 $$
 
 *E.G.
 
-In> IsOddFunction(Cos(b*x),x)
+In> OddFunction?(Cos(b*x),x)
 Result: False
-In> IsOddFunction(Sin(b*x),x)
+In> OddFunction?(Sin(b*x),x)
 Result: True
-In> IsOddFunction(1/x,x)
+In> OddFunction?(1/x,x)
 Result: True
-In> IsOddFunction(1/x^2,x)
+In> OddFunction?(1/x^2,x)
 Result: False
 
 *SEE EvenFunction?, Sin, Cos

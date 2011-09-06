@@ -121,7 +121,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
         xdelta := N(Eval( (xrange[2] - xrange[1]) / (options'hash["xpoints"]) ) );
         ydelta := N(Eval( (yrange[2] - yrange[1]) / (options'hash["ypoints"]) ) );
         // check that the input parameters are valid (all numbers)
-        Check(IsNumericList({xrange[1], xrange[2], options'hash["xpoints"], options'hash["ypoints"], options'hash["precision"]}),
+        Check(NumericList?({xrange[1], xrange[2], options'hash["xpoints"], options'hash["ypoints"], options'hash["precision"]}),
                 "Argument", 
                 "Plot3DS: Error: plotting ranges '"
                 :(PipeToString()Write(xrange, yrange))

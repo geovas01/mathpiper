@@ -45,8 +45,8 @@ Function() MultiplyNum(x);
 40 # MultiplyNum(Complex(r1_IsNumber, i1_IsNumber), Complex(r2_IsNumber, i2_IsNumber)) <-- Complex(MultiplyNum(r1,r2)-MultiplyNum(i1,i2), MultiplyNum(r1,i2)+MultiplyNum(i1,r2));
 
 /// more than 2 operands
-30 # MultiplyNum(x_IsRationalOrNumber, y_IsNumericList)_(Length(y)>?1) <-- MultiplyNum(MultiplyNum(x, First(y)), Rest(y));
-40 # MultiplyNum(x_IsRationalOrNumber, y_IsNumericList)_(Length(y)=?1) <-- MultiplyNum(x, First(y));
+30 # MultiplyNum(x_IsRationalOrNumber, y_NumericList?)_(Length(y)>?1) <-- MultiplyNum(MultiplyNum(x, First(y)), Rest(y));
+40 # MultiplyNum(x_IsRationalOrNumber, y_NumericList?)_(Length(y)=?1) <-- MultiplyNum(x, First(y));
 
 %/mathpiper
 

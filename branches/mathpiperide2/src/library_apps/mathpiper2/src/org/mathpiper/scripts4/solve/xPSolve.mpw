@@ -238,7 +238,7 @@ Function("xPSolve",{expr,var})
 ];
 
 
-10 # xPSolveCubic( poly_IsPolynomial )_
+10 # xPSolveCubic( poly_Polynomial? )_
                    (Length(VarList(poly))=?1 And? Degree(poly)=?3) <--
 [
     If( iDebug, Tell("  xPSolveCubic",poly) );

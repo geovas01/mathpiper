@@ -78,7 +78,7 @@ Rulebase("Taylor'LPS'Compose",{lps1,lps2});
   bit slower (but more correct, more elegant).
   */
 10 # (Taylor2(_x, _a, _n) _y)
-   _ (Not?(IsPositiveInteger(n) Or? IsZero(n)))
+   _ (Not?(PositiveInteger?(n) Or? IsZero(n)))
    <-- Check(False, "Argument", "Third argument to Taylor should be a nonnegative integer");
 
 20 # (Taylor2(_x, 0, _n) _y) <--
@@ -453,7 +453,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 /* Implement powers as repeated multiplication,
  * which is seriously inefficient.
  */
-10 # Taylor'LPS'NormalizeExpr(_var, _e1 ^ (n_IsPositiveInteger))
+10 # Taylor'LPS'NormalizeExpr(_var, _e1 ^ (n_PositiveInteger?))
    _ (e1 !=? var)
    <-- Taylor'LPS'Multiply(Taylor'LPS'Construct(var, e1),
                            Taylor'LPS'Construct(var, e1^(n-1)));
@@ -546,9 +546,9 @@ _[
 
 /* Powers */
 
-40 # Taylor'LPS'CompOrder(_x, _x^(k_IsPositiveInteger))     <-- k;
-40 # Taylor'LPS'CompCoeff(_x, _x^(k_IsPositiveInteger), _k) <-- 1;
-41 # Taylor'LPS'CompCoeff(_x, _x^(k_IsPositiveInteger), _n) <-- 0;
+40 # Taylor'LPS'CompOrder(_x, _x^(k_PositiveInteger?))     <-- k;
+40 # Taylor'LPS'CompCoeff(_x, _x^(k_PositiveInteger?), _k) <-- 1;
+41 # Taylor'LPS'CompCoeff(_x, _x^(k_PositiveInteger?), _n) <-- 0;
 
 /* Sqrt */
 
@@ -586,13 +586,13 @@ _[
 /* Sin */
 
 90 # Taylor'LPS'CompOrder(_x, Sin(_x))           <-- 1;
-90 # Taylor'LPS'CompCoeff(_x, Sin(_x), n_IsOdd)  <-- (-1)^((n-1)/2) / n!;
+90 # Taylor'LPS'CompCoeff(_x, Sin(_x), n_Odd?)  <-- (-1)^((n-1)/2) / n!;
 90 # Taylor'LPS'CompCoeff(_x, Sin(_x), n_Even?) <-- 0;
 
 /* Cos */
 
 100 # Taylor'LPS'CompOrder(_x, Cos(_x))           <-- 0;
-100 # Taylor'LPS'CompCoeff(_x, Cos(_x), n_IsOdd)  <-- 0;
+100 # Taylor'LPS'CompCoeff(_x, Cos(_x), n_Odd?)  <-- 0;
 100 # Taylor'LPS'CompCoeff(_x, Cos(_x), n_Even?) <-- (-1)^(n/2) / n!;
 
 /* Inverse (not needed but speeds things up) */

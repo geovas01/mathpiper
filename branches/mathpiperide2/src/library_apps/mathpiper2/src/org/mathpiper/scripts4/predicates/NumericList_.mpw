@@ -1,18 +1,18 @@
-%mathpiper,def="IsNumericList"
+%mathpiper,def="NumericList?"
 
 // check that all items in the list are numbers
-IsNumericList(_arg'list) <-- IsList(arg'list) And?
+NumericList?(_arg'list) <-- IsList(arg'list) And?
         ("And?" @ (MapSingle(Hold({{x},IsNumber(N(Eval(x)))}), arg'list)));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsNumericList",categories="User Functions;Predicates"
-*CMD IsNumericList --- test for a list of numbers
+%mathpiper_docs,name="NumericList?",categories="User Functions;Predicates"
+*CMD NumericList? --- test for a list of numbers
 *STD
 *CALL
-        IsNumericList({list})
+        NumericList?({list})
 
 *PARMS
 

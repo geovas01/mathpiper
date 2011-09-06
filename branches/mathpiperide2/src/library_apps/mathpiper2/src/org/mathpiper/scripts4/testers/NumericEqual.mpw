@@ -2,7 +2,7 @@
 
 //Retract("NumericEqual",*);
 
-10 # NumericEqual(left_IsDecimal, right_IsDecimal, precision_IsPositiveInteger) <--
+10 # NumericEqual(left_IsDecimal, right_IsDecimal, precision_PositiveInteger?) <--
 [
     If(InVerboseMode(),Tell("NumericEqual",{left,right}));
     Local(repL,repR,precL,precR,newL,newR,plo,phi,replo,rephi);
@@ -24,14 +24,14 @@
 ];
 
 
-15 # NumericEqual(left_IsInteger, right_IsInteger, precision_IsPositiveInteger) <--
+15 # NumericEqual(left_IsInteger, right_IsInteger, precision_PositiveInteger?) <--
 [
     If(InVerboseMode(),Tell("NumericEqualInt",{left,right}));
     left =? right;
 ];
 
 
-20 # NumericEqual(left_IsNumber, right_IsNumber, precision_IsPositiveInteger) <--
+20 # NumericEqual(left_IsNumber, right_IsNumber, precision_PositiveInteger?) <--
 [
     If(InVerboseMode(),Tell("NumericEqualNum",{left,right}));
     Local(nI,nD,repI,repD,precI,precD,intAsDec,newDec,newrepI,newrepD,ans);
@@ -60,7 +60,7 @@
 ];
 
 
-25 # NumericEqual(left_IsComplex, right_IsComplex, precision_IsPositiveInteger) <--
+25 # NumericEqual(left_IsComplex, right_IsComplex, precision_PositiveInteger?) <--
 [
     If(InVerboseMode(),Tell("NumericEqualC",{left,right}));
     Local(rrL,iiL,rrR,iiR,ans);

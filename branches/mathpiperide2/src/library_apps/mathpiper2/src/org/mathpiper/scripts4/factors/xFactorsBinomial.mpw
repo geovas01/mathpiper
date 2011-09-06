@@ -10,7 +10,7 @@
 //Retract("IsPowerOf2",*);
 
 
-10 # xFactorsBinomial( poly_IsPolynomial )_(Length(VarList(poly))=1)  <-- 
+10 # xFactorsBinomial( poly_Polynomial? )_(Length(VarList(poly))=1)  <-- 
 [
     If(InVerboseMode(),Tell(xFactorsBinomial,poly));
     Local(dis,n,X,var,A,B,s,Ar,Br);
@@ -29,7 +29,7 @@
 ];
 
 
-10 # xFactorsBinomial( poly_IsPolynomial )_(Length(VarList(poly))=2)  <-- 
+10 # xFactorsBinomial( poly_Polynomial? )_(Length(VarList(poly))=2)  <-- 
 [
     If(InVerboseMode(),Tell(xFactorsBinomial,poly));
     Local(dis,n,X,Y,vars,A,B,s,Ar,Br);
@@ -85,7 +85,7 @@
 UnFence("xFB1",1);
 
 
-15 # xFB1(_X,n_IsSmallPrime,s_IsNotZero)_(IsOdd(n)) <--
+15 # xFB1(_X,n_IsSmallPrime,s_NotZero?)_(Odd?(n)) <--
 [
     Local(ans,k);
     If(InVerboseMode(),[NewLine();Tell("   xFB1prime",{X,n,s});]);
@@ -97,7 +97,7 @@ UnFence("xFB1",1);
 UnFence("xFB1",3);
 
 
-20 # xFB1(_X, n_IsOdd, s_IsPositiveInteger) <--
+20 # xFB1(_X, n_Odd?, s_PositiveInteger?) <--
 [
     Local(ans,ans1);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1oddsum",{X,Y,n});]);
@@ -119,7 +119,7 @@ UnFence("xFB1",3);
 ];
 
 
-25 # xFB1(_X,n_IsOdd, s_NegativeInteger?) <--
+25 # xFB1(_X,n_Odd?, s_NegativeInteger?) <--
 [
     Local(ans);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1odddif",{X,n});]);
@@ -143,15 +143,15 @@ UnFence("xFB1",3);
 ];
 
 
-30 # xFB1(_X, n_Even?, s_IsPositiveInteger) <--
+30 # xFB1(_X, n_Even?, s_PositiveInteger?) <--
 [
     Local(ans,fn,mx,my);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1evensum",{X,n});]);
     fn    := {{1,1}};
     If( n >? 1, fn := FactorsSmallInteger(n) );
-    If(Length(fn)=1 And? IsOdd(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
+    If(Length(fn)=1 And? Odd?(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
     If(Length(fn)>?1,
-         ForEach(f,fn) [ If( IsOdd(f[1]), mx := f[1]^f[2] ); ]);
+         ForEach(f,fn) [ If( Odd?(f[1]), mx := f[1]^f[2] ); ]);
     my    := n/mx;
     If(InVerboseMode(),Tell("    ",{mx,my}));
 
@@ -250,7 +250,7 @@ UnFence("xFB1",3);
 UnFence("xFB2",1);
 
 
-IsPowerOf2( n_IsPositiveInteger ) <-- [ Count(StringToList(ToBase(2,n)),"1") = 1; ];
+IsPowerOf2( n_PositiveInteger? ) <-- [ Count(StringToList(ToBase(2,n)),"1") = 1; ];
 
 %/mathpiper
 

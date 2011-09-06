@@ -2,7 +2,7 @@
 
 10 # ProperDivisors(_n) <--
 [
-        Check(IsPositiveInteger(n), "Argument", "ProperDivisors: argument must be positive integer");
+        Check(PositiveInteger?(n), "Argument", "ProperDivisors: argument must be positive integer");
         Divisors(n)-1;
 ];
 

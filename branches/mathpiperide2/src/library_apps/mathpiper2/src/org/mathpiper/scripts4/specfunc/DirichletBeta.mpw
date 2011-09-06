@@ -6,7 +6,7 @@
 5  # DirichletBeta(1)                <-- Pi/4;
 5  # DirichletBeta(2)                <-- Catalan;
 5  # DirichletBeta(3)                <-- Pi^3/32;
-6  # DirichletBeta(n_IsOdd)        <-- [
+6  # DirichletBeta(n_Odd?)        <-- [
                 Local(k);
                 k:=(n-1)/2;
                 (-1)^k*Euler(2*k)*(Pi/2)^(2*k+1)/(2*(2*k)!);

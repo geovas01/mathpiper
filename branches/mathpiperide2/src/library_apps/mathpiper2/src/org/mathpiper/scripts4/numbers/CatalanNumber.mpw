@@ -2,7 +2,7 @@
 
 CatalanNumber(_n) <--
 [
-        Check( IsPositiveInteger(n), "Argument", "CatalanNumber: Error: argument must be positive" );
+        Check( PositiveInteger?(n), "Argument", "CatalanNumber: Error: argument must be positive" );
         BinomialCoefficient(2*n,n)/(n+1);
 ];
 

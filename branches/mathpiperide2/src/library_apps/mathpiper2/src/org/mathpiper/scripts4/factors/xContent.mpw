@@ -8,7 +8,7 @@
 //Retract("xContent",*);
 
 
-//10 # xContent( poly_IsPolynomial ) <--
+//10 # xContent( poly_Polynomial? ) <--
 10 # xContent( poly_CanBeUni ) <--
 [
     Local(disassem,gcdCoefs,lc,minExpts);

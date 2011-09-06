@@ -7,7 +7,7 @@
 
 12 # SquareFree(_p) <-- SquareFree(p,VarList(p)[1]);
 
-14 # SquareFree(_p,_var)_(Not? IsPolynomial(p,var)) <-- Check(False,"Argument","Input must be Univariate Polynomial");
+14 # SquareFree(_p,_var)_(Not? Polynomial?(p,var)) <-- Check(False,"Argument","Input must be Univariate Polynomial");
 
 16 # SquareFree(_p,_var) <--
 [

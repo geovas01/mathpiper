@@ -4,14 +4,14 @@
 
 50 # 0 / 0 <-- Undefined;
 
-52 # x_IsPositiveNumber / 0 <-- Infinity;
+52 # x_PositiveNumber? / 0 <-- Infinity;
 52 # x_NegativeNumber? / 0 <-- -Infinity;
 55 # (_x / y_IsNumber)_(IsZero(y)) <-- Undefined;
 55 # 0 / _x <-- 0;
 // unnecessary rule (see #100 below). TODO: REMOVE
 //55 # x_IsNumber / y_NegativeNumber? <-- (-x)/(-y);
 
-56 # (x_IsNonZeroInteger / y_IsNonZeroInteger)_(GcdN(x,y) >? 1) <--
+56 # (x_NonZeroInteger? / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
      [
        Local(gcd);
        Bind(x,x);
@@ -20,7 +20,7 @@
        QuotientN(x,gcd)/QuotientN(y,gcd);
      ];
 
-57 # ((x_IsNonZeroInteger * _expr) / y_IsNonZeroInteger)_(GcdN(x,y) >? 1) <--
+57 # ((x_NonZeroInteger? * _expr) / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
      [
        Local(gcd);
        Bind(x,x);
@@ -29,7 +29,7 @@
        (QuotientN(x,gcd)*expr)/QuotientN(y,gcd);
      ];
 
-57 # ((x_IsNonZeroInteger) / (y_IsNonZeroInteger * _expr))_(GcdN(x,y) >? 1) <--
+57 # ((x_NonZeroInteger?) / (y_NonZeroInteger? * _expr))_(GcdN(x,y) >? 1) <--
      [
        Local(gcd);
        Bind(x,x);
@@ -38,7 +38,7 @@
        QuotientN(x,gcd)/(QuotientN(y,gcd)*expr);
      ];
 
-57 # ((x_IsNonZeroInteger * _p) / (y_IsNonZeroInteger * _q))_(GcdN(x,y) >? 1) <--
+57 # ((x_NonZeroInteger? * _p) / (y_NonZeroInteger? * _q))_(GcdN(x,y) >? 1) <--
      [
        Local(gcd);
        Bind(x,x);

@@ -6,7 +6,7 @@
 
 10 # Totient(_n)        <--
 [
-        Check(IsPositiveInteger(n), "Argument", "Totient: argument must be positive integer");
+        Check(PositiveInteger?(n), "Argument", "Totient: argument must be positive integer");
         Local(i,sum,factors,len);
         sum:=n;
         factors:=Factors(n);

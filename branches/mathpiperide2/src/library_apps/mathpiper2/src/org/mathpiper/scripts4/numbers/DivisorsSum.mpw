@@ -7,7 +7,7 @@
 5  # DivisorsSum(1)        <-- 1;
 10 # DivisorsSum(_n)         <--
 [
-        Check(IsPositiveInteger(n), "Argument", "DivisorsSum: argument must be positive integer");
+        Check(PositiveInteger?(n), "Argument", "DivisorsSum: argument must be positive integer");
         Local(factors,i,sum,len,p,k);
         p:=0;k:=0;
         factors:={};

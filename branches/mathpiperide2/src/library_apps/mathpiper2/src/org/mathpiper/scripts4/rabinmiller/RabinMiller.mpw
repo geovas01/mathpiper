@@ -11,7 +11,7 @@
  * This function is called by IsStronglyProbablyPrime.
  */
 
-FastModularPower(a_IsPositiveInteger, b_IsPositiveInteger, n_IsPositiveInteger) <--
+FastModularPower(a_PositiveInteger?, b_PositiveInteger?, n_PositiveInteger?) <--
 [
   Local(p, j, r);
   p := a;
@@ -20,7 +20,7 @@ FastModularPower(a_IsPositiveInteger, b_IsPositiveInteger, n_IsPositiveInteger) 
 
   While (j >? 0)
     [
-      If (IsOdd(j), r := ModuloN(r*p, n));
+      If (Odd?(j), r := ModuloN(r*p, n));
       p := ModuloN(p*p, n);
       j := ShiftRight(j, 1);
     ];
@@ -42,7 +42,7 @@ FastModularPower(a_IsPositiveInteger, b_IsPositiveInteger, n_IsPositiveInteger) 
  * are called `strong pseudoprimes' for base b.
  */
 // this will return a pair {root, True/False}
-IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
+IsStronglyProbablyPrime(b_PositiveInteger?, n_PositiveInteger?) <--
 [
   Local(m, q, r, a, flag, i, root);
   m := n-1;
@@ -87,7 +87,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
 
 20 # RabinMillerSmall(3) <-- True;
 
-30 # RabinMillerSmall(n_IsPositiveInteger) <--
+30 # RabinMillerSmall(n_PositiveInteger?) <--
 [
   Local(continue, prime, i, primetable, pseudotable, root);
   continue := True;
@@ -124,7 +124,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
 
 20 # RabinMillerProbabilistic(3, _p) <-- True;
 
-30 # RabinMillerProbabilistic(n_IsPositiveInteger, p_IsPositiveInteger) <--
+30 # RabinMillerProbabilistic(n_PositiveInteger?, p_PositiveInteger?) <--
 [
   Local(k, prime, b, roots'of'minus1, root);
   k := 1+IntLog(IntLog(n,2),4)+p;        // find k such that Ln(n)*4^(-k) < 4^(-p)
@@ -166,7 +166,7 @@ IsStronglyProbablyPrime(b_IsPositiveInteger, n_IsPositiveInteger) <--
  * than the one to step on a rattlesnake in northern Groenland. :-)
  */
 
-RabinMiller(n_IsPositiveInteger) <--
+RabinMiller(n_PositiveInteger?) <--
 [
         //If(InVerboseMode(), Echo("RabinMiller: Info: Testing ", n));
         If(

@@ -10,7 +10,7 @@
  */
  
 
-10 # Factors(p_IsPositiveInteger) <--  FactorizeInt(p);
+10 # Factors(p_PositiveInteger?) <--  FactorizeInt(p);
 
 11 # Factors(p_IsInteger) <-- FactorizeInt(p);
 
@@ -27,7 +27,7 @@
     /*  p is the polynomial, x is its (only) variable.  It IS Univariate */
     /*  Let's find out how many terms this polynomial has.               */
     coeffs := Coef(p,x,0 .. Degree(p,x));
-    nterms := Length(Select(coeffs, "IsNotZero"));
+    nterms := Length(Select(coeffs, "NotZero?"));
     /*  If nterms = 2, it is a binomial, and might be most easily
      *  factored by some special-purpose algorithms                      */
     If( nterms =? 2 And? d >? 2,
@@ -170,7 +170,7 @@
               [
                   {a,b} := q;
                   If( InVerboseMode(), Echo("     ",{a,b}) );
-                  If( IsNumericList( {a,b} ),
+                  If( NumericList?( {a,b} ),
                       t := t * a^b,
                       f := {a,b}:f
                   );

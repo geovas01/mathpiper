@@ -2,7 +2,7 @@
 
 10 #         Repunit(0)        <-- 0;
 // Number consisting of n 1's
-Repunit(n_IsPositiveInteger) <--
+Repunit(n_PositiveInteger?) <--
 [
         (10^n-1)/9;
 ];
