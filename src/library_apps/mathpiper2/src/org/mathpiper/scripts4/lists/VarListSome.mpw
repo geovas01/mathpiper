@@ -68,5 +68,5 @@ Result: {x,y,Cos(Ln(x)/x)}
 In> VarListArith(x+a*y^2-1)
 Result: {x,a,y^2};
 
-*SEE IsFreeOf, IsVariable, FuncList, HasExpr, HasFunc
+*SEE IsFreeOf, IsVariable, FuncList, HasExpression?, HasFunction?
 %/mathpiper_docs
