@@ -115,26 +115,26 @@ infix operators, so you can write {expr1 And expr}.
 
 *E.G.
 
-In> True Or False
+In> True Or? False
 Result: True;
-In> False Or a
-Result: Or(a);
-In> Or(False,a,b,True)
+In> False Or? a
+Result: Or?(a);
+In> Or?(False,a,b,True)
 Result: True;
 
-*SEE And, Not
+*SEE And?, Not?
 %/mathpiper_docs
 
 
 
 
 
-%mathpiper,name="Or",subtype="automatic_test"
+%mathpiper,name="Or?",subtype="automatic_test"
 
-Verify(False Or False,False);
-Verify(True Or False,True);
-Verify(False Or True,True);
-Verify(True Or True,True);
+Verify(False Or? False,False);
+Verify(True Or? False,True);
+Verify(False Or? True,True);
+Verify(True Or? True,True);
 
 %/mathpiper
 
