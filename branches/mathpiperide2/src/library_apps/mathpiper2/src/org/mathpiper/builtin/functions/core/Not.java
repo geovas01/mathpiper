@@ -50,11 +50,11 @@ public class Not extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Not",categories="User Functions;Predicates;Built In"
-*CMD Not --- logical negation
+%mathpiper_docs,name="Not?",categories="User Functions;Predicates;Built In"
+*CMD Not? --- logical negation
 *CORE
 *CALL
-	Not expr
+	Not? expr
 
 *PARMS
 
@@ -62,8 +62,8 @@ public class Not extends BuiltinFunction
 
 *DESC
 
-Not returns the logical negation of the argument expr. If {expr} is
-{False} it returns {True}, and if {expr} is {True}, {Not expr} returns {False}.
+Not? returns the logical negation of the argument expr. If {expr} is
+{False} it returns {True}, and if {expr} is {True}, {Not? expr} returns {False}.
 If the argument is neither {True} nor {False}, it returns the entire
 expression with evaluated arguments.
 
