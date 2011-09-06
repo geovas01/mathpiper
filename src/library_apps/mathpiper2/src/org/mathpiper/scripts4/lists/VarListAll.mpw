@@ -6,7 +6,7 @@
  */
 /* Accept any variable. */
 
-VarListAll(_expr) <-- VarListAll(expr,"IsVariable");
+VarListAll(_expr) <-- VarListAll(expr,"Variable?");
 
 10 # VarListAll(_expr,_filter)_(Apply(filter,{expr}) =? True) <--
      {expr};

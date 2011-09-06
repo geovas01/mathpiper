@@ -14,12 +14,12 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 
 90 # (Sqrt(x_Constant?))_(NegativeNumber?(N(x))) <-- Complex(0,Sqrt(-x));
 
-400 # x_IsRationalOrNumber * Sqrt(y_IsRationalOrNumber)  <-- Sign(x)*Sqrt(x^2*y);
-400 # Sqrt(y_IsRationalOrNumber) * x_IsRationalOrNumber  <-- Sign(x)*Sqrt(x^2*y);
-400 # x_IsRationalOrNumber / Sqrt(y_IsRationalOrNumber)  <-- Sign(x)*Sqrt(x^2/y);
-400 # Sqrt(y_IsRationalOrNumber) / x_IsRationalOrNumber  <-- Sign(x)*Sqrt(y/(x^2));
-400 # Sqrt(y_IsRationalOrNumber) / Sqrt(x_IsRationalOrNumber)  <-- Sqrt(y/x);
-400 # Sqrt(y_IsRationalOrNumber) * Sqrt(x_IsRationalOrNumber)  <-- Sqrt(y*x);
+400 # x_RationalOrNumber? * Sqrt(y_RationalOrNumber?)  <-- Sign(x)*Sqrt(x^2*y);
+400 # Sqrt(y_RationalOrNumber?) * x_RationalOrNumber?  <-- Sign(x)*Sqrt(x^2*y);
+400 # x_RationalOrNumber? / Sqrt(y_RationalOrNumber?)  <-- Sign(x)*Sqrt(x^2/y);
+400 # Sqrt(y_RationalOrNumber?) / x_RationalOrNumber?  <-- Sign(x)*Sqrt(y/(x^2));
+400 # Sqrt(y_RationalOrNumber?) / Sqrt(x_RationalOrNumber?)  <-- Sqrt(y/x);
+400 # Sqrt(y_RationalOrNumber?) * Sqrt(x_RationalOrNumber?)  <-- Sqrt(y*x);
 400 # Sqrt(x_IsInteger)_IsInteger(SqrtN(x)) <-- SqrtN(x);
 400 # Sqrt(x_IsInteger/y_IsInteger)_(IsInteger(SqrtN(x)) And? IsInteger(SqrtN(y))) <-- SqrtN(x)/SqrtN(y);
 

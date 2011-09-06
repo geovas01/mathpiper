@@ -39,7 +39,7 @@ Result: x^2
 In> Denominator(5)
 Result: 1;
 
-*SEE Numerator, IsRational, IsNumber
+*SEE Numerator, Rational?, IsNumber
 %/mathpiper_docs
 
 

@@ -12,7 +12,7 @@
 10 # Gamma(_n)_(IsInteger(n) And? n<=?0) <-- Infinity;
 
 
-20 # Gamma(n_IsRationalOrNumber)_(PositiveInteger?(n) Or? FloatIsInt?(2*n)) <-- (Round(2*n)/2-1)!;
+20 # Gamma(n_RationalOrNumber?)_(PositiveInteger?(n) Or? FloatIsInt?(2*n)) <-- (Round(2*n)/2-1)!;
 
 
 30 # Gamma(x_Constant?)_(InNumericMode()) <-- Internal'GammaNum(N(Eval(x)));

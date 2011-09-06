@@ -53,13 +53,13 @@ Usage:
 /* Plain polynomials */
 // some are computed by general routines, and some are replaced by more efficient routines below
 OrthoP(n_IsInteger, _x)_(n>=?0) <-- OrthoP(n, 0, 0, x);
-OrthoP(n_IsInteger, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(n>=?0 And? a>? -1 And? b>? -1) <-- OrthoPoly("Jacobi", n, {a, b}, x);
+OrthoP(n_IsInteger, a_RationalOrNumber?, b_RationalOrNumber?, _x)_(n>=?0 And? a>? -1 And? b>? -1) <-- OrthoPoly("Jacobi", n, {a, b}, x);
 
-OrthoG(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And? a>? -1/2) <-- OrthoPoly("Gegenbauer", n, {a}, x);
+OrthoG(n_IsInteger, a_RationalOrNumber?, _x)_(n>=?0 And? a>? -1/2) <-- OrthoPoly("Gegenbauer", n, {a}, x);
 
 OrthoH(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Hermite", n, {}, x);
 
-OrthoL(n_IsInteger, a_IsRationalOrNumber, _x)_(n>=?0 And? a>? -1) <-- OrthoPoly("Laguerre", n, {a}, x);
+OrthoL(n_IsInteger, a_RationalOrNumber?, _x)_(n>=?0 And? a>? -1) <-- OrthoPoly("Laguerre", n, {a}, x);
 
 OrthoT(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb1", n, {}, x);
 OrthoU(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb2", n, {}, x);
@@ -67,13 +67,13 @@ OrthoU(n_IsInteger, _x)_(n>=?0) <-- OrthoPoly("Tscheb2", n, {}, x);
 /* Sums of series of orthogonal polynomials */
 
 OrthoPSum(c_IsList, _x) <-- OrthoP(c, 0, 0, x);
-OrthoPSum(c_IsList, a_IsRationalOrNumber, b_IsRationalOrNumber, _x)_(a>? -1 And? b>? -1) <-- OrthoPolySum("Jacobi", c, {a, b}, x);
+OrthoPSum(c_IsList, a_RationalOrNumber?, b_RationalOrNumber?, _x)_(a>? -1 And? b>? -1) <-- OrthoPolySum("Jacobi", c, {a, b}, x);
 
-OrthoGSum(c_IsList, a_IsRationalOrNumber, _x)_(a>? -1/2) <-- OrthoPolySum("Gegenbauer", c, {a}, x);
+OrthoGSum(c_IsList, a_RationalOrNumber?, _x)_(a>? -1/2) <-- OrthoPolySum("Gegenbauer", c, {a}, x);
 
 OrthoHSum(c_IsList, _x) <-- OrthoPolySum("Hermite", c, {}, x);
 
-OrthoLSum(c_IsList, a_IsRationalOrNumber, _x)_(a>? -1) <-- OrthoPolySum("Laguerre", c, {a}, x);
+OrthoLSum(c_IsList, a_RationalOrNumber?, _x)_(a>? -1) <-- OrthoPolySum("Laguerre", c, {a}, x);
 
 OrthoTSum(c_IsList, _x) <-- OrthoPolySum("Tscheb1", c, {}, x);
 OrthoUSum(c_IsList, _x) <-- OrthoPolySum("Tscheb2", c, {}, x);
@@ -141,10 +141,10 @@ Sums of series of orthogonal polynomials are found using the Clenshaw-Smith recu
 
 /* Numeric arguments are processed by a faster routine */
 
-10 # OrthoPoly(name_IsString, _n, p_IsList, x_IsRationalOrNumber) _ (KnownOrthoPoly()[name] !=? Empty) <-- OrthoPolyNumeric(name, n, p, x);
+10 # OrthoPoly(name_IsString, _n, p_IsList, x_RationalOrNumber?) _ (KnownOrthoPoly()[name] !=? Empty) <-- OrthoPolyNumeric(name, n, p, x);
 20 # OrthoPoly(name_IsString, _n, p_IsList, _x) _ (KnownOrthoPoly()[name] !=? Empty) <-- EvaluateHornerScheme(OrthoPolyCoeffs(name, n, p), x);
 
-10 # OrthoPolySum(name_IsString, c_IsList, p_IsList, x_IsRationalOrNumber) _ (KnownOrthoPoly()[name] !=? Empty) <-- OrthoPolySumNumeric(name, c, p, x);
+10 # OrthoPolySum(name_IsString, c_IsList, p_IsList, x_RationalOrNumber?) _ (KnownOrthoPoly()[name] !=? Empty) <-- OrthoPolySumNumeric(name, c, p, x);
 20 # OrthoPolySum(name_IsString, c_IsList, p_IsList, _x) _ (KnownOrthoPoly()[name] !=? Empty) <-- EvaluateHornerScheme(OrthoPolySumCoeffs(name, c, p), x);
 
 /*

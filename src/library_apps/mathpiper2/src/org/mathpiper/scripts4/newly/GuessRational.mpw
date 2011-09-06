@@ -3,7 +3,7 @@
 /// guess the rational number behind an imprecise number
 /// prec parameter is the max number of digits you can have in the denominator
 GuessRational(_x) <-- GuessRational(x, Floor(1/2*BuiltinPrecisionGet()));
-GuessRational(x_IsRationalOrNumber, prec_IsInteger) <-- [
+GuessRational(x_RationalOrNumber?, prec_IsInteger) <-- [
         Local(denom'estimate, cf, i);
         denom'estimate := 1;
         cf := ContFracList(x);

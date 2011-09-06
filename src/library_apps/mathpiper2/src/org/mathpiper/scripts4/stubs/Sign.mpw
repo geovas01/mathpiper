@@ -1,7 +1,7 @@
 %mathpiper,def="Sign"
 
 10 # Sign(n_PositiveNumber?) <-- 1;
-10 # Sign(n_IsZero) <-- 0;
+10 # Sign(n_Zero?) <-- 0;
 20 # Sign(n_IsNumber) <-- -1;
 15 # Sign(n_Infinity?)_(n <? 0) <-- -1;
 15 # Sign(n_Infinity?)_(n >? 0) <-- 1;

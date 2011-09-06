@@ -137,7 +137,7 @@ Function("YacasPSolve",{uni,var}) [
 
      u := MakeUni(uni, var);
 
-     If(Type(u) =? "UniVariate" And? (And? @ (Lambda({x}, IsNumber(x) Or? IsRational(x)) /@ u[3])), [
+     If(Type(u) =? "UniVariate" And? (And? @ (Lambda({x}, IsNumber(x) Or? Rational?(x)) /@ u[3])), [
          Local(coeffs);
          coeffs := Rationalize(u[3]);
          coeffs := If(Length(coeffs) >? 1, 

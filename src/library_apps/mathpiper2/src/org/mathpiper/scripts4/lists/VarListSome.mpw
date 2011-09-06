@@ -4,7 +4,7 @@
 
 10 # VarListSome({}, _look'list) <-- {};
 // an atom should be a variable to qualify
-10 # VarListSome(expr_IsVariable, _look'list) <-- {expr};
+10 # VarListSome(expr_Variable?, _look'list) <-- {expr};
 15 # VarListSome(expr_IsAtom, _look'list) <-- {};
 // a function not in the looking list - return it whole
 20 # VarListSome(expr_IsFunction, look'list_IsList)_(Not? Contains(look'list, ToAtom(Type(expr)))) <-- {expr};
@@ -68,5 +68,5 @@ Result: {x,y,Cos(Ln(x)/x)}
 In> VarListArith(x+a*y^2-1)
 Result: {x,a,y^2};
 
-*SEE IsFreeOf, IsVariable, FuncList, HasExpression?, HasFunction?
+*SEE IsFreeOf, Variable?, FuncList, HasExpression?, HasFunction?
 %/mathpiper_docs

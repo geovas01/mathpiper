@@ -29,7 +29,7 @@ Result: True;
 In> IsHermitian({{0,I},{2,0}})
 Result: False;
 
-*SEE IsUnitary
+*SEE Unitary?
 %/mathpiper_docs
 
 

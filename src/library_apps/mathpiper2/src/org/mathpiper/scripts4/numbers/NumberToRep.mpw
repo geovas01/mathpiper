@@ -43,7 +43,7 @@
 
 12 # NumberToRep( N_IsComplex ) <-- 
 [
-    If(IsZero(Re(N)),
+    If(Zero?(Re(N)),
         {NumberToRep(0.0),NumberToRep(Im(N))},
         {NumberToRep(Re(N)),NumberToRep(Im(N))}
     );

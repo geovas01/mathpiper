@@ -42,7 +42,7 @@
 12 # xFactors(p_NegativeInteger?) <-- xFactors(-p);
 
 
-14 # xFactors(p_IsRational)_(Denominator(p) !=? 1) <-- 
+14 # xFactors(p_Rational?)_(Denominator(p) !=? 1) <-- 
              { {xFactor(Numerator(p)) / xFactor(Denominator(p) ) , 1} }; 
              
 
@@ -100,7 +100,7 @@
             Local(sd,cmp); 
             sd  := Sum /@ disassem[2];
             cmp := FillList(sd[1],Length(sd));
-            IsZeroVector(sd - cmp);
+            ZeroVector?(sd - cmp);
         ];
       ]
     );
@@ -401,7 +401,7 @@ UnFence("ApproximateRealCoefficients",1);
 
 // ----------------  RATIONAL POLYNOMIALS  -----------------
 
-150 # xFactors( expr_IsRationalFunction )_
+150 # xFactors( expr_RationalFunction? )_
         (Polynomial?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Function",expr);]);
@@ -415,7 +415,7 @@ UnFence("ApproximateRealCoefficients",1);
 ];
 
 
-152 # xFactors( expr_IsRationalFunction )_
+152 # xFactors( expr_RationalFunction? )_
         (Constant?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Denom",expr);]);
@@ -448,7 +448,7 @@ UnFence("ApproximateRealCoefficients",1);
 
 
 
-10 # IsPureRational( N_IsRational )_(Not? IsInteger(N)) <-- True;
+10 # IsPureRational( N_Rational? )_(Not? IsInteger(N)) <-- True;
 
 12 # IsPureRational( _N ) <-- False;
 

@@ -83,7 +83,7 @@
                  Local(sd,cmp); 
                  sd  := Sum /@ disassem[2];
                  cmp := FillList(sd[1],Length(sd));
-                 IsZeroVector(sd - cmp);
+                 ZeroVector?(sd - cmp);
              ];
            ]
          );
@@ -301,7 +301,7 @@ UnFence("RationalToIntegerConvert",1);
 
 // ----------------  RATIONAL POLYNOMIALS  -----------------
 
-150 # jFactors( expr_IsRationalFunction )_
+150 # jFactors( expr_RationalFunction? )_
         (Polynomial?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("jFactors_Rational_Function",expr);]);
@@ -315,7 +315,7 @@ UnFence("RationalToIntegerConvert",1);
 ];
 
 
-152 # jFactors( expr_IsRationalFunction )_
+152 # jFactors( expr_RationalFunction? )_
         (Constant?(Numerator(expr)) And? Polynomial?(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("jFactors_Rational_Denom",expr);]);
@@ -445,7 +445,7 @@ UnFence("jFB",1);
 UnFence("jFac",3);
 
 
-10 # IsPureRational( N_IsRational )_(Not? IsInteger(N)) <-- True;
+10 # IsPureRational( N_Rational? )_(Not? IsInteger(N)) <-- True;
 
 12 # IsPureRational( _N ) <-- False;
 

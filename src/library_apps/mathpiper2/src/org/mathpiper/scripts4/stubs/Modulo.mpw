@@ -2,7 +2,7 @@
 
 //Retract("Modulo",*);
 
-0 # Modulo(_n,m_IsRationalOrNumber)_(m<?0) <-- `Hold(Modulo(@n,@m));
+0 # Modulo(_n,m_RationalOrNumber?)_(m<?0) <-- `Hold(Modulo(@n,@m));
 
 1 # Modulo(n_NegativeInteger?,m_PositiveInteger?) <--
 [
@@ -17,7 +17,7 @@
 3 # Modulo(n_IsInteger,m_IsInteger) <-- ModuloN(n,m);
 4 # Modulo(n_IsNumber,m_IsNumber) <-- NonN(Modulo(Rationalize(n),Rationalize(m)));
 
-5 # Modulo(n_IsRationalOrNumber,m_IsRationalOrNumber)/*_(n>?0 And? m>?0)*/ <--
+5 # Modulo(n_RationalOrNumber?,m_RationalOrNumber?)/*_(n>?0 And? m>?0)*/ <--
 [
   Local(n1,n2,m1,m2);
   n1:=Numerator(n);

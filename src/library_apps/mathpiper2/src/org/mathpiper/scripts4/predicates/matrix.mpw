@@ -192,9 +192,9 @@ In> IsMatrix({1,2})
 Result: False;
 In> IsMatrix({{1,2},{3,4}})
 Result: True;
-In> IsMatrix(IsRational,{{1,2},{3,4}})
+In> IsMatrix(Rational?,{{1,2},{3,4}})
 Result: False;
-In> IsMatrix(IsRational,{{1/2,2/3},{3/4,4/5}})
+In> IsMatrix(Rational?,{{1/2,2/3},{3/4,4/5}})
 Result: True;
 
 *SEE IsList, IsVector

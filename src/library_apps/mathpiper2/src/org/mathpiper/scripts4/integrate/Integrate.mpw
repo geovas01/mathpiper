@@ -116,7 +116,7 @@
 ////////////////////////////////////////////////
 10 # IntClean(_var,_expr) <--
 [
-        if( IsFreeOf(var,expr) Or? IsSumOfTerms(var,expr) )[
+        if( IsFreeOf(var,expr) Or? SumOfTerms?(var,expr) )[
                 expr;
         ] else if ( HasFunction?(expr,Sin) Or? HasFunction?(expr,Cos) )[
                 Simplify(TrigSimpCombine(expr));

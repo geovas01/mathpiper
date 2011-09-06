@@ -29,7 +29,7 @@ LocalSymbols(AssembleTerms, AssembleTermsRecursive)
     ];
 
 
-10 # ExpandBrackets(xx_IsZero) <-- 0;
+10 # ExpandBrackets(xx_Zero?) <-- 0;
 
 20 # ExpandBrackets(_xx)_(Type(xx)=?"/" Or? Type(-xx)=?"/") <--
 [

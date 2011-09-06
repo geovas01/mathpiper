@@ -45,19 +45,19 @@ LocalSymbols(res)
         If(iDebug=True,
            [
               Tell("xSolve3",{lhs,rhs,var});
-              If(IsRationalFunction(lhs,var),
-                 Tell("  3r IsRationalFunction",lhs),
+              If(RationalFunction?(lhs,var),
+                 Tell("  3r RationalFunction?",lhs),
                  Tell("  3r NotRationalFunction",lhs)
               );
-              If(IsRationalFunction(rhs,var),
-                 Tell("  3r IsRationalFunction",rhs),
+              If(RationalFunction?(rhs,var),
+                 Tell("  3r RationalFunction?",rhs),
                  Tell("  3r NotRationalFunction",rhs)
               );
            ]
         );
         Local(simpexpression);
         simpexpression  := Simplify(lhs-rhs);
-        If(IsRationalFunction(simpexpression,var),
+        If(RationalFunction?(simpexpression,var),
             [
                 xSolve'Rational(simpexpression, var);
             ],

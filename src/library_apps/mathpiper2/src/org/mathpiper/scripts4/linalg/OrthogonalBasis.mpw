@@ -12,7 +12,7 @@ Function("OrthogonalBasis",{W})[
 
         V[1]:=W[1];
         For(k:=2,k<=?Length(W),k++)[
-                Check(Not? IsZero(Norm(W[k])), "Argument", "OrthogonalBasis: Input vectors must be linearly independent");
+                Check(Not? Zero?(Norm(W[k])), "Argument", "OrthogonalBasis: Input vectors must be linearly independent");
                 V[k]:=W[k]-Sum(j,1,k-1,InProduct(W[k],V[j])*V[j]/Norm(V[j])^2);
         ];
         V;

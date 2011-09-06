@@ -3,7 +3,7 @@
 /* Integer divisions */
 0 # Quotient(n_IsInteger,m_IsInteger) <-- QuotientN(n,m);
 1 # Quotient(0  ,_m) <-- 0;
-2 # Quotient(n_IsRationalOrNumber,m_IsRationalOrNumber) <--
+2 # Quotient(n_RationalOrNumber?,m_RationalOrNumber?) <--
 [
   Local(n1,n2,m1,m2,sgn1,sgn2);
   n1:=Numerator(n);

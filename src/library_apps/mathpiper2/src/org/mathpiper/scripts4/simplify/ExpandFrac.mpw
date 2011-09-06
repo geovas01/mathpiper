@@ -8,7 +8,7 @@
 
 // expression does not contain fractions
 10 # ExpandFrac(_expr)_Not?(HasFunctionSome?(expr, "/", {ToAtom("+"), ToAtom("-"), *, /, ^})) <-- expr;
-15 # ExpandFrac(a_IsRationalOrNumber) <-- a;
+15 # ExpandFrac(a_RationalOrNumber?) <-- a;
 20 # ExpandFrac(_expr) <-- ExpandFrac'combine(GetNumerDenom(expr));
 
 ExpandFrac'combine({_a, _b}) <-- a/b;
