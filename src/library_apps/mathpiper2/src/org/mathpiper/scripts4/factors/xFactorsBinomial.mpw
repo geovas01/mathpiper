@@ -119,7 +119,7 @@ UnFence("xFB1",3);
 ];
 
 
-25 # xFB1(_X,n_IsOdd, s_IsNegativeInteger) <--
+25 # xFB1(_X,n_IsOdd, s_NegativeInteger?) <--
 [
     Local(ans);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1odddif",{X,n});]);
@@ -185,7 +185,7 @@ UnFence("xFB1",3);
 ];
 
 
-35 # xFB1(_X, n_Even?, s_IsNegativeInteger) <--
+35 # xFB1(_X, n_Even?, s_NegativeInteger?) <--
 [
     Local(ans);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1evendif",{X,n});]);

@@ -2,7 +2,7 @@
 
 //Retract("FactorsMonomial",*);
 
-10 # FactorsMonomial(expr_IsMonomial) <--
+10 # FactorsMonomial(expr_Monomial?) <--
 [
   If(InVerboseMode(),Tell("FactorsMonomial",expr));
   Local(den,num,Ns,flat,prod,quot,result,f,ff);

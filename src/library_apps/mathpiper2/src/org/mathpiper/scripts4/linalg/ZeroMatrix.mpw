@@ -1,8 +1,8 @@
 %mathpiper,def="ZeroMatrix"
 
-5  # ZeroMatrix(n_IsNonNegativeInteger) <--  ZeroMatrix(n,n);
+5  # ZeroMatrix(n_NonNegativeInteger?) <--  ZeroMatrix(n,n);
 
-10 # ZeroMatrix(n_IsNonNegativeInteger,m_IsNonNegativeInteger) <--
+10 # ZeroMatrix(n_NonNegativeInteger?,m_NonNegativeInteger?) <--
 [
   Local(i,result);
   result:={};

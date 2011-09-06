@@ -180,7 +180,7 @@ UnFence("jFactorsPrimitivePart",1);
 [
     If(InVerboseMode(),Tell("jFactorsPrimitivePart_usingJAS",pp));
     Local(answer);
-    answer := If(IsMonomial(pp),{pp,1},jasFactorsInt(pp));
+    answer := If(Monomial?(pp),{pp,1},jasFactorsInt(pp));
     If(InVerboseMode(),Tell("          ",answer));
     answer;
 ];
@@ -456,7 +456,7 @@ UnFence("jFac",3);
     (Length(Select(disassem[3],"IsDecimal")) >? 0);
 ];
 
-10 # HasRealCoefficients( poly_IsMonomial ) <--
+10 # HasRealCoefficients( poly_Monomial? ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
@@ -475,7 +475,7 @@ UnFence("jFac",3);
     answer;
 ];
 
-10 # HasRationalCoefficients( poly_IsMonomial) <--
+10 # HasRationalCoefficients( poly_Monomial?) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);

@@ -34,13 +34,13 @@
 
 
 // Multiplication in combination with complex numbers in the light of infinity
-250 # Complex(r_IsZero,_i) * x_IsInfinity <-- Complex(0,i*x);
-250 # Complex(_r,i_IsZero) * x_IsInfinity <-- Complex(r*x,0);
-251 # Complex(_r,_i) * x_IsInfinity <-- Complex(r*x,i*x);
+250 # Complex(r_IsZero,_i) * x_Infinity? <-- Complex(0,i*x);
+250 # Complex(_r,i_IsZero) * x_Infinity? <-- Complex(r*x,0);
+251 # Complex(_r,_i) * x_Infinity? <-- Complex(r*x,i*x);
 
-250 # x_IsInfinity * Complex(r_IsZero,_i) <-- Complex(0,i*x);
-250 # x_IsInfinity * Complex(_r,i_IsZero) <-- Complex(r*x,0);
-251 # x_IsInfinity * Complex(_r,_i) <-- Complex(r*x,i*x);
+250 # x_Infinity? * Complex(r_IsZero,_i) <-- Complex(0,i*x);
+250 # x_Infinity? * Complex(_r,i_IsZero) <-- Complex(r*x,0);
+251 # x_Infinity? * Complex(_r,_i) <-- Complex(r*x,i*x);
 
 
 300 # Complex(_r,_i) * y_Constant? <-- Complex(r*y,i*y);
@@ -63,7 +63,7 @@
 // This is commented out because it used PowerN so (2*I)^(-10) became a floating-point number. Now everything is handled by binary algorithm below
 //120 # Complex(r_IsZero,_i) ^ n_IsInteger <-- {1,I,-1,-I}[1+Modulo(n,4)] * i^n;
 
-123 # Complex(_r, _i) ^ n_IsNegativeInteger <-- 1/Complex(r, i)^(-n);
+123 # Complex(_r, _i) ^ n_NegativeInteger? <-- 1/Complex(r, i)^(-n);
 
 124 # Complex(_r, _i) ^ (p_IsZero) <-- 1;        // cannot have Complex(0,0) here
 

@@ -3,7 +3,7 @@
 /* Faster version of raising power to 0.5 */
 50 # _x ^ (1/2) <-- Sqrt(x);
 50 # (x_IsPositiveNumber ^ (1/2))_IsInteger(SqrtN(x)) <-- SqrtN(x);
-58 # 1 ^ n_IsInfinity <-- Undefined;
+58 # 1 ^ n_Infinity? <-- Undefined;
 59 # _x ^ 1 <-- x;
 59 # 1 ^ _n <-- 1;
 59 # x_IsZero ^ y_IsZero <-- Undefined;
@@ -20,27 +20,27 @@
 59 # Undefined ^ _x <-- Undefined;
 
 /* Regular raising to the power. */
-61 # Infinity ^ (y_IsNegativeNumber) <-- 0;
-61 # (-Infinity) ^ (y_IsNegativeNumber) <-- 0;
+61 # Infinity ^ (y_NegativeNumber?) <-- 0;
+61 # (-Infinity) ^ (y_NegativeNumber?) <-- 0;
 //61 # x_IsPositiveNumber ^ y_IsPositiveNumber <-- PowerN(x,y);
-//61 # x_IsPositiveNumber ^ y_IsNegativeNumber <-- (1/PowerN(x,-y));
+//61 # x_IsPositiveNumber ^ y_NegativeNumber? <-- (1/PowerN(x,-y));
 // integer powers are very fast
 61 # x_IsPositiveNumber ^ y_IsPositiveInteger <-- MathIntPower(x,y);
-61 # x_IsPositiveNumber ^ y_IsNegativeInteger <-- 1/MathIntPower(x,-y);
+61 # x_IsPositiveNumber ^ y_NegativeInteger? <-- 1/MathIntPower(x,-y);
 65 # (x_IsPositiveNumber ^ y_IsNumber)_InNumericMode() <-- Exp(y*Ln(x));
 
 90 # (-_x)^m_Even? <-- x^m;
-91 # (x_Constant? ^ (m_IsOdd / p_IsOdd))_(IsNegativeNumber(Re(N(Eval(x))))) <--
+91 # (x_Constant? ^ (m_IsOdd / p_IsOdd))_(NegativeNumber?(Re(N(Eval(x))))) <--
      -((-x)^(m/p));
-92 # (x_IsNegativeNumber ^ y_IsNumber)_InNumericMode() <-- Exp(y*Ln(x));
+92 # (x_NegativeNumber? ^ y_IsNumber)_InNumericMode() <-- Exp(y*Ln(x));
 
 
 70  # (_x ^ m_IsRationalOrNumber) ^ n_IsRationalOrNumber <-- x^(n*m);
 
 80 # (x_IsNumber/y_IsNumber) ^ n_IsPositiveInteger <-- x^n/y^n;
-80 # (x_IsNumber/y_IsNumber) ^ n_IsNegativeInteger <-- y^(-n)/x^(-n);
-80 # x_IsNegativeNumber ^ n_Even? <-- (-x)^n;
-80 # x_IsNegativeNumber ^ n_IsOdd <-- -((-x)^n);
+80 # (x_IsNumber/y_IsNumber) ^ n_NegativeInteger? <-- y^(-n)/x^(-n);
+80 # x_NegativeNumber? ^ n_Even? <-- (-x)^n;
+80 # x_NegativeNumber? ^ n_IsOdd <-- -((-x)^n);
 
 
 100  # ((_x)*(_x ^ _m)) <-- x^(m+1);
@@ -61,7 +61,7 @@
 205 # (xlist_IsList ^ n_Constant?)_(Not?(IsList(n))) <--
          Map({{xx},xx^n},{xlist});
 206 # (_x ^ n_IsList)_(Not?(IsList(x))) <-- Map({{xx},x^xx},{n});
-249 # x_IsInfinity ^ 0 <-- Undefined;
+249 # x_Infinity? ^ 0 <-- Undefined;
 250 # Infinity ^ (_n) <-- Infinity;
 250 # Infinity ^ (_x_IsComplex) <-- Infinity;
 250 # ((-Infinity) ^ (n_IsNumber))_(Even?(n)) <-- Infinity;

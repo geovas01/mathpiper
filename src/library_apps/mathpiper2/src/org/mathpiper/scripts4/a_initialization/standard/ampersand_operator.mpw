@@ -1,6 +1,6 @@
 %mathpiper,def="&"
 
-a_IsNonNegativeInteger & b_IsNonNegativeInteger <-- BitAnd(a,b);
+a_NonNegativeInteger? & b_NonNegativeInteger? <-- BitAnd(a,b);
 
 %/mathpiper
 

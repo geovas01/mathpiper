@@ -3,11 +3,11 @@
 10 # Arg(Complex(Cos(_x),Sin(_x))) <-- x;
 10 # Arg(x_IsZero) <-- Undefined;
 15 # Arg(x_IsPositiveReal) <-- 0;
-15 # Arg(x_IsNegativeReal) <-- Pi;
+15 # Arg(x_NegativeReal?) <-- Pi;
 20 # Arg(Complex(r_IsZero,i_Constant?)) <-- Sign(i)*Pi/2;
 30 # Arg(Complex(r_IsPositiveReal,i_Constant?)) <-- ArcTan(i/r);
-40 # Arg(Complex(r_IsNegativeReal,i_IsPositiveReal)) <-- Pi+ArcTan(i/r);
-50 # Arg(Complex(r_IsNegativeReal,i_IsNegativeReal)) <-- ArcTan(i/r)-Pi;
+40 # Arg(Complex(r_NegativeReal?,i_IsPositiveReal)) <-- Pi+ArcTan(i/r);
+50 # Arg(Complex(r_NegativeReal?,i_NegativeReal?)) <-- ArcTan(i/r)-Pi;
 
 %/mathpiper
 

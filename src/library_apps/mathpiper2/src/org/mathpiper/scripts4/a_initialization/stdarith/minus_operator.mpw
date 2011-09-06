@@ -25,14 +25,14 @@ LocalSymbols(x)
 100 # _x - _x <-- 0;
 
 110 # _x - (- _y) <-- x + y;
-110 # _x - (y_IsNegativeNumber) <-- x + (-y);
+110 # _x - (y_NegativeNumber?) <-- x + (-y);
 111 # (_x + _y)- _x <-- y;
 111 # (_x + _y)- _y <-- x;
 112 # _x - (_x + _y) <-- - y;
 112 # _y - (_x + _y) <-- - x;
 113 # (- _x) - _y <-- -(x+y);
-113 # (x_IsNegativeNumber) - _y <-- -((-x)+y);
-113 # (x_IsNegativeNumber)/_y - _z <-- -((-x)/y+z);
+113 # (x_NegativeNumber?) - _y <-- -((-x)+y);
+113 # (x_NegativeNumber?)/_y - _z <-- -((-x)/y+z);
 
 
 /* TODO move to this precedence everywhere? */
@@ -55,11 +55,11 @@ LocalSymbols(x,y,xarg,yarg)
    result;
 ];
 
-250 # z_IsInfinity - Complex(_x,_y) <-- Complex(-x+z,-y);
-250 # Complex(_x,_y) - z_IsInfinity <-- Complex(x-z,y);
+250 # z_Infinity? - Complex(_x,_y) <-- Complex(-x+z,-y);
+250 # Complex(_x,_y) - z_Infinity? <-- Complex(x-z,y);
 
-251 # z_IsInfinity - _x <-- z;
-251 # _x - z_IsInfinity <-- -z;
+251 # z_Infinity? - _x <-- z;
+251 # _x - z_Infinity? <-- -z;
 
 250 # Undefined - _y <-- Undefined;
 250 # _x - Undefined <-- Undefined;

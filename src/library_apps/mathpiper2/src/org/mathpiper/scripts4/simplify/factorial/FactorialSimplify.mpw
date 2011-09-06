@@ -62,7 +62,7 @@ FactorialSimplify(x):=
 
 10 # CommonDivisors((_x)! ^ _m, (_y)! ^ _m)_IsInteger(Simplify(x-y))  <-- CommonFact(Simplify(x-y),y)^m;
 
-10 # CommonFact(dist_IsNegativeInteger,_y)
+10 # CommonFact(dist_NegativeInteger?,_y)
    <-- {1,Product(i,1,-dist,Simplify(y+i+dist)),Simplify(y+dist)!};
 11 # CommonFact(_dist,_y)
    <-- {Product(i,1,dist,Simplify(y+i)),1,Simplify(y)!};

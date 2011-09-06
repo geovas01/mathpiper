@@ -39,7 +39,7 @@
 ];
 
 
-12 # xFactors(p_IsNegativeInteger) <-- xFactors(-p);
+12 # xFactors(p_NegativeInteger?) <-- xFactors(-p);
 
 
 14 # xFactors(p_IsRational)_(Denominator(p) !=? 1) <-- 
@@ -460,7 +460,7 @@ UnFence("ApproximateRealCoefficients",1);
     (Length(Select(disassem[3],"IsDecimal")) >? 0);
 ];
 
-10 # HasRealCoefficients( poly_IsMonomial ) <--
+10 # HasRealCoefficients( poly_Monomial? ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
@@ -476,7 +476,7 @@ UnFence("ApproximateRealCoefficients",1);
     (Length(Select(disassem[3],"IsPureRational")) >? 0);
 ];
 
-10 # HasRationalCoefficients( poly_IsMonomial) <--
+10 # HasRationalCoefficients( poly_Monomial?) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);

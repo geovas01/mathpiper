@@ -21,7 +21,7 @@
 4 # Tan(ArcSin(_x)) <-- x/Sqrt(1-x^2);
 4 # Tan(ArcCos(_x)) <-- Sqrt(1-x^2)/x;
 5 # Tan(- _x)_(Not? Constant?(x))                  <-- -Tan(x);
-6 # (Tan(x_Constant?))_(IsNegativeNumber(N(Eval(x))))   <-- -Tan(-x);
+6 # (Tan(x_Constant?))_(NegativeNumber?(N(Eval(x))))   <-- -Tan(-x);
 
 // must prevent it from looping
 6 # Tan(Infinity) <-- Undefined;

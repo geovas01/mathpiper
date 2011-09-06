@@ -28,5 +28,5 @@ Result: False;
 In> IsNonZeroInteger(-2)
 Result: True;
 
-*SEE IsPositiveInteger, IsNegativeInteger, IsNotZero
+*SEE IsPositiveInteger, NegativeInteger?, IsNotZero
 %/mathpiper_docs

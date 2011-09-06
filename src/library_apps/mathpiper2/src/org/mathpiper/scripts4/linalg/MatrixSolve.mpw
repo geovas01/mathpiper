@@ -40,7 +40,7 @@
 ];
 
 // Forward Substitution
-15 # MatrixSolve(matrix_IsLowerTriangular,b_IsVector) <--
+15 # MatrixSolve(matrix_LowerTriangular?,b_IsVector) <--
 [
     If(InVerboseMode(),Tell("   MatrixSolve_lt",{matrix,b}));
         Local(rowsm,rowsb,x,s);

@@ -6,13 +6,13 @@
 0 # Sqrt(Undefined) <--  Undefined;
 1 # Sqrt(x_IsPositiveInteger)_(IsInteger(SqrtN(x))) <-- SqrtN(x);
 2 # Sqrt(x_IsPositiveNumber)_InNumericMode() <-- SqrtN(x);
-2 # Sqrt(x_IsNegativeNumber) <-- Complex(0,Sqrt(-x));
+2 # Sqrt(x_NegativeNumber?) <-- Complex(0,Sqrt(-x));
 /* 3 # Sqrt(x_IsNumber/y_IsNumber) <-- Sqrt(x)/Sqrt(y); */
 3 # Sqrt(x_IsComplex)_InNumericMode() <-- x^(1/2);
 /* Threading  */
 Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 
-90 # (Sqrt(x_Constant?))_(IsNegativeNumber(N(x))) <-- Complex(0,Sqrt(-x));
+90 # (Sqrt(x_Constant?))_(NegativeNumber?(N(x))) <-- Complex(0,Sqrt(-x));
 
 400 # x_IsRationalOrNumber * Sqrt(y_IsRationalOrNumber)  <-- Sign(x)*Sqrt(x^2*y);
 400 # Sqrt(y_IsRationalOrNumber) * x_IsRationalOrNumber  <-- Sign(x)*Sqrt(x^2*y);

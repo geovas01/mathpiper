@@ -32,7 +32,7 @@ It also returns {True} if {lst} is not a list, or if {pred} is not a predicate.
 
 *E.G.
 
-In> NoneSatisfy("IsNegativeInteger",{1,0,5})
+In> NoneSatisfy("NegativeInteger?",{1,0,5})
 Result: True
 In> NoneSatisfy("IsPositiveInteger",{-1,0,5})
 Result: False

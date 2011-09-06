@@ -1,6 +1,6 @@
 %mathpiper,def="|"
 
-a_IsNonNegativeInteger | b_IsNonNegativeInteger <-- BitOr(a,b);
+a_NonNegativeInteger? | b_NonNegativeInteger? <-- BitOr(a,b);
 
 %/mathpiper
 
