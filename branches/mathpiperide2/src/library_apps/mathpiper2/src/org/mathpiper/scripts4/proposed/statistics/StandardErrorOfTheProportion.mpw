@@ -4,7 +4,7 @@
 
 StandardErrorOfTheProportion(meanOfSampleProportions, sampleSize) :=
 [
-    Check(IsRationalOrNumber(meanOfSampleProportions), "Argument", "The first argument must be a number.");
+    Check(RationalOrNumber?(meanOfSampleProportions), "Argument", "The first argument must be a number.");
     
     Check(IsInteger(sampleSize) And? sampleSize >? 0, "Argument", "The second argument must be an integer which is greater than 0.");
     

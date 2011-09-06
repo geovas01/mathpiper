@@ -4,13 +4,13 @@
 5 # Ceil(-Infinity) <-- -Infinity;
 5 # Ceil(Undefined) <-- Undefined;
 
-10 # Ceil(x_IsRationalOrNumber)
+10 # Ceil(x_RationalOrNumber?)
    <--
    [
      x:=N(x);
      Local(prec,result,n);
      Bind(prec,BuiltinPrecisionGet());
-     If(IsZero(x),Bind(n,2),
+     If(Zero?(x),Bind(n,2),
      If(x>?0,
        Bind(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
        Bind(n,2+FloorN(N(FastLog(-x)/FastLog(10))))

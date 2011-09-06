@@ -2,7 +2,7 @@
 
 //Retract("Factor",*);
 
-10 # Factor( p_IsRational )_(Denominator(p) !=? 1) <--
+10 # Factor( p_Rational? )_(Denominator(p) !=? 1) <--
 [
     If(InVerboseMode(),Tell("Factor_ratNum",p));
     Local(fs,num,den,dent,n,d);
@@ -32,7 +32,7 @@
 ];
 
 
-20 # Factor( p_IsRationalFunction ) <--
+20 # Factor( p_RationalFunction? ) <--
 [
     If(InVerboseMode(),Tell("Factor_ratFunc",p));
     Local(fs,num,den,dent,n,d);

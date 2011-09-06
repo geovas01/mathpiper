@@ -78,7 +78,7 @@ Rulebase("Taylor'LPS'Compose",{lps1,lps2});
   bit slower (but more correct, more elegant).
   */
 10 # (Taylor2(_x, _a, _n) _y)
-   _ (Not?(PositiveInteger?(n) Or? IsZero(n)))
+   _ (Not?(PositiveInteger?(n) Or? Zero?(n)))
    <-- Check(False, "Argument", "Third argument to Taylor should be a nonnegative integer");
 
 20 # (Taylor2(_x, 0, _n) _y) <--

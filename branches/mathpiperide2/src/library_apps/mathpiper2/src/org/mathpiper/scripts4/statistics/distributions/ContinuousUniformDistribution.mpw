@@ -3,7 +3,7 @@
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-ContinuousUniformDistribution(a_IsRationalOrNumber, b_IsRationalOrNumber)_(a>=?b)
+ContinuousUniformDistribution(a_RationalOrNumber?, b_RationalOrNumber?)_(a>=?b)
    <-- Undefined;
 
 %/mathpiper

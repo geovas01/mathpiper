@@ -1,7 +1,7 @@
 %mathpiper,def="VarList"
 
 /* VarList: return the variables this expression depends on. */
-VarList(_expr) <-- VarList(expr,"IsVariable");
+VarList(_expr) <-- VarList(expr,"Variable?");
 
 Function("VarList",{expr,filter})
 [
@@ -57,5 +57,5 @@ Result: {x,y,Cos(Ln(x)/x)}
 In> VarListArith(x+a*y^2-1)
 Result: {x,a,y^2};
 
-*SEE IsFreeOf, IsVariable, FuncList, HasExpression?, HasFunction?
+*SEE IsFreeOf, Variable?, FuncList, HasExpression?, HasFunction?
 %/mathpiper_docs

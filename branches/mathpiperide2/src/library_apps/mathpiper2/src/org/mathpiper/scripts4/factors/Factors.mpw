@@ -38,7 +38,7 @@
 ];
 
 
-20 # Factors(p_IsRational)_(Denominator(p) !=? 1) <-- 
+20 # Factors(p_Rational?)_(Denominator(p) !=? 1) <-- 
 [
     If(InVerboseMode(),Tell("Factors_ratNum",p));
     Local(sgn,num,den,fn,fd,f,ans);
@@ -65,7 +65,7 @@
 30 # Factors(_p)_(Length(VarList(p))=0) <-- {{p,1}};
 
 
-//40 # Factors(p_IsRationalFunction) <-- 
+//40 # Factors(p_RationalFunction?) <-- 
 //[
 //    If(InVerboseMode(),Tell("Factors_ratFunc",p));
 //    jFactorsRationalFunc(p);
@@ -102,7 +102,7 @@
 ];
 
 
-60 # Factors( p_IsRationalFunction ) <--
+60 # Factors( p_RationalFunction? ) <--
 [
     If(InVerboseMode(),Tell("Factors_ratFunc",p));
     Local(num,den,fn,fd,f);

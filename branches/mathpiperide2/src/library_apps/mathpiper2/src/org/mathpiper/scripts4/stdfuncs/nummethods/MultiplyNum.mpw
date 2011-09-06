@@ -15,10 +15,10 @@ Function() MultiplyNum(x);
 
 10 # MultiplyNum(x_IsList)_(Length(x)>?1) <-- MultiplyNum(First(x), Rest(x));
 
-10 # MultiplyNum(x_IsRational, y_IsRationalOrNumber) <--
+10 # MultiplyNum(x_Rational?, y_RationalOrNumber?) <--
 [
         If(
-        Type(y) =? "/",  // IsRational(y), changed by Nobbi before redefinition of IsRational
+        Type(y) =? "/",  // Rational?(y), changed by Nobbi before redefinition of Rational?
                 DivideN(Numerator(x)*Numerator(y), Denominator(x)*Denominator(y)),
                 // y is floating-point
                 // avoid multiplication or division by 1
@@ -34,19 +34,19 @@ Function() MultiplyNum(x);
         );
 ];
 
-20 # MultiplyNum(x_IsNumber, y_IsRational) <-- MultiplyNum(y, x);
+20 # MultiplyNum(x_IsNumber, y_Rational?) <-- MultiplyNum(y, x);
 
 25 # MultiplyNum(x_IsNumber, y_IsNumber) <-- MultiplyN(x,y);
 
-30 # MultiplyNum(Complex(r_IsNumber, i_IsNumber), y_IsRationalOrNumber) <-- Complex(MultiplyNum(r, y), MultiplyNum(i, y));
+30 # MultiplyNum(Complex(r_IsNumber, i_IsNumber), y_RationalOrNumber?) <-- Complex(MultiplyNum(r, y), MultiplyNum(i, y));
 
-35 # MultiplyNum(y_IsNumber, Complex(r_IsNumber, i_IsRationalOrNumber)) <-- MultiplyNum(Complex(r, i), y);
+35 # MultiplyNum(y_IsNumber, Complex(r_IsNumber, i_RationalOrNumber?)) <-- MultiplyNum(Complex(r, i), y);
 
 40 # MultiplyNum(Complex(r1_IsNumber, i1_IsNumber), Complex(r2_IsNumber, i2_IsNumber)) <-- Complex(MultiplyNum(r1,r2)-MultiplyNum(i1,i2), MultiplyNum(r1,i2)+MultiplyNum(i1,r2));
 
 /// more than 2 operands
-30 # MultiplyNum(x_IsRationalOrNumber, y_NumericList?)_(Length(y)>?1) <-- MultiplyNum(MultiplyNum(x, First(y)), Rest(y));
-40 # MultiplyNum(x_IsRationalOrNumber, y_NumericList?)_(Length(y)=?1) <-- MultiplyNum(x, First(y));
+30 # MultiplyNum(x_RationalOrNumber?, y_NumericList?)_(Length(y)>?1) <-- MultiplyNum(MultiplyNum(x, First(y)), Rest(y));
+40 # MultiplyNum(x_RationalOrNumber?, y_NumericList?)_(Length(y)=?1) <-- MultiplyNum(x, First(y));
 
 %/mathpiper
 

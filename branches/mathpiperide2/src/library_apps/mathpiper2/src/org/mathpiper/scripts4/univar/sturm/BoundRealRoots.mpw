@@ -10,7 +10,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
   Local(S,N,work,result,Vmin,Vmax,a,b,Va,Vb,c,Vc,x);
 
   result:={};
-  if (IsZero(p Where x==0))
+  if (Zero?(p Where x==0))
   [
     p:=Simplify(p/x);
     result:={{0,0}};
@@ -48,7 +48,7 @@ BoundRealRoots(_p,_Mmin,_Mmax) <--
       c:=(a+b)/2;
 //Echo(a,b,c);
       Vc := SturmVariations(S,c);
-      if (IsZero(p Where x == c))
+      if (Zero?(p Where x == c))
       [
         Local(M,Vcmin,Vcplus,pnew);
         pnew := Simplify((p Where x == x+c)/x);

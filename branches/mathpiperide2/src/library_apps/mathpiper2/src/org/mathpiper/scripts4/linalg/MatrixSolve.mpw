@@ -16,7 +16,7 @@
 ];
 
 // Backward Substitution
-15 # MatrixSolve(matrix_IsUpperTriangular,b_IsVector) <--
+15 # MatrixSolve(matrix_UpperTriangular?,b_IsVector) <--
 [
     If(InVerboseMode(),Tell("   MatrixSolve_ut",{matrix,b}));
     Local(rowsm,rowsb,x,s);

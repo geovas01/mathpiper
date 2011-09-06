@@ -1,7 +1,7 @@
 %mathpiper,def="One?",private="true"
 
 // why do we need this? Why doesn't x=?1 not work?
-10 # One?(x_IsNumber) <-- IsZero(SubtractN(x,1));
+10 # One?(x_IsNumber) <-- Zero?(SubtractN(x,1));
 60000 # One?(_x) <-- False;
 
 %/mathpiper

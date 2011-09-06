@@ -1,0 +1,47 @@
+%mathpiper,def="Unitary?"
+
+Unitary?(A_IsMatrix) <-- (Transpose(Conjugate(A))*A =? Identity(Length(A)));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Unitary?",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD Unitary? --- test for a unitary matrix
+*STD
+*CALL
+        Unitary?(A)
+
+*PARMS
+
+{A} -- a square matrix
+
+*DESC
+
+This function tries to find out if A is unitary.
+
+A matrix $A$ is orthogonal iff $A^(-1)$ = Transpose( Conjugate($A$) ). This is
+equivalent to the fact that the columns of $A$ build an orthonormal system
+(with respect to the scalar product defined by {InProduct}).
+
+*E.G.
+
+In> Unitary?({{0,I},{-I,0}})
+Result: True;
+In> Unitary?({{0,I},{2,0}})
+Result: False;
+
+*SEE IsHermitian, Symmetric?
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Unitary?",subtype="automatic_test"
+
+Verify(Unitary?({{0,I},{-I,0}}),True);
+Verify(Unitary?({{0,I},{-I,1}}),False);
+Verify(Unitary?({{0,I},{-2*I,0}}),False);
+
+%/mathpiper

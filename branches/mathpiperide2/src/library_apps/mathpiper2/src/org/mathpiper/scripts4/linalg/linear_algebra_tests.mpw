@@ -109,20 +109,20 @@ TestMathPiper(Determinant({{a,b},{c,d}}),a*d-b*c);
 
 [
   Local(A);
-  Verify( IsSymmetric(Identity(10)), True );
+  Verify( Symmetric?(Identity(10)), True );
   Verify( Orthogonal?(2*Identity(10)), False );
   A := {{1,2,2},{2,1,-2},{-2,2,-1}};
   Verify( Orthogonal?(A/3), True );
-  Verify( IsSymmetric(Identity(10)), True );
-  Verify( IsSymmetric({{1}}),True );
+  Verify( Symmetric?(Identity(10)), True );
+  Verify( Symmetric?({{1}}),True );
   A := {{1,0,0,0,1},{0,2,0,0,0},{0,0,3,0,0},{0,0,0,4,0},{1,0,0,0,5}};
-  Verify( IsSymmetric(A),True );
+  Verify( Symmetric?(A),True );
   A := {{0,2,0,0,1},{0,0,3,0,0},{0,0,0,4,0},{1,0,0,0,5}};
-  Verify( IsSymmetric(A),False);
+  Verify( Symmetric?(A),False);
   A := {{0,-1},{1,0}};
-  Verify( IsSkewSymmetric(A), True );
-  Verify( IsSkewSymmetric(Identity(10)), False );
-  Verify( IsSkewSymmetric(ZeroMatrix(10,10)), True );
+  Verify( SkewSymmetric?(A), True );
+  Verify( SkewSymmetric?(Identity(10)), False );
+  Verify( SkewSymmetric?(ZeroMatrix(10,10)), True );
   Verify( Idempotent?(Identity(20)), True );
   Verify( Idempotent?(ZeroMatrix(10,10)), True );
 ];

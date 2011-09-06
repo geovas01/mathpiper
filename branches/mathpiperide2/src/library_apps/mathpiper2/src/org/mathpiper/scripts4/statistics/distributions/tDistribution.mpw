@@ -3,7 +3,7 @@
 /* Guard against distribution objects with senseless parameters
    Anti-nominalism */
 
-tDistribution(m_IsRationalOrNumber)_(Not? PositiveInteger?(m)) <-- Undefined;
+tDistribution(m_RationalOrNumber?)_(Not? PositiveInteger?(m)) <-- Undefined;
 
 %/mathpiper
 

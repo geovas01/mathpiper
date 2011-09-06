@@ -9,7 +9,7 @@
  */
 
  
-10 # xSolve'Rational( _expr, _var )_(IsRationalFunction(expr,var)) <--
+10 # xSolve'Rational( _expr, _var )_(RationalFunction?(expr,var)) <--
 [
     If(iDebug=True,Tell(" Rational",expr==0));
     Local(n,d,fn,fd,factor,rootsn,rootsd,root,result);

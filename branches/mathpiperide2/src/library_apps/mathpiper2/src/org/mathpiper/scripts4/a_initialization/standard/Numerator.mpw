@@ -40,7 +40,7 @@ Result: -a;
 In> Numerator(5)
 Result: 5;
 
-*SEE Denominator, IsRational, IsNumber
+*SEE Denominator, Rational?, IsNumber
 %/mathpiper_docs
 
 

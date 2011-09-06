@@ -6,7 +6,7 @@ GetNumerDenom(_expr, _a) <-- GetNumerDenom(expr)*{a,1};
 // on expressions that are not fractions, we return unit denominator
 10 # GetNumerDenom(_expr)_Not?(HasFunctionSome?(expr, "/", {ToAtom("+"), ToAtom("-"), *, /, ^})) <-- {expr, 1};
 // rational numbers are not simplified
-15 # GetNumerDenom(a_IsRationalOrNumber) <-- {a, 1};
+15 # GetNumerDenom(a_RationalOrNumber?) <-- {a, 1};
 // arithmetic
 20 # GetNumerDenom(_a + _b) <-- ExpandFrac'add(GetNumerDenom(a), GetNumerDenom(b));
 20 # GetNumerDenom(_a - _b) <-- ExpandFrac'add(GetNumerDenom(a), GetNumerDenom(b, -1));

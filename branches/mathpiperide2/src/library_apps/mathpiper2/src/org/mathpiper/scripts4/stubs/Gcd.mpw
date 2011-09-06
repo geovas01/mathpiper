@@ -15,7 +15,7 @@
 4 # Gcd(Sqrt(n_IsInteger),m_IsInteger) <-- Sqrt(Gcd(n,m^2));
 4 # Gcd(n_IsInteger,Sqrt(m_IsInteger)) <-- Sqrt(Gcd(n^2,m));
 
-5 # Gcd(n_IsRational,m_IsRational) <--
+5 # Gcd(n_Rational?,m_Rational?) <--
 [
   Gcd(Numerator(n),Numerator(m))/Lcm(Denominator(n),Denominator(m));
 ];

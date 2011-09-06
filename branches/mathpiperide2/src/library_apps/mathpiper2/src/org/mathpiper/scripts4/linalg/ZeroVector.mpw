@@ -34,5 +34,5 @@ This command returns a vector of length "n", filled with zeroes.
 In> ZeroVector(4)
 Result: {0,0,0,0};
 
-*SEE BaseVector, ZeroMatrix, IsZeroVector
+*SEE BaseVector, ZeroMatrix, ZeroVector?
 %/mathpiper_docs

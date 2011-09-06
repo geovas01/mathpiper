@@ -3,9 +3,9 @@
 Function("IsGaussianPrime",{x})
 [
         if( IsGaussianInteger(x) )[
-                if( IsZero(Re(x)) )[
+                if( Zero?(Re(x)) )[
                         ( Abs(Im(x)) % 4 =? 3 And? IsPrime(Abs(Im(x))) );
-                ] else if ( IsZero(Im(x)) ) [
+                ] else if ( Zero?(Im(x)) ) [
                         ( Abs(Re(x)) % 4 =? 3 And? IsPrime(Abs(Re(x))) );
                 ] else [
                         IsPrime(Re(x)^2 + Im(x)^2);

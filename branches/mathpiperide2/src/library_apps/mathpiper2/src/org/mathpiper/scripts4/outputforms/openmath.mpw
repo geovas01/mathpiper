@@ -99,13 +99,13 @@ LocalSymbols(omindent) [
                 );
 14 # OMFormExpression(i_Constant?)// Should we rather evaluate it?
      <-- OMEcho("<OMV name=\"":ToString(i):"\"/>");
-15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ ToString(i) ] !=? Empty)
+15 # OMFormExpression(i_Variable?)_(OMSymbol()[ ToString(i) ] !=? Empty)
      <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
                 :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
                 );
-16 # OMFormExpression(i_IsVariable)
+16 # OMFormExpression(i_Variable?)
      <-- OMEcho("<OMV name=\"":ToString(i):"\"/>");
-16 # OMFormExpression(i_IsVariable)_(i =? Empty)
+16 # OMFormExpression(i_Variable?)_(i =? Empty)
      <-- False; // This is useful for void expressions.
 
 10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMError")
@@ -695,7 +695,7 @@ OMDef( "&" ,  mathpiper, "bitwise_and" );
 OMDef( "|" ,  mathpiper, "bitwise_or"  );
 OMDef( "%" ,  mathpiper, "bitwise_xor" );
 OMDef( "/" , "arith1", "divide");// This definition is for OM arith1:divide to MathPiper. In all other cases, the next one will be used.
-OMDef( "/" , "nums1", "rational", {$, _1, _2}_(IsRational(_1/_2)) | {OMS("arith1", "divide"), _1, _2}, {/, _1, _2});
+OMDef( "/" , "nums1", "rational", {$, _1, _2}_(Rational?(_1/_2)) | {OMS("arith1", "divide"), _1, _2}, {/, _1, _2});
 OMDef( "-" ,  "arith1", "unary_minus");
 OMDef( "-" ,  "arith1", "minus"  );// We need a way of testing the arity.
 OMDef( "+" ,  "arith1", "plus"   );

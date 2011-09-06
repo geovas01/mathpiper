@@ -6,15 +6,15 @@
 58 # 1 ^ n_Infinity? <-- Undefined;
 59 # _x ^ 1 <-- x;
 59 # 1 ^ _n <-- 1;
-59 # x_IsZero ^ y_IsZero <-- Undefined;
-60 # (x_IsZero ^ n_IsRationalOrNumber)_(n>?0) <-- 0;
-60 # (x_IsZero ^ n_IsRationalOrNumber)_(n<?0) <-- Infinity;
+59 # x_Zero? ^ y_Zero? <-- Undefined;
+60 # (x_Zero? ^ n_RationalOrNumber?)_(n>?0) <-- 0;
+60 # (x_Zero? ^ n_RationalOrNumber?)_(n<?0) <-- Infinity;
 // This is to fix:
 // In> 0.0000^2
 // Result: 0.0000^2;
 // In> 0.0^2/2
 // Result: 0.0^2/2;
-//60 # (x_IsNumber ^ n_IsRationalOrNumber)_(x+1=1) <-- 0;
+//60 # (x_IsNumber ^ n_RationalOrNumber?)_(x+1=1) <-- 0;
 
 59 # _x ^ Undefined <-- Undefined;
 59 # Undefined ^ _x <-- Undefined;
@@ -35,7 +35,7 @@
 92 # (x_NegativeNumber? ^ y_IsNumber)_InNumericMode() <-- Exp(y*Ln(x));
 
 
-70  # (_x ^ m_IsRationalOrNumber) ^ n_IsRationalOrNumber <-- x^(n*m);
+70  # (_x ^ m_RationalOrNumber?) ^ n_RationalOrNumber? <-- x^(n*m);
 
 80 # (x_IsNumber/y_IsNumber) ^ n_PositiveInteger? <-- x^n/y^n;
 80 # (x_IsNumber/y_IsNumber) ^ n_NegativeInteger? <-- y^(-n)/x^(-n);

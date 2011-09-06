@@ -35,7 +35,7 @@
             col := MatrixColumn(am,ic);
             If( cr >? 1, col := Drop( col, {1,cr-1} ) );
             //Tell("         ",{ic,col});
-            If(Not? IsZeroVector(col), [cnz := ic; Break();]); 
+            If(Not? ZeroVector?(col), [cnz := ic; Break();]); 
          ];
         cc := cnz;
         If( iDebug, Tell("     first non-zero column is ",cc));
@@ -82,7 +82,7 @@
         If(iDebug And? cr <=? mRows, [NewLine();Tell(" ",cr);]);
         //Tell("   ",cr);
         //Tell("   ",am[cr]);
-        If( cr=?mRows And? IsZeroVector(am[cr]), Break() );
+        If( cr=?mRows And? ZeroVector?(am[cr]), Break() );
     ];   // end while cr <=? mRows
     
     // STEP 6:  convert to unique reduced row-echelon form
@@ -95,7 +95,7 @@
      [ 
          
          If(iDebug,Tell("",{ir,am[ir]}));
-         If(IsZeroVector(am[ir]),
+         If(ZeroVector?(am[ir]),
            [If(iDebug,Tell("    trailing row of zeros:  row ",ir)); ir:=ir-1;Continue();],
            [
               pc := Find(am[ir],1);  // find leading 1 in row

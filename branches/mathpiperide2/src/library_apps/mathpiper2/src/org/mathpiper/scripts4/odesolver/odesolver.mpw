@@ -71,16 +71,16 @@ Rulebase("OdeTerm",{px,list});
 10# OdeFlatTerm(OdeTerm(_a0,_b0)-OdeTerm(_a1,_b1)) <-- OdeTerm(a0-a1,b0-b1);
 10# OdeFlatTerm(-OdeTerm(_a1,_b1)) <-- OdeTerm(-a1,-b1);
 10# OdeFlatTerm(OdeTerm(_a0,_b0)*OdeTerm(_a1,_b1))_
-    (IsZeroVector(b0) Or? IsZeroVector(b1)) <--
+    (ZeroVector?(b0) Or? ZeroVector?(b1)) <--
 [
   OdeTerm(a0*a1,a1*b0+a0*b1);
 ];
 
 10# OdeFlatTerm(OdeTerm(_a0,_b0)/OdeTerm(_a1,_b1))_
-    (IsZeroVector(b1)) <--
+    (ZeroVector?(b1)) <--
     OdeTerm(a0/a1,b0/a1);
 
-10# OdeFlatTerm(OdeTerm(_a0,b0_IsZeroVector)^OdeTerm(_a1,b1_IsZeroVector)) <--
+10# OdeFlatTerm(OdeTerm(_a0,b0_ZeroVector?)^OdeTerm(_a1,b1_ZeroVector?)) <--
     OdeTerm(a0^a1,b0);
 15 # OdeFlatTerm(OdeTerm(_a,_b)) <-- OdeTerm(a,b);
 

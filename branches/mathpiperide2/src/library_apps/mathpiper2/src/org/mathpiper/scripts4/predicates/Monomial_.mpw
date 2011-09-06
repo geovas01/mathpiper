@@ -10,7 +10,7 @@
 10 # Monomial?(expr_CanBeMonomial) <-- 
 [
     Local(r);
-    If( IsRationalFunction(expr),
+    If( RationalFunction?(expr),
         r := (VarList(Denominator(expr)) =? {}),
         r := True
     );

@@ -31,7 +31,7 @@
       
       tests := Subst(==,ToAtom("-")) (exprs Where solutions);
       If(iDebug,Tell("  1",tests));
-      tests := AllSatisfy?("IsZero",tests);
+      tests := AllSatisfy?("Zero?",tests);
   ];
 
   

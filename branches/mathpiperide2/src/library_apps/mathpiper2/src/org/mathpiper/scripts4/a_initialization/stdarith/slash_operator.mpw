@@ -6,7 +6,7 @@
 
 52 # x_PositiveNumber? / 0 <-- Infinity;
 52 # x_NegativeNumber? / 0 <-- -Infinity;
-55 # (_x / y_IsNumber)_(IsZero(y)) <-- Undefined;
+55 # (_x / y_IsNumber)_(Zero?(y)) <-- Undefined;
 55 # 0 / _x <-- 0;
 // unnecessary rule (see #100 below). TODO: REMOVE
 //55 # x_IsNumber / y_NegativeNumber? <-- (-x)/(-y);

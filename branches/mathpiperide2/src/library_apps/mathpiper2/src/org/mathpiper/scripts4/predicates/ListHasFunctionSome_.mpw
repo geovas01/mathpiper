@@ -2,5 +2,4 @@
 
 19 # ListHasFunctionSome?({}, _atom, _look'list) <-- False;
 20 # ListHasFunctionSome?(expr_IsList, atom_IsAtom, _look'list) <-- HasFunctionSome?(First(expr), atom, look'list) Or? ListHasFunctionSome?(Rest(expr), atom, look'list);
-
 %/mathpiper
