@@ -1,4 +1,4 @@
-Mon Sep 05 23:10:41 EDT 2011.
+Tue Sep 06 00:24:33 EDT 2011.
 MathPiper version: js.027.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
@@ -448,12 +448,12 @@ Testing FlatCopy in file </org/mathpiper/builtin/functions/core/FlatCopy.java>:
 
 
 ================================================================
-Testing FloatIsInt in file </org/mathpiper/scripts4/predicates/FloatIsInt.mpw>: 
+Testing FloatIsInt? in file </org/mathpiper/scripts4/predicates/FloatIsInt_.mpw>: 
 
 ******************
-File: /org/mathpiper/scripts4/predicates/FloatIsInt.mpw, Line: 3 
+File: /org/mathpiper/scripts4/predicates/FloatIsInt_.mpw, Line: 3 
 
-FloatIsInt(3.1415926535e9)
+FloatIsInt?(3.1415926535e9)
  evaluates to 
 True
  which differs from 
@@ -504,15 +504,15 @@ Testing HarmonicNumber in file </org/mathpiper/scripts4/numbers/HarmonicNumber.m
 
 
 ================================================================
-Testing HasExpr in file </org/mathpiper/scripts4/predicates/HasExpr.mpw>: 
+Testing HasExpression? in file </org/mathpiper/scripts4/predicates/HasExpression_.mpw>: 
 
 
 ================================================================
-Testing HasFunc in file </org/mathpiper/scripts4/predicates/HasFunc.mpw>: 
+Testing HasFunction? in file </org/mathpiper/scripts4/predicates/HasFunction_.mpw>: 
 
 
 ================================================================
-Testing HasFuncArith in file </org/mathpiper/scripts4/predicates/HasExprArith.mpw>: 
+Testing HasFunctionArithmetic? in file </org/mathpiper/scripts4/predicates/HasFunctionArithmetic_.mpw>: 
 
 
 ================================================================
@@ -806,7 +806,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(907*x+376*x^2+182*x^3+526*x^4+389*x^5+647,907*x+376*x^2+182*x^3+526*x^4+389*x^5+647)<?0.01
+Dot(874*x+545*x^2+742*x^3+799*x^4+249*x^5+770,874*x+545*x^2+742*x^3+799*x^4+249*x^5+770)<?0.01
  which differs from 
 True
 ******************
@@ -825,7 +825,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(181*x+329*x^2+607*x^3+768*x^4+326*x^5+52,181*x+329*x^2+607*x^3+768*x^4+326*x^5+52)<?0.01
+Dot(416*x+734*x^2+787*x^3+201*x^4+668*x^5+345,416*x+734*x^2+787*x^3+201*x^4+668*x^5+345)<?0.01
  which differs from 
 True
 ******************
@@ -844,7 +844,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(153*x+132*x^2+644*x^3+536*x^4+972*x^5+968,153*x+132*x^2+644*x^3+536*x^4+972*x^5+968)<?0.01
+Dot(903*x+256*x^2+908*x^3+664*x^4+705*x^5+71,903*x+256*x^2+908*x^3+664*x^4+705*x^5+71)<?0.01
  which differs from 
 True
 ******************
@@ -863,7 +863,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(505*x+644*x^2+809*x^3+679*x^4+591*x^5+406,505*x+644*x^2+809*x^3+679*x^4+591*x^5+406)<?0.01
+Dot(738*x+807*x^2+466*x^3+489*x^4+374*x^5+949,738*x+807*x^2+466*x^3+489*x^4+374*x^5+949)<?0.01
  which differs from 
 True
 ******************
@@ -882,7 +882,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(870*x+887*x^2+249*x^3+492*x^4+487*x^5+885,870*x+887*x^2+249*x^3+492*x^4+487*x^5+885)<?0.01
+Dot(546*x+299*x^2+228*x^3+436*x^4+441*x^5+429,546*x+299*x^2+228*x^3+436*x^4+441*x^5+429)<?0.01
  which differs from 
 True
 ******************
@@ -901,7 +901,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(806*x+311*x^2+289*x^3+598*x^4+551*x^5+874,806*x+311*x^2+289*x^3+598*x^4+551*x^5+874)<?0.01
+Dot(834*x+113*x^2+626*x^3+121*x^4+331*x^5+976,834*x+113*x^2+626*x^3+121*x^4+331*x^5+976)<?0.01
  which differs from 
 True
 ******************

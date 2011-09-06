@@ -79,7 +79,7 @@ LocalSymbols(res)
         {};
     ];
   
-  42  # xSolve(_expr, _var)_(Not? HasExpr(expr,var)) <--
+  42  # xSolve(_expr, _var)_(Not? HasExpression?(expr,var)) <--
     [ 
         If(iDebug=True,Tell("xSolve6",{expr,var}));
         Assert("xSolve", "expression ":(PipeToString() Write(expr)):" does not depend on ":PipeToString() Write(var)) False; {}; 
@@ -132,25 +132,25 @@ LocalSymbols(res)
         xSolve(e1, var);
     ];
   
-  80  # xSolve(_e1 + _e2, _var)_(Not? HasExpr(e2,var) And? (res := xSolve'Simple(e1,-e2,var)) !=? Failed) <-- 
+  80  # xSolve(_e1 + _e2, _var)_(Not? HasExpression?(e2,var) And? (res := xSolve'Simple(e1,-e2,var)) !=? Failed) <-- 
     [
         If(iDebug=True,Tell(10,{e1,e2,var,res}));
         res;
     ];
   
-  80  # xSolve(_e1 + _e2, _var)_(Not? HasExpr(e1,var) And? (res := xSolve'Simple(e2,-e1,var)) !=? Failed) <-- 
+  80  # xSolve(_e1 + _e2, _var)_(Not? HasExpression?(e1,var) And? (res := xSolve'Simple(e2,-e1,var)) !=? Failed) <-- 
     [
         If(iDebug=True,Tell(11,{e1,e2,var,res}));
         res;
     ];
   
-  80  # xSolve(_e1 - _e2, _var)_(Not? HasExpr(e2,var) And? (res := xSolve'Simple(e1,e2,var)) !=? Failed) <-- 
+  80  # xSolve(_e1 - _e2, _var)_(Not? HasExpression?(e2,var) And? (res := xSolve'Simple(e1,e2,var)) !=? Failed) <-- 
     [
         If(iDebug=True,Tell(12,{e1,e2,var,res}));
         res;
     ];
   
-  80  # xSolve(_e1 - _e2, _var)_(Not? HasExpr(e1,var) And? (res := xSolve'Simple(e2,e1,var)) !=? Failed) <-- 
+  80  # xSolve(_e1 - _e2, _var)_(Not? HasExpression?(e1,var) And? (res := xSolve'Simple(e2,e1,var)) !=? Failed) <-- 
     [
         If(iDebug=True,Tell(13,{e1,e2,var,res}));
         res;
@@ -200,25 +200,25 @@ LocalSymbols(res)
  * Note: 'rhs' should not contain 'var'.
  */
 
-20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e1 = var And? Not? HasExpr(e2,var)) <-- 
+20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e1 = var And? Not? HasExpression?(e2,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve51aSimple",{e1,e2,rhs,var}));
       { var == rhs-e2 };
   ];
   
-20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e2 = var And? Not? HasExpr(e1,var)) <-- 
+20 # xSolve'Simple(_e1 + _e2, _rhs, _var)_(e2 = var And? Not? HasExpression?(e1,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve51bSimple",{e1,e2,rhs,var}));
       { var == rhs-e1 };
   ];
 
-20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e1 = var And? Not? HasExpr(e2,var)) <-- 
+20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e1 = var And? Not? HasExpression?(e2,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve52aSimple",{e1,e2,rhs,var}));
       { var == rhs+e2 };
   ];
 
-20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e2 = var And? Not? HasExpr(e1,var)) <-- 
+20 # xSolve'Simple(_e1 - _e2, _rhs, _var)_(e2 = var And? Not? HasExpression?(e1,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve52bSimple",{e1,e2,rhs,var}));
       { var == e1-rhs };
@@ -230,31 +230,31 @@ LocalSymbols(res)
       { var == -rhs };
   ];
 
-20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e1 = var And? Not? HasExpr(e2,var)) <-- 
+20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e1 = var And? Not? HasExpression?(e2,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve54aSimple",{e1,e2,rhs,var}));
       { var == rhs/e2 };
   ];
 
-20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e2 = var And? Not? HasExpr(e1,var)) <-- 
+20 # xSolve'Simple(_e1 * _e2, _rhs, _var)_(e2 = var And? Not? HasExpression?(e1,var)) <-- 
   [
       If(iDebug=True,Tell("xSolve54bSimple",{e1,e2,rhs,var}));
       { var == rhs/e1 };
   ];
 
-20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e1 = var And? Not? HasExpr(e2,var)) <-- 
+20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e1 = var And? Not? HasExpression?(e2,var)) <-- 
   [
       If(iDebug,Tell("xSolve55aSimple",{e1,e2,rhs,var}));
       { var == rhs*e2 };
   ];
 
-10 # xSolve'Simple(_e1 / _e2, 0,    _var)_(e2 = var And? Not? HasExpr(e1,var)) <-- 
+10 # xSolve'Simple(_e1 / _e2, 0,    _var)_(e2 = var And? Not? HasExpression?(e1,var)) <-- 
   [
       If(iDebug,Tell("xSolve55bSimple",{e1,e2,var}));
       { };
   ];
 
-20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e2 = var And? Not? HasExpr(e1,var)) <-- 
+20 # xSolve'Simple(_e1 / _e2, _rhs, _var)_(e2 = var And? Not? HasExpression?(e1,var)) <-- 
   [
       If(iDebug,Tell("xSolve55cSimple",{e1,e2,rhs,var}));
       { var == e1/rhs };
@@ -407,23 +407,23 @@ LocalSymbols(x)
  * equation  Sin(x)+Cos(x)==0
  * One problem with this is that we may lose roots if the thing we
  * are dividing by shares roots with the whole equation.
- * The final HasExprs are an attempt to prevent infinite recursion caused by
+ * The final HasExpression?s are an attempt to prevent infinite recursion caused by
  * the final Simplify step in xSolve undoing what we do here.  It's conceivable
  * though that this won't always work if the recurring loop is more than two
  * steps long.  I can't think of any ways this can happen though :)
  */
 
-10 # xSolve'Divide(_e1 + _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
-                And? Not? (HasExpr(Simplify(1 + (e2/e1)), e1)
-                      Or? HasExpr(Simplify(1 + (e2/e1)), e2))) <--
+10 # xSolve'Divide(_e1 + _e2, _var)_(HasExpression?(e1, var) And? HasExpression?(e2, var)
+                And? Not? (HasExpression?(Simplify(1 + (e2/e1)), e1)
+                      Or? HasExpression?(Simplify(1 + (e2/e1)), e2))) <--
      [
          If(iDebug,Tell("xSolve71aDivide",{e1,e2,var}));
          xSolve(1 + (e2/e1), var);
      ];
                                            
-10 # xSolve'Divide(_e1 - _e2, _var)_(HasExpr(e1, var) And? HasExpr(e2, var)
-                And? Not? (HasExpr(Simplify(1 - (e2/e1)), e1)
-                      Or? HasExpr(Simplify(1 - (e2/e1)), e2))) <--
+10 # xSolve'Divide(_e1 - _e2, _var)_(HasExpression?(e1, var) And? HasExpression?(e2, var)
+                And? Not? (HasExpression?(Simplify(1 - (e2/e1)), e1)
+                      Or? HasExpression?(Simplify(1 - (e2/e1)), e2))) <--
      [
          If(iDebug,Tell("xSolve71bDivide",{e1,e2,var}));
          xSolve(1 - (e2/e1), var);

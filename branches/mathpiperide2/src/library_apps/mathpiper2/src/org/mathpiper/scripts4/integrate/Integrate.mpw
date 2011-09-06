@@ -118,7 +118,7 @@
 [
         if( IsFreeOf(var,expr) Or? IsSumOfTerms(var,expr) )[
                 expr;
-        ] else if ( HasFunc(expr,Sin) Or? HasFunc(expr,Cos) )[
+        ] else if ( HasFunction?(expr,Sin) Or? HasFunction?(expr,Cos) )[
                 Simplify(TrigSimpCombine(expr));
         ] else [
                 Simplify(expr);

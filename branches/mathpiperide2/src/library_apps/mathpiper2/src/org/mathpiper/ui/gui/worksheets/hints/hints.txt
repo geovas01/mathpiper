@@ -175,12 +175,12 @@
 :GuessRational:GuessRational(x, digits)::
 :HarmonicNumber:HarmonicNumber(n):return the {n}th Harmonic Number:
 :HarmonicNumber:HarmonicNumber(n,r)::
-:HasExpr:HasExpr(expr, x):check for expression containing a subexpression:
-:HasExprArith:HasExprArith(expr, x):check for expression containing a subexpression:
-:HasExprSome:HasExprSome(expr, x, list):check for expression containing a subexpression:
-:HasFunc:HasFunc(expr, func):check for expression containing a function:
-:HasFuncArith:HasFuncArith(expr, func):check for expression containing a function:
-:HasFuncSome:HasFuncSome(expr, func, list):check for expression containing a function:
+:HasExpression?:HasExpression?(expr, x):check for expression containing a subexpression:
+:HasExpressionArithmetic?:HasExpressionArithmetic?(expr, x):check for expression containing a subexpression:
+:HasExpressionSome?:HasExpressionSome?(expr, x, list):check for expression containing a subexpression:
+:HasFunction?:HasFunction?(expr, func):check for expression containing a function:
+:HasFunctionArithmetic?:HasFunctionArithmetic?(expr, func):check for expression containing a function:
+:HasFunctionSome?:HasFunctionSome?(expr, func, list):check for expression containing a function:
 :Head:Head(list):the first element of a list:
 :HeapSort:HeapSort(list, compare):sort a list:
 :HessianMatrix:HessianMatrix(function,var):create the Hessian matrix:

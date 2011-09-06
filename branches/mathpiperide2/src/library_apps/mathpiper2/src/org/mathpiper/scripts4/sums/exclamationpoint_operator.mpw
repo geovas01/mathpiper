@@ -9,7 +9,7 @@
         MathFac(n);
 ];
 
-25 # ((x_IsConstant)!)_(FloatIsInt(x) And? x>?0) <-- (Round(x)!);
+25 # ((x_IsConstant)!)_(FloatIsInt?(x) And? x>?0) <-- (Round(x)!);
 
 30 # ((x_IsNumber)!)_InNumericMode() <-- Internal'GammaNum(x+1);
 

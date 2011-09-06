@@ -1,0 +1,48 @@
+%mathpiper,def="HasFunctionSome?"
+
+/// function name given as string.
+10 # HasFunctionSome?(_expr, string_IsString, _look'list) <-- HasFunctionSome?(expr, ToAtom(string), look'list);
+/// function given as atom.
+// atom contains no functions
+10 # HasFunctionSome?(expr_IsAtom, atom_IsAtom, _look'list) <-- False;
+// a list contains the function List so we test it together with functions
+// a function contains itself, or maybe an argument contains it
+
+// first deal with functions that do not belong to the list: return top level function
+15 # HasFunctionSome?(expr_IsFunction, atom_IsAtom, _look'list)_(Not? Contains(look'list, ToAtom(Type(expr)))) <-- IsEqual(First(FunctionToList(expr)), atom);
+// function belongs to the list - check its arguments
+20 # HasFunctionSome?(expr_IsFunction, atom_IsAtom, _look'list) <-- IsEqual(First(FunctionToList(expr)), atom) Or? ListHasFunctionSome?(Rest(FunctionToList(expr)), atom, look'list);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="HasFunctionSome?",categories="User Functions;Predicates"
+*CMD HasFunctionSome? --- check for expression containing a function
+*STD
+*CALL
+        HasFunctionSome?(expr, func, list)
+
+*PARMS
+
+{expr} -- an expression
+
+{func} -- a function atom to be found
+
+{list} -- list of function atoms to be considered "transparent"
+
+*DESC
+
+The command {HasFunctionSome?} does the same thing as {HasFunction?}, except it only looks at arguments of a given {list} of functions. Arguments of all other functions become "opaque" (as if they do not contain anything).
+
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+
+*E.G.
+
+In> HasFunctionSome?({a+b*2,c/d},/,{List})
+Result: True;
+In> HasFunctionSome?({a+b*2,c/d},*,{List})
+Result: False;
+
+*SEE HasFunction?, HasFunctionArithmetic?, FuncList, VarList, HasExpression?
+%/mathpiper_docs

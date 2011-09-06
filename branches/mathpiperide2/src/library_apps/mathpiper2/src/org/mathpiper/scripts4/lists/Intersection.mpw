@@ -2,7 +2,7 @@
 
 //Retract("Intersection",*);
 
-10 # Intersection( LoL_IsList )_(AllSatisfy("IsList",LoL)) <--
+10 # Intersection( LoL_IsList )_(AllSatisfy?("IsList",LoL)) <--
 [
   //If(InVerboseMode(),Tell("Intersection_listOfLists",LoL));
   Local(nLists,L0,L1,ii,result,LI);

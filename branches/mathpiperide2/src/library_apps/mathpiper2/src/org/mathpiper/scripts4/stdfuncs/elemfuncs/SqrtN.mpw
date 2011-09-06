@@ -41,7 +41,7 @@ SqrtN(x) := MathSqrt1(x);        // to have another function is easier for debug
                         // convert x to float and use the float routine
                         result := MathSqrtFloat(x+0.);
                         // decide whether result is integer: decrease precision and compare
-                        If(FloatIsInt(SetExactBitsN(result, GetExactBitsN(result)-3)), result:= Floor(result+0.5));
+                        If(FloatIsInt?(SetExactBitsN(result, GetExactBitsN(result)-3)), result:= Floor(result+0.5));
                         BuiltinPrecisionSet(GlobalPop());
                 ],
                 // now the number x cannot be an exact square; current precision is sufficient

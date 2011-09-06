@@ -1,0 +1,50 @@
+%mathpiper,def="ListHasFunction?"
+
+/// ListHasFunction? --- test for one of the elements of a list to contain a function
+/// this is mainly useful to test whether a list has nested lists, 
+/// i.e. ListHasFunction?({1,2,3}, List)=False and ListHasFunction?({1,2,{3}}, List)=True.
+// need to exclude the List atom itself, so don't use FunctionToList
+19 # ListHasFunction?({}, _atom) <-- False;
+20 # ListHasFunction?(expr_IsList, atom_IsAtom) <-- HasFunction?(First(expr), atom) Or? ListHasFunction?(Rest(expr), atom);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="ListHasFunction?",categories="User Functions;Predicates"
+*CMD ListHasFunction? --- test for one of the elements of a list to contain a function
+*STD
+*CALL
+        ListHasFunction?( list, func )
+
+*PARMS
+
+{list} - a list of expressions
+
+{func} - a function atom to be found
+
+*DESC
+
+Given a list of expressions and and a function name, this command returns 
+{True} if the list contains the function name.
+
+*E.G.
+In> lst := {Ln(x),Sinh(a*x),ArcTan(3/x)}
+Result: {Ln(x),Sinh(a*x),ArcTan(3/x)}
+
+In> ListHasFunction?(lst,Sqrt)
+Result: False
+
+In> ListHasFunction?(lst,Ln)
+Result: True
+
+In> ListHasFunction?(lst,Sinh)
+Result: True
+
+In> ListHasFunction?(lst,ArcTan)
+Result: True
+*SEE HasFunction?
+%/mathpiper_docs
+
+

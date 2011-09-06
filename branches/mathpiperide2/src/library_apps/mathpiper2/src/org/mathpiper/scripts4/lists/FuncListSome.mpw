@@ -43,5 +43,5 @@ Result: {+,*,Cos};
 In> FuncListSome({a+b*2,c/d},{List})
 Result: {List,+,/};
 
-*SEE VarList, HasExpr, HasFunc
+*SEE VarList, HasExpression?, HasFunction?
 %/mathpiper_docs

@@ -40,7 +40,7 @@
          *  Now we check whether the input polynomial is "over the 
          *  integers", by examining all its coefficients
          */
-        If( AllSatisfy("IsInteger",coeffs),
+        If( AllSatisfy?("IsInteger",coeffs),
           [
               // Yes -- all integer coefficients
               result := FactorsPolynomialOverIntegers(p,x);
