@@ -42,7 +42,7 @@
     exprns := {};
     ForEach(eq,eqns)
      [
-         expr := If( IsEquation(eq), EquationLeft(eq)-EquationRight(eq), eq );
+         expr := If( Equation?(eq), EquationLeft(eq)-EquationRight(eq), eq );
          DestructiveAppend(exprns,expr);
      ];
     If(InVerboseMode(),Tell(" ",exprns));

@@ -143,7 +143,7 @@ UnFence("xFB1",3);
 ];
 
 
-30 # xFB1(_X, n_IsEven, s_IsPositiveInteger) <--
+30 # xFB1(_X, n_Even?, s_IsPositiveInteger) <--
 [
     Local(ans,fn,mx,my);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1evensum",{X,n});]);
@@ -185,7 +185,7 @@ UnFence("xFB1",3);
 ];
 
 
-35 # xFB1(_X, n_IsEven, s_IsNegativeInteger) <--
+35 # xFB1(_X, n_Even?, s_IsNegativeInteger) <--
 [
     Local(ans);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1evendif",{X,n});]);

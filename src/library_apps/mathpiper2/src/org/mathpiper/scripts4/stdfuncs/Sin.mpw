@@ -23,8 +23,8 @@
 4 # Sin(ArcSin(_x))           <-- x;
 4 # Sin(ArcCos(_x)) <-- Sqrt(1-x^2);
 4 # Sin(ArcTan(_x)) <-- x/Sqrt(1+x^2);
-5 # Sin(- _x)_(Not? IsConstant(x))                 <-- -Sin(x);
-6 # (Sin(x_IsConstant))_(IsNegativeNumber(N(Eval(x))))   <-- -Sin(-x);
+5 # Sin(- _x)_(Not? Constant?(x))                 <-- -Sin(x);
+6 # (Sin(x_Constant?))_(IsNegativeNumber(N(Eval(x))))   <-- -Sin(-x);
 
 // must prevent it from looping
 6 # Sin(x_IsInfinity)                 <-- Undefined;

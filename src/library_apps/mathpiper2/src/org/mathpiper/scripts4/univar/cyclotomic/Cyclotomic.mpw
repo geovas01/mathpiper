@@ -37,7 +37,7 @@ Function("SubstituteInUniVar",{p,k})
   // We append k-1 zeros
   If (i<?d, For (j:=1,j<?k,j++) DestructiveAppend(NL,0));
   // We append (-1)^i*c as the coefficient of x^(k*i)
-  DestructiveAppend(NL,If(IsEven(i),c,-c));
+  DestructiveAppend(NL,If(Even?(i),c,-c));
   i--;
  ];
  UniVariate(First(p),0,NL);
@@ -61,7 +61,7 @@ Function("SubstituteAndExpandInUniVar",{p,k})
     Local(term);
     exponent := first+i-1;
     c:= coefs[i];
-    nc := If(IsEven(exponent),c,-c);
+    nc := If(Even?(exponent),c,-c);
     term:=NormalForm(nc*var^(exponent*k));
     result:=result+term;
   ];
@@ -119,12 +119,12 @@ CyclotomicFactor(_a,_b) <--
 // If m=1, n is a power of 2, and Cyclotomic(n,x)= x^k+1 */
 
 
-10 # InternalCyclotomic(n_IsEven,_x) <--
+10 # InternalCyclotomic(n_Even?,_x) <--
      [
       Local(k,m,result,p,t);
        k := 1;
        m := n;
-        While(IsEven(m))
+        While(Even?(m))
        [
         k := k*2;
         m := m/2;
@@ -135,7 +135,7 @@ CyclotomicFactor(_a,_b) <--
                  // Substitute x by -x^k
                  result:={};
                  ForEach(t,p)
-                    DestructiveAppend(result, {t[1]*k,If(IsEven(t[1]),t[2],-t[2])});
+                    DestructiveAppend(result, {t[1]*k,If(Even?(t[1]),t[2],-t[2])});
                ],
                  result := {{k,1},{0,1}} // x^k+1
         );

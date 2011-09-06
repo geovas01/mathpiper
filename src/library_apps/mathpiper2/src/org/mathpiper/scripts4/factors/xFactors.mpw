@@ -416,7 +416,7 @@ UnFence("ApproximateRealCoefficients",1);
 
 
 152 # xFactors( expr_IsRationalFunction )_
-        (IsConstant(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
+        (Constant?(Numerator(expr)) And? IsPolynomial(Denominator(expr))) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFactors_Rational_Denom",expr);]);
     Local(Numer,Denom,fNumer,fDenom);

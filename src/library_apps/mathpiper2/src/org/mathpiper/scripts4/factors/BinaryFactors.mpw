@@ -169,14 +169,14 @@ Function(Fct,{poly,var})
   Bind(q,1);
   Bind(twoq,MultiplyN(q,2));
   Bind(mask,AddN(twoq,MathNegate(1)));
-  if (IsEven(testpoly[1]))
+  if (Even?(testpoly[1]))
   [
     Bind(accu,0:accu);
     AddFoundSolutionSingle(0);
   ];
   Bind(p,1);
   Bind(calc, Eval(lastcoef));
-  If (IsEven(calc),
+  If (Even?(calc),
   [
     Bind(accu,1:accu);
     AddFoundSolution(1);

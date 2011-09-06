@@ -8,7 +8,7 @@
 15 # Sign(n_IsNumber/m_IsNumber) <-- Sign(n)*Sign(m);
 20 # Sign(n_IsList) <-- MapSingle("Sign",n);
 
-100 # Sign(_a)^n_IsEven <-- 1;
+100 # Sign(_a)^n_Even? <-- 1;
 100 # Sign(_a)^n_IsOdd <-- Sign(a);
 
 %/mathpiper

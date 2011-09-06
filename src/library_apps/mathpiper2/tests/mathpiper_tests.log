@@ -1,4 +1,4 @@
-Tue Sep 06 00:24:33 EDT 2011.
+Tue Sep 06 01:11:37 EDT 2011.
 MathPiper version: js.027.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
@@ -155,6 +155,10 @@ Testing ConcatStrings in file </org/mathpiper/builtin/functions/core/Concatenate
 
 ================================================================
 Testing Conjugate in file </org/mathpiper/scripts4/complex/Conjugate.mpw>: 
+
+
+================================================================
+Testing Constant? in file </org/mathpiper/scripts4/predicates/Constant_.mpw>: 
 
 
 ================================================================
@@ -570,10 +574,6 @@ Testing IsComposite in file </org/mathpiper/scripts4/numbers/IsComposite.mpw>:
 
 
 ================================================================
-Testing IsConstant in file </org/mathpiper/scripts4/predicates/IsConstant.mpw>: 
-
-
-================================================================
 Testing IsCoprime in file </org/mathpiper/scripts4/numbers/IsCoprime.mpw>: 
 
 
@@ -598,7 +598,7 @@ Testing IsGreaterThan in file </org/mathpiper/builtin/functions/core/IsGreaterTh
 
 
 ================================================================
-Testing IsHermitian in file </org/mathpiper/scripts4/predicates/IsHermitian.mpw>: 
+Testing IsHermitian in file </org/mathpiper/scripts4/predicates/Hermitian_.mpw>: 
 
 
 ================================================================
@@ -806,7 +806,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(874*x+545*x^2+742*x^3+799*x^4+249*x^5+770,874*x+545*x^2+742*x^3+799*x^4+249*x^5+770)<?0.01
+Dot(188*x+31*x^2+717*x^3+133*x^4+332*x^5+123,188*x+31*x^2+717*x^3+133*x^4+332*x^5+123)<?0.01
  which differs from 
 True
 ******************
@@ -825,7 +825,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(416*x+734*x^2+787*x^3+201*x^4+668*x^5+345,416*x+734*x^2+787*x^3+201*x^4+668*x^5+345)<?0.01
+Dot(964*x+923*x^2+496*x^3+680*x^4+684*x^5+310,964*x+923*x^2+496*x^3+680*x^4+684*x^5+310)<?0.01
  which differs from 
 True
 ******************
@@ -844,7 +844,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(903*x+256*x^2+908*x^3+664*x^4+705*x^5+71,903*x+256*x^2+908*x^3+664*x^4+705*x^5+71)<?0.01
+Dot(392*x+610*x^2+109*x^3+735*x^4+559*x^5+205,392*x+610*x^2+109*x^3+735*x^4+559*x^5+205)<?0.01
  which differs from 
 True
 ******************
@@ -863,7 +863,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(738*x+807*x^2+466*x^3+489*x^4+374*x^5+949,738*x+807*x^2+466*x^3+489*x^4+374*x^5+949)<?0.01
+Dot(645*x+79*x^2+583*x^3+678*x^4+94*x^5+697,645*x+79*x^2+583*x^3+678*x^4+94*x^5+697)<?0.01
  which differs from 
 True
 ******************
@@ -882,7 +882,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(546*x+299*x^2+228*x^3+436*x^4+441*x^5+429,546*x+299*x^2+228*x^3+436*x^4+441*x^5+429)<?0.01
+Dot(12*x+25*x^2+113*x^3+900*x^4+403*x^5+646,12*x+25*x^2+113*x^3+900*x^4+403*x^5+646)<?0.01
  which differs from 
 True
 ******************
@@ -901,7 +901,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(834*x+113*x^2+626*x^3+121*x^4+331*x^5+976,834*x+113*x^2+626*x^3+121*x^4+331*x^5+976)<?0.01
+Dot(978*x+237*x^2+994*x^3+644*x^4+502*x^5+322,978*x+237*x^2+994*x^3+644*x^4+502*x^5+322)<?0.01
  which differs from 
 True
 ******************

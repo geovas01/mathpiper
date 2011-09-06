@@ -21,8 +21,8 @@
 4 # Cos(ArcCos(_x))           <-- x;
 4 # Cos(ArcSin(_x)) <-- Sqrt(1-x^2);
 4 # Cos(ArcTan(_x)) <-- 1/Sqrt(1+x^2);
-5 # Cos(- _x)_(Not? IsConstant(x))                 <-- Cos(x);
-6 # (Cos(x_IsConstant))_(IsNegativeNumber(N(Eval(x))))   <-- Cos(-x);
+5 # Cos(- _x)_(Not? Constant?(x))                 <-- Cos(x);
+6 # (Cos(x_Constant?))_(IsNegativeNumber(N(Eval(x))))   <-- Cos(-x);
 // must prevent it from looping
 
 110 # Cos(Complex(_r,_i)) <--
@@ -38,7 +38,7 @@
     [
      Local(ll);
      ll:= FloorN(N(Eval(x/Pi)));
-     If(IsEven(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
+     If(Even?(ll),x:=(x - Pi*ll),x:=(-x + Pi*(ll+1)));
      ListToFunction({Cos,x});
      ];
 
@@ -46,7 +46,7 @@
     [
      Local(ll);
      ll:= FloorN(N(Eval(Abs(x)/Pi)));
-     If(IsEven(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
+     If(Even?(ll),x:=(Abs(x) - Pi*ll),x:=(-Abs(x) + Pi*(ll+1)));
      ListToFunction({Cos,x});
      ];
 

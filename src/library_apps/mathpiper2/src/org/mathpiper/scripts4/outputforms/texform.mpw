@@ -54,7 +54,7 @@ Rulebase("TeXForm",{expression, precedence});
 
 Function ("TeXFormBracketIf", {predicate, string})
 [
-        Check(IsBoolean(predicate) And? IsString(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormBracketIf");
+        Check(Boolean?(predicate) And? IsString(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormBracketIf");
         If(predicate, ConcatStrings("( ", string, ") "), string);
 ];
 
@@ -63,7 +63,7 @@ Function ("TeXFormBracketIf", {predicate, string})
 
 Function ("TeXFormMatrixBracketIf", {predicate, string})
 [
-        Check(IsBoolean(predicate) And? IsString(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormMatrixBracketIf");
+        Check(Boolean?(predicate) And? IsString(string), "Argument", "TeXForm internal error: non-boolean and/or non-string argument of TeXFormMatrixBracketIf");
         If(predicate, ConcatStrings("\\left[ ", string, "\\right]"), string);
 ];
 

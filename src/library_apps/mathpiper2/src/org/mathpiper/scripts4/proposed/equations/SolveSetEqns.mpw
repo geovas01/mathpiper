@@ -77,7 +77,7 @@
 
 
 
-10 # CheckEquationSolution( eqn_IsEquation, soln_IsList ) <--
+10 # CheckEquationSolution( eqn_Equation?, soln_IsList ) <--
 [
     Local(EL,LHS,RHS,L,svar,sval);
     If(InVerboseMode(),Tell(CheckOneEq,{eqn,soln}));

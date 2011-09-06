@@ -93,11 +93,11 @@ LocalSymbols(omindent) [
 10 # OMFormExpression(i_IsString)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
 11 # OMFormExpression(i_IsInteger) <-- OMEcho("<OMI>":ToString(i):"</OMI>");
 12 # OMFormExpression(i_IsNumber)  <-- OMEcho("<OMF dec=\"":ToString(i):"\"/>");
-13 # OMFormExpression(i_IsConstant)_(OMSymbol()[ ToString(i) ] !=? Empty)
+13 # OMFormExpression(i_Constant?)_(OMSymbol()[ ToString(i) ] !=? Empty)
      <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
                 :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
                 );
-14 # OMFormExpression(i_IsConstant)// Should we rather evaluate it?
+14 # OMFormExpression(i_Constant?)// Should we rather evaluate it?
      <-- OMEcho("<OMV name=\"":ToString(i):"\"/>");
 15 # OMFormExpression(i_IsVariable)_(OMSymbol()[ ToString(i) ] !=? Empty)
      <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]

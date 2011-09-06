@@ -14,7 +14,7 @@ See the Algo book for documentation.
 
 20 # JacobiSymbol(_a, b_IsOdd)_(a>=?Abs(b) Or? a<?0) <-- JacobiSymbol(Modulo(a,Abs(b)),Abs(b));
 
-30 # JacobiSymbol(a_IsEven, b_IsOdd) <--
+30 # JacobiSymbol(a_Even?, b_IsOdd) <--
 [
         Local(c, s);
         // compute c,s where a=c*2^s and c is odd

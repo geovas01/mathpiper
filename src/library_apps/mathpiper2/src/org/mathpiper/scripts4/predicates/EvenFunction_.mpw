@@ -1,17 +1,17 @@
-%mathpiper,def="IsEvenFunction"
+%mathpiper,def="EvenFunction?"
 
-IsEvenFunction(f,x):= (f =? Eval(Subst(x,-x)f));
+EvenFunction?(f,x):= (f =? Eval(Subst(x,-x)f));
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsEvenFunction",categories="User Functions;Predicates"
-*CMD IsEvenFunction --- Return true if function is an even function (False otherwise)
+%mathpiper_docs,name="EvenFunction?",categories="User Functions;Predicates"
+*CMD EvenFunction? --- Return true if function is an even function (False otherwise)
 
 *STD
 *CALL
-        IsEvenFunction(expression,variable)
+        EvenFunction?(expression,variable)
 
 *PARMS
 
@@ -43,13 +43,13 @@ $$ f_odd(x) = (f(x)-f(-x))/2 $$
 
 *E.G.
 
-In> IsEvenFunction(Cos(b*x),x)
+In> EvenFunction?(Cos(b*x),x)
 Result: True
-In> IsEvenFunction(Sin(b*x),x)
+In> EvenFunction?(Sin(b*x),x)
 Result: False
-In> IsEvenFunction(1/x^2,x)
+In> EvenFunction?(1/x^2,x)
 Result: True
-In> IsEvenFunction(1/x,x)
+In> EvenFunction?(1/x,x)
 Result: False
 
 *SEE IsOddFunction, Sin, Cos

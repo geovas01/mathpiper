@@ -2,7 +2,7 @@
 
 //Retract("MatrixSolve",*);
 
-10 # MatrixSolve(matrix_IsDiagonal,b_IsVector) <--
+10 # MatrixSolve(matrix_Diagonal?,b_IsVector) <--
 [
     If(InVerboseMode(),Tell("   MatrixSolve_diag",{matrix,b}));
         Local(rowsm,rowsb,x);

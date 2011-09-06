@@ -6,9 +6,9 @@
 
 10 # FactorsBinomials( _x - y_IsFreeOf(x) ) <-- {x-y,1};
 
-10 # FactorsBinomials( c_IsConstant * _x + y_IsFreeOf(x) ) <-- {c*x+y,1};
+10 # FactorsBinomials( c_Constant? * _x + y_IsFreeOf(x) ) <-- {c*x+y,1};
 
-10 # FactorsBinomials( c_IsConstant * _x - y_IsFreeOf(x) ) <-- {c*x-y,1};
+10 # FactorsBinomials( c_Constant? * _x - y_IsFreeOf(x) ) <-- {c*x-y,1};
 
 10 # FactorsBinomials( _x^m_IsOdd + _y ) <--
 [
@@ -21,7 +21,7 @@
 ];
 
 
-12 # FactorsBinomials( c_IsConstant * _x^m_IsOdd + _y ) <--
+12 # FactorsBinomials( c_Constant? * _x^m_IsOdd + _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialssum",{c,x,m,y}));
     Local(nn,qq, r);
@@ -60,7 +60,7 @@
 ];
 
 
-12 # xFactorsBinomials( c_IsConstant * _x^m_IsInteger - _y ) <--
+12 # xFactorsBinomials( c_Constant? * _x^m_IsInteger - _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialsdif",{c,x,m,y}));
     Local(aa,bb,c0,r);

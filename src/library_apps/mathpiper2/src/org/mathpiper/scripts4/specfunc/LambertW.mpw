@@ -15,7 +15,7 @@
 20 # LambertW(_x * Ln(_x)) <-- Ln(x);
 20 # LambertW(Ln(_x) * _x) <-- Ln(x);
 
-30 # LambertW(x_IsConstant) _ InNumericMode() <-- Internal'LambertWNum(Eval(x));
+30 # LambertW(x_Constant?) _ InNumericMode() <-- Internal'LambertWNum(Eval(x));
 
 /* {Internal'LambertWNum} computes a numeric approximation of Lambert's $W$ function
 to the current precision. It uses a Halley iteration

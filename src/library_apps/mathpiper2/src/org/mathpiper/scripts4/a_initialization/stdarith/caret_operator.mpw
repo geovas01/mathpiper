@@ -29,8 +29,8 @@
 61 # x_IsPositiveNumber ^ y_IsNegativeInteger <-- 1/MathIntPower(x,-y);
 65 # (x_IsPositiveNumber ^ y_IsNumber)_InNumericMode() <-- Exp(y*Ln(x));
 
-90 # (-_x)^m_IsEven <-- x^m;
-91 # (x_IsConstant ^ (m_IsOdd / p_IsOdd))_(IsNegativeNumber(Re(N(Eval(x))))) <--
+90 # (-_x)^m_Even? <-- x^m;
+91 # (x_Constant? ^ (m_IsOdd / p_IsOdd))_(IsNegativeNumber(Re(N(Eval(x))))) <--
      -((-x)^(m/p));
 92 # (x_IsNegativeNumber ^ y_IsNumber)_InNumericMode() <-- Exp(y*Ln(x));
 
@@ -39,7 +39,7 @@
 
 80 # (x_IsNumber/y_IsNumber) ^ n_IsPositiveInteger <-- x^n/y^n;
 80 # (x_IsNumber/y_IsNumber) ^ n_IsNegativeInteger <-- y^(-n)/x^(-n);
-80 # x_IsNegativeNumber ^ n_IsEven <-- (-x)^n;
+80 # x_IsNegativeNumber ^ n_Even? <-- (-x)^n;
 80 # x_IsNegativeNumber ^ n_IsOdd <-- -((-x)^n);
 
 
@@ -49,22 +49,22 @@
 
 100  # ((x_IsNumber)^(n_IsInteger/(_m)))_(n>?1) <-- MathIntPower(x,n)^(1/m);
 
-100 # Sqrt(_n)^(m_IsEven) <-- n^(m/2);
+100 # Sqrt(_n)^(m_Even?) <-- n^(m/2);
 
-100 # Abs(_a)^n_IsEven <-- a^n;
+100 # Abs(_a)^n_Even? <-- a^n;
 100 # Abs(_a)^n_IsOdd <-- Sign(a)*a^n;
 
 
 200 # x_IsMatrix ^ n_IsPositiveInteger <-- x*(x^(n-1));
 204 # (xlist_IsList ^ nlist_IsList)_(Length(xlist)=?Length(nlist)) <--
          Map("^",{xlist,nlist});
-205 # (xlist_IsList ^ n_IsConstant)_(Not?(IsList(n))) <--
+205 # (xlist_IsList ^ n_Constant?)_(Not?(IsList(n))) <--
          Map({{xx},xx^n},{xlist});
 206 # (_x ^ n_IsList)_(Not?(IsList(x))) <-- Map({{xx},x^xx},{n});
 249 # x_IsInfinity ^ 0 <-- Undefined;
 250 # Infinity ^ (_n) <-- Infinity;
 250 # Infinity ^ (_x_IsComplex) <-- Infinity;
-250 # ((-Infinity) ^ (n_IsNumber))_(IsEven(n)) <-- Infinity;
+250 # ((-Infinity) ^ (n_IsNumber))_(Even?(n)) <-- Infinity;
 250 # ((-Infinity) ^ (n_IsNumber))_(IsOdd(n)) <-- -Infinity;
 
 250 # (x_IsNumber ^ Infinity)_(x>? -1 And? x <? 1) <-- 0;

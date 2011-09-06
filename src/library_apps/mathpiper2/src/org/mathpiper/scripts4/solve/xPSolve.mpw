@@ -210,7 +210,7 @@ Function("xPSolve",{expr,var})
     If( Not? IsBound(iDebug), iDebug := False );
     If(iDebug,Tell("xPSolve_notUni",{expr,var}));  
     Local(lhs,rhs,cc,pp,uni,solnpp,solncc,soln);
-    If( IsEquation(expr), 
+    If( Equation?(expr), 
       [
          If(iDebug,Tell("   is Equation"));
          lhs  := EquationLeft(expr);

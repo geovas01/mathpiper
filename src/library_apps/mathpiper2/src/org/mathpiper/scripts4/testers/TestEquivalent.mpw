@@ -28,9 +28,9 @@ Macro("TestEquivalent",{left,right})
             [
                 // neither is a list, so check equality of diff
                 If(InVerboseMode(),Tell("     neither is list "));
-                If(IsEquation(leftEval),
+                If(Equation?(leftEval),
                   [
-                      If(IsEquation(rightEval),
+                      If(Equation?(rightEval),
                         [
                             If(InVerboseMode(),Tell("      both are equations"));
                             Local(dLHs,dRHS);
@@ -43,7 +43,7 @@ Macro("TestEquivalent",{left,right})
                       );
                   ],
                   [
-                     If(IsEquation(rightEval),
+                     If(Equation?(rightEval),
                         isEquiv := False,
                         [
                             If(InVerboseMode(),Tell("      neither is equation"));
