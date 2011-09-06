@@ -6,7 +6,7 @@ Sample(list, sampleSize) :=
 [
     Check(IsList(list), "Argument", "The first argument must be a list.");
     
-    Check(IsInteger(sampleSize) And? sampleSize >? 0, "Argument", "The second argument must be an integer which is greater than 0.");
+    Check(Integer?(sampleSize) And? sampleSize >? 0, "Argument", "The second argument must be an integer which is greater than 0.");
     
     list := Shuffle(list);
 

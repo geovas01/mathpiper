@@ -433,7 +433,7 @@ UnFence("jFB",1);
 
 
 
-60 # jFac( _var, n_PositiveInteger?, s_IsInteger ) <--
+60 # jFac( _var, n_PositiveInteger?, s_Integer? ) <--
 [
     //  Uses JAS to factor polynomial of form x^n � 1.
     If(InVerboseMode(),[NewLine();Tell("jFac",{var,n,s});]);
@@ -445,7 +445,7 @@ UnFence("jFB",1);
 UnFence("jFac",3);
 
 
-10 # IsPureRational( N_Rational? )_(Not? IsInteger(N)) <-- True;
+10 # IsPureRational( N_Rational? )_(Not? Integer?(N)) <-- True;
 
 12 # IsPureRational( _N ) <-- False;
 

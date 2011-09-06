@@ -11,7 +11,7 @@
 
 10 # NearRational(_x) <-- NearRational(x, Floor(1/2*BuiltinPrecisionGet()));
 
-15 # NearRational(x_RationalOrNumber?, prec_IsInteger) <-- 
+15 # NearRational(x_RationalOrNumber?, prec_Integer?) <-- 
 [
         Local(x1, x2, i,  old'prec);
         old'prec := BuiltinPrecisionGet();
@@ -57,7 +57,7 @@
 ];
 
 
-20 # NearRational(_z, prec_IsInteger)_
+20 # NearRational(_z, prec_Integer?)_
       (And?(Im(z)!=?0,RationalOrNumber?(Im(z)),RationalOrNumber?(Re(z)))) <--
 [
     Local(rr,ii);

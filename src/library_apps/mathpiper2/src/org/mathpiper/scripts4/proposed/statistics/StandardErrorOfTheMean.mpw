@@ -6,7 +6,7 @@ StandardErrorOfTheMean(sigma, sampleSize) :=
 [
     Check(sigma >? 0, "Argument", "The first argument must be a number which is greater than 0.");
     
-    Check(IsInteger(sampleSize) And? sampleSize >? 0, "Argument", "The second argument must be an integer which is greater than 0.");
+    Check(Integer?(sampleSize) And? sampleSize >? 0, "Argument", "The second argument must be an integer which is greater than 0.");
     
     sigma/Sqrt(sampleSize);
 ];

@@ -448,7 +448,7 @@ UnFence("ApproximateRealCoefficients",1);
 
 
 
-10 # IsPureRational( N_Rational? )_(Not? IsInteger(N)) <-- True;
+10 # IsPureRational( N_Rational? )_(Not? Integer?(N)) <-- True;
 
 12 # IsPureRational( _N ) <-- False;
 

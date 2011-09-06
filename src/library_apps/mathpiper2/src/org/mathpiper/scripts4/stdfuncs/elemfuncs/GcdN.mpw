@@ -17,12 +17,12 @@ can be found to uncomment it.
 
 
 /// GcdN(x,y). Compute the GCD of two integers using the binary Euclidean algorithm.
-5 # GcdN(x_NegativeInteger?, y_IsInteger) <-- GcdN(-x, y);
+5 # GcdN(x_NegativeInteger?, y_Integer?) <-- GcdN(-x, y);
 5 # GcdN(y_NegativeInteger?, x_NegativeInteger?) <-- GcdN(x, -y);
 6 # GcdN(0, _x) <-- 0;
 6 # GcdN(_x, 0) <-- 0;
 
-10 # GcdN(x_IsInteger, y_IsInteger) <--
+10 # GcdN(x_Integer?, y_Integer?) <--
 [
         Local(z);
         While(x!=?y)

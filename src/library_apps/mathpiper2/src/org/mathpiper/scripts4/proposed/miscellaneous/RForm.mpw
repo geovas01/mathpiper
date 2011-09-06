@@ -25,7 +25,7 @@ RFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It 
 100 # RForm(_x) <-- RForm(x, RFormMaxPrec());
 
 /* Replace numbers and variables -- never bracketed except explicitly */
-110 # RForm(x_IsInteger, _p) <-- ToString(x);
+110 # RForm(x_Integer?, _p) <-- ToString(x);
 111 # RForm(x_Zero?, _p) <-- "0.";
 112 # RForm(x_IsNumber, _p) <-- ToString(x);
 /* Variables are left as is, except some special ones */

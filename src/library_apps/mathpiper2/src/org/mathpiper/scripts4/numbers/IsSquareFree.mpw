@@ -1,6 +1,6 @@
 %mathpiper,def="IsSquareFree"
 
-IsSquareFree(n_IsInteger)        <-- ( Moebius(n) !=? 0 );
+IsSquareFree(n_Integer?)        <-- ( Moebius(n) !=? 0 );
 
 %/mathpiper
 

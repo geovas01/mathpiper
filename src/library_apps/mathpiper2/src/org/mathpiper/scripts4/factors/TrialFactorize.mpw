@@ -10,7 +10,7 @@
 /// This function is not used any more.
 /*
 2# TrialFactorize(n_IsPrimePower) <-- {GetPrimePower(n)};
-3# TrialFactorize(n_IsInteger) <--
+3# TrialFactorize(n_Integer?) <--
 [
         Local(factorization);
         factorization := TrialFactorize(n, n);        // TrialFactorize will limit to Sqrt(n) automatically

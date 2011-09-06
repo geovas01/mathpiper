@@ -1,6 +1,6 @@
 %mathpiper,def="NonZeroInteger?"
 
-NonZeroInteger?(x) := (IsInteger(x) And? x !=? 0);
+NonZeroInteger?(x) := (Integer?(x) And? x !=? 0);
 
 %/mathpiper
 

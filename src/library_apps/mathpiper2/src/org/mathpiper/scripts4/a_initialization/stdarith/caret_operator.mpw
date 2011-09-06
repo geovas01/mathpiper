@@ -2,7 +2,7 @@
 
 /* Faster version of raising power to 0.5 */
 50 # _x ^ (1/2) <-- Sqrt(x);
-50 # (x_PositiveNumber? ^ (1/2))_IsInteger(SqrtN(x)) <-- SqrtN(x);
+50 # (x_PositiveNumber? ^ (1/2))_Integer?(SqrtN(x)) <-- SqrtN(x);
 58 # 1 ^ n_Infinity? <-- Undefined;
 59 # _x ^ 1 <-- x;
 59 # 1 ^ _n <-- 1;
@@ -47,7 +47,7 @@
 100  # ((_x ^ _m)*(_x)) <-- x^(m+1);
 100  # ((_x ^ _n)*(_x ^ _m)) <-- x^(m+n);
 
-100  # ((x_IsNumber)^(n_IsInteger/(_m)))_(n>?1) <-- MathIntPower(x,n)^(1/m);
+100  # ((x_IsNumber)^(n_Integer?/(_m)))_(n>?1) <-- MathIntPower(x,n)^(1/m);
 
 100 # Sqrt(_n)^(m_Even?) <-- n^(m/2);
 

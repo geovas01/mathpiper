@@ -51,11 +51,11 @@ public class IsInteger extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsInteger",categories="User Functions;Predicates;Built In"
-*CMD IsInteger --- test to see if a number is an integer
+%mathpiper_docs,name="Integer?",categories="User Functions;Predicates;Built In"
+*CMD Integer? --- test to see if a number is an integer
 *CORE
 *CALL
-	IsInteger(expr)
+	Integer?(expr)
 
 *PARMS
 
@@ -67,31 +67,31 @@ This function tests whether "expr" is an integer number. There are two kinds
 of numbers, integers (e.g. 6) and decimals (e.g. -2.75 or 6.0).
 *E.G.
 
-In> IsInteger(6);
+In> Integer?(6);
 Result: True;
 
-In> IsInteger(3.25);
+In> Integer?(3.25);
 Result: False;
 
-In> IsInteger(1/2);
+In> Integer?(1/2);
 Result: False;
 
-In> IsInteger(3.2/10);
+In> Integer?(3.2/10);
 Result: False;
 
-*SEE IsString, IsAtom, IsInteger, IsDecimal, IsPositiveNumber, IsNegativeNumber, IsNumber
+*SEE IsString, IsAtom, Integer?, IsDecimal, IsPositiveNumber, IsNegativeNumber, IsNumber
 %/mathpiper_docs
 
 
 
 
 
-%mathpiper,name="IsInteger",subtype="automatic_test"
+%mathpiper,name="Integer?",subtype="automatic_test"
 
-Verify(IsInteger(123),True);
-Verify(IsInteger(123.123),False);
-Verify(IsInteger(a),False);
-Verify(IsInteger({a}),False);
+Verify(Integer?(123),True);
+Verify(Integer?(123.123),False);
+Verify(Integer?(a),False);
+Verify(Integer?({a}),False);
 
 %/mathpiper
  

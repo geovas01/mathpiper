@@ -482,7 +482,7 @@ public abstract class BuiltinFunction {
                 "IsDecimal");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new IsInteger(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "IsInteger");
+                "Integer?");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new IsList(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "IsList");

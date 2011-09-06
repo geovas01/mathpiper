@@ -2,7 +2,7 @@
 
 /// Simple implementation of the recurrence relation: create an array of Bernoulli numbers
 // special cases: n=0 or n=1
-10 # Internal'BernoulliArray(n_IsInteger)_(n=?0 Or? n=?1) <-- [
+10 # Internal'BernoulliArray(n_Integer?)_(n=?0 Or? n=?1) <-- [
         Local(B);
         B:=ArrayCreate(n+1,0);
         B[1] := 1;
@@ -10,7 +10,7 @@
         B;
 ];
 /// Assume n>=?2
-20 # Internal'BernoulliArray(n_IsInteger) <-- [
+20 # Internal'BernoulliArray(n_Integer?) <-- [
         Local(B, i, k, k2, bin);
         If (InVerboseMode(), Echo({"Internal'BernoulliArray: using direct recursion, n = ", n}));
         B:=ArrayCreate(n+1, 0);        // array of B[k], k=1,2,... where B[1] is the 0th Bernoulli number

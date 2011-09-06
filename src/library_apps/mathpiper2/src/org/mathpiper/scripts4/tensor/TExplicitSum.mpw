@@ -5,6 +5,6 @@
 
 /* TExplicitSum sets the dimension of the space under consideration,
    so summation can proceed */
-(TExplicitSum(Ndim_IsInteger)(_body)) <-- Eval(body);
+(TExplicitSum(Ndim_Integer?)(_body)) <-- Eval(body);
 
 %/mathpiper

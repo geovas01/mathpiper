@@ -64,7 +64,7 @@
 ];
 
 
-15 # RoundToPrecision( N_IsInteger, newPrec_PositiveInteger? ) <--
+15 # RoundToPrecision( N_Integer?, newPrec_PositiveInteger? ) <--
 [
     //If(InVerboseMode(),Tell("RoundToPrecision_I",{N,newPrec}));
     Local(oldRep,oldPrec,decN,newDecN,ans);

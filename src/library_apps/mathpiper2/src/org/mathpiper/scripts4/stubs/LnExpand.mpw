@@ -3,7 +3,7 @@
 ////////////////////// Log rules stuff //////////////////////
 
 // LnExpand
-1 # LnExpand(Ln(x_IsInteger))
+1 # LnExpand(Ln(x_Integer?))
                             <-- Add(Map({{n,m},m*Ln(n)},Transpose(Factors(x))));
 1 # LnExpand(Ln(_a*_b))     <-- LnExpand(Ln(a))+LnExpand(Ln(b));
 1 # LnExpand(Ln(_a/_b))     <-- LnExpand(Ln(a))-LnExpand(Ln(b));

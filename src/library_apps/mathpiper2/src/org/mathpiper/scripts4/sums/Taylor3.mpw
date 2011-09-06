@@ -134,7 +134,7 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
       [
         True;
       ];
-210 # Taylor3'CompCoeff(_any, n_IsInteger)
+210 # Taylor3'CompCoeff(_any, n_Integer?)
     <--
     [
       Limit(var,0)(Deriv(var,n)(ListToFunction({ToAtom(any),var}))/n!);

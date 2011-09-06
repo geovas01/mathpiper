@@ -24,7 +24,7 @@
 ];
 
 
-15 # NumericEqual(left_IsInteger, right_IsInteger, precision_PositiveInteger?) <--
+15 # NumericEqual(left_Integer?, right_Integer?, precision_PositiveInteger?) <--
 [
     If(InVerboseMode(),Tell("NumericEqualInt",{left,right}));
     left =? right;
@@ -35,7 +35,7 @@
 [
     If(InVerboseMode(),Tell("NumericEqualNum",{left,right}));
     Local(nI,nD,repI,repD,precI,precD,intAsDec,newDec,newrepI,newrepD,ans);
-    If( IsInteger(left), [nI:=left; nD:=right;], [nI:=right; nD:=left;]);
+    If( Integer?(left), [nI:=left; nD:=right;], [nI:=right; nD:=left;]);
     // the integer can be converted to the equivalent decimal at any precision
     repI  := NumberToRep(nI);
     repD  := NumberToRep(nD);

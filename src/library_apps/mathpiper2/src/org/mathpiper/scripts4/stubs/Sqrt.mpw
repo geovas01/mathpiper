@@ -4,7 +4,7 @@
 0 # Sqrt(Infinity) <--  Infinity;
 0 # Sqrt(-Infinity) <-- Complex(0,Infinity);
 0 # Sqrt(Undefined) <--  Undefined;
-1 # Sqrt(x_PositiveInteger?)_(IsInteger(SqrtN(x))) <-- SqrtN(x);
+1 # Sqrt(x_PositiveInteger?)_(Integer?(SqrtN(x))) <-- SqrtN(x);
 2 # Sqrt(x_PositiveNumber?)_InNumericMode() <-- SqrtN(x);
 2 # Sqrt(x_NegativeNumber?) <-- Complex(0,Sqrt(-x));
 /* 3 # Sqrt(x_IsNumber/y_IsNumber) <-- Sqrt(x)/Sqrt(y); */
@@ -20,8 +20,8 @@ Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
 400 # Sqrt(y_RationalOrNumber?) / x_RationalOrNumber?  <-- Sign(x)*Sqrt(y/(x^2));
 400 # Sqrt(y_RationalOrNumber?) / Sqrt(x_RationalOrNumber?)  <-- Sqrt(y/x);
 400 # Sqrt(y_RationalOrNumber?) * Sqrt(x_RationalOrNumber?)  <-- Sqrt(y*x);
-400 # Sqrt(x_IsInteger)_IsInteger(SqrtN(x)) <-- SqrtN(x);
-400 # Sqrt(x_IsInteger/y_IsInteger)_(IsInteger(SqrtN(x)) And? IsInteger(SqrtN(y))) <-- SqrtN(x)/SqrtN(y);
+400 # Sqrt(x_Integer?)_Integer?(SqrtN(x)) <-- SqrtN(x);
+400 # Sqrt(x_Integer?/y_Integer?)_(Integer?(SqrtN(x)) And? Integer?(SqrtN(y))) <-- SqrtN(x)/SqrtN(y);
 
 %/mathpiper
 
