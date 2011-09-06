@@ -87,15 +87,15 @@ public class And extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="And",categories="User Functions;Predicates;Built In"
-*CMD And --- logical conjunction
+%mathpiper_docs,name="And?",categories="User Functions;Predicates;Built In"
+*CMD And? --- logical conjunction
 *CORE
 *CALL
-	a1 And a2
+	a1 And? a2
 Precedence:
-*EVAL PrecedenceGet("And")
+*EVAL PrecedenceGet("And?")
 
-	And(a1, a2, a3, ..., aN)
+	And?(a1, a2, a3, ..., aN)
 
 *PARMS
 
@@ -104,16 +104,16 @@ Precedence:
 *DESC
 
 This function returns {True} if all arguments are true. The
-{And} operation is "lazy", i.e. it returns {False} as soon as a {False} argument
+{And?} operation is "lazy", i.e. it returns {False} as soon as a {False} argument
 is found (from left to right).  This is faster, but also means that none of the
 arguments should cause side effects when they are evaluated.
  If an argument other than {True} or
-{False} is encountered a new {And} expression is returned with all
+{False} is encountered a new {And?} expression is returned with all
 arguments that didn't evaluate to {True} or {False} yet.
-{And(...)} and {Or(...)} do also exist, defined in the script
+{And?(...)} and {Or?(...)} do also exist, defined in the script
 library. You can redefine them as infix operators yourself, so you have the
 choice of precedence. In the standard scripts they are in fact declared as
-infix operators, so you can write {expr1 And expr}.
+infix operators, so you can write {expr1 And? expr}.
 
 *E.G.
 
