@@ -11,7 +11,7 @@ Rulebase("TSum",{indices,body});
 
 /* Explicit summation when Ndim is defined. This summation will
    be invoked when using TExplicitSum. */
-20 # (TSum(_indices)(_body))_(IsInteger(Ndim)) <--
+20 # (TSum(_indices)(_body))_(Integer?(Ndim)) <--
     LocalSymbols(index,i,sum)
     [
       Local(index,i,sum);

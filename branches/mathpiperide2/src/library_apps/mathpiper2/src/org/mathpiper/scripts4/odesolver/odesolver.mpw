@@ -17,7 +17,7 @@ Rulebase("yyy",{x});
 10 # OdeLeftHandSideEq(_l == _r) <-- (l-r);
 20 # OdeLeftHandSideEq(_e) <-- e;
 
-10 # OdeNormChange(y(n_IsInteger)) <-- ListToFunction({yyy,n});
+10 # OdeNormChange(y(n_Integer?)) <-- ListToFunction({yyy,n});
 20 # OdeNormChange(y) <-- yyy(0);
 25 # OdeNormChange(y') <-- yyy(1);
 25 # OdeNormChange(y'') <-- yyy(2);
@@ -43,7 +43,7 @@ OdeNormalForm(_e) <--
 ];
 */
 
-10 # OdeChange(yyy(n_IsInteger)) <-- Apply(yn,{n});
+10 # OdeChange(yyy(n_Integer?)) <-- Apply(yn,{n});
 30 # OdeChange(_e) <-- e;
 OdePred(_e) <-- (e !=? OdeChange(e));
 UnFence("OdeChange",1);
@@ -54,7 +54,7 @@ OdeSubstitute(_e,_yn) <--
 ];
 UnFence("OdeSubstitute",2);
 
-OdeConstantList(n_IsInteger) <--
+OdeConstantList(n_Integer?) <--
 [
   Local(result,i);
   result:=ZeroVector(n);

@@ -5,7 +5,7 @@
 // ?????? why is the following rule needed?
 // 5  # IsGaussianInteger(ProductPrimesTo257)        <-- False;
 
-10 # IsGaussianInteger(x_IsComplex)          <-- (IsInteger(Re(x)) And? IsInteger(Im(x)));
+10 # IsGaussianInteger(x_IsComplex)          <-- (Integer?(Re(x)) And? Integer?(Im(x)));
 // to catch IsGaussianInteger(x+2) from Apart
 15 # IsGaussianInteger(_x)        <-- False;
 

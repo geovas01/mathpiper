@@ -4,7 +4,7 @@
 The largest prime number in the table is returned by FastIsPrime(0). */
 
 2 # IsSmallPrime(0) <-- False;
-3 # IsSmallPrime(n_IsInteger) <-- (FastIsPrime(n)>?0);
+3 # IsSmallPrime(n_Integer?) <-- (FastIsPrime(n)>?0);
 
 %/mathpiper
 

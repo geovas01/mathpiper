@@ -4,7 +4,7 @@
 Rulebase("Nth",{alist,aindex});
 Rule("Nth",2,10,
     And?(IsEqual(IsFunction(alist),True),
-            IsEqual(IsInteger(aindex),True),
+            IsEqual(Integer?(aindex),True),
             Not?(IsEqual(First(FunctionToList(alist)),Nth))
             ))
      MathNth(alist,aindex);
@@ -37,7 +37,7 @@ Rule("Nth",2,30,
    And?(
            IsEqual(IsGeneric(alist),True),
            IsEqual(GenericTypeName(alist),"Array"),
-           IsEqual(IsInteger(aindex),True)
+           IsEqual(Integer?(aindex),True)
           )
     )
 [

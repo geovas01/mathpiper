@@ -84,7 +84,7 @@ Exceptions that are thrown by this function can be caught by the {ExceptionCatch
 
 *E.G.
 
-In> Check(IsInteger(2.3), "Argument", "The argument must be an integer.")
+In> Check(Integer?(2.3), "Argument", "The argument must be an integer.")
 Result: Exception
 Exception: The argument must be an integer.
 

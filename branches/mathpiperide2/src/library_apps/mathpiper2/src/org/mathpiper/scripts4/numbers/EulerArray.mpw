@@ -2,7 +2,7 @@
 
 /** Compute an array of Euler numbers using recurrence relations.
 */
-10 # EulerArray(n_IsInteger) <--
+10 # EulerArray(n_Integer?) <--
 [
         Local(E,i,sum,r);
         E:=ZeroVector(n+1);

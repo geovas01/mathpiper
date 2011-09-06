@@ -6,7 +6,7 @@ LocalSymbols(p, q)
         // p:= 1;
         ProductPrimesTo257() := 2*3*[
                 If(
-                        IsInteger(p),
+                        Integer?(p),
                         p,
                 p := Product(Select( 5 .. 257, {{q}, Modulo(q^2,24)=?1 And? IsSmallPrime(q)}))
                 );

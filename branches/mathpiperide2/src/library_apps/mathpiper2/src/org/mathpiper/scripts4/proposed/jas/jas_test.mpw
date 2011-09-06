@@ -68,7 +68,7 @@ IsJas(atom) :=
 
 %mathpiper,title=""
 
-200 # a_IsInteger * b_IsJas <-- Echo("H");
+200 # a_Integer? * b_IsJas <-- Echo("H");
 
 201 # _a * b_IsJas <-- Echo("I");
 

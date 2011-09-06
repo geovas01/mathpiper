@@ -42,7 +42,7 @@ IsMulF(f) := (Type(f) =? ":*:");
 
 IsPow(f):=
   (Type(f) =? "^" And?
-   IsInteger(f[2]) And?
+   Integer?(f[2]) And?
    f[2] >? 1
   );
 

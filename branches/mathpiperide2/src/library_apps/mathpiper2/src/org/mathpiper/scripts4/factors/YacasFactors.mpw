@@ -12,7 +12,7 @@
 
 10 # Factors(p_PositiveInteger?) <--  FactorizeInt(p);
 
-11 # Factors(p_IsInteger) <-- FactorizeInt(p);
+11 # Factors(p_Integer?) <-- FactorizeInt(p);
 
 12 # Factors(p_Rational?)_(Denominator(p) !=? 1) <-- {{YacasFactor(Numerator(p)) /YacasFactor(Denominator(p)) , 1}};
      //Added to handle rational numbers with denominators that are not 1
@@ -40,7 +40,7 @@
          *  Now we check whether the input polynomial is "over the 
          *  integers", by examining all its coefficients
          */
-        If( AllSatisfy?("IsInteger",coeffs),
+        If( AllSatisfy?("Integer?",coeffs),
           [
               // Yes -- all integer coefficients
               result := FactorsPolynomialOverIntegers(p,x);
@@ -49,7 +49,7 @@
               // No -- at least one non-integer coefficient
               // Check for FLOAT or RATIONAL coefficients
               Local(notInt,rat,dd,lcm,newCoeffs,newPoly,facs);
-              notInt := Select(coeffs, Lambda({i},Not? IsInteger(i)));
+              notInt := Select(coeffs, Lambda({i},Not? Integer?(i)));
               rat := Rationalize(coeffs);            
               dd  := MapSingle("Denominator",rat);
               lcm := Lcm(dd);
@@ -127,21 +127,21 @@
 
 10 # FactorsMultivariateSpecialCases(x_IsAtom - y_IsAtom) <-- [If(InVerboseMode(),Tell(2));{{x-y,1}};];
 
-10 # FactorsMultivariateSpecialCases(_n*_x^p_IsInteger + _n*_y) <-- [If(InVerboseMode(),Tell(3));{n,1}:FactorsMultivariateSpecialCases(x+y);];
+10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? + _n*_y) <-- [If(InVerboseMode(),Tell(3));{n,1}:FactorsMultivariateSpecialCases(x+y);];
 
-10 # FactorsMultivariateSpecialCases(_n*_x^p_IsInteger - _n*_y) <-- [If(InVerboseMode(),Tell(4));{n,1}:FactorsMultivariateSpecialCases(x-y);];
+10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? - _n*_y) <-- [If(InVerboseMode(),Tell(4));{n,1}:FactorsMultivariateSpecialCases(x-y);];
 
-10 # FactorsMultivariateSpecialCases(n_IsInteger*_x + m_IsInteger*_y)_(Gcd(n,m)>?1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
+10 # FactorsMultivariateSpecialCases(n_Integer?*_x + m_Integer?*_y)_(Gcd(n,m)>?1) <-- {{Gcd(n,m),1},{(Simplify((n*x+m*y)/Gcd(n,m))),1}};
 
-10 # FactorsMultivariateSpecialCases(n_IsInteger*_x - m_IsInteger*_y)_(Gcd(n,m)>?1) <-- {{Gcd(n,m),1},{(Simplify((n*x-m*y)/Gcd(n,m))),1}};
+10 # FactorsMultivariateSpecialCases(n_Integer?*_x - m_Integer?*_y)_(Gcd(n,m)>?1) <-- {{Gcd(n,m),1},{(Simplify((n*x-m*y)/Gcd(n,m))),1}};
 
 10 # FactorsMultivariateSpecialCases(_n*_x + _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x+y);
 
 10 # FactorsMultivariateSpecialCases(_n*_x - _n*_y) <-- {n,1}:FactorsMultivariateSpecialCases(x-y);
 
-10 # FactorsMultivariateSpecialCases(_x^n_IsInteger - _y) <-- FactorsBinomials(x^n - y); 
+10 # FactorsMultivariateSpecialCases(_x^n_Integer? - _y) <-- FactorsBinomials(x^n - y); 
 
-10 # FactorsMultivariateSpecialCases(_x^n_IsInteger + _y) <-- FactorsBinomials(x^n + y); 
+10 # FactorsMultivariateSpecialCases(_x^n_Integer? + _y) <-- FactorsBinomials(x^n + y); 
 
 20 # FactorsSomethingElse(_p) <-- 
   [

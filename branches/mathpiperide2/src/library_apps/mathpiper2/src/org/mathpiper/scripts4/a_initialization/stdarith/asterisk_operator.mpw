@@ -97,9 +97,9 @@
 230 # (aLeft_IsList * aRight_IsList)_(Length(aLeft)=?Length(aRight)) <--
          Map("*",{aLeft,aRight});
 // fractions
-242 # (x_IsInteger / y_IsInteger) * (v_IsInteger / w_IsInteger) <-- (x*v)/(y*w);
-243 #  x_IsInteger * (y_IsInteger / z_IsInteger) <--  (x*y)/z;
-243 #  (y_IsInteger / z_IsInteger) * x_IsInteger <--  (x*y)/z;
+242 # (x_Integer? / y_Integer?) * (v_Integer? / w_Integer?) <-- (x*v)/(y*w);
+243 #  x_Integer? * (y_Integer? / z_Integer?) <--  (x*y)/z;
+243 #  (y_Integer? / z_Integer?) * x_Integer? <--  (x*y)/z;
 
 400 # (_x) * (_x) <-- x^2;
 

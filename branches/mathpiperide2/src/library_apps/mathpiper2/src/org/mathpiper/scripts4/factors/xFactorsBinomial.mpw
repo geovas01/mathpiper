@@ -25,7 +25,7 @@
     Ar     := NearRational(N(A^(1/n),20));
     Br     := NearRational(N(B^(1/n),20));
     If(InVerboseMode(),[Tell("       ",{n,X,var,A,B}); Tell("       ",{Ar,Br,s});]);
-    If( IsInteger(Ar) And? IsInteger(Br), xFB1(dis), {{poly,1}} );
+    If( Integer?(Ar) And? Integer?(Br), xFB1(dis), {{poly,1}} );
 ];
 
 
@@ -51,7 +51,7 @@
           Tell("       ",{Ar,Br,s});
       ]
     );
-    If( IsInteger(Ar) And? IsInteger(Br), xFB2(dis), {{poly,1}} );
+    If( Integer?(Ar) And? Integer?(Br), xFB2(dis), {{poly,1}} );
 ];
 
 

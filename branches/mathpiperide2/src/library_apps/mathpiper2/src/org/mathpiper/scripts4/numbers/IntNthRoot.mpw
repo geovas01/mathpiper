@@ -3,7 +3,7 @@
 /// Compute integer part of s-th root of (positive) integer n.
 // algorithm using floating-point math
 10 # IntNthRoot(_n, 2) <-- Floor(SqrtN(n));
-20 # IntNthRoot(_n, s_IsInteger) <--
+20 # IntNthRoot(_n, s_Integer?) <--
 [
         Local(result, k);
         GlobalPush(BuiltinPrecisionGet());
@@ -19,7 +19,7 @@
 
 /* algorithm using only integer arithmetic.
 (this is slower than the floating-point algorithm for large numbers because all calculations are with long integers)
-IntNthRoot1(_n, s_IsInteger) <--
+IntNthRoot1(_n, s_Integer?) <--
 [
         Local(x1, x2, x'new, y1);
         // initial guess should always undershoot

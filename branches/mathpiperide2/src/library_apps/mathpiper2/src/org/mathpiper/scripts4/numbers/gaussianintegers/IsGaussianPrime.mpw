@@ -18,7 +18,7 @@ Function("IsGaussianPrime",{x})
 
 
 /*
-10 # IsGaussianPrime(p_IsInteger) <-- IsPrime(p) And? Modulo(p,3)=1;
+10 # IsGaussianPrime(p_Integer?) <-- IsPrime(p) And? Modulo(p,3)=1;
 20 # IsGaussianPrime(p_IsGaussianInteger) <-- IsPrime(GaussianNorm(p));
 */
 

@@ -19,7 +19,7 @@ Zeta3
 /// Numerical computation of Zeta function using Borwein's "third" algorithm
 /// The value of $n$ must be large enough to ensure required precision
 /// Also $s$ must satisfy $Re(s)+n+1 > 0$
-Internal'ZetaNum(_s, n_IsInteger) <-- [
+Internal'ZetaNum(_s, n_Integer?) <-- [
         Local(result, j, sign);
         If (InVerboseMode(), Echo({"Internal'ZetaNum: Borwein's method, precision ", BuiltinPrecisionGet(), ", n = ", n}));
         result := 0;

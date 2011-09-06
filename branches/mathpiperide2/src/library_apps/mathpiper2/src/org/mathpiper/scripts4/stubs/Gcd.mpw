@@ -6,14 +6,14 @@
 1 # Gcd(_m,_m) <-- Abs(m);
 2 # Gcd(_n,1) <-- 1;
 2 # Gcd(1,_m) <-- 1;
-2 # Gcd(n_IsInteger,m_IsInteger) <-- GcdN(n,m);
+2 # Gcd(n_Integer?,m_Integer?) <-- GcdN(n,m);
 3 # Gcd(_n,_m)_(IsGaussianInteger(m) And? IsGaussianInteger(n) )<-- GaussianGcd(n,m);
 
 4 # Gcd(-(_n), (_m)) <-- Gcd(n,m);
 4 # Gcd( (_n),-(_m)) <-- Gcd(n,m);
-4 # Gcd(Sqrt(n_IsInteger),Sqrt(m_IsInteger)) <-- Sqrt(Gcd(n,m));
-4 # Gcd(Sqrt(n_IsInteger),m_IsInteger) <-- Sqrt(Gcd(n,m^2));
-4 # Gcd(n_IsInteger,Sqrt(m_IsInteger)) <-- Sqrt(Gcd(n^2,m));
+4 # Gcd(Sqrt(n_Integer?),Sqrt(m_Integer?)) <-- Sqrt(Gcd(n,m));
+4 # Gcd(Sqrt(n_Integer?),m_Integer?) <-- Sqrt(Gcd(n,m^2));
+4 # Gcd(n_Integer?,Sqrt(m_Integer?)) <-- Sqrt(Gcd(n^2,m));
 
 5 # Gcd(n_Rational?,m_Rational?) <--
 [

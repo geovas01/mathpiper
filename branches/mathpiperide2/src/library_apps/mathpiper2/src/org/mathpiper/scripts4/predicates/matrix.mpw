@@ -136,7 +136,7 @@ Result: False;
 
 {expr} -- expression to test
 
-{pred} -- predicate test (e.g. IsNumber, IsInteger, ...)
+{pred} -- predicate test (e.g. IsNumber, Integer?, ...)
 
 *DESC
 
@@ -151,9 +151,9 @@ In> IsVector({a,b,c})
 Result: True;
 In> IsVector({a,{b},c})
 Result: False;
-In> IsVector(IsInteger,{1,2,3})
+In> IsVector(Integer?,{1,2,3})
 Result: True;
-In> IsVector(IsInteger,{1,2.5,3})
+In> IsVector(Integer?,{1,2.5,3})
 Result: False;
 
 *SEE IsList, IsScalar, IsMatrix
@@ -173,7 +173,7 @@ Result: False;
 
 {expr} -- expression to test
 
-{pred} -- predicate test (e.g. IsNumber, IsInteger, ...)
+{pred} -- predicate test (e.g. IsNumber, Integer?, ...)
 
 *DESC
 
@@ -214,7 +214,7 @@ Result: True;
 
 {expr} -- expression to test
 
-{pred} -- predicate test (e.g. IsNumber, IsInteger, ...)
+{pred} -- predicate test (e.g. IsNumber, Integer?, ...)
 
 *DESC
 
@@ -324,15 +324,15 @@ Verify(IsMatrix({{{}}}), False);
 Verify(IsMatrix({{{a}}}), False);
 Verify(IsMatrix({{{{a}}},{{{b}}}}),False);
 
-Testing("---- IsMatrix(IsInteger)");
-Verify(IsMatrix(IsInteger,{{a,1}}),False);
-Verify(IsMatrix(IsInteger,{{1,2}}),True);
-Verify(IsMatrix(IsInteger,{{1,2/3}}),False);
-Verify(IsMatrix(IsInteger,{{1,2,3},{4,5,6}}),True);
-Verify(IsMatrix(IsInteger,{{1,{2},3},{4,5,6}}),False);
-Verify(IsMatrix(IsInteger,{{1,2,3},{4,5}}),False);
-Verify(IsMatrix(IsInteger,{{Sin(1),2,3},{4,5,6}}),False);
-Verify(IsMatrix(IsInteger,{{Sin(0),2,3},{4,5,6}}),True);
+Testing("---- IsMatrix(Integer?)");
+Verify(IsMatrix(Integer?,{{a,1}}),False);
+Verify(IsMatrix(Integer?,{{1,2}}),True);
+Verify(IsMatrix(Integer?,{{1,2/3}}),False);
+Verify(IsMatrix(Integer?,{{1,2,3},{4,5,6}}),True);
+Verify(IsMatrix(Integer?,{{1,{2},3},{4,5,6}}),False);
+Verify(IsMatrix(Integer?,{{1,2,3},{4,5}}),False);
+Verify(IsMatrix(Integer?,{{Sin(1),2,3},{4,5,6}}),False);
+Verify(IsMatrix(Integer?,{{Sin(0),2,3},{4,5,6}}),True);
 
 %/mathpiper
 

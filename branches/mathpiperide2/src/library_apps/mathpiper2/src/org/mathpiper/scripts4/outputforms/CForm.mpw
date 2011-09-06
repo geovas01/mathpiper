@@ -51,7 +51,7 @@ CFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It 
 100 # CForm(_x) <-- CForm(x, CFormMaxPrec());
 
 /* Replace numbers and variables -- never bracketed except explicitly */
-110 # CForm(x_IsInteger, _p) <-- ToString(x);
+110 # CForm(x_Integer?, _p) <-- ToString(x);
 111 # CForm(x_Zero?, _p) <-- "0.";
 112 # CForm(x_IsNumber, _p) <-- CFormDoublePrecisionNumber(x);
 /* Variables are left as is, except some special ones */

@@ -35,7 +35,7 @@
 ];
 
 
-10 # FactorsBinomials( _x^m_IsInteger - _y ) <--
+10 # FactorsBinomials( _x^m_Integer? - _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialsdif",{x,m,y}));
     Local(pp,qq,r,L);
@@ -60,7 +60,7 @@
 ];
 
 
-12 # xFactorsBinomials( c_Constant? * _x^m_IsInteger - _y ) <--
+12 # xFactorsBinomials( c_Constant? * _x^m_Integer? - _y ) <--
 [
     If(InVerboseMode(),Tell("FactorsBinomialsdif",{c,x,m,y}));
     Local(aa,bb,c0,r);

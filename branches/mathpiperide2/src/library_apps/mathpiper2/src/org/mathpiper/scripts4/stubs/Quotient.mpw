@@ -1,7 +1,7 @@
 %mathpiper,def="Quotient"
 
 /* Integer divisions */
-0 # Quotient(n_IsInteger,m_IsInteger) <-- QuotientN(n,m);
+0 # Quotient(n_Integer?,m_Integer?) <-- QuotientN(n,m);
 1 # Quotient(0  ,_m) <-- 0;
 2 # Quotient(n_RationalOrNumber?,m_RationalOrNumber?) <--
 [

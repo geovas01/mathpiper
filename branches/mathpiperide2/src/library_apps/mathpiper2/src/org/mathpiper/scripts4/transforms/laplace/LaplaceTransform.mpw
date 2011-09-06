@@ -19,9 +19,9 @@
 // Other operational properties
 10 # LapTran(_var1,_var2, _expr/_var1 )                <-- Integrate(var2,var2,Infinity) LapTran(var1,var2,expr) ;
 10 # LapTran(_var1,_var2, _var1*_expr )                <-- - Deriv(var2) LapTran(var1,var2,expr);
-10 # LapTran(_var1,_var2, _var1^(n_IsInteger)*_expr )  <-- (-1)^n * Deriv(var2,n) LapTran(var1,var2,expr);
+10 # LapTran(_var1,_var2, _var1^(n_Integer?)*_expr )  <-- (-1)^n * Deriv(var2,n) LapTran(var1,var2,expr);
 10 # LapTran(_var1,_var2, _expr*_var1 )                <-- - Deriv(var2) LapTran(var1,var2,expr);
-10 # LapTran(_var1,_var2, _expr*_var1^(n_IsInteger)  ) <-- (-1)^n * Deriv(var2,n) LapTran(var1,var2,expr);
+10 # LapTran(_var1,_var2, _expr*_var1^(n_Integer?)  ) <-- (-1)^n * Deriv(var2,n) LapTran(var1,var2,expr);
 
 // didn't match, return unevaled
 100 # LapTran(_var1,_var2, _expr )        <-- `Hold(LaplaceTransform(@var1,@var2,@expr));

@@ -10,15 +10,15 @@ Function("RationalNumeric?",{aLeft})
 
 RationalOrNumber?(_x) <-- (IsNumber(x) Or? RationalNumeric?(x));
 
-10 # RationalOrInteger?(x_IsInteger) <-- True;
-10 # RationalOrInteger?(x_IsInteger / y_IsInteger) <-- True;
+10 # RationalOrInteger?(x_Integer?) <-- True;
+10 # RationalOrInteger?(x_Integer? / y_Integer?) <-- True;
 20 # RationalOrInteger?(_x) <-- False;
 
 */
 
-10 # Rational?(x_IsInteger) <-- True;
-10 # Rational?(x_IsInteger / y_IsInteger) <-- True;
-10 # Rational?(-(x_IsInteger / y_IsInteger)) <-- True;
+10 # Rational?(x_Integer?) <-- True;
+10 # Rational?(x_Integer? / y_Integer?) <-- True;
+10 # Rational?(-(x_Integer? / y_Integer?)) <-- True;
 60000 # Rational?(_x) <-- False;
 
 %/mathpiper

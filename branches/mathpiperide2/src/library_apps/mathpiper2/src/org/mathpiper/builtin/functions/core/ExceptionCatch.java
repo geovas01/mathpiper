@@ -118,7 +118,7 @@ Verify( ExceptionCatch(Check(1 =? 2, "Test", "Throwing a test exception."), Exce
 TestFunction(x) :=
 [
 
-    Check(IsInteger(x), "Argument", "The argument must be an integer.");
+    Check(Integer?(x), "Argument", "The argument must be an integer.");
 
 ];
 

@@ -1,6 +1,6 @@
 %mathpiper,def="Even?"
 
-Even?(n) := IsInteger(n) And? ( BitAnd(n,1)  =? 0 );
+Even?(n) := Integer?(n) And? ( BitAnd(n,1)  =? 0 );
 
 %/mathpiper
 
@@ -29,5 +29,5 @@ Result: True;
 In> Even?(-1);
 Result: False;
 
-*SEE Odd?, IsInteger
+*SEE Odd?, Integer?
 %/mathpiper_docs

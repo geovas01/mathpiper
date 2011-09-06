@@ -1,6 +1,6 @@
 %mathpiper,def="NegativeInteger?"
 
-NegativeInteger?(x):= IsInteger(x) And? x <? 0;
+NegativeInteger?(x):= Integer?(x) And? x <? 0;
 
 %/mathpiper
 

@@ -27,7 +27,7 @@ factoring it in the rational integers, and after that factoring each of
 its integer prime factors. 
 */
 
-10 # GaussianFactors(n_IsInteger) <--
+10 # GaussianFactors(n_Integer?) <--
 [
   // Chosing to factor this integer as a Gaussian Integer
   Local(ifactors,gfactors,p,alpha);

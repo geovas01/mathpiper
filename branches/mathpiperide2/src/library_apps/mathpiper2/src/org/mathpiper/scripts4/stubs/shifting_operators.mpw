@@ -7,8 +7,8 @@
 
 /* Shifting operators */
 
-n_IsInteger << m_IsInteger <-- ShiftLeft(n,m);
-n_IsInteger >> m_IsInteger <-- ShiftRight(n,m);
+n_Integer? << m_Integer? <-- ShiftLeft(n,m);
+n_Integer? >> m_Integer? <-- ShiftRight(n,m);
 
 %/mathpiper
 

@@ -1,6 +1,6 @@
 %mathpiper,def="Decimal"
 
-10 # Decimal( n_IsInteger ) <-- {n,{0}};
+10 # Decimal( n_Integer? ) <-- {n,{0}};
 10 # Decimal( (n_PositiveInteger?) / (d_PositiveInteger?) ) <--
 [
   Local(result,rev,first,period,repeat,static);

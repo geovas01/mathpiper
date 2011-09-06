@@ -16,7 +16,7 @@
 
 10 # PolynomialOverIntegers?(_expr,_var)_(CanBeUni(var,expr)) <--
 [
-    If( AllSatisfy?("IsInteger",Coef(expr,var,0 .. Degree(expr,var))),
+    If( AllSatisfy?("Integer?",Coef(expr,var,0 .. Degree(expr,var))),
         True,
         False
       );

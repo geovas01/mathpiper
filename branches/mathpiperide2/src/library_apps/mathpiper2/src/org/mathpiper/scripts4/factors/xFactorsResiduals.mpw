@@ -189,7 +189,7 @@ UnFence("tryRealRoots",1);
     Local(root);
     root := rr[1];
     rrGood := False;
-    If(IsInteger(root), 
+    If(Integer?(root), 
       [
           If(InVerboseMode(),Tell("    integer ",root));
           rrGood := True;

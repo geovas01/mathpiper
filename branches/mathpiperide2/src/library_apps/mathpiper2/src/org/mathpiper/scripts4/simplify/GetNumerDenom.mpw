@@ -15,9 +15,9 @@ GetNumerDenom(_expr, _a) <-- GetNumerDenom(expr)*{a,1};
 20 # GetNumerDenom(_a * _b) <-- ExpandFrac'multiply(GetNumerDenom(a), GetNumerDenom(b));
 20 # GetNumerDenom(_a / _b) <-- ExpandFrac'divide(GetNumerDenom(a), GetNumerDenom(b));
 // integer powers
-20 # GetNumerDenom(_a ^ b_IsInteger)_(b >? 1) <-- ExpandFrac'multiply(GetNumerDenom(a), GetNumerDenom(a^(b-1)));
-20 # GetNumerDenom(_a ^ b_IsInteger)_(b <? -1) <-- ExpandFrac'divide(GetNumerDenom(1), GetNumerDenom(a^(-b)));
-20 # GetNumerDenom(_a ^ b_IsInteger)_(b =? -1) <-- ExpandFrac'divide(GetNumerDenom(1), GetNumerDenom(a));
+20 # GetNumerDenom(_a ^ b_Integer?)_(b >? 1) <-- ExpandFrac'multiply(GetNumerDenom(a), GetNumerDenom(a^(b-1)));
+20 # GetNumerDenom(_a ^ b_Integer?)_(b <? -1) <-- ExpandFrac'divide(GetNumerDenom(1), GetNumerDenom(a^(-b)));
+20 # GetNumerDenom(_a ^ b_Integer?)_(b =? -1) <-- ExpandFrac'divide(GetNumerDenom(1), GetNumerDenom(a));
 // non-integer powers are not considered to be rational functions
 25 # GetNumerDenom(_a ^ _b) <-- {a^b, 1};
 

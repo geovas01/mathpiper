@@ -14,7 +14,7 @@
 
 10 # RandomInteger(_lowerBoundInclusive, _upperBoundInclusive) <--
 [
-    Check(IsInteger(lowerBoundInclusive) And? IsInteger(upperBoundInclusive), "Argument", "Both arguments must be integers.");
+    Check(Integer?(lowerBoundInclusive) And? Integer?(upperBoundInclusive), "Argument", "Both arguments must be integers.");
 
     Check(lowerBoundInclusive <? upperBoundInclusive, "Argument", "The first argument must be less than the second argument.");
 

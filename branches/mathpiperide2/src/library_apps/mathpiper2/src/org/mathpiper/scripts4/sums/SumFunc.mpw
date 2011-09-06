@@ -11,14 +11,14 @@ HoldArgument(SumFunc,sum);
 HoldArgument(SumFunc,summand);
 
 // Difference code does not work
-SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum) <--
+SumFunc(_sumvar,sumfrom_Integer?,_sumto,_sumbody,_sum) <--
 [
         // Take the given answer and create 2 rules, one for an exact match
         // for sumfrom, and one which will catch sums starting at a different
         // index and subtract off the difference
 
         `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody )        <-- Eval(@sum) );
-        `(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody)_(p >? @sumfrom)
+        `(41 # Sum(@sumvar,p_Integer?,@sumto,@sumbody)_(p >? @sumfrom)
              <--
              [
                   Local(sub);
@@ -27,11 +27,11 @@ SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum) <--
              ]);
 ];
 
-SumFunc(_sumvar,sumfrom_IsInteger,_sumto,_sumbody,_sum,_condition) <--
+SumFunc(_sumvar,sumfrom_Integer?,_sumto,_sumbody,_sum,_condition) <--
 [
 
         `(40 # Sum(@sumvar,@sumfrom,@sumto,@sumbody)_(@condition)    <-- Eval(@sum) );
-        `(41 # Sum(@sumvar,p_IsInteger,@sumto,@sumbody )_(@condition And? p >? @sumfrom)
+        `(41 # Sum(@sumvar,p_Integer?,@sumto,@sumbody )_(@condition And? p >? @sumfrom)
              <--
              [
                   Local(sub);
@@ -60,7 +60,7 @@ SumFunc(_k,1,_n,_c,c*n,IsFreeOf(k,c) );
 SumFunc(_k,1,_n,_k, n*(n+1)/2 );
 //SumFunc(_k,1,_n,_k^2, n*(n+1)*(2*n+1)/6 );
 //SumFunc(_k,1,_n,_k^3, (n*(n+1))^2 / 4 );
-SumFunc(_k,1,_n,_k^_p,(Bernoulli(p+1,n+1) - Bernoulli(p+1))/(p+1), IsInteger(p) );
+SumFunc(_k,1,_n,_k^_p,(Bernoulli(p+1,n+1) - Bernoulli(p+1))/(p+1), Integer?(p) );
 SumFunc(_k,1,_n,2*_k-1, n^2 );
 SumFunc(_k,1,_n,HarmonicNumber(_k),(n+1)*HarmonicNumber(n) - n );
 

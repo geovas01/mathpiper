@@ -1,7 +1,7 @@
 %mathpiper,def="Lcm"
 
 /* Least common multiple */
-5  # Lcm(a_IsInteger,b_IsInteger) <-- Quotient(a*b,Gcd(a,b));
+5  # Lcm(a_Integer?,b_Integer?) <-- Quotient(a*b,Gcd(a,b));
 
 10 # Lcm(list_IsList)_(Length(list)>?2) <--
 [

@@ -5,7 +5,7 @@
 
 10  # ApplyDelta(_result,Delta(_i,_j)) <--
     DestructiveInsert(result,1,Delta(i,j));
-20 # ApplyDelta(_result,(_x) ^ (n_IsInteger))_(n>?0) <--
+20 # ApplyDelta(_result,(_x) ^ (n_Integer?))_(n>?0) <--
     [
       Local(i);
       For(i:=1,i<=?n,i++)

@@ -8,7 +8,7 @@
 
 /// generalized integer Power function using the classic binary method.
 5 # IntPowerNum(_x, 0, _func, _unity) <-- unity;
-10 # IntPowerNum(_x, n_IsInteger, _func, _unity) <--
+10 # IntPowerNum(_x, n_Integer?, _func, _unity) <--
 [
         // use binary method
         Local(result);
