@@ -69,24 +69,24 @@ expression with evaluated arguments.
 
 *E.G.
 
-In> Not True
+In> Not? True
 Result: False;
-In> Not False
+In> Not? False
 Result: True;
-In> Not(a)
-Result: Not a;
+In> Not?(a)
+Result: Not? a;
 
-*SEE And, Or
+*SEE And?, Or?
 %/mathpiper_docs
 
 
 
 
 
-%mathpiper,name="Not",subtype="automatic_test"
+%mathpiper,name="Not?",subtype="automatic_test"
 
-Verify(Not(True),False);
-Verify(Not(False),True);
+Verify(Not?(True),False);
+Verify(Not?(False),True);
 
 %/mathpiper
 

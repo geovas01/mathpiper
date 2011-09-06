@@ -101,7 +101,7 @@ Result: "This string is returned if an exception is thrown."
 /%mathpiper,title="Example of how to use ExceptionCatch and ExceptionGet in test code (short version)."
 
 //ExceptionGet returns False if there is no exception or an association list if there is.
-Verify( ExceptionCatch(Check(1 = 2, "Test", "Throwing a test exception."), ExceptionGet()) = False, False);
+Verify( ExceptionCatch(Check(1 =? 2, "Test", "Throwing a test exception."), ExceptionGet()) = False, False);
 
 /%/mathpiper
 
@@ -166,7 +166,7 @@ Echo("Message: ", caughtException["message"]);
   Local(exception);
   exception := False;
   ExceptionCatch(Check(False, "Unspecified", "some error"), exception := ExceptionGet());
-  Verify(exception = False, False);
+  Verify(exception =? False, False);
 
 
 %/mathpiper

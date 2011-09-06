@@ -242,6 +242,8 @@ public class Interpreters {
 
         addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
 
+        addOptionalFunctions(environment,"org/mathpiper/builtin/functions/plugins/jfreechart/");
+
         interpreter.evaluate("ViewGraphicConsole();");
 
     }

@@ -41,7 +41,7 @@ public class TestSuite {
 
     private boolean printExpression = false;
     private boolean stackTrace = false;
-    private Interpreter mathPiper;
+    private Interpreter interpreter;
     private EvaluationResponse evaluationResponse;
     private java.io.FileWriter logFile;
     private String logFileName = "mathpiper_tests.log";
@@ -110,11 +110,17 @@ public class TestSuite {
 
             logFile = new java.io.FileWriter("./tests/" + logFileName); //"./tests/mathpiper_tests.log"
 
-            mathPiper = Interpreters.newSynchronousInterpreter();
+            interpreter = Interpreters.newSynchronousInterpreter();
+
+            Environment environment = interpreter.getEnvironment();
+
+            Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
+
+            Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/plugins/jfreechart/");
 
 
             if (this.stackTrace == true) {
-                evaluationResponse = mathPiper.evaluate("StackTraceOn();");
+                evaluationResponse = interpreter.evaluate("StackTraceOn();");
                 output = evaluationResponse(evaluationResponse);
                 System.out.println("Stack tracing is on: " + output);
                 logFile.write("Stack tracing is on: " + output);
@@ -148,7 +154,7 @@ public class TestSuite {
 
 
             //Check the global variables.
-            evaluationResponse = mathPiper.evaluate("Echo(GlobalVariablesGet());");
+            evaluationResponse = interpreter.evaluate("Echo(GlobalVariablesGet());");
             output = evaluationResponse(evaluationResponse);
             System.out.println("Global variables: " + output);
             logFile.write("GlobalVariables: " + output);
@@ -175,7 +181,7 @@ public class TestSuite {
 
         String testScript = testScriptArray[1];
 
-        mathPiper.getEnvironment().iInputStatus.setTo(testFilePath);
+        interpreter.getEnvironment().iInputStatus.setTo(testFilePath);
 
 
         output = "\n================================================================\nTesting " + testName + " in file <" + testFilePath + ">: \n\n";
@@ -187,7 +193,7 @@ public class TestSuite {
 
         try {
 
-            evaluateTestScript(mathPiper.getEnvironment(), -1, new StringInputStream(testScript, mathPiper.getEnvironment().iInputStatus), true);
+            evaluateTestScript(interpreter.getEnvironment(), -1, new StringInputStream(testScript, interpreter.getEnvironment().iInputStatus), true);
 
         } catch (Exception e) {
 

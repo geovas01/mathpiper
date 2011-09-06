@@ -85,7 +85,7 @@ Verify(FunctionToList(Cos(x)),{Cos,x});
 
   exception := False;
   ExceptionCatch(FunctionToList(1.2), exception := ExceptionGet());
-  Verify(exception = False, False);
+  Verify(exception =? False, False);
 ];
 
 %/mathpiper
