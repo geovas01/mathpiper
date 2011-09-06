@@ -101,7 +101,7 @@ This function is used to test numbers for prime powers.
 In> IntNthRoot(65537^111, 37)
 Result: 281487861809153;
 
-*SEE IntLog, PowerN, IsPrimePower
+*SEE IntLog, PowerN, PrimePower?
 %/mathpiper_docs
 
 

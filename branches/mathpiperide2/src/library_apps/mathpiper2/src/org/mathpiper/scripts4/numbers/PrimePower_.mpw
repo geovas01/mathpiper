@@ -1,20 +1,20 @@
-%mathpiper,def="IsPrimePower"
+%mathpiper,def="PrimePower?"
 
 /* Returns whether n is a prime^m. */
-10 # IsPrimePower(n_IsPrime) <-- True;
-10 # IsPrimePower(0) <-- False;
-10 # IsPrimePower(1) <-- False;
-20 # IsPrimePower(n_PositiveInteger?) <-- (GetPrimePower(n)[2] >? 1);
+10 # PrimePower?(n_Prime?) <-- True;
+10 # PrimePower?(0) <-- False;
+10 # PrimePower?(1) <-- False;
+20 # PrimePower?(n_PositiveInteger?) <-- (GetPrimePower(n)[2] >? 1);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsPrimePower",categories="User Functions;Number Theory;Predicates"
-*CMD IsPrimePower --- test for a power of a prime number
+%mathpiper_docs,name="PrimePower?",categories="User Functions;Number Theory;Predicates"
+*CMD PrimePower? --- test for a power of a prime number
 *STD
 *CALL
-        IsPrimePower(n)
+        PrimePower?(n)
 
 *PARMS
 
@@ -31,13 +31,13 @@ Instead we check for all prime numbers $r=2$, $3$, ... that the $r$-th root of $
 
 *E.G.
 
-In> IsPrimePower(9)
+In> PrimePower?(9)
 Result: True;
-In> IsPrimePower(10)
+In> PrimePower?(10)
 Result: False;
-In> Select(1 .. 50, "IsPrimePower")
+In> Select(1 .. 50, "PrimePower?")
 Result: {2,3,4,5,7,8,9,11,13,16,17,19,23,25,27,
           29,31,32,37,41,43,47,49};
 
-*SEE IsPrime, Factors
+*SEE Prime?, Factors
 %/mathpiper_docs

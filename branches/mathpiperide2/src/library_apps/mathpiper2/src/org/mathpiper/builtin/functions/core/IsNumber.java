@@ -93,7 +93,7 @@ Side Effects:
 In> IsNumber("duh");
 Result: False;
 
-*SEE IsAtom, IsString, Integer?, IsDecimal, IsPositiveNumber, IsNegativeNumber, Complex
+*SEE IsAtom, IsString, Integer?, IsDecimal, IsPositiveNumber, NegativeNumber?, Complex
 %/mathpiper_docs
 
 

@@ -79,7 +79,7 @@ Result: False;
 In> Integer?(3.2/10);
 Result: False;
 
-*SEE IsString, IsAtom, Integer?, IsDecimal, IsPositiveNumber, IsNegativeNumber, IsNumber
+*SEE IsString, IsAtom, Integer?, IsDecimal, IsPositiveNumber, NegativeNumber?, IsNumber
 %/mathpiper_docs
 
 

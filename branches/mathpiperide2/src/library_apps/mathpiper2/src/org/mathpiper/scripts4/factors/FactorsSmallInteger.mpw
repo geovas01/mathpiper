@@ -57,7 +57,7 @@ Programmer: Yacas Team + Sherm Ostrowsky
 In> FactorsSmallInteger(24)
 Result: {{2,3},{3,1}}
 
-*SEE Factors, IsPrime, FactorizeInt
+*SEE Factors, Prime?, FactorizeInt
 %/mathpiper_docs
 
     %output,preserve="false"

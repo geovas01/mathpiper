@@ -11,11 +11,11 @@ The largest prime number in the table is returned by FastIsPrime(0). */
 
 
 %mathpiper_docs,name="IsSmallPrime",categories="User Functions;Number Theory;Predicates"
-*CMD IsPrime --- test for a prime number
+*CMD Prime? --- test for a prime number
 *CMD IsSmallPrime --- test for a (small) prime number
 *STD
 *CALL
-        IsPrime(n)
+        Prime?(n)
         IsSmallPrime(n)
 
 *PARMS
@@ -31,7 +31,7 @@ The first prime numbers are 2, 3, 5, ...
 
 The function {IsShortPrime} only works for numbers $n<=65537$ but it is very fast.
 
-The function {IsPrime} operates on all numbers and uses different algorithms depending on the magnitude of the number $n$.
+The function {Prime?} operates on all numbers and uses different algorithms depending on the magnitude of the number $n$.
 For small numbers $n<=65537$, a constant-time table lookup is performed.
 (The function {IsShortPrime} is used for that.)
 For numbers $n$ between $65537$ and $34155071728321$, the function uses the Rabin-Miller test together with table lookups to guarantee correct results.
@@ -42,19 +42,19 @@ The parameters of the test are such that the probability for a false result is l
 
 *E.G.
 
-In> IsPrime(1)
+In> Prime?(1)
 Result: False;
-In> IsPrime(2)
+In> Prime?(2)
 Result: True;
-In> IsPrime(10)
+In> Prime?(10)
 Result: False;
-In> IsPrime(23)
+In> Prime?(23)
 Result: True;
-In> Select(1 .. 100, "IsPrime")
+In> Select(1 .. 100, "Prime?")
 Result: {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,
           53,59,61,67,71,73,79,83,89,97};
 
-*SEE IsPrimePower, Factors
+*SEE PrimePower?, Factors
 %/mathpiper_docs
 
 

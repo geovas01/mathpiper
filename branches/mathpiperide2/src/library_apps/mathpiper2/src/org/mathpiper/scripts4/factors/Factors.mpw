@@ -178,7 +178,7 @@ Result: {{2,3},{3,1}}
 In> Factors(32*x^3+32*x^2-70*x-75)
 Result: {{4*x+5,2},{2*x-3,1}}
 
-*SEE Factor, IsPrime, GaussianFactors
+*SEE Factor, Prime?, GaussianFactors
 %/mathpiper_docs
 
 

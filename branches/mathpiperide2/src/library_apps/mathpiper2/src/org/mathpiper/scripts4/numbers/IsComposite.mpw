@@ -1,7 +1,7 @@
 %mathpiper,def="IsComposite"
 
 5  # IsComposite(1)                        <-- False;
-10 # IsComposite(n_PositiveInteger?)         <-- (Not? IsPrime(n));
+10 # IsComposite(n_PositiveInteger?)         <-- (Not? Prime?(n));
 
 %/mathpiper
 
@@ -19,7 +19,7 @@
 
 *DESC
 
-This function is the logical negation of {IsPrime}, except for the number 1, which is
+This function is the logical negation of {Prime?}, except for the number 1, which is
 neither prime nor composite.
 
 *E.G.
@@ -33,7 +33,7 @@ Result: True;
 In> Select(1 .. 20, IsComposite)
 Result: {4,6,8,9,10,12,14,15,16,18,20};
 
-*SEE IsPrime
+*SEE Prime?
 %/mathpiper_docs
 
 

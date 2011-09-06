@@ -6,7 +6,7 @@
 
 10 # LegendreSymbol(_a,_p)        <--
 [
-        Check( Integer?(a) And? Integer?(p) And? p>?2 And? IsCoprime(a,p) And? IsPrime(p),
+        Check( Integer?(a) And? Integer?(p) And? p>?2 And? IsCoprime(a,p) And? Prime?(p),
                 "Argument", "LegendreSymbol: Invalid arguments");
         If(IsQuadraticResidue(a,p), 1, -1 );
 ];

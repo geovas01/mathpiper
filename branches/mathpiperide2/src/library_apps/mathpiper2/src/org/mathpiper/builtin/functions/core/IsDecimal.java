@@ -85,6 +85,6 @@ Result: False;
 In> IsDecimal(3.2/10);
 Result: False;
 
-*SEE IsString, IsAsom, Integer?, IsPositiveNumber, IsNegativeNumber, IsNumber
+*SEE IsString, IsAsom, Integer?, IsPositiveNumber, NegativeNumber?, IsNumber
 %/mathpiper_docs
 */
