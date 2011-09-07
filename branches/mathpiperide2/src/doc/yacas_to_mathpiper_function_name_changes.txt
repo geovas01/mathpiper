@@ -53,6 +53,9 @@ DefMacroRulebase -> MacroRulebaseEvaluateArguments
 DefMacroRulebaseListed -> MacroRulebaseListedEvaluateArguments
 
 
+Prog -> Block //For pedagogical reasons.
+
+
 ----------------------------- Proposed predicate operator & function name changes:
 
 
