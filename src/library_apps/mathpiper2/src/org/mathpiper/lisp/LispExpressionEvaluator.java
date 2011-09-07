@@ -153,7 +153,7 @@ public class LispExpressionEvaluator extends Evaluator {
                             return;
                         }
 
-                            LispError.raiseError("Function <" + functionName + ">  " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) +" <arity " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + "> not defined.", "[Internal]", aStackTop, aEnvironment);
+                            LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) +">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", "[Internal]", aStackTop, aEnvironment);
 
 
                     } else {
