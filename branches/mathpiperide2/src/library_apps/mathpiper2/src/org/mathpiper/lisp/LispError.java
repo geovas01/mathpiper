@@ -199,7 +199,7 @@ public class LispError {
                     throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
                 } else {
                     //TODO FIXME          ShowStack(aEnvironment);
-                    aErrorMessage = aErrorMessage + " " + showFunctionError(arguments, aEnvironment) + "internal.";
+                    aErrorMessage = aErrorMessage + " " + showFunctionError(arguments, aEnvironment);
                 }
 
 
@@ -258,7 +258,7 @@ public class LispError {
         } else {
             String string = (String) aArguments.car();
             if (string != null) {
-                return "In function \"" + string;// + "\" : " + aEnvironment.iCurrentInput.iStatus.getFileName() + ", " + " Line number: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ", " + " Line index: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ". ";
+                return "In function: " + string + ". ";// + "\" : " + aEnvironment.iCurrentInput.iStatus.getFileName() + ", " + " Line number: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ", " + " Line index: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ". ";
             }
         }
         return "[Atom]";
@@ -284,7 +284,7 @@ public class LispError {
                     throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
                 } else {
                     String error = "";
-                    error = error + showFunctionError(arguments, aEnvironment) + "internal.";
+                    error = error + showFunctionError(arguments, aEnvironment);
                     throw new EvaluationException(error + stackTrace, aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
                 }
             }
