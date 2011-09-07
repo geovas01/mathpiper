@@ -64,13 +64,124 @@ IsInteger -> Integer?
 IsList -> List?
 etc.
 
- 
 
+---------
 
+IsComplex ->
+IsComplexII ->
+IsAssumed ->
+IsList ->
+IsAmicablePair ->
+IsCarmichaelNumber ->
+IsCFormable ->
+IsComposite ->
+IsCoprime ->
+IsError ->
+IsFreeOf ->
+IsGaussianInteger ->
+IsGaussianPrime ->
+IsGaussianUnit ->
+IsIrregularPrime ->
+IsListsOfLists ->
+IsNonObject ->
+IsNotComplex ->
+IsPerfect ->
+IsPoint ->
 
-
+IsQuadraticResidue ->
+IsSegment ->
+IsSmallPrime ->
+IsSquareFree ->
+IsSubset ->
+IsTwinPrime ->
+IsUnivar ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
+ ->
 
 ============================= Changes that have already been done.
+
+// Changed in early September 2011.
+AllSatisfy -> AllSatisfy?
+FloatIsInt -> FloatIsInt?
+HasExpr -> HasExpression?
+HasExprArith -> HasExpressionArithmetic?
+HasExprSome -> HasExpressionSome?
+HasFunc -> HasFunction?
+HasFuncArith -> HasFunctionArithmetic?
+HasFuncSome -> HasFunctionSome?
+IsBoolType -> BooleanType?
+IsBoolean -> Boolean?
+IsConstant -> Constant?
+IsDiagonal -> Diagonal?
+IsEquation -> Equation?
+IsEven -> Even?
+IsEvenFunction -> EvenFunction?
+IsHermitian -> Hermitian?
+IsIdempotent -> Idempotent?
+IsInfinity -> Infinity?
+IsLowerTriangular -> LowerTriangular?
+IsMonomial -> Monomial?
+IsNegativeInteger -> NegativeInteger?
+IsNegativeNumber -> NegativeNumber?
+IsNegativeReal -> NegativeReal?
+IsNonNegativeInteger -> NonNegativeInteger?
+IsNonNegativeNumber -> NonNegativeNumber?
+IsNonZeroInteger -> NonZeroInteger?
+IsNotZero -> NotZero?
+IsNumericList -> NumericList?
+IsOdd -> Odd?
+IsOddFunction -> OddFunction?
+IsOne -> One?
+IsOrthogonal -> Orthogonal?
+IsPolynomial -> Polynomial?
+IsPolynomialOverIntegers -> PolynomialOverIntegers?
+IsPositiveInteger -> PositiveInteger?
+IsPositiveNumber -> PositiveNumber?
+IsPositiveReal -> PositiveReal?
+IsRationalFunction -> RationalFunction?
+IsRationalOrNumber -> RationalOrNumber?
+IsRational -> Rational?
+IsSkewSymmetric -> SkewSymmetric?
+IsSumOfTerms -> SumOfTerms?
+IsUnitary -> Unitary?
+IsUpperTriangular -> UpperTriangular?
+IsVariable -> Variable?
+IsZeroVector -> ZeroVector?
+IsZero -> Zero?
+ListHasFuncSome -> ListHasFunctionSome?
+NoneSatisfy -> NoneSatisfy?
+IsIntegerGreaterThanZero -> IntegerGreaterThanZero?
+IsInteger -> IsInteger?
+IsBound -> Bound?
+IsPrimePower -> PrimePower?
+IsPrime -> Prime? (check the docs for IsSmallPrime because it has IsPrime info in it).
+
+
+
+
 // Changed late August 2011.
 = -> =?    
 != -> !=?
