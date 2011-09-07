@@ -412,11 +412,11 @@ class SynchronousInterpreter implements Interpreter {
                     errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
                 }
                 evaluationResponse.setLineNumber(errorLineNumber);
-                evaluationResponse.setLineNumber(errorLineIndex);
+                evaluationResponse.setLineIndex(errorLineIndex);
                 evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.getFileName());
             } else {
                 evaluationResponse.setLineNumber(mpe.getLineNumber());
-                evaluationResponse.setLineNumber(errorLineIndex);
+                evaluationResponse.setLineIndex(errorLineIndex);
                 evaluationResponse.setSourceFileName(mpe.getFileName());
             }
 
@@ -428,7 +428,7 @@ class SynchronousInterpreter implements Interpreter {
             //    errorLineNumber = 1; //Code was probably a single line submitted from the command line or from a single line evaluation request.
             //}
             evaluationResponse.setLineNumber(errorLineNumber);
-            evaluationResponse.setLineNumber(errorLineIndex);
+            evaluationResponse.setLineIndex(errorLineIndex);
             evaluationResponse.setSourceFileName(iEnvironment.iInputStatus.getFileName());
         }
 
