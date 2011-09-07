@@ -92,7 +92,8 @@ public class MathPiperParser extends Parser
 
     public void parse(int aStackTop) throws Exception
     {
-        readToken(aStackTop);
+        readToken(aStackTop); //The character is placed into lookAhead.
+
         if (iEndOfFile)
         {
             iSExpressionResult.setCons(iEnvironment.iEndOfFileAtom.copy( iEnvironment, true));
@@ -105,6 +106,7 @@ public class MathPiperParser extends Parser
         {
             fail(aStackTop);
         }
+
         if (iError)
         {
             while (iLookAhead.length() > 0 && iLookAhead != iEnvironment.iEndStatementAtom.car())
