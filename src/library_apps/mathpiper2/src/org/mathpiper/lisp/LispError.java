@@ -258,7 +258,7 @@ public class LispError {
         } else {
             String string = (String) aArguments.car();
             if (string != null) {
-                return "In function \"" + string + "\" : " + aEnvironment.iCurrentInput.iStatus.getFileName() + ", " + " Line number: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ", " + " Line index: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ". ";
+                return "In function \"" + string;// + "\" : " + aEnvironment.iCurrentInput.iStatus.getFileName() + ", " + " Line number: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ", " + " Line index: " + aEnvironment.iCurrentInput.iStatus.getLineNumber() + ". ";
             }
         }
         return "[Atom]";

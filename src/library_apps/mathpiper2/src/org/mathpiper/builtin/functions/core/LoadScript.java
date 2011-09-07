@@ -18,6 +18,7 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.io.InputStatus;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -46,7 +47,9 @@ public class LoadScript extends BuiltinFunction
 
         scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
 
-        StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.iCurrentInput.iStatus);
+        InputStatus status = new InputStatus();
+
+        StringInputStream functionInputStream = new StringInputStream(scriptString,status); //aEnvironment.iCurrentInput.iStatus);
 
         Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
         

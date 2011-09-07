@@ -105,6 +105,7 @@ public final class Environment {
     public String iPrettyReaderName = null;
     public String iPrettyPrinterName = null;
     public Scripts scripts = new Scripts();
+    public static boolean haltEvaluation = false;
 
     public Environment(MathPiperOutputStream aCurrentOutput/*TODO FIXME*/) throws Exception {
         iCurrentTokenizer = iDefaultTokenizer;
