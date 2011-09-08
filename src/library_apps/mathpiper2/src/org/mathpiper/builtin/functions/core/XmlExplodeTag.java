@@ -13,9 +13,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.lisp.Utility;
@@ -32,27 +30,20 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
  *
  *  
  */
-public class XmlExplodeTag extends BuiltinFunction
-{
-    private XmlExplodeTag()
-    {
+public class XmlExplodeTag extends BuiltinFunction {
 
+    private XmlExplodeTag() {
     }
-    
-    public XmlExplodeTag(Environment aEnvironment)
-    {
-        try
-        {
-        Utility.lispEvaluate(aEnvironment, -1, "Rulebase(\"XmlTag\",{x,y,z});");
-        }
-        catch(Exception e)
-        {
+
+    public XmlExplodeTag(Environment aEnvironment) {
+        try {
+            Utility.lispEvaluate(aEnvironment, -1, "Rulebase(\"XmlTag\",{x,y,z});");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
-    {
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         ConsPointer out = new ConsPointer();
         out.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         LispError.checkIsString(aEnvironment, aStackTop, out, 1, "XmlExplodeTag");
@@ -60,8 +51,7 @@ public class XmlExplodeTag extends BuiltinFunction
         String str = (String) out.car();
         int strInd = 0;
         strInd++;
-        if (str.charAt(strInd) != '<')
-        {
+        if (str.charAt(strInd) != '<') {
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(out.getCons());
             return;
         }
@@ -69,20 +59,17 @@ public class XmlExplodeTag extends BuiltinFunction
         strInd++;
         String type = "\"Open\"";
 
-        if (str.charAt(strInd) == '/')
-        {
+        if (str.charAt(strInd) == '/') {
             type = "\"Close\"";
             strInd++;
         }
         String tag = new String();
 
         tag = tag + "\"";
-        while (MathPiperTokenizer.isAlpha(str.charAt(strInd)))
-        {
+        while (MathPiperTokenizer.isAlpha(str.charAt(strInd))) {
             char c = str.charAt(strInd);
             strInd++;
-            if (c >= 'a' && c <= 'z')
-            {
+            if (c >= 'a' && c <= 'z') {
                 c = (char) (c + ('A' - 'a'));
             }
             tag = tag + c;
@@ -91,21 +78,17 @@ public class XmlExplodeTag extends BuiltinFunction
 
         Cons info = null;
 
-        while (str.charAt(strInd) == ' ')
-        {
+        while (str.charAt(strInd) == ' ') {
             strInd++;
         }
-        while (str.charAt(strInd) != '>' && str.charAt(strInd) != '/')
-        {
+        while (str.charAt(strInd) != '>' && str.charAt(strInd) != '/') {
             String name = new String();
             name = name + "\"";
 
-            while (MathPiperTokenizer.isAlpha(str.charAt(strInd)))
-            {
+            while (MathPiperTokenizer.isAlpha(str.charAt(strInd))) {
                 char c = str.charAt(strInd);
                 strInd++;
-                if (c >= 'a' && c <= 'z')
-                {
+                if (c >= 'a' && c <= 'z') {
                     c = (char) (c + ('A' - 'a'));
                 }
                 name = name + c;
@@ -118,8 +101,7 @@ public class XmlExplodeTag extends BuiltinFunction
 
             value = value + (str.charAt(strInd));
             strInd++;
-            while (str.charAt(strInd) != '\"')
-            {
+            while (str.charAt(strInd) != '\"') {
                 value = value + (str.charAt(strInd));
                 strInd++;
             }
@@ -137,19 +119,16 @@ public class XmlExplodeTag extends BuiltinFunction
                 newinfo.cdr().setCons(info);
                 info = newinfo;
             }
-            while (str.charAt(strInd) == ' ')
-            {
+            while (str.charAt(strInd) == ' ') {
                 strInd++;
 
-            //printf("End is %c\n",str[0]);
+                //printf("End is %c\n",str[0]);
             }
         }
-        if (str.charAt(strInd) == '/')
-        {
+        if (str.charAt(strInd) == '/') {
             type = "\"OpenClose\"";
             strInd++;
-            while (str.charAt(strInd) == ' ')
-            {
+            while (str.charAt(strInd) == ' ') {
                 strInd++;
             }
         }
