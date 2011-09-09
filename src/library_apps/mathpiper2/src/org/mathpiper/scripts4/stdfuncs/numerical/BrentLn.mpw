@@ -56,6 +56,6 @@ LocalSymbols(BrentCacheOfConstantsN)
         y;        // do not return a more precise number than we really have
 ];
 
-40 # BrentLn(x_IsNumber) <-- LogN(x);
+40 # BrentLn(x_Number?) <-- LogN(x);
 
 %/mathpiper

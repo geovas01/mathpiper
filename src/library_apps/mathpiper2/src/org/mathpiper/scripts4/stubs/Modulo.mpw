@@ -15,7 +15,7 @@
 2 # Modulo(0,_m) <-- 0;
 2 # Modulo(n_PositiveInteger?,Infinity) <-- n;
 3 # Modulo(n_Integer?,m_Integer?) <-- ModuloN(n,m);
-4 # Modulo(n_IsNumber,m_IsNumber) <-- NonN(Modulo(Rationalize(n),Rationalize(m)));
+4 # Modulo(n_Number?,m_Number?) <-- NonN(Modulo(Rationalize(n),Rationalize(m)));
 
 5 # Modulo(n_RationalOrNumber?,m_RationalOrNumber?)/*_(n>?0 And? m>?0)*/ <--
 [

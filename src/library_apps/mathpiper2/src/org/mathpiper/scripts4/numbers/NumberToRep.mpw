@@ -3,7 +3,7 @@
 //Retract("NumberToRep",*);
 
 
-10 # NumberToRep( N_IsNumber ) <--
+10 # NumberToRep( N_Number? ) <--
 [
     //If(InVerboseMode(),Tell(NumberToRep,N));
     Local(oldPrec,sgn,assoc,typ,val,prec,rep);

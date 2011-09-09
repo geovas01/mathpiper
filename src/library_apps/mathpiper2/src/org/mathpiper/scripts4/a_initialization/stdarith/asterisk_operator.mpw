@@ -2,7 +2,7 @@
 
 /* Multiplication */
 
-50  # x_IsNumber * y_IsNumber <-- MultiplyN(x,y);
+50  # x_Number? * y_Number? <-- MultiplyN(x,y);
 100 #  1  * _x  <-- x;
 100 # _x  *  1  <-- x;
 100 # (_f  * _x)_(f=? -1)  <-- -x;
@@ -56,8 +56,8 @@
 101 # 0    * (_x) <-- 0;
 101 # (_x) *    0 <-- 0;
 
-100 # x_IsNumber * (y_IsNumber * _z) <-- (x*y)*z;
-100 # x_IsNumber * (_y * z_IsNumber) <-- (x*z)*y;
+100 # x_Number? * (y_Number? * _z) <-- (x*y)*z;
+100 # x_Number? * (_y * z_Number?) <-- (x*z)*y;
 
 100 # (_x * _y) * _y <-- x * y^2;
 100 # (_x * _y) * _x <-- y * x^2;
@@ -66,7 +66,7 @@
 100 # _x * (_y / _z) <-- (x*y)/z;
 // fractions
 100 # (_y / _z) * _x <-- (x*y)/z;
-100 # (_x * y_IsNumber)_Not?(IsNumber(x)) <-- y*x;
+100 # (_x * y_Number?)_Not?(Number?(x)) <-- y*x;
 
 100 # (_x) * (_x) ^ (n_Constant?) <-- x^(n+1);
 100 # (_x) ^ (n_Constant?) * (_x) <-- x^(n+1);
@@ -77,8 +77,8 @@
 100 # Sqrt(_x) * (_x) <-- x^(3/2);
 100 # (_x) * Sqrt(_x) <-- x^(3/2);
 
-105 # x_IsNumber * -(_y) <-- (-x)*y;
-105 # (-(_x)) * (y_IsNumber) <-- (-y)*x;
+105 # x_Number? * -(_y) <-- (-x)*y;
+105 # (-(_x)) * (y_Number?) <-- (-y)*x;
 
 106 # _x * -(_y) <-- -(x*y);
 106 # (- _x) * _y <-- -(x*y);
@@ -87,8 +87,8 @@
 107 # -( (_x)/(-(_y))) <-- x/y;
 
 
-250  # x_IsNumber * y_Infinity? <-- Sign(x)*y;
-250  # x_Infinity? * y_IsNumber <-- Sign(y)*x;
+250  # x_Number? * y_Infinity? <-- Sign(x)*y;
+250  # x_Infinity? * y_Number? <-- Sign(y)*x;
 
 
 /* Note: this rule MUST be past all the transformations on

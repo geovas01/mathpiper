@@ -2,7 +2,7 @@
 
 // check that all items in the list are numbers
 NumericList?(_arg'list) <-- List?(arg'list) And?
-        ("And?" @ (MapSingle(Hold({{x},IsNumber(N(Eval(x)))}), arg'list)));
+        ("And?" @ (MapSingle(Hold({{x},Number?(N(Eval(x)))}), arg'list)));
 
 %/mathpiper
 
@@ -21,5 +21,5 @@ NumericList?(_arg'list) <-- List?(arg'list) And?
 *DESC
 Returns {True} when called on a list of numbers or expressions that evaluate to numbers using {N()}. Returns {False} otherwise.
 
-*SEE N, IsNumber
+*SEE N, Number?
 %/mathpiper_docs

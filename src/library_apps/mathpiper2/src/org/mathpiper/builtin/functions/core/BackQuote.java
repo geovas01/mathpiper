@@ -88,7 +88,7 @@ soon as the argument is a number (a lot of functions  do this only when inside
 a {N(...)} section).
 
 In> Decl(f1,f2) := \
-In>   `(@f1(x_IsNumber) <-- N(@f2(x)));
+In>   `(@f1(x_Number?) <-- N(@f2(x)));
 Result: True;
 In> Decl(nSin,Sin)
 Result: True;

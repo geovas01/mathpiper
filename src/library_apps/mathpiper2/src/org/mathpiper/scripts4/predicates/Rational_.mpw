@@ -5,10 +5,10 @@ Function("Rational?",{aLeft}) Type(aLeft) = "/";
 
 Function("RationalNumeric?",{aLeft})
     Type(aLeft) = "/" And?
-    IsNumber(aLeft[1]) And?
-    IsNumber(aLeft[2]);
+    Number?(aLeft[1]) And?
+    Number?(aLeft[2]);
 
-RationalOrNumber?(_x) <-- (IsNumber(x) Or? RationalNumeric?(x));
+RationalOrNumber?(_x) <-- (Number?(x) Or? RationalNumeric?(x));
 
 10 # RationalOrInteger?(x_Integer?) <-- True;
 10 # RationalOrInteger?(x_Integer? / y_Integer?) <-- True;

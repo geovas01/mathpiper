@@ -24,7 +24,7 @@ NFunction(new'name_IsString, old'name_IsString, arg'list_List?) <-- [
 
 // this function is local to NFunction.
 // special handling for numerical errors: return Undefined unless given a number.
-10 # NFunction'Numberize(x_IsNumber) <-- x;
+10 # NFunction'Numberize(x_Number?) <-- x;
 20 # NFunction'Numberize(x_Atom?) <-- Undefined;
 // do nothing unless given an atom
 

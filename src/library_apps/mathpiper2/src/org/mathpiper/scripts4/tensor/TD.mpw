@@ -14,6 +14,6 @@ Rulebase("TD",{ind});
 10 # (TD(_i) ( (_f) * (_g) ) ) <-- (TD(i)f)*g + f*(TD(i)g);
 10 # (TD(_i) ( (_f) ^ (n_PositiveInteger?) ) ) <-- n*(TD(i)f)*f^(n-1);
 10 # (TD(_i)Delta(_j,_k)) <-- 0;
-10 # (TD(_i)f_IsNumber) <-- 0;
+10 # (TD(_i)f_Number?) <-- 0;
 
 %/mathpiper

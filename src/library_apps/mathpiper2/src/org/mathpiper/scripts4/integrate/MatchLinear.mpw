@@ -48,8 +48,8 @@ UnFence("MatchLinear",2);
 
 10 # MatchPureSquared(_expr,_sign2,_sign0)_(Degree(expr,var)=?2 And?
                                     Coef(expr,1) =? 0 And?
-                                    IsNumber(Coef(expr,0)) And?
-                                    IsNumber(Coef(expr,2)) And?
+                                    Number?(Coef(expr,0)) And?
+                                    Number?(Coef(expr,2)) And?
                                     Coef(expr,0)*sign0 >? 0 And?
                                     Coef(expr,2)*sign2 >? 0
                                     ) <--

@@ -250,7 +250,7 @@
 :IsNonObject:IsNonObject(expr):test whether argument is not an {Object()}:
 :IsNonZeroInteger:IsNonZeroInteger(n):test for a nonzero integer:
 :IsNotZero:IsNotZero(n):test for a nonzero number:
-:IsNumber:IsNumber(expr):test for a number:
+:Number?:Number?(expr):test for a number:
 :IsNumericList:IsNumericList({list}):test for a list of numbers:
 :IsOdd:IsOdd(n):test for an odd integer:
 :IsOddFunction:IsOddFunction(expression,variable):Return true if function is an odd function, False otherwise:

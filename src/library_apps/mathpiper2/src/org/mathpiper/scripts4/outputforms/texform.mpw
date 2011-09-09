@@ -79,7 +79,7 @@ TeXFormMaxPrec() := 60000;         /* This precedence will never be bracketed. I
 
 /* Replace numbers and variables -- never bracketed except explicitly */
 
-110 # TeXForm(x_IsNumber, _p) <-- ToString(x);
+110 # TeXForm(x_Number?, _p) <-- ToString(x);
 /* Variables */
 200 # TeXForm(x_Atom?, _p) <-- TeXFormTeXify(ToString(x));
 
@@ -118,9 +118,9 @@ TeXFormMaxPrec() := 60000;         /* This precedence will never be bracketed. I
         */
 // special cases: things like x*2 and 2*10^x look ugly without a period
 // cases like x*2
-115 # TeXForm(_expr * n_IsNumber, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("*"), ConcatStrings(TeXForm(expr, LeftPrecedenceGet("*")), "\\cdot ", TeXForm(n, RightPrecedenceGet("*")) ) );
+115 # TeXForm(_expr * n_Number?, _p) <-- TeXFormBracketIf(p<?PrecedenceGet("*"), ConcatStrings(TeXForm(expr, LeftPrecedenceGet("*")), "\\cdot ", TeXForm(n, RightPrecedenceGet("*")) ) );
 // cases like a*20! and a*10^x
-116 # TeXForm(_n * _expr, _p) _ (Function?(expr) And? Contains({"^", "!", "!!"}, Type(expr)) And? IsNumber(FunctionToList(expr)[2])) <-- TeXFormBracketIf(p<?PrecedenceGet("*"), ConcatStrings(TeXForm(n, LeftPrecedenceGet("*")), "\\cdot ", TeXForm(expr, RightPrecedenceGet("*")) ) );
+116 # TeXForm(_n * _expr, _p) _ (Function?(expr) And? Contains({"^", "!", "!!"}, Type(expr)) And? Number?(FunctionToList(expr)[2])) <-- TeXFormBracketIf(p<?PrecedenceGet("*"), ConcatStrings(TeXForm(n, LeftPrecedenceGet("*")), "\\cdot ", TeXForm(expr, RightPrecedenceGet("*")) ) );
 
         /* generic binary ops here */
 120 # TeXForm(expr_Function?, _p)_(ArgumentsCount(expr)=?2 And? Infix?(Type(expr)) ) <-- TeXFormBracketIf(p<?PrecedenceGet(Type(expr)), ConcatStrings(TeXForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), TeXFormTeXify(Type(expr)), TeXForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
@@ -213,7 +213,7 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
     If (Contains(TeXFormGreekLetters, string), ConcatStrings("\\", string, " "),
     If (Contains(AssocIndices(TeXFormRegularOps), string), TeXFormRegularOps[string],
     If (Contains(AssocIndices(TeXFormRegularPrefixOps), string), TeXFormRegularPrefixOps[string],
-    If (Length(string) >=? 2 And? IsNumber(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), "_{", StringMidGet(2, Length(string)-1, string), "}"),
+    If (Length(string) >=? 2 And? Number?(ToAtom(StringMidGet(2, Length(string)-1, string))), ConcatStrings(StringMidGet(1,1,string), "_{", StringMidGet(2, Length(string)-1, string), "}"),
     If (Length(string) >? 2, ConcatStrings("\\mathrm{ ", string, " }"),
     string
     ))))));

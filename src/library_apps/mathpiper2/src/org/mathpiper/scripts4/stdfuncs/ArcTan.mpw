@@ -22,7 +22,7 @@
 
 ArcTan(xlist_List?) <-- MapSingle("ArcTan",xlist);
 
-2 # ArcTan(x_IsNumber)_InNumericMode() <-- ArcTanNum(x);
+2 # ArcTan(x_Number?)_InNumericMode() <-- ArcTanNum(x);
 
 
 %/mathpiper

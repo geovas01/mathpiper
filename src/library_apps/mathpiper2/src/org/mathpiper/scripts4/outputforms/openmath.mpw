@@ -92,7 +92,7 @@ LocalSymbols(omindent) [
 
 10 # OMFormExpression(i_IsString)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
 11 # OMFormExpression(i_Integer?) <-- OMEcho("<OMI>":ToString(i):"</OMI>");
-12 # OMFormExpression(i_IsNumber)  <-- OMEcho("<OMF dec=\"":ToString(i):"\"/>");
+12 # OMFormExpression(i_Number?)  <-- OMEcho("<OMF dec=\"":ToString(i):"\"/>");
 13 # OMFormExpression(i_Constant?)_(OMSymbol()[ ToString(i) ] !=? Empty)
      <-- OMEcho("<OMS cd=\"":OMSymbol()[ ToString(i) ][1]
                 :"\" name=\"":OMSymbol()[ ToString(i) ][2]:"\"/>"
@@ -525,7 +525,7 @@ PipeFromString(str:" EndOfFile")
      Empty);
 ];
 
-11 # OMPathSelect(path_IsNumber, _expression) <--
+11 # OMPathSelect(path_Number?, _expression) <--
 [
   If(path >=? 0 And? path <=? Length(expression),
      expression[path],

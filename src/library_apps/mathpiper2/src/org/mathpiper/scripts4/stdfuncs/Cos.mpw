@@ -17,7 +17,7 @@
 
 
 
-2 # Cos(x_IsNumber)_InNumericMode() <-- CosNum(x);
+2 # Cos(x_Number?)_InNumericMode() <-- CosNum(x);
 4 # Cos(ArcCos(_x))           <-- x;
 4 # Cos(ArcSin(_x)) <-- Sqrt(1-x^2);
 4 # Cos(ArcTan(_x)) <-- 1/Sqrt(1+x^2);

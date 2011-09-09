@@ -3,7 +3,7 @@
 /* Functions that aid in testing */
 
 /* Round to specified number of digits */
-10 # RoundTo(x_IsNumber, precision_PositiveInteger?) <--
+10 # RoundTo(x_Number?, precision_PositiveInteger?) <--
 [
   Local(oldPrec,result);
 
@@ -21,7 +21,7 @@
 
 
 // complex numbers too
-10 # RoundTo(Complex(r_IsNumber, i_IsNumber), precision_PositiveInteger?) <-- Complex(RoundTo(r, precision), RoundTo(i, precision));
+10 # RoundTo(Complex(r_Number?, i_Number?), precision_PositiveInteger?) <-- Complex(RoundTo(r, precision), RoundTo(i, precision));
 
 
 

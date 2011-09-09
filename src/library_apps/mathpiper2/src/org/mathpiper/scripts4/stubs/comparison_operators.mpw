@@ -26,13 +26,13 @@
 
 
 // If n and m are numbers, use the standard LessThan function immediately
-5 # (n_IsNumber <? m_IsNumber) <-- LessThan?(n-m,0);
+5 # (n_Number? <? m_Number?) <-- LessThan?(n-m,0);
 
 
 // If n and m are symbolic after a single evaluation, see if they can be coerced in to a real-valued number.
 LocalSymbols(nNum,mNum)
 [
-  10 # (_n <? _m)_[nNum:=N(Eval(n)); mNum:=N(Eval(m));IsNumber(nNum) And? IsNumber(mNum);] <-- LessThan?(nNum-mNum,0);
+  10 # (_n <? _m)_[nNum:=N(Eval(n)); mNum:=N(Eval(m));Number?(nNum) And? Number?(mNum);] <-- LessThan?(nNum-mNum,0);
 ];
 
 // Deal with Infinity
@@ -105,7 +105,7 @@ the result is {True} and it is {False} otherwise. If either of the expression is
 evaluation, the expression is returned with evaluated arguments.
 
 The word "numeric" in the previous paragraph has the following
-meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+meaning. An expression is numeric if it is either a number (i.e. {Number?} returns {True}), or the
 quotient of two numbers, or an infinity (i.e. {Infinity?} returns {True}). MathPiper will try to 
 coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
@@ -116,7 +116,7 @@ Result: True;
 In> Cos(1) <? 5;
 Result: True;
 
-*SEE IsNumber, Infinity?, N
+*SEE Number?, Infinity?, N
 %/mathpiper_docs
 
 
@@ -142,7 +142,7 @@ the result is {True} and it is {False} otherwise. If either of the expression is
 evaluation, the expression is returned with evaluated arguments.
 
 The word "numeric" in the previous paragraph has the following
-meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+meaning. An expression is numeric if it is either a number (i.e. {Number?} returns {True}), or the
 quotient of two numbers, or an infinity (i.e. {Infinity?} returns {True}). MathPiper will try to 
 coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
@@ -153,7 +153,7 @@ Result: False;
 In> Cos(1) >? 5;
 Result: False
 
-*SEE IsNumber, Infinity?, N
+*SEE Number?, Infinity?, N
 %/mathpiper_docs
 
 
@@ -180,7 +180,7 @@ numeric, after evaluation, the expression is returned with evaluated
 arguments.
 
 The word "numeric" in the previous paragraph has the following
-meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+meaning. An expression is numeric if it is either a number (i.e. {Number?} returns {True}), or the
 quotient of two numbers, or an infinity (i.e. {Infinity?} returns {True}). MathPiper will try to 
 coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
@@ -191,7 +191,7 @@ Result: True;
 In> Cos(1) <=? 5;
 Result: True
 
-*SEE IsNumber, Infinity?, N
+*SEE Number?, Infinity?, N
 %/mathpiper_docs
 
 
@@ -218,7 +218,7 @@ numeric, after evaluation, the expression is returned with evaluated
 arguments.
 
 The word "numeric" in the previous paragraph has the following
-meaning. An expression is numeric if it is either a number (i.e. {IsNumber} returns {True}), or the
+meaning. An expression is numeric if it is either a number (i.e. {Number?} returns {True}), or the
 quotient of two numbers, or an infinity (i.e. {Infinity?} returns {True}). MathPiper will try to 
 coerce the arguments passed to this comparison operator to a real value before making the comparison.
 
@@ -229,7 +229,7 @@ Result: False;
 In> Cos(1) >=? 5;
 Result: False
 
-*SEE IsNumber, Infinity?, N
+*SEE Number?, Infinity?, N
 %/mathpiper_docs
 
 

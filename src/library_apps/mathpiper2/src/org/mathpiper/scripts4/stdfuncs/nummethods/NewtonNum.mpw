@@ -87,7 +87,7 @@ Exp(x/2)-a*Exp(-x/2)=0:
 
 x' := x - 2 * (Exp(x)-a) / (Exp(x)+a)
 
-LN(x_IsNumber)_(x>?1 ) <--
+LN(x_Number?)_(x>?1 ) <--
         LocalSymbols(y)
 [
 // initial guess is obtained as Ln(x^2)/Ln(2) * (Ln(2)/2)

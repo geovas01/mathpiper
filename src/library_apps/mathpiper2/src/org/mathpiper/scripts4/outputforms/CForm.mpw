@@ -29,7 +29,7 @@ Function ("CFormBracketIf", {predicate, string})
         If(predicate, ConcatStrings("( ", string, ") "), string);
 ];
 
-CFormDoublePrecisionNumber(x_IsNumber) <--
+CFormDoublePrecisionNumber(x_Number?) <--
 [
     Local(i,n,s,f);
     s := ToString(x);
@@ -53,7 +53,7 @@ CFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It 
 /* Replace numbers and variables -- never bracketed except explicitly */
 110 # CForm(x_Integer?, _p) <-- ToString(x);
 111 # CForm(x_Zero?, _p) <-- "0.";
-112 # CForm(x_IsNumber, _p) <-- CFormDoublePrecisionNumber(x);
+112 # CForm(x_Number?, _p) <-- CFormDoublePrecisionNumber(x);
 /* Variables are left as is, except some special ones */
 190 # CForm(False, _p) <-- "false";
 190 # CForm(True, _p) <-- "true";

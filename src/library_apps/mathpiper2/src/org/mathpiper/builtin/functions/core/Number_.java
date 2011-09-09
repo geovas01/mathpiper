@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class IsNumber extends BuiltinFunction
+public class Number_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -41,11 +41,11 @@ public class IsNumber extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsNumber",categories="User Functions;Predicates;Built In"
-*CMD IsNumber --- test for a number
+%mathpiper_docs,name="Number?",categories="User Functions;Predicates;Built In"
+*CMD Number? --- test for a number
 *CORE
 *CALL
-	IsNumber(expr)
+	Number?(expr)
 
 *PARMS
 
@@ -56,22 +56,22 @@ public class IsNumber extends BuiltinFunction
 This function tests whether "expr" is a number. There are two kinds
 of numbers, integers (e.g. 6) and reals (e.g. -2.75 or 6.0). Note that a
 complex number is represented by the {Complex}
-function, so {IsNumber} will return {False}.  The value {False} will be returned
+function, so {Number?} will return {False}.  The value {False} will be returned
 for all expressions which are lists, but the user should be especially aware of expression
 lists which might appear to be numbers, such as those returned by Hold(-1) (see below).
  
 
 *E.G.
-In> IsNumber(6);
+In> Number?(6);
 Result: True;
 
-In> IsNumber(3.25);
+In> Number?(3.25);
 Result: True;
 
-In> IsNumber(I);
+In> Number?(I);
 Result: False;
 
-In> IsNumber(-1)
+In> Number?(-1)
 Result: True
 
 In> LispForm(-1)
@@ -82,7 +82,7 @@ Side Effects:
 In> Hold(-1)
 Result: -1
 
-In> IsNumber(Hold(-1))
+In> Number?(Hold(-1))
 Result: False
 
 In> LispForm(Hold(-1))
@@ -90,7 +90,7 @@ Result: -1
 Side Effects:
 (- 1 )
 
-In> IsNumber("duh");
+In> Number?("duh");
 Result: False;
 
 *SEE IsAtom, IsString, Integer?, Decimal?, IsPositiveNumber, NegativeNumber?, Complex
@@ -100,12 +100,12 @@ Result: False;
 
 
 
-%mathpiper,name="IsNumber",subtype="automatic_test"
+%mathpiper,name="Number?",subtype="automatic_test"
 
-Verify(IsNumber(123),True);
-Verify(IsNumber(123.123),True);
-Verify(IsNumber(a),False);
-Verify(IsNumber({a}),False);
+Verify(Number?(123),True);
+Verify(Number?(123.123),True);
+Verify(Number?(a),False);
+Verify(Number?({a}),False);
 
 %/mathpiper
  
