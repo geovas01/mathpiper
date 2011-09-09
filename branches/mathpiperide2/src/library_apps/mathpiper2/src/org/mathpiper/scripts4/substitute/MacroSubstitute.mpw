@@ -18,7 +18,7 @@ Rule("MacroSubstitute",1,1,`ApplyFast(predicate,{Hold(Hold(@body))}) =? True)
 [
   `ApplyFast(change,{Hold(Hold(@body))});
 ];
-Rule("MacroSubstitute",1,2,`IsFunction(Hold(@body)))
+Rule("MacroSubstitute",1,2,`Function?(Hold(@body)))
 [
   `ApplyFast("MacroMapArgs",{Hold(Hold(@body)),"MacroSubstitute"});
 ];

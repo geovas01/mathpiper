@@ -113,7 +113,7 @@
          If( Not? IsListOfLists(ppFactors), 
            [
                Local(L,op,var,exp);
-               L := If(IsAtom(ppFactors[1]), ppFactors, FunctionToList(ppFactors[1]) );
+               L := If(Atom?(ppFactors[1]), ppFactors, FunctionToList(ppFactors[1]) );
                If(InVerboseMode(),Tell("                    ",L));
                If( L[1] =? ^, ppFactors := {L[2],L[3]} );
                ppFactors := {ppFactors};
@@ -453,14 +453,14 @@ UnFence("jFac",3);
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsDecimal")) >? 0);
+    (Length(Select(disassem[3],"Decimal?")) >? 0);
 ];
 
 10 # HasRealCoefficients( poly_Monomial? ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsDecimal")) >? 0);
+    (Length(Select(disassem[3],"Decimal?")) >? 0);
 ];
 
 

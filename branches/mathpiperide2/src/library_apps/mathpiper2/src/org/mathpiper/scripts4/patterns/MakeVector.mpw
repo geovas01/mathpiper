@@ -7,7 +7,7 @@ Rule("MakeVector",2,1,True)
     res:={};
     i:=1;
     Bind(dimension,AddN(dimension,1));
-    While(IsLessThan(i,dimension))
+    While(LessThan?(i,dimension))
     [
       DestructiveInsert(res,1,ToAtom(ConcatStrings(ToString(vec),ToString(i))));
       Bind(i,AddN(i,1));

@@ -8,7 +8,7 @@ Defun("ArcSinN",{int1})
   Local(x,q,s,c);
   Bind(q,SubtractN(SinN(result),int1));
   Bind(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
-  While(IsGreaterThan(AbsN(q),eps))
+  While(GreaterThan?(AbsN(q),eps))
   [
         Bind(s,SubtractN(int1,SinN(result)));
     Bind(c,CosN(result));

@@ -80,7 +80,7 @@ LocalSymbols(omindent) [
      OMClearIndent();
      OMEcho("<OMOBJ>");
      OMIndent();
-     If(IsAtom(expression),
+     If(Atom?(expression),
         If(expression =? ToAtom("%"),
            Secure(expression := Eval(expression))
            )
@@ -108,7 +108,7 @@ LocalSymbols(omindent) [
 16 # OMFormExpression(i_Variable?)_(i =? Empty)
      <-- False; // This is useful for void expressions.
 
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMError")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OMError")
      <--
      [
      Local(cd, name);
@@ -122,7 +122,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OME>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OME")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OME")
      <--
      [
      OMEcho("<OME>");
@@ -131,9 +131,9 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OME>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMS")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OMS")
      <-- OMEcho("<OMS cd=\"":function[1]:"\" name=\"":function[2]:"\"/>");
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMBIND")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OMBIND")
      <--
      [
      OMEcho("<OMBIND>");
@@ -142,7 +142,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OMBIND>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMBVAR")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OMBVAR")
      <--
      [
      OMEcho("<OMBVAR>");
@@ -151,7 +151,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OMBVAR>");
      ];
-10 # OMFormExpression(function_IsFunction)_(Type(function) =? "OMA")
+10 # OMFormExpression(function_Function?)_(Type(function) =? "OMA")
      <--
      [
      // This is not the same as the next rule: this is OMA(a,b,c,...),
@@ -162,7 +162,7 @@ LocalSymbols(omindent) [
      OMUndent();
      OMEcho("</OMA>");
      ];
-11 # OMFormExpression(function_IsFunction)
+11 # OMFormExpression(function_Function?)
      <--
      [
      OMEcho("<OMA>");
@@ -172,7 +172,7 @@ LocalSymbols(omindent) [
      OMEcho("</OMA>");
      ];
 
-11 # OMFormFunction(function_IsFunction)
+11 # OMFormFunction(function_Function?)
      <--
      [
      Local(arity);
@@ -180,7 +180,7 @@ LocalSymbols(omindent) [
      OMEcho("<OMS cd=\"piper\" name=\"":Type(function):"\"/>");
      If(arity >? 0, ForEach(arg, function) OMFormExpression(arg));
      ];
-10 # OMFormFunction(function_IsFunction)_(OMSymbol()[ Type(function) ] !=? Empty)
+10 # OMFormFunction(function_Function?)_(OMSymbol()[ Type(function) ] !=? Empty)
      <--
      [
      Local(symbolDef);
@@ -284,7 +284,7 @@ HoldArgumentNumber("OMForm",1,1);
 
 
 OMSignature(_function) <-- "";
-OMSignature(function_IsFunction) <--
+OMSignature(function_Function?) <--
 [
   Local(makeSig);
   makeSig := {ConcatStrings, Type(function), "_"};
@@ -294,7 +294,7 @@ OMSignature(function_IsFunction) <--
   [
     If(Type(arg) =? "List",
        type := "L",
-       If(IsFunction(arg),
+       If(Function?(arg),
           type := "F",
           If(Integer?(arg),
              type := "I",
@@ -464,8 +464,8 @@ PipeFromString(str:" EndOfFile")
   result;
 ];
 
-10 # OMApplyReverseMapping(piperExp_IsFunction) <-- piperExp;
-10 # OMApplyReverseMapping(piperExp_IsFunction)_(OMSymbol()[ Type(piperExp) ] !=? Empty)
+10 # OMApplyReverseMapping(piperExp_Function?) <-- piperExp;
+10 # OMApplyReverseMapping(piperExp_Function?)_(OMSymbol()[ Type(piperExp) ] !=? Empty)
      <--
      [
      Local(symbolDef, result);
@@ -534,7 +534,7 @@ PipeFromString(str:" EndOfFile")
 11 # OMPathSelect(path_IsList, _expression) <--
 [
   ForEach(i, path)
-    If(IsFunction(expression) And? i >=? 0 And? i <=? Length(expression),
+    If(Function?(expression) And? i >=? 0 And? i <=? Length(expression),
        expression := expression[i],
        Undefined);
   expression;

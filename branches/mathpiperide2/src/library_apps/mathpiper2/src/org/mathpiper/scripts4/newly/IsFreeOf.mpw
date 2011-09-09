@@ -10,7 +10,7 @@
 10 # IsFreeOf(_expr,_expr) <-- False;
 
 /* Otherwise check all leafs of a function. */
-11 # IsFreeOf(_var,expr_IsFunction) <-- IsFreeOf(var,Rest(FunctionToList(expr)));
+11 # IsFreeOf(_var,expr_Function?) <-- IsFreeOf(var,Rest(FunctionToList(expr)));
 
 /* Else it doesn't depend on any variable. */
 12 # IsFreeOf(_var,_expr) <-- True;

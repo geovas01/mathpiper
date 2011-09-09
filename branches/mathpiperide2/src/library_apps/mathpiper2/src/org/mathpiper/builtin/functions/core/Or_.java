@@ -28,7 +28,7 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *  
  */
-public class Or extends BuiltinFunction
+public class Or_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

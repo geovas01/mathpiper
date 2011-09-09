@@ -45,7 +45,7 @@
   [
       If( IsComplex(f), 
           DestructiveAppend(result,{(f),1}),
-          If( IsAtom(f),
+          If( Atom?(f),
               DestructiveAppend(result,{f,1}),
               DestructiveAppend(result,DestructiveDelete(FunctionToList(f),1))
           )

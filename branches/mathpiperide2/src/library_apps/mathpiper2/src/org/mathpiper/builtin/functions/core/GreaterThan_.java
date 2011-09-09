@@ -25,7 +25,7 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class IsGreaterThan extends BuiltinFunction
+public class GreaterThan_ extends BuiltinFunction
 {
 
     LexGreaterThan compare = new LexGreaterThan();
@@ -39,11 +39,11 @@ public class IsGreaterThan extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsGreaterThan",categories="User Functions;Predicates;Built In"
-*CMD IsGreaterThan --- comparison predicate
+%mathpiper_docs,name="GreaterThan?",categories="User Functions;Predicates;Built In"
+*CMD GreaterThan? --- comparison predicate
 *CORE
 *CALL
-	IsGreaterThan(a,b)
+	GreaterThan?(a,b)
 
 *PARMS
 {a}, {b} -- decimal numbers or strings
@@ -51,22 +51,22 @@ public class IsGreaterThan extends BuiltinFunction
 Compare decimal numbers or strings (lexicographically).
 
 *E.G.
-In> IsGreaterThan(1,1)
+In> GreaterThan?(1,1)
 Result: False;
-In> IsGreaterThan("b","a")
+In> GreaterThan?("b","a")
 Result: True;
 
-*SEE IsLessThan, IsEqual
+*SEE LessThan?, Equal?
 %/mathpiper_docs
 
 
 
 
 
-%mathpiper,name="IsGreaterThan",subtype="automatic_test"
+%mathpiper,name="GreaterThan?",subtype="automatic_test"
 
-Verify(IsGreaterThan(2,3),False);
-Verify(IsGreaterThan(3,2),True);
+Verify(GreaterThan?(2,3),False);
+Verify(GreaterThan?(3,2),True);
 
 %/mathpiper
 

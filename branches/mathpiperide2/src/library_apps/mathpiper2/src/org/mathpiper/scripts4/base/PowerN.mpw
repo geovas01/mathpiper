@@ -7,7 +7,7 @@
 */
 Defun("PowerN", {x,y})
 // avoid PowerN(0,float)
-        If(IsEqual(x,0),0, If(IsEqual(x,1),1,
+        If(Equal?(x,0),0, If(Equal?(x,1),1,
           If(Integer?(y), MathIntPower(x,y), False/*MathFloatPower(x,y)*/)
         ));
 

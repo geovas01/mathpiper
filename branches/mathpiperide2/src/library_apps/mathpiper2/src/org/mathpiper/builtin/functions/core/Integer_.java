@@ -18,6 +18,7 @@
 
 package org.mathpiper.builtin.functions.core;
 
+import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -27,25 +28,34 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class IsList extends BuiltinFunction
+public class Integer_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), Utility.isSublist(result));
+
+//        LispError.check(result.type().equals("Number"), LispError.KLispErrInvalidArg);
+        BigNumber num = (BigNumber) result.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        if (num == null)
+        {
+            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        } else
+        {
+            Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), num.isInteger());
+        }
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="IsList",categories="User Functions;Predicates;Built In"
-*CMD IsList --- test for a list
+%mathpiper_docs,name="Integer?",categories="User Functions;Predicates;Built In"
+*CMD Integer? --- test to see if a number is an integer
 *CORE
 *CALL
-	IsList(expr)
+	Integer?(expr)
 
 *PARMS
 
@@ -53,27 +63,36 @@ public class IsList extends BuiltinFunction
 
 *DESC
 
-This function tests whether "expr" is a list. A list is a sequence
-between curly braces, e.g. {{2, 3, 5}}.
-
+This function tests whether "expr" is an integer number. There are two kinds
+of numbers, integers (e.g. 6) and decimals (e.g. -2.75 or 6.0).
 *E.G.
 
-In> IsList({2,3,5});
+In> Integer?(6);
 Result: True;
-In> IsList(2+3+5);
+
+In> Integer?(3.25);
 Result: False;
 
-*SEE Function?
+In> Integer?(1/2);
+Result: False;
+
+In> Integer?(3.2/10);
+Result: False;
+
+*SEE IsString, IsAtom, Integer?, Decimal?, IsPositiveNumber, NegativeNumber?, IsNumber
 %/mathpiper_docs
 
 
 
 
 
-%mathpiper,name="IsList",subtype="automatic_test"
+%mathpiper,name="Integer?",subtype="automatic_test"
 
-Verify(IsList({a,b,c}),True);
-Verify(IsList(a),False);
+Verify(Integer?(123),True);
+Verify(Integer?(123.123),False);
+Verify(Integer?(a),False);
+Verify(Integer?({a}),False);
 
 %/mathpiper
+ 
 */

@@ -1,8 +1,8 @@
 %mathpiper,def="SuchThat"
 
 10 # ContainsExpression(_body,_body) <-- True;
-15 # ContainsExpression(body_IsAtom,_expr) <-- False;
-20 # ContainsExpression(body_IsFunction,_expr) <--
+15 # ContainsExpression(body_Atom?,_expr) <-- False;
+20 # ContainsExpression(body_Function?,_expr) <--
 [
   Local(result,args);
   result:=False;
@@ -26,7 +26,7 @@ SuchThat(_function,_var) <-- SuchThat(function,0,var);
      PSolve(MakeUni(left-right,var));
 */
 
-20 # SuchThat(left_IsAtom,_right,_var) <-- var;
+20 # SuchThat(left_Atom?,_right,_var) <-- var;
 
 30 # SuchThat((_x) + (_y),_right,_var)_ContainsExpression(x,var) <--
     SuchThat(x , right-y , var);

@@ -18,7 +18,6 @@
 
 package org.mathpiper.builtin.functions.core;
 
-import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -26,65 +25,56 @@ import org.mathpiper.lisp.Utility;
 
 /**
  *
- *
+ *  
  */
-public class IsDecimal extends BuiltinFunction
+public class Bound_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer result = new ConsPointer();
-        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-
-        Object cons = result.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
-
-        BigNumber bigNumber;
-        if(cons instanceof BigNumber)
+        
+        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof String)
         {
-            bigNumber = (BigNumber) cons;
-
-            Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),  bigNumber.isDecimal());
+            String str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+            ConsPointer val = new ConsPointer();
+            aEnvironment.getGlobalVariable(aStackTop, str, val);
+            if (val.getCons() != null)
+            {
+                Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                return;
+            }
         }
-        else
-        {
-            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-        }
-
-
+        Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="IsDecimal",categories="User Functions;Predicates;Built In"
-*CMD IsDecimal --- test to see if a number is a decimal
+%mathpiper_docs,name="Bound?",categories="User Functions;Predicates;Built In"
+*CMD Bound? --- test for a bound variable
 *CORE
 *CALL
-	IsDecimal(expr)
+	Bound?(var)
 
 *PARMS
 
-{expr} -- expression to test
+{var} -- variable to test
 
 *DESC
 
-This function tests whether "expr" is a decimal number. There are two kinds
-of numbers, integers (e.g. 6) and decimals (e.g. -2.75 or 6.0).
+This function tests whether the variable "var" is bound, i.e. whether
+it has been assigned a value. The argument "var" is not evaluated.
+
 *E.G.
 
-In> IsDecimal(3.25);
+In> Bound?(x);
+Result: False;
+In> x := 5;
+Result: 5;
+In> Bound?(x);
 Result: True;
 
-In> IsDecimal(6);
-Result: False;
-
-In> IsDecimal(1/2);
-Result: False;
-
-In> IsDecimal(3.2/10);
-Result: False;
-
-*SEE IsString, IsAsom, Integer?, IsPositiveNumber, NegativeNumber?, IsNumber
+*SEE IsAtom
 %/mathpiper_docs
 */

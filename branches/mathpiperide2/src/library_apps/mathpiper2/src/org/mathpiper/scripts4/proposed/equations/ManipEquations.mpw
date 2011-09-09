@@ -9,7 +9,7 @@
 //Retract("==+",*);
 //Retract("==-",*);
 
-10 # Equation?(expr_IsAtom) <-- False;
+10 # Equation?(expr_Atom?) <-- False;
 12 # Equation?(_expr) <-- 
 [
     Local(EL,res);

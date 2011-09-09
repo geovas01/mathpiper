@@ -1,6 +1,6 @@
 %mathpiper,def="Variable?"
 
-Variable?(_expr) <-- (IsAtom(expr) And? Not?(expr=?Infinity) And? Not?(expr=? -Infinity) And? Not?(expr=?Undefined) And? Not?(IsNumber(N(Eval(expr)))));
+Variable?(_expr) <-- (Atom?(expr) And? Not?(expr=?Infinity) And? Not?(expr=? -Infinity) And? Not?(expr=?Undefined) And? Not?(IsNumber(N(Eval(expr)))));
 
 %/mathpiper
 

@@ -82,7 +82,7 @@
  * or False if the context is not unique.         
  */
 
-10 # xSolve'Context(expr_IsAtom, _var) <-- 
+10 # xSolve'Context(expr_Atom?, _var) <-- 
   [
       If(iDebug,Tell("xSolveContext",{expr,var}));
       If(expr=var, var, {});

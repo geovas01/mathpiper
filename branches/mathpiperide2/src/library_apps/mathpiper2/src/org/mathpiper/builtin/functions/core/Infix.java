@@ -68,6 +68,6 @@ Result: True;
 In> a ## b ## c
 Result: a##b##c;
 
-*SEE IsBodied, PrecedenceGet, Bodied, Postfix, Prefix
+*SEE Bodied?, PrecedenceGet, Bodied, Postfix, Prefix
 %/mathpiper_docs
 */

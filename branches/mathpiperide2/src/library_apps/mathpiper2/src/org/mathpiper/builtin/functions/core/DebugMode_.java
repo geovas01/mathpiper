@@ -15,67 +15,22 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 
 /**
  *
  *  
  */
-public class IsFunction extends BuiltinFunction
+public class DebugMode_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer result = new ConsPointer();
-        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
-                result.car() instanceof ConsPointer);
+        Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }
 }
-
-
-
-/*
-%mathpiper_docs,name="IsFunction",categories="User Functions;Predicates;Built In"
-*CMD IsFunction --- test for a composite object
-*CORE
-*CALL
-	IsFunction(expr)
-
-*PARMS
-
-{expr} -- expression to test
-
-*DESC
-
-This function tests whether "expr" is a composite object, i.e. not an
-atom. This includes not only obvious functions such as {f(x)}, but also expressions such as {x+5} and lists.
-
-*E.G.
-
-In> IsFunction(x+5);
-Result: True;
-In> IsFunction(x);
-Result: False;
-
-*SEE IsAtom, IsList, Type
-%/mathpiper_docs
-
-
-
-
-
-%mathpiper,name="IsFunction",subtype="automatic_test"
-
-Rulebase("a", {b});
-Verify(IsFunction(a(b)),True);
-Retract("a", 1);
-Verify(IsFunction(a),False);
-
-%/mathpiper
-*/

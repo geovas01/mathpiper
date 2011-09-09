@@ -32,7 +32,7 @@ RFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It 
 190 # RForm(False, _p) <-- "false";
 190 # RForm(True, _p) <-- "true";
 190 # RForm(Pi, _p) <-- "pi";
-200 # RForm(x_IsAtom, _p) <-- ToString(x);
+200 # RForm(x_Atom?, _p) <-- ToString(x);
 
 /* Strings must be quoted but not bracketed */
 100 # RForm(x_IsString, _p) <-- ConcatStrings("\"", x, "\"");
@@ -134,13 +134,13 @@ LocalSymbols(rFormMathFunctions) [
 /* Precedence of 120 because we'd like to process some special functions like pow() first */
 
 
-120 # RForm(expr_IsFunction, _p)_(ArgumentsCount(expr)=?2 And? Contains(AssocIndices(RFormRegularOps()), Type(expr)) ) <--
+120 # RForm(expr_Function?, _p)_(ArgumentsCount(expr)=?2 And? Contains(AssocIndices(RFormRegularOps()), Type(expr)) ) <--
       RFormBracketIf(p<?PrecedenceGet(Type(expr)), ConcatStrings(RForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), RFormRegularOps()[Type(expr)], RForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
 
-120 # RForm(expr_IsFunction, _p) _
+120 # RForm(expr_Function?, _p) _
       (ArgumentsCount(expr)=?1 And? Contains(AssocIndices(RFormMathFunctions()), Type(expr)) ) <--
       ConcatStrings(RFormMathFunctions()[Type(expr)], "(", RForm( FunctionToList(expr)[2], RFormMaxPrec()),")" );
 
@@ -162,7 +162,7 @@ RFormArgs(list_IsList) <--
 ];
 
 
-200 # RForm(_x, _p)_(IsFunction(x)) <--
+200 # RForm(_x, _p)_(Function?(x)) <--
 [
   ConcatStrings(Type(x), "(", RFormArgs(Rest(FunctionToList(x))),")" );
 ];

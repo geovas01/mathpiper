@@ -4,7 +4,7 @@
 10 # SumOfTerms?(_var,expr_IsFreeOf(var)) <-- False;
 
 // an Atom cannot be a sum of terms
-12 # SumOfTerms?(_var,expr_IsAtom()) <-- False;
+12 # SumOfTerms?(_var,expr_Atom?()) <-- False;
 
 // after being "Listified", expr is a sum of terms if headed by "+" or "-"
 14 # SumOfTerms?(_var,expr_IsList())_(expr[1]=?ToAtom("+") Or? expr[1]=?ToAtom("-")) <-- True;

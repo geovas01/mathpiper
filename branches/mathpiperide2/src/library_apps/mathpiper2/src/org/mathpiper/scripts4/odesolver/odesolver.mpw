@@ -87,7 +87,7 @@ Rulebase("OdeTerm",{px,list});
 15# OdeFlatTerm(OdeTerm(_a0,_b0)*OdeTerm(_a1,_b1)) <-- OdeTermFail();
 15# OdeFlatTerm(OdeTerm(_a0,b0)^OdeTerm(_a1,b1)) <-- OdeTermFail();
 15# OdeFlatTerm(OdeTerm(_a0,b0)/OdeTerm(_a1,b1)) <-- OdeTermFail();
-20 # OdeFlatTerm(a_IsAtom) <-- OdeTermFail();
+20 # OdeFlatTerm(a_Atom?) <-- OdeTermFail();
 
 20 # OdeFlatTerm(_a+_b) <-- OdeFlatTerm(OdeFlatTerm(a) + OdeFlatTerm(b));
 20 # OdeFlatTerm(_a-_b) <-- OdeFlatTerm(OdeFlatTerm(a) - OdeFlatTerm(b));
@@ -95,7 +95,7 @@ Rulebase("OdeTerm",{px,list});
 20 # OdeFlatTerm(_a^_b) <-- OdeFlatTerm(OdeFlatTerm(a) ^ OdeFlatTerm(b));
 20 # OdeFlatTerm(_a/_b) <-- OdeFlatTerm(OdeFlatTerm(a) / OdeFlatTerm(b));
 
-OdeMakeTerm(xx_IsAtom) <-- OdeTerm(xx,FillList(0,10));
+OdeMakeTerm(xx_Atom?) <-- OdeTerm(xx,FillList(0,10));
 OdeMakeTerm(yyy(_n)) <-- OdeTerm(0,BaseVector(n+1,10));
 
 

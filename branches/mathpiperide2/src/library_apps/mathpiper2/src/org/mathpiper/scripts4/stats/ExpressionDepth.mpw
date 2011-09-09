@@ -1,6 +1,6 @@
 %mathpiper,def="ExpressionDepth"
 
-10 # ExpressionDepth(expression_IsFunction) <--
+10 # ExpressionDepth(expression_Function?) <--
 [
   Local(result);
   result:=0;

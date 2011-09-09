@@ -46,7 +46,7 @@ Rule(MathPiperInitLoad, 0, 1, True)
     Rulebase(LoadPackages,{packages});
     Rule(LoadPackages, 1, 1, True)
     [
-            If(IsEqual(packages,{}), True,
+            If(Equal?(packages,{}), True,
             [
                     DefLoad(First(packages));
                     LoadPackages(Rest(packages));

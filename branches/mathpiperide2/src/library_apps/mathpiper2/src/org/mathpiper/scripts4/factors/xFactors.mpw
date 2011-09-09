@@ -457,14 +457,14 @@ UnFence("ApproximateRealCoefficients",1);
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsDecimal")) >? 0);
+    (Length(Select(disassem[3],"Decimal?")) >? 0);
 ];
 
 10 # HasRealCoefficients( poly_Monomial? ) <--
 [
     Local(disassem);
     disassem := DisassembleExpression(poly);
-    (Length(Select(disassem[3],"IsDecimal")) >? 0);
+    (Length(Select(disassem[3],"Decimal?")) >? 0);
 ];
 
 

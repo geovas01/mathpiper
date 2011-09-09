@@ -15,7 +15,6 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
@@ -27,54 +26,56 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class IsBound extends BuiltinFunction
+public class Function_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof String)
-        {
-            String str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-            ConsPointer val = new ConsPointer();
-            aEnvironment.getGlobalVariable(aStackTop, str, val);
-            if (val.getCons() != null)
-            {
-                Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-                return;
-            }
-        }
-        Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        ConsPointer result = new ConsPointer();
+        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
+                result.car() instanceof ConsPointer);
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="Bound?",categories="User Functions;Predicates;Built In"
-*CMD Bound? --- test for a bound variable
+%mathpiper_docs,name="Function?",categories="User Functions;Predicates;Built In"
+*CMD Function? --- test for a composite object
 *CORE
 *CALL
-	Bound?(var)
+	Function?(expr)
 
 *PARMS
 
-{var} -- variable to test
+{expr} -- expression to test
 
 *DESC
 
-This function tests whether the variable "var" is bound, i.e. whether
-it has been assigned a value. The argument "var" is not evaluated.
+This function tests whether "expr" is a composite object, i.e. not an
+atom. This includes not only obvious functions such as {f(x)}, but also expressions such as {x+5} and lists.
 
 *E.G.
 
-In> Bound?(x);
-Result: False;
-In> x := 5;
-Result: 5;
-In> Bound?(x);
+In> Function?(x+5);
 Result: True;
+In> Function?(x);
+Result: False;
 
-*SEE IsAtom
+*SEE IsAtom, IsList, Type
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Function?",subtype="automatic_test"
+
+Rulebase("a", {b});
+Verify(Function?(a(b)),True);
+Retract("a", 1);
+Verify(Function?(a),False);
+
+%/mathpiper
 */

@@ -12,12 +12,12 @@ Defun("MathPi",{})
   Bind(result, 3.141592653589793238462643383279502884197169399);    // initial guess
 
         // optimize precision sequence
-        While (IsGreaterThan(initialPrec, MultiplyN(curPrec,3)))
+        While (GreaterThan?(initialPrec, MultiplyN(curPrec,3)))
   [
                 Bind(initialPrec, FloorN(DivideN(AddN(initialPrec,2),3)));
   ];
         Bind(curPrec, initialPrec);
-  While (Not?(IsGreaterThan(curPrec, aPrecision)))
+  While (Not?(GreaterThan?(curPrec, aPrecision)))
   [
                  // start of iteration code
     // Get Sin(result)
@@ -26,14 +26,14 @@ Defun("MathPi",{})
     // Calculate new result: result := result + Sin(result);
                 // end of iteration code
                 // decide whether we are at end of loop now
-                If (IsEqual(curPrec, aPrecision),        // if we are exactly at full precision, it's the last iteration
+                If (Equal?(curPrec, aPrecision),        // if we are exactly at full precision, it's the last iteration
     [
                         Bind(curPrec, AddN(aPrecision,1));        // terminate loop
     ],
     [
                         Bind(curPrec, MultiplyN(curPrec,3));        // precision triples at each iteration
                         // need to guard against overshooting precision
-                         If (IsGreaterThan(curPrec, aPrecision),
+                         If (GreaterThan?(curPrec, aPrecision),
       [
                                 Bind(curPrec, aPrecision);        // next will be the last iteration
       ]);

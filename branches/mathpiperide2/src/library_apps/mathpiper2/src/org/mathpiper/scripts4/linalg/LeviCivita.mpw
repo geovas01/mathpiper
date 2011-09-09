@@ -14,7 +14,7 @@ Function("LeviCivita",{indices})
       left:=indices[i];
       right:=indices[i+1];
 
-      If (IsEqual(left,right),
+      If (Equal?(left,right),
       [ factor := 0 ; ],
       [
         If(Not?(Apply("<?",{left,right})),

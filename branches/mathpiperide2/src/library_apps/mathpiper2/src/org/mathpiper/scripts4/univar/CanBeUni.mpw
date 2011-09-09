@@ -16,7 +16,7 @@ Function("CanBeUni",{expression}) CanBeUni(UniVarList(expression),expression);
     CanBeUni(First(var),expression) And? CanBeUni(Rest(var),expression);
 
 /* Atom can always be a polynom to any variable */
-30 # CanBeUni(_var,expression_IsAtom) <-- True;
+30 # CanBeUni(_var,expression_Atom?) <-- True;
 35 # CanBeUni(_var,expression_IsFreeOf(var)) <-- True;
 
 /* Other patterns supported. */

@@ -28,7 +28,7 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *  
  */
-public class And extends BuiltinFunction
+public class And_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

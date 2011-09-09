@@ -9,7 +9,7 @@ Rulebase("Function",{oper,args,body});
 
 // function with variable number of arguments: Function("func",{x,y, ...})body;
 Rule("Function",3,2047,
-        And?(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") ))
+        And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom("...") ))
 )
 [
   DestructiveDelete(args,Length(args));        // remove trailing "..."
@@ -31,7 +31,7 @@ Rule("Function",3,2048,True)
 Rulebase("Function",{oper});
 // function with variable number of arguments: Function() f(x,y, ...)
 Rule("Function",1,2047,
-        And?(IsFunction(oper), IsGreaterThan(Length(oper), 1), IsEqual( MathNth(oper, Length(oper)), ToAtom("...") ))
+        And?(Function?(oper), GreaterThan?(Length(oper), 1), Equal?( MathNth(oper, Length(oper)), ToAtom("...") ))
 )
 [
         Local(args);
@@ -46,7 +46,7 @@ Rule("Function",1,2047,
 
 // function with a fixed number of arguments
 Rule("Function",1,2048,
-        And?(IsFunction(oper))
+        And?(Function?(oper))
 )
 [
         Local(args);

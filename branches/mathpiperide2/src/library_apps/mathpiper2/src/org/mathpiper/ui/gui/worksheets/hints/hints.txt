@@ -215,7 +215,7 @@
 :IsAtom:IsAtom(expr):test for an atom:
 :IsBodied:IsBodied("op"):check for function syntax:
 :IsBoolean:IsBoolean(expression):test for a Boolean value:
-:IsBound:IsBound(var):test for a bound variable:
+:Bound?:Bound?(var):test for a bound variable:
 :IsCFormable:IsCFormable(expr):check possibility to export expression to C++ code:
 :IsCFormable:IsCFormable(expr, funclist)::
 :IsCarmichaelNumber:IsCarmichaelNumber(n):test for a Carmichael number:
@@ -230,15 +230,15 @@
 :IsEvenFunction:IsEvenFunction(expression,variable):Return true if function is an even function, False otherwise:
 :IsFreeOf:IsFreeOf(var, expr):test whether expression depends on variable:
 :IsFreeOf:IsFreeOf({var, ...}, expr)::
-:IsFunction:IsFunction(expr):test for a composite object:
+:Function?:Function?(expr):test for a composite object:
 :IsGaussianInteger:IsGaussianInteger(z):test for a Gaussian integer:
 :IsGaussianPrime:IsGaussianPrime(z):test for a Gaussian prime:
 :IsGaussianUnit:IsGaussianUnit(z):test for a Gaussian unit:
-:IsGeneric:IsGeneric(object):check for generic object:
+:Generic?:Generic?(object):check for generic object:
 :IsHermitian:IsHermitian(A):test for a Hermitian matrix:
 :Idempotent?:Idempotent?(A):test for an idempotent matrix:
 :IsInfinity:IsInfinity(expr):test for an infinity:
-:IsInfix:IsInfix("op"):check for function syntax:
+:Infix?:Infix?("op"):check for function syntax:
 :IsIrregularPrime:IsIrregularPrime(n):test for an irregular prime:
 :IsList:IsList(expr):test for a list:
 :IsLowerTriangular:IsLowerTriangular(A):test for a lower triangular matrix:

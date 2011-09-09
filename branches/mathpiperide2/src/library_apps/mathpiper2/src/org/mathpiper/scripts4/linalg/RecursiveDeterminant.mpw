@@ -8,11 +8,11 @@
   
   */
   Local(result);
-  If(IsEqual(Length(matrix),1),matrix[1][1],[
+  If(Equal?(Length(matrix),1),matrix[1][1],[
     result:=0;
     ForEach(i,1 .. Length(matrix))
       //Consider only non-zero entries
-      If(Not?(IsEqual(matrix[1][i],0)),
+      If(Not?(Equal?(matrix[1][i],0)),
         //Transpose and Drop eliminate row 1, column i
         result:=result+matrix[1][i]*(-1)^(i+1)* RecursiveDeterminant(Transpose(Drop(Transpose(Drop(matrix,{1,1})),{i,i}))));
     result;

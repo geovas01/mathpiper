@@ -469,9 +469,9 @@ LocalSymbols(res)
 _[
     Local(c, lps1, lps2, lps3, success);
     success := True;
-    If (IsAtom(e1), success := False);
+    If (Atom?(e1), success := False);
     If (success And? Length(e1) !=? 1, success := False);
-    If (success And? IsAtom(e1[1]), success := False);
+    If (success And? Atom?(e1[1]), success := False);
     If (success And? CanBeUni(var, e1[1]) And? Degree(e1[1], var) =? 1,
     [
        success := False;

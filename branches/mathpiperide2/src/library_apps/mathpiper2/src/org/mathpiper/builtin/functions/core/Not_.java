@@ -27,7 +27,7 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *  
  */
-public class Not extends BuiltinFunction
+public class Not_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

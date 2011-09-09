@@ -5,9 +5,9 @@ Function("Find",{list,element})
   Local(result,count);
   Bind(result, -1);
   Bind(count, 1);
-  While(And?(result<?0, Not?(IsEqual(list, {}))))
+  While(And?(result<?0, Not?(Equal?(list, {}))))
   [
-    If(IsEqual(First(list), element),
+    If(Equal?(First(list), element),
       Bind(result, count)
       );
     Bind(list,Rest(list));

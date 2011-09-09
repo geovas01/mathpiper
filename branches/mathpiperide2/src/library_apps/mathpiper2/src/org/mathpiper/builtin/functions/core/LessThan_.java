@@ -20,46 +20,61 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.Operator;
-import org.mathpiper.lisp.Utility;
 
 /**
  *
  *  
  */
-public class IsInfix extends BuiltinFunction
+public class LessThan_ extends BuiltinFunction
 {
+
+    LexLessThan compare = new LexLessThan();
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), op != null);
+        compare.Compare(aEnvironment, aStackTop);
     }
-}
+}//end class.
+
 
 
 
 /*
-%mathpiper_docs,name="IsInfix",categories="User Functions;Predicates;Built In"
-*CMD IsInfix --- check for function syntax
+%mathpiper_docs,name="LessThan?",categories="User Functions;Predicates;Built In"
+*CMD LessThan? --- comparison predicate
 *CORE
 *CALL
-	IsInfix("op")
+	LessThan?(a,b)
 
 *PARMS
-
-{"op"} -- string, the name of a function
-
+{a}, {b} -- decimal numbers or strings
 *DESC
-
-Check whether the function with given name {"op"} has been declared as a
-"bodied", infix, postfix, or prefix operator, and  return {True} or {False}.
+Compare decimal numbers or strings (lexicographically).
 
 *E.G.
-
-In> IsInfix("+");
+In> LessThan?(1,1)
+Result: False;
+In> LessThan?("a","b")
 Result: True;
 
-*SEE Bodied, PrecedenceGet,IsBodied,IsPostfix,IsPrefix
+*SEE GreaterThan?, Equal?
 %/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="LessThan?",subtype="automatic_test"
+
+Verify(LessThan?(2,3),True);
+Verify(LessThan?(3,2),False);
+
+Verify(LessThan?(-1e-115, 0), True);
+Verify(LessThan?(-1e-15, 0), True);
+Verify(LessThan?(-1e-10, 0), True);
+Verify(LessThan?(-1e-5, 0), True);
+Verify(LessThan?(-1e-1, 0), True);
+
+%/mathpiper
+
 */
