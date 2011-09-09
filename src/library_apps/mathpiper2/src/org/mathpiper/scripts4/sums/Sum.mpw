@@ -33,7 +33,7 @@ HoldArgument("Sum",sumbody'arg);
 
 40 # Sum({}) <-- 0;
 
-50 # Sum(values_IsList) <--
+50 # Sum(values_List?) <--
 [
    Local(i, sum);
    sum:=0;

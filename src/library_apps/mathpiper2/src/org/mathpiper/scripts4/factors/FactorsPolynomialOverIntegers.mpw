@@ -100,7 +100,7 @@
             [
                 //  polynomial is NOT irreducible, but can we reduce it?
                 rr := TryToReduceSpecialPolynomial(r[1]);
-                If( IsList(rr),newResult := Concat(newResult,rr) );
+                If( List?(rr),newResult := Concat(newResult,rr) );
             ],
                 If( r !=? {1,1}, newResult := r:newResult )
           );

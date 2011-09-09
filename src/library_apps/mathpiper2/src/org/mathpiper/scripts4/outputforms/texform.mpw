@@ -105,10 +105,10 @@ TeXFormMaxPrec() := 60000;         /* This precedence will never be bracketed. I
 
 /* Lists: make sure to have matrices processed before them. Enveloping precedence is irrelevant because lists are always bracketed. List items are never bracketed. Note that TeXFormFinishList({a,b}) generates ",a,b" */
 
-100 # TeXForm(x_IsList, _p)_(Length(x)=?0) <-- TeXFormBracketIf(True, "");
-110 # TeXForm(x_IsList, _p) <-- TeXFormBracketIf(True, ConcatStrings(TeXForm(First(x), TeXFormMaxPrec()), TeXFormFinishList(Rest(x)) ) );
-100 # TeXFormFinishList(x_IsList)_(Length(x)=?0) <-- "";
-110 # TeXFormFinishList(x_IsList) <-- ConcatStrings(", ", TeXForm(First(x), TeXFormMaxPrec()), TeXFormFinishList(Rest(x)));
+100 # TeXForm(x_List?, _p)_(Length(x)=?0) <-- TeXFormBracketIf(True, "");
+110 # TeXForm(x_List?, _p) <-- TeXFormBracketIf(True, ConcatStrings(TeXForm(First(x), TeXFormMaxPrec()), TeXFormFinishList(Rest(x)) ) );
+100 # TeXFormFinishList(x_List?)_(Length(x)=?0) <-- "";
+110 # TeXFormFinishList(x_List?) <-- ConcatStrings(", ", TeXForm(First(x), TeXFormMaxPrec()), TeXFormFinishList(Rest(x)));
 
 /* Replace operations */
 
@@ -360,8 +360,8 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
 */
 /* Need to introduce auxiliary function, or else have trouble with arguments of Nth being lists */
 Rulebase("TeXFormNth",{x,y});
-100 # TeXForm(Nth(Nth(_x, i_IsList), _j), _p) <-- TeXForm(TeXFormNth(x, Append(i,j)), p);
-100 # TeXForm(TeXFormNth(Nth(_x, i_IsList), _j), _p) <-- TeXForm(TeXFormNth(x, Append(i,j)), p);
+100 # TeXForm(Nth(Nth(_x, i_List?), _j), _p) <-- TeXForm(TeXFormNth(x, Append(i,j)), p);
+100 # TeXForm(TeXFormNth(Nth(_x, i_List?), _j), _p) <-- TeXForm(TeXFormNth(x, Append(i,j)), p);
 110 # TeXForm(Nth(Nth(_x, _i), _j), _p) <-- TeXForm(TeXFormNth(x, List(i,j)), p);
 120 # TeXForm(Nth(_x, _i), _p) <-- ConcatStrings(TeXForm(x, TeXFormMaxPrec()), " _{", TeXForm(i, TeXFormMaxPrec()), "}");
 120 # TeXForm(TeXFormNth(_x, _i), _p) <-- ConcatStrings(TeXForm(x, TeXFormMaxPrec()), " _{", TeXForm(i, TeXFormMaxPrec()), "}");

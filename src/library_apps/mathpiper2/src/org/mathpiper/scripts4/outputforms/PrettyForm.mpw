@@ -256,7 +256,7 @@ FormulaBracket(f):=
 
 
 
-10 # FormulaArrayItem(xx_IsList) <--
+10 # FormulaArrayItem(xx_List?) <--
 [
   Local(sub,height);
   sub := {};
@@ -278,7 +278,7 @@ FormulaBracket(f):=
 
 
 
-2 # Formula(xx_IsList) <--
+2 # Formula(xx_List?) <--
 [
   Local(sub,width,height);
   sub:={};
@@ -301,7 +301,7 @@ FormulaBracket(f):=
   ForEach(item,xx)
   [
     thislength:=0;
-    if(IsList(item)) [thislength:=Length(item);];
+    if(List?(item)) [thislength:=Length(item);];
     if (maxlength<?thislength) [maxlength:=thislength;];
   ];
 
@@ -315,13 +315,13 @@ FormulaBracket(f):=
       w := 0;
       For(i:=1,i<=?Length(sub),i++)
       [
-        if (IsList(xx[i]) And? j<=?Length(xx[i]))
+        if (List?(xx[i]) And? j<=?Length(xx[i]))
           If(sub[i][6][j][3] >? w,w := sub[i][6][j][3]);
       ];
 
       For(i:=1,i<=?Length(sub),i++)
       [
-        if (IsList(xx[i]) And? j<=?Length(xx[i]))
+        if (List?(xx[i]) And? j<=?Length(xx[i]))
           MoveOper(sub[i][6][j],width,0);
       ];
       width := width+w+1;

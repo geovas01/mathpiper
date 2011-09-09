@@ -1,6 +1,6 @@
 %mathpiper,def="AssocIndices"
 
-AssocIndices(associndiceslist_IsList) <--
+AssocIndices(associndiceslist_List?) <--
   DestructiveReverse(MapSingle("First",associndiceslist));
 
 %/mathpiper

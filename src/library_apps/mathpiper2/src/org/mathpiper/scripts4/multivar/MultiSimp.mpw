@@ -63,7 +63,7 @@ MultiContentScan(_coefs,_fact) <--
 ];
 UnFence("MultiContentScan",2);
 
-MultiPrimitivePart(MultiNomial(vars_IsList,_terms))
+MultiPrimitivePart(MultiNomial(vars_List?,_terms))
 <--
 [
   Local(cont);
@@ -84,7 +84,7 @@ MultiPrimitivePart(MultiNomial(vars_IsList,_terms))
 
 
 
-5 # MultiDegree(MultiNomial(_vars,_term))_(Not?(IsList(term))) <-- {};
+5 # MultiDegree(MultiNomial(_vars,_term))_(Not?(List?(term))) <-- {};
 10 # MultiDegree(MultiNomial(_vars,{})) <-- FillList(-Infinity,Length(vars));
 20 # MultiDegree(MultiNomial(_vars,_terms))
    <-- (MultiLeadingTerm(MultiNomial(vars,terms))[1]);

@@ -16,7 +16,7 @@
   110709    Corrected error in if-Select statement  (hao)
 **************************************************************/
 
-20 # MultiDivide(_f,g_IsList) <--
+20 # MultiDivide(_f,g_List?) <--
 [
   If(InVerboseMode(),Tell("MultiDivide_1",{f,g}));
   Local(i,v,q,r,nr);
@@ -35,7 +35,7 @@
 ];
 
 
-10 # MultiDivide(f_IsMulti,g_IsList) <--
+10 # MultiDivide(f_IsMulti,g_List?) <--
 [
   If(InVerboseMode(),Tell("MultiDivide_2",{f,g}));
   Local(i,nr,q,r,p,v,finished);

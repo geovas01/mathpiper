@@ -10,7 +10,7 @@
 /* 3 # Sqrt(x_IsNumber/y_IsNumber) <-- Sqrt(x)/Sqrt(y); */
 3 # Sqrt(x_IsComplex)_InNumericMode() <-- x^(1/2);
 /* Threading  */
-Sqrt(xlist_IsList) <-- MapSingle("Sqrt",xlist);
+Sqrt(xlist_List?) <-- MapSingle("Sqrt",xlist);
 
 90 # (Sqrt(x_Constant?))_(NegativeNumber?(N(x))) <-- Complex(0,Sqrt(-x));
 

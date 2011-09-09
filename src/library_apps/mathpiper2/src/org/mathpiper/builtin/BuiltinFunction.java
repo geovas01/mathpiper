@@ -100,7 +100,7 @@ import org.mathpiper.builtin.functions.core.Function_;
 import org.mathpiper.builtin.functions.core.Generic_;
 import org.mathpiper.builtin.functions.core.Infix_;
 import org.mathpiper.builtin.functions.core.Integer_;
-import org.mathpiper.builtin.functions.core.IsList;
+import org.mathpiper.builtin.functions.core.List_;
 import org.mathpiper.builtin.functions.core.IsNumber;
 import org.mathpiper.builtin.functions.core.IsPostfix;
 import org.mathpiper.builtin.functions.core.IsPrefix;
@@ -484,8 +484,8 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new Integer_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Integer?");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new IsList(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "IsList");
+                new BuiltinFunctionEvaluator(new List_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "List?");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new IsString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "IsString");

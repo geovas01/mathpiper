@@ -112,7 +112,7 @@ LocalSymbols(omindent) [
      <--
      [
      Local(cd, name);
-     If(IsList(function[1]),
+     If(List?(function[1]),
         [ cd := function[1][1]; name := function[1][2]; ],
         [ cd := "error";        name := function[1];    ]);
      OMEcho("<OME>");
@@ -197,8 +197,8 @@ LocalSymbols(omindent) [
         [
         Local(result);
         result := OMApplyMapping(function, symbolDef[3]);
-        //Check(IsList(result), "Return Type", PipeToString()Echo("Mapping result is not a list: ", result));
-        If(IsList(result),
+        //Check(List?(result), "Return Type", PipeToString()Echo("Mapping result is not a list: ", result));
+        If(List?(result),
            [
            result := ListToFunction(Subst($, function[0]) result);
            OMFormExpression(result[0]);
@@ -231,7 +231,7 @@ OMEcho(expression_IsString) <--
   WriteString(expression);
   NewLine();
 ];
-OMEcho(expression_IsList) <--
+OMEcho(expression_List?) <--
 [
   ForEach(arg, expression)
   [
@@ -266,7 +266,7 @@ OMEchoEscape(expression_IsString) <--
   OMWriteStringEscape(expression);
   NewLine();
 ];
-OMEchoEscape(expression_IsList) <--
+OMEchoEscape(expression_List?) <--
 [
   WriteString("<![CDATA[");
   ForEach(arg, expression)
@@ -475,7 +475,7 @@ PipeFromString(str:" EndOfFile")
         [
           result := OMApplyMapping(piperExp, symbolDef[4]);
           result := Subst($, piperExp[0]) result;
-          If(IsList(result), result := ListToFunction(result));
+          If(List?(result), result := ListToFunction(result));
         ]
        );
      result;
@@ -531,7 +531,7 @@ PipeFromString(str:" EndOfFile")
      expression[path],
      Undefined);
 ];
-11 # OMPathSelect(path_IsList, _expression) <--
+11 # OMPathSelect(path_List?, _expression) <--
 [
   ForEach(i, path)
     If(Function?(expression) And? i >=? 0 And? i <=? Length(expression),
@@ -1057,7 +1057,7 @@ In> OMDef( {}, "set1","emptyset" )
 Result: True
 In> PipeFromString("<OMOBJ><OMS cd=\"set1\" name=\"emptyset\"/></OMOBJ> ")OMRead()
 Result: {}
-In> IsList(%)
+In> List?(%)
 Result: True
 Otherwise, a symbol that is not inside an application (OMA) gets translated to
 the MathPiper atom with the given name:

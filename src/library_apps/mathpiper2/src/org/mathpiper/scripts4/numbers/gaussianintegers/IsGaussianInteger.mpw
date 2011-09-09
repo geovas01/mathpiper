@@ -1,6 +1,6 @@
 %mathpiper,def="IsGaussianInteger"
 
-5  # IsGaussianInteger(x_IsList)        <-- False;
+5  # IsGaussianInteger(x_List?)        <-- False;
 
 // ?????? why is the following rule needed?
 // 5  # IsGaussianInteger(ProductPrimesTo257)        <-- False;

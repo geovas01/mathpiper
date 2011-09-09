@@ -17,11 +17,11 @@ Function() Maximum(l1, l2, l3, ...);
 
 
 
-10 # Maximum(_l1, _l2, l3_IsList) <-- Maximum(Concat({l1, l2}, l3));
+10 # Maximum(_l1, _l2, l3_List?) <-- Maximum(Concat({l1, l2}, l3));
 20 # Maximum(_l1, _l2, _l3) <-- Maximum({l1, l2, l3});
 /**/
 
-10 # Maximum(l1_IsList,l2_IsList) <-- Map("Maximum",{l1,l2});
+10 # Maximum(l1_List?,l2_List?) <-- Map("Maximum",{l1,l2});
 
 
 20 # Maximum(l1_RationalOrNumber?,l2_RationalOrNumber?) <-- If(l1>?l2,l1,l2);
@@ -33,7 +33,7 @@ Function() Maximum(l1, l2, l3, ...);
 10 # Maximum({}) <-- Undefined;
 
 
-20 # Maximum(list_IsList) <--
+20 # Maximum(list_List?) <--
 [
   Local(result);
   result:= list[1];

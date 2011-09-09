@@ -46,7 +46,7 @@
 10 # CDF(PoissonDistribution(_l), _x) <-- Sum @ {i,0,x,PMF(PoissonDistribution(l),i)};
 
 10 # CDF(ChiSquareDistribution(_m), _x) <-- IncompleteGamma(m/2,x/2)/Gamma(x/2);
-10 # CDF(DiscreteDistribution( dom_IsList, prob_IsList), _x)   <--
+10 # CDF(DiscreteDistribution( dom_List?, prob_List?), _x)   <--
       [
          Local(i,cdf,y);
 

@@ -7,7 +7,7 @@ xTerms(_expr) <--
 [
     Local(L,n,h,s,t,f,stack,qs,topLevelPM,nTerms,firstH);
     If( InVerboseMode(),[ Echo("in xTerms()"); Echo("  input expression: ",expr); ]);    
-    If( Not? IsList( stack ), stack := {} );
+    If( Not? List?( stack ), stack := {} );
     topLevelPM := 0;
     firstH     := 0;
     qs         := 1;
@@ -62,7 +62,7 @@ xTerms2(_expr) <--
 [
     Local(L,stack,result,lenL);
     If(InVerboseMode(),[ Tell("in xTerms2()"); Tell("   input expression: ",expr); ]);    
-    If( Not? IsList( stack ), stack := {} );
+    If( Not? List?( stack ), stack := {} );
     If( Atom?(expr), L:={expr}, L:=FunctionToList(expr) );
     lenL := Length(L);
     If(InVerboseMode(), Tell("   0",{L,lenL}) );  

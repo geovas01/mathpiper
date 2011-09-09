@@ -20,7 +20,7 @@
 200 # ArcTan(-Infinity) <-- -Pi/2;
 200 # ArcTan(Undefined) <-- Undefined;
 
-ArcTan(xlist_IsList) <-- MapSingle("ArcTan",xlist);
+ArcTan(xlist_List?) <-- MapSingle("ArcTan",xlist);
 
 2 # ArcTan(x_IsNumber)_InNumericMode() <-- ArcTanNum(x);
 

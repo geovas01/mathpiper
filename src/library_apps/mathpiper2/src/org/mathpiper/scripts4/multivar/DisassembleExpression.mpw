@@ -9,7 +9,7 @@
     DisassembleExpression( expr, vars );
 ];
 
-10 # DisassembleExpression( _expr, vars_IsList ) <--
+10 # DisassembleExpression( _expr, vars_List? ) <--
 [
     Local(mexpr,func,termList,result,powers,coeffs);
     mexpr    := MakeMultiNomial(expr,vars);

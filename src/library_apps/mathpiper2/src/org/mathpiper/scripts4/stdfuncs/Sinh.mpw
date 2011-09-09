@@ -24,7 +24,7 @@
 200 # Sinh(Undefined) <-- Undefined;
 
 /* Threading of standard analytic functions */
-Sinh(xlist_IsList) <-- MapSingle("Sinh",xlist);
+Sinh(xlist_List?) <-- MapSingle("Sinh",xlist);
 
 
 

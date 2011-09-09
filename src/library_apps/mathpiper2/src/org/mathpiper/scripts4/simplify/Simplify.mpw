@@ -2,7 +2,7 @@
 
 //Retract("Simplify",*);
 
-10 # Simplify(expr_IsList) <-- MapSingle("Simplify",expr);
+10 # Simplify(expr_List?) <-- MapSingle("Simplify",expr);
 
 15 # Simplify(Complex(_r,_i)) <-- Complex(Simplify(r),Simplify(i));
 

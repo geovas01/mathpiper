@@ -21,9 +21,9 @@ HoldArgumentNumber("VerifySolve", 2, 1);
 
 10 # VerifySolve'Equal({}, {}) <-- True;
 
-20 # VerifySolve'Equal({}, e2_IsList) <-- False;
+20 # VerifySolve'Equal({}, e2_List?) <-- False;
 
-30 # VerifySolve'Equal(e1_IsList, e2_IsList) <--
+30 # VerifySolve'Equal(e1_List?, e2_List?) <--
 [
   Local(i, found);
   found := False;

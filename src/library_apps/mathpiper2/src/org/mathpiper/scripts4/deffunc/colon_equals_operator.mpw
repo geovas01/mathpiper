@@ -20,7 +20,7 @@ Rule(":=",2,0,Atom?(aLeftAssign))
 
 
 // assign lists
-Rule(":=",2,0,IsList(aLeftAssign))
+Rule(":=",2,0,List?(aLeftAssign))
 [
   Map(":=",{aLeftAssign,Eval(aRightAssign)});
 ];
@@ -219,7 +219,7 @@ Result: Sin(a)^2;
 
 Defining a function with variable number of arguments:
 
-In> f(x, ...) := If(IsList(x),Sum(x),x);
+In> f(x, ...) := If(List?(x),Sum(x),x);
 Result: True;
 In> f(2);
 Result: 2;

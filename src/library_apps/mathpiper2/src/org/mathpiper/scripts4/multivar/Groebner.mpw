@@ -16,7 +16,7 @@ From which you can see that x = y, and x^2 = x so x is 0 or 1.
 
 */
 
-Groebner(f_IsList) <--
+Groebner(f_List?) <--
 [
   Local(vars,i,j,S,nr,r);
   nr:=Length(f);

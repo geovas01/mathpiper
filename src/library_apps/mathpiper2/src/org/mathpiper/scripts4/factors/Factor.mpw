@@ -51,7 +51,7 @@
 ];
 
 
-30 # Factor( L_IsList ) <-- 
+30 # Factor( L_List? ) <-- 
 [
     Local (result,x,f);
     result := {};

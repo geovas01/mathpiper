@@ -114,9 +114,9 @@ Enter<**** user rulebase>{(-,2+3-6);
     Leave<**** user rulebase>}(2+3->5);
     Arg(2+3->5);
     Arg(6->6);
-    Enter<builtin>{(IsList,IsList($x8));
+    Enter<builtin>{(List?,List?($x8));
         Arg($x8->5);
-    Leave<builtin>}(IsList($x8)->False);
+    Leave<builtin>}(List?($x8)->False);
     Enter<builtin>{(IsNumber,IsNumber(x));
         Arg(x->5);
     Leave<builtin>}(IsNumber(x)->True);
@@ -131,7 +131,7 @@ Enter<**** user rulebase>{(-,2+3-6);
 Leave<**** user rulebase>}(2+3-6->-1);
 
 
-In> TraceExcept("IsList, IsNumber") 2+3-6
+In> TraceExcept("List?, IsNumber") 2+3-6
 Result> True
 Side Effects>
 Enter<**** user rulebase>{(-,2+3-6);

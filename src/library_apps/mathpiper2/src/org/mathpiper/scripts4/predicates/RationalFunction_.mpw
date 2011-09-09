@@ -16,7 +16,7 @@
     );
 ];
 
-20 # RationalFunction?(_expr,vars_IsList)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
+20 # RationalFunction?(_expr,vars_List?)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
 [
     If (Polynomial?(Numerator(expr),vars) And? Polynomial?(Denominator(expr),vars),
         Intersection(vars, VarList(expr)) !=? {},

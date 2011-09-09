@@ -29,5 +29,5 @@ Result: False;
 In> ZeroVector?({x-x, 1 - Differentiate(x) x});
 Result: True;
 
-*SEE IsList, ZeroVector
+*SEE List?, ZeroVector
 %/mathpiper_docs

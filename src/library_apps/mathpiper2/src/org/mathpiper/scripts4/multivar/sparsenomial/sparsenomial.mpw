@@ -100,7 +100,7 @@ MultiLeadingTerm(MultiNomial(_vars,_terms))
    ];
 UnFence("MultiDegreeScanHead",2);
 
-ScanMultiNomial(_op,MultiNomial(vars_IsList,_terms))
+ScanMultiNomial(_op,MultiNomial(vars_List?,_terms))
     <-- SparseTreeScan(op,Length(vars),terms);
 UnFence("ScanMultiNomial",2);
 

@@ -2,7 +2,7 @@
 
 /* Chinese Remaindering algorithm, as described in "Modern Computer Algebra".
  */
-ChineseRemainderInteger(mlist_IsList,vlist_IsList) <--
+ChineseRemainderInteger(mlist_List?,vlist_List?) <--
 [
   Local(m,i,nr,result,msub,euclid,clist);
   clist:={};

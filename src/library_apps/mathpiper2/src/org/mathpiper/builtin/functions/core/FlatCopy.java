@@ -63,7 +63,7 @@ efficiency).
 The following shows a possible way to define a command that reverses a
 list nondestructively.
 
-In> reverse(l_IsList) <-- DestructiveReverse \
+In> reverse(l_List?) <-- DestructiveReverse \
 	  (FlatCopy(l));
 Result: True;
 In> lst := {a,b,c,d,e};

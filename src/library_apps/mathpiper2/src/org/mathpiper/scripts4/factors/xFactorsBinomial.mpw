@@ -55,7 +55,7 @@
 ];
 
 
-12 # xFB1( dis_IsList )_(Length(dis)=3 And? Length(dis[3])=2) <--
+12 # xFB1( dis_List? )_(Length(dis)=3 And? Length(dis[3])=2) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFB1",dis);]);
     Local(Y,y,ii,fac1);
@@ -212,7 +212,7 @@ UnFence("xFB1",3);
 
 
 
-50 # xFB2( dis_IsList )_(Length(dis)=3 And? Length(dis[3])=2) <--
+50 # xFB2( dis_List? )_(Length(dis)=3 And? Length(dis[3])=2) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFB2",dis);]);
     Local(ns,ii,fn,mx,my,fac2);

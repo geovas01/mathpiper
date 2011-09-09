@@ -6,7 +6,7 @@
 200 # ArcTanh(-Infinity) <-- -Infinity-I*Pi/2;        // this is a little silly b/c we don't support correct branch cuts yet
 200 # ArcTanh(Undefined) <-- Undefined;
 
-ArcTanh(xlist_IsList) <-- MapSingle("ArcTanh",xlist);
+ArcTanh(xlist_List?) <-- MapSingle("ArcTanh",xlist);
 
 
 

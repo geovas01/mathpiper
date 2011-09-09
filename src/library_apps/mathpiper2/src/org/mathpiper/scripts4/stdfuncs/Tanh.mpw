@@ -14,7 +14,7 @@
 200 # Tanh(Undefined) <-- Undefined;
 
 /* Threading of standard analytic functions */
-Tanh(xlist_IsList) <-- MapSingle("Tanh",xlist);
+Tanh(xlist_List?) <-- MapSingle("Tanh",xlist);
 
 
 

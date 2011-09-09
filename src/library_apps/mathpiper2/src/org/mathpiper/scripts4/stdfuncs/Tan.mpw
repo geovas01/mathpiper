@@ -35,7 +35,7 @@
 100 # Tan(_x)/Sin(_x) <-- (1/Cos(x));
 100 # Tan(_x)*Cos(_x) <-- Sin(x);
 
-Tan(xlist_IsList) <-- MapSingle("Tan",xlist);
+Tan(xlist_List?) <-- MapSingle("Tan",xlist);
 
 %/mathpiper
 

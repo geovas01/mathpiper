@@ -240,7 +240,7 @@
 :IsInfinity:IsInfinity(expr):test for an infinity:
 :Infix?:Infix?("op"):check for function syntax:
 :IsIrregularPrime:IsIrregularPrime(n):test for an irregular prime:
-:IsList:IsList(expr):test for a list:
+:List?:List?(expr):test for a list:
 :IsLowerTriangular:IsLowerTriangular(A):test for a lower triangular matrix:
 :IsMatrix:IsMatrix(expr):test for a matrix:
 :IsMatrix:IsMatrix(pred,expr)::

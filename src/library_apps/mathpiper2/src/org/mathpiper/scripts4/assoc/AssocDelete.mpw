@@ -5,7 +5,7 @@ LocalSymbols(hash, key, element, hash'expr)
 [
 
 /// AssocDelete(hash,{"key", value})
-10 # AssocDelete(hash_IsList, element_IsList) <--
+10 # AssocDelete(hash_List?, element_List?) <--
 [
         Local(index);
         index := Find(hash, element);
@@ -19,12 +19,12 @@ LocalSymbols(hash, key, element, hash'expr)
 
 
 /// AssocDelete(hash, "key")
-20 # AssocDelete(hash_IsList, key_IsString) <--
+20 # AssocDelete(hash_List?, key_IsString) <--
 [
         AssocDelete(hash, Builtin'Assoc(key, hash));
 ];
 
-30 # AssocDelete(hash_IsList, Empty) <-- False;
+30 # AssocDelete(hash_List?, Empty) <-- False;
 
 //HoldArgument("AssocDelete", hash);
 //UnFence("AssocDelete", 1);

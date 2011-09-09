@@ -20,7 +20,7 @@
 200 # ArcSin(_n)_(-n =? Sqrt(1/2)) <-- -Pi/4;
 200 # ArcSin(_n)_(-n =? 1/2) <-- -Pi/6;
 
-ArcSin(xlist_IsList) <-- MapSingle("ArcSin",xlist);
+ArcSin(xlist_List?) <-- MapSingle("ArcSin",xlist);
 
 200 # ArcSin(Undefined) <-- Undefined;
 

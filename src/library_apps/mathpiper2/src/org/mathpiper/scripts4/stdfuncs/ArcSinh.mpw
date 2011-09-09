@@ -6,6 +6,6 @@
 200 # ArcSinh(-Infinity) <-- -Infinity;
 200 # ArcSinh(Undefined) <-- Undefined;
 
-ArcSinh(xlist_IsList) <-- MapSingle("ArcSinh",xlist);
+ArcSinh(xlist_List?) <-- MapSingle("ArcSinh",xlist);
 
 %/mathpiper

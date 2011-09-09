@@ -5,7 +5,7 @@
 5 # Round(Undefined) <-- Undefined;
 
 10 # Round(x_RationalOrNumber?) <-- FloorN(N(x+0.5));
-10 # Round(x_IsList) <-- MapSingle("Round",x);
+10 # Round(x_List?) <-- MapSingle("Round",x);
 
 20 # Round(x_IsComplex)  _ (RationalOrNumber?(Re(x)) And? RationalOrNumber?(Im(x)) )
                 <-- FloorN(N(Re(x)+0.5)) + FloorN(N(Im(x)+0.5))*I;

@@ -2,7 +2,7 @@
 
 //Retract("CartesianProduct",*);
 
-CartesianProduct(xList_IsList, yList_IsList) <--
+CartesianProduct(xList_List?, yList_List?) <--
 [
     Local(cartesianProduct);
     

@@ -35,7 +35,7 @@ IsMultiConstant(_n) <-- (VarList(n,"IsVr")=?{});
 20 # IsVr(_n) <-- True;
 100 # IsMultiExpression(_x) <-- True;
 
-10 # IsMulti(MultiNomial(vars_IsList,_terms)) <-- True;
+10 # IsMulti(MultiNomial(vars_List?,_terms)) <-- True;
 20 # IsMulti(_anything) <-- False;
 
 
@@ -50,21 +50,21 @@ LocalSymbols(a,vars,pow)  [
     ];
 ];
 LocalSymbols(x,y,vars)  [
-10 #  MakeMultiNomial(x_IsMultiConstant,vars_IsList) <--
+10 #  MakeMultiNomial(x_IsMultiConstant,vars_List?) <--
       CreateTerm(vars,{FillList(0,Length(vars)),x});
-20 #  MakeMultiNomial(_x,vars_IsList)_(Contains(vars,x)) <-- MultiSingleFactor(vars,x,1);
-30 #  MakeMultiNomial(_x + _y,vars_IsList) <--
+20 #  MakeMultiNomial(_x,vars_List?)_(Contains(vars,x)) <-- MultiSingleFactor(vars,x,1);
+30 #  MakeMultiNomial(_x + _y,vars_List?) <--
       MakeMultiNomial(x,vars) + MakeMultiNomial(y,vars);
-30 #  MakeMultiNomial(_x * _y,vars_IsList) <--
+30 #  MakeMultiNomial(_x * _y,vars_List?) <--
       MakeMultiNomial(x,vars) * MakeMultiNomial(y,vars);
-30 #  MakeMultiNomial(- _x,vars_IsList) <-- -MakeMultiNomial(x,vars);
-30 #  MakeMultiNomial(_x - _y,vars_IsList) <--
+30 #  MakeMultiNomial(- _x,vars_List?) <-- -MakeMultiNomial(x,vars);
+30 #  MakeMultiNomial(_x - _y,vars_List?) <--
       MakeMultiNomial(x,vars) - MakeMultiNomial(y,vars);
-30 #  MakeMultiNomial(MultiNomial(_vars,_terms),vars_IsList)
+30 #  MakeMultiNomial(MultiNomial(_vars,_terms),vars_List?)
       <-- MultiNomial(vars,terms);
 
 // This rule would accept almost all terms, assuming them to be const.
-100 #  MakeMultiNomial(_x,vars_IsList) <--
+100 #  MakeMultiNomial(_x,vars_List?) <--
       [
       CreateTerm(vars,{FillList(0,Length(vars)),x});
       ];
@@ -72,13 +72,13 @@ LocalSymbols(x,y,vars)  [
 ];
 
 LocalSymbols(x,y,z,vars,gcd,a,a)  [
-  20 #  MakeMultiNomial(_x / (_y / _z),vars_IsList)
-     <-- MakeMultiNomial((x*z) / y,vars_IsList);
-  20 #  MakeMultiNomial((_x / _y) / _z,vars_IsList)
-     <-- MakeMultiNomial((x*z) / y,vars_IsList);
-  25 #  MakeMultiNomial(_x / y_Constant?,vars_IsList)
+  20 #  MakeMultiNomial(_x / (_y / _z),vars_List?)
+     <-- MakeMultiNomial((x*z) / y,vars_List?);
+  20 #  MakeMultiNomial((_x / _y) / _z,vars_List?)
+     <-- MakeMultiNomial((x*z) / y,vars_List?);
+  25 #  MakeMultiNomial(_x / y_Constant?,vars_List?)
      <-- MakeMultiNomial(1/y,vars)*MakeMultiNomial(x,vars);
-  30 #  MakeMultiNomial(_x / _y,vars_IsList) <--
+  30 #  MakeMultiNomial(_x / _y,vars_List?) <--
         [
           Local(result);
 //Echo("1...",x);
@@ -102,9 +102,9 @@ MultiNomial(_vars,_x) / MultiNomial(_vars,_x) <-- MakeMultiNomial(1, vars);
 
 
 LocalSymbols(x,n,vars)  [
-30 #  MakeMultiNomial(_x ^ n_Integer?,vars_IsList)_(Contains(vars,x)) <--
+30 #  MakeMultiNomial(_x ^ n_Integer?,vars_List?)_(Contains(vars,x)) <--
       MultiSingleFactor(vars,x,n);
-40 #  MakeMultiNomial(_x ^ n_PositiveInteger?,vars_IsList) <--
+40 #  MakeMultiNomial(_x ^ n_PositiveInteger?,vars_List?) <--
       [
         Local(mult,result);
         Bind(mult,MakeMultiNomial(x,vars));
@@ -118,10 +118,10 @@ LocalSymbols(x,n,vars)  [
         result;
       ];
 
-  15 #  MakeMultiNomial(_x ^ _n,vars_IsList)_(Not?(Integer?(n)) And? Integer?(Simplify(n))) <--
+  15 #  MakeMultiNomial(_x ^ _n,vars_List?)_(Not?(Integer?(n)) And? Integer?(Simplify(n))) <--
         MakeMultiNomial( x ^  Simplify(n),vars);
 
-  50 #  MakeMultiNomial(_x ^ (_n),vars_IsList)_(Contains(vars,x)) <--
+  50 #  MakeMultiNomial(_x ^ (_n),vars_List?)_(Contains(vars,x)) <--
         [
           Bind(n,Simplify(n));
           If(Integer?(n),

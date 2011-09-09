@@ -15,7 +15,7 @@
 ];
 
 
-10 # xFactor( L_IsList ) <-- 
+10 # xFactor( L_List? ) <-- 
 [
     Local (result,x,f);
     result := {};

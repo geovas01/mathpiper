@@ -75,11 +75,11 @@
 200 # (_x / _y)/ _z <-- x/(y*z);
 230 # _x / (_y / _z) <-- (x*z)/y;
 
-240 # (xlist_IsList / ylist_IsList)_(Length(xlist)=?Length(ylist)) <--
+240 # (xlist_List? / ylist_List?)_(Length(xlist)=?Length(ylist)) <--
          Map("/",{xlist,ylist});
 
 
-250 # (x_IsList / _y)_(Not?(IsList(y))) <--
+250 # (x_List? / _y)_(Not?(List?(y))) <--
 [
    Local(i,result);
    result:={};
@@ -88,7 +88,7 @@
    result;
 ];
 
-250 # (_x / y_IsList)_(Not?(IsList(x))) <--
+250 # (_x / y_List?)_(Not?(List?(x))) <--
 [
    Local(i,result);
    result:={};

@@ -100,8 +100,8 @@ TestMathPiper(Determinant({{a,b},{c,d}}),a*d-b*c);
   Testing("Trace");
   Verify(Trace(ll),1-1+3);
   /* IsVector */
-  Verify(IsList(ll),True);
-  Verify(IsList({1,2,3}),True);
+  Verify(List?(ll),True);
+  Verify(List?({1,2,3}),True);
   /* IsMatrix */
   Verify(IsMatrix(ll),True);
   Unbind(ll);

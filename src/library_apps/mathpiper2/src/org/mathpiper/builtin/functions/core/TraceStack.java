@@ -90,7 +90,7 @@ In> TraceStack(f(2))
 	Debug> 994 :  f (Rule # 0 in body)
 	Debug> 995 :  f (User function)
 	Debug> 996 :  Sin (Rule # 0 in pattern)
-	Debug> 997 :  IsList (Internal function)
+	Debug> 997 :  List? (Internal function)
 	Error on line 1 in file [CommandLine]
 	Max evaluation stack depth reached.
 	Please use MaxEvalDepth to increase the stack

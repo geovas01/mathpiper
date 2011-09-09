@@ -156,7 +156,7 @@
 //------------------------------------------------------------------------
 
 
-10 # CombineNumericalFactors( factrs_IsList ) <--
+10 # CombineNumericalFactors( factrs_List? ) <--
   [
       If( InVerboseMode(), Tell("Combine",factrs) );
       Local(q,a,b,t,f,err);
@@ -166,7 +166,7 @@
       ForEach(q,factrs)
       [
           If( InVerboseMode(), Tell(1,q) );
-          If( IsList(q) And? Length(q)=?2,
+          If( List?(q) And? Length(q)=?2,
               [
                   {a,b} := q;
                   If( InVerboseMode(), Echo("     ",{a,b}) );

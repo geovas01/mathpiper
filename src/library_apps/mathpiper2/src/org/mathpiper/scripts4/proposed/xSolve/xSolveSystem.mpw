@@ -4,7 +4,7 @@
 //Retract("xSolveLinearSystemViaMatrix",*);
 
 
-10 # xSolve'System( eqns_IsList, vars_IsList ) <--
+10 # xSolve'System( eqns_List?, vars_List? ) <--
 [
     If(iDebug=True,Tell("xSolve'System",{eqns,vars}));
     Local(zeros,expr,const,newEquations);
@@ -27,7 +27,7 @@
     xSolveLinearSystemViaMatrix(newEquations,vars);
 ];
         
-10 # xSolve'System( eqns_IsList ) <--
+10 # xSolve'System( eqns_List? ) <--
 [
     Local(vars);
     If(iDebug=True,Tell("xSolve'System",eqns));
@@ -36,7 +36,7 @@
 ];
 
 
-10 # xSolveLinearSystemViaMatrix( eqns_IsList, vars_IsList ) <--
+10 # xSolveLinearSystemViaMatrix( eqns_List?, vars_List? ) <--
 [
     Local(LE,LV,E,LHS,X,M,RHS,LL,eqn,row,ans,Det);
     If(iDebug=True,Tell(xSolveLinearSystemViaMatrix,{eqns,vars}));

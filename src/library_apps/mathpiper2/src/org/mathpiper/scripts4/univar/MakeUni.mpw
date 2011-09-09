@@ -6,7 +6,7 @@ Function("MakeUni",{expression}) MakeUni(expression,UniVarList(expression));
 Rulebase("MakeUni",{expression,var});
 
 5 # MakeUni(_expr,{}) <-- UniVariate(dummyvar,0,{expression});
-6 # MakeUni(_expr,var_IsList) <--
+6 # MakeUni(_expr,var_List?) <--
 [
   Local(result,item);
   result:=expression;

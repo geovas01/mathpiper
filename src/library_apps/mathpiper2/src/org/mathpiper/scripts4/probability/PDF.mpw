@@ -31,7 +31,7 @@
 
 10 # PDF(ContinuousUniformDistribution(_a,_b),x)_(a<?b) <-- If(x<?a Or? x>?b,0,1/(b-a));
 
-10 # PDF(DiscreteDistribution( dom_IsList, prob_IsList), _x)_( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
+10 # PDF(DiscreteDistribution( dom_List?, prob_List?), _x)_( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
     [
       Local(i);
       i:=Find(dom,x);

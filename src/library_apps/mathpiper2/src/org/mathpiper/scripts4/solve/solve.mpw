@@ -25,8 +25,8 @@
 
 LocalSymbols(res)
 [
-  10  # Solve(expr_IsList, var_IsList) <-- SolveSystem(expr, var);
-  12  # Solve(_expr, var_IsList)_(Length(var)=?1) <--
+  10  # Solve(expr_List?, var_List?) <-- SolveSystem(expr, var);
+  12  # Solve(_expr, var_List?)_(Length(var)=?1) <--
         [ {Solve(expr,var[1])}; ];
   
   20  # Solve(_expr, _var)_(IsNumber(var) Or? IsString(var)) <--

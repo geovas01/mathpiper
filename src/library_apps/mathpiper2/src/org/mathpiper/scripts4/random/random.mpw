@@ -41,7 +41,7 @@ It will re-initialize the RNG object r1 with the given seed.
 
 The "RNG engine API": calling RngCreate with engine->SomeEngine expects that:
         SomeEngine(seed_Integer?) will create and initialize a state object with given seed and return the new state object (a list). SomeEngine can assume that "seed" is a positive integer.
-        SomeEngine(state1_IsList) will update the RNG state object state1 and return the pair {new state object, new number}.
+        SomeEngine(state1_List?) will update the RNG state object state1 and return the pair {new state object, new number}.
 
 The "RNG distribution adaptor API": calling RngCreate with distribution->SomeDist expects that:
         SomeDist(r1) will update the RNG object r1 and return the pair {new state object, new number}. r1 is a full RNG object, not just a state object.
@@ -99,7 +99,7 @@ RngCreate() <-- RngCreate(0);
 20 # RngCreate(_key -> _value) <-- `(RngCreate({@key -> value}));
 
 // expect a list of options
-30 # RngCreate(options_IsList) <--
+30 # RngCreate(options_List?) <--
 [
         options := OptionsListToHash @ {options};
 
@@ -194,22 +194,22 @@ GaussianRNGDist(_rng) <--
 // first method: initialize a state object with given seed
 RNGEngine'LCG'1(seed_Integer?) <-- {seed};
 // second method: update state object and return new number
-RNGEngine'LCG'1(state_IsList) <-- LCG'1(state);
+RNGEngine'LCG'1(state_List?) <-- LCG'1(state);
 
 // first method: initialize a state object with given seed
 RNGEngine'LCG'2(seed_Integer?) <-- {seed};
 // second method: update state object and return new number
-RNGEngine'LCG'2(state_IsList) <-- LCG'2(state);
+RNGEngine'LCG'2(state_List?) <-- LCG'2(state);
 
 // first method: initialize a state object with given seed
 RNGEngine'LCG'3(seed_Integer?) <-- {seed};
 // second method: update state object and return new number
-RNGEngine'LCG'3(state_IsList) <-- LCG'3(state);
+RNGEngine'LCG'3(state_List?) <-- LCG'3(state);
 
 // first method: initialize a state object with given seed
 RNGEngine'LCG'4(seed_Integer?) <-- {seed};
 // second method: update state object and return new number
-RNGEngine'LCG'4(state_IsList) <-- LCG'4(state);
+RNGEngine'LCG'4(state_List?) <-- LCG'4(state);
 
 /// parameters from P. Hellekalek, 1994; see G. S. Fishman, Math. Comp. vol. 54, 331 (1990)
 LCG'1(state) := RandomLCG(state, 2147483647,950706376,0);
@@ -249,7 +249,7 @@ RNGEngine'L'Ecuyer(a'seed_Integer?) <--
 ];
 
 // second method: update state object and return a new random number (floating-point)
-RNGEngine'L'Ecuyer(state_IsList) <--
+RNGEngine'L'Ecuyer(state_List?) <--
 [
         Local(new'state, result);
         new'state := {
