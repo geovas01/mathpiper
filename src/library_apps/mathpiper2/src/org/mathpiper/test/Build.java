@@ -549,7 +549,8 @@ public class Build {
 
                                 if (strip == false) {
 
-
+                                    mpwFilePath = mpwFilePath.replace("\\", "\\\\");
+                                    
                                     scriptsJavaFile.write("\n        scriptString[2] = \"" + mpwFilePath + "\";");
                                 }
 
@@ -716,7 +717,8 @@ public class Build {
         if (fold.getAttributes().containsKey("name") && !(nameAttribute = (String) fold.getAttributes().get("name")).equals("")) {
 
             filePath = filePath.substring(filePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator));
-
+            filePath = filePath.replace("\\", "\\\\");
+            
             //foldContents =  ("Testing(\\\"" + nameAttribute + "\\\");" + foldContents);
             testsJavaFile.write("\n        testString = new String[3];");
             testsJavaFile.write("\n        testString[0] = \"" + fold.getStartLineNumber() + "\";");
