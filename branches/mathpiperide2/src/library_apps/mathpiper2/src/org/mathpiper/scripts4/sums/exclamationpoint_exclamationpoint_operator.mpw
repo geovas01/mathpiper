@@ -17,7 +17,7 @@
 5# Factorial'double(_a, _b) <-- a;
 
 /// double factorial for lists is threaded
-30 # (n_IsList)!! <-- MapSingle("!!",n);
+30 # (n_List?)!! <-- MapSingle("!!",n);
 
 %/mathpiper
 

@@ -33,11 +33,11 @@
 210 # (x_IsNumber / v_IsNumber) + (y_IsNumber / z_IsNumber) <--(x*z+y*v)/(v*z);
 
 
-//  220 # + x_IsList          <-- MapSingle("+",x);        // this rule is never active
+//  220 # + x_List?          <-- MapSingle("+",x);        // this rule is never active
 
-220 # (xlist_IsList + ylist_IsList)_(Length(xlist)=?Length(ylist)) <-- Map("+",{xlist,ylist});
+220 # (xlist_List? + ylist_List?)_(Length(xlist)=?Length(ylist)) <-- Map("+",{xlist,ylist});
 
-SumListSide(_x, y_IsList) <--
+SumListSide(_x, y_List?) <--
 [
    Local(i,result);
    result:={};
@@ -46,8 +46,8 @@ SumListSide(_x, y_IsList) <--
    result;
 ];
 
-240 # (x_IsList + _y)_Not?(IsList(y)) <-- SumListSide(y,x);
-241 # (_x + y_IsList)_Not?(IsList(x)) <-- SumListSide(x,y);
+240 # (x_List? + _y)_Not?(List?(y)) <-- SumListSide(y,x);
+241 # (_x + y_List?)_Not?(List?(x)) <-- SumListSide(x,y);
 
 250 # z_Infinity? + Complex(_x,_y) <-- Complex(x+z,y);
 250 # Complex(_x,_y) + z_Infinity? <-- Complex(x+z,y);

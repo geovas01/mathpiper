@@ -53,7 +53,7 @@
 100 # Cos(_x)*Tan(_x) <-- Sin(x);
 100 # Cos(_x)/Sin(_x) <-- (1/Tan(x));
 
-Cos(xlist_IsList) <-- MapSingle("Cos",xlist);
+Cos(xlist_List?) <-- MapSingle("Cos",xlist);
 
 
 %/mathpiper

@@ -21,7 +21,7 @@
 ];
 
 
-10 # Gcd(list_IsList)_(Length(list)>?2) <--
+10 # Gcd(list_List?)_(Length(list)>?2) <--
     [
       Local(first);
       first:=Gcd(list[1],list[2]);
@@ -30,7 +30,7 @@
 14 # Gcd({0}) <-- 1;
 15 # Gcd({_head}) <-- head;
 
-20 # Gcd(list_IsList)_(Length(list)=?2) <-- Gcd(list[1],list[2]);
+20 # Gcd(list_List?)_(Length(list)=?2) <-- Gcd(list[1],list[2]);
 
 30 # Gcd(n_CanBeUni,m_CanBeUni)_(Length(VarList(n*m))=?1) <--
 [

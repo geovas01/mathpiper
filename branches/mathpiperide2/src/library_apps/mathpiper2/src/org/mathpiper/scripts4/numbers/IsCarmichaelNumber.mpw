@@ -22,7 +22,7 @@
         carmichael;
 ];
 
-IsCarmichaelNumber(n_IsList) <-- MapSingle("IsCarmichaelNumber",n);
+IsCarmichaelNumber(n_List?) <-- MapSingle("IsCarmichaelNumber",n);
 
 %/mathpiper
 

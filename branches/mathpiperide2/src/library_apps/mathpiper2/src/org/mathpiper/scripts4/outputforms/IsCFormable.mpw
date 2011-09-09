@@ -13,7 +13,7 @@ LocalSymbols(CFormAllFunctions) [
   IsCFormable(_expr) <-- `IsCFormable(@expr, {});
 
   // need to check that expr contains only allowed functions
-  IsCFormable(_expr, funclist_IsList) <--
+  IsCFormable(_expr, funclist_List?) <--
   [
     Local(bad'functions);
     bad'functions := Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));

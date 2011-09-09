@@ -2,7 +2,7 @@
 
 //Retract("Rationalize",*);
 
-10 # Rationalize(aNumber_IsList) <-- Rationalize /@ aNumber;
+10 # Rationalize(aNumber_List?) <-- Rationalize /@ aNumber;
 
 20 # Rationalize( _aNumber ) <--
 [

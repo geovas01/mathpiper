@@ -9,7 +9,7 @@ that we want to add to the list. We first find the exponent e of p in the
 decomposition of z (into Gaussian primes). If it is not zero, we add {p,e}
 to the list */
 
-AddGaussianFactor(L_IsList,z_IsGaussianInteger,p_IsGaussianInteger) <--
+AddGaussianFactor(L_List?,z_IsGaussianInteger,p_IsGaussianInteger) <--
 [
  Local(e);
  e :=0;

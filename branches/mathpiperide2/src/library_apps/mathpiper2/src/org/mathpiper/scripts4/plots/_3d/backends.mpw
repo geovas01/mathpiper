@@ -24,7 +24,7 @@ Plot3DS'outputs() := {
 */
 
 /// trivial backend: return data list (do not confuse with Plot3DS'get'data() defined in the main code which is the middle-level plotting routine)
-Plot3DS'data(values_IsList, _options'hash) <-- values;
+Plot3DS'data(values_List?, _options'hash) <-- values;
 
 
 

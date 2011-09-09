@@ -8,7 +8,7 @@
 200 # Exp(Infinity) <-- Infinity;
 200 # Exp(Undefined) <-- Undefined;
 
-Exp(xlist_IsList) <-- MapSingle("Exp",xlist);
+Exp(xlist_List?) <-- MapSingle("Exp",xlist);
 
 %/mathpiper
 

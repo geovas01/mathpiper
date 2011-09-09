@@ -25,7 +25,7 @@
 ];
 
 
-96 # x_IsMatrix * y_IsList <--
+96 # x_IsMatrix * y_List? <--
 [
    Local(i,result);
    result:={};
@@ -35,8 +35,8 @@
 ];
 
 
-97 # (x_IsList * y_IsNonObject)_Not?(IsList(y)) <-- y*x;
-98 # (x_IsNonObject * y_IsList)_Not?(IsList(x)) <--
+97 # (x_List? * y_IsNonObject)_Not?(List?(y)) <-- y*x;
+98 # (x_IsNonObject * y_List?)_Not?(List?(x)) <--
 [
    Local(i,result);
    result:={};
@@ -94,7 +94,7 @@
 /* Note: this rule MUST be past all the transformations on
  * matrices, since they are lists also.
  */
-230 # (aLeft_IsList * aRight_IsList)_(Length(aLeft)=?Length(aRight)) <--
+230 # (aLeft_List? * aRight_List?)_(Length(aLeft)=?Length(aRight)) <--
          Map("*",{aLeft,aRight});
 // fractions
 242 # (x_Integer? / y_Integer?) * (v_Integer? / w_Integer?) <-- (x*v)/(y*w);

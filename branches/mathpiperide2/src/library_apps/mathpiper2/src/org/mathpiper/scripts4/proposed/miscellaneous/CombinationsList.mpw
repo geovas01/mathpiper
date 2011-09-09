@@ -9,7 +9,7 @@ CombinationsList(inputList, r) :=
 [
     Local(n,manipulatedIndexes,totalCombinations,combinationsList,combinationsLeft,combination,i,j,currentIndexes);
     
-    Check(IsList(inputList) And? Length(inputList) >=? 1, "Argument", "The first argument must be a list with 1 or more elements.");
+    Check(List?(inputList) And? Length(inputList) >=? 1, "Argument", "The first argument must be a list with 1 or more elements.");
     
     n := Length(inputList);
     

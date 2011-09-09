@@ -17,7 +17,7 @@
 
 200 # Cosh(Undefined) <-- Undefined;
 
-Cosh(xlist_IsList) <-- MapSingle("Cosh",xlist);
+Cosh(xlist_List?) <-- MapSingle("Cosh",xlist);
 
 2 # Cosh(_x)_(InNumericMode() And? (IsNumber(x) Or? Type(x) =? "Complex")) <-- N(Eval( (Exp(x)+Exp(-x))/2 ));
 

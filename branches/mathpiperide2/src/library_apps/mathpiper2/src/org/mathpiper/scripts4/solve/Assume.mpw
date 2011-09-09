@@ -10,7 +10,7 @@ LocalSymbols(assumptions) [
 
 assumptions := {};
 
-10 # Assume( L_IsList ) <--
+10 # Assume( L_List? ) <--
 [
     If(InVerboseMode(),Tell("AssumeLst",L));
     Local(len,s);
@@ -50,10 +50,10 @@ assumptions := {};
 10 # UnAssume( _x )_(Contains(AssocIndices(assumptions),x)) <--
 [
     Local(lst,len,jj);
-    lst := Lambda({X},If(IsList(X),X[1])) /@ assumptions;
+    lst := Lambda({X},If(List?(X),X[1])) /@ assumptions;
     jj := Find(lst,x);
     If( jj >? 0, DestructiveDelete(assumptions,jj) );
-    lst := Lambda({X},If(IsList(X),X[1])) /@ assumptions;
+    lst := Lambda({X},If(List?(X),X[1])) /@ assumptions;
     jj := Find(lst,x);
     If( jj >? 0, UnAssume(x), True );
 ];

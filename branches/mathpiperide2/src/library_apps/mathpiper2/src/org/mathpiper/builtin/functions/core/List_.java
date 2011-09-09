@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class IsList extends BuiltinFunction
+public class List_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -41,11 +41,11 @@ public class IsList extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsList",categories="User Functions;Predicates;Built In"
-*CMD IsList --- test for a list
+%mathpiper_docs,name="List?",categories="User Functions;Predicates;Built In"
+*CMD List? --- test for a list
 *CORE
 *CALL
-	IsList(expr)
+	List?(expr)
 
 *PARMS
 
@@ -58,9 +58,9 @@ between curly braces, e.g. {{2, 3, 5}}.
 
 *E.G.
 
-In> IsList({2,3,5});
+In> List?({2,3,5});
 Result: True;
-In> IsList(2+3+5);
+In> List?(2+3+5);
 Result: False;
 
 *SEE Function?
@@ -70,10 +70,10 @@ Result: False;
 
 
 
-%mathpiper,name="IsList",subtype="automatic_test"
+%mathpiper,name="List?",subtype="automatic_test"
 
-Verify(IsList({a,b,c}),True);
-Verify(IsList(a),False);
+Verify(List?({a,b,c}),True);
+Verify(List?(a),False);
 
 %/mathpiper
 */

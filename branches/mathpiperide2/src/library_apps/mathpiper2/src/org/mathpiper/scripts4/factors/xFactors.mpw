@@ -27,7 +27,7 @@
 
 /* --------------    LISTS    ---------------*/
 
-10 # xFactors( L_IsList ) <-- xFactors /@ L;
+10 # xFactors( L_List? ) <-- xFactors /@ L;
 
 
 /* -------------    NUMBERS    --------------*/
@@ -268,7 +268,7 @@ UnFence("xFactorsMultivariate",1);
 
 // ------------------  HOMOGENEOUS BIVARIATE  ------------------
 
-10 # xFactorsHomogeneousBivariate( dis_IsList ) <-- 
+10 # xFactorsHomogeneousBivariate( dis_List? ) <-- 
 [
     If(InVerboseMode(),[NewLine();Tell("xFactorsHomogeneousBivariate",dis);]);
     Local(dis1,f,lst,dis2,poly1,ppFactors,residuals,ii,preassem);
@@ -305,7 +305,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
 
 // ------------------  SPECIAL FORMS  ------------------
 
-10 # CheckForSpecialForms( final_IsList ) <-- 
+10 # CheckForSpecialForms( final_List? ) <-- 
 [
     If(InVerboseMode(),[NewLine();Tell("CheckForSpecialForms",final);]);
     Local(LL,ii,fact,mult,dis,new);
@@ -364,7 +364,7 @@ UnFence("xFactorsHomogeneousBivariate",1);
 UnFence("ApproximateRealCoefficients",1);
 
 
-100 # CombineNumericalFactors( factrs_IsList ) <--
+100 # CombineNumericalFactors( factrs_List? ) <--
 [
       If( InVerboseMode(), Tell("Combine",factrs) );
       Local(q,a,b,t,f,ff,err);
@@ -374,7 +374,7 @@ UnFence("ApproximateRealCoefficients",1);
       ForEach(q,factrs)
       [
           If( InVerboseMode(), Tell(1,q) );
-          If( IsList(q) And? Length(q)=?2,
+          If( List?(q) And? Length(q)=?2,
             [
                 {a,b} := q;
                 If( InVerboseMode(), Echo("     ",{a,b}) );
@@ -484,7 +484,7 @@ UnFence("ApproximateRealCoefficients",1);
 ];
 
 
-10 # FixUpMonicFactors( factrs_IsList ) <--
+10 # FixUpMonicFactors( factrs_List? ) <--
 [
     If(InVerboseMode(),[ NewLine(); Tell("   doing monic fixup"); ] );
     Local(factrsnew,residuals,uni);

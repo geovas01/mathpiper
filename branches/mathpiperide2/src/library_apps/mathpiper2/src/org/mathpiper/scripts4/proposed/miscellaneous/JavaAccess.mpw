@@ -10,7 +10,7 @@ RulebaseListed("JavaAccess",{object, method, parameters});
 
 //Main routine.  It will automatically accept 2 or more option calls because the
 //options come in a list.
-10 # JavaAccess(_object, _method, parameters_IsList) <--
+10 # JavaAccess(_object, _method, parameters_List?) <--
 [   
     JavaCall(object, method, parameters);
     

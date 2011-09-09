@@ -24,7 +24,7 @@
   ];
   
 
-10 # xCheckSolution( exprs_IsList, _var, solutions_IsList ) <--
+10 # xCheckSolution( exprs_List?, _var, solutions_List? ) <--
   [
       If(iDebug=True,Tell("xCheckSolutionL",{exprs,var,solutions}));
       Local(tests);
@@ -35,7 +35,7 @@
   ];
 
   
-12 # xCheckSolution( _expr, _var, solution_IsList ) <--
+12 # xCheckSolution( _expr, _var, solution_List? ) <--
   [
       If(iDebug=True,Tell("xCheckSolution1",{expr,var,solution}));
       Local(expr0,result,s,r);

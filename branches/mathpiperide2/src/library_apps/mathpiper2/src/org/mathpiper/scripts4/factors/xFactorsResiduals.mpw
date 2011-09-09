@@ -5,7 +5,7 @@
 //Retract("tryRealRoots",*);
 //Retract("processRealRoots",*);
 
-10 # xFactorsResiduals( residualList_IsList ) <--
+10 # xFactorsResiduals( residualList_List? ) <--
 [
     If(InVerboseMode(),[NewLine(); Tell("Residuals",residualList);]);
     If(InVerboseMode(),Tell("  --",content));
@@ -50,7 +50,7 @@ UnFence("xFactorsResiduals",1);
 
 
 
-10 # trySQF( residualList_IsList ) <--
+10 # trySQF( residualList_List? ) <--
 [
     //--- First, try SquareFree factorization on these residuals 
     Local(resid,sqf);
@@ -102,7 +102,7 @@ UnFence("trySQF",1);
 
 
 
-10 # tryRealRoots(residualList_IsList)_(Length(residualList)>?0) <--
+10 # tryRealRoots(residualList_List?)_(Length(residualList)>?0) <--
 [
     //--- See if there are any REAL roots to factor out
     If(InVerboseMode(),[NewLine(); Tell("tryRealRoots",residualList);]);

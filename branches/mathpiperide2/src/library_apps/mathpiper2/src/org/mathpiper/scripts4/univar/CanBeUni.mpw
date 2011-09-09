@@ -12,7 +12,7 @@ Function("CanBeUni",{expression}) CanBeUni(UniVarList(expression),expression);
  * to each of these variables (smells like tail recursion)
  */
 10 # CanBeUni({},_expression) <-- True;
-20 # CanBeUni(var_IsList,_expression) <--
+20 # CanBeUni(var_List?,_expression) <--
     CanBeUni(First(var),expression) And? CanBeUni(Rest(var),expression);
 
 /* Atom can always be a polynom to any variable */

@@ -13,7 +13,7 @@
     ff   := Factors(pp);
     If(InVerboseMode(),Tell("  ",ff));
     tnu  := {ff[1]};
-    If(IsListOfLists(ff), tnu  := RemoveDuplicates(Transpose(ff)[1]));
+    If(ListOfLists?(ff), tnu  := RemoveDuplicates(Transpose(ff)[1]));
     newn := {};
     newd := {};
     If(InVerboseMode(),Tell("      ",tnu));

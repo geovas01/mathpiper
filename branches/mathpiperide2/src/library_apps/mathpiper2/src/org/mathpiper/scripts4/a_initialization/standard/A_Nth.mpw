@@ -13,7 +13,7 @@ Rule("Nth",2,10,
 
 
 Rule("Nth",2,14,
-     And?(Equal?(IsString(alist),True),IsList(aindex))
+     And?(Equal?(IsString(alist),True),List?(aindex))
     )
 [
   Local(result);
@@ -28,7 +28,7 @@ Rule("Nth",2,15,Equal?(IsString(alist),True))
 ];
 
 
-Rule("Nth",2,20,Equal?(IsList(aindex),True))
+Rule("Nth",2,20,Equal?(List?(aindex),True))
 [
   Map({{ii},alist[ii]},{aindex});
 ];

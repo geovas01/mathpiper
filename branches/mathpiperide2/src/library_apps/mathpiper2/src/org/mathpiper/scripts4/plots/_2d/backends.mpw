@@ -35,10 +35,10 @@ Plot2DOutputs() := options;
 */
 
 /// trivial backend: return data list (do not confuse with Plot2D'get'data() defined in the main code which is the middle-level plotting routine)
-Plot2DData(values_IsList, _optionsHash) <-- values;
+Plot2DData(values_List?, _optionsHash) <-- values;
 
 /// The Java back-end generates a call-list that the Java graph plotter can handle
-Plot2DJava(values_IsList, _optionsHash) <--
+Plot2DJava(values_List?, _optionsHash) <--
 [
   Local(result,count);
   count := 0;
@@ -71,7 +71,7 @@ Plot2DJava(values_IsList, _optionsHash) <--
 
 
 //GeoGebra backend.
-Plot2DGeogebra(values_IsList, _optionsHash) <--
+Plot2DGeogebra(values_List?, _optionsHash) <--
 [
   Local(result,count);
   count := 0;
@@ -97,7 +97,7 @@ Plot2DGeogebra(values_IsList, _optionsHash) <--
 
 //JFreeChart backend.
 //Retract("Plot2DJFreeChart", *);
-Plot2DJFreeChart(values_IsList, _optionsHash) <--
+Plot2DJFreeChart(values_List?, _optionsHash) <--
 [
     Local(rangeList, domainList, function, allProcessedFunctionData, lineChartCallListForm);
     

@@ -4,11 +4,11 @@
 //Retract("ListToString", *);
 
 
-10 # ListToString(list_IsList)_(Length(list) =? 0) <-- "";
+10 # ListToString(list_List?)_(Length(list) =? 0) <-- "";
 
 
 
-20 # ListToString(list_IsList) <--
+20 # ListToString(list_List?) <--
 [
     Local(resultString, character);
     

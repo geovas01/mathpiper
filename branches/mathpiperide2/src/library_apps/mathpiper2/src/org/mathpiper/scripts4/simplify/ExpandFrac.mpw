@@ -4,7 +4,7 @@
 /// ExpandFrac --- normalize rational functions (no simplification)
 //////////////////////////////////////////////////
 
-5 # ExpandFrac(expr_IsList) <-- MapSingle("ExpandFrac", expr);
+5 # ExpandFrac(expr_List?) <-- MapSingle("ExpandFrac", expr);
 
 // expression does not contain fractions
 10 # ExpandFrac(_expr)_Not?(HasFunctionSome?(expr, "/", {ToAtom("+"), ToAtom("-"), *, /, ^})) <-- expr;

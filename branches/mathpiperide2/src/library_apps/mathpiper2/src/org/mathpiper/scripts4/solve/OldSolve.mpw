@@ -26,7 +26,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
  * equations in the hope that they become simpler, resulting in a final
  * set of solutions.
  */
-10 # Solve'SimpleBackSubstitution(eq_IsList,var_IsList) <--
+10 # Solve'SimpleBackSubstitution(eq_List?,var_List?) <--
 [
  If(InVerboseMode(), Echo({"Entering Solve'SimpleBackSubstitution"}));
 
@@ -145,10 +145,10 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 
 
 /********** OldSolve **********/
-10 # OldSolve(eq_IsList,var_IsList) <-- Solve'SimpleBackSubstitution(eq,var);
+10 # OldSolve(eq_List?,var_List?) <-- Solve'SimpleBackSubstitution(eq,var);
 
 
-90 # OldSolve((left_IsList) == right_IsList,_var) <--
+90 # OldSolve((left_List?) == right_List?,_var) <--
       OldSolve(Map("==",{left,right}),var);
 
 

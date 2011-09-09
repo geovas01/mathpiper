@@ -1,7 +1,7 @@
 %mathpiper,def="AddTo"
 
 // (a or b) and (c or d) -> (a and c) or (a and d) or (b and c) or (b and d)
-20 # (list_IsList AddTo _rest) <--
+20 # (list_List? AddTo _rest) <--
 [
   Local(res);
   res:={};
@@ -11,7 +11,7 @@
   ];
   res;
 ];
-30 # (_a'item AddTo list_IsList) <--
+30 # (_a'item AddTo list_List?) <--
 [
   MapSingle({{orig},a'item And? orig},list);
 ];

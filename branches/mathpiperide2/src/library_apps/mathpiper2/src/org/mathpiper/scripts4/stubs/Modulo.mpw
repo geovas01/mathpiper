@@ -27,8 +27,8 @@
   Modulo(n1*m2,m1*n2)/(n2*m2);
 ];
 
-6 # Modulo(n_IsList,m_IsList) <-- Map("Modulo",{n,m});
-7 # Modulo(n_IsList,_m) <-- Map("Modulo",{n,FillList(m,Length(n))});
+6 # Modulo(n_List?,m_List?) <-- Map("Modulo",{n,m});
+7 # Modulo(n_List?,_m) <-- Map("Modulo",{n,FillList(m,Length(n))});
 
 
 30 # Modulo(n_CanBeUni,m_CanBeUni) <--
@@ -49,7 +49,7 @@
                          Concat(ZeroVector(m[2]),m[3]))[2]);
 ];
 
-10 # Modulo(n_CanBeUni, m_CanBeUni, vars_IsList)_(Length(vars)=?1) <--
+10 # Modulo(n_CanBeUni, m_CanBeUni, vars_List?)_(Length(vars)=?1) <--
 [
     NormalForm(Modulo(MakeUni(n,vars),MakeUni(m,vars)));
 ];

@@ -3,11 +3,11 @@
 //todo:tk:this file need to be broken down further.
 
 
-10# (Integrate(_var)(expr_IsList))
+10# (Integrate(_var)(expr_List?))
     <-- Map("Integrate",{FillList(var,Length(expr)),expr});
 20 # (Integrate(_var)(_expr)) <-- IntSub(var,expr,AntiDeriv(var,IntClean(var,expr)));
 
-20 # (Integrate(_var, optionsList_IsList)(_expr)) <--
+20 # (Integrate(_var, optionsList_List?)(_expr)) <--
 [
     Local(result);
 
@@ -30,7 +30,7 @@
 // Integrate over a range
 //
 ////////////////////////////////////////////////
-10# (Integrate(_var,_from,_to)(expr_IsList))
+10# (Integrate(_var,_from,_to)(expr_List?))
     <-- Map("Integrate",{FillList(var,Length(expr)),
                          FillList(from,Length(expr)),
                          FillList(to,Length(expr)),
@@ -40,7 +40,7 @@
     <-- defIntegrate(var,from,to,expr,a,b);
 
 
-20 # (Integrate(_var,_from,_to,optionsList_IsList)(_expr)) <--
+20 # (Integrate(_var,_from,_to,optionsList_List?)(_expr)) <--
 [
     Local(result);
 

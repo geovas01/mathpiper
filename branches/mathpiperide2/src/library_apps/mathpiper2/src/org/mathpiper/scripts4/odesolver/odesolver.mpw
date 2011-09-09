@@ -271,7 +271,7 @@ Echo({e});
 Echo({e});
   e;
 ];
-OdeBoundaries(_solution,bounds_IsList) <--
+OdeBoundaries(_solution,bounds_List?) <--
 [
 ];
 */

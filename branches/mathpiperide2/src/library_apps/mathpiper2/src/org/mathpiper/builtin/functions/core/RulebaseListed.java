@@ -75,7 +75,7 @@ The definitions
 	RulebaseListed("f",{a,b,c})
 	10 # f(_a,_b,{_c,_d}) <--
 	  Echo({"four args",a,b,c,d});
-	20 # f(_a,_b,c_IsList) <--
+	20 # f(_a,_b,c_List?) <--
 	  Echo({"more than four args",a,b,c});
 	30 # f(_a,_b,_c) <-- Echo({"three args",a,b,c});
 give the following interaction:

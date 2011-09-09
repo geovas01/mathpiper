@@ -14,7 +14,7 @@
 4 # Ln(x_NegativeNumber?) <-- Complex(Ln(-x), Pi);
 5 # Ln(x_IsNumber)_(InNumericMode() And? x<?1) <-- - Internal'LnNum(DivideN(1, x));
 
-Ln(xlist_IsList) <-- MapSingle("Ln",xlist);
+Ln(xlist_List?) <-- MapSingle("Ln",xlist);
 
 %/mathpiper
 

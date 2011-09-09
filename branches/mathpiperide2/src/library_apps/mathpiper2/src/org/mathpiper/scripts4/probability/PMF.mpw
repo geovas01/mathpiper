@@ -42,7 +42,7 @@
 
 
 
-10 # PMF(DiscreteDistribution( dom_IsList, prob_IsList), _x)_( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
+10 # PMF(DiscreteDistribution( dom_List?, prob_List?), _x)_( Length(dom)=?Length(prob) And? Simplify(Add(prob))=?1) <--
     [
       Local(i);
       i:=Find(dom,x);

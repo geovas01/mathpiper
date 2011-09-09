@@ -27,7 +27,7 @@ RulebaseListed("Echo",{firstParameter, parametersList});
 
 //Main routine.  It will automatically accept 1 or more option calls because the
 //options come in a list.
-10 # Echo(_firstParameter, parametersList_IsList) <--
+10 # Echo(_firstParameter, parametersList_List?) <--
 [
     EchoInternal(firstParameter);
     ForEach(item,parametersList) EchoInternal(item);

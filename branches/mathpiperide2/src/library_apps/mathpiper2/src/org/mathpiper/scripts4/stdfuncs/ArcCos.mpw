@@ -15,7 +15,7 @@
 
 200 # ArcCos(Undefined) <-- Undefined;
 
-ArcCos(xlist_IsList) <-- MapSingle("ArcCos",xlist);
+ArcCos(xlist_List?) <-- MapSingle("ArcCos",xlist);
 
 110 # ArcCos(Complex(_r,_i)) <--
     (- I)*Ln(Complex(r,i) + (Complex(r,i)^2 - 1)^(1/2));

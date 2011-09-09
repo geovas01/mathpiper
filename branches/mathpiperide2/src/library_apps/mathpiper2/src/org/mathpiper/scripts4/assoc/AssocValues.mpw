@@ -1,6 +1,6 @@
 %mathpiper,def="AssocValues"
 
-AssocValues(assocvalueslist_IsList) <--
+AssocValues(assocvalueslist_List?) <--
   DestructiveReverse(MapSingle(Lambda({x},First(Rest(x))),assocvalueslist));
 
 %/mathpiper

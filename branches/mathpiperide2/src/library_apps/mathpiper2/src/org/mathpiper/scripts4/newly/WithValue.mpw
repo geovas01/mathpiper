@@ -2,7 +2,7 @@
 
 TemplateFunction("WithValue",{var,val,expr})
 [
-  If(IsList(var),
+  If(List?(var),
      ApplyFast("MacroLocal",var),
      MacroLocal(var)
     );

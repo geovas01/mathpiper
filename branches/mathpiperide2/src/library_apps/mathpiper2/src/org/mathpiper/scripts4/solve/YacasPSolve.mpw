@@ -154,7 +154,7 @@ Function("YacasPSolve",{uni,var}) [
      r := {};
      ForEach(f, factors) [
          s := YacasPSolve(MakeUni(f[1],var));
-         r := Union(r, If(IsList(s), s, {s}));
+         r := Union(r, If(List?(s), s, {s}));
      ];
 
      If(Length(r) =? 1, r[1], r);

@@ -13,7 +13,7 @@
 
 30 # ((x_IsNumber)!)_InNumericMode() <-- Internal'GammaNum(x+1);
 
-40 # (n_IsList)! <-- MapSingle("!",n);
+40 # (n_List?)! <-- MapSingle("!",n);
 
 /* formulae for half-integer factorials:
 

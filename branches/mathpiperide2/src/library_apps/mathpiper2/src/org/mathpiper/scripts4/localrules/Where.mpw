@@ -14,7 +14,7 @@ UnFence("Where",2);
 ];
 
 30 # (_body Where {}) <-- {};
-40 # (_body Where list_IsList)_IsList(list[1])
+40 # (_body Where list_List?)_List?(list[1])
      <--
      [
        Local(head,rest);
@@ -24,7 +24,7 @@ UnFence("Where",2);
        `(@body Where @head) : rest;
      ];
 
-50 # (_body Where list_IsList)
+50 # (_body Where list_List?)
      <--
      [
        Local(head,rest);

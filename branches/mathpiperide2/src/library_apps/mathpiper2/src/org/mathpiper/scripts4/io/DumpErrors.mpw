@@ -8,7 +8,7 @@ DumpErrors() <--
         ForEach(error'object, GetErrorTableau())
         [        // error'object might be e.g. {"critical", {"bad bad", -1000}}
                 If(
-                        IsList(error'object),
+                        List?(error'object),
                         [
                                 If( // special case: error class "warning"
                                         Length(error'object) >? 0 And? error'object[1] =? "warning",

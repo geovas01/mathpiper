@@ -337,7 +337,7 @@ Rule("TrigSimpCombineB",2,1,Type(x) =? "FCos" And? Type(y) =? "FSin")
 
 
 Rulebase("TrigSimpCombine",{f});
-Rule("TrigSimpCombine",1,1,IsList(f))
+Rule("TrigSimpCombine",1,1,List?(f))
   Map("TrigSimpCombine",{f});
 
 Rule("TrigSimpCombine",1,10,True)

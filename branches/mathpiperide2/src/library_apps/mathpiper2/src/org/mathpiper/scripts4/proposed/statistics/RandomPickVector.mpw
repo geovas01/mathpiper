@@ -4,7 +4,7 @@
 
 RandomPickVector(list, count) :=
 [
-    Check(IsList(list), "Argument", "Argument 1 must be a list.");
+    Check(List?(list), "Argument", "Argument 1 must be a list.");
     
     Check(Integer?(count), "Argument", "Argument 2 must be an integer.");
     

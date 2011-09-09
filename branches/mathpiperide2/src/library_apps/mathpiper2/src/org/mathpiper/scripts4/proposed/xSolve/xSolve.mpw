@@ -28,7 +28,7 @@
 
 LocalSymbols(res)
 [
-  10  # xSolve(expr_IsList, var_IsList) <-- 
+  10  # xSolve(expr_List?, var_List?) <-- 
     [
         If(iDebug=True,Tell("xSolve1",{expr,var}));
         xSolve'System(expr, var);

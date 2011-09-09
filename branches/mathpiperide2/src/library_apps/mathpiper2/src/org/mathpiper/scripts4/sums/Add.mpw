@@ -3,7 +3,7 @@
 Function() Add(val, ...);
 
 10 # Add({}) <-- 0;
-20 # Add(values_IsList) <--
+20 # Add(values_List?) <--
 [
    Local(i, sum);
    sum:=0;

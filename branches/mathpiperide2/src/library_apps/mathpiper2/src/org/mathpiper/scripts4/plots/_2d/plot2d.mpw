@@ -34,11 +34,11 @@ Function() Plot2D(func, range, options, ...);
 3 # Plot2D(_func, _range, option_Function?) _ (Type(option) =? "->" )  <-- ("Plot2D" @ {func, range, {option}});
 
 /// Plot a single function
-5 # Plot2D(_func, _range, options'list_IsList)_(Not? IsList(func)) <-- ("Plot2D" @ {{func}, range, options'list});
+5 # Plot2D(_func, _range, options'list_List?)_(Not? List?(func)) <-- ("Plot2D" @ {{func}, range, options'list});
 
 /// Top-level 2D plotting routine:
 /// plot several functions sharing the same xrange and other options
-4 # Plot2D(func'list_IsList, _range, options'list_IsList) <--
+4 # Plot2D(func'list_List?, _range, options'list_List?) <--
 [
         Local(var, func, delta, options'hash, c, fc, all'values, dummy);
         all'values := {};

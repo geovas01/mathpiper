@@ -3,14 +3,14 @@
 //Retract("RepToNumber",*);
 
 
-10 # RepToNumber( rep_IsListOfLists ) <--
+10 # RepToNumber( rep_ListOfLists? ) <--
 [
     //If(InVerboseMode(),[Tell(RepToNumberZ,rep); Tell("     complex");]);
     RepToNumber(rep[1])+I*RepToNumber(rep[2]);
 ];
 
 
-12 # RepToNumber( rep_IsList ) <--
+12 # RepToNumber( rep_List? ) <--
 [
     //If(InVerboseMode(),Tell(RepToNumber,rep));
     Local(bigInt,precision,scale,strBI,sgn,index,ans);

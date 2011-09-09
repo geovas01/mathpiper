@@ -110,7 +110,7 @@
          //  OK.  Now factor the PrimitivePart
          ppFactors := jFactorsPrimitivePart( pp );
          If(InVerboseMode(),Tell("                    ",ppFactors));
-         If( Not? IsListOfLists(ppFactors), 
+         If( Not? ListOfLists?(ppFactors),
            [
                Local(L,op,var,exp);
                L := If(Atom?(ppFactors[1]), ppFactors, FunctionToList(ppFactors[1]) );
@@ -188,7 +188,7 @@ UnFence("jFactorsPrimitivePart",1);
 
 // ------------------  HOMOGENEOUS BIVARIATE  ------------------
 
-10 # jFactorsHomogeneousBivariate( dis_IsList ) <-- 
+10 # jFactorsHomogeneousBivariate( dis_List? ) <-- 
 [
     If(InVerboseMode(),[NewLine();Tell("jFactorsHomogeneousBivariate",dis);]);
     Local(dis1,f,dis2,poly1,ppFactors,residuals);
@@ -264,7 +264,7 @@ UnFence("RealToRationalConvert",1);
 UnFence("RationalToIntegerConvert",1);
 
 
-100 # CombineNumericalFactors( factrs_IsList ) <--
+100 # CombineNumericalFactors( factrs_List? ) <--
 [
       If( InVerboseMode(), Tell("Combine",factrs) );
       Local(q,a,b,t,f,ff,err);
@@ -274,7 +274,7 @@ UnFence("RationalToIntegerConvert",1);
       ForEach(q,factrs)
       [
           If( InVerboseMode(), Tell(1,q) );
-          If( IsList(q) And? Length(q)=?2,
+          If( List?(q) And? Length(q)=?2,
             [
                 {a,b} := q;
                 If( InVerboseMode(), Echo("     ",{a,b}) );
@@ -387,7 +387,7 @@ UnFence("RationalToIntegerConvert",1);
 UnFence("jFactorsBivariateBinomial",1);
 
 
-50 # jFB( dis_IsList )_(Length(dis)=?3 And? Length(dis[3])=?2) <--
+50 # jFB( dis_List? )_(Length(dis)=?3 And? Length(dis[3])=?2) <--
 [
     If(InVerboseMode(),[NewLine();Tell("jFB",dis);]);
     Local(ns,ii,fn,mx,my,fac);
@@ -483,7 +483,7 @@ UnFence("jFac",3);
 ];
 
 
-10 # FixUpMonicFactors( factrs_IsList ) <--
+10 # FixUpMonicFactors( factrs_List? ) <--
 [
     If(InVerboseMode(),[ NewLine(); Tell("   doing monic fixup"); ] );
     Local(factrsnew,residuals,f,uni,);

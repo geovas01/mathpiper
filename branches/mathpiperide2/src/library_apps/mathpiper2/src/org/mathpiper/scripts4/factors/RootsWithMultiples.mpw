@@ -15,7 +15,7 @@
     If(deg >? 0 And? deg <? 3,
       [
         root:= PSolve(uni);
-        If(Not? IsList(root),root:={root});
+        If(Not? List?(root),root:={root});
         For(i:=1,i<=?Length(root),i++)
           result:= Concat({{root[i],item[2]}}, result);
       ]

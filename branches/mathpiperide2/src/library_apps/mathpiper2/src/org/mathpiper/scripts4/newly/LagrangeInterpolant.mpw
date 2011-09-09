@@ -7,7 +7,7 @@ LagrangeInt(_var,_list) <--
   Product(FillList(var,nr)-list);
 ];
 
-LagrangeInterpolant(list_IsList,_values,_var) <--
+LagrangeInterpolant(list_List?,_values,_var) <--
 [
   Local(i,nr,sublist);
   nr:=Length(list);

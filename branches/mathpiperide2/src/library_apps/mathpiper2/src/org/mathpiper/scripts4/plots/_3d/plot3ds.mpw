@@ -33,11 +33,11 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 3 # Plot3DS(_func, _xrange, _yrange, option_Function?) _ (Type(option) =? "->" ) <-- ("Plot3DS" @ {func, xrange, yrange, {option}});
 
 /// Plot a single function
-5 # Plot3DS(_func, _xrange, _yrange, options'list_IsList)_(Not? IsList(func)) <-- ("Plot3DS" @ {{func}, xrange, yrange, options'list});
+5 # Plot3DS(_func, _xrange, _yrange, options'list_List?)_(Not? List?(func)) <-- ("Plot3DS" @ {{func}, xrange, yrange, options'list});
 
 /// Top-level 3D plotting routine:
 /// plot several functions sharing the same ranges and other options
-4 # Plot3DS(func'list_IsList, _xrange, _yrange, options'list_IsList) <--
+4 # Plot3DS(func'list_List?, _xrange, _yrange, options'list_List?) <--
 [
         Local(var, func, xdelta, ydelta, options'hash, cx, cy, fc, all'values, dummy);
         // this will be a list of all computed values

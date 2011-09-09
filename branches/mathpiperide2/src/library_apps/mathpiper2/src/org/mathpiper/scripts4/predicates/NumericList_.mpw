@@ -1,7 +1,7 @@
 %mathpiper,def="NumericList?"
 
 // check that all items in the list are numbers
-NumericList?(_arg'list) <-- IsList(arg'list) And?
+NumericList?(_arg'list) <-- List?(arg'list) And?
         ("And?" @ (MapSingle(Hold({{x},IsNumber(N(Eval(x)))}), arg'list)));
 
 %/mathpiper

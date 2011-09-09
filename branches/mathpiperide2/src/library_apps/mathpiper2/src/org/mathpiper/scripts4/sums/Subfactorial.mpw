@@ -5,7 +5,7 @@ Function("Subfactorial",{n})
         n! * Sum(k,0,n,(-1)^(k)/k!);
 ];
 
-30 # Subfactorial(n_IsList) <-- MapSingle("Subfactorial",n);
+30 # Subfactorial(n_List?) <-- MapSingle("Subfactorial",n);
 
 %/mathpiper
 

@@ -10,7 +10,7 @@
 // we test for lists now because lists are also functions
 // first take care of the empty list:
 19 # HasExpression?({}, _atom) <-- False;
-20 # HasExpression?(expr_IsList, _atom) <-- HasExpression?(First(expr), atom) Or? HasExpression?(Rest(expr), atom);
+20 # HasExpression?(expr_List?, _atom) <-- HasExpression?(First(expr), atom) Or? HasExpression?(Rest(expr), atom);
 // a function contains an atom if one of its arguments contains it
 30 # HasExpression?(expr_Function?, _atom) <-- HasExpression?(Rest(FunctionToList(expr)), atom);
 
