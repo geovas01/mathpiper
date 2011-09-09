@@ -87,7 +87,7 @@
     ForEach(r,res)
     [
         If(InVerboseMode(),Tell("      ",r));
-        If( IsNumber(Eval(r[1])), 
+        If( Number?(Eval(r[1])), 
           [ 
               n := r[1]^r[2];
               If(InVerboseMode(),Tell("            ",n));              

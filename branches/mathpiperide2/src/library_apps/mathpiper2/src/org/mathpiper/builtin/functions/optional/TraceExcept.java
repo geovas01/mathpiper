@@ -110,13 +110,13 @@ Enter<**** user rulebase>{(-,2+3-6);
     Enter<**** user rulebase>{(+,2+3);
         Arg(2->2);
         Arg(3->3);
-        Enter<builtin>{(IsNumber,IsNumber(x));
+        Enter<builtin>{(Number?,Number?(x));
             Arg(x->2);
-        Leave<builtin>}(IsNumber(x)->True);
-        Enter<builtin>{(IsNumber,IsNumber(y));
+        Leave<builtin>}(Number?(x)->True);
+        Enter<builtin>{(Number?,Number?(y));
             Arg(y->3);
-        Leave<builtin>}(IsNumber(y)->True);
-        **** Rule in function (+) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(x), IsNumber(y), True,     Variables: x, y,    Types: Variable, Variable, Body: AddN(x,y)
+        Leave<builtin>}(Number?(y)->True);
+        **** Rule in function (+) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) Number?(x), Number?(y), True,     Variables: x, y,    Types: Variable, Variable, Body: AddN(x,y)
         Enter<builtin>{(AddN,AddN(x,y));
             Arg(x->2);
             Arg(y->3);
@@ -127,13 +127,13 @@ Enter<**** user rulebase>{(-,2+3-6);
     Enter<builtin>{(List?,List?($x8));
         Arg($x8->5);
     Leave<builtin>}(List?($x8)->False);
-    Enter<builtin>{(IsNumber,IsNumber(x));
+    Enter<builtin>{(Number?,Number?(x));
         Arg(x->5);
-    Leave<builtin>}(IsNumber(x)->True);
-    Enter<builtin>{(IsNumber,IsNumber(y));
+    Leave<builtin>}(Number?(x)->True);
+    Enter<builtin>{(Number?,Number?(y));
         Arg(y->6);
-    Leave<builtin>}(IsNumber(y)->True);
-    **** Rule in function (-) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(x), IsNumber(y), True,     Variables: x, y,    Types: Variable, Variable, Body: SubtractN(x,y)
+    Leave<builtin>}(Number?(y)->True);
+    **** Rule in function (-) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) Number?(x), Number?(y), True,     Variables: x, y,    Types: Variable, Variable, Body: SubtractN(x,y)
     Enter<builtin>{(SubtractN,SubtractN(x,y));
         Arg(x->5);
         Arg(y->6);
@@ -141,14 +141,14 @@ Enter<**** user rulebase>{(-,2+3-6);
 Leave<**** user rulebase>}(2+3-6->-1);
 
 
-In> TraceExcept("List?, IsNumber") 2+3-6
+In> TraceExcept("List?, Number?") 2+3-6
 Result> True
 Side Effects>
 Enter<**** user rulebase>{(-,2+3-6);
     Enter<**** user rulebase>{(+,2+3);
         Arg(2->2);
         Arg(3->3);
-        **** Rule in function (+) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(x), IsNumber(y), True,     Variables: x, y,    Types: Variable, Variable, Body: AddN(x,y)
+        **** Rule in function (+) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) Number?(x), Number?(y), True,     Variables: x, y,    Types: Variable, Variable, Body: AddN(x,y)
         Enter<builtin>{(AddN,AddN(x,y));
             Arg(x->2);
             Arg(y->3);
@@ -156,7 +156,7 @@ Enter<**** user rulebase>{(-,2+3-6);
     Leave<**** user rulebase>}(2+3->5);
     Arg(2+3->5);
     Arg(6->6);
-    **** Rule in function (-) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(x), IsNumber(y), True,     Variables: x, y,    Types: Variable, Variable, Body: SubtractN(x,y)
+    **** Rule in function (-) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) Number?(x), Number?(y), True,     Variables: x, y,    Types: Variable, Variable, Body: SubtractN(x,y)
     Enter<builtin>{(SubtractN,SubtractN(x,y));
         Arg(x->5);
         Arg(y->6);

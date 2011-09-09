@@ -1,5 +1,5 @@
 %mathpiper,def="NonNegativeNumber?"
 
-NonNegativeNumber?(x):= IsNumber(x) And? x >=? 0;
+NonNegativeNumber?(x):= Number?(x) And? x >=? 0;
 
 %/mathpiper

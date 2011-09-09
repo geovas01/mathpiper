@@ -31,7 +31,7 @@
 ];
 
 
-20 # NumericEqual(left_IsNumber, right_IsNumber, precision_PositiveInteger?) <--
+20 # NumericEqual(left_Number?, right_Number?, precision_PositiveInteger?) <--
 [
     If(InVerboseMode(),Tell("NumericEqualNum",{left,right}));
     Local(nI,nD,repI,repD,precI,precD,intAsDec,newDec,newrepI,newrepD,ans);

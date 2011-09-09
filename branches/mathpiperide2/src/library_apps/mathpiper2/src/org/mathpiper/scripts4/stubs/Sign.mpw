@@ -2,10 +2,10 @@
 
 10 # Sign(n_PositiveNumber?) <-- 1;
 10 # Sign(n_Zero?) <-- 0;
-20 # Sign(n_IsNumber) <-- -1;
+20 # Sign(n_Number?) <-- -1;
 15 # Sign(n_Infinity?)_(n <? 0) <-- -1;
 15 # Sign(n_Infinity?)_(n >? 0) <-- 1;
-15 # Sign(n_IsNumber/m_IsNumber) <-- Sign(n)*Sign(m);
+15 # Sign(n_Number?/m_Number?) <-- Sign(n)*Sign(m);
 20 # Sign(n_List?) <-- MapSingle("Sign",n);
 
 100 # Sign(_a)^n_Even? <-- 1;

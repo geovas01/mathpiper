@@ -31,13 +31,13 @@
 
 //todo:tk:should this be removed because it is no longer needed?
 /* Changed by Nobbi before redefinition of Rational
-10 # Floor(x_IsNumber) <-- FloorN(x);
-10 # Ceil (x_IsNumber) <-- CeilN (x);
-10 # Round(x_IsNumber) <-- FloorN(x+0.5);
+10 # Floor(x_Number?) <-- FloorN(x);
+10 # Ceil (x_Number?) <-- CeilN (x);
+10 # Round(x_Number?) <-- FloorN(x+0.5);
 
-20 # Floor(x_Rational?) _ (IsNumber(Numerator(x)) And? IsNumber(Denominator(x))) <-- FloorN(N(x));
-20 # Ceil (x_Rational?) _ (IsNumber(Numerator(x)) And? IsNumber(Denominator(x))) <-- CeilN (N(x));
-20 # Round(x_Rational?) _ (IsNumber(Numerator(x)) And? IsNumber(Denominator(x))) <-- FloorN(N(x+0.5));
+20 # Floor(x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- FloorN(N(x));
+20 # Ceil (x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- CeilN (N(x));
+20 # Round(x_Rational?) _ (Number?(Numerator(x)) And? Number?(Denominator(x))) <-- FloorN(N(x+0.5));
 */
 
 %/mathpiper

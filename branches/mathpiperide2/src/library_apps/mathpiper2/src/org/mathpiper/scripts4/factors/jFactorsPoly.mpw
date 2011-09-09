@@ -538,7 +538,7 @@ UnFence("jFac",3);
 UnFence("FixUpMonicFactors",1);
 
 
-//10 # matchPower(_Z^n_IsNumber) <-- n;
+//10 # matchPower(_Z^n_Number?) <-- n;
 
 //15 # matchPower(_Z) <-- 1;
 

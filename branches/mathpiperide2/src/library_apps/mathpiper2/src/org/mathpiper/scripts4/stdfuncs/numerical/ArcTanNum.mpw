@@ -19,7 +19,7 @@ ArcTanNum(x) :=
 
 /* old methods -- slower for now
 /// numerical evaluation of ArcTan using continued fractions: top level
-2 # ArcTan(x_IsNumber)_InNumericMode() <--
+2 # ArcTan(x_Number?)_InNumericMode() <--
 Sign(x) *
 // now we need to compute ArcTan of a nonnegative number Abs(x)
 [

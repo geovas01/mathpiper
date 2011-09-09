@@ -72,9 +72,9 @@ Rule("UniVariate",3,1000,IsComplex(var) Or? List?(var))
 ];
 
 
-200 # UniVariate(_var,_first,_coefs) + a_IsNumber <--
+200 # UniVariate(_var,_first,_coefs) + a_Number? <--
       UniVariate(var,first,coefs) + UniVariate(var,0,{a});
-200 # a_IsNumber + UniVariate(_var,_first,_coefs) <--
+200 # a_Number? + UniVariate(_var,_first,_coefs) <--
       UniVariate(var,first,coefs) + UniVariate(var,0,{a});
 
 

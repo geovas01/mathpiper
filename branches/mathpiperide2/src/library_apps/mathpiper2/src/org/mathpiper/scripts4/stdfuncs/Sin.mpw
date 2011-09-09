@@ -19,7 +19,7 @@
 
 
 
-2 # Sin(x_IsNumber)_InNumericMode() <-- SinNum(x);
+2 # Sin(x_Number?)_InNumericMode() <-- SinNum(x);
 4 # Sin(ArcSin(_x))           <-- x;
 4 # Sin(ArcCos(_x)) <-- Sqrt(1-x^2);
 4 # Sin(ArcTan(_x)) <-- x/Sqrt(1+x^2);

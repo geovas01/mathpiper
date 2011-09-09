@@ -32,7 +32,7 @@ Result: True;
 In> Constant?(Cos(2+x))
 Result: False;
 
-*SEE IsNumber, Integer?, VarList
+*SEE Number?, Integer?, VarList
 %/mathpiper_docs
 
 

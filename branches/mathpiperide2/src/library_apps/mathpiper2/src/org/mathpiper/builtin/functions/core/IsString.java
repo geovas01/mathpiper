@@ -74,6 +74,6 @@ Result: True;
 In> IsString(duh);
 Result: False;
 
-*SEE IsAtom, IsNumber
+*SEE IsAtom, Number?
 %/mathpiper_docs
 */

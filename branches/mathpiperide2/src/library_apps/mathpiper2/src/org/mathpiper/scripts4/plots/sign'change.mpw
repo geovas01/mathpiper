@@ -3,7 +3,7 @@
 /// utility function: check whether the derivative changes sign in given 3 numbers, return 0 or 1. Also return 1 when one of the arguments is not a number.
 sign'change(x,y,z) :=
 If(
-        IsNumber(x) And? IsNumber(y) And? IsNumber(z)
+        Number?(x) And? Number?(y) And? Number?(z)
         And? Not? (
                 x>?y And? y<?z Or? 
                 

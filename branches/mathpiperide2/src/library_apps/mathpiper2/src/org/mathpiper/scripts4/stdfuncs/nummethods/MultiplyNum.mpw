@@ -34,15 +34,15 @@ Function() MultiplyNum(x);
         );
 ];
 
-20 # MultiplyNum(x_IsNumber, y_Rational?) <-- MultiplyNum(y, x);
+20 # MultiplyNum(x_Number?, y_Rational?) <-- MultiplyNum(y, x);
 
-25 # MultiplyNum(x_IsNumber, y_IsNumber) <-- MultiplyN(x,y);
+25 # MultiplyNum(x_Number?, y_Number?) <-- MultiplyN(x,y);
 
-30 # MultiplyNum(Complex(r_IsNumber, i_IsNumber), y_RationalOrNumber?) <-- Complex(MultiplyNum(r, y), MultiplyNum(i, y));
+30 # MultiplyNum(Complex(r_Number?, i_Number?), y_RationalOrNumber?) <-- Complex(MultiplyNum(r, y), MultiplyNum(i, y));
 
-35 # MultiplyNum(y_IsNumber, Complex(r_IsNumber, i_RationalOrNumber?)) <-- MultiplyNum(Complex(r, i), y);
+35 # MultiplyNum(y_Number?, Complex(r_Number?, i_RationalOrNumber?)) <-- MultiplyNum(Complex(r, i), y);
 
-40 # MultiplyNum(Complex(r1_IsNumber, i1_IsNumber), Complex(r2_IsNumber, i2_IsNumber)) <-- Complex(MultiplyNum(r1,r2)-MultiplyNum(i1,i2), MultiplyNum(r1,i2)+MultiplyNum(i1,r2));
+40 # MultiplyNum(Complex(r1_Number?, i1_Number?), Complex(r2_Number?, i2_Number?)) <-- Complex(MultiplyNum(r1,r2)-MultiplyNum(i1,i2), MultiplyNum(r1,i2)+MultiplyNum(i1,r2));
 
 /// more than 2 operands
 30 # MultiplyNum(x_RationalOrNumber?, y_NumericList?)_(Length(y)>?1) <-- MultiplyNum(MultiplyNum(x, First(y)), Rest(y));

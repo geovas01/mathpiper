@@ -85,13 +85,13 @@ TraceOff();
           Enter<**** user rulebase>{(+, 2+3);
               Arg(arg1 -> 2);
               Arg(arg2 -> 3);
-              Enter<builtin>{(IsNumber, IsNumber(x));
+              Enter<builtin>{(Number?, Number?(x));
                   Arg(parameter1 -> 2);
-              Leave<builtin>}(IsNumber(x) -> True,    Local variables: y -> 3, x -> 2, arg2 -> 3, arg1 -> 2, );
-              Enter<builtin>{(IsNumber, IsNumber(y));
+              Leave<builtin>}(Number?(x) -> True,    Local variables: y -> 3, x -> 2, arg2 -> 3, arg1 -> 2, );
+              Enter<builtin>{(Number?, Number?(y));
                   Arg(parameter1 -> 3);
-              Leave<builtin>}(IsNumber(y) -> True,    Local variables: y -> 3, x -> 2, arg2 -> 3, arg1 -> 2, );
-              **** Rule in function (+) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) IsNumber(x), IsNumber(y), True,     Variables: x, y,     Types: Variable, Variable,    Body: AddN(x, y)
+              Leave<builtin>}(Number?(y) -> True,    Local variables: y -> 3, x -> 2, arg2 -> 3, arg1 -> 2, );
+              **** Rule in function (+) matched: Precedence: 50, Parameters: arg1<hold=false>, arg2<hold=false>, Predicates: (Pattern) Number?(x), Number?(y), True,     Variables: x, y,     Types: Variable, Variable,    Body: AddN(x, y)
               Enter<builtin>{(AddN, AddN(x,y));
                   Arg(parameter1 -> 2);
                   Arg(parameter2 -> 3);

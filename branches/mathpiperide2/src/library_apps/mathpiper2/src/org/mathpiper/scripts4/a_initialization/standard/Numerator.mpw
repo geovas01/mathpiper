@@ -4,7 +4,7 @@
 
 1 # Numerator(_x / _y)      <-- x;
 1 # Numerator(-_x/ _y)      <-- -x;
-2 # Numerator(x_IsNumber)   <-- x;
+2 # Numerator(x_Number?)   <-- x;
 
 %/mathpiper
 
@@ -40,7 +40,7 @@ Result: -a;
 In> Numerator(5)
 Result: 5;
 
-*SEE Denominator, Rational?, IsNumber
+*SEE Denominator, Rational?, Number?
 %/mathpiper_docs
 
 

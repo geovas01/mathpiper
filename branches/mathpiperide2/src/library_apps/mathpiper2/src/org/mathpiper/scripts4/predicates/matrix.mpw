@@ -136,7 +136,7 @@ Result: False;
 
 {expr} -- expression to test
 
-{pred} -- predicate test (e.g. IsNumber, Integer?, ...)
+{pred} -- predicate test (e.g. Number?, Integer?, ...)
 
 *DESC
 
@@ -173,7 +173,7 @@ Result: False;
 
 {expr} -- expression to test
 
-{pred} -- predicate test (e.g. IsNumber, Integer?, ...)
+{pred} -- predicate test (e.g. Number?, Integer?, ...)
 
 *DESC
 
@@ -214,7 +214,7 @@ Result: True;
 
 {expr} -- expression to test
 
-{pred} -- predicate test (e.g. IsNumber, Integer?, ...)
+{pred} -- predicate test (e.g. Number?, Integer?, ...)
 
 *DESC
 
@@ -264,14 +264,14 @@ Verify(IsVector({1,2,a,4}),True);
 Verify(IsVector({1,{2,a},4}),False);
 Verify(IsVector({{a,b,c}}),False);
 
-Testing("-- IsVector(IsNumber)");
-Verify(IsVector(IsNumber,1),False);
-Verify(IsVector(IsNumber,{}),True);
-Verify(IsVector(IsNumber,{a,b,c}),False);
-Verify(IsVector(IsNumber,{a,2,c}),False);
-Verify(IsVector(IsNumber,{2,2.5,4}),True);
-Verify(IsVector(IsNumber,{Pi,2,3}),False);
-Verify(IsVector(IsNumber,{{1},{2}}),False);
+Testing("-- IsVector(Number?)");
+Verify(IsVector(Number?,1),False);
+Verify(IsVector(Number?,{}),True);
+Verify(IsVector(Number?,{a,b,c}),False);
+Verify(IsVector(Number?,{a,2,c}),False);
+Verify(IsVector(Number?,{2,2.5,4}),True);
+Verify(IsVector(Number?,{Pi,2,3}),False);
+Verify(IsVector(Number?,{{1},{2}}),False);
 
 %/mathpiper
 
@@ -290,14 +290,14 @@ Verify(IsVector({1,2,a,4}),True);
 Verify(IsVector({1,{2,a},4}),False);
 Verify(IsVector({{a,b,c}}),False);
 
-Testing("-- IsVector(IsNumber)");
-Verify(IsVector(IsNumber,1),False);
-Verify(IsVector(IsNumber,{}),True);
-Verify(IsVector(IsNumber,{a,b,c}),False);
-Verify(IsVector(IsNumber,{a,2,c}),False);
-Verify(IsVector(IsNumber,{2,2.5,4}),True);
-Verify(IsVector(IsNumber,{Pi,2,3}),False);
-Verify(IsVector(IsNumber,{{1},{2}}),False);
+Testing("-- IsVector(Number?)");
+Verify(IsVector(Number?,1),False);
+Verify(IsVector(Number?,{}),True);
+Verify(IsVector(Number?,{a,b,c}),False);
+Verify(IsVector(Number?,{a,2,c}),False);
+Verify(IsVector(Number?,{2,2.5,4}),True);
+Verify(IsVector(Number?,{Pi,2,3}),False);
+Verify(IsVector(Number?,{{1},{2}}),False);
 
 %/mathpiper
 

@@ -1,6 +1,6 @@
 %mathpiper,def="NegativeNumber?"
 
-NegativeNumber?(x):= IsNumber(x) And? x <? 0;
+NegativeNumber?(x):= Number?(x) And? x <? 0;
 
 %/mathpiper
 
@@ -28,5 +28,5 @@ Result: False;
 In> NegativeNumber?(-2.5);
 Result: True;
 
-*SEE IsNumber, PositiveNumber?, NotZero?, NegativeInteger?, NegativeReal?
+*SEE Number?, PositiveNumber?, NotZero?, NegativeInteger?, NegativeReal?
 %/mathpiper_docs

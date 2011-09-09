@@ -11,12 +11,12 @@
 10 # Erf(Infinity)        <-- 1;
 10 # Erf(Undefined) <-- Undefined;
 //10 # Erfc(Infinity)        <-- 0;
-10 # Erf(x_IsNumber)_(x<?0)        <-- -Erf(-x);
-//40 # Erf(x_IsNumber)_(Abs(x) <=? 1 )  <-- N(2/Sqrt(Pi)*ApproxInfSum((-1)^k*x^(2*k+1)/((2*k+1)*k!),0,x));
+10 # Erf(x_Number?)_(x<?0)        <-- -Erf(-x);
+//40 # Erf(x_Number?)_(Abs(x) <=? 1 )  <-- N(2/Sqrt(Pi)*ApproxInfSum((-1)^k*x^(2*k+1)/((2*k+1)*k!),0,x));
 
 LocalSymbols(k)
 [
-        40 # Erf(_x)_(InNumericMode() And? (IsNumber(x) Or? IsComplex(x)) And? Abs(x) <=? 1) <--
+        40 # Erf(_x)_(InNumericMode() And? (Number?(x) Or? IsComplex(x)) And? Abs(x) <=? 1) <--
 [
   Local(prec);
   prec := BuiltinPrecisionGet(); // N(...) modifies the precision
@@ -35,7 +35,7 @@ LocalSymbols(k)
 LocalSymbols(n'max, k)
 [
 
-        50 # Erf(_x)_(InNumericMode() And? (IsNumber(x) Or? IsComplex(x))
+        50 # Erf(_x)_(InNumericMode() And? (Number?(x) Or? IsComplex(x))
                 And? (
                         [        // strongest condition: the exp(-x^2) asymptotic is already good
                                 n'max := 0;

@@ -29,13 +29,13 @@ StringToNumber( str_IsString ) <-- FromBase(10,str);
 
 *E.G.
 
-In> IsNumber("1234")
+In> Number?("1234")
 Result: False
     
 In> StringToNumber("1234")
 Result: 1234
     
-In> IsNumber(%)
+In> Number?(%)
 Result: True
     
 In> StringToNumber("0.12345678")

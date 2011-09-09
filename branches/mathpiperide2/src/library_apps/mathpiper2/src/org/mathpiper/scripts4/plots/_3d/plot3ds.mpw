@@ -156,7 +156,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                 // compute the first point to see if it's okay
                 cx := xrange[1]; cy := yrange[1];
                 fc := N(Eval(Apply({var, func}, {cx, cy})));
-                Check(IsNumber(fc) Or? fc=?Infinity Or? fc=? -Infinity Or? fc=?Undefined,
+                Check(Number?(fc) Or? fc=?Infinity Or? fc=? -Infinity Or? fc=?Undefined,
                         "Argument", 
                         "Plot3DS: Error: cannot evaluate function '"
                         :(PipeToString()Write(func))

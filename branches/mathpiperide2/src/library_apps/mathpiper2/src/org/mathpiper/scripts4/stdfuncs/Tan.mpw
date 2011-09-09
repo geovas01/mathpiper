@@ -16,7 +16,7 @@
 
 
 
-2 # Tan(x_IsNumber)_InNumericMode() <-- TanNum(x);
+2 # Tan(x_Number?)_InNumericMode() <-- TanNum(x);
 4 # Tan(ArcTan(_x))           <-- x;
 4 # Tan(ArcSin(_x)) <-- x/Sqrt(1-x^2);
 4 # Tan(ArcCos(_x)) <-- Sqrt(1-x^2)/x;

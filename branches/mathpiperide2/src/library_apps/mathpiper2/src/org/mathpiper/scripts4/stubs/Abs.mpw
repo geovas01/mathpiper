@@ -2,7 +2,7 @@
 
 10 # Abs(Infinity)         <-- Infinity; //Note:tk:moved here from stdfuncts.
 
-10 # Abs(n_IsNumber) <-- AbsN(n);
+10 # Abs(n_Number?) <-- AbsN(n);
 10 # Abs(n_PositiveNumber?/m_PositiveNumber?) <-- n/m;
 10 # Abs(n_NegativeNumber?/m_PositiveNumber?) <-- (-n)/m;
 10 # Abs(n_PositiveNumber?/m_NegativeNumber?) <-- n/(-m);

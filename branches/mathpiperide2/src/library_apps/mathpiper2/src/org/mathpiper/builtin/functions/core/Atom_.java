@@ -63,7 +63,7 @@ Result: False;
 In> Atom?(5);
 Result: True;
 
-*SEE Function?, IsNumber, IsString
+*SEE Function?, Number?, IsString
 %/mathpiper_docs
 
 

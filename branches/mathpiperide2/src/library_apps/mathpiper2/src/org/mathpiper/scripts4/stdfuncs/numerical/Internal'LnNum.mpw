@@ -9,9 +9,9 @@
 // when internal math is fixed, we may want to use Brent's method (below)
 // this method is using a cubically convergent Newton iteration for Exp(x/2)-a*Exp(-x/2)=0:
 // x' := x - 2 * (Exp(x)-a) / (Exp(x)+a) = x-2+4*a/(Exp(x)+a)
-Internal'LnNum(x_IsNumber)_(x>=?1) <-- NewtonLn(x);
+Internal'LnNum(x_Number?)_(x>=?1) <-- NewtonLn(x);
 
-Internal'LnNum(x_IsNumber)_(0<?x And? x<?1) <-- - Internal'LnNum(DivideN(1,x));
+Internal'LnNum(x_Number?)_(0<?x And? x<?1) <-- - Internal'LnNum(DivideN(1,x));
 
 %/mathpiper
 

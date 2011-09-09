@@ -207,13 +207,13 @@ IntFunc(x,Tanh(_x)/Cosh(_x),-1/Cosh(x));
 
 IntFunc(x,1/Sqrt(m_IsFreeOf(x)-_x^2),ArcSin(x/Sqrt(m)) );
 
-IntFunc(x,Exp(n_IsNumber*_x)*Sin(m_IsNumber*_x),Exp(n*x)*(n*Sin(m*x)- m*Cos(m*x))/(m^2+n^2) );
+IntFunc(x,Exp(n_Number?*_x)*Sin(m_Number?*_x),Exp(n*x)*(n*Sin(m*x)- m*Cos(m*x))/(m^2+n^2) );
 
 // n>0
-IntFunc(x,Ln(_x)*(_x)^n_IsNumber,(1/(n+1))*x^(n+1)*Ln(x) - (1/(n+1)^2)*x^(n+1) );
+IntFunc(x,Ln(_x)*(_x)^n_Number?,(1/(n+1))*x^(n+1)*Ln(x) - (1/(n+1)^2)*x^(n+1) );
 
 // n>0
-IntFunc(x,Ln(A_IsNumber*_x)*(_x)^n_IsNumber,(1/(n+1))*x^(n+1)*Ln(A*x) - (1/(n+1)^2)*x^(n+1) );
+IntFunc(x,Ln(A_Number?*_x)*(_x)^n_Number?,(1/(n+1))*x^(n+1)*Ln(A*x) - (1/(n+1)^2)*x^(n+1) );
 
 IntFunc(x,Sin(Ln(_x)),x*Sin(Ln(x))/2 - x*Cos(Ln(x))/2 );
 
@@ -253,20 +253,20 @@ IntFunc(x,ArcCosh(_x),x*ArcCosh(x) - Sqrt(x-1)*Sqrt(x+1) );
 
 
 // n^2 > x^2
-//IntFunc(x,num_IsFreeOf(var)/(-(_x)^2 + n_IsNumber),num*ArcTanh(x/Sqrt(n))/n);
+//IntFunc(x,num_IsFreeOf(var)/(-(_x)^2 + n_Number?),num*ArcTanh(x/Sqrt(n))/n);
 
 // x^2 > n^2
-//IntFunc(x,num_IsFreeOf(var)/((_x)^2 - n_IsNumber),num * -ArcCoth(x/Sqrt(n))/Sqrt(n));
+//IntFunc(x,num_IsFreeOf(var)/((_x)^2 - n_Number?),num * -ArcCoth(x/Sqrt(n))/Sqrt(n));
 
 // n^2 > x^2
-//IntFunc(x,num_IsFreeOf(var)/Sqrt(n_IsNumber - (_x)^2),num*ArcSin(x/Sqrt(n)));
+//IntFunc(x,num_IsFreeOf(var)/Sqrt(n_Number? - (_x)^2),num*ArcSin(x/Sqrt(n)));
 
 // previous code is killing this....
-IntFunc(x,num_IsFreeOf(var)/(A_IsNumber + B_IsNumber*(_x))^2,-num/(A*b + B^2*x));
+IntFunc(x,num_IsFreeOf(var)/(A_Number? + B_Number?*(_x))^2,-num/(A*b + B^2*x));
 
 // Code works now?
-IntFunc(x,num_IsFreeOf(var)/(n_IsNumber + m_IsNumber*Exp(p_IsNumber*(_x))),num*x/n - num*Ln(n + m*Exp(p*x))/(n*p));
-IntFunc(x,num_IsFreeOf(var)/(m_IsNumber*Exp(p_IsNumber*(_x)) + n_IsNumber),num*x/n - num*Ln(n + m*Exp(p*x))/(n*p));
+IntFunc(x,num_IsFreeOf(var)/(n_Number? + m_Number?*Exp(p_Number?*(_x))),num*x/n - num*Ln(n + m*Exp(p*x))/(n*p));
+IntFunc(x,num_IsFreeOf(var)/(m_Number?*Exp(p_Number?*(_x)) + n_Number?),num*x/n - num*Ln(n + m*Exp(p*x))/(n*p));
 
 // note:hso: removed erroneous "a" in denominator of function below
 IntPureSquare(x,num_IsFreeOf(var)/(_x),1,1,(num/(Sqrt(Matched'b()*Matched'a())))*ArcTan(var/Sqrt(Matched'b()/Matched'a())));

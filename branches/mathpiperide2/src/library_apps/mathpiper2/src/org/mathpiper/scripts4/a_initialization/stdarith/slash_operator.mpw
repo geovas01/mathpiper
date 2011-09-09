@@ -6,10 +6,10 @@
 
 52 # x_PositiveNumber? / 0 <-- Infinity;
 52 # x_NegativeNumber? / 0 <-- -Infinity;
-55 # (_x / y_IsNumber)_(Zero?(y)) <-- Undefined;
+55 # (_x / y_Number?)_(Zero?(y)) <-- Undefined;
 55 # 0 / _x <-- 0;
 // unnecessary rule (see #100 below). TODO: REMOVE
-//55 # x_IsNumber / y_NegativeNumber? <-- (-x)/(-y);
+//55 # x_Number? / y_NegativeNumber? <-- (-x)/(-y);
 
 56 # (x_NonZeroInteger? / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
      [
@@ -47,13 +47,13 @@
        (QuotientN(x,gcd)*p)/(QuotientN(y,gcd)*q);
      ];
 
-60 # (x_Decimal? / y_IsNumber)  <-- DivideN(x,y);
-60 # (x_IsNumber  / y_Decimal?) <-- DivideN(x,y); 
-60 # (x_IsNumber  / y_IsNumber)_(InNumericMode()) <-- DivideN(x,y);
+60 # (x_Decimal? / y_Number?)  <-- DivideN(x,y);
+60 # (x_Number?  / y_Decimal?) <-- DivideN(x,y); 
+60 # (x_Number?  / y_Number?)_(InNumericMode()) <-- DivideN(x,y);
 
 
 90 # x_Infinity? / y_Infinity? <-- Undefined;
-95  # x_Infinity? / y_IsNumber <-- Sign(y)*x;
+95  # x_Infinity? / y_Number? <-- Sign(y)*x;
 95  # x_Infinity? / y_IsComplex <-- Infinity;
 
 90 # Undefined / _y <-- Undefined;

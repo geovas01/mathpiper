@@ -4,7 +4,7 @@
 
 1 # Denominator(_x / _y)      <-- y;
 1 # Denominator(-_x/ _y)      <-- y;
-2 # Denominator(x_IsNumber)   <-- 1;
+2 # Denominator(x_Number?)   <-- 1;
 
 %/mathpiper
 
@@ -39,7 +39,7 @@ Result: x^2
 In> Denominator(5)
 Result: 1;
 
-*SEE Numerator, Rational?, IsNumber
+*SEE Numerator, Rational?, Number?
 %/mathpiper_docs
 
 

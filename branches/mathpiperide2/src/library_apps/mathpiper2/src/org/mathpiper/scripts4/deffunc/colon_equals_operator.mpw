@@ -10,7 +10,7 @@ HoldArgument(":=",aRightAssign);
 // assign a variable
 Rule(":=",2,0,Atom?(aLeftAssign))
 [
-  Check( Not? IsNumber(aLeftAssign), "Argument", "Only a variable can be placed on the left side of an := operator." );
+  Check( Not? Number?(aLeftAssign), "Argument", "Only a variable can be placed on the left side of an := operator." );
 
   MacroBind(aLeftAssign,Eval(aRightAssign));
 
