@@ -60,16 +60,16 @@ Function("NthRoot'Calc",{m,n})
    // following.  would this be
    // faster in general?
 //Echo("i j ",i," ",j);
-   While(IsLessThan(i,j))
+   While(LessThan?(i,j))
    [
       Bind(in,PowerN(i,n));
 //Echo("r in mod ",r, " ",in," ",ModuloN(r,in));
-      While(IsEqual(ModuloN(r,in),0))
+      While(Equal?(ModuloN(r,in),0))
       [
          Bind(f,MultiplyN(f,i));
          Bind(r,QuotientN(r,in));
       ];
-      While(IsEqual(ModuloN(r,i),0))   //
+      While(Equal?(ModuloN(r,i),0))   //
          Bind(r,QuotientN(r,i));         //
       //Bind(i,NextPrime(i));
       Bind(i,NextPseudoPrime(i));

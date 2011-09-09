@@ -8,7 +8,7 @@ HoldArgument(":=",aRightAssign);
 
 /* := assignment. */
 // assign a variable
-Rule(":=",2,0,IsAtom(aLeftAssign))
+Rule(":=",2,0,Atom?(aLeftAssign))
 [
   Check( Not? IsNumber(aLeftAssign), "Argument", "Only a variable can be placed on the left side of an := operator." );
 
@@ -41,8 +41,8 @@ Rule("AssignArray",3,1,IsString(setlistindex))
 // assign generic arrays
 Rule("AssignArray",3,1,
    And?(
-           IsEqual(IsGeneric(setlistterm),True),
-           IsEqual(GenericTypeName(setlistterm),"Array")
+           Equal?(Generic?(setlistterm),True),
+           Equal?(GenericTypeName(setlistterm),"Array")
           )
     )
 [
@@ -57,7 +57,7 @@ Rule("AssignArray",3,2,True)
 ];
 
 // a[x] := ... assigns to an array element
-Rule(":=",2,10,IsFunction(aLeftAssign) And? (First(FunctionToList(aLeftAssign)) =? Nth))
+Rule(":=",2,10,Function?(aLeftAssign) And? (First(FunctionToList(aLeftAssign)) =? Nth))
 [
  Local(frst,scnd);
 
@@ -72,15 +72,15 @@ Rule(":=",2,10,IsFunction(aLeftAssign) And? (First(FunctionToList(aLeftAssign)) 
 ];
 
 // f(x):=... defines a new function
-Rule(":=",2,30,IsFunction(aLeftAssign) And? Not?(IsEqual(aLeftAssign[0], ToAtom(":="))) )
+Rule(":=",2,30,Function?(aLeftAssign) And? Not?(Equal?(aLeftAssign[0], ToAtom(":="))) )
 [
-  Check( Not? IsEqual(aLeftAssign[0], ToAtom("/")), "Argument", "Only a variable can be placed on the left side of an := operator." );
+  Check( Not? Equal?(aLeftAssign[0], ToAtom("/")), "Argument", "Only a variable can be placed on the left side of an := operator." );
 
   Local(oper,args,arity);
   Bind(oper,ToString(aLeftAssign[0]));
   Bind(args,Rest(FunctionToList(aLeftAssign)));
   If(
-        And?(IsGreaterThan(Length(args), 1), IsEqual( MathNth(args, Length(args)), ToAtom("...") )),
+        And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom("...") )),
         // function with variable number of arguments
         [
           DestructiveDelete(args,Length(args));        // remove trailing "..."

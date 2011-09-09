@@ -24,7 +24,7 @@ SqrtN(x) := MathSqrt1(x);        // to have another function is easier for debug
 30 # MathSqrt1(x_PositiveNumber?) <-- MathSqrtFloat(x);
 
 // for integers, we need to compute Sqrt(x) to (the number of bits in x) + 1 bits to figure out whether Sqrt(x) is itself an integer. If Sqrt(x) for integer x is exactly equal to an integer, we should return the integer answer rather than the float answer. For this answer, the current precision might be insufficient, therefore we compute with potentially more digits. This is slower but we assume this is what the user wants when calling SqrtN() on an integer.
-20 # MathSqrt1(x_Integer?) _ (IsGreaterThan(x,0)) <--
+20 # MathSqrt1(x_Integer?) _ (GreaterThan?(x,0)) <--
 [
         Local(result);
         If(ModuloN(x,4)<?2 And? ModuloN(x,3)<?2 And? ModuloN(x+1,5)<?3,

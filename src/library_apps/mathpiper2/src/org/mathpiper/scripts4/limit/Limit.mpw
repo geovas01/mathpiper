@@ -276,7 +276,7 @@ Sign(_var, _tar, _dir, _exp, _n)
 
 /*  Global default rule : evaluate expression  */
 
-700 # Lim(_var, _tar, _dir, exp_IsFunction)
+700 # Lim(_var, _tar, _dir, exp_Function?)
 <-- Eval(MapArgs(exp,"LimitArgs"));
 
 LimitArgs(_arg) <-- Lim(var,tar,dir,arg);

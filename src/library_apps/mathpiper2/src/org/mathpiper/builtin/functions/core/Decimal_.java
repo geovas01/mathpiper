@@ -26,9 +26,9 @@ import org.mathpiper.lisp.Utility;
 
 /**
  *
- *  
+ *
  */
-public class IsInteger extends BuiltinFunction
+public class Decimal_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -36,26 +36,32 @@ public class IsInteger extends BuiltinFunction
         ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-//        LispError.check(result.type().equals("Number"), LispError.KLispErrInvalidArg);
-        BigNumber num = (BigNumber) result.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
-        if (num == null)
+        Object cons = result.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+
+        BigNumber bigNumber;
+        if(cons instanceof BigNumber)
+        {
+            bigNumber = (BigNumber) cons;
+
+            Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),  bigNumber.isDecimal());
+        }
+        else
         {
             Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
-        } else
-        {
-            Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), num.isInteger());
         }
+
+
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="Integer?",categories="User Functions;Predicates;Built In"
-*CMD Integer? --- test to see if a number is an integer
+%mathpiper_docs,name="Decimal?",categories="User Functions;Predicates;Built In"
+*CMD Decimal? --- test to see if a number is a decimal
 *CORE
 *CALL
-	Integer?(expr)
+	Decimal?(expr)
 
 *PARMS
 
@@ -63,36 +69,22 @@ public class IsInteger extends BuiltinFunction
 
 *DESC
 
-This function tests whether "expr" is an integer number. There are two kinds
+This function tests whether "expr" is a decimal number. There are two kinds
 of numbers, integers (e.g. 6) and decimals (e.g. -2.75 or 6.0).
 *E.G.
 
-In> Integer?(6);
+In> Decimal?(3.25);
 Result: True;
 
-In> Integer?(3.25);
+In> Decimal?(6);
 Result: False;
 
-In> Integer?(1/2);
+In> Decimal?(1/2);
 Result: False;
 
-In> Integer?(3.2/10);
+In> Decimal?(3.2/10);
 Result: False;
 
-*SEE IsString, IsAtom, Integer?, IsDecimal, IsPositiveNumber, NegativeNumber?, IsNumber
+*SEE IsString, IsAsom, Integer?, IsPositiveNumber, NegativeNumber?, IsNumber
 %/mathpiper_docs
-
-
-
-
-
-%mathpiper,name="Integer?",subtype="automatic_test"
-
-Verify(Integer?(123),True);
-Verify(Integer?(123.123),False);
-Verify(Integer?(a),False);
-Verify(Integer?({a}),False);
-
-%/mathpiper
- 
 */

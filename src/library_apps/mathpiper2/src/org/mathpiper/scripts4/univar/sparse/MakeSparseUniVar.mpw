@@ -2,7 +2,7 @@
 
 //Retract("MakeSparseUniVar",*);
 
-10 # MakeSparseUniVar(poly_CanBeUni,var_IsAtom) <--
+10 # MakeSparseUniVar(poly_CanBeUni,var_Atom?) <--
 [
     If(InVerboseMode(),Tell("MakeSparseUniVar",{var,poly}));
     Local(uni,first,coeffs,n,c,lc,termlist,term);

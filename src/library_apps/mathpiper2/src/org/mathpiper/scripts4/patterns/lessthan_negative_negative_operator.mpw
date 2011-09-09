@@ -4,14 +4,14 @@ Rulebase("<--",{leftOperand,rightOperand});
 
 
 
-Rule("<--",2,1,IsEqual(Type(leftOperand),"#"))
+Rule("<--",2,1,Equal?(Type(leftOperand),"#"))
 [
   DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
 ];
 
 
 
-Rule("<--",2,2,IsFunction(leftOperand))
+Rule("<--",2,2,Function?(leftOperand))
 [
  DefinePattern(leftOperand,rightOperand,0,True);
 ];
@@ -66,7 +66,7 @@ Now we come to the more complex line
 
 20 # f(n_IntegerGreaterThanZero?) <-- n*f(n-1);
 
-We realize we need a function IsGreaterThanZero, so we define this function, with
+We realize we need a function GreaterThan?Zero, so we define this function, with
 IntegerGreaterThanZero?(_n) <-- (Integer?(n) And? n>?0);
 
 You can verify that it works by trying f(5), which should return the same value as 5!.

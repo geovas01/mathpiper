@@ -13,7 +13,7 @@ MatchPureSquared
  */
 LocalSymbols(a,b)[
 
-10 # MatchLinear(var_IsAtom,expr_CanBeUni(var)) <--
+10 # MatchLinear(var_Atom?,expr_CanBeUni(var)) <--
 [
   Bind(expr,MakeUni(expr,var));
   MatchLinear(expr);
@@ -39,7 +39,7 @@ UnFence("MatchLinear",2);
 /** MatchPureSquared(variable,expression) - matches expressions
  *  of the form a*x^2+b.
  */
-10 # MatchPureSquared(var_IsAtom,_sign2,_sign0,expr_CanBeUni(var)) <--
+10 # MatchPureSquared(var_Atom?,_sign2,_sign0,expr_CanBeUni(var)) <--
 [
   Bind(expr,MakeUni(expr,var));
   MatchPureSquared(expr,sign2,sign0);

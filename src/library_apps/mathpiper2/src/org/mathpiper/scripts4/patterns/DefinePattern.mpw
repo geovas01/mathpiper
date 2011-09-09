@@ -7,7 +7,7 @@ Rulebase("DefinePattern",{leftOperand, rightOperand, rulePrecedence, postPredica
 
 
 
-Rule("DefinePattern",4,9,IsEqual(Type(leftOperand),"_"))
+Rule("DefinePattern",4,9,Equal?(Type(leftOperand),"_"))
 [
     DefinePattern(leftOperand[1], rightOperand, rulePrecedence, leftOperand[2]);
 ];

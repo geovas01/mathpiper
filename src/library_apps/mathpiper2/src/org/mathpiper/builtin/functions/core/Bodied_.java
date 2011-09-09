@@ -20,61 +20,48 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.Operator;
 import org.mathpiper.lisp.Utility;
 
 /**
  *
  *  
  */
-public class IsAtom extends BuiltinFunction
+public class Bodied_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer result = new ConsPointer();
-        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), result.car() instanceof String);
+        Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), op != null);
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="IsAtom",categories="User Functions;Predicates;Built In"
-*CMD IsAtom --- test for an atom
+%mathpiper_docs,name="Bodied?",categories="User Functions;Predicates;Built In"
+*CMD Bodied? --- check for function syntax
 *CORE
 *CALL
-	IsAtom(expr)
+	Bodied?("op")
 
 *PARMS
 
-{expr} -- expression to test
+{"op"} -- string, the name of a function
 
 *DESC
 
-This function tests whether "expr" is an atom. Numbers, strings, and
-variables are all atoms.
+Check whether the function with given name {"op"} has been declared as a
+"bodied", operator, and  return {True} or {False}.
 
 *E.G.
 
-In> IsAtom(x+5);
-Result: False;
-In> IsAtom(5);
+In> Bodied?("While");
 Result: True;
+In> Bodied?("Sin");
+Result: False;
 
-*SEE IsFunction, IsNumber, IsString
+*SEE PrecedenceGet,Infix?,IsPostfix,IsPrefix
 %/mathpiper_docs
-
-
-
-
-
-%mathpiper,name="IsAtom",subtype="automatic_test"
-
-Verify(IsAtom({a,b,c}),False);
-Verify(IsAtom(a),True);
-Verify(IsAtom(123),True);
-
-%/mathpiper
 */

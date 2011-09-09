@@ -58,7 +58,7 @@ to be a useful debugging tool.
 
 TestFunction() :=
 [
-    IsLessThan(Complex(1,1),3);
+    LessThan?(Complex(1,1),3);
 ];
 
 
@@ -71,7 +71,7 @@ StackTraceOff();
 /%/mathpiper
 
     /%error,preserve="false"
-      Result: In function "IsLessThan" :
+      Result: In function "LessThan?" :
       bad argument number 1(counting from 1) :
       The first argument must be a non-complex decimal number or a string.
       The offending argument Complex(1,1) evaluated to Complex(1,1)
@@ -82,9 +82,9 @@ StackTraceOff();
          1: -> "/tmp/mathpiperide917565545585604790.mpw_tmp"
       -----------------------------------------
       2: Prog
-         3: -> IsLessThan(Complex(1,1),3)
+         3: -> LessThan?(Complex(1,1),3)
       -----------------------------------------
-      4: IsLessThan
+      4: LessThan?
          5: -> Complex(1,1)
          6: -> 3
       ========================================= End Of Built In Function Stack Trace

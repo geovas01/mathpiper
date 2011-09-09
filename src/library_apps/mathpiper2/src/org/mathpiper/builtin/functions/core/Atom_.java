@@ -20,17 +20,61 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 
 /**
  *
  *  
  */
-public class InDebugMode extends BuiltinFunction
+public class Atom_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        ConsPointer result = new ConsPointer();
+        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), result.car() instanceof String);
     }
 }
+
+
+
+/*
+%mathpiper_docs,name="Atom?",categories="User Functions;Predicates;Built In"
+*CMD Atom? --- test for an atom
+*CORE
+*CALL
+	Atom?(expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+*DESC
+
+This function tests whether "expr" is an atom. Numbers, strings, and
+variables are all atoms.
+
+*E.G.
+
+In> Atom?(x+5);
+Result: False;
+In> Atom?(5);
+Result: True;
+
+*SEE Function?, IsNumber, IsString
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Atom?",subtype="automatic_test"
+
+Verify(Atom?({a,b,c}),False);
+Verify(Atom?(a),True);
+Verify(Atom?(123),True);
+
+%/mathpiper
+*/

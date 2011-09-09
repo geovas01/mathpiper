@@ -8,7 +8,7 @@
 
 10 # RationalFunction?(expr_RationalOrNumber?,_var) <-- False;
 
-15 # RationalFunction?(_expr,var_IsAtom)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
+15 # RationalFunction?(_expr,var_Atom?)_(Type(expr)=?"/" Or? Type(-expr)=?"/") <--
 [
     If (Polynomial?(Numerator(expr),var) And? Polynomial?(Denominator(expr),var),
         Contains(VarList(Denominator(expr)),var),

@@ -42,7 +42,7 @@ LocalSymbols(numericMode)
     ExceptionCatch( numericResult:=Eval(@expression), exception := ExceptionGet() );
     //If(InVerboseMode(),Tell("  1",numericResult));
 
-    If(IsDecimal(numericResult), numericResult := RoundToN(numericResult, @precision));
+    If(Decimal?(numericResult), numericResult := RoundToN(numericResult, @precision));
     //If(InVerboseMode(),Tell("  2",numericResult));
 
     numericMode := previousNumericMode;

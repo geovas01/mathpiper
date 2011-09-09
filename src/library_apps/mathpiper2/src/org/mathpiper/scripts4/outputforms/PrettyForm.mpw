@@ -65,7 +65,7 @@ CharList(length,item):=
 [
   Local(line,i);
   line:="";
-  For(Bind(i,0),IsLessThan(i,length),Bind(i,AddN(i,1)))
+  For(Bind(i,0),LessThan?(i,length),Bind(i,AddN(i,1)))
     Bind(line, line:item);
   line;
 ];
@@ -237,7 +237,7 @@ FormulaBracket(f):=
 
 /* Rulebase("Formula",{f}); */
 
-1 # Formula(f_IsAtom) <--
+1 # Formula(f_Atom?) <--
   MakeOper(0,0,Length(ToString(f)),1,"ToAtom",ToString(f),0);
 
 
@@ -363,8 +363,8 @@ FormulaBracket(f):=
 
 Rulebase("BracketOn",{op,f,prec});
 
-Rule("BracketOn",3,1,IsFunction(f) And? ArgumentsCount(f) =? 2
-     And? IsInfix(Type(f)) And? PrecedenceGet(Type(f)) >? prec)
+Rule("BracketOn",3,1,Function?(f) And? ArgumentsCount(f) =? 2
+     And? Infix?(Type(f)) And? PrecedenceGet(Type(f)) >? prec)
 [
  FormulaBracket(op);
 ];
@@ -381,7 +381,7 @@ Rule("BracketOn",3,2,True)
 
 
 
-10 # Formula(f_IsFunction)_(ArgumentsCount(f) =? 2 And? IsInfix(Type(f))) <--
+10 # Formula(f_Function?)_(ArgumentsCount(f) =? 2 And? Infix?(Type(f))) <--
 [
   Local(l,r,oper,width,height,base);
   Bind(l, Formula(f[1]));
@@ -403,7 +403,7 @@ Rule("BracketOn",3,2,True)
 
 
 
-11 # Formula(f_IsFunction) <--
+11 # Formula(f_Function?) <--
 [
   Local(head,args,all);
   Bind(head, Formula(f[0]));
@@ -436,7 +436,7 @@ Rule("RenderFormula",4,1,f[5] =? "ToAtom" And? f[6] =? "(" And? f[4] >? 1)
 
   cf[y] := StringMidSet(x, "/", cf[y]);
   cf[AddN(y,height)] := StringMidSet(x, "\\", cf[AddN(y,height)]);
-  For (Bind(i,1),IsLessThan(i,height),Bind(i,AddN(i,1)))
+  For (Bind(i,1),LessThan?(i,height),Bind(i,AddN(i,1)))
     cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 
@@ -451,7 +451,7 @@ Rule("RenderFormula",4,1,f[5] =? "ToAtom" And? f[6] =? ")" And? f[4] >? 1)
   Bind(height, SubtractN(f[4],1));
   cf[y] := StringMidSet(x, "\\", cf[y]);
   cf[y+height] := StringMidSet(x, "/", cf[y+height]);
-  For (Bind(i,1),IsLessThan(i,height),Bind(i,AddN(i,1)))
+  For (Bind(i,1),LessThan?(i,height),Bind(i,AddN(i,1)))
     cf[AddN(y,i)] := StringMidSet(x, "|", cf[AddN(y,i)]);
 ];
 

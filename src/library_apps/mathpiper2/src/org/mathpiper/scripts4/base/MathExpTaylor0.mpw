@@ -17,7 +17,7 @@ Defun("MathExpTaylor0",{x})
   Bind(eps,MathIntPower(10,MathNegate(BuiltinPrecisionGet())));
   // While (term>?epsilon)
   
-  While(IsGreaterThan(AbsN(term),eps))
+  While(GreaterThan?(AbsN(term),eps))
   [
     //   i <- i+1
     Bind(i,AddN(i,1));

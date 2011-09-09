@@ -123,9 +123,9 @@
 
 10 # FactorsMultivariateSpecialCases(-_expr) <-- {-1,1}:FactorsMultivariateSpecialCases(expr);
 
-10 # FactorsMultivariateSpecialCases(x_IsAtom + y_IsAtom) <-- [If(InVerboseMode(),Tell(1));{{x+y,1}};];
+10 # FactorsMultivariateSpecialCases(x_Atom? + y_Atom?) <-- [If(InVerboseMode(),Tell(1));{{x+y,1}};];
 
-10 # FactorsMultivariateSpecialCases(x_IsAtom - y_IsAtom) <-- [If(InVerboseMode(),Tell(2));{{x-y,1}};];
+10 # FactorsMultivariateSpecialCases(x_Atom? - y_Atom?) <-- [If(InVerboseMode(),Tell(2));{{x-y,1}};];
 
 10 # FactorsMultivariateSpecialCases(_n*_x^p_Integer? + _n*_y) <-- [If(InVerboseMode(),Tell(3));{n,1}:FactorsMultivariateSpecialCases(x+y);];
 

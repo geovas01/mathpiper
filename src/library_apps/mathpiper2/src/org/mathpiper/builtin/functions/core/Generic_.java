@@ -15,8 +15,10 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
+
 package org.mathpiper.builtin.functions.core;
 
+import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
@@ -26,52 +28,28 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class IsEqual extends BuiltinFunction
+public class Generic_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated1 = new ConsPointer();
-        evaluated1.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer evaluated2 = new ConsPointer();
-        evaluated2.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
-                Utility.equals(aEnvironment, aStackTop, evaluated1, evaluated2));
+        ConsPointer evaluated = new ConsPointer();
+        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), evaluated.car() instanceof BuiltinContainer);
     }
 }//end class.
 
 
 
-
 /*
-%mathpiper_docs,name="IsEqual",categories="User Functions;Built In"
-*CMD IsEqual --- check equality
+%mathpiper_docs,name="Generic?",categories="Programmer Functions;Native Objects;Built In"
+*CMD Generic? --- check for generic object
 *CORE
 *CALL
-	IsEqual(a,b)
+	Generic?(object)
 
 *DESC
-Compares evaluated {a} and {b} recursively
-(stepping into expressions). So "IsEqual(a,b)" returns
-"True" if the expressions would be printed exactly
-the same, and "False" otherwise.
-
-*SEE GreaterThan, IsLessThan
+Returns {True} if an object is of a generic object type.
 
 %/mathpiper_docs
-
-
-
-
-
-%mathpiper,name="IsEqual",subtype="automatic_test"
-
-Verify(IsEqual(a,b),False);
-Verify(IsEqual(a,a),True);
-Verify(IsEqual({a,b},{a}),False);
-Verify(IsEqual({a,b},{a,b}),True);
-
-%/mathpiper
-
 */

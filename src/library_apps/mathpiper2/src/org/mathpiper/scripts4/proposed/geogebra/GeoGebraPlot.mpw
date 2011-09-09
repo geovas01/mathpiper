@@ -8,7 +8,7 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
 5 # GeoGebraPlot(_arg1) <-- GeoGebraPlot(arg1,{});  //Handle single argument call.
 
 
-20 # GeoGebraPlot(function_IsFunction, options_IsList)_(Not? IsList(function)) <--
+20 # GeoGebraPlot(function_Function?, options_IsList)_(Not? IsList(function)) <--
 [
     Local(command);
     

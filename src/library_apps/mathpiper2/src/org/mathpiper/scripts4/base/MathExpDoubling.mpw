@@ -6,7 +6,7 @@ Defun("MathExpDoubling", {value, n})
         Local(shift, result);
         Bind(shift, n);
         Bind(result, value);
-        While (IsGreaterThan(shift,0))        // will lose 'shift' bits of precision here
+        While (GreaterThan?(shift,0))        // will lose 'shift' bits of precision here
         [
                 Bind(result, MultiplyN(result, result));
                 Bind(shift, AddN(shift,MathNegate(1)));

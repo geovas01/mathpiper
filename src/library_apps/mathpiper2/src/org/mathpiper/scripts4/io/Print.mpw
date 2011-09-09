@@ -16,8 +16,8 @@
 ];
 
 /* Print an argument within an environment of precedence n */
-10 # Print(x_IsAtom,_n) <-- Write(x);
-10 # Print(_x,_n)_(IsInfix(Type(x))And? ArgumentsCount(x) =? 2) <--
+10 # Print(x_Atom?,_n) <-- Write(x);
+10 # Print(_x,_n)_(Infix?(Type(x))And? ArgumentsCount(x) =? 2) <--
 [
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -69,7 +69,7 @@
   WriteString("]");
 ];
 
-100 # Print(x_IsFunction,_n) <--
+100 # Print(x_Function?,_n) <--
  [
    Write(x[0]);
    WriteString("(");

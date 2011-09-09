@@ -27,12 +27,12 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class IsBodied extends BuiltinFunction
+public class Infix_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+        Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
         Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), op != null);
     }
 }
@@ -40,11 +40,11 @@ public class IsBodied extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsBodied",categories="User Functions;Predicates;Built In"
-*CMD IsBodied --- check for function syntax
+%mathpiper_docs,name="Infix?",categories="User Functions;Predicates;Built In"
+*CMD Infix? --- check for function syntax
 *CORE
 *CALL
-	IsBodied("op")
+	Infix?("op")
 
 *PARMS
 
@@ -53,15 +53,13 @@ public class IsBodied extends BuiltinFunction
 *DESC
 
 Check whether the function with given name {"op"} has been declared as a
-"bodied", operator, and  return {True} or {False}.
+"bodied", infix, postfix, or prefix operator, and  return {True} or {False}.
 
 *E.G.
 
-In> IsBodied("While");
+In> Infix?("+");
 Result: True;
-In> IsBodied("Sin");
-Result: False;
 
-*SEE Bodied, PrecedenceGet,IsInfix,IsPostfix,IsPrefix
+*SEE Bodied, PrecedenceGet,Bodied?,IsPostfix,IsPrefix
 %/mathpiper_docs
 */

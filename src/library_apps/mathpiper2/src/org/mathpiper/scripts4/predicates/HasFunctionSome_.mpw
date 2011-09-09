@@ -4,14 +4,14 @@
 10 # HasFunctionSome?(_expr, string_IsString, _look'list) <-- HasFunctionSome?(expr, ToAtom(string), look'list);
 /// function given as atom.
 // atom contains no functions
-10 # HasFunctionSome?(expr_IsAtom, atom_IsAtom, _look'list) <-- False;
+10 # HasFunctionSome?(expr_Atom?, atom_Atom?, _look'list) <-- False;
 // a list contains the function List so we test it together with functions
 // a function contains itself, or maybe an argument contains it
 
 // first deal with functions that do not belong to the list: return top level function
-15 # HasFunctionSome?(expr_IsFunction, atom_IsAtom, _look'list)_(Not? Contains(look'list, ToAtom(Type(expr)))) <-- IsEqual(First(FunctionToList(expr)), atom);
+15 # HasFunctionSome?(expr_Function?, atom_Atom?, _look'list)_(Not? Contains(look'list, ToAtom(Type(expr)))) <-- Equal?(First(FunctionToList(expr)), atom);
 // function belongs to the list - check its arguments
-20 # HasFunctionSome?(expr_IsFunction, atom_IsAtom, _look'list) <-- IsEqual(First(FunctionToList(expr)), atom) Or? ListHasFunctionSome?(Rest(FunctionToList(expr)), atom, look'list);
+20 # HasFunctionSome?(expr_Function?, atom_Atom?, _look'list) <-- Equal?(First(FunctionToList(expr)), atom) Or? ListHasFunctionSome?(Rest(FunctionToList(expr)), atom, look'list);
 
 %/mathpiper
 

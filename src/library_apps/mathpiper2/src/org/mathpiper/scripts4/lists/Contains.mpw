@@ -4,9 +4,9 @@ Function("Contains",{list,element})
 [
   Local(result);
   Bind(result,False);
-  While(And?(Not?(result), Not?(IsEqual(list, {}))))
+  While(And?(Not?(result), Not?(Equal?(list, {}))))
   [
-    If(IsEqual(First(list),element),
+    If(Equal?(First(list),element),
       Bind(result, True),
       Bind(list, Rest(list))
       );

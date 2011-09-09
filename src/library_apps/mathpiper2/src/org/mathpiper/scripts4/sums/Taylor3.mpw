@@ -11,12 +11,12 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
   Bind(result, ArrayCreate(AddN(degree,1),0));
   Bind(i,1);
   Bind(ilimit,AddN(degree,2));
-  While (Not? IsEqual(i,ilimit))
+  While (Not? Equal?(i,ilimit))
   [
 //Echo(coefs1,coefs2);
     Bind(j,1);
     Bind(jlimit,AddN(degree,SubtractN(3,i)));
-    While (Not? IsEqual(j,jlimit))
+    While (Not? Equal?(j,jlimit))
     [
       Bind(jset,AddN(i,SubtractN(j,1)));
 //Echo("index = ",i+j-1);
@@ -160,7 +160,7 @@ Taylor3'FuncCoefs(_fname,_degree) <--
 100 # (Taylor3'TaylorCoefs(_var,_degree)(Ln(_f)))_(Simplify(f-1) =? var) <-- Taylor3'FuncCoefs("Ln",degree);
 
 
-110 # (Taylor3'TaylorCoefs(_var,_degree)(f_IsFunction))_(ArgumentsCount(f) =? 1 And? (Taylor3'UniFunction(Type(f)))) <--
+110 # (Taylor3'TaylorCoefs(_var,_degree)(f_Function?))_(ArgumentsCount(f) =? 1 And? (Taylor3'UniFunction(Type(f)))) <--
 [
   Local(sins,i,j,result,xx,expr,sinfact);
   expr := f[1];

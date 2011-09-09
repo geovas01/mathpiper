@@ -69,13 +69,13 @@ DebugStepOver():=
 ];
 DebugBreakAt(file,line):=
 [
-  Check(InDebugMode(), "Mode", "DebugBreakAt only supported in the debug build of MathPiper");
+  Check(DebugMode?(), "Mode", "DebugBreakAt only supported in the debug build of MathPiper");
   If(filebreakpoints[file] =? Empty,filebreakpoints[file]:={});
   DestructiveAppend(filebreakpoints[file],line);
 ];
 DebugRemoveBreakAt(file,line):=
 [
-  Check(InDebugMode(), "Mode", "DebugRemoveBreakAt only supported in the debug build of MathPiper");
+  Check(DebugMode?(), "Mode", "DebugRemoveBreakAt only supported in the debug build of MathPiper");
   If(filebreakpoints[file] =? Empty,filebreakpoints[file]:={});
   filebreakpoints[file] := Difference(filebreakpoints[file],{line});
 ];
@@ -110,7 +110,7 @@ DebugCallstack() <--
   Echo("*************** Function call stack ****************");
   ForEach(item,debugcallstack)
   [
-    if(IsFunction(item))
+    if(Function?(item))
       Echo("      Function ",Type(item)," : ",item)
     else
       Echo("      Variable ",item);
@@ -129,7 +129,7 @@ Macro(DebugEnter,{})
         debugging:=True;
       ]);
 
-  If(debugging =? False And? InDebugMode(),
+  If(debugging =? False And? DebugMode?(),
   [
     Local(file,line);
     file := DebugFile(CustomEval'Expression());
@@ -148,12 +148,12 @@ Macro(DebugEnter,{})
 
   // the standard breakpoint
   If(debugging =? False And?
-      IsFunction(CustomEval'Expression()) And?
+      Function?(CustomEval'Expression()) And?
       Contains(breakpoints,Type(CustomEval'Expression())),   debugging:=True);
    nextdebugging:=False;
    If (debugging,
    [
-     If(InDebugMode(),DebugShowCode());
+     If(DebugMode?(),DebugShowCode());
      Echo(">>> ",CustomEval'Expression());
      While(debugging)
      [
@@ -191,7 +191,7 @@ ProfileStart():=
 [
     profilefn:={};
 ];
-10 # ProfileEnter()_(IsFunction(CustomEval'Expression())) <--
+10 # ProfileEnter()_(Function?(CustomEval'Expression())) <--
 [
     Local(fname);
     fname:=Type(CustomEval'Expression());

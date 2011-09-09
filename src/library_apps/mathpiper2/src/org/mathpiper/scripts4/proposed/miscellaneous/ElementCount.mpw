@@ -8,7 +8,7 @@ ElementCount(list) :=
     [
         0;
     ]
-    else if(IsAtom(list))
+    else if(Atom?(list))
     [
         1;
     ]

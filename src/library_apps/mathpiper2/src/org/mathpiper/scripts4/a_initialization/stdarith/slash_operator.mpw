@@ -47,8 +47,8 @@
        (QuotientN(x,gcd)*p)/(QuotientN(y,gcd)*q);
      ];
 
-60 # (x_IsDecimal / y_IsNumber)  <-- DivideN(x,y);
-60 # (x_IsNumber  / y_IsDecimal) <-- DivideN(x,y); 
+60 # (x_Decimal? / y_IsNumber)  <-- DivideN(x,y);
+60 # (x_IsNumber  / y_Decimal?) <-- DivideN(x,y); 
 60 # (x_IsNumber  / y_IsNumber)_(InNumericMode()) <-- DivideN(x,y);
 
 

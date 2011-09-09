@@ -7,7 +7,7 @@ HoldArgument("Unholdable",var);
 
 UnFence("Unholdable",1);
 
-Rule("Unholdable",1,10,IsEqual(Type(Eval(var)),"Eval"))
+Rule("Unholdable",1,10,Equal?(Type(Eval(var)),"Eval"))
 [
     MacroBind(var,Eval(Eval(var)));
     //Echo({"unheld",var,Eval(var)});

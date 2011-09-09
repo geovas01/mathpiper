@@ -1,5 +1,5 @@
-Tue Sep 06 16:01:08 EDT 2011.
-MathPiper version: js.027.
+Fri Sep 09 02:59:50 EDT 2011.
+MathPiper version: js.028.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
 
@@ -60,7 +60,7 @@ Testing Add in file </org/mathpiper/scripts4/sums/Add.mpw>:
 
 
 ================================================================
-Testing And? in file </org/mathpiper/builtin/functions/core/And.java>: 
+Testing And? in file </org/mathpiper/builtin/functions/core/And_.java>: 
 
 
 ================================================================
@@ -97,6 +97,10 @@ Test suite for Testing math stuff :
 --Bases
 
 --Factorization
+
+
+================================================================
+Testing Atom? in file </org/mathpiper/builtin/functions/core/Atom_.java>: 
 
 
 ================================================================
@@ -229,6 +233,10 @@ Testing Dot in file </org/mathpiper/scripts4/linalg/Dot.mpw>:
 
 ================================================================
 Testing Easter in file </org/mathpiper/scripts4/calendar/Easter.mpw>: 
+
+
+================================================================
+Testing Equal? in file </org/mathpiper/builtin/functions/core/Equal_.java>: 
 
 
 ================================================================
@@ -480,6 +488,10 @@ Testing Function in file </org/mathpiper/scripts4/deffunc/Function.mpw>:
 
 
 ================================================================
+Testing Function? in file </org/mathpiper/builtin/functions/core/Function_.java>: 
+
+
+================================================================
 Testing FunctionToList in file </org/mathpiper/builtin/functions/core/FunctionToList.java>: 
 
 
@@ -497,6 +509,10 @@ Test suite for Gaussian Integers :
 Testing Gcd in file </org/mathpiper/scripts4/stubs/Gcd.mpw>: 
 
 Known failure: Gcd(10,3.3)!=?3.3 And? Gcd(10,3.3)!=?1 
+
+
+================================================================
+Testing GreaterThan? in file </org/mathpiper/builtin/functions/core/GreaterThan_.java>: 
 
 
 ================================================================
@@ -528,7 +544,7 @@ Testing Im in file </org/mathpiper/scripts4/complex/Im.mpw>:
 
 
 ================================================================
-Testing Integer? in file </org/mathpiper/builtin/functions/core/IsInteger.java>: 
+Testing Integer? in file </org/mathpiper/builtin/functions/core/Integer_.java>: 
 
 
 ================================================================
@@ -566,10 +582,6 @@ Testing IsAmicablePair in file </org/mathpiper/scripts4/numbers/IsAmicablePair.m
 
 
 ================================================================
-Testing IsAtom in file </org/mathpiper/builtin/functions/core/IsAtom.java>: 
-
-
-================================================================
 Testing IsCarmichaelNumber in file </org/mathpiper/scripts4/numbers/IsCarmichaelNumber.mpw>: 
 
 
@@ -586,14 +598,6 @@ Testing IsCoprime in file </org/mathpiper/scripts4/numbers/IsCoprime.mpw>:
 
 
 ================================================================
-Testing IsEqual in file </org/mathpiper/builtin/functions/core/IsEqual.java>: 
-
-
-================================================================
-Testing IsFunction in file </org/mathpiper/builtin/functions/core/IsFunction.java>: 
-
-
-================================================================
 Testing IsGaussianInteger in file </org/mathpiper/scripts4/numbers/gaussianintegers/IsGaussianInteger.mpw>: 
 
 
@@ -602,15 +606,7 @@ Testing IsGaussianPrime in file </org/mathpiper/scripts4/numbers/gaussianinteger
 
 
 ================================================================
-Testing IsGreaterThan in file </org/mathpiper/builtin/functions/core/IsGreaterThan.java>: 
-
-
-================================================================
 Testing IsIrregularPrime in file </org/mathpiper/scripts4/numbers/IsIrregularPrime.mpw>: 
-
-
-================================================================
-Testing IsLessThan in file </org/mathpiper/builtin/functions/core/IsLessThan.java>: 
 
 
 ================================================================
@@ -659,6 +655,10 @@ Testing LaplaceTransform in file </org/mathpiper/scripts4/transforms/laplace/Lap
 
 ================================================================
 Testing Lcm in file </org/mathpiper/scripts4/stubs/Lcm.mpw>: 
+
+
+================================================================
+Testing LessThan? in file </org/mathpiper/builtin/functions/core/LessThan_.java>: 
 
 
 ================================================================
@@ -794,7 +794,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(731*x+99*x^2+744*x^3+894*x^4+605*x^5+131,731*x+99*x^2+744*x^3+894*x^4+605*x^5+131)<?0.01
+Dot(77*x+903*x^2+55*x^3+977*x^4+835*x^5+308,77*x+903*x^2+55*x^3+977*x^4+835*x^5+308)<?0.01
  which differs from 
 True
 ******************
@@ -813,7 +813,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(139*x+994*x^2+609*x^3+486*x^4+518*x^5+87,139*x+994*x^2+609*x^3+486*x^4+518*x^5+87)<?0.01
+Dot(786*x+266*x^2+129*x^3+338*x^4+329*x^5+749,786*x+266*x^2+129*x^3+338*x^4+329*x^5+749)<?0.01
  which differs from 
 True
 ******************
@@ -832,7 +832,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(972*x+972*x^2+865*x^3+574*x^4+892*x^5+736,972*x+972*x^2+865*x^3+574*x^4+892*x^5+736)<?0.01
+Dot(214*x+914*x^2+130*x^3+807*x^4+406*x^5+723,214*x+914*x^2+130*x^3+807*x^4+406*x^5+723)<?0.01
  which differs from 
 True
 ******************
@@ -851,7 +851,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(593*x+501*x^2+240*x^3+962*x^4+810*x^5+540,593*x+501*x^2+240*x^3+962*x^4+810*x^5+540)<?0.01
+Dot(546*x+875*x^2+344*x^3+583*x^4+829*x^5+416,546*x+875*x^2+344*x^3+583*x^4+829*x^5+416)<?0.01
  which differs from 
 True
 ******************
@@ -870,7 +870,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(828*x+289*x^2+440*x^3+444*x^4+580*x^5+261,828*x+289*x^2+440*x^3+444*x^4+580*x^5+261)<?0.01
+Dot(657*x+175*x^2+586*x^3+886*x^4+482*x^5+517,657*x+175*x^2+586*x^3+886*x^4+482*x^5+517)<?0.01
  which differs from 
 True
 ******************
@@ -889,7 +889,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(961*x+544*x^2+824*x^3+197*x^4+658*x^5+807,961*x+544*x^2+824*x^3+197*x^4+658*x^5+807)<?0.01
+Dot(674*x+734*x^2+221*x^3+503*x^4+472*x^5+352,674*x+734*x^2+221*x^3+503*x^4+472*x^5+352)<?0.01
  which differs from 
 True
 ******************
@@ -922,7 +922,7 @@ Test suite for Test arithmetic: NormalForm :
 
 
 ================================================================
-Testing Not? in file </org/mathpiper/builtin/functions/core/Not.java>: 
+Testing Not? in file </org/mathpiper/builtin/functions/core/Not_.java>: 
 
 
 ================================================================
@@ -1004,7 +1004,7 @@ Testing open_math in file </org/mathpiper/scripts4/outputforms/openmath.mpw>:
 
 
 ================================================================
-Testing Or? in file </org/mathpiper/builtin/functions/core/Or.java>: 
+Testing Or? in file </org/mathpiper/builtin/functions/core/Or_.java>: 
 
 
 ================================================================

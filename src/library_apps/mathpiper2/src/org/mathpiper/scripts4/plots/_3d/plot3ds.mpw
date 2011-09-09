@@ -30,7 +30,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
 /// interface routines
 1 # Plot3DS(_func) <-- ("Plot3DS" @ {func, -5:5, -5:5});
 2 # Plot3DS(_func, _xrange, _yrange) <-- ("Plot3DS" @ {func, xrange, yrange, {}});
-3 # Plot3DS(_func, _xrange, _yrange, option_IsFunction) _ (Type(option) =? "->" ) <-- ("Plot3DS" @ {func, xrange, yrange, {option}});
+3 # Plot3DS(_func, _xrange, _yrange, option_Function?) _ (Type(option) =? "->" ) <-- ("Plot3DS" @ {func, xrange, yrange, {option}});
 
 /// Plot a single function
 5 # Plot3DS(_func, _xrange, _yrange, options'list_IsList)_(Not? IsList(func)) <-- ("Plot3DS" @ {{func}, xrange, yrange, options'list});

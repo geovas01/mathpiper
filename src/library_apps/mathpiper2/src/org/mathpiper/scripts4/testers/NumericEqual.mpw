@@ -2,7 +2,7 @@
 
 //Retract("NumericEqual",*);
 
-10 # NumericEqual(left_IsDecimal, right_IsDecimal, precision_PositiveInteger?) <--
+10 # NumericEqual(left_Decimal?, right_Decimal?, precision_PositiveInteger?) <--
 [
     If(InVerboseMode(),Tell("NumericEqual",{left,right}));
     Local(repL,repR,precL,precR,newL,newR,plo,phi,replo,rephi);
