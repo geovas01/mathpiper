@@ -1,7 +1,0 @@
-%mathpiper,def="Erfi"
-
-//Jonathan Leto
-
-10 # Erfi(_x)		<-- -I*Erf(x*I);
-
-%/mathpiper
