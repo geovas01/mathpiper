@@ -30,13 +30,13 @@ MultiSimp(_expr) <--
     *(NormalForm(MultiPrimitivePart(a))/NormalForm(MultiPrimitivePart(b)));
 ];
 
-20 # MultiSimp2(expr_IsMulti) <--
+20 # MultiSimp2(expr_Multi?) <--
 [
   NormalForm(MultiContent(expr))*NormalForm(MultiPrimitivePart(expr));
 ];
 30 # MultiSimp2(_expr) <-- expr;
 
-MultiContent(multi_IsMulti)
+MultiContent(multi_Multi?)
 <--
 [
   Local(least,gcd);
@@ -46,7 +46,7 @@ MultiContent(multi_IsMulti)
   CreateTerm(MultiVars(multi),MultiContentTerm(multi));
 ];
 
-MultiContentTerm(multi_IsMulti)
+MultiContentTerm(multi_Multi?)
 <--
 [
   Local(least,gcd);
@@ -72,7 +72,7 @@ MultiPrimitivePart(MultiNomial(vars_List?,_terms))
   MultiNomialMultiply(MultiNomial(vars,terms), cont);
 ];
 
-10 # MultiRemoveGcd(x_IsMulti/y_IsMulti) <--
+10 # MultiRemoveGcd(x_Multi?/y_Multi?) <--
 [
   Local(gcd);
   Bind(gcd,MultiGcd(x,y));
@@ -101,14 +101,14 @@ MultiPrimitivePart(MultiNomial(vars_List?,_terms))
 
 MultiVars(MultiNomial(_vars,_terms)) <-- vars;
 
-20 # MultiLT(multi_IsMulti)
+20 # MultiLT(multi_Multi?)
    <-- CreateTerm(MultiVars(multi),MultiLeadingTerm(multi));
 
-10 # MultiLM(multi_IsMulti) <-- MultiDegree(multi);
+10 # MultiLM(multi_Multi?) <-- MultiDegree(multi);
 
 10 # MultiLC(MultiNomial(_vars,{})) <-- 0;
-20 # MultiLC(multi_IsMulti) <-- MultiLeadingCoef(multi);
+20 # MultiLC(multi_Multi?) <-- MultiLeadingCoef(multi);
 
-DropZeroLC(multi_IsMulti) <-- MultiDropLeadingZeroes(multi);
+DropZeroLC(multi_Multi?) <-- MultiDropLeadingZeroes(multi);
 
 %/mathpiper

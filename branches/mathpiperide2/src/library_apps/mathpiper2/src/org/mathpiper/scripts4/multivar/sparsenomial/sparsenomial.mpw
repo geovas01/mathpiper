@@ -50,7 +50,7 @@ Rulebase("NormalForm",{expression});
 Rule("NormalForm",1,1000,True) expression;
 0 # NormalForm(UniVariate(_var,_first,_coefs)) <--
     ExpandUniVariate(var,first,coefs);
-10 # NormalForm(x_IsMulti/y_IsMulti) <-- NormalForm(x)/NormalForm(y);
+10 # NormalForm(x_Multi?/y_Multi?) <-- NormalForm(x)/NormalForm(y);
 20 # NormalForm(MultiNomial(_vars,_list) )
     <-- NormalMultiNomial(vars,list,1);
 
@@ -149,7 +149,7 @@ MultiTermLess({_deg1,_fact1},{_deg2,_fact2}) <--
     ((deg !=? {}) And? (deg[1] <? 0));
   ];
 
-20 # MultiZero(multi_IsMulti) <--
+20 # MultiZero(multi_Multi?) <--
 [
   CheckMultiZero(DropZeroLC(multi));
 ];

@@ -27,7 +27,7 @@
   [
     g[i] := MakeMultiNomial(g[i],v);
   ];
-  If(Not? IsMulti(f),Break());
+  If(Not? Multi?(f),Break());
   {q,r} := MultiDivide(f,g);
   q     := MapSingle("NormalForm",q);
   r     := NormalForm(r);
@@ -35,7 +35,7 @@
 ];
 
 
-10 # MultiDivide(f_IsMulti,g_List?) <--
+10 # MultiDivide(f_Multi?,g_List?) <--
 [
   If(InVerboseMode(),Tell("MultiDivide_2",{f,g}));
   Local(i,nr,q,r,p,v,finished);
