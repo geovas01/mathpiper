@@ -40,8 +40,8 @@ Usage:
   If c is a list of coefficients c[1], c[2], ..., c[N], then Ortho*Sum(c, ...) where * is one of P, G, H, L, T, U, computes the sum of a series c[1]*P_0+c[2]*P_1+...+c[N]*P_N, where P_k is the relevant polynomial of k-th order. (For polynomials taking parameters: the parameters must remain constant throughout the summation.) Note that the intermediate polynomials are not evaluated and the recurrence relations are different for this computation, so there may be a numerical difference between Ortho*(c, ...) and computing the sum of the series directly.
 
   Internal functions that may be useful:
-        OrthoPolyCoeffs(name_IsString, n_Integer?, parameters_List?) returns a list of coefficients of the polynomial. Here "name" must be one of the predefined names: "Jacobi", "Gegenbauer", "Hermite", "Laguerre", "Tscheb1",  "Tscheb2"; and "parameters" is a list of extra parameters for the given family of polynomials, e.g. {a,b} for the Jacobi, {a} for Laguerre and {} for Hermite polynomials.
-        OrthoPolySumCoeffs(name_IsString, c_List?, parameters_List?) returns a list of coefficients of the polynomial which is a sum of series with coefficients c.
+        OrthoPolyCoeffs(name_String?, n_Integer?, parameters_List?) returns a list of coefficients of the polynomial. Here "name" must be one of the predefined names: "Jacobi", "Gegenbauer", "Hermite", "Laguerre", "Tscheb1",  "Tscheb2"; and "parameters" is a list of extra parameters for the given family of polynomials, e.g. {a,b} for the Jacobi, {a} for Laguerre and {} for Hermite polynomials.
+        OrthoPolySumCoeffs(name_String?, c_List?, parameters_List?) returns a list of coefficients of the polynomial which is a sum of series with coefficients c.
         EvaluateHornerScheme(coefficients, x) returns the Horner-evaluated polynomial on x. The "coefficients" is a list that starts at the lowest power. For example, EvaluateHornerScheme({a,b,c}, x) should return (a+x*(b+x*c))
 */
 
@@ -141,16 +141,16 @@ Sums of series of orthogonal polynomials are found using the Clenshaw-Smith recu
 
 /* Numeric arguments are processed by a faster routine */
 
-10 # OrthoPoly(name_IsString, _n, p_List?, x_RationalOrNumber?) _ (KnownOrthoPoly()[name] !=? Empty) <-- OrthoPolyNumeric(name, n, p, x);
-20 # OrthoPoly(name_IsString, _n, p_List?, _x) _ (KnownOrthoPoly()[name] !=? Empty) <-- EvaluateHornerScheme(OrthoPolyCoeffs(name, n, p), x);
+10 # OrthoPoly(name_String?, _n, p_List?, x_RationalOrNumber?) _ (KnownOrthoPoly()[name] !=? Empty) <-- OrthoPolyNumeric(name, n, p, x);
+20 # OrthoPoly(name_String?, _n, p_List?, _x) _ (KnownOrthoPoly()[name] !=? Empty) <-- EvaluateHornerScheme(OrthoPolyCoeffs(name, n, p), x);
 
-10 # OrthoPolySum(name_IsString, c_List?, p_List?, x_RationalOrNumber?) _ (KnownOrthoPoly()[name] !=? Empty) <-- OrthoPolySumNumeric(name, c, p, x);
-20 # OrthoPolySum(name_IsString, c_List?, p_List?, _x) _ (KnownOrthoPoly()[name] !=? Empty) <-- EvaluateHornerScheme(OrthoPolySumCoeffs(name, c, p), x);
+10 # OrthoPolySum(name_String?, c_List?, p_List?, x_RationalOrNumber?) _ (KnownOrthoPoly()[name] !=? Empty) <-- OrthoPolySumNumeric(name, c, p, x);
+20 # OrthoPolySum(name_String?, c_List?, p_List?, _x) _ (KnownOrthoPoly()[name] !=? Empty) <-- EvaluateHornerScheme(OrthoPolySumCoeffs(name, c, p), x);
 
 /*
 OrthoPolyNumeric computes the value of the polynomial from recurrence relations directly. Do not use with non-numeric arguments, except for testing!
 */
-OrthoPolyNumeric(name_IsString, n_Integer?, p_List?, _x) <-- [
+OrthoPolyNumeric(name_String?, n_Integer?, p_List?, _x) <-- [
         Local(value1, value2, value3, ruleCoeffs, index);
         value1 := 1;
         ruleCoeffs := Apply(KnownOrthoPoly()[name], {n, p})[1];
@@ -169,7 +169,7 @@ OrthoPolyNumeric(name_IsString, n_Integer?, p_List?, _x) <-- [
 ];
 
 /* Clenshaw-Smith recurrence scheme */
-OrthoPolySumNumeric(name_IsString, c_List?, p_List?, _x) <-- [
+OrthoPolySumNumeric(name_String?, c_List?, p_List?, _x) <-- [
         Local(value1, value2, value3, ruleCoeffs, ruleCoeffs1, index);
         value1 := 0;
         value2 := 0;
@@ -194,11 +194,11 @@ OrthoPolySumNumeric(name_IsString, c_List?, p_List?, _x) <-- [
 OrthoPolyCoeffs(name, n, p) returns the list of coefficients for orthogonal polynomials, starting with the lowest powers.
 */
 
-10 # OrthoPolyCoeffs(name_IsString, 0, p_List?) <-- {1};
-10 # OrthoPolyCoeffs(name_IsString, 1, p_List?) <-- Apply(KnownOrthoPoly()[name], {1, p})[1];
+10 # OrthoPolyCoeffs(name_String?, 0, p_List?) <-- {1};
+10 # OrthoPolyCoeffs(name_String?, 1, p_List?) <-- Apply(KnownOrthoPoly()[name], {1, p})[1];
 
 /* Simple implementation, very slow, for testing only: recursive rule matches, no loops
-20 # OrthoPolyCoeffs(name_IsString, n_Integer?, p_List?)_(n>?1) <-- [
+20 # OrthoPolyCoeffs(name_String?, n_Integer?, p_List?)_(n>?1) <-- [
         Local(ruleCoeffs, newCoeffs);
         ruleCoeffs := Apply(KnownOrthoPoly()[name], {n, p})[2];
         newCoeffs := OrthoPolyCoeffs(name, n-1, p);
@@ -209,7 +209,7 @@ OrthoPolyCoeffs(name, n, p) returns the list of coefficients for orthogonal poly
 /* A fast implementation that works directly with lists and saves memory. Same recurrence as in OrthoPolyNumeric() */
 /* note: here we pass "name" instead of "KnownOrthoPoly()[name]" for efficiency, but strictly speaking we don't need to use this global constant */
 
-20 # OrthoPolyCoeffs(name_IsString, n_Integer?, p_List?)_(n>?1) <-- [
+20 # OrthoPolyCoeffs(name_String?, n_Integer?, p_List?)_(n>?1) <-- [
         Local(ruleCoeffs, tmpCoeffs, newCoeffs, prevCoeffs, index, jndex, tmptmpCoeffs, prevCoeffsA, newCoeffsA, tmpCoeffsA);
         /* For speed, allocate all lists now. Length is n+1 */
         prevCoeffsA := ZeroVector(n+1);
@@ -254,7 +254,7 @@ OrthoPolyCoeffs(name, n, p) returns the list of coefficients for orthogonal poly
 OrthoPolySumCoeffs(name, c, p) returns the list of coefficients for the sum of a series of orthogonal polynomials. Same recurrence as in OrthoPolySumNumeric()
 */
 
-OrthoPolySumCoeffs(name_IsString, c_List?, p_List?) <-- [
+OrthoPolySumCoeffs(name_String?, c_List?, p_List?) <-- [
         Local(n, ruleCoeffs, ruleCoeffs1, tmpCoeffs, newCoeffs, prevCoeffs, index, jndex, tmptmpCoeffs, prevCoeffsA, newCoeffsA, tmpCoeffsA);
         /* n is the max polynomial order we need */
         n := Length(c) - 1;

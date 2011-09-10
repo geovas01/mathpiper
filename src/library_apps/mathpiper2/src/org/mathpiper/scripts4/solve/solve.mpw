@@ -29,7 +29,7 @@ LocalSymbols(res)
   12  # Solve(_expr, var_List?)_(Length(var)=?1) <--
         [ {Solve(expr,var[1])}; ];
   
-  20  # Solve(_expr, _var)_(Number?(var) Or? IsString(var)) <--
+  20  # Solve(_expr, _var)_(Number?(var) Or? String?(var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
   22  # Solve(_expr, _var)_(Not? Atom?(var) And? Not? HasExpression?(expr,var)) <--
         [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];

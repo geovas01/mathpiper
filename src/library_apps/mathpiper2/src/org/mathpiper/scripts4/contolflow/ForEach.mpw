@@ -13,7 +13,7 @@ TemplateFunction("ForEach",{item,listOrString,body})
 
       MacroLocal(item);
       
-      If(IsString(listOrString),
+      If(String?(listOrString),
       [
           
           Local(index, stringLength);

@@ -28,7 +28,7 @@ Rule(":=",2,0,List?(aLeftAssign))
 // auxiliary function to help assign arrays using :=
 Rulebase("AssignArray",{setlistterm,setlistindex,setlistresult});
 UnFence("AssignArray",3);
-Rule("AssignArray",3,1,IsString(setlistindex))
+Rule("AssignArray",3,1,String?(setlistindex))
 [
   Local(item);
   item:=Assoc(setlistindex,setlistterm);

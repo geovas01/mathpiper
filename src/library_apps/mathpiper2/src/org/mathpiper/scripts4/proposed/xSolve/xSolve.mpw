@@ -34,7 +34,7 @@ LocalSymbols(res)
         xSolve'System(expr, var);
     ];
   
-  20  # xSolve(_expr, _var)_(Not? Atom?(var) Or? Number?(var) Or? IsString(var)) <--
+  20  # xSolve(_expr, _var)_(Not? Atom?(var) Or? Number?(var) Or? String?(var)) <--
     [ 
         If(iDebug=True,Tell("xSolve2",{expr,var}));
         Assert("xSolve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; 

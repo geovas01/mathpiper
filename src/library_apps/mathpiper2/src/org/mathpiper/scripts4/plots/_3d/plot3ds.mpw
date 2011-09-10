@@ -100,7 +100,7 @@ Function() Plot3DS(func, xrange, yrange, options, ...);
                 options'hash["hidden"] := True
         );
         If(
-                options'hash["output"] =? Empty Or? IsString(options'hash["output"]) And? Plot3DS'outputs()[options'hash["output"]] =? Empty,
+                options'hash["output"] =? Empty Or? String?(options'hash["output"]) And? Plot3DS'outputs()[options'hash["output"]] =? Empty,
                 options'hash["output"] := Plot3DS'outputs()["default"]
         );
         // a "filename" parameter is required when using data file

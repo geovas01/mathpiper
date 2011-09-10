@@ -83,7 +83,7 @@ DebugRemoveBreakAt(file,line):=
 
 DebugStop():=[debugging:=False;debugstopped:=True;CustomEval'Stop();];
 DebugVerbose(verbose):=[debugverbose:=verbose;];
-DebugAddBreakpoint(fname_IsString) <-- [ breakpoints := fname:breakpoints;];
+DebugAddBreakpoint(fname_String?) <-- [ breakpoints := fname:breakpoints;];
 Macro(DebugBreakIf,{predicate})
 [
   breakpredicate:= Hold(@predicate);

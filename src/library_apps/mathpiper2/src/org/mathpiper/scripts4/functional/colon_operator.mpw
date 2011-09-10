@@ -15,7 +15,7 @@
 Rulebase(":",{head,tail});
 Rule(":",2,20,List?(head) And? Not? List?(tail) ) Concat(head,{tail});
 Rule(":",2,30,List?(tail) ) Concat({head},tail);
-Rule(":",2,10,IsString(tail) And? IsString(head)) ConcatStrings(head,tail);
+Rule(":",2,10,String?(tail) And? String?(head)) ConcatStrings(head,tail);
 UnFence(":",2);
 
 %/mathpiper

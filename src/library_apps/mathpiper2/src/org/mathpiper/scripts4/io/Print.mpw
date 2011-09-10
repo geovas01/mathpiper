@@ -28,7 +28,7 @@
   If(bracket,WriteString(")"));
 ];
 
-10 # Print(_x,_n)_(IsPrefix(Type(x)) And? ArgumentsCount(x) =? 1) <--
+10 # Print(_x,_n)_(Prefix?(Type(x)) And? ArgumentsCount(x) =? 1) <--
 [
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);
@@ -38,7 +38,7 @@
   If(bracket,WriteString(")"));
 ];
 
-10 # Print(_x,_n)_(IsPostfix(Type(x))And? ArgumentsCount(x) =? 1) <--
+10 # Print(_x,_n)_(Postfix?(Type(x))And? ArgumentsCount(x) =? 1) <--
 [
   Local(bracket);
   bracket:= (PrecedenceGet(Type(x)) >? n);

@@ -31,7 +31,7 @@ MultiExpressionList(_expr) <-- VarList(expr,"IsMultiExpression");
 IsMultiConstant(_n) <-- (VarList(n,"IsVr")=?{});
 10 # IsVr(n_Number?) <-- False;
 10 # IsVr(n_Function?) <-- False;
-10 # IsVr(n_IsString) <-- False;
+10 # IsVr(n_String?) <-- False;
 20 # IsVr(_n) <-- True;
 100 # IsMultiExpression(_x) <-- True;
 

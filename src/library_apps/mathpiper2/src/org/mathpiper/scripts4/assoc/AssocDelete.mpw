@@ -19,7 +19,7 @@ LocalSymbols(hash, key, element, hash'expr)
 
 
 /// AssocDelete(hash, "key")
-20 # AssocDelete(hash_List?, key_IsString) <--
+20 # AssocDelete(hash_List?, key_String?) <--
 [
         AssocDelete(hash, Builtin'Assoc(key, hash));
 ];

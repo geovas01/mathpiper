@@ -102,10 +102,10 @@ import org.mathpiper.builtin.functions.core.Infix_;
 import org.mathpiper.builtin.functions.core.Integer_;
 import org.mathpiper.builtin.functions.core.List_;
 import org.mathpiper.builtin.functions.core.Number_;
-import org.mathpiper.builtin.functions.core.IsPostfix;
-import org.mathpiper.builtin.functions.core.IsPrefix;
-import org.mathpiper.builtin.functions.core.IsPromptShown;
-import org.mathpiper.builtin.functions.core.IsString;
+import org.mathpiper.builtin.functions.core.Postfix_;
+import org.mathpiper.builtin.functions.core.Prefix_;
+import org.mathpiper.builtin.functions.core.PromptShown_;
+import org.mathpiper.builtin.functions.core.String_;
 import org.mathpiper.builtin.functions.core.LeftPrecedenceSet;
 import org.mathpiper.builtin.functions.core.Length;
 import org.mathpiper.builtin.functions.core.LessThan_;
@@ -487,8 +487,8 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new List_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "List?");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new IsString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "IsString");
+                new BuiltinFunctionEvaluator(new String_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "String?");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new Bound_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "Bound?");
@@ -604,11 +604,11 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new Infix_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "Infix?");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new IsPrefix(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "IsPrefix");
+                new BuiltinFunctionEvaluator(new Prefix_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "Prefix?");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new IsPostfix(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "IsPostfix");
+                new BuiltinFunctionEvaluator(new Postfix_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "Postfix?");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new PrecedenceGet(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "PrecedenceGet");
@@ -808,8 +808,8 @@ public abstract class BuiltinFunction {
                 new BuiltinFunctionEvaluator(new StackSize(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "StaSiz");
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new IsPromptShown(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "IsPromptShown");
+                new BuiltinFunctionEvaluator(new PromptShown_(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                "PromptShown?");
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Time(aEnvironment), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
                 "Time");

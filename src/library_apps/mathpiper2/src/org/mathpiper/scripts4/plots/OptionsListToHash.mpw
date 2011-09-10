@@ -12,7 +12,7 @@ OptionsListToHash(list) :=
                 If(
                         Function?(item) And? (Type(item) =? "->" ) And? Atom?(item[1]),
                         result[ToString(item[1])] := If(
-                                Atom?(item[2]) And? Not? Number?(item[2]) And? Not? IsString(item[2]),
+                                Atom?(item[2]) And? Not? Number?(item[2]) And? Not? String?(item[2]),
                                 ToString(item[2]),
                                 item[2]
                         ),
