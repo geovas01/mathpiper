@@ -1,4 +1,4 @@
-%mathpiper,def="MakeMultiNomial;MultiExpressionList;IsMultiExpression;IsMultiConstant;IsVr;MultiSingleFactor;IsMulti"
+%mathpiper,def="MakeMultiNomial;MultiExpressionList;MultiExpression?;MultiConstant?;IsVr;MultiSingleFactor;Multi?"
 
 
 /* code pertaining to creating the internal format for multivariate
@@ -8,35 +8,35 @@
   extract all variable-like sub-expressions from the main expression,
   including functions, which can then get treated as if they were
   a variable.
-- IsMultiExpression(x)
+- MultiExpression?(x)
   determing whether 'x' can be a 'variable' for a multiNomial
-- IsMulti(x)
+- Multi?(x)
   returns True if 'x' is a multivariate expression in internal format.
   Useful for transformation rules.
  */
 
-MultiExpressionList(_expr) <-- VarList(expr,"IsMultiExpression");
-10 # IsMultiExpression(_x + _y) <-- False;
-10 # IsMultiExpression(_x - _y) <-- False;
-10 # IsMultiExpression(   - _y) <-- False;
-10 # IsMultiExpression(_x * _y) <-- False;
-10 # IsMultiExpression(_x / _y) <-- False;
-10 # IsMultiExpression(_x ^ y_PositiveInteger?) <-- False;
-11 # IsMultiExpression(_x ^ _y)_(PositiveInteger?(Simplify(y))) <-- False;
-//10 # IsMultiExpression(x_Constant?) <-- False;
-10 # IsMultiExpression(x_IsMultiConstant) <-- False;
+MultiExpressionList(_expr) <-- VarList(expr,"MultiExpression?");
+10 # MultiExpression?(_x + _y) <-- False;
+10 # MultiExpression?(_x - _y) <-- False;
+10 # MultiExpression?(   - _y) <-- False;
+10 # MultiExpression?(_x * _y) <-- False;
+10 # MultiExpression?(_x / _y) <-- False;
+10 # MultiExpression?(_x ^ y_PositiveInteger?) <-- False;
+11 # MultiExpression?(_x ^ _y)_(PositiveInteger?(Simplify(y))) <-- False;
+//10 # MultiExpression?(x_Constant?) <-- False;
+10 # MultiExpression?(x_MultiConstant?) <-- False;
 
 //TODO: shouldn't this be more global? The problem right now is
 // that Constant?/Variable? take Pi to be a constant...
-IsMultiConstant(_n) <-- (VarList(n,"IsVr")=?{});
+MultiConstant?(_n) <-- (VarList(n,"IsVr")=?{});
 10 # IsVr(n_Number?) <-- False;
 10 # IsVr(n_Function?) <-- False;
 10 # IsVr(n_String?) <-- False;
 20 # IsVr(_n) <-- True;
-100 # IsMultiExpression(_x) <-- True;
+100 # MultiExpression?(_x) <-- True;
 
-10 # IsMulti(MultiNomial(vars_List?,_terms)) <-- True;
-20 # IsMulti(_anything) <-- False;
+10 # Multi?(MultiNomial(vars_List?,_terms)) <-- True;
+20 # Multi?(_anything) <-- False;
 
 
 
@@ -50,7 +50,7 @@ LocalSymbols(a,vars,pow)  [
     ];
 ];
 LocalSymbols(x,y,vars)  [
-10 #  MakeMultiNomial(x_IsMultiConstant,vars_List?) <--
+10 #  MakeMultiNomial(x_MultiConstant?,vars_List?) <--
       CreateTerm(vars,{FillList(0,Length(vars)),x});
 20 #  MakeMultiNomial(_x,vars_List?)_(Contains(vars,x)) <-- MultiSingleFactor(vars,x,1);
 30 #  MakeMultiNomial(_x + _y,vars_List?) <--
@@ -132,19 +132,19 @@ LocalSymbols(x,n,vars)  [
 ];
 
 
-x_IsMulti + (y_IsMulti/z_IsMulti) <-- ((x*z+y)/z);
-(y_IsMulti/z_IsMulti) + x_IsMulti <-- ((x*z+y)/z);
-(y_IsMulti/z_IsMulti) + (x_IsMulti/w_IsMulti) <-- ((y*w+x*z)/(z*w));
-(y_IsMulti/z_IsMulti) - (x_IsMulti/w_IsMulti) <-- ((y*w-x*z)/(z*w));
-(y_IsMulti/z_IsMulti) * (x_IsMulti/w_IsMulti) <-- ((y*x)/(z*w));
-(y_IsMulti/z_IsMulti) / (x_IsMulti/w_IsMulti) <-- ((y*w)/(z*x));
-x_IsMulti - (y_IsMulti/z_IsMulti) <-- ((x*z-y)/z);
-(y_IsMulti/z_IsMulti) - x_IsMulti <-- ((y-x*z)/z);
-(a_IsMulti/(c_IsMulti/b_IsMulti))    <-- ((a*b)/c);
-((a_IsMulti/c_IsMulti)/b_IsMulti)    <-- (a/(b*c));
-((a_IsMulti/b_IsMulti) * c_IsMulti)  <-- ((a*c)/b);
-(a_IsMulti * (c_IsMulti/b_IsMulti))  <-- ((a*c)/b);
-- ((a_IsMulti)/(b_IsMulti))         <-- (-a)/b;
+x_Multi? + (y_Multi?/z_Multi?) <-- ((x*z+y)/z);
+(y_Multi?/z_Multi?) + x_Multi? <-- ((x*z+y)/z);
+(y_Multi?/z_Multi?) + (x_Multi?/w_Multi?) <-- ((y*w+x*z)/(z*w));
+(y_Multi?/z_Multi?) - (x_Multi?/w_Multi?) <-- ((y*w-x*z)/(z*w));
+(y_Multi?/z_Multi?) * (x_Multi?/w_Multi?) <-- ((y*x)/(z*w));
+(y_Multi?/z_Multi?) / (x_Multi?/w_Multi?) <-- ((y*w)/(z*x));
+x_Multi? - (y_Multi?/z_Multi?) <-- ((x*z-y)/z);
+(y_Multi?/z_Multi?) - x_Multi? <-- ((y-x*z)/z);
+(a_Multi?/(c_Multi?/b_Multi?))    <-- ((a*b)/c);
+((a_Multi?/c_Multi?)/b_Multi?)    <-- (a/(b*c));
+((a_Multi?/b_Multi?) * c_Multi?)  <-- ((a*c)/b);
+(a_Multi? * (c_Multi?/b_Multi?))  <-- ((a*c)/b);
+- ((a_Multi?)/(b_Multi?))         <-- (-a)/b;
 
 
 MultiNomialMultiply(
