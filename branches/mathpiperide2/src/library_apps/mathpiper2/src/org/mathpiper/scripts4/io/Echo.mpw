@@ -2,7 +2,7 @@
 
 //Retract("EchoInternal",*);
 
-10 # EchoInternal(string_IsString) <--
+10 # EchoInternal(string_String?) <--
 [
   WriteString(string);
 ];

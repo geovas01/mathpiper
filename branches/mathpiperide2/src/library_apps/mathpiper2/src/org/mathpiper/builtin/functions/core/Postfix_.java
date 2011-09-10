@@ -27,7 +27,7 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class IsPostfix extends BuiltinFunction
+public class Postfix_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
@@ -40,11 +40,11 @@ public class IsPostfix extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsPostfix",categories="User Functions;Predicates;Built In"
-*CMD IsPostfix --- check for function syntax
+%mathpiper_docs,name="Postfix?",categories="User Functions;Predicates;Built In"
+*CMD Postfix? --- check for function syntax
 *CORE
 *CALL
-	IsPostfix("op")
+	Postfix?("op")
 
 *PARMS
 
@@ -57,9 +57,9 @@ Check whether the function with given name {"op"} has been declared as a
 
 *E.G.
 
-In> IsPostfix("!");
+In> Postfix?("!");
 Result: True;
 
-*SEE Bodied, PrecedenceGet,Bodied?,Infix?,IsPrefix
+*SEE Bodied, PrecedenceGet,Bodied?,Infix?,Prefix?
 %/mathpiper_docs
 */

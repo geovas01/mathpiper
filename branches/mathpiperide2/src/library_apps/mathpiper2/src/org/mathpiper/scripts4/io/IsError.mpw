@@ -8,7 +8,7 @@ IsError() <--
 ];
 
 /// check for errors of a given kind
-IsError(error'class_IsString) <--
+IsError(error'class_String?) <--
 [
         CheckErrorTableau();
         GetErrorTableau()[error'class] !=? Empty;

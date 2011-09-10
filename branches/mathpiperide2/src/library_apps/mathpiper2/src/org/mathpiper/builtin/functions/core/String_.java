@@ -20,46 +20,60 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.Operator;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 
 /**
  *
  *  
  */
-public class IsPrefix extends BuiltinFunction
+public class String_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), op != null);
+        ConsPointer result = new ConsPointer();
+        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+
+        boolean resultBoolean ;
+         if( result.car() instanceof String  )
+         {
+             resultBoolean = Utility.isString(   (String) result.car() );
+
+         }
+        else{
+            resultBoolean = false;
+        }
+        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), resultBoolean);
+                
     }
 }
 
 
 
 /*
-%mathpiper_docs,name="IsPrefix",categories="User Functions;Predicates;Built In"
-*CMD IsPrefix --- check for function syntax
+%mathpiper_docs,name="IsString",categories="User Functions;Predicates;Built In"
+*CMD IsString --- test for an string
 *CORE
 *CALL
-	IsPrefix("op")
+	IsString(expr)
 
 *PARMS
 
-{"op"} -- string, the name of a function
+{expr} -- expression to test
 
 *DESC
 
-Check whether the function with given name {"op"} has been declared as a
-"bodied", infix, postfix, or prefix operator, and  return {True} or {False}.
+This function tests whether "expr" is a string. A string is a text
+within quotes, e.g. {"duh"}.
 
 *E.G.
 
-In> IsPrefix("-")
-Result: True
+In> IsString("duh");
+Result: True;
+In> IsString(duh);
+Result: False;
 
-*SEE Bodied, PrecedenceGet,Bodied?,Infix?,IsPostfix
+*SEE IsAtom, Number?
 %/mathpiper_docs
 */

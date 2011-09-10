@@ -62,6 +62,6 @@ Result: True;
 In> Bodied?("Sin");
 Result: False;
 
-*SEE PrecedenceGet,Infix?,IsPostfix,IsPrefix
+*SEE PrecedenceGet,Infix?,Postfix?,Prefix?
 %/mathpiper_docs
 */

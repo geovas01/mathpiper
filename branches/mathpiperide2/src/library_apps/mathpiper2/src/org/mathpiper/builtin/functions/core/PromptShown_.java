@@ -26,12 +26,12 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class IsPromptShown extends BuiltinFunction
+public class PromptShown_ extends BuiltinFunction
 {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.write("Function not yet implemented : LispIsPromptShown");//TODO FIXME
+        aEnvironment.write("Function not yet implemented : PromptShown?");//TODO FIXME
 
         throw new EvaluationException("Function not yet supported",aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineIndex());
     }
@@ -40,11 +40,11 @@ public class IsPromptShown extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsPromptShown",categories="Programmer Functions;Built In"
-*CMD IsPromptShown --- test for the MathPiper prompt option
+%mathpiper_docs,name="PromptShown?",categories="Programmer Functions;Built In"
+*CMD PromptShown? --- test for the MathPiper prompt option
 *CORE
 *CALL
-	IsPromptShown()
+	PromptShown?()
 
 *DESC
 Returns {False} if MathPiper has been started with the option to suppress the prompt, and {True} otherwise.

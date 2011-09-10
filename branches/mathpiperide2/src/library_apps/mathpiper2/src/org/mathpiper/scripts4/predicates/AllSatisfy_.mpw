@@ -1,6 +1,6 @@
 %mathpiper,def="AllSatisfy?"
 
-10 # AllSatisfy?(pred_IsString,lst_List?) <-- Apply("And?",(MapSingle(pred,lst)));
+10 # AllSatisfy?(pred_String?,lst_List?) <-- Apply("And?",(MapSingle(pred,lst)));
 
 20 # AllSatisfy?(_pred,_lst) <-- False;
 

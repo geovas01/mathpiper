@@ -2,7 +2,7 @@
 
 /// HasFunction? --- test for an expression containing a function
 /// function name given as string.
-10 # HasFunction?(_expr, string_IsString) <-- HasFunction?(expr, ToAtom(string));
+10 # HasFunction?(_expr, string_String?) <-- HasFunction?(expr, ToAtom(string));
 /// function given as atom.
 // atom contains no functions
 10 # HasFunction?(expr_Atom?, atom_Atom?) <-- False;

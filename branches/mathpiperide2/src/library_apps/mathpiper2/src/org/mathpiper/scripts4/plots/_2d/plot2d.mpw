@@ -76,7 +76,7 @@ Function() Plot2D(func, range, options, ...);
                 options'hash["precision"] := 0.0001
         );
         If(
-                options'hash["output"] =? Empty Or? IsString(options'hash["output"]) And? Plot2DOutputs()[options'hash["output"]] =? Empty,
+                options'hash["output"] =? Empty Or? String?(options'hash["output"]) And? Plot2DOutputs()[options'hash["output"]] =? Empty,
                 options'hash["output"] := Plot2DOutputs()["default"]
         );
         // a "filename" parameter is required when using data file

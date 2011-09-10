@@ -1,7 +1,7 @@
 %mathpiper,def="HasFunctionSome?"
 
 /// function name given as string.
-10 # HasFunctionSome?(_expr, string_IsString, _look'list) <-- HasFunctionSome?(expr, ToAtom(string), look'list);
+10 # HasFunctionSome?(_expr, string_String?, _look'list) <-- HasFunctionSome?(expr, ToAtom(string), look'list);
 /// function given as atom.
 // atom contains no functions
 10 # HasFunctionSome?(expr_Atom?, atom_Atom?, _look'list) <-- False;

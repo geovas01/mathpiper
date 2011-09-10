@@ -60,6 +60,6 @@ Check whether the function with given name {"op"} has been declared as a
 In> Infix?("+");
 Result: True;
 
-*SEE Bodied, PrecedenceGet,Bodied?,IsPostfix,IsPrefix
+*SEE Bodied, PrecedenceGet,Bodied?,Postfix?,Prefix?
 %/mathpiper_docs
 */

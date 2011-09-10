@@ -90,7 +90,7 @@ LocalSymbols(omindent) [
      OMEcho("</OMOBJ>");
      ];
 
-10 # OMFormExpression(i_IsString)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
+10 # OMFormExpression(i_String?)  <-- OMEcho("<OMSTR>":i:"</OMSTR>");
 11 # OMFormExpression(i_Integer?) <-- OMEcho("<OMI>":ToString(i):"</OMI>");
 12 # OMFormExpression(i_Number?)  <-- OMEcho("<OMF dec=\"":ToString(i):"\"/>");
 13 # OMFormExpression(i_Constant?)_(OMSymbol()[ ToString(i) ] !=? Empty)
@@ -225,7 +225,7 @@ OMEcho(_expression) <--
   Write(expression);
   NewLine();
 ];
-OMEcho(expression_IsString) <--
+OMEcho(expression_String?) <--
 [
   OMIndentSpace();
   WriteString(expression);
@@ -235,7 +235,7 @@ OMEcho(expression_List?) <--
 [
   ForEach(arg, expression)
   [
-    If (IsString(arg), WriteString(arg), Write(arg));
+    If (String?(arg), WriteString(arg), Write(arg));
   ];
   NewLine();
 ];
@@ -244,7 +244,7 @@ OMEscape(_expression) <--
 [
   "<![CDATA[":ToString(expression):"]]>";
 ];
-OMEscapeString(_expression_IsString) <--
+OMEscapeString(_expression_String?) <--
 [
   "<![CDATA[":expression:"]]>";
 ];
@@ -252,7 +252,7 @@ OMWriteEscape(_expression) <--
 [
   WriteString(OMEscape(expression));
 ];
-OMWriteStringEscape(expression_IsString) <--
+OMWriteStringEscape(expression_String?) <--
 [
   WriteString(OMEscapeString(expression));
 ];
@@ -261,7 +261,7 @@ OMEchoEscape(_expression) <--
   OMWriteEscape(expression);
   NewLine();
 ];
-OMEchoEscape(expression_IsString) <--
+OMEchoEscape(expression_String?) <--
 [
   OMWriteStringEscape(expression);
   NewLine();
@@ -271,7 +271,7 @@ OMEchoEscape(expression_List?) <--
   WriteString("<![CDATA[");
   ForEach(arg, expression)
   [
-    If (IsString(arg), WriteString(arg), Write(arg));
+    If (String?(arg), WriteString(arg), Write(arg));
   ];
   WriteString("]]>");
   NewLine();
@@ -413,7 +413,7 @@ PipeFromString(str:" EndOfFile")
 [
   Local(result);
   OMNextToken();
-  If(IsString(OMToken()), [result := OMToken(); OMNextToken();], result := "");
+  If(String?(OMToken()), [result := OMToken(); OMNextToken();], result := "");
   MatchClose(XmlTag("OMSTR",{},"Close"));
   result;
 ];
@@ -565,7 +565,7 @@ HoldArgumentNumber("OMPathSelect", 2, 2);
      // OM name have to be different from the MathPiper name (e.g. "/@").
      If(piperform =? Empty,
         If(cd =? mathpiper, ToAtom(omname), OMS(omcd, omname)),
-        If(IsString(piperform), ToAtom(piperform), piperform));
+        If(String?(piperform), ToAtom(piperform), piperform));
      ]
     );
 ];
@@ -618,10 +618,10 @@ LocalSymbols(omsymbol, omsymbolreverse) [
 
 ]; // LocalSymbols(omsymbol, omsymbolreverse)OMDef
 
-OMDef(_piperform, omcd_IsString, omname_IsString, _directMapping, _reverseMapping) <--
+OMDef(_piperform, omcd_String?, omname_String?, _directMapping, _reverseMapping) <--
 [
   Local(cdTable);
-  If(IsString(piperform),
+  If(String?(piperform),
      OMSymbol()[ piperform ] := {omcd, omname, directMapping, reverseMapping}
      );
   cdTable := OMSymbolReverse()[ omcd ];
@@ -649,10 +649,10 @@ OMDef(_piperform, omcd_IsString, omname_IsString, _directMapping, _reverseMappin
   True;
 ];
 
-OMDef(_piperform, omcd_IsString, omname_IsString)
+OMDef(_piperform, omcd_String?, omname_String?)
 <-- OMDef(piperform, omcd, omname, {}, {});
 
-OMDef(piperalias_IsString, pipername_IsString) <--
+OMDef(piperalias_String?, pipername_String?) <--
 [
   OMSymbol()[ piperalias ] := OMSymbol()[ pipername ];
 ];

@@ -12,7 +12,7 @@ Rulebase("RForm",{expression, precedence});
 
 Function ("RFormBracketIf", {predicate, string})
 [
-        Check(Boolean?(predicate) And? IsString(string), "Argument", "RForm internal error: non-boolean and/or non-string argument of RFormBracketIf");
+        Check(Boolean?(predicate) And? String?(string), "Argument", "RForm internal error: non-boolean and/or non-string argument of RFormBracketIf");
         If(predicate, ConcatStrings("( ", string, ") "), string);
 ];
 
@@ -35,7 +35,7 @@ RFormMaxPrec() := 60000;         /* This precedence will never be bracketed. It 
 200 # RForm(x_Atom?, _p) <-- ToString(x);
 
 /* Strings must be quoted but not bracketed */
-100 # RForm(x_IsString, _p) <-- ConcatStrings("\"", x, "\"");
+100 # RForm(x_String?, _p) <-- ConcatStrings("\"", x, "\"");
 
 /* Replace operations */
 

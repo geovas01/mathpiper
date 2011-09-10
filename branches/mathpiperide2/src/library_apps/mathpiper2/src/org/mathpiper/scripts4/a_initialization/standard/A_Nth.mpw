@@ -13,7 +13,7 @@ Rule("Nth",2,10,
 
 
 Rule("Nth",2,14,
-     And?(Equal?(IsString(alist),True),List?(aindex))
+     And?(Equal?(String?(alist),True),List?(aindex))
     )
 [
   Local(result);
@@ -22,7 +22,7 @@ Rule("Nth",2,14,
   result;
 ];
 
-Rule("Nth",2,15,Equal?(IsString(alist),True))
+Rule("Nth",2,15,Equal?(String?(alist),True))
 [
   StringMidGet(aindex,1,alist);
 ];
@@ -46,7 +46,7 @@ Rule("Nth",2,30,
 
 
 
-Rule("Nth",2,40,Equal?(IsString(aindex),True))
+Rule("Nth",2,40,Equal?(String?(aindex),True))
 [
   Local(as);
   as := Assoc(aindex,alist);

@@ -258,11 +258,11 @@
 :IsPositiveInteger:IsPositiveInteger(n):test for a positive integer:
 :IsPositiveNumber:IsPositiveNumber(n):test for a positive number:
 :IsPositiveReal:IsPositiveReal(expr):test for a numerically positive value:
-:IsPostfix:IsPostfix("op"):check for function syntax:
-:IsPrefix:IsPrefix("op"):check for function syntax:
+:Postfix?:Postfix?("op"):check for function syntax:
+:Prefix?:Prefix?("op"):check for function syntax:
 :IsPrime:IsPrime(n):test for a prime number:
 :IsPrimePower:IsPrimePower(n):test for a power of a prime number:
-:IsPromptShown:IsPromptShown():test for the Yacas prompt option:
+:PromptShown?:PromptShown?():test for the Yacas prompt option:
 :IsQuadraticResidue:IsQuadraticResidue(m,n):functions related to finite groups:
 :IsRational:IsRational(expr):test whether argument is a rational:
 :IsScalar:IsScalar(expr):test for a scalar:
@@ -271,7 +271,7 @@
 :IsSquareFree:IsSquareFree(n):test for a square-free number:
 :IsSquareMatrix:IsSquareMatrix(expr):test for a square matrix:
 :IsSquareMatrix:IsSquareMatrix(pred,expr)::
-:IsString:IsString(expr):test for an string:
+:String?:String?(expr):test for an string:
 :IsSymmetric:IsSymmetric(A):test for a symmetric matrix:
 :IsTwinPrime:IsTwinPrime(n):test for a twin prime:
 :IsUnitary:IsUnitary(A):test for a unitary matrix:
