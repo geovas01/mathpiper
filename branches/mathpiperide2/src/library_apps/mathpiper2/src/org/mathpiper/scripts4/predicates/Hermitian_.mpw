@@ -1,6 +1,6 @@
 %mathpiper,def="Hermitian?"
 
-Hermitian?(A_IsMatrix) <-- (Conjugate(Transpose(A))=?A);
+Hermitian?(A_Matrix?) <-- (Conjugate(Transpose(A))=?A);
 
 %/mathpiper
 

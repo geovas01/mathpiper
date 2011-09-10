@@ -6,7 +6,7 @@
 // Given the positive definite matrix A, a matrix R is returned such that
 // A = Transpose(R) * R
 
-10 # Cholesky(A_IsMatrix) <--
+10 # Cholesky(A_Matrix?) <--
 [
         Local(matrix,n,k,j);
         n:=Length(A);

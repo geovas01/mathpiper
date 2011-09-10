@@ -3,7 +3,7 @@
 20 # SymbolicDeterminant(_matrix) <--
 [
   Local(perms,indices,result);
-  Check((IsMatrix(matrix)), "Argument", "Determinant: Argument must be a matrix");
+  Check((Matrix?(matrix)), "Argument", "Determinant: Argument must be a matrix");
   indices:=Table(i,i,1,Length(matrix),1);
   perms:=PermutationsList(indices);
   result:=0;

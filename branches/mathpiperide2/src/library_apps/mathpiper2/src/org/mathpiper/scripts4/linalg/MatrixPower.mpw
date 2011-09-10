@@ -4,7 +4,7 @@
 // power of a matrix (dr)
 //////
 
-MatrixPower(x_IsSquareMatrix, n_NonNegativeInteger?) <--
+MatrixPower(x_SquareMatrix?, n_NonNegativeInteger?) <--
 [
    Local(result);
    result:=Identity(Length(x));
@@ -18,7 +18,7 @@ MatrixPower(x_IsSquareMatrix, n_NonNegativeInteger?) <--
    result;
 ];
 
-MatrixPower(x_IsSquareMatrix, n_NegativeInteger?) <--
+MatrixPower(x_SquareMatrix?, n_NegativeInteger?) <--
    MatrixPower(Inverse(x),-n);
 
 %/mathpiper
@@ -56,7 +56,7 @@ Result: {{37,54},{81,118}};
 In> MatrixPower(A,-3)
 Result: {{-59/4,27/4},{81/8,-37/8}};
 
-*SEE IsSquareMatrix, Inverse, Dot
+*SEE SquareMatrix?, Inverse, Dot
 %/mathpiper_docs
 
 

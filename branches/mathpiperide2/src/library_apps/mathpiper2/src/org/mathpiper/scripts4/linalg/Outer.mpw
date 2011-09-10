@@ -1,7 +1,7 @@
 %mathpiper,def="Outer"
 
 // outer product of vectors
-Outer(t1_IsVector, t2_IsVector) <--
+Outer(t1_Vector?, t2_Vector?) <--
 [
    Local(i,j,n,m,result);
    n:=Length(t1);

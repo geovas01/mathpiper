@@ -99,11 +99,11 @@ TestMathPiper(Determinant({{a,b},{c,d}}),a*d-b*c);
   /* Trace */
   Testing("Trace");
   Verify(Trace(ll),1-1+3);
-  /* IsVector */
+  /* Vector? */
   Verify(List?(ll),True);
   Verify(List?({1,2,3}),True);
-  /* IsMatrix */
-  Verify(IsMatrix(ll),True);
+  /* Matrix? */
+  Verify(Matrix?(ll),True);
   Unbind(ll);
 ];
 

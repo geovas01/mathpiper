@@ -6,7 +6,7 @@
 Retract(ChiSquareTest,*);
 
 
-10 # ChiSquareTest( observedFrequenciesMatrix_IsMatrix, expectedFrequenciesMatrix_IsMatrix) <--
+10 # ChiSquareTest( observedFrequenciesMatrix_Matrix?, expectedFrequenciesMatrix_Matrix?) <--
 [
 
     Local(observedFrequenciesList, expectedFrequenciesList);

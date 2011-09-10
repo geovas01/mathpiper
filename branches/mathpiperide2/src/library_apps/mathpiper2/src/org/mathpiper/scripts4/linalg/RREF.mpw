@@ -11,7 +11,7 @@
  *
  *------------------------------------------------------------------------*/
 
-10 # RREF( AM_IsMatrix ) <--
+10 # RREF( AM_Matrix? ) <--
 [
     If( Not? Bound?(iDebug), iDebug := False );
     If(iDebug,Tell("RREF",AM));

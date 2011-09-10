@@ -63,7 +63,7 @@ Result: True;
 In> Function?(x);
 Result: False;
 
-*SEE IsAtom, List?, Type
+*SEE Atom?, List?, Type
 %/mathpiper_docs
 
 

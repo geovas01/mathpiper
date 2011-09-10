@@ -6,7 +6,7 @@ CorrelationMatrix(dataLists) :=
     
     ForEach(dataList, dataLists)
     [
-        Check(IsMatrix(dataLists), "Argument", "All lists must have the same number of elements.");
+        Check(Matrix?(dataLists), "Argument", "All lists must have the same number of elements.");
     ];
 
     namesList := MatrixColumn(dataLists,1);

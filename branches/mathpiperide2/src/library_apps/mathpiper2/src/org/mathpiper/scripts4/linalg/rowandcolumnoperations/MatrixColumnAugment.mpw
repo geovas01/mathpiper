@@ -1,6 +1,6 @@
 %mathpiper,def="MatrixColumnSwap"
 
-MatrixColumnAugment( M_IsMatrix, v_IsVector )_(Length(v)=?Dimensions(M)[2]) <--
+MatrixColumnAugment( M_Matrix?, v_Vector? )_(Length(v)=?Dimensions(M)[2]) <--
 [
     If( Not? Bound?(iDebug), iDebug := False );
     If( iDebug, Tell(MatrixColumnAugment,{M,v}) );

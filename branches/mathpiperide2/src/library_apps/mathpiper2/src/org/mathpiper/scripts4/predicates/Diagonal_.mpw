@@ -1,6 +1,6 @@
 %mathpiper,def="Diagonal?"
 
-Diagonal?(A_IsMatrix) <--
+Diagonal?(A_Matrix?) <--
 [
         Local(i,j,m,n,result);
         m      := Length(A);

@@ -212,7 +212,7 @@
 :Inverse:Inverse(M):get inverse of a matrix:
 :InverseTaylor:InverseTaylor(var, at, order) expr:Taylor expansion of inverse:
 :AmicablePair?:AmicablePair?(m,n):test for a pair of amicable numbers:
-:IsAtom:IsAtom(expr):test for an atom:
+:Atom?:Atom?(expr):test for an atom:
 :IsBodied:IsBodied("op"):check for function syntax:
 :IsBoolean:IsBoolean(expression):test for a Boolean value:
 :Bound?:Bound?(var):test for a bound variable:
@@ -242,8 +242,8 @@
 :IrregularPrime?:IrregularPrime?(n):test for an irregular prime:
 :List?:List?(expr):test for a list:
 :IsLowerTriangular:IsLowerTriangular(A):test for a lower triangular matrix:
-:IsMatrix:IsMatrix(expr):test for a matrix:
-:IsMatrix:IsMatrix(pred,expr)::
+:Matrix?:Matrix?(expr):test for a matrix:
+:Matrix?:Matrix?(pred,expr)::
 :IsNegativeInteger:IsNegativeInteger(n):test for a negative integer:
 :NegativeNumber?:NegativeNumber?(n):test for a negative number:
 :IsNegativeReal:IsNegativeReal(expr):test for a numerically negative value:
@@ -265,19 +265,19 @@
 :PromptShown?:PromptShown?():test for the Yacas prompt option:
 :QuadraticResidue?:QuadraticResidue?(m,n):functions related to finite groups:
 :IsRational:IsRational(expr):test whether argument is a rational:
-:IsScalar:IsScalar(expr):test for a scalar:
+:Scalar?:Scalar?(expr):test for a scalar:
 :IsSkewSymmetric:IsSkewSymmetric(A):test for a skew-symmetric matrix:
 :SmallPrime?:SmallPrime?(n):test for a (small) prime number:
 :SquareFree?:SquareFree?(n):test for a square-free number:
-:IsSquareMatrix:IsSquareMatrix(expr):test for a square matrix:
-:IsSquareMatrix:IsSquareMatrix(pred,expr)::
+:SquareMatrix?:SquareMatrix?(expr):test for a square matrix:
+:SquareMatrix?:SquareMatrix?(pred,expr)::
 :String?:String?(expr):test for an string:
 :IsSymmetric:IsSymmetric(A):test for a symmetric matrix:
 :TwinPrime?:TwinPrime?(n):test for a twin prime:
 :IsUnitary:IsUnitary(A):test for a unitary matrix:
 :IsUpperTriangular:IsUpperTriangular(A):test for an upper triangular matrix:
-:IsVector:IsVector(expr):test for a vector:
-:IsVector:IsVector(pred,expr)::
+:Vector?:Vector?(expr):test for a vector:
+:Vector?:Vector?(pred,expr)::
 :IsZero:IsZero(n):test whether argument is zero:
 :IsZeroVector:IsZeroVector(list):test whether list contains only zeroes:
 :JacobiSymbol:JacobiSymbol(m,n):functions related to finite groups:

@@ -1,6 +1,6 @@
 %mathpiper,def="UpperTriangular?"
 
-UpperTriangular?(A_IsMatrix) <--
+UpperTriangular?(A_Matrix?) <--
 [
         Local(i,j,m,n,result);
         m:=Length(A);
