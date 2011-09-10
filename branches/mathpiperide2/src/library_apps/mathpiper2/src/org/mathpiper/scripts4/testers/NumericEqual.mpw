@@ -60,7 +60,7 @@
 ];
 
 
-25 # NumericEqual(left_IsComplex, right_IsComplex, precision_PositiveInteger?) <--
+25 # NumericEqual(left_Complex?, right_Complex?, precision_PositiveInteger?) <--
 [
     If(InVerboseMode(),Tell("NumericEqualC",{left,right}));
     Local(rrL,iiL,rrR,iiR,ans);

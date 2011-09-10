@@ -50,6 +50,6 @@ DumpErrors() <--
 
 {DumpErrors} is a simple error handler for the global error reporting mechanism. It prints all errors posted using {Assert} and clears the error tableau.
 
-*SEE Assert, IsError, ClearErrors
+*SEE Assert, Error?, ClearErrors
 
 %/mathpiper_docs

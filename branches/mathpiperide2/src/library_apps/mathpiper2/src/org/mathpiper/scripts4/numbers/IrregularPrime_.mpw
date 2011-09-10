@@ -1,12 +1,12 @@
-%mathpiper,def="IsIrregularPrime"
+%mathpiper,def="IrregularPrime?"
 
-5  # IsIrregularPrime(p_IsComposite)        <-- False;
+5  # IrregularPrime?(p_Composite?)        <-- False;
 // First irregular prime is 37
-5  # IsIrregularPrime(_p)_(p<?37)        <-- False;
+5  # IrregularPrime?(_p)_(p<?37)        <-- False;
 
 // an odd prime p is irregular iff p divides the numerator of a Bernoulli number B(2*n) with
 // 2*n+1<p
-10 # IsIrregularPrime(p_PositiveInteger?) <--
+10 # IrregularPrime?(p_PositiveInteger?) <--
 [
         Local(i,irregular);
 
@@ -25,11 +25,11 @@
 
 
 
-%mathpiper_docs,name="IsIrregularPrime",categories="User Functions;Number Theory;Predicates"
-*CMD IsIrregularPrime --- test for an irregular prime
+%mathpiper_docs,name="IrregularPrime?",categories="User Functions;Number Theory;Predicates"
+*CMD IrregularPrime? --- test for an irregular prime
 *STD
 *CALL
-        IsIrregularPrime(n)
+        IrregularPrime?(n)
 
 *PARMS
 
@@ -44,9 +44,9 @@ are  37, 59 and 67. Asymptotically, roughly 40{%} of primes are irregular.
 
 *E.G.
 
-In> IsIrregularPrime(5)
+In> IrregularPrime?(5)
 Result: False;
-In> Select(1 .. 100, IsIrregularPrime)
+In> Select(1 .. 100, IrregularPrime?)
 Result: {37,59,67};
 
 *SEE Prime?
@@ -56,11 +56,11 @@ Result: {37,59,67};
 
 
 
-%mathpiper,name="IsIrregularPrime",subtype="automatic_test"
+%mathpiper,name="IrregularPrime?",subtype="automatic_test"
 
-Verify( IsIrregularPrime(37), True );
-Verify( IsIrregularPrime(59), True );
-Verify( IsIrregularPrime(1), False );
-Verify( IsIrregularPrime(11), False );
+Verify( IrregularPrime?(37), True );
+Verify( IrregularPrime?(59), True );
+Verify( IrregularPrime?(1), False );
+Verify( IrregularPrime?(11), False );
 
 %/mathpiper

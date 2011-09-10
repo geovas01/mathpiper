@@ -38,7 +38,7 @@ Defun("Taylor3'MultiplyCoefs",{coefs1,coefs2,degree})
 //Echo("degree = ",degree);
 //  BaseVector(2,degree+1);
 ];
-20 # (Taylor3'TaylorCoefs(_var,_degree)(_atom))_(IsFreeOf(var,atom))
+20 # (Taylor3'TaylorCoefs(_var,_degree)(_atom))_(FreeOf?(var,atom))
    <--
    [
     Local(result);

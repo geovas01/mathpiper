@@ -14,7 +14,7 @@ Rulebase("UniVariate",{var,first,coefs});
 
 Rule("UniVariate",3,10,Length(coefs)>?0 And? coefs[1]=?0)
   UniVariate(var,first+1,Rest(coefs));
-Rule("UniVariate",3,1000,IsComplex(var) Or? List?(var))
+Rule("UniVariate",3,1000,Complex?(var) Or? List?(var))
     ExpandUniVariate(var,first,coefs);
 
 500 # UniVariate(_var,_f1,_c1) + UniVariate(_var,_f2,_c2) <--
@@ -81,10 +81,10 @@ Rule("UniVariate",3,1000,IsComplex(var) Or? List?(var))
 200 # - UniVariate(_var,_first,_coefs) <-- UniVariate(var,first,-coefs);
 
 
-200 # (_factor * UniVariate(_var,_first,_coefs))_((IsFreeOf(var,factor))) <--
+200 # (_factor * UniVariate(_var,_first,_coefs))_((FreeOf?(var,factor))) <--
   UniVariate(var,first,coefs*factor);
 
-200 # (UniVariate(_var,_first,_coefs)/_factor)_((IsFreeOf(var,factor))) <--
+200 # (UniVariate(_var,_first,_coefs)/_factor)_((FreeOf?(var,factor))) <--
   UniVariate(var,first,coefs/factor);
 
 

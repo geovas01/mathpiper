@@ -9,11 +9,11 @@ that we want to add to the list. We first find the exponent e of p in the
 decomposition of z (into Gaussian primes). If it is not zero, we add {p,e}
 to the list */
 
-AddGaussianFactor(L_List?,z_IsGaussianInteger,p_IsGaussianInteger) <--
+AddGaussianFactor(L_List?,z_GaussianInteger?,p_GaussianInteger?) <--
 [
  Local(e);
  e :=0;
- While (IsGaussianInteger(z:= z/p)) e++;
+ While (GaussianInteger?(z:= z/p)) e++;
  If (e !=? 0, DestructiveAppend(L,{p,e}));
 ];
 
@@ -51,7 +51,7 @@ If z is is a Gaussian integer, we find its possible Gassian prime factors,
 by factoring its norm 
 */
 
-20 # GaussianFactors(z_IsGaussianInteger) <--
+20 # GaussianFactors(z_GaussianInteger?) <--
 [
  Local(n,nfactors,gfactors,p);
   gfactors :={};
@@ -110,7 +110,7 @@ Result: {{Complex(2,1),1},{Complex(2,-1),1}};
 In> GaussianFactors(3+I)
 Result: {{Complex(1,1),1},{Complex(2,-1),1}};
 
-*SEE Factors, IsGaussianPrime, IsGaussianUnit
+*SEE Factors, GaussianPrime?, GaussianUnit?
 %/mathpiper_docs
 
 
@@ -126,7 +126,7 @@ NextTest("Gaussian Integers");
 Computes in r the product of the factors, and checks if each
 one is a Gaussian prime and if r is associated to z (i.e. if r/z
 is a Gaussian Unit */
-TestGaussianFactors(z_IsGaussianInteger) <--
+TestGaussianFactors(z_GaussianInteger?) <--
 [
  Local(r,gfactors,Ok);
 // Echo("TestGaussianFactors: factoring ",z);
@@ -137,10 +137,10 @@ TestGaussianFactors(z_IsGaussianInteger) <--
  ForEach(p,gfactors)
  [
   r  := r*p[1]^p[2];
-  Ok := Ok And? IsGaussianPrime(p[1]);
+  Ok := Ok And? GaussianPrime?(p[1]);
  ];
 // Echo(r);
- Ok := Ok And? IsGaussianUnit(r/z);
+ Ok := Ok And? GaussianUnit?(r/z);
  If(Ok,True,Echo("FAILED: GaussianFactors(", z, ")=", gfactors, " which is wrong."));
 ];
 

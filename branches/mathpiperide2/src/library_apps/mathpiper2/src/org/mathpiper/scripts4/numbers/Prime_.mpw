@@ -1,7 +1,7 @@
 %mathpiper,def="Prime?",categories="User Functions;Number Theory"
 
 2 # Prime?(_n)_(Not? Integer?(n) Or? n<=?1) <-- False;
-3 # Prime?(n_Integer?)_(n<=?FastIsPrime(0)) <-- IsSmallPrime(n);
+3 # Prime?(n_Integer?)_(n<=?FastIsPrime(0)) <-- SmallPrime?(n);
 
 /* Fast pseudoprime testing: if n is a prime, then 24 divides (n^2-1) */
 5 # Prime?(n_PositiveInteger?)_(n >? 4 And? Modulo(n^2-1,24)!=?0) <-- False;
@@ -17,11 +17,11 @@
 
 %mathpiper_docs,name="Prime?",categories="User Functions;Number Theory;Predicates"
 *CMD Prime? --- test for a prime number
-*CMD IsSmallPrime --- test for a (small) prime number
+*CMD SmallPrime? --- test for a (small) prime number
 *STD
 *CALL
         Prime?(n)
-        IsSmallPrime(n)
+        SmallPrime?(n)
 
 *PARMS
 

@@ -2,7 +2,7 @@
 
 //Retract("CheckSolution",*);
 
-10 # CheckSolution( _expr, _var, solution_List? )_(Not? IsFreeOf(var,expr)) <--
+10 # CheckSolution( _expr, _var, solution_List? )_(Not? FreeOf?(var,expr)) <--
   [
       Local(expr0,result,s,r);
       If( Equation?(expr),

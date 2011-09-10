@@ -123,7 +123,7 @@ LocalSymbols(x)
           res := Failed, /* to prevent infinite recursion */
           [
                 sol2 := Solve(expr2, var2);
-            If(IsError("Solve'Fails"),
+            If(Error?("Solve'Fails"),
                [
                  ClearError("Solve'Fails");
                  res := Failed;
@@ -133,7 +133,7 @@ LocalSymbols(x)
                      i := 1;
                      While(i <=? Length(sol2) And? res !=? Failed) [
                        sol := Solve(context == (var2 Where sol2[i]), var);
-                   If(IsError("Solve'Fails"),
+                   If(Error?("Solve'Fails"),
                       [
                         ClearError("Solve'Fails");
                         res := Failed;
@@ -235,7 +235,7 @@ LocalSymbols(x)
 /* Note: Second rule neglects (2*I*Pi)-periodicity of Exp() */
 10 # Solve'Simple(Exp(_e1), 0,    _var)_(e1 =? var) <-- { };
 20 # Solve'Simple(Exp(_e1), _rhs, _var)_(e1 =? var) <-- { var == Ln(rhs) };
-20 # Solve'Simple(_b^_e1, _rhs, _var)_(e1 =? var And? IsFreeOf(var,b) And? Not? Zero?(b)) <-- { var == Ln(rhs) / Ln(b) };
+20 # Solve'Simple(_b^_e1, _rhs, _var)_(e1 =? var And? FreeOf?(var,b) And? Not? Zero?(b)) <-- { var == Ln(rhs) / Ln(b) };
 20 # Solve'Simple(Ln(_e1),  _rhs, _var)_(e1 =? var) <-- { var == Exp(rhs) };
 
 /* The range of Sqrt is the set of (complex) numbers with either
@@ -433,46 +433,46 @@ VerifySolve(Solve(Cos(a)^2 == 1/2, a),
 /* The solution could have nicer form, but it is correct, apart from periodicity */
 VerifySolve(Solve(Sin(a*Pi)^2-Sin(a*Pi)/2 == 1/2, a), {a==Pi/(2*Pi),a==-Pi/(6*Pi),a==(Pi+Pi/6)/Pi});
 
-Verify(IsError(), False);
+Verify(Error?(), False);
 
 /* This equation can be solved (the solution is x>0), but the current
  * code does not do this. The least we can expect is that no spurious
  * solutions are returned. */
 VerifySolve(Solve(0^x == 0, x), {});
 Verify(ClearError("Solve'Fails"), True);
-Verify(IsError(), False);
+Verify(Error?(), False);
 
 /* This equation could be solved using the Lambert W function */
 VerifySolve(Solve(x^x == 1, x), {});
 Verify(ClearError("Solve'Fails"), True);
-Verify(IsError(), False);
+Verify(Error?(), False);
 
 /* Another equation which cannot be solved at the moment */
 VerifySolve(Solve(BesselJ(1,x), x), {});
 Verify(ClearError("Solve'Fails"), True);
-Verify(IsError(), False);
+Verify(Error?(), False);
 
 /* And another one */
 VerifySolve(Solve(Exp(x)+Cos(x) == 3, x), {});
 Verify(ClearError("Solve'Fails"), True);
-Verify(IsError(), False);
+Verify(Error?(), False);
 
 /* This equation could be solved if we knew that x >= 0 */
 VerifySolve(Solve(Sqrt(x) == a, x),  { });
 Verify(ClearError("Solve'Fails"), True);
-Verify(IsError(), False);
+Verify(Error?(), False);
 
 /* Test the type-checking mechanism */
 VerifySolve(Solve(2*x == 1, 1), {});
 Verify(ClearError("Solve'TypeError"), True);
-Verify(IsError(), False);
+Verify(Error?(), False);
 
 /* This command is clearly nonsense, but it used to send Yacas in an
  * infinite recursion, which should never happen.  Note that 'Differentiate(y)x == 0'
  * is parsed as 'Differentiate(y)(x==0)'. */
 VerifySolve(Solve(Differentiate(y)(x == 0), x),  { });
 Verify(ClearError("Solve'Fails"), True);
-Verify(IsError(), False);
+Verify(Error?(), False);
 
 
 /* Yacas has difficulties with more complicated equations, like the

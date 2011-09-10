@@ -6,7 +6,7 @@ GetError
 */
 
 //////////////////////////////////////////////////
-/// ErrorTableau, Assert, IsError --- global error reporting
+/// ErrorTableau, Assert, Error? --- global error reporting
 //////////////////////////////////////////////////
 
 LocalSymbols(ErrorTableau) [
@@ -59,7 +59,7 @@ ClearError(error'class_String?) <-- AssocDelete(GetErrorTableau(), error'class);
 
 {ClearErrors} is a trivial error handler that does nothing except it clears the tableau.
 
-*SEE Assert, IsError, DumpErrors
+*SEE Assert, Error?, DumpErrors
 
 %/mathpiper_docs
 
@@ -104,9 +104,9 @@ In> GetError("bad value")
 Result: {1, "must be zero"};
 In> ClearError("bad value");
 Result: True;
-In> IsError()
+In> Error?()
 Result: False;
 
-*SEE IsError, Assert, Check, ClearErrors
+*SEE Error?, Assert, Check, ClearErrors
 
 %/mathpiper_docs

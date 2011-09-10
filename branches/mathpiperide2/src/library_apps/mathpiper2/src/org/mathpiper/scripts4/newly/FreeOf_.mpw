@@ -1,30 +1,30 @@
-%mathpiper,def="IsFreeOf"
+%mathpiper,def="FreeOf?"
 
-1 # IsFreeOf({},_expr) <-- True;
-2 # IsFreeOf(var_List?, _expr) <-- And?(IsFreeOf(First(var),expr), IsFreeOf(Rest(var),expr));
+1 # FreeOf?({},_expr) <-- True;
+2 # FreeOf?(var_List?, _expr) <-- And?(FreeOf?(First(var),expr), FreeOf?(Rest(var),expr));
 
-4 # IsFreeOf(_var,{}) <-- True;
-5 # IsFreeOf(_var,expr_List?) <-- And?(IsFreeOf(var,First(expr)), IsFreeOf(var,Rest(expr)));
+4 # FreeOf?(_var,{}) <-- True;
+5 # FreeOf?(_var,expr_List?) <-- And?(FreeOf?(var,First(expr)), FreeOf?(var,Rest(expr)));
 
 /* Accept any variable. */
-10 # IsFreeOf(_expr,_expr) <-- False;
+10 # FreeOf?(_expr,_expr) <-- False;
 
 /* Otherwise check all leafs of a function. */
-11 # IsFreeOf(_var,expr_Function?) <-- IsFreeOf(var,Rest(FunctionToList(expr)));
+11 # FreeOf?(_var,expr_Function?) <-- FreeOf?(var,Rest(FunctionToList(expr)));
 
 /* Else it doesn't depend on any variable. */
-12 # IsFreeOf(_var,_expr) <-- True;
+12 # FreeOf?(_var,_expr) <-- True;
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsFreeOf",categories="User Functions;Predicates"
-*CMD IsFreeOf --- test whether expression depends on variable
+%mathpiper_docs,name="FreeOf?",categories="User Functions;Predicates"
+*CMD FreeOf? --- test whether expression depends on variable
 *STD
 *CALL
-        IsFreeOf(var, expr)
-        IsFreeOf({var, ...}, expr)
+        FreeOf?(var, expr)
+        FreeOf?({var, ...}, expr)
 
 *PARMS
 
@@ -43,13 +43,13 @@ the variables named in the list. The result is {True} if none of the variables a
 
 *E.G.
 
-In> IsFreeOf(x, Sin(x));
+In> FreeOf?(x, Sin(x));
 Result: False;
-In> IsFreeOf(y, Sin(x));
+In> FreeOf?(y, Sin(x));
 Result: True;
-In> IsFreeOf(x, Differentiate(x) a*x+b);
+In> FreeOf?(x, Differentiate(x) a*x+b);
 Result: True;
-In> IsFreeOf({x,y}, Sin(x));
+In> FreeOf?({x,y}, Sin(x));
 Result: False;
 
 The third command returns {True} because the

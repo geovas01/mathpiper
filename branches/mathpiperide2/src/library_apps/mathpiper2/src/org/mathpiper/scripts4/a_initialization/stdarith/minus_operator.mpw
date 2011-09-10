@@ -44,9 +44,9 @@ LocalSymbols(x,y,xarg,yarg)
   ];
 ];
 
-240 # (x_List? - y_IsNonObject)_Not?(List?(y)) <-- -(y-x);
+240 # (x_List? - y_NonObject?)_Not?(List?(y)) <-- -(y-x);
 
-241 # (x_IsNonObject - y_List?)_Not?(List?(x)) <--
+241 # (x_NonObject? - y_List?)_Not?(List?(x)) <--
 [
    Local(i,result);
    result:={};

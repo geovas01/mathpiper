@@ -1,8 +1,8 @@
-%mathpiper,def="IsGaussianPrime"
+%mathpiper,def="GaussianPrime?"
 
-Function("IsGaussianPrime",{x})
+Function("GaussianPrime?",{x})
 [
-        if( IsGaussianInteger(x) )[
+        if( GaussianInteger?(x) )[
                 if( Zero?(Re(x)) )[
                         ( Abs(Im(x)) % 4 =? 3 And? Prime?(Abs(Im(x))) );
                 ] else if ( Zero?(Im(x)) ) [
@@ -18,19 +18,19 @@ Function("IsGaussianPrime",{x})
 
 
 /*
-10 # IsGaussianPrime(p_Integer?) <-- Prime?(p) And? Modulo(p,3)=1;
-20 # IsGaussianPrime(p_IsGaussianInteger) <-- Prime?(GaussianNorm(p));
+10 # GaussianPrime?(p_Integer?) <-- Prime?(p) And? Modulo(p,3)=1;
+20 # GaussianPrime?(p_GaussianInteger?) <-- Prime?(GaussianNorm(p));
 */
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsGaussianPrime",categories="User Functions;Number Theory;Predicates"
-*CMD IsGaussianPrime ---  test for a Gaussian prime
+%mathpiper_docs,name="GaussianPrime?",categories="User Functions;Number Theory;Predicates"
+*CMD GaussianPrime? ---  test for a Gaussian prime
 *STD
 *CALL
-        IsGaussianPrime(z)
+        GaussianPrime?(z)
 *PARMS
 
 {z} -- a complex or real number
@@ -56,28 +56,28 @@ ordinary prime and $Im(z):=Modulo(3,4)$.
 if and only if $Re(z)$ is an ordinary prime and $Re(z):=Modulo(3,4)$.
 
 *E.G.
-In> IsGaussianPrime(13)
+In> GaussianPrime?(13)
 Result: False;
-In> IsGaussianPrime(2+2*I)
+In> GaussianPrime?(2+2*I)
 Result: False;
-In> IsGaussianPrime(2+3*I)
+In> GaussianPrime?(2+3*I)
 Result: True;
-In> IsGaussianPrime(3)
+In> GaussianPrime?(3)
 Result: True;
 
-*SEE  IsGaussianInteger, GaussianFactors
+*SEE  GaussianInteger?, GaussianFactors
 %/mathpiper_docs
 
 
 
 
 
-%mathpiper,name="IsGaussianPrime",subtype="automatic_test"
+%mathpiper,name="GaussianPrime?",subtype="automatic_test"
 
-Verify(IsGaussianPrime(5+2*I),True );
-Verify(IsGaussianPrime(13), False );
-Verify(IsGaussianPrime(0), False );
-Verify(IsGaussianPrime(3.5), False );
-Verify(IsGaussianPrime(2+3.1*I), False );
+Verify(GaussianPrime?(5+2*I),True );
+Verify(GaussianPrime?(13), False );
+Verify(GaussianPrime?(0), False );
+Verify(GaussianPrime?(3.5), False );
+Verify(GaussianPrime?(2+3.1*I), False );
 
 %/mathpiper

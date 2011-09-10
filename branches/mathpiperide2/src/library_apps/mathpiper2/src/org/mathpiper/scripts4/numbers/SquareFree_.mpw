@@ -1,16 +1,16 @@
-%mathpiper,def="IsSquareFree"
+%mathpiper,def="SquareFree?"
 
-IsSquareFree(n_Integer?)        <-- ( Moebius(n) !=? 0 );
+SquareFree?(n_Integer?)        <-- ( Moebius(n) !=? 0 );
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsSquareFree",categories="User Functions;Number Theory;Predicates"
-*CMD IsSquareFree --- test for a square-free number
+%mathpiper_docs,name="SquareFree?",categories="User Functions;Number Theory;Predicates"
+*CMD SquareFree? --- test for a square-free number
 *STD
 *CALL
-        IsSquareFree(n)
+        SquareFree?(n)
 
 *PARMS
 
@@ -24,13 +24,13 @@ numbers are trivially square-free.
 
 *E.G.
 
-In> IsSquareFree(37)
+In> SquareFree?(37)
 Result: True;
-In> IsSquareFree(4)
+In> SquareFree?(4)
 Result: False;
-In> IsSquareFree(16)
+In> SquareFree?(16)
 Result: False;
-In> IsSquareFree(18)
+In> SquareFree?(18)
 Result: False;
 
 *SEE Moebius, SquareFreeDivisorsList

@@ -85,7 +85,7 @@
 UnFence("xFB1",1);
 
 
-15 # xFB1(_X,n_IsSmallPrime,s_NotZero?)_(Odd?(n)) <--
+15 # xFB1(_X,n_SmallPrime?,s_NotZero?)_(Odd?(n)) <--
 [
     Local(ans,k);
     If(InVerboseMode(),[NewLine();Tell("   xFB1prime",{X,n,s});]);

@@ -1,9 +1,9 @@
-%mathpiper,def="IsCarmichaelNumber"
+%mathpiper,def="CarmichaelNumber?"
 
 // Carmichael numbers are odd,squarefree and have at least 3 prime factors
-5  # IsCarmichaelNumber(n_Even?)                <-- False;
-5  # IsCarmichaelNumber(_n)_(n<?561)                <-- False;
-10 # IsCarmichaelNumber(n_PositiveInteger?)        <--
+5  # CarmichaelNumber?(n_Even?)                <-- False;
+5  # CarmichaelNumber?(_n)_(n<?561)                <-- False;
+10 # CarmichaelNumber?(n_PositiveInteger?)        <--
 [
         Local(i,factors,length,carmichael);
 
@@ -22,17 +22,17 @@
         carmichael;
 ];
 
-IsCarmichaelNumber(n_List?) <-- MapSingle("IsCarmichaelNumber",n);
+CarmichaelNumber?(n_List?) <-- MapSingle("CarmichaelNumber?",n);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsCarmichaelNumber",categories="User Functions;Number Theory;Predicates"
-*CMD IsCarmichaelNumber --- test for a Carmichael number
+%mathpiper_docs,name="CarmichaelNumber?",categories="User Functions;Number Theory;Predicates"
+*CMD CarmichaelNumber? --- test for a Carmichael number
 *STD
 *CALL
-        IsCarmichaelNumber(n)
+        CarmichaelNumber?(n)
 
 *PARMS
 
@@ -50,22 +50,22 @@ it has recently been proven that there are infinitely many of them.
 
 *E.G. notest
 
-In> IsCarmichaelNumber(561)
+In> CarmichaelNumber?(561)
 Result: True;
-In> EchoTime() Select(1 .. 10000, IsCarmichaelNumber)
+In> EchoTime() Select(1 .. 10000, CarmichaelNumber?)
         504.19 seconds taken
 Result: {561,1105,1729,2465,2821,6601,8911};
 
-*SEE IsSquareFree, IsComposite
+*SEE SquareFree?, Composite?
 %/mathpiper_docs
 
 
 
 
 
-%mathpiper,name="IsCarmichaelNumber",subtype="automatic_test"
+%mathpiper,name="CarmichaelNumber?",subtype="automatic_test"
 
-Verify( IsCarmichaelNumber( {561,1105,1729,2465,2821,6601,8911} ),{True,True,True,True,True,True,True} );
-Verify( IsCarmichaelNumber( {0,1,2,1727,2463,2823,6603} ),{False,False,False,False,False,False,False} );
+Verify( CarmichaelNumber?( {561,1105,1729,2465,2821,6601,8911} ),{True,True,True,True,True,True,True} );
+Verify( CarmichaelNumber?( {0,1,2,1727,2463,2823,6603} ),{False,False,False,False,False,False,False} );
 
 %/mathpiper

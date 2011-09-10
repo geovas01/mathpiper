@@ -1,8 +1,8 @@
-%mathpiper,def="IsSubset"
+%mathpiper,def="Subset?"
 
-//Retract("IsSubset",*);
+//Retract("Subset?",*);
 
-IsSubset(bigList, littleList) :=
+Subset?(bigList, littleList) :=
 [
     Local(result);
     result := True;

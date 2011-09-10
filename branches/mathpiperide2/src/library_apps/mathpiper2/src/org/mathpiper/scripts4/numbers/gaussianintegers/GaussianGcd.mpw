@@ -1,6 +1,6 @@
 %mathpiper,def="GaussianGcd"
 
-10 # GaussianGcd(n_IsGaussianInteger,m_IsGaussianInteger) <--
+10 # GaussianGcd(n_GaussianInteger?,m_GaussianInteger?) <--
 [
         If(N(Abs(m))=?0,n, GaussianGcd(m,n - m*Round(n/m) ) );
 ];
@@ -33,5 +33,5 @@ The GCD of two mutually prime Gaussian integers might come out to be equal to so
 In> GaussianGcd(2+I,3+I)
 Result: -1;
 
-*SEE Gcd, Lcm, IsGaussianUnit
+*SEE Gcd, Lcm, GaussianUnit?
 %/mathpiper_docs

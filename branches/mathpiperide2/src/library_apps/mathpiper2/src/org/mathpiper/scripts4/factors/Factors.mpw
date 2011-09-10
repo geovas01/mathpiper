@@ -59,7 +59,7 @@
 ]; 
              
 
-25 # Factors(p_IsGaussianInteger)        <-- GaussianFactors(p);
+25 # Factors(p_GaussianInteger?)        <-- GaussianFactors(p);
 
 
 30 # Factors(_p)_(Length(VarList(p))=0) <-- {{p,1}};

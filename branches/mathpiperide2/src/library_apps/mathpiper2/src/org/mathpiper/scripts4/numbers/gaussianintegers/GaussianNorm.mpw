@@ -1,6 +1,6 @@
 %mathpiper,def="GaussianNorm"
 
-GaussianNorm(z_IsGaussianInteger) <-- Re(z)^2+Im(z)^2;
+GaussianNorm(z_GaussianInteger?) <-- Re(z)^2+Im(z)^2;
 
 %/mathpiper
 
@@ -26,5 +26,5 @@ $a^2+b^2$.
 In> GaussianNorm(2+I)
 Result: 5; 
 
-*SEE IsGaussianInteger
+*SEE GaussianInteger?
 %/mathpiper_docs

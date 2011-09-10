@@ -8,7 +8,7 @@
 2 # Sqrt(x_PositiveNumber?)_InNumericMode() <-- SqrtN(x);
 2 # Sqrt(x_NegativeNumber?) <-- Complex(0,Sqrt(-x));
 /* 3 # Sqrt(x_Number?/y_Number?) <-- Sqrt(x)/Sqrt(y); */
-3 # Sqrt(x_IsComplex)_InNumericMode() <-- x^(1/2);
+3 # Sqrt(x_Complex?)_InNumericMode() <-- x^(1/2);
 /* Threading  */
 Sqrt(xlist_List?) <-- MapSingle("Sqrt",xlist);
 
