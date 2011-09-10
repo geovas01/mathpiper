@@ -1,6 +1,6 @@
 %mathpiper,def="FrobeniusNorm"
 
-FrobeniusNorm(matrix_IsMatrix) <--
+FrobeniusNorm(matrix_Matrix?) <--
 [
         Local(i,j,result);
         result:=0;

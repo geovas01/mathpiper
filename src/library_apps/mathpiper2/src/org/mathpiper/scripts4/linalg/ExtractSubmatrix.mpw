@@ -2,7 +2,7 @@
 
 //Retract("ExtractSubMatrix",*);
 
-10 # ExtractSubMatrix( mat_IsMatrix, _row1, _col1, _row2, _col2 )_
+10 # ExtractSubMatrix( mat_Matrix?, _row1, _col1, _row2, _col2 )_
        (And?(PositiveInteger?(row1),PositiveInteger?(col1),
             PositiveInteger?(row2),PositiveInteger?(col2))) <--
 [
@@ -20,7 +20,7 @@
 ];
 
 
-10 # ExtractSubMatrix( mat_IsMatrix, _row1, _col1 )_
+10 # ExtractSubMatrix( mat_Matrix?, _row1, _col1 )_
               (And?(PositiveInteger?(row1),PositiveInteger?(col1))) <--
 [
     Local(nrows,ncols);

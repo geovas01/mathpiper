@@ -80,7 +80,7 @@ RulebaseListed("GeoGebraPlot",{arg1,arg2});
 ];
 
 
-5 # GeoGebraPlot(list_List?, _options)_(IsMatrix(list)) <--
+5 # GeoGebraPlot(list_List?, _options)_(Matrix?(list)) <--
 [
     Local(flatList);
     

@@ -368,7 +368,7 @@ Rulebase("TeXFormNth",{x,y});
 
 /* Matrices are always bracketed. Precedence 80 because lists are at 100. */
 
-80 # TeXForm(M_IsMatrix, _p) <-- TeXFormMatrixBracketIf(True, TeXFormPrintMatrix(M));
+80 # TeXForm(M_Matrix?, _p) <-- TeXFormMatrixBracketIf(True, TeXFormPrintMatrix(M));
 
 Function ("TeXFormPrintMatrix", {M})
 [

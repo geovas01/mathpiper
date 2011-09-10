@@ -77,6 +77,6 @@ Result: "*";
 In> Type(123);
 Result: "";
 
-*SEE IsAtom, ArgumentsCount
+*SEE Atom?, ArgumentsCount
 %/mathpiper_docs
 */

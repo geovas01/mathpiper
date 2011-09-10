@@ -1,6 +1,6 @@
 %mathpiper,def="Idempotent?"
 
-Idempotent?(A_IsMatrix) <-- (A^2 =? A);
+Idempotent?(A_Matrix?) <-- (A^2 =? A);
 
 %/mathpiper
 

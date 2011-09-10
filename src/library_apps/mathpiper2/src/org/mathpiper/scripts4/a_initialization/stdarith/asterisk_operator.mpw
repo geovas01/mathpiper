@@ -10,7 +10,7 @@
 105 # (f_NegativeNumber? * _x)  <-- -(-f)*x;
 105 # (_x * f_NegativeNumber?)  <-- -(-f)*x;
 
-95 # x_IsMatrix * y_IsMatrix <--
+95 # x_Matrix? * y_Matrix? <--
 [
    Local(i,j,k,row,result);
    result:=ZeroMatrix(Length(x),Length(y[1]));
@@ -25,7 +25,7 @@
 ];
 
 
-96 # x_IsMatrix * y_List? <--
+96 # x_Matrix? * y_List? <--
 [
    Local(i,result);
    result:={};

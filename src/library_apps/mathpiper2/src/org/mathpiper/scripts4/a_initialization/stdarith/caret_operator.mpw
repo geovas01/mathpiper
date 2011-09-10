@@ -55,7 +55,7 @@
 100 # Abs(_a)^n_Odd? <-- Sign(a)*a^n;
 
 
-200 # x_IsMatrix ^ n_PositiveInteger? <-- x*(x^(n-1));
+200 # x_Matrix? ^ n_PositiveInteger? <-- x*(x^(n-1));
 204 # (xlist_List? ^ nlist_List?)_(Length(xlist)=?Length(nlist)) <--
          Map("^",{xlist,nlist});
 205 # (xlist_List? ^ n_Constant?)_(Not?(List?(n))) <--

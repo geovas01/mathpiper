@@ -68,7 +68,7 @@ Result: {Cos,x};
 In> FunctionToList(3*a);
 Result: {*,3,a};
 
-*SEE List, ListToFunction, IsAtom
+*SEE List, ListToFunction, Atom?
 %/mathpiper_docs
 
 

@@ -75,6 +75,6 @@ Result: 5;
 In> Bound?(x);
 Result: True;
 
-*SEE IsAtom
+*SEE Atom?
 %/mathpiper_docs
 */

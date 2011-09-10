@@ -2,7 +2,7 @@
 
 //Retract("MatrixSolve",*);
 
-10 # MatrixSolve(matrix_Diagonal?,b_IsVector) <--
+10 # MatrixSolve(matrix_Diagonal?,b_Vector?) <--
 [
     If(InVerboseMode(),Tell("   MatrixSolve_diag",{matrix,b}));
         Local(rowsm,rowsb,x);
@@ -16,7 +16,7 @@
 ];
 
 // Backward Substitution
-15 # MatrixSolve(matrix_UpperTriangular?,b_IsVector) <--
+15 # MatrixSolve(matrix_UpperTriangular?,b_Vector?) <--
 [
     If(InVerboseMode(),Tell("   MatrixSolve_ut",{matrix,b}));
     Local(rowsm,rowsb,x,s);
@@ -40,7 +40,7 @@
 ];
 
 // Forward Substitution
-15 # MatrixSolve(matrix_LowerTriangular?,b_IsVector) <--
+15 # MatrixSolve(matrix_LowerTriangular?,b_Vector?) <--
 [
     If(InVerboseMode(),Tell("   MatrixSolve_lt",{matrix,b}));
         Local(rowsm,rowsb,x,s);
@@ -64,7 +64,7 @@
 ];
 // Gaussian Elimination and Back Substitution
 // pivoting not implemented yet
-20 # MatrixSolve(matrix_IsMatrix,b_IsVector) <--
+20 # MatrixSolve(matrix_Matrix?,b_Vector?) <--
 [
     If(InVerboseMode(),Tell("   MatrixSolve",{matrix,b}));
         Local(aug,rowsm,rowsb,x,s);

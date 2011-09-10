@@ -1,4 +1,4 @@
-Sat Sep 10 00:55:19 EDT 2011.
+Sat Sep 10 01:23:46 EDT 2011.
 MathPiper version: js.028.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
@@ -610,26 +610,6 @@ Testing IrregularPrime? in file </org/mathpiper/scripts4/numbers/IrregularPrime_
 
 
 ================================================================
-Testing IsMatrix in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
-
------- IsMatrix(Integer?)
-
-
-================================================================
-Testing IsScalar in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
-
-
-================================================================
-Testing IsSquareMatrix in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
-
-
-================================================================
-Testing IsVector in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
-
----- IsVector(Number?)
-
-
-================================================================
 Testing LaplaceTransform in file </org/mathpiper/scripts4/transforms/laplace/LaplaceTransform.mpw>: 
 
 
@@ -744,6 +724,12 @@ Testing MathExpTaylor0 in file </org/mathpiper/scripts4/base/MathExpTaylor0.mpw>
 
 
 ================================================================
+Testing Matrix? in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+------ Matrix?(Integer?)
+
+
+================================================================
 Testing MatrixPower in file </org/mathpiper/scripts4/linalg/MatrixPower.mpw>: 
 
 
@@ -778,7 +764,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(870*x+631*x^2+410*x^3+664*x^4+191*x^5+333,870*x+631*x^2+410*x^3+664*x^4+191*x^5+333)<?0.01
+Dot(136*x+479*x^2+609*x^3+846*x^4+89*x^5+212,136*x+479*x^2+609*x^3+846*x^4+89*x^5+212)<?0.01
  which differs from 
 True
 ******************
@@ -797,7 +783,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(840*x+400*x^2+664*x^3+642*x^4+804*x^5+918,840*x+400*x^2+664*x^3+642*x^4+804*x^5+918)<?0.01
+Dot(430*x+457*x^2+531*x^3+526*x^4+892*x^5+809,430*x+457*x^2+531*x^3+526*x^4+892*x^5+809)<?0.01
  which differs from 
 True
 ******************
@@ -816,7 +802,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(756*x+360*x^2+420*x^3+250*x^4+693*x^5+62,756*x+360*x^2+420*x^3+250*x^4+693*x^5+62)<?0.01
+Dot(480*x+756*x^2+480*x^3+410*x^4+514*x^5+448,480*x+756*x^2+480*x^3+410*x^4+514*x^5+448)<?0.01
  which differs from 
 True
 ******************
@@ -835,7 +821,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(424*x+913*x^2+260*x^3+168*x^4+431*x^5+528,424*x+913*x^2+260*x^3+168*x^4+431*x^5+528)<?0.01
+Dot(360*x+560*x^2+81*x^3+635*x^4+492*x^5+45,360*x+560*x^2+81*x^3+635*x^4+492*x^5+45)<?0.01
  which differs from 
 True
 ******************
@@ -854,7 +840,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(268*x+789*x^2+243*x^3+590*x^4+250*x^5+119,268*x+789*x^2+243*x^3+590*x^4+250*x^5+119)<?0.01
+Dot(607*x+39*x^2+150*x^3+906*x^4+926*x^5+213,607*x+39*x^2+150*x^3+906*x^4+926*x^5+213)<?0.01
  which differs from 
 True
 ******************
@@ -873,7 +859,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(315*x+438*x^2+947*x^3+630*x^4+411*x^5+445,315*x+438*x^2+947*x^3+630*x^4+411*x^5+445)<?0.01
+Dot(789*x+965*x^2+360*x^3+729*x^4+262*x^5+930,789*x+965*x^2+360*x^3+729*x^4+262*x^5+930)<?0.01
  which differs from 
 True
 ******************
@@ -1056,6 +1042,10 @@ Testing Reverse in file </org/mathpiper/scripts4/lists/Reverse.mpw>:
 
 
 ================================================================
+Testing Scalar? in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+
+================================================================
 Testing scopestack in file </org/mathpiper/scripts4/lists/scopestack/scopestack.mpw>: 
 
 
@@ -1077,6 +1067,10 @@ Testing SmallPrime? in file </org/mathpiper/scripts4/numbers/SmallPrime_.mpw>:
 
 ================================================================
 Testing Sqrt in file </org/mathpiper/scripts4/stubs/Sqrt.mpw>: 
+
+
+================================================================
+Testing SquareMatrix? in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
 
 
 ================================================================
@@ -1146,6 +1140,12 @@ Testing Variable? in file </org/mathpiper/scripts4/predicates/Variable_.mpw>:
 
 
 ================================================================
+Testing Vector? in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
+
+---- Vector?(Number?)
+
+
+================================================================
 Testing XmlExplodeTag in file </org/mathpiper/builtin/functions/core/XmlExplodeTag.java>: 
 
 
@@ -1159,4 +1159,4 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 GlobalVariables: Result: True
 
 Side Effects:
-{$a1094,$a15,$assumptions65,$b1094,$b15,$bernoulli1Threshold77,$BrentCacheOfConstantsN55,$CacheOfConstantsN13,$CFormAllFunctions44,$cformMathFunctions2,$cformRegularOps1,$cindent3,$ClearScreenString22,$complexReduce39,$Debug'FileLines22,$Debug'FileLoaded22,$Debug'NrLines22,$ErrorTableau23,$formulaMaxWidth75,$GlobalStack51,$intpred49,$knownOrthoPoly35,$knownRNGDists52,$knownRNGEngines52,$lastcoef76,$LoadResult,$LocResult36,$mathExpThreshold58,$mNum12,$n'max47,$nNum12,$NthRoot'Table21,$numericMode8,$omindent18,$omsymbol20,$omsymbolreverse20,$omtoken19,$options59,$options66,$p01998,$p1093,$p11998,$p21998,$p31998,$p41998,$p48,$pc241998,$pc351998,$pc461998,$pc571998,$pc681998,$pj1998,$pj401998,$pj501998,$pj511998,$pj521998,$pj531998,$pj541998,$pju01998,$pp1998,$RandSeed53,$res37,$rFormMathFunctions71,$rFormRegularOps70,$RIndent72,$simple1094,$st1092,$TeXFormGreekLetters83,$TeXFormMathFunctions284,$TeXFormMathFunctions84,$TeXFormRegularOps83,$TeXFormRegularPrefixOps83,$TeXFormSpecialNames83,$Verbose14,%,anchor,bullet,bullets,button,caption,form,frame,frameset,htmldir,I,iDebug,link,newline,site,table,textarea,textfield} 
+{$a1094,$a15,$assumptions65,$b1094,$b15,$bernoulli1Threshold77,$BrentCacheOfConstantsN55,$CacheOfConstantsN13,$CFormAllFunctions44,$cformMathFunctions2,$cformRegularOps1,$cindent3,$ClearScreenString22,$complexReduce38,$Debug'FileLines22,$Debug'FileLoaded22,$Debug'NrLines22,$ErrorTableau23,$formulaMaxWidth75,$GlobalStack51,$intpred49,$knownOrthoPoly34,$knownRNGDists52,$knownRNGEngines52,$lastcoef76,$LoadResult,$LocResult35,$mathExpThreshold58,$mNum12,$n'max47,$nNum12,$NthRoot'Table21,$numericMode8,$omindent18,$omsymbol20,$omsymbolreverse20,$omtoken19,$options59,$options66,$p01998,$p1093,$p11998,$p21998,$p31998,$p41998,$p48,$pc241998,$pc351998,$pc461998,$pc571998,$pc681998,$pj1998,$pj401998,$pj501998,$pj511998,$pj521998,$pj531998,$pj541998,$pju01998,$pp1998,$RandSeed53,$res36,$rFormMathFunctions71,$rFormRegularOps70,$RIndent72,$simple1094,$st1092,$TeXFormGreekLetters83,$TeXFormMathFunctions284,$TeXFormMathFunctions84,$TeXFormRegularOps83,$TeXFormRegularPrefixOps83,$TeXFormSpecialNames83,$Verbose14,%,anchor,bullet,bullets,button,caption,form,frame,frameset,htmldir,I,iDebug,link,newline,site,table,textarea,textfield} 

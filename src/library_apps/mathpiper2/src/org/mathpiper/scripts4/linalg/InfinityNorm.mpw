@@ -3,7 +3,7 @@
 //Retract("InfinityNorm",*);
 
 
-10 # InfinityNorm( M_IsMatrix ) <--
+10 # InfinityNorm( M_Matrix? ) <--
 [
         Local(sumlist,row);
         sumlist := {};
@@ -12,7 +12,7 @@
     Maximum(sumlist);
 ];
 
-10 # InfinityNorm( M_IsVector ) <-- Maximum(Abs(M));
+10 # InfinityNorm( M_Vector? ) <-- Maximum(Abs(M));
 
 %/mathpiper
 
