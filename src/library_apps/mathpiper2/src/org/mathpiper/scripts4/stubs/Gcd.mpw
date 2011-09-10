@@ -47,10 +47,10 @@
 
 
 //Note:tk:moved here from univar.rep.
-0 # Gcd(n_IsUniVar,m_IsUniVar)_
+0 # Gcd(n_UniVar?,m_UniVar?)_
     (n[1] =? m[1] And? Degree(n) <? Degree(m)) <-- Gcd(m,n);
 
-1 # Gcd(nn_IsUniVar,mm_IsUniVar)_
+1 # Gcd(nn_UniVar?,mm_UniVar?)_
     (nn[1] =? mm[1] And? Degree(nn) >=? Degree(mm)) <--
 [
    UniVariate(nn[1],0,

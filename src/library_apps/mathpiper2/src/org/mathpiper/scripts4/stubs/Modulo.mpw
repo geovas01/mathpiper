@@ -40,8 +40,8 @@
 
 
 //Note:tk:moved here from univariate.rep.
-0 # Modulo(n_IsUniVar,m_IsUniVar)_(Degree(n) <? Degree(m)) <-- n;
-1 # Modulo(n_IsUniVar,m_IsUniVar)_
+0 # Modulo(n_UniVar?,m_UniVar?)_(Degree(n) <? Degree(m)) <-- n;
+1 # Modulo(n_UniVar?,m_UniVar?)_
     (n[1] =? m[1] And? Degree(n) >=? Degree(m)) <--
 [
     UniVariate(n[1],0,

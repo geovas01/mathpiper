@@ -1,13 +1,13 @@
-%mathpiper,def="IsUniVar"
+%mathpiper,def="UniVar?"
 
-10 # IsUniVar(UniVariate(_var,_first,_coefs)) <-- True;
-20 # IsUniVar(_anything) <-- False;
+10 # UniVar?(UniVariate(_var,_first,_coefs)) <-- True;
+20 # UniVar?(_anything) <-- False;
 
-200 # aLeft_IsUniVar ^ aRight_PositiveInteger? <--
+200 # aLeft_UniVar? ^ aRight_PositiveInteger? <--
       RepeatedSquaresMultiply(aLeft,aRight);
 
 
-200 # aLeft_IsUniVar - aRight_IsUniVar <--
+200 # aLeft_UniVar? - aRight_UniVar? <--
 [
   Local(from,result);
   Local(curl,curr,left,right);
@@ -67,7 +67,7 @@
 
 /*TODO this can be made twice as fast!*/
 
-201 # (aLeft_IsUniVar * _aRight)_((FreeOf?(aLeft[1],aRight))) <--
+201 # (aLeft_UniVar? * _aRight)_((FreeOf?(aLeft[1],aRight))) <--
 [
     aRight*aLeft;
 ];
