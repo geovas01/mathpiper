@@ -1,7 +1,7 @@
 %mathpiper,def="LeadingCoef"
 
 //todo:tk:moved here form Coef.mpw.
-10 # LeadingCoef(uv_IsUniVar) <-- Coef(uv,Degree(uv));
+10 # LeadingCoef(uv_UniVar?) <-- Coef(uv,Degree(uv));
 
 20 # LeadingCoef(uv_CanBeUni) <--
 [

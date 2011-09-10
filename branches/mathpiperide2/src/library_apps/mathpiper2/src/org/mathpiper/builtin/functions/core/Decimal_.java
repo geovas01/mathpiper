@@ -85,6 +85,6 @@ Result: False;
 In> Decimal?(3.2/10);
 Result: False;
 
-*SEE String?, IsAsom, Integer?, IsPositiveNumber, NegativeNumber?, Number?
+*SEE String?, Atom?, Integer?, PositiveNumber?, NegativeNumber?, Number?
 %/mathpiper_docs
 */

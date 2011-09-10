@@ -2,14 +2,14 @@
 
 Rulebase("YacasPSolve",{uni});
 
-Rule("YacasPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 0)
+Rule("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 0)
     {};
 
-Rule("YacasPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 1)
+Rule("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 1)
     -Coef(uni,0)/Coef(uni,1);
 
 
-Rule("YacasPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 2)
+Rule("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 2)
     [
      Local(a,b,c,d,q,r);
      c:=Coef(uni,0);
@@ -27,7 +27,7 @@ Rule("YacasPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 2)
     ];
 
 
-Rule("YacasPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 3 )
+Rule("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 3 )
     [
      Local(p,q,r,w,ww,a,b);
      Local(coef0,coef1,coef3,adjust);
@@ -114,7 +114,7 @@ The four roots of the quartic are the two roots of the first quadratic
 factor plus the two roots of the second quadratic factor.
 */
 
-Rule("YacasPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 4 )
+Rule("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 4 )
 [
     Local(coef4,a1,a2,a3,a4,y,y1,z,t,s);
 

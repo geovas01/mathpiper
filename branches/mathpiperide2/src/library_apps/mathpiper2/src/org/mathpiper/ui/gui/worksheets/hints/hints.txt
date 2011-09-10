@@ -213,7 +213,7 @@
 :InverseTaylor:InverseTaylor(var, at, order) expr:Taylor expansion of inverse:
 :AmicablePair?:AmicablePair?(m,n):test for a pair of amicable numbers:
 :Atom?:Atom?(expr):test for an atom:
-:IsBodied:IsBodied("op"):check for function syntax:
+:Bodied?:Bodied?("op"):check for function syntax:
 :IsBoolean:IsBoolean(expression):test for a Boolean value:
 :Bound?:Bound?(var):test for a bound variable:
 :CFormable?:CFormable?(expr):check possibility to export expression to C++ code:
@@ -255,9 +255,9 @@
 :IsOdd:IsOdd(n):test for an odd integer:
 :IsOddFunction:IsOddFunction(expression,variable):Return true if function is an odd function, False otherwise:
 :IsOrthogonal:IsOrthogonal(A):test for an orthogonal matrix:
-:IsPositiveInteger:IsPositiveInteger(n):test for a positive integer:
-:IsPositiveNumber:IsPositiveNumber(n):test for a positive number:
-:IsPositiveReal:IsPositiveReal(expr):test for a numerically positive value:
+:PositiveInteger?:PositiveInteger?(n):test for a positive integer:
+:PositiveNumber?:PositiveNumber?(n):test for a positive number:
+:PositiveReal?:PositiveReal?(expr):test for a numerically positive value:
 :Postfix?:Postfix?("op"):check for function syntax:
 :Prefix?:Prefix?("op"):check for function syntax:
 :IsPrime:IsPrime(n):test for a prime number:
@@ -278,8 +278,8 @@
 :IsUpperTriangular:IsUpperTriangular(A):test for an upper triangular matrix:
 :Vector?:Vector?(expr):test for a vector:
 :Vector?:Vector?(pred,expr)::
-:IsZero:IsZero(n):test whether argument is zero:
-:IsZeroVector:IsZeroVector(list):test whether list contains only zeroes:
+:Zero?:Zero?(n):test whether argument is zero:
+:Zero?Vector:Zero?Vector(list):test whether list contains only zeroes:
 :JacobiSymbol:JacobiSymbol(m,n):functions related to finite groups:
 :JacobianMatrix:JacobianMatrix(functions,variables):calculate the Jacobian matrix of $n$ functions in $n$ variables:
 :KnownFailure:KnownFailure(test):Mark a test as a known failure:

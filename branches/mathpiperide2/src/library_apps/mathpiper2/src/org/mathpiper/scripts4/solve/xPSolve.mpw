@@ -13,13 +13,13 @@
  
 Rulebase("xPSolve",{uni});
 
-Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 1)
+Rule("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 1)
 [
     If(iDebug,Tell("   xPSolve_1",uni));
     {-Coef(uni,0)/Coef(uni,1)};
 ];
 
-Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 2)
+Rule("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 2)
 [
      If(iDebug,Tell("   xPSolve_2",uni));
      Local(a,b,c,d,q,r);
@@ -77,7 +77,7 @@ Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 2)
         Clearly if ab = -q/3 is true then (wa)(w^2b) == (wb)(w^2a) == -q/3
 */
 
-Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 3 )
+Rule("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 3 )
 [
      If(iDebug,Tell("   xPSolve_3",uni));
      Local(p,q,r,s,t,w1,w2,a,b);
@@ -161,7 +161,7 @@ The four roots of the quartic are the two roots of the first quadratic
 factor plus the two roots of the second quadratic factor.
 */
 
-Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 4 )
+Rule("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 4 )
 [
     If(iDebug,Tell("   xPSolve_4",uni));
     Local(coef4,a1,a2,a3,a4,y,y1,z,t,s);
