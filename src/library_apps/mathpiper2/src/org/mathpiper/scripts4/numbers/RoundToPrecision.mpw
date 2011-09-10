@@ -84,7 +84,7 @@
 ];
 
 
-20 # RoundToPrecision( N_IsComplex, newPrec_PositiveInteger? ) <--
+20 # RoundToPrecision( N_Complex?, newPrec_PositiveInteger? ) <--
 [
     //If(InVerboseMode(),Tell("RoundToPrecision_C",{N,newPrec}));
     Local(rr,ii);

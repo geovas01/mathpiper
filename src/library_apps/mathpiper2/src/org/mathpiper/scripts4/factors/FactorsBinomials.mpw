@@ -2,13 +2,13 @@
 
 //Retract("FactorsBinomials",*);
 
-10 # FactorsBinomials( _x + y_IsFreeOf(x) ) <-- {x+y,1};
+10 # FactorsBinomials( _x + y_FreeOf?(x) ) <-- {x+y,1};
 
-10 # FactorsBinomials( _x - y_IsFreeOf(x) ) <-- {x-y,1};
+10 # FactorsBinomials( _x - y_FreeOf?(x) ) <-- {x-y,1};
 
-10 # FactorsBinomials( c_Constant? * _x + y_IsFreeOf(x) ) <-- {c*x+y,1};
+10 # FactorsBinomials( c_Constant? * _x + y_FreeOf?(x) ) <-- {c*x+y,1};
 
-10 # FactorsBinomials( c_Constant? * _x - y_IsFreeOf(x) ) <-- {c*x-y,1};
+10 # FactorsBinomials( c_Constant? * _x - y_FreeOf?(x) ) <-- {c*x-y,1};
 
 10 # FactorsBinomials( _x^m_Odd? + _y ) <--
 [

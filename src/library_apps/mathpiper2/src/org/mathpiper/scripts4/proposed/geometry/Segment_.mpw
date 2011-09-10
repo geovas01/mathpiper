@@ -1,6 +1,6 @@
-%mathpiper,def="IsSegment"
+%mathpiper,def="Segment?"
 
-IsSegment(list_List?) <--
+Segment?(list_List?) <--
 [
     If(List?(list[1]) And? Length(list[1])=?2 And? List?(list[2]) And? Length(list[2])=?2,True,False);
 
@@ -10,11 +10,11 @@ IsSegment(list_List?) <--
 
 
 
-%mathpiper_docs,name="IsSegment",categories="User Functions;Analytic Geometry",access="experimental"
-*CMD IsSegment --- test for a segment
+%mathpiper_docs,name="Segment?",categories="User Functions;Analytic Geometry",access="experimental"
+*CMD Segment? --- test for a segment
 *STD
 *CALL
-        IsSegment(s)
+        Segment?(s)
 *PARMS
 
 {s} -- segment to test
@@ -26,10 +26,10 @@ Tests if a value is a segment.
 
 *E.G.
 
-In> IsSegment(Segment(Point(0,0), Point(3,4)))
+In> Segment?(Segment(Point(0,0), Point(3,4)))
 Result: True
         
-In> IsSegment({3,4})
+In> Segment?({3,4})
 Result: False
         
 *SEE Point, Midpoint, Distance, Slope, Segment

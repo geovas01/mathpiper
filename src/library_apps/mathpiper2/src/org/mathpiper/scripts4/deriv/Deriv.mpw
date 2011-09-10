@@ -31,12 +31,12 @@
 2 # (Deriv(_var)Exp(_x)) <--  (Deriv(var)x)*Exp(x);
 
 // When dividing by a constant, this is faster
-2 # (Deriv(_var)(_x / _y))_(IsFreeOf(var,y)) <-- (Deriv(var) x) / y;
+2 # (Deriv(_var)(_x / _y))_(FreeOf?(var,y)) <-- (Deriv(var) x) / y;
 3 # (Deriv(_var)(_x / _y)) <--
     (y* (Deriv(var) x) - x* (Deriv(var) y))/ (y^2);
 
 2 # (Deriv(_var)Ln(_x)) <-- ((Deriv(var) x) / x);
-2 # (Deriv(_var)(_x ^ _n))_(RationalOrNumber?(n) Or? IsFreeOf(var, n)) <--
+2 # (Deriv(_var)(_x ^ _n))_(RationalOrNumber?(n) Or? FreeOf?(var, n)) <--
     n * (Deriv(var) x) * (x ^ (n - 1));
 
 //2 # (Deriv(_var)(Abs(_x)))  <-- Sign(x)*(Deriv(var)x);
@@ -63,7 +63,7 @@
 
 LocalSymbols(var,var2,a,b,y)[
    2 # (Deriv(_var)Integrate(_var)(_y)) <-- y;
-   2 # (Deriv(_var)Integrate(_var2,_a,_b)(y_IsFreeOf(var))) <--
+   2 # (Deriv(_var)Integrate(_var2,_a,_b)(y_FreeOf?(var))) <--
          (Deriv(var)b)*(y Where var2 == b) -
          (Deriv(var)a)*(y Where var2 == a);
    3 # (Deriv(_var)Integrate(_var2,_a,_b)(_y)) <--

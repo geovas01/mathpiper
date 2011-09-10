@@ -7,7 +7,7 @@
 2 # Gcd(_n,1) <-- 1;
 2 # Gcd(1,_m) <-- 1;
 2 # Gcd(n_Integer?,m_Integer?) <-- GcdN(n,m);
-3 # Gcd(_n,_m)_(IsGaussianInteger(m) And? IsGaussianInteger(n) )<-- GaussianGcd(n,m);
+3 # Gcd(_n,_m)_(GaussianInteger?(m) And? GaussianInteger?(n) )<-- GaussianGcd(n,m);
 
 4 # Gcd(-(_n), (_m)) <-- Gcd(n,m);
 4 # Gcd( (_n),-(_m)) <-- Gcd(n,m);
@@ -142,7 +142,7 @@ VerifyGaussianGcd(x,y):=
   gcd:=Gcd(x,y);
 //  Echo(x/gcd);
 //  Echo(y/gcd);
-  Verify(IsGaussianInteger(x/gcd) And? IsGaussianInteger(y/gcd),True);
+  Verify(GaussianInteger?(x/gcd) And? GaussianInteger?(y/gcd),True);
 ];
 VerifyGaussianGcd(324 + 1608*I, -11800 + 7900*I);
 VerifyGaussianGcd(7300 + 12*I, 2700 + 100*I);

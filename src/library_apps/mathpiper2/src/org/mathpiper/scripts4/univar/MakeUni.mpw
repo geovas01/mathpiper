@@ -26,7 +26,7 @@ Rulebase("MakeUni",{expression,var});
   reslist:={};
   ForEach(item,expression[3])
   [
-    If(IsFreeOf(var,item),
+    If(FreeOf?(var,item),
       DestructiveAppend(reslist,item),
       DestructiveAppend(reslist,MakeUni(item,var))
       );
@@ -37,7 +37,7 @@ Rulebase("MakeUni",{expression,var});
 
 LocalSymbols(a,b,var,expression)
 [
-  20 # MakeUni(expression_IsFreeOf(var),_var)
+  20 # MakeUni(expression_FreeOf?(var),_var)
        <-- UniVariate(var,0,{expression});
   30 # MakeUni(_var,_var) <-- UniVariate(var,1,{1});
   30 # MakeUni(_a + _b,_var) <-- MakeUni(a,var) + MakeUni(b,var);
@@ -45,7 +45,7 @@ LocalSymbols(a,b,var,expression)
   30 # MakeUni(   - _b,_var) <--                - MakeUni(b,var);
   30 # MakeUni(_a * _b,_var) <-- MakeUni(a,var) * MakeUni(b,var);
   1 # MakeUni(_a ^ n_Integer?,_var) <-- MakeUni(a,var) ^ n;
-  30 # MakeUni(_a / (b_IsFreeOf(var)),_var) <-- MakeUni(a,var) * (1/b);
+  30 # MakeUni(_a / (b_FreeOf?(var)),_var) <-- MakeUni(a,var) * (1/b);
 ];
 
 %/mathpiper

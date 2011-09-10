@@ -211,35 +211,35 @@
 :Intersection:Intersection(l1, l2):return the intersection of two lists:
 :Inverse:Inverse(M):get inverse of a matrix:
 :InverseTaylor:InverseTaylor(var, at, order) expr:Taylor expansion of inverse:
-:IsAmicablePair:IsAmicablePair(m,n):test for a pair of amicable numbers:
+:AmicablePair?:AmicablePair?(m,n):test for a pair of amicable numbers:
 :IsAtom:IsAtom(expr):test for an atom:
 :IsBodied:IsBodied("op"):check for function syntax:
 :IsBoolean:IsBoolean(expression):test for a Boolean value:
 :Bound?:Bound?(var):test for a bound variable:
-:IsCFormable:IsCFormable(expr):check possibility to export expression to C++ code:
-:IsCFormable:IsCFormable(expr, funclist)::
-:IsCarmichaelNumber:IsCarmichaelNumber(n):test for a Carmichael number:
-:IsComposite:IsComposite(n):test for a composite number:
+:CFormable?:CFormable?(expr):check possibility to export expression to C++ code:
+:CFormable?:CFormable?(expr, funclist)::
+:CarmichaelNumber?:CarmichaelNumber?(n):test for a Carmichael number:
+:Composite?:Composite?(n):test for a composite number:
 :IsConstant:IsConstant(expr):test for a constant:
-:IsCoprime:IsCoprime(list)::
-:IsCoprime:IsCoprime(m,n):test if integers are coprime :
+:Coprime?:Coprime?(list)::
+:Coprime?:Coprime?(m,n):test if integers are coprime :
 :IsDiagonal:IsDiagonal(A):test for a diagonal matrix:
-:IsError:IsError("str")::
-:IsError:IsError():check for custom error:
+:Error?:Error?("str")::
+:Error?:Error?():check for custom error:
 :IsEven:IsEven(n):test for an even integer:
 :IsEvenFunction:IsEvenFunction(expression,variable):Return true if function is an even function, False otherwise:
-:IsFreeOf:IsFreeOf(var, expr):test whether expression depends on variable:
-:IsFreeOf:IsFreeOf({var, ...}, expr)::
+:FreeOf?:FreeOf?(var, expr):test whether expression depends on variable:
+:FreeOf?:FreeOf?({var, ...}, expr)::
 :Function?:Function?(expr):test for a composite object:
-:IsGaussianInteger:IsGaussianInteger(z):test for a Gaussian integer:
-:IsGaussianPrime:IsGaussianPrime(z):test for a Gaussian prime:
-:IsGaussianUnit:IsGaussianUnit(z):test for a Gaussian unit:
+:GaussianInteger?:GaussianInteger?(z):test for a Gaussian integer:
+:GaussianPrime?:GaussianPrime?(z):test for a Gaussian prime:
+:GaussianUnit?:GaussianUnit?(z):test for a Gaussian unit:
 :Generic?:Generic?(object):check for generic object:
 :IsHermitian:IsHermitian(A):test for a Hermitian matrix:
 :Idempotent?:Idempotent?(A):test for an idempotent matrix:
 :IsInfinity:IsInfinity(expr):test for an infinity:
 :Infix?:Infix?("op"):check for function syntax:
-:IsIrregularPrime:IsIrregularPrime(n):test for an irregular prime:
+:IrregularPrime?:IrregularPrime?(n):test for an irregular prime:
 :List?:List?(expr):test for a list:
 :IsLowerTriangular:IsLowerTriangular(A):test for a lower triangular matrix:
 :IsMatrix:IsMatrix(expr):test for a matrix:
@@ -247,7 +247,7 @@
 :IsNegativeInteger:IsNegativeInteger(n):test for a negative integer:
 :NegativeNumber?:NegativeNumber?(n):test for a negative number:
 :IsNegativeReal:IsNegativeReal(expr):test for a numerically negative value:
-:IsNonObject:IsNonObject(expr):test whether argument is not an {Object()}:
+:NonObject?:NonObject?(expr):test whether argument is not an {Object()}:
 :IsNonZeroInteger:IsNonZeroInteger(n):test for a nonzero integer:
 :IsNotZero:IsNotZero(n):test for a nonzero number:
 :Number?:Number?(expr):test for a number:
@@ -263,17 +263,17 @@
 :IsPrime:IsPrime(n):test for a prime number:
 :IsPrimePower:IsPrimePower(n):test for a power of a prime number:
 :PromptShown?:PromptShown?():test for the Yacas prompt option:
-:IsQuadraticResidue:IsQuadraticResidue(m,n):functions related to finite groups:
+:QuadraticResidue?:QuadraticResidue?(m,n):functions related to finite groups:
 :IsRational:IsRational(expr):test whether argument is a rational:
 :IsScalar:IsScalar(expr):test for a scalar:
 :IsSkewSymmetric:IsSkewSymmetric(A):test for a skew-symmetric matrix:
-:IsSmallPrime:IsSmallPrime(n):test for a (small) prime number:
-:IsSquareFree:IsSquareFree(n):test for a square-free number:
+:SmallPrime?:SmallPrime?(n):test for a (small) prime number:
+:SquareFree?:SquareFree?(n):test for a square-free number:
 :IsSquareMatrix:IsSquareMatrix(expr):test for a square matrix:
 :IsSquareMatrix:IsSquareMatrix(pred,expr)::
 :String?:String?(expr):test for an string:
 :IsSymmetric:IsSymmetric(A):test for a symmetric matrix:
-:IsTwinPrime:IsTwinPrime(n):test for a twin prime:
+:TwinPrime?:TwinPrime?(n):test for a twin prime:
 :IsUnitary:IsUnitary(A):test for a unitary matrix:
 :IsUpperTriangular:IsUpperTriangular(A):test for an upper triangular matrix:
 :IsVector:IsVector(expr):test for a vector:

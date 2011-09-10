@@ -16,7 +16,7 @@
 
 LocalSymbols(k)
 [
-        40 # Erf(_x)_(InNumericMode() And? (Number?(x) Or? IsComplex(x)) And? Abs(x) <=? 1) <--
+        40 # Erf(_x)_(InNumericMode() And? (Number?(x) Or? Complex?(x)) And? Abs(x) <=? 1) <--
 [
   Local(prec);
   prec := BuiltinPrecisionGet(); // N(...) modifies the precision
@@ -35,7 +35,7 @@ LocalSymbols(k)
 LocalSymbols(n'max, k)
 [
 
-        50 # Erf(_x)_(InNumericMode() And? (Number?(x) Or? IsComplex(x))
+        50 # Erf(_x)_(InNumericMode() And? (Number?(x) Or? Complex?(x))
                 And? (
                         [        // strongest condition: the exp(-x^2) asymptotic is already good
                                 n'max := 0;

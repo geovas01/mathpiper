@@ -31,5 +31,5 @@ Creates either a 2D point or a 3D point.
 In> Point(5,2)
 Result: {5,2}
 
-*SEE IsPoint, Midpoint, Distance, Slope, Segment
+*SEE Point?, Midpoint, Distance, Slope, Segment
 %/mathpiper_docs

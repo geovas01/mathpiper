@@ -452,7 +452,7 @@ public class Build {
 
                     String[] functionsNotToBuild = {""};
 
-                    /*{"CForm", "IsCFormable", "issues", "debug", "jFactorsPoly", "jasFactorsInt",
+                    /*{"CForm", "CFormable?", "issues", "debug", "jFactorsPoly", "jasFactorsInt",
                         "xContent", "xFactor", "xFactors", "xFactorsBinomial", "xFactorsResiduals", "xPrimitivePart", "html", "odesolver",
                         "orthopoly", "openmath", "ManipEquations", "Manipulate", "SolveSetEqns", "ControlChart", "GeoGebra", "GeoGebraHistogram",
                         "GeoGebraPlot", "GeoGebraPoint", "ggbLine", "HighschoolForm", "jas_test", "JFreeChartHistogram", "JavaAccess", "RForm",

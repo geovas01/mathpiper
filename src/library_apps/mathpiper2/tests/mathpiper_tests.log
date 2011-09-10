@@ -1,4 +1,4 @@
-Fri Sep 09 22:55:26 EDT 2011.
+Sat Sep 10 00:55:19 EDT 2011.
 MathPiper version: js.028.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
@@ -57,6 +57,10 @@ Testing Abs in file </org/mathpiper/scripts4/stubs/Abs.mpw>:
 
 ================================================================
 Testing Add in file </org/mathpiper/scripts4/sums/Add.mpw>: 
+
+
+================================================================
+Testing AmicablePair? in file </org/mathpiper/scripts4/numbers/AmicablePair_.mpw>: 
 
 
 ================================================================
@@ -130,11 +134,19 @@ Test suite for Propositional logic theorem prover: CanProve :
 
 
 ================================================================
+Testing CarmichaelNumber? in file </org/mathpiper/scripts4/numbers/CarmichaelNumber_.mpw>: 
+
+
+================================================================
 Testing CatalanNumber in file </org/mathpiper/scripts4/numbers/CatalanNumber.mpw>: 
 
 
 ================================================================
 Testing CForm in file </org/mathpiper/scripts4/outputforms/CForm.mpw>: 
+
+
+================================================================
+Testing CFormable? in file </org/mathpiper/scripts4/outputforms/CFormable_.mpw>: 
 
 
 ================================================================
@@ -154,6 +166,10 @@ Known failure: (Limit(n,Infinity)(n^2*I^n)/(n^3+1))=?0
 
 
 ================================================================
+Testing Composite? in file </org/mathpiper/scripts4/numbers/Composite_.mpw>: 
+
+
+================================================================
 Testing ConcatStrings in file </org/mathpiper/builtin/functions/core/ConcatenateStrings.java>: 
 
 
@@ -167,6 +183,10 @@ Testing Constant? in file </org/mathpiper/scripts4/predicates/Constant_.mpw>:
 
 ================================================================
 Testing Content in file </org/mathpiper/scripts4/univar/Content.mpw>: 
+
+
+================================================================
+Testing Coprime? in file </org/mathpiper/scripts4/numbers/Coprime_.mpw>: 
 
 
 ================================================================
@@ -240,7 +260,7 @@ Testing Equal? in file </org/mathpiper/builtin/functions/core/Equal_.java>:
 
 
 ================================================================
-Testing error_reporting in file </org/mathpiper/scripts4/io/IsError.mpw>: 
+Testing error_reporting in file </org/mathpiper/scripts4/io/Error_.mpw>: 
 
 
 ================================================================
@@ -506,6 +526,14 @@ Test suite for Gaussian Integers :
 
 
 ================================================================
+Testing GaussianInteger? in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianInteger_.mpw>: 
+
+
+================================================================
+Testing GaussianPrime? in file </org/mathpiper/scripts4/numbers/gaussianintegers/GaussianPrime_.mpw>: 
+
+
+================================================================
 Testing Gcd in file </org/mathpiper/scripts4/stubs/Gcd.mpw>: 
 
 Known failure: Gcd(10,3.3)!=?3.3 And? Gcd(10,3.3)!=?1 
@@ -578,35 +606,7 @@ Testing IntPowerNum in file </org/mathpiper/scripts4/stdfuncs/nummethods/IntPowe
 
 
 ================================================================
-Testing IsAmicablePair in file </org/mathpiper/scripts4/numbers/IsAmicablePair.mpw>: 
-
-
-================================================================
-Testing IsCarmichaelNumber in file </org/mathpiper/scripts4/numbers/IsCarmichaelNumber.mpw>: 
-
-
-================================================================
-Testing IsCFormable in file </org/mathpiper/scripts4/outputforms/IsCFormable.mpw>: 
-
-
-================================================================
-Testing IsComposite in file </org/mathpiper/scripts4/numbers/IsComposite.mpw>: 
-
-
-================================================================
-Testing IsCoprime in file </org/mathpiper/scripts4/numbers/IsCoprime.mpw>: 
-
-
-================================================================
-Testing IsGaussianInteger in file </org/mathpiper/scripts4/numbers/gaussianintegers/IsGaussianInteger.mpw>: 
-
-
-================================================================
-Testing IsGaussianPrime in file </org/mathpiper/scripts4/numbers/gaussianintegers/IsGaussianPrime.mpw>: 
-
-
-================================================================
-Testing IsIrregularPrime in file </org/mathpiper/scripts4/numbers/IsIrregularPrime.mpw>: 
+Testing IrregularPrime? in file </org/mathpiper/scripts4/numbers/IrregularPrime_.mpw>: 
 
 
 ================================================================
@@ -616,23 +616,11 @@ Testing IsMatrix in file </org/mathpiper/scripts4/predicates/matrix.mpw>:
 
 
 ================================================================
-Testing IsPerfect in file </org/mathpiper/scripts4/numbers/IsPerfect.mpw>: 
-
-
-================================================================
 Testing IsScalar in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
 
 
 ================================================================
-Testing IsSmallPrime in file </org/mathpiper/scripts4/numbers/IsSmallPrime.mpw>: 
-
-
-================================================================
 Testing IsSquareMatrix in file </org/mathpiper/scripts4/predicates/matrix.mpw>: 
-
-
-================================================================
-Testing IsTwinPrime in file </org/mathpiper/scripts4/numbers/IsTwinPrime.mpw>: 
 
 
 ================================================================
@@ -790,7 +778,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(287*x+679*x^2+943*x^3+411*x^4+751*x^5+278,287*x+679*x^2+943*x^3+411*x^4+751*x^5+278)<?0.01
+Dot(870*x+631*x^2+410*x^3+664*x^4+191*x^5+333,870*x+631*x^2+410*x^3+664*x^4+191*x^5+333)<?0.01
  which differs from 
 True
 ******************
@@ -809,7 +797,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(160*x+838*x^2+896*x^3+668*x^4+958*x^5+338,160*x+838*x^2+896*x^3+668*x^4+958*x^5+338)<?0.01
+Dot(840*x+400*x^2+664*x^3+642*x^4+804*x^5+918,840*x+400*x^2+664*x^3+642*x^4+804*x^5+918)<?0.01
  which differs from 
 True
 ******************
@@ -828,7 +816,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(734*x+51*x^2+703*x^3+868*x^4+979*x^5+817,734*x+51*x^2+703*x^3+868*x^4+979*x^5+817)<?0.01
+Dot(756*x+360*x^2+420*x^3+250*x^4+693*x^5+62,756*x+360*x^2+420*x^3+250*x^4+693*x^5+62)<?0.01
  which differs from 
 True
 ******************
@@ -847,7 +835,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(369*x+548*x^2+262*x^3+724*x^4+830*x^5+793,369*x+548*x^2+262*x^3+724*x^4+830*x^5+793)<?0.01
+Dot(424*x+913*x^2+260*x^3+168*x^4+431*x^5+528,424*x+913*x^2+260*x^3+168*x^4+431*x^5+528)<?0.01
  which differs from 
 True
 ******************
@@ -866,7 +854,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(389*x+364*x^2+593*x^3+893*x^4+474*x^5+974,389*x+364*x^2+593*x^3+893*x^4+474*x^5+974)<?0.01
+Dot(268*x+789*x^2+243*x^3+590*x^4+250*x^5+119,268*x+789*x^2+243*x^3+590*x^4+250*x^5+119)<?0.01
  which differs from 
 True
 ******************
@@ -885,7 +873,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(704*x+975*x^2+610*x^3+15*x^4+653*x^5+516,704*x+975*x^2+610*x^3+15*x^4+653*x^5+516)<?0.01
+Dot(315*x+438*x^2+947*x^3+630*x^4+411*x^5+445,315*x+438*x^2+947*x^3+630*x^4+411*x^5+445)<?0.01
  which differs from 
 True
 ******************
@@ -1018,6 +1006,10 @@ Testing Outer in file </org/mathpiper/scripts4/linalg/Outer.mpw>:
 
 
 ================================================================
+Testing Perfect? in file </org/mathpiper/scripts4/numbers/Perfect_.mpw>: 
+
+
+================================================================
 Testing Plot2D in file </org/mathpiper/scripts4/plots/_2d/plot2d.mpw>: 
 
 
@@ -1080,6 +1072,10 @@ Testing Sin in file </org/mathpiper/scripts4/stdfuncs/Sin.mpw>:
 
 
 ================================================================
+Testing SmallPrime? in file </org/mathpiper/scripts4/numbers/SmallPrime_.mpw>: 
+
+
+================================================================
 Testing Sqrt in file </org/mathpiper/scripts4/stubs/Sqrt.mpw>: 
 
 
@@ -1138,6 +1134,10 @@ Testing TrigSimpCombine in file </org/mathpiper/scripts4/trigsimp/TrigSimpCombin
 
 
 ================================================================
+Testing TwinPrime? in file </org/mathpiper/scripts4/numbers/TwinPrime_.mpw>: 
+
+
+================================================================
 Testing Unitary? in file </org/mathpiper/scripts4/predicates/Unitary_.mpw>: 
 
 
@@ -1159,4 +1159,4 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 GlobalVariables: Result: True
 
 Side Effects:
-{$a1094,$a15,$assumptions65,$b1094,$b15,$bernoulli1Threshold77,$BrentCacheOfConstantsN55,$CacheOfConstantsN13,$CFormAllFunctions38,$cformMathFunctions2,$cformRegularOps1,$cindent3,$ClearScreenString22,$complexReduce40,$Debug'FileLines22,$Debug'FileLoaded22,$Debug'NrLines22,$ErrorTableau23,$formulaMaxWidth75,$GlobalStack51,$intpred49,$knownOrthoPoly35,$knownRNGDists52,$knownRNGEngines52,$lastcoef76,$LoadResult,$LocResult36,$mathExpThreshold58,$mNum12,$n'max47,$nNum12,$NthRoot'Table21,$numericMode8,$omindent18,$omsymbol20,$omsymbolreverse20,$omtoken19,$options59,$options66,$p01998,$p1093,$p11998,$p21998,$p31998,$p41998,$p48,$pc241998,$pc351998,$pc461998,$pc571998,$pc681998,$pj1998,$pj401998,$pj501998,$pj511998,$pj521998,$pj531998,$pj541998,$pju01998,$pp1998,$RandSeed53,$res37,$rFormMathFunctions71,$rFormRegularOps70,$RIndent72,$simple1094,$st1092,$TeXFormGreekLetters83,$TeXFormMathFunctions284,$TeXFormMathFunctions84,$TeXFormRegularOps83,$TeXFormRegularPrefixOps83,$TeXFormSpecialNames83,$Verbose14,%,anchor,bullet,bullets,button,caption,form,frame,frameset,htmldir,I,iDebug,link,newline,site,table,textarea,textfield} 
+{$a1094,$a15,$assumptions65,$b1094,$b15,$bernoulli1Threshold77,$BrentCacheOfConstantsN55,$CacheOfConstantsN13,$CFormAllFunctions44,$cformMathFunctions2,$cformRegularOps1,$cindent3,$ClearScreenString22,$complexReduce39,$Debug'FileLines22,$Debug'FileLoaded22,$Debug'NrLines22,$ErrorTableau23,$formulaMaxWidth75,$GlobalStack51,$intpred49,$knownOrthoPoly35,$knownRNGDists52,$knownRNGEngines52,$lastcoef76,$LoadResult,$LocResult36,$mathExpThreshold58,$mNum12,$n'max47,$nNum12,$NthRoot'Table21,$numericMode8,$omindent18,$omsymbol20,$omsymbolreverse20,$omtoken19,$options59,$options66,$p01998,$p1093,$p11998,$p21998,$p31998,$p41998,$p48,$pc241998,$pc351998,$pc461998,$pc571998,$pc681998,$pj1998,$pj401998,$pj501998,$pj511998,$pj521998,$pj531998,$pj541998,$pju01998,$pp1998,$RandSeed53,$res37,$rFormMathFunctions71,$rFormRegularOps70,$RIndent72,$simple1094,$st1092,$TeXFormGreekLetters83,$TeXFormMathFunctions284,$TeXFormMathFunctions84,$TeXFormRegularOps83,$TeXFormRegularPrefixOps83,$TeXFormSpecialNames83,$Verbose14,%,anchor,bullet,bullets,button,caption,form,frame,frameset,htmldir,I,iDebug,link,newline,site,table,textarea,textfield} 

@@ -5,7 +5,7 @@ LocalSymbols(complexReduce) [
   Bind(complexReduce,
     Hold(
     {
-      Exp(x_IsComplexII) <- Exp(ReII(x))*(Cos(ImII(x))+II*Sin(ImII(x)))
+      Exp(x_ComplexII?) <- Exp(ReII(x))*(Cos(ImII(x))+II*Sin(ImII(x)))
     }));
 
   NN(_c) <--

@@ -3,7 +3,7 @@
 //Retract("Assume",*);
 //Retract("AssumptionsAbout",*);
 //Retract("UnAssume",*);
-//Retract("IsAssumed",*);
+//Retract("Assumed?",*);
 //Retract("AssumptionsGet",*);
 
 LocalSymbols(assumptions) [
@@ -44,7 +44,7 @@ assumptions := {};
 ];
 
 
-10 # IsAssumed( _key, _valueExpected ) <-- Contains(AssumptionsAbout(key),valueExpected);
+10 # Assumed?( _key, _valueExpected ) <-- Contains(AssumptionsAbout(key),valueExpected);
 
 
 10 # UnAssume( _x )_(Contains(AssocIndices(assumptions),x)) <--
@@ -80,7 +80,7 @@ assumptions := {};
         UnAssume(v)
         AssumptionsGet()
         AssumptionsAbout(v)
-        IsAssumed(v,prop)
+        Assumed?(v,prop)
 
 *PARMS
 
@@ -129,9 +129,9 @@ In> Assume(x->real)
 Result: {{x,real}}
 In> AssumptionsGet()
 Result: {{x,real}}
-In> IsAssumed(x,real)
+In> Assumed?(x,real)
 Result: True
-In> IsAssumed(z,complex)
+In> Assumed?(z,complex)
 Result: False
     
 In> Assume({x->positive,y->positive})

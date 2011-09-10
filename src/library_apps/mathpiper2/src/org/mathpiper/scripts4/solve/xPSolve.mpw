@@ -98,7 +98,7 @@ Rule("xPSolve",1,1,IsUniVar(uni) And? Degree(uni) =? 3 )
 
      // Invariant: c0, c1, c2 are all REAL
      Assert("Invariant", "Coefficients Must be Real") And?(Im(c0)=?0,Im(c1)=?0,Im(c2)=?0);
-     If( IsError("Invariant"), DumpErrors() );
+     If( Error?("Invariant"), DumpErrors() );
 
      p :=c3;
      q :=c1/p;

@@ -1,6 +1,6 @@
 %mathpiper,def="Midpoint"
 
-Midpoint(PointA_IsPoint,PointB_IsPoint) <-- 
+Midpoint(PointA_Point?,PointB_Point?) <-- 
 [
     Local(x1,x2,y1,y2,midpointX,midpointY);
     
@@ -18,7 +18,7 @@ Midpoint(PointA_IsPoint,PointB_IsPoint) <--
 
 
 
-Midpoint(segment_IsSegment) <-- 
+Midpoint(segment_Segment?) <-- 
 [
     Local(x1,x2,y1,y2,midpointX,midpointY);
     
@@ -71,5 +71,5 @@ Result: {4,11/2}
 In> Midpoint(Segment(Point(0,0), Point(3,4)))
 Result: {3/2,2}
 
-*SEE IsPoint, Point, Distance, Slope, Segment
+*SEE Point?, Point, Distance, Slope, Segment
 %/mathpiper_docs

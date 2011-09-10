@@ -54,7 +54,7 @@
 
 90 # x_Infinity? / y_Infinity? <-- Undefined;
 95  # x_Infinity? / y_Number? <-- Sign(y)*x;
-95  # x_Infinity? / y_IsComplex <-- Infinity;
+95  # x_Infinity? / y_Complex? <-- Infinity;
 
 90 # Undefined / _y <-- Undefined;
 90 # _y / Undefined <-- Undefined;

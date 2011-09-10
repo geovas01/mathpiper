@@ -35,5 +35,5 @@ Result: 5;
 In> Eval(a);
 Result: 5;
 
-*SEE IsNonObject
+*SEE NonObject?
 %/mathpiper_docs

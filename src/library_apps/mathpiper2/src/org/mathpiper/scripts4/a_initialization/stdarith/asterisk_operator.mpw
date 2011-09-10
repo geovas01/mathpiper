@@ -35,8 +35,8 @@
 ];
 
 
-97 # (x_List? * y_IsNonObject)_Not?(List?(y)) <-- y*x;
-98 # (x_IsNonObject * y_List?)_Not?(List?(x)) <--
+97 # (x_List? * y_NonObject?)_Not?(List?(y)) <-- y*x;
+98 # (x_NonObject? * y_List?)_Not?(List?(x)) <--
 [
    Local(i,result);
    result:={};

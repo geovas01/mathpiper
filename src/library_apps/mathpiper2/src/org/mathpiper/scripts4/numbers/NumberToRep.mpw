@@ -41,7 +41,7 @@
 
 
 
-12 # NumberToRep( N_IsComplex ) <-- 
+12 # NumberToRep( N_Complex? ) <-- 
 [
     If(Zero?(Re(N)),
         {NumberToRep(0.0),NumberToRep(Im(N))},

@@ -51,7 +51,7 @@ LapTranDef(_in,_out) <--
 LapTranDef( (_t)^(n_Constant?),        Gamma(n+1)/s^(n+1) );
 LapTranDef( _t,                         1/s^2 );
 LapTranDef( Sqrt(_t),                         Sqrt(Pi)/(2*s^(3/2)) );
-LapTranDef( c_IsFreeOf({t,s}),                c/s );
+LapTranDef( c_FreeOf?({t,s}),                c/s );
 LapTranDef( Sin(_t),                         1/(s^2+1) );
 LapTranDef( Cos(_t),                         s/(s^2+1) );
 LapTranDef( Sinh(_t),                        c/(s^2-1) );

@@ -33,7 +33,7 @@
     ]
   );
   If(InVerboseMode(),Tell("     ",{num,den}));
-  Ns  := Select(num, "IsComplex");
+  Ns  := Select(num, "Complex?");
   If(InVerboseMode(),Tell("     ",Ns));
   If( Ns =? {},
        If( den !=? 1, DestructiveInsert(num,1,1/den)),
@@ -43,7 +43,7 @@
   result := {};
   ForEach(f,num)
   [
-      If( IsComplex(f), 
+      If( Complex?(f), 
           DestructiveAppend(result,{(f),1}),
           If( Atom?(f),
               DestructiveAppend(result,{f,1}),

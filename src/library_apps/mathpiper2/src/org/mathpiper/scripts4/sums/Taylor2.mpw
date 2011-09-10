@@ -190,7 +190,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
       [
          lps[1] := Minimum(Taylor'LPS'GetOrder(lps[4][1])[1],
                        Taylor'LPS'GetOrder(lps[4][2])[1], n2);
-         If (IsError("dunno"),
+         If (Error?("dunno"),
          [
             ClearError("dunno");
             ClearError("dunno");
@@ -229,7 +229,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
       [
          lps[1] := Taylor'LPS'GetOrder(lps[4][1])[1]
                    + Taylor'LPS'GetOrder(lps[4][2])[1];
-         If (IsError("dunno"),
+         If (Error?("dunno"),
          [
             ClearError("dunno");
             ClearError("dunno");
@@ -324,8 +324,8 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
          /* get result */
 
-         If (Not? IsError("dunno") And? Not? IsError("div-by-zero")
-             And? Not? IsError("maybe-div-by-zero"),
+         If (Not? Error?("dunno") And? Not? Error?("div-by-zero")
+             And? Not? Error?("maybe-div-by-zero"),
          [
             If (lps[1] <=? n1,
                 res := Take(lps[2], {n1-lps[1]+1, n2-lps[1]+1}),
@@ -429,17 +429,17 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
                        Taylor'LPS'Construct(var, e3))
         Where e3 == Taylor'LPS'ScalarMult(-1, Taylor'LPS'Construct(var, e2)));
 
-10 # Taylor'LPS'NormalizeExpr(_var, e1_IsFreeOf(var) * _e2)
+10 # Taylor'LPS'NormalizeExpr(_var, e1_FreeOf?(var) * _e2)
    <-- Taylor'LPS'ScalarMult(e1, Taylor'LPS'Construct(var, e2));
 
-10 # Taylor'LPS'NormalizeExpr(_var, _e1 * e2_IsFreeOf(var))
+10 # Taylor'LPS'NormalizeExpr(_var, _e1 * e2_FreeOf?(var))
    <-- Taylor'LPS'ScalarMult(e2, Taylor'LPS'Construct(var, e1));
 
 20 # Taylor'LPS'NormalizeExpr(_var, _e1 * _e2)
    <-- Taylor'LPS'Multiply(Taylor'LPS'Construct(var, e1),
                            Taylor'LPS'Construct(var, e2));
 
-10 # Taylor'LPS'NormalizeExpr(_var, _e1 / e2_IsFreeOf(var))
+10 # Taylor'LPS'NormalizeExpr(_var, _e1 / e2_FreeOf?(var))
    <-- Taylor'LPS'ScalarMult(1/e2, Taylor'LPS'Construct(var, e1));
 
 20 # Taylor'LPS'NormalizeExpr(_var, 1 / _e1)
@@ -480,7 +480,7 @@ _[
     [
        lps2 := Taylor'LPS'Construct(var, e1[1]);
        c := Taylor'LPS'Coeffs(lps2, 0, 0)[1];
-       If (IsError(),
+       If (Error?(),
        [
           ClearErrors();
           success := False;
@@ -534,9 +534,9 @@ _[
 
 /* Constant */
 
-20 # Taylor'LPS'CompOrder(_x, e_IsFreeOf(x))     <-- 0;
-20 # Taylor'LPS'CompCoeff(_x, e_IsFreeOf(x), 0)  <-- e;
-21 # Taylor'LPS'CompCoeff(_x, e_IsFreeOf(x), _n) <-- 0;
+20 # Taylor'LPS'CompOrder(_x, e_FreeOf?(x))     <-- 0;
+20 # Taylor'LPS'CompCoeff(_x, e_FreeOf?(x), 0)  <-- e;
+21 # Taylor'LPS'CompCoeff(_x, e_FreeOf?(x), _n) <-- 0;
 
 /* Identity */
 
@@ -791,7 +791,7 @@ Echo(expr," ",n," ",result);
 [
    Local(ord, k, coeffs);
    coeffs := Taylor'LPS'Coeffs(lps, 0, n);
-   If (IsError("dunno"),
+   If (Error?("dunno"),
    [
       False;
    ],[

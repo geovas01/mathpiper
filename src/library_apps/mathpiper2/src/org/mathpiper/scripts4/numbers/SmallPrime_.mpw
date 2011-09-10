@@ -1,22 +1,22 @@
-%mathpiper,def="IsSmallPrime"
+%mathpiper,def="SmallPrime?"
 
 /* Returns whether n is a small by a lookup table, very fast.
 The largest prime number in the table is returned by FastIsPrime(0). */
 
-2 # IsSmallPrime(0) <-- False;
-3 # IsSmallPrime(n_Integer?) <-- (FastIsPrime(n)>?0);
+2 # SmallPrime?(0) <-- False;
+3 # SmallPrime?(n_Integer?) <-- (FastIsPrime(n)>?0);
 
 %/mathpiper
 
 
 
-%mathpiper_docs,name="IsSmallPrime",categories="User Functions;Number Theory;Predicates"
+%mathpiper_docs,name="SmallPrime?",categories="User Functions;Number Theory;Predicates"
 *CMD Prime? --- test for a prime number
-*CMD IsSmallPrime --- test for a (small) prime number
+*CMD SmallPrime? --- test for a (small) prime number
 *STD
 *CALL
         Prime?(n)
-        IsSmallPrime(n)
+        SmallPrime?(n)
 
 *PARMS
 
@@ -61,11 +61,11 @@ Result: {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,
 
 
 
-%mathpiper,name="IsSmallPrime",subtype="automatic_test"
+%mathpiper,name="SmallPrime?",subtype="automatic_test"
 
-Verify(IsSmallPrime(137),True);
-Verify(IsSmallPrime(138),False);
-Verify(IsSmallPrime(65537),True);
-Verify(IsSmallPrime(65539),False);
+Verify(SmallPrime?(137),True);
+Verify(SmallPrime?(138),False);
+Verify(SmallPrime?(65537),True);
+Verify(SmallPrime?(65539),False);
 
 %/mathpiper

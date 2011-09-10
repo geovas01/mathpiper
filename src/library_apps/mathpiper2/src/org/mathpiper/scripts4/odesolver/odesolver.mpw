@@ -218,15 +218,15 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
 
 // Solve the ever lovable seperable equation
 
-10 # OdeSolve(y'+_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr-a);
-10 # OdeSolve(y'-_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr+a);
-10 # OdeSolve(y'/_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr*a);
-10 # OdeSolve(_a*y'==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr/a);
-10 # OdeSolve(y'*_a==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==expr/a);
-10 # OdeSolve(_a/y'==_expr)_(IsFreeOf(y,a)) <-- OdeSolve(y'==a/expr);
+10 # OdeSolve(y'+_a==_expr)_(FreeOf?(y,a)) <-- OdeSolve(y'==expr-a);
+10 # OdeSolve(y'-_a==_expr)_(FreeOf?(y,a)) <-- OdeSolve(y'==expr+a);
+10 # OdeSolve(y'/_a==_expr)_(FreeOf?(y,a)) <-- OdeSolve(y'==expr*a);
+10 # OdeSolve(_a*y'==_expr)_(FreeOf?(y,a)) <-- OdeSolve(y'==expr/a);
+10 # OdeSolve(y'*_a==_expr)_(FreeOf?(y,a)) <-- OdeSolve(y'==expr/a);
+10 # OdeSolve(_a/y'==_expr)_(FreeOf?(y,a)) <-- OdeSolve(y'==a/expr);
 
 // only works for low order equations
-10 # OdeSolve(y'==_expr)_(IsFreeOf({y,y',y''},expr)) <--
+10 # OdeSolve(y'==_expr)_(FreeOf?({y,y',y''},expr)) <--
 [
         If(InVerboseMode(),Echo("OdeSolve: Integral in disguise!"));
         If(InVerboseMode(),Echo("OdeSolve: Attempting to integrate ",expr));
@@ -241,7 +241,7 @@ OdeSolveLinearHomogeneousConstantCoefficients(_e) <--
   If(InVerboseMode(),Echo("OdeSolve: Normal form is",e));
   h:=OdeFlatTerm(OdeCoefList(e));
   If(InVerboseMode(),Echo("OdeSolve: Flatterm is",h));
-  if (IsFreeOf(Error,h))
+  if (FreeOf?(Error,h))
   [
     OdeSolveLinear(e,h);
   ]

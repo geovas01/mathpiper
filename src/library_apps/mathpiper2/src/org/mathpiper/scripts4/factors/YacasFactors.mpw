@@ -17,7 +17,7 @@
 12 # Factors(p_Rational?)_(Denominator(p) !=? 1) <-- {{YacasFactor(Numerator(p)) /YacasFactor(Denominator(p)) , 1}};
      //Added to handle rational numbers with denominators that are not 1
 
-14 # Factors(p_IsGaussianInteger)        <-- GaussianFactors(p);
+14 # Factors(p_GaussianInteger?)        <-- GaussianFactors(p);
 
 20 # Factors(p_CanBeUni)_(Length(VarList(p)) =? 1) <--
 [
