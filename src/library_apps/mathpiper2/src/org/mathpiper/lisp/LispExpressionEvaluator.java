@@ -145,7 +145,7 @@ public class LispExpressionEvaluator extends Evaluator {
                             return;
                         }
                         
-                        if (functionName.equals("IsFreeOf")) {
+                        if (functionName.equals("FreeOf?")) {
                             Utility.returnUnEvaluated(aStackTop, aResult, functionAndArgumentsList, aEnvironment);
 
                             aEnvironment.iEvalDepth--;
