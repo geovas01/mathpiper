@@ -52,11 +52,11 @@ public class String_ extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="IsString",categories="User Functions;Predicates;Built In"
-*CMD IsString --- test for an string
+%mathpiper_docs,name="String?",categories="User Functions;Predicates;Built In"
+*CMD String? --- test for an string
 *CORE
 *CALL
-	IsString(expr)
+	String?(expr)
 
 *PARMS
 
@@ -69,9 +69,9 @@ within quotes, e.g. {"duh"}.
 
 *E.G.
 
-In> IsString("duh");
+In> String?("duh");
 Result: True;
-In> IsString(duh);
+In> String?(duh);
 Result: False;
 
 *SEE Atom?, Number?
