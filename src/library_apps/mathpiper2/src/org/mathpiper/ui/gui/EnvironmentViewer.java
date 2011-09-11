@@ -740,7 +740,7 @@ public class EnvironmentViewer implements ActionListener {
     private static boolean isClipboardContainingText(Object requestor) {
         Transferable t = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(requestor);
         return t != null
-                && (t.isDataFlavorSupported(DataFlavor.stringFlavor) || t.isDataFlavorSupported(DataFlavor.plainTextFlavor));
+                && (t.isDataFlavorSupported(DataFlavor.stringFlavor) || t.isDataFlavorSupported(DataFlavor.getTextPlainUnicodeFlavor()));
     }
 
 
