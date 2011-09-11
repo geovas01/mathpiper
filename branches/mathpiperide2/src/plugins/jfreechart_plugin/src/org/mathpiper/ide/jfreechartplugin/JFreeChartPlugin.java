@@ -70,17 +70,13 @@ public class JFreeChartPlugin extends EditPlugin implements EBComponent{
 			
 		public void response(org.mathpiper.interpreters.EvaluationResponse response)
 		{		
-			System.out.println("XXXXXXXXXXX JFC 0: "+ response + "  - " + response.getResult() + "   " + response.getObject() + "  " + response.getExceptionMessage());
 			//JFreeChart handler.
 			if(response.getObject() != null)
 			{		
 				Object object = response.getObject();
 				
-				System.out.println("XXXXXXXXXXX JFC 1: "+ object);
-				
 				if(object instanceof org.jfree.chart.ChartPanel)
 				{	
-			System.out.println("XXXXXXXXXXX JFC 2: "+ object);
 					org.gjt.sp.jedit.jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "jfreechart" );
 					JPanel newChart = (JPanel) object;
 					this.removeAll();
