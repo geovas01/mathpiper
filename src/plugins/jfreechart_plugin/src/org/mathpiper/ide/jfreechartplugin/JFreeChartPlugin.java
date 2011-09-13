@@ -62,7 +62,7 @@ public class JFreeChartPlugin extends EditPlugin implements EBComponent{
 			
 			if(response.isExceptionThrown())
 			{
-				System.out.println(response.getExceptionMessage());
+				System.out.println(response.getException().getMessage());
 			}//end if.
 		
 			synchronousInterpreter.addResponseListener(this); 
