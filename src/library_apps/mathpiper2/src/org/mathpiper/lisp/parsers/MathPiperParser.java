@@ -190,7 +190,7 @@ public class MathPiperParser extends Parser
                 // Match closing bracket
                 if (iLookAhead[0] != iEnvironment.iProgCloseAtom.car())
                 {
-                    LispError.raiseError("Expecting a ] close bracket for program block, but got " + iLookAhead[0] + " instead.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( ] )*** close bracket token for program block but found ***( " + iLookAhead[0] + " )*** instead.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
                 matchToken(aStackTop, iLookAhead[0]);
@@ -207,7 +207,7 @@ public class MathPiperParser extends Parser
                     if(iLookAhead[0].equals(""))
                     {
 
-                       LispError.raiseError("Expression must end with a semi-colon (;) ", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                       LispError.raiseError("Expression must end with a semi-colon ***( ; )*** ", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                         return;
                     }
                     if (MathPiperTokenizer.isSymbolic(iLookAhead[0].charAt(0)))
@@ -310,7 +310,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead[0]);
                 } else if (iLookAhead[0] != iEnvironment.iListCloseAtom.car())
                 {
-                    LispError.raiseError("Expecting a } close bracket for a list, but got " + iLookAhead[0] + " instead.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( } )*** close bracket token for a list but found ***( " + iLookAhead[0] + " )*** instead.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
             }
@@ -335,7 +335,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead[0]);
                 } else
                 {
-                    LispError.raiseError("Expecting ; end of statement in program block, but got " + iLookAhead[0] + " instead.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( ; )*** end of statement token in program block but found ***( " + iLookAhead[0] + " )*** instead.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
             }
@@ -368,7 +368,7 @@ public class MathPiperParser extends Parser
                         matchToken(aStackTop, iLookAhead[0]);
                     } else if (iLookAhead[0] != iEnvironment.iBracketCloseAtom.car())
                     {
-                        LispError.raiseError("Expecting ) closing bracket for sub-expression, but got " + iLookAhead[0] + " instead. ", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                        LispError.raiseError("Expected a ***( ) )*** close parentheses token for sub-expression but found ***( " + iLookAhead[0] + " )*** instead. ", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                         return;
                     }
                 }

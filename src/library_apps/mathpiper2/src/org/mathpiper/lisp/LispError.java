@@ -369,16 +369,16 @@ public class LispError {
                 ConsPointer arg = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, arguments, aArgNr);
                 String strout;
 
-                error = error + "The offending argument ";
+                error = error + "The offending argument ***( ";
                 strout = Utility.printMathPiperExpression(aStackTop, arg, aEnvironment, 60);
                 error = error + strout;
 
                 ConsPointer eval = new ConsPointer();
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, eval, arg);
-                error = error + " evaluated to ";
+                error = error + " )*** evaluated to ***( ";
                 strout = Utility.printMathPiperExpression(aStackTop, eval, aEnvironment, 60);
                 error = error + strout;
-                error = error + "\n";
+                error = error + " )***\n";
 
                 throw new EvaluationException(error + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), lineNumber, startIndex, endIndex);
             }//end else.
