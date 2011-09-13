@@ -15,6 +15,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.test;
 
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
@@ -54,11 +55,25 @@ public class InterpreterTest implements ResponseListener
 
         //response = interpreter.evaluate("LoadScript(\" a;\nb;\nc\nd;\n \");");
 
-        response = interpreter.evaluate("LoadScript(\"x := 1;\nWhile(x <? 100) \n[\nwrite(x,,);\nx := x + 1;  \n];\");");
+        //response = interpreter.evaluate("LoadScript(\"x := 1;\nWhile(x <? 100) \n[\nwrite(x,,);\nx := x + 1;  \n];\");");
+
+        response = interpreter.evaluate("LoadScript(\" \nx := 1;\n\nWhile (x <? 100) \n[\n  write(x,,);\n  x := x + 1;  \n];\");");
 
         //timer.cancel();
         
-        System.out.println("Result: " + response.getResult() + ", Side Effects: " + response.getSideEffects() + ", Errors: " + response.getExceptionMessage() + ", File: " + response.getSourceFileName() + ", Line number: " + response.getLineNumber()  + ", Line index: " + response.getLineIndex() +".");
+        System.out.println("Result: " + response.getResult() + ", Side Effects: " + response.getSideEffects());
+                
+        
+        
+                
+        if(response.isExceptionThrown() && (response.getException() instanceof EvaluationException) ) 
+        {
+            EvaluationException ex = (EvaluationException) response.getException();
+            
+            System.out.println( "Errors: "  + ex.getMessage() + ", File: " + response.getSourceFileName() + ", Line number: " + ex.getLineNumber()   + ", Start index: " + ex.getStartIndex() + ", End index: " + ex.getEndIndex());
+
+        }
+
         
        /* response = interpreter.evaluate("3+3;");
          System.out.println("Straight: " + "Result: " + response.getResult() + "  Side Effects: " + response.getSideEffects() + "  Errors: " + response.getExceptionMessage());

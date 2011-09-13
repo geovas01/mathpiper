@@ -33,13 +33,14 @@ public class MathPiperTokenizer {
     /// or an empty list.
     public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, TokenMap aTokenHashTable) throws Exception {
         char streamCharacter;
-        int firstpos = aInput.position();
+        int firstPosition = 0; //aInput.position();
 
         boolean redo = true;
+        
         while (redo) {
             redo = false;
             //REDO: //TODO FIXME
-            firstpos = aInput.position();
+            firstPosition = aInput.position();
 
             // End of stream: return empty string
             if (aInput.endOfStream()) {
@@ -143,13 +144,19 @@ public class MathPiperTokenizer {
                         }
                     }
                 }
-            } // Treat the char as a space.
+            } // Treat the character as a space.
             else {
+
                 redo = true;
+                
                 continue;
             }
-        }
-        return (String) aTokenHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
+
+        }//end while.
+
+
+        return (String) aTokenHashTable.lookUp(aInput.startPtr().substring(firstPosition, aInput.position()));
+
     }
 
     public static boolean isDigit(char c) {

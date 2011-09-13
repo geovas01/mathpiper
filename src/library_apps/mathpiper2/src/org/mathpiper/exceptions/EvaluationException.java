@@ -21,29 +21,31 @@ public class EvaluationException extends Exception //Note:tk: made this class pu
 {
 
     private int lineNumber = -1;
-    private int lineIndex = -1;
+    private int startIndex = -1;
+    private int endIndex = -1;
     private String fileName = null;
     private String functionName = null;
     private String type = null;
 
 
-    public EvaluationException(String message, String fileName, int lineNumber, int lineIndex, String functionName) {
-        this("Unspecified", message, fileName, lineNumber, lineIndex, functionName);
+    public EvaluationException(String message, String fileName, int lineNumber, int startIndex, int endIndex, String functionName) {
+        this("Unspecified", message, fileName, lineNumber, startIndex, endIndex, functionName);
     }
 
 
 
-    public EvaluationException(String type, String message, String fileName, int lineNumber, int lineIndex, String functionName) {
+    public EvaluationException(String type, String message, String fileName, int lineNumber, int startIndex, int endIndex, String functionName) {
         super(message);
         this.type = type;
         this.fileName = fileName;
         this.lineNumber = lineNumber;
-        this.lineIndex = lineIndex;
+        this.startIndex = startIndex;
+        this.endIndex = endIndex;
         this.functionName = functionName;
     }
 
-    public EvaluationException(String message, String fileName, int lineNumber, int lineIndex) {
-        this( message,  fileName,  lineNumber, lineIndex, null);
+    public EvaluationException(String message, String fileName, int lineNumber, int startIndex, int endIndex) {
+        this( message,  fileName,  lineNumber, startIndex, endIndex, null);
     }
 
 
@@ -51,9 +53,12 @@ public class EvaluationException extends Exception //Note:tk: made this class pu
         return lineNumber;
     }
 
+    public int getStartIndex() {
+        return startIndex;
+    }
     
-    public int getLineIndex() {
-        return lineIndex;
+    public int getEndIndex() {
+        return endIndex;
     }
 
 

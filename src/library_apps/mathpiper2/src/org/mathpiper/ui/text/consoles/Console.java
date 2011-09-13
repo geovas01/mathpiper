@@ -9,7 +9,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should h0.0/Save received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
@@ -20,6 +20,7 @@ package org.mathpiper.ui.text.consoles;
 
 import java.io.*;
 import org.mathpiper.Version;
+import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -81,8 +82,14 @@ public class Console {
             responseString = responseString + "Side Effects>\n" + response.getSideEffects() + "\n";
         }
 
-        if (!response.getExceptionMessage().equalsIgnoreCase("")) {
-            responseString = responseString + response.getExceptionMessage() + " Source file name: " + response.getSourceFileName() + ", Near line number: " + response.getLineNumber()  + " Near line index: " + response.getLineIndex() + "\n";
+        if (response.isExceptionThrown()) {
+            responseString = responseString + response.getException().getMessage() + " Source file name: " + response.getSourceFileName();
+            
+            if(response.getException() instanceof EvaluationException)
+            {
+                EvaluationException ex = (EvaluationException) response.getException();
+                responseString += ", Near line number: " + ex.getLineNumber()  + " Near line index: " + ex.getStartIndex() + "\n";
+            }
         }
         else if (response.getException() != null)
         {

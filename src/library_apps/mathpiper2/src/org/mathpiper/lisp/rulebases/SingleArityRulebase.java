@@ -74,7 +74,7 @@ public class SingleArityRulebase extends Evaluator {
                 LispError.check(aEnvironment, aStackTop, parameterPointer.car() instanceof String, LispError.CREATING_USER_FUNCTION, functionName,"INTERNAL");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
-                    throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, -1, this.functionName);
+                    throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, -1, this.functionName);
                 } else {
                     throw ex;
                 }
@@ -216,7 +216,7 @@ public class SingleArityRulebase extends Evaluator {
             //ex.printStackTrace();//todo:tk:uncomment for debugging.
 
             if (ex.getFunctionName() == null) {
-                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1, -1, this.functionName);
+                throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, -1, this.functionName);
             } else {
                 throw ex;
             }

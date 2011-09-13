@@ -929,7 +929,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
             addOutputLine(outputStringBuffer.toString());
             if (response.isExceptionThrown() == true)
             {
-                addLinesStatic(48, "Error> ", response.getExceptionMessage());
+                addLinesStatic(48, "Error> ", response.getException().getMessage());
             }
             //AddLinesStatic(48, outputPrompt, response.getSideEffects());//TODO:tk: latex results are returned as a side effect, but normal results are not.  Also, what is a static line?.
             succeed = true;
@@ -1495,7 +1495,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
 
         evaluationResponse = interpreter.evaluate(expression);
 
-        lastError = evaluationResponse.getExceptionMessage();  //Note:tk: need to check for null value.
+        lastError = evaluationResponse.getException().getMessage();  //Note:tk: need to check for null value.
         return evaluationResponse.getResult();
     }
 
@@ -1587,9 +1587,9 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
 
                 calculating = false;
                 addOutputLine(outputStringBuffer.toString());
-                if (evaluationResponse != null && evaluationResponse.getExceptionMessage() != null)
+                if (evaluationResponse != null && evaluationResponse.isExceptionThrown())
                 {
-                    addLinesStatic(48, "Error> ", evaluationResponse.getExceptionMessage());
+                    addLinesStatic(48, "Error> ", evaluationResponse.getException().getMessage());
                 }
 
                 resetInput();

@@ -16,6 +16,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp;
 
+import java.util.Map;
 import org.mathpiper.Scripts;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.Cons;
@@ -88,7 +89,7 @@ public class LispExpressionEvaluator extends Evaluator {
         {
             Environment.haltEvaluation = false;
             
-            LispError.raiseError("User halted calculation.", "", aStackTop, aEnvironment);
+            LispError.raiseError("User halted calculation.", "", aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex(), aStackTop, aEnvironment);
         }
 
 
@@ -152,9 +153,22 @@ public class LispExpressionEvaluator extends Evaluator {
 
                             return;
                         }
+                            Map metaDataMap = functionAndArgumentsList.getCons().getMetadataMap();
 
-                            LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) +">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", "[Internal]", aStackTop, aEnvironment);
+                            int lineNumber = aEnvironment.iCurrentInput.iStatus.getLineNumber();
+                            int startIndex = -1;
+                            int endIndex = aEnvironment.iCurrentInput.iStatus.getLineIndex();
 
+                            if(metaDataMap != null)
+                            {
+                                lineNumber = (Integer) metaDataMap.get("lineNumber");
+                                startIndex = (Integer) metaDataMap.get("startIndex");
+                                endIndex = (Integer) metaDataMap.get("endIndex");
+                            }
+                            
+                            
+                            LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) +">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", "[Internal]", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
+                            
 
                     } else {
                         //Pure function handler.
