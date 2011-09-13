@@ -55,7 +55,7 @@ public class SublistCons extends Cons {
         //TODO recursed copy needs to be implemented still
         //LispError.lispAssert(aRecursed == false, aEnvironment, aStackTop);
 
-        if(aRecursed != false) throw new EvaluationException("Internal error in SublistCons.","",-1,-1);
+        if(aRecursed != false) throw new EvaluationException("Internal error in SublistCons.","",-1,-1,-1);
 
         Cons copied = new SublistCons(aEnvironment, iCar.getCons());
 

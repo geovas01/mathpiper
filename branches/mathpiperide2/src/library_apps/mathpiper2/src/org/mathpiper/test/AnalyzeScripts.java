@@ -134,7 +134,7 @@ public class AnalyzeScripts {
             System.out.println(e.getMessage());
             e.printStackTrace(); //todo:tk:uncomment for debugging.
 
-            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineNumber());
+            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(),-1, aEnvironment.iCurrentInput.iStatus.getLineNumber());
             throw ee;
         } finally {
             aEnvironment.iCurrentInput = previous;

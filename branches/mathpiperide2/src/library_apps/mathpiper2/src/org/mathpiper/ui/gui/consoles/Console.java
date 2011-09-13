@@ -592,7 +592,7 @@ public class Console extends javax.swing.JPanel implements ActionListener, KeyLi
         int exceptionLength = 0;
         if (response.isExceptionThrown()) {
             exceptionOffset = responseOffset + result.length() + sideEffectsOffset;
-            exception = "\nException: " + response.getExceptionMessage();
+            exception = "\nException: " + response.getException().getMessage();
             exceptionLength = exception.length();
         }
 

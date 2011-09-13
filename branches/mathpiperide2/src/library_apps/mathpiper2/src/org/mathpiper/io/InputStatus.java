@@ -21,13 +21,13 @@ public class InputStatus {
     private String iFileName;
     private int iLineNumber;
     private int iLineIndex;
-    //private List functionLoadSequence = new ArrayList();
+    
 
 
     public InputStatus() {
         iFileName = "none";
-        iLineNumber = -1;
-        iLineIndex = -1;
+        iLineNumber = 1;
+        iLineIndex = 0;
     }
 
 
@@ -46,7 +46,7 @@ public class InputStatus {
         
         iFileName = aFileName;
         iLineNumber = 1;
-        iLineIndex = 1;
+        iLineIndex = 0;
     }
 
 
@@ -76,7 +76,7 @@ public class InputStatus {
 
     public void nextLine() {
         iLineNumber++;
-        iLineIndex = 1;
+        iLineIndex = 0;
     }
 
 

@@ -34,6 +34,7 @@ import org.mathpiper.lisp.tokenizers.XmlTokenizer;
 import org.mathpiper.io.InputStatus;
 
 import org.mathpiper.io.InputDirectories;
+import org.mathpiper.io.StringInputStream;
 
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
@@ -106,11 +107,22 @@ public final class Environment {
     public String iPrettyPrinterName = null;
     public Scripts scripts = new Scripts();
     public static boolean haltEvaluation = false;
+    public boolean saveDebugInformation = false;
 
     public Environment(MathPiperOutputStream aCurrentOutput/*TODO FIXME*/) throws Exception {
         iCurrentTokenizer = iDefaultTokenizer;
         iInitialOutput = aCurrentOutput;
         iCurrentOutput = aCurrentOutput;
+
+        /*
+         * Assign a default input stream to iInputStream so that various places in the code that
+         * evaluate expressoins without using a stream do not cause code that checks for line numbers
+         * to throw a null pointer exception.
+         */
+        InputStatus status = new InputStatus();
+        StringInputStream defaultInputStream = new StringInputStream("", status);
+        this.iCurrentInput = defaultInputStream;
+
         iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
         iTrueAtom = new AtomCons((String)getTokenHash().lookUp("True"));

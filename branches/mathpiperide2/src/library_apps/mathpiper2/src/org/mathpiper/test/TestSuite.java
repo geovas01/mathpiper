@@ -218,7 +218,13 @@ public class TestSuite {
 
 
         if (evaluationResponse.isExceptionThrown()) {
-            result = result + "\nException:" + evaluationResponse.getExceptionMessage() + " Source file: " + evaluationResponse.getSourceFileName() + " Line number: " + evaluationResponse.getLineNumber() + " Line index: " + evaluationResponse.getLineIndex();
+            result = result + "\nException:" + evaluationResponse.getException().getMessage() + " Source file: " + evaluationResponse.getSourceFileName();
+            
+            if(evaluationResponse.getException() instanceof EvaluationException)
+            {
+                EvaluationException ex = (EvaluationException) evaluationResponse.getException();
+                result += " Line number: "  + ex.getLineNumber() + " Line start index: " + ex.getStartIndex();
+            }
         }
 
         return result;
@@ -292,9 +298,9 @@ public class TestSuite {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            //e.printStackTrace(); //todo:tk:uncomment for debugging.
+            e.printStackTrace(); //todo:tk:uncomment for debugging.
 
-            EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), aEnvironment.iCurrentInput.iStatus.getLineNumber());
+            EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineNumber());
             throw ee;
         } finally {
             aEnvironment.iCurrentInput = previousInput;
