@@ -53,7 +53,7 @@ public class MathPiperShell extends Shell
 			
 			if(response.isExceptionThrown())
 			{
-				output.print(java.awt.Color.RED,response.getExceptionMessage() );
+				output.print(java.awt.Color.RED,response.getException().getMessage() );
 			}
 
 	
@@ -76,7 +76,7 @@ public class MathPiperShell extends Shell
 			
 			if(response.isExceptionThrown())
 			{
-				output.print(java.awt.Color.RED,response.getExceptionMessage() );
+				output.print(java.awt.Color.RED,response.getException().getMessage() );
 			}
 			output.commandDone();
 	

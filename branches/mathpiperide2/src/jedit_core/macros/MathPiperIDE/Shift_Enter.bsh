@@ -383,22 +383,42 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			{
 				//result = evaluationResponse[3] + ";Error near line: " + evaluationResponse[4];
 				
+				
+				exception = evaluationResponse.getException();
+				
+				if(exception instanceof org.mathpiper.exceptions.EvaluationException)
+				{
+					exception = (org.mathpiper.exceptions.EvaluationException) exception;
+					
+					errorLineNumber = exception.getLineNumber();
+					
+					startIndex = exception.getStartIndex();
+					
+					endIndex = exception.getEndIndex();
+					
+					
+					adjustedErrorLineNumber = foldStartLine + errorLineNumber; 
+					
+					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+	
+					errorResult =  exception.getMessage() + " Error near line " + (adjustedErrorLineNumber + 1) + " starting at index " + startIndex + ".";							
+					
+					filePath = textArea.getBuffer().getPath();
+				
+					errorSource.clear();
+				
+					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber, startIndex, endIndex, errorResult ) );
+					
+				}
+				else
+				{
+					errorResult =  exception.getMessage();
+				}
+				
+				
 				output_fold_type = "%error";
 				
-				errorLineNumber = evaluationResponse.getLineNumber();//("line_number"); //evaluationResponse[4];
-				
-				errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
 
-				adjustedErrorLineNumber = foldStartLine + (errorLineNumber + 2);
-				
-				errorResult =  evaluationResponse.getExceptionMessage() + " Error near line " + adjustedErrorLineNumber;							
-				
-				filePath = textArea.getBuffer().getPath();
-			
-				errorSource.clear();
-			
-				errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber-1, 0, 0, errorResult ) );
-			
 				jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
 				
 				if(!evaluationResponse.getSideEffects().equalsIgnoreCase(""))
