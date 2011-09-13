@@ -55,6 +55,11 @@ DefMacroRulebaseListed -> MacroRulebaseListedEvaluateArguments
 
 Prog -> Block //For pedagogical reasons.
 
+----------------------------- Have most constants be in all capital letters.
+True -> TRUE
+False -> FALSE
+Empty -> EMPTY
+
 
 ----------------------------- Proposed predicate operator & function name changes:
 
@@ -68,65 +73,57 @@ IsList -> List?
 etc.
 
 
----------
-
-IsComplex ->
-IsComplexII ->
-IsAssumed ->
-IsList ->
-IsAmicablePair ->
-IsCarmichaelNumber ->
-IsCFormable ->
-IsComposite ->
-IsCoprime ->
-IsError ->
-IsFreeOf ->
-IsGaussianInteger ->
-IsGaussianPrime ->
-IsGaussianUnit ->
-IsIrregularPrime ->
-IsListsOfLists ->
-IsNonObject ->
-IsNotComplex ->
-IsPerfect ->
-IsPoint ->
-
-IsQuadraticResidue ->
-IsSegment ->
-IsSmallPrime ->
-IsSquareFree ->
-IsSubset ->
-IsTwinPrime ->
-IsUnivar ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
- ->
-
-============================= Changes that have already been done.
-
+============================= Changes that have already been done. ===================================
 // Changed in early September 2011.
+IsNumber -> Number?
+InDebugMode -> DebugMode?
+IsAtom -> Atom?
+IsBodied -> Bodied?
+IsBound -> Bound?
+IsDecimal -> Decimal?
+IsEqual -> Equal?
+IsFunction -> Function?
+IsGeneric -> Generic?
+IsGreaterThan -> GreaterThan?
+IsInfix -> InFix?
+IsLessThan -> LessThan?
+IsList -> List?
+IsListOfLists -> ListOfLists?
+IsPostfix -> Postfix?
+IsPrefix -> Prefix?
+IsPromptShown -> PromptShown?
+IsString -> String?
+IsComplex -> Complex?
+IsComplexII -> ComplexII
+IsAssumed -> Assumed?
+IsAmicablePair -> AmicablePair
+IsCarmichaelNumber -> CarmichaelNumber
+IsCFormable -> CFormable?
+IsComposite -> Composite?
+IsCoprime -> Coprime
+IsError -> Error?
+IsFreeOf -> FreeOf?
+IsGaussianInteger -> GaussianInteger?
+IsGaussianPrime -> GaussianPrime?
+IsGaussianUnit -> GaussianUnit?
+IsIrregularPrime -> IrregualrPrime?
+IsNonObject -> NonObject?
+IsPerfect -> Perfect?
+IsPoint -> Point?
+IsQuadraticResidue -> QuadraticResidue?
+IsSegment -> Segment?
+IsSmallPrime -> SmallPrime?
+IsSquareFree -> SquareFree?
+IsSubset -> Subset?
+IsTwinPrime -> TwinPrime?
+IsScalar -> Scalar?
+IsMatrix -> Matrix?
+IsVector -> Vector?
+IsSquareMatrix -> SquareMatrix?
+IsUniVar -> UniVar?
+IsMultiExpression -> MultiExpression?
+IsMultiConstant -> MultiConstant?
+IsMulti -> Multi?
 AllSatisfy -> AllSatisfy?
 FloatIsInt -> FloatIsInt?
 HasExpr -> HasExpression?
