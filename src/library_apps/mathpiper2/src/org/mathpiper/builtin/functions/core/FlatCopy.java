@@ -30,6 +30,16 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class FlatCopy extends BuiltinFunction
 {
 
+    private FlatCopy()
+    {
+    }
+
+    public FlatCopy(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer copied = new ConsPointer();

@@ -31,6 +31,16 @@ import org.mathpiper.lisp.Utility;
 public class Local extends BuiltinFunction
 {
 
+    private Local()
+    {
+    }
+
+    public Local(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer) {

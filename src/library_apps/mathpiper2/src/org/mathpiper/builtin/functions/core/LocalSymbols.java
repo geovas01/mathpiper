@@ -32,6 +32,16 @@ import org.mathpiper.lisp.behaviours.LocalSymbolSubstitute;
 public class LocalSymbols extends BuiltinFunction
 {
 
+    private LocalSymbols()
+    {
+    }
+
+    public LocalSymbols(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         int numberOfArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));

@@ -27,6 +27,16 @@ import org.mathpiper.lisp.Environment;
 public class DefMacroRulebaseListed extends BuiltinFunction
 {
 
+    private DefMacroRulebaseListed()
+    {
+    }
+
+    public DefMacroRulebaseListed(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         org.mathpiper.lisp.Utility.defMacroRulebase(aEnvironment, aStackTop, true);

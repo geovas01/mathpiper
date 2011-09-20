@@ -95,7 +95,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
                 if (matches) {
                     /* Rule dump trace code. */
-                    if (isTraced() && showFlag) {
+                    if (isTraced(this.functionName) && showFlag) {
                         ConsPointer argumentsPointer = new ConsPointer();
                         argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackTop, thisRule, aEnvironment, this);
@@ -149,7 +149,7 @@ public class MacroRulebase extends SingleArityRulebase {
         //FINISH:
 
         /*Leave trace code */
-        if (isTraced() && showFlag) {
+        if (isTraced(this.functionName) && showFlag) {
             ConsPointer tr = new ConsPointer();
             tr.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
             String localVariables = aEnvironment.getLocalVariables(aStackTop);

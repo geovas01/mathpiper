@@ -30,7 +30,18 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class BuiltinAssoc extends BuiltinFunction {
+public class BuiltinAssoc extends BuiltinFunction
+{
+
+    private BuiltinAssoc()
+    {
+    }
+
+    public BuiltinAssoc(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         // key to find

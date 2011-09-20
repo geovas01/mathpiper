@@ -30,6 +30,16 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class DestructiveReverse extends BuiltinFunction
 {
 
+    private DestructiveReverse()
+    {
+    }
+
+    public DestructiveReverse(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer reversed = new ConsPointer();

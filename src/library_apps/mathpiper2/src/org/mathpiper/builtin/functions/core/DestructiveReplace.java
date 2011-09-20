@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class DestructiveReplace extends BuiltinFunction
 {
 
+    private DestructiveReplace()
+    {
+    }
+
+    public DestructiveReplace(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Utility.replace(aEnvironment, aStackTop, true);

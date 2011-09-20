@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.core;
 
-
 import java.util.Iterator;
 import java.util.Map;
 import org.mathpiper.builtin.BuiltinFunction;
@@ -26,8 +25,18 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
 
+public class MetaEntries extends BuiltinFunction
+{
 
-public class MetaEntries extends BuiltinFunction {
+    private MetaEntries()
+    {
+    }
+
+    public MetaEntries(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
@@ -74,7 +83,7 @@ public class MetaEntries extends BuiltinFunction {
             operatorCons.cdr().setCons(keyCons);
 
 
-            
+
             //Add value cons.
             Cons valueCons = (Cons) metadataMap.get(key);
             keyCons.cdr().setCons(valueCons);
@@ -99,26 +108,21 @@ public class MetaEntries extends BuiltinFunction {
 
 
     }//end method.
-
-
 }//end class.
-
-
-
 /*
 %mathpiper_docs,name="MetaEntries",categories="User Functions;Built In"
-*CMD MetaValues --- returns the metadata values for a value or an unbound variable
-*CORE
-*CALL
+ *CMD MetaValues --- returns the metadata values for a value or an unbound variable
+ *CORE
+ *CALL
 MetaValues(value_or_unbound_variable)
 
-*PARMS
+ *PARMS
 
 
 {value_or_unbound_variable} -- a value or an unbound variable
 
 
-*DESC
+ *DESC
 
 todo:tk: not functional yet.
 
@@ -127,6 +131,6 @@ held in an associative list.
 
 
 
-*SEE MetaGet, MetaSet, MetaKeys, Unbind
+ *SEE MetaGet, MetaSet, MetaKeys, Unbind
 %/mathpiper_docs
  */

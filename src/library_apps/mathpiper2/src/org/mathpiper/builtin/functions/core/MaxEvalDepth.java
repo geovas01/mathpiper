@@ -31,6 +31,16 @@ import org.mathpiper.lisp.Utility;
 public class MaxEvalDepth extends BuiltinFunction
 {
 
+    private MaxEvalDepth()
+    {
+    }
+
+    public MaxEvalDepth(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer index = new ConsPointer();

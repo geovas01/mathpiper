@@ -33,6 +33,16 @@ import org.mathpiper.lisp.Utility;
 public class Length extends BuiltinFunction
 {
 
+    private Length()
+    {
+    }
+
+    public Length(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Object argument =getArgumentPointer(aEnvironment, aStackTop, 1).car();

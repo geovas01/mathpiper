@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
 public class DebugMode_ extends BuiltinFunction
 {
 
+    private DebugMode_()
+    {
+    }
+
+    public DebugMode_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

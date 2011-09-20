@@ -32,6 +32,16 @@ import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 public class RulebaseDefined extends BuiltinFunction
 {
 
+    private RulebaseDefined()
+    {
+    }
+
+    public RulebaseDefined(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer name = new ConsPointer();

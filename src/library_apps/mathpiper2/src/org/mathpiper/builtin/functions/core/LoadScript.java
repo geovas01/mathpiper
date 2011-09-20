@@ -32,6 +32,16 @@ import org.mathpiper.lisp.Utility;
 public class LoadScript extends BuiltinFunction
 {
 
+    private LoadScript()
+    {
+    }
+
+    public LoadScript(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);

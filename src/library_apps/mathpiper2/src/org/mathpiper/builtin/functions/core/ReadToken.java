@@ -29,6 +29,16 @@ import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 public class ReadToken extends BuiltinFunction
 {
 
+    private ReadToken()
+    {
+    }
+
+    public ReadToken(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         MathPiperTokenizer tok = aEnvironment.iCurrentTokenizer;

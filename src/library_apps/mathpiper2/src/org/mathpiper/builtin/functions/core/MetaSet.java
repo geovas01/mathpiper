@@ -27,7 +27,18 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 
-public class MetaSet extends BuiltinFunction {
+public class MetaSet extends BuiltinFunction
+{
+
+    private MetaSet()
+    {
+    }
+
+    public MetaSet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 

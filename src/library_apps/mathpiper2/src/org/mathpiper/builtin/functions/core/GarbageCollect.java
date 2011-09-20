@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
 public class GarbageCollect extends BuiltinFunction
 {
 
+    private GarbageCollect()
+    {
+    }
+
+    public GarbageCollect(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.getTokenHash().garbageCollect();

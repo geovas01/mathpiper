@@ -23,7 +23,18 @@ import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
-public class RulebaseDump extends BuiltinFunction {
+public class RulebaseDump extends BuiltinFunction
+{
+
+    private RulebaseDump()
+    {
+    }
+
+    public RulebaseDump(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "RulebaseDump");

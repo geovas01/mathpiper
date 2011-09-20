@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class CustomEval extends BuiltinFunction
 {
 
+    private CustomEval()
+    {
+    }
+
+    public CustomEval(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.write("Function not yet implemented : CustomEval");////TODO fixme

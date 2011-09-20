@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class FastPower extends BuiltinFunction
 {
 
+    private FastPower()
+    {
+    }
+
+    public FastPower(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x, y;

@@ -29,6 +29,17 @@ import org.mathpiper.lisp.Utility;
  */
 public class TraceOff extends BuiltinFunction
 {
+
+    private TraceOff()
+    {
+    }
+
+    public TraceOff(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          Evaluator.traceOff();

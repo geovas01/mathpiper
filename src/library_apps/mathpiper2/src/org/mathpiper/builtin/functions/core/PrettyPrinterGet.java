@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class PrettyPrinterGet extends BuiltinFunction
 {
 
+    private PrettyPrinterGet()
+    {
+    }
+
+    public PrettyPrinterGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         if (aEnvironment.iPrettyPrinterName == null)

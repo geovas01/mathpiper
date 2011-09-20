@@ -252,8 +252,16 @@ public abstract class Evaluator {
 		}//end else.
 	}//end method.
 
-	public static boolean isTraced() {
-		return iTraced;
+	public static boolean isTraced(String functionName) {
+
+                if(iTraced == true && !functionName.endsWith("?"))
+                {
+                    return true;
+                }
+                else
+                {
+		    return false;
+                }
 	}
 
 	public static void traceOff() {

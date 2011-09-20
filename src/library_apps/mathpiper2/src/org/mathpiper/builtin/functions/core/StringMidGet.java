@@ -31,6 +31,16 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class StringMidGet extends BuiltinFunction
 {
 
+    private StringMidGet()
+    {
+    }
+
+    public StringMidGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();

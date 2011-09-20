@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Utility;
 public class Bind extends BuiltinFunction
 {
 
+    private Bind()
+    {
+    }
+
+    public Bind(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Utility.setVar(aEnvironment, aStackTop, false, false);

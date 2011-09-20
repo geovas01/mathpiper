@@ -28,7 +28,18 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *  
  */
-public class Type extends BuiltinFunction {
+public class Type extends BuiltinFunction
+{
+
+    private Type()
+    {
+    }
+
+    public Type(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 

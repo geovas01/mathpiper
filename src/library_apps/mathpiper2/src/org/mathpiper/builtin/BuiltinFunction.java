@@ -162,6 +162,8 @@ import org.mathpiper.builtin.functions.core.RulebaseDefined;
 import org.mathpiper.builtin.functions.core.RulebaseListed;
 import org.mathpiper.builtin.functions.core.Secure;
 import org.mathpiper.builtin.functions.core.Bind;
+import org.mathpiper.builtin.functions.core.Break;
+import org.mathpiper.builtin.functions.core.Continue;
 import org.mathpiper.builtin.functions.core.ExceptionCatch;
 import org.mathpiper.builtin.functions.core.SetExactBits;
 import org.mathpiper.builtin.functions.core.SetGlobalLazyVariable;
@@ -198,18 +200,26 @@ import org.mathpiper.builtin.functions.core.FastCos;
 import org.mathpiper.builtin.functions.core.FastSin;
 import org.mathpiper.builtin.functions.core.FastTan;
 import org.mathpiper.builtin.functions.core.GlobalVariablesGet;
+import org.mathpiper.builtin.functions.core.List;
 import org.mathpiper.builtin.functions.core.LoadScript;
 import org.mathpiper.builtin.functions.core.RulebaseDump;
+import org.mathpiper.builtin.functions.core.Set;
 import org.mathpiper.builtin.functions.core.StackTrace;
 import org.mathpiper.builtin.functions.core.StackTraceOff;
 import org.mathpiper.builtin.functions.core.StackTraceOn;
 import org.mathpiper.builtin.functions.core.StringToUnicode;
+import org.mathpiper.builtin.functions.core.SystemTimer;
+import org.mathpiper.builtin.functions.core.Time;
 import org.mathpiper.builtin.functions.core.TraceExcept;
 import org.mathpiper.builtin.functions.core.TraceOff;
 import org.mathpiper.builtin.functions.core.TraceOn;
 import org.mathpiper.builtin.functions.core.TraceSome;
+import org.mathpiper.builtin.functions.core.Type;
+import org.mathpiper.builtin.functions.core.Version;
 
 public abstract class BuiltinFunction {
+
+    protected String functionName = "";
 
     public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
 
@@ -236,6 +246,9 @@ public abstract class BuiltinFunction {
     }//end method.
 
     public static void addCoreFunctions(Environment aEnvironment) {
+        String functionNameInit = "";
+
+
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "While");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Rule");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "MacroRule");
@@ -255,614 +268,211 @@ public abstract class BuiltinFunction {
         aEnvironment.iPrefixOperators.setOperator(0, "_");
         aEnvironment.iInfixOperators.setOperator(0, "_");
 
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Hold(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "Hold");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Eval(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Eval");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Write(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "Write");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new WriteString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "WriteString");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LispForm(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "LispForm");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DefaultDirectory(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DefaultDirectory");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PipeFromString(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "PipeFromString");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Read(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Read");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ReadToken(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ReadToken");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PipeToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "PipeToString");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PipeToStdout(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "PipeToStdout");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Bind(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "Bind");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MacroBind(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "MacroBind");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Unbind(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "Unbind");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Unbind(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "MacroUnbind");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Local(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "Local");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Local(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "MacroLocal");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new First(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "First");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Nth(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MathNth");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Rest(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Rest");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DestructiveReverse(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DestructiveReverse");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Length(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Length");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.List(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "List");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Set(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "Set");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ListToFunction(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ListToFunction");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FunctionToList(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FunctionToList");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Concatenate(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "Concat");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ConcatenateStrings(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "ConcatStrings");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Delete(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Delete");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DestructiveDelete(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DestructiveDelete");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Insert(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Insert");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DestructiveInsert(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DestructiveInsert");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Replace(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Replace");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DestructiveReplace(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DestructiveReplace");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ToAtom(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ToAtom");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ToString");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ExpressionToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ExpressionToString");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new UnicodeToString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "UnicodeToString");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new StringToUnicode(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "StringToUnicode");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FlatCopy(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FlatCopy");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Prog(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "Prog");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new While(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "While");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new If(), 2, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "If");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Check(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "Check");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ExceptionCatch(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "ExceptionCatch");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ExceptionGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ExceptionGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Prefix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Prefix");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Infix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Infix");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Postfix(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Postfix");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Bodied(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Bodied");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Rulebase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "Rulebase");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MacroRulebase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MacroRulebase");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RulebaseListed(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "RulebaseListed");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MacroRulebaseListed(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MacroRulebaseListed");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DefMacroRulebase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "DefMacroRulebase");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DefMacroRulebaseListed(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "DefMacroRulebaseListed");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new HoldArgument(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "HoldArgument");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Rule(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "Rule");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MacroRule(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MacroRule");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new UnFence(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "UnFence");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Retract(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Retract");
-        /* aEnvironment.getBuiltinFunctions().setAssociation(
-        new BuiltinFunctionEvaluator(new Not(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-        "NotN");*/
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Not_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Not?"); //Alias.
-		/*aEnvironment.getBuiltinFunctions().setAssociation(
-        new BuiltinFunctionEvaluator(new And(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-        "AndN");*/
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new And_(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "And?"); //Alias.
-		/*aEnvironment.getBuiltinFunctions().setAssociation(
-        new BuiltinFunctionEvaluator(new Or(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-        "OrN");*/
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Or_(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "Or?"); //Alias.
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Equal_(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Equal?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Equal_(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "=?"); //Alias.
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LessThan_(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "LessThan?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GreaterThan_(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "GreaterThan?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Function_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Function?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Atom_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Atom?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Number_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Number?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Decimal_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Decimal?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Integer_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Integer?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new List_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "List?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new String_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "String?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Bound_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "Bound?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Multiply(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MultiplyN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Add(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "AddN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Subtract(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "SubtractN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Divide(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DivideN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new BuiltinPrecisionSet(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "BuiltinPrecisionSet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GetExactBits(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "GetExactBitsN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new SetExactBits(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "SetExactBitsN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new BitCount(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MathBitCount");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MathSign(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MathSign");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MathIsSmall(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MathIsSmall");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MathNegate(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MathNegate");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Floor(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FloorN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Ceil(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "CeilN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Abs(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "AbsN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Modulo(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ModuloN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Quotient(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "QuotientN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new BitsToDigits(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "BitsToDigits");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DigitsToBits(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DigitsToBits");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Gcd(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "GcdN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FastSin(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FastSin");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FastArcSin(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FastArcSin");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FastCos(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FastCos");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FastArcCos(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FastArcCos");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FastTan(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FastTan");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FastArcTan(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FastArcTan");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FastLog(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FastLog");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FastPower(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FastPower");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ShiftLeft(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ShiftLeft");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ShiftRight(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ShiftRight");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FromBase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FromBase");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ToBase(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ToBase");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MaxEvalDepth(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MaxEvalDepth");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RightAssociativeSet(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "RightAssociativeSet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LeftPrecedenceSet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "LeftPrecedenceSet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RightPrecedenceSet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "RightPrecedenceSet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Bodied_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Bodied?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Infix_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Infix?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Prefix_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Prefix?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Postfix_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Postfix?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PrecedenceGet(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "PrecedenceGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LeftPrecedenceGet(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "LeftPrecedenceGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RightPrecedenceGet(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "RightPrecedenceGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new BuiltinPrecisionGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "BuiltinPrecisionGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new BitAnd(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "BitAnd");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new BitOr(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "BitOr");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new BitXor(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "BitXor");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Secure(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "Secure");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FindFunction(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FindFunction");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Generic_(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Generic?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GenericTypeName(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "GenericTypeName");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ArrayCreate(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ArrayCreate");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ArraySize(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ArraySize");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ArrayGet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ArrayGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ArraySet(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ArraySet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new CustomEval(), 4, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "CustomEval");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new CustomEvalExpression(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "CustomEval'Expression");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new CustomEvalResult(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "CustomEval'Result");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new CustomEvalLocals(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "CustomEval'Locals");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new CustomEvalStop(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "CustomEval'Stop");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new TraceRule(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "TraceRule");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new TraceStack(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "TraceStack");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LispRead(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "LispRead");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LispReadListed(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "LispReadListed");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Type(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Type");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new StringMidGet(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "StringMidGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new StringMidSet(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "StringMidSet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PatternCreate(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "PatternCreate");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PatternMatches(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "PatternMatches");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RulebaseDefined(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "RulebaseDefined");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RulebaseArgumentsList(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "RulebaseArgumentsList");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RulePattern(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "RulePattern");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MacroRulePattern(), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MacroRulePattern");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Subst(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Subst");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LocalSymbols(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),
-                "LocalSymbols");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new FastIsPrime(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "FastIsPrime");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Factorial(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MathFac");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ApplyFast(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ApplyFast");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PrettyReaderSet(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "PrettyReaderSet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PrettyPrinterSet(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "PrettyPrinterSet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PrettyPrinterGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "PrettyPrinterGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PrettyReaderGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "PrettyReaderGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GarbageCollect(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "GarbageCollect");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new SetGlobalLazyVariable(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "SetGlobalLazyVariable");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PatchString(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "PatchString");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MetaSet(), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MetaSet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MetaGet(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MetaGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MetaKeys(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MetaKeys");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MetaValues(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MetaValues");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new MetaEntries(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "MetaEntries");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DefaultTokenizer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DefaultTokenizer");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new CommonLispTokenizer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "CommonLispTokenizer");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new XmlTokenizer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "XmlTokenizer");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new XmlExplodeTag(aEnvironment), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "XmlExplodeTag");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new BuiltinAssoc(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Builtin'Assoc");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new CurrentFile(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "CurrentFile");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new CurrentLine(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "CurrentLine");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new BackQuote(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "`");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DumpNumber(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DumpNumber");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DebugMode_(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DebugMode?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DebugFile(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DebugFile");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new DebugLine(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "DebugLine");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Version(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Version");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new ExitRequested(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "IsExitRequested");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new HistorySize(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "HistorySize");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new StackSize(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "StaSiz");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new PromptShown_(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "PromptShown?");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Time(aEnvironment), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "Time");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.SystemTimer(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "SystemTimer");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Break(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Break");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Continue(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Continue");
-        /*aEnvironment.getBuiltinFunctions().setAssociation(
-        new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Return(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-        "Return");*/
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RoundToN(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "RoundToN");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new GlobalVariablesGet(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "GlobalVariablesGet");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new Delay(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "Delay");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new StackTrace(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "StackTrace");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new StackTraceOff(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "StackTraceOff");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new StackTraceOn(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "StackTraceOn");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new TraceExcept(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "TraceExcept");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceExcept");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new TraceOff(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "TraceOff");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new TraceOn(), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "TraceOn");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new TraceSome(), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "TraceSome");
-        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceSome");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new RulebaseDump(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "RulebaseDump");
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new LoadScript(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "LoadScript");
+        functionNameInit = "AbsN"; aEnvironment.getBuiltinFunctions().setAssociation( new BuiltinFunctionEvaluator(new Abs(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function), functionNameInit);
+        functionNameInit = "AddN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Add("AddN"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "And?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new And_("And?"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),functionNameInit); //Alias.
+        functionNameInit = "ApplyFast"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ApplyFast("ApplyFast"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "ArrayCreate"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ArrayCreate("ArrayCreate"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "ArrayGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ArrayGet("ArrayGet"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "ArraySet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ArraySet("ArraySet"), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "ArraySize"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ArraySize("ArraySize"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Atom?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Atom_("Atom?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "`"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new BackQuote("`"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "Bind"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Bind("Bind"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro), functionNameInit);
+        functionNameInit = "BitAnd"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new BitAnd("BitAnd"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MathBitCount"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new BitCount("MathBitCount"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "BitOr"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new BitOr("BitOr"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "BitXor"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new BitXor("BitXor"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "BitsToDigits"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new BitsToDigits("BitsToDigits"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Bodied"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Bodied("Bodied"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Bodied?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Bodied_("Bodied?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Bound?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Bound_("Bound?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "Break"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Break("Break"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Builtin'Assoc"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new BuiltinAssoc("Builtin'Assoc"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "BuiltinPrecisionGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new BuiltinPrecisionGet("BuiltinPrecisionGet"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "BuiltinPrecisionSet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new BuiltinPrecisionSet("BuiltinPrecisionSet"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "CeilN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Ceil("CeilN"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Check"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Check("Check"), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "CommonLispTokenizer"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CommonLispTokenizer("CommonLispTokenizer"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Concat"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Concatenate("Concat"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "ConcatStrings"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ConcatenateStrings("ConcatStrings"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Continue"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Continue("Continue"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "CurrentFile"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CurrentFile("CurrentFile"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "CurrentLine"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CurrentLine("CurrentLine"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "CustomEval"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CustomEval("CustomEval"), 4, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "CustomEval'Expression"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CustomEvalExpression("CustomEval'Expression"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "CustomEval'Locals"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CustomEvalLocals("CustomEval'Locals"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "CustomEval'Result"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CustomEvalResult("CustomEval'Result"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "CustomEval'Stop"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CustomEvalStop("CustomEval'Stop"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DebugFile"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DebugFile("DebugFile"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DebugLine"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DebugLine("DebugLine"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DebugMode?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DebugMode_("DebugMode?"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Decimal?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Decimal_("Decimal?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DefMacroRulebase"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DefMacroRulebase("DefMacroRulebase"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "DefMacroRulebaseListed"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DefMacroRulebaseListed("DefMacroRulebaseListed"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "DefaultDirectory"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DefaultDirectory("DefaultDirectory"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function), functionNameInit);
+        functionNameInit = "DefaultTokenizer"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DefaultTokenizer("DefaultTokenizer"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Delay"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Delay("Delay"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Delete"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Delete("Delete"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DestructiveDelete"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DestructiveDelete("DestructiveDelete"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DestructiveInsert"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DestructiveInsert("DestructiveInsert"), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DestructiveReplace"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DestructiveReplace("DestructiveReplace"), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DestructiveReverse"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DestructiveReverse("DestructiveReverse"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DigitsToBits"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DigitsToBits("DigitsToBits"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DivideN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Divide("DivideN"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "DumpNumber"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DumpNumber("DumpNumber"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Equal?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Equal_("Equal?"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "=?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Equal_("=?"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit); //Alias.
+        functionNameInit = "Eval"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Eval("Eval"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function), functionNameInit);
+        functionNameInit = "ExceptionCatch"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ExceptionCatch("ExceptionCatch"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "ExceptionGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ExceptionGet("ExceptionGet"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "IsExitRequested"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ExitRequested("IsExitRequested"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "ExpressionToString"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ExpressionToString("ExpressionToString"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MathFac"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Factorial("MathFac"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FastArcCos"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FastArcCos("FastArcCos"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FastArcSin"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FastArcSin("FastArcSin"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FastArcTan"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FastArcTan("FastArcTan"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FastCos"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FastCos("FastCos"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FastIsPrime"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FastIsPrime("FastIsPrime"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FastLog"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FastLog("FastLog"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FastPower"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FastPower("FastPower"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FastSin"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FastSin("FastSin"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FastTan"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FastTan("FastTan"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FindFunction"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FindFunction("FindFunction"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "First"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new First("First"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FlatCopy"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FlatCopy("FlatCopy"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FloorN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Floor("FloorN"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FromBase"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FromBase("FromBase"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "FunctionToList"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new FunctionToList("FunctionToList"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Function?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Function_("Function?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "GarbageCollect"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new GarbageCollect("GarbageCollect"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "GcdN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Gcd("GcdN"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "GenericTypeName"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new GenericTypeName("GenericTypeName"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Generic?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Generic_("Generic?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "GetExactBitsN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new GetExactBits("GetExactBitsN"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "GlobalVariablesGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new GlobalVariablesGet("GlobalVariablesGet"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "GreaterThan?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new GreaterThan_("GreaterThan?"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "HistorySize"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new HistorySize("HistorySize"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Hold"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Hold("Hold"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro), functionNameInit);
+        functionNameInit = "HoldArgument"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new HoldArgument("HoldArgument"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "If"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new If("If"), 2, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "Infix"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Infix("Infix"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Infix?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Infix_("Infix?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Insert"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Insert("Insert"), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Integer?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Integer_("Integer?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "LeftPrecedenceGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new LeftPrecedenceGet("LeftPrecedenceGet"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "LeftPrecedenceSet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new LeftPrecedenceSet("LeftPrecedenceSet"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Length"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Length("Length"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "LessThan?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new LessThan_("LessThan?"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "LispForm"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new LispForm("LispForm"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function), functionNameInit);
+        functionNameInit = "LispRead"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new LispRead("LispRead"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "LispReadListed"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new LispReadListed("LispReadListed"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "List"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new List("List"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "ListToFunction"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ListToFunction("ListToFunction"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "List?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new List_("List?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "LoadScript"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new LoadScript("LoadScript"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Local"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Local("Local"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "MacroLocal"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Local("MacroLocal"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "LocalSymbols"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new LocalSymbols("LocalSymbols"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "MacroBind"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MacroBind("MacroBind"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "MacroRule"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MacroRule("MacroRule"), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MacroRulePattern"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MacroRulePattern("MacroRulePattern"), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MacroRulebase"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MacroRulebase("MacroRulebase"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MacroRulebaseListed"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MacroRulebaseListed("MacroRulebaseListed"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MathIsSmall"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MathIsSmall("MathIsSmall"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MathNegate"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MathNegate("MathNegate"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MathSign"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MathSign("MathSign"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MaxEvalDepth"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MaxEvalDepth("MaxEvalDepth"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MetaEntries"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MetaEntries("MetaEntries"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MetaGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MetaGet("MetaGet"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MetaKeys"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MetaKeys("MetaKeys"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MetaSet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MetaSet("MetaSet"), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MetaValues"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MetaValues("MetaValues"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "ModuloN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Modulo("ModuloN"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "MultiplyN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Multiply("MultiplyN"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Not?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Not_("Not?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit); //Alias.
+        functionNameInit = "MathNth"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Nth("MathNth"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Number?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Number_("Number?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Or?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Or_("Or?"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),functionNameInit); //Alias.
+        functionNameInit = "PatchString"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PatchString("PatchString"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "PatternCreate"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PatternCreate("PatternCreate"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "PatternMatches"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PatternMatches("PatternMatches"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "PipeFromString"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PipeFromString("PipeFromString"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro), functionNameInit);
+        functionNameInit = "PipeToStdout"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PipeToStdout("PipeToStdout"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro), functionNameInit);
+        functionNameInit = "PipeToString"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PipeToString("PipeToString"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro), functionNameInit);
+        functionNameInit = "Postfix"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Postfix("Postfix"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Postfix?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Postfix_("Postfix?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "PrecedenceGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PrecedenceGet("PrecedenceGet"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Prefix"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Prefix("Prefix"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Prefix?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Prefix_("Prefix?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "PrettyPrinterGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PrettyPrinterGet("PrettyPrinterGet"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "PrettyPrinterSet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PrettyPrinterSet("PrettyPrinterSet"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "PrettyReaderGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PrettyReaderGet("PrettyReaderGet"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "PrettyReaderSet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PrettyReaderSet("PrettyReaderSet"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Prog"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Prog("Prog"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "PromptShown?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new PromptShown_("PromptShown?"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "QuotientN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Quotient("QuotientN"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Read"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Read("Read"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function), functionNameInit);
+        functionNameInit = "ReadToken"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ReadToken("ReadToken"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function), functionNameInit);
+        functionNameInit = "Replace"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Replace("Replace"), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Rest"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Rest("Rest"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Retract"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Retract("Retract"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "RightAssociativeSet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new RightAssociativeSet("RightAssociativeSet"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "RightPrecedenceGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new RightPrecedenceGet("RightPrecedenceGet"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "RightPrecedenceSet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new RightPrecedenceSet("RightPrecedenceSet"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "RoundToN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new RoundToN("RoundToN"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Rule"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Rule("Rule"), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "RulePattern"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new RulePattern("RulePattern"), 5, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "Rulebase"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Rulebase("Rulebase"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "RulebaseArgumentsList"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new RulebaseArgumentsList("RulebaseArgumentsList"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "RulebaseDefined"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new RulebaseDefined("RulebaseDefined"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "RulebaseDump"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new RulebaseDump("RulebaseDump"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "RulebaseListed"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new RulebaseListed("RulebaseListed"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "Secure"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Secure("Secure"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "Set"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Set("Set"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "SetExactBitsN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new SetExactBits("SetExactBitsN"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "SetGlobalLazyVariable"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new SetGlobalLazyVariable("SetGlobalLazyVariable"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "ShiftLeft"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ShiftLeft("ShiftLeft"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "ShiftRight"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ShiftRight("ShiftRight"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "StaSiz"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new StackSize("StaSiz"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "StackTrace"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new StackTrace("StackTrace"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "StackTraceOff"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new StackTraceOff("StackTraceOff"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "StackTraceOn"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new StackTraceOn("StackTraceOn"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "StringMidGet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new StringMidGet("StringMidGet"), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "StringMidSet"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new StringMidSet("StringMidSet"), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "StringToUnicode"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new StringToUnicode("StringToUnicode"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "String?"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new String_("String?"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Subst"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Subst("Subst"), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "SubtractN"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Subtract("SubtractN"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "SystemTimer"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new SystemTimer("SystemTimer"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Time"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Time(aEnvironment, "Time"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "ToAtom"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ToAtom("ToAtom"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "ToBase"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ToBase("ToBase"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "ToString"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ToString("ToString"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "TraceExcept"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new TraceExcept("TraceExcept"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, functionNameInit);
+        functionNameInit = "TraceOff"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new TraceOff("TraceOff"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "TraceOn"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new TraceOn("TraceOn"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "TraceRule"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new TraceRule("TraceRule"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "TraceSome"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new TraceSome("TraceSome"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, functionNameInit);
+        functionNameInit = "TraceStack"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new TraceStack("TraceStack"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "Type"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Type("Type"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "UnFence"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new UnFence("UnFence"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Unbind"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Unbind("Unbind"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "MacroUnbind"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Unbind("MacroUnbind"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "UnicodeToString"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new UnicodeToString("UnicodeToString"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Version"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Version("Version"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "While"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new While("While"), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
+        functionNameInit = "Write"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Write("Write"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function), functionNameInit);
+        functionNameInit = "WriteString"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new WriteString("WriteString"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function), functionNameInit);
+        functionNameInit = "XmlExplodeTag"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new XmlExplodeTag(aEnvironment, "XmlExplodeTag"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "XmlTokenizer"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new XmlTokenizer("XmlTokenizer"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
+
+
+        /*name = "Return"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new org.mathpiper.builtin.functions.core.Return(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function), name);*/
+
+
 
     }//end method.
 }//end class.

@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
 public class StackTrace extends BuiltinFunction
 {
 
+    private StackTrace()
+    {
+    }
+
+    public StackTrace(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          aEnvironment.dumpStacks(aEnvironment, aStackTop);

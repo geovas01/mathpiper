@@ -30,6 +30,16 @@ import org.mathpiper.lisp.LispError;
 public class FastCos extends BuiltinFunction
 {
 
+    private FastCos()
+    {
+    }
+
+    public FastCos(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x;

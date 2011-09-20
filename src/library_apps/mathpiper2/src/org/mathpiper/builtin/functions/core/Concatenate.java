@@ -32,6 +32,16 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class Concatenate extends BuiltinFunction
 {
 
+    private Concatenate()
+    {
+    }
+
+    public Concatenate(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer all = new ConsPointer();

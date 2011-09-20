@@ -31,6 +31,16 @@ import org.mathpiper.lisp.Utility;
 public class Integer_ extends BuiltinFunction
 {
 
+    private Integer_()
+    {
+    }
+
+    public Integer_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer result = new ConsPointer();

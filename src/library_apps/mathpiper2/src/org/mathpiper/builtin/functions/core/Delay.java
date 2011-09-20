@@ -30,6 +30,16 @@ import org.mathpiper.lisp.Utility;
 public class Delay extends BuiltinFunction
 {
 
+    private Delay()
+    {
+    }
+
+    public Delay(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber milliseconds = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);

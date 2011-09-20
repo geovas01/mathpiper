@@ -31,6 +31,16 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class Factorial extends BuiltinFunction
 {
 
+    private Factorial()
+    {
+    }
+
+    public Factorial(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getNumber(0, aEnvironment) != null, 1, "Factorial");

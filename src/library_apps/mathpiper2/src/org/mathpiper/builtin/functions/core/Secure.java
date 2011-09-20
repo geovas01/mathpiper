@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class Secure extends BuiltinFunction
 {
 
+    private Secure()
+    {
+    }
+
+    public Secure(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         boolean prevSecure = aEnvironment.iSecure;

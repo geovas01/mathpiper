@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class CommonLispTokenizer extends BuiltinFunction
 {
 
+    private CommonLispTokenizer()
+    {
+    }
+
+    public CommonLispTokenizer(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.write("Function not yet implemented : LispCommonLispTokenizer");//TODO FIXME

@@ -30,6 +30,16 @@ import org.mathpiper.lisp.LispError;
 public class FastArcSin extends BuiltinFunction
 {
 
+    private FastArcSin()
+    {
+    }
+
+    public FastArcSin(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x;

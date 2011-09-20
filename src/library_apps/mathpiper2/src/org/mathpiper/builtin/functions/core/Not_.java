@@ -30,6 +30,16 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class Not_ extends BuiltinFunction
 {
 
+    private Not_()
+    {
+    }
+
+    public Not_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();

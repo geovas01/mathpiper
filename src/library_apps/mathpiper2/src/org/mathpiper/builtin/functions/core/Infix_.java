@@ -30,6 +30,16 @@ import org.mathpiper.lisp.Utility;
 public class Infix_ extends BuiltinFunction
 {
 
+    private Infix_()
+    {
+    }
+
+    public Infix_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);

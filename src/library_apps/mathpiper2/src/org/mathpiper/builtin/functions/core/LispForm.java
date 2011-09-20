@@ -28,6 +28,16 @@ import org.mathpiper.lisp.printers.LispPrinter;
 public class LispForm extends BuiltinFunction
 {
 
+    private LispForm()
+    {
+    }
+
+    public LispForm(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());

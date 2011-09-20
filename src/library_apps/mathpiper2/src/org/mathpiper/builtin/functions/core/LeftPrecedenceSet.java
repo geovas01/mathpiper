@@ -31,6 +31,16 @@ import org.mathpiper.lisp.Utility;
 public class LeftPrecedenceSet extends BuiltinFunction
 {
 
+    private LeftPrecedenceSet()
+    {
+    }
+
+    public LeftPrecedenceSet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator

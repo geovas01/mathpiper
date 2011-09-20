@@ -29,7 +29,18 @@ import org.mathpiper.lisp.cons.AtomCons;
  *
  *  
  */
-public class PatchString extends BuiltinFunction {
+public class PatchString extends BuiltinFunction
+{
+
+    private PatchString()
+    {
+    }
+
+    public PatchString(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         String unpatchedString = 

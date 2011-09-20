@@ -30,6 +30,15 @@ import org.mathpiper.lisp.cons.SublistCons;
  */
 public class And_ extends BuiltinFunction
 {
+    
+    private And_()
+    {
+    }
+
+    public And_(String functionName)
+    {
+        this.functionName = functionName;
+    }
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {

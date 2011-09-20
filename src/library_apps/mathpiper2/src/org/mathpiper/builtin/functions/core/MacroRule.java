@@ -27,6 +27,16 @@ import org.mathpiper.lisp.Environment;
 public class MacroRule extends BuiltinFunction
 {
 
+    private MacroRule()
+    {
+    }
+
+    public MacroRule(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         org.mathpiper.lisp.Utility.newRule(aEnvironment, aStackTop, false);

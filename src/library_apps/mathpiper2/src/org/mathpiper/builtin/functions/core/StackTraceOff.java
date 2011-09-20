@@ -30,6 +30,16 @@ import org.mathpiper.lisp.Utility;
 public class StackTraceOff extends BuiltinFunction
 {
 
+    private StackTraceOff()
+    {
+    }
+
+    public StackTraceOff(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          Evaluator.stackTraceOff();

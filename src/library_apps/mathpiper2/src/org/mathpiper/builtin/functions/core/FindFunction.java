@@ -33,6 +33,16 @@ import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 public class FindFunction extends BuiltinFunction
 {
 
+    private FindFunction()
+    {
+    }
+
+    public FindFunction(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.check(aEnvironment, aStackTop, aEnvironment.iSecure == false, LispError.SECURITY_BREACH);

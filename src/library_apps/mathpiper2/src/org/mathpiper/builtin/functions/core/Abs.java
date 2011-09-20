@@ -28,6 +28,15 @@ import org.mathpiper.lisp.Environment;
  */
 public class Abs extends BuiltinFunction
 {
+    
+    private Abs()
+    {
+    }
+
+    public Abs(String functionName)
+    {
+        this.functionName = functionName;
+    }
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {

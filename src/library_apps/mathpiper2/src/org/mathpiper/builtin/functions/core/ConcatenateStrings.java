@@ -31,6 +31,16 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class ConcatenateStrings extends BuiltinFunction
 {
 
+    private ConcatenateStrings()
+    {
+    }
+
+    public ConcatenateStrings(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     void ConcatenateStrings(StringBuffer aStringBuffer, Environment aEnvironment, int aStackTop) throws Exception
     {
         aStringBuffer.append('\"');

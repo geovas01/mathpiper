@@ -30,6 +30,16 @@ import org.mathpiper.lisp.Utility;
 public class Retract extends BuiltinFunction
 {
 
+    private Retract()
+    {
+    }
+
+    public Retract(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
