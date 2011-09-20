@@ -65,7 +65,7 @@
 :ContFracEval:ContFracEval(list, rest)::
 :ContFracList:ContFracList(frac):manipulate continued fractions:
 :ContFracList:ContFracList(frac, depth)::
-:Contains:Contains(list, expr):test whether a list contains a certain element:
+:Contains?:Contains?(list, expr):test whether a list contains a certain element:
 :Content:Content(expr):content of a univariate polynomial:
 :Cos:Cos(x):trigonometric cosine function:
 :Count:Count(list, expr):count the number of occurrences of an expression:

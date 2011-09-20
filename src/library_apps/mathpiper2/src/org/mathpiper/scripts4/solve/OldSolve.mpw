@@ -55,7 +55,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
   For(j:=1,j<=?nreq And? nrSet <? nrvar,j++)
   [
     Local(vlist);
-    vlist:=VarListAll(eq[j],`Lambda({pt},Contains(@var,pt)));
+    vlist:=VarListAll(eq[j],`Lambda({pt},Contains?(@var,pt)));
     For(i:=1,i<=?nrvar And? nrSet <? nrvar,i++)
     [
 
@@ -82,7 +82,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
            Local(k,reset);
            reset:=False;
            For(k:=1,k<=?nreq  And? nrSet <? nrvar,k++)
-           If(Contains(VarListAll(eq[k],`Lambda({pt},Contains(@var,pt))),var[i]),
+           If(Contains?(VarListAll(eq[k],`Lambda({pt},Contains?(@var,pt))),var[i]),
            [
              Local(original);
              original:=eq[k];
@@ -97,7 +97,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
              If(InVerboseMode(), Echo({"   ",original," simplifies to ",eq[k]}));
            ]);
            nreq:=Length(eq);
-           vlist:=VarListAll(eq[j],`Lambda({pt},Contains(@var,pt)));
+           vlist:=VarListAll(eq[j],`Lambda({pt},Contains?(@var,pt)));
            i:=nrvar+1;
            // restart at the beginning of the variables.
            If(reset,j:=1);

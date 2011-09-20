@@ -44,10 +44,10 @@ assumptions := {};
 ];
 
 
-10 # Assumed?( _key, _valueExpected ) <-- Contains(AssumptionsAbout(key),valueExpected);
+10 # Assumed?( _key, _valueExpected ) <-- Contains?(AssumptionsAbout(key),valueExpected);
 
 
-10 # UnAssume( _x )_(Contains(AssocIndices(assumptions),x)) <--
+10 # UnAssume( _x )_(Contains?(AssocIndices(assumptions),x)) <--
 [
     Local(lst,len,jj);
     lst := Lambda({X},If(List?(X),X[1])) /@ assumptions;

@@ -132,14 +132,14 @@ LocalSymbols(cformMathFunctions) [
 /* Precedence of 120 because we'd like to process some special functions like pow() first */
 
 
-120 # CForm(expr_Function?, _p)_(ArgumentsCount(expr)=?2 And? Contains(AssocIndices(CFormRegularOps()), Type(expr)) ) <--
+120 # CForm(expr_Function?, _p)_(ArgumentsCount(expr)=?2 And? Contains?(AssocIndices(CFormRegularOps()), Type(expr)) ) <--
       CFormBracketIf(p<?PrecedenceGet(Type(expr)), ConcatStrings(CForm(FunctionToList(expr)[2], LeftPrecedenceGet(Type(expr))), CFormRegularOps()[Type(expr)], CForm(FunctionToList(expr)[3], RightPrecedenceGet(Type(expr))) ) );
 
 
 /* Sin, Cos, etc. and their argument is always bracketed */
 
 120 # CForm(expr_Function?, _p) _
-      (ArgumentsCount(expr)=?1 And? Contains(AssocIndices(CFormMathFunctions()), Type(expr)) ) <--
+      (ArgumentsCount(expr)=?1 And? Contains?(AssocIndices(CFormMathFunctions()), Type(expr)) ) <--
       ConcatStrings(CFormMathFunctions()[Type(expr)], "(", CForm( FunctionToList(expr)[2], CFormMaxPrec()),")" );
 
 /* functions */

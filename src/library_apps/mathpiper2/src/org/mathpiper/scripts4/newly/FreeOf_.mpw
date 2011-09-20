@@ -55,5 +55,5 @@ Result: False;
 The third command returns {True} because the
 expression {Differentiate(x) a*x+b} evaluates to {a}, which does not depend on {x}.
 
-*SEE Contains
+*SEE Contains?
 %/mathpiper_docs

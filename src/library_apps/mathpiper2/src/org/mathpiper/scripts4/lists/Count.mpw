@@ -40,5 +40,5 @@ Result: 1;
 In> Count(lst, x);
 Result: 0;
 
-*SEE Length, Select, Contains
+*SEE Length, Select, Contains?
 %/mathpiper_docs

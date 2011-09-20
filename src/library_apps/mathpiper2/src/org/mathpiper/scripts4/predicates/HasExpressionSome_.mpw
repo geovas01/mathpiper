@@ -11,7 +11,7 @@ HasExpressionSome?(_expr, _atom, _look'list) _ Equal?(expr, atom) <-- True;
 20 # HasExpressionSome?(expr_List?, _atom, _look'list) <-- HasExpressionSome?(First(expr), atom, look'list) Or? HasExpressionSome?(Rest(expr), atom, look'list);
 // a function contains an atom if one of its arguments contains it
 // first deal with functions that do not belong to the list: return False since we have already checked it at #15
-25 # HasExpressionSome?(expr_Function?, _atom, _look'list)_(Not? Contains(look'list, ToAtom(Type(expr)))) <-- False;
+25 # HasExpressionSome?(expr_Function?, _atom, _look'list)_(Not? Contains?(look'list, ToAtom(Type(expr)))) <-- False;
 // a function contains an atom if one of its arguments contains it
 30 # HasExpressionSome?(expr_Function?, _atom, _look'list) <-- HasExpressionSome?(Rest(FunctionToList(expr)), atom, look'list);
 
