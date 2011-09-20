@@ -37,7 +37,7 @@ OrdBuild(vector,q):=
 Function(AddFoundSolutionSingle,{p})
 [
   Local(calc);
-//  If ( Not? Contains(result,p),
+//  If ( Not? Contains?(result,p),
 //  [
     Bind(calc, Eval(lastcoef));
     If (Equal?(calc, 0),

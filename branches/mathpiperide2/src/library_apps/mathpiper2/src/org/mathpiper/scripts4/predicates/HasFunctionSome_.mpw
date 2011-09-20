@@ -9,7 +9,7 @@
 // a function contains itself, or maybe an argument contains it
 
 // first deal with functions that do not belong to the list: return top level function
-15 # HasFunctionSome?(expr_Function?, atom_Atom?, _look'list)_(Not? Contains(look'list, ToAtom(Type(expr)))) <-- Equal?(First(FunctionToList(expr)), atom);
+15 # HasFunctionSome?(expr_Function?, atom_Atom?, _look'list)_(Not? Contains?(look'list, ToAtom(Type(expr)))) <-- Equal?(First(FunctionToList(expr)), atom);
 // function belongs to the list - check its arguments
 20 # HasFunctionSome?(expr_Function?, atom_Atom?, _look'list) <-- Equal?(First(FunctionToList(expr)), atom) Or? ListHasFunctionSome?(Rest(FunctionToList(expr)), atom, look'list);
 

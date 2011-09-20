@@ -101,7 +101,7 @@
     A := Transpose(Concat(Transpose(lhs),{rhs}));
     E := RREF(A);
 
-    If(Contains(E,BaseVector(Dimensions(E)[2],Dimensions(E)[2])),
+    If(Contains?(E,BaseVector(Dimensions(E)[2],Dimensions(E)[2])),
         {},
         MatrixColumn(E,Dimensions(E)[2]) - (ExtractSubMatrix(E, 1, 1, Length(E), Length(E)) - Identity(Length(E))) * vars);
 ];

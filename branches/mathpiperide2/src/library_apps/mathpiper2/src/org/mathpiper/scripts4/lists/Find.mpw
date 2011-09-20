@@ -48,5 +48,5 @@ Result: 2;
 In> Find({1,2,3,2,1}, 4);
 Result: -1;
 
-*SEE Contains
+*SEE Contains?
 %/mathpiper_docs

@@ -137,7 +137,7 @@ Macro(DebugEnter,{})
     [
       line := DebugLine(CustomEval'Expression());
       If(Not?(file =? debugstepoverfile And? line =? debugstepoverline) And?
-         Contains(filebreakpoints[file],line),
+         Contains?(filebreakpoints[file],line),
          [
            debugging:=True;
          ]
@@ -149,7 +149,7 @@ Macro(DebugEnter,{})
   // the standard breakpoint
   If(debugging =? False And?
       Function?(CustomEval'Expression()) And?
-      Contains(breakpoints,Type(CustomEval'Expression())),   debugging:=True);
+      Contains?(breakpoints,Type(CustomEval'Expression())),   debugging:=True);
    nextdebugging:=False;
    If (debugging,
    [
@@ -233,7 +233,7 @@ WriteLines(filename,lines,from,nrlines,breakpoints,current):=
       WriteString(">")
     else
       WriteString(" ");
-    if (Contains(breakpoints,i))
+    if (Contains?(breakpoints,i))
       WriteString("*")
     else
       WriteString(" ");

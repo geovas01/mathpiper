@@ -224,7 +224,7 @@ Function("xPSolve",{expr,var})
     If(iDebug,Tell("   ",{cc,pp}));
     solnpp := xPSolve(MakeUni(pp,var));
     If(iDebug,Tell("   ",solnpp));
-    If( Length(VarList(cc)) >? 0 And? Contains(VarList(cc),var ),
+    If( Length(VarList(cc)) >? 0 And? Contains?(VarList(cc),var ),
       [
          solncc := xPSolve(MakeUni(cc,var));
          If(iDebug,Tell("   ",solncc));

@@ -20,8 +20,8 @@ Verify(HeapSort({6,7,1,3,2},">?"),{7,6,3,2,1});
 
 Verify(Type(Cos(x)),"Cos");
 Verify(ArgumentsCount(Cos(x)),1);
-Verify(Contains({a,b,c},b),True);
-Verify(Contains({a,b,c},d),False);
+Verify(Contains?({a,b,c},b),True);
+Verify(Contains?({a,b,c},d),False);
 
 Verify(Append({a,b,c},d),{a,b,c,d});
 Verify(RemoveDuplicates({a,b,b,c}),{a,b,c});

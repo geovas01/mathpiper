@@ -27,7 +27,7 @@
       If(iDebug=True,Tell("  sp1",{nfactors,factors}));
       roots := {};
       ForEach(factor,factors) 
-          If(Contains(VarList(factor[1]),var),
+          If(Contains?(VarList(factor[1]),var),
               [
                   Local(rs,r);
                   rs := PSolve(factor[1],var);
