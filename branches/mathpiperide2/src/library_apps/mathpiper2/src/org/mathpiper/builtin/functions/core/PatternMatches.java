@@ -34,6 +34,16 @@ import org.mathpiper.lisp.Utility;
 public class PatternMatches extends BuiltinFunction
 {
 
+    private PatternMatches()
+    {
+    }
+
+    public PatternMatches(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer pattern = new ConsPointer();

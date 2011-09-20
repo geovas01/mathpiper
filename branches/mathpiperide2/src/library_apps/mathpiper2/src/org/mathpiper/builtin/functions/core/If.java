@@ -30,6 +30,16 @@ import org.mathpiper.lisp.Utility;
 public class If extends BuiltinFunction
 {
 
+    private If()
+    {
+    }
+
+    public If(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));

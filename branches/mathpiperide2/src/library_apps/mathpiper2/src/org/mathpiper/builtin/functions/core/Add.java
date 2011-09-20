@@ -37,6 +37,16 @@ import org.mathpiper.lisp.Utility;
 public class Add extends BuiltinFunction
 {
 
+    private Add()
+    {
+    }
+
+    public Add(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+    
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         int length = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));

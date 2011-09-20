@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class Return extends BuiltinFunction
 {
 
+    private Return()
+    {
+    }
+
+    public Return(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          throw new ReturnException();

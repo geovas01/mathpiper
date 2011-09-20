@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class StackSize extends BuiltinFunction
 {
 
+    private StackSize()
+    {
+    }
+
+    public StackSize(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.write("Function not yet implemented : LispStackSize");//TODO FIXME

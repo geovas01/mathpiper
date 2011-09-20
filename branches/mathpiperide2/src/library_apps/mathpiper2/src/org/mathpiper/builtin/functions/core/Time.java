@@ -32,12 +32,15 @@ import org.mathpiper.lisp.printers.MathPiperPrinter;
 public class Time extends BuiltinFunction
 {
 
-     private Time()
+
+    private Time()
     {
     }
 
-    public Time(Environment aEnvironment)
+    public Time(Environment aEnvironment, String functionName)
     {
+        this.functionName = functionName;
+
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Time");
     }//end constructor.
 

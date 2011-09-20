@@ -141,7 +141,7 @@ public class SingleArityRulebase extends Evaluator {
                 if (matches) {
 
                     /* Rule dump trace code. */
-                    if (isTraced() && showFlag) {
+                    if (isTraced(this.functionName) && showFlag) {
                         ConsPointer argumentsPointer = new ConsPointer();
                         argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackTop, thisRule, aEnvironment, this);
@@ -169,7 +169,7 @@ public class SingleArityRulebase extends Evaluator {
                     }
 
                     /*Leave trace code */
-                    if (isTraced() && showFlag) {
+                    if (isTraced(this.functionName) && showFlag) {
                         ConsPointer argumentsPointer2 = new ConsPointer();
                         argumentsPointer2.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                         String localVariables = aEnvironment.getLocalVariables(aStackTop);
@@ -203,7 +203,7 @@ public class SingleArityRulebase extends Evaluator {
 
 
             /* Trace code */
-            if (isTraced() && showFlag) {
+            if (isTraced(this.functionName) && showFlag) {
                 ConsPointer argumentsPointer3 = new ConsPointer();
                 argumentsPointer3.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
                 String localVariables = aEnvironment.getLocalVariables(aStackTop);
@@ -231,7 +231,7 @@ public class SingleArityRulebase extends Evaluator {
         int parameterIndex;
 
         /*Enter trace code*/
-        if (isTraced()) {
+        if (isTraced(this.functionName)) {
             ConsPointer argumentsPointer = new ConsPointer();
             argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
             String traceFunctionName = "";
@@ -287,7 +287,7 @@ public class SingleArityRulebase extends Evaluator {
         }//end for.
 
         /*Argument trace code */
-        if (isTraced() && argumentsResultPointerArray != null && showFlag) {
+        if (isTraced(this.functionName) && argumentsResultPointerArray != null && showFlag) {
             //ConsTraverser consTraverser2 = new ConsTraverser(aArguments);
             //ConsPointer traceArgumentPointer = new ConsPointer(aArgumentsPointer.getCons());
 

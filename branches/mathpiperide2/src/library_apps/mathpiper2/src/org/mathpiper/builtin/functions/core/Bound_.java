@@ -30,6 +30,16 @@ import org.mathpiper.lisp.Utility;
 public class Bound_ extends BuiltinFunction
 {
 
+    private Bound_()
+    {
+    }
+
+    public Bound_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         

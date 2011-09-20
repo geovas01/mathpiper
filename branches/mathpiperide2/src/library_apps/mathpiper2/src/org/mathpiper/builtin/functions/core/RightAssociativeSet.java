@@ -30,6 +30,16 @@ import org.mathpiper.lisp.Utility;
 public class RightAssociativeSet extends BuiltinFunction
 {
 
+    private RightAssociativeSet()
+    {
+    }
+
+    public RightAssociativeSet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator

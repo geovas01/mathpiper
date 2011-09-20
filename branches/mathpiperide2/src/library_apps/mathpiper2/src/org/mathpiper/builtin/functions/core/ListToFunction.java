@@ -31,6 +31,16 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class ListToFunction extends BuiltinFunction
 {
 
+    private ListToFunction()
+    {
+    }
+
+    public ListToFunction(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "ListToFunction");

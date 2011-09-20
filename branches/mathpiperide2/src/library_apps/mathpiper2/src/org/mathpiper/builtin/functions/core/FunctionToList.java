@@ -30,6 +30,16 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class FunctionToList extends BuiltinFunction
 {
 
+    private FunctionToList()
+    {
+    }
+
+    public FunctionToList(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer, 1, "FunctionToList");

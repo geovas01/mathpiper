@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class GreaterThan_ extends BuiltinFunction
 {
 
+    private GreaterThan_()
+    {
+    }
+
+    public GreaterThan_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     LexGreaterThan compare = new LexGreaterThan();
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class LessThan_ extends BuiltinFunction
 {
 
+    private LessThan_()
+    {
+    }
+
+    public LessThan_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     LexLessThan compare = new LexLessThan();
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

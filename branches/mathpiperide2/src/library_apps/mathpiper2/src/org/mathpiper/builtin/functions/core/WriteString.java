@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
 public class WriteString extends BuiltinFunction
 {
 
+    private WriteString()
+    {
+    }
+
+    public WriteString(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "WriteString");

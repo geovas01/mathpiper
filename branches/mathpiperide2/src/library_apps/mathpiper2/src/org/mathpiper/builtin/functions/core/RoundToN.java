@@ -19,7 +19,18 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *
  */
-public class RoundToN extends BuiltinFunction {
+public class RoundToN extends BuiltinFunction
+{
+
+    private RoundToN()
+    {
+    }
+
+    public RoundToN(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 

@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
 public class Nth extends BuiltinFunction
 {
 
+    private Nth()
+    {
+    }
+
+    public Nth(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;

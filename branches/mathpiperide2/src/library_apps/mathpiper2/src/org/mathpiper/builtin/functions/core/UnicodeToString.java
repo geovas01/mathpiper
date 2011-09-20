@@ -30,6 +30,16 @@ import org.mathpiper.lisp.Utility;
 public class UnicodeToString extends BuiltinFunction
 {
 
+    private UnicodeToString()
+    {
+    }
+
+    public UnicodeToString(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;

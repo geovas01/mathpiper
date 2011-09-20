@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class CurrentFile extends BuiltinFunction
 {
 
+    private CurrentFile()
+    {
+    }
+
+    public CurrentFile(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(aEnvironment.iCurrentInput.iStatus.getFileName())));

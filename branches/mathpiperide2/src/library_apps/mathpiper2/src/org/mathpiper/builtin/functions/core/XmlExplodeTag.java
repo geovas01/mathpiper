@@ -35,8 +35,11 @@ public class XmlExplodeTag extends BuiltinFunction {
     private XmlExplodeTag() {
     }
 
-    public XmlExplodeTag(Environment aEnvironment) {
+    public XmlExplodeTag(Environment aEnvironment, String functionName) {
         try {
+
+            this.functionName = functionName;
+            
             Utility.lispEvaluate(aEnvironment, -1, "Rulebase(\"XmlTag\",{x,y,z});");
         } catch (Exception e) {
             e.printStackTrace();

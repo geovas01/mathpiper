@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class Eval extends BuiltinFunction
 {
 
+    private Eval()
+    {
+    }
+
+    public Eval(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));

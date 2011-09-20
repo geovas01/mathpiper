@@ -29,7 +29,18 @@ import org.mathpiper.lisp.cons.ConsPointer;
  *
  *
  */
-public class ExpressionToString extends BuiltinFunction {
+public class ExpressionToString extends BuiltinFunction
+{
+
+    private ExpressionToString()
+    {
+    }
+
+    public ExpressionToString(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         ConsPointer evaluated = new ConsPointer();

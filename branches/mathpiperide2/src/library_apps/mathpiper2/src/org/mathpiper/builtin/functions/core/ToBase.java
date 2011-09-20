@@ -32,6 +32,16 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class ToBase extends BuiltinFunction
 {
 
+    private ToBase()
+    {
+    }
+
+    public ToBase(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get the base to convert to:

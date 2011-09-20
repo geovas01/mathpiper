@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
  */
 public class BackQuote extends BuiltinFunction
 {
+    
+    private BackQuote()
+    {
+    }
+
+    public BackQuote(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {

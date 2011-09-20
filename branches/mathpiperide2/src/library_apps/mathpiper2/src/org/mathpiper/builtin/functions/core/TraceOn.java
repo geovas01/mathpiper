@@ -25,7 +25,18 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class TraceOn extends BuiltinFunction {
+public class TraceOn extends BuiltinFunction
+{
+
+    private TraceOn()
+    {
+    }
+
+    public TraceOn(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         Evaluator.traceOn();

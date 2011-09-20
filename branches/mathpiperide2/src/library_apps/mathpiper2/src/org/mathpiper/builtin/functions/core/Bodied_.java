@@ -30,6 +30,16 @@ import org.mathpiper.lisp.Utility;
 public class Bodied_ extends BuiltinFunction
 {
 
+    private Bodied_()
+    {
+    }
+
+    public Bodied_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);

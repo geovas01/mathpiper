@@ -27,6 +27,16 @@ import org.mathpiper.lisp.Environment;
 public class Hold extends BuiltinFunction
 {
 
+    private Hold()
+    {
+    }
+
+    public Hold(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons().copy( aEnvironment, false));

@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
 public class Write extends BuiltinFunction
 {
 
+    private Write()
+    {
+    }
+
+    public Write(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer arguments = getArgumentPointer(aEnvironment, aStackTop, 1);

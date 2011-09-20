@@ -27,6 +27,16 @@ import org.mathpiper.lisp.Environment;
 public class ExceptionCatch extends BuiltinFunction
 {
 
+    private ExceptionCatch()
+    {
+    }
+
+    public ExceptionCatch(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         try

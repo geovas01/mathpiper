@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Utility;
 public class Postfix extends BuiltinFunction
 {
 
+    private Postfix()
+    {
+    }
+
+    public Postfix(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));

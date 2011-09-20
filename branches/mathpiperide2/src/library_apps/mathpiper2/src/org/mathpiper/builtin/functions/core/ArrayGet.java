@@ -32,6 +32,16 @@ import org.mathpiper.lisp.cons.ConsPointer;
  */
 public class ArrayGet extends BuiltinFunction
 {
+    
+    private ArrayGet()
+    {
+    }
+
+    public ArrayGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {

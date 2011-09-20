@@ -25,13 +25,24 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-	public class MacroRulebase extends BuiltinFunction
-	{
-		public void evaluate(Environment aEnvironment,int aStackTop) throws Exception
-		{
-			org.mathpiper.lisp.Utility.rulebase(aEnvironment, aStackTop, false);
-		}
-	}
+public class MacroRulebase extends BuiltinFunction
+{
+
+    private MacroRulebase()
+    {
+    }
+
+    public MacroRulebase(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
+        public void evaluate(Environment aEnvironment,int aStackTop) throws Exception
+        {
+                org.mathpiper.lisp.Utility.rulebase(aEnvironment, aStackTop, false);
+        }
+}
 
 
 

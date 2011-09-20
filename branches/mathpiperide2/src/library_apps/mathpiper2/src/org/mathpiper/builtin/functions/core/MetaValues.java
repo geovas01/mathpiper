@@ -27,7 +27,18 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
-public class MetaValues extends BuiltinFunction {
+public class MetaValues extends BuiltinFunction
+{
+
+    private MetaValues()
+    {
+    }
+
+    public MetaValues(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 

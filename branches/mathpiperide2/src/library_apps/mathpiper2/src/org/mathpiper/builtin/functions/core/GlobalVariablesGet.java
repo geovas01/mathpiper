@@ -30,7 +30,18 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *
  */
-public class GlobalVariablesGet extends BuiltinFunction {
+public class GlobalVariablesGet extends BuiltinFunction
+{
+
+    private GlobalVariablesGet()
+    {
+    }
+
+    public GlobalVariablesGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 

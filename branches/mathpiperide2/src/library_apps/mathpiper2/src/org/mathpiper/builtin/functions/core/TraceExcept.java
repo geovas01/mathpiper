@@ -31,7 +31,17 @@ import org.mathpiper.lisp.cons.ConsPointer;
  */
 public class TraceExcept extends BuiltinFunction
 {
-    
+
+    private TraceExcept()
+    {
+    }
+
+    public TraceExcept(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 

@@ -32,6 +32,16 @@ import org.mathpiper.lisp.Utility;
 public class FromBase extends BuiltinFunction
 {
 
+    private FromBase()
+    {
+    }
+
+    public FromBase(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get the base to convert to:

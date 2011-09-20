@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class Break extends BuiltinFunction
 {
 
+    private Break()
+    {
+    }
+
+    public Break(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          throw new BreakException();

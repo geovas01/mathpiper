@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class SystemTimer extends BuiltinFunction
 {
 
+    private SystemTimer()
+    {
+    }
+
+    public SystemTimer(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         long currentTime = System.currentTimeMillis();

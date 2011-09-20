@@ -28,7 +28,18 @@ import org.mathpiper.lisp.cons.SublistCons;
  * Used to create sets like List() is used to create lists.
  *
  */
-public class Set extends BuiltinFunction {
+public class Set extends BuiltinFunction
+{
+
+    private Set()
+    {
+    }
+
+    public Set(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         ConsPointer allPointer = new ConsPointer();

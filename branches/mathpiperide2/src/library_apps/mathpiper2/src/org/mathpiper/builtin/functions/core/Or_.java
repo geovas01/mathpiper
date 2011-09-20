@@ -31,6 +31,16 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class Or_ extends BuiltinFunction
 {
 
+    private Or_()
+    {
+    }
+
+    public Or_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer nogos = new ConsPointer();

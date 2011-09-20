@@ -34,6 +34,16 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class ExceptionGet extends BuiltinFunction
 {
 
+    private ExceptionGet()
+    {
+    }
+
+    public ExceptionGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         if(aEnvironment.iException == null)

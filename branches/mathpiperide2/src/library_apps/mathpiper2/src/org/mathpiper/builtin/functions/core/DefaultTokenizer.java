@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Utility;
 public class DefaultTokenizer extends BuiltinFunction
 {
 
+    private DefaultTokenizer()
+    {
+    }
+
+    public DefaultTokenizer(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.iCurrentTokenizer = aEnvironment.iDefaultTokenizer;

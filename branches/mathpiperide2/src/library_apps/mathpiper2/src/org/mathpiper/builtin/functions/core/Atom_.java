@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
  */
 public class Atom_ extends BuiltinFunction
 {
+    
+    private Atom_()
+    {
+    }
+
+    public Atom_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {

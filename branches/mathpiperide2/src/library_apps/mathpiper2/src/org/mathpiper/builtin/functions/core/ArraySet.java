@@ -32,6 +32,16 @@ import org.mathpiper.lisp.Utility;
  */
 public class ArraySet extends BuiltinFunction
 {
+    
+    private ArraySet()
+    {
+    }
+
+    public ArraySet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {

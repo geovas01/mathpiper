@@ -31,6 +31,16 @@ import org.mathpiper.lisp.Utility;
 public class PrettyReaderSet extends BuiltinFunction
 {
 
+    private PrettyReaderSet()
+    {
+    }
+
+    public PrettyReaderSet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));

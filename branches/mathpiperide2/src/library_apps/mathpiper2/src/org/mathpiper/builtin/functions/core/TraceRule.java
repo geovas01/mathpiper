@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class TraceRule extends BuiltinFunction
 {
 
+    private TraceRule()
+    {
+    }
+
+    public TraceRule(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.write("Function not yet implemented : LispTraceRule");////TODO fixme

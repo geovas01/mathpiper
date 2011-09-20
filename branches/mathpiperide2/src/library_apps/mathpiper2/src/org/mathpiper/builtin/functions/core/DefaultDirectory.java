@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
 public class DefaultDirectory extends BuiltinFunction
 {
 
+    private DefaultDirectory()
+    {
+    }
+
+    public DefaultDirectory(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get file name

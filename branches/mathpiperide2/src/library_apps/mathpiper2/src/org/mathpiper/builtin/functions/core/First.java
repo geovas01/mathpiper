@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Utility;
 public class First extends BuiltinFunction
 {
 
+    private First()
+    {
+    }
+
+    public First(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Utility.nth(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1), 1);

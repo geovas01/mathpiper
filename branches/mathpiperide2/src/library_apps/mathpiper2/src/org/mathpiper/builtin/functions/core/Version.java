@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class Version extends BuiltinFunction
 {
 
+    private Version()
+    {
+    }
+
+    public Version(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "\"" + org.mathpiper.Version.version + "\""));

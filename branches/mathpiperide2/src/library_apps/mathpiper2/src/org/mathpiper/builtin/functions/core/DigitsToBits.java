@@ -31,6 +31,16 @@ import org.mathpiper.lisp.Utility;
 public class DigitsToBits extends BuiltinFunction
 {
 
+    private DigitsToBits()
+    {
+    }
+
+    public DigitsToBits(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);

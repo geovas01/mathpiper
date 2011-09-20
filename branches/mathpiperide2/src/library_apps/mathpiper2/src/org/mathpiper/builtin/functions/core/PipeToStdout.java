@@ -28,6 +28,16 @@ import org.mathpiper.io.MathPiperOutputStream;
 public class PipeToStdout extends BuiltinFunction
 {
 
+    private PipeToStdout()
+    {
+    }
+
+    public PipeToStdout(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         MathPiperOutputStream previous = aEnvironment.iCurrentOutput;

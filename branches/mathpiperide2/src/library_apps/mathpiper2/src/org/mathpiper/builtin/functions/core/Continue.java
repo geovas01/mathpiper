@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class Continue extends BuiltinFunction
 {
 
+    private Continue()
+    {
+    }
+
+    public Continue(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
          throw new ContinueException();

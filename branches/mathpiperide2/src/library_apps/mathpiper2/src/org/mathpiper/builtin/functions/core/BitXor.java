@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class BitXor extends BuiltinFunction
 {
 
+    private BitXor()
+    {
+    }
+
+    public BitXor(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);

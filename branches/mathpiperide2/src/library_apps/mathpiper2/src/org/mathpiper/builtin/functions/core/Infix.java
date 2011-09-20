@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class Infix extends BuiltinFunction
 {
 
+    private Infix()
+    {
+    }
+
+    public Infix(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Utility.multiFix(aEnvironment, aStackTop, aEnvironment.iInfixOperators);

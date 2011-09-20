@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class PromptShown_ extends BuiltinFunction
 {
 
+    private PromptShown_()
+    {
+    }
+
+    public PromptShown_(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.write("Function not yet implemented : PromptShown?");//TODO FIXME

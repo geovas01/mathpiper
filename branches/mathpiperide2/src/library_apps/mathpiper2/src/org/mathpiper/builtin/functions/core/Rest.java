@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
 public class Rest extends BuiltinFunction
 {
 
+    private Rest()
+    {
+    }
+
+    public Rest(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer first = new ConsPointer();

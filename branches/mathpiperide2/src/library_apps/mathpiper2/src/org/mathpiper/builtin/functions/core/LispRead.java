@@ -29,6 +29,16 @@ import org.mathpiper.lisp.parsers.Parser;
 public class LispRead extends BuiltinFunction
 {
 
+    private LispRead()
+    {
+    }
+
+    public LispRead(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Parser parser = new Parser(aEnvironment.iCurrentTokenizer,

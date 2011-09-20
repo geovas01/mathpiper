@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class HistorySize extends BuiltinFunction
 {
 
+    private HistorySize()
+    {
+    }
+
+    public HistorySize(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.write("Function not yet implemented : LispHistorySize");//TODO FIXME

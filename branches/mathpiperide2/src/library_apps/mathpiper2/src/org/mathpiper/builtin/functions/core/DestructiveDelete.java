@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class DestructiveDelete extends BuiltinFunction
 {
 
+    private DestructiveDelete()
+    {
+    }
+
+    public DestructiveDelete(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Utility.delete(aEnvironment, aStackTop, true);

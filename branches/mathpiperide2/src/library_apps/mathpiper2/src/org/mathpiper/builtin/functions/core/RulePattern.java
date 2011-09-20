@@ -28,6 +28,16 @@ import org.mathpiper.lisp.Environment;
 public class RulePattern extends BuiltinFunction
 {
 
+    private RulePattern()
+    {
+    }
+
+    public RulePattern(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         org.mathpiper.lisp.Utility.newRule(aEnvironment, aStackTop, true);

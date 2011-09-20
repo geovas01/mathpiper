@@ -30,7 +30,18 @@ import org.mathpiper.lisp.Utility;
  *
  *  
  */
-public class While extends BuiltinFunction {
+public class While extends BuiltinFunction
+{
+
+    private While()
+    {
+    }
+
+    public While(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         ConsPointer arg1 = getArgumentPointer(aEnvironment, aStackTop, 1);

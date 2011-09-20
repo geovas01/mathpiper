@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Utility;
 public class UnFence extends BuiltinFunction
 {
 
+    private UnFence()
+    {
+    }
+
+    public UnFence(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator

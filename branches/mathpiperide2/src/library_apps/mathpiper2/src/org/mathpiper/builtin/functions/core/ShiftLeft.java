@@ -29,6 +29,16 @@ import org.mathpiper.lisp.Environment;
 public class ShiftLeft extends BuiltinFunction
 {
 
+    private ShiftLeft()
+    {
+    }
+
+    public ShiftLeft(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);

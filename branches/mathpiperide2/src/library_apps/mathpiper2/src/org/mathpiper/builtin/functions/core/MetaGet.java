@@ -14,7 +14,18 @@ import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 
-public class MetaGet extends BuiltinFunction {
+public class MetaGet extends BuiltinFunction
+{
+
+    private MetaGet()
+    {
+    }
+
+    public MetaGet(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 

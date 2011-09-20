@@ -27,6 +27,16 @@ import org.mathpiper.lisp.Environment;
 public class RulebaseListed extends BuiltinFunction
 {
 
+    private RulebaseListed()
+    {
+    }
+
+    public RulebaseListed(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         org.mathpiper.lisp.Utility.rulebase(aEnvironment, aStackTop, true);
