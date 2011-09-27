@@ -64,7 +64,7 @@ Bodied("MyUntil",60000);
 
 x := 1;
 
-MyUntil(x = 5)
+MyUntil(x =? 5)
 [
     Echo(x);
     x++;
