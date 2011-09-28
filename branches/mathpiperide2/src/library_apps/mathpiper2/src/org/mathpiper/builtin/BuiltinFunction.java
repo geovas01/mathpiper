@@ -163,6 +163,7 @@ import org.mathpiper.builtin.functions.core.RulebaseListed;
 import org.mathpiper.builtin.functions.core.Secure;
 import org.mathpiper.builtin.functions.core.Bind;
 import org.mathpiper.builtin.functions.core.Break;
+import org.mathpiper.builtin.functions.core.Constant;
 import org.mathpiper.builtin.functions.core.Continue;
 import org.mathpiper.builtin.functions.core.ExceptionCatch;
 import org.mathpiper.builtin.functions.core.SetExactBits;
@@ -296,6 +297,7 @@ public abstract class BuiltinFunction {
         functionNameInit = "CommonLispTokenizer"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CommonLispTokenizer("CommonLispTokenizer"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
         functionNameInit = "Concat"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Concatenate("Concat"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),functionNameInit);
         functionNameInit = "ConcatStrings"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new ConcatenateStrings("ConcatStrings"), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),functionNameInit);
+        functionNameInit = "Constant"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Constant("Constant"), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
         functionNameInit = "Continue"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Continue("Continue"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
         functionNameInit = "CurrentFile"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CurrentFile("CurrentFile"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
         functionNameInit = "CurrentLine"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new CurrentLine("CurrentLine"), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);

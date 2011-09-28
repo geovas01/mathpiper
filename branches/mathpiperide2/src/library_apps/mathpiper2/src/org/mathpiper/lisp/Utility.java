@@ -845,7 +845,7 @@ public class Utility {
      * @param aGlobalLazyVariable
      * @throws java.lang.Exception
      */
-    public static void setVar(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable) throws Exception {
+    public static void setVariableOrConstant(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable, boolean aConstant) throws Exception {
         String variableString = null;
         if (aMacroMode) {
             ConsPointer result = new ConsPointer();
@@ -857,11 +857,24 @@ public class Utility {
         LispError.checkArgument(aEnvironment, aStackTop, variableString != null, 1, "INTERNAL");
         LispError.checkArgument(aEnvironment, aStackTop, !Utility.isNumber(variableString, true), 1, "INTERNAL");
 
-        ConsPointer result = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
-        aEnvironment.setGlobalVariable(aStackTop, variableString, result, aGlobalLazyVariable); //Variable setting is deligated to Environment.
+        ConsPointer value = new ConsPointer();
+
+        if(aConstant == true)
+        {
+            value = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1);
+        }
+        else
+        {
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, value, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
+        }
+        
+        aEnvironment.setGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable); //Variable setting is deligated to Environment.
+
+
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));
     }
+
+
 
     public static void delete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
         ConsPointer evaluated = new ConsPointer();

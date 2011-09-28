@@ -40,7 +40,7 @@ public class MacroBind extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Utility.setVar(aEnvironment, aStackTop, true, false);
+        Utility.setVariableOrConstant(aEnvironment, aStackTop, true, false, false);
     }
 }
 
