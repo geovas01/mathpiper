@@ -40,7 +40,7 @@ public class Bind extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Utility.setVar(aEnvironment, aStackTop, false, false);
+        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, false, false);
     }
 }
 

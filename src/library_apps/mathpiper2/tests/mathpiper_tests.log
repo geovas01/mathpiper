@@ -1,5 +1,5 @@
-Tue Sep 20 17:27:34 EDT 2011.
-MathPiper version: js.029.
+Wed Sep 28 17:38:41 EDT 2011.
+MathPiper version: js.031.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
 
@@ -764,7 +764,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(459*x+612*x^2+292*x^3+340*x^4+436*x^5+454,459*x+612*x^2+292*x^3+340*x^4+436*x^5+454)<?0.01
+Dot(243*x+492*x^2+692*x^3+375*x^4+399*x^5+416,243*x+492*x^2+692*x^3+375*x^4+399*x^5+416)<?0.01
  which differs from 
 True
 ******************
@@ -783,7 +783,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(902*x+101*x^2+359*x^3+837*x^4+658*x^5+33,902*x+101*x^2+359*x^3+837*x^4+658*x^5+33)<?0.01
+Dot(508*x+962*x^2+365*x^3+598*x^4+720*x^5+574,508*x+962*x^2+365*x^3+598*x^4+720*x^5+574)<?0.01
  which differs from 
 True
 ******************
@@ -802,7 +802,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(379*x+640*x^2+321*x^3+516*x^4+117*x^5+433,379*x+640*x^2+321*x^3+516*x^4+117*x^5+433)<?0.01
+Dot(479*x+771*x^2+890*x^3+897*x^4+854*x^5+464,479*x+771*x^2+890*x^3+897*x^4+854*x^5+464)<?0.01
  which differs from 
 True
 ******************
@@ -821,7 +821,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(124*x+585*x^2+486*x^3+140*x^4+16*x^5+176,124*x+585*x^2+486*x^3+140*x^4+16*x^5+176)<?0.01
+Dot(421*x+691*x^2+280*x^3+89*x^4+931*x^5+950,421*x+691*x^2+280*x^3+89*x^4+931*x^5+950)<?0.01
  which differs from 
 True
 ******************
@@ -840,7 +840,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(770*x+608*x^2+708*x^3+474*x^4+553*x^5+795,770*x+608*x^2+708*x^3+474*x^4+553*x^5+795)<?0.01
+Dot(808*x+259*x^2+963*x^3+243*x^4+534*x^5+685,808*x+259*x^2+963*x^3+243*x^4+534*x^5+685)<?0.01
  which differs from 
 True
 ******************
@@ -859,7 +859,7 @@ File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(165*x+889*x^2+147*x^3+849*x^4+110*x^5+167,165*x+889*x^2+147*x^3+849*x^4+110*x^5+167)<?0.01
+Dot(884*x+89*x^2+894*x^3+579*x^4+996*x^5+495,884*x+89*x^2+894*x^3+579*x^4+996*x^5+495)<?0.01
  which differs from 
 True
 ******************
@@ -1159,4 +1159,4 @@ Testing | in file </org/mathpiper/scripts4/a_initialization/standard/vertical_ba
 GlobalVariables: Result: True
 
 Side Effects:
-{$a1094,$a15,$assumptions65,$b1094,$b15,$bernoulli1Threshold77,$BrentCacheOfConstantsN55,$CacheOfConstantsN13,$CFormAllFunctions44,$cformMathFunctions2,$cformRegularOps1,$cindent3,$ClearScreenString22,$complexReduce38,$Debug'FileLines22,$Debug'FileLoaded22,$Debug'NrLines22,$ErrorTableau23,$formulaMaxWidth75,$GlobalStack51,$intpred49,$knownOrthoPoly34,$knownRNGDists52,$knownRNGEngines52,$lastcoef76,$LoadResult,$LocResult35,$mathExpThreshold58,$mNum12,$n'max47,$nNum12,$NthRoot'Table21,$numericMode8,$omindent18,$omsymbol20,$omsymbolreverse20,$omtoken19,$options59,$options66,$p01998,$p1093,$p11998,$p21998,$p31998,$p41998,$p48,$pc241998,$pc351998,$pc461998,$pc571998,$pc681998,$pj1998,$pj401998,$pj501998,$pj511998,$pj521998,$pj531998,$pj541998,$pju01998,$pp1998,$RandSeed53,$res36,$rFormMathFunctions71,$rFormRegularOps70,$RIndent72,$simple1094,$st1092,$TeXFormGreekLetters83,$TeXFormMathFunctions284,$TeXFormMathFunctions84,$TeXFormRegularOps83,$TeXFormRegularPrefixOps83,$TeXFormSpecialNames83,$Verbose14,%,anchor,bullet,bullets,button,caption,form,frame,frameset,htmldir,I,iDebug,link,newline,site,table,textarea,textfield} 
+{$a1094,$a15,$assumptions65,$b1094,$b15,$bernoulli1Threshold77,$BrentCacheOfConstantsN55,$CacheOfConstantsN13,$CFormAllFunctions44,$cformMathFunctions2,$cformRegularOps1,$cindent3,$ClearScreenString22,$complexReduce38,$Debug'FileLines22,$Debug'FileLoaded22,$Debug'NrLines22,$ErrorTableau23,$formulaMaxWidth75,$GlobalStack51,$intpred49,$knownOrthoPoly34,$knownRNGDists52,$knownRNGEngines52,$lastcoef76,$LoadResult,$LocResult35,$mathExpThreshold58,$mNum12,$n'max47,$nNum12,$NthRoot'Table21,$numericMode8,$omindent18,$omsymbol20,$omsymbolreverse20,$omtoken19,$options59,$options66,$p01998,$p1093,$p11998,$p21998,$p31998,$p41998,$p48,$pc241998,$pc351998,$pc461998,$pc571998,$pc681998,$pj1998,$pj401998,$pj501998,$pj511998,$pj521998,$pj531998,$pj541998,$pju01998,$pp1998,$RandSeed53,$res36,$rFormMathFunctions71,$rFormRegularOps70,$RIndent72,$simple1094,$st1092,$TeXFormGreekLetters83,$TeXFormMathFunctions284,$TeXFormMathFunctions84,$TeXFormRegularOps83,$TeXFormRegularPrefixOps83,$TeXFormSpecialNames83,$Verbose14,%,anchor,bullet,bullets,button,caption,form,frame,frameset,htmldir,I,iDebug,link,newline,site,table,textarea,textfield,True} 

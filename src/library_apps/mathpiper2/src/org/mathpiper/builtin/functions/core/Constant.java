@@ -15,13 +15,52 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper;
+package org.mathpiper.builtin.functions.core;
 
-//$Revision$
-//$Id$
-public class Version
+import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.Utility;
+
+/**
+ *
+ *
+ */
+public class Constant extends BuiltinFunction
 {
 
-   public  static final String version = "js.031";
-    
-}//end class.
+    private Constant()
+    {
+    }
+
+    public Constant(String functionName)
+    {
+        this.functionName = functionName;
+    }
+
+
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    {
+        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, false, true);
+    }
+}
+
+
+
+/*
+%mathpiper_docs,name="Constant",categories="User Functions;Variables;Built In"
+*CMD Constant --- assignment
+*CORE
+*CALL
+	Constant(var, exp)
+
+*PARMS
+
+{var} -- name
+
+{exp} -- expression to assign to the name
+
+*DESC
+todo
+
+%/mathpiper_docs
+*/

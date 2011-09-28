@@ -18,6 +18,8 @@ Rule(MathPiperInitLoad, 0, 1, True)
     //LoadScriptOnce("initialization.rep/stdopers.mpi");
     StandardOperatorsLoad();
 
+    Constant(True);
+
 
     //TODO remove? LoadScriptOnce("base.rep/math.mpi");
 

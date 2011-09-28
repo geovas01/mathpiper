@@ -40,7 +40,7 @@ public class SetGlobalLazyVariable extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Utility.setVar(aEnvironment, aStackTop, false, true);
+        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, true, false);
     }
 }
 
