@@ -20,19 +20,19 @@ RemoveDuplicates(
 This is like FuncList except only looks at arguments of a given list of functions. All other functions become "opaque".
 
 */
-10 # FuncList(expr_Atom?, look'list_List?) <-- {};
+10 # FuncList(expr_Atom?, looklist_List?) <-- {};
 // a function not in the looking list - return its type
-20 # FuncList(expr_Function?, look'list_List?)_(Not? Contains?(look'list, ToAtom(Type(expr)))) <-- {ToAtom(Type(expr))};
+20 # FuncList(expr_Function?, looklist_List?)_(Not? Contains?(looklist, ToAtom(Type(expr)))) <-- {ToAtom(Type(expr))};
 // a function in the looking list - traverse its arguments
-30 # FuncList(expr_Function?, look'list_List?) <--
+30 # FuncList(expr_Function?, looklist_List?) <--
 RemoveDuplicates(
         Concat(
                 {First(FunctionToList(expr))},
                 [        // gave up trying to do it using Map and MapSingle... so writing a loop now.
-                        // obtain a list of functions, considering only functions in look'list
+                        // obtain a list of functions, considering only functions in looklist
                         Local(item, result);
                         result := {};
-                        ForEach(item, expr) result := Concat(result, FuncList(item, look'list));
+                        ForEach(item, expr) result := Concat(result, FuncList(item, looklist));
                         result;
                 ]
         )

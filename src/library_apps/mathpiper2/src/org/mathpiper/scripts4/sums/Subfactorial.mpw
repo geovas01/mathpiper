@@ -25,7 +25,7 @@ appears in its natural place, also called "derangements."
 
 The factorial functions terminate and print an error message if the arguments are too large (currently the limit 
 is $n < 65535$) because exact factorials of such large numbers are computationally expensive and most probably 
-not useful. One can call {Internal'LnGammaNum()} to evaluate logarithms of such factorials to desired precision.
+not useful. One can call {InternalLnGammaNum()} to evaluate logarithms of such factorials to desired precision.
 
 *E.G.
 In> Subfactorial(10)

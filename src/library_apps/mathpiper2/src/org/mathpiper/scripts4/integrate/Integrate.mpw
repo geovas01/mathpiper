@@ -252,8 +252,8 @@ LocalSymbols(TestMatchLinearTrue,TestMatchLinearFalse) [
   [
     Local(a,b);
     Verify(MatchLinear(var,expr),True);
-    a:=Simplify(Matched'a()-expected[1]);
-    b:=Simplify(Matched'b()-expected[2]);
+    a:=Simplify(Matcheda()-expected[1]);
+    b:=Simplify(Matchedb()-expected[2]);
     `TestMathPiper(@a,0);
     `TestMathPiper(@b,0);
   ];

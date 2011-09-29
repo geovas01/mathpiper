@@ -5,16 +5,16 @@
 2# (n_PositiveInteger?)!! <--
 [
         Check(n<=?65535, "Argument", "Double factorial: Error: the argument " : ( PipeToString() Write(n) ) : " is too large, you may want to avoid exact calculation");
-        Factorial'double(2+Modulo(n, 2), n);
+        Factorialdouble(2+Modulo(n, 2), n);
 ];
 // special cases
 3# (_n)!! _ (n=? -1 Or? n=?0)<-- 1;
 
 // the purpose of this mess "Quotient(a+b,2)+1+Modulo(Quotient(a+b,2)+1-a, 2)" is to obtain the smallest integer which is >= Quotient(a+b,2)+1 and is also odd or even when a is odd or even; we need to add at most 1 to (Quotient(a+b,2)+1)
-2# Factorial'double(_a, _b) _ (b-a>=?6) <-- Factorial'double(a, Quotient(a+b,2)) * Factorial'double(Quotient(a+b,2)+1+Modulo(Quotient(a+b,2)+1-a, 2), b);
-3# Factorial'double(_a, _b) _ (b-a>=?4) <-- a*(a+2)*(a+4);
-4# Factorial'double(_a, _b) _ (b-a>=?2) <-- a*(a+2);
-5# Factorial'double(_a, _b) <-- a;
+2# Factorialdouble(_a, _b) _ (b-a>=?6) <-- Factorialdouble(a, Quotient(a+b,2)) * Factorialdouble(Quotient(a+b,2)+1+Modulo(Quotient(a+b,2)+1-a, 2), b);
+3# Factorialdouble(_a, _b) _ (b-a>=?4) <-- a*(a+2)*(a+4);
+4# Factorialdouble(_a, _b) _ (b-a>=?2) <-- a*(a+2);
+5# Factorialdouble(_a, _b) <-- a;
 
 /// double factorial for lists is threaded
 30 # (n_List?)!! <-- MapSingle("!!",n);
@@ -42,7 +42,7 @@ list, the function will be applied to each element of the list.
 
 The factorial functions terminate and print an error message if the arguments are too large (currently the limit 
 is $n < 65535$) because exact factorials of such large numbers are computationally expensive and most probably 
-not useful. One can call {Internal'LnGammaNum()} to evaluate logarithms of such factorials to desired precision.
+not useful. One can call {InternalLnGammaNum()} to evaluate logarithms of such factorials to desired precision.
 *E.G.
 In> 7!!;
 Result: 105;

@@ -295,8 +295,8 @@ OpenMath2R <- function(x) {
         }
         # if (xmlName(x) == "OMS") out <<- c(out, "(")
         if (xmlName(x) == "OMSTR") {
-        # out <<- c(out, sQuote(gsub("'", "\\\\'", xmlValue(x))))
-        out <<- c(out, paste("'", gsub("'", "\\\\'", xmlValue(x)), "'", sep=""))
+        # out <<- c(out, sQuote(gsub("", "\\\\", xmlValue(x))))
+        out <<- c(out, paste("", gsub("", "\\\\", xmlValue(x)), "", sep=""))
         } else if ( length( xmlChildren(x) ) >? 0 )
                 for( i in seq( along = xmlChildren(x) ) ) {
                         Recall( x[[i]] )
@@ -316,7 +316,7 @@ trans <- function(x, ttab=transtab, from, to) {
    idx <- match(x, ttab[,from], nomatch = 0)
    res <- if (idx >? 0) ttab[idx,to] else x
    if (tolower(substr(res, 1, 1)) %in% letters) res
-   else paste('"', res, '"', sep="")
+   else paste(", res, ", sep="")
 }
 
 transtab <- matrix( c(

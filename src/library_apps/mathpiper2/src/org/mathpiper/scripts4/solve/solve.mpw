@@ -13,7 +13,7 @@
  * 60.  If 'expr' is a product, solve for either factor.
  * 70.  If 'expr' is a quotient, solve for the denominator.
  * 80.  If 'expr' is a sum and one of the terms is free of 'x',
- *      try to use Solve'Simple.
+ *      try to use SolveSimple.
  * 90.  If every occurance of 'x' is in the same context, use this to reduce
  *      the equation. For example, in 'Cos(x) + Cos(x)^2 == 1', the variable
  *      'x' always occurs in the context 'Cos(x)', and hence we can attack
@@ -30,9 +30,9 @@ LocalSymbols(res)
         [ {Solve(expr,var[1])}; ];
   
   20  # Solve(_expr, _var)_(Number?(var) Or? String?(var)) <--
-        [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
+        [ Assert("SolveTypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
   22  # Solve(_expr, _var)_(Not? Atom?(var) And? Not? HasExpression?(expr,var)) <--
-        [ Assert("Solve'TypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
+        [ Assert("SolveTypeError", "Second argument, ":(PipeToString() Write(var)):", is not the name of a variable") False; {}; ];
   24  # Solve(False,_var) <-- Check(False, "Argument", "Bad input: possibly '=' instead of '==' ");
 
   30  # Solve(_lhs == _rhs, _var) <-- Solve(lhs - rhs, var);
@@ -40,7 +40,7 @@ LocalSymbols(res)
   41  # Solve(a_Constant?, _var) <-- {};
   42  # Solve(_expr, _var)_(Not? HasExpression?(expr,var)) <--
         [ Assert("Solve", "expression ":(PipeToString() Write(expr)):" does not depend on ":PipeToString() Write(var)) False; {}; ];
-  50  # Solve(_expr, _var)_((res := Solve'Poly(expr, var)) !=? Failed) <-- res;
+  50  # Solve(_expr, _var)_((res := SolvePoly(expr, var)) !=? Failed) <-- res;
   60  # Solve(_e1 * _e2, _var) <-- [
       Local(t,u,s);
       t := Union(Solve(e1,var), Solve(e2,var));
@@ -65,19 +65,19 @@ LocalSymbols(res)
           );
       t;
   ];
-  80  # Solve(_e1 + _e2, _var)_(Not? HasExpression?(e2,var) And? (res := Solve'Simple(e1,-e2,var)) !=? Failed) <-- res;
-  80  # Solve(_e1 + _e2, _var)_(Not? HasExpression?(e1,var) And? (res := Solve'Simple(e2,-e1,var)) !=? Failed) <-- res;
-  80  # Solve(_e1 - _e2, _var)_(Not? HasExpression?(e2,var) And? (res := Solve'Simple(e1,e2,var)) !=? Failed) <-- res;
-  80  # Solve(_e1 - _e2, _var)_(Not? HasExpression?(e1,var) And? (res := Solve'Simple(e2,e1,var)) !=? Failed) <-- res;
-  85  # Solve(_expr, _var)_((res := Solve'Simple(expr, 0, var)) !=? Failed) <-- res;
-  90  # Solve(_expr, _var)_((res := Solve'Reduce(expr, var)) !=? Failed) <-- res;
-  95  # Solve(_expr, _var)_((res := Solve'Divide(expr, var)) !=? Failed) <-- res;
+  80  # Solve(_e1 + _e2, _var)_(Not? HasExpression?(e2,var) And? (res := SolveSimple(e1,-e2,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 + _e2, _var)_(Not? HasExpression?(e1,var) And? (res := SolveSimple(e2,-e1,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 - _e2, _var)_(Not? HasExpression?(e2,var) And? (res := SolveSimple(e1,e2,var)) !=? Failed) <-- res;
+  80  # Solve(_e1 - _e2, _var)_(Not? HasExpression?(e1,var) And? (res := SolveSimple(e2,e1,var)) !=? Failed) <-- res;
+  85  # Solve(_expr, _var)_((res := SolveSimple(expr, 0, var)) !=? Failed) <-- res;
+  90  # Solve(_expr, _var)_((res := SolveReduce(expr, var)) !=? Failed) <-- res;
+  95  # Solve(_expr, _var)_((res := SolveDivide(expr, var)) !=? Failed) <-- res;
   100 # Solve(_expr, _var)_((res := Simplify(expr)) !=? expr) <-- Solve(res, var);
   110 # Solve(_expr, _var) <--
-        [ Assert("Solve'Fails", "cannot solve equation ":(PipeToString() Write(expr)):" for ":PipeToString() Write(var)) False; {}; ];
+        [ Assert("SolveFails", "cannot solve equation ":(PipeToString() Write(expr)):" for ":PipeToString() Write(var)) False; {}; ];
 ];
 
-/********** Solve'Poly **********/
+/********** SolvePoly **********/
 
 /* Tries to solve by calling PSolve */
 /* Returns Failed if this doesn't work, and the solution otherwise */
@@ -85,7 +85,7 @@ LocalSymbols(res)
 /* CanBeUni is not documented, but defined in univar.rep/code.mpi */
 /* It returns True iff 'expr' is a polynomial in 'var' */
 
-10 # Solve'Poly(_expr, _var)_(Not? CanBeUni(var, expr)) <-- Failed;
+10 # SolvePoly(_expr, _var)_(Not? CanBeUni(var, expr)) <-- Failed;
 
 /* The call to PSolve can have three kind of results
  *   1) PSolve returns a single root
@@ -93,7 +93,7 @@ LocalSymbols(res)
  *   3) PSolve remains unevaluated
  */
 
-20 # Solve'Poly(_expr, _var) <--
+20 # SolvePoly(_expr, _var) <--
 LocalSymbols(x)
 [
   Local(roots);
@@ -105,16 +105,16 @@ LocalSymbols(x)
         {var == roots}));                                /* Case 1 */
 ];
 
-/********** Solve'Reduce **********/
+/********** SolveReduce **********/
 
 /* Tries to solve by reduction strategy */
 /* Returns Failed if this doesn't work, and the solution otherwise */
 
-10 # Solve'Reduce(_expr, _var) <--
+10 # SolveReduce(_expr, _var) <--
 [
-  ClearError("Solve'Fails"); // ..in case one was left over from prior failure
+  ClearError("SolveFails"); // ..in case one was left over from prior failure
   Local(context, expr2, var2, res, sol, sol2, i);
-  context := Solve'Context(expr, var);
+  context := SolveContext(expr, var);
   If(context =? False,
      res := Failed,
      [
@@ -123,9 +123,9 @@ LocalSymbols(x)
           res := Failed, /* to prevent infinite recursion */
           [
                 sol2 := Solve(expr2, var2);
-            If(Error?("Solve'Fails"),
+            If(Error?("SolveFails"),
                [
-                 ClearError("Solve'Fails");
+                 ClearError("SolveFails");
                  res := Failed;
                ],
                    [
@@ -133,9 +133,9 @@ LocalSymbols(x)
                      i := 1;
                      While(i <=? Length(sol2) And? res !=? Failed) [
                        sol := Solve(context == (var2 Where sol2[i]), var);
-                   If(Error?("Solve'Fails"),
+                   If(Error?("SolveFails"),
                       [
-                        ClearError("Solve'Fails");
+                        ClearError("SolveFails");
                         res := Failed;
                       ],
                           res := Union(res, sol));
@@ -147,15 +147,15 @@ LocalSymbols(x)
   res;
 ];
 
-/********** Solve'Context **********/
+/********** SolveContext **********/
 
 /* Returns the unique context of 'var' in 'expr', */
 /* or {} if 'var' does not occur in 'expr',       */
 /* or False if the context is not unique.         */
 
-10 # Solve'Context(expr_Atom?, _var) <-- If(expr=?var, var, {});
+10 # SolveContext(expr_Atom?, _var) <-- If(expr=?var, var, {});
 
-20 # Solve'Context(_expr, _var) <--
+20 # SolveContext(_expr, _var) <--
 [
   Local(lst, foundVarP, context, i, res);
   lst := FunctionToList(expr);
@@ -171,7 +171,7 @@ LocalSymbols(x)
        context := {};
        i := 2;
        While(i <=? Length(lst) And? context !=? False) [
-         res := Solve'Context(lst[i], var);
+         res := SolveContext(lst[i], var);
          If(res !=? {} And? context !=? {} And? res !=? context, context := False);
          If(res !=? {} And? context =? {}, context := res);
          i++;
@@ -180,76 +180,76 @@ LocalSymbols(x)
   context;
 ];
 
-/********** Solve'Simple **********/
+/********** SolveSimple **********/
 
 /* Simple solver of equations
  *
  * Returns (possibly empty) list of solutions,
  * or Failed if it cannot handle the equation
  *
- * Calling format: Solve'Simple(lhs, rhs, var)
+ * Calling format: SolveSimple(lhs, rhs, var)
  *                 to solve 'lhs == rhs'.
  *
  * Note: 'rhs' should not contain 'var'.
  */
 
-20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e1 =? var And? Not? HasExpression?(e2,var)) <-- { var == rhs-e2 };
-20 # Solve'Simple(_e1 + _e2, _rhs, _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- { var == rhs-e1 };
+20 # SolveSimple(_e1 + _e2, _rhs, _var)_(e1 =? var And? Not? HasExpression?(e2,var)) <-- { var == rhs-e2 };
+20 # SolveSimple(_e1 + _e2, _rhs, _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- { var == rhs-e1 };
 
-20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e1 =? var And? Not? HasExpression?(e2,var)) <-- { var == rhs+e2 };
-20 # Solve'Simple(_e1 - _e2, _rhs, _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- { var == e1-rhs };
-20 # Solve'Simple(-(_e1), _rhs, _var)_(e1 =? var) <-- { var == -rhs };
+20 # SolveSimple(_e1 - _e2, _rhs, _var)_(e1 =? var And? Not? HasExpression?(e2,var)) <-- { var == rhs+e2 };
+20 # SolveSimple(_e1 - _e2, _rhs, _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- { var == e1-rhs };
+20 # SolveSimple(-(_e1), _rhs, _var)_(e1 =? var) <-- { var == -rhs };
 
-20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e1 =? var And? Not? HasExpression?(e2,var)) <-- { var == rhs/e2 };
-20 # Solve'Simple(_e1 * _e2, _rhs, _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- { var == rhs/e1 };
+20 # SolveSimple(_e1 * _e2, _rhs, _var)_(e1 =? var And? Not? HasExpression?(e2,var)) <-- { var == rhs/e2 };
+20 # SolveSimple(_e1 * _e2, _rhs, _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- { var == rhs/e1 };
 
-20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e1 =? var And? Not? HasExpression?(e2,var)) <-- { var == rhs*e2 };
-10 # Solve'Simple(_e1 / _e2, 0,    _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- { };
-20 # Solve'Simple(_e1 / _e2, _rhs, _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- { var == e1/rhs };
+20 # SolveSimple(_e1 / _e2, _rhs, _var)_(e1 =? var And? Not? HasExpression?(e2,var)) <-- { var == rhs*e2 };
+10 # SolveSimple(_e1 / _e2, 0,    _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- { };
+20 # SolveSimple(_e1 / _e2, _rhs, _var)_(e2 =? var And? Not? HasExpression?(e1,var)) <-- { var == e1/rhs };
 
 LocalSymbols(x)
 [
-  20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? PositiveInteger?(n))
+  20 # SolveSimple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? PositiveInteger?(n))
        <-- MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. n)/n));
-  20 # Solve'Simple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? NegativeInteger?(n))
+  20 # SolveSimple(_e1 ^ _n, _rhs, _var)_(e1 =? var And? NegativeInteger?(n))
        <-- MapSingle({{x}, var == rhs^(1/n)*x}, Exp(2*Pi*I*(1 .. (-n))/(-n)));
 ];
 
-20 # Solve'Simple(_e1 ^ _e2, _rhs, _var)
+20 # SolveSimple(_e1 ^ _e2, _rhs, _var)
      _ (PositiveReal?(e1) And? e1 !=? 0 And? e2 =? var And? PositiveReal?(rhs) And? rhs !=? 0)
      <-- { var == Ln(rhs)/Ln(e1) };
 
 /* Note: These rules do not take the periodicity of the trig. functions into account */
-10 # Solve'Simple(Sin(_e1), 1,    _var)_(e1 =? var) <-- { var == 1/2*Pi };
-10 # Solve'Simple(Sin(_e1), _rhs, _var)_(e1 =? var And? rhs =? -1) <-- { var == 3/2*Pi };
-20 # Solve'Simple(Sin(_e1), _rhs, _var)_(e1 =? var) <-- { var == ArcSin(rhs), var == Pi-ArcSin(rhs) };
-10 # Solve'Simple(Cos(_e1), 1,    _var)_(e1 =? var) <-- { var == 0 };
-10 # Solve'Simple(Cos(_e1), _rhs, _var)_(e1 =? var And? rhs =? -1) <-- { var == Pi };
-20 # Solve'Simple(Cos(_e1), _rhs, _var)_(e1 =? var) <-- { var == ArcCos(rhs), var == -ArcCos(rhs) };
-20 # Solve'Simple(Tan(_e1), _rhs, _var)_(e1 =? var) <-- { var == ArcTan(rhs) };
+10 # SolveSimple(Sin(_e1), 1,    _var)_(e1 =? var) <-- { var == 1/2*Pi };
+10 # SolveSimple(Sin(_e1), _rhs, _var)_(e1 =? var And? rhs =? -1) <-- { var == 3/2*Pi };
+20 # SolveSimple(Sin(_e1), _rhs, _var)_(e1 =? var) <-- { var == ArcSin(rhs), var == Pi-ArcSin(rhs) };
+10 # SolveSimple(Cos(_e1), 1,    _var)_(e1 =? var) <-- { var == 0 };
+10 # SolveSimple(Cos(_e1), _rhs, _var)_(e1 =? var And? rhs =? -1) <-- { var == Pi };
+20 # SolveSimple(Cos(_e1), _rhs, _var)_(e1 =? var) <-- { var == ArcCos(rhs), var == -ArcCos(rhs) };
+20 # SolveSimple(Tan(_e1), _rhs, _var)_(e1 =? var) <-- { var == ArcTan(rhs) };
 
-20 # Solve'Simple(ArcSin(_e1), _rhs, _var)_(e1 =? var) <-- { var == Sin(rhs) };
-20 # Solve'Simple(ArcCos(_e1), _rhs, _var)_(e1 =? var) <-- { var == Cos(rhs) };
-20 # Solve'Simple(ArcTan(_e1), _rhs, _var)_(e1 =? var) <-- { var == Tan(rhs) };
+20 # SolveSimple(ArcSin(_e1), _rhs, _var)_(e1 =? var) <-- { var == Sin(rhs) };
+20 # SolveSimple(ArcCos(_e1), _rhs, _var)_(e1 =? var) <-- { var == Cos(rhs) };
+20 # SolveSimple(ArcTan(_e1), _rhs, _var)_(e1 =? var) <-- { var == Tan(rhs) };
 
 /* Note: Second rule neglects (2*I*Pi)-periodicity of Exp() */
-10 # Solve'Simple(Exp(_e1), 0,    _var)_(e1 =? var) <-- { };
-20 # Solve'Simple(Exp(_e1), _rhs, _var)_(e1 =? var) <-- { var == Ln(rhs) };
-20 # Solve'Simple(_b^_e1, _rhs, _var)_(e1 =? var And? FreeOf?(var,b) And? Not? Zero?(b)) <-- { var == Ln(rhs) / Ln(b) };
-20 # Solve'Simple(Ln(_e1),  _rhs, _var)_(e1 =? var) <-- { var == Exp(rhs) };
+10 # SolveSimple(Exp(_e1), 0,    _var)_(e1 =? var) <-- { };
+20 # SolveSimple(Exp(_e1), _rhs, _var)_(e1 =? var) <-- { var == Ln(rhs) };
+20 # SolveSimple(_b^_e1, _rhs, _var)_(e1 =? var And? FreeOf?(var,b) And? Not? Zero?(b)) <-- { var == Ln(rhs) / Ln(b) };
+20 # SolveSimple(Ln(_e1),  _rhs, _var)_(e1 =? var) <-- { var == Exp(rhs) };
 
 /* The range of Sqrt is the set of (complex) numbers with either
  * positive real part, together with the pure imaginary numbers with
  * nonnegative real part. */
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? PositiveReal?(Re(rhs)) And? Re(rhs) !=? 0) <-- { var == rhs^2 };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? Re(rhs)=?0 And? PositiveReal?(Im(rhs))) <-- { var == rhs^2 };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? Re(rhs)=?0 And? NegativeReal?(Im(rhs)) And? Im(rhs) !=? 0) <-- { };
-20 # Solve'Simple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? NegativeReal?(Re(rhs)) And? Re(rhs) !=? 0) <-- { };
+20 # SolveSimple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? PositiveReal?(Re(rhs)) And? Re(rhs) !=? 0) <-- { var == rhs^2 };
+20 # SolveSimple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? Re(rhs)=?0 And? PositiveReal?(Im(rhs))) <-- { var == rhs^2 };
+20 # SolveSimple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? Re(rhs)=?0 And? NegativeReal?(Im(rhs)) And? Im(rhs) !=? 0) <-- { };
+20 # SolveSimple(Sqrt(_e1), _rhs, _var)_(e1 =? var And? NegativeReal?(Re(rhs)) And? Re(rhs) !=? 0) <-- { };
 
-30 # Solve'Simple(_lhs, _rhs, _var) <-- Failed;
+30 # SolveSimple(_lhs, _rhs, _var) <-- Failed;
 
 
-/********** Solve'Divide **********/
+/********** SolveDivide **********/
 /* For some classes of equations, it may be easier to solve them if we
  * divide through by their first term.  A simple example of this is the
  * equation  Sin(x)+Cos(x)==0
@@ -261,16 +261,16 @@ LocalSymbols(x)
  * steps long.  I can't think of any ways this can happen though :)
  */
 
-10 # Solve'Divide(_e1 + _e2, _var)_(HasExpression?(e1, var) And? HasExpression?(e2, var)
+10 # SolveDivide(_e1 + _e2, _var)_(HasExpression?(e1, var) And? HasExpression?(e2, var)
                 And? Not? (HasExpression?(Simplify(1 + (e2/e1)), e1)
                       Or? HasExpression?(Simplify(1 + (e2/e1)), e2)))
                                            <-- Solve(1 + (e2/e1), var);
-10 # Solve'Divide(_e1 - _e2, _var)_(HasExpression?(e1, var) And? HasExpression?(e2, var)
+10 # SolveDivide(_e1 - _e2, _var)_(HasExpression?(e1, var) And? HasExpression?(e2, var)
                 And? Not? (HasExpression?(Simplify(1 - (e2/e1)), e1)
                       Or? HasExpression?(Simplify(1 - (e2/e1)), e2)))
                                            <-- Solve(1 - (e2/e1), var);
 
-20 # Solve'Divide(_e, _v) <-- Failed;
+20 # SolveDivide(_e, _v) <-- Failed;
 
 
 %/mathpiper
@@ -342,7 +342,7 @@ If one tries to solve the equation $Exp(x) == Sin(x)$, one finds that
 In> PrettyPrinterSet("DefaultPrint");
 Result: True;
 In> Solve(Exp(x) == Sin(x), x);
-        Error: Solve'Fails: cannot solve equation Exp(x)-Sin(x) for x
+        Error: SolveFails: cannot solve equation Exp(x)-Sin(x) for x
 Result: {};
 
 The equation $Cos(x) == 1/2$ has an infinite number of solutions,
@@ -364,7 +364,7 @@ $x == a^2$. However, this is not true for eg. $a == -1$.
 In> PrettyPrinterSet("DefaultPrint");
 Result: True;
 In> Solve(Sqrt(x) == a, x);
-        Error: Solve'Fails: cannot solve equation Sqrt(x)-a for  x
+        Error: SolveFails: cannot solve equation Sqrt(x)-a for  x
 Result: {};
 In> Solve(Sqrt(x) == 2, x);
 Result: {x==4};
@@ -439,39 +439,39 @@ Verify(Error?(), False);
  * code does not do this. The least we can expect is that no spurious
  * solutions are returned. */
 VerifySolve(Solve(0^x == 0, x), {});
-Verify(ClearError("Solve'Fails"), True);
+Verify(ClearError("SolveFails"), True);
 Verify(Error?(), False);
 
 /* This equation could be solved using the Lambert W function */
 VerifySolve(Solve(x^x == 1, x), {});
-Verify(ClearError("Solve'Fails"), True);
+Verify(ClearError("SolveFails"), True);
 Verify(Error?(), False);
 
 /* Another equation which cannot be solved at the moment */
 VerifySolve(Solve(BesselJ(1,x), x), {});
-Verify(ClearError("Solve'Fails"), True);
+Verify(ClearError("SolveFails"), True);
 Verify(Error?(), False);
 
 /* And another one */
 VerifySolve(Solve(Exp(x)+Cos(x) == 3, x), {});
-Verify(ClearError("Solve'Fails"), True);
+Verify(ClearError("SolveFails"), True);
 Verify(Error?(), False);
 
 /* This equation could be solved if we knew that x >= 0 */
 VerifySolve(Solve(Sqrt(x) == a, x),  { });
-Verify(ClearError("Solve'Fails"), True);
+Verify(ClearError("SolveFails"), True);
 Verify(Error?(), False);
 
 /* Test the type-checking mechanism */
 VerifySolve(Solve(2*x == 1, 1), {});
-Verify(ClearError("Solve'TypeError"), True);
+Verify(ClearError("SolveTypeError"), True);
 Verify(Error?(), False);
 
 /* This command is clearly nonsense, but it used to send Yacas in an
  * infinite recursion, which should never happen.  Note that 'Differentiate(y)x == 0'
  * is parsed as 'Differentiate(y)(x==0)'. */
 VerifySolve(Solve(Differentiate(y)(x == 0), x),  { });
-Verify(ClearError("Solve'Fails"), True);
+Verify(ClearError("SolveFails"), True);
 Verify(Error?(), False);
 
 
@@ -494,7 +494,7 @@ VerifySolve(Solve(3/(x^2+x-2)-1/(x^2-1)==7/(2*(x^2+3*x+2)), x), {x==3});
 // moved from xTestSolve.mpw
 
 // Tricky one; the solution should depend on a being 0
-// FIXME: the equation leaves the error set to Solve'Fails
+// FIXME: the equation leaves the error set to SolveFails
 //VerifySolve(Solve(a == 0,x),{});
 
 VerifySolve(Solve(0,x),{x==x});

@@ -6,7 +6,7 @@
 /// If no powers found, returns {n, 1}. Primality testing of n is not done.
 20 # GetPrimePower(n_PositiveInteger?) <--
 [
-        Local(s, factors, new'factors);
+        Local(s, factors, newfactors);
         // first, separate any small prime factors
         factors := TrialFactorize(n, 257);        // "factors" = {n1, {p1,s1},{p2,s2},...} or just {n} if no factors found
         If(
@@ -27,10 +27,10 @@
                                         Prime?(factors[1]),
                                         factors,        // ok, prime power, return information
                                         [        // not prime, need to check if it's a prime power
-                                                new'factors := GetPrimePower(factors[1]);        // recursive call; now new'factors = {p1, s1} where n = (p1^s1)^s; we need to check that s1>?1
+                                                newfactors := GetPrimePower(factors[1]);        // recursive call; now newfactors = {p1, s1} where n = (p1^s1)^s; we need to check that s1>?1
                                                 If(
-                                                        new'factors[2] >? 1,
-                                                        {new'factors[1], new'factors[2]*factors[2]},        // recalculate and return prime power information
+                                                        newfactors[2] >? 1,
+                                                        {newfactors[1], newfactors[2]*factors[2]},        // recalculate and return prime power information
                                                         {n, 1}        // not a prime power
                                                 );
                                         ]

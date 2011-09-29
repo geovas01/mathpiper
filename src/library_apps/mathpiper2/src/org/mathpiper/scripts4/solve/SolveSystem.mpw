@@ -2,11 +2,11 @@
 
 /*-------------------------------------------------------------------
  *  NOTE:  this is a diversion of the SolveSystem modules to a
- *  new file all its own.  Previously, it was named "Solve'System",
+ *  new file all its own.  Previously, it was named "SolveSystem",
  *  and was contained in the file OldSolve.mpw.
  *
  *  For the time being, we are just reconnecting the new file to
- *  point to the same old file  Solve'SimpleBackSubstitution .
+ *  point to the same old file  SolveSimpleBackSubstitution .
  *  This will be changed soon.
  *    started   hso 100630.
  *    begin mods    100701
@@ -23,7 +23,7 @@
 [
     // This is the old, now obsolete method
     If(InVerboseMode(),Tell("SolveSystem0",{eqns,vars}));
-    Solve'SimpleBackSubstitution(eqns,vars);
+    SolveSimpleBackSubstitution(eqns,vars);
 ];
 */
 

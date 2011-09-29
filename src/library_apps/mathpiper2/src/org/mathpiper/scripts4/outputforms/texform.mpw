@@ -226,12 +226,12 @@ LocalSymbols(TeXFormRegularOps, TeXFormRegularPrefixOps, TeXFormGreekLetters, Te
 /* Unknown bodied function */
 
 200 # TeXForm(x_Function?, _p) _ (Bodied?(Type(x))) <-- [
-        Local(func, args, last'arg);
+        Local(func, args, lastarg);
         func := Type(x);
         args := Rest(FunctionToList(x));
-        last'arg := PopBack(args);
+        lastarg := PopBack(args);
         TeXFormBracketIf(p<?PrecedenceGet(func), ConcatStrings(
-          TeXFormTeXify(func), TeXForm(args, TeXFormMaxPrec()),  TeXForm(last'arg, PrecedenceGet(func))
+          TeXFormTeXify(func), TeXForm(args, TeXFormMaxPrec()),  TeXForm(lastarg, PrecedenceGet(func))
         ));
 ];
 

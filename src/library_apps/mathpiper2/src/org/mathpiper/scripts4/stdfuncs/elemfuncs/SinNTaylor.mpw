@@ -1,4 +1,4 @@
-%mathpiper,def="CosN'Doubling"
+%mathpiper,def="SinNTaylor"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -10,20 +10,15 @@
  *  These implementations are not necessarily the best optimized versions.
  */
 
-/// Identity transformation, compute 1-Cos(x) from value=1-Cos(x/2^n)
-
-//Changed CosN'Doubling1 to CosN'Doubling. Note:tk.
-CosN'Doubling(value, n) :=
+/// Compute Sin(x), Taylor series for Sin(x)/x
+SinNTaylor(x) :=
 [
-        Local(shift, result);
-        shift := n;
-        result := value;
-        While (shift>?0)        // lose 'shift' bits of precision here
-        [
-                result := MultiplyN(MathMul2Exp(result, 1), 2 - result);
-                shift--;
-        ];
-        result;
+        Local(numterms, prec, Bx);
+        prec := QuotientN(BuiltinPrecisionGet()*3919, 1702); // P*Ln(10)
+        Bx := -QuotientN(MathBitCount(x)*1143, 1649)-2; // -Ln(x)-2
+        numterms := QuotientN( QuotientN( prec+Bx, QuotientN( MathBitCount( prec+Bx)*1588, 2291)+Bx)+1, 2)+1;
+        // (P*Ln(10)-Ln(x)-2)/(Ln(P*Ln(10)-Ln(x)-2)-Ln(x)-2); use Ln(x)<=?B(x)*Ln(2)
+        x*SumTaylorNum(MultiplyN(x,x), 1, {{k}, -1/(2*k*(2*k+1))}, numterms);
 ];
 
 %/mathpiper

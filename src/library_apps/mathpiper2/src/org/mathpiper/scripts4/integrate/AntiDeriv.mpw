@@ -156,7 +156,7 @@ LocalSymbols(intpred)
   intpred := 50;
   IntFunc(_vr,_from,_to) <--
   [
-    `((@intpred) # IntegrateMultiplicative(_var,@from,_dummy1,_dummy2)_MatchLinear(var,@vr) <-- (@to)/Matched'a());
+    `((@intpred) # IntegrateMultiplicative(_var,@from,_dummy1,_dummy2)_MatchLinear(var,@vr) <-- (@to)/Matcheda());
     intpred++;
   ];
 ];
@@ -269,7 +269,7 @@ IntFunc(x,num_FreeOf?(var)/(n_Number? + m_Number?*Exp(p_Number?*(_x))),num*x/n -
 IntFunc(x,num_FreeOf?(var)/(m_Number?*Exp(p_Number?*(_x)) + n_Number?),num*x/n - num*Ln(n + m*Exp(p*x))/(n*p));
 
 // note:hso: removed erroneous "a" in denominator of function below
-IntPureSquare(x,num_FreeOf?(var)/(_x),1,1,(num/(Sqrt(Matched'b()*Matched'a())))*ArcTan(var/Sqrt(Matched'b()/Matched'a())));
+IntPureSquare(x,num_FreeOf?(var)/(_x),1,1,(num/(Sqrt(Matchedb()*Matcheda())))*ArcTan(var/Sqrt(Matchedb()/Matcheda())));
 
 ///// Integrating Special Functions
 IntFunc(x,Erf(_x), x*Erf(x)+ 1/(Exp(x^2)*Sqrt(Pi)) );

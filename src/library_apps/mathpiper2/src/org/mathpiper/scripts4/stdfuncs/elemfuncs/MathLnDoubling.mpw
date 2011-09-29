@@ -1,4 +1,4 @@
-%mathpiper,def="MathLn'Doubling"
+%mathpiper,def="MathLnDoubling"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -11,7 +11,7 @@
  */
 
 /// Compute Ln(x) from Ln(x^(2^(1/n)))
-MathLn'Doubling(value, n) :=
+MathLnDoubling(value, n) :=
 [
         Local(shift, result);
         shift := n;

@@ -3,7 +3,7 @@
 /* Sums */
 
 
-Rulebase("Sum",{sumvar'arg,sumfrom'arg,sumto'arg,sumbody'arg});
+Rulebase("Sum",{sumvararg,sumfromarg,sumtoarg,sumbodyarg});
 
 
 
@@ -26,8 +26,8 @@ LocalSymbols(sumi,sumsum)[
 ];
 
 UnFence("Sum",4);
-HoldArgument("Sum",sumvar'arg);
-HoldArgument("Sum",sumbody'arg);
+HoldArgument("Sum",sumvararg);
+HoldArgument("Sum",sumbodyarg);
 
 
 

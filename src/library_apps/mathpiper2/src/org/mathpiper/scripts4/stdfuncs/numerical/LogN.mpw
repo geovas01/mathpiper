@@ -4,7 +4,7 @@
 /// These are only called if InNumericMode() returns True
 
 //  LogN in the original C++ code hangs! Scripted implementation is much better
-LogN(x) := Internal'LnNum(x);
+LogN(x) := InternalLnNum(x);
 
 %/mathpiper
 

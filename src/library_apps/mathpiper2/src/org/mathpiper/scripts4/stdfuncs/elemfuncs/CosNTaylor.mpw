@@ -1,4 +1,4 @@
-%mathpiper,def="ArcTanN'Taylor"
+%mathpiper,def="CosNTaylor"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -10,14 +10,15 @@
  *  These implementations are not necessarily the best optimized versions.
  */
 
-/// ArcTan(x), Taylor series for ArcTan(x)/x, use only with -1/2<x<1/2
-ArcTanN'Taylor(x) :=
+/// Cos(x), Taylor series
+CosNTaylor(x) :=
 [
-        Local(num'terms);
-        num'terms := QuotientN(BuiltinPrecisionGet()*1068, -643*MathBitCount(x))+1;
-        // (P*Ln(10))/(-2*Ln(x)); use Ln(x)<=?B(x)*Ln(2), only good for |x|<1/2
-        // here -Ln(x) must be positive
-        x*SumTaylorNum(-MultiplyN(x,x), {{k}, 1/(2*k+1)}, num'terms);
+        Local(numterms, prec, Bx);
+        prec := QuotientN(BuiltinPrecisionGet()*3919, 1702); // P*Ln(10)
+        Bx := -QuotientN(MathBitCount(x)*1143, 1649)-2; // -Ln(x)-2
+        numterms := QuotientN( QuotientN( prec-1, QuotientN( MathBitCount( prec-1)*1588, 2291)+Bx), 2)+1;
+        // (P*Ln(10)-1)/(Ln(P*Ln(10)-1)-Ln(x)-2); use Ln(x)<=?B(x)*Ln(2)
+        SumTaylorNum(MultiplyN(x,x), 1, {{k}, -1/(2*k*(2*k-1))}, numterms);
 ];
 
 %/mathpiper

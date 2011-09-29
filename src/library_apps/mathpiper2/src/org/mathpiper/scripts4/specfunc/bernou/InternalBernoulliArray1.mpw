@@ -1,11 +1,11 @@
-%mathpiper,def="Internal'BernoulliArray1"
+%mathpiper,def="InternalBernoulliArray1"
 
 /// Bernoulli numbers; algorithm from: R. P. Brent, "A FORTRAN multiple-precision arithmetic package", ACM TOMS vol. 4, no. 1, p. 57 (1978).
 /// this may be good for floating-point (not exact) evaluation of B[n] at large n
 /// but is not good at all for exact evaluation! (too slow)
 /// Brent claims that the usual recurrence is numerically unstable
 /// but we can't check this because MathPiper internal math is fixed-point and Brent's algorithm needs real floating point (C[k] are very small and then multiplied by (2*k)! )
-Internal'BernoulliArray1(n_Even?) _ (n>=?2) <--
+InternalBernoulliArray1(n_Even?) _ (n>=?2) <--
 [
         Local(C, f, k, j, denom, sum);
         C := ArrayCreate(n+1, 0);

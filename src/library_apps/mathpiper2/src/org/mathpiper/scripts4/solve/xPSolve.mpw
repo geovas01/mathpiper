@@ -44,7 +44,7 @@ Rule("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 2)
    
    Get coefficients for a new polynomial, such that the coefficient of
    degree 2 is zero:
-   Take f(x)=a0+a1*x+a2*x^2+a3*x^3 and substitute x = x' + adjust
+   Take f(x)=a0+a1*x+a2*x^2+a3*x^3 and substitute x = x + adjust
    to get the expression  g(x) = b0+b1*x+b2*x^2+b3*x^3,
    where
       b3 = a3;
@@ -52,7 +52,7 @@ Rule("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 2)
       b1 = 2*a2*adjust+3*a3*adjust^2+a1;
       b0 = a2*adjust^2+a3*adjust^3+adjust*a1+a0;
 
-   After solving g(x') = 0, return x = x' + adjust.
+   After solving g(x) = 0, return x = x + adjust.
    
    Since b2 = 0 by construction, we have the equation
       g(x) = x^3 + q x + r = 0,

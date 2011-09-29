@@ -11,7 +11,7 @@
 
 25 # ((x_Constant?)!)_(FloatIsInt?(x) And? x>?0) <-- (Round(x)!);
 
-30 # ((x_Number?)!)_InNumericMode() <-- Internal'GammaNum(x+1);
+30 # ((x_Number?)!)_InNumericMode() <-- InternalGammaNum(x+1);
 
 40 # (n_List?)! <-- MapSingle("!",n);
 
@@ -70,7 +70,7 @@ after {!} in expressions such as {x! +1}.
 
 The factorial functions terminate and print an error message if the arguments are too large (currently the limit 
 is $n < 65535$) because exact factorials of such large numbers are computationally expensive and most probably 
-not useful. One can call {Internal'LnGammaNum()} to evaluate logarithms of such factorials to desired precision.
+not useful. One can call {InternalLnGammaNum()} to evaluate logarithms of such factorials to desired precision.
 
 *E.G.
 

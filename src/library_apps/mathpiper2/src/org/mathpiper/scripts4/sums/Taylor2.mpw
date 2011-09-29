@@ -1,4 +1,4 @@
-%mathpiper,def="Taylor2;Taylor'LPS;Taylor'LPS'NormalizeExpr;Taylor'LPS'Construct;Taylor'LPS'PowerSeries;Taylor'LPS'Coeffs;Taylor'LPS'Inverse;Taylor'LPS'Add;Taylor'LPS'Multiply;Taylor'LPS'ScalarMult;Taylor'LPS'Compose"
+%mathpiper,def="Taylor2;TaylorLPS;TaylorLPSNormalizeExpr;TaylorLPSConstruct;TaylorLPSPowerSeries;TaylorLPSCoeffs;TaylorLPSInverse;TaylorLPSAdd;TaylorLPSMultiply;TaylorLPSScalarMult;TaylorLPSCompose"
 
 /*
  * Taylor(x,a,n) y  ---  ENTRY POINT
@@ -23,13 +23,13 @@
  * The power series are implemented as lazy power series, which means
  * that the coefficients are computed on demand. Lazy power series are
  * encapsulated in expressions of the formAnalyzeScripts.java:64
- *    Taylor'LPS(order, coeffs, var, expr).
+ *    TaylorLPS(order, coeffs, var, expr).
  * This represent the power series of "expr", seen as a function of
  * "var". "coeffs" is list of coefficients that have been computed thus
  * far. The integer "order" is the order of the first coefficient.
  *
  * For instance, the expression
- *    Taylor'LPS(1, {1,0,-1/6,0}, x, Sin(x))
+ *    TaylorLPS(1, {1,0,-1/6,0}, x, Sin(x))
  * contains the power series of Sin(x), viewed as a function of x, where
  * the four coefficients corresponding to x, x^2, x^3, and x^4 have been
  * computed. One can view this expression as x - 1/6 x^3 + O(x^5).
@@ -42,15 +42,15 @@
  *    of which no coefficients have yet been computed.
  *
  * "expr" may contain subexpressions of the form
- *    Taylor'LPS'Add(lps1, lps2)       = lps1)x) + lps2(x)
- *    Taylor'LPS'ScalarMult(a, lps)    = a*lps(x)  (a is scalar)
- *    Taylor'LPS'Multiply(lps1, lps2)  = lps1(x) * lps2(x)
- *    Taylor'LPS'Inverse(lps)          = 1/lps(x)
- *    Taylor'LPS'Power(lps, n)         = lps(x)^n  (n is natural number)
- *    Taylor'LPS'Compose(lps1, lps2)   = lps1(lps2(x))
+ *    TaylorLPSAdd(lps1, lps2)       = lps1)x) + lps2(x)
+ *    TaylorLPSScalarMult(a, lps)    = a*lps(x)  (a is scalar)
+ *    TaylorLPSMultiply(lps1, lps2)  = lps1(x) * lps2(x)
+ *    TaylorLPSInverse(lps)          = 1/lps(x)
+ *    TaylorLPSPower(lps, n)         = lps(x)^n  (n is natural number)
+ *    TaylorLPSCompose(lps1, lps2)   = lps1(lps2(x))
  *
  * A well-formed LPS is an expression of the form
- *    Taylor'LPS(order, coeffs, var, expr)
+ *    TaylorLPS(order, coeffs, var, expr)
  * satisfying the following conditions:
  * 1) order is an integer, Infinity, or Undefined;
  * 2) coeffs is a list;
@@ -58,22 +58,22 @@
  * 4) if order is an integer, then coeffs is empty
  *    or its first entry is nonzero;
  * 5) var does not appear in coeffs;
- * 6) expr is normalized with Taylor'LPS'NormalizeExpr.
+ * 6) expr is normalized with TaylorLPSNormalizeExpr.
  *
  */
 
-Rulebase("Taylor'LPS",{order, coeffs, var, expr});
-Rulebase("Taylor'LPS'Inverse",{lps});
-Rulebase("Taylor'LPS'Add",{lps1,lps2});
-Rulebase("Taylor'LPS'Multiply",{lps1,lps2});
-Rulebase("Taylor'LPS'ScalarMult",{a,lps});
-Rulebase("Taylor'LPS'Compose",{lps1,lps2});
+Rulebase("TaylorLPS",{order, coeffs, var, expr});
+Rulebase("TaylorLPSInverse",{lps});
+Rulebase("TaylorLPSAdd",{lps1,lps2});
+Rulebase("TaylorLPSMultiply",{lps1,lps2});
+Rulebase("TaylorLPSScalarMult",{a,lps});
+Rulebase("TaylorLPSCompose",{lps1,lps2});
 
 /* For the moment, the function is called Taylor2. */
 
 /* HELP: Is this the correct mechanism to signal incorrect input? */
 /*COMMENT FROM AYAL: Formally, I would do it the other way around, although this is more efficient. This
-  scheme says: all following rules hold if n>=0. Ideally you'd have a rule "this transformation rule holds
+  scheme says: all following rules hold if n>=0. Ideally youd have a rule "this transformation rule holds
   if n>=0". But then you would end up checking that n>=0 for each transformation rule, making things a little
   bit slower (but more correct, more elegant).
   */
@@ -84,7 +84,7 @@ Rulebase("Taylor'LPS'Compose",{lps1,lps2});
 20 # (Taylor2(_x, 0, _n) _y) <--
 [
    Local(res);
-   res := Taylor'LPS'PowerSeries(Taylor'LPS'Construct(x, y), n, x);
+   res := TaylorLPSPowerSeries(TaylorLPSConstruct(x, y), n, x);
    If (ClearError("singularity"),
        Echo(y, "has a singularity at", x, "= 0."));
    If (ClearError("dunno"),
@@ -108,32 +108,32 @@ Rulebase("Taylor'LPS'Compose",{lps1,lps2});
    with more than 15 zeroes, and then a non-zero coefficient, that this would fail on. Correct? Is there not
    a more accurate estimation of this parameter?
  */
-Taylor'LPS'Param1() := 15;
+TaylorLPSParam1() := 15;
 
 /**********************************************************************
  *
- * Taylor'LPS'Construct(var, expr)
+ * TaylorLPSConstruct(var, expr)
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * construct a LPS
  * PRE:  var is a name
  * POST: returns a well-formed LPS
  */
 
-10 # Taylor'LPS'Construct(_var, _expr)
-   <-- Taylor'LPS(Undefined, {}, var, Taylor'LPS'NormalizeExpr(var, expr));
+10 # TaylorLPSConstruct(_var, _expr)
+   <-- TaylorLPS(Undefined, {}, var, TaylorLPSNormalizeExpr(var, expr));
 
 /**********************************************************************
  *
- * Taylor'LPS'Coeffs(lps, n1, n2)
+ * TaylorLPSCoeffs(lps, n1, n2)
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * List of coefficients of order n1 up to n2
  * PRE:  lps is a well-formed LPS, n1 in Z, n2 in Z, n2 >= n1
  * POST: returns list of length n2-n1+1,
  *       or raises "dunno", "div-by-zero", or "maybe-div-by-zero"
- *       lps may be changed, but it's still a well-formed LPS
+ *       lps may be changed, but its still a well-formed LPS
  */
 
-Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
+TaylorLPSCoeffs(_lps, _n1, _n2) <--
 [
    Local(res, finished, order, j, k, n, tmp, c1, c2);
    finished := False;
@@ -163,9 +163,9 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
    If (Not? finished,
    [
-      /* Subcase 3a: Expression is recognized by Taylor'LPS'CompOrder */
+      /* Subcase 3a: Expression is recognized by TaylorLPSCompOrder */
 
-      order := Taylor'LPS'CompOrder(lps[3], lps[4]);
+      order := TaylorLPSCompOrder(lps[3], lps[4]);
       If (Not? ClearError("dunno"),
       [
          If (lps[1] =? Undefined,
@@ -173,11 +173,11 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
             lps[1] := order;
             If (order <=? n2,
             [
-               lps[2] := Table(Taylor'LPS'CompCoeff(lps[3], lps[4], n),
+               lps[2] := Table(TaylorLPSCompCoeff(lps[3], lps[4], n),
                                n, order, n2, 1);
             ]);
          ],[
-            tmp := Table(Taylor'LPS'CompCoeff(lps[3], lps[4], n),
+            tmp := Table(TaylorLPSCompCoeff(lps[3], lps[4], n),
                          n, lps[1]+Length(lps[2]), n2, 1);
             lps[2] := Concat(lps[2], tmp);
          ]);
@@ -186,10 +186,10 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       /* Subcase 3b: Addition */
 
-      If (Not? finished And? lps[4][0] =? Taylor'LPS'Add,
+      If (Not? finished And? lps[4][0] =? TaylorLPSAdd,
       [
-         lps[1] := Minimum(Taylor'LPS'GetOrder(lps[4][1])[1],
-                       Taylor'LPS'GetOrder(lps[4][2])[1], n2);
+         lps[1] := Minimum(TaylorLPSGetOrder(lps[4][1])[1],
+                       TaylorLPSGetOrder(lps[4][2])[1], n2);
          If (Error?("dunno"),
          [
             ClearError("dunno");
@@ -197,8 +197,8 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
          ],[
                If (lps[1] <=? n2,
             [
-               c1 := Taylor'LPS'Coeffs(lps[4][1], lps[1] + Length(lps[2]), n2);
-               c2 := Taylor'LPS'Coeffs(lps[4][2], lps[1] + Length(lps[2]), n2);
+               c1 := TaylorLPSCoeffs(lps[4][1], lps[1] + Length(lps[2]), n2);
+               c2 := TaylorLPSCoeffs(lps[4][2], lps[1] + Length(lps[2]), n2);
                   lps[2] := Concat(lps[2], c1 + c2);
             ]);
                finished := True;
@@ -207,14 +207,14 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       /* Subcase 3c: Scalar multiplication */
 
-      If (Not? finished And? lps[4][0] =? Taylor'LPS'ScalarMult,
+      If (Not? finished And? lps[4][0] =? TaylorLPSScalarMult,
       [
-         lps[1] := Minimum(Taylor'LPS'GetOrder(lps[4][2])[1], n2);
+         lps[1] := Minimum(TaylorLPSGetOrder(lps[4][2])[1], n2);
          If (Not? ClearError("dunno"),
          [
                If (lps[1] <=? n2,
             [
-               tmp := Taylor'LPS'Coeffs(lps[4][2],
+               tmp := TaylorLPSCoeffs(lps[4][2],
                                         lps[1] + Length(lps[2]), n2);
                tmp := lps[4][1] * tmp;
                lps[2] := Concat(lps[2], tmp);
@@ -225,10 +225,10 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       /* Subcase 3d: Multiplication */
 
-      If (Not? finished And? lps[4][0] =? Taylor'LPS'Multiply,
+      If (Not? finished And? lps[4][0] =? TaylorLPSMultiply,
       [
-         lps[1] := Taylor'LPS'GetOrder(lps[4][1])[1]
-                   + Taylor'LPS'GetOrder(lps[4][2])[1];
+         lps[1] := TaylorLPSGetOrder(lps[4][1])[1]
+                   + TaylorLPSGetOrder(lps[4][2])[1];
          If (Error?("dunno"),
          [
             ClearError("dunno");
@@ -236,9 +236,9 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
          ],[
                If (lps[1] <=? n2,
             [
-               c1 := Taylor'LPS'Coeffs(lps[4][1], lps[4][1][1],
+               c1 := TaylorLPSCoeffs(lps[4][1], lps[4][1][1],
                                        n2 - lps[4][2][1]);
-               c2 := Taylor'LPS'Coeffs(lps[4][2], lps[4][2][1],
+               c2 := TaylorLPSCoeffs(lps[4][2], lps[4][2][1],
                                        n2 - lps[4][1][1]);
                tmp := lps[2];
                ForEach(k, (Length(lps[2])+1) .. Length(c1))
@@ -251,7 +251,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       /* Subcase 3e: Inversion */
 
-      If (Not? finished And? lps[4][0] =? Taylor'LPS'Inverse,
+      If (Not? finished And? lps[4][0] =? TaylorLPSInverse,
       [
          If (lps[4][1][1] =? Infinity,
          [
@@ -260,13 +260,13 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
          ]);
          If (Not? finished And? lps[2] =? {},
          [
-            order := Taylor'LPS'GetOrder(lps[4][1])[1];
+            order := TaylorLPSGetOrder(lps[4][1])[1];
             n := order;
-            c1 := Taylor'LPS'Coeffs(lps[4][1], n, n)[1];
-            While (c1 =? 0 And? n <? order + Taylor'LPS'Param1())
+            c1 := TaylorLPSCoeffs(lps[4][1], n, n)[1];
+            While (c1 =? 0 And? n <? order + TaylorLPSParam1())
             [
                n := n + 1;
-                c1 := Taylor'LPS'Coeffs(lps[4][1], n, n)[1];
+                c1 := TaylorLPSCoeffs(lps[4][1], n, n)[1];
             ];
             If (c1 =? 0,
             [
@@ -277,7 +277,7 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
          If (Not? finished,
          [
             lps[1] := -lps[4][1][1];
-            c1 := Taylor'LPS'Coeffs(lps[4][1], lps[4][1][1],
+            c1 := TaylorLPSCoeffs(lps[4][1], lps[4][1][1],
                                     lps[4][1][1]+n2-lps[1]);
             tmp := lps[2];
             If (tmp =? {}, tmp := {1/c1[1]});
@@ -296,15 +296,15 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
       /* Subcase 3f: Composition */
 
-      If (Not? finished And? lps[4][0] =? Taylor'LPS'Compose,
+      If (Not? finished And? lps[4][0] =? TaylorLPSCompose,
       [
-         j := Taylor'LPS'GetOrder(lps[4][1])[1];
+         j := TaylorLPSGetOrder(lps[4][1])[1];
          Check(j >=? 0, "Math", "Expansion of f(g(x)) where f has a"
                        : "singularity is not implemented");
-         k := Taylor'LPS'GetOrder(lps[4][2])[1];
-         c1 := {j, Taylor'LPS'Coeffs(lps[4][1], j, n2)};
-         c2 := {k, Taylor'LPS'Coeffs(lps[4][2], k, n2)};
-         c1 := Taylor'TPS'Compose(c1, c2);
+         k := TaylorLPSGetOrder(lps[4][2])[1];
+         c1 := {j, TaylorLPSCoeffs(lps[4][1], j, n2)};
+         c2 := {k, TaylorLPSCoeffs(lps[4][2], k, n2)};
+         c1 := TaylorTPSCompose(c1, c2);
          lps[1] := c1[1];
          lps[2] := c1[2];
          finished := True;
@@ -355,17 +355,17 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
  * {n, {a0,a1,a2,a3,...}} represents
  * a0 x^n + a1 x^(n+1) + a2 x^(n+2) + a3 x^(n+3) + ...
  *
- * The function Taylor'TPS'Add(tps1, tps2) adds two of such beasts,
+ * The function TaylorTPSAdd(tps1, tps2) adds two of such beasts,
  * and returns the sum in the same truncated power series form.
  * Similar for the other functions.
  */
 
-10 # Taylor'TPS'GetCoeff({_n,_c}, _k) _ (k <? n) <-- 0;
-10 # Taylor'TPS'GetCoeff({_n,_c}, _k) _ (k >=? n+Length(c)) <-- Undefined;
-20 # Taylor'TPS'GetCoeff({_n,_c}, _k) <-- c[k-n+1];
+10 # TaylorTPSGetCoeff({_n,_c}, _k) _ (k <? n) <-- 0;
+10 # TaylorTPSGetCoeff({_n,_c}, _k) _ (k >=? n+Length(c)) <-- Undefined;
+20 # TaylorTPSGetCoeff({_n,_c}, _k) <-- c[k-n+1];
 
 
-10 # Taylor'TPS'Add({_n1,_c1}, {_n2,_c2}) <--
+10 # TaylorTPSAdd({_n1,_c1}, {_n2,_c2}) <--
 [
    Local(n, len, c1b, c2b);
    n := Minimum(n1,n2);
@@ -375,9 +375,9 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
    {n, c1b+c2b};
 ];
 
-10 # Taylor'TPS'ScalarMult(_a, {_n2,_c2}) <-- {n2, a*c2};
+10 # TaylorTPSScalarMult(_a, {_n2,_c2}) <-- {n2, a*c2};
 
-10 # Taylor'TPS'Multiply({_n1,_c1}, {_n2,_c2}) <--
+10 # TaylorTPSMultiply({_n1,_c1}, {_n2,_c2}) <--
 [
    Local(j,k,c);
    c := {};
@@ -388,17 +388,17 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
    {n1+n2, c};
 ];
 
-10 # Taylor'TPS'Compose({_n1,_c1}, {_n2,_c2}) <--
+10 # TaylorTPSCompose({_n1,_c1}, {_n2,_c2}) <--
 [
    Local(res, tps, tps2, k, n);
    n := Minimum(n1+Length(c1)-1, n2+Length(c2)-1);
    tps := {0, 1 : FillList(0, n)}; // tps =? {n2,c2} ^ k
-   res := Taylor'TPS'ScalarMult(Taylor'TPS'GetCoeff({n1,c1}, 0), tps);
+   res := TaylorTPSScalarMult(TaylorTPSGetCoeff({n1,c1}, 0), tps);
    For (k:=1, k<=?n, k++)
    [
-      tps := Taylor'TPS'Multiply(tps, {n2,c2});
-      tps2 := Taylor'TPS'ScalarMult(Taylor'TPS'GetCoeff({n1,c1}, k), tps);
-      res := Taylor'TPS'Add(res, tps2);
+      tps := TaylorTPSMultiply(tps, {n2,c2});
+      tps2 := TaylorTPSScalarMult(TaylorTPSGetCoeff({n1,c1}, k), tps);
+      res := TaylorTPSAdd(res, tps2);
    ];
    res;
 ];
@@ -407,65 +407,65 @@ Taylor'LPS'Coeffs(_lps, _n1, _n2) <--
 
 /**********************************************************************
  *
- * Taylor'LPS'NormalizeExpr(var, expr)
+ * TaylorLPSNormalizeExpr(var, expr)
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Return expr, with "+" replaced by Taylor'LPS'Add, etc.
+ * Return expr, with "+" replaced by TaylorLPSAdd, etc.
  * PRE:  var is a name
  */
 
-5 # Taylor'LPS'NormalizeExpr(_var, _e1)
-  _ [Taylor'LPS'CompOrder(var,e1); Not? ClearError("dunno");]
+5 # TaylorLPSNormalizeExpr(_var, _e1)
+  _ [TaylorLPSCompOrder(var,e1); Not? ClearError("dunno");]
   <-- e1;
 
-10 # Taylor'LPS'NormalizeExpr(_var, _e1 + _e2)
-   <-- Taylor'LPS'Add(Taylor'LPS'Construct(var, e1),
-                      Taylor'LPS'Construct(var, e2));
+10 # TaylorLPSNormalizeExpr(_var, _e1 + _e2)
+   <-- TaylorLPSAdd(TaylorLPSConstruct(var, e1),
+                      TaylorLPSConstruct(var, e2));
 
-10 # Taylor'LPS'NormalizeExpr(_var, - _e1)
-   <-- Taylor'LPS'ScalarMult(-1, Taylor'LPS'Construct(var, e1));
+10 # TaylorLPSNormalizeExpr(_var, - _e1)
+   <-- TaylorLPSScalarMult(-1, TaylorLPSConstruct(var, e1));
 
-10 # Taylor'LPS'NormalizeExpr(_var, _e1 - _e2)
-   <-- (Taylor'LPS'Add(Taylor'LPS'Construct(var, e1),
-                       Taylor'LPS'Construct(var, e3))
-        Where e3 == Taylor'LPS'ScalarMult(-1, Taylor'LPS'Construct(var, e2)));
+10 # TaylorLPSNormalizeExpr(_var, _e1 - _e2)
+   <-- (TaylorLPSAdd(TaylorLPSConstruct(var, e1),
+                       TaylorLPSConstruct(var, e3))
+        Where e3 == TaylorLPSScalarMult(-1, TaylorLPSConstruct(var, e2)));
 
-10 # Taylor'LPS'NormalizeExpr(_var, e1_FreeOf?(var) * _e2)
-   <-- Taylor'LPS'ScalarMult(e1, Taylor'LPS'Construct(var, e2));
+10 # TaylorLPSNormalizeExpr(_var, e1_FreeOf?(var) * _e2)
+   <-- TaylorLPSScalarMult(e1, TaylorLPSConstruct(var, e2));
 
-10 # Taylor'LPS'NormalizeExpr(_var, _e1 * e2_FreeOf?(var))
-   <-- Taylor'LPS'ScalarMult(e2, Taylor'LPS'Construct(var, e1));
+10 # TaylorLPSNormalizeExpr(_var, _e1 * e2_FreeOf?(var))
+   <-- TaylorLPSScalarMult(e2, TaylorLPSConstruct(var, e1));
 
-20 # Taylor'LPS'NormalizeExpr(_var, _e1 * _e2)
-   <-- Taylor'LPS'Multiply(Taylor'LPS'Construct(var, e1),
-                           Taylor'LPS'Construct(var, e2));
+20 # TaylorLPSNormalizeExpr(_var, _e1 * _e2)
+   <-- TaylorLPSMultiply(TaylorLPSConstruct(var, e1),
+                           TaylorLPSConstruct(var, e2));
 
-10 # Taylor'LPS'NormalizeExpr(_var, _e1 / e2_FreeOf?(var))
-   <-- Taylor'LPS'ScalarMult(1/e2, Taylor'LPS'Construct(var, e1));
+10 # TaylorLPSNormalizeExpr(_var, _e1 / e2_FreeOf?(var))
+   <-- TaylorLPSScalarMult(1/e2, TaylorLPSConstruct(var, e1));
 
-20 # Taylor'LPS'NormalizeExpr(_var, 1 / _e1)
-   <-- Taylor'LPS'Inverse(Taylor'LPS'Construct(var, e1));
+20 # TaylorLPSNormalizeExpr(_var, 1 / _e1)
+   <-- TaylorLPSInverse(TaylorLPSConstruct(var, e1));
 
-30 # Taylor'LPS'NormalizeExpr(_var, _e1 / _e2)
-   <-- (Taylor'LPS'Multiply(Taylor'LPS'Construct(var, e1),
-                            Taylor'LPS'Construct(var, e3))
-        Where e3 == Taylor'LPS'Inverse(Taylor'LPS'Construct(var, e2)));
+30 # TaylorLPSNormalizeExpr(_var, _e1 / _e2)
+   <-- (TaylorLPSMultiply(TaylorLPSConstruct(var, e1),
+                            TaylorLPSConstruct(var, e3))
+        Where e3 == TaylorLPSInverse(TaylorLPSConstruct(var, e2)));
 
 /* Implement powers as repeated multiplication,
  * which is seriously inefficient.
  */
-10 # Taylor'LPS'NormalizeExpr(_var, _e1 ^ (n_PositiveInteger?))
+10 # TaylorLPSNormalizeExpr(_var, _e1 ^ (n_PositiveInteger?))
    _ (e1 !=? var)
-   <-- Taylor'LPS'Multiply(Taylor'LPS'Construct(var, e1),
-                           Taylor'LPS'Construct(var, e1^(n-1)));
+   <-- TaylorLPSMultiply(TaylorLPSConstruct(var, e1),
+                           TaylorLPSConstruct(var, e1^(n-1)));
 
-10 # Taylor'LPS'NormalizeExpr(_var, Tan(_x))
-   <-- (Taylor'LPS'Multiply(Taylor'LPS'Construct(var, Sin(x)),
-                            Taylor'LPS'Construct(var, e3))
-        Where e3 == Taylor'LPS'Inverse(Taylor'LPS'Construct(var, Cos(x))));
+10 # TaylorLPSNormalizeExpr(_var, Tan(_x))
+   <-- (TaylorLPSMultiply(TaylorLPSConstruct(var, Sin(x)),
+                            TaylorLPSConstruct(var, e3))
+        Where e3 == TaylorLPSInverse(TaylorLPSConstruct(var, Cos(x))));
 
 LocalSymbols(res)
 [
-50 # Taylor'LPS'NormalizeExpr(_var, _e1)
+50 # TaylorLPSNormalizeExpr(_var, _e1)
 _[
     Local(c, lps1, lps2, lps3, success);
     success := True;
@@ -478,26 +478,26 @@ _[
     ]);
     If (success,
     [
-       lps2 := Taylor'LPS'Construct(var, e1[1]);
-       c := Taylor'LPS'Coeffs(lps2, 0, 0)[1];
+       lps2 := TaylorLPSConstruct(var, e1[1]);
+       c := TaylorLPSCoeffs(lps2, 0, 0)[1];
        If (Error?(),
        [
           ClearErrors();
           success := False;
        ]);
-       If (success And? Taylor'LPS'GetOrder(lps2)[1] <? 0,
+       If (success And? TaylorLPSGetOrder(lps2)[1] <? 0,
        [
           success := False;
        ],[
           If (c =? 0,
           [
-             lps1 := Taylor'LPS'Construct(var, Apply(e1[0], {var}));
-             res := Taylor'LPS'Compose(lps1, lps2);
+             lps1 := TaylorLPSConstruct(var, Apply(e1[0], {var}));
+             res := TaylorLPSCompose(lps1, lps2);
           ],[
-             lps1 := Taylor'LPS'Construct(var, Apply(e1[0], {var+c}));
-             lps3 := Taylor'LPS'Construct(var, -c);
-             lps2 := Taylor'LPS'Construct(var, Taylor'LPS'Add(lps2, lps3));
-             res := Taylor'LPS'Compose(lps1, lps2);
+             lps1 := TaylorLPSConstruct(var, Apply(e1[0], {var+c}));
+             lps3 := TaylorLPSConstruct(var, -c);
+             lps2 := TaylorLPSConstruct(var, TaylorLPSAdd(lps2, lps3));
+             res := TaylorLPSCompose(lps1, lps2);
           ]);
        ]);
     ]);
@@ -505,62 +505,62 @@ _[
  ] <-- res;
 ];
 
-60000 # Taylor'LPS'NormalizeExpr(_var, _e1) <-- e1;
+60000 # TaylorLPSNormalizeExpr(_var, _e1) <-- e1;
 
 
 /**********************************************************************
  *
- * Taylor'LPS'CompOrder(var, expr)  ---  HOOK
+ * TaylorLPSCompOrder(var, expr)  ---  HOOK
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Compute order of expr as a power series in var
  * PRE:  var is a name
  * POST: returns an integer, or raises "dunno"
  *
- * Taylor'LPS'CompCoeff(var, expr, n)  ---  HOOK
+ * TaylorLPSCompCoeff(var, expr, n)  ---  HOOK
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Compute n-th coefficient of expr as a power series in var
  * PRE:  var is a name, n is an integer,
- *       Taylor'LPS'CompOrder(var, expr) does not raise "dunno"
+ *       TaylorLPSCompOrder(var, expr) does not raise "dunno"
  * POST: returns an expression not containing var
  */
 
-5  # Taylor'LPS'CompCoeff(_var, _expr, _n)
-   _ (n <? Taylor'LPS'CompOrder(var, expr))
+5  # TaylorLPSCompCoeff(_var, _expr, _n)
+   _ (n <? TaylorLPSCompOrder(var, expr))
    <-- 0;
 
 /* Zero */
 
-10 # Taylor'LPS'CompOrder(_x, 0) <-- Infinity;
+10 # TaylorLPSCompOrder(_x, 0) <-- Infinity;
 
 /* Constant */
 
-20 # Taylor'LPS'CompOrder(_x, e_FreeOf?(x))     <-- 0;
-20 # Taylor'LPS'CompCoeff(_x, e_FreeOf?(x), 0)  <-- e;
-21 # Taylor'LPS'CompCoeff(_x, e_FreeOf?(x), _n) <-- 0;
+20 # TaylorLPSCompOrder(_x, e_FreeOf?(x))     <-- 0;
+20 # TaylorLPSCompCoeff(_x, e_FreeOf?(x), 0)  <-- e;
+21 # TaylorLPSCompCoeff(_x, e_FreeOf?(x), _n) <-- 0;
 
 /* Identity */
 
-30 # Taylor'LPS'CompOrder(_x, _x)     <-- 1;
-30 # Taylor'LPS'CompCoeff(_x, _x, 1)  <-- 1;
-31 # Taylor'LPS'CompCoeff(_x, _x, _n) <-- 0;
+30 # TaylorLPSCompOrder(_x, _x)     <-- 1;
+30 # TaylorLPSCompCoeff(_x, _x, 1)  <-- 1;
+31 # TaylorLPSCompCoeff(_x, _x, _n) <-- 0;
 
 /* Powers */
 
-40 # Taylor'LPS'CompOrder(_x, _x^(k_PositiveInteger?))     <-- k;
-40 # Taylor'LPS'CompCoeff(_x, _x^(k_PositiveInteger?), _k) <-- 1;
-41 # Taylor'LPS'CompCoeff(_x, _x^(k_PositiveInteger?), _n) <-- 0;
+40 # TaylorLPSCompOrder(_x, _x^(k_PositiveInteger?))     <-- k;
+40 # TaylorLPSCompCoeff(_x, _x^(k_PositiveInteger?), _k) <-- 1;
+41 # TaylorLPSCompCoeff(_x, _x^(k_PositiveInteger?), _n) <-- 0;
 
 /* Sqrt */
 
-50 # Taylor'LPS'CompOrder(_x, Sqrt(_y))
+50 # TaylorLPSCompOrder(_x, Sqrt(_y))
    _ (CanBeUni(x,y) And? Degree(y,x) =? 1 And? Coef(y,x,0) !=? 0)
    <-- 0;
 
-50 # Taylor'LPS'CompCoeff(_x, Sqrt(_y), 0)
+50 # TaylorLPSCompCoeff(_x, Sqrt(_y), 0)
    _ (CanBeUni(x,y) And? Degree(y,x) =? 1 And? Coef(y,x,0) !=? 0)
    <-- Sqrt(Coef(y,x,0));
 
-51 # Taylor'LPS'CompCoeff(_x, Sqrt(_y), _n)
+51 # TaylorLPSCompCoeff(_x, Sqrt(_y), _n)
    _ (CanBeUni(x,y) And? Degree(y,x) =? 1 And? Coef(y,x,0) !=? 0) <--
 [
    Local(j);
@@ -569,37 +569,37 @@ _[
 
 /* Exp */
 
-60 # Taylor'LPS'CompOrder(_x, Exp(_x))     <-- 0;
-60 # Taylor'LPS'CompCoeff(_x, Exp(_x), _n) <-- 1/n!;
+60 # TaylorLPSCompOrder(_x, Exp(_x))     <-- 0;
+60 # TaylorLPSCompCoeff(_x, Exp(_x), _n) <-- 1/n!;
 
-70 # Taylor'LPS'CompOrder(_x, Exp(_y))_(CanBeUni(x,y) And? Degree(y,x) =? 1)
+70 # TaylorLPSCompOrder(_x, Exp(_y))_(CanBeUni(x,y) And? Degree(y,x) =? 1)
    <-- 0;
 
-70 # Taylor'LPS'CompCoeff(_x, Exp(_y), _n)_(CanBeUni(x,y) And? Degree(y,x) =? 1)
+70 # TaylorLPSCompCoeff(_x, Exp(_y), _n)_(CanBeUni(x,y) And? Degree(y,x) =? 1)
    <-- Exp(Coef(y,x,0)) * Coef(y,x,1)^n / n!;
 
 /* Ln */
 
-80 # Taylor'LPS'CompOrder(_x, Ln(_x+1))     <-- 1;
-80 # Taylor'LPS'CompCoeff(_x, Ln(_x+1), _n) <-- (-1)^(n+1)/n;
+80 # TaylorLPSCompOrder(_x, Ln(_x+1))     <-- 1;
+80 # TaylorLPSCompCoeff(_x, Ln(_x+1), _n) <-- (-1)^(n+1)/n;
 
 /* Sin */
 
-90 # Taylor'LPS'CompOrder(_x, Sin(_x))           <-- 1;
-90 # Taylor'LPS'CompCoeff(_x, Sin(_x), n_Odd?)  <-- (-1)^((n-1)/2) / n!;
-90 # Taylor'LPS'CompCoeff(_x, Sin(_x), n_Even?) <-- 0;
+90 # TaylorLPSCompOrder(_x, Sin(_x))           <-- 1;
+90 # TaylorLPSCompCoeff(_x, Sin(_x), n_Odd?)  <-- (-1)^((n-1)/2) / n!;
+90 # TaylorLPSCompCoeff(_x, Sin(_x), n_Even?) <-- 0;
 
 /* Cos */
 
-100 # Taylor'LPS'CompOrder(_x, Cos(_x))           <-- 0;
-100 # Taylor'LPS'CompCoeff(_x, Cos(_x), n_Odd?)  <-- 0;
-100 # Taylor'LPS'CompCoeff(_x, Cos(_x), n_Even?) <-- (-1)^(n/2) / n!;
+100 # TaylorLPSCompOrder(_x, Cos(_x))           <-- 0;
+100 # TaylorLPSCompCoeff(_x, Cos(_x), n_Odd?)  <-- 0;
+100 # TaylorLPSCompCoeff(_x, Cos(_x), n_Even?) <-- (-1)^(n/2) / n!;
 
 /* Inverse (not needed but speeds things up) */
 
-110 # Taylor'LPS'CompOrder(_x, 1/_x)     <-- -1;
-110 # Taylor'LPS'CompCoeff(_x, 1/_x, -1) <-- 1;
-111 # Taylor'LPS'CompCoeff(_x, 1/_x, _n) <-- 0;
+110 # TaylorLPSCompOrder(_x, 1/_x)     <-- -1;
+110 # TaylorLPSCompCoeff(_x, 1/_x, -1) <-- 1;
+111 # TaylorLPSCompCoeff(_x, 1/_x, _n) <-- 0;
 
 
 /*COMMENT FROM AYAL: Jitse, what do you think, fall-through defaulting to calculating the coefficient
@@ -617,7 +617,7 @@ _[
 
 
 
-Taylor'LPS'AcceptDeriv(_expr) <--
+TaylorLPSAcceptDeriv(_expr) <--
         (Contains?({"ArcTan"},Type(expr)));
 /*
         ( Type(Deriv(x)(expr)) !=? "Deriv"
@@ -626,14 +626,14 @@ Taylor'LPS'AcceptDeriv(_expr) <--
           },Type(expr)));
 */
 
-200 # Taylor'LPS'CompOrder(_x, (_expr))_(Taylor'LPS'AcceptDeriv(expr))
+200 # TaylorLPSCompOrder(_x, (_expr))_(TaylorLPSAcceptDeriv(expr))
     <--
     [
 //Echo("CompOrder for ",expr);
 //      0; //generic case, assume zeroeth coefficient is non-zero.
       Local(n);
       n:=0;
-      While ((Limit(x,0)expr) =? 0 And? n<?Taylor'LPS'Param1())
+      While ((Limit(x,0)expr) =? 0 And? n<?TaylorLPSParam1())
       [
         expr := Deriv(x)expr;
         n++;
@@ -641,8 +641,8 @@ Taylor'LPS'AcceptDeriv(_expr) <--
 //Echo(" is ",n);
       n;
     ];
-200 # Taylor'LPS'CompCoeff(_x, (_expr), _n)_
-      (Taylor'LPS'AcceptDeriv(expr) And? n>=?0 ) <--
+200 # TaylorLPSCompCoeff(_x, (_expr), _n)_
+      (TaylorLPSAcceptDeriv(expr) And? n>=?0 ) <--
     [
     // This routine is written out for debugging purposes
       Local(result);
@@ -653,16 +653,16 @@ Echo(expr," ",n," ",result);
 
 /* Default */
 
-60000 # Taylor'LPS'CompOrder(_var, _expr)
+60000 # TaylorLPSCompOrder(_var, _expr)
       <-- Assert("dunno") False;
 
-60000 # Taylor'LPS'CompCoeff(_var, _expr, _n)
-      <-- Check(False, "Argument", "Taylor'LPS'CompCoeff'FallThrough"
+60000 # TaylorLPSCompCoeff(_var, _expr, _n)
+      <-- Check(False, "Argument", "TaylorLPSCompCoeffFallThrough"
                        : PipeToString() Write({var,expr,n}));
 
 /**********************************************************************
  *
- * Taylor'LPS'GetOrder(lps)
+ * TaylorLPSGetOrder(lps)
  * ~~~~~~~~~~~~~~~~~~~~~~~~
  * Returns a pair {n,flag}. If flag is True, then n is the order of
  * the LPS. If flag is False, then n is a lower bound on the order.
@@ -672,28 +672,28 @@ Echo(expr," ",n," ",result);
  *       may update lps.
  */
 
-20 # Taylor'LPS'GetOrder(Taylor'LPS(_order, _coeffs, _var, _expr))
+20 # TaylorLPSGetOrder(TaylorLPS(_order, _coeffs, _var, _expr))
    _ (order !=? Undefined)
    <-- {order, coeffs !=? {}};
 
-40 # Taylor'LPS'GetOrder(_lps) <--
+40 # TaylorLPSGetOrder(_lps) <--
 [
    Local(res, computed, exact, res1, res2);
    computed := False;
 
-   res := Taylor'LPS'CompOrder(lps[3], lps[4]);
+   res := TaylorLPSCompOrder(lps[3], lps[4]);
    If (Not? ClearError("dunno"),
    [
       res := {res, True};
       computed := True;
    ]);
 
-   If (Not? computed And? lps[4][0] =? Taylor'LPS'Add,
+   If (Not? computed And? lps[4][0] =? TaylorLPSAdd,
    [
-      res1 := Taylor'LPS'GetOrder(lps[4][1]);
+      res1 := TaylorLPSGetOrder(lps[4][1]);
       If (Not? ClearError("dunno"),
       [
-         res2 := Taylor'LPS'GetOrder(lps[4][2]);
+         res2 := TaylorLPSGetOrder(lps[4][2]);
          If (Not? ClearError("dunno"),
          [
             res := {Minimum(res1[1],res2[1]), False};
@@ -703,18 +703,18 @@ Echo(expr," ",n," ",result);
       ]);
    ]);
 
-   If (Not? computed And? lps[4][0] =? Taylor'LPS'ScalarMult,
+   If (Not? computed And? lps[4][0] =? TaylorLPSScalarMult,
    [
-      res := Taylor'LPS'GetOrder(lps[4][2]);
+      res := TaylorLPSGetOrder(lps[4][2]);
       If (Not? ClearError("dunno"), computed := True);
    ]);
 
-   If (Not? computed And? lps[4][0] =? Taylor'LPS'Multiply,
+   If (Not? computed And? lps[4][0] =? TaylorLPSMultiply,
    [
-      res1 := Taylor'LPS'GetOrder(lps[4][1]);
+      res1 := TaylorLPSGetOrder(lps[4][1]);
       If (Not? ClearError("dunno"),
       [
-         res2 := Taylor'LPS'GetOrder(lps[4][2]);
+         res2 := TaylorLPSGetOrder(lps[4][2]);
          If (Not? ClearError("dunno"),
          [
             res := {res1[1]+res2[1], res1[1] And? res2[1]};
@@ -723,9 +723,9 @@ Echo(expr," ",n," ",result);
       ]);
    ]);
 
-   If (Not? computed And? lps[4][0] =? Taylor'LPS'Inverse,
+   If (Not? computed And? lps[4][0] =? TaylorLPSInverse,
    [
-      res := Taylor'LPS'GetOrder(lps[4][1]);
+      res := TaylorLPSGetOrder(lps[4][1]);
       If (Not? ClearError("dunno"),
       [
          If (res[1] =? Infinity,
@@ -738,11 +738,11 @@ Echo(expr," ",n," ",result);
          [
             Local(c, n);
             n := res[1];
-            c := Taylor'LPS'Coeffs(lps[4][1], res[1], res[1])[1];
-            While (c =? 0 And? res[1] <? n + Taylor'LPS'Param1())
+            c := TaylorLPSCoeffs(lps[4][1], res[1], res[1])[1];
+            While (c =? 0 And? res[1] <? n + TaylorLPSParam1())
             [
                res[1] := res[1] + 1;
-                c := Taylor'LPS'Coeffs(lps[4][1], res[1], res[1])[1];
+                c := TaylorLPSCoeffs(lps[4][1], res[1], res[1])[1];
             ];
             If (c =? 0,
             [
@@ -759,12 +759,12 @@ Echo(expr," ",n," ",result);
       ]);
    ]);
 
-   If (Not? computed And? lps[4][0] =? Taylor'LPS'Compose,
+   If (Not? computed And? lps[4][0] =? TaylorLPSCompose,
    [
-      res1 := Taylor'LPS'GetOrder(lps[4][1]);
+      res1 := TaylorLPSGetOrder(lps[4][1]);
       If (Not? ClearError("dunno"),
       [
-         res2 := Taylor'LPS'GetOrder(lps[4][2]);
+         res2 := TaylorLPSGetOrder(lps[4][2]);
          If (Not? ClearError("dunno"),
          [
             res := {res1[1]*res2[1], res1[1] And? res2[1]};
@@ -780,17 +780,17 @@ Echo(expr," ",n," ",result);
 
 /**********************************************************************
  *
- * Taylor'LPS'PowerSeries(lps, n, var)
+ * TaylorLPSPowerSeries(lps, n, var)
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Convert the LPS in a power series in var up to order n
  * PRE:  lps is a well-formed LPS, n is a natural number
  * POST: returns an expression, or raises "singularity" or "dunno"
  */
 
-10 # Taylor'LPS'PowerSeries(_lps, _n, _var) <--
+10 # TaylorLPSPowerSeries(_lps, _n, _var) <--
 [
    Local(ord, k, coeffs);
-   coeffs := Taylor'LPS'Coeffs(lps, 0, n);
+   coeffs := TaylorLPSCoeffs(lps, 0, n);
    If (Error?("dunno"),
    [
       False;
