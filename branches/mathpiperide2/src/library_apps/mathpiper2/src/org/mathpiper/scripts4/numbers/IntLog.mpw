@@ -5,23 +5,23 @@
 /// Use variable steps to speed up operation for large numbers x
 20 # IntLog(_x, _base) <--
 [
-        Local(result, step, old'step, factor, old'factor);
+        Local(result, step, oldstep, factor, oldfactor);
         result := 0;
-        old'step := step := 1;
-        old'factor := factor := base;
+        oldstep := step := 1;
+        oldfactor := factor := base;
         // first loop: increase step
         While (x >=? factor)
         [
-                old'factor := factor;
+                oldfactor := factor;
                 factor := factor*factor;
-                old'step := step;
+                oldstep := step;
                 step := step*2;
         ];
         If(x >=? base,
           [
-                step := old'step;
+                step := oldstep;
                 result := step;
-                x := Quotient(x, old'factor);
+                x := Quotient(x, oldfactor);
           ],
           step := 0
         );

@@ -1,4 +1,4 @@
-%mathpiper,def="MatchLinear;MatchPureSquared;Matched'a;Matched'b"
+%mathpiper,def="MatchLinear;MatchPureSquared;Matcheda;Matchedb"
 
 /*
 todo:tk:MatchPureSquared() is in this file because it is grouped with MatchLinear in a
@@ -66,8 +66,8 @@ UnFence("MatchLinear",2);
 UnFence("MatchPureSquared",3);
 UnFence("MatchPureSquared",4);
 
-Matched'a() := a;
-Matched'b() := b;
+Matcheda() := a;
+Matchedb() := b;
 
 
 

@@ -404,19 +404,19 @@ var T = new Array(4);
 var nw = "";
 var mean = 0;
 var Delimiters=new Array();
-Delimiters[0]=' ';
-Delimiters[1]='\n';
-Delimiters[2]=',';
-Delimiters[3]='\t';
-Delimiters[4]='\r';
+Delimiters[0]= ;
+Delimiters[1]=\n;
+Delimiters[2]=,;
+Delimiters[3]=\t;
+Delimiters[4]=\r;
 var x=new Array();
 function main()
 {
   nw = window.open("","Output", "toolbar,resizeable,scrollbars,menubar");    
-  nw.document.write("<HTML><HEAD><TITLE>Stem and Leaf Plot  Output</TITLE></head><BODY BGCOLOR='#FFFFFF' >");
+  nw.document.write("<HTML><HEAD><TITLE>Stem and Leaf Plot  Output</TITLE></head><BODY BGCOLOR=#FFFFFF >");
   //Parse the data from the field data 
   ParseString(document.theform.data.value );//Now x has the data
-  x=bsort(x);//Macs and Bill G's product don't do array.sort()
+  x=bsort(x);//Macs and Bill Gs product dont do array.sort()
   stemandleaf(x);
   nw.document.write("</body></html>");
   nw.document.close();
@@ -791,7 +791,7 @@ function stemandleaf(x)
     }
   
   nw.document.write ("</pre>");
-  nw.document.write("<FONT SIZE='-1'><p> Multiply stems by " + t4/ratio + ". ")
+  nw.document.write("<FONT SIZE=-1><p> Multiply stems by " + t4/ratio + ". ")
     nw.document.write("Multiply leaves by " + t3/ratio + " if stem is positve or by -" + t3/ratio + " if stem is negative.<p></font><p><p>");
   
 }
@@ -838,7 +838,7 @@ document.theform.data.value="";
 paste or type into the text area below. Separate the different values by spaces, commas, or newlines
  as you enter them. Then hit the "Compute" button and your browser will open a new window and display the plot. When you are done looking at the new window minimize it or close it with controls from its pull-down menus.</p>
 
-<p>Note that Microsoft has implemented a <b>different</b> version of scripting language in their Internet Explorer browser. Very likely, the JavaScript program on this page will <b>not work</b> in Microsoft's browser. To the best of my knowledge, the script does work in Netscape's internet browser 3.0.</p>
+<p>Note that Microsoft has implemented a <b>different</b> version of scripting language in their Internet Explorer browser. Very likely, the JavaScript program on this page will <b>not work</b> in Microsofts browser. To the best of my knowledge, the script does work in Netscapes internet browser 3.0.</p>
 
 <FORM name="theform">
 <TextArea NAME="data" ROWS=10 COLS=50></TEXTAREA><br>
@@ -846,7 +846,7 @@ paste or type into the text area below. Separate the different values by spaces,
 <!--<IMPUT type="button" NAME="Clear" Value="Clear" onClick=clear();><br>-->
 </FORM>
 <p>
-<FONT size='-1'> The code in this page for the "hard" part of making the plot was borrowed from Lane's Hyperstat. All I've done is parsed the imput data differently.</FONT>
+<FONT size=-1> The code in this page for the "hard" part of making the plot was borrowed from Lanes Hyperstat. All Ive done is parsed the imput data differently.</FONT>
 </p>
 <hr>If you find errors in this program please send email:
       <address><a href="mailto:pelikan@spelikan.csm.uc.edu">Stephan Pelikan</a></address>
@@ -883,7 +883,7 @@ Section 2.6. http://www.math.binghamton.edu/arcones/327/2.6.html</H1>
 <pre><h3>
 
 First we use the yarn strength data. We find the boxplot of these data
-MTB > Retrieve  'A:\YARNSTRG.MTW'.
+MTB > Retrieve  A:\YARNSTRG.MTW.
 Retrieving worksheet from file: A:\YARNSTRG.MTW
 **************************************
 A boxplot consists of a box, whiskers, and outliers. A line is drawn across 

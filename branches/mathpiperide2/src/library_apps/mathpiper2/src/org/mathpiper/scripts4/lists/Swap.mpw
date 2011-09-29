@@ -42,5 +42,5 @@ Result: {a,b,c,d,e,f};
 In> Swap(lst, 2, 4);
 Result: {a,d,c,b,e,f};
 
-*SEE Replace, DestructiveReplace, Array'Create
+*SEE Replace, DestructiveReplace, ArrayCreate
 %/mathpiper_docs

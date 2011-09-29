@@ -1,7 +1,7 @@
 %mathpiper,def="RabinMiller"
 
 /*
- * File `rabinmiller.mpi' is an implementation of the
+ * File `rabinmiller.mpi is an implementation of the
  *           Rabin-Miller primality test.
  */
 
@@ -29,7 +29,7 @@ FastModularPower(a_PositiveInteger?, b_PositiveInteger?, n_PositiveInteger?) <--
 
 
 /*
- * An integer n is `strongly-probably-prime' for base b if
+ * An integer n is `strongly-probably-prime for base b if
  *
  *                   b^q = 1 (mod n) or
  * b^(q*2^i) = -1 (mod n) for some i such that 0 <= i < r
@@ -39,7 +39,7 @@ FastModularPower(a_PositiveInteger?, b_PositiveInteger?, n_PositiveInteger?) <--
  * If an integer is not strongly-probably-prime for a given
  * base b, then it is composed. The reciprocal is false.
  * Composed strongly-probably-prime numbers for base b
- * are called `strong pseudoprimes' for base b.
+ * are called `strong pseudoprimes for base b.
  */
 // this will return a pair {root, True/False}
 IsStronglyProbablyPrime(b_PositiveInteger?, n_PositiveInteger?) <--
@@ -111,7 +111,7 @@ IsStronglyProbablyPrime(b_PositiveInteger?, n_PositiveInteger?) <--
 
 /*
  * RabinMillerProbabilistic(n, p) tells whether n is prime.
- * If n is actually prime, the result will always be `True'.
+ * If n is actually prime, the result will always be `True.
  * If n is composed the probability to obtain the wrong
  * result is less than 4^(-p).
  */
@@ -126,28 +126,28 @@ IsStronglyProbablyPrime(b_PositiveInteger?, n_PositiveInteger?) <--
 
 30 # RabinMillerProbabilistic(n_PositiveInteger?, p_PositiveInteger?) <--
 [
-  Local(k, prime, b, roots'of'minus1, root);
+  Local(k, prime, b, rootsofminus1, root);
   k := 1+IntLog(IntLog(n,2),4)+p;        // find k such that Ln(n)*4^(-k) < 4^(-p)
   b := 1;
   prime := True;
-  roots'of'minus1 := {0};        // accumulate the set of roots of -1 modulo n
+  rootsofminus1 := {0};        // accumulate the set of roots of -1 modulo n
   While (prime And? k>?0)
     [
       b := NextPseudoPrime(b);        // use only prime bases, as suggested by Davenport; weak pseudo-primes are good enough
       {root, prime} := IsStronglyProbablyPrime(b, n);
-          If(prime, roots'of'minus1 := Union(roots'of'minus1, {root}));
-          If(Length(roots'of'minus1)>?3, prime := False);
+          If(prime, rootsofminus1 := Union(rootsofminus1, {root}));
+          If(Length(rootsofminus1)>?3, prime := False);
           //If(InVerboseMode() And? prime, Echo("RabinMiller: Info: ", n, "is spp base", b));
           If( // this whole If() clause is only working when InVerboseMode() is in effect and the test is terminated in the unusual way
-                  InVerboseMode() And? Length(roots'of'minus1)>?3,
+                  InVerboseMode() And? Length(rootsofminus1)>?3,
                   [        // we can actually find a factor of n now
                         Local(factor);
-                        roots'of'minus1 := Difference(roots'of'minus1,{0});
-                        //Echo("RabinMiller: Info: ", n, "is composite via roots of -1 ; ", roots'of'minus1);
+                        rootsofminus1 := Difference(rootsofminus1,{0});
+                        //Echo("RabinMiller: Info: ", n, "is composite via roots of -1 ; ", rootsofminus1);
                         factor := Gcd(n, If(
-                                roots'of'minus1[1]+roots'of'minus1[2]=?n,
-                                roots'of'minus1[1]+roots'of'minus1[3],
-                                roots'of'minus1[1]+roots'of'minus1[2]
+                                rootsofminus1[1]+rootsofminus1[2]=?n,
+                                rootsofminus1[1]+rootsofminus1[3],
+                                rootsofminus1[1]+rootsofminus1[2]
                         ));
                         Echo(n, " = ", factor, " * ", n/factor);
                 ]

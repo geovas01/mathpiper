@@ -15,7 +15,7 @@
 11 # Zeta(n_Infinity?) <-- 1;
 
 /// compute numeric value
-20 # Zeta(s_Constant?)_(InNumericMode()) <-- Internal'ZetaNum(N(Eval(s)));
+20 # Zeta(s_Constant?)_(InNumericMode()) <-- InternalZetaNum(N(Eval(s)));
 
 %/mathpiper
 

@@ -12,12 +12,12 @@ LoadScript("hypothesystest.mpi");
 
 Function("DoTest",{size})
 [
-  Local(arr,o'f,e'f,i,j,m);
+  Local(arr,of,ef,i,j,m);
 //  size:=200; // sample size
   arr := Table(Random(),i,1,size,1);
   arr := HeapSort(arr,"<?");
-  o'f := {};
-  e'f :={};
+  of := {};
+  ef :={};
   m:=1;
   For(i:=1, i<=?10 And? m<=?size, i++)
    [
@@ -27,11 +27,11 @@ Function("DoTest",{size})
        j:=j+1;
        m:=m+1;
      ];
-     Push(o'f,j);
-     Push(e'f,0.1*size);
+     Push(of,j);
+     Push(ef,0.1*size);
    ];
-  Echo(o'f,e'f);
-  ChiSquareTest(o'f,e'f);
+  Echo(of,ef);
+  ChiSquareTest(of,ef);
 ];
 
 

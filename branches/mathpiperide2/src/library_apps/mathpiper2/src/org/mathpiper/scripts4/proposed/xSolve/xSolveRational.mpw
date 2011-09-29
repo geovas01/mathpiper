@@ -1,15 +1,15 @@
-%mathpiper,title="xSolve'Rational"
+%mathpiper,title="xSolveRational"
 
-//Retract("xSolve'Rational",*);
+//Retract("xSolveRational",*);
 
-/************************* xSolve'Rational *************************/
+/************************* xSolveRational *************************/
 /*
  *    This expression is a rational function of its variable.
  * Try to solve it with the help of that information.
  */
 
  
-10 # xSolve'Rational( _expr, _var )_(RationalFunction?(expr,var)) <--
+10 # xSolveRational( _expr, _var )_(RationalFunction?(expr,var)) <--
 [
     If(iDebug=True,Tell(" Rational",expr==0));
     Local(n,d,fn,fd,factor,rootsn,rootsd,root,result);

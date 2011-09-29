@@ -1,12 +1,12 @@
 %mathpiper,title="xSolveSystem"
 
-//Retract("xSolve'System",*);
+//Retract("xSolveSystem",*);
 //Retract("xSolveLinearSystemViaMatrix",*);
 
 
-10 # xSolve'System( eqns_List?, vars_List? ) <--
+10 # xSolveSystem( eqns_List?, vars_List? ) <--
 [
-    If(iDebug=True,Tell("xSolve'System",{eqns,vars}));
+    If(iDebug=True,Tell("xSolveSystem",{eqns,vars}));
     Local(zeros,expr,const,newEquations);
     zeros        := FillList(0,Length(vars));
     newEquations := {};
@@ -27,12 +27,12 @@
     xSolveLinearSystemViaMatrix(newEquations,vars);
 ];
         
-10 # xSolve'System( eqns_List? ) <--
+10 # xSolveSystem( eqns_List? ) <--
 [
     Local(vars);
-    If(iDebug=True,Tell("xSolve'System",eqns));
+    If(iDebug=True,Tell("xSolveSystem",eqns));
     vars := VarList(eqns);
-    xSolve'System(eqns,vars);
+    xSolveSystem(eqns,vars);
 ];
 
 

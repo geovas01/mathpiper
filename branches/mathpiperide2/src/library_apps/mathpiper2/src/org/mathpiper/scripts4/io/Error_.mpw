@@ -8,10 +8,10 @@ Error?() <--
 ];
 
 /// check for errors of a given kind
-Error?(error'class_String?) <--
+Error?(errorclass_String?) <--
 [
         CheckErrorTableau();
-        GetErrorTableau()[error'class] !=? Empty;
+        GetErrorTableau()[errorclass] !=? Empty;
 ];
 
 %/mathpiper

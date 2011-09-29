@@ -1,12 +1,12 @@
 %mathpiper,def="OldSolve"
-/********** Solve'System **********/
+/********** SolveSystem **********/
 
 // for now, just use a very simple backsubstitution scheme
-Solve'System(_eqns, _vars) <-- Solve'SimpleBackSubstitution(eqns,vars);
+SolveSystem(_eqns, _vars) <-- SolveSimpleBackSubstitution(eqns,vars);
 
-// Check(False, "Unimplemented", "Solve'System: not implemented");
+// Check(False, "Unimplemented", "SolveSystem: not implemented");
 
-10 # Solve'SimpleBackSubstitution'FindAlternativeForms((_lx) == (_rx)) <--
+10 # SolveSimpleBackSubstitutionFindAlternativeForms((_lx) == (_rx)) <--
 [
   Local(newEq);
   newEq := (Simplify(lx) == Simplify(rx));
@@ -14,21 +14,21 @@ Solve'System(_eqns, _vars) <-- Solve'SimpleBackSubstitution(eqns,vars);
   newEq := (Simplify(lx - rx) == 0);
   If (newEq !=? (lx == rx) And? newEq !=? (0==0),DestructiveAppend(eq,newEq));
 ];
-20 # Solve'SimpleBackSubstitution'FindAlternativeForms(_equation) <--
+20 # SolveSimpleBackSubstitutionFindAlternativeForms(_equation) <--
 [
 ];
-UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
+UnFence("SolveSimpleBackSubstitutionFindAlternativeForms",1);
 
 /* Solving sets of equations using simple backsubstitution.
- * Solve'SimpleBackSubstitution takes all combinations of equations and
+ * SolveSimpleBackSubstitution takes all combinations of equations and
  * variables to solve for, and it then uses SuchThat to find an expression
  * for this variable, and then if found backsubstitutes it in the other
  * equations in the hope that they become simpler, resulting in a final
  * set of solutions.
  */
-10 # Solve'SimpleBackSubstitution(eq_List?,var_List?) <--
+10 # SolveSimpleBackSubstitution(eq_List?,var_List?) <--
 [
- If(InVerboseMode(), Echo({"Entering Solve'SimpleBackSubstitution"}));
+ If(InVerboseMode(), Echo({"Entering SolveSimpleBackSubstitution"}));
 
   Local(result,i,j,nrvar,nreq,sub,nrSet,origEq);
   eq:=FlatCopy(eq);
@@ -41,7 +41,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
   ForEach(equation,origEq)
   [
 //Echo("equation ",equation);
-    Solve'SimpleBackSubstitution'FindAlternativeForms(equation);
+    SolveSimpleBackSubstitutionFindAlternativeForms(equation);
   ];
 //  eq:=Simplify(eq);
 //Echo("After: ",eq);
@@ -89,7 +89,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
              eq[k]:=Subst(var[i],sub)eq[k];
              If(Simplify(Simplify(eq[k])) =? (0 == 0),
                eq[k] := (0 == 0),
-               Solve'SimpleBackSubstitution'FindAlternativeForms(eq[k])
+               SolveSimpleBackSubstitutionFindAlternativeForms(eq[k])
                );
 //             eq[k]:=Simplify(eq[k]);
 //             eq[k]:=Simplify(eq[k]); //@@@??? TODO I found one example where simplifying twice gives a different result from simplifying once!
@@ -137,7 +137,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 
 
 /* Echo({"tested is ",tested});  */
- If(InVerboseMode(), Echo({"Leaving Solve'SimpleBackSubstitution"}));
+ If(InVerboseMode(), Echo({"Leaving SolveSimpleBackSubstitution"}));
   tested;
 ];
 
@@ -145,7 +145,7 @@ UnFence("Solve'SimpleBackSubstitution'FindAlternativeForms",1);
 
 
 /********** OldSolve **********/
-10 # OldSolve(eq_List?,var_List?) <-- Solve'SimpleBackSubstitution(eq,var);
+10 # OldSolve(eq_List?,var_List?) <-- SolveSimpleBackSubstitution(eq,var);
 
 
 90 # OldSolve((left_List?) == right_List?,_var) <--

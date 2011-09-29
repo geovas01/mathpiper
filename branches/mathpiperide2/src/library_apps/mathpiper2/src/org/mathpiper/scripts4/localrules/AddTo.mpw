@@ -11,11 +11,11 @@
   ];
   res;
 ];
-30 # (_a'item AddTo list_List?) <--
+30 # (_aitem AddTo list_List?) <--
 [
-  MapSingle({{orig},a'item And? orig},list);
+  MapSingle({{orig},aitem And? orig},list);
 ];
-40 # (_a'item AddTo _b) <-- a'item And? b;
+40 # (_aitem AddTo _b) <-- aitem And? b;
 
 %/mathpiper
 

@@ -910,11 +910,11 @@ OMDef( "GaussianGcd",       mathpiper,"GaussianGcd" );
 
 // From nthroot.mpi.def
 OMDef( "NthRoot",      mathpiper,"NthRoot" );
-OMDef( "NthRoot'Calc", mathpiper,"NthRoot'Calc" );
-OMDef( "NthRoot'List", mathpiper,"NthRoot'List" );
-OMDef( "NthRoot'Save", mathpiper,"NthRoot'Save" );
-OMDef( "NthRoot'Restore", mathpiper,"NthRoot'Restore" );
-OMDef( "NthRoot'Clear", mathpiper,"NthRoot'Clear" );
+OMDef( "NthRootCalc", mathpiper,"NthRootCalc" );
+OMDef( "NthRootList", mathpiper,"NthRootList" );
+OMDef( "NthRootSave", mathpiper,"NthRootSave" );
+OMDef( "NthRootRestore", mathpiper,"NthRootRestore" );
+OMDef( "NthRootClear", mathpiper,"NthRootClear" );
 
 // From NumberTheory.mpi.def
 OMDef( "DivisorsList", mathpiper,"DivisorsList" );

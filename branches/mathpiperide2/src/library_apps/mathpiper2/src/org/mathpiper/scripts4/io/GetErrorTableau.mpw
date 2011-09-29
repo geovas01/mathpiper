@@ -29,10 +29,10 @@ LocalSymbols(ErrorTableau) [
 
 
 /// obtain error object
-GetError(error'class_String?) <--
+GetError(errorclass_String?) <--
 [
         Local(error);
-        error := GetErrorTableau()[error'class];
+        error := GetErrorTableau()[errorclass];
         If(
                 error !=? Empty,
                 error,
@@ -42,7 +42,7 @@ GetError(error'class_String?) <--
 
 
 /// delete error
-ClearError(error'class_String?) <-- AssocDelete(GetErrorTableau(), error'class);
+ClearError(errorclass_String?) <-- AssocDelete(GetErrorTableau(), errorclass);
 
 %/mathpiper
 

@@ -1,4 +1,4 @@
-%mathpiper,def="ExpN'Taylor"
+%mathpiper,def="MathLnTaylor"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -10,16 +10,15 @@
  *  These implementations are not necessarily the best optimized versions.
  */
 
-/// Compute Exp(x)-1 from the Taylor series for (Exp(x)-1)/x.
-//Note:tk:changed name from ExpN'Taylor1 to ExpN'Taylor.
-ExpN'Taylor(x) :=
+/// Ln(x), Taylor series for Ln(1+y)/y, use only with 1/2<x<3/2
+MathLnTaylor(x) :=
 [
-        Local(num'terms, prec, Bx);
-        prec := QuotientN(BuiltinPrecisionGet()*3919, 1702); // P*Ln(10)
-        Bx := -QuotientN(MathBitCount(x)*1143, 1649)-2; // -Ln(x)-2
-        num'terms := QuotientN( prec-1, QuotientN( MathBitCount( prec-1)*1588, 2291)+Bx)+1;
-        // (P*Ln(10)-1)/(Ln(P*Ln(10)-1)-Ln(x)-2); use Ln(x)<=?B(x)*Ln(2)
-        x*SumTaylorNum(x, 1, {{k}, 1/(k+1)}, num'terms);
+        Local(numterms, y);
+        y := x-1;
+        numterms := QuotientN(BuiltinPrecisionGet()*2136, -643*MathBitCount(y))+1;
+        // (P*Ln(10))/(-Ln(y)); use Ln(y)<=?B(y)*Ln(2), only good for |y|<1/2
+        // here -Ln(y) must be positive
+        y*SumTaylorNum(-y, {{k}, 1/(k+1)}, numterms);
 ];
 
 %/mathpiper

@@ -2,11 +2,11 @@
 
 /* def file definitions
 NthRoot
-NthRoot'Calc
-NthRoot'List
-NthRoot'Save
-NthRoot'Restore
-NthRoot'Clear
+NthRootCalc
+NthRootList
+NthRootSave
+NthRootRestore
+NthRootClear
 
 */
 
@@ -14,22 +14,22 @@ NthRoot'Clear
 // $Id: nthroot.mpi,v 1.5 2007/05/17 11:56:45 ayalpinkus Exp $
 // calculation/simplifaction of nth roots of nonnegative integers
 // NthRoot         - interface function
-// NthRoot'Calc    - actually calculate/simplifies
-// NthRoot'List    - list table entries for a given n
-// NthRoot'Restore - get a root from lookup table
-// NthRoot'Save    - save a root in lookup table
-// NthRoot'Clear   - clear lookup table
+// NthRootCalc    - actually calculate/simplifies
+// NthRootList    - list table entries for a given n
+// NthRootRestore - get a root from lookup table
+// NthRootSave    - save a root in lookup table
+// NthRootClear   - clear lookup table
 //////
 
 // LocalSymbols(m,n,r,
-//                NthRoot'Table,
-//                NthRoot'Calc,
-//                NthRoot'List,
-//                NthRoot'Restore,
-//                NthRoot'Save,
-//                NthRoot'Clear)
+//                NthRootTable,
+//                NthRootCalc,
+//                NthRootList,
+//                NthRootRestore,
+//                NthRootSave,
+//                NthRootClear)
 LocalSymbols(m,n,r,
-             NthRoot'Table)
+             NthRootTable)
 [
 
 // interface function for nth root of m
@@ -38,17 +38,17 @@ LocalSymbols(m,n,r,
 NthRoot(m_NonNegativeInteger?,n_Integer?)_(n>?1) <--
 [
    Local(r);
-   r:=NthRoot'Restore(m,n);
+   r:=NthRootRestore(m,n);
    If(Length(r)=?0,
    [
-      r:=NthRoot'Calc(m,n);
-      NthRoot'Save(m,n,r);
+      r:=NthRootCalc(m,n);
+      NthRootSave(m,n,r);
    ]);
    r;
 ];
 
 // internal functions
-Function("NthRoot'Calc",{m,n})
+Function("NthRootCalc",{m,n})
 [
    Local(i,j,f,r,in);
    Bind(i,2);
@@ -80,21 +80,21 @@ Function("NthRoot'Calc",{m,n})
 ];
 
 // lookup table utilities
-Function("NthRoot'List",{n})
+Function("NthRootList",{n})
 [
-   If(Length(NthRoot'Table)>?0,
+   If(Length(NthRootTable)>?0,
    [
       Local(p,xx);
-      p:=Select(NthRoot'Table, {{xx},First(xx)=?n});
+      p:=Select(NthRootTable, {{xx},First(xx)=?n});
       If(Length(p)=?1,Rest(p[1]),List());
    ],
    List());
 ];
 
-Function("NthRoot'Restore",{m,n})
+Function("NthRootRestore",{m,n})
 [
    Local(p);
-   p:=NthRoot'List(n);
+   p:=NthRootList(n);
    If(Length(p)>?0,
    [
       Local(r,xx);
@@ -104,13 +104,13 @@ Function("NthRoot'Restore",{m,n})
    List());
 ];
 
-Function("NthRoot'Save",{m,n,r})
+Function("NthRootSave",{m,n,r})
 [
    Local(p);
-   p:=NthRoot'List(n);
+   p:=NthRootList(n);
    If(Length(p)=?0,
    // create power list and save root
-   DestructiveInsert(NthRoot'Table,1,List(n,List(m,r))),
+   DestructiveInsert(NthRootTable,1,List(n,List(m,r))),
    [
       Local(rr,xx);
       rr:=Select(p, {{xx},First(xx)=?m});
@@ -124,13 +124,13 @@ Function("NthRoot'Save",{m,n,r})
    ]);
 ];
 
-//TODO why is NthRoot'Table both lazy global and protected with LocalSymbols?
-Function("NthRoot'Clear",{}) SetGlobalLazyVariable(NthRoot'Table,List());
+//TODO why is NthRootTable both lazy global and protected with LocalSymbols?
+Function("NthRootClear",{}) SetGlobalLazyVariable(NthRootTable,List());
 
 // create empty table
-NthRoot'Clear();
+NthRootClear();
 
-]; // LocalSymbols(m,n,r,NthRoot'Table);
+]; // LocalSymbols(m,n,r,NthRootTable);
 
 //////
 //////

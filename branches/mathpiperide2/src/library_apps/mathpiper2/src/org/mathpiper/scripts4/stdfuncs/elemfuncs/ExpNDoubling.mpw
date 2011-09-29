@@ -1,4 +1,4 @@
-%mathpiper,def="SinN'Tripling"
+%mathpiper,def="ExpNDoubling"
 
 /** This file contains routines for numerical evaluation of elementary functions:
  *  PowerN, ExpN, SinN etc.
@@ -10,19 +10,35 @@
  *  These implementations are not necessarily the best optimized versions.
  */
 
-/// Identity transformation, compute Sin(x) from value=Sin(x/3^n)
+/// Identity transformation, compute Exp(x)-1 from value=Exp(x/2^n)-1
 
-SinN'Tripling(value, n) :=
+ExpNDoubling1(value, n) :=
 [
         Local(shift, result);
         shift := n;
         result := value;
         While (shift>?0)        // lose 'shift' bits of precision here
-        [        // Sin(x)*(3-4*Sin(x)^2)
-                result := MultiplyN(result, 3 - MathMul2Exp(MultiplyN(result,result), 2) );
+        [
+                result := MathMul2Exp(result, 1) + MultiplyN(result, result);
                 shift--;
         ];
         result;
 ];
+
+/// Identity transformation, compute Exp(x) from value=Exp(x/2^n)
+/*
+ExpNDoubling(value, n) :=
+[
+        Local(shift, result);
+        shift := n;
+        result := value;
+        While (shift>?0)        // lose 'shift' bits of precision here
+        [
+                result := MultiplyN(result, result);
+                shift--;
+        ];
+        result;
+];
+*/
 
 %/mathpiper

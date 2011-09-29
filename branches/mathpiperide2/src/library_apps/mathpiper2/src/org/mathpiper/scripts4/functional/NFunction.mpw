@@ -1,31 +1,31 @@
 %mathpiper,def="NFunction"
 
-/* NFunction("new'func", "old'func" {arg'list}) will define a wrapper function
-around  "old'func", called "new'func", which will return "old'func(arg'list)"
+/* NFunction("newfunc", "oldfunc" {arglist}) will define a wrapper function
+around  "oldfunc", called "newfunc", which will return "oldfunc(arglist)"
 only when all arguments are numbers and will return unevaluated
-"new'func(arg'list)" otherwise. */
-LocalSymbols(NFunction'Numberize)
+"newfunc(arglist)" otherwise. */
+LocalSymbols(NFunctionNumberize)
 [
-NFunction(new'name_String?, old'name_String?, arg'list_List?) <-- [
-        MacroRulebase(new'name, arg'list);
-        MacroRule(new'name, Length(arg'list), 0,        // check whether all args are numeric
-                ListToFunction({NumericList?, arg'list})
+NFunction(newname_String?, oldname_String?, arglist_List?) <-- [
+        MacroRulebase(newname, arglist);
+        MacroRule(newname, Length(arglist), 0,        // check whether all args are numeric
+                ListToFunction({NumericList?, arglist})
         )
 
                 /* this is the rule defined for the new function.
                 // this expression should evaluate to the body of the rule.
                 // the body looks like this:
-                // NFunction'Numberize(old'name(arg'list))
+                // NFunctionNumberize(oldname(arglist))
                 */
-                        NFunction'Numberize(ListToFunction({ToAtom("@"), old'name, arg'list}));
+                        NFunctionNumberize(ListToFunction({ToAtom("@"), oldname, arglist}));
                         // cannot use bare '@' b/c get a syntax error
 
 ];
 
 // this function is local to NFunction.
 // special handling for numerical errors: return Undefined unless given a number.
-10 # NFunction'Numberize(x_Number?) <-- x;
-20 # NFunction'Numberize(x_Atom?) <-- Undefined;
+10 # NFunctionNumberize(x_Number?) <-- x;
+20 # NFunctionNumberize(x_Atom?) <-- Undefined;
 // do nothing unless given an atom
 
 ];        // LocalSymbols()

@@ -15,13 +15,13 @@ LocalSymbols(CFormAllFunctions) [
   // need to check that expr contains only allowed functions
   CFormable?(_expr, funclist_List?) <--
   [
-    Local(bad'functions);
-    bad'functions := Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));
-    If(Length(bad'functions)=?0,
+    Local(badfunctions);
+    badfunctions := Difference(`FuncList(@expr), Concat(CFormAllFunctions, funclist));
+    If(Length(badfunctions)=?0,
       True,
       [
         If(InVerboseMode(),
-          Echo(Concat({"CFormable?: Info: unexportable function(s): "}, bad'functions))
+          Echo(Concat({"CFormable?: Info: unexportable function(s): "}, badfunctions))
         );
         False;
       ]
@@ -108,11 +108,11 @@ CFormable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2)
 , True
 );
 Verify(
-CFormable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+bad'func(x+y))
+CFormable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+badfunc(x+y))
 , False
 );
 Verify(
-CFormable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+bad'func(x+y), {bad'func})
+CFormable?(e+Pi*Cos(A-B)/3-Floor(3.14)*2+badfunc(x+y), {badfunc})
 , True
 );
 Verify(

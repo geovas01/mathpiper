@@ -54,7 +54,7 @@
         eps:=10^(-prec);
         result:=0;
         // Sorry Serge, I was only getting 2 digits of precision with this
-                // so why didn't you ask me? :) -- Serge
+                // so why didnt you ask me? :) -- Serge
         //terms:=Floor(10 + N(prec*Ln(10)/Ln(prec) - 1));
         //BuiltinPrecisionSet( prec + Floor(N(Ln(6*terms)/Ln(10))) );
         //result:=SumTaylorNum(x, {{k}, x^(k+1)/(k+1)^n }, terms );

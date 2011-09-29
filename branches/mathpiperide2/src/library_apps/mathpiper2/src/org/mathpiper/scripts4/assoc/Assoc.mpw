@@ -5,7 +5,7 @@
    it will return the atom Empty.
 */
 
-Function("Assoc",{key,list})  Builtin'Assoc(key,list);
+Function("Assoc",{key,list})  BuiltinAssoc(key,list);
 
 %/mathpiper
 
