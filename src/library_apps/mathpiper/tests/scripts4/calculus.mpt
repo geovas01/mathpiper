@@ -118,6 +118,15 @@ Verify(Limit(x,Infinity)Ln(x+1)^2/Sqrt(x), 0);
 Verify(Limit(x,Infinity)(Ln(x+1)-Ln(x)), 0);
 Verify(Limit(x,Infinity)-Ln(x+1)^2/Ln(Ln(x)), -Infinity);
 
+// Verify argument checking
+[
+    Verify(Limit(n, Infinity) 2 + 11/n, 2);
+    Local(n, exception);
+    n := 5;
+    exception := False;
+    ExceptionCatch(Limit(n, Infinity) 2 + 11/n, exception := True);
+    Verify(exception, True); 
+];
 
 [
   Local(z);
