@@ -70,6 +70,6 @@ Result: True
 Side Effects:
 {1+1,"=",2} 
 
-*SEE Eval, HoldArgument, ListToFunction
+*SEE ', Eval, HoldArgument, ListToFunction
 %/mathpiper_docs
 */

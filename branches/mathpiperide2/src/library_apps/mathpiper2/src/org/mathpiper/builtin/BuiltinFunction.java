@@ -264,7 +264,9 @@ public abstract class BuiltinFunction {
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "Subst");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "LocalSymbols");
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "BackQuote");
+        
         aEnvironment.iPrefixOperators.setOperator(0, "`");
+        aEnvironment.iPrefixOperators.setOperator(0, "'");
         aEnvironment.iPrefixOperators.setOperator(0, "@");
         aEnvironment.iPrefixOperators.setOperator(0, "_");
         aEnvironment.iInfixOperators.setOperator(0, "_");
