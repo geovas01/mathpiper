@@ -7,63 +7,10 @@ Rule(MathPiperInitLoad, 0, 1, True)
      * each time MathPiper is started. All the basic files are loaded.
      */
 
-    /* Set up drivers, configurable in the .mpiperrc
-     *   Bind(MultiNomialDriver,"multivar.rep/sparsenomial.mpi");
-     *     or
-     *   Bind(MultiNomialDriver,"multivar.rep/partialdensenomial.mpi");
-     */
 
-    /* The truly required files (MathPiper NEEDS to load). */
-    // syntax must be loaded first
-    //LoadScriptOnce("initialization.rep/stdopers.mpi");
     StandardOperatorsLoad();
 
     Constant(True);
-
-
-    //TODO remove? LoadScriptOnce("base.rep/math.mpi");
-
-    //LoadScriptOnce("patterns.rep/code.mpi");
-    // at this point <-- can be used
-
-    //LoadScriptOnce("deffunc.rep/code.mpi");
-
-    // at this point := and Function() can be used
-
-    //LoadScriptOnce("constants.rep/code.mpi");
-    //LoadScriptOnce("initialization.rep/standard.mpi");
-
-    //LoadScriptOnce("initialization.rep/stdarith.mpi");
-    //Standard arithmetic is now initialized in SynchronousInterpreter.java.
-
-    // at this point arithmetic can be used
-
-    /* Load the def files for the other modules. The def files contain lists
-     * of functions defined in that file. So, in solve.def you can find the
-     * functions defined in the file solve. Each time a function is invoked
-     * for which the interpreter can not find a definition, the file is loaded.
-     */
-
-    /*
-    Rulebase(LoadPackages,{packages});
-    Rule(LoadPackages, 1, 1, True)
-    [
-            If(Equal?(packages,{}), True,
-            [
-                    DefLoad(First(packages));
-                    LoadPackages(Rest(packages));
-            ]);
-    ];
-
-    LoadScriptOnce("initialization.rep/packages.mpi");
-    LoadPackages(DefFileList());
-    */
-
-    // The multivar routines are not all properly initialized until the first time
-    // one of them is called.  This may come too late for some operations that try
-    // to use them  before they have been initialized.  The following call should
-    // take care of this problem.
-    //LoadScriptOnce("multivar.rep/code.mpi");
 
 ];
 
