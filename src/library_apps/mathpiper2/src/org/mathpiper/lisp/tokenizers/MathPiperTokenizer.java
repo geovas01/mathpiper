@@ -25,7 +25,7 @@ import org.mathpiper.lisp.*;
 
 public class MathPiperTokenizer {
 
-    static String symbolics = "~`!@#$^&*-=+:<>?/\\|";
+    static String symbolics = "~'`!@#$^&*-=+:<>?/\\|";
     //static String unicodeVariableChars = "αβγ";
     String iToken; //Can be used as a token container.
 
@@ -170,8 +170,6 @@ public class MathPiperTokenizer {
         if (c >= 'a' && c <= 'z') {
             return true;
         } else if (c >= 'A' && c <= 'Z') {
-            return true;
-        } else if (c == '\'') {
             return true;
         } else if (c == '?') {
             return true;
