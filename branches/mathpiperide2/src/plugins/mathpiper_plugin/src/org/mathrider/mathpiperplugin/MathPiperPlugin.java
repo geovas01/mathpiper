@@ -27,9 +27,9 @@ public class MathPiperPlugin extends EditPlugin implements EBComponent{
 		
 		org.mathpiper.lisp.Environment environment = interpreter.getEnvironment();
 
-                org.mathpiper.interpreters.Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
+        org.mathpiper.interpreters.Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
         
-                org.mathpiper.interpreters.Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/plugins/jfreechart/");
+        org.mathpiper.interpreters.Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/plugins/jfreechart/");
 		
 	}//end method.
 	
