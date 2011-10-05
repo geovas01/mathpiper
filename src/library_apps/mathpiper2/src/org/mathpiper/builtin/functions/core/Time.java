@@ -58,7 +58,7 @@ public class Time extends BuiltinFunction
 
         timeDiff = endTime.subtract(startTime);
 
-        timeDiff = timeDiff.movePointLeft(9);
+        timeDiff = timeDiff.movePointLeft(3);
         
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + timeDiff));
     }
