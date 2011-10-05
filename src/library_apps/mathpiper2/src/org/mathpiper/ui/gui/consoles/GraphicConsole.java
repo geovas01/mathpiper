@@ -1318,7 +1318,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
 
     public static void main(String[] args) {
+
+
         final GraphicConsole console = new GraphicConsole();
+
+        Interpreter interpreter = console.getInterpreter();
+        Interpreters.addOptionalFunctions(interpreter.getEnvironment(), "org/mathpiper/builtin/functions/optional/");
 
         JFrame frame = new javax.swing.JFrame();
         Container contentPane = frame.getContentPane();
@@ -1540,6 +1545,15 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         }//end of ActionPerformed method
 
     }//end of action listener
+
+
+    
+    public Interpreter getInterpreter() {
+        return interpreter;
+    }
+
+
+
 
 }//end class.
 
