@@ -95,7 +95,7 @@ public class MathPiperTokenizer {
                 while (aInput.peek() != '\"') {
                     if (aInput.peek() == '\\') {
                         aInput.next();
-                        LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.PARSING_INPUT, aInput.toString(),"INTERNAL");
+                        LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.PARSING_INPUT, aInput,"INTERNAL");
 
                         /*if(! (aInput.peek() == '\"'))
                         {

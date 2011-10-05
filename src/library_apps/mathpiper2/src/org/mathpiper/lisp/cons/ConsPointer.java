@@ -76,7 +76,7 @@ public class ConsPointer {
 
     public void goSub(int aStackTop , Environment aEnvironment) throws Exception {
         LispError.check(aEnvironment, aStackTop, iCons != null, LispError.INVALID_ARGUMENT, "","INTERNAL");
-        LispError.check(aEnvironment, aStackTop, iCons.car() instanceof ConsPointer, LispError.NOT_A_LIST, iCons.toString(),"INTERNAL");
+        LispError.check(aEnvironment, aStackTop, iCons.car() instanceof ConsPointer, LispError.NOT_A_LIST, iCons,"INTERNAL");
         iCons = ((ConsPointer)iCons.car()).getCons();
     }
 
