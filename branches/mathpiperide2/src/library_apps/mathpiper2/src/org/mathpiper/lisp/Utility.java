@@ -221,34 +221,34 @@ public class Utility {
     }
 
     public static void applyPure(int aStackTop, ConsPointer oper, ConsPointer args2, ConsPointer aResult, Environment aEnvironment) throws Exception {
-        LispError.check(aEnvironment, aStackTop, oper.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, args2.toString(), "INTERNAL");
-        LispError.check(aEnvironment, aStackTop, ((ConsPointer) oper.car()).getCons() != null, LispError.INVALID_ARGUMENT, args2.toString(), "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, oper.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, ((ConsPointer) oper.car()).getCons() != null, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
         ConsPointer oper2 = new ConsPointer();
         oper2.setCons(((ConsPointer) oper.car()).cdr().getCons());
-        LispError.check(aEnvironment, aStackTop, oper2.getCons() != null, LispError.INVALID_ARGUMENT, args2.toString(), "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, oper2.getCons() != null, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
 
         ConsPointer body = new ConsPointer();
         body.setCons(oper2.cdr().getCons());
-        LispError.check(aEnvironment, aStackTop, body.getCons() != null, LispError.INVALID_ARGUMENT, args2.toString(), "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, body.getCons() != null, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
 
-        LispError.check(aEnvironment, aStackTop, oper2.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, args2.toString(), "INTERNAL");
-        LispError.check(aEnvironment, aStackTop, ((ConsPointer) oper2.car()).getCons() != null, LispError.INVALID_ARGUMENT, args2.toString(), "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, oper2.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, ((ConsPointer) oper2.car()).getCons() != null, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
         oper2.setCons(((ConsPointer) oper2.car()).cdr().getCons());
 
         aEnvironment.pushLocalFrame(false, "Pure");
         try {
             while (oper2.getCons() != null) {
-                LispError.check(aEnvironment, aStackTop, args2.getCons() != null, LispError.INVALID_ARGUMENT, args2.toString(), "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, args2.getCons() != null, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
 
                 String var = (String) oper2.car();
-                LispError.check(aEnvironment, aStackTop, var != null, LispError.INVALID_ARGUMENT, args2.toString(), "INTERNAL");
+                LispError.check(aEnvironment, aStackTop, var != null, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
                 ConsPointer newly = new ConsPointer();
                 newly.setCons(args2.getCons().copy(aEnvironment, false));
                 aEnvironment.newLocalVariable(var, newly.getCons(), aStackTop);
                 oper2.setCons(oper2.cdr().getCons());
                 args2.setCons(args2.cdr().getCons());
             }
-            LispError.check(aEnvironment, aStackTop, args2.getCons() == null, LispError.INVALID_ARGUMENT, args2.toString(), "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, args2.getCons() == null, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, aResult, body);
         } catch (EvaluationException e) {
             throw e;
@@ -275,27 +275,27 @@ public class Utility {
     }
 
     public static void nth(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArg, int n) throws Exception {
-        LispError.check(aEnvironment, aStackTop, aArg.getCons() != null, LispError.INVALID_ARGUMENT, aArg.toString(), "INTERNAL");
-        LispError.check(aEnvironment, aStackTop, aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, aArg.toString(), "INTERNAL");
-        LispError.check(aEnvironment, aStackTop, n >= 0, LispError.INVALID_ARGUMENT, aArg.toString(), "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, aArg.getCons() != null, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, n >= 0, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) aArg.car());
 
         while (n > 0) {
-            LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.INVALID_ARGUMENT, aArg.toString(), "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
             consTraverser.goNext(aStackTop);
             n--;
         }
-        LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.INVALID_ARGUMENT, aArg.toString(), "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, consTraverser.getCons() != null, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
         aResult.setCons(consTraverser.getCons().copy(aEnvironment, false));
     }
 
     public static void tail(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArg) throws Exception {
-        LispError.check(aEnvironment, aStackTop, aArg.getCons() != null, LispError.INVALID_ARGUMENT, aArg.toString(), "INTERNAL");
-        LispError.check(aEnvironment, aStackTop, aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, aArg.toString(), "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, aArg.getCons() != null, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, aArg.car() instanceof ConsPointer, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
 
         ConsPointer iter = (ConsPointer) aArg.car();
 
-        LispError.check(aEnvironment, aStackTop, iter.getCons() != null, LispError.INVALID_ARGUMENT, aArg.toString(), "INTERNAL");
+        LispError.check(aEnvironment, aStackTop, iter.getCons() != null, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
         aResult.setCons(SublistCons.getInstance(aEnvironment, iter.cdr().getCons()));
     }
 
@@ -409,19 +409,19 @@ public class Utility {
         while (argumentsPointer.getCons() != null) {
             //Obtain -> operator.
             ConsPointer optionPointer = (ConsPointer) argumentsPointer.car();
-            LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT, argumentsPointer.toString(), "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT, argumentsPointer, "INTERNAL");
             String operator = (String) optionPointer.car();
-            LispError.check(aEnvironment, aStackTop, operator.equals("->"), LispError.INVALID_ARGUMENT, argumentsPointer.toString(), "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, operator.equals("->"), LispError.INVALID_ARGUMENT, argumentsPointer, "INTERNAL");
 
             //Obtain key.
             optionPointer.goNext(aStackTop, aEnvironment);
-            LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT, argumentsPointer.toString(), "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM, LispError.INVALID_ARGUMENT, argumentsPointer, "INTERNAL");
             String key = (String) optionPointer.car();
             key = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, key);
 
             //Obtain value.
             optionPointer.goNext(aStackTop, aEnvironment);
-            LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM || optionPointer.type() == Utility.NUMBER, LispError.INVALID_ARGUMENT, argumentsPointer.toString(), "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, optionPointer.type() == Utility.ATOM || optionPointer.type() == Utility.NUMBER, LispError.INVALID_ARGUMENT, argumentsPointer, "INTERNAL");
             if (optionPointer.type() == Utility.ATOM) {
                 String value = (String) optionPointer.car();
                 value = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, value);
@@ -482,7 +482,7 @@ public class Utility {
             putFalseInPointer(aEnvironment, aResult);
         } else {
             ConsPointer arg = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1);
-            LispError.check(aEnvironment, aStackTop, isFalse(aEnvironment, aExpression, aStackTop), LispError.INVALID_ARGUMENT, arg.toString(), "INTERNAL");
+            LispError.check(aEnvironment, aStackTop, isFalse(aEnvironment, aExpression, aStackTop), LispError.INVALID_ARGUMENT, arg, "INTERNAL");
             putTrueInPointer(aEnvironment, aResult);
         }
     }

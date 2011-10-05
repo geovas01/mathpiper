@@ -69,7 +69,7 @@ public class ConsTraverser {
 
     public void goSub(int aStackTop) throws Exception {
         LispError.check(iEnvironment, aStackTop, iPointer.getCons() != null, LispError.INVALID_ARGUMENT, "","INTERNAL");
-        LispError.check(iEnvironment, aStackTop, iPointer.car() instanceof ConsPointer, LispError.NOT_A_LIST, iPointer.toString(),"INTERNAL");
+        LispError.check(iEnvironment, aStackTop, iPointer.car() instanceof ConsPointer, LispError.NOT_A_LIST, iPointer,"INTERNAL");
         iPointer = (ConsPointer) iPointer.car();
     }
 };

@@ -166,7 +166,7 @@ public class LispError {
 
     //========================================
 
-    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, int aError, String aErrorMessage, String functionName) throws Exception {
+    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, int aError, Object aErrorMessage, Object functionName) throws Exception {
 
         if(aEnvironment.iCurrentInput == null)
         {
@@ -176,7 +176,7 @@ public class LispError {
         check(aEnvironment, aStackTop, predicate, aError, aErrorMessage, functionName, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
     }
 
-    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, int aError, String aErrorMessage, String functionName, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
+    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, int aError, Object aErrorMessage, Object functionName, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
         if (!predicate) {
 
             if(aError == LispError.INVALID_ARGUMENT)
@@ -192,11 +192,11 @@ public class LispError {
 
     //========================================
 
-    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, String aErrorMessage, String functionName) throws Exception {
+    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, Object aErrorMessage, Object functionName) throws Exception {
         check(aEnvironment, aStackTop, predicate, aErrorMessage, functionName, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
     }
 
-    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, String aErrorMessage, String functionName, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
+    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, Object aErrorMessage, Object functionName, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
         if (!predicate) {
             String stackTrace = "";
 
