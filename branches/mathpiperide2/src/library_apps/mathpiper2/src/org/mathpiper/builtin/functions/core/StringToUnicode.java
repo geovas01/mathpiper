@@ -44,7 +44,7 @@ public class StringToUnicode extends BuiltinFunction
         LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "StringToUnicode");
         String str = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         LispError.checkArgument(aEnvironment, aStackTop, str != null, 1, "StringToUnicode");
-        LispError.check(aEnvironment, aStackTop,str.length() == 3, "The string must be one character long.", "StringToUnicode");
+        if(str.length() != 3) LispError.throwError(aEnvironment, aStackTop, "The string must be one character long.", "StringToUnicode");
         LispError.checkArgument(aEnvironment, aStackTop, str.charAt(0) == '\"', 1, "StringToUnicode");
         LispError.checkArgument(aEnvironment, aStackTop, str.charAt(str.length() - 1) == '\"', 1, "StringToUnicode");
 

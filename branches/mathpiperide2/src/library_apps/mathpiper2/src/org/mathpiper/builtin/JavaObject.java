@@ -41,7 +41,7 @@ public class JavaObject extends BuiltinContainer {
     }//end method.
 
     public static List lispListToJavaList(Environment aEnvironment, int aStackTop,ConsPointer lispList) throws Exception {
-        LispError.check(aEnvironment, aStackTop, Utility.isList(lispList), LispError.NOT_A_LIST, "", "INTERNAL");
+        if(! Utility.isList(lispList)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
 
         lispList.goNext(aStackTop, aEnvironment);
 
@@ -62,7 +62,7 @@ public class JavaObject extends BuiltinContainer {
 
 
     public static double[] lispListToJavaDoubleArray(Environment aEnvironment, int aStackTop, ConsPointer lispListPointer) throws Exception {
-        LispError.check(aEnvironment, aStackTop, Utility.isList(lispListPointer), LispError.NOT_A_LIST, "", "INTERNAL");
+        if(! Utility.isList(lispListPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
 
         lispListPointer.goNext(aStackTop, aEnvironment); //Remove List designator.
 
@@ -73,7 +73,7 @@ public class JavaObject extends BuiltinContainer {
 
             Object item = lispListPointer.car();
 
-            LispError.check(aEnvironment, aStackTop, item instanceof String, LispError.INVALID_ARGUMENT, "", "INTERNAL");
+            if(!( item instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "INTERNAL");
             String itemString = (String) item;
 
             try {

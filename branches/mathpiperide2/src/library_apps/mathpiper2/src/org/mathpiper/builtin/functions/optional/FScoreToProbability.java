@@ -24,15 +24,15 @@ public class FScoreToProbability extends BuiltinFunction{
     {
         BigNumber degreesOfFreedom1 = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-        LispError.check(aEnvironment, aStackTop, degreesOfFreedom1.isInteger() && degreesOfFreedom1.toInt() >= 0, "The first argument must be an integer which is greater than 0.", "FScoreToProbability");
+        if(!degreesOfFreedom1.isInteger() || degreesOfFreedom1.toInt() < 0) LispError.throwError(aEnvironment, aStackTop, "The first argument must be an integer which is greater than 0.", "FScoreToProbability");
 
         BigNumber degreesOfFreedom2 = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
 
-        LispError.check(aEnvironment, aStackTop, degreesOfFreedom2.isInteger() && degreesOfFreedom2.toInt() >= 0, "The second argument must be an integer which is greater than 0.", "FScoreToProbability");
+        if(!degreesOfFreedom2.isInteger() || degreesOfFreedom2.toInt() < 0) LispError.throwError(aEnvironment, aStackTop,  "The second argument must be an integer which is greater than 0.", "FScoreToProbability");
 
         BigNumber fScore = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 3);
 
-        LispError.check(aEnvironment, aStackTop, fScore.toDouble() >= 0, "The third argument must be greater than 0.", "FScoreToProbability");
+        if(fScore.toDouble() < 0) LispError.throwError(aEnvironment, aStackTop, "The third argument must be greater than 0.", "FScoreToProbability");
 
         
         FDistribution fDistribution = new FDistribution(degreesOfFreedom1.toDouble(),degreesOfFreedom2.toDouble());

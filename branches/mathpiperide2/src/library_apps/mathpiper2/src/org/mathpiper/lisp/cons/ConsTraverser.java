@@ -63,13 +63,13 @@ public class ConsTraverser {
     }
 
     public void goNext(int aStackTop) throws Exception {
-        LispError.check(iEnvironment, aStackTop, iPointer.getCons() != null, LispError.NOT_LONG_ENOUGH, "","INTERNAL");
+        if(iPointer.getCons() == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_LONG_ENOUGH, "","INTERNAL");
         iPointer = (iPointer.cdr());
     }
 
     public void goSub(int aStackTop) throws Exception {
-        LispError.check(iEnvironment, aStackTop, iPointer.getCons() != null, LispError.INVALID_ARGUMENT, "","INTERNAL");
-        LispError.check(iEnvironment, aStackTop, iPointer.car() instanceof ConsPointer, LispError.NOT_A_LIST, iPointer,"INTERNAL");
+        if(iPointer.getCons() == null) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "","INTERNAL");
+        if(! (iPointer.car() instanceof ConsPointer)) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_A_LIST, iPointer,"INTERNAL");
         iPointer = (ConsPointer) iPointer.car();
     }
 };

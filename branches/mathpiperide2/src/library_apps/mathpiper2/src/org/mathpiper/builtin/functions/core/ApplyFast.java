@@ -48,7 +48,7 @@ public class ApplyFast extends BuiltinFunction
         args.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
 
         LispError.checkArgument(aEnvironment, aStackTop, args.car() instanceof ConsPointer, 2, "ApplyFast");
-        LispError.check(aEnvironment, aStackTop, ((ConsPointer) args.car()).getCons() != null, 2);
+        if(((ConsPointer) args.car()).getCons() == null) LispError.throwError(aEnvironment, aStackTop, 2);
 
         // Apply a pure string
         if (oper.car() instanceof String)

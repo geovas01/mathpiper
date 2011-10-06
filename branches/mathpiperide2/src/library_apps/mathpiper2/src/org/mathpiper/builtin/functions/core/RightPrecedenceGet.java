@@ -53,7 +53,7 @@ public class RightPrecedenceGet extends BuiltinFunction
             {   // or maybe it's a bodied function
 
                 op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                LispError.check(aEnvironment, aStackTop, op != null, LispError.IS_NOT_INFIX);
+                if(op == null) LispError.throwError(aEnvironment, aStackTop, LispError.IS_NOT_INFIX);
             }
         }
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iRightPrecedence));

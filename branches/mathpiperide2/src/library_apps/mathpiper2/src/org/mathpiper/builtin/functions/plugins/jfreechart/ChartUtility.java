@@ -127,7 +127,7 @@ public class ChartUtility {
 
     public static XYBarDataset listToCumulativeDataset(Environment aEnvironment, int aStackTop, ConsPointer dataListPointer, Map userOptions) throws Exception {
 
-        LispError.check(aEnvironment, aStackTop, !Utility.isNestedList(aEnvironment, aStackTop, dataListPointer), LispError.INVALID_ARGUMENT, "", "ChartUtility");
+        if(Utility.isNestedList(aEnvironment, aStackTop, dataListPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "ChartUtility");
 
 
         int numberOfBins = 15;
@@ -208,7 +208,7 @@ public class ChartUtility {
 
     public static DefaultXYDataset listToXYDataset(Environment aEnvironment, int aStackTop, ConsPointer dataListPointer, Map userOptions) throws Exception {
 
-        LispError.check(aEnvironment, aStackTop, Utility.isNestedList(aEnvironment, aStackTop, dataListPointer), LispError.INVALID_ARGUMENT, "", "ChartUtility");
+        if(!Utility.isNestedList(aEnvironment, aStackTop, dataListPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "ChartUtility");
 
         DefaultXYDataset dataSet = new DefaultXYDataset();
 
@@ -224,7 +224,7 @@ public class ChartUtility {
                 seriesTitle = (String) userOptions.get("series" + seriesIndex + "Title");
             }
 
-            LispError.check(aEnvironment, aStackTop, dataXValues.length == dataYValues.length, LispError.LIST_LENGTHS_MUST_BE_EQUAL, "", "ChartUtility");
+            if(dataXValues.length != dataYValues.length) LispError.throwError(aEnvironment, aStackTop, LispError.LIST_LENGTHS_MUST_BE_EQUAL, "", "ChartUtility");
 
             dataSet.addSeries(seriesTitle, new double[][]{dataXValues, dataYValues});
 
@@ -244,7 +244,7 @@ public class ChartUtility {
         DefaultXYDataset xYDataset = listToXYDataset(aEnvironment, aStackTop, dataListPointer, userOptions);
 
         int seriesCount = xYDataset.getSeriesCount();
-        LispError.check(aEnvironment, aStackTop, seriesCount != 0, LispError.INVALID_ARGUMENT, "", "ChartUtility");
+        if(seriesCount == 0) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "ChartUtility");
 
         //int seriesItemCount =  xYDataset.getItemCount(0);
 

@@ -74,7 +74,7 @@ public class ParametersPatternMatcher {
 
             PatternParameterMatcher matcher = makeParameterMatcher(aEnvironment, aStackTop, consTraverser.getCons());
 
-            LispError.lispAssert(matcher != null, aEnvironment, aStackTop);
+            if(matcher == null) LispError.lispAssert(aEnvironment, aStackTop);
 
             iParamMatchers.add(matcher);
 
@@ -176,7 +176,7 @@ public class ParametersPatternMatcher {
 
 
         for (i = 0; i < iParamMatchers.size(); i++) {
-            LispError.check(aEnvironment, aStackTop,i < aArguments.length, "Listed function definitions need at least two parameters.", "INTERNAL");
+            if(i >= aArguments.length) LispError.throwError(aEnvironment, aStackTop, "Listed function definitions need at least two parameters.", "INTERNAL");
             PatternParameterMatcher patternParameter = (PatternParameterMatcher) iParamMatchers.get(i);
             ConsPointer argument = aArguments[i];
             if (!patternParameter.argumentMatches(aEnvironment, aStackTop, argument, arguments)) {
@@ -303,7 +303,7 @@ public class ParametersPatternMatcher {
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, sublist);
             for (i = 0; i < num; i++) {
                 matchers[i] = makeParameterMatcher(aEnvironment, aStackTop, consTraverser.getCons());
-                LispError.lispAssert(matchers[i] != null, aEnvironment, aStackTop);
+                if(matchers[i] == null) LispError.lispAssert(aEnvironment, aStackTop);
                 consTraverser.goNext(aStackTop);
             }
             return new SublistPatternParameterMatcher(matchers, num);
@@ -377,7 +377,7 @@ public class ParametersPatternMatcher {
                 ".";
 
 
-                LispError.check(aEnvironment, aStackTop, isTrue, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, errorMessage, "INTERNAL");
+                if(! isTrue) LispError.throwError(aEnvironment, aStackTop, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, errorMessage, "INTERNAL");
             }
         }
         return true;

@@ -70,12 +70,12 @@ public class LispExpressionEvaluator extends Evaluator {
      */
     public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aExpression) throws Exception {
 
-        LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
+        if(aExpression.getCons() == null) LispError.lispAssert(aEnvironment, aStackTop);
 
         aEnvironment.iEvalDepth++;
         if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
 
-            LispError.check(aEnvironment, aStackTop, aEnvironment.iEvalDepth < aEnvironment.iMaxEvalDepth, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "Maximum recursed depth set to " + aEnvironment.iMaxEvalDepth + ".", "INTERNAL");
+            if(aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) LispError.throwError(aEnvironment, aStackTop, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "Maximum recursed depth set to " + aEnvironment.iMaxEvalDepth + ".", "INTERNAL");
             // }
         }
 
@@ -235,7 +235,7 @@ public class LispExpressionEvaluator extends Evaluator {
     SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
         Cons head = subList.getCons();
 
-        LispError.check(aEnvironment, aStackTop, head.car() instanceof String, "No function name specified.", "INTERNAL");
+        if(! (head.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, "No function name specified.", "INTERNAL");
 
         String functionName = (String) head.car();
 
@@ -261,7 +261,7 @@ public class LispExpressionEvaluator extends Evaluator {
             String[] scriptCode = scripts.getScript(functionName);
 
 
-            LispError.check(aEnvironment, aStackTop, scriptCode != null, "No script returned for function: " + functionName + " from Scripts.java.", "INTERNAL");
+            if( scriptCode == null) LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.", "INTERNAL");
 
 
             if (scriptCode[0] == null) {
@@ -290,7 +290,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
 
-                LispError.check(aEnvironment, aStackTop, scriptCode[1] != null, "No script returned for function: " + functionName + " from Scripts.java.", "INTERNAL");
+                if(scriptCode[1] == null) LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.", "INTERNAL");
 
                 aEnvironment.iCurrentInput.iStatus.setTo(functionName);
 
