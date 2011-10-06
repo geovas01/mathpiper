@@ -38,7 +38,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
             //LispError.check(parameterTraverser.car() != null, LispError.CREATING_USER_FUNCTION);
             try {
-                LispError.check(aEnvironment, aStackTop, parameterTraverser.car() instanceof String, LispError.CREATING_USER_FUNCTION, "","INTERNAL");
+                if(! (parameterTraverser.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.CREATING_USER_FUNCTION, "","INTERNAL");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
                     throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1,-1, this.functionName);
@@ -87,7 +87,7 @@ public class MacroRulebase extends SingleArityRulebase {
             for (int ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
                 Rule thisRule = ((Rule) iBranchRules.get(ruleIndex));
                 //TODO remove            CHECKPTR(thisRule);
-                LispError.lispAssert(thisRule != null, aEnvironment, aStackTop);
+                if(thisRule == null) LispError.lispAssert(aEnvironment, aStackTop);
 
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
 

@@ -71,7 +71,7 @@ public class SingleArityRulebase extends Evaluator {
         while (parameterPointer.getCons() != null) {
 
             try {
-                LispError.check(aEnvironment, aStackTop, parameterPointer.car() instanceof String, LispError.CREATING_USER_FUNCTION, functionName,"INTERNAL");
+                if(! (parameterPointer.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.CREATING_USER_FUNCTION, functionName,"INTERNAL");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
                     throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, -1, this.functionName);
@@ -132,7 +132,7 @@ public class SingleArityRulebase extends Evaluator {
 
             for (int ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
                 Rule thisRule = ((Rule) iBranchRules.get(ruleIndex));
-                LispError.lispAssert(thisRule != null, aEnvironment, aStackTop);
+                if(thisRule == null) LispError.lispAssert(aEnvironment, aStackTop);
 
                 userStackInformation.iRulePrecedence = thisRule.getPrecedence();
 
@@ -260,7 +260,7 @@ public class SingleArityRulebase extends Evaluator {
         if (arity == 0) {
             argumentsResultPointerArray = null;
         } else {
-            LispError.lispAssert(arity > 0, aEnvironment, aStackTop);
+            if(arity <= 0) LispError.lispAssert(aEnvironment, aStackTop);
             argumentsResultPointerArray = new ConsPointer[arity];
         }
 
@@ -269,7 +269,7 @@ public class SingleArityRulebase extends Evaluator {
 
             argumentsResultPointerArray[parameterIndex] = new ConsPointer();
 
-            LispError.check(aEnvironment, aStackTop, argumentsTraverser.getCons() != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
+            if(argumentsTraverser.getCons() == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
 
             if (((ParameterName) iParameters.get(parameterIndex)).iHold) {
                 //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
@@ -278,7 +278,7 @@ public class SingleArityRulebase extends Evaluator {
                 //If the parameter is not on hold:
 
                 //Verify that the pointer to the arguments is not null.
-                LispError.check(aEnvironment, aStackTop, argumentsTraverser != null, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
+                if(argumentsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
 
                 //Evaluate each argument and place the result into argumentsResultPointerArray[i];
                 aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsResultPointerArray[parameterIndex], argumentsTraverser);

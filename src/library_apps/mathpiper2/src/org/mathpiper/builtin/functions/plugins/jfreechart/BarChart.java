@@ -70,13 +70,13 @@ public class BarChart extends BuiltinFunction {
 
         ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        LispError.check(aEnvironment, aStackTop, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "", "BarChart");
+        if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "BarChart");
 
         argumentsPointer.goSub(aStackTop, aEnvironment); //Go to sub list.
 
         argumentsPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
 
-        LispError.check(aEnvironment, aStackTop, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "", "BarChart");
+        if(! Utility.isList(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "BarChart");
 
         ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
 

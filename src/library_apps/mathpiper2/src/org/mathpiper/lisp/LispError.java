@@ -166,18 +166,17 @@ public class LispError {
 
     //========================================
 
-    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, int aError, Object aErrorMessage, Object functionName) throws Exception {
+    public static void throwError(Environment aEnvironment, int aStackTop, int aError, Object aErrorMessage, Object functionName) throws Exception {
 
         if(aEnvironment.iCurrentInput == null)
         {
             int xx = 1;
         }
 
-        check(aEnvironment, aStackTop, predicate, aError, aErrorMessage, functionName, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
+        throwError(aEnvironment, aStackTop, aError, aErrorMessage, functionName, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
     }
 
-    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, int aError, Object aErrorMessage, Object functionName, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
-        if (!predicate) {
+    public static void throwError(Environment aEnvironment, int aStackTop, int aError, Object aErrorMessage, Object functionName, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
 
             if(aError == LispError.INVALID_ARGUMENT)
             {
@@ -185,19 +184,19 @@ public class LispError {
             }
             String errorMessage = errorString(aError) + " Extra information: <" + aErrorMessage + ">.";
 
-            check(aEnvironment, aStackTop, predicate, errorMessage, functionName, lineNumber, tokenStartIndex, tokenEndIndex);
+            throwError(aEnvironment, aStackTop, errorMessage, functionName, lineNumber, tokenStartIndex, tokenEndIndex);
 
-        }
+        
     }//end method.
 
     //========================================
 
-    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, Object aErrorMessage, Object functionName) throws Exception {
-        check(aEnvironment, aStackTop, predicate, aErrorMessage, functionName, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
+    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, Object functionName) throws Exception {
+        throwError(aEnvironment, aStackTop, aErrorMessage, functionName, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
     }
 
-    public static void check(Environment aEnvironment, int aStackTop, boolean predicate, Object aErrorMessage, Object functionName, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
-        if (!predicate) {
+    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, Object functionName, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
+    
             String stackTrace = "";
 
             if (Evaluator.isStackTraced() && aStackTop >= 0) {
@@ -222,17 +221,16 @@ public class LispError {
                 throw new EvaluationException(aErrorMessage + stackTrace, aEnvironment.iCurrentInput.iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
 
             }
-        }
+        
     }//end method.
 
 
     //========================================
-    public static void check(Environment aEnvironment, int aStackTop, boolean aPredicate, int errNo) throws Exception {
-        check(aEnvironment, aStackTop, aPredicate, errNo, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
+    public static void throwError(Environment aEnvironment, int aStackTop, int errNo) throws Exception {
+        throwError(aEnvironment, aStackTop, errNo, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
     }
 
-    public static void check(Environment aEnvironment, int aStackTop, boolean aPredicate, int errNo, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
-        if (!aPredicate) {
+    public static void throwError(Environment aEnvironment, int aStackTop, int errNo, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
 
             String stackTrace = "";
 
@@ -254,7 +252,7 @@ public class LispError {
                     throw new EvaluationException(error + stackTrace, aEnvironment.iCurrentInput.iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 }
             }
-        }
+        
     }
 
     //========================================
@@ -263,7 +261,7 @@ public class LispError {
     }
 
     public static void raiseError(String errorMessage, String functionName, int lineNumber, int tokenStartIndex, int tokenEndIndex, int aStackTop, Environment aEnvironment) throws Exception {
-        check( aEnvironment, aStackTop, false, errorMessage, functionName, lineNumber, tokenStartIndex, tokenEndIndex);
+        throwError( aEnvironment, aStackTop, errorMessage, functionName, lineNumber, tokenStartIndex, tokenEndIndex);
     }
 
     //========================================
@@ -324,11 +322,11 @@ public class LispError {
 
 
 
-    public static void lispAssert(boolean aPredicate, Environment aEnvironment, int aStackTop) throws Exception {
-        if (!aPredicate) {
+    public static void lispAssert(Environment aEnvironment, int aStackTop) throws Exception {
+  
             //throw new EvaluationException("Assertion failed.","none",-1);
-            check(aEnvironment, aStackTop, aPredicate, "Assertion error.", "");
-        }
+            throwError(aEnvironment, aStackTop, "Assertion error.", "");
+     
     }
 
 

@@ -53,7 +53,7 @@ public class ListedMacroRulebase extends MacroRulebase {
             ptr = (ptr.cdr());
             i++;
             consTraverser.goNext(aStackTop);
-            LispError.lispAssert(consTraverser.getCons() == null, aEnvironment, aStackTop);
+            if(consTraverser.getCons() != null) LispError.lispAssert(aEnvironment, aStackTop);
         } else {
             ConsPointer head = new ConsPointer();
             head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));

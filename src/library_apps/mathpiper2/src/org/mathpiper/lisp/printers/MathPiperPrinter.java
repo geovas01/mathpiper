@@ -67,7 +67,7 @@ public class MathPiperPrinter extends LispPrinter {
 
     void Print(Environment aEnvironment, int aStackTop, ConsPointer aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
 
-        LispError.lispAssert(aExpression.getCons() != null, aEnvironment, aStackTop);
+        if(aExpression.getCons() == null) LispError.lispAssert(aEnvironment, aStackTop);
 
         String functionOrOperatorName;
         if (aExpression.car() instanceof String) {
@@ -97,7 +97,7 @@ public class MathPiperPrinter extends LispPrinter {
 
         ConsPointer subList = (ConsPointer) aExpression.car();
 
-        LispError.check(aEnvironment, aStackTop, subList != null, LispError.UNPRINTABLE_TOKEN, "","INTERNAL");
+        if(subList == null) LispError.throwError(aEnvironment, aStackTop, LispError.UNPRINTABLE_TOKEN, "","INTERNAL");
 
         if (subList.getCons() == null) {
             WriteToken(aOutput, "( )");

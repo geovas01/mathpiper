@@ -233,7 +233,7 @@ public abstract class BuiltinFunction {
     }
 
     public static ConsPointer getArgumentPointer(Environment aEnvironment, int aStackTop, ConsPointer cur, int n) throws Exception {
-        LispError.lispAssert(n >= 0, aEnvironment, aStackTop);
+        if(n < 0)LispError.lispAssert(aEnvironment, aStackTop);
 
         ConsPointer loop = cur;
         while (n != 0) {

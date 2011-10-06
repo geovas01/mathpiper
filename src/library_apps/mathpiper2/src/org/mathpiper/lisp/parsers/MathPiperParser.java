@@ -126,7 +126,7 @@ public class MathPiperParser extends Parser
 
 
 
-        LispError.check(iEnvironment, aStackTop, !iError, LispError.INVALID_EXPRESSION, "","INTERNAL");
+        if(iError) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_EXPRESSION, "","INTERNAL");
     }
 
     void readToken(int aStackTop) throws Exception

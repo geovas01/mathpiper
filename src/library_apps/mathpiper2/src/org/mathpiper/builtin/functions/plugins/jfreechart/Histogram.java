@@ -72,13 +72,13 @@ public class Histogram extends BuiltinFunction {
 
         ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        LispError.check(aEnvironment, aStackTop, Utility.isSublist(argumentsPointer), LispError.INVALID_ARGUMENT, "", "Histogram");
+        if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "Histogram");
 
         argumentsPointer.goSub(aStackTop, aEnvironment); //Go to sub list.
 
         argumentsPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
 
-        LispError.check(aEnvironment, aStackTop, Utility.isList(argumentsPointer), LispError.NOT_A_LIST, "", "Histogram");
+        if(! Utility.isList(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "Histogram");
 
         ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
 

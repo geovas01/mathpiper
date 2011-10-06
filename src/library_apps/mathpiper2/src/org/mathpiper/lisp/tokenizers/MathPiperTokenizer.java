@@ -71,7 +71,7 @@ public class MathPiperTokenizer {
                 aInput.next(); //consume *
                 while (true) {
                     while (aInput.next() != '*' && !aInput.endOfStream());
-                    LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.COMMENT_TO_END_OF_FILE, "","INTERNAL");
+                    if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.COMMENT_TO_END_OF_FILE, "","INTERNAL");
                     if (aInput.peek() == '/') {
                         aInput.next();  // consume /
                         redo = true;
@@ -95,7 +95,7 @@ public class MathPiperTokenizer {
                 while (aInput.peek() != '\"') {
                     if (aInput.peek() == '\\') {
                         aInput.next();
-                        LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.PARSING_INPUT, aInput,"INTERNAL");
+                        if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.PARSING_INPUT, aInput,"INTERNAL");
 
                         /*if(! (aInput.peek() == '\"'))
                         {
@@ -105,7 +105,7 @@ public class MathPiperTokenizer {
                     }
                     //TODO FIXME is following append char correct?
                     aResult = aResult + ((char) aInput.next());
-                    LispError.check(aEnvironment, aStackTop, !aInput.endOfStream(), LispError.PARSING_INPUT, "Last character read was <" + aResult + ">.","INTERNAL");
+                    if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.PARSING_INPUT, "Last character read was <" + aResult + ">.","INTERNAL");
                 }
                 //TODO FIXME is following append char correct?
                 aResult = aResult + ((char) aInput.next()); // consume the close quote

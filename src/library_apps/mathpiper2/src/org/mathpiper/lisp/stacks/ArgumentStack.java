@@ -61,12 +61,12 @@ public class ArgumentStack {
     }
 
     public ConsPointer getElement(int aPos, int aStackTop, Environment aEnvironment) throws Exception {
-        LispError.lispAssert(aPos >= 0 && aPos < iStackTopIndex, aEnvironment, aStackTop);
+        if(aPos < 0 || aPos >= iStackTopIndex) LispError.lispAssert(aEnvironment, aStackTop);
         return iArgumentStack.getElement(aPos);
     }
 
     public void popTo(int aTop, int aStackTop, Environment aEnvironment) throws Exception {
-        LispError.lispAssert(aTop <= iStackTopIndex, aEnvironment, aStackTop);
+        if(aTop > iStackTopIndex) LispError.lispAssert(aEnvironment, aStackTop);
         while (iStackTopIndex > aTop) {
             iStackTopIndex--;
             iArgumentStack.setElement(iStackTopIndex, null);
