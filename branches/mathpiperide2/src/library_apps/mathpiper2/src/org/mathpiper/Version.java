@@ -22,6 +22,6 @@ package org.mathpiper;
 public class Version
 {
 
-   public  static final String version = "js.035";
+   public  static final String version = "js.036";
     
 }//end class.

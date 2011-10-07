@@ -18,20 +18,18 @@ package org.mathpiper.lisp.localvariables;
 
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
 
 public class LocalVariable {
 
     public LocalVariable iNext;
     public String iVariable;
-    public ConsPointer iValue;
+    public Cons iValue;
 
 
     public LocalVariable(Environment aEnvironment, String aVariable, Cons aValue) {
         iNext = null;
         iVariable = aVariable;
-        iValue = new ConsPointer();
-        iValue.setCons(aValue);
+        iValue = aValue;
 
 
     }

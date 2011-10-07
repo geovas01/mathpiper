@@ -177,9 +177,9 @@ public final class Environment {
     }
 
     public void setLocalOrGlobalVariable(int aStackTop, String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception {
-        ConsPointer localVariable = getLocalVariable(aStackTop, aVariable);
+        LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
         if (localVariable != null) {
-            localVariable.setCons(aValue.getCons());
+            localVariable.iValue = aValue.getCons();
             return;
         }
         GlobalVariable globalVariable = new GlobalVariable(this,aValue);
@@ -191,9 +191,9 @@ public final class Environment {
 
     public void getLocalOrGlobalVariable(int aStackTop, String aVariable, ConsPointer aResult) throws Exception {
         aResult.setCons(null);
-        ConsPointer localVariable = getLocalVariable(aStackTop, aVariable);
+        LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
         if (localVariable != null) {
-            aResult.setCons(localVariable.getCons());
+            aResult.setCons(localVariable.iValue);
             return;
         }
         GlobalVariable globalVariable = (GlobalVariable) iGlobalState.lookUp(aVariable);
@@ -211,14 +211,14 @@ public final class Environment {
     }
 
 
-    public ConsPointer getLocalVariable(int aStackTop, String aVariable) throws Exception {
+    public LocalVariable getLocalVariable(int aStackTop, String aVariable) throws Exception {
         if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "","INTERNAL");
         //    check(iLocalsList.iFirst != null,INVALID_STACK);
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
 
         while (localVariable != null) {
             if (localVariable.iVariable.equals(aVariable)) {
-                return localVariable.iValue;
+                return localVariable;
             }
             localVariable = localVariable.iNext;
         }
@@ -233,7 +233,7 @@ public final class Environment {
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
 
         while (localVariable != null) {
-            localVariable.iValue.setCons(null);
+            localVariable.iValue = null;
             localVariable = localVariable.iNext;
         }
         
@@ -323,7 +323,7 @@ public final class Environment {
 
                 stringBuilder.append(" = ");
 
-                ConsPointer valuePointer = localVariable.iValue;
+                ConsPointer valuePointer = new ConsPointer(localVariable.iValue);
 
                 String valueString = Utility.printMathPiperExpression(aStackTop, valuePointer, this, -1);
 
@@ -454,9 +454,9 @@ public final class Environment {
         else
         {
             //Unbind local variable.
-            ConsPointer localVariable = getLocalVariable(aStackTop, aVariableName);
+            LocalVariable localVariable = getLocalVariable(aStackTop, aVariableName);
             if (localVariable != null) {
-                localVariable.setCons(null);
+                localVariable.iValue = null;
                 return;
             }
 
