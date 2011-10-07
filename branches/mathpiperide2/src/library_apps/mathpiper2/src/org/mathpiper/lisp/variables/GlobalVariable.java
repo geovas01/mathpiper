@@ -14,8 +14,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.lisp;
+package org.mathpiper.lisp.variables;
 
+import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
@@ -28,8 +29,8 @@ import org.mathpiper.lisp.cons.ConsPointer;
  */
 public class GlobalVariable {
 
-    ConsPointer iValue;
-    boolean iEvalBeforeReturn;
+    public ConsPointer iValue;
+    public boolean iEvalBeforeReturn;
     private Environment iEnvironment;
 
 

@@ -54,7 +54,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import org.mathpiper.lisp.GlobalVariable;
+import org.mathpiper.lisp.variables.GlobalVariable;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.rulebases.Rule;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
