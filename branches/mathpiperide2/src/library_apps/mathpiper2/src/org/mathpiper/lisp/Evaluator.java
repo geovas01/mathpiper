@@ -24,9 +24,9 @@ import java.util.List;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.localvariables.LocalVariableFrame;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 import org.mathpiper.lisp.stacks.UserStackInformation;
+import org.mathpiper.lisp.variables.LocalVariableFrame;
 
 // evaluate'
 public abstract class Evaluator {
