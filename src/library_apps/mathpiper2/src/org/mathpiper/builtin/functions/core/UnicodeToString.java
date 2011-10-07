@@ -44,8 +44,8 @@ public class UnicodeToString extends BuiltinFunction
     {
         String str;
         str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, str != null, 2, "UnicodeToString");
-        LispError.checkArgument(aEnvironment, aStackTop, Utility.isNumber(str, false), 2, "UnicodeToString");
+        if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "UnicodeToString");
+        if(! Utility.isNumber(str, false)) LispError.checkArgument(aEnvironment, aStackTop, 2, "UnicodeToString");
         char asciiCode = (char) Integer.parseInt(str, 10);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "\"" + asciiCode + "\""));
     }

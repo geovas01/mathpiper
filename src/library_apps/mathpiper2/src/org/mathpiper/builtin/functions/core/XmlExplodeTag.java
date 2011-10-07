@@ -58,7 +58,7 @@ public class XmlExplodeTag extends BuiltinFunction {
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(out.getCons());
             return;
         }
-        LispError.checkArgument(aEnvironment, aStackTop, str.charAt(strInd) == '<', 1, "XmlExplodeTag");
+        if( str.charAt(strInd) != '<') LispError.checkArgument(aEnvironment, aStackTop, 1, "XmlExplodeTag");
         strInd++;
         String type = "\"Open\"";
 
@@ -97,9 +97,9 @@ public class XmlExplodeTag extends BuiltinFunction {
                 name = name + c;
             }
             name = name + "\"";
-            LispError.checkArgument(aEnvironment, aStackTop, str.charAt(strInd) == '=', 1, "XmlExplodeTag");
+            if(str.charAt(strInd) != '=') LispError.checkArgument(aEnvironment, aStackTop, 1, "XmlExplodeTag");
             strInd++;
-            LispError.checkArgument(aEnvironment, aStackTop, str.charAt(strInd) == '\"', 1, "XmlExplodeTag");
+            if( str.charAt(strInd) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1, "XmlExplodeTag");
             String value = new String();
 
             value = value + (str.charAt(strInd));

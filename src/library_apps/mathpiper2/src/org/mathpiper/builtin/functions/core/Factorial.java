@@ -43,7 +43,7 @@ public class Factorial extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getNumber(0, aEnvironment) != null, 1, "Factorial");
+        if( getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getNumber(0, aEnvironment) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "Factorial");
         ConsPointer arg = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still

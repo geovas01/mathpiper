@@ -43,9 +43,9 @@ public class RightAssociativeSet extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "RightAssociativeSet");
+        if( getArgumentPointer(aEnvironment, aStackTop, 1).getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RightAssociativeSet");
         String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RightAssociativeSet");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RightAssociativeSet");
         aEnvironment.iInfixOperators.setRightAssociative(aStackTop, Utility.getSymbolName(aEnvironment, orig));
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
     }

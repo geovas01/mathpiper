@@ -100,7 +100,7 @@ public class ViewLatex extends BuiltinFunction {
         viewScalePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, viewScalePointer);
         BigNumber viewScale = (BigNumber) resultPointer.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
-        LispError.checkArgument(aEnvironment, aStackTop, viewScale != null, 1, "ViewLatex");
+        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ViewLatex");
 
         /*sHotEqn hotEqn = new sHotEqn();
         hotEqn.setFontsizes(18,18,18,18);

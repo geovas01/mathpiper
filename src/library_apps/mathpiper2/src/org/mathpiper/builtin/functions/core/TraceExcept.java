@@ -49,13 +49,13 @@ public class TraceExcept extends BuiltinFunction
         ConsPointer bodyPointer = getArgumentPointer(aEnvironment, aStackTop, 2);
 
         // Get function list.
-        LispError.checkArgument(aEnvironment, aStackTop, functionListPointer.getCons() != null, 1, "TraceExcept");
+        if(functionListPointer.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "TraceExcept");
         ConsPointer result = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result , functionListPointer);
         String functionNamesString =  (String) result.car();
 
 
-        LispError.checkArgument(aEnvironment, aStackTop, functionNamesString != null, 1, "TraceExcept");
+        if(functionNamesString == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "TraceExcept");
 
 
         //Place function names into a List and then set this as the trace function list in Evaluator.
