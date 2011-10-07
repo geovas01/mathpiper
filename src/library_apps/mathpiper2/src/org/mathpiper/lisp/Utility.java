@@ -646,7 +646,7 @@ public class Utility {
                     aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
                     if(aStackTop != -1)
                     {
-                        aEnvironment.setGlobalVariable(aStackTop, "$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
+                        aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
                     }
                 }
             }//end while.
@@ -868,7 +868,7 @@ public class Utility {
             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, value, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
         }
         
-        aEnvironment.setGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable); //Variable setting is deligated to Environment.
+        aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable); //Variable setting is deligated to Environment.
 
 
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));

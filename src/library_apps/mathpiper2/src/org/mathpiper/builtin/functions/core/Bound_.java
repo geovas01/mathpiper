@@ -47,7 +47,7 @@ public class Bound_ extends BuiltinFunction
         {
             String str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             ConsPointer val = new ConsPointer();
-            aEnvironment.getGlobalVariable(aStackTop, str, val);
+            aEnvironment.getLocalOrGlobalVariable(aStackTop, str, val);
             if (val.getCons() != null)
             {
                 Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

@@ -296,7 +296,7 @@ class SynchronousInterpreter implements Interpreter {
 
             //Set the % symbol to the result of the current evaluation.
             String percent = (String) iEnvironment.getTokenHash().lookUp("%");
-            iEnvironment.setGlobalVariable(-1, percent, resultPointer, true);
+            iEnvironment.setLocalOrGlobalVariable(-1, percent, resultPointer, true);
 
             StringBuffer outputBuffer = new StringBuffer();
             MathPiperOutputStream outputStream = new StringOutputStream(outputBuffer);
@@ -360,7 +360,7 @@ class SynchronousInterpreter implements Interpreter {
 
                 if (object instanceof String && ((String) object).startsWith("Load")) {
                     ConsPointer loadResult = new ConsPointer();
-                    iEnvironment.getGlobalVariable(-1, "$LoadResult", loadResult);
+                    iEnvironment.getLocalOrGlobalVariable(-1, "$LoadResult", loadResult);
                     StringBuffer string_out = new StringBuffer();
                     MathPiperOutputStream output = new StringOutputStream(string_out);
                     printer.rememberLastChar(' ');
