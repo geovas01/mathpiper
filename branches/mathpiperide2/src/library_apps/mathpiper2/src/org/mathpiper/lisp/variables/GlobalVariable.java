@@ -16,7 +16,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.variables;
 
-import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
@@ -29,23 +29,18 @@ import org.mathpiper.lisp.cons.ConsPointer;
  */
 public class GlobalVariable {
 
-    public ConsPointer iValue;
+    public Cons iValue;
     public boolean iEvalBeforeReturn;
-    private Environment iEnvironment;
 
 
-    public GlobalVariable(Environment aEnvironment, GlobalVariable aOther) {
-        iEnvironment = aEnvironment;
-        iValue = new ConsPointer();
+    public GlobalVariable(GlobalVariable aOther) {
         iValue = aOther.iValue;
         iEvalBeforeReturn = aOther.iEvalBeforeReturn;
     }
 
 
-    public GlobalVariable(Environment aEnvironment, ConsPointer aValue) {
-        iEnvironment = aEnvironment;
-        iValue = new ConsPointer();
-        iValue.setCons(aValue.getCons());
+    public GlobalVariable(Cons aValue) {
+        iValue = aValue;
         iEvalBeforeReturn = false;
     }
 
@@ -57,7 +52,7 @@ public class GlobalVariable {
 
     @Override
     public String toString() {
-        return (String) iValue.getCons().toString();
+        return (String) iValue.toString();
     }
 
 
@@ -66,7 +61,7 @@ public class GlobalVariable {
     }
 
 
-    public ConsPointer getValue() {
+    public Cons getValue() {
         return iValue;
     }
 

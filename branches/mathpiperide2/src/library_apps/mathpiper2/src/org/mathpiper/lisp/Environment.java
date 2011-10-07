@@ -183,7 +183,7 @@ public final class Environment {
             localVariable.iValue = aValue.getCons();
             return;
         }
-        GlobalVariable globalVariable = new GlobalVariable(this,aValue);
+        GlobalVariable globalVariable = new GlobalVariable(aValue.getCons());
         iGlobalState.setAssociation(globalVariable, aVariable);
         if (aGlobalLazyVariable) {
             globalVariable.setEvalBeforeReturn(true);
@@ -200,12 +200,12 @@ public final class Environment {
         GlobalVariable globalVariable = (GlobalVariable) iGlobalState.lookUp(aVariable);
         if (globalVariable != null) {
             if (globalVariable.iEvalBeforeReturn) {
-                iLispExpressionEvaluator.evaluate(this, aStackTop, aResult, globalVariable.iValue);
-                globalVariable.iValue.setCons(aResult.getCons());
+                iLispExpressionEvaluator.evaluate(this, aStackTop, aResult, new ConsPointer(globalVariable.iValue));
+                globalVariable.iValue = aResult.getCons();
                 globalVariable.iEvalBeforeReturn = false;
                 return;
             } else {
-                aResult.setCons(globalVariable.iValue.getCons());
+                aResult.setCons(globalVariable.iValue);
                 return;
             }
         }
