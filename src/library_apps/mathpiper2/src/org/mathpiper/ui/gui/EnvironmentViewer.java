@@ -56,6 +56,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import org.mathpiper.lisp.variables.GlobalVariable;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.rulebases.Rule;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
@@ -589,7 +590,7 @@ public class EnvironmentViewer implements ActionListener {
             String name = (String) table.getValueAt(row, 0);
             GlobalVariable o = (GlobalVariable) table.getValueAt(row, 1);
             try {
-                String data = Utility.printMathPiperExpression(-1, o.getValue(), iEnvironment, 0);
+                String data = Utility.printMathPiperExpression(-1, new ConsPointer(o.getValue()), iEnvironment, 0);
                 //System.out.println(data);
                 textArea.append(name + ": " + data + "\n");
                 textArea.setCaretPosition(textArea.getDocument().getLength());
