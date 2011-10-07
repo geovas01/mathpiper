@@ -53,8 +53,8 @@ import org.mathpiper.lisp.rulebases.ListedMacroRulebase;
 
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
-import org.mathpiper.lisp.localvariables.LocalVariable;
-import org.mathpiper.lisp.localvariables.LocalVariableFrame;
+import org.mathpiper.lisp.variables.LocalVariable;
+import org.mathpiper.lisp.variables.LocalVariableFrame;
 
 public final class Environment {
 
