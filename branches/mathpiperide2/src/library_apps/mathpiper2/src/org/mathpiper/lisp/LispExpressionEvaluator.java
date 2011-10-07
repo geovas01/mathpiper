@@ -114,7 +114,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
             ConsPointer val = new ConsPointer();
 
-            aEnvironment.getGlobalVariable(aStackTop, atomName, val);
+            aEnvironment.getLocalOrGlobalVariable(aStackTop, atomName, val);
             if (val.getCons() != null) {
                 aResult.setCons(val.getCons().copy(aEnvironment, false));
                 aEnvironment.iEvalDepth--;

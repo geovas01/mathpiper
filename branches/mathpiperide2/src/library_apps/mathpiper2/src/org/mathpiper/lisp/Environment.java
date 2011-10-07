@@ -176,7 +176,7 @@ public final class Environment {
         iPrecision = aPrecision;    // getPrecision in decimal digits
     }
 
-    public void setGlobalVariable(int aStackTop, String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception {
+    public void setLocalOrGlobalVariable(int aStackTop, String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception {
         ConsPointer localVariable = getLocalVariable(aStackTop, aVariable);
         if (localVariable != null) {
             localVariable.setCons(aValue.getCons());
@@ -189,7 +189,7 @@ public final class Environment {
         }
     }
 
-    public void getGlobalVariable(int aStackTop, String aVariable, ConsPointer aResult) throws Exception {
+    public void getLocalOrGlobalVariable(int aStackTop, String aVariable, ConsPointer aResult) throws Exception {
         aResult.setCons(null);
         ConsPointer localVariable = getLocalVariable(aStackTop, aVariable);
         if (localVariable != null) {
