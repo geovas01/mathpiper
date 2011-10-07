@@ -330,28 +330,28 @@ public class LispError {
     }
 
 
-    public static void checkArgument(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String functionName) throws Exception {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, aPredicate, aArgNr, "", functionName);
+    public static void checkArgument(Environment aEnvironment, int aStackTop, int aArgNr, String functionName) throws Exception {
+        checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, "", functionName);
     }
 
 
     public static void checkIsList(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr, String functionName) throws Exception {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.isSublist(evaluated), aArgNr, "argument is not a list.", functionName);
+        if(! Utility.isSublist(evaluated)) checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, "argument is not a list.", functionName);
     }
 
 
     public static void checkIsString(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr, String functionName) throws Exception {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, Utility.isString(evaluated.car()), aArgNr, "argument is not a string.", functionName);
+        if(! Utility.isString(evaluated.car())) checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, "argument is not a string.", functionName);
     }
 
 
     //========================================
-    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String aErrorDescription, String functionName) throws Exception {
-        checkArgumentTypeWithError(aEnvironment, aStackTop, aPredicate, aArgNr, aErrorDescription, functionName, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
+    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, int aArgNr, String aErrorDescription, String functionName) throws Exception {
+        checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, aErrorDescription, functionName, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
     }
 
-    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, boolean aPredicate, int aArgNr, String aErrorDescription, String functionName, int lineNumber, int startIndex, int endIndex) throws Exception {
-        if (!aPredicate) {
+    public static void checkArgumentTypeWithError(Environment aEnvironment, int aStackTop, int aArgNr, String aErrorDescription, String functionName, int lineNumber, int startIndex, int endIndex) throws Exception {
+
             String stackTrace = "";
 
             if (Evaluator.isStackTraced() && aStackTop >= 0) {
@@ -380,7 +380,7 @@ public class LispError {
 
                 throw new EvaluationException(error + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), lineNumber, startIndex, endIndex);
             }//end else.
-        }//end if.
+
     }//end method.
 
     //========================================

@@ -50,10 +50,10 @@ public class LoadScript extends BuiltinFunction
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get file name
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "LoadScript");
+        if(evaluated.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "LoadScript");
         String scriptString = (String) evaluated.car();
 
-        LispError.checkArgument(aEnvironment, aStackTop, scriptString != null, 1, "LoadScript");
+        if( scriptString == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "LoadScript");
 
         scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
 

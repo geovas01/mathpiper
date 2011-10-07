@@ -52,8 +52,8 @@ abstract public class LexCompare2
         //LispError.check(argument1.getCons() instanceof NumberCons || argument1.getCons() instanceof AtomCons, "The first argument must be a non-complex decimal number or a string.","LexCompare2");
         //LispError.check(argument2.getCons() instanceof NumberCons || argument2.getCons() instanceof AtomCons, "The second argument must be a non-complex decimal number or a string.","LexCompare2");
 
-        LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, argument1.getCons() instanceof NumberCons || argument1.getCons() instanceof AtomCons, 1, "The first argument must be a non-complex decimal number or a string.","LexCompare2");
-        LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, argument2.getCons() instanceof NumberCons || argument2.getCons() instanceof AtomCons, 2, "The second argument must be a non-complex decimal number or a string.","LexCompare2");
+        if(! (argument1.getCons() instanceof NumberCons) && ! (argument1.getCons() instanceof AtomCons)) LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, 1, "The first argument must be a non-complex decimal number or a string.","LexCompare2");
+        if(! (argument2.getCons() instanceof NumberCons) && ! (argument2.getCons() instanceof AtomCons)) LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, 2, "The second argument must be a non-complex decimal number or a string.","LexCompare2");
 
 
         boolean cmp;
@@ -70,8 +70,8 @@ abstract public class LexCompare2
             String str2;
             str1 =  (String) argument1.car();
             str2 = (String) argument2.car();
-            LispError.checkArgument(aEnvironment, aStackTop, str1 != null, 1, "LexCompare2");
-            LispError.checkArgument(aEnvironment, aStackTop, str2 != null, 2, "LexCompare2");
+            if( str1 == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "LexCompare2");
+            if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "LexCompare2");
             // the getPrecision argument is ignored in "lex" functions
             cmp = lexFunction(str1, str2,
                     aEnvironment.getTokenHash(),

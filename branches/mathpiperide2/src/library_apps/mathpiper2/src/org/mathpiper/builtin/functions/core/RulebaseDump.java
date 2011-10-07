@@ -37,11 +37,11 @@ public class RulebaseDump extends BuiltinFunction
 
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "RulebaseDump");
+        if(getArgumentPointer(aEnvironment, aStackTop, 1).getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RulebaseDump");
         String rulebaseName = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, rulebaseName != null, 1, "RulebaseDump");
-        LispError.checkArgument(aEnvironment, aStackTop, rulebaseName.charAt(0) == '\"', 1, "StringToUnicode");
-        LispError.checkArgument(aEnvironment, aStackTop, rulebaseName.charAt(rulebaseName.length() - 1) == '\"', 1, "StringToUnicode");
+        if(rulebaseName == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RulebaseDump");
+        if(rulebaseName.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1, "StringToUnicode");
+        if( rulebaseName.charAt(rulebaseName.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1, "StringToUnicode");
 
         rulebaseName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, rulebaseName);
 

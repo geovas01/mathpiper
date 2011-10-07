@@ -41,12 +41,12 @@ public class StringToUnicode extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "StringToUnicode");
+        if( getArgumentPointer(aEnvironment, aStackTop, 1).getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringToUnicode");
         String str = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, str != null, 1, "StringToUnicode");
+        if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringToUnicode");
         if(str.length() != 3) LispError.throwError(aEnvironment, aStackTop, "The string must be one character long.", "StringToUnicode");
-        LispError.checkArgument(aEnvironment, aStackTop, str.charAt(0) == '\"', 1, "StringToUnicode");
-        LispError.checkArgument(aEnvironment, aStackTop, str.charAt(str.length() - 1) == '\"', 1, "StringToUnicode");
+        if(str.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1, "StringToUnicode");
+        if(str.charAt(str.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1, "StringToUnicode");
 
         int unicodeValue = (int) str.charAt(1);
 

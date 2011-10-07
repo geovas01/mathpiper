@@ -46,17 +46,17 @@ public class Retract extends BuiltinFunction
         ConsPointer evaluated = new ConsPointer();
         evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
-        LispError.checkArgument(aEnvironment, aStackTop, evaluated.getCons() != null, 1, "Retract");
+        if( evaluated.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "Retract");
         String orig = (String) evaluated.car();
 
         orig = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, orig);
         
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "Retract");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "Retract");
         String oper = Utility.getSymbolName(aEnvironment, orig);
 
         ConsPointer arityPointer = new ConsPointer();
         arityPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, arityPointer.car() instanceof String, 2, "Retract");
+        if(!(arityPointer.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "Retract");
         String arityString = (String) arityPointer.car();
         if(arityString.equalsIgnoreCase("*"))
         {

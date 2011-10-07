@@ -44,14 +44,14 @@ public class LeftPrecedenceSet extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "LeftPrecedenceSet");
+        if(getArgumentPointer(aEnvironment, aStackTop, 1).getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "LeftPrecedenceSet");
         String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "LeftPrecedenceSet");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "LeftPrecedenceSet");
 
         ConsPointer index = new ConsPointer();
         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, index, getArgumentPointer(aEnvironment, aStackTop, 2));
-        LispError.checkArgument(aEnvironment, aStackTop, index.getCons() != null, 2, "LeftPrecedenceSet");
-        LispError.checkArgument(aEnvironment, aStackTop, index.car() instanceof String, 2, "LeftPrecedenceSet");
+        if(index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "LeftPrecedenceSet");
+        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "LeftPrecedenceSet");
         int ind = Integer.parseInt( (String) index.car(), 10);
 
         aEnvironment.iInfixOperators.setLeftPrecedence(aStackTop, Utility.getSymbolName(aEnvironment, orig), ind);

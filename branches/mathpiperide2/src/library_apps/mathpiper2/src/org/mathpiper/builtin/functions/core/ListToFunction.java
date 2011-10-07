@@ -43,11 +43,11 @@ public class ListToFunction extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons() != null, 1, "ListToFunction");
-        LispError.checkArgument(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer, 1, "ListToFunction");
+        if(getArgumentPointer(aEnvironment, aStackTop, 1).getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ListToFunction");
+        if(! (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer)) LispError.checkArgument(aEnvironment, aStackTop, 1, "ListToFunction");
         Cons atom = ((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).getCons();
-        LispError.checkArgument(aEnvironment, aStackTop, atom != null, 1, "ListToFunction");
-        LispError.checkArgument(aEnvironment, aStackTop, atom.car() == aEnvironment.iListAtom.car(), 1, "ListToFunction");
+        if( atom == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ListToFunction");
+        if( atom.car() != aEnvironment.iListAtom.car()) LispError.checkArgument(aEnvironment, aStackTop, 1, "ListToFunction");
         Utility.tail(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
     }
 }

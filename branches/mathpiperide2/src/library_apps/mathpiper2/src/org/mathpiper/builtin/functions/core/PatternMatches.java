@@ -49,8 +49,8 @@ public class PatternMatches extends BuiltinFunction
         ConsPointer pattern = new ConsPointer();
         pattern.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         BuiltinContainer gen = (BuiltinContainer) pattern.car();
-        LispError.checkArgument(aEnvironment, aStackTop, gen != null, 1, "PatternMatches");
-        LispError.checkArgument(aEnvironment, aStackTop, gen.typeName().equals("\"Pattern\""), 1, "PatternMatches");
+        if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PatternMatches");
+        if(! gen.typeName().equals("\"Pattern\"")) LispError.checkArgument(aEnvironment, aStackTop, 1, "PatternMatches");
 
         ConsPointer list = new ConsPointer();
         list.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
@@ -58,14 +58,14 @@ public class PatternMatches extends BuiltinFunction
         PatternContainer patclass = (PatternContainer) gen;
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, list);
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2, "PatternMatches");
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.car() instanceof ConsPointer, 2, "PatternMatches");
+        if(consTraverser.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
+        if(! (consTraverser.car() instanceof ConsPointer)) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
         consTraverser.goSub(aStackTop);
-        LispError.checkArgument(aEnvironment, aStackTop, consTraverser.getCons() != null, 2, "PatternMatches");
+        if(consTraverser.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
         consTraverser.goNext(aStackTop);
 
         ConsPointer ptr = consTraverser.getPointer();
-        LispError.checkArgument(aEnvironment, aStackTop, ptr != null, 2, "PatternMatches");
+        if( ptr == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
         boolean matches = patclass.matches(aEnvironment, aStackTop, ptr);
         Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), matches);
     }

@@ -48,13 +48,13 @@ public class RulebaseArgumentsList extends BuiltinFunction
         ConsPointer name = new ConsPointer();
         name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         String orig = (String) name.car();
-        LispError.checkArgument(aEnvironment, aStackTop, orig != null, 1, "RulebaseArgumentsList");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RulebaseArgumentsList");
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
         ConsPointer sizearg = new ConsPointer();
         sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.getCons() != null, 2, "RulebaseArgumentsList");
-        LispError.checkArgument(aEnvironment, aStackTop, sizearg.car() instanceof String, 2, "RulebaseArgumentsList");
+        if( sizearg.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseArgumentsList");
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseArgumentsList");
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
