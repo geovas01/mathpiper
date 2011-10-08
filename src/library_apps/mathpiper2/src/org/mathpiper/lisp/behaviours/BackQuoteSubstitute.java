@@ -72,7 +72,7 @@ public class BackQuoteSubstitute implements Substitute {
         if (ptr.car() instanceof String) {
             ConsPointer cur = new ConsPointer();
             cur.setCons(ptr);
-            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, aResult, cur);
+            aResult.setCons(iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, cur));
             return true;
         } else {
             ptr = ((ConsPointer) ptr.car()).getCons();
@@ -81,7 +81,7 @@ public class BackQuoteSubstitute implements Substitute {
             ConsPointer args = new ConsPointer();
             args.setCons(ptr.cdr().getCons());
             ConsPointer result = new ConsPointer();
-            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, result, cur);
+            result.setCons(iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, cur));
             result.cdr().setCons(args.getCons());
             ConsPointer result2 = new ConsPointer();
             result2.setCons(SublistCons.getInstance(aEnvironment, result.getCons()));

@@ -37,6 +37,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.ui.gui.worksheets.LatexRenderingController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 import org.scilab.forge.jlatexmath.TeXFormula;
@@ -94,12 +95,10 @@ public class ViewLatex extends BuiltinFunction {
 
 
 
-        ConsPointer resultPointer = new ConsPointer();
-
         ConsPointer viewScalePointer = new ConsPointer();
         viewScalePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPointer, viewScalePointer);
-        BigNumber viewScale = (BigNumber) resultPointer.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScalePointer);
+        BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.getPrecision(), aEnvironment);
         if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ViewLatex");
 
         /*sHotEqn hotEqn = new sHotEqn();

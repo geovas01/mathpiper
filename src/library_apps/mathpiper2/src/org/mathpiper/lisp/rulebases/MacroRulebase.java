@@ -26,6 +26,7 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispExpressionEvaluator;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 public class MacroRulebase extends SingleArityRulebase {
@@ -60,7 +61,8 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
     @Override
-    public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArgumentsPointer) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, ConsPointer aArgumentsPointer) throws Exception {
+        Cons aResult;
         int arity = arity();
         ConsPointer[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
 
@@ -130,7 +132,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
         if (substitutedBodyPointer.getCons() != null) {
             //Note:tk:substituted body must be evaluated after the local frame has been popped.
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, aResult, substitutedBodyPointer);
+            aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBodyPointer);
         } else // No predicate was true: return a new expression with the evaluated
         // arguments.
         {
@@ -144,7 +146,7 @@ public class MacroRulebase extends SingleArityRulebase {
                     argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
                 }
             }
-            aResult.setCons(SublistCons.getInstance(aEnvironment, full.getCons()));
+            aResult = SublistCons.getInstance(aEnvironment, full.getCons());
         }
         //FINISH:
 
@@ -153,10 +155,11 @@ public class MacroRulebase extends SingleArityRulebase {
             ConsPointer tr = new ConsPointer();
             tr.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
             String localVariables = aEnvironment.getLocalVariables(aStackTop);
-            LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr, "macro", localVariables);
+            LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr.getCons(), "macro", localVariables);
             tr.setCons(null);
         }
 
+        return aResult;
     }
 
 }

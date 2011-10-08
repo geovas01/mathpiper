@@ -57,7 +57,7 @@ public class InterpreterTest implements ResponseListener
 
         //response = interpreter.evaluate("LoadScript(\"x := 1;\nWhile(x <? 100) \n[\nwrite(x,,);\nx := x + 1;  \n];\");");
 
-        response = interpreter.evaluate("LoadScript(\" \nx := 1;\n\nWhile (x <? 100) \n[\n  write(x,,);\n  x := x + 1;  \n];\");");
+        response = interpreter.evaluate("LoadScript(\" Integrate(x)x^(-1);\");");
 
         //timer.cancel();
         
@@ -72,6 +72,10 @@ public class InterpreterTest implements ResponseListener
             
             System.out.println( "Errors: "  + ex.getMessage() + ", File: " + response.getSourceFileName() + ", Line number: " + ex.getLineNumber()   + ", Start index: " + ex.getStartIndex() + ", End index: " + ex.getEndIndex());
 
+        }
+        else if (response.isExceptionThrown())
+        {
+            response.getException().printStackTrace();
         }
 
         

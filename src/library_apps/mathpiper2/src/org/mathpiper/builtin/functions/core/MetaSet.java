@@ -24,6 +24,7 @@ import java.util.Map;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 
@@ -46,9 +47,9 @@ public class MetaSet extends BuiltinFunction
         objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 
-        ConsPointer keyPointer = new ConsPointer();
-        keyPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        LispError.checkIsString(aEnvironment, aStackTop, keyPointer, 2, "MetaSet");
+        Cons key = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
+
+        LispError.checkIsString(aEnvironment, aStackTop, key, 2, "MetaSet");
 
 
         ConsPointer value = new ConsPointer();
@@ -68,7 +69,7 @@ public class MetaSet extends BuiltinFunction
 
 
 
-        String keyString =(String) keyPointer.getCons().car();;
+        String keyString =(String) key.car();;
 
         metadataMap.put(keyString, value.getCons());
 

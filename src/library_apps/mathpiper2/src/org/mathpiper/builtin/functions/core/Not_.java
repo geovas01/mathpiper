@@ -21,6 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 /**
@@ -42,8 +43,8 @@ public class Not_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
+
         if (Utility.isTrue(aEnvironment, evaluated, aStackTop) || Utility.isFalse(aEnvironment, evaluated, aStackTop))
         {
             Utility.not(aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment, evaluated);
@@ -51,7 +52,7 @@ public class Not_ extends BuiltinFunction
         {
             ConsPointer ptr = new ConsPointer();
             ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy( aEnvironment, false));
-            ptr.cdr().setCons(evaluated.getCons());
+            ptr.cdr().setCons(evaluated);
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,ptr.getCons()));
         }
     }

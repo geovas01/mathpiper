@@ -22,6 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
@@ -43,8 +44,8 @@ public class StringMidGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
+        
+        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 3).getCons();
         LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3, "StringMidGet");
         String orig = (String) evaluated.car();
 

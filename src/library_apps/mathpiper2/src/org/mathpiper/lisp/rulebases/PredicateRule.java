@@ -19,6 +19,7 @@ package org.mathpiper.lisp.rulebases;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  * A rule with a predicate (the rule matches if the predicate evaluates to True.)
@@ -61,8 +62,8 @@ class PredicateRule extends Rule {
     // iPredicate is evaluated in \a Environment. If the result
     /// IsTrue(), this function returns true
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
-        ConsPointer pred = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, pred, iPredicate);
+        
+        Cons pred = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, iPredicate);
         return Utility.isTrue(aEnvironment, pred, aStackTop);
     }
 

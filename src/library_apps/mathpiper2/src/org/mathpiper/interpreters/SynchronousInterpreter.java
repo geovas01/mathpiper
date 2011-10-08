@@ -231,7 +231,7 @@ class SynchronousInterpreter implements Interpreter {
 
             if (iEnvironment.iPrettyReaderName != null) {
                 ConsPointer args = new ConsPointer();
-                Utility.applyString(iEnvironment, -1, inputExpressionPointer, iEnvironment.iPrettyReaderName, args);
+                inputExpressionPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyReaderName, args));
             } else //Else not PrettyReader.
             {
                 Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
@@ -278,7 +278,7 @@ class SynchronousInterpreter implements Interpreter {
 
         try {
             ConsPointer resultPointer = new ConsPointer();
-            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, resultPointer, inputExpressionPointer); //*** The main evaluation happens here.
+            resultPointer.setCons(iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, inputExpressionPointer)); //*** The main evaluation happens here.
 
             evaluationResponse.setResultList(resultPointer);
 
@@ -315,9 +315,9 @@ class SynchronousInterpreter implements Interpreter {
 
                     ConsPointer resultPointerWithHold = new ConsPointer(subListCons);
 
-                    Utility.applyString(iEnvironment, -1, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointerWithHold);
+                    applyResultPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultPointerWithHold));
                 } else {
-                    Utility.applyString(iEnvironment, -1, applyResultPointer, iEnvironment.iPrettyPrinterName, resultPointer);
+                    applyResultPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultPointer));
                 }
 
                 printer.rememberLastChar(' ');

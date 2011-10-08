@@ -357,9 +357,7 @@ public class ParametersPatternMatcher {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
 
-            ConsPointer resultPredicate = new ConsPointer();
-
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, resultPredicate, ((ConsPointer) iPredicates.get(i)));
+            Cons resultPredicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, ((ConsPointer) iPredicates.get(i)));
 
             if (Utility.isFalse(aEnvironment, resultPredicate, aStackTop)) {
                 return false;
@@ -373,7 +371,7 @@ public class ParametersPatternMatcher {
                 String errorMessage =  "The predicate " +
                 Utility.printMathPiperExpression(aStackTop, ((ConsPointer) iPredicates.get(i)), aEnvironment, 60) +
                 " evaluated to " +
-                Utility.printMathPiperExpression(aStackTop, resultPredicate, aEnvironment, 60) +
+                Utility.printMathPiperExpression(aStackTop, new ConsPointer(resultPredicate), aEnvironment, 60) +
                 ".";
 
 

@@ -19,6 +19,7 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -39,16 +40,17 @@ public class ExceptionCatch extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
+        ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
         try
         {
             //Return the first argument.
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1)));
         } catch (Throwable exception)
         {   //Return the second argument.
             //e.printStackTrace();
             //Boolean interrupted = Thread.currentThread().interrupted(); //Clear interrupted condition.
             aEnvironment.iException = exception;
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
+            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2)));
             aEnvironment.iException = null;
         }
     }

@@ -191,36 +191,38 @@ public class Utility {
         aResult.setCons(previous.getCons());
     }
 
-    public static void returnUnEvaluated(int aStackTop, ConsPointer aResult, ConsPointer aArguments, Environment aEnvironment) throws Exception {
+    public static Cons returnUnEvaluated(int aStackTop, ConsPointer aArguments, Environment aEnvironment) throws Exception {
         ConsPointer full = new ConsPointer();
         full.setCons(aArguments.getCons().copy(aEnvironment, false));
-        aResult.setCons(SublistCons.getInstance(aEnvironment, full.getCons()));
+
+        Cons resultCons = SublistCons.getInstance(aEnvironment, full.getCons());
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
         consTraverser.goNext(aStackTop);
 
         while (consTraverser.getCons() != null) {
-            ConsPointer next = new ConsPointer();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, next, consTraverser.getPointer());
-            full.cdr().setCons(next.getCons());
-            full.setCons(next.getCons());
+            Cons next = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer());
+            full.cdr().setCons(next);
+            full.setCons(next);
             consTraverser.goNext(aStackTop);
         }
         full.cdr().setCons(null);
+
+        return resultCons;
     }
 
     //Evaluate a function which is in string form.
-    public static void applyString(Environment aEnvironment, int aStackTop, ConsPointer aResult, String aOperator, ConsPointer aArgs) throws Exception {
+    public static Cons applyString(Environment aEnvironment, int aStackTop, String aOperator, ConsPointer aArgs) throws Exception {
         if(! isString(aOperator)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_STRING, aOperator, "INTERNAL");
 
         Cons head = AtomCons.getInstance(aEnvironment, aStackTop, getSymbolName(aEnvironment, aOperator));
         head.cdr().setCons(aArgs.getCons());
         ConsPointer body = new ConsPointer();
         body.setCons(SublistCons.getInstance(aEnvironment, head));
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, aResult, body);
+        return aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
     }
 
-    public static void applyPure(int aStackTop, ConsPointer oper, ConsPointer args2, ConsPointer aResult, Environment aEnvironment) throws Exception {
+    public static Cons applyPure(int aStackTop, ConsPointer oper, ConsPointer args2, Environment aEnvironment) throws Exception {
         if(!(oper.car() instanceof ConsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
         if(((ConsPointer) oper.car()).getCons() == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
         ConsPointer oper2 = new ConsPointer();
@@ -249,7 +251,7 @@ public class Utility {
                 args2.setCons(args2.cdr().getCons());
             }
             if(args2.getCons() != null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, aResult, body);
+            return aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
         } catch (EvaluationException e) {
             throw e;
         } finally {
@@ -300,8 +302,8 @@ public class Utility {
     }
 
 
-    public static boolean isTrue(Environment aEnvironment, ConsPointer aExpression, int aStackTop) throws Exception {
-        if(aExpression.getCons() == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public static boolean isTrue(Environment aEnvironment, Cons aExpression, int aStackTop) throws Exception {
+        if(aExpression == null) LispError.lispAssert(aEnvironment, aStackTop);
 
         //return aExpression.car() == aEnvironment.iTrueAtom.car();
         return aExpression.car() instanceof String && ((String) aExpression.car()).equals(aEnvironment.iTrueString);
@@ -327,8 +329,8 @@ public class Utility {
         }*/
 
     }//end method.
-    public static boolean isFalse(Environment aEnvironment, ConsPointer aExpression, int aStackTop) throws Exception {
-        if(aExpression.getCons() == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public static boolean isFalse(Environment aEnvironment, Cons aExpression, int aStackTop) throws Exception {
+        if(aExpression == null) LispError.lispAssert(aEnvironment, aStackTop);
         return aExpression.car() instanceof String && ((String) aExpression.car()).equals(aEnvironment.iFalseString);
 
         /* Code which returns True for everything except False and {};
@@ -477,7 +479,7 @@ public class Utility {
         return aOriginal;
     }//end method.
 
-    public static void not(int aStackTop, ConsPointer aResult, Environment aEnvironment, ConsPointer aExpression) throws Exception {
+    public static void not(int aStackTop, ConsPointer aResult, Environment aEnvironment, Cons aExpression) throws Exception {
         if (isTrue(aEnvironment, aExpression, aStackTop)) {
             putFalseInPointer(aEnvironment, aResult);
         } else {
@@ -642,11 +644,11 @@ public class Utility {
                     endoffile = true;
                 } // Else evaluate
                 else {
-                    ConsPointer result = new ConsPointer();
-                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
+
+                    Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
                     if(aStackTop != -1)
                     {
-                        aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
+                        aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", new ConsPointer(result), false);//Note:tk:added to make the result of executing Loaded code available.
                     }
                 }
             }//end while.
@@ -805,8 +807,8 @@ public class Utility {
         String orig = (String) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).car();
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "INTERNAL");
 
-        ConsPointer precedence = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, precedence, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
+        
+        Cons precedence = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
         if(! (precedence.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         int prec = Integer.parseInt((String) precedence.car(), 10);
         if(prec > MathPiperPrinter.KMaxPrecedence) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
@@ -848,8 +850,7 @@ public class Utility {
     public static void setVariableOrConstant(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable, boolean aConstant) throws Exception {
         String variableString = null;
         if (aMacroMode) {
-            ConsPointer result = new ConsPointer();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1));
+            Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1));
             variableString = (String) result.car();
         } else {
             variableString = (String) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).car();
@@ -865,7 +866,7 @@ public class Utility {
         }
         else
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, value, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
+            value = new ConsPointer(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2)) );
         }
         
         aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable); //Variable setting is deligated to Environment.
@@ -1293,26 +1294,19 @@ public class Utility {
 
 
     public static ConsPointer lispEvaluate(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
-        ConsPointer result = new ConsPointer();
 
         ConsPointer inputExpressionPointer = mathPiperParse(aEnvironment, aStackTop, inputExpression);
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, inputExpressionPointer);
-
-        return result;
+        return new ConsPointer(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionPointer));
     }//end method.
 
 
 
 
     public static ConsPointer lispEvaluate(Environment aEnvironment, int aStackTop, ConsPointer inputExpressionPointer) throws Exception {
-        ConsPointer result = new ConsPointer();
-        MathPiperTokenizer tokenizer = new MathPiperTokenizer();
-        InputStatus someStatus = new InputStatus();
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, inputExpressionPointer);
+        return new ConsPointer(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionPointer));
 
-        return result;
     }//end method.
 
 

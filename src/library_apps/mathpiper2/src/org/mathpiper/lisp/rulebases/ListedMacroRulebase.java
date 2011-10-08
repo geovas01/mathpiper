@@ -20,6 +20,7 @@ import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 public class ListedMacroRulebase extends MacroRulebase {
@@ -36,7 +37,8 @@ public class ListedMacroRulebase extends MacroRulebase {
 
 
     @Override
-    public void evaluate(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aArguments) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, ConsPointer aArguments) throws Exception {
+        Cons aResult;
         ConsPointer newArgs = new ConsPointer();
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
         ConsPointer ptr = newArgs;
@@ -60,7 +62,8 @@ public class ListedMacroRulebase extends MacroRulebase {
             head.cdr().setCons(consTraverser.getCons());
             ptr.setCons(SublistCons.getInstance(aEnvironment, head.getCons()));
         }
-        super.evaluate(aEnvironment, aStackTop, aResult, newArgs);
+        aResult = super.evaluate(aEnvironment, aStackTop, newArgs);
+        return aResult;
     }
 
 }

@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperOutputStream;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -44,7 +45,8 @@ public class PipeToStdout extends BuiltinFunction
         aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;
         try
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+            ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
+            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1)));
         } catch (Exception e)
         {
             throw e;

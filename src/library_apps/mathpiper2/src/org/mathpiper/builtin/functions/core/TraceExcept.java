@@ -23,6 +23,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
@@ -50,8 +51,8 @@ public class TraceExcept extends BuiltinFunction
 
         // Get function list.
         if(functionListPointer.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "TraceExcept");
-        ConsPointer result = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result , functionListPointer);
+
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionListPointer);
         String functionNamesString =  (String) result.car();
 
 
@@ -71,7 +72,8 @@ public class TraceExcept extends BuiltinFunction
 
         //Evaluate expresstion with tracing on.
         Evaluator.traceOn();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), bodyPointer);
+        ConsPointer consPointer =  getTopOfStackPointer(aEnvironment, aStackTop);
+        consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, bodyPointer));
         Evaluator.traceOff();
         Evaluator.setTraceExceptFunctionList(null);
 

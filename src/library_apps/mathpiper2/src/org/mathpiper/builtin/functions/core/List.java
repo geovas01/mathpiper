@@ -18,6 +18,7 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
@@ -47,9 +48,9 @@ public class List extends BuiltinFunction
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null) {
-            ConsPointer evaluated = new ConsPointer();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, consTraverser.getPointer());
-            tail.getPointer().setCons(evaluated.getCons());
+            
+            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer());
+            tail.getPointer().setCons(evaluated);
             tail.goNext(aStackTop);
             consTraverser.goNext(aStackTop);
         }

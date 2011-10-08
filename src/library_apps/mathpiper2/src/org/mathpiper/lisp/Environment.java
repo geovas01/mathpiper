@@ -200,7 +200,7 @@ public final class Environment {
         GlobalVariable globalVariable = (GlobalVariable) iGlobalState.lookUp(aVariable);
         if (globalVariable != null) {
             if (globalVariable.iEvalBeforeReturn) {
-                iLispExpressionEvaluator.evaluate(this, aStackTop, aResult, new ConsPointer(globalVariable.iValue));
+                aResult.setCons(iLispExpressionEvaluator.evaluate(this, aStackTop, new ConsPointer(globalVariable.iValue)));
                 globalVariable.iValue = aResult.getCons();
                 globalVariable.iEvalBeforeReturn = false;
                 return;
@@ -256,10 +256,10 @@ public final class Environment {
 
             localVariablesStringBuilder.append(" -> ");
 
-            String value = localVariable.iValue.toString();
-            if(value != null)
+
+            if(localVariable.iValue != null)
             {
-                localVariablesStringBuilder.append(value.trim().replace("  ","").replace("\n", "") );
+                localVariablesStringBuilder.append(localVariable.iValue.toString().trim().replace("  ","").replace("\n", "") );
             }
             else
             {
@@ -569,7 +569,7 @@ public final class Environment {
         if(rulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator,"INTERNAL");
 
         // Declare a new evaluation rule
-        if (Utility.isTrue(this, aPredicate, aStackTop)) {
+        if (Utility.isTrue(this, aPredicate.getCons(), aStackTop)) {
             //        printf("FastPredicate on %s\n",aOperator->String());
             rulebase.defineAlwaysTrueRule(aStackTop, aPrecedence, aBody);
         } else {

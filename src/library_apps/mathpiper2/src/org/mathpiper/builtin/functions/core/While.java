@@ -24,6 +24,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 
 /**
@@ -47,10 +48,9 @@ public class While extends BuiltinFunction
         ConsPointer arg1 = getArgumentPointer(aEnvironment, aStackTop, 1);
         ConsPointer arg2 = getArgumentPointer(aEnvironment, aStackTop, 2);
 
-        ConsPointer predicate = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, predicate, arg1);
+        Cons predicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
 
-        ConsPointer evaluated = new ConsPointer();
+        Cons evaluated;
 
         int beforeStackTop = -1;
         int beforeEvaluationDepth = -1;
@@ -63,7 +63,7 @@ public class While extends BuiltinFunction
 
                 try {
 
-                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, arg2);
+                    evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg2);
 
                 } catch (ContinueException ce) {
                     aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
@@ -71,7 +71,7 @@ public class While extends BuiltinFunction
                     Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                 }//end continue catch.
 
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, predicate, arg1);
+                predicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
 
             }//end while.
 
