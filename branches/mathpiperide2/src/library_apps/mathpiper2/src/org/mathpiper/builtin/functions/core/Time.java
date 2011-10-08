@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
 
 /**
@@ -48,9 +48,7 @@ public class Time extends BuiltinFunction
     {
         BigDecimal startTime = new BigDecimal(System.currentTimeMillis());
 
-        ConsPointer res = new ConsPointer();
-
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, res, getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         BigDecimal endTime = new BigDecimal(System.currentTimeMillis());
 

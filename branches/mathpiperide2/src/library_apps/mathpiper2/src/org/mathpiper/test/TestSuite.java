@@ -32,6 +32,7 @@ import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.lisp.printers.MathPiperPrinter;
@@ -279,8 +280,8 @@ public class TestSuite {
                     }
 
                     if (evaluate == true) {
-                        ConsPointer result = new ConsPointer();
-                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
+                        
+                        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
 
                         if (outputStringBuffer.length() > 0) {
                             String sideEffectOutputString = outputStringBuffer.toString();

@@ -23,8 +23,9 @@ import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
+import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -45,11 +46,11 @@ public class PipeFromString extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, getArgumentPointer(aEnvironment, aStackTop, 1));
+
+        Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name
-        if( evaluated.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PipeFromString");
+        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PipeFromString");
         String orig =  (String) evaluated.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PipeFromString");
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
@@ -63,7 +64,8 @@ public class PipeFromString extends BuiltinFunction
         try
         {
             // Evaluate the body
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 2));
+            ConsPointer consPointer =  getTopOfStackPointer(aEnvironment, aStackTop);
+            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2)));
         } catch (Exception e)
         {
             throw e;

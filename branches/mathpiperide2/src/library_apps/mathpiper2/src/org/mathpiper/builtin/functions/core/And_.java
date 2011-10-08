@@ -22,6 +22,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 /**
@@ -44,13 +45,14 @@ public class And_ extends BuiltinFunction
     {
         ConsPointer nogos = new ConsPointer();
         int nrnogos = 0;
-        ConsPointer evaluated = new ConsPointer();
+        Cons evaluated;
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null)
         {
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, evaluated, consTraverser.getPointer());
+            evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer());
+
             if (Utility.isFalse(aEnvironment, evaluated, aStackTop))
             {
                 Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
@@ -59,7 +61,7 @@ public class And_ extends BuiltinFunction
             {
                 ConsPointer ptr = new ConsPointer();
                 nrnogos++;
-                ptr.setCons(evaluated.getCons().copy( aEnvironment, false));
+                ptr.setCons(evaluated.copy( aEnvironment, false));
                 ptr.cdr().setCons(nogos.getCons());
                 nogos.setCons(ptr.getCons());
             }

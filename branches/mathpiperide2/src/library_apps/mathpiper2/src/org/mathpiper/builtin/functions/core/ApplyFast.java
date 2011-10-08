@@ -53,9 +53,10 @@ public class ApplyFast extends BuiltinFunction
         // Apply a pure string
         if (oper.car() instanceof String)
         {
-            Utility.applyString(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop),
+            ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
+            consPointer.setCons(Utility.applyString(aEnvironment, aStackTop,
                     (String) oper.car(),
-                    ((ConsPointer) args.car()).cdr());
+                    ((ConsPointer) args.car()).cdr()) );
         } else
         {   // Apply a pure function {args,body}.
 
@@ -63,7 +64,8 @@ public class ApplyFast extends BuiltinFunction
             args2.setCons(((ConsPointer) args.car()).cdr().getCons());
             if(! (oper.car() instanceof ConsPointer)) LispError.checkArgument(aEnvironment, aStackTop, 1, "ApplyFast");
             if( ((ConsPointer) oper.car()).getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ApplyFast");
-            Utility.applyPure(aStackTop, oper, args2, getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment);
+            ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
+            consPointer.setCons(Utility.applyPure(aStackTop, oper, args2, aEnvironment));
         }
     }
 }

@@ -21,8 +21,8 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -48,9 +48,8 @@ public class RightPrecedenceSet extends BuiltinFunction
         String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RightPrecedenceSet");
 
-        ConsPointer index = new ConsPointer();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, index, getArgumentPointer(aEnvironment, aStackTop, 2));
-        if( index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "RightPrecedenceSet");
+        Cons index = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2));
+        if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "RightPrecedenceSet");
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "RightPrecedenceSet");
         int ind = Integer.parseInt ( (String) index.car(), 10);
 

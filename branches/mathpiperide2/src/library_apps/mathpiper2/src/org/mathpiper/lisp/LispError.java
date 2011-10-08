@@ -19,6 +19,7 @@ package org.mathpiper.lisp;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.lisp.cons.Cons;
 
 public class LispError {
 
@@ -167,11 +168,6 @@ public class LispError {
     //========================================
 
     public static void throwError(Environment aEnvironment, int aStackTop, int aError, Object aErrorMessage, Object functionName) throws Exception {
-
-        if(aEnvironment.iCurrentInput == null)
-        {
-            int xx = 1;
-        }
 
         throwError(aEnvironment, aStackTop, aError, aErrorMessage, functionName, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
     }
@@ -340,7 +336,7 @@ public class LispError {
     }
 
 
-    public static void checkIsString(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr, String functionName) throws Exception {
+    public static void checkIsString(Environment aEnvironment, int aStackTop, Cons evaluated, int aArgNr, String functionName) throws Exception {
         if(! Utility.isString(evaluated.car())) checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, "argument is not a string.", functionName);
     }
 
@@ -371,10 +367,10 @@ public class LispError {
                 strout = Utility.printMathPiperExpression(aStackTop, arg, aEnvironment, 60);
                 error = error + strout;
 
-                ConsPointer eval = new ConsPointer();
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, eval, arg);
+                
+                Cons eval = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg);
                 error = error + " )*** evaluated to ***( ";
-                strout = Utility.printMathPiperExpression(aStackTop, eval, aEnvironment, 60);
+                strout = Utility.printMathPiperExpression(aStackTop, new ConsPointer(eval), aEnvironment, 60);
                 error = error + strout;
                 error = error + " )***\n";
 
