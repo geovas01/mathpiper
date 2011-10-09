@@ -52,7 +52,7 @@ public class ParametersPatternMatcher {
     protected List iVariables = new ArrayList();
 
     // List of predicates which need to be true for a match.
-    protected List iPredicates = new ArrayList();
+    protected List<Cons> iPredicates = new ArrayList();
 
 
     /**
@@ -66,9 +66,9 @@ public class ParametersPatternMatcher {
      *collected in iParamMatchers. Additionally, aPostPredicate
      *is copied, and the copy is added to iPredicates.
      */
-    public ParametersPatternMatcher(Environment aEnvironment, int aStackTop, ConsPointer aPattern, ConsPointer aPostPredicate) throws Exception {
+    public ParametersPatternMatcher(Environment aEnvironment, int aStackTop, Cons aPattern, Cons aPostPredicate) throws Exception {
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aPattern);
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(aPattern));
 
         while (consTraverser.getCons() != null) {
 
@@ -81,11 +81,7 @@ public class ParametersPatternMatcher {
             consTraverser.goNext(aStackTop);
         }//end while.
 
-        ConsPointer postPredicatesPointer = new ConsPointer();
-
-        postPredicatesPointer.setCons(aPostPredicate.getCons());
-
-        iPredicates.add(postPredicatesPointer);
+        iPredicates.add(aPostPredicate);
 
         
     }//end method.
@@ -286,8 +282,7 @@ public class ParametersPatternMatcher {
 
                             last.cdr().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, str));
 
-                            ConsPointer newPredicate = new ConsPointer();
-                            newPredicate.setCons(org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, third.getCons()));
+                            Cons newPredicate = org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, third.getCons());
 
                             iPredicates.add(newPredicate);
                         }//end if.
@@ -357,7 +352,7 @@ public class ParametersPatternMatcher {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
 
-            Cons resultPredicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, ((ConsPointer) iPredicates.get(i)).getCons());
+            Cons resultPredicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop,  iPredicates.get(i));
 
             if (Utility.isFalse(aEnvironment, resultPredicate, aStackTop)) {
                 return false;
@@ -369,7 +364,7 @@ public class ParametersPatternMatcher {
             if (!isTrue) {
                 //TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
                 String errorMessage =  "The predicate " +
-                Utility.printMathPiperExpression(aStackTop, ((ConsPointer) iPredicates.get(i)), aEnvironment, 60) +
+                Utility.printMathPiperExpression(aStackTop, new ConsPointer(iPredicates.get(i)), aEnvironment, 60) +
                 " evaluated to " +
                 Utility.printMathPiperExpression(aStackTop, new ConsPointer(resultPredicate), aEnvironment, 60) +
                 ".";
