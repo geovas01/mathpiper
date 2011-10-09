@@ -221,7 +221,7 @@ class SynchronousInterpreter implements Interpreter {
 
             //iException = null;
 
-            ConsPointer inputExpressionPointer = new ConsPointer();
+            Cons inputExpressionPointer;
 
             iEnvironment.iInputStatus.setTo("String");
 
@@ -231,14 +231,14 @@ class SynchronousInterpreter implements Interpreter {
 
             if (iEnvironment.iPrettyReaderName != null) {
 
-                inputExpressionPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyReaderName, null));
+                inputExpressionPointer = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyReaderName, null);
             } else //Else not PrettyReader.
             {
                 Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
-                infixParser.parse(-1, inputExpressionPointer);
+                inputExpressionPointer = infixParser.parse(-1);
             }
 
-            return evaluate(inputExpressionPointer.getCons(), notifyEvaluationListeners);
+            return evaluate(inputExpressionPointer, notifyEvaluationListeners);
 
         } catch (Exception exception) {
             this.handleException(exception, evaluationResponse);

@@ -47,7 +47,7 @@ public class MathPiperParser extends Parser
     boolean iError;
     boolean iEndOfFile;
     String[] iLookAhead;
-    public ConsPointer parsedExpression = new ConsPointer();
+    public Cons parsedExpression;;
     private String locateFunctionOrOperatorName = null;
     private ArrayList<Map> functionOrOperatorLocationsList;
 
@@ -71,13 +71,6 @@ public class MathPiperParser extends Parser
         iLookAhead = new String[4];
     }
 
-    @Override
-    public void parse(int aStackTop, ConsPointer aResult) throws Exception
-    {
-        parse(aStackTop);
-        aResult.setCons(parsedExpression.getCons());
-    }
-
 
     public ArrayList parseAndFind(int aStackTop, ConsPointer aResult, String functionOrOperatorName) throws Exception
     {
@@ -86,19 +79,20 @@ public class MathPiperParser extends Parser
 
         functionOrOperatorLocationsList = new ArrayList();
 
-        parse(aStackTop, aResult);
+        aResult.setCons(parse(aStackTop));
 
         return functionOrOperatorLocationsList;
     }
 
-    public void parse(int aStackTop) throws Exception
+
+    public Cons parse(int aStackTop) throws Exception
     {
         readToken(aStackTop); //The character is placed into lookAhead.
 
         if (iEndOfFile)
         {
-            parsedExpression.setCons(iEnvironment.iEndOfFileAtom.copy( iEnvironment, true));
-            return;
+            parsedExpression = iEnvironment.iEndOfFileAtom.copy( iEnvironment, true);
+            return parsedExpression;
         }
 
         readExpression(iEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
@@ -120,13 +114,15 @@ public class MathPiperParser extends Parser
 
         if (iError)
         {
-            parsedExpression.setCons(null);
+            parsedExpression = null;
         }
 
 
 
 
         if(iError) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_EXPRESSION, "","INTERNAL");
+
+        return parsedExpression;
     }
 
     void readToken(int aStackTop) throws Exception
@@ -412,8 +408,8 @@ public class MathPiperParser extends Parser
     void combine(Environment aEnvironment, int aStackTop, int aNrArgsToCombine) throws Exception
     {
         ConsPointer subList = new ConsPointer();
-        subList.setCons(SublistCons.getInstance(aEnvironment,parsedExpression.getCons()));
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, parsedExpression);
+        subList.setCons(SublistCons.getInstance(aEnvironment,parsedExpression));
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(parsedExpression));
         int i;
         for (i = 0; i < aNrArgsToCombine; i++)
         {
@@ -434,7 +430,7 @@ public class MathPiperParser extends Parser
 
         Utility.reverseList(aEnvironment, ((ConsPointer) subList.car()).cdr(),
                 ((ConsPointer) subList.car()).cdr());
-        parsedExpression.setCons(subList.getCons());
+        parsedExpression = subList.getCons();
     }
 
     void insertAtom(Environment aEnvironment, int aStackTop, String aString) throws Exception
@@ -460,8 +456,8 @@ public class MathPiperParser extends Parser
         }
 
         ptr.setCons(newCons);
-        ptr.cdr().setCons(parsedExpression.getCons());
-        parsedExpression.setCons(ptr.getCons());
+        ptr.cdr().setCons(parsedExpression);
+        parsedExpression = ptr.getCons();
     }
 
     void fail(int aStackTop) throws Exception // called when parsing fails, raising an exception
