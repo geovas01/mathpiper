@@ -37,10 +37,10 @@ public class ListedMacroRulebase extends MacroRulebase {
 
 
     @Override
-    public Cons evaluate(Environment aEnvironment, int aStackTop, ConsPointer aArguments) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
         Cons aResult;
         ConsPointer newArgs = new ConsPointer();
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(aArguments));
         ConsPointer ptr = newArgs;
         int arity = arity();
         int i = 0;
@@ -62,7 +62,7 @@ public class ListedMacroRulebase extends MacroRulebase {
             head.cdr().setCons(consTraverser.getCons());
             ptr.setCons(SublistCons.getInstance(aEnvironment, head.getCons()));
         }
-        aResult = super.evaluate(aEnvironment, aStackTop, newArgs);
+        aResult = super.evaluate(aEnvironment, aStackTop, newArgs.getCons());
         return aResult;
     }
 

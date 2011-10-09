@@ -357,7 +357,7 @@ public class ParametersPatternMatcher {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
 
-            Cons resultPredicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, ((ConsPointer) iPredicates.get(i)));
+            Cons resultPredicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, ((ConsPointer) iPredicates.get(i)).getCons());
 
             if (Utility.isFalse(aEnvironment, resultPredicate, aStackTop)) {
                 return false;

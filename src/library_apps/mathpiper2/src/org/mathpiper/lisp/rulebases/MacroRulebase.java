@@ -61,7 +61,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
     @Override
-    public Cons evaluate(Environment aEnvironment, int aStackTop, ConsPointer aArgumentsPointer) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsPointer) throws Exception {
         Cons aResult;
         int arity = arity();
         ConsPointer[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
@@ -99,7 +99,7 @@ public class MacroRulebase extends SingleArityRulebase {
                     /* Rule dump trace code. */
                     if (isTraced(this.functionName) && showFlag) {
                         ConsPointer argumentsPointer = new ConsPointer();
-                        argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+                        argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackTop, thisRule, aEnvironment, this);
                         Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
                     }
@@ -132,12 +132,12 @@ public class MacroRulebase extends SingleArityRulebase {
 
         if (substitutedBodyPointer.getCons() != null) {
             //Note:tk:substituted body must be evaluated after the local frame has been popped.
-            aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBodyPointer);
+            aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBodyPointer.getCons());
         } else // No predicate was true: return a new expression with the evaluated
         // arguments.
         {
             ConsPointer full = new ConsPointer();
-            full.setCons(aArgumentsPointer.getCons().copy(aEnvironment, false));
+            full.setCons(aArgumentsPointer.copy(aEnvironment, false));
             if (arity == 0) {
                 full.cdr().setCons(null);
             } else {
@@ -153,7 +153,7 @@ public class MacroRulebase extends SingleArityRulebase {
         /*Leave trace code */
         if (isTraced(this.functionName) && showFlag) {
             ConsPointer tr = new ConsPointer();
-            tr.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+            tr.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
             String localVariables = aEnvironment.getLocalVariables(aStackTop);
             LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr.getCons(), "macro", localVariables);
             tr.setCons(null);

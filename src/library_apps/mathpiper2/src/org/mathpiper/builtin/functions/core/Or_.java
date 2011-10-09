@@ -51,7 +51,7 @@ public class Or_ extends BuiltinFunction
         consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null)
         {
-            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer());
+            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer().getCons());
             if (Utility.isTrue(aEnvironment, evaluated, aStackTop))
             {
                 Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));

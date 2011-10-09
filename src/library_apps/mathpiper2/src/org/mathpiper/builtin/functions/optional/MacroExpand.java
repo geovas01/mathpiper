@@ -64,7 +64,7 @@ public class MacroExpand extends BuiltinFunction
 	aEnvironment.write("\n");
 
         ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-        consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
+        consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result.getCons()));
 
     }//end method.
 

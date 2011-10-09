@@ -68,9 +68,12 @@ public class LispExpressionEvaluator extends Evaluator {
      * @param aExpression     the expression to evaluate
      * @throws java.lang.Exception
      */
-    public Cons evaluate(Environment aEnvironment, int aStackTop, ConsPointer aExpression) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aExpression) throws Exception {
 
-        if(aExpression.getCons() == null) LispError.lispAssert(aEnvironment, aStackTop);
+        if(aExpression == null) 
+        {
+            LispError.lispAssert(aEnvironment, aStackTop);
+        }
 
         aEnvironment.iEvalDepth++;
         if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
@@ -98,14 +101,14 @@ public class LispExpressionEvaluator extends Evaluator {
             if (atomName.charAt(0) == '\"') {
                 //Handle string atoms.
                 aEnvironment.iEvalDepth--;
-                return aExpression.getCons().copy(aEnvironment, false);
+                return aExpression.copy(aEnvironment, false);
             }
 
 
             if (Character.isDigit(atomName.charAt(0))) {
                 //Handle number atoms.
                 aEnvironment.iEvalDepth--;
-                return aExpression.getCons().copy(aEnvironment, false);
+                return aExpression.copy(aEnvironment, false);
             }
 
 
@@ -134,7 +137,7 @@ public class LispExpressionEvaluator extends Evaluator {
             //Handle unbound variables.
 
             aEnvironment.iEvalDepth--;
-            return aExpression.getCons().copy(aEnvironment, false);
+            return aExpression.copy(aEnvironment, false);
 
 
         }
@@ -157,7 +160,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         if (builtinInFunctionEvaluator != null) {
 
                             aEnvironment.iEvalDepth--;
-                            return builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
+                            return builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, functionAndArgumentsList.getCons());
                         }
 
                         //User function handler.
@@ -166,7 +169,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         if (userFunction != null) {
                             
                             aEnvironment.iEvalDepth--;
-                            return userFunction.evaluate(aEnvironment, aStackTop,functionAndArgumentsList);
+                            return userFunction.evaluate(aEnvironment, aStackTop,functionAndArgumentsList.getCons());
                         }
 
 
@@ -227,7 +230,7 @@ public class LispExpressionEvaluator extends Evaluator {
         }
         aEnvironment.iEvalDepth--;
 
-        return aExpression.getCons().copy(aEnvironment, false);
+        return aExpression.copy(aEnvironment, false);
     }
 
     SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {

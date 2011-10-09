@@ -50,7 +50,7 @@ public class Set extends BuiltinFunction
         consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null) {
             
-            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer());
+            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer().getCons());
             tail.getPointer().setCons(evaluated);
             tail.goNext(aStackTop);
             consTraverser.goNext(aStackTop);
@@ -63,7 +63,7 @@ public class Set extends BuiltinFunction
 
         ConsPointer removeDuplicatesResultPointer = new ConsPointer();
 
-        removeDuplicatesResultPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, new ConsPointer(head)));
+        removeDuplicatesResultPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head));
         
         ConsPointer resultPointer = new ConsPointer();
 

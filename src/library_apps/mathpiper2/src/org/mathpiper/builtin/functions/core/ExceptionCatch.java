@@ -44,13 +44,13 @@ public class ExceptionCatch extends BuiltinFunction
         try
         {
             //Return the first argument.
-            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1)));
+            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons()));
         } catch (Throwable exception)
         {   //Return the second argument.
             //e.printStackTrace();
             //Boolean interrupted = Thread.currentThread().interrupted(); //Clear interrupted condition.
             aEnvironment.iException = exception;
-            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2)));
+            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2).getCons()));
             aEnvironment.iException = null;
         }
     }

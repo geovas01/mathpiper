@@ -45,16 +45,16 @@ public class Check extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Cons pred;
-        pred = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1));
+        pred = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
         if (!Utility.isTrue(aEnvironment, pred, aStackTop))
         {
-            Cons type = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2));
+            Cons type = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
             LispError.checkIsString(aEnvironment, aStackTop, type, 2, "Check");
             
             
             
             
-            Cons message = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 3));
+            Cons message = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
             LispError.checkIsString(aEnvironment, aStackTop, message, 3, "Check");
 
 

@@ -690,8 +690,8 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
                         texFormAtomCons.cdr().setCons(holdInputExpressionPointer.getCons());
                         Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
-                        ConsPointer texFormInputExpressionPointer = new ConsPointer(texFormSubListCons);
-                        EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormInputExpressionPointer);
+
+                        EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormSubListCons);
 
                         String latexString = latexResponse.getResult();
 

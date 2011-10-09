@@ -51,7 +51,7 @@ public class And_ extends BuiltinFunction
         consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null)
         {
-            evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer());
+            evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer().getCons());
 
             if (Utility.isFalse(aEnvironment, evaluated, aStackTop))
             {

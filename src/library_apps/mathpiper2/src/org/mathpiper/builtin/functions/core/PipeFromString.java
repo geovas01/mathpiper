@@ -47,7 +47,7 @@ public class PipeFromString extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
-        Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
         // Get file name
         if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PipeFromString");
@@ -65,7 +65,7 @@ public class PipeFromString extends BuiltinFunction
         {
             // Evaluate the body
             ConsPointer consPointer =  getTopOfStackPointer(aEnvironment, aStackTop);
-            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2)));
+            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2).getCons()));
         } catch (Exception e)
         {
             throw e;

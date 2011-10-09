@@ -238,7 +238,7 @@ class SynchronousInterpreter implements Interpreter {
                 infixParser.parse(-1, inputExpressionPointer);
             }
 
-            return evaluate(inputExpressionPointer, notifyEvaluationListeners);
+            return evaluate(inputExpressionPointer.getCons(), notifyEvaluationListeners);
 
         } catch (Exception exception) {
             this.handleException(exception, evaluationResponse);
@@ -256,7 +256,7 @@ class SynchronousInterpreter implements Interpreter {
     }//end method.
 
 
-    public EvaluationResponse evaluate(ConsPointer inputExpressionPointer) {
+    public EvaluationResponse evaluate(Cons inputExpressionPointer) {
         return evaluate(inputExpressionPointer, false);
     }
 
@@ -268,7 +268,7 @@ class SynchronousInterpreter implements Interpreter {
     @param notifyEvaluationListeners
     @return
      */
-    public EvaluationResponse evaluate(ConsPointer inputExpressionPointer, boolean notifyEvaluationListeners) {
+    public EvaluationResponse evaluate(Cons inputExpressionPointer, boolean notifyEvaluationListeners) {
 
 
         //return this.evaluate(inputExpression, false);
@@ -354,9 +354,9 @@ class SynchronousInterpreter implements Interpreter {
         }*/
 
         try {
-            if (inputExpressionPointer.getCons() instanceof SublistCons) {
+            if (inputExpressionPointer instanceof SublistCons) {
 
-                Object object = ((ConsPointer) inputExpressionPointer.getCons().car()).car();
+                Object object = ((ConsPointer) inputExpressionPointer.car()).car();
 
                 if (object instanceof String && ((String) object).startsWith("Load")) {
                     ConsPointer loadResult = new ConsPointer();

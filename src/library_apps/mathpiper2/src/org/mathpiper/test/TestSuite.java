@@ -281,7 +281,7 @@ public class TestSuite {
 
                     if (evaluate == true) {
                         
-                        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
+                        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn.getCons());
 
                         if (outputStringBuffer.length() > 0) {
                             String sideEffectOutputString = outputStringBuffer.toString();
