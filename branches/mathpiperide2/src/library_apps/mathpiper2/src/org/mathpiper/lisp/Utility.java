@@ -500,15 +500,15 @@ public class Utility {
         }
     }
 
-    public static boolean equals(Environment aEnvironment, int aStackTop, ConsPointer aExpression1, ConsPointer aExpression2) throws Exception {
+    public static boolean equals(Environment aEnvironment, int aStackTop, Cons aExpression1, Cons aExpression2) throws Exception {
         // Handle pointers to same, or null
-        if (aExpression1.getCons() == aExpression2.getCons()) {
+        if (aExpression1 == aExpression2) {
             return true;
         }
         //LispError.check(aExpression1.type().equals("Number"), LispError.INVALID_ARGUMENT);
         //LispError.check(aExpression2.type().equals("Number"), LispError.INVALID_ARGUMENT);
-        BigNumber n1 = (BigNumber) aExpression1.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
-        BigNumber n2 = (BigNumber) aExpression2.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber n1 = (BigNumber) aExpression1.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber n2 = (BigNumber) aExpression2.getNumber(aEnvironment.getPrecision(), aEnvironment);
         if (!(n1 == null && n2 == null)) {
             if (n1 == n2) {
                 return true;
@@ -548,7 +548,7 @@ public class Utility {
 
             while (consTraverser1.getCons() != null && consTraverser2.getCons() != null) {
                 // compare two list elements
-                if (!equals(aEnvironment, aStackTop, consTraverser1.getPointer(), consTraverser2.getPointer())) {
+                if (!equals(aEnvironment, aStackTop, consTraverser1.getPointer().getCons(), consTraverser2.getPointer().getCons())) {
                     return false;
                 }
 
@@ -1191,9 +1191,8 @@ public class Utility {
                 Cons sub = ((ConsPointer) listCons.car()).getCons();
                 if (sub != null) {
                     sub = sub.cdr().getCons();
-                    ConsPointer temp = new ConsPointer();
-                    temp.setCons(sub);
-                    if (Utility.equals(aEnvironment, aStackTop, key, temp)) {
+                    Cons temp = sub;
+                    if (Utility.equals(aEnvironment, aStackTop, key.getCons(), temp)) {
                         return listCons;
                     }//end if.
 

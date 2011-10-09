@@ -19,6 +19,7 @@ package org.mathpiper.lisp.parametermatchers;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 /// Class for matching against a list of PatternParameterMatcher objects.
 public class SublistPatternParameterMatcher extends PatternParameterMatcher {
@@ -34,13 +35,13 @@ public class SublistPatternParameterMatcher extends PatternParameterMatcher {
     }
 
 
-    public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
 
         if (!(aExpression.car() instanceof ConsPointer)) {
             return false;
         }
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aExpression);
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(aExpression));
 
         consTraverser.goSub(aStackTop);
 
@@ -56,7 +57,7 @@ public class SublistPatternParameterMatcher extends PatternParameterMatcher {
                 return false;
             }
 
-            if (!iMatchers[i].argumentMatches(aEnvironment, aStackTop, consPointer, arguments)) {
+            if (!iMatchers[i].argumentMatches(aEnvironment, aStackTop, consPointer.getCons(), arguments)) {
                 return false;
             }
 

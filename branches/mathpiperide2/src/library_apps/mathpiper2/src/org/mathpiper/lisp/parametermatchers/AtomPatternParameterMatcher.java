@@ -17,8 +17,8 @@
 package org.mathpiper.lisp.parametermatchers;
 
 import org.mathpiper.builtin.BigNumber;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.NumberCons;
 
 //Class for matching an expression to a given atom.
@@ -32,13 +32,13 @@ public class AtomPatternParameterMatcher extends PatternParameterMatcher {
     }
 
 
-    public boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception {
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
 
         // If it is a floating point, don't even bother comparing
-        if (aExpression.getCons() != null) {
+        if (aExpression != null) {
             try {
-                if (aExpression.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
-                    if (!((BigNumber) ((NumberCons) aExpression.getCons()).getNumber(aEnvironment.getPrecision(), aEnvironment)).isInteger()) {
+                if (aExpression.getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
+                    if (!((BigNumber) ((NumberCons) aExpression).getNumber(aEnvironment.getPrecision(), aEnvironment)).isInteger()) {
                         return false;
                     }
                 }

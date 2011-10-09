@@ -16,8 +16,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.parametermatchers;
 
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 //Abstract class for matching one argument to a pattern.
 public abstract class PatternParameterMatcher {
@@ -28,7 +28,7 @@ public abstract class PatternParameterMatcher {
      *@aExpression the expression to test.
      *@arguments (input/output) actual values of the pattern variables for aExpression.
      */
-    public abstract boolean argumentMatches(Environment aEnvironment, int aStackTop, ConsPointer aExpression, ConsPointer[] arguments) throws Exception;
+    public abstract boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception;
 
 
     public abstract String getType();

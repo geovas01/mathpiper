@@ -19,8 +19,8 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -41,10 +41,9 @@ public class Equal_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated1 = new ConsPointer();
-        evaluated1.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer evaluated2 = new ConsPointer();
-        evaluated2.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        Cons evaluated1 = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
+
+        Cons evaluated2 = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
 
         Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
                 Utility.equals(aEnvironment, aStackTop, evaluated1, evaluated2));

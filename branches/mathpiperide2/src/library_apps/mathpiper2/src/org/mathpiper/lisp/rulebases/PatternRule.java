@@ -22,6 +22,7 @@ import org.mathpiper.builtin.PatternContainer;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 
 /**
@@ -56,7 +57,7 @@ public class PatternRule extends Rule {
     }
 
     //Return true if the corresponding pattern matches.
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
         return iPattern.matches(aEnvironment, aStackTop, aArguments);
     }
 

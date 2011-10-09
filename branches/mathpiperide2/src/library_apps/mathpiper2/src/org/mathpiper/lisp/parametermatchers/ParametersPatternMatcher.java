@@ -102,12 +102,12 @@ public class ParametersPatternMatcher {
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aArguments) throws Exception {
         int i;
 
-        ConsPointer[] argumentsPointer = null;
+        Cons[] argumentsCons = null;
         if (iVariables.size() > 0) {
-            argumentsPointer = new ConsPointer[iVariables.size()];
-            for (i = 0; i < iVariables.size(); i++) {
-                argumentsPointer[i] = new ConsPointer();
-            }
+            argumentsCons = new Cons[iVariables.size()];
+            //for (i = 0; i < iVariables.size(); i++) {
+                //argumentsPointer[i] = new ConsPointer();
+            //}
 
         }
         ConsTraverser argumentsTraverser = new ConsTraverser(aEnvironment, aArguments);
@@ -120,7 +120,7 @@ public class ParametersPatternMatcher {
             if (argumentsPointer2 == null) {
                 return false;
             }
-            if (!((PatternParameterMatcher) iParamMatchers.get(i)).argumentMatches(aEnvironment, aStackTop, argumentsPointer2, argumentsPointer)) {
+            if (!((PatternParameterMatcher) iParamMatchers.get(i)).argumentMatches(aEnvironment, aStackTop, argumentsPointer2.getCons(), argumentsCons)) {
                 return false;
             }
             argumentsTraverser.goNext(aStackTop);
@@ -133,7 +133,7 @@ public class ParametersPatternMatcher {
             //Set the local variables.
             aEnvironment.pushLocalFrame(false, "Pattern");
             try {
-                setPatternVariables(aEnvironment, argumentsPointer, aStackTop);
+                setPatternVariables(aEnvironment, argumentsCons, aStackTop);
 
                 //Do the predicates
                 if (!checkPredicates(aEnvironment, aStackTop)) {
@@ -147,7 +147,7 @@ public class ParametersPatternMatcher {
         }
 
         // setCons the local variables for sure now
-        setPatternVariables(aEnvironment, argumentsPointer, aStackTop);
+        setPatternVariables(aEnvironment, argumentsCons, aStackTop);
 
         return true;
     }
@@ -158,23 +158,23 @@ public class ParametersPatternMatcher {
      *This function does the same as matches(Environment, ConsPointer),
      *but differs in the type of the arguments.
      */
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
         int i;
 
-        ConsPointer[] arguments = null;
+        Cons[] arguments = null;
         if (iVariables.size() > 0) {
-            arguments = new ConsPointer[iVariables.size()];
+            arguments = new Cons[iVariables.size()];
         }
-        for (i = 0; i < iVariables.size(); i++) {
-            arguments[i] = new ConsPointer();
-        }
+        //for (i = 0; i < iVariables.size(); i++) {
+        //    arguments[i] = new ConsPointer();
+        //}
 
 
 
         for (i = 0; i < iParamMatchers.size(); i++) {
             if(i >= aArguments.length) LispError.throwError(aEnvironment, aStackTop, "Listed function definitions need at least two parameters.", "INTERNAL");
             PatternParameterMatcher patternParameter = (PatternParameterMatcher) iParamMatchers.get(i);
-            ConsPointer argument = aArguments[i];
+            Cons argument = aArguments[i];
             if (!patternParameter.argumentMatches(aEnvironment, aStackTop, argument, arguments)) {
                 return false;
             }
@@ -332,11 +332,11 @@ public class ParametersPatternMatcher {
      *variable is made for every entry in the array, and the
      *corresponding argument is assigned to it.
      */
-    protected void setPatternVariables(Environment aEnvironment, ConsPointer[] arguments, int aStackTop) throws Exception {
+    protected void setPatternVariables(Environment aEnvironment, Cons[] arguments, int aStackTop) throws Exception {
         int i;
         for (i = 0; i < iVariables.size(); i++) {
             //Set the variable to the new value
-            aEnvironment.newLocalVariable((String) iVariables.get(i), arguments[i].getCons(), aStackTop);
+            aEnvironment.newLocalVariable((String) iVariables.get(i), arguments[i], aStackTop);
         }
     }
 

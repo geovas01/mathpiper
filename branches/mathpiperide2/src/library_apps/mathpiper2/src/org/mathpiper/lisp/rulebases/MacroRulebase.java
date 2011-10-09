@@ -64,7 +64,7 @@ public class MacroRulebase extends SingleArityRulebase {
     public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsPointer) throws Exception {
         Cons aResult;
         int arity = arity();
-        ConsPointer[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
+        Cons[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
 
 
 
@@ -79,7 +79,7 @@ public class MacroRulebase extends SingleArityRulebase {
                 String variable = ((ParameterName) iParameters.get(parameterIndex)).iName;
 
                 // set the variable to the new value
-                aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);
+                aEnvironment.newLocalVariable(variable, argumentsResultPointerArray[parameterIndex], aStackTop);
             }
 
             // walk the rules database, returning the evaluated result if the
@@ -141,9 +141,9 @@ public class MacroRulebase extends SingleArityRulebase {
             if (arity == 0) {
                 full.cdr().setCons(null);
             } else {
-                full.cdr().setCons(argumentsResultPointerArray[0].getCons());
+                full.cdr().setCons(argumentsResultPointerArray[0]);
                 for (int parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
-                    argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
+                    argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1]);
                 }
             }
             aResult = SublistCons.getInstance(aEnvironment, full.getCons());
