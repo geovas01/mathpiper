@@ -49,7 +49,7 @@ public class List extends BuiltinFunction
         consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null) {
             
-            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer());
+            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer().getCons());
             tail.getPointer().setCons(evaluated);
             tail.goNext(aStackTop);
             consTraverser.goNext(aStackTop);

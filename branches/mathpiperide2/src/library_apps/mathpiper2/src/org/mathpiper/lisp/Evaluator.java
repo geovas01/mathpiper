@@ -285,7 +285,7 @@ public abstract class Evaluator {
 		iStackTraced = true;
 	}
 
-	public abstract Cons evaluate(Environment aEnvironment, int aStackTop, ConsPointer aArgumentsOrExpression) throws Exception;
+	public abstract Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsOrExpression) throws Exception;
 
 
 	public UserStackInformation stackInformation() {

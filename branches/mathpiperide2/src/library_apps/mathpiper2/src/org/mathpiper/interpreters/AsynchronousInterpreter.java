@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -89,7 +89,7 @@ class AsynchronousInterpreter implements Interpreter
     }//end method.
 
 
-    public synchronized EvaluationResponse evaluate(ConsPointer inputExpressionPointer) {
+    public synchronized EvaluationResponse evaluate(Cons inputExpressionPointer) {
         return interpreter.evaluate(inputExpressionPointer);
     }
 

@@ -51,7 +51,7 @@ public class PipeToString extends BuiltinFunction
         {
             // Evaluate the body
             ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1)));
+            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons()));
 
             //Return the getTopOfStackPointer
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(oper.toString())));

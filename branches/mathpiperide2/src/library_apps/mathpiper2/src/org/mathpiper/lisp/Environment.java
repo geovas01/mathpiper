@@ -200,7 +200,7 @@ public final class Environment {
         GlobalVariable globalVariable = (GlobalVariable) iGlobalState.lookUp(aVariable);
         if (globalVariable != null) {
             if (globalVariable.iEvalBeforeReturn) {
-                aResult.setCons(iLispExpressionEvaluator.evaluate(this, aStackTop, new ConsPointer(globalVariable.iValue)));
+                aResult.setCons(iLispExpressionEvaluator.evaluate(this, aStackTop, globalVariable.iValue));
                 globalVariable.iValue = aResult.getCons();
                 globalVariable.iEvalBeforeReturn = false;
                 return;

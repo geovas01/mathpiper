@@ -46,7 +46,7 @@ public class BackQuote extends BuiltinFunction
         ConsPointer result = new ConsPointer();
         Utility.substitute(aEnvironment, aStackTop, result, getArgumentPointer(aEnvironment, aStackTop, 1), behaviour);
         ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-        consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
+        consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result.getCons()));
     }
 }
 

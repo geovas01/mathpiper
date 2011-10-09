@@ -44,7 +44,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         iFlags = aFlags;
     }
 
-    public Cons evaluate(Environment aEnvironment, int aStackTop, ConsPointer aArgumentsPointer) throws Exception {
+    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsPointer) throws Exception {
         ConsPointer[] argumentsResultPointerArray = null;
 
 
@@ -57,7 +57,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         if (isTraced(functionName)) {
             
 
-            argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+            argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
             if (argumentsPointer.car() instanceof ConsPointer) {
                 ConsPointer sub = (ConsPointer) argumentsPointer.car();
                 if (sub.car() instanceof String) {
@@ -90,18 +90,18 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             // the function name that is at the beginning of the argument list.
             argumentsPointer = new ConsPointer();
 
-            argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+            argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
 
 
-            LispError.checkNumberOfArguments(aStackTop, iNumberOfArguments + 1, aArgumentsPointer, aEnvironment, functionName);
+            LispError.checkNumberOfArguments(aStackTop, iNumberOfArguments + 1, new ConsPointer(aArgumentsPointer), aEnvironment, functionName);
         }
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
 
         // Push a place holder for the result and initialize it to the function name for error reporting purposes.
-        aEnvironment.iArgumentStack.pushArgumentOnStack(aArgumentsPointer.getCons(), aStackTop, aEnvironment);
+        aEnvironment.iArgumentStack.pushArgumentOnStack(aArgumentsPointer, aStackTop, aEnvironment);
 
-        ConsPointer argumentsConsTraverser = new ConsPointer( aArgumentsPointer.getCons());
+        ConsPointer argumentsConsTraverser = new ConsPointer( aArgumentsPointer);
 
         //Strip the function name from the head of the list.
         argumentsConsTraverser.goNext(aStackTop, aEnvironment);
@@ -144,7 +144,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             for (i = 0; i < numberOfArguments; i++) {
                 if(argumentsConsTraverser.getCons() == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments, "INTERNAL");
                 if(argumentsConsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments, "INTERNAL");
-                argumentResultPointer = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsConsTraverser);
+                argumentResultPointer = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsConsTraverser.getCons());
 
                 if (isTraced(functionName) && argumentsResultPointerArray != null && showFlag) {
                     argumentsResultPointerArray[i] = new ConsPointer();
@@ -164,8 +164,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 ConsPointer head = new ConsPointer();
                 head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
                 head.cdr().setCons(argumentsConsTraverser.getCons());
-                ConsPointer listPointer = new ConsPointer();
-                listPointer.setCons(SublistCons.getInstance(aEnvironment, head.getCons()));
+                Cons listPointer = SublistCons.getInstance(aEnvironment, head.getCons());
 
 
                 /*
@@ -191,7 +190,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         /*Trace code */
         if (isTraced(functionName) && argumentsResultPointerArray != null && showFlag == true) {
 
-            ConsPointer traceArgumentPointer = new ConsPointer( aArgumentsPointer.getCons());
+            ConsPointer traceArgumentPointer = new ConsPointer( aArgumentsPointer);
 
             traceArgumentPointer.goNext(aStackTop, aEnvironment);
 
@@ -227,7 +226,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
         if (isTraced(functionName) && showFlag == true) {
             argumentsPointer = new ConsPointer();
-            argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer.getCons()));
+            argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
             String localVariables = aEnvironment.getLocalVariables(aStackTop);
             Evaluator.traceShowLeave(aEnvironment, aResultPointer, argumentsPointer.getCons(), "builtin", localVariables);
             argumentsPointer.setCons(null);

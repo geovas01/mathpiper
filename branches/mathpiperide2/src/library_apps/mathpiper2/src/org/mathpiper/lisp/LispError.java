@@ -368,7 +368,7 @@ public class LispError {
                 error = error + strout;
 
                 
-                Cons eval = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg);
+                Cons eval = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg.getCons());
                 error = error + " )*** evaluated to ***( ";
                 strout = Utility.printMathPiperExpression(aStackTop, new ConsPointer(eval), aEnvironment, 60);
                 error = error + strout;
