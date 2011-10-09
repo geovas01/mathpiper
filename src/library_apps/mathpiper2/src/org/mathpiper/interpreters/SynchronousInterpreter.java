@@ -230,8 +230,8 @@ class SynchronousInterpreter implements Interpreter {
             iEnvironment.iCurrentInput = newInput;
 
             if (iEnvironment.iPrettyReaderName != null) {
-                ConsPointer args = new ConsPointer();
-                inputExpressionPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyReaderName, args));
+
+                inputExpressionPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyReaderName, null));
             } else //Else not PrettyReader.
             {
                 Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
@@ -277,8 +277,7 @@ class SynchronousInterpreter implements Interpreter {
         String resultString = "Exception";
 
         try {
-            ConsPointer resultPointer = new ConsPointer();
-            resultPointer.setCons(iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, inputExpressionPointer)); //*** The main evaluation happens here.
+            Cons resultPointer = iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, inputExpressionPointer); //*** The main evaluation happens here.
 
             evaluationResponse.setResultList(resultPointer);
 
@@ -309,13 +308,11 @@ class SynchronousInterpreter implements Interpreter {
                 if (iEnvironment.iPrettyPrinterName.equals("\"RForm\"")) {
                     Cons holdAtom = AtomCons.getInstance(iEnvironment, -1, "Hold");
 
-                    holdAtom.cdr().setCons(resultPointer.getCons());
+                    holdAtom.cdr().setCons(resultPointer);
 
-                    Cons subListCons = SublistCons.getInstance(iEnvironment, holdAtom);
+                    Cons resultWithHold = SublistCons.getInstance(iEnvironment, holdAtom);
 
-                    ConsPointer resultPointerWithHold = new ConsPointer(subListCons);
-
-                    applyResultPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultPointerWithHold));
+                    applyResultPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultWithHold));
                 } else {
                     applyResultPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultPointer));
                 }
@@ -327,7 +324,7 @@ class SynchronousInterpreter implements Interpreter {
             } else {
                 //Default printer.
                 printer.rememberLastChar(' ');
-                printer.print(-1, resultPointer, outputStream, iEnvironment);
+                printer.print(-1, new ConsPointer(resultPointer), outputStream, iEnvironment);
                 resultString = outputBuffer.toString();
             }
 
@@ -359,12 +356,12 @@ class SynchronousInterpreter implements Interpreter {
                 Object object = ((ConsPointer) inputExpressionPointer.car()).car();
 
                 if (object instanceof String && ((String) object).startsWith("Load")) {
-                    ConsPointer loadResult = new ConsPointer();
-                    iEnvironment.getLocalOrGlobalVariable(-1, "$LoadResult", loadResult);
+
+                    Cons loadResult = iEnvironment.getLocalOrGlobalVariable(-1, "$LoadResult");
                     StringBuffer string_out = new StringBuffer();
                     MathPiperOutputStream output = new StringOutputStream(string_out);
                     printer.rememberLastChar(' ');
-                    printer.print(-1, loadResult, output, iEnvironment);
+                    printer.print(-1, new ConsPointer(loadResult), output, iEnvironment);
                     String loadResultString = string_out.toString();
                     evaluationResponse.setResult(loadResultString);
                     if (loadResult.type() == Utility.OBJECT) {

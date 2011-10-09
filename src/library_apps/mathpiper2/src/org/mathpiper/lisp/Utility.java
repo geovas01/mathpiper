@@ -212,11 +212,11 @@ public class Utility {
     }
 
     //Evaluate a function which is in string form.
-    public static Cons applyString(Environment aEnvironment, int aStackTop, String aOperator, ConsPointer aArgs) throws Exception {
+    public static Cons applyString(Environment aEnvironment, int aStackTop, String aOperator, Cons aArgs) throws Exception {
         if(! isString(aOperator)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_STRING, aOperator, "INTERNAL");
 
         Cons head = AtomCons.getInstance(aEnvironment, aStackTop, getSymbolName(aEnvironment, aOperator));
-        head.cdr().setCons(aArgs.getCons());
+        head.cdr().setCons(aArgs);
         ConsPointer body = new ConsPointer();
         body.setCons(SublistCons.getInstance(aEnvironment, head));
         return aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body.getCons());
@@ -648,7 +648,7 @@ public class Utility {
                     Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn.getCons());
                     if(aStackTop != -1)
                     {
-                        aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", new ConsPointer(result), false);//Note:tk:added to make the result of executing Loaded code available.
+                        aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
                     }
                 }
             }//end while.
@@ -869,7 +869,7 @@ public class Utility {
             value = new ConsPointer(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2).getCons()) );
         }
         
-        aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable); //Variable setting is deligated to Environment.
+        aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value.getCons(), aGlobalLazyVariable); //Variable setting is deligated to Environment.
 
 
         Utility.putTrueInPointer(aEnvironment, BuiltinFunction.getTopOfStackPointer(aEnvironment, aStackTop));

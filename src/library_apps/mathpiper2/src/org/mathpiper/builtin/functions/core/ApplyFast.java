@@ -23,6 +23,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -44,8 +45,8 @@ public class ApplyFast extends BuiltinFunction
     {
         ConsPointer oper = new ConsPointer();
         oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer args = new ConsPointer();
-        args.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+
+        Cons args = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
 
         if(! (args.car() instanceof ConsPointer)) LispError.checkArgument(aEnvironment, aStackTop, 2, "ApplyFast");
         if(((ConsPointer) args.car()).getCons() == null) LispError.throwError(aEnvironment, aStackTop, 2);
@@ -56,7 +57,7 @@ public class ApplyFast extends BuiltinFunction
             ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
             consPointer.setCons(Utility.applyString(aEnvironment, aStackTop,
                     (String) oper.car(),
-                    ((ConsPointer) args.car()).cdr()) );
+                    ((ConsPointer) args.car()).cdr().getCons()) );
         } else
         {   // Apply a pure function {args,body}.
 

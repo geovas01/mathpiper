@@ -681,7 +681,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                         //Evaluate Hold function.
                         Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
-                        holdAtomCons.cdr().setCons(response.getResultList().getCons());
+                        holdAtomCons.cdr().setCons(response.getResultList());
                         Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
                         ConsPointer holdInputExpressionPointer = new ConsPointer(holdSubListCons);
 

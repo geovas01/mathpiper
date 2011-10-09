@@ -20,8 +20,8 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -46,9 +46,9 @@ public class Bound_ extends BuiltinFunction
         if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof String)
         {
             String str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-            ConsPointer val = new ConsPointer();
-            aEnvironment.getLocalOrGlobalVariable(aStackTop, str, val);
-            if (val.getCons() != null)
+
+            Cons val = aEnvironment.getLocalOrGlobalVariable(aStackTop, str);
+            if (val != null)
             {
                 Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
                 return;

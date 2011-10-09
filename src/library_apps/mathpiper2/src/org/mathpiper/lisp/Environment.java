@@ -177,38 +177,40 @@ public final class Environment {
         iPrecision = aPrecision;    // getPrecision in decimal digits
     }
 
-    public void setLocalOrGlobalVariable(int aStackTop, String aVariable, ConsPointer aValue, boolean aGlobalLazyVariable) throws Exception {
+    public void setLocalOrGlobalVariable(int aStackTop, String aVariable, Cons aValue, boolean aGlobalLazyVariable) throws Exception {
         LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
         if (localVariable != null) {
-            localVariable.iValue = aValue.getCons();
+            localVariable.iValue = aValue;
             return;
         }
-        GlobalVariable globalVariable = new GlobalVariable(aValue.getCons());
+        GlobalVariable globalVariable = new GlobalVariable(aValue);
         iGlobalState.setAssociation(globalVariable, aVariable);
         if (aGlobalLazyVariable) {
             globalVariable.setEvalBeforeReturn(true);
         }
     }
 
-    public void getLocalOrGlobalVariable(int aStackTop, String aVariable, ConsPointer aResult) throws Exception {
-        aResult.setCons(null);
+    public Cons getLocalOrGlobalVariable(int aStackTop, String aVariable) throws Exception {
+        Cons aResult;
         LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
         if (localVariable != null) {
-            aResult.setCons(localVariable.iValue);
-            return;
+            aResult = localVariable.iValue;
+            return aResult;
         }
         GlobalVariable globalVariable = (GlobalVariable) iGlobalState.lookUp(aVariable);
         if (globalVariable != null) {
             if (globalVariable.iEvalBeforeReturn) {
-                aResult.setCons(iLispExpressionEvaluator.evaluate(this, aStackTop, globalVariable.iValue));
-                globalVariable.iValue = aResult.getCons();
+                aResult = iLispExpressionEvaluator.evaluate(this, aStackTop, globalVariable.iValue);
+                globalVariable.iValue = aResult;
                 globalVariable.iEvalBeforeReturn = false;
-                return;
+                return aResult;
             } else {
-                aResult.setCons(globalVariable.iValue);
-                return;
+                aResult = globalVariable.iValue;
+                return aResult;
             }
         }
+
+        return null;
     }
 
 
