@@ -24,6 +24,7 @@ import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
@@ -47,8 +48,8 @@ public class PatternCreate extends BuiltinFunction
     {
         ConsPointer patternPointer = new ConsPointer();
         patternPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        ConsPointer postPredicatePointer = new ConsPointer();
-        postPredicatePointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        
+        Cons postPredicatePointer = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
 
         ConsTraverser patternPointerTraverser = new ConsTraverser(aEnvironment, patternPointer);
         if(patternPointerTraverser.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PatternCreate");
@@ -60,7 +61,7 @@ public class PatternCreate extends BuiltinFunction
         patternPointer = patternPointerTraverser.getPointer();
 
 
-        org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, aStackTop, patternPointer, postPredicatePointer);
+        org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, aStackTop, patternPointer.getCons(), postPredicatePointer);
         PatternContainer patternContainer = new PatternContainer(matcher);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, patternContainer));
     }
