@@ -258,11 +258,10 @@ public class TestSuite {
 
             while (!endoffile) {
 
-                ConsPointer readIn = new ConsPointer();
                 // Read expression
-                parser.parse(aStackTop, readIn);
+                Cons readIn = parser.parse(aStackTop);
 
-                if(readIn.getCons() == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "", "INTERNAL");
+                if(readIn == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "", "INTERNAL");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
@@ -270,7 +269,7 @@ public class TestSuite {
                 else {
 
                     if (printExpression == true) {
-                        printExpression(printedScriptStringBuffer, aEnvironment, readIn);
+                        printExpression(printedScriptStringBuffer, aEnvironment, new ConsPointer(readIn));
 
                         String expression = printedScriptStringBuffer.toString();
 
@@ -281,7 +280,7 @@ public class TestSuite {
 
                     if (evaluate == true) {
                         
-                        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn.getCons());
+                        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
 
                         if (outputStringBuffer.length() > 0) {
                             String sideEffectOutputString = outputStringBuffer.toString();

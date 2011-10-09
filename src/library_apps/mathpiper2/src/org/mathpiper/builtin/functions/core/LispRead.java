@@ -45,7 +45,7 @@ public class LispRead extends BuiltinFunction
                 aEnvironment.iCurrentInput,
                 aEnvironment);
         // Read expression
-        parser.parse(aStackTop, getTopOfStackPointer(aEnvironment, aStackTop));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCons(parser.parse(aStackTop));
     }
 }
 

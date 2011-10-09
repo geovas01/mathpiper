@@ -633,19 +633,18 @@ public class Utility {
             MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(),  aEnvironment.iCurrentInput, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
             //Parser parser = new Parser(new MathPiperTokenizer(), aEnvironment.iCurrentInput, aEnvironment);
 
-            ConsPointer readIn = new ConsPointer();
             while (!endoffile) {
                 // Read expression
-                parser.parse(aStackTop, readIn);
+                Cons readIn = parser.parse(aStackTop);
 
-                if( readIn.getCons() == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "","INTERNAL");
+                if( readIn == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "","INTERNAL");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
                 } // Else evaluate
                 else {
 
-                    Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn.getCons());
+                    Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
                     if(aStackTop != -1)
                     {
                         aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
@@ -1274,10 +1273,9 @@ public class Utility {
     }//end method.
 
 
-    public static ConsPointer mathPiperParse(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
+    public static Cons mathPiperParse(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
         MathPiperTokenizer tokenizer = new MathPiperTokenizer();
         InputStatus someStatus = new InputStatus();
-        ConsPointer inputExpressionPointer = new ConsPointer();
 
         StringBuffer inp = new StringBuffer();
         inp.append(inputExpression);
@@ -1285,9 +1283,9 @@ public class Utility {
         StringInputStream inputExpressionBuffer = new StringInputStream(inp.toString(), someStatus);
 
         Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-        infixParser.parse(aStackTop, inputExpressionPointer);
+        Cons inputExpressionCons = infixParser.parse(aStackTop);
 
-        return inputExpressionPointer;
+        return inputExpressionCons;
     }//end method.
 
 
@@ -1295,9 +1293,9 @@ public class Utility {
 
     public static ConsPointer lispEvaluate(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
 
-        ConsPointer inputExpressionPointer = mathPiperParse(aEnvironment, aStackTop, inputExpression);
+        Cons inputExpressionCons = mathPiperParse(aEnvironment, aStackTop, inputExpression);
 
-        return new ConsPointer(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionPointer.getCons()));
+        return new ConsPointer(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionCons));
     }//end method.
 
 
@@ -1331,9 +1329,9 @@ public class Utility {
 
         Utility.putTrueInPointer(aEnvironment, truePointer);
 
-        ConsPointer expressionPointer = Utility.mathPiperParse(aEnvironment, aStackTop, body);
+        Cons expressionCons = Utility.mathPiperParse(aEnvironment, aStackTop, body);
 
-        aEnvironment.defineRule(aStackTop, functionName, parameters.length, 100, truePointer, expressionPointer);
+        aEnvironment.defineRule(aStackTop, functionName, parameters.length, 100, truePointer, new ConsPointer(expressionCons));
     }
 
 }//end class.
