@@ -19,6 +19,7 @@ package org.mathpiper.lisp.rulebases;
 
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  * A rule that always matches.
@@ -34,7 +35,7 @@ class TrueRule extends PredicateRule
     }
     /// Return true, always.
     @Override
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception
     {
         return true;
     }

@@ -25,7 +25,7 @@ public class ExpressionSubstitute
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aElement)
             throws Exception {
 
-        if (Utility.equals(iEnvironment, aStackTop, aElement, iToMatch)) {
+        if (Utility.equals(iEnvironment, aStackTop, aElement.getCons(), iToMatch.getCons())) {
             aResult.setCons(iToReplaceWith.getCons().copy(aEnvironment, false));
 
             return true;

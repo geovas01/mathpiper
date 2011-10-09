@@ -20,6 +20,7 @@ package org.mathpiper.builtin;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 
 /**
@@ -49,7 +50,7 @@ public class PatternContainer extends BuiltinContainer {
     }
 
 
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer[] aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
         if(iPatternMatcher == null) LispError.lispAssert(aEnvironment, aStackTop);
         boolean result;
         result = iPatternMatcher.matches(aEnvironment, aStackTop, aArguments);

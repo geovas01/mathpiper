@@ -109,7 +109,7 @@ public class SingleArityRulebase extends Evaluator {
 
         Cons aResult;
         int arity = arity();
-        ConsPointer[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
+        Cons[] argumentsResultPointerArray = evaluateArguments(aEnvironment, aStackTop, aArgumentsPointer);
 
         // Create a new local variables frame that has the same fenced state as this function.
         aEnvironment.pushLocalFrame(fenced(), this.functionName);
@@ -124,7 +124,7 @@ public class SingleArityRulebase extends Evaluator {
             for (int parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
                 String variableName = ((ParameterName) iParameters.get(parameterIndex)).iName;
                 // set the variable to the new value
-                aEnvironment.newLocalVariable(variableName, argumentsResultPointerArray[parameterIndex].getCons(), aStackTop);
+                aEnvironment.newLocalVariable(variableName, argumentsResultPointerArray[parameterIndex], aStackTop);
             }
 
             // walk the rules database, returning the evaluated result if the
@@ -197,9 +197,9 @@ public class SingleArityRulebase extends Evaluator {
             if (arity == 0) {
                 full.cdr().setCons(null);
             } else {
-                full.cdr().setCons(argumentsResultPointerArray[0].getCons());
+                full.cdr().setCons(argumentsResultPointerArray[0]);
                 for (int parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
-                    argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1].getCons());
+                    argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1]);
                 }
             }
             aResult = SublistCons.getInstance(aEnvironment, full.getCons());
@@ -231,7 +231,7 @@ public class SingleArityRulebase extends Evaluator {
     }
 
 
-    protected ConsPointer[] evaluateArguments(Environment aEnvironment, int aStackTop, Cons aArgumentsPointer) throws Exception {
+    protected Cons[] evaluateArguments(Environment aEnvironment, int aStackTop, Cons aArgumentsPointer) throws Exception {
         int arity = arity();
         int parameterIndex;
 
@@ -261,24 +261,24 @@ public class SingleArityRulebase extends Evaluator {
         argumentsTraverser.goNext(aStackTop, aEnvironment);
 
         //Creat an array which holds pointers to each argument.
-        ConsPointer[] argumentsResultPointerArray;
+        Cons[] argumentsResultPointerArray;
         if (arity == 0) {
             argumentsResultPointerArray = null;
         } else {
             if(arity <= 0) LispError.lispAssert(aEnvironment, aStackTop);
-            argumentsResultPointerArray = new ConsPointer[arity];
+            argumentsResultPointerArray = new Cons[arity];
         }
 
         // Walk over all arguments, evaluating them as necessary ********************************************************
         for (parameterIndex = 0; parameterIndex < arity; parameterIndex++) {
 
-            argumentsResultPointerArray[parameterIndex] = new ConsPointer();
+            //argumentsResultPointerArray[parameterIndex] = new ConsPointer();
 
             if(argumentsTraverser.getCons() == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
 
             if (((ParameterName) iParameters.get(parameterIndex)).iHold) {
                 //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
-                argumentsResultPointerArray[parameterIndex].setCons(argumentsTraverser.getCons().copy(aEnvironment, false));
+                argumentsResultPointerArray[parameterIndex] = argumentsTraverser.getCons().copy(aEnvironment, false);
             } else {
                 //If the parameter is not on hold:
 
@@ -286,7 +286,7 @@ public class SingleArityRulebase extends Evaluator {
                 if(argumentsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
 
                 //Evaluate each argument and place the result into argumentsResultPointerArray[i];
-                argumentsResultPointerArray[parameterIndex].setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsTraverser.getCons()));
+                argumentsResultPointerArray[parameterIndex] = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsTraverser.getCons());
             }
             argumentsTraverser.goNext(aStackTop, aEnvironment);
         }//end for.
@@ -301,7 +301,7 @@ public class SingleArityRulebase extends Evaluator {
 
             //traceArgumentPointer.goNext();
             for (parameterIndex = 0; parameterIndex < argumentsResultPointerArray.length; parameterIndex++) {
-                Evaluator.traceShowArg(aEnvironment, traceParameterPointer.getCons(), argumentsResultPointerArray[parameterIndex].getCons());
+                Evaluator.traceShowArg(aEnvironment, traceParameterPointer.getCons(), argumentsResultPointerArray[parameterIndex]);
 
                 traceParameterPointer.goNext(aStackTop, aEnvironment);
             }//end for.
