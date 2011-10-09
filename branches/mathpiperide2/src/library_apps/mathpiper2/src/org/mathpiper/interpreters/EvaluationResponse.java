@@ -5,7 +5,7 @@
 
 package org.mathpiper.interpreters;
 
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  * This class is used by an {@link Interpreter} to send the results of an evaluation to
@@ -18,7 +18,7 @@ public class EvaluationResponse {
     private Exception exception = null;
     private String sourceFileName = "";
     private Object object = null;
-    private ConsPointer resultList = null;
+    private Cons resultList = null;
             
     private EvaluationResponse()
     {
@@ -154,7 +154,7 @@ public class EvaluationResponse {
      *
      * @return a Java object if one is available to return to the user.
      */
-    public ConsPointer getResultList() {
+    public Cons getResultList() {
         return resultList;
     }
 
@@ -164,7 +164,7 @@ public class EvaluationResponse {
      *
      * @param exception the exception object
      */
-    public void setResultList(ConsPointer resultList) {
+    public void setResultList(Cons resultList) {
         this.resultList = resultList;
     }
 
