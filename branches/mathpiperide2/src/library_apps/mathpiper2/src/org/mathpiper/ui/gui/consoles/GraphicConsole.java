@@ -97,7 +97,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
     private StringBuilder input = new StringBuilder();
     private JButton haltButton, clearConsoleButton, clearRawButton, helpButton, smallerFontButton, largerFontButton;
     private JCheckBox rawOutputCheckBox;
-    private boolean isCodeResult = false;
+    private boolean isCodeResult = true;
     private JCheckBox codeResultCheckBox;
     private JCheckBox showRawOutputCheckBox;
     private JTextArea rawOutputTextArea;
@@ -212,7 +212,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
         rawOutputTextArea.setEditable(false);
         rawOutputTextArea.setText("Raw output text area.\n\n");
 
-        codeResultCheckBox = new JCheckBox("Code Result");
+        codeResultCheckBox = new JCheckBox("Math Result");
         codeResultCheckBox.setToolTipText("Show results in code format instead of traditional mathematics format.");
         codeResultCheckBox.addItemListener(this);
         consoleButtons.add(codeResultCheckBox);
@@ -365,9 +365,9 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
         if (source == codeResultCheckBox) {
             if (ie.getStateChange() == ItemEvent.SELECTED) {
-                isCodeResult = true;
-            } else {
                 isCodeResult = false;
+            } else {
+                isCodeResult = true;
             }//end if/else.
         }
         if (source == rawOutputCheckBox) {
