@@ -90,6 +90,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
     private String selectedFunctionName = "";
     private boolean showPrivateFunctions = false;
     private boolean showExperimentalFunctions = true;
+    private boolean showUndocumentedFunctions = false;
     private JScrollPane treeViewScrollPane;
     private JSplitPane splitPane;
     private JPanel treePanel;
@@ -339,6 +340,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             } else if (this.showExperimentalFunctions == true && functionDataStringArray[row][1].equals("experimental")) {
                 //Pass through to populate.
             } else if (functionDataStringArray[row][1].equals("public")) {
+                //Pass through to populate.
+            } else if (this.showUndocumentedFunctions == true && functionDataStringArray[row][1].equals("undocumented")) {
                 //Pass through to populate.
             } else {
                 //Skip populate.
@@ -1123,7 +1126,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         private JButton fontSizeDecreaseButton;
         private JCheckBox showExperimentalFunctionsCheckBox;
         private JCheckBox showPrivateFunctionsCheckBox;
-        private boolean isShowPrivateFunctions = false;
+        private JCheckBox showUndocumentedFunctionsCheckBox;
 
 
         private ToolPanel() {
@@ -1154,6 +1157,12 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
             showPrivateFunctionsCheckBox.setSelected(false);
             showPrivateFunctionsCheckBox.addItemListener(this);
             add(showPrivateFunctionsCheckBox);
+
+
+            showUndocumentedFunctionsCheckBox = new JCheckBox("Undocumented");
+            showUndocumentedFunctionsCheckBox.setSelected(false);
+            showUndocumentedFunctionsCheckBox.addItemListener(this);
+            add(showUndocumentedFunctionsCheckBox);
 
 
             add(Box.createGlue());
@@ -1246,7 +1255,8 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         public void itemStateChanged(ItemEvent ie) {
             Object source = ie.getSource();
 
-            if (source == showPrivateFunctionsCheckBox || source == showExperimentalFunctionsCheckBox) {
+            if (source == showPrivateFunctionsCheckBox || source == showExperimentalFunctionsCheckBox ||  source == showUndocumentedFunctionsCheckBox){
+                
                 if (source == showPrivateFunctionsCheckBox) {
 
                     if (ie.getStateChange() == ItemEvent.SELECTED) {
@@ -1263,6 +1273,13 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
                         showExperimentalFunctions = false;
                     }//end if/else.
 
+                } else if (source == showUndocumentedFunctionsCheckBox) {
+
+                    if (ie.getStateChange() == ItemEvent.SELECTED) {
+                        showUndocumentedFunctions = true;
+                    } else {
+                        showUndocumentedFunctions = false;
+                    }//end if/else.
 
                 }//end if.
 

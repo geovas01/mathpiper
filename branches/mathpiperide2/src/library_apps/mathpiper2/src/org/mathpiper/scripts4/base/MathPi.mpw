@@ -44,3 +44,23 @@ Defun("MathPi",{})
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="MathPi",categories="User Functions",access="undocumented"
+*CMD MathPi --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

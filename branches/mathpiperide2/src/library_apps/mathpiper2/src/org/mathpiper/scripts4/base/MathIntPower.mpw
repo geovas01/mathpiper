@@ -12,3 +12,23 @@ Defun("MathIntPower", {x,y})
         ));
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="MathIntPower",categories="User Functions",access="undocumented"
+*CMD MathIntPower --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

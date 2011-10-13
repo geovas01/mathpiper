@@ -24,3 +24,23 @@ Defun("Trigonometry",{x,i,sum,term})
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="Trigonometry",categories="User Functions",access="undocumented"
+*CMD Trigonometry --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

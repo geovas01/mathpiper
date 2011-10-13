@@ -9,3 +9,23 @@ Defun("MathMul2Exp", {x,n})        // avoid roundoff by not calculating 1/2^n se
 //        );
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="MathMul2Exp",categories="User Functions",access="undocumented"
+*CMD MathMul2Exp --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
