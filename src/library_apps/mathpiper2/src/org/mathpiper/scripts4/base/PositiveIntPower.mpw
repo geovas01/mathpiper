@@ -35,3 +35,23 @@ Defun("PositiveIntPower", {x,n})
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="PositiveIntPower",categories="User Functions",access="undocumented"
+*CMD PositiveIntPower --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

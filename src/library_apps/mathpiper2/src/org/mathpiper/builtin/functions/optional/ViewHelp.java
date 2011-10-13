@@ -13,9 +13,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-
 package org.mathpiper.builtin.functions.optional;
 
 import java.awt.BorderLayout;
@@ -35,43 +33,20 @@ import org.mathpiper.ui.gui.help.FunctionTreePanel;
  *
  *
  */
-public class ViewHelp extends BuiltinFunction
-{
+public class ViewHelp extends BuiltinFunction {
 
-    public void plugIn(Environment aEnvironment) throws Exception
-    {
+    public void plugIn(Environment aEnvironment) throws Exception {
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
                 "ViewHelp");
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
-    {
-        JFrame frame = new javax.swing.JFrame();
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        FunctionTreePanel functionTreePanel = null;
 
         try {
 
-            functionTreePanel = new FunctionTreePanel();
-
-            Container contentPane = frame.getContentPane();
-            contentPane.add(functionTreePanel.getToolPanel(), BorderLayout.NORTH);
-            contentPane.add(functionTreePanel, BorderLayout.CENTER);
-
-            frame.pack();
-
-            frame.setTitle("MathPiper Help");
-            frame.setSize(new Dimension(700, 700));
-            //frame.setResizable(false);
-            frame.setPreferredSize(new Dimension(700, 700));
-            frame.setLocationRelativeTo(null); // added
-
-            frame.setVisible(true);
-
-            JavaObject response = new JavaObject(frame);
+            JavaObject response = new JavaObject(showFrame());
 
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
@@ -79,9 +54,47 @@ public class ViewHelp extends BuiltinFunction
             LispError.raiseError("The help application data file was not found.", "ViewHelp", aStackTop, aEnvironment);
         }
 
-
-         
     }//end method.
+
+    public static JFrame showFrame() throws Exception {
+        JFrame frame = new javax.swing.JFrame();
+
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        FunctionTreePanel functionTreePanel = null;
+
+
+        functionTreePanel = new FunctionTreePanel();
+
+        Container contentPane = frame.getContentPane();
+        contentPane.add(functionTreePanel.getToolPanel(), BorderLayout.NORTH);
+        contentPane.add(functionTreePanel, BorderLayout.CENTER);
+
+        frame.pack();
+
+        frame.setTitle("MathPiper Help");
+        frame.setSize(new Dimension(700, 700));
+        //frame.setResizable(false);
+        frame.setPreferredSize(new Dimension(700, 700));
+        frame.setLocationRelativeTo(null); // added
+
+        frame.setVisible(true);
+
+        return frame;
+
+    }//end method.
+
+
+
+    public static void main(String[] args)
+    {
+        try{showFrame();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 }//end class.
 

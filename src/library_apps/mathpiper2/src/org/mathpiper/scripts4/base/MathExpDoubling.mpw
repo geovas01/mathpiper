@@ -15,3 +15,23 @@ Defun("MathExpDoubling", {value, n})
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="MathExpDoubling",categories="User Functions",access="undocumented"
+*CMD MathExpDoubling --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

@@ -10,3 +10,22 @@ Defun("MathFloatPower", {x,y})
 */
 
 %/mathpiper
+
+
+
+
+%mathpiper_docs,name="MathFloatPower",categories="User Functions",access="undocumented"
+*CMD MathFloatPower --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
