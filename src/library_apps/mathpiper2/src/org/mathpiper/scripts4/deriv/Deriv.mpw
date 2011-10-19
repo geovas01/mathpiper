@@ -96,6 +96,26 @@ LocalSymbols(var,var2,a,b,y)[
 
 
 
+%mathpiper_docs,name="Deriv",categories="User Functions",access="undocumented"
+*CMD Deriv --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
+
+
+
+
+
 %mathpiper,name="Deriv",subtype="automatic_test"
 
 TestMathPiper(Deriv(x)Ln(x),1/x);

@@ -1,4 +1,4 @@
-%mathpiper,def="",public="todo"
+%mathpiper,def=""
 
 /*
  * TODO This was an experiment to try to get to using a new ForEach that works the
@@ -64,3 +64,23 @@ LocalSymbols(itm,lst,bd)
 */
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="ForEachExperimental",categories="User Functions",access="undocumented"
+*CMD ForEachExperimental --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

@@ -22,3 +22,23 @@ HoldArgumentNumber("ForEachInArray",3,1);
 HoldArgumentNumber("ForEachInArray",3,3);
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="ForEachInArray",categories="User Functions",access="undocumented"
+*CMD ForEachInArray --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
