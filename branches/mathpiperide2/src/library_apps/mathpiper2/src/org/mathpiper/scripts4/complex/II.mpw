@@ -10,3 +10,23 @@
 20 # (II^_n)_(Odd?(n)  =? True) <--  II*(-1)^(n>>1);
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="II",categories="User Functions",access="undocumented"
+*CMD II --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

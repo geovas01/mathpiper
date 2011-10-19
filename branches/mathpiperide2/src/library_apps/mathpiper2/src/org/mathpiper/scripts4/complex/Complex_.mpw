@@ -6,3 +6,23 @@
 3 # Complex?(_x)             <-- False;
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="Complex?",categories="User Functions",access="undocumented"
+*CMD Complex? --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
