@@ -19,3 +19,23 @@ LocalSymbols(complexReduce) [
 ]; //LocalSymbols(complexReduce)
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="NN",categories="User Functions",access="undocumented"
+*CMD NN --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
