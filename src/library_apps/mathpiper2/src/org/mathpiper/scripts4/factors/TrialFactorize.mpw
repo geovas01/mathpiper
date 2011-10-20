@@ -47,3 +47,23 @@ TrialFactorize(n, limit) :=
 
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="TrialFactorize",categories="User Functions",access="undocumented"
+*CMD TrialFactorize --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

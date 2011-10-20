@@ -547,11 +547,22 @@ UnFence("FixUpMonicFactors",1);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
 
+%mathpiper_docs,name="jFactorsPoly",categories="User Functions",access="undocumented"
+*CMD jFactorsPoly --- *** UNDOCUMENTED ***
 
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

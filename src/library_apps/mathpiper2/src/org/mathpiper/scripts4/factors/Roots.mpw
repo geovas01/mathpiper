@@ -24,3 +24,23 @@
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="Roots",categories="User Functions",access="undocumented"
+*CMD Roots --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

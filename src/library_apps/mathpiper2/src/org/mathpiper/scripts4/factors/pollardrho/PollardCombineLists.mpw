@@ -13,3 +13,23 @@ PollardCombineLists(_left,_right) <--
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="PollardCombineLists",categories="User Functions",access="undocumented"
+*CMD PollardCombineLists --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

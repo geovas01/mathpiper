@@ -25,3 +25,23 @@
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="RootsWithMultiples",categories="User Functions",access="undocumented"
+*CMD RootsWithMultiples --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

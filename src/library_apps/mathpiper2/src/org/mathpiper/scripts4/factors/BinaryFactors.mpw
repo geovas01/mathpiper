@@ -301,6 +301,26 @@ MkfactD(numer,denom):=
 
 
 
+%mathpiper_docs,name="BinaryFactors",categories="User Functions",access="undocumented"
+*CMD BinaryFactors --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
+
+
+
+
+
 
 
 %mathpiper,name="BinaryFactors",subtype="automatic_test"

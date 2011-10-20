@@ -71,3 +71,23 @@ PollardRhoPolynomial(_x) <-- x^2+1;
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="PollardRhoFactorize",categories="User Functions",access="undocumented"
+*CMD PollardRhoFactorize --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
