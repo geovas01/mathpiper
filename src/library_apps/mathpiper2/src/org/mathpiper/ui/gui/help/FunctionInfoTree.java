@@ -48,7 +48,7 @@ public class FunctionInfoTree extends JTree {
                     if (access.equals("private")) {
                         //this.setTextSelectionColor(Color.RED);
                         //this.setTextNonSelectionColor(Color.RED);
-                        this.setForeground(Color.RED);
+                        this.setForeground(Color.BLUE);
                     }
                     else if (access.equals("experimental")) {
                         //this.setTextSelectionColor(Color.RED);
@@ -58,7 +58,7 @@ public class FunctionInfoTree extends JTree {
                     } else if (access.equals("undocumented")) {
                         //this.setTextSelectionColor(Color.RED);
                         //this.setTextNonSelectionColor(Color.RED);
-                        this.setForeground(Color.BLUE);
+                        this.setForeground(Color.RED);
                     }else {
                         //this.setTextSelectionColor(Color.BLACK);
                         //this.setTextNonSelectionColor(Color.BLACK);
