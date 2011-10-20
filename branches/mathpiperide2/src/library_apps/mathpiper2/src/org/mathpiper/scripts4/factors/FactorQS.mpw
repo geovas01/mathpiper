@@ -16,3 +16,23 @@ Function("FactorQS",{n})[
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="FactorQS",categories="User Functions",access="undocumented"
+*CMD FactorQS --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

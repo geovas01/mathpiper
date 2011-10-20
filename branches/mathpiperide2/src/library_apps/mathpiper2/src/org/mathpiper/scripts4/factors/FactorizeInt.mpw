@@ -31,3 +31,23 @@
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="FactorizeInt",categories="User Functions",access="undocumented"
+*CMD FactorizeInt --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

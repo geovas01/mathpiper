@@ -39,3 +39,23 @@ FindPrimeFactor(n, prime) :=
 ];
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="FindPrimeFactor",categories="User Functions",access="undocumented"
+*CMD FindPrimeFactor --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

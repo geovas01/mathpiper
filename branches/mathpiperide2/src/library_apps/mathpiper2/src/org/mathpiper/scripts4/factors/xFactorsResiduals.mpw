@@ -263,9 +263,22 @@ UnFence("processRealRoots",1);
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
+
+%mathpiper_docs,name="xFactorsResiduals",categories="User Functions",access="undocumented"
+*CMD xFactorsResiduals --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

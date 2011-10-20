@@ -73,8 +73,22 @@
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
+
+
+%mathpiper_docs,name="FactorsBinomials",categories="User Functions",access="undocumented"
+*CMD FactorsBinomials --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

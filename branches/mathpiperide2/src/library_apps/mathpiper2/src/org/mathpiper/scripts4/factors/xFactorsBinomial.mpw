@@ -320,10 +320,3 @@ IsPowerOf2( n_PositiveInteger? ) <-- [ Count(StringToList(ToBase(2,n)),"1") = 1;
 
 
 %/mathpiper
-
-    %output,preserve="false"
-      Result: True
-.   %/output
-
-
-

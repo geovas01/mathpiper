@@ -33,3 +33,23 @@
 20 # xFactor( _expr ) <-- expr;
 
 %/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="xFactor",categories="User Functions",access="undocumented"
+*CMD xFactor --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
