@@ -53,7 +53,7 @@ public class MacroExpand extends BuiltinFunction
 
         Cons argumentCons = argument.getCons();
 
-        argument = ((ConsPointer) argumentCons.car()).cdr();
+        argument.setCons(((ConsPointer) argumentCons.car()).cdr());
 
         Utility.substitute(aEnvironment, aStackTop, result, argument, behaviour);
 

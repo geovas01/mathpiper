@@ -58,7 +58,7 @@ public class BuiltinAssoc extends BuiltinFunction
         if(! (list.car() instanceof ConsPointer)) LispError.checkArgument(aEnvironment, aStackTop, 2, "BuiltinAssoc");
         listCons = ((ConsPointer) list.car()).getCons();
         if( listCons == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "BuiltinAssoc");
-        listCons = listCons.cdr().getCons();
+        listCons = listCons.cdr();
 
         Cons result = Utility.associativeListGet(aEnvironment, aStackTop, key, listCons);
 

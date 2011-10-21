@@ -23,6 +23,7 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 /**
@@ -46,21 +47,34 @@ public class Concatenate extends BuiltinFunction
     {
         ConsPointer all = new ConsPointer();
         all.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        ConsTraverser tail = new ConsTraverser(aEnvironment, all);
-        tail.goNext(aStackTop);
+
+        //ConsTraverser tail = new ConsTraverser(aEnvironment, all);
+        //tail.goNext(aStackTop);
+
+        Cons tail = all.getCons();
+
         int arg = 1;
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext(aStackTop);
+
         while (consTraverser.getCons() != null)
         {
             LispError.checkIsList(aEnvironment, aStackTop, consTraverser.getPointer(), arg, "Concatenate");
-            Utility.flatCopy(aEnvironment, aStackTop, tail.getPointer(), ((ConsPointer) consTraverser.getPointer().car()).cdr());
-            while (tail.getCons() != null)
+
+            ConsPointer result = new ConsPointer();
+
+            Utility.flatCopy(aEnvironment, aStackTop, result, new ConsPointer(((ConsPointer) consTraverser.getPointer().car()).cdr()));
+
+           tail.setCdr(result.getCons());
+
+            while (tail.cdr() != null)
             {
-                tail.goNext(aStackTop);
+                tail = tail.cdr();
             }
+
             consTraverser.goNext(aStackTop);
+
             arg++;
         }
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,all.getCons()));
@@ -94,4 +108,14 @@ Result: {5,a,b,c,{f(x)}};
 
 *SEE ConcatStrings, :, Insert
 %/mathpiper_docs
+
+
+
+
+%mathpiper,name="Concat",subtype="automatic_test"
+
+Verify(Concat({a,b},{c,d}), {a,b,c,d});
+
+%/mathpiper
+
 */

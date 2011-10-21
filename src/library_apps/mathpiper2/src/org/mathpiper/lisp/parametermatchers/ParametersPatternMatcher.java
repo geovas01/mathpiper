@@ -258,7 +258,7 @@ public class ParametersPatternMatcher {
 
                 //Handle _ prefix or suffix on a pattern variables.
                 if (((String) head.car()) == aEnvironment.getTokenHash().lookUp("_")) {
-                    Cons second = head.cdr().getCons();
+                    Cons second = head.cdr();
                     if (second.car() instanceof String) {
                         int index = lookUp((String) second.car());
 
@@ -267,20 +267,20 @@ public class ParametersPatternMatcher {
                             //Handle a pattern variable which has a predicate (like var_PredicateFunction).
                             ConsPointer third = new ConsPointer();
 
-                            Cons predicate = second.cdr().getCons();
+                            Cons predicate = second.cdr();
                             if ((predicate.car() instanceof ConsPointer)) {
                                 Utility.flatCopy(aEnvironment, aStackTop, third, (ConsPointer) predicate.car());
                             } else {
-                                third.setCons(second.cdr().getCons().copy(aEnvironment, false));
+                                third.setCons(second.cdr().copy(aEnvironment, false));
                             }
 
                             String str = (String) second.car();
                             Cons last = third.getCons();
-                            while (last.cdr().getCons() != null) {
-                                last = last.cdr().getCons();
+                            while (last.cdr() != null) {
+                                last = last.cdr();
                             }
 
-                            last.cdr().setCons(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, str));
+                            last.setCdr(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, str));
 
                             Cons newPredicate = org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, third.getCons());
 

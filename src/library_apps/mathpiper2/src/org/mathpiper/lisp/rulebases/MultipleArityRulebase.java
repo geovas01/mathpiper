@@ -31,6 +31,8 @@ public class MultipleArityRulebase {
     /// File to read for the definition of this function.
     public String iFileLocation;
 
+    public String functionName;
+
 
     public MultipleArityRulebase() {
     }

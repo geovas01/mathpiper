@@ -39,7 +39,7 @@ public class ConsPointer {
         return iCons.car();
     }
 
-    public ConsPointer cdr() {
+    public Cons cdr() {
         return iCons.cdr();
     }
 
@@ -71,7 +71,7 @@ public class ConsPointer {
     //iPointer = (iPointer.cdr());
     public void goNext(int aStackTop , Environment aEnvironment) throws Exception {
         if(iCons == null) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_LONG_ENOUGH, "","INTERNAL");
-        iCons = iCons.cdr().iCons;
+        iCons = iCons.cdr();
     }
 
     public void goSub(int aStackTop , Environment aEnvironment) throws Exception {

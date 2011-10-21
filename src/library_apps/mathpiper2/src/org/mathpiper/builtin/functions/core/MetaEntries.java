@@ -80,18 +80,18 @@ public class MetaEntries extends BuiltinFunction
 
             Cons keyCons = AtomCons.getInstance(aEnvironment, aStackTop, key);
 
-            operatorCons.cdr().setCons(keyCons);
+            operatorCons.setCdr(keyCons);
 
 
 
             //Add value cons.
             Cons valueCons = (Cons) metadataMap.get(key);
-            keyCons.cdr().setCons(valueCons);
+            keyCons.setCdr(valueCons);
 
 
 
             //Place entry in list.
-            consPointer.getCons().cdr().setCons(SublistCons.getInstance(aEnvironment, operatorCons));
+            consPointer.getCons().setCdr(SublistCons.getInstance(aEnvironment, operatorCons));
 
             consPointer.goNext(aStackTop, aEnvironment);
 

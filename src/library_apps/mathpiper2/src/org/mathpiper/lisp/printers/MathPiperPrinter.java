@@ -67,7 +67,10 @@ public class MathPiperPrinter extends LispPrinter {
 
     void Print(Environment aEnvironment, int aStackTop, ConsPointer aExpression, MathPiperOutputStream aOutput, int iPrecedence) throws Exception {
 
-        if(aExpression.getCons() == null) LispError.lispAssert(aEnvironment, aStackTop);
+        if(aExpression.getCons() == null) 
+        {
+            LispError.lispAssert(aEnvironment, aStackTop);
+        }
 
         String functionOrOperatorName;
         if (aExpression.car() instanceof String) {
@@ -128,16 +131,16 @@ public class MathPiperPrinter extends LispPrinter {
             }
 
             if (operator != null) {
-                ConsPointer left = null;
-                ConsPointer right = null;
+                ConsPointer left = new ConsPointer();
+                ConsPointer right = new ConsPointer();
 
                 if (prefix != null) {
-                    right = subList.cdr();
+                    right.setCons(subList.cdr());
                 } else if (infix != null) {
-                    left = subList.cdr();
-                    right = subList.cdr().cdr();
+                    left.setCons(subList.cdr());
+                    right.setCons(subList.cdr().cdr());
                 } else if (postfix != null) {
-                    left = subList.cdr();
+                    left.setCons(subList.cdr());
                 }
 
                 if (iPrecedence < operator.iPrecedence) {
@@ -146,7 +149,7 @@ public class MathPiperPrinter extends LispPrinter {
                     //Vladimir?    aOutput.write(" ");
                 }
 
-                if (left != null) {
+                if (left.getCons() != null) {
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(left).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
@@ -177,7 +180,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, " ");
                 }//end if.
 
-                if (right != null) {
+                if (right.getCons() != null) {
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(right).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
@@ -202,7 +205,7 @@ public class MathPiperPrinter extends LispPrinter {
 
             } else {
 
-                ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList.cdr());
+                ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(subList.cdr()));
 
                /*
                    Removing complex number output notation formatting until the problem with Solve(x^3 - 2*x - 7 == 0,x) is resolved.

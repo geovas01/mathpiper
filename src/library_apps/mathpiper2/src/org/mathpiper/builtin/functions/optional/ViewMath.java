@@ -71,7 +71,7 @@ public class ViewMath extends BuiltinFunction {
 
         Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
 
-        ((ConsPointer) head.car()).cdr().setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        ((ConsPointer) head.car()).getCons().setCdr(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
 
 
         Cons viewScalePointer = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();

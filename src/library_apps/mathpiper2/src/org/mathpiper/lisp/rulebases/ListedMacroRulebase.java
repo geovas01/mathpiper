@@ -39,31 +39,54 @@ public class ListedMacroRulebase extends MacroRulebase {
     @Override
     public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
         Cons aResult;
-        ConsPointer newArgs = new ConsPointer();
+
+        Cons newArgs = null;
+
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(aArguments));
-        ConsPointer ptr = newArgs;
+
+        Cons ptr = null;
+
         int arity = arity();
+
         int i = 0;
+
         while (i < arity && consTraverser.getCons() != null) {
-            ptr.setCons(consTraverser.getCons().copy(aEnvironment, false));
-            ptr = (ptr.cdr());
+
+            if(i == 0)
+            {
+                ptr = consTraverser.getCons().copy(aEnvironment, false);
+                newArgs = ptr;
+            }
+            else
+            {
+                Cons nextCons = consTraverser.getCons().copy(aEnvironment, false);
+                ptr.setCdr(nextCons);
+                ptr = nextCons;
+            }
+
             i++;
+
             consTraverser.goNext(aStackTop);
         }
-        if (consTraverser.cdr().getCons() == null) {
-            ptr.setCons(consTraverser.getCons().copy(aEnvironment, false));
-            ptr = (ptr.cdr());
+
+        if (consTraverser.cdr() == null) {
+            Cons nextCons = consTraverser.getCons().copy(aEnvironment, false);
+            ptr.setCdr(nextCons);
+            ptr = nextCons;
             i++;
             consTraverser.goNext(aStackTop);
             if(consTraverser.getCons() != null) LispError.lispAssert(aEnvironment, aStackTop);
         } else {
             ConsPointer head = new ConsPointer();
             head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
-            head.cdr().setCons(consTraverser.getCons());
-            ptr.setCons(SublistCons.getInstance(aEnvironment, head.getCons()));
+            head.getCons().setCdr(consTraverser.getCons());
+            Cons nextCons = SublistCons.getInstance(aEnvironment, head.getCons());
+            ptr.setCdr(nextCons);
+            ptr = nextCons;
         }
-        aResult = super.evaluate(aEnvironment, aStackTop, newArgs.getCons());
+        aResult = super.evaluate(aEnvironment, aStackTop, newArgs);
         return aResult;
     }
+
 
 }

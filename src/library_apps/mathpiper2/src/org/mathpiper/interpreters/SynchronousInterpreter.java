@@ -114,7 +114,7 @@ class SynchronousInterpreter implements Interpreter {
 
                 String functionName = (String) keyIterator.next();
 
-                String[] scriptCode = scripts.getScript(functionName);
+              String[] scriptCode = scripts.getScript(functionName);
 
                 if (scriptCode[0] == null) {
 
@@ -308,7 +308,7 @@ class SynchronousInterpreter implements Interpreter {
                 if (iEnvironment.iPrettyPrinterName.equals("\"RForm\"")) {
                     Cons holdAtom = AtomCons.getInstance(iEnvironment, -1, "Hold");
 
-                    holdAtom.cdr().setCons(resultPointer);
+                    holdAtom.cdr().setCdr(resultPointer);
 
                     Cons resultWithHold = SublistCons.getInstance(iEnvironment, holdAtom);
 

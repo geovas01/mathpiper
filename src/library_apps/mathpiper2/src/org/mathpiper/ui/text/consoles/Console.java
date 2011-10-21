@@ -64,6 +64,9 @@ public class Console {
             input = input + ";";
         }
 
+        input = input.replace("\\","\\\\");
+	input = input.replace("\"","\\\"");
+
         input = "LoadScript(\""+input+"\");";
         
         EvaluationResponse response = interpreter.evaluate(input, true);

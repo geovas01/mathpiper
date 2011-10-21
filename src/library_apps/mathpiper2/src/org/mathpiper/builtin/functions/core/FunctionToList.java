@@ -45,7 +45,7 @@ public class FunctionToList extends BuiltinFunction
         if(! (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer)) LispError.checkArgument(aEnvironment, aStackTop, 1, "FunctionToList");
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        head.cdr().setCons(((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).getCons());
+        head.getCons().setCdr(((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).getCons());
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head.getCons()));
     }
 }

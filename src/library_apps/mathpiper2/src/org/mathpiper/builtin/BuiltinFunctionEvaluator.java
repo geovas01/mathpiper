@@ -135,7 +135,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             if ((iFlags & Variable) != 0) {//This macro has a variable number of arguments.
                 ConsPointer head = new ConsPointer();
                 head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
-                head.cdr().setCons(argumentsConsTraverser.getCons());
+                head.getCons().setCdr(argumentsConsTraverser.getCons());
                 aEnvironment.iArgumentStack.pushArgumentOnStack(SublistCons.getInstance(aEnvironment, head.getCons()), aStackTop, aEnvironment);
             }//end if.
 
@@ -163,7 +163,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
                 ConsPointer head = new ConsPointer();
                 head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
-                head.cdr().setCons(argumentsConsTraverser.getCons());
+                head.getCons().setCdr(argumentsConsTraverser.getCons());
                 Cons listPointer = SublistCons.getInstance(aEnvironment, head.getCons());
 
 

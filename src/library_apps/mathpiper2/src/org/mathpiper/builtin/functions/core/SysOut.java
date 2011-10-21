@@ -15,10 +15,9 @@
  */ //}}}
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
-package org.mathpiper.builtin.functions.optional;
+package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
@@ -31,13 +30,14 @@ import org.mathpiper.lisp.cons.ConsTraverser;
  */
 public class SysOut extends BuiltinFunction {
     
-    public void plugIn(Environment aEnvironment) throws Exception
+    private SysOut()
     {
-        aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "SysOut");
-    }//end method.
+    }
 
+    public SysOut(String functionName)
+    {
+        this.functionName = functionName;
+    }
 
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {

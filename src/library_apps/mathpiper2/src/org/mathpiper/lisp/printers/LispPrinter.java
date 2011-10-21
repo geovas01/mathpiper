@@ -47,6 +47,11 @@ public class LispPrinter {
         consWalker.setCons(aExpression.getCons());
         int item = 0;
 
+        if(consWalker.getCons() == null)
+        {
+            aOutput.write("<null>");
+        }
+
         while (consWalker.getCons() != null) {
 
             if (consWalker.car() instanceof String) {
@@ -83,7 +88,7 @@ public class LispPrinter {
                 aOutput.write("[BuiltinObject]");
             }
 
-            consWalker = (consWalker.cdr()); // print rest element
+            consWalker.setCons((consWalker.cdr())); // print rest element
             
             if(consWalker.getCons() != null)
             {

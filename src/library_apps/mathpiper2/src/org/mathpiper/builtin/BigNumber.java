@@ -553,9 +553,9 @@ public class BigNumber {
 
             Cons typeValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"BigInteger\"");
 
-            typeListAtomCons.cdr().setCons(typeAtomCons);
+            typeListAtomCons.setCdr(typeAtomCons);
 
-            typeAtomCons.cdr().setCons(typeValueAtomCons);
+            typeAtomCons.setCdr(typeValueAtomCons);
 
             Cons typeSublistCons = SublistCons.getInstance(aEnvironment, typeListAtomCons);
 
@@ -567,19 +567,19 @@ public class BigNumber {
 
             Cons valueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, javaBigInteger.toString());
 
-            valueListAtomCons.cdr().setCons(valueAtomCons);
+            valueListAtomCons.setCdr(valueAtomCons);
 
-            valueAtomCons.cdr().setCons(valueValueAtomCons);
+            valueAtomCons.setCdr(valueValueAtomCons);
 
             Cons valueSublistCons = SublistCons.getInstance(aEnvironment, valueListAtomCons);
 
 
             //Create result list.
-            typeSublistCons.cdr().setCons(valueSublistCons);
+            typeSublistCons.setCdr(valueSublistCons);
 
             Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
 
-            resultListAtomCons.cdr().setCons(typeSublistCons);
+            resultListAtomCons.setCdr(typeSublistCons);
 
             resultSublistCons = SublistCons.getInstance(aEnvironment, resultListAtomCons);
         }
@@ -592,9 +592,9 @@ public class BigNumber {
 
             Cons typeValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"BigDecimal\"");
 
-            typeListAtomCons.cdr().setCons(typeAtomCons);
+            typeListAtomCons.setCdr(typeAtomCons);
 
-            typeAtomCons.cdr().setCons(typeValueAtomCons);
+            typeAtomCons.setCdr(typeValueAtomCons);
 
             Cons typeSublistCons = SublistCons.getInstance(aEnvironment, typeListAtomCons);
 
@@ -606,9 +606,9 @@ public class BigNumber {
 
             Cons valueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, javaBigDecimal.toPlainString());
 
-            valueListAtomCons.cdr().setCons(valueAtomCons);
+            valueListAtomCons.setCdr(valueAtomCons);
 
-            valueAtomCons.cdr().setCons(valueValueAtomCons);
+            valueAtomCons.setCdr(valueValueAtomCons);
 
             Cons valueSublistCons = SublistCons.getInstance(aEnvironment, valueListAtomCons);
 
@@ -620,9 +620,9 @@ public class BigNumber {
 
             Cons precisionValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.precision(), this.iPrecision, 10));
 
-            precisionListAtomCons.cdr().setCons(precisionAtomCons);
+            precisionListAtomCons.setCdr(precisionAtomCons);
 
-            precisionAtomCons.cdr().setCons(precisionValueAtomCons);
+            precisionAtomCons.setCdr(precisionValueAtomCons);
 
             Cons precisionSublistCons = SublistCons.getInstance(aEnvironment, precisionListAtomCons);
 
@@ -634,9 +634,9 @@ public class BigNumber {
 
             Cons unscaledValueValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.unscaledValue(), this.iPrecision, 10));
 
-            unscaledValueListAtomCons.cdr().setCons(unscaledValueAtomCons);
+            unscaledValueListAtomCons.setCdr(unscaledValueAtomCons);
 
-            unscaledValueAtomCons.cdr().setCons(unscaledValueValueAtomCons);
+            unscaledValueAtomCons.setCdr(unscaledValueValueAtomCons);
 
             Cons unscaledValueSublistCons = SublistCons.getInstance(aEnvironment, unscaledValueListAtomCons);
 
@@ -648,25 +648,25 @@ public class BigNumber {
 
             Cons scaleValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.scale(), this.iPrecision, 10));
 
-            scaleListAtomCons.cdr().setCons(scaleAtomCons);
+            scaleListAtomCons.setCdr(scaleAtomCons);
 
-            scaleAtomCons.cdr().setCons(scaleValueAtomCons);
+            scaleAtomCons.setCdr(scaleValueAtomCons);
 
             Cons scaleSublistCons = SublistCons.getInstance(aEnvironment, scaleListAtomCons);
 
 
             //Create result list.
-            typeSublistCons.cdr().setCons(valueSublistCons);
+            typeSublistCons.setCdr(valueSublistCons);
 
-            valueSublistCons.cdr().setCons(precisionSublistCons);
+            valueSublistCons.setCdr(precisionSublistCons);
 
-            precisionSublistCons.cdr().setCons(unscaledValueSublistCons);
+            precisionSublistCons.setCdr(unscaledValueSublistCons);
 
-            unscaledValueSublistCons.cdr().setCons(scaleSublistCons);
+            unscaledValueSublistCons.setCdr(scaleSublistCons);
 
             Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
 
-            resultListAtomCons.cdr().setCons(typeSublistCons);
+            resultListAtomCons.setCdr(typeSublistCons);
 
             resultSublistCons = SublistCons.getInstance(aEnvironment, resultListAtomCons);
 

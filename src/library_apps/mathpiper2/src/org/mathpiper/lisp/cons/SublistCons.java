@@ -26,14 +26,15 @@ import org.mathpiper.lisp.printers.LispPrinter;
 public class SublistCons extends Cons {
 
     ConsPointer iCar;
-    ConsPointer iCdr;
-
+    
+    //This variable is placed here instead of in Cons because it makes viewing it 
+    // in the debugger easier.
+    private Cons iCdr;
 
     private SublistCons(Environment aEnvironment, Cons aSubList) throws Exception {
         super();
         iCar = new ConsPointer();
         iCar.setCons(aSubList);
-        iCdr = new ConsPointer();
     }
 
     public static SublistCons getInstance(Environment aEnvironment, Cons aSubList) throws Exception {
@@ -43,6 +44,16 @@ public class SublistCons extends Cons {
 
     public Object car() {
         return iCar;
+    }
+
+
+    public Cons cdr() {
+        return iCdr;
+    }
+
+    public void setCdr(Cons aCdr)
+    {
+        iCdr = aCdr;
     }
 
 
@@ -65,10 +76,6 @@ public class SublistCons extends Cons {
     }
 
 
-
-    public ConsPointer cdr() {
-        return iCdr;
-    }//end method.
 
 
     @Override

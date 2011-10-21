@@ -116,10 +116,10 @@ public class XmlExplodeTag extends BuiltinFunction {
                 Cons ls = AtomCons.getInstance(aEnvironment, aStackTop, "List");
                 Cons nm = AtomCons.getInstance(aEnvironment, aStackTop, name);
                 Cons vl = AtomCons.getInstance(aEnvironment, aStackTop, value);
-                nm.cdr().setCons(vl);
-                ls.cdr().setCons(nm);
+                nm.setCdr(vl);
+                ls.setCdr(nm);
                 Cons newinfo = SublistCons.getInstance(aEnvironment, ls);
-                newinfo.cdr().setCons(info);
+                newinfo.setCdr(info);
                 info = newinfo;
             }
             while (str.charAt(strInd) == ' ') {
@@ -137,16 +137,16 @@ public class XmlExplodeTag extends BuiltinFunction {
         }
         {
             Cons ls = AtomCons.getInstance(aEnvironment, aStackTop, "List");
-            ls.cdr().setCons(info);
+            ls.setCdr(info);
             info = SublistCons.getInstance(aEnvironment, ls);
         }
 
         Cons xm = AtomCons.getInstance(aEnvironment, aStackTop, "XmlTag");
         Cons tg = AtomCons.getInstance(aEnvironment, aStackTop, tag);
         Cons tp = AtomCons.getInstance(aEnvironment, aStackTop, type);
-        info.cdr().setCons(tp);
-        tg.cdr().setCons(info);
-        xm.cdr().setCons(tg);
+        info.setCdr(tp);
+        tg.setCdr(info);
+        xm.setCdr(tg);
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, xm));
 
     }
