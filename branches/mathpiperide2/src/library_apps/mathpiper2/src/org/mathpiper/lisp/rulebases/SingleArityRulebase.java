@@ -195,11 +195,11 @@ public class SingleArityRulebase extends Evaluator {
             ConsPointer full = new ConsPointer();
             full.setCons(aArgumentsPointer.copy(aEnvironment, false));
             if (arity == 0) {
-                full.cdr().setCons(null);
+                full.getCons().setCdr(null);
             } else {
-                full.cdr().setCons(argumentsResultPointerArray[0]);
+                full.getCons().setCdr(argumentsResultPointerArray[0]);
                 for (int parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
-                    argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1]);
+                    argumentsResultPointerArray[parameterIndex].setCdr(argumentsResultPointerArray[parameterIndex + 1]);
                 }
             }
             aResult = SublistCons.getInstance(aEnvironment, full.getCons());
@@ -218,7 +218,7 @@ public class SingleArityRulebase extends Evaluator {
 
         } catch (EvaluationException ex) {
 
-            //ex.printStackTrace();//todo:tk:uncomment for debugging.
+            //ex.printStackTrace(); System.exit(1);//todo:tk:uncomment for debugging.
 
             if (ex.getFunctionName() == null) {
                 throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1, -1, this.functionName);

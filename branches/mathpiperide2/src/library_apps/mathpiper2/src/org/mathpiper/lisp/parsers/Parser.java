@@ -63,7 +63,7 @@ public class Parser {
         Cons iter;
         if (iListed) {
             aResult = AtomCons.getInstance(iEnvironment, aStackTop, "List");
-            iter = (aResult.cdr().getCons()); //TODO FIXME
+            iter = (aResult.cdr()); //TODO FIXME
         }
         for (;;) {
             //Get token.
@@ -78,7 +78,7 @@ public class Parser {
             // results list.
 
             iter = parseAtom(aEnvironment, aStackTop, token);
-            iter = (iter.cdr().getCons()); //TODO FIXME
+            iter = (iter.cdr()); //TODO FIXME
         }
     }
 

@@ -34,16 +34,17 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     protected Map metadataMap;
 
-
     public Cons() throws Exception
     {
         metadataMap = null; //aEnvironment.iEmptyAtom;
     }//end constructor.
 
 
-    public abstract ConsPointer cdr();
-
     public abstract Object car() throws Exception;
+
+    public abstract Cons cdr();
+
+    public abstract void setCdr(Cons aCdr);
 
     public abstract int type();
 
@@ -99,8 +100,8 @@ public abstract class Cons //Note:tk:was MathPiperObject.
                 return false;
             }
 
-            iter1 = iter1.cdr();
-            iter2 = iter2.cdr();
+            iter1.setCons(iter1.cdr());
+            iter2.setCons(iter2.cdr());
         }
         //One list longer than the other?
         if (iter1.getCons() == null && iter2.getCons() == null) {

@@ -197,12 +197,12 @@ TryRandomPoly(deg,coefmin,coefmax):=
   coefs:=Table(FloorN(coefmin+Random()*(coefmax-coefmin)),i,1,deg+1,1);
   p:=Add(coefs*x^(0 .. deg));
   p:=Rationalize(p);
-//Echo("Test polynom ",p);
+SysOut("Test polynom ",p);
   Verify(Maximum(Abs(coefs)) <=? MaximumBound(p), True);
   Verify(Minimum(Abs(coefs)) >? MinimumBound(p), True);
-//Echo("bounds ",BoundRealRoots(p));
+SysOut("bounds ",BoundRealRoots(p));
   roots:=FindRealRoots(p);
-//Echo("roots ",roots);
+SysOut("roots ",roots);
   px := (p Where x==x);
   Verify(Dot(px, px) <? 0.01, True);
 ];

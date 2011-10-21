@@ -133,17 +133,16 @@ public class MacroRulebase extends SingleArityRulebase {
         if (substitutedBodyPointer.getCons() != null) {
             //Note:tk:substituted body must be evaluated after the local frame has been popped.
             aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBodyPointer.getCons());
-        } else // No predicate was true: return a new expression with the evaluated
-        // arguments.
+        } else // No predicate was true: return a new expression with the evaluated arguments.
         {
             ConsPointer full = new ConsPointer();
             full.setCons(aArgumentsPointer.copy(aEnvironment, false));
             if (arity == 0) {
-                full.cdr().setCons(null);
+                full.getCons().setCdr(null);
             } else {
-                full.cdr().setCons(argumentsResultPointerArray[0]);
+                full.getCons().setCdr(argumentsResultPointerArray[0]);
                 for (int parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
-                    argumentsResultPointerArray[parameterIndex].cdr().setCons(argumentsResultPointerArray[parameterIndex + 1]);
+                    argumentsResultPointerArray[parameterIndex].setCdr(argumentsResultPointerArray[parameterIndex + 1]);
                 }
             }
             aResult = SublistCons.getInstance(aEnvironment, full.getCons());

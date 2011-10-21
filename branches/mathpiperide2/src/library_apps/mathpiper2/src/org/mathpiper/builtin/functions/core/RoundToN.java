@@ -89,11 +89,11 @@ public class RoundToN extends BuiltinFunction
 
                 Cons realNumberCons = new NumberCons(realPart);
 
-                complexAtomCons.cdr().setCons(realNumberCons);
+                complexAtomCons.setCdr(realNumberCons);
 
                 Cons imaginaryNumberCons = new NumberCons(imaginaryPart);
 
-                realNumberCons.cdr().setCons(imaginaryNumberCons);
+                realNumberCons.setCdr(imaginaryNumberCons);
 
                 Cons complexSublistCons = SublistCons.getInstance(aEnvironment, complexAtomCons);
 

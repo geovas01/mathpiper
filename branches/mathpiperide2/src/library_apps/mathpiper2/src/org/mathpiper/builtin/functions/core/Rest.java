@@ -46,7 +46,7 @@ public class Rest extends BuiltinFunction
         Utility.tail(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), first);
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        head.cdr().setCons(((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).getCons());
+        head.getCons().setCdr(((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).getCons());
         ((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).setCons(head.getCons());
     }
 }

@@ -57,7 +57,10 @@ public class InterpreterTest implements ResponseListener
 
         //response = interpreter.evaluate("LoadScript(\"x := 1;\nWhile(x <? 100) \n[\nwrite(x,,);\nx := x + 1;  \n];\");");
 
-        response = interpreter.evaluate("LoadScript(\" Integrate(x)x^(-1);\");");
+        response = interpreter.evaluate("LoadScript(\"Hello\");");
+        //response = interpreter.evaluate(" \"Hello\";");
+        //response = interpreter.evaluate("LoadScript(\" 2+2;\");");
+
 
         //timer.cancel();
         

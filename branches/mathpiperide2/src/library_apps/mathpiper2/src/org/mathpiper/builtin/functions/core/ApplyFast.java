@@ -55,14 +55,13 @@ public class ApplyFast extends BuiltinFunction
         if (oper.car() instanceof String)
         {
             ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-            consPointer.setCons(Utility.applyString(aEnvironment, aStackTop,
-                    (String) oper.car(),
-                    ((ConsPointer) args.car()).cdr().getCons()) );
+            Cons result = Utility.applyString(aEnvironment, aStackTop, (String) oper.car(), ((ConsPointer) args.car()).cdr());
+            consPointer.setCons(result);
         } else
         {   // Apply a pure function {args,body}.
 
             ConsPointer args2 = new ConsPointer();
-            args2.setCons(((ConsPointer) args.car()).cdr().getCons());
+            args2.setCons(((ConsPointer) args.car()).cdr());
             if(! (oper.car() instanceof ConsPointer)) LispError.checkArgument(aEnvironment, aStackTop, 1, "ApplyFast");
             if( ((ConsPointer) oper.car()).getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ApplyFast");
             ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);

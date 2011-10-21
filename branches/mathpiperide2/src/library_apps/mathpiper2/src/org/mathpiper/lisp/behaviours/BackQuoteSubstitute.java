@@ -63,7 +63,7 @@ public class BackQuoteSubstitute implements Substitute {
             return false;
         }
 
-        ptr = ptr.cdr().getCons();
+        ptr = ptr.cdr();
 
         if (ptr == null) {
             return false;
@@ -79,10 +79,10 @@ public class BackQuoteSubstitute implements Substitute {
 
             Cons cur = ptr;
             ConsPointer args = new ConsPointer();
-            args.setCons(ptr.cdr().getCons());
+            args.setCons(ptr.cdr());
             ConsPointer result = new ConsPointer();
             result.setCons(iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, cur));
-            result.cdr().setCons(args.getCons());
+            result.getCons().setCdr(args.getCons());
             ConsPointer result2 = new ConsPointer();
             result2.setCons(SublistCons.getInstance(aEnvironment, result.getCons()));
             Utility.substitute(aEnvironment, aStackTop, aResult, result2, this);

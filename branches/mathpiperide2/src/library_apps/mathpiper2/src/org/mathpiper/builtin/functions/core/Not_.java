@@ -52,7 +52,7 @@ public class Not_ extends BuiltinFunction
         {
             ConsPointer ptr = new ConsPointer();
             ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy( aEnvironment, false));
-            ptr.cdr().setCons(evaluated);
+            ptr.getCons().setCdr(evaluated);
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,ptr.getCons()));
         }
     }

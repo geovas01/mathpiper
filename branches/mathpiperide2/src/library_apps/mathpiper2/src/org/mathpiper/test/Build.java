@@ -113,9 +113,11 @@ public class Build {
                 + "\n"
                 + "public class Tests {\n"
                 + "\n"
-                + "    private HashMap testsMap = null;\n\n"
+                + "    private HashMap userFunctionsTestsMap = null;\n\n"
+                + "    private HashMap builtInFunctionsTestsMap = null;\n\n"
                 + "    public Tests() {\n\n"
-                + "        testsMap = new HashMap();\n\n"
+                + "        userFunctionsTestsMap = new HashMap();\n\n"
+                + "        builtInFunctionsTestsMap = new HashMap();\n\n"
                 + "        String[] testString;\n\n";
         testsJavaFile.write(topOfClass);
 
@@ -124,6 +126,18 @@ public class Build {
         scriptsDir = new java.io.File(sourceScriptsDirectory);
 
         if (scriptsDir.exists()) {
+
+            //Process built in functions first.
+            if (documentationFile != null) {
+
+                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/core");
+
+                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/optional");
+
+                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
+            }
+
+
             java.io.File[] packagesDirectory = scriptsDir.listFiles(new java.io.FilenameFilter() {
 
                 public boolean accept(java.io.File file, String name) {
@@ -229,15 +243,6 @@ public class Build {
             }//end for.
 
 
-            if (documentationFile != null) {
-
-                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/core");
-
-                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/optional");
-
-                processBuiltinDocs(sourceDirectory, documentationOutputDirectory, "org/mathpiper/builtin/functions/plugins/jfreechart");
-            }
-
             Collections.sort(functionCategoriesList);
             for (CategoryEntry entry : functionCategoriesList) {
                 functionCategoriesFile.write(entry.toString() + "\n");
@@ -269,14 +274,24 @@ public class Build {
 
         bottomOfClass =
                 "    }\n\n"
-                + "    public String[] getScript(String testName)\n"
+                + "    public String[] getUserFunctionScript(String testName)\n"
                 + "    {\n"
-                + "        return (String[]) testsMap.get(testName);\n"
+                + "        return (String[]) userFunctionsTestsMap.get(testName);\n"
                 + "    }\n"
                 + "\n"
-                + "    public Map getMap()\n"
+                + "    public Map getUserFunctionsMap()\n"
                 + "    {\n"
-                + "        return testsMap;\n"
+                + "        return userFunctionsTestsMap;\n"
+                + "    }\n"
+                + "\n"
+                + "    public String[] getBuiltInFunctionScript(String testName)\n"
+                + "    {\n"
+                + "        return (String[]) builtInFunctionsTestsMap.get(testName);\n"
+                + "    }\n"
+                + "\n"
+                + "    public Map getBuiltInFunctionsMap()\n"
+                + "    {\n"
+                + "        return builtInFunctionsTestsMap;\n"
                 + "    }\n"
                 + "}\n";
         testsJavaFile.write(bottomOfClass);
@@ -470,7 +485,7 @@ public class Build {
 
                     if (subTypeAttribute.equalsIgnoreCase("automatic_test")) {
 
-                        processAutomaticTestFold(fold, mpwFile.getPath());
+                        processAutomaticTestFold(fold, mpwFile.getPath(),false);
 
                     } else {
 
@@ -704,7 +719,7 @@ public class Build {
         }//end if.
     }//end method
 
-    private void processAutomaticTestFold(Fold fold, String filePath) throws Exception {
+    private void processAutomaticTestFold(Fold fold, String filePath, boolean builtin) throws Exception {
 
         String foldContents = fold.getContents();
 
@@ -724,7 +739,14 @@ public class Build {
             testsJavaFile.write("\n        testString[0] = \"" + fold.getStartLineNumber() + "\";");
             testsJavaFile.write("\n        testString[1] = \"" + foldContents + "\";");
             testsJavaFile.write("\n        testString[2] = \"" + filePath + "\";\n");
-            testsJavaFile.write("        testsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+            if(builtin)
+            {
+                testsJavaFile.write("        builtInFunctionsTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+            }
+            else
+            {
+                testsJavaFile.write("        userFunctionsTestsMap.put(\"" + nameAttribute + "\"," + "testString" + ");\n");
+            }
 
         } else {
             throw new Exception("The following test code has no name: " + foldContents);
@@ -848,7 +870,7 @@ public class Build {
 
 
                             if (subTypeAttribute.equalsIgnoreCase("automatic_test")) {
-                                this.processAutomaticTestFold(fold, javaFile.getPath());
+                                this.processAutomaticTestFold(fold, javaFile.getPath(),true);
                             }//end if.
                         }//end if.
                     }//end else.

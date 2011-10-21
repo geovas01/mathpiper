@@ -681,14 +681,14 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                         //Evaluate Hold function.
                         Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
-                        holdAtomCons.cdr().setCons(response.getResultList());
+                        holdAtomCons.setCdr(response.getResultList());
                         Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
                         ConsPointer holdInputExpressionPointer = new ConsPointer(holdSubListCons);
 
 
                         //Evaluate TeXForm function.
                         Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
-                        texFormAtomCons.cdr().setCons(holdInputExpressionPointer.getCons());
+                        texFormAtomCons.setCdr(holdInputExpressionPointer.getCons());
                         Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
 
                         EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormSubListCons);

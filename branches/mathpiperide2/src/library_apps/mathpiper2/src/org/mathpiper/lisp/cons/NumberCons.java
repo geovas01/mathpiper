@@ -34,7 +34,11 @@ public class NumberCons extends Cons {
     private BigNumber iCarBigNumber;
     /// string representation in decimal; NULL if not yet converted from BigNumber
     private String iCarStringNumber;
-    private ConsPointer iCdr;
+
+    //This variable is placed here instead of in Cons because it makes viewing it
+    // in the debugger easier.
+    private Cons iCdr;
+
 
     /**
      * Construct a number from either a BigNumber or a String.
@@ -46,7 +50,6 @@ public class NumberCons extends Cons {
         super();
         iCarStringNumber = aString;
         iCarBigNumber = aNumber;
-        iCdr = new ConsPointer();
     }
 
     /**
@@ -57,7 +60,6 @@ public class NumberCons extends Cons {
         super();
         iCarStringNumber = null;
         iCarBigNumber = aNumber;
-        iCdr = new ConsPointer();
     }
 
     /**
@@ -71,10 +73,19 @@ public class NumberCons extends Cons {
         //(also create a number object).
         iCarStringNumber = aString;
         iCarBigNumber = null;  // purge whatever it was.
-        iCdr = new ConsPointer();
 
     // create a new BigNumber object out of iString, set its precision in digits
     //TODO FIXME enable this in the end    NumberCons(aBasePrecision);
+    }
+
+
+    public Cons cdr() {
+        return iCdr;
+    }
+
+    public void setCdr(Cons aCdr)
+    {
+        iCdr = aCdr;
     }
 
     public Cons copy( Environment aEnvironment, boolean aRecursed) throws Exception  {
@@ -159,12 +170,6 @@ public class NumberCons extends Cons {
         return iCarBigNumber;
     }
 
-
-    
-
-    public ConsPointer cdr() {
-        return iCdr;
-    }//end method.
 
 
     public int type()

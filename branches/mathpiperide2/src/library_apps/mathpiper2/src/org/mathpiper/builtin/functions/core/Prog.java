@@ -56,7 +56,7 @@ public class Prog extends BuiltinFunction
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
             consTraverser.goNext(aStackTop);
             while (consTraverser.getCons() != null) {
-                resultPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer().getCons()));
+                resultPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getCons()));
                 consTraverser.goNext(aStackTop);
             }
 

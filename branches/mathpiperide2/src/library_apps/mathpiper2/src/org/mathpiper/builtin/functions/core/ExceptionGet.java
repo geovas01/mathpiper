@@ -83,9 +83,9 @@ public class ExceptionGet extends BuiltinFunction
 
             Cons typeValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, type));
 
-            typeListAtomCons.cdr().setCons(typeNameAtomCons);
+            typeListAtomCons.setCdr(typeNameAtomCons);
 
-            typeNameAtomCons.cdr().setCons(typeValueValueAtomCons);
+            typeNameAtomCons.setCdr(typeValueValueAtomCons);
 
             Cons typeSublistCons = SublistCons.getInstance(aEnvironment, typeListAtomCons);
 
@@ -99,9 +99,9 @@ public class ExceptionGet extends BuiltinFunction
 
             Cons messageValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, message));
 
-            messageListAtomCons.cdr().setCons(messageNameAtomCons);
+            messageListAtomCons.setCdr(messageNameAtomCons);
 
-            messageNameAtomCons.cdr().setCons(messageValueValueAtomCons);
+            messageNameAtomCons.setCdr(messageValueValueAtomCons);
 
             Cons messageSublistCons = SublistCons.getInstance(aEnvironment, messageListAtomCons);
 
@@ -114,18 +114,18 @@ public class ExceptionGet extends BuiltinFunction
 
             Cons exceptionObjectValueValueAtomCons = BuiltinObjectCons.getInstance(aEnvironment, aStackTop, exceptionObject);
 
-            exceptionObjectListAtomCons.cdr().setCons(exceptionObjectNameAtomCons);
+            exceptionObjectListAtomCons.setCdr(exceptionObjectNameAtomCons);
 
-            exceptionObjectNameAtomCons.cdr().setCons(exceptionObjectValueValueAtomCons);
+            exceptionObjectNameAtomCons.setCdr(exceptionObjectValueValueAtomCons);
 
             Cons exceptionObjectSublistCons = SublistCons.getInstance(aEnvironment, exceptionObjectListAtomCons);
 
 
 
             //Create result list.
-            typeSublistCons.cdr().setCons(messageSublistCons);
+            typeSublistCons.setCdr(messageSublistCons);
 
-            messageSublistCons.cdr().setCons(exceptionObjectSublistCons);
+            messageSublistCons.setCdr(exceptionObjectSublistCons);
 
             //exceptionSublistCons.cdr().setCons(xxxSublistCons);
 
@@ -133,7 +133,7 @@ public class ExceptionGet extends BuiltinFunction
 
             Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
 
-            resultListAtomCons.cdr().setCons(typeSublistCons);
+            resultListAtomCons.setCdr(typeSublistCons);
 
             Cons resultSublistCons = SublistCons.getInstance(aEnvironment, resultListAtomCons);
 

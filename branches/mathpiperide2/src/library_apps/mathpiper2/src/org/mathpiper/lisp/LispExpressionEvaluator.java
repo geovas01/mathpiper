@@ -153,7 +153,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
                         functionName = (String) head.car();
 
-                        //Built-in function handler.
+                      //Built-in function handler.
                         BuiltinFunctionEvaluator builtinInFunctionEvaluator = (BuiltinFunctionEvaluator) aEnvironment.getBuiltinFunctions().lookUp(functionName);
                         if (builtinInFunctionEvaluator != null) {
 
@@ -198,7 +198,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         ConsPointer operator = new ConsPointer();
                         ConsPointer args2 = new ConsPointer();
                         operator.setCons(functionAndArgumentsList.getCons());
-                        args2.setCons(functionAndArgumentsList.cdr().getCons());
+                        args2.setCons(functionAndArgumentsList.cdr());
                         
                         aEnvironment.iEvalDepth--;
                         return Utility.applyPure(aStackTop, operator, args2, aEnvironment);
@@ -239,7 +239,7 @@ public class LispExpressionEvaluator extends Evaluator {
         String functionName = (String) head.car();
 
 
-
+  
         SingleArityRulebase userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
 
         //if (userFunc == null && functionName.equals("f")) {

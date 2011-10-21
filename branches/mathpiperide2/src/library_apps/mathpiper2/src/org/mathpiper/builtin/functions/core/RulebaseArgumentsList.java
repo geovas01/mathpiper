@@ -65,7 +65,7 @@ public class RulebaseArgumentsList extends BuiltinFunction
         ConsPointer list = userFunc.argList();
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        head.cdr().setCons(list.getCons());
+        head.getCons().setCdr(list.getCons());
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head.getCons()));
     }
 }

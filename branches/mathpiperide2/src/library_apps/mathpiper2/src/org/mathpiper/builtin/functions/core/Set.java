@@ -51,7 +51,7 @@ public class Set extends BuiltinFunction
         while (consTraverser.getCons() != null) {
             
             Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer().getCons());
-            tail.getPointer().setCons(evaluated);
+            tail.setCons(evaluated);
             tail.goNext(aStackTop);
             consTraverser.goNext(aStackTop);
         }
@@ -59,7 +59,7 @@ public class Set extends BuiltinFunction
 
         Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "RemoveDuplicates"));
 
-        ((ConsPointer) head.car()).cdr().setCons(SublistCons.getInstance(aEnvironment, allPointer.getCons()));
+        ((ConsPointer) head.car()).getCons().setCdr(SublistCons.getInstance(aEnvironment, allPointer.getCons()));
 
         ConsPointer removeDuplicatesResultPointer = new ConsPointer();
 
@@ -71,7 +71,7 @@ public class Set extends BuiltinFunction
 
         removeDuplicatesResultPointer.goSub(aStackTop, aEnvironment);
 
-        resultPointer.getCons().cdr().setCons(removeDuplicatesResultPointer.cdr().getCons());
+        resultPointer.getCons().setCdr(removeDuplicatesResultPointer.cdr());
 
         getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,resultPointer.getCons()));
     }

@@ -68,13 +68,23 @@ public class TestSuite {
     }//end constructor.
 
     private ArrayList getKeyArray() {
-        Set keySet = tests.getMap().keySet();
+        Set builtinFunctionsKeySet = tests.getBuiltInFunctionsMap().keySet();
 
-        ArrayList keyArray = new ArrayList(keySet);
+        ArrayList builtInKeyArray = new ArrayList(builtinFunctionsKeySet);
 
-        Collections.sort(keyArray, String.CASE_INSENSITIVE_ORDER);
+        Collections.sort(builtInKeyArray, String.CASE_INSENSITIVE_ORDER);
 
-        return keyArray;
+
+        Set userFunctionsKeySet = tests.getUserFunctionsMap().keySet();
+
+        ArrayList userKeyArray = new ArrayList(userFunctionsKeySet);
+
+        Collections.sort(userKeyArray, String.CASE_INSENSITIVE_ORDER);
+
+
+        builtInKeyArray.addAll(userKeyArray);
+
+        return builtInKeyArray;
     }
 
     public void test() {
@@ -172,7 +182,11 @@ public class TestSuite {
     }//end method.
 
     private void runSingleTest(String testName) throws Exception {
-        String[] testScriptArray = (String[]) tests.getMap().get(testName);
+        String[] testScriptArray = (String[]) tests.getBuiltInFunctionsMap().get(testName);
+
+        if (testScriptArray == null) {
+            testScriptArray = (String[]) tests.getUserFunctionsMap().get(testName);
+        }
 
         if (testScriptArray == null) {
             throw new Exception("The test named " + testName + " does not exist.");

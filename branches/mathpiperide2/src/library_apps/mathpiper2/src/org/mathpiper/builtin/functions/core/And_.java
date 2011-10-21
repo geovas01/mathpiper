@@ -62,7 +62,7 @@ public class And_ extends BuiltinFunction
                 ConsPointer ptr = new ConsPointer();
                 nrnogos++;
                 ptr.setCons(evaluated.copy( aEnvironment, false));
-                ptr.cdr().setCons(nogos.getCons());
+                ptr.getCons().setCdr(nogos.getCons());
                 nogos.setCons(ptr.getCons());
             }
 
@@ -76,14 +76,14 @@ public class And_ extends BuiltinFunction
                 getTopOfStackPointer(aEnvironment, aStackTop).setCons(nogos.getCons());
             } else
             {
-                ConsPointer ptr = new ConsPointer();
+                
 
-                Utility.reverseList(aEnvironment, ptr, nogos);
-                nogos.setCons(ptr.getCons());
+                Cons ptr = Utility.reverseList(aEnvironment, nogos);
+                nogos.setCons(ptr);
 
-                ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy( aEnvironment, false));
-                ptr.cdr().setCons(nogos.getCons());
-                nogos.setCons(ptr.getCons());
+                ptr = getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy( aEnvironment, false);
+                ptr.setCdr(nogos.getCons());
+                nogos.setCons(ptr);
                 getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,nogos.getCons()));
 
             //aEnvironment.CurrentPrinter().Print(getTopOfStackPointer(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());

@@ -50,7 +50,7 @@ public class Length extends BuiltinFunction
 
         if (argument instanceof ConsPointer)
         {
-            int num = Utility.listLength(aEnvironment, aStackTop, ((ConsPointer)argument).cdr());
+            int num = Utility.listLength(aEnvironment, aStackTop, new ConsPointer(((ConsPointer)argument).cdr()));
             getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
             return;
         }//end if.

@@ -26,51 +26,56 @@ import org.mathpiper.lisp.*;
  */
 public class ConsTraverser {
 
-    ConsPointer iPointer;
-    ConsPointer iHeadPointer;
+    Cons iCurrentPointer;
+    Cons iPreviousPointer;
+    Cons iHeadPointer;
 
     private Environment iEnvironment;
 
     public ConsTraverser(Environment aEnvironment, ConsPointer aPtr) {
         iEnvironment = aEnvironment;
-        iPointer = aPtr;
-        iHeadPointer = aPtr;
+        iCurrentPointer = aPtr.getCons();
+        iHeadPointer = iCurrentPointer;
+        
     }
 
     public Object car() throws Exception {
-        return iPointer.car();
+        return iCurrentPointer.car();
     }
 
-    public ConsPointer cdr() {
-        return iPointer.cdr();
+    public Cons cdr() {
+        return iCurrentPointer.cdr();
     }
 
     public Cons getCons() {
-        return iPointer.getCons();
+        return iCurrentPointer;
     }
 
     public void setCons(Cons aCons) {
-        iPointer.setCons(aCons);
+        iCurrentPointer = aCons;
+        
+        iPreviousPointer.setCdr(iCurrentPointer);
     }
 
     public ConsPointer getPointer() {
-        return iPointer;
+        return new ConsPointer(iCurrentPointer);
     }
 
     public ConsPointer getHeadPointer()
     {
-        return iHeadPointer;
+        return new ConsPointer(iHeadPointer);
     }
 
     public void goNext(int aStackTop) throws Exception {
-        if(iPointer.getCons() == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_LONG_ENOUGH, "","INTERNAL");
-        iPointer = (iPointer.cdr());
+        if(iCurrentPointer == null) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_LONG_ENOUGH, "","INTERNAL");
+        iPreviousPointer = iCurrentPointer;
+        iCurrentPointer = iCurrentPointer.cdr();
     }
 
     public void goSub(int aStackTop) throws Exception {
-        if(iPointer.getCons() == null) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "","INTERNAL");
-        if(! (iPointer.car() instanceof ConsPointer)) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_A_LIST, iPointer,"INTERNAL");
-        iPointer = (ConsPointer) iPointer.car();
+        if(iCurrentPointer == null) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "","INTERNAL");
+        if(! (iCurrentPointer.car() instanceof ConsPointer)) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_A_LIST, iCurrentPointer,"INTERNAL");
+        iCurrentPointer = ((ConsPointer)iCurrentPointer.car()).getCons();
     }
 };
 

@@ -72,15 +72,15 @@ public class ListPanel extends JPanel implements ViewPanel {
                 consXHolder = sequenceStack.pop();
 
                 //Remove rest because it has already been processed.
-                consXHolder.getCons().cdr().setCons(null);
+                consXHolder.getCons().setCdr(null);
 
                 ConsPointer currentConsPointer = new ConsPointer(consXHolder.getCons());
 
                 currentNode = consXHolder.getConsNode();
 
-                while (currentConsPointer.cdr().getCons() != null || (currentConsPointer.car() instanceof ConsPointer && ((ConsPointer) currentConsPointer.car()).getCons() != null)) {
+                while (currentConsPointer.cdr() != null || (currentConsPointer.car() instanceof ConsPointer && ((ConsPointer) currentConsPointer.car()).getCons() != null)) {
 
-                    if (currentConsPointer.cdr().getCons() != null) {
+                    if (currentConsPointer.cdr() != null) {
 
                         currentConsPointer.goNext(aStackTop, aEnvironment);
 
@@ -100,7 +100,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                         if (currentConsPointer.getCons() instanceof SublistCons) {
                             sequenceStack.push(new ConsXHolder(currentConsPointer.getCons().copy(aEnvironment, false), currentNode));
 
-                            if (currentConsPointer.getCons().cdr().getCons() == null) {
+                            if (currentConsPointer.getCons().cdr() == null) {
                                 break;
                             }//end if.
 
