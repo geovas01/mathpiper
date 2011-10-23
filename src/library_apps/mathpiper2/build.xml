@@ -137,6 +137,14 @@
 		
 		<copy file="${mathpiper.dir}/tests/win_test.bat" todir="${build.classes.dir}"/>
 		<copy file="${mathpiper.dir}/tests/unix_test.sh" todir="${build.classes.dir}"/>
+		
+		
+		<copy todir="${build.classes.dir}/org/mathpiper/scripts4">
+            <fileset dir="${src.dir}/org/mathpiper/scripts4">
+                <include name="**/*" />
+            </fileset>
+        </copy>
+        
 
 		<antcall target="chmod-unix-test-script"/>
 		
