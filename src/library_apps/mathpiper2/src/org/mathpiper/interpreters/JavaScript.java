@@ -16,18 +16,55 @@
 package org.mathpiper.interpreters;
 
 import com.google.gwt.core.client.EntryPoint;
-
-
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 
 public class JavaScript implements EntryPoint {
 
     private static Interpreter interpreterInstance;
 
-
     public JavaScript() {
         interpreterInstance = SynchronousInterpreter.getInstance();
+
     }
 
+    public static void initializeCAS() {
+        RepeatingCommand repeatingCommand = new RepeatingCommand() {
+
+            private int loopIndex = 1;
+
+            public boolean execute() {
+
+
+                boolean returnValue = true;
+
+
+                switch (loopIndex) {
+                    case 1:
+                        boolean isStillInitializing = interpreterInstance.initialize();
+
+                        if (!isStillInitializing) {
+                            loopIndex++;
+                        }
+                        break;
+                    default:
+
+
+                        returnValue = false;
+
+                        callCasLoaded();
+
+                        break;
+
+                }//end switch.
+
+                return returnValue;
+
+            }
+        };
+
+        Scheduler.get().scheduleIncremental(repeatingCommand);
+    }
 
     //---------
     public static String casEvaluate(String send) {
@@ -36,6 +73,17 @@ public class JavaScript implements EntryPoint {
         return evaluationResponse.getResult();
     }
 
+    //---------
+    public static native void exportCasVersionMethod() /*-{
+    $wnd.casVersion = function(){
+    return @org.mathpiper.Version::version()();
+    }
+    }-*/;
+
+    //---------
+    public static native void callCasLoaded() /*-{
+    $wnd.casLoaded();
+    }-*/;
 
     public static native void exportEvaluateMethod() /*-{
     $wnd.casEval = function(send){
@@ -43,11 +91,13 @@ public class JavaScript implements EntryPoint {
     }
     }-*/;
 
-
     public void onModuleLoad() {
+        exportCasVersionMethod();
+
         exportEvaluateMethod();
 
-    }//end method.
+        initializeCAS();
 
+    }//end method.
 }//end class.
 
