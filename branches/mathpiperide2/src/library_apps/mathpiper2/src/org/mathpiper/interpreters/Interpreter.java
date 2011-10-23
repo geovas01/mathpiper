@@ -54,6 +54,13 @@ public interface Interpreter
      */
     public EvaluationResponse evaluate(Cons expressionPointer);
 
+
+    /**
+     * Initialize the system.
+     */
+    public boolean initialize();
+
+    
     /**
      * Halts the current evaluation.
      */

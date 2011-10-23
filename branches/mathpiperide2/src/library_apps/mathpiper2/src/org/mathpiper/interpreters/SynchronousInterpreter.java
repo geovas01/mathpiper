@@ -65,7 +65,10 @@ class SynchronousInterpreter implements Interpreter {
     boolean inZipFile = false;
     MathPiperOutputStream sideEffectsStream;
     private static SynchronousInterpreter singletonInstance;
-
+    private int loopIndex = 1;
+    boolean returnValue = true;
+    Iterator keyIterator = null;
+    Scripts scripts = null;
 
     private SynchronousInterpreter(String docBase) {
         responseListeners = new ArrayList<ResponseListener>();
@@ -73,102 +76,20 @@ class SynchronousInterpreter implements Interpreter {
 
         sideEffectsStream = new StringOutput();
 
-        Utility.scriptsPath = "/org/mathpiper/assembledscripts/";
 
-        try {
-            System.out.print("Initializing CAS... ");
-
-            iEnvironment = new Environment(sideEffectsStream);
-
-            BuiltinFunction.addCoreFunctions(iEnvironment);
-
-
-            iEnvironment.pushLocalFrame(true, "<START>");
-
-            tokenizer = new MathPiperTokenizer();
-            printer = new MathPiperPrinter(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
-
-
-            //iEnvironment.iCurrentInput = new CachedStandardFileInputStream(iEnvironment.iInputStatus);
-
-
-
-            //EvaluationResponse initializationEvaluationResponse = evaluate("LoadScript(\"initialization.rep/mathpiperinit.mpi\");");
-            EvaluationResponse initializationEvaluationResponse = evaluate("MathPiperInitLoad();");
-            if (initializationEvaluationResponse.isExceptionThrown()) {
-                Exception ex = initializationEvaluationResponse.getException();
-                throw ex;
-            }
-
-
-            Scripts scripts = iEnvironment.scripts;
-
-            Map scriptsMap = scripts.getMap();
-
-            Set keysSet = scriptsMap.keySet();
-
-            Iterator keyIterator = keysSet.iterator();
-
-            while (keyIterator.hasNext()) {
-
-
-                String functionName = (String) keyIterator.next();
-
-              String[] scriptCode = scripts.getScript(functionName);
-
-                if (scriptCode[0] == null) {
-
-                    iEnvironment.iInputStatus.setTo(functionName);
-
-                    String scriptString = scriptCode[1];
-
-                    StringInputStream functionInputStream = new StringInputStream(scriptString, iEnvironment.iInputStatus);
-
-                    scriptCode[0] = "+";
-
-                    Utility.doInternalLoad(iEnvironment, -1, functionInputStream);
-
-                } else {
-                    //System.out.println("Already loaded.");
-                }
-
-            }//end while.
-
-            iEnvironment.scripts = null;
-
-            System.out.print("done. \n");
-
-        } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
-        {
-            if(e instanceof EvaluationException)
-            {
-                EvaluationException ee = (EvaluationException) e;
-                System.out.println("Exception: " + ee.getMessage() + " Filename: " + ee.getFileName() + ", Line Number: " + ee.getLineNumber() + ", Line Index: " + ee.getEndIndex());
-            }
-            else
-            {
-                System.out.println(e.toString());
-            }
-            e.printStackTrace();
-            
-        }
     }//end constructor.
-
 
     private SynchronousInterpreter() {
         this(null);
     }
 
-
     static SynchronousInterpreter newInstance() {
         return new SynchronousInterpreter();
     }
 
-
     static SynchronousInterpreter newInstance(String docBase) {
         return new SynchronousInterpreter(docBase);
     }
-
 
     static SynchronousInterpreter getInstance() {
         if (singletonInstance == null) {
@@ -177,7 +98,6 @@ class SynchronousInterpreter implements Interpreter {
         return singletonInstance;
     }
 
-
     static SynchronousInterpreter getInstance(String docBase) {
         if (singletonInstance == null) {
             singletonInstance = new SynchronousInterpreter(docBase);
@@ -185,11 +105,108 @@ class SynchronousInterpreter implements Interpreter {
         return singletonInstance;
     }
 
+    public boolean initialize() {
+
+
+
+        try {
+            switch (loopIndex) {
+                case 1:
+
+                    System.out.print("Initializing CAS... ");
+
+                    iEnvironment = new Environment(sideEffectsStream);
+
+                    BuiltinFunction.addCoreFunctions(iEnvironment);
+
+
+                    iEnvironment.pushLocalFrame(true, "<START>");
+
+                    tokenizer = new MathPiperTokenizer();
+                    printer = new MathPiperPrinter(iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
+
+
+                    EvaluationResponse initializationEvaluationResponse = evaluate("MathPiperInitLoad();");
+                    if (initializationEvaluationResponse.isExceptionThrown()) {
+                        Exception ex = initializationEvaluationResponse.getException();
+                        throw ex;
+                    }
+
+
+                    scripts = iEnvironment.scripts;
+
+                    Map scriptsMap = scripts.getMap();
+
+                    Set keysSet = scriptsMap.keySet();
+
+                    keyIterator = keysSet.iterator();
+
+                    loopIndex++;
+                    break;
+                case 2:
+
+                    int loadCounter = 0;
+
+                    while (keyIterator.hasNext() && loadCounter++ <= 10) {
+
+                        String functionName = (String) keyIterator.next();
+
+                        String[] scriptCode = scripts.getScript(functionName);
+
+                        if (scriptCode[0] == null) {
+
+                            iEnvironment.iInputStatus.setTo(functionName);
+
+                            String scriptString = scriptCode[1];
+
+                            StringInputStream functionInputStream = new StringInputStream(scriptString, iEnvironment.iInputStatus);
+
+                            scriptCode[0] = "+";
+
+                            Utility.doInternalLoad(iEnvironment, -1, functionInputStream);
+
+                        } else {
+                            //System.out.println("Already loaded.");
+                        }
+
+                    }//end while.
+                    if (!keyIterator.hasNext()) {
+                        loopIndex++;
+                    }
+                    break;
+
+                default:
+
+                    iEnvironment.scripts = null;
+
+                    System.out.print("done. \n");
+
+                    returnValue = false;
+
+                    break;
+
+            }//end switch.
+
+
+
+        } catch (Exception e) //Note:tk:need to handle exceptions better here.  should return exception to user in an EvaluationResponse.
+        {
+            if (e instanceof EvaluationException) {
+                EvaluationException ee = (EvaluationException) e;
+                System.out.println("Exception: " + ee.getMessage() + " Filename: " + ee.getFileName() + ", Line Number: " + ee.getLineNumber() + ", Line Index: " + ee.getEndIndex());
+            } else {
+                System.out.println(e.toString());
+            }
+            e.printStackTrace();
+
+        }
+
+        return returnValue;
+    }
 
     public EvaluationResponse evaluate(String inputExpression) {
         return this.evaluate(inputExpression, false);
     }//end method.
-
 
     /**
     Evaluate an input expression which is a string.
@@ -255,11 +272,9 @@ class SynchronousInterpreter implements Interpreter {
 
     }//end method.
 
-
     public EvaluationResponse evaluate(Cons inputExpressionPointer) {
         return evaluate(inputExpressionPointer, false);
     }
-
 
     /**
     Evaluate an input expression which is a Lisp list.
@@ -381,7 +396,6 @@ class SynchronousInterpreter implements Interpreter {
         return evaluationResponse;
     }
 
-
     private void handleException(Exception exception, EvaluationResponse evaluationResponse) {
         //exception.printStackTrace();  //todo:tk:uncomment for debugging.
 
@@ -398,7 +412,7 @@ class SynchronousInterpreter implements Interpreter {
 
         if (exception instanceof EvaluationException) {
             EvaluationException mpe = (EvaluationException) exception;
-            
+
             int errorLineNumber = mpe.getLineNumber();
             int errorLineIndex = mpe.getEndIndex();
 
@@ -426,16 +440,14 @@ class SynchronousInterpreter implements Interpreter {
         evaluationResponse.setException(exception);
     }
 
-
     public void haltEvaluation() {
         //synchronized (iEnvironment) {
         //iEnvironment.iEvalDepth = iEnvironment.iMaxEvalDepth + 100; //Deprecated.
-          //evaluationThread.interrupt();
+        //evaluationThread.interrupt();
         //}
         Environment.haltEvaluation = true;
-        
-    }
 
+    }
 
     public Environment getEnvironment() {
         return iEnvironment;
@@ -445,16 +457,13 @@ class SynchronousInterpreter implements Interpreter {
     {
     return Utility.zipFile;
     }//end method.*/
-
     public void addResponseListener(ResponseListener listener) {
         responseListeners.add(listener);
     }
 
-
     public void removeResponseListener(ResponseListener listener) {
         responseListeners.remove(listener);
     }
-
 
     protected void notifyListeners(EvaluationResponse response) {
         //notify listeners.
@@ -478,6 +487,5 @@ class SynchronousInterpreter implements Interpreter {
         removeListeners.clear();
 
     }//end method.
-
 }// end class.
 

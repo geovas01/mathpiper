@@ -94,7 +94,6 @@ public class Utility {
         5.
     };
 
-    public static String scriptsPath = null;
 
     public static boolean isNumber(String ptr, boolean aAllowFloat) {
 

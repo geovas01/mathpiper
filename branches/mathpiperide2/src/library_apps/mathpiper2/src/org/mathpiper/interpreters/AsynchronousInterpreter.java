@@ -71,6 +71,11 @@ class AsynchronousInterpreter implements Interpreter
         }
         return singletonInstance;
     }
+
+
+    public boolean initialize() {
+        return interpreter.initialize();
+    }
     
     public synchronized EvaluationResponse evaluate(String inputExpression) {
 	    return this.evaluate(inputExpression, false);

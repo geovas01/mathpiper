@@ -45,7 +45,13 @@ public class Interpreters {
      * @return a new synchronous interpreter
      */
     public static Interpreter newSynchronousInterpreter() {
-        return SynchronousInterpreter.newInstance();
+        SynchronousInterpreter interpreter = SynchronousInterpreter.newInstance();
+
+        while(interpreter.initialize() == true)
+        {
+        }
+
+        return interpreter;
     }
 
     /**
@@ -63,7 +69,13 @@ public class Interpreters {
      * @return a new synchronous interpreter
      */
     public static Interpreter newSynchronousInterpreter(String docBase) {
-        return SynchronousInterpreter.newInstance(docBase);
+        Interpreter interpreter = SynchronousInterpreter.newInstance(docBase);
+
+        while(interpreter.initialize() == true)
+        {
+        }
+
+        return interpreter;
     }
 
      /**
@@ -73,7 +85,13 @@ public class Interpreters {
      * @return a synchronous interpreter singleton
      */
     public static Interpreter getSynchronousInterpreter() {
-        return SynchronousInterpreter.getInstance();
+        Interpreter interpreter = SynchronousInterpreter.getInstance();
+
+        while(interpreter.initialize() == true)
+        {
+        }
+
+        return interpreter;
     }
 
      /**
@@ -91,7 +109,13 @@ public class Interpreters {
      * @return a synchronous interpreter singleton
      */
     public static Interpreter getSynchronousInterpreter(String docBase) {
-        return SynchronousInterpreter.getInstance(docBase);
+        Interpreter interpreter = SynchronousInterpreter.getInstance(docBase);
+
+        while(interpreter.initialize() == true)
+        {
+        }
+
+        return interpreter;
     }
 
 
@@ -103,7 +127,13 @@ public class Interpreters {
      * @return a new asynchronous interpreter
      */
     public static Interpreter newAsynchronousInterpreter() {
-        return AsynchronousInterpreter.newInstance();
+        Interpreter interpreter = AsynchronousInterpreter.newInstance();
+
+        while(interpreter.initialize() == true)
+        {
+        }
+
+        return interpreter;
     }
 
      /**
@@ -121,7 +151,13 @@ public class Interpreters {
      * @return a new aynchronous interpreter
      */
     public static Interpreter newAsynchronousInterpreter(String docBase) {
-        return AsynchronousInterpreter.newInstance(docBase);
+        Interpreter interpreter = AsynchronousInterpreter.newInstance(docBase);
+
+        while(interpreter.initialize() == true)
+        {
+        }
+
+        return interpreter;
     }
 
      /**
@@ -132,7 +168,13 @@ public class Interpreters {
      * @return an asynchronous interpreter singleton
      */
     public static Interpreter getAsynchronousInterpreter() {
-        return AsynchronousInterpreter.getInstance();
+        Interpreter interpreter = AsynchronousInterpreter.getInstance();
+
+        while(interpreter.initialize() == true)
+        {
+        }
+
+        return interpreter;
     }
 
      /**
@@ -151,7 +193,13 @@ public class Interpreters {
      * @return an asynchronous interpreter singleton
      */
     public static Interpreter getAsynchronousInterpreter(String docBase) {
-        return AsynchronousInterpreter.getInstance(docBase);
+        Interpreter interpreter = SynchronousInterpreter.getInstance(docBase);
+
+        while(interpreter.initialize() == true)
+        {
+        }
+
+        return interpreter;
     }
 
 
