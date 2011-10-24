@@ -31,7 +31,7 @@ public class IncompleteGamma extends BuiltinFunction{
 
         result.setTo(resultValue);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(result));
+        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(result));
 
     }//end method.
 

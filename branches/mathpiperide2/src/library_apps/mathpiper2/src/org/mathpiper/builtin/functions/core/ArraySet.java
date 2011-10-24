@@ -46,14 +46,14 @@ public class ArraySet extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
         if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ArraySet");
         if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1, "ArraySet");
 
         ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
 
         if(sizearg.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArraySet");
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArraySet");
@@ -62,9 +62,9 @@ public class ArraySet extends BuiltinFunction
         if( size <= 0 || size > ((Array) gen).size()) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArraySet");
 
         ConsPointer obj = new ConsPointer();
-        obj.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
+        obj.setCons(getArgumentPointer(aEnvironment, aStackTop, 3));
         ((Array) gen).setElement(size, obj.getCons(), aStackTop, aEnvironment);
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 }//end class.
 

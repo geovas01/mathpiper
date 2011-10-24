@@ -45,25 +45,25 @@ public class StringMidGet extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         
-        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 3).getCons();
+        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 3);
         LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3, "StringMidGet");
         String orig = (String) evaluated.car();
 
         ConsPointer index = new ConsPointer();
-        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
         if( index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidGet");
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidGet");
         int from = Integer.parseInt( (String) index.car(), 10);
         if( from <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidGet");
 
-        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
         if( index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "StringMidGet");
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "StringMidGet");
         int count = Integer.parseInt( (String) index.car(), 10);
 
 
         String str = "\"" + orig.substring(from, from + count) + "\"";
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, str));
+        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, str));
     }
 }
 

@@ -73,6 +73,6 @@ public class Set extends BuiltinFunction
 
         resultPointer.getCons().setCdr(removeDuplicatesResultPointer.cdr());
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,resultPointer.getCons()));
+        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,resultPointer.getCons()));
     }
 }

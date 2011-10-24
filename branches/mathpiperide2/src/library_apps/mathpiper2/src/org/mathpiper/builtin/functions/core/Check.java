@@ -45,23 +45,23 @@ public class Check extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Cons pred;
-        pred = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        pred = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1));
         if (!Utility.isTrue(aEnvironment, pred, aStackTop))
         {
-            Cons type = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+            Cons type = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2));
             LispError.checkIsString(aEnvironment, aStackTop, type, 2, "Check");
             
             
             
             
-            Cons message = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
+            Cons message = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 3));
             LispError.checkIsString(aEnvironment, aStackTop, message, 3, "Check");
 
 
 
             throw new EvaluationException( Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) type.car()), Utility.toNormalString(aEnvironment, aStackTop, (String) message.car()), aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex() , "Check");
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(pred);
+        setTopOfStackPointer(aEnvironment, aStackTop, pred);
     }
 }
 

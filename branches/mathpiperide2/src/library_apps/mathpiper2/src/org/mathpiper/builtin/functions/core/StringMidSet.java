@@ -44,18 +44,18 @@ public class StringMidSet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 3).getCons();
+        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 3);
         LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3, "StringMidSet");
         String orig = (String) evaluated.car();
         ConsPointer index = new ConsPointer();
-        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
         if(index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidSet");
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidSet");
         int from = Integer.parseInt( (String) index.car(), 10);
 
         if( from <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidSet");
 
-        Cons ev2 = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
+        Cons ev2 = getArgumentPointer(aEnvironment, aStackTop, 2);
         LispError.checkIsString(aEnvironment, aStackTop, ev2, 2, "StringMidSet");
         String replace =(String)  ev2.car();
 
@@ -65,7 +65,7 @@ public class StringMidSet extends BuiltinFunction
         str = str + replace.substring(1, replace.length() - 1);
         //System.out.println("from="+from+replace.length()-2);
         str = str + orig.substring(from + replace.length() - 2, orig.length());
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, str));
+        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, str));
     }
 }
 

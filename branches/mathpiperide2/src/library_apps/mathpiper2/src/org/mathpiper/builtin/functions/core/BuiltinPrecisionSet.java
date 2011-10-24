@@ -44,14 +44,14 @@ public class BuiltinPrecisionSet extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer index = new ConsPointer();
-        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
         if( index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "BuiltinPrecisionSet");
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1, "BuiltinPrecisionSet");
 
         int ind = Integer.parseInt( (String) index.car(), 10);
         if( ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1, "BuiltinPrecisionSet");
         aEnvironment.setPrecision(ind);
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 }
 

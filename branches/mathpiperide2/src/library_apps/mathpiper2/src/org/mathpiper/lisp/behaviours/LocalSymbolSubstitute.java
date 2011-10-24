@@ -19,6 +19,7 @@ package org.mathpiper.lisp.behaviours;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 /** Substitute behaviour for changing the local variables to have unique
  * names.
@@ -41,7 +42,7 @@ public class LocalSymbolSubstitute implements Substitute {
     }
 
 
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aElement) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, Cons aElement) throws Exception {
 
         if (!(aElement.car() instanceof String)) {
             return false;

@@ -50,7 +50,7 @@ public class SysOut extends BuiltinFunction {
             consTraverser.goNext(aStackTop);
             while (consTraverser.getCons() != null)
             {
-                aEnvironment.iCurrentPrinter.print(aStackTop, consTraverser.getPointer(), out, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(aStackTop, consTraverser.getPointer().getCons(), out, aEnvironment);
                 consTraverser.goNext(aStackTop);
             }
         }
@@ -59,7 +59,7 @@ public class SysOut extends BuiltinFunction {
         System.out.println(output);
         aEnvironment.iCurrentOutput.write(output);
         aEnvironment.iCurrentOutput.write("\n");
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
 
     }//end method.
 

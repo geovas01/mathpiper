@@ -47,22 +47,21 @@ public class If extends BuiltinFunction
         if( nrArguments != 3 && nrArguments != 4) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS);
 
         
-        Cons predicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        Cons predicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1));
 
-        ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
 
         if (Utility.isTrue(aEnvironment, predicate, aStackTop))
         {
-            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), 2).getCons()));
+            setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), 2)));
         } else
         {
             if( Utility.isTrue(aEnvironment, predicate, aStackTop)) LispError.checkArgument(aEnvironment, aStackTop, 1, "If");
             if (nrArguments == 4)
             {
-                consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), 3).getCons()));
+                setTopOfStackPointer(aEnvironment, aStackTop,aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), 3)));
             } else
             {
-                Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
             }
         }
     }

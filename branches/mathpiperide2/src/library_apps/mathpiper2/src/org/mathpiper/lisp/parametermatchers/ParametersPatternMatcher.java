@@ -250,7 +250,7 @@ public class ParametersPatternMatcher {
             ConsPointer sublist = (ConsPointer) aPattern.car();
             //LispError.lispAssert(sublist != null);
 
-            int num = Utility.listLength(aEnvironment, aStackTop, sublist);
+            int num = Utility.listLength(aEnvironment, aStackTop, sublist.getCons());
 
             // variable matcher here...
             if (num > 1) {
@@ -364,9 +364,9 @@ public class ParametersPatternMatcher {
             if (!isTrue) {
                 //TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
                 String errorMessage =  "The predicate " +
-                Utility.printMathPiperExpression(aStackTop, new ConsPointer(iPredicates.get(i)), aEnvironment, 60) +
+                Utility.printMathPiperExpression(aStackTop, iPredicates.get(i), aEnvironment, 60) +
                 " evaluated to " +
-                Utility.printMathPiperExpression(aStackTop, new ConsPointer(resultPredicate), aEnvironment, 60) +
+                Utility.printMathPiperExpression(aStackTop, resultPredicate, aEnvironment, 60) +
                 ".";
 
 

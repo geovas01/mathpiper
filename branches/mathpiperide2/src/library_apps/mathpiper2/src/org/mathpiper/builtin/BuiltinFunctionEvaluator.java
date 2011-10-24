@@ -222,7 +222,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         iCalledBuiltinFunction.evaluate(aEnvironment, stackTop); //********************** built in function is called here.
 
 
-        Cons aResultPointer = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment).getCons();
+        Cons aResultPointer = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
 
         if (isTraced(functionName) && showFlag == true) {
             argumentsPointer = new ConsPointer();

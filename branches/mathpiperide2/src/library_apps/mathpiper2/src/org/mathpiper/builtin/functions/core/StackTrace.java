@@ -43,7 +43,7 @@ public class StackTrace extends BuiltinFunction
     {
          aEnvironment.dumpStacks(aEnvironment, aStackTop);
          
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
 
     }//end method.
 

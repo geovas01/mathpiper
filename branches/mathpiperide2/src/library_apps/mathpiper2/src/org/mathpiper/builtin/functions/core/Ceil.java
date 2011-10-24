@@ -46,7 +46,7 @@ public class Ceil extends BuiltinFunction
         z.negate(x);
         z.floor(z);
         z.negate(z);
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

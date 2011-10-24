@@ -46,11 +46,11 @@ public class BuiltinAssoc extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         // key to find
         ConsPointer key = new ConsPointer();
-        key.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        key.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // assoc-list to find it in
         ConsPointer list = new ConsPointer();
-        list.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        list.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
 
         Cons listCons;
 
@@ -63,10 +63,10 @@ public class BuiltinAssoc extends BuiltinFunction
         Cons result = Utility.associativeListGet(aEnvironment, aStackTop, key, listCons);
 
         if (result != null) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(result);
+            setTopOfStackPointer(aEnvironment, aStackTop, result);
 
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
+            setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
         }
 
 

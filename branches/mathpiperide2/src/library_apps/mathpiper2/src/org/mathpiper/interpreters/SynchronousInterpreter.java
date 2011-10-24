@@ -318,7 +318,7 @@ class SynchronousInterpreter implements Interpreter {
             if (iEnvironment.iPrettyPrinterName != null) {
                 //Pretty printer.
 
-                ConsPointer applyResultPointer = new ConsPointer();
+                Cons applyResultPointer = null;
 
                 if (iEnvironment.iPrettyPrinterName.equals("\"RForm\"")) {
                     Cons holdAtom = AtomCons.getInstance(iEnvironment, -1, "Hold");
@@ -327,9 +327,9 @@ class SynchronousInterpreter implements Interpreter {
 
                     Cons resultWithHold = SublistCons.getInstance(iEnvironment, holdAtom);
 
-                    applyResultPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultWithHold));
+                    applyResultPointer = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultWithHold);
                 } else {
-                    applyResultPointer.setCons(Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultPointer));
+                    applyResultPointer = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultPointer);
                 }
 
                 printer.rememberLastChar(' ');
@@ -339,7 +339,7 @@ class SynchronousInterpreter implements Interpreter {
             } else {
                 //Default printer.
                 printer.rememberLastChar(' ');
-                printer.print(-1, new ConsPointer(resultPointer), outputStream, iEnvironment);
+                printer.print(-1, resultPointer, outputStream, iEnvironment);
                 resultString = outputBuffer.toString();
             }
 
@@ -376,7 +376,7 @@ class SynchronousInterpreter implements Interpreter {
                     StringBuffer string_out = new StringBuffer();
                     MathPiperOutputStream output = new StringOutputStream(string_out);
                     printer.rememberLastChar(' ');
-                    printer.print(-1, new ConsPointer(loadResult), output, iEnvironment);
+                    printer.print(-1, loadResult, output, iEnvironment);
                     String loadResultString = string_out.toString();
                     evaluationResponse.setResult(loadResultString);
                     if (loadResult.type() == Utility.OBJECT) {

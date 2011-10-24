@@ -3,6 +3,7 @@ package org.mathpiper.lisp.behaviours;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 /** Substing one expression for another. The simplest form
  * of substitution
@@ -22,10 +23,10 @@ public class ExpressionSubstitute
     }
 
 
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, ConsPointer aElement)
+    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, Cons aElement)
             throws Exception {
 
-        if (Utility.equals(iEnvironment, aStackTop, aElement.getCons(), iToMatch.getCons())) {
+        if (Utility.equals(iEnvironment, aStackTop, aElement, iToMatch.getCons())) {
             aResult.setCons(iToReplaceWith.getCons().copy(aEnvironment, false));
 
             return true;

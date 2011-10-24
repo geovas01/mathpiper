@@ -60,7 +60,7 @@ public class Unbind extends BuiltinFunction
                 nr++;
             }
         }
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 }
 

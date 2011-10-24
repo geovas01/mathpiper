@@ -41,7 +41,7 @@ public class CurrentLine extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + aEnvironment.iCurrentInput.iStatus.getLineNumber()));
+        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + aEnvironment.iCurrentInput.iStatus.getLineNumber()));
     }
 }
 

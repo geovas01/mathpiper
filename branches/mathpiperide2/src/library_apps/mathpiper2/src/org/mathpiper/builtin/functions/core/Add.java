@@ -54,7 +54,7 @@ public class Add extends BuiltinFunction
         {
             BigNumber x;
             x = Utility.getNumber(aEnvironment, aStackTop, 1);
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(x));
+            setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(x));
             return;
         } else
         {
@@ -63,7 +63,7 @@ public class Add extends BuiltinFunction
             int bin = aEnvironment.getPrecision();
             BigNumber z = new BigNumber(bin);
             z.add(x, y, aEnvironment.getPrecision());
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+            setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         }
     }

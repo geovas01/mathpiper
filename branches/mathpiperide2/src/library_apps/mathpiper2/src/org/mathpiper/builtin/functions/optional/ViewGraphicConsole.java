@@ -62,7 +62,7 @@ public class ViewGraphicConsole extends BuiltinFunction
 
         JavaObject response = new JavaObject(frame);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 

@@ -43,7 +43,7 @@ public class SystemTimer extends BuiltinFunction
     {
         long currentTime = System.currentTimeMillis();
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + currentTime));
+        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + currentTime));
     }//end method.
 
 }//end class.

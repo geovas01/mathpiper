@@ -38,7 +38,7 @@ public class RoundToN extends BuiltinFunction
 
 
 
-        Cons argument1 = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
+        Cons argument1 = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         if(argument1 instanceof NumberCons)
         {
@@ -50,7 +50,7 @@ public class RoundToN extends BuiltinFunction
                 decimalToBeRounded.setPrecision(requestedPrecision.toInt());
             }
 
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(decimalToBeRounded));
+            setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(decimalToBeRounded));
 
             return;
 
@@ -97,7 +97,7 @@ public class RoundToN extends BuiltinFunction
 
                 Cons complexSublistCons = SublistCons.getInstance(aEnvironment, complexAtomCons);
 
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(complexSublistCons);
+                setTopOfStackPointer(aEnvironment, aStackTop, complexSublistCons);
                 
                 return;
                 

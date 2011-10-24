@@ -47,7 +47,7 @@ public abstract class Evaluator {
 		// Print out the current expression
 		//StringOutput stream(outString);
 		MathPiperOutputStream stream = new StringOutputStream(outString);
-		infixprinter.print(-1, new ConsPointer(aExpression), stream, aEnvironment);
+		infixprinter.print(-1, aExpression, stream, aEnvironment);
 		// Escape quotes.
 		for (int i = outString.length() - 1; i >= 0; --i) {
 			char c = outString.charAt(i);

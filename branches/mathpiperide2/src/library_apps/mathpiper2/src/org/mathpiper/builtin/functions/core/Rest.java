@@ -21,6 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -41,9 +42,8 @@ public class Rest extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer first = new ConsPointer();
-        Utility.tail(aEnvironment, aStackTop, first, getArgumentPointer(aEnvironment, aStackTop, 1));
-        Utility.tail(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), first);
+        Cons first = Utility.tail(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.tail(aEnvironment, aStackTop, first));
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
         head.getCons().setCdr(((ConsPointer) getTopOfStackPointer(aEnvironment, aStackTop).car()).getCons());

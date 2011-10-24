@@ -48,7 +48,7 @@ public class ExceptionGet extends BuiltinFunction
     {
         if(aEnvironment.iException == null)
         {
-            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
         }
         else
         {
@@ -140,7 +140,7 @@ public class ExceptionGet extends BuiltinFunction
 
 
 
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultSublistCons);
+            setTopOfStackPointer(aEnvironment, aStackTop, resultSublistCons);
 
         }
     }

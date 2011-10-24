@@ -37,7 +37,7 @@ public class RulebaseDump extends BuiltinFunction
 
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        if(getArgumentPointer(aEnvironment, aStackTop, 1).getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RulebaseDump");
+        if(getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RulebaseDump");
         String rulebaseName = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         if(rulebaseName == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RulebaseDump");
         if(rulebaseName.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1, "StringToUnicode");
@@ -72,7 +72,7 @@ public class RulebaseDump extends BuiltinFunction
             aEnvironment.write("Rule not defined");
         }
 
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
 
     }//end method.
 }//end class.

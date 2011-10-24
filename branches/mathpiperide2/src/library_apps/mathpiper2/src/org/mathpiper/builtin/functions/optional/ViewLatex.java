@@ -94,7 +94,7 @@ public class ViewLatex extends BuiltinFunction {
         }//end else.
 
 
-        Cons viewScalePointer = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
+        Cons viewScalePointer = getArgumentPointer(aEnvironment, aStackTop, 2);
         Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScalePointer);
         BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.getPrecision(), aEnvironment);
         if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ViewLatex");
@@ -164,7 +164,7 @@ public class ViewLatex extends BuiltinFunction {
 
         JavaObject response = new JavaObject(frame);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
 
     }//end method.

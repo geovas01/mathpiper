@@ -205,8 +205,8 @@ public class LispError {
             } else if (aStackTop == -2) {
                 throw new EvaluationException("Error: " + aErrorMessage + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
-                ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
-                if (arguments.getCons() == null) {
+                Cons arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
+                if (arguments == null) {
                     throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 } else {
                     //TODO FIXME          ShowStack(aEnvironment);
@@ -239,8 +239,8 @@ public class LispError {
             } else if (aStackTop == -2) {
                 throw new EvaluationException("Error: " + errorString(errNo) + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
-                ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
-                if (arguments.getCons() == null) {
+                Cons arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
+                if (arguments == null) {
                     throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 } else {
                     String error = "";
@@ -263,7 +263,7 @@ public class LispError {
     //========================================
 
     public static void checkNumberOfArguments(int aStackTop, int n, ConsPointer aArguments, Environment aEnvironment, String functionName) throws Exception {
-        int nrArguments = Utility.listLength(aEnvironment, aStackTop, aArguments);
+        int nrArguments = Utility.listLength(aEnvironment, aStackTop, aArguments.getCons());
         if (nrArguments != n) {
             errorNumberOfArguments(n - 1, nrArguments - 1, aArguments, aEnvironment, functionName, aStackTop);
         }
@@ -286,7 +286,7 @@ public class LispError {
             throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
         } else {
             //TODO FIXME      ShowStack(aEnvironment);
-            String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed + ". ";
+            String error = showFunctionError(aArguments.getCons(), aEnvironment) + "expected " + needed + " arguments, got " + passed + ". ";
             throw new EvaluationException(error + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), lineNumber, tokenStartIndex, tokenEndIndex);
 
             /*TODO FIXME
@@ -304,8 +304,8 @@ public class LispError {
     }
     //========================================
 
-    public static String showFunctionError(ConsPointer aArguments, Environment aEnvironment) throws Exception {
-        if (aArguments.getCons() == null) {
+    public static String showFunctionError(Cons aArguments, Environment aEnvironment) throws Exception {
+        if (aArguments == null) {
             return "Error in compiled code. ";
         } else {
             String string = (String) aArguments.car();
@@ -354,13 +354,13 @@ public class LispError {
                 stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
             }
 
-            ConsPointer arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
-            if (arguments.getCons() == null) {
+            Cons arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
+            if (arguments == null) {
                 throw new EvaluationException("Error in compiled code." + stackTrace, aEnvironment.iCurrentInput.iStatus.getFileName(), lineNumber, startIndex, endIndex);
             } else {
                 String error = "";
                 error = error + showFunctionError(arguments, aEnvironment) + "\nbad argument number " + aArgNr + "(counting from 1) : \n" + aErrorDescription + "\n";
-                ConsPointer arg = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, arguments, aArgNr);
+                Cons arg = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, arguments, aArgNr);
                 String strout;
 
                 error = error + "The offending argument ***( ";
@@ -368,9 +368,9 @@ public class LispError {
                 error = error + strout;
 
                 
-                Cons eval = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg.getCons());
+                Cons eval = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg);
                 error = error + " )*** evaluated to ***( ";
-                strout = Utility.printMathPiperExpression(aStackTop, new ConsPointer(eval), aEnvironment, 60);
+                strout = Utility.printMathPiperExpression(aStackTop, eval, aEnvironment, 60);
                 error = error + strout;
                 error = error + " )***\n";
 

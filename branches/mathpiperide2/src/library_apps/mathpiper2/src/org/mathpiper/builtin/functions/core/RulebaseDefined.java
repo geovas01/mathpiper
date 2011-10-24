@@ -45,20 +45,20 @@ public class RulebaseDefined extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer name = new ConsPointer();
-        name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
         String orig = (String) name.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RulebaseDefined");
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
         ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
         if( sizearg.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseDefined");
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseDefined");
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
         SingleArityRulebase userFunc = aEnvironment.getRulebase((String)aEnvironment.getTokenHash().lookUp(oper), arity, aStackTop);
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), userFunc != null);
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, userFunc != null));
     }
 }
 

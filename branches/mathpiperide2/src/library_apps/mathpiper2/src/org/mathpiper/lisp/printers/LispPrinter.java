@@ -19,6 +19,7 @@ package org.mathpiper.lisp.printers;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.*;
 import org.mathpiper.io.MathPiperOutputStream;
+import org.mathpiper.lisp.cons.Cons;
 
 public class LispPrinter {
 
@@ -31,7 +32,7 @@ public class LispPrinter {
 
     //private List<Cons> visitedLists = new ArrayList<Cons>();
 
-    public void print(int aStackTop, ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
+    public void print(int aStackTop, Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment) throws Exception {
         printExpression(aExpression, aOutput, aEnvironment, 0);
 
         //visitedLists.clear();
@@ -42,9 +43,9 @@ public class LispPrinter {
     }
 
 
-    void printExpression(ConsPointer aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, int aDepth /* =0 */) throws Exception {
+    void printExpression(Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, int aDepth /* =0 */) throws Exception {
         ConsPointer consWalker = new ConsPointer();
-        consWalker.setCons(aExpression.getCons());
+        consWalker.setCons(aExpression);
         int item = 0;
 
         if(consWalker.getCons() == null)
@@ -78,7 +79,7 @@ public class LispPrinter {
                     indent(aOutput, aDepth + 1);
                 }
                 aOutput.write("(");
-                printExpression(((ConsPointer) consWalker.car()), aOutput, aEnvironment, aDepth + 1);
+                printExpression(((ConsPointer) consWalker.car()).getCons(), aOutput, aEnvironment, aDepth + 1);
                 aOutput.write(")");
                 item = 0;
                 //}

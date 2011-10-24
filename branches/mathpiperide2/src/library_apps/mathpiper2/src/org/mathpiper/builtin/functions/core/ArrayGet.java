@@ -46,14 +46,14 @@ public class ArrayGet extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
         if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1,"ArrayGet");
         if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1, "ArrayGet");
 
         ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
 
         if( sizearg.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArrayGet");
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArrayGet");
@@ -63,7 +63,7 @@ public class ArrayGet extends BuiltinFunction
         if( size <= 0 || size > ((Array) gen).size()) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArrayGet");
         Cons object = ((Array) gen).getElement(size, aStackTop, aEnvironment);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(object.copy( aEnvironment, false));
+        setTopOfStackPointer(aEnvironment, aStackTop, object.copy( aEnvironment, false));
     }
 }//end class.
 

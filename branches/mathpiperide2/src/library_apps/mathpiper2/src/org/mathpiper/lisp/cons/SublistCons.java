@@ -83,7 +83,7 @@ public class SublistCons extends Cons {
         StringOutput out = new StringOutput();
         LispPrinter printer = new LispPrinter();
         try {
-            printer.print(-1, new ConsPointer(this), out, null);
+            printer.print(-1, this, out, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

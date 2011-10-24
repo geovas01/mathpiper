@@ -18,10 +18,10 @@ package org.mathpiper.builtin.functions.core;
 
 
 import org.mathpiper.builtin.BuiltinFunction;
-import org.mathpiper.exceptions.ReturnException;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 
@@ -48,19 +48,19 @@ public class Prog extends BuiltinFunction
 
         try {
 
-            ConsPointer resultPointer = new ConsPointer();
 
-            Utility.putTrueInPointer(aEnvironment, resultPointer);
+
+            Cons resultPointer = Utility.putTrueInPointer(aEnvironment);
 
             // Evaluate args one by one.
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
             consTraverser.goNext(aStackTop);
             while (consTraverser.getCons() != null) {
-                resultPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getCons()));
+                resultPointer = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getCons());
                 consTraverser.goNext(aStackTop);
             }
 
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultPointer.getCons());
+            setTopOfStackPointer(aEnvironment, aStackTop, resultPointer);
 
         } catch (Exception e) {
             throw e;

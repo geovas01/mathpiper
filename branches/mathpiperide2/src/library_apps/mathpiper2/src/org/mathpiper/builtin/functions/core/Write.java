@@ -21,6 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -41,21 +42,21 @@ public class Write extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer arguments = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons arguments = getArgumentPointer(aEnvironment, aStackTop, 1);
         
         if (arguments.type() == Utility.SUBLIST) {
 
             ConsPointer subList = (ConsPointer) arguments.car();
             
-            ConsPointer consTraverser = new ConsPointer( subList.getCons());
-            consTraverser.goNext(aStackTop, aEnvironment);
-            while (consTraverser.getCons() != null)
+            ConsPointer consPointer = new ConsPointer( subList.getCons());
+            consPointer.goNext(aStackTop, aEnvironment);
+            while (consPointer.getCons() != null)
             {
-                aEnvironment.iCurrentPrinter.print(aStackTop, consTraverser, aEnvironment.iCurrentOutput, aEnvironment);
-                consTraverser.goNext(aStackTop, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(aStackTop, consPointer.getCons(), aEnvironment.iCurrentOutput, aEnvironment);
+                consPointer.goNext(aStackTop, aEnvironment);
             }
         }
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 }
 

@@ -46,7 +46,7 @@ public class Delay extends BuiltinFunction
 
         //Thread.sleep(milliseconds.toLong());
 
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 }//end class.
 

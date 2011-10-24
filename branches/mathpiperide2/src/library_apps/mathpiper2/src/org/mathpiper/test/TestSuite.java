@@ -283,7 +283,7 @@ public class TestSuite {
                 else {
 
                     if (printExpression == true) {
-                        printExpression(printedScriptStringBuffer, aEnvironment, new ConsPointer(readIn));
+                        printExpression(printedScriptStringBuffer, aEnvironment, readIn);
 
                         String expression = printedScriptStringBuffer.toString();
 
@@ -322,7 +322,7 @@ public class TestSuite {
         }
     }
 
-    public static void printExpression(StringBuffer outString, Environment aEnvironment, ConsPointer aExpression) throws Exception {
+    public static void printExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Exception {
         MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 
         MathPiperOutputStream stream = new StringOutputStream(outString);

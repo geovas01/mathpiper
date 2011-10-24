@@ -40,17 +40,16 @@ public class ExceptionCatch extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
         try
         {
             //Return the first argument.
-            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons()));
+            setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1)));
         } catch (Throwable exception)
         {   //Return the second argument.
             //e.printStackTrace();
             //Boolean interrupted = Thread.currentThread().interrupted(); //Clear interrupted condition.
             aEnvironment.iException = exception;
-            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2).getCons()));
+            setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2)));
             aEnvironment.iException = null;
         }
     }

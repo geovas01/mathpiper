@@ -41,12 +41,12 @@ public class Equal_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons evaluated1 = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
+        Cons evaluated1 = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        Cons evaluated2 = getArgumentPointer(aEnvironment, aStackTop, 2).getCons();
+        Cons evaluated2 = getArgumentPointer(aEnvironment, aStackTop, 2);
 
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop),
-                Utility.equals(aEnvironment, aStackTop, evaluated1, evaluated2));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment,
+                Utility.equals(aEnvironment, aStackTop, evaluated1, evaluated2)));
     }
 }//end class.
 
