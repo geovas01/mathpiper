@@ -43,13 +43,13 @@ public class MetaValues extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
         ConsPointer objectPointer = new ConsPointer();
-        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
 
 
         Map metadataMap = objectPointer.getCons().getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy( aEnvironment, false)));
+            setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy( aEnvironment, false)));
 
             return;
         }//end if.
@@ -77,7 +77,7 @@ public class MetaValues extends BuiltinFunction
 
 
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head));
+        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
 
 
 

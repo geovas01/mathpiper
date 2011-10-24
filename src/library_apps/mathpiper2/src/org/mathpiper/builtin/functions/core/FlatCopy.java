@@ -44,7 +44,7 @@ public class FlatCopy extends BuiltinFunction
     {
         ConsPointer copied = new ConsPointer();
         Utility.flatCopy(aEnvironment, aStackTop, copied, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,copied.getCons()));
+        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,copied.getCons()));
     }
 }
 

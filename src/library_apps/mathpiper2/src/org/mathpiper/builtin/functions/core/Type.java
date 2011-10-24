@@ -45,14 +45,14 @@ public class Type extends BuiltinFunction
 
         ConsPointer evaluated = new ConsPointer();
 
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
 
         String functionType = Utility.functionType(evaluated);
 
         if (functionType.equals("")) {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "\"\""));
+            setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"\""));
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(functionType)));
+            setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(functionType)));
         }
     }//end method.
 

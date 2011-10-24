@@ -43,12 +43,12 @@ public class ListToFunction extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if(getArgumentPointer(aEnvironment, aStackTop, 1).getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ListToFunction");
+        if(getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ListToFunction");
         if(! (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer)) LispError.checkArgument(aEnvironment, aStackTop, 1, "ListToFunction");
         Cons atom = ((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).getCons();
         if( atom == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ListToFunction");
         if( atom.car() != aEnvironment.iListAtom.car()) LispError.checkArgument(aEnvironment, aStackTop, 1, "ListToFunction");
-        Utility.tail(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), getArgumentPointer(aEnvironment, aStackTop, 1));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.tail(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1)));
     }
 }
 

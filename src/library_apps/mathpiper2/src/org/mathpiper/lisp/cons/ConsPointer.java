@@ -85,7 +85,7 @@ public class ConsPointer {
         StringOutput out = new StringOutput();
         LispPrinter printer = new LispPrinter();
         try {
-            printer.print(-1, this, out, null);
+            printer.print(-1, this.getCons(), out, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

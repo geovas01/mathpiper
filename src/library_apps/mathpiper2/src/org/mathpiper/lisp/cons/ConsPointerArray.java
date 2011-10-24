@@ -16,6 +16,8 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.cons;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.mathpiper.lisp.Environment;
 
 /** 
@@ -25,17 +27,12 @@ import org.mathpiper.lisp.Environment;
 public class ConsPointerArray {
 
     int iSize;
-    ConsPointer iArray[];
+    Cons[] iArray;
 
 
-    public ConsPointerArray(Environment aEnvironment, int aSize, Cons aInitialItem) {
-        iArray = new ConsPointer[aSize];
-        iSize = aSize;
-        int i;
-        for (i = 0; i < aSize; i++) {
-            iArray[i] = new ConsPointer();
-            iArray[i].setCons(aInitialItem);
-        }
+    public ConsPointerArray(Environment aEnvironment, int aSize) {
+       iSize = aSize;
+       iArray = new Cons[50000];
     }
 
 
@@ -44,27 +41,14 @@ public class ConsPointerArray {
     }
 
 
-    public ConsPointer getElement(int aItem) {
+    public Cons getElement(int aItem) {
         return iArray[aItem];
     }
 
 
-    public ConsPointer[] getElements(int first, int last) throws IndexOutOfBoundsException {
-        if (first < last && first > 0 && last > 0 && first < iSize - 1 && last < iSize - 1) {
-            ConsPointer[] arguments = new ConsPointer[last - first];
-            int i = 0;
-            for (int x = first; x < last; x++) {
-                arguments[i++] = iArray[x];
-            }
-            return arguments;
-        } else {
-            throw new IndexOutOfBoundsException("Stack index is out of bounds.");
-        }
-    }
-
 
     public void setElement(int aItem, Cons aCons) {
-        iArray[aItem].setCons(aCons);
+        iArray[aItem] = aCons;
     }
 
 }

@@ -47,7 +47,7 @@ public class LoadScript extends BuiltinFunction
         if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
 
         ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get file name
         if(evaluated.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "LoadScript");
@@ -67,7 +67,7 @@ public class LoadScript extends BuiltinFunction
 
         aEnvironment.saveDebugInformation = false;
         
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
          
     }
 }

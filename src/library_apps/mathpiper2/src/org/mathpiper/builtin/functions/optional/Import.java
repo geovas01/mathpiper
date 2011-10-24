@@ -25,7 +25,7 @@ import org.mathpiper.interpreters.Interpreters;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -44,10 +44,10 @@ public class Import extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
-        ConsPointer pathPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons pathPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
 
-        LispError.checkIsString(aEnvironment, aStackTop, pathPointer.getCons(), 1, "Import");
+        LispError.checkIsString(aEnvironment, aStackTop, pathPointer, 1, "Import");
 
         String path = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) pathPointer.car());
 
@@ -59,13 +59,13 @@ public class Import extends BuiltinFunction
 
         if(failList.isEmpty())
         {
-            Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
             return;
         }
         else
         {
             aEnvironment.write("Could not load " + path);
-            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
         }//end if/else
 
     }//end method.

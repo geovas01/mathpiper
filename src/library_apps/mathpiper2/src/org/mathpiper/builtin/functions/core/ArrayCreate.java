@@ -23,6 +23,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
@@ -45,7 +46,7 @@ public class ArrayCreate extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
 
         if( sizearg.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ArrayCreate");
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1, "ArrayCreate");
@@ -53,10 +54,16 @@ public class ArrayCreate extends BuiltinFunction
         int size = Integer.parseInt( (String) sizearg.car(), 10);
 
         ConsPointer initarg = new ConsPointer();
-        initarg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
+        initarg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
 
-        Array array = new Array(aEnvironment, size, initarg.getCons());
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, array));
+        Array array = new Array(aEnvironment, size);
+        Cons initializeCons = initarg.getCons();
+
+        for(int index = 1; index <= size; index++)
+        {
+            array.setElement(index, initializeCons, aStackTop, aEnvironment);
+        }
+        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, array));
     }
 }//end class.
 

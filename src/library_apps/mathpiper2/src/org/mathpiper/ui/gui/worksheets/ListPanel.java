@@ -32,7 +32,7 @@ public class ListPanel extends JPanel implements ViewPanel {
         structure that more closely reflects the way the list will be displayed graphically.
      */
 
-    public ListPanel(Environment aEnvironment, int aStackTop, ConsPointer consPointer, double viewScale) {
+    public ListPanel(Environment aEnvironment, int aStackTop, Cons consPointer, double viewScale) {
         super();
         this.setOpaque(true);
         this.viewScale = viewScale;
@@ -46,7 +46,7 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         try {
 
-            Cons headCons = consPointer.getCons();
+            Cons headCons = consPointer;
 
             headNode = new ConsNode();
             if (headCons instanceof SublistCons) {

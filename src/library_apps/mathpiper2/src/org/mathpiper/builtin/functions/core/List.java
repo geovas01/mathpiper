@@ -54,7 +54,7 @@ public class List extends BuiltinFunction
             tail.goNext(aStackTop);
             consTraverser.goNext(aStackTop);
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment, allPointer.getCons()));
+        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, allPointer.getCons()));
     }
 
 }

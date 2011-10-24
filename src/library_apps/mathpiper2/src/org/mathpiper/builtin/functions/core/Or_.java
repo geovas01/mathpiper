@@ -54,7 +54,7 @@ public class Or_ extends BuiltinFunction
             Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer().getCons());
             if (Utility.isTrue(aEnvironment, evaluated, aStackTop))
             {
-                Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
                 return;
             } else if (!Utility.isFalse(aEnvironment, evaluated, aStackTop))
             {
@@ -72,7 +72,7 @@ public class Or_ extends BuiltinFunction
         {
             if (nrnogos == 1)
             {
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(nogos.getCons());
+                setTopOfStackPointer(aEnvironment, aStackTop, nogos.getCons());
             } else
             {
 
@@ -80,15 +80,15 @@ public class Or_ extends BuiltinFunction
                 Cons ptr = Utility.reverseList(aEnvironment, nogos);
                 nogos.setCons(ptr);
 
-                ptr = getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy( aEnvironment, false);
+                ptr = getArgumentPointer(aEnvironment, aStackTop, 0).copy( aEnvironment, false);
                 ptr.setCdr(nogos.getCons());
                 nogos.setCons(ptr);
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,nogos.getCons()));
+                setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,nogos.getCons()));
             }
         //aEnvironment.CurrentPrinter().Print(getTopOfStackPointer(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
         } else
         {
-            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
         }
     }
 }

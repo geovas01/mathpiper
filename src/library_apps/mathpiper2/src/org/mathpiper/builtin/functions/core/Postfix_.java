@@ -43,7 +43,7 @@ public class Postfix_ extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), op != null);
+         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, op != null));
     }
 }
 

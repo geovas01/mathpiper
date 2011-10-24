@@ -333,7 +333,7 @@ public final class Environment {
 
                 ConsPointer valuePointer = new ConsPointer(localVariable.iValue);
 
-                String valueString = Utility.printMathPiperExpression(aStackTop, valuePointer, this, -1);
+                String valueString = Utility.printMathPiperExpression(aStackTop, valuePointer.getCons(), this, -1);
 
                 stringBuilder.append(valueString);
 
@@ -515,7 +515,7 @@ public final class Environment {
     public SingleArityRulebase getRulebase(int aStackTop, ConsPointer aArguments) throws Exception {
         MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases.lookUp( (String) aArguments.car());
         if (multipleArityUserFunc != null) {
-            int arity = Utility.listLength(this, aStackTop, aArguments) - 1;
+            int arity = Utility.listLength(this, aStackTop, aArguments.getCons()) - 1;
             return multipleArityUserFunc.getUserFunction(arity, aStackTop, this);
         }
         return null;

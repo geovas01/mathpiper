@@ -46,7 +46,7 @@ public class FunctionToList extends BuiltinFunction
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
         head.getCons().setCdr(((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).getCons());
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,head.getCons()));
+        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head.getCons()));
     }
 }
 

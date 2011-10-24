@@ -42,12 +42,12 @@ public class DefaultDirectory extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get file name
-        if(getArgumentPointer(aEnvironment, aStackTop, 1).getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "DefaultDirectory");
+        if(getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "DefaultDirectory");
         String orig =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "DefaultDirectory");
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
         aEnvironment.iInputDirectories.add(oper);
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 }
 

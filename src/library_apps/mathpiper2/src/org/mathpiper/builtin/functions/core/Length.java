@@ -25,6 +25,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -50,8 +51,8 @@ public class Length extends BuiltinFunction
 
         if (argument instanceof ConsPointer)
         {
-            int num = Utility.listLength(aEnvironment, aStackTop, new ConsPointer(((ConsPointer)argument).cdr()));
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
+            int num = Utility.listLength(aEnvironment, aStackTop, (((ConsPointer)argument).cdr()));
+            setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
             return;
         }//end if.
         
@@ -63,7 +64,7 @@ public class Length extends BuiltinFunction
             if (gen.typeName().equals("\"Array\""))
             {
                 int size = ((Array) gen).size();
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
+                setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
                 return;
             }
         //  CHK_ISLIST_CORE(aEnvironment,aStackTop,getArgumentPointer(aEnvironment, aStackTop, 1),1);
@@ -71,12 +72,16 @@ public class Length extends BuiltinFunction
 
 
 
-        if(! (argument instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argument, "Length");
+        if(! (argument instanceof String)) 
+        {
+            LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argument, "Length");
+        }
+        
         String string =  (String) argument;
         if (Utility.isString(string))
         {
             int num = string.length() - 2;
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
+            setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
             return;
         }//end if.
         

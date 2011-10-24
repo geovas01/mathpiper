@@ -77,7 +77,7 @@ public class Concatenate extends BuiltinFunction
 
             arg++;
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,all.getCons()));
+        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,all.getCons()));
     }
 }
 

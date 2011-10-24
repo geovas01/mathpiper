@@ -43,7 +43,7 @@ public class String_ extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer result = new ConsPointer();
-        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
 
         boolean resultBoolean ;
          if( result.car() instanceof String  )
@@ -54,7 +54,7 @@ public class String_ extends BuiltinFunction
         else{
             resultBoolean = false;
         }
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), resultBoolean);
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, resultBoolean));
                 
     }
 }

@@ -43,7 +43,7 @@ public class TraceOff extends BuiltinFunction
     {
          Evaluator.traceOff();
          aEnvironment.write("Tracing is off.\n");
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 }
 

@@ -30,23 +30,27 @@ public abstract class BuiltinFunction {
 
     public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
 
-    public static ConsPointer getTopOfStackPointer(Environment aEnvironment, int aStackTop) throws Exception {
+    public static Cons getTopOfStackPointer(Environment aEnvironment, int aStackTop) throws Exception {
         return aEnvironment.iArgumentStack.getElement(aStackTop, aStackTop, aEnvironment);
     }
 
-    public static ConsPointer getArgumentPointer(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
+    public static void setTopOfStackPointer(Environment aEnvironment, int aStackTop, Cons cons) throws Exception {
+        aEnvironment.iArgumentStack.setElement(aStackTop, aStackTop, aEnvironment, cons);
+    }
+
+    public static Cons getArgumentPointer(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
         return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition, aStackTop, aEnvironment);
     }
 
-    public static ConsPointer getArgumentPointer(Environment aEnvironment, int aStackTop, ConsPointer cur, int n) throws Exception {
+    public static Cons getArgumentPointer(Environment aEnvironment, int aStackTop, Cons cur, int n) throws Exception {
         if(n < 0)LispError.lispAssert(aEnvironment, aStackTop);
 
-        Cons loop = cur.getCons();
+        Cons loop = cur;
         while (n != 0) {
             n--;
             loop = loop.cdr();
         }
-        return new ConsPointer(loop);
+        return loop;
     }
 
     public void plugIn(Environment aEnvironment) throws Exception {

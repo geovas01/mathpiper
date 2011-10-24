@@ -20,8 +20,8 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -43,10 +43,10 @@ public class BackQuote extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         org.mathpiper.lisp.behaviours.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.behaviours.BackQuoteSubstitute(aEnvironment);
-        ConsPointer result = new ConsPointer();
-        Utility.substitute(aEnvironment, aStackTop, result, getArgumentPointer(aEnvironment, aStackTop, 1), behaviour);
-        ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-        consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result.getCons()));
+
+        Cons result = Utility.substitute(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1), behaviour);
+        
+        setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
     }
 }
 

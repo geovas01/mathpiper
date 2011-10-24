@@ -21,9 +21,9 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.behaviours.LocalSymbolSubstitute;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -62,11 +62,10 @@ public class LocalSymbols extends BuiltinFunction
             localAtomNames[i] = variable;
         }
         LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
-        ConsPointer result = new ConsPointer();
-        Utility.substitute(aEnvironment, aStackTop, result, getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
+
+        Cons result = Utility.substitute(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
         
-        ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-        consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result.getCons()));
+        setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
     }
 }//end class.
 

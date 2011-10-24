@@ -22,7 +22,7 @@ import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -43,12 +43,12 @@ public class Factorial extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if( getArgumentPointer(aEnvironment, aStackTop, 1).getCons().getNumber(0, aEnvironment) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "Factorial");
-        ConsPointer arg = getArgumentPointer(aEnvironment, aStackTop, 1);
+        if( getArgumentPointer(aEnvironment, aStackTop, 1).getNumber(0, aEnvironment) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "Factorial");
+        Cons arg = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still
 //        LispError.check(arg.type().equals("Number"), LispError.INVALID_ARGUMENT);
-        int nr = (int) ((BigNumber) arg.getCons().getNumber(0, aEnvironment)).toLong();
+        int nr = (int) ((BigNumber) arg.getNumber(0, aEnvironment)).toLong();
         if(nr < 0) LispError.throwError(aEnvironment, aStackTop,  LispError.INVALID_ARGUMENT,arg, "Factorial");
         BigNumber fac = new BigNumber( "1", 10, 10);
         int i;
@@ -58,6 +58,6 @@ public class Factorial extends BuiltinFunction
             m.multiply(fac, m, 0);
             fac = m;
         }
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(fac));
+        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(fac));
     }
 }

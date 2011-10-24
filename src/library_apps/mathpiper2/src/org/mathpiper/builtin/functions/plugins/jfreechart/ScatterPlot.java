@@ -64,7 +64,7 @@ public class ScatterPlot extends BuiltinFunction {
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        ConsPointer argumentsPointer = new ConsPointer(getArgumentPointer(aEnvironment, aStackTop, 1));
 
         if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "ScatterPlot");
 
@@ -109,10 +109,10 @@ public class ScatterPlot extends BuiltinFunction {
 
 
         if (chart == null) {
-            Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
             return;
         } else {
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
+            setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
             return;
         }//end if/else.
 

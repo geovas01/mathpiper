@@ -12,7 +12,7 @@ import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.ui.gui.worksheets.ListPanel;
 import org.mathpiper.ui.gui.worksheets.MathPanelController;
 import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
@@ -29,7 +29,7 @@ public class ViewList extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer expressionPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons expressionPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();
@@ -60,7 +60,7 @@ public class ViewList extends BuiltinFunction {
 
         JavaObject response = new JavaObject(frame);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 

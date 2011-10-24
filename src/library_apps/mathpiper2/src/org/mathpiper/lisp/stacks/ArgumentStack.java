@@ -32,7 +32,7 @@ public class ArgumentStack {
 
     //TODO appropriate constructor?
     public ArgumentStack(Environment aEnvironment, int aStackSize) {
-        iArgumentStack = new ConsPointerArray(aEnvironment, aStackSize, null);
+        iArgumentStack = new ConsPointerArray(aEnvironment, aStackSize);
         iStackTopIndex = 0;
         //printf("STACKSIZE %d\n",aStackSize);
     }
@@ -60,9 +60,14 @@ public class ArgumentStack {
         iStackTopIndex += aNr;
     }
 
-    public ConsPointer getElement(int aPos, int aStackTop, Environment aEnvironment) throws Exception {
+    public Cons getElement(int aPos, int aStackTop, Environment aEnvironment) throws Exception {
         if(aPos < 0 || aPos >= iStackTopIndex) LispError.lispAssert(aEnvironment, aStackTop);
         return iArgumentStack.getElement(aPos);
+    }
+
+    public void setElement(int aPos, int aStackTop, Environment aEnvironment, Cons cons) throws Exception {
+        if(aPos < 0 || aPos >= iStackTopIndex) LispError.lispAssert(aEnvironment, aStackTop);
+        iArgumentStack.setElement(aPos, cons);
     }
 
     public void popTo(int aTop, int aStackTop, Environment aEnvironment) throws Exception {
@@ -97,29 +102,29 @@ public class ArgumentStack {
                 stringBuilder.append("-----------------------------------------\n");
             }
 
-            ConsPointer consPointer = getElement(functionBaseIndex, aStackTop, aEnvironment);
+            Cons argumentCons = getElement(functionBaseIndex, aStackTop, aEnvironment);
 
-            int argumentCount = Utility.listLength(aEnvironment, aStackTop, consPointer);
+            int argumentCount = Utility.listLength(aEnvironment, aStackTop, argumentCons);
 
             ConsPointer argumentPointer = new ConsPointer();
 
-            Object car = consPointer.getCons().car();
+            Object car = argumentCons.car();
 
-            ConsPointer consTraverser = new ConsPointer( consPointer.getCons());
+            ConsPointer consPointer = new ConsPointer( argumentCons);
 
             stringBuilder.append(functionPositionIndex++ + ": ");
-            stringBuilder.append(Utility.printMathPiperExpression(aStackTop, consTraverser, aEnvironment, -1));
+            stringBuilder.append(Utility.printMathPiperExpression(aStackTop, consPointer.getCons(), aEnvironment, -1));
             stringBuilder.append("\n");
 
-            consTraverser.goNext(aStackTop, aEnvironment);
+            consPointer.goNext(aStackTop, aEnvironment);
 
-            while(consTraverser.getCons() != null)
+            while(consPointer.getCons() != null)
             {
                 stringBuilder.append("   " + functionPositionIndex++ + ": ");
-                stringBuilder.append("-> " + Utility.printMathPiperExpression(aStackTop, consTraverser, aEnvironment, -1));
+                stringBuilder.append("-> " + Utility.printMathPiperExpression(aStackTop, consPointer.getCons(), aEnvironment, -1));
                 stringBuilder.append("\n");
                 
-                consTraverser.goNext(aStackTop, aEnvironment);
+                consPointer.goNext(aStackTop, aEnvironment);
             }
 
 
@@ -133,10 +138,6 @@ public class ArgumentStack {
         
     }//end method.
 
-    public ConsPointer[] getElements(int quantity) throws IndexOutOfBoundsException {
-        int last = iStackTopIndex;
-        int first = last - quantity;
-        return iArgumentStack.getElements(first, last);
-    }//end method.
+
 }//end class.
 

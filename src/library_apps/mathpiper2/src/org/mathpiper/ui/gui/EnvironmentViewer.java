@@ -590,7 +590,7 @@ public class EnvironmentViewer implements ActionListener {
             String name = (String) table.getValueAt(row, 0);
             GlobalVariable o = (GlobalVariable) table.getValueAt(row, 1);
             try {
-                String data = Utility.printMathPiperExpression(-1, new ConsPointer(o.getValue()), iEnvironment, 0);
+                String data = Utility.printMathPiperExpression(-1, o.getValue(), iEnvironment, 0);
                 //System.out.println(data);
                 textArea.append(name + ": " + data + "\n");
                 textArea.setCaretPosition(textArea.getDocument().getLength());

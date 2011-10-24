@@ -59,7 +59,7 @@ public class FastSin extends BuiltinFunction
 
         z.setTo(result);
 
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

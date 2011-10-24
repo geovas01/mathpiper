@@ -22,6 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -42,12 +43,13 @@ public class Subst extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer from = new ConsPointer(), to = new ConsPointer(), body = new ConsPointer();
-        from.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        to.setCons(getArgumentPointer(aEnvironment, aStackTop, 2).getCons());
-        body.setCons(getArgumentPointer(aEnvironment, aStackTop, 3).getCons());
+        ConsPointer from = new ConsPointer(), to = new ConsPointer();
+
+        from.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        to.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
+        Cons body = getArgumentPointer(aEnvironment, aStackTop, 3);
         org.mathpiper.lisp.behaviours.ExpressionSubstitute behaviour = new org.mathpiper.lisp.behaviours.ExpressionSubstitute(aEnvironment, from, to);
-        Utility.substitute(aEnvironment, aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), body, behaviour);
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.substitute(aEnvironment, aStackTop, body, behaviour));
     }
 }
 

@@ -190,7 +190,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         }
 
 
-                        LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", "[Internal]", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
+                        LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList.getCons(), aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList.getCons()) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", "[Internal]", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
 
 
                     } else {

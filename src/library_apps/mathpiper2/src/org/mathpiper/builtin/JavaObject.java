@@ -66,7 +66,7 @@ public class JavaObject extends BuiltinContainer {
 
         lispListPointer.goNext(aStackTop, aEnvironment); //Remove List designator.
 
-        double[] values = new double[Utility.listLength(aEnvironment, aStackTop, lispListPointer)];
+        double[] values = new double[Utility.listLength(aEnvironment, aStackTop, lispListPointer.getCons())];
 
         int index = 0;
         while (lispListPointer.getCons() != null) {

@@ -43,8 +43,8 @@ public class List_ extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer result = new ConsPointer();
-        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
-        Utility.putBooleanInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop), Utility.isSublist(result));
+        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, Utility.isSublist(result)));
     }
 }
 

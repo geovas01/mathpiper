@@ -43,13 +43,13 @@ public class ToAtom extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1).getCons());
+        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
 
         // Get operator
         if(evaluated.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ToAtom");
         String orig =  (String) evaluated.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ToAtom");
-        getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpUnStringify(orig)));
+        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpUnStringify(orig)));
     }
 }
 

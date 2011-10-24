@@ -43,8 +43,8 @@ public class Eval extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         
-        ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-        consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons()));
+        
+        setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1)));
 
 
     }

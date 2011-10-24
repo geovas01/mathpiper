@@ -45,8 +45,7 @@ public class PipeToStdout extends BuiltinFunction
         aEnvironment.iCurrentOutput = aEnvironment.iInitialOutput;
         try
         {
-            ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-            consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).getCons()));
+            setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1)));
         } catch (Exception e)
         {
             throw e;

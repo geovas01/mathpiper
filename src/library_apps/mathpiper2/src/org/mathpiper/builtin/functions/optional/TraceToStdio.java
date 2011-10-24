@@ -45,7 +45,7 @@ public class TraceToStdio extends BuiltinFunction
 
          aEnvironment.write("Tracing to stdio is on.\n");
          
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 }
 

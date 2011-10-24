@@ -42,7 +42,7 @@ public class StackTraceOff extends BuiltinFunction
     {
          Evaluator.stackTraceOff();
          aEnvironment.write("Stack tracing is off.\n");
-         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 }
 

@@ -43,17 +43,17 @@ public class Not_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1).getCons();
+        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         if (Utility.isTrue(aEnvironment, evaluated, aStackTop) || Utility.isFalse(aEnvironment, evaluated, aStackTop))
         {
-            Utility.not(aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment, evaluated);
+            setTopOfStackPointer(aEnvironment, aStackTop, Utility.not(aStackTop, aEnvironment, evaluated));
         } else
         {
             ConsPointer ptr = new ConsPointer();
-            ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).getCons().copy( aEnvironment, false));
+            ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).copy( aEnvironment, false));
             ptr.getCons().setCdr(evaluated);
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(SublistCons.getInstance(aEnvironment,ptr.getCons()));
+            setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,ptr.getCons()));
         }
     }
 }

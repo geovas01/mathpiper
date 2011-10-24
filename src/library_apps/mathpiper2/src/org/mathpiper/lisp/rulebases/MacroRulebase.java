@@ -68,8 +68,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
 
-        ConsPointer substitutedBodyPointer = new ConsPointer();
-
+        Cons substitutedBodyPointer = null;
         //Create a new local variable frame that is unfenced (false = unfenced).
         aEnvironment.pushLocalFrame(false, this.functionName);
 
@@ -108,7 +107,7 @@ public class MacroRulebase extends SingleArityRulebase {
                     BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
 
                     ConsPointer originalBodyPointer = thisRule.getBodyPointer();
-                    Utility.substitute(aEnvironment, aStackTop, substitutedBodyPointer, originalBodyPointer, backQuoteSubstitute);
+                    substitutedBodyPointer = Utility.substitute(aEnvironment, aStackTop, originalBodyPointer.getCons(), backQuoteSubstitute);
                     //              aEnvironment.iLispExpressionEvaluator.Eval(aEnvironment, aResult, thisRule.body());
                     break;
                 }
@@ -130,9 +129,9 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
 
-        if (substitutedBodyPointer.getCons() != null) {
+        if (substitutedBodyPointer != null) {
             //Note:tk:substituted body must be evaluated after the local frame has been popped.
-            aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBodyPointer.getCons());
+            aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBodyPointer);
         } else // No predicate was true: return a new expression with the evaluated arguments.
         {
             ConsPointer full = new ConsPointer();

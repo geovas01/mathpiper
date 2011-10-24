@@ -47,15 +47,13 @@ public class MacroExpand extends BuiltinFunction
     {
         org.mathpiper.lisp.behaviours.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.behaviours.BackQuoteSubstitute(aEnvironment);
 
-        ConsPointer result = new ConsPointer();
+        //Cons argument = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        ConsPointer argument = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons argumentCons = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        Cons argumentCons = argument.getCons();
+        Cons argument = ((ConsPointer) argumentCons.car()).cdr();
 
-        argument.setCons(((ConsPointer) argumentCons.car()).cdr());
-
-        Utility.substitute(aEnvironment, aStackTop, result, argument, behaviour);
+        Cons result = Utility.substitute(aEnvironment, aStackTop, argument, behaviour);
 
         String substitutedResult = Utility.printMathPiperExpression(aStackTop, result, aEnvironment, 0);
 
@@ -63,8 +61,7 @@ public class MacroExpand extends BuiltinFunction
 	
 	aEnvironment.write("\n");
 
-        ConsPointer consPointer = getTopOfStackPointer(aEnvironment, aStackTop);
-        consPointer.setCons(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result.getCons()));
+         setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
 
     }//end method.
 

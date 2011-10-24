@@ -50,11 +50,11 @@ public class Bound_ extends BuiltinFunction
             Cons val = aEnvironment.getLocalOrGlobalVariable(aStackTop, str);
             if (val != null)
             {
-                Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+                setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
                 return;
             }
         }
-        Utility.putFalseInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
     }
 }
 
