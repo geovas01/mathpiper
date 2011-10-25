@@ -165,10 +165,10 @@ public class Utility {
     }
 
     public static int listLength(Environment aEnvironment, int aStackTop, Cons aOriginal) throws Exception {
-        ConsPointer consTraverser = new ConsPointer( aOriginal);
+        
         int length = 0;
-        while (consTraverser.getCons() != null) {
-            consTraverser.goNext(aStackTop, aEnvironment);
+        while (aOriginal != null) {
+            aOriginal = aOriginal.cdr();
             length++;
         }
         return length;
