@@ -262,8 +262,8 @@ public class LispError {
 
     //========================================
 
-    public static void checkNumberOfArguments(int aStackTop, int n, ConsPointer aArguments, Environment aEnvironment, String functionName) throws Exception {
-        int nrArguments = Utility.listLength(aEnvironment, aStackTop, aArguments.getCons());
+    public static void checkNumberOfArguments(int aStackTop, int n, Cons aArguments, Environment aEnvironment, String functionName) throws Exception {
+        int nrArguments = Utility.listLength(aEnvironment, aStackTop, aArguments);
         if (nrArguments != n) {
             errorNumberOfArguments(n - 1, nrArguments - 1, aArguments, aEnvironment, functionName, aStackTop);
         }
@@ -271,22 +271,22 @@ public class LispError {
 
 
     //========================================
-    public static void errorNumberOfArguments(int needed, int passed, ConsPointer aArguments, Environment aEnvironment, String functionName, int aStackTop) throws Exception {
+    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments, Environment aEnvironment, String functionName, int aStackTop) throws Exception {
         errorNumberOfArguments(needed, passed, aArguments, aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex(), aEnvironment, functionName, aStackTop);
     }
 
-    public static void errorNumberOfArguments(int needed, int passed, ConsPointer aArguments,  int lineNumber, int tokenStartIndex, int tokenEndIndex, Environment aEnvironment, String functionName, int aStackTop) throws Exception {
+    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments,  int lineNumber, int tokenStartIndex, int tokenEndIndex, Environment aEnvironment, String functionName, int aStackTop) throws Exception {
         String stackTrace = "";
 
         if (Evaluator.isStackTraced() && aStackTop >= 0) {
             stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
         }
 
-        if (aArguments.getCons() == null) {
+        if (aArguments == null) {
             throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
         } else {
             //TODO FIXME      ShowStack(aEnvironment);
-            String error = showFunctionError(aArguments.getCons(), aEnvironment) + "expected " + needed + " arguments, got " + passed + ". ";
+            String error = showFunctionError(aArguments, aEnvironment) + "expected " + needed + " arguments, got " + passed + ". ";
             throw new EvaluationException(error + stackTrace,  aEnvironment.iCurrentInput.iStatus.getFileName(), lineNumber, tokenStartIndex, tokenEndIndex);
 
             /*TODO FIXME
