@@ -512,10 +512,10 @@ public final class Environment {
         }
     }
 
-    public SingleArityRulebase getRulebase(int aStackTop, ConsPointer aArguments) throws Exception {
+    public SingleArityRulebase getRulebase(int aStackTop, Cons aArguments) throws Exception {
         MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases.lookUp( (String) aArguments.car());
         if (multipleArityUserFunc != null) {
-            int arity = Utility.listLength(this, aStackTop, aArguments.getCons()) - 1;
+            int arity = Utility.listLength(this, aStackTop, aArguments) - 1;
             return multipleArityUserFunc.getUserFunction(arity, aStackTop, this);
         }
         return null;

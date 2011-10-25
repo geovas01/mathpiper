@@ -30,6 +30,7 @@ import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 
 
@@ -67,7 +68,7 @@ public class ChartUtility {
             int seriesIndex = 1;
             int dataSize = 0;
             while (dataListPointer.getCons() != null) {
-                double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (ConsPointer) dataListPointer.car());
+                double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, new ConsPointer((Cons) dataListPointer.car()));
                 if (dataValues.length > dataSize)
                     dataSize = dataValues.length;
                 String seriesTitle = "";
@@ -215,9 +216,9 @@ public class ChartUtility {
         dataListPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
         int seriesIndex = 1;
         while (dataListPointer.getCons() != null) {
-            double[] dataXValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (ConsPointer) dataListPointer.car());
+            double[] dataXValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, new ConsPointer((Cons) dataListPointer.car()));
             dataListPointer.goNext(aStackTop, aEnvironment);
-            double[] dataYValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (ConsPointer) dataListPointer.car());
+            double[] dataYValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, new ConsPointer((Cons) dataListPointer.car()));
 
             String seriesTitle = "series" + seriesIndex;
             if (userOptions.containsKey("series" + seriesIndex + "Title")) {

@@ -44,7 +44,7 @@ public class List_ extends BuiltinFunction
     {
         ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, Utility.isSublist(result)));
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, Utility.isSublist(result.getCons())));
     }
 }
 

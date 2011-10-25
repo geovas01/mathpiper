@@ -46,9 +46,9 @@ public class Write extends BuiltinFunction
         
         if (arguments.type() == Utility.SUBLIST) {
 
-            ConsPointer subList = (ConsPointer) arguments.car();
+            Cons subList = (Cons) arguments.car();
             
-            ConsPointer consPointer = new ConsPointer( subList.getCons());
+            ConsPointer consPointer = new ConsPointer( subList);
             consPointer.goNext(aStackTop, aEnvironment);
             while (consPointer.getCons() != null)
             {

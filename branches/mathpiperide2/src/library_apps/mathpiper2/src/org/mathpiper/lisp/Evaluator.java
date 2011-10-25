@@ -76,8 +76,8 @@ public abstract class Evaluator {
 		}
 
 		String function = "";
-		if (aExpression.car() instanceof ConsPointer) {
-			ConsPointer sub = (ConsPointer) aExpression.car();
+		if (aExpression.car() instanceof Cons) {
+			Cons sub = (Cons) aExpression.car();
 			if (sub.car() instanceof String) {
 				function = (String) sub.car();
 			}
@@ -191,8 +191,8 @@ public abstract class Evaluator {
 		}
 
 		String function = "";
-		if (aExpression.car() instanceof ConsPointer) {
-			ConsPointer sub = (ConsPointer) aExpression.car();
+		if (aExpression.car() instanceof Cons) {
+			Cons sub = (Cons) aExpression.car();
 			if (sub.car() instanceof String) {
 				function = (String) sub.car();
 			}

@@ -26,6 +26,7 @@ import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -52,14 +53,14 @@ public class PatternMatches extends BuiltinFunction
         if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PatternMatches");
         if(! gen.typeName().equals("\"Pattern\"")) LispError.checkArgument(aEnvironment, aStackTop, 1, "PatternMatches");
 
-        ConsPointer list = new ConsPointer();
-        list.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
+
+        Cons list = getArgumentPointer(aEnvironment, aStackTop, 2);
 
         PatternContainer patclass = (PatternContainer) gen;
 
         ConsTraverser consTraverser = new ConsTraverser(aEnvironment, list);
         if(consTraverser.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
-        if(! (consTraverser.car() instanceof ConsPointer)) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
+        if(! (consTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
         consTraverser.goSub(aStackTop);
         if(consTraverser.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
         consTraverser.goNext(aStackTop);

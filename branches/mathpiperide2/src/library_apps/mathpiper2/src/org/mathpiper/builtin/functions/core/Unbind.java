@@ -23,6 +23,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -43,9 +44,9 @@ public class Unbind extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer) {
+        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof Cons) {
 
-            ConsPointer subList = (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             
             ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
             consTraverser.goNext(aStackTop);

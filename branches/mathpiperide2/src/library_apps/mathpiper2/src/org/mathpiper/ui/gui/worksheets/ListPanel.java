@@ -78,7 +78,7 @@ public class ListPanel extends JPanel implements ViewPanel {
 
                 currentNode = consXHolder.getConsNode();
 
-                while (currentConsPointer.cdr() != null || (currentConsPointer.car() instanceof ConsPointer && ((ConsPointer) currentConsPointer.car()).getCons() != null)) {
+                while (currentConsPointer.cdr() != null || (currentConsPointer.car() instanceof Cons && ((Cons) currentConsPointer.car()) != null)) {
 
                     if (currentConsPointer.cdr() != null) {
 
@@ -107,7 +107,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                         }//end if.
 
                     } else {
-                        if ((currentConsPointer.car() instanceof ConsPointer && ((ConsPointer) currentConsPointer.car()).getCons() == null))//! (currentConsPointer.getCons() instanceof SublistCons)) //(ConsPointer)currentConsPointer.car()).getCons() == null
+                        if ((currentConsPointer.car() instanceof Cons && ((Cons) currentConsPointer.car()) == null))//! (currentConsPointer.getCons() instanceof SublistCons)) //(ConsPointer)currentConsPointer.car()).getCons() == null
                         {
                             break;
                         }

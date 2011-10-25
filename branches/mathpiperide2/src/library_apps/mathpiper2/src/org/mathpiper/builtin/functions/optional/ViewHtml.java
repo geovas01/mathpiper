@@ -48,8 +48,6 @@ public class ViewHtml extends BuiltinFunction {
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
         String htmlText = null;
-        
-        ConsPointer consPointer = null;
 
         Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
 

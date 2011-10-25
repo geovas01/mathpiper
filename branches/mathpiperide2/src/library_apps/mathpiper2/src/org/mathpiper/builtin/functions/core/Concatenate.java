@@ -55,7 +55,7 @@ public class Concatenate extends BuiltinFunction
 
         int arg = 1;
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext(aStackTop);
 
         while (consTraverser.getCons() != null)
@@ -64,7 +64,7 @@ public class Concatenate extends BuiltinFunction
 
             ConsPointer result = new ConsPointer();
 
-            Utility.flatCopy(aEnvironment, aStackTop, result, new ConsPointer(((ConsPointer) consTraverser.getPointer().car()).cdr()));
+            Utility.flatCopy(aEnvironment, aStackTop, result, ((Cons) consTraverser.getPointer().car()).cdr());
 
            tail.setCdr(result.getCons());
 

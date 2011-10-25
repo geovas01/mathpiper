@@ -33,7 +33,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
     public MacroRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
-        ConsTraverser parameterTraverser = new ConsTraverser(aEnvironment, aParameters);
+        ConsTraverser parameterTraverser = new ConsTraverser(aEnvironment, aParameters.getCons());
         int i = 0;
         while (parameterTraverser.getCons() != null) {
 

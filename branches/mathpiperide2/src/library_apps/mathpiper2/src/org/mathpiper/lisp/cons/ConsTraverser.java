@@ -32,9 +32,9 @@ public class ConsTraverser {
 
     private Environment iEnvironment;
 
-    public ConsTraverser(Environment aEnvironment, ConsPointer aPtr) {
+    public ConsTraverser(Environment aEnvironment, Cons aPtr) {
         iEnvironment = aEnvironment;
-        iCurrentPointer = aPtr.getCons();
+        iCurrentPointer = aPtr;
         iHeadPointer = iCurrentPointer;
         
     }
@@ -74,8 +74,8 @@ public class ConsTraverser {
 
     public void goSub(int aStackTop) throws Exception {
         if(iCurrentPointer == null) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "","INTERNAL");
-        if(! (iCurrentPointer.car() instanceof ConsPointer)) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_A_LIST, iCurrentPointer,"INTERNAL");
-        iCurrentPointer = ((ConsPointer)iCurrentPointer.car()).getCons();
+        if(! (iCurrentPointer instanceof SublistCons)) LispError.throwError(iEnvironment, aStackTop, LispError.NOT_A_LIST, iCurrentPointer,"INTERNAL");
+        iCurrentPointer = (Cons) iCurrentPointer.car();
     }
 };
 

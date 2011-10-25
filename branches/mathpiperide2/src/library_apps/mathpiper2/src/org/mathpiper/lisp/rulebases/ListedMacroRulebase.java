@@ -42,7 +42,7 @@ public class ListedMacroRulebase extends MacroRulebase {
 
         Cons newArgs = null;
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(aArguments));
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
 
         Cons ptr = null;
 

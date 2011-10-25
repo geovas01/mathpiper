@@ -68,7 +68,7 @@ public class ParametersPatternMatcher {
      */
     public ParametersPatternMatcher(Environment aEnvironment, int aStackTop, Cons aPattern, Cons aPostPredicate) throws Exception {
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(aPattern));
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aPattern);
 
         while (consTraverser.getCons() != null) {
 
@@ -110,7 +110,7 @@ public class ParametersPatternMatcher {
             //}
 
         }
-        ConsTraverser argumentsTraverser = new ConsTraverser(aEnvironment, aArguments);
+        ConsTraverser argumentsTraverser = new ConsTraverser(aEnvironment, aArguments.getCons());
 
         for (i = 0; i < iParamMatchers.size(); i++) {
             if (argumentsTraverser.getCons() == null) {
@@ -244,17 +244,17 @@ public class ParametersPatternMatcher {
 
 
         // Else, it must be a sublist pattern.
-        if (aPattern.car() instanceof ConsPointer) {
+        if (aPattern.car() instanceof Cons) {
 
             // See if it is a variable template:
-            ConsPointer sublist = (ConsPointer) aPattern.car();
+            Cons sublist = (Cons) aPattern.car();
             //LispError.lispAssert(sublist != null);
 
-            int num = Utility.listLength(aEnvironment, aStackTop, sublist.getCons());
+            int num = Utility.listLength(aEnvironment, aStackTop, sublist);
 
             // variable matcher here...
             if (num > 1) {
-                Cons head = sublist.getCons();
+                Cons head = sublist;
 
                 //Handle _ prefix or suffix on a pattern variables.
                 if (((String) head.car()) == aEnvironment.getTokenHash().lookUp("_")) {
@@ -268,8 +268,8 @@ public class ParametersPatternMatcher {
                             ConsPointer third = new ConsPointer();
 
                             Cons predicate = second.cdr();
-                            if ((predicate.car() instanceof ConsPointer)) {
-                                Utility.flatCopy(aEnvironment, aStackTop, third, (ConsPointer) predicate.car());
+                            if ((predicate.car() instanceof Cons)) {
+                                Utility.flatCopy(aEnvironment, aStackTop, third, (Cons) predicate.car());
                             } else {
                                 third.setCons(second.cdr().copy(aEnvironment, false));
                             }

@@ -37,11 +37,11 @@ public class SublistPatternParameterMatcher extends PatternParameterMatcher {
 
     public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
 
-        if (!(aExpression.car() instanceof ConsPointer)) {
+        if (!(aExpression.car() instanceof Cons)) {
             return false;
         }
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(aExpression));
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aExpression);
 
         consTraverser.goSub(aStackTop);
 

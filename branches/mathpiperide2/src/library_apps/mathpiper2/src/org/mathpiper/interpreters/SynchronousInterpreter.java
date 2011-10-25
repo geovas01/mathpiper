@@ -368,7 +368,7 @@ class SynchronousInterpreter implements Interpreter {
         try {
             if (inputExpressionPointer instanceof SublistCons) {
 
-                Object object = ((ConsPointer) inputExpressionPointer.car()).car();
+                Object object = ((Cons) inputExpressionPointer.car()).car();
 
                 if (object instanceof String && ((String) object).startsWith("Load")) {
 

@@ -62,13 +62,19 @@ public class AtomCons extends Cons
     }
 
 
+    public void setCar(Object object) throws Exception
+    {
+        iCar = (String) object;
+    }
+
+
     public Cons cdr() {
         return iCdr;
     }
 
-    public void setCdr(Cons aCdr)
+    public void setCdr(Cons aCons)
     {
-        iCdr = aCdr;
+        iCdr = aCons;
     }
 
 

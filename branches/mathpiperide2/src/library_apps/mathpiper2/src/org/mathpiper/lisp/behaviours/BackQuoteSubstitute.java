@@ -41,11 +41,11 @@ public class BackQuoteSubstitute implements Substitute {
 
 
     public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, Cons aElement) throws Exception {
-        if (!(aElement.car() instanceof ConsPointer)) {
+        if (!(aElement instanceof SublistCons)) {
             return false;
         }
 
-        Cons ptr = ((ConsPointer) aElement.car()).getCons();
+        Cons ptr = (Cons) aElement.car();
         if (ptr == null) {
             return false;
         }
@@ -75,7 +75,7 @@ public class BackQuoteSubstitute implements Substitute {
             aResult.setCons(iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, cur));
             return true;
         } else {
-            ptr = ((ConsPointer) ptr.car()).getCons();
+            ptr = (Cons) ptr.car();
 
             Cons cur = ptr;
             ConsPointer args = new ConsPointer();

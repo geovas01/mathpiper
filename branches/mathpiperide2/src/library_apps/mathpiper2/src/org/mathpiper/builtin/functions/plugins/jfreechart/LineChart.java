@@ -29,15 +29,14 @@ import org.mathpiper.lisp.cons.ConsPointer;
 
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
+import org.mathpiper.lisp.cons.Cons;
 
 
 public class LineChart extends BuiltinFunction {
@@ -70,15 +69,15 @@ public class LineChart extends BuiltinFunction {
 
         ConsPointer argumentsPointer = new ConsPointer(getArgumentPointer(aEnvironment, aStackTop, 1));
 
-        if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "LineChart");
+        if(! Utility.isSublist(argumentsPointer.getCons())) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "LineChart");
 
         argumentsPointer.goSub(aStackTop, aEnvironment); //Go to sub list.
 
         argumentsPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
 
-        if(! Utility.isList(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "LineChart");
+        if(! Utility.isList(argumentsPointer.getCons())) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "LineChart");
 
-        ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
+        ConsPointer dataListPointer = new ConsPointer((Cons) argumentsPointer.car()); //Grab the first member of the list.
 
         ConsPointer optionsPointer = new ConsPointer(argumentsPointer.cdr());
 

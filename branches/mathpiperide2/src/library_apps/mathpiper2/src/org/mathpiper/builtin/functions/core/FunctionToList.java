@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
 
@@ -42,10 +43,10 @@ public class FunctionToList extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if(! (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof ConsPointer)) LispError.checkArgument(aEnvironment, aStackTop, 1, "FunctionToList");
+        if(! (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1, "FunctionToList");
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        head.getCons().setCdr(((ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car()).getCons());
+        head.getCons().setCdr((Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head.getCons()));
     }
 }

@@ -28,7 +28,6 @@ import org.mathpiper.lisp.cons.ConsPointer;
 
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
@@ -38,6 +37,7 @@ import org.jfree.chart.renderer.xy.StandardXYBarPainter;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.statistics.HistogramDataset;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -72,15 +72,15 @@ public class Histogram extends BuiltinFunction {
 
         ConsPointer argumentsPointer = new ConsPointer(getArgumentPointer(aEnvironment, aStackTop, 1));
 
-        if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "Histogram");
+        if(! Utility.isSublist(argumentsPointer.getCons())) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "Histogram");
 
         argumentsPointer.goSub(aStackTop, aEnvironment); //Go to sub list.
 
         argumentsPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
 
-        if(! Utility.isList(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "Histogram");
+        if(! Utility.isList(argumentsPointer.getCons())) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "Histogram");
 
-        ConsPointer dataListPointer = (ConsPointer) argumentsPointer.car(); //Grab the first member of the list.
+        ConsPointer dataListPointer = new ConsPointer((Cons) argumentsPointer.car()); //Grab the first member of the list.
 
         ConsPointer optionsPointer = new ConsPointer(argumentsPointer.cdr());
 

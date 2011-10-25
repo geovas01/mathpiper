@@ -48,6 +48,12 @@ public class BuiltinObjectCons extends Cons {
         return iCarBuiltin;
     }
 
+
+    public void setCar(Object object) throws Exception
+    {
+        iCarBuiltin = (BuiltinContainer) object;
+    }
+
     public Cons cdr() {
         return iCdr;
     }
