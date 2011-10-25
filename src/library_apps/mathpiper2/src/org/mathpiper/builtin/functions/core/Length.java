@@ -46,12 +46,12 @@ public class Length extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Object argument =getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
         
 
-        if (argument instanceof ConsPointer)
+        if (argument instanceof Cons)
         {
-            int num = Utility.listLength(aEnvironment, aStackTop, (((ConsPointer)argument).cdr()));
+            int num = Utility.listLength(aEnvironment, aStackTop, (((Cons)argument).cdr()));
             setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
             return;
         }//end if.

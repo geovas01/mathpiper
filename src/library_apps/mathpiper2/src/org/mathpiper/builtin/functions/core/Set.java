@@ -42,11 +42,11 @@ public class Set extends BuiltinFunction
 
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        ConsPointer allPointer = new ConsPointer();
-        allPointer.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
+
+        Cons allPointer = aEnvironment.iListAtom.copy(aEnvironment, false);
         ConsTraverser tail = new ConsTraverser(aEnvironment, allPointer);
         tail.goNext(aStackTop);
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null) {
             
@@ -59,7 +59,7 @@ public class Set extends BuiltinFunction
 
         Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "RemoveDuplicates"));
 
-        ((ConsPointer) head.car()).getCons().setCdr(SublistCons.getInstance(aEnvironment, allPointer.getCons()));
+        ((Cons)head.car()).setCdr(SublistCons.getInstance(aEnvironment, allPointer));
 
         ConsPointer removeDuplicatesResultPointer = new ConsPointer();
 

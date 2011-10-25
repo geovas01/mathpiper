@@ -21,6 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -44,7 +45,7 @@ public class Function_ extends BuiltinFunction
         ConsPointer result = new ConsPointer();
         result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
          setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment,
-                result.car() instanceof ConsPointer));
+                result.car() instanceof Cons));
     }
 }
 

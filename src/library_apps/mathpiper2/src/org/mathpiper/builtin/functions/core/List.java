@@ -41,11 +41,11 @@ public class List extends BuiltinFunction
 
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        ConsPointer allPointer = new ConsPointer();
-        allPointer.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
+
+        Cons allPointer = aEnvironment.iListAtom.copy(aEnvironment, false);
         ConsTraverser tail = new ConsTraverser(aEnvironment, allPointer);
         tail.goNext(aStackTop);
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (ConsPointer) getArgumentPointer(aEnvironment, aStackTop, 1).car());
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car());
         consTraverser.goNext(aStackTop);
         while (consTraverser.getCons() != null) {
             
@@ -54,7 +54,7 @@ public class List extends BuiltinFunction
             tail.goNext(aStackTop);
             consTraverser.goNext(aStackTop);
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, allPointer.getCons()));
+        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, allPointer));
     }
 
 }

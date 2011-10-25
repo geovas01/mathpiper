@@ -409,7 +409,7 @@ public class MathPiperParser extends Parser
     {
         ConsPointer subList = new ConsPointer();
         subList.setCons(SublistCons.getInstance(aEnvironment,parsedExpression));
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(parsedExpression));
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, parsedExpression);
         int i;
         for (i = 0; i < aNrArgsToCombine; i++)
         {
@@ -431,8 +431,8 @@ public class MathPiperParser extends Parser
        
 
         Cons result = Utility.reverseList(aEnvironment,
-                new ConsPointer(((ConsPointer) subList.car()).cdr()));
-        ((ConsPointer) subList.car()).getCons().setCdr(result);
+                new ConsPointer(((Cons) subList.car()).cdr()));
+        ((Cons) subList.car()).setCdr(result);
 
         parsedExpression = subList.getCons();
     }

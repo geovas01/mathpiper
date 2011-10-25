@@ -99,14 +99,14 @@ public class MathPiperPrinter extends LispPrinter {
             return;
         }
 
-        ConsPointer subList = (ConsPointer) aExpression.car();
+        Cons subList = (Cons) aExpression.car();
 
         if(subList == null) LispError.throwError(aEnvironment, aStackTop, LispError.UNPRINTABLE_TOKEN, "","INTERNAL");
 
-        if (subList.getCons() == null) {
+        if (subList == null) {
             WriteToken(aOutput, "( )");
         } else {
-            int length = Utility.listLength(aEnvironment, aStackTop, subList.getCons());
+            int length = Utility.listLength(aEnvironment, aStackTop, subList);
             functionOrOperatorName = (String) subList.car();
             Operator prefix = (Operator) iPrefixOperators.lookUp(functionOrOperatorName);
             Operator infix = (Operator) iInfixOperators.lookUp(functionOrOperatorName);
@@ -206,7 +206,7 @@ public class MathPiperPrinter extends LispPrinter {
 
             } else {
 
-                ConsTraverser consTraverser = new ConsTraverser(aEnvironment, new ConsPointer(subList.cdr()));
+                ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList.cdr());
 
                /*
                    Removing complex number output notation formatting until the problem with Solve(x^3 - 2*x - 7 == 0,x) is resolved.
@@ -292,11 +292,11 @@ public class MathPiperPrinter extends LispPrinter {
                     if (functionOrOperatorName != null) {
                         WriteToken(aOutput, functionOrOperatorName); //Print function name.
                     } else {
-                        Print(aEnvironment, aStackTop, subList.getCons(), aOutput, 0);
+                        Print(aEnvironment, aStackTop, subList, aOutput, 0);
                     }
                     WriteToken(aOutput, "("); //Print the opening parenthese of the function argument list.
 
-                    ConsTraverser counter = new ConsTraverser(aEnvironment, consTraverser.getPointer());
+                    ConsTraverser counter = new ConsTraverser(aEnvironment, consTraverser.getPointer().getCons());
                     int nr = 0;
 
                     while (counter.getCons() != null) { //Count arguments.

@@ -142,9 +142,9 @@ public class LispExpressionEvaluator extends Evaluator {
         {
 
 
-            if (aExpression.car() instanceof ConsPointer) {
-                ConsPointer functionAndArgumentsList = (ConsPointer) aExpression.car();
-                Cons head = functionAndArgumentsList.getCons();
+            if (aExpression.car() instanceof Cons) {
+                Cons functionAndArgumentsList = (Cons) aExpression.car();
+                Cons head = functionAndArgumentsList;
                 if (head != null) {
 
                     String functionName;
@@ -158,7 +158,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         if (builtinInFunctionEvaluator != null) {
 
                             aEnvironment.iEvalDepth--;
-                            return builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, functionAndArgumentsList.getCons());
+                            return builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
                         }
 
                         //User function handler.
@@ -167,7 +167,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         if (userFunction != null) {
                             
                             aEnvironment.iEvalDepth--;
-                            return userFunction.evaluate(aEnvironment, aStackTop,functionAndArgumentsList.getCons());
+                            return userFunction.evaluate(aEnvironment, aStackTop,functionAndArgumentsList);
                         }
 
 
@@ -177,7 +177,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
                             return Utility.returnUnEvaluated(aStackTop,functionAndArgumentsList, aEnvironment);
                         }
-                        Map metaDataMap = functionAndArgumentsList.getCons().getMetadataMap();
+                        Map metaDataMap = functionAndArgumentsList.getMetadataMap();
 
                         int lineNumber = aEnvironment.iCurrentInput.iStatus.getLineNumber();
                         int startIndex = -1;
@@ -190,14 +190,14 @@ public class LispExpressionEvaluator extends Evaluator {
                         }
 
 
-                        LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList.getCons(), aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList.getCons()) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", "[Internal]", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
+                        LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", "[Internal]", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
 
 
                     } else {
                         //Pure function handler.
                         ConsPointer operator = new ConsPointer();
                         ConsPointer args2 = new ConsPointer();
-                        operator.setCons(functionAndArgumentsList.getCons());
+                        operator.setCons(functionAndArgumentsList);
                         args2.setCons(functionAndArgumentsList.cdr());
                         
                         aEnvironment.iEvalDepth--;
@@ -231,8 +231,8 @@ public class LispExpressionEvaluator extends Evaluator {
         return aExpression.copy(aEnvironment, false);
     }
 
-    SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, ConsPointer subList) throws Exception {
-        Cons head = subList.getCons();
+    SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, Cons subList) throws Exception {
+        Cons head = subList;
 
         if(! (head.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, "No function name specified.", "INTERNAL");
 

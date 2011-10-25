@@ -41,7 +41,7 @@ public class JavaObject extends BuiltinContainer {
     }//end method.
 
     public static List lispListToJavaList(Environment aEnvironment, int aStackTop,ConsPointer lispList) throws Exception {
-        if(! Utility.isList(lispList)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
+        if(! Utility.isList(lispList.getCons())) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
 
         lispList.goNext(aStackTop, aEnvironment);
 
@@ -62,7 +62,7 @@ public class JavaObject extends BuiltinContainer {
 
 
     public static double[] lispListToJavaDoubleArray(Environment aEnvironment, int aStackTop, ConsPointer lispListPointer) throws Exception {
-        if(! Utility.isList(lispListPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
+        if(! Utility.isList(lispListPointer.getCons())) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
 
         lispListPointer.goNext(aStackTop, aEnvironment); //Remove List designator.
 

@@ -76,8 +76,6 @@ public class ViewLatex extends BuiltinFunction {
 
         String latexString = null;
 
-        ConsPointer consPointer = null;
-
         Object expressionPointer = getArgumentPointer(aEnvironment, aStackTop, 1).car();
 
         if (expressionPointer instanceof String)

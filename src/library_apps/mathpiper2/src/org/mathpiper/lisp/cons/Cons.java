@@ -42,9 +42,11 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     public abstract Object car() throws Exception;
 
+    public abstract void setCar(Object object) throws Exception;
+
     public abstract Cons cdr();
 
-    public abstract void setCdr(Cons aCdr);
+    public abstract void setCdr(Cons aCons);
 
     public abstract int type();
 
@@ -88,23 +90,23 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         }
 
         //So, no strings.
-        ConsPointer iter1 = (ConsPointer) car();
-        ConsPointer iter2 = (ConsPointer) aOther.car();
+        Cons iter1 = (Cons) car();
+        Cons iter2 = (Cons) aOther.car();
         if (!(iter1 != null && iter2 != null)) {
             return false;
         }
 
         // check all elements in sublist
-        while (iter1.getCons() != null && iter2.getCons() != null) {
-            if (!iter1.getCons().isEqual(iter2.getCons())) {
+        while (iter1 != null && iter2 != null) {
+            if (!iter1.isEqual(iter2)) {
                 return false;
             }
 
-            iter1.setCons(iter1.cdr());
-            iter2.setCons(iter2.cdr());
+            iter1 = iter1.cdr();
+            iter2 = iter2.cdr();
         }
         //One list longer than the other?
-        if (iter1.getCons() == null && iter2.getCons() == null) {
+        if (iter1 == null && iter2 == null) {
             return true;
         }
         return false;

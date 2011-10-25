@@ -79,6 +79,26 @@ public class NumberCons extends Cons {
     }
 
 
+
+    public void setCar(Object object) throws Exception
+    {
+        if(object instanceof String)
+        {
+            iCarStringNumber = (String) object;
+            iCarBigNumber = null;
+        }
+        else if(object instanceof BigNumber)
+        {
+            iCarStringNumber = null;
+            iCarBigNumber = (BigNumber) object;
+        }
+        else
+        {
+            LispError.raiseError("Argument must be a string or a BigNumber.", "NumberCons", -1, null);
+        }
+    }
+
+
     public Cons cdr() {
         return iCdr;
     }

@@ -58,8 +58,8 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             
 
             argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
-            if (argumentsPointer.car() instanceof ConsPointer) {
-                ConsPointer sub = (ConsPointer) argumentsPointer.car();
+            if (argumentsPointer.car() instanceof Cons) {
+                Cons sub = (Cons) argumentsPointer.car();
                 if (sub.car() instanceof String) {
                     functionName = (String) sub.car();
                 }

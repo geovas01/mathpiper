@@ -108,8 +108,6 @@ public class ArgumentStack {
 
             ConsPointer argumentPointer = new ConsPointer();
 
-            Object car = argumentCons.car();
-
             ConsPointer consPointer = new ConsPointer( argumentCons);
 
             stringBuilder.append(functionPositionIndex++ + ": ");

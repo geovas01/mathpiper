@@ -62,7 +62,7 @@ public class LispPrinter {
 
 
             } // else print "(", print sublist, and print ")"
-            else if (consWalker.car() instanceof ConsPointer) {
+            else if (consWalker.car() instanceof Cons) {
                 if (item != 0) {
                     indent(aOutput, aDepth + 1);
                 }
@@ -79,7 +79,7 @@ public class LispPrinter {
                     indent(aOutput, aDepth + 1);
                 }
                 aOutput.write("(");
-                printExpression(((ConsPointer) consWalker.car()).getCons(), aOutput, aEnvironment, aDepth + 1);
+                printExpression(((Cons) consWalker.car()), aOutput, aEnvironment, aDepth + 1);
                 aOutput.write(")");
                 item = 0;
                 //}

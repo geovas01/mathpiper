@@ -25,7 +25,7 @@ import org.mathpiper.lisp.printers.LispPrinter;
 
 public class SublistCons extends Cons {
 
-    ConsPointer iCar;
+    Cons iCar;
     
     //This variable is placed here instead of in Cons because it makes viewing it 
     // in the debugger easier.
@@ -33,8 +33,8 @@ public class SublistCons extends Cons {
 
     private SublistCons(Environment aEnvironment, Cons aSubList) throws Exception {
         super();
-        iCar = new ConsPointer();
-        iCar.setCons(aSubList);
+
+        iCar = aSubList;
     }
 
     public static SublistCons getInstance(Environment aEnvironment, Cons aSubList) throws Exception {
@@ -47,13 +47,19 @@ public class SublistCons extends Cons {
     }
 
 
+    public void setCar(Object object) throws Exception
+    {
+        iCar = (Cons) object;
+    }
+
+
     public Cons cdr() {
         return iCdr;
     }
 
-    public void setCdr(Cons aCdr)
+    public void setCdr(Cons aCons)
     {
-        iCdr = aCdr;
+        iCdr = aCons;
     }
 
 
@@ -68,7 +74,7 @@ public class SublistCons extends Cons {
 
         if(aRecursed != false) throw new EvaluationException("Internal error in SublistCons.","",-1,-1,-1);
 
-        Cons copied = new SublistCons(aEnvironment, iCar.getCons());
+        Cons copied = new SublistCons(aEnvironment, iCar);
 
         copied.setMetadataMap(this.getMetadataMap());
         
