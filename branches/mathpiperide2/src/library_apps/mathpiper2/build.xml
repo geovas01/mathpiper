@@ -59,11 +59,13 @@
 <!--<echo message="${compile.source}." />
         <echo message="${src.dir}." />
         <echo message="${build.classes.dir}." />-->
+        
         <javac source="${compile.source}" target="${compile.target}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on" deprecation="on" optimize="off" includeantruntime="false" excludes="${exclude_files}">
             <classpath refid="build_classpath" />
 
             <include name="**/*.java" />
-        </javac>
+        </javac>        
+        
     </target>
 
     <target name="compile_build_dot_java" depends="init" description="Compiles the application">
@@ -76,7 +78,6 @@
             <include name="org/mathpiper/test/Build.java" />
             
         </javac>
-        
         
     </target>
 
@@ -108,6 +109,7 @@
             <arg value="${build.dir}/classes/" />
             
         </java>
+        
     </target>
 
     <target name="exclude_files_from_compilation">
@@ -120,6 +122,20 @@
         <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}/classes" />
 
         <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}/classes" />
+        
+        
+        <!--<copy file="${src.dir}/ubc/cs/JLog/Builtins/INIT_BUILTINSLIB.TOC" todir="${build.classes.dir}"/>-->
+        
+        
+        
+        
+        
+        <copy todir="${build.classes.dir}" flatten="true">
+            <fileset dir="${src.dir}/ubc/">
+                <include name="**/*.TOC" />
+            </fileset>
+        </copy>
+        
     </target>
     
     
