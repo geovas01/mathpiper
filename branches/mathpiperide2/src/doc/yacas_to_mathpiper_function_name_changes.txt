@@ -55,6 +55,8 @@ DefMacroRulebaseListed -> MacroRulebaseListedEvaluateArguments
 
 Prog -> Block //For pedagogical reasons.
 
+DestructiveAppend -> AppendDestructive
+
 ----------------------------- Have most constants be in all capital letters.
 True -> TRUE
 False -> FALSE
