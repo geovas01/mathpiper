@@ -844,6 +844,38 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		}//end if }}}		
 		
 		
+
+
+
+		///{{{ *** %prolog ***.
+		else if(foldType.equalsIgnoreCase("%prolog"))    
+		{
+						
+			try 
+			{   
+
+				jlogWrapper = org.mathpiper.ide.jlogplugin.JLogWrapper.getInstance();
+				
+				jlogWrapper.consultSource(codeText);
+
+				result="consulted";
+				
+				
+				output_fold_type = "%output";
+				
+			
+			}catch(Throwable e) 
+			{
+				result = e.getMessage();
+				
+				output_fold_type = "%error ";
+			}
+			
+			
+
+					
+		}//end if }}}
+
 		
 		
 		
