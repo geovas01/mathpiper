@@ -80,6 +80,11 @@
 			<END>%/lisp</END>
 		</SPAN_REGEXP>
 		
+		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="prolog::MAIN">
+			<BEGIN>%prolog[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
+			<END>%/prolog</END>
+		</SPAN_REGEXP>
+		
 		<SPAN_REGEXP  TYPE="COMMENT4" DELEGATE="clojure::MAIN">
 			<BEGIN>%clojure[0-9a-zA-Z,;:="._()/'\- &amp;]*</BEGIN>
 			<END>%/clojure</END>
