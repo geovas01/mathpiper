@@ -1,0 +1,11 @@
+# RegisterGeneric also loads the specified class.
+
+RegisterGenericPredicateEntry: "db_connect" 4 ubc.cs.JLog.Extras.DataBase.jDBConnect
+RegisterGenericPredicateEntry: "db_disconnect" 0 ubc.cs.JLog.Extras.DataBase.jDBDisconnect
+RegisterGenericPredicateEntry: "db_execute" 2 ubc.cs.JLog.Extras.DataBase.jDBExecuteParam
+RegisterGenericPredicateEntry: "db_execute" 1 ubc.cs.JLog.Extras.DataBase.jDBExecute
+RegisterGenericPredicateEntry: "db_select" 2 ubc.cs.JLog.Extras.DataBase.jDBSelect
+
+LoadClass: ubc.cs.JLog.Extras.DataBase.jDBDisconnectGoal
+LoadClass: ubc.cs.JLog.Extras.DataBase.jDBExecuteGoal
+LoadClass: ubc.cs.JLog.Extras.DataBase.jDBExecuteParamGoal
