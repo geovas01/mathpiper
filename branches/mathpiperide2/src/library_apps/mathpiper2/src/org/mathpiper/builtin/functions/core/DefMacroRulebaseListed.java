@@ -61,8 +61,8 @@ public class DefMacroRulebaseListed extends BuiltinFunction
 *DESC
 
 This does the same as {DefMacroRulebase} (define a macro), but with a variable
-number of arguments, similar to {RulebaseListed}.
+number of arguments, similar to {RulebaseListedHoldArguments}.
 
-*SEE Rulebase, RulebaseListed, `, DefMacroRulebase
+*SEE RulebaseHoldArguments, RulebaseListedHoldArguments, `, DefMacroRulebase
 %/mathpiper_docs
 */

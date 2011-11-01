@@ -71,6 +71,6 @@ Functions can be overloaded: the same function can be defined
 with different number of arguments.
 
 
-*SEE MacroRulebase, RulebaseListed, MacroRulebaseListed, HoldArgument, Retract
+*SEE MacroRulebase, RulebaseListedHoldArguments, MacroRulebaseListed, HoldArgument, Retract
 %/mathpiper_docs
 */

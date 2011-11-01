@@ -95,6 +95,6 @@ arity, then all arities of the rulebase are removed.
 
 Assignment {:=} of a function automatically does a single arity retract to the function being (re)defined.
 
-*SEE RulebaseArgumentsList, Rulebase, :=
+*SEE RulebaseArgumentsList, RulebaseHoldArguments, :=
 %/mathpiper_docs
 */

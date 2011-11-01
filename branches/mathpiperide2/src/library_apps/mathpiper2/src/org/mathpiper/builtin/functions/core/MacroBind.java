@@ -59,6 +59,6 @@ rules based on parameters.
 
 Make sure that the arguments of {Macro}... commands evaluate to expressions that would normally be used in the non-macro version!
 
-*SEE Bind, Unbind, Local, Rulebase, Rule, `, MacroUnbind, MacroLocal, MacroRulebase, MacroRulebaseListed, MacroRule
+*SEE Bind, Unbind, Local, RulebaseHoldArguments, RuleHoldArguments, `, MacroUnbind, MacroLocal, MacroRulebase, MacroRulebaseListed, MacroRule
 %/mathpiper_docs
 */

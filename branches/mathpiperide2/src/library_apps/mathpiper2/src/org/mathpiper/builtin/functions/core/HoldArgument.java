@@ -82,6 +82,6 @@ function name.
 The {parameter} must be an atom from the list of symbolic
 arguments used when calling {Rulebase}.
 
-*SEE Rulebase, HoldArgumentNumber, RulebaseArgumentsList
+*SEE RulebaseHoldArguments, HoldArgumentNumber, RulebaseArgumentsList
 %/mathpiper_docs
 */

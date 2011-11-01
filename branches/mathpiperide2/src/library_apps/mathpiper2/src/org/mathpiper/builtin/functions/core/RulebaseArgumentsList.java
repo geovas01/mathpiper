@@ -89,6 +89,6 @@ public class RulebaseArgumentsList extends BuiltinFunction
 Returns a list of atoms, symbolic parameters specified in the {Rulebase} call
 for the function named {"operator"} with the specific {arity}.
 
-*SEE Rulebase, HoldArgumentNumber, HoldArgument
+*SEE RulebaseHoldArguments, HoldArgumentNumber, HoldArgument
 %/mathpiper_docs
 */
