@@ -24,14 +24,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class MacroRule extends BuiltinFunction
+public class RuleEvaluateArguments extends BuiltinFunction
 {
 
-    private MacroRule()
+    private RuleEvaluateArguments()
     {
     }
 
-    public MacroRule(String functionName)
+    public RuleEvaluateArguments(String functionName)
     {
         this.functionName = functionName;
     }
@@ -46,8 +46,8 @@ public class MacroRule extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MacroRule",categories="Programmer Functions;Programming;Built In"
-*CMD MacroRule --- define rules in functions
+%mathpiper_docs,name="RuleEvaluateArguments",categories="Programmer Functions;Programming;Built In"
+*CMD RuleEvaluateArguments --- define rules in functions
 *CORE
 *DESC
 

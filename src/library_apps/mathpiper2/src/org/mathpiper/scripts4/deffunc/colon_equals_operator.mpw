@@ -82,7 +82,7 @@ RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssi
 
     Unholdable(aRightAssign);
 
-    MacroRule(oper, arity, 1025, True) aRightAssign;
+    RuleEvaluateArguments(oper, arity, 1025, True) aRightAssign;
 ];
 
 %/mathpiper

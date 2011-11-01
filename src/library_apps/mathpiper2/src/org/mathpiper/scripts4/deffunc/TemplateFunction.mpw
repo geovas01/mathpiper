@@ -18,7 +18,7 @@ RuleHoldArguments("TemplateFunction",3,2047,True)
   arglist:=ApplyFast("LocalSymbols",arglist);
 
   MacroRulebase(oper,arglist[1]);
-  MacroRule(oper,Length(args),1025,True) arglist[2];
+  RuleEvaluateArguments(oper,Length(args),1025,True) arglist[2];
 
 ];
 

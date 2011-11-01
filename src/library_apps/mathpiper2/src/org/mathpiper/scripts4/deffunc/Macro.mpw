@@ -13,7 +13,7 @@ RuleHoldArguments("Macro",3,2047,
   DestructiveDelete(args,Length(args));        // remove trailing "..."
   Retract(oper,Length(args));
   `DefMacroRulebaseListed(@oper,@args);
-  MacroRule(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
+  RuleEvaluateArguments(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
 ];
 
 // macro with a fixed number of arguments
@@ -21,7 +21,7 @@ RuleHoldArguments("Macro",3,2048,True)
 [
   Retract(oper,Length(args));
   `DefMacroRulebase(@oper,@args);
-  MacroRule(oper,Length(args),1025,True) body;
+  RuleEvaluateArguments(oper,Length(args),1025,True) body;
 ];
 
 RulebaseHoldArguments("Macro",{oper});

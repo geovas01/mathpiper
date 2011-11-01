@@ -15,7 +15,7 @@ RuleHoldArguments("Function",3,2047,
   DestructiveDelete(args,Length(args));        // remove trailing "..."
   Retract(oper,Length(args));
   MacroRulebaseListed(oper,args);
-  MacroRule(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
+  RuleEvaluateArguments(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
 ];
 
 // function with a fixed number of arguments
@@ -23,7 +23,7 @@ RuleHoldArguments("Function",3,2048,True)
 [
   Retract(oper,Length(args));
   MacroRulebase(oper,args);
-  MacroRule(oper,Length(args),1025,True) body;
+  RuleEvaluateArguments(oper,Length(args),1025,True) body;
 ];
 
 
