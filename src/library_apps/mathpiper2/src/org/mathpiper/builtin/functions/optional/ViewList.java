@@ -20,9 +20,10 @@ import org.mathpiper.ui.gui.worksheets.ScreenCapturePanel;
 public class ViewList extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Exception {
+        this.functionName = "ViewList";
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ViewList");
+                this.functionName);
     }//end method.
 
 

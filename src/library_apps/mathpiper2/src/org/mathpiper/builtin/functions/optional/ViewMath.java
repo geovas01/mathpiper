@@ -32,7 +32,6 @@ import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.SublistCons;
 
 import javax.swing.JLabel;
@@ -51,9 +50,10 @@ public class ViewMath extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment)  throws Exception
     {
+        this.functionName = "ViewMathInternal";
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),
-                "ViewMathInternal");
+                this.functionName);
 
        String[] parameters = new String[] {"expression","size"};
        Utility.declareFunction("ViewMath", parameters, "ViewMathInternal(expression, size);", aEnvironment, LispError.TODO);

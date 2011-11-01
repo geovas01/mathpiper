@@ -16,9 +16,10 @@ public class NormalDistributionValue extends BuiltinFunction{
 
     public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "NormalDistributionValue";
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "NormalDistributionValue");
+                this.functionName);
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

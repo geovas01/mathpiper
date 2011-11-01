@@ -33,9 +33,10 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class JavaToValue extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Exception {
+        this.functionName = "JavaToValue";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new JavaToValue(), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "JavaToValue");
+                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                this.functionName);
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);

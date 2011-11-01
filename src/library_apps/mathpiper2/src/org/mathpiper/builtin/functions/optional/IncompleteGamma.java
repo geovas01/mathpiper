@@ -14,9 +14,10 @@ public class IncompleteGamma extends BuiltinFunction{
 
     public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "IncompleteGamma";
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "IncompleteGamma");
+                this.functionName);
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

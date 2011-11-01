@@ -54,9 +54,10 @@ public class ViewLatex extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment)  throws Exception
     {
+        this.functionName = "ViewLatexInternal";
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "ViewLatexInternal");
+                this.functionName);
 
        String[] parameters = new String[] {"expression","size"};
        Utility.declareFunction("ViewLatex", parameters, "ViewLatexInternal(expression, size);", aEnvironment, LispError.TODO);

@@ -30,9 +30,10 @@ import org.mathpiper.lisp.cons.ConsPointer;
 public class JavaAccess extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Exception {
+        this.functionName = "JavaAccess";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new JavaAccess(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "JavaAccess");
+                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                this.functionName);
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {

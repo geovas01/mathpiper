@@ -32,9 +32,10 @@ public class StackTrace extends BuiltinFunction
 
     public void plugIn(Environment aEnvironment) throws Exception
     {
+        this.functionName = "StackTrace";
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "StackTrace");
+                this.functionName);
     }//end method.
 
 

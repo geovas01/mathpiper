@@ -29,9 +29,10 @@ import org.mathpiper.lisp.Utility;
 public class TraceOn extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Exception {
+        this.functionName = "TraceOn";
         aEnvironment.getBuiltinFunctions().setAssociation(
                 new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                "TraceOn");
+                this.functionName);
     }//end method.
 
 
