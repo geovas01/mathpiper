@@ -318,7 +318,7 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "DefMacroRulebase(\"Lambda\",{args,body});";
+        scriptString[1] = "MacroRulebaseHoldArguments(\"Lambda\",{args,body});";
         scriptMap.put("Lambda",scriptString);
 
         scriptString = new String[2];
@@ -370,7 +370,7 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "DefMacroRulebase(\"Defun\",{func,args,body});RuleHoldArguments(\"Defun\",3,0,True)[ Local(nrargs); Bind(nrargs,Length(@args)); Retract(@func, `(@nrargs)); RulebaseHoldArguments(@func,@args); Local(fn,bd); Bind(fn,Hold(@func)); Bind(bd,Hold(@body)); `RuleHoldArguments(@fn, @nrargs, 0,True)(@bd);];";
+        scriptString[1] = "MacroRulebaseHoldArguments(\"Defun\",{func,args,body});RuleHoldArguments(\"Defun\",3,0,True)[ Local(nrargs); Bind(nrargs,Length(@args)); Retract(@func, `(@nrargs)); RulebaseHoldArguments(@func,@args); Local(fn,bd); Bind(fn,Hold(@func)); Bind(bd,Hold(@body)); `RuleHoldArguments(@fn, @nrargs, 0,True)(@bd);];";
         scriptMap.put("Defun",scriptString);
 
         scriptString = new String[2];
@@ -385,7 +385,7 @@ public class Scripts {
 
         scriptString = new String[2];
         scriptString[0] = null;
-        scriptString[1] = "RulebaseHoldArguments(\"Macro\",{oper,args,body});HoldArgument(\"Macro\",oper);HoldArgument(\"Macro\",args);HoldArgument(\"Macro\",body);RuleHoldArguments(\"Macro\",3,2047, And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom(\"...\") )))[ DestructiveDelete(args,Length(args));  Retract(oper,Length(args)); `DefMacroRulebaseListed(@oper,@args); RuleEvaluateArguments(oper,Length(args),1025,True) body; ];RuleHoldArguments(\"Macro\",3,2048,True)[ Retract(oper,Length(args)); `DefMacroRulebase(@oper,@args); RuleEvaluateArguments(oper,Length(args),1025,True) body;];RulebaseHoldArguments(\"Macro\",{oper});RuleHoldArguments(\"Macro\",1,2047, And?(Function?(oper), GreaterThan?(Length(oper), 1), Equal?( MathNth(oper, Length(oper)), ToAtom(\"...\") )))[ Local(args,name); Bind(args,Rest(FunctionToList(oper))); DestructiveDelete(args,Length(args));  Bind(name,Type(oper)); If(RulebaseDefined(Type(oper),Length(args)), False,  `DefMacroRulebaseListed(@name,@args) );];RuleHoldArguments(\"Macro\",1,2048, And?(Function?(oper)))[ Local(args,name); Bind(args,Rest(FunctionToList(oper))); Bind(name,Type(oper)); If(RulebaseDefined(Type(oper),Length(args)), False,  [ `DefMacroRulebase(@name,@args); ] );];";
+        scriptString[1] = "RulebaseHoldArguments(\"Macro\",{oper,args,body});HoldArgument(\"Macro\",oper);HoldArgument(\"Macro\",args);HoldArgument(\"Macro\",body);RuleHoldArguments(\"Macro\",3,2047, And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom(\"...\") )))[ DestructiveDelete(args,Length(args));  Retract(oper,Length(args)); `MacroRulebaseListedHoldArguments(@oper,@args); RuleEvaluateArguments(oper,Length(args),1025,True) body; ];RuleHoldArguments(\"Macro\",3,2048,True)[ Retract(oper,Length(args)); `MacroRulebaseHoldArguments(@oper,@args); RuleEvaluateArguments(oper,Length(args),1025,True) body;];RulebaseHoldArguments(\"Macro\",{oper});RuleHoldArguments(\"Macro\",1,2047, And?(Function?(oper), GreaterThan?(Length(oper), 1), Equal?( MathNth(oper, Length(oper)), ToAtom(\"...\") )))[ Local(args,name); Bind(args,Rest(FunctionToList(oper))); DestructiveDelete(args,Length(args));  Bind(name,Type(oper)); If(RulebaseDefined(Type(oper),Length(args)), False,  `MacroRulebaseListedHoldArguments(@name,@args) );];RuleHoldArguments(\"Macro\",1,2048, And?(Function?(oper)))[ Local(args,name); Bind(args,Rest(FunctionToList(oper))); Bind(name,Type(oper)); If(RulebaseDefined(Type(oper),Length(args)), False,  [ `MacroRulebaseHoldArguments(@name,@args); ] );];";
         scriptMap.put("Macro",scriptString);
 
         scriptString = new String[2];

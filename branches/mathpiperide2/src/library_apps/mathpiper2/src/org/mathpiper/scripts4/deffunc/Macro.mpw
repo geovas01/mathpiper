@@ -12,7 +12,7 @@ RuleHoldArguments("Macro",3,2047,
 [
   DestructiveDelete(args,Length(args));        // remove trailing "..."
   Retract(oper,Length(args));
-  `DefMacroRulebaseListed(@oper,@args);
+  `MacroRulebaseListedHoldArguments(@oper,@args);
   RuleEvaluateArguments(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
 ];
 
@@ -20,7 +20,7 @@ RuleHoldArguments("Macro",3,2047,
 RuleHoldArguments("Macro",3,2048,True)
 [
   Retract(oper,Length(args));
-  `DefMacroRulebase(@oper,@args);
+  `MacroRulebaseHoldArguments(@oper,@args);
   RuleEvaluateArguments(oper,Length(args),1025,True) body;
 ];
 
@@ -36,7 +36,7 @@ RuleHoldArguments("Macro",1,2047,
   Bind(name,Type(oper));
         If(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
-                `DefMacroRulebaseListed(@name,@args)
+                `MacroRulebaseListedHoldArguments(@name,@args)
         );
 ];
 // macro with a fixed number of arguments
@@ -50,7 +50,7 @@ RuleHoldArguments("Macro",1,2048,
         If(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
                 [
-      `DefMacroRulebase(@name,@args);
+      `MacroRulebaseHoldArguments(@name,@args);
     ]
         );
 ];
@@ -83,7 +83,7 @@ RuleHoldArguments("Macro",1,2048,
 *DESC
 
 This does the same as {Function}, but for macros. One can define a macro
-easily with this function, in stead of having to use {DefMacroRulebase}.
+easily with this function, in stead of having to use {MacroRulebaseHoldArguments}.
 
 *E.G. notest
 
@@ -111,7 +111,7 @@ Result: True;
 In> i
 Result: 10;
 
-*SEE Function, DefMacroRulebase
+*SEE Function, MacroRulebaseHoldArguments
 %/mathpiper_docs
 
 
@@ -122,7 +122,7 @@ Result: 10;
 
 [
   Local(a,b,c,d);
-  DefMacroRulebase(foo,{a,b});
+  MacroRulebaseHoldArguments(foo,{a,b});
 
   // Simple check
   foo(_c,_d) <-- {@c,@d};

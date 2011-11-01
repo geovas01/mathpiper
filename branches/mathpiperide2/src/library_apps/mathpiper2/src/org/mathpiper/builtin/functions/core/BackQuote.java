@@ -120,6 +120,6 @@ In> a
 Result: Sin(x);
 
 
-*SEE MacroBind, MacroLocal, MacroRulebase, Hold, HoldArgument, DefMacroRulebase, MacroExpand
+*SEE MacroBind, MacroLocal, MacroRulebase, Hold, HoldArgument, MacroRulebaseHoldArguments, MacroExpand
 %/mathpiper_docs
 */

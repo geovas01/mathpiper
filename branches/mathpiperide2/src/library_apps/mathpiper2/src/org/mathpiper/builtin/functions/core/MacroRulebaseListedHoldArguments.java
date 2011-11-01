@@ -24,14 +24,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class DefMacroRulebaseListed extends BuiltinFunction
+public class MacroRulebaseListedHoldArguments extends BuiltinFunction
 {
 
-    private DefMacroRulebaseListed()
+    private MacroRulebaseListedHoldArguments()
     {
     }
 
-    public DefMacroRulebaseListed(String functionName)
+    public MacroRulebaseListedHoldArguments(String functionName)
     {
         this.functionName = functionName;
     }
@@ -46,11 +46,11 @@ public class DefMacroRulebaseListed extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DefMacroRulebaseListed",categories="Programmer Functions;Programming;Built In"
-*CMD DefMacroRulebaseListed --- define macro with variable number of arguments
+%mathpiper_docs,name="MacroRulebaseListedHoldArguments",categories="Programmer Functions;Programming;Built In"
+*CMD MacroRulebaseListedHoldArguments --- define macro with variable number of arguments
 *CORE
 *CALL
-	DefMacroRulebaseListed("name", params)
+	MacroRulebaseListedHoldArguments("name", params)
 
 *PARMS
 
@@ -60,9 +60,9 @@ public class DefMacroRulebaseListed extends BuiltinFunction
 
 *DESC
 
-This does the same as {DefMacroRulebase} (define a macro), but with a variable
+This does the same as {MacroRulebaseHoldArguments} (define a macro), but with a variable
 number of arguments, similar to {RulebaseListedHoldArguments}.
 
-*SEE RulebaseHoldArguments, RulebaseListedHoldArguments, `, DefMacroRulebase
+*SEE RulebaseHoldArguments, RulebaseListedHoldArguments, `, MacroRulebaseHoldArguments
 %/mathpiper_docs
 */
