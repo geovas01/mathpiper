@@ -23,7 +23,7 @@ Rulebase("Repeat",{iterations,body});
   Retract correctly.
 */
 
-Rule("Repeat",2,10,Integer?(iterations) And? iterations >? 0)
+RuleHoldArguments("Repeat",2,10,Integer?(iterations) And? iterations >? 0)
 [
     Local(count);
 
@@ -47,7 +47,7 @@ Rule("Repeat",2,10,Integer?(iterations) And? iterations >? 0)
 Rulebase("Repeat",{body});
 
 
-Rule("Repeat",1,20,True)
+RuleHoldArguments("Repeat",1,20,True)
 [
     Local(count);
 

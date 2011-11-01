@@ -8,7 +8,7 @@ HoldArgument("TemplateFunction",args);
 
 HoldArgument("TemplateFunction",body);
 
-Rule("TemplateFunction",3,2047,True)
+RuleHoldArguments("TemplateFunction",3,2047,True)
 [
   Retract(oper,Length(args));
   Local(arglist);

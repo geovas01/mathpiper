@@ -7,14 +7,14 @@ Rulebase("DefinePattern",{leftOperand, rightOperand, rulePrecedence, postPredica
 
 
 
-Rule("DefinePattern",4,9,Equal?(Type(leftOperand),"_"))
+RuleHoldArguments("DefinePattern",4,9,Equal?(Type(leftOperand),"_"))
 [
     DefinePattern(leftOperand[1], rightOperand, rulePrecedence, leftOperand[2]);
 ];
 
 
 
-Rule("DefinePattern",4,10,True)
+RuleHoldArguments("DefinePattern",4,10,True)
 [
       Local(patternFlat,patternVariables, pattern, patternOperator, arg, arity);
       

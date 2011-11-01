@@ -3,7 +3,7 @@
 //Retract("Degree",*);
 
 Rulebase("Degree",{expr});
-Rule("Degree",1,0, UniVar?(expr))
+RuleHoldArguments("Degree",1,0, UniVar?(expr))
 [
 
   Local(i,min,max);

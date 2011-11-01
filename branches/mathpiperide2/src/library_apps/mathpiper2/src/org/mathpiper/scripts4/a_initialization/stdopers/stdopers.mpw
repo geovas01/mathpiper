@@ -3,7 +3,7 @@
 
 
 Rulebase(StandardOperatorsLoad,{});
-Rule(StandardOperatorsLoad, 0, 1, True)
+RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
 [
     /* stdopers is loaded immediately after MathPiper is started. It contains
      * the definitions of the infix operators, so the parser can already

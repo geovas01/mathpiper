@@ -2,7 +2,7 @@
 
 /* Implementation of Nth that allows extending. */
 Rulebase("Nth",{alist,aindex});
-Rule("Nth",2,10,
+RuleHoldArguments("Nth",2,10,
     And?(Equal?(Function?(alist),True),
             Equal?(Integer?(aindex),True),
             Not?(Equal?(First(FunctionToList(alist)),Nth))
@@ -12,7 +12,7 @@ Rule("Nth",2,10,
 
 
 
-Rule("Nth",2,14,
+RuleHoldArguments("Nth",2,14,
      And?(Equal?(String?(alist),True),List?(aindex))
     )
 [
@@ -22,18 +22,18 @@ Rule("Nth",2,14,
   result;
 ];
 
-Rule("Nth",2,15,Equal?(String?(alist),True))
+RuleHoldArguments("Nth",2,15,Equal?(String?(alist),True))
 [
   StringMidGet(aindex,1,alist);
 ];
 
 
-Rule("Nth",2,20,Equal?(List?(aindex),True))
+RuleHoldArguments("Nth",2,20,Equal?(List?(aindex),True))
 [
   Map({{ii},alist[ii]},{aindex});
 ];
 
-Rule("Nth",2,30,
+RuleHoldArguments("Nth",2,30,
    And?(
            Equal?(Generic?(alist),True),
            Equal?(GenericTypeName(alist),"Array"),
@@ -46,7 +46,7 @@ Rule("Nth",2,30,
 
 
 
-Rule("Nth",2,40,Equal?(String?(aindex),True))
+RuleHoldArguments("Nth",2,40,Equal?(String?(aindex),True))
 [
   Local(as);
   as := Assoc(aindex,alist);

@@ -24,14 +24,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class Rule extends BuiltinFunction
+public class RuleHoldArguments extends BuiltinFunction
 {
 
-    private Rule()
+    private RuleHoldArguments()
     {
     }
 
-    public Rule(String functionName)
+    public RuleHoldArguments(String functionName)
     {
         this.functionName = functionName;
     }
@@ -46,11 +46,11 @@ public class Rule extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Rule",categories="Programmer Functions;Programming;Built In"
+%mathpiper_docs,name="RuleHoldArguments",categories="Programmer Functions;Programming;Built In"
 *CMD Rule --- define a rewrite rule
 *CORE
 *CALL
-	Rule("operator", arity, precedence, predicate) body
+	RuleHoldArguments("operator", arity, precedence, predicate) body
 *PARMS
 
 {"operator"} -- string, name of function

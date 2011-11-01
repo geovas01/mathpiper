@@ -107,7 +107,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         int i;
         int numberOfArguments = iNumberOfArguments;
 
-        if ((iFlags & Variable) != 0) {//This function has a  variable number of arguments.
+        if ((iFlags & Variable) != 0) {//This function has a variable number of arguments.
             numberOfArguments--;
         }//end if.
 

@@ -6,7 +6,7 @@ UnFence("AssignArray", 3);
 
 
 // Assign association lists.
-Rule("AssignArray", 3, 1, String?(indexOrKey))
+RuleHoldArguments("AssignArray", 3, 1, String?(indexOrKey))
 [
     Local(keyValuePair);
 
@@ -25,13 +25,13 @@ Rule("AssignArray", 3, 1, String?(indexOrKey))
 
 
 // Assign generic arrays.
-Rule("AssignArray",3,1, And?( Equal?(Generic?(listOrAssociationList), True), Equal?(GenericTypeName(listOrAssociationList), "Array")))
+RuleHoldArguments("AssignArray",3,1, And?( Equal?(Generic?(listOrAssociationList), True), Equal?(GenericTypeName(listOrAssociationList), "Array")))
 [
     ArraySet(listOrAssociationList, indexOrKey, newValue);
 ];
 
 
-Rule("AssignArray",3 , 2, True)
+RuleHoldArguments("AssignArray",3 , 2, True)
 [
     DestructiveReplace(listOrAssociationList, indexOrKey, newValue);
 

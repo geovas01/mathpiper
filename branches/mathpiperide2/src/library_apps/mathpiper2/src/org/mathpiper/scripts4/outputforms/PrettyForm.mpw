@@ -363,7 +363,7 @@ FormulaBracket(f):=
 
 Rulebase("BracketOn",{op,f,prec});
 
-Rule("BracketOn",3,1,Function?(f) And? ArgumentsCount(f) =? 2
+RuleHoldArguments("BracketOn",3,1,Function?(f) And? ArgumentsCount(f) =? 2
      And? Infix?(Type(f)) And? PrecedenceGet(Type(f)) >? prec)
 [
  FormulaBracket(op);
@@ -372,7 +372,7 @@ Rule("BracketOn",3,1,Function?(f) And? ArgumentsCount(f) =? 2
 
 
 
-Rule("BracketOn",3,2,True)
+RuleHoldArguments("BracketOn",3,2,True)
 [
   op;
 ];
@@ -427,7 +427,7 @@ Rulebase("RenderFormula",{cf,f,x,y});
        \
 */
 
-Rule("RenderFormula",4,1,f[5] =? "ToAtom" And? f[6] =? "(" And? f[4] >? 1)
+RuleHoldArguments("RenderFormula",4,1,f[5] =? "ToAtom" And? f[6] =? "(" And? f[4] >? 1)
 [
   Local(height,i);
   Bind(x, AddN(x,f[1]));
@@ -443,7 +443,7 @@ Rule("RenderFormula",4,1,f[5] =? "ToAtom" And? f[6] =? "(" And? f[4] >? 1)
 
 
 
-Rule("RenderFormula",4,1,f[5] =? "ToAtom" And? f[6] =? ")" And? f[4] >? 1)
+RuleHoldArguments("RenderFormula",4,1,f[5] =? "ToAtom" And? f[6] =? ")" And? f[4] >? 1)
 [
   Local(height,i);
   Bind(x, AddN(x,f[1]));
@@ -458,7 +458,7 @@ Rule("RenderFormula",4,1,f[5] =? "ToAtom" And? f[6] =? ")" And? f[4] >? 1)
 
 
 
-Rule("RenderFormula",4,5,f[5] =? "ToAtom")
+RuleHoldArguments("RenderFormula",4,5,f[5] =? "ToAtom")
 [
   cf[AddN(y, f[2]) ]:=
     StringMidSet(AddN(x,f[1]),f[6],cf[AddN(y, f[2]) ]);
@@ -467,7 +467,7 @@ Rule("RenderFormula",4,5,f[5] =? "ToAtom")
 
 
 
-Rule("RenderFormula",4,6,True)
+RuleHoldArguments("RenderFormula",4,6,True)
 [
   ForEach(item,f[6])
   [

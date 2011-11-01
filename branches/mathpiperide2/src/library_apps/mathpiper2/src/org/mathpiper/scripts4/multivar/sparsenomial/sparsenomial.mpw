@@ -47,7 +47,7 @@ UnFence("muadm",2);
  */
 
 Rulebase("NormalForm",{expression});
-Rule("NormalForm",1,1000,True) expression;
+RuleHoldArguments("NormalForm",1,1000,True) expression;
 0 # NormalForm(UniVariate(_var,_first,_coefs)) <--
     ExpandUniVariate(var,first,coefs);
 10 # NormalForm(x_Multi?/y_Multi?) <-- NormalForm(x)/NormalForm(y);

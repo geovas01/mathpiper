@@ -2,7 +2,7 @@
 
     Rulebase("'", {expression});
 
-    Rule("'", 1, 100, True) `(Hold(@expression));
+    RuleHoldArguments("'", 1, 100, True) `(Hold(@expression));
 
     HoldArgument("'",expression);
 
