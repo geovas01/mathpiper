@@ -61,7 +61,7 @@ public class RulebaseListedHoldArguments extends BuiltinFunction
 *DESC
 
 The command {RulebaseListedHoldArguments} defines a new function. It essentially works the
-same way as {Rulebase}, except that it declares a new function with a variable
+same way as {RulebaseHoldArguments}, except that it declares a new function with a variable
 number of arguments. The list of parameters {params} determines the smallest
 number of arguments that the new function will accept. If the number of
 arguments passed to the new function is larger than the number of parameters in
@@ -109,7 +109,7 @@ Result: True;
 
 The function {f} now appears to occupy all arities greater than 3:
 
-In> Rulebase("f", {x,y,z,t});
+In> RulebaseHoldArguments("f", {x,y,z,t});
 	CommandLine(1) : Rule base with this arity
 	  already defined
 

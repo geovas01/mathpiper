@@ -144,6 +144,6 @@ Result: True;
 In> i
 Result: 10;
 
-*SEE Rulebase, `, DefMacroRulebaseListed
+*SEE RulebaseHoldArguments, `, DefMacroRulebaseListed
 %/mathpiper_docs
 */

@@ -66,6 +66,6 @@ public class MacroRulePattern extends BuiltinFunction
 *DESC
 This function defines a rule which uses a pattern as its predicate.
 
-*SEE RulePattern
+*SEE RulePatternHoldArguments
 %/mathpiper_docs
 */

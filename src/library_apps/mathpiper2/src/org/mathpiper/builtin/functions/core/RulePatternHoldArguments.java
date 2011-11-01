@@ -25,14 +25,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class RulePattern extends BuiltinFunction
+public class RulePatternHoldArguments extends BuiltinFunction
 {
 
-    private RulePattern()
+    private RulePatternHoldArguments()
     {
     }
 
-    public RulePattern(String functionName)
+    public RulePatternHoldArguments(String functionName)
     {
         this.functionName = functionName;
     }
@@ -48,11 +48,11 @@ public class RulePattern extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulePattern",categories="Programmer Functions;Programming;Built In"
-*CMD RulePattern --- defines a rule which uses a pattern as its predicate
+%mathpiper_docs,name="RulePatternHoldArguments",categories="Programmer Functions;Programming;Built In"
+*CMD RulePatternHoldArguments --- defines a rule which uses a pattern as its predicate
  
 *CALL
-	RulePattern("operator", arity, precedence, pattern) body
+	RulePatternHoldArguments("operator", arity, precedence, pattern) body
 *PARMS
 
 {"operator"} -- string, name of function
