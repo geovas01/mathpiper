@@ -8,7 +8,7 @@ LocalSymbols(NFunctionNumberize)
 [
 NFunction(newname_String?, oldname_String?, arglist_List?) <-- [
         MacroRulebase(newname, arglist);
-        MacroRule(newname, Length(arglist), 0,        // check whether all args are numeric
+        RuleEvaluateArguments(newname, Length(arglist), 0,        // check whether all args are numeric
                 ListToFunction({NumericList?, arglist})
         )
 
@@ -93,7 +93,7 @@ Now we can plot the function.
 In> Plot2D(t1(x), -0.1: 1.1)
 Result: True;
 
-*SEE MacroRule
+*SEE RuleEvaluateArguments
 %/mathpiper_docs
 
 
