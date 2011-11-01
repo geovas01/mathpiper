@@ -36,9 +36,10 @@ import org.mathpiper.lisp.cons.NumberCons;
 public class JavaNew extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Exception {
+        this.functionName = "JavaNew";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new JavaNew(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "JavaNew");
+                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                this.functionName);
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {

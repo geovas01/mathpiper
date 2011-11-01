@@ -16,10 +16,11 @@
 
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 
-package org.mathpiper.builtin.functions.core;
+package org.mathpiper.builtin.functions.optional;
 
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
+import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 
@@ -30,21 +31,19 @@ import org.mathpiper.lisp.Utility;
 public class Delay extends BuiltinFunction
 {
 
-    private Delay()
-    {
-    }
 
-    public Delay(String functionName)
-    {
-        this.functionName = functionName;
-    }
+    public void plugIn(Environment aEnvironment) throws Exception {
+        this.functionName = "Delay";
+        aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
+                this.functionName);
+    }//end method.
 
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         BigNumber milliseconds = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-        //Thread.sleep(milliseconds.toLong());
+        Thread.sleep(milliseconds.toLong());
 
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }

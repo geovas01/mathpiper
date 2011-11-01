@@ -16,6 +16,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin;
 
+import org.mathpiper.builtin.functions.optional.Delay;
 import org.mathpiper.builtin.functions.core.*;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
@@ -125,7 +126,6 @@ public abstract class BuiltinFunction {
         functionNameInit = "MacroRulebaseListedHoldArguments"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new MacroRulebaseListedHoldArguments(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro),functionNameInit);
         functionNameInit = "DefaultDirectory"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DefaultDirectory(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function), functionNameInit);
         functionNameInit = "DefaultTokenizer"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DefaultTokenizer(functionNameInit), 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
-        functionNameInit = "Delay"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Delay(functionNameInit), 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
         functionNameInit = "Delete"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new Delete(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
         functionNameInit = "DestructiveDelete"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DestructiveDelete(functionNameInit), 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);
         functionNameInit = "DestructiveInsert"; aEnvironment.getBuiltinFunctions().setAssociation(new BuiltinFunctionEvaluator(new DestructiveInsert(functionNameInit), 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),functionNameInit);

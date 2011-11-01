@@ -42,9 +42,10 @@ import org.mathpiper.lisp.cons.SublistCons;
 public class JavaCall extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Exception {
+        this.functionName = "JavaCall";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(new JavaCall(), 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
-                "JavaCall");
+                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function),
+                this.functionName);
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
