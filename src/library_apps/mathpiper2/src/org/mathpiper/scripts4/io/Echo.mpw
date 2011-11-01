@@ -19,7 +19,7 @@
 
 //Retract("Echo",*);
 
-RulebaseListed("Echo",{firstParameter, parametersList});
+RulebaseListedHoldArguments("Echo",{firstParameter, parametersList});
 
 //Handle no option call.
 5 # Echo(_firstParameter) <-- Echo(firstParameter, {});
@@ -95,7 +95,7 @@ Result: True
 Side Effects:
 {a,b,c} 
 
-*SEE PrettyForm, Write, WriteString, RulebaseListed
+*SEE PrettyForm, Write, WriteString, RulebaseListedHoldArguments
 %/mathpiper_docs
 
     %output,preserve="false"

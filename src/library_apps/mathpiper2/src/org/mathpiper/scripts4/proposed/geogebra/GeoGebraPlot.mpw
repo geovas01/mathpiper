@@ -1,7 +1,7 @@
 %mathpiper,def="GeoGebraPlot"
 //Retract("GeoGebraPlot",*);
 
-RulebaseListed("GeoGebraPlot",{arg1,arg2});
+RulebaseListedHoldArguments("GeoGebraPlot",{arg1,arg2});
 
 
 

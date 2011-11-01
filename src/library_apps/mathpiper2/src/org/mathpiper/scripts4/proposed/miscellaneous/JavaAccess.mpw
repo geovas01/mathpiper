@@ -2,7 +2,7 @@
 
 //Retract("JavaAccess",*);
 
-RulebaseListed("JavaAccess",{object, method, parameters});
+RulebaseListedHoldArguments("JavaAccess",{object, method, parameters});
 
 //Handle no option call.
 5 # JavaAccess(_object, _method) <-- JavaAccess(object, method, {});
