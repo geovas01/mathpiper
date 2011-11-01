@@ -25,14 +25,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class MacroRulePattern extends BuiltinFunction
+public class RulePatterrnEvaluateArguments extends BuiltinFunction
 {
 
-    private MacroRulePattern()
+    private RulePatterrnEvaluateArguments()
     {
     }
 
-    public MacroRulePattern(String functionName)
+    public RulePatterrnEvaluateArguments(String functionName)
     {
         this.functionName = functionName;
     }
@@ -48,11 +48,11 @@ public class MacroRulePattern extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MacroRulePattern",categories="Programmer Functions;Programming;Built In"
-*CMD MacroRulePattern --- defines a rule which uses a pattern as its predicate
+%mathpiper_docs,name="RulePatterrnEvaluateArguments",categories="Programmer Functions;Programming;Built In"
+*CMD RulePatterrnEvaluateArguments --- defines a rule which uses a pattern as its predicate
 
 *CALL
-	MacroRulePattern("operator", arity, precedence, pattern) body
+	RulePatterrnEvaluateArguments("operator", arity, precedence, pattern) body
 *PARMS
 
 {"operator"} -- string, name of function
