@@ -1,6 +1,6 @@
 %mathpiper,def="AssignArray"
 
-Rulebase("AssignArray", {listOrAssociationList, indexOrKey, newValue});
+RulebaseHoldArguments("AssignArray", {listOrAssociationList, indexOrKey, newValue});
 
 UnFence("AssignArray", 3);
 

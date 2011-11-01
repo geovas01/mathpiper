@@ -3,7 +3,7 @@
 /* Sums */
 
 
-Rulebase("Sum",{sumvararg,sumfromarg,sumtoarg,sumbodyarg});
+RulebaseHoldArguments("Sum",{sumvararg,sumfromarg,sumtoarg,sumbodyarg});
 
 
 

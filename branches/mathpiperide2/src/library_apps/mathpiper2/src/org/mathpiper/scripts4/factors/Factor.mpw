@@ -188,7 +188,7 @@ Result: x-y
 
 %mathpiper,name="Factor",subtype="automatic_test"
 
-Rulebase("f",{x});
+RulebaseHoldArguments("f",{x});
 f(x):=Eval(Factor(x))=x;
 Verify(f(703), True);
 Verify(f(485), True);

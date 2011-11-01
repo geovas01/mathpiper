@@ -1,6 +1,6 @@
 %mathpiper,def="MathPiperInitLoad"
 
-Rulebase(MathPiperInitLoad,{});
+RulebaseHoldArguments(MathPiperInitLoad,{});
 RuleHoldArguments(MathPiperInitLoad, 0, 1, True)
 [
     /* This is the basic initialization file for MathPiper. It gets loaded

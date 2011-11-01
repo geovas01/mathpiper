@@ -12,7 +12,7 @@ OdeOrder
  3) Done: documentation for OdeSolve and OdeTest
  */
 
-Rulebase("yyy",{x});
+RulebaseHoldArguments("yyy",{x});
 
 10 # OdeLeftHandSideEq(_l == _r) <-- (l-r);
 20 # OdeLeftHandSideEq(_e) <-- e;
@@ -63,7 +63,7 @@ OdeConstantList(n_Integer?) <--
 ];
 
 
-Rulebase("OdeTerm",{px,list});
+RulebaseHoldArguments("OdeTerm",{px,list});
 
 /*5 # OdeFlatTerm(_x)_[Echo({x});False;] <-- True; */
 

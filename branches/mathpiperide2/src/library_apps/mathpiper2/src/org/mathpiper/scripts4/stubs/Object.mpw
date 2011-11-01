@@ -1,6 +1,6 @@
 %mathpiper,def="Object"
 
-Rulebase("Object",{pred,x});
+RulebaseHoldArguments("Object",{pred,x});
 RuleHoldArguments("Object",2,0,Apply(pred,{x})=?True) x;
 
 %/mathpiper

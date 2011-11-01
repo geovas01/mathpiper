@@ -44,8 +44,8 @@ TexForm
 /// TeXmacs prettyprinter
 TexForm(_expr) <-- [DumpErrors();WriteString(TeXForm(expr));NewLine();];
 
-Rulebase("TeXForm",{expression});
-Rulebase("TeXForm",{expression, precedence});
+RulebaseHoldArguments("TeXForm",{expression});
+RulebaseHoldArguments("TeXForm",{expression, precedence});
 
 /* Boolean predicate */
 
@@ -359,7 +359,7 @@ LocalSymbols(TeXFormMathFunctions, TeXFormMathFunctions2) [
 100 # TeXForm(_x [ _i ], _p) <-- ConcatStrings(TeXForm(x, TeXFormMaxPrec()), " _{", TeXForm(i, TeXFormMaxPrec()), "}");
 */
 /* Need to introduce auxiliary function, or else have trouble with arguments of Nth being lists */
-Rulebase("TeXFormNth",{x,y});
+RulebaseHoldArguments("TeXFormNth",{x,y});
 100 # TeXForm(Nth(Nth(_x, i_List?), _j), _p) <-- TeXForm(TeXFormNth(x, Append(i,j)), p);
 100 # TeXForm(TeXFormNth(Nth(_x, i_List?), _j), _p) <-- TeXForm(TeXFormNth(x, Append(i,j)), p);
 110 # TeXForm(Nth(Nth(_x, _i), _j), _p) <-- TeXForm(TeXFormNth(x, List(i,j)), p);
@@ -465,7 +465,7 @@ TeXForm(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
 */
 
 
-Rulebase("f",{x});
+RulebaseHoldArguments("f",{x});
 Verify(
 TeXForm(Hold(Differentiate(x)f(x)))
 ,"$\\frac{d}{d x}f( x) $");
@@ -476,15 +476,15 @@ TeXForm(Hold(Not? (c<?0) And? (a+b)*c>=? -d^e And? (c<=?0 Or? b+1>?0) Or? a!=?0 
 ,"$ \\neg c < 0\\wedge ( a + b)  \\cdot c\\geq  - d ^{e}\\wedge ( c\\leq 0\\vee b + 1 > 0) \\vee a\\neq 0\\wedge  \\neg p = q$"
 );
 
-Rulebase("f",{x,y,z});
+RulebaseHoldArguments("f",{x,y,z});
 Verify(
 TeXForm((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))
 ,"$( \\frac{\\partial}{\\partial x}f( x, y, z) )  \\cdot \\cos \\Omega  \\cdot ( 4 \\cdot \\sin a) \\bmod \\frac{5}{a ^{b}} $"
 );
 Retract("f",3);
 
-Rulebase("g",{x});
-Rulebase("theta",{x});
+RulebaseHoldArguments("g",{x});
+RulebaseHoldArguments("theta",{x});
 Verify(
 TeXForm(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))
 ,"$\\pi  + \\exp ( 1)  - \\Theta  - \\int _{x_{1}} ^{\\frac{3}{g( \\pi ) }  } 2 \\cdot \\theta ( x)  \\cdot \\exp ( \\frac{1}{x} )  dx$"
@@ -499,9 +499,9 @@ TeXForm({a[3]*b[5]-c[1][2],{a,b,c,d}})
 
 
 //Note: this is the only code in the test suite that currently creates new rulebases.
-Rulebase("aa",{x,y,z});
+RulebaseHoldArguments("aa",{x,y,z});
 Bodied("aa", 200);
-Rulebase("bar", {x,y});
+RulebaseHoldArguments("bar", {x,y});
 Infix("bar", 100);
 Verify(
 TeXForm(aa(x,y) z + 1 bar y!)

@@ -64,7 +64,7 @@ Verify(HasExpressionArithmetic?(a*b+1,1),True);
 Verify(HasExpressionArithmetic?(a+Sin(b*c),c),False);
 Verify(HasExpressionArithmetic?(a+Sin(b*c),Sin(b*c)),True);
 
-Rulebase("f",{a});
+RulebaseHoldArguments("f",{a});
 Verify(HasExpression?(a*b+f({b,c}),f),False);
 Verify(HasExpressionArithmetic?(a*b+f({b,c}),c),False);
 Retract("f",1);

@@ -1,6 +1,6 @@
 %mathpiper,def="'"
 
-    Rulebase("'", {expression});
+    RulebaseHoldArguments("'", {expression});
 
     RuleHoldArguments("'", 1, 100, True) `(Hold(@expression));
 

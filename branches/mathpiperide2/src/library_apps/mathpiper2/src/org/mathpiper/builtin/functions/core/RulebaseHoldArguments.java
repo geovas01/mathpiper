@@ -24,14 +24,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class Rulebase extends BuiltinFunction
+public class RulebaseHoldArguments extends BuiltinFunction
 {
 
-    private Rulebase()
+    private RulebaseHoldArguments()
     {
     }
 
-    public Rulebase(String functionName)
+    public RulebaseHoldArguments(String functionName)
     {
         this.functionName = functionName;
     }
@@ -46,11 +46,11 @@ public class Rulebase extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="Rulebase",categories="Programmer Functions;Programming;Built In"
-*CMD Rulebase --- define function with a fixed number of arguments
+%mathpiper_docs,name="RulebaseHoldArguments",categories="Programmer Functions;Programming;Built In"
+*CMD RulebaseHoldArguments --- define function with a fixed number of arguments
 *CORE
 *CALL
-	Rulebase(name,params)
+	RulebaseHoldArguments(name,params)
 
 *PARMS
 

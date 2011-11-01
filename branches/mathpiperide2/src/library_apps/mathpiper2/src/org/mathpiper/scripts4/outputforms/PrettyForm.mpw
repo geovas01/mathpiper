@@ -235,7 +235,7 @@ FormulaBracket(f):=
 
 
 
-/* Rulebase("Formula",{f}); */
+/* RulebaseHoldArguments("Formula",{f}); */
 
 1 # Formula(f_Atom?) <--
   MakeOper(0,0,Length(ToString(f)),1,"ToAtom",ToString(f),0);
@@ -361,7 +361,7 @@ FormulaBracket(f):=
 
 
 
-Rulebase("BracketOn",{op,f,prec});
+RulebaseHoldArguments("BracketOn",{op,f,prec});
 
 RuleHoldArguments("BracketOn",3,1,Function?(f) And? ArgumentsCount(f) =? 2
      And? Infix?(Type(f)) And? PrecedenceGet(Type(f)) >? prec)
@@ -418,7 +418,7 @@ RuleHoldArguments("BracketOn",3,2,True)
 
 
 
-Rulebase("RenderFormula",{cf,f,x,y});
+RulebaseHoldArguments("RenderFormula",{cf,f,x,y});
 
 /*
 /   /  /

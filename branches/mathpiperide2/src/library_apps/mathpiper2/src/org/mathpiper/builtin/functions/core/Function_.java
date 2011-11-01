@@ -83,7 +83,7 @@ Result: False;
 
 %mathpiper,name="Function?",subtype="automatic_test"
 
-Rulebase("a", {b});
+RulebaseHoldArguments("a", {b});
 Verify(Function?(a(b)),True);
 Retract("a", 1);
 Verify(Function?(a),False);

@@ -28,7 +28,7 @@ Function("HoldArgumentNumber",{function,arity,index})
 Declares the argument numbered {argNum} of the function named {"function"} with
 specified {arity} to be unevaluated ("held"). Useful if you don't know symbolic
 names of parameters, for instance, when the function was not declared using an
-explicit {Rulebase} call. Otherwise you could use {HoldArgument}.
+explicit {RulebaseHoldArguments} call. Otherwise you could use {HoldArgument}.
 
-*SEE HoldArgument, Rulebase
+*SEE HoldArgument, RulebaseHoldArguments
 %/mathpiper_docs

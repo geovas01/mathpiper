@@ -10,7 +10,7 @@
  * Drop( list, {m,n} ) gives 'list' with elements m through n dropped
  */
 
-Rulebase("Drop", {lst, range});
+RulebaseHoldArguments("Drop", {lst, range});
 
 RuleHoldArguments("Drop", 2, 1, List?(range))
     Concat(Take(lst,range[1]-1), Drop(lst, range[2]));

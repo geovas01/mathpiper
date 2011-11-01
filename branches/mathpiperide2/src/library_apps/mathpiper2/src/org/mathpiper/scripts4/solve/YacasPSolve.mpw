@@ -1,6 +1,6 @@
 %mathpiper,def="YacasPSolve"
 
-Rulebase("YacasPSolve",{uni});
+RulebaseHoldArguments("YacasPSolve",{uni});
 
 RuleHoldArguments("YacasPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 0)
     {};

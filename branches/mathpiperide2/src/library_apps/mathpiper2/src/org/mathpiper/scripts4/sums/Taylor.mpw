@@ -107,7 +107,7 @@ Result: True;
 
 %mathpiper,name="Taylor",subtype="automatic_test"
 
-Rulebase("jn",{x}); //Temporary function used for testing. It is retracted at the end of all the test code.
+RulebaseHoldArguments("jn",{x}); //Temporary function used for testing. It is retracted at the end of all the test code.
 
 /* bug reported by Jonathan:
    All functions that do not have Taylor Expansions about

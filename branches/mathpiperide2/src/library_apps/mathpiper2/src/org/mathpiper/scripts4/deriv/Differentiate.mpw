@@ -1,7 +1,7 @@
 %mathpiper,def="Differentiate"
 
-Rulebase("Differentiate",{aVar,aFunc});
-Rulebase("Differentiate",{aVar,aCount,aFunc});
+RulebaseHoldArguments("Differentiate",{aVar,aFunc});
+RulebaseHoldArguments("Differentiate",{aVar,aCount,aFunc});
 
 RuleHoldArguments("Differentiate",2,1,List?(aVar) And? Not?(List?(aFunc)))
         Map("Differentiate",{aVar,FillList(aFunc, Length(aVar))});
@@ -113,7 +113,7 @@ Verify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x));
 
 Verify( Differentiate(x,0) Sin(x), Sin(x) );
 
-Rulebase("f",{x,t});
+RulebaseHoldArguments("f",{x,t});
 Verify(Differentiate(t) Integrate(x,a,b) f(x,t), Integrate(x,a,b) Deriv(t)f(x,t));
 Retract("f",2);
 
