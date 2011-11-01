@@ -3,7 +3,7 @@
 /* LogicTest compares the truth tables of two expressions. */
 LocalSymbols(TrueFalse)
 [
-  MacroRulebase(TrueFalse,{var,expr});
+  RulebaseEvaluateArguments(TrueFalse,{var,expr});
   10 # TrueFalse(var_Atom?,_expr) <-- `{(@expr) Where (@var)==False,(@expr) Where (@var)==True};
   20 # TrueFalse({},_expr) <-- `(@expr);
   30 # TrueFalse(var_List?,_expr) <--

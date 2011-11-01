@@ -14,7 +14,7 @@ RuleHoldArguments("Function",3,2047,
 [
   DestructiveDelete(args,Length(args));        // remove trailing "..."
   Retract(oper,Length(args));
-  MacroRulebaseListed(oper,args);
+  RulebaseListedEvaluateArguments(oper,args);
   RuleEvaluateArguments(oper,Length(args),1025,True) body;        // at precedence 1025, for flexibility
 ];
 
@@ -22,7 +22,7 @@ RuleHoldArguments("Function",3,2047,
 RuleHoldArguments("Function",3,2048,True)
 [
   Retract(oper,Length(args));
-  MacroRulebase(oper,args);
+  RulebaseEvaluateArguments(oper,args);
   RuleEvaluateArguments(oper,Length(args),1025,True) body;
 ];
 
@@ -39,7 +39,7 @@ RuleHoldArguments("Function",1,2047,
         DestructiveDelete(args,Length(args));        // remove trailing "..."
         If(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
-                MacroRulebaseListed(Type(oper),args)
+                RulebaseListedEvaluateArguments(Type(oper),args)
         );
 ];
 
@@ -53,7 +53,7 @@ RuleHoldArguments("Function",1,2048,
         Bind(args,Rest(FunctionToList(oper)));
         If(RulebaseDefined(Type(oper),Length(args)),
                 False,        // do nothing
-                MacroRulebase(Type(oper),args)
+                RulebaseEvaluateArguments(Type(oper),args)
         );
 ];
 

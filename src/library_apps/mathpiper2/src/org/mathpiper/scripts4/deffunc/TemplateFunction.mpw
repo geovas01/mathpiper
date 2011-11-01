@@ -17,7 +17,7 @@ RuleHoldArguments("TemplateFunction",3,2047,True)
   DestructiveAppend(arglist,{args,ListToFunction({Hold,body})});
   arglist:=ApplyFast("LocalSymbols",arglist);
 
-  MacroRulebase(oper,arglist[1]);
+  RulebaseEvaluateArguments(oper,arglist[1]);
   RuleEvaluateArguments(oper,Length(args),1025,True) arglist[2];
 
 ];

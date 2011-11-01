@@ -33,7 +33,7 @@ RuleHoldArguments("DefinePattern",4,10,True)
       */
       If(Not?(RulebaseDefined(patternOperator,arity)),
          [
-          MacroRulebase(patternOperator,MakeVector(arg,arity));
+          RulebaseEvaluateArguments(patternOperator,MakeVector(arg,arity));
          ]
         );
     
