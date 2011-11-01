@@ -10,14 +10,14 @@ UnFence("Substitute",3);
 Rulebase("Substitute",{body});
 UnFence("Substitute",1);
 
-Rule("Substitute",1,1,Apply(predicate,{body}) =? True)
+RuleHoldArguments("Substitute",1,1,Apply(predicate,{body}) =? True)
 [
   Apply(change,{body});
 ];
-Rule("Substitute",1,2,Function?(body))
+RuleHoldArguments("Substitute",1,2,Function?(body))
 [
   Apply("MapArgs",{body,"Substitute"});
 ];
-Rule("Substitute",1,3,True) body;
+RuleHoldArguments("Substitute",1,3,True) body;
 
 %/mathpiper

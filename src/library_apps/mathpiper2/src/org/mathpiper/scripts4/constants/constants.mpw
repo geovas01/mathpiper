@@ -33,7 +33,7 @@ UnFence("CachedConstant", 3);        // not sure if this is useful
 HoldArgument("CachedConstant", Cfunc);
 HoldArgument("CachedConstant", Ccache);        // name of the cache
 // check syntax: must be called on an atom and a function
-Rule("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
+RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
 [
          Local(Cname,CfunctionName);
         Bind(Cname, ToString(Catom));        // this is for later conveniences
@@ -58,7 +58,7 @@ Rule("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
                 // note: this should not use N() because it may be called from inside N() itself
 
                 MacroRulebase(CfunctionName, {});
-                `( Rule(@CfunctionName, 0, 1024, True)
+                `( RuleHoldArguments(@CfunctionName, 0, 1024, True)
                 [
                         Local(newprec, newC, cachedC);
                         Bind(newprec, BuiltinPrecisionGet());
@@ -87,7 +87,7 @@ Rule("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
         );
 ];
 
-Rule("CachedConstant", 3, 20, True)
+RuleHoldArguments("CachedConstant", 3, 20, True)
         Echo("CachedConstant: Error: ", Catom, " must be an atom and ", Cfunc, " must be a function.");
 
 /// assign numerical values to all cached constants: using fixed cache "CacheOfConstantsN"

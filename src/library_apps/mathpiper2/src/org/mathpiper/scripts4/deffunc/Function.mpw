@@ -8,7 +8,7 @@ Rulebase("Function",{oper,args,body});
 
 
 // function with variable number of arguments: Function("func",{x,y, ...})body;
-Rule("Function",3,2047,
+RuleHoldArguments("Function",3,2047,
         And?(GreaterThan?(Length(args), 1), Equal?( MathNth(args, Length(args)), ToAtom("...") ))
 )
 [
@@ -19,7 +19,7 @@ Rule("Function",3,2047,
 ];
 
 // function with a fixed number of arguments
-Rule("Function",3,2048,True)
+RuleHoldArguments("Function",3,2048,True)
 [
   Retract(oper,Length(args));
   MacroRulebase(oper,args);
@@ -30,7 +30,7 @@ Rule("Function",3,2048,True)
 /// shorthand function declarations
 Rulebase("Function",{oper});
 // function with variable number of arguments: Function() f(x,y, ...)
-Rule("Function",1,2047,
+RuleHoldArguments("Function",1,2047,
         And?(Function?(oper), GreaterThan?(Length(oper), 1), Equal?( MathNth(oper, Length(oper)), ToAtom("...") ))
 )
 [
@@ -45,7 +45,7 @@ Rule("Function",1,2047,
 
 
 // function with a fixed number of arguments
-Rule("Function",1,2048,
+RuleHoldArguments("Function",1,2048,
         And?(Function?(oper))
 )
 [

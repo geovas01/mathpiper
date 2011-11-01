@@ -23,13 +23,13 @@ Rulebase("OMError", {x,y,z});
    exiting. This is particularly useful when connecting to MathPiper via pipes.
 */
 Rulebase("OMREP",{});
-Rule("OMREP",0,1,True)
+RuleHoldArguments("OMREP",0,1,True)
 [
   OMREP(0);// 0 means keep repeating, as usual.
 ];
 Rulebase("OMREP",{count});
 LocalSymbols(input,stringOut,result)
-Rule("OMREP",1,1,True)
+RuleHoldArguments("OMREP",1,1,True)
 [
   Local(input,stringOut,result);
   While(Not?(IsExitRequested()))

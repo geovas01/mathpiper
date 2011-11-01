@@ -8,7 +8,7 @@ HoldArgument(":=", aRightAssign);
 
 
 // assign a variable
-Rule(":=", 2, 0, Atom?(aLeftAssign))
+RuleHoldArguments(":=", 2, 0, Atom?(aLeftAssign))
 [
     Check( Not? Number?(aLeftAssign), "Argument", "Only a variable can be placed on the left side of an := operator." );
 
@@ -20,7 +20,7 @@ Rule(":=", 2, 0, Atom?(aLeftAssign))
 
 
 // assign lists
-Rule(":=",2 , 0, List?(aLeftAssign))
+RuleHoldArguments(":=",2 , 0, List?(aLeftAssign))
 [
     Map(":=",{aLeftAssign,Eval(aRightAssign)});
 ];
@@ -28,7 +28,7 @@ Rule(":=",2 , 0, List?(aLeftAssign))
 
 
 // a[x] := ... assigns to an array element
-Rule(":=", 2, 10, Function?(aLeftAssign) And? (First(FunctionToList(aLeftAssign)) =? Nth))
+RuleHoldArguments(":=", 2, 10, Function?(aLeftAssign) And? (First(FunctionToList(aLeftAssign)) =? Nth))
 [
     Local(listOrAssociationList, indexOrKey, argumentsList);
 
@@ -48,7 +48,7 @@ Rule(":=", 2, 10, Function?(aLeftAssign) And? (First(FunctionToList(aLeftAssign)
 
 
 // f(x):=... defines a new function
-Rule(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssign[0], ToAtom(":="))) )
+RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssign[0], ToAtom(":="))) )
 [
     Check( Not? Equal?(aLeftAssign[0], ToAtom("/")), "Argument", "Only a variable can be placed on the left side of an := operator." );
 

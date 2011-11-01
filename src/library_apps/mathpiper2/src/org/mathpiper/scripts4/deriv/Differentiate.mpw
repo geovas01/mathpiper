@@ -3,26 +3,26 @@
 Rulebase("Differentiate",{aVar,aFunc});
 Rulebase("Differentiate",{aVar,aCount,aFunc});
 
-Rule("Differentiate",2,1,List?(aVar) And? Not?(List?(aFunc)))
+RuleHoldArguments("Differentiate",2,1,List?(aVar) And? Not?(List?(aFunc)))
         Map("Differentiate",{aVar,FillList(aFunc, Length(aVar))});
-Rule("Differentiate",2,1,List?(aVar) And? List?(aFunc))
+RuleHoldArguments("Differentiate",2,1,List?(aVar) And? List?(aFunc))
         Map("Differentiate",{aVar,aFunc});
 
-Rule("Differentiate",2,3,True)
+RuleHoldArguments("Differentiate",2,3,True)
 [
   MacroLocal(aVar);
   Apply("Deriv",{aVar,1,aFunc});
 ];
 
-Rule("Differentiate",3,1,List?(aVar) And? Not?(List?(aFunc)))
+RuleHoldArguments("Differentiate",3,1,List?(aVar) And? Not?(List?(aFunc)))
         Map("Differentiate",{aVar,
                  FillList(aCount, Length(aVar)),
                  FillList(aFunc, Length(aVar))});
-Rule("Differentiate",3,1,List?(aVar) And? List?(aFunc))
+RuleHoldArguments("Differentiate",3,1,List?(aVar) And? List?(aFunc))
         Map("Differentiate",{aVar,
                  FillList(aCount, Length(aVar)),
                  aFunc});
-Rule("Differentiate",3,3,True)
+RuleHoldArguments("Differentiate",3,3,True)
 [
   MacroLocal(aVar);
   Apply("Deriv",{aVar,aCount,aFunc});
