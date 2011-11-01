@@ -46,6 +46,8 @@ public class JLogWrapper implements Runnable, EBComponent
 	private ArrayList<ResponseListener> responseListeners;
 	private ArrayList<ResponseListener> removeListeners;
 	private String expression = null;
+	private StringWriter stringWriter = new StringWriter();
+	private PrintWriter printWriter = new PrintWriter(stringWriter, true);
 
 
 
@@ -54,9 +56,10 @@ public class JLogWrapper implements Runnable, EBComponent
 	{
 		responseListeners = new ArrayList<ResponseListener>();
 		removeListeners = new ArrayList<ResponseListener>();
-		jlog = new jPrologAPI("");
+		jlog = new jPrologAPI("", null, printWriter, null, null);
 
 		new Thread(this,"jlog").start();
+		
 	}//end constructor.
 
 	public String getStartMessage()
@@ -115,12 +118,31 @@ public class JLogWrapper implements Runnable, EBComponent
 				{
 				    StringBuilder stringBuilder = new StringBuilder();
 				    
-				    Enumeration enumeration = response.elements();
+				    Set entrySet = response.entrySet();
 				    
-				    while(enumeration.hasMoreElements())
+				    Iterator iterator = entrySet.iterator();
+				    
+				    while(iterator.hasNext())
 				    {
-				        Object object = enumeration.nextElement();
-				        stringBuilder.append(object.toString());
+				        Map.Entry entry = (Map.Entry) iterator.next();
+				        
+				        Object key = entry.getKey();
+				        
+				        Object value = entry.getValue();
+				        
+				        stringBuilder.append(key.toString() + " - " + value.toString() + "\n");
+				    }
+				    
+				    
+				    StringBuffer stringBuffer = stringWriter.getBuffer();
+				    
+				    if(stringBuffer.length() > 0)
+				    {
+				        String bufferContents = stringBuffer.toString();
+				        
+				        stringBuilder.append(bufferContents);
+				        
+				        stringBuffer.delete(0, stringBuffer.length());
 				    }
 				    
 					notifyListeners(stringBuilder.toString() + "\nyes");
@@ -141,7 +163,11 @@ public class JLogWrapper implements Runnable, EBComponent
 			}
 			catch(Throwable e)
 			{
-				notifyListeners(e.toString());
+			    //jlog.stop();
+			    
+			    expression = null;
+			    
+				notifyListeners("Exception: " + e.toString());
 			}
 		}//end while.
 		
