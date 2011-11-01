@@ -24,14 +24,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class RulebaseListed extends BuiltinFunction
+public class RulebaseListedHoldArguments extends BuiltinFunction
 {
 
-    private RulebaseListed()
+    private RulebaseListedHoldArguments()
     {
     }
 
-    public RulebaseListed(String functionName)
+    public RulebaseListedHoldArguments(String functionName)
     {
         this.functionName = functionName;
     }
@@ -46,11 +46,11 @@ public class RulebaseListed extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="RulebaseListed",categories="Programmer Functions;Programming;Built In"
-*CMD RulebaseListed --- define function with variable number of arguments
+%mathpiper_docs,name="RulebaseListedHoldArguments",categories="Programmer Functions;Programming;Built In"
+*CMD RulebaseListedHoldArguments --- define function with variable number of arguments
 *CORE
 *CALL
-	RulebaseListed("name", params)
+	RulebaseListedHoldArguments("name", params)
 
 *PARMS
 
@@ -60,7 +60,7 @@ public class RulebaseListed extends BuiltinFunction
 
 *DESC
 
-The command {RulebaseListed} defines a new function. It essentially works the
+The command {RulebaseListedHoldArguments} defines a new function. It essentially works the
 same way as {Rulebase}, except that it declares a new function with a variable
 number of arguments. The list of parameters {params} determines the smallest
 number of arguments that the new function will accept. If the number of
@@ -68,7 +68,7 @@ arguments passed to the new function is larger than the number of parameters in
 {params}, then the last argument actually passed to the new function will be a
 list containing all the remaining arguments.
 
-A function defined using {RulebaseListed} will appear to have the arity equal
+A function defined using {RulebaseListedHoldArguments} will appear to have the arity equal
 to the number of parameters in the {param} list, and it can accept any number
 of arguments greater or equal than that. As a consequence, it will be impossible to define a new function with the same name and with a greater arity.
 
@@ -82,7 +82,7 @@ arguments. Transformation rules can be defined for the new function as usual.
 
 The definitions
 
-	RulebaseListed("f",{a,b,c})
+	RulebaseListedHoldArguments("f",{a,b,c})
 	10 # f(_a,_b,{_c,_d}) <--
 	  Echo({"four args",a,b,c,d});
 	20 # f(_a,_b,c_List?) <--
@@ -114,6 +114,6 @@ In> Rulebase("f", {x,y,z,t});
 	  already defined
 
 
-*SEE Rulebase, Retract, Echo
+*SEE RulebaseHoldArguments, Retract, Echo
 %/mathpiper_docs
 */
