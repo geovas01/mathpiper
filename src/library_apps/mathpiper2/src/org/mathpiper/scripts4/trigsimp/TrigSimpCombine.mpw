@@ -30,9 +30,9 @@
      adding and multiplying expressions with trig. functions, non-trig.
      functions, constants, etc. a lot easier.
 */
-Rulebase("FSin",{f,x});
-Rulebase("FCos",{f,x});
-Rulebase(":*:",{x,y});
+RulebaseHoldArguments("FSin",{f,x});
+RulebaseHoldArguments("FCos",{f,x});
+RulebaseHoldArguments(":*:",{x,y});
 
 
 IsTrig(f) := (Type(f) =? "Sin" Or? Type(f) =? "Cos");
@@ -48,17 +48,17 @@ IsPow(f):=
 
 
 /* Convert Sin/Cos to FSin/FCos */
-Rulebase("TrigChange",{f});
+RulebaseHoldArguments("TrigChange",{f});
 RuleHoldArguments("TrigChange",1,1,Type(f)=?"Cos") FCos(1,f[1]);
 RuleHoldArguments("TrigChange",1,1,Type(f)=?"Sin") FSin(1,f[1]);
 
-Rulebase("TrigUnChange",{f});
+RulebaseHoldArguments("TrigUnChange",{f});
 RuleHoldArguments("TrigUnChange",1,1,Type(f)=?"FCos") Cos(f[2]);
 RuleHoldArguments("TrigUnChange",1,1,Type(f)=?"FSin") Sin(f[2]);
 
 
 /* Do a full replacement to internal format on a term. */
-Rulebase("FReplace",{f});
+RulebaseHoldArguments("FReplace",{f});
 UnFence("FReplace",1);
 RuleHoldArguments("FReplace",1,1,IsMul(f))  Substitute(f[1]) :*: Substitute(f[2]);
 RuleHoldArguments("FReplace",1,2,IsPow(f))  (Substitute(f[1]) :*: Substitute(f[1])) :*: Substitute(f[1]^(f[2]-2));
@@ -93,7 +93,7 @@ FFromInternal(f):=Substitute(f,"IsMulF","FReplaceBack");
 
 
 /* FSimpTerm simplifies the current term, wrt. trigonometric functions. */
-Rulebase("FSimpTerm",{f,rlist});
+RulebaseHoldArguments("FSimpTerm",{f,rlist});
 UnFence("FSimpTerm",2);
 
 /* Addition: add all the subterms */
@@ -186,7 +186,7 @@ FLog("rlist",rlist);
 UnFence("FSimpFactor",1);
 
 
-Rulebase("FProcessTerm",{t});
+RulebaseHoldArguments("FProcessTerm",{t});
 UnFence("FProcessTerm",1);
 
 /* Deal with (a+b)*c -> a*c+b*c */
@@ -325,7 +325,7 @@ RuleHoldArguments("FProcessTerm",1,5,Length(t)>?1)
 ];
 
 /* TrigSimpCombineB : take two FSin/FCos factors, and write them out into two terms */
-Rulebase("TrigSimpCombineB",{x,y});
+RulebaseHoldArguments("TrigSimpCombineB",{x,y});
 RuleHoldArguments("TrigSimpCombineB",2,1,Type(x) =? "FCos" And? Type(y) =? "FCos")
      { FCos((x[1]*y[1])/2,x[2]+y[2]) , FCos((x[1]*y[1])/2,x[2]-y[2]) };
 RuleHoldArguments("TrigSimpCombineB",2,1,Type(x) =? "FSin" And? Type(y) =? "FSin")
@@ -336,7 +336,7 @@ RuleHoldArguments("TrigSimpCombineB",2,1,Type(x) =? "FCos" And? Type(y) =? "FSin
      { FSin((x[1]*y[1])/2,x[2]+y[2]) , FSin(-(x[1]*y[1])/2,x[2]-y[2]) };
 
 
-Rulebase("TrigSimpCombine",{f});
+RulebaseHoldArguments("TrigSimpCombine",{f});
 RuleHoldArguments("TrigSimpCombine",1,1,List?(f))
   Map("TrigSimpCombine",{f});
 

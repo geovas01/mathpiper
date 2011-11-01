@@ -1,6 +1,6 @@
 %mathpiper,def="MakeVector"
 
-Rulebase("MakeVector",{vec,dimension});
+RulebaseHoldArguments("MakeVector",{vec,dimension});
 RuleHoldArguments("MakeVector",2,1,True)
 [
     Local(res,i);

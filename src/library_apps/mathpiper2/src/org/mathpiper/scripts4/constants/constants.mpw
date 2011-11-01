@@ -28,7 +28,7 @@ LocalSymbols(CacheOfConstantsN) [
 
 /// declare a new cached constant Catom and its associated function Catom().
 /// Catom() will call Cfunc() at current precision to evaluate Catom if it has not yet been cached at that precision. (note: any arguments to Cfunc() must be included)
-Rulebase("CachedConstant", {Ccache, Catom, Cfunc});
+RulebaseHoldArguments("CachedConstant", {Ccache, Catom, Cfunc});
 UnFence("CachedConstant", 3);        // not sure if this is useful
 HoldArgument("CachedConstant", Cfunc);
 HoldArgument("CachedConstant", Ccache);        // name of the cache

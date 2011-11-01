@@ -3,7 +3,7 @@
 /* Tensor package. This code intends to simplify tensorial expressions.
  */
 
-Rulebase("X",{ind});
+RulebaseHoldArguments("X",{ind});
 
 //Not implemented in the scripts. todo:tk.
 

@@ -1,6 +1,6 @@
 %mathpiper,def="Where"
 
-Rulebase("Where",{left,right});
+RulebaseHoldArguments("Where",{left,right});
 //HoldArgument("Where",left);
 //HoldArgument("Where",right);
 UnFence("Where",2);

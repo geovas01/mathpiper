@@ -1,6 +1,6 @@
 %mathpiper,def="Curl"
 
-Rulebase("Curl", {aFunc, aBasis});
+RulebaseHoldArguments("Curl", {aFunc, aBasis});
 
 RuleHoldArguments("Curl", 2, 1, Length(aBasis)=?Length(aFunc))
         {

@@ -1,6 +1,6 @@
 %mathpiper,def="TemplateFunction"
 
-Rulebase("TemplateFunction",{oper,args,body});
+RulebaseHoldArguments("TemplateFunction",{oper,args,body});
 
 HoldArgument("TemplateFunction",oper);
 

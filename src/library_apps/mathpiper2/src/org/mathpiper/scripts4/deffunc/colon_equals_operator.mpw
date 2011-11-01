@@ -1,6 +1,6 @@
 %mathpiper,def=":="
 
-Rulebase(":=",{aLeftAssign, aRightAssign});
+RulebaseHoldArguments(":=",{aLeftAssign, aRightAssign});
 UnFence(":=", 2);
 HoldArgument(":=", aLeftAssign);
 HoldArgument(":=", aRightAssign);

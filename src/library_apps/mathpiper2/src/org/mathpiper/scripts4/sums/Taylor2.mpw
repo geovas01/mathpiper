@@ -62,12 +62,12 @@
  *
  */
 
-Rulebase("TaylorLPS",{order, coeffs, var, expr});
-Rulebase("TaylorLPSInverse",{lps});
-Rulebase("TaylorLPSAdd",{lps1,lps2});
-Rulebase("TaylorLPSMultiply",{lps1,lps2});
-Rulebase("TaylorLPSScalarMult",{a,lps});
-Rulebase("TaylorLPSCompose",{lps1,lps2});
+RulebaseHoldArguments("TaylorLPS",{order, coeffs, var, expr});
+RulebaseHoldArguments("TaylorLPSInverse",{lps});
+RulebaseHoldArguments("TaylorLPSAdd",{lps1,lps2});
+RulebaseHoldArguments("TaylorLPSMultiply",{lps1,lps2});
+RulebaseHoldArguments("TaylorLPSScalarMult",{a,lps});
+RulebaseHoldArguments("TaylorLPSCompose",{lps1,lps2});
 
 /* For the moment, the function is called Taylor2. */
 

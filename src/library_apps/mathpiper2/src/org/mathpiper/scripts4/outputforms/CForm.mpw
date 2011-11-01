@@ -20,8 +20,8 @@
         2. Optimization of C code?
 */
 
-Rulebase("CForm",{expression});
-Rulebase("CForm",{expression, precedence});
+RulebaseHoldArguments("CForm",{expression});
+RulebaseHoldArguments("CForm",{expression, precedence});
 
 Function ("CFormBracketIf", {predicate, string})
 [

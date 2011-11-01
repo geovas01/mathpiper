@@ -2,7 +2,7 @@
 
 
 
-Rulebase(StandardOperatorsLoad,{});
+RulebaseHoldArguments(StandardOperatorsLoad,{});
 RuleHoldArguments(StandardOperatorsLoad, 0, 1, True)
 [
     /* stdopers is loaded immediately after MathPiper is started. It contains

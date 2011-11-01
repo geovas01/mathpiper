@@ -1,5 +1,5 @@
 %mathpiper,def="SimpMul"
 
-Rulebase("SimpMul",{x,y});
+RulebaseHoldArguments("SimpMul",{x,y});
 
 %/mathpiper

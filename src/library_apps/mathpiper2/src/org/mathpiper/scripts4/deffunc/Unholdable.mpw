@@ -1,7 +1,7 @@
 %mathpiper,def="Unholdable"
 
 
-Rulebase("Unholdable",{var});
+RulebaseHoldArguments("Unholdable",{var});
 
 HoldArgument("Unholdable",var);
 

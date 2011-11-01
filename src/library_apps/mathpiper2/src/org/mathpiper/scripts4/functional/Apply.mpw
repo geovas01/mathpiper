@@ -97,7 +97,7 @@ Verify(Apply("+",{2,3}),5);
 
 LocalSymbols(f,x,n)
 [
-  Rulebase(f,{n});
+  RulebaseHoldArguments(f,{n});
 
   f(_n) <-- Apply("Differentiate",{x,n, x^n});
 

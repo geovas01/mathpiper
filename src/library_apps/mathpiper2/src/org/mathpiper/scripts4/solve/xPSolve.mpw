@@ -11,7 +11,7 @@
  *-------------------------------------------------------*/
 
  
-Rulebase("xPSolve",{uni});
+RulebaseHoldArguments("xPSolve",{uni});
 
 RuleHoldArguments("xPSolve",1,1,UniVar?(uni) And? Degree(uni) =? 1)
 [

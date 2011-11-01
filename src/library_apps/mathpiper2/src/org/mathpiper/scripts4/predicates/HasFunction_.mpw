@@ -52,7 +52,7 @@ Verify(HasFunction?(a*b+1,*),True);
 Verify(HasFunction?(a+Sin(b*c),*),True);
 Verify(HasFunction?(a*b+1,List),False);
 
-Rulebase("f",{a});
+RulebaseHoldArguments("f",{a});
 Verify(HasFunction?(a*b+f({b,c}),List),True);
 Retract("f",1);
 

@@ -3,7 +3,7 @@
 /* Tensor package. This code intends to simplify tensorial expressions.
  */
 
-Rulebase("TD",{ind});
+RulebaseHoldArguments("TD",{ind});
 
 /* And the simplificaiton rules for X, addition, subtraction
    and multiplication */
