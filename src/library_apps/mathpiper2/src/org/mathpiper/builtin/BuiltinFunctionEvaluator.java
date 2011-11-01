@@ -115,7 +115,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
         // Walk over all arguments, evaluating them only if this is a function. *****************************************************
 
-        if ((iFlags & Macro) != 0) {//This is a macro, not a function.
+        if ((iFlags & Macro) != 0) {//This is a macro, not a function. Don't evaluate arguments.
 
             for (i = 0; i < numberOfArguments; i++) {
                 //Push all arguments on the stack.
@@ -127,6 +127,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 }
 
                 aEnvironment.iArgumentStack.pushArgumentOnStack(argumentsConsTraverser.copy(aEnvironment, false), aStackTop, aEnvironment);
+
                 argumentsConsTraverser = argumentsConsTraverser.cdr();
             }
 
@@ -136,11 +137,12 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 aEnvironment.iArgumentStack.pushArgumentOnStack(SublistCons.getInstance(aEnvironment, head), aStackTop, aEnvironment);
             }//end if.
 
-        } else {//This is a function, not a macro.
+        } else {//This is a function, not a macro. Evaluate arguments.
 
             for (i = 0; i < numberOfArguments; i++) {
+                
                 if(argumentsConsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments, "INTERNAL");
-                if(argumentsConsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments, "INTERNAL");
+
                 argumentResultPointer = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsConsTraverser);
 
                 if (isTraced(functionName) && argumentsResultPointerArray != null && showFlag) {
@@ -149,6 +151,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 }
 
                 aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResultPointer, aStackTop, aEnvironment);
+                
                 argumentsConsTraverser = argumentsConsTraverser.cdr();
             }//end for.
 
