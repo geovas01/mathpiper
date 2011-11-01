@@ -24,14 +24,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class DefMacroRulebase extends BuiltinFunction
+public class MacroRulebaseHoldArguments extends BuiltinFunction
 {
 
-    private DefMacroRulebase()
+    private MacroRulebaseHoldArguments()
     {
     }
 
-    public DefMacroRulebase(String functionName)
+    public MacroRulebaseHoldArguments(String functionName)
     {
         this.functionName = functionName;
     }
@@ -46,11 +46,11 @@ public class DefMacroRulebase extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="DefMacroRulebase",categories="Programmer Functions;Programming;Built In"
-*CMD DefMacroRulebase --- define a function as a macro
+%mathpiper_docs,name="MacroRulebaseHoldArguments",categories="Programmer Functions;Programming;Built In"
+*CMD MacroRulebaseHoldArguments --- define a function as a macro
 *CORE
 *CALL
-	DefMacroRulebase(name,params)
+	MacroRulebaseHoldArguments(name,params)
 
 *PARMS
 
@@ -60,7 +60,7 @@ public class DefMacroRulebase extends BuiltinFunction
 
 *DESC
 
-{DefMacroRulebase} is similar to {Rulebase}, with the difference that it declares a macro,
+{MacroRulebaseHoldArguments} is similar to {RulebaseHoldArguments}, with the difference that it declares a macro,
 instead of a function.
 After this call, rules can be defined for the function "{name}", but their interpretation will be different.
 
@@ -124,7 +124,7 @@ with two arguments, and a macro {foo(a,b,c)} with three arguments.
 The following example defines a macro {myfor}, and shows one use, referencing
 a variable {a} from the calling environment.
 
-In> DefMacroRulebase("myfor",{init,pred,inc,body})
+In> MacroRulebaseHoldArguments("myfor",{init,pred,inc,body})
 Result: True;
 In> myfor(_init,_pred,_inc,_body)<--[@init;While(@pred)[@body;@inc;];True;];
 Result: True;
@@ -144,6 +144,6 @@ Result: True;
 In> i
 Result: 10;
 
-*SEE RulebaseHoldArguments, `, DefMacroRulebaseListed
+*SEE RulebaseHoldArguments, `, MacroRulebaseListedHoldArguments
 %/mathpiper_docs
 */
