@@ -11,14 +11,14 @@ import org.mathpiper.lisp.Environment;
  *
  *  
  */
-public class MacroRulebaseListed extends BuiltinFunction
+public class RulebaseListedEvaluateArguments extends BuiltinFunction
 {
 
-    private MacroRulebaseListed()
+    private RulebaseListedEvaluateArguments()
     {
     }
 
-    public MacroRulebaseListed(String functionName)
+    public RulebaseListedEvaluateArguments(String functionName)
     {
         this.functionName = functionName;
     }
@@ -33,8 +33,8 @@ public class MacroRulebaseListed extends BuiltinFunction
 
 
 /*
-%mathpiper_docs,name="MacroRulebaseListed",categories="Programmer Functions;Programming;Built In"
-*CMD MacroRulebaseListed --- define rules in functions
+%mathpiper_docs,name="RulebaseListedEvaluateArguments",categories="Programmer Functions;Programming;Built In"
+*CMD RulebaseListedEvaluateArguments --- define rules in functions
 *CORE
 *DESC
 

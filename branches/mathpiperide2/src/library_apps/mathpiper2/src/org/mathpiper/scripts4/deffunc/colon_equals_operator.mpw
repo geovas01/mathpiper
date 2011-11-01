@@ -68,7 +68,7 @@ RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssi
 
             Retract(oper, arity);
 
-            MacroRulebaseListed(oper, args);
+            RulebaseListedEvaluateArguments(oper, args);
         ],
         // function with a fixed number of arguments
         [
@@ -76,7 +76,7 @@ RuleHoldArguments(":=", 2, 30, Function?(aLeftAssign) And? Not?(Equal?(aLeftAssi
 
             Retract(oper, arity);
 
-            MacroRulebase(oper, args);
+            RulebaseEvaluateArguments(oper, args);
         ]
     );
 

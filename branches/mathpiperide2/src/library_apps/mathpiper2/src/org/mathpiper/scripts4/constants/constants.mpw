@@ -57,7 +57,7 @@ RuleHoldArguments("CachedConstant", 3, 10, And?(Atom?(Catom), Function?(Cfunc)))
                 // define the new function "Catom"()
                 // note: this should not use N() because it may be called from inside N() itself
 
-                MacroRulebase(CfunctionName, {});
+                RulebaseEvaluateArguments(CfunctionName, {});
                 `( RuleHoldArguments(@CfunctionName, 0, 1024, True)
                 [
                         Local(newprec, newC, cachedC);
