@@ -44,7 +44,7 @@ public class Interpreters {
      *
      * @return a new synchronous interpreter
      */
-    public static Interpreter newSynchronousInterpreter() {
+    public static synchronized Interpreter newSynchronousInterpreter() {
         SynchronousInterpreter interpreter = SynchronousInterpreter.newInstance();
 
         while(interpreter.initialize() == true)
@@ -68,7 +68,7 @@ public class Interpreters {
      * @param  docBase path which contains core MathPiper scripts
      * @return a new synchronous interpreter
      */
-    public static Interpreter newSynchronousInterpreter(String docBase) {
+    public static synchronized Interpreter newSynchronousInterpreter(String docBase) {
         Interpreter interpreter = SynchronousInterpreter.newInstance(docBase);
 
         while(interpreter.initialize() == true)
@@ -84,7 +84,7 @@ public class Interpreters {
      *
      * @return a synchronous interpreter singleton
      */
-    public static Interpreter getSynchronousInterpreter() {
+    public static synchronized Interpreter getSynchronousInterpreter() {
         Interpreter interpreter = SynchronousInterpreter.getInstance();
 
         while(interpreter.initialize() == true)
@@ -108,7 +108,7 @@ public class Interpreters {
      * @param docBase path which contains core MathPiper scripts
      * @return a synchronous interpreter singleton
      */
-    public static Interpreter getSynchronousInterpreter(String docBase) {
+    public static synchronized Interpreter getSynchronousInterpreter(String docBase) {
         Interpreter interpreter = SynchronousInterpreter.getInstance(docBase);
 
         while(interpreter.initialize() == true)
@@ -126,7 +126,7 @@ public class Interpreters {
      *
      * @return a new asynchronous interpreter
      */
-    public static Interpreter newAsynchronousInterpreter() {
+    public static synchronized Interpreter newAsynchronousInterpreter() {
         Interpreter interpreter = AsynchronousInterpreter.newInstance();
 
         while(interpreter.initialize() == true)
@@ -150,7 +150,7 @@ public class Interpreters {
      * @param  docBase path which contains core MathPiper scripts
      * @return a new aynchronous interpreter
      */
-    public static Interpreter newAsynchronousInterpreter(String docBase) {
+    public static synchronized Interpreter newAsynchronousInterpreter(String docBase) {
         Interpreter interpreter = AsynchronousInterpreter.newInstance(docBase);
 
         while(interpreter.initialize() == true)
@@ -167,7 +167,7 @@ public class Interpreters {
      *
      * @return an asynchronous interpreter singleton
      */
-    public static Interpreter getAsynchronousInterpreter() {
+    public static synchronized Interpreter getAsynchronousInterpreter() {
         Interpreter interpreter = AsynchronousInterpreter.getInstance();
 
         while(interpreter.initialize() == true)
@@ -192,7 +192,7 @@ public class Interpreters {
      * @param docBase path which contains core MathPiper scripts
      * @return an asynchronous interpreter singleton
      */
-    public static Interpreter getAsynchronousInterpreter(String docBase) {
+    public static synchronized Interpreter getAsynchronousInterpreter(String docBase) {
         Interpreter interpreter = SynchronousInterpreter.getInstance(docBase);
 
         while(interpreter.initialize() == true)
