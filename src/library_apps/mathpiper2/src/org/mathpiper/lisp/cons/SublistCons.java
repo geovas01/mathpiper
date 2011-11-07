@@ -84,17 +84,7 @@ public class SublistCons extends Cons {
 
 
 
-    @Override
-    public String toString() {
-        StringOutput out = new StringOutput();
-        LispPrinter printer = new LispPrinter();
-        try {
-            printer.print(-1, this, out, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return out.toString();
-    }//end method.
+
 
 
     public int type() {

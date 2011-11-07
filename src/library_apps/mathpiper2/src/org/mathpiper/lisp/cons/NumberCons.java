@@ -143,18 +143,7 @@ public class NumberCons extends Cons {
         return iCarStringNumber;
     }
 
-    @Override
-    public String toString() {
-        String stringRepresentation = null;
-        try {
-            stringRepresentation = (String) car();
 
-        } catch (Exception e) {
-            e.printStackTrace();  //Todo:fixme.
-        }
-        return stringRepresentation;
-
-    }
 
     
     /**

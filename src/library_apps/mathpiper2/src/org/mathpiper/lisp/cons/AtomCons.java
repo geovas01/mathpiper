@@ -90,11 +90,6 @@ public class AtomCons extends Cons
 
 
 
-    @Override
-    public String toString()
-    {
-        return iCar;
-    }//end method.
 
     public int type()
     {
