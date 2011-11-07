@@ -31,11 +31,11 @@ import org.mathpiper.lisp.cons.SublistCons;
 
 public class MacroRulebase extends SingleArityRulebase {
 
-    public MacroRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public MacroRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
-        ConsTraverser parameterTraverser = new ConsTraverser(aEnvironment, aParameters.getCons());
+        Cons parameterTraverser =  aParameters;
         int i = 0;
-        while (parameterTraverser.getCons() != null) {
+        while (parameterTraverser != null) {
 
             //LispError.check(parameterTraverser.car() != null, LispError.CREATING_USER_FUNCTION);
             try {
@@ -50,7 +50,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
             ((ParameterName) iParameters.get(i)).iHold = true;
-            parameterTraverser.goNext(aStackTop);
+            parameterTraverser = parameterTraverser.cdr();
             i++;
         }
         //Macros are all unfenced.

@@ -58,16 +58,15 @@ public class PatternMatches extends BuiltinFunction
 
         PatternContainer patclass = (PatternContainer) gen;
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, list);
-        if(consTraverser.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
+        Cons consTraverser = list;
+        if(consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
         if(! (consTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
-        consTraverser.goSub(aStackTop);
-        if(consTraverser.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
-        consTraverser.goNext(aStackTop);
+        consTraverser = (Cons) consTraverser.car();
+        if(consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
+        consTraverser = consTraverser.cdr();
 
-        ConsPointer ptr = consTraverser.getPointer();
-        if( ptr == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
-        boolean matches = patclass.matches(aEnvironment, aStackTop, ptr);
+        if( consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "PatternMatches");
+        boolean matches = patclass.matches(aEnvironment, aStackTop, consTraverser);
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, matches));
     }
 }

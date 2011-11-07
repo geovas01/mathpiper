@@ -68,17 +68,17 @@ public class ParametersPatternMatcher {
      */
     public ParametersPatternMatcher(Environment aEnvironment, int aStackTop, Cons aPattern, Cons aPostPredicate) throws Exception {
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aPattern);
+        Cons  consTraverser =  aPattern;
 
-        while (consTraverser.getCons() != null) {
+        while (consTraverser != null) {
 
-            PatternParameterMatcher matcher = makeParameterMatcher(aEnvironment, aStackTop, consTraverser.getCons());
+            PatternParameterMatcher matcher = makeParameterMatcher(aEnvironment, aStackTop, consTraverser);
 
             if(matcher == null) LispError.lispAssert(aEnvironment, aStackTop);
 
             iParamMatchers.add(matcher);
 
-            consTraverser.goNext(aStackTop);
+            consTraverser = consTraverser.cdr();
         }//end while.
 
         iPredicates.add(aPostPredicate);
@@ -99,7 +99,7 @@ public class ParametersPatternMatcher {
     is called again, but now in the current LispLocalFrame, and
     this function returns true.
      */
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
         int i;
 
         Cons[] argumentsCons = null;
@@ -110,22 +110,19 @@ public class ParametersPatternMatcher {
             //}
 
         }
-        ConsTraverser argumentsTraverser = new ConsTraverser(aEnvironment, aArguments.getCons());
+        Cons argumentsTraverser = aArguments;
 
         for (i = 0; i < iParamMatchers.size(); i++) {
-            if (argumentsTraverser.getCons() == null) {
+            if (argumentsTraverser == null) {
                 return false;
             }
-            ConsPointer argumentsPointer2 = argumentsTraverser.getPointer();
-            if (argumentsPointer2 == null) {
+
+            if (!((PatternParameterMatcher) iParamMatchers.get(i)).argumentMatches(aEnvironment, aStackTop, argumentsTraverser, argumentsCons)) {
                 return false;
             }
-            if (!((PatternParameterMatcher) iParamMatchers.get(i)).argumentMatches(aEnvironment, aStackTop, argumentsPointer2.getCons(), argumentsCons)) {
-                return false;
-            }
-            argumentsTraverser.goNext(aStackTop);
+            argumentsTraverser = argumentsTraverser.cdr();
         }
-        if (argumentsTraverser.getCons() != null) {
+        if (argumentsTraverser != null) {
             return false;
         }
 
@@ -295,11 +292,11 @@ public class ParametersPatternMatcher {
             PatternParameterMatcher[] matchers = new PatternParameterMatcher[num];
 
             int i;
-            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, sublist);
+            Cons consTraverser = sublist;
             for (i = 0; i < num; i++) {
-                matchers[i] = makeParameterMatcher(aEnvironment, aStackTop, consTraverser.getCons());
+                matchers[i] = makeParameterMatcher(aEnvironment, aStackTop, consTraverser);
                 if(matchers[i] == null) LispError.lispAssert(aEnvironment, aStackTop);
-                consTraverser.goNext(aStackTop);
+                consTraverser = consTraverser.cdr();
             }
             return new SublistPatternParameterMatcher(matchers, num);
         }

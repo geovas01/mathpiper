@@ -25,7 +25,7 @@ import org.mathpiper.lisp.cons.SublistCons;
 
 public class ListedRulebase extends SingleArityRulebase {
 
-    public ListedRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public ListedRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
     }
 
@@ -42,7 +42,7 @@ public class ListedRulebase extends SingleArityRulebase {
 
         Cons newArgs = null;
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
+        Cons consTraverser = aArguments;
 
         Cons ptr = null;
 
@@ -50,36 +50,36 @@ public class ListedRulebase extends SingleArityRulebase {
 
         int i = 0;
 
-        while (i < arity && consTraverser.getCons() != null) {
+        while (i < arity && consTraverser != null) {
 
             if(i == 0)
             {
-                ptr = consTraverser.getCons().copy(aEnvironment, false);
+                ptr = consTraverser.copy(aEnvironment, false);
                 newArgs = ptr;
             }
             else
             {
-                Cons nextCons = consTraverser.getCons().copy(aEnvironment, false);
+                Cons nextCons = consTraverser.copy(aEnvironment, false);
                 ptr.setCdr(nextCons);
                 ptr = nextCons;
             }
 
             i++;
 
-            consTraverser.goNext(aStackTop);
+            consTraverser = consTraverser.cdr();
         }
 
         if (consTraverser.cdr() == null) {
-            Cons nextCons = consTraverser.getCons().copy(aEnvironment, false);
+            Cons nextCons = consTraverser.copy(aEnvironment, false);
             ptr.setCdr(nextCons);
             ptr = nextCons;
             i++;
-            consTraverser.goNext(aStackTop);
-            if(consTraverser.getCons() != null) LispError.lispAssert(aEnvironment, aStackTop);
+            consTraverser = consTraverser.cdr();
+            if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackTop);
         } else {
             ConsPointer head = new ConsPointer();
             head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
-            head.getCons().setCdr(consTraverser.getCons());
+            head.getCons().setCdr(consTraverser);
             Cons nextCons = SublistCons.getInstance(aEnvironment, head.getCons());
             ptr.setCdr(nextCons);
             ptr = nextCons;
