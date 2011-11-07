@@ -44,10 +44,9 @@ public class Rest extends BuiltinFunction
     {
         Cons first = Utility.tail(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1));
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.tail(aEnvironment, aStackTop, first));
-        ConsPointer head = new ConsPointer();
-        head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        head.getCons().setCdr(((Cons) getTopOfStackPointer(aEnvironment, aStackTop).car()));
-        getTopOfStackPointer(aEnvironment, aStackTop).setCar(head.getCons());
+        Cons head = aEnvironment.iListAtom.copy( aEnvironment, false);
+        head.setCdr(((Cons) getTopOfStackPointer(aEnvironment, aStackTop).car()));
+        getTopOfStackPointer(aEnvironment, aStackTop).setCar(head);
     }
 }
 

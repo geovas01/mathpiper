@@ -23,6 +23,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
@@ -62,10 +63,10 @@ public class RulebaseArgumentsList extends BuiltinFunction
         
         if(userFunc == null) LispError.throwError(aEnvironment, aStackTop, "User function for this arity is not defined.", "RulebaseArgumentsList");
 
-        ConsPointer list = userFunc.argList();
+        Cons list = userFunc.argList();
         ConsPointer head = new ConsPointer();
         head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        head.getCons().setCdr(list.getCons());
+        head.getCons().setCdr(list);
         setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head.getCons()));
     }
 }

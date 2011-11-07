@@ -43,8 +43,8 @@ public class ApplyFast extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer oper = new ConsPointer();
-        oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+
+        Cons oper = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         Cons args = getArgumentPointer(aEnvironment, aStackTop, 2);
 
@@ -60,8 +60,7 @@ public class ApplyFast extends BuiltinFunction
         } else
         {   // Apply a pure function {args,body}.
 
-            ConsPointer args2 = new ConsPointer();
-            args2.setCons(((Cons) args.car()).cdr());
+            Cons args2 = ((Cons) args.car()).cdr();
             if(! (oper.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1, "ApplyFast");
             if( (Cons) oper.car() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ApplyFast");
             

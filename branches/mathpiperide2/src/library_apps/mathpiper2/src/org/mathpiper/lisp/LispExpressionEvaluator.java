@@ -195,10 +195,8 @@ public class LispExpressionEvaluator extends Evaluator {
 
                     } else {
                         //Pure function handler.
-                        ConsPointer operator = new ConsPointer();
-                        ConsPointer args2 = new ConsPointer();
-                        operator.setCons(functionAndArgumentsList);
-                        args2.setCons(functionAndArgumentsList.cdr());
+                        Cons operator = functionAndArgumentsList;
+                        Cons args2 = functionAndArgumentsList.cdr();
                         
                         aEnvironment.iEvalDepth--;
                         return Utility.applyPure(aStackTop, operator, args2, aEnvironment);
