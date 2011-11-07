@@ -52,5 +52,11 @@ public class LocalVariableFrame {
         return functionName;
     }
 
+
+    public String toString()
+    {
+        return "FIRST=" + iFirst + ", Last=" + iLast + ", Next=" + iNext + ".";
+    }
+
 }//end class
 

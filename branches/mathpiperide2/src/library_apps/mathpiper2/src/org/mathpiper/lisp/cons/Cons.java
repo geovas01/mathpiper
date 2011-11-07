@@ -18,7 +18,9 @@
 package org.mathpiper.lisp.cons;
 
 import java.util.Map;
+import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.printers.LispPrinter;
 
 
 /**
@@ -113,6 +115,16 @@ public abstract class Cons //Note:tk:was MathPiperObject.
     }//end method.
 
 
-
+    
+    public String toString() {
+        StringOutput out = new StringOutput();
+        LispPrinter printer = new LispPrinter();
+        try {
+            printer.print(-1, this, out, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return out.toString();
+    }//end method.
     
 }//end class.

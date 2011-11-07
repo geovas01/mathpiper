@@ -30,7 +30,12 @@ public class LocalVariable {
         iNext = null;
         iVariable = aVariable;
         iValue = aValue;
+    }
 
+
+    public String toString()
+    {
+        return iVariable + " = " + iValue;
 
     }
 
