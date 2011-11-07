@@ -25,7 +25,7 @@ import org.mathpiper.lisp.cons.SublistCons;
 
 public class ListedMacroRulebase extends MacroRulebase {
 
-    public ListedMacroRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParameters, String functionName) throws Exception {
+    public ListedMacroRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
         super(aEnvironment, aStackTop, aParameters, functionName);
     }
 

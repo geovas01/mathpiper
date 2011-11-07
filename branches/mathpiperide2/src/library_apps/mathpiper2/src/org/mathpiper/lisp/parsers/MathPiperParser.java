@@ -409,24 +409,24 @@ public class MathPiperParser extends Parser
     {
         ConsPointer subList = new ConsPointer();
         subList.setCons(SublistCons.getInstance(aEnvironment,parsedExpression));
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, parsedExpression);
+        Cons consTraverser =  parsedExpression;
         int i;
         for (i = 0; i < aNrArgsToCombine; i++)
         {
-            if (consTraverser.getCons() == null)
+            if (consTraverser == null)
             {
                 fail(aStackTop);
                 return;
             }
-            consTraverser.goNext(aStackTop);
+            consTraverser = consTraverser.cdr();
         }
-        if (consTraverser.getCons() == null)
+        if (consTraverser == null)
         {
             fail(aStackTop);
             return;
         }
         subList.getCons().setCdr(consTraverser.cdr());
-        consTraverser.getCons().setCdr(null);
+        consTraverser.setCdr(null);
 
        
 

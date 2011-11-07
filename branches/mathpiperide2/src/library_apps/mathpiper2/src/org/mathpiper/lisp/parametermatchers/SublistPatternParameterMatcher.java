@@ -41,30 +41,24 @@ public class SublistPatternParameterMatcher extends PatternParameterMatcher {
             return false;
         }
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aExpression);
+        Cons consTraverser = aExpression;
 
-        consTraverser.goSub(aStackTop);
+        consTraverser = (Cons) consTraverser.car();
 
         for (int i = 0; i < iNumberOfMatchers; i++) {
 
-            ConsPointer consPointer = consTraverser.getPointer();
-
-            if (consPointer == null) {
+            if (consTraverser == null) {
                 return false;
             }
 
-            if (consTraverser.getCons() == null) {
+            if (!iMatchers[i].argumentMatches(aEnvironment, aStackTop, consTraverser, arguments)) {
                 return false;
             }
 
-            if (!iMatchers[i].argumentMatches(aEnvironment, aStackTop, consPointer.getCons(), arguments)) {
-                return false;
-            }
-
-            consTraverser.goNext(aStackTop);
+            consTraverser = consTraverser.cdr();
         }
 
-        if (consTraverser.getCons() != null) {
+        if (consTraverser != null) {
             return false;
         }
         

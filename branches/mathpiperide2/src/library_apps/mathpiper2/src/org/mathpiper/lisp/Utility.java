@@ -1069,7 +1069,7 @@ public class Utility {
         LispError.checkIsList(aEnvironment, aStackTop, argsPointer, 2, "INTERNAL");
 
         // Finally define the rule database.
-        aEnvironment.defineRulebase(aStackTop, Utility.getSymbolName(aEnvironment, functionName), new ConsPointer(((Cons) argsPointer.car()).cdr()), aListed);
+        aEnvironment.defineRulebase(aStackTop, Utility.getSymbolName(aEnvironment, functionName), ((Cons) argsPointer.car()).cdr(), aListed);
 
         // Return true
         BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
@@ -1143,7 +1143,7 @@ public class Utility {
 
         // Finally define the rule base
         aEnvironment.defineMacroRulebase(aStackTop, Utility.getSymbolName(aEnvironment, orig),
-                new ConsPointer(((Cons) args.car()).cdr()), aListed);
+                ((Cons) args.car()).cdr(), aListed);
 
         // Return true
         BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
@@ -1415,7 +1415,7 @@ public class Utility {
            }
         }//end for.
 
-        aEnvironment.defineRulebase(aStackTop, functionName, new ConsPointer(head), false);
+        aEnvironment.defineRulebase(aStackTop, functionName, head, false);
 
         ConsPointer truePointer = new ConsPointer();
 

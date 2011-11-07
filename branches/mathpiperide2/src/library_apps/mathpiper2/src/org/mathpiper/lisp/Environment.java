@@ -554,7 +554,7 @@ public final class Environment {
         return multipleArityUserRulebase;
     }
 
-    public void defineRulebase(int aStackTop, String aOperator, ConsPointer aParametersPointer, boolean aListed) throws Exception {
+    public void defineRulebase(int aStackTop, String aOperator, Cons aParametersPointer, boolean aListed) throws Exception {
         MultipleArityRulebase multipleArityUserFunction = getMultipleArityRulebase(aStackTop, aOperator, true);
 
         // add an operator with this arity to the multiuserfunc.
@@ -585,7 +585,7 @@ public final class Environment {
         }
     }
 
-    public void defineMacroRulebase(int aStackTop, String aFunctionName, ConsPointer aParameters, boolean aListed) throws Exception {
+    public void defineMacroRulebase(int aStackTop, String aFunctionName, Cons aParameters, boolean aListed) throws Exception {
         MultipleArityRulebase multipleArityRulebase = getMultipleArityRulebase(aStackTop, aFunctionName, true);
 
         MacroRulebase newMacroRulebase;

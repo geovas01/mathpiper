@@ -60,14 +60,14 @@ public class SingleArityRulebase extends Evaluator {
      * @param aParameters linked list constaining the names of the arguments
      * @throws java.lang.Exception
      */
-    public SingleArityRulebase(Environment aEnvironment, int aStackTop, ConsPointer aParametersPointer, String functionName) throws Exception {
+    public SingleArityRulebase(Environment aEnvironment, int aStackTop, Cons aParametersPointer, String functionName) throws Exception {
         iEnvironment = aEnvironment;
         this.functionName = functionName;
 
         // iParameterList and #iParameters are set from \a aParameters.
-        iParameterList = aParametersPointer.getCons();
+        iParameterList = aParametersPointer;
 
-        ConsPointer parameterPointer = new ConsPointer(aParametersPointer.getCons());
+        ConsPointer parameterPointer = new ConsPointer(aParametersPointer);
 
         while (parameterPointer.getCons() != null) {
 
