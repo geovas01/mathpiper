@@ -210,6 +210,9 @@
         <copy todir="${build.dir}/gwt_dist/src">
             <fileset dir="${mathpiper.dir}/src/">
                 <include name="org/mathpiper/builtin/" />
+                <exclude name="org/mathpiper/builtin/functions/optional/" />
+                <exclude name="org/mathpiper/builtin/functions/plugins/" />
+                <exclude name="org/mathpiper/builtin/library/" />
 
                 <include name="org/mathpiper/exceptions/" />
 
