@@ -262,24 +262,24 @@ public class ParametersPatternMatcher {
 
                         if (num > 2) {
                             //Handle a pattern variable which has a predicate (like var_PredicateFunction).
-                            ConsPointer third = new ConsPointer();
 
+                            Cons third = null;
                             Cons predicate = second.cdr();
                             if ((predicate.car() instanceof Cons)) {
-                                Utility.flatCopy(aEnvironment, aStackTop, third, (Cons) predicate.car());
+                                third = Utility.flatCopy(aEnvironment, aStackTop, (Cons) predicate.car());
                             } else {
-                                third.setCons(second.cdr().copy(aEnvironment, false));
+                                third = second.cdr().copy(aEnvironment, false);
                             }
 
                             String str = (String) second.car();
-                            Cons last = third.getCons();
+                            Cons last = third;
                             while (last.cdr() != null) {
                                 last = last.cdr();
                             }
 
                             last.setCdr(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, str));
 
-                            Cons newPredicate = org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, third.getCons());
+                            Cons newPredicate = org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, third);
 
                             iPredicates.add(newPredicate);
                         }//end if.

@@ -55,25 +55,23 @@ public class Concatenate extends BuiltinFunction
 
         int arg = 1;
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car());
-        consTraverser.goNext(aStackTop);
+        Cons consTraverser =  (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        consTraverser = consTraverser.cdr();
 
-        while (consTraverser.getCons() != null)
+        while (consTraverser != null)
         {
-            LispError.checkIsList(aEnvironment, aStackTop, consTraverser.getPointer(), arg, "Concatenate");
+            LispError.checkIsList(aEnvironment, aStackTop, consTraverser, arg, "Concatenate");
 
-            ConsPointer result = new ConsPointer();
+            Cons result = Utility.flatCopy(aEnvironment, aStackTop, ((Cons) consTraverser.car()).cdr());
 
-            Utility.flatCopy(aEnvironment, aStackTop, result, ((Cons) consTraverser.getPointer().car()).cdr());
-
-           tail.setCdr(result.getCons());
+           tail.setCdr(result);
 
             while (tail.cdr() != null)
             {
                 tail = tail.cdr();
             }
 
-            consTraverser.goNext(aStackTop);
+            consTraverser = consTraverser.cdr();
 
             arg++;
         }
