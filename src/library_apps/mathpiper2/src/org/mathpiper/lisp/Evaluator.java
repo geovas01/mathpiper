@@ -179,7 +179,7 @@ public abstract class Evaluator {
 		}
 	}//end method.
 
-	public static void traceShowRule(Environment aEnvironment, ConsPointer aExpression, String ruleDump) throws Exception {
+	public static void traceShowRule(Environment aEnvironment, Cons aExpression, String ruleDump) throws Exception {
 
 		for (int i = 0; i < evalDepth; i++) {
 			// aEnvironment.iEvalDepth; i++) {

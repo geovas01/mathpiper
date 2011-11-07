@@ -97,8 +97,7 @@ public class MacroRulebase extends SingleArityRulebase {
                 if (matches) {
                     /* Rule dump trace code. */
                     if (isTraced(this.functionName) && showFlag) {
-                        ConsPointer argumentsPointer = new ConsPointer();
-                        argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
+                        Cons argumentsPointer = SublistCons.getInstance(aEnvironment, aArgumentsPointer);
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackTop, thisRule, aEnvironment, this);
                         Evaluator.traceShowRule(aEnvironment, argumentsPointer, ruleDump);
                     }
@@ -134,17 +133,16 @@ public class MacroRulebase extends SingleArityRulebase {
             aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBodyPointer);
         } else // No predicate was true: return a new expression with the evaluated arguments.
         {
-            ConsPointer full = new ConsPointer();
-            full.setCons(aArgumentsPointer.copy(aEnvironment, false));
+            Cons full = aArgumentsPointer.copy(aEnvironment, false);
             if (arity == 0) {
-                full.getCons().setCdr(null);
+                full.setCdr(null);
             } else {
-                full.getCons().setCdr(argumentsResultPointerArray[0]);
+                full.setCdr(argumentsResultPointerArray[0]);
                 for (int parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
                     argumentsResultPointerArray[parameterIndex].setCdr(argumentsResultPointerArray[parameterIndex + 1]);
                 }
             }
-            aResult = SublistCons.getInstance(aEnvironment, full.getCons());
+            aResult = SublistCons.getInstance(aEnvironment, full);
         }
         //FINISH:
 
