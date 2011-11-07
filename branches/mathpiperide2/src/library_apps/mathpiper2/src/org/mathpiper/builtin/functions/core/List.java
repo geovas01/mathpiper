@@ -27,58 +27,52 @@ import org.mathpiper.lisp.cons.SublistCons;
  *
  *  
  */
-public class List extends BuiltinFunction
-{
+public class List extends BuiltinFunction {
 
-    private List()
-    {
+    private List() {
     }
 
-    public List(String functionName)
-    {
+    public List(String functionName) {
         this.functionName = functionName;
     }
-
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
         Cons allPointer = aEnvironment.iListAtom.copy(aEnvironment, false);
-        ConsTraverser tail = new ConsTraverser(aEnvironment, allPointer);
-        tail.goNext(aStackTop);
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car());
-        consTraverser.goNext(aStackTop);
-        while (consTraverser.getCons() != null) {
-            
-            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getCons());
-            tail.setCons(evaluated);
-            tail.goNext(aStackTop);
-            consTraverser.goNext(aStackTop);
+        Cons tail = allPointer;
+
+        Cons consTraverser = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        consTraverser = consTraverser.cdr();
+        while (consTraverser != null) {
+
+            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+
+            tail.setCdr(evaluated);
+            tail = tail.cdr();
+
+            consTraverser = consTraverser.cdr();
         }
         setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, allPointer));
     }
-
 }
-
-
-
 /*
 %mathpiper_docs,name="List",categories="User Functions;Lists (Operations);Built In"
-*CMD List --- construct a list
-*CORE
-*CALL
-	List(expr1, expr2, ...)
+ *CMD List --- construct a list
+ *CORE
+ *CALL
+List(expr1, expr2, ...)
 
-*PARMS
+ *PARMS
 
 {expr1}, {expr2} -- expressions making up the list
 
-*DESC
+ *DESC
 
 A list is constructed whose car entry is "expr1", the second entry
 is "expr2", and so on. This command is equivalent to the expression
 "{expr1, expr2, ...}".
 
-*E.G.
+ *E.G.
 
 In> List();
 Result: {};
@@ -87,6 +81,6 @@ Result: {a,b};
 In> List(a,{1,2},d);
 Result: {a,{1,2},d};
 
-*SEE ListToFunction, FunctionToList
+ *SEE ListToFunction, FunctionToList
 %/mathpiper_docs
-*/
+ */

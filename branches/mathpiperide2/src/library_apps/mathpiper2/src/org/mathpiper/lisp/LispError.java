@@ -331,8 +331,8 @@ public class LispError {
     }
 
 
-    public static void checkIsList(Environment aEnvironment, int aStackTop, ConsPointer evaluated, int aArgNr, String functionName) throws Exception {
-        if(! Utility.isSublist(evaluated.getCons())) checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, "argument is not a list.", functionName);
+    public static void checkIsList(Environment aEnvironment, int aStackTop, Cons evaluated, int aArgNr, String functionName) throws Exception {
+        if(! Utility.isSublist(evaluated)) checkArgumentTypeWithError(aEnvironment, aStackTop, aArgNr, "argument is not a list.", functionName);
     }
 
 

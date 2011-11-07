@@ -204,14 +204,14 @@ public class Utility {
 
         Cons resultCons = SublistCons.getInstance(aEnvironment, full.getCons());
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, aArguments);
-        consTraverser.goNext(aStackTop);
+        Cons consTraverser = aArguments;
+        consTraverser = consTraverser.cdr();
 
-        while (consTraverser.getCons() != null) {
-            Cons next = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser.getPointer().getCons());
+        while (consTraverser != null) {
+            Cons next = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
             full.getCons().setCdr(next);
             full.setCons(next);
-            consTraverser.goNext(aStackTop);
+            consTraverser = consTraverser.cdr();
         }
         full.getCons().setCdr(null);
 
@@ -288,15 +288,15 @@ public class Utility {
         if(aArg == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
         if(! (aArg.car() instanceof Cons)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
         if(n < 0) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, (Cons) aArg.car());
+        Cons consTraverser = (Cons) aArg.car();
 
         while (n > 0) {
-            if(consTraverser.getCons() == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
-            consTraverser.goNext(aStackTop);
+            if(consTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
+            consTraverser = consTraverser.cdr();
             n--;
         }
-        if(consTraverser.getCons() == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
-        return consTraverser.getCons().copy(aEnvironment, false);
+        if(consTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg, "INTERNAL");
+        return consTraverser.copy(aEnvironment, false);
     }
 
     public static Cons tail(Environment aEnvironment, int aStackTop, Cons aArg) throws Exception {
@@ -496,7 +496,7 @@ public class Utility {
         }
     }
 
-    public static void flatCopy(Environment aEnvironment, int aStackTop, ConsPointer aResult, Cons aOriginal) throws Exception {
+    public static Cons flatCopy(Environment aEnvironment, int aStackTop, Cons aOriginal) throws Exception {
         Cons orig = aOriginal;
         Cons copied = null;
         Cons head = null;
@@ -526,7 +526,7 @@ public class Utility {
 
         }
 
-        aResult.setCons(head);
+        return head;
     }
 
     public static boolean equals(Environment aEnvironment, int aStackTop, Cons aExpression1, Cons aExpression2) throws Exception {
@@ -572,21 +572,21 @@ public class Utility {
             if (!(aExpression2.car() instanceof Cons)) {
                 return false;
             }
-            ConsTraverser consTraverser1 = new ConsTraverser(aEnvironment, (Cons) aExpression1.car());
-            ConsTraverser consTraverser2 = new ConsTraverser(aEnvironment, (Cons) aExpression2.car());
+            Cons consTraverser1 = (Cons) aExpression1.car();
+            Cons consTraverser2 = (Cons) aExpression2.car();
 
-            while (consTraverser1.getCons() != null && consTraverser2.getCons() != null) {
+            while (consTraverser1 != null && consTraverser2 != null) {
                 // compare two list elements
-                if (!equals(aEnvironment, aStackTop, consTraverser1.getPointer().getCons(), consTraverser2.getPointer().getCons())) {
+                if (!equals(aEnvironment, aStackTop, consTraverser1, consTraverser2)) {
                     return false;
                 }
 
                 // Step to rest
-                consTraverser1.goNext(aStackTop);
-                consTraverser2.goNext(aStackTop);
+                consTraverser1 = consTraverser1.cdr();
+                consTraverser2 = consTraverser2.cdr();
             }
             // Lists don't have the same length
-            if (consTraverser1.getCons() != consTraverser2.getCons()) {
+            if (consTraverser1 != consTraverser2) {
                 return false;            // Same!
             }
             return true;
@@ -952,15 +952,14 @@ public class Utility {
 
 
     public static void delete(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons evaluated = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1);
         LispError.checkIsList(aEnvironment, aStackTop, evaluated, 1, "INTERNAL");
 
-        ConsPointer copied = new ConsPointer();
+        Cons copied = null;
         if (aDestructive) {
-            copied.setCons(((Cons) evaluated.car()));
+            copied = ((Cons) evaluated.car());
         } else {
-            Utility.flatCopy(aEnvironment, aStackTop, copied, (Cons) evaluated.car());
+            copied = Utility.flatCopy(aEnvironment, aStackTop, (Cons) evaluated.car());
         }
 
         ConsPointer index = new ConsPointer();
@@ -970,7 +969,7 @@ public class Utility {
         int ind = Integer.parseInt((String) index.car(), 10);
         if( ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied.getCons());
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied);
         while (ind > 0) {
             consTraverser.goNext(aStackTop);
             ind--;
@@ -979,19 +978,18 @@ public class Utility {
         ConsPointer next = new ConsPointer();
         next.setCons(consTraverser.cdr());
         consTraverser.setCons(next.getCons());
-        BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied.getCons()));
+        BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied));
     }
 
     public static void insert(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons evaluated = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1);
         LispError.checkIsList(aEnvironment, aStackTop, evaluated, 1, "INTERNAL");
 
-        ConsPointer copied = new ConsPointer();
+        Cons copied = null;
         if (aDestructive) {
-            copied.setCons(((Cons) evaluated.car()));
+            copied = (Cons) evaluated.car();
         } else {
-            Utility.flatCopy(aEnvironment, aStackTop, copied, (Cons) evaluated.car());
+             copied = Utility.flatCopy(aEnvironment, aStackTop, (Cons) evaluated.car());
         }
 
         ConsPointer index = new ConsPointer();
@@ -1001,7 +999,7 @@ public class Utility {
         int ind = Integer.parseInt((String) index.car(), 10);
         if( ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied.getCons());
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied);
         while (ind > 0) {
             consTraverser.goNext(aStackTop);
             ind--;
@@ -1011,7 +1009,7 @@ public class Utility {
         toInsert.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3));
         toInsert.getCons().setCdr(consTraverser.getCons());
         consTraverser.setCons(toInsert.getCons());
-        BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied.getCons()));
+        BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied));
     }
 
     public static void replace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
@@ -1026,15 +1024,15 @@ public class Utility {
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         int ind = Integer.parseInt((String) index.car(), 10);
 
-        ConsPointer copied = new ConsPointer();
+        Cons copied = null;
         if (aDestructive) {
-            copied.setCons(((Cons) evaluated.car()));
+            copied = ((Cons) evaluated.car());
         } else {
-            Utility.flatCopy(aEnvironment, aStackTop, copied, (Cons) evaluated.car());
+            copied = Utility.flatCopy(aEnvironment, aStackTop, (Cons) evaluated.car());
         }
         if(ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied.getCons());
+        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied);
         while (ind > 0) {
             consTraverser.goNext(aStackTop);
             ind--;
@@ -1046,7 +1044,7 @@ public class Utility {
         if( consTraverser.getPointer().getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         toInsert.getCons().setCdr(consTraverser.getPointer().cdr());
         consTraverser.setCons(toInsert.getCons());
-        BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied.getCons()));
+        BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied));
     }
 
     /**
@@ -1056,14 +1054,13 @@ public class Utility {
     public static void rulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
 
         // Get operator
-        ConsPointer argsPointer = new ConsPointer();
         String functionName = null;
 
         if( BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "INTERNAL");
         Cons argumentPointer =  BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1);
         functionName = (String) argumentPointer.car();
         if( functionName == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "INTERNAL");
-        argsPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
+        Cons argsPointer = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2);
 
         // Check the arguments.
         LispError.checkIsList(aEnvironment, aStackTop, argsPointer, 2, "INTERNAL");
@@ -1129,7 +1126,6 @@ public class Utility {
 
     public static void defMacroRulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         // Get operator
-        ConsPointer args = new ConsPointer();
         ConsPointer body = new ConsPointer();
         String orig = null;
 
@@ -1138,7 +1134,7 @@ public class Utility {
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "INTERNAL");
 
         // The arguments
-        args.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
+        Cons args = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2);
         LispError.checkIsList(aEnvironment, aStackTop, args, 2, "INTERNAL");
 
         // Finally define the rule base
