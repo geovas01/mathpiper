@@ -62,7 +62,7 @@ format is used, the {n}-th derivative is determined. MathPiper knows
 how to differentiate standard functions such as {Ln}
 and {Sin}.
 
-The {D} operator is threaded in both {var} and
+The {Differentiate} operator is threaded in both {var} and
 {expr}. This means that if either of them is a list, the function is
 applied to each entry in the list. The results are collected in
 another list which is returned. If both {var} and {expr} are a
@@ -71,7 +71,7 @@ the list {expr} is differentiated with respect to the first entry in
 the list {var}, the second entry in {expr} is differentiated with
 respect to the second entry in {var}, and so on.
 
-The {D} operator returns the original function if $n=0$, a common
+The {Differentiate} operator returns the original function if $n=0$, a common
 mathematical idiom that simplifies many formulae.
 
 *E.G.
@@ -104,11 +104,18 @@ Verify(Differentiate(x) (x+x),2);
 Verify(Differentiate(x) (x*x),2*x);
 Verify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x));
 
+KnownFailure(Verify([Local(poly); poly := x^2; Differentiate(x) poly;], 2*x));
+
 [
+  /*
+      Differentiate does not currently work when the expression is in a local variable.
+      This test actually fails but the failure happens to return a 0 which matches
+      the expected value.
+  */
   Local(z);
   // This function satisfies Laplaces eqn: Differentiate(x,2)z + Differentiate(y,2)z = 0
   z:= ArcTan((2*x*y)/(x^2 - y^2));
-  Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 );
+  KnownFailure(Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 ));
 ];
 
 Verify( Differentiate(x,0) Sin(x), Sin(x) );
