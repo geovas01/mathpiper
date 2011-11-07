@@ -281,7 +281,7 @@ public class SingleArityRulebase extends Evaluator {
                 //If the parameter is not on hold:
 
                 //Verify that the pointer to the arguments is not null.
-                if(argumentsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
+                //if(argumentsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
 
                 //Evaluate each argument and place the result into argumentsResultPointerArray[i];
                 argumentsResultPointerArray[parameterIndex] = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsTraverser.getCons());
