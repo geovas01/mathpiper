@@ -567,7 +567,7 @@ public final class Environment {
         multipleArityUserFunction.addRulebaseEntry(this, aStackTop, newBranchingRulebase);
     }
 
-    public void defineRule(int aStackTop, String aOperator, int aArity, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public void defineRule(int aStackTop, String aOperator, int aArity, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // Find existing multiuser rule.
         MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
         if(multipleArityRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator,"INTERNAL");
@@ -577,7 +577,7 @@ public final class Environment {
         if(rulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator,"INTERNAL");
 
         // Declare a new evaluation rule
-        if (Utility.isTrue(this, aPredicate.getCons(), aStackTop)) {
+        if (Utility.isTrue(this, aPredicate, aStackTop)) {
             //        printf("FastPredicate on %s\n",aOperator->String());
             rulebase.defineAlwaysTrueRule(aStackTop, aPrecedence, aBody);
         } else {
@@ -598,7 +598,7 @@ public final class Environment {
         multipleArityRulebase.addRulebaseEntry(this, aStackTop, newMacroRulebase);
     }
 
-    public void defineRulePattern(int aStackTop, String aOperator, int aArity, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public void defineRulePattern(int aStackTop, String aOperator, int aArity, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // Find existing multiuser rulebase.
         MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
         if(multipleArityRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator,"INTERNAL");

@@ -896,8 +896,7 @@ public class Utility {
         // Get operator
         if(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "INTERNAL");
 
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons evaluated = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1);
 
         String orig = (String) evaluated.car();
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "INTERNAL");
@@ -955,9 +954,8 @@ public class Utility {
             copied = Utility.flatCopy(aEnvironment, aStackTop, (Cons) evaluated.car());
         }
 
-        ConsPointer index = new ConsPointer();
-        index.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
-        if(index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
+        Cons index = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2);
+        if(index == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         int ind = Integer.parseInt((String) index.car(), 10);
         if( ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
@@ -987,9 +985,8 @@ public class Utility {
              copied = Utility.flatCopy(aEnvironment, aStackTop, (Cons) evaluated.car());
         }
 
-        ConsPointer index = new ConsPointer();
-        index.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
-        if(index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
+        Cons index = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2);
+        if(index == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         int ind = Integer.parseInt((String) index.car(), 10);
         if( ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
@@ -1012,14 +1009,13 @@ public class Utility {
     }
 
     public static void replace(Environment aEnvironment, int aStackTop, boolean aDestructive) throws Exception {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1));
+
+        Cons evaluated = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1);
         // Ok, so lets not check if it is a list, but it needs to be at least a 'function'
         if(! (evaluated.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1, "INTERNAL");
 
-        ConsPointer index = new ConsPointer();
-        index.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
-        if( index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
+        Cons index = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2);
+        if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         int ind = Integer.parseInt((String) index.car(), 10);
 
@@ -1082,28 +1078,24 @@ public class Utility {
         int arity;
         int precedence;
 
-        ConsPointer arityPointer = new ConsPointer();
-        ConsPointer precidencePointer = new ConsPointer();
-        ConsPointer predicate = new ConsPointer();
-        ConsPointer bodyPointer = new ConsPointer();
         String orig = null;
 
         // Get operator
         if( BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "INTERNAL");
         orig = (String) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1).car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "INTERNAL");
-        arityPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2));
-        precidencePointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3));
-        predicate.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 4));
-        bodyPointer.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 5));
+        Cons arityPointer = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons precidencePointer = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3);
+        Cons predicate = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 4);
+        Cons bodyPointer = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 5);
 
         // The arity
-        if( arityPointer.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
+        if( arityPointer  == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         if(! (arityPointer.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
         arity = Integer.parseInt((String) arityPointer.car(), 10);
 
         // The precedence
-        if( precidencePointer.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 3, "INTERNAL");
+        if( precidencePointer  == null) LispError.checkArgument(aEnvironment, aStackTop, 3, "INTERNAL");
         if(! (precidencePointer.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 3, "INTERNAL");
         precedence = Integer.parseInt((String) precidencePointer.car(), 10);
 
@@ -1418,11 +1410,9 @@ public class Utility {
 
         aEnvironment.defineRulebase(aStackTop, functionName, head, false);
 
-        ConsPointer truePointer = new ConsPointer();
-
         Cons expressionCons = Utility.mathPiperParse(aEnvironment, aStackTop, body);
 
-        aEnvironment.defineRule(aStackTop, functionName, parameters.length, 100, new ConsPointer(Utility.putTrueInPointer(aEnvironment)), new ConsPointer(expressionCons));
+        aEnvironment.defineRule(aStackTop, functionName, parameters.length, 100, Utility.putTrueInPointer(aEnvironment), expressionCons);
     }
 
 }//end class.

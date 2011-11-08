@@ -41,19 +41,19 @@ public class PatternRule extends Rule {
      * @param aPredicate getObject object of type PatternContainer
      * @param aBody body of the rule
      */
-    public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         iBody = new ConsPointer();
         iPredicate = new ConsPointer();
         iPattern = null;
         iPrecedence = aPrecedence;
-        iPredicate.setCons(aPredicate.getCons());
+        iPredicate.setCons(aPredicate);
 
         BuiltinContainer gen = (BuiltinContainer) aPredicate.car();
         if(gen == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "","INTERNAL");
         if(! gen.typeName().equals("\"Pattern\"")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Type is not <pattern>.","INTERNAL");
 
         iPattern = (PatternContainer) gen;
-        iBody.setCons(aBody.getCons());
+        iBody.setCons(aBody);
     }
 
     //Return true if the corresponding pattern matches.
