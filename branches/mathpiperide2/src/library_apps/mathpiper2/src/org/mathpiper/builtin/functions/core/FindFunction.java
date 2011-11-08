@@ -22,8 +22,8 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.rulebases.MultipleArityRulebase;
 
 /**
@@ -47,11 +47,10 @@ public class FindFunction extends BuiltinFunction
     {
         if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
 
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         // Get file name
-        if( evaluated.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "FindFunction");
+        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "FindFunction");
         String orig =  (String) evaluated.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "FindFunction");
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);

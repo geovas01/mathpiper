@@ -44,16 +44,16 @@ public class LispPrinter {
 
 
     void printExpression(Cons aExpression, MathPiperOutputStream aOutput, Environment aEnvironment, int aDepth /* =0 */) throws Exception {
-        ConsPointer consWalker = new ConsPointer();
-        consWalker.setCons(aExpression);
+
+        Cons consWalker = aExpression;
         int item = 0;
 
-        if(consWalker.getCons() == null)
+        if(consWalker == null)
         {
             aOutput.write("<null>");
         }
 
-        while (consWalker.getCons() != null) {
+        while (consWalker != null) {
 
             if (consWalker.car() instanceof String) {
                 String atom = (String) consWalker.car();
@@ -89,9 +89,9 @@ public class LispPrinter {
                 aOutput.write("[BuiltinObject]");
             }
 
-            consWalker.setCons((consWalker.cdr())); // print rest element
+            consWalker = (consWalker.cdr()); // print rest element
             
-            if(consWalker.getCons() != null)
+            if(consWalker != null)
             {
                aOutput.putChar(' ');
             }

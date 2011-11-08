@@ -23,6 +23,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
 /**
@@ -44,15 +45,13 @@ public class RulebaseDefined extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer name = new ConsPointer();
-        name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons name = getArgumentPointer(aEnvironment, aStackTop, 1);
         String orig = (String) name.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RulebaseDefined");
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
-        ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
-        if( sizearg.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseDefined");
+        Cons sizearg = getArgumentPointer(aEnvironment, aStackTop, 2);
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseDefined");
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseDefined");
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);

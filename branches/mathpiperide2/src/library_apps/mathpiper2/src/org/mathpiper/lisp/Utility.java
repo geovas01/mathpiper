@@ -172,15 +172,15 @@ public class Utility {
         return length;
     }
 
-    public static Cons reverseList(Environment aEnvironment, ConsPointer aOriginal) {
+    public static Cons reverseList(Environment aEnvironment, Cons aOriginal) {
         //ConsPointer iter = new ConsPointer(aOriginal);
         ConsPointer iter = new ConsPointer();
-        iter.setCons(aOriginal.getCons());
+        iter.setCons(aOriginal);
 
         Cons previous = null;
 
         ConsPointer tail = new ConsPointer();
-        tail.setCons(aOriginal.getCons());
+        tail.setCons(aOriginal);
 
         while (iter.getCons() != null) {
 
@@ -1293,7 +1293,7 @@ public class Utility {
      * @param expressionPointer
      * @throws java.lang.Exception
      */
-    public static String functionType(ConsPointer expressionPointer) throws Exception {
+    public static String functionType(Cons expressionPointer) throws Exception {
         if (!(expressionPointer.car() instanceof Cons)) {
             return "";
         }

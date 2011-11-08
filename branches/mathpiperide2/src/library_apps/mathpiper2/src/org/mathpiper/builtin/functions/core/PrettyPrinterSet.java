@@ -21,8 +21,8 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -50,10 +50,9 @@ public class PrettyPrinterSet extends BuiltinFunction
         } else
         {
             if(nrArguments != 2) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS);
-            ConsPointer oper = new ConsPointer();
-            oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 0));
-            oper.goNext(aStackTop, aEnvironment);
-            LispError.checkIsString(aEnvironment, aStackTop, oper.getCons(), 1, "PrettyPrinterSet");
+            Cons oper = getArgumentPointer(aEnvironment, aStackTop, 0);
+            oper = oper.cdr();
+            LispError.checkIsString(aEnvironment, aStackTop, oper, 1, "PrettyPrinterSet");
             aEnvironment.iPrettyPrinterName = (String) oper.car();
         }
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));

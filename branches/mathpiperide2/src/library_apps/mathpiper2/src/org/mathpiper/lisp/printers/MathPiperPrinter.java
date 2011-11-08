@@ -131,16 +131,16 @@ public class MathPiperPrinter extends LispPrinter {
             }
 
             if (operator != null) {
-                ConsPointer left = new ConsPointer();
-                ConsPointer right = new ConsPointer();
+                Cons left = null;
+                Cons right = null;
 
                 if (prefix != null) {
-                    right.setCons(subList.cdr());
+                    right = subList.cdr();
                 } else if (infix != null) {
-                    left.setCons(subList.cdr());
-                    right.setCons(subList.cdr().cdr());
+                    left = subList.cdr();
+                    right = subList.cdr().cdr();
                 } else if (postfix != null) {
-                    left.setCons(subList.cdr());
+                    left = subList.cdr();
                 }
 
                 if (iPrecedence < operator.iPrecedence) {
@@ -149,14 +149,14 @@ public class MathPiperPrinter extends LispPrinter {
                     //Vladimir?    aOutput.write(" ");
                 }
 
-                if (left.getCons() != null) {
+                if (left != null) {
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(left).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
                         WriteToken(aOutput, "(");
                     }//end if.
 
-                    Print(aEnvironment, aStackTop, left.getCons(), aOutput, operator.iLeftPrecedence);
+                    Print(aEnvironment, aStackTop, left, aOutput, operator.iLeftPrecedence);
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(left).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
@@ -180,7 +180,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, " ");
                 }//end if.
 
-                if (right.getCons() != null) {
+                if (right != null) {
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(right).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .
@@ -191,7 +191,7 @@ public class MathPiperPrinter extends LispPrinter {
                         WriteToken(aOutput, " ");
                     }//end if.
 
-                    Print(aEnvironment, aStackTop, right.getCons(), aOutput, operator.iRightPrecedence);
+                    Print(aEnvironment, aStackTop, right, aOutput, operator.iRightPrecedence);
 
                     if (functionOrOperatorName.equals("/") && Utility.functionType(right).equals("/")) {
                         //Code for In> Hold((3/2)/(1/2)) Result> (3/2)/(1/2) .

@@ -50,10 +50,9 @@ public class Not_ extends BuiltinFunction
             setTopOfStackPointer(aEnvironment, aStackTop, Utility.not(aStackTop, aEnvironment, evaluated));
         } else
         {
-            ConsPointer ptr = new ConsPointer();
-            ptr.setCons(getArgumentPointer(aEnvironment, aStackTop, 0).copy( aEnvironment, false));
-            ptr.getCons().setCdr(evaluated);
-            setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,ptr.getCons()));
+            Cons ptr = getArgumentPointer(aEnvironment, aStackTop, 0).copy( aEnvironment, false);
+            ptr.setCdr(evaluated);
+            setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,ptr));
         }
     }
 }

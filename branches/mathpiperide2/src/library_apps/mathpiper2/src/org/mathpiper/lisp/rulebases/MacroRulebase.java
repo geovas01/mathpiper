@@ -147,11 +147,10 @@ public class MacroRulebase extends SingleArityRulebase {
 
         /*Leave trace code */
         if (isTraced(this.functionName) && showFlag) {
-            ConsPointer tr = new ConsPointer();
-            tr.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
+            Cons tr = SublistCons.getInstance(aEnvironment, aArgumentsPointer);
             String localVariables = aEnvironment.getLocalVariables(aStackTop);
-            LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr.getCons(), "macro", localVariables);
-            tr.setCons(null);
+            LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr, "macro", localVariables);
+            tr = null;
         }
 
         return aResult;

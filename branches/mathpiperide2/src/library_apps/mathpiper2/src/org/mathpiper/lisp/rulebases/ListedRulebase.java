@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
@@ -76,10 +75,10 @@ public class ListedRulebase extends SingleArityRulebase {
             consTraverser = consTraverser.cdr();
             if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackTop);
         } else {
-            ConsPointer head = new ConsPointer();
-            head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
-            head.getCons().setCdr(consTraverser);
-            Cons nextCons = SublistCons.getInstance(aEnvironment, head.getCons());
+
+            Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
+            head.setCdr(consTraverser);
+            Cons nextCons = SublistCons.getInstance(aEnvironment, head);
             ptr.setCdr(nextCons);
             ptr = nextCons;
         }
