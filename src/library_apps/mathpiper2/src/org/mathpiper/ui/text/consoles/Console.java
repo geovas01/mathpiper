@@ -24,6 +24,7 @@ import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.EvaluationResponse;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
+import org.mathpiper.lisp.Environment;
 
 
 /**
@@ -39,6 +40,9 @@ public class Console {
         //MathPiper needs an output stream to send "side effect" output to.
         //StandardFileOutputStream stdoutput = new StandardFileOutputStream(System.out);
         interpreter = Interpreters.getSynchronousInterpreter();
+
+        Environment environment = interpreter.getEnvironment();
+        Interpreters.addOptionalFunctions(environment,"org/mathpiper/builtin/functions/optional/");
     }
 
 
