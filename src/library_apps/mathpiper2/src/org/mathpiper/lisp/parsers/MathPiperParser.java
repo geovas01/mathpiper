@@ -430,7 +430,7 @@ public class MathPiperParser extends Parser
        
 
         Cons result = Utility.reverseList(aEnvironment,
-                new ConsPointer(((Cons) subList.car()).cdr()));
+                ((Cons) subList.car()).cdr());
         ((Cons) subList.car()).setCdr(result);
 
         parsedExpression = subList.getCons();

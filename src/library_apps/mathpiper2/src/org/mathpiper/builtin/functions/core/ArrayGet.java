@@ -24,7 +24,6 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -45,17 +44,15 @@ public class ArrayGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
         if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1,"ArrayGet");
         if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1, "ArrayGet");
 
-        ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
+        Cons sizearg = getArgumentPointer(aEnvironment, aStackTop, 2);
 
-        if( sizearg.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArrayGet");
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArrayGet");
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArrayGet");
 
         int size = Integer.parseInt( (String) sizearg.car(), 10);
