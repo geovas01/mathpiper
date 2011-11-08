@@ -22,10 +22,8 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.builtin.PatternContainer;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
 
 /**
  *
@@ -51,14 +49,14 @@ public class PatternCreate extends BuiltinFunction
         
         Cons postPredicatePointer = getArgumentPointer(aEnvironment, aStackTop, 2);
 
-        ConsTraverser patternPointerTraverser = new ConsTraverser(aEnvironment, patternPointer);
-        if(patternPointerTraverser.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PatternCreate");
+        Cons patternPointerTraverser = patternPointer;
+        if(patternPointerTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PatternCreate");
         if(! (patternPointerTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1, "PatternCreate");
-        patternPointerTraverser.goSub(aStackTop);
-        if(patternPointerTraverser.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PatternCreate");
-        patternPointerTraverser.goNext(aStackTop);
+        patternPointerTraverser = (Cons) patternPointerTraverser.car();
+        if(patternPointerTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "PatternCreate");
+        patternPointerTraverser = patternPointerTraverser.cdr();
 
-        patternPointer = patternPointerTraverser.getPointer().getCons();
+        patternPointer = patternPointerTraverser;
 
 
         org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, aStackTop, patternPointer, postPredicatePointer);

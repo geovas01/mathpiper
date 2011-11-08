@@ -31,7 +31,6 @@ import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.cons.SublistCons;
 
@@ -54,13 +53,13 @@ public class JavaCall extends BuiltinFunction {
         if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof Cons) {
 
             Cons subList = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
+            Cons consTraverser = subList;
 
             //Skip past List type.
-            consTraverser.goNext(aStackTop);
+            consTraverser = consTraverser.cdr();
 
             //Obtain the Java object to call.
-            Cons argumentCons = consTraverser.getPointer().getCons();
+            Cons argumentCons = consTraverser;
 
             BuiltinContainer builtinContainer = null;
 
@@ -83,18 +82,18 @@ public class JavaCall extends BuiltinFunction {
                 if (builtinContainer != null) {
 
 
-                    consTraverser.goNext(aStackTop);
-                    argumentCons = consTraverser.getPointer().getCons();
+                    consTraverser = consTraverser.cdr();
+                    argumentCons = consTraverser;
                     String methodName = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
                     methodName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, methodName);
 
-                    consTraverser.goNext(aStackTop);
+                    consTraverser = consTraverser.cdr();
 
                     ArrayList argumentArrayList = new ArrayList();
 
-                    while (consTraverser.getCons() != null) {
-                        argumentCons = consTraverser.getPointer().getCons();
+                    while (consTraverser != null) {
+                        argumentCons = consTraverser;
 
                         Object argument = null;
 
@@ -137,7 +136,7 @@ public class JavaCall extends BuiltinFunction {
 
                         argumentArrayList.add(argument);
 
-                        consTraverser.goNext(aStackTop);
+                        consTraverser = consTraverser.cdr();
 
                     }//end while.
 

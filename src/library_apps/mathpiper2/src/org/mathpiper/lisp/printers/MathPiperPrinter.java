@@ -21,7 +21,6 @@ import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.Operator;
@@ -206,7 +205,7 @@ public class MathPiperPrinter extends LispPrinter {
 
             } else {
 
-                ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList.cdr());
+                Cons  consTraverser =  subList.cdr();
 
                /*
                    Removing complex number output notation formatting until the problem with Solve(x^3 - 2*x - 7 == 0,x) is resolved.
@@ -240,10 +239,10 @@ public class MathPiperPrinter extends LispPrinter {
 
                     WriteToken(aOutput, "{");
 
-                    while (consTraverser.getCons() != null) {
-                        Print(aEnvironment, aStackTop, consTraverser.getPointer().getCons(), aOutput, KMaxPrecedence);
-                        consTraverser.goNext(aStackTop);
-                        if (consTraverser.getCons() != null) {
+                    while (consTraverser != null) {
+                        Print(aEnvironment, aStackTop, consTraverser, aOutput, KMaxPrecedence);
+                        consTraverser = consTraverser.cdr();
+                        if (consTraverser != null) {
                             WriteToken(aOutput, ",");
                         }
                     }//end while.
@@ -259,10 +258,10 @@ public class MathPiperPrinter extends LispPrinter {
                     aOutput.write("\n");
                     spaces.append("    ");
 
-                    while (consTraverser.getCons() != null) {
+                    while (consTraverser != null) {
                         aOutput.write(spaces.toString());
-                        Print(aEnvironment, aStackTop, consTraverser.getPointer().getCons(), aOutput, KMaxPrecedence);
-                        consTraverser.goNext(aStackTop);
+                        Print(aEnvironment, aStackTop, consTraverser, aOutput, KMaxPrecedence);
+                        consTraverser = consTraverser.cdr();
                         WriteToken(aOutput, ";");
                         aOutput.write("\n");
                     }
@@ -273,10 +272,10 @@ public class MathPiperPrinter extends LispPrinter {
                     //aOutput.write("\n");
 
                 } else if (functionOrOperatorName == iCurrentEnvironment.iNthAtom.car()) {
-                    Print(aEnvironment, aStackTop, consTraverser.getPointer().getCons(), aOutput, 0);
-                    consTraverser.goNext(aStackTop);
+                    Print(aEnvironment, aStackTop, consTraverser, aOutput, 0);
+                    consTraverser = consTraverser.cdr();
                     WriteToken(aOutput, "[");
-                    Print(aEnvironment, aStackTop,  consTraverser.getPointer().getCons(), aOutput, KMaxPrecedence);
+                    Print(aEnvironment, aStackTop,  consTraverser, aOutput, KMaxPrecedence);
                     WriteToken(aOutput, "]");
                 } else {
                     boolean bracket = false;
@@ -296,11 +295,11 @@ public class MathPiperPrinter extends LispPrinter {
                     }
                     WriteToken(aOutput, "("); //Print the opening parenthese of the function argument list.
 
-                    ConsTraverser counter = new ConsTraverser(aEnvironment, consTraverser.getPointer().getCons());
+                    Cons counter = consTraverser;
                     int nr = 0;
 
-                    while (counter.getCons() != null) { //Count arguments.
-                        counter.goNext(aStackTop);
+                    while (counter != null) { //Count arguments.
+                        counter = counter.cdr();
                         nr++;
                     }
 
@@ -308,9 +307,9 @@ public class MathPiperPrinter extends LispPrinter {
                         nr--;
                     }
                     while (nr-- != 0) {
-                        Print(aEnvironment, aStackTop, consTraverser.getPointer().getCons(), aOutput, KMaxPrecedence); //Print argument.
+                        Print(aEnvironment, aStackTop, consTraverser, aOutput, KMaxPrecedence); //Print argument.
 
-                        consTraverser.goNext(aStackTop);
+                        consTraverser = consTraverser.cdr();
 
                         if (nr != 0) {
                             WriteToken(aOutput, ","); //Print the comma which is between arguments.
@@ -319,8 +318,8 @@ public class MathPiperPrinter extends LispPrinter {
 
                     WriteToken(aOutput, ")");
 
-                    if (consTraverser.getCons() != null) {
-                        Print(aEnvironment, aStackTop, consTraverser.getPointer().getCons(), aOutput, bodied.iPrecedence);
+                    if (consTraverser != null) {
+                        Print(aEnvironment, aStackTop, consTraverser, aOutput, bodied.iPrecedence);
                     }
 
                     if (bracket) {

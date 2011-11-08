@@ -26,7 +26,6 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.NumberCons;
 
 /**
@@ -47,12 +46,12 @@ public class JavaNew extends BuiltinFunction {
         if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof Cons) {
 
             Cons subList = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
+            Cons  consTraverser = subList;
 
             //Skip past List type.
-            consTraverser.goNext(aStackTop);
+            consTraverser = consTraverser.cdr();
 
-            Cons argumentCons = consTraverser.getPointer().getCons();
+            Cons argumentCons = consTraverser;
 
             if (argumentCons != null) {
 
@@ -60,12 +59,12 @@ public class JavaNew extends BuiltinFunction {
                 //Strip leading and trailing quotes.
                 fullyQualifiedClassName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, fullyQualifiedClassName);
 
-                consTraverser.goNext(aStackTop);
+                consTraverser = consTraverser.cdr();
 
                 ArrayList argumentArrayList = new ArrayList();
 
-                while (consTraverser.getCons() != null) {
-                    argumentCons = consTraverser.getPointer().getCons();
+                while (consTraverser != null) {
+                    argumentCons = consTraverser;
 
                     Object argument = null;
 
@@ -93,7 +92,7 @@ public class JavaNew extends BuiltinFunction {
 
                     argumentArrayList.add(argument);
 
-                    consTraverser.goNext(aStackTop);
+                    consTraverser = consTraverser.cdr();
 
                 }//end while.
 

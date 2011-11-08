@@ -17,11 +17,9 @@
 package org.mathpiper.lisp;
 
 import org.mathpiper.lisp.collections.OperatorMap;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.Cons;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -969,15 +967,17 @@ public class Utility {
         int ind = Integer.parseInt((String) index.car(), 10);
         if( ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied);
+        Cons  consTraverser = copied;
+        Cons previousCons = null;
         while (ind > 0) {
-            consTraverser.goNext(aStackTop);
+            previousCons = consTraverser;
+            consTraverser = consTraverser.cdr();
             ind--;
         }
-        if(consTraverser.getCons() == null) LispError.throwError(aEnvironment, aStackTop,  LispError.NOT_LONG_ENOUGH);
-        ConsPointer next = new ConsPointer();
-        next.setCons(consTraverser.cdr());
-        consTraverser.setCons(next.getCons());
+        if(consTraverser == null) LispError.throwError(aEnvironment, aStackTop,  LispError.NOT_LONG_ENOUGH);
+
+        previousCons.setCdr(consTraverser.cdr());
+
         BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied));
     }
 
@@ -999,16 +999,20 @@ public class Utility {
         int ind = Integer.parseInt((String) index.car(), 10);
         if( ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied);
+        Cons previousCons = null;
+        Cons consTraverser = copied;
         while (ind > 0) {
-            consTraverser.goNext(aStackTop);
+            previousCons = consTraverser;
+            consTraverser = consTraverser.cdr();
             ind--;
         }
 
-        ConsPointer toInsert = new ConsPointer();
-        toInsert.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3));
-        toInsert.getCons().setCdr(consTraverser.getCons());
-        consTraverser.setCons(toInsert.getCons());
+        Cons toInsert = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3);
+
+        toInsert.setCdr(consTraverser);
+
+        previousCons.setCdr(toInsert);
+        
         BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied));
     }
 
@@ -1032,18 +1036,24 @@ public class Utility {
         }
         if(ind <= 0) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
 
-        ConsTraverser consTraverser = new ConsTraverser(aEnvironment, copied);
+        Cons consTraverser = copied;
+        
+        Cons previousCons = null;
+
         while (ind > 0) {
-            consTraverser.goNext(aStackTop);
+            previousCons = consTraverser;
+            consTraverser = consTraverser.cdr();
             ind--;
         }
 
-        ConsPointer toInsert = new ConsPointer();
-        toInsert.setCons(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3));
-        if(consTraverser.getPointer() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
-        if( consTraverser.getPointer().getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
-        toInsert.getCons().setCdr(consTraverser.getPointer().cdr());
-        consTraverser.setCons(toInsert.getCons());
+        Cons toInsert = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 3);
+
+        if(consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "INTERNAL");
+
+        toInsert.setCdr(consTraverser.cdr());
+
+        previousCons.setCdr(toInsert);
+
         BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, copied));
     }
 
