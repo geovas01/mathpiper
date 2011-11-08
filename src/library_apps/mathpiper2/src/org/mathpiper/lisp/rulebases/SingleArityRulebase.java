@@ -357,7 +357,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void defineSometimesTrueRule(int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public void defineSometimesTrueRule(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // New branching rule.
         PredicateRule newRule = new PredicateRule(iEnvironment, aPrecedence, aPredicate, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -374,7 +374,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void defineAlwaysTrueRule(int aStackTop, int aPrecedence, ConsPointer aBody) throws Exception {
+    public void defineAlwaysTrueRule(int aStackTop, int aPrecedence, Cons aBody) throws Exception {
         // New branching rule.
         PredicateRule newRule = new TrueRule(iEnvironment, aPrecedence, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");
@@ -392,7 +392,7 @@ public class SingleArityRulebase extends Evaluator {
      * @param aBody
      * @throws java.lang.Exception
      */
-    public void definePattern(int aStackTop, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) throws Exception {
+    public void definePattern(int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // New branching rule.
         PatternRule newRule = new PatternRule(iEnvironment, aStackTop, aPrecedence, aPredicate, aBody);
         //LispError.check(iEnvironment, aStackTop, newRule != null, LispError.CREATING_RULE, "INTERNAL");

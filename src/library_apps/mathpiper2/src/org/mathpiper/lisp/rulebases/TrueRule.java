@@ -17,7 +17,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
 
@@ -27,11 +26,11 @@ import org.mathpiper.lisp.cons.Cons;
 class TrueRule extends PredicateRule
 {
 
-    public TrueRule(Environment aEnvironment, int aPrecedence, ConsPointer aBody)
+    public TrueRule(Environment aEnvironment, int aPrecedence, Cons aBody)
     {
         super(aEnvironment);
         iPrecedence = aPrecedence;
-        iBody.setCons(aBody.getCons());
+        iBody.setCons(aBody);
     }
     /// Return true, always.
     @Override

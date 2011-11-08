@@ -31,12 +31,12 @@ class PredicateRule extends Rule {
     protected ConsPointer iPredicate;
 
 
-    public PredicateRule(Environment aEnvironment, int aPrecedence, ConsPointer aPredicate, ConsPointer aBody) {
+    public PredicateRule(Environment aEnvironment, int aPrecedence, Cons aPredicate, Cons aBody) {
         iBody = new ConsPointer();
-        iBody.setCons(aBody.getCons());
+        iBody.setCons(aBody);
         iPredicate = new ConsPointer();
         iPrecedence = aPrecedence;
-        iPredicate.setCons(aPredicate.getCons());
+        iPredicate.setCons(aPredicate);
 
     }
 
