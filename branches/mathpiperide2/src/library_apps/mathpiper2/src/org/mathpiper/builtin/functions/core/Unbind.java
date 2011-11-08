@@ -17,11 +17,9 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.core;
 
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
@@ -48,16 +46,16 @@ public class Unbind extends BuiltinFunction
 
             Cons subList = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             
-            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
-            consTraverser.goNext(aStackTop);
+            Cons  consTraverser = subList;
+            consTraverser = consTraverser.cdr();
             int nr = 1;
-            while (consTraverser.getCons() != null)
+            while (consTraverser != null)
             {
                 String variableName;
                 variableName =  (String) consTraverser.car();
                 if( variableName == null) LispError.checkArgument(aEnvironment, aStackTop, nr, "Unbind");
                 aEnvironment.unbindVariable(aStackTop, variableName);
-                consTraverser.goNext(aStackTop);
+                consTraverser = consTraverser.cdr();
                 nr++;
             }
         }

@@ -22,8 +22,6 @@ import org.mathpiper.io.StringOutput;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
-import org.mathpiper.lisp.cons.ConsTraverser;
 
 /**
  *
@@ -47,12 +45,12 @@ public class SysOut extends BuiltinFunction {
 
             Cons subList = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             
-            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
-            consTraverser.goNext(aStackTop);
-            while (consTraverser.getCons() != null)
+            Cons  consTraverser = subList;
+            consTraverser = consTraverser.cdr();
+            while (consTraverser != null)
             {
-                aEnvironment.iCurrentPrinter.print(aStackTop, consTraverser.getPointer().getCons(), out, aEnvironment);
-                consTraverser.goNext(aStackTop);
+                aEnvironment.iCurrentPrinter.print(aStackTop, consTraverser, out, aEnvironment);
+                consTraverser = consTraverser.cdr();
             }
         }
         String output = out.toString();

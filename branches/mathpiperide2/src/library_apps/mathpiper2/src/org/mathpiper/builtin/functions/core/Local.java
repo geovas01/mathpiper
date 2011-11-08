@@ -19,9 +19,7 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsTraverser;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
@@ -48,17 +46,17 @@ public class Local extends BuiltinFunction
 
             Cons subList = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
             
-            ConsTraverser consTraverser = new ConsTraverser(aEnvironment, subList);
-            consTraverser.goNext(aStackTop);
+            Cons consTraverser = subList;
+            consTraverser = consTraverser.cdr();
 
             int nr = 1;
-            while (consTraverser.getCons() != null)
+            while (consTraverser != null)
             {
                 String variable = (String) consTraverser.car();
                 if(variable == null) LispError.checkArgument(aEnvironment, aStackTop, nr, "Local");
                 // printf("Variable %s\n",variable.String());
                 aEnvironment.newLocalVariable(variable, null, aStackTop);
-                consTraverser.goNext(aStackTop);
+                consTraverser = consTraverser.cdr();
                 nr++;
             }
         }
