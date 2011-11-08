@@ -195,21 +195,20 @@ public class Utility {
     }
 
     public static Cons returnUnEvaluated(int aStackTop, Cons aArguments, Environment aEnvironment) throws Exception {
-        ConsPointer full = new ConsPointer();
-        full.setCons(aArguments.copy(aEnvironment, false));
+        Cons full = aArguments.copy(aEnvironment, false);
 
-        Cons resultCons = SublistCons.getInstance(aEnvironment, full.getCons());
+        Cons resultCons = SublistCons.getInstance(aEnvironment, full);
 
         Cons consTraverser = aArguments;
         consTraverser = consTraverser.cdr();
 
         while (consTraverser != null) {
             Cons next = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
-            full.getCons().setCdr(next);
-            full.setCons(next);
+            full.setCdr(next);
+            full = next;
             consTraverser = consTraverser.cdr();
         }
-        full.getCons().setCdr(null);
+        full.setCdr(null);
 
         return resultCons;
     }
@@ -220,9 +219,8 @@ public class Utility {
 
         Cons head = AtomCons.getInstance(aEnvironment, aStackTop, getSymbolName(aEnvironment, aOperator));
         head.setCdr(aArgs);
-        ConsPointer body = new ConsPointer();
-        body.setCons(SublistCons.getInstance(aEnvironment, head));
-        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body.getCons());
+        Cons body = SublistCons.getInstance(aEnvironment, head);
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
         return result;
     }
 
@@ -248,9 +246,8 @@ public class Utility {
 
                 String var = (String) oper2.car();
                 if( var == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2, "INTERNAL");
-                ConsPointer newly = new ConsPointer();
-                newly.setCons(args2.copy(aEnvironment, false));
-                aEnvironment.newLocalVariable(var, newly.getCons(), aStackTop);
+                Cons newly = args2.copy(aEnvironment, false);
+                aEnvironment.newLocalVariable(var, newly, aStackTop);
                 oper2 = oper2.cdr();
                 args2 = args2.cdr();
             }
@@ -1261,7 +1258,7 @@ public class Utility {
 
     }//end method.
 
-    public static Cons associativeListGet(Environment aEnvironment, int aStackTop, ConsPointer key, Cons listCons) throws Exception {
+    public static Cons associativeListGet(Environment aEnvironment, int aStackTop, Cons key, Cons listCons) throws Exception {
 
 
         while (listCons != null) {
@@ -1270,7 +1267,7 @@ public class Utility {
                 if (sub != null) {
                     sub = sub.cdr();
                     Cons temp = sub;
-                    if (Utility.equals(aEnvironment, aStackTop, key.getCons(), temp)) {
+                    if (Utility.equals(aEnvironment, aStackTop, key, temp)) {
                         return listCons;
                     }//end if.
 
