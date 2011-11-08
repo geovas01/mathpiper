@@ -20,10 +20,11 @@ package org.mathpiper.builtin.functions.core;
 
 import java.util.Iterator;
 import java.util.Map;
+import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.cons.SublistCons;
 
 
@@ -42,11 +43,9 @@ public class MetaValues extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer();
-        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons objectPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-
-        Map metadataMap = objectPointer.getCons().getMetadataMap();
+        Map metadataMap = objectPointer.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
             setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy( aEnvironment, false)));
@@ -55,23 +54,36 @@ public class MetaValues extends BuiltinFunction
         }//end if.
 
 
-        ConsPointer consPointer = new ConsPointer();
-
         Cons head = aEnvironment.iListAtom.copy( aEnvironment, false);
 
-        consPointer.setCons(head);
+        Cons consPointer = head;
 
         java.util.Collection valueCollection = (java.util.Collection) metadataMap.values();
 
         Iterator valueIterator = valueCollection.iterator();
 
+        Cons cons = null;
+        
         while(valueIterator.hasNext())
         {
-           Cons cons = (Cons) valueIterator.next();
+           Object object = valueIterator.next();
 
-           consPointer.getCons().setCdr(cons);
+           if(object instanceof Integer)
+           {
+             Integer integer = (Integer) object;
 
-           consPointer.goNext(aStackTop, aEnvironment);
+             BigNumber bigNumber = new BigNumber(integer);
+
+             cons = new NumberCons(bigNumber);
+           }
+           else
+           {
+               cons = (Cons) object;
+           }
+
+           consPointer.setCdr(cons);
+
+           consPointer = consPointer.cdr();
 
         }//end while.
 

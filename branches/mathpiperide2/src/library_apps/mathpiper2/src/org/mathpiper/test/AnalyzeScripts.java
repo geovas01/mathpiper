@@ -29,7 +29,7 @@ import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.parsers.MathPiperParser;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 
@@ -89,11 +89,15 @@ public class AnalyzeScripts {
                     aEnvironment.iCurrentInput, aEnvironment,
                     aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
                     aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-            ConsPointer readIn = new ConsPointer();
+            Cons readIn = null;
 
             while (!endoffile) {
                 // Read expression
-                ArrayList<Map> functionOrOperatorLocationsList = parser.parseAndFind(aStackTop, readIn, functionOrOperatorName);
+                Object[] result = parser.parseAndFind(aStackTop, functionOrOperatorName);
+
+                readIn = (Cons) result[0];
+
+                ArrayList<Map> functionOrOperatorLocationsList = (ArrayList) result[1];
 
                 for (Map location : functionOrOperatorLocationsList) {
 
@@ -111,7 +115,7 @@ public class AnalyzeScripts {
                     System.out.println("    " + operatorOrFunctionName + " " + lineNumber + ":" + lineIndex);
                 }
 
-                if( readIn.getCons() == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "", "INTERNAL");
+                if( readIn == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "", "INTERNAL");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;

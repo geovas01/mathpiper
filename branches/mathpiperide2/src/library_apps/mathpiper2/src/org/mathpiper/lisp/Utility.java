@@ -174,23 +174,21 @@ public class Utility {
 
     public static Cons reverseList(Environment aEnvironment, Cons aOriginal) {
         //ConsPointer iter = new ConsPointer(aOriginal);
-        ConsPointer iter = new ConsPointer();
-        iter.setCons(aOriginal);
+        Cons iter = aOriginal;
 
         Cons previous = null;
 
-        ConsPointer tail = new ConsPointer();
-        tail.setCons(aOriginal);
+        Cons tail = aOriginal;
 
-        while (iter.getCons() != null) {
+        while (iter != null) {
 
-            tail.setCons(iter.cdr());
+            tail = iter.cdr();
 
-            iter.getCons().setCdr(previous);
+            iter.setCdr(previous);
 
-            previous = iter.getCons();
+            previous = iter;
 
-            iter.setCons(tail.getCons());
+            iter = tail;
         }
 
         return previous;

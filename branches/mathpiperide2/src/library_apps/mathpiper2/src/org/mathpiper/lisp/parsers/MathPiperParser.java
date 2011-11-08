@@ -71,16 +71,20 @@ public class MathPiperParser extends Parser
     }
 
 
-    public ArrayList parseAndFind(int aStackTop, ConsPointer aResult, String functionOrOperatorName) throws Exception
+    public Object[] parseAndFind(int aStackTop, String functionOrOperatorName) throws Exception
     {
 
         locateFunctionOrOperatorName = functionOrOperatorName;
 
         functionOrOperatorLocationsList = new ArrayList();
 
-        aResult.setCons(parse(aStackTop));
+        Object[] result = new Object[2];
 
-        return functionOrOperatorLocationsList;
+        result[0] = parse(aStackTop);
+
+        result[1] = functionOrOperatorLocationsList;
+        
+        return result;
     }
 
 

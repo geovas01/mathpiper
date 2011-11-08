@@ -20,8 +20,8 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -42,8 +42,7 @@ public class Atom_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer result = new ConsPointer();
-        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons result = getArgumentPointer(aEnvironment, aStackTop, 1);
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, result.car() instanceof String));
     }
 }

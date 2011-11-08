@@ -21,8 +21,8 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -43,9 +43,8 @@ public class BuiltinPrecisionSet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer index = new ConsPointer();
-        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
-        if( index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "BuiltinPrecisionSet");
+        Cons index = getArgumentPointer(aEnvironment, aStackTop, 1);
+        if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "BuiltinPrecisionSet");
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1, "BuiltinPrecisionSet");
 
         int ind = Integer.parseInt( (String) index.car(), 10);
