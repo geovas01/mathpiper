@@ -45,8 +45,7 @@ public class BuiltinAssoc extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         // key to find
-        ConsPointer key = new ConsPointer();
-        key.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons key = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         // assoc-list to find it in
         ConsPointer list = new ConsPointer();

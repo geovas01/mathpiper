@@ -410,8 +410,7 @@ public class MathPiperParser extends Parser
 
     void combine(Environment aEnvironment, int aStackTop, int aNrArgsToCombine) throws Exception
     {
-        ConsPointer subList = new ConsPointer();
-        subList.setCons(SublistCons.getInstance(aEnvironment,parsedExpression));
+        Cons subList = SublistCons.getInstance(aEnvironment,parsedExpression);
         Cons consTraverser =  parsedExpression;
         int i;
         for (i = 0; i < aNrArgsToCombine; i++)
@@ -428,7 +427,7 @@ public class MathPiperParser extends Parser
             fail(aStackTop);
             return;
         }
-        subList.getCons().setCdr(consTraverser.cdr());
+        subList.setCdr(consTraverser.cdr());
         consTraverser.setCdr(null);
 
        
@@ -437,7 +436,7 @@ public class MathPiperParser extends Parser
                 ((Cons) subList.car()).cdr());
         ((Cons) subList.car()).setCdr(result);
 
-        parsedExpression = subList.getCons();
+        parsedExpression = subList;
     }
 
     void insertAtom(Environment aEnvironment, int aStackTop, String aString) throws Exception
@@ -450,7 +449,6 @@ public class MathPiperParser extends Parser
     void insertAtom(Environment aEnvironment, int aStackTop, String[] aString) throws Exception
     {
 
-        ConsPointer ptr = new ConsPointer();
         Cons newCons = AtomCons.getInstance(iEnvironment, aStackTop, aString[0]);
 
         if(aEnvironment.saveDebugInformation == true && aString[1] != null)
@@ -462,9 +460,8 @@ public class MathPiperParser extends Parser
             newCons.setMetadataMap(metaDataMap);
         }
 
-        ptr.setCons(newCons);
-        ptr.getCons().setCdr(parsedExpression);
-        parsedExpression = ptr.getCons();
+        newCons.setCdr(parsedExpression);
+        parsedExpression = newCons;
     }
 
     void fail(int aStackTop) throws Exception // called when parsing fails, raising an exception
