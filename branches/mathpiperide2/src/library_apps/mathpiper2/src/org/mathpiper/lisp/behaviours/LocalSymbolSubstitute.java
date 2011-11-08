@@ -42,10 +42,10 @@ public class LocalSymbolSubstitute implements Substitute {
     }
 
 
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, Cons aElement) throws Exception {
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Exception {
 
         if (!(aElement.car() instanceof String)) {
-            return false;
+            return null;
         }//end if.
 
         String name = (String) aElement.car();
@@ -53,11 +53,10 @@ public class LocalSymbolSubstitute implements Substitute {
         int i;
         for (i = 0; i < iNumberOfNames; i++) {
             if (name.equals(iOriginalNames[i])) {
-                aResult.setCons(AtomCons.getInstance(iEnvironment, aStackTop, iNewNames[i]));
-                return true;
+                return AtomCons.getInstance(iEnvironment, aStackTop, iNewNames[i]);
             }
         }
-        return false;
+        return null;
     }
 
 };

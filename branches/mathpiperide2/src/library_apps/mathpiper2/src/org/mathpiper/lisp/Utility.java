@@ -593,15 +593,15 @@ public class Utility {
         
         Cons sourceCons = aSourcePointer;
 
-        ConsPointer aDestinationPointer = new ConsPointer();
+        Cons aDestinationPointer = null;
 
         if(sourceCons == null) LispError.lispAssert(aEnvironment, aStackTop);
 
 
-        if(aBehaviour.matches(aEnvironment, aStackTop, aDestinationPointer, aSourcePointer))
+        if((aDestinationPointer = aBehaviour.matches(aEnvironment, aStackTop,  aSourcePointer)) != null)
         {
             //Base case.
-            return aDestinationPointer.getCons();
+            return aDestinationPointer;
         }
         else
         {
@@ -650,14 +650,14 @@ public class Utility {
 
                 }
                 
-                aDestinationPointer.setCons(SublistCons.getInstance(aEnvironment, headCons));
+                aDestinationPointer = SublistCons.getInstance(aEnvironment, headCons);
                 
             } else {
                 //Handle atoms.
-                aDestinationPointer.setCons(sourceCons.copy(aEnvironment, false));
+                aDestinationPointer = sourceCons.copy(aEnvironment, false);
             }
 
-            return aDestinationPointer.getCons();
+            return aDestinationPointer;
 
         }//end matches if.
     }

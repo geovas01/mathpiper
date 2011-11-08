@@ -40,40 +40,38 @@ public class BackQuoteSubstitute implements Substitute {
     }
 
 
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, Cons aElement) throws Exception {
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Exception {
         if (!(aElement instanceof SublistCons)) {
-            return false;
+            return null;
         }
 
         Cons ptr = (Cons) aElement.car();
         if (ptr == null) {
-            return false;
+            return null;
         }
 
         if (!(ptr.car() instanceof String)) {
-            return false;
+            return null;
         }
 
         if (ptr.car().equals("`")) {
-            aResult.setCons(aElement);
-            return true;
+            return aElement;
         }
 
         if (!ptr.car().equals("@")) {
-            return false;
+            return null;
         }
 
         ptr = ptr.cdr();
 
         if (ptr == null) {
-            return false;
+            return null;
         }
 
         if (ptr.car() instanceof String) {
 
             Cons cur = ptr;
-            aResult.setCons(iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, cur));
-            return true;
+            return iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, cur);
         } else {
             ptr = (Cons) ptr.car();
 
@@ -85,8 +83,7 @@ public class BackQuoteSubstitute implements Substitute {
             result.getCons().setCdr(args.getCons());
 
             Cons result2 = SublistCons.getInstance(aEnvironment, result.getCons());
-            aResult.setCons(Utility.substitute(aEnvironment, aStackTop, result2, this));
-            return true;
+            return Utility.substitute(aEnvironment, aStackTop, result2, this);
         }
         //      return false;
     }

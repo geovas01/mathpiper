@@ -23,16 +23,15 @@ public class ExpressionSubstitute
     }
 
 
-    public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, Cons aElement)
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement)
             throws Exception {
 
         if (Utility.equals(iEnvironment, aStackTop, aElement, iToMatch.getCons())) {
-            aResult.setCons(iToReplaceWith.getCons().copy(aEnvironment, false));
+            return iToReplaceWith.getCons().copy(aEnvironment, false);
 
-            return true;
         }
 
-        return false;
+        return null;
     }
 
 };

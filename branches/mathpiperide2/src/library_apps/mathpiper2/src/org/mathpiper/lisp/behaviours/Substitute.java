@@ -20,12 +20,11 @@ package org.mathpiper.lisp.behaviours;
 
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
 
 
 /** Behaviour for substituting sub-expressions.
  */
 public interface Substitute
 {
-	public boolean matches(Environment aEnvironment, int aStackTop, ConsPointer aResult, Cons aElement) throws Exception;
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Exception;
 };
