@@ -21,16 +21,16 @@ package org.mathpiper.builtin;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointerArray;
+import org.mathpiper.lisp.cons.ConsArray;
 
 
 public class Array extends BuiltinContainer
 {
-	ConsPointerArray iArray;
+	ConsArray iArray;
 
 	public Array(Environment aEnvironment, int aSize)
 	{
-		iArray = new ConsPointerArray(aEnvironment, aSize);
+		iArray = new ConsArray(aEnvironment, aSize);
 	}
 
 	public String typeName()

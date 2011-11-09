@@ -24,13 +24,13 @@ import org.mathpiper.lisp.Environment;
  * Similar to ConsPointer, but implements an array of pointers to CONS.
  *  
  */
-public class ConsPointerArray {
+public class ConsArray {
 
     int iSize;
     Cons[] iArray;
 
 
-    public ConsPointerArray(Environment aEnvironment, int aSize) {
+    public ConsArray(Environment aEnvironment, int aSize) {
        iSize = aSize;
        iArray = new Cons[50000];
     }

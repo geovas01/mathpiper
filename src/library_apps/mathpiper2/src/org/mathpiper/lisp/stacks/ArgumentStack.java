@@ -17,7 +17,7 @@
 package org.mathpiper.lisp.stacks;
 
 import org.mathpiper.lisp.*;
-import org.mathpiper.lisp.cons.ConsPointerArray;
+import org.mathpiper.lisp.cons.ConsArray;
 
 import org.mathpiper.lisp.cons.Cons;
 
@@ -27,12 +27,12 @@ import org.mathpiper.lisp.cons.Cons;
  */
 public class ArgumentStack {
 
-    ConsPointerArray iArgumentStack;
+    ConsArray iArgumentStack;
     int iStackTopIndex;
 
     //TODO appropriate constructor?
     public ArgumentStack(Environment aEnvironment, int aStackSize) {
-        iArgumentStack = new ConsPointerArray(aEnvironment, aStackSize);
+        iArgumentStack = new ConsArray(aEnvironment, aStackSize);
         iStackTopIndex = 0;
         //printf("STACKSIZE %d\n",aStackSize);
     }
