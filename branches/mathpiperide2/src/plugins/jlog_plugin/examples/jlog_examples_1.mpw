@@ -35,5 +35,43 @@ assign_digits([D|Ds], List):-
 
 
 
+%prolog,title=""
+
+% "Programming in Prolog" Clocksin and Mellish, 5th edition, Springer, p. 63-65.
+
+append([], L, L).
+append([X|L1], L2, [X|L3]) :- append(L1, L2, L3).
+
+
+basicpart(rim).
+basicpart(spoke).
+basicpart(rearframe).
+basicpart(handles).
+basicpart(gears).
+basicpart(bolt).
+basicpart(nut).
+basicpart(fork).
+
+
+assembly(bike, [wheel, wheel, frame]).
+assembly(wheel, [spoke, rim, hub]).
+assembly(frame, [rearframe, frontframe]).
+assembly(frontframe, [fork, handles]).
+assembly(hub, [gears, axle]).
+assembly(axle, [bolt, nut]).
+
+
+partsof(X, [X]) :- basicpart(X).
+partsof(X, P) :- assembly(X, Subparts), partsoflist(Subparts, P).
+partsoflist([], []).
+partsoflist([P|Tail], Total):- partsof(P, Headparts), partsoflist(Tail, Tailparts), append(Headparts, Tailparts, Total).
+
+
+% ?- partsof(hub, X).
+
+%/prolog
+
+
+
 
 
