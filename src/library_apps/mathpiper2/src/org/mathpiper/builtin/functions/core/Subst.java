@@ -20,7 +20,6 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
@@ -43,10 +42,8 @@ public class Subst extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer from = new ConsPointer(), to = new ConsPointer();
-
-        from.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
-        to.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
+        Cons from = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons to = getArgumentPointer(aEnvironment, aStackTop, 2);
         Cons body = getArgumentPointer(aEnvironment, aStackTop, 3);
         org.mathpiper.lisp.behaviours.ExpressionSubstitute behaviour = new org.mathpiper.lisp.behaviours.ExpressionSubstitute(aEnvironment, from, to);
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.substitute(aEnvironment, aStackTop, body, behaviour));

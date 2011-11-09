@@ -20,7 +20,6 @@ import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.stacks.UserStackInformation;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
@@ -104,8 +103,8 @@ public class MacroRulebase extends SingleArityRulebase {
 
                     BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
 
-                    ConsPointer originalBodyPointer = thisRule.getBodyPointer();
-                    substitutedBodyPointer = Utility.substitute(aEnvironment, aStackTop, originalBodyPointer.getCons(), backQuoteSubstitute);
+                    Cons originalBodyPointer = thisRule.getBodyPointer();
+                    substitutedBodyPointer = Utility.substitute(aEnvironment, aStackTop, originalBodyPointer, backQuoteSubstitute);
                     //              aEnvironment.iLispExpressionEvaluator.Eval(aEnvironment, aResult, thisRule.body());
                     break;
                 }

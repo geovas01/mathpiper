@@ -31,8 +31,8 @@ import org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher;
 public class PatternRule extends Rule {
 
     protected int iPrecedence;
-    protected ConsPointer iBody;
-    protected ConsPointer iPredicate;    
+    protected Cons iBody;
+    protected Cons iPredicate;    
     protected PatternContainer iPattern; //The pattern that decides whether this rule matches or not.
 
     /**
@@ -42,18 +42,16 @@ public class PatternRule extends Rule {
      * @param aBody body of the rule
      */
     public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
-        iBody = new ConsPointer();
-        iPredicate = new ConsPointer();
         iPattern = null;
         iPrecedence = aPrecedence;
-        iPredicate.setCons(aPredicate);
+        iPredicate = aPredicate;
 
         BuiltinContainer gen = (BuiltinContainer) aPredicate.car();
         if(gen == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "","INTERNAL");
         if(! gen.typeName().equals("\"Pattern\"")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Type is not <pattern>.","INTERNAL");
 
         iPattern = (PatternContainer) gen;
-        iBody.setCons(aBody);
+        iBody = aBody;
     }
 
     //Return true if the corresponding pattern matches.
@@ -66,7 +64,7 @@ public class PatternRule extends Rule {
         return iPrecedence;
     }
 
-    public ConsPointer getPredicatePointer() {
+    public Cons getPredicatePointer() {
         return this.iPredicate;
     }
 
@@ -75,7 +73,7 @@ public class PatternRule extends Rule {
     }
 
     //Access iBody
-    public ConsPointer getBodyPointer() {
+    public Cons getBodyPointer() {
         return iBody;
     }
 }

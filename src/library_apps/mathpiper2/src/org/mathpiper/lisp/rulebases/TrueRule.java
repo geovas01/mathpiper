@@ -30,7 +30,7 @@ class TrueRule extends PredicateRule
     {
         super(aEnvironment);
         iPrecedence = aPrecedence;
-        iBody.setCons(aBody);
+        iBody = aBody;
     }
     /// Return true, always.
     @Override
