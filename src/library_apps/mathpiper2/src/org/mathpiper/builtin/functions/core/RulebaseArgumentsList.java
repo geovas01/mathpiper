@@ -46,15 +46,13 @@ public class RulebaseArgumentsList extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer name = new ConsPointer();
-        name.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons name = getArgumentPointer(aEnvironment, aStackTop, 1);
         String orig = (String) name.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RulebaseArgumentsList");
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
-        ConsPointer sizearg = new ConsPointer();
-        sizearg.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
-        if( sizearg.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseArgumentsList");
+        Cons sizearg = getArgumentPointer(aEnvironment, aStackTop, 2);
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseArgumentsList");
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseArgumentsList");
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
@@ -64,10 +62,9 @@ public class RulebaseArgumentsList extends BuiltinFunction
         if(userFunc == null) LispError.throwError(aEnvironment, aStackTop, "User function for this arity is not defined.", "RulebaseArgumentsList");
 
         Cons list = userFunc.argList();
-        ConsPointer head = new ConsPointer();
-        head.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
-        head.getCons().setCdr(list);
-        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head.getCons()));
+        Cons head = aEnvironment.iListAtom.copy( aEnvironment, false);
+        head.setCdr(list);
+        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
     }
 }
 

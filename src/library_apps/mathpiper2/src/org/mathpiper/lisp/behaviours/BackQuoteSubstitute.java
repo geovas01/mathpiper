@@ -76,13 +76,13 @@ public class BackQuoteSubstitute implements Substitute {
             ptr = (Cons) ptr.car();
 
             Cons cur = ptr;
-            ConsPointer args = new ConsPointer();
-            args.setCons(ptr.cdr());
-            ConsPointer result = new ConsPointer();
-            result.setCons(iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, cur));
-            result.getCons().setCdr(args.getCons());
 
-            Cons result2 = SublistCons.getInstance(aEnvironment, result.getCons());
+            Cons args = ptr.cdr();
+
+            Cons result = iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, aStackTop, cur);
+            result.setCdr(args);
+
+            Cons result2 = SublistCons.getInstance(aEnvironment, result);
             return Utility.substitute(aEnvironment, aStackTop, result2, this);
         }
         //      return false;

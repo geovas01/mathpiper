@@ -21,8 +21,8 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -43,10 +43,9 @@ public class Decimal_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer result = new ConsPointer();
-        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons result = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        Object cons = result.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        Object cons = result.getNumber(aEnvironment.getPrecision(), aEnvironment);
 
         BigNumber bigNumber;
         if(cons instanceof BigNumber)

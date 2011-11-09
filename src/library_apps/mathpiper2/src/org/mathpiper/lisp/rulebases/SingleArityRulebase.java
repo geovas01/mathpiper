@@ -170,11 +170,10 @@ public class SingleArityRulebase extends Evaluator {
 
                     /*Leave trace code */
                     if (isTraced(this.functionName) && showFlag) {
-                        ConsPointer argumentsPointer2 = new ConsPointer();
-                        argumentsPointer2.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
+                        Cons argumentsPointer2 = SublistCons.getInstance(aEnvironment, aArgumentsPointer);
                         String localVariables = aEnvironment.getLocalVariables(aStackTop);
-                        Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2.getCons(), functionType, localVariables);
-                        argumentsPointer2.setCons(null);
+                        Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer2, functionType, localVariables);
+                        argumentsPointer2 = null;
                     }//end if.
 
                     return aResult;
@@ -189,26 +188,24 @@ public class SingleArityRulebase extends Evaluator {
 
             // No predicate was true: return a new expression with the evaluated
             // arguments.
-            ConsPointer full = new ConsPointer();
-            full.setCons(aArgumentsPointer.copy(aEnvironment, false));
+            Cons full = aArgumentsPointer.copy(aEnvironment, false);
             if (arity == 0) {
-                full.getCons().setCdr(null);
+                full.setCdr(null);
             } else {
-                full.getCons().setCdr(argumentsResultPointerArray[0]);
+                full.setCdr(argumentsResultPointerArray[0]);
                 for (int parameterIndex = 0; parameterIndex < arity - 1; parameterIndex++) {
                     argumentsResultPointerArray[parameterIndex].setCdr(argumentsResultPointerArray[parameterIndex + 1]);
                 }
             }
-            aResult = SublistCons.getInstance(aEnvironment, full.getCons());
+            aResult = SublistCons.getInstance(aEnvironment, full);
 
 
             /* Trace code */
             if (isTraced(this.functionName) && showFlag) {
-                ConsPointer argumentsPointer3 = new ConsPointer();
-                argumentsPointer3.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
+                Cons argumentsPointer3 = SublistCons.getInstance(aEnvironment, aArgumentsPointer);
                 String localVariables = aEnvironment.getLocalVariables(aStackTop);
-                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3.getCons(), functionType, localVariables);
-                argumentsPointer3.setCons(null);
+                Evaluator.traceShowLeave(aEnvironment, aResult, argumentsPointer3, functionType, localVariables);
+                argumentsPointer3 = null;
             }
 
             return aResult;
@@ -234,8 +231,7 @@ public class SingleArityRulebase extends Evaluator {
 
         /*Enter trace code*/
         if (isTraced(this.functionName)) {
-            ConsPointer argumentsPointer = new ConsPointer();
-            argumentsPointer.setCons(SublistCons.getInstance(aEnvironment, aArgumentsPointer));
+            Cons argumentsPointer = SublistCons.getInstance(aEnvironment, aArgumentsPointer);
             String traceFunctionName = "";
             if (argumentsPointer.car() instanceof Cons) {
                 Cons sub = (Cons) argumentsPointer.car();
@@ -245,11 +241,11 @@ public class SingleArityRulebase extends Evaluator {
             }//end function.
             if (Evaluator.isTraceFunction(traceFunctionName)) {
                 showFlag = true;
-                Evaluator.traceShowEnter(aEnvironment, argumentsPointer.getCons(), functionType);
+                Evaluator.traceShowEnter(aEnvironment, argumentsPointer, functionType);
             } else {
                 showFlag = false;
             }//
-            argumentsPointer.setCons(null);
+            argumentsPointer = null;
         }
 
         Cons argumentsTraverser = aArgumentsPointer;

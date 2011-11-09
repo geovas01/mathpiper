@@ -76,10 +76,9 @@ public class ListedMacroRulebase extends MacroRulebase {
             consTraverser = consTraverser.cdr();
             if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackTop);
         } else {
-            ConsPointer head = new ConsPointer();
-            head.setCons(aEnvironment.iListAtom.copy(aEnvironment, false));
-            head.getCons().setCdr(consTraverser);
-            Cons nextCons = SublistCons.getInstance(aEnvironment, head.getCons());
+            Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
+            head.setCdr(consTraverser);
+            Cons nextCons = SublistCons.getInstance(aEnvironment, head);
             ptr.setCdr(nextCons);
             ptr = nextCons;
         }

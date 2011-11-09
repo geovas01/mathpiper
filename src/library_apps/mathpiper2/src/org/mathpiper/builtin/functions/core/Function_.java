@@ -13,7 +13,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.builtin.functions.core;
 
@@ -27,24 +26,18 @@ import org.mathpiper.lisp.cons.Cons;
  *
  *  
  */
-public class Function_ extends BuiltinFunction
-{
+public class Function_ extends BuiltinFunction {
 
-    private Function_()
-    {
+    private Function_() {
     }
 
-    public Function_(String functionName)
-    {
+    public Function_(String functionName) {
         this.functionName = functionName;
     }
 
-
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
-    {
-        ConsPointer result = new ConsPointer();
-        result.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
-         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment,
+    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+        Cons result = getArgumentPointer(aEnvironment, aStackTop, 1);
+        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment,
                 result.car() instanceof Cons));
     }
 }
