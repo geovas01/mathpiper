@@ -24,7 +24,7 @@ import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.io.StringInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.tokenizers.MathPiperTokenizer;
 import org.mathpiper.lisp.parsers.Parser;

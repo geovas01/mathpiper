@@ -19,7 +19,6 @@ package org.mathpiper.builtin;
 // new-style evaluator, passing arguments onto the stack in Environment
 import org.mathpiper.lisp.Evaluator;
 
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.AtomCons;
@@ -190,16 +189,16 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         /*Trace code */
         if (isTraced(functionName) && argumentsResultPointerArray != null && showFlag == true) {
 
-            ConsPointer traceArgumentPointer = new ConsPointer( aArgumentsPointer);
+            Cons traceArgumentPointer = aArgumentsPointer;
 
-            traceArgumentPointer.goNext(aStackTop, aEnvironment);
+            traceArgumentPointer = traceArgumentPointer.cdr();
 
             int parameterIndex = 1;
             if ((iFlags & Variable) != 0) {//This function has a  variable number of arguments.
 
-                while (traceArgumentPointer.getCons() != null) {
-                    Evaluator.traceShowArg(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "parameter" + parameterIndex++), traceArgumentPointer.getCons());
-                    traceArgumentPointer.goNext(aStackTop, aEnvironment);
+                while (traceArgumentPointer != null) {
+                    Evaluator.traceShowArg(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "parameter" + parameterIndex++), traceArgumentPointer);
+                    traceArgumentPointer = traceArgumentPointer.cdr();
                 }//end while.
 
             } else {
@@ -211,7 +210,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
                     Evaluator.traceShowArg(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "parameter" + parameterIndex++), argumentsResultPointerArray[i]);
 
-                    traceArgumentPointer.goNext(aStackTop, aEnvironment);
+                    traceArgumentPointer = traceArgumentPointer.cdr();
                 }//end for.
 
             }

@@ -27,7 +27,7 @@ import org.mathpiper.lisp.collections.MathPiperMap;
 import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.AtomCons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.printers.LispPrinter;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
@@ -331,9 +331,9 @@ public final class Environment {
 
                 stringBuilder.append(" = ");
 
-                ConsPointer valuePointer = new ConsPointer(localVariable.iValue);
+                Cons valuePointer = localVariable.iValue;
 
-                String valueString = Utility.printMathPiperExpression(aStackTop, valuePointer.getCons(), this, -1);
+                String valueString = Utility.printMathPiperExpression(aStackTop, valuePointer, this, -1);
 
                 stringBuilder.append(valueString);
 

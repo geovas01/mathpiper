@@ -25,7 +25,6 @@ import org.mathpiper.builtin.JavaObject;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
 
 
 import org.jfree.chart.ChartFactory;
@@ -67,19 +66,19 @@ public class LineChart extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer argumentsPointer = new ConsPointer(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        if(! Utility.isSublist(argumentsPointer.getCons())) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "LineChart");
+        if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "LineChart");
 
-        argumentsPointer.goSub(aStackTop, aEnvironment); //Go to sub list.
+        argumentsPointer = (Cons) argumentsPointer.car(); //Go to sub list.
 
-        argumentsPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
+        argumentsPointer = argumentsPointer.cdr(); //Strip List tag.
 
-        if(! Utility.isList(argumentsPointer.getCons())) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "LineChart");
+        if(! Utility.isList(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "LineChart");
 
-        ConsPointer dataListPointer = new ConsPointer((Cons) argumentsPointer.car()); //Grab the first member of the list.
+        Cons dataListPointer = (Cons) argumentsPointer.car(); //Grab the first member of the list.
 
-        ConsPointer optionsPointer = new ConsPointer(argumentsPointer.cdr());
+        Cons optionsPointer = argumentsPointer.cdr();
 
         Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, aStackTop, optionsPointer, defaultOptions);
 

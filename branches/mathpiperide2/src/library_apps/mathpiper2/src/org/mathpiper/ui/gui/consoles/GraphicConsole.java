@@ -84,7 +84,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.cons.SublistCons;
 
 public class GraphicConsole extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, FocusListener, MathPiperOutputStream {
@@ -683,12 +683,12 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
                         holdAtomCons.setCdr(response.getResultList());
                         Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
-                        ConsPointer holdInputExpressionPointer = new ConsPointer(holdSubListCons);
+                        Cons holdInputExpressionPointer = holdSubListCons;
 
 
                         //Evaluate TeXForm function.
                         Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
-                        texFormAtomCons.setCdr(holdInputExpressionPointer.getCons());
+                        texFormAtomCons.setCdr(holdInputExpressionPointer);
                         Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
 
                         EvaluationResponse latexResponse = syncronousInterpreter.evaluate(texFormSubListCons);

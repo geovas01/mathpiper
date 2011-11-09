@@ -18,7 +18,7 @@ package org.mathpiper.lisp.stacks;
 
 import org.mathpiper.lisp.*;
 import org.mathpiper.lisp.cons.ConsPointerArray;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.cons.Cons;
 
 /** 

@@ -21,7 +21,8 @@ import java.util.List;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
+
 
 public class JavaObject extends BuiltinContainer {
 
@@ -40,20 +41,20 @@ public class JavaObject extends BuiltinContainer {
         return javaObject;
     }//end method.
 
-    public static List lispListToJavaList(Environment aEnvironment, int aStackTop,ConsPointer lispList) throws Exception {
-        if(! Utility.isList(lispList.getCons())) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
+    public static List lispListToJavaList(Environment aEnvironment, int aStackTop,Cons lispList) throws Exception {
+        if(! Utility.isList(lispList)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
 
-        lispList.goNext(aStackTop, aEnvironment);
+        lispList = lispList.cdr();
 
         ArrayList javaList = new ArrayList();
 
-        while (lispList.getCons() != null) {
+        while (lispList != null) {
 
             Object item = lispList.car();
             //item = narrow(item);
             javaList.add(item);
 
-            lispList.goNext(aStackTop, aEnvironment);
+            lispList = lispList.cdr();
 
         }//end while.
 
@@ -61,15 +62,15 @@ public class JavaObject extends BuiltinContainer {
     }//end method.
 
 
-    public static double[] lispListToJavaDoubleArray(Environment aEnvironment, int aStackTop, ConsPointer lispListPointer) throws Exception {
-        if(! Utility.isList(lispListPointer.getCons())) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
+    public static double[] lispListToJavaDoubleArray(Environment aEnvironment, int aStackTop, Cons lispListPointer) throws Exception {
+        if(! Utility.isList(lispListPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
 
-        lispListPointer.goNext(aStackTop, aEnvironment); //Remove List designator.
+        lispListPointer = lispListPointer.cdr(); //Remove List designator.
 
-        double[] values = new double[Utility.listLength(aEnvironment, aStackTop, lispListPointer.getCons())];
+        double[] values = new double[Utility.listLength(aEnvironment, aStackTop, lispListPointer)];
 
         int index = 0;
-        while (lispListPointer.getCons() != null) {
+        while (lispListPointer != null) {
 
             Object item = lispListPointer.car();
 
@@ -82,7 +83,7 @@ public class JavaObject extends BuiltinContainer {
                 LispError.raiseError("Can not convert into a double." , "INTERNAL", aStackTop, aEnvironment);
             }//end try/catch.
 
-            lispListPointer.goNext(aStackTop, aEnvironment);
+            lispListPointer = lispListPointer.cdr();
 
         }//end while.
 

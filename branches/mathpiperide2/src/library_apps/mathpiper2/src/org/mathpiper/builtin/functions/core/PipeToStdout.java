@@ -20,7 +20,7 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 
 /**
  *

@@ -22,7 +22,7 @@ import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.io.MathPiperOutputStream;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 
 /**
  *

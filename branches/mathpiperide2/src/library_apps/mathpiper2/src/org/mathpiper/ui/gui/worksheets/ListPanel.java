@@ -12,7 +12,7 @@ import java.util.Stack;
 import javax.swing.JPanel;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.Bounds;
 import org.mathpiper.ui.gui.worksheets.symbolboxes.ScaledGraphics;
@@ -74,7 +74,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                 //Remove rest because it has already been processed.
                 consXHolder.getCons().setCdr(null);
 
-                ConsPointer currentConsPointer = new ConsPointer(consXHolder.getCons());
+                Cons currentConsPointer = consXHolder.getCons();
 
                 currentNode = consXHolder.getConsNode();
 
@@ -82,12 +82,12 @@ public class ListPanel extends JPanel implements ViewPanel {
 
                     if (currentConsPointer.cdr() != null) {
 
-                        currentConsPointer.goNext(aStackTop, aEnvironment);
+                        currentConsPointer = currentConsPointer.cdr();
 
                         ConsNode newNode = new ConsNode();
 
-                        if (!(currentConsPointer.getCons() instanceof SublistCons)) {
-                            String name = currentConsPointer.getCons().toString();
+                        if (!(currentConsPointer instanceof SublistCons)) {
+                            String name = currentConsPointer.toString();
                             newNode.setName(name);
                         } else {
                             newNode.setName(sublistName);
@@ -97,10 +97,10 @@ public class ListPanel extends JPanel implements ViewPanel {
 
                         currentNode = newNode;
 
-                        if (currentConsPointer.getCons() instanceof SublistCons) {
-                            sequenceStack.push(new ConsXHolder(currentConsPointer.getCons().copy(aEnvironment, false), currentNode));
+                        if (currentConsPointer instanceof SublistCons) {
+                            sequenceStack.push(new ConsXHolder(currentConsPointer.copy(aEnvironment, false), currentNode));
 
-                            if (currentConsPointer.getCons().cdr() == null) {
+                            if (currentConsPointer.cdr() == null) {
                                 break;
                             }//end if.
 
@@ -112,16 +112,16 @@ public class ListPanel extends JPanel implements ViewPanel {
                             break;
                         }
 
-                        currentConsPointer.goSub(aStackTop, aEnvironment);
+                        currentConsPointer = (Cons) currentConsPointer.car();
 
-                        if (currentConsPointer.getCons() instanceof SublistCons) {
-                            sequenceStack.push(new ConsXHolder(currentConsPointer.getCons().copy(aEnvironment, false), currentNode)); //currentNode.getX()));
+                        if (currentConsPointer instanceof SublistCons) {
+                            sequenceStack.push(new ConsXHolder(currentConsPointer.copy(aEnvironment, false), currentNode)); //currentNode.getX()));
                         }//end if.
 
                         ConsNode newNode = new ConsNode();
 
-                        if (!(currentConsPointer.getCons() instanceof SublistCons)) {
-                            String name = currentConsPointer.getCons().toString();
+                        if (!(currentConsPointer instanceof SublistCons)) {
+                            String name = currentConsPointer.toString();
                             newNode.setName(name);
                         } else {
                             newNode.setName(sublistName);
