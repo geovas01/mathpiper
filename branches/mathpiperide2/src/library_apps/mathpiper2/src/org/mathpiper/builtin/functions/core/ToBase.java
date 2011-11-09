@@ -23,7 +23,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -46,11 +46,10 @@ public class ToBase extends BuiltinFunction
     {
         // Get the base to convert to:
         // Evaluate car argument, and store getTopOfStackPointer in oper
-        ConsPointer oper = new ConsPointer();
-        oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons oper = getArgumentPointer(aEnvironment, aStackTop, 1);
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
-        BigNumber num =(BigNumber) oper.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber num =(BigNumber) oper.getNumber(aEnvironment.getPrecision(), aEnvironment);
         if(num == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ToBase");
         // check that the base is an integer between 2 and 32
         if(! num.isInteger()) LispError.checkArgument(aEnvironment, aStackTop, 1, "ToBase");

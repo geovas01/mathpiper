@@ -42,11 +42,10 @@ public class MetaKeys extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer();
-        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons objectPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
 
-        Map metadataMap = objectPointer.getCons().getMetadataMap();
+        Map metadataMap = objectPointer.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
             setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy( aEnvironment, false)));

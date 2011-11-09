@@ -29,8 +29,7 @@ public class MetaGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer objectPointer = new ConsPointer();
-        objectPointer.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons objectPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
 
         Cons key = getArgumentPointer(aEnvironment, aStackTop, 2);
@@ -38,7 +37,7 @@ public class MetaGet extends BuiltinFunction
         LispError.checkIsString(aEnvironment, aStackTop, key, 2, "MetaGet");
 
 
-        Map metadataMap = objectPointer.getCons().getMetadataMap();
+        Map metadataMap = objectPointer.getMetadataMap();
 
         if (metadataMap == null) {
             setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));

@@ -24,6 +24,7 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -46,11 +47,10 @@ public class FromBase extends BuiltinFunction
     {
         // Get the base to convert to:
         // Evaluate car argument, and store getTopOfStackPointer in oper
-        ConsPointer oper = new ConsPointer();
-        oper.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons oper = getArgumentPointer(aEnvironment, aStackTop, 1);
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
-        BigNumber num = (BigNumber)  oper.getCons().getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber num = (BigNumber)  oper.getNumber(aEnvironment.getPrecision(), aEnvironment);
         if( num == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "FromBase");
         // check that the base is an integer between 2 and 32
         if(! num.isInteger()) LispError.checkArgument(aEnvironment, aStackTop, 1, "FromBase");
@@ -59,8 +59,7 @@ public class FromBase extends BuiltinFunction
         int base = (int) (num.toDouble());
 
         // Get the number to convert
-        ConsPointer fromNum = new ConsPointer();
-        fromNum.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
+        Cons fromNum = getArgumentPointer(aEnvironment, aStackTop, 2);
         String str2;
         str2 =  (String) fromNum.car();
         if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "FromBase");

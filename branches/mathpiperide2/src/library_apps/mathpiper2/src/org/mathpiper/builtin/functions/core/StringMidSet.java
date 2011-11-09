@@ -47,9 +47,9 @@ public class StringMidSet extends BuiltinFunction
         Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 3);
         LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3, "StringMidSet");
         String orig = (String) evaluated.car();
-        ConsPointer index = new ConsPointer();
-        index.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
-        if(index.getCons() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidSet");
+
+        Cons index = getArgumentPointer(aEnvironment, aStackTop, 1);
+        if(index  == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidSet");
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidSet");
         int from = Integer.parseInt( (String) index.car(), 10);
 

@@ -23,7 +23,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
-import org.mathpiper.lisp.cons.ConsPointer;
+import org.mathpiper.lisp.cons.Cons;
 
 /**
  *
@@ -44,8 +44,7 @@ public class GenericTypeName extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer evaluated = new ConsPointer();
-        evaluated.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
         if(! (evaluated.car() instanceof BuiltinContainer)) LispError.checkArgument(aEnvironment, aStackTop, 1, "GenericTypeName");
         setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, ((BuiltinContainer) evaluated.car()).typeName()));
     }
