@@ -11,7 +11,6 @@ import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.cons.NumberCons;
 import org.mathpiper.lisp.cons.SublistCons;
 
@@ -57,26 +56,26 @@ public class RoundToN extends BuiltinFunction
         }
         else if (argument1 instanceof SublistCons)
         {
-            ConsPointer consPointer = new ConsPointer(argument1);
+            Cons consPointer = argument1;
 
-            consPointer.goSub(aStackTop, aEnvironment);
+            consPointer = (Cons) consPointer.car();
 
             String functionName = ((String) consPointer.car());
 
             if(functionName.equals("Complex"))
             {
-                consPointer.goNext(aStackTop, aEnvironment);
+                consPointer = consPointer.cdr();
 
-                BigNumber realPart = (BigNumber) ((NumberCons) (consPointer.getCons())).getNumber(aEnvironment.getPrecision(), aEnvironment);
+                BigNumber realPart = (BigNumber) ((NumberCons) consPointer).getNumber(aEnvironment.getPrecision(), aEnvironment);
 
                 if(realPart.getPrecision() != requestedPrecision.toInt())
                 {
                     realPart.setPrecision(requestedPrecision.toInt());
                 }//end if.
 
-                consPointer.goNext(aStackTop, aEnvironment);
+                consPointer = consPointer.cdr();
 
-                BigNumber imaginaryPart = (BigNumber) ((NumberCons) (consPointer.getCons())).getNumber(aEnvironment.getPrecision(), aEnvironment);
+                BigNumber imaginaryPart = (BigNumber) ((NumberCons) consPointer).getNumber(aEnvironment.getPrecision(), aEnvironment);
 
                 if(imaginaryPart.getPrecision() != requestedPrecision.toInt())
                 {

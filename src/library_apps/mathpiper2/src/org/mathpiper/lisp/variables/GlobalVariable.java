@@ -17,7 +17,7 @@
 package org.mathpiper.lisp.variables;
 
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 
 /**
  * Value of a Lisp global variable.

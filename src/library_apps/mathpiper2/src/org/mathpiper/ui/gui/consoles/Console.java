@@ -66,7 +66,7 @@ import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.cons.SublistCons;
 
 public class Console extends javax.swing.JPanel implements ActionListener, KeyListener, ResponseListener, ItemListener, MathPiperOutputStream {

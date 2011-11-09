@@ -19,7 +19,6 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
@@ -48,12 +47,12 @@ public class Write extends BuiltinFunction
 
             Cons subList = (Cons) arguments.car();
             
-            ConsPointer consPointer = new ConsPointer( subList);
-            consPointer.goNext(aStackTop, aEnvironment);
-            while (consPointer.getCons() != null)
+            Cons consPointer = subList;
+            consPointer = consPointer.cdr();
+            while (consPointer != null)
             {
-                aEnvironment.iCurrentPrinter.print(aStackTop, consPointer.getCons(), aEnvironment.iCurrentOutput, aEnvironment);
-                consPointer.goNext(aStackTop, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(aStackTop, consPointer, aEnvironment.iCurrentOutput, aEnvironment);
+                consPointer = consPointer.cdr();
             }
         }
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));

@@ -18,7 +18,7 @@ package org.mathpiper.lisp;
 
 import java.util.Map;
 import org.mathpiper.Scripts;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
 import org.mathpiper.io.StringInputStream;

@@ -19,7 +19,7 @@ package org.mathpiper.lisp;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.SublistCons;
 import org.mathpiper.lisp.cons.AtomCons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -389,15 +389,15 @@ public class Utility {
 
     }//end method.
 
-    public static boolean isNestedList(Environment aEnvironment, int aStackTop, ConsPointer clientListPointer) throws Exception {
+    public static boolean isNestedList(Environment aEnvironment, int aStackTop, Cons clientListPointer) throws Exception {
 
-        ConsPointer listPointer = new ConsPointer( clientListPointer.getCons());
+        Cons listPointer = clientListPointer;
 
-        listPointer.goNext(aStackTop, aEnvironment); //Strip List tag.
+        listPointer = listPointer.cdr();
 
-        while (listPointer.getCons() != null) {
+        while (listPointer != null) {
             if (listPointer.car() instanceof Cons && isList((Cons) listPointer.car())) {
-                listPointer.goNext(aStackTop, aEnvironment);
+                listPointer = listPointer.cdr();
             } else {
                 return false;
             }
@@ -405,25 +405,25 @@ public class Utility {
         return true;
     }//end method.
 
-    public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, ConsPointer argumentsPointer, Map defaultOptions) throws Exception {
+    public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, Cons argumentsPointer, Map defaultOptions) throws Exception {
 
         Map userOptions = (Map) ((HashMap) defaultOptions).clone();
 
-        while (argumentsPointer.getCons() != null) {
+        while (argumentsPointer != null) {
             //Obtain -> operator.
-            ConsPointer optionPointer = new ConsPointer((Cons) argumentsPointer.car());
+            Cons optionPointer = (Cons) argumentsPointer.car();
             if( optionPointer.type() != Utility.ATOM) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argumentsPointer, "INTERNAL");
             String operator = (String) optionPointer.car();
             if(! operator.equals("->")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argumentsPointer, "INTERNAL");
 
             //Obtain key.
-            optionPointer.goNext(aStackTop, aEnvironment);
+            optionPointer = optionPointer.cdr();
             if( optionPointer.type() != Utility.ATOM) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argumentsPointer, "INTERNAL");
             String key = (String) optionPointer.car();
             key = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, key);
 
             //Obtain value.
-            optionPointer.goNext(aStackTop, aEnvironment);
+            optionPointer = optionPointer.cdr();
             if( optionPointer.type() != Utility.ATOM && optionPointer.type() != Utility.NUMBER) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argumentsPointer, "INTERNAL");
             if (optionPointer.type() == Utility.ATOM) {
                 String value = (String) optionPointer.car();
@@ -435,7 +435,7 @@ public class Utility {
                 }//ende else.
             } else //Number
             {
-                NumberCons numberCons = (NumberCons) optionPointer.getCons();
+                NumberCons numberCons = (NumberCons) optionPointer;
                 BigNumber bigNumber = (BigNumber) numberCons.getNumber(10, aEnvironment);
                 Double value = bigNumber.toDouble();
                 userOptions.put(key, value);
@@ -443,7 +443,7 @@ public class Utility {
 
 
 
-            argumentsPointer.goNext(aStackTop, aEnvironment);
+            argumentsPointer = argumentsPointer.cdr();
 
         }//end while
 
@@ -609,11 +609,11 @@ public class Utility {
 
             Object sourceListCar = sourceCons.car();
 
-            ConsPointer sourceListPointer = null;
+            Cons sourceListPointer = null;
 
             if (sourceListCar instanceof Cons) {
                 Cons consPointer = (Cons) sourceListCar;
-                sourceListPointer = new ConsPointer(consPointer);
+                sourceListPointer = consPointer;
             }
 
             if (sourceListPointer != null) {
@@ -624,10 +624,10 @@ public class Utility {
 
                 boolean isHead = true;
 
-                while (sourceListPointer.getCons() != null) {
+                while (sourceListPointer != null) {
 
 
-                    Cons resultPointer = substitute(aEnvironment, aStackTop, sourceListPointer.getCons(), aBehaviour);
+                    Cons resultPointer = substitute(aEnvironment, aStackTop, sourceListPointer, aBehaviour);
 
                     if(isHead == true)
                     {
@@ -644,7 +644,7 @@ public class Utility {
                     }
 
                     //Point to next cons in the source list.
-                    sourceListPointer.setCons(sourceListPointer.cdr());
+                    sourceListPointer = sourceListPointer.cdr();
 
 
 
@@ -1190,8 +1190,8 @@ public class Utility {
 
                 Iterator patternPredicatesIterator = pattern.getPredicates().iterator();
                 while (patternPredicatesIterator.hasNext()) {
-                    ConsPointer predicatePointer = new ConsPointer( (Cons) patternPredicatesIterator.next());
-                    String patternPredicate = Utility.printMathPiperExpression(aStackTop, predicatePointer.getCons(), aEnvironment, 0);
+                    Cons predicatePointer = (Cons) patternPredicatesIterator.next();
+                    String patternPredicate = Utility.printMathPiperExpression(aStackTop, predicatePointer, aEnvironment, 0);
                     predicate += patternPredicate + ", ";
                 }
                 /*if (predicate.contains(",")) {
@@ -1359,19 +1359,19 @@ public class Utility {
 
 
 
-    public static ConsPointer lispEvaluate(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
+    public static Cons lispEvaluate(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
 
         Cons inputExpressionCons = mathPiperParse(aEnvironment, aStackTop, inputExpression);
 
-        return new ConsPointer(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionCons));
+        return aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionCons);
     }//end method.
 
 
 
 
-    public static ConsPointer lispEvaluate(Environment aEnvironment, int aStackTop, ConsPointer inputExpressionPointer) throws Exception {
+    public static Cons lispEvaluate(Environment aEnvironment, int aStackTop, Cons inputExpressionPointer) throws Exception {
 
-        return new ConsPointer(aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionPointer.getCons()));
+        return aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionPointer);
 
     }//end method.
 

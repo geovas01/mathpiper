@@ -24,7 +24,7 @@ import org.mathpiper.lisp.cons.BuiltinObjectCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.cons.Cons;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 
 /**
  *

@@ -17,7 +17,7 @@
 package org.mathpiper.lisp.rulebases;
 
 import org.mathpiper.lisp.stacks.UserStackInformation;
-import org.mathpiper.lisp.cons.ConsPointer;
+
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.cons.SublistCons;
@@ -67,9 +67,9 @@ public class SingleArityRulebase extends Evaluator {
         // iParameterList and #iParameters are set from \a aParameters.
         iParameterList = aParametersPointer;
 
-        ConsPointer parameterPointer = new ConsPointer(aParametersPointer);
+        Cons parameterPointer = aParametersPointer;
 
-        while (parameterPointer.getCons() != null) {
+        while (parameterPointer != null) {
 
             try {
                 if(! (parameterPointer.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.CREATING_USER_FUNCTION, functionName,"INTERNAL");
@@ -83,7 +83,7 @@ public class SingleArityRulebase extends Evaluator {
 
             ParameterName parameter = new ParameterName((String) parameterPointer.car(), false);
             iParameters.add(parameter);
-            parameterPointer.goNext(aStackTop, aEnvironment);
+            parameterPointer = parameterPointer.cdr();
         }
     }
 
