@@ -68,7 +68,7 @@ public class ScatterPlot extends BuiltinFunction {
 
         if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "ScatterPlot");
 
-        argumentsPointer = argumentsPointer.cdr(); //Go to sub list.
+        argumentsPointer = (Cons) argumentsPointer.car(); //Go to sub list.
 
         argumentsPointer = argumentsPointer.cdr(); //Strip List tag.
 
