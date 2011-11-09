@@ -44,13 +44,12 @@ public class Concatenate extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        ConsPointer all = new ConsPointer();
-        all.setCons(aEnvironment.iListAtom.copy( aEnvironment, false));
+        Cons all = aEnvironment.iListAtom.copy( aEnvironment, false);
 
         //ConsTraverser tail = new ConsTraverser(aEnvironment, all);
         //tail.goNext(aStackTop);
 
-        Cons tail = all.getCons();
+        Cons tail = all;
 
         int arg = 1;
 
@@ -74,7 +73,7 @@ public class Concatenate extends BuiltinFunction
 
             arg++;
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,all.getCons()));
+        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,all));
     }
 }
 

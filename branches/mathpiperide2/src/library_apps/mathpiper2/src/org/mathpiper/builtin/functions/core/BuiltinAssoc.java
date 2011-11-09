@@ -48,8 +48,7 @@ public class BuiltinAssoc extends BuiltinFunction
         Cons key = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         // assoc-list to find it in
-        ConsPointer list = new ConsPointer();
-        list.setCons(getArgumentPointer(aEnvironment, aStackTop, 2));
+        Cons list = getArgumentPointer(aEnvironment, aStackTop, 2);
 
         Cons listCons;
 

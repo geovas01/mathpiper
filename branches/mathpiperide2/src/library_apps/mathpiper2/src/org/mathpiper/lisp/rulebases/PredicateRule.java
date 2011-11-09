@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
-import org.mathpiper.lisp.cons.ConsPointer;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
@@ -27,23 +26,19 @@ import org.mathpiper.lisp.cons.Cons;
 class PredicateRule extends Rule {
 
     protected int iPrecedence;
-    protected ConsPointer iBody;
-    protected ConsPointer iPredicate;
+    protected Cons iBody;
+    protected Cons iPredicate;
 
 
     public PredicateRule(Environment aEnvironment, int aPrecedence, Cons aPredicate, Cons aBody) {
-        iBody = new ConsPointer();
-        iBody.setCons(aBody);
-        iPredicate = new ConsPointer();
+        iBody = aBody;
         iPrecedence = aPrecedence;
-        iPredicate.setCons(aPredicate);
+        iPredicate = aPredicate;
 
     }
 
 
     protected PredicateRule(Environment aEnvironment) {
-        iBody = new ConsPointer();
-        iPredicate = new ConsPointer();
     }
 
 
@@ -63,7 +58,7 @@ class PredicateRule extends Rule {
     /// IsTrue(), this function returns true
     public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
         
-        Cons pred = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, iPredicate.getCons());
+        Cons pred = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, iPredicate);
         return Utility.isTrue(aEnvironment, pred, aStackTop);
     }
 
@@ -75,12 +70,12 @@ class PredicateRule extends Rule {
 
     /// Access #iBody.
 
-    public ConsPointer getBodyPointer() {
+    public Cons getBodyPointer() {
         return iBody;
     }
 
 
-    public ConsPointer getPredicatePointer() {
+    public Cons getPredicatePointer() {
         return this.iPredicate;
     }
 

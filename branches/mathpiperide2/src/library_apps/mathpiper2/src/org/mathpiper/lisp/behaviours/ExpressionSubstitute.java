@@ -12,11 +12,11 @@ public class ExpressionSubstitute
         implements Substitute {
 
     Environment iEnvironment;
-    ConsPointer iToMatch;
-    ConsPointer iToReplaceWith;
+    Cons iToMatch;
+    Cons iToReplaceWith;
 
 
-    public ExpressionSubstitute(Environment aEnvironment, ConsPointer aToMatch, ConsPointer aToReplaceWith) {
+    public ExpressionSubstitute(Environment aEnvironment, Cons aToMatch, Cons aToReplaceWith) {
         iEnvironment = aEnvironment;
         iToMatch = aToMatch;
         iToReplaceWith = aToReplaceWith;
@@ -26,8 +26,8 @@ public class ExpressionSubstitute
     public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement)
             throws Exception {
 
-        if (Utility.equals(iEnvironment, aStackTop, aElement, iToMatch.getCons())) {
-            return iToReplaceWith.getCons().copy(aEnvironment, false);
+        if (Utility.equals(iEnvironment, aStackTop, aElement, iToMatch)) {
+            return iToReplaceWith.copy(aEnvironment, false);
 
         }
 

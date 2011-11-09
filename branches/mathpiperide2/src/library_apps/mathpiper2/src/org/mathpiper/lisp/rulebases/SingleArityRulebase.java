@@ -156,7 +156,7 @@ public class SingleArityRulebase extends Evaluator {
                         beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
                         beforeEvaluationDepth = aEnvironment.iEvalDepth;
 
-                        aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, thisRule.getBodyPointer().getCons()); //*** User function is called here.
+                        aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, thisRule.getBodyPointer()); //*** User function is called here.
 
                     } catch (ReturnException re) {
                         //todo:tk:note that user functions currently return their results in aResult, not on the stack.

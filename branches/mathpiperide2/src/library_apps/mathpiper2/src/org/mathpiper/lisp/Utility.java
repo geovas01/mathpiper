@@ -1123,7 +1123,6 @@ public class Utility {
 
     public static void defMacroRulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         // Get operator
-        ConsPointer body = new ConsPointer();
         String orig = null;
 
         if(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "INTERNAL");
@@ -1149,14 +1148,14 @@ public class Utility {
         try {
             int precedence = rule.getPrecedence();
 
-            ConsPointer predicatePointer1 = rule.getPredicatePointer();
+            Cons predicatePointer1 = rule.getPredicatePointer();
             String predicate = "";
             String predicatePointerString = predicatePointer1.toString();
 
             if (predicatePointerString == null || predicatePointerString.equalsIgnoreCase("Empty.")) {
                 predicate = "None.";
             } else {
-                predicate = Utility.printMathPiperExpression(aStackTop, predicatePointer1.getCons(), aEnvironment, 0);
+                predicate = Utility.printMathPiperExpression(aStackTop, predicatePointer1, aEnvironment, 0);
             }
 
             if (rule instanceof PatternRule) {
@@ -1216,7 +1215,7 @@ public class Utility {
                 parameters = parameters.substring(0, parameters.lastIndexOf(","));
             }
 
-            String body = Utility.printMathPiperExpression(aStackTop, rule.getBodyPointer().getCons(), aEnvironment, 0);
+            String body = Utility.printMathPiperExpression(aStackTop, rule.getBodyPointer(), aEnvironment, 0);
             body = body.replace(",", ", ");
             //System.out.println(data);
 
@@ -1224,7 +1223,7 @@ public class Utility {
 
             if (userFunction instanceof MacroRulebase) {
                 BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
-                Cons substitutedBodyPointer = Utility.substitute(aEnvironment, aStackTop, rule.getBodyPointer().getCons(), backQuoteSubstitute);
+                Cons substitutedBodyPointer = Utility.substitute(aEnvironment, aStackTop, rule.getBodyPointer(), backQuoteSubstitute);
                 substitutedMacroBody = Utility.printMathPiperExpression(aStackTop, substitutedBodyPointer, aEnvironment, 0);
             }
 
@@ -1313,9 +1312,7 @@ public class Utility {
         
         Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
 
-        ConsPointer consPointer = new ConsPointer();
-
-        consPointer.setCons(head);
+        Cons consPointer = head;
 
         Iterator iterator = iterable.iterator();
 
@@ -1328,14 +1325,14 @@ public class Utility {
 
                 Cons stringCons = AtomCons.getInstance(aEnvironment, aStackTop, key);
 
-                consPointer.getCons().setCdr(stringCons);
+                consPointer.setCdr(stringCons);
             }
             else
             {
                 throw new Exception("Operation not supported.");
             }
 
-            consPointer.goNext(aStackTop, aEnvironment);
+            consPointer = consPointer.cdr();
 
         }//end while.
 

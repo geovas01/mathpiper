@@ -38,15 +38,13 @@ public class JavaAccess extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        ConsPointer args = new ConsPointer();
+        Cons args = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        args.setCons(getArgumentPointer(aEnvironment, aStackTop, 1));
+        args = (Cons) args.car();
 
-        args.goSub(aStackTop, aEnvironment);
+        args = args.cdr();
 
-        args.goNext(aStackTop, aEnvironment);
-
-        Cons result = Utility.applyString(aEnvironment, aStackTop, "\"JavaCall\"", args.getCons());
+        Cons result = Utility.applyString(aEnvironment, aStackTop, "\"JavaCall\"", args);
 
         result = Utility.applyString(aEnvironment, aStackTop, "\"JavaToValue\"", result);
 
