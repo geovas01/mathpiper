@@ -516,8 +516,8 @@ public class BigNumber {
      * @throws java.lang.Exception
      */
     public void mod(Environment aEnvironment,int aStackTop, BigNumber aY, BigNumber aZ) throws Exception {
-        if(aY.javaBigInteger == null) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_AN_INTEGER, aY, "INTERNAL");
-        if(aZ.javaBigInteger == null) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_AN_INTEGER, aZ, "INTERNAL");
+        if(aY.javaBigInteger == null) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_AN_INTEGER, aY);
+        if(aZ.javaBigInteger == null) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_AN_INTEGER, aZ);
         //TODO fixme    LispError.check(!Zero?(aZ),LispError.INVALID_ARGUMENT);
         javaBigInteger = aY.javaBigInteger.mod(aZ.javaBigInteger);
         javaBigDecimal = null;

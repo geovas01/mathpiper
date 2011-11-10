@@ -49,7 +49,7 @@ public class ConcatenateStrings extends BuiltinFunction
         consTraverser = consTraverser.cdr();
         while (consTraverser != null)
         {
-            LispError.checkIsString(aEnvironment, aStackTop, consTraverser, arg, "ConcatenateStrings");
+            LispError.checkIsString(aEnvironment, aStackTop, consTraverser, arg);
             String thisString =  (String) consTraverser.car();
             String toAppend = thisString.substring(1, thisString.length() - 1);
             aStringBuffer.append(toAppend);

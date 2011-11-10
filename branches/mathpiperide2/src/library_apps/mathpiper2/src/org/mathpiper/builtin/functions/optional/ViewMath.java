@@ -77,7 +77,7 @@ public class ViewMath extends BuiltinFunction {
         Cons viewScalePointer = getArgumentPointer(aEnvironment, aStackTop, 2);
         Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScalePointer);
         BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.getPrecision(), aEnvironment);
-        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ViewMath");
+        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
 
         

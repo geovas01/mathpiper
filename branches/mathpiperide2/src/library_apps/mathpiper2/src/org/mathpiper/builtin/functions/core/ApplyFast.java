@@ -48,7 +48,7 @@ public class ApplyFast extends BuiltinFunction
 
         Cons args = getArgumentPointer(aEnvironment, aStackTop, 2);
 
-        if(! (args.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2, "ApplyFast");
+        if(! (args.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(((Cons) args.car()) == null) LispError.throwError(aEnvironment, aStackTop, 2);
 
         // Apply a pure string
@@ -61,8 +61,8 @@ public class ApplyFast extends BuiltinFunction
         {   // Apply a pure function {args,body}.
 
             Cons args2 = ((Cons) args.car()).cdr();
-            if(! (oper.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1, "ApplyFast");
-            if( (Cons) oper.car() == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ApplyFast");
+            if(! (oper.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+            if( (Cons) oper.car() == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
             
             setTopOfStackPointer(aEnvironment, aStackTop, Utility.applyPure(aStackTop, oper, args2, aEnvironment));
         }

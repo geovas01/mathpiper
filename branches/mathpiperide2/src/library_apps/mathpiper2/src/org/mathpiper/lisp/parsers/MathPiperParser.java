@@ -123,7 +123,7 @@ public class MathPiperParser extends Parser
 
 
 
-        if(iError) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_EXPRESSION, "","INTERNAL");
+        if(iError) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_EXPRESSION, "");
 
         return parsedExpression;
     }
@@ -189,7 +189,7 @@ public class MathPiperParser extends Parser
                 // Match closing bracket
                 if (iLookAhead[0] != iEnvironment.iProgCloseAtom.car())
                 {
-                    LispError.raiseError("Expected a ***( ] )*** close bracket token for program block but found ***( " + iLookAhead[0] + " )*** instead.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( ] )*** close bracket token for program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
                 matchToken(aStackTop, iLookAhead[0]);
@@ -206,7 +206,7 @@ public class MathPiperParser extends Parser
                     if(iLookAhead[0].equals(""))
                     {
 
-                       LispError.raiseError("Expression must end with a semi-colon ***( ; )*** ", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                       LispError.raiseError("Expression must end with a semi-colon ***( ; )*** ", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                         return;
                     }
                     if (MathPiperTokenizer.isSymbolic(iLookAhead[0].charAt(0)))
@@ -309,7 +309,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead[0]);
                 } else if (iLookAhead[0] != iEnvironment.iListCloseAtom.car())
                 {
-                    LispError.raiseError("Expected a ***( } )*** close bracket token for a list but found ***( " + iLookAhead[0] + " )*** instead.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( } )*** close bracket token for a list but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
             }
@@ -334,7 +334,7 @@ public class MathPiperParser extends Parser
                     matchToken(aStackTop, iLookAhead[0]);
                 } else
                 {
-                    LispError.raiseError("Expected a ***( ; )*** end of statement token in program block but found ***( " + iLookAhead[0] + " )*** instead.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( ; )*** end of statement token in program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                     return;
                 }
             }
@@ -367,7 +367,7 @@ public class MathPiperParser extends Parser
                         matchToken(aStackTop, iLookAhead[0]);
                     } else if (iLookAhead[0] != iEnvironment.iBracketCloseAtom.car())
                     {
-                        LispError.raiseError("Expected a ***( ) )*** close parentheses token for sub-expression but found ***( " + iLookAhead[0] + " )*** instead. ", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                        LispError.raiseError("Expected a ***( ) )*** close parentheses token for sub-expression but found ***( " + iLookAhead[0] + " )*** instead. ", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
                         return;
                     }
                 }
@@ -469,8 +469,8 @@ public class MathPiperParser extends Parser
         iError = true;
         if (iLookAhead[0] != null)
         {
-            LispError.raiseError("Error parsing expression near token ***( " + iLookAhead[0] + " )***.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
+            LispError.raiseError("Error parsing expression near token ***( " + iLookAhead[0] + " )***.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
         }
-        LispError.raiseError("Error parsing expression.", "[INTERNAL]", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
+        LispError.raiseError("Error parsing expression.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
     }
 };

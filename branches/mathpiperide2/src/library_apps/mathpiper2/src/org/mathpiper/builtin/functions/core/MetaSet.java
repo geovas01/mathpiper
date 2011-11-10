@@ -48,7 +48,7 @@ public class MetaSet extends BuiltinFunction
 
         Cons key = getArgumentPointer(aEnvironment, aStackTop, 2);
 
-        LispError.checkIsString(aEnvironment, aStackTop, key, 2, "MetaSet");
+        LispError.checkIsString(aEnvironment, aStackTop, key, 2);
 
 
         Cons value = getArgumentPointer(aEnvironment, aStackTop, 3);

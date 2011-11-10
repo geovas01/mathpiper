@@ -53,7 +53,7 @@ public class PrettyReaderSet extends BuiltinFunction
 
             Cons oper = getArgumentPointer(aEnvironment, aStackTop, 0);
             oper = oper.cdr();
-            LispError.checkIsString(aEnvironment, aStackTop, oper, 1, "PrettyReaderSet");
+            LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
             aEnvironment.iPrettyReaderName = (String) oper.car();
         }
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));

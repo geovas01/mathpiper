@@ -48,7 +48,7 @@ public class Import extends BuiltinFunction
         Cons pathPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
 
-        LispError.checkIsString(aEnvironment, aStackTop, pathPointer, 1, "Import");
+        LispError.checkIsString(aEnvironment, aStackTop, pathPointer, 1);
 
         String path = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) pathPointer.car());
 

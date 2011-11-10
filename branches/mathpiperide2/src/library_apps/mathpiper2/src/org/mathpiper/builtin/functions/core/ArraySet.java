@@ -49,16 +49,16 @@ public class ArraySet extends BuiltinFunction
         Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
-        if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ArraySet");
-        if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1, "ArraySet");
+        if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         Cons sizearg = getArgumentPointer(aEnvironment, aStackTop, 2);
 
-        if(sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArraySet");
-        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArraySet");
+        if(sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
         int size = Integer.parseInt( (String) sizearg.car(), 10);
-        if( size <= 0 || size > ((Array) gen).size()) LispError.checkArgument(aEnvironment, aStackTop, 2, "ArraySet");
+        if( size <= 0 || size > ((Array) gen).size()) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
         Cons obj = getArgumentPointer(aEnvironment, aStackTop, 3);
         ((Array) gen).setElement(size, obj, aStackTop, aEnvironment);

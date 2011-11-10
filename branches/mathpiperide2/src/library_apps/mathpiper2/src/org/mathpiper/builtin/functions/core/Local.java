@@ -53,7 +53,7 @@ public class Local extends BuiltinFunction
             while (consTraverser != null)
             {
                 String variable = (String) consTraverser.car();
-                if(variable == null) LispError.checkArgument(aEnvironment, aStackTop, nr, "Local");
+                if(variable == null) LispError.checkArgument(aEnvironment, aStackTop, nr);
                 // printf("Variable %s\n",variable.String());
                 aEnvironment.newLocalVariable(variable, null, aStackTop);
                 consTraverser = consTraverser.cdr();

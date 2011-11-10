@@ -74,7 +74,7 @@ public class Length extends BuiltinFunction
 
         if(! (argument instanceof String)) 
         {
-            LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argument, "Length");
+            LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argument);
         }
         
         String string =  (String) argument;

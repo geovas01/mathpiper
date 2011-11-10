@@ -89,14 +89,14 @@ public class ViewLatex extends BuiltinFunction {
         }
         else
         {
-            LispError.raiseError("The first argument must be a string which contains Latex code.", "ViewLatex", aStackTop, aEnvironment);
+            LispError.raiseError("The first argument must be a string which contains Latex code.", aStackTop, aEnvironment);
         }//end else.
 
 
         Cons viewScalePointer = getArgumentPointer(aEnvironment, aStackTop, 2);
         Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScalePointer);
         BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.getPrecision(), aEnvironment);
-        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ViewLatex");
+        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         /*sHotEqn hotEqn = new sHotEqn();
         hotEqn.setFontsizes(18,18,18,18);

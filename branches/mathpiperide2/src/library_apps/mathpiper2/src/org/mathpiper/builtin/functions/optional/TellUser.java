@@ -38,19 +38,19 @@ public class TellUser extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         if (getArgumentPointer(aEnvironment, aStackTop, 1) == null) {
-            LispError.checkArgument(aEnvironment, aStackTop, 1, "TellUser");
+            LispError.checkArgument(aEnvironment, aStackTop, 1);
         }
 
         Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
 
         if (! (argument instanceof String)) {
-            LispError.raiseError("The argument to TellUser must be a string.", "INTERNAL", aStackTop, aEnvironment);
+            LispError.raiseError("The argument to TellUser must be a string.", aStackTop, aEnvironment);
         }
 
         String messageString = (String) argument;
 
         if (messageString == null) {
-            LispError.checkArgument(aEnvironment, aStackTop, 1, "TellUser");
+            LispError.checkArgument(aEnvironment, aStackTop, 1);
         }
 
         messageString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, messageString);

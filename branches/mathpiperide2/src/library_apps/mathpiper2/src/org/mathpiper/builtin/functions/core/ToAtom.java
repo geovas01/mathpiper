@@ -45,9 +45,9 @@ public class ToAtom extends BuiltinFunction
         Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
 
         // Get operator
-        if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ToAtom");
+        if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig =  (String) evaluated.car();
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ToAtom");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpUnStringify(orig)));
     }
 }

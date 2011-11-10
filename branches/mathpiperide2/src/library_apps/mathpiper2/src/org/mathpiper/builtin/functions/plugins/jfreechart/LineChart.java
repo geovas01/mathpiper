@@ -68,13 +68,13 @@ public class LineChart extends BuiltinFunction {
 
         Cons argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "LineChart");
+        if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
         argumentsPointer = (Cons) argumentsPointer.car(); //Go to sub list.
 
         argumentsPointer = argumentsPointer.cdr(); //Strip List tag.
 
-        if(! Utility.isList(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "LineChart");
+        if(! Utility.isList(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
 
         Cons dataListPointer = (Cons) argumentsPointer.car(); //Grab the first member of the list.
 
