@@ -46,16 +46,16 @@ public class Retract extends BuiltinFunction
         // Get operator
         Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "Retract");
+        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig = (String) evaluated.car();
 
         orig = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, orig);
         
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "Retract");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.getSymbolName(aEnvironment, orig);
 
         Cons arityPointer = getArgumentPointer(aEnvironment, aStackTop, 2);
-        if(!(arityPointer.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "Retract");
+        if(!(arityPointer.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         String arityString = (String) arityPointer.car();
         if(arityString.equalsIgnoreCase("*"))
         {

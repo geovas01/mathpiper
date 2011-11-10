@@ -41,11 +41,11 @@ public class WriteString extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if(getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "WriteString");
+        if(getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String str = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "WriteString");
-        if( str.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1, "WriteString");
-        if( str.charAt(str.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1, "WriteString");
+        if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( str.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( str.charAt(str.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int i = 1;
         int nr = str.length() - 1;

@@ -167,7 +167,7 @@ public class ParametersPatternMatcher {
 
 
         for (i = 0; i < iParamMatchers.size(); i++) {
-            if(i >= aArguments.length) LispError.throwError(aEnvironment, aStackTop, "Listed function definitions need at least two parameters.", "INTERNAL");
+            if(i >= aArguments.length) LispError.throwError(aEnvironment, aStackTop, "Listed function definitions need at least two parameters.");
             PatternParameterMatcher patternParameter = (PatternParameterMatcher) iParamMatchers.get(i);
             Cons argument = aArguments[i];
             if (!patternParameter.argumentMatches(aEnvironment, aStackTop, argument, arguments)) {
@@ -365,7 +365,7 @@ public class ParametersPatternMatcher {
                 ".";
 
 
-                if(! isTrue) LispError.throwError(aEnvironment, aStackTop, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, errorMessage, "INTERNAL");
+                if(! isTrue) LispError.throwError(aEnvironment, aStackTop, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, errorMessage);
             }
         }
         return true;

@@ -78,7 +78,7 @@ public class LispExpressionEvaluator extends Evaluator {
         aEnvironment.iEvalDepth++;
         if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
 
-            if(aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) LispError.throwError(aEnvironment, aStackTop, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "Maximum recursed depth set to " + aEnvironment.iMaxEvalDepth + ".", "INTERNAL");
+            if(aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) LispError.throwError(aEnvironment, aStackTop, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "Maximum recursed depth set to " + aEnvironment.iMaxEvalDepth + ".");
             // }
         }
 
@@ -87,7 +87,7 @@ public class LispExpressionEvaluator extends Evaluator {
         if (Environment.haltEvaluation == true) {
             Environment.haltEvaluation = false;
 
-            LispError.raiseError("User halted calculation.", "", aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex(), aStackTop, aEnvironment);
+            LispError.raiseError("User halted calculation.", aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex(), aStackTop, aEnvironment);
         }
 
 
@@ -190,7 +190,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         }
 
 
-                        LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", "[Internal]", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
+                        LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
 
 
                     } else {
@@ -232,7 +232,7 @@ public class LispExpressionEvaluator extends Evaluator {
     SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, Cons subList) throws Exception {
         Cons head = subList;
 
-        if(! (head.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, "No function name specified.", "INTERNAL");
+        if(! (head.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, "No function name specified.");
 
         String functionName = (String) head.car();
 
@@ -258,7 +258,7 @@ public class LispExpressionEvaluator extends Evaluator {
             String[] scriptCode = scripts.getScript(functionName);
 
 
-            if( scriptCode == null) LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.", "INTERNAL");
+            if( scriptCode == null) LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
 
 
             if (scriptCode[0] == null) {
@@ -287,7 +287,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
 
-                if(scriptCode[1] == null) LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.", "INTERNAL");
+                if(scriptCode[1] == null) LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
 
                 aEnvironment.iCurrentInput.iStatus.setTo(functionName);
 

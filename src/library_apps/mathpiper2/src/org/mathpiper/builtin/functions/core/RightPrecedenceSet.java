@@ -44,13 +44,13 @@ public class RightPrecedenceSet extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        if( getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RightPrecedenceSet");
+        if( getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RightPrecedenceSet");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         Cons index = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2));
-        if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "RightPrecedenceSet");
-        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "RightPrecedenceSet");
+        if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int ind = Integer.parseInt ( (String) index.car(), 10);
 
         aEnvironment.iInfixOperators.setRightPrecedence(aStackTop, Utility.getSymbolName(aEnvironment, orig), ind);

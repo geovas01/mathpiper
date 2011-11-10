@@ -51,11 +51,11 @@ public class TraceSome extends BuiltinFunction
         Cons bodyPointer = getArgumentPointer(aEnvironment, aStackTop, 2);
 
         // Get function list.
-        if(functionListPointer == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "TraceSome");
+        if(functionListPointer == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionListPointer);
         String functionNamesString =  (String) result.car();
-        if(functionNamesString == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "TraceSome");
+        if(functionNamesString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         
         //Place function names into a List and then set this as the trace function list in Evaluator.

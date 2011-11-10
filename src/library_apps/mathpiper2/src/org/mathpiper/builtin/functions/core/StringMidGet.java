@@ -46,18 +46,18 @@ public class StringMidGet extends BuiltinFunction
     {
         
         Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 3);
-        LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3, "StringMidGet");
+        LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3);
         String orig = (String) evaluated.car();
 
         Cons index = getArgumentPointer(aEnvironment, aStackTop, 1);
-        if( index  == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidGet");
-        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidGet");
+        if( index  == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1);
         int from = Integer.parseInt( (String) index.car(), 10);
-        if( from <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1, "StringMidGet");
+        if( from <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         index = getArgumentPointer(aEnvironment, aStackTop, 2);
-        if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "StringMidGet");
-        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "StringMidGet");
+        if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int count = Integer.parseInt( (String) index.car(), 10);
 
 

@@ -47,8 +47,8 @@ public class PatternRule extends Rule {
         iPredicate = aPredicate;
 
         BuiltinContainer gen = (BuiltinContainer) aPredicate.car();
-        if(gen == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "","INTERNAL");
-        if(! gen.typeName().equals("\"Pattern\"")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Type is not <pattern>.","INTERNAL");
+        if(gen == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+        if(! gen.typeName().equals("\"Pattern\"")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Type is not <pattern>.");
 
         iPattern = (PatternContainer) gen;
         iBody = aBody;

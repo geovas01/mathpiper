@@ -115,7 +115,7 @@ public class AnalyzeScripts {
                     System.out.println("    " + operatorOrFunctionName + " " + lineNumber + ":" + lineIndex);
                 }
 
-                if( readIn == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "", "INTERNAL");
+                if( readIn == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;

@@ -100,7 +100,7 @@ public class MathPiperPrinter extends LispPrinter {
 
         Cons subList = (Cons) aExpression.car();
 
-        if(subList == null) LispError.throwError(aEnvironment, aStackTop, LispError.UNPRINTABLE_TOKEN, "","INTERNAL");
+        if(subList == null) LispError.throwError(aEnvironment, aStackTop, LispError.UNPRINTABLE_TOKEN, "");
 
         if (subList == null) {
             WriteToken(aOutput, "( )");

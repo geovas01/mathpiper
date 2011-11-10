@@ -49,13 +49,13 @@ public class Check extends BuiltinFunction
         if (!Utility.isTrue(aEnvironment, pred, aStackTop))
         {
             Cons type = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 2));
-            LispError.checkIsString(aEnvironment, aStackTop, type, 2, "Check");
+            LispError.checkIsString(aEnvironment, aStackTop, type, 2);
             
             
             
             
             Cons message = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 3));
-            LispError.checkIsString(aEnvironment, aStackTop, message, 3, "Check");
+            LispError.checkIsString(aEnvironment, aStackTop, message, 3);
 
 
 

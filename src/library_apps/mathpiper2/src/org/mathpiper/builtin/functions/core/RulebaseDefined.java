@@ -47,12 +47,12 @@ public class RulebaseDefined extends BuiltinFunction
     {
         Cons name = getArgumentPointer(aEnvironment, aStackTop, 1);
         String orig = (String) name.car();
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "RulebaseDefined");
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
         Cons sizearg = getArgumentPointer(aEnvironment, aStackTop, 2);
-        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseDefined");
-        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2, "RulebaseDefined");
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 

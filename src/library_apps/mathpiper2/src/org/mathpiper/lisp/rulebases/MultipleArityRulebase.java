@@ -82,8 +82,8 @@ public class MultipleArityRulebase {
         for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
             if(((SingleArityRulebase) iFunctions.get(ruleIndex)) == null) LispError.lispAssert(aEnvironment, aStackTop);
             if(aNewFunction == null) LispError.lispAssert(aEnvironment, aStackTop);
-            if(((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aNewFunction.arity())) LispError.throwError(aEnvironment, aStackTop, "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName, "INTERNAL");
-            if(aNewFunction.isArity(((SingleArityRulebase) iFunctions.get(ruleIndex)).arity())) LispError.throwError(aEnvironment, aStackTop, "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName, "INTERNAL");
+            if(((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aNewFunction.arity())) LispError.throwError(aEnvironment, aStackTop, "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName);
+            if(aNewFunction.isArity(((SingleArityRulebase) iFunctions.get(ruleIndex)).arity())) LispError.throwError(aEnvironment, aStackTop, "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName);
         }
         iFunctions.add(aNewFunction);
     }//end method.

@@ -69,7 +69,7 @@ public class Parser {
             //Get token.
             token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput, iEnvironment.getTokenHash());
             // if token is empty string, error!
-            if(token.length() <= 0) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_TOKEN, "Token empty.","INTERNAL"); //TODO FIXME
+            if(token.length() <= 0) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_TOKEN, "Token empty."); //TODO FIXME
             // if token is ")" return result.
             if (token == iEnvironment.getTokenHash().lookUp(")")) {
                 return aResult;

@@ -215,7 +215,7 @@ public final class Environment {
 
 
     public LocalVariable getLocalVariable(int aStackTop, String aVariable) throws Exception {
-        if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "","INTERNAL");
+        if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "");
         //    check(iLocalsList.iFirst != null,INVALID_STACK);
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
 
@@ -231,7 +231,7 @@ public final class Environment {
 
 
     public void unbindAllLocalVariables(int aStackTop) throws Exception{
-        if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "","INTERNAL");
+        if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "");
 
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
 
@@ -285,7 +285,7 @@ public final class Environment {
 
     public String dumpLocalVariablesFrame(int aStackTop) throws Exception {
 
-        if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "","INTERNAL");
+        if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "");
 
         LocalVariableFrame localVariableFramePointer = iLocalVariablesFrame;
 
@@ -501,7 +501,7 @@ public final class Environment {
 
     public void holdArgument(int aStackTop, String aOperator, String aVariable, Environment aEnvironment) throws Exception {
         MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
-        if(multipleArityUserFunc == null) LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT, aOperator,"INTERNAL");
+        if(multipleArityUserFunc == null) LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT, aOperator);
         multipleArityUserFunc.holdArgument(aVariable, aStackTop, aEnvironment);
     }
 
@@ -532,9 +532,9 @@ public final class Environment {
     public void unfenceRule(int aStackTop, String aOperator, int aArity) throws Exception {
         MultipleArityRulebase multiUserFunc = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
 
-        if(multiUserFunc == null) LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT, aOperator,"INTERNAL");
+        if(multiUserFunc == null) LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT, aOperator);
         SingleArityRulebase userFunc = multiUserFunc.getUserFunction(aArity, aStackTop, this);
-        if(userFunc == null) LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT, aOperator,"INTERNAL");
+        if(userFunc == null) LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT, aOperator);
         userFunc.unFence();
     }
 
@@ -549,7 +549,7 @@ public final class Environment {
             newMultipleArityUserRulebase.functionName = aOperator;
             iUserRulebases.setAssociation(newMultipleArityUserRulebase, aOperator);
             multipleArityUserRulebase = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
-            if(multipleArityUserRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_USER_FUNCTION, aOperator,"INTERNAL");
+            if(multipleArityUserRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_USER_FUNCTION, aOperator);
         }
         return multipleArityUserRulebase;
     }
@@ -570,11 +570,11 @@ public final class Environment {
     public void defineRule(int aStackTop, String aOperator, int aArity, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // Find existing multiuser rule.
         MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
-        if(multipleArityRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator,"INTERNAL");
+        if(multipleArityRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator);
 
         // Get the specific user function with the right arity
         SingleArityRulebase rulebase = (SingleArityRulebase) multipleArityRulebase.getUserFunction(aArity, aStackTop, this);
-        if(rulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator,"INTERNAL");
+        if(rulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator);
 
         // Declare a new evaluation rule
         if (Utility.isTrue(this, aPredicate, aStackTop)) {
@@ -601,13 +601,13 @@ public final class Environment {
     public void defineRulePattern(int aStackTop, String aOperator, int aArity, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // Find existing multiuser rulebase.
         MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
-        if(multipleArityRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator,"INTERNAL");
+        if(multipleArityRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator);
 
         // Get the specific user function with the right arity
         SingleArityRulebase rulebase = multipleArityRulebase.getUserFunction(aArity, aStackTop, this);
         if(rulebase == null) 
         {
-            LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator, "INTERNAL");
+            LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator);
         }
 
         // Declare a new evaluation rule

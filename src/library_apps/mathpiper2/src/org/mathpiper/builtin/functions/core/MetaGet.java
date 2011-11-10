@@ -34,7 +34,7 @@ public class MetaGet extends BuiltinFunction
 
         Cons key = getArgumentPointer(aEnvironment, aStackTop, 2);
 
-        LispError.checkIsString(aEnvironment, aStackTop, key, 2, "MetaGet");
+        LispError.checkIsString(aEnvironment, aStackTop, key, 2);
 
 
         Map metadataMap = objectPointer.getMetadataMap();

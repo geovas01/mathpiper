@@ -42,7 +42,7 @@ public class JavaObject extends BuiltinContainer {
     }//end method.
 
     public static List lispListToJavaList(Environment aEnvironment, int aStackTop,Cons lispList) throws Exception {
-        if(! Utility.isList(lispList)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
+        if(! Utility.isList(lispList)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
 
         lispList = lispList.cdr();
 
@@ -63,7 +63,7 @@ public class JavaObject extends BuiltinContainer {
 
 
     public static double[] lispListToJavaDoubleArray(Environment aEnvironment, int aStackTop, Cons lispListPointer) throws Exception {
-        if(! Utility.isList(lispListPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "", "INTERNAL");
+        if(! Utility.isList(lispListPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
 
         lispListPointer = lispListPointer.cdr(); //Remove List designator.
 
@@ -74,13 +74,13 @@ public class JavaObject extends BuiltinContainer {
 
             Object item = lispListPointer.car();
 
-            if(!( item instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "", "INTERNAL");
+            if(!( item instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
             String itemString = (String) item;
 
             try {
                 values[index++] = Double.parseDouble(itemString);
             } catch (NumberFormatException nfe) {
-                LispError.raiseError("Can not convert into a double." , "INTERNAL", aStackTop, aEnvironment);
+                LispError.raiseError("Can not convert into a double.", aStackTop, aEnvironment);
             }//end try/catch.
 
             lispListPointer = lispListPointer.cdr();

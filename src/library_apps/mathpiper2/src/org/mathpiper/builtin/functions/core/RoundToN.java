@@ -105,7 +105,7 @@ public class RoundToN extends BuiltinFunction
 
         }//end else.
 
-        LispError.raiseError("The first argument must be a number.", "RoundToN", aStackTop, aEnvironment);
+        LispError.raiseError("The first argument must be a number.", aStackTop, aEnvironment);
 
     }//end method.
 

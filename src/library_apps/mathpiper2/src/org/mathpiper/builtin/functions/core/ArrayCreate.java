@@ -47,8 +47,8 @@ public class ArrayCreate extends BuiltinFunction
     {
         Cons sizearg = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "ArrayCreate");
-        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1, "ArrayCreate");
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int size = Integer.parseInt( (String) sizearg.car(), 10);
 

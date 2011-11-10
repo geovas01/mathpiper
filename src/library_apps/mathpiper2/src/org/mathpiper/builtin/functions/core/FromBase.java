@@ -51,9 +51,9 @@ public class FromBase extends BuiltinFunction
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
         BigNumber num = (BigNumber)  oper.getNumber(aEnvironment.getPrecision(), aEnvironment);
-        if( num == null) LispError.checkArgument(aEnvironment, aStackTop, 1, "FromBase");
+        if( num == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         // check that the base is an integer between 2 and 32
-        if(! num.isInteger()) LispError.checkArgument(aEnvironment, aStackTop, 1, "FromBase");
+        if(! num.isInteger()) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         // Get a short platform integer from the car argument
         int base = (int) (num.toDouble());
@@ -62,10 +62,10 @@ public class FromBase extends BuiltinFunction
         Cons fromNum = getArgumentPointer(aEnvironment, aStackTop, 2);
         String str2;
         str2 =  (String) fromNum.car();
-        if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2, "FromBase");
+        if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
         // Added, unquote a string
-        if(! Utility.isString(str2)) LispError.checkArgument(aEnvironment, aStackTop, 2, "FromBase");
+        if(! Utility.isString(str2)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         str2 = aEnvironment.getTokenHash().lookUpUnStringify(str2);
 
         // convert using correct base

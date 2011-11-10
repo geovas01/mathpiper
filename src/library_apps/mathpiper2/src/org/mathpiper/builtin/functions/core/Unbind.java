@@ -53,7 +53,7 @@ public class Unbind extends BuiltinFunction
             {
                 String variableName;
                 variableName =  (String) consTraverser.car();
-                if( variableName == null) LispError.checkArgument(aEnvironment, aStackTop, nr, "Unbind");
+                if( variableName == null) LispError.checkArgument(aEnvironment, aStackTop, nr);
                 aEnvironment.unbindVariable(aStackTop, variableName);
                 consTraverser = consTraverser.cdr();
                 nr++;

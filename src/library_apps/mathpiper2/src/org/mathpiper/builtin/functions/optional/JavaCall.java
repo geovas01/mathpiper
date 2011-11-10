@@ -154,7 +154,7 @@ public class JavaCall extends BuiltinFunction {
                             try {
                                 returnObject = JavaField.getField((Class) targetObject, methodName, true).get(null);
                             } catch (Exception e2) {
-                                LispError.raiseError("Method or field " + methodName + " does not exist.", "", -2, null);
+                                LispError.raiseError("Method or field " + methodName + " does not exist.", -2, null);
                             }
                         }
                     } else {
