@@ -866,7 +866,37 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			}catch(Throwable e) 
 			{
-				result = e.getMessage();
+				if(e instanceof ubc.cs.JLog.Parser.SyntaxErrorException)
+				{
+					syntaxException = (ubc.cs.JLog.Parser.SyntaxErrorException) e;
+					
+					adjustedErrorLineNumber = foldStartLine + syntaxException.getLine() + 2;
+					
+					startIndex = syntaxException.getCharPos() + 1;
+					
+					errorSource = MathPiperInterpreter.getErrorSource(); //Note: obtaining error source from central location.
+	
+					errorResult =  syntaxException.getMessage();
+					
+					errorResult = errorResult.substring(0, errorResult.indexOf("at"));
+					
+					errorResult = errorResult + " Error near line " + adjustedErrorLineNumber + " just before index " + startIndex + ".";	
+					
+					filePath = textArea.getBuffer().getPath();
+				
+					errorSource.clear();
+				
+					errorSource.addError(new DefaultErrorSource.DefaultError( errorSource, ErrorSource.ERROR, filePath, adjustedErrorLineNumber - 1, startIndex, startIndex + 1, errorResult ) );
+					
+					jEdit.getActiveView().getDockableWindowManager().showDockableWindow( "error-list" );
+					
+					
+					result = errorResult;
+				}
+				else
+				{
+					result = e.getMessage();
+				}
 				
 				output_fold_type = "%error ";
 			}
