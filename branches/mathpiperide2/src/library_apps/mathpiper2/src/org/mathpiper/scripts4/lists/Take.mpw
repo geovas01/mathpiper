@@ -1,6 +1,6 @@
 %mathpiper,def="Take"
 
-/* ���� Take ���� */
+/*  Take  */
 
 /* Needs to check the parameters */
 
@@ -20,7 +20,7 @@ RuleHoldArguments("Take", 2, 2, range >=? 0)
         Concat({First(lst)}, Take(Rest(lst), range-1)));
 
 RuleHoldArguments("Take", 2, 2, range <? 0)
-    Drop( lst, Length(lst) + range );
+    Drop( lst, If(AbsN(range) <? Length(lst), Length(lst) + range, 0 ));
 
 %/mathpiper
 

@@ -19,7 +19,7 @@ RuleHoldArguments("Drop", 2, 2, range >=? 0)
     If( range =? 0 Or? lst =? {}, lst, Drop( Rest(lst), range-1 ));
 
 RuleHoldArguments("Drop", 2, 2, range <? 0)
-    Take( lst, Length(lst) + range );
+    Take( lst, If(AbsN(range) <? Length(lst), Length(lst) + range, 0 ) );
 
 %/mathpiper
 
