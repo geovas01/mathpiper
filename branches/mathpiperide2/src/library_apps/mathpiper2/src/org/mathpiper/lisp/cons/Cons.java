@@ -61,7 +61,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         return null;
     }
 
-    public abstract Cons copy( Environment aEnvironment, boolean aRecursed) throws Exception;
+    public abstract Cons copy(boolean aRecursed) throws Exception;
 
 
 

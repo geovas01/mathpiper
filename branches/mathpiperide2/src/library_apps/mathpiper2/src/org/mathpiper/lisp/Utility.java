@@ -195,7 +195,7 @@ public class Utility {
     }
 
     public static Cons returnUnEvaluated(int aStackTop, Cons aArguments, Environment aEnvironment) throws Exception {
-        Cons full = aArguments.copy(aEnvironment, false);
+        Cons full = aArguments.copy(false);
 
         Cons resultCons = SublistCons.getInstance(aEnvironment, full);
 
@@ -246,7 +246,7 @@ public class Utility {
 
                 String var = (String) oper2.car();
                 if( var == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
-                Cons newly = args2.copy(aEnvironment, false);
+                Cons newly = args2.copy(false);
                 aEnvironment.newLocalVariable(var, newly, aStackTop);
                 oper2 = oper2.cdr();
                 args2 = args2.cdr();
@@ -262,11 +262,11 @@ public class Utility {
     }
 
     public static Cons putTrueInPointer(Environment aEnvironment) throws Exception {
-        return aEnvironment.iTrueAtom.copy(aEnvironment, false);
+        return aEnvironment.iTrueAtom.copy(false);
     }
 
     public static Cons putFalseInPointer(Environment aEnvironment) throws Exception {
-        return aEnvironment.iFalseAtom.copy(aEnvironment, false);
+        return aEnvironment.iFalseAtom.copy(false);
     }
 
     public static Cons putBooleanInPointer(Environment aEnvironment, boolean aValue) throws Exception {
@@ -289,7 +289,7 @@ public class Utility {
             n--;
         }
         if(consTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
-        return consTraverser.copy(aEnvironment, false);
+        return consTraverser.copy(false);
     }
 
     public static Cons tail(Environment aEnvironment, int aStackTop, Cons aArg) throws Exception {
@@ -500,7 +500,7 @@ public class Utility {
         while (orig != null) {
 
 
-            copied = orig.copy(aEnvironment, false);
+            copied = orig.copy(false);
 
             if(isHead == true)
             {
@@ -654,7 +654,7 @@ public class Utility {
                 
             } else {
                 //Handle atoms.
-                aDestinationPointer = sourceCons.copy(aEnvironment, false);
+                aDestinationPointer = sourceCons.copy(false);
             }
 
             return aDestinationPointer;
@@ -1310,7 +1310,7 @@ public class Utility {
      */
     public static Cons iterableToList(Environment aEnvironment, int aStackTop, java.lang.Iterable iterable) throws Exception {
         
-        Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
+        Cons head = aEnvironment.iListAtom.copy(false);
 
         Cons consPointer = head;
 

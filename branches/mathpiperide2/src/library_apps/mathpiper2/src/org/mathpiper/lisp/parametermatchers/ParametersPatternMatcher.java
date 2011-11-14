@@ -266,7 +266,7 @@ public class ParametersPatternMatcher {
                             if ((predicate.car() instanceof Cons)) {
                                 third = Utility.flatCopy(aEnvironment, aStackTop, (Cons) predicate.car());
                             } else {
-                                third = second.cdr().copy(aEnvironment, false);
+                                third = second.cdr().copy(false);
                             }
 
                             String str = (String) second.car();

@@ -52,12 +52,12 @@ public class ListedRulebase extends SingleArityRulebase {
 
             if(i == 0)
             {
-                ptr = consTraverser.copy(aEnvironment, false);
+                ptr = consTraverser.copy(false);
                 newArgs = ptr;
             }
             else
             {
-                Cons nextCons = consTraverser.copy(aEnvironment, false);
+                Cons nextCons = consTraverser.copy(false);
                 ptr.setCdr(nextCons);
                 ptr = nextCons;
             }
@@ -68,7 +68,7 @@ public class ListedRulebase extends SingleArityRulebase {
         }
 
         if (consTraverser.cdr() == null) {
-            Cons nextCons = consTraverser.copy(aEnvironment, false);
+            Cons nextCons = consTraverser.copy(false);
             ptr.setCdr(nextCons);
             ptr = nextCons;
             i++;
@@ -76,7 +76,7 @@ public class ListedRulebase extends SingleArityRulebase {
             if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackTop);
         } else {
 
-            Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons head = aEnvironment.iListAtom.copy(false);
             head.setCdr(consTraverser);
             Cons nextCons = SublistCons.getInstance(aEnvironment, head);
             ptr.setCdr(nextCons);

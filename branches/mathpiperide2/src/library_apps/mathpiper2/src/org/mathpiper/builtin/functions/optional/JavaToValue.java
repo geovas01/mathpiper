@@ -63,7 +63,7 @@ public class JavaToValue extends BuiltinFunction {
 
                     String[] stringArray = (String[]) object;
 
-                    Cons listAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+                    Cons listAtomCons = aEnvironment.iListAtom.copy(false);
 
                     Cons sublistCons = SublistCons.getInstance(aEnvironment, listAtomCons);
 

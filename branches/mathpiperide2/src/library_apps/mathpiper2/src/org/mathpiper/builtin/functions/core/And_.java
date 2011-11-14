@@ -59,7 +59,7 @@ public class And_ extends BuiltinFunction
             } else if (!Utility.isTrue(aEnvironment, evaluated, aStackTop))
             {
                 nrnogos++;
-                Cons ptr = evaluated.copy( aEnvironment, false);
+                Cons ptr = evaluated.copy(false);
                 ptr.setCdr(nogos);
                 nogos = ptr;
             }
@@ -79,7 +79,7 @@ public class And_ extends BuiltinFunction
                 Cons ptr = Utility.reverseList(aEnvironment, nogos);
                 nogos = ptr;
 
-                ptr = getArgumentPointer(aEnvironment, aStackTop, 0).copy( aEnvironment, false);
+                ptr = getArgumentPointer(aEnvironment, aStackTop, 0).copy(false);
                 ptr.setCdr(nogos);
                 nogos = ptr;
                 setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, nogos));

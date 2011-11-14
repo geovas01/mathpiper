@@ -30,14 +30,23 @@ public class ViewList extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons expressionPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons expression = getArgumentPointer(aEnvironment, aStackTop, 1);
 
+        JavaObject response = new JavaObject(showFrame(expression));
+
+        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+
+    }//end method.
+
+
+    public static JFrame showFrame(Cons expression) throws Exception
+    {
         JFrame frame = new JFrame();
         Container contentPane = frame.getContentPane();
         frame.setBackground(Color.WHITE);
         contentPane.setBackground(Color.WHITE);
 
-        ListPanel listPanel = new ListPanel(aEnvironment, aStackTop, expressionPointer, 2);
+        ListPanel listPanel = new ListPanel(null, -1, expression, 2);
 
         MathPanelController mathPanelScaler = new MathPanelController(listPanel, 2.0);
 
@@ -59,11 +68,8 @@ public class ViewList extends BuiltinFunction {
         frame.pack();
         frame.setVisible(true);
 
-        JavaObject response = new JavaObject(frame);
-
-        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
-
-    }//end method.
+        return frame;
+    }
 
 }//end class.
 

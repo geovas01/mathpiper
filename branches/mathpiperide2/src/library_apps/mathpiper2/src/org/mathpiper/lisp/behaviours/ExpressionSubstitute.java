@@ -27,7 +27,7 @@ public class ExpressionSubstitute
             throws Exception {
 
         if (Utility.equals(iEnvironment, aStackTop, aElement, iToMatch)) {
-            return iToReplaceWith.copy(aEnvironment, false);
+            return iToReplaceWith.copy(false);
 
         }
 

@@ -122,16 +122,16 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
                 if (isTraced(functionName) && argumentsResultPointerArray != null && showFlag) {
 
-                    argumentsResultPointerArray[i] = argumentsConsTraverser.copy(aEnvironment, false);
+                    argumentsResultPointerArray[i] = argumentsConsTraverser.copy(false);
                 }
 
-                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentsConsTraverser.copy(aEnvironment, false), aStackTop, aEnvironment);
+                aEnvironment.iArgumentStack.pushArgumentOnStack(argumentsConsTraverser.copy(false), aStackTop, aEnvironment);
 
                 argumentsConsTraverser = argumentsConsTraverser.cdr();
             }
 
             if ((iFlags & Variable) != 0) {//This macro has a variable number of arguments.
-                Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
+                Cons head = aEnvironment.iListAtom.copy(false);
                 head.setCdr(argumentsConsTraverser);
                 aEnvironment.iArgumentStack.pushArgumentOnStack(SublistCons.getInstance(aEnvironment, head), aStackTop, aEnvironment);
             }//end if.
@@ -146,7 +146,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
 
                 if (isTraced(functionName) && argumentsResultPointerArray != null && showFlag) {
 
-                    argumentsResultPointerArray[i] = argumentResultPointer.copy(aEnvironment, false);
+                    argumentsResultPointerArray[i] = argumentResultPointer.copy(false);
                 }
 
                 aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResultPointer, aStackTop, aEnvironment);
@@ -161,7 +161,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 //printf("Enter\n");
 
 
-                Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
+                Cons head = aEnvironment.iListAtom.copy(false);
                 head.setCdr(argumentsConsTraverser);
                 Cons listPointer = SublistCons.getInstance(aEnvironment, head);
 

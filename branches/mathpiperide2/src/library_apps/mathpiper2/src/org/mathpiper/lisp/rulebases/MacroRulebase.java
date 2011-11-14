@@ -131,7 +131,7 @@ public class MacroRulebase extends SingleArityRulebase {
             aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBodyPointer);
         } else // No predicate was true: return a new expression with the evaluated arguments.
         {
-            Cons full = aArgumentsPointer.copy(aEnvironment, false);
+            Cons full = aArgumentsPointer.copy(false);
             if (arity == 0) {
                 full.setCdr(null);
             } else {

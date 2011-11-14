@@ -46,13 +46,13 @@ public class MetaEntries extends BuiltinFunction
         Map metadataMap = objectPointer.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
-            setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(aEnvironment, false)));
+            setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
 
             return;
         }//end if.
 
 
-        Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
+        Cons head = aEnvironment.iListAtom.copy(false);
 
         Cons consPointer = head;
 
