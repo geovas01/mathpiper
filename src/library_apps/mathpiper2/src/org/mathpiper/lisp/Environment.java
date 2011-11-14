@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.Set;
 import org.mathpiper.Scripts;
 import org.mathpiper.lisp.stacks.ArgumentStack;
-import org.mathpiper.lisp.collections.DefFileMap;
 import org.mathpiper.lisp.collections.MathPiperMap;
 import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.collections.OperatorMap;
@@ -102,7 +101,6 @@ public final class Environment {
     public MathPiperMap iUserRulebases = new MathPiperMap();
     MathPiperMap iBuiltinFunctions = new MathPiperMap();
     public Throwable iException = null;
-    public DefFileMap iDefFiles = new DefFileMap();
     public InputDirectories iInputDirectories = new InputDirectories();
     public String iPrettyReaderName = null;
     public String iPrettyPrinterName = null;
