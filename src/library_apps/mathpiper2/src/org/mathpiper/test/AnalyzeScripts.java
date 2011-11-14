@@ -44,6 +44,8 @@ public class AnalyzeScripts {
         cas = Interpreters.getSynchronousInterpreter();
         cas.evaluate("StackTraceOn()");
 
+        cas.getEnvironment().saveDebugInformation = true;
+
     }
 
     public void findOperator(String functionOrOperatorName) throws Exception {
@@ -150,7 +152,7 @@ public class AnalyzeScripts {
         AnalyzeScripts analyze = new AnalyzeScripts();
 
         try {
-            analyze.findOperator("Not");
+            analyze.findOperator("Echo");
         } catch (Exception e) {
             e.printStackTrace();
         }
