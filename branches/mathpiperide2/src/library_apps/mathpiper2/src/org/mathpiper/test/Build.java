@@ -567,7 +567,7 @@ public class Build {
 
                                     mpwFilePath = mpwFilePath.replace("\\", "\\\\");
                                     
-                                    scriptsJavaFile.write("\n        scriptString[2] = \"" + mpwFilePath + "\";");
+                                    scriptsJavaFile.write("\n        scriptString[2] = \"" + mpwFilePath + ", " + defAttribute + "\";");
                                 }
 
                                 scriptsJavaFile.write("\n");
