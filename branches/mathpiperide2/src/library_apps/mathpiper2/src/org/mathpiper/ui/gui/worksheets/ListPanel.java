@@ -87,7 +87,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                         ConsNode newNode = new ConsNode();
 
                         if (!(currentConsPointer instanceof SublistCons)) {
-                            String name = currentConsPointer.toString();
+                            String name = currentConsPointer.car().toString();
                             newNode.setName(name);
                         } else {
                             newNode.setName(sublistName);
@@ -121,7 +121,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                         ConsNode newNode = new ConsNode();
 
                         if (!(currentConsPointer instanceof SublistCons)) {
-                            String name = currentConsPointer.toString();
+                            String name = currentConsPointer.car().toString();
                             newNode.setName(name);
                         } else {
                             newNode.setName(sublistName);
