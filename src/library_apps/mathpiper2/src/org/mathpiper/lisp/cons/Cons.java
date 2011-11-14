@@ -66,7 +66,6 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
-
     /**
      *  Return a pointer to extra info. This allows for annotating
      *  an object. Returns NULL by default.
@@ -126,5 +125,290 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         }
         return out.toString();
     }//end method.
+
+
+
+
+
+    public static Object car(Object cons) throws Exception
+    {
+        return ((Cons)cons).car();
+    }
+
+
+
+
+    public static Object cdr(Object cons) throws Exception
+    {
+        return ((Cons)cons).cdr();
+    }
+
+
+
+
+    public static Object caaaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caaadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caadar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caaddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+
+    }
+
+
+
+    public static Object caadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object cadaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object cadadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object adar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caddar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+
+    }
+
+
+
+    public static Object cadddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object caddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object cadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
+
+
+
+    public static Object cdaaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdaadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdadar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdaddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cddaar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cddadr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cddar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdddar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cddddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cdddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
+
+
+    public static Object cddr(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).cdr();
+    }
+
     
 }//end class.
