@@ -15,12 +15,12 @@
  */ //}}}
 package org.mathpiper.test;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.mathpiper.Scripts;
+import org.mathpiper.builtin.functions.optional.ViewList;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.interpreters.Interpreter;
 import org.mathpiper.interpreters.Interpreters;
@@ -56,7 +56,7 @@ public class AnalyzeScripts {
         for (Object value : values) {
 
             if (!this.uniqueValues.contains(value)) {
-                
+
                 uniqueValues.add(value);
 
                 String[] scriptCodeArray = (String[]) value;
@@ -64,18 +64,17 @@ public class AnalyzeScripts {
                 String scriptCode = scriptCodeArray[1];
 
                 InputStatus inputStatus = new InputStatus();
+
                 inputStatus.setTo(scriptCodeArray[2]);
 
                 StringInputStream stringInputStream = new StringInputStream(scriptCode, inputStatus);
 
-                System.out.println(inputStatus.getFileName());
-
-                analyzeScript(cas.getEnvironment(), -1, stringInputStream, functionOrOperatorName, scriptCodeArray[0], false);
+                analyzeScript(cas.getEnvironment(), -1, stringInputStream, functionOrOperatorName, scriptCodeArray, false);
             }
         }
     }
 
-    public static String analyzeScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, String functionOrOperatorName, String startLineNumber, boolean evaluate) throws Exception {
+    public static String analyzeScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, String functionOrOperatorName, String[] scriptCodeArray, boolean evaluate) throws Exception {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
 
@@ -99,30 +98,83 @@ public class AnalyzeScripts {
 
                 readIn = (Cons) result[0];
 
-                ArrayList<Map> functionOrOperatorLocationsList = (ArrayList) result[1];
-
-                for (Map location : functionOrOperatorLocationsList) {
-
-                    String operatorOrFunctionName = (String) location.get("operatorOrFunctionName");
-
-                    int lineNumber = (Integer) location.get("lineNumber");
-
-                    int lineIndex = (Integer) location.get("lineIndex");
-
-                    if(startLineNumber != null)
-                    {
-                        lineNumber = lineNumber + Integer.parseInt(startLineNumber);
-                    }
-                    
-                    System.out.println("    " + operatorOrFunctionName + " " + lineNumber + ":" + lineIndex);
+                if (readIn == null) {
+                    LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "");
                 }
 
-                if( readIn == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "");
+
+
+
+
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
-                } // Else print and maybe evaluate
+                } // Else process the list.
                 else {
+
+
+                    if (functionOrOperatorName.equals("<--") && ((Cons) readIn.car()).car() instanceof String && ((String) ((Cons) readIn.car()).car()).equals("<--")) {
+                        //ViewList.showFrame(readIn);
+
+
+                        Cons cons = (Cons) Cons.cadar(readIn);
+
+                        String string = "";
+
+                        if (((String) cons.car()).equals("#")) {
+                            Cons cons2 = (Cons) Cons.caddr(cons);
+
+                            string = (String) cons2.car();
+
+                            if (string.equals("_")) {
+                                Cons cons3 = (Cons) Cons.cadr(cons2);
+                                string = (String) cons3.car();
+                            }
+
+                        } else {
+                            string = (String) cons.car();
+                        }
+
+                        String mpwFileInformation = scriptCodeArray[2];
+
+                        String defInformation = mpwFileInformation.split(",")[1].trim();
+
+                        if (!defInformation.contains(string)) {
+                            System.out.println(scriptCodeArray[2]);
+
+                            System.out.println(string);
+                            
+                            ArrayList<Map> functionOrOperatorLocationsList = (ArrayList) result[1];
+
+                            for (Map location : functionOrOperatorLocationsList) {
+
+                                String operatorOrFunctionName = (String) location.get("operatorOrFunctionName");
+
+                                int lineNumber = (Integer) location.get("lineNumber");
+
+                                int lineIndex = (Integer) location.get("lineIndex");
+
+                                if (scriptCodeArray[0] != null) {
+                                    lineNumber = lineNumber + Integer.parseInt(scriptCodeArray[0]);
+                                }
+
+                                System.out.println("    " + operatorOrFunctionName + " " + lineNumber + ":" + lineIndex);
+                            }
+                        }
+
+                        int xx = 1;
+
+                    }
+
+
+
+
+
+
+
+
+
+
                     //printExpression(printedScriptStringBuffer, aEnvironment, readIn);
 
                     /*
@@ -132,6 +184,7 @@ public class AnalyzeScripts {
                     }  
                      */
                 }
+
             }//end while.
 
             return printedScriptStringBuffer.toString();
@@ -140,7 +193,7 @@ public class AnalyzeScripts {
             System.out.println(e.getMessage());
             e.printStackTrace(); //todo:tk:uncomment for debugging.
 
-            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(),-1, aEnvironment.iCurrentInput.iStatus.getLineNumber());
+            EvaluationException ee = new EvaluationException(e.getMessage(), aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineNumber());
             throw ee;
         } finally {
             aEnvironment.iCurrentInput = previous;
@@ -152,7 +205,7 @@ public class AnalyzeScripts {
         AnalyzeScripts analyze = new AnalyzeScripts();
 
         try {
-            analyze.findOperator("Echo");
+            analyze.findOperator("<--");
         } catch (Exception e) {
             e.printStackTrace();
         }
