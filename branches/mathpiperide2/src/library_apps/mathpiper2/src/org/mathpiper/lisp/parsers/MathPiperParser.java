@@ -134,17 +134,16 @@ public class MathPiperParser extends Parser
 
         iLookAhead[0] = iTokenizer.nextToken(iEnvironment, aStackTop, iInput, iEnvironment.getTokenHash());
 
-        /*
-        if(iEnvironment.saveDebugInformation)
-        {
-             System.out.println(iLookAhead[0] + " " + iInput.iStatus.getLineNumber() + " " + (iInput.iStatus.getLineIndex() - iLookAhead[0].length()) + "," + iInput.iStatus.getLineIndex());
-        }
-        */
-        
 
-        iLookAhead[1] = iInput.iStatus.getLineNumber() + "";
-        iLookAhead[3] = iInput.iStatus.getLineIndex() + "";
-        iLookAhead[2] = (iInput.iStatus.getLineIndex() - iLookAhead[0].length()) + "";
+   //if(iEnvironment.saveDebugInformation )System.out.println(iLookAhead[0] + "XX");
+        
+        if(iEnvironment.saveDebugInformation)
+        {        
+            iLookAhead[1] = iInput.iStatus.getLineNumber() + "";
+            iLookAhead[3] = iInput.iStatus.getLineIndex() + "";
+            iLookAhead[2] = (iInput.iStatus.getLineIndex() - iLookAhead[0].length()) + "";
+        }
+        
 
         if (iLookAhead[0].length() == 0)
         {
@@ -164,18 +163,6 @@ public class MathPiperParser extends Parser
     void readExpression(Environment aEnvironment,int aStackTop, int depth) throws Exception
     {
         readAtom(aEnvironment, aStackTop);
-
-        //This code is used by AnalyzeScripts to locate where a given function or operator us located in the scripts.
-        if(locateFunctionOrOperatorName != null && locateFunctionOrOperatorName.equals(iLookAhead[0]))
-        {
-            Map locationInformation = new HashMap();
-
-            locationInformation.put("operatorOrFunctionName", iLookAhead[0]);
-            locationInformation.put("lineNumber", (iInput.iStatus.getLineNumber()));
-            locationInformation.put("lineIndex", (iInput.iStatus.getLineIndex()));
-            functionOrOperatorLocationsList.add(locationInformation);
-        }
-
 
         for (;;)
         {
@@ -350,6 +337,20 @@ public class MathPiperParser extends Parser
 
             System.arraycopy(iLookAhead, 0, theOperator, 0, iLookAhead.length);
 
+
+            //System.out.println(iLookAhead[0] + " " + iInput.iStatus.getLineNumber() + " " + (iInput.iStatus.getLineIndex() - iLookAhead[0].length()) + "," + iInput.iStatus.getLineIndex());
+
+            //This code is used by AnalyzeScripts to locate where a given function or operator us located in the scripts.
+            if(locateFunctionOrOperatorName != null && locateFunctionOrOperatorName.equals(iLookAhead[0]))
+            {
+                Map locationInformation = new HashMap();
+
+                locationInformation.put("operatorOrFunctionName", iLookAhead[0]);
+                locationInformation.put("lineNumber", (iInput.iStatus.getLineNumber()));
+                locationInformation.put("lineIndex", (iInput.iStatus.getLineIndex()));
+                functionOrOperatorLocationsList.add(locationInformation);
+            }
+
             matchToken(aStackTop, iLookAhead[0]);
 
             int nrargs = -1;
@@ -387,10 +388,21 @@ public class MathPiperParser extends Parser
             {
                 combine(aEnvironment, aStackTop, nrargs);
             }
+        }//end else.
+
+        
+        //This code is used by AnalyzeScripts to locate where a given function or operator us located in the scripts.
+        if(locateFunctionOrOperatorName != null && locateFunctionOrOperatorName.equals(iLookAhead[0]))
+        {
+            Map locationInformation = new HashMap();
+
+            locationInformation.put("operatorOrFunctionName", iLookAhead[0]);
+            locationInformation.put("lineNumber", (iInput.iStatus.getLineNumber()));
+            locationInformation.put("lineIndex", (iInput.iStatus.getLineIndex()));
+            functionOrOperatorLocationsList.add(locationInformation);
         }
 
         // parse postfix operators
-
         while ((op = (Operator) iPostfixOperators.lookUp(iLookAhead[0])) != null)
         {
             insertAtom(aEnvironment, aStackTop, iLookAhead[0]);
