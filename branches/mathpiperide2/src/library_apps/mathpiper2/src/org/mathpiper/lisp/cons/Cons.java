@@ -145,7 +145,15 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
 
 
+    public static Object cadar(Object cons) throws Exception
+    {
+        cons = ((Cons)cons).car();
+        cons = ((Cons)cons).cdr();
+        return ((Cons)cons).car();
+    }
 
+
+    
     public static Object caaaar(Object cons) throws Exception
     {
         cons = ((Cons)cons).car();
