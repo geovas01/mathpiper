@@ -31,14 +31,14 @@ public class SublistCons extends Cons {
     // in the debugger easier.
     private Cons iCdr;
 
-    private SublistCons(Environment aEnvironment, Cons aSubList) throws Exception {
+    private SublistCons(Cons aSubList) throws Exception {
         super();
 
         iCar = aSubList;
     }
 
     public static SublistCons getInstance(Environment aEnvironment, Cons aSubList) throws Exception {
-        return new SublistCons(aEnvironment, aSubList);
+        return new SublistCons(aSubList);
     }
 
 
@@ -68,13 +68,13 @@ public class SublistCons extends Cons {
     {
     return iCar.toString();
     }*/
-    public Cons copy(Environment aEnvironment, boolean aRecursed) throws Exception {
+    public Cons copy(boolean aRecursed) throws Exception {
         //TODO recursed copy needs to be implemented still
         //LispError.lispAssert(aRecursed == false, aEnvironment, aStackTop);
 
         if(aRecursed != false) throw new EvaluationException("Internal error in SublistCons.","",-1,-1,-1);
 
-        Cons copied = new SublistCons(aEnvironment, iCar);
+        Cons copied = new SublistCons(iCar);
 
         copied.setMetadataMap(this.getMetadataMap());
         

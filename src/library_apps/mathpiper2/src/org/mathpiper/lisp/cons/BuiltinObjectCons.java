@@ -31,14 +31,14 @@ public class BuiltinObjectCons extends Cons {
 
 
 
-    private BuiltinObjectCons(Environment aEnvironment, BuiltinContainer aClass) throws Exception  {
+    private BuiltinObjectCons(BuiltinContainer aClass) throws Exception  {
         super();
         iCarBuiltin = aClass;
     }
 
     public static BuiltinObjectCons getInstance(Environment aEnvironment, int aStackTop, BuiltinContainer aClass) throws Exception {
         if(aClass == null) LispError.lispAssert(aEnvironment, aStackTop);
-        BuiltinObjectCons self = new BuiltinObjectCons(aEnvironment, aClass);
+        BuiltinObjectCons self = new BuiltinObjectCons(aClass);
         //LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
         return self;
     }
@@ -64,9 +64,9 @@ public class BuiltinObjectCons extends Cons {
     }
 
     
-    public Cons copy(Environment aEnvironment, boolean aRecursed) throws Exception  {
+    public Cons copy(boolean aRecursed) throws Exception  {
 
-        Cons copied = new BuiltinObjectCons(aEnvironment, iCarBuiltin);
+        Cons copied = new BuiltinObjectCons(iCarBuiltin);
 
         copied.setMetadataMap(this.getMetadataMap());
 

@@ -44,7 +44,7 @@ public class Concatenate extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons all = aEnvironment.iListAtom.copy( aEnvironment, false);
+        Cons all = aEnvironment.iListAtom.copy(false);
 
         //ConsTraverser tail = new ConsTraverser(aEnvironment, all);
         //tail.goNext(aStackTop);

@@ -101,21 +101,21 @@ public class LispExpressionEvaluator extends Evaluator {
             if (atomName.charAt(0) == '\"') {
                 //Handle string atoms.
                 aEnvironment.iEvalDepth--;
-                return aExpression.copy(aEnvironment, false);
+                return aExpression.copy(false);
             }
 
 
             if (Character.isDigit(atomName.charAt(0))) {
                 //Handle number atoms.
                 aEnvironment.iEvalDepth--;
-                return aExpression.copy(aEnvironment, false);
+                return aExpression.copy(false);
             }
 
 
             Cons val = aEnvironment.getLocalOrGlobalVariable(aStackTop, atomName);
             if (val != null) {
                 aEnvironment.iEvalDepth--;
-                return val.copy(aEnvironment, false);
+                return val.copy(false);
             }
 
  
@@ -135,7 +135,7 @@ public class LispExpressionEvaluator extends Evaluator {
             //Handle unbound variables.
 
             aEnvironment.iEvalDepth--;
-            return aExpression.copy(aEnvironment, false);
+            return aExpression.copy(false);
 
 
         }
@@ -226,7 +226,7 @@ public class LispExpressionEvaluator extends Evaluator {
         }
         aEnvironment.iEvalDepth--;
 
-        return aExpression.copy(aEnvironment, false);
+        return aExpression.copy(false);
     }
 
     SingleArityRulebase getUserFunction(Environment aEnvironment, int aStackTop, Cons subList) throws Exception {

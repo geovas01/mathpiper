@@ -188,7 +188,7 @@ public class SingleArityRulebase extends Evaluator {
 
             // No predicate was true: return a new expression with the evaluated
             // arguments.
-            Cons full = aArgumentsPointer.copy(aEnvironment, false);
+            Cons full = aArgumentsPointer.copy(false);
             if (arity == 0) {
                 full.setCdr(null);
             } else {
@@ -271,7 +271,7 @@ public class SingleArityRulebase extends Evaluator {
 
             if (((ParameterName) iParameters.get(parameterIndex)).iHold) {
                 //If the parameter is on hold, don't evaluate it and place a copy of it in argumentsPointerArray.
-                argumentsResultPointerArray[parameterIndex] = argumentsTraverser.copy(aEnvironment, false);
+                argumentsResultPointerArray[parameterIndex] = argumentsTraverser.copy(false);
             } else {
                 //If the parameter is not on hold:
 

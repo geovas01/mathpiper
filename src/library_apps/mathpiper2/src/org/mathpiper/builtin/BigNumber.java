@@ -547,7 +547,7 @@ public class BigNumber {
         if(javaBigInteger != null)
         {
             //Create type association list.
-            Cons typeListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons typeListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons typeAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
 
@@ -561,7 +561,7 @@ public class BigNumber {
 
 
             //Create value association list.
-            Cons valueListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons valueListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons valueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"value\"");
 
@@ -577,7 +577,7 @@ public class BigNumber {
             //Create result list.
             typeSublistCons.setCdr(valueSublistCons);
 
-            Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons resultListAtomCons = aEnvironment.iListAtom.copy(false);
 
             resultListAtomCons.setCdr(typeSublistCons);
 
@@ -586,7 +586,7 @@ public class BigNumber {
         else
         {
             //Create type association list.
-            Cons typeListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons typeListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons typeAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
 
@@ -600,7 +600,7 @@ public class BigNumber {
 
 
             //Create value association list.
-            Cons valueListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons valueListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons valueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"value\"");
 
@@ -614,7 +614,7 @@ public class BigNumber {
 
 
             //Create precision association list.
-            Cons precisionListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons precisionListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons precisionAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"precision\"");
 
@@ -628,7 +628,7 @@ public class BigNumber {
 
 
             //Create unscaled value association list.
-            Cons unscaledValueListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons unscaledValueListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons unscaledValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"unscaledValue\"");
 
@@ -642,7 +642,7 @@ public class BigNumber {
 
 
             //Create scale association list.
-            Cons scaleListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons scaleListAtomCons = aEnvironment.iListAtom.copy(false);
 
             Cons scaleAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"scale\"");
 
@@ -664,7 +664,7 @@ public class BigNumber {
 
             unscaledValueSublistCons.setCdr(scaleSublistCons);
 
-            Cons resultListAtomCons = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons resultListAtomCons = aEnvironment.iListAtom.copy(false);
 
             resultListAtomCons.setCdr(typeSublistCons);
 

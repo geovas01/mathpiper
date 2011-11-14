@@ -79,7 +79,7 @@ public class AtomCons extends Cons
 
 
 
-    public Cons copy( Environment aEnvironment, boolean aRecursed) throws Exception
+    public Cons copy(boolean aRecursed) throws Exception
     {
         Cons atomCons = new AtomCons(iCar);
 

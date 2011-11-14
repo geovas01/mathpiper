@@ -108,7 +108,7 @@ public class NumberCons extends Cons {
         iCdr = aCdr;
     }
 
-    public Cons copy( Environment aEnvironment, boolean aRecursed) throws Exception  {
+    public Cons copy(boolean aRecursed) throws Exception  {
 
         NumberCons numberCons = new NumberCons(iCarBigNumber, iCarStringNumber);
 

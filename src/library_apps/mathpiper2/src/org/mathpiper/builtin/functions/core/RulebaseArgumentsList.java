@@ -62,7 +62,7 @@ public class RulebaseArgumentsList extends BuiltinFunction
         if(userFunc == null) LispError.throwError(aEnvironment, aStackTop, "User function for this arity is not defined.");
 
         Cons list = userFunc.argList();
-        Cons head = aEnvironment.iListAtom.copy( aEnvironment, false);
+        Cons head = aEnvironment.iListAtom.copy(false);
         head.setCdr(list);
         setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
     }

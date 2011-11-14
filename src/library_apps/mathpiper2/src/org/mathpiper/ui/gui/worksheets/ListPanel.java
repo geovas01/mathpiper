@@ -62,7 +62,7 @@ public class ListPanel extends JPanel implements ViewPanel {
             }
 
 
-            ConsXHolder consXHolder = new ConsXHolder(headCons.copy(aEnvironment, false), headNode);
+            ConsXHolder consXHolder = new ConsXHolder(headCons.copy(false), headNode);
 
             sequenceStack.push(consXHolder);
 
@@ -98,7 +98,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                         currentNode = newNode;
 
                         if (currentConsPointer instanceof SublistCons) {
-                            sequenceStack.push(new ConsXHolder(currentConsPointer.copy(aEnvironment, false), currentNode));
+                            sequenceStack.push(new ConsXHolder(currentConsPointer.copy(false), currentNode));
 
                             if (currentConsPointer.cdr() == null) {
                                 break;
@@ -115,7 +115,7 @@ public class ListPanel extends JPanel implements ViewPanel {
                         currentConsPointer = (Cons) currentConsPointer.car();
 
                         if (currentConsPointer instanceof SublistCons) {
-                            sequenceStack.push(new ConsXHolder(currentConsPointer.copy(aEnvironment, false), currentNode)); //currentNode.getX()));
+                            sequenceStack.push(new ConsXHolder(currentConsPointer.copy(false), currentNode)); //currentNode.getX()));
                         }//end if.
 
                         ConsNode newNode = new ConsNode();

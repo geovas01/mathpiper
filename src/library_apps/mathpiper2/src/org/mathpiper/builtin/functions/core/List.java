@@ -36,7 +36,7 @@ public class List extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons allPointer = aEnvironment.iListAtom.copy(aEnvironment, false);
+        Cons allPointer = aEnvironment.iListAtom.copy(false);
         Cons tail = allPointer;
 
         Cons consTraverser = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();

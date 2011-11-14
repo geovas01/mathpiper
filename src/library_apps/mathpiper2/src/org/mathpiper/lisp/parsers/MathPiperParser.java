@@ -94,7 +94,7 @@ public class MathPiperParser extends Parser
 
         if (iEndOfFile)
         {
-            parsedExpression = iEnvironment.iEndOfFileAtom.copy( iEnvironment, true);
+            parsedExpression = iEnvironment.iEndOfFileAtom.copy(true);
             return parsedExpression;
         }
 

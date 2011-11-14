@@ -48,7 +48,7 @@ public class MetaKeys extends BuiltinFunction
         Map metadataMap = objectPointer.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
-            setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy( aEnvironment, false)));
+            setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
 
             return;
         }//end if.

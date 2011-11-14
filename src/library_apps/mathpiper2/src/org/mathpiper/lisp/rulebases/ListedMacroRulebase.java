@@ -53,12 +53,12 @@ public class ListedMacroRulebase extends MacroRulebase {
 
             if(i == 0)
             {
-                ptr = consTraverser.copy(aEnvironment, false);
+                ptr = consTraverser.copy(false);
                 newArgs = ptr;
             }
             else
             {
-                Cons nextCons = consTraverser.copy(aEnvironment, false);
+                Cons nextCons = consTraverser.copy(false);
                 ptr.setCdr(nextCons);
                 ptr = nextCons;
             }
@@ -69,14 +69,14 @@ public class ListedMacroRulebase extends MacroRulebase {
         }
 
         if (consTraverser.cdr() == null) {
-            Cons nextCons = consTraverser.copy(aEnvironment, false);
+            Cons nextCons = consTraverser.copy(false);
             ptr.setCdr(nextCons);
             ptr = nextCons;
             i++;
             consTraverser = consTraverser.cdr();
             if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackTop);
         } else {
-            Cons head = aEnvironment.iListAtom.copy(aEnvironment, false);
+            Cons head = aEnvironment.iListAtom.copy(false);
             head.setCdr(consTraverser);
             Cons nextCons = SublistCons.getInstance(aEnvironment, head);
             ptr.setCdr(nextCons);
