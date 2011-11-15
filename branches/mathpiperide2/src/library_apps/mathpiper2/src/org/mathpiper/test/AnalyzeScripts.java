@@ -92,7 +92,19 @@ public class AnalyzeScripts {
                     aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
             Cons readIn = null;
 
+
+            
             while (!endoffile) {
+
+
+
+               /*
+               if(scriptCodeArray[2].contains("!"))
+               {
+                   int xx = 1;
+               }
+                */
+
                 // Read expression
                 Object[] result = parser.parseAndFind(aStackTop, functionOrOperatorName);
 
@@ -131,6 +143,13 @@ public class AnalyzeScripts {
                                 string = (String) cons3.car();
                             }
 
+                        }else if (((String) cons.car()).equals("_")) {
+                            Cons cons2 = (Cons) Cons.cadr(cons);
+
+                            string = (String) cons2.car();
+
+
+
                         } else {
                             string = (String) cons.car();
                         }
@@ -158,7 +177,7 @@ public class AnalyzeScripts {
                                     lineNumber = lineNumber + Integer.parseInt(scriptCodeArray[0]);
                                 }
 
-                                System.out.println("    " + operatorOrFunctionName + " " + lineNumber + ":" + lineIndex);
+                                System.out.println("    " + operatorOrFunctionName + " " + (lineNumber+1) + ":" + lineIndex + "\n");
                             }
                         }
 
