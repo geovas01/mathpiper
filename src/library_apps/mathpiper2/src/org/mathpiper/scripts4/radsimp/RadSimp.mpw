@@ -1,4 +1,4 @@
-%mathpiper,def="RadSimp"
+%mathpiper,def="RadSimp;CheckRadicals;ClampRadicals;RadSimpTry"
 
 //Retract("RadSimp",*);
 

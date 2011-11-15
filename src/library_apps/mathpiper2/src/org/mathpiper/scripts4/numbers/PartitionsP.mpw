@@ -1,4 +1,4 @@
-%mathpiper,def="PartitionsP"
+%mathpiper,def="PartitionsP;PartitionsPHR;PartitionsP1;PartitionsPrecur"
 
 /// the restricted partition function
 /// partitions of length k

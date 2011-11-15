@@ -1,4 +1,4 @@
-%mathpiper,def="SolveSystem"
+%mathpiper,def="SolveSystem;VarsAndDegs;SolveLinearSystem;MakeCoefMatrix"
 
 /*-------------------------------------------------------------------
  *  NOTE:  this is a diversion of the SolveSystem modules to a

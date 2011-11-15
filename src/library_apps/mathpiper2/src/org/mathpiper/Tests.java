@@ -20,25 +20,25 @@ public class Tests {
 
 
         testString = new String[3];
-        testString[0] = "149";
+        testString[0] = "147";
         testString[1] = "\nVerify(False And? False,False);\nVerify(True And? False,False);\nVerify(False And? True,False);\nVerify(True And? True,True);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/And_.java";
         builtInFunctionsTestsMap.put("And?",testString);
 
         testString = new String[3];
-        testString[0] = "83";
+        testString[0] = "82";
         testString[1] = "\nVerify(Atom?({a,b,c}),False);\nVerify(Atom?(a),True);\nVerify(Atom?(123),True);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/Atom_.java";
         builtInFunctionsTestsMap.put("Atom?",testString);
 
         testString = new String[3];
-        testString[0] = "115";
+        testString[0] = "111";
         testString[1] = "\nVerify(Concat({a,b},{c,d}), {a,b,c,d});\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/Concatenate.java";
         builtInFunctionsTestsMap.put("Concat",testString);
 
         testString = new String[3];
-        testString[0] = "101";
+        testString[0] = "100";
         testString[1] = "\nVerify(ConcatStrings(\"a\",\"b\",\"c\"),\"abc\");\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/ConcatenateStrings.java";
         builtInFunctionsTestsMap.put("ConcatStrings",testString);
@@ -50,19 +50,19 @@ public class Tests {
         builtInFunctionsTestsMap.put("Equal?",testString);
 
         testString = new String[3];
-        testString[0] = "175";
+        testString[0] = "174";
         testString[1] = "\n  //Test ExceptionCatch and ExceptionGet.\n  Local(exception);\n  exception := False;\n  ExceptionCatch(Check(False, \"Unspecified\", \"some error\"), exception := ExceptionGet());\n  Verify(exception =? False, False);\n\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/ExceptionCatch.java";
         builtInFunctionsTestsMap.put("ExceptionCatch",testString);
 
         testString = new String[3];
-        testString[0] = "91";
+        testString[0] = "92";
         testString[1] = "\n//Reverse and FlatCopy (and some friends) would segfault in the past if passed a string as argument.\n//I am not opposed to overloading these functions to also work on strings per se, but for now just\n//check that they return an error in stead of segfaulting.\n//\nVerify(ExceptionCatch(FlatCopy(\"abc\"),\"Exception\"), \"Exception\");\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/FlatCopy.java";
         builtInFunctionsTestsMap.put("FlatCopy",testString);
 
         testString = new String[3];
-        testString[0] = "123";
+        testString[0] = "122";
         testString[1] = "\nVerify(FromBase(16,\"1e\"),30);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/FromBase.java";
         builtInFunctionsTestsMap.put("FromBase",testString);
@@ -74,8 +74,8 @@ public class Tests {
         builtInFunctionsTestsMap.put("FunctionToList",testString);
 
         testString = new String[3];
-        testString[0] = "83";
-        testString[1] = "\nRulebase(\"a\", {b});\nVerify(Function?(a(b)),True);\nRetract(\"a\", 1);\nVerify(Function?(a),False);\n\n";
+        testString[0] = "77";
+        testString[1] = "\nRulebaseHoldArguments(\"a\", {b});\nVerify(Function?(a(b)),True);\nRetract(\"a\", 1);\nVerify(Function?(a),False);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/Function_.java";
         builtInFunctionsTestsMap.put("Function?",testString);
 
@@ -86,7 +86,7 @@ public class Tests {
         builtInFunctionsTestsMap.put("GreaterThan?",testString);
 
         testString = new String[3];
-        testString[0] = "99";
+        testString[0] = "98";
         testString[1] = "\nVerify(Integer?(123),True);\nVerify(Integer?(123.123),False);\nVerify(Integer?(a),False);\nVerify(Integer?({a}),False);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/Integer_.java";
         builtInFunctionsTestsMap.put("Integer?",testString);
@@ -104,55 +104,55 @@ public class Tests {
         builtInFunctionsTestsMap.put("ListToFunction",testString);
 
         testString = new String[3];
-        testString[0] = "83";
+        testString[0] = "82";
         testString[1] = "\nVerify(List?({a,b,c}),True);\nVerify(List?(a),False);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/List_.java";
         builtInFunctionsTestsMap.put("List?",testString);
 
         testString = new String[3];
-        testString[0] = "145";
+        testString[0] = "144";
         testString[1] = "\n[\n  Verify(Bound?({}),False);\n  Local(a);\n  Verify(Bound?(a),False);\n  a:=1;\n  Verify(Bound?(a),True);\n  Unbind(a);\n  Verify(Bound?(a),False);\n];\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/Local.java";
         builtInFunctionsTestsMap.put("Local",testString);
 
         testString = new String[3];
-        testString[0] = "97";
+        testString[0] = "96";
         testString[1] = "\nVerify(Not?(True),False);\nVerify(Not?(False),True);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/Not_.java";
         builtInFunctionsTestsMap.put("Not?",testString);
 
         testString = new String[3];
-        testString[0] = "113";
+        testString[0] = "111";
         testString[1] = "\nVerify(Number?(123),True);\nVerify(Number?(123.123),True);\nVerify(Number?(a),False);\nVerify(Number?({a}),False);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/Number_.java";
         builtInFunctionsTestsMap.put("Number?",testString);
 
         testString = new String[3];
-        testString[0] = "141";
+        testString[0] = "139";
         testString[1] = "\nVerify(False Or? False,False);\nVerify(True Or? False,True);\nVerify(False Or? True,True);\nVerify(True Or? True,True);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/Or_.java";
         builtInFunctionsTestsMap.put("Or?",testString);
 
         testString = new String[3];
-        testString[0] = "89";
+        testString[0] = "88";
         testString[1] = "\n Verify(ToAtom(\"a\"),a);\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/ToAtom.java";
         builtInFunctionsTestsMap.put("ToAtom",testString);
 
         testString = new String[3];
-        testString[0] = "117";
+        testString[0] = "116";
         testString[1] = "\nVerify(ToBase(16,30),\"1e\");\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/ToBase.java";
         builtInFunctionsTestsMap.put("ToBase",testString);
 
         testString = new String[3];
-        testString[0] = "97";
+        testString[0] = "96";
         testString[1] = "\n Verify(ToString(a),\"a\");\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/ToString.java";
         builtInFunctionsTestsMap.put("ToString",testString);
 
         testString = new String[3];
-        testString[0] = "208";
+        testString[0] = "207";
         testString[1] = "\n// Reported by Serge: xml tokenizer not general enough\nVerify(XmlExplodeTag(\"<p/>\"),   XmlTag(\"P\",{},\"OpenClose\"));\nVerify(XmlExplodeTag(\"<p / >\"), XmlTag(\"P\",{},\"OpenClose\"));\n\n";
         testString[2] = "/org/mathpiper/builtin/functions/core/XmlExplodeTag.java";
         builtInFunctionsTestsMap.put("XmlExplodeTag",testString);
@@ -194,19 +194,19 @@ public class Tests {
         userFunctionsTestsMap.put("arithmetic",testString);
 
         testString = new String[3];
-        testString[0] = "140";
+        testString[0] = "159";
         testString[1] = "\nVerify((-2)*Infinity,-Infinity);\n\nVerify(Infinity*0,Undefined);\n\n// The following is a classical error: 0*x=0 is only true if\n// x is a number! In this case, it is checked for that the\n// multiplication of 0 with a vector returns a zero vector.\n// This would automatically be caught with type checking.\n// More tests of this ilk are possible: 0*matrix, etcetera.\nVerify(0*{a,b,c},{0,0,0});\n\nVerify(Undefined*0,Undefined);\n\n";
         testString[2] = "/org/mathpiper/scripts4/a_initialization/stdarith/asterisk_operator.mpw";
         userFunctionsTestsMap.put("*",testString);
 
         testString = new String[3];
-        testString[0] = "124";
+        testString[0] = "120";
         testString[1] = "\nVerify(1^Infinity,Undefined);\n\n// Matrix operations failed: a^2 performed the squaring on each element.\nVerify({{1,2},{3,4}}^2,{{7,10},{15,22}});\n\n// Check that raising powers still works on lists/vectors (dotproduct?) correctly.\nVerify({2,3}^2,{4,9});\n\nVerify(0.0000^(24),0);\n\n// expansion of negative powers of fractions\nVerify( (-1/2)^(-10), 1024);\n\nVerify( I^(Infinity), Undefined );\nVerify( I^(-Infinity), Undefined );\n\nVerify( 2^(-10), 1/1024 );\n\n";
         testString[2] = "/org/mathpiper/scripts4/a_initialization/stdarith/caret_operator.mpw";
         userFunctionsTestsMap.put("^",testString);
 
         testString = new String[3];
-        testString[0] = "142";
+        testString[0] = "167";
         testString[1] = "\nVerify(Infinity/Infinity,Undefined);\nVerify(0.0/Sqrt(2),0);\nVerify(0.0000000000/Sqrt(2),0);\n\n";
         testString[2] = "/org/mathpiper/scripts4/a_initialization/stdarith/slash_operator.mpw";
         userFunctionsTestsMap.put("/",testString);
@@ -267,7 +267,7 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "121";
-        testString[1] = "\n[\n  Local(a,b,c,d);\n  DefMacroRulebase(foo,{a,b});\n\n  // Simple check\n  foo(_c,_d) <-- {@c,@d};\n  Verify(foo(2,3),Hold({2,3}));\n\n  Macro(\"foo\",{a}) {@a,a};\n  a:=A;\n  Verify(foo(B),{B,A});\n\n  /*\n  Removed from the test because the system now throws exceptions when\\\n  undefined functions are called.\n  Retract(foo,1);\n  Retract(foo,2);\n  Verify(foo(2,3),foo(2,3));\n  Verify(foo(B),foo(B));\n  */\n];\n\n[\n  Local(a,i,tot);\n  a:=100;\n  Retract(forloop,4);\n  Macro(forloop,{init,pred,inc,body})\n  [\n    @init;\n    While(@pred)\n    [\n      @body;\n      @inc;\n    ];\n    True;\n  ];\n  tot:=0;\n  forloop(i:=1,i<=?10,i++,tot:=tot+a*i);\n  Verify(i,11);\n  Verify(tot,5500);\n];\n\n[\n  Macro(\"bar\",{list,...}) Length(@list);\n  Verify(bar(a,b,list,bar,list),5);\n];\n\n[\n  Local(x,y,z);\n  Rulebase(\"@\",{x});\n  y:=x;\n  Verify(`{@x,@y},{x,x});\n  z:=u;\n  y:={@z,@z};\n  Verify(`{@x,@y},{x,{@z,@z}});\n  Verify(`{@x,`(@y)},{x,{@u,@u}});\n  y:=Hold(`{@z,@z});\n\n  Verify(`{@x,@y},{x,{u,u}});\n  Verify(`{@x,`(@y)},{x,{u,u}});\n  Retract(\"@\",1);\n];\n\n// check that a macro can reach a local from the calling environment.\n[\n  Macro(foo,{x}) a*(@x);\n  Function(bar,{x})\n  [\n    Local(a);\n    a:=2;\n    foo(x);\n  ];\n  Verify(bar(3),6);\n];\n\n//check that with nested backquotes expansion only expands the top-level expression\n[\n  Local(a,b);\n  a:=2;\n  b:=3;\n  Verify(\n  `[\n     Local(c);\n     c:=@a+@b;\n     `((@c)*(@c));\n  ],25);\n];\n\n";
+        testString[1] = "\n[\n  Local(a,b,c,d);\n  MacroRulebaseHoldArguments(foo,{a,b});\n\n  // Simple check\n  foo(_c,_d) <-- {@c,@d};\n  Verify(foo(2,3),Hold({2,3}));\n\n  Macro(\"foo\",{a}) {@a,a};\n  a:=A;\n  Verify(foo(B),{B,A});\n\n  /*\n  Removed from the test because the system now throws exceptions when\\\n  undefined functions are called.\n  Retract(foo,1);\n  Retract(foo,2);\n  Verify(foo(2,3),foo(2,3));\n  Verify(foo(B),foo(B));\n  */\n];\n\n[\n  Local(a,i,tot);\n  a:=100;\n  Retract(forloop,4);\n  Macro(forloop,{init,pred,inc,body})\n  [\n    @init;\n    While(@pred)\n    [\n      @body;\n      @inc;\n    ];\n    True;\n  ];\n  tot:=0;\n  forloop(i:=1,i<=?10,i++,tot:=tot+a*i);\n  Verify(i,11);\n  Verify(tot,5500);\n];\n\n[\n  Macro(\"bar\",{list,...}) Length(@list);\n  Verify(bar(a,b,list,bar,list),5);\n];\n\n[\n  Local(x,y,z);\n  RulebaseHoldArguments(\"@\",{x});\n  y:=x;\n  Verify(`{@x,@y},{x,x});\n  z:=u;\n  y:={@z,@z};\n  Verify(`{@x,@y},{x,{@z,@z}});\n  Verify(`{@x,`(@y)},{x,{@u,@u}});\n  y:=Hold(`{@z,@z});\n\n  Verify(`{@x,@y},{x,{u,u}});\n  Verify(`{@x,`(@y)},{x,{u,u}});\n  Retract(\"@\",1);\n];\n\n// check that a macro can reach a local from the calling environment.\n[\n  Macro(foo,{x}) a*(@x);\n  Function(bar,{x})\n  [\n    Local(a);\n    a:=2;\n    foo(x);\n  ];\n  Verify(bar(3),6);\n];\n\n//check that with nested backquotes expansion only expands the top-level expression\n[\n  Local(a,b);\n  a:=2;\n  b:=3;\n  Verify(\n  `[\n     Local(c);\n     c:=@a+@b;\n     `((@c)*(@c));\n  ],25);\n];\n\n";
         testString[2] = "/org/mathpiper/scripts4/deffunc/Macro.mpw";
         userFunctionsTestsMap.put("Macro",testString);
 
@@ -279,7 +279,7 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "99";
-        testString[1] = "\nVerify(Differentiate(x) a,0);\nVerify(Differentiate(x) x,1);\nVerify(Differentiate(x) (x+x),2);\nVerify(Differentiate(x) (x*x),2*x);\nVerify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x));\n\n[\n  Local(z);\n  // This function satisfies Laplaces eqn: Differentiate(x,2)z + Differentiate(y,2)z = 0\n  z:= ArcTan((2*x*y)/(x^2 - y^2));\n  Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 );\n];\n\nVerify( Differentiate(x,0) Sin(x), Sin(x) );\n\nRulebase(\"f\",{x,t});\nVerify(Differentiate(t) Integrate(x,a,b) f(x,t), Integrate(x,a,b) Deriv(t)f(x,t));\nRetract(\"f\",2);\n\n\n/* Bug #6 */\nKnownFailure((Differentiate(z) Conjugate(z)) =? Undefined);\n\n";
+        testString[1] = "\nVerify(Differentiate(x) a,0);\nVerify(Differentiate(x) x,1);\nVerify(Differentiate(x) (x+x),2);\nVerify(Differentiate(x) (x*x),2*x);\nVerify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x));\n\nKnownFailure(Verify([Local(poly); poly := x^2; Differentiate(x) poly;], 2*x));\n\n[\n  /*\n      Differentiate does not currently work when the expression is in a local variable.\n      This test actually fails but the failure happens to return a 0 which matches\n      the expected value.\n  */\n  Local(z);\n  // This function satisfies Laplaces eqn: Differentiate(x,2)z + Differentiate(y,2)z = 0\n  z:= ArcTan((2*x*y)/(x^2 - y^2));\n  KnownFailure(Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 ));\n];\n\nVerify( Differentiate(x,0) Sin(x), Sin(x) );\n\nRulebaseHoldArguments(\"f\",{x,t});\nVerify(Differentiate(t) Integrate(x,a,b) f(x,t), Integrate(x,a,b) Deriv(t)f(x,t));\nRetract(\"f\",2);\n\n\n/* Bug #6 */\nKnownFailure((Differentiate(z) Conjugate(z)) =? Undefined);\n\n";
         testString[2] = "/org/mathpiper/scripts4/deriv/Differentiate.mpw";
         userFunctionsTestsMap.put("Differentiate",testString);
 
@@ -297,7 +297,7 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "189";
-        testString[1] = "\nRulebase(\"f\",{x});\nf(x):=Eval(Factor(x))=x;\nVerify(f(703), True);\nVerify(f(485), True);\nVerify(f(170410240), True);\nRetract(\"f\",1);\n\n// This was returning FWatom(Sin(x))\nVerify( Factor(Sin(x)), Factor(Sin(x)) );\n\n";
+        testString[1] = "\nRulebaseHoldArguments(\"f\",{x});\nf(x):=Eval(Factor(x))=x;\nVerify(f(703), True);\nVerify(f(485), True);\nVerify(f(170410240), True);\nRetract(\"f\",1);\n\n// This was returning FWatom(Sin(x))\nVerify( Factor(Sin(x)), Factor(Sin(x)) );\n\n";
         testString[2] = "/org/mathpiper/scripts4/factors/Factor.mpw";
         userFunctionsTestsMap.put("Factor",testString);
 
@@ -321,7 +321,7 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "96";
-        testString[1] = "\nLocalSymbols(f,x,n)\n[\n  Rulebase(f,{n});\n\n  f(_n) <-- Apply(\"Differentiate\",{x,n, x^n});\n\n  Verify(f(10),(10!));\n\n  Retract(f,1);\n];\n\n";
+        testString[1] = "\nLocalSymbols(f,x,n)\n[\n  RulebaseHoldArguments(f,{n});\n\n  f(_n) <-- Apply(\"Differentiate\",{x,n, x^n});\n\n  Verify(f(10),(10!));\n\n  Retract(f,1);\n];\n\n";
         testString[2] = "/org/mathpiper/scripts4/functional/Apply.mpw";
         userFunctionsTestsMap.put("Apply",testString);
 
@@ -410,14 +410,14 @@ public class Tests {
         userFunctionsTestsMap.put("lists",testString);
 
         testString = new String[3];
-        testString[0] = "82";
+        testString[0] = "72";
         testString[1] = "\nLocalSymbols(st)\n[\n  st:=NewStack();\n  Verify(IsOnStack(st,\"c\"),False);\n  PushStackFrame(st,fenced);\n    AddToStack(st,\"a\");\n    AddToStack(st,\"b\");\n    Verify(IsOnStack(st,\"a\"),True);\n    Verify(IsOnStack(st,\"c\"),False);\n    Verify(FindOnStack(st,\"a\"),{});\n    FindOnStack(st,\"b\")[\"set\"]:=True;\n    Verify(FindOnStack(st,\"b\"),{{\"set\",True}});\n    PushStackFrame(st,unfenced);\n      AddToStack(st,\"c\");\n      Verify(IsOnStack(st,\"c\"),True);\n      Verify(IsOnStack(st,\"a\"),True);\n    PopStackFrame(st);\n\n    PushStackFrame(st,fenced);\n      AddToStack(st,\"c\");\n      Verify(IsOnStack(st,\"c\"),True);\n      Verify(IsOnStack(st,\"a\"),False);\n    PopStackFrame(st);\n\n  PopStackFrame(st);\n  Verify(StackDepth(st),0);\n];\n\n";
         testString[2] = "/org/mathpiper/scripts4/lists/scopestack/scopestack.mpw";
         userFunctionsTestsMap.put("scopestack",testString);
 
         testString = new String[3];
         testString[0] = "107";
-        testString[1] = "\nRulebase(\"sin\", {x});\nVerify(a[2]*Sin(x)/:{Sin(_x) <- sin(x)},a[2]*sin(x));\nRetract(\"sin\", 1);\n\n";
+        testString[1] = "\nRulebaseHoldArguments(\"sin\", {x});\nVerify(a[2]*Sin(x)/:{Sin(_x) <- sin(x)},a[2]*sin(x));\nRetract(\"sin\", 1);\n\n";
         testString[2] = "/org/mathpiper/scripts4/localrules/slash_colon_operator.mpw";
         userFunctionsTestsMap.put("/:",testString);
 
@@ -572,13 +572,13 @@ public class Tests {
         userFunctionsTestsMap.put("GaussianPrime?",testString);
 
         testString = new String[3];
-        testString[0] = "390";
+        testString[0] = "385";
         testString[1] = "\nVerify( OdeTest(yPRIMEPRIME+y,       OdeSolve(yPRIMEPRIME+y==0)     ), 0 );\nVerify( OdeTest(yPRIME/5-Sin(x), OdeSolve(yPRIME/5==Sin(x)) ), 0 );\nVerify( OdeTest(x*yPRIME - 1,    OdeSolve(x*yPRIME==1) ), 0 );\n\n";
         testString[2] = "/org/mathpiper/scripts4/odesolver/odesolver.mpw";
         userFunctionsTestsMap.put("OdeSolve",testString);
 
         testString = new String[3];
-        testString[0] = "947";
+        testString[0] = "933";
         testString[1] = "\nNextTest(\"Testing orthogonal polynomials\");\n/* Symbolic calculations */\nTestMathPiper(OrthoG(3, 1/5, x), 88/125*x^3-12/25*x);\nTestMathPiper(OrthoG(9, 1/2, x), 12155/128*x^9-6435/32*x^7+9009/64*x^5-1155/32*x^3+315/128*x);\nTestMathPiper(OrthoH(4, x), 16*x^4-48*x^2+12);\nTestMathPiper(OrthoH(10, x), 1024*x^10-23040*x^8+161280*x^6-403200*x^4+302400*x^2-30240);\nTestMathPiper(OrthoL(4, 1/3, x), x^4/24-13/18*x^3+65/18*x^2-455/81*x+455/243);\nTestMathPiper(OrthoP(3,1/2,5/2,x), 21/2*x^3-7*x^2-35/16*x+7/8);\nTestMathPiper(OrthoP(7,x), (429*x^7-693*x^5+315*x^3-35*x)/16);\nTestMathPiper(OrthoT(15, x), 16384*x^15-61440*x^13+92160*x^11-70400*x^9+28800*x^7-6048*x^5+560*x^3-15*x);\nTestMathPiper(OrthoU(16, x), 65536*x^16-245760*x^14+372736*x^12-292864*x^10+126720*x^8-29568*x^6+3360*x^4-144*x^2+1);\n/* Numerical calculations */\nTestMathPiper(OrthoP(100, 1), 1);\nTestMathPiper(OrthoL(50,5/3,5/2), 956329424993407752478497541911420551314045339353541114044036291602395886513403153686689293955/143232645897909553890691033589829981069003266848814603996731044282564768594296559565258358784);\nTestMathPiper(OrthoP(15,1/7,1/9,2/3), 3891107589471727673898835091294644097395/16032477875245178148605931130545427636128);\n\n";
         testString[2] = "/org/mathpiper/scripts4/orthopoly/orthopoly.mpw";
         userFunctionsTestsMap.put("ortho_poly",testString);
@@ -602,14 +602,14 @@ public class Tests {
         userFunctionsTestsMap.put("CFormable?",testString);
 
         testString = new String[3];
-        testString[0] = "1197";
+        testString[0] = "1188";
         testString[1] = "\n//Converting to and from OpenMath expressions\".\n\nMacro(OMTest1,{expr})\n[\n  Local(string,result);\n  string:=PipeToString() OMForm(@expr);\n  result:=PipeFromString(string)OMRead();\n//  Echo(Hold(@expr),`Hold(@result));\n  Verify(Hold(@expr),`Hold(@result));\n];\n\nOMTest1(2+3);\nOMTest1(2*a+3*Sin(Cos(a*x+b)));\n\n";
         testString[2] = "/org/mathpiper/scripts4/outputforms/openmath.mpw";
         userFunctionsTestsMap.put("open_math",testString);
 
         testString = new String[3];
         testString[0] = "427";
-        testString[1] = "\n/* it worketh no more...\nTesting(\"Realistic example\");\nf:=Exp(I*lambda*eta)*w(T*(k+k1+lambda));\ng:=Simplify(Subst(lambda,0) f+(k+k1)*(Differentiate(lambda)f)+k*k1*Differentiate(lambda)Differentiate(lambda)f );\nVerify(TeXForm(g), ...);\n*/\n\nVerify(\nTeXForm(Hold(Cos(A-B)*Sqrt(C+D)-(a+b)*c^d+2*I+Complex(a+b,a-b)/Complex(0,1)))\n,\"$\\\\cos ( A - B)  \\\\cdot \\\\sqrt{C + D} - ( a + b)  \\\\cdot c ^{d} + 2 \\\\cdot \\\\imath  + \\\\frac{a + b + \\\\imath  \\\\cdot ( a - b) }{\\\\imath } $\"\n);\n\nVerify(\nTeXForm(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))\n,\"$\\\\frac{\\\\frac{\\\\frac{\\\\exp ( A \\\\cdot B) }{C} }{D} }{E + F}  \\\\cdot G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$\"\n);\n\nVerify(\nTeXForm(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d)))\n,\"$\\\\cos ( A - B)  \\\\cdot \\\\sin a \\\\cdot f( b, c, d \\\\cdot ( e + 1) )  \\\\cdot \\\\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$\"\n);\n\n\n/* This test is commented out because it throws an exception when orthopoly.mpw is removed from the build process.\n// testing latest features: \\\\cdot, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH\nVerify(\nTeXForm(3*2^n+Hold(x*10!) + (x/y)^2 + BinomialCoefficient(x,y) + BesselI(n,x) + Maximum(a,b) + OrthoH(n,x))\n, \"$3\\\\cdot 2 ^{n} + x\\\\cdot 10! + ( \\\\frac{x}{y} )  ^{2} + {x \\\\choose y} + I _{n}( x)  + \\\\max ( a, b)  + H _{n}( x) $\"\n);\n*/\n\n/* this fails because of a bug that Differentiate(x) f(y) does not go to 0 */ /*\nVerify(\nTeXForm(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))\n,\"$3 ( \\\\frac{\\\\partial}{\\\\partial x}f( x, y, z) )  ( \\\\cos \\\\Omega )  ( 4 ( \\\\sin a) ) \\\\bmod \\\\frac{5}{a ^{b}} $\"\n);\n*/\n\n\nRulebase(\"f\",{x});\nVerify(\nTeXForm(Hold(Differentiate(x)f(x)))\n,\"$\\\\frac{d}{d x}f( x) $\");\nRetract(\"f\",1);\n\nVerify(\nTeXForm(Hold(Not? (c<?0) And? (a+b)*c>=? -d^e And? (c<=?0 Or? b+1>?0) Or? a!=?0 And? Not? (p=?q)))\n,\"$ \\\\neg c < 0\\\\wedge ( a + b)  \\\\cdot c\\\\geq  - d ^{e}\\\\wedge ( c\\\\leq 0\\\\vee b + 1 > 0) \\\\vee a\\\\neq 0\\\\wedge  \\\\neg p = q$\"\n);\n\nRulebase(\"f\",{x,y,z});\nVerify(\nTeXForm((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))\n,\"$( \\\\frac{\\\\partial}{\\\\partial x}f( x, y, z) )  \\\\cdot \\\\cos \\\\Omega  \\\\cdot ( 4 \\\\cdot \\\\sin a) \\\\bmod \\\\frac{5}{a ^{b}} $\"\n);\nRetract(\"f\",3);\n\nRulebase(\"g\",{x});\nRulebase(\"theta\",{x});\nVerify(\nTeXForm(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))\n,\"$\\\\pi  + \\\\exp ( 1)  - \\\\Theta  - \\\\int _{x_{1}} ^{\\\\frac{3}{g( \\\\pi ) }  } 2 \\\\cdot \\\\theta ( x)  \\\\cdot \\\\exp ( \\\\frac{1}{x} )  dx$\"\n);\nRetract(\"g\",1);\nRetract(\"theta\",1);\n\nVerify(\nTeXForm({a[3]*b[5]-c[1][2],{a,b,c,d}})\n,\"$( a _{3} \\\\cdot b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $\"\n);\n\n\n//Note: this is the only code in the test suite that currently creates new rulebases.\nRulebase(\"aa\",{x,y,z});\nBodied(\"aa\", 200);\nRulebase(\"bar\", {x,y});\nInfix(\"bar\", 100);\nVerify(\nTeXForm(aa(x,y) z + 1 bar y!)\n,\"$aa( x, y) z + 1\\\\mathrm{ bar }y!$\"\n);\nRetract(\"aa\",3);\nRetract(\"bar\",2);\n\nVerify(\nTeXForm(x^(1/3)+x^(1/2))\n, \"$\\\\sqrt[3]{x} + \\\\sqrt{x}$\"\n);\n\n/*\nVerify(\nTeXForm()\n,\"\"\n);\n*/\n\n/* Bug report from Michael Borcherds. The brackets were missing. */\nVerify(TeXForm(Hold(2*x*(-2))), \"$2 \\\\cdot x \\\\cdot (  - 2) $\");\n\n\n";
+        testString[1] = "\n/* it worketh no more...\nTesting(\"Realistic example\");\nf:=Exp(I*lambda*eta)*w(T*(k+k1+lambda));\ng:=Simplify(Subst(lambda,0) f+(k+k1)*(Differentiate(lambda)f)+k*k1*Differentiate(lambda)Differentiate(lambda)f );\nVerify(TeXForm(g), ...);\n*/\n\nVerify(\nTeXForm(Hold(Cos(A-B)*Sqrt(C+D)-(a+b)*c^d+2*I+Complex(a+b,a-b)/Complex(0,1)))\n,\"$\\\\cos ( A - B)  \\\\cdot \\\\sqrt{C + D} - ( a + b)  \\\\cdot c ^{d} + 2 \\\\cdot \\\\imath  + \\\\frac{a + b + \\\\imath  \\\\cdot ( a - b) }{\\\\imath } $\"\n);\n\nVerify(\nTeXForm(Hold(Exp(A*B)/C/D/(E+F)*G-(-(a+b)-(c-d))-b^(c^d) -(a^b)^c))\n,\"$\\\\frac{\\\\frac{\\\\frac{\\\\exp ( A \\\\cdot B) }{C} }{D} }{E + F}  \\\\cdot G - (  - ( a + b)  - ( c - d) )  - b ^{c ^{d}} - ( a ^{b})  ^{c}$\"\n);\n\nVerify(\nTeXForm(Hold(Cos(A-B)*Sin(a)*f(b,c,d*(e+1))*Sqrt(C+D)-(g(a+b)^(c+d))^(c+d)))\n,\"$\\\\cos ( A - B)  \\\\cdot \\\\sin a \\\\cdot f( b, c, d \\\\cdot ( e + 1) )  \\\\cdot \\\\sqrt{C + D} - ( g( a + b)  ^{c + d})  ^{c + d}$\"\n);\n\n\n/* This test is commented out because it throws an exception when orthopoly.mpw is removed from the build process.\n// testing latest features: \\\\cdot, %, (a/b)^n, BinomialCoefficient(), BesselI, OrthoH\nVerify(\nTeXForm(3*2^n+Hold(x*10!) + (x/y)^2 + BinomialCoefficient(x,y) + BesselI(n,x) + Maximum(a,b) + OrthoH(n,x))\n, \"$3\\\\cdot 2 ^{n} + x\\\\cdot 10! + ( \\\\frac{x}{y} )  ^{2} + {x \\\\choose y} + I _{n}( x)  + \\\\max ( a, b)  + H _{n}( x) $\"\n);\n*/\n\n/* this fails because of a bug that Differentiate(x) f(y) does not go to 0 */ /*\nVerify(\nTeXForm(3*Differentiate(x)f(x,y,z)*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))\n,\"$3 ( \\\\frac{\\\\partial}{\\\\partial x}f( x, y, z) )  ( \\\\cos \\\\Omega )  ( 4 ( \\\\sin a) ) \\\\bmod \\\\frac{5}{a ^{b}} $\"\n);\n*/\n\n\nRulebaseHoldArguments(\"f\",{x});\nVerify(\nTeXForm(Hold(Differentiate(x)f(x)))\n,\"$\\\\frac{d}{d x}f( x) $\");\nRetract(\"f\",1);\n\nVerify(\nTeXForm(Hold(Not? (c<?0) And? (a+b)*c>=? -d^e And? (c<=?0 Or? b+1>?0) Or? a!=?0 And? Not? (p=?q)))\n,\"$ \\\\neg c < 0\\\\wedge ( a + b)  \\\\cdot c\\\\geq  - d ^{e}\\\\wedge ( c\\\\leq 0\\\\vee b + 1 > 0) \\\\vee a\\\\neq 0\\\\wedge  \\\\neg p = q$\"\n);\n\nRulebaseHoldArguments(\"f\",{x,y,z});\nVerify(\nTeXForm((Differentiate(x)f(x,y,z))*Cos(Omega)*Modulo(Sin(a)*4,5/a^b))\n,\"$( \\\\frac{\\\\partial}{\\\\partial x}f( x, y, z) )  \\\\cdot \\\\cos \\\\Omega  \\\\cdot ( 4 \\\\cdot \\\\sin a) \\\\bmod \\\\frac{5}{a ^{b}} $\"\n);\nRetract(\"f\",3);\n\nRulebaseHoldArguments(\"g\",{x});\nRulebaseHoldArguments(\"theta\",{x});\nVerify(\nTeXForm(Pi+Exp(1)-Theta-Integrate(x,x1,3/g(Pi))2*theta(x)*Exp(1/x))\n,\"$\\\\pi  + \\\\exp ( 1)  - \\\\Theta  - \\\\int _{x_{1}} ^{\\\\frac{3}{g( \\\\pi ) }  } 2 \\\\cdot \\\\theta ( x)  \\\\cdot \\\\exp ( \\\\frac{1}{x} )  dx$\"\n);\nRetract(\"g\",1);\nRetract(\"theta\",1);\n\nVerify(\nTeXForm({a[3]*b[5]-c[1][2],{a,b,c,d}})\n,\"$( a _{3} \\\\cdot b _{5} - c _{( 1, 2) }, ( a, b, c, d) ) $\"\n);\n\n\n//Note: this is the only code in the test suite that currently creates new rulebases.\nRulebaseHoldArguments(\"aa\",{x,y,z});\nBodied(\"aa\", 200);\nRulebaseHoldArguments(\"bar\", {x,y});\nInfix(\"bar\", 100);\nVerify(\nTeXForm(aa(x,y) z + 1 bar y!)\n,\"$aa( x, y) z + 1\\\\mathrm{ bar }y!$\"\n);\nRetract(\"aa\",3);\nRetract(\"bar\",2);\n\nVerify(\nTeXForm(x^(1/3)+x^(1/2))\n, \"$\\\\sqrt[3]{x} + \\\\sqrt{x}$\"\n);\n\n/*\nVerify(\nTeXForm()\n,\"\"\n);\n*/\n\n/* Bug report from Michael Borcherds. The brackets were missing. */\nVerify(TeXForm(Hold(2*x*(-2))), \"$2 \\\\cdot x \\\\cdot (  - 2) $\");\n\n\n";
         testString[2] = "/org/mathpiper/scripts4/outputforms/texform.mpw";
         userFunctionsTestsMap.put("TeXForm",testString);
 
@@ -639,19 +639,19 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "57";
-        testString[1] = "\nVerify(HasExpression?(a*b+1,1),True);\nVerify(HasExpression?(a+Sin(b*c),c),True);\nVerify(HasExpression?(a*b+1,2),False);\nVerify(HasExpressionArithmetic?(a*b+1,ToAtom(\"+\")),False);\nVerify(HasExpressionArithmetic?(a*b+1,1),True);\nVerify(HasExpressionArithmetic?(a+Sin(b*c),c),False);\nVerify(HasExpressionArithmetic?(a+Sin(b*c),Sin(b*c)),True);\n\nRulebase(\"f\",{a});\nVerify(HasExpression?(a*b+f({b,c}),f),False);\nVerify(HasExpressionArithmetic?(a*b+f({b,c}),c),False);\nRetract(\"f\",1);\n\n";
+        testString[1] = "\nVerify(HasExpression?(a*b+1,1),True);\nVerify(HasExpression?(a+Sin(b*c),c),True);\nVerify(HasExpression?(a*b+1,2),False);\nVerify(HasExpressionArithmetic?(a*b+1,ToAtom(\"+\")),False);\nVerify(HasExpressionArithmetic?(a*b+1,1),True);\nVerify(HasExpressionArithmetic?(a+Sin(b*c),c),False);\nVerify(HasExpressionArithmetic?(a+Sin(b*c),Sin(b*c)),True);\n\nRulebaseHoldArguments(\"f\",{a});\nVerify(HasExpression?(a*b+f({b,c}),f),False);\nVerify(HasExpressionArithmetic?(a*b+f({b,c}),c),False);\nRetract(\"f\",1);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/HasExpression_.mpw";
         userFunctionsTestsMap.put("HasExpression?",testString);
 
         testString = new String[3];
         testString[0] = "44";
-        testString[1] = "\nVerify(HasFunctionArithmetic?(a*b+1,ToAtom(\"+\")),True);\nVerify(HasFunctionArithmetic?(a+Sin(b*c),*),False);\nVerify(HasFunctionArithmetic?(a+Sin(b*c),Sin),True);\n\nRulebase(\"f\",{a});\nVerify(HasFunctionArithmetic?(a*b+f({b,c}),List),False);\nRetract(\"f\",1);\n\n";
+        testString[1] = "\nVerify(HasFunctionArithmetic?(a*b+1,ToAtom(\"+\")),True);\nVerify(HasFunctionArithmetic?(a+Sin(b*c),*),False);\nVerify(HasFunctionArithmetic?(a+Sin(b*c),Sin),True);\n\nRulebaseHoldArguments(\"f\",{a});\nVerify(HasFunctionArithmetic?(a*b+f({b,c}),List),False);\nRetract(\"f\",1);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/HasFunctionArithmetic_.mpw";
         userFunctionsTestsMap.put("HasFunctionArithmetic?",testString);
 
         testString = new String[3];
         testString[0] = "49";
-        testString[1] = "\nVerify(HasFunction?(a*b+1,*),True);\nVerify(HasFunction?(a+Sin(b*c),*),True);\nVerify(HasFunction?(a*b+1,List),False);\n\nRulebase(\"f\",{a});\nVerify(HasFunction?(a*b+f({b,c}),List),True);\nRetract(\"f\",1);\n\n";
+        testString[1] = "\nVerify(HasFunction?(a*b+1,*),True);\nVerify(HasFunction?(a+Sin(b*c),*),True);\nVerify(HasFunction?(a*b+1,List),False);\n\nRulebaseHoldArguments(\"f\",{a});\nVerify(HasFunction?(a*b+f({b,c}),List),True);\nRetract(\"f\",1);\n\n";
         testString[2] = "/org/mathpiper/scripts4/predicates/HasFunction_.mpw";
         userFunctionsTestsMap.put("HasFunction?",testString);
 
@@ -788,19 +788,19 @@ public class Tests {
         userFunctionsTestsMap.put("Cos",testString);
 
         testString = new String[3];
-        testString[0] = "13";
+        testString[0] = "11";
         testString[1] = "\nVerify(Cot(x),1/Tan(x));\n\n";
         testString[2] = "/org/mathpiper/scripts4/stdfuncs/Cot.mpw";
         userFunctionsTestsMap.put("Cot",testString);
 
         testString = new String[3];
-        testString[0] = "13";
+        testString[0] = "12";
         testString[1] = "\nVerify(Sech(x),1/Cosh(x));\n\n";
         testString[2] = "/org/mathpiper/scripts4/stdfuncs/Sech.mpw";
         userFunctionsTestsMap.put("Sech",testString);
 
         testString = new String[3];
-        testString[0] = "90";
+        testString[0] = "88";
         testString[1] = "\nVerify(N(Sin(a)),Sin(a));\n\nVerify(Sin(2*Pi), 0);\nVerify(Sin(3*Pi/2)+1, 0);\nVerify(Sin(Pi/2), 1);\n\n";
         testString[2] = "/org/mathpiper/scripts4/stdfuncs/Sin.mpw";
         userFunctionsTestsMap.put("Sin",testString);
@@ -884,7 +884,7 @@ public class Tests {
         userFunctionsTestsMap.put("Modulo",testString);
 
         testString = new String[3];
-        testString[0] = "70";
+        testString[0] = "65";
         testString[1] = "\nVerify(Sqrt(Infinity),Infinity);\n\n// version 1.0.56: Due to MathBitCount returning negative values sometimes, functions depending on\n// proper functioning failed. MathSqrtFloat failed for instance on N(1/2). It did give the right\n// result for 0.5.\nNumericEqual(N(Sqrt(500000e-6),20),N(Sqrt(0.0000005e6),20),20);\nNumericEqual(N(Sqrt(0.5),20),N(Sqrt(N(1/2)),20),20);\n\n";
         testString[2] = "/org/mathpiper/scripts4/stubs/Sqrt.mpw";
         userFunctionsTestsMap.put("Sqrt",testString);
@@ -969,7 +969,7 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "108";
-        testString[1] = "\nRulebase(\"jn\",{x}); //Temporary function used for testing. It is retracted at the end of all the test code.\n\n/* bug reported by Jonathan:\n   All functions that do not have Taylor Expansions about\n   the given point go into infinite loops.\n */\nVerify(Taylor(x,0,5) Ln(x),Undefined);\nVerify(Taylor(x,0,5) 1/x,Undefined);\nVerify(Taylor(x,0,5) 1/Sin(x),Undefined);\n\n// Black-box testing\n\nVerify(Taylor2(x,0,9) Sin(x), x - x^3/6 + x^5/120 - x^7/5040 + x^9/362880);\nVerify(Taylor2(x,0,6) Cos(x), 1 - x^2/2 + x^4/24 - x^6/720);\nVerify(Taylor2(x,0,6) Exp(x),\n       1 + x + x^2/2 + x^3/6 + x^4/24 + x^5/120 + x^6/720);\nVerify(Taylor2(x,1,6) 1/x,\n       1 - (x-1) + (x-1)^2 - (x-1)^3 + (x-1)^4 - (x-1)^5 + (x-1)^6);\nVerify(Taylor2(x,1,6) Ln(x),\n       (x-1) - (x-1)^2/2 + (x-1)^3/3 - (x-1)^4/4 + (x-1)^5/5 - (x-1)^6/6);\nVerify(Taylor2(x,0,6) x/(Exp(x)-1),\n       1 - x/2 + x^2/12 - x^4/720 + x^6/30240);\nVerify(Taylor2(x,0,6) Sin(x)^2+Cos(x)^2, 1);\nTestMathPiper(Taylor2(x,0,14) Sin(Tan(x)) - Tan(Sin(x)),\n          -1/30*x^7 - 29/756*x^9 - 1913/75600*x^11 - 95/7392*x^13);\nTestMathPiper((Taylor2(t,a+1,2) Exp(c*t)),\n          Exp(c*(a+1)) + c*Exp(c*(a+1))*(t-a-1)\n                       + c^2*Exp(c*(a+1))*(t-a-1)^2/2);\n\n// Consistency checks\n\nTestMathPiper(Taylor2(x,0,7) (Sin(x)+Cos(x)),\n          (Taylor2(x,0,7) Sin(x)) + (Taylor2(x,0,7) Cos(x)));\nTestMathPiper(Taylor2(x,0,7) (a*Sin(x)),\n          a * (Taylor2(x,0,7) Sin(x)));\nTestMathPiper(Taylor2(x,0,7) (Sin(x)-Cos(x)),\n          (Taylor2(x,0,7) Sin(x)) - (Taylor2(x,0,7) Cos(x)));\nTestMathPiper(Taylor2(x,0,7) (Sin(x)*Cos(x)),\n          Taylor2(x,0,7) ((Taylor2(x,0,7) Sin(x)) * (Taylor2(x,0,7) Cos(x))));\nTestMathPiper(Taylor2(x,0,7) (Sin(x)/Ln(1+x)),\n          Taylor2(x,0,7) ((Taylor2(x,0,8) Sin(x)) / Taylor2(x,0,8) Ln(1+x)));\nTestMathPiper(Taylor2(t,0,7) (Sin(t)^2),\n          Taylor2(t,0,7) ((Taylor2(t,0,7) Sin(t))^2));\nTestMathPiper(Taylor2(x,0,7) Cos(Ln(x+1)),\n          Taylor2(x,0,7) (Subst(y,Taylor2(x,0,7)Ln(x+1)) Cos(y)));\n\n100 # TaylorLPSCompOrder(_x, jn(_x)) <-- 5;\n100 # TaylorLPSCompCoeff(_x, jn(_x), _k) <-- ToAtom(\"jn\":ToString(k));\n\nVerify(Taylor2(t,0,8) jn(t), jn5*t^5 + jn6*t^6 + jn7*t^7 + jn8*t^8);\nVerify((Taylor2(x,0,10) Exp(jn(x))),\n       1 + jn5*x^5 + jn6*x^6 + jn7*x^7 + jn8*x^8\n         + jn9*x^9 + (jn10+jn5^2/2)*x^10);\n\n\n\n\n// Some examples of power series\nLocalSymbols(p1,p2,p3,p4,p0,pj,pp,pju0,pj40,pj50,pj51,pj52,pj53,pj54,pc24,pc35,pc46,pc57,pc68) [\np1 := TaylorLPS(0, {1,1,1/2,1/6}, x, Exp(x));\np2 := TaylorLPS(1, {1,0,-1/6,0,1/120,0}, t, Sin(t));\np3 := TaylorLPS(0, {a0,a1,a2,a3}, x, jn(x));\np4 := TaylorLPS(-2, {1,0,-1/2,0,1/24}, x, Cos(x)/x^2);\np0 := TaylorLPS(Infinity, {}, x, 0); // special case: zero\n\n// TaylorLPS should not evaluate\n\nVerify(p1, Hold(TaylorLPS(0, {1,1,1/2,1/6}, x, Exp(x))));\n\n// TaylorLPSCoeffs can get pre-computed coefficients\n\nVerify(TaylorLPSCoeffs(p1, 0, 3), {1,1,1/2,1/6});\nVerify(TaylorLPSCoeffs(p1, -3, -1), {0,0,0});\nVerify(TaylorLPSCoeffs(p2, -1, 3), {0,0,1,0,-1/6});\nVerify(TaylorLPSCoeffs(p3, 0, 3), {a0,a1,a2,a3});\nVerify(TaylorLPSCoeffs(p4, -1, 1), {0,-1/2,0});\nVerify(TaylorLPSCoeffs(p0, 1, 5), {0,0,0,0,0});\n\n// Conversion to power series\n\nVerify(TaylorLPSPowerSeries(p1, 3, x), 1+x+x^2/2+x^3/6);\nVerify(TaylorLPSPowerSeries(p2, 4, t), t-t^3/6);\nVerify(TaylorLPSPowerSeries(p3, 3, s), a0+a1*s+a2*s^2+a3*s^3);\nVerify({TaylorLPSPowerSeries(p4, 2, x), ClearError(\"singularity\")},\n       {Undefined, True});\nVerify(TaylorLPSPowerSeries(p0, 3, x), 0);\n\n// Construction of new LPS\n\nVerify(TaylorLPSConstruct(x, 1), TaylorLPS(Undefined, {}, x, 1));\n\n// TaylorLPSCoeffs can compute new coefficients in-place\n\nVerify(TaylorLPSCoeffs(p1, 0, 4), {1,1,1/2,1/6,1/24});\nVerify(p1, TaylorLPS(0, {1,1,1/2,1/6,1/24}, x, Exp(x)));\np1 := TaylorLPS(0, {1,1,1/2,1/6}, x, Exp(x));\n\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, 1), 0, 7),\n       {1, 0, 0, 0, 0, 0, 0, 0});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, 0), 0, 7),\n       {0, 0, 0, 0, 0, 0, 0, 0});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, 1/x), 0, 7),\n       {0, 0, 0, 0, 0, 0, 0, 0});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, x^2), 0, 7),\n       {0, 0, 1, 0, 0, 0, 0, 0});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Exp(x)), 0, 7),\n       {1, 1, 1/2, 1/6, 1/24, 1/120, 1/720, 1/5040});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Ln(1+x)), 0, 7),\n       {0, 1, -1/2, 1/3, -1/4, 1/5, -1/6, 1/7});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Sin(x)), 0, 7),\n       {0, 1, 0, -1/6, 0, 1/120, 0, -1/5040});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Cos(x)), 0, 7),\n       {1, 0, -1/2, 0, 1/24, 0, -1/720, 0});\n\n// Check order of power series\n\nVerify(TaylorLPSGetOrder(p1), {0,True});\nVerify(TaylorLPSGetOrder(TaylorLPSConstruct(x, Cos(x))), {0,True});\nVerify(TaylorLPSGetOrder(TaylorLPSConstruct(x, Sin(x))), {1,True});\nVerify(TaylorLPSGetOrder(TaylorLPSConstruct(x, x-Sin(x))), {1,False});\nVerify(TaylorLPSGetOrder(TaylorLPSConstruct(x, 1/x)), {-1,True});\n\n// User-defined power series\n\npju0 := TaylorLPS(Undefined, {}, x, jn(x));\npj40 := TaylorLPS(5, {}, x, jn(x));\npj50 := TaylorLPS(5, {}, x, jn(x));\npj51 := TaylorLPS(5, {jn5}, x, jn(x));\npj52 := TaylorLPS(5, {jn5,jn6}, x, jn(x));\npj53 := TaylorLPS(5, {jn5,jn6,jn7}, x, jn(x));\npj54 := TaylorLPS(5, {jn5,jn6,jn7,jn8}, x, jn(x));\n\npc24 := {0,0,0};\npc35 := {0,0,jn5};\npc46 := {0,jn5,jn6};\npc57 := {jn5,jn6,jn7};\npc68 := {jn6,jn7,jn8};\n\ntlc(_a,_b,_c) <-- TaylorLPSCoeffs(a,b,c);  // abbreviation\n\npj := FlatCopy(pju0); Verify(tlc(pj,2,4), pc24); Verify(pj, pj50);\npj := FlatCopy(pju0); Verify(tlc(pj,3,5), pc35); Verify(pj, pj51);\npj := FlatCopy(pju0); Verify(tlc(pj,4,6), pc46); Verify(pj, pj52);\npj := FlatCopy(pju0); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pju0); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj40); Verify(tlc(pj,2,4), pc24); Verify(pj, pj50);\npj := FlatCopy(pj40); Verify(tlc(pj,3,5), pc35); Verify(pj, pj51);\npj := FlatCopy(pj40); Verify(tlc(pj,4,6), pc46); Verify(pj, pj52);\npj := FlatCopy(pj40); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pj40); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj50); Verify(tlc(pj,2,4), pc24); Verify(pj, pj50);\npj := FlatCopy(pj50); Verify(tlc(pj,3,5), pc35); Verify(pj, pj51);\npj := FlatCopy(pj50); Verify(tlc(pj,4,6), pc46); Verify(pj, pj52);\npj := FlatCopy(pj50); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pj50); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj51); Verify(tlc(pj,2,4), pc24); Verify(pj, pj51);\npj := FlatCopy(pj51); Verify(tlc(pj,3,5), pc35); Verify(pj, pj51);\npj := FlatCopy(pj51); Verify(tlc(pj,4,6), pc46); Verify(pj, pj52);\npj := FlatCopy(pj51); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pj51); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj52); Verify(tlc(pj,2,4), pc24); Verify(pj, pj52);\npj := FlatCopy(pj52); Verify(tlc(pj,3,5), pc35); Verify(pj, pj52);\npj := FlatCopy(pj52); Verify(tlc(pj,4,6), pc46); Verify(pj, pj52);\npj := FlatCopy(pj52); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pj52); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj53); Verify(tlc(pj,2,4), pc24); Verify(pj, pj53);\npj := FlatCopy(pj53); Verify(tlc(pj,3,5), pc35); Verify(pj, pj53);\npj := FlatCopy(pj53); Verify(tlc(pj,4,6), pc46); Verify(pj, pj53);\npj := FlatCopy(pj53); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pj53); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj54); Verify(tlc(pj,2,4), pc24); Verify(pj, pj54);\npj := FlatCopy(pj54); Verify(tlc(pj,3,5), pc35); Verify(pj, pj54);\npj := FlatCopy(pj54); Verify(tlc(pj,4,6), pc46); Verify(pj, pj54);\npj := FlatCopy(pj54); Verify(tlc(pj,5,7), pc57); Verify(pj, pj54);\npj := FlatCopy(pj54); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\n// Addition\n\npp := TaylorLPS(Undefined, {}, x,\n                 TaylorLPSAdd(FlatCopy(p1), FlatCopy(p3)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {1+a0,1+a1,1/2+a2,1/6+a3});\nVerify(pp, TaylorLPS(0, {1+a0,1+a1,1/2+a2,1/6+a3}, x,\n                      TaylorLPSAdd(p1,p3)));\n\npp := TaylorLPS(0, {1+a0}, x,\n                 TaylorLPSAdd(FlatCopy(p1), FlatCopy(p3)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {1+a0,1+a1,1/2+a2,1/6+a3});\nVerify(pp, TaylorLPS(0, {1+a0,1+a1,1/2+a2,1/6+a3}, x,\n                      TaylorLPSAdd(p1,p3)));\n\npp := TaylorLPSConstruct(x, 1+Ln(x+1));\nVerify(TaylorLPSCoeffs(pp, 0, 4), {1, 1, -1/2, 1/3, -1/4});\nVerify(pp, TaylorLPS(0, {1,1,-1/2,1/3,-1/4}, x, TaylorLPSAdd(pp2,pp1))\n           Where {pp1 == TaylorLPS(0, {1,0,0,0,0}, x, 1),\n                  pp2 == TaylorLPS(1, {1,-1/2,1/3,-1/4}, x, Ln(x+1))});\n\npp := TaylorLPSConstruct(a, Exp(a)+jn(a));\nVerify(TaylorLPSCoeffs(pp, -1, 5), {0, 1, 1, 1/2, 1/6, 1/24, 1/120+jn5});\nVerify(pp, TaylorLPS(0, {1, 1, 1/2, 1/6, 1/24, 1/120+jn5},\n                      a, TaylorLPSAdd(pp1,pp2))\n           Where {pp1 == TaylorLPS(0, {1,1,1/2,1/6,1/24,1/120}, a, Exp(a)),\n                  pp2 == TaylorLPS(5, {jn5}, a, jn(a))});\n\n// Scalar multiplication\n\npp := TaylorLPS(Undefined, {}, x, TaylorLPSScalarMult(5, FlatCopy(p1)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {5,5,5/2,5/6});\nVerify(pp, TaylorLPS(0, {5,5,5/2,5/6}, x, TaylorLPSScalarMult(5,p1)));\n\npp := TaylorLPS(0, {5,5}, x, TaylorLPSScalarMult(5, FlatCopy(p1)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {5,5,5/2,5/6});\nVerify(pp, TaylorLPS(0, {5,5,5/2,5/6}, x, TaylorLPSScalarMult(5,p1)));\n\npp := TaylorLPSConstruct(t, (-2)*Sin(t));\nVerify(TaylorLPSCoeffs(pp, -1, 4), {0, 0, -2, 0, 1/3, 0});\nVerify(pp, TaylorLPS(1, {-2,0,1/3,0}, t, TaylorLPSScalarMult(-2, pp1))\n           Where pp1 == TaylorLPS(1, {1,0,-1/6,0}, t, Sin(t)));\n\n// Subtraction\n\npp := TaylorLPSConstruct(x, Exp(x)-Cos(x));\n      // zero order term cancels!\nVerify(TaylorLPSCoeffs(pp, 0, 4), {0, 1, 1, 1/6, 0});\nVerify(pp, TaylorLPS(1, {1,1,1/6,0}, x, TaylorLPSAdd(pp1, pp2))\n           Where pp1 == TaylorLPS(0, {1,1,1/2,1/6,1/24}, x, Exp(x))\n           Where pp2 == TaylorLPS(0, {-1,0,1/2,0,-1/24}, x,\n                                   TaylorLPSScalarMult(-1, pp3))\n           Where pp3 == TaylorLPS(0, {1,0,-1/2,0,1/24}, x, Cos(x)));\n\n// Multiplication\n\npp := TaylorLPS(Undefined, {}, x,\n                 TaylorLPSMultiply(FlatCopy(p1), FlatCopy(p3)));\nVerify(TaylorLPSCoeffs(pp, 0, 2), {a0, a1+a0, a2+a1+1/2*a0});\nVerify(pp, TaylorLPS(0, {a0, a1+a0, a2+a1+1/2*a0}, x,\n                      TaylorLPSMultiply(p1,p3)));\n\npp := TaylorLPS(0, {a0}, x,\n                 TaylorLPSMultiply(FlatCopy(p1), FlatCopy(p3)));\nVerify(TaylorLPSCoeffs(pp, 0, 2), {a0, a1+a0, a2+a1+1/2*a0});\nVerify(pp, TaylorLPS(0, {a0, a1+a0, a2+a1+1/2*a0}, x,\n                      TaylorLPSMultiply(p1,p3)));\n\npp := TaylorLPSConstruct(x, x^2*Ln(x+1));\nVerify(TaylorLPSCoeffs(pp, 0, 4), {0, 0, 0, 1, -1/2});\nVerify(pp, TaylorLPS(3, {1,-1/2}, x, TaylorLPSMultiply(pp1,pp2))\n           Where {pp1 == TaylorLPS(2, {1,0}, x, x^2),\n                  pp2 == TaylorLPS(1, {1,-1/2}, x, Ln(x+1))});\n\n// Inversion\n\npp := TaylorLPS(Undefined, {}, x, TaylorLPSInverse(FlatCopy(p1)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {1,-1,1/2,-1/6});\nVerify(pp, TaylorLPS(0, {1,-1,1/2,-1/6}, x, TaylorLPSInverse(p1)));\n\npp := TaylorLPS(Undefined, {}, t, TaylorLPSInverse(FlatCopy(p2)));\nVerify(TaylorLPSCoeffs(pp, 0, 2), {0,1/6,-0});\nVerify(pp, TaylorLPS(-1, {1,0,1/6,0}, t, TaylorLPSInverse(p2)));\n\npp := TaylorLPS(Undefined, {}, x, TaylorLPSInverse(FlatCopy(p0)));\nVerify([TaylorLPSCoeffs(pp, 0, 0); ClearError(\"div-by-zero\");], True);\n\npp := TaylorLPSConstruct(x, 1/jn(x));\nVerify(TaylorLPSCoeffs(pp, -7, -4), {0,0,1/jn5,-jn6/jn5^2});\nVerify(pp, TaylorLPS(-5, {1/jn5,-jn6/jn5^2}, x, TaylorLPSInverse(pp1))\n           Where pp1 == TaylorLPS(5, {jn5,jn6}, x, jn(x)));\n\npp := TaylorLPSConstruct(x, 1/(Cos(x)^2+Sin(x)^2-1));\nVerify([TaylorLPSCoeffs(pp, 0, 5); ClearError(\"maybe-div-by-zero\");], True);\n\n// Division\n\npp := TaylorLPSConstruct(x, Exp(x)/Cos(x));\nVerify(TaylorLPSCoeffs(pp, 0, 4), {1, 1, 1, 2/3, 1/2});\nVerify(pp, TaylorLPS(0, {1,1,1,2/3,1/2}, x, TaylorLPSMultiply(pp1, pp2))\n           Where pp1 == TaylorLPS(0, {1,1,1/2,1/6,1/24}, x, Exp(x))\n           Where pp2 == TaylorLPS(0, {1,0,1/2,0,5/24}, x,\n                                   TaylorLPSInverse(pp3))\n           Where pp3 == TaylorLPS(0, {1,0,-1/2,0,1/24}, x, Cos(x)));\n\n// Raising to a natural power\n\n// No tests (TaylorLPSPower is not implemented yet)\n\n// Composition\n\nVerify(TaylorLPSConstruct(x, Ln(Sin(x))),\n       TaylorLPS(Undefined, {}, x, TaylorLPSCompose(pp1,pp2))\n       Where {pp1 == TaylorLPS(Undefined, {}, x, Ln(x)),\n              pp2 == TaylorLPS(1, {}, x, Sin(x))});\n\nVerify(TaylorLPSConstruct(x, Ln(Cos(x))),\n       TaylorLPS(Undefined, {}, x, TaylorLPSCompose(pp1,pp2))\n       Where {pp1 == TaylorLPS(Undefined, {}, x, Ln(1+x)),\n              pp2 == TaylorLPS(Undefined, {}, x, TaylorLPSAdd(pp3,pp4)),\n              pp3 == TaylorLPS(0, {1}, x, Cos(x)),\n              pp4 == TaylorLPS(Undefined, {}, x, -1)});\n\npp := TaylorLPS(Undefined, {}, x,\n                 TaylorLPSCompose(FlatCopy(p1), FlatCopy(p2)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {1, 1, 1/2, 0});\nVerify(pp, TaylorLPS(0, {1,1,1/2,0}, x, TaylorLPSCompose(p1,p2)));\n\n]; // LocalSymbols(p*)\n\n\n\nRetract(\"jn\",1);\n\n";
+        testString[1] = "\nRulebaseHoldArguments(\"jn\",{x}); //Temporary function used for testing. It is retracted at the end of all the test code.\n\n/* bug reported by Jonathan:\n   All functions that do not have Taylor Expansions about\n   the given point go into infinite loops.\n */\nVerify(Taylor(x,0,5) Ln(x),Undefined);\nVerify(Taylor(x,0,5) 1/x,Undefined);\nVerify(Taylor(x,0,5) 1/Sin(x),Undefined);\n\n// Black-box testing\n\nVerify(Taylor2(x,0,9) Sin(x), x - x^3/6 + x^5/120 - x^7/5040 + x^9/362880);\nVerify(Taylor2(x,0,6) Cos(x), 1 - x^2/2 + x^4/24 - x^6/720);\nVerify(Taylor2(x,0,6) Exp(x),\n       1 + x + x^2/2 + x^3/6 + x^4/24 + x^5/120 + x^6/720);\nVerify(Taylor2(x,1,6) 1/x,\n       1 - (x-1) + (x-1)^2 - (x-1)^3 + (x-1)^4 - (x-1)^5 + (x-1)^6);\nVerify(Taylor2(x,1,6) Ln(x),\n       (x-1) - (x-1)^2/2 + (x-1)^3/3 - (x-1)^4/4 + (x-1)^5/5 - (x-1)^6/6);\nVerify(Taylor2(x,0,6) x/(Exp(x)-1),\n       1 - x/2 + x^2/12 - x^4/720 + x^6/30240);\nVerify(Taylor2(x,0,6) Sin(x)^2+Cos(x)^2, 1);\nTestMathPiper(Taylor2(x,0,14) Sin(Tan(x)) - Tan(Sin(x)),\n          -1/30*x^7 - 29/756*x^9 - 1913/75600*x^11 - 95/7392*x^13);\nTestMathPiper((Taylor2(t,a+1,2) Exp(c*t)),\n          Exp(c*(a+1)) + c*Exp(c*(a+1))*(t-a-1)\n                       + c^2*Exp(c*(a+1))*(t-a-1)^2/2);\n\n// Consistency checks\n\nTestMathPiper(Taylor2(x,0,7) (Sin(x)+Cos(x)),\n          (Taylor2(x,0,7) Sin(x)) + (Taylor2(x,0,7) Cos(x)));\nTestMathPiper(Taylor2(x,0,7) (a*Sin(x)),\n          a * (Taylor2(x,0,7) Sin(x)));\nTestMathPiper(Taylor2(x,0,7) (Sin(x)-Cos(x)),\n          (Taylor2(x,0,7) Sin(x)) - (Taylor2(x,0,7) Cos(x)));\nTestMathPiper(Taylor2(x,0,7) (Sin(x)*Cos(x)),\n          Taylor2(x,0,7) ((Taylor2(x,0,7) Sin(x)) * (Taylor2(x,0,7) Cos(x))));\nTestMathPiper(Taylor2(x,0,7) (Sin(x)/Ln(1+x)),\n          Taylor2(x,0,7) ((Taylor2(x,0,8) Sin(x)) / Taylor2(x,0,8) Ln(1+x)));\nTestMathPiper(Taylor2(t,0,7) (Sin(t)^2),\n          Taylor2(t,0,7) ((Taylor2(t,0,7) Sin(t))^2));\nTestMathPiper(Taylor2(x,0,7) Cos(Ln(x+1)),\n          Taylor2(x,0,7) (Subst(y,Taylor2(x,0,7)Ln(x+1)) Cos(y)));\n\n100 # TaylorLPSCompOrder(_x, jn(_x)) <-- 5;\n100 # TaylorLPSCompCoeff(_x, jn(_x), _k) <-- ToAtom(\"jn\":ToString(k));\n\nVerify(Taylor2(t,0,8) jn(t), jn5*t^5 + jn6*t^6 + jn7*t^7 + jn8*t^8);\nVerify((Taylor2(x,0,10) Exp(jn(x))),\n       1 + jn5*x^5 + jn6*x^6 + jn7*x^7 + jn8*x^8\n         + jn9*x^9 + (jn10+jn5^2/2)*x^10);\n\n\n\n\n// Some examples of power series\nLocalSymbols(p1,p2,p3,p4,p0,pj,pp,pju0,pj40,pj50,pj51,pj52,pj53,pj54,pc24,pc35,pc46,pc57,pc68) [\np1 := TaylorLPS(0, {1,1,1/2,1/6}, x, Exp(x));\np2 := TaylorLPS(1, {1,0,-1/6,0,1/120,0}, t, Sin(t));\np3 := TaylorLPS(0, {a0,a1,a2,a3}, x, jn(x));\np4 := TaylorLPS(-2, {1,0,-1/2,0,1/24}, x, Cos(x)/x^2);\np0 := TaylorLPS(Infinity, {}, x, 0); // special case: zero\n\n// TaylorLPS should not evaluate\n\nVerify(p1, Hold(TaylorLPS(0, {1,1,1/2,1/6}, x, Exp(x))));\n\n// TaylorLPSCoeffs can get pre-computed coefficients\n\nVerify(TaylorLPSCoeffs(p1, 0, 3), {1,1,1/2,1/6});\nVerify(TaylorLPSCoeffs(p1, -3, -1), {0,0,0});\nVerify(TaylorLPSCoeffs(p2, -1, 3), {0,0,1,0,-1/6});\nVerify(TaylorLPSCoeffs(p3, 0, 3), {a0,a1,a2,a3});\nVerify(TaylorLPSCoeffs(p4, -1, 1), {0,-1/2,0});\nVerify(TaylorLPSCoeffs(p0, 1, 5), {0,0,0,0,0});\n\n// Conversion to power series\n\nVerify(TaylorLPSPowerSeries(p1, 3, x), 1+x+x^2/2+x^3/6);\nVerify(TaylorLPSPowerSeries(p2, 4, t), t-t^3/6);\nVerify(TaylorLPSPowerSeries(p3, 3, s), a0+a1*s+a2*s^2+a3*s^3);\nVerify({TaylorLPSPowerSeries(p4, 2, x), ClearError(\"singularity\")},\n       {Undefined, True});\nVerify(TaylorLPSPowerSeries(p0, 3, x), 0);\n\n// Construction of new LPS\n\nVerify(TaylorLPSConstruct(x, 1), TaylorLPS(Undefined, {}, x, 1));\n\n// TaylorLPSCoeffs can compute new coefficients in-place\n\nVerify(TaylorLPSCoeffs(p1, 0, 4), {1,1,1/2,1/6,1/24});\nVerify(p1, TaylorLPS(0, {1,1,1/2,1/6,1/24}, x, Exp(x)));\np1 := TaylorLPS(0, {1,1,1/2,1/6}, x, Exp(x));\n\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, 1), 0, 7),\n       {1, 0, 0, 0, 0, 0, 0, 0});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, 0), 0, 7),\n       {0, 0, 0, 0, 0, 0, 0, 0});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, 1/x), 0, 7),\n       {0, 0, 0, 0, 0, 0, 0, 0});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, x^2), 0, 7),\n       {0, 0, 1, 0, 0, 0, 0, 0});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Exp(x)), 0, 7),\n       {1, 1, 1/2, 1/6, 1/24, 1/120, 1/720, 1/5040});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Ln(1+x)), 0, 7),\n       {0, 1, -1/2, 1/3, -1/4, 1/5, -1/6, 1/7});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Sin(x)), 0, 7),\n       {0, 1, 0, -1/6, 0, 1/120, 0, -1/5040});\nVerify(TaylorLPSCoeffs(TaylorLPSConstruct(x, Cos(x)), 0, 7),\n       {1, 0, -1/2, 0, 1/24, 0, -1/720, 0});\n\n// Check order of power series\n\nVerify(TaylorLPSGetOrder(p1), {0,True});\nVerify(TaylorLPSGetOrder(TaylorLPSConstruct(x, Cos(x))), {0,True});\nVerify(TaylorLPSGetOrder(TaylorLPSConstruct(x, Sin(x))), {1,True});\nVerify(TaylorLPSGetOrder(TaylorLPSConstruct(x, x-Sin(x))), {1,False});\nVerify(TaylorLPSGetOrder(TaylorLPSConstruct(x, 1/x)), {-1,True});\n\n// User-defined power series\n\npju0 := TaylorLPS(Undefined, {}, x, jn(x));\npj40 := TaylorLPS(5, {}, x, jn(x));\npj50 := TaylorLPS(5, {}, x, jn(x));\npj51 := TaylorLPS(5, {jn5}, x, jn(x));\npj52 := TaylorLPS(5, {jn5,jn6}, x, jn(x));\npj53 := TaylorLPS(5, {jn5,jn6,jn7}, x, jn(x));\npj54 := TaylorLPS(5, {jn5,jn6,jn7,jn8}, x, jn(x));\n\npc24 := {0,0,0};\npc35 := {0,0,jn5};\npc46 := {0,jn5,jn6};\npc57 := {jn5,jn6,jn7};\npc68 := {jn6,jn7,jn8};\n\ntlc(_a,_b,_c) <-- TaylorLPSCoeffs(a,b,c);  // abbreviation\n\npj := FlatCopy(pju0); Verify(tlc(pj,2,4), pc24); Verify(pj, pj50);\npj := FlatCopy(pju0); Verify(tlc(pj,3,5), pc35); Verify(pj, pj51);\npj := FlatCopy(pju0); Verify(tlc(pj,4,6), pc46); Verify(pj, pj52);\npj := FlatCopy(pju0); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pju0); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj40); Verify(tlc(pj,2,4), pc24); Verify(pj, pj50);\npj := FlatCopy(pj40); Verify(tlc(pj,3,5), pc35); Verify(pj, pj51);\npj := FlatCopy(pj40); Verify(tlc(pj,4,6), pc46); Verify(pj, pj52);\npj := FlatCopy(pj40); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pj40); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj50); Verify(tlc(pj,2,4), pc24); Verify(pj, pj50);\npj := FlatCopy(pj50); Verify(tlc(pj,3,5), pc35); Verify(pj, pj51);\npj := FlatCopy(pj50); Verify(tlc(pj,4,6), pc46); Verify(pj, pj52);\npj := FlatCopy(pj50); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pj50); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj51); Verify(tlc(pj,2,4), pc24); Verify(pj, pj51);\npj := FlatCopy(pj51); Verify(tlc(pj,3,5), pc35); Verify(pj, pj51);\npj := FlatCopy(pj51); Verify(tlc(pj,4,6), pc46); Verify(pj, pj52);\npj := FlatCopy(pj51); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pj51); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj52); Verify(tlc(pj,2,4), pc24); Verify(pj, pj52);\npj := FlatCopy(pj52); Verify(tlc(pj,3,5), pc35); Verify(pj, pj52);\npj := FlatCopy(pj52); Verify(tlc(pj,4,6), pc46); Verify(pj, pj52);\npj := FlatCopy(pj52); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pj52); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj53); Verify(tlc(pj,2,4), pc24); Verify(pj, pj53);\npj := FlatCopy(pj53); Verify(tlc(pj,3,5), pc35); Verify(pj, pj53);\npj := FlatCopy(pj53); Verify(tlc(pj,4,6), pc46); Verify(pj, pj53);\npj := FlatCopy(pj53); Verify(tlc(pj,5,7), pc57); Verify(pj, pj53);\npj := FlatCopy(pj53); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\npj := FlatCopy(pj54); Verify(tlc(pj,2,4), pc24); Verify(pj, pj54);\npj := FlatCopy(pj54); Verify(tlc(pj,3,5), pc35); Verify(pj, pj54);\npj := FlatCopy(pj54); Verify(tlc(pj,4,6), pc46); Verify(pj, pj54);\npj := FlatCopy(pj54); Verify(tlc(pj,5,7), pc57); Verify(pj, pj54);\npj := FlatCopy(pj54); Verify(tlc(pj,6,8), pc68); Verify(pj, pj54);\n\n// Addition\n\npp := TaylorLPS(Undefined, {}, x,\n                 TaylorLPSAdd(FlatCopy(p1), FlatCopy(p3)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {1+a0,1+a1,1/2+a2,1/6+a3});\nVerify(pp, TaylorLPS(0, {1+a0,1+a1,1/2+a2,1/6+a3}, x,\n                      TaylorLPSAdd(p1,p3)));\n\npp := TaylorLPS(0, {1+a0}, x,\n                 TaylorLPSAdd(FlatCopy(p1), FlatCopy(p3)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {1+a0,1+a1,1/2+a2,1/6+a3});\nVerify(pp, TaylorLPS(0, {1+a0,1+a1,1/2+a2,1/6+a3}, x,\n                      TaylorLPSAdd(p1,p3)));\n\npp := TaylorLPSConstruct(x, 1+Ln(x+1));\nVerify(TaylorLPSCoeffs(pp, 0, 4), {1, 1, -1/2, 1/3, -1/4});\nVerify(pp, TaylorLPS(0, {1,1,-1/2,1/3,-1/4}, x, TaylorLPSAdd(pp2,pp1))\n           Where {pp1 == TaylorLPS(0, {1,0,0,0,0}, x, 1),\n                  pp2 == TaylorLPS(1, {1,-1/2,1/3,-1/4}, x, Ln(x+1))});\n\npp := TaylorLPSConstruct(a, Exp(a)+jn(a));\nVerify(TaylorLPSCoeffs(pp, -1, 5), {0, 1, 1, 1/2, 1/6, 1/24, 1/120+jn5});\nVerify(pp, TaylorLPS(0, {1, 1, 1/2, 1/6, 1/24, 1/120+jn5},\n                      a, TaylorLPSAdd(pp1,pp2))\n           Where {pp1 == TaylorLPS(0, {1,1,1/2,1/6,1/24,1/120}, a, Exp(a)),\n                  pp2 == TaylorLPS(5, {jn5}, a, jn(a))});\n\n// Scalar multiplication\n\npp := TaylorLPS(Undefined, {}, x, TaylorLPSScalarMult(5, FlatCopy(p1)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {5,5,5/2,5/6});\nVerify(pp, TaylorLPS(0, {5,5,5/2,5/6}, x, TaylorLPSScalarMult(5,p1)));\n\npp := TaylorLPS(0, {5,5}, x, TaylorLPSScalarMult(5, FlatCopy(p1)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {5,5,5/2,5/6});\nVerify(pp, TaylorLPS(0, {5,5,5/2,5/6}, x, TaylorLPSScalarMult(5,p1)));\n\npp := TaylorLPSConstruct(t, (-2)*Sin(t));\nVerify(TaylorLPSCoeffs(pp, -1, 4), {0, 0, -2, 0, 1/3, 0});\nVerify(pp, TaylorLPS(1, {-2,0,1/3,0}, t, TaylorLPSScalarMult(-2, pp1))\n           Where pp1 == TaylorLPS(1, {1,0,-1/6,0}, t, Sin(t)));\n\n// Subtraction\n\npp := TaylorLPSConstruct(x, Exp(x)-Cos(x));\n      // zero order term cancels!\nVerify(TaylorLPSCoeffs(pp, 0, 4), {0, 1, 1, 1/6, 0});\nVerify(pp, TaylorLPS(1, {1,1,1/6,0}, x, TaylorLPSAdd(pp1, pp2))\n           Where pp1 == TaylorLPS(0, {1,1,1/2,1/6,1/24}, x, Exp(x))\n           Where pp2 == TaylorLPS(0, {-1,0,1/2,0,-1/24}, x,\n                                   TaylorLPSScalarMult(-1, pp3))\n           Where pp3 == TaylorLPS(0, {1,0,-1/2,0,1/24}, x, Cos(x)));\n\n// Multiplication\n\npp := TaylorLPS(Undefined, {}, x,\n                 TaylorLPSMultiply(FlatCopy(p1), FlatCopy(p3)));\nVerify(TaylorLPSCoeffs(pp, 0, 2), {a0, a1+a0, a2+a1+1/2*a0});\nVerify(pp, TaylorLPS(0, {a0, a1+a0, a2+a1+1/2*a0}, x,\n                      TaylorLPSMultiply(p1,p3)));\n\npp := TaylorLPS(0, {a0}, x,\n                 TaylorLPSMultiply(FlatCopy(p1), FlatCopy(p3)));\nVerify(TaylorLPSCoeffs(pp, 0, 2), {a0, a1+a0, a2+a1+1/2*a0});\nVerify(pp, TaylorLPS(0, {a0, a1+a0, a2+a1+1/2*a0}, x,\n                      TaylorLPSMultiply(p1,p3)));\n\npp := TaylorLPSConstruct(x, x^2*Ln(x+1));\nVerify(TaylorLPSCoeffs(pp, 0, 4), {0, 0, 0, 1, -1/2});\nVerify(pp, TaylorLPS(3, {1,-1/2}, x, TaylorLPSMultiply(pp1,pp2))\n           Where {pp1 == TaylorLPS(2, {1,0}, x, x^2),\n                  pp2 == TaylorLPS(1, {1,-1/2}, x, Ln(x+1))});\n\n// Inversion\n\npp := TaylorLPS(Undefined, {}, x, TaylorLPSInverse(FlatCopy(p1)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {1,-1,1/2,-1/6});\nVerify(pp, TaylorLPS(0, {1,-1,1/2,-1/6}, x, TaylorLPSInverse(p1)));\n\npp := TaylorLPS(Undefined, {}, t, TaylorLPSInverse(FlatCopy(p2)));\nVerify(TaylorLPSCoeffs(pp, 0, 2), {0,1/6,-0});\nVerify(pp, TaylorLPS(-1, {1,0,1/6,0}, t, TaylorLPSInverse(p2)));\n\npp := TaylorLPS(Undefined, {}, x, TaylorLPSInverse(FlatCopy(p0)));\nVerify([TaylorLPSCoeffs(pp, 0, 0); ClearError(\"div-by-zero\");], True);\n\npp := TaylorLPSConstruct(x, 1/jn(x));\nVerify(TaylorLPSCoeffs(pp, -7, -4), {0,0,1/jn5,-jn6/jn5^2});\nVerify(pp, TaylorLPS(-5, {1/jn5,-jn6/jn5^2}, x, TaylorLPSInverse(pp1))\n           Where pp1 == TaylorLPS(5, {jn5,jn6}, x, jn(x)));\n\npp := TaylorLPSConstruct(x, 1/(Cos(x)^2+Sin(x)^2-1));\nVerify([TaylorLPSCoeffs(pp, 0, 5); ClearError(\"maybe-div-by-zero\");], True);\n\n// Division\n\npp := TaylorLPSConstruct(x, Exp(x)/Cos(x));\nVerify(TaylorLPSCoeffs(pp, 0, 4), {1, 1, 1, 2/3, 1/2});\nVerify(pp, TaylorLPS(0, {1,1,1,2/3,1/2}, x, TaylorLPSMultiply(pp1, pp2))\n           Where pp1 == TaylorLPS(0, {1,1,1/2,1/6,1/24}, x, Exp(x))\n           Where pp2 == TaylorLPS(0, {1,0,1/2,0,5/24}, x,\n                                   TaylorLPSInverse(pp3))\n           Where pp3 == TaylorLPS(0, {1,0,-1/2,0,1/24}, x, Cos(x)));\n\n// Raising to a natural power\n\n// No tests (TaylorLPSPower is not implemented yet)\n\n// Composition\n\nVerify(TaylorLPSConstruct(x, Ln(Sin(x))),\n       TaylorLPS(Undefined, {}, x, TaylorLPSCompose(pp1,pp2))\n       Where {pp1 == TaylorLPS(Undefined, {}, x, Ln(x)),\n              pp2 == TaylorLPS(1, {}, x, Sin(x))});\n\nVerify(TaylorLPSConstruct(x, Ln(Cos(x))),\n       TaylorLPS(Undefined, {}, x, TaylorLPSCompose(pp1,pp2))\n       Where {pp1 == TaylorLPS(Undefined, {}, x, Ln(1+x)),\n              pp2 == TaylorLPS(Undefined, {}, x, TaylorLPSAdd(pp3,pp4)),\n              pp3 == TaylorLPS(0, {1}, x, Cos(x)),\n              pp4 == TaylorLPS(Undefined, {}, x, -1)});\n\npp := TaylorLPS(Undefined, {}, x,\n                 TaylorLPSCompose(FlatCopy(p1), FlatCopy(p2)));\nVerify(TaylorLPSCoeffs(pp, 0, 3), {1, 1, 1/2, 0});\nVerify(pp, TaylorLPS(0, {1,1,1/2,0}, x, TaylorLPSCompose(p1,p2)));\n\n]; // LocalSymbols(p*)\n\n\n\nRetract(\"jn\",1);\n\n";
         testString[2] = "/org/mathpiper/scripts4/sums/Taylor.mpw";
         userFunctionsTestsMap.put("Taylor",testString);
 
@@ -981,7 +981,7 @@ public class Tests {
 
         testString = new String[3];
         testString[0] = "37";
-        testString[1] = "\nRulebase(\"v\",{x}); //A function for testing purposes. It is retracted at the end of the testing code.\nRulebase(\"X\",{x}); //A function for testing purposes. It is retracted at the end of the testing code.\n\nTestMathPiper(TSimplify( TSum({j}) Delta(i,j)*v(j) ),v(i));\nTestMathPiper(TSimplify( TSum({j,i}) Delta(i,j)*Delta(i,j) ), Ndim);\nTestMathPiper(TSimplify( TSum({j,i}) Delta(i,j)*Delta(j,i) ), Ndim);\nTestMathPiper(TSimplify( TSum({j}) Delta(i,j)*Delta(j,k) ), Delta(i,k));\nTestMathPiper(TSimplify( TSum({i}) v(i)*v(i) ), TSum({i})(v(i)^2));\nRetract(\"v\",1);\nRulebase(\"v\",{ii});\nf(i,j):=v(i)*v(j);\nTestMathPiper(f(i,i),v(i)^2);\nTestMathPiper(TSimplify( TSum({i}) f(i,i) ),TSum({i})(v(i)^2));\nTestMathPiper(TSimplify( TSum({j}) Delta(i,j)*f(j,k) ),v(i)*v(k));\n\nTestMathPiper(TSimplify(TSum({i,j}) Delta(i,j)*f(i,j) ),  TSum({j})v(j)^2);\nTestMathPiper(TSimplify(TSum({i})X(j)*TD(i)X(i)),  Ndim*X(j));\nTestMathPiper(TSimplify(TSum({i}) TD(i)(X(i)*X(j)) ), Ndim*X(j)+X(j));\nTestMathPiper(TSimplify(TSum({i}) X(i)*TD(i)X(j) ), X(j));\nTestMathPiper(TSimplify(TSum({i})TD(i)v(i)),  TSum({i})TD(i)v(i));\n\nTestMathPiper(TSimplify(TSum({i,j})TD(i)TD(j)(X(i)*X(j))), Ndim+Ndim^2);\nTestMathPiper(TSimplify(TSum({i})TD(i)(X(i)*X(j)*X(j))),  Ndim*X(j)^2+2*X(j)^2);\nTestMathPiper(TSimplify(TSum({i,j,k})TD(i)TD(j)TD(k)(X(i)*X(j)*X(k))),  3*Ndim^2+2*Ndim+Ndim^3);\n\n\nRetract(\"v\",1);\nRetract(\"X\",1);\n\n";
+        testString[1] = "\nRulebaseHoldArguments(\"v\",{x}); //A function for testing purposes. It is retracted at the end of the testing code.\nRulebaseHoldArguments(\"X\",{x}); //A function for testing purposes. It is retracted at the end of the testing code.\n\nTestMathPiper(TSimplify( TSum({j}) Delta(i,j)*v(j) ),v(i));\nTestMathPiper(TSimplify( TSum({j,i}) Delta(i,j)*Delta(i,j) ), Ndim);\nTestMathPiper(TSimplify( TSum({j,i}) Delta(i,j)*Delta(j,i) ), Ndim);\nTestMathPiper(TSimplify( TSum({j}) Delta(i,j)*Delta(j,k) ), Delta(i,k));\nTestMathPiper(TSimplify( TSum({i}) v(i)*v(i) ), TSum({i})(v(i)^2));\nRetract(\"v\",1);\nRulebaseHoldArguments(\"v\",{ii});\nf(i,j):=v(i)*v(j);\nTestMathPiper(f(i,i),v(i)^2);\nTestMathPiper(TSimplify( TSum({i}) f(i,i) ),TSum({i})(v(i)^2));\nTestMathPiper(TSimplify( TSum({j}) Delta(i,j)*f(j,k) ),v(i)*v(k));\n\nTestMathPiper(TSimplify(TSum({i,j}) Delta(i,j)*f(i,j) ),  TSum({j})v(j)^2);\nTestMathPiper(TSimplify(TSum({i})X(j)*TD(i)X(i)),  Ndim*X(j));\nTestMathPiper(TSimplify(TSum({i}) TD(i)(X(i)*X(j)) ), Ndim*X(j)+X(j));\nTestMathPiper(TSimplify(TSum({i}) X(i)*TD(i)X(j) ), X(j));\nTestMathPiper(TSimplify(TSum({i})TD(i)v(i)),  TSum({i})TD(i)v(i));\n\nTestMathPiper(TSimplify(TSum({i,j})TD(i)TD(j)(X(i)*X(j))), Ndim+Ndim^2);\nTestMathPiper(TSimplify(TSum({i})TD(i)(X(i)*X(j)*X(j))),  Ndim*X(j)^2+2*X(j)^2);\nTestMathPiper(TSimplify(TSum({i,j,k})TD(i)TD(j)TD(k)(X(i)*X(j)*X(k))),  3*Ndim^2+2*Ndim+Ndim^3);\n\n\nRetract(\"v\",1);\nRetract(\"X\",1);\n\n";
         testString[2] = "/org/mathpiper/scripts4/tensor/TSum.mpw";
         userFunctionsTestsMap.put("tensors",testString);
 

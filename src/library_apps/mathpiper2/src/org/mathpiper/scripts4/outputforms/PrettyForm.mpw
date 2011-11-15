@@ -1,4 +1,4 @@
-%mathpiper,def="PrettyForm;EvalFormula"
+%mathpiper,def="PrettyForm;EvalFormula;BuildArgs;FormulaArrayItem"
 
 /* def file definitions
 EvalFormula

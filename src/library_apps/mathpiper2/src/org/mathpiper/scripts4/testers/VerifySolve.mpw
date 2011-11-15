@@ -1,4 +1,4 @@
-%mathpiper,def="VerifySolve"
+%mathpiper,def="VerifySolve;VerifySolveEqual"
 
 //Retract("VerifySolve",*);
 //Retract("VerifySolveEqual",*);

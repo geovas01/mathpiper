@@ -35,7 +35,7 @@ import java.util.Map;
  */
 public class Build {
 
-    private boolean strip = true; //Uncomment to have unaltered scripts placed into Scripts.java.
+    private boolean strip = false; //Uncomment to have unaltered scripts placed into Scripts.java.
     
     private java.io.File scriptsDir;
     //private java.io.FileWriter packagesFile;

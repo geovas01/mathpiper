@@ -1,10 +1,5 @@
-%mathpiper,def="OdeSolve;OdeTest;OdeOrder"
+%mathpiper,def="OdeSolve;OdeTest;OdeOrder;OdeLeftHandSideEq;OdeNormChange;OdeNormPred;OdeNormalForm;OdeChange;OdePred;OdeSubstitute;OdeConstantList;OdeFlatTerm;OdeMakeTerm;OdeMakeTermPred;OdeCoefList;OdeTermFail;OdeAuxiliaryEquation;OdeSolveLinearHomogeneousConstantCoefficients;OdeSolveLinear;OdeUnsolved;TanMap"
 
-/* def file definitions
-OdeSolve
-OdeTest
-OdeOrder
-*/
 
 /*
  1) implement more sub-solvers

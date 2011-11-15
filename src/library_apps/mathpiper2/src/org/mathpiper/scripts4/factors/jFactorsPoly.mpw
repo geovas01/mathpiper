@@ -1,4 +1,4 @@
-%mathpiper,def="jFactorsPoly"
+%mathpiper,def="jFactorsPoly;jFactorsPrimitivePart;jFactorsHomogeneousBivariate;RealToRationalConvert;RationalToIntegerConvert;CombineNumericalFactors;jFactorsBivariateBinomial;jFB;IsPureRational;IsPureRational;HasRealCoefficients;HasRealCoefficients;HasRationalCoefficients;HasRationalCoefficients;FixUpMonicFactors"
 
 //Retract("jFactorsPoly",*);
 //Retract("HasRealCoefficients",*);      

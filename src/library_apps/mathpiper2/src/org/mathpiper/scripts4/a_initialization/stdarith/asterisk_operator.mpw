@@ -7,6 +7,23 @@
 100 # _x  *  1  <-- x;
 100 # (_f  * _x)_(f=? -1)  <-- -x;
 100 # (_x  * _f)_(f=? -1)  <-- -x;
+
+100  # ((_x)*(_x ^ _m)) <-- x^(m+1);
+100  # ((_x ^ _m)*(_x)) <-- x^(m+1);
+100  # ((_x ^ _n)*(_x ^ _m)) <-- x^(m+n);
+
+100 # Tan(_x)*Cos(_x) <-- Sin(x);
+
+100 # Sinh(_x)*Csch(_x) <-- 1;
+
+100 # Cosh(_x)*Sech(_x) <-- 1;
+
+100 # Cos(_x)*Tan(_x) <-- Sin(x);
+
+100 # Coth(_x)*Sinh(_x) <-- Cosh(x);
+
+100 # Tanh(_x)*Cosh(_x) <-- Sinh(x);
+
 105 # (f_NegativeNumber? * _x)  <-- -(-f)*x;
 105 # (_x * f_NegativeNumber?)  <-- -(-f)*x;
 
@@ -83,9 +100,7 @@
 106 # _x * -(_y) <-- -(x*y);
 106 # (- _x) * _y <-- -(x*y);
 
-107 # -( (-(_x))/(_y)) <-- x/y;
-107 # -( (_x)/(-(_y))) <-- x/y;
-
+150 # (_x) ^ (n_Constant?) * (_x) <-- x^(n-1);
 
 250  # x_Number? * y_Infinity? <-- Sign(x)*y;
 250  # x_Infinity? * y_Number? <-- Sign(y)*x;
@@ -102,6 +117,10 @@
 243 #  (y_Integer? / z_Integer?) * x_Integer? <--  (x*y)/z;
 
 400 # (_x) * (_x) <-- x^2;
+
+400 # x_RationalOrNumber? * Sqrt(y_RationalOrNumber?)  <-- Sign(x)*Sqrt(x^2*y);
+400 # Sqrt(y_RationalOrNumber?) * x_RationalOrNumber?  <-- Sign(x)*Sqrt(x^2*y);
+400 # Sqrt(y_RationalOrNumber?) * Sqrt(x_RationalOrNumber?)  <-- Sqrt(y*x);
 
 %/mathpiper
 

@@ -1,4 +1,4 @@
-%mathpiper,def="SuchThat"
+%mathpiper,def="SuchThat;ContainsExpression"
 
 10 # ContainsExpression(_body,_body) <-- True;
 15 # ContainsExpression(body_Atom?,_expr) <-- False;

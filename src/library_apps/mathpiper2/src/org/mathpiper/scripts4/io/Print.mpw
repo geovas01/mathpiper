@@ -1,4 +1,4 @@
-%mathpiper,def="Print"
+%mathpiper,def="Print;PrintArg;PrintArgComma;PrintArgProg"
 
 
 /* A reference print implementation. Expand at own leisure.

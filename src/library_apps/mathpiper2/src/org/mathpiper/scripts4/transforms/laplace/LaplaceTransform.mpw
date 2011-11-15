@@ -1,4 +1,4 @@
-%mathpiper,def="LaplaceTransform"
+%mathpiper,def="LaplaceTransform;LapTran;LapTranDef"
 
 10 # LaplaceTransform(_var1,_var2, _expr )        <-- LapTran(var1,var2,expr);
 

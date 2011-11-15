@@ -1,4 +1,4 @@
-%mathpiper,def="TeXForm"
+%mathpiper,def="TeXForm;TexForm;TeXFormFinishList;TeXFormFinishList"
 
 /* def file definitions
 TeXForm

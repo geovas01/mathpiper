@@ -1,4 +1,4 @@
-%mathpiper,def="***"
+%mathpiper,def="***;Factorialpartial"
 
 /// partial factorial
 n1_RationalOrNumber? *** n2_RationalOrNumber? <--

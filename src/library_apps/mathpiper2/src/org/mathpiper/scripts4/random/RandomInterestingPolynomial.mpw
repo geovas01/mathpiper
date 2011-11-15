@@ -1,4 +1,4 @@
-%mathpiper,def="RandomInterestingPolynomial"
+%mathpiper,def="RandomInterestingPolynomial;NewRandomPoly;RandomIrreducibleQuadratic;RandomIrreducibleQuadraticWithRealRoots;RandomIrreducibleQuadraticWithComplexRoots"
 
 //Retract("RandomInterestingPolynomial",*);
 //Retract("NewRandomPoly",*);

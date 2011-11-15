@@ -9,6 +9,9 @@
 100 # _x - n_Constant?*(_x)   <-- (1-n)*x;
 100 # n_Constant?*(_x) - _x   <-- (n-1)*x;
 
+100 # Sinh(_x)^2-Cosh(_x)^2         <-- 1;
+100 # Sinh(_x)-Cosh(_x)                <-- Exp(-x);
+
 110 # - (_x - _y) <-- y-x;
 111 # - (x_Number? / _y) <-- (-x)/y;        
 LocalSymbols(x)
@@ -23,6 +26,9 @@ LocalSymbols(x)
 100 # 0 - _x <-- -x;
 100 # _x - 0 <-- x;
 100 # _x - _x <-- 0;
+
+107 # -( (-(_x))/(_y)) <-- x/y;
+107 # -( (_x)/(-(_y))) <-- x/y;
 
 110 # _x - (- _y) <-- x + y;
 110 # _x - (y_NegativeNumber?) <-- x + (-y);

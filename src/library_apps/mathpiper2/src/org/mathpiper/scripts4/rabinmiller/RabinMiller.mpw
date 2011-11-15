@@ -1,4 +1,4 @@
-%mathpiper,def="RabinMiller"
+%mathpiper,def="RabinMiller;FastModularPower;IsStronglyProbablyPrime;RabinMillerSmall;RabinMillerProbabilistic"
 
 /*
  * File `rabinmiller.mpi is an implementation of the

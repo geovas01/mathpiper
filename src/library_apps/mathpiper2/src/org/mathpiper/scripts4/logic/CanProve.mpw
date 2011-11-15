@@ -1,4 +1,4 @@
-%mathpiper,def="CanProve"
+%mathpiper,def="CanProve;CanProveAux"
 
 /* Small theorem prover for propositional logic, based on the
  * resolution principle.

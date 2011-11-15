@@ -1,4 +1,4 @@
-%mathpiper,def="CNF"
+%mathpiper,def="CNF;LogOr;LogNot;CNFInEq;CNFInEqSimplify"
 
 
  // former LogicSimplify

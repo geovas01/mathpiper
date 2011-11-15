@@ -1,4 +1,4 @@
-%mathpiper,def="CompilePatterns;LocProcess"
+%mathpiper,def="CompilePatterns;LocProcess;LocProcessSingle"
 
 LocalSymbols(LocResult) [
 

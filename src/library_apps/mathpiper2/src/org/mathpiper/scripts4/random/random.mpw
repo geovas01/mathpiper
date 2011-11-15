@@ -1,4 +1,4 @@
-%mathpiper,def="RandomSeed;Random;Rng;RngSeed;RngCreate"
+%mathpiper,def="RandomSeed;Random;Rng;RngSeed;RngCreate;FlatRNGDist;GaussianRNGDist;RNGEngineLCG1;RNGEngineLCG2;RNGEngineLCG3;RNGEngineLCG4;RandomLCG;RNGEngineLEcuyer"
 
 /* def file definitions
 

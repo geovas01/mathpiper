@@ -1,4 +1,4 @@
-%mathpiper,def="TestEquivalent"
+%mathpiper,def="TestEquivalent;TestTwoLists"
 
 //Retract("TestEquivalent",*);
 //Retract("TestTwoLists",*);

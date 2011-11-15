@@ -1,4 +1,4 @@
-%mathpiper,def="ExpandFrac"
+%mathpiper,def="ExpandFrac;ExpandFraccombine"
 
 //////////////////////////////////////////////////
 /// ExpandFrac --- normalize rational functions (no simplification)
