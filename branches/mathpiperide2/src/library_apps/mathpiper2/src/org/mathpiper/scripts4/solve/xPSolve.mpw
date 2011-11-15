@@ -1,4 +1,4 @@
-%mathpiper,def="xPSolve"
+%mathpiper,def="xPSolve;xPSolveCubic;xPSC1;xPSC2"
 
 //Retract("xPSolve",*);
 //Retract("xPSolveCubic",*);

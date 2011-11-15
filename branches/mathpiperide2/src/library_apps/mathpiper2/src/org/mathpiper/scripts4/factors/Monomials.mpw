@@ -1,4 +1,4 @@
-%mathpiper,def="Monomials"
+%mathpiper,def="Monomials;CanBeMonomial;Monomial?;FactorsMonomial"
 
 //Retract("CanBeMonomial",*);
 //Retract("Monomial?",*);

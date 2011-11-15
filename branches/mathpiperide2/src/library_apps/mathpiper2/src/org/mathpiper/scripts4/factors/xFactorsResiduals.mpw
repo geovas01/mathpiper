@@ -1,4 +1,4 @@
-%mathpiper,def="xFactorsResiduals"
+%mathpiper,def="xFactorsResiduals;trySQF;tryRealRoots;processRealRoots"
 
 //Retract("xFactorsResiduals",*);
 //Retract("trySQF",*);

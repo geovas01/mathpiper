@@ -1,4 +1,4 @@
-%mathpiper,def="Cyclotomic"
+%mathpiper,def="Cyclotomic;CyclotomicDivisorsList;CyclotomicFactor;InternalCyclotomic"
 
 //  Cyclotomic(n,x):
 //  Returns the cyclotomic polinomial in the variable x

@@ -1,4 +1,4 @@
-%mathpiper,def="OldSolve"
+%mathpiper,def="OldSolve;SolveSystem;SolveSimpleBackSubstitutionFindAlternativeForms;SolveSimpleBackSubstitution"
 /********** SolveSystem **********/
 
 // for now, just use a very simple backsubstitution scheme

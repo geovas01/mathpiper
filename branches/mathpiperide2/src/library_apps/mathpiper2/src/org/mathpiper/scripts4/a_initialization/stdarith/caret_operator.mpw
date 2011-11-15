@@ -43,10 +43,6 @@
 80 # x_NegativeNumber? ^ n_Odd? <-- -((-x)^n);
 
 
-100  # ((_x)*(_x ^ _m)) <-- x^(m+1);
-100  # ((_x ^ _m)*(_x)) <-- x^(m+1);
-100  # ((_x ^ _n)*(_x ^ _m)) <-- x^(m+n);
-
 100  # ((x_Number?)^(n_Integer?/(_m)))_(n>?1) <-- MathIntPower(x,n)^(1/m);
 
 100 # Sqrt(_n)^(m_Even?) <-- n^(m/2);

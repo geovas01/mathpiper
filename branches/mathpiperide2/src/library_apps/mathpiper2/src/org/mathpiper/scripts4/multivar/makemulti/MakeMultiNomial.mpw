@@ -1,4 +1,4 @@
-%mathpiper,def="MakeMultiNomial;MultiExpressionList;MultiExpression?;MultiConstant?;IsVr;MultiSingleFactor;Multi?"
+%mathpiper,def="MakeMultiNomial;MultiExpressionList;MultiExpression?;MultiConstant?;IsVr;MultiSingleFactor;Multi?;MultiNomialMultiply"
 
 
 /* code pertaining to creating the internal format for multivariate

@@ -1,20 +1,6 @@
-%mathpiper,def="OrthoP;OrthoG;OrthoH;OrthoL;OrthoT;OrthoU;OrthoPSum;OrthoGSum;OrthoHSum;OrthoLSum;OrthoTSum;OrthoUSum;EvaluateHornerScheme"
+%mathpiper,def="OrthoP;OrthoG;OrthoH;OrthoL;OrthoT;OrthoU;OrthoPSum;OrthoGSum;OrthoHSum;OrthoLSum;OrthoTSum;OrthoUSum;EvaluateHornerScheme;OrthoPoly;OrthoPolySum;OrthoPolyNumeric;OrthoPolySumNumeric;OrthoPolyCoeffs;OrthoPolySumCoeffs;HermiteCoeffs;ChebTCoeffs;ChebUCoeffs"
 
-/* def file definitions
-OrthoP
-OrthoG
-OrthoH
-OrthoL
-OrthoT
-OrthoU
-OrthoPSum
-OrthoGSum
-OrthoHSum
-OrthoLSum
-OrthoTSum
-OrthoUSum
-EvaluateHornerScheme
-*/
+
 
 /*
 Orthogonal polynomials

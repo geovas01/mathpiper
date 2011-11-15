@@ -6,7 +6,6 @@
 
 //100 # Cosh(I*_x)        <-- Cos(x);
 
-100 # Cosh(_x)*Sech(_x) <-- 1;
 
 200 # Cosh(0)                <-- 1;
 200 # Cosh(Infinity)        <-- Infinity;

@@ -1,4 +1,4 @@
-%mathpiper,def="Sin"
+%mathpiper,def="Sin;SinMap"
 
 
 1 # SinMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction({ToAtom("Sin"),n*Pi});
@@ -38,8 +38,6 @@
   SinMap(Coef(v,Pi,1));
 ];
 
-100 # Sin(_x)/Tan(_x) <-- Cos(x);
-100 # Sin(_x)/Cos(_x) <-- Tan(x);
 
 Sin(xlist_List?) <-- MapSingle("Sin",xlist);
 

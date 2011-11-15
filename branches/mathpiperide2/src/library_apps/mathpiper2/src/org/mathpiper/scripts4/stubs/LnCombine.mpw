@@ -1,4 +1,4 @@
-%mathpiper,def="LnCombine"
+%mathpiper,def="LnCombine;DoLnCombine"
 
 ////////////////////// Log rules stuff //////////////////////
 

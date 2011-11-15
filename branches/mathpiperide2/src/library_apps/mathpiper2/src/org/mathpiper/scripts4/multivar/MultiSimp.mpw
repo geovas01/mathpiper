@@ -1,4 +1,4 @@
-%mathpiper,def="MultiSimp;MultiSimp2"
+%mathpiper,def="MultiSimp;MultiSimp2;MultiContent;MultiContentTerm;MultiContentScan;MultiPrimitivePart;MultiRemoveGcd;MultiDegree;MultiDegree;MultiLeadingCoef;MultiLeadingMono;MultiLeadingTerm;MultiVars;MultiLT;MultiLM;MultiLC;DropZeroLC"
 
 MultiSimp(_expr) <--
 [

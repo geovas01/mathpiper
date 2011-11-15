@@ -1,14 +1,5 @@
-%mathpiper,def="OMREP;OMDef;OMForm;OMRead;OMParse;OMEcho;OMEchoEscape"
+%mathpiper,def="OMREP;OMDef;OMForm;OMRead;OMParse;OMEcho;OMEchoEscape;OMFormExpression;OMFormFunction;OMWriteOMEscape;OMEscapeString;OMWriteStringEscape;OMSignature;MatchClose;MatchOMOBJ;ReadOMOBJ;OMApplyReverseMapping;OMApplyMapping;OMPathSelect;OMPathSelect;ReadOMOBJ;OMWriteEscape"
 
-/* def file definitions
-OMREP
-OMDef
-OMForm
-OMRead
-OMParse
-OMEcho
-OMEchoEscape
-*/
 
 ////////////////////////
 // Written by Alberto González Palomo and Ayal Pinkus.

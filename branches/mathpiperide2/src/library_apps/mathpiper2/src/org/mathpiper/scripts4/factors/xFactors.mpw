@@ -1,4 +1,4 @@
-%mathpiper,def="xFactors"
+%mathpiper,def="xFactors;xFactorsPrimitivePart;xFactorsUnivariate;xFactorsMultivariate;xFactorsHomogeneousBivariate;CheckForSpecialForms;ApproximateRealCoefficients;CombineNumericalFactors;IsPureRational;HasRealCoefficients;HasRationalCoefficients;FixUpMonicFactors;IsIrreducible;matchPower;matchPower"
 
 /*------------------------------------------------------------------------
  *  PENULTIMATE VERSION 

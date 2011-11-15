@@ -5,14 +5,9 @@
 
 5   # Sinh(- _x)        <-- -Sinh(x);
 
-100 # Sinh(_x)^2-Cosh(_x)^2         <-- 1;
-100 # Sinh(_x)+Cosh(_x)                <-- Exp(x);
-100 # Sinh(_x)-Cosh(_x)                <-- Exp(-x);
 
 //100 # Sinh(I*_x)        <-- I*Sin(x);
 
-100 # Sinh(_x)/Cosh(_x) <-- Tanh(x);
-100 # Sinh(_x)*Csch(_x) <-- 1;
 
 200 # Sinh(0)                <-- 0;
 200 # Sinh(Infinity)        <-- Infinity;

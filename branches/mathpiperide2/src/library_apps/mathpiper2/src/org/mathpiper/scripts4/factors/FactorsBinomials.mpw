@@ -1,4 +1,4 @@
-%mathpiper,def="FactorsBinomials"
+%mathpiper,def="FactorsBinomials;xFactorsBinomials"
 
 //Retract("FactorsBinomials",*);
 

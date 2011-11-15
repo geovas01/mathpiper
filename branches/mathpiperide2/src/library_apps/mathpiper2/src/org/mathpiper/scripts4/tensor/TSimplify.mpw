@@ -1,4 +1,4 @@
-%mathpiper,def="TSimplify"
+%mathpiper,def="TSimplify;TSimplifyAux"
 
 /* Tensor package. This code intends to simplify tensorial expressions.
  */

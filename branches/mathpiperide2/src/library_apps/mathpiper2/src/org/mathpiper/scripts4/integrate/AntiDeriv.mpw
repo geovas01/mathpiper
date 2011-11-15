@@ -1,4 +1,4 @@
-%mathpiper,def="AntiDeriv"
+%mathpiper,def="AntiDeriv;IntegrateMultiplicative;IntByParts;IntRat;IntPureSquare"
 
 //todo:tk:this file need to be broken down further.
 

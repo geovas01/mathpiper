@@ -1,4 +1,4 @@
-%mathpiper,def="xnfinityNorm"
+%mathpiper,def="xnfinityNorm;InfinityNorm"
 
 //Retract("InfinityNorm",*);
 

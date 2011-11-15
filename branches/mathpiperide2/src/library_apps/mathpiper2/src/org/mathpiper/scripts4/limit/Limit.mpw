@@ -1,4 +1,4 @@
-%mathpiper,def="Limit"
+%mathpiper,def="Limit;IsIrrationalFunction;IrrationalFunctionDegree;IrrationalFunctionLeadingCoef;Dir;LimitArgs;LimInf;LimSup"
 
 100 # IsIrrationalFunction(Sqrt(_expr), _var)_(Polynomial?(expr, var) And? Degree(expr, var) >? 0 Or? IsIrrationalFunction(expr,var)) <-- True;
 100 # IsIrrationalFunction(_expr^_p, _var)_((Polynomial?(expr, var) Or? IsIrrationalFunction(expr,var)) And? RationalOrNumber?(p) And? Not? Zero?(p) And? Not? PositiveInteger?(p)) <-- True;

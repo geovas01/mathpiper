@@ -1,4 +1,4 @@
-%mathpiper,def="PollardRhoFactorize"
+%mathpiper,def="PollardRhoFactorize;PollardRhoPolynomial"
 
 /* This is Pollard's Rho method of factorizing, as described in
  * "Modern Computer Algebra". It is a rather fast algorithm for

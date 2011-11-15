@@ -1,4 +1,4 @@
-%mathpiper,def="Cos"
+%mathpiper,def="Cos;CosMap"
 
 1 # CosMap( _n )_(Not?(RationalOrNumber?(n))) <-- ListToFunction({ToAtom("Cos"),n*Pi});
 2 # CosMap( _n )_(n<?0) <-- CosMap(-n);
@@ -50,8 +50,8 @@
      ListToFunction({Cos,x});
      ];
 
-100 # Cos(_x)*Tan(_x) <-- Sin(x);
-100 # Cos(_x)/Sin(_x) <-- (1/Tan(x));
+
+
 
 Cos(xlist_List?) <-- MapSingle("Cos",xlist);
 

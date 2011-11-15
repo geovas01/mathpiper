@@ -1,4 +1,4 @@
-%mathpiper,def="Taylor2;TaylorLPS;TaylorLPSNormalizeExpr;TaylorLPSConstruct;TaylorLPSPowerSeries;TaylorLPSCoeffs;TaylorLPSInverse;TaylorLPSAdd;TaylorLPSMultiply;TaylorLPSScalarMult;TaylorLPSCompose"
+%mathpiper,def="Taylor2;TaylorLPS;TaylorLPSNormalizeExpr;TaylorLPSConstruct;TaylorLPSPowerSeries;TaylorLPSCoeffs;TaylorLPSInverse;TaylorLPSAdd;TaylorLPSMultiply;TaylorLPSScalarMult;TaylorLPSCompose;TaylorTPSGetCoeff;TaylorTPSAdd;TaylorTPSMultiply;TaylorTPSCompose;TaylorLPSCompCoeff;TaylorLPSCompOrder;TaylorTPSScalarMult;TaylorLPSAcceptDeriv;TaylorLPSGetOrder"
 
 /*
  * Taylor(x,a,n) y  ---  ENTRY POINT

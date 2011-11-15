@@ -1,4 +1,4 @@
-%mathpiper,def="Solve"
+%mathpiper,def="Solve;SolvePoly;SolveReduce;SolveContext;SolveSimple;SolveDivide"
 
 //Retract("Solve",*);
 

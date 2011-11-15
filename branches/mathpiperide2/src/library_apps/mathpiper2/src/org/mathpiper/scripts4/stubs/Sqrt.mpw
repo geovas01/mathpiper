@@ -14,12 +14,7 @@ Sqrt(xlist_List?) <-- MapSingle("Sqrt",xlist);
 
 90 # (Sqrt(x_Constant?))_(NegativeNumber?(N(x))) <-- Complex(0,Sqrt(-x));
 
-400 # x_RationalOrNumber? * Sqrt(y_RationalOrNumber?)  <-- Sign(x)*Sqrt(x^2*y);
-400 # Sqrt(y_RationalOrNumber?) * x_RationalOrNumber?  <-- Sign(x)*Sqrt(x^2*y);
-400 # x_RationalOrNumber? / Sqrt(y_RationalOrNumber?)  <-- Sign(x)*Sqrt(x^2/y);
-400 # Sqrt(y_RationalOrNumber?) / x_RationalOrNumber?  <-- Sign(x)*Sqrt(y/(x^2));
-400 # Sqrt(y_RationalOrNumber?) / Sqrt(x_RationalOrNumber?)  <-- Sqrt(y/x);
-400 # Sqrt(y_RationalOrNumber?) * Sqrt(x_RationalOrNumber?)  <-- Sqrt(y*x);
+
 400 # Sqrt(x_Integer?)_Integer?(SqrtN(x)) <-- SqrtN(x);
 400 # Sqrt(x_Integer?/y_Integer?)_(Integer?(SqrtN(x)) And? Integer?(SqrtN(y))) <-- SqrtN(x)/SqrtN(y);
 

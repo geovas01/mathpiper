@@ -1,4 +1,4 @@
-%mathpiper,def="MultiDivTerm"
+%mathpiper,def="MultiDivTerm;MultiS"
 
 MultiDivTerm(MultiNomial(_vars,_term1),MultiNomial(_vars,_term2)) <--
 [

@@ -1,4 +1,4 @@
-%mathpiper,def="Plot2DOutputs"
+%mathpiper,def="Plot2DOutputs;Plot2DData;Plot2DJava;ColorForGraphNr;Plot2DGeogebra;Plot2DJFreeChart"
 
 //////////////////////////////////////////////////
 /// Backends for 2D plotting
