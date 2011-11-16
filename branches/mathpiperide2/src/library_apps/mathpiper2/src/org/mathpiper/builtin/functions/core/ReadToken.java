@@ -43,7 +43,7 @@ public class ReadToken extends BuiltinFunction
     {
         MathPiperTokenizer tok = aEnvironment.iCurrentTokenizer;
         String result;
-        result = tok.nextToken(aEnvironment, aStackTop, aEnvironment.iCurrentInput, aEnvironment.getTokenHash());
+        result = tok.nextToken(aEnvironment, aStackTop, aEnvironment.getCurrentInput(), aEnvironment.getTokenHash());
 
         if (result.length() == 0)
         {

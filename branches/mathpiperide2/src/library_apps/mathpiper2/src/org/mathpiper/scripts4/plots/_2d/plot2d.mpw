@@ -1,4 +1,4 @@
-%mathpiper,def="Plot2D"
+%mathpiper,def="Plot2D;Plot2Dgetdata;Plot2Dadaptive"
 
 //Retract("Plot2D", *);
 

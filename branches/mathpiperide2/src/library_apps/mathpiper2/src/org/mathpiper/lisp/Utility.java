@@ -690,15 +690,15 @@ public class Utility {
     }
 
     public static void doInternalLoad(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
-        MathPiperInputStream previous = aEnvironment.iCurrentInput;
+        MathPiperInputStream previous = aEnvironment.getCurrentInput();
         try {
-            aEnvironment.iCurrentInput = aInput;
+            aEnvironment.setCurrentInput(aInput);
             // TODO make "EndOfFile" a global thing
             // read-parse-evaluate to the end of file
             String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
             boolean endoffile = false;
 
-            MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(),  aEnvironment.iCurrentInput, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
+            MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(), aEnvironment.getCurrentInput(), aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
             //Parser parser = new Parser(new MathPiperTokenizer(), aEnvironment.iCurrentInput, aEnvironment);
 
             while (!endoffile) {
@@ -727,7 +727,7 @@ public class Utility {
 
             throw e;
         } finally {
-            aEnvironment.iCurrentInput = previous;
+            aEnvironment.setCurrentInput(previous);
         }
     }
 
@@ -744,7 +744,7 @@ public class Utility {
                     String scriptCode = tag[1].trim();
 
                     StringInputStream scriptStream = 
-                        new StringInputStream(scriptCode, aEnvironment.iCurrentInput.iStatus);
+                        new StringInputStream(scriptCode, aEnvironment.getCurrentInput().iStatus);
                     MathPiperOutputStream previous = 
                         aEnvironment.iCurrentOutput;
                     try {

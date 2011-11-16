@@ -40,8 +40,7 @@ public class Read extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        MathPiperParser parser = new MathPiperParser(aEnvironment.iCurrentTokenizer,
-                aEnvironment.iCurrentInput,
+        MathPiperParser parser = new MathPiperParser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
                 aEnvironment,
                 aEnvironment.iPrefixOperators,
                 aEnvironment.iInfixOperators,

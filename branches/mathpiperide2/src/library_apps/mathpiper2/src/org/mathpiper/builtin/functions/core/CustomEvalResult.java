@@ -43,6 +43,6 @@ public class CustomEvalResult extends BuiltinFunction
     {
         aEnvironment.write("Function not yet implemented : CustomEvalResult");////TODO fixme
 
-        throw new EvaluationException("Function not yet supported",aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex());
+        throw new EvaluationException("Function not yet supported",aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 }

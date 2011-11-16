@@ -59,7 +59,7 @@ public class Check extends BuiltinFunction
 
 
 
-            throw new EvaluationException( Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) type.car()), Utility.toNormalString(aEnvironment, aStackTop, (String) message.car()), aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex() , "Check");
+            throw new EvaluationException( Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) type.car()), Utility.toNormalString(aEnvironment, aStackTop, (String) message.car()), aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex() , "Check");
         }
         setTopOfStackPointer(aEnvironment, aStackTop, pred);
     }

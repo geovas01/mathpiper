@@ -41,8 +41,7 @@ public class LispRead extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Parser parser = new Parser(aEnvironment.iCurrentTokenizer,
-                aEnvironment.iCurrentInput,
+        Parser parser = new Parser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
                 aEnvironment);
         // Read expression
         setTopOfStackPointer(aEnvironment, aStackTop, parser.parse(aStackTop));

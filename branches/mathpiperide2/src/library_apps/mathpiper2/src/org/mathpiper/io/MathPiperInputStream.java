@@ -64,4 +64,10 @@ public abstract class MathPiperInputStream
 	public abstract int position();
 	public abstract void setPosition(int aPosition);
 
+
+        public String toString()
+        {
+            return("File: " + iStatus.getFileName());
+        }
+
 };
