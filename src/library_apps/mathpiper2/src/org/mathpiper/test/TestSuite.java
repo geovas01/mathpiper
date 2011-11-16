@@ -249,7 +249,7 @@ public class TestSuite {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
 
-        MathPiperInputStream previousInput = aEnvironment.iCurrentInput;
+        MathPiperInputStream previousInput = aEnvironment.getCurrentInput();
 
         StringBuffer outputStringBuffer = new StringBuffer();
         MathPiperOutputStream previousOutput = aEnvironment.iCurrentOutput;
@@ -260,13 +260,12 @@ public class TestSuite {
 
 
         try {
-            aEnvironment.iCurrentInput = aInput;
+            aEnvironment.setCurrentInput(aInput);
             // TODO make "EndOfFile" a global thing
             // read-parse-evaluate to the end of file
             String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
             boolean endoffile = false;
-            MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(),
-                    aEnvironment.iCurrentInput, aEnvironment,
+            MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(), aEnvironment.getCurrentInput(), aEnvironment,
                     aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,
                     aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 
@@ -314,10 +313,10 @@ public class TestSuite {
             System.out.println(e.getMessage());
             e.printStackTrace(); //todo:tk:uncomment for debugging.
 
-            EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.iCurrentInput.iStatus.getFileName(), aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineNumber());
+            EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber());
             throw ee;
         } finally {
-            aEnvironment.iCurrentInput = previousInput;
+            aEnvironment.setCurrentInput(previousInput);
             aEnvironment.iCurrentOutput = previousOutput;
         }
     }

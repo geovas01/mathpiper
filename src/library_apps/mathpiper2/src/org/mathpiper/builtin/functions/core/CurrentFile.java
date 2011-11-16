@@ -41,7 +41,7 @@ public class CurrentFile extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(aEnvironment.iCurrentInput.iStatus.getFileName())));
+        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.getTokenHash().lookUpStringify(aEnvironment.getCurrentInput().iStatus.getFileName())));
     }
 }
 

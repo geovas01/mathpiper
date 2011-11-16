@@ -1,4 +1,4 @@
-%mathpiper,def="Dot"
+%mathpiper,def="Dot;Dot0;Dot1"
 
 //////
 // dot product for vectors and matrices (dr)

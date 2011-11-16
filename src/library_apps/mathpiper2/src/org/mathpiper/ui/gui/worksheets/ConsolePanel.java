@@ -298,7 +298,7 @@ public class ConsolePanel extends JPanel implements KeyListener, FocusListener, 
         //interpreter = Interpreters.getSynchronousInterpreter(docBase); //todo:tk.
         interpreter = Interpreters.getSynchronousInterpreter();
 
-        interpreter.getEnvironment().iCurrentInput = new CachedStandardFileInputStream(interpreter.getEnvironment().iInputStatus);
+        interpreter.getEnvironment().setCurrentInput(new CachedStandardFileInputStream(interpreter.getEnvironment().iInputStatus));
 
 
         if (piperLogo != null)

@@ -1,4 +1,4 @@
-%mathpiper,def="Plot3DS"
+%mathpiper,def="Plot3DS;Plot3DSgetdata;Plot3DSadaptive"
 
 //////////////////////////////////////////////////
 /// Plot3DS --- adaptive three-dimensional surface plotting

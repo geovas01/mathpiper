@@ -272,7 +272,7 @@ public class ConsoleApplet extends Applet implements KeyListener, FocusListener,
         //stdoutput = new StringOutputStream(outp);
         String docBase = getDocumentBase().toString();
         interpreter = Interpreters.getSynchronousInterpreter(docBase);
-        interpreter.getEnvironment().iCurrentInput = new CachedStandardFileInputStream(interpreter.getEnvironment().iInputStatus);
+        interpreter.getEnvironment().setCurrentInput(new CachedStandardFileInputStream(interpreter.getEnvironment().iInputStatus));
 
 
         if (piperLogo != null)

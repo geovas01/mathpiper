@@ -1,4 +1,4 @@
-%mathpiper,def="NFunction"
+%mathpiper,def="NFunction;NFunctionNumberize;NFunctionNumberize"
 
 /* NFunction("newfunc", "oldfunc" {arglist}) will define a wrapper function
 around  "oldfunc", called "newfunc", which will return "oldfunc(arglist)"

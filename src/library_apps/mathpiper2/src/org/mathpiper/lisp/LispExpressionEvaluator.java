@@ -87,7 +87,7 @@ public class LispExpressionEvaluator extends Evaluator {
         if (Environment.haltEvaluation == true) {
             Environment.haltEvaluation = false;
 
-            LispError.raiseError("User halted calculation.", aEnvironment.iCurrentInput.iStatus.getLineNumber(), -1, aEnvironment.iCurrentInput.iStatus.getLineIndex(), aStackTop, aEnvironment);
+            LispError.raiseError("User halted calculation.", aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aStackTop, aEnvironment);
         }
 
 
@@ -179,9 +179,9 @@ public class LispExpressionEvaluator extends Evaluator {
                         }
                         Map metaDataMap = functionAndArgumentsList.getMetadataMap();
 
-                        int lineNumber = aEnvironment.iCurrentInput.iStatus.getLineNumber();
+                        int lineNumber = aEnvironment.getCurrentInput().iStatus.getLineNumber();
                         int startIndex = -1;
-                        int endIndex = aEnvironment.iCurrentInput.iStatus.getLineIndex();
+                        int endIndex = aEnvironment.getCurrentInput().iStatus.getLineIndex();
 
                         if (metaDataMap != null) {
                             lineNumber = (Integer) metaDataMap.get("lineNumber");
@@ -258,8 +258,10 @@ public class LispExpressionEvaluator extends Evaluator {
             String[] scriptCode = scripts.getScript(functionName);
 
 
-            if( scriptCode == null) LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
-
+            if( scriptCode == null)
+            {
+                LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
+            }
 
             if (scriptCode[0] == null) {
                 //DefFile def = multiUserFunc.iIsFunctionRead;
@@ -287,9 +289,11 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
 
-                if(scriptCode[1] == null) LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
-
-                aEnvironment.iCurrentInput.iStatus.setTo(functionName);
+                if(scriptCode[1] == null)
+                {
+                    LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
+                }
+//                aEnvironment.getCurrentInput().iStatus.setTo(functionName);
 
                 String scriptString = scriptCode[1];
 
@@ -307,7 +311,7 @@ public class LispExpressionEvaluator extends Evaluator {
                  */
 
 
-                StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.iCurrentInput.iStatus);
+                StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.getCurrentInput().iStatus);
 
                 scriptCode[0] = "+";
 

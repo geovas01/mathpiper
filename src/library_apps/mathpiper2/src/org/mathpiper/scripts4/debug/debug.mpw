@@ -1,24 +1,5 @@
-%mathpiper,def="TraceExp;Debug;Profile;DebugRun;DebugStep;DebugStepOver;DebugBreakAt;DebugRemoveBreakAt;DebugStop;DebugVerbose;DebugAddBreakpoint;BreakpointsClear;DebugCallstack;DebugBreakIf;DebugLocals;EchoTime;DebugShowCode"
+%mathpiper,def="TraceExp;Debug;Profile;DebugRun;DebugStep;DebugStepOver;DebugBreakAt;DebugRemoveBreakAt;DebugStop;DebugVerbose;DebugAddBreakpoint;BreakpointsClear;DebugCallstack;DebugBreakIf;DebugLocals;EchoTime;DebugShowCode;ProfileEnter"
 
-/* def file definitions
-TraceExp
-Debug
-Profile
-DebugRun
-DebugStep
-DebugStepOver
-DebugBreakAt
-DebugRemoveBreakAt
-DebugStop
-DebugVerbose
-DebugAddBreakpoint
-BreakpointsClear
-DebugCallstack
-DebugBreakIf
-DebugLocals
-EchoTime
-DebugShowCode
-*/
 
 LocalSymbols(TraceStart,TraceEnter,TraceLeave,DebugStart,DebugEnter,
              DebugLeave,ProfileStart,ProfileEnter,result,

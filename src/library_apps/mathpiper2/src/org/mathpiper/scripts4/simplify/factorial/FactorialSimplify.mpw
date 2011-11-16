@@ -1,4 +1,4 @@
-%mathpiper,def="FactorialSimplify;CommonDivisors;CommonFact;CommonFactors;FactorialSimplifyWorker;FactorialFlattenAddition"
+%mathpiper,def="FactorialSimplify;CommonDivisors;CommonFact;CommonFactors;FactorialSimplifyWorker;FactorialFlattenAddition;FactorialGcd;FactorialDivideTerms;FactorialDivideTermsAux;FactorialGroupCommonDivisors"
 
 
 /* FactorialSimplify algorithm:

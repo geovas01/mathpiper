@@ -33,8 +33,7 @@ import org.mathpiper.lisp.printers.LispPrinter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.List;
 import org.mathpiper.Scripts;
 import org.mathpiper.builtin.BuiltinContainer;
 import org.mathpiper.builtin.BuiltinFunction;
@@ -135,11 +134,31 @@ class SynchronousInterpreter implements Interpreter {
 
                     scripts = iEnvironment.scripts;
 
-                    Map scriptsMap = scripts.getMap();
+                    //Map scriptsMap = scripts.getMap();
 
-                    Set keysSet = scriptsMap.keySet();
+                    List functionList = new ArrayList();
 
-                    keyIterator = keysSet.iterator();
+                    functionList.add("+");
+                    functionList.add("-");
+                    functionList.add("*");
+                    functionList.add("/");
+                    functionList.add("^");
+                    functionList.add("UniVar?");
+                    functionList.add("Sign");
+                    functionList.add("MakeMultiNomial");
+                    functionList.add("Complex");
+                    functionList.add("Limit");
+                    functionList.add("II");
+                    functionList.add("UniVariate");
+                    functionList.add("SparseUniVar");
+                    functionList.add("AntiDeriv");
+
+
+                    keyIterator = functionList.iterator();
+
+                    //Set keysSet = scriptsMap.keySet();
+
+                    //keyIterator = keysSet.iterator();
 
                     loopIndex++;
                     break;
@@ -177,7 +196,7 @@ class SynchronousInterpreter implements Interpreter {
 
                 default:
 
-                    iEnvironment.scripts = null;
+                    //iEnvironment.scripts = null;
 
                     System.out.print("done. \n");
 
@@ -227,7 +246,7 @@ class SynchronousInterpreter implements Interpreter {
 
         InputStatus oldstatus = iEnvironment.iInputStatus;
 
-        MathPiperInputStream previous = iEnvironment.iCurrentInput;
+        MathPiperInputStream previous = iEnvironment.getCurrentInput();
 
         try {
             iEnvironment.iEvalDepth = 0;
@@ -244,7 +263,7 @@ class SynchronousInterpreter implements Interpreter {
 
             StringInputStream newInput = new StringInputStream(inputExpression + ";", iEnvironment.iInputStatus);
 
-            iEnvironment.iCurrentInput = newInput;
+            iEnvironment.setCurrentInput(newInput);
 
             if (iEnvironment.iPrettyReaderName != null) {
 
@@ -260,7 +279,7 @@ class SynchronousInterpreter implements Interpreter {
         } catch (Exception exception) {
             this.handleException(exception, evaluationResponse);
         } finally {
-            iEnvironment.iCurrentInput = previous;
+            iEnvironment.setCurrentInput(previous);
             iEnvironment.iInputStatus.restoreFrom(oldstatus);
         }
 

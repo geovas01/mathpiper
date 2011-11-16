@@ -1,4 +1,4 @@
-%mathpiper,def="BinaryFactors"
+%mathpiper,def="BinaryFactors;LastCoef"
 
 LocalSymbols(lastcoef,OrdBuild, AddFoundSolutionSingle , AddFoundSolution, Fct, MkfactD,p)
 [

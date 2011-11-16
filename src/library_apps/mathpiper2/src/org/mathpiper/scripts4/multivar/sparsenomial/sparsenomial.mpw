@@ -1,4 +1,4 @@
-%mathpiper,def="CreateTerm;MultiNomialAdd;MultiNomialNegate;MultiNomialMultiply;NormalForm;MultiLeadingTerm;MultiDegreeScanHead;ScanMultiNomial;MultiDropLeadingZeroes;MultiDropScan;MultiTermLess;MultiZero;CheckMultiZero"
+%mathpiper,def="CreateTerm;MultiNomialAdd;MultiNomialNegate;MultiNomialMultiply;NormalForm;MultiLeadingTerm;MultiDegreeScanHead;ScanMultiNomial;MultiDropLeadingZeroes;MultiDropScan;MultiTermLess;MultiZero;CheckMultiZero;MultiNomialMultiplyAdd;muadm;NormalMultiNomial"
 
 
 /* Implementation of MultiNomials based on sparse representation

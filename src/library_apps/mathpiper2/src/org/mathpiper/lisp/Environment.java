@@ -92,7 +92,7 @@ public final class Environment {
     public MathPiperOutputStream iCurrentOutput = null;
     public MathPiperOutputStream iInitialOutput = null;
     public LispPrinter iCurrentPrinter = null;
-    public MathPiperInputStream iCurrentInput = null;
+    private MathPiperInputStream iCurrentInput = null;
     public InputStatus iInputStatus = new InputStatus();
     public MathPiperTokenizer iCurrentTokenizer;
     public MathPiperTokenizer iDefaultTokenizer = new MathPiperTokenizer();
@@ -619,6 +619,20 @@ public final class Environment {
      */
     public void write(String aString) throws Exception {
         iCurrentOutput.write(aString);
+    }
+
+    /**
+     * @return the iCurrentInput
+     */
+    public MathPiperInputStream getCurrentInput() {
+        return iCurrentInput;
+    }
+
+    /**
+     * @param iCurrentInput the iCurrentInput to set
+     */
+    public void setCurrentInput(MathPiperInputStream iCurrentInput) {
+        this.iCurrentInput = iCurrentInput;
     }
 
 
