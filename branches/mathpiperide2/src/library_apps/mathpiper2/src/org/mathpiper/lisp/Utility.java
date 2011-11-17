@@ -23,6 +23,7 @@ import org.mathpiper.lisp.cons.AtomCons;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import org.mathpiper.Scripts;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.exceptions.EvaluationException;
@@ -1410,6 +1411,62 @@ public class Utility {
         Cons expressionCons = Utility.mathPiperParse(aEnvironment, aStackTop, body);
 
         aEnvironment.defineRule(aStackTop, functionName, parameters.length, 100, Utility.putTrueInPointer(aEnvironment), expressionCons);
+    }
+
+
+
+    public static void loadFunction(String functionName, Environment aEnvironment, int aStackTop) throws Exception {
+        Scripts scripts = aEnvironment.scripts;
+
+        String[] scriptCode = scripts.getScript(functionName);
+
+
+        if (scriptCode == null) {
+            LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
+        }
+
+        if (scriptCode[0] == null) {
+
+            if (scriptCode[1] == null) {
+                LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
+            }
+
+            if (Evaluator.DEBUG) {
+                /*Show loading... */
+
+                if (Evaluator.VERBOSE_DEBUG) {
+
+                    if (Evaluator.TRACE_TO_STANDARD_OUT) {
+                        System.out.print("Debug> Reading function " + functionName + "\n");
+                    } else {
+                        aEnvironment.write("Debug> Reading function " + functionName + "\n");
+                    }
+
+                }
+            }
+
+            String scriptString = scriptCode[1];
+
+
+            StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.getCurrentInput().iStatus);
+
+            scriptCode[0] = "+";
+
+            Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
+
+            if (Evaluator.DEBUG) {
+
+                if (Evaluator.VERBOSE_DEBUG) {
+
+                    if (Evaluator.TRACE_TO_STANDARD_OUT) {
+                        System.out.print("Debug> Finished reading " + functionName + "\n");
+                    } else {
+                        aEnvironment.write("Debug> Finished reading " + functionName + "\n");
+                    }
+
+                }
+            }
+        }
     }
 
 }//end class.
