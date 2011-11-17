@@ -1150,9 +1150,9 @@ public class Utility {
 
             Cons predicatePointer1 = rule.getPredicatePointer();
             String predicate = "";
-            String predicatePointerString = predicatePointer1.toString();
 
-            if (predicatePointerString == null || predicatePointerString.equalsIgnoreCase("Empty.")) {
+
+            if (predicatePointer1 == null || predicatePointer1.toString().equalsIgnoreCase("Empty.")) {
                 predicate = "None.";
             } else {
                 predicate = Utility.printMathPiperExpression(aStackTop, predicatePointer1, aEnvironment, 0);
