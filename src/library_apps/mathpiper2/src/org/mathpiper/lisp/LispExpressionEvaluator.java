@@ -248,104 +248,15 @@ public class LispExpressionEvaluator extends Evaluator {
         if (userFunc != null) {
             return userFunc;
 
-        } else if (aEnvironment.scripts != null) {
-            //MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, functionName, true);
+        } else {
+
 
             //System.out.println(functionName);
 
-            Scripts scripts = aEnvironment.scripts;
+            Utility.loadFunction(functionName, aEnvironment, aStackTop);
 
-            String[] scriptCode = scripts.getScript(functionName);
+            userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
 
-
-            if( scriptCode == null)
-            {
-                LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
-            }
-
-            if (scriptCode[0] == null) {
-                //DefFile def = multiUserFunc.iIsFunctionRead;
-
-                if (DEBUG) {
-                    /*Show loading... */
-
-                    if (VERBOSE_DEBUG) {
-                        /*char buf[1024];
-                        #ifdef HAVE_VSNPRINTF
-                        snprintf(buf,1024,"Debug> Loading file %s for function %s\n",def.iFileName.c_str(),head.String().c_str());
-                        #else
-                        sprintf(buf,      "Debug> Loading file %s for function %s\n",def.iFileName.c_str(),head.String().c_str());
-                        #endif
-                        aEnvironment.write(buf);*/
-                        if (TRACE_TO_STANDARD_OUT) {
-                            System.out.print("Debug> Reading function " + functionName + "\n");
-                        } else {
-                            aEnvironment.write("Debug> Reading function " + functionName + "\n");
-                        }
-
-                        int debugBreakpoint = 0;
-                    }
-                }
-
-
-
-                if(scriptCode[1] == null)
-                {
-                    LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
-                }
-//                aEnvironment.getCurrentInput().iStatus.setTo(functionName);
-
-                String scriptString = scriptCode[1];
-
-                /*
-                //Gzip + base64.
-                byte[] bytes = (new BASE64Decoder()).decodeBuffer(scriptCode[1]);
-                BufferedReader in = new BufferedReader(new InputStreamReader(
-                new GZIPInputStream(new ByteArrayInputStream(bytes))));
-                StringBuffer buffer = new StringBuffer();
-                char[] charBuffer = new char[1024];
-                while (in.read(charBuffer) != -1) {
-                buffer.append(charBuffer);
-                }
-                scriptString = buffer.toString();
-                 */
-
-
-                StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.getCurrentInput().iStatus);
-
-                scriptCode[0] = "+";
-
-                Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
-
-                userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
-
-                //Utility.loadScriptOnce(aEnvironment, aStackTop, def.iFileName);
-
-                if (DEBUG) {
-                    //extern int VERBOSE_DEBUG;
-                    if (VERBOSE_DEBUG) {
-                        /*
-                        char buf[1024];
-                        #ifdef HAVE_VSNPRINTF
-                        snprintf(buf,1024,"Debug> Finished loading file %s\n",def.iFileName.c_str());
-                        #else
-                        sprintf(buf,      "Debug> Finished loading file %s\n",def.iFileName.c_str());
-                        #endif*/
-
-                        if (TRACE_TO_STANDARD_OUT) {
-                            System.out.print("Debug> Finished reading " + functionName + "\n");
-                        } else {
-                            aEnvironment.write("Debug> Finished reading " + functionName + "\n");
-                        }
-
-                    }
-                }
-
-            } else {
-                userFunc = null;
-            }
-
-            //userFunc = aEnvironment.getRulebase(aStackTop, subList);
         }
 
 

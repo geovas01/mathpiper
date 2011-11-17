@@ -151,7 +151,7 @@ class SynchronousInterpreter implements Interpreter {
                     functionList.add("II");
                     functionList.add("UniVariate");
                     functionList.add("SparseUniVar");
-                    functionList.add("AntiDeriv");
+                    //functionList.add("AntiDeriv");
 
 
                     keyIterator = functionList.iterator();

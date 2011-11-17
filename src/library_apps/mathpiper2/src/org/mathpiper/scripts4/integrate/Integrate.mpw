@@ -1,9 +1,11 @@
 %mathpiper,def="Integrate;IntSub;defIntegrate;IntegrateRange;IntClean"
 
-//todo:tk:this file need to be broken down further.
+//todo:tk:this file needs to be broken down further.
+
+LoadLibraryFunction("AntiDeriv");
 
 
-10# (Integrate(_var)(expr_List?))
+10 # (Integrate(_var)(expr_List?))
     <-- Map("Integrate",{FillList(var,Length(expr)),expr});
 20 # (Integrate(_var)(_expr)) <-- IntSub(var,expr,AntiDeriv(var,IntClean(var,expr)));
 
