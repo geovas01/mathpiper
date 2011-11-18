@@ -328,6 +328,7 @@ public class FunctionTreePanel extends JPanel implements TreeSelectionListener, 
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Numeric)", "Functions for solving equations numerically.")));
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Solvers (Symbolic)", "By solving one tries to find a mathematical object that meets certain criteria.")));
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Special Functions", "In this section, special and transcendental mathematical functions are described.")));
+        userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Sorting", "Functions for sorting.")));
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Statistics & Probability", "Statistics & Probability.")));
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("String Manipulation", "Functions for manipulating strings.")));
         userFunctionsNode.add(new DefaultMutableTreeNode(new FunctionInfo("Transforms", "In this section, some facilities for various transforms are described.")));
