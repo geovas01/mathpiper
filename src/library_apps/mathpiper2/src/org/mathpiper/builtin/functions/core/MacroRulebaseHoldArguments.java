@@ -39,7 +39,7 @@ public class MacroRulebaseHoldArguments extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.Utility.defMacroRulebase(aEnvironment, aStackTop, false);
+        org.mathpiper.lisp.Utility.defineMacroRulebase(aEnvironment, aStackTop, false);
     }
 }
 

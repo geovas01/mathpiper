@@ -38,8 +38,7 @@ public class Import extends BuiltinFunction
     {
         this.functionName = "Import";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                this.functionName);
+                this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

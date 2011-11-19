@@ -39,7 +39,7 @@ public class RulebaseHoldArguments extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        org.mathpiper.lisp.Utility.rulebase(aEnvironment, aStackTop, false);
+        org.mathpiper.lisp.Utility.defineRulebase(aEnvironment, aStackTop, false);
     }
 }
 

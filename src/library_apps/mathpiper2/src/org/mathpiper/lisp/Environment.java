@@ -182,7 +182,7 @@ public final class Environment {
             return;
         }
         GlobalVariable globalVariable = new GlobalVariable(aValue);
-        iGlobalState.setAssociation(globalVariable, aVariable);
+        iGlobalState.setAssociation(aVariable, globalVariable);
         if (aGlobalLazyVariable) {
             globalVariable.setEvalBeforeReturn(true);
         }
@@ -505,6 +505,7 @@ public final class Environment {
 
     public void retractRule(String aOperator, int aArity, int aStackTop, Environment aEnvironment) throws Exception {
         MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
+
         if (multipleArityUserFunc != null) {
             multipleArityUserFunc.deleteRulebaseEntry(aArity, aStackTop, aEnvironment);
         }
@@ -543,16 +544,16 @@ public final class Environment {
 
         // If none exists, add one to the user rulebases list
         if (multipleArityUserRulebase == null && create == true) {
-            MultipleArityRulebase newMultipleArityUserRulebase = new MultipleArityRulebase();
-            newMultipleArityUserRulebase.functionName = aOperator;
-            iUserRulebases.setAssociation(newMultipleArityUserRulebase, aOperator);
-            multipleArityUserRulebase = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
-            if(multipleArityUserRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_USER_FUNCTION, aOperator);
+            multipleArityUserRulebase = new MultipleArityRulebase();
+            multipleArityUserRulebase.functionName = aOperator;
+            iUserRulebases.setAssociation(aOperator, multipleArityUserRulebase);
+
         }
         return multipleArityUserRulebase;
     }
 
     public void defineRulebase(int aStackTop, String aOperator, Cons aParametersPointer, boolean aListed) throws Exception {
+
         MultipleArityRulebase multipleArityUserFunction = getMultipleArityRulebase(aStackTop, aOperator, true);
 
         // add an operator with this arity to the multiuserfunc.
@@ -584,6 +585,7 @@ public final class Environment {
     }
 
     public void defineMacroRulebase(int aStackTop, String aFunctionName, Cons aParameters, boolean aListed) throws Exception {
+
         MultipleArityRulebase multipleArityRulebase = getMultipleArityRulebase(aStackTop, aFunctionName, true);
 
         MacroRulebase newMacroRulebase;

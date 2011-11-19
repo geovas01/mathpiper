@@ -48,8 +48,8 @@ public class LoadScript extends BuiltinFunction
 
         Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        // Get file name
         if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        
         String scriptString = (String) evaluated.car();
 
         if( scriptString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);

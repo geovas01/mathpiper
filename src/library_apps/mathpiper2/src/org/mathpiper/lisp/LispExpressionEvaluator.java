@@ -17,11 +17,9 @@
 package org.mathpiper.lisp;
 
 import java.util.Map;
-import org.mathpiper.Scripts;
 
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.builtin.BuiltinFunctionEvaluator;
-import org.mathpiper.io.StringInputStream;
 
 import org.mathpiper.lisp.rulebases.SingleArityRulebase;
 
@@ -253,7 +251,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
             //System.out.println(functionName);
 
-            Utility.loadFunction(functionName, aEnvironment, aStackTop);
+            Utility.loadLibraryFunction(functionName, aEnvironment, aStackTop);
 
             userFunc = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, subList);
 
