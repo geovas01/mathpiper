@@ -16,8 +16,7 @@ public class IncompleteBeta extends BuiltinFunction{
     {
         this.functionName = "IncompleteBeta";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                this.functionName);
+                this.functionName, new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception

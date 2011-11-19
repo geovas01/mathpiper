@@ -33,7 +33,7 @@ public class OperatorMap extends MathPiperMap // <Operator>
 	public void setOperator(int aPrecedence,String aString)
 	{
 		Operator op = new Operator(aPrecedence);
-		setAssociation(op, aString);
+		setAssociation(aString, op);
 	}
 	
 	public void setRightAssociative(int aStackTop, String aString) throws Exception

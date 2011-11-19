@@ -34,8 +34,7 @@ public class StackTrace extends BuiltinFunction
     {
         this.functionName = "StackTrace";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                this.functionName);
+                this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
 

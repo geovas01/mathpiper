@@ -38,8 +38,7 @@ public class ViewHelp extends BuiltinFunction {
     public void plugIn(Environment aEnvironment) throws Exception {
         this.functionName = "ViewHelp";
         aEnvironment.getBuiltinFunctions().setAssociation(
-                new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function),
-                this.functionName);
+                this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {

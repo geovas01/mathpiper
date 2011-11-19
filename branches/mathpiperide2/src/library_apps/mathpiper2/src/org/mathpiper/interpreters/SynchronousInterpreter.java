@@ -170,23 +170,8 @@ class SynchronousInterpreter implements Interpreter {
 
                         String functionName = (String) keyIterator.next();
 
-                        String[] scriptCode = scripts.getScript(functionName);
 
-                        if (scriptCode[0] == null) {
-
-                            iEnvironment.iInputStatus.setTo(functionName);
-
-                            String scriptString = scriptCode[1];
-
-                            StringInputStream functionInputStream = new StringInputStream(scriptString, iEnvironment.iInputStatus);
-
-                            scriptCode[0] = "+";
-
-                            Utility.doInternalLoad(iEnvironment, -1, functionInputStream);
-
-                        } else {
-                            //System.out.println("Already loaded.");
-                        }
+                        Utility.loadLibraryFunction(functionName, iEnvironment, loopIndex);
 
                     }//end while.
                     if (!keyIterator.hasNext()) {

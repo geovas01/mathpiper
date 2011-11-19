@@ -1053,7 +1053,7 @@ public class Utility {
      *Implements the MathPiper functions Rulebase and MacroRulebase .
      * The real work is done by Environment.defineRulebase().
      */
-    public static void rulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
+    public static void defineRulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
 
         // Get operator
         String functionName = null;
@@ -1122,7 +1122,7 @@ public class Utility {
         BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 
-    public static void defMacroRulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
+    public static void defineMacroRulebase(Environment aEnvironment, int aStackTop, boolean aListed) throws Exception {
         // Get operator
         String orig = null;
 
@@ -1135,8 +1135,7 @@ public class Utility {
         LispError.checkIsList(aEnvironment, aStackTop, args, 2);
 
         // Finally define the rule base
-        aEnvironment.defineMacroRulebase(aStackTop, Utility.getSymbolName(aEnvironment, orig),
-                ((Cons) args.car()).cdr(), aListed);
+        aEnvironment.defineMacroRulebase(aStackTop, Utility.getSymbolName(aEnvironment, orig), ((Cons) args.car()).cdr(), aListed);
 
         // Return true
         BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
@@ -1415,7 +1414,7 @@ public class Utility {
 
 
 
-    public static void loadFunction(String functionName, Environment aEnvironment, int aStackTop) throws Exception {
+    public static void loadLibraryFunction(String functionName, Environment aEnvironment, int aStackTop) throws Exception {
         Scripts scripts = aEnvironment.scripts;
 
         String[] scriptCode = scripts.getScript(functionName);
@@ -1447,7 +1446,18 @@ public class Utility {
 
             String scriptString = scriptCode[1];
 
+            /*
+            if(scriptCode.length == 2)
+            {
+                aEnvironment.iInputStatus.setTo(functionName);
+            }
+            else
+            {
+                aEnvironment.iInputStatus.setTo(scriptCode[2]);
+            }
 
+             */
+            
             StringInputStream functionInputStream = new StringInputStream(scriptString, aEnvironment.getCurrentInput().iStatus);
 
             scriptCode[0] = "+";

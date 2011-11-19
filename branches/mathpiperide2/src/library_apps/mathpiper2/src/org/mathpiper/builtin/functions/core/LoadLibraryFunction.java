@@ -54,7 +54,7 @@ public class LoadLibraryFunction extends BuiltinFunction
 
         scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
 
-        Utility.loadFunction(scriptString, aEnvironment, aStackTop);
+        Utility.loadLibraryFunction(scriptString, aEnvironment, aStackTop);
 
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
 
