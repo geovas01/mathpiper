@@ -11,15 +11,26 @@
 
     <property name="build.dir" value="${basedir}/build" />
 
-    <property name="library.dir" value="${basedir}/lib" />
+    <property name="library.dir" value="${basedir}/../lib" />
+    
+	<property name="gwt_lib.dir" value="${basedir}/lib" />
 
     <property name="mathpiper.dir" value="${basedir}" />
 
     <path id="build_classpath">
+		<pathelement path="${library.dir}/jfreechart-1.0.13.jar" />
+		<pathelement path="${library.dir}/jcommon-1.0.16.jar" />
+    	<pathelement path="${library.dir}/jlatexmath.jar" />
+		<pathelement path="${library.dir}/jlm_cyrillic.jar" />
+		<pathelement path="${library.dir}/jlm_greek.jar" />
+    	<pathelement path="${library.dir}/gwt-dev.jar" />
+    	<pathelement path="${library.dir}/gwt-user.jar" />
+    	<pathelement path="${library.dir}/validation-api-1.0.0.GA.jar" />
+    	<pathelement path="${library.dir}/validation-api-1.0.0.GA-sources.jar" />
     </path>
 
 <!-- <property name="version" value=".58" /> -->
-    <property name="build.classes.dir" value="${build.dir}/classes" />
+    <property name="build.classes.dir" value="${build.dir}" />
 
     <condition property="isMac">
         <os family="mac" />
@@ -106,7 +117,7 @@
         <java fork="true" failonerror="yes" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}">
             <jvmarg line="-Xmx300M -Xms300M -Xss8M" />
             <arg value="${src.dir}/" />
-            <arg value="${build.dir}/classes/" />
+            <arg value="${build.dir}/" />
             
         </java>
         
@@ -119,9 +130,9 @@
     
     
     <target name="build" depends="init,compile_build_dot_java,buildscripts,exclude_files_from_compilation,compile">
-        <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}/classes" />
+        <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}" />
 
-        <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}/classes" />
+        <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}" />
         
         
         <!--<copy file="${src.dir}/ubc/cs/JLog/Builtins/INIT_BUILTINSLIB.TOC" todir="${build.classes.dir}"/>-->
@@ -140,11 +151,11 @@
     
     
     
-    <target name="buildjs" depends="clean,init,compile_build_dot_java,buildscripts,compile">
-        <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}/classes" />
+    <!--<target name="buildjs" depends="clean,init,compile_build_dot_java,buildscripts,compile">
+        <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}" />
 
-        <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}/classes" />
-    </target>
+        <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}" />
+    </target>-->
     
     
     
@@ -234,10 +245,10 @@
             </fileset>
         </copy>
 
-        <copy file="${library.dir}/google_web_toolkit/module.gwt.xml" todir="${build.dir}/gwt_dist/src/org" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/module.gwt.xml" todir="${build.dir}/gwt_dist/src/org" />
 
         <copy todir="${build.dir}/gwt_dist/">
-            <fileset dir="${library.dir}/google_web_toolkit">
+            <fileset dir="${gwt_lib.dir}/google_web_toolkit">
                 <include name="compile.sh" if="isUnix" />
 
                 <include name="debug.sh" if="isUnix" />
@@ -248,7 +259,7 @@
             </fileset>
         </copy>
 
-        <copy file="${library.dir}/google_web_toolkit/mathpiper.html" todir="${build.dir}/gwt_dist/war" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/mathpiper.html" todir="${build.dir}/gwt_dist/war" />
     </target>
 </project>
 
