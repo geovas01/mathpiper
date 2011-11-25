@@ -63,7 +63,7 @@
 
         <mkdir dir="${build.dir}" />
 
-        <mkdir dir="${build.classes.dir}" />
+        <mkdir dir="${build.dir}/tests" />
     </target>
 
     <target name="compile" depends="init" description="Compiles the application">
@@ -129,7 +129,7 @@
 
     
     
-    <target name="build" depends="init,compile_build_dot_java,buildscripts,exclude_files_from_compilation,compile">
+    <target name="build" depends="clean,init,compile_build_dot_java,buildscripts,exclude_files_from_compilation,compile">
         <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}" />
 
         <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}" />
