@@ -195,8 +195,12 @@
 			</manifest>-->
 			<include name="**/*" />
 			<exclude name="**/*.bat,**/*.sh" />
+			<exclude name="dist/" />
+			<exclude name="tests/" />
 		</jar> 
 	</target>
+	
+	
 	
 	<target  id="chmod-unix-test-script" name="chmod-unix-test-script" if="IsUnix">
 	    <echo message="Making unix test script executable."/>
