@@ -124,7 +124,7 @@
     </target>
 
     <target name="exclude_files_from_compilation">
-        <property name="exclude_files" value="org/mathpiper/interpreters/JavaScript.java" />
+        <property name="exclude_files" value="org/mathpiper/interpreters/JavaScript.java,org/mathpiper/interpreters/TestServiceImpl.java,org/mathpiper/interpreters/WebConsole.java" />
     </target>
 
     
@@ -221,6 +221,10 @@
         <mkdir dir="${build.dir}/gwt_dist/src" />
 
         <mkdir dir="${build.dir}/gwt_dist/war" />
+        
+        <mkdir dir="${build.dir}/gwt_dist/war/WEB-INF" />
+        
+        <mkdir dir="${build.dir}/gwt_dist/war/WEB-INF/lib" />
 
         <copy todir="${build.dir}/gwt_dist/src">
             <fileset dir="${mathpiper.dir}/src/">
@@ -236,6 +240,8 @@
                 <include name="org/mathpiper/interpreters/SynchronousInterpreter.java" />
                 <include name="org/mathpiper/interpreters/ResponseListener.java" />
                 <include name="org/mathpiper/interpreters/JavaScript.java" />
+                <include name="org/mathpiper/interpreters/TestServiceImpl.java" />
+                <include name="org/mathpiper/interpreters/WebConsole.java" />
 
                 <include name="org/mathpiper/io/" />
 
@@ -264,6 +270,17 @@
         </copy>
 
         <copy file="${gwt_lib.dir}/google_web_toolkit/mathpiper.html" todir="${build.dir}/gwt_dist/war" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/WebConsole.css" todir="${build.dir}/gwt_dist/war" />
+        
+        <copy file="${gwt_lib.dir}/google_web_toolkit/dot_classpath" tofile="${build.dir}/gwt_dist/.classpath" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/dot_project" tofile="${build.dir}/gwt_dist/.project" />
+        
+        <copy file="${gwt_lib.dir}/google_web_toolkit/WEB-INF/web.xml" todir="${build.dir}/gwt_dist/war/WEB-INF" />
+        <copy file="${library.dir}/gwt-servlet.jar" todir="${build.dir}/gwt_dist/war/WEB-INF/lib" />
+        
+        
+        
+        
     </target>
 </project>
 
