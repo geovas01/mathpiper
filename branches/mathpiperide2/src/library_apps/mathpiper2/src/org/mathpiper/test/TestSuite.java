@@ -53,6 +53,7 @@ public class TestSuite {
     private static int argumentErrorCount = 0;
     private static String testTypeArgs = "";
     private static String testTypeMessage = "";
+    private static long elapsedTime;
 
     private static enum TestType {
         ALL, NONE, SOME, EXCEPT
@@ -120,6 +121,8 @@ public class TestSuite {
         try {
 
             logFile = new java.io.FileWriter("./tests/" + logFileName); //"./tests/mathpiper_tests.log"
+            
+        	elapsedTime = System.currentTimeMillis();
 
             interpreter = Interpreters.newSynchronousInterpreter();
 
@@ -146,7 +149,6 @@ public class TestSuite {
             System.out.print(output);
             logFile.write(output);
 
-
             Iterator keyIterator = keyArray.iterator();
 
             while (keyIterator.hasNext()) {
@@ -169,6 +171,15 @@ public class TestSuite {
             output = evaluationResponse(evaluationResponse);
             System.out.println("Global variables: " + output);
             logFile.write("GlobalVariables: " + output);
+            
+            elapsedTime = System.currentTimeMillis() - elapsedTime;
+            
+            int seconds = (int) (elapsedTime / 1000) % 60 ;
+            
+            int minutes = (int) ((elapsedTime / (1000*60)) % 60);
+            
+            System.out.println("Elapsed Time: " + minutes + ":" + seconds);
+            logFile.write("\nElapsed Time: " + minutes + ":" + seconds);
 
             logFile.close();
 
@@ -355,6 +366,7 @@ public class TestSuite {
     }
 
     public static void main(String[] args) {
+    	
         TestSuite testSuite = new TestSuite();
 
         int argIndex;
@@ -443,6 +455,7 @@ public class TestSuite {
             }
         } else {
             //Run test.
+        	
             switch (testType) {
                 case ALL:
                     testTypeMessage = "Running all tests.";
@@ -463,6 +476,10 @@ public class TestSuite {
                     break;
 
             }//end switch.
+            
+
+
+            
         }//end else.
 
 
