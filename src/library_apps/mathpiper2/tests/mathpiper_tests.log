@@ -1,5 +1,5 @@
-Sat Nov 19 17:07:28 EST 2011.
-MathPiper version: js.076.
+Sun Nov 27 01:48:43 EST 2011.
+MathPiper version: js.077.
 Running all tests except the following: Solve,PSolve.
 Beginning of tests:
 
@@ -272,16 +272,6 @@ Testing Coprime? in file </org/mathpiper/scripts4/numbers/Coprime_.mpw>:
 ================================================================
 Testing Cos in file </org/mathpiper/scripts4/stdfuncs/Cos.mpw>: 
 
-******************
-File: /org/mathpiper/scripts4/stdfuncs/Cos.mpw, Line: 6 
-
-newrepI[1]-newrepD[1]
- evaluates to 
-205103028659724
- which differs from 
-0
-******************
-
 
 ================================================================
 Testing Cot in file </org/mathpiper/scripts4/stdfuncs/Cot.mpw>: 
@@ -308,12 +298,6 @@ Testing Determinant in file </org/mathpiper/scripts4/linalg/Deteminant.mpw>:
 ================================================================
 Testing Differentiate in file </org/mathpiper/scripts4/deriv/Differentiate.mpw>: 
 
-Known failure: Verify(
-[
-    Local(poly);
-    poly:=x^2;
-    Differentiate(x)poly;
-],2*x) 
 ******************
 File: /org/mathpiper/scripts4/deriv/Differentiate.mpw, Line: 8 
 
@@ -328,9 +312,6 @@ File: /org/mathpiper/scripts4/deriv/Differentiate.mpw, Line: 8
  which differs from 
 2*x
 ******************
-
-Known failure: Verify(Simplify((Differentiate(x,2)z)+(Differentiate(y,2)z)),0) 
-{"Failure resolved!"} 
 
 Known failure: (Differentiate(z)Conjugate(z))=?Undefined 
 
@@ -806,7 +787,7 @@ Testing miscellaneous in file </org/mathpiper/scripts4/a_initialization/miscella
 
 --From: sturm.mpt
 
-Test polynom 381*x+288*x^2+42*x^3+140*x^4+114*x^5+703
+Test polynom 255*x+605*x^2+654*x^3+225*x^4+767*x^5+965
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 297 
 
@@ -816,19 +797,19 @@ False
  which differs from 
 True
 ******************
-bounds {{(-14389)/5000,14389/5000}}
-roots {-1.8084}
+bounds {{(-1047)/500,1047/500}}
+roots {-1.0286}
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 297 
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(381*x+288*x^2+42*x^3+140*x^4+114*x^5+703,381*x+288*x^2+42*x^3+140*x^4+114*x^5+703)<?0.01
+Dot(255*x+605*x^2+654*x^3+225*x^4+767*x^5+965,255*x+605*x^2+654*x^3+225*x^4+767*x^5+965)<?0.01
  which differs from 
 True
 ******************
 
-Test polynom 95*x+360*x^2+337*x^3+189*x^4+441*x^5+732
+Test polynom 391*x+902*x^2+794*x^3+847*x^4+431*x^5+770
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 299 
 
@@ -838,19 +819,19 @@ False
  which differs from 
 True
 ******************
-bounds {{(-11067)/5000,11067/5000}}
-roots {-1.1589}
+bounds {{(-7861)/2000,7861/2000}}
+roots {-1.6544}
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 299 
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(95*x+360*x^2+337*x^3+189*x^4+441*x^5+732,95*x+360*x^2+337*x^3+189*x^4+441*x^5+732)<?0.01
+Dot(391*x+902*x^2+794*x^3+847*x^4+431*x^5+770,391*x+902*x^2+794*x^3+847*x^4+431*x^5+770)<?0.01
  which differs from 
 True
 ******************
 
-Test polynom 720*x+927*x^2+82*x^3+689*x^4+743*x^5+851
+Test polynom 924*x+917*x^2+380*x^3+440*x^4+461*x^5+195
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 301 
 
@@ -860,19 +841,19 @@ False
  which differs from 
 True
 ******************
-bounds {{(-5383)/2500,5383/2500}}
-roots {-1.4156}
+bounds {{(-12577)/5000,12577/5000}}
+roots {-0.28368}
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 301 
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(720*x+927*x^2+82*x^3+689*x^4+743*x^5+851,720*x+927*x^2+82*x^3+689*x^4+743*x^5+851)<?0.01
+Dot(924*x+917*x^2+380*x^3+440*x^4+461*x^5+195,924*x+917*x^2+380*x^3+440*x^4+461*x^5+195)<?0.01
  which differs from 
 True
 ******************
 
-Test polynom 18*x+150*x^2+158*x^3+525*x^4+500*x^5+54
+Test polynom 46*x+635*x^2+219*x^3+616*x^4+737*x^5+764
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 303 
 
@@ -882,19 +863,19 @@ False
  which differs from 
 True
 ******************
-bounds {{(-21)/10,21/10}}
-roots {-1.0697}
+bounds {{(-4029)/2000,4029/2000}}
+roots {-1.3850}
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 303 
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(18*x+150*x^2+158*x^3+525*x^4+500*x^5+54,18*x+150*x^2+158*x^3+525*x^4+500*x^5+54)<?0.01
+Dot(46*x+635*x^2+219*x^3+616*x^4+737*x^5+764,46*x+635*x^2+219*x^3+616*x^4+737*x^5+764)<?0.01
  which differs from 
 True
 ******************
 
-Test polynom 699*x+674*x^2+297*x^3+264*x^4+380*x^5+111
+Test polynom 724*x+256*x^2+632*x^3+204*x^4+867*x^5+251
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 305 
 
@@ -904,19 +885,19 @@ False
  which differs from 
 True
 ******************
-bounds {{(-2421)/1000,2421/1000}}
-roots {-0.19156}
+bounds {{(-239)/125,239/125}}
+roots {-0.35046}
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 305 
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(699*x+674*x^2+297*x^3+264*x^4+380*x^5+111,699*x+674*x^2+297*x^3+264*x^4+380*x^5+111)<?0.01
+Dot(724*x+256*x^2+632*x^3+204*x^4+867*x^5+251,724*x+256*x^2+632*x^3+204*x^4+867*x^5+251)<?0.01
  which differs from 
 True
 ******************
 
-Test polynom 787*x+217*x^2+605*x^3+403*x^4+739*x^5+644
+Test polynom 706*x+804*x^2+44*x^3+588*x^4+869*x^5+817
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 307 
 
@@ -926,14 +907,14 @@ False
  which differs from 
 True
 ******************
-bounds {{(-10159)/5000,10159/5000}}
-roots {-0.67855}
+bounds {{(-4939)/2500,4939/2500}}
+roots {-1.2261}
 ******************
 File: /org/mathpiper/scripts4/a_initialization/miscellaneous/miscellaneous_tests.mpw, Line: 307 
 
 Dot(px,px)<?0.01
  evaluates to 
-Dot(787*x+217*x^2+605*x^3+403*x^4+739*x^5+644,787*x+217*x^2+605*x^3+403*x^4+739*x^5+644)<?0.01
+Dot(706*x+804*x^2+44*x^3+588*x^4+869*x^5+817,706*x+804*x^2+44*x^3+588*x^4+869*x^5+817)<?0.01
  which differs from 
 True
 ******************
@@ -1128,6 +1109,10 @@ Testing SmallPrime? in file </org/mathpiper/scripts4/numbers/SmallPrime_.mpw>:
 
 
 ================================================================
+Testing Sort in file </org/mathpiper/scripts4/sorting/Sort.mpw>: 
+
+
+================================================================
 Testing Sqrt in file </org/mathpiper/scripts4/stubs/Sqrt.mpw>: 
 
 
@@ -1206,3 +1191,4 @@ GlobalVariables: Result: True
 
 Side Effects:
 {$a1243,$a52,$b1243,$b52,$bernoulli1Threshold37,$CacheOfConstantsN12,$CFormAllFunctions48,$cformMathFunctions46,$cformRegularOps45,$cindent47,$ErrorTableau40,$GlobalStack27,$intpred51,$knownOrthoPoly1235,$knownRNGDists30,$knownRNGEngines30,$lastcoef44,$LoadResult,$LocResult19,$mathExpThreshold39,$mNum11,$nmax54,$nNum11,$NthRootTable679,$numericMode7,$omindent1232,$omsymbol1234,$omsymbolreverse1234,$omtoken1233,$options1238,$p02148,$p12148,$p1242,$p22148,$p28,$p32148,$p42148,$pc242148,$pc352148,$pc462148,$pc572148,$pc682148,$pj2148,$pj402148,$pj502148,$pj512148,$pj522148,$pj532148,$pj542148,$pju02148,$pp2148,$RandSeed31,$res1254,$simple1243,$st1240,$TeXFormGreekLetters2215,$TeXFormMathFunctions2216,$TeXFormMathFunctions22216,$TeXFormRegularOps2215,$TeXFormRegularPrefixOps2215,$TeXFormSpecialNames2215,$Verbose21,%,I,iDebug,True} 
+Elapsed Time: 1:35
