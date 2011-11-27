@@ -88,11 +88,6 @@ Result: {Cos(x),-Sin(x)};
 *SEE Integrate, Taylor, Diverge, Curl
 %/mathpiper_docs
 
-    %output,preserve="false"
-      
-.   %/output
-
-
 
 
 
@@ -104,18 +99,19 @@ Verify(Differentiate(x) (x+x),2);
 Verify(Differentiate(x) (x*x),2*x);
 Verify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x));
 
-KnownFailure(Verify([Local(poly); poly := x^2; Differentiate(x) poly;], 2*x));
+Verify([Local(poly); poly := x^2; Differentiate(x) poly;], 2*x);
 
 [
   /*
       Differentiate does not currently work when the expression is in a local variable.
       This test actually fails but the failure happens to return a 0 which matches
       the expected value.
+      THIS HAS BEEN CORRECTED.
   */
   Local(z);
   // This function satisfies Laplaces eqn: Differentiate(x,2)z + Differentiate(y,2)z = 0
   z:= ArcTan((2*x*y)/(x^2 - y^2));
-  KnownFailure(Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 ));
+  Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 );
 ];
 
 Verify( Differentiate(x,0) Sin(x), Sin(x) );
@@ -129,3 +125,5 @@ Retract("f",2);
 KnownFailure((Differentiate(z) Conjugate(z)) =? Undefined);
 
 %/mathpiper
+
+
