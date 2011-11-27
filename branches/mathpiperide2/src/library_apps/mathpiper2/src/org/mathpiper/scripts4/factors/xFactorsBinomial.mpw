@@ -1,16 +1,17 @@
-%mathpiper,title="xFactorsBinomial"
+%mathpiper,def="xFactorsBinomial;xFB1;xFB2;IsPowerOf"
+
 
 /*-----------------------------------------------------------------
  *  Factoring Binomial expressions of the form  A X^n � B Y^n,
  *-----------------------------------------------------------------*/
 
-//Retract("xFactorsBinomial",*);
-//Retract("xFB1",*);
-//Retract("xFB2",*);
-//Retract("IsPowerOf2",*);
+Retract("xFactorsBinomial",*);
+Retract("xFB1",*);
+Retract("xFB2",*);
+Retract("IsPowerOf2",*);
 
 
-10 # xFactorsBinomial( poly_Polynomial? )_(Length(VarList(poly))=1)  <-- 
+10 # xFactorsBinomial( poly_Polynomial? )_(Length(VarList(poly))=?1)  <-- 
 [
     If(InVerboseMode(),Tell(xFactorsBinomial,poly));
     Local(dis,n,X,var,A,B,s,Ar,Br);
@@ -29,7 +30,7 @@
 ];
 
 
-10 # xFactorsBinomial( poly_Polynomial? )_(Length(VarList(poly))=2)  <-- 
+10 # xFactorsBinomial( poly_Polynomial? )_(Length(VarList(poly))=?2)  <-- 
 [
     If(InVerboseMode(),Tell(xFactorsBinomial,poly));
     Local(dis,n,X,Y,vars,A,B,s,Ar,Br);
@@ -55,7 +56,7 @@
 ];
 
 
-12 # xFB1( dis_List? )_(Length(dis)=3 And? Length(dis[3])=2) <--
+12 # xFB1( dis_List? )_(Length(dis)=?3 And? Length(dis[3])=?2) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFB1",dis);]);
     Local(Y,y,ii,fac1);
@@ -101,17 +102,17 @@ UnFence("xFB1",3);
 [
     Local(ans,ans1);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1oddsum",{X,Y,n});]);
-    if ( n = 9 )
+    if ( n =? 9 )
         [ ans := {{X+1,1},{X^2-X+1,1},{X^6-X^3+1,1}}; ]
-    else if ( n = 15 )
+    else if ( n =? 15 )
         [ ans := {{X+1,1},{X^2-X+1,1},{X^4-X^3+X^2-X+1,1},{X^8+X^7-X^5-X^4-X^3+X+1,1}}; ]
-    else if ( n = 21 )
+    else if ( n =? 21 )
         [ ans := {{X+1,1},{X^2-X+1,1},{X^6-X^5+X^4-X^3+X^2-X+1,1},{X^12+X^11-X^9-X^8+X^6-X^4-X^3+X+1,1}}; ]
-    else if ( n = 25 )
+    else if ( n =? 25 )
         [ ans := {{X+1,1},{X^4-X^3+X^2-X+1,1},{X^20-X^15+X^10-X^5+1,1}}; ]
-    else if ( n = 35 )
+    else if ( n =? 35 )
         [ ans := {{X+1,1},{X^4-X^3+X^2-X+1,1},{X^6-X^5+X^4-X^3+X^2-X+1,1},{X^24+X^23-X^19-X^18-X^17-X^16+X^14+X^13+X^12+X^11+X^10-X^8-X^7-X^6-X^5+X+1,1}}; ]
-    else if ( n = 45 )
+    else if ( n =? 45 )
         [ ans := {{X+1,1},{X^2-X+1,1},{X^4-X^3+X^2-X+1,1},{X^6-X^3+1,1},{X^8+X^7-X^5-X^4-X^3+X+1,1},{X^24+X^21-X^15-X^12-X^9+X^3+1,1}}; ]
     else
         [ ans := BinaryFactors(X^n+1); ];  //  may take a long time, and not be complete
@@ -123,17 +124,17 @@ UnFence("xFB1",3);
 [
     Local(ans);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1odddif",{X,n});]);
-    if ( n = 9 )
+    if ( n =? 9 )
         [ ans := {{X-1,1},{X^2+X+1,1},{X^6+X^3+1,1}}; ]
-    else if ( n = 15 )
+    else if ( n =? 15 )
         [ ans := {{X-1,1},{X^2+X+1,1},{X^4+X^3+X^2+X+1,1},{X^8-X^7+X^5-X^4+X^3-X+1,1}}; ]
-    else if ( n = 21 )
+    else if ( n =? 21 )
         [ ans := {{X-1,1},{X^2+X+1,1},{X^6+X^5+X^4+X^3+X^2+X+1,1},{X^12-X^11+X^9-X^8+X^6-X^4+X^3-X+1,1}}; ]
-    else if ( n = 25 )
+    else if ( n =? 25 )
         [ ans := {{X-1,1},{X^4+X^3+X^2+X+1,1},{X^20+X^15+X^10+X^5+1,1}}; ]
-    else if ( n = 35 )
+    else if ( n =? 35 )
         [ ans := {{X-1,1},{X^4+X^3+X^2+X+1,1},{X^6+X^5+X^4+X^3+X^2+X+1,1},{X^24-X^23+X^19-X^18+X^17-X^16+X^14-X^13+X^12-X^11+X^10-X^8+X^7-X^6+X^5-X+1,1}}; ]
-    else if ( n = 45 )
+    else if ( n =? 45 )
         [ ans := {{X-1,1},{X^2+X+1,1},{X^4+X^3+X^2+X+1,1},{X^6+X^3+1,1},{X^8-X^7+X^5-X^4+X^3-X+1,1},{X^24-X^21+X^15-X^12+X^9-X^3+1,1}}; ]
     else
         [ ans := BinaryFactors(X^n-1); ];  //  may take a long time, and not be complete
@@ -149,7 +150,7 @@ UnFence("xFB1",3);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1evensum",{X,n});]);
     fn    := {{1,1}};
     If( n >? 1, fn := FactorsSmallInteger(n) );
-    If(Length(fn)=1 And? Odd?(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
+    If(Length(fn)=?1 And? Odd?(fn[1][1]), mx:= fn[1][1]^(fn[1][2]-1));
     If(Length(fn)>?1,
          ForEach(f,fn) [ If( Odd?(f[1]), mx := f[1]^f[2] ); ]);
     my    := n/mx;
@@ -162,19 +163,19 @@ UnFence("xFB1",3);
       ],
       [
          //  is not power of 2  -- check further
-         if ( n = 6 )
+         if ( n =? 6 )
              [ ans := {{X^2+1,1},{X^4-X^2+1,1}}; ]
-         else if ( n = 10 )
+         else if ( n =? 10 )
              [ ans := {{X^2+1,1},{X^8-X^6+X^4-X^2+1,1}}; ]
-         else if ( n = 20 )
+         else if ( n =? 20 )
              [ ans := {{X^4+1,1},{X^16-X^12+X^8-X^4+1,1}}; ]
-         else if ( n = 30 )
+         else if ( n =? 30 )
              [ ans := {{X^2+1,1},{X^4-x^2+1,1},{X^8-X^6+X^4-X^2+1,1},{X^16+X^14-X^10-X^8-X^6+X^2+1,1}}; ]
-         else if ( n = 40 )
+         else if ( n =? 40 )
              [ ans := {{X^8+1,1},{X^32-X^24+X^16-X^8+1,1}}; ]
-         else if ( n = 50 )
+         else if ( n =? 50 )
              [ ans := {{X^2+1,1},{X^8-X^6+X^4-X^2+1,1},{X^40-X^30+X^20-X^10+1,1}}; ]
-         else if ( n = 100 )
+         else if ( n =? 100 )
              [ ans := {{X^4+1,1},{X^16-X^12+X^8-X^4+1,1},{X^80-X^60+X^40-X^20+1,1}}; ]
          else
              [ ans := {{X^my+1,1},{Sum(k,0,mx-1,X^(n-my-k*my)*(-1)^k),1}}; ];
@@ -189,19 +190,19 @@ UnFence("xFB1",3);
 [
     Local(ans);
     If(InVerboseMode(),[NewLine(); Tell("   xFB1evendif",{X,n});]);
-    if ( n = 2 )
+    if ( n =? 2 )
         [ ans := {{X-1,1},{X+1,1}}; ]
-    else if ( n = 10 )
+    else if ( n =? 10 )
         [ ans := {{X-1,1},{X+1,1},{X^4+X^3+X^2+X+1,1},{X^4-X^3+X^2-X+1,1}}; ]
-    else if ( n = 20 )
+    else if ( n =? 20 )
         [ ans := {{X-1,1},{X+1,1},{X^2+1,1},{X^4+X^3+X^2+X+1,1},{X^4-X^3+X^2-X+1,1},{X^8-X^6+X^4-X^2+1,1}}; ]
-    else if ( n = 30 )
+    else if ( n =? 30 )
         [ ans := {{X-1,1},{X+1,1},{X^2+X+1,1},{X^2-X+1,1},{X^4+X^3+x^2+X+1,1},{X^4-X^3+x^2-X+1,1},{X^8-X^7+X^5-X^4+X^3-X+1,1},{X^8+X^7-X^5-X^4-X^3+X+1,1}}; ]
-    else if ( n = 40 )
+    else if ( n =? 40 )
         [ ans := {{X-1,1},{X+1,1},{X^2+1,1},{X^4+1,1},{X^4+X^3+X^2+X+1,1},{X^4-X^3+X^2-X+1,1},{X^8-X^6+X^4-X^2+1,1},{X^16-X^12+X^8-X^4+1,1}}; ]
-    else if ( n = 50 )
+    else if ( n =? 50 )
         [ ans := {{X-1,1},{X+1,1},{X^4+X^3+X^2+X+1,1},{X^4-X^3+X^2-X+1,1},{X^20+X^15+X^10+X^5+1,1},{X^20-X^15+X^10-X^5+1,1}}; ]
-    else if ( n = 100 )
+    else if ( n =? 100 )
         [ ans := {{X-1,1},{X+1,1},{X^2+1,1},{X^4+X^3+X^2+X+1,1},{X^4-X^3+X^2-X+1,1},{X^8-X^6+X^4-X^2+1,1},{X^20+X^15+X^10+X^5+1,1},{X^20-X^15+X^10-X^5+1,1},{X^40-X^30+X^20-X^10+1,1}};]
     else
         [ ans := Concat( xFB1(X,n/2,1), xFB1(X,n/2,-1) ); ];   
@@ -212,7 +213,7 @@ UnFence("xFB1",3);
 
 
 
-50 # xFB2( dis_List? )_(Length(dis)=3 And? Length(dis[3])=2) <--
+50 # xFB2( dis_List? )_(Length(dis)=?3 And? Length(dis[3])=?2) <--
 [
     If(InVerboseMode(),[NewLine();Tell("xFB2",dis);]);
     Local(ns,ii,fn,mx,my,fac2);
@@ -249,29 +250,39 @@ UnFence("xFB1",3);
 ];
 UnFence("xFB2",1);
 
-
-IsPowerOf2( n_PositiveInteger? ) <-- [ Count(StringToList(ToBase(2,n)),"1") = 1; ];
+IsPowerOf2( n_PositiveInteger? ) <-- [ Count(StringToList(ToBase(2,n)),"1") =? 1; ];
 
 %/mathpiper
 
-    %output,preserve="false"
-      Result: True
-.   %/output
 
 
 
 
-%mathpiper,title="testing"
+%mathpiper_docs,name="xFactorsBinomial",categories="User Functions",access="undocumented"
+*CMD xFactorsBinomial --- *** UNDOCUMENTED ***
 
-//Retract("TestPlus1",*);
-//Retract("TestMinus1",*);
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs
 
 
-1000 # TestMinus1() <--
+
+
+%mathpiper,name="xFactorsBinomial",subtype="automatic_test"
+
+Testing("BinomialPolynomialFactorization");
+
 [
     Local(n,poly,a,b,result,prod,ok);
-    NewLine(1);
-    Tell("Test Binomial Dif, 1 Variable");
     a := 2;
     b := 3;
     For(n:=2,n<=?12,n++)
@@ -279,44 +290,17 @@ IsPowerOf2( n_PositiveInteger? ) <-- [ Count(StringToList(ToBase(2,n)),"1") = 1;
         poly   := ExpandBrackets(a^n*x^n-b^n);
         result := xFactorsBinomial(poly);
         prod   := ExpandBrackets(FW(result));
-        ok     := Verify(a^n*x^n-b^n,prod);
-        NewLine(1);
-        Tell("    ",poly);
-        If(InVerboseMode(),
-          [
-             Tell("         ",result);
-             Tell("         ",prod);
-          ]
-        );
-        Tell("    ",ok);
-    ];
-];
-
-
-1000 # TestPlus1() <--
-[
-    Local(n,poly,a,b,result,prod,ok);
-    NewLine(1);
-    Tell("Test Binomial Sum, 1 Variable");
-    a := 2;
-    b := 3;
-    For(n:=2,n<=?12,n++)
-    [
+        Verify(a^n*x^n-b^n,prod);
+        
         poly   := ExpandBrackets(a^n*x^n+b^n);
         result := xFactorsBinomial(poly);
         prod   := ExpandBrackets(FW(result));
-        ok     := Verify(a^n*x^n+b^n,prod);
-        NewLine(1);
-        Tell("    ",poly);
-        If(InVerboseMode(),
-          [
-             Tell("         ",result);
-             Tell("         ",prod);
-          ]
-        );
-        Tell("    ",ok);
+        Verify(a^n*x^n+b^n,prod);
     ];
 ];
 
 
 %/mathpiper
+
+.   %/output
+
