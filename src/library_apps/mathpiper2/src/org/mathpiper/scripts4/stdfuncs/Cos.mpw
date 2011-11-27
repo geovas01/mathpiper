@@ -98,14 +98,14 @@ Result: Sqrt(1/2);
 
 
 
-
-
 %mathpiper,name="Cos",subtype="automatic_test"
 
 Verify(Cos(0),1);
-
 Verify(Cos(2*Pi), 1);
 Verify(Cos(4*Pi), 1);
-NumericEqual(N(Cos(Pi*.5),BuiltinPrecisionGet()), 0,BuiltinPrecisionGet());
+Verify(N(Cos(Pi/6)), N(Sqrt(3/4)));
+NumericEqual(N(Cos(Pi/2),BuiltinPrecisionGet()+1), 0,BuiltinPrecisionGet());
 
 %/mathpiper
+
+
