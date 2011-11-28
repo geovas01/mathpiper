@@ -104,6 +104,8 @@ else if (path.endsWith(".uasm")|| path.endsWith(".UASM") )
 }
 else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 {
+	File tempFile = null;
+	
 	getFoldProperties(startLine)
 	{
 		
@@ -335,8 +337,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		isolatedCodeEndIndex = codeStartIndex + isolatedCodeLength;
 		
 		textArea.setCaretPosition(isolatedCodeEndIndex);
-
-
+		
 		try {
 			// Create temp file.
 			
@@ -362,7 +363,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 				fileExtension = ".mpw_tmp";
 			}//end if/else.
 			
-			File tempFile = File.createTempFile("mathpiperide", fileExtension);
+			tempFile = File.createTempFile("mathpiperide", fileExtension);
 		
 			// Delete temp file when program exits.
 			tempFile.deleteOnExit();
@@ -380,7 +381,7 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 		collapseFold = foldProperties.get("collapse");                                                                                 
 
 	}//end else
-   
+  
 	try{
 		result = "";
 		output_fold_type = "";
@@ -1887,7 +1888,14 @@ else if (path.endsWith(".mpw") || path.endsWith(".MPW") )
 			
 			
 			
-			result = evaluationResponse.getExceptionMessage();
+			if(evaluationResponse.isExceptionThrown())
+			{
+				result = evaluationResponse.getException().getMessage();
+			}
+			else
+			{
+				result = "True";
+			}
 			
 			output_fold_type = "%output";
 			
