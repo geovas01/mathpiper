@@ -13,28 +13,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */ //}}}
-package org.mathpiper.interpreters;
+package org.mathpiper.ui.gui.gwt;
+
+import org.mathpiper.interpreters.EvaluationResponse;
+import org.mathpiper.interpreters.Interpreter;
+import org.mathpiper.interpreters.SynchronousInterpreter;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.RepeatingCommand;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
 
-public class WebConsole implements EntryPoint {
+public class JavaScript implements EntryPoint {
 
     private static Interpreter interpreterInstance;
 
-    public WebConsole() {
+    public JavaScript() {
         interpreterInstance = SynchronousInterpreter.getInstance();
 
     }
@@ -63,7 +56,7 @@ public class WebConsole implements EntryPoint {
 
                         returnValue = false;
 
-                        //callCasLoaded();
+                        callCasLoaded();
 
                         break;
 
@@ -77,59 +70,37 @@ public class WebConsole implements EntryPoint {
         Scheduler.get().scheduleIncremental(repeatingCommand);
     }
 
+    //---------
+    public static String casEvaluate(String send) {
+        EvaluationResponse evaluationResponse = interpreterInstance.evaluate(send);
 
+        return evaluationResponse.getResult();
+    }
+
+    //---------
+    public static native void exportCasVersionMethod() /*-{
+    $wnd.casVersion = function(){
+    return @org.mathpiper.Version::version()();
+    }
+    }-*/;
+
+    //---------
+    public static native void callCasLoaded() /*-{
+    $wnd.casLoaded();
+    }-*/;
+
+    public static native void exportEvaluateMethod() /*-{
+    $wnd.casEval = function(send){
+    return @org.mathpiper.ui.gui.gwt.JavaScript::casEvaluate(Ljava/lang/String;)(send);
+    }
+    }-*/;
 
     public void onModuleLoad() {
+        exportCasVersionMethod();
 
+        exportEvaluateMethod();
 
         initializeCAS();
-        
-		final Button sendButton = new Button("Evaluate");
-		final TextBox inputBox = new TextBox();
-		inputBox.setMaxLength(80);
-		inputBox.setVisibleLength(80);
-		final TextArea outputArea = new TextArea();
-		
-
-		sendButton.addStyleName("sendButton");
-
-		RootPanel.get("sendButtonContainer").add(sendButton);
-		RootPanel.get("nameFieldContainer").add(inputBox);
-		RootPanel.get("outputContainer").add(outputArea);
-		
-		
-		class MyHandler implements ClickHandler, KeyUpHandler {
-			/**
-			 * Fired when the user clicks on the sendButton.
-			 */
-			public void onClick(ClickEvent event) {
-				evaluate();
-			}
-
-			/**
-			 * Fired when the user types in the nameField.
-			 */
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					evaluate();
-				}
-			}
-
-
-
-			private void evaluate() {
-				String expression = inputBox.getText();
-				EvaluationResponse response = interpreterInstance.evaluate(expression);
-				
-				outputArea.setText(response.getResult());
-			}
-
-		}//end class	
-		
-		
-		MyHandler handler = new MyHandler();
-		sendButton.addClickHandler(handler);
-		inputBox.addKeyUpHandler(handler);
 
     }//end method.
 }//end class.

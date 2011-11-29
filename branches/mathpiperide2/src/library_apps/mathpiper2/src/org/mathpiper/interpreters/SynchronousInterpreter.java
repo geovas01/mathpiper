@@ -49,7 +49,7 @@ import org.mathpiper.builtin.JavaObject;
  *
  *
  */
-class SynchronousInterpreter implements Interpreter {
+public class SynchronousInterpreter implements Interpreter {
 
     private ArrayList<ResponseListener> removeListeners;
     private ArrayList<ResponseListener> responseListeners;
@@ -90,7 +90,7 @@ class SynchronousInterpreter implements Interpreter {
         return new SynchronousInterpreter(docBase);
     }
 
-    static SynchronousInterpreter getInstance() {
+    public static SynchronousInterpreter getInstance() {
         if (singletonInstance == null) {
             singletonInstance = new SynchronousInterpreter();
         }

@@ -8,7 +8,7 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>testServlet</servlet-name>
-    <servlet-class>org.mathpiper.interpreters.TestServiceImpl</servlet-class>
+    <servlet-class>org.mathpiper.ui.gui.gwt.TestServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
