@@ -15,7 +15,7 @@
 
   <!-- Specify the app entry point class.                         -->
   <source path="mathpiper" />
-  <entry-point class="org.mathpiper.interpreters.WebConsole" />
+  <entry-point class="org.mathpiper.ui.gui.gwt.WebConsole" />
 
 
 
