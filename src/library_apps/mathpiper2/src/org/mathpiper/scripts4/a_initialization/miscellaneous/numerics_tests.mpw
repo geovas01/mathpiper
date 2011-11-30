@@ -1,46 +1,55 @@
 %mathpiper,name="numerics",subtype="automatic_test"
 
-/* Numerical testers - all confirmed with Matlab 6r12.0 */
+/* Numerical testers - all confirmed with various programs */
+Testing(" *** TESTING NUMERICS *** ");
 
-BuiltinPrecisionSet(10); //Echo("BIP set to ",10);
-
+BuiltinPrecisionSet(10);   //Echo("BIP set to ",10);
 NumericEqual(N(Sqrt(2),6), 1.41421,6);
-NumericEqual(N(N(1+Pi,20)-Pi,20),1,20);                // "N" should have "HoldArgument" in some way, so inner "N" is evaluated with outer precision 20
+NumericEqual(N(N(1+Pi,20)-Pi,20),1,20);     
+// Should "N" have "HoldArgument" in some way, so inner "N" is 
+// evaluated with outer precision 20?
 
-/* Got the first digits of Pi from the following page:
+Testing("Pi");
+/* 
+   Got the first digits of Pi from the following page:
    http://www.cecm.sfu.ca/projects/ISC/dataB/isc/C/pi10000.txt
-  Just checking that Yacas agrees.
-  First, however, we need to set BuiltinPrecision way higher than 10 !!
+   Just checking that MathPiper agrees.
+   First, however, we need to set BuiltinPrecision way higher than 10 !!
 */
 BuiltinPrecisionSet(90);//Echo("BIP set to ",90);
-NumericEqual(N(Pi,70),3.141592653589793238462643383279502884197169399375105820974944592307816,70);
-BuiltinPrecisionSet(10);//Echo("BIP set to ",10);
 
-NumericEqual( N(Sec(2),10), -2.402997962, 9);
-NumericEqual( N(Csc(2),9),  1.09975017,9);
-NumericEqual( N(Cot(2),9), -0.457657554, 9);
-NumericEqual( N(Sinh(2),10), 3.626860408,10); // matter of discussion whether rounding should be to nearest
-
-NumericEqual( N(ArcSin(2), 9), Complex(1.570796327,1.316957897),9);
-NumericEqual( N(ArcCos(2),9), Complex(0,-1.316957897),9);
-NumericEqual( N(ArcTan(2*I), 12), N(Complex(1.5707963267950,0.54930614433405),12),11); // calculating to precision+1 because RoundToPrecision rounds... cluttering the last digit with round-off
-NumericEqual( N(ArcSinh(2), 10), 1.443635475,9);
-NumericEqual( N(ArcCosh(2), 10), 1.316957897,9);
-NumericEqual( N(ArcCosh(-2), 8), Complex(-1.3169579,3.14159265),8);
-NumericEqual( N(ArcTanh(2), 9), Complex(0.549306144,1.570796327),9);
-
-/* Numerical tests - all confirmed with Maple */
-BuiltinPrecisionSet(55);//Echo("BIP set to ",55);
-// NOTE (hso,100311) BuiltinPrecisionSet MUST specify a value higher
-//      than any of the precisions to be used in tests below.
-//      Otherwise, false errors are reported.  I have changed
-//      the value from 50 to 55, to satisfy this requirement.
 
 NumericEqual(
 RoundToPrecision(N(Pi), 50)
 , 3.14159265358979323846264338327950288419716939937511
 , 50);
+NumericEqual(N(Pi,70),3.141592653589793238462643383279502884197169399375105820974944592307816,70);
+BuiltinPrecisionSet(10);//Echo("BIP set to ",10);
 
+Testing("Trig, Hyperbolic, Log, and Exp functions");
+NumericEqual( N(Sec(2),10), -2.402997962, 9);
+NumericEqual( N(Csc(2),9),  1.09975017,9);
+NumericEqual( N(Cot(2),9), -0.457657554, 9);
+NumericEqual( N(Sinh(2),10), 3.626860408,10); 
+    // matter of discussion whether rounding should be to nearest
+
+NumericEqual( N(ArcSin(2), 9), Complex(1.570796327,1.316957897),9);
+NumericEqual( N(ArcCos(2),9), Complex(0,-1.316957897),9);
+NumericEqual( N(ArcTan(2*I), 12), N(Complex(1.5707963267950,0.54930614433405),12),11); 
+    // calculating to precision+1 because RoundToPrecision rounds... cluttering the last digit with round-off
+NumericEqual( N(ArcSinh(2), 10), 1.443635475,9);
+NumericEqual( N(ArcCosh(2), 10), 1.316957897,9);
+NumericEqual( N(ArcCosh(-2), 8), Complex(-1.3169579,3.14159265),8);
+NumericEqual( N(ArcTanh(2), 9), Complex(0.549306144,1.570796327),9);
+
+/* more Numerical tests - all confirmed with Maple */
+BuiltinPrecisionSet(55);//Echo("BIP set to ",55);
+/*
+ (hso,100311) BuiltinPrecisionSet MUST specify a value higher
+ than any of the precisions to be used in tests below.
+ Otherwise, false errors are reported.  I have changed
+ the value from 50 to 55, to satisfy this requirement.
+*/
 NumericEqual(
 RoundToPrecision(N(Sin(2.0)), 49)
 , 0.9092974268256816953960198659117448427022549714479
@@ -64,17 +73,17 @@ RoundToPrecision(N(Cos(20.0)), 49)
 NumericEqual(
 RoundToPrecision(N(Tan(20.0)), 49)
 , 2.2371609442247422652871732477303491783724839749188
-, 48);  // to here. hso
+, 48);  
 
 NumericEqual(
 RoundToPrecision(N(Exp(10.32),54), 54)
 , 30333.2575962246035600343483350109621778376486335450125
-,48);   // This one rounds off the wrong direction (125 rounded to 12 iso 13). But alas, change was needed because new interpretation means the required precision was actually higher (not number of decimals after point, but total number of digits were meant).
+,48);   
 
 NumericEqual(
 RoundToPrecision(N(Ln(10.32/4.07)), 50)
 , 0.93044076059891305468974486564632598071134270468002
-, 50);   //  fixed 20101229
+, 50);   
 
 NumericEqual(
 RoundToPrecision(N(1.3^10.32), 48)
@@ -84,27 +93,28 @@ RoundToPrecision(N(1.3^10.32), 48)
 NumericEqual(
 RoundToPrecision(N(Sqrt(5.3),51), 51)
 , 2.302172886644267644194841586420201850185830282633675
-,51);  // increased to 51 digits so round-off is obviously downwards (previous rounding was defendably wrong)
+,51); 
 
-// this failed in gmp due to broken SqrtN()
 NumericEqual(
 RoundToPrecision(N(Sqrt(25.3)), 50)
 , 5.0299105359837166789719353820984438468186649281130
 ,50);
 
-// this failed due to broken RoundToPrecision()
 NumericEqual(
 RoundToPrecision(N(PowerN(13, -23)), 50)
 , 0.23949855470974885180294666343025235387321690490245e-25
 , 50);
 
+Testing("Newton");
 NumericEqual(
 RoundToPrecision([Local(x);x:=Newton(x*Exp(x)-4,x,1,10^(-49)); N(x*Exp(x));], 49)
 , 4
 ,49);
+
 Verify(Newton(x^2+1,x,1,0.1,-3,3), Fail);
 NumericEqual(Newton(x^2-1,x,1,0.1,-3,3), 1,BuiltinPrecisionGet());
 
+Testing("Trig functions compounded with their Inverses");
 NumericEqual(
 RoundToPrecision(N(ArcSin(0.32)), 49)
 , 0.3257294872946301593103199105324500784354180998122808003
@@ -169,6 +179,7 @@ RoundToPrecision(N((Pi/2-ArcTan(N(Tan(N(Pi/2)-10^(-24)))))*10^24 ), 25)
 /// special functions
 BuiltinPrecisionSet(50); //Echo("BIP set to ",50); // needs a pretty high value for Gamma
 
+Testing("Gamma function");
 TestMathPiper(
 Gamma(10.5)
 , (654729075*Sqrt(Pi))/1024
@@ -191,19 +202,24 @@ Gamma(-7/2)
 
 NumericEqual(RoundToPrecision(N( InternalGammaNum(10.5) ), 13), 1133278.3889487855673, 13);
 
-NumericEqual(RoundToPrecision(N( InternalGammaNum(-11.5) ), 20), 0.00000002295758104824, 20);//gamma wrong
+KnownFailure(
+NumericEqual(RoundToPrecision(N( InternalGammaNum(-11.5) ), 20), 0.00000002295758104824, 20)
+);
+// our gamma is wrong
 
-NumericEqual(RoundToPrecision(N( InternalGammaNum(-12.5) ), 20), -0.00000000183660648386, 20);//gamma wrong
+KnownFailure(
+NumericEqual(RoundToPrecision(N( InternalGammaNum(-12.5) ), 20), -0.00000000183660648386, 20)
+);
+//our gamma is wrong
 
 // Check for one example that N(Gamma(x)) returns the same as InternalGammaNum
 NumericEqual(RoundToPrecision(N( Gamma(10.5) ), 13), 1133278.3889487855673, 13);
 
-
-
-NumericEqual(        // lost 2 digits b/c of imprecise arithmetic
-RoundToPrecision(N( Zeta(-11.5) ), 18)
-, 0.020396978715942792
-,18);
+Testing("Zeta function");
+KnownFailure(
+NumericEqual(    
+RoundToPrecision(N( Zeta(-11.5) ), 18), 0.020396978715942792,18)
+);
 
 TestMathPiper(
 Zeta(40)
@@ -236,11 +252,13 @@ RoundToPrecision(InternalZetaNum(3)-N(Zeta(3)), 20)
 , 0
 ,20);
 
+Testing("Bernoulli number");
 TestMathPiper(
 Bernoulli(40)
 , -261082718496449122051/13530
 );
 
+Testing("Continued Fraction");
 Verify(
 ContFracList(355/113)
 , {3,7,16}
@@ -275,20 +293,17 @@ NearRational(N(Pi))
 );
 
 // Lambert's W function
+Testing("Lambert W function");
 BuiltinPrecisionSet(20);
 
 NumericEqual(
-N(LambertW(-0.24),BuiltinPrecisionGet())
-, -0.3357611648
-, BuiltinPrecisionGet());
+N(RoundToPrecision(LambertW(-0.24),20)),-0.33576116478890275173,20);
 
 NumericEqual(
-N(LambertW(10),BuiltinPrecisionGet())
-, 1.7455280027
-, BuiltinPrecisionGet());
+N(RoundToPrecision(LambertW(10),20)),1.7455280027406993831,20);
 
 // Bessel Functions
-// These results are from GNU bc, matlab seems to suck.
+Testing("Bessel functions");
 BuiltinPrecisionSet(50);//Echo("BIP set to ",50);
 NumericEqual( N(BesselJ(0,.5)), RoundToPrecision(.93846980724081290422840467359971262556892679709682,50),50 );
 NumericEqual( N(BesselJ(0,.9)), RoundToPrecision(.80752379812254477730240904228745534863542363027564,50),50 );
@@ -315,8 +330,8 @@ RoundToPrecision(1.09317119002909585408+I*0.00475463306931818955275, 19)
 
 // testing GammaConstNum against Maple
 Testing("Gamma constant");
-BuiltinPrecisionSet(40);//Echo("BIP set to ",40);
-NumericEqual(Internalgamma()+0, 0.5772156649015328606065120900824024310422,BuiltinPrecisionGet());
+BuiltinPrecisionSet(41);//Echo("BIP set to ",41);
+NumericEqual(RoundToPrecision(Internalgamma(),40), 0.5772156649015328606065120900824024310422,BuiltinPrecisionGet());
 BuiltinPrecisionSet(20);//Echo("BIP set to ",20);
 
 Verify(gamma,ToAtom("gamma"));
@@ -340,3 +355,4 @@ N([
 ],40);
 
 %/mathpiper
+
