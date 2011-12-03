@@ -1,0 +1,117 @@
+This worksheet contains an example of how MathPiper code can be automatically analyzed for 
+correctness.
+
+v.5
+========================================================================================================
+
+Exercise: Write a program that uses a While function and an If function to determine the
+number of 4s that are in this list: {8,2,5,3,4,7,4,1,6,4}. Return the count as a result.
+
+========================================================================================================
+
+Student's solution. Notice that the solution incorrectly uses a ForEach function instead of a 
+While function.
+
+%mathpiper
+fourCount := 0;
+
+ForEach(x, {8,2,5,3,4,7,4,1,6,4})
+[
+    If(x =? 4, fourCount++);
+];
+
+fourCount;
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: 3
+.   %/output
+
+
+========================================================================================================
+
+The first step in automatically analyzing the student's code is to treat 
+it as data (notice the use of the ' "hold" operator for this).
+
+%mathpiper
+
+z1 :=
+'[
+    fourCount := 0;
+    
+    ForEach(x, {8,2,5,3,4,7,4,1,6,4})
+    [
+        If(x =? 4, fourCount++);
+    ];
+    
+    fourCount;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: [
+          fourCount:=0;
+          ForEach(x,{8,2,5,3,4,7,4,1,6,4})
+          [
+              If(x=?4,fourCount++);
+          ];
+          fourCount;
+      ]
+.   %/output
+
+
+========================================================================================================
+
+Does z1 really contain a copy of the student's code? Yes it does.
+
+In> z1
+
+    %output,preserve="false"
+      Result: [
+          fourCount:=0;
+          ForEach(x,{8,2,5,3,4,7,4,1,6,4})
+          [
+              If(x=?4,fourCount++);
+          ];
+          fourCount;
+      ]
+.   %/output
+
+
+
+========================================================================================================
+Verify that the solution returns a 3 to indicate that three fours are present in the list. This is done
+by evaluating the student's code.
+
+In> Verify(Eval(z1), 3);
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+========================================================================================================
+
+Obtain a list of all the functions that the student's code uses with the FuncList function.
+
+In> z2 := `(FuncList(@zz))
+
+    %output,preserve="false"
+      Result: {ForEach,List,Prog,If,=?,Echo}
+.   %/output
+
+
+========================================================================================================
+
+Determine if the solution uses a While function and not a ForEach function. If it doesn't,
+the student can be informed that their solution must use ForEach instead of While.
+
+In> Contains?(z2,'While) And? Not? Contains?(z2,'ForEach)
+
+    %output,preserve="false"
+      Result: False
+.   %/output
+
+
