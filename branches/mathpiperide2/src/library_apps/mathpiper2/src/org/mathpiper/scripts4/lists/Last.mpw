@@ -1,0 +1,31 @@
+%mathpiper,def="Last"
+
+Last(LL_List?)_(Length(LL)>?0) <-- First(Reverse(LL));
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="Last",categories="User Functions;Lists (Operations)"
+*CMD Last --- returns the last element of a list
+*STD
+*CALL
+        Last(list)
+*PARMS
+{list} -- a list
+
+*DESC
+This function returns the last element of a list. 
+
+
+*E.G.
+
+In> lst := {a,b,c,d,e,f};
+Result: {a,b,c,d,e,f};
+In> Last(lst);
+Result: f
+
+*SEE First,Rest
+%/mathpiper_docs
+
