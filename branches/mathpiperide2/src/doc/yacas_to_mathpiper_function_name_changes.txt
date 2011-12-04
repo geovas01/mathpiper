@@ -31,26 +31,34 @@ GetError -> GetException
 RulebaseDefined -> IsRulebaseDefined
 BuiltinPrecisionSet -> PrecisionSet
 BuiltinPrecisionGet -> PrecisionGet
+SetGlobalLazyVariable - GlobalLazyVariableSet
+
+If -> Decide
+if -> If
+else -> Else
 
 
 
 ---------------------------- Potential function name changes:
-Rulebase -> RulebaseHoldArguments
-RulebaseListed -> RulebaseListedHoldArguments
-Rule -> RuleHoldArguments
+    Rulebase -> RulebaseHoldArguments
+    RulebaseListed -> RulebaseListedHoldArguments
+    Rule -> RuleHoldArguments
+    RulePattern -> RulePatternHoldArguments
 
-MacroRulebase -> RulebaseEvaluateArguments
-MacroRulebaseListed -> RulebaseListedEvaluateArguments
-MacroRule -> RuleEvaluateArguments
+    MacroRulebase -> RulebaseEvaluateArguments
+    MacroRulebaseListed -> RulebaseListedEvaluateArguments
+    MacroRule -> RuleEvaluateArguments
+    MacroRulePattern -> RulePatterrnEvaluateArguments
 
 Local -> LocalHoldArguments (leave Local as a synonym)
 MacroLocal -> LocalEvaluateArguments
 
 Unbind -> UnbindHoldArguments (and leave Unbind as a synonym)
+Bind -> BindHoldArguments
 MacroUnbind -> UnbindEvaluateArguments
 
-DefMacroRulebase -> MacroRulebaseEvaluateArguments
-DefMacroRulebaseListed -> MacroRulebaseListedEvaluateArguments
+    DefMacroRulebase -> MacroRulebaseHoldArguments
+    DefMacroRulebaseListed -> MacroRulebaseListedHoldArguments
 
 
 Prog -> Block //For pedagogical reasons.
