@@ -1,0 +1,37 @@
+%mathpiper,def="MathExpDoubling"
+
+/// Identity transformation, compute Exp(x) from value=Exp(x/2^n) by squaring the value n times
+Defun("MathExpDoubling", {value, n})
+[
+        Local(shift, result);
+        Bind(shift, n);
+        Bind(result, value);
+        While (GreaterThan?(shift,0))        // will lose 'shift' bits of precision here
+        [
+                Bind(result, MultiplyN(result, result));
+                Bind(shift, AddN(shift,MathNegate(1)));
+        ];
+        result;
+];
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="MathExpDoubling",categories="User Functions",access="undocumented"
+*CMD MathExpDoubling --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

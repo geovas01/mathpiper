@@ -1,7 +1,0 @@
-%mathpiper,def="<-"
-
-Rulebase("<-",{left,right});
-HoldArgument("<-",left);
-HoldArgument("<-",right);
-
-%/mathpiper

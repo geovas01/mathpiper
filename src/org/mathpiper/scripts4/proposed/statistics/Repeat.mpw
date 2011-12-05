@@ -1,0 +1,151 @@
+%mathpiper,def="Repeat"
+
+
+
+//Retract("Repeat",*);
+
+
+/*
+    These variables need to be declared as local symbols because
+    body is unfenced and expressions in the body could see them
+    otherwise.
+*/
+LocalSymbols(count, iterations, body)[
+
+
+RulebaseHoldArguments("Repeat",{iterations,body});
+
+/*
+  A Rule function needed to be used here because 10 # xxx <--
+  notation did not work if Bodied was executed before the
+  function was defined.  Bodied is evaluated in stdopers.mpw
+  because it needs to be evaluated for the parser to parse
+  Retract correctly.
+*/
+
+RuleHoldArguments("Repeat",2,10,Integer?(iterations) And? iterations >? 0)
+[
+    Local(count);
+
+    count := 0;
+
+    While (iterations >? 0)
+    [
+        Eval(body);
+        iterations--;
+        count++;
+    ];
+
+    count;
+
+];
+
+
+
+
+
+RulebaseHoldArguments("Repeat",{body});
+
+
+RuleHoldArguments("Repeat",1,20,True)
+[
+    Local(count);
+
+    count := 0;
+    While (True)
+    [
+        Eval(body);
+        count++;
+    ];
+
+    count;
+];
+
+];//end LocalSymbols
+
+UnFence("Repeat",2);
+HoldArgumentNumber("Repeat",2,2);
+UnFence("Repeat",1);
+HoldArgumentNumber("Repeat",1,1);
+
+
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="Repeat",categories="User Functions;Control Flow",access="experimental"
+*CMD Repeat --- loop a specified number of times or loop indefinitely
+*STD
+*CALL
+        Repeat(count) body
+        Repeat() body
+
+*PARMS
+
+{count} -- a positive integer, the number of times to loop
+
+{body} -- expression to loop over
+
+*DESC
+
+The first version of Repeat executes {body} the number of times
+which are specified by {count}.  The second version
+executes {body} indefinitely and the only way to exit the loop
+is to execute the Break function inside of {body}.
+
+Repeat returns the number of times it looped as a result.
+
+*E.G.
+/%mathpiper
+
+Repeat(4)
+[
+    Echo("Hello");
+];
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: 4
+
+      Side Effects:
+      Hello
+      Hello
+      Hello
+      Hello
+.   /%/output
+
+
+
+/%mathpiper
+
+x := 1;
+
+loopCount := Repeat()
+[
+    Echo(x);
+
+    If(x = 3, Break());
+
+    x := x + 1;
+];
+
+Echo("Loop count: ", loopCount);
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+
+      Side Effects:
+      1
+      2
+      3
+      Loop count: 2
+.   /%/output
+
+*SEE While, For, ForEach, Break, Continue
+%/mathpiper_docs

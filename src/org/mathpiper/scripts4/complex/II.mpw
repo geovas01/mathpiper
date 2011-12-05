@@ -1,0 +1,32 @@
+%mathpiper,def="II"
+
+//
+// II is the imaginary number Sqrt(-1), and remains that way.
+// The difference is it isn't converted to the form Complex(x,y).
+//
+
+10 # II^n_NegativeInteger? <-- (-II)^(-n);
+20 # (II^_n)_(Even?(n) =? True) <-- (-1)^(n>>1);
+20 # (II^_n)_(Odd?(n)  =? True) <--  II*(-1)^(n>>1);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="II",categories="User Functions",access="undocumented"
+*CMD II --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

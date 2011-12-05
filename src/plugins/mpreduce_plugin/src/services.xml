@@ -1,7 +1,0 @@
-<!DOCTYPE SERVICES SYSTEM "services.dtd">
-
-<SERVICES>
-	<SERVICE CLASS="console.Shell" NAME="MPReduce">
-                new org.mathpiper.ide.mpreduceplugin.MPReduceShell();
-        </SERVICE>
-</SERVICES>

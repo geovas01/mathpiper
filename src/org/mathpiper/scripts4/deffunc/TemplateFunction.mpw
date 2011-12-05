@@ -1,0 +1,85 @@
+%mathpiper,def="TemplateFunction"
+
+RulebaseHoldArguments("TemplateFunction",{oper,args,body});
+
+HoldArgument("TemplateFunction",oper);
+
+HoldArgument("TemplateFunction",args);
+
+HoldArgument("TemplateFunction",body);
+
+RuleHoldArguments("TemplateFunction",3,2047,True)
+[
+  Retract(oper,Length(args));
+  Local(arglist);
+  arglist:=FlatCopy(args);
+
+  DestructiveAppend(arglist,{args,ListToFunction({Hold,body})});
+  arglist:=ApplyFast("LocalSymbols",arglist);
+
+  RulebaseEvaluateArguments(oper,arglist[1]);
+  RuleEvaluateArguments(oper,Length(args),1025,True) arglist[2];
+
+];
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="TemplateFunction",categories="Programmer Functions;Programming;Built In"
+*CMD TemplateFunction --- defines a function
+*CALL
+        TemplateFunction("operator",parameter)
+
+*PARMS
+{"operator"} -- string, name of a function
+
+{parameter} -- atom, symbolic name of parameter
+
+*DESC
+Defines a function.
+
+*E.G.
+/%mathpiper
+TemplateFunction("MyUntil",{predicate,body})
+[
+  Eval(body);
+  While (Equal?(Eval(predicate),False))
+  [
+    Eval(body);
+  ];
+  True;
+];
+UnFence("MyUntil",2);
+HoldArgumentNumber("MyUntil",2,1);
+HoldArgumentNumber("MyUntil",2,2);
+Bodied("MyUntil",60000);
+
+/%/mathpiper
+
+
+
+/%mathpiper
+
+x := 1;
+
+MyUntil(x =? 5)
+[
+    Echo(x);
+    x++;
+];
+
+/%/mathpiper
+
+    /%output,preserve="false"
+      Result: True
+
+      Side Effects:
+      1
+      2
+      3
+      4
+
+.   /%/output
+%/mathpiper_docs

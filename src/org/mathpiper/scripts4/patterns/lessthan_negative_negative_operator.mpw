@@ -1,0 +1,159 @@
+%mathpiper,def="<--"
+
+RulebaseHoldArguments("<--",{leftOperand,rightOperand});
+
+
+
+RuleHoldArguments("<--",2,1,Equal?(Type(leftOperand),"#"))
+[
+  DefinePattern(leftOperand[2],rightOperand,leftOperand[1],True);
+];
+
+
+
+RuleHoldArguments("<--",2,2,Function?(leftOperand))
+[
+ DefinePattern(leftOperand,rightOperand,0,True);
+];
+
+HoldArgument("<--",leftOperand);
+HoldArgument("<--",rightOperand);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="<--",categories="Operators"
+*CMD <-- --- defines a rule which uses patterns and predicate functions to determine if it is true or not
+
+*CALL
+fn(_arg1, _arg2) <-- expression
+fn(arg1_PredicateFunction, _arg2) <-- expression
+fn(arg1_PredicateFunction, arg2_PredicateFunction) <-- expression
+fn(arg1_PredicateFunction, arg2_PredicateFunction)_(PredicateExpression) <-- expression
+_arg1 operator _arg2 <-- expression
+arg1_PredicateFunction operator _arg2 <-- expression
+arg1_PredicateFunction operator arg2_PredicateFunction <-- expression
+arg1_PredicateFunction operator arg2_PredicateFunction_(PredicateExpression) <-- expression
+
+*PARMS
+
+{arg} -- an expression
+{operator} -- an operator
+
+*DESC
+Mathematical calculations require versatile transformations on symbolic quantities.
+Instead of trying to define all possible transformations, MathPiper provides a simple
+and easy to use pattern matching scheme for manipulating expressions according to
+user-defined rules. MathPiper itself is designed as a small core engine executing
+a large library of rules to match and replace patterns.
+One simple application of pattern-matching rules is to define new functions. (This
+is actually the only way MathPiper can learn about new functions.) As an example,
+let's define a function f that will evaluate factorials of non-negative integers.
+We will define a predicate to check whether our argument is indeed a non-negative
+integer, and we will use this predicate and the obvious recursion
+f(n)=n*f(n-1) if n>0 and 1 if n=0 to evaluate the factorial.
+
+We start with the simple termination condition, which is that f(n) should return
+one if n is zero:
+
+{10 # f(0) <-- 1;}
+
+You can verify that this already works for input value zero, with f(0).
+
+Now we come to the more complex line
+
+20 # f(n_IntegerGreaterThanZero?) <-- n*f(n-1);
+
+We realize we need a function GreaterThan?Zero, so we define this function, with
+IntegerGreaterThanZero?(_n) <-- (Integer?(n) And? n>?0);
+
+You can verify that it works by trying f(5), which should return the same value as 5!.
+
+In the above example we have first defined two "simplification rules" for a new
+function f(). Then we realized that we need to define a predicate IntegerGreaterThanZero?().
+A predicate equivalent to IntegerGreaterThanZero?() is actually already defined
+in the standard library and it's called PositiveInteger?, so it was not necessary,
+strictly speaking, to define our own predicate to do the same thing. We did it here
+just for illustration purposes.
+
+The first two lines recursively define a factorial function f(n)=n*(n-1)*...*1.
+The rules are given precedence values 10 and 20, so the first rule will be applied
+first. Incidentally, the factorial is also defined in the standard library as a
+postfix operator ! and it is bound to an internal routine much faster than the
+recursion in our example. The example does show how to create your own routine with
+a few lines of code. One of the design goals of MathPiper was to allow precisely
+that, definition of a new function with very little effort.
+
+The operator <-- defines a rule to be applied to a specific function. (The <-- operation
+cannot be applied to an atom.) The _n in the rule for IntegerGreaterThanZero?()
+specifies that any object which happens to be the argument of that predicate is
+matched and assigned to the local variable n. The expression to the right of <-- can
+use n (without the underscore) as a variable.
+
+Now we consider the rules for the function f. The first rule just specifies that f(0)
+should be replaced by 1 in any expression. The second rule is a little more involved.
+n_IntegerGreaterThanZero? is a match for the argument of f, with the proviso that
+the predicate IntegerGreaterThanZero?(n) should return True, otherwise the pattern
+is not matched. The underscore operator is to be used only on the left hand side of
+the rule definition operator <--.
+
+There is another, slightly longer but equivalent way of writing the second rule:
+20 # f(_n)_(IntegerGreaterThanZero?(n)) <-- n*f(n-1);
+
+The underscore after the function object denotes a "postpredicate" that should return
+True or else there is no match. This predicate may be a complicated expression involving
+several logical operations, unlike the simple checking of just one predicate in the
+n_IntegerGreaterThanZero? construct. The postpredicate can also use the variable
+n (without the underscore).
+
+Precedence values for rules are given by a number followed by the # infix operator
+(and the transformation rule after it). This number determines the ordering of precedence
+for the pattern matching rules, with 0 the lowest allowed precedence value, i.e.
+rules with precedence 0 will be tried first. Multiple rules can have the same number:
+this just means that it doesn't matter what order these patterns are tried in. If no
+number is supplied, 0 is assumed. In our example, the rule f(0) <-- 1 must be applied
+earlier than the recursive rule, or else the recursion will never terminate. But as
+long as there are no other rules concerning the function f, the assignment of numbers
+10 and 20 is arbitrary, and they could have been 500 and 501 just as well. It is
+usually a good idea however to keep some space between these numbers, so you have
+room to insert new transformation rules later on.
+
+Predicates can be combined: for example, {IntegerGreaterThanZero?()} could also
+have been defined as:
+10 # IntegerGreaterThanZero?(n_Integer?)_(n>?0) <-- True;
+20 # IntegerGreaterThanZero?(_n) <-- False;
+
+The first rule specifies that if n is an integer, and is greater than zero, the
+result is True, and the second rule states that otherwise (when the rule with
+precedence 10 did not apply) the predicate returns False.
+
+In the above example, the expression n > 0 is added after the pattern and allows
+the pattern to match only if this predicate return True. This is a useful syntax
+for defining rules with complicated predicates. There is no difference between the
+rules F(n_PositiveInteger?) <--... and F(_n)_(PositiveInteger?(n)) <-- ... except
+that the first syntax is a little more concise.
+
+The left hand side of a rule expression has the following form:
+precedence # pattern _ postpredicate <-- replacement ;
+
+The optional precedence must be a positive integer.
+Some more examples of rules (not made clickable because their equivalents are already
+in the basic MathPiper library):
+10 # _x + 0 <-- x;
+20 # _x - _x <-- 0;
+ArcSin(Sin(_x)) <-- x;
+
+The last rule has no explicit precedence specified in it (the precedence zero will
+be assigned automatically by the system). MathPiper will first try to match the pattern
+as a template. Names preceded or followed by an underscore can match any one object:
+a number, a function, a list, etc. MathPiper will assign the relevant variables as
+local variables within the rule, and try the predicates as stated in the pattern.
+The post-predicate (defined after the pattern) is tried after all these matched.
+As an example, the simplification rule _x - _x <--0 specifies that the two objects
+at left and at right of the minus sign should be the same for this transformation
+rule to apply.
+
+*SEE :=
+%/mathpiper_docs

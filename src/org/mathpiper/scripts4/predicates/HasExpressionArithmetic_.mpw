@@ -1,0 +1,36 @@
+%mathpiper,def="HasExpressionArithmetic?"
+
+/// Analyse arithmetic expressions
+
+HasExpressionArithmetic?(expr, atom) := HasExpressionSome?(expr, atom, {ToAtom("+"), ToAtom("-"), *, /});
+
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="HasExpressionArithmetic?",categories="User Functions;Predicates"
+*CMD HasExpressionArithmetic? --- check for expression containing a subexpression
+*STD
+*CALL
+        HasExpressionArithmetic?(expr, x)
+
+*PARMS
+
+{expr} -- an expression
+
+{x} -- a subexpression to be found
+
+*DESC
+
+{HasExpressionArithmetic?} is defined through {HasExpressionSome?} to look only at arithmetic operations {+}, {-}, {*}, {/}.
+
+Note that since the operators "{+}" and "{-}" are prefix as well as infix operators, it is currently required to use {ToAtom("+")} to obtain the unevaluated atom "{+}".
+
+*E.G.
+
+In> HasExpressionArithmetic?(x+y*Cos(Ln(x)/x), z)
+Result: False;
+
+*SEE HasExpression?, HasExpressionSome?, FuncList, VarList, HasFunction?
+%/mathpiper_docs

@@ -1,0 +1,80 @@
+%mathpiper,def="xContent"
+
+/*------------------------------------------------------------------------
+ *  Finds the Content of a univariate or multivariate polynomial
+ *      mod 100727 by hso:  conform to majority definition of "Content"
+ *------------------------------------------------------------------------*/
+
+//Retract("xContent",*);
+
+
+//10 # xContent( poly_Polynomial? ) <--
+10 # xContent( poly_CanBeUni ) <--
+[
+    Local(disassem,gcdCoefs,lc,minExpts);
+    disassem := DisassembleExpression(poly);
+    gcdCoefs := Gcd(disassem[3]);
+    lc       := LeadingCoef(poly);
+    If(NegativeNumber?(lc) And? gcdCoefs >? 0, gcdCoefs:=-gcdCoefs);
+    //minExpts := Minimum /@ Transpose(disassem[2]);
+    //gcdCoefs * Product(disassem[1]^minExpts);
+    gcdCoefs;
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper_docs,name="xContent",categories="User Functions;Number Theory"
+*CMD Content --- content of a polynomial
+*STD
+*CALL
+        Content(expr)
+
+*PARMS
+
+{expr} -- a univariate or multivariate polynomial
+
+*DESC
+
+This is an experimental version of the existing function Contact(), 
+with extended features.  It is provided primarily for testing purposes,
+until it is ready to replace the older version.
+
+This command determines the {content} of a polynomial. 
+The {content} is the greatest common divisor of all the terms in the
+polynomial. 
+
+For a {univariate} polynomial, the {content} will consist of a number
+or the product of a number and the lowest power of the variable (if not 0). 
+
+For a {multivariate} polynomial, the {content} will consist of a number
+or the product of a number and the lowest power of each variable present
+in all terms.
+
+Every polynomial can be written as the product of its {content}
+and its {primitive part} (q.v.). This representation is usually
+the first step in any attempt to factor the polynomial.
+
+*E.G.
+
+In> poly2:=2*a*x^2+4*a*x
+Result: 2*a*x^2+4*a*x
+
+In> cx:=xContent(poly2)
+Result: 2*a*x
+
+In> ppx := xPrimitivePart(poly2)
+Result: x+2
+
+In> Expand(ppx*cx)
+Result: 2*a*x^2+4*a*x
+
+*SEE Content, PrimitivePart, Gcd, xPrimitivePart
+%/mathpiper_docs
+

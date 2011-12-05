@@ -1,802 +1,290 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
+<project id="mathpiper" name="mathpiper" default="dist" basedir=".">
+    <description>Build file for MathPiper.</description>
 
-<project name="mathpiperide" default="help" basedir="." >
-	<description>
-		Main build file for the MathPiperIDE project.
-	</description> 
-	
-	<!-- Misc properties -->
-	<property name="master.compile.source" value="1.5" />
-	<property name="master.compile.target" value="1.5" />
-	<property name="master.compile.debug" value="false" />
-	<property environment="env" />
-	<property name="version" value=".79U" />
-	
-	
-	<!-- Set top directories -->
-	<property name="master.src.dir" value="${basedir}/src" />
-	<property name="master.lib.dir" value="${basedir}/lib" />
-	
-	
-	<!-- Set build directories -->
-	<property name="master.build.dir" value="${basedir}/build" />
-	<property name="plugins.src.dir" value="${master.src.dir}/plugins" />
-	<property name="plugins.build.dir" value="${master.build.dir}/plugins" />
-	<property name="plugins.jars.dir" value="${master.build.dir}/mathpiperide/jars" />
-	<property name="non_plugin.jars.dir" value="${master.build.dir}/mathpiperide/non_plugin_jars" />
-	<property name="library_apps.src.dir" value="${master.src.dir}/library_apps" />
-	<property name="library_apps.build.dir" value="${master.build.dir}/library_apps" />
-	<property name="dist.build.dir" value="${master.build.dir}/dist" />
-	
+    <property name="compile.source" value="1.5" />
 
-	<!-- Set distribution directories -->
-	
-	<property name="master.dist.dir" value="${build.dir}/dist"/>
-	
-	<!-- Set classpaths -->
-	<path id="build_classpath">
-		<!--<pathelement path="${build.classes}" /> -->
-		<pathelement path="${master.lib.dir}/jedit.jar" />
-		<pathelement path="${master.lib.dir}/jars/ErrorList.jar" />
-		<pathelement path="${master.lib.dir}/jars/plugin.jar" />
-		<pathelement path="${non_plugin.jars.dir}/mathpiper.jar" />
-		<pathelement path="${master.lib.dir}/jars/ProjectViewer.jar" />
-		<pathelement path="${master.lib.dir}/jars/SideKick.jar" />
-		<pathelement path="${master.lib.dir}/jars/Console.jar" />
-		<pathelement path="${master.lib.dir}/jars/clojure.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/abcl.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_cas.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_export.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_gui.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_main.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/geogebra_properties.jar" />
-		<pathelement path="${plugins.jars.dir}/mathpiper_plugin.jar" />
-		<pathelement path="${plugins.jars.dir}/jung2.jar" />
-		<pathelement path="${plugins.jars.dir}/mathpiperide_library.jar" />
-		<pathelement path="${plugins.jars.dir}/jfreechart_plugin.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/jfreechart-1.0.13.jar" />
-		<pathelement path="${master.lib.dir}/non_plugin_jars/jcommon-1.0.16.jar" />
-		<pathelement path="${plugins.jars.dir}/threedxplormathj_plugin.jar" />
-		<pathelement path="${plugins.jars.dir}/jrst_all_0.8.6.jar" />
-		<pathelement path="${plugins.jars.dir}/jrst_plugin.jar" />
-		<pathelement path="${non_plugin.jars.dir}/log4j.jar" />
-		<pathelement path="${non_plugin.jars.dir}/jas.jar" />
-		<pathelement path="${non_plugin.jars.dir}/jdom.jar" />
-		<pathelement path="${non_plugin.jars.dir}/mpreduce.jar" />
-		<!--<pathelement path="${master.lib.dir}/jars/bsh-2.0b4.jar" />
-		<pathelement path="${master.lib.dir}/jars/beansheet_plugin.jar" />  
-		-->
-	</path>
-	
-	
-<!-- Targets -->
+    <property name="compile.target" value="1.5" />
 
-	<target id="*all" name="*all" description="Builds all of mathpiperide from scratch." depends="clean,*mathpiperide,all-plugins-dist">
-	</target>
+    <property name="src.dir" value="${basedir}/src" />
 
-	<target id="clean" name="clean" 
-		description="Deletes the master build directory" >
-		
-		<echo message="Removing the build directory...." />
-		<delete dir="${master.build.dir}" />
-	</target>
+    <property name="build.dir" value="${basedir}/build" />
 
-	<target id="init" name="init">
-	
-	<condition property="IsUnix" value="true">
-		<os family="unix" />
-	</condition>
-		
-		<tstamp>
-			<format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
-		</tstamp>
-		<mkdir dir="${master.build.dir}" />
-	</target>
+    <property name="library.dir" value="${basedir}/../lib" />
+    
+	<property name="gwt_lib.dir" value="${basedir}/lib" />
 
+    <property name="mathpiper.dir" value="${basedir}" />  
+	
+	<property name="gwt_dist.dir" value="${library.dir}/gwt_dist" />
 
-	<target id="mathpiper_library" name="mathpiper_library" depends="init" >
-		<ant dir="${library_apps.src.dir}/mathpiper" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/mathpiper"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/mathpiper/src"/>
-			<property name="mathpiper.dir" value="${library_apps.src.dir}/mathpiper"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-	</target>
-	
-	<target id="mpreduce_library" name="mpreduce_library" depends="init" >
-		<ant dir="${library_apps.src.dir}/mpreduce" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/mpreduce"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/mpreduce/src/java"/>
-			<property name="mpreduce.dir" value="${library_apps.src.dir}/mpreduce"/>
-			<property name="non_plugin.jars.dir" value="${non_plugin.jars.dir}" />
-			<property name="lib.dir" value="${master.lib.dir}/mpreduce" />
-			
-			<reference refid="build_classpath"/>
-		</ant>
-		
-	</target>
-	
-		<target id="piper_refactor_library" name="piper_refactor_library" depends="init" >
-		<ant dir="${library_apps.src.dir}/piper_refactor" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/piper_refactor"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/piper_refactor/src"/>
-			<property name="piper.dir" value="${library_apps.src.dir}/piper_refactor"/>
-			<reference refid="build_classpath"/>
-		</ant>
-	</target>
-	
-	
-	<target id="piper_me_library" name="piper_me_library" depends="init" >
-		<ant dir="${library_apps.src.dir}/piper_me" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/piper_me"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/piper_me/src"/>
-			<property name="piper_me.dir" value="${library_apps.src.dir}/piper_me"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-	</target>
-	
-	
-	<target id="mathpiperide_library" name="mathpiperide_library" depends="init" >
-		<ant dir="${library_apps.src.dir}/mathpiperide" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/mathpiperide"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="compile.debug" value="${master.compile.debug}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/mathpiperide/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${library_apps.build.dir}/mathpiperide/dist/mathpiperide_library.jar" todir="${plugins.jars.dir}"/>
-	</target>
-	
-	
-	<target id="mathpiper_plugin" name="mathpiper_plugin" depends="" >
-		<ant dir="${plugins.src.dir}/mathpiper_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/mathpiper_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/mathpiper_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/mathpiper_plugin/dist/mathpiper_plugin.jar" todir="${plugins.jars.dir}"/>
-		
-	</target>
-	
-	
-	<target id="piper_me_plugin" name="piper_me_plugin" depends="piper_me_library" >
-		<ant dir="${plugins.src.dir}/piper_me_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/piper_me_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/piper_me_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/piper_me_plugin/dist/piper_me_plugin.jar" todir="${plugins.jars.dir}"/>
-		
-	</target>
-	
-	
-	<target id="clojure_plugin" name="clojure_plugin" depends="" >
-		<ant dir="${plugins.src.dir}/clojure_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/clojure_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/clojure_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/clojure_plugin/dist/clojure_plugin.jar" todir="${plugins.jars.dir}"/>
-	</target>
-	
-	
-	<target id="abcl_plugin" name="abcl_plugin" depends="" >
-		<ant dir="${plugins.src.dir}/abcl_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/abcl_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/abcl_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/abcl_plugin/dist/abcl_plugin.jar" todir="${plugins.jars.dir}"/>
-	</target>
-	
-	
-	<target id="maxima_plugin" name="maxima_plugin" depends="" >
-		<ant dir="${plugins.src.dir}/maxima_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/maxima_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/maxima_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/maxima_plugin/dist/maxima_plugin.jar" todir="${plugins.jars.dir}"/>
-		
-	</target>
-	
-	
-	<target id="fricas_plugin" name="fricas_plugin" depends="mathpiperide_library" >
-		<ant dir="${plugins.src.dir}/fricas_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/fricas_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/fricas_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/fricas_plugin/dist/fricas_plugin.jar" todir="${plugins.jars.dir}"/>
-		
-	</target>
-	
-	
-	<target id="mathpiper_docs_plugin" name="mathpiper_docs_plugin" depends="mathpiper_plugin">
-		<ant dir="${plugins.src.dir}/mathpiper_docs_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/mathpiper_docs_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/mathpiper_docs_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/mathpiper_docs_plugin/dist/mathpiper_docs_plugin.jar" todir="${plugins.jars.dir}"/> 
-		
-	</target>
-	
-	
-	<target id="geogebra_plugin" name="geogebra_plugin" depends="" >
-		<ant dir="${plugins.src.dir}/geogebra_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/geogebra_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/geogebra_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/geogebra_plugin/dist/geogebra_plugin.jar" todir="${plugins.jars.dir}"/>
+    <path id="build_classpath">
+		<pathelement path="${library.dir}/jfreechart-1.0.13.jar" />
+		<pathelement path="${library.dir}/jcommon-1.0.16.jar" />
+    	<pathelement path="${library.dir}/jlatexmath.jar" />
+		<pathelement path="${library.dir}/jlm_cyrillic.jar" />
+		<pathelement path="${library.dir}/jlm_greek.jar" />
+    	<pathelement path="${library.dir}/gwt-dev.jar" />
+    	<pathelement path="${library.dir}/gwt-user.jar" />
+    	<pathelement path="${library.dir}/validation-api-1.0.0.GA.jar" />
+    	<pathelement path="${library.dir}/validation-api-1.0.0.GA-sources.jar" />
+    </path>
 
-	</target>
-	
+<!-- <property name="version" value=".58" /> -->
+    <property name="build.classes.dir" value="${build.dir}" />
 
-	<target id="hoteqn_plugin" name="hoteqn_plugin" >
-		<ant dir="${plugins.src.dir}/hoteqn_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/hoteqn_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/hoteqn_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/hoteqn_plugin/dist/hoteqn_plugin.jar" todir="${plugins.jars.dir}"/>
+    <condition property="isMac">
+        <os family="mac" />
+    </condition>
 
-	</target>
-	
-	
-	<target id="jung_plugin" name="jung_plugin" depends="" >
-		<ant dir="${plugins.src.dir}/jung_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/jung_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/jung_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/jung_plugin/dist/jung_plugin.jar" todir="${plugins.jars.dir}"/>
-	</target>
-	
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
 
-	<target id="jscicalc_plugin" name="jscicalc_plugin" >
-		<ant dir="${plugins.src.dir}/jscicalc_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/jscicalc_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/jscicalc_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
+    <condition property="isUnix">
+        <os family="unix" />
+    </condition>
+
+    <target id="noop" name="noop" description="Do nothing." />
+
+    <target id="clean" name="clean" description="Deletes the MathPiper build directory">
+        <echo message="Removing the build directory...." />
+
+        <delete dir="${build.dir}" />
+    </target>
+
+    <target name="init" >
+        <condition property="IsUnix" value="true">
+            <os family="unix" />
+        </condition>
+
+        <tstamp>
+            <format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
+        </tstamp>
+
+        <mkdir dir="${build.dir}" />
+
+        <mkdir dir="${build.dir}/tests" />
+    </target>
+
+    <target name="compile" depends="init" description="Compiles the application">
+<!--<echo message="${compile.source}." />
+        <echo message="${src.dir}." />
+        <echo message="${build.classes.dir}." />-->
+        
+        <javac source="${compile.source}" target="${compile.target}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on" deprecation="on" optimize="off" includeantruntime="false" excludes="${exclude_files}">
+            <classpath refid="build_classpath" />
+
+            <include name="**/*.java" />
+        </javac>        
+        
+    </target>
+
+    <target name="compile_build_dot_java" depends="init" description="Compiles the application">
+<!--<echo message="${compile.source}." />
+        <echo message="${src.dir}." />
+        <echo message="${build.classes.dir}." />-->
+        <javac source="${compile.source}" target="${compile.target}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on" deprecation="on" optimize="off" includeantruntime="false">
+            <classpath refid="build_classpath" />
+
+            <include name="org/mathpiper/test/Build.java" />
+            
+        </javac>
+        
+    </target>
+
+<!--<target name="buildscripts4" >
+        <taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"  />
+
+        <buildscripts sourceScriptsDirectory="${src.dir}/org/mathpiper/scripts4/"
+                 outputScriptsDirectory="${build.classes.dir}/org/mathpiper/assembledscripts/"
+         outputDirectory="${build.classes.dir}/"
+         baseDirectory="${basedir}/"/>
+    </target> -->
+<!--<target name="buildscripts4" depends="clean,init">
+        <taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"/>
+        <buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts4/"  outputDirectory="${basedir}/build/classes/" baseDirectory="${basedir}/"/>
+    </target>-->
+    <target id="buildscripts" name="buildscripts" depends="init">
+    
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/ui/gui/help/data" />
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/core" />
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/optional" />
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/plugins/jfreechart" />
+    	<!--<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/documentation.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>
+    	<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/documentation_index.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>
+    	<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/function_categories.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>-->
+    
+        <java fork="true" failonerror="yes" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}">
+            <jvmarg line="-Xmx300M -Xms300M -Xss8M" />
+            <arg value="${src.dir}/" />
+            <arg value="${build.dir}/" />
+            
+        </java>
+        
+    </target>
+
+    <target name="exclude_files_from_compilation">
+        <property name="exclude_files" value="org/mathpiper/ui/gui/gwt/" />
+    </target>
+
+    
+    
+    <target name="build" depends="clean,init,compile_build_dot_java,buildscripts,exclude_files_from_compilation,compile">
+        <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}" />
+
+        <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}" />
+        
+        
+        <!--<copy file="${src.dir}/ubc/cs/JLog/Builtins/INIT_BUILTINSLIB.TOC" todir="${build.classes.dir}"/>-->
+        
+        
+        
+        
+        
+        <copy todir="${build.classes.dir}" flatten="true">
+            <fileset dir="${src.dir}/ubc/">
+                <include name="**/*.TOC" />
+            </fileset>
+        </copy>
+        
+    </target>
+    
+    
+    
+    <!--<target name="buildjs" depends="clean,init,compile_build_dot_java,buildscripts,compile">
+        <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}" />
+
+        <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}" />
+    </target>-->
+    
+    
+    
+	<target id="dist" name="dist" depends="build" >
+
 		
-		<copy file="${plugins.build.dir}/jscicalc_plugin/dist/jscicalc_plugin.jar" todir="${plugins.jars.dir}"/> 
-		
-	</target>
-	
-	<target id="u6502_plugin" name="u6502_plugin" >
-		<ant dir="${plugins.src.dir}/u6502_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/u6502_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/u6502_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/u6502_plugin/dist/u6502_plugin.jar" todir="${plugins.jars.dir}"/> 
-		
-	</target>
-	
-	<target id="beansheet_plugin" name="beansheet_plugin" >
-		<ant dir="${plugins.src.dir}/beansheet_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/beansheet_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/beansheet_plugin/src"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/beansheet_plugin/dist/beansheet_plugin.jar" todir="${plugins.jars.dir}"/> 
-		
-	</target>
-	
-	<target id="fortress_plugin" name="fortress_plugin" >
-		<ant dir="${plugins.src.dir}/fortress_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/fortress_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/fortress_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/fortress_plugin/dist/fortress_plugin.jar" todir="${plugins.jars.dir}"/> 
-		
-		<copy file="${plugins.src.dir}/fortress_plugin/fortress_unix_run.sh" todir="${master.build.dir}/mathpiperide"/>
-		
-	</target>
-	
-	<target id="jfreechart_plugin" name="jfreechart_plugin" depends="" >
-		<ant dir="${plugins.src.dir}/jfreechart_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/jfreechart_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/jfreechart_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/jfreechart_plugin/dist/jfreechart_plugin.jar" todir="${plugins.jars.dir}"/>
-	</target>
-	
-	
-	
-	<target id="threedxplormathj_plugin" name="threedxplormathj_plugin" depends="" >
-		<ant dir="${plugins.src.dir}/threedxplormathj_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/threedxplormathj_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/threedxplormathj_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/threedxplormathj_plugin/dist/threedxplormathj_plugin.jar" todir="${plugins.jars.dir}"/>
-	</target>
-	
-	
-	
-	<target id="jrst_plugin" name="jrst_plugin" depends="" >
-		<ant dir="${plugins.src.dir}/jrst_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/jrst_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/jrst_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/jrst_plugin/dist/jrst_plugin.jar" todir="${plugins.jars.dir}"/>
-	</target>
-	
-	
-	
-	<target id="mathpipercalc_plugin" name="mathpipercalc_plugin" depends="" >
-		<ant dir="${plugins.src.dir}/mathpipercalc_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/mathpipercalc_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/mathpipercalc_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/mathpipercalc_plugin/dist/mathpipercalc_plugin.jar" todir="${plugins.jars.dir}"/>
-	</target>
-	
-	
-	
-	<target id="mpreduce_plugin" name="mpreduce_plugin" depends="mpreduce_library,mathpiperide_library" >
-		<ant dir="${plugins.src.dir}/mpreduce_plugin" target="${target}" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${plugins.build.dir}/mpreduce_plugin"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${plugins.src.dir}/mpreduce_plugin/src"/>
-			<property name="examples.dir" value="${master.build.dir}/mathpiperide/examples"/>
-			<reference refid="build_classpath"/>
-		</ant>
-		
-		<copy file="${plugins.build.dir}/mpreduce_plugin/dist/mpreduce_plugin.jar" todir="${plugins.jars.dir}"/>
-	</target>
-	
-	
-	
-	<!-- -->
-	<target id="all-plugins" name="all-plugins" depends="mathpiper_plugin, mathpiper_docs_plugin, 
-		geogebra_plugin, u6502_plugin, jung_plugin, jfreechart_plugin, threedxplormathj_plugin, hoteqn_plugin, mpreduce_plugin" />
-	
-	
-	
-	
-	<target name="*mathpiperide" depends="init" description="Creates complete mathpiperide application." >
-		
-		<mkdir dir="${master.build.dir}/mathpiperide" />
-	
-		<!-- Copy jedit image to build directory. -->
-		<copy todir="${master.build.dir}/mathpiperide">
-			<fileset dir="${master.src.dir}/jedit_core" >
-				<include name="**/*" />
-			</fileset>
-		</copy>
+		<copy file="${mathpiper.dir}/tests/win_test.bat" todir="${build.classes.dir}"/>
+		<copy file="${mathpiper.dir}/tests/unix_test.sh" todir="${build.classes.dir}"/>
 		
 		
-		<!-- Set MathPiperIDE version number in the documentation. --> 
-		<delete file="${master.build.dir}/mathpiperide/doc/welcome.html" />
-		<copy file="${master.src.dir}/jedit_core/doc/welcome.html" todir="${master.build.dir}/mathpiperide/doc">
+		<copy todir="${build.classes.dir}/org/mathpiper/scripts4">
+            <fileset dir="${src.dir}/org/mathpiper/scripts4">
+                <include name="**/*" />
+            </fileset>
+        </copy>
+        
+
+		<antcall target="chmod-unix-test-script"/>
+		
+		<!--<copy file="${mathpiper.dir}/mathpiper.properties" todir="${build.classes.dir}">
 			<filterset>
+	               
 		       	   <filter token="VERSION" value="${version}" />
+	               
 			 </filterset>
-		</copy>
-		
-		
-		<mkdir dir="${master.build.dir}/mathpiperide/settings/jars/geogebra_properties" />
-		
-		
-		<!-- Copy examples directory. -->
-		<copy todir="${master.build.dir}/mathpiperide/examples">
-			<fileset dir="${master.src.dir}/examples" >
-				<include name="**/*" />
-			</fileset>
-		</copy>			
-		
-		<!-- Copy plugin jars into mathpiperide directory. -->
-		<copy todir="${master.build.dir}/mathpiperide/jars">
-			<fileset dir="${master.lib.dir}/jars" >
-				<include name="**/*.jar" />
-			</fileset>
-		</copy>
-		
-		<!-- Copy non-plugin jars into mathpiperide directory. -->
-		<copy todir="${master.build.dir}/mathpiperide/non_plugin_jars">
-			<fileset dir="${master.lib.dir}/non_plugin_jars" >
-				<include name="**/*.jar" />
-			</fileset>
-		</copy>
-		
-		<!-- Copy jedit.jar into mathpiperide directory. -->
-		<copy file="${master.lib.dir}/jedit.jar" todir="${master.build.dir}/mathpiperide"/> 
-		
-		
-		<!-- Copy support scripts to jars directory -->
-		<mkdir dir="${plugins.jars.dir}/scripts" />
-		<copy todir="${plugins.jars.dir}/scripts">
-			<fileset dir="${master.src.dir}/scripts" >
-				<include name="**/*.bsh" />
-			</fileset>
-		</copy>
-
-		<antcall target="mathpiper_library">
-			<param name="target" value="dist"/>
-		</antcall>
-		<copy file="${library_apps.build.dir}/mathpiper/dist/mathpiper.jar" todir="${non_plugin.jars.dir}"/>
-		
-		<!--<antcall target="piper_me_library">
-			<param name="target" value="dist"/>
-		</antcall>
-		<copy file="${library_apps.build.dir}/piper_me/dist/piper_me.jar" todir="${plugins.jars.dir}"/>
-		-->
-
-		
-		<copy file="${plugins.src.dir}/geogebra_plugin/init.ggb" todir="${plugins.jars.dir}/scripts"/>
-		
-		
-		<antcall target="chmod-unix-launch-script">
-		</antcall>
-		
-		
-		<mkdir dir="${master.build.dir}/mathpiperide/mathpiper_initialization" />
-		<copy file="${master.src.dir}/scripts/startup/mathpiper_user_initialization.mpi" todir="${master.build.dir}/mathpiperide/mathpiper_initialization"/>
-		
-	</target>
+		</copy>-->
 	
-	
-	<target  id="chmod-unix-launch-script" name="chmod-unix-launch-script" if="IsUnix">
-		<echo message="Making unix launch script executable."/>
-		<exec executable="chmod">
-				<arg value="+x" />
-				<arg value="${master.build.dir}/mathpiperide/unix_run.sh" />
-			</exec>
-	</target>
-
-	
-	
-	<!--<target id="mathpiper_tests" name="mathpiper_tests" >
-		<ant dir="${library_apps.src.dir}/mathpiper/tests" target="compile" inheritAll="false" inheritRefs="false" >
-			<property name="build.dir" value="${library_apps.build.dir}/mathpiper/tests"/>
-			<property name="compile.source" value="${master.compile.source}"/>
-			<property name="compile.target" value="${master.compile.target}"/>
-			<property name="src.dir" value="${library_apps.src.dir}/mathpiper/tests/src"/>
-			<property name="mathpiper.dir" value="${library_apps.src.dir}/mathpiper"/>
-			<reference refid="build_classpath"/>
-		</ant>
+		<mkdir dir="${build.dir}/dist" />
 		
-		
-	</target>-->
-	
-
-	<target id="noop" name="noop" description="Do nothing." >
-		<antcall target="all">
-			<param name="target" value="noop" />
-		</antcall>
-	</target>
-	
-	<target id="all-plugins-dist" name="all-plugins-dist"  >
-		<antcall target="all-plugins">
-			<param name="target" value="dist"/>
-		</antcall>
-	</target>
-	
-	
-	<target id="dist_clean" name="dist_clean" >
-		<delete dir="${dist.build.dir}" />
-		<mkdir dir="${dist.build.dir}" />
-	</target>
-	
-	<!-- zip distribution target. -->
-	<target name="dist_windows" depends=""
-		description="zips the application for distribution." >
-
-		<zip zipfile="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh" >
-		</zip>
-		
-		<zip zipfile="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip" update="true" >
-		   <fileset dir="${basedir}" >
-			<include name="src/**" />
-			<include name="lib/**" />
-			<include name="build.xml" />
-		   </fileset>
-	
-		</zip>
-		
-		<!-- Make jre version. -->
-		
-		<!--
-		<antcall target="copy_jres">
-		</antcall> -->
-			
-		<!--<copy file="${master.src.dir}/jedit_core/win_run.bat.with_jre" tofile="${master.build.dir}/mathpiperide/win_run.bat" overwrite="true" />-->
-		
-		<!--
-		<jar jarfile="${dist.build.dir}/mathpiperide_windows_dist_with_java_v${version}_beta.zip" basedir="${master.build.dir}" update="true" includes="mathpiperide/**" excludes="**/unix_run.sh"
-		 whenmanifestonly="skip" >
-			<manifest> 
-				<section name="MathPiperIDE" >
+		<jar jarfile="${build.dir}/dist/mathpiper.jar"
+			basedir="${build.classes.dir}" update="true"
+			manifest="${mathpiper.dir}/resources/MANIFEST.MF">
+			<!--<manifest> 
+				<section name="mathpiper" >
 					<attribute name="Build-Date" value="${build.time}"/>
 				</section>
-			</manifest>
-		</jar> -->
-
-	</target>	
+			</manifest>-->
+			<include name="**/*" />
+			<exclude name="**/*.bat,**/*.sh" />
+			<exclude name="dist/" />
+			<exclude name="tests/" />
+		</jar> 
+	</target>
 	
 	
-	<target name="dist_unix_mac" depends=""
-		description="Archives the application for distribution." >
-
-		<exec executable="tar">
-		 <arg value="--use-compress-prog=bzip2"/>
-		 <arg value="--exclude=windows"/>
-		 <arg value="--exclude=win_run.bat"/>
-		    <arg value="-cf"/>
-		    <arg value="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_beta.tar.bz2"/>
-		   <arg value="-C"/>
-		    <arg value="${master.build.dir}"/>
-		    <arg value="mathpiperide"/>
-		    
+	
+	<target  id="chmod-unix-test-script" name="chmod-unix-test-script" if="IsUnix">
+	    <echo message="Making unix test script executable."/>
+	    <exec executable="chmod">
+		    <arg value="+x" />
+		    <arg value="${build.classes.dir}/unix_test.sh" />
 	    </exec>
-		
-	</target>		    
-	
-		
-	
-	<target name="*dist" depends="clean, *mathpiperide, all-plugins-dist, dist_clean, dist_unix_mac, dist_windows" >
-		
-		
-		<exec executable="md5sum"  output ="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_beta.tar.bz2.md5" >
-			 <arg value="${dist.build.dir}/mathpiperide_unix_mac_binary_dist_v${version}_beta.tar.bz2"/>
-			
-		</exec>
-		
-		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_beta.zip.md5" >
-			 <arg value="${dist.build.dir}/mathpiperide_windows_binary_dist_v${version}_beta.zip"/>
-		 </exec>
-		 
-		<exec executable="md5sum" output ="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip.md5" >
-			 <arg value="${dist.build.dir}/mathpiperide_source_dist_v${version}_beta.zip"/>
-		 </exec>
-		
-	</target>	
-	
-	
-	<!-- 
-	chmod +x -R mathpiperide.
-	tar cjfp mathpiperide_unix_mac_dist_v.10.tar.bz2 mathpiperide/
-	-->
-	
-	
-	<target id="backcopy-property" name="backcopy-property" description="Copies property file from build to source directory." > 
-		<copy file="${master.build.dir}/mathpiperide/settings/properties" 
-		todir="${master.src.dir}/jedit_core/settings"/>
 	</target>
+  
+    
+    
 
-	<target id="backcopy-perspective" name="backcopy-perspective" description="Copies perspective file from build to source directory." > 
-		<copy file="${master.build.dir}/mathpiperide/settings/perspective.xml" 
-		todir="${master.src.dir}/jedit_core/settings"/>
-	</target>
-	
-	
-	<target id="backcopy-examples" name="backcopy-examples" description="Copies examples from build to source directory." > 
-		<copy todir="${master.src.dir}/examples">
-			<fileset dir="${master.build.dir}/mathpiperide/examples" >
-				<include name="**/*" />
-			</fileset>
-		</copy>
-	</target>
-	
-	<target id="backcopy-macros" name="backcopy-macros" description="Copies macros from build to source directory." > 
-				<copy todir="${master.src.dir}/jedit_core/macros/MathPiperIDE">
-			<fileset dir="${master.build.dir}/mathpiperide/macros/MathPiperIDE" >
-				<include name="**/*" />
-			</fileset>
-		</copy>	
-	</target>
-	
-	<target id="backcopy-modes" name="backcopy-modes" description="Copies mode file from build to source directory." > 
-		<copy file="${master.build.dir}/mathpiperide/modes/mathpiperide.xml" 
-		todir="${master.src.dir}/jedit_core/modes"/>
-		
-		<copy file="${master.build.dir}/mathpiperide/modes/mathpiperideoutput.xml" 
-		todir="${master.src.dir}/jedit_core/modes"/>
-		
-		<copy file="${master.build.dir}/mathpiperide/modes/mathpiper.xml" 
-		todir="${master.src.dir}/jedit_core/modes"/>
-		
-		<copy file="${master.build.dir}/mathpiperide/modes/mathpipertrace.xml" 
-		todir="${master.src.dir}/jedit_core/modes"/>
-		
-		<copy file="${master.build.dir}/mathpiperide/modes/catalog" 
-		todir="${master.src.dir}/jedit_core/modes"/>
-		
-		<copy file="${master.build.dir}/mathpiperide/modes/clojure.xml" 
-		todir="${master.src.dir}/jedit_core/modes"/>
-	</target>
-	
-	<target id="backcopy-support-scripts" name="backcopy-support-scripts" description="Copies support scripts from build to source directory." > 
-		<copy todir="${master.src.dir}/scripts">
-			<fileset dir="${master.build.dir}/mathpiperide/jars/scripts" >
-				<include name="**/*" />
-			</fileset>
-		</copy>	
-	</target>
-	
-	<target id="backcopy-startup-scripts" name="backcopy-startup-scripts" description="Copies startup scripts from build to source directory." > 
-		<copy todir="${master.src.dir}/jedit_core/startup">
-			<fileset dir="${master.build.dir}/mathpiperide/startup" >
-				<include name="**/*" />
-			</fileset>
-		</copy>	
-	</target>
-	
-	
-	<target id="latex" name="latex" depends=""
-		description="Compiles newbies book." >
-		
-		<delete file="${master.src.dir}/doc/newbies_book/mathpiperide_for_newbies.dvi" />
+    <target id="gwt_dist" name="gwt_dist" depends="">
+        <delete dir="gwt_dist.dir" />
 
-		<exec executable="latex">
-			<arg value="-output-directory=${master.src.dir}/doc/newbies_book" />
-			<arg value="${master.src.dir}/doc/newbies_book/mathpiperide_for_newbies.tex"/>
+        <mkdir dir="${gwt_dist.dir}" />
 
-		</exec>
+        <mkdir dir="${gwt_dist.dir}/src" />
 
-	</target>
-	
-	<target id="pdflatex" name="pdflatex" depends=""
-		description="Compiles newbies book." >
+        <mkdir dir="${gwt_dist.dir}/war" />
+        
+        <mkdir dir="${gwt_dist.dir}/war/WEB-INF" />
+        
+        <mkdir dir="${gwt_dist.dir}/war/WEB-INF/lib" />
 
-		<exec executable="pdflatex">
-			    <arg value="-c-style-errors"/>
-			    <arg value="-output-directory=${master.src.dir}/doc/newbies_book" />
-			    <arg value="${master.src.dir}/doc/newbies_book/mathpiperide_for_newbies.tex"/>
+        <copy todir="${gwt_dist.dir}/src">
+            <fileset dir="${mathpiper.dir}/src/">
+                <include name="org/mathpiper/builtin/" />
+                <exclude name="org/mathpiper/builtin/functions/optional/" />
+                <exclude name="org/mathpiper/builtin/functions/plugins/" />
+                <exclude name="org/mathpiper/builtin/library/" />
 
-		</exec>
+                <include name="org/mathpiper/exceptions/" />
 
-	</target>
-	
-	<target id="dvi" name="dvi" depends="latex"
-		description="Views newbies book." >
+                <include name="org/mathpiper/interpreters/EvaluationResponse.java" />
+                <include name="org/mathpiper/interpreters/Interpreter.java" />
+                <include name="org/mathpiper/interpreters/SynchronousInterpreter.java" />
+                <include name="org/mathpiper/interpreters/ResponseListener.java" />
+                <include name="org/mathpiper/ui/gui/gwt/" />
 
-		<exec executable="yap">
 
-			    <arg value="${master.src.dir}/doc/newbies_book/mathpiperide_for_newbies.dvi"/>
+                <include name="org/mathpiper/io/" />
 
-		</exec>
-		
-	</target>
-	
-	<target id="pdf" name="pdf" depends="pdflatex" 
-		description="Views newbies book." >
+                <include name="org/mathpiper/lisp/" />
 
-		<exec executable="C:/Program Files/Adobe/Reader 8.0/Reader/AcroRd32">
+                
 
-			    <arg value="${master.src.dir}/doc/newbies_book/mathpiperide_for_newbies.pdf"/>
+                <include name="org/mathpiper/Scripts.java" />
 
-		</exec>
-		
-	</target>
-	
-	
-	
-	
-	<target name="copy_jres" depends="" description="." >
-		
-		<!--
-		<exec executable="cp">
-		 <arg value="-R"/>
-		 <arg value="${lib.dir}/jres/linux"/>
-		 <arg value="${build.jres}"/>
-		</exec>
-		-->
+                <include name="org/mathpiper/Version.java" />
+            </fileset>
+        </copy>
 
-		<!-- Copy linux jre image to build directory. 
-		<copy todir="${build.jres.linux}">
-			<fileset dir="${lib.dir}/jres/linux" >
-				<include name="**/*" />
-			</fileset>
-		</copy> -->
-		
-		<!-- Copy windows jre image to build directory. -->
-		<mkdir dir="${master.build.dir}/mathpiperide/jre" />
-		<copy todir="${master.build.dir}/mathpiperide/jre">
-			<fileset dir="${master.lib.dir}/jre_copies/windows" >
-				<include name="**/*" />
-			</fileset>
-		</copy> 
-		
-</target>	
+        <copy file="${gwt_lib.dir}/google_web_toolkit/module.gwt.xml" todir="${gwt_dist.dir}/src/org" />
 
-	
+        <copy todir="${gwt_dist.dir}/">
+            <fileset dir="${gwt_lib.dir}/google_web_toolkit">
+                <include name="compile.sh" if="isUnix" />
+
+                <include name="debug.sh" if="isUnix" />
+
+                <include name="compile.bat" if="isWindows" />
+
+                <include name="debug.bat" if="isWindows" />
+            </fileset>
+        </copy>
+
+        <copy file="${gwt_lib.dir}/google_web_toolkit/mathpiper.html" todir="${gwt_dist.dir}/war" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/WebConsole.css" todir="${gwt_dist.dir}/war" />
+    	<copy file="${gwt_lib.dir}/google_web_toolkit/icons.gif" todir="${gwt_dist.dir}/war" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/RichTextToolbar.css" todir="${gwt_dist.dir}/war" />
+        
+        <copy file="${gwt_lib.dir}/google_web_toolkit/dot_classpath" tofile="${gwt_dist.dir}/.classpath" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/dot_project" tofile="${gwt_dist.dir}/.project" />
+        
+        <copy file="${gwt_lib.dir}/google_web_toolkit/WEB-INF/web.xml" todir="${gwt_dist.dir}/war/WEB-INF" />
+        <copy file="${library.dir}/gwt-servlet.jar" todir="${gwt_dist.dir}/war/WEB-INF/lib" />
+        
+        
+        
+        
+    </target>
 </project>
 
 <!-- {{{ License.
@@ -817,8 +305,4 @@
  */
  }}} -->
 
-<!-- 
-Local Variables:
-compile-command: "ant -emacs *all"
-End:
--->
+

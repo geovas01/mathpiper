@@ -1,0 +1,37 @@
+%mathpiper,def="SquareFree?"
+
+SquareFree?(n_Integer?)        <-- ( Moebius(n) !=? 0 );
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="SquareFree?",categories="User Functions;Number Theory;Predicates"
+*CMD SquareFree? --- test for a square-free number
+*STD
+*CALL
+        SquareFree?(n)
+
+*PARMS
+
+{n} -- positive integer
+
+*DESC
+
+This function uses the {Moebius} function to tell if the given number is square-free, which
+means it has distinct prime factors. If $Moebius(n)!=0$, then {n} is square free. All prime
+numbers are trivially square-free.
+
+*E.G.
+
+In> SquareFree?(37)
+Result: True;
+In> SquareFree?(4)
+Result: False;
+In> SquareFree?(16)
+Result: False;
+In> SquareFree?(18)
+Result: False;
+
+*SEE Moebius, SquareFreeDivisorsList
+%/mathpiper_docs

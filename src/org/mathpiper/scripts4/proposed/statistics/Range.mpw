@@ -1,0 +1,44 @@
+%mathpiper,def="Range"
+
+Range(list) :=
+[
+    Check(Length(list) >? 0 And? NumericList?(list), "Argument", "Argument must be a nonempty numeric list.");
+    
+    Maximum(list) - Minimum(list);
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+%mathpiper_docs,name="Range",categories="User Functions;Statistics & Probability",access="experimental"
+*CMD Range --- calculates the Range of a list of values
+*STD
+*CALL
+        Range(list)
+
+*PARMS
+
+{list} -- list of values
+
+*DESC
+
+This function calculates the Range of a list of values.  The Range is the value
+that occurs most frequently.
+
+*E.G.
+In> Range({2,3,4,3,4,5,5})
+Result: 3
+
+*SEE Mean, WeightedMean, Median, GeometricMean
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+

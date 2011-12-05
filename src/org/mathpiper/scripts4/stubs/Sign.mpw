@@ -1,0 +1,52 @@
+%mathpiper,def="Sign"
+
+10 # Sign(n_PositiveNumber?) <-- 1;
+10 # Sign(n_Zero?) <-- 0;
+20 # Sign(n_Number?) <-- -1;
+15 # Sign(n_Infinity?)_(n <? 0) <-- -1;
+15 # Sign(n_Infinity?)_(n >? 0) <-- 1;
+15 # Sign(n_Number?/m_Number?) <-- Sign(n)*Sign(m);
+20 # Sign(n_List?) <-- MapSingle("Sign",n);
+
+100 # Sign(_a)^n_Even? <-- 1;
+100 # Sign(_a)^n_Odd? <-- Sign(a);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Sign",categories="User Functions;Calculus Related (Symbolic)"
+*CMD Sign --- sign of a number
+*STD
+*CALL
+        Sign(x)
+
+*PARMS
+
+{x} -- argument to the function
+
+*DESC
+
+This function returns the sign of the real number $x$. It is "1"
+for positive numbers and "-1" for negative numbers. Somewhat
+arbitrarily, {Sign(0)} is defined to be 1.
+
+This function is connected to the {Abs} function by
+the identity $Abs(x) * Sign(x) = x$ for real $x$.
+
+This function is threaded, meaning that if the argument {x} is a
+list, the function is applied to all entries in the list.
+
+*E.G.
+
+In> Sign(2)
+Result: 1;
+In> Sign(-3)
+Result: -1;
+In> Sign(0)
+Result: 1;
+In> Sign(-3) * Abs(-3)
+Result: -3;
+
+*SEE Arg, Abs
+%/mathpiper_docs

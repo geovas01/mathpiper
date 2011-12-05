@@ -1,0 +1,51 @@
+%mathpiper,def="Constant?"
+
+Constant?(_n) <-- (VarList(n) =? {});
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Constant?",categories="User Functions;Predicates"
+*CMD Constant? --- test for a constant
+*STD
+*CALL
+        Constant?(expr)
+
+*PARMS
+
+{expr} -- some expression
+
+*DESC
+
+{Constant?} returns {True} if the
+expression is some constant or a function with constant arguments. It
+does this by checking that no variables are referenced in the
+expression. {Pi} is considered a constant.
+
+*E.G.
+
+In> Constant?(Cos(x))
+Result: False;
+In> Constant?(Cos(2))
+Result: True;
+In> Constant?(Cos(2+x))
+Result: False;
+
+*SEE Number?, Integer?, VarList
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Constant?",subtype="automatic_test"
+
+Verify(Constant?(Pi), True);
+Verify(Constant?(Exp(1)+Sqrt(3)), True);
+Verify(Constant?(x), False);
+Verify(Constant?(Infinity), True);
+Verify(Constant?(-Infinity), True);
+Verify(Constant?(Undefined), True);
+
+%/mathpiper

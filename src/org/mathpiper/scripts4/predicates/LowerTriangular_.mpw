@@ -1,0 +1,36 @@
+%mathpiper,def="LowerTriangular?"
+
+LowerTriangular?(A_Matrix?) <-- (UpperTriangular?(Transpose(A)));
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="LowerTriangular?",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD LowerTriangular? --- test for a lower triangular matrix
+*STD
+*CALL
+        LowerTriangular?(A)
+
+*PARMS
+
+{A} -- a matrix
+
+*DESC
+
+A lower triangular matrix is a square matrix which has all zero entries below the diagonal.
+
+{LowerTriangular?(A)} returns {True} if {A} is a lower triangular matrix and {False} otherwise.
+
+*E.G.
+In> LowerTriangular?(Identity(5))
+Result: True;
+In> LowerTriangular?({{1,2},{0,1}})
+Result: False;
+
+A non-square matrix cannot be triangular:
+In> LowerTriangular?({{1,2,3},{0,1,2}})
+Result: False;
+
+*SEE UpperTriangle?, Diagonal?
+%/mathpiper_docs
