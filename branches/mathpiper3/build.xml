@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright (C) 2008 Ted Kosan (license information is at the end of this document.) -->
+<project id="mathpiper" name="mathpiper" default="dist" basedir=".">
+    <description>Build file for MathPiper.</description>
+
+    <property name="compile.source" value="1.5" />
+
+    <property name="compile.target" value="1.5" />
+
+    <property name="src.dir" value="${basedir}/src" />
+
+    <property name="build.dir" value="${basedir}/build" />
+
+    <property name="library.dir" value="${basedir}/../lib" />
+    
+	<property name="gwt_lib.dir" value="${basedir}/lib" />
+
+    <property name="mathpiper.dir" value="${basedir}" />  
+	
+	<property name="gwt_dist.dir" value="${library.dir}/gwt_dist" />
+
+    <path id="build_classpath">
+		<pathelement path="${library.dir}/jfreechart-1.0.13.jar" />
+		<pathelement path="${library.dir}/jcommon-1.0.16.jar" />
+    	<pathelement path="${library.dir}/jlatexmath.jar" />
+		<pathelement path="${library.dir}/jlm_cyrillic.jar" />
+		<pathelement path="${library.dir}/jlm_greek.jar" />
+    	<pathelement path="${library.dir}/gwt-dev.jar" />
+    	<pathelement path="${library.dir}/gwt-user.jar" />
+    	<pathelement path="${library.dir}/validation-api-1.0.0.GA.jar" />
+    	<pathelement path="${library.dir}/validation-api-1.0.0.GA-sources.jar" />
+    </path>
+
+<!-- <property name="version" value=".58" /> -->
+    <property name="build.classes.dir" value="${build.dir}" />
+
+    <condition property="isMac">
+        <os family="mac" />
+    </condition>
+
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+
+    <condition property="isUnix">
+        <os family="unix" />
+    </condition>
+
+    <target id="noop" name="noop" description="Do nothing." />
+
+    <target id="clean" name="clean" description="Deletes the MathPiper build directory">
+        <echo message="Removing the build directory...." />
+
+        <delete dir="${build.dir}" />
+    </target>
+
+    <target name="init" >
+        <condition property="IsUnix" value="true">
+            <os family="unix" />
+        </condition>
+
+        <tstamp>
+            <format property="build.time" pattern="MM/dd/yyyy hh:mm aa" />
+        </tstamp>
+
+        <mkdir dir="${build.dir}" />
+
+        <mkdir dir="${build.dir}/tests" />
+    </target>
+
+    <target name="compile" depends="init" description="Compiles the application">
+<!--<echo message="${compile.source}." />
+        <echo message="${src.dir}." />
+        <echo message="${build.classes.dir}." />-->
+        
+        <javac source="${compile.source}" target="${compile.target}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on" deprecation="on" optimize="off" includeantruntime="false" excludes="${exclude_files}">
+            <classpath refid="build_classpath" />
+
+            <include name="**/*.java" />
+        </javac>        
+        
+    </target>
+
+    <target name="compile_build_dot_java" depends="init" description="Compiles the application">
+<!--<echo message="${compile.source}." />
+        <echo message="${src.dir}." />
+        <echo message="${build.classes.dir}." />-->
+        <javac source="${compile.source}" target="${compile.target}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on" deprecation="on" optimize="off" includeantruntime="false">
+            <classpath refid="build_classpath" />
+
+            <include name="org/mathpiper/test/Build.java" />
+            
+        </javac>
+        
+    </target>
+
+<!--<target name="buildscripts4" >
+        <taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"  />
+
+        <buildscripts sourceScriptsDirectory="${src.dir}/org/mathpiper/scripts4/"
+                 outputScriptsDirectory="${build.classes.dir}/org/mathpiper/assembledscripts/"
+         outputDirectory="${build.classes.dir}/"
+         baseDirectory="${basedir}/"/>
+    </target> -->
+<!--<target name="buildscripts4" depends="clean,init">
+        <taskdef name="buildscripts" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}"/>
+        <buildscripts sourceScriptsDirectory="${basedir}/src/org/mathpiper/scripts4/"  outputDirectory="${basedir}/build/classes/" baseDirectory="${basedir}/"/>
+    </target>-->
+    <target id="buildscripts" name="buildscripts" depends="init">
+    
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/ui/gui/help/data" />
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/core" />
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/optional" />
+    	<mkdir dir="${build.classes.dir}/org/mathpiper/builtin/functions/plugins/jfreechart" />
+    	<!--<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/documentation.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>
+    	<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/documentation_index.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>
+    	<copy file="${src.dir}/org/mathpiper/ui/gui/help/data/function_categories.txt" todir="${build.classes.dir}/org/mathpiper/ui/gui/help/data"/>-->
+    
+        <java fork="true" failonerror="yes" classname="org.mathpiper.test.Build" classpath="${build.classes.dir}">
+            <jvmarg line="-Xmx300M -Xms300M -Xss8M" />
+            <arg value="${src.dir}/" />
+            <arg value="${build.dir}/" />
+            
+        </java>
+        
+    </target>
+
+    <target name="exclude_files_from_compilation">
+        <property name="exclude_files" value="org/mathpiper/ui/gui/gwt/" />
+    </target>
+
+    
+    
+    <target name="build" depends="clean,init,compile_build_dot_java,buildscripts,exclude_files_from_compilation,compile">
+        <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}" />
+
+        <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}" />
+        
+        
+        <!--<copy file="${src.dir}/ubc/cs/JLog/Builtins/INIT_BUILTINSLIB.TOC" todir="${build.classes.dir}"/>-->
+        
+        
+        
+        
+        
+        <copy todir="${build.classes.dir}" flatten="true">
+            <fileset dir="${src.dir}/ubc/">
+                <include name="**/*.TOC" />
+            </fileset>
+        </copy>
+        
+    </target>
+    
+    
+    
+    <!--<target name="buildjs" depends="clean,init,compile_build_dot_java,buildscripts,compile">
+        <copy file="${basedir}/tests/unix_test.sh" todir="${build.dir}" />
+
+        <copy file="${basedir}/tests/win_test.bat" todir="${build.dir}" />
+    </target>-->
+    
+    
+    
+	<target id="dist" name="dist" depends="build" >
+
+		
+		<copy file="${mathpiper.dir}/tests/win_test.bat" todir="${build.classes.dir}"/>
+		<copy file="${mathpiper.dir}/tests/unix_test.sh" todir="${build.classes.dir}"/>
+		
+		
+		<copy todir="${build.classes.dir}/org/mathpiper/scripts4">
+            <fileset dir="${src.dir}/org/mathpiper/scripts4">
+                <include name="**/*" />
+            </fileset>
+        </copy>
+        
+
+		<antcall target="chmod-unix-test-script"/>
+		
+		<!--<copy file="${mathpiper.dir}/mathpiper.properties" todir="${build.classes.dir}">
+			<filterset>
+	               
+		       	   <filter token="VERSION" value="${version}" />
+	               
+			 </filterset>
+		</copy>-->
+	
+		<mkdir dir="${build.dir}/dist" />
+		
+		<jar jarfile="${build.dir}/dist/mathpiper.jar"
+			basedir="${build.classes.dir}" update="true"
+			manifest="${mathpiper.dir}/resources/MANIFEST.MF">
+			<!--<manifest> 
+				<section name="mathpiper" >
+					<attribute name="Build-Date" value="${build.time}"/>
+				</section>
+			</manifest>-->
+			<include name="**/*" />
+			<exclude name="**/*.bat,**/*.sh" />
+			<exclude name="dist/" />
+			<exclude name="tests/" />
+		</jar> 
+	</target>
+	
+	
+	
+	<target  id="chmod-unix-test-script" name="chmod-unix-test-script" if="IsUnix">
+	    <echo message="Making unix test script executable."/>
+	    <exec executable="chmod">
+		    <arg value="+x" />
+		    <arg value="${build.classes.dir}/unix_test.sh" />
+	    </exec>
+	</target>
+  
+    
+    
+
+    <target id="gwt_dist" name="gwt_dist" depends="">
+        <delete dir="gwt_dist.dir" />
+
+        <mkdir dir="${gwt_dist.dir}" />
+
+        <mkdir dir="${gwt_dist.dir}/src" />
+
+        <mkdir dir="${gwt_dist.dir}/war" />
+        
+        <mkdir dir="${gwt_dist.dir}/war/WEB-INF" />
+        
+        <mkdir dir="${gwt_dist.dir}/war/WEB-INF/lib" />
+
+        <copy todir="${gwt_dist.dir}/src">
+            <fileset dir="${mathpiper.dir}/src/">
+                <include name="org/mathpiper/builtin/" />
+                <exclude name="org/mathpiper/builtin/functions/optional/" />
+                <exclude name="org/mathpiper/builtin/functions/plugins/" />
+                <exclude name="org/mathpiper/builtin/library/" />
+
+                <include name="org/mathpiper/exceptions/" />
+
+                <include name="org/mathpiper/interpreters/EvaluationResponse.java" />
+                <include name="org/mathpiper/interpreters/Interpreter.java" />
+                <include name="org/mathpiper/interpreters/SynchronousInterpreter.java" />
+                <include name="org/mathpiper/interpreters/ResponseListener.java" />
+                <include name="org/mathpiper/ui/gui/gwt/" />
+
+
+                <include name="org/mathpiper/io/" />
+
+                <include name="org/mathpiper/lisp/" />
+
+                
+
+                <include name="org/mathpiper/Scripts.java" />
+
+                <include name="org/mathpiper/Version.java" />
+            </fileset>
+        </copy>
+
+        <copy file="${gwt_lib.dir}/google_web_toolkit/module.gwt.xml" todir="${gwt_dist.dir}/src/org" />
+
+        <copy todir="${gwt_dist.dir}/">
+            <fileset dir="${gwt_lib.dir}/google_web_toolkit">
+                <include name="compile.sh" if="isUnix" />
+
+                <include name="debug.sh" if="isUnix" />
+
+                <include name="compile.bat" if="isWindows" />
+
+                <include name="debug.bat" if="isWindows" />
+            </fileset>
+        </copy>
+
+        <copy file="${gwt_lib.dir}/google_web_toolkit/mathpiper.html" todir="${gwt_dist.dir}/war" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/WebConsole.css" todir="${gwt_dist.dir}/war" />
+    	<copy file="${gwt_lib.dir}/google_web_toolkit/icons.gif" todir="${gwt_dist.dir}/war" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/RichTextToolbar.css" todir="${gwt_dist.dir}/war" />
+        
+        <copy file="${gwt_lib.dir}/google_web_toolkit/dot_classpath" tofile="${gwt_dist.dir}/.classpath" />
+        <copy file="${gwt_lib.dir}/google_web_toolkit/dot_project" tofile="${gwt_dist.dir}/.project" />
+        
+        <copy file="${gwt_lib.dir}/google_web_toolkit/WEB-INF/web.xml" todir="${gwt_dist.dir}/war/WEB-INF" />
+        <copy file="${library.dir}/gwt-servlet.jar" todir="${gwt_dist.dir}/war/WEB-INF/lib" />
+        
+        
+        
+        
+    </target>
+</project>
+
+<!-- {{{ License.
+/*
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+ }}} -->
+
+

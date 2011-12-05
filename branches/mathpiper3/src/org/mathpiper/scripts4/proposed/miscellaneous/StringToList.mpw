@@ -1,0 +1,50 @@
+%mathpiper,def="StringToList"
+
+//Retract("StringToList", *);
+
+10 # StringToList(string_String?)_(Length(string) =? 0) <-- {};
+
+
+20 # StringToList(string_String?) <--
+[
+    Local(resultList);
+    
+    resultList := {};
+    
+    ForEach(character, string)
+    [
+        resultList := Append(resultList, character);
+    ];
+    
+    resultList;
+
+];
+
+
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="StringToList",categories="User Functions;String Manipulation",access="experimental"
+*CMD StringToList --- converts a string into a list
+*STD
+*CALL
+        StringToList(string)
+
+*PARMS
+
+{string} -- a string to be converted into a list
+
+*DESC
+
+This function takes each character in a string and places it into a list.
+
+*E.G.
+In> StringToList("Hello")
+Result: {"H","e","l","l","o"}
+
+*SEE ListToString
+%/mathpiper_docs

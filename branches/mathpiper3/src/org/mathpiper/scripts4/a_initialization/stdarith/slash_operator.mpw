@@ -1,0 +1,173 @@
+%mathpiper,def="/"
+
+/* Division */
+
+50 # 0 / 0 <-- Undefined;
+
+52 # x_PositiveNumber? / 0 <-- Infinity;
+52 # x_NegativeNumber? / 0 <-- -Infinity;
+55 # (_x / y_Number?)_(Zero?(y)) <-- Undefined;
+55 # 0 / _x <-- 0;
+// unnecessary rule (see #100 below). TODO: REMOVE
+//55 # x_Number? / y_NegativeNumber? <-- (-x)/(-y);
+
+56 # (x_NonZeroInteger? / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
+     [
+       Local(gcd);
+       Bind(x,x);
+       Bind(y,y);
+       Bind(gcd,GcdN(x,y));
+       QuotientN(x,gcd)/QuotientN(y,gcd);
+     ];
+
+57 # ((x_NonZeroInteger? * _expr) / y_NonZeroInteger?)_(GcdN(x,y) >? 1) <--
+     [
+       Local(gcd);
+       Bind(x,x);
+       Bind(y,y);
+       Bind(gcd,GcdN(x,y));
+       (QuotientN(x,gcd)*expr)/QuotientN(y,gcd);
+     ];
+
+57 # ((x_NonZeroInteger?) / (y_NonZeroInteger? * _expr))_(GcdN(x,y) >? 1) <--
+     [
+       Local(gcd);
+       Bind(x,x);
+       Bind(y,y);
+       Bind(gcd,GcdN(x,y));
+       QuotientN(x,gcd)/(QuotientN(y,gcd)*expr);
+     ];
+
+57 # ((x_NonZeroInteger? * _p) / (y_NonZeroInteger? * _q))_(GcdN(x,y) >? 1) <--
+     [
+       Local(gcd);
+       Bind(x,x);
+       Bind(y,y);
+       Bind(gcd,GcdN(x,y));
+       (QuotientN(x,gcd)*p)/(QuotientN(y,gcd)*q);
+     ];
+
+60 # (x_Decimal? / y_Number?)  <-- DivideN(x,y);
+60 # (x_Number?  / y_Decimal?) <-- DivideN(x,y); 
+60 # (x_Number?  / y_Number?)_(InNumericMode()) <-- DivideN(x,y);
+
+
+90 # x_Infinity? / y_Infinity? <-- Undefined;
+95  # x_Infinity? / y_Number? <-- Sign(y)*x;
+95  # x_Infinity? / y_Complex? <-- Infinity;
+
+90 # Undefined / _y <-- Undefined;
+90 # _y / Undefined <-- Undefined;
+
+
+100 # _x / _x <-- 1;
+100 # _x /  1 <-- x;
+100 # (_x / y_NegativeNumber?) <-- -x/(-y);
+100 # (_x / - _y) <-- -x/y;
+
+100 # Tan(_x)/Sin(_x) <-- (1/Cos(x));
+
+100 # 1/Csch(_x)        <-- Sinh(x);
+
+100 # Sin(_x)/Tan(_x) <-- Cos(x);
+
+100 # Sin(_x)/Cos(_x) <-- Tan(x);
+
+100 # 1/Sech(_x) <-- Cosh(x);
+
+100 # 1/Sec(_x)                <-- Cos(x);
+
+100 # 1/Csc(_x)                <-- Sin(x);
+
+100 # Cos(_x)/Sin(_x) <-- (1/Tan(x));
+
+100 # 1/Cot(_x) <-- Tan(x);
+
+100 # 1/Coth(_x)        <-- Tanh(x);
+
+100 # Sinh(_x)/Cosh(_x) <-- Tanh(x);
+
+150 # (_x) / (_x) ^ (n_Constant?) <-- x^(1-n);
+150 # Sqrt(_x) / (_x) ^ (n_Constant?) <-- x^(1/2-n);
+150 # (_x) ^ (n_Constant?) / Sqrt(_x) <-- x^(n-1/2);
+150 # (_x) / Sqrt(_x) <-- Sqrt(x);
+
+// fractions
+200 # (_x / _y)/ _z <-- x/(y*z);
+230 # _x / (_y / _z) <-- (x*z)/y;
+
+240 # (xlist_List? / ylist_List?)_(Length(xlist)=?Length(ylist)) <--
+         Map("/",{xlist,ylist});
+
+
+250 # (x_List? / _y)_(Not?(List?(y))) <--
+[
+   Local(i,result);
+   result:={};
+   For(i:=1,i<=?Length(x),i++)
+   [ DestructiveInsert(result,i,x[i] / y); ];
+   result;
+];
+
+250 # (_x / y_List?)_(Not?(List?(x))) <--
+[
+   Local(i,result);
+   result:={};
+   For(i:=1,i<=?Length(y),i++)
+   [ DestructiveInsert(result,i,x/y[i]); ];
+   result;
+];
+
+250 # _x / Infinity <-- 0;
+250 # _x / (-Infinity) <-- 0;
+
+
+400 # 0 / _x <-- 0;
+
+400 # x_RationalOrNumber? / Sqrt(y_RationalOrNumber?)  <-- Sign(x)*Sqrt(x^2/y);
+400 # Sqrt(y_RationalOrNumber?) / x_RationalOrNumber?  <-- Sign(x)*Sqrt(y/(x^2));
+400 # Sqrt(y_RationalOrNumber?) / Sqrt(x_RationalOrNumber?)  <-- Sqrt(y/x);
+
+%/mathpiper
+
+
+%mathpiper_docs,name="/",categories="Operators"
+*CMD / --- arithmetic division
+*STD
+*CALL
+
+        x/y
+Precedence:
+*EVAL PrecedenceGet("/")
+
+*PARMS
+
+{x} and {y} -- objects for which arithmetic division is defined
+
+*DESC
+
+The division operator can work on integers,
+rational numbers, complex numbers, vectors, matrices and lists.
+
+This operator is implemented in the standard math library (as opposed
+to being built-in). This means that they can be extended by the user.
+
+*E.G.
+
+In> 6/2
+Result: 3;
+
+*SEE %_v1
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="/",subtype="automatic_test"
+
+Verify(Infinity/Infinity,Undefined);
+Verify(0.0/Sqrt(2),0);
+Verify(0.0000000000/Sqrt(2),0);
+
+%/mathpiper

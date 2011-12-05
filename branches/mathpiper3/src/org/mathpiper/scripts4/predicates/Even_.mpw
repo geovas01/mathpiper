@@ -1,0 +1,33 @@
+%mathpiper,def="Even?"
+
+Even?(n) := Integer?(n) And? ( BitAnd(n,1)  =? 0 );
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Even?",categories="User Functions;Predicates"
+*CMD Even? --- test for an even integer
+*STD
+*CALL
+        Even?(n)
+
+*PARMS
+
+{n} -- integer to test
+
+*DESC
+
+This function tests whether the integer "n" is even. An integer is
+even if it is divisible by two. Hence the even numbers are 0, 2, 4, 6,
+8, 10, etc., and -2, -4, -6, -8, -10, etc.
+
+*E.G.
+
+In> Even?(4);
+Result: True;
+In> Even?(-1);
+Result: False;
+
+*SEE Odd?, Integer?
+%/mathpiper_docs

@@ -1,0 +1,355 @@
+%mathpiper,def="Scalar?;Matrix?;Vector?;SquareMatrix?"
+
+/* def file definitions
+Scalar?
+Matrix?
+Vector?
+SquareMatrix?
+*/
+
+LocalSymbols(p,x)
+[
+// test for a scalar
+Function("Scalar?",{x}) Not?(List?(x));
+
+
+
+// test for a vector
+Function("Vector?",{x})
+   If(List?(x),
+   Length(Select(x, List?))=?0,
+   False);
+
+// test for a vector w/ element test p
+Function("Vector?",{p,x})
+[
+   If(List?(x),
+   [
+      Local(i,n,result);
+      n:=Length(x);
+      i:=1;
+      result:=True;
+      While(i<=?n And? result)
+      [
+         result:=Apply(p,{x[i]});
+         i++;
+      ];
+      result;
+   ],
+   False);
+];
+
+// test for a matrix (dr)
+Function("Matrix?",{x})
+If(List?(x) And? Length(x)>?0,
+[
+   Local(n);
+   n:=Length(x);
+   If(Length(Select(x, Vector?))=?n,
+   MapSingle(Length,x)=?Length(x[1])+ZeroVector(n),
+   False);
+],
+False);
+
+// test for a matrix w/ element test p (dr)
+Function("Matrix?",{p,x})
+If(Matrix?(x),
+[
+   Local(i,j,m,n,result);
+   m:=Length(x);
+   n:=Length(x[1]);
+   i:=1;
+   result:=True;
+   While(i<=?m And? result)
+   [
+      j:=1;
+      While(j<=?n And? result)
+      [
+         result:=Apply(p,{x[i][j]});
+         j++;
+      ];
+      i++;
+   ];
+   result;
+],
+False);
+
+/* remove? (dr)
+SquareMatrix?(_x) <--
+[
+   Local(d);
+   d:=Dimensions(x);
+   Length(d)=2 And? d[1]=?d[2];
+];
+*/
+
+// test for a square matrix (dr)
+Function("SquareMatrix?",{x}) Matrix?(x) And? Length(x)=?Length(x[1]);
+// test for a square matrix w/ element test p (dr)
+Function("SquareMatrix?",{p,x}) Matrix?(p,x) And? Length(x)=?Length(x[1]);
+
+]; // LocalSymbols(p,x)
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Scalar?",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD Scalar? --- test for a scalar
+*STD
+*CALL
+
+        Scalar?(expr)
+
+*PARMS
+
+{expr} -- a mathematical object
+
+*DESC
+
+{Scalar?} returns {True} if {expr} is a scalar, {False} otherwise.
+Something is considered to be a scalar if it's not a list.
+
+*E.G.
+In> Scalar?(7)
+Result: True;
+In> Scalar?(Sin(x)+x)
+Result: True;
+In> Scalar?({x,y})
+Result: False;
+
+*SEE List?, Vector?, Matrix?
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Vector?",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD Vector? --- test for a vector
+*STD
+*CALL
+
+        Vector?(expr)
+
+        Vector?(pred,expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+{pred} -- predicate test (e.g. Number?, Integer?, ...)
+
+*DESC
+
+{Vector?(expr)} returns {True} if {expr} is a vector, {False} otherwise.
+Something is considered to be a vector if it's a list of scalars.
+{Vector?(pred,expr)} returns {True} if {expr} is a vector and if the
+predicate test {pred} returns {True} when applied to every element of
+the vector {expr}, {False} otherwise.
+
+*E.G.
+In> Vector?({a,b,c})
+Result: True;
+In> Vector?({a,{b},c})
+Result: False;
+In> Vector?(Integer?,{1,2,3})
+Result: True;
+In> Vector?(Integer?,{1,2.5,3})
+Result: False;
+
+*SEE List?, Scalar?, Matrix?
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="Matrix?",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD Matrix? --- test for a matrix
+*STD
+*CALL
+        Matrix?(expr)
+
+        Matrix?(pred,expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+{pred} -- predicate test (e.g. Number?, Integer?, ...)
+
+*DESC
+
+{Matrix?(expr)} returns {True} if {expr} is a matrix, {False} otherwise.
+Something is considered to be a matrix if it's a list of vectors of equal
+length.
+{Matrix?(pred,expr)} returns {True} if {expr} is a matrix and if the
+predicate test {pred} returns {True} when applied to every element of
+the matrix {expr}, {False} otherwise.
+
+*E.G.
+
+In> Matrix?(1)
+Result: False;
+In> Matrix?({1,2})
+Result: False;
+In> Matrix?({{1,2},{3,4}})
+Result: True;
+In> Matrix?(Rational?,{{1,2},{3,4}})
+Result: False;
+In> Matrix?(Rational?,{{1/2,2/3},{3/4,4/5}})
+Result: True;
+
+*SEE List?, Vector?
+%/mathpiper_docs
+
+
+
+%mathpiper_docs,name="SquareMatrix?",categories="User Functions;Matrices (Predicates);Predicates"
+*CMD SquareMatrix? --- test for a square matrix
+*STD
+*CALL
+        SquareMatrix?(expr)
+
+        SquareMatrix?(pred,expr)
+
+*PARMS
+
+{expr} -- expression to test
+
+{pred} -- predicate test (e.g. Number?, Integer?, ...)
+
+*DESC
+
+{SquareMatrix?(expr)} returns {True} if {expr} is a square matrix,
+{False} otherwise. Something is considered to be a square matrix if
+it's a matrix having the same number of rows and columns.
+{Matrix?(pred,expr)} returns {True} if {expr} is a square matrix and
+if the predicate test {pred} returns {True} when applied to every
+element of the matrix {expr}, {False} otherwise.
+
+*E.G.
+
+In> SquareMatrix?({{1,2},{3,4}});
+Result: True;
+In> SquareMatrix?({{1,2,3},{4,5,6}});
+Result: False;
+In> SquareMatrix?(Boolean?,{{1,2},{3,4}});
+Result: False;
+In> SquareMatrix?(Boolean?,{{True,False},{False,True}});
+Result: True;
+
+*SEE Matrix?
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Scalar?",subtype="automatic_test"
+
+Verify(Scalar?(a),True);
+Verify(Scalar?({a}),False);
+
+%/mathpiper
+
+
+
+
+%mathpiper,name="Vector?",subtype="automatic_test"
+
+Verify(Vector?(1),False);
+Verify(Vector?(a),False);
+Verify(Vector?(Sin(a)+2),False);
+Verify(Vector?({}),True);
+Verify(Vector?({{}}),False);
+Verify(Vector?({1,2,a,4}),True);
+Verify(Vector?({1,{2,a},4}),False);
+Verify(Vector?({{a,b,c}}),False);
+
+Testing("-- Vector?(Number?)");
+Verify(Vector?(Number?,1),False);
+Verify(Vector?(Number?,{}),True);
+Verify(Vector?(Number?,{a,b,c}),False);
+Verify(Vector?(Number?,{a,2,c}),False);
+Verify(Vector?(Number?,{2,2.5,4}),True);
+Verify(Vector?(Number?,{Pi,2,3}),False);
+Verify(Vector?(Number?,{{1},{2}}),False);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="Vector?",subtype="automatic_test"
+
+Verify(Vector?(1),False);
+Verify(Vector?(a),False);
+Verify(Vector?(Sin(a)+2),False);
+Verify(Vector?({}),True);
+Verify(Vector?({{}}),False);
+Verify(Vector?({1,2,a,4}),True);
+Verify(Vector?({1,{2,a},4}),False);
+Verify(Vector?({{a,b,c}}),False);
+
+Testing("-- Vector?(Number?)");
+Verify(Vector?(Number?,1),False);
+Verify(Vector?(Number?,{}),True);
+Verify(Vector?(Number?,{a,b,c}),False);
+Verify(Vector?(Number?,{a,2,c}),False);
+Verify(Vector?(Number?,{2,2.5,4}),True);
+Verify(Vector?(Number?,{Pi,2,3}),False);
+Verify(Vector?(Number?,{{1},{2}}),False);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="Matrix?",subtype="automatic_test"
+Verify(Matrix?(1),False);
+Verify(Matrix?({}),False);
+Verify(Matrix?({a,b}),False);
+Verify(Matrix?({{}}),True);
+Verify(Matrix?({{a}}),True);
+Verify(Matrix?({{{a}}}),False);
+Verify(Matrix?({{},a}),False);
+Verify(Matrix?({{a},b}),False);
+Verify(Matrix?({{},{}}),True);
+Verify(Matrix?({{{}},{}}),False);
+Verify(Matrix?({{},{{}}}),False);
+Verify(Matrix?({{a,b},{c}}),False);
+Verify(Matrix?({{a,b},{c,d}}),True);
+Verify(Matrix?({{a,b},{c,{d}}}),False);
+Verify(Matrix?({{{}}}), False);
+Verify(Matrix?({{{a}}}), False);
+Verify(Matrix?({{{{a}}},{{{b}}}}),False);
+
+Testing("---- Matrix?(Integer?)");
+Verify(Matrix?(Integer?,{{a,1}}),False);
+Verify(Matrix?(Integer?,{{1,2}}),True);
+Verify(Matrix?(Integer?,{{1,2/3}}),False);
+Verify(Matrix?(Integer?,{{1,2,3},{4,5,6}}),True);
+Verify(Matrix?(Integer?,{{1,{2},3},{4,5,6}}),False);
+Verify(Matrix?(Integer?,{{1,2,3},{4,5}}),False);
+Verify(Matrix?(Integer?,{{Sin(1),2,3},{4,5,6}}),False);
+Verify(Matrix?(Integer?,{{Sin(0),2,3},{4,5,6}}),True);
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="SquareMatrix?",subtype="automatic_test"
+
+Verify(SquareMatrix?({{}}),False);
+Verify(SquareMatrix?({{a}}),True);
+Verify(SquareMatrix?({{},{}}),False);
+Verify(SquareMatrix?({{a,b}}),False);
+Verify(SquareMatrix?({{a,b},{c,d}}),True);
+Verify(SquareMatrix?({{a,b},{c,d},{e,f}}),False);
+Verify(SquareMatrix?({{a,b,c},{d,e,f},{g,h,i}}),True);
+Verify(SquareMatrix?({{a,b,c},{d,e,f}}),False);
+Verify(SquareMatrix?({{{a,b}},{{c,d}}}), False);
+
+%/mathpiper

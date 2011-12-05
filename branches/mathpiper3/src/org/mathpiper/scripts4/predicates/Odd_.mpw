@@ -1,0 +1,33 @@
+%mathpiper,def="Odd?"
+
+Odd?(n)  := Integer?(n) And? ( BitAnd(n,1)  =? 1 );
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Odd?",categories="User Functions;Predicates"
+*CMD Odd? --- test for an odd integer
+*STD
+*CALL
+        Odd?(n)
+
+*PARMS
+
+{n} -- integer to test
+
+*DESC
+
+This function tests whether the integer "n" is odd. An integer is
+odd if it is not divisible by two. Hence the odd numbers are 1, 3, 5,
+7, 9, etc., and -1, -3, -5, -7, -9, etc.
+
+*E.G.
+
+In> Odd?(4);
+Result: False;
+In> Odd?(-1);
+Result: True;
+
+*SEE Even?, Integer?
+%/mathpiper_docs

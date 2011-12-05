@@ -1,0 +1,47 @@
+%mathpiper,def="RootsWithMultiples"
+
+//  polynomials
+
+10 # RootsWithMultiples(poly_CanBeUni) <--
+[
+  Local(factors,result,uni,root,i,deg);
+  factors:=Factors(poly);
+  result:={};
+  ForEach(item,factors)
+  [
+    uni:=MakeUni(item[1]);
+
+    deg:=Degree(uni);
+    If(deg >? 0 And? deg <? 3,
+      [
+        root:= PSolve(uni);
+        If(Not? List?(root),root:={root});
+        For(i:=1,i<=?Length(root),i++)
+          result:= Concat({{root[i],item[2]}}, result);
+      ]
+      );
+  ];
+  result;
+];
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="RootsWithMultiples",categories="User Functions",access="undocumented"
+*CMD RootsWithMultiples --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

@@ -1,0 +1,129 @@
+%mathpiper,def="Differentiate"
+
+RulebaseHoldArguments("Differentiate",{aVar,aFunc});
+RulebaseHoldArguments("Differentiate",{aVar,aCount,aFunc});
+
+RuleHoldArguments("Differentiate",2,1,List?(aVar) And? Not?(List?(aFunc)))
+        Map("Differentiate",{aVar,FillList(aFunc, Length(aVar))});
+RuleHoldArguments("Differentiate",2,1,List?(aVar) And? List?(aFunc))
+        Map("Differentiate",{aVar,aFunc});
+
+RuleHoldArguments("Differentiate",2,3,True)
+[
+  MacroLocal(aVar);
+  Apply("Deriv",{aVar,1,aFunc});
+];
+
+RuleHoldArguments("Differentiate",3,1,List?(aVar) And? Not?(List?(aFunc)))
+        Map("Differentiate",{aVar,
+                 FillList(aCount, Length(aVar)),
+                 FillList(aFunc, Length(aVar))});
+RuleHoldArguments("Differentiate",3,1,List?(aVar) And? List?(aFunc))
+        Map("Differentiate",{aVar,
+                 FillList(aCount, Length(aVar)),
+                 aFunc});
+RuleHoldArguments("Differentiate",3,3,True)
+[
+  MacroLocal(aVar);
+  Apply("Deriv",{aVar,aCount,aFunc});
+];
+
+
+HoldArgument("Differentiate",aVar);
+HoldArgument("Differentiate",aFunc);
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Differentiate",categories="User Functions;Calculus Related (Symbolic)"
+*CMD Differentiate --- take derivative of expression with respect to variable
+*STD
+*CALL
+        Differentiate(variable) expression
+        Differentiate(list) expression
+        Differentiate(variable,n) expression
+
+*PARMS
+
+{variable} -- variable
+
+{list} -- a list of variables
+
+{expression} -- expression to take derivatives of
+
+{n} -- order of derivative
+
+*DESC
+
+This function calculates the derivative of the expression {expr} with
+respect to the variable {var} and returns it. If the third calling
+format is used, the {n}-th derivative is determined. MathPiper knows
+how to differentiate standard functions such as {Ln}
+and {Sin}.
+
+The {Differentiate} operator is threaded in both {var} and
+{expr}. This means that if either of them is a list, the function is
+applied to each entry in the list. The results are collected in
+another list which is returned. If both {var} and {expr} are a
+list, their lengths should be equal. In this case, the first entry in
+the list {expr} is differentiated with respect to the first entry in
+the list {var}, the second entry in {expr} is differentiated with
+respect to the second entry in {var}, and so on.
+
+The {Differentiate} operator returns the original function if $n=0$, a common
+mathematical idiom that simplifies many formulae.
+
+*E.G.
+
+In> Differentiate(x)Sin(x*y)
+Result: y*Cos(x*y);
+In> Differentiate({x,y,z})Sin(x*y)
+Result: {y*Cos(x*y),x*Cos(x*y),0};
+In> Differentiate(x,2)Sin(x*y)
+Result: -Sin(x*y)*y^2;
+In> Differentiate(x){Sin(x),Cos(x)}
+Result: {Cos(x),-Sin(x)};
+
+*SEE Integrate, Taylor, Diverge, Curl
+%/mathpiper_docs
+
+
+
+
+%mathpiper,name="Differentiate",subtype="automatic_test"
+
+Verify(Differentiate(x) a,0);
+Verify(Differentiate(x) x,1);
+Verify(Differentiate(x) (x+x),2);
+Verify(Differentiate(x) (x*x),2*x);
+Verify(Differentiate(x) Differentiate(x) Sin(x),-Sin(x));
+
+Verify([Local(poly); poly := x^2; Differentiate(x) poly;], 2*x);
+
+[
+  /*
+      Differentiate does not currently work when the expression is in a local variable.
+      This test actually fails but the failure happens to return a 0 which matches
+      the expected value.
+      THIS HAS BEEN CORRECTED.
+  */
+  Local(z);
+  // This function satisfies Laplaces eqn: Differentiate(x,2)z + Differentiate(y,2)z = 0
+  z:= ArcTan((2*x*y)/(x^2 - y^2));
+  Verify(Simplify((Differentiate(x,2) z) + Differentiate(y,2) z), 0 );
+];
+
+Verify( Differentiate(x,0) Sin(x), Sin(x) );
+
+RulebaseHoldArguments("f",{x,t});
+Verify(Differentiate(t) Integrate(x,a,b) f(x,t), Integrate(x,a,b) Deriv(t)f(x,t));
+Retract("f",2);
+
+
+/* Bug #6 */
+KnownFailure((Differentiate(z) Conjugate(z)) =? Undefined);
+
+%/mathpiper
+
+

@@ -1,0 +1,191 @@
+%mathpiper,def="Simplify"
+
+//Retract("Simplify",*);
+
+10 # Simplify(expr_List?) <-- MapSingle("Simplify",expr);
+
+15 # Simplify(Complex(_r,_i)) <-- Complex(Simplify(r),Simplify(i));
+
+20 # Simplify((_xex) == (_yex)) <-- (Simplify(xex-yex) == 0);
+
+20 # Simplify((_xex) >? (_yex)) <-- (Simplify(xex-yex) >? 0);
+20 # Simplify((_xex) <? (_yex)) <-- (Simplify(xex-yex) <? 0);
+20 # Simplify((_xex) >=? (_yex)) <-- (Simplify(xex-yex) >=? 0);
+20 # Simplify((_xex) <=? (_yex)) <-- (Simplify(xex-yex) <=? 0);
+20 # Simplify((_xex) !== (_yex)) <-- (Simplify(xex-yex) !== 0);
+
+// conditionals
+25 # Simplify(if (_a) _b) <-- "if" @ {Simplify(a), Simplify(b)};
+25 # Simplify(_a else _b) <-- "else" @ {Simplify(a), Simplify(b)};
+
+// otherwise
+40 # Simplify(_expr)_(Type(expr)=?"Ln") <--
+[
+    //If(InVerboseMode(),Tell("Simplify_Ln",expr));
+    LnCombine(expr);
+];
+
+40 # Simplify(_expr)_(Type(expr)=?"Exp") <--
+[
+    //If(InVerboseMode(),Tell("Simplify_Exp",expr));
+    expr;
+];
+
+50 # Simplify(_expr) <-- 
+[
+    //If(InVerboseMode(),Tell("Simplify_other",expr));
+    MultiSimp(Eval(expr));
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Simplify",categories="User Functions;Expression Simplification"
+*CMD Simplify --- try to simplify an expression
+*STD
+*CALL
+        Simplify(expr)
+
+*PARMS
+
+{expr} -- expression to simplify
+
+*DESC
+
+This function tries to simplify the expression {expr} as much
+as possible. It does this by grouping powers within terms, and then
+grouping similar terms.
+
+*E.G.
+
+In> a*b*a^2/b-a^3
+Result: (b*a^3)/b-a^3;
+In> Simplify(a*b*a^2/b-a^3)
+Result: 0;
+
+*SEE TrigSimpCombine, RadSimp, Combine
+%/mathpiper_docs
+
+
+
+
+
+%mathpiper,name="Simplify",subtype="automatic_test"
+
+TestMathPiper( Simplify((x+y)*(x-y)-(x+y)^2), -2*y^2-2*x*y );
+TestMathPiper( Simplify(1+x+x+3*y-4*(x+y+2)), -2*x-y-7 );
+TestMathPiper( Simplify((1+I)^4), -4 );
+TestMathPiper( Simplify((x-y)/(x*y)), 1/y-1/x );
+//See below, now handled with II KnownFailure(TestMathPiper( Simplify((x+I)^4), x^4+4*x^3*I-6*x^2-4*x*I+1 ));
+
+TestMathPiper( Simplify((xx+II)^4), xx^4+4*xx^3*II-6*xx^2-4*xx*II+1 );
+
+TestMathPiper( Simplify(Differentiate(x,4)Exp(-x^2/2)), Exp(-x^2/2)*(x^4-6*x^2+3));
+
+TestMathPiper( Simplify(1),1);
+TestMathPiper( Simplify(1/x ), 1/x );
+TestMathPiper( Simplify( 1/(1/x+1) ),x/(x+1) );
+TestMathPiper( Simplify(1/(1/(1/x+1)+1) ),(x+1)/(2*x+1) );
+TestMathPiper( Simplify(1/(1/(1/(1/x+1)+1)+1) ),(2*x+1)/(3*x+2) );
+TestMathPiper( Simplify(1/(1/(1/(1/(1/x+1)+1)+1)+1) ),(3*x+2)/(5*x+3) );
+TestMathPiper( Simplify(1/(1/(1/(1/(1/(1/x+1)+1)+1)+1)+1) ),(5*x+3)/(8*x+5) );
+
+
+
+/*Serge: these are not handled yet ;-)
+TestMathPiper( Simplify((x^2-y^2)/(x+y)), x-y );
+*/
+
+TestMathPiper(ExpandFrac(x+y/x+1/3),(x^2+y+x/3)/x);
+
+// this did not work until the latest fix to ExpandBrackets using MM()
+Verify(
+ExpandBrackets(x*(a+b)*y*z)
+, x*a*y*z+x*b*y*z
+);
+
+Verify(
+ExpandBrackets(ExpandFrac((x+1)/(x-1)+1/x))
+, Hold(x^2/(x^2-x)+(2*x)/(x^2-x)-1/(x^2-x))
+);
+
+// these used to fail. Added by Serge, resolved by Ayal
+Verify([Local(a);a:=0.1;Simplify(a*b);], 0.1*b);
+Verify([Local(a);a:=0.1;Simplify(a/b);], 0.1/b);
+
+
+
+
+Verify([Local(a);a:=0.1;Simplify((a*b*c)/(a*c*b));],1);
+
+
+LocalSymbols(p,a,x)
+[
+  p := a+2-(a+1);
+  Verify(Simplify(x^p),x);
+];
+
+
+LocalSymbols(f,p,a,b,x,n,simple,u,v)
+[
+  simple := {
+            Exp(_a)*Exp(_b) <- Exp(a+b),
+            Exp(_a)*_u*Exp(_b) <- u*Exp(a+b),
+            _u*Exp(_a)*Exp(_b) <- u*Exp(a+b),
+            Exp(_a)*Exp(_b)*_u <- u*Exp(a+b),
+            _u*Exp(_a)*_v*Exp(_b) <- u*v*Exp(a+b),
+            Exp(_a)*_u*Exp(_b)*_v <- u*v*Exp(a+b),
+            _u*Exp(_a)*Exp(_b)*_v <- u*v*Exp(a+b),
+            _u*Exp(_a)*_v*Exp(_b)*_w <- u*v*w*Exp(a+b)
+          };
+
+  a := Simplify(Exp(x)*(Differentiate(x) x*Exp(-x)));
+  b := Exp(x)*Exp(-x)-Exp(x)*x*Exp(-x);
+
+  a:= (a /: simple);
+  b:= (b /: simple);
+
+  Verify(Simplify(a-(1-x)),0);
+  Verify(Simplify(b-(1-x)),0);
+
+];
+
+
+// The following line catches a bug reported where Simplify
+// would go into an infinite loop. It doesn't check the correctness
+// of the returned value as such, but merely the fact that this
+// simplification terminates in the first place.
+//
+// The problem was caused by a gcd calculation (from the multivariate
+// code) not terminating.
+Verify( Simplify((a^2+b^2)/(2*a)), (a^2+b^2)/(2*a) );
+
+
+/* Bug #10: I don't know what we want to return, but '0' is definitely wrong! */
+Verify(Simplify(x^(-2)/(1-x)^3) !=? 0, True);
+
+
+/* In MatchLinear and MatchPureSquare, the matched coefficients were
+ * assigned to global variables that were not protected with LocalSymbols.
+ */
+[
+  Local(a,b,A);
+  a:=mystr;
+  A:=mystr;
+  /* The real test here is that no error is generated due to the
+   * fact that variables a or A are set.
+   */
+  Verify(Simplify((Integrate(x,a,b)Sin(x))-Cos(a)+Cos(b)),0);
+];
+
+
+/* Bug reported by Michael Borcherds: Simplify(((4*x)-2.25)/2)
+   returned some expression with three calls to Gcd, which was technically
+   correct, but not the intended simplification.
+ */
+Verify(Zero?(Simplify(Simplify(((4*x)-2.25)/2)-(2*x-2.25/2))),True);
+
+
+
+%/mathpiper

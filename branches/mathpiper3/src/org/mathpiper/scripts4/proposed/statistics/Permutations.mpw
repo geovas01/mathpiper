@@ -1,0 +1,69 @@
+%mathpiper,def="Permutations"
+
+//Retract("Permutations", *);
+
+Permutations(n) :=
+[
+    Check(Integer?(n), "Argument", "Argument must be an integer");
+
+    n!;
+];
+
+
+Permutations(n, r) :=
+[
+    Check(Integer?(n), "Argument", "Argument 1 must be an integer");
+    
+    Check(Integer?(r), "Argument", "Argument 2 must be an integer");
+    
+    n! /(n-r)!;
+];
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="Permutations",categories="User Functions;Combinatorics",access="experimental"
+*CMD Permutations --- number of permutations
+*STD
+*CALL
+    Permutations(n)
+    Permutations(n, r)
+
+*PARMS
+
+{n} -- integer - total number of objects
+{r} -- integer - number of objects chosen
+
+*DESC
+
+In combinatorics, this function is thought of as being the number of ways
+to choose "r" objects out of a total of "n" objects if order is taken into account.
+
+The single parameter version of the function is a convenience function for
+calculating the number of ways to choose "n" objects out of "n" objects.
+
+*E.G.
+In> Permutations(5)
+Result> 120
+
+In> Permutations(10,3)
+Result> 720
+
+*SEE PermutationsList, Combinations, CombinationsList, LeviCivita
+%/mathpiper_docs
+
+
+
+
+
+
+%mathpiper,scope="nobuild",subtype="manual_test"
+
+Permutations(4);
+
+%/mathpiper
+
+

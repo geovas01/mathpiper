@@ -1,0 +1,124 @@
+%mathpiper,def="DisassembleExpression"
+
+//Retract("DisassembleExpression",*);
+
+10 # DisassembleExpression( _expr ) <--
+[
+    Local(vars);
+    vars := MultiExpressionList( expr );
+    DisassembleExpression( expr, vars );
+];
+
+10 # DisassembleExpression( _expr, vars_List? ) <--
+[
+    Local(mexpr,func,termList,result,powers,coeffs);
+    mexpr    := MakeMultiNomial(expr,vars);
+    func     := Lambda({x,y},If(y!=?0,DestructiveAppend(termList,{x,y})));
+    termList := {};
+    ScanMultiNomial(func,mexpr);
+    result   := Concat({vars},Transpose(termList));
+];
+
+%/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
+
+
+
+
+%mathpiper_docs,name="DisassembleExpression",categories="User Functions;Polynomials (Operations)"
+
+*CMD DisassembleExpression --- returns a list describing composition of an expression
+
+*STD
+*CALL
+        DisassembleExpression(expr)
+        DisassembleExpression(expr,vars)
+
+*PARMS
+
+{expr} -- an expression
+
+{vars} -- a list of variable names
+
+*DESC
+
+This function is primarily used to succinctly describe the components of a
+polynomial, but it can also be used with some non-polynomial expressions.  
+
+The command {DisassembleExpression(expr)} returns a list composed of three elements:
+
+    1. a list of the variable names in the expression
+    
+    2. a list of the powers of each variable in each term
+    
+    3. a list of the coefficients of these powers in each term
+    
+This list-of-lists comprises in essence a sparse database containing a 
+complete representation of the expression.  Any function which needs to 
+examine and process the terms of an expression, in sequence, can use
+{DisassembleExpression} as a starting point.
+
+If the first form, {DisassembleExpression(expr)}, is used, MathPiper will
+employ the function "MultiExpressionList" to try to extract the names of all the
+"variables" in the expression -- which may or may not result in
+the list you would prefer to get.  In particular, if {expr} contains
+"parameters" in addition to "variables", MathPiper cannot distinguish them,
+and considers them all to be "variables".
+This is where the user should employ the second form, in which a preferred set
+of variables is explicitly given.  See the examples below.
+
+The pair of functions, {DisassembleExpression} and {ReassembleListTerms}, 
+together constitute a foundation for the analysis of polynomials and -- more
+generally -- any expressions which can be regarded as sum or difference of terms.
+
+*E.G.
+In> uu:=ExpandBrackets((x+1)^4)
+Result: x^4+4*x^3+6*x^2+4*x+1
+
+In> DisassembleExpression(uu)
+Result: {{x},{{4},{3},{2},{1},{0}},{1,4,6,4,1}}
+    clear signature of binomial expansion in coefficients list
+
+In> vv:=ExpandBrackets((x+y)^4)
+Result: x^4+4*x^3*y+6*x^2*y^2+4*x*y^3+y^4
+
+In> DisassembleExpression(vv)
+Result: {{x,y},{{4,0},{3,1},{2,2},{1,3},{0,4}},{1,4,6,4,1}}
+    same signature
+
+In> vv:=ExpandBrackets((a*x+b*y)^4)
+Result: a^4*x^4+4*a^3*x^3*b*y+6*a^2*x^2*b^2*y^2+4*a*x*b^3*y^3+b^4*y^4
+
+In> DisassembleExpression(vv)
+Result: {{a,x,b,y},{{4,4,0,0},{3,3,1,1},{2,2,2,2},{1,1,3,3},{0,0,4,4}},{1,4,6,4,1}}
+    parameters {a,b} mistaken for variables, but binomial signature still visible
+
+In> DisassembleExpression(vv,{x,y})
+Result: {{x,y},{{4,0},{3,1},{2,2},{1,3},{0,4}},{a^4,4*b*a^3,6*b^2*a^2,4*b^3*a,b^4}}
+    user guidance helps distinguish parameters from variables,
+    but binomial signature still visible
+
+In> ww:=x+2*Sqrt(x)+1
+Result: x+2*Sqrt(x)+1
+
+In> DisassembleExpression(ww)
+Result: {{x,Sqrt(x)},{{1,0},{0,1},{0,0}},{1,2,1}}
+    {MultiExpressionList} identified as "variables" both {x} and
+    {Sqrt(x)} -- we call the latter a {quasi-variable}.  See documentation for
+    {ReassembleListTerms} for an example of how this can be used to perform
+    automatic substitution of variables.
+
+*SEE MultiExpressionList, ReassembleListTerms,MM
+%/mathpiper_docs
+
+    %output,preserve="false"
+      
+.   %/output
+
+
+
+
+

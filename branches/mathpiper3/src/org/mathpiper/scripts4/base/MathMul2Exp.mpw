@@ -1,0 +1,31 @@
+%mathpiper,def="MathMul2Exp"
+
+// MathMul2Exp: multiply x by 2^n quickly (for integer n)
+// this should really be implemented in the core as a call to BigNumber::ShiftRight or ShiftLeft
+Defun("MathMul2Exp", {x,n})        // avoid roundoff by not calculating 1/2^n separately
+        If(GreaterThan?(n,0), MultiplyN(x, MathIntPower(2,n)), DivideN(x, MathIntPower(2,MathNegate(n))));
+// this doesnt work because ShiftLeft/Right dont yet work on floats
+//        If(GreaterThan?(n,0), ShiftLeft(x,n), ShiftRight(x,n)
+//        );
+
+%/mathpiper
+
+
+
+
+
+%mathpiper_docs,name="MathMul2Exp",categories="User Functions",access="undocumented"
+*CMD MathMul2Exp --- *** UNDOCUMENTED ***
+
+*CALL
+        ?
+
+*PARMS
+
+?
+
+*DESC
+
+?
+
+%/mathpiper_docs

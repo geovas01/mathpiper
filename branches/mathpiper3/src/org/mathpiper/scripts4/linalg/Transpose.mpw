@@ -1,0 +1,36 @@
+%mathpiper,def="Transpose"
+
+Transpose(matrix_List?)_(Length(Dimensions(matrix))>?1) <--
+[
+  Local(i,j,result);
+  result:=ZeroMatrix(Length(matrix[1]),Length(matrix));
+  For(i:=1,i<=?Length(matrix),i++)
+    For(j:=1,j<=?Length(matrix[1]),j++)
+      result[j][i]:=matrix[i][j];
+  result;
+];
+
+%/mathpiper
+
+
+
+%mathpiper_docs,name="Transpose",categories="User Functions;Linear Algebra"
+*CMD Transpose --- get transpose of a matrix
+*STD
+*CALL
+        Transpose(M)
+
+*PARMS
+
+{M} -- a matrix
+
+*DESC
+
+{Transpose} returns the transpose of a matrix $M$. Because matrices are
+just lists of lists, this is a useful operation too for lists.
+
+*E.G.
+
+In> Transpose({{a,b}})
+Result: {{a},{b}};
+%/mathpiper_docs

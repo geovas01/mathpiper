@@ -1,0 +1,37 @@
+%mathpiper,def="FloatIsInt?"
+
+/// TODO FIXME document this: FloatIsInt? returns True if the argument is integer after removing potential trailing
+/// zeroes after the decimal point
+// but in fact this should be a call to BigNumber::IsIntValue()
+FloatIsInt?(_x) <--
+   [
+     x:=N(Eval(x));
+     Local(prec,result,n);
+     Bind(prec,BuiltinPrecisionGet());
+     If(Zero?(x),Bind(n,2),
+     If(x>?0,
+       Bind(n,2+FloorN(N(FastLog(x)/FastLog(10)))),
+       Bind(n,2+FloorN(N(FastLog(-x)/FastLog(10))))
+       ));
+     BuiltinPrecisionSet(n+prec);
+     Bind(result,Zero?(RoundTo(x-Floor(x),prec)) Or? Zero?(RoundTo(x-Ceil(x),prec)));
+     BuiltinPrecisionSet(prec);
+     result;
+   ];
+//  
+
+%/mathpiper
+
+
+
+
+
+%mathpiper,name="FloatIsInt?",subtype="automatic_test"
+
+// Problem with FloatIsInt? and gmp
+Verify(FloatIsInt?(3.1415926535e9), False);
+Verify(FloatIsInt?(3.1415926535e10), True);
+Verify(FloatIsInt?(3.1415926535e20), True);
+Verify(FloatIsInt?(0.3e20), True);
+
+%/mathpiper

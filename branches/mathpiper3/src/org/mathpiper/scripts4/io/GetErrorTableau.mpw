@@ -1,0 +1,112 @@
+%mathpiper,def="GetErrorTableau;ClearErrors;GetError;CheckErrorTableau"
+
+/* def file definitions
+ClearErrors
+GetError
+*/
+
+//////////////////////////////////////////////////
+/// ErrorTableau, Assert, Error? --- global error reporting
+//////////////////////////////////////////////////
+
+LocalSymbols(ErrorTableau) [
+
+  /// global error tableau. Its entries do not have to be lists.
+  Bind(ErrorTableau, {});
+
+  GetErrorTableau() := ErrorTableau;
+
+  ClearErrors() <-- Bind(ErrorTableau, {});
+
+  /// aux function to check for corrupt tableau
+  CheckErrorTableau() <--
+  If(
+    Not? List?(ErrorTableau),
+    Bind(ErrorTableau, {{"general", "corrupted ErrorTableau"}})
+  );
+
+]; // LocalSymbols(ErrorTableau)
+
+
+/// obtain error object
+GetError(errorclass_String?) <--
+[
+        Local(error);
+        error := GetErrorTableau()[errorclass];
+        If(
+                error !=? Empty,
+                error,
+                False
+        );
+];
+
+
+/// delete error
+ClearError(errorclass_String?) <-- AssocDelete(GetErrorTableau(), errorclass);
+
+%/mathpiper
+
+
+
+
+%mathpiper_docs,name="ClearErrors",categories="Programmer Functions;Error Reporting",access="private"
+*CMD ClearErrors --- simple error handlers
+*STD
+*CALL
+        ClearErrors()
+
+*DESC
+
+{ClearErrors} is a trivial error handler that does nothing except it clears the tableau.
+
+*SEE Assert, Error?, DumpErrors
+
+%/mathpiper_docs
+
+
+
+
+%mathpiper_docs,name="GetError;ClearError;GetErrorTableau",categories="Programmer Functions;Error Reporting",access="private"
+*CMD GetError --- custom errors handlers
+*CMD ClearError --- custom errors handlers
+*CMD GetErrorTableau --- custom errors handlers
+*STD
+*CALL
+        GetError("str")
+        ClearError("str")
+        GetErrorTableau()
+
+*PARMS
+
+{"str"} -- string to classify the error
+
+*DESC
+
+These functions can be used to create a custom error handler.
+
+{GetError} returns the error object if a custom error of class {"str"} has been
+reported using {Assert}, or {False} if no errors of this class have been
+reported.
+
+{ClearError("str")} deletes the same error object that is returned by
+{GetError("str")}. It deletes at most one error object. It returns {True} if an
+object was found and deleted, and {False} otherwise.
+
+{GetErrorTableau()} returns the entire association list of currently reported errors.
+
+*E.G.
+
+In> x:=1
+Result: 1;
+In> Assert("bad value", {x,"must be zero"}) x=0
+Result: False;
+In> GetError("bad value")
+Result: {1, "must be zero"};
+In> ClearError("bad value");
+Result: True;
+In> Error?()
+Result: False;
+
+*SEE Error?, Assert, Check, ClearErrors
+
+%/mathpiper_docs
