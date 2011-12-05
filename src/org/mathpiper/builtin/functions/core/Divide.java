@@ -43,23 +43,23 @@ public class Divide extends BuiltinFunction
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
-        BigNumber z = new BigNumber(aEnvironment.getPrecision());
+        BigNumber z = new BigNumber(aEnvironment.iPrecision);
         // if both arguments are integers, then BigNumber::Divide would perform an integer divide, but we want a float divide here.
         if (x.isInteger() && y.isInteger())
         {
             // why can't we just say BigNumber temp; ?
-            BigNumber tempx = new BigNumber(aEnvironment.getPrecision());
+            BigNumber tempx = new BigNumber(aEnvironment.iPrecision);
             tempx.setTo(x);
-            tempx.becomeFloat(aEnvironment.getPrecision());  // coerce x to float
+            tempx.becomeFloat(aEnvironment.iPrecision);  // coerce x to float
 
-            BigNumber tempy = new BigNumber(aEnvironment.getPrecision());
+            BigNumber tempy = new BigNumber(aEnvironment.iPrecision);
             tempy.setTo(y);
-            tempy.becomeFloat(aEnvironment.getPrecision());  // coerce x to float
+            tempy.becomeFloat(aEnvironment.iPrecision);  // coerce x to float
 
-            z.divide(tempx, tempy, aEnvironment.getPrecision());
+            z.divide(tempx, tempy, aEnvironment.iPrecision);
         } else
         {
-            z.divide(x, y, aEnvironment.getPrecision());
+            z.divide(x, y, aEnvironment.iPrecision);
         }
         setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
         return;

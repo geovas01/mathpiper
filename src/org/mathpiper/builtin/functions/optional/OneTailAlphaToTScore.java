@@ -16,7 +16,7 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
     public void plugIn(Environment aEnvironment) throws Exception
     {
         this.functionName = "OneTailAlphaToTScore";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
@@ -32,7 +32,7 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
 
         double cdf = Probability.studentTInverse(alpha.toDouble()*2, (int) degreesOfFreedom.toLong());
 
-        BigNumber tScore = new BigNumber(aEnvironment.getPrecision());
+        BigNumber tScore = new BigNumber(aEnvironment.iPrecision);
 
         tScore.setTo(cdf);
 

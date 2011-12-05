@@ -60,9 +60,9 @@ public class Add extends BuiltinFunction
         {
             BigNumber x = Utility.getNumber(aEnvironment, aStackTop, 1);
             BigNumber y = Utility.getNumber(aEnvironment, aStackTop, 2);
-            int bin = aEnvironment.getPrecision();
+            int bin = aEnvironment.iPrecision;
             BigNumber z = new BigNumber(bin);
-            z.add(x, y, aEnvironment.getPrecision());
+            z.add(x, y, aEnvironment.iPrecision);
             setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         }

@@ -50,7 +50,7 @@ public class FromBase extends BuiltinFunction
         Cons oper = getArgumentPointer(aEnvironment, aStackTop, 1);
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
-        BigNumber num = (BigNumber)  oper.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber num = (BigNumber)  oper.getNumber(aEnvironment.iPrecision, aEnvironment);
         if( num == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         // check that the base is an integer between 2 and 32
         if(! num.isInteger()) LispError.checkArgument(aEnvironment, aStackTop, 1);
@@ -66,10 +66,10 @@ public class FromBase extends BuiltinFunction
 
         // Added, unquote a string
         if(! Utility.isString(str2)) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        str2 = aEnvironment.getTokenHash().lookUpUnStringify(str2);
+        str2 = aEnvironment.iTokenHash.lookUpUnStringify(str2);
 
         // convert using correct base
-        BigNumber z = new BigNumber(str2, aEnvironment.getPrecision(), base);
+        BigNumber z = new BigNumber(str2, aEnvironment.iPrecision, base);
         setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }

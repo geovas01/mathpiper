@@ -45,10 +45,10 @@ public class AtomCons extends Cons
         if (Utility.isNumber(aString, true))  // check if aString is a number (int or float)
         {
             /// construct a number from a decimal string representation (also create a number object)
-            self = new NumberCons(aString, aEnvironment.getPrecision());
+            self = new NumberCons(aString, aEnvironment.iPrecision);
         } else
         {
-            self = new AtomCons((String)aEnvironment.getTokenHash().lookUp(aString));
+            self = new AtomCons((String)aEnvironment.iTokenHash.lookUp(aString));
         }
         
         //LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, ""," INTERNAL");

@@ -55,7 +55,7 @@ public class ViewLatex extends BuiltinFunction {
     public void plugIn(Environment aEnvironment)  throws Exception
     {
         this.functionName = "ViewLatexInternal";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
 
        String[] parameters = new String[] {"expression","size"};
@@ -94,7 +94,7 @@ public class ViewLatex extends BuiltinFunction {
 
         Cons viewScalePointer = getArgumentPointer(aEnvironment, aStackTop, 2);
         Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScalePointer);
-        BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.iPrecision, aEnvironment);
         if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         /*sHotEqn hotEqn = new sHotEqn();

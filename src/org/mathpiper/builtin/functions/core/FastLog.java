@@ -44,7 +44,7 @@ public class FastLog extends BuiltinFunction
         BigNumber x;
         x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         double result = Math.log(x.toDouble());
-        BigNumber z = new BigNumber(aEnvironment.getPrecision());
+        BigNumber z = new BigNumber(aEnvironment.iPrecision);
         z.setTo(result);
         setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }

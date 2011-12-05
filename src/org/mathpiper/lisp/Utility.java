@@ -342,9 +342,9 @@ public class Utility {
 
     public static String getSymbolName(Environment aEnvironment, String aSymbol) {
         if (aSymbol.charAt(0) == '\"') {
-            return aEnvironment.getTokenHash().lookUpUnStringify(aSymbol);
+            return aEnvironment.iTokenHash.lookUpUnStringify(aSymbol);
         } else {
-            return (String) aEnvironment.getTokenHash().lookUp(aSymbol);
+            return (String) aEnvironment.iTokenHash.lookUp(aSymbol);
         }
     }
 
@@ -530,8 +530,8 @@ public class Utility {
         }
         //LispError.check(aExpression1.type().equals("Number"), LispError.INVALID_ARGUMENT);
         //LispError.check(aExpression2.type().equals("Number"), LispError.INVALID_ARGUMENT);
-        BigNumber n1 = (BigNumber) aExpression1.getNumber(aEnvironment.getPrecision(), aEnvironment);
-        BigNumber n2 = (BigNumber) aExpression2.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber n1 = (BigNumber) aExpression1.getNumber(aEnvironment.iPrecision, aEnvironment);
+        BigNumber n2 = (BigNumber) aExpression2.getNumber(aEnvironment.iPrecision, aEnvironment);
         if (!(n1 == null && n2 == null)) {
             if (n1 == n2) {
                 return true;
@@ -696,7 +696,7 @@ public class Utility {
             aEnvironment.setCurrentInput(aInput);
             // TODO make "EndOfFile" a global thing
             // read-parse-evaluate to the end of file
-            String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
+            String eof = (String) aEnvironment.iTokenHash.lookUp("EndOfFile");
             boolean endoffile = false;
 
             MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(), aEnvironment.getCurrentInput(), aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
@@ -864,7 +864,7 @@ public class Utility {
      */
     public static BigNumber getNumber(Environment aEnvironment, int aStackTop, int aArgNr) throws Exception {
         //LispError.check(BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, aArgNr).type().equals("Number"), LispError.INVALID_ARGUMENT);
-        BigNumber x = (BigNumber) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, aArgNr).getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber x = (BigNumber) BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, aArgNr).getNumber(aEnvironment.iPrecision, aEnvironment);
         if( x == null) LispError.checkArgument(aEnvironment, aStackTop, aArgNr);
         return x;
     }

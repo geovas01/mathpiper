@@ -44,7 +44,7 @@ public class RoundToN extends BuiltinFunction
 
             BigNumber decimalToBeRounded = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-            if(decimalToBeRounded.getPrecision() != requestedPrecision.toInt())
+            if(decimalToBeRounded.iPrecision != requestedPrecision.toInt())
             {
                 decimalToBeRounded.setPrecision(requestedPrecision.toInt());
             }
@@ -66,18 +66,18 @@ public class RoundToN extends BuiltinFunction
             {
                 consPointer = consPointer.cdr();
 
-                BigNumber realPart = (BigNumber) ((NumberCons) consPointer).getNumber(aEnvironment.getPrecision(), aEnvironment);
+                BigNumber realPart = (BigNumber) ((NumberCons) consPointer).getNumber(aEnvironment.iPrecision, aEnvironment);
 
-                if(realPart.getPrecision() != requestedPrecision.toInt())
+                if(realPart.iPrecision != requestedPrecision.toInt())
                 {
                     realPart.setPrecision(requestedPrecision.toInt());
                 }//end if.
 
                 consPointer = consPointer.cdr();
 
-                BigNumber imaginaryPart = (BigNumber) ((NumberCons) consPointer).getNumber(aEnvironment.getPrecision(), aEnvironment);
+                BigNumber imaginaryPart = (BigNumber) ((NumberCons) consPointer).getNumber(aEnvironment.iPrecision, aEnvironment);
 
-                if(imaginaryPart.getPrecision() != requestedPrecision.toInt())
+                if(imaginaryPart.iPrecision != requestedPrecision.toInt())
                 {
                     imaginaryPart.setPrecision(requestedPrecision.toInt());
                 }//end if.

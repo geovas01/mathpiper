@@ -53,8 +53,8 @@ abstract public class LexCompare2
 
 
         boolean cmp;
-        BigNumber n1 = (BigNumber) argument1.getNumber(aEnvironment.getPrecision(), aEnvironment);
-        BigNumber n2 = (BigNumber) argument2.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber n1 = (BigNumber) argument1.getNumber(aEnvironment.iPrecision, aEnvironment);
+        BigNumber n2 = (BigNumber) argument2.getNumber(aEnvironment.iPrecision, aEnvironment);
 
         if (n1 != null && n2 != null)
         {
@@ -70,8 +70,8 @@ abstract public class LexCompare2
             if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
             // the getPrecision argument is ignored in "lex" functions
             cmp = lexFunction(str1, str2,
-                    aEnvironment.getTokenHash(),
-                    aEnvironment.getPrecision());
+                    aEnvironment.iTokenHash,
+                    aEnvironment.iPrecision);
         }
 
         BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, cmp));

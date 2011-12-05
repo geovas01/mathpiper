@@ -55,7 +55,7 @@ public class FastArcSin extends BuiltinFunction
             LispError.raiseError("The argument must have a value between -1 and 1.", aStackTop, aEnvironment);
         }
 
-        BigNumber z = new BigNumber(aEnvironment.getPrecision());
+        BigNumber z = new BigNumber(aEnvironment.iPrecision);
 
         z.setTo(result);
 

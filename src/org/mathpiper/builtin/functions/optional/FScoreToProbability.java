@@ -16,7 +16,7 @@ public class FScoreToProbability extends BuiltinFunction{
     public void plugIn(Environment aEnvironment) throws Exception
     {
         this.functionName = "FScoreToProbability";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
@@ -39,7 +39,7 @@ public class FScoreToProbability extends BuiltinFunction{
 
         double probability = fDistribution.cumulative(fScore.toDouble());
 
-        BigNumber cumulativeProbability = new BigNumber(aEnvironment.getPrecision());
+        BigNumber cumulativeProbability = new BigNumber(aEnvironment.iPrecision);
 
         cumulativeProbability.setTo(probability);
 

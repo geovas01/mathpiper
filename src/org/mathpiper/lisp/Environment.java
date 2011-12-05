@@ -59,8 +59,8 @@ public final class Environment {
 
     public ArgumentStack iArgumentStack;
     public Evaluator iLispExpressionEvaluator = new LispExpressionEvaluator();
-    private int iPrecision = 10;
-    private TokenMap iTokenHash = new TokenMap();
+    public int iPrecision = 10;
+    public TokenMap iTokenHash = new TokenMap();
     public Cons iTrueAtom;
     public final String iTrueString;
     public Cons iFalseAtom;
@@ -99,7 +99,7 @@ public final class Environment {
     public MathPiperTokenizer iXmlTokenizer = new XmlTokenizer();
     public MathPiperMap iGlobalState = new MathPiperMap();
     public MathPiperMap iUserRulebases = new MathPiperMap();
-    MathPiperMap iBuiltinFunctions = new MathPiperMap();
+    public MathPiperMap iBuiltinFunctions = new MathPiperMap();
     public Throwable iException = null;
     public InputDirectories iInputDirectories = new InputDirectories();
     public String iPrettyReaderName = null;
@@ -108,6 +108,9 @@ public final class Environment {
     public static boolean haltEvaluation = false;
     public boolean saveDebugInformation = false;
 
+
+
+    
     public Environment(MathPiperOutputStream aCurrentOutput/*TODO FIXME*/) throws Exception {
         iCurrentTokenizer = iDefaultTokenizer;
         iInitialOutput = aCurrentOutput;
@@ -124,24 +127,24 @@ public final class Environment {
 
         iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
-        iTrueAtom = new AtomCons((String)getTokenHash().lookUp("True"));
+        iTrueAtom = new AtomCons((String)iTokenHash.lookUp("True"));
         iTrueString = (String) iTrueAtom.car();
-        iFalseAtom = new AtomCons((String)getTokenHash().lookUp("False"));
+        iFalseAtom = new AtomCons((String)iTokenHash.lookUp("False"));
         iFalseString = (String) iFalseAtom.car();
-        iEndOfFileAtom = new AtomCons((String)getTokenHash().lookUp("EndOfFile"));
-        iEndStatementAtom = new AtomCons((String)getTokenHash().lookUp(";"));
-        iProgOpenAtom = new AtomCons((String)getTokenHash().lookUp("["));
-        iProgCloseAtom = new AtomCons((String)getTokenHash().lookUp("]"));
-        iNthAtom = new AtomCons((String)getTokenHash().lookUp("Nth"));
-        iComplexAtom = new AtomCons((String)getTokenHash().lookUp("Complex"));
-        iBracketOpenAtom = new AtomCons((String)getTokenHash().lookUp("("));
-        iBracketCloseAtom = new AtomCons((String)getTokenHash().lookUp(")"));
-        iListOpenAtom = new AtomCons((String)getTokenHash().lookUp("{"));
-        iListCloseAtom = new AtomCons((String)getTokenHash().lookUp("}"));
-        iCommaAtom = new AtomCons((String)getTokenHash().lookUp(","));
-        iListAtom = new AtomCons((String)getTokenHash().lookUp("List"));
-        iSetAtom = new AtomCons((String)getTokenHash().lookUp("Set"));
-        iProgAtom = new AtomCons((String)getTokenHash().lookUp("Prog"));
+        iEndOfFileAtom = new AtomCons((String)iTokenHash.lookUp("EndOfFile"));
+        iEndStatementAtom = new AtomCons((String)iTokenHash.lookUp(";"));
+        iProgOpenAtom = new AtomCons((String)iTokenHash.lookUp("["));
+        iProgCloseAtom = new AtomCons((String)iTokenHash.lookUp("]"));
+        iNthAtom = new AtomCons((String)iTokenHash.lookUp("Nth"));
+        iComplexAtom = new AtomCons((String)iTokenHash.lookUp("Complex"));
+        iBracketOpenAtom = new AtomCons((String)iTokenHash.lookUp("("));
+        iBracketCloseAtom = new AtomCons((String)iTokenHash.lookUp(")"));
+        iListOpenAtom = new AtomCons((String)iTokenHash.lookUp("{"));
+        iListCloseAtom = new AtomCons((String)iTokenHash.lookUp("}"));
+        iCommaAtom = new AtomCons((String)iTokenHash.lookUp(","));
+        iListAtom = new AtomCons((String)iTokenHash.lookUp("List"));
+        iSetAtom = new AtomCons((String)iTokenHash.lookUp("Set"));
+        iProgAtom = new AtomCons((String)iTokenHash.lookUp("Prog"));
 
         iArgumentStack = new ArgumentStack(this, 50000 /*TODO FIXME*/);
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();
@@ -151,25 +154,6 @@ public final class Environment {
         
     }
 
-    public TokenMap getTokenHash() {
-        return iTokenHash;
-    }
-
-    public MathPiperMap getGlobalState() {
-        return iGlobalState;
-    }
-
-    public MathPiperMap getUserFunctions() {
-        return iUserRulebases;
-    }
-
-    public MathPiperMap getBuiltinFunctions() {
-        return iBuiltinFunctions;
-    }
-
-    public int getPrecision() {
-        return iPrecision;
-    }
 
     public void setPrecision(int aPrecision) throws Exception {
         iPrecision = aPrecision;    // getPrecision in decimal digits

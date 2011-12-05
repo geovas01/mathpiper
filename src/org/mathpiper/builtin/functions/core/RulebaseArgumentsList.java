@@ -57,7 +57,7 @@ public class RulebaseArgumentsList extends BuiltinFunction
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
-        SingleArityRulebase userFunc = aEnvironment.getRulebase((String)aEnvironment.getTokenHash().lookUp(oper), arity, aStackTop);
+        SingleArityRulebase userFunc = aEnvironment.getRulebase((String)aEnvironment.iTokenHash.lookUp(oper), arity, aStackTop);
         
         if(userFunc == null) LispError.throwError(aEnvironment, aStackTop, "User function for this arity is not defined.");
 

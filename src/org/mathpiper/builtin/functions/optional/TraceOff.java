@@ -34,7 +34,7 @@ public class TraceOff extends BuiltinFunction
     public void plugIn(Environment aEnvironment) throws Exception
     {
         this.functionName = "TraceOff";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 

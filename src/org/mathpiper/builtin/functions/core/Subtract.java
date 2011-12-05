@@ -56,8 +56,8 @@ public class Subtract extends BuiltinFunction
             BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
             BigNumber yneg = new BigNumber(y);
             yneg.negate(y);
-            BigNumber z = new BigNumber(aEnvironment.getPrecision());
-            z.add(x, yneg, aEnvironment.getPrecision());
+            BigNumber z = new BigNumber(aEnvironment.iPrecision);
+            z.add(x, yneg, aEnvironment.iPrecision);
             setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         }

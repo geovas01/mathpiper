@@ -45,7 +45,7 @@ public class Decimal_ extends BuiltinFunction
     {
         Cons result = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        Object cons = result.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        Object cons = result.getNumber(aEnvironment.iPrecision, aEnvironment);
 
         BigNumber bigNumber;
         if(cons instanceof BigNumber)

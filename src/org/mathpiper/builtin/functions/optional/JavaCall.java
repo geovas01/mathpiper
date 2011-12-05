@@ -42,7 +42,7 @@ public class JavaCall extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Exception {
         this.functionName = "JavaCall";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
     }//end method.
 
@@ -98,7 +98,7 @@ public class JavaCall extends BuiltinFunction {
 
                         if (argumentCons instanceof NumberCons) {
                             NumberCons numberCons = (NumberCons) argumentCons;
-                            BigNumber bigNumber = (BigNumber) numberCons.getNumber(aEnvironment.getPrecision(), aEnvironment);
+                            BigNumber bigNumber = (BigNumber) numberCons.getNumber(aEnvironment.iPrecision, aEnvironment);
 
                             if (bigNumber.isInteger()) {
                                 argument = bigNumber.toInt();
