@@ -43,7 +43,7 @@ public class Modulo extends BuiltinFunction
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
-        BigNumber z = new BigNumber(aEnvironment.getPrecision());
+        BigNumber z = new BigNumber(aEnvironment.iPrecision);
         z.mod(aEnvironment,aStackTop, x, y);
         setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }

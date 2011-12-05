@@ -35,7 +35,7 @@ public class BigNumber {
 
     BigInteger javaBigInteger = null;
     BigDecimal javaBigDecimal = null;
-    int iPrecision;
+    public int iPrecision;
     //int iTensExp;//TODO:tk:the purpose of this variable needs to be determined.
     private static BigDecimal zero = new BigDecimal("0");
     private static BigDecimal one = new BigDecimal("1");
@@ -90,7 +90,7 @@ public class BigNumber {
      * @param aOther
      */
     public void setTo(BigNumber aOther) {
-        iPrecision = aOther.getPrecision();
+        iPrecision = aOther.iPrecision;
         //iTensExp = aOther.iTensExp;
         javaBigInteger = aOther.javaBigInteger;
         javaBigDecimal = aOther.javaBigDecimal;
@@ -495,7 +495,7 @@ public class BigNumber {
 
             javaBigDecimal = dX.divide(dY,new MathContext(aPrecision));
 
-            /*int newScale = aPrecision + aY.getPrecision();
+            /*int newScale = aPrecision + aY.iPrecision;
             if (newScale > dX.scale()) {
                 dX = dX.setScale(newScale);
             }
@@ -901,14 +901,7 @@ public class BigNumber {
         return 0;
     }
 
-    /**
-     * Returns the precision of this BigNumber.
-     *
-     * @return
-     */
-    public int getPrecision() {
-        return iPrecision;
-    }
+
 
     /**
      * Return a decimal representation of this BigNumber.

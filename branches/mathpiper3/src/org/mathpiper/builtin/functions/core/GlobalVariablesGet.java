@@ -45,7 +45,7 @@ public class GlobalVariablesGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        java.util.Set<String> variablesSet = ((Map) aEnvironment.getGlobalState().getMap()).keySet();
+        java.util.Set<String> variablesSet = ((Map) aEnvironment.iGlobalState.getMap()).keySet();
         
         java.util.List variablesList = new ArrayList(variablesSet);
 

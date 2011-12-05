@@ -56,7 +56,7 @@ public class DigitsToBits extends BuiltinFunction
         {
             throw new EvaluationException("BitsToDigits: error: arguments (" + x.toDouble() + ", " + y.toDouble() + ") must be small integers",aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
         }
-        BigNumber z = new BigNumber(aEnvironment.getPrecision());
+        BigNumber z = new BigNumber(aEnvironment.iPrecision);
         z.setTo((long) result);
         setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }

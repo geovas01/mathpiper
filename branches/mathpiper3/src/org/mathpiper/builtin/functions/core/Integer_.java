@@ -46,7 +46,7 @@ public class Integer_ extends BuiltinFunction
         Cons result = getArgumentPointer(aEnvironment, aStackTop, 1);
 
 //        LispError.check(result.type().equals("Number"), LispError.KLispErrInvalidArg);
-        BigNumber num = (BigNumber) result.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber num = (BigNumber) result.getNumber(aEnvironment.iPrecision, aEnvironment);
         if (num == null)
         {
             setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));

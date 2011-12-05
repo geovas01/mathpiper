@@ -81,7 +81,7 @@ public class AnalyzeScripts {
         try {
             aEnvironment.setCurrentInput(aInput);
 
-            String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
+            String eof = (String) aEnvironment.iTokenHash.lookUp("EndOfFile");
 
             boolean endoffile = false;
 

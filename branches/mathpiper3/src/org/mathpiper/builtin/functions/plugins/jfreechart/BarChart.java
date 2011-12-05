@@ -47,7 +47,7 @@ public class BarChart extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment)  throws Exception
     {
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 "BarChart", new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
 
         defaultOptions = new HashMap();

@@ -224,7 +224,7 @@ public class EnvironmentViewer implements ActionListener {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new FunctionListener(table, aEnvironment));
 
-        final java.util.Map map = (java.util.Map) aEnvironment.getUserFunctions().getMap();
+        final java.util.Map map = (java.util.Map) aEnvironment.iUserRulebases.getMap();
 
         table.setModel(new AbstractTableModel() {
 
@@ -332,7 +332,7 @@ public class EnvironmentViewer implements ActionListener {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new DummyListener(table, aEnvironment));
 
-        final java.util.Map map = (java.util.Map) aEnvironment.getBuiltinFunctions().getMap();
+        final java.util.Map map = (java.util.Map) aEnvironment.iBuiltinFunctions.getMap();
 
         table.setModel(new AbstractTableModel() {
 
@@ -399,7 +399,7 @@ public class EnvironmentViewer implements ActionListener {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new GlobalVariableListener(table, aEnvironment));
 
-        final java.util.Map map = (java.util.Map) aEnvironment.getGlobalState().getMap();
+        final java.util.Map map = (java.util.Map) aEnvironment.iGlobalState.getMap();
 
         table.setModel(new AbstractTableModel() {
 
@@ -509,7 +509,7 @@ public class EnvironmentViewer implements ActionListener {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new DummyListener(table, aEnvironment));
 
-        final java.util.Map m_hash = (java.util.Map) aEnvironment.getTokenHash().getMap();
+        final java.util.Map m_hash = (java.util.Map) aEnvironment.iTokenHash.getMap();
 
         table.setModel(new AbstractTableModel() {
 

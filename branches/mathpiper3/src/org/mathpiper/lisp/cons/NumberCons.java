@@ -168,7 +168,7 @@ public class NumberCons extends Cons {
             iCarBigNumber = new BigNumber(str, aPrecision, 10/*TODO FIXME BASE10*/);
         } // check if the BigNumber object has enough precision, if not, extend it
         // (applies only to floats). Note that iNumber->GetPrecision() might be < 0
-        else if (!iCarBigNumber.isInteger() && iCarBigNumber.getPrecision() < aPrecision) {
+        else if (!iCarBigNumber.isInteger() && iCarBigNumber.iPrecision < aPrecision) {
             if (iCarStringNumber != null) {// have string representation, can extend precision
                 iCarBigNumber.setTo(iCarStringNumber, aPrecision, 10);
             } else {

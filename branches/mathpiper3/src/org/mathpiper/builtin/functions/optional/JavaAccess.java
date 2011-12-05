@@ -31,7 +31,7 @@ public class JavaAccess extends BuiltinFunction {
 
     public void plugIn(Environment aEnvironment) throws Exception {
         this.functionName = "JavaAccess";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
     }//end method.
 

@@ -41,7 +41,7 @@ public class GarbageCollect extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        aEnvironment.getTokenHash().garbageCollect();
+        aEnvironment.iTokenHash.garbageCollect();
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
     }
 }

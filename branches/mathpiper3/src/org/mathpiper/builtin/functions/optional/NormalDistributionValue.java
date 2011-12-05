@@ -17,7 +17,7 @@ public class NormalDistributionValue extends BuiltinFunction{
     public void plugIn(Environment aEnvironment) throws Exception
     {
         this.functionName = "NormalDistributionValue";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
@@ -33,7 +33,7 @@ public class NormalDistributionValue extends BuiltinFunction{
 
         double randomVariableDouble = Normal.random(mean.toDouble(), sigma.toDouble(), new Uniform());
 
-        BigNumber randomVariable = new BigNumber(aEnvironment.getPrecision());
+        BigNumber randomVariable = new BigNumber(aEnvironment.iPrecision);
 
         randomVariable.setTo(randomVariableDouble);
 

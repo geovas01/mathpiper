@@ -15,7 +15,7 @@ public class IncompleteBeta extends BuiltinFunction{
     public void plugIn(Environment aEnvironment) throws Exception
     {
         this.functionName = "IncompleteBeta";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
@@ -29,7 +29,7 @@ public class IncompleteBeta extends BuiltinFunction{
 
         double resultValue = Gamma.incompleteBeta(a.toDouble(), b.toDouble(), x.toDouble());
 
-        BigNumber result = new BigNumber(aEnvironment.getPrecision());
+        BigNumber result = new BigNumber(aEnvironment.iPrecision);
 
         result.setTo(resultValue);
 

@@ -45,7 +45,7 @@ public class FastPower extends BuiltinFunction
         x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
         double result = Math.pow(x.toDouble(), y.toDouble());
-        BigNumber z = new BigNumber(aEnvironment.getPrecision());
+        BigNumber z = new BigNumber(aEnvironment.iPrecision);
         z.setTo(result);
         setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }

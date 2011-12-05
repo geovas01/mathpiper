@@ -34,7 +34,7 @@ public class NumberPatternParameterMatcher extends PatternParameterMatcher {
 
     public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
 
-        BigNumber bigNumber = (BigNumber) aExpression.getNumber(aEnvironment.getPrecision(), aEnvironment);
+        BigNumber bigNumber = (BigNumber) aExpression.getNumber(aEnvironment.iPrecision, aEnvironment);
         
         if (bigNumber != null) {
             return iNumber.equals(bigNumber);

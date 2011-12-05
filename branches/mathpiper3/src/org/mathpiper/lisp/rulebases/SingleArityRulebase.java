@@ -116,7 +116,6 @@ public class SingleArityRulebase extends Evaluator {
 
         int beforeStackTop = -1;
         int beforeEvaluationDepth = -1;
-        int originalStackTop = -1;
 
         try {
 

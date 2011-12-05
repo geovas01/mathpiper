@@ -16,7 +16,7 @@ public class ProbabilityToFScore extends BuiltinFunction{
     public void plugIn(Environment aEnvironment) throws Exception
     {
         this.functionName = "ProbabilityToFScore";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 3, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
@@ -39,7 +39,7 @@ public class ProbabilityToFScore extends BuiltinFunction{
 
         double fScoreValue = fDistribution.inverse(probability.toDouble());
 
-        BigNumber fScore = new BigNumber(aEnvironment.getPrecision());
+        BigNumber fScore = new BigNumber(aEnvironment.iPrecision);
 
         probability.setTo(fScoreValue);
 

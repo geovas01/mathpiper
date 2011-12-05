@@ -274,7 +274,7 @@ public class TestSuite {
             aEnvironment.setCurrentInput(aInput);
             // TODO make "EndOfFile" a global thing
             // read-parse-evaluate to the end of file
-            String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
+            String eof = (String) aEnvironment.iTokenHash.lookUp("EndOfFile");
             boolean endoffile = false;
             MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(), aEnvironment.getCurrentInput(), aEnvironment,
                     aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators,

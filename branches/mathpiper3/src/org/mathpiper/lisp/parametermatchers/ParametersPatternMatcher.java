@@ -227,8 +227,8 @@ public class ParametersPatternMatcher {
 
 
         //Check for a number pattern.
-        if (aPattern.getNumber(aEnvironment.getPrecision(), aEnvironment) != null) {
-            return new NumberPatternParameterMatcher((BigNumber) aPattern.getNumber(aEnvironment.getPrecision(), aEnvironment));
+        if (aPattern.getNumber(aEnvironment.iPrecision, aEnvironment) != null) {
+            return new NumberPatternParameterMatcher((BigNumber) aPattern.getNumber(aEnvironment.iPrecision, aEnvironment));
         }
 
 
@@ -252,7 +252,7 @@ public class ParametersPatternMatcher {
                 Cons head = sublist;
 
                 //Handle _ prefix or suffix on a pattern variables.
-                if (((String) head.car()) == aEnvironment.getTokenHash().lookUp("_")) {
+                if (((String) head.car()) == aEnvironment.iTokenHash.lookUp("_")) {
                     Cons second = head.cdr();
                     if (second.car() instanceof String) {
                         int index = lookUp((String) second.car());

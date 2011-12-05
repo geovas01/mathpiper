@@ -43,8 +43,8 @@ public class Multiply extends BuiltinFunction
     {
         BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
         BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
-        BigNumber z = new BigNumber(aEnvironment.getPrecision());
-        z.multiply(x, y, aEnvironment.getPrecision());
+        BigNumber z = new BigNumber(aEnvironment.iPrecision);
+        z.multiply(x, y, aEnvironment.iPrecision);
         setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.

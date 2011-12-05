@@ -55,7 +55,7 @@ public class FastSin extends BuiltinFunction
             LispError.raiseError("The result is NaN.", aStackTop, aEnvironment);
         }
 
-        BigNumber z = new BigNumber(aEnvironment.getPrecision());
+        BigNumber z = new BigNumber(aEnvironment.iPrecision);
 
         z.setTo(result);
 

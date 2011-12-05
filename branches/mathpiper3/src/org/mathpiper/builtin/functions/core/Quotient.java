@@ -46,8 +46,8 @@ public class Quotient extends BuiltinFunction
         if (x.isInteger() && y.isInteger())
         {  // both integer, perform integer division
 
-            BigNumber z = new BigNumber(aEnvironment.getPrecision());
-            z.divide(x, y, aEnvironment.getPrecision());
+            BigNumber z = new BigNumber(aEnvironment.iPrecision);
+            z.divide(x, y, aEnvironment.iPrecision);
             setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         } else

@@ -15,7 +15,7 @@ public class IncompleteGamma extends BuiltinFunction{
     public void plugIn(Environment aEnvironment) throws Exception
     {
         this.functionName = "IncompleteGamma";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
@@ -27,7 +27,7 @@ public class IncompleteGamma extends BuiltinFunction{
 
         double resultValue = Gamma.incompleteGammaComplement(x.toDouble(),  a.toDouble());
 
-        BigNumber result = new BigNumber(aEnvironment.getPrecision());
+        BigNumber result = new BigNumber(aEnvironment.iPrecision);
 
         result.setTo(resultValue);
 

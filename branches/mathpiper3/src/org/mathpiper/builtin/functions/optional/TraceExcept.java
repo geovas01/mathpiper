@@ -38,7 +38,7 @@ public class TraceExcept extends BuiltinFunction
     public void plugIn(Environment aEnvironment) throws Exception
     {
         this.functionName = "TraceExcept";
-        aEnvironment.getBuiltinFunctions().setAssociation(
+        aEnvironment.iBuiltinFunctions.setAssociation(
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Macro));
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceExcept");
     }//end method.

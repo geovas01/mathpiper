@@ -55,7 +55,7 @@ public class FastArcTan extends BuiltinFunction
             LispError.raiseError("The argument is NaN.", aStackTop, aEnvironment);
         }
 
-        BigNumber z = new BigNumber(aEnvironment.getPrecision());
+        BigNumber z = new BigNumber(aEnvironment.iPrecision);
 
         z.setTo(result);
 
