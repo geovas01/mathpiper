@@ -250,7 +250,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, "}");
 
                     // }//end else.
-                } else if (functionOrOperatorName == iCurrentEnvironment.iProgAtom.car()) // Program block brackets.
+                } else if (functionOrOperatorName == iCurrentEnvironment.iProgAtom) // Program block brackets.
                 {
                     aOutput.write("\n" + spaces.toString());
 
@@ -271,7 +271,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, "]");
                     //aOutput.write("\n");
 
-                } else if (functionOrOperatorName == iCurrentEnvironment.iNthAtom.car()) {
+                } else if (functionOrOperatorName == iCurrentEnvironment.iNthAtom) {
                     Print(aEnvironment, aStackTop, consTraverser, aOutput, 0);
                     consTraverser = consTraverser.cdr();
                     WriteToken(aOutput, "[");

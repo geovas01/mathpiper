@@ -28,14 +28,14 @@ public class TokenMap extends MathPiperMap
      * @param aString
      * @return the string.
      */
-    public Object lookUp(String aString)
+    public String lookUp(String aString)
     {
         if (!iMap.containsKey(aString))
         {
             iMap.put(aString, aString);
         }
 
-        return iMap.get(aString);
+        return (String) iMap.get(aString);
     }
 
    /**
