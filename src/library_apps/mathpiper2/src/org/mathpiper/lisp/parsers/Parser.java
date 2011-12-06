@@ -45,7 +45,7 @@ public class Parser {
 
         String token;
         // Get token.
-        token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput, iEnvironment.getTokenHash());
+        token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
         if (token.length() == 0) //TODO FIXME either token == null or token.length() == 0?
         {
             aResult = AtomCons.getInstance(iEnvironment, aStackTop, "EndOfFile");
@@ -67,11 +67,11 @@ public class Parser {
         }
         for (;;) {
             //Get token.
-            token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput, iEnvironment.getTokenHash());
+            token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
             // if token is empty string, error!
             if(token.length() <= 0) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_TOKEN, "Token empty."); //TODO FIXME
             // if token is ")" return result.
-            if (token == iEnvironment.getTokenHash().lookUp(")")) {
+            if (token.equals(")")) {
                 return aResult;
             }
             // else parse simple atom with parse, and append it to the
@@ -91,7 +91,7 @@ public class Parser {
         }
         // else if token is "(" read in a whole array of objects until ")",
         //   and make a sublist
-        if (aToken == iEnvironment.getTokenHash().lookUp("(")) {
+        if (aToken.equals("(")) {
             Cons subList = parseList(aEnvironment, aStackTop);
             Cons aResult = SublistCons.getInstance(aEnvironment, subList);
             return aResult;

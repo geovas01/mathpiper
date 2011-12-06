@@ -47,7 +47,7 @@ public class AtomPatternParameterMatcher extends PatternParameterMatcher {
             }
         }
 
-        return (iString == aExpression.car());
+        return (iString.equals(aExpression.car()));
     }
 
 

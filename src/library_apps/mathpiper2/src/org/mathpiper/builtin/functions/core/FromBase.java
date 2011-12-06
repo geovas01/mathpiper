@@ -66,7 +66,7 @@ public class FromBase extends BuiltinFunction
 
         // Added, unquote a string
         if(! Utility.isString(str2)) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        str2 = aEnvironment.getTokenHash().lookUpUnStringify(str2);
+        str2 = Utility.stripEndQuotesIfPresent(aEnvironment, -1, str2);
 
         // convert using correct base
         BigNumber z = new BigNumber(str2, aEnvironment.getPrecision(), base);

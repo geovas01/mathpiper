@@ -19,7 +19,7 @@
 package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BigNumber;
-import org.mathpiper.lisp.collections.TokenMap;
+
 
 /**
  *
@@ -28,7 +28,7 @@ import org.mathpiper.lisp.collections.TokenMap;
 public class LexLessThan extends LexCompare2
 {
 
-    boolean lexFunction(String f1, String f2, TokenMap aHashTable, int aPrecision)
+    boolean lexFunction(String f1, String f2, int aPrecision)
     {
         return f1.compareTo(f2) < 0;
     }

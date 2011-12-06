@@ -58,7 +58,7 @@ public class LocalSymbols extends BuiltinFunction
             if( atomName == null) LispError.checkArgument(aEnvironment, aStackTop, i + 1);
             atomNames[i] = atomName;
             String newAtomName = "$" + atomName + uniqueNumber;
-            String variable = (String) aEnvironment.getTokenHash().lookUp(newAtomName);
+            String variable = newAtomName;
             localAtomNames[i] = variable;
         }
         LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);

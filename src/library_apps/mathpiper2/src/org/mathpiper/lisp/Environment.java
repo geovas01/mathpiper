@@ -23,7 +23,6 @@ import java.util.Set;
 import org.mathpiper.Scripts;
 import org.mathpiper.lisp.stacks.ArgumentStack;
 import org.mathpiper.lisp.collections.MathPiperMap;
-import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.AtomCons;
 
@@ -59,26 +58,25 @@ public final class Environment {
 
     public ArgumentStack iArgumentStack;
     public Evaluator iLispExpressionEvaluator = new LispExpressionEvaluator();
-    private int iPrecision = 10;
-    private TokenMap iTokenHash = new TokenMap();
+    public int iPrecision = 10;
     public Cons iTrueAtom;
     public final String iTrueString;
     public Cons iFalseAtom;
+    public Cons iListAtom;
     public final String iFalseString;
     public Cons iEndOfFileAtom;
-    public Cons iEndStatementAtom;
-    public Cons iProgOpenAtom;
-    public Cons iProgCloseAtom;
-    public Cons iNthAtom;
-    public Cons iComplexAtom;
-    public Cons iBracketOpenAtom;
-    public Cons iBracketCloseAtom;
-    public Cons iListOpenAtom;
-    public Cons iListCloseAtom;
-    public Cons iCommaAtom;
-    public Cons iListAtom;
-    public Cons iSetAtom;
-    public Cons iProgAtom;
+    public String iEndStatementAtom;
+    public String iProgOpenAtom;
+    public String iProgCloseAtom;
+    public String iNthAtom;
+    public String iComplexAtom;
+    public String iBracketOpenAtom;
+    public String iBracketCloseAtom;
+    public String iListOpenAtom;
+    public String iListCloseAtom;
+    public String iCommaAtom;
+    public String iSetAtom;
+    public String iProgAtom;
     public OperatorMap iPrefixOperators = new OperatorMap(this);
     public OperatorMap iInfixOperators = new OperatorMap(this);
     public OperatorMap iPostfixOperators = new OperatorMap(this);
@@ -99,7 +97,7 @@ public final class Environment {
     public MathPiperTokenizer iXmlTokenizer = new XmlTokenizer();
     public MathPiperMap iGlobalState = new MathPiperMap();
     public MathPiperMap iUserRulebases = new MathPiperMap();
-    MathPiperMap iBuiltinFunctions = new MathPiperMap();
+    public MathPiperMap iBuiltinFunctions = new MathPiperMap();
     public Throwable iException = null;
     public InputDirectories iInputDirectories = new InputDirectories();
     public String iPrettyReaderName = null;
@@ -124,24 +122,25 @@ public final class Environment {
 
         iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
-        iTrueAtom = new AtomCons((String)getTokenHash().lookUp("True"));
+        iListAtom = new AtomCons("List");
+        iTrueAtom = new AtomCons("True");
         iTrueString = (String) iTrueAtom.car();
-        iFalseAtom = new AtomCons((String)getTokenHash().lookUp("False"));
+        iFalseAtom = new AtomCons("False");
         iFalseString = (String) iFalseAtom.car();
-        iEndOfFileAtom = new AtomCons((String)getTokenHash().lookUp("EndOfFile"));
-        iEndStatementAtom = new AtomCons((String)getTokenHash().lookUp(";"));
-        iProgOpenAtom = new AtomCons((String)getTokenHash().lookUp("["));
-        iProgCloseAtom = new AtomCons((String)getTokenHash().lookUp("]"));
-        iNthAtom = new AtomCons((String)getTokenHash().lookUp("Nth"));
-        iComplexAtom = new AtomCons((String)getTokenHash().lookUp("Complex"));
-        iBracketOpenAtom = new AtomCons((String)getTokenHash().lookUp("("));
-        iBracketCloseAtom = new AtomCons((String)getTokenHash().lookUp(")"));
-        iListOpenAtom = new AtomCons((String)getTokenHash().lookUp("{"));
-        iListCloseAtom = new AtomCons((String)getTokenHash().lookUp("}"));
-        iCommaAtom = new AtomCons((String)getTokenHash().lookUp(","));
-        iListAtom = new AtomCons((String)getTokenHash().lookUp("List"));
-        iSetAtom = new AtomCons((String)getTokenHash().lookUp("Set"));
-        iProgAtom = new AtomCons((String)getTokenHash().lookUp("Prog"));
+
+        iEndOfFileAtom = new AtomCons("EndOfFile");
+        iEndStatementAtom = ";";
+        iProgOpenAtom = ("[");
+        iProgCloseAtom = ("]");
+        iNthAtom = ("Nth");
+        iComplexAtom = ("Complex");
+        iBracketOpenAtom = ("(");
+        iBracketCloseAtom = (")");
+        iListOpenAtom = ("{");
+        iListCloseAtom = ("}");
+        iCommaAtom = (",");
+        iSetAtom = ("Set");
+        iProgAtom = ("Prog");
 
         iArgumentStack = new ArgumentStack(this, 50000 /*TODO FIXME*/);
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();
@@ -151,9 +150,6 @@ public final class Environment {
         
     }
 
-    public TokenMap getTokenHash() {
-        return iTokenHash;
-    }
 
     public MathPiperMap getGlobalState() {
         return iGlobalState;

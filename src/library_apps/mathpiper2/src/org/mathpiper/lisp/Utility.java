@@ -340,11 +340,11 @@ public class Utility {
          */
     }
 
-    public static String getSymbolName(Environment aEnvironment, String aSymbol) {
+    public static String getSymbolName(Environment aEnvironment, String aSymbol) throws Exception {
         if (aSymbol.charAt(0) == '\"') {
-            return aEnvironment.getTokenHash().lookUpUnStringify(aSymbol);
+            return Utility.stripEndQuotesIfPresent(aEnvironment, -1, aSymbol);
         } else {
-            return (String) aEnvironment.getTokenHash().lookUp(aSymbol);
+            return aSymbol;
         }
     }
 
@@ -547,11 +547,15 @@ public class Utility {
             }
             return false;
         }
-
+       
         //Pointers to strings should be the same
         if ((aExpression1.car() instanceof String) && (aExpression2.car() instanceof String)) {
-            if (aExpression1.car() != aExpression2.car()) {
+            if (!(((String)aExpression1.car()).equals(((String)aExpression2.car())))) {
                 return false;
+            }
+            else
+            {
+                return true;
             }
         }
 
@@ -696,7 +700,7 @@ public class Utility {
             aEnvironment.setCurrentInput(aInput);
             // TODO make "EndOfFile" a global thing
             // read-parse-evaluate to the end of file
-            String eof = (String) aEnvironment.getTokenHash().lookUp("EndOfFile");
+            String eof = "EndOfFile";
             boolean endoffile = false;
 
             MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(), aEnvironment.getCurrentInput(), aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);

@@ -20,7 +20,6 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
-import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.AtomCons;
@@ -34,7 +33,7 @@ import org.mathpiper.lisp.cons.NumberCons;
 abstract public class LexCompare2
 {
 
-    abstract boolean lexFunction(String f1, String f2, TokenMap aHashTable, int aPrecision);
+    abstract boolean lexFunction(String f1, String f2, int aPrecision);
 
     abstract boolean numFunction(BigNumber n1, BigNumber n2);
 
@@ -69,9 +68,7 @@ abstract public class LexCompare2
             if( str1 == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
             if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
             // the getPrecision argument is ignored in "lex" functions
-            cmp = lexFunction(str1, str2,
-                    aEnvironment.getTokenHash(),
-                    aEnvironment.getPrecision());
+            cmp = lexFunction(str1, str2, aEnvironment.iPrecision);
         }
 
         BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, cmp));
