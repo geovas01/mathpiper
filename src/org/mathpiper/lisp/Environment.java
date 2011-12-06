@@ -23,7 +23,6 @@ import java.util.Set;
 import org.mathpiper.Scripts;
 import org.mathpiper.lisp.stacks.ArgumentStack;
 import org.mathpiper.lisp.collections.MathPiperMap;
-import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.collections.OperatorMap;
 import org.mathpiper.lisp.cons.AtomCons;
 
@@ -60,7 +59,6 @@ public final class Environment {
     public ArgumentStack iArgumentStack;
     public Evaluator iLispExpressionEvaluator = new LispExpressionEvaluator();
     public int iPrecision = 10;
-    public TokenMap iTokenHash = new TokenMap();
     public Cons iTrueAtom;
     public final String iTrueString;
     public Cons iFalseAtom;

@@ -45,7 +45,7 @@ public class Parser {
 
         String token;
         // Get token.
-        token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput, iEnvironment.iTokenHash);
+        token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
         if (token.length() == 0) //TODO FIXME either token == null or token.length() == 0?
         {
             aResult = AtomCons.getInstance(iEnvironment, aStackTop, "EndOfFile");
@@ -67,7 +67,7 @@ public class Parser {
         }
         for (;;) {
             //Get token.
-            token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput, iEnvironment.iTokenHash);
+            token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
             // if token is empty string, error!
             if(token.length() <= 0) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_TOKEN, "Token empty."); //TODO FIXME
             // if token is ")" return result.

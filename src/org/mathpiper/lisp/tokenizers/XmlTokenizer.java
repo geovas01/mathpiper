@@ -17,7 +17,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.tokenizers;
 
-import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.lisp.Environment;
@@ -28,7 +27,7 @@ public class XmlTokenizer
     /// NextToken returns a string representing the next token,
     /// or an empty list.
     @Override
-    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, TokenMap aHashTable)
+    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput)
             throws Exception {
 
         char c;

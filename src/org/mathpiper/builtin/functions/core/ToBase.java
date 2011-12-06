@@ -23,6 +23,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
 /**
@@ -65,7 +66,7 @@ public class ToBase extends BuiltinFunction
         str = x.numToString(aEnvironment.iPrecision, base);
         // Get unique string from hash table, and create an atom from it.
 
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iTokenHash.lookUpStringify(str)));
+        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, str)));
     }
 }
 

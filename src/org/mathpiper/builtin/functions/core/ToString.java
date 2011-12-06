@@ -22,6 +22,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
 /**
@@ -61,7 +62,7 @@ public class ToString extends BuiltinFunction
 
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iTokenHash.lookUpStringify(orig)));
+        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, orig)));
     }
 }
 
