@@ -91,14 +91,12 @@ public class EnvironmentViewer implements ActionListener {
         Leaf one = new Leaf("one");
         Leaf two = new Leaf("two");
         Leaf three = new Leaf("three");
-        Leaf four = new Leaf("four");
 
-        one.setWeight(0.15);
-        two.setWeight(0.28);
-        three.setWeight(0.28);
-        four.setWeight(0.29);
+        one.setWeight(0.25);
+        two.setWeight(0.35);
+        three.setWeight(0.40);
 
-        List children = Arrays.asList(one, new Divider(), two, new Divider(), three, new Divider(), four);
+        List children = Arrays.asList(one, new Divider(), two, new Divider(), three);
         MultiSplitLayout.Split modelRoot = new Split();
         modelRoot.setChildren(children);
         MultiSplitPane multiSplitPane = new MultiSplitPane();
@@ -209,7 +207,7 @@ public class EnvironmentViewer implements ActionListener {
 
     /**
      * Returns a GUI table which contains a sorted list of the user functions.
-     * 
+     *
      * @param aEnvironment the environment to view
      * @return a JTable which contains the user function names
      */
@@ -219,7 +217,7 @@ public class EnvironmentViewer implements ActionListener {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new FunctionListener(table, aEnvironment));
 
-        final java.util.Map map = (java.util.Map) aEnvironment.getUserFunctions().getMap();
+        final java.util.Map map = (java.util.Map) aEnvironment.iUserRulebases.getMap();
 
         table.setModel(new AbstractTableModel() {
 
@@ -317,7 +315,7 @@ public class EnvironmentViewer implements ActionListener {
 
     /**
      * Returns a GUI table which contains a sorted list of the builtin functions.
-     * 
+     *
      * @param aEnvironment the environment to view
      * @return a JTable which contains the built in function names
      */
@@ -327,7 +325,7 @@ public class EnvironmentViewer implements ActionListener {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new DummyListener(table, aEnvironment));
 
-        final java.util.Map map = (java.util.Map) aEnvironment.getBuiltinFunctions().getMap();
+        final java.util.Map map = (java.util.Map) aEnvironment.iBuiltinFunctions.getMap();
 
         table.setModel(new AbstractTableModel() {
 
@@ -384,7 +382,7 @@ public class EnvironmentViewer implements ActionListener {
 
     /**
      * Returns a GUI table which contains a sorted list of the global variables.
-     * 
+     *
      * @param aEnvironment the environment to view
      * @return a JTable which contains the global variable names
      */
@@ -394,7 +392,7 @@ public class EnvironmentViewer implements ActionListener {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new GlobalVariableListener(table, aEnvironment));
 
-        final java.util.Map map = (java.util.Map) aEnvironment.getGlobalState().getMap();
+        final java.util.Map map = (java.util.Map) aEnvironment.iGlobalState.getMap();
 
         table.setModel(new AbstractTableModel() {
 
