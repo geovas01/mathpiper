@@ -35,7 +35,7 @@ public class XmlTokenizer
         int firstpos = 0;
 
         if (aInput.endOfStream()) {
-            return (String) aHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
+            return aInput.startPtr().substring(firstpos, aInput.position());
         }
 
         //skipping spaces
@@ -59,7 +59,7 @@ public class XmlTokenizer
             }
         }
 
-        return (String) aHashTable.lookUp(aInput.startPtr().substring(firstpos, aInput.position()));
+        return aInput.startPtr().substring(firstpos, aInput.position());
     }
 
 

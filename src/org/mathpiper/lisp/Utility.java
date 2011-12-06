@@ -547,10 +547,10 @@ public class Utility {
             }
             return false;
         }
-
+       
         //Pointers to strings should be the same
         if ((aExpression1.car() instanceof String) && (aExpression2.car() instanceof String)) {
-            if (aExpression1.car() != aExpression2.car()) {
+            if (!(((String)aExpression1.car()).equals(((String)aExpression2.car())))) {
                 return false;
             }
         }
