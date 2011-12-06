@@ -109,7 +109,7 @@ public class MathPiperTokenizer {
                 }
                 //TODO FIXME is following append char correct?
                 aResult = aResult + ((char) aInput.next()); // consume the close quote
-                return (String) aTokenHashTable.lookUp(aResult);
+                return aResult;
             } //parse atoms
             else if (isAlpha(streamCharacter)) {
                 while (isAlNum(aInput.peek())) {
@@ -155,7 +155,7 @@ public class MathPiperTokenizer {
         }//end while.
 
 
-        return (String) aTokenHashTable.lookUp(aInput.startPtr().substring(firstPosition, aInput.position()));
+        return aInput.startPtr().substring(firstPosition, aInput.position());
 
     }
 

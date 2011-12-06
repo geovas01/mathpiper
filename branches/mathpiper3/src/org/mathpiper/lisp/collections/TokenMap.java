@@ -17,18 +17,18 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.collections;
 
-public class TokenMap extends MathPiperMap
+public class TokenMap 
 {
 
    // java.util.Hashtable iMap = new java.util.Hashtable();
-
+  java.util.Map iMap = new java.util.HashMap();
 
     /**
      * If the string is not in the table yet then insert it.
      * @param aString
      * @return the string.
      */
-    public String lookUp(String aString)
+    public Object lookUp(String aString)
     {
         if (!iMap.containsKey(aString))
         {
