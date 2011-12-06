@@ -56,7 +56,7 @@ public class RulebaseDefined extends BuiltinFunction
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
-        SingleArityRulebase userFunc = aEnvironment.getRulebase((String)aEnvironment.iTokenHash.lookUp(oper), arity, aStackTop);
+        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity, aStackTop);
         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, userFunc != null));
     }
 }

@@ -23,20 +23,7 @@ public class TokenMap
    // java.util.Hashtable iMap = new java.util.Hashtable();
   java.util.Map iMap = new java.util.HashMap();
 
-    /**
-     * If the string is not in the table yet then insert it.
-     * @param aString
-     * @return the string.
-     */
-    public Object lookUp(String aString)
-    {
-        if (!iMap.containsKey(aString))
-        {
-            iMap.put(aString, aString);
-        }
 
-        return (String) iMap.get(aString);
-    }
 
    /**
      * If the string is not in the table yet then place double quotes

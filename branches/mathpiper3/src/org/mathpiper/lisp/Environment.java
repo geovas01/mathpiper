@@ -127,24 +127,25 @@ public final class Environment {
 
         iCurrentPrinter = new MathPiperPrinter(iPrefixOperators, iInfixOperators, iPostfixOperators, iBodiedOperators);
 
-        iListAtom = new AtomCons((String)iTokenHash.lookUp("List"));
-        iTrueAtom = new AtomCons((String)iTokenHash.lookUp("True"));
+        iListAtom = new AtomCons("List");
+        iTrueAtom = new AtomCons("True");
         iTrueString = (String) iTrueAtom.car();
-        iFalseAtom = new AtomCons((String)iTokenHash.lookUp("False"));
+        iFalseAtom = new AtomCons("False");
         iFalseString = (String) iFalseAtom.car();
-        iEndOfFileAtom = new AtomCons((String)iTokenHash.lookUp("EndOfFile"));
-        iEndStatementAtom = ((String)iTokenHash.lookUp(";"));
-        iProgOpenAtom = ((String)iTokenHash.lookUp("["));
-        iProgCloseAtom = ((String)iTokenHash.lookUp("]"));
-        iNthAtom = ((String)iTokenHash.lookUp("Nth"));
-        iComplexAtom = ((String)iTokenHash.lookUp("Complex"));
-        iBracketOpenAtom = ((String)iTokenHash.lookUp("("));
-        iBracketCloseAtom = ((String)iTokenHash.lookUp(")"));
-        iListOpenAtom = ((String)iTokenHash.lookUp("{"));
-        iListCloseAtom = ((String)iTokenHash.lookUp("}"));
-        iCommaAtom = ((String)iTokenHash.lookUp(","));
-        iSetAtom = ((String)iTokenHash.lookUp("Set"));
-        iProgAtom = ((String)iTokenHash.lookUp("Prog"));
+
+        iEndOfFileAtom = new AtomCons("EndOfFile");
+        iEndStatementAtom = ";";
+        iProgOpenAtom = ("[");
+        iProgCloseAtom = ("]");
+        iNthAtom = ("Nth");
+        iComplexAtom = ("Complex");
+        iBracketOpenAtom = ("(");
+        iBracketCloseAtom = (")");
+        iListOpenAtom = ("{");
+        iListCloseAtom = ("}");
+        iCommaAtom = (",");
+        iSetAtom = ("Set");
+        iProgAtom = ("Prog");
 
         iArgumentStack = new ArgumentStack(this, 50000 /*TODO FIXME*/);
         //org.mathpiper.builtin.Functions mc = new org.mathpiper.builtin.Functions();
