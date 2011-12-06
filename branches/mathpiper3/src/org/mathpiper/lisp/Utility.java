@@ -340,9 +340,9 @@ public class Utility {
          */
     }
 
-    public static String getSymbolName(Environment aEnvironment, String aSymbol) {
+    public static String getSymbolName(Environment aEnvironment, String aSymbol) throws Exception {
         if (aSymbol.charAt(0) == '\"') {
-            return aEnvironment.iTokenHash.lookUpUnStringify(aSymbol);
+            return Utility.stripEndQuotesIfPresent(aEnvironment, -1, aSymbol);
         } else {
             return aSymbol;
         }

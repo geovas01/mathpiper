@@ -21,6 +21,7 @@ package org.mathpiper.builtin.functions.core;
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.Utility;
 
 /**
  *
@@ -41,7 +42,7 @@ public class CurrentFile extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iTokenHash.lookUpStringify(aEnvironment.getCurrentInput().iStatus.getFileName())));
+        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, aEnvironment.getCurrentInput().iStatus.getFileName())));
     }
 }
 

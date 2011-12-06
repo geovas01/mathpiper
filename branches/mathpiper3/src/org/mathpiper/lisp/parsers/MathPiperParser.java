@@ -132,7 +132,7 @@ public class MathPiperParser extends Parser
     {
         // Get token.
 
-        iLookAhead[0] = iTokenizer.nextToken(iEnvironment, aStackTop, iInput, iEnvironment.iTokenHash);
+        iLookAhead[0] = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
 
 
    //if(iEnvironment.saveDebugInformation )System.out.println(iLookAhead[0] + "XX");

@@ -21,6 +21,7 @@ import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.cons.AtomCons;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.LispError;
+import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.cons.Cons;
 
 /**
@@ -48,7 +49,7 @@ public class ToAtom extends BuiltinFunction
         if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig =  (String) evaluated.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iTokenHash.lookUpUnStringify(orig)));
+        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, orig)));
     }
 }
 
