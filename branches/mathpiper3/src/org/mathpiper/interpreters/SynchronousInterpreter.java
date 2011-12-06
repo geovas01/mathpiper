@@ -313,7 +313,7 @@ public class SynchronousInterpreter implements Interpreter {
             }//end if.
 
             //Set the % symbol to the result of the current evaluation.
-            String percent = (String) iEnvironment.iTokenHash.lookUp("%");
+            String percent = "%";
             iEnvironment.setLocalOrGlobalVariable(-1, percent, resultPointer, true);
 
             StringBuffer outputBuffer = new StringBuffer();

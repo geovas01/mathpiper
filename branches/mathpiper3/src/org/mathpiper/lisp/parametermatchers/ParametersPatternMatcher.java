@@ -252,7 +252,7 @@ public class ParametersPatternMatcher {
                 Cons head = sublist;
 
                 //Handle _ prefix or suffix on a pattern variables.
-                if (((String) head.car()) == aEnvironment.iTokenHash.lookUp("_")) {
+                if (((String) head.car()).equals("_")) {
                     Cons second = head.cdr();
                     if (second.car() instanceof String) {
                         int index = lookUp((String) second.car());

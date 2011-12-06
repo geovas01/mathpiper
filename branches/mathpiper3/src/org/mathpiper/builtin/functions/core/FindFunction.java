@@ -55,7 +55,7 @@ public class FindFunction extends BuiltinFunction
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
-        MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, (String)aEnvironment.iTokenHash.lookUp(oper), false);
+        MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, oper, false);
 
         String fileLocation =  "\"\"" ;
         

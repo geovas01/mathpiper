@@ -344,7 +344,7 @@ public class Utility {
         if (aSymbol.charAt(0) == '\"') {
             return aEnvironment.iTokenHash.lookUpUnStringify(aSymbol);
         } else {
-            return (String) aEnvironment.iTokenHash.lookUp(aSymbol);
+            return aSymbol;
         }
     }
 
@@ -696,7 +696,7 @@ public class Utility {
             aEnvironment.setCurrentInput(aInput);
             // TODO make "EndOfFile" a global thing
             // read-parse-evaluate to the end of file
-            String eof = (String) aEnvironment.iTokenHash.lookUp("EndOfFile");
+            String eof = "EndOfFile";
             boolean endoffile = false;
 
             MathPiperParser parser = new MathPiperParser(new MathPiperTokenizer(), aEnvironment.getCurrentInput(), aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
