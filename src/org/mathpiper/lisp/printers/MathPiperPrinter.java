@@ -225,7 +225,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, "*I");
 
                 } else */
-                if (functionOrOperatorName == iCurrentEnvironment.iListAtom.car()) {
+                if (functionOrOperatorName.equals(iCurrentEnvironment.iListAtom.car())) {
 
                     /*
                     Cons atomCons = (Cons) subList.getCons();
@@ -250,7 +250,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, "}");
 
                     // }//end else.
-                } else if (functionOrOperatorName == iCurrentEnvironment.iProgAtom) // Program block brackets.
+                } else if (functionOrOperatorName.equals(iCurrentEnvironment.iProgAtom)) // Program block brackets.
                 {
                     aOutput.write("\n" + spaces.toString());
 
@@ -271,7 +271,7 @@ public class MathPiperPrinter extends LispPrinter {
                     WriteToken(aOutput, "]");
                     //aOutput.write("\n");
 
-                } else if (functionOrOperatorName == iCurrentEnvironment.iNthAtom) {
+                } else if (functionOrOperatorName.equals(iCurrentEnvironment.iNthAtom)) {
                     Print(aEnvironment, aStackTop, consTraverser, aOutput, 0);
                     consTraverser = consTraverser.cdr();
                     WriteToken(aOutput, "[");
