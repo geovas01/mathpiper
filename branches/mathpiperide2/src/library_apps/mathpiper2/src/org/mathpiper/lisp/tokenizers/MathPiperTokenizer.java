@@ -17,7 +17,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.tokenizers;
 
-import org.mathpiper.lisp.collections.TokenMap;
 import org.mathpiper.io.MathPiperInputStream;
 import org.mathpiper.builtin.BigNumber;
 import org.mathpiper.lisp.*;
@@ -31,7 +30,7 @@ public class MathPiperTokenizer {
 
     /// NextToken returns a string representing the next token,
     /// or an empty list.
-    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, TokenMap aTokenHashTable) throws Exception {
+    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
         char streamCharacter;
         int firstPosition = 0; //aInput.position();
 
@@ -109,7 +108,7 @@ public class MathPiperTokenizer {
                 }
                 //TODO FIXME is following append char correct?
                 aResult = aResult + ((char) aInput.next()); // consume the close quote
-                return (String) aTokenHashTable.lookUp(aResult);
+                return aResult;
             } //parse atoms
             else if (isAlpha(streamCharacter)) {
                 while (isAlNum(aInput.peek())) {
@@ -155,7 +154,7 @@ public class MathPiperTokenizer {
         }//end while.
 
 
-        return (String) aTokenHashTable.lookUp(aInput.startPtr().substring(firstPosition, aInput.position()));
+        return aInput.startPtr().substring(firstPosition, aInput.position());
 
     }
 

@@ -86,8 +86,14 @@ public abstract class Cons //Note:tk:was MathPiperObject.
 
     public boolean isEqual(Cons aOther) throws Exception {
         // iCdr line handles the fact that either one is a string
-        if (car() != aOther.car()) {
-            return false;
+        if(car() instanceof String && aOther.car() instanceof String){
+            if (! (((String)car()).equals(((String)aOther.car())))) {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         //So, no strings.
