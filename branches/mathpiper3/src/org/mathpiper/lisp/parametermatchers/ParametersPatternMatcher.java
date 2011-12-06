@@ -312,7 +312,7 @@ public class ParametersPatternMatcher {
     protected int lookUp(String aVariable) {
         int i;
         for (i = 0; i < iVariables.size(); i++) {
-            if (iVariables.get(i) == aVariable) {
+            if (aVariable.equals(iVariables.get(i))) {
                 return i;
             }
         }

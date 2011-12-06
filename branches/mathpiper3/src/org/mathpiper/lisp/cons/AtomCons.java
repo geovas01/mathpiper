@@ -48,7 +48,7 @@ public class AtomCons extends Cons
             self = new NumberCons(aString, aEnvironment.iPrecision);
         } else
         {
-            self = new AtomCons((String)aEnvironment.iTokenHash.lookUp(aString));
+            self = new AtomCons(aString);
         }
         
         //LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, ""," INTERNAL");

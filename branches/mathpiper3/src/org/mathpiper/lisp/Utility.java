@@ -553,6 +553,10 @@ public class Utility {
             if (!(((String)aExpression1.car()).equals(((String)aExpression2.car())))) {
                 return false;
             }
+            else
+            {
+                return true;
+            }
         }
 
 
