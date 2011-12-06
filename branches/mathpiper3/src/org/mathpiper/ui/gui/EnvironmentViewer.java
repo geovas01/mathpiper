@@ -91,14 +91,12 @@ public class EnvironmentViewer implements ActionListener {
         Leaf one = new Leaf("one");
         Leaf two = new Leaf("two");
         Leaf three = new Leaf("three");
-        Leaf four = new Leaf("four");
 
-        one.setWeight(0.15);
-        two.setWeight(0.28);
-        three.setWeight(0.28);
-        four.setWeight(0.29);
+        one.setWeight(0.25);
+        two.setWeight(0.35);
+        three.setWeight(0.40);
 
-        List children = Arrays.asList(one, new Divider(), two, new Divider(), three, new Divider(), four);
+        List children = Arrays.asList(one, new Divider(), two, new Divider(), three);
         MultiSplitLayout.Split modelRoot = new Split();
         modelRoot.setChildren(children);
         MultiSplitPane multiSplitPane = new MultiSplitPane();
