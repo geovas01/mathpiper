@@ -149,12 +149,7 @@ public class EnvironmentViewer implements ActionListener {
         tables.add(scrollPane);
         multiSplitPane.add(scrollPane, "three");
 
-        //Add tokens.
-        table = this.getTokenTable(aEnvironment);
-        tables.add(table);
-        scrollPane = new JScrollPane(table);
-        tables.add(scrollPane);
-        multiSplitPane.add(scrollPane, "four");
+
 
         JPanel buttonsPanel = new JPanel();
 
@@ -497,71 +492,7 @@ public class EnvironmentViewer implements ActionListener {
     }//end method.
 
 
-    /**
-     * Returns a GUI table which contains a sorted list of the tokens.
-     * 
-     * @param aEnvironment the environment to view
-     * @return a JTable which contains the token names
-     */
-    public JTable getTokenTable(Environment aEnvironment) {
-        JTable table = new JTable();
 
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.getSelectionModel().addListSelectionListener(new DummyListener(table, aEnvironment));
-
-        final java.util.Map m_hash = (java.util.Map) aEnvironment.iTokenHash.getMap();
-
-        table.setModel(new AbstractTableModel() {
-
-            private static final long serialVersionUID = 1L;
-
-
-            public int getColumnCount() {
-                return 1;
-            }
-
-
-            public int getRowCount() {
-                return m_hash.size();
-            }
-
-
-            public String getColumnName(int column) {
-                if (column == 0) {
-                    return "Tokens";
-                } else {
-                    return "";
-                }
-            }
-
-
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                if (columnIndex == 0) {
-                    return getKey(rowIndex);
-                } else {
-                    return m_hash.get(getKey(rowIndex));
-                } // if-else
-
-            }
-
-
-            private String getKey(int a_index) {
-                String retval = "";
-                ArrayList keyList = new ArrayList(m_hash.keySet());
-                Collections.sort(keyList, functionNameComparator);
-
-                // for (int i = 0; i < a_index + 1; i++) {
-                //         retval = e.next();
-                // } // for
-                retval = (String) keyList.get(a_index);
-
-                return retval;
-            }
-
-        });
-
-        return table;
-    }//end method.
 
     private class GlobalVariableListener implements ListSelectionListener {
 

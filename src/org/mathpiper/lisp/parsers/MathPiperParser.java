@@ -205,8 +205,7 @@ public class MathPiperParser extends Parser
                         while (len > 1)
                         {
                             len--;
-                            String lookUp =
-                                    (String) iEnvironment.iTokenHash.lookUp(iLookAhead[0].substring(0, len));
+                            String lookUp = iLookAhead[0].substring(0, len);
 
                             //printf("trunc %s\n",lookUp.String());
                             op = (Operator) iInfixOperators.lookUp(lookUp);
@@ -214,8 +213,7 @@ public class MathPiperParser extends Parser
                             if (op != null)
                             {
                                 String toLookUp = iLookAhead[0].substring(len, origlen);
-                                String lookUpRight =
-                                       (String) iEnvironment.iTokenHash.lookUp(toLookUp);
+                                String lookUpRight = toLookUp;
 
                                 //printf("right: %s (%d)\n",lookUpRight.String(),origlen-len);
 
