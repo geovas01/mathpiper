@@ -49,10 +49,10 @@ public interface Interpreter
      * Evaluates a MathPiper expression.  The results of the evaluation are returned
      * in a {@link EvaluationResponse} object.
      *
-     * @param expressionPointer the list form of a MathPiper expression to be evaluated
+     * @param expression the list form of a MathPiper expression to be evaluated
      * @return an EvaluationResponse object
      */
-    public EvaluationResponse evaluate(Cons expressionPointer);
+    public EvaluationResponse evaluate(Cons expression);
 
 
     /**

@@ -204,10 +204,6 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             } else {
                 for (i = 0; i < argumentsResultArray.length; i++) {
 
-                    /*      if (argumentsResultPointerArray[i] == null) {
-                    argumentsResultPointerArray[i] = new ConsPointer(AtomCons.getInstance(aEnvironment, "NULL"));
-                    }*/
-
                     Evaluator.traceShowArg(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "parameter" + parameterIndex++), argumentsResultArray[i]);
 
                     traceArgument = traceArgument.cdr();
