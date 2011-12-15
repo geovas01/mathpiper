@@ -44,18 +44,18 @@ public class Import extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
-        Cons pathPointer = getArgument(aEnvironment, aStackTop, 1);
+        Cons path = getArgument(aEnvironment, aStackTop, 1);
 
 
-        LispError.checkIsString(aEnvironment, aStackTop, pathPointer, 1);
+        LispError.checkIsString(aEnvironment, aStackTop, path, 1);
 
-        String path = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) pathPointer.car());
+        String pathString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) path.car());
 
         /*org.mathpiper.builtin.javareflection.Import.addImport(path);
         Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));*/
 
 
-        List failList = Interpreters.addOptionalFunctions(aEnvironment, path);
+        List failList = Interpreters.addOptionalFunctions(aEnvironment, pathString);
 
         if(failList.isEmpty())
         {
@@ -64,7 +64,7 @@ public class Import extends BuiltinFunction
         }
         else
         {
-            aEnvironment.write("Could not load " + path);
+            aEnvironment.write("Could not load " + pathString);
             setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
         }//end if/else
 

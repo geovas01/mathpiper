@@ -73,8 +73,8 @@ public class ViewMath extends BuiltinFunction {
         ((Cons) head.car()).setCdr(getArgument(aEnvironment, aStackTop, 1));
 
 
-        Cons viewScalePointer = getArgument(aEnvironment, aStackTop, 2);
-        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScalePointer);
+        Cons viewScaleCons = getArgument(aEnvironment, aStackTop, 2);
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScaleCons);
         BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.iPrecision, aEnvironment);
         if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 

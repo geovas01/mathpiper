@@ -119,7 +119,7 @@ public class ChartUtility {
             } else {
                 dataSet.addSeries((String) userOptions.get("seriesTitle"), dataValues, numberOfBins);
             }
-            //argumentsPointer.goNext();
+
         }//end if/else
         return dataSet;
 

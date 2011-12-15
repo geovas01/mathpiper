@@ -66,14 +66,14 @@ public class JavaToValue extends BuiltinFunction {
 
                     Cons sublistCons = SublistCons.getInstance(aEnvironment, listAtomCons);
 
-                    Cons consPointer = listAtomCons;
+                    Cons cons = listAtomCons;
 
                     for (String javaString : stringArray) {
                         Cons atomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, javaString));
 
-                        consPointer.setCdr(atomCons);
+                        cons.setCdr(atomCons);
 
-                        consPointer = consPointer.cdr();
+                        cons = cons.cdr();
                     }//end for.
 
                     setTopOfStack(aEnvironment, aStackTop, sublistCons);

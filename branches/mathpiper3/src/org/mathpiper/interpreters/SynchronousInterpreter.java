@@ -362,12 +362,6 @@ public class SynchronousInterpreter implements Interpreter {
             evaluationResponse.setSideEffects(sideEffects);
         }
 
-        /*try{
-        org.mathpiper.builtin.functions.optional.ViewList.evaluate(iEnvironment, -1, inputExpressionPointer);
-        }catch(Exception e)
-        {
-        e.printStackTrace();
-        }*/
 
         try {
             if (inputExpression instanceof SublistCons) {
