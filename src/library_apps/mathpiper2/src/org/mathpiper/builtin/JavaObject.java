@@ -62,17 +62,17 @@ public class JavaObject extends BuiltinContainer {
     }//end method.
 
 
-    public static double[] lispListToJavaDoubleArray(Environment aEnvironment, int aStackTop, Cons lispListPointer) throws Exception {
-        if(! Utility.isList(lispListPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
+    public static double[] lispListToJavaDoubleArray(Environment aEnvironment, int aStackTop, Cons lispList) throws Exception {
+        if(! Utility.isList(lispList)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
 
-        lispListPointer = lispListPointer.cdr(); //Remove List designator.
+        lispList = lispList.cdr(); //Remove List designator.
 
-        double[] values = new double[Utility.listLength(aEnvironment, aStackTop, lispListPointer)];
+        double[] values = new double[Utility.listLength(aEnvironment, aStackTop, lispList)];
 
         int index = 0;
-        while (lispListPointer != null) {
+        while (lispList != null) {
 
-            Object item = lispListPointer.car();
+            Object item = lispList.car();
 
             if(!( item instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
             String itemString = (String) item;
@@ -83,7 +83,7 @@ public class JavaObject extends BuiltinContainer {
                 LispError.raiseError("Can not convert into a double.", aStackTop, aEnvironment);
             }//end try/catch.
 
-            lispListPointer = lispListPointer.cdr();
+            lispList = lispList.cdr();
 
         }//end while.
 

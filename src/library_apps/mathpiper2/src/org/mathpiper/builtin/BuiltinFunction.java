@@ -29,19 +29,19 @@ public abstract class BuiltinFunction {
 
     public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
 
-    public static Cons getTopOfStackPointer(Environment aEnvironment, int aStackTop) throws Exception {
+    public static Cons getTopOfStack(Environment aEnvironment, int aStackTop) throws Exception {
         return aEnvironment.iArgumentStack.getElement(aStackTop, aStackTop, aEnvironment);
     }
 
-    public static void setTopOfStackPointer(Environment aEnvironment, int aStackTop, Cons cons) throws Exception {
+    public static void setTopOfStack(Environment aEnvironment, int aStackTop, Cons cons) throws Exception {
         aEnvironment.iArgumentStack.setElement(aStackTop, aStackTop, aEnvironment, cons);
     }
 
-    public static Cons getArgumentPointer(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
+    public static Cons getArgument(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
         return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition, aStackTop, aEnvironment);
     }
 
-    public static Cons getArgumentPointer(Environment aEnvironment, int aStackTop, Cons cur, int n) throws Exception {
+    public static Cons getArgument(Environment aEnvironment, int aStackTop, Cons cur, int n) throws Exception {
         if(n < 0)LispError.lispAssert(aEnvironment, aStackTop);
 
         Cons loop = cur;

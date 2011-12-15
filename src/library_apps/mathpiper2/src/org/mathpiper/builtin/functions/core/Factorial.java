@@ -43,8 +43,8 @@ public class Factorial extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if( getArgumentPointer(aEnvironment, aStackTop, 1).getNumber(0, aEnvironment) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        Cons arg = getArgumentPointer(aEnvironment, aStackTop, 1);
+        if( getArgument(aEnvironment, aStackTop, 1).getNumber(0, aEnvironment) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        Cons arg = getArgument(aEnvironment, aStackTop, 1);
 
         //TODO fixme I am sure this can be optimized still
 //        LispError.check(arg.type().equals("Number"), LispError.INVALID_ARGUMENT);
@@ -58,6 +58,6 @@ public class Factorial extends BuiltinFunction
             m.multiply(fac, m, 0);
             fac = m;
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(fac));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(fac));
     }
 }

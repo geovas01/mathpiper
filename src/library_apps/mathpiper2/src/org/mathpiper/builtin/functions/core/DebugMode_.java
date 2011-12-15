@@ -41,6 +41,6 @@ public class DebugMode_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
+         setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
     }
 }

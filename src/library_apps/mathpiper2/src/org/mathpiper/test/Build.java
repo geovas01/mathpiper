@@ -929,7 +929,7 @@ public class Build {
     LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "","INTERNAL");
     // check for end of file
     if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
-    endoffile = true;
+    endoffile = true;Pointer
     } // Else print and maybe evaluate
     else {
     printExpression(printedScriptStringBuffer, aEnvironment, readIn);

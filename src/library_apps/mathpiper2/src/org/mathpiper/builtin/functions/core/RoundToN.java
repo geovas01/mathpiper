@@ -37,7 +37,7 @@ public class RoundToN extends BuiltinFunction
 
 
 
-        Cons argument1 = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons argument1 = getArgument(aEnvironment, aStackTop, 1);
 
         if(argument1 instanceof NumberCons)
         {
@@ -49,33 +49,33 @@ public class RoundToN extends BuiltinFunction
                 decimalToBeRounded.setPrecision(requestedPrecision.toInt());
             }
 
-            setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(decimalToBeRounded));
+            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(decimalToBeRounded));
 
             return;
 
         }
         else if (argument1 instanceof SublistCons)
         {
-            Cons consPointer = argument1;
+            Cons cons = argument1;
 
-            consPointer = (Cons) consPointer.car();
+            cons = (Cons) cons.car();
 
-            String functionName = ((String) consPointer.car());
+            String functionName = ((String) cons.car());
 
             if(functionName.equals("Complex"))
             {
-                consPointer = consPointer.cdr();
+                cons = cons.cdr();
 
-                BigNumber realPart = (BigNumber) ((NumberCons) consPointer).getNumber(aEnvironment.getPrecision(), aEnvironment);
+                BigNumber realPart = (BigNumber) ((NumberCons) cons).getNumber(aEnvironment.iPrecision, aEnvironment);
 
                 if(realPart.getPrecision() != requestedPrecision.toInt())
                 {
                     realPart.setPrecision(requestedPrecision.toInt());
                 }//end if.
 
-                consPointer = consPointer.cdr();
+                cons = cons.cdr();
 
-                BigNumber imaginaryPart = (BigNumber) ((NumberCons) consPointer).getNumber(aEnvironment.getPrecision(), aEnvironment);
+                BigNumber imaginaryPart = (BigNumber) ((NumberCons) cons).getNumber(aEnvironment.iPrecision, aEnvironment);
 
                 if(imaginaryPart.getPrecision() != requestedPrecision.toInt())
                 {
@@ -96,7 +96,7 @@ public class RoundToN extends BuiltinFunction
 
                 Cons complexSublistCons = SublistCons.getInstance(aEnvironment, complexAtomCons);
 
-                setTopOfStackPointer(aEnvironment, aStackTop, complexSublistCons);
+                setTopOfStack(aEnvironment, aStackTop, complexSublistCons);
                 
                 return;
                 

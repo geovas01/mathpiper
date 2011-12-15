@@ -49,7 +49,7 @@ public class GetExactBits extends BuiltinFunction
                 ? numberToCheck.bitCount() // for integers, return the bit count
                 : Utility.digitsToBits((long) (numberToCheck.getPrecision()), 10) // for floats, return the getPrecision
                 );
-        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(numberToReturn));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(numberToReturn));
     }
 }
 

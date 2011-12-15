@@ -36,7 +36,7 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
 
         tScore.setTo(cdf);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(tScore));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(tScore));
 
     }//end method.
 

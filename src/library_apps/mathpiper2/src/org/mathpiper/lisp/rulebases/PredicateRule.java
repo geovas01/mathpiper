@@ -70,12 +70,12 @@ class PredicateRule extends Rule {
 
     /// Access #iBody.
 
-    public Cons getBodyPointer() {
+    public Cons getBody() {
         return iBody;
     }
 
 
-    public Cons getPredicatePointer() {
+    public Cons getPredicate() {
         return this.iPredicate;
     }
 

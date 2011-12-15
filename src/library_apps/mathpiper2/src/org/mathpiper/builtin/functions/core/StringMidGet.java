@@ -45,24 +45,24 @@ public class StringMidGet extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         
-        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 3);
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 3);
         LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3);
         String orig = (String) evaluated.car();
 
-        Cons index = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons index = getArgument(aEnvironment, aStackTop, 1);
         if( index  == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1);
         int from = Integer.parseInt( (String) index.car(), 10);
         if( from <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        index = getArgumentPointer(aEnvironment, aStackTop, 2);
+        index = getArgument(aEnvironment, aStackTop, 2);
         if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int count = Integer.parseInt( (String) index.car(), 10);
 
 
         String str = "\"" + orig.substring(from, from + count) + "\"";
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, str));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, str));
     }
 }
 

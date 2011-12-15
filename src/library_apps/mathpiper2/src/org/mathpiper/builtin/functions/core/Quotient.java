@@ -48,7 +48,7 @@ public class Quotient extends BuiltinFunction
 
             BigNumber z = new BigNumber(aEnvironment.getPrecision());
             z.divide(x, y, aEnvironment.getPrecision());
-            setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         } else
         {

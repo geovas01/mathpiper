@@ -37,7 +37,7 @@ public class NormalDistributionValue extends BuiltinFunction{
 
         randomVariable.setTo(randomVariableDouble);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(randomVariable));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(randomVariable));
 
     }//end method.
 

@@ -281,7 +281,7 @@ public final class Environment {
 
         if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "");
 
-        LocalVariableFrame localVariableFramePointer = iLocalVariablesFrame;
+        LocalVariableFrame localVariableFrame = iLocalVariablesFrame;
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -291,9 +291,9 @@ public final class Environment {
 
         //int functionBaseIndex = 0;
 
-        while (localVariableFramePointer != null) {
+        while (localVariableFrame != null) {
 
-            String functionName = localVariableFramePointer.getFunctionName();
+            String functionName = localVariableFrame.getFunctionName();
 
 
             if(functionPositionIndex == 0)
@@ -310,7 +310,7 @@ public final class Environment {
             stringBuilder.append(functionName);
             stringBuilder.append("\n");
 
-            LocalVariable localVariable = localVariableFramePointer.iFirst;
+            LocalVariable localVariable = localVariableFrame.iFirst;
 
 
             //stringBuilder.append("Local variables: ");
@@ -325,9 +325,9 @@ public final class Environment {
 
                 stringBuilder.append(" = ");
 
-                Cons valuePointer = localVariable.iValue;
+                Cons value = localVariable.iValue;
 
-                String valueString = Utility.printMathPiperExpression(aStackTop, valuePointer, this, -1);
+                String valueString = Utility.printMathPiperExpression(aStackTop, value, this, -1);
 
                 stringBuilder.append(valueString);
 
@@ -351,7 +351,7 @@ public final class Environment {
                 localVariable = localVariable.iNext;
             }//end while.
 
-            localVariableFramePointer = localVariableFramePointer.iNext;
+            localVariableFrame = localVariableFrame.iNext;
 
         }//end while
 
@@ -548,16 +548,16 @@ public final class Environment {
         return multipleArityUserRulebase;
     }
 
-    public void defineRulebase(int aStackTop, String aOperator, Cons aParametersPointer, boolean aListed) throws Exception {
+    public void defineRulebase(int aStackTop, String aOperator, Cons aParameters, boolean aListed) throws Exception {
 
         MultipleArityRulebase multipleArityUserFunction = getMultipleArityRulebase(aStackTop, aOperator, true);
 
         // add an operator with this arity to the multiuserfunc.
         SingleArityRulebase newBranchingRulebase;
         if (aListed) {
-            newBranchingRulebase = new ListedRulebase(this, aStackTop, aParametersPointer, aOperator);
+            newBranchingRulebase = new ListedRulebase(this, aStackTop, aParameters, aOperator);
         } else {
-            newBranchingRulebase = new SingleArityRulebase(this, aStackTop, aParametersPointer, aOperator);
+            newBranchingRulebase = new SingleArityRulebase(this, aStackTop, aParameters, aOperator);
         }
         multipleArityUserFunction.addRulebaseEntry(this, aStackTop, newBranchingRulebase);
     }

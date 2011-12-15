@@ -46,13 +46,13 @@ public class ArraySet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
         if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        Cons sizearg = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
 
         if(sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
@@ -60,9 +60,9 @@ public class ArraySet extends BuiltinFunction
         int size = Integer.parseInt( (String) sizearg.car(), 10);
         if( size <= 0 || size > ((Array) gen).size()) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
-        Cons obj = getArgumentPointer(aEnvironment, aStackTop, 3);
+        Cons obj = getArgument(aEnvironment, aStackTop, 3);
         ((Array) gen).setElement(size, obj, aStackTop, aEnvironment);
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }//end class.
 

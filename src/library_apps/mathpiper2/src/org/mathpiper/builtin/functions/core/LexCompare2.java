@@ -39,9 +39,9 @@ abstract public class LexCompare2
 
     void Compare(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons argument1 = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons argument1 = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
 
-        Cons argument2 = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons argument2 = BuiltinFunction.getArgument(aEnvironment, aStackTop, 2);
 
 
         //LispError.check(argument1.getCons() instanceof NumberCons || argument1.getCons() instanceof AtomCons, "The first argument must be a non-complex decimal number or a string.","LexCompare2");
@@ -71,6 +71,6 @@ abstract public class LexCompare2
             cmp = lexFunction(str1, str2, aEnvironment.iPrecision);
         }
 
-        BuiltinFunction.setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, cmp));
+        BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, cmp));
     }
 }

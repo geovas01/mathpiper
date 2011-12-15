@@ -44,7 +44,7 @@ public class PatchString extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         String unpatchedString = 
-        (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        (String) getArgument(aEnvironment, aStackTop, 1).car();
         
         if(unpatchedString == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         
@@ -58,7 +58,7 @@ public class PatchString extends BuiltinFunction
         
         aEnvironment.getCurrentInput().iStatus.restoreFrom(oldStatus);
         
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, resultBuffer.toString()));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, resultBuffer.toString()));
     }
 
 

@@ -43,18 +43,18 @@ public class Bound_ extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof String)
+        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof String)
         {
-            String str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+            String str =  (String) getArgument(aEnvironment, aStackTop, 1).car();
 
             Cons val = aEnvironment.getLocalOrGlobalVariable(aStackTop, str);
             if (val != null)
             {
-                setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+                setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
                 return;
             }
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
     }
 }
 

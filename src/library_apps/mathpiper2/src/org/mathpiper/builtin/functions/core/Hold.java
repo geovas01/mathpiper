@@ -39,7 +39,7 @@ public class Hold extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        setTopOfStackPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1).copy(false));
+        setTopOfStack(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1).copy(false));
     }
 }
 

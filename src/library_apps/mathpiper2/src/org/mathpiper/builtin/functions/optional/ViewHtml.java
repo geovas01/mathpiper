@@ -49,7 +49,7 @@ public class ViewHtml extends BuiltinFunction {
 
         String htmlText = null;
 
-        Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
 
         if (argument instanceof String)
         {
@@ -91,7 +91,7 @@ public class ViewHtml extends BuiltinFunction {
 
         JavaObject response = new JavaObject(frame);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 }//end class.

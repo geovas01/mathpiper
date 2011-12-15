@@ -99,32 +99,6 @@ public class JavaField extends Reflector {
     }}
 
 
-  /*
-  public Object[] makeArgArray(Object[] code,
-                               Evaluator eval,
-                               LexicalEnvironment lexenv) {
-    int L = code.length - 1;
-    if (L == 0 && isStatic) return StaticReflector.args0;
-    else if (L == 1)
-      return new Object[] { eval.execute(code[1], lexenv) };
-    else if (L == 2 && !isStatic)
-      return new Object[] { eval.execute(code[1], lexenv),
-			      eval.execute(code[2], lexenv) };
-    else return ((Object[]) E.error("Wrong number of arguments to field " +
-				    this + " " + U.stringify(code)));
-  }*/
-
-
-  /*
-  public Object[] makeArgArray (ConsPointer args) throws Exception{
-    int L = Utility.listLength(null, -1, args);//   args.length();
-    if (L == 0 && isStatic) return StaticReflector.args0;
-    else if (L == 1) return new Object[] { args.cdr() };
-    else if (L == 2 && !isStatic)
-      return new Object[] { args.cdr(), args.second() };
-    else return ((Object[]) E.error("Wrong number of arguments to field " +
-				    this + " " + U.stringify(args)));
-  }*/
 
   public Object apply(Object[] args) throws Exception {
     int L = args.length;

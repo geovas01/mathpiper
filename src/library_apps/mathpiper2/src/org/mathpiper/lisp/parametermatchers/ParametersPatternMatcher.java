@@ -103,9 +103,6 @@ public class ParametersPatternMatcher {
         Cons[] argumentsCons = null;
         if (iVariables.size() > 0) {
             argumentsCons = new Cons[iVariables.size()];
-            //for (i = 0; i < iVariables.size(); i++) {
-                //argumentsPointer[i] = new ConsPointer();
-            //}
 
         }
         Cons argumentsTraverser = aArguments;
@@ -150,7 +147,7 @@ public class ParametersPatternMatcher {
 
     /**
      *Try to match the pattern against aArguments.
-     *This function does the same as matches(Environment, ConsPointer),
+     *This function does the same as matches(Environment, Cons),
      *but differs in the type of the arguments.
      */
     public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
@@ -160,9 +157,6 @@ public class ParametersPatternMatcher {
         if (iVariables.size() > 0) {
             arguments = new Cons[iVariables.size()];
         }
-        //for (i = 0; i < iVariables.size(); i++) {
-        //    arguments[i] = new ConsPointer();
-        //}
 
 
 

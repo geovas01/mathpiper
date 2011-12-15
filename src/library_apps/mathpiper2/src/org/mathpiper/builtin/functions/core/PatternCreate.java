@@ -45,22 +45,22 @@ public class PatternCreate extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
-        Cons patternPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons pattern = getArgument(aEnvironment, aStackTop, 1);
         
-        Cons postPredicatePointer = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons postPredicate = getArgument(aEnvironment, aStackTop, 2);
 
-        Cons patternPointerTraverser = patternPointer;
-        if(patternPointerTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(! (patternPointerTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        patternPointerTraverser = (Cons) patternPointerTraverser.car();
-        if(patternPointerTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        patternPointerTraverser = patternPointerTraverser.cdr();
+        Cons patternTraverser = pattern;
+        if(patternTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! (patternTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        patternTraverser = (Cons) patternTraverser.car();
+        if(patternTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        patternTraverser = patternTraverser.cdr();
 
-        patternPointer = patternPointerTraverser;
+        pattern = patternTraverser;
 
 
-        org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, aStackTop, patternPointer, postPredicatePointer);
+        org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, aStackTop, pattern, postPredicate);
         PatternContainer patternContainer = new PatternContainer(matcher);
-        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, patternContainer));
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, patternContainer));
     }
 }

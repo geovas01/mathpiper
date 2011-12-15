@@ -41,7 +41,7 @@ public class JavaToValue extends BuiltinFunction {
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
 
         if (argument instanceof JavaObject) {
             String atomValue = "";
@@ -66,17 +66,17 @@ public class JavaToValue extends BuiltinFunction {
 
                     Cons sublistCons = SublistCons.getInstance(aEnvironment, listAtomCons);
 
-                    Cons consPointer = listAtomCons;
+                    Cons cons = listAtomCons;
 
                     for (String javaString : stringArray) {
                         Cons atomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, javaString));
 
-                        consPointer.setCdr(atomCons);
+                        cons.setCdr(atomCons);
 
-                        consPointer = consPointer.cdr();
+                        cons = cons.cdr();
                     }//end for.
 
-                    setTopOfStackPointer(aEnvironment, aStackTop, sublistCons);
+                    setTopOfStack(aEnvironment, aStackTop, sublistCons);
 
                     return;
 
@@ -84,7 +84,7 @@ public class JavaToValue extends BuiltinFunction {
                     atomValue = (String) javaObject.getObject().toString().trim();
                 }
 
-                setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, atomValue));
+                setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, atomValue));
 
                 return;
             }

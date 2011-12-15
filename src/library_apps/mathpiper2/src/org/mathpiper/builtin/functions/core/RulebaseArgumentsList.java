@@ -46,12 +46,12 @@ public class RulebaseArgumentsList extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons name = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons name = getArgument(aEnvironment, aStackTop, 1);
         String orig = (String) name.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
-        Cons sizearg = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
         if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
@@ -64,7 +64,7 @@ public class RulebaseArgumentsList extends BuiltinFunction
         Cons list = userFunc.argList();
         Cons head = aEnvironment.iListAtom.copy(false);
         head.setCdr(list);
-        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
     }
 }
 

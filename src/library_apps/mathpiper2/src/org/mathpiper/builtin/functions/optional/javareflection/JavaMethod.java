@@ -105,39 +105,4 @@ public class JavaMethod extends Reflector {
     }
   }
 
-
-  /*
-  public Object[] makeArgArray(Object[] code,
-                               Evaluator eval,
-                               LexicalEnvironment lexenv) {
-    if (isStatic) {
-      int L = code.length - 1;
-      if (L == 0) return ZERO_ARGS;
-    
-      Object[] args = new Object[L];
-      for (int i = 0; i < L; i++)
-	args[i] = eval.execute(code[i+1], lexenv);
-      return args;
-    } else {
-      int L = code.length - 2;
-      if (L < 0)
-	return ((Object[])
-		E.error("Wrong number of arguments in application: "
-			+ U.stringify(code)));
-      Object target = eval.execute(code[1], lexenv);
-      if (L == 0) return new Object[] { target, ZERO_ARGS };
-    
-      Object[] args = new Object[L];
-      for (int i = 0; i < L; i++)
-	args[i] = eval.execute(code[i+2], lexenv);
-      return new Object[] { target, args };
-    }
-  }
-      
-  public Object[] makeArgArray (ConsPointer args) {
-    if (isStatic) return U.listToVector(args);
-    else return new Object[] { args.first, U.listToVector(args.rest)} ;
-  }
-
-  */
 }

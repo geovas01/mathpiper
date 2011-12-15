@@ -46,7 +46,7 @@ public class LoadScript extends BuiltinFunction
     {
         if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
 
-        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
         if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         
@@ -66,7 +66,7 @@ public class LoadScript extends BuiltinFunction
 
         aEnvironment.saveDebugInformation = false;
         
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
          
     }
 }

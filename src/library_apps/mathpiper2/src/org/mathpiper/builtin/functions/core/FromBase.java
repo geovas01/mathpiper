@@ -47,7 +47,7 @@ public class FromBase extends BuiltinFunction
     {
         // Get the base to convert to:
         // Evaluate car argument, and store getTopOfStackPointer in oper
-        Cons oper = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons oper = getArgument(aEnvironment, aStackTop, 1);
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
         BigNumber num = (BigNumber)  oper.getNumber(aEnvironment.getPrecision(), aEnvironment);
@@ -59,7 +59,7 @@ public class FromBase extends BuiltinFunction
         int base = (int) (num.toDouble());
 
         // Get the number to convert
-        Cons fromNum = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons fromNum = getArgument(aEnvironment, aStackTop, 2);
         String str2;
         str2 =  (String) fromNum.car();
         if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
@@ -70,7 +70,7 @@ public class FromBase extends BuiltinFunction
 
         // convert using correct base
         BigNumber z = new BigNumber(str2, aEnvironment.getPrecision(), base);
-        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }
 
