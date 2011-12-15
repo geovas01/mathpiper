@@ -56,26 +56,26 @@ public class RoundToN extends BuiltinFunction
         }
         else if (argument1 instanceof SublistCons)
         {
-            Cons consPointer = argument1;
+            Cons cons = argument1;
 
-            consPointer = (Cons) consPointer.car();
+            cons = (Cons) cons.car();
 
-            String functionName = ((String) consPointer.car());
+            String functionName = ((String) cons.car());
 
             if(functionName.equals("Complex"))
             {
-                consPointer = consPointer.cdr();
+                cons = cons.cdr();
 
-                BigNumber realPart = (BigNumber) ((NumberCons) consPointer).getNumber(aEnvironment.iPrecision, aEnvironment);
+                BigNumber realPart = (BigNumber) ((NumberCons) cons).getNumber(aEnvironment.iPrecision, aEnvironment);
 
                 if(realPart.iPrecision != requestedPrecision.toInt())
                 {
                     realPart.setPrecision(requestedPrecision.toInt());
                 }//end if.
 
-                consPointer = consPointer.cdr();
+                cons = cons.cdr();
 
-                BigNumber imaginaryPart = (BigNumber) ((NumberCons) consPointer).getNumber(aEnvironment.iPrecision, aEnvironment);
+                BigNumber imaginaryPart = (BigNumber) ((NumberCons) cons).getNumber(aEnvironment.iPrecision, aEnvironment);
 
                 if(imaginaryPart.iPrecision != requestedPrecision.toInt())
                 {

@@ -46,12 +46,12 @@ public class TraceSome extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
-        Cons functionListPointer = getArgument(aEnvironment, aStackTop, 1);
-        Cons bodyPointer = getArgument(aEnvironment, aStackTop, 2);
+        Cons functionList = getArgument(aEnvironment, aStackTop, 1);
+        Cons body = getArgument(aEnvironment, aStackTop, 2);
 
         // Get function list.
-        if(functionListPointer == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionListPointer);
+        if(functionList == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionList);
         String functionNamesString =  (String) result.car();
         if(functionNamesString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
@@ -69,7 +69,7 @@ public class TraceSome extends BuiltinFunction
 
         //Evaluate expresstion with tracing on.
         Evaluator.traceOn();
-        setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, bodyPointer));
+        setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body));
         Evaluator.traceOff();
         Evaluator.setTraceFunctionList(null);
 

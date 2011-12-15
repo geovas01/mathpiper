@@ -47,12 +47,12 @@ public class Write extends BuiltinFunction
 
             Cons subList = (Cons) arguments.car();
             
-            Cons consPointer = subList;
-            consPointer = consPointer.cdr();
-            while (consPointer != null)
+            Cons cons = subList;
+            cons = cons.cdr();
+            while (cons != null)
             {
-                aEnvironment.iCurrentPrinter.print(aStackTop, consPointer, aEnvironment.iCurrentOutput, aEnvironment);
-                consPointer = consPointer.cdr();
+                aEnvironment.iCurrentPrinter.print(aStackTop, cons, aEnvironment.iCurrentOutput, aEnvironment);
+                cons = cons.cdr();
             }
         }
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));

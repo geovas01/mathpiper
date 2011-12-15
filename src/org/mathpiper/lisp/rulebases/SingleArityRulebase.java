@@ -460,7 +460,7 @@ public class SingleArityRulebase extends Evaluator {
     /**
      * Return the argument list, stored in #iParameterList.
      * 
-     * @return a ConsPointer
+     * @return a Cons
      */
     public Cons argList() {
         return iParameterList;
