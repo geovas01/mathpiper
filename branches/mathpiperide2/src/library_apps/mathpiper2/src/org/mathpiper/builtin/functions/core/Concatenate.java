@@ -53,7 +53,7 @@ public class Concatenate extends BuiltinFunction
 
         int arg = 1;
 
-        Cons consTraverser =  (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Cons consTraverser =  (Cons) getArgument(aEnvironment, aStackTop, 1).car();
         consTraverser = consTraverser.cdr();
 
         while (consTraverser != null)
@@ -73,7 +73,7 @@ public class Concatenate extends BuiltinFunction
 
             arg++;
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,all));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,all));
     }
 }
 

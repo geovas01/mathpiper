@@ -41,7 +41,7 @@ public class DefaultTokenizer extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         aEnvironment.iCurrentTokenizer = aEnvironment.iDefaultTokenizer;
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

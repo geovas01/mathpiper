@@ -32,7 +32,7 @@ public class ListPanel extends JPanel implements ViewPanel {
         structure that more closely reflects the way the list will be displayed graphically.
      */
 
-    public ListPanel(Environment aEnvironment, int aStackTop, Cons consPointer, double viewScale) {
+    public ListPanel(Environment aEnvironment, int aStackTop, Cons cons, double viewScale) {
         super();
         this.setOpaque(true);
         this.viewScale = viewScale;
@@ -46,7 +46,7 @@ public class ListPanel extends JPanel implements ViewPanel {
 
         try {
 
-            Cons headCons = consPointer;
+            Cons headCons = cons;
 
             headNode = new ConsNode();
             if (headCons instanceof SublistCons) {
@@ -74,20 +74,20 @@ public class ListPanel extends JPanel implements ViewPanel {
                 //Remove rest because it has already been processed.
                 consXHolder.getCons().setCdr(null);
 
-                Cons currentConsPointer = consXHolder.getCons();
+                Cons currentCons = consXHolder.getCons();
 
                 currentNode = consXHolder.getConsNode();
 
-                while (currentConsPointer.cdr() != null || (currentConsPointer.car() instanceof Cons && ((Cons) currentConsPointer.car()) != null)) {
+                while (currentCons.cdr() != null || (currentCons.car() instanceof Cons && ((Cons) currentCons.car()) != null)) {
 
-                    if (currentConsPointer.cdr() != null) {
+                    if (currentCons.cdr() != null) {
 
-                        currentConsPointer = currentConsPointer.cdr();
+                        currentCons = currentCons.cdr();
 
                         ConsNode newNode = new ConsNode();
 
-                        if (!(currentConsPointer instanceof SublistCons)) {
-                            String name = currentConsPointer.car().toString();
+                        if (!(currentCons instanceof SublistCons)) {
+                            String name = currentCons.car().toString();
                             newNode.setName(name);
                         } else {
                             newNode.setName(sublistName);
@@ -97,31 +97,31 @@ public class ListPanel extends JPanel implements ViewPanel {
 
                         currentNode = newNode;
 
-                        if (currentConsPointer instanceof SublistCons) {
-                            sequenceStack.push(new ConsXHolder(currentConsPointer.copy(false), currentNode));
+                        if (currentCons instanceof SublistCons) {
+                            sequenceStack.push(new ConsXHolder(currentCons.copy(false), currentNode));
 
-                            if (currentConsPointer.cdr() == null) {
+                            if (currentCons.cdr() == null) {
                                 break;
                             }//end if.
 
                         }//end if.
 
                     } else {
-                        if ((currentConsPointer.car() instanceof Cons && ((Cons) currentConsPointer.car()) == null))//! (currentConsPointer.getCons() instanceof SublistCons)) //(ConsPointer)currentConsPointer.car()).getCons() == null
+                        if ((currentCons.car() instanceof Cons && ((Cons) currentCons.car()) == null))//! (currentConsPointer.getCons() instanceof SublistCons)) //(ConsPointer)currentConsPointer.car()).getCons() == null
                         {
                             break;
                         }
 
-                        currentConsPointer = (Cons) currentConsPointer.car();
+                        currentCons = (Cons) currentCons.car();
 
-                        if (currentConsPointer instanceof SublistCons) {
-                            sequenceStack.push(new ConsXHolder(currentConsPointer.copy(false), currentNode)); //currentNode.getX()));
+                        if (currentCons instanceof SublistCons) {
+                            sequenceStack.push(new ConsXHolder(currentCons.copy(false), currentNode)); //currentNode.getX()));
                         }//end if.
 
                         ConsNode newNode = new ConsNode();
 
-                        if (!(currentConsPointer instanceof SublistCons)) {
-                            String name = currentConsPointer.car().toString();
+                        if (!(currentCons instanceof SublistCons)) {
+                            String name = currentCons.car().toString();
                             newNode.setName(name);
                         } else {
                             newNode.setName(sublistName);

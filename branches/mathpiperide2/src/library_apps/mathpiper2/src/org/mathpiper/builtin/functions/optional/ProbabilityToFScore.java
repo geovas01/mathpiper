@@ -43,7 +43,7 @@ public class ProbabilityToFScore extends BuiltinFunction{
 
         probability.setTo(fScoreValue);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(probability));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(probability));
 
     }//end method.
 

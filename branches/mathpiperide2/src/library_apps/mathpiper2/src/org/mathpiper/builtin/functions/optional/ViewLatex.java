@@ -76,11 +76,11 @@ public class ViewLatex extends BuiltinFunction {
 
         String latexString = null;
 
-        Object expressionPointer = getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Object expression = getArgument(aEnvironment, aStackTop, 1).car();
 
-        if (expressionPointer instanceof String)
+        if (expression instanceof String)
         {
-            latexString = (String) expressionPointer;
+            latexString = (String) expression;
 
             latexString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, latexString);
 
@@ -92,8 +92,8 @@ public class ViewLatex extends BuiltinFunction {
         }//end else.
 
 
-        Cons viewScalePointer = getArgumentPointer(aEnvironment, aStackTop, 2);
-        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScalePointer);
+        Cons viewScaleCons = getArgument(aEnvironment, aStackTop, 2);
+        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScaleCons);
         BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.getPrecision(), aEnvironment);
         if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
@@ -162,7 +162,7 @@ public class ViewLatex extends BuiltinFunction {
 
         JavaObject response = new JavaObject(frame);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
 
     }//end method.

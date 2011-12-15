@@ -56,7 +56,7 @@ public class RightPrecedenceGet extends BuiltinFunction
                 if(op == null) LispError.throwError(aEnvironment, aStackTop, LispError.IS_NOT_INFIX);
             }
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iRightPrecedence));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iRightPrecedence));
     }
 }
 

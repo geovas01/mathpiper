@@ -42,19 +42,19 @@ public class UnFence extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         // Get operator
-        if(getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String orig = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        String orig = (String) getArgument(aEnvironment, aStackTop, 1).car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         // The arity
-        if(getArgumentPointer(aEnvironment, aStackTop, 2) == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        if(! (getArgumentPointer(aEnvironment, aStackTop, 2).car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        int arity = Integer.parseInt( (String) getArgumentPointer(aEnvironment, aStackTop, 2).car(), 10);
+        if(getArgument(aEnvironment, aStackTop, 2) == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (getArgument(aEnvironment, aStackTop, 2).car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        int arity = Integer.parseInt( (String) getArgument(aEnvironment, aStackTop, 2).car(), 10);
 
         aEnvironment.unfenceRule(aStackTop, Utility.getSymbolName(aEnvironment, orig), arity);
 
         // Return true
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

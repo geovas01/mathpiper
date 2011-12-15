@@ -41,7 +41,7 @@ public class StackTraceOn extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
         Evaluator.stackTraceOn();
         aEnvironment.write("Stack tracing is on.\n");
-         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }//end method.
 
 }//end class.

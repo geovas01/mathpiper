@@ -47,7 +47,7 @@ public class ViewEnvironment extends BuiltinFunction
 
         JavaObject response = new JavaObject(frame);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
     }
 }
 

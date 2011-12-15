@@ -58,6 +58,6 @@ public class BitsToDigits extends BuiltinFunction
         }
         BigNumber z = new BigNumber(aEnvironment.getPrecision());
         z.setTo((long) result);
-        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }

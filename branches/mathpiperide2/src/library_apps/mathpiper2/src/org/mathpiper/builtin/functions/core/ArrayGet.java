@@ -44,13 +44,13 @@ public class ArrayGet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
         if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        Cons sizearg = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
 
         if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
@@ -60,7 +60,7 @@ public class ArrayGet extends BuiltinFunction
         if( size <= 0 || size > ((Array) gen).size()) LispError.checkArgument(aEnvironment, aStackTop, 2);
         Cons object = ((Array) gen).getElement(size, aStackTop, aEnvironment);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, object.copy(false));
+        setTopOfStack(aEnvironment, aStackTop, object.copy(false));
     }
 }//end class.
 

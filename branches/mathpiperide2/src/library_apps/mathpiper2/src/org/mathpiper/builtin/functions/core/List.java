@@ -36,10 +36,10 @@ public class List extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons allPointer = aEnvironment.iListAtom.copy(false);
-        Cons tail = allPointer;
+        Cons all = aEnvironment.iListAtom.copy(false);
+        Cons tail = all;
 
-        Cons consTraverser = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Cons consTraverser = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
         consTraverser = consTraverser.cdr();
         while (consTraverser != null) {
 
@@ -50,7 +50,7 @@ public class List extends BuiltinFunction {
 
             consTraverser = consTraverser.cdr();
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, allPointer));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, all));
     }
 }
 /*

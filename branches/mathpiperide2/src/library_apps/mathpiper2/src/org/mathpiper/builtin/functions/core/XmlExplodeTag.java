@@ -47,14 +47,14 @@ public class XmlExplodeTag extends BuiltinFunction {
     }
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        Cons out = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons out = getArgument(aEnvironment, aStackTop, 1);
         LispError.checkIsString(aEnvironment, aStackTop, out, 1);
 
         String str = (String) out.car();
         int strInd = 0;
         strInd++;
         if (str.charAt(strInd) != '<') {
-            setTopOfStackPointer(aEnvironment, aStackTop, out);
+            setTopOfStack(aEnvironment, aStackTop, out);
             return;
         }
         if( str.charAt(strInd) != '<') LispError.checkArgument(aEnvironment, aStackTop, 1);
@@ -146,7 +146,7 @@ public class XmlExplodeTag extends BuiltinFunction {
         info.setCdr(tp);
         tg.setCdr(info);
         xm.setCdr(tg);
-        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, xm));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, xm));
 
     }
 }

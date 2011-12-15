@@ -44,9 +44,9 @@ public class ApplyFast extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
-        Cons oper = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons oper = getArgument(aEnvironment, aStackTop, 1);
 
-        Cons args = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons args = getArgument(aEnvironment, aStackTop, 2);
 
         if(! (args.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(((Cons) args.car()) == null) LispError.throwError(aEnvironment, aStackTop, 2);
@@ -56,7 +56,7 @@ public class ApplyFast extends BuiltinFunction
         {
             
             Cons result = Utility.applyString(aEnvironment, aStackTop, (String) oper.car(), ((Cons) args.car()).cdr());
-            setTopOfStackPointer(aEnvironment, aStackTop,result);
+            setTopOfStack(aEnvironment, aStackTop,result);
         } else
         {   // Apply a pure function {args,body}.
 
@@ -64,7 +64,7 @@ public class ApplyFast extends BuiltinFunction
             if(! (oper.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
             if( (Cons) oper.car() == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
             
-            setTopOfStackPointer(aEnvironment, aStackTop, Utility.applyPure(aStackTop, oper, args2, aEnvironment));
+            setTopOfStack(aEnvironment, aStackTop, Utility.applyPure(aStackTop, oper, args2, aEnvironment));
         }
     }
 }

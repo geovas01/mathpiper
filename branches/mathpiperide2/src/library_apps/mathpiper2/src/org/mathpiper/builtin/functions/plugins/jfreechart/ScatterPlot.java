@@ -63,23 +63,23 @@ public class ScatterPlot extends BuiltinFunction {
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 
-        if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
-        argumentsPointer = (Cons) argumentsPointer.car(); //Go to sub list.
+        arguments = (Cons) arguments.car(); //Go to sub list.
 
-        argumentsPointer = argumentsPointer.cdr(); //Strip List tag.
+        arguments = arguments.cdr(); //Strip List tag.
 
-        if(! Utility.isList(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
+        if(! Utility.isList(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
 
-        Cons dataListPointer = (Cons) argumentsPointer.car(); //Grab the first member of the list.
+        Cons dataList = (Cons) arguments.car(); //Grab the first member of the list.
 
-        Cons optionsPointer = argumentsPointer.cdr();
+        Cons options = arguments.cdr();
 
-        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, aStackTop, optionsPointer, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
 
-        XYDataset dataSet = ChartUtility.listToXYDataset(aEnvironment, aStackTop, dataListPointer, userOptions);
+        XYDataset dataSet = ChartUtility.listToXYDataset(aEnvironment, aStackTop, dataList, userOptions);
 
         JFreeChart chart = ChartFactory.createScatterPlot(
                 (String) userOptions.get("title"), //title.
@@ -108,10 +108,10 @@ public class ScatterPlot extends BuiltinFunction {
 
 
         if (chart == null) {
-            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
+            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
             return;
         } else {
-            setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
+            setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
             return;
         }//end if/else.
 

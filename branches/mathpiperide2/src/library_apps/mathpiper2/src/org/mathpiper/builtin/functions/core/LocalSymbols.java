@@ -44,7 +44,7 @@ public class LocalSymbols extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int numberOfArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
+        int numberOfArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         int numberOfSymbols = numberOfArguments - 2;
 
         String atomNames[] = new String[numberOfSymbols];
@@ -54,7 +54,7 @@ public class LocalSymbols extends BuiltinFunction
         int i;
         for (i = 0; i < numberOfSymbols; i++)
         {
-            String atomName = (String) getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), i + 1).car();
+            String atomName = (String) getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), i + 1).car();
             if( atomName == null) LispError.checkArgument(aEnvironment, aStackTop, i + 1);
             atomNames[i] = atomName;
             String newAtomName = "$" + atomName + uniqueNumber;
@@ -63,9 +63,9 @@ public class LocalSymbols extends BuiltinFunction
         }
         LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
 
-        Cons result = Utility.substitute(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
+        Cons result = Utility.substitute(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
         
-        setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
+        setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
     }
 }//end class.
 

@@ -45,7 +45,7 @@ public class ConcatenateStrings extends BuiltinFunction
         aStringBuffer.append('\"');
         int arg = 1;
 
-        Cons consTraverser =  (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Cons consTraverser =  (Cons) getArgument(aEnvironment, aStackTop, 1).car();
         consTraverser = consTraverser.cdr();
         while (consTraverser != null)
         {
@@ -63,7 +63,7 @@ public class ConcatenateStrings extends BuiltinFunction
     {
         StringBuffer strBuffer = new StringBuffer("");
         ConcatenateStrings(strBuffer, aEnvironment, aStackTop);
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, strBuffer.toString()));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, strBuffer.toString()));
     }
 }
 

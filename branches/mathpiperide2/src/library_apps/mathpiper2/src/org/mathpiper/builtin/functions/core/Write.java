@@ -41,21 +41,21 @@ public class Write extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons arguments = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons arguments = getArgument(aEnvironment, aStackTop, 1);
         
         if (arguments.type() == Utility.SUBLIST) {
 
             Cons subList = (Cons) arguments.car();
             
-            Cons consPointer = subList;
-            consPointer = consPointer.cdr();
-            while (consPointer != null)
+            Cons cons = subList;
+            cons = cons.cdr();
+            while (cons != null)
             {
-                aEnvironment.iCurrentPrinter.print(aStackTop, consPointer, aEnvironment.iCurrentOutput, aEnvironment);
-                consPointer = consPointer.cdr();
+                aEnvironment.iCurrentPrinter.print(aStackTop, cons, aEnvironment.iCurrentOutput, aEnvironment);
+                cons = cons.cdr();
             }
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

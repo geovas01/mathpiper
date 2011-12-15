@@ -205,7 +205,7 @@ public class LispError {
             } else if (aStackTop == -2) {
                 throw new EvaluationException("Error: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
-                Cons arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
+                Cons arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
                 if (arguments == null) {
                     throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 } else {
@@ -239,7 +239,7 @@ public class LispError {
             } else if (aStackTop == -2) {
                 throw new EvaluationException("Error: " + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
-                Cons arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
+                Cons arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
                 if (arguments == null) {
                     throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 } else {
@@ -354,13 +354,13 @@ public class LispError {
                 stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
             }
 
-            Cons arguments = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, 0);
+            Cons arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
             if (arguments == null) {
                 throw new EvaluationException("Error in compiled code." + stackTrace, aEnvironment.getCurrentInput().iStatus.getFileName(), lineNumber, startIndex, endIndex);
             } else {
                 String error = "";
                 error = error + showFunctionError(arguments, aEnvironment) + "\nbad argument number " + aArgNr + "(counting from 1) : \n" + aErrorDescription + "\n";
-                Cons arg = BuiltinFunction.getArgumentPointer(aEnvironment, aStackTop, arguments, aArgNr);
+                Cons arg = BuiltinFunction.getArgument(aEnvironment, aStackTop, arguments, aArgNr);
                 String strout;
 
                 error = error + "The offending argument ***( ";

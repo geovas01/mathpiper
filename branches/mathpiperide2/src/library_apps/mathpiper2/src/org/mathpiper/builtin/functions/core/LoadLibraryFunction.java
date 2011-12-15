@@ -44,7 +44,7 @@ public class LoadLibraryFunction extends BuiltinFunction
     {
         if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
 
-        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
         // Get file name
         if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
@@ -56,7 +56,7 @@ public class LoadLibraryFunction extends BuiltinFunction
 
         Utility.loadLibraryFunction(scriptString, aEnvironment, aStackTop);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
 
     }
 }

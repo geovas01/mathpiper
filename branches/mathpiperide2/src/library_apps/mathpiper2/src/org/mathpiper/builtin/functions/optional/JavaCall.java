@@ -49,9 +49,9 @@ public class JavaCall extends BuiltinFunction {
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof Cons) {
+        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
 
-            Cons subList = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
             Cons consTraverser = subList;
 
             //Skip past List type.
@@ -163,14 +163,14 @@ public class JavaCall extends BuiltinFunction {
                     if (returnObject instanceof List) {
                         Cons listCons = Utility.iterableToList(aEnvironment, aStackTop, (List) returnObject);
 
-                        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, listCons));
+                        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, listCons));
                     } else {
                         JavaObject response = new JavaObject(returnObject);
                         if (response == null || response.getObject() == null) {
-                            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+                            setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
                             return;
                         }
-                        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+                        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
                     }
 
 
@@ -182,7 +182,7 @@ public class JavaCall extends BuiltinFunction {
 
         }//end if.
 
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
 
     }//end method.
 }

@@ -43,7 +43,7 @@ public class Decimal_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons result = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons result = getArgument(aEnvironment, aStackTop, 1);
 
         Object cons = result.getNumber(aEnvironment.getPrecision(), aEnvironment);
 
@@ -52,11 +52,11 @@ public class Decimal_ extends BuiltinFunction
         {
             bigNumber = (BigNumber) cons;
 
-             setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment,  bigNumber.isDecimal()));
+             setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment,  bigNumber.isDecimal()));
         }
         else
         {
-            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
+            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
         }
 
 

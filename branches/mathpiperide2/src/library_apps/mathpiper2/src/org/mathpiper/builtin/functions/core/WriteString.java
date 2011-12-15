@@ -41,8 +41,8 @@ public class WriteString extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if(getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String str = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        String str = (String) getArgument(aEnvironment, aStackTop, 1).car();
         if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         if( str.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
         if( str.charAt(str.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
@@ -57,7 +57,7 @@ public class WriteString extends BuiltinFunction
         // pass last printed character to the current printer
         aEnvironment.iCurrentPrinter.rememberLastChar(str.charAt(nr - 1));  // hacky hacky
 
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

@@ -42,9 +42,9 @@ public class Local extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof Cons) {
+        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
 
-            Cons subList = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
             
             Cons consTraverser = subList;
             consTraverser = consTraverser.cdr();
@@ -60,7 +60,7 @@ public class Local extends BuiltinFunction
                 nr++;
             }
         }
-         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

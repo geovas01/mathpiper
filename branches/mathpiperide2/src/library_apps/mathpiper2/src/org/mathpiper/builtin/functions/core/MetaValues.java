@@ -43,12 +43,12 @@ public class MetaValues extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons objectPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons objectCons = getArgument(aEnvironment, aStackTop, 1);
 
-        Map metadataMap = objectPointer.getMetadataMap();
+        Map metadataMap = objectCons.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
-            setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
+            setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
 
             return;
         }//end if.
@@ -56,7 +56,7 @@ public class MetaValues extends BuiltinFunction
 
         Cons head = aEnvironment.iListAtom.copy(false);
 
-        Cons consPointer = head;
+        Cons consReference = head;
 
         java.util.Collection valueCollection = (java.util.Collection) metadataMap.values();
 
@@ -81,15 +81,15 @@ public class MetaValues extends BuiltinFunction
                cons = (Cons) object;
            }
 
-           consPointer.setCdr(cons);
+           consReference.setCdr(cons);
 
-           consPointer = consPointer.cdr();
+           consReference = consReference.cdr();
 
         }//end while.
 
 
 
-        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
 
 
 
