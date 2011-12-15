@@ -43,7 +43,7 @@ public class MetaSet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons objectPointer = getArgument(aEnvironment, aStackTop, 1);
+        Cons object = getArgument(aEnvironment, aStackTop, 1);
 
 
         Cons key = getArgument(aEnvironment, aStackTop, 2);
@@ -56,13 +56,13 @@ public class MetaSet extends BuiltinFunction
 
         
 
-        Map metadataMap = objectPointer.getMetadataMap();
+        Map metadataMap = object.getMetadataMap();
 
         if(metadataMap == null)
         {
             metadataMap = new HashMap();
 
-            objectPointer.setMetadataMap(metadataMap);
+            object.setMetadataMap(metadataMap);
         }//end if.
 
 
@@ -71,7 +71,7 @@ public class MetaSet extends BuiltinFunction
 
         metadataMap.put(keyString, value);
 
-        setTopOfStack(aEnvironment, aStackTop, objectPointer);
+        setTopOfStack(aEnvironment, aStackTop, object);
 
         return;
 

@@ -37,9 +37,9 @@ import org.mathpiper.lisp.cons.Cons;
 public class ChartUtility {
 
 
-    public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, Cons argumentsPointer, Map defaultOptions) throws Exception {
+    public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, Cons arguments, Map defaultOptions) throws Exception {
 
-        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, argumentsPointer, defaultOptions);
+        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, arguments, defaultOptions);
 
 
         if (userOptions.containsKey("orientation")) {
@@ -57,18 +57,18 @@ public class ChartUtility {
 
 
 
-    public static HistogramDataset listToHistogramDataset(Environment aEnvironment, int aStackTop, Cons dataListPointer, Map userOptions) throws Exception {
+    public static HistogramDataset listToHistogramDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Exception {
 
         HistogramDataset dataSet = new HistogramDataset();
 
-        if (Utility.isNestedList(aEnvironment, aStackTop, dataListPointer)) {
+        if (Utility.isNestedList(aEnvironment, aStackTop, dataList)) {
 
             List dataSeriesList = new ArrayList();
-            dataListPointer = dataListPointer.cdr(); //Strip List tag.
+            dataList = dataList.cdr(); //Strip List tag.
             int seriesIndex = 1;
             int dataSize = 0;
-            while (dataListPointer != null) {
-                double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (Cons) dataListPointer.car());
+            while (dataList != null) {
+                double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (Cons) dataList.car());
                 if (dataValues.length > dataSize)
                     dataSize = dataValues.length;
                 String seriesTitle = "";
@@ -78,7 +78,7 @@ public class ChartUtility {
                 dataSeriesList.add(seriesTitle);
                 dataSeriesList.add(dataValues);
                 seriesIndex++;
-                dataListPointer =  dataListPointer.cdr();
+                dataList =  dataList.cdr();
             }//end while.
 
             int numberOfBins = Math.max((int) Math.sqrt(dataSize), 5);
@@ -102,7 +102,7 @@ public class ChartUtility {
             }//end while.
 
         } else {//Just a single series.
-            double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, dataListPointer);
+            double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, dataList);
 
             int numberOfBins = Math.max((int) Math.sqrt(dataValues.length),5);
             Double numberOfBinsDouble = (Double) userOptions.get("numberOfBins");
@@ -126,9 +126,9 @@ public class ChartUtility {
     }//end method.
 
 
-    public static XYBarDataset listToCumulativeDataset(Environment aEnvironment, int aStackTop, Cons dataListPointer, Map userOptions) throws Exception {
+    public static XYBarDataset listToCumulativeDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Exception {
 
-        if(Utility.isNestedList(aEnvironment, aStackTop, dataListPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+        if(Utility.isNestedList(aEnvironment, aStackTop, dataList)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
 
         int numberOfBins = 15;
@@ -139,7 +139,7 @@ public class ChartUtility {
         }//end if.
 
 
-        double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, dataListPointer);
+        double[] dataValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, dataList);
 
 
         Arrays.sort(dataValues);
@@ -199,26 +199,24 @@ public class ChartUtility {
         DefaultXYDataset dataSet = new DefaultXYDataset();
         dataSet.addSeries(seriesTitle, combinedValues);
 
-        //argumentsPointer.goNext();
-
         return new XYBarDataset(dataSet, step);
 
     }//end method.
 
 
 
-    public static DefaultXYDataset listToXYDataset(Environment aEnvironment, int aStackTop, Cons dataListPointer, Map userOptions) throws Exception {
+    public static DefaultXYDataset listToXYDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Exception {
 
-        if(!Utility.isNestedList(aEnvironment, aStackTop, dataListPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+        if(!Utility.isNestedList(aEnvironment, aStackTop, dataList)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
         DefaultXYDataset dataSet = new DefaultXYDataset();
 
-        dataListPointer = dataListPointer.cdr(); //Strip List tag.
+        dataList = dataList.cdr(); //Strip List tag.
         int seriesIndex = 1;
-        while (dataListPointer != null) {
-            double[] dataXValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (Cons) dataListPointer.car());
-            dataListPointer = dataListPointer.cdr();
-            double[] dataYValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (Cons) dataListPointer.car());
+        while (dataList != null) {
+            double[] dataXValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (Cons) dataList.car());
+            dataList = dataList.cdr();
+            double[] dataYValues = JavaObject.lispListToJavaDoubleArray(aEnvironment, aStackTop, (Cons) dataList.car());
 
             String seriesTitle = "series" + seriesIndex;
             if (userOptions.containsKey("series" + seriesIndex + "Title")) {
@@ -230,7 +228,7 @@ public class ChartUtility {
             dataSet.addSeries(seriesTitle, new double[][]{dataXValues, dataYValues});
 
             seriesIndex++;
-            dataListPointer = dataListPointer.cdr();
+            dataList = dataList.cdr();
         }//end while.
 
 
@@ -240,9 +238,9 @@ public class ChartUtility {
 
 
 
-    public static IntervalXYDataset listToIntervalXYDataset(Environment aEnvironment, int aStackTop, Cons dataListPointer, Map userOptions) throws Exception {
+    public static IntervalXYDataset listToIntervalXYDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Exception {
 
-        DefaultXYDataset xYDataset = listToXYDataset(aEnvironment, aStackTop, dataListPointer, userOptions);
+        DefaultXYDataset xYDataset = listToXYDataset(aEnvironment, aStackTop, dataList, userOptions);
 
         int seriesCount = xYDataset.getSeriesCount();
         if(seriesCount == 0) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");

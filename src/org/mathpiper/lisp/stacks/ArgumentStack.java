@@ -106,21 +106,21 @@ public class ArgumentStack {
 
             int argumentCount = Utility.listLength(aEnvironment, aStackTop, argumentCons);
 
-            Cons  consPointer = argumentCons;
+            Cons  cons = argumentCons;
 
             stringBuilder.append(functionPositionIndex++ + ": ");
-            stringBuilder.append(Utility.printMathPiperExpression(aStackTop, consPointer, aEnvironment, -1));
+            stringBuilder.append(Utility.printMathPiperExpression(aStackTop, cons, aEnvironment, -1));
             stringBuilder.append("\n");
 
-            consPointer = consPointer.cdr();
+            cons = cons.cdr();
 
-            while(consPointer != null)
+            while(cons != null)
             {
                 stringBuilder.append("   " + functionPositionIndex++ + ": ");
-                stringBuilder.append("-> " + Utility.printMathPiperExpression(aStackTop, consPointer, aEnvironment, -1));
+                stringBuilder.append("-> " + Utility.printMathPiperExpression(aStackTop, cons, aEnvironment, -1));
                 stringBuilder.append("\n");
                 
-                consPointer = consPointer.cdr();
+                cons = cons.cdr();
             }
 
 
