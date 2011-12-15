@@ -38,12 +38,12 @@ public class AskUser extends BuiltinFunction {
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        if (getArgumentPointer(aEnvironment, aStackTop, 1) == null) {
+        if (getArgument(aEnvironment, aStackTop, 1) == null) {
             LispError.checkArgument(aEnvironment, aStackTop, 1);
         }
 
 
-        Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
 
         if (! (argument instanceof String)) {
             LispError.raiseError("The argument to AskUser must be a string.", aStackTop, aEnvironment);
@@ -64,7 +64,7 @@ public class AskUser extends BuiltinFunction {
             throw new BreakException();
         }//end method.
 
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + userInputString + "\""));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + userInputString + "\""));
     }//end method.
 }//end class.
 

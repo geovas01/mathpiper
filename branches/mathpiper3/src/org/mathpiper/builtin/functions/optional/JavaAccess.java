@@ -37,7 +37,7 @@ public class JavaAccess extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons args = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons args = getArgument(aEnvironment, aStackTop, 1);
 
         args = (Cons) args.car();
 
@@ -47,7 +47,7 @@ public class JavaAccess extends BuiltinFunction {
 
         result = Utility.applyString(aEnvironment, aStackTop, "\"JavaToValue\"", result);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, result);
+        setTopOfStack(aEnvironment, aStackTop, result);
 
     }//end method.
 }

@@ -47,7 +47,7 @@ public class Read extends BuiltinFunction
                 aEnvironment.iPostfixOperators,
                 aEnvironment.iBodiedOperators);
         // Read expression
-        setTopOfStackPointer(aEnvironment, aStackTop, parser.parse(aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, parser.parse(aStackTop));
     }
 }
 

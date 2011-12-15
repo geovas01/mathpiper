@@ -36,11 +36,11 @@ public class TellUser extends BuiltinFunction {
     }//end method.
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        if (getArgumentPointer(aEnvironment, aStackTop, 1) == null) {
+        if (getArgument(aEnvironment, aStackTop, 1) == null) {
             LispError.checkArgument(aEnvironment, aStackTop, 1);
         }
 
-        Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
 
         if (! (argument instanceof String)) {
             LispError.raiseError("The argument to TellUser must be a string.", aStackTop, aEnvironment);
@@ -56,7 +56,7 @@ public class TellUser extends BuiltinFunction {
 
         JOptionPane.showMessageDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }//end method.
 }//end class.
 

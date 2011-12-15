@@ -48,17 +48,17 @@ public class Prog extends BuiltinFunction
 
 
 
-            Cons resultPointer = Utility.putTrueInPointer(aEnvironment);
+            Cons resultPointer = Utility.getTrueAtom(aEnvironment);
 
             // Evaluate args one by one.
-            Cons consTraverser = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+            Cons consTraverser = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
             consTraverser =  consTraverser.cdr();
             while (consTraverser != null) {
                 resultPointer = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
                 consTraverser = consTraverser.cdr();
             }
 
-            setTopOfStackPointer(aEnvironment, aStackTop, resultPointer);
+            setTopOfStack(aEnvironment, aStackTop, resultPointer);
 
         } catch (Exception e) {
             throw e;

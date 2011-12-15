@@ -44,7 +44,7 @@ public class TraceOff extends BuiltinFunction
     {
          Evaluator.traceOff();
          aEnvironment.write("Tracing is off.\n");
-         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

@@ -44,7 +44,7 @@ public class ExpressionToString extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons evaluated = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
         // Get operator
         if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
@@ -52,7 +52,7 @@ public class ExpressionToString extends BuiltinFunction
 
 
         String expressionString = Utility.printMathPiperExpression(aStackTop, evaluated, aEnvironment, 0);
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + expressionString + "\""));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + expressionString + "\""));
 
 
     }//end method.

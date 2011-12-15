@@ -42,9 +42,9 @@ public class JavaNew extends BuiltinFunction {
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        if (getArgumentPointer(aEnvironment, aStackTop, 1).car() instanceof Cons) {
+        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
 
-            Cons subList = (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
             Cons  consTraverser = subList;
 
             //Skip past List type.
@@ -105,10 +105,10 @@ public class JavaNew extends BuiltinFunction {
                 //System.out.println("XXXXXXXXXXX: " + response);
 
                 if (response == null) {
-                    setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
+                    setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
                     return;
                 } else {
-                    setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+                    setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
                     return;
                 }//end if/else.
 
@@ -118,7 +118,7 @@ public class JavaNew extends BuiltinFunction {
 
         }//end if.
 
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
 
     }//end method.
 }

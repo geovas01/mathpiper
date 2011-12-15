@@ -59,7 +59,7 @@ public class FastArcCos extends BuiltinFunction
 
         z.setTo(result);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

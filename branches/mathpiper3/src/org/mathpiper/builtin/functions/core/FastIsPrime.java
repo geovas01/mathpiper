@@ -66,6 +66,6 @@ public class FastIsPrime extends BuiltinFunction
 
         BigNumber z = new BigNumber(aEnvironment.iPrecision);
         z.setTo(result);
-        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }

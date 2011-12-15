@@ -43,15 +43,15 @@ public class MetaSet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons objectPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons objectPointer = getArgument(aEnvironment, aStackTop, 1);
 
 
-        Cons key = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons key = getArgument(aEnvironment, aStackTop, 2);
 
         LispError.checkIsString(aEnvironment, aStackTop, key, 2);
 
 
-        Cons value = getArgumentPointer(aEnvironment, aStackTop, 3);
+        Cons value = getArgument(aEnvironment, aStackTop, 3);
 
 
         
@@ -71,7 +71,7 @@ public class MetaSet extends BuiltinFunction
 
         metadataMap.put(keyString, value);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, objectPointer);
+        setTopOfStack(aEnvironment, aStackTop, objectPointer);
 
         return;
 

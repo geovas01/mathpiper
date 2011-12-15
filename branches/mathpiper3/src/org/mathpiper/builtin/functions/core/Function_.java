@@ -36,8 +36,8 @@ public class Function_ extends BuiltinFunction {
     }
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        Cons result = getArgumentPointer(aEnvironment, aStackTop, 1);
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment,
+        Cons result = getArgument(aEnvironment, aStackTop, 1);
+        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment,
                 result.car() instanceof Cons));
     }
 }

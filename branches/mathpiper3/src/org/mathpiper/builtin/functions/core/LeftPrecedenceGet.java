@@ -51,7 +51,7 @@ public class LeftPrecedenceGet extends BuiltinFunction
             op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
             if(op == null) LispError.throwError(aEnvironment, aStackTop, LispError.IS_NOT_INFIX);
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iLeftPrecedence));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iLeftPrecedence));
     }
 }
 

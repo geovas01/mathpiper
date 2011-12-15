@@ -44,7 +44,7 @@ public class Import extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
 
-        Cons pathPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons pathPointer = getArgument(aEnvironment, aStackTop, 1);
 
 
         LispError.checkIsString(aEnvironment, aStackTop, pathPointer, 1);
@@ -59,13 +59,13 @@ public class Import extends BuiltinFunction
 
         if(failList.isEmpty())
         {
-            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+            setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
             return;
         }
         else
         {
             aEnvironment.write("Could not load " + path);
-            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
+            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
         }//end if/else
 
     }//end method.

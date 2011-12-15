@@ -42,7 +42,7 @@ public class Number_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, getArgumentPointer(aEnvironment, aStackTop, 1).getNumber(aEnvironment.iPrecision, aEnvironment) != null));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, getArgument(aEnvironment, aStackTop, 1).getNumber(aEnvironment.iPrecision, aEnvironment) != null));
     }
 }
 

@@ -45,19 +45,19 @@ public class RulebaseDefined extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons name = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons name = getArgument(aEnvironment, aStackTop, 1);
         String orig = (String) name.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
-        Cons sizearg = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
         if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
         SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity, aStackTop);
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, userFunc != null));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, userFunc != null));
     }
 }
 

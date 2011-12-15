@@ -68,7 +68,7 @@ public class Histogram extends BuiltinFunction {
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons argumentsPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons argumentsPointer = getArgument(aEnvironment, aStackTop, 1);
 
         if(! Utility.isSublist(argumentsPointer)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
@@ -114,10 +114,10 @@ public class Histogram extends BuiltinFunction {
 
 
         if (chart == null) {
-            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
+            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
             return;
         } else {
-            setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
+            setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
             return;
         }//end if/else.
 
