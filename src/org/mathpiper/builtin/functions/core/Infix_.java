@@ -43,7 +43,7 @@ public class Infix_ extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, op != null));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, op != null));
     }
 }
 

@@ -42,8 +42,8 @@ public class Atom_ extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons result = getArgumentPointer(aEnvironment, aStackTop, 1);
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putBooleanInPointer(aEnvironment, result.car() instanceof String));
+        Cons result = getArgument(aEnvironment, aStackTop, 1);
+        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, result.car() instanceof String));
     }
 }
 

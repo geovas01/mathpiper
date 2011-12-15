@@ -51,10 +51,10 @@ public class PipeToString extends BuiltinFunction
         try
         {
             // Evaluate the body
-            setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1)));
+            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
 
             //Return the getTopOfStackPointer
-            setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, oper.toString())));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, oper.toString())));
         } catch (Exception e)
         {
             throw e;

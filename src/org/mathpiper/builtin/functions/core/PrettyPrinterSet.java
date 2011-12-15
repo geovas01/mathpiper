@@ -43,19 +43,19 @@ public class PrettyPrinterSet extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         if (nrArguments == 1)
         {
             aEnvironment.iPrettyPrinterName = null;
         } else
         {
             if(nrArguments != 2) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS);
-            Cons oper = getArgumentPointer(aEnvironment, aStackTop, 0);
+            Cons oper = getArgument(aEnvironment, aStackTop, 0);
             oper = oper.cdr();
             LispError.checkIsString(aEnvironment, aStackTop, oper, 1);
             aEnvironment.iPrettyPrinterName = (String) oper.car();
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }
 }
 

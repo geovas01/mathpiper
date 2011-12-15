@@ -46,7 +46,7 @@ public class And_ extends BuiltinFunction
         int nrnogos = 0;
         Cons evaluated;
 
-        Cons consTraverser =  (Cons) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Cons consTraverser =  (Cons) getArgument(aEnvironment, aStackTop, 1).car();
         consTraverser = consTraverser.cdr();
         while (consTraverser != null)
         {
@@ -54,7 +54,7 @@ public class And_ extends BuiltinFunction
 
             if (Utility.isFalse(aEnvironment, evaluated, aStackTop))
             {
-                setTopOfStackPointer(aEnvironment, aStackTop, Utility.putFalseInPointer(aEnvironment));
+                setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
                 return;
             } else if (!Utility.isTrue(aEnvironment, evaluated, aStackTop))
             {
@@ -71,7 +71,7 @@ public class And_ extends BuiltinFunction
         {
             if (nrnogos == 1)
             {
-                setTopOfStackPointer(aEnvironment, aStackTop, nogos);
+                setTopOfStack(aEnvironment, aStackTop, nogos);
             } else
             {
                 
@@ -79,16 +79,16 @@ public class And_ extends BuiltinFunction
                 Cons ptr = Utility.reverseList(aEnvironment, nogos);
                 nogos = ptr;
 
-                ptr = getArgumentPointer(aEnvironment, aStackTop, 0).copy(false);
+                ptr = getArgument(aEnvironment, aStackTop, 0).copy(false);
                 ptr.setCdr(nogos);
                 nogos = ptr;
-                setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, nogos));
+                setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, nogos));
 
             //aEnvironment.CurrentPrinter().Print(getTopOfStackPointer(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
             }
         } else
         {
-            setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+            setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
         }
     }
 }

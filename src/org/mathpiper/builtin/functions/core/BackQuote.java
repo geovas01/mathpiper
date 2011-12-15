@@ -44,9 +44,9 @@ public class BackQuote extends BuiltinFunction
     {
         org.mathpiper.lisp.behaviours.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.behaviours.BackQuoteSubstitute(aEnvironment);
 
-        Cons result = Utility.substitute(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1), behaviour);
+        Cons result = Utility.substitute(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1), behaviour);
         
-        setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
+        setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
     }
 }
 

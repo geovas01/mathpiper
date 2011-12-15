@@ -49,7 +49,7 @@ public class MacroExpand extends BuiltinFunction
 
         //Cons argument = getArgumentPointer(aEnvironment, aStackTop, 1);
 
-        Cons argumentCons = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons argumentCons = getArgument(aEnvironment, aStackTop, 1);
 
         Cons argument = ((Cons) argumentCons.car()).cdr();
 
@@ -61,7 +61,7 @@ public class MacroExpand extends BuiltinFunction
 	
 	aEnvironment.write("\n");
 
-         setTopOfStackPointer(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
+         setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
 
     }//end method.
 

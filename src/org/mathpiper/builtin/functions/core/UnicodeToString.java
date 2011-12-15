@@ -43,11 +43,11 @@ public class UnicodeToString extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;
-        str =  (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        str =  (String) getArgument(aEnvironment, aStackTop, 1).car();
         if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(! Utility.isNumber(str, false)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         char asciiCode = (char) Integer.parseInt(str, 10);
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + asciiCode + "\""));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + asciiCode + "\""));
     }
 }
 

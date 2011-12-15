@@ -46,13 +46,13 @@ public class Length extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Object argument = getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
         
 
         if (argument instanceof Cons)
         {
             int num = Utility.listLength(aEnvironment, aStackTop, (((Cons)argument).cdr()));
-            setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
             return;
         }//end if.
         
@@ -60,11 +60,11 @@ public class Length extends BuiltinFunction
         
         if (argument instanceof BuiltinContainer)
         {
-            BuiltinContainer gen = (BuiltinContainer) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+            BuiltinContainer gen = (BuiltinContainer) getArgument(aEnvironment, aStackTop, 1).car();
             if (gen.typeName().equals("\"Array\""))
             {
                 int size = ((Array) gen).size();
-                setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
+                setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
                 return;
             }
         //  CHK_ISLIST_CORE(aEnvironment,aStackTop,getArgumentPointer(aEnvironment, aStackTop, 1),1);
@@ -81,7 +81,7 @@ public class Length extends BuiltinFunction
         if (Utility.isString(string))
         {
             int num = string.length() - 2;
-            setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
             return;
         }//end if.
         

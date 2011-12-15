@@ -160,7 +160,7 @@ public class SingleArityRulebase extends Evaluator {
                     } catch (ReturnException re) {
                         //todo:tk:note that user functions currently return their results in aResult, not on the stack.
                         int stackTopIndex = aEnvironment.iArgumentStack.getStackTopIndex();
-                        aResult =  BuiltinFunction.getTopOfStackPointer(aEnvironment, stackTopIndex - 1);
+                        aResult =  BuiltinFunction.getTopOfStack(aEnvironment, stackTopIndex - 1);
 
                         aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
                         aEnvironment.iEvalDepth = beforeEvaluationDepth;

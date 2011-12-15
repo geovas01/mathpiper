@@ -47,7 +47,7 @@ public class ToBase extends BuiltinFunction
     {
         // Get the base to convert to:
         // Evaluate car argument, and store getTopOfStackPointer in oper
-        Cons oper = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons oper = getArgument(aEnvironment, aStackTop, 1);
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
         BigNumber num =(BigNumber) oper.getNumber(aEnvironment.iPrecision, aEnvironment);
@@ -66,7 +66,7 @@ public class ToBase extends BuiltinFunction
         str = x.numToString(aEnvironment.iPrecision, base);
         // Get unique string from hash table, and create an atom from it.
 
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, str)));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, str)));
     }
 }
 

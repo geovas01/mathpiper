@@ -40,9 +40,9 @@ public class LispForm extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        setTopOfStackPointer(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1));
+        setTopOfStack(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
         LispPrinter printer = new LispPrinter();
-        printer.print(aStackTop, getTopOfStackPointer(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
+        printer.print(aStackTop, getTopOfStack(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
         aEnvironment.write("\n");
     }
 }

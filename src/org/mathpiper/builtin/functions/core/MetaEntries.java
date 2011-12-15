@@ -40,13 +40,13 @@ public class MetaEntries extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
 
-        Cons objectPointer = getArgumentPointer(aEnvironment, aStackTop, 1);
+        Cons objectPointer = getArgument(aEnvironment, aStackTop, 1);
 
 
         Map metadataMap = objectPointer.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
-            setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
+            setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
 
             return;
         }//end if.
@@ -99,7 +99,7 @@ public class MetaEntries extends BuiltinFunction
 
 
 
-        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, head));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, head));
 
 
 

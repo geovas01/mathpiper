@@ -41,8 +41,8 @@ public class StringToUnicode extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if( getArgumentPointer(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String str = (String) getArgumentPointer(aEnvironment, aStackTop, 1).car();
+        if( getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        String str = (String) getArgument(aEnvironment, aStackTop, 1).car();
         if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         if(str.length() != 3) LispError.throwError(aEnvironment, aStackTop, "The string must be one character long.");
         if(str.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
@@ -50,7 +50,7 @@ public class StringToUnicode extends BuiltinFunction
 
         int unicodeValue = (int) str.charAt(1);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + unicodeValue));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + unicodeValue));
     }
 }
 

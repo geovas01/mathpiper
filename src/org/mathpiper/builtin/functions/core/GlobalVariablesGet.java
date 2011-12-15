@@ -53,7 +53,7 @@ public class GlobalVariablesGet extends BuiltinFunction
 
         Cons head = Utility.iterableToList(aEnvironment, aStackTop, variablesList);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, head));
+        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, head));
 
     }//end method.
 

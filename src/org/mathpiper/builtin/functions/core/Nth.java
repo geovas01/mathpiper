@@ -42,10 +42,10 @@ public class Nth extends BuiltinFunction
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
         String str;
-        str = (String) getArgumentPointer(aEnvironment, aStackTop, 2).car();
+        str = (String) getArgument(aEnvironment, aStackTop, 2).car();
         if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(! Utility.isNumber(str, false)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int index = Integer.parseInt(str);
-        setTopOfStackPointer(aEnvironment, aStackTop, Utility.nth(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 1), index));
+        setTopOfStack(aEnvironment, aStackTop, Utility.nth(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1), index));
     }
 }

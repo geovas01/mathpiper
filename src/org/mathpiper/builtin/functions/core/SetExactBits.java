@@ -52,7 +52,7 @@ public class SetExactBits extends BuiltinFunction
         {
             z.setPrecision((int) (Utility.bitsToDigits((long) (y.toDouble()), 10)));
         }
-        setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }
 

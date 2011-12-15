@@ -70,10 +70,10 @@ public class ViewMath extends BuiltinFunction {
 
         Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
 
-        ((Cons) head.car()).setCdr(getArgumentPointer(aEnvironment, aStackTop, 1));
+        ((Cons) head.car()).setCdr(getArgument(aEnvironment, aStackTop, 1));
 
 
-        Cons viewScalePointer = getArgumentPointer(aEnvironment, aStackTop, 2);
+        Cons viewScalePointer = getArgument(aEnvironment, aStackTop, 2);
         Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScalePointer);
         BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.iPrecision, aEnvironment);
         if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
@@ -178,7 +178,7 @@ public class ViewMath extends BuiltinFunction {
 
         JavaObject response = new JavaObject(frame);
 
-        setTopOfStackPointer(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
     }//end method.
 

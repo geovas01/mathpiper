@@ -55,7 +55,7 @@ public class DumpNumber extends BuiltinFunction
         }
         */
 
-        setTopOfStackPointer(aEnvironment, aStackTop, resultCons);
+        setTopOfStack(aEnvironment, aStackTop, resultCons);
 
 
     }//end method.

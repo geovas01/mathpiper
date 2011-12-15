@@ -48,7 +48,7 @@ public class StackTrace extends BuiltinFunction
 
          aEnvironment.write(dump);
          
-         setTopOfStackPointer(aEnvironment, aStackTop, Utility.putTrueInPointer(aEnvironment));
+         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
 
     }//end method.
 

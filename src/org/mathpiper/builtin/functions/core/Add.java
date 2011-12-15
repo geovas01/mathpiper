@@ -49,12 +49,12 @@ public class Add extends BuiltinFunction
     
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int length = Utility.listLength(aEnvironment, aStackTop, getArgumentPointer(aEnvironment, aStackTop, 0));
+        int length = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         if (length == 2)
         {
             BigNumber x;
             x = Utility.getNumber(aEnvironment, aStackTop, 1);
-            setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(x));
+            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(x));
             return;
         } else
         {
@@ -63,7 +63,7 @@ public class Add extends BuiltinFunction
             int bin = aEnvironment.iPrecision;
             BigNumber z = new BigNumber(bin);
             z.add(x, y, aEnvironment.iPrecision);
-            setTopOfStackPointer(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         }
     }
