@@ -94,8 +94,8 @@ class AsynchronousInterpreter implements Interpreter
     }//end method.
 
 
-    public synchronized EvaluationResponse evaluate(Cons inputExpressionPointer) {
-        return interpreter.evaluate(inputExpressionPointer);
+    public synchronized EvaluationResponse evaluate(Cons inputExpression) {
+        return interpreter.evaluate(inputExpression);
     }
 
 

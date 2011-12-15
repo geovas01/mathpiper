@@ -64,7 +64,7 @@ public class PatternRule extends Rule {
         return iPrecedence;
     }
 
-    public Cons getPredicatePointer() {
+    public Cons getPredicate() {
         return this.iPredicate;
     }
 
@@ -73,7 +73,7 @@ public class PatternRule extends Rule {
     }
 
     //Access iBody
-    public Cons getBodyPointer() {
+    public Cons getBody() {
         return iBody;
     }
 }

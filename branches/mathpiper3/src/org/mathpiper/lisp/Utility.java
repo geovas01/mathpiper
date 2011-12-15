@@ -1152,7 +1152,7 @@ public class Utility {
         try {
             int precedence = rule.getPrecedence();
 
-            Cons predicatePointer1 = rule.getPredicatePointer();
+            Cons predicatePointer1 = rule.getPredicate();
             String predicate = "";
 
 
@@ -1219,7 +1219,7 @@ public class Utility {
                 parameters = parameters.substring(0, parameters.lastIndexOf(","));
             }
 
-            String body = Utility.printMathPiperExpression(aStackTop, rule.getBodyPointer(), aEnvironment, 0);
+            String body = Utility.printMathPiperExpression(aStackTop, rule.getBody(), aEnvironment, 0);
             body = body.replace(",", ", ");
             //System.out.println(data);
 
@@ -1227,7 +1227,7 @@ public class Utility {
 
             if (userFunction instanceof MacroRulebase) {
                 BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
-                Cons substitutedBodyPointer = Utility.substitute(aEnvironment, aStackTop, rule.getBodyPointer(), backQuoteSubstitute);
+                Cons substitutedBodyPointer = Utility.substitute(aEnvironment, aStackTop, rule.getBody(), backQuoteSubstitute);
                 substitutedMacroBody = Utility.printMathPiperExpression(aStackTop, substitutedBodyPointer, aEnvironment, 0);
             }
 

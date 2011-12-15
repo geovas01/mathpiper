@@ -31,7 +31,7 @@ public abstract class Rule
 
     public abstract int getPrecedence();
 
-    public abstract Cons getPredicatePointer();
+    public abstract Cons getPredicate();
 
-    public abstract Cons getBodyPointer();
+    public abstract Cons getBody();
 }
