@@ -57,7 +57,7 @@ import org.mathpiper.lisp.variables.LocalVariableFrame;
 public final class Environment {
 
     public ArgumentStack iArgumentStack;
-    public Evaluator iLispExpressionEvaluator = new LispExpressionEvaluator();
+    public LispExpressionEvaluator iLispExpressionEvaluator = new LispExpressionEvaluator();
     public int iPrecision = 10;
     public Cons iTrueAtom;
     public final String iTrueString;

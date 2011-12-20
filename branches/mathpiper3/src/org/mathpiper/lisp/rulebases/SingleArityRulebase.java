@@ -16,7 +16,6 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
-import org.mathpiper.lisp.stacks.UserStackInformation;
 
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
@@ -130,13 +129,13 @@ public class SingleArityRulebase extends Evaluator {
             // predicate is true.
             int numberOfRules = iBranchRules.size();
 
-            UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
+
 
             for (int ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
                 Rule thisRule = ((Rule) iBranchRules.get(ruleIndex));
                 if(thisRule == null) LispError.lispAssert(aEnvironment, aStackTop);
 
-                userStackInformation.iRulePrecedence = thisRule.getPrecedence();
+
 
                 boolean matches = thisRule.matches(aEnvironment, aStackTop, argumentsResultArray);
 
@@ -149,7 +148,7 @@ public class SingleArityRulebase extends Evaluator {
                         Evaluator.traceShowRule(aEnvironment, arguments, ruleDump);
                     }
 
-                    userStackInformation.iSide = 1;
+
 
                     try {
                         beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
