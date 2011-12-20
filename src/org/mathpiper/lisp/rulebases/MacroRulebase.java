@@ -17,13 +17,11 @@
 package org.mathpiper.lisp.rulebases;
 
 import org.mathpiper.exceptions.EvaluationException;
-import org.mathpiper.lisp.stacks.UserStackInformation;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
 import org.mathpiper.lisp.Utility;
 import org.mathpiper.lisp.LispError;
 import org.mathpiper.lisp.Environment;
 import org.mathpiper.lisp.Evaluator;
-import org.mathpiper.lisp.LispExpressionEvaluator;
 import org.mathpiper.lisp.cons.Cons;
 import org.mathpiper.lisp.cons.SublistCons;
 
@@ -82,13 +80,13 @@ public class MacroRulebase extends SingleArityRulebase {
             // walk the rules database, returning the evaluated result if the
             // predicate is true.
             int numberOfRules = iBranchRules.size();
-            UserStackInformation userStackInformation = aEnvironment.iLispExpressionEvaluator.stackInformation();
+
             for (int ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
                 Rule thisRule = ((Rule) iBranchRules.get(ruleIndex));
                 //TODO remove            CHECKPTR(thisRule);
                 if(thisRule == null) LispError.lispAssert(aEnvironment, aStackTop);
 
-                userStackInformation.iRulePrecedence = thisRule.getPrecedence();
+
 
                 boolean matches = thisRule.matches(aEnvironment, aStackTop, argumentsResultArray);
 
@@ -99,7 +97,7 @@ public class MacroRulebase extends SingleArityRulebase {
                         String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackTop, thisRule, aEnvironment, this);
                         Evaluator.traceShowRule(aEnvironment, arguments, ruleDump);
                     }
-                    userStackInformation.iSide = 1;
+
 
                     BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
 
@@ -148,7 +146,7 @@ public class MacroRulebase extends SingleArityRulebase {
         if (isTraced(this.functionName) && showFlag) {
             Cons tr = SublistCons.getInstance(aEnvironment, aArguments);
             String localVariables = aEnvironment.getLocalVariables(aStackTop);
-            LispExpressionEvaluator.traceShowLeave(aEnvironment, aResult, tr, "macro", localVariables);
+            Evaluator.traceShowLeave(aEnvironment, aResult, tr, "macro", localVariables);
             tr = null;
         }
 

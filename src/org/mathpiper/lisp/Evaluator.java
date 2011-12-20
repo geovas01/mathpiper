@@ -26,7 +26,7 @@ import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.cons.Cons;
 
 import org.mathpiper.lisp.printers.MathPiperPrinter;
-import org.mathpiper.lisp.stacks.UserStackInformation;
+
 import org.mathpiper.lisp.variables.LocalVariableFrame;
 
 // evaluate'
@@ -40,7 +40,7 @@ public abstract class Evaluator {
 	private static List traceFunctionList = null;
 	private static List traceExceptFunctionList = null;
         public static boolean iStackTraced = false;
-	UserStackInformation iBasicInfo = new UserStackInformation();
+
 
 	public static void showExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Exception {
 		MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
@@ -287,10 +287,6 @@ public abstract class Evaluator {
 
 	public abstract Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsOrExpression) throws Exception;
 
-
-	public UserStackInformation stackInformation() {
-		return iBasicInfo;
-	}
 
 	public void showStack(Environment aEnvironment, MathPiperOutputStream aOutput) {
 	}//end method.
