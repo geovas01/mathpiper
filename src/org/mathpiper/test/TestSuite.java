@@ -303,8 +303,11 @@ public class TestSuite {
                     }
 
                     if (evaluate == true) {
-                        
-                        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
+
+                        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
+                        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+                        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
                         if (outputStringBuffer.length() > 0) {
                             String sideEffectOutputString = outputStringBuffer.toString();
@@ -322,7 +325,7 @@ public class TestSuite {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            e.printStackTrace(); //todo:tk:uncomment for debugging.
+            //e.printStackTrace(); //todo:tk:uncomment for debugging.
 
             EvaluationException ee = new EvaluationException("\n\n\n***EXCEPTION[ " + e.getMessage() + " ]EXCEPTION***\n", aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineNumber());
             throw ee;

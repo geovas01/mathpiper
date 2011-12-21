@@ -48,7 +48,11 @@ public class LeftPrecedenceSet extends BuiltinFunction
         String orig =  (String) getArgument(aEnvironment, aStackTop, 1).car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        Cons index = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
+        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
+        Cons index = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+
         if(index == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int ind = Integer.parseInt( (String) index.car(), 10);

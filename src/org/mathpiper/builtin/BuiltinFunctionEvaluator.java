@@ -43,7 +43,7 @@ public class BuiltinFunctionEvaluator extends Evaluator {
         iFlags = aFlags;
     }
 
-    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
         Cons[] argumentsResultArray = null;
 
 
@@ -142,7 +142,10 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 
                 if(argumentsConsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments);
 
-                argumentResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsConsTraverser);
+                int stackTopArgs = aEnvironment.iArgumentStack.getStackTopIndex();
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsConsTraverser);
+                argumentResult = aEnvironment.iArgumentStack.getElement(stackTopArgs, aStackTop, aEnvironment);
+                aEnvironment.iArgumentStack.popTo(stackTopArgs, aStackTop, aEnvironment);
 
                 if (isTraced(functionName) && argumentsResultArray != null && showFlag) {
 
@@ -170,8 +173,10 @@ public class BuiltinFunctionEvaluator extends Evaluator {
                 PrintExpression(res, list,aEnvironment,100);
                 printf("before %s\n",res.String());
                  */
-
-                argumentResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, list);
+                int stackTopArgs = aEnvironment.iArgumentStack.getStackTopIndex();
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, list);
+                argumentResult = aEnvironment.iArgumentStack.getElement(stackTopArgs, aStackTop, aEnvironment);
+                aEnvironment.iArgumentStack.popTo(stackTopArgs, aStackTop, aEnvironment);
 
                 /*
                 PrintExpression(res, arg,aEnvironment,100);
@@ -227,9 +232,8 @@ public class BuiltinFunctionEvaluator extends Evaluator {
             arguments = null;
         }//end if.
 
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        //aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
-        return aResult;
     }
 }
 

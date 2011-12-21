@@ -64,7 +64,13 @@ public class ApplyFast extends BuiltinFunction
             if(! (oper.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
             if( (Cons) oper.car() == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
             
-            setTopOfStack(aEnvironment, aStackTop, Utility.applyPure(aStackTop, oper, args2, aEnvironment));
+
+            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            Utility.applyPure(aStackTop, oper, args2, aEnvironment);
+            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+
+            setTopOfStack(aEnvironment, aStackTop, aResult);
         }
     }
 }

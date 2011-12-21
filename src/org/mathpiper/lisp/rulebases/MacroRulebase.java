@@ -16,6 +16,7 @@
 // :indentSize=4:lineSeparator=\n:noTabs=false:tabSize=4:folding=explicit:collapseFolds=0:
 package org.mathpiper.lisp.rulebases;
 
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.exceptions.EvaluationException;
 import org.mathpiper.lisp.behaviours.BackQuoteSubstitute;
 import org.mathpiper.lisp.Utility;
@@ -57,7 +58,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
     @Override
-    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
         Cons aResult;
         int arity = arity();
         Cons[] argumentsResultArray = evaluateArguments(aEnvironment, aStackTop, aArguments);
@@ -126,7 +127,10 @@ public class MacroRulebase extends SingleArityRulebase {
 
         if (substitutedBody != null) {
             //Note:tk:substituted body must be evaluated after the local frame has been popped.
-            aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBody);
+            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBody);
+            aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            //aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
         } else // No predicate was true: return a new expression with the evaluated arguments.
         {
             Cons full = aArguments.copy(false);
@@ -139,6 +143,7 @@ public class MacroRulebase extends SingleArityRulebase {
                 }
             }
             aResult = SublistCons.getInstance(aEnvironment, full);
+            BuiltinFunction.pushOnStack(aEnvironment, aStackTop, aResult);
         }
         //FINISH:
 
@@ -150,7 +155,7 @@ public class MacroRulebase extends SingleArityRulebase {
             tr = null;
         }
 
-        return aResult;
+        return;
     }
 
 }

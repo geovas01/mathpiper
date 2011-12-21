@@ -204,7 +204,12 @@ public class Utility {
         consTraverser = consTraverser.cdr();
 
         while (consTraverser != null) {
-            Cons next = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+
+            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+            Cons next = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+
             full.setCdr(next);
             full = next;
             consTraverser = consTraverser.cdr();
@@ -221,11 +226,16 @@ public class Utility {
         Cons head = AtomCons.getInstance(aEnvironment, aStackTop, getSymbolName(aEnvironment, aOperator));
         head.setCdr(aArgs);
         Cons body = SublistCons.getInstance(aEnvironment, head);
-        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
+
+        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
+        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        
         return result;
     }
 
-    public static Cons applyPure(int aStackTop, Cons oper, Cons args2, Environment aEnvironment) throws Exception {
+    public static void applyPure(int aStackTop, Cons oper, Cons args2, Environment aEnvironment) throws Exception {
         if(!(oper.car() instanceof Cons)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
         if(((Cons) oper.car()) == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
 
@@ -253,7 +263,8 @@ public class Utility {
                 args2 = args2.cdr();
             }
             if(args2 != null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
-            return aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
+            return;
         } catch (EvaluationException e) {
             throw e;
         } finally {
@@ -716,7 +727,11 @@ public class Utility {
                 } // Else evaluate
                 else {
 
-                    Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
+                    int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
+                    Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+                    aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+                    
                     if(aStackTop != -1)
                     {
                         aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
@@ -877,8 +892,11 @@ public class Utility {
         String orig = (String) BuiltinFunction.getArgument(aEnvironment, aStackTop, 1).car();
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        
-        Cons precedence = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
+        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
+        Cons precedence = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+
         if(! (precedence.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int prec = Integer.parseInt((String) precedence.car(), 10);
         if(prec > MathPiperPrinter.KMaxPrecedence) LispError.checkArgument(aEnvironment, aStackTop, 2);
@@ -919,7 +937,11 @@ public class Utility {
     public static void setVariableOrConstant(Environment aEnvironment, int aStackTop, boolean aMacroMode, boolean aGlobalLazyVariable, boolean aConstant) throws Exception {
         String variableString = null;
         if (aMacroMode) {
-            Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 1));
+            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 1));
+            Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+
             variableString = (String) result.car();
         } else {
             variableString = (String) BuiltinFunction.getArgument(aEnvironment, aStackTop, 1).car();
@@ -935,7 +957,10 @@ public class Utility {
         }
         else
         {
-            value = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
+            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
+            value = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
         }
         
         aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable); //Variable setting is deligated to Environment.
@@ -1361,19 +1386,19 @@ public class Utility {
 
 
 
-    public static Cons lispEvaluate(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
+    public static void lispEvaluate(Environment aEnvironment, int aStackTop, String inputExpression) throws Exception {
 
         Cons inputExpressionCons = mathPiperParse(aEnvironment, aStackTop, inputExpression);
 
-        return aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionCons);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionCons);
     }//end method.
 
 
 
 
-    public static Cons lispEvaluate(Environment aEnvironment, int aStackTop, Cons inputExpression) throws Exception {
+    public static void lispEvaluate(Environment aEnvironment, int aStackTop, Cons inputExpression) throws Exception {
 
-        return aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpression);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpression);
 
     }//end method.
 

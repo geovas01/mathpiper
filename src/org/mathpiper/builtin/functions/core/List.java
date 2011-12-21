@@ -43,7 +43,10 @@ public class List extends BuiltinFunction {
         consTraverser = consTraverser.cdr();
         while (consTraverser != null) {
 
-            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+            Cons evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
             tail.setCdr(evaluated);
             tail = tail.cdr();

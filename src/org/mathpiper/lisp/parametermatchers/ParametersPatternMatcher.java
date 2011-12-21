@@ -341,7 +341,10 @@ public class ParametersPatternMatcher {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
 
-            Cons resultPredicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop,  iPredicates.get(i));
+            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop,  iPredicates.get(i));
+            Cons resultPredicate = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
             if (Utility.isFalse(aEnvironment, resultPredicate, aStackTop)) {
                 return false;

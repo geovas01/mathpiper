@@ -61,7 +61,10 @@ public class ArgumentStack {
     }
 
     public Cons getElement(int aPos, int aStackTop, Environment aEnvironment) throws Exception {
-        if(aPos < 0 || aPos >= iStackTopIndex) LispError.lispAssert(aEnvironment, aStackTop);
+        if(aPos < 0 || aPos >= iStackTopIndex) 
+        {
+            LispError.lispAssert(aEnvironment, aStackTop);
+        }
         return iArgumentStack.getElement(aPos);
     }
 

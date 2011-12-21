@@ -48,7 +48,10 @@ public class Time extends BuiltinFunction
     {
         BigDecimal startTime = new BigDecimal(System.currentTimeMillis());
 
-        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
+        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
+        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
         BigDecimal endTime = new BigDecimal(System.currentTimeMillis());
 

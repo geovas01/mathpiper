@@ -51,7 +51,12 @@ public class TraceSome extends BuiltinFunction
 
         // Get function list.
         if(functionList == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        Cons result = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionList);
+
+        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionList);
+        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+
         String functionNamesString =  (String) result.car();
         if(functionNamesString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
@@ -69,7 +74,13 @@ public class TraceSome extends BuiltinFunction
 
         //Evaluate expresstion with tracing on.
         Evaluator.traceOn();
-        setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body));
+
+        stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
+        Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        setTopOfStack(aEnvironment, aStackTop, aResult);
+        
         Evaluator.traceOff();
         Evaluator.setTraceFunctionList(null);
 

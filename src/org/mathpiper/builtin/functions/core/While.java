@@ -48,7 +48,10 @@ public class While extends BuiltinFunction
         Cons arg1 = getArgument(aEnvironment, aStackTop, 1);
         Cons arg2 = getArgument(aEnvironment, aStackTop, 2);
 
-        Cons predicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
+        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
+        Cons predicate = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
         Cons evaluated;
 
@@ -63,7 +66,10 @@ public class While extends BuiltinFunction
 
                 try {
 
-                    evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg2);
+                    stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg2);
+                    evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+                    aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
                 } catch (ContinueException ce) {
                     aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
@@ -71,7 +77,10 @@ public class While extends BuiltinFunction
                     setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
                 }//end continue catch.
 
-                predicate = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
+                stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
+                predicate = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+                aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
             }//end while.
 

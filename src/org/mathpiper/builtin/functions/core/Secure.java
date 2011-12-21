@@ -20,6 +20,7 @@ package org.mathpiper.builtin.functions.core;
 
 import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.lisp.Environment;
+import org.mathpiper.lisp.cons.Cons;
 
 
 /**
@@ -45,7 +46,11 @@ public class Secure extends BuiltinFunction
         aEnvironment.iSecure = true;
         try
         {
-            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
+            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
+            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            setTopOfStack(aEnvironment, aStackTop, aResult);
         } catch (Exception e)
         {
             throw e;
