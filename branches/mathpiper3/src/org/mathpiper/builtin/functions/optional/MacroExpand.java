@@ -61,7 +61,7 @@ public class MacroExpand extends BuiltinFunction
 	
 	aEnvironment.write("\n");
 
-         setTopOfStack(aEnvironment, aStackTop, aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result));
+         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result);
 
     }//end method.
 

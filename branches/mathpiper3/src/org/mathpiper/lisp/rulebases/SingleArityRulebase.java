@@ -104,9 +104,9 @@ public class SingleArityRulebase extends Evaluator {
      * @param aArguments the arguments to the function
      * @throws java.lang.Exception
      */
-    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
 
-        Cons aResult;
+        Cons aResult = null;
         int arity = arity();
         Cons[] argumentsResultArray = evaluateArguments(aEnvironment, aStackTop, aArguments);
 
@@ -154,12 +154,15 @@ public class SingleArityRulebase extends Evaluator {
                         beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
                         beforeEvaluationDepth = aEnvironment.iEvalDepth;
 
-                        aResult = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, thisRule.getBody()); //*** User function is called here.
+                        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, thisRule.getBody()); //*** User function is called here.
+                        aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+                        //aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
                     } catch (ReturnException re) {
-                        //todo:tk:note that user functions currently return their results in aResult, not on the stack.
-                        int stackTopIndex = aEnvironment.iArgumentStack.getStackTopIndex();
-                        aResult =  BuiltinFunction.getTopOfStack(aEnvironment, stackTopIndex - 1);
+                        //todo:tk:this code may need to be adjusted.
+                        //int stackTopIndex = aEnvironment.iArgumentStack.getStackTopIndex();
+                        //aResult =  BuiltinFunction.getTopOfStack(aEnvironment, stackTopIndex - 1);
 
                         aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
                         aEnvironment.iEvalDepth = beforeEvaluationDepth;
@@ -174,7 +177,7 @@ public class SingleArityRulebase extends Evaluator {
                         arguments2 = null;
                     }//end if.
 
-                    return aResult;
+                    return;
                 }//end if matches.
 
                 // If rules got inserted, walk back.
@@ -196,6 +199,7 @@ public class SingleArityRulebase extends Evaluator {
                 }
             }
             aResult = SublistCons.getInstance(aEnvironment, full);
+            BuiltinFunction.pushOnStack(aEnvironment, aStackTop, aResult);
 
 
             /* Trace code */
@@ -206,7 +210,7 @@ public class SingleArityRulebase extends Evaluator {
                 arguments3 = null;
             }
 
-            return aResult;
+            return ;
 
         } catch (EvaluationException ex) {
 
@@ -277,7 +281,10 @@ public class SingleArityRulebase extends Evaluator {
                 //if(argumentsTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS, "Expected arity: " + arity + ".", "INTERNAL");
 
                 //Evaluate each argument and place the result into argumentsResultArray[i];
-                argumentsResultArray[parameterIndex] = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsTraverser);
+                int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, argumentsTraverser);
+                argumentsResultArray[parameterIndex] = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+                aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
             }
             argumentsTraverser = argumentsTraverser.cdr();
         }//end for.

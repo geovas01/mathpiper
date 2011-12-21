@@ -181,7 +181,10 @@ public final class Environment {
         GlobalVariable globalVariable = (GlobalVariable) iGlobalState.lookUp(aVariable);
         if (globalVariable != null) {
             if (globalVariable.iEvalBeforeReturn) {
-                aResult = iLispExpressionEvaluator.evaluate(this, aStackTop, globalVariable.iValue);
+                int stackTop = this.iArgumentStack.getStackTopIndex();
+                iLispExpressionEvaluator.evaluate(this, aStackTop, globalVariable.iValue);
+                aResult = iArgumentStack.getElement(stackTop, aStackTop, this);
+                iArgumentStack.popTo(stackTop, aStackTop, this);
                 globalVariable.iValue = aResult;
                 globalVariable.iEvalBeforeReturn = false;
                 return aResult;

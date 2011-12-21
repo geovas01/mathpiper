@@ -36,8 +36,7 @@ public class ListedMacroRulebase extends MacroRulebase {
 
 
     @Override
-    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
-        Cons aResult;
+    public void evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
 
         Cons newArgs = null;
 
@@ -82,8 +81,9 @@ public class ListedMacroRulebase extends MacroRulebase {
             ptr.setCdr(nextCons);
             ptr = nextCons;
         }
-        aResult = super.evaluate(aEnvironment, aStackTop, newArgs);
-        return aResult;
+        super.evaluate(aEnvironment, aStackTop, newArgs);
+
+        return;
     }
 
 

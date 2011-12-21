@@ -37,6 +37,11 @@ public abstract class BuiltinFunction {
         aEnvironment.iArgumentStack.setElement(aStackTop, aStackTop, aEnvironment, cons);
     }
 
+
+    public static void pushOnStack(Environment aEnvironment, int aStackTop, Cons cons) throws Exception {
+        aEnvironment.iArgumentStack.pushArgumentOnStack(cons, aStackTop, aEnvironment);
+    }
+
     public static Cons getArgument(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
         return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition, aStackTop, aEnvironment);
     }

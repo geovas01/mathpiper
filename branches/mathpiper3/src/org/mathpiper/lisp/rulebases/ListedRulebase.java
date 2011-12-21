@@ -35,8 +35,7 @@ public class ListedRulebase extends SingleArityRulebase {
 
 
     @Override
-    public Cons evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
-        Cons aResult;
+    public void evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
 
         Cons newArgs = null;
 
@@ -82,8 +81,8 @@ public class ListedRulebase extends SingleArityRulebase {
             ptr.setCdr(nextCons);
             ptr = nextCons;
         }
-        aResult = super.evaluate(aEnvironment, aStackTop, newArgs);
-        return aResult;
+        super.evaluate(aEnvironment, aStackTop, newArgs);
+        return ;
     }
 
 }

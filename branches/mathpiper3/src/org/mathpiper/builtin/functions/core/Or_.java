@@ -50,7 +50,11 @@ public class Or_ extends BuiltinFunction
         consTraverser = consTraverser.cdr();
         while (consTraverser != null)
         {
-            Cons evaluated = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+            Cons evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            
             if (Utility.isTrue(aEnvironment, evaluated, aStackTop))
             {
                 setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));

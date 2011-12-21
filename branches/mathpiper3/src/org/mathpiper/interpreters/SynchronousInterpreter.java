@@ -203,6 +203,8 @@ public class SynchronousInterpreter implements Interpreter {
             }
             e.printStackTrace();
 
+ System.exit(0);
+
         }
 
         return returnValue;
@@ -296,7 +298,10 @@ public class SynchronousInterpreter implements Interpreter {
         String resultString = "Exception";
 
         try {
-            Cons result = iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, -1, inputExpression); //*** The main evaluation happens here.
+            int stackTop = iEnvironment.iArgumentStack.getStackTopIndex();
+            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, 0, inputExpression); //*** The main evaluation happens here.
+            Cons result = iEnvironment.iArgumentStack.getElement(stackTop, 0, iEnvironment);
+            iEnvironment.iArgumentStack.popTo(stackTop, 0, iEnvironment);
 
             evaluationResponse.setResultList(result);
 
@@ -395,8 +400,8 @@ public class SynchronousInterpreter implements Interpreter {
     }
 
     private void handleException(Exception exception, EvaluationResponse evaluationResponse) {
-        //exception.printStackTrace();  //todo:tk:uncomment for debugging.
-
+        exception.printStackTrace(); System.exit(1); //todo:tk:uncomment for debugging.
+       
         Evaluator.DEBUG = false;
         Evaluator.VERBOSE_DEBUG = false;
         Evaluator.TRACE_TO_STANDARD_OUT = false;

@@ -39,8 +39,10 @@ public class XmlExplodeTag extends BuiltinFunction {
         try {
 
             this.functionName = functionName;
-            
+
+            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
             Utility.lispEvaluate(aEnvironment, -1, "RulebaseHoldArguments(\"XmlTag\",{x,y,z});");
+            aEnvironment.iArgumentStack.popTo(stackTop, 0, aEnvironment);
         } catch (Exception e) {
             e.printStackTrace();
         }
