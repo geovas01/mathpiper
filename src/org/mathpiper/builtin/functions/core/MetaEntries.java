@@ -68,14 +68,14 @@ public class MetaEntries extends BuiltinFunction
 
 
             //Add -> operator cons.
-            Cons operatorCons = AtomCons.getInstance(aEnvironment, aStackTop, "->");
+            Cons operatorCons = AtomCons.getInstance(aEnvironment, "->");
 
 
 
             //Add key cons.
             String key = (String) keyIterator.next();
 
-            Cons keyCons = AtomCons.getInstance(aEnvironment, aStackTop, key);
+            Cons keyCons = AtomCons.getInstance(aEnvironment, key);
 
             operatorCons.setCdr(keyCons);
 

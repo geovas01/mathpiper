@@ -47,7 +47,7 @@ public class UnicodeToString extends BuiltinFunction
         if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(! Utility.isNumber(str, false)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         char asciiCode = (char) Integer.parseInt(str, 10);
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + asciiCode + "\""));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, "\"" + asciiCode + "\""));
     }
 }
 

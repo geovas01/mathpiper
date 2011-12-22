@@ -12,7 +12,7 @@ public class E {
   /** Throw an error message with an associated object. **/
   public static Object error(String message, Object x) throws Exception {
       //throw new SchemeException(message,x);
-      LispError.raiseError(message, -2, null);
+      LispError.raiseError(message, null);
       return null;
   }
   

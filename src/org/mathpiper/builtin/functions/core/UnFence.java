@@ -51,7 +51,7 @@ public class UnFence extends BuiltinFunction
         if(! (getArgument(aEnvironment, aStackTop, 2).car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int arity = Integer.parseInt( (String) getArgument(aEnvironment, aStackTop, 2).car(), 10);
 
-        aEnvironment.unfenceRule(aStackTop, Utility.getSymbolName(aEnvironment, orig), arity);
+        aEnvironment.unfenceRule(Utility.getSymbolName(aEnvironment, orig), arity);
 
         // Return true
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));

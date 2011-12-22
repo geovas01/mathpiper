@@ -49,9 +49,9 @@ public class While extends BuiltinFunction
         Cons arg2 = getArgument(aEnvironment, aStackTop, 2);
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
-        Cons predicate = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, arg1);
+        Cons predicate = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
         Cons evaluated;
 
@@ -59,7 +59,7 @@ public class While extends BuiltinFunction
         int beforeEvaluationDepth = -1;
         
         try {
-            while (Utility.isTrue(aEnvironment, predicate, aStackTop)) {
+            while (Utility.isTrue(aEnvironment, predicate)) {
 
                 beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
                 beforeEvaluationDepth = aEnvironment.iEvalDepth;
@@ -67,27 +67,27 @@ public class While extends BuiltinFunction
                 try {
 
                     stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg2);
-                    evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-                    aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, arg2);
+                    evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+                    aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
                 } catch (ContinueException ce) {
-                    aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
+                    aEnvironment.iArgumentStack.popTo(beforeStackTop, aEnvironment);
                     aEnvironment.iEvalDepth = beforeEvaluationDepth;
                     setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
                 }//end continue catch.
 
                 stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
-                predicate = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-                aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, arg1);
+                predicate = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+                aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
             }//end while.
 
-            if(! Utility.isFalse(aEnvironment, predicate, aStackTop)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+            if(! Utility.isFalse(aEnvironment, predicate)) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         } catch (BreakException be) {
-              aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
+              aEnvironment.iArgumentStack.popTo(beforeStackTop, aEnvironment);
               aEnvironment.iEvalDepth = beforeEvaluationDepth;
         }
 

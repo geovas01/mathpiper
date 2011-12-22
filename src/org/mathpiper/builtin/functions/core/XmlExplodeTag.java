@@ -42,7 +42,7 @@ public class XmlExplodeTag extends BuiltinFunction {
 
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
             Utility.lispEvaluate(aEnvironment, -1, "RulebaseHoldArguments(\"XmlTag\",{x,y,z});");
-            aEnvironment.iArgumentStack.popTo(stackTop, 0, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,9 +114,9 @@ public class XmlExplodeTag extends BuiltinFunction {
 
             //printf("[%s], [%s]\n",name.String(),value.String());
             {
-                Cons ls = AtomCons.getInstance(aEnvironment, aStackTop, "List");
-                Cons nm = AtomCons.getInstance(aEnvironment, aStackTop, name);
-                Cons vl = AtomCons.getInstance(aEnvironment, aStackTop, value);
+                Cons ls = AtomCons.getInstance(aEnvironment, "List");
+                Cons nm = AtomCons.getInstance(aEnvironment, name);
+                Cons vl = AtomCons.getInstance(aEnvironment, value);
                 nm.setCdr(vl);
                 ls.setCdr(nm);
                 Cons newinfo = SublistCons.getInstance(aEnvironment, ls);
@@ -137,14 +137,14 @@ public class XmlExplodeTag extends BuiltinFunction {
             }
         }
         {
-            Cons ls = AtomCons.getInstance(aEnvironment, aStackTop, "List");
+            Cons ls = AtomCons.getInstance(aEnvironment, "List");
             ls.setCdr(info);
             info = SublistCons.getInstance(aEnvironment, ls);
         }
 
-        Cons xm = AtomCons.getInstance(aEnvironment, aStackTop, "XmlTag");
-        Cons tg = AtomCons.getInstance(aEnvironment, aStackTop, tag);
-        Cons tp = AtomCons.getInstance(aEnvironment, aStackTop, type);
+        Cons xm = AtomCons.getInstance(aEnvironment, "XmlTag");
+        Cons tg = AtomCons.getInstance(aEnvironment, tag);
+        Cons tp = AtomCons.getInstance(aEnvironment, type);
         info.setCdr(tp);
         tg.setCdr(info);
         xm.setCdr(tg);

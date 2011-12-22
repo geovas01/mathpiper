@@ -163,7 +163,7 @@ public class Utility {
         return true;
     }
 
-    public static int listLength(Environment aEnvironment, int aStackTop, Cons aOriginal) throws Exception {
+    public static int listLength(Environment aEnvironment, Cons aOriginal) throws Exception {
         
         int length = 0;
         while (aOriginal != null) {
@@ -195,7 +195,7 @@ public class Utility {
         return previous;
     }
 
-    public static Cons returnUnEvaluated(int aStackTop, Cons aArguments, Environment aEnvironment) throws Exception {
+    public static Cons returnUnEvaluated(Cons aArguments, Environment aEnvironment) throws Exception {
         Cons full = aArguments.copy(false);
 
         Cons resultCons = SublistCons.getInstance(aEnvironment, full);
@@ -206,9 +206,9 @@ public class Utility {
         while (consTraverser != null) {
 
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
-            Cons next = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, consTraverser);
+            Cons next = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
             full.setCdr(next);
             full = next;
@@ -220,55 +220,55 @@ public class Utility {
     }
 
     //Evaluate a function which is in string form.
-    public static Cons applyString(Environment aEnvironment, int aStackTop, String aOperator, Cons aArgs) throws Exception {
-        if(! isString(aOperator)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_STRING, aOperator);
+    public static Cons applyString(Environment aEnvironment, String aOperator, Cons aArgs) throws Exception {
+        if(! isString(aOperator)) LispError.throwError(aEnvironment, aOperator);
 
-        Cons head = AtomCons.getInstance(aEnvironment, aStackTop, getSymbolName(aEnvironment, aOperator));
+        Cons head = AtomCons.getInstance(aEnvironment, getSymbolName(aEnvironment, aOperator));
         head.setCdr(aArgs);
         Cons body = SublistCons.getInstance(aEnvironment, head);
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
-        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, body);
+        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
         
         return result;
     }
 
-    public static void applyPure(int aStackTop, Cons oper, Cons args2, Environment aEnvironment) throws Exception {
-        if(!(oper.car() instanceof Cons)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
-        if(((Cons) oper.car()) == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
+    public static void applyPure(Cons oper, Cons args2, Environment aEnvironment) throws Exception {
+        if(!(oper.car() instanceof Cons)) LispError.throwError(aEnvironment, args2);
+        if(((Cons) oper.car()) == null) LispError.throwError(aEnvironment, args2);
 
         Cons oper2 = ((Cons) oper.car()).cdr();
-        if( oper2 == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
+        if( oper2 == null) LispError.throwError(aEnvironment, args2);
 
         Cons body;
         body = oper2.cdr();
-        if(body == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
+        if(body == null) LispError.throwError(aEnvironment, args2);
 
-        if(! (oper2.car() instanceof Cons)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
-        if( ((Cons) oper2.car()) == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
+        if(! (oper2.car() instanceof Cons)) LispError.throwError(aEnvironment, args2);
+        if( ((Cons) oper2.car()) == null) LispError.throwError(aEnvironment, args2);
         oper2 = ((Cons) oper2.car()).cdr();
 
         aEnvironment.pushLocalFrame(false, "Pure");
         try {
             while (oper2 != null) {
-                if( args2 == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
+                if( args2 == null) LispError.throwError(aEnvironment, args2);
 
                 String var = (String) oper2.car();
-                if( var == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
+                if( var == null) LispError.throwError(aEnvironment, args2);
                 Cons newly = args2.copy(false);
-                aEnvironment.newLocalVariable(var, newly, aStackTop);
+                aEnvironment.newLocalVariable(var, newly);
                 oper2 = oper2.cdr();
                 args2 = args2.cdr();
             }
-            if(args2 != null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, args2);
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
+            if(args2 != null) LispError.throwError(aEnvironment, args2);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, body);
             return;
         } catch (EvaluationException e) {
             throw e;
         } finally {
-            aEnvironment.popLocalFrame(aStackTop);
+            aEnvironment.popLocalFrame();
         }
 
     }
@@ -289,34 +289,34 @@ public class Utility {
         }
     }
 
-    public static Cons nth(Environment aEnvironment, int aStackTop, Cons aArg, int n) throws Exception {
-        if(aArg == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
-        if(! (aArg.car() instanceof Cons)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
-        if(n < 0) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
+    public static Cons nth(Environment aEnvironment, Cons aArg, int n) throws Exception {
+        if(aArg == null) LispError.throwError(aEnvironment, aArg);
+        if(! (aArg.car() instanceof Cons)) LispError.throwError(aEnvironment, aArg);
+        if(n < 0) LispError.throwError(aEnvironment, aArg);
         Cons consTraverser = (Cons) aArg.car();
 
         while (n > 0) {
-            if(consTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
+            if(consTraverser == null) LispError.throwError(aEnvironment, aArg);
             consTraverser = consTraverser.cdr();
             n--;
         }
-        if(consTraverser == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
+        if(consTraverser == null) LispError.throwError(aEnvironment, aArg);
         return consTraverser.copy(false);
     }
 
-    public static Cons tail(Environment aEnvironment, int aStackTop, Cons aArg) throws Exception {
-        if(aArg == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
-        if(! (aArg.car() instanceof Cons)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
+    public static Cons tail(Environment aEnvironment, Cons aArg) throws Exception {
+        if(aArg == null) LispError.throwError(aEnvironment, aArg);
+        if(! (aArg.car() instanceof Cons)) LispError.throwError(aEnvironment, aArg);
 
         Cons iter = (Cons) aArg.car();
 
-        if(iter == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, aArg);
+        if(iter == null) LispError.throwError(aEnvironment, aArg);
         return SublistCons.getInstance(aEnvironment, iter.cdr());
     }
 
 
-    public static boolean isTrue(Environment aEnvironment, Cons aExpression, int aStackTop) throws Exception {
-        if(aExpression == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public static boolean isTrue(Environment aEnvironment, Cons aExpression) throws Exception {
+        if(aExpression == null) LispError.lispAssert(aEnvironment);
 
         //return aExpression.car() == aEnvironment.iTrueAtom.car();
         return aExpression.car() instanceof String && ((String) aExpression.car()).equals(aEnvironment.iTrueString);
@@ -342,8 +342,8 @@ public class Utility {
         }*/
 
     }//end method.
-    public static boolean isFalse(Environment aEnvironment, Cons aExpression, int aStackTop) throws Exception {
-        if(aExpression == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public static boolean isFalse(Environment aEnvironment, Cons aExpression) throws Exception {
+        if(aExpression == null) LispError.lispAssert(aEnvironment);
         return aExpression.car() instanceof String && ((String) aExpression.car()).equals(aEnvironment.iFalseString);
 
         /* Code which returns True for everything except False and {};
@@ -353,7 +353,7 @@ public class Utility {
 
     public static String getSymbolName(Environment aEnvironment, String aSymbol) throws Exception {
         if (aSymbol.charAt(0) == '\"') {
-            return Utility.stripEndQuotesIfPresent(aEnvironment, -1, aSymbol);
+            return Utility.stripEndQuotesIfPresent(aEnvironment, aSymbol);
         } else {
             return aSymbol;
         }
@@ -401,7 +401,7 @@ public class Utility {
 
     }//end method.
 
-    public static boolean isNestedList(Environment aEnvironment, int aStackTop, Cons clientList) throws Exception {
+    public static boolean isNestedList(Environment aEnvironment, Cons clientList) throws Exception {
 
         Cons list = clientList;
 
@@ -417,29 +417,29 @@ public class Utility {
         return true;
     }//end method.
 
-    public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, Cons arguments, Map defaultOptions) throws Exception {
+    public static Map optionsListToJavaMap(Environment aEnvironment, Cons arguments, Map defaultOptions) throws Exception {
 
         Map userOptions = (Map) ((HashMap) defaultOptions).clone();
 
         while (arguments != null) {
             //Obtain -> operator.
             Cons option = (Cons) arguments.car();
-            if( option.type() != Utility.ATOM) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
+            if( option.type() != Utility.ATOM) LispError.throwError(aEnvironment, arguments);
             String operator = (String) option.car();
-            if(! operator.equals("->")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
+            if(! operator.equals("->")) LispError.throwError(aEnvironment, arguments);
 
             //Obtain key.
             option = option.cdr();
-            if( option.type() != Utility.ATOM) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
+            if( option.type() != Utility.ATOM) LispError.throwError(aEnvironment, arguments);
             String key = (String) option.car();
-            key = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, key);
+            key = Utility.stripEndQuotesIfPresent(aEnvironment, key);
 
             //Obtain value.
             option = option.cdr();
-            if( option.type() != Utility.ATOM && option.type() != Utility.NUMBER) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, arguments);
+            if( option.type() != Utility.ATOM && option.type() != Utility.NUMBER) LispError.throwError(aEnvironment, arguments);
             if (option.type() == Utility.ATOM) {
                 String value = (String) option.car();
-                value = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, value);
+                value = Utility.stripEndQuotesIfPresent(aEnvironment, value);
                 if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
                     userOptions.put(key, Boolean.parseBoolean(value));
                 } else {
@@ -493,10 +493,10 @@ public class Utility {
     }//end method.
 
     public static Cons not(int aStackTop, Environment aEnvironment, Cons aExpression) throws Exception {
-        if (isTrue(aEnvironment, aExpression, aStackTop)) {
+        if (isTrue(aEnvironment, aExpression)) {
             return getFalseAtom(aEnvironment);
         } else {
-            if(isTrue(aEnvironment, aExpression, aStackTop)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, BuiltinFunction.getArgument(aEnvironment, aStackTop, 1));
+            if(isTrue(aEnvironment, aExpression)) LispError.throwError(aEnvironment, BuiltinFunction.getArgument(aEnvironment, aStackTop, 1));
             return getTrueAtom(aEnvironment);
         }
     }
@@ -534,7 +534,7 @@ public class Utility {
         return head;
     }
 
-    public static boolean equals(Environment aEnvironment, int aStackTop, Cons aExpression1, Cons aExpression2) throws Exception {
+    public static boolean equals(Environment aEnvironment, Cons aExpression1, Cons aExpression2) throws Exception {
         // Handle pointers to same, or null
         if (aExpression1 == aExpression2) {
             return true;
@@ -586,7 +586,7 @@ public class Utility {
 
             while (consTraverser1 != null && consTraverser2 != null) {
                 // compare two list elements
-                if (!equals(aEnvironment, aStackTop, consTraverser1, consTraverser2)) {
+                if (!equals(aEnvironment, consTraverser1, consTraverser2)) {
                     return false;
                 }
 
@@ -605,16 +605,16 @@ public class Utility {
         return false;
     }
 
-    public static Cons substitute(Environment aEnvironment, int aStackTop, Cons aSource, Substitute aBehaviour) throws Exception {
+    public static Cons substitute(Environment aEnvironment, Cons aSource, Substitute aBehaviour) throws Exception {
         
         Cons sourceCons = aSource;
 
         Cons aDestination = null;
 
-        if(sourceCons == null) LispError.lispAssert(aEnvironment, aStackTop);
+        if(sourceCons == null) LispError.lispAssert(aEnvironment);
 
 
-        if((aDestination = aBehaviour.matches(aEnvironment, aStackTop,  aSource)) != null)
+        if((aDestination = aBehaviour.matches(aEnvironment, aSource)) != null)
         {
             //Base case.
             return aDestination;
@@ -643,7 +643,7 @@ public class Utility {
                 while (sourceList != null) {
 
 
-                    Cons result = substitute(aEnvironment, aStackTop, sourceList, aBehaviour);
+                    Cons result = substitute(aEnvironment, sourceList, aBehaviour);
 
                     if(isHead == true)
                     {
@@ -678,7 +678,7 @@ public class Utility {
     }
 
 
-    public static String stripEndQuotesIfPresent(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
+    public static String stripEndQuotesIfPresent(Environment aEnvironment, String aOriginal) throws Exception {
         //If there are not quotes on both ends of the string then return without any changes.
         if (aOriginal.startsWith("\"") && aOriginal.endsWith("\"")) {
             aOriginal = aOriginal.substring(1, aOriginal.length());
@@ -690,21 +690,21 @@ public class Utility {
 
     
 
-    public static String toNormalString(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
-        if( aOriginal == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Empty argument.");
-        if(aOriginal.charAt(0) != '\"') LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Missing left quote character.");
+    public static String toNormalString(Environment aEnvironment, String aOriginal) throws Exception {
+        if( aOriginal == null) LispError.throwError(aEnvironment, "Empty argument.");
+        if(aOriginal.charAt(0) != '\"') LispError.throwError(aEnvironment, "Missing left quote character.");
         int nrc = aOriginal.length() - 1;
-        if( aOriginal.charAt(nrc) != '\"') LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Missing right quote character.");
+        if( aOriginal.charAt(nrc) != '\"') LispError.throwError(aEnvironment, "Missing right quote character.");
         return aOriginal.substring(1, nrc);
     }
 
-    public static String toMathPiperString(Environment aEnvironment, int aStackTop, String aOriginal) throws Exception {
-        if( aOriginal == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Empty argument.");
+    public static String toMathPiperString(Environment aEnvironment, String aOriginal) throws Exception {
+        if( aOriginal == null) LispError.throwError(aEnvironment, "Empty argument.");
 
         return "\"" + aOriginal + "\"";
     }
 
-    public static void doInternalLoad(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
+    public static void doInternalLoad(Environment aEnvironment, MathPiperInputStream aInput) throws Exception {
         MathPiperInputStream previous = aEnvironment.getCurrentInput();
         try {
             aEnvironment.setCurrentInput(aInput);
@@ -718,9 +718,9 @@ public class Utility {
 
             while (!endoffile) {
                 // Read expression
-                Cons readIn = parser.parse(aStackTop);
+                Cons readIn = parser.parse();
 
-                if( readIn == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "");
+                if( readIn == null) LispError.throwError(aEnvironment, "");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
@@ -728,14 +728,11 @@ public class Utility {
                 else {
 
                     int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
-                    Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-                    aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, readIn);
+                    Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+                    aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
                     
-                    if(aStackTop != -1)
-                    {
-                        aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
-                    }
+                    aEnvironment.setLocalOrGlobalVariable("$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
                 }
             }//end while.
 
@@ -768,7 +765,7 @@ public class Utility {
                         aEnvironment.iCurrentOutput;
                     try {
                         aEnvironment.iCurrentOutput = aOutput;
-                        Utility.doInternalLoad(aEnvironment, aStackTop, scriptStream);
+                        Utility.doInternalLoad(aEnvironment, scriptStream);
                     } catch(Exception e) {
                         throw e;
                     } finally {
@@ -782,7 +779,7 @@ public class Utility {
         }
     }
 
-    public static String printMathPiperExpression(int aStackTop, Cons aExpression, Environment aEnvironment, int aMaxChars) throws Exception {
+    public static String printMathPiperExpression(Cons aExpression, Environment aEnvironment, int aMaxChars) throws Exception {
         if(aExpression == null)
         {
             return "NULL";
@@ -794,7 +791,7 @@ public class Utility {
                 aEnvironment.iInfixOperators,
                 aEnvironment.iPostfixOperators,
                 aEnvironment.iBodiedOperators);
-        infixprinter.print(aStackTop, aExpression, newOutput, aEnvironment);
+        infixprinter.print(aExpression, newOutput, aEnvironment);
         if (aMaxChars > 0 && result.length() > aMaxChars) {
             result.delete(aMaxChars, result.length());
             result.append((char) '.');
@@ -815,7 +812,7 @@ public class Utility {
 
         LispPrinter printer = new LispPrinter();
 
-        printer.print(aStackTop, aExpression, out, aEnvironment);
+        printer.print(aExpression, out, aEnvironment);
 
         //todo:tk:add the ability to truncate the result.
 
@@ -893,9 +890,9 @@ public class Utility {
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
-        Cons precedence = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
+        Cons precedence = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
         if(! (precedence.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
         int prec = Integer.parseInt((String) precedence.car(), 10);
@@ -938,9 +935,9 @@ public class Utility {
         String variableString = null;
         if (aMacroMode) {
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 1));
-            Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, BuiltinFunction.getArgument(aEnvironment, aStackTop, 1));
+            Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
             variableString = (String) result.car();
         } else {
@@ -958,12 +955,12 @@ public class Utility {
         else
         {
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
-            value = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, BuiltinFunction.getArgument(aEnvironment, aStackTop, 2));
+            value = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
         }
         
-        aEnvironment.setLocalOrGlobalVariable(aStackTop, variableString, value, aGlobalLazyVariable); //Variable setting is deligated to Environment.
+        aEnvironment.setLocalOrGlobalVariable(variableString, value, aGlobalLazyVariable); //Variable setting is deligated to Environment.
 
 
         BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
@@ -995,7 +992,7 @@ public class Utility {
             consTraverser = consTraverser.cdr();
             ind--;
         }
-        if(consTraverser == null) LispError.throwError(aEnvironment, aStackTop,  LispError.NOT_LONG_ENOUGH);
+        if(consTraverser == null) LispError.throwError(aEnvironment,  LispError.NOT_LONG_ENOUGH);
 
         previousCons.setCdr(consTraverser.cdr());
 
@@ -1170,7 +1167,7 @@ public class Utility {
 
 
 
-    public static String dumpRule(int aStackTop, Rule rule, Environment aEnvironment, SingleArityRulebase userFunction) {
+    public static String dumpRule(Rule rule, Environment aEnvironment, SingleArityRulebase userFunction) {
         StringBuilder dumpResult = new StringBuilder();
         try {
             int precedence = rule.getPrecedence();
@@ -1182,7 +1179,7 @@ public class Utility {
             if (predicate1 == null || predicate1.toString().equalsIgnoreCase("Empty.")) {
                 predicate = "None.";
             } else {
-                predicate = Utility.printMathPiperExpression(aStackTop, predicate1, aEnvironment, 0);
+                predicate = Utility.printMathPiperExpression(predicate1, aEnvironment, 0);
             }
 
             if (rule instanceof PatternRule) {
@@ -1218,7 +1215,7 @@ public class Utility {
                 Iterator patternPredicatesIterator = pattern.getPredicates().iterator();
                 while (patternPredicatesIterator.hasNext()) {
                     Cons predicateCons = (Cons) patternPredicatesIterator.next();
-                    String patternPredicate = Utility.printMathPiperExpression(aStackTop, predicateCons, aEnvironment, 0);
+                    String patternPredicate = Utility.printMathPiperExpression(predicateCons, aEnvironment, 0);
                     predicate += patternPredicate + ", ";
                 }
                 /*if (predicate.contains(",")) {
@@ -1242,7 +1239,7 @@ public class Utility {
                 parameters = parameters.substring(0, parameters.lastIndexOf(","));
             }
 
-            String body = Utility.printMathPiperExpression(aStackTop, rule.getBody(), aEnvironment, 0);
+            String body = Utility.printMathPiperExpression(rule.getBody(), aEnvironment, 0);
             body = body.replace(",", ", ");
             //System.out.println(data);
 
@@ -1250,8 +1247,8 @@ public class Utility {
 
             if (userFunction instanceof MacroRulebase) {
                 BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
-                Cons substitutedBody = Utility.substitute(aEnvironment, aStackTop, rule.getBody(), backQuoteSubstitute);
-                substitutedMacroBody = Utility.printMathPiperExpression(aStackTop, substitutedBody, aEnvironment, 0);
+                Cons substitutedBody = Utility.substitute(aEnvironment, rule.getBody(), backQuoteSubstitute);
+                substitutedMacroBody = Utility.printMathPiperExpression(substitutedBody, aEnvironment, 0);
             }
 
             dumpResult.append("Precedence: " + precedence + ", ");
@@ -1285,7 +1282,7 @@ public class Utility {
                 if (sub != null) {
                     sub = sub.cdr();
                     Cons temp = sub;
-                    if (Utility.equals(aEnvironment, aStackTop, key, temp)) {
+                    if (Utility.equals(aEnvironment, key, temp)) {
                         return listCons;
                     }//end if.
 
@@ -1350,7 +1347,7 @@ public class Utility {
             {
                 String key = (String) object;
 
-                Cons stringCons = AtomCons.getInstance(aEnvironment, aStackTop, key);
+                Cons stringCons = AtomCons.getInstance(aEnvironment, key);
 
                 cons.setCdr(stringCons);
             }
@@ -1378,7 +1375,7 @@ public class Utility {
         StringInputStream inputExpressionBuffer = new StringInputStream(inp.toString(), someStatus);
 
         Parser infixParser = new MathPiperParser(tokenizer, inputExpressionBuffer, aEnvironment, aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
-        Cons inputExpressionCons = infixParser.parse(aStackTop);
+        Cons inputExpressionCons = infixParser.parse();
 
         return inputExpressionCons;
     }//end method.
@@ -1390,7 +1387,7 @@ public class Utility {
 
         Cons inputExpressionCons = mathPiperParse(aEnvironment, aStackTop, inputExpression);
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpressionCons);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, inputExpressionCons);
     }//end method.
 
 
@@ -1398,7 +1395,7 @@ public class Utility {
 
     public static void lispEvaluate(Environment aEnvironment, int aStackTop, Cons inputExpression) throws Exception {
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, inputExpression);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, inputExpression);
 
     }//end method.
 
@@ -1415,7 +1412,7 @@ public class Utility {
 
         for(String parameterName:parameters)
         {
-           Cons atomCons = AtomCons.getInstance(aEnvironment, aStackTop, parameterName);
+           Cons atomCons = AtomCons.getInstance(aEnvironment, parameterName);
 
            if(isHead)
            {
@@ -1448,13 +1445,13 @@ public class Utility {
 
 
         if (scriptCode == null) {
-            LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
+            LispError.throwError(aEnvironment, "No script returned for function: " + functionName + " from Scripts.java.");
         }
 
         if (scriptCode[0] == null) {
 
             if (scriptCode[1] == null) {
-                LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
+                LispError.throwError(aEnvironment, "No script returned for function: " + functionName + " from Scripts.java.");
             }
 
             if (Evaluator.DEBUG) {
@@ -1489,7 +1486,7 @@ public class Utility {
 
             scriptCode[0] = "+";
 
-            Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
+            Utility.doInternalLoad(aEnvironment, functionInputStream);
 
             if (Evaluator.DEBUG) {
 

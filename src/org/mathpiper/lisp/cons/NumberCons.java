@@ -94,7 +94,7 @@ public class NumberCons extends Cons {
         }
         else
         {
-            LispError.raiseError("Argument must be a string or a BigNumber.", -1, null);
+            LispError.raiseError("Argument must be a string or a BigNumber.", null);
         }
     }
 

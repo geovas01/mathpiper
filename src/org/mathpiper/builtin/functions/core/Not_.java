@@ -45,7 +45,7 @@ public class Not_ extends BuiltinFunction
     {
         Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
-        if (Utility.isTrue(aEnvironment, evaluated, aStackTop) || Utility.isFalse(aEnvironment, evaluated, aStackTop))
+        if (Utility.isTrue(aEnvironment, evaluated) || Utility.isFalse(aEnvironment, evaluated))
         {
             setTopOfStack(aEnvironment, aStackTop, Utility.not(aStackTop, aEnvironment, evaluated));
         } else

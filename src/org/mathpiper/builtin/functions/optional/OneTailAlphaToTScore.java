@@ -24,11 +24,11 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
     {
         BigNumber degreesOfFreedom = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
 
-        if(!degreesOfFreedom.isInteger() || degreesOfFreedom.toInt() < 0) LispError.throwError(aEnvironment, aStackTop, "The first argument must be an integer which is greater than 0.");
+        if(!degreesOfFreedom.isInteger() || degreesOfFreedom.toInt() < 0) LispError.throwError(aEnvironment, "The first argument must be an integer which is greater than 0.");
 
         BigNumber alpha = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
 
-        if(alpha.toDouble() < 0 || alpha.toDouble() > .5) LispError.throwError(aEnvironment, aStackTop, "The second argument must be greater than 0 and less than or equal to .5.");
+        if(alpha.toDouble() < 0 || alpha.toDouble() > .5) LispError.throwError(aEnvironment, "The second argument must be greater than 0 and less than or equal to .5.");
 
         double cdf = Probability.studentTInverse(alpha.toDouble()*2, (int) degreesOfFreedom.toLong());
 

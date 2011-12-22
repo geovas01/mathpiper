@@ -80,7 +80,7 @@ public class MathPiperParser extends Parser
 
         Object[] result = new Object[2];
 
-        result[0] = parse(aStackTop);
+        result[0] = parse();
 
         result[1] = functionOrOperatorLocationsList;
         
@@ -88,9 +88,9 @@ public class MathPiperParser extends Parser
     }
 
 
-    public Cons parse(int aStackTop) throws Exception
+    public Cons parse() throws Exception
     {
-        readToken(aStackTop); //The character is placed into lookAhead.
+        readToken(); //The character is placed into lookAhead.
 
         if (iEndOfFile)
         {
@@ -98,11 +98,11 @@ public class MathPiperParser extends Parser
             return parsedExpression;
         }
 
-        readExpression(iEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
+        readExpression(iEnvironment, MathPiperPrinter.KMaxPrecedence);  // least precedence
 
         if (!iLookAhead[0].equals(iEnvironment.iEndStatementAtom))
         {
-            fail(aStackTop);
+            fail();
         }
 
 
@@ -111,7 +111,7 @@ public class MathPiperParser extends Parser
         {
             while (iLookAhead[0].length() > 0 && !iLookAhead[0].equals(iEnvironment.iEndStatementAtom))
             {
-                readToken(aStackTop);
+                readToken();
             }
         }
 
@@ -123,16 +123,16 @@ public class MathPiperParser extends Parser
 
 
 
-        if(iError) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_EXPRESSION, "");
+        if(iError) LispError.throwError(iEnvironment, "");
 
         return parsedExpression;
     }
 
-    void readToken(int aStackTop) throws Exception
+    void readToken() throws Exception
     {
         // Get token.
 
-        iLookAhead[0] = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
+        iLookAhead[0] = iTokenizer.nextToken(iEnvironment, iInput);
 
 
    //if(iEnvironment.saveDebugInformation )System.out.println(iLookAhead[0] + "XX");
@@ -151,18 +151,18 @@ public class MathPiperParser extends Parser
         }
     }
 
-    void matchToken(int aStackTop, String aToken) throws Exception
+    void matchToken(String aToken) throws Exception
     {
         if (!aToken.equals(iLookAhead[0]))
         {
-            fail(aStackTop);
+            fail();
         }
-        readToken(aStackTop);
+        readToken();
     }
 
-    void readExpression(Environment aEnvironment,int aStackTop, int depth) throws Exception
+    void readExpression(Environment aEnvironment, int depth) throws Exception
     {
-        readAtom(aEnvironment, aStackTop);
+        readAtom(aEnvironment);
 
         for (;;)
         {
@@ -170,20 +170,20 @@ public class MathPiperParser extends Parser
             if (iLookAhead[0].equals(iEnvironment.iProgOpenAtom))
             {
                 // Match opening bracket
-                matchToken(aStackTop, iLookAhead[0]);
+                matchToken(iLookAhead[0]);
                 // Read "index" argument
-                readExpression(aEnvironment, aStackTop, MathPiperPrinter.KMaxPrecedence);
+                readExpression(aEnvironment, MathPiperPrinter.KMaxPrecedence);
                 // Match closing bracket
                 if (!iLookAhead[0].equals(iEnvironment.iProgCloseAtom))
                 {
-                    LispError.raiseError("Expected a ***( ] )*** close bracket token for program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( ] )*** close bracket token for program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aEnvironment);
                     return;
                 }
-                matchToken(aStackTop, iLookAhead[0]);
+                matchToken(iLookAhead[0]);
                 // Build into Ntn(...)
                 String theOperator = (String) iEnvironment.iNthAtom;
-                insertAtom(aEnvironment, aStackTop, theOperator);
-                combine(aEnvironment,aStackTop, 2);
+                insertAtom(aEnvironment, theOperator);
+                combine(aEnvironment, 2);
             } else
             {
                 Operator op = (Operator) iInfixOperators.lookUp(iLookAhead[0]);
@@ -193,7 +193,7 @@ public class MathPiperParser extends Parser
                     if(iLookAhead[0].equals(""))
                     {
 
-                       LispError.raiseError("Expression must end with a semi-colon ***( ; )*** ", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                       LispError.raiseError("Expression must end with a semi-colon ***( ; )*** ", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aEnvironment);
                         return;
                     }
                     if (MathPiperTokenizer.isSymbolic(iLookAhead[0].charAt(0)))
@@ -251,12 +251,12 @@ public class MathPiperParser extends Parser
                 {
                     upper--;
                 }
-                getOtherSide(aEnvironment,aStackTop, 2, upper);
+                getOtherSide(aEnvironment, 2, upper);
             }
         }
     }
 
-    void readAtom(Environment aEnvironment, int aStackTop) throws Exception
+    void readAtom(Environment aEnvironment) throws Exception
     {
         Operator op;
         // parse prefix operators
@@ -267,67 +267,67 @@ public class MathPiperParser extends Parser
 
             System.arraycopy(iLookAhead, 0, theOperator, 0, iLookAhead.length);
 
-            matchToken(aStackTop, iLookAhead[0]);
+            matchToken(iLookAhead[0]);
             {
-                readExpression(aEnvironment,aStackTop, op.iPrecedence);
-                insertAtom(aEnvironment, aStackTop, theOperator);
-                combine(aEnvironment,aStackTop, 1);
+                readExpression(aEnvironment, op.iPrecedence);
+                insertAtom(aEnvironment, theOperator);
+                combine(aEnvironment, 1);
             }
         } // Else parse brackets.
         else if (iLookAhead[0].equals(iEnvironment.iBracketOpenAtom))
         {
-            matchToken(aStackTop, iLookAhead[0]);
-            readExpression(aEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
-            matchToken( aStackTop, (String) iEnvironment.iBracketCloseAtom);
+            matchToken(iLookAhead[0]);
+            readExpression(aEnvironment, MathPiperPrinter.KMaxPrecedence);  // least precedence
+            matchToken( (String) iEnvironment.iBracketCloseAtom);
         } //parse lists
         else if (iLookAhead[0].equals(iEnvironment.iListOpenAtom))
         {
             int nrargs = 0;
-            matchToken(aStackTop, iLookAhead[0]);
+            matchToken(iLookAhead[0]);
             while (!iLookAhead[0].equals(iEnvironment.iListCloseAtom))
             {
-                readExpression(aEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
+                readExpression(aEnvironment, MathPiperPrinter.KMaxPrecedence);  // least precedence
                 nrargs++;
 
                 if (iLookAhead[0].equals(iEnvironment.iCommaAtom))
                 {
-                    matchToken(aStackTop, iLookAhead[0]);
+                    matchToken(iLookAhead[0]);
                 } else if (!iLookAhead[0].equals(iEnvironment.iListCloseAtom))
                 {
-                    LispError.raiseError("Expected a ***( } )*** close bracket token for a list but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( } )*** close bracket token for a list but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aEnvironment);
                     return;
                 }
             }
-            matchToken(aStackTop, iLookAhead[0]);
+            matchToken(iLookAhead[0]);
             String theOperator = (String) iEnvironment.iListAtom.car();
-            insertAtom(aEnvironment, aStackTop, theOperator);
-            combine(aEnvironment, aStackTop, nrargs);
+            insertAtom(aEnvironment, theOperator);
+            combine(aEnvironment, nrargs);
 
         } // parse prog bodies
         else if (iLookAhead[0].equals(iEnvironment.iProgOpenAtom))
         {
             int nrargs = 0;
 
-            matchToken(aStackTop, iLookAhead[0]);
+            matchToken(iLookAhead[0]);
             while (!iLookAhead[0].equals(iEnvironment.iProgCloseAtom))
             {
-                readExpression(aEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
+                readExpression(aEnvironment, MathPiperPrinter.KMaxPrecedence);  // least precedence
                 nrargs++;
 
                 if (iLookAhead[0].equals(iEnvironment.iEndStatementAtom))
                 {
-                    matchToken(aStackTop, iLookAhead[0]);
+                    matchToken(iLookAhead[0]);
                 } else
                 {
-                    LispError.raiseError("Expected a ***( ; )*** end of statement token in program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                    LispError.raiseError("Expected a ***( ; )*** end of statement token in program block but found ***( " + iLookAhead[0] + " )*** instead.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aEnvironment);
                     return;
                 }
             }
-            matchToken(aStackTop, iLookAhead[0]);
+            matchToken(iLookAhead[0]);
             String theOperator = (String) iEnvironment.iProgAtom;
-            insertAtom(aEnvironment, aStackTop, theOperator);
+            insertAtom(aEnvironment, theOperator);
 
-            combine(aEnvironment, aStackTop, nrargs);
+            combine(aEnvironment, nrargs);
         } // Else we have an atom.
         else
         {
@@ -349,42 +349,42 @@ public class MathPiperParser extends Parser
                 functionOrOperatorLocationsList.add(locationInformation);
             }
 
-            matchToken(aStackTop, iLookAhead[0]);
+            matchToken(iLookAhead[0]);
 
             int nrargs = -1;
             if (iLookAhead[0].equals(iEnvironment.iBracketOpenAtom))
             {
                 nrargs = 0;
-                matchToken(aStackTop, iLookAhead[0]);
+                matchToken(iLookAhead[0]);
                 while (!iLookAhead[0].equals(iEnvironment.iBracketCloseAtom))
                 {
-                    readExpression(aEnvironment,aStackTop, MathPiperPrinter.KMaxPrecedence);  // least precedence
+                    readExpression(aEnvironment, MathPiperPrinter.KMaxPrecedence);  // least precedence
                     nrargs++;
 
                     if (iLookAhead[0].equals(iEnvironment.iCommaAtom))
                     {
-                        matchToken(aStackTop, iLookAhead[0]);
+                        matchToken(iLookAhead[0]);
                     } else if (!iLookAhead[0].equals(iEnvironment.iBracketCloseAtom))
                     {
-                        LispError.raiseError("Expected a ***( ) )*** close parentheses token for sub-expression but found ***( " + iLookAhead[0] + " )*** instead. ", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, aEnvironment);
+                        LispError.raiseError("Expected a ***( ) )*** close parentheses token for sub-expression but found ***( " + iLookAhead[0] + " )*** instead. ", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aEnvironment);
                         return;
                     }
                 }
-                matchToken(aStackTop, iLookAhead[0]);
+                matchToken(iLookAhead[0]);
 
                 op = (Operator) iBodiedOperators.lookUp(theOperator[0]);
                 if (op != null)
                 {
-                    readExpression(aEnvironment,aStackTop, op.iPrecedence); // MathPiperPrinter.KMaxPrecedence
+                    readExpression(aEnvironment, op.iPrecedence); // MathPiperPrinter.KMaxPrecedence
                     nrargs++;
                 }
             }//end if.
 
-            insertAtom(aEnvironment, aStackTop, theOperator);
+            insertAtom(aEnvironment, theOperator);
 
             if (nrargs >= 0)
             {
-                combine(aEnvironment, aStackTop, nrargs);
+                combine(aEnvironment, nrargs);
             }
         }//end else.
 
@@ -403,22 +403,22 @@ public class MathPiperParser extends Parser
         // parse postfix operators
         while ((op = (Operator) iPostfixOperators.lookUp(iLookAhead[0])) != null)
         {
-            insertAtom(aEnvironment, aStackTop, iLookAhead[0]);
-            matchToken(aStackTop, iLookAhead[0]);
-            combine(aEnvironment,aStackTop, 1);
+            insertAtom(aEnvironment, iLookAhead[0]);
+            matchToken(iLookAhead[0]);
+            combine(aEnvironment, 1);
         }
     }
 
-    void getOtherSide(Environment aEnvironment, int aStackTop, int aNrArgsToCombine, int depth) throws Exception
+    void getOtherSide(Environment aEnvironment, int aNrArgsToCombine, int depth) throws Exception
     {
         String theOperator = iLookAhead[0];
-        matchToken(aStackTop, iLookAhead[0]);
-        readExpression(aEnvironment, aStackTop,  depth);
-        insertAtom(aEnvironment, aStackTop, theOperator);
-        combine(aEnvironment, aStackTop, aNrArgsToCombine);
+        matchToken(iLookAhead[0]);
+        readExpression(aEnvironment, depth);
+        insertAtom(aEnvironment, theOperator);
+        combine(aEnvironment, aNrArgsToCombine);
     }
 
-    void combine(Environment aEnvironment, int aStackTop, int aNrArgsToCombine) throws Exception
+    void combine(Environment aEnvironment, int aNrArgsToCombine) throws Exception
     {
         Cons subList = SublistCons.getInstance(aEnvironment,parsedExpression);
         Cons consTraverser =  parsedExpression;
@@ -427,14 +427,14 @@ public class MathPiperParser extends Parser
         {
             if (consTraverser == null)
             {
-                fail(aStackTop);
+                fail();
                 return;
             }
             consTraverser = consTraverser.cdr();
         }
         if (consTraverser == null)
         {
-            fail(aStackTop);
+            fail();
             return;
         }
         subList.setCdr(consTraverser.cdr());
@@ -449,17 +449,17 @@ public class MathPiperParser extends Parser
         parsedExpression = subList;
     }
 
-    void insertAtom(Environment aEnvironment, int aStackTop, String aString) throws Exception
+    void insertAtom(Environment aEnvironment, String aString) throws Exception
     {
         String[] string = new String[4];
         string[0] = aString;
-        insertAtom(aEnvironment, aStackTop, string);
+        insertAtom(aEnvironment, string);
     }
 
-    void insertAtom(Environment aEnvironment, int aStackTop, String[] aString) throws Exception
+    void insertAtom(Environment aEnvironment, String[] aString) throws Exception
     {
 
-        Cons newCons = AtomCons.getInstance(iEnvironment, aStackTop, aString[0]);
+        Cons newCons = AtomCons.getInstance(iEnvironment, aString[0]);
 
         if(aEnvironment.saveDebugInformation == true && aString[1] != null)
         {
@@ -474,13 +474,13 @@ public class MathPiperParser extends Parser
         parsedExpression = newCons;
     }
 
-    void fail(int aStackTop) throws Exception // called when parsing fails, raising an exception
+    void fail() throws Exception // called when parsing fails, raising an exception
     {
         iError = true;
         if (iLookAhead[0] != null)
         {
-            LispError.raiseError("Error parsing expression near token ***( " + iLookAhead[0] + " )***.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
+            LispError.raiseError("Error parsing expression near token ***( " + iLookAhead[0] + " )***.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), iEnvironment);
         }
-        LispError.raiseError("Error parsing expression.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), aStackTop, iEnvironment);
+        LispError.raiseError("Error parsing expression.", Integer.parseInt(iLookAhead[1]), Integer.parseInt(iLookAhead[2]), Integer.parseInt(iLookAhead[3]), iEnvironment);
     }
 };

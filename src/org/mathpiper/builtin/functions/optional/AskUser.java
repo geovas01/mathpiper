@@ -46,7 +46,7 @@ public class AskUser extends BuiltinFunction {
         Object argument = getArgument(aEnvironment, aStackTop, 1).car();
 
         if (! (argument instanceof String)) {
-            LispError.raiseError("The argument to AskUser must be a string.", aStackTop, aEnvironment);
+            LispError.raiseError("The argument to AskUser must be a string.", aEnvironment);
         }
 
         String messageString = (String) argument;
@@ -56,7 +56,7 @@ public class AskUser extends BuiltinFunction {
         }
 
 
-        messageString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, messageString);
+        messageString = Utility.stripEndQuotesIfPresent(aEnvironment, messageString);
 
         String userInputString = JOptionPane.showInputDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 
@@ -64,7 +64,7 @@ public class AskUser extends BuiltinFunction {
             throw new BreakException();
         }//end method.
 
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + userInputString + "\""));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, "\"" + userInputString + "\""));
     }//end method.
 }//end class.
 

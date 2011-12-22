@@ -42,8 +42,8 @@ public class Rest extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        Cons first = Utility.tail(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
-        setTopOfStack(aEnvironment, aStackTop, Utility.tail(aEnvironment, aStackTop, first));
+        Cons first = Utility.tail(aEnvironment, getArgument(aEnvironment, aStackTop, 1));
+        setTopOfStack(aEnvironment, aStackTop, Utility.tail(aEnvironment, first));
         Cons head = aEnvironment.iListAtom.copy(false);
         head.setCdr(((Cons) getTopOfStack(aEnvironment, aStackTop).car()));
         getTopOfStack(aEnvironment, aStackTop).setCar(head);

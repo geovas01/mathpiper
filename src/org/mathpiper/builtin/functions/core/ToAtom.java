@@ -49,7 +49,7 @@ public class ToAtom extends BuiltinFunction
         if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig =  (String) evaluated.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, orig)));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, Utility.stripEndQuotesIfPresent(aEnvironment, orig)));
     }
 }
 

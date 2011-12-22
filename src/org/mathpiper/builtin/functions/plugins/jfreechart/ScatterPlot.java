@@ -65,13 +65,13 @@ public class ScatterPlot extends BuiltinFunction {
 
         Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 
-        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, "");
 
         arguments = (Cons) arguments.car(); //Go to sub list.
 
         arguments = arguments.cdr(); //Strip List tag.
 
-        if(! Utility.isList(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
+        if(! Utility.isList(arguments)) LispError.throwError(aEnvironment, "");
 
         Cons dataList = (Cons) arguments.car(); //Grab the first member of the list.
 

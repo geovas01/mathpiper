@@ -51,7 +51,7 @@ public class Write extends BuiltinFunction
             cons = cons.cdr();
             while (cons != null)
             {
-                aEnvironment.iCurrentPrinter.print(aStackTop, cons, aEnvironment.iCurrentOutput, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(cons, aEnvironment.iCurrentOutput, aEnvironment);
                 cons = cons.cdr();
             }
         }

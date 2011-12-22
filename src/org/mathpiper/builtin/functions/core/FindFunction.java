@@ -45,7 +45,7 @@ public class FindFunction extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
+        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, LispError.SECURITY_BREACH);
 
         Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
@@ -53,9 +53,9 @@ public class FindFunction extends BuiltinFunction
         if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig =  (String) evaluated.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
+        String oper = Utility.toNormalString(aEnvironment, orig);
 
-        MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, oper, false);
+        MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(oper, false);
 
         String fileLocation =  "\"\"" ;
         
@@ -78,7 +78,7 @@ public class FindFunction extends BuiltinFunction
 
         }//end if
 
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, fileLocation));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, fileLocation));
     }//end method
 
 }//end class.

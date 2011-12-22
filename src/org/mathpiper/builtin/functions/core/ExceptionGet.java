@@ -79,9 +79,9 @@ public class ExceptionGet extends BuiltinFunction
             //Create type association list.
             Cons typeListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons typeNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
+            Cons typeNameAtomCons = AtomCons.getInstance(aEnvironment, "\"type\"");
 
-            Cons typeValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, type));
+            Cons typeValueValueAtomCons = AtomCons.getInstance(aEnvironment, Utility.toMathPiperString(aEnvironment, type));
 
             typeListAtomCons.setCdr(typeNameAtomCons);
 
@@ -95,9 +95,9 @@ public class ExceptionGet extends BuiltinFunction
             //Create message association list.
             Cons messageListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons messageNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"message\"");
+            Cons messageNameAtomCons = AtomCons.getInstance(aEnvironment, "\"message\"");
 
-            Cons messageValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, message));
+            Cons messageValueValueAtomCons = AtomCons.getInstance(aEnvironment, Utility.toMathPiperString(aEnvironment, message));
 
             messageListAtomCons.setCdr(messageNameAtomCons);
 
@@ -110,7 +110,7 @@ public class ExceptionGet extends BuiltinFunction
             //Create exception object association list.
             Cons exceptionObjectListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons exceptionObjectNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"exceptionObject\"");
+            Cons exceptionObjectNameAtomCons = AtomCons.getInstance(aEnvironment, "\"exceptionObject\"");
 
             Cons exceptionObjectValueValueAtomCons = BuiltinObjectCons.getInstance(aEnvironment, aStackTop, exceptionObject);
 

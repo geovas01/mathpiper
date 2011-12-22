@@ -49,7 +49,7 @@ public class Retract extends BuiltinFunction
         if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig = (String) evaluated.car();
 
-        orig = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, orig);
+        orig = Utility.stripEndQuotesIfPresent(aEnvironment, orig);
         
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String oper = Utility.getSymbolName(aEnvironment, orig);
@@ -59,12 +59,12 @@ public class Retract extends BuiltinFunction
         String arityString = (String) arityCons.car();
         if(arityString.equalsIgnoreCase("*"))
         {
-            aEnvironment.retractRule(oper, -1, aStackTop, aEnvironment);
+            aEnvironment.retractRule(oper, -1, aEnvironment);
         }
         else
         {
             int arity = Integer.parseInt(arityString, 10);
-            aEnvironment.retractRule(oper, arity, aStackTop, aEnvironment);
+            aEnvironment.retractRule(oper, arity, aEnvironment);
         }
   
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));

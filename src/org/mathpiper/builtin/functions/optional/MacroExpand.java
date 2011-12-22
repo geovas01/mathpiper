@@ -53,15 +53,15 @@ public class MacroExpand extends BuiltinFunction
 
         Cons argument = ((Cons) argumentCons.car()).cdr();
 
-        Cons result = Utility.substitute(aEnvironment, aStackTop, argument, behaviour);
+        Cons result = Utility.substitute(aEnvironment, argument, behaviour);
 
-        String substitutedResult = Utility.printMathPiperExpression(aStackTop, result, aEnvironment, 0);
+        String substitutedResult = Utility.printMathPiperExpression(result, aEnvironment, 0);
 
         aEnvironment.write(substitutedResult);
 	
 	aEnvironment.write("\n");
 
-         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result);
+         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result);
 
     }//end method.
 

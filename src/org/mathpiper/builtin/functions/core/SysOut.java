@@ -49,7 +49,7 @@ public class SysOut extends BuiltinFunction {
             consTraverser = consTraverser.cdr();
             while (consTraverser != null)
             {
-                aEnvironment.iCurrentPrinter.print(aStackTop, consTraverser, out, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(consTraverser, out, aEnvironment);
                 consTraverser = consTraverser.cdr();
             }
         }

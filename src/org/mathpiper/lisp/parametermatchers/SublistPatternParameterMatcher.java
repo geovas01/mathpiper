@@ -33,7 +33,7 @@ public class SublistPatternParameterMatcher extends PatternParameterMatcher {
     }
 
 
-    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
+    public boolean argumentMatches(Environment aEnvironment, Cons aExpression, Cons[] arguments) throws Exception {
 
         if (!(aExpression.car() instanceof Cons)) {
             return false;
@@ -49,7 +49,7 @@ public class SublistPatternParameterMatcher extends PatternParameterMatcher {
                 return false;
             }
 
-            if (!iMatchers[i].argumentMatches(aEnvironment, aStackTop, consTraverser, arguments)) {
+            if (!iMatchers[i].argumentMatches(aEnvironment, consTraverser, arguments)) {
                 return false;
             }
 
