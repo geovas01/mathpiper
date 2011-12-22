@@ -43,10 +43,10 @@ public class PrettyPrinterGet extends BuiltinFunction
     {
         if (aEnvironment.iPrettyPrinterName == null)
         {
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, "\"\""));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"\""));
         } else
         {
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aEnvironment.iPrettyPrinterName));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, aEnvironment.iPrettyPrinterName));
         }
     }
 }

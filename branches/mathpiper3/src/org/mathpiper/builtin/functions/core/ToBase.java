@@ -66,7 +66,7 @@ public class ToBase extends BuiltinFunction
         str = x.numToString(aEnvironment.iPrecision, base);
         // Get unique string from hash table, and create an atom from it.
 
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, Utility.toMathPiperString(aEnvironment, str)));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, str)));
     }
 }
 

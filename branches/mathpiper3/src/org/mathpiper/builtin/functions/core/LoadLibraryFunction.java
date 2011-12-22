@@ -42,7 +42,7 @@ public class LoadLibraryFunction extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, LispError.SECURITY_BREACH);
+        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
 
         Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
@@ -52,7 +52,7 @@ public class LoadLibraryFunction extends BuiltinFunction
 
         if( scriptString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, scriptString);
+        scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
 
         Utility.loadLibraryFunction(scriptString, aEnvironment, aStackTop);
 

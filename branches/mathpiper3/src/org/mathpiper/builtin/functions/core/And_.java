@@ -51,15 +51,15 @@ public class And_ extends BuiltinFunction
         while (consTraverser != null)
         {
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, consTraverser);
-            evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+            evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
-            if (Utility.isFalse(aEnvironment, evaluated))
+            if (Utility.isFalse(aEnvironment, evaluated, aStackTop))
             {
                 setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
                 return;
-            } else if (!Utility.isTrue(aEnvironment, evaluated))
+            } else if (!Utility.isTrue(aEnvironment, evaluated, aStackTop))
             {
                 nrnogos++;
                 Cons ptr = evaluated.copy(false);

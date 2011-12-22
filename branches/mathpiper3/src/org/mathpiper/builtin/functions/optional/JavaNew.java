@@ -56,7 +56,7 @@ public class JavaNew extends BuiltinFunction {
 
                 String fullyQualifiedClassName = (String) argumentCons.car();
                 //Strip leading and trailing quotes.
-                fullyQualifiedClassName = Utility.stripEndQuotesIfPresent(aEnvironment, fullyQualifiedClassName);
+                fullyQualifiedClassName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, fullyQualifiedClassName);
 
                 consTraverser = consTraverser.cdr();
 
@@ -81,7 +81,7 @@ public class JavaNew extends BuiltinFunction {
 
 
                         if (argument instanceof String) {
-                            argument = Utility.stripEndQuotesIfPresent(aEnvironment, (String) argument);
+                            argument = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) argument);
                         }
 
                         if (argument instanceof JavaObject) {

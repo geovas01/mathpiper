@@ -44,13 +44,13 @@ public class StringToUnicode extends BuiltinFunction
         if( getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String str = (String) getArgument(aEnvironment, aStackTop, 1).car();
         if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(str.length() != 3) LispError.throwError(aEnvironment, "The string must be one character long.");
+        if(str.length() != 3) LispError.throwError(aEnvironment, aStackTop, "The string must be one character long.");
         if(str.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
         if(str.charAt(str.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int unicodeValue = (int) str.charAt(1);
 
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, "" + unicodeValue));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + unicodeValue));
     }
 }
 

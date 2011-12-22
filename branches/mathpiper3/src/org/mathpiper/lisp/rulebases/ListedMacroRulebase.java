@@ -36,7 +36,7 @@ public class ListedMacroRulebase extends MacroRulebase {
 
 
     @Override
-    public void evaluate(Environment aEnvironment, Cons aArguments) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
 
         Cons newArgs = null;
 
@@ -73,7 +73,7 @@ public class ListedMacroRulebase extends MacroRulebase {
             ptr = nextCons;
             i++;
             consTraverser = consTraverser.cdr();
-            if(consTraverser != null) LispError.lispAssert(aEnvironment);
+            if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackTop);
         } else {
             Cons head = aEnvironment.iListAtom.copy(false);
             head.setCdr(consTraverser);
@@ -81,7 +81,7 @@ public class ListedMacroRulebase extends MacroRulebase {
             ptr.setCdr(nextCons);
             ptr = nextCons;
         }
-        super.evaluate(aEnvironment, newArgs);
+        super.evaluate(aEnvironment, aStackTop, newArgs);
 
         return;
     }

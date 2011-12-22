@@ -45,7 +45,7 @@ public class DefaultDirectory extends BuiltinFunction
         if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig =  (String) getArgument(aEnvironment, aStackTop, 1).car();
         if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String oper = Utility.toNormalString(aEnvironment, orig);
+        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
         aEnvironment.iInputDirectories.add(oper);
         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
     }

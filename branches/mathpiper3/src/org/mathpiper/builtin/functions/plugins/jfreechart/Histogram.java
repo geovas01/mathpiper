@@ -70,13 +70,13 @@ public class Histogram extends BuiltinFunction {
 
         Cons arguments = getArgument(aEnvironment, aStackTop, 1);
 
-        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, "");
+        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
         arguments = (Cons) arguments.car(); //Go to sub list.
 
         arguments = arguments.cdr(); //Strip List tag.
 
-        if(! Utility.isList(arguments)) LispError.throwError(aEnvironment, "");
+        if(! Utility.isList(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
 
         Cons dataList = (Cons) arguments.car(); //Grab the first member of the list.
 

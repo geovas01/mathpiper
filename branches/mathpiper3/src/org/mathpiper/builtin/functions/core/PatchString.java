@@ -58,7 +58,7 @@ public class PatchString extends BuiltinFunction
         
         aEnvironment.getCurrentInput().iStatus.restoreFrom(oldStatus);
         
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, resultBuffer.toString()));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, resultBuffer.toString()));
     }
 
 

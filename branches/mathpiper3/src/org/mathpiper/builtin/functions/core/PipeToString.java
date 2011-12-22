@@ -53,13 +53,13 @@ public class PipeToString extends BuiltinFunction
         {
             // Evaluate the body
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getArgument(aEnvironment, aStackTop, 1));
-            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
+            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
             setTopOfStack(aEnvironment, aStackTop, aResult);
 //todo:tk:check why setTopOfStack is being set twice here.
             //Return the getTopOfStackPointer
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, Utility.toMathPiperString(aEnvironment, oper.toString())));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, oper.toString())));
         } catch (Exception e)
         {
             throw e;

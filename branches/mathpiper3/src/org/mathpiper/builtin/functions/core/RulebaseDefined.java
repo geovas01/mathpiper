@@ -48,7 +48,7 @@ public class RulebaseDefined extends BuiltinFunction
         Cons name = getArgument(aEnvironment, aStackTop, 1);
         String orig = (String) name.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String oper = Utility.toNormalString(aEnvironment, orig);
+        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
         Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
         if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
@@ -56,7 +56,7 @@ public class RulebaseDefined extends BuiltinFunction
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
-        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity);
+        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity, aStackTop);
         setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, userFunc != null));
     }
 }

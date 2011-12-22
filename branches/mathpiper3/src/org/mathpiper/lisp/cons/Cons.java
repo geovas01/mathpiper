@@ -125,7 +125,7 @@ public abstract class Cons //Note:tk:was MathPiperObject.
         StringOutput out = new StringOutput();
         LispPrinter printer = new LispPrinter();
         try {
-            printer.print(this, out, null);
+            printer.print(-1, this, out, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

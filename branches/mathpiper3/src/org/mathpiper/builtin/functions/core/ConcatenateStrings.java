@@ -63,7 +63,7 @@ public class ConcatenateStrings extends BuiltinFunction
     {
         StringBuffer strBuffer = new StringBuffer("");
         ConcatenateStrings(strBuffer, aEnvironment, aStackTop);
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, strBuffer.toString()));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, strBuffer.toString()));
     }
 }
 

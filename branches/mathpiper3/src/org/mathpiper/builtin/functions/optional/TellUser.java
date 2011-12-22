@@ -43,7 +43,7 @@ public class TellUser extends BuiltinFunction {
         Object argument = getArgument(aEnvironment, aStackTop, 1).car();
 
         if (! (argument instanceof String)) {
-            LispError.raiseError("The argument to TellUser must be a string.", aEnvironment);
+            LispError.raiseError("The argument to TellUser must be a string.", aStackTop, aEnvironment);
         }
 
         String messageString = (String) argument;
@@ -52,7 +52,7 @@ public class TellUser extends BuiltinFunction {
             LispError.checkArgument(aEnvironment, aStackTop, 1);
         }
 
-        messageString = Utility.stripEndQuotesIfPresent(aEnvironment, messageString);
+        messageString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, messageString);
 
         JOptionPane.showMessageDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 

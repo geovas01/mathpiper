@@ -47,9 +47,9 @@ public class PipeToStdout extends BuiltinFunction
         try
         {
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getArgument(aEnvironment, aStackTop, 1));
-            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
+            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
             setTopOfStack(aEnvironment, aStackTop, aResult);
         } catch (Exception e)
         {

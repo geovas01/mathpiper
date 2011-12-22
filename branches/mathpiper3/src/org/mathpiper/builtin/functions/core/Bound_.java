@@ -47,7 +47,7 @@ public class Bound_ extends BuiltinFunction
         {
             String str =  (String) getArgument(aEnvironment, aStackTop, 1).car();
 
-            Cons val = aEnvironment.getLocalOrGlobalVariable(str);
+            Cons val = aEnvironment.getLocalOrGlobalVariable(aStackTop, str);
             if (val != null)
             {
                 setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));

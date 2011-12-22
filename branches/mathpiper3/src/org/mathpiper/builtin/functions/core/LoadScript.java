@@ -44,7 +44,7 @@ public class LoadScript extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, LispError.SECURITY_BREACH);
+        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
 
         Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
 
@@ -54,7 +54,7 @@ public class LoadScript extends BuiltinFunction
 
         if( scriptString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, scriptString);
+        scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
 
         InputStatus status = new InputStatus();
 
@@ -62,7 +62,7 @@ public class LoadScript extends BuiltinFunction
 
         aEnvironment.saveDebugInformation = true;
 
-        Utility.doInternalLoad(aEnvironment, functionInputStream);
+        Utility.doInternalLoad(aEnvironment, aStackTop, functionInputStream);
 
         aEnvironment.saveDebugInformation = false;
         

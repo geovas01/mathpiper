@@ -44,7 +44,7 @@ public class LispExpressionEvaluator extends Evaluator{
 
     }
 
-    public void evaluate(Environment aEnvironment, Cons aExpression) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop, Cons aExpression) throws Exception {
 
         boolean evaluate = true;
         int address = 1;
@@ -53,14 +53,14 @@ public class LispExpressionEvaluator extends Evaluator{
 
 
             if (aExpression == null) {
-                LispError.lispAssert(aEnvironment);
+                LispError.lispAssert(aEnvironment, aStackTop);
             }
 
             aEnvironment.iEvalDepth++;
             if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
 
                 if (aEnvironment.iEvalDepth >= aEnvironment.iMaxEvalDepth) {
-                    LispError.throwError(aEnvironment, "Maximum recursed depth set to " + aEnvironment.iMaxEvalDepth + ".");
+                    LispError.throwError(aEnvironment, aStackTop, LispError.MAXIMUM_RECURSE_DEPTH_REACHED, "Maximum recursed depth set to " + aEnvironment.iMaxEvalDepth + ".");
                 }
 
             }
@@ -68,7 +68,7 @@ public class LispExpressionEvaluator extends Evaluator{
             if (Environment.haltEvaluation == true) {
                 Environment.haltEvaluation = false;
 
-                LispError.raiseError("User halted calculation.", aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aEnvironment);
+                LispError.raiseError("User halted calculation.", aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aStackTop, aEnvironment);
             }
 
 
@@ -87,7 +87,7 @@ public class LispExpressionEvaluator extends Evaluator{
                         if (atomName.charAt(0) == '\"') {
                             //Handle string atoms.
                             aEnvironment.iEvalDepth--;
-                            BuiltinFunction.pushOnStack(aEnvironment, aExpression.copy(false));
+                            BuiltinFunction.pushOnStack(aEnvironment,aStackTop, aExpression.copy(false));
                             return;
                         }
 
@@ -95,15 +95,15 @@ public class LispExpressionEvaluator extends Evaluator{
                         if (Character.isDigit(atomName.charAt(0))) {
                             //Handle number atoms.
                             aEnvironment.iEvalDepth--;
-                            BuiltinFunction.pushOnStack(aEnvironment, aExpression.copy(false));
+                            BuiltinFunction.pushOnStack(aEnvironment, aStackTop, aExpression.copy(false));
                             return;
                         }
 
 
-                        Cons val = aEnvironment.getLocalOrGlobalVariable(atomName);
+                        Cons val = aEnvironment.getLocalOrGlobalVariable(aStackTop, atomName);
                         if (val != null) {
                             aEnvironment.iEvalDepth--;
-                            BuiltinFunction.pushOnStack(aEnvironment, val.copy(false));
+                            BuiltinFunction.pushOnStack(aEnvironment, aStackTop, val.copy(false));
                             return ;
                         }
 
@@ -112,7 +112,7 @@ public class LispExpressionEvaluator extends Evaluator{
                         //Handle unbound variables.
 
                         aEnvironment.iEvalDepth--;
-                        BuiltinFunction.pushOnStack(aEnvironment, aExpression.copy(false));
+                        BuiltinFunction.pushOnStack(aEnvironment, aStackTop, aExpression.copy(false));
                         return;
 
 
@@ -147,7 +147,7 @@ public class LispExpressionEvaluator extends Evaluator{
                                 if (builtinInFunctionEvaluator != null) {
 
                                     aEnvironment.iEvalDepth--;
-                                    builtinInFunctionEvaluator.evaluate(aEnvironment, functionAndArgumentsList);
+                                    builtinInFunctionEvaluator.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
                                     return;
                                 }
 
@@ -156,10 +156,10 @@ public class LispExpressionEvaluator extends Evaluator{
                                 Cons head2 = functionAndArgumentsList;
 
                                 if (!(head2.car() instanceof String)) {
-                                    LispError.throwError(aEnvironment, "No function name specified.");
+                                    LispError.throwError(aEnvironment, aStackTop, "No function name specified.");
                                 }
 
-                                SingleArityRulebase userFunction = (SingleArityRulebase) aEnvironment.getRulebase(functionAndArgumentsList);
+                                SingleArityRulebase userFunction = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, functionAndArgumentsList);
 
 
                                 if (userFunction == null) {
@@ -171,13 +171,13 @@ public class LispExpressionEvaluator extends Evaluator{
 
 
                                     if (scriptCode == null) {
-                                        LispError.throwError(aEnvironment, "No script returned for function: " + functionName + " from Scripts.java.");
+                                        LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
                                     }
 
                                     if (scriptCode[0] == null) {
 
                                         if (scriptCode[1] == null) {
-                                            LispError.throwError(aEnvironment, "No script returned for function: " + functionName + " from Scripts.java.");
+                                            LispError.throwError(aEnvironment, aStackTop, "No script returned for function: " + functionName + " from Scripts.java.");
                                         }
 
 
@@ -203,10 +203,10 @@ public class LispExpressionEvaluator extends Evaluator{
 
                                             while (!endoffile) {
                                                 // Read expression
-                                                Cons readIn = parser.parse();
+                                                Cons readIn = parser.parse(aStackTop);
 
                                                 if (readIn == null) {
-                                                    LispError.throwError(aEnvironment, "");
+                                                    LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "");
                                                 }
                                                 // check for end of file
                                                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
@@ -215,13 +215,13 @@ public class LispExpressionEvaluator extends Evaluator{
                                                 else {
 
                                                     int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                                                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, readIn);
-                                                    Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
-                                                    aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+                                                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
+                                                    Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+                                                    aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
                                                     
-                                                   
-                                                    aEnvironment.setLocalOrGlobalVariable("$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
-                                                    
+                                                    if (aStackTop != -1) {
+                                                        aEnvironment.setLocalOrGlobalVariable(aStackTop, "$LoadResult", result, false);//Note:tk:added to make the result of executing Loaded code available.
+                                                    }
                                                 }
                                             }//end while.
 
@@ -242,7 +242,7 @@ public class LispExpressionEvaluator extends Evaluator{
 
                                     //=============== end Load library function
 
-                                    userFunction = (SingleArityRulebase) aEnvironment.getRulebase(functionAndArgumentsList);
+                                    userFunction = (SingleArityRulebase) aEnvironment.getRulebase(aStackTop, functionAndArgumentsList);
 
                                 }
 
@@ -250,7 +250,7 @@ public class LispExpressionEvaluator extends Evaluator{
                                 if (userFunction != null) {
 
                                     aEnvironment.iEvalDepth--;
-                                    userFunction.evaluate(aEnvironment, functionAndArgumentsList);
+                                    userFunction.evaluate(aEnvironment, aStackTop, functionAndArgumentsList);
                                     return;
                                 }
 
@@ -259,9 +259,9 @@ public class LispExpressionEvaluator extends Evaluator{
 
                                     aEnvironment.iEvalDepth--;
 
-                                    Cons result = Utility.returnUnEvaluated(functionAndArgumentsList, aEnvironment);
+                                    Cons result = Utility.returnUnEvaluated(aStackTop, functionAndArgumentsList, aEnvironment);
 
-                                    BuiltinFunction.pushOnStack(aEnvironment, result);
+                                    BuiltinFunction.pushOnStack(aEnvironment, aStackTop, result);
 
                                     return;
                                 }
@@ -278,7 +278,7 @@ public class LispExpressionEvaluator extends Evaluator{
                                 }
 
 
-                                LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", lineNumber, startIndex, endIndex, aEnvironment);
+                                LispError.raiseError("Problem with function ***(" + functionName + ")***, <wrong code: " + Utility.printLispExpression(-1, functionAndArgumentsList, aEnvironment, 50) + ">, <the " + (Utility.listLength(aEnvironment, aStackTop, functionAndArgumentsList) - 1) + " parameter version of this function is not defined (MAKE SURE THE FUNCTION IS SPELLED CORRECTLY).>", lineNumber, startIndex, endIndex, aStackTop, aEnvironment);
 
 
                             } else {
@@ -287,7 +287,7 @@ public class LispExpressionEvaluator extends Evaluator{
                                 Cons args2 = functionAndArgumentsList.cdr();
 
                                 aEnvironment.iEvalDepth--;
-                                Utility.applyPure(operator, args2, aEnvironment);
+                                Utility.applyPure(aStackTop, operator, args2, aEnvironment);
                                 return;
                             }
 
@@ -302,7 +302,32 @@ public class LispExpressionEvaluator extends Evaluator{
                     break;
 
                 case PROG:
- 
+                    // Allow accessing previous locals.
+                    aEnvironment.pushLocalFrame(false, "Prog");
+
+                    try {
+
+                        Cons result = Utility.getTrueAtom(aEnvironment);
+
+                        // Evaluate args one by one.
+                        Cons consTraverser = (Cons) BuiltinFunction.getArgument(aEnvironment, aStackTop, 1).car();
+                        consTraverser = consTraverser.cdr();
+                        while (consTraverser != null) {
+                            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
+                            result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+                            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+
+                            consTraverser = consTraverser.cdr();
+                        }
+
+                        BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, result);
+
+                    } catch (Exception e) {
+                        throw e;
+                    } finally {
+                        aEnvironment.popLocalFrame(aStackTop);
+                    }
 
                     address = 1;
 

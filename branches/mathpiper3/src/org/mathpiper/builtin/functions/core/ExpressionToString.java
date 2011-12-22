@@ -51,8 +51,8 @@ public class ExpressionToString extends BuiltinFunction
 
 
 
-        String expressionString = Utility.printMathPiperExpression(evaluated, aEnvironment, 0);
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, "\"" + expressionString + "\""));
+        String expressionString = Utility.printMathPiperExpression(aStackTop, evaluated, aEnvironment, 0);
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + expressionString + "\""));
 
 
     }//end method.

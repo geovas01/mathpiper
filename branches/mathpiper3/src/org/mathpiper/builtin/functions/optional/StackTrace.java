@@ -40,11 +40,11 @@ public class StackTrace extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         String dump = aEnvironment.iArgumentStack.dump(aEnvironment);
+         String dump = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
 
          aEnvironment.write(dump);
 
-         dump = aEnvironment.dumpLocalVariablesFrame();
+         dump = aEnvironment.dumpLocalVariablesFrame(aStackTop);
 
          aEnvironment.write(dump);
          

@@ -82,22 +82,22 @@ public class ViewLatex extends BuiltinFunction {
         {
             latexString = (String) expression;
 
-            latexString = Utility.stripEndQuotesIfPresent(aEnvironment, latexString);
+            latexString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, latexString);
 
             latexString = Utility.stripEndDollarSigns(latexString);
         }
         else
         {
-            LispError.raiseError("The first argument must be a string which contains Latex code.", aEnvironment);
+            LispError.raiseError("The first argument must be a string which contains Latex code.", aStackTop, aEnvironment);
         }//end else.
 
 
         Cons viewScaleCons = getArgument(aEnvironment, aStackTop, 2);
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, viewScaleCons);
-        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScaleCons);
+        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
         BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.iPrecision, aEnvironment);
         if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);

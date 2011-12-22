@@ -45,14 +45,14 @@ public class VariablePatternParameterMatcher extends PatternParameterMatcher {
      *entry. Otherwise, the pattern only matches if the entry equals
      *aExpression.
      */
-    public boolean argumentMatches(Environment aEnvironment, Cons aExpression, Cons[] arguments) throws Exception {
+    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
 
         if (arguments[iVarIndex] == null) {
             arguments[iVarIndex] = aExpression;
             //Set var iVarIndex.
             return true;
         } else {
-            if (Utility.equals(aEnvironment, aExpression, arguments[iVarIndex])) {
+            if (Utility.equals(aEnvironment, aStackTop, aExpression, arguments[iVarIndex])) {
                 //Matched var iVarIndex.
                 return true;
             }

@@ -47,16 +47,16 @@ public class PatternRule extends Rule {
         iPredicate = aPredicate;
 
         BuiltinContainer gen = (BuiltinContainer) aPredicate.car();
-        if(gen == null) LispError.throwError(aEnvironment, "");
-        if(! gen.typeName().equals("\"Pattern\"")) LispError.throwError(aEnvironment, "Type is not <pattern>.");
+        if(gen == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+        if(! gen.typeName().equals("\"Pattern\"")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Type is not <pattern>.");
 
         iPattern = (PatternContainer) gen;
         iBody = aBody;
     }
 
     //Return true if the corresponding pattern matches.
-    public boolean matches(Environment aEnvironment, Cons[] aArguments) throws Exception {
-        return iPattern.matches(aEnvironment, aArguments);
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
+        return iPattern.matches(aEnvironment, aStackTop, aArguments);
     }
 
     //Access iPrecedence.

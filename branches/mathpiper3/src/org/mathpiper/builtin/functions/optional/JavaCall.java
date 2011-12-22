@@ -70,7 +70,7 @@ public class JavaCall extends BuiltinFunction {
                 if (argumentCons.car() instanceof String) {
                     String firstArgumentString = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
-                    firstArgumentString = Utility.stripEndQuotesIfPresent(aEnvironment, firstArgumentString);
+                    firstArgumentString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, firstArgumentString);
                     Object clas = Class.forName(firstArgumentString);
                     builtinContainer = new JavaObject(clas);
                 } else if (argumentCons.car() instanceof BuiltinContainer) {
@@ -85,7 +85,7 @@ public class JavaCall extends BuiltinFunction {
                     argumentCons = consTraverser;
                     String methodName = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
-                    methodName = Utility.stripEndQuotesIfPresent(aEnvironment, methodName);
+                    methodName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, methodName);
 
                     consTraverser = consTraverser.cdr();
 
@@ -110,7 +110,7 @@ public class JavaCall extends BuiltinFunction {
                             if (string != null) {
 
                                 if (Utility.isString(string)) { //MathPiper string.
-                                    argument = Utility.stripEndQuotesIfPresent(aEnvironment, (String) string);
+                                    argument = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) string);
                                 } else { //Atom.
                                     if (string.equals("True")) {
                                         argument = Boolean.TRUE;
@@ -153,7 +153,7 @@ public class JavaCall extends BuiltinFunction {
                             try {
                                 returnObject = JavaField.getField((Class) targetObject, methodName, true).get(null);
                             } catch (Exception e2) {
-                                LispError.raiseError("Method or field " + methodName + " does not exist.", null);
+                                LispError.raiseError("Method or field " + methodName + " does not exist.", -2, null);
                             }
                         }
                     } else {

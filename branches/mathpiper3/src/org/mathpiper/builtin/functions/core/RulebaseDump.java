@@ -43,9 +43,9 @@ public class RulebaseDump extends BuiltinFunction
         if(rulebaseName.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
         if( rulebaseName.charAt(rulebaseName.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
 
-        rulebaseName = Utility.stripEndQuotesIfPresent(aEnvironment, rulebaseName);
+        rulebaseName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, rulebaseName);
 
-        MultipleArityRulebase rulebase = aEnvironment.getMultipleArityRulebase(rulebaseName, false);
+        MultipleArityRulebase rulebase = aEnvironment.getMultipleArityRulebase(aStackTop, rulebaseName, false);
 
         if (rulebase != null) {
 
@@ -61,7 +61,7 @@ public class RulebaseDump extends BuiltinFunction
 
                     org.mathpiper.lisp.rulebases.Rule branchRulebase = (org.mathpiper.lisp.rulebases.Rule) rulesIterator.next();
 
-                    String ruleDump = org.mathpiper.lisp.Utility.dumpRule(branchRulebase, aEnvironment, userFunction);
+                    String ruleDump = org.mathpiper.lisp.Utility.dumpRule(-1, branchRulebase, aEnvironment, userFunction);
 
                     aEnvironment.write(ruleDump + "\n");
 

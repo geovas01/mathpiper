@@ -109,7 +109,7 @@ public class AnalyzeScripts {
                 readIn = (Cons) result[0];
 
                 if (readIn == null) {
-                    LispError.throwError(aEnvironment, "");
+                    LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "");
                 }
 
 

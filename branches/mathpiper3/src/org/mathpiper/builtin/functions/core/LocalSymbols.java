@@ -44,7 +44,7 @@ public class LocalSymbols extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        int numberOfArguments = Utility.listLength(aEnvironment, getArgument(aEnvironment, aStackTop, 0));
+        int numberOfArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
         int numberOfSymbols = numberOfArguments - 2;
 
         String atomNames[] = new String[numberOfSymbols];
@@ -54,7 +54,7 @@ public class LocalSymbols extends BuiltinFunction
         int i;
         for (i = 0; i < numberOfSymbols; i++)
         {
-            String atomName = (String) getArgument(aEnvironment, getArgument(aEnvironment, aStackTop, 0), i + 1).car();
+            String atomName = (String) getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), i + 1).car();
             if( atomName == null) LispError.checkArgument(aEnvironment, aStackTop, i + 1);
             atomNames[i] = atomName;
             String newAtomName = "$" + atomName + uniqueNumber;
@@ -63,12 +63,12 @@ public class LocalSymbols extends BuiltinFunction
         }
         LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
 
-        Cons result = Utility.substitute(aEnvironment, getArgument(aEnvironment, getArgument(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
+        Cons result = Utility.substitute(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
         
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, result);
-        Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result);
+        Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
         setTopOfStack(aEnvironment, aStackTop, aResult);
     }
 }//end class.
