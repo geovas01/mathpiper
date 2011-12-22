@@ -38,9 +38,9 @@ public class Bodied extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Utility.multiFix(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
+        Utility.multiFix(aEnvironment, aStackBase, aEnvironment.iBodiedOperators);
     }
 }
 

@@ -35,28 +35,28 @@ public class TellUser extends BuiltinFunction {
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        if (getArgument(aEnvironment, aStackTop, 1) == null) {
-            LispError.checkArgument(aEnvironment, aStackTop, 1);
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
+        if (getArgument(aEnvironment, aStackBase, 1) == null) {
+            LispError.checkArgument(aEnvironment, aStackBase, 1);
         }
 
-        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackBase, 1).car();
 
         if (! (argument instanceof String)) {
-            LispError.raiseError("The argument to TellUser must be a string.", aStackTop, aEnvironment);
+            LispError.raiseError("The argument to TellUser must be a string.", aStackBase, aEnvironment);
         }
 
         String messageString = (String) argument;
 
         if (messageString == null) {
-            LispError.checkArgument(aEnvironment, aStackTop, 1);
+            LispError.checkArgument(aEnvironment, aStackBase, 1);
         }
 
-        messageString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, messageString);
+        messageString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, messageString);
 
         JOptionPane.showMessageDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }//end method.
 }//end class.
 

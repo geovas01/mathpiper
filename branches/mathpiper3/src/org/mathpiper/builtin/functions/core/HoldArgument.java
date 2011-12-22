@@ -39,19 +39,19 @@ public class HoldArgument extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         // Get operator
-        if( getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String orig =  (String) getArgument(aEnvironment, aStackTop, 1).car();
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( getArgument(aEnvironment, aStackBase, 1) == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        String orig =  (String) getArgument(aEnvironment, aStackBase, 1).car();
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
         // The arguments
-        String tohold =  (String) getArgument(aEnvironment, aStackTop, 2).car();
-        if( tohold == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        aEnvironment.holdArgument(aStackTop, Utility.getSymbolName(aEnvironment, orig), tohold, aEnvironment);
+        String tohold =  (String) getArgument(aEnvironment, aStackBase, 2).car();
+        if( tohold == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        aEnvironment.holdArgument(aStackBase, Utility.getSymbolName(aEnvironment, orig), tohold, aEnvironment);
         // Return true
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }
 

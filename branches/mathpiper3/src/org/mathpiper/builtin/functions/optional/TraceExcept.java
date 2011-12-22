@@ -43,24 +43,24 @@ public class TraceExcept extends BuiltinFunction
         aEnvironment.iBodiedOperators.setOperator(MathPiperPrinter.KMaxPrecedence, "TraceExcept");
     }//end method.
     
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
 
-        Cons functionList = getArgument(aEnvironment, aStackTop, 1);
-        Cons body = getArgument(aEnvironment, aStackTop, 2);
+        Cons functionList = getArgument(aEnvironment, aStackBase, 1);
+        Cons body = getArgument(aEnvironment, aStackBase, 2);
 
         // Get function list.
-        if(functionList == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(functionList == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
-        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionList);
-        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, functionList);
+        Cons result = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
         
         String functionNamesString =  (String) result.car();
 
 
-        if(functionNamesString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(functionNamesString == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
 
         //Place function names into a List and then set this as the trace function list in Evaluator.
@@ -77,7 +77,7 @@ public class TraceExcept extends BuiltinFunction
         //Evaluate expresstion with tracing on.
         Evaluator.traceOn();
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, body);
         Evaluator.traceOff();
         Evaluator.setTraceExceptFunctionList(null);
 

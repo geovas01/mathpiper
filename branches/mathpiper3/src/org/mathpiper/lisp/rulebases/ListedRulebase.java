@@ -23,8 +23,8 @@ import org.mathpiper.lisp.cons.SublistCons;
 
 public class ListedRulebase extends SingleArityRulebase {
 
-    public ListedRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
-        super(aEnvironment, aStackTop, aParameters, functionName);
+    public ListedRulebase(Environment aEnvironment, int aStackBase, Cons aParameters, String functionName) throws Exception {
+        super(aEnvironment, aStackBase, aParameters, functionName);
     }
 
 
@@ -35,7 +35,7 @@ public class ListedRulebase extends SingleArityRulebase {
 
 
     @Override
-    public void evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase, Cons aArguments) throws Exception {
 
         Cons newArgs = null;
 
@@ -72,7 +72,7 @@ public class ListedRulebase extends SingleArityRulebase {
             ptr = nextCons;
             i++;
             consTraverser = consTraverser.cdr();
-            if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackTop);
+            if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackBase);
         } else {
 
             Cons head = aEnvironment.iListAtom.copy(false);
@@ -81,7 +81,7 @@ public class ListedRulebase extends SingleArityRulebase {
             ptr.setCdr(nextCons);
             ptr = nextCons;
         }
-        super.evaluate(aEnvironment, aStackTop, newArgs);
+        super.evaluate(aEnvironment, aStackBase, newArgs);
         return ;
     }
 

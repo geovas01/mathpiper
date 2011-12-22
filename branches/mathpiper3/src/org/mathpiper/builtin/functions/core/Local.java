@@ -40,11 +40,11 @@ public class Local extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
+        if (getArgument(aEnvironment, aStackBase, 1).car() instanceof Cons) {
 
-            Cons subList = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgument(aEnvironment, aStackBase, 1).car();
             
             Cons consTraverser = subList;
             consTraverser = consTraverser.cdr();
@@ -53,14 +53,14 @@ public class Local extends BuiltinFunction
             while (consTraverser != null)
             {
                 String variable = (String) consTraverser.car();
-                if(variable == null) LispError.checkArgument(aEnvironment, aStackTop, nr);
+                if(variable == null) LispError.checkArgument(aEnvironment, aStackBase, nr);
                 // printf("Variable %s\n",variable.String());
-                aEnvironment.newLocalVariable(variable, null, aStackTop);
+                aEnvironment.newLocalVariable(variable, null, aStackBase);
                 consTraverser = consTraverser.cdr();
                 nr++;
             }
         }
-         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+         setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }
 

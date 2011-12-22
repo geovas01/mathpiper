@@ -21,15 +21,15 @@ public class NormalDistributionValue extends BuiltinFunction{
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        BigNumber mean = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber mean = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
 
-        //LispError.check(mean.isInteger() && mean.toInt() >= 0, "The first argument must be an integer which is greater than 0.", "NormalDistributionValue", aStackTop, aEnvironment);
+        //LispError.check(mean.isInteger() && mean.toInt() >= 0, "The first argument must be an integer which is greater than 0.", "NormalDistributionValue", aStackBase, aEnvironment);
 
-        BigNumber sigma = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber sigma = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 2);
 
-        //LispError.check(sigma.toDouble() >= 0, "The second argument must be greater than 0.", "NormalDistributionValue", aStackTop, aEnvironment);
+        //LispError.check(sigma.toDouble() >= 0, "The second argument must be greater than 0.", "NormalDistributionValue", aStackBase, aEnvironment);
 
         double randomVariableDouble = Normal.random(mean.toDouble(), sigma.toDouble(), new Uniform());
 
@@ -37,7 +37,7 @@ public class NormalDistributionValue extends BuiltinFunction{
 
         randomVariable.setTo(randomVariableDouble);
 
-        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(randomVariable));
+        setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(randomVariable));
 
     }//end method.
 

@@ -40,21 +40,21 @@ public class Bound_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         
-        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof String)
+        if (getArgument(aEnvironment, aStackBase, 1).car() instanceof String)
         {
-            String str =  (String) getArgument(aEnvironment, aStackTop, 1).car();
+            String str =  (String) getArgument(aEnvironment, aStackBase, 1).car();
 
-            Cons val = aEnvironment.getLocalOrGlobalVariable(aStackTop, str);
+            Cons val = aEnvironment.getLocalOrGlobalVariable(aStackBase, str);
             if (val != null)
             {
-                setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+                setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
                 return;
             }
         }
-        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
     }
 }
 

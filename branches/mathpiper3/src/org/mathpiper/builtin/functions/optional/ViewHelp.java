@@ -41,17 +41,17 @@ public class ViewHelp extends BuiltinFunction {
                 this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
 
         try {
 
             JavaObject response = new JavaObject(showFrame());
 
-            setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+            setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, response));
 
         } catch (FileNotFoundException fnfe) {
-            LispError.raiseError("The help application data file was not found.", aStackTop, aEnvironment);
+            LispError.raiseError("The help application data file was not found.", aStackBase, aEnvironment);
         }
 
     }//end method.

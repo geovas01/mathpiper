@@ -32,7 +32,7 @@ public class ListPanel extends JPanel implements ViewPanel {
         structure that more closely reflects the way the list will be displayed graphically.
      */
 
-    public ListPanel(Environment aEnvironment, int aStackTop, Cons cons, double viewScale) {
+    public ListPanel(Environment aEnvironment, int aStackBase, Cons cons, double viewScale) {
         super();
         this.setOpaque(true);
         this.viewScale = viewScale;

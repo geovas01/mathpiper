@@ -39,13 +39,13 @@ public class WriteString extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String str = (String) getArgument(aEnvironment, aStackTop, 1).car();
-        if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if( str.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if( str.charAt(str.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(getArgument(aEnvironment, aStackBase, 1) == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        String str = (String) getArgument(aEnvironment, aStackBase, 1).car();
+        if( str == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if( str.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if( str.charAt(str.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackBase, 1);
 
         int i = 1;
         int nr = str.length() - 1;
@@ -57,7 +57,7 @@ public class WriteString extends BuiltinFunction
         // pass last printed character to the current printer
         aEnvironment.iCurrentPrinter.rememberLastChar(str.charAt(nr - 1));  // hacky hacky
 
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }
 

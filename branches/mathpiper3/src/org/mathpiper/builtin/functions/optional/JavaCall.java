@@ -47,11 +47,11 @@ public class JavaCall extends BuiltinFunction {
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
-        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
+        if (getArgument(aEnvironment, aStackBase, 1).car() instanceof Cons) {
 
-            Cons subList = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgument(aEnvironment, aStackBase, 1).car();
             Cons consTraverser = subList;
 
             //Skip past List type.
@@ -70,7 +70,7 @@ public class JavaCall extends BuiltinFunction {
                 if (argumentCons.car() instanceof String) {
                     String firstArgumentString = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
-                    firstArgumentString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, firstArgumentString);
+                    firstArgumentString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, firstArgumentString);
                     Object clas = Class.forName(firstArgumentString);
                     builtinContainer = new JavaObject(clas);
                 } else if (argumentCons.car() instanceof BuiltinContainer) {
@@ -85,7 +85,7 @@ public class JavaCall extends BuiltinFunction {
                     argumentCons = consTraverser;
                     String methodName = (String) argumentCons.car();
                     //Strip leading and trailing quotes.
-                    methodName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, methodName);
+                    methodName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, methodName);
 
                     consTraverser = consTraverser.cdr();
 
@@ -110,7 +110,7 @@ public class JavaCall extends BuiltinFunction {
                             if (string != null) {
 
                                 if (Utility.isString(string)) { //MathPiper string.
-                                    argument = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) string);
+                                    argument = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, (String) string);
                                 } else { //Atom.
                                     if (string.equals("True")) {
                                         argument = Boolean.TRUE;
@@ -161,16 +161,16 @@ public class JavaCall extends BuiltinFunction {
                     }
 
                     if (returnObject instanceof List) {
-                        Cons listCons = Utility.iterableToList(aEnvironment, aStackTop, (List) returnObject);
+                        Cons listCons = Utility.iterableToList(aEnvironment, aStackBase, (List) returnObject);
 
-                        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, listCons));
+                        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment, listCons));
                     } else {
                         JavaObject response = new JavaObject(returnObject);
                         if (response == null || response.getObject() == null) {
-                            setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+                            setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
                             return;
                         }
-                        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+                        setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, response));
                     }
 
 
@@ -182,7 +182,7 @@ public class JavaCall extends BuiltinFunction {
 
         }//end if.
 
-        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
 
     }//end method.
 }

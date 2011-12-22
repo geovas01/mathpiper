@@ -40,10 +40,10 @@ public class List_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons result = getArgument(aEnvironment, aStackTop, 1);
-        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, Utility.isSublist(result)));
+        Cons result = getArgument(aEnvironment, aStackBase, 1);
+        setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment, Utility.isSublist(result)));
     }
 }
 

@@ -41,22 +41,22 @@ public class PatternRule extends Rule {
      * @param aPredicate getObject object of type PatternContainer
      * @param aBody body of the rule
      */
-    public PatternRule(Environment aEnvironment, int aStackTop, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
+    public PatternRule(Environment aEnvironment, int aStackBase, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         iPattern = null;
         iPrecedence = aPrecedence;
         iPredicate = aPredicate;
 
         BuiltinContainer gen = (BuiltinContainer) aPredicate.car();
-        if(gen == null) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
-        if(! gen.typeName().equals("\"Pattern\"")) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "Type is not <pattern>.");
+        if(gen == null) LispError.throwError(aEnvironment, aStackBase, LispError.INVALID_ARGUMENT, "");
+        if(! gen.typeName().equals("\"Pattern\"")) LispError.throwError(aEnvironment, aStackBase, LispError.INVALID_ARGUMENT, "Type is not <pattern>.");
 
         iPattern = (PatternContainer) gen;
         iBody = aBody;
     }
 
     //Return true if the corresponding pattern matches.
-    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
-        return iPattern.matches(aEnvironment, aStackTop, aArguments);
+    public boolean matches(Environment aEnvironment, int aStackBase, Cons[] aArguments) throws Exception {
+        return iPattern.matches(aEnvironment, aStackBase, aArguments);
     }
 
     //Access iPrecedence.

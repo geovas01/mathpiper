@@ -298,10 +298,10 @@ public class SynchronousInterpreter implements Interpreter {
         String resultString = "Exception";
 
         try {
-            int stackTop = iEnvironment.iArgumentStack.getStackTopIndex();
+            int oldStackTop = iEnvironment.iArgumentStack.getStackTopIndex();
             iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, 0, inputExpression); //*** The main evaluation happens here.
-            Cons result = iEnvironment.iArgumentStack.getElement(stackTop, 0, iEnvironment);
-            iEnvironment.iArgumentStack.popTo(stackTop, 0, iEnvironment);
+            Cons result = iEnvironment.iArgumentStack.getElement(oldStackTop, 0, iEnvironment);
+            iEnvironment.iArgumentStack.popTo(oldStackTop, 0, iEnvironment);
 
             evaluationResponse.setResultList(result);
 

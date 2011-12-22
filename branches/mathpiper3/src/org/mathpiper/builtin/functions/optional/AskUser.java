@@ -37,26 +37,26 @@ public class AskUser extends BuiltinFunction {
 		        this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        if (getArgument(aEnvironment, aStackTop, 1) == null) {
-            LispError.checkArgument(aEnvironment, aStackTop, 1);
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
+        if (getArgument(aEnvironment, aStackBase, 1) == null) {
+            LispError.checkArgument(aEnvironment, aStackBase, 1);
         }
 
 
-        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackBase, 1).car();
 
         if (! (argument instanceof String)) {
-            LispError.raiseError("The argument to AskUser must be a string.", aStackTop, aEnvironment);
+            LispError.raiseError("The argument to AskUser must be a string.", aStackBase, aEnvironment);
         }
 
         String messageString = (String) argument;
 
         if (messageString == null) {
-            LispError.checkArgument(aEnvironment, aStackTop, 1);
+            LispError.checkArgument(aEnvironment, aStackBase, 1);
         }
 
 
-        messageString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, messageString);
+        messageString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, messageString);
 
         String userInputString = JOptionPane.showInputDialog(null, messageString, "Message from MathPiper", JOptionPane.INFORMATION_MESSAGE);
 
@@ -64,7 +64,7 @@ public class AskUser extends BuiltinFunction {
             throw new BreakException();
         }//end method.
 
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + userInputString + "\""));
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, "\"" + userInputString + "\""));
     }//end method.
 }//end class.
 

@@ -40,11 +40,11 @@ public class FastTan extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         BigNumber x;
 
-        x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+        x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
 
         double xDouble = x.toDouble();
 
@@ -52,14 +52,14 @@ public class FastTan extends BuiltinFunction
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The result is NaN.", aStackTop, aEnvironment);
+            LispError.raiseError("The result is NaN.", aStackBase, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.iPrecision);
 
         z.setTo(result);
 
-        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

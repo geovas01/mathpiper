@@ -39,10 +39,10 @@ public class Divide extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
-        BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
+        BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 2);
         BigNumber z = new BigNumber(aEnvironment.iPrecision);
         // if both arguments are integers, then BigNumber::Divide would perform an integer divide, but we want a float divide here.
         if (x.isInteger() && y.isInteger())
@@ -61,7 +61,7 @@ public class Divide extends BuiltinFunction
         {
             z.divide(x, y, aEnvironment.iPrecision);
         }
-        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(z));
         return;
     }
 }//end class.

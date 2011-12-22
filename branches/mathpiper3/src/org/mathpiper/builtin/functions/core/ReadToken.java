@@ -39,18 +39,18 @@ public class ReadToken extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         MathPiperTokenizer tok = aEnvironment.iCurrentTokenizer;
         String result;
-        result = tok.nextToken(aEnvironment, aStackTop, aEnvironment.getCurrentInput());
+        result = tok.nextToken(aEnvironment, aStackBase, aEnvironment.getCurrentInput());
 
         if (result.length() == 0)
         {
-            setTopOfStack(aEnvironment, aStackTop, aEnvironment.iEndOfFileAtom.copy(false));
+            setTopOfStack(aEnvironment, aStackBase, aEnvironment.iEndOfFileAtom.copy(false));
             return;
         }
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, result));
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, result));
     }
 }
 

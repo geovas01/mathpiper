@@ -41,10 +41,10 @@ public class Generic_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-         Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
-         setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, evaluated.car() instanceof BuiltinContainer));
+         Cons evaluated = getArgument(aEnvironment, aStackBase, 1);
+         setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment, evaluated.car() instanceof BuiltinContainer));
     }
 }//end class.
 

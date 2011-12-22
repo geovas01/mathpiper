@@ -27,7 +27,7 @@ import org.mathpiper.lisp.cons.Cons;
 public abstract class Rule
 {
 
-    public abstract boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception;
+    public abstract boolean matches(Environment aEnvironment, int aStackBase, Cons[] aArguments) throws Exception;
 
     public abstract int getPrecedence();
 

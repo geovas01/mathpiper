@@ -39,23 +39,23 @@ public class ExceptionCatch extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         try
         {
             //Return the first argument.
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 1));
         } catch (Throwable exception)
         {   //Return the second argument.
             //e.printStackTrace();
             //Boolean interrupted = Thread.currentThread().interrupted(); //Clear interrupted condition.
             aEnvironment.iException = exception;
             
-            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
-            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
-            setTopOfStack(aEnvironment, aStackTop, aResult);
+            int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 2));
+            Cons aResult = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
+            setTopOfStack(aEnvironment, aStackBase, aResult);
 
             aEnvironment.iException = null;
         }

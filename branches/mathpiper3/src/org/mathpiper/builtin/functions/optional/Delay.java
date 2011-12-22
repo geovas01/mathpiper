@@ -38,13 +38,13 @@ public class Delay extends BuiltinFunction
     }//end method.
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        BigNumber milliseconds = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber milliseconds = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
 
         Thread.sleep(milliseconds.toLong());
 
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }//end class.
 

@@ -285,7 +285,7 @@ public abstract class Evaluator {
 		iStackTraced = true;
 	}
 
-	public abstract void evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsOrExpression) throws Exception;
+	public abstract void evaluate(Environment aEnvironment, int aStackBase, Cons aArgumentsOrExpression) throws Exception;
 
 
 	public void showStack(Environment aEnvironment, MathPiperOutputStream aOutput) {

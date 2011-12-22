@@ -40,9 +40,9 @@ public class MathIsSmall extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
-        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, x.isSmall()));
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
+        setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment, x.isSmall()));
     }
 }

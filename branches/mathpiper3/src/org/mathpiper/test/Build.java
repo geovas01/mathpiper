@@ -906,7 +906,7 @@ public class Build {
 
     /*
 
-    public static String parsePrintScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Exception {
+    public static String parsePrintScript(Environment aEnvironment, int aStackBase, MathPiperInputStream aInput, boolean evaluate) throws Exception {
 
     StringBuffer printedScriptStringBuffer = new StringBuffer();
 
@@ -924,9 +924,9 @@ public class Build {
     ConsPointer readIn = new ConsPointer();
     while (!endoffile) {
     // Read expression
-    parser.parse(aStackTop, readIn);
+    parser.parse(aStackBase, readIn);
 
-    LispError.check(aEnvironment, aStackTop, readIn.getCons() != null, LispError.READING_FILE, "","INTERNAL");
+    LispError.check(aEnvironment, aStackBase, readIn.getCons() != null, LispError.READING_FILE, "","INTERNAL");
     // check for end of file
     if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
     endoffile = true;Pointer
@@ -936,7 +936,7 @@ public class Build {
 
     if (evaluate == true) {
     ConsPointer result = new ConsPointer();
-    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
+    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, result, readIn);
     }
     }
     }//end while.

@@ -43,28 +43,28 @@ public class PatternMatches extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
 
-        Cons pattern = getArgument(aEnvironment, aStackTop, 1);
+        Cons pattern = getArgument(aEnvironment, aStackBase, 1);
         BuiltinContainer gen = (BuiltinContainer) pattern.car();
-        if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(! gen.typeName().equals("\"Pattern\"")) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( gen == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if(! gen.typeName().equals("\"Pattern\"")) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
 
-        Cons list = getArgument(aEnvironment, aStackTop, 2);
+        Cons list = getArgument(aEnvironment, aStackBase, 2);
 
         PatternContainer patclass = (PatternContainer) gen;
 
         Cons consTraverser = list;
-        if(consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        if(! (consTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(consTraverser == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        if(! (consTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackBase, 2);
         consTraverser = (Cons) consTraverser.car();
-        if(consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(consTraverser == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
         consTraverser = consTraverser.cdr();
 
-        if( consTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        boolean matches = patclass.matches(aEnvironment, aStackTop, consTraverser);
-        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, matches));
+        if( consTraverser == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        boolean matches = patclass.matches(aEnvironment, aStackBase, consTraverser);
+        setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment, matches));
     }
 }

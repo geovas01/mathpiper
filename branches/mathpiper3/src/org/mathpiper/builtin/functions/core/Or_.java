@@ -41,25 +41,25 @@ public class Or_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         Cons  nogos = null;
         int nrnogos = 0;
 
-        Cons consTraverser = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+        Cons consTraverser = (Cons) getArgument(aEnvironment, aStackBase, 1).car();
         consTraverser = consTraverser.cdr();
         while (consTraverser != null)
         {
-            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
-            Cons evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, consTraverser);
+            Cons evaluated = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
             
-            if (Utility.isTrue(aEnvironment, evaluated, aStackTop))
+            if (Utility.isTrue(aEnvironment, evaluated, aStackBase))
             {
-                setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+                setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
                 return;
-            } else if (!Utility.isFalse(aEnvironment, evaluated, aStackTop))
+            } else if (!Utility.isFalse(aEnvironment, evaluated, aStackBase))
             {
                 nrnogos++;
 
@@ -74,7 +74,7 @@ public class Or_ extends BuiltinFunction
         {
             if (nrnogos == 1)
             {
-                setTopOfStack(aEnvironment, aStackTop, nogos);
+                setTopOfStack(aEnvironment, aStackBase, nogos);
             } else
             {
 
@@ -82,15 +82,15 @@ public class Or_ extends BuiltinFunction
                 Cons ptr = Utility.reverseList(aEnvironment, nogos);
                 nogos = ptr;
 
-                ptr = getArgument(aEnvironment, aStackTop, 0).copy(false);
+                ptr = getArgument(aEnvironment, aStackBase, 0).copy(false);
                 ptr.setCdr(nogos);
                 nogos = ptr;
-                setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, nogos));
+                setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment, nogos));
             }
-        //aEnvironment.CurrentPrinter().Print(getTopOfStackPointer(aEnvironment, aStackTop), *aEnvironment.CurrentOutput());
+        //aEnvironment.CurrentPrinter().Print(getTopOfStackPointer(aEnvironment, aStackBase), *aEnvironment.CurrentOutput());
         } else
         {
-            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+            setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
         }
     }
 }

@@ -42,25 +42,25 @@ public class ArrayGet extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackBase, 1);
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
-        if( gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( gen == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
-        Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
+        Cons sizearg = getArgument(aEnvironment, aStackBase, 2);
 
-        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackBase, 2);
 
         int size = Integer.parseInt( (String) sizearg.car(), 10);
 
-        if( size <= 0 || size > ((Array) gen).size()) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        Cons object = ((Array) gen).getElement(size, aStackTop, aEnvironment);
+        if( size <= 0 || size > ((Array) gen).size()) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        Cons object = ((Array) gen).getElement(size, aStackBase, aEnvironment);
 
-        setTopOfStack(aEnvironment, aStackTop, object.copy(false));
+        setTopOfStack(aEnvironment, aStackBase, object.copy(false));
     }
 }//end class.
 

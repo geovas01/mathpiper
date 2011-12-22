@@ -42,30 +42,30 @@ public class StringMidSet extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons evaluated = getArgument(aEnvironment, aStackTop, 3);
-        LispError.checkIsString(aEnvironment, aStackTop, evaluated, 3);
+        Cons evaluated = getArgument(aEnvironment, aStackBase, 3);
+        LispError.checkIsString(aEnvironment, aStackBase, evaluated, 3);
         String orig = (String) evaluated.car();
 
-        Cons index = getArgument(aEnvironment, aStackTop, 1);
-        if(index  == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        Cons index = getArgument(aEnvironment, aStackBase, 1);
+        if(index  == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackBase, 1);
         int from = Integer.parseInt( (String) index.car(), 10);
 
-        if( from <= 0) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( from <= 0) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
-        Cons ev2 = getArgument(aEnvironment, aStackTop, 2);
-        LispError.checkIsString(aEnvironment, aStackTop, ev2, 2);
+        Cons ev2 = getArgument(aEnvironment, aStackBase, 2);
+        LispError.checkIsString(aEnvironment, aStackBase, ev2, 2);
         String replace =(String)  ev2.car();
 
-        if(from + replace.length() - 2 >= orig.length()) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT);
+        if(from + replace.length() - 2 >= orig.length()) LispError.throwError(aEnvironment, aStackBase, LispError.INVALID_ARGUMENT);
         String str;
         str = orig.substring(0, from);
         str = str + replace.substring(1, replace.length() - 1);
         //System.out.println("from="+from+replace.length()-2);
         str = str + orig.substring(from + replace.length() - 2, orig.length());
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, str));
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, str));
     }
 }
 

@@ -40,25 +40,25 @@ public class Subtract extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        int length = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
+        int length = Utility.listLength(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 0));
         if (length == 2)
         {
-            BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+            BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
             BigNumber z = new BigNumber(x);
             z.negate(x);
-            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+            setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         } else
         {
-            BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
-            BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
+            BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
+            BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 2);
             BigNumber yneg = new BigNumber(y);
             yneg.negate(y);
             BigNumber z = new BigNumber(aEnvironment.iPrecision);
             z.add(x, yneg, aEnvironment.iPrecision);
-            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+            setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         }
     }

@@ -41,9 +41,9 @@ public class Decimal_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons result = getArgument(aEnvironment, aStackTop, 1);
+        Cons result = getArgument(aEnvironment, aStackBase, 1);
 
         Object cons = result.getNumber(aEnvironment.iPrecision, aEnvironment);
 
@@ -52,11 +52,11 @@ public class Decimal_ extends BuiltinFunction
         {
             bigNumber = (BigNumber) cons;
 
-             setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment,  bigNumber.isDecimal()));
+             setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment,  bigNumber.isDecimal()));
         }
         else
         {
-            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+            setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
         }
 
 

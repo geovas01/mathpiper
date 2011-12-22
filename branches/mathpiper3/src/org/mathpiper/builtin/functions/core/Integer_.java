@@ -41,18 +41,18 @@ public class Integer_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons result = getArgument(aEnvironment, aStackTop, 1);
+        Cons result = getArgument(aEnvironment, aStackBase, 1);
 
 //        LispError.check(result.type().equals("Number"), LispError.KLispErrInvalidArg);
         BigNumber num = (BigNumber) result.getNumber(aEnvironment.iPrecision, aEnvironment);
         if (num == null)
         {
-            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+            setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
         } else
         {
-            setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, num.isInteger()));
+            setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment, num.isInteger()));
         }
     }
 }

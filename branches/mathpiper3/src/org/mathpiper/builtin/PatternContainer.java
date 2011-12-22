@@ -41,18 +41,18 @@ public class PatternContainer extends BuiltinContainer {
     }
 
 
-    public boolean matches(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
-        if(iPatternMatcher == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public boolean matches(Environment aEnvironment, int aStackBase, Cons aArguments) throws Exception {
+        if(iPatternMatcher == null) LispError.lispAssert(aEnvironment, aStackBase);
         boolean result;
-        result = iPatternMatcher.matches(aEnvironment, aStackTop, aArguments);
+        result = iPatternMatcher.matches(aEnvironment, aStackBase, aArguments);
         return result;
     }
 
 
-    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
-        if(iPatternMatcher == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public boolean matches(Environment aEnvironment, int aStackBase, Cons[] aArguments) throws Exception {
+        if(iPatternMatcher == null) LispError.lispAssert(aEnvironment, aStackBase);
         boolean result;
-        result = iPatternMatcher.matches(aEnvironment, aStackTop, aArguments);
+        result = iPatternMatcher.matches(aEnvironment, aStackBase, aArguments);
         return result;
     }
 

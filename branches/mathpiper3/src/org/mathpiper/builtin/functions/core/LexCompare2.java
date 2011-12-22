@@ -37,18 +37,18 @@ abstract public class LexCompare2
 
     abstract boolean numFunction(BigNumber n1, BigNumber n2);
 
-    void Compare(Environment aEnvironment, int aStackTop) throws Exception
+    void Compare(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons argument1 = BuiltinFunction.getArgument(aEnvironment, aStackTop, 1);
+        Cons argument1 = BuiltinFunction.getArgument(aEnvironment, aStackBase, 1);
 
-        Cons argument2 = BuiltinFunction.getArgument(aEnvironment, aStackTop, 2);
+        Cons argument2 = BuiltinFunction.getArgument(aEnvironment, aStackBase, 2);
 
 
         //LispError.check(argument1.getCons() instanceof NumberCons || argument1.getCons() instanceof AtomCons, "The first argument must be a non-complex decimal number or a string.","LexCompare2");
         //LispError.check(argument2.getCons() instanceof NumberCons || argument2.getCons() instanceof AtomCons, "The second argument must be a non-complex decimal number or a string.","LexCompare2");
 
-        if(! (argument1 instanceof NumberCons) && ! (argument1 instanceof AtomCons)) LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, 1, "The first argument must be a non-complex decimal number or a string.");
-        if(! (argument2 instanceof NumberCons) && ! (argument2 instanceof AtomCons)) LispError.checkArgumentTypeWithError(aEnvironment, aStackTop, 2, "The second argument must be a non-complex decimal number or a string.");
+        if(! (argument1 instanceof NumberCons) && ! (argument1 instanceof AtomCons)) LispError.checkArgumentTypeWithError(aEnvironment, aStackBase, 1, "The first argument must be a non-complex decimal number or a string.");
+        if(! (argument2 instanceof NumberCons) && ! (argument2 instanceof AtomCons)) LispError.checkArgumentTypeWithError(aEnvironment, aStackBase, 2, "The second argument must be a non-complex decimal number or a string.");
 
 
         boolean cmp;
@@ -65,12 +65,12 @@ abstract public class LexCompare2
             String str2;
             str1 =  (String) argument1.car();
             str2 = (String) argument2.car();
-            if( str1 == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-            if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+            if( str1 == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+            if( str2 == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
             // the getPrecision argument is ignored in "lex" functions
             cmp = lexFunction(str1, str2, aEnvironment.iPrecision);
         }
 
-        BuiltinFunction.setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, cmp));
+        BuiltinFunction.setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment, cmp));
     }
 }

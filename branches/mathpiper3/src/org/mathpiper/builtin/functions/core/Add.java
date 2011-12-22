@@ -47,23 +47,23 @@ public class Add extends BuiltinFunction
     }
 
     
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        int length = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
+        int length = Utility.listLength(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 0));
         if (length == 2)
         {
             BigNumber x;
-            x = Utility.getNumber(aEnvironment, aStackTop, 1);
-            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(x));
+            x = Utility.getNumber(aEnvironment, aStackBase, 1);
+            setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(x));
             return;
         } else
         {
-            BigNumber x = Utility.getNumber(aEnvironment, aStackTop, 1);
-            BigNumber y = Utility.getNumber(aEnvironment, aStackTop, 2);
+            BigNumber x = Utility.getNumber(aEnvironment, aStackBase, 1);
+            BigNumber y = Utility.getNumber(aEnvironment, aStackBase, 2);
             int bin = aEnvironment.iPrecision;
             BigNumber z = new BigNumber(bin);
             z.add(x, y, aEnvironment.iPrecision);
-            setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+            setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(z));
             return;
         }
     }

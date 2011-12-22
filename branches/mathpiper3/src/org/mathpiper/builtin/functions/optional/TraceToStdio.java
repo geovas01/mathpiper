@@ -39,13 +39,13 @@ public class TraceToStdio extends BuiltinFunction
     }//end method.
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
          Evaluator.TRACE_TO_STANDARD_OUT = true;
 
          aEnvironment.write("Tracing to stdio is on.\n");
          
-         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+         setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }
 

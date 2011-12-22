@@ -19,11 +19,11 @@ public class IncompleteGamma extends BuiltinFunction{
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        BigNumber a = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber a = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
 
-        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 2);
 
         double resultValue = Gamma.incompleteGammaComplement(x.toDouble(),  a.toDouble());
 
@@ -31,7 +31,7 @@ public class IncompleteGamma extends BuiltinFunction{
 
         result.setTo(resultValue);
 
-        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(result));
+        setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(result));
 
     }//end method.
 

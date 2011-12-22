@@ -44,15 +44,15 @@ public class Length extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackBase, 1).car();
         
 
         if (argument instanceof Cons)
         {
-            int num = Utility.listLength(aEnvironment, aStackTop, (((Cons)argument).cdr()));
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
+            int num = Utility.listLength(aEnvironment, aStackBase, (((Cons)argument).cdr()));
+            setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, "" + num));
             return;
         }//end if.
         
@@ -60,28 +60,28 @@ public class Length extends BuiltinFunction
         
         if (argument instanceof BuiltinContainer)
         {
-            BuiltinContainer gen = (BuiltinContainer) getArgument(aEnvironment, aStackTop, 1).car();
+            BuiltinContainer gen = (BuiltinContainer) getArgument(aEnvironment, aStackBase, 1).car();
             if (gen.typeName().equals("\"Array\""))
             {
                 int size = ((Array) gen).size();
-                setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
+                setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, "" + size));
                 return;
             }
-        //  CHK_ISLIST_CORE(aEnvironment,aStackTop,getArgumentPointer(aEnvironment, aStackTop, 1),1);
+        //  CHK_ISLIST_CORE(aEnvironment,aStackBase,getArgumentPointer(aEnvironment, aStackBase, 1),1);
         }//end if.
 
 
 
         if(! (argument instanceof String)) 
         {
-            LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, argument);
+            LispError.throwError(aEnvironment, aStackBase, LispError.INVALID_ARGUMENT, argument);
         }
         
         String string =  (String) argument;
         if (Utility.isString(string))
         {
             int num = string.length() - 2;
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + num));
+            setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, "" + num));
             return;
         }//end if.
         

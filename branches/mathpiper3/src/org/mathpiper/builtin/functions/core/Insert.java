@@ -38,9 +38,9 @@ public class Insert extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Utility.insert(aEnvironment, aStackTop, false);
+        Utility.insert(aEnvironment, aStackBase, false);
     }
 }
 

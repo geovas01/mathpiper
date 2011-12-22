@@ -40,14 +40,14 @@ public class UnicodeToString extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         String str;
-        str =  (String) getArgument(aEnvironment, aStackTop, 1).car();
-        if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        if(! Utility.isNumber(str, false)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        str =  (String) getArgument(aEnvironment, aStackBase, 1).car();
+        if( str == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        if(! Utility.isNumber(str, false)) LispError.checkArgument(aEnvironment, aStackBase, 2);
         char asciiCode = (char) Integer.parseInt(str, 10);
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"" + asciiCode + "\""));
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, "\"" + asciiCode + "\""));
     }
 }
 

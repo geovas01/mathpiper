@@ -40,26 +40,26 @@ public class XmlExplodeTag extends BuiltinFunction {
 
             this.functionName = functionName;
 
-            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
             Utility.lispEvaluate(aEnvironment, -1, "RulebaseHoldArguments(\"XmlTag\",{x,y,z});");
-            aEnvironment.iArgumentStack.popTo(stackTop, 0, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(oldStackTop, 0, aEnvironment);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        Cons out = getArgument(aEnvironment, aStackTop, 1);
-        LispError.checkIsString(aEnvironment, aStackTop, out, 1);
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
+        Cons out = getArgument(aEnvironment, aStackBase, 1);
+        LispError.checkIsString(aEnvironment, aStackBase, out, 1);
 
         String str = (String) out.car();
         int strInd = 0;
         strInd++;
         if (str.charAt(strInd) != '<') {
-            setTopOfStack(aEnvironment, aStackTop, out);
+            setTopOfStack(aEnvironment, aStackBase, out);
             return;
         }
-        if( str.charAt(strInd) != '<') LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( str.charAt(strInd) != '<') LispError.checkArgument(aEnvironment, aStackBase, 1);
         strInd++;
         String type = "\"Open\"";
 
@@ -98,9 +98,9 @@ public class XmlExplodeTag extends BuiltinFunction {
                 name = name + c;
             }
             name = name + "\"";
-            if(str.charAt(strInd) != '=') LispError.checkArgument(aEnvironment, aStackTop, 1);
+            if(str.charAt(strInd) != '=') LispError.checkArgument(aEnvironment, aStackBase, 1);
             strInd++;
-            if( str.charAt(strInd) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
+            if( str.charAt(strInd) != '\"') LispError.checkArgument(aEnvironment, aStackBase, 1);
             String value = new String();
 
             value = value + (str.charAt(strInd));
@@ -114,9 +114,9 @@ public class XmlExplodeTag extends BuiltinFunction {
 
             //printf("[%s], [%s]\n",name.String(),value.String());
             {
-                Cons ls = AtomCons.getInstance(aEnvironment, aStackTop, "List");
-                Cons nm = AtomCons.getInstance(aEnvironment, aStackTop, name);
-                Cons vl = AtomCons.getInstance(aEnvironment, aStackTop, value);
+                Cons ls = AtomCons.getInstance(aEnvironment, aStackBase, "List");
+                Cons nm = AtomCons.getInstance(aEnvironment, aStackBase, name);
+                Cons vl = AtomCons.getInstance(aEnvironment, aStackBase, value);
                 nm.setCdr(vl);
                 ls.setCdr(nm);
                 Cons newinfo = SublistCons.getInstance(aEnvironment, ls);
@@ -137,18 +137,18 @@ public class XmlExplodeTag extends BuiltinFunction {
             }
         }
         {
-            Cons ls = AtomCons.getInstance(aEnvironment, aStackTop, "List");
+            Cons ls = AtomCons.getInstance(aEnvironment, aStackBase, "List");
             ls.setCdr(info);
             info = SublistCons.getInstance(aEnvironment, ls);
         }
 
-        Cons xm = AtomCons.getInstance(aEnvironment, aStackTop, "XmlTag");
-        Cons tg = AtomCons.getInstance(aEnvironment, aStackTop, tag);
-        Cons tp = AtomCons.getInstance(aEnvironment, aStackTop, type);
+        Cons xm = AtomCons.getInstance(aEnvironment, aStackBase, "XmlTag");
+        Cons tg = AtomCons.getInstance(aEnvironment, aStackBase, tag);
+        Cons tp = AtomCons.getInstance(aEnvironment, aStackBase, type);
         info.setCdr(tp);
         tg.setCdr(info);
         xm.setCdr(tg);
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, xm));
+        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment, xm));
 
     }
 }

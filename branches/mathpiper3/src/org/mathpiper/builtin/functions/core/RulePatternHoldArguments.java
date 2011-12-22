@@ -38,9 +38,9 @@ public class RulePatternHoldArguments extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        org.mathpiper.lisp.Utility.newRule(aEnvironment, aStackTop, true);
+        org.mathpiper.lisp.Utility.newRule(aEnvironment, aStackBase, true);
     }
 }
 

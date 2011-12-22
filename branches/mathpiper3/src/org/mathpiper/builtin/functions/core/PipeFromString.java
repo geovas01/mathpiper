@@ -44,19 +44,19 @@ public class PipeFromString extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
 
-        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
-        Cons evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 1));
+        Cons evaluated = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
         // Get file name
-        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
         String orig =  (String) evaluated.car();
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        String oper = Utility.toNormalString(aEnvironment, aStackBase, orig);
 
         InputStatus oldstatus = aEnvironment.getCurrentInput().iStatus;
         aEnvironment.getCurrentInput().iStatus.setTo("String");
@@ -67,11 +67,11 @@ public class PipeFromString extends BuiltinFunction
         try
         {
             // Evaluate the body
-            stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
-            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
-            setTopOfStack(aEnvironment, aStackTop, aResult);
+            oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 2));
+            Cons aResult = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
+            setTopOfStack(aEnvironment, aStackBase, aResult);
         } catch (Exception e)
         {
             throw e;

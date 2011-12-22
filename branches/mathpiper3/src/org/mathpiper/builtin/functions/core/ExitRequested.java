@@ -39,8 +39,8 @@ public class ExitRequested extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
     }
 }

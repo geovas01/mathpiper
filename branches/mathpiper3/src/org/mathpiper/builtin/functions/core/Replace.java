@@ -38,9 +38,9 @@ public class Replace extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Utility.replace(aEnvironment, aStackTop, false);
+        Utility.replace(aEnvironment, aStackBase, false);
     }
 }
 

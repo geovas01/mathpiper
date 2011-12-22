@@ -38,15 +38,15 @@ public class MetaEntries extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
-        Cons object = getArgument(aEnvironment, aStackTop, 1);
+        Cons object = getArgument(aEnvironment, aStackBase, 1);
 
 
         Map metadataMap = object.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
-            setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
+            setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
 
             return;
         }//end if.
@@ -68,14 +68,14 @@ public class MetaEntries extends BuiltinFunction
 
 
             //Add -> operator cons.
-            Cons operatorCons = AtomCons.getInstance(aEnvironment, aStackTop, "->");
+            Cons operatorCons = AtomCons.getInstance(aEnvironment, aStackBase, "->");
 
 
 
             //Add key cons.
             String key = (String) keyIterator.next();
 
-            Cons keyCons = AtomCons.getInstance(aEnvironment, aStackTop, key);
+            Cons keyCons = AtomCons.getInstance(aEnvironment, aStackBase, key);
 
             operatorCons.setCdr(keyCons);
 
@@ -99,7 +99,7 @@ public class MetaEntries extends BuiltinFunction
 
 
 
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, head));
+        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment, head));
 
 
 

@@ -38,17 +38,17 @@ public class StackTrace extends BuiltinFunction
     }//end method.
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-         String dump = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment);
+         String dump = aEnvironment.iArgumentStack.dump(aStackBase, aEnvironment);
 
          aEnvironment.write(dump);
 
-         dump = aEnvironment.dumpLocalVariablesFrame(aStackTop);
+         dump = aEnvironment.dumpLocalVariablesFrame(aStackBase);
 
          aEnvironment.write(dump);
          
-         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+         setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
 
     }//end method.
 

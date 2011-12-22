@@ -41,14 +41,14 @@ public class ListToFunction extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(! (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        Cons atom = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
-        if( atom == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(! (((String)atom.car()).equals((String)aEnvironment.iListAtom.car()))) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        setTopOfStack(aEnvironment, aStackTop, Utility.tail(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
+        if(getArgument(aEnvironment, aStackBase, 1) == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if(! (getArgument(aEnvironment, aStackBase, 1).car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        Cons atom = (Cons) getArgument(aEnvironment, aStackBase, 1).car();
+        if( atom == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if(! (((String)atom.car()).equals((String)aEnvironment.iListAtom.car()))) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        setTopOfStack(aEnvironment, aStackBase, Utility.tail(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 1)));
     }
 }
 

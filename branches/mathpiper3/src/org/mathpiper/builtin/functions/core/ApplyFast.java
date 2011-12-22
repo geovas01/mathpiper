@@ -41,36 +41,36 @@ public class ApplyFast extends BuiltinFunction
         this.functionName = functionName;
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
 
-        Cons oper = getArgument(aEnvironment, aStackTop, 1);
+        Cons oper = getArgument(aEnvironment, aStackBase, 1);
 
-        Cons args = getArgument(aEnvironment, aStackTop, 2);
+        Cons args = getArgument(aEnvironment, aStackBase, 2);
 
-        if(! (args.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        if(((Cons) args.car()) == null) LispError.throwError(aEnvironment, aStackTop, 2);
+        if(! (args.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        if(((Cons) args.car()) == null) LispError.throwError(aEnvironment, aStackBase, 2);
 
         // Apply a pure string
         if (oper.car() instanceof String)
         {
             
-            Cons result = Utility.applyString(aEnvironment, aStackTop, (String) oper.car(), ((Cons) args.car()).cdr());
-            setTopOfStack(aEnvironment, aStackTop,result);
+            Cons result = Utility.applyString(aEnvironment, aStackBase, (String) oper.car(), ((Cons) args.car()).cdr());
+            setTopOfStack(aEnvironment, aStackBase,result);
         } else
         {   // Apply a pure function {args,body}.
 
             Cons args2 = ((Cons) args.car()).cdr();
-            if(! (oper.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
-            if( (Cons) oper.car() == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+            if(! (oper.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackBase, 1);
+            if( (Cons) oper.car() == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
             
 
-            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            Utility.applyPure(aStackTop, oper, args2, aEnvironment);
-            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            Utility.applyPure(aStackBase, oper, args2, aEnvironment);
+            Cons aResult = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
-            setTopOfStack(aEnvironment, aStackTop, aResult);
+            setTopOfStack(aEnvironment, aStackBase, aResult);
         }
     }
 }

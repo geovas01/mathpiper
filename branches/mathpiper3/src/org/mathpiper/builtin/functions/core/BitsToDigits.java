@@ -41,10 +41,10 @@ public class BitsToDigits extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
-        BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
+        BigNumber y = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 2);
         long result = 0;  // initialize just in case
 
         if (x.isInteger() && x.isSmall() && y.isInteger() && y.isSmall())
@@ -58,6 +58,6 @@ public class BitsToDigits extends BuiltinFunction
         }
         BigNumber z = new BigNumber(aEnvironment.iPrecision);
         z.setTo((long) result);
-        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }

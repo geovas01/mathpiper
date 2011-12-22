@@ -43,25 +43,25 @@ public class MacroExpand extends BuiltinFunction
 
 
     //todo:tk:this function is not complete yet.  It currently only expands backquoted expressions.
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         org.mathpiper.lisp.behaviours.BackQuoteSubstitute behaviour = new org.mathpiper.lisp.behaviours.BackQuoteSubstitute(aEnvironment);
 
-        //Cons argument = getArgumentPointer(aEnvironment, aStackTop, 1);
+        //Cons argument = getArgumentPointer(aEnvironment, aStackBase, 1);
 
-        Cons argumentCons = getArgument(aEnvironment, aStackTop, 1);
+        Cons argumentCons = getArgument(aEnvironment, aStackBase, 1);
 
         Cons argument = ((Cons) argumentCons.car()).cdr();
 
-        Cons result = Utility.substitute(aEnvironment, aStackTop, argument, behaviour);
+        Cons result = Utility.substitute(aEnvironment, aStackBase, argument, behaviour);
 
-        String substitutedResult = Utility.printMathPiperExpression(aStackTop, result, aEnvironment, 0);
+        String substitutedResult = Utility.printMathPiperExpression(aStackBase, result, aEnvironment, 0);
 
         aEnvironment.write(substitutedResult);
 	
 	aEnvironment.write("\n");
 
-         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result);
+         aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, result);
 
     }//end method.
 

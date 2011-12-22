@@ -41,17 +41,17 @@ public class MetaSet extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
-        Cons object = getArgument(aEnvironment, aStackTop, 1);
-
-
-        Cons key = getArgument(aEnvironment, aStackTop, 2);
-
-        LispError.checkIsString(aEnvironment, aStackTop, key, 2);
+        Cons object = getArgument(aEnvironment, aStackBase, 1);
 
 
-        Cons value = getArgument(aEnvironment, aStackTop, 3);
+        Cons key = getArgument(aEnvironment, aStackBase, 2);
+
+        LispError.checkIsString(aEnvironment, aStackBase, key, 2);
+
+
+        Cons value = getArgument(aEnvironment, aStackBase, 3);
 
 
         
@@ -71,7 +71,7 @@ public class MetaSet extends BuiltinFunction
 
         metadataMap.put(keyString, value);
 
-        setTopOfStack(aEnvironment, aStackTop, object);
+        setTopOfStack(aEnvironment, aStackBase, object);
 
         return;
 
@@ -95,14 +95,14 @@ public class MetaSet extends BuiltinFunction
 
                 variablePointer.getCons().setMetadataMap(listConsPointer);
 
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(variablePointer.getCons().getMetadataMap().getCons());
+                getTopOfStackPointer(aEnvironment, aStackBase).setCons(variablePointer.getCons().getMetadataMap().getCons());
 
                 return;
 
             } else {
 
                 //Return existing meta
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(metadataPointer.getCons());
+                getTopOfStackPointer(aEnvironment, aStackBase).setCons(metadataPointer.getCons());
 
                 return;
             }//end if/else.
@@ -132,14 +132,14 @@ public class MetaSet extends BuiltinFunction
 
                 variablePointer.getCons().setMetadataMap(listConsPointer);
 
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(variablePointer.getCons().getMetadataMap().getCons());
+                getTopOfStackPointer(aEnvironment, aStackBase).setCons(variablePointer.getCons().getMetadataMap().getCons());
 
                 return;
 
             } else {
 
                 //Return existing meta
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(metadataPointer.getCons());
+                getTopOfStackPointer(aEnvironment, aStackBase).setCons(metadataPointer.getCons());
 
                 return;
             }//end if/else.
@@ -161,12 +161,12 @@ public class MetaSet extends BuiltinFunction
 
             object.getCons().setMetadataMap(listConsPointer);
 
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(listCons);
+            getTopOfStackPointer(aEnvironment, aStackBase).setCons(listCons);
 
         } else {
 
             //Return existing meta
-            getTopOfStackPointer(aEnvironment, aStackTop).setCons(metaDataPointer.getCons());
+            getTopOfStackPointer(aEnvironment, aStackBase).setCons(metaDataPointer.getCons());
 
             return;
         }//end if/else.

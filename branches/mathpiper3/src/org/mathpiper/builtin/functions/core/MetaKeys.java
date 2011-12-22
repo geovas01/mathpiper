@@ -40,15 +40,15 @@ public class MetaKeys extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
-        Cons object = getArgument(aEnvironment, aStackTop, 1);
+        Cons object = getArgument(aEnvironment, aStackBase, 1);
 
 
         Map metadataMap = object.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
-            setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
+            setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
 
             return;
         }//end if.
@@ -56,9 +56,9 @@ public class MetaKeys extends BuiltinFunction
 
         java.util.Set keySet = (java.util.Set) metadataMap.keySet();
 
-        Cons head = Utility.iterableToList(aEnvironment, aStackTop, keySet);
+        Cons head = Utility.iterableToList(aEnvironment, aStackBase, keySet);
         
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
+        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment,head));
 
 
 

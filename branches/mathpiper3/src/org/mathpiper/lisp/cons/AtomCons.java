@@ -39,7 +39,7 @@ public class AtomCons extends Cons
 
     }
 
-    public static Cons getInstance(Environment aEnvironment, int aStackTop, String aString) throws Exception
+    public static Cons getInstance(Environment aEnvironment, int aStackBase, String aString) throws Exception
     {
         Cons self = null;
         if (Utility.isNumber(aString, true))  // check if aString is a number (int or float)
@@ -51,7 +51,7 @@ public class AtomCons extends Cons
             self = new AtomCons(aString);
         }
         
-        //LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, ""," INTERNAL");
+        //LispError.check(aEnvironment, aStackBase, self != null, LispError.NOT_ENOUGH_MEMORY, ""," INTERNAL");
         
         return self;
     }
