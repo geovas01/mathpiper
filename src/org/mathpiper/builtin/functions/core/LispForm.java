@@ -42,7 +42,7 @@ public class LispForm extends BuiltinFunction
     {
         setTopOfStack(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
         LispPrinter printer = new LispPrinter();
-        printer.print(getTopOfStack(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
+        printer.print(aStackTop, getTopOfStack(aEnvironment, aStackTop), aEnvironment.iCurrentOutput, aEnvironment);
         aEnvironment.write("\n");
     }
 }

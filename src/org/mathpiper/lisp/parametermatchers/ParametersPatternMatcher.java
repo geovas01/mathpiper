@@ -72,7 +72,7 @@ public class ParametersPatternMatcher {
 
             PatternParameterMatcher matcher = makeParameterMatcher(aEnvironment, aStackTop, consTraverser);
 
-            if(matcher == null) LispError.lispAssert(aEnvironment);
+            if(matcher == null) LispError.lispAssert(aEnvironment, aStackTop);
 
             iParamMatchers.add(matcher);
 
@@ -112,7 +112,7 @@ public class ParametersPatternMatcher {
                 return false;
             }
 
-            if (!((PatternParameterMatcher) iParamMatchers.get(i)).argumentMatches(aEnvironment, argumentsTraverser, argumentsCons)) {
+            if (!((PatternParameterMatcher) iParamMatchers.get(i)).argumentMatches(aEnvironment, aStackTop, argumentsTraverser, argumentsCons)) {
                 return false;
             }
             argumentsTraverser = argumentsTraverser.cdr();
@@ -125,21 +125,21 @@ public class ParametersPatternMatcher {
             //Set the local variables.
             aEnvironment.pushLocalFrame(false, "Pattern");
             try {
-                setPatternVariables(aEnvironment, argumentsCons);
+                setPatternVariables(aEnvironment, argumentsCons, aStackTop);
 
                 //Do the predicates
-                if (!checkPredicates(aEnvironment)) {
+                if (!checkPredicates(aEnvironment, aStackTop)) {
                     return false;
                 }
             } catch (Exception e) {
                 throw e;
             } finally {
-                aEnvironment.popLocalFrame();
+                aEnvironment.popLocalFrame(aStackTop);
             }
         }
 
         // setCons the local variables for sure now
-        setPatternVariables(aEnvironment, argumentsCons);
+        setPatternVariables(aEnvironment, argumentsCons, aStackTop);
 
         return true;
     }
@@ -150,7 +150,7 @@ public class ParametersPatternMatcher {
      *This function does the same as matches(Environment, Cons),
      *but differs in the type of the arguments.
      */
-    public boolean matches(Environment aEnvironment, Cons[] aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
         int i;
 
         Cons[] arguments = null;
@@ -161,10 +161,10 @@ public class ParametersPatternMatcher {
 
 
         for (i = 0; i < iParamMatchers.size(); i++) {
-            if(i >= aArguments.length) LispError.throwError(aEnvironment, "Listed function definitions need at least two parameters.");
+            if(i >= aArguments.length) LispError.throwError(aEnvironment, aStackTop, "Listed function definitions need at least two parameters.");
             PatternParameterMatcher patternParameter = (PatternParameterMatcher) iParamMatchers.get(i);
             Cons argument = aArguments[i];
-            if (!patternParameter.argumentMatches(aEnvironment, argument, arguments)) {
+            if (!patternParameter.argumentMatches(aEnvironment, aStackTop, argument, arguments)) {
                 return false;
             }
         }
@@ -173,21 +173,21 @@ public class ParametersPatternMatcher {
             //Set the local variables.
             aEnvironment.pushLocalFrame(false, "Pattern");
             try {
-                setPatternVariables(aEnvironment, arguments);
+                setPatternVariables(aEnvironment, arguments, aStackTop);
 
                 //Check the predicates.
-                if (!checkPredicates(aEnvironment)) {
+                if (!checkPredicates(aEnvironment, aStackTop)) {
                     return false;
                 }
             } catch (Exception e) {
                 throw e;
             } finally {
-                aEnvironment.popLocalFrame();
+                aEnvironment.popLocalFrame(aStackTop);
             }
         }
 
         // Set the local variables for sure now.
-        setPatternVariables(aEnvironment, arguments);
+        setPatternVariables(aEnvironment, arguments, aStackTop);
 
         return true;
     }
@@ -239,7 +239,7 @@ public class ParametersPatternMatcher {
             Cons sublist = (Cons) aPattern.car();
             //LispError.lispAssert(sublist != null);
 
-            int num = Utility.listLength(aEnvironment, sublist);
+            int num = Utility.listLength(aEnvironment, aStackTop, sublist);
 
             // variable matcher here...
             if (num > 1) {
@@ -269,7 +269,7 @@ public class ParametersPatternMatcher {
                                 last = last.cdr();
                             }
 
-                            last.setCdr(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, str));
+                            last.setCdr(org.mathpiper.lisp.cons.AtomCons.getInstance(aEnvironment, aStackTop, str));
 
                             Cons newPredicate = org.mathpiper.lisp.cons.SublistCons.getInstance(aEnvironment, third);
 
@@ -287,7 +287,7 @@ public class ParametersPatternMatcher {
             Cons consTraverser = sublist;
             for (i = 0; i < num; i++) {
                 matchers[i] = makeParameterMatcher(aEnvironment, aStackTop, consTraverser);
-                if(matchers[i] == null) LispError.lispAssert(aEnvironment);
+                if(matchers[i] == null) LispError.lispAssert(aEnvironment, aStackTop);
                 consTraverser = consTraverser.cdr();
             }
             return new SublistPatternParameterMatcher(matchers, num);
@@ -321,11 +321,11 @@ public class ParametersPatternMatcher {
      *variable is made for every entry in the array, and the
      *corresponding argument is assigned to it.
      */
-    protected void setPatternVariables(Environment aEnvironment, Cons[] arguments) throws Exception {
+    protected void setPatternVariables(Environment aEnvironment, Cons[] arguments, int aStackTop) throws Exception {
         int i;
         for (i = 0; i < iVariables.size(); i++) {
             //Set the variable to the new value
-            aEnvironment.newLocalVariable((String) iVariables.get(i), arguments[i]);
+            aEnvironment.newLocalVariable((String) iVariables.get(i), arguments[i], aStackTop);
         }
     }
 
@@ -337,32 +337,32 @@ public class ParametersPatternMatcher {
      *of these results IsFalse(). An error is raised if any result
      *that is neither IsTrue() nor IsFalse().
      */
-    protected boolean checkPredicates(Environment aEnvironment) throws Exception {
+    protected boolean checkPredicates(Environment aEnvironment, int aStackTop) throws Exception {
         int i;
         for (i = 0; i < iPredicates.size(); i++) {
 
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment,  iPredicates.get(i));
-            Cons resultPredicate = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop,  iPredicates.get(i));
+            Cons resultPredicate = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
-            if (Utility.isFalse(aEnvironment, resultPredicate)) {
+            if (Utility.isFalse(aEnvironment, resultPredicate, aStackTop)) {
                 return false;
             }
 
 
             // If the result is not False, it should be True, else probably something is wrong (the expression returned unevaluated)
-            boolean isTrue = Utility.isTrue(aEnvironment, resultPredicate);
+            boolean isTrue = Utility.isTrue(aEnvironment, resultPredicate, aStackTop);
             if (!isTrue) {
                 //TODO this is probably not the right way to generate an error, should we perhaps do a full throw new MathPiperException here?
                 String errorMessage =  "The predicate " +
-                Utility.printMathPiperExpression(iPredicates.get(i), aEnvironment, 60) +
+                Utility.printMathPiperExpression(aStackTop, iPredicates.get(i), aEnvironment, 60) +
                 " evaluated to " +
-                Utility.printMathPiperExpression(resultPredicate, aEnvironment, 60) +
+                Utility.printMathPiperExpression(aStackTop, resultPredicate, aEnvironment, 60) +
                 ".";
 
 
-                if(! isTrue) LispError.throwError(aEnvironment, errorMessage);
+                if(! isTrue) LispError.throwError(aEnvironment, aStackTop, LispError.NON_BOOLEAN_PREDICATE_IN_PATTERN, errorMessage);
             }
         }
         return true;

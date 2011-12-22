@@ -46,7 +46,7 @@ public class Equal_ extends BuiltinFunction
         Cons evaluated2 = getArgument(aEnvironment, aStackTop, 2);
 
         setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment,
-                Utility.equals(aEnvironment, evaluated1, evaluated2)));
+                Utility.equals(aEnvironment, aStackTop, evaluated1, evaluated2)));
     }
 }//end class.
 

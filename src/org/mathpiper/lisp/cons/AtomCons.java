@@ -39,7 +39,7 @@ public class AtomCons extends Cons
 
     }
 
-    public static Cons getInstance(Environment aEnvironment, String aString) throws Exception
+    public static Cons getInstance(Environment aEnvironment, int aStackTop, String aString) throws Exception
     {
         Cons self = null;
         if (Utility.isNumber(aString, true))  // check if aString is a number (int or float)

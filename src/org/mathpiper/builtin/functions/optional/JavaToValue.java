@@ -69,7 +69,7 @@ public class JavaToValue extends BuiltinFunction {
                     Cons cons = listAtomCons;
 
                     for (String javaString : stringArray) {
-                        Cons atomCons = AtomCons.getInstance(aEnvironment, Utility.toMathPiperString(aEnvironment, javaString));
+                        Cons atomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, javaString));
 
                         cons.setCdr(atomCons);
 
@@ -84,12 +84,12 @@ public class JavaToValue extends BuiltinFunction {
                     atomValue = (String) javaObject.getObject().toString().trim();
                 }
 
-                setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, atomValue));
+                setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, atomValue));
 
                 return;
             }
         } else {
-            LispError.raiseError("The argument must be a JavaObject.", aEnvironment);
+            LispError.raiseError("The argument must be a JavaObject.", aStackTop, aEnvironment);
         }
 
 

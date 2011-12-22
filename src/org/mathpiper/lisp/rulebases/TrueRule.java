@@ -34,7 +34,7 @@ class TrueRule extends PredicateRule
     }
     /// Return true, always.
     @Override
-    public boolean matches(Environment aEnvironment, Cons[] aArguments) throws Exception
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception
     {
         return true;
     }

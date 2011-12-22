@@ -49,13 +49,13 @@ public class ApplyFast extends BuiltinFunction
         Cons args = getArgument(aEnvironment, aStackTop, 2);
 
         if(! (args.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        if(((Cons) args.car()) == null) LispError.throwError(aEnvironment, 2);
+        if(((Cons) args.car()) == null) LispError.throwError(aEnvironment, aStackTop, 2);
 
         // Apply a pure string
         if (oper.car() instanceof String)
         {
             
-            Cons result = Utility.applyString(aEnvironment, (String) oper.car(), ((Cons) args.car()).cdr());
+            Cons result = Utility.applyString(aEnvironment, aStackTop, (String) oper.car(), ((Cons) args.car()).cdr());
             setTopOfStack(aEnvironment, aStackTop,result);
         } else
         {   // Apply a pure function {args,body}.
@@ -66,9 +66,9 @@ public class ApplyFast extends BuiltinFunction
             
 
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            Utility.applyPure(oper, args2, aEnvironment);
-            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+            Utility.applyPure(aStackTop, oper, args2, aEnvironment);
+            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
             setTopOfStack(aEnvironment, aStackTop, aResult);
         }

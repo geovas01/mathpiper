@@ -41,7 +41,7 @@ public class StackTrace extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-         aEnvironment.dumpStacks(aEnvironment);
+         aEnvironment.dumpStacks(aEnvironment, aStackTop);
          
          setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
 

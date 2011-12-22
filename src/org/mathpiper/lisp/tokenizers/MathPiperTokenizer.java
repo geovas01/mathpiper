@@ -30,7 +30,7 @@ public class MathPiperTokenizer {
 
     /// NextToken returns a string representing the next token,
     /// or an empty list.
-    public String nextToken(Environment aEnvironment, MathPiperInputStream aInput) throws Exception {
+    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput) throws Exception {
         char streamCharacter;
         int firstPosition = 0; //aInput.position();
 
@@ -70,7 +70,7 @@ public class MathPiperTokenizer {
                 aInput.next(); //consume *
                 while (true) {
                     while (aInput.next() != '*' && !aInput.endOfStream());
-                    if(aInput.endOfStream()) LispError.throwError(aEnvironment, "");
+                    if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.COMMENT_TO_END_OF_FILE, "");
                     if (aInput.peek() == '/') {
                         aInput.next();  // consume /
                         redo = true;
@@ -94,7 +94,7 @@ public class MathPiperTokenizer {
                 while (aInput.peek() != '\"') {
                     if (aInput.peek() == '\\') {
                         aInput.next();
-                        if(aInput.endOfStream()) LispError.throwError(aEnvironment, aInput);
+                        if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.PARSING_INPUT, aInput);
 
                         /*if(! (aInput.peek() == '\"'))
                         {
@@ -104,7 +104,7 @@ public class MathPiperTokenizer {
                     }
                     //TODO FIXME is following append char correct?
                     aResult = aResult + ((char) aInput.next());
-                    if(aInput.endOfStream()) LispError.throwError(aEnvironment, "Last character read was <" + aResult + ">.");
+                    if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.PARSING_INPUT, "Last character read was <" + aResult + ">.");
                 }
                 //TODO FIXME is following append char correct?
                 aResult = aResult + ((char) aInput.next()); // consume the close quote

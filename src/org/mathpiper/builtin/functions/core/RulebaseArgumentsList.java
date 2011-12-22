@@ -49,7 +49,7 @@ public class RulebaseArgumentsList extends BuiltinFunction
         Cons name = getArgument(aEnvironment, aStackTop, 1);
         String orig = (String) name.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String oper = Utility.toNormalString(aEnvironment, orig);
+        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
 
         Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
         if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
@@ -57,9 +57,9 @@ public class RulebaseArgumentsList extends BuiltinFunction
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
-        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity);
+        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity, aStackTop);
         
-        if(userFunc == null) LispError.throwError(aEnvironment, "User function for this arity is not defined.");
+        if(userFunc == null) LispError.throwError(aEnvironment, aStackTop, "User function for this arity is not defined.");
 
         Cons list = userFunc.argList();
         Cons head = aEnvironment.iListAtom.copy(false);

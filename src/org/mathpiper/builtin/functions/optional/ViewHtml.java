@@ -55,17 +55,17 @@ public class ViewHtml extends BuiltinFunction {
         {
             htmlText = (String) argument;
 
-            htmlText = Utility.stripEndQuotesIfPresent(aEnvironment, htmlText);
+            htmlText = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, htmlText);
         }
         else if (argument instanceof BuiltinContainer)
         {
             BuiltinContainer builtinContainer = (BuiltinContainer) argument;
-            if(! builtinContainer.typeName().equals("java.lang.String")) LispError.throwError(aEnvironment, "Argument must be a MathPiper string or a Java String object.");
+            if(! builtinContainer.typeName().equals("java.lang.String")) LispError.throwError(aEnvironment, aStackTop, "Argument must be a MathPiper string or a Java String object.");
             htmlText = (String) builtinContainer.getObject();
         }
         else
         {
-            LispError.raiseError("Argument must be a MathPiper string or a Java String object.", aEnvironment);
+            LispError.raiseError("Argument must be a MathPiper string or a Java String object.", aStackTop, aEnvironment);
         }//end else.
 
         htmlText = FunctionTreePanel.processLatex(htmlText);

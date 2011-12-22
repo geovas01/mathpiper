@@ -106,7 +106,7 @@ public class SynchronousInterpreter implements Interpreter {
 
     public boolean initialize() {
 
-        
+
 
         try {
             switch (loopIndex) {
@@ -116,9 +116,8 @@ public class SynchronousInterpreter implements Interpreter {
 
                     iEnvironment = new Environment(sideEffectsStream);
 
-                    iEnvironment.initializing = true;
-
                     BuiltinFunction.addCoreFunctions(iEnvironment);
+
 
                     iEnvironment.pushLocalFrame(true, "<START>");
 
@@ -183,8 +182,6 @@ public class SynchronousInterpreter implements Interpreter {
                 default:
 
                     //iEnvironment.scripts = null;
-
-                    iEnvironment.initializing = false;
 
                     System.out.print("done. \n");
 
@@ -257,11 +254,11 @@ public class SynchronousInterpreter implements Interpreter {
 
             if (iEnvironment.iPrettyReaderName != null) {
 
-                parsedOrAppliedInputExpression = Utility.applyString(iEnvironment, iEnvironment.iPrettyReaderName, null);
+                parsedOrAppliedInputExpression = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyReaderName, null);
             } else //Else not PrettyReader.
             {
                 Parser infixParser = new MathPiperParser(tokenizer, newInput, iEnvironment, iEnvironment.iPrefixOperators, iEnvironment.iInfixOperators, iEnvironment.iPostfixOperators, iEnvironment.iBodiedOperators);
-                parsedOrAppliedInputExpression = infixParser.parse();
+                parsedOrAppliedInputExpression = infixParser.parse(-1);
             }
 
             return evaluate(parsedOrAppliedInputExpression, notifyEvaluationListeners);
@@ -302,9 +299,9 @@ public class SynchronousInterpreter implements Interpreter {
 
         try {
             int stackTop = iEnvironment.iArgumentStack.getStackTopIndex();
-            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, inputExpression); //*** The main evaluation happens here.
-            Cons result = iEnvironment.iArgumentStack.getElement(stackTop, iEnvironment);
-            iEnvironment.iArgumentStack.popTo(stackTop, iEnvironment);
+            iEnvironment.iLispExpressionEvaluator.evaluate(iEnvironment, 0, inputExpression); //*** The main evaluation happens here.
+            Cons result = iEnvironment.iArgumentStack.getElement(stackTop, 0, iEnvironment);
+            iEnvironment.iArgumentStack.popTo(stackTop, 0, iEnvironment);
 
             evaluationResponse.setResultList(result);
 
@@ -322,7 +319,7 @@ public class SynchronousInterpreter implements Interpreter {
 
             //Set the % symbol to the result of the current evaluation.
             String percent = "%";
-            iEnvironment.setLocalOrGlobalVariable(percent, result, true);
+            iEnvironment.setLocalOrGlobalVariable(-1, percent, result, true);
 
             StringBuffer outputBuffer = new StringBuffer();
             MathPiperOutputStream outputStream = new StringOutputStream(outputBuffer);
@@ -333,25 +330,25 @@ public class SynchronousInterpreter implements Interpreter {
                 Cons applyResult = null;
 
                 if (iEnvironment.iPrettyPrinterName.equals("\"RForm\"")) {
-                    Cons holdAtom = AtomCons.getInstance(iEnvironment, "Hold");
+                    Cons holdAtom = AtomCons.getInstance(iEnvironment, -1, "Hold");
 
                     holdAtom.cdr().setCdr(result);
 
                     Cons resultWithHold = SublistCons.getInstance(iEnvironment, holdAtom);
 
-                    applyResult = Utility.applyString(iEnvironment, iEnvironment.iPrettyPrinterName, resultWithHold);
+                    applyResult = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, resultWithHold);
                 } else {
-                    applyResult = Utility.applyString(iEnvironment, iEnvironment.iPrettyPrinterName, result);
+                    applyResult = Utility.applyString(iEnvironment, -1, iEnvironment.iPrettyPrinterName, result);
                 }
 
                 printer.rememberLastChar(' ');
-                printer.print(applyResult, outputStream, iEnvironment);
+                printer.print(-1, applyResult, outputStream, iEnvironment);
                 resultString = outputBuffer.toString();
 
             } else {
                 //Default printer.
                 printer.rememberLastChar(' ');
-                printer.print(result, outputStream, iEnvironment);
+                printer.print(-1, result, outputStream, iEnvironment);
                 resultString = outputBuffer.toString();
             }
 
@@ -378,11 +375,11 @@ public class SynchronousInterpreter implements Interpreter {
 
                 if (object instanceof String && ((String) object).startsWith("Load")) {
 
-                    Cons loadResult = iEnvironment.getLocalOrGlobalVariable("$LoadResult");
+                    Cons loadResult = iEnvironment.getLocalOrGlobalVariable(-1, "$LoadResult");
                     StringBuffer string_out = new StringBuffer();
                     MathPiperOutputStream output = new StringOutputStream(string_out);
                     printer.rememberLastChar(' ');
-                    printer.print(loadResult, output, iEnvironment);
+                    printer.print(-1, loadResult, output, iEnvironment);
                     String loadResultString = string_out.toString();
                     evaluationResponse.setResult(loadResultString);
                     if (loadResult.type() == Utility.OBJECT) {
@@ -411,7 +408,7 @@ public class SynchronousInterpreter implements Interpreter {
         Evaluator.iTraced = false;
 
         try {
-            iEnvironment.iArgumentStack.reset(iEnvironment);
+            iEnvironment.iArgumentStack.reset(-1, iEnvironment);
         } catch (Exception e) {
             e.printStackTrace();
         }

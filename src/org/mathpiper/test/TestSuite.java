@@ -283,9 +283,9 @@ public class TestSuite {
             while (!endoffile) {
 
                 // Read expression
-                Cons readIn = parser.parse();
+                Cons readIn = parser.parse(aStackTop);
 
-                if(readIn == null) LispError.throwError(aEnvironment, "");
+                if(readIn == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
@@ -305,9 +305,9 @@ public class TestSuite {
                     if (evaluate == true) {
 
                         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, readIn);
-                        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
-                        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
+                        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+                        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
 
                         if (outputStringBuffer.length() > 0) {
                             String sideEffectOutputString = outputStringBuffer.toString();
@@ -339,7 +339,7 @@ public class TestSuite {
         MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 
         MathPiperOutputStream stream = new StringOutputStream(outString);
-        infixprinter.print(aExpression, stream, aEnvironment);
+        infixprinter.print(-1, aExpression, stream, aEnvironment);
         outString.append(";");
 
     }//end method.

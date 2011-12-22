@@ -39,7 +39,7 @@ public class ChartUtility {
 
     public static Map optionsListToJavaMap(Environment aEnvironment, int aStackTop, Cons arguments, Map defaultOptions) throws Exception {
 
-        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, arguments, defaultOptions);
+        Map userOptions = Utility.optionsListToJavaMap(aEnvironment, aStackTop, arguments, defaultOptions);
 
 
         if (userOptions.containsKey("orientation")) {
@@ -61,7 +61,7 @@ public class ChartUtility {
 
         HistogramDataset dataSet = new HistogramDataset();
 
-        if (Utility.isNestedList(aEnvironment, dataList)) {
+        if (Utility.isNestedList(aEnvironment, aStackTop, dataList)) {
 
             List dataSeriesList = new ArrayList();
             dataList = dataList.cdr(); //Strip List tag.
@@ -128,7 +128,7 @@ public class ChartUtility {
 
     public static XYBarDataset listToCumulativeDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Exception {
 
-        if(Utility.isNestedList(aEnvironment, dataList)) LispError.throwError(aEnvironment, "");
+        if(Utility.isNestedList(aEnvironment, aStackTop, dataList)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
 
         int numberOfBins = 15;
@@ -207,7 +207,7 @@ public class ChartUtility {
 
     public static DefaultXYDataset listToXYDataset(Environment aEnvironment, int aStackTop, Cons dataList, Map userOptions) throws Exception {
 
-        if(!Utility.isNestedList(aEnvironment, dataList)) LispError.throwError(aEnvironment, "");
+        if(!Utility.isNestedList(aEnvironment, aStackTop, dataList)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
         DefaultXYDataset dataSet = new DefaultXYDataset();
 
@@ -223,7 +223,7 @@ public class ChartUtility {
                 seriesTitle = (String) userOptions.get("series" + seriesIndex + "Title");
             }
 
-            if(dataXValues.length != dataYValues.length) LispError.throwError(aEnvironment, "");
+            if(dataXValues.length != dataYValues.length) LispError.throwError(aEnvironment, aStackTop, LispError.LIST_LENGTHS_MUST_BE_EQUAL, "");
 
             dataSet.addSeries(seriesTitle, new double[][]{dataXValues, dataYValues});
 
@@ -243,7 +243,7 @@ public class ChartUtility {
         DefaultXYDataset xYDataset = listToXYDataset(aEnvironment, aStackTop, dataList, userOptions);
 
         int seriesCount = xYDataset.getSeriesCount();
-        if(seriesCount == 0) LispError.throwError(aEnvironment, "");
+        if(seriesCount == 0) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
 
         //int seriesItemCount =  xYDataset.getItemCount(0);
 

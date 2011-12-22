@@ -42,17 +42,17 @@ public class PatternContainer extends BuiltinContainer {
 
 
     public boolean matches(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
-        if(iPatternMatcher == null) LispError.lispAssert(aEnvironment);
+        if(iPatternMatcher == null) LispError.lispAssert(aEnvironment, aStackTop);
         boolean result;
         result = iPatternMatcher.matches(aEnvironment, aStackTop, aArguments);
         return result;
     }
 
 
-    public boolean matches(Environment aEnvironment, Cons[] aArguments) throws Exception {
-        if(iPatternMatcher == null) LispError.lispAssert(aEnvironment);
+    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
+        if(iPatternMatcher == null) LispError.lispAssert(aEnvironment, aStackTop);
         boolean result;
-        result = iPatternMatcher.matches(aEnvironment, aArguments);
+        result = iPatternMatcher.matches(aEnvironment, aStackTop, aArguments);
         return result;
     }
 

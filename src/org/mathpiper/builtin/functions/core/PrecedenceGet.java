@@ -56,11 +56,11 @@ public class PrecedenceGet extends BuiltinFunction
                 {  // or maybe it's a bodied function
 
                     op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                    if(op == null) LispError.throwError(aEnvironment, LispError.IS_NOT_INFIX);
+                    if(op == null) LispError.throwError(aEnvironment, aStackTop, LispError.IS_NOT_INFIX);
                 }
             }
         }
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, "" + op.iPrecedence));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iPrecedence));
     }
 }
 

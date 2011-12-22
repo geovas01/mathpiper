@@ -42,7 +42,7 @@ public class LocalSymbolSubstitute implements Substitute {
     }
 
 
-    public Cons matches(Environment aEnvironment, Cons aElement) throws Exception {
+    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement) throws Exception {
 
         if (!(aElement.car() instanceof String)) {
             return null;
@@ -53,7 +53,7 @@ public class LocalSymbolSubstitute implements Substitute {
         int i;
         for (i = 0; i < iNumberOfNames; i++) {
             if (name.equals(iOriginalNames[i])) {
-                return AtomCons.getInstance(iEnvironment, iNewNames[i]);
+                return AtomCons.getInstance(iEnvironment, aStackTop, iNewNames[i]);
             }
         }
         return null;

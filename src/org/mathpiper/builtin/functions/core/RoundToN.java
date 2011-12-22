@@ -84,7 +84,7 @@ public class RoundToN extends BuiltinFunction
 
 
 
-                Cons complexAtomCons = AtomCons.getInstance(aEnvironment, "Complex");
+                Cons complexAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "Complex");
 
                 Cons realNumberCons = new NumberCons(realPart);
 
@@ -105,7 +105,7 @@ public class RoundToN extends BuiltinFunction
 
         }//end else.
 
-        LispError.raiseError("The first argument must be a number.", aEnvironment);
+        LispError.raiseError("The first argument must be a number.", aStackTop, aEnvironment);
 
     }//end method.
 

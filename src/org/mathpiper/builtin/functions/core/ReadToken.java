@@ -43,14 +43,14 @@ public class ReadToken extends BuiltinFunction
     {
         MathPiperTokenizer tok = aEnvironment.iCurrentTokenizer;
         String result;
-        result = tok.nextToken(aEnvironment, aEnvironment.getCurrentInput());
+        result = tok.nextToken(aEnvironment, aStackTop, aEnvironment.getCurrentInput());
 
         if (result.length() == 0)
         {
             setTopOfStack(aEnvironment, aStackTop, aEnvironment.iEndOfFileAtom.copy(false));
             return;
         }
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, result));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, result));
     }
 }
 

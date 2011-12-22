@@ -52,7 +52,7 @@ public class FastArcSin extends BuiltinFunction
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The argument must have a value between -1 and 1.", aEnvironment);
+            LispError.raiseError("The argument must have a value between -1 and 1.", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.iPrecision);

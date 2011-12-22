@@ -35,7 +35,7 @@ public class ListedRulebase extends SingleArityRulebase {
 
 
     @Override
-    public void evaluate(Environment aEnvironment, Cons aArguments) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
 
         Cons newArgs = null;
 
@@ -72,7 +72,7 @@ public class ListedRulebase extends SingleArityRulebase {
             ptr = nextCons;
             i++;
             consTraverser = consTraverser.cdr();
-            if(consTraverser != null) LispError.lispAssert(aEnvironment);
+            if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackTop);
         } else {
 
             Cons head = aEnvironment.iListAtom.copy(false);
@@ -81,7 +81,7 @@ public class ListedRulebase extends SingleArityRulebase {
             ptr.setCdr(nextCons);
             ptr = nextCons;
         }
-        super.evaluate(aEnvironment, newArgs);
+        super.evaluate(aEnvironment, aStackTop, newArgs);
         return ;
     }
 

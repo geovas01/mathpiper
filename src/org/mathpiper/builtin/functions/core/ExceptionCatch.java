@@ -44,7 +44,7 @@ public class ExceptionCatch extends BuiltinFunction
         try
         {
             //Return the first argument.
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getArgument(aEnvironment, aStackTop, 1));
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
         } catch (Throwable exception)
         {   //Return the second argument.
             //e.printStackTrace();
@@ -52,9 +52,9 @@ public class ExceptionCatch extends BuiltinFunction
             aEnvironment.iException = exception;
             
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getArgument(aEnvironment, aStackTop, 2));
-            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
+            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
             setTopOfStack(aEnvironment, aStackTop, aResult);
 
             aEnvironment.iException = null;

@@ -105,7 +105,6 @@ public final class Environment {
     public Scripts scripts = new Scripts();
     public static boolean haltEvaluation = false;
     public boolean saveDebugInformation = false;
-    public boolean initializing = true;
 
 
 
@@ -159,8 +158,8 @@ public final class Environment {
         iPrecision = aPrecision;    // getPrecision in decimal digits
     }
 
-    public void setLocalOrGlobalVariable(String aVariable, Cons aValue, boolean aGlobalLazyVariable) throws Exception {
-        LocalVariable localVariable = getLocalVariable(aVariable);
+    public void setLocalOrGlobalVariable(int aStackTop, String aVariable, Cons aValue, boolean aGlobalLazyVariable) throws Exception {
+        LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
         if (localVariable != null) {
             localVariable.iValue = aValue;
             return;
@@ -172,9 +171,9 @@ public final class Environment {
         }
     }
 
-    public Cons getLocalOrGlobalVariable(String aVariable) throws Exception {
+    public Cons getLocalOrGlobalVariable(int aStackTop, String aVariable) throws Exception {
         Cons aResult;
-        LocalVariable localVariable = getLocalVariable(aVariable);
+        LocalVariable localVariable = getLocalVariable(aStackTop, aVariable);
         if (localVariable != null) {
             aResult = localVariable.iValue;
             return aResult;
@@ -183,9 +182,9 @@ public final class Environment {
         if (globalVariable != null) {
             if (globalVariable.iEvalBeforeReturn) {
                 int stackTop = this.iArgumentStack.getStackTopIndex();
-                iLispExpressionEvaluator.evaluate(this, globalVariable.iValue);
-                aResult = iArgumentStack.getElement(stackTop, this);
-                iArgumentStack.popTo(stackTop, this);
+                iLispExpressionEvaluator.evaluate(this, aStackTop, globalVariable.iValue);
+                aResult = iArgumentStack.getElement(stackTop, aStackTop, this);
+                iArgumentStack.popTo(stackTop, aStackTop, this);
                 globalVariable.iValue = aResult;
                 globalVariable.iEvalBeforeReturn = false;
                 return aResult;
@@ -199,8 +198,8 @@ public final class Environment {
     }
 
 
-    public LocalVariable getLocalVariable(String aVariable) throws Exception {
-        if(iLocalVariablesFrame == null) LispError.throwError(this, "");
+    public LocalVariable getLocalVariable(int aStackTop, String aVariable) throws Exception {
+        if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "");
         //    check(iLocalsList.iFirst != null,INVALID_STACK);
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
 
@@ -216,7 +215,7 @@ public final class Environment {
 
 
     public void unbindAllLocalVariables(int aStackTop) throws Exception{
-        if(iLocalVariablesFrame == null) LispError.throwError(this, "");
+        if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "");
 
         LocalVariable localVariable = iLocalVariablesFrame.iFirst;
 
@@ -228,7 +227,7 @@ public final class Environment {
     }//end method.
 
 
-    public String getLocalVariables() throws Exception {
+    public String getLocalVariables(int aStackTop) throws Exception {
         if(iLocalVariablesFrame == null) 
         {
             //LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "", "INTERNAL"); todo:tk:this error was probably introduced within a month or two of 10/17/2011.
@@ -268,9 +267,9 @@ public final class Environment {
     }//end method.
 
 
-    public String dumpLocalVariablesFrame() throws Exception {
+    public String dumpLocalVariablesFrame(int aStackTop) throws Exception {
 
-        if(iLocalVariablesFrame == null) LispError.throwError(this, "");
+        if(iLocalVariablesFrame == null) LispError.throwError(this, aStackTop, LispError.INVALID_STACK, "");
 
         LocalVariableFrame localVariableFrame = iLocalVariablesFrame;
 
@@ -318,7 +317,7 @@ public final class Environment {
 
                 Cons value = localVariable.iValue;
 
-                String valueString = Utility.printMathPiperExpression(value, this, -1);
+                String valueString = Utility.printMathPiperExpression(aStackTop, value, this, -1);
 
                 stringBuilder.append(valueString);
 
@@ -409,13 +408,13 @@ public final class Environment {
 
 
     //Dumps the built-in and user stacks.
-    public String dumpStacks(Environment aEnvironment) throws Exception
+    public String dumpStacks(Environment aEnvironment, int aStackTop) throws Exception
     {
-         String dump = aEnvironment.iArgumentStack.dump(aEnvironment) +
+         String dump = aEnvironment.iArgumentStack.dump(aStackTop, aEnvironment) +
 
          "****** THE PROBLEM IS EITHER IMMEDIATELY ABOVE THIS LINE OR IMMEDIATELY BELOW THIS LINE ******" +
 
-         aEnvironment.dumpLocalVariablesFrame();
+         aEnvironment.dumpLocalVariablesFrame(aStackTop);
 
          return dump;
 
@@ -447,7 +446,7 @@ public final class Environment {
         else
         {
             //Unbind local variable.
-            LocalVariable localVariable = getLocalVariable(aVariableName);
+            LocalVariable localVariable = getLocalVariable(aStackTop, aVariableName);
             if (localVariable != null) {
                 localVariable.iValue = null;
                 return;
@@ -458,8 +457,8 @@ public final class Environment {
 
     }
 
-    public void newLocalVariable(String aVariable, Cons aValue) throws Exception {
-        if(iLocalVariablesFrame == null) LispError.lispAssert(this);
+    public void newLocalVariable(String aVariable, Cons aValue, int aStackTop) throws Exception {
+        if(iLocalVariablesFrame == null) LispError.lispAssert(this, aStackTop);
         iLocalVariablesFrame.add(new LocalVariable(this, aVariable, aValue));
     }
 
@@ -473,8 +472,8 @@ public final class Environment {
         }
     }
 
-    public void popLocalFrame() throws Exception {
-        if(iLocalVariablesFrame == null) LispError.lispAssert(this);
+    public void popLocalFrame(int aStackTop) throws Exception {
+        if(iLocalVariablesFrame == null) LispError.lispAssert(this, aStackTop);
         LocalVariableFrame nextLocalVariableFrame = iLocalVariablesFrame.iNext;
         iLocalVariablesFrame.delete();
         iLocalVariablesFrame = nextLocalVariableFrame;
@@ -484,47 +483,47 @@ public final class Environment {
         return iLastUniqueId++;
     }
 
-    public void holdArgument(String aOperator, String aVariable, Environment aEnvironment) throws Exception {
+    public void holdArgument(int aStackTop, String aOperator, String aVariable, Environment aEnvironment) throws Exception {
         MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
-        if(multipleArityUserFunc == null) LispError.throwError(this, aOperator);
-        multipleArityUserFunc.holdArgument(aVariable, aEnvironment);
+        if(multipleArityUserFunc == null) LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT, aOperator);
+        multipleArityUserFunc.holdArgument(aVariable, aStackTop, aEnvironment);
     }
 
-    public void retractRule(String aOperator, int aArity, Environment aEnvironment) throws Exception {
+    public void retractRule(String aOperator, int aArity, int aStackTop, Environment aEnvironment) throws Exception {
         MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
 
         if (multipleArityUserFunc != null) {
-            multipleArityUserFunc.deleteRulebaseEntry(aArity, aEnvironment);
+            multipleArityUserFunc.deleteRulebaseEntry(aArity, aStackTop, aEnvironment);
         }
     }
 
-    public SingleArityRulebase getRulebase(Cons aArguments) throws Exception {
+    public SingleArityRulebase getRulebase(int aStackTop, Cons aArguments) throws Exception {
         MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases.lookUp( (String) aArguments.car());
         if (multipleArityUserFunc != null) {
-            int arity = Utility.listLength(this, aArguments) - 1;
-            return multipleArityUserFunc.getUserFunction(arity, this);
+            int arity = Utility.listLength(this, aStackTop, aArguments) - 1;
+            return multipleArityUserFunc.getUserFunction(arity, aStackTop, this);
         }
         return null;
     }
 
-    public SingleArityRulebase getRulebase(String aName, int aArity) throws Exception {
+    public SingleArityRulebase getRulebase(String aName, int aArity, int aStackTop) throws Exception {
         MultipleArityRulebase multipleArityUserFunc = (MultipleArityRulebase) iUserRulebases.lookUp(aName);
         if (multipleArityUserFunc != null) {
-            return multipleArityUserFunc.getUserFunction(aArity, this);
+            return multipleArityUserFunc.getUserFunction(aArity, aStackTop, this);
         }
         return null;
     }
 
-    public void unfenceRule(String aOperator, int aArity) throws Exception {
+    public void unfenceRule(int aStackTop, String aOperator, int aArity) throws Exception {
         MultipleArityRulebase multiUserFunc = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
 
-        if(multiUserFunc == null) LispError.throwError(this, aOperator);
-        SingleArityRulebase userFunc = multiUserFunc.getUserFunction(aArity, this);
-        if(userFunc == null) LispError.throwError(this, aOperator);
+        if(multiUserFunc == null) LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT, aOperator);
+        SingleArityRulebase userFunc = multiUserFunc.getUserFunction(aArity, aStackTop, this);
+        if(userFunc == null) LispError.throwError(this, aStackTop, LispError.INVALID_ARGUMENT, aOperator);
         userFunc.unFence();
     }
 
-    public MultipleArityRulebase getMultipleArityRulebase(String aOperator, boolean create) throws Exception {
+    public MultipleArityRulebase getMultipleArityRulebase(int aStackTop, String aOperator, boolean create) throws Exception {
         // Find existing multiuser func.  Todo:tk:a user function name is added to the list even if a non-existing function
         // is being executed or looked for by FindFunction();
         MultipleArityRulebase multipleArityUserRulebase = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
@@ -541,7 +540,7 @@ public final class Environment {
 
     public void defineRulebase(int aStackTop, String aOperator, Cons aParameters, boolean aListed) throws Exception {
 
-        MultipleArityRulebase multipleArityUserFunction = getMultipleArityRulebase(aOperator, true);
+        MultipleArityRulebase multipleArityUserFunction = getMultipleArityRulebase(aStackTop, aOperator, true);
 
         // add an operator with this arity to the multiuserfunc.
         SingleArityRulebase newBranchingRulebase;
@@ -550,20 +549,20 @@ public final class Environment {
         } else {
             newBranchingRulebase = new SingleArityRulebase(this, aStackTop, aParameters, aOperator);
         }
-        multipleArityUserFunction.addRulebaseEntry(this, newBranchingRulebase);
+        multipleArityUserFunction.addRulebaseEntry(this, aStackTop, newBranchingRulebase);
     }
 
     public void defineRule(int aStackTop, String aOperator, int aArity, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // Find existing multiuser rule.
         MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
-        if(multipleArityRulebase == null) LispError.throwError(this, aOperator);
+        if(multipleArityRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator);
 
         // Get the specific user function with the right arity
-        SingleArityRulebase rulebase = (SingleArityRulebase) multipleArityRulebase.getUserFunction(aArity, this);
-        if(rulebase == null) LispError.throwError(this, aOperator);
+        SingleArityRulebase rulebase = (SingleArityRulebase) multipleArityRulebase.getUserFunction(aArity, aStackTop, this);
+        if(rulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator);
 
         // Declare a new evaluation rule
-        if (Utility.isTrue(this, aPredicate)) {
+        if (Utility.isTrue(this, aPredicate, aStackTop)) {
             //        printf("FastPredicate on %s\n",aOperator->String());
             rulebase.defineAlwaysTrueRule(aStackTop, aPrecedence, aBody);
         } else {
@@ -573,7 +572,7 @@ public final class Environment {
 
     public void defineMacroRulebase(int aStackTop, String aFunctionName, Cons aParameters, boolean aListed) throws Exception {
 
-        MultipleArityRulebase multipleArityRulebase = getMultipleArityRulebase(aFunctionName, true);
+        MultipleArityRulebase multipleArityRulebase = getMultipleArityRulebase(aStackTop, aFunctionName, true);
 
         MacroRulebase newMacroRulebase;
 
@@ -582,19 +581,19 @@ public final class Environment {
         } else {
             newMacroRulebase = new MacroRulebase(this, aStackTop, aParameters, aFunctionName);
         }
-        multipleArityRulebase.addRulebaseEntry(this, newMacroRulebase);
+        multipleArityRulebase.addRulebaseEntry(this, aStackTop, newMacroRulebase);
     }
 
     public void defineRulePattern(int aStackTop, String aOperator, int aArity, int aPrecedence, Cons aPredicate, Cons aBody) throws Exception {
         // Find existing multiuser rulebase.
         MultipleArityRulebase multipleArityRulebase = (MultipleArityRulebase) iUserRulebases.lookUp(aOperator);
-        if(multipleArityRulebase == null) LispError.throwError(this, aOperator);
+        if(multipleArityRulebase == null) LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator);
 
         // Get the specific user function with the right arity
-        SingleArityRulebase rulebase = multipleArityRulebase.getUserFunction(aArity, this);
+        SingleArityRulebase rulebase = multipleArityRulebase.getUserFunction(aArity, aStackTop, this);
         if(rulebase == null) 
         {
-            LispError.throwError(this, aOperator);
+            LispError.throwError(this, aStackTop, LispError.CREATING_RULE, aOperator);
         }
 
         // Declare a new evaluation rule
@@ -628,7 +627,7 @@ public final class Environment {
 
     public void resetArgumentStack(int aStackTop) throws Exception
     {
-        this.iArgumentStack.reset(this);
+        this.iArgumentStack.reset(aStackTop, this);
     }//end method.
 
 

@@ -52,7 +52,7 @@ public class FastTan extends BuiltinFunction
 
         if(Double.isNaN(result))
         {
-            LispError.raiseError("The result is NaN.", aEnvironment);
+            LispError.raiseError("The result is NaN.", aStackTop, aEnvironment);
         }
 
         BigNumber z = new BigNumber(aEnvironment.iPrecision);
