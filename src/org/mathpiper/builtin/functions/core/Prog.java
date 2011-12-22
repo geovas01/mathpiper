@@ -40,7 +40,7 @@ public class Prog extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
         // Allow accessing previous locals.
         aEnvironment.pushLocalFrame(false, "Prog");
 
@@ -51,23 +51,23 @@ public class Prog extends BuiltinFunction
             Cons result = Utility.getTrueAtom(aEnvironment);
 
             // Evaluate args one by one.
-            Cons consTraverser = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+            Cons consTraverser = (Cons) getArgument(aEnvironment, aStackBase, 1).car();
             consTraverser =  consTraverser.cdr();
             while (consTraverser != null) {
-                int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
-                result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-                aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+                int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, consTraverser);
+                result = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+                aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
                 
                 consTraverser = consTraverser.cdr();
             }
 
-            setTopOfStack(aEnvironment, aStackTop, result);
+            setTopOfStack(aEnvironment, aStackBase, result);
 
         } catch (Exception e) {
             throw e;
         } finally {
-            aEnvironment.popLocalFrame(aStackTop);
+            aEnvironment.popLocalFrame(aStackBase);
         }
     }
 

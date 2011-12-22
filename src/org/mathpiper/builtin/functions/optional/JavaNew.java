@@ -40,11 +40,11 @@ public class JavaNew extends BuiltinFunction {
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
-        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
+        if (getArgument(aEnvironment, aStackBase, 1).car() instanceof Cons) {
 
-            Cons subList = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgument(aEnvironment, aStackBase, 1).car();
             Cons  consTraverser = subList;
 
             //Skip past List type.
@@ -56,7 +56,7 @@ public class JavaNew extends BuiltinFunction {
 
                 String fullyQualifiedClassName = (String) argumentCons.car();
                 //Strip leading and trailing quotes.
-                fullyQualifiedClassName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, fullyQualifiedClassName);
+                fullyQualifiedClassName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, fullyQualifiedClassName);
 
                 consTraverser = consTraverser.cdr();
 
@@ -81,7 +81,7 @@ public class JavaNew extends BuiltinFunction {
 
 
                         if (argument instanceof String) {
-                            argument = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) argument);
+                            argument = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, (String) argument);
                         }
 
                         if (argument instanceof JavaObject) {
@@ -105,10 +105,10 @@ public class JavaNew extends BuiltinFunction {
                 //System.out.println("XXXXXXXXXXX: " + response);
 
                 if (response == null) {
-                    setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+                    setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
                     return;
                 } else {
-                    setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+                    setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, response));
                     return;
                 }//end if/else.
 
@@ -118,7 +118,7 @@ public class JavaNew extends BuiltinFunction {
 
         }//end if.
 
-        setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
 
     }//end method.
 }

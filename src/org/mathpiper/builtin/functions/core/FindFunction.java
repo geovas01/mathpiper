@@ -43,19 +43,19 @@ public class FindFunction extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
+        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackBase, LispError.SECURITY_BREACH);
 
-        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackBase, 1);
 
         // Get file name
-        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
         String orig =  (String) evaluated.car();
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        String oper = Utility.toNormalString(aEnvironment, aStackBase, orig);
 
-        MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackTop, oper, false);
+        MultipleArityRulebase multiUserFunc = aEnvironment.getMultipleArityRulebase(aStackBase, oper, false);
 
         String fileLocation =  "\"\"" ;
         
@@ -64,7 +64,7 @@ public class FindFunction extends BuiltinFunction
             /*DefFile def = multiUserFunc.iIsFunctionRead;
             if (def != null)
             {
-                getTopOfStackPointer(aEnvironment, aStackTop).setCons(AtomCons.getInstance(aEnvironment, def.iFileName));
+                getTopOfStackPointer(aEnvironment, aStackBase).setCons(AtomCons.getInstance(aEnvironment, def.iFileName));
                 return;
             }*/
             if(multiUserFunc.iFileLocation != null)
@@ -78,7 +78,7 @@ public class FindFunction extends BuiltinFunction
 
         }//end if
 
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, fileLocation));
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, fileLocation));
     }//end method
 
 }//end class.

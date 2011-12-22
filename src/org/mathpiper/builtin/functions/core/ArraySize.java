@@ -43,15 +43,15 @@ public class ArraySize extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackBase, 1);
 
         BuiltinContainer gen = (BuiltinContainer) evaluated.car();
-        if(gen == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(gen == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if(! gen.typeName().equals("\"Array\"")) LispError.checkArgument(aEnvironment, aStackBase, 1);
         int size = ((Array) gen).size();
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + size));
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, "" + size));
     }
 }//end class.
 

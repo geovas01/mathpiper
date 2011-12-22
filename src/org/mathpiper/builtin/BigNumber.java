@@ -515,9 +515,9 @@ public class BigNumber {
      * @param aZ
      * @throws java.lang.Exception
      */
-    public void mod(Environment aEnvironment,int aStackTop, BigNumber aY, BigNumber aZ) throws Exception {
-        if(aY.javaBigInteger == null) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_AN_INTEGER, aY);
-        if(aZ.javaBigInteger == null) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_AN_INTEGER, aZ);
+    public void mod(Environment aEnvironment,int aStackBase, BigNumber aY, BigNumber aZ) throws Exception {
+        if(aY.javaBigInteger == null) LispError.throwError(aEnvironment, aStackBase, LispError.NOT_AN_INTEGER, aY);
+        if(aZ.javaBigInteger == null) LispError.throwError(aEnvironment, aStackBase, LispError.NOT_AN_INTEGER, aZ);
         //TODO fixme    LispError.check(!Zero?(aZ),LispError.INVALID_ARGUMENT);
         javaBigInteger = aY.javaBigInteger.mod(aZ.javaBigInteger);
         javaBigDecimal = null;
@@ -529,7 +529,7 @@ public class BigNumber {
      * @param aOutput
      * @throws java.lang.Exception
      */
-    public void dumpNumber(Environment aEnvironment, int aStackTop, MathPiperOutputStream aOutput) throws Exception {
+    public void dumpNumber(Environment aEnvironment, int aStackBase, MathPiperOutputStream aOutput) throws Exception {
         if (javaBigInteger != null) {
             aOutput.write("BigInteger: " + javaBigInteger.toString() + "\n");
         } else {
@@ -539,7 +539,7 @@ public class BigNumber {
     }//end method.
 
 
-    public Cons dumpNumber(Environment aEnvironment, int aStackTop) throws Exception
+    public Cons dumpNumber(Environment aEnvironment, int aStackBase) throws Exception
     {
         Cons resultSublistCons = null;
 
@@ -549,9 +549,9 @@ public class BigNumber {
             //Create type association list.
             Cons typeListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons typeAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
+            Cons typeAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"type\"");
 
-            Cons typeValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"BigInteger\"");
+            Cons typeValueAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"BigInteger\"");
 
             typeListAtomCons.setCdr(typeAtomCons);
 
@@ -563,9 +563,9 @@ public class BigNumber {
             //Create value association list.
             Cons valueListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons valueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"value\"");
+            Cons valueAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"value\"");
 
-            Cons valueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, javaBigInteger.toString());
+            Cons valueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, javaBigInteger.toString());
 
             valueListAtomCons.setCdr(valueAtomCons);
 
@@ -588,9 +588,9 @@ public class BigNumber {
             //Create type association list.
             Cons typeListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons typeAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
+            Cons typeAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"type\"");
 
-            Cons typeValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"BigDecimal\"");
+            Cons typeValueAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"BigDecimal\"");
 
             typeListAtomCons.setCdr(typeAtomCons);
 
@@ -602,9 +602,9 @@ public class BigNumber {
             //Create value association list.
             Cons valueListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons valueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"value\"");
+            Cons valueAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"value\"");
 
-            Cons valueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, javaBigDecimal.toPlainString());
+            Cons valueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, javaBigDecimal.toPlainString());
 
             valueListAtomCons.setCdr(valueAtomCons);
 
@@ -616,7 +616,7 @@ public class BigNumber {
             //Create precision association list.
             Cons precisionListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons precisionAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"precision\"");
+            Cons precisionAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"precision\"");
 
             Cons precisionValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.precision(), this.iPrecision, 10));
 
@@ -630,7 +630,7 @@ public class BigNumber {
             //Create unscaled value association list.
             Cons unscaledValueListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons unscaledValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"unscaledValue\"");
+            Cons unscaledValueAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"unscaledValue\"");
 
             Cons unscaledValueValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.unscaledValue(), this.iPrecision, 10));
 
@@ -644,7 +644,7 @@ public class BigNumber {
             //Create scale association list.
             Cons scaleListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons scaleAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"scale\"");
+            Cons scaleAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"scale\"");
 
             Cons scaleValueAtomCons = new NumberCons(new BigNumber("" + javaBigDecimal.scale(), this.iPrecision, 10));
 
@@ -762,8 +762,8 @@ public class BigNumber {
      * @param aNrToShift
      * @throws java.lang.Exception
      */
-    public void shiftLeft(BigNumber aX, int aNrToShift, Environment aEnvironment, int aStackTop) throws Exception {
-        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public void shiftLeft(BigNumber aX, int aNrToShift, Environment aEnvironment, int aStackBase) throws Exception {
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
         javaBigDecimal = null;
         javaBigInteger = aX.javaBigInteger.shiftLeft(aNrToShift);
     }
@@ -774,8 +774,8 @@ public class BigNumber {
      * @param aNrToShift
      * @throws java.lang.Exception
      */
-    public void shiftRight(BigNumber aX, int aNrToShift, Environment aEnvironment, int aStackTop) throws Exception {
-        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public void shiftRight(BigNumber aX, int aNrToShift, Environment aEnvironment, int aStackBase) throws Exception {
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
         javaBigDecimal = null;
         javaBigInteger = aX.javaBigInteger.shiftRight(aNrToShift);
     }
@@ -787,9 +787,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void gcd(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
-        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
-        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public void gcd(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackBase) throws Exception {
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
+        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
         javaBigInteger = aX.javaBigInteger.gcd(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -801,9 +801,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void bitAnd(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
-        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
-        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public void bitAnd(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackBase) throws Exception {
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
+        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
         javaBigInteger = aX.javaBigInteger.and(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -814,9 +814,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void bitOr(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
-        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
-        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public void bitOr(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackBase) throws Exception {
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
+        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
         javaBigInteger = aX.javaBigInteger.or(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -828,9 +828,9 @@ public class BigNumber {
      * @param aY
      * @throws java.lang.Exception
      */
-    public void bitXor(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackTop) throws Exception {
-        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
-        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public void bitXor(BigNumber aX, BigNumber aY, Environment aEnvironment, int aStackBase) throws Exception {
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
+        if(aY.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
         javaBigInteger = aX.javaBigInteger.xor(aY.javaBigInteger);
         javaBigDecimal = null;
     }
@@ -841,8 +841,8 @@ public class BigNumber {
      * @param aX
      * @throws java.lang.Exception
      */
-    void bitNot(BigNumber aX, Environment aEnvironment, int aStackTop) throws Exception {
-        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackTop);
+    void bitNot(BigNumber aX, Environment aEnvironment, int aStackBase) throws Exception {
+        if(aX.javaBigInteger == null) LispError.lispAssert(aEnvironment, aStackBase);
         javaBigInteger = aX.javaBigInteger.not();
         javaBigDecimal = null;
     }

@@ -42,25 +42,25 @@ public class Concatenate extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         Cons all = aEnvironment.iListAtom.copy(false);
 
         //ConsTraverser tail = new ConsTraverser(aEnvironment, all);
-        //tail.goNext(aStackTop);
+        //tail.goNext(aStackBase);
 
         Cons tail = all;
 
         int arg = 1;
 
-        Cons consTraverser =  (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+        Cons consTraverser =  (Cons) getArgument(aEnvironment, aStackBase, 1).car();
         consTraverser = consTraverser.cdr();
 
         while (consTraverser != null)
         {
-            LispError.checkIsList(aEnvironment, aStackTop, consTraverser, arg);
+            LispError.checkIsList(aEnvironment, aStackBase, consTraverser, arg);
 
-            Cons result = Utility.flatCopy(aEnvironment, aStackTop, ((Cons) consTraverser.car()).cdr());
+            Cons result = Utility.flatCopy(aEnvironment, aStackBase, ((Cons) consTraverser.car()).cdr());
 
            tail.setCdr(result);
 
@@ -73,7 +73,7 @@ public class Concatenate extends BuiltinFunction
 
             arg++;
         }
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,all));
+        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment,all));
     }
 }
 

@@ -38,9 +38,9 @@ public class Bind extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, false, false);
+        Utility.setVariableOrConstant(aEnvironment, aStackBase, false, false, false);
     }
 }
 

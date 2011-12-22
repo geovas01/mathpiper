@@ -43,25 +43,25 @@ public class ArrayCreate extends BuiltinFunction
     }
 
     
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons sizearg = getArgument(aEnvironment, aStackTop, 1);
+        Cons sizearg = getArgument(aEnvironment, aStackBase, 1);
 
-        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
         int size = Integer.parseInt( (String) sizearg.car(), 10);
 
-        Cons initarg = getArgument(aEnvironment, aStackTop, 2);
+        Cons initarg = getArgument(aEnvironment, aStackBase, 2);
 
         Array array = new Array(aEnvironment, size);
         Cons initializeCons = initarg;
 
         for(int index = 1; index <= size; index++)
         {
-            array.setElement(index, initializeCons, aStackTop, aEnvironment);
+            array.setElement(index, initializeCons, aStackBase, aEnvironment);
         }
-        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, array));
+        setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, array));
     }
 }//end class.
 

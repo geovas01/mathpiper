@@ -63,25 +63,25 @@ public class LineChart extends BuiltinFunction {
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
-        Cons arguments = getArgument(aEnvironment, aStackTop, 1);
+        Cons arguments = getArgument(aEnvironment, aStackBase, 1);
 
-        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.INVALID_ARGUMENT, "");
+        if(! Utility.isSublist(arguments)) LispError.throwError(aEnvironment, aStackBase, LispError.INVALID_ARGUMENT, "");
 
         arguments = (Cons) arguments.car(); //Go to sub list.
 
         arguments = arguments.cdr(); //Strip List tag.
 
-        if(! Utility.isList(arguments)) LispError.throwError(aEnvironment, aStackTop, LispError.NOT_A_LIST, "");
+        if(! Utility.isList(arguments)) LispError.throwError(aEnvironment, aStackBase, LispError.NOT_A_LIST, "");
 
         Cons dataList = (Cons) arguments.car(); //Grab the first member of the list.
 
         Cons options = arguments.cdr();
 
-        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, aStackTop, options, defaultOptions);
+        Map userOptions = ChartUtility.optionsListToJavaMap(aEnvironment, aStackBase, options, defaultOptions);
 
-        IntervalXYDataset dataSet = ChartUtility.listToIntervalXYDataset(aEnvironment, aStackTop, dataList, userOptions);
+        IntervalXYDataset dataSet = ChartUtility.listToIntervalXYDataset(aEnvironment, aStackBase, dataList, userOptions);
 
 
         JFreeChart chart = ChartFactory.createXYLineChart(
@@ -112,10 +112,10 @@ public class LineChart extends BuiltinFunction {
 
 
         if (chart == null) {
-            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+            setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
             return;
         } else {
-            setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, new JavaObject(new ChartPanel(chart))));
+            setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, new JavaObject(new ChartPanel(chart))));
             return;
         }//end if/else.
 

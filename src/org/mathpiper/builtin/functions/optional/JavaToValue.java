@@ -39,9 +39,9 @@ public class JavaToValue extends BuiltinFunction {
     }//end method.
 
     //private StandardFileOutputStream out = new StandardFileOutputStream(System.out);
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
-        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackBase, 1).car();
 
         if (argument instanceof JavaObject) {
             String atomValue = "";
@@ -69,14 +69,14 @@ public class JavaToValue extends BuiltinFunction {
                     Cons cons = listAtomCons;
 
                     for (String javaString : stringArray) {
-                        Cons atomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, javaString));
+                        Cons atomCons = AtomCons.getInstance(aEnvironment, aStackBase, Utility.toMathPiperString(aEnvironment, aStackBase, javaString));
 
                         cons.setCdr(atomCons);
 
                         cons = cons.cdr();
                     }//end for.
 
-                    setTopOfStack(aEnvironment, aStackTop, sublistCons);
+                    setTopOfStack(aEnvironment, aStackBase, sublistCons);
 
                     return;
 
@@ -84,12 +84,12 @@ public class JavaToValue extends BuiltinFunction {
                     atomValue = (String) javaObject.getObject().toString().trim();
                 }
 
-                setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, atomValue));
+                setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, atomValue));
 
                 return;
             }
         } else {
-            LispError.raiseError("The argument must be a JavaObject.", aStackTop, aEnvironment);
+            LispError.raiseError("The argument must be a JavaObject.", aStackBase, aEnvironment);
         }
 
 

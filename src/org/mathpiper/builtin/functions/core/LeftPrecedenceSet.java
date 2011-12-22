@@ -41,24 +41,24 @@ public class LeftPrecedenceSet extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         // Get operator
-        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String orig =  (String) getArgument(aEnvironment, aStackTop, 1).car();
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(getArgument(aEnvironment, aStackBase, 1) == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        String orig =  (String) getArgument(aEnvironment, aStackBase, 1).car();
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
-        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
-        Cons index = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 2));
+        Cons index = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
-        if(index == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(index == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackBase, 2);
         int ind = Integer.parseInt( (String) index.car(), 10);
 
-        aEnvironment.iInfixOperators.setLeftPrecedence(aStackTop, Utility.getSymbolName(aEnvironment, orig), ind);
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        aEnvironment.iInfixOperators.setLeftPrecedence(aStackBase, Utility.getSymbolName(aEnvironment, orig), ind);
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }
 

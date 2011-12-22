@@ -41,11 +41,11 @@ public class DestructiveReverse extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         Cons reversed = aEnvironment.iListAtom.copy(false);
-        reversed.setCdr(Utility.reverseList(aEnvironment, ((Cons) getArgument(aEnvironment, aStackTop, 1).car()).cdr()));
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,reversed));
+        reversed.setCdr(Utility.reverseList(aEnvironment, ((Cons) getArgument(aEnvironment, aStackBase, 1).car()).cdr()));
+        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment,reversed));
     }
 }
 

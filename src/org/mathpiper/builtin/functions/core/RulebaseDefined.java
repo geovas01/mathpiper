@@ -43,21 +43,21 @@ public class RulebaseDefined extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons name = getArgument(aEnvironment, aStackTop, 1);
+        Cons name = getArgument(aEnvironment, aStackBase, 1);
         String orig = (String) name.car();
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        String oper = Utility.toNormalString(aEnvironment, aStackBase, orig);
 
-        Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
-        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        Cons sizearg = getArgument(aEnvironment, aStackBase, 2);
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackBase, 2);
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
-        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity, aStackTop);
-        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, userFunc != null));
+        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity, aStackBase);
+        setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment, userFunc != null));
     }
 }
 

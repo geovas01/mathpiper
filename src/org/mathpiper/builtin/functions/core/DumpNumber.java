@@ -40,22 +40,22 @@ public class DumpNumber extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
 
-        Cons resultCons = x.dumpNumber(aEnvironment, aStackTop);
+        Cons resultCons = x.dumpNumber(aEnvironment, aStackBase);
 
         /*
-        ConsPointer isVerbosePointer = Utility.lispEvaluate(aEnvironment, aStackTop, "InVerboseMode();");
+        ConsPointer isVerbosePointer = Utility.lispEvaluate(aEnvironment, aStackBase, "InVerboseMode();");
 
         if(((String)isVerbosePointer.car()).equals("True"))
         {
-            x.dumpNumber(aEnvironment, aStackTop, aEnvironment.iCurrentOutput);
+            x.dumpNumber(aEnvironment, aStackBase, aEnvironment.iCurrentOutput);
         }
         */
 
-        setTopOfStack(aEnvironment, aStackTop, resultCons);
+        setTopOfStack(aEnvironment, aStackBase, resultCons);
 
 
     }//end method.

@@ -42,21 +42,21 @@ public class RightPrecedenceGet extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+        Operator op = Utility.operatorInfo(aEnvironment, aStackBase, aEnvironment.iInfixOperators);
         if (op == null)
         {   // bodied, infix and prefix operators have right precedence
 
-            op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+            op = Utility.operatorInfo(aEnvironment, aStackBase, aEnvironment.iPrefixOperators);
             if (op == null)
             {   // or maybe it's a bodied function
 
-                op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                if(op == null) LispError.throwError(aEnvironment, aStackTop, LispError.IS_NOT_INFIX);
+                op = Utility.operatorInfo(aEnvironment, aStackBase, aEnvironment.iBodiedOperators);
+                if(op == null) LispError.throwError(aEnvironment, aStackBase, LispError.IS_NOT_INFIX);
             }
         }
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iRightPrecedence));
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, "" + op.iRightPrecedence));
     }
 }
 

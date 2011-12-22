@@ -44,27 +44,27 @@ public class RulebaseArgumentsList extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons name = getArgument(aEnvironment, aStackTop, 1);
+        Cons name = getArgument(aEnvironment, aStackBase, 1);
         String orig = (String) name.car();
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        String oper = Utility.toNormalString(aEnvironment, aStackBase, orig);
 
-        Cons sizearg = getArgument(aEnvironment, aStackTop, 2);
-        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        Cons sizearg = getArgument(aEnvironment, aStackBase, 2);
+        if( sizearg == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        if(! (sizearg.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackBase, 2);
 
         int arity = Integer.parseInt( (String) sizearg.car(), 10);
 
-        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity, aStackTop);
+        SingleArityRulebase userFunc = aEnvironment.getRulebase(oper, arity, aStackBase);
         
-        if(userFunc == null) LispError.throwError(aEnvironment, aStackTop, "User function for this arity is not defined.");
+        if(userFunc == null) LispError.throwError(aEnvironment, aStackBase, "User function for this arity is not defined.");
 
         Cons list = userFunc.argList();
         Cons head = aEnvironment.iListAtom.copy(false);
         head.setCdr(list);
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
+        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment,head));
     }
 }
 

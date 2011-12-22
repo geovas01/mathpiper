@@ -41,31 +41,31 @@ public class Import extends BuiltinFunction
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
 
-        Cons path = getArgument(aEnvironment, aStackTop, 1);
+        Cons path = getArgument(aEnvironment, aStackBase, 1);
 
 
-        LispError.checkIsString(aEnvironment, aStackTop, path, 1);
+        LispError.checkIsString(aEnvironment, aStackBase, path, 1);
 
-        String pathString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) path.car());
+        String pathString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, (String) path.car());
 
         /*org.mathpiper.builtin.javareflection.Import.addImport(path);
-        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackTop));*/
+        Utility.putTrueInPointer(aEnvironment, getTopOfStackPointer(aEnvironment, aStackBase));*/
 
 
         List failList = Interpreters.addOptionalFunctions(aEnvironment, pathString);
 
         if(failList.isEmpty())
         {
-            setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+            setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
             return;
         }
         else
         {
             aEnvironment.write("Could not load " + pathString);
-            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+            setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
         }//end if/else
 
     }//end method.

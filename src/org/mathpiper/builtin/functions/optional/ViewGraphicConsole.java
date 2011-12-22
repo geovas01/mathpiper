@@ -43,7 +43,7 @@ public class ViewGraphicConsole extends BuiltinFunction
                 this.functionName, new BuiltinFunctionEvaluator(this, 0, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         GraphicConsole console = new GraphicConsole();
 
@@ -62,7 +62,7 @@ public class ViewGraphicConsole extends BuiltinFunction
 
         JavaObject response = new JavaObject(frame);
 
-        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, response));
 
     }//end method.
 

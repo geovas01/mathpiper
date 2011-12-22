@@ -44,14 +44,14 @@ public class While extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        Cons arg1 = getArgument(aEnvironment, aStackTop, 1);
-        Cons arg2 = getArgument(aEnvironment, aStackTop, 2);
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
+        Cons arg1 = getArgument(aEnvironment, aStackBase, 1);
+        Cons arg2 = getArgument(aEnvironment, aStackBase, 2);
 
-        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
-        Cons predicate = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, arg1);
+        Cons predicate = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
         Cons evaluated;
 
@@ -59,39 +59,39 @@ public class While extends BuiltinFunction
         int beforeEvaluationDepth = -1;
         
         try {
-            while (Utility.isTrue(aEnvironment, predicate, aStackTop)) {
+            while (Utility.isTrue(aEnvironment, predicate, aStackBase)) {
 
                 beforeStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
                 beforeEvaluationDepth = aEnvironment.iEvalDepth;
 
                 try {
 
-                    stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg2);
-                    evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-                    aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+                    oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, arg2);
+                    evaluated = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+                    aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
                 } catch (ContinueException ce) {
-                    aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
+                    aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackBase, aEnvironment);
                     aEnvironment.iEvalDepth = beforeEvaluationDepth;
-                    setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+                    setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
                 }//end continue catch.
 
-                stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg1);
-                predicate = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-                aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+                oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, arg1);
+                predicate = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+                aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
             }//end while.
 
-            if(! Utility.isFalse(aEnvironment, predicate, aStackTop)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+            if(! Utility.isFalse(aEnvironment, predicate, aStackBase)) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
         } catch (BreakException be) {
-              aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackTop, aEnvironment);
+              aEnvironment.iArgumentStack.popTo(beforeStackTop, aStackBase, aEnvironment);
               aEnvironment.iEvalDepth = beforeEvaluationDepth;
         }
 
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 
 

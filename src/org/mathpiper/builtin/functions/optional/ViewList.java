@@ -27,13 +27,13 @@ public class ViewList extends BuiltinFunction {
 
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
-        Cons expression = getArgument(aEnvironment, aStackTop, 1);
+        Cons expression = getArgument(aEnvironment, aStackBase, 1);
 
         JavaObject response = new JavaObject(showFrame(expression));
 
-        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, response));
 
     }//end method.
 

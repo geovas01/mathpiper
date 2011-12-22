@@ -42,25 +42,25 @@ public class PatternCreate extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
 
-        Cons pattern = getArgument(aEnvironment, aStackTop, 1);
+        Cons pattern = getArgument(aEnvironment, aStackBase, 1);
         
-        Cons postPredicate = getArgument(aEnvironment, aStackTop, 2);
+        Cons postPredicate = getArgument(aEnvironment, aStackBase, 2);
 
         Cons patternTraverser = pattern;
-        if(patternTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(! (patternTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(patternTraverser == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if(! (patternTraverser.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackBase, 1);
         patternTraverser = (Cons) patternTraverser.car();
-        if(patternTraverser == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(patternTraverser == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
         patternTraverser = patternTraverser.cdr();
 
         pattern = patternTraverser;
 
 
-        org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, aStackTop, pattern, postPredicate);
+        org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher matcher = new org.mathpiper.lisp.parametermatchers.ParametersPatternMatcher(aEnvironment, aStackBase, pattern, postPredicate);
         PatternContainer patternContainer = new PatternContainer(matcher);
-        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, patternContainer));
+        setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, patternContainer));
     }
 }

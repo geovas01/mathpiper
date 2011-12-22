@@ -42,11 +42,11 @@ public class GenericTypeName extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
-        if(! (evaluated.car() instanceof BuiltinContainer)) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, ((BuiltinContainer) evaluated.car()).typeName()));
+        Cons evaluated = getArgument(aEnvironment, aStackBase, 1);
+        if(! (evaluated.car() instanceof BuiltinContainer)) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, ((BuiltinContainer) evaluated.car()).typeName()));
     }
 }//end class.
 

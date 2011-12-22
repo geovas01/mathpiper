@@ -42,9 +42,9 @@ public class LocalSymbols extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        int numberOfArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
+        int numberOfArguments = Utility.listLength(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 0));
         int numberOfSymbols = numberOfArguments - 2;
 
         String atomNames[] = new String[numberOfSymbols];
@@ -54,8 +54,8 @@ public class LocalSymbols extends BuiltinFunction
         int i;
         for (i = 0; i < numberOfSymbols; i++)
         {
-            String atomName = (String) getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), i + 1).car();
-            if( atomName == null) LispError.checkArgument(aEnvironment, aStackTop, i + 1);
+            String atomName = (String) getArgument(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 0), i + 1).car();
+            if( atomName == null) LispError.checkArgument(aEnvironment, aStackBase, i + 1);
             atomNames[i] = atomName;
             String newAtomName = "$" + atomName + uniqueNumber;
             String variable = newAtomName;
@@ -63,13 +63,13 @@ public class LocalSymbols extends BuiltinFunction
         }
         LocalSymbolSubstitute substituteBehaviour = new LocalSymbolSubstitute(aEnvironment, atomNames, localAtomNames, numberOfSymbols);
 
-        Cons result = Utility.substitute(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), numberOfArguments - 1), substituteBehaviour);
+        Cons result = Utility.substitute(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 0), numberOfArguments - 1), substituteBehaviour);
         
-        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result);
-        Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
-        setTopOfStack(aEnvironment, aStackTop, aResult);
+        int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, result);
+        Cons aResult = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
+        setTopOfStack(aEnvironment, aStackBase, aResult);
     }
 }//end class.
 

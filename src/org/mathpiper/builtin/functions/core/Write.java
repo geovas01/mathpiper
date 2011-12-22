@@ -39,9 +39,9 @@ public class Write extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons arguments = getArgument(aEnvironment, aStackTop, 1);
+        Cons arguments = getArgument(aEnvironment, aStackBase, 1);
         
         if (arguments.type() == Utility.SUBLIST) {
 
@@ -51,11 +51,11 @@ public class Write extends BuiltinFunction
             cons = cons.cdr();
             while (cons != null)
             {
-                aEnvironment.iCurrentPrinter.print(aStackTop, cons, aEnvironment.iCurrentOutput, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(aStackBase, cons, aEnvironment.iCurrentOutput, aEnvironment);
                 cons = cons.cdr();
             }
         }
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }
 

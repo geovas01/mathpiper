@@ -40,9 +40,9 @@ public class GreaterThan_ extends BuiltinFunction
 
     LexGreaterThan compare = new LexGreaterThan();
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        compare.Compare(aEnvironment, aStackTop);
+        compare.Compare(aEnvironment, aStackBase);
     }
 }//end class.
 

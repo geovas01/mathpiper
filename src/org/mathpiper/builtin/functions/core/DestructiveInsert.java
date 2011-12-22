@@ -38,9 +38,9 @@ public class DestructiveInsert extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Utility.insert(aEnvironment, aStackTop, true);
+        Utility.insert(aEnvironment, aStackBase, true);
     }
 }
 

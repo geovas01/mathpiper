@@ -72,35 +72,35 @@ public class ViewLatex extends BuiltinFunction {
 
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
         String latexString = null;
 
-        Object expression = getArgument(aEnvironment, aStackTop, 1).car();
+        Object expression = getArgument(aEnvironment, aStackBase, 1).car();
 
         if (expression instanceof String)
         {
             latexString = (String) expression;
 
-            latexString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, latexString);
+            latexString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, latexString);
 
             latexString = Utility.stripEndDollarSigns(latexString);
         }
         else
         {
-            LispError.raiseError("The first argument must be a string which contains Latex code.", aStackTop, aEnvironment);
+            LispError.raiseError("The first argument must be a string which contains Latex code.", aStackBase, aEnvironment);
         }//end else.
 
 
-        Cons viewScaleCons = getArgument(aEnvironment, aStackTop, 2);
+        Cons viewScaleCons = getArgument(aEnvironment, aStackBase, 2);
 
-        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScaleCons);
-        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, viewScaleCons);
+        Cons result = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
         BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.iPrecision, aEnvironment);
-        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
         /*sHotEqn hotEqn = new sHotEqn();
         hotEqn.setFontsizes(18,18,18,18);
@@ -167,7 +167,7 @@ public class ViewLatex extends BuiltinFunction {
 
         JavaObject response = new JavaObject(frame);
 
-        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, response));
 
 
     }//end method.

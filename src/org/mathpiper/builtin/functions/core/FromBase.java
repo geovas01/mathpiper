@@ -43,34 +43,34 @@ public class FromBase extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         // Get the base to convert to:
         // Evaluate car argument, and store getTopOfStackPointer in oper
-        Cons oper = getArgument(aEnvironment, aStackTop, 1);
+        Cons oper = getArgument(aEnvironment, aStackBase, 1);
         // check that getTopOfStackPointer is a number, and that it is in fact an integer
 //        LispError.check(oper.type().equals("Number"), LispError.KLispErrInvalidArg);
         BigNumber num = (BigNumber)  oper.getNumber(aEnvironment.iPrecision, aEnvironment);
-        if( num == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( num == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
         // check that the base is an integer between 2 and 32
-        if(! num.isInteger()) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! num.isInteger()) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
         // Get a short platform integer from the car argument
         int base = (int) (num.toDouble());
 
         // Get the number to convert
-        Cons fromNum = getArgument(aEnvironment, aStackTop, 2);
+        Cons fromNum = getArgument(aEnvironment, aStackBase, 2);
         String str2;
         str2 =  (String) fromNum.car();
-        if( str2 == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if( str2 == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
 
         // Added, unquote a string
-        if(! Utility.isString(str2)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! Utility.isString(str2)) LispError.checkArgument(aEnvironment, aStackBase, 2);
         str2 = Utility.stripEndQuotesIfPresent(aEnvironment, -1, str2);
 
         // convert using correct base
         BigNumber z = new BigNumber(str2, aEnvironment.iPrecision, base);
-        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }
 

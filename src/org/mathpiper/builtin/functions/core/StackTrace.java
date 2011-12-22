@@ -39,11 +39,11 @@ public class StackTrace extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-         aEnvironment.dumpStacks(aEnvironment, aStackTop);
+         aEnvironment.dumpStacks(aEnvironment, aStackBase);
          
-         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+         setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
 
     }//end method.
 

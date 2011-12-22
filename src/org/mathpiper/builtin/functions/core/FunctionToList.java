@@ -41,12 +41,12 @@ public class FunctionToList extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        if(! (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(! (getArgument(aEnvironment, aStackBase, 1).car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackBase, 1);
         Cons head = aEnvironment.iListAtom.copy(false);
-        head.setCdr((Cons) getArgument(aEnvironment, aStackTop, 1).car());
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
+        head.setCdr((Cons) getArgument(aEnvironment, aStackBase, 1).car());
+        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment,head));
     }
 }
 

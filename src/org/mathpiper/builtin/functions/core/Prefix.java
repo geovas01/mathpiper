@@ -38,9 +38,9 @@ public class Prefix extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Utility.multiFix(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+        Utility.multiFix(aEnvironment, aStackBase, aEnvironment.iPrefixOperators);
     }
 }
 

@@ -34,26 +34,26 @@ public class List extends BuiltinFunction {
         this.functionName = functionName;
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
         Cons all = aEnvironment.iListAtom.copy(false);
         Cons tail = all;
 
-        Cons consTraverser = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+        Cons consTraverser = (Cons) getArgument(aEnvironment, aStackBase, 1).car();
         consTraverser = consTraverser.cdr();
         while (consTraverser != null) {
 
-            int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
-            Cons evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, consTraverser);
+            Cons evaluated = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
             tail.setCdr(evaluated);
             tail = tail.cdr();
 
             consTraverser = consTraverser.cdr();
         }
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, all));
+        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment, all));
     }
 }
 /*

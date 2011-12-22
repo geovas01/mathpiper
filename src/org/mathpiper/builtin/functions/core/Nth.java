@@ -39,13 +39,13 @@ public class Nth extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         String str;
-        str = (String) getArgument(aEnvironment, aStackTop, 2).car();
-        if( str == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
-        if(! Utility.isNumber(str, false)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        str = (String) getArgument(aEnvironment, aStackBase, 2).car();
+        if( str == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
+        if(! Utility.isNumber(str, false)) LispError.checkArgument(aEnvironment, aStackBase, 2);
         int index = Integer.parseInt(str);
-        setTopOfStack(aEnvironment, aStackTop, Utility.nth(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1), index));
+        setTopOfStack(aEnvironment, aStackBase, Utility.nth(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 1), index));
     }
 }

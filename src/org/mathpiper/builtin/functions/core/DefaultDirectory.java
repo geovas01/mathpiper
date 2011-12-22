@@ -39,15 +39,15 @@ public class DefaultDirectory extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         // Get file name
-        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String orig =  (String) getArgument(aEnvironment, aStackTop, 1).car();
-        if(orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
+        if(getArgument(aEnvironment, aStackBase, 1) == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        String orig =  (String) getArgument(aEnvironment, aStackBase, 1).car();
+        if(orig == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        String oper = Utility.toNormalString(aEnvironment, aStackBase, orig);
         aEnvironment.iInputDirectories.add(oper);
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }
 

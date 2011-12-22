@@ -41,39 +41,39 @@ public class If extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
-        if( nrArguments != 3 && nrArguments != 4) LispError.throwError(aEnvironment, aStackTop, LispError.WRONG_NUMBER_OF_ARGUMENTS);
+        int nrArguments = Utility.listLength(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 0));
+        if( nrArguments != 3 && nrArguments != 4) LispError.throwError(aEnvironment, aStackBase, LispError.WRONG_NUMBER_OF_ARGUMENTS);
 
 
-        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
-        Cons predicate = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 1));
+        Cons predicate = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
 
-        if (Utility.isTrue(aEnvironment, predicate, aStackTop))
+        if (Utility.isTrue(aEnvironment, predicate, aStackBase))
         {   
-            stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), 2));
-            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
-            setTopOfStack(aEnvironment, aStackTop, aResult);        
+            oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 0), 2));
+            Cons aResult = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
+            setTopOfStack(aEnvironment, aStackBase, aResult);        
         } else
         {
-            if( Utility.isTrue(aEnvironment, predicate, aStackTop)) LispError.checkArgument(aEnvironment, aStackTop, 1);
+            if( Utility.isTrue(aEnvironment, predicate, aStackBase)) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
             if (nrArguments == 4)
             {
-                stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0), 3));
-                Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-                aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
-                setTopOfStack(aEnvironment, aStackTop, aResult);
+                oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 0), 3));
+                Cons aResult = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+                aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
+                setTopOfStack(aEnvironment, aStackBase, aResult);
             } else
             {
-                setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+                setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
             }
         }
     }

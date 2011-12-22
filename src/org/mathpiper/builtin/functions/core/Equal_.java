@@ -39,14 +39,14 @@ public class Equal_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons evaluated1 = getArgument(aEnvironment, aStackTop, 1);
+        Cons evaluated1 = getArgument(aEnvironment, aStackBase, 1);
 
-        Cons evaluated2 = getArgument(aEnvironment, aStackTop, 2);
+        Cons evaluated2 = getArgument(aEnvironment, aStackBase, 2);
 
-        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment,
-                Utility.equals(aEnvironment, aStackTop, evaluated1, evaluated2)));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment,
+                Utility.equals(aEnvironment, aStackBase, evaluated1, evaluated2)));
     }
 }//end class.
 

@@ -24,8 +24,8 @@ import org.mathpiper.lisp.cons.SublistCons;
 
 public class ListedMacroRulebase extends MacroRulebase {
 
-    public ListedMacroRulebase(Environment aEnvironment, int aStackTop, Cons aParameters, String functionName) throws Exception {
-        super(aEnvironment, aStackTop, aParameters, functionName);
+    public ListedMacroRulebase(Environment aEnvironment, int aStackBase, Cons aParameters, String functionName) throws Exception {
+        super(aEnvironment, aStackBase, aParameters, functionName);
     }
 
 
@@ -36,7 +36,7 @@ public class ListedMacroRulebase extends MacroRulebase {
 
 
     @Override
-    public void evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase, Cons aArguments) throws Exception {
 
         Cons newArgs = null;
 
@@ -73,7 +73,7 @@ public class ListedMacroRulebase extends MacroRulebase {
             ptr = nextCons;
             i++;
             consTraverser = consTraverser.cdr();
-            if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackTop);
+            if(consTraverser != null) LispError.lispAssert(aEnvironment, aStackBase);
         } else {
             Cons head = aEnvironment.iListAtom.copy(false);
             head.setCdr(consTraverser);
@@ -81,7 +81,7 @@ public class ListedMacroRulebase extends MacroRulebase {
             ptr.setCdr(nextCons);
             ptr = nextCons;
         }
-        super.evaluate(aEnvironment, aStackTop, newArgs);
+        super.evaluate(aEnvironment, aStackBase, newArgs);
 
         return;
     }

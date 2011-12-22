@@ -40,11 +40,11 @@ public class TraceOff extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
          Evaluator.traceOff();
          aEnvironment.write("Tracing is off.\n");
-         setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+         setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }
 

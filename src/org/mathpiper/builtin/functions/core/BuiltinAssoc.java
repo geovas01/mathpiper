@@ -43,28 +43,28 @@ public class BuiltinAssoc extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
         // key to find
-        Cons key = getArgument(aEnvironment, aStackTop, 1);
+        Cons key = getArgument(aEnvironment, aStackBase, 1);
 
         // assoc-list to find it in
-        Cons list = getArgument(aEnvironment, aStackTop, 2);
+        Cons list = getArgument(aEnvironment, aStackBase, 2);
 
         Cons listCons;
 
         //check that it is a compound object
-        if(! (list.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(! (list.car() instanceof Cons)) LispError.checkArgument(aEnvironment, aStackBase, 2);
         listCons = (Cons) list.car();
-        if( listCons == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if( listCons == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
         listCons = listCons.cdr();
 
-        Cons result = Utility.associativeListGet(aEnvironment, aStackTop, key, listCons);
+        Cons result = Utility.associativeListGet(aEnvironment, aStackBase, key, listCons);
 
         if (result != null) {
-            setTopOfStack(aEnvironment, aStackTop, result);
+            setTopOfStack(aEnvironment, aStackBase, result);
 
         } else {
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "Empty"));
+            setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, "Empty"));
         }
 
 

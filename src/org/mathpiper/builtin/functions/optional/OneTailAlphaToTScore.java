@@ -20,15 +20,15 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
                 this.functionName, new BuiltinFunctionEvaluator(this, 2, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        BigNumber degreesOfFreedom = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+        BigNumber degreesOfFreedom = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
 
-        if(!degreesOfFreedom.isInteger() || degreesOfFreedom.toInt() < 0) LispError.throwError(aEnvironment, aStackTop, "The first argument must be an integer which is greater than 0.");
+        if(!degreesOfFreedom.isInteger() || degreesOfFreedom.toInt() < 0) LispError.throwError(aEnvironment, aStackBase, "The first argument must be an integer which is greater than 0.");
 
-        BigNumber alpha = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber alpha = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 2);
 
-        if(alpha.toDouble() < 0 || alpha.toDouble() > .5) LispError.throwError(aEnvironment, aStackTop, "The second argument must be greater than 0 and less than or equal to .5.");
+        if(alpha.toDouble() < 0 || alpha.toDouble() > .5) LispError.throwError(aEnvironment, aStackBase, "The second argument must be greater than 0 and less than or equal to .5.");
 
         double cdf = Probability.studentTInverse(alpha.toDouble()*2, (int) degreesOfFreedom.toLong());
 
@@ -36,7 +36,7 @@ public class OneTailAlphaToTScore extends BuiltinFunction{
 
         tScore.setTo(cdf);
 
-        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(tScore));
+        setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(tScore));
 
     }//end method.
 

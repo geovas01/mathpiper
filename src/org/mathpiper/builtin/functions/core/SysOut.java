@@ -39,17 +39,17 @@ public class SysOut extends BuiltinFunction {
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
         StringOutput out = new StringOutput();
-        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
+        if (getArgument(aEnvironment, aStackBase, 1).car() instanceof Cons) {
 
-            Cons subList = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgument(aEnvironment, aStackBase, 1).car();
             
             Cons  consTraverser = subList;
             consTraverser = consTraverser.cdr();
             while (consTraverser != null)
             {
-                aEnvironment.iCurrentPrinter.print(aStackTop, consTraverser, out, aEnvironment);
+                aEnvironment.iCurrentPrinter.print(aStackBase, consTraverser, out, aEnvironment);
                 consTraverser = consTraverser.cdr();
             }
         }
@@ -58,7 +58,7 @@ public class SysOut extends BuiltinFunction {
         System.out.println(output);
         aEnvironment.iCurrentOutput.write(output);
         aEnvironment.iCurrentOutput.write("\n");
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
 
     }//end method.
 

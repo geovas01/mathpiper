@@ -73,7 +73,7 @@ public class AnalyzeScripts {
         }
     }
 
-    public static String analyzeScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, String functionOrOperatorName, String[] scriptCodeArray, boolean evaluate) throws Exception {
+    public static String analyzeScript(Environment aEnvironment, int aStackBase, MathPiperInputStream aInput, String functionOrOperatorName, String[] scriptCodeArray, boolean evaluate) throws Exception {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
 
@@ -104,12 +104,12 @@ public class AnalyzeScripts {
                  */
 
                 // Read expression
-                Object[] result = parser.parseAndFind(aStackTop, functionOrOperatorName);
+                Object[] result = parser.parseAndFind(aStackBase, functionOrOperatorName);
 
                 readIn = (Cons) result[0];
 
                 if (readIn == null) {
-                    LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "");
+                    LispError.throwError(aEnvironment, aStackBase, LispError.READING_FILE, "");
                 }
 
 
@@ -152,7 +152,7 @@ public class AnalyzeScripts {
                     /*
                     if (evaluate == true) {
                     ConsPointer result = new ConsPointer();
-                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, result, readIn);
+                    aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, result, readIn);
                     }  
                      */
                 }

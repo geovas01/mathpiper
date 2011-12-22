@@ -41,33 +41,33 @@ public class Retract extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         // Get operator
-        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackBase, 1);
 
-        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( evaluated == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
         String orig = (String) evaluated.car();
 
-        orig = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, orig);
+        orig = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, orig);
         
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
         String oper = Utility.getSymbolName(aEnvironment, orig);
 
-        Cons arityCons = getArgument(aEnvironment, aStackTop, 2);
-        if(!(arityCons.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        Cons arityCons = getArgument(aEnvironment, aStackBase, 2);
+        if(!(arityCons.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackBase, 2);
         String arityString = (String) arityCons.car();
         if(arityString.equalsIgnoreCase("*"))
         {
-            aEnvironment.retractRule(oper, -1, aStackTop, aEnvironment);
+            aEnvironment.retractRule(oper, -1, aStackBase, aEnvironment);
         }
         else
         {
             int arity = Integer.parseInt(arityString, 10);
-            aEnvironment.retractRule(oper, arity, aStackTop, aEnvironment);
+            aEnvironment.retractRule(oper, arity, aStackBase, aEnvironment);
         }
   
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }
 

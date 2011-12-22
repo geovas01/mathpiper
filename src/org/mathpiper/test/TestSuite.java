@@ -256,7 +256,7 @@ public class TestSuite {
         return result;
     }
 
-    public String evaluateTestScript(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput, boolean evaluate) throws Exception {
+    public String evaluateTestScript(Environment aEnvironment, int aStackBase, MathPiperInputStream aInput, boolean evaluate) throws Exception {
 
         StringBuffer printedScriptStringBuffer = new StringBuffer();
 
@@ -283,9 +283,9 @@ public class TestSuite {
             while (!endoffile) {
 
                 // Read expression
-                Cons readIn = parser.parse(aStackTop);
+                Cons readIn = parser.parse(aStackBase);
 
-                if(readIn == null) LispError.throwError(aEnvironment, aStackTop, LispError.READING_FILE, "");
+                if(readIn == null) LispError.throwError(aEnvironment, aStackBase, LispError.READING_FILE, "");
                 // check for end of file
                 if (readIn.car() instanceof String && ((String) readIn.car()).equals(eof)) {
                     endoffile = true;
@@ -304,10 +304,10 @@ public class TestSuite {
 
                     if (evaluate == true) {
 
-                        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, readIn);
-                        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-                        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+                        int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, readIn);
+                        Cons result = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+                        aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
                         if (outputStringBuffer.length() > 0) {
                             String sideEffectOutputString = outputStringBuffer.toString();

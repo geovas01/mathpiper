@@ -42,11 +42,11 @@ public class PatchString extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
         String unpatchedString = 
-        (String) getArgument(aEnvironment, aStackTop, 1).car();
+        (String) getArgument(aEnvironment, aStackBase, 1).car();
         
-        if(unpatchedString == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
+        if(unpatchedString == null) LispError.checkArgument(aEnvironment, aStackBase, 2);
         
         InputStatus oldStatus = new InputStatus(aEnvironment.getCurrentInput().iStatus);
         aEnvironment.getCurrentInput().iStatus.setTo("STRING");
@@ -54,11 +54,11 @@ public class PatchString extends BuiltinFunction
         StringBuffer resultBuffer = new StringBuffer();
         StringOutputStream resultStream = new StringOutputStream(resultBuffer);
         
-        Utility.doPatchString(unpatchedString, resultStream, aEnvironment, aStackTop);
+        Utility.doPatchString(unpatchedString, resultStream, aEnvironment, aStackBase);
         
         aEnvironment.getCurrentInput().iStatus.restoreFrom(oldStatus);
         
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, resultBuffer.toString()));
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, resultBuffer.toString()));
     }
 
 

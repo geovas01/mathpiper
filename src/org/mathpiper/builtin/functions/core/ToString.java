@@ -42,12 +42,12 @@ public class ToString extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackBase, 1);
 
         // Get operator
-        if(evaluated  == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(evaluated  == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
         String orig = null;
         if(evaluated.car() instanceof String)
@@ -60,9 +60,9 @@ public class ToString extends BuiltinFunction
             orig = container.getObject().toString();
         }
 
-        if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( orig == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, orig)));
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, Utility.toMathPiperString(aEnvironment, aStackBase, orig)));
     }
 }
 

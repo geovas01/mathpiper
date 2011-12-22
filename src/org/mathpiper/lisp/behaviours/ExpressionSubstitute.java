@@ -23,10 +23,10 @@ public class ExpressionSubstitute
     }
 
 
-    public Cons matches(Environment aEnvironment, int aStackTop, Cons aElement)
+    public Cons matches(Environment aEnvironment, int aStackBase, Cons aElement)
             throws Exception {
 
-        if (Utility.equals(iEnvironment, aStackTop, aElement, iToMatch)) {
+        if (Utility.equals(iEnvironment, aStackBase, aElement, iToMatch)) {
             return iToReplaceWith.copy(false);
 
         }

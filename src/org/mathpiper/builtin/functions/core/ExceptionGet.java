@@ -44,11 +44,11 @@ public class ExceptionGet extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         if(aEnvironment.iException == null)
         {
-            setTopOfStack(aEnvironment, aStackTop, Utility.getFalseAtom(aEnvironment));
+            setTopOfStack(aEnvironment, aStackBase, Utility.getFalseAtom(aEnvironment));
         }
         else
         {
@@ -79,9 +79,9 @@ public class ExceptionGet extends BuiltinFunction
             //Create type association list.
             Cons typeListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons typeNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"type\"");
+            Cons typeNameAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"type\"");
 
-            Cons typeValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, type));
+            Cons typeValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, Utility.toMathPiperString(aEnvironment, aStackBase, type));
 
             typeListAtomCons.setCdr(typeNameAtomCons);
 
@@ -95,9 +95,9 @@ public class ExceptionGet extends BuiltinFunction
             //Create message association list.
             Cons messageListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons messageNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"message\"");
+            Cons messageNameAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"message\"");
 
-            Cons messageValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, message));
+            Cons messageValueValueAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, Utility.toMathPiperString(aEnvironment, aStackBase, message));
 
             messageListAtomCons.setCdr(messageNameAtomCons);
 
@@ -110,9 +110,9 @@ public class ExceptionGet extends BuiltinFunction
             //Create exception object association list.
             Cons exceptionObjectListAtomCons = aEnvironment.iListAtom.copy(false);
 
-            Cons exceptionObjectNameAtomCons = AtomCons.getInstance(aEnvironment, aStackTop, "\"exceptionObject\"");
+            Cons exceptionObjectNameAtomCons = AtomCons.getInstance(aEnvironment, aStackBase, "\"exceptionObject\"");
 
-            Cons exceptionObjectValueValueAtomCons = BuiltinObjectCons.getInstance(aEnvironment, aStackTop, exceptionObject);
+            Cons exceptionObjectValueValueAtomCons = BuiltinObjectCons.getInstance(aEnvironment, aStackBase, exceptionObject);
 
             exceptionObjectListAtomCons.setCdr(exceptionObjectNameAtomCons);
 
@@ -140,7 +140,7 @@ public class ExceptionGet extends BuiltinFunction
 
 
 
-            setTopOfStack(aEnvironment, aStackTop, resultSublistCons);
+            setTopOfStack(aEnvironment, aStackBase, resultSublistCons);
 
         }
     }

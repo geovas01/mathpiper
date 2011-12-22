@@ -41,14 +41,14 @@ public class MetaValues extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
-        Cons objectCons = getArgument(aEnvironment, aStackTop, 1);
+        Cons objectCons = getArgument(aEnvironment, aStackBase, 1);
 
         Map metadataMap = objectCons.getMetadataMap();
 
         if (metadataMap == null || metadataMap.isEmpty()) {
-            setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
+            setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment, aEnvironment.iListAtom.copy(false)));
 
             return;
         }//end if.
@@ -89,7 +89,7 @@ public class MetaValues extends BuiltinFunction
 
 
 
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,head));
+        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment,head));
 
 
 

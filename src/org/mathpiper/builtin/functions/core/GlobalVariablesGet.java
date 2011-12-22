@@ -43,7 +43,7 @@ public class GlobalVariablesGet extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
         java.util.Set<String> variablesSet = ((Map) aEnvironment.iGlobalState.getMap()).keySet();
         
@@ -51,9 +51,9 @@ public class GlobalVariablesGet extends BuiltinFunction
 
         Collections.sort(variablesList, new NameComparator() );
 
-        Cons head = Utility.iterableToList(aEnvironment, aStackTop, variablesList);
+        Cons head = Utility.iterableToList(aEnvironment, aStackBase, variablesList);
 
-        setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment, head));
+        setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment, head));
 
     }//end method.
 

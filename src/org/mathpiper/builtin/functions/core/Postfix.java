@@ -38,15 +38,15 @@ public class Postfix extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        int nrArguments = Utility.listLength(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 0));
+        int nrArguments = Utility.listLength(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 0));
         if (nrArguments == 2)
         {
-            Utility.singleFix(0, aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+            Utility.singleFix(0, aEnvironment, aStackBase, aEnvironment.iPostfixOperators);
         } else
         {
-            Utility.multiFix(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+            Utility.multiFix(aEnvironment, aStackBase, aEnvironment.iPostfixOperators);
         }
     }
 }

@@ -35,19 +35,19 @@ public class JavaAccess extends BuiltinFunction {
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Variable | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
-        Cons args = getArgument(aEnvironment, aStackTop, 1);
+        Cons args = getArgument(aEnvironment, aStackBase, 1);
 
         args = (Cons) args.car();
 
         args = args.cdr();
 
-        Cons result = Utility.applyString(aEnvironment, aStackTop, "\"JavaCall\"", args);
+        Cons result = Utility.applyString(aEnvironment, aStackBase, "\"JavaCall\"", args);
 
-        result = Utility.applyString(aEnvironment, aStackTop, "\"JavaToValue\"", result);
+        result = Utility.applyString(aEnvironment, aStackBase, "\"JavaToValue\"", result);
 
-        setTopOfStack(aEnvironment, aStackTop, result);
+        setTopOfStack(aEnvironment, aStackBase, result);
 
     }//end method.
 }

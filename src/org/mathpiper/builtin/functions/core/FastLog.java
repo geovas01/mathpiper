@@ -39,14 +39,14 @@ public class FastLog extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         BigNumber x;
-        x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
+        x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
         double result = Math.log(x.toDouble());
         BigNumber z = new BigNumber(aEnvironment.iPrecision);
         z.setTo(result);
-        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

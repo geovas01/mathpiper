@@ -45,27 +45,27 @@ public class ViewHtml extends BuiltinFunction {
                 this.functionName, new BuiltinFunctionEvaluator(this, 1, BuiltinFunctionEvaluator.Fixed | BuiltinFunctionEvaluator.Function));
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
         String htmlText = null;
 
-        Object argument = getArgument(aEnvironment, aStackTop, 1).car();
+        Object argument = getArgument(aEnvironment, aStackBase, 1).car();
 
         if (argument instanceof String)
         {
             htmlText = (String) argument;
 
-            htmlText = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, htmlText);
+            htmlText = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, htmlText);
         }
         else if (argument instanceof BuiltinContainer)
         {
             BuiltinContainer builtinContainer = (BuiltinContainer) argument;
-            if(! builtinContainer.typeName().equals("java.lang.String")) LispError.throwError(aEnvironment, aStackTop, "Argument must be a MathPiper string or a Java String object.");
+            if(! builtinContainer.typeName().equals("java.lang.String")) LispError.throwError(aEnvironment, aStackBase, "Argument must be a MathPiper string or a Java String object.");
             htmlText = (String) builtinContainer.getObject();
         }
         else
         {
-            LispError.raiseError("Argument must be a MathPiper string or a Java String object.", aStackTop, aEnvironment);
+            LispError.raiseError("Argument must be a MathPiper string or a Java String object.", aStackBase, aEnvironment);
         }//end else.
 
         htmlText = FunctionTreePanel.processLatex(htmlText);
@@ -91,7 +91,7 @@ public class ViewHtml extends BuiltinFunction {
 
         JavaObject response = new JavaObject(frame);
 
-        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, response));
 
     }//end method.
 }//end class.

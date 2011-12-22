@@ -40,13 +40,13 @@ public class Subst extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons from = getArgument(aEnvironment, aStackTop, 1);
-        Cons to = getArgument(aEnvironment, aStackTop, 2);
-        Cons body = getArgument(aEnvironment, aStackTop, 3);
+        Cons from = getArgument(aEnvironment, aStackBase, 1);
+        Cons to = getArgument(aEnvironment, aStackBase, 2);
+        Cons body = getArgument(aEnvironment, aStackBase, 3);
         org.mathpiper.lisp.behaviours.ExpressionSubstitute behaviour = new org.mathpiper.lisp.behaviours.ExpressionSubstitute(aEnvironment, from, to);
-        setTopOfStack(aEnvironment, aStackTop, Utility.substitute(aEnvironment, aStackTop, body, behaviour));
+        setTopOfStack(aEnvironment, aStackBase, Utility.substitute(aEnvironment, aStackBase, body, behaviour));
     }
 }
 

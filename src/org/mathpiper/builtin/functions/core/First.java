@@ -38,9 +38,9 @@ public class First extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        setTopOfStack(aEnvironment, aStackTop, Utility.nth(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1), 1));
+        setTopOfStack(aEnvironment, aStackBase, Utility.nth(aEnvironment, aStackBase, getArgument(aEnvironment, aStackBase, 1), 1));
     }
 }
 

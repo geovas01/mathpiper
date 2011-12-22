@@ -36,16 +36,16 @@ public class RulebaseDump extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        if(getArgument(aEnvironment, aStackTop, 1) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String rulebaseName = (String) getArgument(aEnvironment, aStackTop, 1).car();
-        if(rulebaseName == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if(rulebaseName.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
-        if( rulebaseName.charAt(rulebaseName.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackTop, 1);
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
+        if(getArgument(aEnvironment, aStackBase, 1) == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        String rulebaseName = (String) getArgument(aEnvironment, aStackBase, 1).car();
+        if(rulebaseName == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if(rulebaseName.charAt(0) != '\"') LispError.checkArgument(aEnvironment, aStackBase, 1);
+        if( rulebaseName.charAt(rulebaseName.length() - 1) != '\"') LispError.checkArgument(aEnvironment, aStackBase, 1);
 
-        rulebaseName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, rulebaseName);
+        rulebaseName = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, rulebaseName);
 
-        MultipleArityRulebase rulebase = aEnvironment.getMultipleArityRulebase(aStackTop, rulebaseName, false);
+        MultipleArityRulebase rulebase = aEnvironment.getMultipleArityRulebase(aStackBase, rulebaseName, false);
 
         if (rulebase != null) {
 
@@ -72,7 +72,7 @@ public class RulebaseDump extends BuiltinFunction
             aEnvironment.write("Rule not defined");
         }
 
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
 
     }//end method.
 }//end class.

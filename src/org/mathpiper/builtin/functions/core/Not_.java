@@ -41,18 +41,18 @@ public class Not_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackBase, 1);
 
-        if (Utility.isTrue(aEnvironment, evaluated, aStackTop) || Utility.isFalse(aEnvironment, evaluated, aStackTop))
+        if (Utility.isTrue(aEnvironment, evaluated, aStackBase) || Utility.isFalse(aEnvironment, evaluated, aStackBase))
         {
-            setTopOfStack(aEnvironment, aStackTop, Utility.not(aStackTop, aEnvironment, evaluated));
+            setTopOfStack(aEnvironment, aStackBase, Utility.not(aStackBase, aEnvironment, evaluated));
         } else
         {
-            Cons ptr = getArgument(aEnvironment, aStackTop, 0).copy(false);
+            Cons ptr = getArgument(aEnvironment, aStackBase, 0).copy(false);
             ptr.setCdr(evaluated);
-            setTopOfStack(aEnvironment, aStackTop, SublistCons.getInstance(aEnvironment,ptr));
+            setTopOfStack(aEnvironment, aStackBase, SublistCons.getInstance(aEnvironment,ptr));
         }
     }
 }

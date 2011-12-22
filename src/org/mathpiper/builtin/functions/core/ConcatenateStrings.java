@@ -40,16 +40,16 @@ public class ConcatenateStrings extends BuiltinFunction
     }
 
 
-    void ConcatenateStrings(StringBuffer aStringBuffer, Environment aEnvironment, int aStackTop) throws Exception
+    void ConcatenateStrings(StringBuffer aStringBuffer, Environment aEnvironment, int aStackBase) throws Exception
     {
         aStringBuffer.append('\"');
         int arg = 1;
 
-        Cons consTraverser =  (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+        Cons consTraverser =  (Cons) getArgument(aEnvironment, aStackBase, 1).car();
         consTraverser = consTraverser.cdr();
         while (consTraverser != null)
         {
-            LispError.checkIsString(aEnvironment, aStackTop, consTraverser, arg);
+            LispError.checkIsString(aEnvironment, aStackBase, consTraverser, arg);
             String thisString =  (String) consTraverser.car();
             String toAppend = thisString.substring(1, thisString.length() - 1);
             aStringBuffer.append(toAppend);
@@ -59,11 +59,11 @@ public class ConcatenateStrings extends BuiltinFunction
         aStringBuffer.append('\"');
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
         StringBuffer strBuffer = new StringBuffer("");
-        ConcatenateStrings(strBuffer, aEnvironment, aStackTop);
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, strBuffer.toString()));
+        ConcatenateStrings(strBuffer, aEnvironment, aStackBase);
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, strBuffer.toString()));
     }
 }
 

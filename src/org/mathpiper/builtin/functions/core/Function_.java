@@ -35,9 +35,9 @@ public class Function_ extends BuiltinFunction {
         this.functionName = functionName;
     }
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
-        Cons result = getArgument(aEnvironment, aStackTop, 1);
-        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment,
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
+        Cons result = getArgument(aEnvironment, aStackBase, 1);
+        setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment,
                 result.car() instanceof Cons));
     }
 }

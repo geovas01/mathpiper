@@ -40,10 +40,10 @@ public class Bodied_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, op != null));
+        Operator op = Utility.operatorInfo(aEnvironment, aStackBase, aEnvironment.iBodiedOperators);
+        setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment, op != null));
     }
 }
 

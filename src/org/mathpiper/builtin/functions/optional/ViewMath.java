@@ -64,33 +64,33 @@ public class ViewMath extends BuiltinFunction {
 
     }//end method.
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception {
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
 
         //Utility.lispEvaluate(aEnvironment, "TeXForm(x^2);");
 
-        Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
+        Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackBase, "TeXForm"));
 
-        ((Cons) head.car()).setCdr(getArgument(aEnvironment, aStackTop, 1));
+        ((Cons) head.car()).setCdr(getArgument(aEnvironment, aStackBase, 1));
 
 
-        Cons viewScaleCons = getArgument(aEnvironment, aStackTop, 2);
+        Cons viewScaleCons = getArgument(aEnvironment, aStackBase, 2);
 
-        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScaleCons);
-        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        int oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, viewScaleCons);
+        Cons result = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
         
         BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.iPrecision, aEnvironment);
-        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(viewScale == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
         
-        stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
-        result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        oldStackTop = aEnvironment.iArgumentStack.getStackTopIndex();
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, head);
+        result = aEnvironment.iArgumentStack.getElement(oldStackTop, aStackBase, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(oldStackTop, aStackBase, aEnvironment);
 
         String texString = (String) result.car();
-        texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, texString);
+        texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, texString);
         texString = texString.substring(1, texString.length());
         texString = texString.substring(0, texString.length() - 1);
 
@@ -180,11 +180,11 @@ public class ViewMath extends BuiltinFunction {
         frame.setVisible(true);
 
 
-        //getTopOfStackPointer(aEnvironment, aStackTop).setCons(resultPointer.getCons()); //This use to print Latex code.
+        //getTopOfStackPointer(aEnvironment, aStackBase).setCons(resultPointer.getCons()); //This use to print Latex code.
 
         JavaObject response = new JavaObject(frame);
 
-        setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
+        setTopOfStack(aEnvironment, aStackBase, BuiltinObjectCons.getInstance(aEnvironment, aStackBase, response));
 
     }//end method.
 

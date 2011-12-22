@@ -41,15 +41,15 @@ public class Factorial extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        if( getArgument(aEnvironment, aStackTop, 1).getNumber(0, aEnvironment) == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        Cons arg = getArgument(aEnvironment, aStackTop, 1);
+        if( getArgument(aEnvironment, aStackBase, 1).getNumber(0, aEnvironment) == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
+        Cons arg = getArgument(aEnvironment, aStackBase, 1);
 
         //TODO fixme I am sure this can be optimized still
 //        LispError.check(arg.type().equals("Number"), LispError.INVALID_ARGUMENT);
         int nr = (int) ((BigNumber) arg.getNumber(0, aEnvironment)).toLong();
-        if(nr < 0) LispError.throwError(aEnvironment, aStackTop,  LispError.INVALID_ARGUMENT,arg);
+        if(nr < 0) LispError.throwError(aEnvironment, aStackBase,  LispError.INVALID_ARGUMENT,arg);
         BigNumber fac = new BigNumber( "1", 10, 10);
         int i;
         for (i = 2; i <= nr; i++)
@@ -58,6 +58,6 @@ public class Factorial extends BuiltinFunction
             m.multiply(fac, m, 0);
             fac = m;
         }
-        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(fac));
+        setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(fac));
     }
 }

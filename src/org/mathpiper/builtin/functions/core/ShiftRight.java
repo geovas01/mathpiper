@@ -39,14 +39,14 @@ public class ShiftRight extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 1);
-        BigNumber n = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackTop, 2);
+        BigNumber x = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 1);
+        BigNumber n = org.mathpiper.lisp.Utility.getNumber(aEnvironment, aStackBase, 2);
         long nrToShift = n.toLong();
         BigNumber z = new BigNumber(aEnvironment.iPrecision);
-        z.shiftRight(x, (int) nrToShift, null, aStackTop);
-        setTopOfStack(aEnvironment, aStackTop, new org.mathpiper.lisp.cons.NumberCons(z));
+        z.shiftRight(x, (int) nrToShift, null, aStackBase);
+        setTopOfStack(aEnvironment, aStackBase, new org.mathpiper.lisp.cons.NumberCons(z));
     }
 }//end class.
 

@@ -38,9 +38,9 @@ public class SetGlobalLazyVariable extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Utility.setVariableOrConstant(aEnvironment, aStackTop, false, true, false);
+        Utility.setVariableOrConstant(aEnvironment, aStackBase, false, true, false);
     }
 }
 

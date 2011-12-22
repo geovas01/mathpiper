@@ -36,10 +36,10 @@ public class BuiltinObjectCons extends Cons {
         iCarBuiltin = aClass;
     }
 
-    public static BuiltinObjectCons getInstance(Environment aEnvironment, int aStackTop, BuiltinContainer aClass) throws Exception {
-        if(aClass == null) LispError.lispAssert(aEnvironment, aStackTop);
+    public static BuiltinObjectCons getInstance(Environment aEnvironment, int aStackBase, BuiltinContainer aClass) throws Exception {
+        if(aClass == null) LispError.lispAssert(aEnvironment, aStackBase);
         BuiltinObjectCons self = new BuiltinObjectCons(aClass);
-        //LispError.check(aEnvironment, aStackTop, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
+        //LispError.check(aEnvironment, aStackBase, self != null, LispError.NOT_ENOUGH_MEMORY, "INTERNAL");
         return self;
     }
 

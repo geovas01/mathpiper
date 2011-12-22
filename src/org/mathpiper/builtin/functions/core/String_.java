@@ -40,9 +40,9 @@ public class String_ extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Cons result = getArgument(aEnvironment, aStackTop, 1);
+        Cons result = getArgument(aEnvironment, aStackBase, 1);
 
         boolean resultBoolean ;
          if( result.car() instanceof String  )
@@ -53,7 +53,7 @@ public class String_ extends BuiltinFunction
         else{
             resultBoolean = false;
         }
-        setTopOfStack(aEnvironment, aStackTop, Utility.getBooleanAtom(aEnvironment, resultBoolean));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getBooleanAtom(aEnvironment, resultBoolean));
                 
     }
 }

@@ -27,27 +27,27 @@ public abstract class BuiltinFunction {
 
     protected String functionName = "";
 
-    public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
+    public abstract void evaluate(Environment aEnvironment, int aStackBase) throws Exception;
 
-    public static Cons getTopOfStack(Environment aEnvironment, int aStackTop) throws Exception {
-        return aEnvironment.iArgumentStack.getElement(aStackTop, aStackTop, aEnvironment);
+    public static Cons getTopOfStack(Environment aEnvironment, int aStackBase) throws Exception {
+        return aEnvironment.iArgumentStack.getElement(aStackBase, aStackBase, aEnvironment);
     }
 
-    public static void setTopOfStack(Environment aEnvironment, int aStackTop, Cons cons) throws Exception {
-        aEnvironment.iArgumentStack.setElement(aStackTop, aStackTop, aEnvironment, cons);
+    public static void setTopOfStack(Environment aEnvironment, int aStackBase, Cons cons) throws Exception {
+        aEnvironment.iArgumentStack.setElement(aStackBase, aStackBase, aEnvironment, cons);
     }
 
 
-    public static void pushOnStack(Environment aEnvironment, int aStackTop, Cons cons) throws Exception {
-        aEnvironment.iArgumentStack.pushArgumentOnStack(cons, aStackTop, aEnvironment);
+    public static void pushOnStack(Environment aEnvironment, int aStackBase, Cons cons) throws Exception {
+        aEnvironment.iArgumentStack.pushArgumentOnStack(cons, aStackBase, aEnvironment);
     }
 
-    public static Cons getArgument(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
-        return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition, aStackTop, aEnvironment);
+    public static Cons getArgument(Environment aEnvironment, int aStackBase, int argumentPosition) throws Exception {
+        return aEnvironment.iArgumentStack.getElement(aStackBase + argumentPosition, aStackBase, aEnvironment);
     }
 
-    public static Cons getArgument(Environment aEnvironment, int aStackTop, Cons cur, int n) throws Exception {
-        if(n < 0)LispError.lispAssert(aEnvironment, aStackTop);
+    public static Cons getArgument(Environment aEnvironment, int aStackBase, Cons cur, int n) throws Exception {
+        if(n < 0)LispError.lispAssert(aEnvironment, aStackBase);
 
         Cons loop = cur;
         while (n != 0) {

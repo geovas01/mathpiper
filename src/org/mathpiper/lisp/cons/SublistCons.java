@@ -70,7 +70,7 @@ public class SublistCons extends Cons {
     }*/
     public Cons copy(boolean aRecursed) throws Exception {
         //TODO recursed copy needs to be implemented still
-        //LispError.lispAssert(aRecursed == false, aEnvironment, aStackTop);
+        //LispError.lispAssert(aRecursed == false, aEnvironment, aStackBase);
 
         if(aRecursed != false) throw new EvaluationException("Internal error in SublistCons.","",-1,-1,-1);
 

@@ -42,25 +42,25 @@ public class PrecedenceGet extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        Operator op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iInfixOperators);
+        Operator op = Utility.operatorInfo(aEnvironment, aStackBase, aEnvironment.iInfixOperators);
         if (op == null)
         {  // also need to check for a postfix or prefix operator
 
-            op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPrefixOperators);
+            op = Utility.operatorInfo(aEnvironment, aStackBase, aEnvironment.iPrefixOperators);
             if (op == null)
             {
-                op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
+                op = Utility.operatorInfo(aEnvironment, aStackBase, aEnvironment.iPostfixOperators);
                 if (op == null)
                 {  // or maybe it's a bodied function
 
-                    op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iBodiedOperators);
-                    if(op == null) LispError.throwError(aEnvironment, aStackTop, LispError.IS_NOT_INFIX);
+                    op = Utility.operatorInfo(aEnvironment, aStackBase, aEnvironment.iBodiedOperators);
+                    if(op == null) LispError.throwError(aEnvironment, aStackBase, LispError.IS_NOT_INFIX);
                 }
             }
         }
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iPrecedence));
+        setTopOfStack(aEnvironment, aStackBase, AtomCons.getInstance(aEnvironment, aStackBase, "" + op.iPrecedence));
     }
 }
 

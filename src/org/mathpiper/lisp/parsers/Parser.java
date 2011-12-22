@@ -40,36 +40,36 @@ public class Parser {
     }
 
 
-    public Cons parse(int aStackTop) throws Exception {
+    public Cons parse(int aStackBase) throws Exception {
         Cons aResult;
 
         String token;
         // Get token.
-        token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
+        token = iTokenizer.nextToken(iEnvironment, aStackBase, iInput);
         if (token.length() == 0) //TODO FIXME either token == null or token.length() == 0?
         {
-            aResult = AtomCons.getInstance(iEnvironment, aStackTop, "EndOfFile");
+            aResult = AtomCons.getInstance(iEnvironment, aStackBase, "EndOfFile");
             return aResult;
         }
-        aResult = parseAtom(iEnvironment, aStackTop, token);
+        aResult = parseAtom(iEnvironment, aStackBase, token);
         return aResult;
     }
 
 
-    Cons parseList(Environment aEnvironment, int aStackTop) throws Exception {
+    Cons parseList(Environment aEnvironment, int aStackBase) throws Exception {
         String token;
 
         Cons aResult = null;
         Cons iter;
         if (iListed) {
-            aResult = AtomCons.getInstance(iEnvironment, aStackTop, "List");
+            aResult = AtomCons.getInstance(iEnvironment, aStackBase, "List");
             iter = (aResult.cdr()); //TODO FIXME
         }
         for (;;) {
             //Get token.
-            token = iTokenizer.nextToken(iEnvironment, aStackTop, iInput);
+            token = iTokenizer.nextToken(iEnvironment, aStackBase, iInput);
             // if token is empty string, error!
-            if(token.length() <= 0) LispError.throwError(iEnvironment, aStackTop, LispError.INVALID_TOKEN, "Token empty."); //TODO FIXME
+            if(token.length() <= 0) LispError.throwError(iEnvironment, aStackBase, LispError.INVALID_TOKEN, "Token empty."); //TODO FIXME
             // if token is ")" return result.
             if (token.equals(")")) {
                 return aResult;
@@ -77,13 +77,13 @@ public class Parser {
             // else parse simple atom with parse, and append it to the
             // results list.
 
-            iter = parseAtom(aEnvironment, aStackTop, token);
+            iter = parseAtom(aEnvironment, aStackBase, token);
             iter = (iter.cdr()); //TODO FIXME
         }
     }
 
 
-    Cons parseAtom(Environment aEnvironment, int aStackTop, String aToken) throws Exception {
+    Cons parseAtom(Environment aEnvironment, int aStackBase, String aToken) throws Exception {
         // if token is empty string, return null pointer (no expression)
         if (aToken.length() == 0) //TODO FIXME either token == null or token.length() == 0?
         {
@@ -92,12 +92,12 @@ public class Parser {
         // else if token is "(" read in a whole array of objects until ")",
         //   and make a sublist
         if (aToken.equals("(")) {
-            Cons subList = parseList(aEnvironment, aStackTop);
+            Cons subList = parseList(aEnvironment, aStackBase);
             Cons aResult = SublistCons.getInstance(aEnvironment, subList);
             return aResult;
         }
         // else make a simple atom, and return it.
-        Cons aResult = AtomCons.getInstance(iEnvironment, aStackTop, aToken);
+        Cons aResult = AtomCons.getInstance(iEnvironment, aStackBase, aToken);
 
         return aResult;
     }

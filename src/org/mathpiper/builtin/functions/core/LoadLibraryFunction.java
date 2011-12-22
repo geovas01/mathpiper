@@ -40,23 +40,23 @@ public class LoadLibraryFunction extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackTop, LispError.SECURITY_BREACH);
+        if(aEnvironment.iSecure != false) LispError.throwError(aEnvironment, aStackBase, LispError.SECURITY_BREACH);
 
-        Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
+        Cons evaluated = getArgument(aEnvironment, aStackBase, 1);
 
         // Get file name
-        if(evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if(evaluated == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
         String scriptString = (String) evaluated.car();
 
-        if( scriptString == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
+        if( scriptString == null) LispError.checkArgument(aEnvironment, aStackBase, 1);
 
-        scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, scriptString);
+        scriptString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackBase, scriptString);
 
-        Utility.loadLibraryFunction(scriptString, aEnvironment, aStackTop);
+        Utility.loadLibraryFunction(scriptString, aEnvironment, aStackBase);
 
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
 
     }
 }

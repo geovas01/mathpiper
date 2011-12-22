@@ -40,11 +40,11 @@ public class Unbind extends BuiltinFunction
     }
 
 
-    public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
+    public void evaluate(Environment aEnvironment, int aStackBase) throws Exception
     {
-        if (getArgument(aEnvironment, aStackTop, 1).car() instanceof Cons) {
+        if (getArgument(aEnvironment, aStackBase, 1).car() instanceof Cons) {
 
-            Cons subList = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
+            Cons subList = (Cons) getArgument(aEnvironment, aStackBase, 1).car();
             
             Cons  consTraverser = subList;
             consTraverser = consTraverser.cdr();
@@ -53,13 +53,13 @@ public class Unbind extends BuiltinFunction
             {
                 String variableName;
                 variableName =  (String) consTraverser.car();
-                if( variableName == null) LispError.checkArgument(aEnvironment, aStackTop, nr);
-                aEnvironment.unbindVariable(aStackTop, variableName);
+                if( variableName == null) LispError.checkArgument(aEnvironment, aStackBase, nr);
+                aEnvironment.unbindVariable(aStackBase, variableName);
                 consTraverser = consTraverser.cdr();
                 nr++;
             }
         }
-        setTopOfStack(aEnvironment, aStackTop, Utility.getTrueAtom(aEnvironment));
+        setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }
 }
 
