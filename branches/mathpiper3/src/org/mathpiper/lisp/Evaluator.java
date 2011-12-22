@@ -21,6 +21,7 @@ package org.mathpiper.lisp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.mathpiper.builtin.BuiltinFunction;
 import org.mathpiper.io.MathPiperOutputStream;
 import org.mathpiper.io.StringOutputStream;
 import org.mathpiper.lisp.cons.Cons;
@@ -41,7 +42,7 @@ public abstract class Evaluator {
 	private static List traceExceptFunctionList = null;
         public static boolean iStackTraced = false;
 
-
+        
 	public static void showExpression(StringBuffer outString, Environment aEnvironment, Cons aExpression) throws Exception {
 		MathPiperPrinter infixprinter = new MathPiperPrinter(aEnvironment.iPrefixOperators, aEnvironment.iInfixOperators, aEnvironment.iPostfixOperators, aEnvironment.iBodiedOperators);
 		// Print out the current expression

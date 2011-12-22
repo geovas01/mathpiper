@@ -25,7 +25,7 @@ import org.mathpiper.lisp.cons.Cons;
 
 public abstract class BuiltinFunction {
 
-    protected String functionName = "";
+    public String functionName = "";
 
     public abstract void evaluate(Environment aEnvironment, int aStackBase) throws Exception;
 
