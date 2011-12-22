@@ -49,9 +49,9 @@ public class RightPrecedenceSet extends BuiltinFunction
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
-        Cons index = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getArgument(aEnvironment, aStackTop, 2));
+        Cons index = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
         if( index == null) LispError.checkArgument(aEnvironment, aStackTop, 2);
         if(! (index.car() instanceof String)) LispError.checkArgument(aEnvironment, aStackTop, 2);

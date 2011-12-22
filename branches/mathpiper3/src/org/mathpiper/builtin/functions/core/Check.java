@@ -46,28 +46,28 @@ public class Check extends BuiltinFunction
     {
         Cons pred;
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
-        pred = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
-        if (!Utility.isTrue(aEnvironment, pred, aStackTop))
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getArgument(aEnvironment, aStackTop, 1));
+        pred = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
+        if (!Utility.isTrue(aEnvironment, pred))
         {
             stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
-            Cons type = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getArgument(aEnvironment, aStackTop, 2));
+            Cons type = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
             LispError.checkIsString(aEnvironment, aStackTop, type, 2);
             
             
             
             stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 3));
-            Cons message = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getArgument(aEnvironment, aStackTop, 3));
+            Cons message = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
             LispError.checkIsString(aEnvironment, aStackTop, message, 3);
 
 
 
-            throw new EvaluationException( Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) type.car()), Utility.toNormalString(aEnvironment, aStackTop, (String) message.car()), aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex() , "Check");
+            throw new EvaluationException( Utility.stripEndQuotesIfPresent(aEnvironment, (String) type.car()), Utility.toNormalString(aEnvironment, (String) message.car()), aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), "Check");
         }
         setTopOfStack(aEnvironment, aStackTop, pred);
     }

@@ -167,12 +167,12 @@ public class LispError {
 
     //========================================
 
-    public static void throwError(Environment aEnvironment, int aStackTop, int aError, Object aErrorMessage) throws Exception {
+    public static void throwError(Environment aEnvironment, Object aErrorMessage) throws Exception {
 
-        throwError(aEnvironment, aStackTop, aError, aErrorMessage, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
+        throwError(aEnvironment, aErrorMessage, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 
-    public static void throwError(Environment aEnvironment, int aStackTop, int aError, Object aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
+    public static void throwError(Environment aEnvironment, int aError, Object aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
 
             if(aError == LispError.INVALID_ARGUMENT)
             {
@@ -180,32 +180,27 @@ public class LispError {
             }
             String errorMessage = errorString(aError) + " Extra information: <" + aErrorMessage + ">.";
 
-            throwError(aEnvironment, aStackTop, errorMessage, lineNumber, tokenStartIndex, tokenEndIndex);
+            throwError(aEnvironment, errorMessage, lineNumber, tokenStartIndex, tokenEndIndex);
 
         
     }//end method.
 
     //========================================
 
-    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage) throws Exception {
-        throwError(aEnvironment, aStackTop, aErrorMessage, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
-    }
 
-    public static void throwError(Environment aEnvironment, int aStackTop, Object aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
+    public static void throwError(Environment aEnvironment,  Object aErrorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
     
             String stackTrace = "";
 
-            if (Evaluator.isStackTraced() && aStackTop >= 0) {
-                stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
+            if (Evaluator.isStackTraced() ) {
+                stackTrace = aEnvironment.dumpStacks(aEnvironment);
             }
 
 
-            if (aStackTop == -1) {
+            if (aEnvironment.initializing == true) {
                 throw new EvaluationException("Error encountered during initialization or parsing: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
-            } else if (aStackTop == -2) {
-                throw new EvaluationException("Error: " + aErrorMessage + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
-                Cons arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
+                Cons arguments = BuiltinFunction.getArgument(aEnvironment, 00, 0);
                 if (arguments == null) {
                     throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 } else {
@@ -222,24 +217,22 @@ public class LispError {
 
 
     //========================================
-    public static void throwError(Environment aEnvironment, int aStackTop, int errNo) throws Exception {
-        throwError(aEnvironment, aStackTop, errNo, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
+    public static void throwError(Environment aEnvironment, int errNo) throws Exception {
+        throwError(aEnvironment, errNo, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex());
     }
 
-    public static void throwError(Environment aEnvironment, int aStackTop, int errNo, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
+    public static void throwError(Environment aEnvironment, int errNo, int lineNumber, int tokenStartIndex, int tokenEndIndex) throws Exception {
 
             String stackTrace = "";
 
-            if (Evaluator.isStackTraced() && aStackTop >= 0) {
-                stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
+            if (Evaluator.isStackTraced()) {
+                stackTrace = aEnvironment.dumpStacks(aEnvironment);
             }
 
-            if (aStackTop == -1) {
+            if (aEnvironment.initializing == true) {
                 throw new EvaluationException("Error encountered during initialization: " + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(), lineNumber, tokenStartIndex, tokenEndIndex);
-            } else if (aStackTop == -2) {
-                throw new EvaluationException("Error: " + errorString(errNo) + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
             } else {
-                Cons arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
+                Cons arguments = BuiltinFunction.getArgument(aEnvironment, 00, 0);
                 if (arguments == null) {
                     throw new EvaluationException("Error in compiled code." + stackTrace,  aEnvironment.getCurrentInput().iStatus.getFileName(),  lineNumber, tokenStartIndex, tokenEndIndex);
                 } else {
@@ -252,34 +245,34 @@ public class LispError {
     }
 
     //========================================
-    public static void raiseError(String errorMessage, int aStackTop, Environment aEnvironment) throws Exception {
-        raiseError(errorMessage,  aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aStackTop, aEnvironment);
+    public static void raiseError(String errorMessage, Environment aEnvironment) throws Exception {
+        raiseError(errorMessage,  aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aEnvironment);
     }
 
-    public static void raiseError(String errorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex, int aStackTop, Environment aEnvironment) throws Exception {
-        throwError( aEnvironment, aStackTop, errorMessage, lineNumber, tokenStartIndex, tokenEndIndex);
+    public static void raiseError(String errorMessage, int lineNumber, int tokenStartIndex, int tokenEndIndex, Environment aEnvironment) throws Exception {
+        throwError( aEnvironment, errorMessage, lineNumber, tokenStartIndex, tokenEndIndex);
     }
 
     //========================================
 
-    public static void checkNumberOfArguments(int aStackTop, int n, Cons aArguments, Environment aEnvironment) throws Exception {
-        int nrArguments = Utility.listLength(aEnvironment, aStackTop, aArguments);
+    public static void checkNumberOfArguments(int n, Cons aArguments, Environment aEnvironment) throws Exception {
+        int nrArguments = Utility.listLength(aEnvironment, aArguments);
         if (nrArguments != n) {
-            errorNumberOfArguments(n - 1, nrArguments - 1, aArguments, aEnvironment, aStackTop);
+            errorNumberOfArguments(n - 1, nrArguments - 1, aArguments, aEnvironment);
         }
     }
 
 
     //========================================
-    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments, Environment aEnvironment, int aStackTop) throws Exception {
-        errorNumberOfArguments(needed, passed, aArguments, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aEnvironment, aStackTop);
+    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments, Environment aEnvironment) throws Exception {
+        errorNumberOfArguments(needed, passed, aArguments, aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex(), aEnvironment);
     }
 
-    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments,  int lineNumber, int tokenStartIndex, int tokenEndIndex, Environment aEnvironment, int aStackTop) throws Exception {
+    public static void errorNumberOfArguments(int needed, int passed, Cons aArguments,  int lineNumber, int tokenStartIndex, int tokenEndIndex, Environment aEnvironment) throws Exception {
         String stackTrace = "";
 
-        if (Evaluator.isStackTraced() && aStackTop >= 0) {
-            stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
+        if (Evaluator.isStackTraced()) {
+            stackTrace = aEnvironment.dumpStacks(aEnvironment);
         }
 
         if (aArguments == null) {
@@ -318,10 +311,10 @@ public class LispError {
 
 
 
-    public static void lispAssert(Environment aEnvironment, int aStackTop) throws Exception {
+    public static void lispAssert(Environment aEnvironment) throws Exception {
   
             //throw new EvaluationException("Assertion failed.","none",-1);
-            throwError(aEnvironment, aStackTop, "Assertion error.");
+            throwError(aEnvironment, "Assertion error.");
      
     }
 
@@ -351,7 +344,7 @@ public class LispError {
             String stackTrace = "";
 
             if (Evaluator.isStackTraced() && aStackTop >= 0) {
-                stackTrace = aEnvironment.dumpStacks(aEnvironment, aStackTop);
+                stackTrace = aEnvironment.dumpStacks(aEnvironment);
             }
 
             Cons arguments = BuiltinFunction.getArgument(aEnvironment, aStackTop, 0);
@@ -360,20 +353,20 @@ public class LispError {
             } else {
                 String error = "";
                 error = error + showFunctionError(arguments, aEnvironment) + "\nbad argument number " + aArgNr + "(counting from 1) : \n" + aErrorDescription + "\n";
-                Cons arg = BuiltinFunction.getArgument(aEnvironment, aStackTop, arguments, aArgNr);
+                Cons arg = BuiltinFunction.getArgument(aEnvironment, arguments, aArgNr);
                 String strout;
 
                 error = error + "The offending argument ***( ";
-                strout = Utility.printMathPiperExpression(aStackTop, arg, aEnvironment, 60);
+                strout = Utility.printMathPiperExpression(arg, aEnvironment, 60);
                 error = error + strout;
 
                 int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, arg);
-                Cons eval = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-                aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, arg);
+                Cons eval = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+                aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
                 error = error + " )*** evaluated to ***( ";
-                strout = Utility.printMathPiperExpression(aStackTop, eval, aEnvironment, 60);
+                strout = Utility.printMathPiperExpression(eval, aEnvironment, 60);
                 error = error + strout;
                 error = error + " )***\n";
 

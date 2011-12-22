@@ -41,51 +41,51 @@ public class ArgumentStack {
         return iStackTopIndex;
     }
 
-    public void raiseStackOverflowError(int aStackTop, Environment aEnvironment) throws Exception {
-        LispError.raiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.", aStackTop, aEnvironment);
+    public void raiseStackOverflowError(Environment aEnvironment) throws Exception {
+        LispError.raiseError("Argument stack reached maximum. Please extend argument stack with --stack argument on the command line.", aEnvironment);
     }
 
-    public void pushArgumentOnStack(Cons aCons, int aStackTop, Environment aEnvironment) throws Exception {
+    public void pushArgumentOnStack(Cons aCons, Environment aEnvironment) throws Exception {
         if (iStackTopIndex >= iArgumentStack.size()) {
-            raiseStackOverflowError(aStackTop, aEnvironment);
+            raiseStackOverflowError(aEnvironment);
         }
         iArgumentStack.setElement(iStackTopIndex, aCons);
         iStackTopIndex++;
     }
 
-    public void pushNulls(int aNr, int aStackTop, Environment aEnvironment) throws Exception {
+    public void pushNulls(int aNr, Environment aEnvironment) throws Exception {
         if (iStackTopIndex + aNr > iArgumentStack.size()) {
-            raiseStackOverflowError(aStackTop, aEnvironment);
+            raiseStackOverflowError(aEnvironment);
         }
         iStackTopIndex += aNr;
     }
 
-    public Cons getElement(int aPos, int aStackTop, Environment aEnvironment) throws Exception {
+    public Cons getElement(int aPos, Environment aEnvironment) throws Exception {
         if(aPos < 0 || aPos >= iStackTopIndex) 
         {
-            LispError.lispAssert(aEnvironment, aStackTop);
+            LispError.lispAssert(aEnvironment);
         }
         return iArgumentStack.getElement(aPos);
     }
 
-    public void setElement(int aPos, int aStackTop, Environment aEnvironment, Cons cons) throws Exception {
-        if(aPos < 0 || aPos >= iStackTopIndex) LispError.lispAssert(aEnvironment, aStackTop);
+    public void setElement(int aPos, Environment aEnvironment, Cons cons) throws Exception {
+        if(aPos < 0 || aPos >= iStackTopIndex) LispError.lispAssert(aEnvironment);
         iArgumentStack.setElement(aPos, cons);
     }
 
-    public void popTo(int aTop, int aStackTop, Environment aEnvironment) throws Exception {
-        if(aTop > iStackTopIndex) LispError.lispAssert(aEnvironment, aStackTop);
+    public void popTo(int aTop, Environment aEnvironment) throws Exception {
+        if(aTop > iStackTopIndex) LispError.lispAssert(aEnvironment);
         while (iStackTopIndex > aTop) {
             iStackTopIndex--;
             iArgumentStack.setElement(iStackTopIndex, null);
         }
     }
 
-    public void reset(int aStackTop, Environment aEnvironment) throws Exception {
-        this.popTo(0, aStackTop, aEnvironment);
+    public void reset(Environment aEnvironment) throws Exception {
+        this.popTo(0, aEnvironment);
     }//end method.
 
-    public String dump(int aStackTop, Environment aEnvironment) throws Exception {
+    public String dump(Environment aEnvironment) throws Exception {
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -93,8 +93,10 @@ public class ArgumentStack {
 
         int functionPositionIndex = 0;
 
+        int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
 
-        while (functionBaseIndex <= aStackTop) {
+
+        while (functionBaseIndex <= stackTop) {
 
             if(functionBaseIndex == 0)
             {
@@ -105,14 +107,14 @@ public class ArgumentStack {
                 stringBuilder.append("-----------------------------------------\n");
             }
 
-            Cons argumentCons = getElement(functionBaseIndex, aStackTop, aEnvironment);
+            Cons argumentCons = getElement(functionBaseIndex, aEnvironment);
 
-            int argumentCount = Utility.listLength(aEnvironment, aStackTop, argumentCons);
+            int argumentCount = Utility.listLength(aEnvironment, argumentCons);
 
             Cons  cons = argumentCons;
 
             stringBuilder.append(functionPositionIndex++ + ": ");
-            stringBuilder.append(Utility.printMathPiperExpression(aStackTop, cons, aEnvironment, -1));
+            stringBuilder.append(Utility.printMathPiperExpression(cons, aEnvironment, -1));
             stringBuilder.append("\n");
 
             cons = cons.cdr();
@@ -120,7 +122,7 @@ public class ArgumentStack {
             while(cons != null)
             {
                 stringBuilder.append("   " + functionPositionIndex++ + ": ");
-                stringBuilder.append("-> " + Utility.printMathPiperExpression(aStackTop, cons, aEnvironment, -1));
+                stringBuilder.append("-> " + Utility.printMathPiperExpression(cons, aEnvironment, -1));
                 stringBuilder.append("\n");
                 
                 cons = cons.cdr();

@@ -53,9 +53,9 @@ public class TraceExcept extends BuiltinFunction
         if(functionList == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionList);
-        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, functionList);
+        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
         String functionNamesString =  (String) result.car();
 
@@ -78,9 +78,9 @@ public class TraceExcept extends BuiltinFunction
         Evaluator.traceOn(); 
         
         stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
-        Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, body);
+        Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
         setTopOfStack(aEnvironment, aStackTop, aResult);
 
         Evaluator.traceOff();

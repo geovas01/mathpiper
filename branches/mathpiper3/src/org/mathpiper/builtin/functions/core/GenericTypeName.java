@@ -46,7 +46,7 @@ public class GenericTypeName extends BuiltinFunction
     {
         Cons evaluated = getArgument(aEnvironment, aStackTop, 1);
         if(! (evaluated.car() instanceof BuiltinContainer)) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, ((BuiltinContainer) evaluated.car()).typeName()));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, ((BuiltinContainer) evaluated.car()).typeName()));
     }
 }//end class.
 

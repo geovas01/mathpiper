@@ -30,24 +30,24 @@ public abstract class BuiltinFunction {
     public abstract void evaluate(Environment aEnvironment, int aStackTop) throws Exception;
 
     public static Cons getTopOfStack(Environment aEnvironment, int aStackTop) throws Exception {
-        return aEnvironment.iArgumentStack.getElement(aStackTop, aStackTop, aEnvironment);
+        return aEnvironment.iArgumentStack.getElement(aStackTop, aEnvironment);
     }
 
     public static void setTopOfStack(Environment aEnvironment, int aStackTop, Cons cons) throws Exception {
-        aEnvironment.iArgumentStack.setElement(aStackTop, aStackTop, aEnvironment, cons);
+        aEnvironment.iArgumentStack.setElement(aStackTop, aEnvironment, cons);
     }
 
 
-    public static void pushOnStack(Environment aEnvironment, int aStackTop, Cons cons) throws Exception {
-        aEnvironment.iArgumentStack.pushArgumentOnStack(cons, aStackTop, aEnvironment);
+    public static void pushOnStack(Environment aEnvironment, Cons cons) throws Exception {
+        aEnvironment.iArgumentStack.pushArgumentOnStack(cons, aEnvironment);
     }
 
     public static Cons getArgument(Environment aEnvironment, int aStackTop, int argumentPosition) throws Exception {
-        return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition, aStackTop, aEnvironment);
+        return aEnvironment.iArgumentStack.getElement(aStackTop + argumentPosition, aEnvironment);
     }
 
-    public static Cons getArgument(Environment aEnvironment, int aStackTop, Cons cur, int n) throws Exception {
-        if(n < 0)LispError.lispAssert(aEnvironment, aStackTop);
+    public static Cons getArgument(Environment aEnvironment, Cons cur, int n) throws Exception {
+        if(n < 0)LispError.lispAssert(aEnvironment);
 
         Cons loop = cur;
         while (n != 0) {

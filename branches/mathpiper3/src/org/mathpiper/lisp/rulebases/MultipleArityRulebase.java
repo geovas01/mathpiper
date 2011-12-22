@@ -41,12 +41,12 @@ public class MultipleArityRulebase {
     /**
      *Return user function with given arity.
      */
-    public SingleArityRulebase getUserFunction(int aArity, int aStackTop, Environment aEnvironment) throws Exception {
+    public SingleArityRulebase getUserFunction(int aArity, Environment aEnvironment) throws Exception {
         int ruleIndex;
         //Find function body with the right arity
         int numberOfRules = iFunctions.size();
         for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
-            if(iFunctions.get(ruleIndex) == null) LispError.lispAssert(aEnvironment, aStackTop);
+            if(iFunctions.get(ruleIndex) == null) LispError.lispAssert(aEnvironment);
 
             if (((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aArity)) {
                 return (SingleArityRulebase) iFunctions.get(ruleIndex);
@@ -63,10 +63,10 @@ public class MultipleArityRulebase {
     /**
      * Specify that some argument should be held.
      */
-    public void holdArgument(String aVariable, int aStackTop, Environment aEnvironment) throws Exception {
+    public void holdArgument(String aVariable, Environment aEnvironment) throws Exception {
         int ruleIndex;
         for (ruleIndex = 0; ruleIndex < iFunctions.size(); ruleIndex++) {
-            if(iFunctions.get(ruleIndex) == null) LispError.lispAssert(aEnvironment, aStackTop);
+            if(iFunctions.get(ruleIndex) == null) LispError.lispAssert(aEnvironment);
             ((SingleArityRulebase) iFunctions.get(ruleIndex)).holdArgument(aVariable);
         }
     }//end method.
@@ -75,15 +75,15 @@ public class MultipleArityRulebase {
     /**
      *Add another SingleArityRulebase to #iFunctions.
      */
-    public void addRulebaseEntry(Environment aEnvironment, int aStackTop, SingleArityRulebase aNewFunction) throws Exception {
+    public void addRulebaseEntry(Environment aEnvironment, SingleArityRulebase aNewFunction) throws Exception {
         int ruleIndex;
         //Find function body with the right arity
         int numberOfRules = iFunctions.size();
         for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
-            if(((SingleArityRulebase) iFunctions.get(ruleIndex)) == null) LispError.lispAssert(aEnvironment, aStackTop);
-            if(aNewFunction == null) LispError.lispAssert(aEnvironment, aStackTop);
-            if(((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aNewFunction.arity())) LispError.throwError(aEnvironment, aStackTop, "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName);
-            if(aNewFunction.isArity(((SingleArityRulebase) iFunctions.get(ruleIndex)).arity())) LispError.throwError(aEnvironment, aStackTop, "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName);
+            if(((SingleArityRulebase) iFunctions.get(ruleIndex)) == null) LispError.lispAssert(aEnvironment);
+            if(aNewFunction == null) LispError.lispAssert(aEnvironment);
+            if(((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aNewFunction.arity())) LispError.throwError(aEnvironment, "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName);
+            if(aNewFunction.isArity(((SingleArityRulebase) iFunctions.get(ruleIndex)).arity())) LispError.throwError(aEnvironment, "ARITY ALREADY DEFINED FOR FUNCTION: " + aNewFunction.functionName);
         }
         iFunctions.add(aNewFunction);
     }//end method.
@@ -92,7 +92,7 @@ public class MultipleArityRulebase {
     /**
      *Delete user function with given arity.  If arity is -1 then delete all functions regardless of arity.
      */
-    public void deleteRulebaseEntry(int aArity, int aStackTop, Environment aEnvironment) throws Exception {
+    public void deleteRulebaseEntry(int aArity, Environment aEnvironment) throws Exception {
         if (aArity == -1) //Retract all functions regardless of arity.
         {
             iFunctions.clear();
@@ -103,7 +103,7 @@ public class MultipleArityRulebase {
         //Find function body with the right arity
         int numberOfRules = iFunctions.size();
         for (ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
-            if(((SingleArityRulebase) iFunctions.get(ruleIndex)) == null) LispError.lispAssert(aEnvironment, aStackTop);
+            if(((SingleArityRulebase) iFunctions.get(ruleIndex)) == null) LispError.lispAssert(aEnvironment);
 
             if (((SingleArityRulebase) iFunctions.get(ruleIndex)).isArity(aArity)) {
                 iFunctions.remove(ruleIndex);

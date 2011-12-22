@@ -40,7 +40,7 @@ public class First extends BuiltinFunction
 
     public void evaluate(Environment aEnvironment, int aStackTop) throws Exception
     {
-        setTopOfStack(aEnvironment, aStackTop, Utility.nth(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1), 1));
+        setTopOfStack(aEnvironment, aStackTop, Utility.nth(aEnvironment, getArgument(aEnvironment, aStackTop, 1), 1));
     }
 }
 

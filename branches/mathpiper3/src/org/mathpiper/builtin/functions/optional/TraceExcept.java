@@ -53,9 +53,9 @@ public class TraceExcept extends BuiltinFunction
         if(functionList == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, functionList);
-        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, functionList);
+        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
         
         String functionNamesString =  (String) result.car();
 
@@ -77,7 +77,7 @@ public class TraceExcept extends BuiltinFunction
         //Evaluate expresstion with tracing on.
         Evaluator.traceOn();
 
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, body);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, body);
         Evaluator.traceOff();
         Evaluator.setTraceExceptFunctionList(null);
 

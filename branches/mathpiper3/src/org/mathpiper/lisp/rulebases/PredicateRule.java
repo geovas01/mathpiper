@@ -56,14 +56,14 @@ class PredicateRule extends Rule {
      */
     // iPredicate is evaluated in \a Environment. If the result
     /// IsTrue(), this function returns true
-    public boolean matches(Environment aEnvironment, int aStackTop, Cons[] aArguments) throws Exception {
+    public boolean matches(Environment aEnvironment, Cons[] aArguments) throws Exception {
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, iPredicate);
-        Cons pred = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, iPredicate);
+        Cons pred = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
         
-        return Utility.isTrue(aEnvironment, pred, aStackTop);
+        return Utility.isTrue(aEnvironment, pred);
     }
 
     /// Access #iPrecedence.

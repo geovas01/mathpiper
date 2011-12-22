@@ -55,9 +55,9 @@ public class Prog extends BuiltinFunction
             consTraverser =  consTraverser.cdr();
             while (consTraverser != null) {
                 int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, consTraverser);
-                result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-                aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+                aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, consTraverser);
+                result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+                aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
                 
                 consTraverser = consTraverser.cdr();
             }
@@ -67,7 +67,7 @@ public class Prog extends BuiltinFunction
         } catch (Exception e) {
             throw e;
         } finally {
-            aEnvironment.popLocalFrame(aStackTop);
+            aEnvironment.popLocalFrame();
         }
     }
 

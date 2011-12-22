@@ -68,7 +68,7 @@ public class ViewMath extends BuiltinFunction {
 
         //Utility.lispEvaluate(aEnvironment, "TeXForm(x^2);");
 
-        Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, aStackTop, "TeXForm"));
+        Cons head = SublistCons.getInstance(aEnvironment, AtomCons.getInstance(aEnvironment, "TeXForm"));
 
         ((Cons) head.car()).setCdr(getArgument(aEnvironment, aStackTop, 1));
 
@@ -76,21 +76,21 @@ public class ViewMath extends BuiltinFunction {
         Cons viewScaleCons = getArgument(aEnvironment, aStackTop, 2);
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, viewScaleCons);
-        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, viewScaleCons);
+        Cons result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
         
         BigNumber viewScale = (BigNumber) result.getNumber(aEnvironment.iPrecision, aEnvironment);
         if(viewScale == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
 
         
         stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, head);
-        result = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, head);
+        result = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
         String texString = (String) result.car();
-        texString = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, texString);
+        texString = Utility.stripEndQuotesIfPresent(aEnvironment, texString);
         texString = texString.substring(1, texString.length());
         texString = texString.substring(0, texString.length() - 1);
 

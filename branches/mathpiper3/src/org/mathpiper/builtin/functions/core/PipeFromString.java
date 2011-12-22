@@ -48,15 +48,15 @@ public class PipeFromString extends BuiltinFunction
     {
 
         int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1));
-        Cons evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-        aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getArgument(aEnvironment, aStackTop, 1));
+        Cons evaluated = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+        aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
 
         // Get file name
         if( evaluated == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         String orig =  (String) evaluated.car();
         if( orig == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        String oper = Utility.toNormalString(aEnvironment, aStackTop, orig);
+        String oper = Utility.toNormalString(aEnvironment, orig);
 
         InputStatus oldstatus = aEnvironment.getCurrentInput().iStatus;
         aEnvironment.getCurrentInput().iStatus.setTo("String");
@@ -68,9 +68,9 @@ public class PipeFromString extends BuiltinFunction
         {
             // Evaluate the body
             stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 2));
-            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
-            aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, getArgument(aEnvironment, aStackTop, 2));
+            Cons aResult = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
+            aEnvironment.iArgumentStack.popTo(stackTop, aEnvironment);
             setTopOfStack(aEnvironment, aStackTop, aResult);
         } catch (Exception e)
         {

@@ -49,9 +49,9 @@ public class LeftPrecedenceGet extends BuiltinFunction
         {  // infix and postfix operators have left precedence
 
             op = Utility.operatorInfo(aEnvironment, aStackTop, aEnvironment.iPostfixOperators);
-            if(op == null) LispError.throwError(aEnvironment, aStackTop, LispError.IS_NOT_INFIX);
+            if(op == null) LispError.throwError(aEnvironment, LispError.IS_NOT_INFIX);
         }
-        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "" + op.iLeftPrecedence));
+        setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, "" + op.iLeftPrecedence));
     }
 }
 

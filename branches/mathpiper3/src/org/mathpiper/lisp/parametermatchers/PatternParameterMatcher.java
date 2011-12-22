@@ -28,7 +28,7 @@ public abstract class PatternParameterMatcher {
      *@aExpression the expression to test.
      *@arguments (input/output) actual values of the pattern variables for aExpression.
      */
-    public abstract boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception;
+    public abstract boolean argumentMatches(Environment aEnvironment, Cons aExpression, Cons[] arguments) throws Exception;
 
 
     public abstract String getType();

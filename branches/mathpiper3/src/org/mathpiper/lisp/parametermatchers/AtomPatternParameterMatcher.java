@@ -32,7 +32,7 @@ public class AtomPatternParameterMatcher extends PatternParameterMatcher {
     }
 
 
-    public boolean argumentMatches(Environment aEnvironment, int aStackTop, Cons aExpression, Cons[] arguments) throws Exception {
+    public boolean argumentMatches(Environment aEnvironment, Cons aExpression, Cons[] arguments) throws Exception {
 
         // If it is a floating point, don't even bother comparing
         if (aExpression != null) {

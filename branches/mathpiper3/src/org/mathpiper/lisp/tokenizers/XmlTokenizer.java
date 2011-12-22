@@ -27,7 +27,7 @@ public class XmlTokenizer
     /// NextToken returns a string representing the next token,
     /// or an empty list.
     @Override
-    public String nextToken(Environment aEnvironment, int aStackTop, MathPiperInputStream aInput)
+    public String nextToken(Environment aEnvironment, MathPiperInputStream aInput)
             throws Exception {
 
         char c;
@@ -49,7 +49,7 @@ public class XmlTokenizer
 
             while (c != '>') {
                 c = aInput.next();
-                if(aInput.endOfStream()) LispError.throwError(aEnvironment, aStackTop, LispError.COMMENT_TO_END_OF_FILE, "Last character read was <" + c + ">.");
+                if(aInput.endOfStream()) LispError.throwError(aEnvironment, "Last character read was <" + c + ">.");
             }
         } else {
 

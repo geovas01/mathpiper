@@ -44,7 +44,7 @@ public class LispRead extends BuiltinFunction
         Parser parser = new Parser(aEnvironment.iCurrentTokenizer, aEnvironment.getCurrentInput(),
                 aEnvironment);
         // Read expression
-        setTopOfStack(aEnvironment, aStackTop, parser.parse(aStackTop));
+        setTopOfStack(aEnvironment, aStackTop, parser.parse());
     }
 }
 

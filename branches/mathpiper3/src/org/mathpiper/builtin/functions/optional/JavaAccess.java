@@ -43,9 +43,9 @@ public class JavaAccess extends BuiltinFunction {
 
         args = args.cdr();
 
-        Cons result = Utility.applyString(aEnvironment, aStackTop, "\"JavaCall\"", args);
+        Cons result = Utility.applyString(aEnvironment, "\"JavaCall\"", args);
 
-        result = Utility.applyString(aEnvironment, aStackTop, "\"JavaToValue\"", result);
+        result = Utility.applyString(aEnvironment, "\"JavaToValue\"", result);
 
         setTopOfStack(aEnvironment, aStackTop, result);
 

@@ -48,7 +48,7 @@ public class ListToFunction extends BuiltinFunction
         Cons atom = (Cons) getArgument(aEnvironment, aStackTop, 1).car();
         if( atom == null) LispError.checkArgument(aEnvironment, aStackTop, 1);
         if(! (((String)atom.car()).equals((String)aEnvironment.iListAtom.car()))) LispError.checkArgument(aEnvironment, aStackTop, 1);
-        setTopOfStack(aEnvironment, aStackTop, Utility.tail(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 1)));
+        setTopOfStack(aEnvironment, aStackTop, Utility.tail(aEnvironment, getArgument(aEnvironment, aStackTop, 1)));
     }
 }
 

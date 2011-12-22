@@ -51,7 +51,7 @@ public class ViewHelp extends BuiltinFunction {
             setTopOfStack(aEnvironment, aStackTop, BuiltinObjectCons.getInstance(aEnvironment, aStackTop, response));
 
         } catch (FileNotFoundException fnfe) {
-            LispError.raiseError("The help application data file was not found.", aStackTop, aEnvironment);
+            LispError.raiseError("The help application data file was not found.", aEnvironment);
         }
 
     }//end method.

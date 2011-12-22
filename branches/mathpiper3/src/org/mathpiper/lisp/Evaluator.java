@@ -47,7 +47,7 @@ public abstract class Evaluator {
 		// Print out the current expression
 		//StringOutput stream(outString);
 		MathPiperOutputStream stream = new StringOutputStream(outString);
-		infixprinter.print(-1, aExpression, stream, aEnvironment);
+		infixprinter.print(aExpression, stream, aEnvironment);
 		// Escape quotes.
 		for (int i = outString.length() - 1; i >= 0; --i) {
 			char c = outString.charAt(i);
@@ -285,7 +285,7 @@ public abstract class Evaluator {
 		iStackTraced = true;
 	}
 
-	public abstract void evaluate(Environment aEnvironment, int aStackTop, Cons aArgumentsOrExpression) throws Exception;
+	public abstract void evaluate(Environment aEnvironment, Cons aArgumentsOrExpression) throws Exception;
 
 
 	public void showStack(Environment aEnvironment, MathPiperOutputStream aOutput) {

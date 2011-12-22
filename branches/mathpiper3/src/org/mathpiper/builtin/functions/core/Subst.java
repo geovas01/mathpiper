@@ -46,7 +46,7 @@ public class Subst extends BuiltinFunction
         Cons to = getArgument(aEnvironment, aStackTop, 2);
         Cons body = getArgument(aEnvironment, aStackTop, 3);
         org.mathpiper.lisp.behaviours.ExpressionSubstitute behaviour = new org.mathpiper.lisp.behaviours.ExpressionSubstitute(aEnvironment, from, to);
-        setTopOfStack(aEnvironment, aStackTop, Utility.substitute(aEnvironment, aStackTop, body, behaviour));
+        setTopOfStack(aEnvironment, aStackTop, Utility.substitute(aEnvironment, body, behaviour));
     }
 }
 

@@ -36,7 +36,7 @@ public class MacroRulebase extends SingleArityRulebase {
 
             //LispError.check(parameterTraverser.car() != null, LispError.CREATING_USER_FUNCTION);
             try {
-                if(! (parameterTraverser.car() instanceof String)) LispError.throwError(aEnvironment, aStackTop, LispError.CREATING_USER_FUNCTION, "");
+                if(! (parameterTraverser.car() instanceof String)) LispError.throwError(aEnvironment, "");
             } catch (EvaluationException ex) {
                 if (ex.getFunctionName() == null) {
                     throw new EvaluationException(ex.getMessage() + " In function: " + this.functionName + ",  ", "none", -1,-1,-1, this.functionName);
@@ -58,10 +58,10 @@ public class MacroRulebase extends SingleArityRulebase {
 
 
     @Override
-    public void evaluate(Environment aEnvironment, int aStackTop, Cons aArguments) throws Exception {
+    public void evaluate(Environment aEnvironment, Cons aArguments) throws Exception {
         Cons aResult;
         int arity = arity();
-        Cons[] argumentsResultArray = evaluateArguments(aEnvironment, aStackTop, aArguments);
+        Cons[] argumentsResultArray = evaluateArguments(aEnvironment, aArguments);
 
 
 
@@ -75,7 +75,7 @@ public class MacroRulebase extends SingleArityRulebase {
                 String variable = ((ParameterName) iParameters.get(parameterIndex)).iName;
 
                 // set the variable to the new value
-                aEnvironment.newLocalVariable(variable, argumentsResultArray[parameterIndex], aStackTop);
+                aEnvironment.newLocalVariable(variable, argumentsResultArray[parameterIndex]);
             }
 
             // walk the rules database, returning the evaluated result if the
@@ -85,17 +85,17 @@ public class MacroRulebase extends SingleArityRulebase {
             for (int ruleIndex = 0; ruleIndex < numberOfRules; ruleIndex++) {
                 Rule thisRule = ((Rule) iBranchRules.get(ruleIndex));
                 //TODO remove            CHECKPTR(thisRule);
-                if(thisRule == null) LispError.lispAssert(aEnvironment, aStackTop);
+                if(thisRule == null) LispError.lispAssert(aEnvironment);
 
 
 
-                boolean matches = thisRule.matches(aEnvironment, aStackTop, argumentsResultArray);
+                boolean matches = thisRule.matches(aEnvironment, argumentsResultArray);
 
                 if (matches) {
                     /* Rule dump trace code. */
                     if (isTraced(this.functionName) && showFlag) {
                         Cons arguments = SublistCons.getInstance(aEnvironment, aArguments);
-                        String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackTop, thisRule, aEnvironment, this);
+                        String ruleDump = org.mathpiper.lisp.Utility.dumpRule(thisRule, aEnvironment, this);
                         Evaluator.traceShowRule(aEnvironment, arguments, ruleDump);
                     }
 
@@ -103,7 +103,7 @@ public class MacroRulebase extends SingleArityRulebase {
                     BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
 
                     Cons originalBody = thisRule.getBody();
-                    substitutedBody = Utility.substitute(aEnvironment, aStackTop, originalBody, backQuoteSubstitute);
+                    substitutedBody = Utility.substitute(aEnvironment, originalBody, backQuoteSubstitute);
                     //              aEnvironment.iLispExpressionEvaluator.Eval(aEnvironment, aResult, thisRule.body());
                     break;
                 }
@@ -120,7 +120,7 @@ public class MacroRulebase extends SingleArityRulebase {
                 throw ex;
             }
         } finally {
-            aEnvironment.popLocalFrame(aStackTop);
+            aEnvironment.popLocalFrame();
         }
 
 
@@ -128,8 +128,8 @@ public class MacroRulebase extends SingleArityRulebase {
         if (substitutedBody != null) {
             //Note:tk:substituted body must be evaluated after the local frame has been popped.
             int stackTop = aEnvironment.iArgumentStack.getStackTopIndex();
-            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, substitutedBody);
-            aResult = aEnvironment.iArgumentStack.getElement(stackTop, aStackTop, aEnvironment);
+            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, substitutedBody);
+            aResult = aEnvironment.iArgumentStack.getElement(stackTop, aEnvironment);
             //aEnvironment.iArgumentStack.popTo(stackTop, aStackTop, aEnvironment);
         } else // No predicate was true: return a new expression with the evaluated arguments.
         {
@@ -143,14 +143,14 @@ public class MacroRulebase extends SingleArityRulebase {
                 }
             }
             aResult = SublistCons.getInstance(aEnvironment, full);
-            BuiltinFunction.pushOnStack(aEnvironment, aStackTop, aResult);
+            BuiltinFunction.pushOnStack(aEnvironment, aResult);
         }
         //FINISH:
 
         /*Leave trace code */
         if (isTraced(this.functionName) && showFlag) {
             Cons tr = SublistCons.getInstance(aEnvironment, aArguments);
-            String localVariables = aEnvironment.getLocalVariables(aStackTop);
+            String localVariables = aEnvironment.getLocalVariables();
             Evaluator.traceShowLeave(aEnvironment, aResult, tr, "macro", localVariables);
             tr = null;
         }

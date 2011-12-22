@@ -680,14 +680,14 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         Interpreter syncronousInterpreter = Interpreters.getSynchronousInterpreter();
 
                         //Evaluate Hold function.
-                        Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "Hold");
+                        Cons holdAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), "Hold");
                         holdAtomCons.setCdr(response.getResultList());
                         Cons holdSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), holdAtomCons);
                         Cons holdInputExpression = holdSubListCons;
 
 
                         //Evaluate TeXForm function.
-                        Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), -1, "TeXForm");
+                        Cons texFormAtomCons = AtomCons.getInstance(syncronousInterpreter.getEnvironment(), "TeXForm");
                         texFormAtomCons.setCdr(holdInputExpression);
                         Cons texFormSubListCons = SublistCons.getInstance(syncronousInterpreter.getEnvironment(), texFormAtomCons);
 
@@ -695,7 +695,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
 
                         String latexString = latexResponse.getResult();
 
-                        latexString = Utility.stripEndQuotesIfPresent(null, -1, latexString);
+                        latexString = Utility.stripEndQuotesIfPresent(null, latexString);
 
                         latexString = Utility.stripEndDollarSigns(latexString);
 
@@ -705,7 +705,7 @@ public class GraphicConsole extends javax.swing.JPanel implements ActionListener
                         //Set the % variable to the original result.
                         Environment iEnvironment = syncronousInterpreter.getEnvironment();
                         String percent = "%";
-                        iEnvironment.setLocalOrGlobalVariable(-1, percent, response.getResultList(), true);
+                        iEnvironment.setLocalOrGlobalVariable(percent, response.getResultList(), true);
 
 
                     } catch (Exception e) {

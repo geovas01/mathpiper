@@ -48,9 +48,9 @@ public class Type extends BuiltinFunction
         String functionType = Utility.functionType(evaluated);
 
         if (functionType.equals("")) {
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, "\"\""));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, "\"\""));
         } else {
-            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, aStackTop, Utility.toMathPiperString(aEnvironment, aStackTop, functionType)));
+            setTopOfStack(aEnvironment, aStackTop, AtomCons.getInstance(aEnvironment, Utility.toMathPiperString(aEnvironment, functionType)));
         }
     }//end method.
 
