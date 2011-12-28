@@ -57,7 +57,19 @@ public class InterpreterTest implements ResponseListener
 
         //response = interpreter.evaluate("LoadScript(\"x := 1;\nWhile(x <? 100) \n[\nwrite(x,,);\nx := x + 1;  \n];\");");
 
-        response = interpreter.evaluate("LoadScript(\"Hello\");");
+//=======================
+
+        //response = interpreter.evaluate("LoadScript(\"NEOn();[1;2;];\");");
+
+        //response = interpreter.evaluate("LoadScript(\" NEOn(); [a;b;];\");");
+
+        response = interpreter.evaluate("LoadScript(\" NEOn(); [1+2;3+4;];\");");
+
+        
+
+
+//=======================
+
         //response = interpreter.evaluate(" \"Hello\";");
         //response = interpreter.evaluate("LoadScript(\" 2+2;\");");
 

@@ -92,12 +92,7 @@ public class MacroRulebase extends SingleArityRulebase {
                 boolean matches = thisRule.matches(aEnvironment, aStackBase, argumentsResultArray);
 
                 if (matches) {
-                    /* Rule dump trace code. */
-                    if (isTraced(this.functionName) && showFlag) {
-                        Cons arguments = SublistCons.getInstance(aEnvironment, aArguments);
-                        String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackBase, thisRule, aEnvironment, this);
-                        Evaluator.traceShowRule(aEnvironment, arguments, ruleDump);
-                    }
+
 
 
                     BackQuoteSubstitute backQuoteSubstitute = new BackQuoteSubstitute(aEnvironment);
@@ -147,13 +142,7 @@ public class MacroRulebase extends SingleArityRulebase {
         }
         //FINISH:
 
-        /*Leave trace code */
-        if (isTraced(this.functionName) && showFlag) {
-            Cons tr = SublistCons.getInstance(aEnvironment, aArguments);
-            String localVariables = aEnvironment.getLocalVariables(aStackBase);
-            Evaluator.traceShowLeave(aEnvironment, aResult, tr, "macro", localVariables);
-            tr = null;
-        }
+
 
         return;
     }

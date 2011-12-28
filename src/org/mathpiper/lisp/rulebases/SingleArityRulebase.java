@@ -141,12 +141,6 @@ public class SingleArityRulebase extends Evaluator {
 
                 if (matches) {
 
-                    /* Rule dump trace code. */
-                    if (isTraced(this.functionName) && showFlag) {
-                        Cons arguments = SublistCons.getInstance(aEnvironment, aArguments);
-                        String ruleDump = org.mathpiper.lisp.Utility.dumpRule(aStackBase, thisRule, aEnvironment, this);
-                        Evaluator.traceShowRule(aEnvironment, arguments, ruleDump);
-                    }
 
 
 
@@ -169,13 +163,6 @@ public class SingleArityRulebase extends Evaluator {
 
                     }
 
-                    /*Leave trace code */
-                    if (isTraced(this.functionName) && showFlag) {
-                        Cons arguments2 = SublistCons.getInstance(aEnvironment, aArguments);
-                        String localVariables = aEnvironment.getLocalVariables(aStackBase);
-                        Evaluator.traceShowLeave(aEnvironment, aResult, arguments2, functionType, localVariables);
-                        arguments2 = null;
-                    }//end if.
 
                     return;
                 }//end if matches.
@@ -202,13 +189,6 @@ public class SingleArityRulebase extends Evaluator {
             BuiltinFunction.pushOnStack(aEnvironment, aStackBase, aResult);
 
 
-            /* Trace code */
-            if (isTraced(this.functionName) && showFlag) {
-                Cons arguments3 = SublistCons.getInstance(aEnvironment, aArguments);
-                String localVariables = aEnvironment.getLocalVariables(aStackBase);
-                Evaluator.traceShowLeave(aEnvironment, aResult, arguments3, functionType, localVariables);
-                arguments3 = null;
-            }
 
             return ;
 
@@ -231,24 +211,7 @@ public class SingleArityRulebase extends Evaluator {
         int arity = arity();
         int parameterIndex;
 
-        /*Enter trace code*/
-        if (isTraced(this.functionName)) {
-            Cons arguments = SublistCons.getInstance(aEnvironment, aArguments);
-            String traceFunctionName = "";
-            if (arguments.car() instanceof Cons) {
-                Cons sub = (Cons) arguments.car();
-                if (sub.car() instanceof String) {
-                    traceFunctionName = (String) sub.car();
-                }
-            }//end function.
-            if (Evaluator.isTraceFunction(traceFunctionName)) {
-                showFlag = true;
-                Evaluator.traceShowEnter(aEnvironment, arguments, functionType);
-            } else {
-                showFlag = false;
-            }//
-            arguments = null;
-        }
+
 
         Cons argumentsTraverser = aArguments;
 
@@ -289,18 +252,6 @@ public class SingleArityRulebase extends Evaluator {
             argumentsTraverser = argumentsTraverser.cdr();
         }//end for.
 
-        /*Argument trace code */
-        if (isTraced(this.functionName) && argumentsResultArray != null && showFlag) {
-
-            Cons traceParameter = this.iParameterList;
-
-
-            for (parameterIndex = 0; parameterIndex < argumentsResultArray.length; parameterIndex++) {
-                Evaluator.traceShowArg(aEnvironment, traceParameter, argumentsResultArray[parameterIndex]);
-
-                traceParameter = traceParameter.cdr();
-            }//end for.
-        }//end if.
 
         return argumentsResultArray;
 
