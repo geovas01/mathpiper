@@ -33,6 +33,8 @@ import org.mathpiper.lisp.variables.LocalVariableFrame;
 // evaluate'
 public abstract class Evaluator {
 
+        public static boolean NEW_EVALUATOR = false;
+
 	public static boolean DEBUG = false;
 	public static boolean TRACE_TO_STANDARD_OUT = false;
 	public static boolean VERBOSE_DEBUG = true;
@@ -254,7 +256,7 @@ public abstract class Evaluator {
 		}//end else.
 	}//end method.
 
-	public static boolean isTraced(String functionName) {
+	/*public static boolean isTraced(String functionName) {
 
                 if(iTraced == true && !functionName.endsWith("?"))
                 {
@@ -264,7 +266,7 @@ public abstract class Evaluator {
                 {
 		    return false;
                 }
-	}
+	}*/
 
 	public static void traceOff() {
 		iTraced = false;
