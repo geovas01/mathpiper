@@ -72,7 +72,7 @@ public class InterpreterTest implements ResponseListener
 
 
 
-        //response = interpreter.evaluate("LoadScript(\" NEOn(); [Prime?(1);];\");");
+        //response = interpreter.evaluate("LoadScript(\" NEOn(); [Not?(True);];\");");
 
         //response = interpreter.evaluate("LoadScript(\" NEOn(); [Echo(1);Echo(2);];\");");
 

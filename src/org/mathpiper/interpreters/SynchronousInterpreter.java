@@ -203,7 +203,7 @@ public class SynchronousInterpreter implements Interpreter {
             }
             e.printStackTrace();
 
- System.exit(0);
+ //System.exit(0);
 
         }
 
@@ -400,7 +400,7 @@ public class SynchronousInterpreter implements Interpreter {
     }
 
     private void handleException(Exception exception, EvaluationResponse evaluationResponse) {
-        exception.printStackTrace(); System.exit(1); //todo:tk:uncomment for debugging.
+        //exception.printStackTrace(); System.exit(1); //todo:tk:uncomment for debugging.
        
         Evaluator.DEBUG = false;
         Evaluator.VERBOSE_DEBUG = false;
