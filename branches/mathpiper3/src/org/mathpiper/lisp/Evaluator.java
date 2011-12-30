@@ -33,7 +33,9 @@ import org.mathpiper.lisp.variables.LocalVariableFrame;
 // evaluate'
 public abstract class Evaluator {
 
-        public static boolean NEW_EVALUATOR = false;
+        public static boolean NEW_EVALUATOR_ON = false;
+        public static boolean OLD_EVAL_ARGS = false;
+        public static boolean USER_FUNCTION_EVAL = true;
 
 	public static boolean DEBUG = false;
 	public static boolean TRACE_TO_STANDARD_OUT = false;
