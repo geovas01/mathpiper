@@ -208,6 +208,8 @@ public class SingleArityRulebase extends Evaluator {
 
 
     protected Cons[] evaluateArguments(Environment aEnvironment, int aStackBase, Cons aArguments) throws Exception {
+        Evaluator.OLD_EVAL_ARGS = true;
+
         int arity = arity();
         int parameterIndex;
 
@@ -251,6 +253,8 @@ public class SingleArityRulebase extends Evaluator {
             }
             argumentsTraverser = argumentsTraverser.cdr();
         }//end for.
+
+        Evaluator.OLD_EVAL_ARGS = false;
 
 
         return argumentsResultArray;

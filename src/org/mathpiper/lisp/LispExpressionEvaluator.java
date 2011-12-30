@@ -42,12 +42,13 @@ public class LispExpressionEvaluator extends Evaluator {
     private Object[] stackJS = new Object[10000];
     private int stackJSIndex = 0;
     private Map bfa = new HashMap();
-    private final int LISP_EXPRESSION_EVALUATOR = 1;
-    private final int BUILTIN_FUNCTION_EVALUATOR_A = 2;
-    private final int BUILTIN_FUNCTION_EVALUATOR_B = 3;
-    private final int PROG_A = 10;
-    private final int PROG_B = 15;
-    private final int PROG_C = 20;
+    private final int LISP_EXPRESSION_EVALUATOR = 10;
+    private final int BUILTIN_FUNCTION_EVALUATOR_A = 20;
+    private final int BUILTIN_FUNCTION_EVALUATOR_B = 30;
+    private final int SINGLE_ARITY_RULEBASE_EVALUATOR = 40;
+    private final int PROG_A = 50;
+    private final int PROG_B = 60;
+    private final int PROG_C = 70;
 
     public LispExpressionEvaluator() {
         bfa.put("Prog", PROG_A);
@@ -79,6 +80,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
             switch (address) {
+                //===============================================================================================
 
                 case LISP_EXPRESSION_EVALUATOR: {
 
@@ -113,11 +115,9 @@ public class LispExpressionEvaluator extends Evaluator {
                             aEnvironment.iEvalDepth--;
                             BuiltinFunction.pushOnStack(aEnvironment, aStackBase, aExpression.copy(false));
 
-                            if(Evaluator.NEW_EVALUATOR == false)
-                            {
+                            if (Evaluator.NEW_EVALUATOR_ON == false || Evaluator.OLD_EVAL_ARGS == true || Evaluator.USER_FUNCTION_EVAL == true) {
                                 return;
-                            }else
-                            {
+                            } else {
                                 address = (Integer) stackJS[--stackJSIndex];
 
                                 continue mainLoop;
@@ -130,11 +130,9 @@ public class LispExpressionEvaluator extends Evaluator {
                             aEnvironment.iEvalDepth--;
                             BuiltinFunction.pushOnStack(aEnvironment, aStackBase, aExpression.copy(false));
 
-                            if(Evaluator.NEW_EVALUATOR == false)
-                            {
+                            if (Evaluator.NEW_EVALUATOR_ON == false || Evaluator.OLD_EVAL_ARGS == true || Evaluator.USER_FUNCTION_EVAL == true) {
                                 return;
-                            }else
-                            {
+                            } else {
                                 address = (Integer) stackJS[--stackJSIndex];
 
                                 continue mainLoop;
@@ -150,11 +148,9 @@ public class LispExpressionEvaluator extends Evaluator {
                             BuiltinFunction.pushOnStack(aEnvironment, aStackBase, val.copy(false));
 
 
-                            if(Evaluator.NEW_EVALUATOR == false)
-                            {
+                            if (Evaluator.NEW_EVALUATOR_ON == false || Evaluator.OLD_EVAL_ARGS == true || Evaluator.USER_FUNCTION_EVAL == true) {
                                 return;
-                            }else
-                            {
+                            } else {
                                 address = (Integer) stackJS[--stackJSIndex];
 
                                 continue mainLoop;
@@ -167,11 +163,9 @@ public class LispExpressionEvaluator extends Evaluator {
                         aEnvironment.iEvalDepth--;
                         BuiltinFunction.pushOnStack(aEnvironment, aStackBase, aExpression.copy(false));
 
-                        if(Evaluator.NEW_EVALUATOR == false)
-                        {
+                        if (Evaluator.NEW_EVALUATOR_ON == false || Evaluator.OLD_EVAL_ARGS == true || Evaluator.USER_FUNCTION_EVAL == true) {
                             return;
-                        }else
-                        {
+                        } else {
                             address = (Integer) stackJS[--stackJSIndex];
 
                             continue mainLoop;
@@ -311,8 +305,20 @@ public class LispExpressionEvaluator extends Evaluator {
                         if (userFunction != null) {
 
                             aEnvironment.iEvalDepth--;
+
+                            Evaluator.USER_FUNCTION_EVAL = true;
+
                             userFunction.evaluate(aEnvironment, aStackBase, functionAndArgumentsList);
-                            return;
+
+                            Evaluator.USER_FUNCTION_EVAL = false;
+
+                            if (Evaluator.NEW_EVALUATOR_ON == false || Evaluator.OLD_EVAL_ARGS == true || Evaluator.USER_FUNCTION_EVAL == true) {
+                                return;
+                            } else {
+                                address = (Integer) stackJS[--stackJSIndex];
+
+                                continue mainLoop;
+                            }
                         }
 
 
@@ -349,7 +355,15 @@ public class LispExpressionEvaluator extends Evaluator {
 
                         aEnvironment.iEvalDepth--;
                         Utility.applyPure(aStackBase, operator, args2, aEnvironment);
-                        return;
+
+
+                        if (Evaluator.NEW_EVALUATOR_ON == false || Evaluator.OLD_EVAL_ARGS == true || Evaluator.USER_FUNCTION_EVAL == true) {
+                            return;
+                        } else {
+                            address = (Integer) stackJS[--stackJSIndex];
+
+                            continue mainLoop;
+                        }
                     }
 
 
@@ -359,9 +373,19 @@ public class LispExpressionEvaluator extends Evaluator {
 
                     aEnvironment.iEvalDepth--;
 
-                }
-                break;
 
+                    if (Evaluator.NEW_EVALUATOR_ON == false || Evaluator.OLD_EVAL_ARGS == true || Evaluator.USER_FUNCTION_EVAL == true) {
+                        return;
+                    } else {
+                        address = (Integer) stackJS[--stackJSIndex];
+
+                        continue mainLoop;
+                    }
+
+                }
+                //break;
+
+                //===============================================================================================
 
                 case BUILTIN_FUNCTION_EVALUATOR_A: {
                     BuiltinFunctionEvaluator builtInFunctionEvaluator = (BuiltinFunctionEvaluator) stackJS[--stackJSIndex];
@@ -453,33 +477,19 @@ public class LispExpressionEvaluator extends Evaluator {
 
                         if ((builtInFunctionEvaluator.iFlags & builtInFunctionEvaluator.Variable) != 0) {//This function has a variable number of arguments.
 
-                            //LispString res;
-
-                            //printf("Enter\n");
-
-
                             Cons head4 = aEnvironment.iListAtom.copy(false);
                             head4.setCdr(argumentsConsTraverser);
                             Cons list = SublistCons.getInstance(aEnvironment, head4);
 
 
-                            /*
-                            PrintExpression(res, list,aEnvironment,100);
-                            printf("before %s\n",res.String());
-                             */
                             int oldStackTopArgs = aEnvironment.iArgumentStack.getStackTopIndex();
                             aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, list);
                             argumentResult = aEnvironment.iArgumentStack.getElement(oldStackTopArgs, aStackBase, aEnvironment);
                             aEnvironment.iArgumentStack.popTo(oldStackTopArgs, aStackBase, aEnvironment);
 
-                            /*
-                            PrintExpression(res, arg,aEnvironment,100);
-                            printf("after %s\n",res.String());
-                             */
 
                             aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResult, aStackBase, aEnvironment);
-                            //printf("Leave\n");
-                                    /*Trace code */
+
 
                         }//end if.
                     }//end else.
@@ -490,7 +500,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
 
                     //============= switch-based built-in function handler.
-                    if (Evaluator.NEW_EVALUATOR == true && bfa.containsKey(functionName)) {
+                    if (Evaluator.NEW_EVALUATOR_ON == true && bfa.containsKey(functionName)) {
                         stackJS[stackJSIndex++] = BUILTIN_FUNCTION_EVALUATOR_B;
                         stackJS[stackJSIndex++] = oldStackTop;
                         address = (Integer) bfa.get(functionName);
@@ -511,15 +521,31 @@ public class LispExpressionEvaluator extends Evaluator {
 
                 }
                 break;
-                
+
+                //===============================================================================================
+
                 case BUILTIN_FUNCTION_EVALUATOR_B: {
-                    
-                      if(true)return;
-                    
+
+                    if (true) {
+                        return;
+                    }
+
                 }
                 break;
 
-                 case PROG_A: {
+
+                case SINGLE_ARITY_RULEBASE_EVALUATOR: {
+
+                    if (true) {
+                        return;
+                    }
+
+                }
+                break;
+
+                //===============================================================================================
+
+                case PROG_A: {
 
 
 
@@ -547,6 +573,8 @@ public class LispExpressionEvaluator extends Evaluator {
 
                 }
                 break;
+
+                //===============================================================================================
 
                 case PROG_B: {
 
@@ -579,6 +607,8 @@ public class LispExpressionEvaluator extends Evaluator {
                 }
                 break;
 
+                //===============================================================================================
+
                 case PROG_C: {
                     Cons consTraverser = (Cons) stackJS[--stackJSIndex];
                     int aStackBase = (Integer) stackJS[--stackJSIndex];
@@ -610,8 +640,5 @@ public class LispExpressionEvaluator extends Evaluator {
         }//end while
 
     }//end evaluate.
-
-
-
 }//end class.
 

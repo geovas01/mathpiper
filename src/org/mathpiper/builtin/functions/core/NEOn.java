@@ -39,7 +39,7 @@ public class NEOn extends BuiltinFunction
 
 
     public void evaluate(Environment aEnvironment, int aStackBase) throws Exception {
-        Evaluator.NEW_EVALUATOR = true;
+        Evaluator.NEW_EVALUATOR_ON = true;
         aEnvironment.write("The new evaluation mode is on.\n");
         setTopOfStack(aEnvironment, aStackBase, Utility.getTrueAtom(aEnvironment));
     }//end method.
