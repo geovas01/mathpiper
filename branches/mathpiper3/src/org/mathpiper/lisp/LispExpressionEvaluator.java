@@ -44,7 +44,10 @@ public class LispExpressionEvaluator extends Evaluator {
     private Map bfa = new HashMap();
     private final int LISP_EXPRESSION_EVALUATOR = 10;
     private final int BUILTIN_FUNCTION_EVALUATOR_A = 20;
-    private final int BUILTIN_FUNCTION_EVALUATOR_B = 30;
+    private final int BUILTIN_FUNCTION_EVALUATOR_B = 22;
+    private final int BUILTIN_FUNCTION_EVALUATOR_C = 24;
+    private final int BUILTIN_FUNCTION_EVALUATOR_D = 26;
+    private final int BUILTIN_FUNCTION_EVALUATOR_E = 28;
     private final int SINGLE_ARITY_RULEBASE_EVALUATOR = 40;
     private final int PROG_A = 50;
     private final int PROG_B = 60;
@@ -432,7 +435,7 @@ public class LispExpressionEvaluator extends Evaluator {
                         numberOfArguments--;
                     }//end if.
 
-                    Cons argumentResult;
+                    //Cons argumentResult;
 
                     // Walk over all arguments, evaluating them only if this is a function. *****************************************************
 
@@ -443,7 +446,6 @@ public class LispExpressionEvaluator extends Evaluator {
                             if (argumentsConsTraverser == null) {
                                 LispError.throwError(aEnvironment, aStackBase, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments);
                             }
-
 
                             aEnvironment.iArgumentStack.pushArgumentOnStack(argumentsConsTraverser.copy(false), aStackBase, aEnvironment);
 
@@ -458,50 +460,100 @@ public class LispExpressionEvaluator extends Evaluator {
 
                     } else {//This is a function, not a macro. Evaluate arguments.
 
-                        for (i = 0; i < numberOfArguments; i++) {
+                        stackJS[stackJSIndex++] = functionName;
+                        stackJS[stackJSIndex++] = oldStackTop;
+                        stackJS[stackJSIndex++] = numberOfArguments;
+                        stackJS[stackJSIndex++] = aStackBase;
+                        stackJS[stackJSIndex++] = argumentsConsTraverser;
+                        stackJS[stackJSIndex++] = builtInFunctionEvaluator;
+                        address = BUILTIN_FUNCTION_EVALUATOR_B;
+                        continue mainLoop;
 
-                            if (argumentsConsTraverser == null) {
-                                LispError.throwError(aEnvironment, aStackBase, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments);
-                            }
-
-                            int oldStackTopArgs = aEnvironment.iArgumentStack.getStackTopIndex();
-                            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, argumentsConsTraverser);
-                            argumentResult = aEnvironment.iArgumentStack.getElement(oldStackTopArgs, aStackBase, aEnvironment);
-                            aEnvironment.iArgumentStack.popTo(oldStackTopArgs, aStackBase, aEnvironment);
-
-
-                            aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResult, aStackBase, aEnvironment);
-
-                            argumentsConsTraverser = argumentsConsTraverser.cdr();
-                        }//end for.
-
-                        if ((builtInFunctionEvaluator.iFlags & builtInFunctionEvaluator.Variable) != 0) {//This function has a variable number of arguments.
-
-                            Cons head4 = aEnvironment.iListAtom.copy(false);
-                            head4.setCdr(argumentsConsTraverser);
-                            Cons list = SublistCons.getInstance(aEnvironment, head4);
-
-
-                            int oldStackTopArgs = aEnvironment.iArgumentStack.getStackTopIndex();
-                            aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, list);
-                            argumentResult = aEnvironment.iArgumentStack.getElement(oldStackTopArgs, aStackBase, aEnvironment);
-                            aEnvironment.iArgumentStack.popTo(oldStackTopArgs, aStackBase, aEnvironment);
-
-
-                            aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResult, aStackBase, aEnvironment);
-
-
-                        }//end if.
                     }//end else.
 
 
 
+                    stackJS[stackJSIndex++] = functionName;
+                    stackJS[stackJSIndex++] = oldStackTop;
+                    stackJS[stackJSIndex++] = builtInFunctionEvaluator;
+                    address = BUILTIN_FUNCTION_EVALUATOR_D;
+                    continue mainLoop;
+
+
+
+                }
+                //break;
+
+                //===============================================================================================
+
+                case BUILTIN_FUNCTION_EVALUATOR_B: {
+
+                    BuiltinFunctionEvaluator builtInFunctionEvaluator = (BuiltinFunctionEvaluator) stackJS[--stackJSIndex];
+                    Cons argumentsConsTraverser = (Cons) stackJS[--stackJSIndex];
+                    int aStackBase = (Integer) stackJS[--stackJSIndex];
+                    int numberOfArguments = (Integer) stackJS[--stackJSIndex];
+                    int oldStackTop = (Integer) stackJS[--stackJSIndex];
+                    String functionName = (String) stackJS[--stackJSIndex];
+
+                    for (int i = 0; i < numberOfArguments; i++) {
+
+                        if (argumentsConsTraverser == null) {
+                            LispError.throwError(aEnvironment, aStackBase, LispError.WRONG_NUMBER_OF_ARGUMENTS, "The number of arguments passed in was " + numberOfArguments);
+                        }
+
+                        int oldStackTopArgs = aEnvironment.iArgumentStack.getStackTopIndex();
+                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, argumentsConsTraverser);
+                        Cons argumentResult = aEnvironment.iArgumentStack.getElement(oldStackTopArgs, aStackBase, aEnvironment);
+                        aEnvironment.iArgumentStack.popTo(oldStackTopArgs, aStackBase, aEnvironment);
+
+
+                        aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResult, aStackBase, aEnvironment);
+
+                        argumentsConsTraverser = argumentsConsTraverser.cdr();
+                    }//end for.
+
+                    if ((builtInFunctionEvaluator.iFlags & builtInFunctionEvaluator.Variable) != 0) {//This function has a variable number of arguments.
+
+                        Cons head4 = aEnvironment.iListAtom.copy(false);
+                        head4.setCdr(argumentsConsTraverser);
+                        Cons list = SublistCons.getInstance(aEnvironment, head4);
+
+
+                        int oldStackTopArgs = aEnvironment.iArgumentStack.getStackTopIndex();
+                        aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackBase, list);
+                        Cons argumentResult = aEnvironment.iArgumentStack.getElement(oldStackTopArgs, aStackBase, aEnvironment);
+                        aEnvironment.iArgumentStack.popTo(oldStackTopArgs, aStackBase, aEnvironment);
+
+
+                        aEnvironment.iArgumentStack.pushArgumentOnStack(argumentResult, aStackBase, aEnvironment);
+
+
+                    }//end if.
+
+                    stackJS[stackJSIndex++] = functionName;
+                    stackJS[stackJSIndex++] = oldStackTop;
+                    stackJS[stackJSIndex++] = builtInFunctionEvaluator;
+                    address = BUILTIN_FUNCTION_EVALUATOR_D;
+                    continue mainLoop;
+
+                }
+                //break;
+
+
+                //===============================================================================================
+
+                case BUILTIN_FUNCTION_EVALUATOR_D: {
+
+
+                    BuiltinFunctionEvaluator builtInFunctionEvaluator = (BuiltinFunctionEvaluator) stackJS[--stackJSIndex];
+                    int oldStackTop = (Integer) stackJS[--stackJSIndex];
+                    String functionName = (String) stackJS[--stackJSIndex];
 
 
 
                     //============= switch-based built-in function handler.
                     if (Evaluator.NEW_EVALUATOR_ON == true && bfa.containsKey(functionName)) {
-                        stackJS[stackJSIndex++] = BUILTIN_FUNCTION_EVALUATOR_B;
+                        stackJS[stackJSIndex++] = BUILTIN_FUNCTION_EVALUATOR_E;
                         stackJS[stackJSIndex++] = oldStackTop;
                         address = (Integer) bfa.get(functionName);
                         continue mainLoop;
@@ -524,7 +576,7 @@ public class LispExpressionEvaluator extends Evaluator {
 
                 //===============================================================================================
 
-                case BUILTIN_FUNCTION_EVALUATOR_B: {
+                case BUILTIN_FUNCTION_EVALUATOR_E: {
 
                     if (true) {
                         return;
@@ -533,6 +585,7 @@ public class LispExpressionEvaluator extends Evaluator {
                 }
                 break;
 
+                //===============================================================================================
 
                 case SINGLE_ARITY_RULEBASE_EVALUATOR: {
 
