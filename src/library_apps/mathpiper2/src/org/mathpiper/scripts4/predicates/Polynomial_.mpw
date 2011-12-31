@@ -1,8 +1,11 @@
 %mathpiper,def="Polynomial?"
 
-//Retract("Polynomial?",*);
 
-10 # Polynomial?(expr_Function?) <-- 
+10 # Polynomial?( expr_String? ) <-- False;
+
+15 # Polynomial?( expr_Constant? ) <-- True;
+ 
+20 # Polynomial?(_expr) <-- 
 [
     Local(x,vars);
     vars := VarList(expr);
@@ -11,7 +14,7 @@
     Polynomial?(expr,x);
 ];
 
-15 # Polynomial?(_expr) <-- False;
+25 # Polynomial?(_expr) <-- False;
 
 
 10 # Polynomial?(_expr,_var)_(CanBeUni(var,expr)) <-- True;
@@ -19,7 +22,6 @@
 15 # Polynomial?(_expr,_var) <-- False;
 
 %/mathpiper
-
 
 
 
@@ -54,7 +56,7 @@ In> Polynomial?(2*x^3-3*x^2+5*x-14,x)
 Result: True 
 
 In> Polynomial?(2*x^3-3*x^2+5*x-14)
-Result: False
+Result: True
 
 In> Polynomial?(y^2-4)
 Result: True
