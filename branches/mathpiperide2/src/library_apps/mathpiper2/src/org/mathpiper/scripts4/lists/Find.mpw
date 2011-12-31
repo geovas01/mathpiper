@@ -1,20 +1,37 @@
 %mathpiper,def="Find"
 
-Function("Find",{list,element})
-[
-  Local(result,count);
-  Bind(result, -1);
-  Bind(count, 1);
-  While(And?(result<?0, Not?(Equal?(list, {}))))
+Retract("FindFirst",*);
+Retract("FindAll",*);
+
+10 # FindFirst( list_List?, _element ) <--
   [
-    If(Equal?(First(list), element),
-      Bind(result, count)
-      );
-    Bind(list,Rest(list));
-    Bind(count,AddN(count,1));
+     Local(result,count);
+     result := -1;
+     count  := 1;
+     While( And?( result <? 0, Not? ( Equal? (list, {}) )))
+     [
+       If(Equal?(First(list), element), result := count );
+       list := Rest(list);
+       count++;
+     ];
+     result;
   ];
-  result;
-];
+
+  
+10 # FindAll( list_List?, _element ) <--
+  [
+     Local(results,count);
+     results := {};
+     count   := 1;
+     While( Not? list =? {} )
+     [
+       If(Equal?( First(list), element), DestructiveAppend(results,count) );
+       list := Rest(list);
+       count++;
+     ];
+     results;
+  ];
+
 
 %/mathpiper
 
@@ -38,6 +55,7 @@ This commands returns the index at which the expression "expr"
 occurs in "list". If "expr" occurs more than once, the lowest
 index is returned. If "expr" does not occur at all,
 {-1} is returned.
+NOTE: Find is a synonym for FindFirst.
 
 *E.G.
 
@@ -48,5 +66,5 @@ Result: 2;
 In> Find({1,2,3,2,1}, 4);
 Result: -1;
 
-*SEE Contains?
+*SEE FindFirst, Find, Contains?
 %/mathpiper_docs
