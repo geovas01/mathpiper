@@ -1,0 +1,94 @@
+%mathpiper,def="MakeNewPoly"
+
+//Retract("MakeNewPoly",*);
+
+ 10 # MakeNewPoly( _poly ) <-- MakeNewPoly(poly,{x,y,z});
+ 
+ 20 # MakeNewPoly( _poly, polyVars_List? ) <--
+ [
+    //------------------------------------------------------------------
+    // INPUT:  a polynomial, in usual MathPiper format,
+    //         and a list of Variables to be used, in Order of ">".
+    // OUTPUT: the polynomial, in the Sparse representation, with Markers
+    //------------------------------------------------------------------
+    If(InVerboseMode(),Tell(" MakeNewPoly",poly));
+    Local(p,nTerms,ii,dexp,npVars,pVars,ind,polyExp,pwrProd,pwrProdT,newDexp);
+    npVars  := polyVars;
+    nVars   := Length(npVars);
+    dexp   := DisassembleExpression(poly,npVars);
+    nTerms := Length(dexp[3]);
+    pVars  := dexp[1];
+    If(InVerboseMode(),
+      [
+        Tell("    ",nTerms); 
+        Tell("      ",ReassembleListTerms(dexp)); 
+        Tell("    ",{pVars,npVars});
+      ]
+    );
+    newDexp := FlatCopy(dexp);
+    newDexp[1] := npVars;
+    pwrProd := dexp[2];
+    If(InVerboseMode(), [Tell("    ",newDexp); Tell("    ",pwrProd);]);
+    pwrProdT := Transpose(pwrProd);
+    polyExp  := Concat({dexp[3]},pwrProdT);
+    polyExp  := Push(Transpose(polyExp),npVars);
+    polyExp  := Push(polyExp,NP);
+    If(InVerboseMode(),Tell("    ",polyExp));
+    polyExp;
+ ];
+ UnFence("MakeNewPoly",2);
+
+%/mathpiper
+
+    
+
+   
+
+%mathpiper_docs,def="MakeNewPoly",categories="User Functions;Polynomials"
+*CMD MakeNewPoly --- Create a NewPolynomial structure from a given polynomial
+*CALL
+        MakeNewPoly(poly)
+        MakeNewPoly(poly,vars)
+*PARMS
+{poly} -- a univariate or multivariate polynomial, in standard form
+{vars} -- a list of variable names, in order of ">"
+*DESC
+REPRESENTATION:
+ A NewPolynomial is a multivariate polynomial (but the number of variables,
+ nVar, can be 1).
+ Its structure is a list, as follows:  $$ {NP,vars,terms} $$
+ where {NP} is a literal word, {{vars}} is the list of variables
+ to be used, and {terms} is a list of lists representing the individual
+ terms in the polynomial.
+ 
+ For descriptive clarity ONLY,
+ Assume there are 3 variables declared: $${x,y,z}$$. 
+ Assume that the polynomial is this:  {3*x^2*y*z + 5*x*y - 2*y*z^2}.
+
+Then a NewPolynomial is represented by an array like this:
+    $${NP,{x,y,z},{3,2,1,1},{5,1,1,0},{-2,0,1,2}}$$.
+Each term is represented by an array of nVar+1 elements.  The first element 
+gives the coefficient of the term, and the remaining nVar elements give the
+set of exponents (in order) for each variable.  Note that this representation
+is simple and complete, since all polynomials share the same set of variables
+in the same order.  It is a Sparse representation.
+
+A single {term} is represented by, e.g., $$ {c,k,m,n} $$, representing 
+{c*x^k*y^m*z^n}.
+The Rest() of each Term, here $$ {k,m,n} $$, constitutes what is sometimes
+called the "Power-Product" of that term:   {x^k*y^m*z^n}.
+
+*E.G.
+In> p1 := MakeNewPoly(2*x*y^2-3*y*z)
+Result: {NP,{x,y,z},{2,1,2,0},{-3,0,1,1}}
+
+In> p2 := MakeNewPoly(5*y^3-6*y+7)
+Result: {NP,{x,y,z},{5,0,3,0},{-6,0,1,0},{7,0,0,0}}
+
+In> p3 := MakeNewPoly(-2)
+Result: {NP,{x,y,z},{-2,0,0,0}}
+*SEE 
+%/mathpiper_docs
+
+
+
