@@ -14,7 +14,7 @@ While(degree <=? 360)
     
     labelName := "A":ToString(degree);
     
-    GeoGebraPoint(labelName, SinN(radian) * radius, CosN(radian) * radius);
+    GeoGebraPoint(labelName, CosN(radian) * radius, SinN(radian) * radius);
     
     JavaCall(geogebra,"setLabelVisible",labelName, False);
     
@@ -28,6 +28,10 @@ While(degree <=? 360)
 //GeoGebraPoint("A",2,2);
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
@@ -78,6 +82,10 @@ While(degree <=? 360)
 //GeoGebraPoint("A",2,2);
 
 %/mathpiper
+
+    %output,preserve="false"
+      Result: True
+.   %/output
 
 
 
