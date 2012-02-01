@@ -212,7 +212,7 @@
 	    </exec>
 	</target>
   
-    
+    <!-- ======================================== GWT ========================================================= -->
     
 
     <target id="gwt_dist" name="gwt_dist" depends="">
@@ -282,9 +282,128 @@
         <copy file="${library.dir}/gwt-servlet.jar" todir="${gwt_dist.dir}/war/WEB-INF/lib" />
         
         
-        
-        
     </target>
+    
+    
+    <!-- ======================================== Android ========================================================= -->    
+    
+    
+	<target id="android_dist" name="android_dist" depends="clean,init,compile_build_dot_java,buildscripts,exclude_files_from_compilation" >
+	
+	<!--  
+	cvs -z3 -d:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra co -P geogebra
+	export CVSROOT=:ext:tkosan@geogebra.cvs.sourceforge.net:/cvsroot/geogebra
+	cvs commit -m "The code is now compatible with Java 1.4."
+	cvs import -m "This is a stripped-down version of MathPiper.  An example of how to use MathPiper can be found in the org/mathpiper/HowToUse.java file." geogebra/org/mathpiper/geogebrascripts MATHPIPER V0_63
+	
+	Edit BuiltinFunctionInitialize to remove functions at the bottom of the file.
+	Edit Interpreters to remove references to AsynchronousInterpreter.
+	
+	-->
+		
+		<delete dir="${build.dir}/android_dist" />
+	
+		<!--<copy todir="${build.classes.dir}">
+			<fileset dir="${mathpiper.dir}/scripts" >
+				<include name="**/*" />
+			</fileset>
+		</copy>-->
+		
+
+		
+
+		<mkdir dir="${build.dir}/android_dist" />
+		<mkdir dir="${build.dir}/android_dist/build/classes" />
+		<mkdir dir="${build.dir}/android_dist/build/dist" />
+
+		
+		        <copy todir="${build.dir}/android_dist/src">
+                <fileset dir="${mathpiper.dir}/src/">
+                
+                <include name="org/mathpiper/builtin/" />
+                <exclude name="org/mathpiper/builtin/functions/optional/" />
+                <exclude name="org/mathpiper/builtin/functions/plugins/" />
+                <exclude name="org/mathpiper/builtin/library/" />
+                <exclude name="org/mathpiper/ui/gui/" />
+
+                <include name="org/mathpiper/exceptions/" />
+                
+                <include name="org/mathpiper/interpreters/" />
+
+                <include name="org/mathpiper/ui/text/" />
+
+                
+
+
+                <include name="org/mathpiper/io/" />
+
+                <include name="org/mathpiper/lisp/" />
+
+                
+
+                <include name="org/mathpiper/Scripts.java" />
+
+                <include name="org/mathpiper/Version.java" />
+            </fileset>
+        </copy>
+        
+        
+        
+        
+        
+        
+        
+        <javac 
+			source="1.6"
+			target="1.6" 
+			srcdir="${build.dir}/android_dist/src"
+			destdir="${build.dir}/android_dist/build/classes"
+			debug="on"
+			deprecation="on"
+			optimize="off">
+			
+			<include name="**/*.java" />
+		</javac>
+		
+		
+		
+		
+		<jar jarfile="${build.dir}/android_dist/mathpiperandroid.jar"
+			basedir="${build.dir}/android_dist/build/classes" update="true"
+			manifest="${mathpiper.dir}/resources/MANIFEST.MF">
+			<!--<manifest> 
+				<section name="mathpiper" >
+					<attribute name="Build-Date" value="${build.time}"/>
+				</section>
+			</manifest>-->
+			<include name="**/*" />
+			<exclude name="**/*.bat,**/*.sh" />
+			<exclude name="tests/" />
+		</jar> 
+
+
+
+	</target>
+	
+	
+	
+	
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </project>
 
 <!-- {{{ License.
