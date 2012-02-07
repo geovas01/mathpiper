@@ -115,19 +115,19 @@ all other loop commands are based. It is equivalent to the {while} command in th
 
 In> x := 0;
 Result: 0;
-In> While (x! < 10^6) \
-[ Echo({x, x!}); x++; ];
-0  1
-1  1
-2  2
-3  6
-4  24
-5  120
-6  720
-7  5040
-8  40320
-9  362880
-Result: True;
+In> While (x ! <? 10^6) [ Echo({x, x!}); x++; ];
+Result: True
+Side Effects:
+{0,1} 
+{1,1} 
+{2,2} 
+{3,6} 
+{4,24} 
+{5,120} 
+{6,720} 
+{7,5040} 
+{8,40320} 
+{9,362880} 
 
 *SEE Until, For, ForEach, Break, Continue
 %/mathpiper_docs
