@@ -57,9 +57,12 @@ public class Check extends BuiltinFunction
             Cons message = aEnvironment.iLispExpressionEvaluator.evaluate(aEnvironment, aStackTop, getArgument(aEnvironment, aStackTop, 3));
             LispError.checkIsString(aEnvironment, aStackTop, message, 3);
 
-
-
-            throw new EvaluationException( Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) type.car()), Utility.toNormalString(aEnvironment, aStackTop, (String) message.car()), aEnvironment.getCurrentInput().iStatus.getFileName(), aEnvironment.getCurrentInput().iStatus.getLineNumber(), -1, aEnvironment.getCurrentInput().iStatus.getLineIndex() , "Check");
+            
+            String errorMessage = Utility.stripEndQuotesIfPresent(aEnvironment, aStackTop, (String) type.car()) + " Error: " + Utility.toNormalString(aEnvironment, aStackTop, (String) message.car());
+            
+            LispError.throwError(aEnvironment, aStackTop, errorMessage);
+        
+        
         }
         setTopOfStack(aEnvironment, aStackTop, pred);
     }
