@@ -38,6 +38,17 @@ if -> If
 else -> Else
 
 
+Have all symbolic operators end with a period. This goes along with all predicate operators
+ending with a ? which indicates a truth result is returned. Operators ending with a period
+are simply statements.
+
+== -> =.
+!== -> !=.
+<.
+<=.
+>.
+>=.
+
 
 ---------------------------- Potential function name changes:
     Rulebase -> RulebaseHoldArguments
