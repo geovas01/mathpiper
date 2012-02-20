@@ -315,131 +315,14 @@ public class Build {
 
     }//end method.
 
-    List scanSourceFile(File sourceFile) throws Exception {
 
-
-        String fileName = sourceFile.getName();
-
-        //Uncomment for debugging.
-        /*
-        if (getFileName.equals("Factors.mpw")) {
-        int xxx = 1;
-        }//end if.*/
-
-        List<Fold> folds = new ArrayList();
-        StringBuilder foldContents = new StringBuilder();
-        String foldHeader = "";
-        boolean inFold = false;
-        int lineCounter = 0;
-        int startLineNumber = -1;
-
-
-        FileInputStream fstream = new FileInputStream(sourceFile);
-        // Get the object of DataInputStream
-        DataInputStream in = new DataInputStream(fstream);
-        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        String line;
-        //Read File Line By Line
-        while ((line = br.readLine()) != null) {
-            //line = line.trim();
-            //System.out.println(line);
-            lineCounter++;
-
-            if (line.startsWith("%/")) {
-
-                if (inFold == false) {
-                    throw new Exception("Opening fold tag missing in " + fileName + ".");
-                }
-
-                Fold fold = new Fold(startLineNumber, foldHeader, foldContents.toString());
-                foldContents.delete(0, foldContents.length());
-                folds.add(fold);
-                inFold = false;
-
-            } else if (line.startsWith("%")) {
-
-                if (inFold == true) {
-                    throw new Exception("Closing fold tag missing in " + fileName + ".");
-                }
-
-                startLineNumber = lineCounter;
-                foldHeader = line;
-                inFold = true;
-            } else if (inFold == true) {
-                foldContents.append(line);
-                foldContents.append("\n");
-
-            }
-        }//end while.
-
-        if (inFold == true) {
-            throw new Exception("Opening or closing fold tag missing in " + fileName + ".");
-        }
-
-        //Close the input stream
-        in.close();
-
-
-        return folds;
-
-    }//end.
-
-    class Fold {
-
-        private int startLineNumber;
-        private String type;
-        private String contents;
-        private Map<String, String> attributes = new HashMap();
-
-        public Fold(int startLineNumber, String header, String contents) {
-
-            this.startLineNumber = startLineNumber;
-
-            scanHeader(header);
-
-            this.contents = contents;
-        }//end inner class.
-
-        private void scanHeader(String header) {
-            String[] headerParts = header.trim().split(",");
-
-            type = headerParts[0];
-
-            for (int x = 1; x < headerParts.length; x++) {
-                headerParts[x] = headerParts[x].replaceFirst("=", ",");
-                String[] headerPart = headerParts[x].split(",");
-                String attributeName = headerPart[0];
-                String attributeValue = headerPart[1].replace("\"", "");
-                attributes.put(attributeName, attributeValue);
-            }
-
-        }//end method.
-
-        public Map getAttributes() {
-            return attributes;
-        }
-
-        public String getContents() {
-            return contents;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public int getStartLineNumber()
-        {
-            return this.startLineNumber;
-        }
-        
-    }//end inner class.
 
     private void processMPWFile(File mpwFile) throws Exception {
 
         String mpwFilePath = mpwFile.getAbsolutePath();
         mpwFilePath = mpwFilePath.substring(mpwFilePath.indexOf(File.separator + "org" + File.separator + "mathpiper" + File.separator)); //"/org/mathpiper/";
 
-        List<Fold> folds = scanSourceFile(mpwFile);
+        List<Fold> folds = MPWSFile.scanSourceFile(mpwFile);
 
         boolean hasDocs = false;
 
@@ -839,7 +722,7 @@ public class Build {
 
                 this.documentedFunctionsCount++;
 
-                List<Fold> folds = scanSourceFile(javaFile);
+                List<Fold> folds = MPWSFile.scanSourceFile(javaFile);
 
                 boolean hasDocs = false;
 
