@@ -38,7 +38,9 @@ if -> If
 else -> Else
 
 
-Have all symbolic operators end with a period. This goes along with all predicate operators
+------------------------------------------------------------------------------------------
+
+Have all symbolic operators and constants end with a period. This goes along with all predicate operators
 ending with a ? which indicates a truth result is returned. Operators ending with a period
 are simply statements.
 
@@ -48,7 +50,27 @@ are simply statements.
 <=.
 >.
 >=.
+Infinity -> Infinity.
+Pi -> Infinity.
+e -> e.
 
+
+
+Another idea is to have all symbolic operators and constants end with a $ because it looks
+similar to an "s" and therefore it can stand for "symbolic".
+
+== -> =$
+!== -> !=$
+<$
+<=$
+>$
+>=$
+Infinity -> Infinity$
+Pi -> Pi$
+e$
+True$
+False$
+Empty$
 
 ---------------------------- Potential function name changes:
     Rulebase -> RulebaseHoldArguments
